@@ -1,18 +1,24 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
+
+declare(strict_types=1);
 
 namespace app\components\db;
 
 use Yii;
 use yii\db\ColumnSchemaBuilder;
+use yii\db\Migration as BaseMigration;
+use yii\db\Query;
 use yii\db\Schema;
 
-class Migration extends \yii\db\Migration
+use const FILTER_VALIDATE_INT;
+
+class Migration extends BaseMigration
 {
     /**
      * @inheritdoc
@@ -54,6 +60,23 @@ class Migration extends \yii\db\Migration
 
     protected function afterDown()
     {
+    }
+
+    public function key2id(string $tableName, string $key): int
+    {
+        $value = \filter_var(
+            (new Query())
+                ->select(['id'])
+                ->from($tableName)
+                ->where(['key' => $key])
+                ->limit(1)
+                ->scalar(),
+            FILTER_VALIDATE_INT,
+        );
+        if (!\is_int($value)) {
+            throw new InvalidArgumentException("The key $key is not exists in $tableName");
+        }
+        return $value;
     }
 
     public function apiKey(int $length = 16): ColumnSchemaBuilder

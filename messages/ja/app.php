@@ -31,6 +31,7 @@ return [
     'API Info: Stages (Splatoon 2)' => 'API情報: ステージ (Splatoon 2)',
     'API Info: Stages (Splatoon 3)' => 'API情報: ステージ (Splatoon 3)',
     'API Info: Weapons (Splatoon 2)' => 'API情報: ブキ (Splatoon 2)',
+    'API Info: Weapons (Splatoon 3)' => 'API情報: ブキ (Splatoon 3)',
     'API Info: Weapons' => 'API情報: ブキ',
     'API Token' => 'APIキー',
     'Ability Effect' => 'ギアパワー効果',

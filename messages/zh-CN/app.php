@@ -45,6 +45,7 @@ return [
     'API Info: Stages (Splatoon 3)' => 'API信息：场地（Splatoon 3）',
     'API Info: Weapons' => 'API信息：武器',
     'API Info: Weapons (Splatoon 2)' => 'API信息：武器（Splatoon 2）',
+    'API Info: Weapons (Splatoon 3)' => '',
     'API Token' => 'API密钥',
     'Apply' => '应用',
     'Apps for {version}' => '支持{version}的应用',

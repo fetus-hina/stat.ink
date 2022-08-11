@@ -46,6 +46,7 @@ return [
     'API Info: Stages (Splatoon 3)' => 'Info de l\'API : Stages (Splatoon 3)',
     'API Info: Weapons' => 'Info de l\'API : Armes',
     'API Info: Weapons (Splatoon 2)' => 'Info de l\'API : Armes (Splatoon 2)',
+    'API Info: Weapons (Splatoon 3)' => 'Info de l\'API : Armes (Splatoon 3)',
     'API Token' => 'Jeton d\'API',
     'Apply' => 'Appliquer',
     'Apps for {version}' => 'Applications pour {version}',
