@@ -2,19 +2,20 @@
 
 declare(strict_types=1);
 
+use app\components\db\Migration;
 use yii\helpers\StringHelper;
 
 /**
  * This view is used by console/controllers/MigrateController.php
  * The following variables are available in this view:
  *
- * @var $className string the new migration class name without namespace
- * @var $namespace string the new migration class namespace
- * @var $traits string[]
- * @var $inTransaction bool
- * @var $upCode string
- * @var $downCode string
- * @var $extraCode string
+ * @var string $className the new migration class name without namespace
+ * @var string $namespace the new migration class namespace
+ * @var string[] $traits
+ * @var bool $inTransaction
+ * @var string $upCode
+ * @var string $downCode
+ * @var string $extraCode
  */
 
 $inTransaction = (isset($inTransaction) && $inTransaction);
@@ -38,7 +39,7 @@ $codeFmt = function (?string $code, int $indent): string {
 };
 
 $uses = [
-    'app\components\db\Migration',
+    Migration::class,
 ];
 if (isset($traits)) {
     $traits = array_unique((array)$traits);
@@ -55,7 +56,7 @@ $uses = array_unique($uses);
 echo "<?php\n";
 echo "\n";
 echo "/**\n";
-echo " * @copyright Copyright (C) 2015-" . date('Y', time()) . " AIZAWA Hina\n";
+echo " * @copyright Copyright (C) 2015-" . gmdate('Y', time() + 9 * 3600) . " AIZAWA Hina\n";
 echo " * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT\n";
 echo " * @author AIZAWA Hina <hina@fetus.jp>\n";
 echo " */\n";
@@ -72,7 +73,7 @@ if (!empty($namespace)) {
 use <?= $use ?>;
 <?php } ?>
 
-class <?= $className ?> extends Migration
+final class <?= $className ?> extends Migration
 {
 <?php if (isset($traits) && $traits) { ?>
 <?php foreach ($traits as $trait) { ?>
@@ -80,11 +81,17 @@ class <?= $className ?> extends Migration
 <?php } ?>
 
 <?php } ?>
+    /**
+     * @inheritdoc
+     */
     public function <?= $upFuncName ?>()
     {
 <?= $codeFmt($upCode ?? null, 8) ?>
     }
 
+    /**
+     * @inheritdoc
+     */
     public function <?= $downFuncName ?>()
     {
 <?= $codeFmt($downCode ?? null, 8) ?>

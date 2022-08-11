@@ -14,6 +14,9 @@ use yii\db\Schema;
 
 class Migration extends \yii\db\Migration
 {
+    /**
+     * @inheritdoc
+     */
     public function up()
     {
         $this->beforeUp();
@@ -24,6 +27,9 @@ class Migration extends \yii\db\Migration
         return $result;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function down()
     {
         $this->beforeDown();
