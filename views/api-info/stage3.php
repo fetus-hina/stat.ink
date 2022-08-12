@@ -5,9 +5,12 @@ declare(strict_types=1);
 use app\assets\TableResponsiveForceAsset;
 use app\components\helpers\WeaponShortener;
 use app\components\widgets\AdWidget;
+use app\components\widgets\CcBy;
 use app\components\widgets\SnsWidget;
+use app\models\Map3Alias;
 use statink\yii2\sortableTable\SortableTableAsset;
 use yii\bootstrap\Html;
+use yii\helpers\ArrayHelper;
 
 TableResponsiveForceAsset::register($this);
 
@@ -50,6 +53,7 @@ $fmt = Yii::$app->formatter;
           ]) . "\n" ?>
 <?php if ($i === 0) { ?>
           <th data-sort="string"><code>key</code></th>
+          <th data-sort="string"><?= Html::encode(Yii::t('app', 'Aliases')) ?></th>
           <th data-sort="int"><?= Html::encode(Yii::t('app', 'Area')) ?></th>
           <th data-sort="int"><?= Html::encode(Yii::t('app', 'Released')) ?></th>
 <?php } ?>
@@ -67,6 +71,16 @@ $fmt = Yii::$app->formatter;
           ) . "\n" ?>
 <?php if ($i === 0) { ?>
           <td><code><?= Html::encode($stage->key) ?></code></td>
+          <td>
+            <?= implode(', ', array_map(
+              function (Map3Alias $alias): string {
+                return Html::tag('code', Html::encode($alias->key));
+              },
+              ArrayHelper::sort($stage->map3Aliases, function (Map3Alias $a, Map3Alias $b): int {
+                return strnatcasecmp($a->key, $b->key);
+              }),
+            )) . "\n" ?>
+          </td>
           <?= Html::tag(
             'td',
             $stage->area === null ? '' : $fmt->asInteger($stage->area),
@@ -95,8 +109,5 @@ $fmt = Yii::$app->formatter;
     </table>
   </div>
   <hr>
-  <p>
-    <img src="/static-assets/cc/cc-by.svg" alt="CC-BY 4.0"><br>
-    <?= Yii::t('app', 'This document is under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en">Creative Commons Attribution 4.0 International License</a>.') . "\n" ?>
-  </p>
+  <?= CcBy::widget() . "\n" ?>
 </div>

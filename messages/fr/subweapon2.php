@@ -20,6 +20,6 @@ return [
     'Sprinkler' => 'Fontaine',
     'Squid Beakon' => 'Balise de saut',
     'Suction Bomb' => 'Bombe gluante',
-    'Torpedo' => '',
+    'Torpedo' => 'Torpedobom',
     'Toxic Mist' => 'Brume toxique',
 ];

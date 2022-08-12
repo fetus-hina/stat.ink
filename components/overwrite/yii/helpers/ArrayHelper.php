@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -25,5 +25,26 @@ class ArrayHelper extends BaseArrayHelper
             }
         }
         return $result;
+    }
+
+    public static function sort(array $array, $callback = null): array
+    {
+        if ($callback === null) {
+            $callback = SORT_NATURAL;
+        }
+        if (
+            $callback === SORT_REGULAR ||
+            $callback === SORT_NUMERIC ||
+            $callback === SORT_STRING ||
+            $callback === SORT_LOCALE_STRING ||
+            $callback === SORT_NATURAL ||
+            $callback === (SORT_FLAG_CASE | SORT_STRING) ||
+            $callback === (SORT_FLAG_CASE | SORT_NATURAL)
+        ) {
+            sort($array, $callback);
+        } else {
+            usort($array, $callback);
+        }
+        return $array;
     }
 }

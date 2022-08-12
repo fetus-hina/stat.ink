@@ -15,6 +15,7 @@ use app\actions\api\info\GearAction;
 use app\actions\api\info\Stage2Action;
 use app\actions\api\info\Stage3Action;
 use app\actions\api\info\Weapon2Action;
+use app\actions\api\info\Weapon3Action;
 use app\actions\api\info\WeaponAction;
 use app\components\web\Controller;
 
@@ -53,6 +54,7 @@ final class ApiInfoController extends Controller
             'stage3' => Stage3Action::class,
             'weapon' => WeaponAction::class,
             'weapon2' => Weapon2Action::class,
+            'weapon3' => Weapon3Action::class,
         ];
     }
 }
