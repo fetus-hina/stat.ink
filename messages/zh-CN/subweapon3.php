@@ -9,7 +9,7 @@
 declare(strict_types=1);
 
 return [
-    'Angle Shooter' => '',
+    'Angle Shooter' => '标线器',
     'Burst Bomb' => '',
     'Curling Bomb' => '',
     'Splash Wall' => '',
