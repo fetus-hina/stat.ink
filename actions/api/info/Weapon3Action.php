@@ -14,6 +14,7 @@ use Yii;
 use app\components\helpers\Translator;
 use app\models\Language;
 use app\models\Special3;
+use app\models\Subweapon3;
 use yii\base\Action;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
@@ -25,6 +26,7 @@ final class Weapon3Action extends Action
         return $this->controller->render('weapon3', [
             'langs' => $this->getLangs(),
             'specials' => $this->getSpecials(),
+            'subs' => $this->getSubweapons(),
         ]);
     }
 
@@ -49,6 +51,21 @@ final class Weapon3Action extends Action
             function (Special3 $a, Special3 $b): int {
                 $aN = Yii::t('app-special3', $a->name);
                 $bN = Yii::t('app-special3', $b->name);
+                return \strnatcasecmp($aN, $bN)
+                    ?: \strcmp($aN, $bN)
+                    ?: \strnatcasecmp($a->name, $b->name)
+                    ?: \strcmp($a->name, $b->name);
+            },
+        );
+    }
+
+    private function getSubweapons(): array
+    {
+        return ArrayHelper::sort(
+            Subweapon3::find()->with(['subweapon3Aliases'])->all(),
+            function (Subweapon3 $a, Subweapon3 $b): int {
+                $aN = Yii::t('app-subweapon3', $a->name);
+                $bN = Yii::t('app-subweapon3', $b->name);
                 return \strnatcasecmp($aN, $bN)
                     ?: \strcmp($aN, $bN)
                     ?: \strnatcasecmp($a->name, $b->name)
