@@ -61,6 +61,7 @@ return [
                 'app-version2'  => 'version2.php',
                 'app-weapon'    => 'weapon.php',
                 'app-weapon2'   => 'weapon2.php',
+                'app-weapon3'   => 'weapon3.php',
             ],
         ],
     ],

@@ -12,6 +12,7 @@ namespace app\components\db;
 
 use Yii;
 use yii\db\ColumnSchemaBuilder;
+use yii\db\Connection;
 use yii\db\Migration as BaseMigration;
 use yii\db\Query;
 use yii\db\Schema;
@@ -28,6 +29,7 @@ class Migration extends BaseMigration
         $this->beforeUp();
         $result = parent::up();
         if ($result !== false) {
+            $this->doVacuumTables();
             $this->afterUp();
         }
         return $result;
@@ -60,6 +62,43 @@ class Migration extends BaseMigration
 
     protected function afterDown()
     {
+    }
+
+    /**
+     * @return string[]
+     */
+    protected function vacuumTables(): array
+    {
+        return [];
+    }
+
+    protected function doVacuumTables(): void
+    {
+        if (!$tables = $this->vacuumTables()) {
+            return;
+        }
+
+        $db = $this->db;
+        assert($db instanceof Connection);
+
+        $sql = \vsprintf('VACUUM ( %s ) %s', [
+            \implode(', ', [
+                'ANALYZE',
+            ]),
+            \implode(', ', \array_map(
+                function (string $table) use ($db): string {
+                    return $db->quoteTableName($table);
+                },
+                $tables,
+            )),
+        ]);
+
+        $time = $this->beginCommand(\vsprintf("vacuum %s %s", [
+            \count($tables) > 1 ? 'tables' : 'table',
+            \implode(', ', $tables),
+        ]));
+        $this->db->createCommand($sql)->execute();
+        $this->endCommand($time);
     }
 
     public function key2id(string $tableName, string $key): int
