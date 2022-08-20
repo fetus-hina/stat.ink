@@ -22,6 +22,7 @@ use yii\db\ActiveRecord;
  * @property string $name
  *
  * @property Subweapon3Alias[] $subweapon3Aliases
+ * @property Weapon3[] $weapon3s
  */
 class Subweapon3 extends ActiveRecord
 {
@@ -53,5 +54,10 @@ class Subweapon3 extends ActiveRecord
     public function getSubweapon3Aliases(): ActiveQuery
     {
         return $this->hasMany(Subweapon3Alias::class, ['subweapon_id' => 'id']);
+    }
+
+    public function getWeapon3s(): ActiveQuery
+    {
+        return $this->hasMany(Weapon3::class, ['subweapon_id' => 'id']);
     }
 }

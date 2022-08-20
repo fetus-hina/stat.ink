@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\CcBy;
 use app\components\widgets\SnsWidget;
 use app\models\Language;
 use app\models\Special3;
 use app\models\Subweapon3;
-use statink\yii2\sortableTable\SortableTableAsset;
+use app\models\Weapon3;
 use yii\bootstrap\Html;
 use yii\web\View;
 
@@ -18,6 +17,7 @@ use yii\web\View;
  * @var Special3[] $specials
  * @var Subweapon3[] $subs
  * @var View $this
+ * @var Weapon3[] $weapons
  */
 
 $this->context->layout = 'main';
@@ -28,15 +28,13 @@ $this->registerMetaTag(['name' => 'twitter:title', 'content' => $this->title]);
 $this->registerMetaTag(['name' => 'twitter:description', 'content' => $this->title]);
 $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
 
-TableResponsiveForceAsset::register($this);
-SortableTableAsset::register($this);
-
 ?>
 <div class="container">
   <h1><?= Html::encode($this->title) ?></h1>
   <?= AdWidget::widget() . "\n" ?>
   <?= SnsWidget::widget() . "\n" ?>
 
+  <?= $this->render('weapon3/main', ['langs' => $langs, 'weapons' => $weapons]) . "\n" ?>
   <?= $this->render('weapon3/sub', ['langs' => $langs, 'subs' => $subs]) . "\n" ?>
   <?= $this->render('weapon3/special', ['langs' => $langs, 'specials' => $specials]) . "\n" ?>
   <hr>
