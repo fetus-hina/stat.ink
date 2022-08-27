@@ -10,11 +10,15 @@ declare(strict_types=1);
 
 return [
     'Angle Shooter' => '',
+    'Autobomb' => '',
     'Burst Bomb' => '',
     'Curling Bomb' => '',
+    'Fizzy Bomb' => '',
+    'Ink Mine' => '',
     'Splash Wall' => '',
     'Splat Bomb' => '',
     'Sprinkler' => '',
+    'Squid Beakon' => '',
     'Suction Bomb' => '',
     'Torpedo' => '',
     'Toxic Mist' => '',

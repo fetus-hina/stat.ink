@@ -23,6 +23,6 @@ return [
     'Triple Inkstrike' => '三重龍捲風',
     'Trizooka' => '終極發射',
     'Ultra Stamp' => '終極印章',
-    'Wave Breaker' => '',
+    'Wave Breaker' => '彈跳聲納',
     'Zipcaster' => '觸手噴射',
 ];

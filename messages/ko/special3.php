@@ -23,6 +23,6 @@ return [
     'Triple Inkstrike' => '트리플 토네이도',
     'Trizooka' => '울트라 샷',
     'Ultra Stamp' => '울트라 스탬프',
-    'Wave Breaker' => '',
+    'Wave Breaker' => '홉 소나',
     'Zipcaster' => '쇼크 원더',
 ];

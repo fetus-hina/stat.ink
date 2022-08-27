@@ -57,7 +57,7 @@ SortableTableAsset::register($this);
 <?php foreach ($langs as $lang): ?>
           <td>
             <?= Html::encode(
-              $weapon['names'][str_replace('-', '_', $lang['lang'])]
+              $weapon['names'][str_replace('-', '_', $lang['lang'])] ?? ''
             ) . "\n" ?>
           </td>
 <?php endforeach ?>

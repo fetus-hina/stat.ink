@@ -81,24 +81,12 @@ class Migration extends BaseMigration
         $db = $this->db;
         assert($db instanceof Connection);
 
-        $sql = \vsprintf('VACUUM ( %s ) %s', [
-            \implode(', ', [
-                'ANALYZE',
-            ]),
-            \implode(', ', \array_map(
-                function (string $table) use ($db): string {
-                    return $db->quoteTableName($table);
-                },
-                $tables,
-            )),
-        ]);
-
-        $time = $this->beginCommand(\vsprintf("vacuum %s %s", [
-            \count($tables) > 1 ? 'tables' : 'table',
-            \implode(', ', $tables),
-        ]));
-        $this->db->createCommand($sql)->execute();
-        $this->endCommand($time);
+        foreach ($tables as $table) {
+            $time = $this->beginCommand(\sprintf('vacuum table %s', $table));
+            $sql = \sprintf('VACUUM ( ANALYZE ) %s', $db->quoteTableName($table));
+            $this->db->createCommand($sql)->execute();
+            $this->endCommand($time);
+        }
     }
 
     public function key2id(string $tableName, string $key): int

@@ -48,20 +48,17 @@ class m210124_210928_splatfest2_data extends Migration
         }
     }
 
-    public function afterUp()
-    {
-        $this->vacuumTables();
-    }
-
     public function afterDown()
     {
-        $this->vacuumTables();
+        $this->doVacuumTables();
     }
 
-    private function vacuumTables(): void
+    protected function vacuumTables(): array
     {
-        $this->analyze('splatfest2');
-        $this->analyze('splatfest2_region');
+        return [
+            'splatfest2',
+            'splatfest2_region',
+        ];
     }
 
     private function createDataset(): array

@@ -10,11 +10,15 @@ declare(strict_types=1);
 
 return [
     'Angle Shooter' => 'Ketskogel',
+    'Autobomb' => 'Robobom',
     'Burst Bomb' => 'Ballonbom',
     'Curling Bomb' => 'Curlingbom',
+    'Fizzy Bomb' => 'Bomblikje',
+    'Ink Mine' => 'Inktmijn',
     'Splash Wall' => 'Inktgordijn',
     'Splat Bomb' => 'Klodderbom',
     'Sprinkler' => 'Inktsprinkler',
+    'Squid Beakon' => 'Springschotel',
     'Suction Bomb' => 'Kleefbom',
     'Torpedo' => 'Torpedobom',
     'Toxic Mist' => 'Gifmist',
