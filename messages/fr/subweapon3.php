@@ -12,6 +12,8 @@ return [
     'Angle Shooter' => 'Ricocheur',
     'Burst Bomb' => 'Bombe ballon',
     'Curling Bomb' => 'Bombe curling',
+    'Fizzy Bomb' => 'Bombe soda',
+    'Ink Mine' => 'Mine',
     'Splash Wall' => 'Mur d\'encre',
     'Splat Bomb' => 'Bombe splash',
     'Sprinkler' => 'Fontaine',

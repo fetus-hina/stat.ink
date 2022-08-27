@@ -12,6 +12,8 @@ return [
     'Angle Shooter' => 'Sparalinee',
     'Burst Bomb' => 'Granata',
     'Curling Bomb' => 'Bomba curling',
+    'Fizzy Bomb' => 'Bomba a gassosa',
+    'Ink Mine' => 'Mina',
     'Splash Wall' => 'Muro di colore',
     'Splat Bomb' => 'Bomba splash',
     'Sprinkler' => 'Spruzzatore',

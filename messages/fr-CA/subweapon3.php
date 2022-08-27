@@ -12,6 +12,8 @@ return [
     'Angle Shooter' => '',
     'Burst Bomb' => '',
     'Curling Bomb' => '',
+    'Fizzy Bomb' => '',
+    'Ink Mine' => 'Mine d\'encre',
     'Splash Wall' => '',
     'Splat Bomb' => '',
     'Sprinkler' => 'Gicleur',

@@ -12,6 +12,8 @@ return [
     'Angle Shooter' => 'Ketskogel',
     'Burst Bomb' => 'Ballonbom',
     'Curling Bomb' => 'Curlingbom',
+    'Fizzy Bomb' => 'Bomblikje',
+    'Ink Mine' => 'Inktmijn',
     'Splash Wall' => 'Inktgordijn',
     'Splat Bomb' => 'Klodderbom',
     'Sprinkler' => 'Inktsprinkler',

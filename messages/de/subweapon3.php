@@ -12,6 +12,8 @@ return [
     'Angle Shooter' => 'Winkelmarker',
     'Burst Bomb' => 'Insta-Bombe',
     'Curling Bomb' => 'Curling-Bombe',
+    'Fizzy Bomb' => 'Sprudel-Bombe',
+    'Ink Mine' => 'Tintenmine',
     'Splash Wall' => 'Tintenwall',
     'Splat Bomb' => 'Klecks-Bombe',
     'Sprinkler' => 'Sprinkler',

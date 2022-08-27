@@ -12,6 +12,8 @@ return [
     'Angle Shooter' => 'ラインマーカー',
     'Burst Bomb' => 'クイックボム',
     'Curling Bomb' => 'カーリングボム',
+    'Fizzy Bomb' => 'タンサンボム',
+    'Ink Mine' => 'トラップ',
     'Splash Wall' => 'スプラッシュシールド',
     'Splat Bomb' => 'スプラッシュボム',
     'Sprinkler' => 'スプリンクラー',
