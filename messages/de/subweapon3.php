@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 return [
     'Angle Shooter' => 'Winkelmarker',
+    'Autobomb' => 'Robo-Bombe',
     'Burst Bomb' => 'Insta-Bombe',
     'Curling Bomb' => 'Curling-Bombe',
     'Fizzy Bomb' => 'Sprudel-Bombe',
@@ -17,6 +18,7 @@ return [
     'Splash Wall' => 'Tintenwall',
     'Splat Bomb' => 'Klecks-Bombe',
     'Sprinkler' => 'Sprinkler',
+    'Squid Beakon' => 'Sprungboje',
     'Suction Bomb' => 'Haftbombe',
     'Torpedo' => 'Torpedo',
     'Toxic Mist' => 'Sepitox-Nebel',

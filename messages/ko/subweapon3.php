@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 return [
     'Angle Shooter' => '라인 마커',
+    'Autobomb' => '로봇 밤',
     'Burst Bomb' => '퀵 밤',
     'Curling Bomb' => '컬링 밤',
     'Fizzy Bomb' => '탄산 밤',
@@ -17,6 +18,7 @@ return [
     'Splash Wall' => '스플래시 실드',
     'Splat Bomb' => '스플래시 봄',
     'Sprinkler' => '스프링클러',
+    'Squid Beakon' => '점프 비컨',
     'Suction Bomb' => '빨판 밤',
     'Torpedo' => '토피도',
     'Toxic Mist' => '포이즌 미스트',

@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 return [
     'Angle Shooter' => '标线器',
+    'Autobomb' => '机器人炸弹',
     'Burst Bomb' => '快速炸弹',
     'Curling Bomb' => '冰壶炸弹',
     'Fizzy Bomb' => '碳酸炸弹',
@@ -17,6 +18,7 @@ return [
     'Splash Wall' => '斯普拉防护墙',
     'Splat Bomb' => '斯普拉炸弹',
     'Sprinkler' => '洒墨器',
+    'Squid Beakon' => '跳跃信标',
     'Suction Bomb' => '吸盘炸弹',
     'Torpedo' => '鱼雷',
     'Toxic Mist' => '毒雾',

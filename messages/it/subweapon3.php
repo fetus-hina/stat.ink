@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 return [
     'Angle Shooter' => 'Sparalinee',
+    'Autobomb' => 'Robobomba',
     'Burst Bomb' => 'Granata',
     'Curling Bomb' => 'Bomba curling',
     'Fizzy Bomb' => 'Bomba a gassosa',
@@ -17,6 +18,7 @@ return [
     'Splash Wall' => 'Muro di colore',
     'Splat Bomb' => 'Bomba splash',
     'Sprinkler' => 'Spruzzatore',
+    'Squid Beakon' => 'Trasferitore',
     'Suction Bomb' => 'Appiccibomba',
     'Torpedo' => 'Torpedinatore',
     'Toxic Mist' => 'Nebbia tossica',

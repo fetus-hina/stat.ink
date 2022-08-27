@@ -132,7 +132,7 @@ $icon = Spl2WeaponAsset::register($this);
             ],
           ]) ?></td>
 <?php foreach ($langs as $j => $lang) { ?>
-<?php $name = $weapon['names'][str_replace('-', '_', $lang['lang'])] ?>
+<?php $name = $weapon['names'][str_replace('-', '_', $lang['lang'])] ?? '' ?>
           <?= Html::tag('td', Html::encode($name), [
             'data' => [
               'sort-value' => $name,

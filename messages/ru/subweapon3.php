@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 return [
     'Angle Shooter' => 'Углострел',
+    'Autobomb' => 'Робобомб',
     'Burst Bomb' => 'Разрывная бомба',
     'Curling Bomb' => 'Керлинг-бомба',
     'Fizzy Bomb' => 'Содовая бомба',
@@ -17,6 +18,7 @@ return [
     'Splash Wall' => 'Чернильный занавес',
     'Splat Bomb' => 'Брызгающая бомба',
     'Sprinkler' => 'Распылятор',
+    'Squid Beakon' => 'Прыжковый маячок',
     'Suction Bomb' => 'Бомба на присоске',
     'Torpedo' => 'Торпедная бомба',
     'Toxic Mist' => 'Едкий туман',
