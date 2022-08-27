@@ -82,7 +82,7 @@ final class m220827_071100_spl3_testfire_subsp extends Migration
             // blasters
             'nova' => ['splashbomb', 'shokuwander'],
             'hotblaster' => ['robotbomb', 'greatbarrier'],
-            // brushes 
+            // brushes
             'pablo' => ['splashbomb', 'megaphone51'],
             'hokusai' => ['kyubanbomb', 'shokuwander'],
             // stringers
