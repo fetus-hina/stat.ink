@@ -9,11 +9,11 @@
 declare(strict_types=1);
 
 return [
-    'Bomb Rush' => '',
-    'Bubbler' => '',
-    'Echolocator' => '',
-    'Inkstrike' => '',
-    'Inkzooka' => '',
-    'Killer Wail' => '',
-    'Kraken' => '',
+    'Bomb Rush' => 'Bommenvlaag',
+    'Bubbler' => 'Bubbelmaker',
+    'Echolocator' => 'Echolokalisator',
+    'Inkstrike' => 'Inkttornado',
+    'Inkzooka' => 'Inktbazooka',
+    'Killer Wail' => 'Megalofoon',
+    'Kraken' => 'Kraken',
 ];
