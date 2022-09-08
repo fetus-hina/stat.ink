@@ -51,6 +51,7 @@ return [
     'Range Blaster' => 'Teledevastador',
     'Rapid Blaster' => 'Devastador exprés',
     'Rapid Blaster Pro' => 'Superdevastador',
+    'REEF-LUX 450' => '',
     'Rollers' => 'Rodillos',
     'Shooters' => 'Lanzatintas',
     'Slosher' => 'Derramatic',

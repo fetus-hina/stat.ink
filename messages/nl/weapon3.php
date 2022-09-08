@@ -51,6 +51,7 @@ return [
     'Range Blaster' => 'Teleblaster',
     'Rapid Blaster' => 'Flitsblaster',
     'Rapid Blaster Pro' => 'Flitsblaster Pro',
+    'REEF-LUX 450' => '',
     'Rollers' => '',
     'Shooters' => '',
     'Slosher' => 'Morser',

@@ -51,6 +51,7 @@ return [
     'Range Blaster' => 'Fern-Blaster',
     'Rapid Blaster' => 'Turbo-Blaster',
     'Rapid Blaster Pro' => 'Turbo-Blaster Plus',
+    'REEF-LUX 450' => '',
     'Rollers' => '',
     'Shooters' => '',
     'Slosher' => 'Schwapper',

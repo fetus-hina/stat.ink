@@ -51,6 +51,7 @@ return [
     'Range Blaster' => 'Дальнобластер',
     'Rapid Blaster' => 'Бластермат',
     'Rapid Blaster Pro' => 'Бластермат ПРО',
+    'REEF-LUX 450' => '',
     'Rollers' => '',
     'Shooters' => '',
     'Slosher' => 'Ведроган',
