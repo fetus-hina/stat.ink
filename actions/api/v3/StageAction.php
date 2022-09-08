@@ -12,6 +12,7 @@ namespace app\actions\api\v3;
 
 use DateTimeZone;
 use Yii;
+use app\actions\api\v3\traits\ApiInitializerTrait;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Translator;
 use app\models\Map3;
@@ -20,10 +21,22 @@ use yii\web\ViewAction;
 
 final class StageAction extends ViewAction
 {
+    use ApiInitializerTrait;
+
+    /**
+     * @inheritdoc
+     */
+    public function init()
+    {
+        parent::init();
+        $this->apiInit();
+    }
+
+    /**
+     * @return array[]
+     */
     public function run()
     {
-        $response = Yii::$app->getResponse();
-        $response->format = 'json';
         return array_map(
             function (Map3 $model): array {
                 // FIXME: toJsonArray

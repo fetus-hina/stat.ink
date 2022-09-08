@@ -168,7 +168,7 @@ final class m220829_090529_battle3 extends Migration
                     ['tag', 'name'],
                     [
                         ['0.0', 'Prerelease'],
-                        ['1.0', 'Launch'],
+                        ['1.1', 'v1.1.x'],
                     ],
                 ],
             ],
@@ -190,10 +190,10 @@ final class m220829_090529_battle3 extends Migration
                             fn () => $this->getVersionGroupId('0.0'),
                         ],
                         [
-                            '1.0.0',
-                            'Launch',
+                            '1.1.0',
+                            'v1.1.0',
                             '2022-09-01T00:00:00+00:00',
-                            fn () => $this->getVersionGroupId('1.0'),
+                            fn () => $this->getVersionGroupId('1.1'),
                         ],
                     ],
                 ],

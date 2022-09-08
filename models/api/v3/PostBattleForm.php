@@ -12,17 +12,21 @@ use Yii;
 use app\components\behaviors\TrimAttributesBehavior;
 use app\components\db\Connection;
 use app\components\helpers\CriticalSection;
+use app\components\helpers\UuidRegexp;
 use app\components\helpers\db\Now;
 use app\components\validators\KeyValidator;
 use app\models\Agent;
 use app\models\Battle3;
 use app\models\Lobby3;
 use app\models\Map3;
+use app\models\Map3Alias;
 use app\models\Rank3;
+use app\models\Result3;
 use app\models\Rule3;
 use app\models\SplatoonVersion3;
 use app\models\User;
 use app\models\Weapon3;
+use app\models\Weapon3Alias;
 use jp3cki\uuid\Uuid;
 use yii\base\InvalidConfigException;
 use yii\base\Model;
@@ -55,6 +59,8 @@ final class PostBattleForm extends Model
     public $inked;
     public $our_team_inked;
     public $their_team_inked;
+    public $our_team_percent;
+    public $their_team_percent;
     public $our_team_count;
     public $their_team_count;
     public $level_before;
@@ -88,20 +94,11 @@ final class PostBattleForm extends Model
 
     public function rules()
     {
-        // see RFC 4122
-        $uuidRegex = \sprintf('/^%s$/i', \implode('-', [
-            '[0-9a-f]{8}',
-            '[0-9a-f]{4}',
-            '[1345][0-9a-f]{3}', // version
-            '[89ab][0-9a-f]{3}', // variant
-            '[0-9a-f]{12}',
-        ]));
-
         return [
             [['uuid', 'lobby', 'rule', 'stage', 'weapon', 'result', 'rank_before', 'rank_after', 'note'], 'string'],
             [['private_note', 'link_url', 'agent', 'agent_version'], 'string'],
 
-            [['uuid'], 'match', 'pattern' => $uuidRegex],
+            [['uuid'], 'match', 'pattern' => UuidRegexp::get(true)],
             [['result'], 'in', 'range' => ['win', 'lose', 'draw']],
             [['link_url'], 'url',
                 'validSchemes' => ['http', 'https'],
@@ -113,16 +110,15 @@ final class PostBattleForm extends Model
             [['agent', 'agent_version'], 'required',
                 'when' => fn () => \trim((string)$this->agent) !== '' || \trim((string)$this->agent_version) !== '',
             ],
-            [['knockout', 'outdated'], 'boolean',
-                'trueValue' => 'yes',
-                'falseValue' => 'no',
-                'strict' => false,
+            [['test', 'knockout', 'automated'], 'in',
+                'range' => ['yes', 'no', true, false],
+                'strict' => true,
             ],
-
             [['rank_in_team'], 'integer', 'min' => 1, 'max' => 4],
             [['kill', 'assist', 'kill_or_assist', 'death', 'special'], 'integer', 'min' => 0, 'max' => 99],
             [['inked'], 'integer', 'min' => 0, 'max' => 9999],
             [['our_team_inked', 'their_team_inked'], 'integer', 'min' => 0, 'max' => 99999],
+            [['our_team_percent', 'their_team_percent'], 'number', 'min' => 0, 'max' => 100],
             [['our_team_count', 'their_team_count'], 'integer', 'min' => 0, 'max' => 100],
             [['level_before', 'level_after'], 'integer', 'min' => 1, 'max' => 99],
             [['rank_before_s_plus', 'rank_after_s_plus'], 'integer', 'min' => 0, 'max' => 50],
@@ -271,8 +267,8 @@ final class PostBattleForm extends Model
             'user_id' => Yii::$app->user->id,
             'lobby_id' => self::key2id($this->lobby, Lobby3::class),
             'rule_id' => self::key2id($this->rule, Rule3::class),
-            'map_id' => self::key2id($this->map, Map3::class, Map3Alias::class),
-            'weapon_id' => self::key2id($this->weapon, Weapon3::class, Weapon3Alias::class),
+            'map_id' => self::key2id($this->stage, Map3::class, Map3Alias::class, 'map_id'),
+            'weapon_id' => self::key2id($this->weapon, Weapon3::class, Weapon3Alias::class, 'weapon_id'),
             'result_id' => self::key2id($this->result, Result3::class),
             'is_knockout' => self::boolVal($this->knockout),
             'rank_in_team' => self::intVal($this->rank_in_team),
@@ -324,7 +320,7 @@ final class PostBattleForm extends Model
 
         if (!$model->save()) {
             $this->addError('_system', vsprintf('Failed to store new battle, info=%s', [
-                \base64_encode(Json::encode($model->getErrors())),
+                \base64_encode(Json::encode($model->getFirstErrors())),
             ]));
             return null;
         }
@@ -428,22 +424,26 @@ final class PostBattleForm extends Model
      * @phpstan-param class-string<ActiveRecord> $modelClass
      * @phpstan-param class-string<ActiveRecord>|null $aliasClass
      */
-    private static function key2id($value, string $modelClass, ?string $aliasClass = null): ?int
-    {
+    private static function key2id(
+        $value,
+        string $modelClass,
+        ?string $aliasClass = null,
+        ?string $aliasAttr = null
+    ): ?int {
         $value = self::strVal($value);
         if ($value === null) {
             return null;
         }
 
-        /** @var class-string<ActiveRecord>[] */
-        $classes = \array_filter([$modelClass, $aliasClass]);
-        foreach ($classes as $class) {
-            $model = $modelClass::find()
-                ->andWhere(['key' => $value])
-                ->limit(1)
-                ->one();
-            if ($model) {
-                return (int)$model->id;
+        $model = $modelClass::find()->andWhere(['key' => $value])->limit(1)->one();
+        if ($model) {
+            return (int)$model->id;
+        }
+
+        if ($aliasClass && $aliasAttr) {
+            $model = $aliasClass::find()->andWhere(['key' => $value])->limit(1)->one();
+            if ($model && isset($model->$aliasAttr)) {
+                return (int)$model->$aliasAttr;
             }
         }
 
@@ -454,8 +454,8 @@ final class PostBattleForm extends Model
     {
         $startAt = self::guessStartAt($startAt, $endAt);
         $model = SplatoonVersion3::find()
-            ->andWhere(['<=', 'released_at', self::tsVal($startAt)])
-            ->orderBy(['released_at' => SORT_DESC])
+            ->andWhere(['<=', 'release_at', self::tsVal($startAt)])
+            ->orderBy(['release_at' => SORT_DESC])
             ->limit(1)
             ->one();
         return $model ? (int)$model->id : null;
