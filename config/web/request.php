@@ -27,6 +27,7 @@ return [
     ),
     'parsers' => [
         'application/json' => JsonParser::class,
+        'application/msgpack' => MessagePackParser::class,
         'application/x-msgpack' => MessagePackParser::class,
     ],
 ];

@@ -51,6 +51,7 @@ return [
     'Range Blaster' => 'Blaster a distanza',
     'Rapid Blaster' => 'Blaster rapido',
     'Rapid Blaster Pro' => 'Blaster élite',
+    'REEF-LUX 450' => '',
     'Rollers' => '',
     'Shooters' => '',
     'Slosher' => 'Secchiostro',

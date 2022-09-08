@@ -2,7 +2,10 @@
 
 declare(strict_types=1);
 
+use app\components\helpers\UuidRegexp;
 use yii\web\UrlNormalizer;
+
+$uuid = UuidRegexp::get(false);
 
 return [
     'enablePrettyUrl' => true,
@@ -51,6 +54,8 @@ return [
         '@<screen_name:\w+>/spl2/stat/<by:[\w-]+>' => 'show-v2/user-stat-<by>',
         '@<screen_name:\w+>/spl2/' => 'show-v2/user',
         '@<screen_name:\w+>.2.<lang:[\w-]+>.<type:rss|atom>' => 'feed/user-v2',
+
+        "@<screen_name:\w+>/spl3/<battle:{$uuid}>" => 'show-v3/battle',
 
         '@<screen_name:\w+>/salmon' => 'salmon/index',
         '@<screen_name:\w+>/salmon/<id:\d+>' => 'salmon/view',

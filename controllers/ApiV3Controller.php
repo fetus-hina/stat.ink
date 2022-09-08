@@ -11,9 +11,11 @@ declare(strict_types=1);
 namespace app\controllers;
 
 use Yii;
+use app\actions\api\v3\BattleAction;
 use app\actions\api\v3\StageAction;
 use app\components\web\Controller;
 use yii\filters\VerbFilter;
+use yii\filters\auth\HttpBearerAuth;
 
 final class ApiV3Controller extends Controller
 {
@@ -33,7 +35,16 @@ final class ApiV3Controller extends Controller
             'verbs' => [
                 'class' => VerbFilter::class,
                 'actions' => [
+                    'battle' => ['head', 'get', 'post', 'put'],
                     '*' => ['head', 'get'],
+                ],
+            ],
+            'authenticator' => [
+                'class' => HttpBearerAuth::class,
+                'only' => [
+                    'battle',
+                ],
+                'optional' => [
                 ],
             ],
         ];
@@ -42,6 +53,7 @@ final class ApiV3Controller extends Controller
     public function actions()
     {
         return [
+            'battle' => BattleAction::class,
             'stage' => StageAction::class,
         ];
     }

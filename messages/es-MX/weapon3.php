@@ -51,6 +51,7 @@ return [
     'Range Blaster' => 'Telelanzamotas',
     'Rapid Blaster' => 'Turbolanzamotas',
     'Rapid Blaster Pro' => 'Turbolanzamotas Pro',
+    'REEF-LUX 450' => '',
     'Rollers' => 'Rodillos',
     'Shooters' => 'Rociadors',
     'Slosher' => 'Derramatic',
