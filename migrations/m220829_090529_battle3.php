@@ -263,7 +263,7 @@ final class m220829_090529_battle3 extends Migration
         return $this->getIntegerId('{{%splatoon_version_group3}}', ['tag' => $tag]);
     }
 
-    private function getIntegerId(string $table, array $where): int 
+    private function getIntegerId(string $table, array $where): int
     {
         $value = filter_var(
             (new Query())
