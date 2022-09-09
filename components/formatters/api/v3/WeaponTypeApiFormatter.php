@@ -23,7 +23,7 @@ final class WeaponTypeApiFormatter
         return [
             'key' => $model->key,
             'aliases' => AliasApiFormatter::allToJson([], $fullTranslate),
-            'name' => NameApiFormatter::toJson($model->name, 'app-subweapon3', $fullTranslate),
+            'name' => NameApiFormatter::toJson($model->name, 'app-weapon3', $fullTranslate),
         ];
     }
 }
