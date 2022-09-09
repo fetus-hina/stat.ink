@@ -33,14 +33,24 @@ $fmt = Yii::$app->formatter;
   <?= AdWidget::widget() . "\n" ?>
   <?= SnsWidget::widget() . "\n" ?>
   <p>
-    <?= Html::a(
-      implode('', [
-        Html::tag('span', '', ['class' => ['fas fa-file-code fa-fw']]),
-        Html::encode(Yii::t('app', 'JSON format')),
-      ]),
-      ['api-v3/stage'],
-      ['class' => 'label label-default']
-    ) ."\n" ?>
+    <?= implode(' ', [
+      Html::a(
+        implode('', [
+          Html::tag('span', '', ['class' => ['fas fa-file-code fa-fw']]),
+          Html::encode(Yii::t('app', 'JSON format')),
+        ]),
+        ['api-v3/stage'],
+        ['class' => 'label label-default']
+      ),
+      Html::a(
+        implode('', [
+          Html::tag('span', '', ['class' => ['fas fa-file-code fa-fw']]),
+          Html::encode(Yii::t('app', 'JSON format (All langs)')),
+        ]),
+        ['api-v3/stage', 'full' => 1],
+        ['class' => 'label label-default']
+      ),
+    ]) . "\n" ?>
   </p>
   <div class="table-responsive table-responsive-force">
     <table class="table table-striped table-condensed table-sortable">
