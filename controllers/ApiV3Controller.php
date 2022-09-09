@@ -13,6 +13,7 @@ namespace app\controllers;
 use Yii;
 use app\actions\api\v3\BattleAction;
 use app\actions\api\v3\StageAction;
+use app\actions\api\v3\WeaponAction;
 use app\components\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\auth\HttpBearerAuth;
@@ -55,6 +56,7 @@ final class ApiV3Controller extends Controller
         return [
             'battle' => BattleAction::class,
             'stage' => StageAction::class,
+            'weapon' => WeaponAction::class,
         ];
     }
 }

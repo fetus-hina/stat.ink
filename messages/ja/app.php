@@ -247,6 +247,7 @@ return [
     'Invalid {0} or {1}.' => '{0}または{1}が違います。',
     'JSON (IkaLog compat.)' => 'JSON (IkaLog互換)',
     'JSON (stat.ink format, gzipped)' => 'JSON (stat.ink形式, gzip圧縮)',
+    'JSON format (All langs)' => 'JSON形式 (全言語)',
     'JSON format' => 'JSON形式',
     'Japan Time' => '日本時間',
     'Japan' => '日本',
