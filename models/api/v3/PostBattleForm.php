@@ -170,6 +170,7 @@ final class PostBattleForm extends Model
             ->where([
                 'user_id' => $user->id,
                 'client_uuid' => $this->uuid,
+                'is_deleted' => false,
             ])
             ->andWhere(
                 ['>=', 'created_at', \gmdate('Y-m-d\TH:i:sP', $t - self::SAME_BATTLE_THRESHOLD_TIME)]
@@ -308,6 +309,7 @@ final class PostBattleForm extends Model
             'remote_port' => self::intVal($_SERVER['REMOTE_PORT'] ?? 0),
             'created_at' => self::now(),
             'updated_at' => self::now(),
+            'is_deleted' => false,
         ]);
 
         // kill+assistが不明でkillとassistがわかっている
