@@ -257,6 +257,7 @@ return [
     'JSON (IkaLog compat.)' => '',
     'JSON (stat.ink format, gzipped)' => '',
     'JSON format' => 'Format JSON',
+    'JSON format (All langs)' => '',
     'Judge' => 'Arbitre',
     'Just {result} {rule} at {stage}' => '',
     'k' => '',

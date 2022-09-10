@@ -256,6 +256,7 @@ return [
     'JSON (IkaLog compat.)' => 'JSON（兼容IkaLog）',
     'JSON (stat.ink format, gzipped)' => 'JSON（兼容stat.ink，gzipped压缩）',
     'JSON format' => 'JSON格式',
+    'JSON format (All langs)' => '',
     'Judge' => '裁判',
     'Just {result} {rule} at {stage}' => '在{stage}， 结果是{result} {rule}',
     'k' => '杀敌数',
