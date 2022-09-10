@@ -15,6 +15,7 @@ return [
     'Curling Bomb' => '',
     'Fizzy Bomb' => '',
     'Ink Mine' => 'Mina de tinta',
+    'Point Sensor' => '',
     'Splash Wall' => 'Barricada',
     'Splat Bomb' => 'Plasbomba',
     'Sprinkler' => '',

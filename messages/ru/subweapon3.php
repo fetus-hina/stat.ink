@@ -15,6 +15,7 @@ return [
     'Curling Bomb' => 'Керлинг-бомба',
     'Fizzy Bomb' => 'Содовая бомба',
     'Ink Mine' => 'Мины',
+    'Point Sensor' => 'Маркер движения',
     'Splash Wall' => 'Чернильный занавес',
     'Splat Bomb' => 'Брызгающая бомба',
     'Sprinkler' => 'Распылятор',

@@ -15,6 +15,7 @@ return [
     'Curling Bomb' => 'Bomba deslizante',
     'Fizzy Bomb' => 'Bomba carbónica',
     'Ink Mine' => 'Bomba Trampa',
+    'Point Sensor' => 'Rastreador',
     'Splash Wall' => 'Telón de tinta',
     'Splat Bomb' => 'Bomba básica',
     'Sprinkler' => 'Aspersor',
