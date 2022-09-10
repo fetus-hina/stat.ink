@@ -15,6 +15,7 @@ return [
     'Curling Bomb' => 'カーリングボム',
     'Fizzy Bomb' => 'タンサンボム',
     'Ink Mine' => 'トラップ',
+    'Point Sensor' => 'ポイントセンサー',
     'Splash Wall' => 'スプラッシュシールド',
     'Splat Bomb' => 'スプラッシュボム',
     'Sprinkler' => 'スプリンクラー',

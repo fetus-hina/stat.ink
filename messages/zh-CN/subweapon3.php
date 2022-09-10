@@ -15,6 +15,7 @@ return [
     'Curling Bomb' => '冰壶炸弹',
     'Fizzy Bomb' => '碳酸炸弹',
     'Ink Mine' => '墨汁陷阱',
+    'Point Sensor' => '定点侦测器',
     'Splash Wall' => '斯普拉防护墙',
     'Splat Bomb' => '斯普拉炸弹',
     'Sprinkler' => '洒墨器',

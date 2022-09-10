@@ -15,6 +15,7 @@ return [
     'Curling Bomb' => '컬링 밤',
     'Fizzy Bomb' => '탄산 밤',
     'Ink Mine' => '트랩',
+    'Point Sensor' => '포인트 센서',
     'Splash Wall' => '스플래시 실드',
     'Splat Bomb' => '스플래시 봄',
     'Sprinkler' => '스프링클러',

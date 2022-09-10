@@ -15,6 +15,7 @@ return [
     'Curling Bomb' => 'Bombe curling',
     'Fizzy Bomb' => 'Bombe soda',
     'Ink Mine' => 'Mine',
+    'Point Sensor' => 'Détecteur',
     'Splash Wall' => 'Mur d\'encre',
     'Splat Bomb' => 'Bombe splash',
     'Sprinkler' => 'Fontaine',
