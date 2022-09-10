@@ -12,6 +12,9 @@ namespace app\controllers;
 
 use Yii;
 use app\actions\api\v3\BattleAction;
+use app\actions\api\v3\LobbyAction;
+use app\actions\api\v3\RankAction;
+use app\actions\api\v3\RuleAction;
 use app\actions\api\v3\StageAction;
 use app\actions\api\v3\WeaponAction;
 use app\components\web\Controller;
@@ -55,6 +58,9 @@ final class ApiV3Controller extends Controller
     {
         return [
             'battle' => BattleAction::class,
+            'lobby' => LobbyAction::class,
+            'rank' => RankAction::class,
+            'rule' => RuleAction::class,
             'stage' => StageAction::class,
             'weapon' => WeaponAction::class,
         ];
