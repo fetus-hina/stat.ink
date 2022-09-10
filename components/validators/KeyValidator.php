@@ -48,7 +48,7 @@ final class KeyValidator extends Validator
             return;
         }
 
-        $this->addError($attribute, $this->message);
+        $this->addError($model, $attribute, $this->message);
     }
 
     /**
