@@ -37,6 +37,9 @@
 /resources/app-link-logos/*.min.svg
 /resources/dseg/*.tar.gz
 /resources/dseg/*.zip
+/test*.jpg
+/test*.php
+/test*.png
 /vendor
 /views/includes/sponsored.php
 /web/images
