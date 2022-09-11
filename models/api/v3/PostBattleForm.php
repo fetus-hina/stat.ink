@@ -12,11 +12,16 @@ use Yii;
 use app\components\behaviors\TrimAttributesBehavior;
 use app\components\db\Connection;
 use app\components\helpers\CriticalSection;
+use app\components\helpers\ImageConverter;
 use app\components\helpers\UuidRegexp;
 use app\components\helpers\db\Now;
+use app\components\validators\BattleImageValidator;
 use app\components\validators\KeyValidator;
 use app\models\Agent;
 use app\models\Battle3;
+use app\models\BattleImageGear3;
+use app\models\BattleImageJudge3;
+use app\models\BattleImageResult3;
 use app\models\Lobby3;
 use app\models\Map3;
 use app\models\Map3Alias;
@@ -32,6 +37,7 @@ use yii\base\InvalidConfigException;
 use yii\base\Model;
 use yii\db\ActiveRecord;
 use yii\helpers\Json;
+use yii\web\UploadedFile;
 
 /**
  * @property-read Battle3|null $sameBattle
@@ -81,6 +87,15 @@ final class PostBattleForm extends Model
     public $automated;
     public $start_at;
     public $end_at;
+
+    /** @var UploadedFile|string|null */
+    public $image_judge;
+
+    /** @var UploadedFile|string|null */
+    public $image_result;
+
+    /** @var UploadedFile|string|null */
+    public $image_gear;
 
     public function behaviors()
     {
@@ -140,6 +155,8 @@ final class PostBattleForm extends Model
                 'aliasClass' => Weapon3Alias::class,
             ],
             [['rank_before', 'rank_after'], KeyValidator::class, 'modelClass' => Rank3::class],
+
+            [['image_judge', 'image_result', 'image_gear'], BattleImageValidator::class],
         ];
     }
 
@@ -245,6 +262,10 @@ final class PostBattleForm extends Model
 
                 // TODO: more data
 
+                if (!$this->saveBattleImages($battle)) {
+                    return null;
+                }
+
                 return $battle;
             });
         } catch (Throwable $e) {
@@ -328,6 +349,92 @@ final class PostBattleForm extends Model
         }
 
         return $model;
+    }
+
+    private function saveBattleImages(Battle3 $battle): bool
+    {
+        $targets = [
+            [
+                'modelClass' => BattleImageJudge3::class,
+                'attribute' => 'image_judge',
+                'filename' => self::generateRandomFilename('jpg'),
+                'isResult' => false,
+            ],
+            [
+                'modelClass' => BattleImageResult3::class,
+                'attribute' => 'image_result',
+                'filename' => self::generateRandomFilename('jpg'),
+                'isResult' => true,
+            ],
+            [
+                'modelClass' => BattleImageGear3::class,
+                'attribute' => 'image_gear',
+                'filename' => self::generateRandomFilename('jpg'),
+                'isResult' => false,
+            ],
+        ];
+
+        foreach ($targets as $target) {
+            $attribute = $target['attribute'];
+            if ($this->$attribute === null || $this->$attribute === '') {
+                continue;
+            }
+
+            if (
+                !$this->saveBattleImage(
+                    $battle,
+                    $target['modelClass'],
+                    $target['attribute'],
+                    $target['filename'],
+                    $target['isResult']
+                )
+            ) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @phpstan-param class-string<ActiveRecord> $modelClass
+     */
+    private function saveBattleImage(
+        Battle3 $battle,
+        string $modelClass,
+        string $attribute,
+        string $fileName,
+        bool $isResultImage
+    ): bool {
+        if ($this->$attribute === null || $this->$attribute === '') {
+            return true;
+        }
+
+        $binary = $this->$attribute instanceof UploadedFile
+            ? (string)@\file_get_contents($this->$attribute->tempName)
+            : $this->$attribute;
+
+        if (
+            !ImageConverter::convert(
+                $binary,
+                \vsprintf('%s/%s', [
+                    (string)Yii::getAlias('@webroot/images'),
+                    $fileName,
+                ]),
+                false, // TODO: $blackoutPosList => $isResultImage を参照
+                null // $outPathArchivePng
+            )
+        ) {
+            return false;
+        }
+
+        $model = Yii::createObject([
+            'class' => $modelClass,
+            'battle_id' => $battle->id,
+            'bucket_id' => 1,
+            'filename' => $fileName,
+        ]);
+        return $model->save();
     }
 
     private static function userAgent(?string $agentName, ?string $agentVersion): ?int
@@ -521,5 +628,16 @@ final class PostBattleForm extends Model
         }
 
         return true;
+    }
+
+    private static function generateRandomFilename(string $ext): string
+    {
+        $uuid = \strtolower((string)Uuid::v4());
+        return \vsprintf('%s/%s/%s.%s', [
+            'spl3',
+            \substr($uuid, 0, 2),
+            $uuid,
+            \strtolower($ext),
+        ]);
     }
 }

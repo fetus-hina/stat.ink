@@ -80,11 +80,11 @@ final class BattleAction extends Action
     {
         $form = Yii::createObject(PostBattleForm::class);
         $form->attributes = Yii::$app->request->getBodyParams();
-        // foreach (['image_judge', 'image_result', 'image_gear'] as $key) {
-        //     if ($form->$key == '') {
-        //         $form->$key = UploadedFile::getInstanceByName($key);
-        //     }
-        // }
+        foreach (['image_judge', 'image_result', 'image_gear'] as $key) {
+            if (!$form->$key) {
+                $form->$key = UploadedFile::getInstanceByName($key);
+            }
+        }
 
         $battle = $form->save();
         if (!$battle) {

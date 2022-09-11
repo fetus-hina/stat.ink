@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace app\components\formatters\api\v3;
 
 use app\models\Battle3;
+use yii\helpers\Url;
 
 final class BattleApiFormatter
 {
@@ -25,6 +26,18 @@ final class BattleApiFormatter
 
         return [
             'id' => $model->uuid,
+            'url' => Url::to(
+                ['/show-v3/battle',
+                    'screen_name' => $model->user->screen_name,
+                    'battle' => $model->uuid,
+                ],
+                true
+            ),
+            'images' => [
+                'judge' => ImageApiFormatter::toJson($model->battleImageJudge3),
+                'results' => ImageApiFormatter::toJson($model->battleImageResult3),
+                'gear' => ImageApiFormatter::toJson($model->battleImageGear3),
+            ],
             'user' => UserApiFormatter::toJson($model->user, $isAuthenticated, $fullTranslate),
             'lobby' => LobbyApiFormatter::toJson($model->lobby, $fullTranslate),
             'rule' => RuleApiFormatter::toJson($model->rule, $fullTranslate),

@@ -64,8 +64,12 @@ use yii\db\ActiveRecord;
  * @property integer $remote_port
  * @property string $created_at
  * @property string $updated_at
+ * @property boolean $is_deleted
  *
  * @property Agent $agent
+ * @property BattleImageGear3 $battleImageGear3
+ * @property BattleImageJudge3 $battleImageJudge3
+ * @property BattleImageResult3 $battleImageResult3
  * @property Lobby3 $lobby
  * @property Map3 $map
  * @property Rank3 $rankAfter
@@ -90,7 +94,7 @@ class Battle3 extends ActiveRecord
             [['uuid', 'client_uuid', 'note', 'private_note', 'link_url', 'remote_addr'], 'string'],
             [['user_id', 'lobby_id', 'rule_id', 'map_id', 'weapon_id', 'result_id', 'rank_in_team', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'inked', 'our_team_inked', 'their_team_inked', 'our_team_count', 'their_team_count', 'level_before', 'level_after', 'rank_before_id', 'rank_before_s_plus', 'rank_before_exp', 'rank_after_id', 'rank_after_s_plus', 'rank_after_exp', 'cash_before', 'cash_after', 'version_id', 'agent_id', 'period', 'remote_port'], 'default', 'value' => null],
             [['user_id', 'lobby_id', 'rule_id', 'map_id', 'weapon_id', 'result_id', 'rank_in_team', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'inked', 'our_team_inked', 'their_team_inked', 'our_team_count', 'their_team_count', 'level_before', 'level_after', 'rank_before_id', 'rank_before_s_plus', 'rank_before_exp', 'rank_after_id', 'rank_after_s_plus', 'rank_after_exp', 'cash_before', 'cash_after', 'version_id', 'agent_id', 'period', 'remote_port'], 'integer'],
-            [['is_knockout', 'is_automated', 'use_for_entire'], 'boolean'],
+            [['is_knockout', 'is_automated', 'use_for_entire', 'is_deleted'], 'boolean'],
             [['our_team_percent', 'their_team_percent'], 'number'],
             [['start_at', 'end_at', 'created_at', 'updated_at'], 'safe'],
             [['uuid'], 'unique'],
@@ -157,12 +161,28 @@ class Battle3 extends ActiveRecord
             'remote_port' => 'Remote Port',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
+            'is_deleted' => 'Is Deleted',
         ];
     }
 
     public function getAgent(): ActiveQuery
     {
         return $this->hasOne(Agent::class, ['id' => 'agent_id']);
+    }
+
+    public function getBattleImageGear3(): ActiveQuery
+    {
+        return $this->hasOne(BattleImageGear3::class, ['battle_id' => 'id']);
+    }
+
+    public function getBattleImageJudge3(): ActiveQuery
+    {
+        return $this->hasOne(BattleImageJudge3::class, ['battle_id' => 'id']);
+    }
+
+    public function getBattleImageResult3(): ActiveQuery
+    {
+        return $this->hasOne(BattleImageResult3::class, ['battle_id' => 'id']);
     }
 
     public function getLobby(): ActiveQuery
