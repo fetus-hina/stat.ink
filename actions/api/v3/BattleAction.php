@@ -13,6 +13,7 @@ namespace app\actions\api\v3;
 use DateTimeZone;
 use Yii;
 use app\actions\api\v3\traits\ApiInitializerTrait;
+use app\components\formatters\api\v3\BattleApiFormatter;
 use app\components\jobs\SlackJob;
 use app\components\web\ServiceUnavailableHttpException;
 use app\models\Battle3;
@@ -118,9 +119,7 @@ final class BattleAction extends Action
             'X-User-Screen-Name' => $battle->user->screen_name,
             'X-Battle-ID', $battle->uuid,
         ]);
-        $resp->data = [
-            'id' => $battle->uuid,
-        ];
+        $resp->data = BattleApiFormatter::toJson($battle, true, false);
         return $resp;
     }
 

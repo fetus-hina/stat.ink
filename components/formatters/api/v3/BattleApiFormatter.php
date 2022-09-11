@@ -25,7 +25,7 @@ final class BattleApiFormatter
 
         return [
             'id' => $model->uuid,
-            // 'user' => UserApiFormatter::toJson($model->user, $isAuthenticated, $fullTranslate),
+            'user' => UserApiFormatter::toJson($model->user, $isAuthenticated, $fullTranslate),
             'lobby' => LobbyApiFormatter::toJson($model->lobby, $fullTranslate),
             'rule' => RuleApiFormatter::toJson($model->rule, $fullTranslate),
             'stage' => StageApiFormatter::toJson($model->map, $fullTranslate),
@@ -57,8 +57,8 @@ final class BattleApiFormatter
             'note' => $model->note,
             'private_note' => $isAuthenticated ? $model->private_note : false,
             'link_url' => $model->link_url,
-            // 'game_version' => SplattonVersionApiFormatter::toJson($model->version, $fullTranslate),
-            // 'user_agent' => UserAgentApiFormatter::toJson($model->agent, $fullTranslate),
+            'game_version' => SplatoonVersionApiFormatter::toJson($model->version, false),
+            'user_agent' => UserAgentApiFormatter::toJson($model->agent, $fullTranslate),
             'automated' => $model->is_automated,
             'start_at' => DateTimeApiFormatter::toJson($model->start_at),
             'end_at' => DateTimeApiFormatter::toJson($model->end_at),
