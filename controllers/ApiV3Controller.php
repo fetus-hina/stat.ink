@@ -16,6 +16,7 @@ use app\actions\api\v3\LobbyAction;
 use app\actions\api\v3\RankAction;
 use app\actions\api\v3\RuleAction;
 use app\actions\api\v3\StageAction;
+use app\actions\api\v3\VersionAction;
 use app\actions\api\v3\WeaponAction;
 use app\components\web\Controller;
 use yii\filters\VerbFilter;
@@ -62,6 +63,7 @@ final class ApiV3Controller extends Controller
             'rank' => RankAction::class,
             'rule' => RuleAction::class,
             'stage' => StageAction::class,
+            'version' => VersionAction::class,
             'weapon' => WeaponAction::class,
         ];
     }

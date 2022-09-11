@@ -14,7 +14,7 @@ use app\models\Result3;
 
 final class ResultApiFormatter
 {
-    public static function toJson(?Result3 $model): ?array
+    public static function toJson(?Result3 $model): ?string
     {
         return $model ? $model->key : null;
     }
