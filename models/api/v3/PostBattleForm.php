@@ -16,6 +16,7 @@ use app\components\helpers\ImageConverter;
 use app\components\helpers\UuidRegexp;
 use app\components\helpers\db\Now;
 use app\components\validators\BattleImageValidator;
+use app\components\validators\BattlePlayer3FormValidator;
 use app\components\validators\KeyValidator;
 use app\models\Agent;
 use app\models\Battle3;
@@ -32,6 +33,8 @@ use app\models\SplatoonVersion3;
 use app\models\User;
 use app\models\Weapon3;
 use app\models\Weapon3Alias;
+use app\models\api\v3\postBattle\PlayerForm;
+use app\models\api\v3\postBattle\TypeHelperTrait;
 use jp3cki\uuid\Uuid;
 use yii\base\InvalidConfigException;
 use yii\base\Model;
@@ -45,6 +48,8 @@ use yii\web\UploadedFile;
  */
 final class PostBattleForm extends Model
 {
+    use TypeHelperTrait;
+
     public const SAME_BATTLE_THRESHOLD_TIME = 86400;
 
     public $test;
@@ -79,6 +84,8 @@ final class PostBattleForm extends Model
     public $rank_after_exp;
     public $cash_before;
     public $cash_after;
+    public $our_team_players;
+    public $their_team_players;
     public $note;
     public $private_note;
     public $link_url;
@@ -155,6 +162,11 @@ final class PostBattleForm extends Model
                 'aliasClass' => Weapon3Alias::class,
             ],
             [['rank_before', 'rank_after'], KeyValidator::class, 'modelClass' => Rank3::class],
+
+            [['our_team_players', 'their_team_players'], 'each',
+                'message' => '{attribute} must be an array',
+                'rule' => Yii::createObject(BattlePlayer3FormValidator::class),
+            ],
 
             [['image_judge', 'image_result', 'image_gear'], BattleImageValidator::class],
         ];
@@ -260,6 +272,10 @@ final class PostBattleForm extends Model
                     return null;
                 }
 
+                if (!$this->savePlayers($battle)) {
+                    return null;
+                }
+
                 // TODO: more data
 
                 if (!$this->saveBattleImages($battle)) {
@@ -349,6 +365,31 @@ final class PostBattleForm extends Model
         }
 
         return $model;
+    }
+
+    private function savePlayers(Battle3 $battle): bool
+    {
+        if (\is_array($this->our_team_players) && $this->our_team_players) {
+            foreach ($this->our_team_players as $player) {
+                $model = Yii::createObject(PlayerForm::class);
+                $model->attributes = $player;
+                if (!$model->save($battle, true)) {
+                    return false;
+                }
+            }
+        }
+
+        if (\is_array($this->their_team_players) && $this->their_team_players) {
+            foreach ($this->their_team_players as $player) {
+                $model = Yii::createObject(PlayerForm::class);
+                $model->attributes = $player;
+                if (!$model->save($battle, false)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     private function saveBattleImages(Battle3 $battle): bool
@@ -469,94 +510,6 @@ final class PostBattleForm extends Model
     private static function now(): Now
     {
         return Yii::createObject(Now::class);
-    }
-
-    private static function boolVal($value): ?bool
-    {
-        if (\is_bool($value)) {
-            return $value;
-        } elseif ($value === null || $value === '') {
-            return null;
-        } elseif ($value === 'yes') {
-            return true;
-        } elseif ($value === 'no') {
-            return false;
-        } else {
-            return null;
-        }
-    }
-
-    private static function intVal($value): ?int
-    {
-        $value = self::strVal($value);
-        if ($value === null) {
-            return null;
-        }
-
-        $value = \filter_var($value, FILTER_VALIDATE_INT);
-        return \is_int($value) ? $value : null;
-    }
-
-    private static function floatVal($value): ?float
-    {
-        $value = self::strVal($value);
-        if ($value === null) {
-            return null;
-        }
-
-        $value = \filter_var($value, FILTER_VALIDATE_FLOAT);
-        return \is_float($value) ? $value : null;
-    }
-
-    private static function strVal($value): ?string
-    {
-        if ($value === null || !\is_scalar($value)) {
-            return null;
-        }
-
-        $value = \trim((string)$value);
-        return $value !== '' ? $value : null;
-    }
-
-    private static function tsVal($value): ?string
-    {
-        $value = self::intVal($value);
-        if (!\is_int($value)) {
-            return null;
-        }
-
-        return \gmdate('Y-m-d\TH:i:sP', $value);
-    }
-
-    /**
-     * @param string|null $value
-     * @phpstan-param class-string<ActiveRecord> $modelClass
-     * @phpstan-param class-string<ActiveRecord>|null $aliasClass
-     */
-    private static function key2id(
-        $value,
-        string $modelClass,
-        ?string $aliasClass = null,
-        ?string $aliasAttr = null
-    ): ?int {
-        $value = self::strVal($value);
-        if ($value === null) {
-            return null;
-        }
-
-        $model = $modelClass::find()->andWhere(['key' => $value])->limit(1)->one();
-        if ($model) {
-            return (int)$model->id;
-        }
-
-        if ($aliasClass && $aliasAttr) {
-            $model = $aliasClass::find()->andWhere(['key' => $value])->limit(1)->one();
-            if ($model && isset($model->$aliasAttr)) {
-                return (int)$model->$aliasAttr;
-            }
-        }
-
-        return null;
     }
 
     private static function gameVersion(?int $startAt, ?int $endAt): ?int
