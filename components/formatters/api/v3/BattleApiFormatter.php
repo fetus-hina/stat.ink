@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace app\components\formatters\api\v3;
 
 use app\models\Battle3;
+use app\models\BattlePlayer3;
 use yii\helpers\Url;
 
 final class BattleApiFormatter
@@ -48,6 +49,7 @@ final class BattleApiFormatter
             'rank_in_team' => $model->rank_in_team,
             'kill' => $model->kill,
             'assist' => $model->assist,
+            'kill_or_assist' => $model->kill_or_assist,
             'death' => $model->death,
             'special' => $model->special,
             'inked' => $model->inked,
@@ -67,6 +69,14 @@ final class BattleApiFormatter
             'rank_after_exp' => $model->rank_after_exp,
             'cash_before' => $model->cash_before,
             'cash_after' => $model->cash_after,
+            'our_team_members' => BattlePlayerApiFormatter::toJson(
+                self::filterPlayers($model->battlePlayer3s, true),
+                $fullTranslate,
+            ),
+            'their_team_members' => BattlePlayerApiFormatter::toJson(
+                self::filterPlayers($model->battlePlayer3s, false),
+                $fullTranslate,
+            ),
             'note' => $model->note,
             'private_note' => $isAuthenticated ? $model->private_note : false,
             'link_url' => $model->link_url,
@@ -78,5 +88,21 @@ final class BattleApiFormatter
             'period' => PeriodApiFormatter::toJson($model->period),
             'created_at' => DateTimeApiFormatter::toJson($model->created_at),
         ];
+    }
+
+    /**
+     * @param BattlePlayer3[] $players
+     * @return BattlePlayer3[]
+     */
+    private static function filterPlayers(array $players, bool $isOurTeam): array
+    {
+        $players = \array_filter(
+            $players,
+            function (BattlePlayer3 $model): bool {
+                return $model->is_our_team;
+            }
+        );
+        usort($players, fn (BattlePlayer3 $a, BattlePlayer3 $b): int => $a->id <=> $b->id);
+        return \array_values($players);
     }
 }
