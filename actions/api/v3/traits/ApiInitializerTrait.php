@@ -17,7 +17,7 @@ use yii\web\Response;
 
 trait ApiInitializerTrait
 {
-    protected function apiInit(): void
+    protected function apiInit(?string $format = null): void
     {
         $app = Yii::$app;
         if ($app instanceof Application) {
@@ -26,7 +26,7 @@ trait ApiInitializerTrait
         }
 
         if ($app instanceof WebApp) {
-            Yii::$app->response->format = Response::FORMAT_JSON;
+            Yii::$app->response->format = $format ?? Response::FORMAT_JSON;
         }
     }
 }
