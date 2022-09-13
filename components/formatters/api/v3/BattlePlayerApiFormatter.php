@@ -17,7 +17,8 @@ final class BattlePlayerApiFormatter
     /**
      * @param BattlePlayer3[]|null $models
      */
-    public static function toJson(?array $models, bool $fullTranslate = false): ?array {
+    public static function toJson(?array $models, bool $fullTranslate = false): ?array
+    {
         if (!$models) {
             return null;
         }
