@@ -43,7 +43,10 @@ final class UuidListAction extends Action
         }
 
         $query = Battle3::find()
-            ->andWhere(['user_id' => $user->id])
+            ->andWhere([
+                'user_id' => $user->id,
+                'is_deleted' => false,
+            ])
             ->andWhere(['not', ['client_uuid' => null]])
             ->orderBy(['id' => SORT_DESC])
             ->limit(200);
