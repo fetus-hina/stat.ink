@@ -1420,16 +1420,16 @@
         },
         {
             "name": "laminas/laminas-validator",
-            "version": "2.23.0",
+            "version": "2.24.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-validator.git",
-                "reference": "6d61b6cc3b222f13807a18d9247cdfb084958b03"
+                "reference": "f2ad7de3f92b443f31447a37e061116f701d150a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-validator/zipball/6d61b6cc3b222f13807a18d9247cdfb084958b03",
-                "reference": "6d61b6cc3b222f13807a18d9247cdfb084958b03",
+                "url": "https://api.github.com/repos/laminas/laminas-validator/zipball/f2ad7de3f92b443f31447a37e061116f701d150a",
+                "reference": "f2ad7de3f92b443f31447a37e061116f701d150a",
                 "shasum": ""
             },
             "require": {
@@ -1441,20 +1441,20 @@
                 "zendframework/zend-validator": "*"
             },
             "require-dev": {
-                "laminas/laminas-coding-standard": "~2.3.0",
-                "laminas/laminas-db": "^2.7",
-                "laminas/laminas-filter": "^2.14.0",
-                "laminas/laminas-http": "^2.14.2",
-                "laminas/laminas-i18n": "^2.15.0",
-                "laminas/laminas-session": "^2.12.1",
+                "laminas/laminas-coding-standard": "^2.4.0",
+                "laminas/laminas-db": "^2.15.0",
+                "laminas/laminas-filter": "^2.18.0",
+                "laminas/laminas-http": "^2.16.0",
+                "laminas/laminas-i18n": "^2.17.0",
+                "laminas/laminas-session": "^2.13.0",
                 "laminas/laminas-uri": "^2.9.1",
                 "phpspec/prophecy-phpunit": "^2.0",
-                "phpunit/phpunit": "^9.5.21",
+                "phpunit/phpunit": "^9.5.24",
                 "psalm/plugin-phpunit": "^0.17.0",
                 "psr/http-client": "^1.0",
                 "psr/http-factory": "^1.0",
                 "psr/http-message": "^1.0",
-                "vimeo/psalm": "^4.24.0"
+                "vimeo/psalm": "^4.27.0"
             },
             "suggest": {
                 "laminas/laminas-db": "Laminas\\Db component, required by the (No)RecordExists validator",
@@ -1502,7 +1502,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2022-07-27T19:17:59+00:00"
+            "time": "2022-09-13T07:40:10+00:00"
         },
         {
             "name": "lusitanian/oauth",
