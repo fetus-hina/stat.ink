@@ -11,6 +11,7 @@ declare(strict_types=1);
 return [
     'Anarchy Battle (Open)' => 'バンカラマッチ (オープン)',
     'Anarchy Battle (Series)' => 'バンカラマッチ (チャレンジ)',
+    'Anarchy Battle' => 'バンカラマッチ',
     'Private Battle' => 'プライベートマッチ',
     'Regular Battle' => 'レギュラーマッチ',
 ];

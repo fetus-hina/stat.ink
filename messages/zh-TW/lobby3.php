@@ -9,8 +9,9 @@
 declare(strict_types=1);
 
 return [
-    'Anarchy Battle (Open)' => '',
-    'Anarchy Battle (Series)' => '',
+    'Anarchy Battle' => '蠻頹比賽',
+    'Anarchy Battle (Open)' => '蠻頹比賽 (開放)',
+    'Anarchy Battle (Series)' => '蠻頹比賽 (挑戰)',
     'Private Battle' => '',
     'Regular Battle' => '',
 ];

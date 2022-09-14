@@ -38,7 +38,7 @@ if ($user->twitter != '') {
           [
             'label' => Yii::t('app', 'Splatoon 3'),
             'active' => true,
-            'content' => 'TODO',
+            'content' => $this->render('//show-user/profile/splatoon3', ['user' => $user]),
           ],
           [
             'label' => Yii::t('app', 'Splatoon 2'),

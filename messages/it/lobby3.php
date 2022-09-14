@@ -9,6 +9,7 @@
 declare(strict_types=1);
 
 return [
+    'Anarchy Battle' => 'Partita anarchica',
     'Anarchy Battle (Open)' => 'Partita anarchica (Aperta)',
     'Anarchy Battle (Series)' => 'Partita anarchica (Serie)',
     'Private Battle' => 'Privata privata',

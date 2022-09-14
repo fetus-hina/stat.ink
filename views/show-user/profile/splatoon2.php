@@ -15,7 +15,7 @@ use yii\web\View;
  */
 
 ?>
-<?= $this->render('@app/views/includes/battles-summary', [
+<?= $this->render('//includes/battles-summary', [
   'summary' => Battle2::find()->andWhere(['user_id' => $user->id])->getSummary(),
   'link' => ['show-v2/user', 'screen_name' => $user->screen_name],
 ]) . "\n" ?>

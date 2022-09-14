@@ -9,6 +9,7 @@
 declare(strict_types=1);
 
 return [
+    'Anarchy Battle' => 'Combate caótico',
     'Anarchy Battle (Open)' => 'Combate caótico (informal)',
     'Anarchy Battle (Series)' => 'Combate caótico (formal)',
     'Private Battle' => 'Combate privado',
