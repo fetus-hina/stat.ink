@@ -21,8 +21,9 @@ use yii\db\Query;
 use yii\helpers\ArrayHelper;
 use yii\web\Response;
 
-class ActivityAction extends Action
+final class ActivityAction extends Action
 {
+    /** @var Response */
     public $resp;
 
     public function init()
@@ -45,7 +46,7 @@ class ActivityAction extends Action
         }
 
         $user = User::findOne(['screen_name' => $form->screen_name]);
-        list($from, $to) = BattleHelper::getActivityDisplayRange();
+        [$from, $to] = BattleHelper::getActivityDisplayRange();
         $this->resp->data = $this->makeData($user, $from, $to, $form->only);
     }
 
@@ -85,6 +86,12 @@ class ActivityAction extends Action
                 : [],
             $this->isShow('salmon2', $only)
                 ? $this->makeDataSplatoon2Salmon($user, $from, $to)
+                : [],
+            $this->isShow('spl3', $only)
+                ? $this->makeDataSplatoon3Battle($user, $from, $to)
+                : [],
+            $this->isShow('salmon3', $only)
+                ? $this->makeDataSplatoon3Salmon($user, $from, $to)
                 : [],
         ]));
     }
@@ -205,6 +212,42 @@ class ActivityAction extends Action
             ->groupBy([$date])
             ->orderBy(['date' => SORT_ASC]);
         return $this->listToMap($query->all());
+    }
+
+    private function makeDataSplatoon3Battle(
+        User $user,
+        DateTimeImmutable $from,
+        DateTimeImmutable $to
+    ): array {
+        $date = sprintf('(CASE %s END)::date', implode(' ', [
+            'WHEN {{battle3}}.[[start_at]] IS NOT NULL THEN {{battle3}}.[[start_at]]',
+            "WHEN {{battle3}}.[[end_at]] IS NOT NULL THEN {{battle3}}.[[end_at]] - '3 minutes'::interval",
+            "ELSE {{battle3}}.[[created_at]] - '4 minutes'::interval",
+        ]));
+        $query = (new Query())
+            ->select([
+                'date' => $date,
+                'count' => 'COUNT(*)',
+            ])
+            ->from('battle3')
+            ->andWhere(['user_id' => $user->id])
+            ->andWhere([
+                'between',
+                $date,
+                $from->format(DateTime::ATOM),
+                $to->format(DateTime::ATOM)
+            ])
+            ->groupBy([$date])
+            ->orderBy(['date' => SORT_ASC]);
+        return $this->listToMap($query->all());
+    }
+
+    private function makeDataSplatoon3Salmon(
+        User $user,
+        DateTimeImmutable $from,
+        DateTimeImmutable $to
+    ): array {
+        return [];
     }
 
     private function listToMap(array $list): array
