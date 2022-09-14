@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2021 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author eli fessler <eliwf8@gmail.com>
@@ -444,9 +444,12 @@ return [
     'Splatfest Title (After)' => 'フェス称号（後）',
     'Splatfest Title' => 'フェス称号',
     'Splatfest' => 'フェス',
+    'Splatoon 2' => 'Splatoon 2',
+    'Splatoon 3' => 'Splatoon 3',
     'Splatoon Official Website (Japan)' => 'スプラトゥーン公式サイト（日本）',
     'Splatoon Official Website (UK)' => 'スプラトゥーン公式サイト（英国）',
     'Splatoon Official Website (US/Canada)' => 'スプラトゥーン公式サイト（北米）',
+    'Splatoon' => 'Splatoon',
     'Staaaay Fresh!' => 'イカ、よろしく～～～～',
     'Stack' => '積み重ねる',
     'Stage (Short)' => 'ステージ（短）',
