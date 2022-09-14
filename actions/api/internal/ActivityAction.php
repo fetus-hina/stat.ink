@@ -66,7 +66,7 @@ final class ActivityAction extends Action
                     'targetClass' => User::class,
                     'targetAttribute' => 'screen_name',
                 ],
-                [['only'], 'in', 'range' => ['spl1', 'spl2', 'salmon2']],
+                [['only'], 'in', 'range' => ['spl1', 'spl2', 'spl3', 'salmon2', 'salmon3']],
             ]
         );
     }
