@@ -355,7 +355,7 @@ final class PostBattleForm extends Model
         }
 
         // 設定された値から統計に使えそうか雑な判断をする
-        $model->use_for_entire = self::isUsableForEntireStats($model);
+        $model->use_for_entire = self::isUsableForEntireStats($model, self::intVal($this->start_at));
 
         if (!$model->save()) {
             $this->addError('_system', vsprintf('Failed to store new battle, info=%s', [
@@ -551,12 +551,13 @@ final class PostBattleForm extends Model
         return \time() - 300;
     }
 
-    private static function isUsableForEntireStats(Battle3 $model): bool
+    private static function isUsableForEntireStats(Battle3 $model, ?int $startAt): bool
     {
         if (
             !$model->is_automated ||
-            !\is_int($model->start_at) ||
-            $model->start_at < time() - 86400 ||
+            !\is_int($startAt) ||
+            $startAt < \time() - 86400 ||
+            $startAt > \time() ||
             !$model->lobby_id ||
             !$model->rule_id ||
             !$model->map_id ||

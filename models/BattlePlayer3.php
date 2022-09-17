@@ -32,8 +32,10 @@ use yii\db\ActiveRecord;
  * @property integer $death
  * @property integer $special
  * @property boolean $is_disconnected
+ * @property integer $splashtag_title_id
  *
  * @property Battle3 $battle
+ * @property SplashtagTitle3 $splashtagTitle
  * @property Weapon3 $weapon
  */
 class BattlePlayer3 extends ActiveRecord
@@ -47,11 +49,12 @@ class BattlePlayer3 extends ActiveRecord
     {
         return [
             [['battle_id', 'is_our_team', 'is_me'], 'required'],
-            [['battle_id', 'rank_in_team', 'number', 'weapon_id', 'inked', 'kill', 'assist', 'kill_or_assist', 'death', 'special'], 'default', 'value' => null],
-            [['battle_id', 'rank_in_team', 'number', 'weapon_id', 'inked', 'kill', 'assist', 'kill_or_assist', 'death', 'special'], 'integer'],
+            [['battle_id', 'rank_in_team', 'number', 'weapon_id', 'inked', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'splashtag_title_id'], 'default', 'value' => null],
+            [['battle_id', 'rank_in_team', 'number', 'weapon_id', 'inked', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'splashtag_title_id'], 'integer'],
             [['is_our_team', 'is_me', 'is_disconnected'], 'boolean'],
             [['name'], 'string', 'max' => 10],
             [['battle_id'], 'exist', 'skipOnError' => true, 'targetClass' => Battle3::class, 'targetAttribute' => ['battle_id' => 'id']],
+            [['splashtag_title_id'], 'exist', 'skipOnError' => true, 'targetClass' => SplashtagTitle3::class, 'targetAttribute' => ['splashtag_title_id' => 'id']],
             [['weapon_id'], 'exist', 'skipOnError' => true, 'targetClass' => Weapon3::class, 'targetAttribute' => ['weapon_id' => 'id']],
         ];
     }
@@ -74,12 +77,18 @@ class BattlePlayer3 extends ActiveRecord
             'death' => 'Death',
             'special' => 'Special',
             'is_disconnected' => 'Is Disconnected',
+            'splashtag_title_id' => 'Splashtag Title ID',
         ];
     }
 
     public function getBattle(): ActiveQuery
     {
         return $this->hasOne(Battle3::class, ['id' => 'battle_id']);
+    }
+
+    public function getSplashtagTitle(): ActiveQuery
+    {
+        return $this->hasOne(SplashtagTitle3::class, ['id' => 'splashtag_title_id']);
     }
 
     public function getWeapon(): ActiveQuery

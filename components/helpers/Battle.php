@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -17,8 +17,10 @@ use Yii;
 use app\models\Battle as BattleModel;
 use app\models\Battle2 as Battle2Model;
 use app\models\Battle2FilterForm;
+use app\models\Battle3 as Battle3Model;
 use app\models\BattleFilterForm;
 use app\models\User;
+use yii\db\Query;
 
 class Battle
 {
@@ -70,7 +72,7 @@ class Battle
             ->offset(0)
             ->limit($num);
 
-        $query = (new \yii\db\Query())
+        $query = (new Query())
             ->select([
                 'min_id' => 'MIN({{t}}.[[id]])',
                 'max_id' => 'MAX({{t}}.[[id]])',
@@ -100,7 +102,7 @@ class Battle
             ->offset(0)
             ->limit($num);
 
-        $query = (new \yii\db\Query())
+        $query = (new Query())
             ->select([
                 'min_id' => 'MIN({{t}}.[[id]])',
                 'max_id' => 'MAX({{t}}.[[id]])',

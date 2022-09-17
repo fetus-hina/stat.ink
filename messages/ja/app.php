@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2021 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author eli fessler <eliwf8@gmail.com>
@@ -141,6 +141,7 @@ return [
     'Deaths' => 'デス数',
     'Deaths/min' => 'デス/分',
     'Default Color' => '既定のテーマ',
+    'Defeat' => '敗北',
     'Delete' => '削除',
     'Detail' => '詳細',
     'Detailed List' => '詳細なリストで表示',
@@ -153,6 +154,7 @@ return [
     'Don\'t group' => 'ブキをまとめない',
     'Download Stats' => '統計情報ダウンロード',
     'Downloads' => 'ダウンロード',
+    'Draw' => '引き分け',
     'Earlier Turf-Inked data is currently wrong. It will be fixed in the near future.' => '古い塗り面積データは現在間違って集計されています。この問題は近いうちに直します。',
     'Edit Your Battle: #{0}' => 'バトル詳細を編集: #{0}',
     'Edit' => '編集',
@@ -444,9 +446,12 @@ return [
     'Splatfest Title (After)' => 'フェス称号（後）',
     'Splatfest Title' => 'フェス称号',
     'Splatfest' => 'フェス',
+    'Splatoon 2' => 'Splatoon 2',
+    'Splatoon 3' => 'Splatoon 3',
     'Splatoon Official Website (Japan)' => 'スプラトゥーン公式サイト（日本）',
     'Splatoon Official Website (UK)' => 'スプラトゥーン公式サイト（英国）',
     'Splatoon Official Website (US/Canada)' => 'スプラトゥーン公式サイト（北米）',
+    'Splatoon' => 'Splatoon',
     'Staaaay Fresh!' => 'イカ、よろしく～～～～',
     'Stack' => '積み重ねる',
     'Stage (Short)' => 'ステージ（短）',
@@ -555,6 +560,7 @@ return [
     'Verify' => '確認',
     'Version {0}' => 'バージョン{0}',
     'Version' => 'バージョン',
+    'Victory' => '勝利',
     'View Settings' => '表示設定',
     'We\'ll send an email when you log in to the website or change your password.' => 'ログイン時やパスワード変更時にメールを送信してお知らせします。',
     'Weapon (Icon)' => 'ブキ（アイコン）',

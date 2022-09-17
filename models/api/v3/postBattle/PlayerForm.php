@@ -10,9 +10,11 @@ namespace app\models\api\v3\postBattle;
 
 use Yii;
 use app\components\behaviors\TrimAttributesBehavior;
+use app\components\helpers\CriticalSection;
 use app\components\validators\KeyValidator;
 use app\models\Battle3;
 use app\models\BattlePlayer3;
+use app\models\SplashtagTitle3;
 use app\models\Weapon3;
 use app\models\Weapon3Alias;
 use yii\base\Model;
@@ -26,6 +28,7 @@ final class PlayerForm extends Model
     public $rank_in_team;
     public $name;
     public $number;
+    public $splashtag_title;
     public $weapon;
     public $inked;
     public $kill;
@@ -53,6 +56,7 @@ final class PlayerForm extends Model
             [['rank_in_team'], 'integer', 'min' => 1, 'max' => 4],
             [['name'], 'string', 'min' => 1, 'max' => 10],
             [['number'], 'integer', 'min' => 0, 'max' => 9999],
+            [['splashtag_title'], 'string', 'max' => 255],
             [['weapon'], 'string'],
             [['weapon'], KeyValidator::class,
                 'modelClass' => Weapon3::class,
@@ -97,6 +101,7 @@ final class PlayerForm extends Model
             'death' => self::intVal($this->death),
             'special' => self::intVal($this->special),
             'is_disconnected' => self::boolVal($this->disconnected),
+            'splashtag_title_id' => $this->splashtagTitle(self::strVal($this->splashtag_title)),
         ]);
 
         if (!$model->save()) {
@@ -107,5 +112,36 @@ final class PlayerForm extends Model
         }
 
         return $model;
+    }
+
+    private function splashtagTitle(?string $title): ?int
+    {
+        $title = \trim((string)$title);
+        if ($title === '') {
+            return null;
+        }
+
+        // Find with Double-checked locking pattern
+        $model = SplashtagTitle3::findOne(['name' => $title]);
+        if (!$model) {
+            $lock = CriticalSection::lock(__METHOD__);
+            try {
+                $model = SplashtagTitle3::findOne(['name' => $title]);
+                if (!$model) {
+                    // Not registered. Create it!
+                    $model = Yii::createObject([
+                        'class' => SplashtagTitle3::class,
+                        'name' => $title,
+                    ]);
+                    if (!$model->save()) {
+                        return null;
+                    }
+                }
+            } finally {
+                unset($lock);
+            }
+        }
+
+        return (int)$model->id;
     }
 }

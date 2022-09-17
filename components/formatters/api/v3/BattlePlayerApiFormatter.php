@@ -30,6 +30,7 @@ final class BattlePlayerApiFormatter
                     'rank_in_team' => $model->rank_in_team,
                     'name' => $model->name,
                     'number' => $model->number,
+                    'splashtag_title' => SplashtagTitleApiFormatter::toJson($model->splashtagTitle),
                     'weapon' => WeaponApiFormatter::toJson($model->weapon, $fullTranslate),
                     'kill' => $model->kill,
                     'assist' => $model->assist,
