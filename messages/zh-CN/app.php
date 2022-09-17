@@ -156,6 +156,7 @@ return [
     'Do not close this window.' => '不要关闭本窗口。',
     'Downloads' => '下载',
     'Download Stats' => '下载统计',
+    'Draw' => '',
     'e.g. YouTube video, like "{0}"' => '比如说YouTube视频"{0}"',
     'Earlier Turf-Inked data is currently wrong. It will be fixed in the near future.' => '之前的涂地数据有误，将来会进行修复。',
     'Edit' => '编辑',

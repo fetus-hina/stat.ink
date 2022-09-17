@@ -157,6 +157,7 @@ return [
     'Do not close this window.' => 'Ne pas fermer cette page.',
     'Downloads' => 'Téléchargements',
     'Download Stats' => 'Stats de téléchargements',
+    'Draw' => '',
     'e.g. YouTube video, like "{0}"' => 'ex : Vidéo YouTube, comme "{0}"',
     'Earlier Turf-Inked data is currently wrong. It will be fixed in the near future.' => 'Les dernières données d\'encrage sont erronées. Elles seront bientôt corrigées.',
     'Edit' => 'Modifier',

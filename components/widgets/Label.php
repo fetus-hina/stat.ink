@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -16,7 +16,7 @@ use yii\bootstrap\BootstrapAsset;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
-class Label extends Widget
+final class Label extends Widget
 {
     public $link;
     public $format = 'text';

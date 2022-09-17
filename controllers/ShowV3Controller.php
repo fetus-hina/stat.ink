@@ -20,7 +20,7 @@ final class ShowV3Controller extends Controller
     public function actions()
     {
         return [
-            // 'battle' => BattleAction::class,
+            'battle' => BattleAction::class,
             'user' => UserAction::class,
         ];
     }

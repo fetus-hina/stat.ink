@@ -154,6 +154,7 @@ return [
     'Don\'t group' => 'ブキをまとめない',
     'Download Stats' => '統計情報ダウンロード',
     'Downloads' => 'ダウンロード',
+    'Draw' => '引き分け',
     'Earlier Turf-Inked data is currently wrong. It will be fixed in the near future.' => '古い塗り面積データは現在間違って集計されています。この問題は近いうちに直します。',
     'Edit Your Battle: #{0}' => 'バトル詳細を編集: #{0}',
     'Edit' => '編集',

@@ -157,6 +157,7 @@ return [
     'Do not close this window.' => '',
     'Downloads' => '',
     'Download Stats' => '',
+    'Draw' => '',
     'e.g. YouTube video, like "{0}"' => 'por ejemplo, video de YouTube, como "{0}"',
     'Earlier Turf-Inked data is currently wrong. It will be fixed in the near future.' => '',
     'Edit' => 'Editar',

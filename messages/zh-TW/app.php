@@ -156,6 +156,7 @@ return [
     'Do not close this window.' => '不要關閉本窗口。',
     'Downloads' => '下載',
     'Download Stats' => '下載統計',
+    'Draw' => '',
     'e.g. YouTube video, like "{0}"' => '比如說YouTube視頻"{0}"',
     'Earlier Turf-Inked data is currently wrong. It will be fixed in the near future.' => '之前的塗地數據有誤，將來會進行修復。',
     'Edit' => '編輯',
