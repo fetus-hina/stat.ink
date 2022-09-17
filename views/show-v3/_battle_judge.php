@@ -74,8 +74,8 @@ if ($model->our_team_percent !== null && $model->their_team_percent !== null) {
         ]);
     }
     $v = $draw(
-        $model->our_team_percent,
-        $model->their_team_percent,
+        (float)$model->our_team_percent,
+        (float)$model->their_team_percent,
         $fmt->asPercent($model->our_team_percent / 100, 1),
         $fmt->asPercent($model->their_team_percent / 100, 1),
         $myTitle,
@@ -84,8 +84,8 @@ if ($model->our_team_percent !== null && $model->their_team_percent !== null) {
     echo "$v\n";
 } elseif ($model->our_team_inked !== null && $model->their_team_inked !== null) {
     $v = $draw(
-        $model->our_team_inked,
-        $model->their_team_inked,
+        (float)$model->our_team_inked,
+        (float)$model->their_team_inked,
         Yii::t('app', '{point}p', [
             'point' => Yii::$app->formatter->asInteger((int)$model->our_team_inked),
         ]),
@@ -96,8 +96,8 @@ if ($model->our_team_percent !== null && $model->their_team_percent !== null) {
     echo "$v\n";
 } elseif ($model->our_team_count !== null && $model->their_team_count !== null) {
     $v = $draw(
-        $model->our_team_count,
-        $model->their_team_count,
+        (float)$model->our_team_count,
+        (float)$model->their_team_count,
         $model->our_team_count == 100
           ? Yii::t('app', 'KNOCKOUT')
           : (string)$model->our_team_count,
