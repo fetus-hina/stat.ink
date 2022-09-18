@@ -14,7 +14,10 @@ use yii\web\View;
 
 ?>
 <?= $this->render('//includes/battles-summary', [
-  'summary' => Battle::find()->andWhere(['user_id' => $user->id])->getSummary(),
+  'summary' => Battle::find()
+    ->with('user')
+    ->andWhere(['user_id' => $user->id])
+    ->getSummary(),
   'link' => ['show/user', 'screen_name' => $user->screen_name],
 ]) . "\n" ?>
 <div class="row">

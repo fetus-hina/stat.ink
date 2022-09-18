@@ -230,7 +230,10 @@ final class ActivityAction extends Action
                 'count' => 'COUNT(*)',
             ])
             ->from('battle3')
-            ->andWhere(['user_id' => $user->id])
+            ->andWhere([
+                'user_id' => $user->id,
+                'is_deleted' => false,
+            ])
             ->andWhere([
                 'between',
                 $date,
