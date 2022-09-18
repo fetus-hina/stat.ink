@@ -115,9 +115,14 @@ final class BattleAction extends Action
                 ],
                 true,
             ),
-            'X-Api-Location' => Url::to(['/api-v3/battle', 'id' => $battle->uuid], true),
+            'X-Api-Location' => Url::to(
+                \vsprintf('@web/api/v3/battle/%s', [
+                    \rawurlencode($battle->uuid),
+                ]),
+                true
+            ),
             'X-User-Screen-Name' => $battle->user->screen_name,
-            'X-Battle-ID', $battle->uuid,
+            'X-Battle-ID' => $battle->uuid,
         ]);
         $resp->data = BattleApiFormatter::toJson($battle, true, false);
         return $resp;

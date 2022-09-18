@@ -12,6 +12,7 @@ namespace app\controllers;
 
 use Yii;
 use app\actions\api\v3\BattleAction;
+use app\actions\api\v3\DeleteBattleAction;
 use app\actions\api\v3\LobbyAction;
 use app\actions\api\v3\RankAction;
 use app\actions\api\v3\RuleAction;
@@ -42,6 +43,7 @@ final class ApiV3Controller extends Controller
                 'class' => VerbFilter::class,
                 'actions' => [
                     'battle' => ['head', 'get', 'post', 'put'],
+                    'delete-battle' => ['delete'],
                     '*' => ['head', 'get'],
                 ],
             ],
@@ -49,6 +51,7 @@ final class ApiV3Controller extends Controller
                 'class' => HttpBearerAuth::class,
                 'only' => [
                     'battle',
+                    'delete-battle',
                     's3s-uuid-list',
                 ],
                 'optional' => [
@@ -61,6 +64,7 @@ final class ApiV3Controller extends Controller
     {
         return [
             'battle' => BattleAction::class,
+            'delete-battle' => DeleteBattleACtion::class,
             'lobby' => LobbyAction::class,
             'rank' => RankAction::class,
             'rule' => RuleAction::class,
