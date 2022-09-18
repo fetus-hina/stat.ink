@@ -38,6 +38,7 @@ return [
     'Goo Tuber' => 'ソイチューバー',
     'H-3 Nozzlenose' => 'H3リールガン',
     'Heavy Splatling' => 'バレルスピナー',
+    'Hero Shot Replica' => 'ヒーローシューター レプリカ',
     'Hydra Splatling' => 'ハイドラント',
     'Inkbrush' => 'パブロ',
     'Jet Squelcher' => 'ジェットスイーパー',

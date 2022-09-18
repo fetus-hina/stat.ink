@@ -38,6 +38,7 @@ return [
     'Goo Tuber' => 'T-Tuber',
     'H-3 Nozzlenose' => 'S3 Tintenwerfer',
     'Heavy Splatling' => 'Splatling',
+    'Hero Shot Replica' => 'Heldenwaffe Replik',
     'Hydra Splatling' => 'Hydrant',
     'Inkbrush' => 'Quasto',
     'Jet Squelcher' => 'Platscher',

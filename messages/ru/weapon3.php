@@ -38,6 +38,7 @@ return [
     'Goo Tuber' => 'Трубастер',
     'H-3 Nozzlenose' => 'Тяжелый каплетрон',
     'Heavy Splatling' => 'Брызгомет XL',
+    'Hero Shot Replica' => 'Каплестрел героя (клон)',
     'Hydra Splatling' => 'Брызгомет «Горыныч»',
     'Inkbrush' => 'Кисть',
     'Jet Squelcher' => 'Плескарь',

@@ -38,6 +38,7 @@ return [
     'Goo Tuber' => 'Détubeur',
     'H-3 Nozzlenose' => 'Arroseur lourd',
     'Heavy Splatling' => 'Badigeonneur',
+    'Hero Shot Replica' => 'Lanceur héroïque (réplique)',
     'Hydra Splatling' => 'Exteinteur',
     'Inkbrush' => 'Épinceau',
     'Jet Squelcher' => 'Nettoyeur XL',

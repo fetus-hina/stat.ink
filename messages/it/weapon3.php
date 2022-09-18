@@ -38,6 +38,7 @@ return [
     'Goo Tuber' => 'Tintubator',
     'H-3 Nozzlenose' => 'Triplete',
     'Heavy Splatling' => 'Splatling a tanica',
+    'Hero Shot Replica' => 'Pistola élite replica',
     'Hydra Splatling' => 'Idrante',
     'Inkbrush' => 'Calamaravaggio',
     'Jet Squelcher' => 'Sweeper',

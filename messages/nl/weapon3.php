@@ -38,6 +38,7 @@ return [
     'Goo Tuber' => 'Spetbuizer',
     'H-3 Nozzlenose' => 'H-3 Langsnuit',
     'Heavy Splatling' => 'Spetling',
+    'Hero Shot Replica' => 'Heldenspetter (replica)',
     'Hydra Splatling' => 'Blusling',
     'Inkbrush' => 'Inktkwast',
     'Jet Squelcher' => 'Straalplonzer',

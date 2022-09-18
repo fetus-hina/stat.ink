@@ -17,8 +17,11 @@ use yii\web\View;
 <?= $this->render('//includes/battles-summary', [
   'summary' => BattleSummarizer::getSummary3(
     Battle3::find()
-      ->joinWith('result')
-      ->andWhere(['user_id' => $user->id])
+      ->joinWith(['result', 'user'])
+      ->andWhere([
+        'user_id' => $user->id,
+        'is_deleted' => false,
+      ])
   ),
   'link' => ['show-v3/user', 'screen_name' => $user->screen_name],
 ]) . "\n" ?>
@@ -31,7 +34,10 @@ use yii\web\View;
       ],
       'titleLinkText' => Yii::t('app', 'List'),
       'models' => Battle3::find()
-        ->andWhere(['user_id' => $user->id])
+        ->andWhere([
+          'user_id' => $user->id,
+          'is_deleted' => false,
+        ])
         ->with(['lobby', 'map', 'result', 'user', 'weapon'])
         ->innerJoinWith(['rule'])
         ->andWhere(['rule3.key' => 'nawabari'])
@@ -48,7 +54,10 @@ use yii\web\View;
       ],
       'titleLinkText' => Yii::t('app', 'List'),
       'models' => Battle3::find()
-        ->andWhere(['user_id' => $user->id])
+        ->andWhere([
+          'user_id' => $user->id,
+          'is_deleted' => false,
+        ])
         ->with(['lobby', 'map', 'result', 'user', 'weapon'])
         ->innerJoinWith(['rule'])
         ->andWhere(['<>', 'rule3.key', 'nawabari'])
