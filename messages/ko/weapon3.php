@@ -38,6 +38,7 @@ return [
     'Goo Tuber' => '',
     'H-3 Nozzlenose' => '',
     'Heavy Splatling' => '',
+    'Hero Shot Replica' => '히어로 슈터 레플리카',
     'Hydra Splatling' => '',
     'Inkbrush' => '',
     'Jet Squelcher' => '',

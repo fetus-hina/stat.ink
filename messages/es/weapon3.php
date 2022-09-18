@@ -38,6 +38,7 @@ return [
     'Goo Tuber' => 'Tubofusil',
     'H-3 Nozzlenose' => 'Tintambor pesado',
     'Heavy Splatling' => 'Tintralladora',
+    'Hero Shot Replica' => 'Pistola de Élite (réplica)',
     'Hydra Splatling' => 'Extintador',
     'Inkbrush' => 'Pincel',
     'Jet Squelcher' => 'Megabarredora',
