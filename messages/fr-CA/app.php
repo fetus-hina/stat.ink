@@ -318,6 +318,7 @@ return [
     'Max Inked' => '',
     'Max Kill Combo' => '',
     'Max Kill Streak' => '',
+    'Medals' => '',
     'Median' => '',
     'Minimum' => '',
     'MMMM y' => '',

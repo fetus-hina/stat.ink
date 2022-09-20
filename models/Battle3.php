@@ -67,17 +67,21 @@ use yii\db\ActiveRecord;
  * @property boolean $is_deleted
  *
  * @property Agent $agent
+ * @property BattleAgentVariable3[] $battleAgentVariable3s
  * @property BattleImageGear3 $battleImageGear3
  * @property BattleImageJudge3 $battleImageJudge3
  * @property BattleImageResult3 $battleImageResult3
+ * @property BattleMedal3[] $battleMedal3s
  * @property BattlePlayer3[] $battlePlayer3s
  * @property Lobby3 $lobby
  * @property Map3 $map
+ * @property Medal3[] $medals
  * @property Rank3 $rankAfter
  * @property Rank3 $rankBefore
  * @property Result3 $result
  * @property Rule3 $rule
  * @property User $user
+ * @property AgentVariable3[] $variables
  * @property SplatoonVersion3 $version
  * @property Weapon3 $weapon
  */
@@ -171,6 +175,11 @@ class Battle3 extends ActiveRecord
         return $this->hasOne(Agent::class, ['id' => 'agent_id']);
     }
 
+    public function getBattleAgentVariable3s(): ActiveQuery
+    {
+        return $this->hasMany(BattleAgentVariable3::class, ['battle_id' => 'id']);
+    }
+
     public function getBattleImageGear3(): ActiveQuery
     {
         return $this->hasOne(BattleImageGear3::class, ['battle_id' => 'id']);
@@ -186,6 +195,11 @@ class Battle3 extends ActiveRecord
         return $this->hasOne(BattleImageResult3::class, ['battle_id' => 'id']);
     }
 
+    public function getBattleMedal3s(): ActiveQuery
+    {
+        return $this->hasMany(BattleMedal3::class, ['battle_id' => 'id']);
+    }
+
     public function getBattlePlayer3s(): ActiveQuery
     {
         return $this->hasMany(BattlePlayer3::class, ['battle_id' => 'id']);
@@ -199,6 +213,11 @@ class Battle3 extends ActiveRecord
     public function getMap(): ActiveQuery
     {
         return $this->hasOne(Map3::class, ['id' => 'map_id']);
+    }
+
+    public function getMedals(): ActiveQuery
+    {
+        return $this->hasMany(Medal3::class, ['id' => 'medal_id'])->viaTable('battle_medal3', ['battle_id' => 'id']);
     }
 
     public function getRankAfter(): ActiveQuery
@@ -224,6 +243,11 @@ class Battle3 extends ActiveRecord
     public function getUser(): ActiveQuery
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
+
+    public function getVariables(): ActiveQuery
+    {
+        return $this->hasMany(AgentVariable3::class, ['id' => 'variable_id'])->viaTable('battle_agent_variable3', ['battle_id' => 'id']);
     }
 
     public function getVersion(): ActiveQuery

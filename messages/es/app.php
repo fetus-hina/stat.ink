@@ -320,6 +320,7 @@ return [
     'Max Inked' => 'Máxima pintado',
     'Max Kill Combo' => '',
     'Max Kill Streak' => '',
+    'Medals' => '',
     'Median' => '',
     'Minimum' => '',
     'MMMM y' => 'MMMM \'de\' y',

@@ -56,6 +56,7 @@ echo DetailView::widget([
     require __DIR__ . '/details/kill-death.php',
     require __DIR__ . '/details/special.php',
     require __DIR__ . '/details/inked.php',
+    require __DIR__ . '/details/medal.php',
     // cause-of-death
     require __DIR__ . '/details/cash.php',
     // gear
@@ -65,7 +66,7 @@ echo DetailView::widget([
     require __DIR__ . '/details/elapsed-time.php',
     require __DIR__ . '/details/created-at.php',
     require __DIR__ . '/details/user-agent.php',
-    // ua_variables
+    require __DIR__ . '/details/user-agent-variables.php',
     require __DIR__ . '/details/public-note.php',
     require __DIR__ . '/details/private-note.php',
     require __DIR__ . '/details/game-version.php',

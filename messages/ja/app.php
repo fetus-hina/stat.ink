@@ -310,6 +310,7 @@ return [
     'Max Kill Combo' => '最大キルコンボ',
     'Max Kill Streak' => '最大ストリーク',
     'Maximum' => '最大',
+    'Medals' => '表彰',
     'Median' => '中央値',
     'Minimum' => '最小',
     'Mobile' => 'モバイル',

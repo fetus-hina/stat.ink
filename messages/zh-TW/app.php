@@ -319,6 +319,7 @@ return [
     'Max Inked' => '最大塗地面積',
     'Max Kill Combo' => '最多殺敵數',
     'Max Kill Streak' => '最多連續殺敵數',
+    'Medals' => '',
     'Median' => '平均值',
     'Minimum' => '最小值',
     'MMMM y' => 'y\'年\'M\'月\'',
