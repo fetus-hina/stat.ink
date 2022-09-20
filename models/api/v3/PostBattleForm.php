@@ -15,11 +15,14 @@ use app\components\helpers\CriticalSection;
 use app\components\helpers\ImageConverter;
 use app\components\helpers\UuidRegexp;
 use app\components\helpers\db\Now;
+use app\components\validators\BattleAgentVariable3Validator;
 use app\components\validators\BattleImageValidator;
 use app\components\validators\BattlePlayer3FormValidator;
 use app\components\validators\KeyValidator;
 use app\models\Agent;
+use app\models\AgentVariable3;
 use app\models\Battle3;
+use app\models\BattleAgentVairable3;
 use app\models\BattleImageGear3;
 use app\models\BattleImageJudge3;
 use app\models\BattleImageResult3;
@@ -95,6 +98,9 @@ final class PostBattleForm extends Model
     public $start_at;
     public $end_at;
 
+    /** @var array<string, string> */
+    public $agent_variables;
+
     /** @var UploadedFile|string|null */
     public $image_judge;
 
@@ -168,6 +174,7 @@ final class PostBattleForm extends Model
                 'rule' => Yii::createObject(BattlePlayer3FormValidator::class),
             ],
 
+            [['agent_variables'], BattleAgentVariable3Validator::class],
             [['image_judge', 'image_result', 'image_gear'], BattleImageValidator::class],
         ];
     }
@@ -273,6 +280,10 @@ final class PostBattleForm extends Model
                 }
 
                 if (!$this->savePlayers($battle)) {
+                    return null;
+                }
+
+                if (!$this->saveAgentVariables($battle)) {
                     return null;
                 }
 
@@ -390,6 +401,62 @@ final class PostBattleForm extends Model
         }
 
         return true;
+    }
+
+    private function saveAgentVariables(Battle3 $battle): bool
+    {
+        $map = $this->agent_variables;
+        if (!\is_array($map) || !$map) {
+            return true;
+        }
+
+        foreach ($map as $k => $v) {
+            $model = Yii::createObject([
+                'class' => BattleAgentVairable3::class,
+                'battle_id' => $battle->id,
+                // `findOrCreateAgentVariable()` may returns null and it will fail on `save()`
+                'variable_id' => $this->findOrCreateAgentVariable($k, $v),
+            ]);
+            if (!$model->save()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private function findOrCreateAgentVariable(string $key, string $value): ?int
+    {
+        // use double-checking lock pattern
+        //
+        // 1. find data without lock (fast, the data already exists)
+        // In most cases, we'll find them here.
+        $model = AgentVariable3::findOne(['key' => $key, 'value' => $value]);
+        if (!$model) {
+            // 2. lock if not found
+            if (!$lock = CriticalSection::lock(AgentVariable3::class, 60)) {
+                return null;
+            }
+            try {
+                // 3. find data again with lock (it may created on another process/thread)
+                $model = AgentVariable3::findOne(['key' => $key, 'value' => $value]);
+                if (!$model) {
+                    // 4. create new data with lock (it's new!)
+                    $model = Yii::createObject([
+                        'class' => AgentVariable3::class,
+                        'key' => $key,
+                        'value' => $value,
+                    ]);
+                    if (!$model->save()) {
+                        return null;
+                    }
+                }
+            } finally {
+                unset($lock);
+            }
+        }
+
+        return (int)$model->id;
     }
 
     private function saveBattleImages(Battle3 $battle): bool

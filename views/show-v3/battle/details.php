@@ -65,7 +65,7 @@ echo DetailView::widget([
     require __DIR__ . '/details/elapsed-time.php',
     require __DIR__ . '/details/created-at.php',
     require __DIR__ . '/details/user-agent.php',
-    // ua_variables
+    require __DIR__ . '/details/user-agent-variables.php',
     require __DIR__ . '/details/public-note.php',
     require __DIR__ . '/details/private-note.php',
     require __DIR__ . '/details/game-version.php',

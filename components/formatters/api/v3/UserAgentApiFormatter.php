@@ -11,18 +11,26 @@ declare(strict_types=1);
 namespace app\components\formatters\api\v3;
 
 use app\models\Agent;
+use app\models\AgentVariable3;
 
 final class UserAgentApiFormatter
 {
-    public static function toJson(?Agent $model, bool $fullTranslate = false): ?array
-    {
-        if (!$model) {
+    /**
+     * @param AgentVariable3[]|null $variables
+     */
+    public static function toJson(
+        ?Agent $model,
+        ?array $variables,
+        bool $fullTranslate = false
+    ): ?array {
+        if (!$model && !$variables) {
             return null;
         }
 
         return [
-            'name' => $model->name,
-            'version' => $model->version,
+            'name' => $model ? $model->name : null,
+            'version' => $model ? $model->version : null,
+            'variables' => UserAgentVariableApiFormatter::toJson($variables),
         ];
     }
 }

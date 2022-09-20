@@ -67,6 +67,7 @@ use yii\db\ActiveRecord;
  * @property boolean $is_deleted
  *
  * @property Agent $agent
+ * @property BattleAgentVariable3[] $battleAgentVariable3s
  * @property BattleImageGear3 $battleImageGear3
  * @property BattleImageJudge3 $battleImageJudge3
  * @property BattleImageResult3 $battleImageResult3
@@ -78,6 +79,7 @@ use yii\db\ActiveRecord;
  * @property Result3 $result
  * @property Rule3 $rule
  * @property User $user
+ * @property AgentVariable3[] $variables
  * @property SplatoonVersion3 $version
  * @property Weapon3 $weapon
  */
@@ -171,6 +173,11 @@ class Battle3 extends ActiveRecord
         return $this->hasOne(Agent::class, ['id' => 'agent_id']);
     }
 
+    public function getBattleAgentVariable3s(): ActiveQuery
+    {
+        return $this->hasMany(BattleAgentVariable3::class, ['battle_id' => 'id']);
+    }
+
     public function getBattleImageGear3(): ActiveQuery
     {
         return $this->hasOne(BattleImageGear3::class, ['battle_id' => 'id']);
@@ -224,6 +231,11 @@ class Battle3 extends ActiveRecord
     public function getUser(): ActiveQuery
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
+
+    public function getVariables(): ActiveQuery
+    {
+        return $this->hasMany(AgentVariable3::class, ['id' => 'variable_id'])->viaTable('battle_agent_variable3', ['battle_id' => 'id']);
     }
 
     public function getVersion(): ActiveQuery

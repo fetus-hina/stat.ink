@@ -81,7 +81,11 @@ final class BattleApiFormatter
             'private_note' => $isAuthenticated ? $model->private_note : false,
             'link_url' => $model->link_url,
             'game_version' => SplatoonVersionApiFormatter::toJson($model->version, false),
-            'user_agent' => UserAgentApiFormatter::toJson($model->agent, $fullTranslate),
+            'user_agent' => UserAgentApiFormatter::toJson(
+                $model->agent,
+                $model->variables,
+                $fullTranslate
+            ),
             'automated' => $model->is_automated,
             'start_at' => DateTimeApiFormatter::toJson($model->start_at),
             'end_at' => DateTimeApiFormatter::toJson($model->end_at),
