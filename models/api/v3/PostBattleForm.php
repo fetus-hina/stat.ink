@@ -472,7 +472,7 @@ final class PostBattleForm extends Model
         $model = Medal3::findOne(['name' => $text]);
         if (!$model) {
             // 2. lock if not found
-            if (!$lock = CriticalSection::lock(Model3::class, 60)) {
+            if (!$lock = CriticalSection::lock(Medal3::class, 60)) {
                 return null;
             }
             try {
