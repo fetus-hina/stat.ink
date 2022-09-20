@@ -26,9 +26,11 @@ use app\models\BattleAgentVairable3;
 use app\models\BattleImageGear3;
 use app\models\BattleImageJudge3;
 use app\models\BattleImageResult3;
+use app\models\BattleMedal3;
 use app\models\Lobby3;
 use app\models\Map3;
 use app\models\Map3Alias;
+use app\models\Medal3;
 use app\models\Rank3;
 use app\models\Result3;
 use app\models\Rule3;
@@ -97,6 +99,9 @@ final class PostBattleForm extends Model
     public $automated;
     public $start_at;
     public $end_at;
+
+    /** @var string[] */
+    public $medals;
 
     /** @var array<string, string> */
     public $agent_variables;
@@ -172,6 +177,15 @@ final class PostBattleForm extends Model
             [['our_team_players', 'their_team_players'], 'each',
                 'message' => '{attribute} must be an array',
                 'rule' => Yii::createObject(BattlePlayer3FormValidator::class),
+            ],
+
+            [['medals'], 'each',
+                'message' => '{attribute} must be an array of strings',
+                'rule' => ['string',
+                    'min' => 1,
+                    'max' => 64,
+                    'skipOnEmpty' => false,
+                ],
             ],
 
             [['agent_variables'], BattleAgentVariable3Validator::class],
@@ -280,6 +294,10 @@ final class PostBattleForm extends Model
                 }
 
                 if (!$this->savePlayers($battle)) {
+                    return null;
+                }
+
+                if (!$this->saveMedals($battle)) {
                     return null;
                 }
 
@@ -401,6 +419,81 @@ final class PostBattleForm extends Model
         }
 
         return true;
+    }
+
+    private function saveMedals(Battle3 $battle): bool
+    {
+        if (!$list = $this->medals) {
+            return true;
+        }
+
+        foreach ($list as $medal) {
+            $medalModel = $this->findOrCreateMedal($medal);
+            if (!$medalModel) {
+                return false;
+            }
+
+            if (!$this->saveMedal($battle, $medalModel)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private function saveMedal(Battle3 $battle, Medal3 $medal): bool
+    {
+        // check duplicated
+        $model = BattleMedal3::findOne(['battle_id' => $battle->id, 'medal_id' => $medal->id]);
+        if ($model) {
+            // dupe
+            return true;
+        }
+
+        $model = Yii::createObject([
+            'class' => BattleMedal3::class,
+            'battle_id' => (int)$battle->id,
+            'medal_id' => (int)$medal->id,
+        ]);
+        return (bool)$model->save();
+    }
+
+    private function findOrCreateMedal(string $text): ?Medal3
+    {
+        $text = \trim($text);
+        if ($text === null) {
+            return null;
+        }
+
+        // use double-checking lock pattern
+        //
+        // 1. find data without lock (fast, the data already exists)
+        // In most cases, we'll find them here.
+        $model = Medal3::findOne(['name' => $text]);
+        if (!$model) {
+            // 2. lock if not found
+            if (!$lock = CriticalSection::lock(Model3::class, 60)) {
+                return null;
+            }
+            try {
+                // 3. find data again with lock (it may created on another process/thread)
+                $model = Medal3::findOne(['name' => $text]);
+                if (!$model) {
+                    // 4. create new data with lock (it's new!)
+                    $model = Yii::createObject([
+                        'class' => Medal3::class,
+                        'name' => $text,
+                    ]);
+                    if (!$model->save()) {
+                        return null;
+                    }
+                }
+            } finally {
+                unset($lock);
+            }
+        }
+
+        return $model;
     }
 
     private function saveAgentVariables(Battle3 $battle): bool

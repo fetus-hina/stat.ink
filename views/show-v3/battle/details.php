@@ -56,6 +56,7 @@ echo DetailView::widget([
     require __DIR__ . '/details/kill-death.php',
     require __DIR__ . '/details/special.php',
     require __DIR__ . '/details/inked.php',
+    require __DIR__ . '/details/medal.php',
     // cause-of-death
     require __DIR__ . '/details/cash.php',
     // gear

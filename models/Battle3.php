@@ -71,9 +71,11 @@ use yii\db\ActiveRecord;
  * @property BattleImageGear3 $battleImageGear3
  * @property BattleImageJudge3 $battleImageJudge3
  * @property BattleImageResult3 $battleImageResult3
+ * @property BattleMedal3[] $battleMedal3s
  * @property BattlePlayer3[] $battlePlayer3s
  * @property Lobby3 $lobby
  * @property Map3 $map
+ * @property Medal3[] $medals
  * @property Rank3 $rankAfter
  * @property Rank3 $rankBefore
  * @property Result3 $result
@@ -193,6 +195,11 @@ class Battle3 extends ActiveRecord
         return $this->hasOne(BattleImageResult3::class, ['battle_id' => 'id']);
     }
 
+    public function getBattleMedal3s(): ActiveQuery
+    {
+        return $this->hasMany(BattleMedal3::class, ['battle_id' => 'id']);
+    }
+
     public function getBattlePlayer3s(): ActiveQuery
     {
         return $this->hasMany(BattlePlayer3::class, ['battle_id' => 'id']);
@@ -206,6 +213,11 @@ class Battle3 extends ActiveRecord
     public function getMap(): ActiveQuery
     {
         return $this->hasOne(Map3::class, ['id' => 'map_id']);
+    }
+
+    public function getMedals(): ActiveQuery
+    {
+        return $this->hasMany(Medal3::class, ['id' => 'medal_id'])->viaTable('battle_medal3', ['battle_id' => 'id']);
     }
 
     public function getRankAfter(): ActiveQuery

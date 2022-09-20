@@ -320,6 +320,7 @@ return [
     'Max Inked' => 'Encrage Max',
     'Max Kill Combo' => 'Kill Combo Max',
     'Max Kill Streak' => 'Série de Kills Max',
+    'Medals' => '',
     'Median' => 'Médiane',
     'Minimum' => '',
     'MMMM y' => '',

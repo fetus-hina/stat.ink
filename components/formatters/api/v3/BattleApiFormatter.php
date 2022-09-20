@@ -53,6 +53,7 @@ final class BattleApiFormatter
             'death' => $model->death,
             'special' => $model->special,
             'inked' => $model->inked,
+            'medals' => MedalApiFormatter::toJson($model->medals, $fullTranslate),
             'our_team_inked' => $model->our_team_inked,
             'their_team_inked' => $model->their_team_inked,
             'our_team_percent' => $model->our_team_percent,
