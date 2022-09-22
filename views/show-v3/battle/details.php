@@ -50,6 +50,7 @@ echo DetailView::widget([
     require __DIR__ . '/details/rank.php',
     require __DIR__ . '/details/level.php',
     require __DIR__ . '/details/result.php',
+    require __DIR__ . '/details/challenge.php',
     require __DIR__ . '/details/team-inked.php',
     require __DIR__ . '/details/team-count.php',
     require __DIR__ . '/details/rank-in-team.php',

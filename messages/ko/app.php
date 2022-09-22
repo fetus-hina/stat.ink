@@ -427,6 +427,7 @@ return [
     'Search {from} - {to}' => '',
     'Secondary Abilities' => '',
     'Sent an email to your email address. Please check your mailbox and get the verification code.' => '',
+    'Series Progress' => '',
     'Session History' => '',
     'Settings' => '',
     'Show All Players' => '',

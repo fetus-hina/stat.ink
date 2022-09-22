@@ -87,6 +87,8 @@ final class PostBattleForm extends Model
     public $rank_after;
     public $rank_after_s_plus;
     public $rank_after_exp;
+    public $challenge_win;
+    public $challenge_lose;
     public $cash_before;
     public $cash_after;
     public $our_team_players;
@@ -156,6 +158,8 @@ final class PostBattleForm extends Model
             [['level_before', 'level_after'], 'integer', 'min' => 1, 'max' => 99],
             [['rank_before_s_plus', 'rank_after_s_plus'], 'integer', 'min' => 0, 'max' => 50],
             [['rank_before_exp', 'rank_after_exp'], 'integer', 'min' => 0],
+            [['challenge_win'], 'integer', 'min' => 0, 'max' => 5],
+            [['challenge_lose'], 'integer', 'min' => 0, 'max' => 3],
             [['cash_before', 'cash_after'], 'integer', 'min' => 0, 'max' => 9999999],
             [['start_at', 'end_at'], 'integer',
                 'min' => \strtotime('2022-01-01T00:00:00+00:00'),
@@ -376,6 +380,8 @@ final class PostBattleForm extends Model
             'created_at' => self::now(),
             'updated_at' => self::now(),
             'is_deleted' => false,
+            'challenge_win' => self::intVal($this->challenge_win),
+            'challenge_lose' => self::intVal($this->challenge_lose),
         ]);
 
         // kill+assistが不明でkillとassistがわかっている

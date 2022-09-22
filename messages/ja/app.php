@@ -416,6 +416,7 @@ return [
     'Search' => '検索',
     'Secondary Abilities' => 'サブ',
     'Sent an email to your email address. Please check your mailbox and get the verification code.' => '指定されたメールアドレスにメールを送信しました。メールを確認して確認コードを取得してください。',
+    'Series Progress' => 'チャレンジ状況',
     'Session History' => '開催履歴',
     'Settings' => '設定',
     'Show All Players' => '全員を表示',

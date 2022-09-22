@@ -429,6 +429,7 @@ return [
     'Search {from} - {to}' => '',
     'Secondary Abilities' => 'Potenciadors secundarias',
     'Sent an email to your email address. Please check your mailbox and get the verification code.' => '',
+    'Series Progress' => '',
     'Session History' => '',
     'Settings' => 'Configuración',
     'Show All Players' => 'Mostrar todos los jugadores',

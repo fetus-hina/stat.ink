@@ -428,6 +428,7 @@ return [
     'Search {from} - {to}' => '搜索 从{from}到{to}',
     'Secondary Abilities' => '次要技能',
     'Sent an email to your email address. Please check your mailbox and get the verification code.' => '已发送验证邮件到你的邮箱。请检查邮箱取得验证码。',
+    'Series Progress' => '',
     'Session History' => '登录信息',
     'Settings' => '设置',
     'Show All Players' => '显示所有玩家',
