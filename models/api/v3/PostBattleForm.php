@@ -87,6 +87,7 @@ final class PostBattleForm extends Model
     public $rank_after;
     public $rank_after_s_plus;
     public $rank_after_exp;
+    public $rank_exp_change;
     public $challenge_win;
     public $challenge_lose;
     public $cash_before;
@@ -158,6 +159,7 @@ final class PostBattleForm extends Model
             [['level_before', 'level_after'], 'integer', 'min' => 1, 'max' => 99],
             [['rank_before_s_plus', 'rank_after_s_plus'], 'integer', 'min' => 0, 'max' => 50],
             [['rank_before_exp', 'rank_after_exp'], 'integer', 'min' => 0],
+            [['rank_exp_change'], 'integer'],
             [['challenge_win'], 'integer', 'min' => 0, 'max' => 5],
             [['challenge_lose'], 'integer', 'min' => 0, 'max' => 3],
             [['cash_before', 'cash_after'], 'integer', 'min' => 0, 'max' => 9999999],
@@ -363,6 +365,7 @@ final class PostBattleForm extends Model
             'rank_after_id' => self::key2id($this->rank_after, Rank3::class),
             'rank_after_s_plus' => self::intVal($this->rank_after_s_plus),
             'rank_after_exp' => self::intVal($this->rank_after_exp),
+            'rank_exp_change' => self::intVal($this->rank_exp_change),
             'cash_before' => self::intVal($this->cash_before),
             'cash_after' => self::intVal($this->cash_after),
             'note' => self::strVal($this->note),
