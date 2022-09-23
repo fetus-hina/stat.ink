@@ -429,6 +429,7 @@ return [
     'Search {from} - {to}' => 'Rechercher {from} - {to}',
     'Secondary Abilities' => '',
     'Sent an email to your email address. Please check your mailbox and get the verification code.' => 'Un email a été envoyé. Veuillez vérifier votre boîte de réception et récupérez le code de vérification',
+    'Series Progress' => '',
     'Session History' => 'Historique de Session',
     'Settings' => 'Paramètres',
     'Show All Players' => 'Afficher tous les joueurs',

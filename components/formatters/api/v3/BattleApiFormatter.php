@@ -68,6 +68,9 @@ final class BattleApiFormatter
             'rank_after' => RankApiFormatter::toJson($model->rankAfter, $fullTranslate),
             'rank_after_s_plus' => $model->rank_after_s_plus,
             'rank_after_exp' => $model->rank_after_exp,
+            'rank_exp_change' => $model->rank_exp_change,
+            'challenge_win' => $model->challenge_win,
+            'challenge_lose' => $model->challenge_lose,
             'cash_before' => $model->cash_before,
             'cash_after' => $model->cash_after,
             'our_team_members' => BattlePlayerApiFormatter::toJson(
