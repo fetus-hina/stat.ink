@@ -88,6 +88,7 @@ final class PostBattleForm extends Model
     public $rank_after_s_plus;
     public $rank_after_exp;
     public $rank_exp_change;
+    public $rank_up_battle;
     public $challenge_win;
     public $challenge_lose;
     public $cash_before;
@@ -146,7 +147,7 @@ final class PostBattleForm extends Model
             [['agent', 'agent_version'], 'required',
                 'when' => fn () => \trim((string)$this->agent) !== '' || \trim((string)$this->agent_version) !== '',
             ],
-            [['test', 'knockout', 'automated'], 'in',
+            [['test', 'knockout', 'automated', 'rank_up_battle'], 'in',
                 'range' => ['yes', 'no', true, false],
                 'strict' => true,
             ],
@@ -160,13 +161,19 @@ final class PostBattleForm extends Model
             [['rank_before_s_plus', 'rank_after_s_plus'], 'integer', 'min' => 0, 'max' => 50],
             [['rank_before_exp', 'rank_after_exp'], 'integer', 'min' => 0],
             [['rank_exp_change'], 'integer'],
-            [['challenge_win'], 'integer', 'min' => 0, 'max' => 5],
-            [['challenge_lose'], 'integer', 'min' => 0, 'max' => 3],
             [['cash_before', 'cash_after'], 'integer', 'min' => 0, 'max' => 9999999],
             [['start_at', 'end_at'], 'integer',
                 'min' => \strtotime('2022-01-01T00:00:00+00:00'),
                 'max' => time() + 3600,
             ],
+
+            [['challenge_win'], 'integer', 'min' => 0, 'max' => 5,
+                'when' => fn (self $model): bool => self::boolVal($model->rank_up_battle) !== true,
+            ],
+            [['challenge_win'], 'integer', 'min' => 0, 'max' => 3,
+                'when' => fn (self $model): bool => self::boolVal($model->rank_up_battle) === true,
+            ],
+            [['challenge_lose'], 'integer', 'min' => 0, 'max' => 3],
 
             [['lobby'], KeyValidator::class, 'modelClass' => Lobby3::class],
             [['rule'], KeyValidator::class, 'modelClass' => Rule3::class],
@@ -385,6 +392,7 @@ final class PostBattleForm extends Model
             'is_deleted' => false,
             'challenge_win' => self::intVal($this->challenge_win),
             'challenge_lose' => self::intVal($this->challenge_lose),
+            'is_rank_up_battle' => self::boolVal($this->rank_up_battle),
         ]);
 
         // kill+assistが不明でkillとassistがわかっている

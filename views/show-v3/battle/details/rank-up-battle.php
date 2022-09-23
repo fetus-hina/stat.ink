@@ -6,18 +6,18 @@ use app\models\Battle3;
 use yii\bootstrap\Html;
 
 return [
-  'label' => Yii::t('app', 'Series Progress'),
+  'label' => Yii::t('app', 'Rank-up Battle'),
   'format' => 'raw',
   'value' => function (Battle3 $model): ?string {
     if (
-      $model->is_rank_up_battle === true ||
+      $model->is_rank_up_battle !== true || 
       $model->challenge_win === null ||
       $model->challenge_lose === null
     ) {
       return null;
     }
 
-    $win = \min(\max($model->challenge_win, 0), 5);
+    $win = \min(\max($model->challenge_win, 0), 3);
     $lose = \min(\max($model->challenge_lose, 0), 3);
 
     return \implode('', [
@@ -45,7 +45,7 @@ return [
             'span',
             \str_repeat(
               Html::tag('span', '', ['class' => 'fas fa-fw fa-circle']),
-              5 - $win
+              3 - $win
             ),
             [
               'class' => 'text-muted',

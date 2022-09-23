@@ -393,6 +393,7 @@ return [
     'Rank' => 'Rango',
     'Rank (After)' => 'Rango (Después)',
     'Rank (after the battle)' => '',
+    'Rank-up Battle' => '',
     'Rank: Current' => '',
     'Rank: Peak' => '',
     'Rank in Team' => 'Fila en Equipo',

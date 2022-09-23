@@ -392,6 +392,7 @@ return [
     'Rank' => '段位',
     'Rank (After)' => '段位（之后）',
     'Rank (after the battle)' => '段位（对战之后）',
+    'Rank-up Battle' => '',
     'Rank: Current' => '当前段位：',
     'Rank: Peak' => '最高段位：',
     'Rank in Team' => '队中排名',

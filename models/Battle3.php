@@ -68,6 +68,7 @@ use yii\db\ActiveRecord;
  * @property integer $challenge_win
  * @property integer $challenge_lose
  * @property integer $rank_exp_change
+ * @property boolean $is_rank_up_battle
  *
  * @property Agent $agent
  * @property BattleAgentVariable3[] $battleAgentVariable3s
@@ -102,7 +103,7 @@ class Battle3 extends ActiveRecord
             [['uuid', 'client_uuid', 'note', 'private_note', 'link_url', 'remote_addr'], 'string'],
             [['user_id', 'lobby_id', 'rule_id', 'map_id', 'weapon_id', 'result_id', 'rank_in_team', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'inked', 'our_team_inked', 'their_team_inked', 'our_team_count', 'their_team_count', 'level_before', 'level_after', 'rank_before_id', 'rank_before_s_plus', 'rank_before_exp', 'rank_after_id', 'rank_after_s_plus', 'rank_after_exp', 'cash_before', 'cash_after', 'version_id', 'agent_id', 'period', 'remote_port', 'challenge_win', 'challenge_lose', 'rank_exp_change'], 'default', 'value' => null],
             [['user_id', 'lobby_id', 'rule_id', 'map_id', 'weapon_id', 'result_id', 'rank_in_team', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'inked', 'our_team_inked', 'their_team_inked', 'our_team_count', 'their_team_count', 'level_before', 'level_after', 'rank_before_id', 'rank_before_s_plus', 'rank_before_exp', 'rank_after_id', 'rank_after_s_plus', 'rank_after_exp', 'cash_before', 'cash_after', 'version_id', 'agent_id', 'period', 'remote_port', 'challenge_win', 'challenge_lose', 'rank_exp_change'], 'integer'],
-            [['is_knockout', 'is_automated', 'use_for_entire', 'is_deleted'], 'boolean'],
+            [['is_knockout', 'is_automated', 'use_for_entire', 'is_deleted', 'is_rank_up_battle'], 'boolean'],
             [['our_team_percent', 'their_team_percent'], 'number'],
             [['start_at', 'end_at', 'created_at', 'updated_at'], 'safe'],
             [['uuid'], 'unique'],
@@ -173,6 +174,7 @@ class Battle3 extends ActiveRecord
             'challenge_win' => 'Challenge Win',
             'challenge_lose' => 'Challenge Lose',
             'rank_exp_change' => 'Rank Exp Change',
+            'is_rank_up_battle' => 'Is Rank Up Battle',
         ];
     }
 
