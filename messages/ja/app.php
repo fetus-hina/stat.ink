@@ -381,6 +381,7 @@ return [
     'Rank (after the battle)' => 'ウデマエ（バトル後）',
     'Rank in Team' => 'チーム内順位',
     'Rank' => 'ウデマエ',
+    'Rank-up Battle' => '昇格戦',
     'Rank: Current' => 'ウデマエ: 現在',
     'Rank: Peak' => 'ウデマエ: 最高',
     'Rate' => 'レート',

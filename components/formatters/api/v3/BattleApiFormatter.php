@@ -69,6 +69,7 @@ final class BattleApiFormatter
             'rank_after_s_plus' => $model->rank_after_s_plus,
             'rank_after_exp' => $model->rank_after_exp,
             'rank_exp_change' => $model->rank_exp_change,
+            'rank_up_battle' => $model->is_rank_up_battle,
             'challenge_win' => $model->challenge_win,
             'challenge_lose' => $model->challenge_lose,
             'cash_before' => $model->cash_before,

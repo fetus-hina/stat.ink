@@ -393,6 +393,7 @@ return [
     'Rank' => 'Rang',
     'Rank (After)' => 'Rang (Après)',
     'Rank (after the battle)' => 'Rang (Après la bataille)',
+    'Rank-up Battle' => '',
     'Rank: Current' => 'Rang : Actuel',
     'Rank: Peak' => 'Rang : Le plus haut',
     'Rank in Team' => 'Rang dans l\'équipe',
