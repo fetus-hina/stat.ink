@@ -42,6 +42,10 @@ trait LicenseCheckTrait
         '/^LGPL/',
     ];
 
+    private array $skipPackages = [
+        'npm::spl3-stages',
+    ];
+
     public function actionCheck(): int
     {
         $status = 0;
@@ -133,9 +137,13 @@ trait LicenseCheckTrait
     {
         $list = [];
         foreach ($json as $package => $license) {
-            if (!$this->isSafeLicense($license)) {
-                $list[] = vsprintf("%-55s %s", [
-                    vsprintf('%s::%s', [$manager, $package]),
+            $name = \vsprintf('%s::%s', [$manager, $package]);
+            if (
+                !$this->shouldSkipChecking($name) &&
+                !$this->isSafeLicense($license)
+            ) {
+                $list[] = \vsprintf("%-55s %s", [
+                    $name,
                     $license,
                 ]);
             }
@@ -186,6 +194,17 @@ trait LicenseCheckTrait
                     }
                 }
             } catch (Exception $e) {
+            }
+        }
+
+        return false;
+    }
+
+    private function shouldSkipChecking(string $packageName): bool
+    {
+        foreach ($this->skipPackages as $skipPackage) {
+            if (str_starts_with($packageName, "{$skipPackage}@")) {
+                return true;
             }
         }
 
