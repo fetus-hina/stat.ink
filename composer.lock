@@ -1221,16 +1221,16 @@
         },
         {
             "name": "laminas/laminas-servicemanager",
-            "version": "3.16.0",
+            "version": "3.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-servicemanager.git",
-                "reference": "863c66733740cd36ebf5e700f4258ef2c68a2a24"
+                "reference": "360be5f16955dd1edbcce1cfaa98ed82a17f02ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-servicemanager/zipball/863c66733740cd36ebf5e700f4258ef2c68a2a24",
-                "reference": "863c66733740cd36ebf5e700f4258ef2c68a2a24",
+                "url": "https://api.github.com/repos/laminas/laminas-servicemanager/zipball/360be5f16955dd1edbcce1cfaa98ed82a17f02ec",
+                "reference": "360be5f16955dd1edbcce1cfaa98ed82a17f02ec",
                 "shasum": ""
             },
             "require": {
@@ -1252,7 +1252,7 @@
             },
             "require-dev": {
                 "composer/package-versions-deprecated": "^1.0",
-                "laminas/laminas-coding-standard": "~2.3.0",
+                "laminas/laminas-coding-standard": "~2.4.0",
                 "laminas/laminas-container-config-test": "^0.7",
                 "laminas/laminas-dependency-plugin": "^2.1.2",
                 "mikey179/vfsstream": "^1.6.10@alpha",
@@ -1308,7 +1308,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2022-07-27T14:58:17+00:00"
+            "time": "2022-09-22T11:33:46+00:00"
         },
         {
             "name": "laminas/laminas-stdlib",
@@ -1820,16 +1820,16 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "9.6.1",
+            "version": "9.6.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "d453257b12c9999dc6dfcdb8e7a7d36958f67d86"
+                "reference": "4b096ed518bd847219f2be771c77a29c3883b040"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/d453257b12c9999dc6dfcdb8e7a7d36958f67d86",
-                "reference": "d453257b12c9999dc6dfcdb8e7a7d36958f67d86",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/4b096ed518bd847219f2be771c77a29c3883b040",
+                "reference": "4b096ed518bd847219f2be771c77a29c3883b040",
                 "shasum": ""
             },
             "require": {
@@ -1837,8 +1837,10 @@
                 "php": ">=7.0"
             },
             "require-dev": {
+                "dealerdirect/phpcodesniffer-composer-installer": "*",
                 "ext-gd": "*",
-                "phpcompatibility/php-compatibility": "*",
+                "phpcompatibility/php-compatibility": "dev-develop",
+                "phpcsstandards/phpcsutils": "@alpha",
                 "phpunit/phpunit": "*",
                 "squizlabs/php_codesniffer": "*",
                 "vimeo/psalm": "*"
@@ -1887,9 +1889,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-curl-class/php-curl-class/issues",
-                "source": "https://github.com/php-curl-class/php-curl-class/tree/9.6.1"
+                "source": "https://github.com/php-curl-class/php-curl-class/tree/9.6.3"
             },
-            "time": "2022-07-01T00:33:15+00:00"
+            "time": "2022-09-24T03:49:46+00:00"
         },
         {
             "name": "phpseclib/phpseclib",
@@ -5133,16 +5135,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.8.5",
+            "version": "1.8.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "f6598a5ff12ca4499a836815e08b4d77a2ddeb20"
+                "reference": "c386ab2741e64cc9e21729f891b28b2b10fe6618"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/f6598a5ff12ca4499a836815e08b4d77a2ddeb20",
-                "reference": "f6598a5ff12ca4499a836815e08b4d77a2ddeb20",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/c386ab2741e64cc9e21729f891b28b2b10fe6618",
+                "reference": "c386ab2741e64cc9e21729f891b28b2b10fe6618",
                 "shasum": ""
             },
             "require": {
@@ -5172,7 +5174,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.8.5"
+                "source": "https://github.com/phpstan/phpstan/tree/1.8.6"
             },
             "funding": [
                 {
@@ -5188,7 +5190,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-09-07T16:05:32+00:00"
+            "time": "2022-09-23T09:54:39+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
