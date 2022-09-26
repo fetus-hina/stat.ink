@@ -1820,16 +1820,16 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "9.6.1",
+            "version": "9.6.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "d453257b12c9999dc6dfcdb8e7a7d36958f67d86"
+                "reference": "4b096ed518bd847219f2be771c77a29c3883b040"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/d453257b12c9999dc6dfcdb8e7a7d36958f67d86",
-                "reference": "d453257b12c9999dc6dfcdb8e7a7d36958f67d86",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/4b096ed518bd847219f2be771c77a29c3883b040",
+                "reference": "4b096ed518bd847219f2be771c77a29c3883b040",
                 "shasum": ""
             },
             "require": {
@@ -1837,8 +1837,10 @@
                 "php": ">=7.0"
             },
             "require-dev": {
+                "dealerdirect/phpcodesniffer-composer-installer": "*",
                 "ext-gd": "*",
-                "phpcompatibility/php-compatibility": "*",
+                "phpcompatibility/php-compatibility": "dev-develop",
+                "phpcsstandards/phpcsutils": "@alpha",
                 "phpunit/phpunit": "*",
                 "squizlabs/php_codesniffer": "*",
                 "vimeo/psalm": "*"
@@ -1887,9 +1889,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-curl-class/php-curl-class/issues",
-                "source": "https://github.com/php-curl-class/php-curl-class/tree/9.6.1"
+                "source": "https://github.com/php-curl-class/php-curl-class/tree/9.6.3"
             },
-            "time": "2022-07-01T00:33:15+00:00"
+            "time": "2022-09-24T03:49:46+00:00"
         },
         {
             "name": "phpseclib/phpseclib",
