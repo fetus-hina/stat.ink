@@ -37,6 +37,7 @@ return [
                 'app-privacy'   => 'privacy.php',
                 'app-rank'      => 'rank.php',
                 'app-rank2'     => 'rank2.php',
+                'app-rank3'     => 'rank3.php',
                 'app-region'    => 'region.php',
                 'app-reltime'   => 'reltime.php',
                 'app-rule'      => 'rule.php',
