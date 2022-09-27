@@ -302,11 +302,13 @@ final class PostBattleForm extends Model
             }
 
             return $connection->transactionEx(function (Connection $connection): ?Battle3 {
-                if (!$battle = $this->saveNewBattle()) {
+                $rewriteKillAssist = $this->shouldRewriteKillAssist();
+
+                if (!$battle = $this->saveNewBattle($rewriteKillAssist)) {
                     return null;
                 }
 
-                if (!$this->savePlayers($battle)) {
+                if (!$this->savePlayers($battle, $rewriteKillAssist)) {
                     return null;
                 }
 
@@ -314,7 +316,7 @@ final class PostBattleForm extends Model
                     return null;
                 }
 
-                if (!$this->saveAgentVariables($battle)) {
+                if (!$this->saveAgentVariables($battle, $rewriteKillAssist)) {
                     return null;
                 }
 
@@ -337,7 +339,7 @@ final class PostBattleForm extends Model
         }
     }
 
-    private function saveNewBattle(): ?Battle3
+    private function saveNewBattle(bool $rewriteKillAssist): ?Battle3
     {
         $uuid = (string)Uuid::v4();
         $model = Yii::createObject([
@@ -395,9 +397,27 @@ final class PostBattleForm extends Model
             'is_rank_up_battle' => self::boolVal($this->rank_up_battle),
         ]);
 
-        // kill+assistが不明でkillとassistがわかっている
-        if ($model->kill_or_assist === null && \is_int($model->kill) && \is_int($model->assist)) {
-            $model->kill_or_assist = $model->kill + $model->assist;
+        if ($rewriteKillAssist) {
+            if (\is_int($model->kill) && \is_int($model->assist)) {
+                // kill_or_assist にゴミデータが、
+                // kill に kill + assist が入っている
+                $model->kill_or_assist = $model->kill;
+                $model->kill = $model->kill_or_assist - $model->assist;
+                if ($model->kill < 0) {
+                    $model->kill_or_assist = null;
+                    $model->kill = null;
+                    $model->assist = null;
+                }
+            }
+        } else {
+            // kill+assistが不明でkillとassistがわかっている
+            if (
+                $model->kill_or_assist === null &&
+                \is_int($model->kill) &&
+                \is_int($model->assist)
+            ) {
+                $model->kill_or_assist = $model->kill + $model->assist;
+            }
         }
 
         // 設定された値から統計に使えそうか雑な判断をする
@@ -413,13 +433,13 @@ final class PostBattleForm extends Model
         return $model;
     }
 
-    private function savePlayers(Battle3 $battle): bool
+    private function savePlayers(Battle3 $battle, bool $rewriteKillAssist): bool
     {
         if (\is_array($this->our_team_players) && $this->our_team_players) {
             foreach ($this->our_team_players as $player) {
                 $model = Yii::createObject(PlayerForm::class);
                 $model->attributes = $player;
-                if (!$model->save($battle, true)) {
+                if (!$model->save($battle, true, $rewriteKillAssist)) {
                     return false;
                 }
             }
@@ -429,7 +449,7 @@ final class PostBattleForm extends Model
             foreach ($this->their_team_players as $player) {
                 $model = Yii::createObject(PlayerForm::class);
                 $model->attributes = $player;
-                if (!$model->save($battle, false)) {
+                if (!$model->save($battle, false, $rewriteKillAssist)) {
                     return false;
                 }
             }
@@ -513,11 +533,19 @@ final class PostBattleForm extends Model
         return $model;
     }
 
-    private function saveAgentVariables(Battle3 $battle): bool
+    private function saveAgentVariables(Battle3 $battle, bool $rewriteKillAssist): bool
     {
         $map = $this->agent_variables;
         if (!\is_array($map) || !$map) {
-            return true;
+            if (!$rewriteKillAssist) {
+                return true;
+            }
+
+            $map = [];
+        }
+
+        if ($rewriteKillAssist) {
+            $map['s3s issue 30'] = 'Fixed by stat.ink API endpoint';
         }
 
         foreach ($map as $k => $v) {
@@ -653,6 +681,24 @@ final class PostBattleForm extends Model
             'filename' => $fileName,
         ]);
         return $model->save();
+    }
+
+    private function shouldRewriteKillAssist(): bool
+    {
+        // See
+        // https://github.com/fetus-hina/stat.ink/issues/1089
+        // https://github.com/frozenpandaman/s3s/issues/30
+        if (self::strVal($this->agent) === 's3s') {
+            $version = self::strVal($this->agent_version);
+            if (
+                $version &&
+                \version_compare($version, 'v0.1.3', '<')
+            ) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private static function userAgent(?string $agentName, ?string $agentVersion): ?int

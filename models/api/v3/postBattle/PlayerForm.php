@@ -80,7 +80,7 @@ final class PlayerForm extends Model
         ];
     }
 
-    public function save(Battle3 $battle, bool $isOurTeam): ?BattlePlayer3
+    public function save(Battle3 $battle, bool $isOurTeam, bool $rewriteKillAssist): ?BattlePlayer3
     {
         if (!$this->validate()) {
             return null;
@@ -104,6 +104,20 @@ final class PlayerForm extends Model
             'is_disconnected' => self::boolVal($this->disconnected),
             'splashtag_title_id' => $this->splashtagTitle(self::strVal($this->splashtag_title)),
         ]);
+
+        if (
+            $rewriteKillAssist &&
+            \is_int($model->kill) &&
+            \is_int($model->assist)
+        ) {
+            $model->kill_or_assist = $model->kill;
+            $model->kill = $model->kill_or_assist - $model->assist;
+            if ($model->kill < 0) {
+                $model->kill_or_assist = null;
+                $model->kill = null;
+                $model->assist = null;
+            }
+        }
 
         if (!$model->save()) {
             $this->addError('_system', \vsprintf('Failed to store new player info, info=%s', [
