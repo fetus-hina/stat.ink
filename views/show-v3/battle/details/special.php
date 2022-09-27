@@ -5,7 +5,7 @@ declare(strict_types=1);
 use app\models\Battle3;
 
 return [
-  'label' => Yii::t('app', 'Special'),
+  'label' => Yii::t('app', 'Specials'),
   'value' => function (Battle3 $model): ?string {
     if ($model->special === null) {
       return null;
