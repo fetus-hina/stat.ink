@@ -11,6 +11,8 @@ declare(strict_types=1);
 namespace app\components\widgets\v3;
 
 use Yii;
+use app\components\widgets\v3\weaponIcon\SpecialIcon;
+use app\components\widgets\v3\weaponIcon\SubweaponIcon;
 use app\models\Weapon3;
 use yii\base\Widget;
 use yii\bootstrap\Html;
@@ -54,12 +56,20 @@ final class WeaponName extends Widget
             return '';
         }
 
-        //TODO: icon (respect showName)
-        // showNameでないときは "/" とかの区切りはたぶんいらない
-
-        return \vsprintf('%s / %s', [
-            Yii::t('app-subweapon3', $sub->name),
-            Yii::t('app-special3', $sp->name),
-        ]);
+        return $this->showName
+            ? \vsprintf('%s / %s', [
+                \implode(' ', [
+                    SubweaponIcon::widget(['model' => $sub, 'alt' => false]),
+                    Html::encode(Yii::t('app-subweapon3', $sub->name)),
+                ]),
+                \implode(' ', [
+                    SpecialIcon::widget(['model' => $sp, 'alt' => false]),
+                    Html::encode(Yii::t('app-special3', $sp->name)),
+                ]),
+            ])
+            : \implode(' ', [
+                SubweaponIcon::widget(['model' => $sub]),
+                SpecialIcon::widget(['model' => $sp]),
+            ]);
     }
 }

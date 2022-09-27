@@ -21,7 +21,7 @@ final class Translator
         string $category,
         string $message,
         array $params = [],
-        int $version = 2
+        ?int $version = 2
     ): array {
         if (self::$langs === null) {
             self::$langs = Language::find()
@@ -42,8 +42,12 @@ final class Translator
         return $ret;
     }
 
-    private static function isVersionMatch(int $version, Language $lang): bool
+    private static function isVersionMatch(?int $version, Language $lang): bool
     {
+        if ($version === null) {
+            return true;
+        }
+
         $langCode = $lang->lang;
         if (
             $langCode === 'de-DE' ||

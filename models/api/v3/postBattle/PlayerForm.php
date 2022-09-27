@@ -56,14 +56,14 @@ final class PlayerForm extends Model
             [['me', 'disconnected'], 'in', 'range' => ['yes', 'no', true, false]],
             [['rank_in_team'], 'integer', 'min' => 1, 'max' => 4],
             [['name'], 'string', 'min' => 1, 'max' => 10],
-            [['number'], 'integer', 'min' => 0, 'max' => 99999],
+            [['number'], 'integer', 'min' => 0],
             [['splashtag_title'], 'string', 'max' => 255],
             [['weapon'], 'string'],
             [['weapon'], KeyValidator::class,
                 'modelClass' => Weapon3::class,
                 'aliasClass' => Weapon3Alias::class,
             ],
-            [['inked'], 'integer', 'min' => 0, 'max' => 9999],
+            [['inked'], 'integer', 'min' => 0],
             [['kill', 'assist', 'kill_or_assist', 'death', 'special'], 'integer',
                 'min' => 0,
                 'max' => 99,
@@ -80,7 +80,7 @@ final class PlayerForm extends Model
         ];
     }
 
-    public function save(Battle3 $battle, bool $isOurTeam): ?BattlePlayer3
+    public function save(Battle3 $battle, bool $isOurTeam, bool $rewriteKillAssist): ?BattlePlayer3
     {
         if (!$this->validate()) {
             return null;
@@ -104,6 +104,20 @@ final class PlayerForm extends Model
             'is_disconnected' => self::boolVal($this->disconnected),
             'splashtag_title_id' => $this->splashtagTitle(self::strVal($this->splashtag_title)),
         ]);
+
+        if (
+            $rewriteKillAssist &&
+            \is_int($model->kill) &&
+            \is_int($model->assist)
+        ) {
+            $model->kill_or_assist = $model->kill;
+            $model->kill = $model->kill_or_assist - $model->assist;
+            if ($model->kill < 0) {
+                $model->kill_or_assist = null;
+                $model->kill = null;
+                $model->assist = null;
+            }
+        }
 
         if (!$model->save()) {
             $this->addError('_system', \vsprintf('Failed to store new player info, info=%s', [

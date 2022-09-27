@@ -1,22 +1,24 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 namespace app\actions\api\info;
 
 use Yii;
-use yii\web\NotFoundHttpException;
-use yii\web\ViewAction as BaseAction;
 use app\components\helpers\Translator;
-use app\models\Language;
 use app\models\Gear;
 use app\models\GearType;
+use app\models\Language;
+use yii\base\Action;
+use yii\web\NotFoundHttpException;
 
-class GearAction extends BaseAction
+final class GearAction extends Action
 {
     public $type;
 
@@ -41,7 +43,7 @@ class GearAction extends BaseAction
                 return [
                     'key'   => $gear['key'],
                     'name'  => Yii::t('app-gear', $gear['name']),
-                    'names' => Translator::translateToAll('app-gear', $gear['name']),
+                    'names' => Translator::translateToAll('app-gear', $gear['name'], [], null),
                     'brand' => Yii::t('app-brand', $gear['brand']['name'] ?? null),
                     'ability' => Yii::t('app-ability', $gear['ability']['name'] ?? null),
                 ];
@@ -56,7 +58,10 @@ class GearAction extends BaseAction
             return strnatcasecmp($a['name'], $b['name']);
         });
 
-        $langs = Language::find()->standard()->asArray()->all();
+        $langs = Language::find()
+            ->standard()
+            ->asArray()
+            ->all();
         $sysLang = Yii::$app->language;
         usort($langs, function (array $a, array $b) use ($sysLang): int {
             if ($a['lang'] === $sysLang) {

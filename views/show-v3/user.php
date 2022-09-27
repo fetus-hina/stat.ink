@@ -14,6 +14,8 @@ use app\components\widgets\GameModeIcon;
 use app\components\widgets\Label;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\UserMiniInfo3;
+use app\components\widgets\v3\weaponIcon\SpecialIcon;
+use app\components\widgets\v3\weaponIcon\SubweaponIcon;
 use app\models\Battle3;
 use yii\bootstrap\ActiveForm;
 use yii\grid\GridView;
@@ -244,6 +246,22 @@ if ($user->twitter != '') {
             // }}}
           ],
           [
+            // sub weapon (icon) {{{
+            'label' => '',
+            'headerOptions' => ['class' => 'cell-sub-weapon-icon'],
+            'contentOptions' => ['class' => 'cell-sub-weapon-icon'],
+            'format' => 'raw',
+            'value' => function (Battle3 $model): string {
+              if ($w = $model->weapon) {
+                if ($sub = $w->subweapon) {
+                  return SubweaponIcon::widget(['model' => $sub]);
+                }
+              }
+              return '?';
+            },
+            // }}}
+          ],
+          [
             // sub weapon {{{
             'label' => Yii::t('app', 'Sub Weapon'),
             'attribute' => 'weapon.subweapon.name',
@@ -251,6 +269,22 @@ if ($user->twitter != '') {
             'contentOptions' => ['class' => 'cell-sub-weapon'],
             'format' => ['translated', 'app-subweapon3'],
             // }}} 
+          ],
+          [
+            // special weapon (icon) {{{
+            'label' => '',
+            'headerOptions' => ['class' => 'cell-special-icon'],
+            'contentOptions' => ['class' => 'cell-special-icon'],
+            'format' => 'raw',
+            'value' => function (Battle3 $model): string {
+              if ($w = $model->weapon) {
+                if ($special = $w->special) {
+                  return SpecialIcon::widget(['model' => $special]);
+                }
+              }
+              return '?';
+            },
+            // }}}
           ],
           [
             // special weapon {{{
@@ -605,7 +639,9 @@ if ($user->twitter != '') {
           'cell-rule'                 => Yii::t('app', 'Mode'),
           'cell-map'                  => Yii::t('app', 'Stage'),
           'cell-main-weapon'          => Yii::t('app', 'Weapon'),
+          'cell-sub-weapon-icon'      => Yii::t('app', 'Sub Weapon (Icon)'),
           'cell-sub-weapon'           => Yii::t('app', 'Sub Weapon'),
+          'cell-special-icon'         => Yii::t('app', 'Special (Icon)'),
           'cell-special'              => Yii::t('app', 'Special'),
           'cell-rank'                 => Yii::t('app', 'Rank'),
           'cell-rank-after'           => Yii::t('app', 'Rank (After)'),

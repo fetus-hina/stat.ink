@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 use app\assets\TableResponsiveForceAsset;
+use app\components\widgets\v3\weaponIcon\SpecialIcon;
+use app\components\widgets\v3\weaponIcon\SubweaponIcon;
 use app\models\Language;
 use app\models\Weapon3;
 use app\models\Weapon3Alias;
@@ -85,13 +87,19 @@ SortableTableAsset::register($this);
         <?= Html::tag(
           'td',
           $weapon->subweapon
-            ? Html::encode(Yii::t('app-subweapon3', $weapon->subweapon->name, [], $lang->lang))
+            ? implode(' ', [
+              SubweaponIcon::widget(['model' => $weapon->subweapon, 'alt' => false]),
+              Html::encode(Yii::t('app-subweapon3', $weapon->subweapon->name, [], $lang->lang)),
+            ])
             : '',
         ) . "\n" ?>
         <?= Html::tag(
           'td',
           $weapon->special
-            ? Html::encode(Yii::t('app-special3', $weapon->special->name, [], $lang->lang))
+            ? implode(' ', [
+              SpecialIcon::widget(['model' => $weapon->special, 'alt' => false]),
+              Html::encode(Yii::t('app-special3', $weapon->special->name, [], $lang->lang)),
+            ])
             : '',
         ) . "\n" ?>
 <?php } ?>
