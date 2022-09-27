@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
+use app\components\widgets\v3\ChallengeProgress;
 use app\models\Battle3;
-use yii\bootstrap\Html;
 
 return [
   'label' => Yii::t('app', 'Series Progress'),
@@ -17,69 +17,10 @@ return [
       return null;
     }
 
-    $win = \min(\max($model->challenge_win, 0), 5);
-    $lose = \min(\max($model->challenge_lose, 0), 3);
-
-    return \implode('', [
-      Html::tag(
-        'div',
-        Html::encode(
-          \vsprintf('%s - %s', [
-            Yii::$app->formatter->asInteger($win),
-            Yii::$app->formatter->asInteger($lose),
-          ])
-        )
-      ),
-      Html::tag(
-        'div',
-        \implode('', [
-          Html::tag(
-            'span',
-            \str_repeat(
-              Html::tag('span', '', ['class' => 'fas fa-fw fa-circle']),
-              $win
-            ),
-            ['class' => 'text-success']
-          ),
-          Html::tag(
-            'span',
-            \str_repeat(
-              Html::tag('span', '', ['class' => 'fas fa-fw fa-circle']),
-              5 - $win
-            ),
-            [
-              'class' => 'text-muted',
-              'style' => 'opacity:0.2',
-            ]
-          ),
-        ]),
-        ['class' => 'series-progress'],
-      ),
-      Html::tag(
-        'div',
-        \implode('', [
-          Html::tag(
-            'span',
-            \str_repeat(
-              Html::tag('span', '', ['class' => 'fas fa-fw fa-square']),
-              3 - $lose
-            ),
-            ['class' => 'text-warning']
-          ),
-          Html::tag(
-            'span',
-            \str_repeat(
-              Html::tag('span', '', ['class' => 'fas fa-fw fa-times']),
-              $lose
-            ),
-            [
-              'class' => 'text-danger',
-              'style' => 'opacity:0.5',
-            ]
-          ),
-        ]),
-        ['class' => 'series-progress'],
-      ),
+    return ChallengeProgress::widget([
+      'win' => $model->challenge_win,
+      'lose' => $model->challenge_lose,
+      'isRankUpBattle' => false,
     ]);
   },
 ];
