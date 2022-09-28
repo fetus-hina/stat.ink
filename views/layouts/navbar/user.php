@@ -3,10 +3,12 @@
 declare(strict_types=1);
 
 use app\components\widgets\FA;
+use app\components\widgets\GameVersionIcon;
 use app\components\widgets\UserIcon;
 use yii\helpers\Html;
 
 $user = Yii::$app->user->identity ?? null;
+
 ?>
 <?= Html::a(
   implode('', [
@@ -52,6 +54,15 @@ $user = Yii::$app->user->identity ?? null;
       Html::tag('li', Html::a(
         implode('', [
           Html::tag('span', '┣', ['class' => 'fa fa-fw']),
+          GameVersionIcon::widget(['version' => 3]),
+          Html::encode(Yii::t('app', 'Splatoon 3')),
+        ]),
+        ['/show-v3/user', 'screen_name' => $user->screen_name]
+      )),
+      Html::tag('li', Html::a(
+        implode('', [
+          Html::tag('span', '┣', ['class' => 'fa fa-fw']),
+          GameVersionIcon::widget(['version' => 2]),
           Html::encode(Yii::t('app', 'Splatoon 2')),
         ]),
         ['/show-v2/user', 'screen_name' => $user->screen_name]
@@ -68,6 +79,7 @@ $user = Yii::$app->user->identity ?? null;
       Html::tag('li', Html::a(
         implode('', [
           Html::tag('span', '┗', ['class' => 'fa fa-fw']),
+          GameVersionIcon::widget(['version' => 1]),
           Html::encode(Yii::t('app', 'Splatoon')),
         ]),
         ['/show/user', 'screen_name' => $user->screen_name]
