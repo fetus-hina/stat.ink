@@ -144,6 +144,7 @@ return [
     'Deaths per minute' => '每分鐘死亡數',
     'Default Color' => '默認顏色',
     'Defeat' => '',
+    'Defeat (Exempted)' => '',
     'Delete' => '刪除',
     'Detail' => '細節',
     'Detailed List' => '細節列表',

@@ -144,6 +144,7 @@ return [
     'Deaths per minute' => '每分钟死亡数',
     'Default Color' => '默认颜色',
     'Defeat' => '',
+    'Defeat (Exempted)' => '',
     'Delete' => '删除',
     'Detail' => '细节',
     'Detailed List' => '细节列表',
