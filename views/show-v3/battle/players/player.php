@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use app\components\widgets\v3\weaponIcon\SpecialIcon;
 use app\components\widgets\v3\weaponIcon\SubweaponIcon;
+use app\components\widgets\v3\weaponIcon\WeaponIcon;
 use app\models\BattlePlayer3;
 use yii\bootstrap\Html;
 use yii\web\View;
@@ -51,6 +52,7 @@ if ($player->is_me) {
   <td><?php
     if ($player->weapon) {
       echo implode(' ', [
+        WeaponIcon::widget(['model' => $player->weapon]),
         Html::encode(Yii::t('app-weapon3', $player->weapon->name)),
         SubweaponIcon::widget(['model' => $player->weapon->subweapon]),
         SpecialIcon::widget(['model' => $player->weapon->special]),
@@ -90,5 +92,10 @@ if ($player->is_me) {
       }
     }
   ?></td>
-  <td class="text-right"><?= $f->asInteger($player->special) ?></td>
+  <td class="text-right"><?php
+    if ($player->weapon) {
+      echo SpecialIcon::widget(['model' => $player->weapon->special]) . ' ';
+    }
+    echo $f->asInteger($player->special);
+  ?></td>
 </tr>

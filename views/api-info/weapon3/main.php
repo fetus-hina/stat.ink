@@ -5,12 +5,13 @@ declare(strict_types=1);
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\v3\weaponIcon\SpecialIcon;
 use app\components\widgets\v3\weaponIcon\SubweaponIcon;
+use app\components\widgets\v3\weaponIcon\WeaponIcon;
 use app\models\Language;
 use app\models\Weapon3;
 use app\models\Weapon3Alias;
 use statink\yii2\sortableTable\SortableTableAsset;
-use yii\bootstrap\Html;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 use yii\web\View;
 
 /**
@@ -28,6 +29,7 @@ SortableTableAsset::register($this);
   <table class="table table-striped table-condensed table-sortable">
     <thead>
       <tr>
+        <th></th>
         <th data-sort="int"><?= Html::encode(Yii::t('app', 'Category')) ?></th>
         <th data-sort="string"><code>key</code></th>
         <th data-sort="string"><?= Html::encode(Yii::t('app', 'Aliases')) ?></th>
@@ -46,6 +48,7 @@ SortableTableAsset::register($this);
     <tbody>
 <?php foreach ($weapons as $weapon) { ?>
       <tr>
+        <td><?= WeaponIcon::widget(['model' => $weapon]) ?></td>
         <?= Html::tag(
           'td',
           Html::encode(Yii::t('app-weapon3', $weapon->mainweapon->type->name)),
@@ -82,7 +85,19 @@ SortableTableAsset::register($this);
 <?php if ($j === 0) { ?>
         <?= Html::tag(
           'td',
-          Html::encode(Yii::t('app-weapon3', $weapon->mainweapon->name, [], $lang->lang)),
+          implode(' ', [
+            WeaponIcon::widget([
+              'model' => $weapon->mainweapon,
+              'alt' => false,
+            ]),
+            $weapon->name === $weapon->mainweapon->name
+              ? Html::tag(
+                'span',
+                Html::encode(Yii::t('app-weapon3', $weapon->mainweapon->name, [], $lang->lang)),
+                ['class' => 'text-muted']
+              )
+              : Html::encode(Yii::t('app-weapon3', $weapon->mainweapon->name, [], $lang->lang)),
+          ])
         ) . "\n" ?>
         <?= Html::tag(
           'td',

@@ -13,9 +13,10 @@ namespace app\components\widgets\v3;
 use Yii;
 use app\components\widgets\v3\weaponIcon\SpecialIcon;
 use app\components\widgets\v3\weaponIcon\SubweaponIcon;
+use app\components\widgets\v3\weaponIcon\WeaponIcon;
 use app\models\Weapon3;
 use yii\base\Widget;
-use yii\bootstrap\Html;
+use yii\helpers\Html;
 
 final class WeaponName extends Widget
 {
@@ -40,8 +41,14 @@ final class WeaponName extends Widget
 
     private function renderMainWeapon(Weapon3 $model): string
     {
-        //TODO: icon (respect showName)
-        return Html::encode(Yii::t('app-weapon3', $model->name));
+        if ($this->showName) {
+            return \implode(' ', [
+                WeaponIcon::widget(['model' => $model, 'alt' => false]),
+                Html::encode(Yii::t('app-weapon3', $model->name)),
+            ]);
+        }
+
+        return WeaponIcon::widget(['model' => $model]);
     }
 
     private function renderSubSp(Weapon3 $model): string
