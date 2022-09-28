@@ -148,6 +148,19 @@ $list = [
   ],
   [],
   [
+    // splatnet2statink {{{
+    'url' => 'https://github.com/frozenpandaman/s3s/',
+    'name' => implode('', [
+      Html::tag('span', '', ['class' => 'fa fa-fw']),
+      Html::encode(Yii::t('app', 's3s')),
+      (string)FA::fab('windows')->fw(),
+      (string)FA::fab('apple')->fw(),
+      (string)FA::fab('linux')->fw(),
+    ]),
+    // }}}
+  ],
+  [],
+  [
     // SquidTracks {{{
     'url' => 'https://github.com/hymm/squid-tracks/',
     'name' => implode('', [
