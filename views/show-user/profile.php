@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\components\widgets\GameVersionIcon;
 use app\models\User;
 use yii\bootstrap\Html;
 use yii\bootstrap\Tabs;
@@ -36,17 +37,50 @@ if ($user->twitter != '') {
       <?= Tabs::widget([
         'items' => [
           [
-            'label' => Yii::t('app', 'Splatoon 3'),
+            'encode' => false,
+            'label' => implode('', [
+              Html::tag(
+                'span',
+                GameVersionIcon::widget(['version' => 3]),
+                [
+                  'title' => Yii::t('app', 'Splatoon 3'),
+                  'class' => 'auto-tooltip',
+                ]
+              ),
+              Html::tag('span', Yii::t('app', 'Splatoon 3'), ['class' => 'sr-only']),
+            ]),
             'active' => true,
             'content' => $this->render('//show-user/profile/splatoon3', ['user' => $user]),
           ],
           [
-            'label' => Yii::t('app', 'Splatoon 2'),
+            'encode' => false,
+            'label' => implode('', [
+              Html::tag(
+                'span',
+                GameVersionIcon::widget(['version' => 2]),
+                [
+                  'title' => Yii::t('app', 'Splatoon 2'),
+                  'class' => 'auto-tooltip',
+                ]
+              ),
+              Html::tag('span', Yii::t('app', 'Splatoon 2'), ['class' => 'sr-only']),
+            ]),
             'active' => false,
             'content' => $this->render('//show-user/profile/splatoon2', ['user' => $user]),
           ],
           [
-            'label' => Yii::t('app', 'Splatoon'),
+            'encode' => false,
+            'label' => implode('', [
+              Html::tag(
+                'span',
+                GameVersionIcon::widget(['version' => 1]),
+                [
+                  'title' => Yii::t('app', 'Splatoon'),
+                  'class' => 'auto-tooltip',
+                ]
+              ),
+              Html::tag('span', Yii::t('app', 'Splatoon'), ['class' => 'sr-only']),
+            ]),
             'active' => false,
             'content' => $this->render('//show-user/profile/splatoon', ['user' => $user]),
           ],
