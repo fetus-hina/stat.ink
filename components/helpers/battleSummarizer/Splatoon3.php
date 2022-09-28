@@ -104,49 +104,66 @@ trait Splatoon3
         $column_total_kill = sprintf(
             'SUM(CASE WHEN (%s) THEN {{battle3}}.[[kill]] ELSE 0 END)',
             implode(' AND ', [
+                $condResultPresent,
                 $condKDPresent,
             ])
         );
         $column_total_death = sprintf(
             'SUM(CASE WHEN (%s) THEN {{battle3}}.[[death]] ELSE 0 END)',
             implode(' AND ', [
+                $condResultPresent,
                 $condKDPresent,
             ])
         );
         $column_kd_present = sprintf(
             'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
             implode(' AND ', [
+                $condResultPresent,
                 $condKDPresent,
             ])
         );
         $column_total_specials = sprintf(
             'SUM(CASE WHEN (%s) THEN {{battle3}}.[[special]] ELSE 0 END)',
             implode(' AND ', [
+                $condResultPresent,
                 $condSpecialPresent,
             ])
         );
         $column_specials_present = sprintf(
             'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
             implode(' AND ', [
+                $condResultPresent,
                 $condSpecialPresent,
             ])
         );
         $column_total_assists = sprintf(
             'SUM(CASE WHEN (%s) THEN {{battle3}}.[[assist]] ELSE 0 END)',
             implode(' AND ', [
+                $condResultPresent,
                 $condAssistPresent,
             ])
         );
         $column_assists_present = sprintf(
             'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
             implode(' AND ', [
+                $condResultPresent,
                 $condAssistPresent,
             ])
         );
-        $column_total_inked = sprintf('SUM(CASE WHEN %s THEN {{battle3}}.[[inked]] ELSE 0 END)', implode(' ', [
-            implode(' AND ', [$condInkedPresent]),
-        ]));
-        $column_inked_present = sprintf('SUM(CASE WHEN %s THEN 1 ELSE 0 END)', implode(' AND ', [$condInkedPresent]));
+        $column_total_inked = sprintf(
+            'SUM(CASE WHEN %s THEN {{battle3}}.[[inked]] ELSE 0 END)',
+            implode(' AND ', [
+                $condResultPresent,
+                $condInkedPresent,
+            ])
+        );
+        $column_inked_present = sprintf(
+            'SUM(CASE WHEN %s THEN 1 ELSE 0 END)',
+            implode(' AND ', [
+                $condResultPresent,
+                $condInkedPresent,
+            ])
+        );
 
         $query = clone $oldQuery;
         $query->orderBy(null);

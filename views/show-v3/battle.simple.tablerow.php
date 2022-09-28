@@ -29,16 +29,20 @@ use yii\helpers\Html;
               }
               return Html::tag(
                 'div',
-                implode('', [
+                implode('<br>', array_filter([
                   Html::encode(Yii::t('app', $result->name)),
-                  $model->is_knockout !== null
-                    ? ('<br>' . Html::encode($model->is_knockout ? Yii::t('app', 'K.O.') : Yii::t('app', 'Time')))
+                  $result->key !== 'draw' && $model->is_knockout !== null
+                    ? Html::encode($model->is_knockout ? Yii::t('app', 'K.O.') : Yii::t('app', 'Time'))
                     : '',
-                ]),
-                ['class' => [
-                  'simple-battle-result',
-                  $result->is_win ? 'simple-battle-result-won' : 'simple-battle-result-lost',
-                ]]
+                ])),
+                [
+                  'class' => [
+                    'simple-battle-result',
+                    $result->key === 'draw'
+                      ? 'simple-battle-result-unk'
+                      : ($result->is_win ? 'simple-battle-result-won' : 'simple-battle-result-lost'),
+                  ],
+                ]
               );
             })(),
             // }}}
