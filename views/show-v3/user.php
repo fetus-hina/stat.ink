@@ -370,17 +370,24 @@ if ($user->twitter != '') {
                   "label-{$result->label_color}",
                 ]])
                 : '?';
-              if ($model->is_knockout !== null) {
-                if ($model->is_knockout) {
-                  $parts[] = Html::tag('span', Html::encode(Yii::t('app', 'K.O.')), [
-                    'class' => 'label label-info auto-tooltip',
-                    'title' => Yii::t('app', 'Knockout'),
-                  ]);
-                } else {
-                  $parts[] = Html::tag('span', Html::encode(Yii::t('app', 'Time')), [
-                    'class' => 'label label-warning auto-tooltip',
-                    'title' => Yii::t('app', 'Time is up'),
-                  ]);
+              if (
+                $model->is_knockout !== null &&
+                $result &&
+                $result->key !== 'draw'
+              ) {
+                $rule = $model->rule;
+                if ($rule && $rule->key !== 'nawabari') {
+                  if ($model->is_knockout) {
+                    $parts[] = Html::tag('span', Html::encode(Yii::t('app', 'K.O.')), [
+                      'class' => 'label label-info auto-tooltip',
+                      'title' => Yii::t('app', 'Knockout'),
+                    ]);
+                  } else {
+                    $parts[] = Html::tag('span', Html::encode(Yii::t('app', 'Time')), [
+                      'class' => 'label label-warning auto-tooltip',
+                      'title' => Yii::t('app', 'Time is up'),
+                    ]);
+                  }
                 }
               }
               return implode(

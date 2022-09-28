@@ -18,7 +18,12 @@ return [
     $rule = $model->rule;
 
     $parts = [];
-    if ($rule && $rule->key !== 'nawabari' && $model->is_knockout !== null) {
+    if (
+      $rule &&
+      $rule->key !== 'nawabari' &&
+      $model->is_knockout !== null &&
+      $result->key !== 'draw'
+    ) {
       $parts[] = $model->is_knockout
         ? Label::widget([
           'content' => Yii::t('app', 'Knockout'),
