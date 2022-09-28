@@ -5,6 +5,7 @@ declare(strict_types=1);
 use app\assets\AppLinkAsset;
 use app\components\widgets\FA;
 use app\components\widgets\FlagIcon;
+use app\components\widgets\GameVersionIcon;
 use yii\helpers\Html;
 use yii\web\View;
 
@@ -25,10 +26,46 @@ $us = function (): string {
 
 $list = [
   [
+    // S3 official {{{
+    'name' => implode(' ', [
+      GameVersionIcon::widget(['version' => 3]),
+      Html::encode(Yii::t('app', '{title} Official Website', [
+        'title' => Yii::t('app', 'Splatoon 3'),
+      ])),
+    ]),
+    'sub' => [
+      [
+        'url' => 'https://www.nintendo.co.jp/switch/av5ja/',
+        'name' => implode(' ', [
+          $jp(),
+          Html::encode(Yii::t('app', 'Japan')),
+        ]),
+      ],
+      [
+        'url' => 'http://splatoon.nintendo.com/',
+        'name' => implode(' ', [
+          $us(),
+          Html::encode(Yii::t('app', 'North America')),
+        ]),
+      ],
+      [
+        'url' => 'https://www.nintendo.co.uk/Games/Nintendo-Switch-games/Splatoon-3-1924751.html',
+        'name' => implode(' ', [
+          $eu(),
+          Html::encode(Yii::t('app', 'Europe')),
+        ]),
+      ],
+    ],
+    // }}}
+  ],
+  [
     // S2 official {{{
-    'name' => Html::encode(Yii::t('app', '{title} Official Website', [
-      'title' => Yii::t('app', 'Splatoon 2'),
-    ])),
+    'name' => implode(' ',[
+      GameVersionIcon::widget(['version' => 2]),
+      Html::encode(Yii::t('app', '{title} Official Website', [
+        'title' => Yii::t('app', 'Splatoon 2'),
+      ])),
+    ]),
     'sub' => [
       [
         'url' => 'https://www.nintendo.co.jp/switch/aab6a',
@@ -56,9 +93,12 @@ $list = [
   ],
   [
     // S1 official {{{
-    'name' => Html::encode(Yii::t('app', '{title} Official Website', [
-      'title' => Yii::t('app', 'Splatoon'),
-    ])),
+    'name' => implode(' ',[
+      GameVersionIcon::widget(['version' => 1]),
+      Html::encode(Yii::t('app', '{title} Official Website', [
+        'title' => Yii::t('app', 'Splatoon'),
+      ])),
+    ]),
     'sub' => [
       [
         'url' => 'http://www.nintendo.co.jp/wiiu/agmj/',
@@ -144,6 +184,19 @@ $list = [
         ]),
       ],
     ],
+    // }}}
+  ],
+  [],
+  [
+    // splatnet2statink {{{
+    'url' => 'https://github.com/frozenpandaman/s3s/',
+    'name' => implode('', [
+      Html::tag('span', '', ['class' => 'fa fa-fw']),
+      Html::encode(Yii::t('app', 's3s')),
+      (string)FA::fab('windows')->fw(),
+      (string)FA::fab('apple')->fw(),
+      (string)FA::fab('linux')->fw(),
+    ]),
     // }}}
   ],
   [],

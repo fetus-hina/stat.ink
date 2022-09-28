@@ -143,6 +143,7 @@ return [
     'Deaths per minute' => '',
     'Default Color' => '',
     'Defeat' => '',
+    'Defeat (Exempted)' => '',
     'Delete' => '',
     'Detail' => '',
     'Detailed List' => '',

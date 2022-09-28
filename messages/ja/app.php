@@ -141,6 +141,7 @@ return [
     'Deaths' => 'デス数',
     'Deaths/min' => 'デス/分',
     'Default Color' => '既定のテーマ',
+    'Defeat (Exempted)' => '敗北(免除)',
     'Defeat' => '敗北',
     'Delete' => '削除',
     'Detail' => '詳細',

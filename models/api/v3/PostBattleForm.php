@@ -136,7 +136,12 @@ final class PostBattleForm extends Model
             [['private_note', 'link_url', 'agent', 'agent_version'], 'string'],
 
             [['uuid'], 'match', 'pattern' => UuidRegexp::get(true)],
-            [['result'], 'in', 'range' => ['win', 'lose', 'draw']],
+            [['result'], 'in', 'range' => [
+                'draw',
+                'exempted_lose',
+                'lose',
+                'win',
+            ]],
             [['link_url'], 'url',
                 'validSchemes' => ['http', 'https'],
                 'defaultScheme' => null,

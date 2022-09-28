@@ -89,13 +89,13 @@ class Migration extends BaseMigration
         }
     }
 
-    public function key2id(string $tableName, string $key): int
+    public function key2id(string $tableName, string $key, string $keyColumn = 'key'): int
     {
         $value = \filter_var(
             (new Query())
                 ->select(['id'])
                 ->from($tableName)
-                ->where(['key' => $key])
+                ->where([$keyColumn => $key])
                 ->limit(1)
                 ->scalar(),
             FILTER_VALIDATE_INT,
