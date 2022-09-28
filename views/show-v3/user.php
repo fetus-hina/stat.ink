@@ -14,6 +14,7 @@ use app\components\widgets\GameModeIcon;
 use app\components\widgets\Label;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\UserMiniInfo3;
+use app\components\widgets\v3\Result;
 use app\components\widgets\v3\weaponIcon\SpecialIcon;
 use app\components\widgets\v3\weaponIcon\SubweaponIcon;
 use app\models\Battle3;
@@ -362,41 +363,14 @@ if ($user->twitter != '') {
             'contentOptions' => ['class' => 'cell-result'],
             'format' => 'raw',
             'value' => function (Battle3 $model): string {
-              $result = $model->result;
-              $parts = [];
-              $parts[] = $result
-                ? Html::tag('span', Html::encode(Yii::t('app', $result->name)), ['class' => [
-                  'label',
-                  "label-{$result->label_color}",
-                ]])
-                : '?';
-              if (
-                $model->is_knockout !== null &&
-                $result &&
-                $result->key !== 'draw'
-              ) {
-                $rule = $model->rule;
-                if ($rule && $rule->key !== 'nawabari') {
-                  if ($model->is_knockout) {
-                    $parts[] = Html::tag('span', Html::encode(Yii::t('app', 'K.O.')), [
-                      'class' => 'label label-info auto-tooltip',
-                      'title' => Yii::t('app', 'Knockout'),
-                    ]);
-                  } else {
-                    $parts[] = Html::tag('span', Html::encode(Yii::t('app', 'Time')), [
-                      'class' => 'label label-warning auto-tooltip',
-                      'title' => Yii::t('app', 'Time is up'),
-                    ]);
-                  }
-                }
-              }
-              return implode(
-                '&nbsp;',
-                array_filter(
-                  $parts,
-                  fn (string $value): bool => trim($value) !== ''
-                )
-              );
+              $result = Result::widget([
+                'isKnockout' => $model->is_knockout,
+                'result' => $model->result,
+                'rule' => $model->rule,
+                'separator' => mb_chr(0xa0, 'UTF-8'),
+              ]);
+
+              return $result ?: Html::encode('?');
             },
             // }}}
           ],
