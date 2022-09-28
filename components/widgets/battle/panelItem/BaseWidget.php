@@ -33,6 +33,21 @@ abstract class BaseWidget extends Widget
     abstract public function getRuleName(): string;
     abstract public function getWeaponName(): string;
 
+    public function getIsDraw(): ?bool
+    {
+        return null;
+    }
+
+    public function getWeaponIcon(): ?string
+    {
+        return null;
+    }
+
+    public function getSubSpIcon(): ?string
+    {
+        return null;
+    }
+
     public function run()
     {
         SimpleBattleListAsset::register($this->view);
@@ -69,6 +84,7 @@ abstract class BaseWidget extends Widget
 
     protected function renderResultHtml(): string
     {
+        $isDraw = $this->getIsDraw();
         $result = $this->getIsWin();
         $isKO = $this->getIsKO();
         if ($result === null) {
@@ -78,6 +94,15 @@ abstract class BaseWidget extends Widget
                 ['class' => 'simple-battle-result simple-battle-result-unk']
             );
         }
+
+        if ($isDraw) {
+            return Html::tag(
+                'div',
+                Html::encode(Yii::t('app', 'Draw')),
+                ['class' => 'simple-battle-result simple-battle-result-unk']
+            );
+        }
+
         if ($isKO === null) {
             $koHtml = '';
         } else {
@@ -96,9 +121,25 @@ abstract class BaseWidget extends Widget
     protected function renderDataHtml(): string
     {
         return Html::tag('div', implode('', [
-            Html::tag('div', $this->getMapName(), ['class' => 'simple-battle-map omit']),
-            Html::tag('div', $this->getRuleName(), ['class' => 'simple-battle-rule omit']),
-            Html::tag('div', $this->getWeaponName(), ['class' => 'simple-battle-weapon omit']),
+            Html::tag(
+                'div',
+                Html::encode($this->getMapName()),
+                ['class' => 'simple-battle-map omit']
+            ),
+            Html::tag(
+                'div',
+                Html::encode($this->getRuleName()),
+                ['class' => 'simple-battle-rule omit']
+            ),
+            Html::tag(
+                'div',
+                \implode(' ', \array_filter([
+                    $this->getWeaponIcon(),
+                    Html::encode($this->getWeaponName()),
+                    $this->getSubSpIcon(),
+                ])),
+                ['class' => 'simple-battle-weapon omit']
+            ),
             Html::tag(
                 'div',
                 $this->renderKillDeathHtml(),

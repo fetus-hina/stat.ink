@@ -17,6 +17,7 @@ use app\components\widgets\UserMiniInfo3;
 use app\components\widgets\v3\Result;
 use app\components\widgets\v3\weaponIcon\SpecialIcon;
 use app\components\widgets\v3\weaponIcon\SubweaponIcon;
+use app\components\widgets\v3\weaponIcon\WeaponIcon;
 use app\models\Battle3;
 use yii\bootstrap\ActiveForm;
 use yii\grid\GridView;
@@ -219,6 +220,20 @@ if ($user->twitter != '') {
             'headerOptions' => ['class' => 'cell-map'],
             'contentOptions' => ['class' => 'cell-map'],
             'format' => ['translated', 'app-map3'],
+            // }}}
+          ],
+          [
+            // weapon (icon) {{{
+            'label' => '',
+            'headerOptions' => ['class' => 'cell-main-weapon-icon'],
+            'contentOptions' => ['class' => 'cell-main-weapon-icon'],
+            'format' => 'raw',
+            'value' => function (Battle3 $model): string {
+              if ($w = $model->weapon) {
+                return WeaponIcon::widget(['model' => $w]);
+              }
+              return '?';
+            },
             // }}}
           ],
           [
@@ -619,6 +634,7 @@ if ($user->twitter != '') {
           'cell-lobby'                => Yii::t('app', 'Lobby'),
           'cell-rule'                 => Yii::t('app', 'Mode'),
           'cell-map'                  => Yii::t('app', 'Stage'),
+          'cell-main-weapon-icon'     => Yii::t('app', 'Weapon (Icon)'),
           'cell-main-weapon'          => Yii::t('app', 'Weapon'),
           'cell-sub-weapon-icon'      => Yii::t('app', 'Sub Weapon (Icon)'),
           'cell-sub-weapon'           => Yii::t('app', 'Sub Weapon'),

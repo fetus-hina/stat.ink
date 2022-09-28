@@ -5,6 +5,7 @@ declare(strict_types=1);
 use app\components\widgets\Label;
 use app\components\widgets\v3\weaponIcon\SpecialIcon;
 use app\components\widgets\v3\weaponIcon\SubweaponIcon;
+use app\components\widgets\v3\weaponIcon\WeaponIcon;
 use yii\helpers\Html;
 
 ?>
@@ -67,6 +68,7 @@ use yii\helpers\Html;
                   'div',
                   $model->weapon
                     ? implode(' ', [
+                      WeaponIcon::widget(['model' => $model->weapon, 'alt' => false]),
                       Html::encode(Yii::t('app-weapon3', $model->weapon->name)),
                       SubweaponIcon::widget(['model' => $model->weapon->subweapon]),
                       SpecialIcon::widget(['model' => $model->weapon->special]),

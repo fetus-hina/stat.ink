@@ -38,7 +38,7 @@ use yii\web\View;
           'user_id' => $user->id,
           'is_deleted' => false,
         ])
-        ->with(['lobby', 'map', 'result', 'user', 'weapon'])
+        ->with(['lobby', 'map', 'result', 'user', 'weapon', 'weapon.subweapon', 'weapon.special'])
         ->innerJoinWith(['rule'])
         ->andWhere(['rule3.key' => 'nawabari'])
         ->orderBy(['battle3.id' => SORT_DESC])
@@ -58,7 +58,7 @@ use yii\web\View;
           'user_id' => $user->id,
           'is_deleted' => false,
         ])
-        ->with(['lobby', 'map', 'result', 'user', 'weapon'])
+        ->with(['lobby', 'map', 'result', 'user', 'weapon', 'weapon.subweapon', 'weapon.special'])
         ->innerJoinWith(['rule'])
         ->andWhere(['<>', 'rule3.key', 'nawabari'])
         ->orderBy(['battle3.id' => SORT_DESC])

@@ -11,6 +11,9 @@ namespace app\components\widgets\battle\panelItem;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
+use app\components\widgets\v3\weaponIcon\SpecialIcon;
+use app\components\widgets\v3\weaponIcon\SubweaponIcon;
+use app\components\widgets\v3\weaponIcon\WeaponIcon;
 
 final class BattleItem3Widget extends BaseWidget
 {
@@ -32,6 +35,15 @@ final class BattleItem3Widget extends BaseWidget
     {
         if ($result = $this->model->result) {
             return $result->is_win;
+        }
+
+        return null;
+    }
+
+    public function getIsDraw(): ?bool
+    {
+        if ($result = $this->model->result) {
+            return $result->key === 'draw';
         }
 
         return null;
@@ -82,6 +94,37 @@ final class BattleItem3Widget extends BaseWidget
             return Yii::t('app', 'Unknown');
         }
         return Yii::t('app-weapon3', $weapon->name);
+    }
+
+    public function getWeaponIcon(): ?string
+    {
+        if (!$this->model) {
+            return null;
+        }
+
+        $w = $this->model->weapon;
+        if (!$w) {
+            return null;
+        }
+
+        return WeaponIcon::widget(['model' => $w]);
+    }
+
+    public function getSubSpIcon(): ?string
+    {
+        if (!$this->model) {
+            return null;
+        }
+
+        $w = $this->model->weapon;
+        if (!$w) {
+            return null;
+        }
+
+        return \implode(' ', [
+            SubweaponIcon::widget(['model' => $w->subweapon]),
+            SpecialIcon::widget(['model' => $w->special]),
+        ]);
     }
 
     protected function renderKillDeathHtml(): string
