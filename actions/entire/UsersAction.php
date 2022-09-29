@@ -8,181 +8,42 @@
 
 namespace app\actions\entire;
 
-use DateInterval;
-use DateTime;
-use DateTimeImmutable;
-use DateTimeZone;
 use Yii;
-use app\components\helpers\DateTimeFormatter;
+use app\actions\entire\users\Splatoon1;
+use app\actions\entire\users\Splatoon2;
+use app\actions\entire\users\Splatoon3;
 use app\models\Agent;
 use app\models\AgentGroup;
-use app\models\Battle2;
 use app\models\StatAgentUser;
-use app\models\StatEntireUser2;
-use app\models\StatEntireUser;
+use yii\base\Action;
 use yii\db\Query;
-use yii\web\ViewAction as BaseAction;
+use yii\web\Controller;
 
-class UsersAction extends BaseAction
+class UsersAction extends Action
 {
+    use Splatoon1;
+    use Splatoon2;
+    use Splatoon3;
+
     public function run()
     {
         Yii::$app->db
             ->createCommand("SET timezone TO 'UTC-6'")
             ->execute();
 
-        return $this->controller->render('users', [
-            'posts' => $this->postStats,
-            'posts2' => $this->postStats2,
-            'agents' => $this->agentStats,
-            'agentNames' => $this->agentNames,
-            'combineds' => $this->combineds,
-            'agents2' => $this->agentStats2,
+        $c = $this->controller;
+        assert($c instanceof Controller);
+
+        return $c->render('users', [
+            'agentNames' => $this->getAgentNames(),
+            'agents' => $this->getAgentStats(),
+            'agents2' => $this->getAgentStats2(),
+            'agents3' => $this->getAgentStats3(),
+            'combineds' => $this->getCombineds(),
+            'posts' => $this->getPostStats(),
+            'posts2' => $this->getPostStats2(),
+            'posts3' => $this->getPostStats3(),
         ]);
-    }
-
-    public function getPostStats()
-    {
-        $lastSummariedDate = null;
-        if ($stats = $this->getPostStatsSummarized()) {
-            $lastSummariedDate = $stats[count($stats) - 1]->date;
-        } else {
-            $stats = [];
-        }
-
-        $query = (new \yii\db\Query())
-            ->select([
-                'date'          => '{{battle}}.[[at]]::date',
-                'battle_count'  => 'COUNT({{battle}}.*)',
-                'user_count'    => 'COUNT(DISTINCT {{battle}}.[[user_id]])',
-            ])
-            ->from('battle')
-            ->groupBy('{{battle}}.[[at]]::date')
-            ->orderBy('{{battle}}.[[at]]::date ASC');
-        if ($lastSummariedDate !== null) {
-            $query->andWhere(['>', '{{battle}}.[[at]]', $lastSummariedDate . ' 23:59:59']);
-        }
-
-        foreach ($query->createCommand()->queryAll() as $row) {
-            $stats[] = (object)$row;
-        }
-
-        return array_map(
-            function ($a) {
-                return [
-                    'date' => $a->date,
-                    'battle' => $a->battle_count,
-                    'user' => $a->user_count,
-                ];
-            },
-            $stats
-        );
-    }
-
-    private function getPostStatsSummarized()
-    {
-        return StatEntireUser::find()
-            ->orderBy('{{stat_entire_user}}.[[date]] ASC')
-            ->all();
-    }
-
-    public function getPostStats2()
-    {
-        $lastSummariedDate = null;
-        if ($stats = $this->getPostStatsSummarized2()) {
-            $lastSummariedDate = $stats[count($stats) - 1]['date'];
-        } else {
-            $stats = [];
-        }
-
-        $query = (new \yii\db\Query())
-            ->select([
-                'date'          => '{{battle2}}.[[created_at]]::date',
-                'battle_count'  => 'COUNT({{battle2}}.*)',
-                'user_count'    => 'COUNT(DISTINCT {{battle2}}.[[user_id]])',
-            ])
-            ->from('battle2')
-            ->groupBy('{{battle2}}.[[created_at]]::date')
-            ->orderBy(['date' => SORT_ASC]);
-        if ($lastSummariedDate !== null) {
-            $query->andWhere(['>', '{{battle2}}.[[created_at]]', $lastSummariedDate . ' 23:59:59']);
-        }
-
-        foreach ($query->createCommand()->queryAll() as $row) {
-            $stats[] = $row;
-        }
-
-        return array_map(
-            function ($a) {
-                return [
-                    'date' => $a['date'],
-                    'battle' => $a['battle_count'],
-                    'user' => $a['user_count'],
-                ];
-            },
-            $stats
-        );
-    }
-
-    private function getPostStatsSummarized2(): array
-    {
-        return StatEntireUser2::find()
-            ->orderBy(['date' => SORT_ASC])
-            ->asArray()
-            ->all();
-    }
-
-    public function getAgentStats()
-    {
-        $list = $this->queryAgentStats();
-        $agents = $this->queryAgentDetails(array_map(
-            function ($a) {
-                return $a['agent_id'];
-            },
-            $list
-        ));
-        $t = @$_SERVER['REQUEST_TIME'] ?: time();
-        foreach ($list as &$row) {
-            $agent = @$agents[$row['agent_id']] ?: null;
-            $row['agent_name']      = $agent->name ?? '';
-            $row['agent_version']   = $agent->version ?? '';
-            $row['agent_is_old']    = $agent->getIsOldIkalogAsAtTheTime($t) ?? false;
-            $row['agent_prod_url']  = $agent->productUrl ?? '';
-            $row['agent_rev_url']   = $agent->versionUrl ?? '';
-            unset($row);
-        }
-        return $list;
-    }
-
-    private function queryAgentStats()
-    {
-        $t2 = isset($_SERVER['REQUEST_TIME']) ? $_SERVER['REQUEST_TIME'] : time();
-        $t1 = gmmktime(
-            gmdate('H', $t2),
-            gmdate('i', $t2),
-            gmdate('s', $t2) + 1,
-            gmdate('n', $t2),
-            gmdate('j', $t2) - 1,
-            gmdate('Y', $t2)
-        );
-        $query = (new \yii\db\Query())
-            ->select([
-                'agent_id',
-                'battle' => 'COUNT(*)',
-                'user' => 'COUNT(DISTINCT {{battle}}.[[user_id]])',
-            ])
-            ->from('battle')
-            ->innerJoin('agent', '{{battle}}.[[agent_id]] = {{agent}}.[[id]]')
-            ->andWhere(['between', '{{battle}}.[[at]]',
-                gmdate('Y-m-d\TH:i:sP', $t1),
-                gmdate('Y-m-d\TH:i:sP', $t2)])
-            ->groupBy('{{battle}}.[[agent_id]]')
-            ->orderBy(implode(', ', [
-                '[[battle]] DESC',
-                '[[user]] DESC',
-                '[[agent_id]] DESC',
-            ]));
-        return $query->createCommand()->queryAll();
     }
 
     private function queryAgentDetails(array $idList)
@@ -194,9 +55,9 @@ class UsersAction extends BaseAction
         return $ret;
     }
 
-    public function getAgentNames()
+    protected function getAgentNames()
     {
-        $query = (new \yii\db\Query())
+        $query = (new Query())
             ->select(['agent'])
             ->from(StatAgentUser::tableName())
             ->groupBy('agent');
@@ -210,108 +71,15 @@ class UsersAction extends BaseAction
         return $list;
     }
 
-    public function getCombineds()
+    protected function getCombineds(): array
     {
         $list = array_map(
-            function ($a) {
-                return $a['name'];
+            function (array $a): string {
+                return $a['name'] ?? '';
             },
             AgentGroup::find()->asArray()->all()
         );
-        usort($list, 'strnatcasecmp');
+        \usort($list, 'strnatcasecmp');
         return $list;
-    }
-
-    public function getAgentStats2(): array
-    {
-        $endAt = (new DateTimeImmutable())
-            ->setTimeZone(new DateTimeZone(Yii::$app->timeZone))
-            ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time());
-        $startAt = $endAt->sub(new DateInterval('PT24H'));
-        $list = Battle2::find()
-            ->innerJoinWith(['agent'], false)
-            ->where(['and',
-                ['>=', '{{battle2}}.[[created_at]]', $startAt->format(DateTime::ATOM)],
-                ['<', '{{battle2}}.[[created_at]]', $endAt->format(DateTime::ATOM)],
-            ])
-            ->select([
-                'name'      => '{{agent}}.[[name]]',
-                'battles'   => 'COUNT(*)',
-                'users'     => 'COUNT(DISTINCT {{battle2}}.[[user_id]])',
-                'min_id'    => 'MIN({{battle2}}.[[id]])',
-                'max_id'    => 'MAX({{battle2}}.[[id]])',
-            ])
-            ->groupBy(['{{agent}}.[[name]]'])
-            ->asArray()
-            ->all();
-        usort($list, function (array $a, array $b): int {
-            foreach (['battles', 'users', 'min_id'] as $key) {
-                if ($a[$key] != $b[$key]) {
-                    return $b[$key] <=> $a[$key];
-                }
-            }
-            return 0;
-        });
-        return [
-            'term' => [
-                's' => DateTimeFormatter::unixTimeToJsonArray($startAt->getTimestamp()),
-                'e' => DateTimeFormatter::unixTimeToJsonArray($endAt->getTimestamp() - 1),
-            ],
-            'agents' => array_map(
-                function (array $row) use ($startAt, $endAt): array {
-                    return [
-                        'name' => (string)$row['name'],
-                        'battles' => (int)$row['battles'],
-                        'users' => (int)$row['users'],
-                        'versions' => $this->getAgentVersion2(
-                            $row['name'],
-                            $startAt,
-                            $endAt,
-                            (int)$row['min_id'],
-                            (int)$row['max_id']
-                        ),
-                    ];
-                },
-                $list
-            )
-        ];
-    }
-
-    private function getAgentVersion2(
-        string $name,
-        DateTimeImmutable $startAt,
-        DateTimeImmutable $endAt,
-        int $minId,
-        int $maxId
-    ): array {
-        $versions = Battle2::find()
-            ->innerJoinWith(['agent'], false)
-            ->where(['and',
-                ['{{agent}}.[[name]]' => $name],
-                ['between', '{{battle2}}.[[id]]', $minId, $maxId],
-                ['>=', '{{battle2}}.[[created_at]]', $startAt->format(\DateTime::ATOM)],
-                ['<', '{{battle2}}.[[created_at]]', $endAt->format(\DateTime::ATOM)],
-            ])
-            ->select([
-                'version' => 'MAX({{agent}}.[[version]])',
-                'battles' => 'COUNT(*)',
-                'users' => 'COUNT(DISTINCT {{battle2}}.[[user_id]])',
-            ])
-            ->groupBy(['{{battle2}}.[[agent_id]]'])
-            ->asArray()
-            ->all();
-        usort($versions, function (array $a, array $b): int {
-            return version_compare($b['version'], $a['version']);
-        });
-        return array_map(
-            function (array $row): array {
-                return [
-                    'version' => (string)$row['version'],
-                    'battles' => (int)$row['battles'],
-                    'users' => (int)$row['users'],
-                ];
-            },
-            $versions
-        );
     }
 }
