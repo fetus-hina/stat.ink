@@ -1,13 +1,16 @@
 <?php
+
 use Base32\Base32;
 use app\components\widgets\AdWidget;
+use app\components\widgets\GameVersionIcon;
 use app\components\widgets\SnsWidget;
 use jp3cki\yii2\flot\FlotAsset;
 use jp3cki\yii2\flot\FlotTimeAsset;
+use yii\bootstrap\Tabs;
 use yii\data\ArrayDataProvider;
+use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Json;
-use yii\grid\GridView;
 
 $title = Yii::t('app', 'Battles and Users');
 $this->title = sprintf('%s | %s', Yii::$app->name, $title);
@@ -38,18 +41,45 @@ FlotTimeAsset::register($this);
     Json::encode($posts2, 0),
     ['id' => 'posts2', 'type' => 'application/json']
   ) . "\n" ?>
-  <ul class="nav nav-tabs" role="tablist" style="margin-bottom:15px">
-    <li role="presentation" class="active"><a href="#spl2" aria-controls="Splatoon 2" role="tab" data-toggle="tab">Splatoon 2</a></li>
-    <li role="presentation"><a href="#spl1" aria-controls="Splatoon" role="tab" data-toggle="tab">Splatoon</a></li>
-  </ul>
-  <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="spl2">
-      <?= $this->render('_users_2', ['agents' => $agents2]) . "\n" ?>
-    </div>
-    <div role="tabpanel" class="tab-pane" id="spl1">
-      <?= $this->render('_users_1', compact('combineds', 'agentNames', 'agents')) . "\n" ?>
-    </div>
-  </div>
+  <?= Html::tag(
+    'script',
+    Json::encode($posts3, 0),
+    ['id' => 'posts3', 'type' => 'application/json']
+  ) . "\n" ?>
+  <?= Tabs::widget([
+    'items' => [
+      [
+        'encode' => false,
+        'label' => implode(' ', [
+          GameVersionIcon::widget(['version' => 3]),
+          Html::encode(Yii::t('app', 'Splatoon 3')),
+        ]),
+        'content' => $this->render('users/splatoon3', ['agents' => $agents3]),
+        'active' => true,
+      ],
+      [
+        'encode' => false,
+        'label' => implode(' ', [
+          GameVersionIcon::widget(['version' => 2]),
+          Html::encode(Yii::t('app', 'Splatoon 2')),
+        ]),
+        'content' => $this->render('users/splatoon2', ['agents' => $agents2]),
+        'active' => false,
+      ],
+      [
+        'encode' => false,
+        'label' => implode(' ', [
+          GameVersionIcon::widget(['version' => 1]),
+          Html::encode(Yii::t('app', 'Splatoon')),
+        ]),
+        'content' => $this->render('users/splatoon1', compact('combineds', 'agentNames', 'agents')),
+        'active' => false,
+      ],
+    ],
+    'options' => [
+      'class' => ['mb-3'],
+    ],
+  ]) . "\n" ?>
 </div>
 <?php
 $this->registerJs(<<<'EoJS'
