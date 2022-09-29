@@ -19,6 +19,7 @@ use app\actions\api\v3\RuleAction;
 use app\actions\api\v3\StageAction;
 use app\actions\api\v3\VersionAction;
 use app\actions\api\v3\WeaponAction;
+use app\actions\api\v3\s3s\UsageAction;
 use app\actions\api\v3\s3s\UuidListAction;
 use app\components\web\Controller;
 use yii\filters\VerbFilter;
@@ -68,6 +69,7 @@ final class ApiV3Controller extends Controller
             'lobby' => LobbyAction::class,
             'rank' => RankAction::class,
             'rule' => RuleAction::class,
+            's3s-usage' => UsageAction::class,
             's3s-uuid-list' => UuidListAction::class,
             'stage' => StageAction::class,
             'version' => VersionAction::class,
