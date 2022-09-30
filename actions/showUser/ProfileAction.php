@@ -32,14 +32,15 @@ final class ProfileAction extends Action
             ->andWhere(['user_id' => $user->id])
             ->with([
                 'lobby',
-                'rule',
-                'rule.mode',
                 'map',
-                'weapon',
-                'weapon.subweapon',
-                'weapon.special',
                 'rank',
                 'rankAfter',
+                'rule',
+                'rule.mode',
+                'user',
+                'weapon',
+                'weapon.special',
+                'weapon.subweapon',
             ])
             ->orderBy(['battle.id' => SORT_DESC])
             ->limit(5)
@@ -49,14 +50,15 @@ final class ProfileAction extends Action
             ->andWhere(['user_id' => $user->id])
             ->with([
                 'lobby',
-                'rule',
-                'mode',
                 'map',
-                'weapon',
-                'weapon.subweapon',
-                'weapon.special',
+                'mode',
                 'rank',
                 'rankAfter',
+                'rule',
+                'user',
+                'weapon',
+                'weapon.special',
+                'weapon.subweapon',
             ])
             ->orderBy(['battle2.id' => SORT_DESC])
             ->limit(5)
@@ -74,6 +76,7 @@ final class ProfileAction extends Action
                 'rankBefore',
                 'result',
                 'rule',
+                'user',
                 'weapon',
                 'weapon.special',
                 'weapon.subweapon',

@@ -66,6 +66,7 @@ final class UserAction extends Action
                 'rankAfter',
                 'rankBefore',
                 'rule',
+                'user',
                 'weapon',
                 'weapon.special',
                 'weapon.subweapon',
