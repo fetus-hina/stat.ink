@@ -5,6 +5,7 @@ declare(strict_types=1);
 use app\components\helpers\BattleSummarizer;
 use app\components\widgets\battle\PanelListWidget;
 use app\models\Battle3;
+use app\models\Rule3;
 use app\models\User;
 use yii\web\View;
 
@@ -12,6 +13,16 @@ use yii\web\View;
  * @var View $this
  * @var User $user
  */
+
+$nawabari = Rule3::findOne(['key' => 'nawabari']);
+if (!$nawabari) {
+  throw new LogicException();
+}
+
+$gachiIds = array_map(
+  fn (Rule3 $rule): int => (int)$rule->id,
+  Rule3::find()->andWhere(['key' => ['area', 'yagura', 'hoko', 'asari']])->all()
+);
 
 ?>
 <?= $this->render('//includes/battles-summary', [
@@ -35,13 +46,15 @@ use yii\web\View;
       'titleLinkText' => Yii::t('app', 'List'),
       'models' => Battle3::find()
         ->andWhere([
-          'user_id' => $user->id,
           'is_deleted' => false,
+          'rule_id' => $nawabari->id,
+          'user_id' => $user->id,
         ])
-        ->with(['lobby', 'map', 'result', 'user', 'weapon', 'weapon.subweapon', 'weapon.special'])
-        ->innerJoinWith(['rule'])
-        ->andWhere(['rule3.key' => 'nawabari'])
-        ->orderBy(['battle3.id' => SORT_DESC])
+        ->with(['lobby', 'map', 'result', 'rule', 'user', 'weapon', 'weapon.subweapon', 'weapon.special'])
+        ->orderBy([
+            '{{%battle3}}.[[end_at]]' => SORT_DESC,
+            '{{%battle3}}.[[id]]' => SORT_DESC,
+        ])
         ->limit(5)
         ->all(),
     ]) . "\n" ?>
@@ -55,13 +68,15 @@ use yii\web\View;
       'titleLinkText' => Yii::t('app', 'List'),
       'models' => Battle3::find()
         ->andWhere([
-          'user_id' => $user->id,
           'is_deleted' => false,
+          'rule_id' => $gachiIds,
+          'user_id' => $user->id,
         ])
-        ->with(['lobby', 'map', 'result', 'user', 'weapon', 'weapon.subweapon', 'weapon.special'])
-        ->innerJoinWith(['rule'])
-        ->andWhere(['<>', 'rule3.key', 'nawabari'])
-        ->orderBy(['battle3.id' => SORT_DESC])
+        ->with(['lobby', 'map', 'result', 'rule', 'user', 'weapon', 'weapon.subweapon', 'weapon.special'])
+        ->orderBy([
+            '{{%battle3}}.[[end_at]]' => SORT_DESC,
+            '{{%battle3}}.[[id]]' => SORT_DESC,
+        ])
         ->limit(5)
         ->all(),
     ]) . "\n" ?>

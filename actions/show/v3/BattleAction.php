@@ -68,8 +68,17 @@ final class BattleAction extends Action
                 'user_id' => $current->user_id,
                 'is_deleted' => false,
             ])
-            ->andWhere(['>', 'id', $current->id])
-            ->orderBy(['id' => SORT_ASC])
+            ->andWhere(['or',
+                ['>', 'end_at', $current->end_at],
+                ['and',
+                    ['end_at' => $current->end_at],
+                    ['>', 'id', $current->id],
+                ],
+            ])
+            ->orderBy([
+                'end_at' => SORT_ASC,
+                'id' => SORT_ASC,
+            ])
             ->limit(1)
             ->one();
     }
@@ -81,8 +90,17 @@ final class BattleAction extends Action
                 'user_id' => $current->user_id,
                 'is_deleted' => false,
             ])
-            ->andWhere(['<', 'id', $current->id])
-            ->orderBy(['id' => SORT_DESC])
+            ->andWhere(['or',
+                ['<', 'end_at', $current->end_at],
+                ['and',
+                    ['end_at' => $current->end_at],
+                    ['<', 'id', $current->id],
+                ],
+            ])
+            ->orderBy([
+                'end_at' => SORT_DESC,
+                'id' => SORT_DESC,
+            ])
             ->limit(1)
             ->one();
     }

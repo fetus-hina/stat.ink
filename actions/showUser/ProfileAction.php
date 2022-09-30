@@ -28,69 +28,12 @@ final class ProfileAction extends Action
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
         }
 
-        $battles1 = Battle::find()
-            ->andWhere(['user_id' => $user->id])
-            ->with([
-                'lobby',
-                'rule',
-                'rule.mode',
-                'map',
-                'weapon',
-                'weapon.subweapon',
-                'weapon.special',
-                'rank',
-                'rankAfter',
-            ])
-            ->orderBy(['battle.id' => SORT_DESC])
-            ->limit(5)
-            ->all();
-
-        $battles2 = Battle2::find()
-            ->andWhere(['user_id' => $user->id])
-            ->with([
-                'lobby',
-                'rule',
-                'mode',
-                'map',
-                'weapon',
-                'weapon.subweapon',
-                'weapon.special',
-                'rank',
-                'rankAfter',
-            ])
-            ->orderBy(['battle2.id' => SORT_DESC])
-            ->limit(5)
-            ->all();
-
-        $battles3 = Battle3::find()
-            ->andWhere([
-                'user_id' => $user->id,
-                'is_deleted' => false,
-            ])
-            ->with([
-                'lobby',
-                'map',
-                'rankAfter',
-                'rankBefore',
-                'result',
-                'rule',
-                'weapon',
-                'weapon.special',
-                'weapon.subweapon',
-            ])
-            ->orderBy(['id' => SORT_DESC])
-            ->limit(5)
-            ->all();
-
         $permLink = Url::to(['show-user/profile', 'screen_name' => $user->screen_name], true);
         [$activityFrom, $activityTo] = BattleHelper::getActivityDisplayRange();
 
         return $this->controller->render('profile', [
             'activityFrom' => $activityFrom,
             'activityTo' => $activityTo,
-            'battles1' => $battles1,
-            'battles2' => $battles2,
-            'battles3' => $battles3,
             'permLink'  => $permLink,
             'user' => $user,
         ]);
