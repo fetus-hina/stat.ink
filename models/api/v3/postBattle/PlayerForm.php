@@ -56,7 +56,11 @@ final class PlayerForm extends Model
             [['me', 'disconnected'], 'in', 'range' => ['yes', 'no', true, false]],
             [['rank_in_team'], 'integer', 'min' => 1, 'max' => 4],
             [['name'], 'string', 'min' => 1, 'max' => 10],
-            [['number'], 'integer', 'min' => 0],
+
+            // workaround for https://github.com/fetus-hina/stat.ink/issues/1099
+            [['number'], 'string'],
+            // [['number'], 'integer', 'min' => 0],
+
             [['splashtag_title'], 'string', 'max' => 255],
             [['weapon'], 'string'],
             [['weapon'], KeyValidator::class,
