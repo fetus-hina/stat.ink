@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,79 +10,27 @@ declare(strict_types=1);
 
 namespace app\components\helpers;
 
-use DateTime;
 use DateTimeImmutable;
 use Yii;
 use app\models\Battle2;
+use app\models\Battle3;
 use app\models\Battle;
 use app\models\Salmon2;
 use app\models\User;
-use yii\db\ActiveQuery;
-use yii\db\Query;
+use yii\base\Model;
 
-class CombinedBattles
+final class CombinedBattles
 {
     public static function getRecentBattles(int $num = 100): array
     {
         try {
             Yii::beginProfile(__FUNCTION__, __METHOD__);
-            return static::getRecentBattlesByQueries(
-                [
-                    [
-                        'query' => Battle2::find()
-                            ->with([
-                                'battleImageResult',
-                                'lobby',
-                                'map',
-                                'mode',
-                                'rule',
-                                'user',
-                                'user.userIcon',
-                            ])
-                            ->limit($num)
-                            ->orderBy(['battle2.id' => SORT_DESC]),
-                        'callback' => function (ActiveQuery $q, ?DateTimeImmutable $t): void {
-                            if (!$t) {
-                                return;
-                            }
-                            $q->andWhere(['>=', 'battle2.created_at', $t->format(DateTime::ATOM)]);
-                        },
-                    ],
-                    [
-                        'query' => Salmon2::find()
-                            ->with([
-                                'stage',
-                                'user',
-                                'user.userIcon',
-                            ])
-                            ->limit($num)
-                            ->orderBy(['salmon2.id' => SORT_DESC]),
-                        'callback' => function (ActiveQuery $q, ?DateTimeImmutable $t): void {
-                            if (!$t) {
-                                return;
-                            }
-                            $q->andWhere(['>=', 'salmon2.created_at', $t->format(DateTime::ATOM)]);
-                        },
-                    ],
-                    [
-                        'query' => Battle::find()
-                            ->with([
-                                'battleImageResult',
-                                'map',
-                                'rule',
-                                'user',
-                                'user.userIcon',
-                            ])
-                            ->limit($num)
-                            ->orderBy(['battle.id' => SORT_DESC]),
-                        'callback' => function (ActiveQuery $q, ?DateTimeImmutable $t): void {
-                            if (!$t) {
-                                return;
-                            }
-                            $q->andWhere(['>=', 'battle.at', $t->format(DateTime::ATOM)]);
-                        },
-                    ],
-                ],
+            return self::getRecentBattlesByQueries(
+                \array_merge(
+                    require __DIR__ . '/combinedBattles/Splatoon3.php',
+                    require __DIR__ . '/combinedBattles/Splatoon2.php',
+                    require __DIR__ . '/combinedBattles/Splatoon1.php'
+                ),
                 $num
             );
         } finally {
@@ -94,66 +42,12 @@ class CombinedBattles
     {
         try {
             Yii::beginProfile(__FUNCTION__, __METHOD__);
-            return static::getRecentBattlesByQueries(
-                [
-                    [
-                        'query' => Battle2::find()
-                            ->andWhere(['user_id' => $user->id])
-                            ->with([
-                                'battleImageResult',
-                                'lobby',
-                                'map',
-                                'mode',
-                                'rule',
-                                'user',
-                                'user.userIcon',
-                            ])
-                            ->limit($num)
-                            ->orderBy(['battle2.id' => SORT_DESC]),
-                        'callback' => function (ActiveQuery $q, ?DateTimeImmutable $t): void {
-                            if (!$t) {
-                                return;
-                            }
-                            $q->andWhere(['>=', 'battle2.created_at', $t->format(DateTime::ATOM)]);
-                        },
-                    ],
-                    [
-                        'query' => Salmon2::find()
-                            ->andWhere(['user_id' => $user->id])
-                            ->with([
-                                'stage',
-                                'user',
-                                'user.userIcon',
-                            ])
-                            ->limit($num)
-                            ->orderBy(['salmon2.id' => SORT_DESC]),
-                        'callback' => function (ActiveQuery $q, ?DateTimeImmutable $t): void {
-                            if (!$t) {
-                                return;
-                            }
-                            $q->andWhere(['>=', 'salmon2.created_at', $t->format(DateTime::ATOM)]);
-                        },
-                    ],
-                    [
-                        'query' => Battle::find()
-                            ->andWhere(['user_id' => $user->id])
-                            ->with([
-                                'battleImageResult',
-                                'map',
-                                'rule',
-                                'user',
-                                'user.userIcon'
-                            ])
-                            ->limit($num)
-                            ->orderBy(['battle.id' => SORT_DESC]),
-                        'callback' => function (ActiveQuery $q, ?DateTimeImmutable $t): void {
-                            if (!$t) {
-                                return;
-                            }
-                            $q->andWhere(['>=', 'battle.at', $t->format(DateTime::ATOM)]);
-                        },
-                    ],
-                ],
+            return self::getRecentBattlesByQueries(
+                \array_merge(
+                    require __DIR__ . '/combinedBattles/User3.php',
+                    require __DIR__ . '/combinedBattles/User2.php',
+                    require __DIR__ . '/combinedBattles/User1.php'
+                ),
                 $num
             );
         } finally {
@@ -175,15 +69,13 @@ class CombinedBattles
                 }
                 if ($list = $query->all()) {
                     $merged = array_merge($merged, $list);
-                    usort($merged, function ($a, $b): int {
-                        return $b->getCreatedAt() <=> $a->getCreatedAt();
-                    });
-                    if (count($merged) >= $num) {
+                    \usort($merged, fn ($a, $b): int => self::getCreatedAt($b) <=> self::getCreatedAt($a));
+                    if (\count($merged) >= $num) {
                         $threshold = (new DateTimeImmutable())
-                            ->setTimestamp($merged[$num - 1]->getCreatedAt());
+                            ->setTimestamp(self::getCreatedAt($merged[$num - 1]));
                     }
-                    if (count($merged) > ceil($num * 1.2)) {
-                        $merged = array_slice($merged, 0, (int)ceil($num * 1.2));
+                    if (\count($merged) > \ceil($num * 1.2)) {
+                        $merged = \array_slice($merged, 0, (int)\ceil($num * 1.2));
                     }
                 }
                 Yii::endProfile($_['query']->modelClass, __METHOD__);
@@ -192,17 +84,59 @@ class CombinedBattles
                 Battle::class  => 1,
                 Battle2::class => 2,
                 Salmon2::class => 3,
+                Battle3::class => 4,
             ];
-            usort($merged, function ($a, $b) use ($orderByClass): int {
-                $atime = $a->getCreatedAt();
-                $btime = $b->getCreatedAt();
-                return $btime <=> $atime
+            \usort($merged, function ($a, $b) use ($orderByClass): int {
+                return self::getCreatedAt($b) <=> self::getCreatedAt($a)
                     ?: $orderByClass[get_class($b)] <=> $orderByClass[get_class($a)]
                     ?: $b->id <=> $a->id;
             });
-            return array_slice($merged, 0, $num);
+            return \array_slice($merged, 0, $num);
         } finally {
             Yii::endProfile(__FUNCTION__, __METHOD__);
         }
+    }
+
+    /**
+     * @param Battle|Battle2|Battle3|Salmon2|null $model
+     */
+    private static function getCreatedAt(?Model $model): ?int
+    {
+        if (
+            \method_exists($model, 'getCreatedAt') &&
+            \is_callable([$model, 'getCreatedAt'])
+        ) {
+            return self::prepareTimestamp($model->getCreatedAt());
+        }
+
+        if (isset($model->created_at)) {
+            return self::prepareTimestamp($model->created_at);
+        }
+
+        if (isset($model->at)) {
+            return self::prepareTimestamp($model->at);
+        }
+
+        return null;
+    }
+
+    /**
+     * @param int|string|null $value
+     */
+    private static function prepareTimestamp($value): ?int
+    {
+        $intVal = \filter_var($value, FILTER_VALIDATE_INT);
+        if (\is_int($intVal)) {
+            return $intVal;
+        }
+
+        if (\is_string($value)) {
+            $intVal = @\strtotime($value);
+            if (\is_int($intVal)) {
+                return $intVal;
+            }
+        }
+
+        return null;
     }
 }
