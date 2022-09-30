@@ -75,7 +75,10 @@ final class UserAction extends Action
                 'user_id' => $user->id,
                 'is_deleted' => false,
             ])
-            ->orderBy(['battle3.id' => SORT_DESC]);
+            ->orderBy([
+                '{{%battle3}}.[[end_at]]' => SORT_DESC,
+                '{{%battle3}}.[[id]]' => SORT_DESC,
+            ]);
 
         $permLink = Url::to(
             ['show-v3/user', 'screen_name' => $user->screen_name],
