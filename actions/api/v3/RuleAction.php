@@ -36,6 +36,7 @@ final class RuleAction extends Action
         return \array_map(
             fn (Rule3 $model): array => RuleApiFormatter::toJson($model, $full),
             Rule3::find()
+                ->with(['rule3Aliases'])
                 ->orderBy(['rank' => SORT_ASC])
                 ->all()
         );
