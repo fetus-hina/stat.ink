@@ -12,6 +12,7 @@ namespace app\commands;
 
 use Curl\Curl;
 use Yii;
+use app\components\helpers\splatoon3ink\ScheduleParser;
 use yii\console\Controller;
 use yii\console\ExitCode;
 use yii\helpers\Json;
@@ -29,8 +30,10 @@ final class Splatoon3InkController extends Controller
 
     public function actionUpdateSchedule(): int
     {
-        $json = $this->queryJson('https://splatoon3.ink/data/schedules.json');
-        \var_dump($json);
+        $schedules = ScheduleParser::parseAll(
+            $this->queryJson('https://splatoon3.ink/data/schedules.json')
+        );
+        var_dump($schedules);
         return ExitCode::OK;
     }
 
