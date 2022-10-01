@@ -38,6 +38,7 @@ SortableTableAsset::register($this);
           <?= Html::encode($lang['name']) . "\n" ?>
         </th>
 <?php if ($i === 0) { ?>
+        <th data-sort="string"><?= Html::encode(Yii::t('app', 'Weapon (Short)')) ?></th>
         <th data-sort="string"><?= Html::encode(Yii::t('app', 'Main Weapon')) ?></th>
         <th data-sort="string"><?= Html::encode(Yii::t('app', 'Sub Weapon')) ?></th>
         <th data-sort="string"><?= Html::encode(Yii::t('app', 'Special')) ?></th>
@@ -83,6 +84,9 @@ SortableTableAsset::register($this);
           Html::encode(Yii::t('app-weapon3', $weapon->name, [], $lang->lang)),
         ) . "\n" ?>
 <?php if ($j === 0) { ?>
+        <?= $this->render('main/short-name', [
+          'name' => Yii::t('app-weapon3', $weapon->name, [], $lang->lang),
+        ]) . "\n" ?>
         <?= Html::tag(
           'td',
           implode(' ', [
