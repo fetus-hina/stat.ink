@@ -42,8 +42,11 @@ trait Battle3
             \array_map(
                 fn (Lobby3 $lobby): array => [
                     'key' => $lobby->key,
+                    'game' => 'splatoon3',
                     'name' => Yii::t('app-lobby3', $lobby->name),
-                    'image' => $this->getIconUrlForLobby3($lobby),
+                    'image' => $lobby->key !== 'regular'
+                        ? $this->getIconUrlForLobby3($lobby)
+                        : null,
                     'source' => 's3ink',
                     'schedules' => $this->getBattleSchedules3($period, $lobby),
                 ],
@@ -89,7 +92,7 @@ trait Battle3
             function (Schedule3 $schedule): array {
                 $rule = $schedule->rule;
                 return [
-                    'time' => BattleHelper::periodToRange($schedule->period),
+                    'time' => BattleHelper::periodToRange2($schedule->period),
                     'rule' => [
                         'key' => $rule->key,
                         'name' => Yii::t('app-rule3', $rule->name),
@@ -137,7 +140,7 @@ trait Battle3
     {
         return self::getAssetUrl3(
             Spl3StageAsset::class,
-            \vsprintf('color-normal/%s.png', [
+            \vsprintf('color-normal/%s.jpg', [
                 $map->key,
             ])
         );

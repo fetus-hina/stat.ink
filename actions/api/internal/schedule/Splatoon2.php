@@ -47,6 +47,7 @@ trait Splatoon2
             function (ScheduleMode2 $mode) use ($am): array {
                 return [
                     'key' => $mode->key,
+                    'game' => 'splatoon2',
                     'name' => Yii::t('app-rule2', $mode->name),
                     'image' => $mode->key === 'regular'
                         ? null
@@ -115,6 +116,7 @@ trait Splatoon2
         $am = Yii::$app->assetManager;
         return [
             'key' => 'salmon',
+            'game' => 'splatoon2',
             'name' => Yii::t('app-salmon2', 'Salmon Run'),
             'image' => Url::to(
                 $am->getAssetUrl(
