@@ -1,8 +1,9 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ * @author ADe <loezone@gmail.com>
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Gosin <canling0@gmail.com>
  */
@@ -10,8 +11,8 @@
 declare(strict_types=1);
 
 return [
-    'lost' => '失利',
-    'Staaaay Fresh!' => '保持持持新鮮',
+    'lost' => '敗北',
+    'Staaaay Fresh!' => '保持持持持新鮮!',
     'unknown mode' => '未知模式',
     'unknown stage' => '未知場地',
     'won' => '勝利',

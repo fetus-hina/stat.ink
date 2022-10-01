@@ -3,6 +3,7 @@
 /**
  * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ * @author ADe <loezone@gmail.com>
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Gosin <canling0@gmail.com>
  */
@@ -19,11 +20,11 @@ return [
     'Main Weapon' => '主武器',
     'Out of Bounds' => '越界',
     'Princess Cannon' => '公主炮',
-    'Rainmaker Inksplosion' => '魚炮爆炸',
-    'Rainmaker Shield' => '魚炮護盾',
-    'Rainmaker Shot' => '魚炮射擊',
-    'Rolonium' => '',
+    'Rainmaker Inksplosion' => '虎魚爆炸',
+    'Rainmaker Shield' => '虎魚護盾',
+    'Rainmaker Shot' => '虎魚射擊',
+    'Rolonium' => '氣墊',
     'Special Weapon' => '特殊武器',
-    'Sub Weapon' => '副武器',
+    'Sub Weapon' => '次要武器',
     'Unknown' => '未知',
 ];

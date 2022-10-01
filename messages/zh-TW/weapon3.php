@@ -3,6 +3,7 @@
 /**
  * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ * @author ADe <loezone@gmail.com>
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author midmiako <mayomi@baka.wang>
  */
@@ -13,8 +14,8 @@ return [
     '.52 Gal' => '.52加侖',
     '.96 Gal' => '.96加侖',
     'Aerospray MG' => '專業模型槍MG',
-    'All of {0}' => '',
-    'Any Weapon' => '',
+    'All of {0}' => '所有的{0}',
+    'Any Weapon' => '所有武器',
     'Ballpoint Splatling' => '圓珠筆',
     'Bamboozler 14 Mk I' => '14式竹筒槍·甲',
     'Blaster' => '火熱爆破槍',

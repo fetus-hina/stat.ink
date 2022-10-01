@@ -1,8 +1,9 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ * @author ADe <loezone@gmail.com>
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Gosin <canling0@gmail.com>
  */
@@ -10,12 +11,12 @@
 declare(strict_types=1);
 
 return [
-    'Cohock Charge' => '相撲魚爆發',
+    'Cohock Charge' => '大胖魚大量出現',
     'Event' => '事件',
-    'Fog' => '大霧',
-    'Goldie Seeking' => '找金魚',
-    'Known Occurrence' => '特殊情況',
-    'Rush' => '魚羣衝刺',
-    'The Griller' => '燒烤架',
-    'The Mothership' => '母艦來襲',
+    'Fog' => '霧',
+    'Goldie Seeking' => '尋找金鮭魚',
+    'Known Occurrence' => '特殊狀況',
+    'Rush' => '狂潮',
+    'The Griller' => '烤架魚出動',
+    'The Mothership' => '走私魚來襲',
 ];

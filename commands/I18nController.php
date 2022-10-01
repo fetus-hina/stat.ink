@@ -187,6 +187,10 @@ class I18nController extends Controller
             $lines[] = 'Gosin <canling0@gmail.com>';
         }
 
+        if ($this->isMidmiakoInvolved($path)) {
+            $lines[] = 'midmiako <mayomi@baka.wang>';
+        }
+
         if ($this->isUltrasonicInvolved($path)) {
             $lines[] = 'ultrasonicytb <ultrasonic2408@gmail.com>';
         }
@@ -271,6 +275,18 @@ class I18nController extends Controller
         }
         return false;
         // }}}
+    }
+
+    private function isMidmiakoInvolved(string $path): bool
+    {
+        $appPath = Yii::getAlias('@app/');
+        if (substr($path, 0, strlen($appPath)) === $appPath) {
+            $localPath = substr($path, strlen($appPath));
+            if ($localPath === 'messages/zh-TW/map3.php') {
+                return true;
+            }
+        }
+        return false;
     }
 
     private function isUltrasonicInvolved(string $path): bool

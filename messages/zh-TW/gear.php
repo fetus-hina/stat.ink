@@ -1,8 +1,9 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ * @author ADe <loezone@gmail.com>
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Gosin <canling0@gmail.com>
  */
@@ -18,8 +19,8 @@ return [
     'Armor Helmet Replica' => '復刻盔甲頭盔',
     'Armor Jacket Replica' => '復刻盔甲大衣',
     'B-ball Headband' => 'B球頭帶',
-    'B-ball Jersey (Away)' => 'B球球衣（客場）',
-    'B-ball Jersey (Home)' => 'B球球衣（主場）',
+    'B-ball Jersey (Away)' => 'B球球衣(客場)',
+    'B-ball Jersey (Home)' => 'B球球衣(主場)',
     'Baby-Jelly Shirt' => '小果凍襯衫',
     'Backwards Cap' => '反戴鴨舌帽',
     'Bamboo Hat' => '竹帽',

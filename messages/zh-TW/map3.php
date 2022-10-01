@@ -3,6 +3,7 @@
 /**
  * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ * @author ADe <loezone@gmail.com>
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author midmiako <mayomi@baka.wang>
  */
@@ -12,7 +13,7 @@ declare(strict_types=1);
 return [
     'Academy' => '海女美術大學',
     'Alley' => '鰻鯰區',
-    'Any Stage' => '',
+    'Any Stage' => '所有場地',
     'Bridge' => '真鯖跨海大橋',
     'Eeltail Alley' => '鰻鯰區',
     'Gorge' => '溫泉花大峽谷',

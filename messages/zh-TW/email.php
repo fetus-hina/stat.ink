@@ -1,8 +1,9 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ * @author ADe <loezone@gmail.com>
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Gosin <canling0@gmail.com>
  */
@@ -10,12 +11,12 @@
 declare(strict_types=1);
 
 return [
-    '(Empty)' => '（空白）',
-    '(Failed)' => '（失敗）',
-    '(Unknown)' => '（未知）',
-    'Auto (cookie)' => '自動（cookie）',
+    '(Empty)' => '(空白)',
+    '(Failed)' => '(失敗)',
+    '(Unknown)' => '(未知)',
+    'Auto (cookie)' => '自動(cookie)',
     'Estimated location:' => '估計位置：',
-    'Here is your email verification code.' => '以下是您的郵件驗證碼。',
+    'Here is your email verification code.' => '以下是您的信件驗證碼。',
     'IP Address:' => 'IP地址',
     'Login method:' => '登錄方法',
     'New:' => '新',
@@ -27,10 +28,10 @@ return [
     'There was a new login on {site}.' => '在{site}檢測到一個新登錄。',
     'Twitter' => 'Twitter',
     'Verification Code:' => '驗證碼：',
-    'Your email address has been changed.' => '你的電子郵箱已更改。',
+    'Your email address has been changed.' => '你的電子信箱已更改。',
     'Your password has been changed.' => '你的密碼已更改。',
     '[{site}] {name} (@{screen_name}): Changed your password' => '[{site}] {name} (@{screen_name}): 更改密碼',
     '[{site}] {name} (@{screen_name}): Logged in' => '[{site}] {name} (@{screen_name}): 已登錄',
     '[{site}] {name} (@{screen_name}): Verification code' => '[{site}] {name} (@{screen_name}): 驗證碼',
-    '[{site}] {name} (@{screen_name}): Your email address has been updated' => '[{site}] {name} (@{screen_name}): 你的電子郵箱已更新',
+    '[{site}] {name} (@{screen_name}): Your email address has been updated' => '[{site}] {name} (@{screen_name}): 你的電子信箱已更新',
 ];

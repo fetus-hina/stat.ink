@@ -1,8 +1,9 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ * @author ADe <loezone@gmail.com>
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Gosin <canling0@gmail.com>
  */
@@ -16,11 +17,11 @@ return [
     'Ink from a propeller' => '來自扇頁的墨水',
     'Main Weapon' => '主武器',
     'Out of Bounds' => '越界',
-    'Rainmaker' => '魚炮',
-    'Rainmaker Inksplosion' => '魚炮爆炸',
-    'Rainmaker Shield' => '魚炮護盾',
-    'Rainmaker Shot' => '魚炮射擊',
-    'Special' => '大招',
-    'Sub Weapon' => '副武器',
+    'Rainmaker' => '虎魚',
+    'Rainmaker Inksplosion' => '虎魚爆炸',
+    'Rainmaker Shield' => '虎魚護盾',
+    'Rainmaker Shot' => '虎魚射擊',
+    'Special' => '特殊武器',
+    'Sub Weapon' => '次要武器',
     'Unknown' => '未知',
 ];

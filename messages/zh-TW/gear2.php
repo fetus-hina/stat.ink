@@ -1,8 +1,9 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ * @author ADe <loezone@gmail.com>
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Gosin <canling0@gmail.com>
  */
@@ -37,8 +38,8 @@ return [
     'Arrow Pull-Ons' => '箭頭休閒鞋',
     'Athletic Arrows' => '運動箭頭鞋',
     'B-ball Headband' => 'B球頭帶',
-    'B-ball Jersey (Away)' => 'B球球衣（客場）',
-    'B-ball Jersey (Home)' => 'B球球衣（主場）',
+    'B-ball Jersey (Away)' => 'B球球衣(客場)',
+    'B-ball Jersey (Home)' => 'B球球衣(主場)',
     'Baby-Jelly Shirt' => '小果凍襯衫',
     'Baby-Jelly Shirt & Tie' => '小果凍襯衫加領帶',
     'Backwards Cap' => '反戴鴨舌帽',

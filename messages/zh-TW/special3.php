@@ -3,13 +3,14 @@
 /**
  * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ * @author ADe <loezone@gmail.com>
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 declare(strict_types=1);
 
 return [
-    'Any Special' => '',
+    'Any Special' => '所有特殊武器',
     'Big Bubbler' => '巨大防護罩',
     'Booyah Bomb' => '讚氣彈',
     'Crab Tank' => '螃蟹坦克',
