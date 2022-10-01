@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2021 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -14,14 +14,19 @@ use Exception;
 use Throwable;
 use Yii;
 use app\models\Battle2;
+use app\models\Battle3;
 use app\models\Battle;
 use app\models\Salmon2;
 use app\models\User;
+use yii\base\Action;
+use yii\db\Connection;
+use yii\db\Query;
 use yii\db\Transaction;
 use yii\web\HttpException;
-use yii\web\ViewAction;
 
-class CounterAction extends ViewAction
+use const FILTER_VALIDATE_INT;
+
+final class CounterAction extends Action
 {
     public function run()
     {
@@ -41,19 +46,18 @@ class CounterAction extends ViewAction
     private function make(): array
     {
         return Yii::$app->db->transaction(
-            function (): array {
-                return array_merge(
-                    $this->format('battle1', 'battle', 'Battles', Battle::getRoughCount()),
-                    $this->format('battle2', 'battle', 'Battles', Battle2::getRoughCount()),
-                    $this->format('salmon2', 'salmon', 'Shifts', Salmon2::getRoughCount()),
-                    $this->format('user', 'user', 'Users', User::getRoughCount()),
-                );
-            },
-            Transaction::REPEATABLE_READ
+            fn (Connection $db): array => \array_merge(
+                self::format('battle1', 'battle', 'Battles', Battle::getRoughCount()),
+                self::format('battle2', 'battle', 'Battles', Battle2::getRoughCount()),
+                self::format('battle3', 'battle', 'Battles', self::getBattle3RoughCount($db)),
+                self::format('salmon2', 'salmon', 'Shifts', Salmon2::getRoughCount()),
+                self::format('user', 'user', 'Users', User::getRoughCount())
+            ),
+            Transaction::READ_COMMITTED
         );
     }
 
-    private function format(string $key, string $type, string $labelEn, ?int $count): array
+    private static function format(string $key, string $type, string $labelEn, ?int $count): array
     {
         if ($count === null || $count < 0) {
             throw new Exception();
@@ -66,5 +70,23 @@ class CounterAction extends ViewAction
                 'count' => (int)$count,
             ],
         ];
+    }
+
+    private static function getBattle3RoughCount(Connection $db): ?int
+    {
+        try {
+            $count = \filter_var(
+                (new Query())
+                    ->select('[[last_value]]')
+                    ->from('{{%battle3_id_seq}}')
+                    ->limit(1)
+                    ->scalar($db),
+                FILTER_VALIDATE_INT
+            );
+            return \is_int($count) ? $count : null;
+        } catch (Throwable $e) {
+        }
+
+        return null;
     }
 }
