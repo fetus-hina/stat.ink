@@ -21,6 +21,7 @@ use app\models\Schedule3;
 use app\models\ScheduleMap3;
 use yii\db\Query;
 use yii\helpers\Url;
+use yii\web\AssetBundle;
 use yii\web\View;
 
 use const SORT_ASC;
@@ -114,57 +115,46 @@ trait Battle3
 
     private function getIconUrlForLobby3(Lobby3 $lobby): ?string
     {
-        $view = Yii::$app->view;
-        if (!$view instanceof View) {
-            return null;
-        }
-
-        $am = Yii::$app->assetManager;
-        return Url::to(
-            $am->getAssetUrl(
-                GameModeIconsAsset::register($view),
-                \vsprintf('spl3/%s.png', [
-                    $lobby->key,
-                ])
-            ),
-            true
+        return self::getAssetUrl3(
+            GameModeIconsAsset::class,
+            \vsprintf('spl3/%s.png', [
+                $lobby->key,
+            ])
         );
     }
 
     private function getIconUrlForRule3(Rule3 $rule): ?string
     {
-        $view = Yii::$app->view;
-        if (!$view instanceof View) {
-            return null;
-        }
-
-        $am = Yii::$app->assetManager;
-        return Url::to(
-            $am->getAssetUrl(
-                GameModeIconsAsset::register($view),
-                \vsprintf('spl3/%s.png', [
-                    $rule->key,
-                ])
-            ),
-            true
+        return self::getAssetUrl3(
+            GameModeIconsAsset::class,
+            \vsprintf('spl3/%s.png', [
+                $rule->key,
+            ])
         );
     }
 
     private function getImageUrlForMap3(Map3 $map): ?string
     {
-        $view = Yii::$app->view;
-        if (!$view instanceof View) {
+        return self::getAssetUrl3(
+            Spl3StageAsset::class,
+            \vsprintf('color-normal/%s.png', [
+                $map->key,
+            ])
+        );
+    }
+
+    /**
+     * @param class-string<AssetBundle> $assetClass
+     */
+    private function getAssetUrl3(string $assetClass, string $path): ?string
+    {
+        if (!Yii::$app->view instanceof View) {
             return null;
         }
 
         $am = Yii::$app->assetManager;
         return Url::to(
-            $am->getAssetUrl(
-                Spl3StageAsset::register($view),
-                \vsprintf('color-normal/%s.png', [
-                    $map->key,
-                ])
-            ),
+            $am->getAssetUrl($am->getBundle($assetClass, true), $path),
             true
         );
     }
