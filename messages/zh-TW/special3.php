@@ -9,7 +9,7 @@
 declare(strict_types=1);
 
 return [
-    'Any Special' => '',
+    'Any Special' => '所有特殊武器',
     'Big Bubbler' => '巨大防護罩',
     'Booyah Bomb' => '讚氣彈',
     'Crab Tank' => '螃蟹坦克',

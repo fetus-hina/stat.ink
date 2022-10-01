@@ -9,9 +9,9 @@
 declare(strict_types=1);
 
 return [
-    'Any Rank' => '',
-    'A zone' => '',
-    'B zone' => '',
-    'C zone' => '',
-    'S zone' => '',
+    'Any Rank' => '所有級別',
+    'A zone' => 'A帶',
+    'B zone' => 'B帶',
+    'C zone' => 'C帶',
+    'S zone' => 'S帶',
 ];
