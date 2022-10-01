@@ -22,6 +22,7 @@ final class RuleApiFormatter
 
         return [
             'key' => $model->key,
+            'aliases' => AliasApiFormatter::allToJson($model->rule3Aliases, $fullTranslate),
             'name' => NameApiFormatter::toJson($model->name, 'app-rule3', $fullTranslate),
             'short_name' => NameApiFormatter::toJson($model->short_name, 'app-rule3', $fullTranslate),
         ];
