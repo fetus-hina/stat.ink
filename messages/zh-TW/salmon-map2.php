@@ -19,5 +19,5 @@ return [
     'Ruins of Ark Polaris' => '北極星方舟廢墟',
     'Salmonid Smokeyard' => '三文魚煙燻廠',
     'Smokeyard' => '煙燻廠',
-    'Spawning Grounds' => '養殖場',
+    'Spawning Grounds' => '鮭霸',
 ];

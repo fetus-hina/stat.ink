@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 return [
     'Any Rank' => '所有級別',
-    'A zone' => 'A級',
-    'B zone' => 'B級',
-    'C zone' => 'C級',
-    'S zone' => 'S級',
+    'A zone' => 'A帶',
+    'B zone' => 'B帶',
+    'C zone' => 'C帶',
+    'S zone' => 'S帶',
 ];

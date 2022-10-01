@@ -10,7 +10,7 @@
 declare(strict_types=1);
 
 return [
-    'Automatic (Recommended)' => '自動（推薦）',
+    'Automatic (Recommended)' => '自動(推薦)',
     'Manually' => '手動',
     'There are two ways. "Automatic" or "manually."' => '可以選擇自動或手動兩種方式。',
 ];

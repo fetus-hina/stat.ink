@@ -9,7 +9,7 @@
 declare(strict_types=1);
 
 return [
-    'now' => '剛纔',
+    'now' => '現在',
     '{delta} d' => '{delta}天',
     '{delta} h' => '{delta}小時',
     '{delta} m' => '{delta}分鐘',

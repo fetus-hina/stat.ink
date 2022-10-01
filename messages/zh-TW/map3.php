@@ -12,7 +12,7 @@ declare(strict_types=1);
 return [
     'Academy' => '海女美術大學',
     'Alley' => '鰻鯰區',
-    'Any Stage' => '',
+    'Any Stage' => '所有場地',
     'Bridge' => '真鯖跨海大橋',
     'Eeltail Alley' => '鰻鯰區',
     'Gorge' => '溫泉花大峽谷',

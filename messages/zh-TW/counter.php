@@ -12,5 +12,5 @@ declare(strict_types=1);
 return [
     'Battles' => '對戰',
     'Shifts' => '打工',
-    'Users' => '用戶',
+    'Users' => '使用者',
 ];
