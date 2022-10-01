@@ -34,6 +34,7 @@ use app\models\Medal3;
 use app\models\Rank3;
 use app\models\Result3;
 use app\models\Rule3;
+use app\models\Rule3Alias;
 use app\models\SplatoonVersion3;
 use app\models\User;
 use app\models\Weapon3;
@@ -181,7 +182,10 @@ final class PostBattleForm extends Model
             [['challenge_lose'], 'integer', 'min' => 0, 'max' => 3],
 
             [['lobby'], KeyValidator::class, 'modelClass' => Lobby3::class],
-            [['rule'], KeyValidator::class, 'modelClass' => Rule3::class],
+            [['rule'], KeyValidator::class,
+                'modelClass' => Rule3::class,
+                'aliasClass' => Rule3Alias::class,
+            ],
             [['stage'], KeyValidator::class,
                 'modelClass' => Map3::class,
                 'aliasClass' => Map3Alias::class,
@@ -353,7 +357,7 @@ final class PostBattleForm extends Model
             'client_uuid' => $this->uuid ?: $uuid,
             'user_id' => Yii::$app->user->id,
             'lobby_id' => self::key2id($this->lobby, Lobby3::class),
-            'rule_id' => self::key2id($this->rule, Rule3::class),
+            'rule_id' => self::key2id($this->rule, Rule3::class, Rule3Alias::class, 'rule_id'),
             'map_id' => self::key2id($this->stage, Map3::class, Map3Alias::class, 'map_id'),
             'weapon_id' => self::key2id($this->weapon, Weapon3::class, Weapon3Alias::class, 'weapon_id'),
             'result_id' => self::key2id($this->result, Result3::class),
