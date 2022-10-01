@@ -46,7 +46,7 @@ return [
     'API Info: Stages (Splatoon 3)' => 'API資訊：場地(斯普拉遁3)',
     'API Info: Weapons' => 'API資訊：武器',
     'API Info: Weapons (Splatoon 2)' => 'API資訊：武器(斯普拉遁2)',
-    'API Info: Weapons (Splatoon 3)' => 'API資訊：武器(斯普拉遁2)',
+    'API Info: Weapons (Splatoon 3)' => 'API資訊：武器(斯普拉遁3)',
     'API Token' => 'API密鑰',
     'Apply' => '應用',
     'Apps for {version}' => '支持{version}的應用',
