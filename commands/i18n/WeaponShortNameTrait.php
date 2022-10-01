@@ -14,6 +14,7 @@ use Yii;
 use app\models\Language;
 use app\models\SalmonMainWeapon2;
 use app\models\Weapon2;
+use app\models\Weapon3;
 use app\models\Weapon;
 use yii\console\Controller;
 use yii\helpers\Console;
@@ -159,6 +160,14 @@ trait WeaponShortNameTrait
         // Splatoon 2
         foreach (Weapon2::find()->asArray()->all() as $weapon) {
             $name = $i18n->translate('app-weapon2', $weapon['name'], [], $locale->lang);
+            if (!isset($data[$name])) {
+                $data[$name] = '';
+            }
+        }
+
+        // Splatoon 3
+        foreach (Weapon3::find()->asArray()->all() as $weapon) {
+            $name = $i18n->translate('app-weapon3', $weapon['name'], [], $locale->lang);
             if (!isset($data[$name])) {
                 $data[$name] = '';
             }
