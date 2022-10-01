@@ -42,8 +42,11 @@ trait Battle3
             \array_map(
                 fn (Lobby3 $lobby): array => [
                     'key' => $lobby->key,
+                    'game' => 'splatoon3',
                     'name' => Yii::t('app-lobby3', $lobby->name),
-                    'image' => $this->getIconUrlForLobby3($lobby),
+                    'image' => $lobby->key !== 'regular'
+                        ? $this->getIconUrlForLobby3($lobby)
+                        : null,
                     'source' => 's3ink',
                     'schedules' => $this->getBattleSchedules3($period, $lobby),
                 ],
