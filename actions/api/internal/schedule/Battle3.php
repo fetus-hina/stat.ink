@@ -89,7 +89,7 @@ trait Battle3
             function (Schedule3 $schedule): array {
                 $rule = $schedule->rule;
                 return [
-                    'time' => BattleHelper::periodToRange($schedule->period),
+                    'time' => BattleHelper::periodToRange2($schedule->period),
                     'rule' => [
                         'key' => $rule->key,
                         'name' => Yii::t('app-rule3', $rule->name),
@@ -137,7 +137,7 @@ trait Battle3
     {
         return self::getAssetUrl3(
             Spl3StageAsset::class,
-            \vsprintf('color-normal/%s.png', [
+            \vsprintf('color-normal/%s.jpg', [
                 $map->key,
             ])
         );
