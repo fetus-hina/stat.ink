@@ -15,8 +15,10 @@ use DateTimeZone;
 use Yii;
 use app\actions\api\internal\schedule\Splatoon2;
 use app\actions\api\internal\schedule\Splatoon3;
+use app\assets\GameVersionIconAsset;
 use app\components\helpers\Battle as BattleHelper;
 use yii\base\Action;
+use yii\helpers\Url;
 
 final class ScheduleAction extends Action
 {
@@ -50,6 +52,7 @@ final class ScheduleAction extends Action
                 'calendar' => Yii::$app->localeCalendar,
             ],
             'sources' => $this->getSources(),
+            'games' => $this->getGames(),
             'splatoon2' => $this->getSplatoon2(),
             'splatoon3' => $this->getSplatoon3(),
             'translations' => $this->getTranslations(),
@@ -76,6 +79,27 @@ final class ScheduleAction extends Action
             's3ink' => [
                 'url' => 'https://splatoon3.ink/',
                 'name' => 'Splatoon3.ink',
+            ],
+        ];
+    }
+
+    private function getGames(): array
+    {
+        $am = Yii::$app->assetManager;
+        $asset = $am ? $am->getBundle(GameVersionIconAsset::class) : null;
+
+        return [
+            'splatoon1' => [
+                'name' => Yii::t('app', 'Splatoon'),
+                'icon' => $asset ? Url::to($am->getAssetUrl($asset, 's1.png'), true) : null,
+            ],
+            'splatoon2' => [
+                'name' => Yii::t('app', 'Splatoon 2'),
+                'icon' => $asset ? Url::to($am->getAssetUrl($asset, 's2.png'), true) : null,
+            ],
+            'splatoon3' => [
+                'name' => Yii::t('app', 'Splatoon 3'),
+                'icon' => $asset ? Url::to($am->getAssetUrl($asset, 's3.png'), true) : null,
             ],
         ];
     }

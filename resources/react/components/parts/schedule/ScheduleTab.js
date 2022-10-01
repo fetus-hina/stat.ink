@@ -35,6 +35,7 @@ function ScheduleTab (props) {
 }
 
 ScheduleTab.propTypes = {
+  gameIcons: PropTypes.object,
   isSelected: PropTypes.bool.isRequired,
   item: PropTypes.object.isRequired,
   now: PropTypes.number.isRequired,
@@ -44,7 +45,7 @@ ScheduleTab.propTypes = {
 };
 
 function label (classes, mode, props) {
-  const { item, now, translations } = props;
+  const { gameIcons, isSelected, item, now, translations } = props;
 
   if (!mode) {
     return item.label;
@@ -54,10 +55,28 @@ function label (classes, mode, props) {
 
   return (
     <>
+      {mode.game && gameIcons[mode.game] && gameIcons[mode.game].icon
+        ? (
+          <>
+            <img
+              alt={gameIcons[mode.game].name}
+              className={classes.modeIcon}
+              src={gameIcons[mode.game].icon}
+              title={gameIcons[mode.game].name}
+            />
+            {' '}
+          </>
+          )
+        : null}
       {mode.image
         ? (
           <>
-            <img src={mode.image} className={classes.modeIcon} />
+            <img
+              alt=''
+              className={classes.modeIcon}
+              src={mode.image}
+              title={mode.name}
+            />
             {' '}
           </>
           )
@@ -65,7 +84,12 @@ function label (classes, mode, props) {
       {current && current.rule && current.rule.icon
         ? (
           <>
-            <img alt={current.rule.name} className={classes.modeIcon} src={current.rule.icon} title={current.rule.name} />
+            <img
+              alt={current.rule.name}
+              className={classes.modeIcon}
+              src={current.rule.icon}
+              title={current.rule.name}
+            />
             {' '}
           </>
           )
@@ -80,7 +104,7 @@ function label (classes, mode, props) {
           </>
           )
         : null}
-      {mode.name}
+      {isSelected ? mode.name : null}
     </>
   );
 }
@@ -116,6 +140,7 @@ function extractCurrent (mode, now) {
 
 function mapStateToProps (state) {
   return {
+    gameIcons: state.schedule.data ? state.schedule.data.games : null,
     now: Math.floor(state.schedule.currentTime / 1000),
     schedule: state.schedule.data,
     translations: state.schedule.data ? state.schedule.data.translations : null

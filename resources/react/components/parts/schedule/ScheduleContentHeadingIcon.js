@@ -9,7 +9,7 @@ export default function ScheduleContentHeadingIcon (props) {
   }
 
   return (
-    <img src={schedule.rule.icon} className='mr-1' />
+    <img src={schedule.rule.icon} className='mr-1' width='24' height='24' />
   );
 }
 
