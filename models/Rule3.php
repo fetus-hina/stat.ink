@@ -25,6 +25,7 @@ use yii\db\ActiveRecord;
  *
  * @property Battle3[] $battle3s
  * @property Rule3Alias[] $rule3Aliases
+ * @property Schedule3[] $schedule3s
  */
 class Rule3 extends ActiveRecord
 {
@@ -63,5 +64,10 @@ class Rule3 extends ActiveRecord
     public function getRule3Aliases(): ActiveQuery
     {
         return $this->hasMany(Rule3Alias::class, ['rule_id' => 'id']);
+    }
+
+    public function getSchedule3s(): ActiveQuery
+    {
+        return $this->hasMany(Schedule3::class, ['rule_id' => 'id']);
     }
 }

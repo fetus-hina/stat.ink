@@ -23,6 +23,7 @@ use yii\db\ActiveRecord;
  * @property integer $rank
  *
  * @property Battle3[] $battle3s
+ * @property Schedule3[] $schedule3s
  */
 class Lobby3 extends ActiveRecord
 {
@@ -55,5 +56,10 @@ class Lobby3 extends ActiveRecord
     public function getBattle3s(): ActiveQuery
     {
         return $this->hasMany(Battle3::class, ['lobby_id' => 'id']);
+    }
+
+    public function getSchedule3s(): ActiveQuery
+    {
+        return $this->hasMany(Schedule3::class, ['lobby_id' => 'id']);
     }
 }

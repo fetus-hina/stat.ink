@@ -24,7 +24,9 @@ use yii\db\ActiveRecord;
  * @property integer $area
  * @property string $release_at
  *
+ * @property Battle3[] $battle3s
  * @property Map3Alias[] $map3Aliases
+ * @property ScheduleMap3[] $scheduleMap3s
  */
 class Map3 extends ActiveRecord
 {
@@ -61,8 +63,18 @@ class Map3 extends ActiveRecord
         ];
     }
 
+    public function getBattle3s(): ActiveQuery
+    {
+        return $this->hasMany(Battle3::class, ['map_id' => 'id']);
+    }
+
     public function getMap3Aliases(): ActiveQuery
     {
         return $this->hasMany(Map3Alias::class, ['map_id' => 'id']);
+    }
+
+    public function getScheduleMap3s(): ActiveQuery
+    {
+        return $this->hasMany(ScheduleMap3::class, ['map_id' => 'id']);
     }
 }
