@@ -4,6 +4,21 @@ import ScheduleTabs from './ScheduleTabs';
 
 const data = [
   {
+    id: 'regular3',
+    ref: 'splatoon3/regular'.split('/'),
+    label: 'Regular'
+  },
+  {
+    id: 'challenge3',
+    ref: 'splatoon3/bankara_challenge'.split('/'),
+    label: 'Anarchy (Series)'
+  },
+  {
+    id: 'open3',
+    ref: 'splatoon3/bankara_open'.split('/'),
+    label: 'Anarchy (Open)'
+  },
+  {
     id: 'regular2',
     ref: 'splatoon2/regular'.split('/'),
     label: 'Regular'
@@ -26,7 +41,7 @@ const data = [
 ];
 
 export default function ScheduleDisplay () {
-  const [selected, setSelected] = useState('regular2');
+  const [selected, setSelected] = useState('challenge3');
 
   return (
     <>
