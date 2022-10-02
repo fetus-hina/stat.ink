@@ -14,4 +14,7 @@ return [
     'Anarchy Battle (Series)' => 'Partita anarchica (Serie)',
     'Private Battle' => 'Privata privata',
     'Regular Battle' => 'Partita amichevole',
+    'Splatfest' => '',
+    'Splatfest (Open)' => '',
+    'Splatfest (Pro)' => '',
 ];

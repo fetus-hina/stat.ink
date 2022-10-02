@@ -14,4 +14,7 @@ return [
     'Anarchy Battle (Series)' => 'Combate caótico (formal)',
     'Private Battle' => 'Combate privado',
     'Regular Battle' => 'Combate amistoso',
+    'Splatfest' => '',
+    'Splatfest (Open)' => '',
+    'Splatfest (Pro)' => '',
 ];
