@@ -72,6 +72,9 @@ final class BattleApiFormatter
             'rank_up_battle' => $model->is_rank_up_battle,
             'challenge_win' => $model->challenge_win,
             'challenge_lose' => $model->challenge_lose,
+            'clout_before' => $model->clout_before,
+            'clout_after' => $model->clout_after,
+            'clout_change' => $model->clout_change,
             'cash_before' => $model->cash_before,
             'cash_after' => $model->cash_after,
             'our_team_members' => BattlePlayerApiFormatter::toJson(

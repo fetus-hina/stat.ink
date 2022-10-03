@@ -92,6 +92,9 @@ final class PostBattleForm extends Model
     public $rank_up_battle;
     public $challenge_win;
     public $challenge_lose;
+    public $clout_before;
+    public $clout_after;
+    public $clout_change;
     public $cash_before;
     public $cash_after;
     public $our_team_players;
@@ -167,6 +170,7 @@ final class PostBattleForm extends Model
             [['rank_before_s_plus', 'rank_after_s_plus'], 'integer', 'min' => 0, 'max' => 50],
             [['rank_before_exp', 'rank_after_exp'], 'integer', 'min' => 0],
             [['rank_exp_change'], 'integer'],
+            [['clout_before', 'clout_after', 'clout_change'], 'integer', 'min' => 0],
             [['cash_before', 'cash_after'], 'integer', 'min' => 0, 'max' => 9999999],
             [['start_at', 'end_at'], 'integer',
                 'min' => \strtotime('2022-01-01T00:00:00+00:00'),
@@ -404,6 +408,9 @@ final class PostBattleForm extends Model
             'challenge_win' => self::intVal($this->challenge_win),
             'challenge_lose' => self::intVal($this->challenge_lose),
             'is_rank_up_battle' => self::boolVal($this->rank_up_battle),
+            'clout_before' => self::intVal($this->clout_before),
+            'clout_after' => self::intVal($this->clout_after),
+            'clout_change' => self::intVal($this->clout_change),
         ]);
 
         if ($rewriteKillAssist) {
