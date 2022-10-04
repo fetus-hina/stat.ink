@@ -36,6 +36,7 @@ return [
     'Flingza Roller' => 'Flexi-rullo',
     'Glooga Dualies' => 'Kelvin duplo 525',
     'Goo Tuber' => 'Tintubator',
+    'Grizzco Stringer' => '',
     'H-3 Nozzlenose' => 'Triplete',
     'Heavy Splatling' => 'Splatling a tanica',
     'Hero Shot Replica' => 'Pistola élite replica',

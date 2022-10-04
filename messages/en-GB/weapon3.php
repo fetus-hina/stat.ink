@@ -36,6 +36,7 @@ return [
     'Flingza Roller' => '',
     'Glooga Dualies' => '',
     'Goo Tuber' => '',
+    'Grizzco Stringer' => '',
     'H-3 Nozzlenose' => '',
     'Heavy Splatling' => '',
     'Hero Shot Replica' => '',

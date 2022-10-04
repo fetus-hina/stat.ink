@@ -36,6 +36,7 @@ return [
     'Flingza Roller' => 'Омнивалик',
     'Glooga Dualies' => 'Термоплюхи 525',
     'Goo Tuber' => 'Трубастер',
+    'Grizzco Stringer' => 'Тетиватор «Потапыч Inc.»',
     'H-3 Nozzlenose' => 'Тяжелый каплетрон',
     'Heavy Splatling' => 'Брызгомет XL',
     'Hero Shot Replica' => 'Каплестрел героя (клон)',

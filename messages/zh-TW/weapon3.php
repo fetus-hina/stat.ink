@@ -38,6 +38,7 @@ return [
     'Flingza Roller' => '可變式滾筒',
     'Glooga Dualies' => '開爾文525',
     'Goo Tuber' => '高壓油管槍',
+    'Grizzco Stringer' => '',
     'H-3 Nozzlenose' => 'H3捲管槍',
     'Heavy Splatling' => '桶裝旋轉槍',
     'Hero Shot Replica' => '英雄射擊槍 復製',

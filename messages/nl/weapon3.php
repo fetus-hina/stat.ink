@@ -36,6 +36,7 @@ return [
     'Flingza Roller' => 'Flexroller',
     'Glooga Dualies' => 'Kelvin 525',
     'Goo Tuber' => 'Spetbuizer',
+    'Grizzco Stringer' => '',
     'H-3 Nozzlenose' => 'H-3 Langsnuit',
     'Heavy Splatling' => 'Spetling',
     'Hero Shot Replica' => 'Heldenspetter (replica)',
