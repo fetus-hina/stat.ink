@@ -385,6 +385,7 @@ return [
     'Rank-up Battle' => '昇格戦',
     'Rank: Current' => 'ウデマエ: 現在',
     'Rank: Peak' => 'ウデマエ: 最高',
+    'Rare Weapon' => 'クマさんブキ',
     'Rate' => 'レート',
     'Ratio' => 'レシオ',
     'Recent Battles' => '最近のバトル',

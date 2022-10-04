@@ -397,6 +397,7 @@ return [
     'Rank: Current' => '',
     'Rank: Peak' => '',
     'Rank in Team' => '',
+    'Rare Weapon' => '',
     'Rate' => '',
     'Ratio' => '',
     'Recent Battles' => '',

@@ -398,6 +398,7 @@ return [
     'Rank: Current' => '',
     'Rank: Peak' => '',
     'Rank in Team' => 'Fila en Equipo',
+    'Rare Weapon' => '',
     'Rate' => 'Tarifa',
     'Ratio' => 'Relación',
     'Recent Battles' => 'Batallas recientes',
