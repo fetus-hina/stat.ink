@@ -35,13 +35,13 @@ return [
             ])
             ->limit($num ?? 100)
             ->orderBy([
-                '{{%battle3}}.[[id]]' => SORT_DESC,
+                '{{%battle3}}.[[end_at]]' => SORT_DESC,
             ]),
         'callback' => function (ActiveQuery $q, ?DateTimeImmutable $t): void {
             if (!$t) {
                 return;
             }
-            $q->andWhere(['>=', 'battle3.created_at', $t->format(DateTime::ATOM)]);
+            $q->andWhere(['>=', '{{battle3}}.[[created_at]]', $t->format(DateTime::ATOM)]);
         },
     ],
 ];
