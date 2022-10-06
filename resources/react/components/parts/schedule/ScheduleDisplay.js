@@ -19,6 +19,11 @@ const data = [
     label: 'Anarchy (Open)'
   },
   {
+    id: 'salmon3',
+    ref: 'splatoon3/salmon'.split('/'),
+    label: 'Salmon Run'
+  },
+  {
     id: 'regular2',
     ref: 'splatoon2/regular'.split('/'),
     label: 'Regular'
