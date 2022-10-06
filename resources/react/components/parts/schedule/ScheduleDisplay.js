@@ -6,42 +6,50 @@ const data = [
   {
     id: 'regular3',
     ref: 'splatoon3/regular'.split('/'),
-    label: 'Regular'
+    label: 'Regular',
+    showOpen: false
   },
   {
     id: 'challenge3',
     ref: 'splatoon3/bankara_challenge'.split('/'),
-    label: 'Anarchy (Series)'
+    label: 'Anarchy (Series)',
+    showOpen: false
   },
   {
     id: 'open3',
     ref: 'splatoon3/bankara_open'.split('/'),
-    label: 'Anarchy (Open)'
+    label: 'Anarchy (Open)',
+    showOpen: false
   },
   {
     id: 'salmon3',
     ref: 'splatoon3/salmon'.split('/'),
-    label: 'Salmon Run'
+    label: 'Salmon Run',
+    showOpen: false
   },
   {
     id: 'regular2',
     ref: 'splatoon2/regular'.split('/'),
-    label: 'Regular'
+    label: 'Regular',
+    showOpen: false
   },
   {
     id: 'gachi2',
     ref: 'splatoon2/gachi'.split('/'),
-    label: 'Ranked'
+    label: 'Ranked',
+    showOpen: false
   },
   {
     id: 'league2',
     ref: 'splatoon2/league'.split('/'),
-    label: 'League'
+    label: 'League',
+    showOpen: false
   },
   {
     id: 'salmon2',
     ref: 'splatoon2/salmon'.split('/'),
-    label: 'Salmon Run'
+    label: 'Salmon Run',
+    showOpen: true
   }
 ];
 
