@@ -13,6 +13,7 @@ namespace app\commands\i18n;
 use Yii;
 use app\models\Language;
 use app\models\SalmonMainWeapon2;
+use app\models\SalmonWeapon3;
 use app\models\Weapon2;
 use app\models\Weapon3;
 use app\models\Weapon;
@@ -176,6 +177,14 @@ trait WeaponShortNameTrait
         // Splatoon 2 Salmon Run
         foreach (SalmonMainWeapon2::find()->asArray()->all() as $weapon) {
             $name = $i18n->translate('app-weapon2', $weapon['name'], [], $locale->lang);
+            if (!isset($data[$name])) {
+                $data[$name] = '';
+            }
+        }
+
+        // Splatoon 3 Salmon Run
+        foreach (SalmonWeapon3::find()->all() as $weapon) {
+            $name = $i18n->translate('app-weapon3', $weapon->name, [], $locale->lang);
             if (!isset($data[$name])) {
                 $data[$name] = '';
             }

@@ -36,6 +36,7 @@ return [
     'Flingza Roller' => 'Flexi-rouleau',
     'Glooga Dualies' => 'Double Kelvin 525',
     'Goo Tuber' => 'Détubeur',
+    'Grizzco Stringer' => '',
     'H-3 Nozzlenose' => 'Arroseur lourd',
     'Heavy Splatling' => 'Badigeonneur',
     'Hero Shot Replica' => 'Liquéfi. héroïque (rép.)',

@@ -25,8 +25,11 @@ use yii\db\ActiveRecord;
  * @property integer $canonical_id
  * @property string $name
  *
+ * @property Battle3[] $battle3s
+ * @property BattlePlayer3[] $battlePlayer3s
  * @property Weapon3 $canonical
  * @property Mainweapon3 $mainweapon
+ * @property SalmonWeapon3 $salmonWeapon3
  * @property Special3 $special
  * @property Subweapon3 $subweapon
  * @property Weapon3Alias[] $weapon3Aliases
@@ -69,6 +72,16 @@ class Weapon3 extends ActiveRecord
         ];
     }
 
+    public function getBattle3s(): ActiveQuery
+    {
+        return $this->hasMany(Battle3::class, ['weapon_id' => 'id']);
+    }
+
+    public function getBattlePlayer3s(): ActiveQuery
+    {
+        return $this->hasMany(BattlePlayer3::class, ['weapon_id' => 'id']);
+    }
+
     public function getCanonical(): ActiveQuery
     {
         return $this->hasOne(Weapon3::class, ['id' => 'canonical_id']);
@@ -77,6 +90,11 @@ class Weapon3 extends ActiveRecord
     public function getMainweapon(): ActiveQuery
     {
         return $this->hasOne(Mainweapon3::class, ['id' => 'mainweapon_id']);
+    }
+
+    public function getSalmonWeapon3(): ActiveQuery
+    {
+        return $this->hasOne(SalmonWeapon3::class, ['weapon_id' => 'id']);
     }
 
     public function getSpecial(): ActiveQuery

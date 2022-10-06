@@ -398,6 +398,7 @@ return [
     'Rank: Current' => '當前段位：',
     'Rank: Peak' => '最高段位：',
     'Rank in Team' => '隊中排名',
+    'Rare Weapon' => '',
     'Rate' => '擊殺率',
     'Ratio' => '擊殺比值',
     'Recent Battles' => '最近對戰',

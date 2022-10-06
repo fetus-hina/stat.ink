@@ -36,6 +36,7 @@ return [
     'Flingza Roller' => '베리어블 롤러',
     'Glooga Dualies' => '켈빈 525',
     'Goo Tuber' => '소이 튜버',
+    'Grizzco Stringer' => '',
     'H-3 Nozzlenose' => 'H3 릴 건',
     'Heavy Splatling' => '배럴 스피너',
     'Hero Shot Replica' => '히어로 슈터 레플리카',

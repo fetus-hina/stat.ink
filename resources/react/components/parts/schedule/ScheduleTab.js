@@ -94,7 +94,7 @@ function label (classes, mode, props) {
           </>
           )
         : null}
-      {current && current.weapons
+      {current && current.weapons && item.showOpen
         ? (
           <>
             <span className='text-warning' title={translations ? translations.salmon_open : 'Open!'}>

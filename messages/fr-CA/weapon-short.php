@@ -82,6 +82,7 @@ return [
     'Exteinteur modifié' => '',
     'Flexi-rouleau' => '',
     'Fusil M. Ours SA' => '',
+    'Grizzco Stringer' => '',
     'Lignizateur alpha' => '',
     'Lignizateur bêta' => '',
     'Lignizateur gamma' => '',

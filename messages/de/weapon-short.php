@@ -33,6 +33,7 @@ return [
     'Berry Splattershot Pro' => '',
     'Blaster' => '',
     'Blaster SE' => '',
+    'Bär-Stringer' => '',
     'Camp-Pluviator' => '',
     'Camp-Pluviator Camo' => '',
     'Carbon Roller' => '',
