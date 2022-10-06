@@ -22,8 +22,9 @@ use yii\db\ActiveRecord;
  * @property string $name
  * @property integer $weapon_id
  *
+ * @property SalmonScheduleWeapon3[] $salmonScheduleWeapon3s
  * @property SalmonWeapon3Alias[] $salmonWeapon3Aliases
- * @property Mainweapon3 $weapon
+ * @property Weapon3 $weapon
  */
 class SalmonWeapon3 extends ActiveRecord
 {
@@ -41,7 +42,8 @@ class SalmonWeapon3 extends ActiveRecord
             [['key'], 'string', 'max' => 32],
             [['name'], 'string', 'max' => 63],
             [['key'], 'unique'],
-            [['weapon_id'], 'exist', 'skipOnError' => true, 'targetClass' => Mainweapon3::class, 'targetAttribute' => ['weapon_id' => 'id']],
+            [['weapon_id'], 'unique'],
+            [['weapon_id'], 'exist', 'skipOnError' => true, 'targetClass' => Weapon3::class, 'targetAttribute' => ['weapon_id' => 'id']],
         ];
     }
 
@@ -55,6 +57,11 @@ class SalmonWeapon3 extends ActiveRecord
         ];
     }
 
+    public function getSalmonScheduleWeapon3s(): ActiveQuery
+    {
+        return $this->hasMany(SalmonScheduleWeapon3::class, ['weapon_id' => 'id']);
+    }
+
     public function getSalmonWeapon3Aliases(): ActiveQuery
     {
         return $this->hasMany(SalmonWeapon3Alias::class, ['weapon_id' => 'id']);
@@ -62,6 +69,6 @@ class SalmonWeapon3 extends ActiveRecord
 
     public function getWeapon(): ActiveQuery
     {
-        return $this->hasOne(Mainweapon3::class, ['id' => 'weapon_id']);
+        return $this->hasOne(Weapon3::class, ['id' => 'weapon_id']);
     }
 }

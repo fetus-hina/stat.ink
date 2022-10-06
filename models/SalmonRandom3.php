@@ -20,6 +20,8 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property string $key
  * @property string $name
+ *
+ * @property SalmonScheduleWeapon3[] $salmonScheduleWeapon3s
  */
 class SalmonRandom3 extends ActiveRecord
 {
@@ -45,5 +47,10 @@ class SalmonRandom3 extends ActiveRecord
             'key' => 'Key',
             'name' => 'Name',
         ];
+    }
+
+    public function getSalmonScheduleWeapon3s(): ActiveQuery
+    {
+        return $this->hasMany(SalmonScheduleWeapon3::class, ['random_id' => 'id']);
     }
 }
