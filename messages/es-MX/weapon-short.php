@@ -71,6 +71,7 @@ return [
     'Grizzco Brella' => '',
     'Grizzco Charger' => '',
     'Grizzco Slosher' => '',
+    'Grizzco Stringer' => '',
     'Hiperlanzamotas' => '',
     'Hiperlanzamotas neo' => '',
     'Lanzamotas' => '',

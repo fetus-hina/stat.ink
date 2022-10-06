@@ -36,6 +36,7 @@ return [
     'Flingza Roller' => 'Rodillo versátil',
     'Glooga Dualies' => 'Fundidora 525 dual',
     'Goo Tuber' => 'Tubofusil',
+    'Grizzco Stringer' => '',
     'H-3 Nozzlenose' => 'Tintambor pesado',
     'Heavy Splatling' => 'Tintralladora',
     'Hero Shot Replica' => 'Pistola de Élite (réplica)',

@@ -13,9 +13,13 @@ namespace app\actions\api\internal\schedule;
 trait Splatoon3
 {
     use Battle3;
+    use Salmon3;
 
     protected function getSplatoon3(): array
     {
-        return $this->getBattle3();
+        return \array_merge(
+            $this->getBattle3(),
+            $this->getSalmon3()
+        );
     }
 }

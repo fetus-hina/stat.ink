@@ -13,6 +13,7 @@ namespace app\actions\api\info;
 use Yii;
 use app\components\helpers\Translator;
 use app\models\Language;
+use app\models\SalmonWeapon3;
 use app\models\Special3;
 use app\models\Subweapon3;
 use app\models\Weapon3;
@@ -26,6 +27,7 @@ final class Weapon3Action extends Action
     {
         return $this->controller->render('weapon3', [
             'langs' => $this->getLangs(),
+            'salmons' => $this->getSalmonWeapons(),
             'specials' => $this->getSpecials(),
             'subs' => $this->getSubweapons(),
             'weapons' => $this->getWeapons(),
@@ -83,6 +85,7 @@ final class Weapon3Action extends Action
                 ->with([
                     'mainweapon',
                     'mainweapon.type',
+                    'salmonWeapon3',
                     'special',
                     'subweapon',
                     'weapon3Aliases',
@@ -93,6 +96,24 @@ final class Weapon3Action extends Action
                 $bN = Yii::t('app-weapon3', $b->name);
                 return $a->mainweapon->type->rank <=> $b->mainweapon->type->rank
                     ?:  \strnatcasecmp($aN, $bN)
+                    ?: \strcmp($aN, $bN)
+                    ?: \strnatcasecmp($a->name, $b->name)
+                    ?: \strcmp($a->name, $b->name);
+            },
+        );
+    }
+
+    private function getSalmonWeapons(): array
+    {
+        return ArrayHelper::sort(
+            SalmonWeapon3::find()
+                ->with(['salmonWeapon3Aliases'])
+                ->andWhere(['weapon_id' => null])
+                ->all(),
+            function (Weapon3 $a, Weapon3 $b): int {
+                $aN = Yii::t('app-weapon3', $a->name);
+                $bN = Yii::t('app-weapon3', $b->name);
+                return \strnatcasecmp($aN, $bN)
                     ?: \strcmp($aN, $bN)
                     ?: \strnatcasecmp($a->name, $b->name)
                     ?: \strcmp($a->name, $b->name);

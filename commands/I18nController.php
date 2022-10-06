@@ -282,7 +282,10 @@ class I18nController extends Controller
         $appPath = Yii::getAlias('@app/');
         if (substr($path, 0, strlen($appPath)) === $appPath) {
             $localPath = substr($path, strlen($appPath));
-            if ($localPath === 'messages/zh-TW/map3.php') {
+            if (
+                $localPath === 'messages/zh-CN/map3.php' ||
+                $localPath === 'messages/zh-TW/map3.php'
+            ) {
                 return true;
             }
         }

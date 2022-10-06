@@ -50,6 +50,7 @@ return [
                 'app-salmon-tide2' => 'salmon-tide2.php',
                 'app-salmon-title2' => 'salmon-title2.php',
                 'app-salmon2'   => 'salmon2.php',
+                'app-salmon3'   => 'salmon3.php',
                 'app-slack'     => 'slack.php',
                 'app-special'   => 'special.php',
                 'app-special2'  => 'special2.php',

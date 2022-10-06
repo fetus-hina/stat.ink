@@ -6,6 +6,7 @@ use app\components\widgets\AdWidget;
 use app\components\widgets\CcBy;
 use app\components\widgets\SnsWidget;
 use app\models\Language;
+use app\models\SalmonWeapon3;
 use app\models\Special3;
 use app\models\Subweapon3;
 use app\models\Weapon3;
@@ -14,6 +15,7 @@ use yii\web\View;
 
 /**
  * @var Language[] $langs
+ * @var SalmonWeapon3[] $salmons
  * @var Special3[] $specials
  * @var Subweapon3[] $subs
  * @var View $this
@@ -55,6 +57,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
   </p>
 
   <?= $this->render('weapon3/main', ['langs' => $langs, 'weapons' => $weapons]) . "\n" ?>
+  <?= $this->render('weapon3/salmon', ['langs' => $langs, 'weapons' => $salmons]) . "\n" ?>
   <?= $this->render('weapon3/sub', ['langs' => $langs, 'subs' => $subs]) . "\n" ?>
   <?= $this->render('weapon3/special', ['langs' => $langs, 'specials' => $specials]) . "\n" ?>
   <hr>

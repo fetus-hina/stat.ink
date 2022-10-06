@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\assets\GameModeIconsAsset;
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\v3\weaponIcon\SpecialIcon;
 use app\components\widgets\v3\weaponIcon\SubweaponIcon;
@@ -23,6 +24,17 @@ use yii\web\View;
 TableResponsiveForceAsset::register($this);
 SortableTableAsset::register($this);
 
+$salmonIcon = Html::img(
+  Yii::$app->assetManager->getAssetUrl(GameModeIconsAsset::register($this), 'spl3/salmon.png'),
+  [
+    'alt' => '🐟',
+    'style' => [
+      'height' => '1em',
+      'width' => 'auto',
+    ],
+  ],
+);
+
 ?>
 <h2><?= Html::encode(Yii::t('app', 'Main Weapon')) ?></h2>
 <div class="table-responsive table-responsive-force">
@@ -31,6 +43,7 @@ SortableTableAsset::register($this);
       <tr>
         <th></th>
         <th data-sort="int"><?= Html::encode(Yii::t('app', 'Category')) ?></th>
+        <th data-sort="int"><?= $salmonIcon ?></th>
         <th data-sort="string"><code>key</code></th>
         <th data-sort="string"><?= Html::encode(Yii::t('app', 'Aliases')) ?></th>
 <?php foreach ($langs as $i => $lang) { ?>
@@ -58,6 +71,15 @@ SortableTableAsset::register($this);
               'sort-value' => $weapon->mainweapon->type->rank,
             ],
           ],
+        ) . "\n" ?>
+        <?= Html::tag(
+          'td',
+          $weapon->salmonWeapon3 ? $salmonIcon : '',
+          [
+            'data' => [
+              'sort-value' => $weapon->salmonWeapon3 ? 1 : 0,
+            ],
+          ]
         ) . "\n" ?>
         <?= Html::tag(
           'td',
