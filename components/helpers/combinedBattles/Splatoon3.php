@@ -38,7 +38,7 @@ return [
             if (!$t) {
                 return;
             }
-            $q->andWhere(['>=', '{{%battle2}}.[[created_at]]', $t->format(DateTime::ATOM)]);
+            $q->andWhere(['>=', '{{%battle3}}.[[created_at]]', $t->format(DateTime::ATOM)]);
         },
     ],
 ];
