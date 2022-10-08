@@ -53,6 +53,7 @@ echo DetailView::widget([
     require __DIR__ . '/details/rank-up-battle.php',
     require __DIR__ . '/details/challenge.php',
     require __DIR__ . '/details/clout.php',
+    require __DIR__ . '/details/fest-power.php',
     require __DIR__ . '/details/team-inked.php',
     require __DIR__ . '/details/team-count.php',
     require __DIR__ . '/details/rank-in-team.php',
