@@ -57,9 +57,12 @@ final class PlayerForm extends Model
             [['rank_in_team'], 'integer', 'min' => 1, 'max' => 4],
             [['name'], 'string', 'min' => 1, 'max' => 10],
 
-            // workaround for https://github.com/fetus-hina/stat.ink/issues/1099
-            [['number'], 'string'],
-            // [['number'], 'integer', 'min' => 0],
+            // "number" is not an integer.
+            // see #1099 and #1113
+            [['number'], 'string', 'max' => 32],
+            [['number'], 'match',
+                'pattern' => '/^[0-9A-Za-z]+$/',
+            ],
 
             [['splashtag_title'], 'string', 'max' => 255],
             [['weapon'], 'string'],
@@ -97,7 +100,7 @@ final class PlayerForm extends Model
             'is_me' => (bool)($isOurTeam && self::boolVal($this->me)),
             'rank_in_team' => self::intVal($this->rank_in_team),
             'name' => self::strVal($this->name),
-            'number' => self::intVal($this->number),
+            'number' => self::hashNumberVal($this->number),
             'weapon_id' => self::key2id($this->weapon, Weapon3::class, Weapon3Alias::class, 'weapon_id'),
             'inked' => self::intVal($this->inked),
             'kill' => self::intVal($this->kill),
@@ -162,5 +165,16 @@ final class PlayerForm extends Model
         }
 
         return (int)$model->id;
+    }
+
+    private static function hashNumberVal($value): ?string
+    {
+        // もし3桁以下の数字だったら0埋めする
+        $intVal = self::intVal($value);
+        if ($intVal && $intVal < 1000) {
+            return \sprintf('%04d', $intVal);
+        }
+
+        return self::strVal($value);
     }
 }
