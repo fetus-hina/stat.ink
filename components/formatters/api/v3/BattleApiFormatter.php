@@ -113,8 +113,8 @@ final class BattleApiFormatter
     {
         $players = \array_filter(
             $players,
-            function (BattlePlayer3 $model): bool {
-                return $model->is_our_team;
+            function (BattlePlayer3 $model) use ($isOurTeam): bool {
+                return $model->is_our_team === $isOurTeam;
             }
         );
         usort($players, fn (BattlePlayer3 $a, BattlePlayer3 $b): int => $a->id <=> $b->id);
