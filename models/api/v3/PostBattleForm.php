@@ -27,6 +27,8 @@ use app\models\BattleImageGear3;
 use app\models\BattleImageJudge3;
 use app\models\BattleImageResult3;
 use app\models\BattleMedal3;
+use app\models\DragonMatch3;
+use app\models\DragonMatch3Alias;
 use app\models\Lobby3;
 use app\models\Map3;
 use app\models\Map3Alias;
@@ -92,6 +94,7 @@ final class PostBattleForm extends Model
     public $rank_up_battle;
     public $challenge_win;
     public $challenge_lose;
+    public $fest_dragon;
     public $clout_before;
     public $clout_after;
     public $clout_change;
@@ -197,6 +200,10 @@ final class PostBattleForm extends Model
             [['weapon'], KeyValidator::class,
                 'modelClass' => Weapon3::class,
                 'aliasClass' => Weapon3Alias::class,
+            ],
+            [['fest_dragon'], KeyValidator::class,
+                'modelClass' => DragonMatch3::class,
+                'aliasClass' => DragonMatch3Alias::class,
             ],
             [['rank_before', 'rank_after'], KeyValidator::class, 'modelClass' => Rank3::class],
 
@@ -411,6 +418,12 @@ final class PostBattleForm extends Model
             'clout_before' => self::intVal($this->clout_before),
             'clout_after' => self::intVal($this->clout_after),
             'clout_change' => self::intVal($this->clout_change),
+            'fest_dragon_id' => self::key2id(
+                $this->fest_dragon,
+                DragonMatch3::class,
+                DragonMatch3Alias::class,
+                'dragon_id'
+            ),
         ]);
 
         if ($rewriteKillAssist) {

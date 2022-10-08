@@ -24,6 +24,7 @@ return [
     '24H Win %' => '% Victoire 24H',
     '57 Format' => 'Format 57',
     '100x Battle' => 'Bonus ×100',
+    '333x Battle' => 'Bonus ×333',
     '<a href="http://www.emoji-cheat-sheet.com/" target="_blank">Cheat sheet</a>. If omitted, the default icon will be used.' => '<a href="http://www.emoji-cheat-sheet.com/" target="_blank">Cheat sheet</a>. Si omise, l\'icône par défaut sera utilisée.',
     '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>' => '<div class="input-group"><span class="input-group-addon">De:</span>{input}</div>',
     '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>' => '<div class="input-group"><span class="input-group-addon">À:</span>{input}</div>',

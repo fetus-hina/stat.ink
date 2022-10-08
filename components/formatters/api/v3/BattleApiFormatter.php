@@ -72,6 +72,7 @@ final class BattleApiFormatter
             'rank_up_battle' => $model->is_rank_up_battle,
             'challenge_win' => $model->challenge_win,
             'challenge_lose' => $model->challenge_lose,
+            'fest_dragon' => DragonMatchApiFormatter::toJson($model->festDragon, $fullTranslate),
             'clout_before' => $model->clout_before,
             'clout_after' => $model->clout_after,
             'clout_change' => $model->clout_change,
