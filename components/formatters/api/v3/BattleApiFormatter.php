@@ -13,6 +13,7 @@ namespace app\components\formatters\api\v3;
 use app\models\Battle3;
 use app\models\BattlePlayer3;
 use yii\helpers\Url;
+use yii\web\JsExpression;
 
 final class BattleApiFormatter
 {
@@ -72,6 +73,11 @@ final class BattleApiFormatter
             'rank_up_battle' => $model->is_rank_up_battle,
             'challenge_win' => $model->challenge_win,
             'challenge_lose' => $model->challenge_lose,
+            'fest_power' => self::festPower($model->fest_power),
+            'fest_dragon' => DragonMatchApiFormatter::toJson($model->festDragon, $fullTranslate),
+            'clout_before' => $model->clout_before,
+            'clout_after' => $model->clout_after,
+            'clout_change' => $model->clout_change,
             'cash_before' => $model->cash_before,
             'cash_after' => $model->cash_after,
             'our_team_members' => BattlePlayerApiFormatter::toJson(
@@ -113,5 +119,15 @@ final class BattleApiFormatter
         );
         usort($players, fn (BattlePlayer3 $a, BattlePlayer3 $b): int => $a->id <=> $b->id);
         return \array_values($players);
+    }
+
+    private static function festPower($value): ?JsExpression
+    {
+        $value = \filter_var($value, FILTER_VALIDATE_FLOAT);
+        if (!\is_float($value)) {
+            return null;
+        }
+
+        return new JsExpression(sprintf('%.1f', $value));
     }
 }

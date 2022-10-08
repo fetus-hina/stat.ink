@@ -15,4 +15,7 @@ return [
     'Anarchy Battle (Series)' => '蠻頹比賽 (挑戰)',
     'Private Battle' => '私人比賽',
     'Regular Battle' => '一般比賽',
+    'Splatfest' => '',
+    'Splatfest (Open)' => '',
+    'Splatfest (Pro)' => '',
 ];

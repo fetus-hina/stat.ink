@@ -14,4 +14,7 @@ return [
     'Anarchy Battle (Series)' => 'Chaosgevecht (sessie)',
     'Private Battle' => 'Privégevecht',
     'Regular Battle' => 'Standaardgevecht',
+    'Splatfest' => '',
+    'Splatfest (Open)' => '',
+    'Splatfest (Pro)' => '',
 ];

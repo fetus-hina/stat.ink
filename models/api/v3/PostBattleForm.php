@@ -27,6 +27,8 @@ use app\models\BattleImageGear3;
 use app\models\BattleImageJudge3;
 use app\models\BattleImageResult3;
 use app\models\BattleMedal3;
+use app\models\DragonMatch3;
+use app\models\DragonMatch3Alias;
 use app\models\Lobby3;
 use app\models\Map3;
 use app\models\Map3Alias;
@@ -92,6 +94,11 @@ final class PostBattleForm extends Model
     public $rank_up_battle;
     public $challenge_win;
     public $challenge_lose;
+    public $fest_power;
+    public $fest_dragon;
+    public $clout_before;
+    public $clout_after;
+    public $clout_change;
     public $cash_before;
     public $cash_after;
     public $our_team_players;
@@ -167,6 +174,8 @@ final class PostBattleForm extends Model
             [['rank_before_s_plus', 'rank_after_s_plus'], 'integer', 'min' => 0, 'max' => 50],
             [['rank_before_exp', 'rank_after_exp'], 'integer', 'min' => 0],
             [['rank_exp_change'], 'integer'],
+            [['fest_power'], 'number', 'min' => 0, 'max' => 99999.9],
+            [['clout_before', 'clout_after', 'clout_change'], 'integer', 'min' => 0],
             [['cash_before', 'cash_after'], 'integer', 'min' => 0, 'max' => 9999999],
             [['start_at', 'end_at'], 'integer',
                 'min' => \strtotime('2022-01-01T00:00:00+00:00'),
@@ -193,6 +202,10 @@ final class PostBattleForm extends Model
             [['weapon'], KeyValidator::class,
                 'modelClass' => Weapon3::class,
                 'aliasClass' => Weapon3Alias::class,
+            ],
+            [['fest_dragon'], KeyValidator::class,
+                'modelClass' => DragonMatch3::class,
+                'aliasClass' => DragonMatch3Alias::class,
             ],
             [['rank_before', 'rank_after'], KeyValidator::class, 'modelClass' => Rank3::class],
 
@@ -404,6 +417,16 @@ final class PostBattleForm extends Model
             'challenge_win' => self::intVal($this->challenge_win),
             'challenge_lose' => self::intVal($this->challenge_lose),
             'is_rank_up_battle' => self::boolVal($this->rank_up_battle),
+            'clout_before' => self::intVal($this->clout_before),
+            'clout_after' => self::intVal($this->clout_after),
+            'clout_change' => self::intVal($this->clout_change),
+            'fest_dragon_id' => self::key2id(
+                $this->fest_dragon,
+                DragonMatch3::class,
+                DragonMatch3Alias::class,
+                'dragon_id'
+            ),
+            'fest_power' => self::floatVal($this->fest_power),
         ]);
 
         if ($rewriteKillAssist) {
