@@ -23,6 +23,7 @@ return [
     '24H Win %' => '24H勝率',
     '3+9 Format' => '3+9形式',
     '3, 9 Format' => '3, 9形式',
+    '333x Battle' => '333倍マッチ',
     '57 Format' => '57形式',
     '<a href="http://www.emoji-cheat-sheet.com/" target="_blank">Cheat sheet</a>. If omitted, the default icon will be used.' => '<a href="http://www.emoji-cheat-sheet.com/" target="_blank">チートシート</a>。省略するとデフォルトのアイコンが使用されます。',
     '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>' => '<div class="input-group">{input}<span class="input-group-addon">から</span></div>',

@@ -14,4 +14,7 @@ return [
     'Anarchy Battle' => 'バンカラマッチ',
     'Private Battle' => 'プライベートマッチ',
     'Regular Battle' => 'レギュラーマッチ',
+    'Splatfest (Open)' => 'フェスマッチ（オープン）',
+    'Splatfest (Pro)' => 'フェスマッチ（チャレンジ）',
+    'Splatfest' => 'フェスマッチ',
 ];
