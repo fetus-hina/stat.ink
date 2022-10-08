@@ -42,7 +42,7 @@ if ($player->is_me) {
         'div',
         trim(vsprintf('%s %s', [
           Html::encode((string)$title->name),
-          Html::encode($player->number !== null ? sprintf('#%04d', $player->number) : '')
+          Html::encode($player->number !== null ? sprintf('#%s', (string)$player->number) : ''),
         ])),
         ['class' => 'small text-muted']
       );

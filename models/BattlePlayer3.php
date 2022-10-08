@@ -23,7 +23,6 @@ use yii\db\ActiveRecord;
  * @property boolean $is_me
  * @property integer $rank_in_team
  * @property string $name
- * @property integer $number
  * @property integer $weapon_id
  * @property integer $inked
  * @property integer $kill
@@ -33,6 +32,7 @@ use yii\db\ActiveRecord;
  * @property integer $special
  * @property boolean $is_disconnected
  * @property integer $splashtag_title_id
+ * @property string $number
  *
  * @property Battle3 $battle
  * @property SplashtagTitle3 $splashtagTitle
@@ -49,10 +49,11 @@ class BattlePlayer3 extends ActiveRecord
     {
         return [
             [['battle_id', 'is_our_team', 'is_me'], 'required'],
-            [['battle_id', 'rank_in_team', 'number', 'weapon_id', 'inked', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'splashtag_title_id'], 'default', 'value' => null],
-            [['battle_id', 'rank_in_team', 'number', 'weapon_id', 'inked', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'splashtag_title_id'], 'integer'],
+            [['battle_id', 'rank_in_team', 'weapon_id', 'inked', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'splashtag_title_id'], 'default', 'value' => null],
+            [['battle_id', 'rank_in_team', 'weapon_id', 'inked', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'splashtag_title_id'], 'integer'],
             [['is_our_team', 'is_me', 'is_disconnected'], 'boolean'],
             [['name'], 'string', 'max' => 10],
+            [['number'], 'string', 'max' => 32],
             [['battle_id'], 'exist', 'skipOnError' => true, 'targetClass' => Battle3::class, 'targetAttribute' => ['battle_id' => 'id']],
             [['splashtag_title_id'], 'exist', 'skipOnError' => true, 'targetClass' => SplashtagTitle3::class, 'targetAttribute' => ['splashtag_title_id' => 'id']],
             [['weapon_id'], 'exist', 'skipOnError' => true, 'targetClass' => Weapon3::class, 'targetAttribute' => ['weapon_id' => 'id']],
@@ -68,7 +69,6 @@ class BattlePlayer3 extends ActiveRecord
             'is_me' => 'Is Me',
             'rank_in_team' => 'Rank In Team',
             'name' => 'Name',
-            'number' => 'Number',
             'weapon_id' => 'Weapon ID',
             'inked' => 'Inked',
             'kill' => 'Kill',
@@ -78,6 +78,7 @@ class BattlePlayer3 extends ActiveRecord
             'special' => 'Special',
             'is_disconnected' => 'Is Disconnected',
             'splashtag_title_id' => 'Splashtag Title ID',
+            'number' => 'Number',
         ];
     }
 
