@@ -29,6 +29,7 @@ class NotoSansAsset extends AssetBundle
                     [
                         'Noto Sans',
                         'Noto Sans JP',
+                        'Noto Sans KR',
                         'Noto Sans SC',
                         'Noto Sans TC',
                     ]
