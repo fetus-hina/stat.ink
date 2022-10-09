@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -20,7 +20,7 @@ use app\models\Timezone;
 use yii\base\Widget;
 use yii\helpers\Html;
 
-class IndexI18nButtons extends Widget
+final class IndexI18nButtons extends Widget
 {
     public function run()
     {
@@ -54,14 +54,17 @@ class IndexI18nButtons extends Widget
             (string)FA::fas('language')->fw(),
             $lang
                 ? [
-                    (string)FlagIcon::fg(strtolower($lang->getCountryCode()))
+                    $this->flagIcon(strtolower($lang->getCountryCode())),
                 ]
                 : [],
             $lang
-                ? sprintf(
-                    '%s / %s',
-                    Html::encode($lang->name),
-                    Html::tag('small', Html::encode($lang->name_en)),
+                ? (
+                    $lang->getLanguageCode() === 'en'
+                        ? Html::encode($lang->name)
+                        : \vsprintf('%s / %s', [
+                            Html::encode($lang->name),
+                            Html::tag('small', Html::encode($lang->name_en)),
+                        ])
                 )
                 : Html::encode('Language'),
             'Language',
@@ -129,5 +132,24 @@ class IndexI18nButtons extends Widget
                 'title' => $popup,
             ]
         );
+    }
+
+    private function flagIcon(string $countryCode): string
+    {
+        if ($countryCode === 'gb') {
+            return \implode(' ', [
+                (string)FlagIcon::fg('gb'),
+                (string)FlagIcon::fg('au'),
+            ]);
+        }
+
+        if ($countryCode === 'tw') {
+            return \implode(' ', [
+                (string)FlagIcon::fg('tw'),
+                (string)FlagIcon::fg('hk'),
+            ]);
+        }
+
+        return (string)FlagIcon::fg($countryCode);
     }
 }

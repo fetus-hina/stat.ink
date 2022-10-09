@@ -82,12 +82,6 @@ final class LanguageDialog extends Dialog
 
     private function renderLanguageItem(Language $lang): string
     {
-        $flag = Html::tag(
-            'span',
-            FlagIcon::fg(strtolower($lang->countryCode)),
-            ['class' => 'mr-1']
-        );
-
         $label = ($lang->name === $lang->name_en)
             ? $this->langText($lang->name, 'en-US')
             : vsprintf('%s / %s', [
@@ -98,7 +92,7 @@ final class LanguageDialog extends Dialog
         $levelIcon = $this->renderSupportLevelIcon($lang->supportLevel);
 
         $left = Html::tag('span', implode('', [
-            $flag,
+            $this->flagIcon(strtolower($lang->countryCode), strtolower($lang->languageCode)),
             $label,
         ]));
 
@@ -225,6 +219,45 @@ final class LanguageDialog extends Dialog
                     sprintf('lang-%s-%s', strtolower($codeLang), strtolower($codeRegion)),
                 ],
             ]
+        );
+    }
+
+    private function flagIcon(string $countryCode, string $languageCode): string
+    {
+        if ($countryCode === 'gb') {
+            return implode('', [
+                Html::tag(
+                    'span',
+                    FlagIcon::fg('gb'),
+                    ['class' => 'mr-1']
+                ),
+                Html::tag(
+                    'span',
+                    FlagIcon::fg('au'),
+                    ['class' => 'mr-1']
+                ),
+            ]);
+        }
+
+        if ($countryCode === 'tw') {
+            return implode('', [
+                Html::tag(
+                    'span',
+                    FlagIcon::fg('tw'),
+                    ['class' => 'mr-1']
+                ),
+                Html::tag(
+                    'span',
+                    FlagIcon::fg('hk'),
+                    ['class' => 'mr-1']
+                ),
+            ]);
+        }
+
+        return Html::tag(
+            'span',
+            FlagIcon::fg(strtolower($countryCode)),
+            ['class' => 'mr-1']
         );
     }
 }
