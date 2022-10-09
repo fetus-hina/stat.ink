@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -14,7 +14,7 @@ use Yii;
 use app\components\widgets\Alert;
 use yii\helpers\Html;
 
-class PleaseUseLatest extends Alert
+final class PleaseUseLatest extends Alert
 {
     public function init()
     {
@@ -32,8 +32,7 @@ class PleaseUseLatest extends Alert
     {
         // phpcs:disable
         $messages = [
-            'For SquidTracks or splatnet2statink users:',
-            'Please update your client software and use always latest version (they will be updated to the latest version when restarted).',
+            'Please update your client software and use always latest version.',
             'Incorrect data will be registered if you do not use the latest version.',
         ];
         // phpcs:enable

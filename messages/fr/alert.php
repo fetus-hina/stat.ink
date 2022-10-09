@@ -11,9 +11,8 @@ declare(strict_types=1);
 
 return [
     'Due to: {reason}' => 'Raison : {reason}',
-    'For SquidTracks or splatnet2statink users:' => 'Pour les utilisateurs de SquidTracks ou splatnet2statink :',
     'Incorrect data will be registered if you do not use the latest version.' => 'Des données incorrectes seront enregistrées si vous n\'utilisez pas la dernière version',
-    'Please update your client software and use always latest version (they will be updated to the latest version when restarted).' => 'Veuillez mettre à jour votre application et toujours utiliser la version la plus récente (elles seront mises à jour après un redémarrage.).',
+    'Please update your client software and use always latest version.' => 'Veuillez mettre à jour votre application et toujours utiliser la version la plus récente.',
     'Sorry for inconvenience.' => 'Veuillez nous excuser de la gêne occasionnée.',
     'Term: {startDate} - {endDate}' => 'Maintenance : {startDate} - {endDate}',
     'We\'ll perform maintenance on the schedule below:' => 'Nous ferons une maintenance selon le planning ci-dessous :',
