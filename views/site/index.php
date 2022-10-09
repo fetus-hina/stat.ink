@@ -10,7 +10,7 @@ use app\components\widgets\HappyNewYearWidget;
 use app\components\widgets\IndexI18nButtons;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\WashHandsWidget;
-use app\components\widgets\alerts\ImportFromSplatnet2;
+use app\components\widgets\alerts\ImportFromSplatnet;
 use app\components\widgets\alerts\LanguageSupportLevelWarning;
 use app\components\widgets\alerts\MaintenanceInfo;
 use app\components\widgets\alerts\PleaseUseLatest;
@@ -55,7 +55,7 @@ PaintballAsset::register($this);
   <?= HappyNewYearWidget::widget() . "\n" ?>
   <?= MaintenanceInfo::widget() . "\n" ?>
   <?= PleaseUseLatest::widget() . "\n" ?>
-  <?= ImportFromSplatnet2::widget() . "\n" ?>
+  <?= ImportFromSplatnet::widget() . "\n" ?>
   <?= LanguageSupportLevelWarning::widget() . "\n" ?>
 
 <?php InlineListAsset::register($this) ?>

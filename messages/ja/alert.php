@@ -14,7 +14,7 @@ return [
     'Please update your client software and use always latest version.' => '常に最新バージョンのクライアントソフトウェアを利用するようにしてください。特にバッチ処理を行っている方はご注意ください。',
     'Sorry for inconvenience.' => 'ご不便をおかけします。',
     'Term: {startDate} - {endDate}' => '期間：{startDate} - {endDate}',
-    'We won\'t implement automatic importing to {appName} for security reasons.' => '{appName} 自体に iksm_session, token あるいはパスワードを保存しての自動登録機能実装の予定はありません。',
+    'We won\'t implement automatic importing to {appName} for security reasons.' => '{appName}自体にセッションIDやパスワードを保存しての自動登録機能実装の予定はありません。',
     'We\'ll perform maintenance on the schedule below:' => '次の日程でメンテナンスを行います：',
-    'You can import automatically from SplatNet 2, use these apps: (USE AT YOUR OWN RISK)' => 'イカリング2から自動的に取り込むには、次のアプリをご利用ください（自己責任でお願いします）：',
+    'You can import automatically from SplatNet, use these apps: (USE AT YOUR OWN RISK)' => 'イカリングから自動的に取り込むには、次のアプリをご利用ください（自己責任でお願いします）：',
 ];

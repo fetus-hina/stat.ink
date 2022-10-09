@@ -17,5 +17,5 @@ return [
     'Term: {startDate} - {endDate}' => 'Maintenance : {startDate} - {endDate}',
     'We\'ll perform maintenance on the schedule below:' => 'Nous ferons une maintenance selon le planning ci-dessous :',
     'We won\'t implement automatic importing to {appName} for security reasons.' => 'Nous n\'implémenterons pas d\'importation automatique sur {appName} pour des raisons de sécurité.',
-    'You can import automatically from SplatNet 2, use these apps: (USE AT YOUR OWN RISK)' => 'Vous pouvez importer vos statistiques depuis SplatNet 2 automatiquement grâce à ces applications : (À UTILISER À VOS RISQUES ET PÉRILS)',
+    'You can import automatically from SplatNet, use these apps: (USE AT YOUR OWN RISK)' => 'Vous pouvez importer vos statistiques depuis SplatNet automatiquement grâce à ces applications : (À UTILISER À VOS RISQUES ET PÉRILS)',
 ];

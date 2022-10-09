@@ -17,5 +17,5 @@ return [
     'Term: {startDate} - {endDate}' => '时间：{startDate} - {endDate}',
     'We\'ll perform maintenance on the schedule below:' => '我们会在以下时间进行伺服器维护：',
     'We won\'t implement automatic importing to {appName} for security reasons.' => '出于资安考量，我们不支援使用 {appName} 来自动汇入。',
-    'You can import automatically from SplatNet 2, use these apps: (USE AT YOUR OWN RISK)' => '你可以使用这些软体来从SplatNet 2自动汇入资料(风险自负)',
+    'You can import automatically from SplatNet, use these apps: (USE AT YOUR OWN RISK)' => '你可以使用这些软体来从SplatNet自动汇入资料(风险自负)',
 ];
