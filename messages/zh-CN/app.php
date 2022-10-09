@@ -5,6 +5,7 @@
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Gosin <canling0@gmail.com>
+ * @author Weihao Jiang <weihau.chiang@gmail.com>
  */
 
 declare(strict_types=1);
