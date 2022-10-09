@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -15,9 +15,10 @@ use app\assets\FlexboxAsset;
 use app\assets\LanguageDialogAsset;
 use app\models\Language;
 use app\models\SupportLevel;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
-class LanguageDialog extends Dialog
+final class LanguageDialog extends Dialog
 {
     public function init()
     {
@@ -72,27 +73,27 @@ class LanguageDialog extends Dialog
                     ]);
                 }
             },
-            Language::find()->with('supportLevel')->orderBy(['name' => SORT_ASC])->all()
+            ArrayHelper::sort(
+                Language::find()->with('supportLevel')->all(),
+                fn (Language $a, Language $b): int => strcmp($a->name, $b->name)
+            )
         );
     }
 
     private function renderLanguageItem(Language $lang): string
     {
-        $flag = Html::tag(
-            'span',
-            FlagIcon::fg(strtolower($lang->countryCode)),
-            ['class' => 'mr-1']
-        );
-
         $label = ($lang->name === $lang->name_en)
-            ? $lang->name
-            : sprintf('%s / %s', $lang->name, $lang->name_en);
+            ? $this->langText($lang->name, 'en-US')
+            : vsprintf('%s / %s', [
+                $this->langText($lang->name, $lang->lang),
+                $this->langText($lang->name_en, 'en-US'),
+            ]);
 
         $levelIcon = $this->renderSupportLevelIcon($lang->supportLevel);
 
         $left = Html::tag('span', implode('', [
-            $flag,
-            Html::encode($label),
+            $this->flagIcon(strtolower($lang->countryCode), strtolower($lang->languageCode)),
+            $label,
         ]));
 
         $right = Html::tag('span', implode('', [
@@ -103,10 +104,12 @@ class LanguageDialog extends Dialog
         return Html::tag(
             'div',
             $left . $right,
-            ['class' => [
-                'd-flex',
-                'justify-content-between',
-            ]]
+            [
+                'class' => [
+                    'd-flex',
+                    'justify-content-between',
+                ],
+            ]
         );
     }
 
@@ -196,5 +199,65 @@ class LanguageDialog extends Dialog
                 ['class' => 'list-group-item']
             ),
         ];
+    }
+
+    private function langText(string $text, string $langCode): string
+    {
+        if (!preg_match('/^([a-z]+)-([a-z]+)/i', $langCode, $match)) {
+            return Html::encode($text);
+        }
+
+        [, $codeLang, $codeRegion] = $match;
+
+        return Html::tag(
+            'span',
+            Html::encode($text),
+            [
+                'lang' => sprintf('%s-%s', $codeLang, $codeRegion),
+                'class' => [
+                    sprintf('lang-%s', strtolower($codeLang)),
+                    sprintf('lang-%s-%s', strtolower($codeLang), strtolower($codeRegion)),
+                ],
+            ]
+        );
+    }
+
+    private function flagIcon(string $countryCode, string $languageCode): string
+    {
+        if ($countryCode === 'gb') {
+            return implode('', [
+                Html::tag(
+                    'span',
+                    FlagIcon::fg('gb'),
+                    ['class' => 'mr-1']
+                ),
+                Html::tag(
+                    'span',
+                    FlagIcon::fg('au'),
+                    ['class' => 'mr-1']
+                ),
+            ]);
+        }
+
+        if ($countryCode === 'tw') {
+            return implode('', [
+                Html::tag(
+                    'span',
+                    FlagIcon::fg('tw'),
+                    ['class' => 'mr-1']
+                ),
+                Html::tag(
+                    'span',
+                    FlagIcon::fg('hk'),
+                    ['class' => 'mr-1']
+                ),
+            ]);
+        }
+
+        return Html::tag(
+            'span',
+            FlagIcon::fg(strtolower($countryCode)),
+            ['class' => 'mr-1']
+        );
     }
 }

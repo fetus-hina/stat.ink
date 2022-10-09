@@ -1,38 +1,56 @@
 @charset 'UTF-8';
 
-/*! Copyright (C) 2015-2020 AIZAWA Hina | MIT License */
+/*! Copyright (C) 2015-2022 AIZAWA Hina | MIT License */
 
 $font-family: -apple-system,
   'Roboto',
   'Noto Sans',
   'Noto Sans JP',
   'Noto Sans SC',
-  'Noto Sans TC';
+  'Noto Sans TC',
+  'Noto Sans KR';
 
 $font-family-hans: -apple-system,
   'Roboto',
   'Noto Sans',
   'Noto Sans SC',
   'Noto Sans TC',
-  'Noto Sans JP';
+  'Noto Sans JP',
+  'Noto Sans KR';
 
 $font-family-hant: -apple-system,
   'Roboto',
   'Noto Sans',
   'Noto Sans TC',
   'Noto Sans SC',
-  'Noto Sans JP';
+  'Noto Sans JP',
+  'Noto Sans KR';
+
+$font-family-ko: -apple-system,
+  'Roboto',
+  'Noto Sans',
+  'Noto Sans KR',
+  'Noto Sans TC',
+  'Noto Sans JP',
+  'Noto Sans SC';
 
 body {
   font-family: $font-family, sans-serif;
 }
 
-html[lang^='zh-'] body {
+html[lang^='zh-'] body,
+.lang-zh-cn {
   font-family: $font-family-hans, sans-serif;
 }
 
 html[lang='zh-TW'] body,
 html[lang='zh-HK'] body,
-html[lang='zh-MO'] body {
+html[lang='zh-MO'] body,
+.lang-zh-tw {
   font-family: $font-family-hant, sans-serif;
+}
+
+html[lang^='ko-'] body,
+.lang-ko-kr {
+  font-family: $font-family-ko, sans-serif;
 }
