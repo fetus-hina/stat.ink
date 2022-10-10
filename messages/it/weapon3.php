@@ -62,7 +62,7 @@ return [
     'Splash-o-matic' => 'Marker d\'assalto',
     'Splatanas' => '',
     'Splatana Stamper' => '',
-    'Splatana Wiper' => '',
+    'Splatana Wiper' => 'Tergilama',
     'Splat Brella' => 'Sparasole',
     'Splat Charger' => 'Splatter a carica',
     'Splat Dualies' => 'Repolper duplo',
@@ -77,6 +77,6 @@ return [
     'Stringers' => '',
     'Tenta Brella' => 'Sparatenda',
     'Tri-Slosher' => 'Secchiostro triplo',
-    'Tri-Stringer' => '',
+    'Tri-Stringer' => 'Tri-calamarco',
     'Undercover Brella' => 'Bombrello',
 ];

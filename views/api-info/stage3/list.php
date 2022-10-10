@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use app\assets\TableResponsiveForceAsset;
+use app\components\widgets\ApiInfoName;
 use app\models\Map3;
 use app\models\Map3Alias;
 use statink\yii2\sortableTable\SortableTableAsset;
@@ -46,8 +47,15 @@ $fmt = Yii::$app->formatter;
 <?php foreach ($langs as $i => $lang) { ?>
         <?= Html::tag(
           'td',
-          Html::encode(Yii::t('app-map3', $stage->name, [], $lang->lang)),
-          ['lang' => $lang->lang]
+          ApiInfoName::widget([
+            'name' => Yii::t('app-map3', $stage->name, [], $lang->lang),
+            'enName' => $stage->name,
+            'lang' => $lang->lang,
+          ]),
+          [
+            'class' => sprintf('lang-%s', strtolower($lang->lang)),
+            'lang' => $lang->lang,
+          ]
         ) . "\n" ?>
 <?php if ($i === 0) { ?>
         <td><code><?= Html::encode($stage->key) ?></code></td>

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use app\assets\GameModeIconsAsset;
 use app\assets\TableResponsiveForceAsset;
+use app\components\widgets\ApiInfoName;
 use app\components\widgets\v3\weaponIcon\WeaponIcon;
 use app\models\Language;
 use app\models\SalmonWeapon3;
@@ -77,7 +78,15 @@ $salmonIcon = Html::img(
 <?php foreach ($langs as $j => $lang) { ?>
         <?= Html::tag(
           'td',
-          Html::encode(Yii::t('app-weapon3', $weapon->name, [], $lang->lang)),
+          ApiInfoName::widget([
+            'name' => Yii::t('app-weapon3', $weapon->name, [], $lang->lang),
+            'enName' => $weapon->name,
+            'lang' => $lang->lang,
+          ]),
+          [
+            'lang' => $lang->lang,
+            'class' => sprintf('lang-%s', strtolower($lang->lang)),
+          ]
         ) . "\n" ?>
 <?php } ?>
 <?php } ?>
