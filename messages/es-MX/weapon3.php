@@ -61,7 +61,7 @@ return [
     'Sloshing Machine' => 'Derramatic centrífugo',
     'Splash-o-matic' => 'Plumón',
     'Splatanas' => '',
-    'Splatana Stamper' => '',
+    'Splatana Stamper' => 'Azotintador Pro',
     'Splatana Wiper' => '',
     'Splat Brella' => 'Paratintas',
     'Splat Charger' => 'Cargatintas',
