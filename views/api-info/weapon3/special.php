@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use app\assets\TableResponsiveForceAsset;
+use app\components\widgets\ApiInfoName;
 use app\components\widgets\v3\weaponIcon\SpecialIcon;
 use app\models\Language;
 use app\models\Special3;
@@ -63,7 +64,15 @@ SortableTableAsset::register($this);
 <?php foreach ($langs as $j => $lang) { ?>
         <?= Html::tag(
           'td',
-          Html::encode(Yii::t('app-special3', $sp->name, [], $lang->lang)),
+          ApiInfoName::widget([
+            'name' => Yii::t('app-special3', $sp->name, [], $lang->lang),
+            'enName' => $sp->name,
+            'lang' => $lang->lang,
+          ]),
+          [
+            'class' => sprintf('lang-%s', strtolower($lang->lang)),
+            'lang' => $lang->lang,
+          ]
         ) . "\n" ?>
 <?php } ?>
 <?php } ?>
