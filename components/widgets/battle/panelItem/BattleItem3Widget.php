@@ -83,8 +83,8 @@ final class BattleItem3Widget extends BaseWidget
         }
 
         return \vsprintf('%s - %s', [
-            Yii::t('app-rule3', $rule->name),
-            Yii::t('app-lobby3', $lobby->name),
+            $rule ? Yii::t('app-rule3', $rule->name) : Yii::t('app', 'Unknown'),
+            $lobby ? Yii::t('app-lobby3', $lobby->name) : Yii::t('app', 'Unknown'),
         ]);
     }
 
