@@ -69,7 +69,8 @@ final class ImportFromSplatnet extends Alert
                                 'target' => '_blank',
                             ]
                         )),
-                        Html::tag('li',
+                        Html::tag(
+                            'li',
                             Html::tag(
                                 'del',
                                 Html::a(

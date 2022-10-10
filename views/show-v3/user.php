@@ -352,6 +352,17 @@ if ($user->twitter != '') {
             // }}}
           ],
           [
+            // fest power {{{
+            'label' => Yii::t('app', 'Splatfest Power'),
+            'headerOptions' => ['class' => 'cell-fest-power'],
+            'contentOptions' => ['class' => 'cell-fest-power text-right'],
+            'format' => ['decimal', 1],
+            'value' => function (Battle3 $model): ?float {
+              return $model->fest_power < 0.1 ? null : (float)$model->fest_power;
+            },
+            // }}}
+          ],
+          [
             // level {{{
             'label' => Yii::t('app', 'Level'),
             'headerOptions' => ['class' => 'cell-level'],
@@ -642,6 +653,7 @@ if ($user->twitter != '') {
           'cell-special'              => Yii::t('app', 'Special'),
           'cell-rank'                 => Yii::t('app', 'Rank'),
           'cell-rank-after'           => Yii::t('app', 'Rank (After)'),
+          'cell-fest-power'           => Yii::t('app', 'Splatfest Power'),
           'cell-level'                => Yii::t('app', 'Level'),
           'cell-judge'                => Yii::t('app', 'Judge'),
           'cell-result'               => Yii::t('app', 'Result'),
