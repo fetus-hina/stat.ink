@@ -17,7 +17,7 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@statink/spl3-stages": "git+https://github.com/statink/spl3-stages.git",
     "autoprefixer": "^10.4.12",
-    "axios": "^0.27.2",
+    "axios": "^1.1.2",
     "babel-loader": "^8.2.5",
     "bootstrap": "^3.4.1",
     "bootstrap-notify": "^3.1.3",
