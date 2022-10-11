@@ -248,7 +248,6 @@ final class PostBattleForm extends Model
             return null;
         }
 
-        $t = (int)($_SERVER['REQUEST_TIME'] ?? time());
         return Battle3::find()
             ->where([
                 'user_id' => $user->id,
