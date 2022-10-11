@@ -58,8 +58,6 @@ final class PostBattleForm extends Model
 {
     use TypeHelperTrait;
 
-    public const SAME_BATTLE_THRESHOLD_TIME = 86400;
-
     public $test;
 
     public $uuid;
@@ -257,9 +255,6 @@ final class PostBattleForm extends Model
                 'client_uuid' => $this->uuid,
                 'is_deleted' => false,
             ])
-            ->andWhere(
-                ['>=', 'created_at', \gmdate('Y-m-d\TH:i:sP', $t - self::SAME_BATTLE_THRESHOLD_TIME)]
-            )
             ->limit(1)
             ->one();
     }
