@@ -49,7 +49,7 @@ final class UuidListAction extends Action
             ])
             ->andWhere(['not', ['client_uuid' => null]])
             ->orderBy(['id' => SORT_DESC])
-            ->limit(200);
+            ->limit(500);
 
         if ($lobby) {
             $query->andWhere(['lobby_id' => self::getLobbyIdByKey($lobby)]);
@@ -58,10 +58,10 @@ final class UuidListAction extends Action
         $resp = Yii::$app->response;
         $resp->statusCode = 200;
         $resp->content = null;
-        $resp->data = \array_map(
-            fn (Battle3 $model): string => $model->client_uuid,
-            $query->all()
-        );
+        $resp->data = [];
+        foreach ($query->each() as $model) {
+            $resp->data[] = $model->client_uuid;
+        }
         return $resp;
     }
 
