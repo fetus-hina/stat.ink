@@ -323,7 +323,7 @@ return [
     'Max Kill Combo' => '最多擊殺數',
     'Max Kill Streak' => '最多連續擊殺數',
     'Medals' => '徽章',
-    'Median' => '平均值',
+    'Median' => '中位數',
     'Minimum' => '最小值',
     'MMMM y' => 'y\'年\'M\'月\'',
     'Mobile' => '手機',
