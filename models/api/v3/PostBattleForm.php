@@ -248,7 +248,6 @@ final class PostBattleForm extends Model
             return null;
         }
 
-        $t = (int)($_SERVER['REQUEST_TIME'] ?? time());
         return Battle3::find()
             ->where([
                 'user_id' => $user->id,
@@ -422,6 +421,7 @@ final class PostBattleForm extends Model
                 'dragon_id'
             ),
             'fest_power' => self::floatVal($this->fest_power),
+            'has_disconnect' => $this->hasDisconnect(),
         ]);
 
         if ($rewriteKillAssist) {
@@ -458,6 +458,31 @@ final class PostBattleForm extends Model
         }
 
         return $model;
+    }
+
+    private function hasDisconnect(): bool
+    {
+        if (\is_array($this->our_team_players) && $this->our_team_players) {
+            foreach ($this->our_team_players as $player) {
+                $model = Yii::createObject(PlayerForm::class);
+                $model->attributes = $player;
+                if (self::boolVal($model->disconnected)) {
+                    return true;
+                }
+            }
+        }
+
+        if (\is_array($this->their_team_players) && $this->their_team_players) {
+            foreach ($this->their_team_players as $player) {
+                $model = Yii::createObject(PlayerForm::class);
+                $model->attributes = $player;
+                if (self::boolVal($model->disconnected)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     private function savePlayers(Battle3 $battle, bool $rewriteKillAssist): bool

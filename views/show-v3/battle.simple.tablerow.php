@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\components\widgets\FA;
 use app\components\widgets\Label;
 use app\components\widgets\v3\weaponIcon\SpecialIcon;
 use app\components\widgets\v3\weaponIcon\SubweaponIcon;
@@ -130,6 +131,11 @@ use yii\helpers\Html;
                : ''
           ),
           ['class' => 'simple-battle-at']
+        ),
+        Html::tag(
+          'div',
+          $model->has_disconnect ? (string)FA::fas('tint-slash') : '',
+          ['class' => 'simple-battle-disconnected text-danger'],
         ),
       ]),
       ['class' => 'simple-battle-row-impl']
