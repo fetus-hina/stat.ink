@@ -23,7 +23,7 @@ use yii\db\ActiveRecord;
  * @property Battle3 $battle
  * @property AgentVariable3 $variable
  */
-class BattleAgentVairable3 extends ActiveRecord
+class BattleAgentVariable3 extends ActiveRecord
 {
     public static function tableName()
     {

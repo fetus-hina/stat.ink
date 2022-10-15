@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\commands\splatoon3Ink;
 
+use Throwable;
 use Yii;
 use app\models\Lobby3;
 use app\models\Schedule3;

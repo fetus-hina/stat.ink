@@ -192,7 +192,7 @@ $this->registerCss(Html::renderCss([
                 ]),
               ],
             ]) . "\n" ?>
-<?php $_t = (int)round($_data['avg_game_time']); ?>
+<?php $_t = (int)round((float)$_data['avg_game_time']); ?>
 <?php if ($_t > 0) { ?>
             <?= Html::tag(
               'p',
@@ -208,7 +208,7 @@ $this->registerCss(Html::renderCss([
               ]
             ) . "\n" ?>
 <?php } ?>
-<?php $_t = (int)round($_data['avg_knockout_time'] ?? 300); ?>
+<?php $_t = (int)round((float)$_data['avg_knockout_time'] ?? 300); ?>
 <?php if ($_t > 0 && $_t < 300) { ?>
             <?= Html::tag(
               'p',
