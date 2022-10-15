@@ -28,10 +28,17 @@ return [
       ]);
     }
 
-    if ($result->is_win === null) {
+    if (!$result->aggregatable) {
       return implode('', [
         Html::tag('span', (string)FA::fas('times')->fw(), ['class' => 'text-danger']),
-        Html::encode(Yii::t('app', 'Draw')),
+        Html::encode(Yii::t('app', $result->name)),
+      ]);
+    }
+
+    if ($model->has_disconnect) {
+      return implode('', [
+        Html::tag('span', (string)FA::fas('times')->fw(), ['class' => 'text-danger']),
+        Html::encode(Yii::t('app', 'Disconnected')),
       ]);
     }
 
