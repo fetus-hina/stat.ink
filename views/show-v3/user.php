@@ -123,10 +123,13 @@ if ($user->twitter != '') {
         ],
         'rowOptions' => function (Battle3 $model): array {
           return [
-            'class' => [
-              'battle-row',
-              // $model->getHasDisconnectedPlayer() ? 'disconnected' : '',
-            ],
+            'class' => array_filter(
+              [
+                'battle-row',
+                $model->has_disconnect ? 'disconnected' : null,
+              ],
+              fn (?string $v): bool => $v !== null,
+            ),
           ];
         },
         'beforeRow' => function (Battle3 $model, int $key, int $index, GridView $widget): ?string {
