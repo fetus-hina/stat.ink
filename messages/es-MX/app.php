@@ -153,6 +153,7 @@ return [
     'Details' => '',
     'Deviation' => 'Desviación',
     'Disabled' => '',
+    'Disconnected' => '',
     'Don\'t anonymize, display in-game name' => '',
     'Don\'t anonymize, display stat.ink\'s name' => '',
     'Don\'t group' => '',

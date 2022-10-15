@@ -150,6 +150,7 @@ return [
     'Details' => '詳細',
     'Deviation' => '偏差値',
     'Disabled' => '無効',
+    'Disconnected' => '通信切断',
     'Do not close this window.' => 'このウィンドウを閉じないでください。',
     'Don\'t anonymize, display in-game name' => '匿名化せず、ゲーム中の名前でリンクする',
     'Don\'t anonymize, display stat.ink\'s name' => '匿名化せず、stat.inkの登録名でリンクする',

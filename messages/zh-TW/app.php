@@ -153,6 +153,7 @@ return [
     'Details' => '細節',
     'Deviation' => '標準差',
     'Disabled' => '關閉',
+    'Disconnected' => '通訊斷線',
     'Don\'t anonymize, display in-game name' => '不隱藏遊戲中的顯示姓名',
     'Don\'t anonymize, display stat.ink\'s name' => '不隱藏stat.ink的顯示姓名',
     'Don\'t group' => '不分組',
