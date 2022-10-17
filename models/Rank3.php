@@ -26,6 +26,8 @@ use yii\db\ActiveRecord;
  * @property Battle3[] $battle3s
  * @property Battle3[] $battle3s0
  * @property RankGroup3 $group
+ * @property UserStat3[] $userStat3s
+ * @property UserStat3[] $userStat3s0
  */
 class Rank3 extends ActiveRecord
 {
@@ -43,6 +45,7 @@ class Rank3 extends ActiveRecord
             [['key'], 'string', 'max' => 16],
             [['name'], 'string', 'max' => 32],
             [['key'], 'unique'],
+            [['rank'], 'unique'],
             [['group_id'], 'exist', 'skipOnError' => true, 'targetClass' => RankGroup3::class, 'targetAttribute' => ['group_id' => 'id']],
         ];
     }
@@ -71,5 +74,15 @@ class Rank3 extends ActiveRecord
     public function getGroup(): ActiveQuery
     {
         return $this->hasOne(RankGroup3::class, ['id' => 'group_id']);
+    }
+
+    public function getUserStat3s(): ActiveQuery
+    {
+        return $this->hasMany(UserStat3::class, ['peak_rank_id' => 'id']);
+    }
+
+    public function getUserStat3s0(): ActiveQuery
+    {
+        return $this->hasMany(UserStat3::class, ['current_rank_id' => 'id']);
     }
 }

@@ -16,7 +16,7 @@ use Yii;
 use app\components\openapi\doc\V1 as V1Generator;
 use app\components\openapi\doc\V2 as V2Generator;
 use app\models\Country;
-use app\models\TimeZone;
+use app\models\Timezone;
 use app\models\TimezoneGroup;
 use yii\console\Controller;
 use yii\helpers\FileHelper;

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -11,12 +11,15 @@ declare(strict_types=1);
 namespace app\components\jobs;
 
 use Yii;
+use app\components\helpers\CriticalSection;
+use app\components\helpers\UserStatsV3;
 use app\models\User;
 use app\models\UserStat2;
+use app\models\UserStat3;
 use yii\base\BaseObject;
 use yii\queue\JobInterface;
 
-class UserStatsJob extends BaseObject implements JobInterface
+final class UserStatsJob extends BaseObject implements JobInterface
 {
     use JobPriority;
 
@@ -25,7 +28,11 @@ class UserStatsJob extends BaseObject implements JobInterface
 
     public function execute($queue)
     {
-        if (!$user = User::findOne(['id' => (int)$this->user])) {
+        $user = User::find()
+            ->andWhere(['id' => (int)$this->user])
+            ->limit(1)
+            ->one();
+        if (!$user) {
             return;
         }
 
@@ -47,8 +54,31 @@ class UserStatsJob extends BaseObject implements JobInterface
                 }
                 break;
 
+            case 3:
+                $lock = CriticalSection::lock(
+                    \hash_hmac('sha256', (string)$user->id, UserStat3::class),
+                    60,
+                    Yii::$app->pgMutex,
+                );
+                try {
+                    UserStatsV3::create($user);
+                } finally {
+                    unset($lock);
+                }
+                break;
+
             default:
                 break;
         }
+    }
+
+    public static function pushQueue3(User $user): void
+    {
+        Yii::$app->queue
+            ->priority(self::getJobPriority())
+            ->push(new self([
+                'version' => 3,
+                'user' => $user->id,
+            ]));
     }
 }

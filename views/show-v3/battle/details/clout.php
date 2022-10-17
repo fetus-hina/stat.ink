@@ -51,7 +51,9 @@ return [
             '→',
             $cloutAfter !== null ? $f->asInteger($cloutAfter) : '?',
             $cloutChange !== null
-              ? vsprintf('(+%s)', $f->asInteger($cloutChange))
+              ? vsprintf('(+%s)', [
+                $f->asInteger($cloutChange),
+              ])
               : '',
           ])
         );

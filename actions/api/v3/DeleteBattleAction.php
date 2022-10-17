@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\actions\api\v3;
 
+use Throwable;
 use Yii;
 use app\actions\api\v3\traits\ApiInitializerTrait;
 use app\components\helpers\UuidRegexp;

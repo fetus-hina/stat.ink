@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace app\commands;
 
 use Curl\Curl;
+use Throwable;
 use Yii;
 use yii\console\Controller;
 use yii\helpers\FileHelper;
@@ -123,7 +124,7 @@ class CloudflareController extends Controller
             }
 
             return $results;
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             vfprintf(STDERR, "Catch an exception (%s): %s\n", [
                 __METHOD__,
                 $e->getMessage(),

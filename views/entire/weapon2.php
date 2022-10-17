@@ -187,13 +187,12 @@ $this->registerCss(implode('', [
 <?php
 $sum = function (string $column) use ($weapon): string {
     return sprintf(
-        'SUM(CASE %s END)',
+        'SUM(CASE %s ELSE 0 END)',
         sprintf(
             'WHEN [[weapon_id]] = %d THEN [[%s]]',
             $weapon->id,
             $column
-        ),
-        'ELSE 0'
+        )
     );
 };
 $q = StatWeapon2UseCountPerWeek::find()

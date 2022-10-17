@@ -22,7 +22,7 @@ use app\components\validators\KeyValidator;
 use app\models\Agent;
 use app\models\AgentVariable3;
 use app\models\Battle3;
-use app\models\BattleAgentVairable3;
+use app\models\BattleAgentVariable3;
 use app\models\BattleImageGear3;
 use app\models\BattleImageJudge3;
 use app\models\BattleImageResult3;
@@ -602,7 +602,7 @@ final class PostBattleForm extends Model
 
         foreach ($map as $k => $v) {
             $model = Yii::createObject([
-                'class' => BattleAgentVairable3::class,
+                'class' => BattleAgentVariable3::class,
                 'battle_id' => $battle->id,
                 // `findOrCreateAgentVariable()` may returns null and it will fail on `save()`
                 'variable_id' => $this->findOrCreateAgentVariable($k, $v),

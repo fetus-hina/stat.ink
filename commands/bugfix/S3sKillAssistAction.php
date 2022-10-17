@@ -16,7 +16,7 @@ use Yii;
 use app\models\Agent;
 use app\models\AgentVariable3;
 use app\models\Battle3;
-use app\models\BattleAgentVairable3;
+use app\models\BattleAgentVariable3;
 use app\models\BattlePlayer3;
 use yii\base\Action;
 use yii\console\ExitCode;
@@ -209,7 +209,7 @@ final class S3sKillAssistAction extends Action
     private function markUpdated(Battle3 $battle): bool
     {
         $model = Yii::createObject([
-            'class' => BattleAgentVairable3::class,
+            'class' => BattleAgentVariable3::class,
             'battle_id' => $battle->id,
             'variable_id' => $this->getFixedAgentVariableId(),
         ]);

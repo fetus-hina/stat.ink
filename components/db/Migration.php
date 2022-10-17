@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace app\components\db;
 
 use Yii;
+use yii\base\InvalidArgumentException;
 use yii\db\ColumnSchemaBuilder;
 use yii\db\Connection;
 use yii\db\Migration as BaseMigration;
