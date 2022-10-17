@@ -20,6 +20,20 @@ $color-time: #f5a101;
   @return ($dimensionless-number * $unit);
 }
 
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+main {
+  flex: 1 1 100%;
+}
+
 .navbar {
   border-radius: 0 !important;
 }
