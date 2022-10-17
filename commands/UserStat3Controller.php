@@ -11,8 +11,10 @@ declare(strict_types=1);
 namespace app\commands;
 
 use app\components\helpers\UserStatsV3;
+use app\components\jobs\UserStatsJob;
 use app\models\User;
 use yii\console\Controller;
+use yii\db\Query;
 
 use const STDERR;
 
@@ -41,6 +43,25 @@ final class UserStat3Controller extends Controller
         }
 
         \fwrite(STDERR, "OK\n");
+        return 0;
+    }
+
+    public function actionRegenAll(): int
+    {
+        $query = (new Query())
+            ->select(['user_id'])
+            ->from('{{%battle3}}')
+            ->andWhere(['is_deleted' => false])
+            ->groupBy(['user_id'])
+            ->orderBy(['user_id' => SORT_ASC]);
+        foreach ($query->each() as $row) {
+            \fprintf(STDERR, "[regen-all] user id=%d\n", $row['user_id']);
+
+            UserStatsJob::pushQueue3(
+                User::find()->andWhere(['id' => $row['user_id']])->limit(1)->one()
+            );
+        }
+
         return 0;
     }
 }
