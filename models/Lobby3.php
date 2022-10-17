@@ -24,6 +24,8 @@ use yii\db\ActiveRecord;
  *
  * @property Battle3[] $battle3s
  * @property Schedule3[] $schedule3s
+ * @property UserStat3[] $userStat3s
+ * @property User[] $users
  */
 class Lobby3 extends ActiveRecord
 {
@@ -61,5 +63,15 @@ class Lobby3 extends ActiveRecord
     public function getSchedule3s(): ActiveQuery
     {
         return $this->hasMany(Schedule3::class, ['lobby_id' => 'id']);
+    }
+
+    public function getUserStat3s(): ActiveQuery
+    {
+        return $this->hasMany(UserStat3::class, ['lobby_id' => 'id']);
+    }
+
+    public function getUsers(): ActiveQuery
+    {
+        return $this->hasMany(User::class, ['id' => 'user_id'])->viaTable('user_stat3', ['lobby_id' => 'id']);
     }
 }
