@@ -1,13 +1,16 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 declare(strict_types=1);
 
+use app\components\jobs\UserStatsJob;
+use app\models\Battle3;
+use yii\base\Event;
 use yii\base\Widget;
 use yii\data\Pagination;
 use yii\helpers\ArrayHelper;
@@ -22,6 +25,27 @@ Widget::$autoIdPrefix = sprintf('w-%s-', substr(
     0,
     8
 ));
+
+Yii::$container->set(Battle3::class, [
+    'on afterInsert' => function (Event $ev): void {
+        $model = $ev->sender;
+        if (
+            $model instanceof Battle3 &&
+            $model->user
+        ) {
+            UserStatsJob::pushQueue3($model->user);
+        }
+    },
+    'on afterUpdate' => function (Event $ev): void {
+        $model = $ev->sender;
+        if (
+            $model instanceof Battle3 &&
+            $model->user
+        ) {
+            UserStatsJob::pushQueue3($model->user);
+        }
+    },
+]);
 
 Yii::$container->set(Pagination::class, [
     'defaultPageSize' => 100,
