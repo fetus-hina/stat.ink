@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -12,17 +12,22 @@ use RuntimeException;
 use Yii;
 use yii\base\Component;
 use yii\base\InvalidConfigException;
+use yii\mutex\Mutex;
 
-class CriticalSection extends Component
+final class CriticalSection extends Component
 {
     public $name;
     public $timeout = 0;
     public $mutex;
 
-    public static function lock(string $name, int $timeout = 0): Resource
-    {
+    public static function lock(
+        string $name,
+        int $timeout = 0,
+        ?Mutex $mutex = null
+    ): Resource {
         return Yii::createObject([
             'class' => static::class,
+            'mutex' => $mutex,
             'name' => $name,
             'timeout' => $timeout,
         ])->enter();
@@ -31,6 +36,7 @@ class CriticalSection extends Component
     public function init()
     {
         parent::init();
+
         if ($this->mutex === null) {
             $this->mutex = Yii::$app->mutex;
         }
@@ -41,12 +47,15 @@ class CriticalSection extends Component
         if (!$this->name) {
             throw new InvalidConfigException('$mutex->name does not specified.');
         }
+
         if ($this->timeout < 0) {
             throw new InvalidConfigException('$mutex->timeout is now negative value.');
         }
-        if (!$this->mutex instanceof \yii\mutex\Mutex) {
-            throw new InvalidConfigException('$mutex->mutex is not instance of \yii\mutex\Mutex class.');
+
+        if (!$this->mutex instanceof Mutex) {
+            throw new InvalidConfigException('$mutex->mutex is not instance of ' . Mutex::class . '.');
         }
+
         Yii::trace(__METHOD__ . '(): Entering a critical section that named ' . $this->name);
         Yii::beginProfile(__METHOD__ . ', acquire');
         $status = $this->mutex->acquire($this->name, $this->timeout);
