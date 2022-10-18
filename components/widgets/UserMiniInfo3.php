@@ -15,7 +15,10 @@ use app\assets\GameModeIconsAsset;
 use app\assets\UserMiniinfoAsset;
 use app\components\widgets\v3\userMiniInfo\PerLobby;
 use app\components\widgets\v3\userMiniInfo\Total;
+use app\models\Lobby3;
+use app\models\LobbyGroup3;
 use app\models\Rank3;
+use app\models\User;
 use app\models\UserStat3;
 use yii\base\Widget;
 use yii\bootstrap\Tabs;
@@ -36,12 +39,7 @@ final class UserMiniInfo3 extends Widget
             UserMiniinfoAsset::register($view);
         }
 
-        $statsList = UserStat3::find()
-            ->joinWith(['lobby'], true)
-            ->with(['peakRank'])
-            ->andWhere(['user_id' => (int)$this->user->id])
-            ->orderBy(['{{%lobby3}}.[[rank]]' => SORT_ASC])
-            ->all();
+        $groups = $this->getData($this->user);
 
         $stats = null;
         return Html::tag(
@@ -52,8 +50,8 @@ final class UserMiniInfo3 extends Widget
                     $this->renderHeading(),
                     \implode('<hr>', \array_filter(
                         [
-                            $this->renderStatsTotal($statsList),
-                            $this->renderStatsLobbies($statsList),
+                            $this->renderStatsTotal($groups),
+                            $this->renderStatsLobbies($groups),
                             $this->renderActivity(),
                         ],
                         fn (?string $item): bool => $item !== null,
@@ -114,18 +112,18 @@ final class UserMiniInfo3 extends Widget
     }
 
     /**
-     * @param UserStat3[] $models
+     * @param array{group: LobbyGroup3, stats: UserStat3[]}[] $models
      */
     private function renderStatsTotal(array $models): string
     {
         return Total::widget([
             'user' => $this->user,
-            'statsList' => $models,
+            'statsList' => $this->flattenStats($models),
         ]);
     }
 
     /**
-     * @param UserStat3[] $models
+     * @param array{group: LobbyGroup3, stats: UserStat3[]}[] $models
      */
     private function renderStatsLobbies(array $models): ?string
     {
@@ -144,39 +142,48 @@ final class UserMiniInfo3 extends Widget
             ]));
         }
 
-        $peakRankInfo = $this->makePeakRankInfo($models);
+        $peakRankInfo = $this->makePeakRankInfo(
+            $this->flattenStats($models),
+        );
+
+        $defaultTab = $this->decideDefaultLobbyTab($models);
 
         return Tabs::widget([
             'items' => \array_map(
-                fn (UserStat3 $model): array => [
+                fn (array $groupInfo): array => [
+                    'active' => $defaultTab === $groupInfo['group']->key,
                     'encode' => false,
                     'label' => $am && $iconAsset
                         ? Html::img(
                             $am->getAssetUrl(
                                 $iconAsset,
-                                \sprintf('spl3/%s.png', \rawurlencode($model->lobby->key)),
+                                \sprintf('spl3/%s.png', \rawurlencode($groupInfo['group']->key)),
                             ),
                             [
                                 'class' => 'auto-tooltip',
-                                'title' => Yii::t('app-lobby3', $model->lobby->name),
+                                'title' => Yii::t('app-lobby3', $groupInfo['group']->name),
                                 'style' => [
                                     'height' => '16px',
                                     'width' => 'auto',
                                 ],
                             ],
                         )
-                        : Html::encode($model->lobby->name),
-                    'content' => PerLobby::widget([
-                        'user' => $this->user,
-                        'model' => $model,
-                        'peakRank' => $peakRankInfo,
-                    ]),
+                        : Html::encode($groupInfo['group']->name),
+                    'content' => \implode('', \array_map(
+                        fn (UserStat3 $stat): string => Html::tag(
+                            'div',
+                            PerLobby::widget([
+                                'user' => $this->user,
+                                'model' => $stat,
+                                'peakRank' => $peakRankInfo,
+                            ]),
+                            ['class' => 'mt-2'],
+                        ),
+                        $groupInfo['stats'],
+                    )),
                 ],
                 $models,
             ),
-            'tabContentOptions' => [
-                'class' => 'mt-2',
-            ],
         ]);
     }
 
@@ -204,6 +211,73 @@ final class UserMiniInfo3 extends Widget
             ]),
             ['class' => 'miniinfo-databox']
         );
+    }
+
+    /**
+     * @return array{group: LobbyGroup3, stats: UserStat3[]}[]
+     */
+    private function getData(User $user): array
+    {
+        $statsList = UserStat3::find()
+            ->joinWith(
+                ['lobby', 'lobby.group'],
+                true,
+            )
+            ->with(['peakRank'])
+            ->andWhere(['user_id' => (int)$user->id])
+            ->orderBy([
+                '{{%lobby_group3}}.rank' => SORT_ASC,
+                '{{%lobby3}}.rank' => SORT_ASC,
+            ])
+            ->all();
+
+        $results = [];
+        foreach ($statsList as $stats) {
+            $group = $stats->lobby->group;
+            if (!isset($results[$group->key])) {
+                $results[$group->key] = [
+                    'group' => $group,
+                    'stats' => [],
+                ];
+            }
+            $results[$group->key]['stats'][] = $stats;
+        }
+
+        return \array_values($results);
+    }
+
+    /**
+     * @param array{group: LobbyGroup3, stats: UserStat3[]}[] $models
+     * @return UserStat3[]
+     */
+    private function flattenStats(array $models): array
+    {
+        $statsList = [];
+        foreach ($models as $group) {
+            foreach ($group['stats'] as $stats) {
+                $statsList[] = $stats;
+            }
+        }
+
+        return $statsList;
+    }
+
+    /**
+     * @param array{group: LobbyGroup3, stats: UserStat3[]}[] $models
+     */
+    private function decideDefaultLobbyTab(array $models): ?string
+    {
+        $result = null;
+        $importance = -1;
+        foreach ($models as $model) {
+            $group = $model['group'];
+            if ($group->importance > $importance) {
+                $result = $group->key;
+                $importance = $group->importance;
+            }
+        }
+
+        return $result;
     }
 
     /**
