@@ -21,8 +21,10 @@ use yii\db\ActiveRecord;
  * @property string $key
  * @property string $name
  * @property integer $rank
+ * @property integer $group_id
  *
  * @property Battle3[] $battle3s
+ * @property LobbyGroup3 $group
  * @property Schedule3[] $schedule3s
  * @property UserStat3[] $userStat3s
  * @property User[] $users
@@ -37,11 +39,12 @@ class Lobby3 extends ActiveRecord
     public function rules()
     {
         return [
-            [['key', 'name', 'rank'], 'required'],
-            [['rank'], 'default', 'value' => null],
-            [['rank'], 'integer'],
+            [['key', 'name', 'rank', 'group_id'], 'required'],
+            [['rank', 'group_id'], 'default', 'value' => null],
+            [['rank', 'group_id'], 'integer'],
             [['key', 'name'], 'string', 'max' => 32],
             [['key'], 'unique'],
+            [['group_id'], 'exist', 'skipOnError' => true, 'targetClass' => LobbyGroup3::class, 'targetAttribute' => ['group_id' => 'id']],
         ];
     }
 
@@ -52,12 +55,18 @@ class Lobby3 extends ActiveRecord
             'key' => 'Key',
             'name' => 'Name',
             'rank' => 'Rank',
+            'group_id' => 'Group ID',
         ];
     }
 
     public function getBattle3s(): ActiveQuery
     {
         return $this->hasMany(Battle3::class, ['lobby_id' => 'id']);
+    }
+
+    public function getGroup(): ActiveQuery
+    {
+        return $this->hasOne(LobbyGroup3::class, ['id' => 'group_id']);
     }
 
     public function getSchedule3s(): ActiveQuery
