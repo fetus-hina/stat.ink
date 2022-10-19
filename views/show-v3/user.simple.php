@@ -4,14 +4,26 @@ declare(strict_types=1);
 
 use app\assets\SimpleBattleListAsset;
 use app\components\widgets\AdWidget;
+use app\components\widgets\Battle3FilterWidget;
 use app\components\widgets\FA;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\UserMiniInfo3;
+use app\models\User;
 use yii\bootstrap\ActiveForm;
+use yii\data\BaseDataProvider;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\View;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
+
+/**
+ * @var BaseDataProvider $battleDataProvider
+ * @var Battle3FilterWidget $filter
+ * @var User $user
+ * @var View $this
+ * @var array $summary
+ */
 
 $title = Yii::t('app', "{name}'s Splat Log", ['name' => $user->name]);
 $this->title = sprintf('%s | %s', Yii::$app->name, $title);
@@ -34,6 +46,7 @@ if ($user->twitter != '') {
 }
 
 SimpleBattleListAsset::register($this);
+
 ?>
 <div class="container">
   <h1>
@@ -69,16 +82,27 @@ SimpleBattleListAsset::register($this);
           'summary' => $summary
         ]
       ) . "\n" ?>
-      <div>
-        <?= Html::a(
-          implode(' ', [
-            (string)FA::fas('list')->fw(),
-            Html::encode(Yii::t('app', 'Detailed List')),
-          ]),
-          ['show-v3/user', 'screen_name' => $user->screen_name, 'v' => 'standard'],
-          ['class' => 'btn btn-default', 'rel' => 'nofollow']
-        ) . "\n" ?>
-      </div>
+      <?= Html::tag(
+        'div',
+        implode(' ', [
+          Html::a(
+            implode(' ', [
+              FA::fas('search')->fw(),
+              Html::encode(Yii::t('app', 'Search')),
+            ]),
+            '#filter-form',
+            ['class' => 'visible-xs-inline-block btn btn-info'],
+          ),
+          Html::a(
+            implode(' ', [
+              (string)FA::fas('list')->fw(),
+              Html::encode(Yii::t('app', 'Detailed List')),
+            ]),
+            ['show-v3/user', 'screen_name' => $user->screen_name, 'v' => 'standard'],
+            ['class' => 'btn btn-default', 'rel' => 'nofollow']
+          ),
+        ]),
+      ) . "\n" ?>
       <?php Pjax::begin(); echo "\n" ?>
         <div class="text-center">
           <?= ListView::widget([
@@ -113,6 +137,7 @@ SimpleBattleListAsset::register($this);
       <?php Pjax::end(); echo "\n" ?>
     </div>
     <div class="col-xs-12 col-sm-4 col-lg-3">
+      <?= Battle3FilterWidget::widget(['filter' => $filter, 'user' => $user]) . "\n" ?>
       <?= UserMiniInfo3::widget(['user' => $user]) . "\n" ?>
       <?= AdWidget::widget() . "\n" ?>
     </div>
