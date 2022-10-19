@@ -9,9 +9,11 @@
 declare(strict_types=1);
 
 return [
+    'Any Mode' => '',
     'CB' => 'Asalto Almeja',
     'Clam Blitz' => 'Asalto Almeja',
     'Rainmaker' => 'Pez dorado',
+    'Ranked Modes' => '',
     'RM' => 'Pez dorado',
     'Splat Zones' => 'Pintazonas',
     'SZ' => 'Pintazonas',

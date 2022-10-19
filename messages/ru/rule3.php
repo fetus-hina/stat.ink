@@ -9,9 +9,11 @@
 declare(strict_types=1);
 
 return [
+    'Any Mode' => '',
     'CB' => 'Устробол',
     'Clam Blitz' => 'Устробол',
     'Rainmaker' => 'Мегакарп',
+    'Ranked Modes' => '',
     'RM' => 'Мегакарп',
     'Splat Zones' => 'Бой за зоны',
     'SZ' => 'Бой за зоны',

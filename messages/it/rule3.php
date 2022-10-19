@@ -9,9 +9,11 @@
 declare(strict_types=1);
 
 return [
+    'Any Mode' => '',
     'CB' => 'Vongol gol',
     'Clam Blitz' => 'Vongol gol',
     'Rainmaker' => 'Bazookarp',
+    'Ranked Modes' => '',
     'RM' => 'Bazookarp',
     'Splat Zones' => 'Zona splat',
     'SZ' => 'Zona splat',

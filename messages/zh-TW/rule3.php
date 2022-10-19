@@ -10,9 +10,11 @@
 declare(strict_types=1);
 
 return [
+    'Any Mode' => '所有模式',
     'CB' => '蛤蜊',
     'Clam Blitz' => '真格蛤蜊',
     'Rainmaker' => '真格魚虎對戰',
+    'Ranked Modes' => '',
     'RM' => '魚虎',
     'Splat Zones' => '真格區域',
     'SZ' => '區域',

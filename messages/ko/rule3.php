@@ -9,9 +9,11 @@
 declare(strict_types=1);
 
 return [
+    'Any Mode' => '',
     'CB' => '랭크 바지락',
     'Clam Blitz' => '랭크 바지락',
     'Rainmaker' => '랭크 피쉬 배틀',
+    'Ranked Modes' => '',
     'RM' => '랭크 피쉬 배틀',
     'Splat Zones' => '랭크 에어리어',
     'SZ' => '랭크 에어리어',

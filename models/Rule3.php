@@ -22,8 +22,10 @@ use yii\db\ActiveRecord;
  * @property string $name
  * @property string $short_name
  * @property integer $rank
+ * @property integer $group_id
  *
  * @property Battle3[] $battle3s
+ * @property RuleGroup3 $group
  * @property Rule3Alias[] $rule3Aliases
  * @property Schedule3[] $schedule3s
  */
@@ -37,11 +39,12 @@ class Rule3 extends ActiveRecord
     public function rules()
     {
         return [
-            [['key', 'name', 'short_name', 'rank'], 'required'],
-            [['rank'], 'default', 'value' => null],
-            [['rank'], 'integer'],
+            [['key', 'name', 'short_name', 'rank', 'group_id'], 'required'],
+            [['rank', 'group_id'], 'default', 'value' => null],
+            [['rank', 'group_id'], 'integer'],
             [['key', 'name', 'short_name'], 'string', 'max' => 32],
             [['key'], 'unique'],
+            [['group_id'], 'exist', 'skipOnError' => true, 'targetClass' => RuleGroup3::class, 'targetAttribute' => ['group_id' => 'id']],
         ];
     }
 
@@ -53,12 +56,18 @@ class Rule3 extends ActiveRecord
             'name' => 'Name',
             'short_name' => 'Short Name',
             'rank' => 'Rank',
+            'group_id' => 'Group ID',
         ];
     }
 
     public function getBattle3s(): ActiveQuery
     {
         return $this->hasMany(Battle3::class, ['rule_id' => 'id']);
+    }
+
+    public function getGroup(): ActiveQuery
+    {
+        return $this->hasOne(RuleGroup3::class, ['id' => 'group_id']);
     }
 
     public function getRule3Aliases(): ActiveQuery

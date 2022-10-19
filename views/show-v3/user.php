@@ -8,6 +8,7 @@ use app\assets\Spl2WeaponAsset;
 use app\components\grid\KillRatioColumn;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\widgets\AdWidget;
+use app\components\widgets\Battle3FilterWidget;
 use app\components\widgets\EmbedVideo;
 use app\components\widgets\FA;
 use app\components\widgets\GameModeIcon;
@@ -20,10 +21,20 @@ use app\components\widgets\v3\weaponIcon\SubweaponIcon;
 use app\components\widgets\v3\weaponIcon\WeaponIcon;
 use app\models\Battle3;
 use yii\bootstrap\ActiveForm;
+use yii\data\BaseDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\View;
 use yii\widgets\ListView;
+
+/**
+ * @var BaseDataProvider $battleDataProvider
+ * @var Battle3FilterWidget $filter
+ * @var User $user
+ * @var View $this
+ * @var array $summary
+ */
 
 BattleListAsset::register($this);
 
@@ -631,6 +642,7 @@ if ($user->twitter != '') {
       </div>
     </div>
     <div class="col-xs-12 col-sm-4 col-lg-3">
+      <?= Battle3FilterWidget::widget(['filter' => $filter, 'user' => $user]) . "\n" ?>
       <?= UserMiniInfo3::widget(['user' => $user]) . "\n" ?>
       <?= AdWidget::widget() . "\n" ?>
     </div>

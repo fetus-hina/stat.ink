@@ -9,9 +9,11 @@
 declare(strict_types=1);
 
 return [
+    'Any Mode' => '',
     'CB' => '',
     'Clam Blitz' => '',
     'Rainmaker' => '',
+    'Ranked Modes' => '',
     'RM' => '',
     'Splat Zones' => '',
     'SZ' => '',

@@ -13,6 +13,7 @@ return [
     'Anarchy Battle' => '蠻頹比賽',
     'Anarchy Battle (Open)' => '蠻頹比賽 (開放)',
     'Anarchy Battle (Series)' => '蠻頹比賽 (挑戰)',
+    'Any Lobby' => '所有大廳',
     'Private Battle' => '私人比賽',
     'Regular Battle' => '一般比賽',
     'Splatfest' => '祭典',
