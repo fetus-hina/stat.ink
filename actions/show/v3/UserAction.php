@@ -13,6 +13,7 @@ namespace app\actions\show\v3;
 use Yii;
 use app\components\helpers\BattleSummarizer;
 use app\models\Battle3;
+use app\models\Battle3FilterForm;
 use app\models\User;
 use yii\base\Action;
 use yii\data\ActiveDataProvider;
@@ -52,11 +53,6 @@ final class UserAction extends Action
             return;
         }
 
-        $permLink = Url::to(
-            ['show-v3/user', 'screen_name' => $user->screen_name],
-            true
-        );
-
         $battle = Battle3::find()
             ->joinWith('result')
             ->with([
@@ -80,24 +76,36 @@ final class UserAction extends Action
                 '{{%battle3}}.[[id]]' => SORT_DESC,
             ]);
 
+        $form = Yii::createObject(Battle3FilterForm::class);
+        if ($form->load($_GET) && $form->validate()) {
+            $form->decorateQuery($battle);
+        }
+
         $permLink = Url::to(
-            ['show-v3/user', 'screen_name' => $user->screen_name],
+            \array_merge(
+                $form->toPermLink(),
+                ['show-v3/user',
+                    'screen_name' => $user->screen_name,
+                ],
+            ),
             true
         );
         $isPjax = $request->isPjax;
         $template = $this->viewMode === 'simple' ? 'user.simple.php' : 'user';
+        $battleDataProvider = Yii::createObject([
+            'class' => ActiveDataProvider::class,
+            'query' => $battle,
+            'pagination' => [
+                'pageSize' => 100,
+            ],
+            'sort' => false,
+        ]);
         return $this->controller->render($template, [
-            'user' => $user,
-            'battleDataProvider' => Yii::createObject([
-                'class' => ActiveDataProvider::class,
-                'query' => $battle,
-                'pagination' => [
-                    'pageSize' => 100,
-                ],
-                'sort' => false,
-            ]),
-            'summary' => BattleSummarizer::getSummary3($battle),
+            'battleDataProvider' => $battleDataProvider,
+            'filter' => $form,
             'permLink' => $permLink,
+            'summary' => BattleSummarizer::getSummary3($battle),
+            'user' => $user,
         ]);
     }
 
