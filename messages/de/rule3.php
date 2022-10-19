@@ -13,6 +13,7 @@ return [
     'CB' => 'Muschelchaos',
     'Clam Blitz' => 'Muschelchaos',
     'Rainmaker' => 'Operation Goldfisch',
+    'Ranked Modes' => '',
     'RM' => 'Operation Goldfisch',
     'Splat Zones' => 'Herrschaft',
     'SZ' => 'Herrschaft',

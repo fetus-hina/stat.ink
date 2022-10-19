@@ -13,6 +13,7 @@ return [
     'CB' => 'Schelpenstrijd',
     'Clam Blitz' => 'Schelpenstrijd',
     'Rainmaker' => 'Bazookarper',
+    'Ranked Modes' => '',
     'RM' => 'Bazookarper',
     'Splat Zones' => 'Spetterzones',
     'SZ' => 'Spetterzones',

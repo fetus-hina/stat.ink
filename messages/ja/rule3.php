@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 return [
     'Any Mode' => 'すべてのルール',
+    'Ranked Modes' => 'ガチルール',
 
     'Clam Blitz' => 'ガチアサリ',
     'Rainmaker' => 'ガチホコバトル',

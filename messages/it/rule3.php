@@ -13,6 +13,7 @@ return [
     'CB' => 'Vongol gol',
     'Clam Blitz' => 'Vongol gol',
     'Rainmaker' => 'Bazookarp',
+    'Ranked Modes' => '',
     'RM' => 'Bazookarp',
     'Splat Zones' => 'Zona splat',
     'SZ' => 'Zona splat',

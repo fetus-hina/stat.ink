@@ -12,6 +12,7 @@ namespace app\models\battle3FilterForm;
 
 use Yii;
 use app\models\Lobby3;
+use app\models\LobbyGroup3;
 use app\models\Map3;
 use app\models\Rule3;
 use yii\db\ActiveRecord;
@@ -27,27 +28,41 @@ trait DropdownListTrait
      */
     public function getLobbyDropdown(): array
     {
-        // FIXME: group
-        return $this->getSimpleDropdown(
-            Lobby3::find()->orderBy(['rank' => SORT_ASC])->all(),
+        return $this->getGroupDropdown(
+            Lobby3::find()
+                ->innerJoinWith(['group'], true)
+                ->orderBy([
+                    '{{%lobby_group3}}.[[rank]]' => SORT_ASC,
+                    '{{%lobby3}}.[[rank]]' => SORT_ASC,
+                ])
+                ->all(),
+            'group',
             'app-lobby3',
             Yii::t('app-lobby3', 'Any Lobby'),
             false,
         );
     }
+
     /**
      * @return array{array<string, string>, array}
      */
     public function getRuleDropdown(): array
     {
-        // FIXME: gachi
-        return $this->getSimpleDropdown(
-            Rule3::find()->orderBy(['rank' => SORT_ASC])->all(),
+        return $this->getGroupDropdown(
+            Rule3::find()
+                ->innerJoinWith(['group'], true)
+                ->orderBy([
+                    '{{%rule_group3}}.[[rank]]' => SORT_ASC,
+                    '{{%rule3}}.[[rank]]' => SORT_ASC,
+                ])
+                ->all(),
+            'group',
             'app-rule3',
             Yii::t('app-rule3', 'Any Mode'),
             false,
         );
     }
+
     /**
      * @return array{array<string, string>, array}
      */
@@ -59,6 +74,69 @@ trait DropdownListTrait
             Yii::t('app-map3', 'Any Stage'),
             true,
         );
+    }
+
+    /**
+     * @param ActiveRecord[] $models
+     */
+    private function getGroupDropdown(
+        array $models,
+        string $groupAttr,
+        ?string $translateCatalog = 'app',
+        ?string $promptText = null,
+        bool $sort = true
+    ): array {
+        // 使いやすい形に加工する
+
+        /**
+         * @var array<string, array{group: ActiveRecord, items: ActiveRecord[]}>
+         */
+        $groups = [];
+        foreach ($models as $model) {
+            $group = $model->{$groupAttr};
+            if (!isset($groups[$group->key])) {
+                $groups[$group->key] = [
+                    'group' => $group,
+                    'items' => [],
+                ];
+            }
+            $groups[$group->key]['items'][] = $model;
+        }
+
+        $results = [];
+        foreach ($groups as $groupInfo) {
+            if (\count($groupInfo['items']) < 1) {
+                continue;
+            }
+
+            $group = $groupInfo['group'];
+            $tmp = [];
+            if (\count($groupInfo['items']) > 1) {
+                $tmp['@' . $group->key] = ($translateCatalog === null)
+                    ? $group->name
+                    : Yii::t($translateCatalog, $group->name);
+            }
+
+            [$items, ] = $this->getSimpleDropdown(
+                $groupInfo['items'],
+                $translateCatalog,
+                null,
+                $sort,
+            );
+            $tmp = \array_merge($tmp, $items);
+
+            // make group
+            $groupName = ($translateCatalog === null)
+                ? $group->name
+                : Yii::t($translateCatalog, $group->name);
+
+            $results[$groupName] = $tmp;
+        }
+
+        return [
+            $results,
+            $promptText === null ? [] : ['prompt' => $promptText],
+        ];
     }
 
     /**

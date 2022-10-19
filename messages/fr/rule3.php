@@ -13,6 +13,7 @@ return [
     'CB' => 'Pluie de palourdes',
     'Clam Blitz' => 'Pluie de palourdes',
     'Rainmaker' => 'Mission Bazookarpe',
+    'Ranked Modes' => '',
     'RM' => 'Mission Bazookarpe',
     'Splat Zones' => 'Défense de zone',
     'SZ' => 'Défense de zone',

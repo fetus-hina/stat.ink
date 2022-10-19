@@ -15,8 +15,8 @@ use app\models\battle3FilterForm\DropdownListTrait;
 use app\models\battle3FilterForm\PermalinkTrait;
 use app\models\battle3FilterForm\QueryDecoratorTrait;
 use yii\base\Model;
-use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 final class Battle3FilterForm extends Model
 {
@@ -43,13 +43,18 @@ final class Battle3FilterForm extends Model
     {
         return [
             [['lobby', 'rule', 'map'], 'string'],
-            [['lobby'], 'exist',
-                'targetClass' => Lobby3::class,
-                'targetAttribute' => 'key',
+
+            [['lobby'], 'in',
+                'range' => \array_merge(
+                    self::getKeyList(Lobby3::class),
+                    self::getKeyList(LobbyGroup3::class, '@'),
+                ),
             ],
-            [['rule'], 'exist',
-                'targetClass' => Rule3::class,
-                'targetAttribute' => 'key',
+            [['rule'], 'in',
+                'range' => \array_merge(
+                    self::getKeyList(Rule3::class),
+                    self::getKeyList(RuleGroup3::class, '@'),
+                ),
             ],
             [['map'], 'exist',
                 'targetClass' => Map3::class,
@@ -68,5 +73,18 @@ final class Battle3FilterForm extends Model
             'rule' => Yii::t('app', 'Mode'),
             'map' => Yii::t('app', 'Stage'),
         ];
+    }
+
+    /**
+     * @param class-string<ActiveRecord> $modelClass
+     */
+    private static function getKeyList(string $modelClass, ?string $prefix = null): array
+    {
+        return ArrayHelper::getColumn(
+            $modelClass::find()->all(),
+            fn (ActiveRecord $model): string => ($prefix !== null)
+                ? \sprintf('%s%s', $prefix, $model->key)
+                : $model->key,
+        );
     }
 }

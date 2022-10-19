@@ -12,10 +12,13 @@ namespace app\models\battle3FilterForm;
 
 use Yii;
 use app\models\Lobby3;
+use app\models\LobbyGroup3;
 use app\models\Map3;
 use app\models\Rule3;
+use app\models\RuleGroup3;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 trait QueryDecoratorTrait
 {
@@ -27,9 +30,62 @@ trait QueryDecoratorTrait
             return;
         }
 
-        $this->decorateSimpleFilter($query, '{{%battle3}}.[[lobby_id]]', $this->lobby, Lobby3::class);
-        $this->decorateSimpleFilter($query, '{{%battle3}}.[[rule_id]]', $this->rule, Rule3::class);
+        $this->decorateGroupFilter(
+            $query,
+            '{{%battle3}}.[[lobby_id]]',
+            $this->lobby,
+            Lobby3::class,
+            LobbyGroup3::class,
+            '{{%lobby3}}.[[group_id]]',
+        );
+
+        $this->decorateGroupFilter(
+            $query,
+            '{{%battle3}}.[[rule_id]]',
+            $this->rule,
+            Rule3::class,
+            RuleGroup3::class,
+            '{{%rule3}}.[[group_id]]',
+        );
+
         $this->decorateSimpleFilter($query, '{{%battle3}}.[[map_id]]', $this->map, Map3::class);
+    }
+
+    /**
+     * @phpstan-param class-string<ActiveRecord> $modelClass
+     * @phpstan-param class-string<ActiveRecord> $groupClass
+     */
+    private function decorateGroupFilter(
+        ActiveQuery $query,
+        string $column,
+        ?string $key,
+        string $modelClass,
+        string $groupClass,
+        string $groupAttr // group_id
+    ): void {
+        $key = \trim((string)$key);
+        if ($key !== '') {
+            if (!\str_starts_with($key, '@')) {
+                // NOT group
+                $this->decorateSimpleFilter($query, $column, $key, $modelClass);
+                return;
+            }
+
+
+            if (!$groupId = self::findIdByKey($groupClass, \substr($key, 1))) {
+                $query->andWhere('1 <> 1');
+                return;
+            }
+
+            $query->andWhere([
+                $column => ArrayHelper::getColumn(
+                    $modelClass::find()
+                        ->andWhere([$groupAttr => $groupId])
+                        ->all(),
+                    'id',
+                ),
+            ]);
+        }
     }
 
     /**

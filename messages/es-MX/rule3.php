@@ -13,6 +13,7 @@ return [
     'CB' => '',
     'Clam Blitz' => '',
     'Rainmaker' => '',
+    'Ranked Modes' => '',
     'RM' => '',
     'Splat Zones' => '',
     'SZ' => '',

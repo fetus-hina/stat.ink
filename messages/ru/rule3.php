@@ -13,6 +13,7 @@ return [
     'CB' => 'Устробол',
     'Clam Blitz' => 'Устробол',
     'Rainmaker' => 'Мегакарп',
+    'Ranked Modes' => '',
     'RM' => 'Мегакарп',
     'Splat Zones' => 'Бой за зоны',
     'SZ' => 'Бой за зоны',
