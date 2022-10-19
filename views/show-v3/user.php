@@ -108,20 +108,36 @@ if ($user->twitter != '') {
         'headingText' => Yii::t('app', 'Summary: Based on the current filter'),
         'summary' => $summary
       ]) . "\n" ?>
-      <div style="margin-bottom:10px">
-        <a href="#table-config" class="btn btn-default">
-          <?= FA::fas('cogs')->fw() . "\n" ?>
-          <?= Html::encode(Yii::t('app', 'View Settings')) . "\n" ?>
-        </a>
-        <?= Html::a(
-          implode(' ', [
-            (string)FA::fas('list')->fw(),
-            Html::encode(Yii::t('app', 'Simplified List')),
-          ]),
-          ['show-v3/user', 'screen_name' => $user->screen_name, 'v' => 'simple'],
-          ['class' => 'btn btn-default', 'rel' => 'nofollow']
-        ) . "\n" ?>
-      </div>
+      <?= Html::tag(
+        'div',
+        implode(' ', [
+          Html::a(
+            implode(' ', [
+              FA::fas('search')->fw(),
+              Html::encode(Yii::t('app', 'Search')),
+            ]),
+            '#filter-form',
+            ['class' => 'visible-xs-inline-block btn btn-info'],
+          ),
+          Html::a(
+            implode(' ', [
+              FA::fas('cogs')->fw(),
+              Html::encode(Yii::t('app', 'View Settings')),
+            ]),
+            '#table-config',
+            ['class' => 'btn btn-default'],
+          ),
+          Html::a(
+            implode(' ', [
+              (string)FA::fas('list')->fw(),
+              Html::encode(Yii::t('app', 'Simplified List')),
+            ]),
+            ['show-v3/user', 'screen_name' => $user->screen_name, 'v' => 'simple'],
+            ['class' => 'btn btn-default', 'rel' => 'nofollow']
+          ),
+        ]),
+        ['class' => 'mb-2'],
+      ) . "\n" ?>
       <?= GridView::widget([
         'options' => [
           'id' => 'battles',

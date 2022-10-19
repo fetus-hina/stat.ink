@@ -82,16 +82,27 @@ SimpleBattleListAsset::register($this);
           'summary' => $summary
         ]
       ) . "\n" ?>
-      <div>
-        <?= Html::a(
-          implode(' ', [
-            (string)FA::fas('list')->fw(),
-            Html::encode(Yii::t('app', 'Detailed List')),
-          ]),
-          ['show-v3/user', 'screen_name' => $user->screen_name, 'v' => 'standard'],
-          ['class' => 'btn btn-default', 'rel' => 'nofollow']
-        ) . "\n" ?>
-      </div>
+      <?= Html::tag(
+        'div',
+        implode(' ', [
+          Html::a(
+            implode(' ', [
+              FA::fas('search')->fw(),
+              Html::encode(Yii::t('app', 'Search')),
+            ]),
+            '#filter-form',
+            ['class' => 'visible-xs-inline-block btn btn-info'],
+          ),
+          Html::a(
+            implode(' ', [
+              (string)FA::fas('list')->fw(),
+              Html::encode(Yii::t('app', 'Detailed List')),
+            ]),
+            ['show-v3/user', 'screen_name' => $user->screen_name, 'v' => 'standard'],
+            ['class' => 'btn btn-default', 'rel' => 'nofollow']
+          ),
+        ]),
+      ) . "\n" ?>
       <?php Pjax::begin(); echo "\n" ?>
         <div class="text-center">
           <?= ListView::widget([
