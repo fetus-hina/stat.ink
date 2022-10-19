@@ -6,7 +6,9 @@ use app\components\helpers\BattleSummarizer;
 use app\components\widgets\battle\PanelListWidget;
 use app\models\Battle3;
 use app\models\Rule3;
+use app\models\RuleGroup3;
 use app\models\User;
+use yii\helpers\ArrayHelper;
 use yii\web\View;
 
 /**
@@ -14,14 +16,14 @@ use yii\web\View;
  * @var User $user
  */
 
-$nawabari = Rule3::findOne(['key' => 'nawabari']);
-if (!$nawabari) {
-  throw new LogicException();
-}
-
-$gachiIds = array_map(
-  fn (Rule3 $rule): int => (int)$rule->id,
-  Rule3::find()->andWhere(['key' => ['area', 'yagura', 'hoko', 'asari']])->all()
+/**
+ * @var array<string, array<string, int>>
+ */
+$ruleIds = ArrayHelper::map(
+  Rule3::find()->with('group')->all(),
+  'key',
+  'id',
+  fn (Rule3 $model): string => $model->group->key,
 );
 
 ?>
@@ -42,12 +44,15 @@ $gachiIds = array_map(
       'title' => Yii::t('app-rule3', 'Turf War'),
       'titleLink' => ['/show-v3/user',
         'screen_name' => $user->screen_name,
+        'f' => [
+          'rule' => 'nawabari',
+        ],
       ],
       'titleLinkText' => Yii::t('app', 'List'),
       'models' => Battle3::find()
         ->andWhere([
           'is_deleted' => false,
-          'rule_id' => $nawabari->id,
+          'rule_id' => array_values($ruleIds['nawabari']),
           'user_id' => $user->id,
         ])
         ->with(['lobby', 'map', 'result', 'rule', 'user', 'weapon', 'weapon.subweapon', 'weapon.special'])
@@ -64,12 +69,15 @@ $gachiIds = array_map(
       'title' => Yii::t('app-lobby3', 'Anarchy Battle'),
       'titleLink' => ['/show-v3/user',
         'screen_name' => $user->screen_name,
+        'f' => [
+          'lobby' => '@bankara',
+        ],
       ],
       'titleLinkText' => Yii::t('app', 'List'),
       'models' => Battle3::find()
         ->andWhere([
           'is_deleted' => false,
-          'rule_id' => $gachiIds,
+          'rule_id' => array_values($ruleIds['gachi']),
           'user_id' => $user->id,
         ])
         ->with(['lobby', 'map', 'result', 'rule', 'user', 'weapon', 'weapon.subweapon', 'weapon.special'])
