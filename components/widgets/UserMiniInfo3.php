@@ -223,7 +223,7 @@ final class UserMiniInfo3 extends Widget
                 ['lobby', 'lobby.group'],
                 true,
             )
-            ->with(['peakRank'])
+            ->with(['peakRank', 'user'])
             ->andWhere(['user_id' => (int)$user->id])
             ->orderBy([
                 '{{%lobby_group3}}.rank' => SORT_ASC,
