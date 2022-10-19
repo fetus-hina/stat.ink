@@ -11,7 +11,9 @@ declare(strict_types=1);
 namespace app\models\battle3FilterForm;
 
 use Yii;
+use app\models\Lobby3;
 use app\models\Map3;
+use app\models\Rule3;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -25,6 +27,8 @@ trait QueryDecoratorTrait
             return;
         }
 
+        $this->decorateSimpleFilter($query, '{{%battle3}}.[[lobby_id]]', $this->lobby, Lobby3::class);
+        $this->decorateSimpleFilter($query, '{{%battle3}}.[[rule_id]]', $this->rule, Rule3::class);
         $this->decorateSimpleFilter($query, '{{%battle3}}.[[map_id]]', $this->map, Map3::class);
     }
 

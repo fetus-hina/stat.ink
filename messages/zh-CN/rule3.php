@@ -9,6 +9,7 @@
 declare(strict_types=1);
 
 return [
+    'Any Mode' => '所有模式',
     'CB' => '蛤蜊',
     'Clam Blitz' => '真格蛤蜊',
     'Rainmaker' => '真格鱼虎对战',

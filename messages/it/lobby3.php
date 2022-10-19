@@ -12,6 +12,7 @@ return [
     'Anarchy Battle' => 'Partita anarchica',
     'Anarchy Battle (Open)' => 'Partita anarchica (Aperta)',
     'Anarchy Battle (Series)' => 'Partita anarchica (Serie)',
+    'Any Lobby' => '',
     'Private Battle' => 'Privata privata',
     'Regular Battle' => 'Partita amichevole',
     'Splatfest' => '',

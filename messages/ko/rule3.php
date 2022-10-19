@@ -9,6 +9,7 @@
 declare(strict_types=1);
 
 return [
+    'Any Mode' => '',
     'CB' => '랭크 바지락',
     'Clam Blitz' => '랭크 바지락',
     'Rainmaker' => '랭크 피쉬 배틀',

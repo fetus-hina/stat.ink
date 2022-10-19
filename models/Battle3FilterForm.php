@@ -24,6 +24,8 @@ final class Battle3FilterForm extends Model
     use PermalinkTrait;
     use QueryDecoratorTrait;
 
+    public ?string $lobby = null;
+    public ?string $rule = null;
     public ?string $map = null;
 
     /**
@@ -40,7 +42,15 @@ final class Battle3FilterForm extends Model
     public function rules()
     {
         return [
-            [['map'], 'string'],
+            [['lobby', 'rule', 'map'], 'string'],
+            [['lobby'], 'exist',
+                'targetClass' => Lobby3::class,
+                'targetAttribute' => 'key',
+            ],
+            [['rule'], 'exist',
+                'targetClass' => Rule3::class,
+                'targetAttribute' => 'key',
+            ],
             [['map'], 'exist',
                 'targetClass' => Map3::class,
                 'targetAttribute' => 'key',
@@ -54,6 +64,8 @@ final class Battle3FilterForm extends Model
     public function attributeLabels()
     {
         return [
+            'lobby' => Yii::t('app', 'Lobby'),
+            'rule' => Yii::t('app', 'Mode'),
             'map' => Yii::t('app', 'Stage'),
         ];
     }

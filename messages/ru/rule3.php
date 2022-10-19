@@ -9,6 +9,7 @@
 declare(strict_types=1);
 
 return [
+    'Any Mode' => '',
     'CB' => 'Устробол',
     'Clam Blitz' => 'Устробол',
     'Rainmaker' => 'Мегакарп',

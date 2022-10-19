@@ -9,6 +9,8 @@
 declare(strict_types=1);
 
 return [
+    'Any Lobby' => 'すべてのロビー',
+
     'Anarchy Battle (Open)' => 'バンカラマッチ (オープン)',
     'Anarchy Battle (Series)' => 'バンカラマッチ (チャレンジ)',
     'Anarchy Battle' => 'バンカラマッチ',

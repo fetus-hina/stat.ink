@@ -29,6 +29,8 @@ trait PermalinkTrait
         };
 
         $copyKeys = [
+            'lobby',
+            'rule',
             'map',
         ];
         foreach ($copyKeys as $key) {

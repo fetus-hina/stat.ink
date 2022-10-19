@@ -9,6 +9,7 @@
 declare(strict_types=1);
 
 return [
+    'Any Mode' => '',
     'CB' => 'Schelpenstrijd',
     'Clam Blitz' => 'Schelpenstrijd',
     'Rainmaker' => 'Bazookarper',

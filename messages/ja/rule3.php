@@ -9,6 +9,8 @@
 declare(strict_types=1);
 
 return [
+    'Any Mode' => 'すべてのルール',
+
     'Clam Blitz' => 'ガチアサリ',
     'Rainmaker' => 'ガチホコバトル',
     'Splat Zones' => 'ガチエリア',

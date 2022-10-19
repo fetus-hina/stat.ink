@@ -25,7 +25,8 @@ final class Battle3FilterWidget extends Widget
     public ?User $user = null;
     public ?Battle3FilterForm $filter = null;
 
-    // public bool $rule = true;
+    public bool $lobby = true;
+    public bool $rule = true;
     public bool $map = true;
     // public bool $weapon = true;
     // public bool $rank = true;
@@ -76,9 +77,35 @@ final class Battle3FilterWidget extends Widget
         $filter = $this->filter ?: Yii::createObject(Battle3FilterForm::class);
 
         return \implode('', [
+            $this->drawLobby($form, $filter),
+            $this->drawRule($form, $filter),
             $this->drawMap($form, $filter),
             $this->drawActionButton($this->action),
         ]);
+    }
+
+    protected function drawLobby(ActiveForm $form, Battle3FilterForm $filter): string
+    {
+        if (!$this->lobby) {
+            return '';
+        }
+
+        return (string)$form
+            ->field($filter, 'lobby')
+            ->dropDownList(...$filter->getLobbyDropdown())
+            ->label(false);
+    }
+
+    protected function drawRule(ActiveForm $form, Battle3FilterForm $filter): string
+    {
+        if (!$this->rule) {
+            return '';
+        }
+
+        return (string)$form
+            ->field($filter, 'rule')
+            ->dropDownList(...$filter->getRuleDropdown())
+            ->label(false);
     }
 
     protected function drawMap(ActiveForm $form, Battle3FilterForm $filter): string
