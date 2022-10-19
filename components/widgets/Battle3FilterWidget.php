@@ -14,6 +14,7 @@ use Yii;
 use app\models\Battle3FilterForm;
 use app\models\User;
 use yii\base\Widget;
+use yii\bootstrap\ActiveField;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\web\View;
@@ -90,10 +91,12 @@ final class Battle3FilterWidget extends Widget
             return '';
         }
 
-        return (string)$form
-            ->field($filter, 'lobby')
-            ->dropDownList(...$filter->getLobbyDropdown())
-            ->label(false);
+        return (string)self::disableClientValidation(
+            $form
+                ->field($filter, 'lobby')
+                ->dropDownList(...$filter->getLobbyDropdown())
+                ->label(false)
+        );
     }
 
     protected function drawRule(ActiveForm $form, Battle3FilterForm $filter): string
@@ -102,10 +105,12 @@ final class Battle3FilterWidget extends Widget
             return '';
         }
 
-        return (string)$form
-            ->field($filter, 'rule')
-            ->dropDownList(...$filter->getRuleDropdown())
-            ->label(false);
+        return (string)self::disableClientValidation(
+            $form
+                ->field($filter, 'rule')
+                ->dropDownList(...$filter->getRuleDropdown())
+                ->label(false)
+        );
     }
 
     protected function drawMap(ActiveForm $form, Battle3FilterForm $filter): string
@@ -114,10 +119,12 @@ final class Battle3FilterWidget extends Widget
             return '';
         }
 
-        return (string)$form
-            ->field($filter, 'map')
-            ->dropDownList(...$filter->getMapDropdown())
-            ->label(false);
+        return (string)self::disableClientValidation(
+            $form
+                ->field($filter, 'map')
+                ->dropDownList(...$filter->getMapDropdown())
+                ->label(false)
+        );
     }
 
     private function drawActionButton(string $action): string
@@ -147,5 +154,11 @@ final class Battle3FilterWidget extends Widget
                 'class' => ['btn', 'btn-primary'],
             ]
         );
+    }
+
+    private static function disableClientValidation(ActiveField $field): ActiveField
+    {
+        $field->enableClientValidation = false;
+        return $field;
     }
 }
