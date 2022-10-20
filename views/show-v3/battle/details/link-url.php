@@ -7,4 +7,7 @@ return [
   'label' => Yii::t('app', 'URL related to this battle'),
   'attribute' => 'link_url',
   'format' => 'url',
+  'contentOptions' => [
+    'class' => 'omit',
+  ],
 ];

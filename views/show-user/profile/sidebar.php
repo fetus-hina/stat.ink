@@ -12,6 +12,11 @@ use yii\web\View;
  * @var User $user
  */
 
+if (Yii::$app->request->isPjax) {
+  echo '<div id="person-box" class="col-xs-12 col-md-3"></div>';
+  return;
+}
+
 $css = [
   '#person-box h1' => [
     'font-size' => '30px',

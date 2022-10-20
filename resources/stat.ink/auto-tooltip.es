@@ -1,7 +1,13 @@
-/*! Copyright (C) 2015-2019 AIZAWA Hina | MIT License */
+/*! Copyright (C) 2015-2022 AIZAWA Hina | MIT License */
 
 ($ => {
-  $(() => {
-    $('.auto-tooltip').tooltip({ container: 'body' });
-  });
+  const fire = () => {
+    $('.auto-tooltip')
+      .tooltip({
+        container: 'body'
+      });
+  };
+
+  $(() => fire());
+  $(document).on('pjax:complete', () => fire());
 })(jQuery);

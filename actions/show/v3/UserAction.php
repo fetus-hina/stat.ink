@@ -90,7 +90,6 @@ final class UserAction extends Action
             ),
             true
         );
-        $isPjax = $request->isPjax;
         $template = $this->viewMode === 'simple' ? 'user.simple.php' : 'user';
         $battleDataProvider = Yii::createObject([
             'class' => ActiveDataProvider::class,

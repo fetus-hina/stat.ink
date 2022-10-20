@@ -49,6 +49,8 @@ if ($_flashes) {
   }
 }
 
+$isPjax = Yii::$app->request->isPjax;
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -84,19 +86,24 @@ if ($_flashes) {
     ],
   ]) . "\n" ?>
     <?php $this->beginBody() ?><?= "\n" ?>
+<?php if (!$isPjax) { ?>
       <header>
         <?= $this->render('/layouts/testsite') . "\n" ?>
         <?= $this->render('/layouts/ie') . "\n" ?>
         <?= $this->render('/layouts/navbar') . "\n" ?>
       </header>
+<?php } ?>
       <main>
         <?= $content ?><?= "\n" ?>
       </main>
+<?php if (!$isPjax) { ?>
       <?= $this->render('/layouts/footer') ?><?= "\n" ?>
 <?php if (!Yii::$app->user->isGuest) { ?>
         <?= $this->render('/includes/battle-input-modal-2') . "\n" ?>
 <?php } ?>
+<?php } ?>
       <span id="event"></span>
+<?php if (!$isPjax) { ?>
       <?= ColorSchemeDialog::widget([
         'id' => 'color-scheme-dialog',
       ]) . "\n" ?>
@@ -107,6 +114,7 @@ if ($_flashes) {
         'id' => 'timezone-dialog',
       ]) . "\n" ?>
       <?= CookieAlert::widget() . "\n" ?>
+<?php } ?>
     <?php $this->endBody() ?><?= "\n" ?>
   </body>
 </html>

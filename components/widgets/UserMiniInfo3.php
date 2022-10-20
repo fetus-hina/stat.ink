@@ -123,7 +123,7 @@ final class UserMiniInfo3 extends Widget
     }
 
     /**
-     * @param array{group: LobbyGroup3, stats: UserStat3[]}[] $models
+     * @param array{group: ?LobbyGroup3, stats: UserStat3[]}[] $models
      */
     private function renderStatsLobbies(array $models): ?string
     {
@@ -149,40 +149,45 @@ final class UserMiniInfo3 extends Widget
         $defaultTab = $this->decideDefaultLobbyTab($models);
 
         return Tabs::widget([
-            'items' => \array_map(
-                fn (array $groupInfo): array => [
-                    'active' => $defaultTab === $groupInfo['group']->key,
-                    'encode' => false,
-                    'label' => $am && $iconAsset
-                        ? Html::img(
-                            $am->getAssetUrl(
-                                $iconAsset,
-                                \sprintf('spl3/%s.png', \rawurlencode($groupInfo['group']->key)),
-                            ),
-                            [
-                                'class' => 'auto-tooltip',
-                                'title' => Yii::t('app-lobby3', $groupInfo['group']->name),
-                                'style' => [
-                                    'height' => '16px',
-                                    'width' => 'auto',
-                                ],
-                            ],
-                        )
-                        : Html::encode($groupInfo['group']->name),
-                    'content' => \implode('', \array_map(
-                        fn (UserStat3 $stat): string => Html::tag(
-                            'div',
-                            PerLobby::widget([
-                                'user' => $this->user,
-                                'model' => $stat,
-                                'peakRank' => $peakRankInfo,
-                            ]),
-                            ['class' => 'mt-2'],
-                        ),
-                        $groupInfo['stats'],
-                    )),
-                ],
-                $models,
+            'items' => \array_filter(
+                \array_map(
+                    fn (array $groupInfo): ?array => ($groupInfo['group'])
+                        ? [
+                            'active' => $defaultTab === $groupInfo['group']->key,
+                            'encode' => false,
+                            'label' => $am && $iconAsset
+                                ? Html::img(
+                                    $am->getAssetUrl(
+                                        $iconAsset,
+                                        \sprintf('spl3/%s.png', \rawurlencode($groupInfo['group']->key)),
+                                    ),
+                                    [
+                                        'class' => 'auto-tooltip',
+                                        'title' => Yii::t('app-lobby3', $groupInfo['group']->name),
+                                        'style' => [
+                                            'height' => '16px',
+                                            'width' => 'auto',
+                                        ],
+                                    ],
+                                )
+                                : Html::encode($groupInfo['group']->name),
+                            'content' => \implode('', \array_map(
+                                fn (UserStat3 $stat): string => Html::tag(
+                                    'div',
+                                    PerLobby::widget([
+                                        'user' => $this->user,
+                                        'model' => $stat,
+                                        'peakRank' => $peakRankInfo,
+                                    ]),
+                                    ['class' => 'mt-2'],
+                                ),
+                                $groupInfo['stats'],
+                            )),
+                        ]
+                        : null,
+                    $models,
+                ),
+                fn (?array $conf): bool => $conf !== null,
             ),
         ]);
     }
@@ -214,7 +219,7 @@ final class UserMiniInfo3 extends Widget
     }
 
     /**
-     * @return array{group: LobbyGroup3, stats: UserStat3[]}[]
+     * @return array{group: ?LobbyGroup3, stats: UserStat3[]}[]
      */
     private function getData(User $user): array
     {
@@ -233,21 +238,22 @@ final class UserMiniInfo3 extends Widget
 
         $results = [];
         foreach ($statsList as $stats) {
-            $group = $stats->lobby->group;
-            if (!isset($results[$group->key])) {
-                $results[$group->key] = [
+            $group = $stats->lobby ? $stats->lobby->group : null;
+            $groupKey = $group ? $group->key : '';
+            if (!isset($results[$groupKey])) {
+                $results[$groupKey] = [
                     'group' => $group,
                     'stats' => [],
                 ];
             }
-            $results[$group->key]['stats'][] = $stats;
+            $results[$groupKey]['stats'][] = $stats;
         }
 
         return \array_values($results);
     }
 
     /**
-     * @param array{group: LobbyGroup3, stats: UserStat3[]}[] $models
+     * @param array{group: ?LobbyGroup3, stats: UserStat3[]}[] $models
      * @return UserStat3[]
      */
     private function flattenStats(array $models): array
@@ -263,7 +269,7 @@ final class UserMiniInfo3 extends Widget
     }
 
     /**
-     * @param array{group: LobbyGroup3, stats: UserStat3[]}[] $models
+     * @param array{group: ?LobbyGroup3, stats: UserStat3[]}[] $models
      */
     private function decideDefaultLobbyTab(array $models): ?string
     {
@@ -271,7 +277,7 @@ final class UserMiniInfo3 extends Widget
         $importance = -1;
         foreach ($models as $model) {
             $group = $model['group'];
-            if ($group->importance > $importance) {
+            if ($group && $group->importance > $importance) {
                 $result = $group->key;
                 $importance = $group->importance;
             }

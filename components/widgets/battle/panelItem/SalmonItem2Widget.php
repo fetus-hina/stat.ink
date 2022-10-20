@@ -68,7 +68,12 @@ class SalmonItem2Widget extends Widget
                     ['salmon/view',
                         'screen_name' => $this->user->screen_name,
                         'id' => $this->model->id,
-                    ]
+                    ],
+                    [
+                        'data' => [
+                            'pjax' => '0',
+                        ],
+                    ],
                 ),
                 ['class' => 'simple-battle-row']
             )
