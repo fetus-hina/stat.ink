@@ -98,7 +98,12 @@ class PanelListWidget extends Widget
                 Html::encode($this->titleLinkText),
             ]),
             $this->titleLink,
-            ['class' => 'pull-right btn btn-default btn-xs']
+            [
+                'class' => 'pull-right btn btn-default btn-xs',
+                'data' => [
+                    'pjax' => '0',
+                ],
+            ]
         );
     }
 }

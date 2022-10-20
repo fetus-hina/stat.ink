@@ -75,7 +75,12 @@ abstract class BaseWidget extends Widget
                         ]),
                         ['class' => 'simple-battle-row-impl']
                     ),
-                    $this->getLinkRoute()
+                    $this->getLinkRoute(),
+                    [
+                        'data' => [
+                            'pjax' => '0',
+                        ],
+                    ],
                 ),
                 ['class' => 'simple-battle-row']
             )

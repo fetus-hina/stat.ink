@@ -78,7 +78,6 @@ class UserAction extends BaseAction
             true
         );
 
-        $isPjax = $request->isPjax;
         $template = $this->getViewMode() === 'simple' ? 'user.simple.php' : 'user.php';
         return $this->controller->render($template, [
             'user'      => $user,

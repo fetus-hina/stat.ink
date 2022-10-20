@@ -9,26 +9,27 @@ AppAsset::register($this);
 $fmt = Yii::$app->formatter;
 ?>
 <div class="row battles-summary mb-3">
-<?php if (isset($headingText) && $headingText != ''): ?>
+<?php if (isset($headingText) && $headingText != '') { ?>
   <div class="col-xs-12">
     <div class="user-label">
       <?= Html::encode($headingText) . "\n" ?>
     </div>
   </div>
-<?php endif; ?>
+<?php }  ?>
   <div class="col-xs-4 col-md-2">
     <div class="user-label">
       <?= Html::encode(Yii::t('app', 'Battles')) . "\n" ?>
     </div>
     <div class="user-number">
-<?php if (isset($link) && $link): ?>
+<?php if (isset($link) && $link) { ?>
       <?= Html::a(
         Html::encode($fmt->asInteger($summary->battle_count)),
-        $link
+        $link,
+        ['data' => ['pjax' => '0']],
       ) . "\n" ?>
-<?php else: ?>
+<?php } else { ?>
       <?= Html::encode($fmt->asInteger($summary->battle_count)) . "\n" ?>
-<?php endif; ?>
+<?php } ?>
     </div>
   </div>
   <div class="col-xs-4 col-md-2">
@@ -36,11 +37,11 @@ $fmt = Yii::$app->formatter;
       <?= Html::encode(Yii::t('app', 'Win %')) . "\n" ?>
     </div>
     <div class="user-number">
-<?php if ($summary->wp === null): ?>
+<?php if ($summary->wp === null) { ?>
       <?= Html::encode(Yii::t('app', 'N/A')) . "\n" ?>
-<?php else: ?>
+<?php } else { ?>
       <?= Html::encode($fmt->asDecimal($summary->wp, 1)) . "%\n" ?>
-<?php endif; ?>
+<?php } ?>
     </div>
   </div>
   <div class="col-xs-4 col-md-2">
@@ -48,7 +49,7 @@ $fmt = Yii::$app->formatter;
       <?= Html::encode(Yii::t('app', '24H Win %')) . "\n" ?>
     </div>
     <div class="user-number">
-<?php if (isset($summary->win_short) && isset($summary->battle_count_short) && $summary->battle_count_short > 0): ?>
+<?php if (isset($summary->win_short) && isset($summary->battle_count_short) && $summary->battle_count_short > 0) { ?>
       <?= Html::tag(
         'span',
         Html::encode($fmt->asPercent($summary->win_short / $summary->battle_count_short, 1)),
@@ -57,17 +58,17 @@ $fmt = Yii::$app->formatter;
           'title' => sprintf('%s / %s', $fmt->asInteger($summary->win_short), $fmt->asInteger($summary->battle_count_short)),
         ]
       ) . "\n" ?>
-<?php elseif ($summary->wp_short === null): ?>
+<?php } elseif ($summary->wp_short === null) { ?>
       <?= Html::encode(Yii::t('app', 'N/A')) . "\n" ?>
-<?php else: ?>
+<?php } else { ?>
       <?= Html::encode($fmt->asDecimal($summary->wp_short, 1)) . "%\n" ?>
-<?php endif; ?>
+<?php } ?>
     </div>
   </div>
-<?php if (($summary->assist_present ?? null) > 0 || ($summary->special_present ?? null) > 0 || ($summary->inked_present ?? null) > 0): ?>
+<?php if (($summary->assist_present ?? null) > 0 || ($summary->special_present ?? null) > 0 || ($summary->inked_present ?? null) > 0) { ?>
 </div>
 <div class="row battles-summary mb-3">
-<?php endif ?>
+<?php } ?>
   <div class="col-xs-4 col-md-2">
     <div class="user-label">
       <?= Html::encode(Yii::t('app', 'Avg Kills')) . "\n" ?>
@@ -115,11 +116,11 @@ $fmt = Yii::$app->formatter;
       <?= Html::encode(Yii::t('app', 'Kill Ratio')) . "\n" ?>
     </div>
     <div class="user-number">
-<?php if ($summary->kd_present > 0): ?>
-<?php   if ($summary->total_death == 0): ?>
-<?php     if ($summary->total_kill == 0): ?>
+<?php if ($summary->kd_present > 0) { ?>
+<?php   if ($summary->total_death == 0) { ?>
+<?php     if ($summary->total_kill == 0) { ?>
       <?= Html::encode(Yii::t('app', 'N/A')) . "\n" ?>
-<?php     else: ?>
+<?php     } else { ?>
       <?= Html::tag(
         'span',
         Html::encode('∞'),
@@ -132,8 +133,8 @@ $fmt = Yii::$app->formatter;
           ),
         ]
       ) . "\n" ?>
-<?php     endif; ?>
-<?php   else: ?>
+<?php     } ?>
+<?php   } else { ?>
       <?= Html::tag(
         'span',
         Html::encode(
@@ -154,13 +155,13 @@ $fmt = Yii::$app->formatter;
           ),
         ]
       ) . "\n" ?>
-<?php   endif; ?>
-<?php else: ?>
+<?php   } ?>
+<?php } else { ?>
         -
-<?php endif; ?>
+<?php } ?>
     </div>
   </div>
-<?php if (($summary->assist_present ?? null) > 0 || ($summary->special_present ?? null) > 0 || ($summary->inked_present ?? null) > 0): ?>
+<?php if (($summary->assist_present ?? null) > 0 || ($summary->special_present ?? null) > 0 || ($summary->inked_present ?? null) > 0) { ?>
   <div class="col-xs-4 col-md-2">
     <div class="user-label">
       <?= Html::encode(Yii::t('app', 'Avg Assists')) . "\n" ?>
@@ -221,5 +222,5 @@ $fmt = Yii::$app->formatter;
       ]) . "\n" ?>
     </div>
   </div>
-<?php endif ?>
+<?php } ?>
 </div>

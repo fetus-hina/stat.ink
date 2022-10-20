@@ -10,6 +10,10 @@ use yii\bootstrap\Html;
  * @var User $user
  */
 
+if (Yii::$app->request->isPjax) {
+  return;
+}
+
 ?>
 <div class="panel panel-default">
   <div class="panel-heading">

@@ -120,7 +120,6 @@ class UserAction extends BaseAction
 
         $summary = $battle->summary;
 
-        $isPjax = $request->isPjax;
         $template = $this->viewMode === 'simple' ? 'user.simple.php' : 'user';
         return $this->controller->render($template, [
             'user'      => $user,
