@@ -32,6 +32,8 @@ use yii\db\ActiveRecord;
  * @property SalmonWeapon3 $salmonWeapon3
  * @property Special3 $special
  * @property Subweapon3 $subweapon
+ * @property UserWeapon3[] $userWeapon3s
+ * @property User[] $users
  * @property Weapon3Alias[] $weapon3Aliases
  * @property Weapon3[] $weapon3s
  */
@@ -105,6 +107,16 @@ class Weapon3 extends ActiveRecord
     public function getSubweapon(): ActiveQuery
     {
         return $this->hasOne(Subweapon3::class, ['id' => 'subweapon_id']);
+    }
+
+    public function getUserWeapon3s(): ActiveQuery
+    {
+        return $this->hasMany(UserWeapon3::class, ['weapon_id' => 'id']);
+    }
+
+    public function getUsers(): ActiveQuery
+    {
+        return $this->hasMany(User::class, ['id' => 'user_id'])->viaTable('user_weapon3', ['weapon_id' => 'id']);
     }
 
     public function getWeapon3Aliases(): ActiveQuery
