@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -15,7 +15,7 @@ use yii\base\Widget;
 use yii\helpers\Html;
 use yii\i18n\Formatter;
 
-class BattleKillDeathColumn extends Widget
+final class BattleKillDeathColumn extends Widget
 {
     public ?int $kill = null;
     public ?int $death = null;
@@ -36,26 +36,29 @@ class BattleKillDeathColumn extends Widget
     public function run()
     {
         return Html::tag(
-            'span',
-            implode(Html::tag('br'), array_filter(
-                [
-                    implode(' ', array_filter(
-                        [
-                            $this->renderValues(),
-                            $this->renderLabel(),
-                        ],
-                        fn ($v) => $v !== null
-                    )),
-                    implode(' ', array_filter(
-                        [
-                            $this->renderKillRatio(),
-                        ],
-                        fn ($v) => $v !== null
-                    )),
-                ],
-                fn ($v) => $v !== ''
+            'div',
+            \implode('', \array_map(
+                fn (string $html): string => Html::tag('div', $html),
+                \array_filter(
+                    [
+                        \implode(' ', \array_filter(
+                            [
+                                $this->renderValues(),
+                                $this->renderLabel(),
+                            ],
+                            fn (?string $v): bool => $v !== null,
+                        )),
+                        \implode(' ', \array_filter(
+                            [
+                                $this->renderKillRatio(),
+                            ],
+                            fn (?string $v): bool => $v !== null,
+                        )),
+                    ],
+                    fn (string $v): bool => $v !== '',
+                ),
             )),
-            ['id' => $this->id]
+            ['id' => $this->id],
         );
     }
 
@@ -76,10 +79,21 @@ class BattleKillDeathColumn extends Widget
         } elseif ($this->assist === null) {
             $kPart = $kHtml;
         } else {
-            $kPart = vsprintf('%s (+ %s)', [
+            $kPart = \vsprintf('%s %s', [
                 $kHtml,
-                $this->renderKDValue($this->assist, Yii::t('app', 'Assists')),
+                Html::tag(
+                    'small',
+                    \vsprintf('+ %s', [
+                        $this->renderKDValue($this->assist, Yii::t('app', 'Assists')),
+                    ]),
+                    ['class' => 'text-muted']
+                ),
             ]);
+
+            // $kPart = vsprintf('%s (+ %s)', [
+            //     $kHtml,
+            //     $this->renderKDValue($this->assist, Yii::t('app', 'Assists')),
+            // ]);
         }
 
         return vsprintf('%s / %s', [
