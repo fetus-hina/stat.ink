@@ -165,7 +165,7 @@ final class UserMiniInfo3 extends Widget
                                         'class' => 'auto-tooltip',
                                         'title' => Yii::t('app-lobby3', $groupInfo['group']->name),
                                         'style' => [
-                                            'height' => '16px',
+                                            'height' => '1.5em',
                                             'width' => 'auto',
                                         ],
                                     ],

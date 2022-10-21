@@ -41,7 +41,7 @@ abstract class BaseWeaponIcon extends Widget
                 'title' => $this->getAlt(),
                 'class' => 'auto-tooltip',
                 'style' => [
-                    'height' => '1em',
+                    'height' => '1.5em',
                     'width' => 'auto',
                 ],
             ]

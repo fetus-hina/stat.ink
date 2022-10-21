@@ -68,8 +68,8 @@ final class UserAction extends Action
                 'weapon.subweapon',
             ])
             ->andWhere([
-                'user_id' => $user->id,
-                'is_deleted' => false,
+                '{{%battle3}}.[[user_id]]' => $user->id,
+                '{{%battle3}}.[[is_deleted]]' => false,
             ])
             ->orderBy([
                 '{{%battle3}}.[[end_at]]' => SORT_DESC,

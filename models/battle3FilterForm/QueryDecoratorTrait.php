@@ -11,11 +11,17 @@ declare(strict_types=1);
 namespace app\models\battle3FilterForm;
 
 use Yii;
+use app\models\Battle3FilterForm;
 use app\models\Lobby3;
 use app\models\LobbyGroup3;
+use app\models\Mainweapon3;
 use app\models\Map3;
 use app\models\Rule3;
 use app\models\RuleGroup3;
+use app\models\Special3;
+use app\models\Subweapon3;
+use app\models\Weapon3;
+use app\models\WeaponType3;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
@@ -49,6 +55,62 @@ trait QueryDecoratorTrait
         );
 
         $this->decorateSimpleFilter($query, '{{%battle3}}.[[map_id]]', $this->map, Map3::class);
+        $this->decorateWeaponFilter($query, $this->weapon);
+    }
+
+    private function decorateWeaponFilter(ActiveQuery $query, ?string $key): void
+    {
+        $key = \trim((string)$key);
+        if ($key === '') {
+            return;
+        }
+
+        switch (\substr($key, 0, 1)) {
+            case Battle3FilterForm::PREFIX_WEAPON_TYPE:
+                $this->decorateSimpleFilter(
+                    $query->innerJoinWith(['weapon.mainweapon'], false),
+                    '{{%mainweapon3}}.[[type_id]]',
+                    \substr($key, 1),
+                    WeaponType3::class,
+                );
+                return;
+
+            case Battle3FilterForm::PREFIX_WEAPON_SUB:
+                $this->decorateSimpleFilter(
+                    $query->innerJoinWith(['weapon'], false),
+                    '{{%weapon3}}.[[subweapon_id]]',
+                    \substr($key, 1),
+                    Subweapon3::class,
+                );
+                return;
+
+            case Battle3FilterForm::PREFIX_WEAPON_SPECIAL:
+                $this->decorateSimpleFilter(
+                    $query->innerJoinWith(['weapon'], false),
+                    '{{%weapon3}}.[[special_id]]',
+                    \substr($key, 1),
+                    Special3::class,
+                );
+                return;
+
+            case Battle3FilterForm::PREFIX_WEAPON_MAIN:
+                $this->decorateSimpleFilter(
+                    $query->innerJoinWith(['weapon'], false),
+                    '{{%weapon3}}.[[mainweapon_id]]',
+                    \substr($key, 1),
+                    Mainweapon3::class,
+                );
+                return;
+
+            default:
+                $this->decorateSimpleFilter(
+                    $query,
+                    '{{%battle3}}.[[weapon_id]]',
+                    $key,
+                    Weapon3::class,
+                );
+                return;
+        }
     }
 
     /**
