@@ -70,6 +70,7 @@ trait Splatoon3
             $list = Battle3::find()
                 ->innerJoinWith(['agent'], false)
                 ->where(['and',
+                    ['{{%battle3}}.[[is_deleted]]' => false],
                     ['>=', '{{%battle3}}.[[created_at]]', $startAt->format(DateTime::ATOM)],
                     ['<', '{{%battle3}}.[[created_at]]', $endAt->format(DateTime::ATOM)],
                 ])
@@ -126,38 +127,43 @@ trait Splatoon3
         int $minId,
         int $maxId
     ): array {
-        $versions = Battle3::find()
-            ->innerJoinWith(['agent'], false)
-            ->where(['and',
-                [
-                  '{{agent}}.[[name]]' => $name,
-                  '{{%battle3}}.[[is_deleted]]' => false,
-                ],
-                ['between', '{{%battle3}}.[[id]]', $minId, $maxId],
-                ['>=', '{{%battle3}}.[[created_at]]', $startAt->format(DateTime::ATOM)],
-                ['<', '{{%battle3}}.[[created_at]]', $endAt->format(DateTime::ATOM)],
-            ])
-            ->select([
-                'version' => 'MAX({{agent}}.[[version]])',
-                'battles' => 'COUNT(*)',
-                'users' => 'COUNT(DISTINCT {{%battle3}}.[[user_id]])',
-            ])
-            ->groupBy(['{{%battle3}}.[[agent_id]]'])
-            ->asArray()
-            ->all();
-        \usort($versions, function (array $a, array $b): int {
-            return \version_compare($b['version'], $a['version']);
-        });
-        return \array_map(
-            function (array $row): array {
-                return [
-                    'version' => (string)$row['version'],
-                    'battles' => (int)$row['battles'],
-                    'users' => (int)$row['users'],
-                ];
-            },
-            $versions
-        );
+        $tz = $this->utc3();
+        try {
+            $versions = Battle3::find()
+                ->innerJoinWith(['agent'], false)
+                ->where(['and',
+                    [
+                      '{{agent}}.[[name]]' => $name,
+                      '{{%battle3}}.[[is_deleted]]' => false,
+                    ],
+                    ['between', '{{%battle3}}.[[id]]', $minId, $maxId],
+                    ['>=', '{{%battle3}}.[[created_at]]', $startAt->format(DateTime::ATOM)],
+                    ['<', '{{%battle3}}.[[created_at]]', $endAt->format(DateTime::ATOM)],
+                ])
+                ->select([
+                    'version' => 'MAX({{agent}}.[[version]])',
+                    'battles' => 'COUNT(*)',
+                    'users' => 'COUNT(DISTINCT {{%battle3}}.[[user_id]])',
+                ])
+                ->groupBy(['{{%battle3}}.[[agent_id]]'])
+                ->asArray()
+                ->all();
+            \usort($versions, function (array $a, array $b): int {
+                return \version_compare($b['version'], $a['version']);
+            });
+            return \array_map(
+                function (array $row): array {
+                    return [
+                        'version' => (string)$row['version'],
+                        'battles' => (int)$row['battles'],
+                        'users' => (int)$row['users'],
+                    ];
+                },
+                $versions
+            );
+        } finally {
+            unset($tz);
+        }
     }
 
     private function utc3(): Resource
