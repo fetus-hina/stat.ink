@@ -24,6 +24,11 @@ use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\web\View;
+
+/**
+ * @var View $this
+ */
 
 TableResponsiveForceAsset::register($this);
 

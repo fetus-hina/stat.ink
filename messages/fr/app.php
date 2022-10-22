@@ -35,6 +35,7 @@ return [
     'Activity' => 'Activité',
     'Add' => 'Ajouter',
     'Add Slack Integration' => 'Ajouter l\'intégration Slack',
+    'Advanced Options' => '',
     'Aliases' => '',
     'All Players' => 'Tous les joueurs',
     'Always enable horizontal scroll' => 'Toujours activer le défilement horizontal',

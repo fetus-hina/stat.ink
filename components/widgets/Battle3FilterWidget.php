@@ -32,6 +32,7 @@ final class Battle3FilterWidget extends Widget
     public bool $weapon = true;
     // public bool $rank = true;
     public bool $result = true;
+    public bool $knockout = true;
     // public bool $connectivity = false;
     // public bool $term = true;
     // public bool $filterText = false;
@@ -83,6 +84,7 @@ final class Battle3FilterWidget extends Widget
             $this->drawMap($form, $filter),
             $this->drawWeapon($form, $filter),
             $this->drawResult($form, $filter),
+            $this->drawKnockout($form, $filter),
             $this->drawActionButton($this->action),
         ]);
     }
@@ -152,7 +154,21 @@ final class Battle3FilterWidget extends Widget
         return (string)self::disableClientValidation(
             $form
                 ->field($filter, 'result')
-                ->dropDownList(...$filter->getResultDropdown($this->user))
+                ->dropDownList(...$filter->getResultDropdown())
+                ->label(false)
+        );
+    }
+
+    protected function drawKnockout(ActiveForm $form, Battle3FilterForm $filter): string
+    {
+        if (!$this->knockout) {
+            return '';
+        }
+
+        return (string)self::disableClientValidation(
+            $form
+                ->field($filter, 'knockout')
+                ->dropDownList(...$filter->getKnockoutDropdown())
                 ->label(false)
         );
     }

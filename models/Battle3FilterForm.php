@@ -43,6 +43,7 @@ final class Battle3FilterForm extends Model
     public ?string $map = null;
     public ?string $weapon = null;
     public ?string $result = null;
+    public ?string $knockout = null;
 
     /**
      * @inheritdoc
@@ -58,7 +59,7 @@ final class Battle3FilterForm extends Model
     public function rules()
     {
         return [
-            [['lobby', 'rule', 'map', 'weapon', 'result'], 'string'],
+            [['lobby', 'rule', 'map', 'weapon', 'result', 'knockout'], 'string'],
 
             [['lobby'], 'in',
                 'range' => \array_merge(
@@ -94,6 +95,9 @@ final class Battle3FilterForm extends Model
                     self::RESULT_WIN_OR_LOSE,
                 ]),
             ],
+            [['knockout'], 'in',
+                'range' => ['yes', 'no'],
+            ],
         ];
     }
 
@@ -108,6 +112,7 @@ final class Battle3FilterForm extends Model
             'map' => Yii::t('app', 'Stage'),
             'weapon' => Yii::t('app', 'Weapon'),
             'result' => Yii::t('app', 'Result'),
+            'knockout' => Yii::t('app', 'Knockout'),
         ];
     }
 

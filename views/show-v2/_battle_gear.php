@@ -5,12 +5,18 @@ declare(strict_types=1);
 use app\components\widgets\Spl2GearAbilitiesSummaryWidget;
 use app\models\GearConfiguration2;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var View $this
+ */
 
 $gears = [
   $battle->headgear,
   $battle->clothing,
   $battle->shoes,
 ];
+
 ?>
 <div class="table-responsive">
   <table class="table table-bordered table-condensed m-0">

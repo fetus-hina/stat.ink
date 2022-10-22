@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -13,10 +13,10 @@ use app\components\helpers\Translator;
 use app\models\Gear2;
 use app\models\GearType;
 use app\models\Language;
+use yii\base\Action;
 use yii\web\NotFoundHttpException;
-use yii\web\ViewAction as BaseAction;
 
-class Gear2Action extends BaseAction
+final class Gear2Action extends Action
 {
     public $type;
 
@@ -30,9 +30,16 @@ class Gear2Action extends BaseAction
         if (!$type = $this->getType()) {
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
         }
-        $gears = $type->getGear2s()->with(['brand', 'ability'])->all();
-        usort($gears, function (Gear2 $a, Gear2 $b): int {
-            return strnatcasecmp(
+
+        $gears = Gear2::find()
+            ->with([
+                'ability',
+                'brand',
+            ])
+            ->andWhere(['type_id' => $type->id])
+            ->all();
+        \usort($gears, function (Gear2 $a, Gear2 $b): int {
+            return \strnatcasecmp(
                 $a->translatedName,
                 $b->translatedName
             );

@@ -7,6 +7,11 @@ use app\components\widgets\FA;
 use app\models\User;
 use statink\yii2\anonymizer\AnonymizerAsset;
 use yii\bootstrap\Html;
+use yii\web\View;
+
+/**
+ * @var View $this
+ */
 
 $namePartInner = trim(implode(' ', [
   // identicon {{{

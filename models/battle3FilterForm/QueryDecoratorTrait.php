@@ -58,6 +58,7 @@ trait QueryDecoratorTrait
         $this->decorateSimpleFilter($query, '{{%battle3}}.[[map_id]]', $this->map, Map3::class);
         $this->decorateWeaponFilter($query, $this->weapon);
         $this->decorateResultFilter($query, $this->result);
+        $this->decorateKnockoutFilter($query, $this->knockout);
     }
 
     private function decorateWeaponFilter(ActiveQuery $query, ?string $key): void
@@ -174,6 +175,25 @@ trait QueryDecoratorTrait
                     $key,
                     Result3::class,
                 );
+                return;
+        }
+    }
+
+    private function decorateKnockoutFilter(ActiveQuery $query, ?string $key): void
+    {
+        $key = \trim((string)$key);
+        if ($key === '') {
+            return;
+        }
+
+        switch ($key) {
+            case 'yes':
+            case 'no':
+                $query->andWhere(['{{%battle3}}.[[is_knockout]]' => $key === 'yes']);
+                return;
+
+            default:
+                $query->andWhere('1 <> 1');
                 return;
         }
     }

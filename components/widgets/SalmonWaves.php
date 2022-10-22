@@ -296,7 +296,7 @@ class SalmonWaves extends Widget
             case '+':
             case 'add':
                 $total = 0;
-                foreach ($waves as $wave) {
+                foreach ($waves as $i => $wave) {
                     if (!$wave) {
                         continue;
                     }
@@ -305,7 +305,7 @@ class SalmonWaves extends Widget
                         $value = ArrayHelper::getValue($wave, $rowInfo['attribute']);
                     }
                     if (is_callable($value)) {
-                        $value = call_user_func($value, $wave, $waveNumber, $this);
+                        $value = call_user_func($value, $wave, $i + 1, $this);
                     }
                     if ($value !== null) {
                         $total += $value;

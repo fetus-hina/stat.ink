@@ -76,7 +76,7 @@ class EmbedVideo extends Widget
                     'timeCode' => $query['t'] ?? null,
                 ]);
             } elseif ($host === 'www.twitch.tv' || $host === 'secure.twitch.tv') {
-                if (preg_match('#/v/(\d+)#', $uri->getPath(), $match)) {
+                if (preg_match('#/v/(\d+)#', $path, $match)) {
                     return Yii::createObject([
                         'class' => embedVideo\Twitch::class,
                         'videoId' => $match[1],
