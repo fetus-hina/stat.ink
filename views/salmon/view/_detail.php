@@ -15,7 +15,12 @@ use yii\bootstrap\Progress;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\View;
 use yii\widgets\DetailView;
+
+/**
+ * @var View $this
+ */
 
 $formatter = clone Yii::$app->formatter;
 $formatter->nullDisplay = '';

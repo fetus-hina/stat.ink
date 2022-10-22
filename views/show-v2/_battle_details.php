@@ -20,7 +20,12 @@ use app\models\Rank2;
 use yii\bootstrap\Html;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
+use yii\web\View;
 use yii\widgets\DetailView;
+
+/**
+ * @var View $this
+ */
 
 ?>
 <?= DetailView::widget([

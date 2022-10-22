@@ -2,11 +2,19 @@
 
 declare(strict_types=1);
 
+use app\models\User;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
+use yii\web\View;
+
+/**
+ * @var User $user
+ * @var View $this
+ * @var object $input
+ */
 
 $this->registerJs(sprintf(
   '$(%s).change(function(){location.href=$("option:selected",this).data("url")});',

@@ -20,7 +20,12 @@ use yii\bootstrap\ActiveForm;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\View;
 use yii\widgets\ListView;
+
+/**
+ * @var View $this
+ */
 
 BattleListAsset::register($this);
 

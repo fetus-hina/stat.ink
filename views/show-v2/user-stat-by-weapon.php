@@ -12,6 +12,11 @@ use statink\yii2\sortableTable\SortableTableAsset;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var View $this
+ */
 
 $title = Yii::t('app', "{name}'s Battle Stats (by Weapon)", ['name' => $user->name]);
 $this->title = Yii::$app->name . ' | ' . $title;
@@ -26,6 +31,7 @@ if ($user->twitter != '') {
 }
 
 SortableTableAsset::register($this);
+
 ?>
 <div class="container">
   <h1>
