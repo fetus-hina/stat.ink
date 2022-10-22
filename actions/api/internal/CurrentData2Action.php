@@ -185,7 +185,10 @@ final class CurrentData2Action extends Action
         return ArrayHelper::getColumn(
             UserWeapon2::find()
                 ->with(['weapon'])
-                ->andWhere(['>', 'battles', 0])
+                ->andWhere(['and',
+                    ['user_id' => $user->id],
+                    ['>', 'battles', 0],
+                ])
                 ->orderBy(['battles' => SORT_DESC])
                 ->limit(10)
                 ->all(),
