@@ -125,6 +125,22 @@ trait DropdownListTrait
     }
 
     /**
+     * @return array{array<string, string>, array}
+     */
+    public function getKnockoutDropdown(): array
+    {
+        return [
+            [
+                'yes' => Yii::t('app', 'Knockout'),
+                'no' => Yii::t('app', 'Time is up'),
+            ],
+            [
+                'prompt' => \sprintf('%s / %s', Yii::t('app', 'Knockout'), Yii::t('app', 'Time')),
+            ],
+        ];
+    }
+
+    /**
      * @param ActiveRecord[] $models
      */
     private function getGroupDropdown(
