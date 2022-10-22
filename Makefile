@@ -131,7 +131,6 @@ SIMPLE_CONFIG_TARGETS := \
 	config/backup-s3.php \
 	config/debug-ips.php \
 	config/deepl.php \
-	config/google-adsense.php \
 	config/img-s3.php \
 	config/lepton.php \
 	config/twitter.php
@@ -428,16 +427,6 @@ config/authkey-secret.php: vendor $(SIMPLE_CONFIG_TARGETS)
 config/db.php: vendor $(SIMPLE_CONFIG_TARGETS)
 	test -f config/db.php || ./yii secret/db
 	@touch config/db.php
-
-config/google-adsense.php:
-	@echo '<?php' > $@
-	@echo '' >> $@
-	@echo 'declare(strict_types=1);' >> $@
-	@echo '' >> $@
-	@echo 'return [' >> $@
-	@echo "    'client' => ''," >> $@
-	@echo "    'slot'   => ''," >> $@
-	@echo '];' >> $@
 
 config/amazon-s3.php:
 	@echo '<?php' > $@

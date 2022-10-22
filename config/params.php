@@ -12,9 +12,8 @@ return [
     'gitRevision' => @file_exists(__DIR__ . '/git-revision.php')
         ? require(__DIR__ . '/git-revision.php')
         : null,
-    'googleAdsense' => require(__DIR__ . '/google-adsense.php'),
     'lepton' => require(__DIR__ . '/lepton.php'),
-    'minimumPHP' => '7.3.0',
+    'minimumPHP' => '7.4.0',
     'notifyEmail' => 'noreply@stat.ink',
     'twitter' => require(__DIR__ . '/twitter.php'),
     'useImgStatInk' => strpos($_SERVER['HTTP_HOST'] ?? '', 'stat.ink') !== false,
