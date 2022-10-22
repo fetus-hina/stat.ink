@@ -68,7 +68,7 @@ trait Salmon
         $name = ArrayHelper::getValue($info, 'name');
         if ($name === 'Random') {
             // TODO: rare random (use image url)
-            return SalmonRandom::find()
+            return SalmonRandom3::find()
                 ->andWhere(['key' => 'random'])
                 ->limit(1)
                 ->one();
