@@ -42,6 +42,7 @@ return [
     'Activity' => 'アクティビティー',
     'Add Slack Integration' => 'Slack連携を追加',
     'Add' => '追加',
+    'Advanced Options' => '高度なオプション',
     'Aliases' => 'エイリアス',
     'All Players' => 'すべてのプレーヤー',
     'Always enable horizontal scroll' => '常にテーブルの横スクロールを有効にする',

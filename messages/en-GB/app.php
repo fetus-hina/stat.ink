@@ -34,6 +34,7 @@ return [
     'Activity' => '',
     'Add' => '',
     'Add Slack Integration' => '',
+    'Advanced Options' => '',
     'Aliases' => '',
     'All Players' => '',
     'Always enable horizontal scroll' => '',

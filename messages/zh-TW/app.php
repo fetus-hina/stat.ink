@@ -35,6 +35,7 @@ return [
     'Activity' => '活動',
     'Add' => '新增',
     'Add Slack Integration' => '新增到Slack',
+    'Advanced Options' => '',
     'Aliases' => '別名',
     'All Players' => '所有玩家',
     'Always enable horizontal scroll' => '始終啟用水平滾動',
