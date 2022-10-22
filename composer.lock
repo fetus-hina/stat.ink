@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "79dc75f8d60f757a88c7c94c7386056a",
+    "content-hash": "46ce737db6caa712ed42bfa609f2c4eb",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -740,57 +740,6 @@
                 "source": "https://github.com/fetus-hina/yii2-flot/tree/v1.0.0"
             },
             "time": "2015-12-25T13:23:38+00:00"
-        },
-        {
-            "name": "jp3cki/yii2-googleadsense",
-            "version": "v2.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/fetus-hina/yii2-googleadsense.git",
-                "reference": "85c32faa1125d1f76f92bd490ce9f696c070d0a9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/fetus-hina/yii2-googleadsense/zipball/85c32faa1125d1f76f92bd490ce9f696c070d0a9",
-                "reference": "85c32faa1125d1f76f92bd490ce9f696c070d0a9",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0",
-                "yiisoft/yii2": "2.0.*"
-            },
-            "require-dev": {
-                "squizlabs/php_codesniffer": "~2.3"
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "\\jp3cki\\yii2\\googleadsense\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Simon Smith",
-                    "email": "simon@simonsmith.ca"
-                },
-                {
-                    "name": "AIZAWA Hina",
-                    "email": "hina@bouhime.com"
-                }
-            ],
-            "description": "An extension for displaying Google AdSense ads.",
-            "keywords": [
-                "extension",
-                "yii2"
-            ],
-            "support": {
-                "source": "https://github.com/fetus-hina/yii2-googleadsense/tree/master"
-            },
-            "time": "2015-10-15T13:09:18+00:00"
         },
         {
             "name": "jp3cki/yii2-jquery-color",
