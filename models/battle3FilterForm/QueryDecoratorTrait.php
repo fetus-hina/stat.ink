@@ -16,6 +16,7 @@ use app\models\Lobby3;
 use app\models\LobbyGroup3;
 use app\models\Mainweapon3;
 use app\models\Map3;
+use app\models\Result3;
 use app\models\Rule3;
 use app\models\RuleGroup3;
 use app\models\Special3;
@@ -56,6 +57,7 @@ trait QueryDecoratorTrait
 
         $this->decorateSimpleFilter($query, '{{%battle3}}.[[map_id]]', $this->map, Map3::class);
         $this->decorateWeaponFilter($query, $this->weapon);
+        $this->decorateResultFilter($query, $this->result);
     }
 
     private function decorateWeaponFilter(ActiveQuery $query, ?string $key): void
@@ -108,6 +110,69 @@ trait QueryDecoratorTrait
                     '{{%battle3}}.[[weapon_id]]',
                     $key,
                     Weapon3::class,
+                );
+                return;
+        }
+    }
+
+    private function decorateResultFilter(ActiveQuery $query, ?string $key): void
+    {
+        $key = \trim((string)$key);
+        if ($key === '') {
+            return;
+        }
+
+        switch ($key) {
+            case Battle3FilterForm::RESULT_NOT_DRAW:
+                $query->andWhere([
+                    '{{%battle3}}.[[result_id]]' => ArrayHelper::getColumn(
+                        Result3::find()
+                            ->andWhere(['not', ['key' => 'draw']])
+                            ->all(),
+                        'id',
+                    ),
+                ]);
+                return;
+
+            case Battle3FilterForm::RESULT_NOT_WIN:
+                $query->andWhere([
+                    '{{%battle3}}.[[result_id]]' => ArrayHelper::getColumn(
+                        Result3::find()
+                            ->andWhere(['not', ['key' => 'win']])
+                            ->all(),
+                        'id',
+                    ),
+                ]);
+                return;
+
+            case Battle3FilterForm::RESULT_UNKNOWN:
+                $query->andWhere(['{{%battle3}}.[[result_id]]' => null]);
+                return;
+
+            case Battle3FilterForm::RESULT_VIRTUAL_LOSE:
+                $query->andWhere([
+                    '{{%battle3}}.[[result_id]]' => self::findIdsByKey(
+                        Result3::class,
+                        ['lose', 'exempted_lose'],
+                    ),
+                ]);
+                return;
+
+            case Battle3FilterForm::RESULT_WIN_OR_LOSE:
+                $query->andWhere([
+                    '{{%battle3}}.[[result_id]]' => self::findIdsByKey(
+                        Result3::class,
+                        ['win', 'lose'],
+                    ),
+                ]);
+                return;
+
+            default:
+                $this->decorateSimpleFilter(
+                    $query,
+                    '{{%battle3}}.[[result_id]]',
+                    $key,
+                    Result3::class,
                 );
                 return;
         }
@@ -180,5 +245,26 @@ trait QueryDecoratorTrait
             ->limit(1)
             ->one();
         return $model ? (int)$model->id : null;
+    }
+
+    /**
+     * @phpstan-param class-string<ActiveRecord> $modelClass
+     * @param string[] $key
+     * @return int[]
+     */
+    private static function findIdsByKey(
+        string $modelClass,
+        array $key,
+        string $column = 'key'
+    ): array {
+        return \array_filter(
+            ArrayHelper::getColumn(
+                $modelClass::find()
+                    ->andWhere([$column => $key])
+                    ->all(),
+                fn (ActiveRecord $model) => \filter_var($model->id, FILTER_VALIDATE_INT),
+            ),
+            fn ($value): bool => \is_int($value), // PHP 8: \is_int(...)
+        );
     }
 }

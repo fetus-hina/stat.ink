@@ -33,6 +33,7 @@ trait PermalinkTrait
             'rule',
             'map',
             'weapon',
+            'result',
         ];
         foreach ($copyKeys as $key) {
             $value = \trim((string)$this->$key);

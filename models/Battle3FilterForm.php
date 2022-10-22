@@ -27,15 +27,22 @@ final class Battle3FilterForm extends Model
     use PermalinkTrait;
     use QueryDecoratorTrait;
 
-    public const PREFIX_WEAPON_TYPE = '@';
-    public const PREFIX_WEAPON_SUB = '+';
-    public const PREFIX_WEAPON_SPECIAL = '*';
     public const PREFIX_WEAPON_MAIN = '~';
+    public const PREFIX_WEAPON_SPECIAL = '*';
+    public const PREFIX_WEAPON_SUB = '+';
+    public const PREFIX_WEAPON_TYPE = '@';
+
+    public const RESULT_NOT_DRAW = '~not_draw';
+    public const RESULT_NOT_WIN = '~not_win';
+    public const RESULT_UNKNOWN = '~unknown';
+    public const RESULT_VIRTUAL_LOSE = '~lose';
+    public const RESULT_WIN_OR_LOSE = '~win_lose';
 
     public ?string $lobby = null;
     public ?string $rule = null;
     public ?string $map = null;
     public ?string $weapon = null;
+    public ?string $result = null;
 
     /**
      * @inheritdoc
@@ -51,7 +58,7 @@ final class Battle3FilterForm extends Model
     public function rules()
     {
         return [
-            [['lobby', 'rule', 'map', 'weapon'], 'string'],
+            [['lobby', 'rule', 'map', 'weapon', 'result'], 'string'],
 
             [['lobby'], 'in',
                 'range' => \array_merge(
@@ -78,6 +85,15 @@ final class Battle3FilterForm extends Model
                     self::getKeyList(Mainweapon3::class, self::PREFIX_WEAPON_MAIN),
                 ),
             ],
+            [['result'], 'in',
+                'range' => \array_merge(self::getKeyList(Result3::class), [
+                    self::RESULT_NOT_DRAW,
+                    self::RESULT_NOT_WIN,
+                    self::RESULT_UNKNOWN,
+                    self::RESULT_VIRTUAL_LOSE,
+                    self::RESULT_WIN_OR_LOSE,
+                ]),
+            ],
         ];
     }
 
@@ -91,6 +107,7 @@ final class Battle3FilterForm extends Model
             'rule' => Yii::t('app', 'Mode'),
             'map' => Yii::t('app', 'Stage'),
             'weapon' => Yii::t('app', 'Weapon'),
+            'result' => Yii::t('app', 'Result'),
         ];
     }
 

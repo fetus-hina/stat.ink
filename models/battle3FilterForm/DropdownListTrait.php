@@ -11,9 +11,11 @@ declare(strict_types=1);
 namespace app\models\battle3FilterForm;
 
 use Yii;
+use app\models\Battle3FilterForm;
 use app\models\Lobby3;
 use app\models\LobbyGroup3;
 use app\models\Map3;
+use app\models\Result3;
 use app\models\Rule3;
 use app\models\battle3FilterForm\dropdownList\WeaponDropdownListTrait;
 use yii\db\ActiveRecord;
@@ -77,6 +79,55 @@ trait DropdownListTrait
             Yii::t('app-map3', 'Any Stage'),
             true,
         );
+    }
+
+    /**
+     * @return array{array<string, string>, array}
+     */
+    public function getResultDropdown(): array
+    {
+        $order = [
+            'win' => 1,
+            Battle3FilterForm::RESULT_NOT_WIN => 2,
+            'lose' => 3,
+            Battle3FilterForm::RESULT_WIN_OR_LOSE => 4,
+            'exempted_lose' => 5,
+            Battle3FilterForm::RESULT_VIRTUAL_LOSE => 6,
+            'draw' => 7,
+            Battle3FilterForm::RESULT_NOT_DRAW => 8,
+            Battle3FilterForm::RESULT_UNKNOWN => 9,
+        ];
+
+        $list = \array_merge(
+            ArrayHelper::map(
+                Result3::find()->all(),
+                'key',
+                fn (Result3 $model): string => Yii::t('app', $model->name),
+            ),
+            [
+                Battle3FilterForm::RESULT_NOT_DRAW => Yii::t('app', 'Not Draws'),
+                Battle3FilterForm::RESULT_NOT_WIN => Yii::t('app', 'Not Winning'),
+                Battle3FilterForm::RESULT_UNKNOWN => Yii::t('app', 'Unknown Result'),
+                Battle3FilterForm::RESULT_VIRTUAL_LOSE => Yii::t('app', 'Consider to be Defeated'),
+                Battle3FilterForm::RESULT_WIN_OR_LOSE => Yii::t('app', 'Victory or Defeat'),
+            ],
+        );
+
+        \uksort($list, function (string $a, string $b) use ($order): int {
+            // どちらかがソート順に定義されていないなら、定義されていない方が後
+            if (isset($order[$a]) !== isset($order[$b])) {
+                return isset($order[$a]) ? -1 : 1;
+            }
+
+            return isset($order[$a])
+                ? ($order[$a] <=> $order[$b] ?: \strcmp($a, $b))
+                : \strcmp($a, $b);
+        });
+
+        return [
+            $list,
+            ['prompt' => Yii::t('app', 'Any Result')],
+        ];
     }
 
     /**

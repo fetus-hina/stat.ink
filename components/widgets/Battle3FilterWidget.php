@@ -31,7 +31,7 @@ final class Battle3FilterWidget extends Widget
     public bool $map = true;
     public bool $weapon = true;
     // public bool $rank = true;
-    // public bool $result = true;
+    public bool $result = true;
     // public bool $connectivity = false;
     // public bool $term = true;
     // public bool $filterText = false;
@@ -82,6 +82,7 @@ final class Battle3FilterWidget extends Widget
             $this->drawRule($form, $filter),
             $this->drawMap($form, $filter),
             $this->drawWeapon($form, $filter),
+            $this->drawResult($form, $filter),
             $this->drawActionButton($this->action),
         ]);
     }
@@ -138,6 +139,20 @@ final class Battle3FilterWidget extends Widget
             $form
                 ->field($filter, 'weapon')
                 ->dropDownList(...$filter->getWeaponDropdown($this->user))
+                ->label(false)
+        );
+    }
+
+    protected function drawResult(ActiveForm $form, Battle3FilterForm $filter): string
+    {
+        if (!$this->result) {
+            return '';
+        }
+
+        return (string)self::disableClientValidation(
+            $form
+                ->field($filter, 'result')
+                ->dropDownList(...$filter->getResultDropdown($this->user))
                 ->label(false)
         );
     }
