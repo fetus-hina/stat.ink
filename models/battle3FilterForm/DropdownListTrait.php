@@ -109,7 +109,7 @@ trait DropdownListTrait
                 : \strcmp($a, $b);
         });
 
-        $list[Yii::t('app', 'Advanced Options')] = [ 
+        $list[Yii::t('app', 'Advanced Options')] = [
             Battle3FilterForm::RESULT_NOT_WIN => Yii::t('app', 'Not Winning'),
             Battle3FilterForm::RESULT_WIN_OR_LOSE => Yii::t('app', 'Victory or Defeat'),
             Battle3FilterForm::RESULT_VIRTUAL_LOSE => Yii::t('app', 'Consider to be Defeated'),
