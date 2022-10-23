@@ -50,15 +50,16 @@ class IndexAction extends ViewAction
             return $form->getErrors();
         }
 
-        return array_map(
-            function (Salmon2 $model) use ($form) {
-                if ($form->only === 'splatnet_number') {
-                    return $model->splatnet_number;
-                } else {
-                    return $model->toJsonArray();
-                }
-            },
-            $query->all()
+        /**
+         * @var Salmon2[]
+         */
+        $models = $query->all();
+
+        return ArrayHelper::getColumn(
+            $models,
+            fn (Salmon2 $model) => ($form->only === 'splatnet_number')
+                ? $model->splatnet_number
+                : $model->toJsonArray(),
         );
     }
 }

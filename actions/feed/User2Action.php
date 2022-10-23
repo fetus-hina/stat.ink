@@ -162,8 +162,7 @@ class User2Action extends BaseAction
                 ]
         );
 
-        $battles = $user->getBattle2s()
-            ->limit(50)
+        $battles = Battle2::find()
             ->with([
                 'battleImageJudge',
                 'battleImageResult',
@@ -176,13 +175,21 @@ class User2Action extends BaseAction
                 'mode',
                 'version',
             ])
+            ->andWhere(['user_id' => $user->id])
             ->orderBy(['id' => SORT_DESC])
+            ->limit(50)
             ->all();
+
         foreach ($battles as $battle) {
             $entry = $feed->createEntry();
             $entry->addAuthor([
                 'name' => $user->name,
-                'uri' => Url::to(['show-v2/user', 'screen_name' => $user->screen_name], true),
+                'uri' => Url::to(
+                    ['show-v2/user',
+                        'screen_name' => $user->screen_name,
+                    ],
+                    true,
+                ),
             ]);
             $entry->setDateCreated(strtotime($battle->created_at));
             $entry->setDateModified(strtotime($battle->updated_at));

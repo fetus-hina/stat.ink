@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use app\assets\BattleListGroupHeaderAsset;
@@ -17,9 +18,15 @@ use yii\grid\Column;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\web\View;
 use yii\widgets\ListView;
 
+/**
+ * @var View $this
+ */
+
 SalmonWorkListAsset::register($this);
+
 ?>
 <div class="text-center">
   <?= ListView::widget([
@@ -429,9 +436,14 @@ SalmonWorkListAsset::register($this);
         (function () use ($fmt, $from, $shift, $user): string {
           if ($shift) {
             $weapons = ArrayHelper::getColumn(
-              $shift->getWeapons()->with('weapon')->all(),
-              'weapon'
+              SalmonWeapon2::find()
+                ->with(['weapon'])
+                ->andWhere(['schedule_id' => $shift->id])
+                ->orderBy(['id' => SORT_ASC])
+                ->all(),
+              'weapon',
             );
+
             $asset = $weapons ? Spl2WeaponAsset::register(Yii::$app->getView()) : null;
 
             return vsprintf('%s %s - %s (%s)', [
