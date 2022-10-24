@@ -27,7 +27,7 @@
     "cal-heatmap": "^3.6.2",
     "chart.js": "^3.9.1",
     "chartjs-plugin-datalabels": "^2.1.0",
-    "core-js": "^3.25.5",
+    "core-js": "^3.26.0",
     "cssnano": "^5.1.13",
     "dseg": "^0.46.0",
     "emojify.js": "^1.1.0",
