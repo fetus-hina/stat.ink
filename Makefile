@@ -184,6 +184,10 @@ check-style: check-style-js check-style-css check-style-php
 check-style-php: vendor
 	php vendor/bin/phpcs -p
 
+.PHONY: phpstan
+phpstan: vendor
+	php vendor/bin/phpstan --level=0 --memory-limit=1G
+
 check-style-js: node_modules
 	npx updates --minor bootstrap,bootswatch
 	npx semistandard 'resources/**/*[ej]s'
