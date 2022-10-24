@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2021 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -20,14 +20,18 @@ use app\models\Rule2;
 use app\models\Weapon2;
 use app\models\WeaponCategory2;
 use app\models\WeaponType2;
+use yii\base\Action;
 use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
-use yii\web\ViewAction as BaseAction;
+
+use const SORT_ASC;
+use const SORT_DESC;
+use const SORT_NATURAL;
 
 /**
  * @property-read bool $isEditable
  */
-class EditBattleAction extends BaseAction
+final class EditBattleAction extends Action
 {
     private $battle;
 
@@ -96,75 +100,82 @@ class EditBattleAction extends BaseAction
         ]);
     }
 
-    private function makeMaps()
+    /**
+     * @return array<string, string>
+     */
+    private function makeMaps(): array
     {
-        $ret = [];
-        foreach (Map2::find()->all() as $map) {
-            $ret[$map->id] = Yii::t('app-map2', $map->name);
-        }
-        asort($ret);
-        return static::arrayMerge(
+        return self::arrayMerge(
             ['' => Yii::t('app', 'Unknown')],
-            $ret
+            ArrayHelper::asort(
+                ArrayHelper::map(
+                    Map2::find()->all(),
+                    'id',
+                    fn (Map2 $map): string => Yii::t('app-map2', $map->name),
+                ),
+                SORT_NATURAL,
+            ),
         );
     }
 
-    private function makeWeapons()
+    /**
+     * @return array<string, string|array<string, string>>
+     */
+    private function makeWeapons(): array
     {
-        $ret = [];
-        $categories = WeaponCategory2::find()
-            ->orderBy(['id' => SORT_ASC])
-            ->all();
-        foreach ($categories as $category) {
-            $types = $category->getWeaponTypes()
-                ->orderBy(['id' => SORT_ASC])
-                ->all();
-            foreach ($types as $type) {
-                $typeName = ($category->name === $type->name)
-                    ? Yii::t('app-weapon2', $category->name)
-                    : sprintf(
-                        '%s » %s',
-                        Yii::t('app-weapon2', $category->name),
-                        Yii::t('app-weapon2', $type->name)
-                    );
-                $ret[$typeName] = (function (WeaponType2 $type): array {
-                    $tmp = [];
-                    foreach ($type->weapons as $weapon) {
-                        $tmp[$weapon->id] = Yii::t('app-weapon2', $weapon->name);
-                    }
-                    asort($tmp);
-                    return $tmp;
-                })($type);
-            }
-        }
-        return static::arrayMerge(
+        return \array_merge(
             ['' => Yii::t('app', 'Unknown')],
-            $ret
+            ArrayHelper::map(
+                WeaponType2::find()
+                    ->with(['weapons'])
+                    ->innerJoinWith(['category'], true)
+                    ->orderBy([
+                        'weapon_category2.id' => SORT_ASC,
+                        'weapon_type2.id' => SORT_ASC,
+                    ])
+                    ->all(),
+                fn (WeaponType2 $type): string => ($type->name === $type->category->name)
+                    ? Yii::t('app-weapon2', $type->category->name)
+                    : \vsprintf('%s » %s', [
+                        Yii::t('app-weapon2', $type->category->name),
+                        Yii::t('app-weapon2', $type->name),
+                    ]),
+                fn (WeaponType2 $type): array => ArrayHelper::asort(
+                    ArrayHelper::map(
+                        $type->weapons,
+                        'key',
+                        fn (Weapon2 $weapon): string => Yii::t('app-weapon2', $weapon->name),
+                    ),
+                    SORT_NATURAL,
+                ),
+            ),
         );
     }
 
-    private function makeRanks()
+    /**
+     * @return array<string, string>
+     */
+    private function makeRanks(): array
     {
-        return static::arrayMerge(
+        return self::arrayMerge(
             ['' => ''],
             ArrayHelper::map(
-                Rank2::find()->orderBy(['[[id]]' => SORT_DESC])->asArray()->all(),
+                Rank2::find()->orderBy(['id' => SORT_DESC])->all(),
                 'id',
-                function (array $row): string {
-                    return Yii::t('app-rank2', $row['name']);
-                }
-            )
+                fn (Rank2 $rank): string => Yii::t('app-rank2', $rank->name),
+            ),
         );
     }
 
-    private static function arrayMerge()
+    private static function arrayMerge(array ...$arrays): array
     {
         $ret = [];
-        foreach (func_get_args() as $arg) {
-            foreach ($arg as $k => $v) {
+        foreach ($arrays as $a) {
+            foreach ($a as $k => $v) {
                 $ret[$k] = $v;
             }
         }
+
         return $ret;
     }
 }
