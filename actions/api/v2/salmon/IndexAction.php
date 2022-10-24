@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -13,10 +13,11 @@ namespace app\actions\api\v2\salmon;
 use Yii;
 use app\models\Salmon2;
 use app\models\api\v2\salmon\IndexFilterForm;
+use yii\base\Action;
+use yii\helpers\ArrayHelper;
 use yii\web\UnauthorizedHttpException;
-use yii\web\ViewAction;
 
-class IndexAction extends ViewAction
+final class IndexAction extends Action
 {
     public $isAuthMode = false;
 

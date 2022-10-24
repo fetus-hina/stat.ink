@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -13,6 +13,7 @@ namespace app\models;
 use DateTimeImmutable;
 use Yii;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "splatoon_version_group2".
@@ -76,16 +77,22 @@ class SplatoonVersionGroup2 extends ActiveRecord
 
     public function getReleaseDate(): DateTimeImmutable
     {
-        $model = $this->getVersions()
-            ->orderBy(['released_at' => SORT_ASC])
-            ->limit(1)
-            ->one();
-        return new DateTimeImmutable($model->released_at);
+        return ArrayHelper::getValue(
+            SplatoonVersion2::find()
+                ->andWhere(['group_id' => $this->id])
+                ->orderBy(['released_at' => SORT_ASC])
+                ->limit(1)
+                ->one(),
+            fn (SplatoonVersion2 $model): DateTimeImmutable => new DateTimeImmutable(
+                $model->released_at,
+            ),
+        );
     }
 
     public function getObsoleteDate(): ?DateTimeImmutable
     {
-        $lastVersionOfThisGroup = $this->getVersions()
+        $lastVersionOfThisGroup = SplatoonVersion2::find()
+            ->andWhere(['group_id' => $this->id])
             ->orderBy(['released_at' => SORT_DESC])
             ->limit(1)
             ->one();

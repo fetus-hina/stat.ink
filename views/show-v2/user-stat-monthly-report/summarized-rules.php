@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 use app\models\Mode2;
+use app\models\Rule2;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\View;
 
@@ -13,11 +15,13 @@ use yii\web\View;
 
 static $rules = null;
 if ($rules === null) {
-  $rules = Mode2::findOne(['key' => 'gachi'])
-    ->getRules()
-    ->orderBy(['id' => SORT_ASC])
-    ->asArray()
-    ->all();
+  $rules = ArrayHelper::sort(
+    ArrayHelper::getColumn(
+      Mode2::findOne(['key' => 'gachi'])->rules,
+      fn (Rule2 $rule): array => $rule->attributes,
+    ),
+    fn (array $a, array $b): int => $a['id'] <=> $b['id'],
+  );
 }
 
 ?>

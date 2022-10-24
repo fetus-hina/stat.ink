@@ -24,11 +24,14 @@ class BattleQuery extends ActiveQuery
 {
     public function hasResultImage(): self
     {
-        return $this->innerJoinWith([
-            'battleImages' => function ($query) {
-                $query->onCondition(['{{battle_image}}.[[type_id]]' => BattleImageType::ID_RESULT]);
-            },
-        ], false);
+        return $this->innerJoinWith(
+            [
+                'battleImages' => function (ActiveQuery $query): void {
+                    $query->onCondition(['{{battle_image}}.[[type_id]]' => BattleImageType::ID_RESULT]);
+                },
+            ],
+            false,
+        );
     }
 
     public function filter(BattleFilterForm $filter): self

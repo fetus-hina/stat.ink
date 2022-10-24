@@ -157,17 +157,25 @@ class Weapon2 extends ActiveRecord
 
     public function getWeaponAttack(SplatoonVersion2 $version): ?WeaponAttack2
     {
-        $attacks = $this->getWeaponAttacks()->with('version')->all();
-        $attacks = array_filter($attacks, function (WeaponAttack2 $model) use ($version): bool {
-            return version_compare($model->version->tag, $version->tag, '<=');
-        });
-        if (!$attacks) {
-            return null;
-        }
-        usort($attacks, function (WeaponAttack2 $a, WeaponAttack2 $b): int {
-            return version_compare($b->version->tag, $a->version->tag);
-        });
-        return array_shift($attacks);
+        $attacks = ArrayHelper::sort(
+            \array_filter(
+                WeaponAttack2::find()
+                    ->with(['version'])
+                    ->andWhere(['weapon_id' => $this->id])
+                    ->all(),
+                fn (WeaponAttack2 $model): bool => \version_compare(
+                    $model->version->tag,
+                    $version->tag,
+                    '<=',
+                ),
+            ),
+            fn (WeaponAttack2 $a, WeaponAttack2 $b): int => \version_compare(
+                $b->version->tag,
+                $a->version->tag,
+            ),
+        );
+
+        return $attacks ? array_shift($attacks) : null;
     }
 
     public function toJsonArray(): array

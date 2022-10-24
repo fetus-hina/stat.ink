@@ -156,14 +156,16 @@ class Api2MarkdownController extends Controller
             ->orderBy(['id' => SORT_ASC])
             ->all();
         foreach ($categories as $category) {
-            $types = $category->getWeaponTypes()
+            $types = WeaponType2::find()
+                ->andWhere(['category_id' => $category->id])
                 ->orderBy([
                     'category_id' => SORT_ASC,
                     'rank' => SORT_ASC,
                 ])
                 ->all();
             foreach ($types as $type) {
-                $weapons = $type->getWeapons()
+                $weapons = Weapon2::find()
+                    ->andWhere(['type_id' => $type->id])
                     ->orderBy(['key' => SORT_ASC])
                     ->asArray()
                     ->all();

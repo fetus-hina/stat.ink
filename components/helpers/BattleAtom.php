@@ -106,8 +106,9 @@ class BattleAtom
         ]));
         $root->appendChild(static::createAuthor($doc, $user));
 
-        $query = $user->getBattles()
+        $query = Battle::find()
             ->with(['rule', 'map'])
+            ->andWhere(['user_id' => $this->id])
             ->orderBy('[[id]] DESC')
             ->limit(10);
         if ($only) {

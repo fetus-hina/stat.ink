@@ -287,28 +287,31 @@ class Weapons2Action extends BaseAction
                 if (!$vg = SplatoonVersionGroup2::findOne(['tag' => substr($form->term, 2)])) {
                     throw new \Exception();
                 }
-                $versions = $vg->getVersions()->orderBy(['released_at' => SORT_ASC])->asArray()->all();
+
+                $versions = SplatoonVersion2::find()
+                    ->andWhere(['group_id' => $vg->id])
+                    ->orderBy(['released_at' => SORT_ASC])
+                    ->all();
                 if (!$versions) {
                     throw new \Exception();
                 }
                 $v1 = $versions[0];
                 $v2 = $versions[count($versions) - 1];
                 $v3 = SplatoonVersion2::find()
-                    ->andWhere(['>', 'released_at', $v2['released_at']])
+                    ->andWhere(['>', 'released_at', $v2->released_at])
                     ->orderBy(['released_at' => SORT_ASC])
                     ->limit(1)
-                    ->asArray()
                     ->one();
                 $query->andWhere([
                     '>=',
                     '{{stat_weapon2_use_count}}.[[period]]',
-                    BattleHelper::calcPeriod2(strtotime($v1['released_at']))
+                    BattleHelper::calcPeriod2(strtotime($v1->released_at))
                 ]);
                 if ($v3) {
                     $query->andWhere([
                         '<',
                         '{{stat_weapon2_use_count}}.[[period]]',
-                        BattleHelper::calcPeriod2(strtotime($v3['released_at']))
+                        BattleHelper::calcPeriod2(strtotime($v3->released_at))
                     ]);
                 }
             } else {
@@ -384,7 +387,7 @@ class Weapons2Action extends BaseAction
 
     public function getWeapons(array $weaponIdList)
     {
-        $list = Weapon::find()
+        $list = Weapon2::find()
             ->andWhere(['in', '{{weapon}}.[[id]]', $weaponIdList])
             ->all();
         $ret = [];
