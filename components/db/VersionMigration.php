@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -15,6 +15,24 @@ use yii\db\Query;
 
 trait VersionMigration
 {
+    protected function upVersion3(
+        string $groupTag,
+        string $groupName,
+        string $versionTag,
+        string $versionName,
+        DateTimeInterface $releasedAt
+    ): int {
+        return $this->upVersion2Impl(
+            '{{%battle3}}',
+            '{{%splatoon_version3}}',
+            'release_at',
+            $this->upVersionGroup3($groupTag, $groupName),
+            $versionTag,
+            $versionName,
+            $releasedAt,
+        );
+    }
+
     protected function upVersion2(
         string $groupTag,
         string $groupName,
@@ -22,26 +40,73 @@ trait VersionMigration
         string $versionName,
         DateTimeInterface $releasedAt
     ): int {
-        $this->insert('splatoon_version2', [
+        return $this->upVersion2Impl(
+            'battle2',
+            'splatoon_version2',
+            'released_at',
+            $this->upVersionGroup2($groupTag, $groupName),
+            $versionTag,
+            $versionName,
+            $releasedAt,
+        );
+    }
+
+    private function upVersion2Impl(
+        string $tableBattle,
+        string $tableVersion,
+        string $releasedAtColumn,
+        int $groupId,
+        string $versionTag,
+        string $versionName,
+        DateTimeInterface $releasedAt
+    ): int {
+        $this->insert($tableVersion, [
             'tag' => $versionTag,
             'name' => $versionName,
-            'released_at' => $releasedAt->format(\DateTime::ATOM),
-            'group_id' => $this->upVersionGroup2($groupTag, $groupName),
+            $releasedAtColumn => $releasedAt->format(\DateTime::ATOM),
+            'group_id' => $groupId,
         ]);
         $this->update(
-            'battle2',
-            ['version_id' => $this->findId('splatoon_version2', $versionTag)],
+            $tableBattle,
+            ['version_id' => $this->findId($tableVersion, $versionTag)],
             ['>=', 'period', BattleHelper::calcPeriod2($releasedAt->getTimestamp())]
         );
-        return $this->findId('splatoon_version2', $versionTag);
+        return $this->findId($tableVersion, $versionTag);
+    }
+
+    protected function downVersion3(string $versionTag, string $oldVersionTag): void
+    {
+        $this->downVersion2Impl(
+            '{{%battle3}}',
+            '{{%splatoon_version3}}',
+            '{{%splatoon_version_group3}}',
+            $versionTag,
+            $oldVersionTag,
+        );
     }
 
     protected function downVersion2(string $versionTag, string $oldVersionTag): void
     {
+        $this->downVersion2Impl(
+            'battle2',
+            'splatoon_version2',
+            'splatoon_version_group2',
+            $versionTag,
+            $oldVersionTag,
+        );
+    }
+
+    private function downVersion2Impl(
+        string $tableBattle,
+        string $tableVersion,
+        string $tableGroup,
+        string $versionTag,
+        string $oldVersionTag
+    ): void {
         // グループを消すかどうか決めるために最初に探しておく
         $groupId = (new Query())
             ->select('group_id')
-            ->from('splatoon_version2')
+            ->from($tableVersion)
             ->where(['tag' => $versionTag])
             ->limit(1)
             ->scalar();
@@ -50,33 +115,51 @@ trait VersionMigration
         }
 
         $this->update(
-            'battle2',
-            ['version_id' => $this->findId('splatoon_version2', $oldVersionTag)],
-            ['version_id' => $this->findId('splatoon_version2', $versionTag)]
+            $tableBattle,
+            ['version_id' => $this->findId($tableVersion, $oldVersionTag)],
+            ['version_id' => $this->findId($tableVersion, $versionTag)]
         );
 
-        $this->delete('splatoon_version2', ['tag' => $versionTag]);
+        $this->delete($tableVersion, ['tag' => $versionTag]);
 
         // グループに所属する数を数えて存在しなければ消す
         $count = (new Query())
             ->select('COUNT(*)')
-            ->from('splatoon_version2')
+            ->from($tableVersion)
             ->where(['group_id' => $groupId])
             ->scalar();
         if ($count == 0) {
-            $this->delete('splatoon_version_group2', ['id' => $groupId]);
+            $this->delete($tableGroup, ['id' => $groupId]);
         }
+    }
+
+    private function upVersionGroup3(string $tag, string $name): int
+    {
+        return $this->upVersionGroup2Impl(
+            '{{%splatoon_version_group3}}',
+            $tag,
+            $name,
+        );
     }
 
     private function upVersionGroup2(string $tag, string $name): int
     {
-        $id = $this->findId('splatoon_version_group2', $tag);
+        return $this->upVersionGroup2Impl(
+            'splatoon_version_group2',
+            $tag,
+            $name,
+        );
+    }
+
+    private function upVersionGroup2Impl(string $table, string $tag, string $name): int
+    {
+        $id = $this->findId($table, $tag);
         if ($id === null) {
-            $this->insert('splatoon_version_group2', [
+            $this->insert($table, [
                 'tag' => $tag,
                 'name' => $name,
             ]);
-            $id = $this->findId('splatoon_version_group2', $tag);
+            $id = $this->findId($table, $tag);
         }
         if ($id === null) {
             throw new \Exception('Could not create new version group');
