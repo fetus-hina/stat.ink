@@ -108,7 +108,7 @@ class BattleAtom
 
         $query = Battle::find()
             ->with(['rule', 'map'])
-            ->andWhere(['user_id' => $this->id])
+            ->andWhere(['user_id' => $user->id])
             ->orderBy('[[id]] DESC')
             ->limit(10);
         if ($only) {
@@ -158,7 +158,7 @@ class BattleAtom
         return $e;
     }
 
-    private function createAuthor(DOMDocument $doc, User $user): DOMElement
+    private static function createAuthor(DOMDocument $doc, User $user): DOMElement
     {
         $root = $doc->createElement('author');
         $root->appendChild($doc->createElement(
