@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -21,14 +21,16 @@ use app\models\Special;
 use app\models\SplatoonVersion;
 use app\models\Subweapon;
 use app\models\User;
+use app\models\UserWeapon;
 use app\models\Weapon;
 use app\models\WeaponType;
 use jp3cki\yii2\datetimepicker\BootstrapDateTimePickerAsset;
 use yii\base\Widget;
 use yii\bootstrap\ActiveForm;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
-class BattleFilterWidget extends Widget
+final class BattleFilterWidget extends Widget
 {
     public $id = 'filter-form';
     public $route;
@@ -189,16 +191,20 @@ class BattleFilterWidget extends Widget
         return $form->field($this->filter, 'weapon')->dropDownList($list)->label(false);
     }
 
-    protected function getUsedWeaponIdList(User $user = null)
+    /**
+     * @return int[]|null
+     */
+    protected function getUsedWeaponIdList(User $user = null): ?array
     {
         if (!$user) {
             return null;
         }
-        return array_map(
-            function ($row) {
-                return (int)$row['weapon_id'];
-            },
-            $user->getUserWeapons()->asArray()->all()
+
+        return ArrayHelper::getColumn(
+            UserWeapon::find()
+                ->andWhere(['user_id' => $user->id])
+                ->all(),
+            fn (UserWeapon $model): int => (int)$model->weapon_id,
         );
     }
 

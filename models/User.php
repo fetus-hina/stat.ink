@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2021 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -234,23 +234,25 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function getIsSlackIntegrated(): bool
     {
-        $row = $this->getSlacks()
-            ->andWhere(['suspended' => false])
-            ->asArray()
-            ->limit(1)
-            ->one();
-        return !!$row;
+        return Slack::find()
+            ->andWhere([
+                'user_id' => $this->id,
+                'suspended' => false,
+            ])
+            ->exists();
     }
 
     public function getIsOstatusIntegrated(): bool
     {
-        $row = OstatusPubsubhubbub::find()
-            ->active()
-            ->andWhere(['topic' => $this->id])
-            ->asArray()
-            ->limit(1)
-            ->one();
-        return !!$row;
+        return OstatusPubsubhubbub::find()
+            ->andWhere(['and',
+                ['topic' => $this->id],
+                ['or',
+                    ['lease_until' => null],
+                    ['>=', 'lease_until', new Now()],
+                ],
+            ])
+            ->exists();
     }
 
     /**

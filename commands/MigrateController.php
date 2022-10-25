@@ -34,6 +34,7 @@ class MigrateController extends BaseController
             'salmon-weapon2' => "{$prefix}/salmon_weapon2_migration.php",
             'stage2' => "{$prefix}/map2_migration.php",
             'version2' => "{$prefix}/version2_migration.php",
+            'version3' => "{$prefix}/version3_migration.php",
             'weapon2' => "{$prefix}/weapon2_migration.php",
         ];
 

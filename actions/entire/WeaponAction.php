@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -9,26 +9,30 @@
 namespace app\actions\entire;
 
 use Yii;
-use yii\helpers\Url;
-use yii\web\ViewAction as BaseAction;
-use yii\web\NotFoundHttpException;
 use app\models\Map;
 use app\models\Rule;
 use app\models\StatWeaponKDWinRate;
 use app\models\StatWeaponKillDeath;
 use app\models\Weapon;
 use app\models\WeaponType;
+use yii\base\Action;
+use yii\db\Query;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
+use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
-class WeaponAction extends BaseAction
+final class WeaponAction extends Action
 {
-    public $weapon;
-    public $rule;
+    private ?Weapon $weapon = null;
+    private ?Rule $rule = null;
 
     public function init()
     {
         parent::init();
+
         $key = Yii::$app->request->get('weapon');
-        if (is_scalar($key)) {
+        if (\is_scalar($key)) {
             $this->weapon = Weapon::findOne(['key' => $key]);
         }
         if (!$this->weapon) {
@@ -38,7 +42,7 @@ class WeaponAction extends BaseAction
         }
 
         $key = Yii::$app->request->get('rule');
-        if ($key !== '' && $key !== null && is_scalar($key)) {
+        if ($key !== '' && $key !== null && \is_scalar($key)) {
             $this->rule = Rule::findOne(['key' => $key]);
             if (!$this->rule) {
                 throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
@@ -46,14 +50,16 @@ class WeaponAction extends BaseAction
         }
     }
 
+    /**
+     * @return string|Response
+     */
     public function run()
     {
         if (!$this->rule) {
-            $this->controller->redirect(['entire/weapon',
+            return $this->controller->redirect(['entire/weapon',
                 'weapon' => $this->weapon->key,
                 'rule' => 'nawabari',
             ]);
-            return;
         }
 
         return $this->controller->render('weapon', [
@@ -103,20 +109,23 @@ class WeaponAction extends BaseAction
         }, $tmp);
     }
 
-    public function getWeapons()
+    /**
+     * @return array<string, array<string, string>>
+     */
+    public function getWeapons(): array
     {
-        $ret = [];
-        foreach (WeaponType::find()->orderBy('id')->all() as $weaponType) {
-            $ret[Yii::t('app-weapon', $weaponType->name)] = (function (array $weapons) {
-                $ret = [];
-                foreach ($weapons as $weapon) {
-                    $ret[$weapon['key']] = Yii::t('app-weapon', $weapon['name']);
-                }
-                uasort($ret, 'strnatcasecmp');
-                return $ret;
-            })($weaponType->getWeapons()->asArray()->all());
-        }
-        return $ret;
+        return ArrayHelper::map(
+            WeaponType::find()->orderBy(['id' => SORT_ASC])->all(),
+            fn (WeaponType $type): string => Yii::t('app-weapon', $type->name),
+            fn (WeaponType $type): array => ArrayHelper::asort(
+                ArrayHelper::map(
+                    Weapon::find()->andWhere(['type_id' => $type->id])->all(),
+                    'key',
+                    fn (Weapon $model): string => Yii::t('app-weapon', $model->name),
+                ),
+                SORT_NATURAL,
+            ),
+        );
     }
 
     public function getMaps()
@@ -140,7 +149,7 @@ class WeaponAction extends BaseAction
     {
         $table = StatWeaponKDWinRate::tableName();
         $map = Map::tableName();
-        $query = (new \yii\db\Query())
+        $query = (new Query())
             ->select([
                 'map'       => "MAX({{{$map}}}.[[key]])",
                 'battle'    => "SUM({{{$table}}}.[[battle_count]])",
@@ -168,7 +177,7 @@ class WeaponAction extends BaseAction
     public function getUseCount()
     {
         $weaponId = (int)$this->weapon->id;
-        $query = (new \yii\db\Query())
+        $query = (new Query())
             ->select([
                 'isoyear'       => 'isoyear',
                 'isoweek'       => 'isoweek',
@@ -186,6 +195,7 @@ class WeaponAction extends BaseAction
                         ['>=', 'isoweek', 46],
                     ]
                 ],
+                ['<', 'isoyear', 2018],
             ])
             ->groupBy('isoyear, isoweek')
             ->having(['>', 'SUM([[battles]])', 0])

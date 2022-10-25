@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2021 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,14 +10,16 @@ declare(strict_types=1);
 
 namespace app\actions\show\v2;
 
+use LogicException;
 use Yii;
 use app\models\Region2;
+use app\models\Splatfest2;
 use app\models\User;
+use yii\base\Action;
 use yii\base\DynamicModel;
 use yii\web\NotFoundHttpException;
-use yii\web\ViewAction;
 
-class UserStatSplatfestAction extends ViewAction
+final class UserStatSplatfestAction extends Action
 {
     private ?User $user = null;
     private ?Region2 $region = null;
@@ -29,15 +31,20 @@ class UserStatSplatfestAction extends ViewAction
         $model = $this->processInput();
         $this->initRegion($model);
 
+        if (!$this->region) {
+            throw new LogicException();
+        }
+
         return $this->controller->render('user-stat-splatfest', [
             'input' => $model,
             'region' => $this->region,
             'regions' => Region2::find()
                 ->orderBy(['id' => SORT_ASC])
                 ->all(),
-            'splatfests' => $this->region
-                ->getFests()
-                ->orderBy(['term' => SORT_DESC])
+            'splatfests' => Splatfest2::find()
+                ->innerJoinWith(['splatfest2Regions'], false)
+                ->andWhere(['splatfest2_region.region_id' => $this->region->id])
+                ->orderBy(['splatfest2.term' => SORT_DESC])
                 ->all(),
             'user' => $this->user,
         ]);

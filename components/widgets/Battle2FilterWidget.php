@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -22,6 +22,7 @@ use app\models\SplatoonVersion2;
 use app\models\SplatoonVersionGroup2;
 use app\models\Subweapon2;
 use app\models\User;
+use app\models\UserWeapon2;
 use app\models\Weapon2;
 use app\models\WeaponCategory2;
 use app\models\WeaponType2;
@@ -252,16 +253,20 @@ class Battle2FilterWidget extends Widget
         return (string)$form->field($this->filter, 'weapon')->dropDownList($list)->label(false);
     }
 
+    /**
+     * @return int[]|null
+     */
     protected function getUsedWeaponIdList(User $user = null): ?array
     {
         if (!$user) {
             return null;
         }
-        return array_map(
-            function ($row) {
-                return (int)$row['weapon_id'];
-            },
-            $user->getUserWeapon2s()->asArray()->all()
+
+        return ArrayHelper::getColumn(
+            UserWeapon2::find()
+                ->andWhere(['user_id' => $user->id])
+                ->all(),
+            fn (UserWeapon2 $model): int => (int)ArrayHelper::getValue($model, 'weapon_id'),
         );
     }
 

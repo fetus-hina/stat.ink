@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -20,10 +20,14 @@ use app\models\Subweapon;
 use app\models\Weapon;
 use app\models\WeaponCompareForm;
 use app\models\WeaponType;
+use yii\base\Action;
 use yii\db\Query;
-use yii\web\ViewAction as BaseAction;
+use yii\helpers\ArrayHelper;
 
-class WeaponsUseAction extends BaseAction
+use const SORT_ASC;
+use const SORT_NATURAL;
+
+final class WeaponsUseAction extends Action
 {
     public function run()
     {
@@ -81,73 +85,93 @@ class WeaponsUseAction extends BaseAction
         return $ret;
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function getMainWeapon(): array
     {
-        $ret = [];
-        foreach (WeaponType::find()->orderBy('[[id]] ASC')->all() as $type) {
-            $ret = array_merge(
-                $ret,
-                (function (WeaponType $type): array {
-                    $ret = [];
-                    $weapons = $type->getWeapons()
-                        ->andWhere('[[id]] = [[main_group_id]]')
-                        ->asArray()
-                        ->all();
-                    foreach ($weapons as $weapon) {
-                        $ret['~' . $weapon['key']] = Yii::t('app', '{0} etc.', [
+        return \array_merge(
+            ...ArrayHelper::getColumn(
+                WeaponType::find()->orderBy(['id' => SORT_ASC])->all(),
+                fn (WeaponType $type): array => ArrayHelper::asort(
+                    ArrayHelper::map(
+                        Weapon::find()
+                            ->andWhere(['type_id' => $type->id])
+                            ->andWhere('[[id]] = [[main_group_id]]')
+                            ->all(),
+                        fn (Weapon $weapon): string => \sprintf('~%s', $weapon->key),
+                        fn (Weapon $weapon): string => Yii::t('app', '{0} etc.', [
                             Yii::t('app-weapon', $weapon['name']),
-                        ]);
-                    }
-                    uasort($ret, 'strnatcasecmp');
-                    return $ret;
-                })($type)
-            );
-        }
-        return $ret;
+                        ]),
+                    ),
+                    SORT_NATURAL,
+                ),
+            ),
+        );
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function getSubWeapon(): array
     {
-        $ret = [];
-        foreach (Subweapon::find()->asArray()->all() as $weapon) {
-            $ret['+' . $weapon['key']] = Yii::t('app-subweapon', $weapon['name']);
-        }
-        uasort($ret, 'strnatcasecmp');
-        return $ret;
+        return ArrayHelper::asort(
+            ArrayHelper::map(
+                Subweapon::find()->all(),
+                fn (Subweapon $model): string => \sprintf('+%s', $model->key),
+                fn (Subweapon $model): string => Yii::t('app-subweapon', $model->name),
+            ),
+            SORT_NATURAL,
+        );
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function getSpecialWeapon(): array
     {
-        $ret = [];
-        foreach (Special::find()->asArray()->all() as $weapon) {
-            $ret['*' . $weapon['key']] = Yii::t('app-special', $weapon['name']);
-        }
-        uasort($ret, 'strnatcasecmp');
-        return $ret;
+        return ArrayHelper::asort(
+            ArrayHelper::map(
+                Special::find()->all(),
+                fn (Special $model): string => \sprintf('*%s', $model->key),
+                fn (Special $model): string => Yii::t('app-special', $model->name),
+            ),
+            SORT_NATURAL,
+        );
     }
 
+    /**
+     * @return array<string, string|array<string, string>>
+     */
     public function getRules(): array
     {
-        $modes = [
-            '' => Yii::t('app-rule', 'Any Mode'),
-        ];
-
-        foreach (GameMode::find()->with('rules')->orderBy('[[id]] ASC')->all() as $mode) {
-            $modeName = Yii::t('app-rule', $mode->name);
-
-            $all = (count($mode->rules) > 1)
-                    ? ["@{$mode->key}" => Yii::t('app-rule', 'All of {0}', [$modeName])]
-                    : [];
-
-            $rules = [];
-            foreach ($mode->rules as $rule) {
-                $rules[$rule->key] = Yii::t('app-rule', $rule->name);
-            }
-            uasort($rules, 'strnatcasecmp');
-            $modes[$modeName] = array_merge($all, $rules);
-        }
-
-        return $modes;
+        return \array_merge(
+            ['' => Yii::t('app-rule', 'Any Mode')],
+            ArrayHelper::map(
+                GameMode::find()
+                    ->with(['rules'])
+                    ->orderBy(['id' => SORT_ASC])
+                    ->all(),
+                fn (GameMode $mode): string => Yii::t('app-rule', $mode->name),
+                fn (GameMode $mode): array => \array_merge(
+                    \count($mode->rules) > 1
+                        ? [
+                            "@{$mode->key}" => Yii::t('app-rule', 'All of {0}', [
+                                Yii::t('app-rule', $mode->name),
+                            ]),
+                        ]
+                        : [],
+                    ArrayHelper::asort(
+                        ArrayHelper::map(
+                            $mode->rules,
+                            'key',
+                            fn (Rule $rule): string => Yii::t('app-rule', $rule->name),
+                        ),
+                        SORT_NATURAL,
+                    ),
+                ),
+            ),
+        );
     }
 
     public function getData(WeaponCompareForm $form): array
@@ -279,6 +303,7 @@ class WeaponsUseAction extends BaseAction
                     ['>=', '{{stat}}.[[isoweek]]', 46],
                 ]
             ])
+            ->andWhere(['<', '{{stat}}.[[isoyear]]', 2018])
             ->groupBy('{{stat}}.[[isoyear]], {{stat}}.[[isoweek]]')
             ->orderBy('{{stat}}.[[isoyear]], {{stat}}.[[isoweek]]');
         foreach (range(1, WeaponCompareForm::NUMBER) as $i) {

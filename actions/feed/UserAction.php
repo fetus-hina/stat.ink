@@ -20,13 +20,13 @@ use app\models\Language;
 use app\models\User;
 use jp3cki\uuid\NS as UuidNS;
 use jp3cki\uuid\Uuid;
+use yii\base\Action;
 use yii\base\DynamicModel;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
-use yii\web\ViewAction as BaseAction;
 
-class UserAction extends BaseAction
+final class UserAction extends Action
 {
     public function init()
     {
@@ -41,9 +41,9 @@ class UserAction extends BaseAction
         $resp = Yii::$app->getResponse();
         $model = DynamicModel::validateData(
             [
-                'lang'          => $request->get('lang'),
-                'screen_name'   => $request->get('screen_name'),
-                'type'          => $request->get('type'),
+                'lang' => $request->get('lang'),
+                'screen_name' => $request->get('screen_name'),
+                'type' => $request->get('type'),
             ],
             [
                 [['lang', 'screen_name', 'type'], 'required'],
@@ -80,13 +80,12 @@ class UserAction extends BaseAction
 
         $feed = new FeedWriter();
         $feed->setGenerator(
-            sprintf(
-                '%s/%s %s/%s',
+            \vsprintf('%s/%s %s/%s', [
                 Yii::$app->name,
                 Yii::$app->version,
                 'Laminas-Feed-Writer',
-                \Laminas\Feed\Writer\Version::VERSION
-            ),
+                \Laminas\Feed\Writer\Version::VERSION,
+            ]),
             Yii::$app->version,
             Url::home(true)
         );
@@ -163,8 +162,7 @@ class UserAction extends BaseAction
                 ]
         );
 
-        $battles = $user->getBattles()
-            ->limit(50)
+        $battles = Battle::find()
             ->with([
                 'battleImageJudge',
                 'battleImageResult',
@@ -175,6 +173,8 @@ class UserAction extends BaseAction
                 'rank',
                 'rankAfter',
             ])
+            ->andWhere(['user_id' => $user->id])
+            ->limit(50)
             ->all();
         foreach ($battles as $battle) {
             $entry = $feed->createEntry();
