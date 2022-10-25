@@ -13,6 +13,7 @@ namespace app\controllers;
 use Yii;
 use app\actions\show\v3\BattleAction;
 use app\actions\show\v3\UserAction;
+use app\actions\show\v3\stats\WinRateAction;
 use app\components\web\Controller;
 
 final class ShowV3Controller extends Controller
@@ -21,6 +22,7 @@ final class ShowV3Controller extends Controller
     {
         return [
             'battle' => BattleAction::class,
+            'stats-win-rate' => WinRateAction::class,
             'user' => UserAction::class,
         ];
     }
