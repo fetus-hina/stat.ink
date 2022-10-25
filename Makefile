@@ -91,6 +91,7 @@ RESOURCE_TARGETS := \
 	resources/.compiled/stat.ink/os-icon-widget.js \
 	resources/.compiled/stat.ink/permalink-dialog.js \
 	resources/.compiled/stat.ink/private-note.js \
+	resources/.compiled/stat.ink/ratio.css \
 	resources/.compiled/stat.ink/rewrite-link-for-ios-app.js \
 	resources/.compiled/stat.ink/salmon-stats-history.js \
 	resources/.compiled/stat.ink/salmon-work-list-config.js \
@@ -117,6 +118,7 @@ RESOURCE_TARGETS := \
 	resources/.compiled/stat.ink/user-stat-nawabari-wp.js \
 	resources/.compiled/stat.ink/user-stat-report.css \
 	resources/.compiled/stat.ink/user-stat-splatfest.js \
+	resources/.compiled/stat.ink/v3-user-stats-win-rate.js \
 	resources/.compiled/stat.ink/weapon2.js \
 	resources/.compiled/stat.ink/weapons-use.js \
 	resources/.compiled/stat.ink/weapons.js \
@@ -223,6 +225,7 @@ composer.phar:
 define scss2css
 	@mkdir -p $(dir $(1))
 	npx sass $(2) | npx postcss --no-map -o $(1)
+	@touch $(1)
 endef
 
 define es2js
@@ -230,6 +233,7 @@ define es2js
 	cat $(2) | \
 		npx babel -s false -f jsfile | \
 		npx uglifyjs -c -m -b beautify=false,ascii_only=true --comments '/license|copyright/i' -o $(1)
+	@touch $(1)
 endef
 
 define png
@@ -306,6 +310,7 @@ resources/.compiled/stat.ink/main.css: resources/stat.ink/main.scss node_modules
 resources/.compiled/stat.ink/os-icon-widget.js: resources/stat.ink/os-icon-widget.es node_modules
 resources/.compiled/stat.ink/permalink-dialog.js: resources/stat.ink/permalink-dialog.es node_modules
 resources/.compiled/stat.ink/private-note.js: resources/stat.ink/private-note.es node_modules
+resources/.compiled/stat.ink/ratio.css: resources/stat.ink/ratio.scss node_modules
 resources/.compiled/stat.ink/rewrite-link-for-ios-app.js: resources/stat.ink/rewrite-link-for-ios-app.es node_modules
 resources/.compiled/stat.ink/salmon-stats-history.js: resources/stat.ink/salmon-stats-history.es node_modules
 resources/.compiled/stat.ink/salmon-work-list-config.js: resources/stat.ink/salmon-work-list-config.es node_modules
@@ -331,6 +336,7 @@ resources/.compiled/stat.ink/user-stat-nawabari-inked.js: resources/stat.ink/use
 resources/.compiled/stat.ink/user-stat-nawabari-wp.js: resources/stat.ink/user-stat-nawabari-wp.es node_modules
 resources/.compiled/stat.ink/user-stat-report.css: resources/stat.ink/user-stat-report.scss node_modules
 resources/.compiled/stat.ink/user-stat-splatfest.js: resources/stat.ink/user-stat-splatfest.es node_modules
+resources/.compiled/stat.ink/v3-user-stats-win-rate.js: resources/stat.ink/v3-user-stats-win-rate.es node_modules
 resources/.compiled/stat.ink/weapons-use.js: resources/stat.ink/weapons-use.js node_modules
 resources/.compiled/stat.ink/weapons.js: resources/stat.ink/weapons.js node_modules
 resources/.compiled/stat.ink/xpower-history.css: resources/stat.ink/xpower-history.scss node_modules

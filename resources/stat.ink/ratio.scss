@@ -1,0 +1,45 @@
+@charset "UTF-8";
+
+/*!
+ * Copyright (C) 2015-2022 AIZAWA Hina | MIT License
+ *
+ * Bootstrap v5.2.2
+ * Copyright (C) 2011-2022 The Bootstrap Authors
+ * Copyright 2011-2022 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+ *
+ * Credit: Nicolas Gallagher and SUIT CSS.
+ */
+
+$prefix: '';
+$aspect-ratios: (
+  '1x1': 100%,
+  '4x3': calc(3 / 4 * 100%),
+  '16x9': calc(9 / 16 * 100%),
+  '21x9': calc(9 / 21 * 100%),
+);
+
+.ratio {
+  position: relative;
+  width: 100%;
+
+  &::before {
+    content: '';
+    display: block;
+    padding-top: var(--#{$prefix}aspect-ratio);
+  }
+
+  > * {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+}
+
+@each $key, $ratio in $aspect-ratios {
+  .ratio-#{$key} {
+    --#{$prefix}aspect-ratio: #{$ratio};
+  }
+}

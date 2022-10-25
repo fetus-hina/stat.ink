@@ -53,6 +53,7 @@ final class UserMiniInfo3 extends Widget
                             $this->renderStatsTotal($groups),
                             $this->renderStatsLobbies($groups),
                             $this->renderActivity(),
+                            $this->renderLinkStats(),
                         ],
                         fn (?string $item): bool => $item !== null,
                     )),
@@ -215,6 +216,40 @@ final class UserMiniInfo3 extends Widget
                 ),
             ]),
             ['class' => 'miniinfo-databox']
+        );
+    }
+
+    private function renderLinkStats(): string
+    {
+        $user = $this->user;
+        $links = [
+            Yii::t('app', 'Stats (Win %)') => ['show-v3/stats-win-rate', 'screen_name' => $user->screen_name],
+        ];
+
+        return Html::tag(
+            'ul',
+            \implode('', \array_map(
+                fn (string $text, array $link): string => Html::tag(
+                    'li',
+                    \implode('', [
+                        Html::tag('span', (string)FA::fas('chart-pie')->fw()),
+                        Html::a(
+                            Html::encode($text),
+                            $link,
+                        ),
+                    ]),
+                    [
+                        'class' => 'm-0 p-0',
+                        'style' => 'list-style-type:none',
+                    ],
+                ),
+                \array_keys($links),
+                \array_values($links),
+            )),
+            [
+                'class' => 'mt-3 mb-0 p-0',
+                'style' => 'list-style-type:none',
+            ],
         );
     }
 
