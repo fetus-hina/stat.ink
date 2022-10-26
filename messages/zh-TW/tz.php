@@ -50,7 +50,7 @@ return [
     'Chile' => '智利',
     'Chile (Easter Island)' => '智利 (復活節島)',
     'Chile (Magallanes)' => '智利 (麥哲倫省)',
-    'China (PRC)' => '中華人民共和國',
+    'China (PRC)' => '中國',
     'Colombia' => '哥倫比亞',
     'Comoros' => '葛摩',
     'Congo Republic' => '剛果共和國',

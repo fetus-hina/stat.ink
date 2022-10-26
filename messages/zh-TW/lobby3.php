@@ -3,6 +3,7 @@
 /**
  * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ * @author ADe <loezone@gmail.com>
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author midmiako <mayomi@baka.wang>
  */
@@ -17,6 +18,6 @@ return [
     'Private Battle' => '私人比賽',
     'Regular Battle' => '一般比賽',
     'Splatfest' => '祭典',
-    'Splatfest (Open)' => '',
-    'Splatfest (Pro)' => '',
+    'Splatfest (Open)' => '祭典比賽 (開放)',
+    'Splatfest (Pro)' => '祭典比賽 (挑戰)',
 ];

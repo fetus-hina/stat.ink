@@ -14,7 +14,7 @@ return [
     'CB' => '蛤蜊',
     'Clam Blitz' => '真格蛤蜊',
     'Rainmaker' => '真格魚虎對戰',
-    'Ranked Modes' => '',
+    'Ranked Modes' => '真格模式',
     'RM' => '魚虎',
     'Splat Zones' => '真格區域',
     'SZ' => '區域',
