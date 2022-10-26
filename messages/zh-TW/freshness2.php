@@ -10,8 +10,8 @@
 declare(strict_types=1);
 
 return [
-    'Dry' => '生澀',
-    'Fresh' => '新鮮',
-    'Raw' => '熟悉',
-    'SUPERFRESH!' => '精通',
+    'Dry' => '狀態值低',
+    'Raw' => '狀態值中等',
+    'Fresh' => '狀態值不錯',
+    'SUPERFRESH!' => '狀態值超棒',
 ];

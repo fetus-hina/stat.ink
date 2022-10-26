@@ -12,6 +12,6 @@ declare(strict_types=1);
 return [
     'Input Class' => '輸入類型',
     'Primary Language' => '主要語言',
-    'Rerecognized Agent' => '重新的識別的代理',
+    'Rerecognized Agent' => '重新識別的代理',
     'Rerecognized At' => '重新識別於',
 ];

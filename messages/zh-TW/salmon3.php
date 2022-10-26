@@ -9,5 +9,5 @@
 declare(strict_types=1);
 
 return [
-    'Salmon Run' => '鮭魚跑',
+    'Salmon Run' => 'Salmon Run',
 ];

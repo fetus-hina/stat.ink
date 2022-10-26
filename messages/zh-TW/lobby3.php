@@ -17,6 +17,6 @@ return [
     'Private Battle' => '私人比賽',
     'Regular Battle' => '一般比賽',
     'Splatfest' => '祭典',
-    'Splatfest (Open)' => '',
-    'Splatfest (Pro)' => '',
+    'Splatfest (Open)' => '祭典比賽 (開放)',
+    'Splatfest (Pro)' => '祭典比賽 (挑戰)',
 ];
