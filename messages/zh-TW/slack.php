@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 return [
     'lost' => '敗北',
-    'Staaaay Fresh!' => '保持持持持新鮮!',
+    'Staaaay Fresh!' => '保持~新鮮!',
     'unknown mode' => '未知模式',
     'unknown stage' => '未知場地',
     'won' => '勝利',

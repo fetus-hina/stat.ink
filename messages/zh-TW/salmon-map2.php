@@ -11,14 +11,14 @@
 declare(strict_types=1);
 
 return [
-    'Bay' => '破船灣',
-    'Grounds' => '養殖場',
+    'Bay' => '破難船',
+    'Grounds' => '鮭霸',
     'Lost Outpost' => '廢棄前哨站',
-    'Marooner\'s Bay' => '破船灣',
-    'Outpost' => '前哨站',
-    'Polaris' => '北極星',
-    'Ruins of Ark Polaris' => '北極星方舟廢墟',
-    'Salmonid Smokeyard' => '三文魚煙燻廠',
-    'Smokeyard' => '煙燻廠',
+    'Marooner\'s Bay' => '破難船',
+    'Outpost' => '海上集落',
+    'Polaris' => '箱舟',
+    'Ruins of Ark Polaris' => '北極星箱舟廢墟',
+    'Salmonid Smokeyard' => '鮭魚煙燻廠',
+    'Smokeyard' => '工房',
     'Spawning Grounds' => '鮭霸',
 ];

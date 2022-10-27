@@ -3,6 +3,7 @@
 /**
  * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ * @author ADe <loezone@gmail.com>
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Gosin <canling0@gmail.com>
  */
@@ -22,15 +23,15 @@ return [
     'Depot' => '礦場',
     'Dome' => '種植園',
     'Flounder Heights' => '比目魚高地',
-    'Hammerhead Bridge' => '鯖魚海峽大橋',
+    'Hammerhead Bridge' => '真鯖跨海大橋',
     'Heights' => '高地',
     'Kelp Dome' => '海雲種植園',
     'Mahi-Mahi' => '鯕鰍',
-    'Mahi-Mahi Resort' => '鯕鰍度假村',
+    'Mahi-Mahi Resort' => '鬼頭刀Spa度假區',
     'Mall' => '商場',
     'Moray Towers' => '帶魚停車場',
     'Museum' => '博物館',
-    'Museum d\'Alfonsino' => '紅金眼鯛博物館',
+    'Museum d\'Alfonsino' => '金眼鯛美術館',
     'Piranha Pit' => '魚醬礦山',
     'Pit' => '礦山',
     'Port' => '碼頭',
