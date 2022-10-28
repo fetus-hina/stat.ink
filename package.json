@@ -16,7 +16,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@statink/spl3-stages": "git+https://github.com/statink/spl3-stages.git",
-    "autoprefixer": "^10.4.12",
+    "autoprefixer": "^10.4.13",
     "axios": "^1.1.3",
     "babel-loader": "^8.2.5",
     "bootstrap": "^3.4.1",
