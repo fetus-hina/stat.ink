@@ -10,6 +10,15 @@ $font-family: -apple-system,
   'Noto Sans TC',
   'Noto Sans KR';
 
+$font-family-ja: -apple-system,
+  'LINE Seed JP',
+  'Roboto',
+  'Noto Sans',
+  'Noto Sans JP',
+  'Noto Sans SC',
+  'Noto Sans TC',
+  'Noto Sans KR';
+
 $font-family-hans: -apple-system,
   'Roboto',
   'Noto Sans',
@@ -36,6 +45,10 @@ $font-family-ko: -apple-system,
 
 body {
   font-family: $font-family, sans-serif;
+}
+
+html[lang^='ja'] body {
+  font-family: $font-family-ja, sans-serif;
 }
 
 html[lang^='zh-'] body,

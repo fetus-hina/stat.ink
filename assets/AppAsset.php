@@ -42,6 +42,19 @@ class AppAsset extends AssetBundle
         YiiAsset::class,
     ];
 
+    /**
+     * @inheritdoc
+     * @return void
+     */
+    public function init()
+    {
+        parent::init();
+
+        if (\str_starts_with(Yii::$app->language, 'ja')) {
+            $this->depends[] = LineSeedJpAsset::class;
+        }
+    }
+
     public function registerAssetFiles($view)
     {
         parent::registerAssetFiles($view);
