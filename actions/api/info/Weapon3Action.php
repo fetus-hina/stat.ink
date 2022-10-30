@@ -110,7 +110,7 @@ final class Weapon3Action extends Action
                 ->with(['salmonWeapon3Aliases'])
                 ->andWhere(['weapon_id' => null])
                 ->all(),
-            function (Weapon3 $a, Weapon3 $b): int {
+            function (SalmonWeapon3 $a, SalmonWeapon3 $b): int {
                 $aN = Yii::t('app-weapon3', $a->name);
                 $bN = Yii::t('app-weapon3', $b->name);
                 return \strnatcasecmp($aN, $bN)

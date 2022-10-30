@@ -36,6 +36,7 @@ return [
     'Flingza Roller' => 'Rodillo versátil',
     'Glooga Dualies' => 'Fundidora 525 dual',
     'Goo Tuber' => 'Entintubo',
+    'Grizzco Blaster' => 'Lanzamotas Don Oso',
     'Grizzco Stringer' => '',
     'H-3 Nozzlenose' => 'Manguera pesada',
     'Heavy Splatling' => 'Garabateador Pro',
