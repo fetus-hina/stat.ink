@@ -4,21 +4,29 @@ declare(strict_types=1);
 
 use app\components\widgets\FA;
 use yii\helpers\Html;
+
 ?>
 <?= Html::a(
   implode('', [
-    FA::fas('language')->fw()->__toString(),
+    (string)FA::fas('language')->fw(),
     Html::encode('Language'),
     ' ',
     Html::tag('span', '', ['class' => 'caret']),
   ]),
   '#language-dialog',
   [
-    'role' => 'button',
+    'aria' => [
+      'expanded' => 'false',
+      'haspopup' => 'true',
+    ],
+    'class' => [
+      'lang-en',
+      'lang-en-us',
+    ],
     'data' => [
       'toggle' => 'modal',
     ],
-    'aria-haspopup' => 'true',
-    'aria-expanded' => 'false',
-  ]
+    'lang' => 'en-US',
+    'role' => 'button',
+  ],
 ) . "\n" ?>

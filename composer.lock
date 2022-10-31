@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "46ce737db6caa712ed42bfa609f2c4eb",
+    "content-hash": "ae88d39683691a2e5bf1dea6cde25466",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -2391,20 +2391,20 @@
         },
         {
             "name": "statink/yii2-paintball",
-            "version": "v1.0.4",
+            "version": "v1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statink/yii2-paintball.git",
-                "reference": "3100cdb575f5ced6e56fb4e14a531375be592998"
+                "reference": "48749908b49ef58b8f97180d1d8b54d4d2983731"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-paintball/zipball/3100cdb575f5ced6e56fb4e14a531375be592998",
-                "reference": "3100cdb575f5ced6e56fb4e14a531375be592998",
+                "url": "https://api.github.com/repos/statink/yii2-paintball/zipball/48749908b49ef58b8f97180d1d8b54d4d2983731",
+                "reference": "48749908b49ef58b8f97180d1d8b54d4d2983731",
                 "shasum": ""
             },
             "require": {
-                "php": ">= 7.1.0",
+                "php": ">= 7.4.0",
                 "yiisoft/yii2": "~2.0.15"
             },
             "type": "yii2-extension",
@@ -2413,6 +2413,7 @@
                     "statink\\yii2\\paintball\\": "src"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -2424,10 +2425,10 @@
             ],
             "description": "Paintball asset bundle for stat.ink",
             "support": {
-                "source": "https://github.com/statink/yii2-paintball/tree/v1.0.4",
-                "issues": "https://github.com/statink/yii2-paintball/issues"
+                "issues": "https://github.com/statink/yii2-paintball/issues",
+                "source": "https://github.com/statink/yii2-paintball/tree/v1.0.5"
             },
-            "time": "2021-05-25T05:26:58+00:00"
+            "time": "2022-10-31T06:21:34+00:00"
         },
         {
             "name": "statink/yii2-sillyname",

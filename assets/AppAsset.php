@@ -34,6 +34,7 @@ class AppAsset extends AssetBundle
         FluidLayoutAsset::class,
         FontAwesomeAsset::class,
         JqueryAsset::class,
+        LineSeedEnAsset::class,
         LinkExternalAsset::class,
         LinkPrevNextAsset::class,
         NotoSansAsset::class,
