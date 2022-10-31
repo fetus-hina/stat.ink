@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use app\assets\LineSeedJpAsset;
 use app\assets\LineSeedJpThAsset;
 use app\components\widgets\UserIcon;
 use app\models\BattlePlayer3;
@@ -15,7 +14,6 @@ use yii\web\View;
  * @var User $user
  */
 
-LineSeedJpAsset::register($this);
 LineSeedJpThAsset::register($this);
 
 if (Yii::$app->request->isPjax) {
@@ -46,7 +44,6 @@ $latestPlayer3 = BattlePlayer3::find()
 
 $css = [
   '#person-box h1' => [
-    'font-family' => 'LINE Seed JP,sans-serif',
     'font-size' => '30px',
     'font-weight' => 'bold',
     'margin' => '15px 0 5px',
@@ -60,7 +57,6 @@ $css = [
     'padding' => '0',
   ],
   '#person-box .splashtag' => [
-    'font-family' => 'LINE Seed JP,sans-serif',
     'font-size' => '16px',
     'font-weight' => '500',
     'margin' => '5px 0',
