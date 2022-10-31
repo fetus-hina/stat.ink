@@ -34,7 +34,7 @@ class AppAsset extends AssetBundle
         FluidLayoutAsset::class,
         FontAwesomeAsset::class,
         JqueryAsset::class,
-        LineSeedEnAsset::class,
+        LineSeedJpAsset::class,
         LinkExternalAsset::class,
         LinkPrevNextAsset::class,
         NotoSansAsset::class,
@@ -42,19 +42,6 @@ class AppAsset extends AssetBundle
         SmoothScrollAsset::class,
         YiiAsset::class,
     ];
-
-    /**
-     * @inheritdoc
-     * @return void
-     */
-    public function init()
-    {
-        parent::init();
-
-        if (\str_starts_with(Yii::$app->language, 'ja')) {
-            $this->depends[] = LineSeedJpAsset::class;
-        }
-    }
 
     public function registerAssetFiles($view)
     {
