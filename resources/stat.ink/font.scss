@@ -10,7 +10,7 @@ $font-family: -apple-system,
   'Noto Sans TC',
   'Noto Sans KR';
 
-$font-family-en: 'LINE Seed EN',
+$font-family-en: 'LINE Seed JP',
   -apple-system,
   'Roboto',
   'Noto Sans',
@@ -19,8 +19,8 @@ $font-family-en: 'LINE Seed EN',
   'Noto Sans TC',
   'Noto Sans KR';
 
-$font-family-ja: -apple-system,
-  'LINE Seed JP',
+$font-family-ja: 'LINE Seed JP',
+  -apple-system,
   'Roboto',
   'Noto Sans',
   'Noto Sans JP',
@@ -63,15 +63,7 @@ body,
   font-family: $font-family, sans-serif;
 }
 
-html[lang^='en-'] body {
-  font-family: $font-family-en, sans-serif;
-
-  h1,
-  h2 {
-    font-family: $font-family, sans-serif;
-  }
-}
-
+html[lang^='en-'] body,
 .lang-en {
   font-family: $font-family-en, sans-serif;
 }
