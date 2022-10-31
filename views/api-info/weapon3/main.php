@@ -48,9 +48,13 @@ $salmonIcon = Html::img(
         <th data-sort="string"><code>key</code></th>
         <th data-sort="string"><?= Html::encode(Yii::t('app', 'Aliases')) ?></th>
 <?php foreach ($langs as $i => $lang) { ?>
-        <th data-sort="string">
-          <?= Html::encode($lang['name']) . "\n" ?>
-        </th>
+        <?= Html::tag('th', Html::encode($lang->name), [
+          'class' => $lang->htmlClasses,
+          'data' => [
+            'sort' => 'string',
+          ],
+          'lang' => $lang->lang,
+        ]) . "\n" ?>
 <?php if ($i === 0) { ?>
         <th data-sort="string"><?= Html::encode(Yii::t('app', 'Weapon (Short)')) ?></th>
         <th data-sort="string"><?= Html::encode(Yii::t('app', 'Main Weapon')) ?></th>
@@ -110,7 +114,7 @@ $salmonIcon = Html::img(
             'lang' => $lang->lang,
           ]),
           [
-            'class' => sprintf('lang-%s', strtolower($lang->lang)),
+            'class' => $lang->htmlClasses,
             'lang' => $lang->lang,
           ]
         ) . "\n" ?>

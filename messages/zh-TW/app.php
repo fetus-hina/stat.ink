@@ -292,6 +292,7 @@ return [
     'Last {n} Battles' => '最近{n}場對戰',
     'Last {n} Periods' => '最近{n}段時間',
     'Latest' => '最新',
+    'Launch' => '',
     'League Power' => '聯盟戰力',
     'Legend' => '標註',
     'Legends' => '標註',

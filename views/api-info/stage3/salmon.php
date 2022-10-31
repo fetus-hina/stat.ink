@@ -49,6 +49,7 @@ $fmt = Yii::$app->formatter;
       <tr>
 <?php foreach ($langs as $i => $lang) { ?>
         <?= Html::tag('th', Html::encode($lang['name']), [
+          'class' => $lang->htmlClasses,
           'data-sort' => 'string',
           'lang' => $lang->lang,
         ]) . "\n" ?>
@@ -71,7 +72,7 @@ $fmt = Yii::$app->formatter;
             'lang' => $lang->lang,
           ]),
           [
-            'class' => sprintf('lang-%s', strtolower($lang->lang)),
+            'class' => $lang->htmlClasses,
             'lang' => $lang->lang,
           ]
         ) . "\n" ?>

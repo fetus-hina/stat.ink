@@ -292,6 +292,7 @@ return [
     'Last {n} Battles' => 'Les {n} derniers matchs',
     'Last {n} Periods' => 'Les {n} derniers',
     'Latest' => 'Dernier',
+    'Launch' => '',
     'League Power' => 'Ligue Power',
     'Legend' => 'Légende',
     'Legends' => 'Légendes',

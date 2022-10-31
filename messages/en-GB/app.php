@@ -291,6 +291,7 @@ return [
     'Last {n} Battles' => '',
     'Last {n} Periods' => '',
     'Latest' => '',
+    'Launch' => '',
     'League Power' => '',
     'Legend' => '',
     'Legends' => '',
