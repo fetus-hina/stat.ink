@@ -22,6 +22,8 @@ SortableTableAsset::register($this);
 
 $fmt = Yii::$app->formatter;
 
+$launch = new DateTimeImmutable('2022-09-09T00:00:00+00:00');
+
 ?>
 <div class="table-responsive table-responsive-force">
   <table class="table table-striped table-condensed table-sortable">
@@ -29,6 +31,7 @@ $fmt = Yii::$app->formatter;
       <tr>
 <?php foreach ($langs as $i => $lang) { ?>
         <?= Html::tag('th', Html::encode($lang['name']), [
+          'class' => $lang->htmlClasses,
           'data-sort' => 'string',
           'lang' => $lang->lang,
         ]) . "\n" ?>
@@ -53,7 +56,7 @@ $fmt = Yii::$app->formatter;
             'lang' => $lang->lang,
           ]),
           [
-            'class' => sprintf('lang-%s', strtolower($lang->lang)),
+            'class' => $lang->htmlClasses,
             'lang' => $lang->lang,
           ]
         ) . "\n" ?>
@@ -64,17 +67,20 @@ $fmt = Yii::$app->formatter;
             function (Map3Alias $alias): string {
               return Html::tag('code', Html::encode($alias->key));
             },
-            ArrayHelper::sort($stage->map3Aliases, function (Map3Alias $a, Map3Alias $b): int {
-              return strnatcasecmp($a->key, $b->key);
-            }),
+            ArrayHelper::sort(
+              $stage->map3Aliases,
+              fn (Map3Alias $a, Map3Alias $b): int => strnatcasecmp($a->key, $b->key),
+            ),
           )) . "\n" ?>
         </td>
         <?= Html::tag(
           'td',
           $stage->area === null ? '' : $fmt->asInteger($stage->area),
-          ['data' => [
-            'sort-value' => $stage->area === null ? -1 : (int)$stage->area,
-          ]]
+          [
+            'data' => [
+              'sort-value' => $stage->area === null ? -1 : (int)$stage->area,
+            ],
+          ],
         ) . "\n" ?>
         <?= Html::tag(
           'td',
@@ -82,12 +88,20 @@ $fmt = Yii::$app->formatter;
             ? ''
             : Html::tag(
               'time',
-              Html::encode($fmt->asDateTime($stage->release_at)),
-              ['datetime' => gmdate(DateTime::ATOM, strtotime($stage->release_at))]
+              (new DateTimeImmutable($stage->release_at)) <= $launch
+                ? Html::encode(Yii::t('app', 'Launch'))
+                : Html::encode($fmt->asDateTime($stage->release_at)),
+              [
+                'datetime' => gmdate(DateTime::ATOM, strtotime($stage->release_at)),
+              ],
             ),
-          ['data' => [
-            'sort-value' => $stage->release_at === null ? -1 : strtotime($stage->release_at),
-          ]]
+          [
+            'data' => [
+              'sort-value' => $stage->release_at === null
+                ? '-1'
+                : (string)strtotime($stage->release_at),
+            ],
+          ]
         ) . "\n" ?>
 <?php } ?>
 <?php } ?>

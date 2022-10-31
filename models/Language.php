@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -28,6 +28,8 @@ use yii\db\ActiveRecord;
  * @property Charset[] $charsets
  * @property Slack[] $slacks
  * @property User[] $users
+ *
+ * @property-read string[] $htmlClasses
  */
 class Language extends ActiveRecord
 {
@@ -100,6 +102,17 @@ class Language extends ActiveRecord
         return [
             $match[1],
             $match[2],
+        ];
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getHtmlClasses(): array
+    {
+        return [
+            'lang-' . \strtolower($this->getLanguageCode()), // lang-ja
+            'lang-' . \strtolower($this->getLanguageId()),   // lang-ja-jp
         ];
     }
 
