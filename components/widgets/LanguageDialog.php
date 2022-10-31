@@ -25,8 +25,15 @@ final class LanguageDialog extends Dialog
         parent::init();
 
         $this->title = implode(' ', [
-            FA::fas('language')->fw(),
-            Html::encode('Choose your language'),
+            (string)FA::fas('language')->fw(),
+            Html::tag(
+                'span',
+                Html::encode('Choose your language'),
+                [
+                    'class' => 'lang-en lang-en-us',
+                    'lang' => 'en-US',
+                ],
+            ),
         ]);
         $this->titleFormat = 'raw';
         $this->hasClose = true;
