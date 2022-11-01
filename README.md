@@ -7,10 +7,10 @@ stat.ink
 
 Source codes for https://stat.ink/
 
-SquidTracks, splatnet2statink, IkaLog 等の対応ソフトウェア、または自作のソフトウェアと連携することで Splatoon 1, 2 の戦績を保存し、統計を取ります。
+SquidTracks, splatnet2statink, IkaLog, s3s 等の対応ソフトウェア、または自作のソフトウェアと連携することで Splatoon 1, 2, 3 の戦績を保存し、統計を取ります。
 
-This software will save your Splatoon 1, 2 battle results and get statistics by integrating with "supported software" such as
-SquidTracks, splatnet2statink, IkaLog, etc., or your own app.
+This software will save your Splatoon 1, 2, 3 battle results and get statistics by integrating with "supported software" such as
+SquidTracks, splatnet2statink, IkaLog, s3s, etc., or your own app.
 
 
 バグレポート BUG REPORT
