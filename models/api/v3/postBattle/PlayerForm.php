@@ -37,7 +37,13 @@ final class PlayerForm extends Model
     public $kill_or_assist;
     public $death;
     public $special;
+    public $gears;
     public $disconnected;
+
+    /**
+     * @var GearsForm|null
+     */
+    private $gearsForm = null;
 
     public function behaviors()
     {
@@ -75,6 +81,8 @@ final class PlayerForm extends Model
                 'min' => 0,
                 'max' => 99,
             ],
+
+            [['gears'], 'validateGears'],
         ];
     }
 
@@ -110,6 +118,9 @@ final class PlayerForm extends Model
             'special' => self::intVal($this->special),
             'is_disconnected' => self::boolVal($this->disconnected),
             'splashtag_title_id' => $this->splashtagTitle(self::strVal($this->splashtag_title)),
+            'headgear_id' => $this->gearConfiguration($this->gearsForm ? $this->gearsForm->headgearForm : null),
+            'clothing_id' => $this->gearConfiguration($this->gearsForm ? $this->gearsForm->clothingForm : null),
+            'shoes_id' => $this->gearConfiguration($this->gearsForm ? $this->gearsForm->shoesForm : null),
         ]);
 
         if (
@@ -176,5 +187,41 @@ final class PlayerForm extends Model
         }
 
         return self::strVal($value);
+    }
+
+    public function validateGears(string $attribute): void
+    {
+        if ($this->hasErrors($attribute)) {
+            return;
+        }
+
+        $data = $this->$attribute;
+        if ($data === null || $data === '') {
+            return;
+        }
+
+        if (!is_array($data)) {
+            $this->addError($attribute, 'Gears structure needed');
+            return;
+        }
+
+        $form = Yii::createObject(GearsForm::class);
+        $form->attributes = $this->$attribute;
+        if ($form->validate()) {
+            $this->gearsForm = $form;
+            return;
+        }
+
+        foreach ($form->getErrors() as $key => $values) {
+            foreach ($values as $value) {
+                $this->addError($attribute, "{$key}::{$value}");
+            }
+        }
+    }
+
+    private function gearConfiguration(?GearForm $form): ?int
+    {
+        $model = $form ? $form->save() : null;
+        return $model ? (int)$model->id : null;
     }
 }

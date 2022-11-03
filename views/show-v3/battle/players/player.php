@@ -3,10 +3,8 @@
 declare(strict_types=1);
 
 use app\components\widgets\v3\weaponIcon\SpecialIcon;
-use app\components\widgets\v3\weaponIcon\SubweaponIcon;
-use app\components\widgets\v3\weaponIcon\WeaponIcon;
 use app\models\BattlePlayer3;
-use yii\bootstrap\Html;
+use yii\helpers\Html;
 use yii\web\View;
 
 /**
@@ -49,16 +47,17 @@ if ($player->is_me) {
     }
     echo Html::tag('div', Html::encode($player->name));
   ?></td>
-  <td><?php
-    if ($player->weapon) {
-      echo implode(' ', [
-        WeaponIcon::widget(['model' => $player->weapon]),
-        Html::encode(Yii::t('app-weapon3', $player->weapon->name)),
-        SubweaponIcon::widget(['model' => $player->weapon->subweapon]),
-        SpecialIcon::widget(['model' => $player->weapon->special]),
-      ]);
-    }
-  ?></td>
+  <?= Html::tag(
+    'td',
+    Html::tag(
+      'div',
+      implode('', [
+        $this->render('player/weapon', ['weapon' => $player->weapon]),
+        $this->render('player/abilities', ['player' => $player]),
+      ]),
+      ['class' => 'h-100 d-flex flex-row flex-column'],
+    ),
+  ) . "\n" ?>
   <td class="text-right"><?= $f->asInteger($player->inked) ?></td>
   <td class="text-right"><?php
     if ($player->kill !== null) {
