@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace app\controllers;
 
 use Yii;
+use app\actions\api\v3\AbilityAction;
 use app\actions\api\v3\BattleAction;
 use app\actions\api\v3\DeleteBattleAction;
 use app\actions\api\v3\LobbyAction;
@@ -64,8 +65,9 @@ final class ApiV3Controller extends Controller
     public function actions()
     {
         return [
+            'ability' => AbilityAction::class,
             'battle' => BattleAction::class,
-            'delete-battle' => DeleteBattleACtion::class,
+            'delete-battle' => DeleteBattleAction::class,
             'lobby' => LobbyAction::class,
             'rank' => RankAction::class,
             'rule' => RuleAction::class,

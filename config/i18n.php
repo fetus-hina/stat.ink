@@ -11,6 +11,7 @@ return [
             'fileMap' => [
                 'app-ability'   => 'ability.php',
                 'app-ability2'  => 'ability2.php',
+                'app-ability3'  => 'ability3.php',
                 'app-alert'     => 'alert.php',
                 'app-apidoc1'   => 'apidoc1.php',
                 'app-apidoc2'   => 'apidoc2.php',

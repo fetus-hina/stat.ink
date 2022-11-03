@@ -44,6 +44,7 @@ return [
     'Another account' => '',
     'Any Result' => '',
     'Any Time' => 'Cualquier momento',
+    'API Info: Abilities (Splatoon 3)' => '',
     'API Info: Gears: {0}' => 'Información de la API: Indumentaria: {0}',
     'API Info: Stages (Splatoon 2)' => '',
     'API Info: Stages (Splatoon 3)' => '',

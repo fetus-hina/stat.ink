@@ -28,6 +28,7 @@ return [
     '<a href="http://www.emoji-cheat-sheet.com/" target="_blank">Cheat sheet</a>. If omitted, the default icon will be used.' => '<a href="http://www.emoji-cheat-sheet.com/" target="_blank">チートシート</a>。省略するとデフォルトのアイコンが使用されます。',
     '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>' => '<div class="input-group">{input}<span class="input-group-addon">から</span></div>',
     '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>' => '<div class="input-group">{input}<span class="input-group-addon">まで</span></div>',
+    'API Info: Abilities (Splatoon 3)' => 'API情報: ギアパワー (Splatoon 3)',
     'API Info: Gears: {0}' => 'API情報: ギア: {0}',
     'API Info: Stages (Splatoon 2)' => 'API情報: ステージ (Splatoon 2)',
     'API Info: Stages (Splatoon 3)' => 'API情報: ステージ (Splatoon 3)',

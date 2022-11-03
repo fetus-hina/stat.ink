@@ -44,6 +44,7 @@ return [
     'Another account' => '另一個賬戶',
     'Any Result' => '所有結果',
     'Any Time' => '所有時間',
+    'API Info: Abilities (Splatoon 3)' => 'API資訊：技能(斯普拉遁3)',
     'API Info: Gears: {0}' => 'API資訊：裝備：{0}',
     'API Info: Stages (Splatoon 2)' => 'API資訊：場地(斯普拉遁2)',
     'API Info: Stages (Splatoon 3)' => 'API資訊：場地(斯普拉遁3)',
