@@ -33,8 +33,14 @@ use yii\db\ActiveRecord;
  * @property boolean $is_disconnected
  * @property integer $splashtag_title_id
  * @property string $number
+ * @property integer $headgear_id
+ * @property integer $clothing_id
+ * @property integer $shoes_id
  *
  * @property Battle3 $battle
+ * @property GearConfiguration3 $clothing
+ * @property GearConfiguration3 $headgear
+ * @property GearConfiguration3 $shoes
  * @property SplashtagTitle3 $splashtagTitle
  * @property Weapon3 $weapon
  */
@@ -49,12 +55,15 @@ class BattlePlayer3 extends ActiveRecord
     {
         return [
             [['battle_id', 'is_our_team', 'is_me'], 'required'],
-            [['battle_id', 'rank_in_team', 'weapon_id', 'inked', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'splashtag_title_id'], 'default', 'value' => null],
-            [['battle_id', 'rank_in_team', 'weapon_id', 'inked', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'splashtag_title_id'], 'integer'],
+            [['battle_id', 'rank_in_team', 'weapon_id', 'inked', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'splashtag_title_id', 'headgear_id', 'clothing_id', 'shoes_id'], 'default', 'value' => null],
+            [['battle_id', 'rank_in_team', 'weapon_id', 'inked', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'splashtag_title_id', 'headgear_id', 'clothing_id', 'shoes_id'], 'integer'],
             [['is_our_team', 'is_me', 'is_disconnected'], 'boolean'],
             [['name'], 'string', 'max' => 10],
             [['number'], 'string', 'max' => 32],
             [['battle_id'], 'exist', 'skipOnError' => true, 'targetClass' => Battle3::class, 'targetAttribute' => ['battle_id' => 'id']],
+            [['headgear_id'], 'exist', 'skipOnError' => true, 'targetClass' => GearConfiguration3::class, 'targetAttribute' => ['headgear_id' => 'id']],
+            [['clothing_id'], 'exist', 'skipOnError' => true, 'targetClass' => GearConfiguration3::class, 'targetAttribute' => ['clothing_id' => 'id']],
+            [['shoes_id'], 'exist', 'skipOnError' => true, 'targetClass' => GearConfiguration3::class, 'targetAttribute' => ['shoes_id' => 'id']],
             [['splashtag_title_id'], 'exist', 'skipOnError' => true, 'targetClass' => SplashtagTitle3::class, 'targetAttribute' => ['splashtag_title_id' => 'id']],
             [['weapon_id'], 'exist', 'skipOnError' => true, 'targetClass' => Weapon3::class, 'targetAttribute' => ['weapon_id' => 'id']],
         ];
@@ -79,12 +88,30 @@ class BattlePlayer3 extends ActiveRecord
             'is_disconnected' => 'Is Disconnected',
             'splashtag_title_id' => 'Splashtag Title ID',
             'number' => 'Number',
+            'headgear_id' => 'Headgear ID',
+            'clothing_id' => 'Clothing ID',
+            'shoes_id' => 'Shoes ID',
         ];
     }
 
     public function getBattle(): ActiveQuery
     {
         return $this->hasOne(Battle3::class, ['id' => 'battle_id']);
+    }
+
+    public function getClothing(): ActiveQuery
+    {
+        return $this->hasOne(GearConfiguration3::class, ['id' => 'clothing_id']);
+    }
+
+    public function getHeadgear(): ActiveQuery
+    {
+        return $this->hasOne(GearConfiguration3::class, ['id' => 'headgear_id']);
+    }
+
+    public function getShoes(): ActiveQuery
+    {
+        return $this->hasOne(GearConfiguration3::class, ['id' => 'shoes_id']);
     }
 
     public function getSplashtagTitle(): ActiveQuery

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\assets\TableResponsiveForceAsset;
 use app\models\Battle3;
 use app\models\BattlePlayer3;
 use yii\bootstrap\Html;
@@ -15,8 +16,10 @@ use yii\web\View;
  * @var bool $ourTeamFirst
  */
 
+TableResponsiveForceAsset::register($this);
+
 ?>
-<div class="table-responsive">
+<div class="table-responsive table-responsive-force">
   <table class="table table-bordered" id="players">
     <thead>
       <tr>

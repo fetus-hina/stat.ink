@@ -22,6 +22,9 @@ use yii\db\ActiveRecord;
  * @property string $name
  * @property integer $rank
  * @property boolean $primary_only
+ *
+ * @property GearConfiguration3[] $gearConfiguration3s
+ * @property GearConfigurationSecondary3[] $gearConfigurationSecondary3s
  */
 class Ability3 extends ActiveRecord
 {
@@ -52,5 +55,15 @@ class Ability3 extends ActiveRecord
             'rank' => 'Rank',
             'primary_only' => 'Primary Only',
         ];
+    }
+
+    public function getGearConfiguration3s(): ActiveQuery
+    {
+        return $this->hasMany(GearConfiguration3::class, ['ability_id' => 'id']);
+    }
+
+    public function getGearConfigurationSecondary3s(): ActiveQuery
+    {
+        return $this->hasMany(GearConfigurationSecondary3::class, ['ability_id' => 'id']);
     }
 }
