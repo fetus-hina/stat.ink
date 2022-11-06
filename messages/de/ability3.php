@@ -9,7 +9,8 @@
 declare(strict_types=1);
 
 return [
-    '(Locked)' => '(Gesperrt)',
+    '(Locked)' => '(Unbekannt)',
+    '(Unknown)' => '(Unbekannt)',
     'Ability Doubler' => 'Effektdoppelung',
     'Comeback' => 'Rückkehr',
     'Drop Roller' => 'Tricklandung',

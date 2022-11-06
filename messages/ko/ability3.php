@@ -9,16 +9,17 @@
 declare(strict_types=1);
 
 return [
-    '(Locked)' => '',
+    '(Locked)' => '(물음표)',
+    '(Unknown)' => '(물음표)',
     'Ability Doubler' => '추가 기어 파워 2배',
     'Comeback' => '컴백',
     'Drop Roller' => '낙법',
     'Haunt' => '리벤지',
     'Ink Recovery Up' => '잉크 회복력 업',
     'Ink Resistance Up' => '상대 잉크 영향 감소',
-    'Ink Saver (Main)' => '잉크 효율 업 (메인)',
-    'Ink Saver (Sub)' => '잉크 효율 업 (서브)',
-    'Intensify Action' => ' 액션 강화',
+    'Ink Saver (Main)' => '잉크 효율 업(메인)',
+    'Ink Saver (Sub)' => '잉크 효율 업(서브)',
+    'Intensify Action' => '액션 강화',
     'Last-Ditch Effort' => '라스트 스퍼트',
     'Ninja Squid' => '징어닌자',
     'Object Shredder' => '오브젝트 공격력 업',

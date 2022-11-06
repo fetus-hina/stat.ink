@@ -60,7 +60,7 @@ $this->registerCss(implode('', [
           'class' => 'auto-tooltip sub-ability',
           'title' => Yii::t(
             'app-ability3',
-            $secondary && $secondary->ability ? $secondary->ability->name : '',
+            $secondary && $secondary->ability ? $secondary->ability->name : '(Unknown)',
           ),
         ],
       ),

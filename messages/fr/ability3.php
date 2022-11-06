@@ -9,7 +9,8 @@
 declare(strict_types=1);
 
 return [
-    '(Locked)' => '(Bloqué)',
+    '(Locked)' => '(Inconnu)',
+    '(Unknown)' => '(Inconnu)',
     'Ability Doubler' => 'Bonus ×2',
     'Comeback' => 'Come-back',
     'Drop Roller' => 'Super roulade',
@@ -23,7 +24,7 @@ return [
     'Ninja Squid' => 'Ninjalamar',
     'Object Shredder' => 'Démolition',
     'Opening Gambit' => 'Chapeaux de roue',
-    'Quick Respawn' => 'Sans temps mort',
+    'Quick Respawn' => 'Sans temps morts',
     'Quick Super Jump' => 'Aérodynamisme',
     'Respawn Punisher' => 'Retour perdant',
     'Run Speed Up' => 'Course à pied',

@@ -9,7 +9,8 @@
 declare(strict_types=1);
 
 return [
-    '(Locked)' => '',
+    '(Locked)' => '(Desconocido)',
+    '(Unknown)' => '(Desconocido)',
     'Ability Doubler' => 'Duplicador',
     'Comeback' => 'Remontada',
     'Drop Roller' => 'Amortiguador',
@@ -28,10 +29,10 @@ return [
     'Respawn Punisher' => 'Castigo póstumo',
     'Run Speed Up' => 'Supercarrera',
     'Special Charge Up' => 'Recarga especial',
-    'Special Power Up' => ' Superarma especial',
+    'Special Power Up' => 'Superarma especial',
     'Special Saver' => 'Reducción especial',
     'Stealth Jump' => 'Supersalto invisible',
-    'Sub Power Up' => 'Superarma secundaria ',
+    'Sub Power Up' => 'Superarma secundaria',
     'Sub Resistance Up' => 'Resistencia secundaria',
     'Swim Speed Up' => 'Superbuceo',
     'Tenacity' => 'Ventaja',

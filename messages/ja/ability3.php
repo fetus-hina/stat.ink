@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -9,15 +9,16 @@
 declare(strict_types=1);
 
 return [
-    '(Locked)' => '(未開放)',
+    '(Locked)' => '(はてな)',
+    '(Unknown)' => '(はてな)',
     'Ability Doubler' => '追加ギアパワー倍化',
     'Comeback' => 'カムバック',
     'Drop Roller' => '受け身術',
     'Haunt' => 'リベンジ',
     'Ink Recovery Up' => 'インク回復力アップ',
     'Ink Resistance Up' => '相手インク影響軽減',
-    'Ink Saver (Main)' => 'インク効率アップ（メイン）',
-    'Ink Saver (Sub)' => 'インク効率アップ（サブ）',
+    'Ink Saver (Main)' => 'インク効率アップ(メイン)',
+    'Ink Saver (Sub)' => 'インク効率アップ(サブ)',
     'Intensify Action' => 'アクション強化',
     'Last-Ditch Effort' => 'ラストスパート',
     'Ninja Squid' => 'イカニンジャ',

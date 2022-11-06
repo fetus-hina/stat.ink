@@ -9,7 +9,8 @@
 declare(strict_types=1);
 
 return [
-    '(Locked)' => '',
+    '(Locked)' => '(Нет данных)',
+    '(Unknown)' => '(Нет данных)',
     'Ability Doubler' => 'Дупликатор',
     'Comeback' => 'Ответный удар',
     'Drop Roller' => 'Акробат',

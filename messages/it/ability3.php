@@ -9,11 +9,12 @@
 declare(strict_types=1);
 
 return [
-    '(Locked)' => '',
+    '(Locked)' => '(Sconosciuto)',
+    '(Unknown)' => '(Sconosciuto)',
     'Ability Doubler' => 'Raddoppiatore',
     'Comeback' => 'Gran ritorno',
     'Drop Roller' => 'Atterraggio stiloso',
-    'Haunt' => 'Rappresglia',
+    'Haunt' => 'Rappresaglia',
     'Ink Recovery Up' => 'Recupero colore +',
     'Ink Resistance Up' => 'Scarpe impermeabili',
     'Ink Saver (Main)' => 'Eco-colore princ.',
@@ -27,7 +28,7 @@ return [
     'Quick Super Jump' => 'Salti super e veloci',
     'Respawn Punisher' => 'Castigo',
     'Run Speed Up' => 'Velocità +',
-    'Special Charge Up' => 'Recarica special +',
+    'Special Charge Up' => 'Ricarica speciale +',
     'Special Power Up' => 'Arma speciale +',
     'Special Saver' => 'Riduzione speciale -',
     'Stealth Jump' => 'Salto al buio',

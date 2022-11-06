@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 return [
     '(Locked)' => '',
+    '(Unknown)' => '',
     'Ability Doubler' => '',
     'Comeback' => '',
     'Drop Roller' => '',
