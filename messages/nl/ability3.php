@@ -9,7 +9,8 @@
 declare(strict_types=1);
 
 return [
-    '(Locked)' => '',
+    '(Locked)' => '(Onbekend)',
+    '(Unknown)' => '(Onbekend)',
     'Ability Doubler' => 'Verdubbelaar',
     'Comeback' => 'Opfrisser',
     'Drop Roller' => 'Rolmodel',
