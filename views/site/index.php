@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use app\assets\InlineListAsset;
+use app\assets\PaintballAsset;
 use app\assets\ReactCounterAppAsset;
 use app\assets\ReactIndexAppAsset;
 use app\components\widgets\FA;
@@ -14,7 +15,6 @@ use app\components\widgets\alerts\ImportFromSplatnet;
 use app\components\widgets\alerts\LanguageSupportLevelWarning;
 use app\components\widgets\alerts\MaintenanceInfo;
 use app\components\widgets\alerts\PleaseUseLatest;
-use statink\yii2\paintball\PaintballAsset;
 use yii\helpers\Html;
 use yii\web\Controller;
 use yii\web\View;
@@ -27,6 +27,7 @@ assert($this->context instanceof Controller);
 $this->context->layout = 'main';
 
 PaintballAsset::register($this);
+
 ?>
 <div class="container">
   <div class="text-right">

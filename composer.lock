@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "18a66459c5b192ee2958cfdebb633f15",
+    "content-hash": "8dc565f670c7e5338811f09481e3d12e",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -2347,47 +2347,6 @@
                 "issues": "https://github.com/statink/yii2-momentjs/issues"
             },
             "time": "2019-05-09T13:48:47+00:00"
-        },
-        {
-            "name": "statink/yii2-paintball",
-            "version": "v1.0.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/statink/yii2-paintball.git",
-                "reference": "48749908b49ef58b8f97180d1d8b54d4d2983731"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-paintball/zipball/48749908b49ef58b8f97180d1d8b54d4d2983731",
-                "reference": "48749908b49ef58b8f97180d1d8b54d4d2983731",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">= 7.4.0",
-                "yiisoft/yii2": "~2.0.15"
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "statink\\yii2\\paintball\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "AIZAWA Hina",
-                    "email": "hina@fetus.jp"
-                }
-            ],
-            "description": "Paintball asset bundle for stat.ink",
-            "support": {
-                "issues": "https://github.com/statink/yii2-paintball/issues",
-                "source": "https://github.com/statink/yii2-paintball/tree/v1.0.5"
-            },
-            "time": "2022-10-31T06:21:34+00:00"
         },
         {
             "name": "statink/yii2-sillyname",

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -56,7 +56,6 @@ class SiteController extends Controller
                     'jp3cki\yii2\flot\FlotTimeAsset',
                     'jp3cki\yii2\zxcvbn\ZxcvbnAsset',
                     'statink\yii2\anonymizer\AnonymizerAsset',
-                    'statink\yii2\paintball\PaintballAsset',
                     'statink\yii2\sortableTable\SortableTableAsset',
                     'statink\yii2\twitter\webintents\TwitterWebIntentsAsset',
                     'yii\bootstrap\BootstrapAsset',
