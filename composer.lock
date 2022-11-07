@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ae88d39683691a2e5bf1dea6cde25466",
+    "content-hash": "18a66459c5b192ee2958cfdebb633f15",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -2224,47 +2224,6 @@
                 "issues": "https://github.com/statink/yii2-cal-heatmap/issues"
             },
             "time": "2018-11-25T20:17:47+00:00"
-        },
-        {
-            "name": "statink/yii2-dseg",
-            "version": "v1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/statink/yii2-dseg.git",
-                "reference": "98a0363dcf845192b2e903e859a1e2dbc87909ac"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-dseg/zipball/98a0363dcf845192b2e903e859a1e2dbc87909ac",
-                "reference": "98a0363dcf845192b2e903e859a1e2dbc87909ac",
-                "shasum": ""
-            },
-            "require": {
-                "npm-asset/dseg": "^0.45.1",
-                "php": ">= 7.1.0",
-                "yiisoft/yii2": "~2.0.15"
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "statink\\yii2\\dseg\\": "src"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "AIZAWA Hina",
-                    "email": "hina@bouhime.com"
-                }
-            ],
-            "description": "DSEG asset bundle",
-            "support": {
-                "source": "https://github.com/statink/yii2-dseg/tree/v1.0.1",
-                "issues": "https://github.com/statink/yii2-dseg/issues"
-            },
-            "time": "2018-11-20T09:49:12+00:00"
         },
         {
             "name": "statink/yii2-ip-badge",

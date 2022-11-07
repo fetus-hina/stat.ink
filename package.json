@@ -29,7 +29,6 @@
     "chartjs-plugin-datalabels": "^2.1.0",
     "core-js": "^3.26.0",
     "cssnano": "^5.1.14",
-    "dseg": "^0.46.0",
     "emojify.js": "^1.1.0",
     "eonasdan-bootstrap-datetimepicker": "^4.17.49",
     "escape-html": "^1.0.3",

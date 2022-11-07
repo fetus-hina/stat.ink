@@ -40,7 +40,6 @@
         "statink/yii2-anonymizer": "^1.0",
         "statink/yii2-bukiicons": "^1.0",
         "statink/yii2-cal-heatmap": "^1.0",
-        "statink/yii2-dseg": "^1.0",
         "statink/yii2-ip-badge": "^1.0",
         "statink/yii2-jdenticon": "^1.0",
         "statink/yii2-momentjs": "^1.0",
