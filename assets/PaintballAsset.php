@@ -12,13 +12,11 @@ namespace app\assets;
 
 use yii\web\AssetBundle;
 
-final class ReactCounterAppAsset extends AssetBundle
+final class PaintballAsset extends AssetBundle
 {
-    public $sourcePath = '@app/resources/.compiled/react';
-    public $js = [
-        'counter-app.js',
-    ];
-    public $depends = [
-        DsegAsset::class,
+    public $sourcePath = '@app/resources/.compiled/stat.ink';
+    public $css = [
+        'https://fonts.stats.ink/paintball/paintball.min.css',
+        'paintball.css',
     ];
 }

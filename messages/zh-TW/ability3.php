@@ -9,7 +9,6 @@
 declare(strict_types=1);
 
 return [
-    '(Locked)' => '(？)',
     '(Unknown)' => '(？)',
     'Ability Doubler' => '追加裝備能力增倍',
     'Comeback' => '回歸',

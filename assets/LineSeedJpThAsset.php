@@ -14,8 +14,7 @@ use yii\web\AssetBundle;
 
 final class LineSeedJpThAsset extends AssetBundle
 {
-    public $sourcePath = '@app/resources/line-seed-jp';
     public $css = [
-        'lineseedjp-otf-th.min.css',
+        'https://fonts.stats.ink/lineseedjp/lineseedjp-otf-th.min.css',
     ];
 }

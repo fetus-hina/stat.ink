@@ -1,20 +1,19 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 namespace app\assets;
 
-use statink\yii2\dseg\DsegAsset;
 use yii\bootstrap\BootstrapAsset;
 use yii\bootstrap\BootstrapPluginAsset;
 use yii\web\AssetBundle;
 use yii\web\JqueryAsset;
 
-class BattleInputAsset extends AssetBundle
+final class BattleInputAsset extends AssetBundle
 {
     public $sourcePath = '@app/resources/.compiled/stat.ink';
     public $js = [
@@ -24,11 +23,11 @@ class BattleInputAsset extends AssetBundle
         'battle-input.css',
     ];
     public $depends = [
-        JqueryAsset::class,
         BootstrapAsset::class,
         BootstrapPluginAsset::class,
-        DsegAsset::class,
         BowserAsset::class,
+        DsegAsset::class,
+        JqueryAsset::class,
         UuidJsAsset::class,
     ];
 }

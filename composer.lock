@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ae88d39683691a2e5bf1dea6cde25466",
+    "content-hash": "8dc565f670c7e5338811f09481e3d12e",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -1769,16 +1769,16 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "9.9.0",
+            "version": "9.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "53f1d5670a72ae9668d7fdeb01275f85cdd1aaec"
+                "reference": "b6defb4419a8168ab0ea44948a4d18631310d93e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/53f1d5670a72ae9668d7fdeb01275f85cdd1aaec",
-                "reference": "53f1d5670a72ae9668d7fdeb01275f85cdd1aaec",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/b6defb4419a8168ab0ea44948a4d18631310d93e",
+                "reference": "b6defb4419a8168ab0ea44948a4d18631310d93e",
                 "shasum": ""
             },
             "require": {
@@ -1838,9 +1838,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-curl-class/php-curl-class/issues",
-                "source": "https://github.com/php-curl-class/php-curl-class/tree/9.9.0"
+                "source": "https://github.com/php-curl-class/php-curl-class/tree/9.10.0"
             },
-            "time": "2022-11-06T01:31:04+00:00"
+            "time": "2022-11-07T01:31:19+00:00"
         },
         {
             "name": "phpseclib/phpseclib",
@@ -2226,47 +2226,6 @@
             "time": "2018-11-25T20:17:47+00:00"
         },
         {
-            "name": "statink/yii2-dseg",
-            "version": "v1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/statink/yii2-dseg.git",
-                "reference": "98a0363dcf845192b2e903e859a1e2dbc87909ac"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-dseg/zipball/98a0363dcf845192b2e903e859a1e2dbc87909ac",
-                "reference": "98a0363dcf845192b2e903e859a1e2dbc87909ac",
-                "shasum": ""
-            },
-            "require": {
-                "npm-asset/dseg": "^0.45.1",
-                "php": ">= 7.1.0",
-                "yiisoft/yii2": "~2.0.15"
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "statink\\yii2\\dseg\\": "src"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "AIZAWA Hina",
-                    "email": "hina@bouhime.com"
-                }
-            ],
-            "description": "DSEG asset bundle",
-            "support": {
-                "source": "https://github.com/statink/yii2-dseg/tree/v1.0.1",
-                "issues": "https://github.com/statink/yii2-dseg/issues"
-            },
-            "time": "2018-11-20T09:49:12+00:00"
-        },
-        {
             "name": "statink/yii2-ip-badge",
             "version": "v1.0.4",
             "source": {
@@ -2388,47 +2347,6 @@
                 "issues": "https://github.com/statink/yii2-momentjs/issues"
             },
             "time": "2019-05-09T13:48:47+00:00"
-        },
-        {
-            "name": "statink/yii2-paintball",
-            "version": "v1.0.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/statink/yii2-paintball.git",
-                "reference": "48749908b49ef58b8f97180d1d8b54d4d2983731"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-paintball/zipball/48749908b49ef58b8f97180d1d8b54d4d2983731",
-                "reference": "48749908b49ef58b8f97180d1d8b54d4d2983731",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">= 7.4.0",
-                "yiisoft/yii2": "~2.0.15"
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "statink\\yii2\\paintball\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "AIZAWA Hina",
-                    "email": "hina@fetus.jp"
-                }
-            ],
-            "description": "Paintball asset bundle for stat.ink",
-            "support": {
-                "issues": "https://github.com/statink/yii2-paintball/issues",
-                "source": "https://github.com/statink/yii2-paintball/tree/v1.0.5"
-            },
-            "time": "2022-10-31T06:21:34+00:00"
         },
         {
             "name": "statink/yii2-sillyname",

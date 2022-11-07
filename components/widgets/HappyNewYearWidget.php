@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -14,11 +14,11 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
 use app\assets\IrasutoyaAsset;
-use statink\yii2\paintball\PaintballAsset;
+use app\assets\PaintballAsset;
 use yii\base\Widget;
 use yii\helpers\Html;
 
-class HappyNewYearWidget extends Widget
+final class HappyNewYearWidget extends Widget
 {
     public function run()
     {

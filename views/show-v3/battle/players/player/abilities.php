@@ -5,6 +5,7 @@ declare(strict_types=1);
 use app\assets\Spl3AbilityAsset;
 use app\models\BattlePlayer3;
 use app\models\GearConfigurationSecondary3;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\View;
 
@@ -40,28 +41,26 @@ $this->registerCss(implode('', [
     Html::img(
       $am->getAssetUrl(
         $asset,
-        $gear->ability ? "{$gear->ability->key}.png" : 'unknown.png',
+        vsprintf('%s.png', [
+            ArrayHelper::getValue($gear, 'ability.key', 'unknown'),
+        ]),
       ),
       [
         'class' => 'auto-tooltip main-ability',
-        'title' => Yii::t(
-          'app-ability3',
-          $gear->ability ? $gear->ability->name : '',
-        ),
+        'title' => Yii::t('app-ability3', ArrayHelper::getValue($gear, 'ability.name', '(Unknown)')),
       ],
     ),
     implode('', array_map(
       fn (?GearConfigurationSecondary3 $secondary): string => Html::img(
         $am->getAssetUrl(
           $asset,
-          $secondary && $secondary->ability ? "{$secondary->ability->key}.png" : 'unknown.png',
+          vsprintf('%s.png', [
+            ArrayHelper::getValue($secondary, 'ability.key', 'unknown'),
+          ]),
         ),
         [
           'class' => 'auto-tooltip sub-ability',
-          'title' => Yii::t(
-            'app-ability3',
-            $secondary && $secondary->ability ? $secondary->ability->name : '(Unknown)',
-          ),
+          'title' => Yii::t('app-ability3', ArrayHelper::getValue($secondary, 'ability.name', '(Unknown)')),
         ],
       ),
       array_slice(

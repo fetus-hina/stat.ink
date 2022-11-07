@@ -28,7 +28,7 @@ use jp3cki\yii2\momentjs\MomentJsTimeZoneAsset;
 use jp3cki\yii2\zxcvbn\ZxcvbnAsset;
 use statink\yii2\calHeatmap\CalHeatmapAsset;
 use statink\yii2\calHeatmap\D3Asset;
-use statink\yii2\dseg\DsegAsset;
+use statink\yii2\ipBadge\assets\Audiowide;
 use statink\yii2\jdenticon\JdenticonAsset;
 use statink\yii2\sortableTable\JqueryStupidTableAsset;
 use yii\bootstrap\BootstrapAsset;
@@ -118,8 +118,10 @@ return [
         D3Asset::class => [
             'sourcePath' => '@node/d3',
         ],
-        DsegAsset::class => [
-            'sourcePath' => '@node/dseg',
+        Audiowide::class => [
+            'css' => [
+                'https://fonts.stats.ink/audiowide/audiowide.min.css',
+            ],
         ],
         JdenticonAsset::class => [
             'sourcePath' => '@node/jdenticon/dist',
