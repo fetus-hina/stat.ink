@@ -9,7 +9,6 @@
 declare(strict_types=1);
 
 return [
-    '(Locked)' => '(はてな)',
     '(Unknown)' => '(はてな)',
     'Ability Doubler' => '追加ギアパワー倍化',
     'Comeback' => 'カムバック',

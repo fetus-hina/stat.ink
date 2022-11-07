@@ -9,7 +9,6 @@
 declare(strict_types=1);
 
 return [
-    '(Locked)' => '(Sconosciuto)',
     '(Unknown)' => '(Sconosciuto)',
     'Ability Doubler' => 'Raddoppiatore',
     'Comeback' => 'Gran ritorno',

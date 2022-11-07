@@ -9,7 +9,6 @@
 declare(strict_types=1);
 
 return [
-    '(Locked)' => '(물음표)',
     '(Unknown)' => '(물음표)',
     'Ability Doubler' => '추가 기어 파워 2배',
     'Comeback' => '컴백',
