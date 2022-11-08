@@ -188,7 +188,7 @@ $list = [
   ],
   [],
   [
-    // splatnet2statink {{{
+    // s3s
     'url' => 'https://github.com/frozenpandaman/s3s/',
     'name' => implode('', [
       Html::tag('span', '', ['class' => 'fa fa-fw']),
@@ -197,7 +197,17 @@ $list = [
       (string)FA::fab('apple')->fw(),
       (string)FA::fab('linux')->fw(),
     ]),
-    // }}}
+  ],
+  [
+    // s3si.ts
+    'url' => 'https://github.com/spacemeowx2/s3si.ts',
+    'name' => implode('', [
+      Html::tag('span', '', ['class' => 'fa fa-fw']),
+      Html::encode(Yii::t('app', 's3si.ts')),
+      (string)FA::fab('windows')->fw(),
+      (string)FA::fab('apple')->fw(),
+      (string)FA::fab('linux')->fw(),
+    ]),
   ],
   [],
   [

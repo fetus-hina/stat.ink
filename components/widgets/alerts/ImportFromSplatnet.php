@@ -55,6 +55,15 @@ final class ImportFromSplatnet extends Alert
                                 'target' => '_blank',
                             ]
                         )),
+                        Html::tag('li', Html::a(
+                            Html::encode('s3si.ts'),
+                            'https://github.com/spacemeowx2/s3si.ts',
+                            [
+                                'class' => 'alert-link',
+                                'rel' => 'noopener',
+                                'target' => '_blank',
+                            ]
+                        )),
                     ])),
                 ])),
                 Html::tag('li', \implode('', [
