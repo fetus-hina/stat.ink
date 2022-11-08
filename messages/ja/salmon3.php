@@ -9,5 +9,7 @@
 declare(strict_types=1);
 
 return [
+    'Boss Salmonid' => 'オオモノシャケ',
+    'King Salmonid' => 'オカシラシャケ',
     'Salmon Run' => 'サーモンラン',
 ];

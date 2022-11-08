@@ -45,6 +45,7 @@ return [
     'Any Result' => '',
     'Any Time' => 'Cualquier momento',
     'API Info: Abilities (Splatoon 3)' => '',
+    'API Info: Boss Salmonids (Splatoon 3)' => '',
     'API Info: Gears: {0}' => '',
     'API Info: Stages (Splatoon 2)' => '',
     'API Info: Stages (Splatoon 3)' => '',

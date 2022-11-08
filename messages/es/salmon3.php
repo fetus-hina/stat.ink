@@ -9,5 +9,7 @@
 declare(strict_types=1);
 
 return [
+    'Boss Salmonid' => 'Gran Salmónido',
+    'King Salmonid' => 'Gran jefe salmónido',
     'Salmon Run' => 'Salmon Run',
 ];

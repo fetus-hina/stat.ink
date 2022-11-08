@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace app\controllers;
 
 use app\actions\api\info\Ability3Action;
+use app\actions\api\info\BossSalmonid3Action;
 use app\actions\api\info\Gear2Action;
 use app\actions\api\info\GearAction;
 use app\actions\api\info\Stage2Action;
@@ -28,6 +29,7 @@ final class ApiInfoController extends Controller
     {
         return [
             'ability3' => Ability3Action::class,
+            'boss-salmonid3' => BossSalmonid3Action::class,
             'gear-clothing' => [
                 'class' => GearAction::class,
                 'type' => 'clothing',

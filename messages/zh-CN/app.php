@@ -45,6 +45,7 @@ return [
     'Any Result' => '',
     'Any Time' => '所有时间',
     'API Info: Abilities (Splatoon 3)' => 'API资讯：技能(Splatoon 3)',
+    'API Info: Boss Salmonids (Splatoon 3)' => '',
     'API Info: Gears: {0}' => 'API信息：装备：{0}',
     'API Info: Stages (Splatoon 2)' => 'API信息：场地（Splatoon 2）',
     'API Info: Stages (Splatoon 3)' => 'API信息：场地（Splatoon 3）',
