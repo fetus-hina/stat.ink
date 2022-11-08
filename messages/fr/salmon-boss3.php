@@ -15,7 +15,7 @@ return [
     'Drizzler' => 'Crachin',
     'Fish Stick' => 'Pylônoïde',
     'Flipper-Flopper' => 'Ploufion',
-    'Flyfish' => 'Salmodrone',
+    'Flyfish' => 'Aéro Ben',
     'Goldie' => 'Dorax',
     'Griller' => 'Barbeurk',
     'Maws' => 'Gobb',
