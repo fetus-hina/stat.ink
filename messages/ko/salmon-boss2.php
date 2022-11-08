@@ -9,13 +9,13 @@
 declare(strict_types=1);
 
 return [
-    'Drizzler' => '',
-    'Flyfish' => '',
-    'Goldie' => '',
-    'Griller' => '',
-    'Maws' => '',
-    'Scrapper' => '',
-    'Steel Eel' => '',
-    'Steelhead' => '',
-    'Stinger' => '',
+    'Drizzler' => '박쥐',
+    'Flyfish' => '어깨 패드',
+    'Goldie' => '황금연어',
+    'Griller' => '그릴',
+    'Maws' => '두더지',
+    'Scrapper' => '철판',
+    'Steel Eel' => '뱀',
+    'Steelhead' => '폭탄',
+    'Stinger' => '타워',
 ];
