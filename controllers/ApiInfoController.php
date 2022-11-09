@@ -14,6 +14,7 @@ use app\actions\api\info\Ability3Action;
 use app\actions\api\info\BossSalmonid3Action;
 use app\actions\api\info\Gear2Action;
 use app\actions\api\info\GearAction;
+use app\actions\api\info\SalmonTitle3Action;
 use app\actions\api\info\Stage2Action;
 use app\actions\api\info\Stage3Action;
 use app\actions\api\info\Weapon2Action;
@@ -54,6 +55,7 @@ final class ApiInfoController extends Controller
                 'class' => Gear2Action::class,
                 'type' => 'shoes',
             ],
+            'salmon-title3' => SalmonTitle3Action::class,
             'stage2' => Stage2Action::class,
             'stage3' => Stage3Action::class,
             'weapon' => WeaponAction::class,

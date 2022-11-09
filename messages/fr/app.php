@@ -49,6 +49,7 @@ return [
     'API Info: Gears: {0}' => 'Info de l\'API : Équipements : {0}',
     'API Info: Stages (Splatoon 2)' => 'Info de l\'API : Stages (Splatoon 2)',
     'API Info: Stages (Splatoon 3)' => 'Info de l\'API : Stages (Splatoon 3)',
+    'API Info: Titles (Splatoon 3)' => '',
     'API Info: Weapons' => 'Info de l\'API : Armes',
     'API Info: Weapons (Splatoon 2)' => 'Info de l\'API : Armes (Splatoon 2)',
     'API Info: Weapons (Splatoon 3)' => 'Info de l\'API : Armes (Splatoon 3)',

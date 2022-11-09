@@ -33,6 +33,7 @@ return [
     'API Info: Gears: {0}' => 'API情報: ギア: {0}',
     'API Info: Stages (Splatoon 2)' => 'API情報: ステージ (Splatoon 2)',
     'API Info: Stages (Splatoon 3)' => 'API情報: ステージ (Splatoon 3)',
+    'API Info: Titles (Splatoon 3)' => 'API情報: 称号 (Splatoon 3)',
     'API Info: Weapons (Splatoon 2)' => 'API情報: ブキ (Splatoon 2)',
     'API Info: Weapons (Splatoon 3)' => 'API情報: ブキ (Splatoon 3)',
     'API Info: Weapons' => 'API情報: ブキ',

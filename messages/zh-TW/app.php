@@ -49,6 +49,7 @@ return [
     'API Info: Gears: {0}' => 'API資訊：裝備：{0}',
     'API Info: Stages (Splatoon 2)' => 'API資訊：場地(斯普拉遁2)',
     'API Info: Stages (Splatoon 3)' => 'API資訊：場地(斯普拉遁3)',
+    'API Info: Titles (Splatoon 3)' => '',
     'API Info: Weapons' => 'API資訊：武器',
     'API Info: Weapons (Splatoon 2)' => 'API資訊：武器(斯普拉遁2)',
     'API Info: Weapons (Splatoon 3)' => 'API資訊：武器(斯普拉遁3)',
