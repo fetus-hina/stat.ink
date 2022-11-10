@@ -11,5 +11,6 @@ declare(strict_types=1);
 return [
     'Boss Salmonid' => 'Gran Salmónido',
     'King Salmonid' => 'Gran jefe salmónido',
+    'Known Occurrence' => '',
     'Salmon Run' => 'Salmon Run',
 ];

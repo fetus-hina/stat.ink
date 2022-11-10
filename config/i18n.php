@@ -47,6 +47,7 @@ return [
                 'app-salmon-boss2' => 'salmon-boss2.php',
                 'app-salmon-boss3' => 'salmon-boss3.php',
                 'app-salmon-event2' => 'salmon-event2.php',
+                'app-salmon-event3' => 'salmon-event3.php',
                 'app-salmon-history2' => 'salmon-history2.php',
                 'app-salmon-map2' => 'salmon-map2.php',
                 'app-salmon-tide2' => 'salmon-tide2.php',

@@ -47,6 +47,7 @@ return [
     'API Info: Abilities (Splatoon 3)' => 'API資訊：技能(斯普拉遁3)',
     'API Info: Boss Salmonids (Splatoon 3)' => '',
     'API Info: Gears: {0}' => 'API資訊：裝備：{0}',
+    'API Info: Known Occurrences (Splatoon 3)' => '',
     'API Info: Stages (Splatoon 2)' => 'API資訊：場地(斯普拉遁2)',
     'API Info: Stages (Splatoon 3)' => 'API資訊：場地(斯普拉遁3)',
     'API Info: Titles (Splatoon 3)' => '',

@@ -11,5 +11,6 @@ declare(strict_types=1);
 return [
     'Boss Salmonid' => 'オオモノシャケ',
     'King Salmonid' => 'オカシラシャケ',
+    'Known Occurrence' => '特殊な状況',
     'Salmon Run' => 'サーモンラン',
 ];

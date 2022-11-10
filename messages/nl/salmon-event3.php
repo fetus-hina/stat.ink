@@ -9,8 +9,12 @@
 declare(strict_types=1);
 
 return [
-    'Boss Salmonid' => 'Salmonietenbaas',
-    'King Salmonid' => 'Salmonster',
-    'Known Occurrence' => '',
-    'Salmon Run' => 'Salmon Run',
+    'Cohock Charge' => '',
+    'Fog' => '',
+    'Giant Tornado' => '',
+    'Goldie Seeking' => '',
+    'Mudmouth Eruption' => '',
+    'Rush' => '',
+    'The Griller' => '',
+    'The Mothership' => '',
 ];
