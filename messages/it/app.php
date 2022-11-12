@@ -238,7 +238,6 @@ return [
     'If you already have an account, please click here.' => '',
     'If you delete this battle, it will be gone forever.' => '',
     'If you misuse this feature, you will be banned.' => '',
-    'Ika-Denwa' => '',
     'Ika-Nakama' => '',
     'Ika-Nakama 2' => '',
     'Ika-Nakama 2 User ID' => '',

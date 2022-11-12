@@ -240,7 +240,6 @@ return [
     'If you already have an account, please click here.' => 'Si ya tienes una cuenta, haga clic aquí.',
     'If you delete this battle, it will be gone forever.' => 'Si elimina esta batalla, se ha ido para siempre.',
     'If you misuse this feature, you will be banned.' => 'Si mal uso de esta función, será expulsado.',
-    'Ika-Denwa' => '',
     'Ika-Nakama' => '',
     'Ika-Nakama 2' => '',
     'Ika-Nakama 2 User ID' => '',

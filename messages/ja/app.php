@@ -235,7 +235,6 @@ return [
     'If you already have an account, please click here.' => 'すでにアカウントをお持ちであればこちらをクリックしてログインしてください。',
     'If you delete this battle, it will be gone forever.' => 'この操作を元に戻すことはできません。',
     'If you misuse this feature, you will be banned.' => '不適切な使用を確認した場合、アカウントを削除し以後のご利用をお断りする場合があります。',
-    'Ika-Denwa' => 'イカデンワ',
     'Ika-Nakama 2 User ID' => 'イカナカマ2',
     'Ika-Nakama 2' => 'イカナカマ2',
     'Ika-Nakama User ID' => 'イカナカマ',

@@ -240,7 +240,6 @@ return [
     'If you already have an account, please click here.' => '如果已有帳戶，請點擊這裏。',
     'If you delete this battle, it will be gone forever.' => '如果刪除該對戰，將無法復原資料。',
     'If you misuse this feature, you will be banned.' => '如果有濫用行爲，你會被黑名單。',
-    'Ika-Denwa' => 'Ika-Denwa',
     'Ika-Nakama' => 'Ika-Nakama',
     'Ika-Nakama 2' => 'Ika-Nakama 2',
     'Ika-Nakama 2 User ID' => 'Ika-Nakama 2 用戶ID',
