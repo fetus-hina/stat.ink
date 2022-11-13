@@ -9,11 +9,11 @@
 declare(strict_types=1);
 
 return [
-    'Average' => '',
-    'Golden E.' => '',
-    'Points' => '',
-    'Power E.' => '',
-    'Rescued' => '',
-    'Shifts' => '',
-    'Total' => '',
+    'Average' => 'Durchschnitt',
+    'Golden E.' => 'Gold-Fischeier',
+    'Points' => 'Punkte',
+    'Power E.' => 'Fischeier',
+    'Rescued' => 'Gerettet',
+    'Shifts' => 'Schichten',
+    'Total' => 'Gesamt',
 ];
