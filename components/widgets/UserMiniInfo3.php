@@ -32,6 +32,8 @@ final class UserMiniInfo3 extends Widget
     public $id = 'user-miniinfo';
     public $user;
 
+    public ?Lobby3 $activeLobby = null;
+
     public function run(): string
     {
         $view = $this->view;
@@ -312,9 +314,18 @@ final class UserMiniInfo3 extends Widget
         $importance = -1;
         foreach ($models as $model) {
             $group = $model['group'];
-            if ($group && $group->importance > $importance) {
-                $result = $group->key;
-                $importance = $group->importance;
+            if ($group) {
+                if ($this->activeLobby) {
+                    $activeGroup = $this->activeLobby->group;
+                    if ($activeGroup && $activeGroup->key === $group->key) {
+                        return $group->key;
+                    }
+                }
+
+                if ($group->importance > $importance) {
+                    $result = $group->key;
+                    $importance = $group->importance;
+                }
             }
         }
 
