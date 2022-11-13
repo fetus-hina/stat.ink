@@ -9,11 +9,11 @@
 declare(strict_types=1);
 
 return [
-    'Any Mode' => '',
+    'Any Mode' => 'Jeder Modus',
     'CB' => 'Muschelchaos',
     'Clam Blitz' => 'Muschelchaos',
     'Rainmaker' => 'Operation Goldfisch',
-    'Ranked Modes' => '',
+    'Ranked Modes' => 'Rangkampf',
     'RM' => 'Operation Goldfisch',
     'Splat Zones' => 'Herrschaft',
     'SZ' => 'Herrschaft',
