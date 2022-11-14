@@ -22,6 +22,7 @@ use app\actions\api\v3\VersionAction;
 use app\actions\api\v3\WeaponAction;
 use app\actions\api\v3\s3s\UsageAction;
 use app\actions\api\v3\s3s\UuidListAction;
+use app\actions\api\v3\salmon\PostSalmonAction;
 use app\components\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\auth\HttpBearerAuth;
@@ -46,6 +47,7 @@ final class ApiV3Controller extends Controller
                 'actions' => [
                     'battle' => ['head', 'get', 'post', 'put'],
                     'delete-battle' => ['delete'],
+                    'post-salmon' => ['post', 'put'],
                     '*' => ['head', 'get'],
                 ],
             ],
@@ -54,6 +56,7 @@ final class ApiV3Controller extends Controller
                 'only' => [
                     'battle',
                     'delete-battle',
+                    'post-salmon',
                     's3s-uuid-list',
                 ],
                 'optional' => [
@@ -69,6 +72,7 @@ final class ApiV3Controller extends Controller
             'battle' => BattleAction::class,
             'delete-battle' => DeleteBattleAction::class,
             'lobby' => LobbyAction::class,
+            'post-salmon' => PostSalmonAction::class,
             'rank' => RankAction::class,
             'rule' => RuleAction::class,
             's3s-usage' => UsageAction::class,

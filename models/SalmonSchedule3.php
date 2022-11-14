@@ -23,6 +23,7 @@ use yii\db\ActiveRecord;
  * @property string $end_at
  *
  * @property SalmonMap3 $map
+ * @property Salmon3[] $salmon3s
  * @property SalmonScheduleWeapon3[] $salmonScheduleWeapon3s
  */
 class SalmonSchedule3 extends ActiveRecord
@@ -57,6 +58,11 @@ class SalmonSchedule3 extends ActiveRecord
     public function getMap(): ActiveQuery
     {
         return $this->hasOne(SalmonMap3::class, ['id' => 'map_id']);
+    }
+
+    public function getSalmon3s(): ActiveQuery
+    {
+        return $this->hasMany(Salmon3::class, ['schedule_id' => 'id']);
     }
 
     public function getSalmonScheduleWeapon3s(): ActiveQuery

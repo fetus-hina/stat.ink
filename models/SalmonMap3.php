@@ -22,7 +22,9 @@ use yii\db\ActiveRecord;
  * @property string $name
  * @property string $short_name
  *
+ * @property Salmon3[] $salmon3s
  * @property SalmonMap3Alias[] $salmonMap3Aliases
+ * @property SalmonSchedule3[] $salmonSchedule3s
  */
 class SalmonMap3 extends ActiveRecord
 {
@@ -51,8 +53,18 @@ class SalmonMap3 extends ActiveRecord
         ];
     }
 
+    public function getSalmon3s(): ActiveQuery
+    {
+        return $this->hasMany(Salmon3::class, ['stage_id' => 'id']);
+    }
+
     public function getSalmonMap3Aliases(): ActiveQuery
     {
         return $this->hasMany(SalmonMap3Alias::class, ['map_id' => 'id']);
+    }
+
+    public function getSalmonSchedule3s(): ActiveQuery
+    {
+        return $this->hasMany(SalmonSchedule3::class, ['map_id' => 'id']);
     }
 }
