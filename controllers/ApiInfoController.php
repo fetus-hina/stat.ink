@@ -11,8 +11,11 @@ declare(strict_types=1);
 namespace app\controllers;
 
 use app\actions\api\info\Ability3Action;
+use app\actions\api\info\BossSalmonid3Action;
 use app\actions\api\info\Gear2Action;
 use app\actions\api\info\GearAction;
+use app\actions\api\info\SalmonEvent3Action;
+use app\actions\api\info\SalmonTitle3Action;
 use app\actions\api\info\Stage2Action;
 use app\actions\api\info\Stage3Action;
 use app\actions\api\info\Weapon2Action;
@@ -28,6 +31,7 @@ final class ApiInfoController extends Controller
     {
         return [
             'ability3' => Ability3Action::class,
+            'boss-salmonid3' => BossSalmonid3Action::class,
             'gear-clothing' => [
                 'class' => GearAction::class,
                 'type' => 'clothing',
@@ -52,6 +56,8 @@ final class ApiInfoController extends Controller
                 'class' => Gear2Action::class,
                 'type' => 'shoes',
             ],
+            'salmon-event3' => SalmonEvent3Action::class,
+            'salmon-title3' => SalmonTitle3Action::class,
             'stage2' => Stage2Action::class,
             'stage3' => Stage3Action::class,
             'weapon' => WeaponAction::class,

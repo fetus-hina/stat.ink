@@ -111,7 +111,10 @@ BattleDetailAsset::register($this);
       ]) . "\n" ?>
     </div>
     <div class="col-xs-12 col-sm-4 col-lg-3">
-      <?= UserMiniInfo3::widget(['user' => $user]) . "\n" ?>
+      <?= UserMiniInfo3::widget([
+        'activeLobby' => $model->lobby,
+        'user' => $user,
+      ]) . "\n" ?>
       <?= AdWidget::widget() . "\n" ?>
     </div>
   </div>

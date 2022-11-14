@@ -11,6 +11,7 @@ $font-family: -apple-system,
   'Noto Sans KR';
 
 $font-family-en: 'LINE Seed JP',
+  'LINE Seed KR',
   -apple-system,
   'Roboto',
   'Noto Sans',
@@ -20,6 +21,7 @@ $font-family-en: 'LINE Seed JP',
   'Noto Sans KR';
 
 $font-family-ja: 'LINE Seed JP',
+  'LINE Seed KR',
   -apple-system,
   'Roboto',
   'Noto Sans',
@@ -44,7 +46,9 @@ $font-family-hant: -apple-system,
   'Noto Sans JP',
   'Noto Sans KR';
 
-$font-family-ko: -apple-system,
+$font-family-ko: 'LINE Seed KR',
+  'LINE Seed JP',
+  -apple-system,
   'Roboto',
   'Noto Sans',
   'Noto Sans KR',

@@ -46,15 +46,40 @@ final class ImportFromSplatnet extends Alert
                 Html::tag('li', \implode('', [
                     Html::encode(Yii::t('app', 'Splatoon 3')),
                     Html::tag('ul', \implode('', [
-                        Html::tag('li', Html::a(
-                            Html::encode('s3s'),
-                            'https://github.com/frozenpandaman/s3s',
-                            [
-                                'class' => 'alert-link',
-                                'rel' => 'noopener',
-                                'target' => '_blank',
-                            ]
-                        )),
+                        Html::tag('li', \implode('', [
+                            Html::a(
+                                Html::encode('s3s'),
+                                'https://github.com/frozenpandaman/s3s',
+                                [
+                                    'class' => 'alert-link',
+                                    'rel' => 'noopener',
+                                    'target' => '_blank',
+                                ]
+                            ),
+                            ' ',
+                            Html::tag(
+                                'small',
+                                Html::encode('(Python3)'),
+                                ['class' => 'text-muted'],
+                            ),
+                        ])),
+                        Html::tag('li', \implode('', [
+                            Html::a(
+                                Html::encode('s3si.ts'),
+                                'https://github.com/spacemeowx2/s3si.ts',
+                                [
+                                    'class' => 'alert-link',
+                                    'rel' => 'noopener',
+                                    'target' => '_blank',
+                                ]
+                            ),
+                            ' ',
+                            Html::tag(
+                                'small',
+                                Html::encode('(Deno: TypeScript)'),
+                                ['class' => 'text-muted'],
+                            ),
+                        ])),
                     ])),
                 ])),
                 Html::tag('li', \implode('', [

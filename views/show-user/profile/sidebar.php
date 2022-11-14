@@ -92,28 +92,24 @@ $this->registerCss(implode('', array_map(
   </h1>
 <?php if ($latestPlayer3) { ?>
   <?= Html::tag(
-    'p',
-    implode(
-      Html::tag('br'),
-      array_map(
-        fn (string $text): string => Html::encode($text),
-        array_filter(
-          [
-            $latestPlayer3->splashtagTitle
-              ? $latestPlayer3->splashtagTitle->name
-              : null,
-            vsprintf('%s #%s', [
-              $latestPlayer3->name,
-              $latestPlayer3->number,
-            ]),
-          ],
-          fn (?string $text): ?bool => $text !== null,
-        ),
-      ),
-    ),
-    [
-      'class' => 'splashtag',
-    ],
+    'div',
+    implode('', array_filter(
+      [
+        $latestPlayer3->splashtagTitle
+          ? Html::tag(
+            'div',
+            Html::encode($latestPlayer3->splashtagTitle->name),
+            ['class' => 'text-muted omit'],
+          )
+          : null,
+        vsprintf('%s #%s', [
+          $latestPlayer3->name,
+          $latestPlayer3->number,
+        ]),
+      ],
+      fn (?string $text): ?bool => $text !== null,
+    )),
+    ['class' => 'splashtag'],
   ) . "\n" ?>
 <?php } ?>
   <h2 itemprop="alternateName">

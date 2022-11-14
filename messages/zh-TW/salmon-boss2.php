@@ -14,7 +14,7 @@ return [
     'Drizzler' => '蝙蝠魚',
     'Flyfish' => '墊肩飛魚',
     'Goldie' => '金鮭魚',
-    'Griller' => '燒烤架',
+    'Griller' => '烤架魚',
     'Maws' => '鼴鼠魚',
     'Scrapper' => '鐵板魚',
     'Steel Eel' => '蛇魚',

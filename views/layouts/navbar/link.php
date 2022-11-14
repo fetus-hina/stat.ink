@@ -188,63 +188,74 @@ $list = [
   ],
   [],
   [
-    // splatnet2statink {{{
+    // s3s
     'url' => 'https://github.com/frozenpandaman/s3s/',
     'name' => implode('', [
-      Html::tag('span', '', ['class' => 'fa fa-fw']),
+      (string)FA::fab('python')->fw(),
       Html::encode(Yii::t('app', 's3s')),
       (string)FA::fab('windows')->fw(),
       (string)FA::fab('apple')->fw(),
       (string)FA::fab('linux')->fw(),
     ]),
-    // }}}
   ],
-  [],
   [
-    // SquidTracks {{{
-    'url' => 'https://github.com/hymm/squid-tracks/',
+    // s3si.ts
+    'url' => 'https://github.com/spacemeowx2/s3si.ts',
     'name' => implode('', [
-      $icon->squidTracks,
-      Html::encode(Yii::t('app', 'SquidTracks')),
+      (string)FA::fab('js')->fw(),
+      Html::encode(Yii::t('app', 's3si.ts')),
       (string)FA::fab('windows')->fw(),
       (string)FA::fab('apple')->fw(),
       (string)FA::fab('linux')->fw(),
     ]),
-    // }}}
-  ],
-  [
-    // splatnet2statink {{{
-    'url' => 'https://github.com/frozenpandaman/splatnet2statink/',
-    'name' => implode('', [
-      Html::tag('span', '', ['class' => 'fa fa-fw']),
-      Html::encode(Yii::t('app', 'splatnet2statink')),
-      (string)FA::fab('windows')->fw(),
-      (string)FA::fab('apple')->fw(),
-      (string)FA::fab('linux')->fw(),
-    ]),
-    // }}}
-  ],
-  [
-    // IkaRec 2 {{{
-    'name' => implode('', [
-      $icon->ikarecJa,
-      Html::encode(Yii::t('app', 'IkaRec 2')),
-      Html::tag('span', '', ['class' => 'fab fa-fw fa-android']),
-    ]),
-    'url' => 'https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec2',
-    // }}}
   ],
   [],
   [
     'name' => implode('', [
-      Html::tag('span', '', ['class' => 'fa fa-fw']),
+      GameVersionIcon::widget(['version' => 2]),
+      Html::encode(Yii::t('app', 'Apps for {version}', ['version' => Yii::t('app', 'Splatoon 2')])),
+    ]),
+    'sub' => [
+      [
+        'url' => 'https://github.com/frozenpandaman/splatnet2statink/',
+        'name' => implode('', [
+          (string)FA::fab('python')->fw(),
+          Html::encode(Yii::t('app', 'splatnet2statink')),
+          (string)FA::fab('windows')->fw(),
+          (string)FA::fab('apple')->fw(),
+          (string)FA::fab('linux')->fw(),
+        ]),
+      ],
+      [
+        'url' => 'https://github.com/hymm/squid-tracks/',
+        'name' => implode('', [
+          $icon->squidTracks,
+          Html::tag('del', Html::encode(Yii::t('app', 'SquidTracks'))),
+          (string)FA::fab('windows')->fw(),
+          (string)FA::fab('apple')->fw(),
+          (string)FA::fab('linux')->fw(),
+        ]),
+      ],
+      [
+        'name' => implode('', [
+          $icon->ikarecJa,
+          Html::tag('del', Html::encode(Yii::t('app', 'IkaRec 2'))),
+          Html::tag('span', '', ['class' => 'fab fa-fw fa-android']),
+        ]),
+        'url' => 'https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec2',
+      ],
+    ],
+  ],
+  [
+    'name' => implode('', [
+      GameVersionIcon::widget(['version' => 1]),
       Html::encode(Yii::t('app', 'Apps for {version}', ['version' => Yii::t('app', 'Splatoon 1')])),
     ]),
     'sub' => [
       [
-        // IkaLog {{{
         'name' => implode('', [
           $icon->ikalog,
+          (string)FA::fab('python')->fw(),
           Html::encode(Yii::t('app', 'IkaLog')),
           (string)FA::fab('windows')->fw(),
           (string)FA::fab('apple')->fw(),
@@ -275,18 +286,21 @@ $list = [
             ]),
           ],
         ],
-        // }}}
       ],
       [
-        // IkaRec {{{
         'url' => 'https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec',
         'name' => implode('', [
           $icon->ikarecJa,
           $jp(),
-          Html::encode(Yii::t('app', 'IkaRec')),
-          '(' . Html::encode(Yii::t('app', 'for {title}', [
-            'title' => Yii::t('app', 'Splatoon'),
-          ])) . ' / 日本語)',
+          Html::tag(
+            'del',
+            implode('', [
+              Html::encode(Yii::t('app', 'IkaRec')),
+              '(' . Html::encode(Yii::t('app', 'for {title}', [
+                'title' => Yii::t('app', 'Splatoon'),
+              ])) . ' / 日本語)',
+            ]),
+          ),
           (string)FA::fab('android')->fw(),
         ]),
       ],
@@ -301,18 +315,10 @@ $list = [
           ])) . ' / English)',
           (string)FA::fab('android')->fw(),
         ]),
-        // }}}
       ],
     ],
   ],
   [],
-  [
-    'url' => 'https://ikadenwa.ink/',
-    'name' => implode('', [
-      $icon->ikadenwa,
-      Html::encode(Yii::t('app', 'Ika-Denwa')),
-    ]),
-  ],
   [
     'url' => 'https://ikanakama.ink/',
     'name' => implode('', [

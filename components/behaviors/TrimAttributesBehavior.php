@@ -1,32 +1,50 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 namespace app\components\behaviors;
 
+use Traversable;
 use yii\base\Behavior;
 use yii\base\Model;
 
 class TrimAttributesBehavior extends Behavior
 {
+    /**
+     * @var array<array-key, mixed>
+     */
     public $targets;
+
+    /**
+     * @var bool
+     */
     public $recursive;
 
+    /**
+     * @return void
+     */
     public function init()
     {
         parent::init();
-        if (!is_array($this->targets)) {
+
+        if (!\is_array($this->targets)) {
             $this->targets = [];
         }
+
         if ($this->recursive !== false) {
             $this->recursive = true;
         }
     }
 
+    /**
+     * @inheritdoc
+     */
     public function events()
     {
         return [
@@ -43,18 +61,25 @@ class TrimAttributesBehavior extends Behavior
 
     protected function doTrim($value)
     {
-        if (is_scalar($value)) {
-            $value = trim((string)$value);
+        if ($value === null || \is_bool($value)) {
+            return $value;
+        }
+
+        if (\is_scalar($value)) {
+            $value = \trim((string)$value);
             return $value === '' ? null : $value;
-        } elseif (is_array($value) || $value instanceof \Traversable) {
+        }
+
+        if (\is_array($value) || $value instanceof Traversable) {
             if ($this->recursive) {
                 foreach ($value as $k => $v) {
                     $value[$k] = $this->doTrim($v);
                 }
             }
-            return $value;
-        } else {
+
             return $value;
         }
+
+        return $value;
     }
 }

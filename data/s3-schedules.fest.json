@@ -1,0 +1,1210 @@
+{
+  "data": {
+    "regularSchedules": {
+      "nodes": [
+        {
+          "startTime": "2022-11-12T22:00:00Z",
+          "endTime": "2022-11-13T00:00:00Z",
+          "regularMatchSetting": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T00:00:00Z",
+          "endTime": "2022-11-13T02:00:00Z",
+          "regularMatchSetting": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T02:00:00Z",
+          "endTime": "2022-11-13T04:00:00Z",
+          "regularMatchSetting": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T04:00:00Z",
+          "endTime": "2022-11-13T06:00:00Z",
+          "regularMatchSetting": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T06:00:00Z",
+          "endTime": "2022-11-13T08:00:00Z",
+          "regularMatchSetting": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T08:00:00Z",
+          "endTime": "2022-11-13T10:00:00Z",
+          "regularMatchSetting": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T10:00:00Z",
+          "endTime": "2022-11-13T12:00:00Z",
+          "regularMatchSetting": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T12:00:00Z",
+          "endTime": "2022-11-13T14:00:00Z",
+          "regularMatchSetting": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T14:00:00Z",
+          "endTime": "2022-11-13T16:00:00Z",
+          "regularMatchSetting": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T16:00:00Z",
+          "endTime": "2022-11-13T18:00:00Z",
+          "regularMatchSetting": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T18:00:00Z",
+          "endTime": "2022-11-13T20:00:00Z",
+          "regularMatchSetting": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T20:00:00Z",
+          "endTime": "2022-11-13T22:00:00Z",
+          "regularMatchSetting": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        }
+      ]
+    },
+    "bankaraSchedules": {
+      "nodes": [
+        {
+          "startTime": "2022-11-12T22:00:00Z",
+          "endTime": "2022-11-13T00:00:00Z",
+          "bankaraMatchSettings": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T00:00:00Z",
+          "endTime": "2022-11-13T02:00:00Z",
+          "bankaraMatchSettings": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T02:00:00Z",
+          "endTime": "2022-11-13T04:00:00Z",
+          "bankaraMatchSettings": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T04:00:00Z",
+          "endTime": "2022-11-13T06:00:00Z",
+          "bankaraMatchSettings": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T06:00:00Z",
+          "endTime": "2022-11-13T08:00:00Z",
+          "bankaraMatchSettings": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T08:00:00Z",
+          "endTime": "2022-11-13T10:00:00Z",
+          "bankaraMatchSettings": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T10:00:00Z",
+          "endTime": "2022-11-13T12:00:00Z",
+          "bankaraMatchSettings": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T12:00:00Z",
+          "endTime": "2022-11-13T14:00:00Z",
+          "bankaraMatchSettings": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T14:00:00Z",
+          "endTime": "2022-11-13T16:00:00Z",
+          "bankaraMatchSettings": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T16:00:00Z",
+          "endTime": "2022-11-13T18:00:00Z",
+          "bankaraMatchSettings": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T18:00:00Z",
+          "endTime": "2022-11-13T20:00:00Z",
+          "bankaraMatchSettings": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T20:00:00Z",
+          "endTime": "2022-11-13T22:00:00Z",
+          "bankaraMatchSettings": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        }
+      ]
+    },
+    "xSchedules": {
+      "nodes": [
+        {
+          "startTime": "2022-11-12T22:00:00Z",
+          "endTime": "2022-11-13T00:00:00Z",
+          "xMatchSetting": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T00:00:00Z",
+          "endTime": "2022-11-13T02:00:00Z",
+          "xMatchSetting": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T02:00:00Z",
+          "endTime": "2022-11-13T04:00:00Z",
+          "xMatchSetting": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T04:00:00Z",
+          "endTime": "2022-11-13T06:00:00Z",
+          "xMatchSetting": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T06:00:00Z",
+          "endTime": "2022-11-13T08:00:00Z",
+          "xMatchSetting": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T08:00:00Z",
+          "endTime": "2022-11-13T10:00:00Z",
+          "xMatchSetting": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T10:00:00Z",
+          "endTime": "2022-11-13T12:00:00Z",
+          "xMatchSetting": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T12:00:00Z",
+          "endTime": "2022-11-13T14:00:00Z",
+          "xMatchSetting": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T14:00:00Z",
+          "endTime": "2022-11-13T16:00:00Z",
+          "xMatchSetting": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T16:00:00Z",
+          "endTime": "2022-11-13T18:00:00Z",
+          "xMatchSetting": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T18:00:00Z",
+          "endTime": "2022-11-13T20:00:00Z",
+          "xMatchSetting": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T20:00:00Z",
+          "endTime": "2022-11-13T22:00:00Z",
+          "xMatchSetting": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        }
+      ]
+    },
+    "leagueSchedules": {
+      "nodes": [
+        {
+          "startTime": "2022-11-12T22:00:00Z",
+          "endTime": "2022-11-13T00:00:00Z",
+          "leagueMatchSetting": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T00:00:00Z",
+          "endTime": "2022-11-13T02:00:00Z",
+          "leagueMatchSetting": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T02:00:00Z",
+          "endTime": "2022-11-13T04:00:00Z",
+          "leagueMatchSetting": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T04:00:00Z",
+          "endTime": "2022-11-13T06:00:00Z",
+          "leagueMatchSetting": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T06:00:00Z",
+          "endTime": "2022-11-13T08:00:00Z",
+          "leagueMatchSetting": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T08:00:00Z",
+          "endTime": "2022-11-13T10:00:00Z",
+          "leagueMatchSetting": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T10:00:00Z",
+          "endTime": "2022-11-13T12:00:00Z",
+          "leagueMatchSetting": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T12:00:00Z",
+          "endTime": "2022-11-13T14:00:00Z",
+          "leagueMatchSetting": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T14:00:00Z",
+          "endTime": "2022-11-13T16:00:00Z",
+          "leagueMatchSetting": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T16:00:00Z",
+          "endTime": "2022-11-13T18:00:00Z",
+          "leagueMatchSetting": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T18:00:00Z",
+          "endTime": "2022-11-13T20:00:00Z",
+          "leagueMatchSetting": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        },
+        {
+          "startTime": "2022-11-13T20:00:00Z",
+          "endTime": "2022-11-13T22:00:00Z",
+          "leagueMatchSetting": null,
+          "festMatchSetting": {
+            "__typename": "FestMatchSetting"
+          }
+        }
+      ]
+    },
+    "coopGroupingSchedule": {
+      "regularSchedules": {
+        "nodes": [
+          {
+            "startTime": "2022-11-12T08:00:00Z",
+            "endTime": "2022-11-14T00:00:00Z",
+            "setting": {
+              "__typename": "CoopNormalSetting",
+              "coopStage": {
+                "name": "Sockeye Station",
+                "coopStageId": 2,
+                "thumbnailImage": {
+                  "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/low_resolution/3418d2d89ef84288c78915b9acb63b4ad48df7bfcb48c27d6597920787e147ec_1.png"
+                },
+                "image": {
+                  "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/high_resolution/3418d2d89ef84288c78915b9acb63b4ad48df7bfcb48c27d6597920787e147ec_0.png"
+                },
+                "id": "Q29vcFN0YWdlLTI="
+              },
+              "weapons": [
+                {
+                  "__splatoon3ink_id": "582d03e42a63596a",
+                  "name": "Splat Dualies",
+                  "image": {
+                    "url": "https://splatoon3.ink/assets/splatnet/weapon_illust/b43978029ea582de3aca34549cafd810df20082b94104634093392e11e30d9bd_0.png"
+                  }
+                },
+                {
+                  "__splatoon3ink_id": "8c157e85b75798e7",
+                  "name": "Carbon Roller",
+                  "image": {
+                    "url": "https://splatoon3.ink/assets/splatnet/weapon_illust/29358fd25b6ad1ba9e99f5721f0248af8bde7f1f757d00cbbc7a8a6be02a880d_0.png"
+                  }
+                },
+                {
+                  "__splatoon3ink_id": "617dedf1c26235dc",
+                  "name": "Splattershot Pro",
+                  "image": {
+                    "url": "https://splatoon3.ink/assets/splatnet/weapon_illust/5607f7014bbc7339feeb67218c05ef19c7a466152b1bd056a899b955127ea433_0.png"
+                  }
+                },
+                {
+                  "__splatoon3ink_id": "1d1dd4a9165c4a0c",
+                  "name": "Splat Charger",
+                  "image": {
+                    "url": "https://splatoon3.ink/assets/splatnet/weapon_illust/3f99800b569e286305669b7ab28dc3ff0f0b1b015600569d5ac30ab8a97047a0_0.png"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "startTime": "2022-11-14T00:00:00Z",
+            "endTime": "2022-11-15T16:00:00Z",
+            "setting": {
+              "__typename": "CoopNormalSetting",
+              "coopStage": {
+                "name": "Gone Fission Hydroplant",
+                "coopStageId": 7,
+                "thumbnailImage": {
+                  "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/low_resolution/f1e4df4cff1dc5e0acc66a9654fecf949224f7e4f6bd36305d4600ac3fa3db7b_1.png"
+                },
+                "image": {
+                  "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/high_resolution/f1e4df4cff1dc5e0acc66a9654fecf949224f7e4f6bd36305d4600ac3fa3db7b_0.png"
+                },
+                "id": "Q29vcFN0YWdlLTc="
+              },
+              "weapons": [
+                {
+                  "__splatoon3ink_id": "4b6949b9e979636c",
+                  "name": "Luna Blaster",
+                  "image": {
+                    "url": "https://splatoon3.ink/assets/splatnet/weapon_illust/10d4a1584d1428cb164ddfbc5febc9b1e77fd05e2e9ed9de851838a94d202c15_0.png"
+                  }
+                },
+                {
+                  "__splatoon3ink_id": "daa5ab5b571faec5",
+                  "name": "Flingza Roller",
+                  "image": {
+                    "url": "https://splatoon3.ink/assets/splatnet/weapon_illust/8351e99589f03f49b5d681d36b083aaffd9c486a0558ab957ac44b0db0bb58bb_0.png"
+                  }
+                },
+                {
+                  "__splatoon3ink_id": "8f8bfbac8a43c2c7",
+                  "name": "Splatana Stamper",
+                  "image": {
+                    "url": "https://splatoon3.ink/assets/splatnet/weapon_illust/ddd2a4258a70cdaf8a1dbc0ded024db497445d71f950fe7645fa8c69a178a082_0.png"
+                  }
+                },
+                {
+                  "__splatoon3ink_id": "92f330252fdd9421",
+                  "name": "Jet Squelcher",
+                  "image": {
+                    "url": "https://splatoon3.ink/assets/splatnet/weapon_illust/035920eb9428955c25aecb8a56c2b1b58f3e322af3657d921db1778de4b80c59_0.png"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "startTime": "2022-11-15T16:00:00Z",
+            "endTime": "2022-11-17T08:00:00Z",
+            "setting": {
+              "__typename": "CoopNormalSetting",
+              "coopStage": {
+                "name": "Spawning Grounds",
+                "coopStageId": 1,
+                "thumbnailImage": {
+                  "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/low_resolution/be584c7c7f547b8cbac318617f646680541f88071bc71db73cd461eb3ea6326e_1.png"
+                },
+                "image": {
+                  "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/high_resolution/be584c7c7f547b8cbac318617f646680541f88071bc71db73cd461eb3ea6326e_0.png"
+                },
+                "id": "Q29vcFN0YWdlLTE="
+              },
+              "weapons": [
+                {
+                  "__splatoon3ink_id": "1e344559d62809b2",
+                  "name": "Dapple Dualies",
+                  "image": {
+                    "url": "https://splatoon3.ink/assets/splatnet/weapon_illust/f1c8fc32bd90fc9258dc17e9f9bcfd5e6498f6e283709bf1896b78193b8e39e9_0.png"
+                  }
+                },
+                {
+                  "__splatoon3ink_id": "cb9126ea2928b619",
+                  "name": "Ballpoint Splatling",
+                  "image": {
+                    "url": "https://splatoon3.ink/assets/splatnet/weapon_illust/206dbf3b5dfc9962b6a783acf68a856f0c8fbf0c56257c2ca5c25d63198dd6e1_0.png"
+                  }
+                },
+                {
+                  "__splatoon3ink_id": "7a2dd4e35809d537",
+                  "name": "Dynamo Roller",
+                  "image": {
+                    "url": "https://splatoon3.ink/assets/splatnet/weapon_illust/18fdddee9c918842f076c10f12e46d891aca302d2677bf968ee2fe4e65b831a8_0.png"
+                  }
+                },
+                {
+                  "__splatoon3ink_id": "8c0617eafedab081",
+                  "name": "Bamboozler 14 Mk I",
+                  "image": {
+                    "url": "https://splatoon3.ink/assets/splatnet/weapon_illust/9c71334ea792864a00531040e0d05a183512e11277fd1fa681170874ba039268_0.png"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "startTime": "2022-11-17T08:00:00Z",
+            "endTime": "2022-11-19T00:00:00Z",
+            "setting": {
+              "__typename": "CoopNormalSetting",
+              "coopStage": {
+                "name": "Sockeye Station",
+                "coopStageId": 2,
+                "thumbnailImage": {
+                  "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/low_resolution/3418d2d89ef84288c78915b9acb63b4ad48df7bfcb48c27d6597920787e147ec_1.png"
+                },
+                "image": {
+                  "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/high_resolution/3418d2d89ef84288c78915b9acb63b4ad48df7bfcb48c27d6597920787e147ec_0.png"
+                },
+                "id": "Q29vcFN0YWdlLTI="
+              },
+              "weapons": [
+                {
+                  "__splatoon3ink_id": "9a9dcaa55c2f6545",
+                  "name": "Splattershot",
+                  "image": {
+                    "url": "https://splatoon3.ink/assets/splatnet/weapon_illust/e3874d7d504acf89488ad7f68d29a348caea1a41cd43bd9a272069b0c0466570_0.png"
+                  }
+                },
+                {
+                  "__splatoon3ink_id": "df5b39ea3d32b25b",
+                  "name": "Splatana Wiper",
+                  "image": {
+                    "url": "https://splatoon3.ink/assets/splatnet/weapon_illust/3aa72d418643038a9e3248af734b0d6a0bf3d3bf9793d75912b1b959f93c2258_0.png"
+                  }
+                },
+                {
+                  "__splatoon3ink_id": "9208eee9ecd2026e",
+                  "name": "Blaster",
+                  "image": {
+                    "url": "https://splatoon3.ink/assets/splatnet/weapon_illust/29ccca01285a04f42dc15911f3cd1ee940f9ca0e94c75ba07378828afb3165c0_0.png"
+                  }
+                },
+                {
+                  "__splatoon3ink_id": "0037f260dd45e397",
+                  "name": "Tenta Brella",
+                  "image": {
+                    "url": "https://splatoon3.ink/assets/splatnet/weapon_illust/a7b1903741696c0ebeda76c9e16fa0a81ae4e37f5331ad6282fc2be1ae1c1c59_0.png"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "startTime": "2022-11-19T00:00:00Z",
+            "endTime": "2022-11-20T16:00:00Z",
+            "setting": {
+              "__typename": "CoopNormalSetting",
+              "coopStage": {
+                "name": "Gone Fission Hydroplant",
+                "coopStageId": 7,
+                "thumbnailImage": {
+                  "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/low_resolution/f1e4df4cff1dc5e0acc66a9654fecf949224f7e4f6bd36305d4600ac3fa3db7b_1.png"
+                },
+                "image": {
+                  "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/high_resolution/f1e4df4cff1dc5e0acc66a9654fecf949224f7e4f6bd36305d4600ac3fa3db7b_0.png"
+                },
+                "id": "Q29vcFN0YWdlLTc="
+              },
+              "weapons": [
+                {
+                  "__splatoon3ink_id": "1f6ce9f852641707",
+                  "name": "Random",
+                  "image": {
+                    "url": "https://splatoon3.ink/assets/splatnet/ui_img/473fffb2442075078d8bb7125744905abdeae651b6a5b7453ae295582e45f7d1_0.png"
+                  }
+                },
+                {
+                  "__splatoon3ink_id": "1f6ce9f852641707",
+                  "name": "Random",
+                  "image": {
+                    "url": "https://splatoon3.ink/assets/splatnet/ui_img/473fffb2442075078d8bb7125744905abdeae651b6a5b7453ae295582e45f7d1_0.png"
+                  }
+                },
+                {
+                  "__splatoon3ink_id": "1f6ce9f852641707",
+                  "name": "Random",
+                  "image": {
+                    "url": "https://splatoon3.ink/assets/splatnet/ui_img/473fffb2442075078d8bb7125744905abdeae651b6a5b7453ae295582e45f7d1_0.png"
+                  }
+                },
+                {
+                  "__splatoon3ink_id": "1f6ce9f852641707",
+                  "name": "Random",
+                  "image": {
+                    "url": "https://splatoon3.ink/assets/splatnet/ui_img/473fffb2442075078d8bb7125744905abdeae651b6a5b7453ae295582e45f7d1_0.png"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "bigRunSchedules": {
+        "nodes": [
+
+        ]
+      }
+    },
+    "festSchedules": {
+      "nodes": [
+        {
+          "startTime": "2022-11-12T22:00:00Z",
+          "endTime": "2022-11-13T00:00:00Z",
+          "festMatchSetting": {
+            "__isVsSetting": "FestMatchSetting",
+            "__typename": "FestMatchSetting",
+            "vsStages": [
+              {
+                "id": "VnNTdGFnZS0x",
+                "vsStageId": 1,
+                "name": "Scorch Gorge",
+                "image": {
+                  "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/low_resolution/35f9ca08ccc2bf759774ab2cb886567c117b9287875ca92fb590c1294ddcdc1e_1.png"
+                }
+              },
+              {
+                "id": "VnNTdGFnZS00",
+                "vsStageId": 4,
+                "name": "Undertow Spillway",
+                "image": {
+                  "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/low_resolution/9b1c17b2075479d0397d2fb96efbc6fa3a28900712920e5fe1e9dfc59c6abc5c_1.png"
+                }
+              }
+            ],
+            "vsRule": {
+              "name": "Turf War",
+              "rule": "TURF_WAR",
+              "id": "VnNSdWxlLTA="
+            }
+          }
+        },
+        {
+          "startTime": "2022-11-13T00:00:00Z",
+          "endTime": "2022-11-13T02:00:00Z",
+          "festMatchSetting": {
+            "__isVsSetting": "FestMatchSetting",
+            "__typename": "FestMatchSetting",
+            "vsStages": [
+              {
+                "id": "VnNTdGFnZS0xMQ==",
+                "vsStageId": 11,
+                "name": "Museum d'Alfonsino",
+                "image": {
+                  "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/low_resolution/b9d8cfa186d197a27e075600a107c99d9e21646d116730f0843e0fff0aaba7dd_1.png"
+                }
+              },
+              {
+                "id": "VnNTdGFnZS0xMw==",
+                "vsStageId": 13,
+                "name": "Inkblot Art Academy",
+                "image": {
+                  "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/low_resolution/40aba8b36a9439e2d670fde5b3478819ea8a94f9e503b9d783248a5716786f35_1.png"
+                }
+              }
+            ],
+            "vsRule": {
+              "name": "Turf War",
+              "rule": "TURF_WAR",
+              "id": "VnNSdWxlLTA="
+            }
+          }
+        },
+        {
+          "startTime": "2022-11-13T02:00:00Z",
+          "endTime": "2022-11-13T04:00:00Z",
+          "festMatchSetting": {
+            "__isVsSetting": "FestMatchSetting",
+            "__typename": "FestMatchSetting",
+            "vsStages": [
+              {
+                "id": "VnNTdGFnZS0x",
+                "vsStageId": 1,
+                "name": "Scorch Gorge",
+                "image": {
+                  "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/low_resolution/35f9ca08ccc2bf759774ab2cb886567c117b9287875ca92fb590c1294ddcdc1e_1.png"
+                }
+              },
+              {
+                "id": "VnNTdGFnZS0xMA==",
+                "vsStageId": 10,
+                "name": "Hammerhead Bridge",
+                "image": {
+                  "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/low_resolution/1db8ab338b64b464df50e7f9e270e59423ff8caac6f09679a24f1b7acf3a82f3_1.png"
+                }
+              }
+            ],
+            "vsRule": {
+              "name": "Turf War",
+              "rule": "TURF_WAR",
+              "id": "VnNSdWxlLTA="
+            }
+          }
+        },
+        {
+          "startTime": "2022-11-13T04:00:00Z",
+          "endTime": "2022-11-13T06:00:00Z",
+          "festMatchSetting": {
+            "__isVsSetting": "FestMatchSetting",
+            "__typename": "FestMatchSetting",
+            "vsStages": [
+              {
+                "id": "VnNTdGFnZS0y",
+                "vsStageId": 2,
+                "name": "Eeltail Alley",
+                "image": {
+                  "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/low_resolution/898e1ae6c737a9d44552c7c81f9b710676492681525c514eadc68a6780aa52af_1.png"
+                }
+              },
+              {
+                "id": "VnNTdGFnZS0xMw==",
+                "vsStageId": 13,
+                "name": "Inkblot Art Academy",
+                "image": {
+                  "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/low_resolution/40aba8b36a9439e2d670fde5b3478819ea8a94f9e503b9d783248a5716786f35_1.png"
+                }
+              }
+            ],
+            "vsRule": {
+              "name": "Turf War",
+              "rule": "TURF_WAR",
+              "id": "VnNSdWxlLTA="
+            }
+          }
+        },
+        {
+          "startTime": "2022-11-13T06:00:00Z",
+          "endTime": "2022-11-13T08:00:00Z",
+          "festMatchSetting": {
+            "__isVsSetting": "FestMatchSetting",
+            "__typename": "FestMatchSetting",
+            "vsStages": [
+              {
+                "id": "VnNTdGFnZS0z",
+                "vsStageId": 3,
+                "name": "Hagglefish Market",
+                "image": {
+                  "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/low_resolution/8dc2f16d39c630bab40cead5b2485ca3559e829d0d3de0c2232c7a62fefb5fa9_1.png"
+                }
+              },
+              {
+                "id": "VnNTdGFnZS0xNA==",
+                "vsStageId": 14,
+                "name": "Sturgeon Shipyard",
+                "image": {
+                  "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/low_resolution/48684c69d5c5a4ffaf16b712a4895545a8d01196115d514fc878ce99863bb3e9_1.png"
+                }
+              }
+            ],
+            "vsRule": {
+              "name": "Turf War",
+              "rule": "TURF_WAR",
+              "id": "VnNSdWxlLTA="
+            }
+          }
+        },
+        {
+          "startTime": "2022-11-13T08:00:00Z",
+          "endTime": "2022-11-13T10:00:00Z",
+          "festMatchSetting": {
+            "__isVsSetting": "FestMatchSetting",
+            "__typename": "FestMatchSetting",
+            "vsStages": [
+              {
+                "id": "VnNTdGFnZS0xMQ==",
+                "vsStageId": 11,
+                "name": "Museum d'Alfonsino",
+                "image": {
+                  "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/low_resolution/b9d8cfa186d197a27e075600a107c99d9e21646d116730f0843e0fff0aaba7dd_1.png"
+                }
+              },
+              {
+                "id": "VnNTdGFnZS0xMg==",
+                "vsStageId": 12,
+                "name": "Mahi-Mahi Resort",
+                "image": {
+                  "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/low_resolution/8273118c1ffe1bf6fe031c7d8c9795dab52632c9b76e8e9f01f644ac5ae0ccc0_1.png"
+                }
+              }
+            ],
+            "vsRule": {
+              "name": "Turf War",
+              "rule": "TURF_WAR",
+              "id": "VnNSdWxlLTA="
+            }
+          }
+        },
+        {
+          "startTime": "2022-11-13T10:00:00Z",
+          "endTime": "2022-11-13T12:00:00Z",
+          "festMatchSetting": {
+            "__isVsSetting": "FestMatchSetting",
+            "__typename": "FestMatchSetting",
+            "vsStages": [
+              {
+                "id": "VnNTdGFnZS00",
+                "vsStageId": 4,
+                "name": "Undertow Spillway",
+                "image": {
+                  "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/low_resolution/9b1c17b2075479d0397d2fb96efbc6fa3a28900712920e5fe1e9dfc59c6abc5c_1.png"
+                }
+              },
+              {
+                "id": "VnNTdGFnZS0xNg==",
+                "vsStageId": 16,
+                "name": "Wahoo World",
+                "image": {
+                  "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/low_resolution/61ea801fa4ed32360dcaf83986222ded46a72dbf56194acc6d0cf4659a92ba85_1.png"
+                }
+              }
+            ],
+            "vsRule": {
+              "name": "Turf War",
+              "rule": "TURF_WAR",
+              "id": "VnNSdWxlLTA="
+            }
+          }
+        },
+        {
+          "startTime": "2022-11-13T12:00:00Z",
+          "endTime": "2022-11-13T14:00:00Z",
+          "festMatchSetting": {
+            "__isVsSetting": "FestMatchSetting",
+            "__typename": "FestMatchSetting",
+            "vsStages": [
+              {
+                "id": "VnNTdGFnZS0y",
+                "vsStageId": 2,
+                "name": "Eeltail Alley",
+                "image": {
+                  "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/low_resolution/898e1ae6c737a9d44552c7c81f9b710676492681525c514eadc68a6780aa52af_1.png"
+                }
+              },
+              {
+                "id": "VnNTdGFnZS02",
+                "vsStageId": 6,
+                "name": "Mincemeat Metalworks",
+                "image": {
+                  "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/low_resolution/de1f212e9ff0648f36cd3b8e0917ef36b3bd51445159297dcb948f34a09f2f05_1.png"
+                }
+              }
+            ],
+            "vsRule": {
+              "name": "Turf War",
+              "rule": "TURF_WAR",
+              "id": "VnNSdWxlLTA="
+            }
+          }
+        },
+        {
+          "startTime": "2022-11-13T14:00:00Z",
+          "endTime": "2022-11-13T16:00:00Z",
+          "festMatchSetting": {
+            "__isVsSetting": "FestMatchSetting",
+            "__typename": "FestMatchSetting",
+            "vsStages": [
+              {
+                "id": "VnNTdGFnZS0z",
+                "vsStageId": 3,
+                "name": "Hagglefish Market",
+                "image": {
+                  "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/low_resolution/8dc2f16d39c630bab40cead5b2485ca3559e829d0d3de0c2232c7a62fefb5fa9_1.png"
+                }
+              },
+              {
+                "id": "VnNTdGFnZS0xNQ==",
+                "vsStageId": 15,
+                "name": "MakoMart",
+                "image": {
+                  "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/low_resolution/a8ba96c3dbd015b7bc6ea4fa067245c4e9aee62b6696cb41e02d35139dd21fe7_1.png"
+                }
+              }
+            ],
+            "vsRule": {
+              "name": "Turf War",
+              "rule": "TURF_WAR",
+              "id": "VnNSdWxlLTA="
+            }
+          }
+        },
+        {
+          "startTime": "2022-11-13T16:00:00Z",
+          "endTime": "2022-11-13T18:00:00Z",
+          "festMatchSetting": {
+            "__isVsSetting": "FestMatchSetting",
+            "__typename": "FestMatchSetting",
+            "vsStages": [
+              {
+                "id": "VnNTdGFnZS0xMA==",
+                "vsStageId": 10,
+                "name": "Hammerhead Bridge",
+                "image": {
+                  "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/low_resolution/1db8ab338b64b464df50e7f9e270e59423ff8caac6f09679a24f1b7acf3a82f3_1.png"
+                }
+              },
+              {
+                "id": "VnNTdGFnZS0xNA==",
+                "vsStageId": 14,
+                "name": "Sturgeon Shipyard",
+                "image": {
+                  "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/low_resolution/48684c69d5c5a4ffaf16b712a4895545a8d01196115d514fc878ce99863bb3e9_1.png"
+                }
+              }
+            ],
+            "vsRule": {
+              "name": "Turf War",
+              "rule": "TURF_WAR",
+              "id": "VnNSdWxlLTA="
+            }
+          }
+        },
+        {
+          "startTime": "2022-11-13T18:00:00Z",
+          "endTime": "2022-11-13T20:00:00Z",
+          "festMatchSetting": {
+            "__isVsSetting": "FestMatchSetting",
+            "__typename": "FestMatchSetting",
+            "vsStages": [
+              {
+                "id": "VnNTdGFnZS0x",
+                "vsStageId": 1,
+                "name": "Scorch Gorge",
+                "image": {
+                  "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/low_resolution/35f9ca08ccc2bf759774ab2cb886567c117b9287875ca92fb590c1294ddcdc1e_1.png"
+                }
+              },
+              {
+                "id": "VnNTdGFnZS02",
+                "vsStageId": 6,
+                "name": "Mincemeat Metalworks",
+                "image": {
+                  "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/low_resolution/de1f212e9ff0648f36cd3b8e0917ef36b3bd51445159297dcb948f34a09f2f05_1.png"
+                }
+              }
+            ],
+            "vsRule": {
+              "name": "Turf War",
+              "rule": "TURF_WAR",
+              "id": "VnNSdWxlLTA="
+            }
+          }
+        },
+        {
+          "startTime": "2022-11-13T20:00:00Z",
+          "endTime": "2022-11-13T22:00:00Z",
+          "festMatchSetting": {
+            "__isVsSetting": "FestMatchSetting",
+            "__typename": "FestMatchSetting",
+            "vsStages": [
+              {
+                "id": "VnNTdGFnZS0xNQ==",
+                "vsStageId": 15,
+                "name": "MakoMart",
+                "image": {
+                  "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/low_resolution/a8ba96c3dbd015b7bc6ea4fa067245c4e9aee62b6696cb41e02d35139dd21fe7_1.png"
+                }
+              },
+              {
+                "id": "VnNTdGFnZS0xNg==",
+                "vsStageId": 16,
+                "name": "Wahoo World",
+                "image": {
+                  "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/low_resolution/61ea801fa4ed32360dcaf83986222ded46a72dbf56194acc6d0cf4659a92ba85_1.png"
+                }
+              }
+            ],
+            "vsRule": {
+              "name": "Turf War",
+              "rule": "TURF_WAR",
+              "id": "VnNSdWxlLTA="
+            }
+          }
+        }
+      ]
+    },
+    "currentFest": {
+      "id": "RmVzdC1VUzpKVUVBLTAwMDAy",
+      "title": "What's your partner Pokémon type?",
+      "startTime": "2022-11-12T00:00:00Z",
+      "endTime": "2022-11-14T00:00:00Z",
+      "midtermTime": "2022-11-13T00:00:00Z",
+      "state": "FIRST_HALF",
+      "teams": [
+        {
+          "id": "RmVzdFRlYW0tVVM6SlVFQS0wMDAwMjpBbHBoYQ==",
+          "color": {
+            "a": 1,
+            "b": 0.454899997,
+            "g": 0.662750006,
+            "r": 0.10588
+          },
+          "myVoteState": null,
+          "role": null
+        },
+        {
+          "id": "RmVzdFRlYW0tVVM6SlVFQS0wMDAwMjpCcmF2bw==",
+          "color": {
+            "a": 1,
+            "b": 0.0823500007,
+            "g": 0.274509996,
+            "r": 0.854900002
+          },
+          "myVoteState": null,
+          "role": null
+        },
+        {
+          "id": "RmVzdFRlYW0tVVM6SlVFQS0wMDAwMjpDaGFybGll",
+          "color": {
+            "a": 1,
+            "b": 1,
+            "g": 0.454899997,
+            "r": 0.18039
+          },
+          "myVoteState": null,
+          "role": null
+        }
+      ],
+      "tricolorStage": {
+        "name": "Sturgeon Shipyard",
+        "image": {
+          "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/low_resolution/48684c69d5c5a4ffaf16b712a4895545a8d01196115d514fc878ce99863bb3e9_1.png"
+        },
+        "id": "VnNTdGFnZS0xNA=="
+      }
+    },
+    "currentPlayer": {
+      "userIcon": {
+        "url": "https://cdn-image-e0d67c509fb203858ebcb2fe3f88c2aa.baas.nintendo.com/1/2066ebe78273022a"
+      }
+    },
+    "vsStages": {
+      "nodes": [
+        {
+          "stageId": 1,
+          "id": "VnNTdGFnZS0x",
+          "vsStageId": 1,
+          "originalImage": {
+            "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/high_resolution/35f9ca08ccc2bf759774ab2cb886567c117b9287875ca92fb590c1294ddcdc1e_0.png"
+          },
+          "name": "Scorch Gorge",
+          "stats": null
+        },
+        {
+          "stageId": 2,
+          "id": "VnNTdGFnZS0y",
+          "vsStageId": 2,
+          "originalImage": {
+            "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/high_resolution/898e1ae6c737a9d44552c7c81f9b710676492681525c514eadc68a6780aa52af_0.png"
+          },
+          "name": "Eeltail Alley",
+          "stats": null
+        },
+        {
+          "stageId": 3,
+          "id": "VnNTdGFnZS0z",
+          "vsStageId": 3,
+          "originalImage": {
+            "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/high_resolution/8dc2f16d39c630bab40cead5b2485ca3559e829d0d3de0c2232c7a62fefb5fa9_0.png"
+          },
+          "name": "Hagglefish Market",
+          "stats": null
+        },
+        {
+          "stageId": 4,
+          "id": "VnNTdGFnZS00",
+          "vsStageId": 4,
+          "originalImage": {
+            "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/high_resolution/9b1c17b2075479d0397d2fb96efbc6fa3a28900712920e5fe1e9dfc59c6abc5c_0.png"
+          },
+          "name": "Undertow Spillway",
+          "stats": null
+        },
+        {
+          "stageId": 6,
+          "id": "VnNTdGFnZS02",
+          "vsStageId": 6,
+          "originalImage": {
+            "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/high_resolution/de1f212e9ff0648f36cd3b8e0917ef36b3bd51445159297dcb948f34a09f2f05_0.png"
+          },
+          "name": "Mincemeat Metalworks",
+          "stats": null
+        },
+        {
+          "stageId": 10,
+          "id": "VnNTdGFnZS0xMA==",
+          "vsStageId": 10,
+          "originalImage": {
+            "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/high_resolution/1db8ab338b64b464df50e7f9e270e59423ff8caac6f09679a24f1b7acf3a82f3_0.png"
+          },
+          "name": "Hammerhead Bridge",
+          "stats": null
+        },
+        {
+          "stageId": 11,
+          "id": "VnNTdGFnZS0xMQ==",
+          "vsStageId": 11,
+          "originalImage": {
+            "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/high_resolution/b9d8cfa186d197a27e075600a107c99d9e21646d116730f0843e0fff0aaba7dd_0.png"
+          },
+          "name": "Museum d'Alfonsino",
+          "stats": null
+        },
+        {
+          "stageId": 12,
+          "id": "VnNTdGFnZS0xMg==",
+          "vsStageId": 12,
+          "originalImage": {
+            "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/high_resolution/8273118c1ffe1bf6fe031c7d8c9795dab52632c9b76e8e9f01f644ac5ae0ccc0_0.png"
+          },
+          "name": "Mahi-Mahi Resort",
+          "stats": null
+        },
+        {
+          "stageId": 13,
+          "id": "VnNTdGFnZS0xMw==",
+          "vsStageId": 13,
+          "originalImage": {
+            "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/high_resolution/40aba8b36a9439e2d670fde5b3478819ea8a94f9e503b9d783248a5716786f35_0.png"
+          },
+          "name": "Inkblot Art Academy",
+          "stats": null
+        },
+        {
+          "stageId": 14,
+          "id": "VnNTdGFnZS0xNA==",
+          "vsStageId": 14,
+          "originalImage": {
+            "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/high_resolution/48684c69d5c5a4ffaf16b712a4895545a8d01196115d514fc878ce99863bb3e9_0.png"
+          },
+          "name": "Sturgeon Shipyard",
+          "stats": null
+        },
+        {
+          "stageId": 15,
+          "id": "VnNTdGFnZS0xNQ==",
+          "vsStageId": 15,
+          "originalImage": {
+            "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/high_resolution/a8ba96c3dbd015b7bc6ea4fa067245c4e9aee62b6696cb41e02d35139dd21fe7_0.png"
+          },
+          "name": "MakoMart",
+          "stats": null
+        },
+        {
+          "stageId": 16,
+          "id": "VnNTdGFnZS0xNg==",
+          "vsStageId": 16,
+          "originalImage": {
+            "url": "https://splatoon3.ink/assets/splatnet/stage_img/icon/high_resolution/61ea801fa4ed32360dcaf83986222ded46a72dbf56194acc6d0cf4659a92ba85_0.png"
+          },
+          "name": "Wahoo World",
+          "stats": null
+        }
+      ]
+    }
+  }
+}
