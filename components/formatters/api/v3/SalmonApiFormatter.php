@@ -62,6 +62,10 @@ final class SalmonApiFormatter
             'job_score' => $model->job_score,
             'job_rate' => self::floatVal($model->job_rate),
             'job_bonus' => $model->job_bonus,
+            'bosses' => SalmonBossAppearanceApiFormatter::allToJson(
+                $model->salmonBossAppearance3s,
+                $fullTranslate,
+            ),
             'note' => $model->note,
             'private_note' => $isAuthenticated ? $model->private_note : false,
             'link_url' => $model->link_url,

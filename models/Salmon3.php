@@ -63,9 +63,11 @@ use yii\db\ActiveRecord;
  *
  * @property Agent $agent
  * @property Map3 $bigStage
+ * @property SalmonBoss3[] $bosses
  * @property SalmonFailReason2 $failReason
  * @property SalmonKing3 $kingSalmonid
  * @property SalmonAgentVariable3[] $salmonAgentVariable3s
+ * @property SalmonBossAppearance3[] $salmonBossAppearance3s
  * @property SalmonSchedule3 $schedule
  * @property SalmonMap3 $stage
  * @property SalmonTitle3 $titleAfter
@@ -167,6 +169,11 @@ class Salmon3 extends ActiveRecord
         return $this->hasOne(Map3::class, ['id' => 'big_stage_id']);
     }
 
+    public function getBosses(): ActiveQuery
+    {
+        return $this->hasMany(SalmonBoss3::class, ['id' => 'boss_id'])->viaTable('salmon_boss_appearance3', ['salmon_id' => 'id']);
+    }
+
     public function getFailReason(): ActiveQuery
     {
         return $this->hasOne(SalmonFailReason2::class, ['id' => 'fail_reason_id']);
@@ -180,6 +187,11 @@ class Salmon3 extends ActiveRecord
     public function getSalmonAgentVariable3s(): ActiveQuery
     {
         return $this->hasMany(SalmonAgentVariable3::class, ['salmon_id' => 'id']);
+    }
+
+    public function getSalmonBossAppearance3s(): ActiveQuery
+    {
+        return $this->hasMany(SalmonBossAppearance3::class, ['salmon_id' => 'id']);
     }
 
     public function getSchedule(): ActiveQuery

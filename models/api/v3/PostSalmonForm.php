@@ -17,6 +17,7 @@ use app\components\helpers\UuidRegexp;
 use app\components\helpers\db\Now;
 use app\components\validators\BattleAgentVariable3Validator;
 use app\components\validators\KeyValidator;
+use app\components\validators\SalmonBoss3Validator;
 use app\models\Agent;
 use app\models\AgentVariable3;
 use app\models\Map3;
@@ -37,6 +38,7 @@ use app\models\api\v3\postBattle\AgentVariableTrait;
 use app\models\api\v3\postBattle\GameVersionTrait;
 use app\models\api\v3\postBattle\TypeHelperTrait;
 use app\models\api\v3\postBattle\UserAgentTrait;
+use app\models\api\v3\postSalmon\BossForm;
 use jp3cki\uuid\Uuid;
 use yii\base\InvalidConfigException;
 use yii\base\Model;
@@ -167,6 +169,7 @@ final class PostSalmonForm extends Model
             ],
 
             [['agent_variables'], BattleAgentVariable3Validator::class],
+            [['bosses'], SalmonBoss3Validator::class],
         ];
     }
 
@@ -269,6 +272,10 @@ final class PostSalmonForm extends Model
                 // if (!$this->savePlayers($battle, $rewriteKillAssist)) {
                 //     return null;
                 // }
+
+                if (!$this->saveBosses($battle)) {
+                    return null;
+                }
 
                 if (!$this->saveAgentVariables($battle)) {
                     return null;
@@ -409,6 +416,49 @@ final class PostSalmonForm extends Model
 
     //     return true;
     // }
+
+    private function saveBosses(Salmon3 $battle): bool
+    {
+        if (\is_array($this->bosses)) {
+            foreach ($this->bosses as $key => $data) {
+                if ($data === null) {
+                    continue;
+                }
+
+                $form = Yii::createObject(BossForm::class);
+                $form->attributes = $data;
+                if (!$form->save($battle, $key)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+    private function savePlayers(Battle3 $battle, bool $rewriteKillAssist): bool
+    {
+        if (\is_array($this->our_team_players) && $this->our_team_players) {
+            foreach ($this->our_team_players as $player) {
+                $model = Yii::createObject(PlayerForm::class);
+                $model->attributes = $player;
+                if (!$model->save($battle, true, $rewriteKillAssist)) {
+                    return false;
+                }
+            }
+        }
+
+        if (\is_array($this->their_team_players) && $this->their_team_players) {
+            foreach ($this->their_team_players as $player) {
+                $model = Yii::createObject(PlayerForm::class);
+                $model->attributes = $player;
+                if (!$model->save($battle, false, $rewriteKillAssist)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
 
     // private function saveMedals(Battle3 $battle): bool
     // {
