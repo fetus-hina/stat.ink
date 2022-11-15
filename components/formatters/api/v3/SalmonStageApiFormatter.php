@@ -18,7 +18,7 @@ final class SalmonStageApiFormatter
     public static function toJson(
         ?SalmonMap3 $coopStage,
         ?Map3 $vsStage,
-        bool $fullTranslate = false,
+        bool $fullTranslate = false
     ): ?array {
         if (!$coopStage && !$vsStage) {
             return null;
