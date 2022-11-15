@@ -13,7 +13,7 @@ namespace app\actions\api\v3\salmon;
 use DateTimeZone;
 use Yii;
 use app\actions\api\v3\traits\ApiInitializerTrait;
-use app\components\formatters\api\v3\BattleApiFormatter;
+use app\components\formatters\api\v3\SalmonApiFormatter;
 use app\components\jobs\SlackJob;
 use app\components\web\ServiceUnavailableHttpException;
 use app\models\Salmon3;
@@ -82,8 +82,7 @@ final class PostSalmonAction extends Action
             'X-User-Screen-Name' => $battle->user->screen_name,
             'X-Battle-ID' => $battle->uuid,
         ]);
-        $resp->data = 'TODO';
-        // $resp->data = BattleApiFormatter::toJson($battle, true, false);
+        $resp->data = SalmonApiFormatter::toJson($battle, true, false);
         return $resp;
     }
 
