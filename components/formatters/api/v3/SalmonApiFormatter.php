@@ -28,7 +28,7 @@ final class SalmonApiFormatter
         return [
             'id' => $model->uuid,
             'url' => Url::to(
-                ['/salmon-v3/show',
+                ['/salmon-v3/view',
                     'screen_name' => $model->user->screen_name,
                     'battle' => $model->uuid,
                 ],
@@ -62,6 +62,7 @@ final class SalmonApiFormatter
             'job_score' => $model->job_score,
             'job_rate' => self::floatVal($model->job_rate),
             'job_bonus' => $model->job_bonus,
+            'waves' => SalmonWaveApiFormatter::allToJson($model->salmonWave3s, $fullTranslate),
             'bosses' => SalmonBossAppearanceApiFormatter::allToJson(
                 $model->salmonBossAppearance3s,
                 $fullTranslate,

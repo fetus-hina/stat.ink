@@ -57,7 +57,8 @@ final class BossForm extends Model
 
     public function save(Salmon3 $salmon, string $bossKey): ?SalmonBossAppearance3
     {
-        if (!$bossId = $this->getBossId($bossKey)) {
+        $bossId = self::key2id($bossKey, SalmonBoss3::class, SalmonBoss3Alias::class, 'salmonid_id');
+        if (!$bossId) {
             return null;
         }
 
@@ -76,26 +77,5 @@ final class BossForm extends Model
         }
 
         return $model->save() ? $model : null;
-    }
-
-    private function getBossId(string $bossKey): ?int
-    {
-        $boss = SalmonBoss3::find()
-            ->andWhere(['key' => $bossKey])
-            ->limit(1)
-            ->one();
-        if ($boss) {
-            return $boss->id;
-        }
-
-        $boss = SalmonBoss3Alias::find()
-            ->andWhere(['key' => $bossKey])
-            ->limit(1)
-            ->one();
-        if ($boss) {
-            return $boss->salmonid->id;
-        }
-
-        return null;
     }
 }

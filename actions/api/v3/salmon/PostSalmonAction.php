@@ -67,7 +67,7 @@ final class PostSalmonAction extends Action
         $resp->statusCode = 201;
         $resp->headers->fromArray([
             'Location' => Url::to(
-                ['/salmon-v3/show',
+                ['/salmon-v3/view',
                     'screen_name' => $battle->user->screen_name,
                     'battle' => $battle->uuid,
                 ],

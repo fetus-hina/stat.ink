@@ -15,9 +15,11 @@ use app\components\db\Connection;
 use app\components\helpers\CriticalSection;
 use app\components\helpers\UuidRegexp;
 use app\components\helpers\db\Now;
+use app\components\validators\ArrayValidator;
 use app\components\validators\BattleAgentVariable3Validator;
 use app\components\validators\KeyValidator;
 use app\components\validators\SalmonBoss3Validator;
+use app\components\validators\SalmonWave3FormValidator;
 use app\models\Agent;
 use app\models\AgentVariable3;
 use app\models\Map3;
@@ -39,6 +41,7 @@ use app\models\api\v3\postBattle\GameVersionTrait;
 use app\models\api\v3\postBattle\TypeHelperTrait;
 use app\models\api\v3\postBattle\UserAgentTrait;
 use app\models\api\v3\postSalmon\BossForm;
+use app\models\api\v3\postSalmon\WaveForm;
 use jp3cki\uuid\Uuid;
 use yii\base\InvalidConfigException;
 use yii\base\Model;
@@ -169,6 +172,11 @@ final class PostSalmonForm extends Model
             ],
 
             [['agent_variables'], BattleAgentVariable3Validator::class],
+            [['waves'], ArrayValidator::class,
+                'rule' => [SalmonWave3FormValidator::class, 'skipOnEmpty' => false],
+                'min' => 1,
+                'max' => 4,
+            ],
             [['bosses'], SalmonBoss3Validator::class],
         ];
     }
@@ -272,6 +280,10 @@ final class PostSalmonForm extends Model
                 // if (!$this->savePlayers($battle, $rewriteKillAssist)) {
                 //     return null;
                 // }
+
+                if (!$this->saveWaves($battle)) {
+                    return null;
+                }
 
                 if (!$this->saveBosses($battle)) {
                     return null;
@@ -417,6 +429,25 @@ final class PostSalmonForm extends Model
     //     return true;
     // }
 
+    private function saveWaves(Salmon3 $battle): bool
+    {
+        if (\is_array($this->waves) && $this->waves) {
+            foreach (\array_values($this->waves) as $i => $data) {
+                if (!$data) {
+                    return false;
+                }
+
+                $form = Yii::createObject(WaveForm::class);
+                $form->attributes = $data;
+                if (!$form->save($battle, $i + 1)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
     private function saveBosses(Salmon3 $battle): bool
     {
         if (\is_array($this->bosses)) {
@@ -435,6 +466,7 @@ final class PostSalmonForm extends Model
 
         return true;
     }
+
     private function savePlayers(Battle3 $battle, bool $rewriteKillAssist): bool
     {
         if (\is_array($this->our_team_players) && $this->our_team_players) {

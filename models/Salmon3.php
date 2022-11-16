@@ -68,6 +68,7 @@ use yii\db\ActiveRecord;
  * @property SalmonKing3 $kingSalmonid
  * @property SalmonAgentVariable3[] $salmonAgentVariable3s
  * @property SalmonBossAppearance3[] $salmonBossAppearance3s
+ * @property SalmonWave3[] $salmonWave3s
  * @property SalmonSchedule3 $schedule
  * @property SalmonMap3 $stage
  * @property SalmonTitle3 $titleAfter
@@ -192,6 +193,11 @@ class Salmon3 extends ActiveRecord
     public function getSalmonBossAppearance3s(): ActiveQuery
     {
         return $this->hasMany(SalmonBossAppearance3::class, ['salmon_id' => 'id']);
+    }
+
+    public function getSalmonWave3s(): ActiveQuery
+    {
+        return $this->hasMany(SalmonWave3::class, ['salmon_id' => 'id']);
     }
 
     public function getSchedule(): ActiveQuery
