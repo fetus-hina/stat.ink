@@ -34,8 +34,6 @@ use app\models\SalmonMap3Alias;
 use app\models\SalmonSchedule3;
 use app\models\SalmonTitle3;
 use app\models\SalmonTitle3Alias;
-use app\models\SalmonWeapon3;
-use app\models\SalmonWeapon3Alias;
 use app\models\api\v3\postBattle\AgentVariableTrait;
 use app\models\api\v3\postBattle\GameVersionTrait;
 use app\models\api\v3\postBattle\TypeHelperTrait;
@@ -63,7 +61,6 @@ final class PostSalmonForm extends Model
     public $uuid;
     public $big_run;
     public $stage;
-    public $weapon;
     public $danger_rate;
     public $clear_waves;
     public $fail_reason;
@@ -113,7 +110,7 @@ final class PostSalmonForm extends Model
         return [
             [['big_run'], 'required'],
 
-            [['uuid', 'stage', 'weapon', 'fail_reason', 'king_salmonid', 'title_before'], 'string'],
+            [['uuid', 'stage', 'fail_reason', 'king_salmonid', 'title_before'], 'string'],
             [['title_after', 'note', 'private_note', 'link_url'], 'string'],
             [['agent'], 'string', 'max' => 64],
             [['agent_version'], 'string', 'max' => 255],
@@ -154,10 +151,6 @@ final class PostSalmonForm extends Model
                 'modelClass' => Map3::class,
                 'aliasClass' => Map3Alias::class,
                 'when' => fn (self $model): bool => self::boolVal($model->big_run) === true,
-            ],
-            [['weapon'], KeyValidator::class,
-                'modelClass' => SalmonWeapon3::class,
-                'aliasClass' => SalmonWeapon3Alias::class,
             ],
             [['fail_reason'], KeyValidator::class,
                 'modelClass' => SalmonFailReason2::class,
@@ -325,7 +318,6 @@ final class PostSalmonForm extends Model
             'big_stage_id' => $isBigRun
                 ? self::key2id($this->stage, Map3::class, Map3Alias::class, 'map_id')
                 : null,
-            'weapon_id' => self::key2id($this->weapon, SalmonWeapon3::class, SalmonWeapon3Alias::class, 'weapon_id'),
             'danger_rate' => self::floatVal($this->danger_rate),
             'clear_waves' => self::intVal($this->clear_waves),
             'fail_reason_id' => self::key2id($this->fail_reason, SalmonFailReason2::class),

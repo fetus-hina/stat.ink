@@ -24,7 +24,6 @@ use yii\db\ActiveRecord;
  * @property boolean $is_big_run
  * @property integer $stage_id
  * @property integer $big_stage_id
- * @property integer $weapon_id
  * @property string $danger_rate
  * @property integer $clear_waves
  * @property integer $fail_reason_id
@@ -76,7 +75,6 @@ use yii\db\ActiveRecord;
  * @property User $user
  * @property AgentVariable3[] $variables
  * @property SplatoonVersion3 $version
- * @property SalmonWeapon3 $weapon
  */
 class Salmon3 extends ActiveRecord
 {
@@ -89,8 +87,8 @@ class Salmon3 extends ActiveRecord
     {
         return [
             [['user_id', 'uuid', 'client_uuid', 'is_big_run', 'is_automated', 'period', 'remote_addr', 'remote_port', 'created_at', 'updated_at'], 'required'],
-            [['user_id', 'stage_id', 'big_stage_id', 'weapon_id', 'clear_waves', 'fail_reason_id', 'king_smell', 'king_salmonid_id', 'title_before_id', 'title_exp_before', 'title_after_id', 'title_exp_after', 'golden_eggs', 'power_eggs', 'gold_scale', 'silver_scale', 'bronze_scale', 'job_point', 'job_score', 'job_bonus', 'version_id', 'agent_id', 'period', 'schedule_id', 'remote_port'], 'default', 'value' => null],
-            [['user_id', 'stage_id', 'big_stage_id', 'weapon_id', 'clear_waves', 'fail_reason_id', 'king_smell', 'king_salmonid_id', 'title_before_id', 'title_exp_before', 'title_after_id', 'title_exp_after', 'golden_eggs', 'power_eggs', 'gold_scale', 'silver_scale', 'bronze_scale', 'job_point', 'job_score', 'job_bonus', 'version_id', 'agent_id', 'period', 'schedule_id', 'remote_port'], 'integer'],
+            [['user_id', 'stage_id', 'big_stage_id', 'clear_waves', 'fail_reason_id', 'king_smell', 'king_salmonid_id', 'title_before_id', 'title_exp_before', 'title_after_id', 'title_exp_after', 'golden_eggs', 'power_eggs', 'gold_scale', 'silver_scale', 'bronze_scale', 'job_point', 'job_score', 'job_bonus', 'version_id', 'agent_id', 'period', 'schedule_id', 'remote_port'], 'default', 'value' => null],
+            [['user_id', 'stage_id', 'big_stage_id', 'clear_waves', 'fail_reason_id', 'king_smell', 'king_salmonid_id', 'title_before_id', 'title_exp_before', 'title_after_id', 'title_exp_after', 'golden_eggs', 'power_eggs', 'gold_scale', 'silver_scale', 'bronze_scale', 'job_point', 'job_score', 'job_bonus', 'version_id', 'agent_id', 'period', 'schedule_id', 'remote_port'], 'integer'],
             [['uuid', 'client_uuid', 'note', 'private_note', 'link_url', 'remote_addr'], 'string'],
             [['is_big_run', 'clear_extra', 'is_automated', 'has_disconnect', 'is_deleted'], 'boolean'],
             [['danger_rate', 'job_rate'], 'number'],
@@ -105,7 +103,6 @@ class Salmon3 extends ActiveRecord
             [['schedule_id'], 'exist', 'skipOnError' => true, 'targetClass' => SalmonSchedule3::class, 'targetAttribute' => ['schedule_id' => 'id']],
             [['title_before_id'], 'exist', 'skipOnError' => true, 'targetClass' => SalmonTitle3::class, 'targetAttribute' => ['title_before_id' => 'id']],
             [['title_after_id'], 'exist', 'skipOnError' => true, 'targetClass' => SalmonTitle3::class, 'targetAttribute' => ['title_after_id' => 'id']],
-            [['weapon_id'], 'exist', 'skipOnError' => true, 'targetClass' => SalmonWeapon3::class, 'targetAttribute' => ['weapon_id' => 'id']],
             [['version_id'], 'exist', 'skipOnError' => true, 'targetClass' => SplatoonVersion3::class, 'targetAttribute' => ['version_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
@@ -121,7 +118,6 @@ class Salmon3 extends ActiveRecord
             'is_big_run' => 'Is Big Run',
             'stage_id' => 'Stage ID',
             'big_stage_id' => 'Big Stage ID',
-            'weapon_id' => 'Weapon ID',
             'danger_rate' => 'Danger Rate',
             'clear_waves' => 'Clear Waves',
             'fail_reason_id' => 'Fail Reason ID',
@@ -233,10 +229,5 @@ class Salmon3 extends ActiveRecord
     public function getVersion(): ActiveQuery
     {
         return $this->hasOne(SplatoonVersion3::class, ['id' => 'version_id']);
-    }
-
-    public function getWeapon(): ActiveQuery
-    {
-        return $this->hasOne(SalmonWeapon3::class, ['id' => 'weapon_id']);
     }
 }

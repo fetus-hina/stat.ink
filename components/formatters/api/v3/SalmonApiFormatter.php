@@ -42,7 +42,6 @@ final class SalmonApiFormatter
                 $model->bigStage,
                 $fullTranslate,
             ),
-            'weapon' => SalmonWeaponApiFormatter::toJson($model->weapon, $fullTranslate),
             'danger_rate' => self::floatVal($model->danger_rate),
             'clear_waves' => $model->clear_waves,
             'fail_reason' => SalmonFailReasonApiFormatter::toJson($model->failReason, $fullTranslate),
