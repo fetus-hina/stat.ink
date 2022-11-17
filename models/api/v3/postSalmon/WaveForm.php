@@ -11,11 +11,15 @@ namespace app\models\api\v3\postSalmon;
 use Yii;
 use app\components\behaviors\TrimAttributesBehavior;
 use app\components\validators\KeyValidator;
+use app\components\validators\SalmonSpecialUse3Validator;
 use app\models\Salmon3;
 use app\models\SalmonEvent3;
 use app\models\SalmonEvent3Alias;
+use app\models\SalmonSpecialUse3;
 use app\models\SalmonWaterLevel2;
 use app\models\SalmonWave3;
+use app\models\Special3;
+use app\models\Special3Alias;
 use app\models\api\v3\postBattle\TypeHelperTrait;
 use yii\base\Model;
 
@@ -56,7 +60,7 @@ final class WaveForm extends Model
                 'aliasClass' => SalmonEvent3Alias::class,
             ],
 
-            // special_uses
+            [['special_uses'], SalmonSpecialUse3Validator::class],
         ];
     }
 
@@ -82,7 +86,25 @@ final class WaveForm extends Model
             return null;
         }
 
-        // TODO: special_uses
+        if ($this->special_uses && \is_array($this->special_uses)) {
+            foreach ($this->special_uses as $spKey => $spCount) {
+                $special = self::key2id($spKey, Special3::class, Special3Alias::class, 'special_id');
+                if ($special) {
+                    $spCountN = \filter_var($spCount, FILTER_VALIDATE_INT);
+                    if (\is_int($spCountN) && $spCountN > 0) {
+                        $model2 = Yii::createObject([
+                            'class' => SalmonSpecialUse3::class,
+                            'wave_id' => $model->id,
+                            'special_id' => $special,
+                            'count' => $spCountN,
+                        ]);
+                        if (!$model2->save()) {
+                            return null;
+                        }
+                    }
+                }
+            }
+        }
 
         return $model;
     }

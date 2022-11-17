@@ -37,7 +37,10 @@ final class SalmonWaveApiFormatter
             'golden_quota' => $model->golden_quota,
             'golden_delivered' => $model->golden_delivered,
             'golden_appearances' => $model->golden_appearances,
-            // special_uses
+            'special_uses' => SalmonSpecialUseApiFormatter::allToJson(
+                $model->salmonSpecialUse3s,
+                $fullTranslate,
+            ),
         ];
     }
 }
