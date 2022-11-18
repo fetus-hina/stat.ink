@@ -71,7 +71,7 @@
     "updates": "^13.2.1",
     "uuidjs": "^4.2.12",
     "webpack": "^5.75.0",
-    "webpack-cli": "^4.10.0",
+    "webpack-cli": "^5.0.0",
     "yii2-pjax": "git+https://github.com/yiisoft/jquery-pjax.git",
     "zxcvbn": "^4.4.2"
   },
