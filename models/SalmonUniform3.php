@@ -21,6 +21,8 @@ use yii\db\ActiveRecord;
  * @property string $key
  * @property string $name
  * @property integer $rank
+ *
+ * @property SalmonPlayer3[] $salmonPlayer3s
  */
 class SalmonUniform3 extends ActiveRecord
 {
@@ -50,5 +52,10 @@ class SalmonUniform3 extends ActiveRecord
             'name' => 'Name',
             'rank' => 'Rank',
         ];
+    }
+
+    public function getSalmonPlayer3s(): ActiveQuery
+    {
+        return $this->hasMany(SalmonPlayer3::class, ['uniform_id' => 'id']);
     }
 }

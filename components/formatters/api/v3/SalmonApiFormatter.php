@@ -61,6 +61,7 @@ final class SalmonApiFormatter
             'job_score' => $model->job_score,
             'job_rate' => self::floatVal($model->job_rate),
             'job_bonus' => $model->job_bonus,
+            'players' => SalmonPlayerApiFormatter::allToJson($model->salmonPlayer3s, $fullTranslate),
             'waves' => SalmonWaveApiFormatter::allToJson($model->salmonWave3s, $fullTranslate),
             'bosses' => SalmonBossAppearanceApiFormatter::allToJson(
                 $model->salmonBossAppearance3s,

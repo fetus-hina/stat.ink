@@ -19,6 +19,7 @@ use app\components\validators\ArrayValidator;
 use app\components\validators\BattleAgentVariable3Validator;
 use app\components\validators\KeyValidator;
 use app\components\validators\SalmonBoss3Validator;
+use app\components\validators\SalmonPlayer3FormValidator;
 use app\components\validators\SalmonWave3FormValidator;
 use app\models\Agent;
 use app\models\AgentVariable3;
@@ -39,10 +40,12 @@ use app\models\api\v3\postBattle\GameVersionTrait;
 use app\models\api\v3\postBattle\TypeHelperTrait;
 use app\models\api\v3\postBattle\UserAgentTrait;
 use app\models\api\v3\postSalmon\BossForm;
+use app\models\api\v3\postSalmon\PlayerForm;
 use app\models\api\v3\postSalmon\WaveForm;
 use jp3cki\uuid\Uuid;
 use yii\base\InvalidConfigException;
 use yii\base\Model;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 
 /**
@@ -165,6 +168,11 @@ final class PostSalmonForm extends Model
             ],
 
             [['agent_variables'], BattleAgentVariable3Validator::class],
+            [['players'], ArrayValidator::class,
+                'rule' => [SalmonPlayer3FormValidator::class, 'skipOnEmpty' => false],
+                'min' => 1,
+                'max' => 4,
+            ],
             [['waves'], ArrayValidator::class,
                 'rule' => [SalmonWave3FormValidator::class, 'skipOnEmpty' => false],
                 'min' => 1,
@@ -270,9 +278,9 @@ final class PostSalmonForm extends Model
                     return null;
                 }
 
-                // if (!$this->savePlayers($battle, $rewriteKillAssist)) {
-                //     return null;
-                // }
+                if (!$this->savePlayers($battle)) {
+                    return null;
+                }
 
                 if (!$this->saveWaves($battle)) {
                     return null;
@@ -372,54 +380,32 @@ final class PostSalmonForm extends Model
 
     private function hasDisconnect(): bool
     {
+        if (\is_array($this->players)) {
+            foreach ($this->players as $player) {
+                $value = self::boolVal(ArrayHelper::getValue($player, 'disconnected'));
+                if ($value === true) {
+                    return true;
+                }
+            }
+        }
+
         return false;
-    //     if (\is_array($this->our_team_players) && $this->our_team_players) {
-    //         foreach ($this->our_team_players as $player) {
-    //             $model = Yii::createObject(PlayerForm::class);
-    //             $model->attributes = $player;
-    //             if (self::boolVal($model->disconnected)) {
-    //                 return true;
-    //             }
-    //         }
-    //     }
-
-    //     if (\is_array($this->their_team_players) && $this->their_team_players) {
-    //         foreach ($this->their_team_players as $player) {
-    //             $model = Yii::createObject(PlayerForm::class);
-    //             $model->attributes = $player;
-    //             if (self::boolVal($model->disconnected)) {
-    //                 return true;
-    //             }
-    //         }
-    //     }
-
-    //     return false;
     }
 
-    // private function savePlayers(Battle3 $battle, bool $rewriteKillAssist): bool
-    // {
-    //     if (\is_array($this->our_team_players) && $this->our_team_players) {
-    //         foreach ($this->our_team_players as $player) {
-    //             $model = Yii::createObject(PlayerForm::class);
-    //             $model->attributes = $player;
-    //             if (!$model->save($battle, true, $rewriteKillAssist)) {
-    //                 return false;
-    //             }
-    //         }
-    //     }
+    private function savePlayers(Salmon3 $battle): bool
+    {
+        if (\is_array($this->players)) {
+            foreach ($this->players as $player) {
+                $model = Yii::createObject(PlayerForm::class);
+                $model->attributes = $player;
+                if (!$model->save($battle)) {
+                    return false;
+                }
+            }
+        }
 
-    //     if (\is_array($this->their_team_players) && $this->their_team_players) {
-    //         foreach ($this->their_team_players as $player) {
-    //             $model = Yii::createObject(PlayerForm::class);
-    //             $model->attributes = $player;
-    //             if (!$model->save($battle, false, $rewriteKillAssist)) {
-    //                 return false;
-    //             }
-    //         }
-    //     }
-
-    //     return true;
-    // }
+        return true;
+    }
 
     private function saveWaves(Salmon3 $battle): bool
     {
@@ -458,51 +444,6 @@ final class PostSalmonForm extends Model
 
         return true;
     }
-
-    private function savePlayers(Battle3 $battle, bool $rewriteKillAssist): bool
-    {
-        if (\is_array($this->our_team_players) && $this->our_team_players) {
-            foreach ($this->our_team_players as $player) {
-                $model = Yii::createObject(PlayerForm::class);
-                $model->attributes = $player;
-                if (!$model->save($battle, true, $rewriteKillAssist)) {
-                    return false;
-                }
-            }
-        }
-
-        if (\is_array($this->their_team_players) && $this->their_team_players) {
-            foreach ($this->their_team_players as $player) {
-                $model = Yii::createObject(PlayerForm::class);
-                $model->attributes = $player;
-                if (!$model->save($battle, false, $rewriteKillAssist)) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
-    }
-
-    // private function saveMedals(Battle3 $battle): bool
-    // {
-    //     if (!$list = $this->medals) {
-    //         return true;
-    //     }
-
-    //     foreach ($list as $medal) {
-    //         $medalModel = $this->findOrCreateMedal($medal);
-    //         if (!$medalModel) {
-    //             return false;
-    //         }
-
-    //         if (!$this->saveMedal($battle, $medalModel)) {
-    //             return false;
-    //         }
-    //     }
-
-    //     return true;
-    // }
 
     private function saveAgentVariables(Salmon3 $battle): bool
     {
