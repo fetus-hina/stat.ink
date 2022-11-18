@@ -59,7 +59,7 @@
     "react-redux": "^7.2.9",
     "redux": "^4.2.0",
     "redux-saga": "^1.2.1",
-    "regenerator-runtime": "^0.13.10",
+    "regenerator-runtime": "^0.13.11",
     "sass": "^1.56.1",
     "semistandard": "^16.0.1",
     "semver": "^7.3.8",
