@@ -41,8 +41,11 @@ use app\models\SplatoonVersion3;
 use app\models\User;
 use app\models\Weapon3;
 use app\models\Weapon3Alias;
+use app\models\api\v3\postBattle\AgentVariableTrait;
+use app\models\api\v3\postBattle\GameVersionTrait;
 use app\models\api\v3\postBattle\PlayerForm;
 use app\models\api\v3\postBattle\TypeHelperTrait;
+use app\models\api\v3\postBattle\UserAgentTrait;
 use jp3cki\uuid\Uuid;
 use yii\base\InvalidConfigException;
 use yii\base\Model;
@@ -56,7 +59,10 @@ use yii\web\UploadedFile;
  */
 final class PostBattleForm extends Model
 {
+    use AgentVariableTrait;
+    use GameVersionTrait;
     use TypeHelperTrait;
+    use UserAgentTrait;
 
     public $test;
 
@@ -396,7 +402,12 @@ final class PostBattleForm extends Model
             'note' => self::strVal($this->note),
             'private_note' => self::strVal($this->private_note),
             'link_url' => self::strVal($this->link_url),
-            'version_id' => self::gameVersion(self::intVal($this->start_at), self::intVal($this->end_at)),
+            'version_id' => self::gameVersion(
+                self::guessStartAt(
+                    self::intVal($this->start_at),
+                    self::intVal($this->end_at),
+                ),
+            ),
             'agent_id' => self::userAgent($this->agent, $this->agent_version),
             'is_automated' => self::boolVal($this->automated) ?: false,
             'use_for_entire' => false, // あとで上書き
@@ -615,40 +626,6 @@ final class PostBattleForm extends Model
         return true;
     }
 
-    private function findOrCreateAgentVariable(string $key, string $value): ?int
-    {
-        // use double-checking lock pattern
-        //
-        // 1. find data without lock (fast, the data already exists)
-        // In most cases, we'll find them here.
-        $model = AgentVariable3::findOne(['key' => $key, 'value' => $value]);
-        if (!$model) {
-            // 2. lock if not found
-            if (!$lock = CriticalSection::lock(AgentVariable3::class, 60)) {
-                return null;
-            }
-            try {
-                // 3. find data again with lock (it may created on another process/thread)
-                $model = AgentVariable3::findOne(['key' => $key, 'value' => $value]);
-                if (!$model) {
-                    // 4. create new data with lock (it's new!)
-                    $model = Yii::createObject([
-                        'class' => AgentVariable3::class,
-                        'key' => $key,
-                        'value' => $value,
-                    ]);
-                    if (!$model->save()) {
-                        return null;
-                    }
-                }
-            } finally {
-                unset($lock);
-            }
-        }
-
-        return (int)$model->id;
-    }
-
     private function saveBattleImages(Battle3 $battle): bool
     {
         $targets = [
@@ -753,49 +730,9 @@ final class PostBattleForm extends Model
         return false;
     }
 
-    private static function userAgent(?string $agentName, ?string $agentVersion): ?int
-    {
-        $agentName = self::strVal($agentName);
-        $agentVersion = self::strVal($agentVersion);
-        if ($agentName === null || $agentVersion === null) {
-            return null;
-        }
-
-        $model = Agent::find()
-            ->andWhere([
-                'name' => $agentName,
-                'version' => $agentVersion,
-            ])
-            ->limit(1)
-            ->one();
-        if (!$model) {
-            $model = Yii::createObject([
-                'class' => Agent::class,
-                'name' => $agentName,
-                'version' => $agentVersion,
-            ]);
-            if (!$model->save()) {
-                return null;
-            }
-        }
-
-        return (int)$model->id;
-    }
-
     private static function now(): Now
     {
         return Yii::createObject(Now::class);
-    }
-
-    private static function gameVersion(?int $startAt, ?int $endAt): ?int
-    {
-        $startAt = self::guessStartAt($startAt, $endAt);
-        $model = SplatoonVersion3::find()
-            ->andWhere(['<=', 'release_at', self::tsVal($startAt)])
-            ->orderBy(['release_at' => SORT_DESC])
-            ->limit(1)
-            ->one();
-        return $model ? (int)$model->id : null;
     }
 
     private static function guessPeriod(?int $startAt, ?int $endAt): int

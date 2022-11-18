@@ -13,4 +13,6 @@ return [
     'King Salmonid' => 'オカシラシャケ',
     'Known Occurrence' => '特殊な状況',
     'Salmon Run' => 'サーモンラン',
+    'Time is up' => '時間切れ',
+    'Wipe out' => '全滅'
 ];

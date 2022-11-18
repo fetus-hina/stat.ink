@@ -21,6 +21,7 @@ use yii\db\ActiveRecord;
  * @property string $key
  * @property string $name
  *
+ * @property Salmon3[] $salmon3s
  * @property SalmonKing3Alias[] $salmonKing3Aliases
  */
 class SalmonKing3 extends ActiveRecord
@@ -47,6 +48,11 @@ class SalmonKing3 extends ActiveRecord
             'key' => 'Key',
             'name' => 'Name',
         ];
+    }
+
+    public function getSalmon3s(): ActiveQuery
+    {
+        return $this->hasMany(Salmon3::class, ['king_salmonid_id' => 'id']);
     }
 
     public function getSalmonKing3Aliases(): ActiveQuery

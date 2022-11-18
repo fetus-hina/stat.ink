@@ -23,6 +23,7 @@ use yii\helpers\Json;
 
 final class PlayerForm extends Model
 {
+    use SplashtagTrait;
     use TypeHelperTrait;
 
     public $me;
@@ -117,7 +118,7 @@ final class PlayerForm extends Model
             'death' => self::intVal($this->death),
             'special' => self::intVal($this->special),
             'is_disconnected' => self::boolVal($this->disconnected),
-            'splashtag_title_id' => $this->splashtagTitle(self::strVal($this->splashtag_title)),
+            'splashtag_title_id' => self::splashtagTitle($this->splashtag_title),
             'headgear_id' => $this->gearConfiguration($this->gearsForm ? $this->gearsForm->headgearForm : null),
             'clothing_id' => $this->gearConfiguration($this->gearsForm ? $this->gearsForm->clothingForm : null),
             'shoes_id' => $this->gearConfiguration($this->gearsForm ? $this->gearsForm->shoesForm : null),
@@ -145,48 +146,6 @@ final class PlayerForm extends Model
         }
 
         return $model;
-    }
-
-    private function splashtagTitle(?string $title): ?int
-    {
-        $title = \trim((string)$title);
-        if ($title === '') {
-            return null;
-        }
-
-        // Find with Double-checked locking pattern
-        $model = SplashtagTitle3::findOne(['name' => $title]);
-        if (!$model) {
-            $lock = CriticalSection::lock(__METHOD__);
-            try {
-                $model = SplashtagTitle3::findOne(['name' => $title]);
-                if (!$model) {
-                    // Not registered. Create it!
-                    $model = Yii::createObject([
-                        'class' => SplashtagTitle3::class,
-                        'name' => $title,
-                    ]);
-                    if (!$model->save()) {
-                        return null;
-                    }
-                }
-            } finally {
-                unset($lock);
-            }
-        }
-
-        return (int)$model->id;
-    }
-
-    private static function hashNumberVal($value): ?string
-    {
-        // もし3桁以下の数字だったら0埋めする
-        $intVal = self::intVal($value);
-        if ($intVal && $intVal < 1000) {
-            return \sprintf('%04d', $intVal);
-        }
-
-        return self::strVal($value);
     }
 
     public function validateGears(string $attribute): void

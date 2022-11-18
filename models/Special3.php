@@ -21,7 +21,10 @@ use yii\db\ActiveRecord;
  * @property string $key
  * @property string $name
  *
+ * @property SalmonPlayer3[] $salmonPlayer3s
+ * @property SalmonSpecialUse3[] $salmonSpecialUse3s
  * @property Special3Alias[] $special3Aliases
+ * @property SalmonWave3[] $waves
  * @property Weapon3[] $weapon3s
  */
 class Special3 extends ActiveRecord
@@ -51,9 +54,24 @@ class Special3 extends ActiveRecord
         ];
     }
 
+    public function getSalmonPlayer3s(): ActiveQuery
+    {
+        return $this->hasMany(SalmonPlayer3::class, ['special_id' => 'id']);
+    }
+
+    public function getSalmonSpecialUse3s(): ActiveQuery
+    {
+        return $this->hasMany(SalmonSpecialUse3::class, ['special_id' => 'id']);
+    }
+
     public function getSpecial3Aliases(): ActiveQuery
     {
         return $this->hasMany(Special3Alias::class, ['special_id' => 'id']);
+    }
+
+    public function getWaves(): ActiveQuery
+    {
+        return $this->hasMany(SalmonWave3::class, ['id' => 'wave_id'])->viaTable('salmon_special_use3', ['special_id' => 'id']);
     }
 
     public function getWeapon3s(): ActiveQuery
