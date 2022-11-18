@@ -3701,16 +3701,16 @@
         },
         {
             "name": "yiisoft/yii2",
-            "version": "2.0.46",
+            "version": "2.0.47",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "d73259c3bc886648a6875109f9f09cddeff03708"
+                "reference": "8ecf57895d9c4b29cf9658ffe57af5f3d0e25254"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/d73259c3bc886648a6875109f9f09cddeff03708",
-                "reference": "d73259c3bc886648a6875109f9f09cddeff03708",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/8ecf57895d9c4b29cf9658ffe57af5f3d0e25254",
+                "reference": "8ecf57895d9c4b29cf9658ffe57af5f3d0e25254",
                 "shasum": ""
             },
             "require": {
@@ -3819,7 +3819,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-08-18T22:18:45+00:00"
+            "time": "2022-11-18T16:21:58+00:00"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -4076,28 +4076,28 @@
         },
         {
             "name": "yiisoft/yii2-queue",
-            "version": "2.3.4",
+            "version": "2.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-queue.git",
-                "reference": "ed30b5f46ddadd62587a4963dec35f9b756c408b"
+                "reference": "c1bf0ef5dbe107dc1cf692c1349b9ddd2485a399"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-queue/zipball/ed30b5f46ddadd62587a4963dec35f9b756c408b",
-                "reference": "ed30b5f46ddadd62587a4963dec35f9b756c408b",
+                "url": "https://api.github.com/repos/yiisoft/yii2-queue/zipball/c1bf0ef5dbe107dc1cf692c1349b9ddd2485a399",
+                "reference": "c1bf0ef5dbe107dc1cf692c1349b9ddd2485a399",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.5.0",
-                "symfony/process": "^3.3||^4.0||^5.0",
+                "symfony/process": "^3.3||^4.0||^5.0||^6.0",
                 "yiisoft/yii2": "~2.0.14"
             },
             "require-dev": {
                 "aws/aws-sdk-php": ">=2.4",
                 "enqueue/amqp-lib": "^0.8||^0.9.10",
                 "enqueue/stomp": "^0.8.39",
-                "jeremeamia/superclosure": "*",
+                "opis/closure": "*",
                 "pda/pheanstalk": "v3.*",
                 "php-amqplib/php-amqplib": "*",
                 "phpunit/phpunit": "~4.4",
@@ -4178,7 +4178,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-03-31T07:41:51+00:00"
+            "time": "2022-11-18T17:16:47+00:00"
         },
         {
             "name": "yiisoft/yii2-symfonymailer",
@@ -7715,16 +7715,16 @@
         },
         {
             "name": "yiisoft/yii2-debug",
-            "version": "2.1.21",
+            "version": "2.1.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-debug.git",
-                "reference": "fa9fa02e242c1b744eb68045ee8e9d698134836d"
+                "reference": "c0fa388c56b64edfb92987fdcc37d7a0243170d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/fa9fa02e242c1b744eb68045ee8e9d698134836d",
-                "reference": "fa9fa02e242c1b744eb68045ee8e9d698134836d",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/c0fa388c56b64edfb92987fdcc37d7a0243170d7",
+                "reference": "c0fa388c56b64edfb92987fdcc37d7a0243170d7",
                 "shasum": ""
             },
             "require": {
@@ -7801,7 +7801,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-09-06T17:40:08+00:00"
+            "time": "2022-11-18T17:29:27+00:00"
         },
         {
             "name": "yiisoft/yii2-gii",
