@@ -13,4 +13,6 @@ return [
     'King Salmonid' => 'Salmonster',
     'Known Occurrence' => '',
     'Salmon Run' => 'Salmon Run',
+    'Time is up' => '',
+    'Wipe out' => '',
 ];
