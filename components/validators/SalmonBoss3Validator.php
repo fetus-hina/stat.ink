@@ -69,10 +69,7 @@ final class SalmonBoss3Validator extends Validator
             return [];
         }
 
-        if (
-            !\is_array($value) ||
-            !ArrayHelper::isAssociative($value, false)
-        ) {
+        if (!\is_array($value)) {
             return ['{attribute} is invalid. (must be map<string, struct>)'];
         }
 
