@@ -59,6 +59,7 @@ use yii\db\ActiveRecord;
  * @property integer $remote_port
  * @property string $created_at
  * @property string $updated_at
+ * @property boolean $is_private
  *
  * @property Agent $agent
  * @property Map3 $bigStage
@@ -91,7 +92,7 @@ class Salmon3 extends ActiveRecord
             [['user_id', 'stage_id', 'big_stage_id', 'clear_waves', 'fail_reason_id', 'king_smell', 'king_salmonid_id', 'title_before_id', 'title_exp_before', 'title_after_id', 'title_exp_after', 'golden_eggs', 'power_eggs', 'gold_scale', 'silver_scale', 'bronze_scale', 'job_point', 'job_score', 'job_bonus', 'version_id', 'agent_id', 'period', 'schedule_id', 'remote_port'], 'default', 'value' => null],
             [['user_id', 'stage_id', 'big_stage_id', 'clear_waves', 'fail_reason_id', 'king_smell', 'king_salmonid_id', 'title_before_id', 'title_exp_before', 'title_after_id', 'title_exp_after', 'golden_eggs', 'power_eggs', 'gold_scale', 'silver_scale', 'bronze_scale', 'job_point', 'job_score', 'job_bonus', 'version_id', 'agent_id', 'period', 'schedule_id', 'remote_port'], 'integer'],
             [['uuid', 'client_uuid', 'note', 'private_note', 'link_url', 'remote_addr'], 'string'],
-            [['is_big_run', 'clear_extra', 'is_automated', 'has_disconnect', 'is_deleted'], 'boolean'],
+            [['is_big_run', 'clear_extra', 'is_automated', 'has_disconnect', 'is_deleted', 'is_private'], 'boolean'],
             [['danger_rate', 'job_rate'], 'number'],
             [['start_at', 'end_at', 'created_at', 'updated_at'], 'safe'],
             [['user_id', 'client_uuid'], 'unique', 'targetAttribute' => ['user_id', 'client_uuid']],
@@ -154,6 +155,7 @@ class Salmon3 extends ActiveRecord
             'remote_port' => 'Remote Port',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
+            'is_private' => 'Is Private',
         ];
     }
 

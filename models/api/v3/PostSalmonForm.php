@@ -62,6 +62,7 @@ final class PostSalmonForm extends Model
     public $test;
 
     public $uuid;
+    public $private;
     public $big_run;
     public $stage;
     public $danger_rate;
@@ -111,14 +112,14 @@ final class PostSalmonForm extends Model
     public function rules()
     {
         return [
-            [['big_run'], 'required'],
+            [['private', 'big_run'], 'required'],
 
             [['uuid', 'stage', 'fail_reason', 'king_salmonid', 'title_before'], 'string'],
             [['title_after', 'note', 'private_note', 'link_url'], 'string'],
             [['agent'], 'string', 'max' => 64],
             [['agent_version'], 'string', 'max' => 255],
 
-            [['test', 'big_run', 'clear_extra', 'automated'], 'in',
+            [['test', 'private', 'big_run', 'clear_extra', 'automated'], 'in',
                 'range' => ['yes', 'no', true, false],
                 'strict' => true,
             ],
@@ -319,6 +320,7 @@ final class PostSalmonForm extends Model
             'user_id' => Yii::$app->user->id,
             'uuid' => $uuid,
             'client_uuid' => $this->uuid ?: $uuid,
+            'is_private' => self::boolVal($this->private),
             'is_big_run' => $isBigRun,
             'stage_id' => $isBigRun
                 ? null

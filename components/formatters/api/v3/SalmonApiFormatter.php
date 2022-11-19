@@ -36,6 +36,7 @@ final class SalmonApiFormatter
             ),
             'user' => UserApiFormatter::toJson($model->user, $isAuthenticated, $fullTranslate),
             'uuid' => $model->client_uuid,
+            'private' => $model->is_private,
             'big_run' => $model->is_big_run,
             'stage' => SalmonStageApiFormatter::toJson(
                 $model->stage,
