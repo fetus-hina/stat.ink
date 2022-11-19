@@ -13,4 +13,6 @@ return [
     'King Salmonid' => '',
     'Known Occurrence' => '',
     'Salmon Run' => '鲑鱼跑',
+    'Time is up' => '时间到',
+    'Wipe out' => '全员阵亡',
 ];
