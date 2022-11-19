@@ -6,6 +6,7 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Gosin <canling0@gmail.com>
  * @author Weihao Jiang <weihau.chiang@gmail.com>
+ * @author imspace <spacemeowx2@gmail.com>
  */
 
 declare(strict_types=1);
@@ -44,13 +45,13 @@ return [
     'Another account' => '另一个账户',
     'Any Result' => '',
     'Any Time' => '所有时间',
-    'API Info: Abilities (Splatoon 3)' => 'API资讯：技能(Splatoon 3)',
-    'API Info: Boss Salmonids (Splatoon 3)' => '',
+    'API Info: Abilities (Splatoon 3)' => 'API信息：技能(Splatoon 3)',
+    'API Info: Boss Salmonids (Splatoon 3)' => 'API信息：巨大鲑鱼(Splatoon 3)',
     'API Info: Gears: {0}' => 'API信息：装备：{0}',
-    'API Info: Known Occurrences (Splatoon 3)' => '',
+    'API Info: Known Occurrences (Splatoon 3)' => 'API信息：特殊状况(Splatoon 3)',
     'API Info: Stages (Splatoon 2)' => 'API信息：场地（Splatoon 2）',
     'API Info: Stages (Splatoon 3)' => 'API信息：场地（Splatoon 3）',
-    'API Info: Titles (Splatoon 3)' => '',
+    'API Info: Titles (Splatoon 3)' => 'API信息：称号（Splatoon 3）',
     'API Info: Weapons' => 'API信息：武器',
     'API Info: Weapons (Splatoon 2)' => 'API信息：武器（Splatoon 2）',
     'API Info: Weapons (Splatoon 3)' => 'API信息：武器（Splatoon 3）',
@@ -295,7 +296,7 @@ return [
     'Last {n} Battles' => '最近{n}场对战',
     'Last {n} Periods' => '最近{n}段时间',
     'Latest' => '最新',
-    'Launch' => '',
+    'Launch' => '游戏发布',
     'League Power' => '组排能力',
     'Legend' => '标注',
     'Legends' => '标注',
