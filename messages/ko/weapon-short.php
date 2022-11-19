@@ -128,6 +128,7 @@ return [
     'Luna Blaster Neo' => '',
     'Mini Splatling' => '',
     'Mr. 베어표 블래스터' => '',
+    'Mr. 베어표 셸터' => '',
     'Mr. 베어표 스트링거' => '',
     'N-ZAP \'83' => '',
     'N-ZAP \'85' => '',
