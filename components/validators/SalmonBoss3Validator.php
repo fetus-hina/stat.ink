@@ -71,7 +71,7 @@ final class SalmonBoss3Validator extends Validator
 
         if (
             !\is_array($value) ||
-            !ArrayHelper::isAssociative($value)
+            !ArrayHelper::isAssociative($value, false)
         ) {
             return ['{attribute} is invalid. (must be map<string, struct>)'];
         }
@@ -84,15 +84,11 @@ final class SalmonBoss3Validator extends Validator
                 continue;
             }
 
-            if (
-                !\is_string($k) ||
-                !\is_array($v) ||
-                !ArrayHelper::isAssociative($v)
-            ) {
+            if (!\is_array($v) || !ArrayHelper::isAssociative($v)) {
                 return ['{attribute} is invalid. (must be map<string, struct>)'];
             }
 
-            $boss = self::getBossByKey($k);
+            $boss = self::getBossByKey((string)$k);
             if (!$boss) {
                 return ["{attribute} is invalid. unknown boss {$boss}"];
             }
