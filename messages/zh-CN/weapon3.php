@@ -5,6 +5,7 @@
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author midmiako <mayomi@baka.wang>
+ * @author imspace <spacemeowx2@gmail.com>
  */
 
 declare(strict_types=1);
@@ -13,8 +14,8 @@ return [
     '.52 Gal' => '.52加仑',
     '.96 Gal' => '.96加仑',
     'Aerospray MG' => '专业模型枪MG',
-    'All of {0}' => '',
-    'Any Weapon' => '',
+    'All of {0}' => '所有的{0}',
+    'Any Weapon' => '所有武器',
     'Ballpoint Splatling' => '圆珠笔',
     'Bamboozler 14 Mk I' => '14式竹筒枪·甲',
     'Blaster' => '火热爆破枪',
