@@ -10,8 +10,16 @@ declare(strict_types=1);
 
 return [
     'Boss Salmonid' => 'Salmonoboss',
+    'Clear Bonus' => '',
+    'Eggs' => '',
+    'Fish Scales' => '',
+    'Job Points' => '',
+    'Job Score' => '',
     'King Salmonid' => 'Salmonarque',
     'Known Occurrence' => '',
+    'Pay Grade' => '',
+    'Private Job' => '',
+    'Salmometer' => '',
     'Salmon Run' => 'Salmon Run',
     'Time is up' => '',
     'Wipe out' => '',
