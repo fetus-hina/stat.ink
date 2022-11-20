@@ -4,6 +4,7 @@
  * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
+ * @author imspace <spacemeowx2@gmail.com>
  */
 
 declare(strict_types=1);
@@ -13,7 +14,7 @@ return [
     'CB' => '蛤蜊',
     'Clam Blitz' => '真格蛤蜊',
     'Rainmaker' => '真格鱼虎对战',
-    'Ranked Modes' => '',
+    'Ranked Modes' => '真格模式',
     'RM' => '鱼虎对战',
     'Splat Zones' => '真格区域',
     'SZ' => '区域',

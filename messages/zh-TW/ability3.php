@@ -3,13 +3,14 @@
 /**
  * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ * @author ADe <loezone@gmail.com>
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 declare(strict_types=1);
 
 return [
-    '(Unknown)' => '(？)',
+    '(Unknown)' => '(未知)',
     'Ability Doubler' => '追加裝備能力增倍',
     'Comeback' => '回歸',
     'Drop Roller' => '受身術',

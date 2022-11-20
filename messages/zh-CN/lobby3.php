@@ -5,6 +5,7 @@
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author midmiako <mayomi@baka.wang>
+ * @author imspace <spacemeowx2@gmail.com>
  */
 
 declare(strict_types=1);
@@ -16,7 +17,7 @@ return [
     'Any Lobby' => '所有大厅',
     'Private Battle' => '私人比赛',
     'Regular Battle' => '一般比赛',
-    'Splatfest' => '祭典',
-    'Splatfest (Open)' => '',
-    'Splatfest (Pro)' => '',
+    'Splatfest' => '祭典比赛',
+    'Splatfest (Open)' => '祭典比赛（开放）',
+    'Splatfest (Pro)' => '祭典比赛（挑战）',
 ];
