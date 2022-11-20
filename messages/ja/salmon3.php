@@ -10,8 +10,16 @@ declare(strict_types=1);
 
 return [
     'Boss Salmonid' => 'オオモノシャケ',
+    'Clear Bonus' => 'クリアボーナス',
+    'Eggs' => 'イクラ',
+    'Fish Scales' => 'ウロコ',
+    'Job Points' => '獲得ポイント',
+    'Job Score' => 'バイトスコア',
     'King Salmonid' => 'オカシラシャケ',
     'Known Occurrence' => '特殊な状況',
+    'Pay Grade' => '評価レート',
+    'Private Job' => 'プライベートバイト',
+    'Salmometer' => 'オカシラゲージ',
     'Salmon Run' => 'サーモンラン',
     'Time is up' => '時間切れ',
     'Wipe out' => '全滅'
