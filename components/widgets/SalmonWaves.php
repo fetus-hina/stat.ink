@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -11,14 +11,16 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use Yii;
+use app\assets\SalmonWavesAsset;
 use app\components\i18n\Formatter;
 use app\models\SalmonWave2;
 use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\web\View;
 
-class SalmonWaves extends Widget
+final class SalmonWaves extends Widget
 {
     public $work;
 
@@ -38,39 +40,17 @@ class SalmonWaves extends Widget
                 'nullDisplay' => '-',
             ]);
         }
+
+        $view = $this->view;
+        if ($view instanceof View) {
+            BootstrapAsset::register($view);
+            SalmonWavesAsset::register($view);
+        }
     }
 
     public function run(): string
     {
         BootstrapAsset::register($this->view);
-
-        $id = "#{$this->id}";
-        $this->view->registerCss(sprintf(
-            '%s@media(max-width:30em){%s}',
-            Html::renderCss([
-                "{$id}" => [
-                    'table-layout' => 'fixed',
-                ],
-                "{$id} th" => [
-                    'width' => 'calc((100% - 15em) / 3)',
-                ],
-                "{$id} th:first-child" => [
-                    'width' => '15em',
-                ],
-            ]),
-            // min-display
-            Html::renderCss([
-                "{$id}" => [
-                    'table-layout' => 'auto',
-                ],
-                "{$id} th" => [
-                    'width' => 'auto',
-                ],
-                "{$id} th:first-child" => [
-                    'width' => 'auto',
-                ],
-            ])
-        ));
 
         return Html::tag(
             'div',
@@ -79,7 +59,12 @@ class SalmonWaves extends Widget
                 $this->renderHeader() . $this->renderBody(),
                 [
                     'id' => $this->id,
-                    'class' => 'table table-striped table-bordered',
+                    'class' => [
+                        'salmon-waves',
+                        'table',
+                        'table-bordered',
+                        'table-striped',
+                    ],
                 ]
             ),
             ['class' => 'table-responsive']

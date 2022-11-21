@@ -23,4 +23,5 @@ return [
     'Salmon Run' => '',
     'Time is up' => '',
     'Wipe out' => '',
+    'Xtrawave' => '',
 ];

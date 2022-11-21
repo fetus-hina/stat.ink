@@ -15,8 +15,6 @@ use yii\widgets\DetailView;
  * @var View $this
  */
 
-$battleDetails = __DIR__ . '/../../show-v3/battle/details';
-
 echo DetailView::widget([
   'model' => $model,
   'id' => 'battle',
