@@ -306,7 +306,7 @@ final class SalmonWaves extends Widget
                             Yii::$app->assetManager->getAssetUrl($asset, 'golden-egg.png'),
                             [
                                 'style' => [
-                                    'height' => '1.5em', 
+                                    'height' => '1.5em',
                                     'width' => 'auto',
                                     'vertical-align' => 'middle',
                                 ],
@@ -348,7 +348,7 @@ final class SalmonWaves extends Widget
                             Yii::$app->assetManager->getAssetUrl($asset, 'golden-egg.png'),
                             [
                                 'style' => [
-                                    'height' => '1.5em', 
+                                    'height' => '1.5em',
                                     'width' => 'auto',
                                     'vertical-align' => 'middle',
                                 ],
@@ -387,7 +387,7 @@ final class SalmonWaves extends Widget
                             Yii::$app->assetManager->getAssetUrl($asset, 'golden-egg.png'),
                             [
                                 'style' => [
-                                    'height' => '1.5em', 
+                                    'height' => '1.5em',
                                     'width' => 'auto',
                                     'vertical-align' => 'middle',
                                 ],
@@ -411,7 +411,7 @@ final class SalmonWaves extends Widget
                             Yii::$app->assetManager->getAssetUrl($asset, 'golden-egg.png'),
                             [
                                 'style' => [
-                                    'height' => '1.5em', 
+                                    'height' => '1.5em',
                                     'width' => 'auto',
                                     'vertical-align' => 'middle',
                                 ],
