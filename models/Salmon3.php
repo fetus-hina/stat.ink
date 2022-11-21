@@ -95,7 +95,6 @@ class Salmon3 extends ActiveRecord
             [['is_big_run', 'clear_extra', 'is_automated', 'has_disconnect', 'is_deleted', 'is_private'], 'boolean'],
             [['danger_rate', 'job_rate'], 'number'],
             [['start_at', 'end_at', 'created_at', 'updated_at'], 'safe'],
-            [['user_id', 'client_uuid'], 'unique', 'targetAttribute' => ['user_id', 'client_uuid']],
             [['uuid'], 'unique'],
             [['agent_id'], 'exist', 'skipOnError' => true, 'targetClass' => Agent::class, 'targetAttribute' => ['agent_id' => 'id']],
             [['big_stage_id'], 'exist', 'skipOnError' => true, 'targetClass' => Map3::class, 'targetAttribute' => ['big_stage_id' => 'id']],

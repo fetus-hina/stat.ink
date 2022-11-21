@@ -10,17 +10,27 @@ declare(strict_types=1);
 
 namespace app\components\widgets\v3;
 
+use LogicException;
 use Yii;
 use app\models\Battle3;
+use app\models\Salmon3;
 use app\models\User;
 use yii\base\Widget;
-use yii\bootstrap\Html;
+use yii\helpers\Html;
 
 final class BattlePrevNext extends Widget
 {
     public ?User $user = null;
-    public ?Battle3 $prevBattle = null;
-    public ?Battle3 $nextBattle = null;
+
+    /**
+     * @var Battle3|Salmon3|null
+     */
+    public $prevBattle = null;
+
+    /**
+     * @var Battle3|Salmon3|null
+     */
+    public $nextBattle = null;
 
     public function run(): string
     {
@@ -57,12 +67,9 @@ final class BattlePrevNext extends Widget
             Html::a(
                 \implode('', [
                     Html::tag('span', '', ['class' => 'fa fa-fw fa-angle-double-left']),
-                    Yii::t('app', 'Prev. Battle'),
+                    $this->generatePrevLabel($this->prevBattle),
                 ]),
-                ['/show-v3/battle',
-                    'screen_name' => $this->user->screen_name,
-                    'battle' => $this->prevBattle->uuid,
-                ],
+                $this->generateUrl($this->prevBattle),
                 ['class' => 'btn btn-default']
             ),
             ['class' => 'col-xs-6']
@@ -79,16 +86,70 @@ final class BattlePrevNext extends Widget
             'div',
             Html::a(
                 \implode('', [
-                    Yii::t('app', 'Next Battle'),
+                    $this->generateNextLabel($this->nextBattle),
                     Html::tag('span', '', ['class' => 'fa fa-fw fa-angle-double-right']),
                 ]),
-                ['/show-v3/battle',
-                    'screen_name' => $this->user->screen_name,
-                    'battle' => $this->nextBattle->uuid,
-                ],
+                $this->generateUrl($this->nextBattle),
                 ['class' => 'btn btn-default']
             ),
             ['class' => 'col-xs-6 pull-right text-right']
         );
+    }
+
+    /**
+     * @param Battle3|Salmon3 $model
+     */
+    private function generateNextLabel($model): string
+    {
+        switch (\get_class($model)) {
+            case Battle3::class:
+                return Html::encode(Yii::t('app', 'Next Battle'));
+
+            case Salmon3::class:
+                return Html::encode(Yii::t('app-salmon2', 'Next Job'));
+
+            default:
+                throw new LogicException();
+        }
+    }
+
+    /**
+     * @param Battle3|Salmon3 $model
+     */
+    private function generatePrevLabel($model): string
+    {
+        switch (\get_class($model)) {
+            case Battle3::class:
+                return Html::encode(Yii::t('app', 'Prev. Battle'));
+
+            case Salmon3::class:
+                return Html::encode(Yii::t('app-salmon2', 'Prev. Job'));
+
+            default:
+                throw new LogicException();
+        }
+    }
+
+    /**
+     * @param Battle3|Salmon3 $model
+     */
+    private function generateUrl($model): array
+    {
+        switch (\get_class($model)) {
+            case Battle3::class:
+                return ['/show-v3/battle',
+                    'screen_name' => $this->user->screen_name,
+                    'battle' => $model->uuid,
+                ];
+
+            case Salmon3::class:
+                return ['/salmon-v3/view',
+                    'screen_name' => $this->user->screen_name,
+                    'battle' => $model->uuid,
+                ];
+
+            default:
+                throw new LogicException();
+        }
     }
 }
