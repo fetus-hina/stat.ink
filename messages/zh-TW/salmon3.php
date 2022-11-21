@@ -24,4 +24,5 @@ return [
     'Salmon Run' => 'Salmon Run',
     'Time is up' => '時間到',
     'Wipe out' => '全員陣亡',
+    'Xtrawave' => '',
 ];

@@ -95,6 +95,7 @@ RESOURCE_TARGETS := \
 	resources/.compiled/stat.ink/ratio.css \
 	resources/.compiled/stat.ink/rewrite-link-for-ios-app.js \
 	resources/.compiled/stat.ink/salmon-stats-history.js \
+	resources/.compiled/stat.ink/salmon-waves.css \
 	resources/.compiled/stat.ink/salmon-work-list-config.js \
 	resources/.compiled/stat.ink/salmon-work-list-hazard.js \
 	resources/.compiled/stat.ink/salmon-work-list.js \
@@ -270,7 +271,7 @@ resources/.compiled/stat.ink/battles-simple.css: resources/stat.ink/battles-simp
 resources/.compiled/stat.ink/blackout-hint.css: resources/stat.ink/blackout-hint.scss node_modules
 resources/.compiled/stat.ink/blackout-hint.js: resources/stat.ink/blackout-hint.js node_modules
 resources/.compiled/stat.ink/blog-entries.css: resources/stat.ink/blog-entries.scss node_modules
-resources/.compiled/stat.ink/browser-icon-widget.js: resources/stat.ink/browser-icon-widget.es
+resources/.compiled/stat.ink/browser-icon-widget.js: resources/stat.ink/browser-icon-widget.es node_modules
 resources/.compiled/stat.ink/cal-heatmap-halloween.css: resources/stat.ink/cal-heatmap-halloween.scss node_modules
 resources/.compiled/stat.ink/color-scheme.js: resources/stat.ink/color-scheme.es node_modules
 resources/.compiled/stat.ink/cookiealert.css: resources/stat.ink/cookiealert.scss node_modules
@@ -315,6 +316,7 @@ resources/.compiled/stat.ink/private-note.js: resources/stat.ink/private-note.es
 resources/.compiled/stat.ink/ratio.css: resources/stat.ink/ratio.scss node_modules
 resources/.compiled/stat.ink/rewrite-link-for-ios-app.js: resources/stat.ink/rewrite-link-for-ios-app.es node_modules
 resources/.compiled/stat.ink/salmon-stats-history.js: resources/stat.ink/salmon-stats-history.es node_modules
+resources/.compiled/stat.ink/salmon-waves.css: resources/stat.ink/salmon-waves.scss node_modules
 resources/.compiled/stat.ink/salmon-work-list-config.js: resources/stat.ink/salmon-work-list-config.es node_modules
 resources/.compiled/stat.ink/salmon-work-list-hazard.js: resources/stat.ink/salmon-work-list-hazard.es node_modules
 resources/.compiled/stat.ink/salmon-work-list.js: resources/stat.ink/salmon-work-list.es node_modules

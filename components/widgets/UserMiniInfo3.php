@@ -165,12 +165,8 @@ final class UserMiniInfo3 extends Widget
                                         \sprintf('spl3/%s.png', \rawurlencode($groupInfo['group']->key)),
                                     ),
                                     [
-                                        'class' => 'auto-tooltip',
+                                        'class' => 'auto-tooltip basic-icon',
                                         'title' => Yii::t('app-lobby3', $groupInfo['group']->name),
-                                        'style' => [
-                                            'height' => '1.5em',
-                                            'width' => 'auto',
-                                        ],
                                     ],
                                 )
                                 : Html::encode($groupInfo['group']->name),

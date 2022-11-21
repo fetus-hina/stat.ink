@@ -19,14 +19,7 @@ return [
     return vsprintf('%s (%s / %s)', [
       Html::img(
         $asset->getIconUrl($model->king_smell, 'yokozuna'),
-        [
-          'style' => [
-            'height' => '1.5em',
-            'line-height' => '1',
-            'vertical-align' => 'middle',
-            'width' => 'auto',
-          ],
-        ],
+        ['class' => 'basic-icon'],
       ),
       Yii::$app->formatter->asInteger($model->king_smell),
       Yii::$app->formatter->asInteger(5),

@@ -346,6 +346,18 @@ $positions: (
   }
 
   @each $sizeKey, $sizeValue in $sizes {
+    .#{$propShort}x-#{$sizeKey} {
+      #{$propLong}-left: $sizeValue !important;
+      #{$propLong}-right: $sizeValue !important;
+    }
+
+    .#{$propShort}y-#{$sizeKey} {
+      #{$propLong}-bottom: $sizeValue !important;
+      #{$propLong}-top: $sizeValue !important;
+    }
+  }
+
+  @each $sizeKey, $sizeValue in $sizes {
     .#{$propShort}h-#{$sizeKey} {
       #{$propLong}-left: $sizeValue !important;
       #{$propLong}-right: $sizeValue !important;
@@ -413,4 +425,23 @@ $step: 5;
 
 .bg-white {
   background-color: #fff;
+}
+
+img.basic-icon {
+  --icon-height: 1.5em;
+
+  height: var(--icon-height);
+  line-height: 1;
+  vertical-align: middle;
+  width: auto;
+
+  &.dark {
+    background: #333;
+    display: inline-block;
+  }
+
+  &.rounded {
+    border-radius: 50%;
+    display: inline-block;
+  }
 }

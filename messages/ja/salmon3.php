@@ -22,5 +22,6 @@ return [
     'Salmometer' => 'オカシラゲージ',
     'Salmon Run' => 'サーモンラン',
     'Time is up' => '時間切れ',
-    'Wipe out' => '全滅'
+    'Wipe out' => '全滅',
+    'Xtrawave' => 'EXTRA WAVE',
 ];
