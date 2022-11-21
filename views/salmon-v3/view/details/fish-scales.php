@@ -39,13 +39,7 @@ return [
           vsprintf('%s %s', [
             Html::img(
               Yii::$app->assetManager->getAssetUrl($asset, sprintf('%s.png', $key)),
-              [
-                'style' => [
-                  'height' => '1.5em',
-                  'vertical-align' => 'middle',
-                  'width' => 'auto',
-                ],
-              ],
+              ['class' => 'basic-icon'],
             ),
             Html::encode($count === null ? '-' : Yii::$app->formatter->asInteger($count)),
           ]),

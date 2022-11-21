@@ -304,13 +304,7 @@ final class SalmonWaves extends Widget
                     \vsprintf('%s %s/%s', [
                         Html::img(
                             Yii::$app->assetManager->getAssetUrl($asset, 'golden-egg.png'),
-                            [
-                                'style' => [
-                                    'height' => '1.5em',
-                                    'width' => 'auto',
-                                    'vertical-align' => 'middle',
-                                ],
-                            ],
+                            ['class' => 'basic-icon'],
                         ),
                         Html::encode(Yii::t('app-salmon2', 'Delivers')),
                         Html::encode(Yii::t('app-salmon2', 'Quota')),
@@ -346,13 +340,7 @@ final class SalmonWaves extends Widget
                     implode(' ', [
                         Html::img(
                             Yii::$app->assetManager->getAssetUrl($asset, 'golden-egg.png'),
-                            [
-                                'style' => [
-                                    'height' => '1.5em',
-                                    'width' => 'auto',
-                                    'vertical-align' => 'middle',
-                                ],
-                            ],
+                            ['class' => 'basic-icon'],
                         ),
                         Html::encode(
                             $this->formatter->asInteger(
@@ -385,13 +373,7 @@ final class SalmonWaves extends Widget
                     \vsprintf('%s %s', [
                         Html::img(
                             Yii::$app->assetManager->getAssetUrl($asset, 'golden-egg.png'),
-                            [
-                                'style' => [
-                                    'height' => '1.5em',
-                                    'width' => 'auto',
-                                    'vertical-align' => 'middle',
-                                ],
-                            ],
+                            ['class' => 'basic-icon'],
                         ),
                         Html::encode(Yii::t('app-salmon2', 'Appearances')),
                     ]),
@@ -409,13 +391,7 @@ final class SalmonWaves extends Widget
                     implode(' ', [
                         Html::img(
                             Yii::$app->assetManager->getAssetUrl($asset, 'golden-egg.png'),
-                            [
-                                'style' => [
-                                    'height' => '1.5em',
-                                    'width' => 'auto',
-                                    'vertical-align' => 'middle',
-                                ],
-                            ],
+                            ['class' => 'basic-icon'],
                         ),
                         Html::encode(
                             $this->formatter->asInteger(
@@ -455,12 +431,7 @@ final class SalmonWaves extends Widget
                                         $asset = Spl3WeaponAsset::register($this->view);
                                         return \str_repeat(
                                             Html::img($asset->getIconUrl('special', $info->special->key), [
-                                                'style' => [
-                                                    'width' => 'auto',
-                                                    'height' => '1.5em',
-                                                    'vertical-align' => 'middle',
-                                                ],
-                                                'class' => 'mr-1',
+                                                'class' => 'basic-icon mr-1',
                                             ]),
                                             $info->count,
                                         );
