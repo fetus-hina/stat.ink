@@ -378,13 +378,16 @@ final class SalmonWaves extends Widget
                         Html::encode(Yii::t('app-salmon2', 'Appearances')),
                     ]),
                 ),
-                \implode('', ArrayHelper::getColumn(
-                    $waves,
-                    fn (array $wave): string => Html::tag(
+                \implode('', \array_map(
+                    fn (array $wave, int $waveNumber): string => Html::tag(
                         'td',
-                        $this->formatter->asInteger($wave['apper']),
+                        $waveNumber < 4
+                            ? $this->formatter->asInteger($wave['apper'])
+                            : sprintf('(%s)', $this->formatter->asInteger($wave['apper'])),
                         ['class' => 'text-center'],
                     ),
+                    $waves,
+                    \range(1, count($waves)),
                 )),
                 Html::tag(
                     'td',
@@ -396,7 +399,11 @@ final class SalmonWaves extends Widget
                         Html::encode(
                             $this->formatter->asInteger(
                                 \array_reduce(
-                                    ArrayHelper::getColumn($waves, 'apper'),
+                                    \array_slice(
+                                        ArrayHelper::getColumn($waves, 'apper'),
+                                        0,
+                                        3, // ignores xtrawave
+                                    ),
                                     fn (int $carry, ?int $item): int => $carry + (int)$item,
                                     0,
                                 ),
