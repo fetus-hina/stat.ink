@@ -318,16 +318,23 @@ final class SalmonWaves extends Widget
                         if ($quota !== null && $deliv !== null && $quota > 0 && $deliv >= 0) {
                             return Html::tag(
                                 'td',
-                                Progress::widget([
-                                    'barOptions' => [
-                                        'class' => $deliv >= $quota ? 'progress-bar-success' : 'progress-bar-danger',
-                                    ],
-                                    'label' => \vsprintf('%s / %s', [
-                                        $this->formatter->asInteger($deliv),
-                                        $this->formatter->asInteger($quota),
+                                \implode('', [
+                                    Html::tag(
+                                        'div',
+                                        \vsprintf('%s / %s', [
+                                            $this->formatter->asInteger($deliv),
+                                            $this->formatter->asInteger($quota),
+                                        ]),
+                                        ['class' => 'text-center'],
+                                    ),
+                                    Progress::widget([
+                                        'barOptions' => [
+                                            'class' => $deliv >= $quota ? 'progress-bar-success' : 'progress-bar-danger',
+                                        ],
+                                        'label' => $this->formatter->asPercent($deliv / $quota, 1),
+                                        'options' => ['class' => 'm-0'],
+                                        'percent' => min(100, 100 * $deliv / $quota),
                                     ]),
-                                    'options' => ['class' => 'm-0'],
-                                    'percent' => min(100, 100 * $deliv / $quota),
                                 ]),
                             );
                         }
