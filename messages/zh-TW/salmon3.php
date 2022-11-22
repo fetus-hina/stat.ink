@@ -10,8 +10,10 @@
 declare(strict_types=1);
 
 return [
+    'Appearances' => '出現次數',
     'Boss Salmonid' => '巨大鮭魚',
     'Clear Bonus' => '',
+    'Defeated' => '',
     'Eggs' => '',
     'Fish Scales' => '',
     'Job Points' => '',

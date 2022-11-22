@@ -9,8 +9,10 @@
 declare(strict_types=1);
 
 return [
+    'Appearances' => '出現数',
     'Boss Salmonid' => 'オオモノシャケ',
     'Clear Bonus' => 'クリアボーナス',
+    'Defeated' => '倒した数',
     'Eggs' => 'イクラ',
     'Fish Scales' => 'ウロコ',
     'Job Points' => '獲得ポイント',
