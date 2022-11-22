@@ -15,7 +15,7 @@ return [
     'Any Lobby' => '',
     'Private Battle' => '프라이빗 매치',
     'Regular Battle' => '레귤러 매치',
-    'Splatfest' => '',
-    'Splatfest (Open)' => '',
-    'Splatfest (Pro)' => '',
+    'Splatfest' => '페스티벌 매치',
+    'Splatfest (Open)' => '페스티벌 매치 (오픈)',
+    'Splatfest (Pro)' => '페스티벌 매치 (챌린지)',
 ];
