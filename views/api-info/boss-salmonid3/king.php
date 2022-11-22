@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
+use app\assets\Spl3SalmonidAsset;
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\ApiInfoName;
+use app\models\Language;
 use app\models\SalmonKing3;
 use app\models\SalmonKing3Alias;
-use app\models\Language;
 use statink\yii2\sortableTable\SortableTableAsset;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -21,12 +22,15 @@ use yii\web\View;
 TableResponsiveForceAsset::register($this);
 SortableTableAsset::register($this);
 
+$icon = Spl3SalmonidAsset::register($this);
+
 ?>
 <h2><?= Html::encode(Yii::t('app-salmon3', 'King Salmonid')) ?></h2>
 <div class="table-responsive table-responsive-force">
   <table class="table table-striped table-condensed table-sortable">
     <thead>
       <tr>
+        <th></th>
         <th data-sort="string"><code>key</code></th>
         <th data-sort="string"><?= Html::encode(Yii::t('app', 'Aliases')) ?></th>
 <?php foreach ($langs as $i => $lang) { ?>
@@ -43,6 +47,13 @@ SortableTableAsset::register($this);
     <tbody>
 <?php foreach ($salmonids as $salmonid) { ?>
       <tr>
+        <?= Html::tag(
+          'td',
+          Html::img(
+            Yii::$app->assetManager->getAssetUrl($icon, sprintf('%s.png', $salmonid->key)),
+            ['class' => 'basic-icon'],
+          ),
+        ) . "\n" ?>
         <?= Html::tag(
           'td',
           Html::tag('code', Html::encode($salmonid->key)),

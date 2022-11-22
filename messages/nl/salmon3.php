@@ -9,8 +9,10 @@
 declare(strict_types=1);
 
 return [
+    'Appearances' => '',
     'Boss Salmonid' => 'Salmonietenbaas',
     'Clear Bonus' => '',
+    'Defeated' => '',
     'Eggs' => '',
     'Fish Scales' => '',
     'Job Points' => '',
