@@ -84,7 +84,7 @@ return [
     'Battles' => '배틀',
     'Battles:' => '배틀:',
     'Battles:{0} / Win %:{1} / Avg Kills:{2} / Avg Deaths:{3} / Kill Ratio:{4}' => '배틀 수:{0} / 승률 %:{1} / 평균 킬:{2} / 평균 데스:{3} / 킬데스비율:{4}',
-    'Battles and Users' => '배틀과 유저'
+    'Battles and Users' => '배틀과 유저',
     'Battle Start' => '배틀 시작',
     'between {down} and {up} {name}' => '{down} {name}부터 {up} {name}',
     'Black out' => '',
@@ -351,7 +351,7 @@ return [
     'New battle' => '배틀 등록',
     'New Password' => '새로운 패스워드',
     'New Password (again)' => '새로운 패스워드 (확인)',
-    'Next' => '다음'
+    'Next' => '다음',
     'Next Battle' => '다음 배틀',
     'Next Month' => '다음 달',
     'Next Stages' => '다음 스테이지',
