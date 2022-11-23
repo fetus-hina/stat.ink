@@ -28,6 +28,11 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
+  overflow-x: hidden;
+
+  @media (min-width: 768px) {
+    overflow-x: auto;
+  }
 }
 
 main {

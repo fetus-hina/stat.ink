@@ -10,16 +10,18 @@ declare(strict_types=1);
 
 namespace app\controllers;
 
+use app\actions\salmon\v3\IndexAction;
 use app\actions\salmon\v3\ViewAction;
 use app\components\web\Controller;
 
 final class SalmonV3Controller extends Controller
 {
-    public $layout = "main";
+    public $layout = 'main';
 
     public function actions()
     {
         return [
+            'index' => IndexAction::class,
             'view' => ViewAction::class,
         ];
     }

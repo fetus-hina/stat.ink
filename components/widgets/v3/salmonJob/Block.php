@@ -63,9 +63,9 @@ final class Block extends Widget
 
         return Html::tag('small', Html::encode($label), [
             'class' => [
-                'd-block',
-                'pl-1',
-                'pr-1',
+                'd-none',
+                'd-sm-block',
+                'px-1',
                 'text-center',
                 'text-muted',
             ],
