@@ -1,13 +1,11 @@
 /*! Copyright (C) 2015-2022 AIZAWA Hina | MIT License */
 
 $label-width: 15em;
-$v2-column-count: 4;
-$v3-column-count: 5;
+$v3-column-count: 4;
 
 $small-screen-width: 991px;
 
-.salmon-waves,
-.salmon-v3-waves {
+.salmon-v3-players {
   table-layout: fixed;
   @media (max-width: $small-screen-width) {
     table-layout: auto !important;
@@ -16,7 +14,7 @@ $small-screen-width: 991px;
   thead {
     th {
       --label-width: #{$label-width};
-      --column-count: #{$v2-column-count};
+      --column-count: #{$v3-column-count};
 
       width: calc((100% - var(--label-width)) / var(--column-count));
       @media (max-width: $small-screen-width) {
@@ -29,14 +27,6 @@ $small-screen-width: 991px;
           width: auto !important;
         }
       }
-    }
-  }
-}
-
-.salmon-v3-waves {
-  thead {
-    th {
-      --column-count: #{$v3-column-count};
     }
   }
 }
