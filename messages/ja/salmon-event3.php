@@ -13,7 +13,7 @@ return [
     'Fog' => '霧',
     'Giant Tornado' => '巨大タツマキ',
     'Goldie Seeking' => 'キンシャケ探し',
-    'Mudmouth Eruption' => 'ドロシャケ噴出',
+    'Mudmouth Eruptions' => 'ドロシャケ噴出',
     'Rush' => 'ラッシュ',
     'The Griller' => 'グリル発進',
     'The Mothership' => 'ハコビヤ襲来',
