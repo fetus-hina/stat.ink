@@ -13,6 +13,7 @@ return [
 
     'Academy' => '海女美',
     'Alley' => 'ゴンズイ',
+    'Bay' => 'ドンブラコ',
     'Bridge' => 'マサバ',
     'Eeltail Alley' => 'ゴンズイ地区',
     'Gone Fission Hydroplant' => 'ムニ・エール海洋発電所',
@@ -25,6 +26,7 @@ return [
     'Mahi-Mahi Resort' => 'マヒマヒリゾート&スパ',
     'MakoMart' => 'ザトウマーケット',
     'Market' => 'ヤガラ',
+    'Marooner\'s Bay' => '難破船ドン・ブラコ',
     'Mart' => 'ザトウ',
     'Metalworks' => 'ナメロウ',
     'Mincemeat Metalworks' => 'ナメロウ金属',
