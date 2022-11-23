@@ -13,7 +13,7 @@ return [
     'Fog' => '',
     'Giant Tornado' => '',
     'Goldie Seeking' => '',
-    'Mudmouth Eruption' => '',
+    'Mudmouth Eruptions' => '',
     'Rush' => '',
     'The Griller' => '',
     'The Mothership' => '',

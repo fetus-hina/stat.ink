@@ -14,7 +14,7 @@ return [
     'Fog' => '霧',
     'Giant Tornado' => '巨型龍捲風',
     'Goldie Seeking' => '尋找金鮭魚',
-    'Mudmouth Eruption' => '泥鮭魚噴發',
+    'Mudmouth Eruptions' => '泥鮭魚噴發',
     'Rush' => '狂潮',
     'The Griller' => '烤架魚出動',
     'The Mothership' => '走私魚來襲',
