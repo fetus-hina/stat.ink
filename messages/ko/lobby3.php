@@ -4,6 +4,7 @@
  * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
+ * @author cake monotone <cake.monotone@gmail.com>
  */
 
 declare(strict_types=1);
@@ -15,7 +16,7 @@ return [
     'Any Lobby' => '',
     'Private Battle' => '프라이빗 매치',
     'Regular Battle' => '레귤러 매치',
-    'Splatfest' => '',
-    'Splatfest (Open)' => '',
-    'Splatfest (Pro)' => '',
+    'Splatfest' => '페스티벌 매치',
+    'Splatfest (Open)' => '페스티벌 매치 (오픈)',
+    'Splatfest (Pro)' => '페스티벌 매치 (챌린지)',
 ];
