@@ -1,0 +1,32 @@
+/*! Copyright (C) 2015-2022 AIZAWA Hina | MIT License */
+
+$label-width: 15em;
+$v3-column-count: 4;
+
+$small-screen-width: 991px;
+
+.salmon-v3-players {
+  table-layout: fixed;
+  @media (max-width: $small-screen-width) {
+    table-layout: auto !important;
+  }
+
+  thead {
+    th {
+      --label-width: #{$label-width};
+      --column-count: #{$v3-column-count};
+
+      width: calc((100% - var(--label-width)) / var(--column-count));
+      @media (max-width: $small-screen-width) {
+        width: auto !important;
+      }
+
+      &:first-child {
+        width: $label-width;
+        @media (max-width: $small-screen-width) {
+          width: auto !important;
+        }
+      }
+    }
+  }
+}

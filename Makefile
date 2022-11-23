@@ -95,6 +95,7 @@ RESOURCE_TARGETS := \
 	resources/.compiled/stat.ink/ratio.css \
 	resources/.compiled/stat.ink/rewrite-link-for-ios-app.js \
 	resources/.compiled/stat.ink/salmon-bosses.css \
+	resources/.compiled/stat.ink/salmon-players.css \
 	resources/.compiled/stat.ink/salmon-stats-history.js \
 	resources/.compiled/stat.ink/salmon-waves.css \
 	resources/.compiled/stat.ink/salmon-work-list-config.js \
@@ -317,6 +318,7 @@ resources/.compiled/stat.ink/private-note.js: resources/stat.ink/private-note.es
 resources/.compiled/stat.ink/ratio.css: resources/stat.ink/ratio.scss node_modules
 resources/.compiled/stat.ink/rewrite-link-for-ios-app.js: resources/stat.ink/rewrite-link-for-ios-app.es node_modules
 resources/.compiled/stat.ink/salmon-bosses.css: resources/stat.ink/salmon-bosses.scss node_modules
+resources/.compiled/stat.ink/salmon-players.css: resources/stat.ink/salmon-players.scss node_modules
 resources/.compiled/stat.ink/salmon-stats-history.js: resources/stat.ink/salmon-stats-history.es node_modules
 resources/.compiled/stat.ink/salmon-waves.css: resources/stat.ink/salmon-waves.scss node_modules
 resources/.compiled/stat.ink/salmon-work-list-config.js: resources/stat.ink/salmon-work-list-config.es node_modules

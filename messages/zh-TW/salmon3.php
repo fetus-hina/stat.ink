@@ -24,6 +24,8 @@ return [
     'Not Defeated' => '',
     'Pay Grade' => '',
     'Private Job' => '',
+    'Rescued' => '',
+    'Rescues' => '',
     'Salmometer' => '',
     'Salmon Run' => 'Salmon Run',
     'Time is up' => '時間到',

@@ -23,6 +23,8 @@ return [
     'Not Defeated' => '倒していない',
     'Pay Grade' => '評価レート',
     'Private Job' => 'プライベートバイト',
+    'Rescued' => '助けられた数',
+    'Rescues' => '助けた数',
     'Salmometer' => 'オカシラゲージ',
     'Salmon Run' => 'サーモンラン',
     'Time is up' => '時間切れ',

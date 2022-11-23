@@ -53,6 +53,7 @@ return [
                 'app-salmon-tide2' => 'salmon-tide2.php',
                 'app-salmon-title2' => 'salmon-title2.php',
                 'app-salmon-title3' => 'salmon-title3.php',
+                'app-salmon-uniform3' => 'salmon-uniform3.php',
                 'app-salmon2'   => 'salmon2.php',
                 'app-salmon3'   => 'salmon3.php',
                 'app-slack'     => 'slack.php',
