@@ -5,6 +5,7 @@
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author midmiako <mayomi@baka.wang>
+ * @author imspace <spacemeowx2@gmail.com>
  */
 
 declare(strict_types=1);
@@ -13,7 +14,7 @@ return [
     'Academy' => '海女美术大学',
     'Alley' => '鳗鲶区',
     'Any Stage' => '所有场地',
-    'Bay' => '',
+    'Bay' => '落难船',
     'Bridge' => '真鲭跨海大桥',
     'Brinewater Springs' => '',
     'Eeltail Alley' => '鳗鲶区',
@@ -29,7 +30,7 @@ return [
     'Mahi-Mahi Resort' => '鬼头刀Spa度假区',
     'MakoMart' => '座头购物中心',
     'Market' => '烟管鱼市场',
-    'Marooner\'s Bay' => '',
+    'Marooner\'s Bay' => '漂浮落难船',
     'Mart' => '座头购物中心',
     'Metalworks' => '鱼肉碎金属',
     'Mincemeat Metalworks' => '鱼肉碎金属',
