@@ -8,8 +8,10 @@
 
 declare(strict_types=1);
 
+use app\components\jobs\SalmonStatsJob;
 use app\components\jobs\UserStatsJob;
 use app\models\Battle3;
+use app\models\Salmon3;
 use yii\base\Event;
 use yii\base\Widget;
 use yii\data\Pagination;
@@ -29,20 +31,29 @@ Widget::$autoIdPrefix = sprintf('w-%s-', substr(
 Yii::$container->set(Battle3::class, [
     'on afterInsert' => function (Event $ev): void {
         $model = $ev->sender;
-        if (
-            $model instanceof Battle3 &&
-            $model->user
-        ) {
+        if ($model instanceof Battle3 && $model->user) {
             UserStatsJob::pushQueue3($model->user);
         }
     },
     'on afterUpdate' => function (Event $ev): void {
         $model = $ev->sender;
-        if (
-            $model instanceof Battle3 &&
-            $model->user
-        ) {
+        if ($model instanceof Battle3 && $model->user) {
             UserStatsJob::pushQueue3($model->user);
+        }
+    },
+]);
+
+Yii::$container->set(Salmon3::class, [
+    'on afterInsert' => function (Event $ev): void {
+        $model = $ev->sender;
+        if ($model instanceof Salmon3 && $model->user) {
+            SalmonStatsJob::pushQueue3($model->user);
+        }
+    },
+    'on afterUpdate' => function (Event $ev): void {
+        $model = $ev->sender;
+        if ($model instanceof Salmon3 && $model->user) {
+            SalmonStatsJob::pushQueue3($model->user);
         }
     },
 ]);
