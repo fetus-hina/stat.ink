@@ -82,8 +82,8 @@ footer {
   color: #aaa;
   overflow: hidden;
   text-overflow: ellipsis;
-  transform-origin: left center;
   transform: scale(var(--scale), 1);
+  transform-origin: left center;
   white-space: nowrap;
   width: calc(100% / var(--scale));
 }
@@ -95,7 +95,7 @@ html[lang^='zh-'],
 .lang-ko,
 .lang-zh {
   .user-label {
-    --scale: 1.0;
+    --scale: 0.85;
   }
 }
 
