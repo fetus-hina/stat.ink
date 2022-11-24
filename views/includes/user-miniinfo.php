@@ -376,7 +376,7 @@ $f = Yii::$app->formatter;
       <div>
         <span class="fa fa-fw"><?= $icons->ikanakama ?></span>
         <?= Html::a(
-          Html::encode(Yii::t('app', 'Ika-Nakama 2')),
+          Html::encode(Yii::t('app', 'Ika-Nakama')),
           'https://ikanakama.ink/users/' . rawurlencode((string)$user->ikanakama2),
           ['rel' => 'nofollow', 'target' => '_blank']
         ) . "\n" ?>

@@ -101,7 +101,7 @@ class MiniinfoUserLink extends Widget
 
         return $this->renderData(
             $this->iconAsset->ikanakama,
-            Yii::t('app', 'Ika-Nakama 2'),
+            Yii::t('app', 'Ika-Nakama'),
             sprintf('https://ikanakama.ink/users/%d', $this->user->ikanakama2)
         );
     }

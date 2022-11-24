@@ -252,7 +252,7 @@ return [
     'Winning percentage' => '勝率',
     'You can only get data for user who is authenticated by API token.' => 'API トークンで認証されたユーザ自身のデータのみが取得可能です。',
     'You\'ll get `newer_than` &lt; `id` &lt; `older_than`.' => '`newer_than` &lt; `id` &lt; `older_than` の範囲を取得します',
-    '[Ika-Nakama 2](https://ikanakama.ink/) profile URL' => '[イカナカマ2](https://ikanakama.ink/)プロフィールページURL',
+    '[Ika-Nakama](https://ikanakama.ink/) profile URL' => '[イカナカマ](https://ikanakama.ink/)プロフィールページURL',
     '`3` if cleared. `0` if failed in wave 1.' => 'クリアしたら `3`、WAVE 1 で落ちたら `0`',
     '`40` if Profreshional `40` of `999`' => 'たつじん `40`/`999` なら `40` を指定します。',
     '`null` or empty string if cleared or unknown' => 'クリアした場合や不明な場合は `null` か空文字列を指定します。',

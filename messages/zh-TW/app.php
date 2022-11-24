@@ -241,8 +241,6 @@ return [
     'If you delete this battle, it will be gone forever.' => '如果刪除該對戰，將無法復原資料。',
     'If you misuse this feature, you will be banned.' => '如果有濫用行爲，你會被黑名單。',
     'Ika-Nakama' => 'Ika-Nakama',
-    'Ika-Nakama 2' => 'Ika-Nakama 2',
-    'Ika-Nakama 2 User ID' => 'Ika-Nakama 2 用戶ID',
     'Ika-Nakama User ID' => 'Ika-Nakama 用戶ID',
     'IkaLog' => 'IkaLog',
     'IkaLog Download Page' => 'IkaLog下載頁面',
