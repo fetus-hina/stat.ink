@@ -25,6 +25,7 @@ use yii\db\ActiveRecord;
  * @property Salmon3[] $salmon3s
  * @property Salmon3[] $salmon3s0
  * @property SalmonTitle3Alias[] $salmonTitle3Aliases
+ * @property UserStatSalmon3[] $userStatSalmon3s
  */
 class SalmonTitle3 extends ActiveRecord
 {
@@ -69,5 +70,10 @@ class SalmonTitle3 extends ActiveRecord
     public function getSalmonTitle3Aliases(): ActiveQuery
     {
         return $this->hasMany(SalmonTitle3Alias::class, ['title_id' => 'id']);
+    }
+
+    public function getUserStatSalmon3s(): ActiveQuery
+    {
+        return $this->hasMany(UserStatSalmon3::class, ['peak_title_id' => 'id']);
     }
 }
