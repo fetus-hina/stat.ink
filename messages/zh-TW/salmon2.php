@@ -28,7 +28,7 @@ return [
     'Delivers' => '回收金龜魚卵數',
     'Edit job #{jobNumber}' => '編輯{jobNumber}號打工',
     'Failed' => '失敗',
-    'Failed<br><small>in wave {waveNumber}</small>' => '在{waveNumber} WAVE失敗',
+    'Failed<br><small>in wave {waveNumber}</small>' => '失敗<br><small>在{waveNumber} WAVE</small>',
     'Failed in wave {waveNumber}' => '在第{waveNumber} WAVE失敗',
     'Fail Reason' => '失敗原因',
     'From {shiftStart}' => '自{shiftStart}開始',
