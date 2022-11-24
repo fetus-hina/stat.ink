@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2021 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Gosin <canling0@gmail.com>
@@ -26,8 +26,8 @@ return [
     'Deaths' => '死亡',
     'Delivers' => '运送蛋数',
     'Edit job #{jobNumber}' => '编辑{jobNumber}号打工',
-    'Failed' => '',
-    'Failed<br><small>in wave {waveNumber}</small>' => '',
+    'Failed' => '失败',
+    'Failed<br><small>in wave {waveNumber}</small>' => '失败<br><small>在第{waveNumber}阶段</small>',
     'Failed in wave {waveNumber}' => '在第{waveNumber}阶段失败',
     'Fail Reason' => '失败原因',
     'From {shiftStart}' => '自{shiftStart}开始',

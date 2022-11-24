@@ -77,10 +77,26 @@ footer {
 }
 
 .user-label {
+  --scale: 0.8;
+
   color: #aaa;
   overflow: hidden;
   text-overflow: ellipsis;
+  transform-origin: left center;
+  transform: scale(var(--scale), 1);
   white-space: nowrap;
+  width: calc(100% / var(--scale));
+}
+
+html[lang^='ja'],
+html[lang^='ko-'],
+html[lang^='zh-'],
+.lang-ja,
+.lang-ko,
+.lang-zh {
+  .user-label {
+    --scale: 1.0;
+  }
 }
 
 .user-number {
