@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use app\components\widgets\AdWidget;
-use app\components\widgets\SalmonUserInfo;
+use app\components\widgets\SalmonUserInfo3;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\v3\BattlePrevNext;
 use app\models\Salmon3;
@@ -86,7 +86,7 @@ if ($nextBattle) {
       <?= $this->render('view/bosses', ['model' => $model]) . "\n" ?>
     </div>
     <div class="col-xs-12 col-sm-4 col-lg-3">
-      <?= SalmonUserInfo::widget(['user' => $user]) . "\n" ?>
+      <?= SalmonUserInfo3::widget(['user' => $user]) . "\n" ?>
       <?= AdWidget::widget() . "\n" ?>
     </div>
   </div>

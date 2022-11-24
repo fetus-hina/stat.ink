@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use app\components\widgets\AdWidget;
 use app\components\widgets\SalmonFilterWidget;
-use app\components\widgets\SalmonUserInfo;
+use app\components\widgets\SalmonUserInfo3;
 use app\components\widgets\SnsWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -71,7 +71,7 @@ if ($user->twitter != '') {
         'filter' => $filter,
       ]) . "\n" ?>
 <?php */ ?>
-      <?= SalmonUserInfo::widget(['user' => $user]) . "\n" ?>
+      <?= SalmonUserInfo3::widget(['user' => $user]) . "\n" ?>
       <?= AdWidget::widget() . "\n" ?>
     </div>
   </div>

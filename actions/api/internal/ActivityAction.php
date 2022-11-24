@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -220,16 +220,16 @@ final class ActivityAction extends Action
         DateTimeImmutable $to
     ): array {
         $date = sprintf('(CASE %s END)::date', implode(' ', [
-            'WHEN {{battle3}}.[[start_at]] IS NOT NULL THEN {{battle3}}.[[start_at]]',
-            "WHEN {{battle3}}.[[end_at]] IS NOT NULL THEN {{battle3}}.[[end_at]] - '3 minutes'::interval",
-            "ELSE {{battle3}}.[[created_at]] - '4 minutes'::interval",
+            'WHEN {{%battle3}}.[[start_at]] IS NOT NULL THEN {{%battle3}}.[[start_at]]',
+            "WHEN {{%battle3}}.[[end_at]] IS NOT NULL THEN {{%battle3}}.[[end_at]] - '3 minutes'::interval",
+            "ELSE {{%battle3}}.[[created_at]] - '4 minutes'::interval",
         ]));
         $query = (new Query())
             ->select([
                 'date' => $date,
                 'count' => 'COUNT(*)',
             ])
-            ->from('battle3')
+            ->from('{{%battle3}}')
             ->andWhere([
                 'user_id' => $user->id,
                 'is_deleted' => false,
@@ -250,7 +250,30 @@ final class ActivityAction extends Action
         DateTimeImmutable $from,
         DateTimeImmutable $to
     ): array {
-        return [];
+
+        $date = sprintf('(CASE %s END)::date', implode(' ', [
+            'WHEN {{%salmon3}}.[[start_at]] IS NOT NULL THEN {{%salmon3}}.[[start_at]]',
+            'ELSE {{%salmon3}}.[[created_at]]',
+        ]));
+        $query = (new Query())
+            ->select([
+                'date' => $date,
+                'count' => 'COUNT(*)',
+            ])
+            ->from('{{%salmon3}}')
+            ->andWhere([
+                'user_id' => $user->id,
+                'is_deleted' => false,
+            ])
+            ->andWhere([
+                'between',
+                $date,
+                $from->format(DateTime::ATOM),
+                $to->format(DateTime::ATOM)
+            ])
+            ->groupBy([$date])
+            ->orderBy(['date' => SORT_ASC]);
+        return $this->listToMap($query->all());
     }
 
     private function listToMap(array $list): array

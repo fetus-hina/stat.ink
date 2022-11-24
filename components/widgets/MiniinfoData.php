@@ -88,7 +88,7 @@ class MiniinfoData extends Widget
         );
     }
 
-    protected function renderElement($value, $valueTitle, string $format, array $options): string
+    protected function renderElement($value, $valueTitle, $format, array $options): string
     {
         $tag = ArrayHelper::remove($options, 'tag', 'div');
         if (!isset($options['title']) && $valueTitle != '') {
