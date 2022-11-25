@@ -65,7 +65,7 @@ if ($user->ikanakama2) {
   $links[] = implode('', [
     Html::tag('span', $asset->ikanakama, ['class' => 'fa fa-fw']),
     Html::a(
-      Yii::t('app', 'Ika-Nakama 2'),
+      Yii::t('app', 'Ika-Nakama'),
       sprintf('https://ikanakama.ink/users/%d', $user->ikanakama2),
       [
         'rel' => 'nofollow noopener',

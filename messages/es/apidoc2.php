@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -253,7 +253,7 @@ return [
     'Winning percentage' => '',
     'You\'ll get `newer_than` &lt; `id` &lt; `older_than`.' => '',
     'You can only get data for user who is authenticated by API token.' => '',
-    '[Ika-Nakama 2](https://ikanakama.ink/) profile URL' => '',
+    '[Ika-Nakama](https://ikanakama.ink/) profile URL' => '',
     '`3` if cleared. `0` if failed in wave 1.' => '',
     '`40` if Profreshional `40` of `999`' => '',
     '`null` or empty string if cleared or unknown' => '',

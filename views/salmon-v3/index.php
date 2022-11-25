@@ -6,8 +6,17 @@ use app\components\widgets\AdWidget;
 use app\components\widgets\SalmonFilterWidget;
 use app\components\widgets\SalmonUserInfo3;
 use app\components\widgets\SnsWidget;
+use app\models\User;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\View;
+
+/**
+ * @var User $user
+ * @var View $this
+ * @var bool $spMode
+ * @var string $permLink
+ */
 
 $title = Yii::t('app-salmon2', "{name}'s Salmon Log", ['name' => $user->name]);
 $this->title = sprintf('%s | %s', Yii::$app->name, $title);
@@ -47,22 +56,8 @@ if ($user->twitter != '') {
   ]) . "\n" ?>
   <div class="row">
     <div class="col-xs-12 col-sm-8 col-lg-9">
-      <p class="text-right">
-        <?= Html::a(
-          implode(' ', [
-            '<span class="fas fa-paint-roller"></span>',
-            Yii::t('app', 'Battles'),
-            '<span class="fas fa-fw fa-angle-right"></span>',
-          ]),
-          ['show-v3/user', 'screen_name' => $user->screen_name],
-          ['class' => 'btn btn-default btn-xs']
-        ) . "\n" ?>
-      </p>
-<?php if (true || $spMode) { ?>
-      <?= $this->render('index/sp', compact('user', 'dataProvider')) . "\n" ?>
-<?php } else { ?>
-      <?= $this->render('index/_list_pc', compact('user', 'dataProvider')) . "\n" ?>
-<?php } ?>
+      <?= $this->render('index/link-battles', compact('user')) . "\n" ?>
+      <?= $this->render($spMode ? 'index/sp' : 'index/pc', compact('user', 'dataProvider')) . "\n" ?>
     </div>
     <div class="col-xs-12 col-sm-4 col-lg-3">
 <?php /* ?>
@@ -76,8 +71,6 @@ if ($user->twitter != '') {
     </div>
   </div>
 <?php if (!$spMode) { ?>
-<?php /* ?>
-  <?= $this->render('index/_config_pc', compact('user', 'dataProvider')) . "\n" ?>
-<?php */ ?>
+  <?= $this->render('index/pc/filter', compact('user')) . "\n" ?>
 <?php } ?>
 </div>

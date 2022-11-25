@@ -5,8 +5,8 @@
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Gosin <canling0@gmail.com>
- * @author Weihao Jiang <weihau.chiang@gmail.com>
  * @author imspace <spacemeowx2@gmail.com>
+ * @author Weihao Jiang <weihau.chiang@gmail.com>
  */
 
 declare(strict_types=1);
@@ -242,8 +242,6 @@ return [
     'If you delete this battle, it will be gone forever.' => '如果删除该对战，将无法恢复。',
     'If you misuse this feature, you will be banned.' => '如果有滥用行为，你会被封禁。',
     'Ika-Nakama' => 'Ika-Nakama',
-    'Ika-Nakama 2' => 'Ika-Nakama 2',
-    'Ika-Nakama 2 User ID' => 'Ika-Nakama 2 用户ID',
     'Ika-Nakama User ID' => 'Ika-Nakama 用户ID',
     'IkaLog' => 'IkaLog',
     'IkaLog Download Page' => 'IkaLog下载页面',

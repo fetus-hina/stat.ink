@@ -54,6 +54,7 @@ final class UserMiniInfo3 extends Widget
                         [
                             $this->renderStatsTotal($groups),
                             $this->renderStatsLobbies($groups),
+                            $this->renderLinkToSalmon(),
                             $this->renderActivity(),
                             $this->renderLinkStats(),
                         ],
@@ -189,6 +190,45 @@ final class UserMiniInfo3 extends Widget
                 fn (?array $conf): bool => $conf !== null,
             ),
         ]);
+    }
+
+    private function renderLinkToSalmon(): string
+    {
+        $am = Yii::$app->assetManager;
+        return Html::tag(
+            'div',
+            Html::a(
+                \implode('', [
+                  Html::img(
+                    $am->getAssetUrl(
+                      $am->getBundle(GameModeIconsAsset::class),
+                      'spl3/salmon36x36.png',
+                    ),
+                    [
+                      'class' => 'basic-icon',
+                      'style' => 'height:1em',
+                    ],
+                  ),
+                  ' ',
+                  Html::encode(Yii::t('app-salmon2', 'Salmon Run')),
+                  (string)FA::fas('angle-right')->fw(),
+                ]),
+                ['salmon-v3/index',
+                    'screen_name' => $this->user->screen_name,
+                ],
+                [
+                    'class' => [
+                        'btn',
+                        'btn-block',
+                        'btn-default',
+                        'btn-sm',
+                    ],
+                ],
+            ),
+            [
+                'class' => 'miniinfo-databox mt-0',
+            ],
+        );
     }
 
     private function renderActivity(): string

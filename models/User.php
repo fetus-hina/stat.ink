@@ -188,7 +188,7 @@ class User extends ActiveRecord implements IdentityInterface
             'sw_friend_code' => Yii::t('app', 'Friend Code (Switch)'),
             'twitter'       => Yii::t('app', 'Twitter @name'),
             'ikanakama'     => Yii::t('app', 'Ika-Nakama User ID'),
-            'ikanakama2'    => Yii::t('app', 'Ika-Nakama 2 User ID'),
+            'ikanakama2'    => Yii::t('app', 'Ika-Nakama User ID'),
             'env_id'        => Yii::t('app', 'Capture Environment'),
             'blackout'      => Yii::t('app', 'Black out other players from the result image'),
             'blackout_list' => Yii::t('app', 'Black out other players on details view'),

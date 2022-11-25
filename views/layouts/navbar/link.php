@@ -323,7 +323,7 @@ $list = [
     'url' => 'https://ikanakama.ink/',
     'name' => implode('', [
       $icon->ikanakama,
-      Html::encode(Yii::t('app', 'Ika-Nakama 2')),
+      Html::encode(Yii::t('app', 'Ika-Nakama')),
     ]),
   ],
   [

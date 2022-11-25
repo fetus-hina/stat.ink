@@ -101,6 +101,7 @@ RESOURCE_TARGETS := \
 	resources/.compiled/stat.ink/salmon-work-list-config.js \
 	resources/.compiled/stat.ink/salmon-work-list-hazard.js \
 	resources/.compiled/stat.ink/salmon-work-list.js \
+	resources/.compiled/stat.ink/salmon3-work-list-config.js \
 	resources/.compiled/stat.ink/smooth-scroll.js \
 	resources/.compiled/stat.ink/stat-by-map-rule.js \
 	resources/.compiled/stat.ink/stat-by-map.js \
@@ -324,12 +325,13 @@ resources/.compiled/stat.ink/salmon-waves.css: resources/stat.ink/salmon-waves.s
 resources/.compiled/stat.ink/salmon-work-list-config.js: resources/stat.ink/salmon-work-list-config.es node_modules
 resources/.compiled/stat.ink/salmon-work-list-hazard.js: resources/stat.ink/salmon-work-list-hazard.es node_modules
 resources/.compiled/stat.ink/salmon-work-list.js: resources/stat.ink/salmon-work-list.es node_modules
+resources/.compiled/stat.ink/salmon3-work-list-config.js: resources/stat.ink/salmon3-work-list-config.es node_modules
 resources/.compiled/stat.ink/smooth-scroll.js: resources/stat.ink/smooth-scroll.es node_modules
 resources/.compiled/stat.ink/stat-by-map-rule.js: resources/stat.ink/stat-by-map-rule.es node_modules
 resources/.compiled/stat.ink/stat-by-map.js: resources/stat.ink/stat-by-map.es node_modules
 resources/.compiled/stat.ink/stat-by-rule.js: resources/stat.ink/stat-by-rule.es node_modules
 resources/.compiled/stat.ink/table-responsive-force.css: resources/stat.ink/table-responsive-force.scss node_modules
-resources/.compiled/stat.ink/theme.js: resources/stat.ink/theme.es
+resources/.compiled/stat.ink/theme.js: resources/stat.ink/theme.es node_modules
 resources/.compiled/stat.ink/timezone-dialog.js: resources/stat.ink/timezone-dialog.es node_modules
 resources/.compiled/stat.ink/user-miniinfo.css: resources/stat.ink/user-miniinfo.scss node_modules
 resources/.compiled/stat.ink/user-stat-2-monthly-report-pie-winpct.js: resources/stat.ink/user-stat-2-monthly-report-pie-winpct.es node_modules

@@ -254,7 +254,7 @@ return [
     'Winning percentage' => '成功率',
     'You\'ll get `newer_than` &lt; `id` &lt; `older_than`.' => '你会获得`newer_than` &lt; `id`&lt; `older_than`。',
     'You can only get data for user who is authenticated by API token.' => '你只能获得该用户API密钥授权的数据。',
-    '[Ika-Nakama 2](https://ikanakama.ink/) profile URL' => '[Ika-Nakama 2](https://ikanakama.ink/)档案网址',
+    '[Ika-Nakama](https://ikanakama.ink/) profile URL' => '[Ika-Nakama](https://ikanakama.ink/)档案网址',
     '`3` if cleared. `0` if failed in wave 1.' => '如果完成打工就是`3`。如果第一阶段就失败则为`0`。',
     '`40` if Profreshional `40` of `999`' => '`40`就是专业的`40`分之`999`。',
     '`null` or empty string if cleared or unknown' => '如果完成打工或未知即为`null`或空白字符。',

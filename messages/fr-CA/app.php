@@ -239,8 +239,6 @@ return [
     'If you delete this battle, it will be gone forever.' => '',
     'If you misuse this feature, you will be banned.' => '',
     'Ika-Nakama' => '',
-    'Ika-Nakama 2' => '',
-    'Ika-Nakama 2 User ID' => '',
     'Ika-Nakama User ID' => '',
     'IkaLog' => '',
     'IkaLog Download Page' => '',

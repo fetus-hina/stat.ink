@@ -93,7 +93,7 @@ class UserForSalmon2 extends User
                             'nullable' => true,
                             'description' => Yii::t(
                                 'app-apidoc2',
-                                '[Ika-Nakama 2](https://ikanakama.ink/) profile URL'
+                                '[Ika-Nakama](https://ikanakama.ink/) profile URL'
                             ),
                         ],
                         'environment' => [

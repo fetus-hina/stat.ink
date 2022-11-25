@@ -358,7 +358,7 @@ SalmonWorkListAsset::register($this);
             'text-center',
           ]),
           'data' => [
-            'danger-rate' => $column->grid->formatter->asDecimal($model->danger_rate, 1),
+            'danger-rate' => $model->danger_rate,
           ],
         ];
       },

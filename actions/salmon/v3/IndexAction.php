@@ -15,6 +15,7 @@ use app\models\Salmon3;
 use app\models\User;
 use yii\base\Action;
 use yii\data\ActiveDataProvider;
+use yii\db\ActiveQuery;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\Cookie;
@@ -59,7 +60,7 @@ final class IndexAction extends Action
         }
 
         $query = Salmon3::find()
-            ->with([
+            ->joinWith([
                 'bigStage',
                 'failReason',
                 'kingSalmonid',
@@ -67,6 +68,11 @@ final class IndexAction extends Action
                 'stage',
                 'titleAfter',
                 'titleBefore',
+                'salmonPlayer3s' => function (ActiveQuery $query): void {
+                    $query->onCondition(['{{%salmon_player3}}.[[is_me]]' => true]);
+                },
+                'salmonPlayer3s.salmonPlayerWeapon3s.weapon',
+                'salmonPlayer3s.special',
             ])
             ->andWhere([
                 'is_deleted' => false,

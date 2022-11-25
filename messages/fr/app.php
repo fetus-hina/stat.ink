@@ -241,8 +241,6 @@ return [
     'If you delete this battle, it will be gone forever.' => 'Voulez-vous vraiment effacer ce match ? Cette action sera irreversible.',
     'If you misuse this feature, you will be banned.' => 'Si vous abusez de cette fonctionnalité, vous serez bannis.',
     'Ika-Nakama' => '',
-    'Ika-Nakama 2' => '',
-    'Ika-Nakama 2 User ID' => 'ID d\'utilisateur d\'Ika-Nakama 2',
     'Ika-Nakama User ID' => 'ID d\'utilisateur d\'Ika-Nakama',
     'IkaLog' => '',
     'IkaLog Download Page' => 'Page de téléchargement d\'IkaLog',
