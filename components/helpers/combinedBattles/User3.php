@@ -13,6 +13,7 @@ namespace app\components\helpers\combinedBattles;
 use DateTime;
 use DateTimeImmutable;
 use app\models\Battle3;
+use app\models\Salmon3;
 use yii\db\ActiveQuery;
 
 use const SORT_DESC;
@@ -42,6 +43,30 @@ return [
                 return;
             }
             $q->andWhere(['>=', '{{battle3}}.[[created_at]]', $t->format(DateTime::ATOM)]);
+        },
+    ],
+    [
+        'query' => Salmon3::find()
+            ->andWhere([
+                'user_id' => $user->id,
+                'is_deleted' => false,
+            ])
+            ->with([
+                'bigStage',
+                'kingSalmonid',
+                'stage',
+                'user',
+                'user.userIcon',
+            ])
+            ->limit($num ?? 100)
+            ->orderBy([
+                '{{%salmon3}}.[[start_at]]' => SORT_DESC,
+            ]),
+        'callback' => function (ActiveQuery $q, ?DateTimeImmutable $t): void {
+            if (!$t) {
+                return;
+            }
+            $q->andWhere(['>=', '{{%salmon3}}.[[created_at]]', $t->format(DateTime::ATOM)]);
         },
     ],
 ];

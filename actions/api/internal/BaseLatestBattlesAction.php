@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2021 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -17,6 +17,7 @@ use app\actions\api\internal\latestBattles\Battle1Formatter;
 use app\actions\api\internal\latestBattles\Battle2Formatter;
 use app\actions\api\internal\latestBattles\Battle3Formatter;
 use app\actions\api\internal\latestBattles\Salmon2Formatter;
+use app\actions\api\internal\latestBattles\Salmon3Formatter;
 use app\assets\GameModeIconsAsset;
 use app\assets\NoDependedAppAsset;
 use app\assets\Spl3StageAsset;
@@ -25,6 +26,7 @@ use app\models\Battle2;
 use app\models\Battle3;
 use app\models\Battle;
 use app\models\Salmon2;
+use app\models\Salmon3;
 use yii\db\Transaction;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
@@ -40,6 +42,7 @@ abstract class BaseLatestBattlesAction extends ViewAction
     use Battle2Formatter;
     use Battle3Formatter;
     use Salmon2Formatter;
+    use Salmon3Formatter;
 
     private DateTimeImmutable $now;
 
@@ -121,22 +124,33 @@ abstract class BaseLatestBattlesAction extends ViewAction
 
     private function getBattles(): array
     {
-        return array_filter(
-            ArrayHelper::getColumn(
-                $this->fetchBattles(),
-                function ($battle): ?array {
-                    if ($battle instanceof Battle3) {
-                        return $this->formatBattle3($battle);
-                    } elseif ($battle instanceof Battle2) {
-                        return $this->formatBattle2($battle);
-                    } elseif ($battle instanceof Salmon2) {
-                        return $this->formatSalmon2($battle);
-                    } elseif ($battle instanceof Battle) {
-                        return $this->formatBattle1($battle);
+        return \array_values(
+            \array_filter(
+                ArrayHelper::getColumn(
+                    $this->fetchBattles(),
+                    function ($battle): ?array {
+                        switch (\get_class($battle)) {
+                            case Battle::class:
+                                return $this->formatBattle1($battle);
+
+                            case Battle2::class:
+                                return $this->formatBattle2($battle);
+
+                            case Battle3::class:
+                                return $this->formatBattle3($battle);
+
+                            case Salmon2::class:
+                                return $this->formatSalmon2($battle);
+
+                            case Salmon3::class:
+                                return $this->formatSalmon3($battle);
+
+                            default:
+                                return null;
+                        }
                     }
-                    return null;
-                }
-            )
+                ),
+            ),
         );
     }
 

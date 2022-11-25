@@ -61,6 +61,15 @@ $user = Yii::$app->user->identity ?? null;
       )),
       Html::tag('li', Html::a(
         implode('', [
+          Html::tag('span', '┃', ['class' => 'fa fa-fw']),
+          Html::tag('span', '┗', ['class' => 'fa fa-fw']),
+          Html::tag('span', '', ['class' => 'fas fa-fw fa-fish']),
+          Html::encode(Yii::t('app-salmon2', 'Salmon Run')),
+        ]),
+        ['salmon-v3/index', 'screen_name' => $user->screen_name],
+      )),
+      Html::tag('li', Html::a(
+        implode('', [
           Html::tag('span', '┣', ['class' => 'fa fa-fw']),
           GameVersionIcon::widget(['version' => 2]),
           Html::encode(Yii::t('app', 'Splatoon 2')),

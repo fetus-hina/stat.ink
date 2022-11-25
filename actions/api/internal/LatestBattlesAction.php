@@ -25,10 +25,10 @@ class LatestBattlesAction extends BaseLatestBattlesAction
         return Yii::$app->db->transaction(
             function (): array {
                 return CombinedBattles::getRecentBattles(
-                    static::BATTLE_LIMIT
+                    self::BATTLE_LIMIT,
                 );
             },
-            Transaction::REPEATABLE_READ
+            Transaction::READ_COMMITTED,
         );
     }
 
