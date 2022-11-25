@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace app\components\helpers\salmonStatsV3;
 
 use DateTimeImmutable;
+use Exception;
 use Throwable;
 use Yii;
 use app\models\User;
