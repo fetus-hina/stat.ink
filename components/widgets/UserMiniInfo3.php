@@ -199,19 +199,19 @@ final class UserMiniInfo3 extends Widget
             'div',
             Html::a(
                 \implode('', [
-                  Html::img(
-                    $am->getAssetUrl(
-                      $am->getBundle(GameModeIconsAsset::class),
-                      'spl3/salmon36x36.png',
+                    Html::img(
+                        $am->getAssetUrl(
+                            $am->getBundle(GameModeIconsAsset::class),
+                            'spl3/salmon36x36.png',
+                        ),
+                        [
+                            'class' => 'basic-icon',
+                            'style' => 'height:1em',
+                        ],
                     ),
-                    [
-                      'class' => 'basic-icon',
-                      'style' => 'height:1em',
-                    ],
-                  ),
-                  ' ',
-                  Html::encode(Yii::t('app-salmon2', 'Salmon Run')),
-                  (string)FA::fas('angle-right')->fw(),
+                    ' ',
+                    Html::encode(Yii::t('app-salmon2', 'Salmon Run')),
+                    (string)FA::fas('angle-right')->fw(),
                 ]),
                 ['salmon-v3/index',
                     'screen_name' => $this->user->screen_name,
