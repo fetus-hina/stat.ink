@@ -3,8 +3,9 @@
     $('.danger-rate-bg').each((i, el) => {
       const $this = $(el);
       const dangerRate = parseFloat($this.attr('data-danger-rate'));
+      const maxDangerRate = parseFloat($this.attr('data-max-danger-rate') || '200');
       const url = $this.attr('data-bg-url') || '/static-assets/rect-danger.min.svg';
-      const width = dangerRate / 2;
+      const width = dangerRate / (maxDangerRate / 100);
       $this.css({
         'background-color': '#ccc', // 'transparent',
         'background-image': `url(${url})`,

@@ -1,31 +1,31 @@
 /*! Copyright (C) 2015-2022 AIZAWA Hina | MIT License */
 
 ((window, $) => {
+  const STORAGE_NAME = 'salmon3-list';
+
   $(() => {
     const storage = window.localStorage;
     const loadAllConfig = () => {
-      const json = storage.getItem('work-list');
+      const json = storage.getItem(STORAGE_NAME);
       const config = json ? JSON.parse(json) : {};
       const defaults = {
         hscroll: false,
-        'cell-splatnet': true,
-        'cell-map': true,
-        'cell-map-short': false,
+        'cell-map': false,
+        'cell-map-short': true,
+        'cell-weapon': true,
         'cell-special': false,
+        'cell-special-icon': true,
         'cell-result': true,
+        'cell-king-smell': true,
         'cell-golden': true,
-        'cell-golden-wave': false,
         'cell-golden-total': false,
-        'cell-golden-total-wave': false,
         'cell-power': true,
-        'cell-power-wave': false,
         'cell-power-total': false,
-        'cell-power-total-wave': false,
         'cell-danger-rate': true,
-        'cell-title': true,
-        'cell-title-after': false,
-        'cell-datetime': true,
-        'cell-reltime': false
+        'cell-title': false,
+        'cell-title-after': true,
+        'cell-datetime': false,
+        'cell-reltime': false,
       };
       for (const i in defaults) {
         if (Object.prototype.hasOwnProperty.call(defaults, i)) {
@@ -43,7 +43,7 @@
     const updateConfig = (key, enable) => {
       const config = loadAllConfig();
       config[key] = !!enable;
-      storage.setItem('work-list', JSON.stringify(config));
+      storage.setItem(STORAGE_NAME, JSON.stringify(config));
     };
     const changeTableHScroll = enable => {
       if (enable) {
