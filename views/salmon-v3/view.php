@@ -25,7 +25,10 @@ $title = Yii::t('app-salmon2', 'Results of {userName}\'s job', [
 ]);
 
 $canonicalUrl = Url::to(
-  ['salmon-v3/view', 'screen_name' => $user->screen_name, 'id' => $model->uuid],
+  ['salmon-v3/view',
+    'screen_name' => $user->screen_name,
+    'battle' => $model->uuid,
+  ],
   true,
 );
 
