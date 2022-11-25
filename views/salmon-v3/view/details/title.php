@@ -25,8 +25,8 @@ return [
       );
 
     return vsprintf('%1$s %3$s %2$s', [
-      Html::encode($f($model->titleBefore, $model->title_exp_before)),
-      Html::encode($f($model->titleAfter, $model->title_exp_after)),
+      $f($model->titleBefore, $model->title_exp_before),
+      $f($model->titleAfter, $model->title_exp_after),
       (string)FA::fas('arrow-right'),
     ]);
   },
