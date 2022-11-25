@@ -194,11 +194,22 @@ final class UserMiniInfo3 extends Widget
 
     private function renderLinkToSalmon(): string
     {
+        $am = Yii::$app->assetManager;
         return Html::tag(
             'div',
             Html::a(
                 \implode('', [
-                  (string)FA::fas('fish')->fw(),
+                  Html::img(
+                    $am->getAssetUrl(
+                      $am->getBundle(GameModeIconsAsset::class),
+                      'spl3/salmon36x36.png',
+                    ),
+                    [
+                      'class' => 'basic-icon',
+                      'style' => 'height:1em',
+                    ],
+                  ),
+                  ' ',
                   Html::encode(Yii::t('app-salmon2', 'Salmon Run')),
                   (string)FA::fas('angle-right')->fw(),
                 ]),
