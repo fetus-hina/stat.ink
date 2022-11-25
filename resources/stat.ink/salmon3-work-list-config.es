@@ -25,7 +25,7 @@
         'cell-title': false,
         'cell-title-after': true,
         'cell-datetime': false,
-        'cell-reltime': false,
+        'cell-reltime': false
       };
       for (const i in defaults) {
         if (Object.prototype.hasOwnProperty.call(defaults, i)) {
