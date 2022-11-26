@@ -1,6 +1,6 @@
-diff -ru php73.o/php-fpm.d/www.conf php73/php-fpm.d/www.conf
---- php73.o/php-fpm.d/www.conf
-+++ php73/php-fpm.d/www.conf
+diff -ru php80.o/php-fpm.d/www.conf php80/php-fpm.d/www.conf
+--- php80.o/php-fpm.d/www.conf
++++ php80/php-fpm.d/www.conf
 @@ -21,7 +21,7 @@
  ; Note: The user is mandatory. If the group is not set, the default user's group
  ;       will be used.
@@ -11,15 +11,15 @@ diff -ru php73.o/php-fpm.d/www.conf php73/php-fpm.d/www.conf
  group = apache
 
 @@ -420,3 +420,6 @@
- php_value[soap.wsdl_cache_dir]  = /var/opt/remi/php73/lib/php/wsdlcache
+ php_value[soap.wsdl_cache_dir]  = /var/opt/remi/php80/lib/php/wsdlcache
 
- ;php_value[opcache.file_cache]  = /var/opt/remi/php73/lib/php/opcache
+ ;php_value[opcache.file_cache]  = /var/opt/remi/php80/lib/php/opcache
 +
 +php_admin_value[upload_max_filesize] = 12M
 +php_admin_value[post_max_size] = 13M
-diff -ru php73.o/php.ini php73/php.ini
---- php73.o/php.ini
-+++ php73/php.ini
+diff -ru php80.o/php.ini php80/php.ini
+--- php80.o/php.ini
++++ php80/php.ini
 @@ -356,7 +356,7 @@
  ; threat in any way, but it makes it possible to determine whether you use PHP
  ; on your server or not.

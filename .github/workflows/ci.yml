@@ -18,14 +18,11 @@ jobs:
     strategy:
       matrix:
         php:
-          - version: '7.4'
-            experimental: false
-
           - version: '8.0'
             experimental: false
 
           - version: '8.1'
-            experimental: true
+            experimental: false
 
     runs-on: 'ubuntu-20.04'
 
@@ -67,10 +64,10 @@ jobs:
       - name: 'Fetch Latest phpcs.phar'
         run: 'curl -fsSL -o phpcs "https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar"'
 
-      - name: 'Set PHP environment (PHP 7.4)'
+      - name: 'Set PHP environment (PHP 8.0)'
         uses: 'shivammathur/setup-php@v2'
         with:
-          php-version: '7.4'
+          php-version: '8.0'
 
       - name: 'Run PHPCS'
         run: 'php phpcs -p'
@@ -97,10 +94,10 @@ jobs:
           key: author-composer-cache-${{ github.sha }}
           restore-keys: author-composer-cache-
 
-      - name: 'Set PHP environment (PHP 7.4)'
+      - name: 'Set PHP environment (PHP 8.0)'
         uses: 'shivammathur/setup-php@v2'
         with:
-          php-version: '7.4'
+          php-version: '8.0'
 
       - name: 'Prepare for phpcq/author-validation'
         run: |
@@ -234,10 +231,10 @@ jobs:
           key: composer-${{ hashFiles('composer.lock') }}
           restore-keys: composer-
 
-      - name: 'Set PHP environment (PHP 7.4)'
+      - name: 'Set PHP environment (PHP 8.0)'
         uses: 'shivammathur/setup-php@v2'
         with:
-          php-version: '7.4'
+          php-version: '8.0'
 
       - name: 'Install composer packages'
         run: |
@@ -277,10 +274,10 @@ jobs:
             ~/.npm
           key: npm-2-${{ hashFiles('package-lock.json') }}
 
-      - name: 'Set PHP environment (PHP 7.4)'
+      - name: 'Set PHP environment (PHP 8.0)'
         uses: 'shivammathur/setup-php@v2'
         with:
-          php-version: '7.4'
+          php-version: '8.0'
 
       - name: 'Use node.js 16 LTS'
         uses: 'actions/setup-node@v2'
@@ -309,14 +306,11 @@ jobs:
     strategy:
       matrix:
         php:
-          - version: '7.4'
-            experimental: false
-
           - version: '8.0'
             experimental: false
 
           - version: '8.1'
-            experimental: true
+            experimental: false
 
         pgsql:
           - version: '9.5' # minimum requirement
@@ -328,7 +322,7 @@ jobs:
             image: '11-alpine'
 
           - version: 'latest'
-            experimental: true
+            experimental: false
             image: 'alpine'
 
     services:
