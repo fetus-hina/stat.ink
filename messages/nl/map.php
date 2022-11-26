@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -20,9 +20,9 @@ return [
     'Camp Triggerfish' => '',
     'Depot' => '',
     'Dome' => '',
-    'Flounder Heights' => '',
+    'Flounder Heights' => 'Baleinbuurt',
     'Hammerhead Bridge' => '',
-    'Heights' => '',
+    'Heights' => 'Baleinbuurt',
     'Kelp Dome' => '',
     'Mahi-Mahi' => '',
     'Mahi-Mahi Resort' => '',
