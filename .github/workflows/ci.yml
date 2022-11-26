@@ -1,110 +1,98 @@
-name: 'CI'
-
-on:
-  - 'push'
-  - 'pull_request'
-
+name: CI
+'on':
+  - push
+  - pull_request
 jobs:
   ciDoesNotSkip:
-    name: "Tag Check: `[ci skip]`"
-    runs-on: 'ubuntu-22.04'
-    if: "!contains(github.event.head_commit.message, '[ci skip]')"
+    name: 'Tag Check: `[ci skip]`'
+    runs-on: ubuntu-22.04
+    if: '!contains(github.event.head_commit.message, ''[ci skip]'')'
     steps:
-      - run: |
+      -
+        run: |
           echo "CI Running"
-
   phpSyntaxCheck:
     name: 'PHP Syntax Check (PHP ${{ matrix.php.version }})'
     strategy:
       matrix:
         php:
-          - version: '8.0'
+          -
+            version: '8.0'
             experimental: false
-
-          - version: '8.1'
+          -
+            version: '8.1'
             experimental: false
-
-    runs-on: 'ubuntu-22.04'
-
+    runs-on: ubuntu-22.04
     needs:
-      - 'ciDoesNotSkip'
-
-    if: "!contains(github.event.head_commit.message, '[no php]')"
-
+      - ciDoesNotSkip
+    if: '!contains(github.event.head_commit.message, ''[no php]'')'
     steps:
-      - uses: 'actions/checkout@v3'
-
-      - name: 'Set PHP environment (PHP ${{ matrix.php.version }})'
-        uses: 'shivammathur/setup-php@v2'
+      -
+        uses: actions/checkout@v3
+      -
+        name: 'Set PHP environment (PHP ${{ matrix.php.version }})'
+        uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php.version }}
-
-      - name: 'Syntax Check'
+          php-version: '${{ matrix.php.version }}'
+      -
+        name: 'Syntax Check'
         continue-on-error: '${{ matrix.php.experimental }}'
         run: |
           find . \( -type d \( -name '.git' -or -name 'vendor' -or -name 'runtime' -or -name 'node_modules' \) -prune \) -or \( -type f -name '*.php' -print \) \
             | sort \
             | xargs -n 1 php -l
         env:
-          LANG: 'C'
-
+          LANG: C
   phpStyleCheck:
     name: 'PHP Coding Style'
-
-    runs-on: 'ubuntu-22.04'
-
+    runs-on: ubuntu-22.04
     needs:
-      - 'ciDoesNotSkip'
-
-    if: "!contains(github.event.head_commit.message, '[no php]')"
-
+      - ciDoesNotSkip
+    if: '!contains(github.event.head_commit.message, ''[no php]'')'
     steps:
-      - uses: 'actions/checkout@v3'
-
-      - name: 'Fetch Latest phpcs.phar'
+      -
+        uses: actions/checkout@v3
+      -
+        name: 'Fetch Latest phpcs.phar'
         run: 'curl -fsSL -o phpcs "https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar"'
-
-      - name: 'Set PHP environment (PHP 8.0)'
-        uses: 'shivammathur/setup-php@v2'
+      -
+        name: 'Set PHP environment (PHP 8.0)'
+        uses: shivammathur/setup-php@v2
         with:
           php-version: '8.0'
-
-      - name: 'Run PHPCS'
+      -
+        name: 'Run PHPCS'
         run: 'php phpcs -p'
-
   phpCheckAuthor:
     name: 'Check Author'
-
-    runs-on: 'ubuntu-22.04'
-
+    runs-on: ubuntu-22.04
     needs:
-      - 'ciDoesNotSkip'
-
-    if: "!contains(github.event.head_commit.message, '[no php]') && !contains(github.event.head_commit.message, '[no author]')"
-
+      - ciDoesNotSkip
+    if: '!contains(github.event.head_commit.message, ''[no php]'') && !contains(github.event.head_commit.message, ''[no author]'')'
     steps:
-      - uses: 'actions/checkout@v3'
+      -
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
-
-      - name: 'Composer cache'
-        uses: 'actions/cache@v2'
+      -
+        name: 'Composer cache'
+        uses: actions/cache@v2
         with:
           path: ~/.cache/composer/files
-          key: author-composer-cache-${{ github.sha }}
+          key: 'author-composer-cache-${{ github.sha }}'
           restore-keys: author-composer-cache-
-
-      - name: 'Set PHP environment (PHP 7.4)'
-        uses: 'shivammathur/setup-php@v2'
+      -
+        name: 'Set PHP environment (PHP 7.4)'
+        uses: shivammathur/setup-php@v2
         with:
           php-version: '7.4'
-
-      - name: 'Prepare for phpcq/author-validation'
+      -
+        name: 'Prepare for phpcq/author-validation'
         run: |
           rm -f composer.json
           mv composer.check-author.json composer.json
-
-      - name: 'Install phpcq/author-validation'
+      -
+        name: 'Install phpcq/author-validation'
         uses: nick-invision/retry@v2
         with:
           timeout_seconds: 300
@@ -114,8 +102,8 @@ jobs:
             rm -rf composer.lock vendor
             make composer.phar
             ./composer.phar update
-
-      - name: 'Execute check-author.php'
+      -
+        name: 'Execute check-author.php'
         run: |
           patch -p0 -d vendor/phpcq/author-validation < data/patch/check-author.nofollow.patch
           php -d memory_limit=-1 vendor/bin/check-author.php --php-files \
@@ -127,264 +115,238 @@ jobs:
             messages \
             migrations \
             models
-
   setupNPM:
     name: 'Setup NPM (install node_modules)'
-
-    runs-on: 'ubuntu-22.04'
-
+    runs-on: ubuntu-22.04
     needs:
-      - 'ciDoesNotSkip'
-
+      - ciDoesNotSkip
     steps:
-      - uses: 'actions/checkout@v3'
-
-      - uses: 'actions/cache@v2'
+      -
+        uses: actions/checkout@v3
+      -
+        uses: actions/cache@v2
         with:
           path: |
             node_modules
             ~/.npm
-          key: npm-2-${{ hashFiles('package-lock.json') }}
+          key: 'npm-2-${{ hashFiles(''package-lock.json'') }}'
           restore-keys: npm-2-
-
-      - name: 'Use node.js 16 LTS'
-        uses: 'actions/setup-node@v3'
+      -
+        name: 'Use node.js 16 LTS'
+        uses: actions/setup-node@v3
         with:
           node-version: '16'
-
-      - name: 'Install NPM packages'
+      -
+        name: 'Install NPM packages'
         run: 'npm clean-install'
-
   jsStyleCheck:
     name: 'JS Coding Style'
-
-    runs-on: 'ubuntu-22.04'
-
+    runs-on: ubuntu-22.04
     needs:
-      - 'ciDoesNotSkip'
-      - 'setupNPM'
-
+      - ciDoesNotSkip
+      - setupNPM
     steps:
-      - uses: 'actions/checkout@v3'
-
-      - uses: 'actions/cache@v2'
+      -
+        uses: actions/checkout@v3
+      -
+        uses: actions/cache@v2
         with:
           path: |
             node_modules
             ~/.npm
-          key: npm-2-${{ hashFiles('package-lock.json') }}
-
-      - name: 'Use node.js 16 LTS'
-        uses: 'actions/setup-node@v3'
+          key: 'npm-2-${{ hashFiles(''package-lock.json'') }}'
+      -
+        name: 'Use node.js 16 LTS'
+        uses: actions/setup-node@v3
         with:
           node-version: '16'
-
-      - name: 'Run `semistandard`'
+      -
+        name: 'Run `semistandard`'
         run: 'npx semistandard "resources/**/*[ej]s"'
-
   cssStyleCheck:
     name: 'CSS Coding Style'
-
-    runs-on: 'ubuntu-22.04'
-
+    runs-on: ubuntu-22.04
     needs:
-      - 'ciDoesNotSkip'
-      - 'setupNPM'
-
+      - ciDoesNotSkip
+      - setupNPM
     steps:
-      - uses: 'actions/checkout@v3'
-
-      - uses: 'actions/cache@v2'
+      -
+        uses: actions/checkout@v3
+      -
+        uses: actions/cache@v2
         with:
           path: |
             node_modules
             ~/.npm
-          key: npm-2-${{ hashFiles('package-lock.json') }}
-
-      - name: 'Use node.js 16 LTS'
-        uses: 'actions/setup-node@v3'
+          key: 'npm-2-${{ hashFiles(''package-lock.json'') }}'
+      -
+        name: 'Use node.js 16 LTS'
+        uses: actions/setup-node@v3
         with:
           node-version: '16'
-
-      - name: 'Run StyleLint'
+      -
+        name: 'Run StyleLint'
         run: 'npx stylelint "resources/**/*.scss" "resources/**/*.css"'
-
   setupComposer:
     name: 'Setup Composer (install vendor)'
-
-    runs-on: 'ubuntu-22.04'
-
+    runs-on: ubuntu-22.04
     needs:
-      - 'ciDoesNotSkip'
-      - 'phpSyntaxCheck'
-
-    if: "!contains(github.event.head_commit.message, '[no php]')"
-
+      - ciDoesNotSkip
+      - phpSyntaxCheck
+    if: '!contains(github.event.head_commit.message, ''[no php]'')'
     steps:
-      - uses: 'actions/checkout@v3'
-
-      - uses: 'actions/cache@v2'
+      -
+        uses: actions/checkout@v3
+      -
+        uses: actions/cache@v2
         with:
           path: |
             vendor
             ~/.cache/composer/files
-          key: composer-${{ hashFiles('composer.lock') }}
+          key: 'composer-${{ hashFiles(''composer.lock'') }}'
           restore-keys: composer-
-
-      - name: 'Set PHP environment (PHP 8.0)'
-        uses: 'shivammathur/setup-php@v2'
+      -
+        name: 'Set PHP environment (PHP 8.0)'
+        uses: shivammathur/setup-php@v2
         with:
           php-version: '8.0'
-
-      - name: 'Install composer packages'
+      -
+        name: 'Install composer packages'
         run: |
           rm -rf vendor
           make composer.phar
           make vendor
-
   licenseCheck:
     name: 'Check license'
-
     needs:
-      - 'ciDoesNotSkip'
-      - 'setupComposer'
-      - 'setupNPM'
-
-    runs-on: 'ubuntu-22.04'
-
+      - ciDoesNotSkip
+      - setupComposer
+      - setupNPM
+    runs-on: ubuntu-22.04
     steps:
-      - name: 'Install packages'
+      -
+        name: 'Install packages'
         run: |
           sudo apt update -y
           sudo apt install -y jpegoptim libxml2-utils
-
-      - uses: 'actions/checkout@v3'
-
-      - uses: 'actions/cache@v2'
+      -
+        uses: actions/checkout@v3
+      -
+        uses: actions/cache@v2
         with:
           path: |
             vendor
             ~/.cache/composer/files
-          key: composer-${{ hashFiles('composer.lock') }}
-
-      - uses: 'actions/cache@v2'
+          key: 'composer-${{ hashFiles(''composer.lock'') }}'
+      -
+        uses: actions/cache@v2
         with:
           path: |
             node_modules
             ~/.npm
-          key: npm-2-${{ hashFiles('package-lock.json') }}
-
-      - name: 'Set PHP environment (PHP 8.0)'
-        uses: 'shivammathur/setup-php@v2'
+          key: 'npm-2-${{ hashFiles(''package-lock.json'') }}'
+      -
+        name: 'Set PHP environment (PHP 8.0)'
+        uses: shivammathur/setup-php@v2
         with:
           php-version: '8.0'
-
-      - name: 'Use node.js 16 LTS'
-        uses: 'actions/setup-node@v3'
+      -
+        name: 'Use node.js 16 LTS'
+        uses: actions/setup-node@v3
         with:
           node-version: '16'
-
-      - name: 'Basic setup the app'
+      -
+        name: 'Basic setup the app'
         run: 'make init-no-resource'
-
-      - name: 'Check licenses'
+      -
+        name: 'Check licenses'
         run: './yii license'
-
   phpUnit:
     name: 'Build & Test (PHP ${{ matrix.php.version }}, PgSQL ${{ matrix.pgsql.version }})'
-
     needs:
-      - 'ciDoesNotSkip'
-      - 'phpSyntaxCheck'
-      - 'setupComposer'
-      - 'setupNPM'
-
-    if: "!contains(github.event.head_commit.message, '[no php]')"
-
+      - ciDoesNotSkip
+      - phpSyntaxCheck
+      - setupComposer
+      - setupNPM
+    if: '!contains(github.event.head_commit.message, ''[no php]'')'
     continue-on-error: '${{ matrix.php.experimental || matrix.pgsql.experimental }}'
-
     strategy:
       matrix:
         php:
-          - version: '8.0'
+          -
+            version: '8.0'
             experimental: false
-
-          - version: '8.1'
+          -
+            version: '8.1'
             experimental: false
-
         pgsql:
-          - version: '9.5' # minimum requirement
+          -
+            version: '9.5'
             experimental: false
-            image: '9.5-alpine'
-
-          - version: '11'
+            image: 9.5-alpine
+          -
+            version: '11'
             experimental: false
-            image: '11-alpine'
-
-          - version: 'latest'
+            image: 11-alpine
+          -
+            version: latest
             experimental: false
-            image: 'alpine'
-
+            image: alpine
     services:
       postgres:
-        image: "postgres:${{ matrix.pgsql.image }}"
-
+        image: 'postgres:${{ matrix.pgsql.image }}'
         ports:
           - '5432:5432'
-
         env:
-          POSTGRES_USER: 'statink'
-          POSTGRES_PASSWORD: 'statink'
-          POSTGRES_DB: 'statink'
+          POSTGRES_USER: statink
+          POSTGRES_PASSWORD: statink
+          POSTGRES_DB: statink
           POSTGRES_INITDB_ARGS: '-E UTF-8 --locale=en_US.UTF8 -k'
-
         options: '--health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5'
-
     env:
       GEOIP_LICENSE_KEY: '${{ secrets.GEOIP_LICENSE_KEY }}'
-
-    runs-on: 'ubuntu-22.04'
-
+    runs-on: ubuntu-22.04
     steps:
-      - name: 'Install packages'
+      -
+        name: 'Install packages'
         run: |
           sudo apt update -y
           sudo apt install -y jpegoptim libxml2-utils
-
-      - uses: 'actions/checkout@v3'
-
-      - uses: 'actions/cache@v2'
+      -
+        uses: actions/checkout@v3
+      -
+        uses: actions/cache@v2
         with:
           path: |
             vendor
             ~/.cache/composer/files
-          key: composer-${{ hashFiles('composer.lock') }}
-
-      - uses: 'actions/cache@v2'
+          key: 'composer-${{ hashFiles(''composer.lock'') }}'
+      -
+        uses: actions/cache@v2
         with:
           path: |
             node_modules
             ~/.npm
-          key: npm-2-${{ hashFiles('package-lock.json') }}
-
-      - name: 'Set PHP environment (PHP ${{ matrix.php.version }})'
-        uses: 'shivammathur/setup-php@v2'
+          key: 'npm-2-${{ hashFiles(''package-lock.json'') }}'
+      -
+        name: 'Set PHP environment (PHP ${{ matrix.php.version }})'
+        uses: shivammathur/setup-php@v2
         with:
           php-version: '${{ matrix.php.version }}'
-
-      - name: 'Use node.js 16 LTS'
-        uses: 'actions/setup-node@v3'
+      -
+        name: 'Use node.js 16 LTS'
+        uses: actions/setup-node@v3
         with:
           node-version: '16'
-
-      - name: 'Basic setup the app'
+      -
+        name: 'Basic setup the app'
         run: 'make init'
-
-      - name: 'Reset DB config'
+      -
+        name: 'Reset DB config'
         run: './yii secret/db localhost statink'
-
-      - name: 'Migrate DB'
+      -
+        name: 'Migrate DB'
         run: 'make migrate-db'
-
-      - name: 'Run Unit test'
+      -
+        name: 'Run Unit test'
         run: 'make test'
