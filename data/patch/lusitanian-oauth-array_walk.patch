@@ -1,0 +1,24 @@
+From 9d6771e7dcee12f50b31763595e217362dd46427 Mon Sep 17 00:00:00 2001
+From: Alan Hardman <alanaktion@gmail.com>
+Date: Wed, 5 May 2021 10:47:04 -0600
+Subject: [PATCH] Fix array_walk usage on PHP 8
+
+The old behavior of modifying keys was never supported, and is now an error in PHP 8.
+---
+ src/OAuth/Common/Http/Client/AbstractClient.php | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/src/OAuth/Common/Http/Client/AbstractClient.php b/src/OAuth/Common/Http/Client/AbstractClient.php
+index e7b8ebf3..eabfdd14 100644
+--- src/OAuth/Common/Http/Client/AbstractClient.php
++++ src/OAuth/Common/Http/Client/AbstractClient.php
+@@ -64,8 +64,7 @@ public function normalizeHeaders(&$headers): void
+         // Normalize headers
+         array_walk(
+             $headers,
+-            function (&$val, &$key) {
+-                $key = ucfirst(strtolower($key));
++            function (&$val, $key): void {
+                 $val = ucfirst(strtolower($key)) . ': ' . $val;
+             }
+         );

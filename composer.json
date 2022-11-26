@@ -110,6 +110,9 @@
     },
     "extra": {
         "patches": {
+            "lusitanian/oauth": {
+                "array_walk interface for PHP 8": "data/patch/lusitanian-oauth-array_walk.patch"
+            },
             "tpyo/amazon-s3-php-class": {
                 "make static S3::setEndpoint": "data/patch/tpyo-s3-setendpoint-static.patch"
             }
