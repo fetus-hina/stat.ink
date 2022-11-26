@@ -1,0 +1,15 @@
+#!/usr/bin/env php
+<?php
+
+use Symfony\Component\Yaml\Yaml;
+
+require __DIR__ . '/../vendor/autoload.php';
+
+echo rtrim(
+    Yaml::dump(
+        Yaml::parse(stream_get_contents(STDIN)),
+        10,
+        2,
+        Yaml::DUMP_EXCEPTION_ON_INVALID_TYPE | Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK | Yaml::DUMP_NULL_AS_TILDE,
+    ),
+) . "\n";

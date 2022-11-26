@@ -40,13 +40,13 @@ Use a private channel if it is a security issue.
 REQUIREMENTS
 ------------
 
-- PHP 7.4.x
-  - PHP 7.3以下では動作しません。（7.4で追加された構文等を利用しています）  
-    Doesn't work with 7.3 or lower. (Uses statements and constants added in v7.4)
+- PHP 8.0
+  - PHP 7.4以下では動作しません。（8.9で追加された構文等を利用しています）  
+    Doesn't work with 7.4 or lower. (Uses statements and constants added in v8.0)
   - Argon2が有効化されたPHPが必要です。RemirepoのPHP 7.4を利用している場合、`php-sodium`をインストールしてください。（[詳細](https://github.com/remicollet/remirepo/issues/132#issuecomment-566513636)）  
-    You should build/install with Argon2. [Install `php-sodium` if you use remirepo's PHP 7.4](https://github.com/remicollet/remirepo/issues/132#issuecomment-566513636).
-  - 現在のところ、PHP 8での動作は確認していません。  
-    At this time, we have not tested it with PHP 8.
+    You should build/install with Argon2. [Install `php-sodium` if you use remirepo's PHP](https://github.com/remicollet/remirepo/issues/132#issuecomment-566513636).
+  - 現在のところ、PHP 8.1+での動作は確認していません。  
+    At this time, we have not tested it with PHP 8.1+.
 - PostgreSQL 9.5+ (Recommended: 11+)
   - PgSQL 9.4以下では動作しません（9.5で追加された機能を利用しています）  
     Doesn't work with 9.4 or lower. (Uses features added in v9.5) 
@@ -64,17 +64,17 @@ https://stat.ink/ works with:
   - [H2O](https://h2o.examp1e.net/) mainline
 - [Remi's RPM repository](http://rpms.famillecollet.com/)
   - `remi-safe` repository, it uses SCL mechanism
-      - PHP 7.4.*
-          - `php74-php-cli`
-          - `php74-php-fpm`
-          - `php74-php-gd`
-          - `php74-php-intl`
-          - `php74-php-mbstring`
-          - `php74-php-mcrypt`
-          - `php74-php-pdo`
-          - `php74-php-pecl-msgpack`
-          - `php74-php-pgsql`
-          - `php74-php-sodium`
+      - PHP 8.0
+          - `php80-php-cli`
+          - `php80-php-fpm`
+          - `php80-php-gd`
+          - `php80-php-intl`
+          - `php80-php-mbstring`
+          - `php80-php-mcrypt`
+          - `php80-php-pdo`
+          - `php80-php-pecl-msgpack`
+          - `php80-php-pgsql`
+          - `php80-php-sodium`
 * [Node.js Repository](https://nodejs.org/en/download/package-manager/#enterprise-linux-and-fedora)
     - [Node.js](https://nodejs.org/)
         - `nodejs`
@@ -85,8 +85,8 @@ https://stat.ink/ works with:
 
 Notes:
 
-  - CentOS 7のデフォルトのPHPバージョンは5.4.16です。このバージョンでは動作しません。PHP 7.4までで追加された機能を利用しています。  
-    Default version of PHP on CentOS 7 is 5.4.16. This application doesn't work on it. We are using features and statements that were added up to PHP 7.4.
+  - CentOS 7のデフォルトのPHPバージョンは5.4.16です。このバージョンでは動作しません。PHP 8.0までで追加された機能を利用しています。  
+    Default version of PHP on CentOS 7 is 5.4.16. This application doesn't work on it. We are using features and statements that were added up to PHP 8.0.
 
   - CentOS 7のデフォルトのPostgreSQLバージョンは9.2.14です。このバージョンでは動作しません。PgSQL 9.5で追加された機能を利用しています（jsonb, UPSERT）。実際のシステムではPgSQL 11を利用していますが、9.5でも充分動作します。  
     Default version of PostgreSQL on CentOS 7 is 9.2.14. This application doesn't work with it. We are using features added in PostgreSQL 9.5 (e.g., jsonb, UPSERT). We use PostgreSQL 11 in our actual system, but 9.5 will work just fine.

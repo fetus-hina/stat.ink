@@ -4,7 +4,7 @@
     "license": "MIT",
     "minimum-stability": "stable",
     "require": {
-        "php": ">= 7.4.0",
+        "php": "^8.0.0",
         "ext-PDO": "*",
         "ext-curl": "*",
         "ext-date": "*",
@@ -48,7 +48,7 @@
         "statink/yii2-spl2-stages": "^1.0.1",
         "statink/yii2-twitter-webintents": "^1.0",
         "symfony/polyfill-php80": "^1.22",
-        "symfony/yaml": ">=2.7 <6.0",
+        "symfony/yaml": "^6.0",
         "tpyo/amazon-s3-php-class": "^0.5.1",
         "yiisoft/yii2": "*",
         "yiisoft/yii2-bootstrap": "*",
@@ -99,16 +99,13 @@
     },
     "config": {
         "process-timeout": 1800,
-        "fxp-asset": {
-            "enabled": false
-        },
         "platform": {
-            "php": "7.4.13"
+            "php": "8.0.26"
         },
         "allow-plugins": {
-            "yiisoft/yii2-composer": true,
             "cweagans/composer-patches": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "yiisoft/yii2-composer": true
         }
     },
     "extra": {
