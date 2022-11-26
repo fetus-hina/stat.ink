@@ -79,7 +79,7 @@ jobs:
           fetch-depth: 0
       -
         name: 'Composer cache'
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.cache/composer/files
           key: 'author-composer-cache-${{ github.sha }}'
@@ -127,7 +127,7 @@ jobs:
       -
         uses: actions/checkout@v3
       -
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             node_modules
@@ -152,7 +152,7 @@ jobs:
       -
         uses: actions/checkout@v3
       -
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             node_modules
@@ -176,7 +176,7 @@ jobs:
       -
         uses: actions/checkout@v3
       -
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             node_modules
@@ -201,7 +201,7 @@ jobs:
       -
         uses: actions/checkout@v3
       -
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             vendor
@@ -235,14 +235,14 @@ jobs:
       -
         uses: actions/checkout@v3
       -
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             vendor
             ~/.cache/composer/files
           key: 'composer-${{ hashFiles(''composer.lock'') }}'
       -
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             node_modules
@@ -321,14 +321,14 @@ jobs:
       -
         uses: actions/checkout@v3
       -
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             vendor
             ~/.cache/composer/files
           key: 'composer-${{ hashFiles(''composer.lock'') }}'
       -
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             node_modules
