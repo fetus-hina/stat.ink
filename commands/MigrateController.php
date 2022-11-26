@@ -36,6 +36,7 @@ class MigrateController extends BaseController
             'version2' => "{$prefix}/version2_migration.php",
             'version3' => "{$prefix}/version3_migration.php",
             'weapon2' => "{$prefix}/weapon2_migration.php",
+            'weapon3' => "{$prefix}/weapon3_migration.php",
         ];
 
         foreach ($files as $key => $file) {

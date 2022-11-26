@@ -4,8 +4,8 @@
  * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
- * @author midmiako <mayomi@baka.wang>
  * @author imspace <spacemeowx2@gmail.com>
+ * @author midmiako <mayomi@baka.wang>
  */
 
 declare(strict_types=1);
@@ -18,6 +18,7 @@ return [
     'Any Weapon' => '所有武器',
     'Ballpoint Splatling' => '圆珠笔',
     'Bamboozler 14 Mk I' => '14式竹筒枪·甲',
+    'Big Swig Roller' => '',
     'Blaster' => '火热爆破枪',
     'Blasters' => '爆破枪',
     'Bloblobber' => '满溢泡澡泼桶',
@@ -65,6 +66,7 @@ return [
     'Slosher' => '飞溅泼桶',
     'Sloshers' => '泼桶',
     'Sloshing Machine' => '回旋泼桶',
+    'Snipewriter 5H' => '',
     'Splash-o-matic' => '窄域标记枪',
     'Splatanas' => '刮水刀',
     'Splatana Stamper' => '工作刮水刀',
@@ -77,6 +79,7 @@ return [
     'Splatterscope' => '斯普拉准星枪',
     'Splattershot' => '斯普拉射击枪',
     'Splattershot Jr.' => '新叶射击枪',
+    'Splattershot Nova' => '',
     'Splattershot Pro' => '顶尖射击枪',
     'Sploosh-o-matic' => '广域标记枪',
     'Squeezer' => '开瓶喷泉枪',

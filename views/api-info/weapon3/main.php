@@ -5,6 +5,7 @@ declare(strict_types=1);
 use app\assets\GameModeIconsAsset;
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\ApiInfoName;
+use app\components\widgets\FA;
 use app\components\widgets\v3\weaponIcon\SpecialIcon;
 use app\components\widgets\v3\weaponIcon\SubweaponIcon;
 use app\components\widgets\v3\weaponIcon\WeaponIcon;
@@ -38,6 +39,27 @@ $salmonIcon = Html::img(
 
 ?>
 <h2><?= Html::encode(Yii::t('app', 'Main Weapon')) ?></h2>
+<?= Html::tag(
+  'p',
+  implode(' ', [
+    Html::a(
+      implode('', [
+        (string)FA::fas('file-code')->fw(),
+        Html::encode(Yii::t('app', 'JSON format')),
+      ]),
+      ['api-v3/weapon'],
+      ['class' => 'label label-default'],
+    ),
+    Html::a(
+      implode('', [
+        (string)FA::fas('file-code')->fw(),
+        Html::encode(Yii::t('app', 'JSON format (All langs)')),
+      ]),
+      ['api-v3/weapon', 'full' => 1],
+      ['class' => 'label label-default'],
+    ),
+  ]),
+) . "\n" ?>
 <div class="table-responsive table-responsive-force">
   <table class="table table-striped table-condensed table-sortable">
     <thead>

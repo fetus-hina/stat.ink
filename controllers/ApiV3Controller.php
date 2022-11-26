@@ -26,6 +26,7 @@ use app\actions\api\v3\salmon\DeleteSalmonAction;
 use app\actions\api\v3\salmon\GetSingleSalmonAction;
 use app\actions\api\v3\salmon\PostSalmonAction;
 use app\actions\api\v3\salmon\SalmonUuidListAction;
+use app\actions\api\v3\salmon\SalmonWeaponAction;
 use app\components\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\auth\HttpBearerAuth;
@@ -87,6 +88,7 @@ final class ApiV3Controller extends Controller
             's3s-usage' => UsageAction::class,
             's3s-uuid-list' => UuidListAction::class,
             'salmon-uuid-list' => SalmonUuidListAction::class,
+            'salmon-weapon' => SalmonWeaponAction::class,
             'single-salmon' => GetSingleSalmonAction::class,
             'stage' => StageAction::class,
             'version' => VersionAction::class,
