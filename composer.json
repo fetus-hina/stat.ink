@@ -4,7 +4,7 @@
     "license": "MIT",
     "minimum-stability": "stable",
     "require": {
-        "php": ">= 7.4.0",
+        "php": "^8.0.0",
         "ext-PDO": "*",
         "ext-curl": "*",
         "ext-date": "*",
@@ -99,16 +99,13 @@
     },
     "config": {
         "process-timeout": 1800,
-        "fxp-asset": {
-            "enabled": false
-        },
         "platform": {
-            "php": "7.4.13"
+            "php": "8.0.26"
         },
         "allow-plugins": {
-            "yiisoft/yii2-composer": true,
             "cweagans/composer-patches": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "yiisoft/yii2-composer": true
         }
     },
     "extra": {

@@ -1,9 +1,10 @@
 actor: Tester
 paths:
-  tests: tests
-  log: tests/_output
   data: tests/_data
   helpers: tests/_support
+  log: tests/_output
+  output: .
+  tests: tests
 bootstrap: _bootstrap.php
 settings:
   memory_limit: 1024M
