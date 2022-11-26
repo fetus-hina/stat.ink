@@ -7,7 +7,7 @@ on:
 jobs:
   ciDoesNotSkip:
     name: "Tag Check: `[ci skip]`"
-    runs-on: 'ubuntu-20.04'
+    runs-on: 'ubuntu-22.04'
     if: "!contains(github.event.head_commit.message, '[ci skip]')"
     steps:
       - run: |
@@ -24,7 +24,7 @@ jobs:
           - version: '8.1'
             experimental: false
 
-    runs-on: 'ubuntu-20.04'
+    runs-on: 'ubuntu-22.04'
 
     needs:
       - 'ciDoesNotSkip'
@@ -32,7 +32,7 @@ jobs:
     if: "!contains(github.event.head_commit.message, '[no php]')"
 
     steps:
-      - uses: 'actions/checkout@v2'
+      - uses: 'actions/checkout@v3'
 
       - name: 'Set PHP environment (PHP ${{ matrix.php.version }})'
         uses: 'shivammathur/setup-php@v2'
@@ -51,7 +51,7 @@ jobs:
   phpStyleCheck:
     name: 'PHP Coding Style'
 
-    runs-on: 'ubuntu-20.04'
+    runs-on: 'ubuntu-22.04'
 
     needs:
       - 'ciDoesNotSkip'
@@ -59,7 +59,7 @@ jobs:
     if: "!contains(github.event.head_commit.message, '[no php]')"
 
     steps:
-      - uses: 'actions/checkout@v2'
+      - uses: 'actions/checkout@v3'
 
       - name: 'Fetch Latest phpcs.phar'
         run: 'curl -fsSL -o phpcs "https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar"'
@@ -75,7 +75,7 @@ jobs:
   phpCheckAuthor:
     name: 'Check Author'
 
-    runs-on: 'ubuntu-20.04'
+    runs-on: 'ubuntu-22.04'
 
     needs:
       - 'ciDoesNotSkip'
@@ -83,7 +83,7 @@ jobs:
     if: "!contains(github.event.head_commit.message, '[no php]') && !contains(github.event.head_commit.message, '[no author]')"
 
     steps:
-      - uses: 'actions/checkout@v2'
+      - uses: 'actions/checkout@v3'
         with:
           fetch-depth: 0
 
@@ -131,13 +131,13 @@ jobs:
   setupNPM:
     name: 'Setup NPM (install node_modules)'
 
-    runs-on: 'ubuntu-20.04'
+    runs-on: 'ubuntu-22.04'
 
     needs:
       - 'ciDoesNotSkip'
 
     steps:
-      - uses: 'actions/checkout@v2'
+      - uses: 'actions/checkout@v3'
 
       - uses: 'actions/cache@v2'
         with:
@@ -148,7 +148,7 @@ jobs:
           restore-keys: npm-2-
 
       - name: 'Use node.js 16 LTS'
-        uses: 'actions/setup-node@v2'
+        uses: 'actions/setup-node@v3'
         with:
           node-version: '16'
 
@@ -158,14 +158,14 @@ jobs:
   jsStyleCheck:
     name: 'JS Coding Style'
 
-    runs-on: 'ubuntu-20.04'
+    runs-on: 'ubuntu-22.04'
 
     needs:
       - 'ciDoesNotSkip'
       - 'setupNPM'
 
     steps:
-      - uses: 'actions/checkout@v2'
+      - uses: 'actions/checkout@v3'
 
       - uses: 'actions/cache@v2'
         with:
@@ -175,7 +175,7 @@ jobs:
           key: npm-2-${{ hashFiles('package-lock.json') }}
 
       - name: 'Use node.js 16 LTS'
-        uses: 'actions/setup-node@v2'
+        uses: 'actions/setup-node@v3'
         with:
           node-version: '16'
 
@@ -185,14 +185,14 @@ jobs:
   cssStyleCheck:
     name: 'CSS Coding Style'
 
-    runs-on: 'ubuntu-20.04'
+    runs-on: 'ubuntu-22.04'
 
     needs:
       - 'ciDoesNotSkip'
       - 'setupNPM'
 
     steps:
-      - uses: 'actions/checkout@v2'
+      - uses: 'actions/checkout@v3'
 
       - uses: 'actions/cache@v2'
         with:
@@ -202,7 +202,7 @@ jobs:
           key: npm-2-${{ hashFiles('package-lock.json') }}
 
       - name: 'Use node.js 16 LTS'
-        uses: 'actions/setup-node@v2'
+        uses: 'actions/setup-node@v3'
         with:
           node-version: '16'
 
@@ -212,7 +212,7 @@ jobs:
   setupComposer:
     name: 'Setup Composer (install vendor)'
 
-    runs-on: 'ubuntu-20.04'
+    runs-on: 'ubuntu-22.04'
 
     needs:
       - 'ciDoesNotSkip'
@@ -221,7 +221,7 @@ jobs:
     if: "!contains(github.event.head_commit.message, '[no php]')"
 
     steps:
-      - uses: 'actions/checkout@v2'
+      - uses: 'actions/checkout@v3'
 
       - uses: 'actions/cache@v2'
         with:
@@ -250,7 +250,7 @@ jobs:
       - 'setupComposer'
       - 'setupNPM'
 
-    runs-on: 'ubuntu-20.04'
+    runs-on: 'ubuntu-22.04'
 
     steps:
       - name: 'Install packages'
@@ -258,7 +258,7 @@ jobs:
           sudo apt update -y
           sudo apt install -y jpegoptim libxml2-utils
 
-      - uses: 'actions/checkout@v2'
+      - uses: 'actions/checkout@v3'
 
       - uses: 'actions/cache@v2'
         with:
@@ -280,7 +280,7 @@ jobs:
           php-version: '8.0'
 
       - name: 'Use node.js 16 LTS'
-        uses: 'actions/setup-node@v2'
+        uses: 'actions/setup-node@v3'
         with:
           node-version: '16'
 
@@ -343,7 +343,7 @@ jobs:
     env:
       GEOIP_LICENSE_KEY: '${{ secrets.GEOIP_LICENSE_KEY }}'
 
-    runs-on: 'ubuntu-20.04'
+    runs-on: 'ubuntu-22.04'
 
     steps:
       - name: 'Install packages'
@@ -351,7 +351,7 @@ jobs:
           sudo apt update -y
           sudo apt install -y jpegoptim libxml2-utils
 
-      - uses: 'actions/checkout@v2'
+      - uses: 'actions/checkout@v3'
 
       - uses: 'actions/cache@v2'
         with:
@@ -373,7 +373,7 @@ jobs:
           php-version: '${{ matrix.php.version }}'
 
       - name: 'Use node.js 16 LTS'
-        uses: 'actions/setup-node@v2'
+        uses: 'actions/setup-node@v3'
         with:
           node-version: '16'
 
