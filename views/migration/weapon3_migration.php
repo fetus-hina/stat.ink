@@ -65,12 +65,16 @@ $type = implode(
             "    // salmon: false, // skip-salmon",
             "    // aliases: [],",
             ");",
+            "",
+            "return true;",
         ],
     ),
     'downCode' => implode(
         "\n",
         [
-            "\$this->downWeapon3('key');",
+            "\$this->downWeapon3('key', salmon: true);",
+            "",
+            "return true;",
         ],
     ),
     'extraCode' => implode(
