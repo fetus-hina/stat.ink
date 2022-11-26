@@ -72,7 +72,8 @@ html[lang^='en-'] body,
   font-family: $font-family-en, sans-serif;
 }
 
-html[lang^='ja'] body {
+html[lang^='ja'] body,
+.lang-ja {
   font-family: $font-family-ja, sans-serif;
 }
 

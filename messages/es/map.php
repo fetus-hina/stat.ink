@@ -23,7 +23,7 @@ return [
     'Dome' => '',
     'Flounder Heights' => 'Complejo Medusa',
     'Hammerhead Bridge' => 'Puente Salmón',
-    'Heights' => '',
+    'Heights' => 'Complejo Medusa',
     'Kelp Dome' => 'Jardín botánico',
     'Mahi-Mahi' => '',
     'Mahi-Mahi Resort' => 'Spa Cala Bacalao',

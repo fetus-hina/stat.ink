@@ -15,7 +15,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "@statink/spl3-stages": "git+https://github.com/statink/spl3-stages.git",
+    "@statink/spl3-stages": "github:statink/spl3-stages#semver:^1.1",
     "autoprefixer": "^10.4.13",
     "axios": "^1.2.0",
     "babel-loader": "^9.1.0",
