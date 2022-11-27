@@ -41,9 +41,9 @@ REQUIREMENTS
 ------------
 
 - PHP 8.0
-  - PHP 7.4以下では動作しません。（8.9で追加された構文等を利用しています）  
+  - PHP 7.4以下では動作しません。（8.0で追加された構文等を利用しています）  
     Doesn't work with 7.4 or lower. (Uses statements and constants added in v8.0)
-  - Argon2が有効化されたPHPが必要です。RemirepoのPHP 7.4を利用している場合、`php-sodium`をインストールしてください。（[詳細](https://github.com/remicollet/remirepo/issues/132#issuecomment-566513636)）  
+  - Argon2が有効化されたPHPが必要です。RemirepoのPHPを利用している場合、`php-sodium`をインストールしてください。（[詳細](https://github.com/remicollet/remirepo/issues/132#issuecomment-566513636)）  
     You should build/install with Argon2. [Install `php-sodium` if you use remirepo's PHP](https://github.com/remicollet/remirepo/issues/132#issuecomment-566513636).
   - 現在のところ、PHP 8.1+での動作は確認していません。  
     At this time, we have not tested it with PHP 8.1+.
