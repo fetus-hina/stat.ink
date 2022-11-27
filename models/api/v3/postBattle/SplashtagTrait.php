@@ -29,7 +29,7 @@ trait SplashtagTrait
         // Find with Double-checked locking pattern
         $model = SplashtagTitle3::findOne(['name' => $title]);
         if (!$model) {
-            $lock = CriticalSection::lock(SplashtagTitle3::class);
+            $lock = CriticalSection::lock(SplashtagTitle3::class, 60);
             try {
                 $model = SplashtagTitle3::findOne(['name' => $title]);
                 if (!$model) {

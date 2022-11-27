@@ -11,7 +11,6 @@ namespace app\models\api\v3\postBattle;
 
 use Yii;
 use app\components\behaviors\TrimAttributesBehavior;
-use app\components\helpers\CriticalSection;
 use app\components\validators\KeyValidator;
 use app\models\Battle3;
 use app\models\BattlePlayer3;
