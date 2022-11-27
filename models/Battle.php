@@ -873,7 +873,13 @@ class Battle extends ActiveRecord
                 'game_version' => $this->agentGameVersion->name ?? null,
                 'game_version_date' => $this->agent_game_version_date,
                 'custom' => $this->ua_custom,
-                'variables' => $this->ua_variables ? @json_decode($this->ua_variables, false) : null,
+                'variables' => $this->ua_variables
+                    ? match (true) {
+                        \is_array($this->ua_variables) => $this->ua_variables,
+                        \is_string($this->ua_variables) => @\json_decode($this->ua_variables, false),
+                        default => null,
+                    }
+                    : null,
             ],
             'automated' => !!$this->is_automated,
             'environment' => $this->env ? $this->env->text : null,
