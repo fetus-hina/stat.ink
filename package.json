@@ -51,7 +51,7 @@
     "photoswipe-simplify": "0.0.3",
     "postcss": "^8.4.19",
     "postcss-cli": "^10.0.0",
-    "postcss-scss": "^4.0.5",
+    "postcss-scss": "^4.0.6",
     "punycode": "^2.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
