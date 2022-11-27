@@ -27,10 +27,10 @@ return function (Salmon3 $model, int $key, int $index, GridView $widget) use ($u
     return null;
   }
 
-  $lastScheduleId = $model->schedule_id;
   $isPrivate = $model->is_private;
+  $lastScheduleId = $isPrivate ? null : $model->schedule_id;
 
-  if ($lastScheduleId === null || $isPrivate) {
+  if ($lastScheduleId === null) {
     return Html::tag(
       'tr',
       Html::tag(
