@@ -21,6 +21,7 @@ use app\models\Slack;
 use app\models\User;
 use app\models\api\v3\PostBattleForm;
 use yii\base\Action;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\Response;
 use yii\web\UploadedFile;
@@ -56,7 +57,35 @@ final class PostBattleAction extends Action
         }
 
         // 保存時間の読み込みのために再読込する
-        $battle->refresh();
+        $uuid = $battle->uuid;
+        $battle = Battle3::find()
+            ->with(
+                ArrayHelper::toFlatten([
+                    [
+                        'battlePlayer3s',
+                        'battlePlayer3s.splashtagTitle',
+                        'battlePlayer3s.weapon',
+                        'battlePlayer3s.weapon.canonical',
+                        'battlePlayer3s.weapon.mainweapon',
+                        'battlePlayer3s.weapon.mainweapon.type',
+                        'battlePlayer3s.weapon.special',
+                        'battlePlayer3s.weapon.subweapon',
+                        'battlePlayer3s.weapon.weapon3Aliases',
+                    ],
+                    \array_map(
+                        fn (string $base): array => [
+                            "battlePlayer3s.{$base}",
+                            "battlePlayer3s.{$base}.ability",
+                            "battlePlayer3s.{$base}.gearConfigurationSecondary3s",
+                            "battlePlayer3s.{$base}.gearConfigurationSecondary3s.ability",
+                        ],
+                        ['clothing', 'headgear', 'shoes'],
+                    ),
+                ])
+            )
+            ->andWhere(['uuid' => $uuid])
+            ->limit(1)
+            ->one();
 
         // バックグラウンドジョブの登録
         // (Slack への push のタスク登録など)
