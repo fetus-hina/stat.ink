@@ -22,11 +22,10 @@ use app\models\User;
 use app\models\api\v3\PostBattleForm;
 use yii\base\Action;
 use yii\helpers\Url;
-use yii\web\MethodNotAllowedHttpException;
 use yii\web\Response;
 use yii\web\UploadedFile;
 
-final class BattleAction extends Action
+final class PostBattleAction extends Action
 {
     use ApiInitializerTrait;
 
@@ -40,43 +39,6 @@ final class BattleAction extends Action
     }
 
     public function run(): Response
-    {
-        switch (Yii::$app->request->method) {
-            case 'GET':
-                return $this->runGet();
-
-            case 'HEAD':
-                return $this->runHead();
-
-            case 'POST':
-            case 'PUT':
-                return $this->runPost();
-
-            default:
-                throw new MethodNotAllowedHttpException();
-        }
-    }
-
-    private function runHead(): Response
-    {
-        $resp = Yii::$app->response;
-        $resp->content = null;
-        $resp->data = null;
-        $resp->statusCode = 200;
-        return $resp;
-    }
-
-    private function runGet(): Response
-    {
-        $resp = Yii::$app->response;
-        $resp->content = null;
-        $resp->data = [
-            'TODO',
-        ];
-        return $resp;
-    }
-
-    private function runPost(): Response
     {
         $form = Yii::createObject(PostBattleForm::class);
         $form->attributes = Yii::$app->request->getBodyParams();
@@ -116,10 +78,8 @@ final class BattleAction extends Action
                 true,
             ),
             'X-Api-Location' => Url::to(
-                \vsprintf('@web/api/v3/battle/%s', [
-                    \rawurlencode($battle->uuid),
-                ]),
-                true
+                ['/api-v3/single-battle', 'uuid' => $battle->uuid],
+                true,
             ),
             'X-User-Screen-Name' => $battle->user->screen_name,
             'X-Battle-ID' => $battle->uuid,
