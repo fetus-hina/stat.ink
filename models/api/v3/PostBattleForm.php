@@ -98,6 +98,8 @@ final class PostBattleForm extends Model
     public $rank_up_battle;
     public $challenge_win;
     public $challenge_lose;
+    public $x_power_before;
+    public $x_power_after;
     public $fest_power;
     public $fest_dragon;
     public $clout_before;
@@ -178,7 +180,7 @@ final class PostBattleForm extends Model
             [['rank_before_s_plus', 'rank_after_s_plus'], 'integer', 'min' => 0, 'max' => 50],
             [['rank_before_exp', 'rank_after_exp'], 'integer', 'min' => 0],
             [['rank_exp_change'], 'integer'],
-            [['fest_power'], 'number', 'min' => 0, 'max' => 99999.9],
+            [['fest_power', 'x_power_before', 'x_power_after'], 'number', 'min' => 0, 'max' => 99999.9],
             [['clout_before', 'clout_after', 'clout_change'], 'integer', 'min' => 0],
             [['cash_before', 'cash_after'], 'integer', 'min' => 0, 'max' => 9999999],
             [['start_at', 'end_at'], 'integer',
@@ -433,6 +435,8 @@ final class PostBattleForm extends Model
             ),
             'fest_power' => self::floatVal($this->fest_power),
             'has_disconnect' => $this->hasDisconnect(),
+            'x_power_before' => self::floatVal($this->x_power_before),
+            'x_power_after' => self::floatVal($this->x_power_after),
         ]);
 
         if ($rewriteKillAssist) {

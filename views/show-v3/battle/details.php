@@ -52,6 +52,7 @@ echo DetailView::widget([
     require __DIR__ . '/details/result.php',
     require __DIR__ . '/details/rank-up-battle.php',
     require __DIR__ . '/details/challenge.php',
+    require __DIR__ . '/details/x-power.php',
     require __DIR__ . '/details/clout.php',
     require __DIR__ . '/details/fest-power.php',
     require __DIR__ . '/details/team-inked.php',
@@ -63,7 +64,6 @@ echo DetailView::widget([
     require __DIR__ . '/details/medal.php',
     // cause-of-death
     require __DIR__ . '/details/cash.php',
-    // gear
     require __DIR__ . '/details/link-url.php',
     require __DIR__ . '/details/start-at.php',
     require __DIR__ . '/details/end-at.php',

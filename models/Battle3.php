@@ -75,6 +75,8 @@ use yii\db\ActiveRecord;
  * @property integer $fest_dragon_id
  * @property string $fest_power
  * @property boolean $has_disconnect
+ * @property string $x_power_before
+ * @property string $x_power_after
  *
  * @property Agent $agent
  * @property BattleAgentVariable3[] $battleAgentVariable3s
@@ -111,7 +113,7 @@ class Battle3 extends ActiveRecord
             [['user_id', 'lobby_id', 'rule_id', 'map_id', 'weapon_id', 'result_id', 'rank_in_team', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'inked', 'our_team_inked', 'their_team_inked', 'our_team_count', 'their_team_count', 'level_before', 'level_after', 'rank_before_id', 'rank_before_s_plus', 'rank_before_exp', 'rank_after_id', 'rank_after_s_plus', 'rank_after_exp', 'cash_before', 'cash_after', 'version_id', 'agent_id', 'period', 'remote_port', 'challenge_win', 'challenge_lose', 'rank_exp_change', 'clout_before', 'clout_after', 'clout_change', 'fest_dragon_id'], 'default', 'value' => null],
             [['user_id', 'lobby_id', 'rule_id', 'map_id', 'weapon_id', 'result_id', 'rank_in_team', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'inked', 'our_team_inked', 'their_team_inked', 'our_team_count', 'their_team_count', 'level_before', 'level_after', 'rank_before_id', 'rank_before_s_plus', 'rank_before_exp', 'rank_after_id', 'rank_after_s_plus', 'rank_after_exp', 'cash_before', 'cash_after', 'version_id', 'agent_id', 'period', 'remote_port', 'challenge_win', 'challenge_lose', 'rank_exp_change', 'clout_before', 'clout_after', 'clout_change', 'fest_dragon_id'], 'integer'],
             [['is_knockout', 'is_automated', 'use_for_entire', 'is_deleted', 'is_rank_up_battle', 'has_disconnect'], 'boolean'],
-            [['our_team_percent', 'their_team_percent', 'fest_power'], 'number'],
+            [['our_team_percent', 'their_team_percent', 'fest_power', 'x_power_before', 'x_power_after'], 'number'],
             [['start_at', 'end_at', 'created_at', 'updated_at'], 'safe'],
             [['uuid'], 'unique'],
             [['agent_id'], 'exist', 'skipOnError' => true, 'targetClass' => Agent::class, 'targetAttribute' => ['agent_id' => 'id']],
@@ -189,6 +191,8 @@ class Battle3 extends ActiveRecord
             'fest_dragon_id' => 'Fest Dragon ID',
             'fest_power' => 'Fest Power',
             'has_disconnect' => 'Has Disconnect',
+            'x_power_before' => 'X Power Before',
+            'x_power_after' => 'X Power After',
         ];
     }
 
