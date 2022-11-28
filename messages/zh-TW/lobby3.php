@@ -20,4 +20,5 @@ return [
     'Splatfest' => '祭典',
     'Splatfest (Open)' => '祭典比賽 (開放)',
     'Splatfest (Pro)' => '祭典比賽 (挑戰)',
+    'X Battle' => 'X比賽',
 ];

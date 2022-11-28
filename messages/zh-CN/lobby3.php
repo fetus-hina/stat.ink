@@ -4,8 +4,8 @@
  * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
- * @author midmiako <mayomi@baka.wang>
  * @author imspace <spacemeowx2@gmail.com>
+ * @author midmiako <mayomi@baka.wang>
  */
 
 declare(strict_types=1);
@@ -20,4 +20,5 @@ return [
     'Splatfest' => '祭典比赛',
     'Splatfest (Open)' => '祭典比赛（开放）',
     'Splatfest (Pro)' => '祭典比赛（挑战）',
+    'X Battle' => 'X比赛',
 ];

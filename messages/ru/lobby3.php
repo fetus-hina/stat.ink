@@ -18,4 +18,5 @@ return [
     'Splatfest' => '',
     'Splatfest (Open)' => '',
     'Splatfest (Pro)' => '',
+    'X Battle' => '',
 ];
