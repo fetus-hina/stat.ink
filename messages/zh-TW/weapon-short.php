@@ -21,6 +21,8 @@ return [
     '3K準星槍' => '3K鏡狙',
     '4K準星槍' => '4K鏡狙',
     'Big Swig Roller' => '',
+    'Carbon Roller Deco' => '',
+    'Custom Splattershot Jr.' => '',
     'Dapple Dualies Nouveau' => '',
     'H3捲管槍' => 'H3',
     'Inkbrush Nouveau' => '',
