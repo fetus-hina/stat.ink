@@ -71,7 +71,21 @@ if ($nextBattle) {
   ]);
 }
 
+$jsonUrl = str_starts_with(Yii::$app->language, 'en-') || str_starts_with(Yii::$app->language, 'ja')
+  ? ['api-v3/single-battle', 'uuid' => $model->uuid]
+  : ['api-v3/single-battle', 'uuid' => $model->uuid, 'full' => 1];
+
+$this->registerLinkTag([
+  'href' => Url::to(
+    ['api-v3/single-battle', 'uuid' => $model->uuid, 'full' => 1],
+    true,
+  ),
+  'rel' => 'alternative',
+  'type' => 'application/json',
+]);
+
 BattleDetailAsset::register($this);
+
 ?>
 <div class="container">
   <h1>
@@ -82,7 +96,9 @@ BattleDetailAsset::register($this);
       ),
     ]) . "\n" ?>
   </h1>
-  <?= SnsWidget::widget() . "\n" ?>
+  <?= SnsWidget::widget([
+    'jsonUrl' => $jsonUrl,
+  ]) . "\n" ?>
 <?php /*
   <?= $this->render('_battle_details_top_images', [
     'images' => [
