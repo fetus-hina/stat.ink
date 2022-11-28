@@ -16,7 +16,9 @@ use app\components\formatters\api\v3\BattleApiFormatter;
 use app\components\helpers\UuidRegexp;
 use app\models\Battle3;
 use yii\base\Action;
+use yii\helpers\ArrayHelper;
 use yii\web\BadRequestHttpException;
+use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
 final class GetSingleBattleAction extends Action
@@ -39,6 +41,30 @@ final class GetSingleBattleAction extends Action
         }
 
         $model = Battle3::find()
+            ->with(
+                ArrayHelper::toFlatten([
+                    [
+                        'battlePlayer3s',
+                        'battlePlayer3s.splashtagTitle',
+                        'battlePlayer3s.weapon',
+                        'battlePlayer3s.weapon.canonical',
+                        'battlePlayer3s.weapon.mainweapon',
+                        'battlePlayer3s.weapon.mainweapon.type',
+                        'battlePlayer3s.weapon.special',
+                        'battlePlayer3s.weapon.subweapon',
+                        'battlePlayer3s.weapon.weapon3Aliases',
+                    ],
+                    \array_map(
+                        fn (string $base): array => [
+                            "battlePlayer3s.{$base}",
+                            "battlePlayer3s.{$base}.ability",
+                            "battlePlayer3s.{$base}.gearConfigurationSecondary3s",
+                            "battlePlayer3s.{$base}.gearConfigurationSecondary3s.ability",
+                        ],
+                        ['clothing', 'headgear', 'shoes'],
+                    ),
+                ])
+            )
             ->andWhere([
                 'is_deleted' => false,
                 'uuid' => $uuid,

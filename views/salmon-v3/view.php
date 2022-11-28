@@ -65,6 +65,16 @@ if ($nextBattle) {
   ]);
 }
 
+$lang = Yii::$app->language;
+$jsonUrl = str_starts_with($lang, 'en-') || str_starts_with($lang, 'ja-')
+  ? ['api-v3/single-salmon', 'uuid' => $model->uuid]
+  : ['api-v3/single-salmon', 'uuid' => $model->uuid, 'full' => 1];
+$this->registerLinkTag([
+  'rel' => 'alternate',
+  'type' => 'application/json',
+  'href' => ['api-v3/single-salmon', 'uuid' => $model->uuid, 'full' => 1],
+]);
+
 ?>
 <div class="container">
   <h1>
@@ -75,7 +85,9 @@ if ($nextBattle) {
       ),
     ]) . "\n" ?>
   </h1>
-  <?= SnsWidget::widget() . "\n" ?>
+  <?= SnsWidget::widget([
+    'jsonUrl' => $jsonUrl,
+  ]) . "\n" ?>
   <div class="row">
     <div class="col-xs-12 col-sm-8 col-lg-9">
       <?= BattlePrevNext::widget([
