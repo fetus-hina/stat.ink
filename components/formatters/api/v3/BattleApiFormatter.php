@@ -12,15 +12,18 @@ namespace app\components\formatters\api\v3;
 
 use app\models\Battle3;
 use app\models\BattlePlayer3;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\JsExpression;
+
+use const FILTER_VALIDATE_FLOAT;
 
 final class BattleApiFormatter
 {
     public static function toJson(
         ?Battle3 $model,
         bool $isAuthenticated = false,
-        bool $fullTranslate = false
+        bool $fullTranslate = false,
     ): ?array {
         if (!$model) {
             return null;
@@ -73,7 +76,9 @@ final class BattleApiFormatter
             'rank_up_battle' => $model->is_rank_up_battle,
             'challenge_win' => $model->challenge_win,
             'challenge_lose' => $model->challenge_lose,
-            'fest_power' => self::festPower($model->fest_power),
+            'x_power_before' => self::formatPower($model->x_power_before),
+            'x_power_after' => self::formatPower($model->x_power_after),
+            'fest_power' => self::formatPower($model->fest_power),
             'fest_dragon' => DragonMatchApiFormatter::toJson($model->festDragon, $fullTranslate),
             'clout_before' => $model->clout_before,
             'clout_after' => $model->clout_after,
@@ -111,23 +116,24 @@ final class BattleApiFormatter
      */
     private static function filterPlayers(array $players, bool $isOurTeam): array
     {
-        $players = \array_filter(
-            $players,
-            function (BattlePlayer3 $model) use ($isOurTeam): bool {
-                return $model->is_our_team === $isOurTeam;
-            }
+        return ArrayHelper::sort(
+            \array_filter(
+                $players,
+                fn (BattlePlayer3 $model): bool => $model->is_our_team === $isOurTeam,
+            ),
+            fn (BattlePlayer3 $a, BattlePlayer3 $b): int => $a->id <=> $b->id,
         );
-        usort($players, fn (BattlePlayer3 $a, BattlePlayer3 $b): int => $a->id <=> $b->id);
-        return \array_values($players);
     }
 
-    private static function festPower($value): ?JsExpression
+    private static function formatPower($value): ?JsExpression
     {
         $value = \filter_var($value, FILTER_VALIDATE_FLOAT);
         if (!\is_float($value)) {
             return null;
         }
 
-        return new JsExpression(sprintf('%.1f', $value));
+        return new JsExpression(
+            \sprintf('%.1f', $value),
+        );
     }
 }

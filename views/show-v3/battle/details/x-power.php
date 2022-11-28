@@ -7,10 +7,12 @@ use app\components\widgets\FA;
 use app\models\Battle3;
 
 return [
-  'label' => Yii::t('app', 'Level'),
+  'label' => Yii::t('app', 'X Power'),
   'format' => 'raw',
   'value' => function (Battle3 $model): ?string {
-    if ($model->level_before === null && $model->level_after === null) {
+    $before = $model->x_power_before;
+    $after = $model->x_power_after;
+    if ($before === null && $after === null) {
       return null;
     }
 
@@ -19,10 +21,10 @@ return [
       'nullDisplay' => (string)FA::fas('question')->fw(),
     ]);
 
-    return implode('', [
-      $f->asInteger($model->level_before),
+    return vsprintf('%s%s%s', [
+      $f->asDecimal($before, 1),
       (string)FA::fas('arrow-right')->fw(),
-      $f->asInteger($model->level_after),
+      $f->asDecimal($after, 1),
     ]);
   },
 ];

@@ -19,4 +19,5 @@ return [
     'Splatfest' => '페스티벌 매치',
     'Splatfest (Open)' => '페스티벌 매치 (오픈)',
     'Splatfest (Pro)' => '페스티벌 매치 (챌린지)',
+    'X Battle' => 'X 매치',
 ];
