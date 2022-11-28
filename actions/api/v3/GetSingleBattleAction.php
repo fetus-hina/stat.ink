@@ -17,6 +17,7 @@ use app\components\helpers\UuidRegexp;
 use app\models\Battle3;
 use yii\base\Action;
 use yii\web\BadRequestHttpException;
+use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
 final class GetSingleBattleAction extends Action
