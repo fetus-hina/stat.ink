@@ -31,7 +31,7 @@ return [
     'Carbon Roller Deco' => '德科聯名碳纖維滾筒',
     'Chargers' => '蓄力狙擊槍',
     'Cherry H-3 Nozzlenose' => '櫻桃H3捲管槍',
-    'Classic Squiffer' => '經典魷快潔α',
+    'Classic Squiffer' => '魷快潔α',
     'CoroCoro Splat Roller' => '可柔可柔聯名斯普拉滾筒',
     'Custom Blaster' => '自製火熱爆破槍',
     'Custom Dual Squelcher' => '自製清潔槍',

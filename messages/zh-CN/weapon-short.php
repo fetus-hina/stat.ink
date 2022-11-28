@@ -20,6 +20,8 @@ return [
     '85版快枪' => '85',
     '89版快枪' => '89',
     'Big Swig Roller' => '',
+    'Carbon Roller Deco' => '',
+    'Custom Splattershot Jr.' => '',
     'Dapple Dualies Nouveau' => '',
     'H3卷管枪' => '',
     'H3水枪' => 'H3',
