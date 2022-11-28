@@ -21,6 +21,7 @@ use app\models\Slack;
 use app\models\User;
 use app\models\api\v3\PostSalmonForm;
 use yii\base\Action;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\MethodNotAllowedHttpException;
 use yii\web\Response;
@@ -52,7 +53,23 @@ final class PostSalmonAction extends Action
         }
 
         // 保存時間の読み込みのために再読込する
-        $battle->refresh();
+        $uuid = $battle->uuid;
+        $battle = Salmon3::find()
+            ->with([
+                'salmonBossAppearance3s.boss',
+                'salmonPlayer3s.salmonPlayerWeapon3s.weapon',
+                'salmonPlayer3s.salmonPlayerWeapon3s.weapon.salmonWeapon3Aliases',
+                'salmonPlayer3s.special',
+                'salmonPlayer3s.splashtagTitle',
+                'salmonPlayer3s.uniform',
+                'salmonWave3s.event',
+                'salmonWave3s.salmonSpecialUse3s.special',
+                'salmonWave3s.tide',
+                'variables',
+            ])
+            ->andWhere(['uuid' => $uuid])
+            ->limit(1)
+            ->one();
 
         // バックグラウンドジョブの登録
         // (Slack への push のタスク登録など)
