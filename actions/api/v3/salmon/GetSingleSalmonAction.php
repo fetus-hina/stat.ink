@@ -44,15 +44,16 @@ final class GetSingleSalmonAction extends Action
 
         $model = Salmon3::find()
             ->with([
-                'salmonAgentVariable3s.variable',
                 'salmonBossAppearance3s.boss',
                 'salmonPlayer3s.salmonPlayerWeapon3s.weapon',
+                'salmonPlayer3s.salmonPlayerWeapon3s.weapon.salmonWeapon3Aliases',
                 'salmonPlayer3s.special',
                 'salmonPlayer3s.splashtagTitle',
                 'salmonPlayer3s.uniform',
                 'salmonWave3s.event',
                 'salmonWave3s.salmonSpecialUse3s.special',
                 'salmonWave3s.tide',
+                'variables',
             ])
             ->andWhere([
                 'uuid' => $uuid,

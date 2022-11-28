@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use app\models\Battle3;
 use app\models\BattlePlayer3;
+use yii\helpers\ArrayHelper;
 use yii\web\View;
 
 /**
@@ -12,12 +13,20 @@ use yii\web\View;
  */
 
 $allPlayers = BattlePlayer3::find()
-  ->with([
-    'splashtagTitle',
-    'weapon',
-    // 'weapon.special',
-    // 'weapon.subweapon',
-  ])
+  ->with(
+    ArrayHelper::toFlatten([
+      ['splashtagTitle', 'weapon', 'weapon.special', 'weapon.subweapon'],
+      \array_map(
+        fn (string $base): array => [
+          "{$base}",
+          "{$base}.ability",
+          "{$base}.gearConfigurationSecondary3s",
+          "{$base}.gearConfigurationSecondary3s.ability",
+        ],
+        ['clothing', 'headgear', 'shoes'],
+      ),
+    ])
+  )
   ->andWhere(['battle_id' => $model->id])
   ->orderBy(['id' => SORT_ASC])
   ->all();

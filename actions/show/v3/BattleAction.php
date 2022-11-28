@@ -37,22 +37,6 @@ final class BattleAction extends Action
                 'uuid' => $battle,
                 'is_deleted' => false,
             ])
-            ->with([
-                'battlePlayer3s',
-                'battlePlayer3s.clothing',
-                'battlePlayer3s.clothing.ability',
-                'battlePlayer3s.clothing.gearConfigurationSecondary3s',
-                'battlePlayer3s.clothing.gearConfigurationSecondary3s.ability',
-                'battlePlayer3s.headgear',
-                'battlePlayer3s.headgear.ability',
-                'battlePlayer3s.headgear.gearConfigurationSecondary3s',
-                'battlePlayer3s.headgear.gearConfigurationSecondary3s.ability',
-                'battlePlayer3s.shoes',
-                'battlePlayer3s.shoes.ability',
-                'battlePlayer3s.shoes.gearConfigurationSecondary3s',
-                'battlePlayer3s.shoes.gearConfigurationSecondary3s.ability',
-                'battlePlayer3s.splashtagTitle',
-            ])
             ->limit(1)
             ->one();
         if (!$model || !$model->user) {
