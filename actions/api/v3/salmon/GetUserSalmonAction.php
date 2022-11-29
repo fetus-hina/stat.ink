@@ -18,12 +18,18 @@ use app\components\helpers\UuidRegexp;
 use app\models\Salmon3;
 use app\models\User;
 use yii\base\Action;
+use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
+use yii\web\JsExpression;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
-final class GetSingleSalmonAction extends Action
+use const JSON_THROW_ON_ERROR;
+use const JSON_UNESCAPED_SLASHES;
+use const JSON_UNESCAPED_UNICODE;
+
+final class GetUserSalmonAction extends Action
 {
     use ApiInitializerTrait;
 
@@ -36,13 +42,17 @@ final class GetSingleSalmonAction extends Action
         $this->apiInit();
     }
 
-    public function run(string $uuid, bool $full = false): Response
+    public function run(string $screen_name, bool $full = false): Response
     {
-        if (!\preg_match(UuidRegexp::get(true), $uuid)) {
-            throw new BadRequestHttpException();
+        $user = User::find()
+            ->andWhere(['screen_name' => $screen_name])
+            ->limit(1)
+            ->one();
+        if (!$user) {
+            throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
         }
 
-        $model = Salmon3::find()
+        $models = Salmon3::find()
             ->with([
                 'agent',
                 'bigStage.map3Aliases',
@@ -67,29 +77,33 @@ final class GetSingleSalmonAction extends Action
                 'version',
             ])
             ->andWhere([
-                'uuid' => $uuid,
+                'user_id' => $user->id,
                 'is_deleted' => false,
             ])
-            ->limit(1)
-            ->one();
-        if (!$model) {
-            throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
-        }
-
-        $user = $model->user;
-        if (!$user) {
-            throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
-        }
+            ->orderBy([
+                'start_at' => SORT_DESC,
+                'id' => SORT_DESC,
+            ])
+            ->limit(100)
+            ->all();
 
         $isAuthenticated = Yii::$app->user->isGuest
             ? false
             : (int)$user->id === (int)Yii::$app->user->id;
 
         $resp = Yii::$app->response;
-        $resp->data = SalmonApiFormatter::toJson(
-            $model,
-            $isAuthenticated,
-            $full,
+        $resp->data = \array_map(
+            fn (Salmon3 $model): JsExpression => new JsExpression(
+                Json::encode(
+                    SalmonApiFormatter::toJson(
+                        $model,
+                        $isAuthenticated,
+                        $full,
+                    ),
+                    JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR,
+                ),
+            ),
+            $models,
         );
 
         return $resp;

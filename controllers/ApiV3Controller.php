@@ -25,6 +25,7 @@ use app\actions\api\v3\s3s\UsageAction;
 use app\actions\api\v3\s3s\UuidListAction;
 use app\actions\api\v3\salmon\DeleteSalmonAction;
 use app\actions\api\v3\salmon\GetSingleSalmonAction;
+use app\actions\api\v3\salmon\GetUserSalmonAction;
 use app\actions\api\v3\salmon\PostSalmonAction;
 use app\actions\api\v3\salmon\SalmonUuidListAction;
 use app\actions\api\v3\salmon\SalmonWeaponAction;
@@ -68,10 +69,12 @@ final class ApiV3Controller extends Controller
                     'salmon-uuid-list',
                     'single-battle',
                     'single-salmon',
+                    'user-salmon',
                 ],
                 'optional' => [
                     'single-battle',
                     'single-salmon',
+                    'user-salmon',
                 ],
             ],
         ];
@@ -95,6 +98,7 @@ final class ApiV3Controller extends Controller
             'single-battle' => GetSingleBattleAction::class,
             'single-salmon' => GetSingleSalmonAction::class,
             'stage' => StageAction::class,
+            'user-salmon' => GetUserSalmonAction::class,
             'version' => VersionAction::class,
             'weapon' => WeaponAction::class,
         ];

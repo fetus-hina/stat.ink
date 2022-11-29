@@ -40,6 +40,12 @@ $this->registerMetaTag([
 if ($user->twitter != '') {
   $this->registerMetaTag(['name' => 'twitter:creator', 'content' => sprintf('@%s', $user->twitter)]);
 }
+
+$lang = Yii::$app->language;
+$jsonUrl = str_starts_with($lang, 'en-') || str_starts_with($lang, 'ja-')
+  ? ['api-v3/user-salmon', 'screen_name' => $user->screen_name]
+  : ['api-v3/user-salmon', 'screen_name' => $user->screen_name, 'full' => 1];
+
 ?>
 <div class="container">
   <span itemscope itemtype="http://schema.org/BreadcrumbList">
@@ -53,6 +59,7 @@ if ($user->twitter != '') {
   </h1>
   <?= SnsWidget::widget([
     // 'tweetText' => $humanReadableSummary,
+    'jsonUrl' => $jsonUrl,
   ]) . "\n" ?>
   <div class="row">
     <div class="col-xs-12 col-sm-8 col-lg-9">

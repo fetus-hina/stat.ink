@@ -21,11 +21,14 @@ final class SalmonBossAppearanceApiFormatter
      */
     public static function allToJson(array $models, bool $fullTranslate = false): array
     {
-        $bosses = ArrayHelper::map(
-            SalmonBoss3::find()->with('salmonBoss3Aliases')->all(),
-            'id',
-            fn (SalmonBoss3 $model): SalmonBoss3 => $model,
-        );
+        static $bosses = null;
+        if ($bosses === null) {
+            $bosses = ArrayHelper::map(
+                SalmonBoss3::find()->with('salmonBoss3Aliases')->all(),
+                'id',
+                fn (SalmonBoss3 $model): SalmonBoss3 => $model,
+            );
+        }
 
         $results = [];
         foreach ($models as $model) {

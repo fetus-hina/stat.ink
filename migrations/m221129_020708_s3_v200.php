@@ -27,6 +27,8 @@ final class m221129_020708_s3_v200 extends Migration
             'v2.0.0',
             new DateTimeImmutable('2022-11-30T10:00:00+09:00'),
         );
+
+        return true;
     }
 
     /**
@@ -35,5 +37,7 @@ final class m221129_020708_s3_v200 extends Migration
     public function safeDown()
     {
         $this->downVersion3('2.0.0', '1.2.1');
+
+        return true;
     }
 }
