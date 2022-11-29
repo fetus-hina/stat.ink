@@ -43,7 +43,7 @@ return [
     'Dynamo Roller' => '다이너모 롤러',
     'E-liter 3K' => '',
     'E-liter 3K Scope' => '',
-    'Forge Splattershot Pro' => '',
+    'Forge Splattershot Pro' => '프라임 슈터 컬래버',
     'Fresh Squiffer' => '',
     'Gold Dynamo Roller' => '',
     'Grim Range Blaster' => '',

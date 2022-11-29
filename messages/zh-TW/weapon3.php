@@ -41,6 +41,7 @@ return [
     'E-liter 4K Scope' => '4K準星槍',
     'Explosher' => '爆炸潑桶',
     'Flingza Roller' => '可變式滾筒',
+    'Forge Splattershot Pro' => '',
     'Glooga Dualies' => '開爾文525',
     'Goo Tuber' => '高壓油管槍',
     'Grizzco Blaster' => '熊先生商會爆破槍',

@@ -39,6 +39,7 @@ return [
     'E-liter 4K Scope' => 'Telentintador 4K',
     'Explosher' => 'Derramatic turbo',
     'Flingza Roller' => 'Rodillo versátil',
+    'Forge Splattershot Pro' => 'Lanzatintas plus B',
     'Glooga Dualies' => 'Fundidora 525 dual',
     'Goo Tuber' => 'Tubofusil',
     'Grizzco Blaster' => 'Devastador Don Oso',

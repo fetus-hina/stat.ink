@@ -39,6 +39,7 @@ return [
     'E-liter 4K Scope' => 'E-liter 4K met vizier',
     'Explosher' => 'Kliederkachel',
     'Flingza Roller' => 'Flexroller',
+    'Forge Splattershot Pro' => 'Forge Superspetter Pro',
     'Glooga Dualies' => 'Kelvin 525',
     'Goo Tuber' => 'Spetbuizer',
     'Grizzco Blaster' => 'Beer & Co-blaster',

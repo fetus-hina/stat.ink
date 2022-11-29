@@ -39,6 +39,7 @@ return [
     'E-liter 4K Scope' => 'Ziel-E-liter 4K',
     'Explosher' => 'Knall-Schwapper',
     'Flingza Roller' => 'Flex-Roller',
+    'Forge Splattershot Pro' => 'Focus-Profi-Kleckser',
     'Glooga Dualies' => 'Kelvin 525',
     'Goo Tuber' => 'T-Tuber',
     'Grizzco Blaster' => 'Bär-Blaster',

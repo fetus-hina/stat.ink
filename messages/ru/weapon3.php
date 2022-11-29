@@ -39,6 +39,7 @@ return [
     'E-liter 4K Scope' => 'Снайп-э-литр 95',
     'Explosher' => 'Шпарган',
     'Flingza Roller' => 'Омнивалик',
+    'Forge Splattershot Pro' => 'Каплестрел ПРО «Блиц»',
     'Glooga Dualies' => 'Термоплюхи 525',
     'Goo Tuber' => 'Трубастер',
     'Grizzco Blaster' => 'Бластер «Потапыч Inc.»',
