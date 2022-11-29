@@ -189,10 +189,16 @@ final class PostBattleForm extends Model
             ],
 
             [['challenge_win'], 'integer', 'min' => 0, 'max' => 5,
-                'when' => fn (self $model): bool => self::boolVal($model->rank_up_battle) !== true,
+                'when' => function (self $model): bool {
+                    return self::boolVal($model->rank_up_battle) !== true &&
+                        self::strVal($model->lobby) !== 'xmatch';
+                },
             ],
             [['challenge_win'], 'integer', 'min' => 0, 'max' => 3,
-                'when' => fn (self $model): bool => self::boolVal($model->rank_up_battle) === true,
+                'when' => function (self $model): bool {
+                    return self::boolVal($model->rank_up_battle) === true ||
+                        self::strVal($model->lobby) === 'xmatch';
+                },
             ],
             [['challenge_lose'], 'integer', 'min' => 0, 'max' => 3],
 
