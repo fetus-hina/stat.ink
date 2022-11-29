@@ -12,10 +12,22 @@ namespace app\components\widgets\v3\userMiniInfo\items;
 
 use Yii;
 use app\models\UserStat3;
+use yii\helpers\Html;
 
 return [
     'label' => Yii::t('app', 'Fest Power'),
-    'value' => fn (UserStat3 $model): string => $model->peak_fest_power > 0
-        ? Yii::$app->formatter->asDecimal((float)$model->peak_fest_power, 1)
-        : Yii::t('app', 'N/A'),
+    'format' => 'raw',
+    'value' => function (UserStat3 $model): string {
+        if ($model->peak_fest_power > 0) {
+            $f = Yii::$app->formatter;
+            $text = $f->asDecimal((float)$model->peak_fest_power, 1);
+            return preg_replace(
+                '/[.,]\d+$/',
+                Html::tag('small', '$0', ['class' => 'text-muted']),
+                $text,
+            );
+        }
+
+        return Yii::t('app', 'N/A');
+    },
 ];

@@ -100,7 +100,16 @@ html[lang^='zh-'],
 }
 
 .user-number {
+  --scale: 1;
+
   font-size: 1.5em;
+  transform: scale(var(--scale), 1);
+  transform-origin: left center;
+
+  // hack: fest power, X power
+  &:has(> small) {
+    --scale: 0.8;
+  }
 }
 
 #user-miniinfo {
