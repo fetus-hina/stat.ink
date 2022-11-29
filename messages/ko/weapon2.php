@@ -62,7 +62,7 @@ return [
     'Flingza Roller' => '베리어블 롤러',
     'Foil Flingza Roller' => '',
     'Foil Squeezer' => '',
-    'Forge Splattershot Pro' => '',
+    'Forge Splattershot Pro' => '프라임 슈터 컬래버',
     'Fresh Squiffer' => '',
     'Glooga Dualies' => '켈빈 525',
     'Glooga Dualies Deco' => '',

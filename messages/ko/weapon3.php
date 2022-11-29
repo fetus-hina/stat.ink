@@ -40,6 +40,7 @@ return [
     'E-liter 4K Scope' => '4K 스코프',
     'Explosher' => '익스플로셔',
     'Flingza Roller' => '베리어블 롤러',
+    'Forge Splattershot Pro' => '프라임 슈터 컬래버',
     'Glooga Dualies' => '켈빈 525',
     'Goo Tuber' => '소이 튜버',
     'Grizzco Blaster' => 'Mr. 베어표 블래스터',

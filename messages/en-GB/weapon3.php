@@ -39,6 +39,7 @@ return [
     'E-liter 4K Scope' => '',
     'Explosher' => '',
     'Flingza Roller' => '',
+    'Forge Splattershot Pro' => '',
     'Glooga Dualies' => '',
     'Goo Tuber' => '',
     'Grizzco Blaster' => '',

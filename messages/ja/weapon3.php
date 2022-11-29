@@ -39,6 +39,7 @@ return [
     'E-liter 4K' => 'リッター4K',
     'Explosher' => 'エクスプロッシャー',
     'Flingza Roller' => 'ヴァリアブルローラー',
+    'Forge Splattershot Pro' => 'プライムシューターコラボ',
     'Glooga Dualies' => 'ケルビン525',
     'Goo Tuber' => 'ソイチューバー',
     'Grizzco Blaster' => 'クマサン印のブラスター',

@@ -24,6 +24,7 @@ return [
     'Carbon Roller Deco' => '',
     'Custom Splattershot Jr.' => '',
     'Dapple Dualies Nouveau' => '',
+    'Forge Splattershot Pro' => '',
     'H3捲管槍' => 'H3',
     'Inkbrush Nouveau' => '',
     'L3捲管槍' => 'L3',

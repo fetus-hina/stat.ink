@@ -39,6 +39,7 @@ return [
     'E-liter 4K Scope' => 'Extraceur + zoom',
     'Explosher' => 'Détoneur',
     'Flingza Roller' => 'Flexi-rouleau',
+    'Forge Splattershot Pro' => 'Liquidateur pro griffé',
     'Glooga Dualies' => 'Double Kelvin 525',
     'Goo Tuber' => 'Détubeur',
     'Grizzco Blaster' => 'Blaster M. Ours SA',

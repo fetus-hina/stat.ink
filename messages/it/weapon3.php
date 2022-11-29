@@ -39,6 +39,7 @@ return [
     'E-liter 4K Scope' => 'Tinter con mirino 4K',
     'Explosher' => 'Termosecchiostro',
     'Flingza Roller' => 'Flexi-rullo',
+    'Forge Splattershot Pro' => 'Splasher élite logo',
     'Glooga Dualies' => 'Kelvin duplo 525',
     'Goo Tuber' => 'Tintubator',
     'Grizzco Blaster' => 'Blaster Ursus',
