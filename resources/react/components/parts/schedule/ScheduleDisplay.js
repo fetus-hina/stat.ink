@@ -22,6 +22,12 @@ const data = [
     showOpen: false
   },
   {
+    id: 'xmatch3',
+    ref: 'splatoon3/xmatch'.split('/'),
+    label: 'X Battle',
+    showOpen: false
+  },
+  {
     id: 'salmon3',
     ref: 'splatoon3/salmon'.split('/'),
     label: 'Salmon Run',
