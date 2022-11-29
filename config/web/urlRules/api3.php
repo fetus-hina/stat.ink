@@ -17,6 +17,7 @@ return [
     "api/v3/battle/<uuid:{$uuid}>" => 'api-v3/single-battle',
     "api/v3/salmon/<uuid:{$uuid}>" => 'api-v3/single-salmon',
     'api/v3/salmon/<action:[\w-]+>' => 'api-v3/salmon-<action>',
+    '@<screen_name:\w+>/salmon3.json' => 'api-v3/user-salmon',
 
     'api/v3/s3s/<action:[\w-]+>' => 'api-v3/s3s-<action>',
 
