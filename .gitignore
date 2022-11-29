@@ -30,6 +30,7 @@
 /data/licenses-composer
 /data/licenses-npm
 /messages/*.php
+/models.sh
 /node_modules
 /phpunit.xml
 /resources/.compiled

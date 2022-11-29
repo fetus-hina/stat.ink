@@ -11,6 +11,7 @@
   <exclude-pattern>*/data/</exclude-pattern>
   <exclude-pattern>*/doc/</exclude-pattern>
   <exclude-pattern>*/docker/</exclude-pattern>
+  <exclude-pattern>*/messages/*.php</exclude-pattern>
   <exclude-pattern>*/node_modules/</exclude-pattern>
   <exclude-pattern>*/resources/</exclude-pattern>
   <exclude-pattern>*/runtime/</exclude-pattern>

@@ -15,6 +15,7 @@ use DateTimeZone;
 use Yii;
 use app\components\helpers\userStatsV3\StatsTrait;
 use app\components\helpers\userStatsV3\WeaponTrait;
+use app\components\helpers\userStatsV3\XStatsTrait;
 use app\models\User;
 use yii\db\Connection;
 use yii\db\Transaction;
@@ -23,6 +24,7 @@ final class UserStatsV3
 {
     use StatsTrait;
     use WeaponTrait;
+    use XStatsTrait;
 
     public static function create(User $user): bool
     {
@@ -36,6 +38,7 @@ final class UserStatsV3
     private static function createImpl(Connection $db, User $user, DateTimeImmutable $now): bool
     {
         return self::createUserStats($db, $user, $now) &&
+            self::createUserStatsX($db, $user, $now) &&
             self::createWeaponStats($db, $user, $now);
     }
 }

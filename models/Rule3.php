@@ -28,6 +28,8 @@ use yii\db\ActiveRecord;
  * @property RuleGroup3 $group
  * @property Rule3Alias[] $rule3Aliases
  * @property Schedule3[] $schedule3s
+ * @property UserStat3XMatch[] $userStat3XMatches
+ * @property User[] $users
  */
 class Rule3 extends ActiveRecord
 {
@@ -78,5 +80,15 @@ class Rule3 extends ActiveRecord
     public function getSchedule3s(): ActiveQuery
     {
         return $this->hasMany(Schedule3::class, ['rule_id' => 'id']);
+    }
+
+    public function getUserStat3XMatches(): ActiveQuery
+    {
+        return $this->hasMany(UserStat3XMatch::class, ['rule_id' => 'id']);
+    }
+
+    public function getUsers(): ActiveQuery
+    {
+        return $this->hasMany(User::class, ['id' => 'user_id'])->viaTable('user_stat3_x_match', ['rule_id' => 'id']);
     }
 }

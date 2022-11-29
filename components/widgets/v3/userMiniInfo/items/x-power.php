@@ -11,12 +11,11 @@ declare(strict_types=1);
 namespace app\components\widgets\v3\userMiniInfo\items;
 
 use Yii;
-use app\models\UserStat3;
 use app\models\UserStat3XMatch;
 
 return [
-    'label' => Yii::t('app', 'Win %'),
-    'value' => fn (UserStat3|UserStat3XMatch $model): string => $model->agg_battles > 0
-        ? Yii::$app->formatter->asPercent($model->wins / $model->agg_battles, 1)
+    'label' => Yii::t('app', 'X Power'),
+    'value' => fn (UserStat3XMatch $model): string => $model->peak_x_power > 0
+        ? Yii::$app->formatter->asDecimal((float)$model->peak_x_power, 1)
         : Yii::t('app', 'N/A'),
 ];
