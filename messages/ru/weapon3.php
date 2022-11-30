@@ -46,6 +46,7 @@ return [
     'Grizzco Brella' => 'Зонтган «Потапыч Inc.»',
     'Grizzco Charger' => 'Сплатган «Потапыч Inc.»',
     'Grizzco Slosher' => 'Ведроган «Потапыч Inc.»',
+    'Grizzco Splatana' => '',
     'Grizzco Stringer' => 'Тетиватор «Потапыч Inc.»',
     'H-3 Nozzlenose' => 'Тяжелый каплетрон',
     'Heavy Splatling' => 'Брызгомет XL',

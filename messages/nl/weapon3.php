@@ -46,6 +46,7 @@ return [
     'Grizzco Brella' => 'Beer & Co-plenzer',
     'Grizzco Charger' => 'Beer & Co-lader',
     'Grizzco Slosher' => 'Beer & Co-morser',
+    'Grizzco Splatana' => '',
     'Grizzco Stringer' => 'Beer & Co-spanner',
     'H-3 Nozzlenose' => 'H-3 Langsnuit',
     'Heavy Splatling' => 'Spetling',

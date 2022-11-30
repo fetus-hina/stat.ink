@@ -46,6 +46,7 @@ return [
     'Grizzco Brella' => 'Para-encre M. Ours Cie',
     'Grizzco Charger' => 'Fusil M. Ours Cie',
     'Grizzco Slosher' => 'Seau M. Ours Cie',
+    'Grizzco Splatana' => '',
     'Grizzco Stringer' => 'Transperceur M. Ours Cie',
     'H-3 Nozzlenose' => 'Arroseur lourd',
     'Heavy Splatling' => 'Badigeonneur',

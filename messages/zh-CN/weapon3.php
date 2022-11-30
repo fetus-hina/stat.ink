@@ -48,6 +48,7 @@ return [
     'Grizzco Brella' => '熊先生印章防空伞',
     'Grizzco Charger' => '熊先生印章蓄力狙击枪',
     'Grizzco Slosher' => '熊先生印章泼桶',
+    'Grizzco Splatana' => '熊先生印章刮水刀',
     'Grizzco Stringer' => '熊先生印章猎鱼弓',
     'H-3 Nozzlenose' => 'H3卷管枪',
     'Heavy Splatling' => '桶装旋转枪',

@@ -54,6 +54,7 @@ return [
     'Grim Range Blaster' => '',
     'Grizzco Charger' => '',
     'Grizzco Slosher' => '',
+    'Grizzco Splatana' => '',
     'H-3 Nozzlenose D' => '',
     'H3 릴 건' => '',
     'Heavy Splatling Deco' => '',

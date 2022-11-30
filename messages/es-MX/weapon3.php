@@ -46,6 +46,7 @@ return [
     'Grizzco Brella' => '',
     'Grizzco Charger' => '',
     'Grizzco Slosher' => '',
+    'Grizzco Splatana' => '',
     'Grizzco Stringer' => '',
     'H-3 Nozzlenose' => 'Manguera pesada',
     'Heavy Splatling' => 'Garabateador Pro',

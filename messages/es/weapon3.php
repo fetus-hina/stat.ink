@@ -46,6 +46,7 @@ return [
     'Grizzco Brella' => 'Paratintas Don Oso',
     'Grizzco Charger' => 'Cargatintas Don Oso',
     'Grizzco Slosher' => 'Derramatic Don Oso',
+    'Grizzco Splatana' => 'Azotintador Don Oso',
     'Grizzco Stringer' => 'Arcromatizador Don Oso',
     'H-3 Nozzlenose' => 'Tintambor pesado',
     'Heavy Splatling' => 'Tintralladora',

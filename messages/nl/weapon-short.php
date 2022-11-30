@@ -98,6 +98,7 @@ return [
     'Grizzco Brella' => '',
     'Grizzco Charger' => '',
     'Grizzco Slosher' => '',
+    'Grizzco Splatana' => '',
     'H-3 Langsnuit' => '',
     'H-3 Langsnuit D' => '',
     'H-3 Langsnuit Kers' => '',

@@ -78,6 +78,7 @@ return [
     'Grizzco Brella' => '',
     'Grizzco Charger' => '',
     'Grizzco Slosher' => '',
+    'Grizzco Splatana' => '',
     'Grizzco Stringer' => '',
     'H-3 Nozzlenose' => 'H-3',
     'H-3 Nozzlenose D' => 'H-3D',

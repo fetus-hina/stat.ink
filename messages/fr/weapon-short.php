@@ -99,6 +99,7 @@ return [
     'Flexi-rouleau' => '',
     'Flexi-rouleau alu' => '',
     'Fusil M. Ours SA' => '',
+    'Grizzco Splatana' => '',
     'Lanceur héroïque (réplique)' => '',
     'Lanceur Octaling (réplique)' => '',
     'Liquidateur' => '',

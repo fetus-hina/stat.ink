@@ -38,6 +38,7 @@ return [
     'Bär-Konzentrator' => '',
     'Bär-Pluviator' => '',
     'Bär-Schwapper' => '',
+    'Bär-Splatana' => '',
     'Bär-Stringer' => '',
     'Camp-Pluviator' => '',
     'Camp-Pluviator Camo' => '',
