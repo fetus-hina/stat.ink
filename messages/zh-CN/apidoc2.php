@@ -5,6 +5,7 @@
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Gosin <canling0@gmail.com>
+ * @author imspace <spacemeowx2@gmail.com>
  */
 
 declare(strict_types=1);
@@ -78,9 +79,9 @@ return [
     'Get user\'s battle stats' => '获得用户的对战统计',
     'Get weapons' => '获得武器',
     'Get weapons in CSV format' => '获得武器（CSV格式）',
-    'Golden Egg appearances' => '金蛋出现次数',
-    'Golden Eggs collected' => '金蛋收集数量',
-    'Golden Eggs delivered' => '金蛋送回数量',
+    'Golden Egg appearances' => '金鲑鱼卵出现次数',
+    'Golden Eggs collected' => '金鲑鱼卵收集数量',
+    'Golden Eggs delivered' => '金鲑鱼卵送回数量',
     'Hazard Level, 200.0 = "Hazard Level MAX!!"' => '危险系数，200.0 = 最危险！',
     'Highest rank ever' => '历史最高排名',
     'Highest X-power ever' => '历史最高X能量',
@@ -125,11 +126,11 @@ return [
     'Nothing send (Disabled duplicate detection)' => '没有任何发送（关闭重复检查）',
     'Number of battles' => '对战数量',
     'Number of cleared waves. 3 if cleared, 0 if failed in wave 1.' => '完成打工数。 如果完成是3，如果第一波就失败是0。',
-    'Number of kills the boss salmonid' => '杀死的鲑鱼关主数',
+    'Number of kills the boss salmonid' => '杀死的巨大鲑鱼数',
     'Number of times rescued by other players' => '被队友救援数',
     'Number of times rescued other players' => '救援队友数',
-    'Number of times the player kills each boss' => '杀死每种鲑鱼关主数',
-    'Number of times the player kills {boss}' => '杀死鲑鱼关主 {boss} 数',
+    'Number of times the player kills each boss' => '杀死每种巨大鲑鱼数',
+    'Number of times the player kills {boss}' => '杀死巨大鲑鱼 {boss} 数',
     'Obsoleted and no longer used' => '废弃并且不再使用',
     'Older to newer' => '从旧到新',
     'Otherwise' => '否则',
@@ -143,7 +144,7 @@ return [
     'Posted time' => '发布时间',
     'Post Salmon Run results' => '发布鲑鱼打工结果',
     'Post Salmon Run stats (card data)' => '发布鲑鱼打工统计（卡片数据）',
-    'Power Eggs collected' => '收集的能量蛋数',
+    'Power Eggs collected' => '收集的鲑鱼卵数',
     'Primary ability' => '主要技能',
     'Profile page URL' => '个人主页',
     'Public URL' => '公开网址',
