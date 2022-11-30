@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+/*! Copyright (C) 2015-2022 AIZAWA Hina | MIT License */
+
+.twemoji {
+  --emoji-size: 1.2em;
+
+  height: var(--emoji-size);
+  vertical-align: middle;
+  width: var(--emoji-size);
+}
