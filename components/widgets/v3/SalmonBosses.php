@@ -14,6 +14,7 @@ use Yii;
 use app\assets\SalmonBossesAsset;
 use app\assets\Spl3SalmonidAsset;
 use app\components\i18n\Formatter;
+use app\components\widgets\Emoji;
 use app\models\Salmon3;
 use app\models\SalmonBossAppearance3;
 use yii\base\Widget;
@@ -187,21 +188,30 @@ final class SalmonBosses extends Widget
 
     private function renderDefeated(SalmonBossAppearance3 $model): string
     {
+        $tada = $model->defeated !== null &&
+            $model->appearances !== null &&
+            $model->defeated >= $model->appearances;
+
         return Html::tag(
             'td',
-            $model->defeated_by_me > 0
-                ? \vsprintf('%s %s', [
-                    Html::encode($this->formatter->asInteger($model->defeated)),
-                    Html::tag(
-                        'small',
-                        Html::encode(
-                            \vsprintf('(%s)', [
-                                $this->formatter->asInteger($model->defeated_by_me),
-                            ]),
-                        ),
-                    ),
-                ])
-                : Html::encode($this->formatter->asInteger($model->defeated)),
+            \trim(
+                \vsprintf('%s %s', [
+                    $tada ? Emoji::cp(0x1f389) : '',
+                    $model->defeated_by_me > 0
+                        ? \vsprintf('%s %s', [
+                            Html::encode($this->formatter->asInteger($model->defeated)),
+                            Html::tag(
+                                'small',
+                                Html::encode(
+                                    \vsprintf('(%s)', [
+                                        $this->formatter->asInteger($model->defeated_by_me),
+                                    ]),
+                                ),
+                            ),
+                        ])
+                        : Html::encode($this->formatter->asInteger($model->defeated)),
+                ]),
+            ),
             ['class' => 'text-right'],
         );
     }
