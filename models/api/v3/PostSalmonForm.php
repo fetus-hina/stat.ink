@@ -364,6 +364,7 @@ final class PostSalmonForm extends Model
             'schedule_id' => self::guessScheduleId(self::intVal($this->start_at), self::intVal($this->end_at)),
             'has_disconnect' => $this->hasDisconnect(),
             'is_deleted' => false,
+            'has_broken_data' => $this->hasBrokenData(),
             'remote_addr' => Yii::$app->request->getUserIP() ?? '127.0.0.2',
             'remote_port' => self::intVal($_SERVER['REMOTE_PORT'] ?? 0),
             'created_at' => self::now(),
@@ -391,6 +392,12 @@ final class PostSalmonForm extends Model
             }
         }
 
+        return false;
+    }
+
+    private function hasBrokenData(): bool
+    {
+        // TODO
         return false;
     }
 
