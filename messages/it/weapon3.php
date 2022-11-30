@@ -46,6 +46,7 @@ return [
     'Grizzco Brella' => 'Sparasole Ursus',
     'Grizzco Charger' => 'Splatter Ursus',
     'Grizzco Slosher' => 'Secchiostro Ursus',
+    'Grizzco Splatana' => '',
     'Grizzco Stringer' => 'Calamarco Ursus',
     'H-3 Nozzlenose' => 'Triplete',
     'Heavy Splatling' => 'Splatling a tanica',

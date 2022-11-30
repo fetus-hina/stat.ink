@@ -48,6 +48,7 @@ return [
     'Grizzco Brella' => '熊先生商會防空傘',
     'Grizzco Charger' => '熊先生商會蓄力狙擊槍',
     'Grizzco Slosher' => '熊先生商會潑桶',
+    'Grizzco Splatana' => '熊先生商會刮水刀',
     'Grizzco Stringer' => '熊先生商會獵魚弓',
     'H-3 Nozzlenose' => 'H3捲管槍',
     'Heavy Splatling' => '桶裝旋轉槍',

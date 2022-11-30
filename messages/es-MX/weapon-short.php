@@ -19,6 +19,7 @@ return [
     'Atomizador dual maestro' => '',
     'Atomizador dual sencillo' => '',
     'Azotintador brisa' => '',
+    'Azotintador Don Oso' => '',
     'Azotintador Pro' => '',
     'Bamzuka 14-I' => '',
     'Bamzuka 14-II' => '',

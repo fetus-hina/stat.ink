@@ -46,6 +46,7 @@ return [
     'Grizzco Brella' => 'Bär-Pluviator',
     'Grizzco Charger' => 'Bär-Konzentrator',
     'Grizzco Slosher' => 'Bär-Schwapper',
+    'Grizzco Splatana' => 'Bär-Splatana',
     'Grizzco Stringer' => 'Bär-Stringer',
     'H-3 Nozzlenose' => 'S3 Tintenwerfer',
     'Heavy Splatling' => 'Splatling',

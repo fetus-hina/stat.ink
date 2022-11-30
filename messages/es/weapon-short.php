@@ -21,6 +21,7 @@ return [
     'Atomizador dual maestro' => '',
     'Atomizador dual sencillo' => '',
     'Azotintador brisa' => '',
+    'Azotintador Don Oso' => '',
     'Azotintador pro' => '',
     'Bambufusil 14-I' => '',
     'Bambufusil 14-II' => '',

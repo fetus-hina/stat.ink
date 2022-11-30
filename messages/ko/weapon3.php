@@ -47,6 +47,7 @@ return [
     'Grizzco Brella' => 'Mr. 베어표 셸터',
     'Grizzco Charger' => '',
     'Grizzco Slosher' => '',
+    'Grizzco Splatana' => '',
     'Grizzco Stringer' => 'Mr. 베어표 스트링거',
     'H-3 Nozzlenose' => 'H3 릴 건',
     'Heavy Splatling' => '배럴 스피너',

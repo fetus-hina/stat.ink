@@ -86,6 +86,7 @@ return [
     'Flexi-rouleau' => '',
     'Fusil M. Ours Cie' => '',
     'Fusil M. Ours SA' => '',
+    'Grizzco Splatana' => '',
     'Lignizateur alpha' => '',
     'Lignizateur bêta' => '',
     'Lignizateur gamma' => '',
