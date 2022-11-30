@@ -134,14 +134,15 @@ trait StatsTrait
     {
         // これらすべての条件がそろっているものを最低条件とみなす
         return \implode(' AND ', [
-            '{{%salmon3}}.[[is_private]] = FALSE',
+            '{{%salmon3}}.[[clear_waves]] IS NOT NULL',
             '{{%salmon3}}.[[danger_rate]] IS NOT NULL',
             '{{%salmon3}}.[[danger_rate]] > 0.0',
-            '{{%salmon3}}.[[clear_waves]] IS NOT NULL',
+            '{{%salmon3}}.[[has_broken_data]] = FALSE',
+            '{{%salmon3}}.[[is_private]] = FALSE',
             '{{%salmon3}}.[[title_after_id]] IS NOT NULL',
             '{{%salmon3}}.[[title_exp_after]] IS NOT NULL',
-            '{{%salmon_player3}}.[[is_disconnected]] = FALSE',
             '{{%salmon_player3}}.[[golden_eggs]] IS NOT NULL',
+            '{{%salmon_player3}}.[[is_disconnected]] = FALSE',
             '{{%salmon_player3}}.[[power_eggs]] IS NOT NULL',
             '{{%salmon_player3}}.[[rescue]] IS NOT NULL',
             '{{%salmon_player3}}.[[rescued]] IS NOT NULL',

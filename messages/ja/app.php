@@ -254,6 +254,7 @@ return [
     'Internal ID' => '内部ID',
     'Interval' => '間隔',
     'Invalid {0} or {1}.' => '{0}または{1}が違います。',
+    'It looks this data is corrupt.' => 'このデータは破損しています。',
     'JSON (IkaLog compat.)' => 'JSON (IkaLog互換)',
     'JSON (stat.ink format, gzipped)' => 'JSON (stat.ink形式, gzip圧縮)',
     'JSON format (All langs)' => 'JSON形式 (全言語)',

@@ -260,6 +260,7 @@ return [
     'Interval' => 'Intervalle',
     'Invalid {0} or {1}.' => 'Invalide {0} ou {1}',
     'IQR' => '',
+    'It looks this data is corrupt.' => '',
     'Japan' => 'Japon',
     'Japan Time' => 'Heure Japonaise',
     'Join us' => 'Rejoignez-nous',

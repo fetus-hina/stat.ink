@@ -364,6 +364,7 @@ final class PostSalmonForm extends Model
             'schedule_id' => self::guessScheduleId(self::intVal($this->start_at), self::intVal($this->end_at)),
             'has_disconnect' => $this->hasDisconnect(),
             'is_deleted' => false,
+            'has_broken_data' => $this->hasBrokenData(),
             'remote_addr' => Yii::$app->request->getUserIP() ?? '127.0.0.2',
             'remote_port' => self::intVal($_SERVER['REMOTE_PORT'] ?? 0),
             'created_at' => self::now(),
@@ -387,6 +388,32 @@ final class PostSalmonForm extends Model
                 $value = self::boolVal(ArrayHelper::getValue($player, 'disconnected'));
                 if ($value === true) {
                     return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private function hasBrokenData(): bool
+    {
+        if (\is_array($this->bosses)) {
+            foreach ($this->bosses as $key => $data) {
+                if ($data === null) {
+                    continue;
+                }
+
+                $form = Yii::createObject(BossForm::class);
+                $form->attributes = $data;
+                if ($form->appearances > 0) {
+                    // https://github.com/frozenpandaman/s3s/issues/80#issuecomment-1328040023
+                    if (
+                        $form->appearances < $form->defeated ||
+                        $form->appearances < $form->defeated_by_me ||
+                        $form->defeated < $form->defeated_by_me
+                    ) {
+                        return true;
+                    }
                 }
             }
         }

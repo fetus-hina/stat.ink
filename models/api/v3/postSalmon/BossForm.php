@@ -42,16 +42,19 @@ final class BossForm extends Model
             [['appearances', 'defeated', 'defeated_by_me'], 'required'],
             [['appearances', 'defeated', 'defeated_by_me'], 'integer', 'min' => 0],
 
-            [['defeated', 'defeated_by_me'], 'compare',
-                'compareAttribute' => 'appearances',
-                'operator' => '<=',
-                'type' => CompareValidator::TYPE_NUMBER,
-            ],
-            [['defeated_by_me'], 'compare',
-                'compareAttribute' => 'defeated',
-                'operator' => '<=',
-                'type' => CompareValidator::TYPE_NUMBER,
-            ],
+            // Disabled these rules due to
+            // https://github.com/frozenpandaman/s3s/issues/80#issuecomment-1328040023
+            //
+            // [['defeated', 'defeated_by_me'], 'compare',
+            //     'compareAttribute' => 'appearances',
+            //     'operator' => '<=',
+            //     'type' => CompareValidator::TYPE_NUMBER,
+            // ],
+            // [['defeated_by_me'], 'compare',
+            //     'compareAttribute' => 'defeated',
+            //     'operator' => '<=',
+            //     'type' => CompareValidator::TYPE_NUMBER,
+            // ],
         ];
     }
 
