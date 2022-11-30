@@ -261,6 +261,7 @@ return [
     'Interval' => '间隔',
     'Invalid {0} or {1}.' => '无效的{0}或{1}。',
     'IQR' => '四分位距',
+    'It looks this data is corrupt.' => '',
     'Japan' => '日本',
     'Japan Time' => '日本时间',
     'Join us' => '加入我们',

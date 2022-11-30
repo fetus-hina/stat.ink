@@ -397,7 +397,27 @@ final class PostSalmonForm extends Model
 
     private function hasBrokenData(): bool
     {
-        // TODO
+        if (\is_array($this->bosses)) {
+            foreach ($this->bosses as $key => $data) {
+                if ($data === null) {
+                    continue;
+                }
+
+                $form = Yii::createObject(BossForm::class);
+                $form->attributes = $data;
+                if ($form->appearances > 0) {
+                    // https://github.com/frozenpandaman/s3s/issues/80#issuecomment-1328040023
+                    if (
+                        $form->appearances < $form->defeated ||
+                        $form->appearances < $form->defeated_by_me ||
+                        $form->defeated < $form->defeated_by_me
+                    ) {
+                        return true;
+                    }
+                }
+            }
+        }
+
         return false;
     }
 

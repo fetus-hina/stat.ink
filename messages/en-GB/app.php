@@ -259,6 +259,7 @@ return [
     'Interval' => '',
     'Invalid {0} or {1}.' => '',
     'IQR' => '',
+    'It looks this data is corrupt.' => '',
     'Japan' => '',
     'Japan Time' => '',
     'Join us' => '',
