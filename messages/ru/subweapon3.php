@@ -10,11 +10,11 @@ declare(strict_types=1);
 
 return [
     'Angle Shooter' => 'Углострел',
-    'Autobomb' => 'Робобомб',
+    'Autobomb' => 'Робобомба',
     'Burst Bomb' => 'Разрывная бомба',
     'Curling Bomb' => 'Керлинг-бомба',
     'Fizzy Bomb' => 'Содовая бомба',
-    'Ink Mine' => 'Мины',
+    'Ink Mine' => 'Мина',
     'Point Sensor' => 'Маркер движения',
     'Splash Wall' => 'Чернильный занавес',
     'Splat Bomb' => 'Брызгающая бомба',

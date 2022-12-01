@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 return [
     'Angle Shooter' => 'Sparalinee',
-    'Autobomb' => 'Robobomba',
+    'Autobomb' => 'Robo-bomba',
     'Burst Bomb' => 'Granata',
     'Curling Bomb' => 'Bomba curling',
     'Fizzy Bomb' => 'Bomba a gassosa',

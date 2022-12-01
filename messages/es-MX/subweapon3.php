@@ -9,18 +9,18 @@
 declare(strict_types=1);
 
 return [
-    'Angle Shooter' => '',
-    'Autobomb' => '',
+    'Angle Shooter' => 'Dardo resaltador',
+    'Autobomb' => 'Robobomba',
     'Burst Bomb' => 'Globo entintado',
-    'Curling Bomb' => '',
-    'Fizzy Bomb' => '',
+    'Curling Bomb' => 'Bomba deslizante',
+    'Fizzy Bomb' => 'Bomba carbónica',
     'Ink Mine' => 'Mina de tinta',
-    'Point Sensor' => '',
+    'Point Sensor' => 'Rastreador',
     'Splash Wall' => 'Barricada',
     'Splat Bomb' => 'Plasbomba',
-    'Sprinkler' => '',
+    'Sprinkler' => 'Aspersor',
     'Squid Beakon' => 'Baliza',
     'Suction Bomb' => 'Bomba pegajosa',
-    'Torpedo' => '',
-    'Toxic Mist' => '',
+    'Torpedo' => 'Torpedo',
+    'Toxic Mist' => 'Nebulizador',
 ];

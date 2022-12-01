@@ -24,5 +24,5 @@ return [
     'Trizooka' => 'Ultraturbinator',
     'Ultra Stamp' => 'Mega timbro',
     'Wave Breaker' => 'Sonar esplosivo',
-    'Zipcaster' => 'Guerriero molluscatto',
+    'Zipcaster' => 'Molluscatto',
 ];
