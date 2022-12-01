@@ -178,7 +178,7 @@ final class PostBattleForm extends Model
             [['our_team_count', 'their_team_count'], 'integer', 'min' => 0, 'max' => 100],
             [['level_before', 'level_after'], 'integer', 'min' => 1, 'max' => 99],
             [['rank_before_s_plus', 'rank_after_s_plus'], 'integer', 'min' => 0, 'max' => 50],
-            [['rank_before_exp', 'rank_after_exp'], 'integer', 'min' => 0],
+            [['rank_before_exp', 'rank_after_exp'], 'integer'],
             [['rank_exp_change'], 'integer'],
             [['fest_power', 'x_power_before', 'x_power_after'], 'number', 'min' => 0, 'max' => 99999.9],
             [['clout_before', 'clout_after', 'clout_change'], 'integer', 'min' => 0],
