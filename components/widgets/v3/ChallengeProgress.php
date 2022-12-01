@@ -11,12 +11,12 @@ declare(strict_types=1);
 namespace app\components\widgets\v3;
 
 use Yii;
-use app\assets\FontAwesomeAsset;
+use app\components\widgets\FA;
 use yii\base\Widget;
-use yii\bootstrap\Html;
+use yii\helpers\Html;
 use yii\web\View;
 
-final class ChallengeProgress extends Widget
+class ChallengeProgress extends Widget
 {
     public int $win = 0;
     public int $lose = 0;
@@ -25,26 +25,46 @@ final class ChallengeProgress extends Widget
     public function run(): string
     {
         $view = $this->view;
-        if ($view instanceof View) {
-            FontAwesomeAsset::register($view);
-        }
 
-        $maxWin = $this->isRankUpBattle ? 3 : 5;
-        $win = \min(\max($this->win, 0), $maxWin);
-        $lose = \min(\max($this->lose, 0), 3);
+        $maxWin = $this->getMaxWin();
+        $maxLose = $this->getMaxLose();
+        $win = $this->getNormalizedWin();
+        $lose = $this->getNormalizedLose();
 
         return Html::tag(
             'div',
-            implode('', [
+            \implode('', [
                 $this->renderCounter($win, $lose),
                 $view instanceof View ? $this->renderWin($win, $maxWin) : '',
-                $view instanceof View ? $this->renderLose($lose, 3) : '',
+                $view instanceof View ? $this->renderLose($lose, $maxLose) : '',
             ]),
-            ['id' => $this->id]
+            ['id' => $this->id],
         );
     }
 
-    private function renderCounter(int $win, int $lose): string
+    protected function getNormalizedWin(): int
+    {
+        $maxWin = $this->getMaxWin();
+        return \min(\max($this->win, 0), $maxWin);
+    }
+
+    protected function getNormalizedLose(): int
+    {
+        $maxLose = $this->getMaxLose();
+        return \min(\max($this->lose, 0), $maxLose);
+    }
+
+    protected function getMaxWin(): int
+    {
+        return $this->isRankUpBattle ? 3 : 5;
+    }
+
+    protected function getMaxLose(): int
+    {
+        return 3;
+    }
+
+    protected function renderCounter(int $win, int $lose): string
     {
         $f = Yii::$app->formatter;
 
@@ -60,7 +80,7 @@ final class ChallengeProgress extends Widget
         );
     }
 
-    private function renderWin(int $win, int $max): string
+    protected function renderWin(int $win, int $max): string
     {
         return Html::tag(
             'div',
@@ -68,7 +88,7 @@ final class ChallengeProgress extends Widget
                 Html::tag(
                     'span',
                     \str_repeat(
-                        Html::tag('span', '', ['class' => 'fas fa-fw fa-circle']),
+                        (string)FA::fas('circle')->fw(),
                         $win
                     ),
                     ['class' => 'text-success']
@@ -76,7 +96,7 @@ final class ChallengeProgress extends Widget
                 Html::tag(
                     'span',
                     \str_repeat(
-                        Html::tag('span', '', ['class' => 'fas fa-fw fa-circle']),
+                        (string)FA::fas('circle')->fw(),
                         $max - $win
                     ),
                     [
@@ -91,7 +111,7 @@ final class ChallengeProgress extends Widget
         );
     }
 
-    private function renderLose(int $lose, int $max): string
+    protected function renderLose(int $lose, int $max): string
     {
         return Html::tag(
             'div',
@@ -99,7 +119,7 @@ final class ChallengeProgress extends Widget
                 Html::tag(
                     'span',
                     \str_repeat(
-                        Html::tag('span', '', ['class' => 'fas fa-fw fa-square']),
+                        (string)FA::fas('square')->fw(),
                         $max - $lose
                     ),
                     ['class' => 'text-warning']
@@ -107,7 +127,7 @@ final class ChallengeProgress extends Widget
                 Html::tag(
                     'span',
                     \str_repeat(
-                        Html::tag('span', '', ['class' => 'fas fa-fw fa-times']),
+                        (string)FA::fas('times')->fw(),
                         $lose
                     ),
                     [

@@ -2,26 +2,24 @@
 
 declare(strict_types=1);
 
-use app\components\widgets\v3\ChallengeProgress;
+use app\components\widgets\v3\XProgress;
 use app\models\Battle3;
 
 return [
-  'label' => Yii::t('app', 'Rank-up Battle'),
+  'label' => Yii::t('app', 'Series Progress'),
   'format' => 'raw',
   'value' => function (Battle3 $model): ?string {
     if (
-      $model->lobby?->key === 'xmatch' ||
-      $model->is_rank_up_battle !== true || 
+      $model->lobby?->key !== 'xmatch' ||
       $model->challenge_win === null ||
       $model->challenge_lose === null
     ) {
       return null;
     }
 
-    return ChallengeProgress::widget([
+    return XProgress::widget([
       'win' => $model->challenge_win,
       'lose' => $model->challenge_lose,
-      'isRankUpBattle' => true,
     ]);
   },
 ];
