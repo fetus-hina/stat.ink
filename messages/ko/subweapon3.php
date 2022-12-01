@@ -17,7 +17,7 @@ return [
     'Ink Mine' => '트랩',
     'Point Sensor' => '포인트 센서',
     'Splash Wall' => '스플래시 실드',
-    'Splat Bomb' => '스플래시 봄',
+    'Splat Bomb' => '스플래시 밤',
     'Sprinkler' => '스프링클러',
     'Squid Beakon' => '점프 비컨',
     'Suction Bomb' => '빨판 밤',
