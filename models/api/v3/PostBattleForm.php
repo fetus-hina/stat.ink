@@ -190,17 +190,26 @@ final class PostBattleForm extends Model
 
             [['challenge_win'], 'integer', 'min' => 0, 'max' => 5,
                 'when' => function (self $model): bool {
-                    return self::boolVal($model->rank_up_battle) !== true &&
-                        self::strVal($model->lobby) !== 'xmatch';
+                    return self::boolVal($model->rank_up_battle) !== true ||
+                        self::strVal($model->lobby) === 'xmatch';
                 },
             ],
             [['challenge_win'], 'integer', 'min' => 0, 'max' => 3,
                 'when' => function (self $model): bool {
-                    return self::boolVal($model->rank_up_battle) === true ||
-                        self::strVal($model->lobby) === 'xmatch';
+                    return self::boolVal($model->rank_up_battle) === true &&
+                        self::strVal($model->lobby) !== 'xmatch';
                 },
             ],
-            [['challenge_lose'], 'integer', 'min' => 0, 'max' => 3],
+            [['challenge_lose'], 'integer', 'min' => 0, 'max' => 3,
+                'when' => function (self $model): bool {
+                    return self::strVal($model->lobby) !== 'xmatch';
+                },
+            ],
+            [['challenge_lose'], 'integer', 'min' => 0, 'max' => 5,
+                'when' => function (self $model): bool {
+                    return self::strVal($model->lobby) === 'xmatch';
+                },
+            ],
 
             [['lobby'], KeyValidator::class, 'modelClass' => Lobby3::class],
             [['rule'], KeyValidator::class,

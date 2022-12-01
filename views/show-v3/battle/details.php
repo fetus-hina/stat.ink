@@ -52,6 +52,7 @@ echo DetailView::widget([
     require __DIR__ . '/details/result.php',
     require __DIR__ . '/details/rank-up-battle.php',
     require __DIR__ . '/details/challenge.php',
+    require __DIR__ . '/details/x-progress.php',
     require __DIR__ . '/details/x-power.php',
     require __DIR__ . '/details/clout.php',
     require __DIR__ . '/details/fest-power.php',
