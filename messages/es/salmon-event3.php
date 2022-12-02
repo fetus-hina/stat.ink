@@ -9,12 +9,12 @@
 declare(strict_types=1);
 
 return [
-    'Cohock Charge' => '',
-    'Fog' => '',
-    'Giant Tornado' => '',
-    'Goldie Seeking' => '',
-    'Mudmouth Eruptions' => '',
-    'Rush' => '',
-    'The Griller' => '',
-    'The Mothership' => '',
+    'Cohock Charge' => 'Ataques de escamacarras',
+    'Fog' => 'Niebla',
+    'Giant Tornado' => 'Tornados gigantes',
+    'Goldie Seeking' => 'Detección de salmóreos',
+    'Mudmouth Eruptions' => 'Erupciones de morrolodos',
+    'Rush' => 'Avalanchas',
+    'The Griller' => 'Chaparrillas',
+    'The Mothership' => 'Aerocriaderos',
 ];
