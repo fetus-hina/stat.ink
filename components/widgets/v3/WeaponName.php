@@ -14,13 +14,14 @@ use Yii;
 use app\components\widgets\v3\weaponIcon\SpecialIcon;
 use app\components\widgets\v3\weaponIcon\SubweaponIcon;
 use app\components\widgets\v3\weaponIcon\WeaponIcon;
+use app\models\SalmonWeapon3;
 use app\models\Weapon3;
 use yii\base\Widget;
 use yii\helpers\Html;
 
 final class WeaponName extends Widget
 {
-    public ?Weapon3 $model = null;
+    public Weapon3|SalmonWeapon3|null $model = null;
     public bool $showName = true;
     public bool $subInfo = true;
 
@@ -39,7 +40,7 @@ final class WeaponName extends Widget
             : $this->renderMainWeapon($model);
     }
 
-    private function renderMainWeapon(Weapon3 $model): string
+    private function renderMainWeapon(Weapon3|SalmonWeapon3 $model): string
     {
         if ($this->showName) {
             return \implode(' ', [
@@ -51,9 +52,9 @@ final class WeaponName extends Widget
         return WeaponIcon::widget(['model' => $model]);
     }
 
-    private function renderSubSp(Weapon3 $model): string
+    private function renderSubSp(Weapon3|SalmonWeapon3 $model): string
     {
-        if (!$this->subInfo) {
+        if (!$this->subInfo || !$model instanceof Weapon3) {
             return '';
         }
 
