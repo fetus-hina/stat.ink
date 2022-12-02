@@ -4,8 +4,8 @@
  * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
- * @author midmiako <mayomi@baka.wang>
  * @author imspace <spacemeowx2@gmail.com>
+ * @author midmiako <mayomi@baka.wang>
  */
 
 declare(strict_types=1);
@@ -27,7 +27,7 @@ return [
     'Heights' => '住宅区',
     'Hydroplant' => '发电所',
     'Inkblot Art Academy' => '海女美术大学',
-    'Mahi-Mahi Resort' => '鬼头刀Spa度假区',
+    'Mahi-Mahi Resort' => '鬼头刀SPA度假区',
     'MakoMart' => '座头购物中心',
     'Market' => '市场',
     'Marooner\'s Bay' => '漂浮落难船',

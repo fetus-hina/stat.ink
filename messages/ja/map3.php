@@ -26,7 +26,7 @@ return [
     'Heights' => 'ヒラメ',
     'Hydroplant' => 'ムニエール',
     'Inkblot Art Academy' => '海女美術大学',
-    'Mahi-Mahi Resort' => 'マヒマヒリゾート&スパ',
+    'Mahi-Mahi Resort' => 'マヒマヒリゾート＆スパ',
     'MakoMart' => 'ザトウマーケット',
     'Market' => 'ヤガラ',
     'Marooner\'s Bay' => '難破船ドン・ブラコ',

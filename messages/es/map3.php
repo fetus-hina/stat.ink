@@ -38,7 +38,7 @@ return [
     'Scorch Gorge' => 'Desfiladero Fumarola',
     'Shipyard' => 'Astillero Beluga',
     'Sockeye Station' => 'Fuerte Espiral',
-    'Spawning Grounds' => 'Presa Salmónida',
+    'Spawning Grounds' => 'Presa salmónida',
     'Spillway' => 'Cisterna Navajuela',
     'Springs' => 'Balneario Aguasal',
     'Station' => 'Fuerte Espiral',

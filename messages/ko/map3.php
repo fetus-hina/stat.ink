@@ -25,7 +25,7 @@ return [
     'Heights' => '넙치 언덕 단지',
     'Hydroplant' => '뫼니 엘 해양 발전소',
     'Inkblot Art Academy' => '해녀 미술 대학',
-    'Mahi-Mahi Resort' => '만새기 리조트&스파',
+    'Mahi-Mahi Resort' => '만새기 리조트＆스파',
     'MakoMart' => '혹등 마켓',
     'Market' => '대치 시장',
     'Marooner\'s Bay' => '난파선 돈 브라코',
