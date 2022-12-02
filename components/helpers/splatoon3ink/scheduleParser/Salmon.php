@@ -39,7 +39,7 @@ trait Salmon
         return [
             'startAt' => self::parseTimestamp(ArrayHelper::getValue($schedule, 'startTime')),
             'endAt' => self::parseTimestamp(ArrayHelper::getValue($schedule, 'endTime')),
-            'map_id' => self::parseSalmonStage(ArrayHelper::getValue($schedule, 'setting.coopStage.coopStageId')),
+            'map_id' => self::parseSalmonStage(ArrayHelper::getValue($schedule, 'setting.coopStage.name')),
             'weapons' => \array_map(
                 fn (array $info): ?ActiveRecord => self::parseSalmonWeapon($info),
                 ArrayHelper::getValue($schedule, 'setting.weapons')
@@ -53,9 +53,13 @@ trait Salmon
         return $obj->getTimestamp();
     }
 
-    private static function parseSalmonStage(int $coopStageId): int
+    private static function parseSalmonStage(string $stageName): int
     {
-        return self::key2id((string)$coopStageId, SalmonMap3::class, SalmonMap3Alias::class, 'map_id');
+        return SalmonMap3::find()
+            ->andWhere(['name' => $stageName])
+            ->limit(1)
+            ->one()
+            ->id;
     }
 
     /**
