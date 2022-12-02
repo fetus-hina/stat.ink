@@ -16,7 +16,7 @@ return [
     'Bridge' => 'Ponte Sgombro',
     'Brinewater Springs' => 'Fermenterme',
     'Eeltail Alley' => 'Sobborgo Siluriano',
-    'Flounder Heights' => 'Cime sogliolose',
+    'Flounder Heights' => 'Cime Sogliolose',
     'Gone Fission Hydroplant' => 'Centrale Anguilla Elettrica',
     'Gorge' => 'Grank Canyon',
     'Grounds' => 'Diga salmonoide',

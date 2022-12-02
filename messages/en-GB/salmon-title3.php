@@ -9,13 +9,13 @@
 declare(strict_types=1);
 
 return [
-    'Apprentice' => '',
-    'Eggsecutive VP' => '',
-    'Go-Getter' => '',
-    'Overachiever' => '',
-    'Part-Timer' => '',
-    'Profreshional' => '',
-    'Profreshional +1' => '',
-    'Profreshional +2' => '',
-    'Profreshional +3' => '',
+    'Apprentice' => 'Apprentice',
+    'Eggsecutive VP' => 'Eggsecutive VP',
+    'Go-Getter' => 'Go-Getter',
+    'Overachiever' => 'Overachiever',
+    'Part-Timer' => 'Part-Timer',
+    'Profreshional' => 'Profreshional',
+    'Profreshional +1' => 'Profreshional +1',
+    'Profreshional +2' => 'Profreshional +2',
+    'Profreshional +3' => 'Profreshional +3',
 ];

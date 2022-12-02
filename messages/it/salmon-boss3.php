@@ -16,7 +16,7 @@ return [
     'Fish Stick' => 'Trivellaccio',
     'Flipper-Flopper' => 'Tuffone',
     'Flyfish' => 'Salmodrone',
-    'Goldie' => 'Pinna d\'oro',
+    'Goldie' => 'Pinne d\'oro',
     'Griller' => 'Grill',
     'Maws' => 'Boccalone',
     'Mothership' => 'Astronave madre',

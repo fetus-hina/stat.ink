@@ -205,6 +205,7 @@ final class I18nController extends Controller
             'AIZAWA, Hina <hina@bouhime.com>' => 'AIZAWA Hina <hina@fetus.jp>',
             'GitHub <noreply@github.com>' => null,
             'Unknown <wkoichi@gmail.com>' => 'Koichi Watanabe <wkoichi@gmail.com>',
+            'spacemeowx2 <spacemeowx2@gmail.com>' => 'imspace <spacemeowx2@gmail.com>',
         ];
         return \array_values(
             \array_unique(

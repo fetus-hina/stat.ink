@@ -6,6 +6,9 @@ mapping:
   "Koichi Watanabe <wkoichi@gmail.com>":
     - "Unknown <wkoichi@gmail.com>"
 
+  "imspace <spacemeowx2@gmail.com>":
+    - "spacemeowx2 <spacemeowx2@gmail.com>"
+
 copy-left:
   "clovervidia <clovervidia@gmail.com>":
     - "messages/en-GB/weapon-short.php"

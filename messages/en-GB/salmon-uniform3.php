@@ -9,11 +9,11 @@
 declare(strict_types=1);
 
 return [
-    'Black Slopsuit' => '',
-    'Blue Slopsuit' => '',
-    'Green Slopsuit' => '',
-    'Orange Slopsuit' => '',
-    'Pink Slopsuit' => '',
-    'White Slopsuit' => '',
-    'Yellow Slopsuit' => '',
+    'Black Slopsuit' => 'Black Slopsuit',
+    'Blue Slopsuit' => 'Blue Slopsuit',
+    'Green Slopsuit' => 'Green Slopsuit',
+    'Orange Slopsuit' => 'Orange Slopsuit',
+    'Pink Slopsuit' => 'Pink Slopsuit',
+    'White Slopsuit' => 'White Slopsuit',
+    'Yellow Slopsuit' => 'Yellow Slopsuit',
 ];
