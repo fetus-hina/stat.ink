@@ -29,6 +29,7 @@ return [
     'Not Defeated' => '沒有擊倒',
     'Pay Grade' => '評價倍率',
     'Private Job' => '私人打工',
+    'Random Loan Rate' => '',
     'Rescued' => '被救援數',
     'Rescues' => '救援隊友數',
     'Salmometer' => '頭目槽',

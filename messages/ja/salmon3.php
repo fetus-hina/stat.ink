@@ -28,6 +28,7 @@ return [
     'Not Defeated' => '倒していない',
     'Pay Grade' => '評価レート',
     'Private Job' => 'プライベートバイト',
+    'Random Loan Rate' => 'ランダム支給率',
     'Rescued' => '助けられた数',
     'Rescues' => '助けた数',
     'Salmometer' => 'オカシラゲージ',

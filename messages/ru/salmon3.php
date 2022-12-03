@@ -28,6 +28,7 @@ return [
     'Not Defeated' => '',
     'Pay Grade' => '',
     'Private Job' => '',
+    'Random Loan Rate' => '',
     'Rescued' => '',
     'Rescues' => '',
     'Salmometer' => '',
