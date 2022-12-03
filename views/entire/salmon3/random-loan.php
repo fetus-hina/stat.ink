@@ -112,6 +112,9 @@ $dataProvider = Yii::createObject([
               'width' => '15em',
             ],
           ],
+          'contentOptions' => [
+            'class' => 'nobr',
+          ],
           'format' => 'raw',
           'value' => fn (array $model): string => WeaponName::widget([
             'model' => $model['weapon'],
@@ -127,7 +130,7 @@ $dataProvider = Yii::createObject([
               'width' => '6em',
             ],
           ],
-          'contentOptions' => ['class' => 'text-right'],
+          'contentOptions' => ['class' => 'text-right nobr'],
           'format' => 'integer',
           'attribute' => 'count',
         ],
@@ -139,7 +142,7 @@ $dataProvider = Yii::createObject([
               'width' => '6em',
             ],
           ],
-          'contentOptions' => ['class' => 'text-right'],
+          'contentOptions' => ['class' => 'text-right nobr'],
           'format' => ['percent', 2],
           'value' => fn (array $model): ?float => $total > 0
             ? $model['count'] / $total
@@ -170,6 +173,14 @@ $dataProvider = Yii::createObject([
           ]),
         ],
       ],
+      'beforeRow' => fn ($unused1, $unused2, int $index): ?string => $index === 0
+        ? Html::tag('tr', implode('', [
+          Html::tag('td', Html::encode(Yii::t('app', 'Total')), ['class' => 'text-center']),
+          Html::tag('td', Yii::$app->formatter->asInteger($total), ['class' => 'text-right nobr']),
+          Html::tag('td', ''),
+          Html::tag('td', ''),
+        ]))
+        : null,
     ]) . "\n" ?>
   </div>
 </div>
