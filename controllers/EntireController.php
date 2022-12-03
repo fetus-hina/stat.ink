@@ -18,7 +18,6 @@ use app\actions\entire\KDWin2Action;
 use app\actions\entire\KDWinAction;
 use app\actions\entire\Knockout2Action;
 use app\actions\entire\KnockoutAction;
-use app\actions\entire\Salmon3RandomAction;
 use app\actions\entire\SalmonClearAction;
 use app\actions\entire\UsersAction;
 use app\actions\entire\Weapon2Action;
@@ -27,6 +26,7 @@ use app\actions\entire\Weapons2Action;
 use app\actions\entire\Weapons2TierAction;
 use app\actions\entire\WeaponsAction;
 use app\actions\entire\WeaponsUseAction;
+use app\actions\entire\salmon3\RandomLoanAction;
 use app\components\web\Controller;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -64,7 +64,7 @@ final class EntireController extends Controller
             'knockout' => KnockoutAction::class,
             'knockout2' => Knockout2Action::class,
             'salmon-clear' => SalmonClearAction::class,
-            'salmon3-random' => Salmon3RandomAction::class,
+            'salmon3-random-loan' => RandomLoanAction::class,
             'users' => UsersAction::class,
             'weapon' => WeaponAction::class,
             'weapon2' => Weapon2Action::class,
