@@ -15,6 +15,8 @@ use Yii;
 use app\assets\GameModeIconsAsset;
 use app\assets\Spl3StageAsset;
 use app\assets\Spl3WeaponAsset;
+use app\models\Map3;
+use app\models\SalmonMap3;
 use app\models\SalmonSchedule3;
 use app\models\SalmonScheduleWeapon3;
 use yii\helpers\ArrayHelper;
@@ -43,6 +45,7 @@ trait Salmon3
                 'schedules' => ArrayHelper::getColumn(
                     SalmonSchedule3::find()
                         ->with([
+                            'bigMap',
                             'map',
                             'salmonScheduleWeapon3s',
                             'salmonScheduleWeapon3s.random',
@@ -60,17 +63,9 @@ trait Salmon3
                                 strtotime($sc->start_at),
                                 strtotime($sc->end_at),
                             ],
-                            'maps' => [[
-                                'key' => $sc->map->key,
-                                'name' => Yii::t('app-map3', $sc->map->name),
-                                'image' => Url::to(
-                                    $am->getAssetUrl(
-                                        $am->getBundle(Spl3StageAsset::class, true),
-                                        sprintf('color-normal/%s.jpg', $sc->map->key)
-                                    ),
-                                    true
-                                ),
-                            ]],
+                            'maps' => [
+                                $this->salmonMap3($sc->map ?? $sc->bigMap),
+                            ],
                             'weapons' => ArrayHelper::getColumn(
                                 ArrayHelper::sort(
                                     $sc->salmonScheduleWeapon3s,
@@ -91,10 +86,31 @@ trait Salmon3
                                     ];
                                 }
                             ),
+                            'is_big_run' => $sc->map === null,
                         ];
                     },
                 ),
             ],
+        ];
+    }
+
+    private function salmonMap3(SalmonMap3|Map3|null $info): ?array
+    {
+        if (!$info) {
+            return null;
+        }
+
+        $am = Yii::$app->assetManager;
+        return [
+            'key' => $info->key,
+            'name' => Yii::t('app-map3', $info->name),
+            'image' => Url::to(
+                $am->getAssetUrl(
+                    $am->getBundle(Spl3StageAsset::class, true),
+                    sprintf('color-normal/%s.jpg', $info->key)
+                ),
+                true,
+            ),
         ];
     }
 }
