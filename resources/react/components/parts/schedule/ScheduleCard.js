@@ -82,6 +82,21 @@ const useStyles = createUseStyles({
         marginRight: '0'
       }
     }
+  },
+  bigRun: {
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    borderBottomRightRadius: '4px',
+    color: '#dd0',
+    fontFamily: 'paintball,cursive',
+    fontSize: '24px',
+    fontStyle: 'normal',
+    fontWeight: '400',
+    left: '0',
+    lineHeight: '1',
+    margin: '0',
+    padding: '8px',
+    position: 'absolute',
+    top: '0'
   }
 });
 
@@ -107,7 +122,7 @@ export default function ScheduleCard (props) {
               <ul>
                 {schedule.weapons.map((weapon, i) => (
                   <li key={weapon.key + '-' + i}>
-                    {(weapon.key === 'random')
+                    {(weapon.key === 'random' && !weapon.icon)
                       ? <span
                           className='fas fa-question fa-fw'
                           title={weapon.name}
@@ -120,6 +135,13 @@ export default function ScheduleCard (props) {
                   </li>
                 ))}
               </ul>
+            </div>
+            )
+          : null}
+        {isSalmon && schedule && schedule.is_big_run
+          ? (
+            <div className={classes.bigRun}>
+              Big Run
             </div>
             )
           : null}

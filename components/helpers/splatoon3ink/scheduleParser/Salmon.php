@@ -12,6 +12,7 @@ namespace app\components\helpers\splatoon3ink\scheduleParser;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use app\models\Map3;
 use app\models\SalmonMap3;
 use app\models\SalmonMap3Alias;
 use app\models\SalmonRandom3;
@@ -24,22 +25,25 @@ trait Salmon
 {
     use TypeHelperTrait;
 
-    protected static function salmon(array $nodes): array
+    protected static function salmon(array $nodes, bool $isBigRun): array
     {
         return \array_values(
             \array_map(
-                fn (array $schedule): array => self::processSalmonSchedule($schedule),
+                fn (array $schedule): array => self::processSalmonSchedule($schedule, $isBigRun),
                 $nodes
             )
         );
     }
 
-    private static function processSalmonSchedule(array $schedule): array
+    private static function processSalmonSchedule(array $schedule, bool $isBigRun): array
     {
         return [
             'startAt' => self::parseTimestamp(ArrayHelper::getValue($schedule, 'startTime')),
             'endAt' => self::parseTimestamp(ArrayHelper::getValue($schedule, 'endTime')),
-            'map_id' => self::parseSalmonStage(ArrayHelper::getValue($schedule, 'setting.coopStage.name')),
+            'map_id' => self::parseSalmonStage(
+                ArrayHelper::getValue($schedule, 'setting.coopStage.name'),
+                $isBigRun,
+            ),
             'weapons' => \array_map(
                 fn (array $info): ?ActiveRecord => self::parseSalmonWeapon($info),
                 ArrayHelper::getValue($schedule, 'setting.weapons')
@@ -53,9 +57,17 @@ trait Salmon
         return $obj->getTimestamp();
     }
 
-    private static function parseSalmonStage(string $stageName): int
+    private static function parseSalmonStage(string $stageName, bool $isBigRun): int
     {
-        return SalmonMap3::find()
+        if (!$isBigRun) {
+            return SalmonMap3::find()
+                ->andWhere(['name' => $stageName])
+                ->limit(1)
+                ->one()
+                ->id;
+        }
+
+        return Map3::find()
             ->andWhere(['name' => $stageName])
             ->limit(1)
             ->one()

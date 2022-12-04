@@ -33,6 +33,8 @@ final class ScheduleAction extends Action
         parent::init();
 
         $t = (int)($_SERVER['REQUEST_TIME'] ?? \time());
+        $t = strtotime('2022-12-09T23:00:00+09:00');
+
         $this->now = (new DateTimeImmutable())
             ->setTimestamp($t)
             ->setTimezone(new DateTimeZone('Etc/UTC'));
