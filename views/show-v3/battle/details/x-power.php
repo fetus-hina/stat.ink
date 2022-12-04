@@ -21,6 +21,13 @@ return [
       'nullDisplay' => (string)FA::fas('question')->fw(),
     ]);
 
+    if (
+        abs((float)$before - (float)$after) < 0.1 ||
+        $after === null
+    ) {
+        return $f->asDecimal($before, 1);
+    }
+
     return vsprintf('%s%s%s', [
       $f->asDecimal($before, 1),
       (string)FA::fas('arrow-right')->fw(),
