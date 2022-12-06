@@ -190,7 +190,7 @@ $list = [
   [
     // s3s
     'url' => 'https://github.com/frozenpandaman/s3s',
-    'name' => implode('', [
+    'name' => implode(' ', [
       (string)FA::fab('python')->fw(),
       Html::encode(Yii::t('app', 's3s')),
       (string)FA::fab('windows')->fw(),
@@ -201,7 +201,7 @@ $list = [
   [
     // s3si.ts
     'url' => 'https://github.com/spacemeowx2/s3si.ts',
-    'name' => implode('', [
+    'name' => implode(' ', [
       (string)FA::fab('js')->fw(),
       Html::encode(Yii::t('app', 's3si.ts')),
       (string)FA::fab('windows')->fw(),
@@ -211,14 +211,14 @@ $list = [
   ],
   [],
   [
-    'name' => implode('', [
+    'name' => implode(' ', [
       GameVersionIcon::widget(['version' => 2]),
       Html::encode(Yii::t('app', 'Apps for {version}', ['version' => Yii::t('app', 'Splatoon 2')])),
     ]),
     'sub' => [
       [
         'url' => 'https://github.com/frozenpandaman/splatnet2statink',
-        'name' => implode('', [
+        'name' => implode(' ', [
           (string)FA::fab('python')->fw(),
           Html::encode(Yii::t('app', 'splatnet2statink')),
           (string)FA::fab('windows')->fw(),
@@ -228,7 +228,7 @@ $list = [
       ],
       [
         'url' => 'https://github.com/hymm/squid-tracks',
-        'name' => implode('', [
+        'name' => implode(' ', [
           $icon->squidTracks,
           Html::tag('del', Html::encode(Yii::t('app', 'SquidTracks'))),
           (string)FA::fab('windows')->fw(),
@@ -237,7 +237,7 @@ $list = [
         ]),
       ],
       [
-        'name' => implode('', [
+        'name' => implode(' ', [
           $icon->ikarecJa,
           Html::tag('del', Html::encode(Yii::t('app', 'IkaRec 2'))),
           Html::tag('span', '', ['class' => 'fab fa-fw fa-android']),
@@ -247,13 +247,13 @@ $list = [
     ],
   ],
   [
-    'name' => implode('', [
+    'name' => implode(' ', [
       GameVersionIcon::widget(['version' => 1]),
       Html::encode(Yii::t('app', 'Apps for {version}', ['version' => Yii::t('app', 'Splatoon 1')])),
     ]),
     'sub' => [
       [
-        'name' => implode('', [
+        'name' => implode(' ', [
           $icon->ikalog,
           (string)FA::fab('python')->fw(),
           Html::encode(Yii::t('app', 'IkaLog')),
@@ -279,7 +279,7 @@ $list = [
           [],
           [
             'url' => 'https://hasegaw.github.io/IkaLog/',
-            'name' => implode('', [
+            'name' => implode(' ', [
               (string)FA::fas('download')->fw(),
               Html::encode(Yii::t('app', 'IkaLog Download Page')),
               '(' . FA::fab('windows')->fw() . Html::encode(Yii::t('app', 'Windows')) . ')',
@@ -289,12 +289,12 @@ $list = [
       ],
       [
         'url' => 'https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec',
-        'name' => implode('', [
+        'name' => implode(' ', [
           $icon->ikarecJa,
           $jp(),
           Html::tag(
             'del',
-            implode('', [
+            implode(' ', [
               Html::encode(Yii::t('app', 'IkaRec')),
               '(' . Html::encode(Yii::t('app', 'for {title}', [
                 'title' => Yii::t('app', 'Splatoon'),
@@ -306,7 +306,7 @@ $list = [
       ],
       [
         'url' => 'https://play.google.com/store/apps/details?id=ink.pocketgopher.ikarec',
-        'name' => implode('', [
+        'name' => implode(' ', [
           $icon->ikarecEn,
           $us(),
           Html::encode(Yii::t('app', 'IkaRec')),
@@ -321,14 +321,14 @@ $list = [
   [],
   [
     'url' => 'https://ikanakama.ink/',
-    'name' => implode('', [
+    'name' => implode(' ', [
       $icon->ikanakama,
       Html::encode(Yii::t('app', 'Ika-Nakama')),
     ]),
   ],
   [
     'url' => 'https://fest.ink/',
-    'name' => implode('', [
+    'name' => implode(' ', [
       $icon->festink,
       Html::encode(Yii::t('app', 'fest.ink')),
     ]),
@@ -336,14 +336,14 @@ $list = [
   [],
   [
     'url' => 'https://blog.fetus.jp/',
-    'name' => implode('', [
+    'name' => implode(' ', [
       (string)FA::fab('wordpress')->fw(),
       Html::encode(Yii::t('app', 'Blog')),
     ]),
   ],
   [
     'url' => 'https://github.com/fetus-hina/stat.ink',
-    'name' => implode('', [
+    'name' => implode(' ', [
       (string)FA::fab('github-alt')->fw(),
       Html::encode(Yii::t('app', 'Source Code')),
     ]),
