@@ -166,6 +166,27 @@ $list = [
     // }}}
   ],
   [
+    // Splatoon Base website {{{
+    'name' => Html::encode(Yii::t('app', 'Splatoon Base Official Website')),
+    'sub' => [
+      [
+        'url' => 'https://www.nintendo.co.jp/character/splatoon/',
+        'name' => implode(' ', [
+          $jp(),
+          Html::encode(Yii::t('app', 'Japanese')),
+        ]),
+      ],
+      [
+        'url' => 'https://www.nintendo.co.jp/character/splatoon/en/',
+        'name' => implode(' ', [
+          $us(),
+          Html::encode(Yii::t('app', 'English')),
+        ]),
+      ],
+    ],
+    // }}}
+  ],
+  [
     // Official app {{{
     'name' => Html::encode(Yii::t('app', 'Nintendo Switch Online app')),
     'sub' => [
