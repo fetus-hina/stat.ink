@@ -42,7 +42,7 @@ $list = [
         ]),
       ],
       [
-        'url' => 'http://splatoon.nintendo.com/',
+        'url' => 'https://splatoon.nintendo.com/',
         'name' => implode(' ', [
           $us(),
           Html::encode(Yii::t('app', 'North America')),
@@ -68,21 +68,21 @@ $list = [
     ]),
     'sub' => [
       [
-        'url' => 'https://www.nintendo.co.jp/switch/aab6a',
+        'url' => 'https://www.nintendo.co.jp/switch/aab6a/',
         'name' => implode(' ', [
           $jp(),
           Html::encode(Yii::t('app', 'Japan')),
         ]),
       ],
       [
-        'url' => 'http://splatoon.nintendo.com/',
+        'url' => 'https://splatoon.nintendo.com/',
         'name' => implode(' ', [
           $us(),
-          Html::encode(Yii::t('app', 'North America')),
+          Html::tag('del', Html::encode(Yii::t('app', 'North America'))),
         ]),
       ],
       [
-        'url' => 'https://www.nintendo.co.uk/Games/Nintendo-Switch/Splatoon-2-1173295.html',
+        'url' => 'https://www.nintendo.co.uk/Games/Nintendo-Switch-games/Splatoon-2-1173295.html',
         'name' => implode(' ', [
           $eu(),
           Html::encode(Yii::t('app', 'Europe')),
@@ -101,7 +101,7 @@ $list = [
     ]),
     'sub' => [
       [
-        'url' => 'http://www.nintendo.co.jp/wiiu/agmj/',
+        'url' => 'https://www.nintendo.co.jp/wiiu/agmj/',
         'name' => implode(' ', [
           $jp(),
           Html::encode(Yii::t('app', 'Japan')),
@@ -111,11 +111,11 @@ $list = [
         'url' => 'http://splatoon.nintendo.com/splatoon/',
         'name' => implode(' ', [
           $us(),
-          Html::encode(Yii::t('app', 'North America')),
+          Html::tag('del', Html::encode(Yii::t('app', 'North America'))),
         ]),
       ],
       [
-        'url' => 'https://www.nintendo.co.uk/Games/Wii-U/Splatoon-892510.html',
+        'url' => 'https://www.nintendo.co.uk/Games/Wii-U-games/Splatoon-892510.html',
         'name' => implode(' ', [
           $eu(),
           Html::encode(Yii::t('app', 'Europe')),
@@ -177,7 +177,7 @@ $list = [
         ]),
       ],
       [
-        'url' => 'https://itunes.apple.com/app/nintendo-switch-online/id1234806557',
+        'url' => 'https://apps.apple.com/app/nintendo-switch-online/id1234806557',
         'name' => implode('', [
           (string)FA::fab('apple')->fw(),
           Html::encode(Yii::t('app', 'iOS (iPhone/iPad)')),
@@ -189,7 +189,7 @@ $list = [
   [],
   [
     // s3s
-    'url' => 'https://github.com/frozenpandaman/s3s/',
+    'url' => 'https://github.com/frozenpandaman/s3s',
     'name' => implode('', [
       (string)FA::fab('python')->fw(),
       Html::encode(Yii::t('app', 's3s')),
@@ -217,7 +217,7 @@ $list = [
     ]),
     'sub' => [
       [
-        'url' => 'https://github.com/frozenpandaman/splatnet2statink/',
+        'url' => 'https://github.com/frozenpandaman/splatnet2statink',
         'name' => implode('', [
           (string)FA::fab('python')->fw(),
           Html::encode(Yii::t('app', 'splatnet2statink')),
@@ -227,7 +227,7 @@ $list = [
         ]),
       ],
       [
-        'url' => 'https://github.com/hymm/squid-tracks/',
+        'url' => 'https://github.com/hymm/squid-tracks',
         'name' => implode('', [
           $icon->squidTracks,
           Html::tag('del', Html::encode(Yii::t('app', 'SquidTracks'))),
