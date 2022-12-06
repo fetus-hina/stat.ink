@@ -132,10 +132,17 @@ $list = [
     ]),
     'sub' => [
       [
-        'url' => 'https://twitter.com/splatoonjp',
+        'url' => 'https://twitter.com/SplatoonJP',
         'name' => implode(' ', [
           $jp(),
           Html::encode(Yii::t('app', 'Japan')),
+        ]),
+      ],
+      [
+        'url' => 'https://twitter.com/SplatoonNA',
+        'name' => implode(' ', [
+          $us(),
+          Html::encode(Yii::t('app', 'North America')),
         ]),
       ],
       [
