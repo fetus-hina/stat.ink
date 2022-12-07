@@ -19,6 +19,9 @@ use yii\web\View;
 
 final class Emoji extends Widget
 {
+    public const CP_CROSS_MARK = 0x274c;
+    public const CP_PARTY_POPPER = 0x1f389;
+
     public string $text = '';
 
     public static function text(string $text): string
