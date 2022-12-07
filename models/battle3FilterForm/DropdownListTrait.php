@@ -17,6 +17,7 @@ use app\models\LobbyGroup3;
 use app\models\Map3;
 use app\models\Result3;
 use app\models\Rule3;
+use app\models\battle3FilterForm\dropdownList\TermDropdownListTrait;
 use app\models\battle3FilterForm\dropdownList\WeaponDropdownListTrait;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
@@ -26,6 +27,7 @@ use const SORT_LOCALE_STRING;
 
 trait DropdownListTrait
 {
+    use TermDropdownListTrait;
     use WeaponDropdownListTrait;
 
     /**

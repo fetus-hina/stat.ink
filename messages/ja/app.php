@@ -427,6 +427,7 @@ return [
     'Search {date}' => '{date}を検索',
     'Search {from} - {to}' => '{from}から{to}までを検索',
     'Search' => '検索',
+    'Season' => 'シーズン',
     'Secondary Abilities' => 'サブ',
     'Sent an email to your email address. Please check your mailbox and get the verification code.' => '指定されたメールアドレスにメールを送信しました。メールを確認して確認コードを取得してください。',
     'Series Progress' => 'チャレンジ状況',

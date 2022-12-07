@@ -440,6 +440,7 @@ return [
     'Search' => 'Recherche',
     'Search {date}' => 'Rechercher {date}',
     'Search {from} - {to}' => 'Rechercher {from} - {to}',
+    'Season' => '',
     'Secondary Abilities' => '',
     'Sent an email to your email address. Please check your mailbox and get the verification code.' => 'Un email a été envoyé. Veuillez vérifier votre boîte de réception et récupérez le code de vérification',
     'Series Progress' => '',

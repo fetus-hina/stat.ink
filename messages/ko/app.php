@@ -439,6 +439,7 @@ return [
     'Search' => '검색',
     'Search {date}' => '{date}를 검색',
     'Search {from} - {to}' => '{from}부터 {to}까지 검색',
+    'Season' => '',
     'Secondary Abilities' => '서브',
     'Sent an email to your email address. Please check your mailbox and get the verification code.' => '당신의 이메일 주소로 메일을 전송했습니다. 메일의 인증코드를 확인해주십시오',
     'Series Progress' => '챌린지 상태',

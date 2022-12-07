@@ -439,6 +439,7 @@ return [
     'Search' => '',
     'Search {date}' => '',
     'Search {from} - {to}' => '',
+    'Season' => '',
     'Secondary Abilities' => '',
     'Sent an email to your email address. Please check your mailbox and get the verification code.' => '',
     'Series Progress' => '',

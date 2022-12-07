@@ -19,6 +19,7 @@ use app\models\Map3;
 use app\models\Result3;
 use app\models\Rule3;
 use app\models\RuleGroup3;
+use app\models\Season3;
 use app\models\Special3;
 use app\models\Subweapon3;
 use app\models\Weapon3;
@@ -59,6 +60,7 @@ trait QueryDecoratorTrait
         $this->decorateWeaponFilter($query, $this->weapon);
         $this->decorateResultFilter($query, $this->result);
         $this->decorateKnockoutFilter($query, $this->knockout);
+        $this->decorateTermFilter($query, $this->term);
     }
 
     private function decorateWeaponFilter(ActiveQuery $query, ?string $key): void
@@ -196,6 +198,43 @@ trait QueryDecoratorTrait
                 $query->andWhere('1 <> 1');
                 return;
         }
+    }
+
+    private function decorateTermFilter(ActiveQuery $query, ?string $key): void
+    {
+        $key = \trim((string)$key);
+        if ($key === '') {
+            return;
+        }
+
+        switch (\substr($key, 0, 1)) {
+            case Battle3FilterForm::PREFIX_TERM_SEASON:
+                $this->decorateSeasonFilter(
+                    $query,
+                    Season3::find()
+                        ->andWhere(['key' => \substr($key, 1)])
+                        ->limit(1)
+                        ->one(),
+                );
+                return;
+
+            default:
+                $query->andWhere('1 <> 1');
+                return;
+        }
+    }
+
+    private function decorateSeasonFilter(ActiveQuery $query, ?Season3 $season): void
+    {
+        if ($season === null) {
+            $query->andWhere('1 <> 1');
+            return;
+        }
+
+        $query->andWhere(['and',
+            ['>=', '{{%battle3}}.[[start_at]]', $season->start_at],
+            ['<', '{{%battle3}}.[[start_at]]', $season->end_at],
+        ]);
     }
 
     /**
