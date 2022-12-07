@@ -24,7 +24,7 @@ $small-screen-width: 991px;
       }
 
       &:first-child {
-        width: $label-width;
+        width: --var(--label-width);
         @media (max-width: $small-screen-width) {
           width: auto !important;
         }
