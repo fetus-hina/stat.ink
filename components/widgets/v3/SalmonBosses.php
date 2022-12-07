@@ -91,7 +91,7 @@ final class SalmonBosses extends Widget
                         'th',
                         Html::encode(Yii::t('app-salmon2', 'Boss Salmonid')),
                         [
-                            'class' => 'text-center',
+                            'class' => 'text-center omit',
                             'scope' => 'col',
                         ],
                     ),
@@ -99,7 +99,7 @@ final class SalmonBosses extends Widget
                         'th',
                         Html::encode(Yii::t('app-salmon3', 'Defeated')),
                         [
-                            'class' => 'text-center',
+                            'class' => 'text-center omit',
                             'scope' => 'col',
                         ],
                     ),
@@ -107,7 +107,7 @@ final class SalmonBosses extends Widget
                         'th',
                         Html::encode(Yii::t('app-salmon3', 'Appearances')),
                         [
-                            'class' => 'text-center',
+                            'class' => 'text-center omit',
                             'scope' => 'col',
                         ],
                     ),
@@ -182,7 +182,9 @@ final class SalmonBosses extends Widget
                 \vsprintf('%s %s %s', [
                     $iconHtml,
                     Html::encode(Yii::t('app-salmon-boss3', $model->boss->name)),
-                    $this->isAllDefeated($model) && !$this->isBrokenData($model) ? Emoji::cp(0x1f389) : '', // tada
+                    $this->isAllDefeated($model) && !$this->isBrokenData($model)
+                        ? Emoji::cp(Emoji::CP_PARTY_POPPER)
+                        : '',
                 ]),
             ),
             ['scope' => 'row'],
@@ -242,7 +244,7 @@ final class SalmonBosses extends Widget
             return Html::tag(
                 'td',
                 \vsprintf('%s %s', [
-                    Emoji::cp(0x274c),
+                    Emoji::cp(Emoji::CP_CROSS_MARK),
                     Yii::t('app', 'It looks this data is corrupt.'),
                 ]),
             );
