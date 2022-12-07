@@ -1,5 +1,7 @@
 /*! Copyright (C) 2015-2022 AIZAWA Hina | MIT License */
 
+@use 'sass:math';
+
 $label-width: 15em;
 $v2-column-count: 4;
 $v3-column-count: 5;
@@ -24,7 +26,7 @@ $small-screen-width: 991px;
       }
 
       &:first-child {
-        width: --var(--label-width);
+        width: var(--label-width);
         @media (max-width: $small-screen-width) {
           width: auto !important;
         }
@@ -37,6 +39,31 @@ $small-screen-width: 991px;
   thead {
     th {
       --column-count: #{$v3-column-count};
+    }
+  }
+}
+
+.apple {
+  .salmon-waves,
+  .salmon-v3-waves {
+    table-layout: auto !important;
+  }
+
+  .salmon-waves {
+    thead {
+      th,
+      th:first-child {
+        width: math.div(100%, $v2-column-count + 1) !important;
+      }
+    }
+  }
+
+  .salmon-v3-waves {
+    thead {
+      th,
+      th:first-child {
+        width: math.div(100%, $v3-column-count + 1) !important;
+      }
     }
   }
 }

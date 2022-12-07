@@ -49,7 +49,11 @@ if ($_flashes) {
   }
 }
 
-$isPjax = Yii::$app->request->isPjax;
+$request = Yii::$app->request;
+$isPjax = $request->isPjax;
+
+$ua = trim((string)$request->userAgent);
+$isApple = str_contains($ua, 'iPad') || str_contains($ua, 'iPhone') || str_contains($ua, 'Mac OS X');
 
 ?>
 <?php $this->beginPage() ?>
@@ -83,6 +87,7 @@ $isPjax = Yii::$app->request->isPjax;
     ],
     'class' => [
       Yii::$app->theme->isDarkTheme ? 'theme-dark' : 'theme-light',
+      $isApple ? 'apple' : 'not-apple',
     ],
   ]) . "\n" ?>
     <?php $this->beginBody() ?><?= "\n" ?>
