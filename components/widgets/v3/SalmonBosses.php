@@ -138,24 +138,25 @@ final class SalmonBosses extends Widget
             ->all();
 
         $maxAppearances = \max(ArrayHelper::getColumn($data, 'appearances'));
+        $body = \implode(
+            '',
+            ArrayHelper::getColumn(
+                $data,
+                fn (SalmonBossAppearance3 $model): string => Html::tag(
+                    'tr',
+                    \implode('', [
+                        $this->renderBossSalmonid($model),
+                        $this->renderDefeated($model),
+                        $this->renderAppearances($model),
+                        $this->renderBar($model, $maxAppearances),
+                    ]),
+                ),
+            ),
+        );
 
         return Html::tag(
             'tbody',
-            \implode(
-                '',
-                ArrayHelper::getColumn(
-                    $data,
-                    fn (SalmonBossAppearance3 $model): string => Html::tag(
-                        'tr',
-                        \implode('', [
-                            $this->renderBossSalmonid($model),
-                            $this->renderDefeated($model),
-                            $this->renderAppearances($model),
-                            $this->renderBar($model, $maxAppearances),
-                        ]),
-                    ),
-                ),
-            ),
+            $body . $this->renderTotal($data),
         );
     }
 
@@ -334,5 +335,108 @@ final class SalmonBosses extends Widget
             $model->appearances > 0 &&
             $model->defeated !== null &&
             $model->defeated >= $model->appearances;
+    }
+
+    /**
+     * @param SalmonBossAppearance3[] $data
+     */
+    private function renderTotal(array $data): string
+    {
+        $appearances = 0;
+        $defeated = 0;
+        $defeatedByMe = 0;
+
+        foreach ($data as $model) {
+            if ($model->appearances < 1) {
+                continue;
+            }
+
+            if (
+                $model->defeated === null ||
+                $model->defeated_by_me === null ||
+                $this->isBrokenData($model)
+            ) {
+                return '';
+            }
+
+            $appearances += $model->appearances;
+            $defeated += $model->defeated;
+            $defeatedByMe += $model->defeated_by_me;
+        }
+
+        if ($appearances < 1) {
+            return '';
+        }
+
+        $f = $this->formatter;
+        return Html::tag(
+            'tr',
+            \implode('', [
+                Html::tag(
+                    'th',
+                    Html::encode(Yii::t('app', 'Total')),
+                    [
+                        'class' => 'text-center',
+                        'scope' => 'row',
+                    ]
+                ),
+                Html::tag(
+                    'td',
+                    Html::encode(
+                        \vsprintf('%s (%s)', [
+                            $f->asInteger($defeated),
+                            $f->asInteger($defeatedByMe),
+                        ]),
+                    ),
+                    ['class' => 'text-right'],
+                ),
+                Html::tag(
+                    'td',
+                    Html::encode($f->asInteger($appearances)),
+                    ['class' => 'text-right'],
+                ),
+                Html::tag(
+                    'td',
+                    Progress::widget([
+                        'bars' => [
+                            [
+                                'label' => $f->asInteger($defeatedByMe),
+                                'options' => [
+                                    'class' => [
+                                        'auto-tooltip',
+                                        'progress-bar-success',
+                                    ],
+                                    'title' => Yii::t('app-salmon3', 'Defeated'),
+                                ],
+                                'percent' => 100 * $defeatedByMe / $appearances,
+                            ],
+                            [
+                                'label' => $f->asInteger($defeated - $defeatedByMe),
+                                'options' => [
+                                    'class' => [
+                                        'auto-tooltip',
+                                        'progress-bar-warning',
+                                    ],
+                                    'title' => Yii::t('app-salmon3', 'Defeated (others)'),
+                                ],
+                                'percent' => 100 * ($defeated - $defeatedByMe) / $appearances,
+                            ],
+                            [
+                                'label' => $f->asInteger($appearances - $defeated),
+                                'options' => [
+                                    'class' => [
+                                        'auto-tooltip',
+                                        'progress-bar-danger',
+                                    ],
+                                    'title' => Yii::t('app-salmon3', 'Not Defeated'),
+                                ],
+                                'percent' => 100 - 100 * $defeated / $appearances,
+                            ],
+                        ],
+                    ]),
+                    ['class' => 'text-left'],
+                ),
+            ]),
+        );
     }
 }
