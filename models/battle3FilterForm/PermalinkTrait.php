@@ -35,6 +35,7 @@ trait PermalinkTrait
             'weapon',
             'result',
             'knockout',
+            'term',
         ];
         foreach ($copyKeys as $key) {
             $value = \trim((string)$this->$key);
