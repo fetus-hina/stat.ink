@@ -34,7 +34,7 @@ final class Battle3FilterWidget extends Widget
     public bool $result = true;
     public bool $knockout = true;
     // public bool $connectivity = false;
-    // public bool $term = true;
+    public bool $term = true;
     // public bool $filterText = false;
     // public bool $withTeam = false;
     public string $action = 'search'; // search or summarize
@@ -85,6 +85,7 @@ final class Battle3FilterWidget extends Widget
             $this->drawWeapon($form, $filter),
             $this->drawResult($form, $filter),
             $this->drawKnockout($form, $filter),
+            $this->drawTerm($form, $filter),
             $this->drawActionButton($this->action),
         ]);
     }
@@ -169,6 +170,20 @@ final class Battle3FilterWidget extends Widget
             $form
                 ->field($filter, 'knockout')
                 ->dropDownList(...$filter->getKnockoutDropdown())
+                ->label(false)
+        );
+    }
+
+    protected function drawTerm(ActiveForm $form, Battle3FilterForm $filter): string
+    {
+        if (!$this->term) {
+            return '';
+        }
+
+        return (string)self::disableClientValidation(
+            $form
+                ->field($filter, 'term')
+                ->dropDownList(...$filter->getTermDropdown())
                 ->label(false)
         );
     }

@@ -440,6 +440,7 @@ return [
     'Search' => 'Búsqueda',
     'Search {date}' => '',
     'Search {from} - {to}' => '',
+    'Season' => '',
     'Secondary Abilities' => 'Potenciadors secundarias',
     'Sent an email to your email address. Please check your mailbox and get the verification code.' => '',
     'Series Progress' => '',

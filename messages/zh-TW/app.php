@@ -440,6 +440,7 @@ return [
     'Search' => '搜尋',
     'Search {date}' => '搜尋 {date}',
     'Search {from} - {to}' => '搜尋 從{from}到{to}',
+    'Season' => '',
     'Secondary Abilities' => '次要技能',
     'Sent an email to your email address. Please check your mailbox and get the verification code.' => '已發送驗證郵件到你的信箱。請檢查信箱取得驗證碼。',
     'Series Progress' => '系列進度',

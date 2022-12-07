@@ -56,6 +56,7 @@ return [
                 'app-salmon-uniform3' => 'salmon-uniform3.php',
                 'app-salmon2'   => 'salmon2.php',
                 'app-salmon3'   => 'salmon3.php',
+                'app-season3' => 'season3.php',
                 'app-slack'     => 'slack.php',
                 'app-special'   => 'special.php',
                 'app-special2'  => 'special2.php',
