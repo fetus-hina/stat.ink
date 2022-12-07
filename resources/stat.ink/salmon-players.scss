@@ -5,28 +5,26 @@ $v3-column-count: 4;
 
 $small-screen-width: 991px;
 
-.not-apple {
-  .salmon-v3-players {
-    table-layout: fixed;
-    @media (max-width: $small-screen-width) {
-      table-layout: auto !important;
-    }
-  
-    thead {
-      th {
-        --label-width: #{$label-width};
-        --column-count: #{$v3-column-count};
-  
-        width: calc((100% - var(--label-width)) / var(--column-count));
+.salmon-v3-players {
+  table-layout: fixed;
+  @media (max-width: $small-screen-width) {
+    table-layout: auto !important;
+  }
+
+  thead {
+    th {
+      --label-width: #{$label-width};
+      --column-count: #{$v3-column-count};
+
+      width: calc((100% - var(--label-width)) / var(--column-count));
+      @media (max-width: $small-screen-width) {
+        width: auto !important;
+      }
+
+      &:first-child {
+        width: var(--label-width);
         @media (max-width: $small-screen-width) {
           width: auto !important;
-        }
-  
-        &:first-child {
-          width: var(--label-width);
-          @media (max-width: $small-screen-width) {
-            width: auto !important;
-          }
         }
       }
     }
