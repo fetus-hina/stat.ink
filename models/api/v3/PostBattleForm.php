@@ -38,6 +38,7 @@ use app\models\Result3;
 use app\models\Rule3;
 use app\models\Rule3Alias;
 use app\models\SplatoonVersion3;
+use app\models\TricolorRole3;
 use app\models\User;
 use app\models\Weapon3;
 use app\models\Weapon3Alias;
@@ -107,6 +108,9 @@ final class PostBattleForm extends Model
     public $clout_change;
     public $cash_before;
     public $cash_after;
+    public $our_team_role;
+    public $their_team_role;
+    public $third_team_role;
     public $our_team_players;
     public $their_team_players;
     public $note;
@@ -148,6 +152,7 @@ final class PostBattleForm extends Model
         return [
             [['uuid', 'lobby', 'rule', 'stage', 'weapon', 'result', 'rank_before', 'rank_after', 'note'], 'string'],
             [['private_note', 'link_url', 'agent', 'agent_version'], 'string'],
+            [['our_team_role', 'their_team_role', 'third_team_role'], 'string'],
 
             [['uuid'], 'match', 'pattern' => UuidRegexp::get(true)],
             [['result'], 'in', 'range' => [
@@ -229,6 +234,9 @@ final class PostBattleForm extends Model
                 'aliasClass' => DragonMatch3Alias::class,
             ],
             [['rank_before', 'rank_after'], KeyValidator::class, 'modelClass' => Rank3::class],
+            [['our_team_role', 'their_team_role', 'third_team_role'], KeyValidator::class,
+                'modelClass' => TricolorRole3::class,
+            ],
 
             [['our_team_players', 'their_team_players'], 'each',
                 'message' => '{attribute} must be an array',
@@ -452,6 +460,9 @@ final class PostBattleForm extends Model
             'has_disconnect' => $this->hasDisconnect(),
             'x_power_before' => self::floatVal($this->x_power_before),
             'x_power_after' => self::floatVal($this->x_power_after),
+            'our_team_role_id' => self::key2id($this->our_team_role, TricolorRole3::class),
+            'their_team_role_id' => self::key2id($this->their_team_role, TricolorRole3::class),
+            'third_team_role_id' => self::key2id($this->third_team_role, TricolorRole3::class),
         ]);
 
         if ($rewriteKillAssist) {

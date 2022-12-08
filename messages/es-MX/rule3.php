@@ -10,8 +10,10 @@ declare(strict_types=1);
 
 return [
     'Any Mode' => '',
+    'Attackers' => '',
     'CB' => '',
     'Clam Blitz' => '',
+    'Defenders' => '',
     'Rainmaker' => '',
     'Ranked Modes' => '',
     'RM' => '',

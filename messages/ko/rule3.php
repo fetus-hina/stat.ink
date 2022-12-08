@@ -11,8 +11,10 @@ declare(strict_types=1);
 
 return [
     'Any Mode' => '모든 룰',
+    'Attackers' => '',
     'CB' => '바지락',
     'Clam Blitz' => '랭크 바지락',
+    'Defenders' => '',
     'Rainmaker' => '랭크 피쉬 배틀',
     'Ranked Modes' => '랭크 룰',
     'RM' => '피쉬 배틀',

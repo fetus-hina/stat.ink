@@ -11,8 +11,10 @@ declare(strict_types=1);
 
 return [
     'Any Mode' => '所有模式',
+    'Attackers' => '',
     'CB' => '蛤蜊',
     'Clam Blitz' => '真格蛤蜊',
+    'Defenders' => '',
     'Rainmaker' => '真格鱼虎对战',
     'Ranked Modes' => '真格模式',
     'RM' => '鱼虎对战',
