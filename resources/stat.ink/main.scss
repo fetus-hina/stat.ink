@@ -425,6 +425,22 @@ $step: 5;
   }
 }
 
+/* stylelint-disable */
+$weights: (
+  bold: bold,
+  bolder: bolder,
+  light: 300,
+  lighter: lighter,
+  normal: normal,
+);
+/* stylelint-enable */
+
+@each $k, $v in $weights {
+  .fw-#{$k} {
+    font-weight: $v !important;
+  }
+}
+
 .freshness-flag {
   background-color: #111;
 

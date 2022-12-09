@@ -9,6 +9,7 @@ use app\components\widgets\EmbedVideo;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\UserMiniInfo3;
 use app\components\widgets\v3\BattlePrevNext;
+use app\components\widgets\v3\XMatchingCategory;
 use app\models\Battle3;
 use app\models\User;
 use yii\bootstrap\Html;
@@ -119,6 +120,7 @@ BattleDetailAsset::register($this);
       <?= $this->render('//show-v3/battle/edit-button', ['model' => $model, 'user' => $user]) . "\n" ?>
       <?= $this->render('//show-v3/battle/details', ['model' => $model, 'user' => $user]) . "\n" ?>
       <?= $this->render('//show-v3/battle/players', ['model' => $model]) . "\n" ?>
+      <?= XMatchingCategory::widget(['model' => $model]) . "\n" ?>
       <?= $this->render('//show-v3/battle/edit-button', ['model' => $model, 'user' => $user]) . "\n" ?>
       <?= BattlePrevNext::widget([
         'user' => $user,
