@@ -10,8 +10,10 @@ declare(strict_types=1);
 
 return [
     'Any Mode' => '',
+    'Attackers' => '',
     'CB' => 'Muschelchaos',
     'Clam Blitz' => 'Muschelchaos',
+    'Defenders' => '',
     'Rainmaker' => 'Operation Goldfisch',
     'Ranked Modes' => '',
     'RM' => 'Operation Goldfisch',

@@ -10,8 +10,10 @@ declare(strict_types=1);
 
 return [
     'Any Mode' => '',
+    'Attackers' => '',
     'CB' => 'Pluie de palourdes',
     'Clam Blitz' => 'Pluie de palourdes',
+    'Defenders' => '',
     'Rainmaker' => 'Mission Bazookarpe',
     'Ranked Modes' => '',
     'RM' => 'Mission Bazookarpe',

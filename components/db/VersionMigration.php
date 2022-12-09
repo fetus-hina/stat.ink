@@ -30,6 +30,7 @@ trait VersionMigration
             $versionTag,
             $versionName,
             $releasedAt,
+            true,
         );
     }
 
@@ -48,6 +49,7 @@ trait VersionMigration
             $versionTag,
             $versionName,
             $releasedAt,
+            false,
         );
     }
 
@@ -58,7 +60,8 @@ trait VersionMigration
         int $groupId,
         string $versionTag,
         string $versionName,
-        DateTimeInterface $releasedAt
+        DateTimeInterface $releasedAt,
+        bool $byDate = false,
     ): int {
         $this->insert($tableVersion, [
             'tag' => $versionTag,
@@ -69,7 +72,9 @@ trait VersionMigration
         $this->update(
             $tableBattle,
             ['version_id' => $this->findId($tableVersion, $versionTag)],
-            ['>=', 'period', BattleHelper::calcPeriod2($releasedAt->getTimestamp())]
+            $byDate
+                ? ['>=', 'start_at', $releasedAt->format(\DateTime::ATOM)]
+                : ['>=', 'period', BattleHelper::calcPeriod2($releasedAt->getTimestamp())],
         );
         return $this->findId($tableVersion, $versionTag);
     }

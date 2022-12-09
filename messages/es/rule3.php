@@ -10,8 +10,10 @@ declare(strict_types=1);
 
 return [
     'Any Mode' => '',
+    'Attackers' => '',
     'CB' => 'Asalto Almeja',
     'Clam Blitz' => 'Asalto Almeja',
+    'Defenders' => '',
     'Rainmaker' => 'Pez dorado',
     'Ranked Modes' => '',
     'RM' => 'Pez dorado',

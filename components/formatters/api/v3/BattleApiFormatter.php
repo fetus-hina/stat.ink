@@ -85,6 +85,9 @@ final class BattleApiFormatter
             'clout_change' => $model->clout_change,
             'cash_before' => $model->cash_before,
             'cash_after' => $model->cash_after,
+            'our_team_role' => TricolorRoleApiFormatter::toJson($model->ourTeamRole, $fullTranslate),
+            'their_team_role' => TricolorRoleApiFormatter::toJson($model->theirTeamRole, $fullTranslate),
+            'third_team_role' => TricolorRoleApiFormatter::toJson($model->thirdTeamRole, $fullTranslate),
             'our_team_members' => BattlePlayerApiFormatter::toJson(
                 self::filterPlayers($model->battlePlayer3s, true),
                 $fullTranslate,

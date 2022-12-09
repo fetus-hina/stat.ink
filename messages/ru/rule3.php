@@ -10,8 +10,10 @@ declare(strict_types=1);
 
 return [
     'Any Mode' => '',
+    'Attackers' => '',
     'CB' => 'Устробол',
     'Clam Blitz' => 'Устробол',
+    'Defenders' => '',
     'Rainmaker' => 'Мегакарп',
     'Ranked Modes' => '',
     'RM' => 'Мегакарп',
