@@ -72,9 +72,11 @@ trait Salmon3Formatter
 
                 return \sprintf('%s @%s', $result, $stageName);
             })(),
-            'summary2' => $battle->is_private
-                ? Yii::t('app-salmon3', 'Private Job')
-                : Yii::t('app-salmon2', 'Salmon Run'),
+            'summary2' => match (true) {
+                $battle->is_private === true => Yii::t('app-salmon3', 'Private Job'),
+                $battle->is_big_run === true => Yii::t('app-salmon3', 'Big Run'),
+                default => Yii::t('app-salmon3', 'Salmon Run'),
+            },
             'time' => \strtotime($battle->start_at ?: $battle->created_at),
             'rule' => null,
             'url' => Url::to(
