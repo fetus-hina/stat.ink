@@ -64,7 +64,7 @@ final class RandomLoanAction extends Action
                 $counts = $this->getLoanCount($schedule);
                 return $controller->render('salmon3/random-loan', [
                     'counts' => $counts,
-                    'max' => \max(\array_values($counts)),
+                    'max' => $counts ? \max(\array_values($counts)) : 0,
                     'schedule' => $schedule,
                     'schedules' => $schedules,
                     'total' => \array_sum(\array_values($counts)),
