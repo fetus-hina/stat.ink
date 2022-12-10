@@ -60,7 +60,7 @@ return [
     'Rescues' => '',
     'Results of {userName}\'s job' => '',
     'Rotation' => '',
-    'Salmon Run' => '',
+    'Salmon Run' => 'SALMON RUN',
     'Soon' => '',
     'Special Use' => '',
     'Stats: Salmon Clear %' => '',

@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 return [
     'Appearances' => '출현수',
-    'Big Run' => '',
+    'Big Run' => '빅 런',
     'Boss Salmonid' => '거물연어',
     'Clear Bonus' => '클리어 보너스',
     'Defeat %' => '토벌율',
@@ -29,12 +29,12 @@ return [
     'Max. Hazard Level (cleared)' => '클리어한 최대 위험도',
     'Not Defeated' => '쓰러트리지 못한 거물연어',
     'Pay Grade' => '평가 포인트',
-    'Private Job' => '프라이빗 바이트',
+    'Private Job' => '프라이빗 아르바이트',
     'Random Loan Rate' => '랜덤 지급 확률',
     'Rescued' => '도움을 받은 수',
     'Rescues' => '도움을 준 수',
     'Salmometer' => '두목 게이지',
-    'Salmon Run' => '새먼 런',
+    'Salmon Run' => 'SALMON RUN',
     'Time is up' => '타임 오버',
     'Title Reached' => '도달한 칭호',
     'Wipe out' => '전멸',
