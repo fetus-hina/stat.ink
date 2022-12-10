@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\assets\GameModeIconsAsset;
 use app\components\widgets\v3\weaponIcon\WeaponIcon;
 use app\models\Salmon3;
 use app\models\SalmonScheduleWeapon3;
@@ -31,7 +32,20 @@ return [
       return null;
     }
 
-    return implode('', array_map(
+    $gameModeIconHtml = '';
+    if ($schedule->big_map_id) {
+      $asset = GameModeIconsAsset::register(Yii::$app->view);
+      $gameModeIconHtml = Html::img(
+        Yii::$app->assetManager->getAssetUrl($asset, 'spl3/salmon-bigrun.png'),
+        [
+          'title' => Yii::t('app-salmon3', 'Big Run'),
+          'class' => 'auto-tooltip basic-icon',
+        ],
+      );
+      $gameModeIconHtml .= Html::encode(' ');
+    }
+
+    $weaponsHtml = implode('', array_map(
       function (SalmonScheduleWeapon3 $info): string {
         if ($info->weapon || $info->random) {
           Yii::$app->view->registerCss(vsprintf('.schedule-weapon-icon{%s}', [
@@ -55,5 +69,7 @@ return [
       },
       $weapons,
     ));
+
+    return $gameModeIconHtml . $weaponsHtml;
   },
 ];
