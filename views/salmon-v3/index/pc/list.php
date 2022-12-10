@@ -25,7 +25,7 @@ $columns = array_map(
 );
 
 echo GridView::widget([
-  'beforeRow' => require __DIR__ . '/list-options/befor-row.php',
+  'beforeRow' => require __DIR__ . '/list-options/before-row.php',
   'columns' => $columns,
   'dataProvider' => $dataProvider,
   'formatter' => require __DIR__ . '/list-options/formatter.php',
