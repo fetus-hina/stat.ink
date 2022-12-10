@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use app\assets\BattleListGroupHeaderAsset;
+use app\assets\GameModeIconsAsset;
 use app\components\widgets\v3\weaponIcon\WeaponIcon;
 use app\models\Salmon3;
 use app\models\SalmonSchedule3;
@@ -27,10 +28,10 @@ return function (Salmon3 $model, int $key, int $index, GridView $widget) use ($u
     return null;
   }
 
+  $lastScheduleId = $model->schedule_id;
   $isPrivate = $model->is_private;
-  $lastScheduleId = $isPrivate ? null : $model->schedule_id;
 
-  if ($lastScheduleId === null) {
+  if ($lastScheduleId === null || $isPrivate) {
     return Html::tag(
       'tr',
       Html::tag(
@@ -50,6 +51,18 @@ return function (Salmon3 $model, int $key, int $index, GridView $widget) use ($u
   if (!$schedule instanceof SalmonSchedule3) {
     // Logic Error
     return null;
+  }
+
+  $bigRun = '';
+  if ($schedule->big_map_id) {
+    $asset = GameModeIconsAsset::register($this);
+    $bigRun = Html::img(
+      Yii::$app->assetManager->getAssetUrl($asset, 'spl3/salmon-bigrun.png'),
+      [
+        'title' => Yii::t('app-salmon3', 'Big Run'),
+        'class' => 'auto-tooltip basic-icon',
+      ],
+    );
   }
 
   $weapons = implode(
@@ -79,10 +92,13 @@ return function (Salmon3 $model, int $key, int $index, GridView $widget) use ($u
     'tr',
     Html::tag(
       'td',
-      vsprintf('%s %s', [
-        $weapons,
-        $dateTimes,
-      ]),
+      trim(
+        vsprintf('%s %s %s', [
+          $bigRun,
+          $weapons,
+          $dateTimes,
+        ]),
+      ),
       [
         'class' => 'battle-row-group-header',
         'colspan' => (string)count($widget->columns),

@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 return [
     'Appearances' => '',
+    'Big Run' => '',
     'Boss Salmonid' => 'Salmonoboss',
     'Clear Bonus' => '',
     'Defeat %' => '',

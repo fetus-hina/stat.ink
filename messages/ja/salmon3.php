@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 return [
     'Appearances' => '出現数',
+    'Big Run' => 'ビッグラン',
     'Boss Salmonid' => 'オオモノシャケ',
     'Clear Bonus' => 'クリアボーナス',
     'Defeat %' => '討伐率',
