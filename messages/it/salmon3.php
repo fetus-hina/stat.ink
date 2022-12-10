@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 return [
     'Appearances' => '',
-    'Big Run' => '',
+    'Big Run' => 'Big Run',
     'Boss Salmonid' => 'Gran Salmonoide',
     'Clear Bonus' => '',
     'Defeat %' => '',
@@ -28,7 +28,7 @@ return [
     'Max. Hazard Level (cleared)' => '',
     'Not Defeated' => '',
     'Pay Grade' => '',
-    'Private Job' => '',
+    'Private Job' => 'Lavoro privato',
     'Random Loan Rate' => '',
     'Rescued' => '',
     'Rescues' => '',

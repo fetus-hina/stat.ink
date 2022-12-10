@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 return [
     'Appearances' => '出现次数',
-    'Big Run' => '',
+    'Big Run' => '大型跑',
     'Boss Salmonid' => '巨大鲑鱼',
     'Clear Bonus' => '通关奖励',
     'Defeat %' => '击倒率',
@@ -34,7 +34,7 @@ return [
     'Rescued' => '死亡次数',
     'Rescues' => '救援次数',
     'Salmometer' => '头目槽',
-    'Salmon Run' => '鲑鱼跑',
+    'Salmon Run' => 'SALMON RUN',
     'Time is up' => '时间到',
     'Title Reached' => '达到的称号',
     'Wipe out' => '全员阵亡',

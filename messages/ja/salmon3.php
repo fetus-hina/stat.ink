@@ -33,7 +33,7 @@ return [
     'Rescued' => '助けられた数',
     'Rescues' => '助けた数',
     'Salmometer' => 'オカシラゲージ',
-    'Salmon Run' => 'サーモンラン',
+    'Salmon Run' => 'SALMON RUN',
     'Time is up' => '時間切れ',
     'Title Reached' => '到達した称号',
     'Wipe out' => '全滅',
