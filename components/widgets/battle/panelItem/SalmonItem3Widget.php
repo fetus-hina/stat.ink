@@ -181,7 +181,7 @@ final class SalmonItem3Widget extends Widget
         }
 
         if ($model->bigStage) {
-            return Yii::t('app-map3', $model->stage->name);
+            return Yii::t('app-map3', $model->bigStage->name);
         }
 
         return '?';
