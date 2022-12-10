@@ -29,11 +29,17 @@ trait Salmon3Formatter
             'id' => $battle->uuid,
             'image' => null,
             'isWin' => $battle->clear_waves === null ? null : $battle->clear_waves >= 3,
-            'mode' => [
-                'icon' => Url::to($am->getAssetUrl($modeAsset, 'spl3/salmon36x36.png'), true),
-                'key' => 'salmon',
-                'name' => Yii::t('app-salmon2', 'Salmon Run'),
-            ],
+            'mode' => $battle->is_big_run
+                ? [
+                    'icon' => Url::to($am->getAssetUrl($modeAsset, 'spl3/salmon-bigrun-36x36.png'), true),
+                    'key' => 'salmon',
+                    'name' => Yii::t('app-salmon3', 'Big Run'),
+                ]
+                : [
+                    'icon' => Url::to($am->getAssetUrl($modeAsset, 'spl3/salmon36x36.png'), true),
+                    'key' => 'salmon',
+                    'name' => Yii::t('app-salmon2', 'Salmon Run'),
+                ],
             'stage' => $this->salmonStage3($battle),
             'summary' => (function () use ($battle): ?string {
                 $stage = $battle->stage ?? $battle->bigStage;

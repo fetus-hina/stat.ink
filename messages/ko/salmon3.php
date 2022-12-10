@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 return [
     'Appearances' => '출현수',
+    'Big Run' => '',
     'Boss Salmonid' => '거물연어',
     'Clear Bonus' => '클리어 보너스',
     'Defeat %' => '토벌율',

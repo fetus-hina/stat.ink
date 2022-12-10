@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 return [
     'Appearances' => '出现次数',
+    'Big Run' => '',
     'Boss Salmonid' => '巨大鲑鱼',
     'Clear Bonus' => '通关奖励',
     'Defeat %' => '击倒率',
