@@ -371,6 +371,25 @@ final class PostSalmonForm extends Model
             'updated_at' => self::now(),
         ]);
 
+        // Fix total golden egg count (if needed & possible)
+        // See https://github.com/fetus-hina/stat.ink/issues/1167
+        if (
+            $model->golden_eggs === null || // おまけ
+            (
+                self::strVal($this->agent) === 's3s' &&
+                \version_compare(self::strVal($this->agent_version), 'v0.2.6', '<')
+            ) ||
+            (
+                self::strVal($this->agent) === 's3si.ts' &&
+                \version_compare(self::strVal($this->agent_version), '0.2.4', '<')
+            )
+        ) {
+            $goldenEggs = $this->getGoldenEggsFromWaves();
+            if ($goldenEggs !== null) {
+                $model->golden_eggs = $goldenEggs;
+            }
+        }
+
         if (!$model->save()) {
             $this->addError('_system', vsprintf('Failed to store new battle, info=%s', [
                 \base64_encode(Json::encode($model->getFirstErrors())),
@@ -494,6 +513,33 @@ final class PostSalmonForm extends Model
         }
 
         return true;
+    }
+
+    private function getGoldenEggsFromWaves(): ?int
+    {
+        if (!\is_array($this->waves) || !$this->waves) {
+            return null;
+        }
+
+        $total = 0;
+        foreach (\array_values($this->waves) as $i => $data) {
+            if (!$data) {
+                return null;
+            }
+
+            // Xtrawave
+            if ($i >= 3) {
+                break;
+            }
+
+            $deliv = self::intVal(ArrayHelper::getValue($data, 'golden_delivered'));
+            if (!\is_int($deliv) || $deliv < 0) {
+                return null;
+            }
+            $total += $deliv;
+        }
+
+        return $total;
     }
 
     private static function now(): Now
