@@ -25,6 +25,7 @@ return [
     'King Salmonid' => 'オカシラシャケ',
     'King' => 'オカシラ',
     'Known Occurrence' => '特殊な状況',
+    'MAX Hazard Level Cleared' => 'キケン度MAXをクリアした',
     'Max. Hazard Level (cleared)' => 'クリア時の最大キケン度',
     'Not Defeated' => '倒していない',
     'Pay Grade' => '評価レート',

@@ -475,10 +475,11 @@ $weights: (
 
 img.basic-icon {
   --icon-height: 1.5em;
+  --icon-valign: middle;
 
   height: var(--icon-height);
   line-height: 1;
-  vertical-align: middle;
+  vertical-align: var(--icon-valign);
   width: auto;
 
   &.dark {

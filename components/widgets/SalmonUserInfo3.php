@@ -11,11 +11,13 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use Yii;
+use app\assets\SalmonEggAsset;
 use app\components\i18n\Formatter;
 use app\components\widgets\FA;
 use app\models\UserStatSalmon3;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\web\View;
 
 final class SalmonUserInfo3 extends SalmonUserInfo
 {
@@ -85,8 +87,37 @@ final class SalmonUserInfo3 extends SalmonUserInfo
             [
                 'label' => Yii::t('app-salmon2', 'Hazard Level'),
                 'labelTitle' => Yii::t('app-salmon3', 'Max. Hazard Level (cleared)'),
-                'value' => $stats->peak_danger_rate !== null ? (int)$stats->peak_danger_rate / 100 : null,
-                'valueFormat' => ['percent', 0],
+                'valueFormat' => 'raw',
+                'value' => (function (UserStatSalmon3 $stats) use ($fmt): ?string {
+                    $value = $stats->peak_danger_rate;
+                    if ($value === null) {
+                        return null;
+                    }
+
+                    if ($value > 332.95) {
+                        $view = $this->view;
+                        if ($view instanceof View) {
+                            $asset = SalmonEggAsset::register($view);
+                            return Html::tag(
+                                'div',
+                                Html::img(
+                                    Yii::$app->assetManager->getAssetUrl($asset, 'spl3-hazard-level-max.png'),
+                                    [
+                                        'title' => Yii::t('app-salmon3', 'MAX Hazard Level Cleared'),
+                                        'class' => 'auto-tooltip basic-icon',
+                                        'style' => [
+                                            '--icon-height' => '1.2em',
+                                            '--icon-valign' => 'baseline',
+                                        ],
+                                    ],
+                                ),
+                                ['class' => 'text-center'],
+                            );
+                        }
+                    }
+
+                    return $fmt->asPercent((int)$value / 100, 0);
+                })($stats),
                 'formatter' => $fmt,
             ],
             [

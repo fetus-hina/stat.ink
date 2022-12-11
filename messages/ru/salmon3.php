@@ -26,6 +26,7 @@ return [
     'King Salmonid Defeat Rate' => '',
     'Known Occurrence' => '',
     'Max. Hazard Level (cleared)' => '',
+    'MAX Hazard Level Cleared' => 'Salmon Run пройден на максимальной сложности',
     'Not Defeated' => '',
     'Pay Grade' => '',
     'Private Job' => 'Частная смена',

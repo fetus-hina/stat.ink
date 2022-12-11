@@ -27,6 +27,7 @@ return [
     'King Salmonid Defeat Rate' => '头目鲑鱼击倒率',
     'Known Occurrence' => '特殊状况',
     'Max. Hazard Level (cleared)' => '最高危险程度(通关)',
+    'MAX Hazard Level Cleared' => '已通关危险度MAX',
     'Not Defeated' => '没有击倒',
     'Pay Grade' => '评价倍率',
     'Private Job' => '私人打工',
