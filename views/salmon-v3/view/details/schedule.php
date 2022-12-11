@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use app\assets\GameModeIconsAsset;
 use app\assets\SalmonEggAsset;
+use app\components\widgets\v3\BigrunPercentile;
 use app\components\widgets\v3\weaponIcon\WeaponIcon;
 use app\models\Salmon3;
 use app\models\SalmonScheduleWeapon3;
@@ -90,6 +91,10 @@ return [
             ],
           ),
           Yii::$app->formatter->asInteger($bigrunStats->golden_eggs),
+        ]);
+
+        $parts[] = BigrunPercentile::widget([
+          'schedule' => $schedule,
         ]);
       }
     }
