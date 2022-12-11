@@ -27,6 +27,7 @@ return [
     'King Salmonid Defeat Rate' => '두목연어 ',
     'Known Occurrence' => '특수 상황',
     'Max. Hazard Level (cleared)' => '클리어한 최대 위험도',
+    'MAX Hazard Level Cleared' => '위험도 MAX를 클리어했다',
     'Not Defeated' => '쓰러트리지 못한 거물연어',
     'Pay Grade' => '평가 포인트',
     'Private Job' => '프라이빗 아르바이트',

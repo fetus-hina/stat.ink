@@ -26,6 +26,7 @@ return [
     'King Salmonid Defeat Rate' => '',
     'Known Occurrence' => '',
     'Max. Hazard Level (cleared)' => '',
+    'MAX Hazard Level Cleared' => 'Niveau de danger max terminé',
     'Not Defeated' => '',
     'Pay Grade' => '',
     'Private Job' => 'Mission privée',
