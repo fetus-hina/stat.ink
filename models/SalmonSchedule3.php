@@ -27,6 +27,8 @@ use yii\db\ActiveRecord;
  * @property SalmonMap3 $map
  * @property Salmon3[] $salmon3s
  * @property SalmonScheduleWeapon3[] $salmonScheduleWeapon3s
+ * @property UserStatBigrun3[] $userStatBigrun3s
+ * @property User[] $users
  */
 class SalmonSchedule3 extends ActiveRecord
 {
@@ -77,5 +79,15 @@ class SalmonSchedule3 extends ActiveRecord
     public function getSalmonScheduleWeapon3s(): ActiveQuery
     {
         return $this->hasMany(SalmonScheduleWeapon3::class, ['schedule_id' => 'id']);
+    }
+
+    public function getUserStatBigrun3s(): ActiveQuery
+    {
+        return $this->hasMany(UserStatBigrun3::class, ['schedule_id' => 'id']);
+    }
+
+    public function getUsers(): ActiveQuery
+    {
+        return $this->hasMany(User::class, ['id' => 'user_id'])->viaTable('user_stat_bigrun3', ['schedule_id' => 'id']);
     }
 }
