@@ -13,6 +13,7 @@ namespace app\components\helpers;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
+use app\components\helpers\salmonStatsV3\BigrunTrait;
 use app\components\helpers\salmonStatsV3\StatsTrait;
 use app\models\User;
 use yii\db\Connection;
@@ -20,6 +21,7 @@ use yii\db\Transaction;
 
 final class SalmonStatsV3
 {
+    use BigrunTrait;
     use StatsTrait;
 
     public static function create(User $user): bool
@@ -33,6 +35,7 @@ final class SalmonStatsV3
 
     private static function createImpl(Connection $db, User $user, DateTimeImmutable $now): bool
     {
-        return self::createUserStats($db, $user, $now);
+        return self::createUserStats($db, $user, $now) &&
+            self::createBigrunStats($db, $user, $now);
     }
 }
