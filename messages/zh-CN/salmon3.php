@@ -19,6 +19,7 @@ return [
     'Defeated (others)' => '已击倒（队友）',
     'Eggs' => '鲑鱼卵数',
     'Fish Scales' => '鳞片',
+    'High Score' => '最高分数',
     'Job Points' => '获得点数',
     'Job Score' => '打工分数',
     'King' => '头目',

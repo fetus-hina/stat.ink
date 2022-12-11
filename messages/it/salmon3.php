@@ -18,6 +18,7 @@ return [
     'Defeated (others)' => '',
     'Eggs' => '',
     'Fish Scales' => '',
+    'High Score' => 'Record',
     'Job Points' => '',
     'Job Score' => '',
     'King' => '',

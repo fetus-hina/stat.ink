@@ -18,6 +18,7 @@ return [
     'Defeated' => '倒した',
     'Eggs' => 'イクラ',
     'Fish Scales' => 'ウロコ',
+    'High Score' => 'ハイスコア',
     'Job Points' => '獲得ポイント',
     'Job Score' => 'バイトスコア',
     'King Salmonid Appearances' => 'オカシラシャケ出現数',

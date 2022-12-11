@@ -3,9 +3,11 @@
 declare(strict_types=1);
 
 use app\assets\GameModeIconsAsset;
+use app\assets\SalmonEggAsset;
 use app\components\widgets\v3\weaponIcon\WeaponIcon;
 use app\models\Salmon3;
 use app\models\SalmonScheduleWeapon3;
+use app\models\UserStatBigrun3;
 use yii\helpers\Html;
 
 return [
@@ -32,20 +34,19 @@ return [
       return null;
     }
 
-    $gameModeIconHtml = '';
+    $parts = [];
     if ($schedule->big_map_id) {
       $asset = GameModeIconsAsset::register(Yii::$app->view);
-      $gameModeIconHtml = Html::img(
+      $parts[] = Html::img(
         Yii::$app->assetManager->getAssetUrl($asset, 'spl3/salmon-bigrun.png'),
         [
           'title' => Yii::t('app-salmon3', 'Big Run'),
           'class' => 'auto-tooltip basic-icon',
         ],
       );
-      $gameModeIconHtml .= Html::encode(' ');
     }
 
-    $weaponsHtml = implode('', array_map(
+    $parts[] = implode('', array_map(
       function (SalmonScheduleWeapon3 $info): string {
         if ($info->weapon || $info->random) {
           Yii::$app->view->registerCss(vsprintf('.schedule-weapon-icon{%s}', [
@@ -70,6 +71,29 @@ return [
       $weapons,
     ));
 
-    return $gameModeIconHtml . $weaponsHtml;
+    if ($schedule->big_map_id) {
+      $bigrunStats = UserStatBigrun3::find()
+        ->andWhere([
+            'user_id' => $model->user_id,
+            'schedule_id' => $schedule->id,
+        ])
+        ->limit(1)
+        ->one();
+      if ($bigrunStats && $bigrunStats->golden_eggs > 0) {
+        $asset = SalmonEggAsset::register(Yii::$app->view);
+        $parts[] = vsprintf('%s %s', [
+          Html::img(
+            Yii::$app->assetManager->getAssetUrl($asset, 'golden-egg.png'),
+            [
+              'class' => 'auto-tooltip basic-icon',
+              'title' => Yii::t('app-salmon3', 'High Score'),
+            ],
+          ),
+          Yii::$app->formatter->asInteger($bigrunStats->golden_eggs),
+        ]);
+      }
+    }
+
+    return implode(' ', $parts);
   },
 ];
