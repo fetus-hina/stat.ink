@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 use app\assets\BattleListGroupHeaderAsset;
 use app\assets\GameModeIconsAsset;
+use app\assets\SalmonEggAsset;
 use app\components\widgets\v3\weaponIcon\WeaponIcon;
 use app\models\Salmon3;
 use app\models\SalmonSchedule3;
 use app\models\SalmonScheduleWeapon3;
 use app\models\User;
+use app\models\UserStatBigrun3;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -54,6 +56,7 @@ return function (Salmon3 $model, int $key, int $index, GridView $widget) use ($u
   }
 
   $bigRun = '';
+  $bigRunHighScore = '';
   if ($schedule->big_map_id) {
     $asset = GameModeIconsAsset::register($this);
     $bigRun = Html::img(
@@ -63,6 +66,31 @@ return function (Salmon3 $model, int $key, int $index, GridView $widget) use ($u
         'class' => 'auto-tooltip basic-icon',
       ],
     );
+
+    $stats = UserStatBigrun3::find()
+      ->andWhere([
+        'schedule_id' => $schedule->id,
+        'user_id' => $model->user_id,
+      ])
+      ->limit(1)
+      ->one();
+    if ($stats && $stats->golden_eggs > 0) {
+      $asset = SalmonEggAsset::register($this);
+      $bigRunHighScore = Html::tag(
+        'span',
+        vsprintf('%s %s', [
+          Html::img(
+            Yii::$app->assetManager->getAssetUrl($asset, 'golden-egg.png'),
+            ['class' => 'basic-icon'],
+          ),
+          Html::encode(Yii::$app->formatter->asInteger($stats->golden_eggs)),
+        ]),
+        [
+          'class' => 'auto-tooltip',
+          'title' => Yii::t('app-salmon3', 'High Score'),
+        ],
+      );
+    }
   }
 
   $weapons = implode(
@@ -93,10 +121,11 @@ return function (Salmon3 $model, int $key, int $index, GridView $widget) use ($u
     Html::tag(
       'td',
       trim(
-        vsprintf('%s %s %s', [
+        implode(' ', [
           $bigRun,
           $weapons,
           $dateTimes,
+          $bigRunHighScore,
         ]),
       ),
       [

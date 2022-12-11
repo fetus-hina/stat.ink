@@ -19,6 +19,7 @@ return [
     'Defeated (others)' => '다른 플레이어가 쓰러트린 거물연어',
     'Eggs' => '연어알',
     'Fish Scales' => '비늘',
+    'High Score' => '하이 스코어',
     'Job Points' => '획득 포인트',
     'Job Score' => '아르바이트 스코어',
     'King' => '두목',

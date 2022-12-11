@@ -14,10 +14,13 @@ use Yii;
 use app\assets\SalmonEggAsset;
 use app\components\i18n\Formatter;
 use app\components\widgets\FA;
+use app\models\UserStatBigrun3;
 use app\models\UserStatSalmon3;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\View;
+
+use const FILTER_VALIDATE_INT;
 
 final class SalmonUserInfo3 extends SalmonUserInfo
 {
@@ -161,62 +164,14 @@ final class SalmonUserInfo3 extends SalmonUserInfo
                 'value' => $avg($stats->power_eggs, 0),
                 'formatter' => $fmt,
             ],
-            // [
-            //     'label' => Yii::t('app-salmon2', 'Ttl. Pts.'),
-            //     'labelTitle' => Yii::t('app-salmon2', 'Total Points'),
-            //     'value' => $stats->total_point,
-            //     'valueTitle' => $fmt->asInteger($stats->total_point),
-            //     'valueFormat' => 'metricPrefixed',
-            //     'formatter' => $fmt,
-            // ],
-            // [
-            //     'label' => Yii::t('app-salmon2', 'Avg. Pts.'),
-            //     'labelTitle' => Yii::t('app-salmon2', 'Average Points'),
-            //     'value' => $avg($stats->total_point, 1),
-            //     'formatter' => $fmt,
-            // ],
-            // [
-            //     'label' => Yii::t('app-salmon2', 'Golden'),
-            //     'labelTitle' => Yii::t('app-salmon2', 'Average Golden Eggs'),
-            //     'value' => $avg($stats->total_golden_eggs),
-            //     'formatter' => $fmt,
-            // ],
-            // [
-            //     'label' => Yii::t('app-salmon2', 'Pwr Eggs'),
-            //     'labelTitle' => Yii::t('app-salmon2', 'Average Power Eggs'),
-            //     'value' => $avg($stats->total_eggs),
-            //     'formatter' => $fmt,
-            // ],
-            // [
-            //     'label' => Yii::t('app-salmon2', 'Rescued'),
-            //     'labelTitle' => Yii::t('app-salmon2', 'Average Rescued'),
-            //     'value' => $avg($stats->total_rescued),
-            //     'formatter' => $fmt,
-            // ],
-            // [
-            //     'label' => Yii::t('app-salmon2', 'Ttl. Gold'),
-            //     'labelTitle' => Yii::t('app-salmon2', 'Total Golden Eggs'),
-            //     'value' => $stats->total_golden_eggs,
-            //     'valueTitle' => $fmt->asInteger($stats->total_golden_eggs),
-            //     'valueFormat' => 'metricPrefixed',
-            //     'formatter' => $fmt,
-            // ],
-            // [
-            //     'label' => Yii::t('app-salmon2', 'Ttl. Eggs'),
-            //     'labelTitle' => Yii::t('app-salmon2', 'Total Power Eggs'),
-            //     'value' => $stats->total_eggs,
-            //     'valueTitle' => $fmt->asInteger($stats->total_eggs),
-            //     'valueFormat' => 'metricPrefixed',
-            //     'formatter' => $fmt,
-            // ],
-            // [
-            //     'label' => Yii::t('app-salmon2', 'Ttl. Rescued'),
-            //     'labelTitle' => Yii::t('app-salmon2', 'Total Rescued'),
-            //     'value' => $stats->total_rescued,
-            //     'valueTitle' => $fmt->asInteger($stats->total_rescued),
-            //     'valueFormat' => 'metricPrefixed',
-            //     'formatter' => $fmt,
-            // ],
+            [
+                'label' => Yii::t('app-salmon3', 'Big Run'),
+                'labelTitle' => Yii::t('app-salmon3', 'High Score'),
+                'value' => $this->getBigRunHighScore(),
+                'nullDisplay' => Html::tag('span', Html::encode('-'), ['class' => 'text-muted']),
+                'nullDisplayFormat' => 'raw',
+                'formatter' => $fmt,
+            ],
         ];
         return Html::tag(
             'div',
@@ -294,5 +249,16 @@ final class SalmonUserInfo3 extends SalmonUserInfo
     {
         return UserStatSalmon3::find()->andWhere(['user_id' => $this->user->id])->limit(1)->one()
             ?? Yii::createObject(UserStatSalmon3::class);
+    }
+
+    protected function getBigRunHighScore(): ?int
+    {
+        $v = \filter_var(
+            UserStatBigrun3::find()
+                ->andWhere(['user_id' => $this->user->id])
+                ->max('golden_eggs'),
+            FILTER_VALIDATE_INT,
+        );
+        return \is_int($v) ? $v : null;
     }
 }
