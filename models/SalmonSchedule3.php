@@ -24,6 +24,7 @@ use yii\db\ActiveRecord;
  * @property integer $big_map_id
  *
  * @property Map3 $bigMap
+ * @property BigrunOfficialResult3 $bigrunOfficialResult3
  * @property SalmonMap3 $map
  * @property Salmon3[] $salmon3s
  * @property SalmonScheduleWeapon3[] $salmonScheduleWeapon3s
@@ -64,6 +65,11 @@ class SalmonSchedule3 extends ActiveRecord
     public function getBigMap(): ActiveQuery
     {
         return $this->hasOne(Map3::class, ['id' => 'big_map_id']);
+    }
+
+    public function getBigrunOfficialResult3(): ActiveQuery
+    {
+        return $this->hasOne(BigrunOfficialResult3::class, ['schedule_id' => 'id']);
     }
 
     public function getMap(): ActiveQuery

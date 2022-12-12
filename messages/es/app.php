@@ -370,6 +370,7 @@ return [
     'Note (public)' => 'Nota (público)',
     'Not Winning' => '',
     'Octoling' => '',
+    'Official Results' => '',
     'Official Twitter' => 'Twitter oficial',
     'Open Source Licenses' => 'Licencias de código abierto',
     'Others' => 'Otros',

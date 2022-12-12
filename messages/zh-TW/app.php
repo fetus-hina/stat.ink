@@ -370,6 +370,7 @@ return [
     'Note (public)' => '備註(公開)',
     'Not Winning' => '不是勝利',
     'Octoling' => '章魚形態',
+    'Official Results' => '',
     'Official Twitter' => '官方Twitter',
     'Open Source Licenses' => '開源代碼授權',
     'Others' => '其它',

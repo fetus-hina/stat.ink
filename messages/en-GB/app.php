@@ -369,6 +369,7 @@ return [
     'Note (public)' => '',
     'Not Winning' => '',
     'Octoling' => '',
+    'Official Results' => '',
     'Official Twitter' => '',
     'Open Source Licenses' => 'Open Source Licences',
     'Others' => '',

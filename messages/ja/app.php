@@ -357,6 +357,7 @@ return [
     'Note (public)' => 'メモ（公開）',
     'Note' => 'メモ',
     'Octoling' => 'タコ',
+    'Official Results' => '公式の結果',
     'Official Twitter' => '公式ツイッター',
     'Open Source Licenses' => 'オープンソースライセンス',
     'Others' => 'その他',

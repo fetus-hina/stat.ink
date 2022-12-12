@@ -371,6 +371,7 @@ return [
     'Note (public)' => '备注（公开）',
     'Not Winning' => '不是胜利',
     'Octoling' => '章鱼形态',
+    'Official Results' => '',
     'Official Twitter' => '官方Twitter',
     'Open Source Licenses' => '开源代码许可证',
     'Others' => '其它',
