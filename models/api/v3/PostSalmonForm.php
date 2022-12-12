@@ -15,6 +15,7 @@ use app\components\db\Connection;
 use app\components\helpers\CriticalSection;
 use app\components\helpers\UuidRegexp;
 use app\components\helpers\db\Now;
+use app\components\validators\AgentVersionValidator;
 use app\components\validators\ArrayValidator;
 use app\components\validators\BattleAgentVariable3Validator;
 use app\components\validators\KeyValidator;
@@ -145,6 +146,10 @@ final class PostSalmonForm extends Model
             ],
             [['agent', 'agent_version'], 'required',
                 'when' => fn () => \trim((string)$this->agent) !== '' || \trim((string)$this->agent_version) !== '',
+            ],
+            [['agent_version'], AgentVersionValidator::class,
+                'gameVersion' => 'splatoon3',
+                'when' => fn () => \trim((string)$this->agent) !== '' && \trim((string)$this->agent_version) !== '',
             ],
             [['stage'], KeyValidator::class,
                 'modelClass' => SalmonMap3::class,

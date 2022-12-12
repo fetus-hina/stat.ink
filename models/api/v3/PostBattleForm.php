@@ -15,6 +15,7 @@ use app\components\helpers\CriticalSection;
 use app\components\helpers\ImageConverter;
 use app\components\helpers\UuidRegexp;
 use app\components\helpers\db\Now;
+use app\components\validators\AgentVersionValidator;
 use app\components\validators\BattleAgentVariable3Validator;
 use app\components\validators\BattleImageValidator;
 use app\components\validators\BattlePlayer3FormValidator;
@@ -170,6 +171,10 @@ final class PostBattleForm extends Model
             [['agent_version'], 'string', 'max' => 255],
             [['agent', 'agent_version'], 'required',
                 'when' => fn () => \trim((string)$this->agent) !== '' || \trim((string)$this->agent_version) !== '',
+            ],
+            [['agent_version'], AgentVersionValidator::class,
+                'gameVersion' => 'splatoon3',
+                'when' => fn () => \trim((string)$this->agent) !== '' && \trim((string)$this->agent_version) !== '',
             ],
             [['test', 'knockout', 'automated', 'rank_up_battle'], 'in',
                 'range' => ['yes', 'no', true, false],
