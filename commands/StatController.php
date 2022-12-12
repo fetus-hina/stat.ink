@@ -44,9 +44,10 @@ use yii\db\Query;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Console;
 
-class StatController extends Controller
+final class StatController extends Controller
 {
     use stat\Salmon2Trait;
+    use stat\Salmon3Trait;
     use stat\Weapon2Trait;
 
     /**
@@ -1678,6 +1679,12 @@ class StatController extends Controller
     public function actionUpdateEntireSalmon2(): int
     {
         $this->updateEntireSalmon2();
+        return 0;
+    }
+
+    public function actionUpdateEntireSalmon3(): int
+    {
+        $this->updateEntireSalmon3();
         return 0;
     }
 }
