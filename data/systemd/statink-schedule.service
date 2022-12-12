@@ -1,6 +1,6 @@
 [Unit]
 Description=Run stat.ink scheduling tasks
-After=paths.target multi-user.target network.target network-online.target systemd-networkd.service NetworkManager.service connman.service
+After=paths.target multi-user.target network.target network-online.target NetworkManager.service
 
 [Service]
 Type=oneshot
