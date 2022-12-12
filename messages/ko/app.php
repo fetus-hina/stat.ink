@@ -369,6 +369,7 @@ return [
     'Note (public)' => '메모 (공개)',
     'Not Winning' => '',
     'Octoling' => '문어',
+    'Official Results' => '',
     'Official Twitter' => '공식 트위터',
     'Open Source Licenses' => '오픈 소스 라이선스',
     'Others' => '그 외',

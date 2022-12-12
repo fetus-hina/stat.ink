@@ -14,6 +14,7 @@ use Yii;
 use app\assets\SalmonBadgeAsset;
 use app\assets\SalmonEggAsset;
 use app\components\widgets\FA;
+use app\models\BigrunOfficialResult3;
 use app\models\SalmonSchedule3;
 use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
@@ -21,9 +22,9 @@ use yii\bootstrap\BootstrapPluginAsset;
 use yii\db\Connection;
 use yii\db\Expression as DbExpression;
 use yii\db\Query;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\View;
-use yii\widgets\DetailView;
 
 final class BigrunPercentile extends Widget
 {
@@ -173,8 +174,95 @@ final class BigrunPercentile extends Widget
 
     private function renderTable(array $stats): string
     {
-        $f = Yii::$app->formatter;
+        return Html::tag(
+            'div',
+            Html::tag(
+                'table',
+                \implode('', [
+                    $this->renderTableHeader($stats),
+                    $this->renderTableBody($stats),
+                ]),
+                ['class' => 'table table-striped'],
+            ),
+            ['class' => 'table-responsive'],
+        );
+    }
 
+    private function renderTableHeader(array $stats): string
+    {
+        return Html::tag(
+            'thead',
+            Html::tag(
+                'tr',
+                \implode('', [
+                    Html::tag('th', '', ['style' => ['width' => '10em']]),
+                    Html::tag(
+                        'th',
+                        Html::encode(Yii::$app->name),
+                        ['class' => 'text-center'],
+                    ),
+                    Html::tag(
+                        'th',
+                        Html::encode(Yii::t('app', 'Official Results')),
+                        ['class' => 'text-center'],
+                    ),
+                ]),
+            ),
+        );
+    }
+
+    private function renderTableBody(array $stats): string
+    {
+        $official = $this->schedule?->bigrunOfficialResult3;
+
+        return Html::tag(
+            'tbody',
+            \implode('', [
+                $this->renderTableRowGold($stats, $official),
+                $this->renderTableRowSilver($stats, $official),
+                $this->renderTableRowBronze($stats, $official),
+                $this->renderTableRowAverage($stats, $official),
+                $this->renderTableRowUsers($stats, $official),
+            ]),
+        );
+    }
+
+    private function renderTableRowGold(array $stats, ?BigrunOfficialResult3 $official): string
+    {
+        return $this->renderTableRowEggs(
+            'top-1.png',
+            5,
+            self::intVal(ArrayHelper::getValue($stats, 'val05pct')),
+            self::intVal(ArrayHelper::getValue($official, 'gold')),
+        );
+    }
+
+    private function renderTableRowSilver(array $stats, ?BigrunOfficialResult3 $official): string
+    {
+        return $this->renderTableRowEggs(
+            'top-2.png',
+            20,
+            self::intVal(ArrayHelper::getValue($stats, 'val20pct')),
+            self::intVal(ArrayHelper::getValue($official, 'silver')),
+        );
+    }
+
+    private function renderTableRowBronze(array $stats, ?BigrunOfficialResult3 $official): string
+    {
+        return $this->renderTableRowEggs(
+            'top-3.png',
+            50,
+            self::intVal(ArrayHelper::getValue($stats, 'val50pct')),
+            self::intVal(ArrayHelper::getValue($official, 'bronze')),
+        );
+    }
+
+    private function renderTableRowEggs(
+        string $badgeIconPath,
+        int $percentile,
+        ?int $userEggs,
+        ?int $officialEggs,
+    ): string {
         $view = $this->view;
         $egg = $view instanceof View
             ? Html::img(
@@ -183,90 +271,106 @@ final class BigrunPercentile extends Widget
             )
             : '';
 
-        $badgeAsset = $view instanceof View ? SalmonBadgeAsset::register($view) : null;
+        return Html::tag(
+            'tr',
+            \implode('', [
+                Html::tag(
+                    'th',
+                    \trim(
+                        \vsprintf('%s %s', [
+                            $view instanceof View
+                                ? Html::img(
+                                    Yii::$app->assetManager->getAssetUrl(
+                                        SalmonBadgeAsset::register($view),
+                                        $badgeIconPath,
+                                    ),
+                                    ['class' => 'basic-icon'],
+                                )
+                                : '',
+                            Html::encode(
+                                Yii::t('app', 'Top {percentile}%', ['percentile' => $percentile]),
+                            ),
+                        ]),
+                    ),
+                    ['scope' => 'row'],
+                ),
+                Html::tag(
+                    'td',
+                    \trim(
+                        $userEggs === null
+                            ? '-'
+                            : \vsprintf('%s %s', [
+                                $egg,
+                                Html::encode(Yii::$app->formatter->asInteger($userEggs)),
+                            ]),
+                    ),
+                ),
+                Html::tag(
+                    'td',
+                    \trim(
+                        $officialEggs === null
+                            ? '-'
+                            : \vsprintf('%s %s', [
+                                $egg,
+                                Html::encode(Yii::$app->formatter->asInteger($officialEggs)),
+                            ]),
+                    ),
+                ),
+            ]),
+        );
+    }
 
-        $captionOptions = [
-            'style' => ['width' => '10em'],
-        ];
+    private function renderTableRowAverage(array $stats, ?BigrunOfficialResult3 $official): string
+    {
+        $view = $this->view;
+        $egg = $view instanceof View
+            ? Html::img(
+                Yii::$app->assetManager->getAssetUrl(SalmonEggAsset::register($view), 'golden-egg.png'),
+                ['class' => 'basic-icon'],
+            )
+            : '';
 
-        return DetailView::widget([
-            'options' => [
-                'class' => 'table table-striped detail-view',
-            ],
-            'model' => $stats,
-            'attributes' => [
-                [
-                    'label' => \vsprintf('%s %s', [
-                        $badgeAsset
-                            ? Html::img(
-                                Yii::$app->assetManager->getAssetUrl($badgeAsset, 'top-1.png'),
-                                ['class' => 'basic-icon'],
-                            )
-                            : '',
-                        Yii::t('app', 'Top {percentile}%', ['percentile' => 5]),
-                    ]),
-                    'format' => 'raw',
-                    'value' => fn (): string => \vsprintf('%s %s', [
+        return Html::tag(
+            'tr',
+            \implode('', [
+                Html::tag(
+                    'th',
+                    Html::encode(Yii::t('app', 'Average')),
+                    ['scope' => 'row'],
+                ),
+                Html::tag(
+                    'td',
+                    \vsprintf('%s %s (σ = %s)', [
                         $egg,
-                        Html::encode($f->asInteger($stats['val05pct'])),
+                        Html::encode(Yii::$app->formatter->asDecimal($stats['avg'], 2)),
+                        Html::encode(Yii::$app->formatter->asDecimal($stats['stddev'], 2)),
                     ]),
-                    'captionOptions' => $captionOptions,
-                ],
-                [
-                    'label' => \vsprintf('%s %s', [
-                        $badgeAsset
-                            ? Html::img(
-                                Yii::$app->assetManager->getAssetUrl($badgeAsset, 'top-2.png'),
-                                ['class' => 'basic-icon'],
-                            )
-                            : '',
-                        Yii::t('app', 'Top {percentile}%', ['percentile' => 20]),
-                    ]),
-                    'format' => 'raw',
-                    'value' => fn (): string => \vsprintf('%s %s', [
-                        $egg,
-                        Html::encode($f->asInteger($stats['val20pct'])),
-                    ]),
-                    'captionOptions' => $captionOptions,
-                ],
-                [
-                    'label' => \vsprintf('%s %s', [
-                        $badgeAsset
-                            ? Html::img(
-                                Yii::$app->assetManager->getAssetUrl($badgeAsset, 'top-3.png'),
-                                ['class' => 'basic-icon'],
-                            )
-                            : '',
-                        Yii::t('app', 'Top {percentile}%', ['percentile' => 50]),
-                    ]),
-                    'format' => 'raw',
-                    'value' => fn (): string => \vsprintf('%s %s', [
-                        $egg,
-                        Html::encode($f->asInteger($stats['val50pct'])),
-                    ]),
-                    'captionOptions' => $captionOptions,
-                ],
-                [
-                    'label' => Yii::t('app', 'Average'),
-                    'format' => 'raw',
-                    'value' => fn(): string => \vsprintf('%s %s (σ=%s)', [
-                        $egg,
-                        $f->asDecimal($stats['avg'], 2),
-                        $f->asDecimal($stats['stddev'], 2),
-                    ]),
-                    'captionOptions' => $captionOptions,
-                ],
-                [
-                    'label' => Yii::t('app', 'Users'),
-                    'format' => 'raw',
-                    'value' => fn (): string => \vsprintf('%s %s', [
+                ),
+                Html::tag('td', '-'),
+            ]),
+        );
+    }
+
+    private function renderTableRowUsers(array $stats, ?BigrunOfficialResult3 $official): string
+    {
+        return Html::tag(
+            'tr',
+            \implode('', [
+                Html::tag(
+                    'th',
+                    Html::encode(Yii::t('app', 'Users')),
+                    ['scope' => 'row'],
+                ),
+                Html::tag(
+                    'td',
+                    \vsprintf('%s %s', [
                         (string)FA::fas('user')->fw(),
-                        Html::encode($f->asInteger($stats['users'])),
+                        Html::encode(Yii::$app->formatter->asInteger($stats['users'])),
                     ]),
-                    'captionOptions' => $captionOptions,
-                ],
-            ],
-        ]);
+                ),
+                Html::tag('td', '-'),
+            ]),
+        );
     }
 
     private function renderNotice(): string
@@ -308,5 +412,11 @@ final class BigrunPercentile extends Widget
             ->andWhere(['schedule_id' => $this->schedule?->id ?? -1]);
 
         return $query->one($db);
+    }
+
+    private static function intVal($value): ?int
+    {
+        $value = \filter_var($value, FILTER_VALIDATE_INT);
+        return \is_int($value) ? $value : null;
     }
 }
