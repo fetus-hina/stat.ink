@@ -1,0 +1,11 @@
+[Unit]
+Description=Run stat.ink scheduling tasks
+After=paths.target multi-user.target network.target network-online.target systemd-networkd.service NetworkManager.service connman.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/scl enable php80 "./yii schedule/run --schedule-file=@app/schedule/schedule.php"
+SyslogIdentifier=statink-schedule
+WorkingDirectory=/home/statink/stat.ink
+User=statink
+Group=statink
