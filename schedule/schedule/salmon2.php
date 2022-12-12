@@ -9,5 +9,5 @@ use omnilight\scheduling\Schedule;
  */
 
 $schedule
-    ->command('stat/update-entire-salmon2"')
+    ->command('stat/update-entire-salmon2')
     ->cron('42 3-23/6 * * *');
