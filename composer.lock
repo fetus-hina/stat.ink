@@ -1867,16 +1867,16 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "9.12.2",
+            "version": "9.12.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "7b2ae8aa17654ab8e7f8369722c85561d320b501"
+                "reference": "78e91351494d6abd0b6948cf5e9ab3da8f08dc35"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/7b2ae8aa17654ab8e7f8369722c85561d320b501",
-                "reference": "7b2ae8aa17654ab8e7f8369722c85561d320b501",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/78e91351494d6abd0b6948cf5e9ab3da8f08dc35",
+                "reference": "78e91351494d6abd0b6948cf5e9ab3da8f08dc35",
                 "shasum": ""
             },
             "require": {
@@ -1936,9 +1936,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-curl-class/php-curl-class/issues",
-                "source": "https://github.com/php-curl-class/php-curl-class/tree/9.12.2"
+                "source": "https://github.com/php-curl-class/php-curl-class/tree/9.12.3"
             },
-            "time": "2022-12-11T01:29:24+00:00"
+            "time": "2022-12-13T01:29:57+00:00"
         },
         {
             "name": "phpseclib/phpseclib",
@@ -5569,16 +5569,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "9.2.19",
+            "version": "9.2.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "c77b56b63e3d2031bd8997fcec43c1925ae46559"
+                "reference": "af7463c955007de36db0c5e26d03e2f933c2e980"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/c77b56b63e3d2031bd8997fcec43c1925ae46559",
-                "reference": "c77b56b63e3d2031bd8997fcec43c1925ae46559",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/af7463c955007de36db0c5e26d03e2f933c2e980",
+                "reference": "af7463c955007de36db0c5e26d03e2f933c2e980",
                 "shasum": ""
             },
             "require": {
@@ -5634,7 +5634,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
-                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2.19"
+                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2.20"
             },
             "funding": [
                 {
@@ -5642,7 +5642,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-11-18T07:47:47+00:00"
+            "time": "2022-12-13T07:49:28+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",

@@ -155,6 +155,8 @@ return [
     'Defeat' => '失敗',
     'Defeat (Exempted)' => '失敗 (不計算)',
     'Delete' => '刪除',
+    'Delete This Battle' => '',
+    'Delete This Job' => '',
     'Detail' => '細節',
     'Detailed List' => '細節列表',
     'Details' => '細節',

@@ -156,6 +156,8 @@ return [
     'Defeat' => '败',
     'Defeat (Exempted)' => '败（不计算）',
     'Delete' => '删除',
+    'Delete This Battle' => '',
+    'Delete This Job' => '',
     'Detail' => '细节',
     'Detailed List' => '细节列表',
     'Details' => '细节',

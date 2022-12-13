@@ -10,17 +10,53 @@ declare(strict_types=1);
 
 namespace app\controllers;
 
+use app\actions\salmon\v3\DeleteAction;
 use app\actions\salmon\v3\IndexAction;
 use app\actions\salmon\v3\ViewAction;
 use app\components\web\Controller;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 
 final class SalmonV3Controller extends Controller
 {
     public $layout = 'main';
 
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::class,
+                'actions' => [
+                    'delete' => ['post', 'delete'],
+                    '*' => ['head', 'get'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::class,
+                'only' => [
+                    'delete',
+                ],
+                'rules' => [
+                    [
+                        'actions' => ['delete'],
+                        'roles' => ['@'],
+                        'allow' => true,
+                    ],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function actions()
     {
         return [
+            'delete' => DeleteAction::class,
             'index' => IndexAction::class,
             'view' => ViewAction::class,
         ];

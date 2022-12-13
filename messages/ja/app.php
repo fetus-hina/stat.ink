@@ -151,6 +151,8 @@ return [
     'Default Color' => '既定のテーマ',
     'Defeat (Exempted)' => '敗北(免除)',
     'Defeat' => '敗北',
+    'Delete This Battle' => 'バトルの削除',
+    'Delete This Job' => 'バイトの削除',
     'Delete' => '削除',
     'Detail' => '詳細',
     'Detailed List' => '詳細なリストで表示',

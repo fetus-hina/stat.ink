@@ -154,6 +154,8 @@ return [
     'Defeat' => '패배',
     'Defeat (Exempted)' => '패배 (면제)',
     'Delete' => '삭제',
+    'Delete This Battle' => '',
+    'Delete This Job' => '',
     'Detail' => '상세',
     'Detailed List' => '상세 리스트 표시',
     'Details' => '상세',

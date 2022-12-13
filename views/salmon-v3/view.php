@@ -95,10 +95,12 @@ $this->registerLinkTag([
         'nextBattle' => $nextBattle,
         'prevBattle' => $prevBattle,
       ]) . "\n" ?>
+      <?= $this->render('view/edit-button', ['model' => $model, 'user' => $user]) . "\n" ?>
       <?= $this->render('view/details', ['model' => $model]) . "\n" ?>
       <?= $this->render('view/waves', ['model' => $model]) . "\n" ?>
       <?= $this->render('view/players', ['model' => $model]) . "\n" ?>
       <?= $this->render('view/bosses', ['model' => $model]) . "\n" ?>
+      <?= $this->render('view/edit-button', ['model' => $model, 'user' => $user]) . "\n" ?>
     </div>
     <div class="col-xs-12 col-sm-4 col-lg-3">
       <?= SalmonUserInfo3::widget(['user' => $user]) . "\n" ?>
