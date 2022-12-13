@@ -25,7 +25,7 @@ use yii\helpers\Html;
 class ApidocController extends Controller
 {
     private const FLAGICON_CDN = 'https://cdnjs.cloudflare.com/ajax/libs';
-    private const FLAGICON_URL = '{cdn}/flag-icon-css/{version}/flags/4x3/{cc}.svg';
+    private const FLAGICON_URL = '{cdn}/flag-icons/{version}/flags/4x3/{cc}.svg';
 
     public $defaultAction = 'create';
     public $layout = false;
@@ -292,7 +292,7 @@ class ApidocController extends Controller
         static $flagIconCssVersion = false;
         if ($flagIconCssVersion === false) {
             if (!$flagIconCssVersion = $this->getFlagIconCssVersion()) {
-                throw new \Exception('Could not detect the version of flag-icon-css');
+                throw new \Exception('Could not detect the version of flag-icons');
             }
         }
 
@@ -322,7 +322,7 @@ class ApidocController extends Controller
         $cwd = getcwd();
         try {
             chdir(dirname(__DIR__));
-            @exec('npm view flag-icon-css version', $lines, $status);
+            @exec('npm view flag-icons version', $lines, $status);
             if ($status !== 0) {
                 return null;
             }

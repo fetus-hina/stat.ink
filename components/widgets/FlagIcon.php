@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -16,10 +16,10 @@ use yii\base\Widget;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
-class FlagIcon extends Widget
+final class FlagIcon extends Widget
 {
     public $tag = 'span';
-    public $isBackground = false;
+    public $isBackground = false; // deprecated
     public $isSquare = false;
     public $cc = null;
     public $options = [];
@@ -98,15 +98,18 @@ class FlagIcon extends Widget
             '',
             array_merge_recursive(
                 [
+                    'class' => array_filter(
+                        [
+                            'fi',
+                            "fi-{$this->cc}",
+                            $this->isSquare ? 'fis' : null,
+                        ],
+                        fn (?string $v): bool => \trim((string)$v) !== '',
+                    ),
                     'id' => $this->id,
-                    'class' => array_filter([
-                        $this->isBackground ? 'flag-icon-background' : 'flag-icon',
-                        $this->isSquare ? 'flag-icon-squared' : '',
-                        "flag-icon-{$this->cc}",
-                    ]),
                 ],
-                $this->options
-            )
+                $this->options,
+            ),
         );
     }
 }
