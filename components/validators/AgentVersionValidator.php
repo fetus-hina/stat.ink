@@ -61,6 +61,11 @@ final class AgentVersionValidator extends Validator
             return;
         }
 
+        Yii::warning(
+            "Outdated client name={$agentName}, version={$agentVersion}, minimum={$minimumVersion}",
+            __METHOD__,
+        );
+
         $this->addError($model, $attribute, $this->message);
     }
 }
