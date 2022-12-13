@@ -155,6 +155,8 @@ return [
     'Defeat' => '',
     'Defeat (Exempted)' => '',
     'Delete' => 'Eliminar',
+    'Delete This Battle' => '',
+    'Delete This Job' => '',
     'Detail' => 'Detalle',
     'Detailed List' => 'Lista detallada',
     'Details' => '',

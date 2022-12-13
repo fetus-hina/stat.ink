@@ -12,16 +12,49 @@ namespace app\controllers;
 
 use Yii;
 use app\actions\show\v3\BattleAction;
+use app\actions\show\v3\DeleteBattleAction;
 use app\actions\show\v3\UserAction;
 use app\actions\show\v3\stats\WinRateAction;
 use app\components\web\Controller;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 
 final class ShowV3Controller extends Controller
 {
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::class,
+                'actions' => [
+                    'delete-battle' => ['post', 'delete'],
+                    '*' => ['head', 'get'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::class,
+                'only' => [
+                    'delete-battle',
+                ],
+                'rules' => [
+                    [
+                        'actions' => ['delete-battle'],
+                        'roles' => ['@'],
+                        'allow' => true,
+                    ],
+                ],
+            ],
+        ];
+    }
+
     public function actions()
     {
         return [
             'battle' => BattleAction::class,
+            'delete-battle' => DeleteBattleAction::class,
             'stats-win-rate' => WinRateAction::class,
             'user' => UserAction::class,
         ];
