@@ -2,14 +2,16 @@
 
 declare(strict_types=1);
 
+use app\models\Ability3;
 use app\models\BattlePlayer3;
-use yii\bootstrap\Html;
+use yii\helpers\Html;
 use yii\web\View;
 
 /**
- * @var View $this
- * @var bool $ourTeam
  * @var BattlePlayer3[] $players
+ * @var View $this
+ * @var array<string, Ability3> $abilities
+ * @var bool $ourTeam
  */
 
 $f = Yii::$app->formatter;
@@ -55,6 +57,7 @@ $totalD = $total('death');
 <?php
 foreach (array_values($players) as $i => $player) {
   echo $this->render('//show-v3/battle/players/player', [
+    'abilities' => $abilities,
     'isFirst' => $i === 0,
     'nPlayers' => count($players),
     'player' => $player,

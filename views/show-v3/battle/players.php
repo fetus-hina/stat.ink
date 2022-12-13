@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\models\Ability3;
 use app\models\Battle3;
 use app\models\BattlePlayer3;
 use yii\helpers\ArrayHelper;
@@ -50,10 +51,17 @@ $filterPlayers = function (array $players, bool $ourTeam): array {
   return $players;
 };
 
+$abilities = ArrayHelper::map(
+  Ability3::find()->orderBy(['rank' => SORT_ASC])->all(),
+  'key',
+  fn (Ability3 $v): Ability3 => $v,
+);
+
 $result = $model->result;
 echo $this->render('//show-v3/battle/players/players', [
+  'abilities' => $abilities,
   'battle' => $model,
+  'ourTeamFirst' => !$result || $result->is_win !== false,
   'ourTeamPlayers' => $filterPlayers($allPlayers, true),
   'theirTeamPlayers' => $filterPlayers($allPlayers, false),
-  'ourTeamFirst' => !$result || $result->is_win !== false,
 ]);
