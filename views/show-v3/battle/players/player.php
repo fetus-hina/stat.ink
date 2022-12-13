@@ -32,21 +32,7 @@ if ($player->is_me) {
       ]);
     }
   ?></td>
-  <td><?php
-    // TODO: blackout / anonymize
-    $title = $player->splashtagTitle;
-    if ($title || $player->number !== null) {
-      echo Html::tag(
-        'div',
-        trim(vsprintf('%s %s', [
-          Html::encode((string)$title->name),
-          Html::encode($player->number !== null ? sprintf('#%s', (string)$player->number) : ''),
-        ])),
-        ['class' => 'small text-muted']
-      );
-    }
-    echo Html::tag('div', Html::encode($player->name));
-  ?></td>
+  <td><?= $this->render('player/name', compact('player')) ?></td>
   <?= Html::tag(
     'td',
     Html::tag(
