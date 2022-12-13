@@ -27,13 +27,17 @@ final class GameVersionIcon extends Widget
         }
 
         $asset = GameVersionIconAsset::register($view);
-        return Html::img($asset->getIconUrl($this->version), [
-            'alt' => '',
-            'title' => '',
-            'style' => [
-                'height' => '1em',
-                'width' => 'auto',
+        return Html::img(
+            $asset->getIconUrl($this->version),
+            [
+                'alt' => '',
+                'draggable' => 'false',
+                'style' => [
+                    'height' => '1em',
+                    'width' => 'auto',
+                ],
+                'title' => '',
             ],
-        ]);
+        );
     }
 }

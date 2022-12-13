@@ -27,6 +27,7 @@ use app\actions\entire\Weapons2TierAction;
 use app\actions\entire\WeaponsAction;
 use app\actions\entire\WeaponsUseAction;
 use app\actions\entire\salmon3\RandomLoanAction;
+use app\actions\entire\salmon3\TideAction;
 use app\components\web\Controller;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -65,6 +66,7 @@ final class EntireController extends Controller
             'knockout2' => Knockout2Action::class,
             'salmon-clear' => SalmonClearAction::class,
             'salmon3-random-loan' => RandomLoanAction::class,
+            'salmon3-tide' => TideAction::class,
             'users' => UsersAction::class,
             'weapon' => WeaponAction::class,
             'weapon2' => Weapon2Action::class,

@@ -93,10 +93,15 @@ $gameMode = GameModeIconsAsset::register($this);
           GameVersionIcon::widget(['version' => 3]),
           Html::img(
             Yii::$app->assetManager->getAssetUrl($gameMode, 'spl3/salmon.png'),
-            ['style' => 'height:1em'],
+            [
+              'class' => 'basic-icon',
+              'draggable' => 'false',
+              'style' => ['--icon-height' => '1em'],
+            ],
           ),
         ]),
         Html::a(Html::encode(Yii::t('app-salmon3', 'Random Loan Rate')), ['entire/salmon3-random-loan']),
+        Html::a(Html::encode(Yii::t('app-salmon-tide2', 'Water Level')), ['entire/salmon3-tide']),
       ],
       [
         Html::a(Html::encode(Yii::t('app', 'Stats: K/D vs Win %')), ['entire/kd-win2']),

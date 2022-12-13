@@ -54,6 +54,7 @@ RESOURCE_TARGETS := \
 	resources/.compiled/stat.ink/cookiealert.css \
 	resources/.compiled/stat.ink/cookiealert.js \
 	resources/.compiled/stat.ink/downloads.css \
+	resources/.compiled/stat.ink/entire-salmon3-tide-tide.js \
 	resources/.compiled/stat.ink/entire-weapon-based-on-k-or-d.js \
 	resources/.compiled/stat.ink/entire-weapon-kd-stats.js \
 	resources/.compiled/stat.ink/entire-weapon-kd-summary.js \
@@ -282,6 +283,7 @@ resources/.compiled/stat.ink/color-scheme.js: resources/stat.ink/color-scheme.es
 resources/.compiled/stat.ink/cookiealert.css: resources/stat.ink/cookiealert.scss node_modules
 resources/.compiled/stat.ink/cookiealert.js: resources/stat.ink/cookiealert.es node_modules
 resources/.compiled/stat.ink/downloads.css: resources/stat.ink/downloads.scss node_modules
+resources/.compiled/stat.ink/entire-salmon3-tide-tide.js: resources/stat.ink/entire-salmon3-tide-tide.es node_modules
 resources/.compiled/stat.ink/entire-weapon-based-on-k-or-d.js: resources/stat.ink/entire-weapon-based-on-k-or-d.es node_modules
 resources/.compiled/stat.ink/entire-weapon-kd-stats.js: resources/stat.ink/entire-weapon-kd-stats.es node_modules
 resources/.compiled/stat.ink/entire-weapon-kd-summary.js: resources/stat.ink/entire-weapon-kd-summary.es node_modules
