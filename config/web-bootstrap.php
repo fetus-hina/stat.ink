@@ -35,22 +35,10 @@ Yii::$container->set(Battle3::class, [
             UserStatsJob::pushQueue3($model->user);
         }
     },
-    'on afterUpdate' => function (Event $ev): void {
-        $model = $ev->sender;
-        if ($model instanceof Battle3 && $model->user) {
-            UserStatsJob::pushQueue3($model->user);
-        }
-    },
 ]);
 
 Yii::$container->set(Salmon3::class, [
     'on afterInsert' => function (Event $ev): void {
-        $model = $ev->sender;
-        if ($model instanceof Salmon3 && $model->user) {
-            SalmonStatsJob::pushQueue3($model->user);
-        }
-    },
-    'on afterUpdate' => function (Event $ev): void {
         $model = $ev->sender;
         if ($model instanceof Salmon3 && $model->user) {
             SalmonStatsJob::pushQueue3($model->user);
