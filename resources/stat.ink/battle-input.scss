@@ -1,10 +1,12 @@
 @charset "UTF-8";
 @use 'sass:math';
 
-/*! Copyright (C) 2016-2020 AIZAWA Hina | MIT License */
+/*! Copyright (C) 2015-2022 AIZAWA Hina | MIT License */
 
-.modal-body {
-  padding-bottom: 0;
+.battle-input-modal {
+  .modal-body {
+    padding-bottom: 0;
+  }
 }
 
 .next-stages-will-arrive-in,
