@@ -9,8 +9,8 @@
 declare(strict_types=1);
 
 return [
-    'High Tide' => '',
-    'Low Tide' => '',
-    'Mid Tide' => '',
-    'Water Level' => '',
+    'High Tide' => '만조',
+    'Low Tide' => '간조',
+    'Mid Tide' => '보통',
+    'Water Level' => '수위',
 ];

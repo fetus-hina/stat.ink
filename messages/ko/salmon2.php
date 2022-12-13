@@ -19,7 +19,7 @@ return [
     'Avg. Waves' => '',
     'Boss Salmonid' => '',
     'Boss Salmonids' => '',
-    'Clear %' => '',
+    'Clear %' => '클리어율',
     'Cleared' => '',
     'Clear rate of Salmon Run' => '',
     'Deaths' => '',
