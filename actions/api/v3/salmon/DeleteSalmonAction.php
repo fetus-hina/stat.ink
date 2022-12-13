@@ -14,6 +14,7 @@ use Throwable;
 use Yii;
 use app\actions\api\v3\traits\ApiInitializerTrait;
 use app\components\helpers\UuidRegexp;
+use app\components\jobs\SalmonStatsJob;
 use app\models\Salmon3;
 use app\models\User;
 use yii\base\Action;
@@ -76,7 +77,8 @@ final class DeleteSalmonAction extends Action
                 }
 
                 $model->is_deleted = true;
-                if ($model->save()) {
+                if ($model->save(false)) {
+                    SalmonStatsJob::pushQueue3($user);
                     $resp->statusCode = 204;
                     return $resp;
                 }

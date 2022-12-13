@@ -12,6 +12,7 @@ namespace app\actions\salmon\v3;
 
 use Yii;
 use app\components\helpers\UuidRegexp;
+use app\components\jobs\SalmonStatsJob;
 use app\models\Salmon3;
 use yii\base\Action;
 use yii\web\Controller;
@@ -51,9 +52,11 @@ final class DeleteAction extends Action
 
         $model->is_deleted = true;
         $model->updated_at = \date(DATE_ATOM, $_SERVER['REQUEST_TIME'] ?? time());
-        if (!$model->save()) {
+        if (!$model->save(false)) {
             throw new ServerErrorHttpException();
         }
+
+        SalmonStatsJob::pushQueue3($user);
 
         $c = $this->controller;
         assert($c instanceof Controller);
