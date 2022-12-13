@@ -552,7 +552,7 @@ return [
     'This {attribute} is already in use.' => '',
     'Time' => '',
     'Time is up' => '',
-    'Times' => '',
+    'Times' => '횟수',
     'Time was up' => '',
     'Time Zone' => '타임존',
     'Title' => '칭호',
