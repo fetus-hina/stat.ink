@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use app\components\widgets\v3\weaponIcon\SpecialIcon;
+use app\models\Ability3;
 use app\models\BattlePlayer3;
 use yii\helpers\Html;
 use yii\web\View;
@@ -10,6 +11,7 @@ use yii\web\View;
 /**
  * @var BattlePlayer3 $player
  * @var View $this
+ * @var array<string, Ability3> $abilities
  * @var bool $isFirst
  * @var int $nPlayers
  */
@@ -32,28 +34,14 @@ if ($player->is_me) {
       ]);
     }
   ?></td>
-  <td><?php
-    // TODO: blackout / anonymize
-    $title = $player->splashtagTitle;
-    if ($title || $player->number !== null) {
-      echo Html::tag(
-        'div',
-        trim(vsprintf('%s %s', [
-          Html::encode((string)$title->name),
-          Html::encode($player->number !== null ? sprintf('#%s', (string)$player->number) : ''),
-        ])),
-        ['class' => 'small text-muted']
-      );
-    }
-    echo Html::tag('div', Html::encode($player->name));
-  ?></td>
+  <td><?= $this->render('player/name', compact('player')) ?></td>
   <?= Html::tag(
     'td',
     Html::tag(
       'div',
       implode('', [
         $this->render('player/weapon', ['weapon' => $player->weapon]),
-        $this->render('player/abilities', ['player' => $player]),
+        $this->render('player/abilities', compact('abilities', 'player')),
       ]),
       ['class' => 'h-100 d-flex flex-row flex-column'],
     ),
@@ -92,9 +80,11 @@ if ($player->is_me) {
     }
   ?></td>
   <td class="text-right"><?php
-    if ($player->weapon) {
-      echo SpecialIcon::widget(['model' => $player->weapon->special]) . ' ';
+    if ($player->special !== null) {
+      if ($player->weapon) {
+        echo SpecialIcon::widget(['model' => $player->weapon->special]) . ' ';
+      }
+      echo $f->asInteger($player->special);
     }
-    echo $f->asInteger($player->special);
   ?></td>
 </tr>

@@ -3,9 +3,10 @@
 declare(strict_types=1);
 
 use app\assets\TableResponsiveForceAsset;
+use app\models\Abilities3;
 use app\models\Battle3;
 use app\models\BattlePlayer3;
-use yii\bootstrap\Html;
+use yii\helpers\Html;
 use yii\web\View;
 
 /**
@@ -13,6 +14,7 @@ use yii\web\View;
  * @var BattlePlayer3[] $ourTeamPlayers
  * @var BattlePlayer3[] $theirTeamPlayers
  * @var View $this
+ * @var array<string, Ability3> $abilities
  * @var bool $ourTeamFirst
  */
 
@@ -30,25 +32,29 @@ TableResponsiveForceAsset::register($this);
         <th class="text-nowrap text-center col-kill"><?= Html::encode(Yii::t('app', 'k')) ?></th>
         <th class="text-nowrap text-center col-death"><?= Html::encode(Yii::t('app', 'd')) ?></th>
         <th class="text-nowrap text-center col-kr"><?= Html::encode(Yii::t('app', 'KR')) ?></th>
-        <th class="text-nowrap text-center col-special"><?= Html::encode(Yii::t('app', 'Specials')) ?></th>
+        <th class="text-nowrap text-center col-special"><?= Html::encode(Yii::t('app', 'Sp')) ?></th>
       </tr>
     </thead>
     <tbody>
 <?php if ($ourTeamFirst) { ?>
       <?= $this->render('//show-v3/battle/players/team', [
+        'abilities' => $abilities,
         'ourTeam' => true,
         'players' => $ourTeamPlayers,
       ]) . "\n" ?>
       <?= $this->render('//show-v3/battle/players/team', [
+        'abilities' => $abilities,
         'ourTeam' => false,
         'players' => $theirTeamPlayers,
       ]) . "\n" ?>
 <?php } else { ?>
       <?= $this->render('//show-v3/battle/players/team', [
+        'abilities' => $abilities,
         'ourTeam' => false,
         'players' => $theirTeamPlayers,
       ]) . "\n" ?>
       <?= $this->render('//show-v3/battle/players/team', [
+        'abilities' => $abilities,
         'ourTeam' => true,
         'players' => $ourTeamPlayers,
       ]) . "\n" ?>
