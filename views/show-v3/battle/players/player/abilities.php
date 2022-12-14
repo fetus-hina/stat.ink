@@ -45,6 +45,7 @@ $powers = ArrayHelper::map(
   fn (Ability3 $model): array => [
     'key' => $model->key,
     'name' => Yii::t('app-ability3', $model->name),
+    'rank' => $model->rank,
     'mainOnly' => $model->primary_only,
     'main' => $model->primary_only ? false : 0,
     'sub' => $model->primary_only ? null : 0,
@@ -82,6 +83,15 @@ $powers = array_values(
     $powers,
     fn (array $info): bool => $info['ap'] === true || $info['ap'] > 0,
   ),
+);
+
+usort(
+  $powers,
+  fn (array $a, array $b): int => (($a['mainOnly'] ? 1 : 0) <=> ($b['mainOnly'] ? 1 : 0))
+    ?: (int)$b['ap'] <=> (int)$a['ap']
+    ?: (int)$b['main'] <=> (int)$a['main']
+    ?: (int)$b['sub'] <=> (int)$b['sub']
+    ?: $a['rank'] <=> $b['rank'],
 );
 
 if ($powers) {
@@ -233,7 +243,11 @@ $modalId = vsprintf('%s-%s', [
                 <td></td>
                 <td></td>
 <?php } else {?>
-                <td class="text-center fw-bold"><?= Yii::$app->formatter->asInteger($power['ap']) ?></td>
+                <?= Html::tag(
+                  'td',
+                  Html::encode(Yii::$app->formatter->asDecimal($power['ap'] / 10, 1)),
+                  ['class' => 'fw-bold text-center'],
+                ) . "\n" ?>
                 <?= Html::tag(
                   'td',
                   $power['main'] > 0
