@@ -1,0 +1,10 @@
+[Unit]
+Description=Run stat.ink database vacuum (timer)
+
+[Timer]
+OnCalendar=7:13
+Persistent=true
+RandomizedDelaySec=300
+
+[Install]
+WantedBy=timers.target
