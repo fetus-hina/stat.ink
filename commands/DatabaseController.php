@@ -10,9 +10,8 @@ declare(strict_types=1);
 
 namespace app\commands;
 
-use app\commands\database\VacuumAction;
-
 use Yii;
+use app\commands\database\VacuumAction;
 use yii\console\Controller;
 
 final class DatabaseController extends Controller
