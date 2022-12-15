@@ -29,7 +29,7 @@ final class VacuumAction extends Action
         ]);
 
         $t1 = \microtime(true);
-        $db->createCommand('VACUUM ANALYZE')->execute();
+        $db->createCommand('VACUUM ( ANALYZE )')->execute();
         $t2 = \microtime(true);
 
         vfprintf(STDERR, "Done the vacuum, took=%.3fsec\n", [
