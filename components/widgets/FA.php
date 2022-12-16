@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -22,6 +22,7 @@ class FA extends Widget
     public $isFW = false;
     public $icon = null;
     public $size = null;
+    public int $rotate = 0;
     public $type = 'fas';
     public $content = null;
     public $options = [];
@@ -87,6 +88,15 @@ class FA extends Widget
         return $this;
     }
 
+    /**
+     * @param 0|90|180|270 $angle
+     */
+    public function rotate(int $angle): self
+    {
+        $this->rotate = $angle;
+        return $this;
+    }
+
     public function contentOptions(array $contentOptions): self
     {
         $this->contentOptions = $contentOptions;
@@ -120,9 +130,10 @@ class FA extends Widget
                         $this->isFW ? 'fa-fw' : null,
                         $this->icon ? 'fa-' . $this->icon : null,
                         $this->size ? 'fa-' . $this->size : null,
+                        $this->rotate ? sprintf('fa-rotate-%d', $this->rotate) : null,
                     ]),
                 ],
-                $this->contentOptions
+                $this->contentOptions,
             )
         );
     }

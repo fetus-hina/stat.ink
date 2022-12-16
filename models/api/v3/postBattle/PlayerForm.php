@@ -39,6 +39,7 @@ final class PlayerForm extends Model
     public $special;
     public $gears;
     public $disconnected;
+    public $crown;
 
     /**
      * @var GearsForm|null
@@ -59,7 +60,7 @@ final class PlayerForm extends Model
     {
         return [
             [['me'], 'required'],
-            [['me', 'disconnected'], 'in', 'range' => ['yes', 'no', true, false]],
+            [['me', 'disconnected', 'crown'], 'in', 'range' => ['yes', 'no', true, false]],
             [['rank_in_team'], 'integer', 'min' => 1, 'max' => 4],
             [['name'], 'string', 'min' => 1, 'max' => 10],
 
@@ -121,6 +122,7 @@ final class PlayerForm extends Model
             'headgear_id' => $this->gearConfiguration($this->gearsForm ? $this->gearsForm->headgearForm : null),
             'clothing_id' => $this->gearConfiguration($this->gearsForm ? $this->gearsForm->clothingForm : null),
             'shoes_id' => $this->gearConfiguration($this->gearsForm ? $this->gearsForm->shoesForm : null),
+            'is_crowned' => self::boolVal($this->crown),
         ]);
 
         if (
