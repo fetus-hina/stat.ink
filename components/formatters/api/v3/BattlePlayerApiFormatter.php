@@ -39,6 +39,7 @@ final class BattlePlayerApiFormatter
                     'special' => $model->special,
                     'inked' => $model->inked,
                     'disconnected' => $model->is_disconnected,
+                    'crown' => $model->is_crowned,
                     'gears' => [
                         'headgear' => GearConfigurationApiFormatter::toJson($model->headgear, $fullTranslate),
                         'clothing' => GearConfigurationApiFormatter::toJson($model->clothing, $fullTranslate),
