@@ -94,6 +94,7 @@ use yii\db\ActiveRecord;
  * @property BattleImageResult3 $battleImageResult3
  * @property BattleMedal3[] $battleMedal3s
  * @property BattlePlayer3[] $battlePlayer3s
+ * @property BattleTricolorPlayer3[] $battleTricolorPlayer3s
  * @property DragonMatch3 $festDragon
  * @property Lobby3 $lobby
  * @property Map3 $map
@@ -260,6 +261,11 @@ class Battle3 extends ActiveRecord
     public function getBattlePlayer3s(): ActiveQuery
     {
         return $this->hasMany(BattlePlayer3::class, ['battle_id' => 'id']);
+    }
+
+    public function getBattleTricolorPlayer3s(): ActiveQuery
+    {
+        return $this->hasMany(BattleTricolorPlayer3::class, ['battle_id' => 'id']);
     }
 
     public function getFestDragon(): ActiveQuery
