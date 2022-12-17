@@ -28,6 +28,20 @@ trait TypeHelperTrait
         }
     }
 
+    protected static function colorVal($value): ?string
+    {
+        $value = self::strVal($value);
+        if ($value === null) {
+            return null;
+        }
+
+        if (!\preg_match('/^[0-9a-f]{6}(?:[0-9a-f]{2})?$/i', $value)) {
+            return null;
+        }
+
+        return \strtolower(\strlen($value) === 8 ? $value : "{$value}ff");
+    }
+
     protected static function intVal($value): ?int
     {
         $value = self::strVal($value);

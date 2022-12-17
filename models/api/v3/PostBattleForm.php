@@ -38,6 +38,7 @@ use app\models\Rank3;
 use app\models\Result3;
 use app\models\Rule3;
 use app\models\Rule3Alias;
+use app\models\Splatfest3Theme;
 use app\models\SplatoonVersion3;
 use app\models\TricolorRole3;
 use app\models\User;
@@ -109,9 +110,15 @@ final class PostBattleForm extends Model
     public $clout_change;
     public $cash_before;
     public $cash_after;
+    public $our_team_color;
+    public $their_team_color;
+    public $third_team_color;
     public $our_team_role;
     public $their_team_role;
     public $third_team_role;
+    public $our_team_theme;
+    public $their_team_theme;
+    public $third_team_theme;
     public $our_team_players;
     public $their_team_players;
     public $note;
@@ -154,6 +161,7 @@ final class PostBattleForm extends Model
             [['uuid', 'lobby', 'rule', 'stage', 'weapon', 'result', 'rank_before', 'rank_after', 'note'], 'string'],
             [['private_note', 'link_url', 'agent', 'agent_version'], 'string'],
             [['our_team_role', 'their_team_role', 'third_team_role'], 'string'],
+            [['our_team_theme', 'their_team_theme', 'third_team_theme'], 'string'],
 
             [['uuid'], 'match', 'pattern' => UuidRegexp::get(true)],
             [['result'], 'in', 'range' => [
@@ -219,6 +227,10 @@ final class PostBattleForm extends Model
                 'when' => function (self $model): bool {
                     return self::strVal($model->lobby) === 'xmatch';
                 },
+            ],
+
+            [['our_team_color', 'their_team_color', 'third_team_color'], 'match',
+                'pattern' => '/^[0-9a-f]{6}(?:[0-9a-f]{2})?$/i',
             ],
 
             [['lobby'], KeyValidator::class, 'modelClass' => Lobby3::class],
@@ -468,6 +480,12 @@ final class PostBattleForm extends Model
             'our_team_role_id' => self::key2id($this->our_team_role, TricolorRole3::class),
             'their_team_role_id' => self::key2id($this->their_team_role, TricolorRole3::class),
             'third_team_role_id' => self::key2id($this->third_team_role, TricolorRole3::class),
+            'our_team_color' => self::colorVal($this->our_team_color),
+            'their_team_color' => self::colorVal($this->their_team_color),
+            'third_team_color' => self::colorVal($this->third_team_color),
+            'our_team_theme_id' => $this->findOrCreateSplatfestTheme(self::strVal($this->our_team_theme))?->id,
+            'their_team_theme_id' => $this->findOrCreateSplatfestTheme(self::strVal($this->their_team_theme))?->id,
+            'third_team_theme_id' => $this->findOrCreateSplatfestTheme(self::strVal($this->third_team_theme))?->id,
         ]);
 
         if ($rewriteKillAssist) {
@@ -745,6 +763,44 @@ final class PostBattleForm extends Model
             'filename' => $fileName,
         ]);
         return $model->save();
+    }
+
+    private function findOrCreateSplatfestTheme(?string $name): ?Splatfest3Theme
+    {
+        $name = \trim((string)$name);
+        if ($name === '') {
+            return null;
+        }
+
+        $model = Splatfest3Theme::find()
+            ->andWhere(['name' => $name])
+            ->limit(1)
+            ->one();
+        if ($model) {
+            return $model;
+        }
+
+        if (!$lock = CriticalSection::lock(Splatfest3Theme::class, 60)) {
+            return null;
+        }
+        try {
+            $model = Splatfest3Theme::find()
+                ->andWhere(['name' => $name])
+                ->limit(1)
+                ->one();
+            if ($model) {
+                return $model;
+            }
+
+
+            $model = Yii::createObject([
+                'class' => Splatfest3Theme::class,
+                'name' => $name,
+            ]);
+            return $model->save() ? $model : null;
+        } finally {
+            unset($lock);
+        }
     }
 
     private function shouldRewriteKillAssist(): bool
