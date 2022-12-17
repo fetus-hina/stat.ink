@@ -20,12 +20,15 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property integer $battle_id
  * @property integer $team
+ * @property boolean $is_me
  * @property integer $rank_in_team
  * @property string $name
  * @property integer $weapon_id
  * @property integer $inked
  * @property integer $kill
  * @property integer $assist
+ * @property integer $kill_or_assist
+ * @property integer $death
  * @property integer $special
  * @property integer $signal
  * @property boolean $is_disconnected
@@ -53,10 +56,10 @@ class BattleTricolorPlayer3 extends ActiveRecord
     public function rules()
     {
         return [
-            [['battle_id', 'team'], 'required'],
-            [['battle_id', 'team', 'rank_in_team', 'weapon_id', 'inked', 'kill', 'assist', 'special', 'signal', 'splashtag_title_id', 'headgear_id', 'clothing_id', 'shoes_id'], 'default', 'value' => null],
-            [['battle_id', 'team', 'rank_in_team', 'weapon_id', 'inked', 'kill', 'assist', 'special', 'signal', 'splashtag_title_id', 'headgear_id', 'clothing_id', 'shoes_id'], 'integer'],
-            [['is_disconnected', 'is_crowned'], 'boolean'],
+            [['battle_id', 'team', 'is_me'], 'required'],
+            [['battle_id', 'team', 'rank_in_team', 'weapon_id', 'inked', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'signal', 'splashtag_title_id', 'headgear_id', 'clothing_id', 'shoes_id'], 'default', 'value' => null],
+            [['battle_id', 'team', 'rank_in_team', 'weapon_id', 'inked', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'signal', 'splashtag_title_id', 'headgear_id', 'clothing_id', 'shoes_id'], 'integer'],
+            [['is_me', 'is_disconnected', 'is_crowned'], 'boolean'],
             [['name'], 'string', 'max' => 10],
             [['number'], 'string', 'max' => 32],
             [['battle_id'], 'exist', 'skipOnError' => true, 'targetClass' => Battle3::class, 'targetAttribute' => ['battle_id' => 'id']],
@@ -74,12 +77,15 @@ class BattleTricolorPlayer3 extends ActiveRecord
             'id' => 'ID',
             'battle_id' => 'Battle ID',
             'team' => 'Team',
+            'is_me' => 'Is Me',
             'rank_in_team' => 'Rank In Team',
             'name' => 'Name',
             'weapon_id' => 'Weapon ID',
             'inked' => 'Inked',
             'kill' => 'Kill',
             'assist' => 'Assist',
+            'kill_or_assist' => 'Kill Or Assist',
+            'death' => 'Death',
             'special' => 'Special',
             'signal' => 'Signal',
             'is_disconnected' => 'Is Disconnected',

@@ -569,6 +569,7 @@ return [
     'Total Inked' => '칠한 면적 총합',
     'To use Slack integration, you need to configure Slack\'s "Incoming Webhook" first.' => '',
     'Trends' => '',
+    'Try to secure the Ultra Signal' => '',
     'Turf Inked' => '칠한 면적',
     'Turf inked (including bonus)' => '칠한 면적 (승리 보너스 포함)',
     'Turf Inked + Bonus' => '칠한 면적 + 승리 보너스',

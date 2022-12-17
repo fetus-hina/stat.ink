@@ -112,7 +112,7 @@ final class PlayerForm extends Model
         $model = Yii::createObject(
             \array_merge(
                 [
-                    'class' => BattlePlayer3::class,
+                    'class' => $isTricolor ? BattleTricolorPlayer3::class : BattlePlayer3::class,
                     'battle_id' => $battle->id,
                     'is_me' => (bool)($isOurTeam && self::boolVal($this->me)),
                     'rank_in_team' => self::intVal($this->rank_in_team),

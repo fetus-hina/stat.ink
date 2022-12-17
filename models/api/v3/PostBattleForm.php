@@ -570,7 +570,7 @@ final class PostBattleForm extends Model
             foreach ($this->third_team_players as $player) {
                 $model = Yii::createObject(PlayerForm::class);
                 $model->attributes = $player;
-                if (!$model->save($battle, false, 2)) {
+                if (!$model->save($battle, false, 3)) {
                     return false;
                 }
             }

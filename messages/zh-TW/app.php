@@ -570,6 +570,7 @@ return [
     'Total Inked' => '塗地總計',
     'To use Slack integration, you need to configure Slack\'s "Incoming Webhook" first.' => '要與Slack做整合，你需要先去Slack設定webhook',
     'Trends' => '趨勢',
+    'Try to secure the Ultra Signal' => '',
     'Turf Inked' => '塗地面積',
     'Turf inked (including bonus)' => '塗地面積(包含獎勵)',
     'Turf Inked + Bonus' => '塗地面積和獎勵',

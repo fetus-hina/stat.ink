@@ -569,6 +569,7 @@ return [
     'Total Inked' => '',
     'To use Slack integration, you need to configure Slack\'s "Incoming Webhook" first.' => '',
     'Trends' => '',
+    'Try to secure the Ultra Signal' => '',
     'Turf Inked' => '',
     'Turf inked (including bonus)' => '',
     'Turf Inked + Bonus' => '',
