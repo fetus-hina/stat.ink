@@ -15,6 +15,7 @@ use yii\web\View;
  * @var array<string, Ability3> $abilities
  * @var bool $isFirst
  * @var int $nPlayers
+ * @var string|null $colorClass
  */
 
 $f = Yii::$app->formatter;
@@ -26,33 +27,43 @@ if ($player->is_me) {
   $bgClass = 'bg-danger';
 }
 
+if ($player->is_crowned) {
+  $this->registerCss(
+    vsprintf('.player-crown{%s}', [
+      Html::cssStyleFromArray([
+        'color' => '#f41',
+        'text-shadow' => '1px 1px 0 #3336',
+      ]),
+    ]),
+  );
+}
+
 ?>
 <?= Html::beginTag('tr', ['class' => $bgClass]) . "\n" ?>
-  <td class="text-center"><?php
-    if ($player->is_crowned) {
-      $this->registerCss(
-        vsprintf('.player-crown{%s}', [
-          Html::cssStyleFromArray([
-            'color' => '#f41',
-            'text-shadow' => '1px 1px 0 #3336',
-          ]),
-        ]),
-      );
-
-      echo Html::tag(
-        'div',
-        (string)FA::fas('crown')->fw(),
-        ['class' => 'player-crown'],
-      );
-    }
-
-    if ($player->is_me) {
-      echo Html::tag(
-        'div',
-        (string)FA::fas('level-up-alt')->fw()->rotate(90),
-      );
-    }
-  ?></td>
+  <?= Html::tag(
+    'td',
+    implode('', [
+      $player->is_crowned
+        ? Html::tag(
+          'div',
+          (string)FA::fas('crown')->fw(),
+          ['class' => 'player-crown'],
+        )
+        : '',
+      $player->is_me
+        ? Html::tag(
+          'div',
+          (string)FA::fas('level-up-alt')->fw()->rotate(90),
+        )
+        : '',
+    ]),
+    [
+      'class' => array_filter([
+        'text-center',
+        // $colorClass, // crown が見えないケースがあるのでとりあえずやめ
+      ]),
+    ],
+  ) . "\n" ?>
   <td><?= $this->render('player/name', compact('player')) ?></td>
   <?= Html::tag(
     'td',

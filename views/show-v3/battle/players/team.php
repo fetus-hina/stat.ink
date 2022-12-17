@@ -4,14 +4,19 @@ declare(strict_types=1);
 
 use app\models\Ability3;
 use app\models\BattlePlayer3;
+use app\models\Splatfest3Theme;
+use app\models\TricolorRole3;
 use yii\helpers\Html;
 use yii\web\View;
 
 /**
  * @var BattlePlayer3[] $players
+ * @var Splatfest3Theme|null $theme
+ * @var TricolorRole3|null $role
  * @var View $this
  * @var array<string, Ability3> $abilities
  * @var bool $ourTeam
+ * @var string|null $color
  */
 
 $f = Yii::$app->formatter;
@@ -35,9 +40,30 @@ $total = function (string $attrName) use ($players): ?int {
 $totalK = $total('kill');
 $totalD = $total('death');
 
+$colorClass = $color ? "bg-{$color}" : null;
+if ($colorClass) {
+  $this->registerCss(vsprintf('.%s{%s}', [
+    $colorClass,
+    Html::cssStyleFromArray([
+      'background-color' => sprintf('#%s !important', $color),
+      'color' => '#fff',
+      'text-shadow' => '1px 1px 0 #333',
+    ]),
+  ]));
+}
+
 ?>
-<tr class="bg-warning">
-  <th colspan="3"><?= Html::encode(Yii::t('app', $ourTeam ? 'Good Guys' : 'Bad Guys')) ?></th>
+<?= Html::beginTag(
+  'tr',
+  [
+    'class' => array_filter(['bg-warning', $colorClass]),
+  ],
+) . "\n" ?>
+  <?= Html::tag(
+    'th',
+    $this->render('team-name', compact('ourTeam', 'role', 'theme')),
+    ['colspan' => '3'],
+  ) . "\n"?>
   <td class="text-right"><?= $f->asInteger($total('inked')) ?></td>
   <td class="text-right"><?= $f->asInteger($totalK) ?></td>
   <td class="text-right"><?= $f->asInteger($totalD) ?></td>
@@ -58,6 +84,7 @@ $totalD = $total('death');
 foreach (array_values($players) as $i => $player) {
   echo $this->render('//show-v3/battle/players/player', [
     'abilities' => $abilities,
+    'colorClass' => $colorClass,
     'isFirst' => $i === 0,
     'nPlayers' => count($players),
     'player' => $player,

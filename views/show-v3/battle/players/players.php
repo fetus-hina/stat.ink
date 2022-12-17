@@ -39,24 +39,36 @@ TableResponsiveForceAsset::register($this);
 <?php if ($ourTeamFirst) { ?>
       <?= $this->render('//show-v3/battle/players/team', [
         'abilities' => $abilities,
+        'color' => $battle->our_team_color,
         'ourTeam' => true,
         'players' => $ourTeamPlayers,
+        'role' => $battle->ourTeamRole,
+        'theme' => $battle->ourTeamTheme,
       ]) . "\n" ?>
       <?= $this->render('//show-v3/battle/players/team', [
         'abilities' => $abilities,
+        'color' => $battle->their_team_color,
         'ourTeam' => false,
         'players' => $theirTeamPlayers,
+        'role' => $battle->theirTeamRole,
+        'theme' => $battle->theirTeamTheme,
       ]) . "\n" ?>
 <?php } else { ?>
       <?= $this->render('//show-v3/battle/players/team', [
         'abilities' => $abilities,
+        'color' => $battle->their_team_color,
         'ourTeam' => false,
         'players' => $theirTeamPlayers,
+        'role' => $battle->theirTeamRole,
+        'theme' => $battle->theirTeamTheme,
       ]) . "\n" ?>
       <?= $this->render('//show-v3/battle/players/team', [
         'abilities' => $abilities,
+        'color' => $battle->our_team_color,
         'ourTeam' => true,
         'players' => $ourTeamPlayers,
+        'role' => $battle->ourTeamRole,
+        'theme' => $battle->ourTeamTheme,
       ]) . "\n" ?>
 <?php } ?>
     </tbody>

@@ -80,6 +80,12 @@ use yii\db\ActiveRecord;
  * @property integer $our_team_role_id
  * @property integer $their_team_role_id
  * @property integer $third_team_role_id
+ * @property string $our_team_color
+ * @property string $their_team_color
+ * @property string $third_team_color
+ * @property integer $our_team_theme_id
+ * @property integer $their_team_theme_id
+ * @property integer $third_team_theme_id
  *
  * @property Agent $agent
  * @property BattleAgentVariable3[] $battleAgentVariable3s
@@ -93,12 +99,15 @@ use yii\db\ActiveRecord;
  * @property Map3 $map
  * @property Medal3[] $medals
  * @property TricolorRole3 $ourTeamRole
+ * @property Splatfest3Theme $ourTeamTheme
  * @property Rank3 $rankAfter
  * @property Rank3 $rankBefore
  * @property Result3 $result
  * @property Rule3 $rule
  * @property TricolorRole3 $theirTeamRole
+ * @property Splatfest3Theme $theirTeamTheme
  * @property TricolorRole3 $thirdTeamRole
+ * @property Splatfest3Theme $thirdTeamTheme
  * @property User $user
  * @property AgentVariable3[] $variables
  * @property SplatoonVersion3 $version
@@ -116,11 +125,12 @@ class Battle3 extends ActiveRecord
         return [
             [['uuid', 'client_uuid', 'user_id', 'remote_addr', 'remote_port', 'created_at', 'updated_at'], 'required'],
             [['uuid', 'client_uuid', 'note', 'private_note', 'link_url', 'remote_addr'], 'string'],
-            [['user_id', 'lobby_id', 'rule_id', 'map_id', 'weapon_id', 'result_id', 'rank_in_team', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'inked', 'our_team_inked', 'their_team_inked', 'our_team_count', 'their_team_count', 'level_before', 'level_after', 'rank_before_id', 'rank_before_s_plus', 'rank_before_exp', 'rank_after_id', 'rank_after_s_plus', 'rank_after_exp', 'cash_before', 'cash_after', 'version_id', 'agent_id', 'period', 'remote_port', 'challenge_win', 'challenge_lose', 'rank_exp_change', 'clout_before', 'clout_after', 'clout_change', 'fest_dragon_id', 'our_team_role_id', 'their_team_role_id', 'third_team_role_id'], 'default', 'value' => null],
-            [['user_id', 'lobby_id', 'rule_id', 'map_id', 'weapon_id', 'result_id', 'rank_in_team', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'inked', 'our_team_inked', 'their_team_inked', 'our_team_count', 'their_team_count', 'level_before', 'level_after', 'rank_before_id', 'rank_before_s_plus', 'rank_before_exp', 'rank_after_id', 'rank_after_s_plus', 'rank_after_exp', 'cash_before', 'cash_after', 'version_id', 'agent_id', 'period', 'remote_port', 'challenge_win', 'challenge_lose', 'rank_exp_change', 'clout_before', 'clout_after', 'clout_change', 'fest_dragon_id', 'our_team_role_id', 'their_team_role_id', 'third_team_role_id'], 'integer'],
+            [['user_id', 'lobby_id', 'rule_id', 'map_id', 'weapon_id', 'result_id', 'rank_in_team', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'inked', 'our_team_inked', 'their_team_inked', 'our_team_count', 'their_team_count', 'level_before', 'level_after', 'rank_before_id', 'rank_before_s_plus', 'rank_before_exp', 'rank_after_id', 'rank_after_s_plus', 'rank_after_exp', 'cash_before', 'cash_after', 'version_id', 'agent_id', 'period', 'remote_port', 'challenge_win', 'challenge_lose', 'rank_exp_change', 'clout_before', 'clout_after', 'clout_change', 'fest_dragon_id', 'our_team_role_id', 'their_team_role_id', 'third_team_role_id', 'our_team_theme_id', 'their_team_theme_id', 'third_team_theme_id'], 'default', 'value' => null],
+            [['user_id', 'lobby_id', 'rule_id', 'map_id', 'weapon_id', 'result_id', 'rank_in_team', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'inked', 'our_team_inked', 'their_team_inked', 'our_team_count', 'their_team_count', 'level_before', 'level_after', 'rank_before_id', 'rank_before_s_plus', 'rank_before_exp', 'rank_after_id', 'rank_after_s_plus', 'rank_after_exp', 'cash_before', 'cash_after', 'version_id', 'agent_id', 'period', 'remote_port', 'challenge_win', 'challenge_lose', 'rank_exp_change', 'clout_before', 'clout_after', 'clout_change', 'fest_dragon_id', 'our_team_role_id', 'their_team_role_id', 'third_team_role_id', 'our_team_theme_id', 'their_team_theme_id', 'third_team_theme_id'], 'integer'],
             [['is_knockout', 'is_automated', 'use_for_entire', 'is_deleted', 'is_rank_up_battle', 'has_disconnect'], 'boolean'],
             [['our_team_percent', 'their_team_percent', 'fest_power', 'x_power_before', 'x_power_after'], 'number'],
             [['start_at', 'end_at', 'created_at', 'updated_at'], 'safe'],
+            [['our_team_color', 'their_team_color', 'third_team_color'], 'string', 'max' => 8],
             [['uuid'], 'unique'],
             [['agent_id'], 'exist', 'skipOnError' => true, 'targetClass' => Agent::class, 'targetAttribute' => ['agent_id' => 'id']],
             [['fest_dragon_id'], 'exist', 'skipOnError' => true, 'targetClass' => DragonMatch3::class, 'targetAttribute' => ['fest_dragon_id' => 'id']],
@@ -130,6 +140,9 @@ class Battle3 extends ActiveRecord
             [['rank_after_id'], 'exist', 'skipOnError' => true, 'targetClass' => Rank3::class, 'targetAttribute' => ['rank_after_id' => 'id']],
             [['result_id'], 'exist', 'skipOnError' => true, 'targetClass' => Result3::class, 'targetAttribute' => ['result_id' => 'id']],
             [['rule_id'], 'exist', 'skipOnError' => true, 'targetClass' => Rule3::class, 'targetAttribute' => ['rule_id' => 'id']],
+            [['our_team_theme_id'], 'exist', 'skipOnError' => true, 'targetClass' => Splatfest3Theme::class, 'targetAttribute' => ['our_team_theme_id' => 'id']],
+            [['their_team_theme_id'], 'exist', 'skipOnError' => true, 'targetClass' => Splatfest3Theme::class, 'targetAttribute' => ['their_team_theme_id' => 'id']],
+            [['third_team_theme_id'], 'exist', 'skipOnError' => true, 'targetClass' => Splatfest3Theme::class, 'targetAttribute' => ['third_team_theme_id' => 'id']],
             [['version_id'], 'exist', 'skipOnError' => true, 'targetClass' => SplatoonVersion3::class, 'targetAttribute' => ['version_id' => 'id']],
             [['our_team_role_id'], 'exist', 'skipOnError' => true, 'targetClass' => TricolorRole3::class, 'targetAttribute' => ['our_team_role_id' => 'id']],
             [['their_team_role_id'], 'exist', 'skipOnError' => true, 'targetClass' => TricolorRole3::class, 'targetAttribute' => ['their_team_role_id' => 'id']],
@@ -205,6 +218,12 @@ class Battle3 extends ActiveRecord
             'our_team_role_id' => 'Our Team Role ID',
             'their_team_role_id' => 'Their Team Role ID',
             'third_team_role_id' => 'Third Team Role ID',
+            'our_team_color' => 'Our Team Color',
+            'their_team_color' => 'Their Team Color',
+            'third_team_color' => 'Third Team Color',
+            'our_team_theme_id' => 'Our Team Theme ID',
+            'their_team_theme_id' => 'Their Team Theme ID',
+            'third_team_theme_id' => 'Third Team Theme ID',
         ];
     }
 
@@ -268,6 +287,11 @@ class Battle3 extends ActiveRecord
         return $this->hasOne(TricolorRole3::class, ['id' => 'our_team_role_id']);
     }
 
+    public function getOurTeamTheme(): ActiveQuery
+    {
+        return $this->hasOne(Splatfest3Theme::class, ['id' => 'our_team_theme_id']);
+    }
+
     public function getRankAfter(): ActiveQuery
     {
         return $this->hasOne(Rank3::class, ['id' => 'rank_after_id']);
@@ -293,9 +317,19 @@ class Battle3 extends ActiveRecord
         return $this->hasOne(TricolorRole3::class, ['id' => 'their_team_role_id']);
     }
 
+    public function getTheirTeamTheme(): ActiveQuery
+    {
+        return $this->hasOne(Splatfest3Theme::class, ['id' => 'their_team_theme_id']);
+    }
+
     public function getThirdTeamRole(): ActiveQuery
     {
         return $this->hasOne(TricolorRole3::class, ['id' => 'third_team_role_id']);
+    }
+
+    public function getThirdTeamTheme(): ActiveQuery
+    {
+        return $this->hasOne(Splatfest3Theme::class, ['id' => 'third_team_theme_id']);
     }
 
     public function getUser(): ActiveQuery
