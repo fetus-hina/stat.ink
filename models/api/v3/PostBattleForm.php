@@ -85,8 +85,10 @@ final class PostBattleForm extends Model
     public $inked;
     public $our_team_inked;
     public $their_team_inked;
+    public $third_team_inked;
     public $our_team_percent;
     public $their_team_percent;
+    public $third_team_percent;
     public $our_team_count;
     public $their_team_count;
     public $level_before;
@@ -192,8 +194,8 @@ final class PostBattleForm extends Model
             [['rank_in_team'], 'integer', 'min' => 1, 'max' => 4],
             [['kill', 'assist', 'kill_or_assist', 'death', 'special'], 'integer', 'min' => 0, 'max' => 99],
             [['inked'], 'integer', 'min' => 0],
-            [['our_team_inked', 'their_team_inked'], 'integer', 'min' => 0],
-            [['our_team_percent', 'their_team_percent'], 'number', 'min' => 0, 'max' => 100],
+            [['our_team_inked', 'their_team_inked', 'third_team_inked'], 'integer', 'min' => 0],
+            [['our_team_percent', 'their_team_percent', 'third_team_percent'], 'number', 'min' => 0, 'max' => 100],
             [['our_team_count', 'their_team_count'], 'integer', 'min' => 0, 'max' => 100],
             [['level_before', 'level_after'], 'integer', 'min' => 1, 'max' => 99],
             [['rank_before_s_plus', 'rank_after_s_plus'], 'integer', 'min' => 0, 'max' => 50],
@@ -425,8 +427,10 @@ final class PostBattleForm extends Model
             'inked' => self::intVal($this->inked),
             'our_team_inked' => self::intVal($this->our_team_inked),
             'their_team_inked' => self::intVal($this->their_team_inked),
+            'third_team_inked' => self::intVal($this->third_team_inked),
             'our_team_percent' => self::floatVal($this->our_team_percent),
             'their_team_percent' => self::floatVal($this->their_team_percent),
+            'third_team_percent' => self::floatVal($this->third_team_percent),
             'our_team_count' => self::intVal($this->our_team_count),
             'their_team_count' => self::intVal($this->their_team_count),
             'level_before' => self::intVal($this->level_before),

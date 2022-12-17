@@ -17,19 +17,33 @@ return [
     if ($model->our_team_percent !== null && $model->their_team_percent !== null) {
       $ourPct = (float)$model->our_team_percent;
       $theirPct = (float)$model->their_team_percent;
-      if ($ourPct > 0 || $theirPct > 0) {
-        $ourDrawPct = round($ourPct * 100 / ($ourPct + $theirPct) * 100) / 100;
+      $thirdPct = (float)$model->third_team_percent;
+      if ($ourPct > 0 || $theirPct > 0 || $thirdPct > 0) {
+        $totalPct = $ourPct + $theirPct + $thirdPct;
+        $ourDrawPct = round(10000 * $ourPct / $totalPct) / 100;
+        $thirdDrawPct = round(10000 * $thirdPct / $totalPct) / 100;
+        $theirDrawPct = 100 - ($ourDrawPct + $thirdDrawPct);
         $ourPoint = null;
         $theirPoint = null;
-        if ($model->our_team_inked !== null && $model->their_team_inked !== null) {
+        $thirdPoint = null;
+        if (
+          $model->our_team_inked !== null &&
+          $model->their_team_inked !== null
+        ) {
           $ourPoint = Yii::t('app', '{point}p', ['point' => $model->our_team_inked]);
           $theirPoint = Yii::t('app', '{point}p', ['point' => $model->their_team_inked]);
+          $thirdPoint = $model->third_team_inked !== null
+            ? Yii::t('app', '{point}p', ['point' => $model->third_team_inked])
+            : null;
         } elseif ($model->map && $model->map->area !== null) {
           $ourPoint = Yii::t('app', '~{point}p', [
             'point' => Yii::$app->formatter->asInteger(round($model->map->area * $ourPct / 100)),
           ]);
           $theirPoint = Yii::t('app', '~{point}p', [
             'point' => Yii::$app->formatter->asInteger(round($model->map->area * $theirPct / 100)),
+          ]);
+          $thirdPoint = Yii::t('app', '~{point}p', [
+            'point' => Yii::$app->formatter->asInteger(round($model->map->area * $thirdPct / 100)),
           ]);
         }
         return Html::tag(
@@ -53,16 +67,32 @@ return [
               'div',
               Html::encode(Yii::$app->formatter->asPercent($theirPct / 100, 1)),
               [
-                'class' => ['progress-bar', 'progress-bar-danger', 'text-right'],
+                'class' => ['progress-bar', 'progress-bar-danger'],
                 'style' => array_merge(
-                  ['width' => sprintf('%.2f%%', 100 - $ourDrawPct)],
+                  ['width' => sprintf('%.2f%%', $theirDrawPct)],
                   $model->their_team_color
                     ? ['background-color' => "#{$model->their_team_color}"]
                     : [],
                 ),
                 'title' => $theirPoint,
               ]
-            )
+            ),
+            $model->rule?->key === 'tricolor'
+              ? Html::tag(
+                'div',
+                Html::encode(Yii::$app->formatter->asPercent($thirdPct / 100, 1)),
+                [
+                  'class' => ['progress-bar', 'progress-bar-warning'],
+                  'style' => array_merge(
+                    ['width' => sprintf('%.2f%%', $thirdDrawPct)],
+                    $model->third_team_color
+                      ? ['background-color' => "#{$model->third_team_color}"]
+                      : [],
+                  ),
+                  'title' => $thirdPoint,
+                ],
+              )
+              : '',
           ]),
           [
             'class' => 'progress',
@@ -72,11 +102,18 @@ return [
       }
     }
 
-    if ($model->our_team_inked !== null && $model->their_team_inked !== null) {
+    if (
+      $model->our_team_inked !== null &&
+      $model->their_team_inked !== null
+    ) {
       $ourPoint = (int)$model->our_team_inked;
       $theirPoint = (int)$model->their_team_inked;
-      if ($ourPoint > 0 || $theirPoint > 0) {
-        $ourDrawPct = round($ourPoint * 100 / ($ourPoint + $theirPoint) * 100) / 100;
+      $thirdPoint = (int)$model->third_team_inked;
+      if ($ourPoint > 0 || $theirPoint > 0 || $thirdPoint > 0) {
+        $totalPoint = $ourPoint + $theirPoint + $thirdPoint;
+        $ourDrawPct = round($ourPoint * 100 / $totalPoint * 100) / 100;
+        $thirdDrawPct = round($thirdPoint * 100 / $totalPoint * 100) / 100;
+        $theirDrawPct = 100 - ($ourDrawPct + $thirdDrawPct);
         return Html::tag(
           'div',
           implode('', [
@@ -99,7 +136,7 @@ return [
               [
                 'class' => ['progress-bar', 'progress-bar-danger', 'text-right'],
                 'style' => array_merge(
-                  ['width' => sprintf('%.2f%%', 100 - $ourDrawPct)],
+                  ['width' => sprintf('%.2f%%', $theirDrawPct)],
                   $model->their_team_color
                     ? ['background-color' => "#{$model->their_team_color}"]
                     : [],
@@ -107,6 +144,22 @@ return [
                 'title' => $theirPoint,
               ]
             ),
+            $model->rule?->key === 'tricolor'
+              ? Html::tag(
+                'div',
+                Html::encode(Yii::t('app', '{point}p', ['point' => $thirdPoint])),
+                [
+                  'class' => ['progress-bar', 'progress-bar-danger', 'text-right'],
+                  'style' => array_merge(
+                    ['width' => sprintf('%.2f%%', $thirdDrawPct)],
+                    $model->third_team_color
+                      ? ['background-color' => "#{$model->third_team_color}"]
+                      : [],
+                  ),
+                  'title' => $thirdPoint,
+                ]
+              )
+              : '',
           ]),
           [
             'class' => 'progress',
