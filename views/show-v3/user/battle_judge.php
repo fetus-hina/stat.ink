@@ -12,14 +12,17 @@ $draw = function (
     string $lhsString,
     string $rhsString,
     ?string $lhsTitle = null,
-    ?string $rhsTitle = null
+    ?string $rhsTitle = null,
+    ?string $lhsColor = null,
+    ?string $rhsColor = null,
 ): string {
     $bar = function (
         float $curValue,
         float $otherValue,
         string $class,
         string $string,
-        ?string $title = null
+        ?string $title = null,
+        ?string $color = null,
     ): string {
         return ($curValue > 0)
             ? Html::tag('div', Html::encode($string), [
@@ -28,10 +31,13 @@ $draw = function (
                     $class,
                     $title === null ? '' : 'auto-tooltip',
                 ],
-                'style' => [
-                    'width' => sprintf('%.f%%', $curValue * 100 / ($curValue + $otherValue)),
-                    'font-weight' => ($curValue >= $otherValue) ? '700' : '400',
-                ],
+                'style' => array_merge(
+                    [
+                        'width' => sprintf('%.f%%', $curValue * 100 / ($curValue + $otherValue)),
+                        'font-weight' => ($curValue >= $otherValue) ? '700' : '400',
+                    ],
+                    $color ? ['background-color' => "#{$color}"] : [],
+                ),
                 'title' => $title ?? '',
             ])
             : '';
@@ -40,13 +46,13 @@ $draw = function (
         'div',
         implode('', [
             $lhsValue > 0
-                ? $bar($lhsValue, $rhsValue, 'progress-bar-info', $lhsString, $lhsTitle)
+                ? $bar($lhsValue, $rhsValue, 'progress-bar-info', $lhsString, $lhsTitle, $lhsColor)
                 : '',
             $rhsValue > 0
-                ? $bar($rhsValue, $lhsValue, 'progress-bar-danger', $rhsString, $rhsTitle)
+                ? $bar($rhsValue, $lhsValue, 'progress-bar-danger', $rhsString, $rhsTitle, $rhsColor)
                 : '',
         ]),
-        ['class' => 'progress']
+        ['class' => 'progress'],
     );
 };
 
@@ -79,7 +85,9 @@ if ($model->our_team_percent !== null && $model->their_team_percent !== null) {
         $fmt->asPercent($model->our_team_percent / 100, 1),
         $fmt->asPercent($model->their_team_percent / 100, 1),
         $myTitle,
-        $hisTitle
+        $hisTitle,
+        $model->our_team_color,
+        $model->their_team_color,
     );
     echo "$v\n";
 } elseif ($model->our_team_inked !== null && $model->their_team_inked !== null) {
@@ -91,7 +99,11 @@ if ($model->our_team_percent !== null && $model->their_team_percent !== null) {
         ]),
         Yii::t('app', '{point}p', [
             'point' => Yii::$app->formatter->asInteger((int)$model->their_team_inked),
-        ])
+        ]),
+        null,
+        null,
+        $model->our_team_color,
+        $model->their_team_color,
     );
     echo "$v\n";
 } elseif ($model->our_team_count !== null && $model->their_team_count !== null) {
@@ -103,7 +115,11 @@ if ($model->our_team_percent !== null && $model->their_team_percent !== null) {
           : (string)$model->our_team_count,
         $model->their_team_count == 100
           ? Yii::t('app', 'KNOCKOUT')
-          : (string)$model->their_team_count
+          : (string)$model->their_team_count,
+        null,
+        null,
+        $model->our_team_color,
+        $model->their_team_color,
     );
     echo "$v\n";
 }

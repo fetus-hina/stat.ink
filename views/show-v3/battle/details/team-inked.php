@@ -40,7 +40,12 @@ return [
               Html::encode(Yii::$app->formatter->asPercent($ourPct / 100, 1)),
               [
                 'class' => ['progress-bar', 'progress-bar-info'],
-                'style' => ['width' => sprintf('%.2f%%', $ourDrawPct)],
+                'style' => array_merge(
+                  ['width' => sprintf('%.2f%%', $ourDrawPct)],
+                  $model->our_team_color
+                    ? ['background-color' => "#{$model->our_team_color}"]
+                    : [],
+                ),
                 'title' => $ourPoint,
               ]
             ),
@@ -49,7 +54,12 @@ return [
               Html::encode(Yii::$app->formatter->asPercent($theirPct / 100, 1)),
               [
                 'class' => ['progress-bar', 'progress-bar-danger', 'text-right'],
-                'style' => ['width' => sprintf('%.2f%%', 100 - $ourDrawPct)],
+                'style' => array_merge(
+                  ['width' => sprintf('%.2f%%', 100 - $ourDrawPct)],
+                  $model->their_team_color
+                    ? ['background-color' => "#{$model->their_team_color}"]
+                    : [],
+                ),
                 'title' => $theirPoint,
               ]
             )
@@ -75,7 +85,12 @@ return [
               Html::encode(Yii::t('app', '{point}p', ['point' => $ourPoint])),
               [
                 'class' => ['progress-bar', 'progress-bar-info'],
-                'style' => ['width' => sprintf('%.2f%%', $ourDrawPct)],
+                'style' => array_merge(
+                  ['width' => sprintf('%.2f%%', $ourDrawPct)],
+                  $model->our_team_color
+                    ? ['background-color' => "#{$model->our_team_color}"]
+                    : [],
+                ),
               ]
             ),
             Html::tag(
@@ -83,7 +98,12 @@ return [
               Html::encode(Yii::t('app', '{point}p', ['point' => $theirPoint])),
               [
                 'class' => ['progress-bar', 'progress-bar-danger', 'text-right'],
-                'style' => ['width' => sprintf('%.2f%%', 100 - $ourDrawPct)],
+                'style' => array_merge(
+                  ['width' => sprintf('%.2f%%', 100 - $ourDrawPct)],
+                  $model->their_team_color
+                    ? ['background-color' => "#{$model->their_team_color}"]
+                    : [],
+                ),
                 'title' => $theirPoint,
               ]
             ),
