@@ -20,7 +20,10 @@ return [
     'Splat Zones' => 'Herrschaft',
     'SZ' => 'Herrschaft',
     'TC' => 'Turmkommando',
-    'Tower Control' => 'Turmkommando',
+    'Tower Control' => 'Turm-Kommando',
+    'Tri' => 'Drei',
+    'Tricolor Battle' => 'Dreifarb-Match',
+    'Tricolor Turf War' => 'Dreifarb-Kampf',
     'Turf War' => 'Revierkampf',
     'TW' => 'Revierkampf',
 ];

@@ -20,7 +20,10 @@ return [
     'Splat Zones' => 'Zona splat',
     'SZ' => 'Zona splat',
     'TC' => 'Torre Mobile',
-    'Tower Control' => 'Torre Mobile',
+    'Tower Control' => 'Torre mobile',
+    'Tri' => '',
+    'Tricolor Battle' => 'Scontro tricolore',
+    'Tricolor Turf War' => 'Partita tricolore',
     'Turf War' => 'Mischia mollusca',
     'TW' => 'Mischia mollusca',
 ];

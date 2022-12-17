@@ -21,6 +21,7 @@ use yii\db\ActiveRecord;
  * @property string $name
  *
  * @property BattlePlayer3[] $battlePlayer3s
+ * @property BattleTricolorPlayer3[] $battleTricolorPlayer3s
  * @property SalmonPlayer3[] $salmonPlayer3s
  */
 class SplashtagTitle3 extends ActiveRecord
@@ -50,6 +51,11 @@ class SplashtagTitle3 extends ActiveRecord
     public function getBattlePlayer3s(): ActiveQuery
     {
         return $this->hasMany(BattlePlayer3::class, ['splashtag_title_id' => 'id']);
+    }
+
+    public function getBattleTricolorPlayer3s(): ActiveQuery
+    {
+        return $this->hasMany(BattleTricolorPlayer3::class, ['splashtag_title_id' => 'id']);
     }
 
     public function getSalmonPlayer3s(): ActiveQuery

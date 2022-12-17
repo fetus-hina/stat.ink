@@ -14,6 +14,8 @@ use app\components\behaviors\TrimAttributesBehavior;
 use app\components\validators\KeyValidator;
 use app\models\Battle3;
 use app\models\BattlePlayer3;
+use app\models\BattleTricolorPlayer3;
+use app\models\Rule3;
 use app\models\SplashtagTitle3;
 use app\models\Weapon3;
 use app\models\Weapon3Alias;
@@ -37,6 +39,7 @@ final class PlayerForm extends Model
     public $kill_or_assist;
     public $death;
     public $special;
+    public $signal;
     public $gears;
     public $disconnected;
     public $crown;
@@ -78,7 +81,7 @@ final class PlayerForm extends Model
                 'aliasClass' => Weapon3Alias::class,
             ],
             [['inked'], 'integer', 'min' => 0],
-            [['kill', 'assist', 'kill_or_assist', 'death', 'special'], 'integer',
+            [['kill', 'assist', 'kill_or_assist', 'death', 'special', 'signal'], 'integer',
                 'min' => 0,
                 'max' => 99,
             ],
@@ -96,48 +99,49 @@ final class PlayerForm extends Model
         ];
     }
 
-    public function save(Battle3 $battle, bool $isOurTeam, bool $rewriteKillAssist): ?BattlePlayer3
-    {
+    public function save(
+        Battle3 $battle,
+        bool $isOurTeam,
+        int $tricolorTeamNumber,
+    ): BattlePlayer3|BattleTricolorPlayer3|null {
         if (!$this->validate()) {
             return null;
         }
 
-        $model = Yii::createObject([
-            'class' => BattlePlayer3::class,
-            'battle_id' => $battle->id,
-            'is_our_team' => $isOurTeam,
-            'is_me' => (bool)($isOurTeam && self::boolVal($this->me)),
-            'rank_in_team' => self::intVal($this->rank_in_team),
-            'name' => self::strVal($this->name),
-            'number' => self::hashNumberVal($this->number),
-            'weapon_id' => self::key2id($this->weapon, Weapon3::class, Weapon3Alias::class, 'weapon_id'),
-            'inked' => self::intVal($this->inked),
-            'kill' => self::intVal($this->kill),
-            'assist' => self::intVal($this->assist),
-            'kill_or_assist' => self::intVal($this->kill_or_assist),
-            'death' => self::intVal($this->death),
-            'special' => self::intVal($this->special),
-            'is_disconnected' => self::boolVal($this->disconnected),
-            'splashtag_title_id' => self::splashtagTitle($this->splashtag_title),
-            'headgear_id' => $this->gearConfiguration($this->gearsForm ? $this->gearsForm->headgearForm : null),
-            'clothing_id' => $this->gearConfiguration($this->gearsForm ? $this->gearsForm->clothingForm : null),
-            'shoes_id' => $this->gearConfiguration($this->gearsForm ? $this->gearsForm->shoesForm : null),
-            'is_crowned' => self::boolVal($this->crown),
-        ]);
-
-        if (
-            $rewriteKillAssist &&
-            \is_int($model->kill) &&
-            \is_int($model->assist)
-        ) {
-            $model->kill_or_assist = $model->kill;
-            $model->kill = $model->kill_or_assist - $model->assist;
-            if ($model->kill < 0) {
-                $model->kill_or_assist = null;
-                $model->kill = null;
-                $model->assist = null;
-            }
-        }
+        $isTricolor = self::isTricolor($battle);
+        $model = Yii::createObject(
+            \array_merge(
+                [
+                    'class' => $isTricolor ? BattleTricolorPlayer3::class : BattlePlayer3::class,
+                    'battle_id' => $battle->id,
+                    'is_me' => (bool)($isOurTeam && self::boolVal($this->me)),
+                    'rank_in_team' => self::intVal($this->rank_in_team),
+                    'name' => self::strVal($this->name),
+                    'number' => self::hashNumberVal($this->number),
+                    'weapon_id' => self::key2id($this->weapon, Weapon3::class, Weapon3Alias::class, 'weapon_id'),
+                    'inked' => self::intVal($this->inked),
+                    'kill' => self::intVal($this->kill),
+                    'assist' => self::intVal($this->assist),
+                    'kill_or_assist' => self::intVal($this->kill_or_assist),
+                    'death' => self::intVal($this->death),
+                    'special' => self::intVal($this->special),
+                    'is_disconnected' => self::boolVal($this->disconnected),
+                    'splashtag_title_id' => self::splashtagTitle($this->splashtag_title),
+                    'headgear_id' => $this->gearConfiguration($this->gearsForm ? $this->gearsForm->headgearForm : null),
+                    'clothing_id' => $this->gearConfiguration($this->gearsForm ? $this->gearsForm->clothingForm : null),
+                    'shoes_id' => $this->gearConfiguration($this->gearsForm ? $this->gearsForm->shoesForm : null),
+                    'is_crowned' => self::boolVal($this->crown),
+                ],
+                $isTricolor
+                    ? [
+                        'team' => $tricolorTeamNumber,
+                        'signal' => self::intVal($this->signal),
+                    ]
+                    : [
+                        'is_our_team' => $isOurTeam,
+                    ],
+            ),
+        );
 
         if (!$model->save()) {
             $this->addError('_system', \vsprintf('Failed to store new player info, info=%s', [
@@ -183,5 +187,17 @@ final class PlayerForm extends Model
     {
         $model = $form ? $form->save() : null;
         return $model ? (int)$model->id : null;
+    }
+
+    private static function isTricolor(Battle3 $battle): bool
+    {
+        $tricolor = Rule3::find()
+            ->andWhere(['key' => 'tricolor'])
+            ->limit(1)
+            ->one();
+
+        return $tricolor &&
+            $battle->rule_id !== null &&
+            (int)$tricolor->id === (int)$battle->rule_id;
     }
 }

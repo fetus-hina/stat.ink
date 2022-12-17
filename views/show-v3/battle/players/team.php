@@ -4,17 +4,19 @@ declare(strict_types=1);
 
 use app\models\Ability3;
 use app\models\BattlePlayer3;
+use app\models\BattleTricolorPlayer3;
 use app\models\Splatfest3Theme;
 use app\models\TricolorRole3;
 use yii\helpers\Html;
 use yii\web\View;
 
 /**
- * @var BattlePlayer3[] $players
  * @var Splatfest3Theme|null $theme
  * @var TricolorRole3|null $role
  * @var View $this
+ * @var array<BattlePlayer3|BattleTricolorPlayer3> $players
  * @var array<string, Ability3> $abilities
+ * @var bool $isTricolor
  * @var bool $ourTeam
  * @var string|null $color
  */
@@ -24,7 +26,7 @@ $f = Yii::$app->formatter;
 $total = function (string $attrName) use ($players): ?int {
   return array_reduce(
     array_map(
-      function (BattlePlayer3 $model) use ($attrName): ?int {
+      function (BattlePlayer3|BattleTricolorPlayer3 $model) use ($attrName): ?int {
         $v = filter_var($model->{$attrName} ?? null, FILTER_VALIDATE_INT);
         return is_int($v) ? $v : null;
       },
@@ -79,6 +81,9 @@ if ($colorClass) {
     }
   ?></td>
   <td class="text-right"><?= $f->asInteger($total('special')) ?></td>
+<?php if ($isTricolor) { ?>
+  <td class="text-right"><?= $f->asInteger($total('signal')) ?></td>
+<?php } ?>
 </tr>
 <?php
 foreach (array_values($players) as $i => $player) {
@@ -86,6 +91,7 @@ foreach (array_values($players) as $i => $player) {
     'abilities' => $abilities,
     'colorClass' => $colorClass,
     'isFirst' => $i === 0,
+    'isTricolor' => $isTricolor,
     'nPlayers' => count($players),
     'player' => $player,
   ]) . "\n";

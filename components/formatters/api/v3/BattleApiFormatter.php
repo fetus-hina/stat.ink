@@ -12,6 +12,7 @@ namespace app\components\formatters\api\v3;
 
 use app\models\Battle3;
 use app\models\BattlePlayer3;
+use app\models\BattleTricolorPlayer3;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\JsExpression;
@@ -29,6 +30,7 @@ final class BattleApiFormatter
             return null;
         }
 
+        $tricolor = $model->rule?->key === 'tricolor';
         return [
             'id' => $model->uuid,
             'url' => Url::to(
@@ -60,8 +62,10 @@ final class BattleApiFormatter
             'medals' => MedalApiFormatter::toJson($model->medals, $fullTranslate),
             'our_team_inked' => $model->our_team_inked,
             'their_team_inked' => $model->their_team_inked,
+            'third_team_inked' => $model->third_team_inked,
             'our_team_percent' => $model->our_team_percent,
             'their_team_percent' => $model->their_team_percent,
+            'third_team_percent' => $model->third_team_percent,
             'our_team_count' => $model->our_team_count,
             'their_team_count' => $model->their_team_count,
             'level_before' => $model->level_before,
@@ -95,11 +99,27 @@ final class BattleApiFormatter
             'their_team_theme' => SplatfestThemeApiFormatter::toJson($model->theirTeamTheme, $fullTranslate),
             'third_team_theme' => SplatfestThemeApiFormatter::toJson($model->thirdTeamTheme, $fullTranslate),
             'our_team_members' => BattlePlayerApiFormatter::toJson(
-                self::filterPlayers($model->battlePlayer3s, true),
+                self::filterPlayers(
+                    $tricolor ? $model->battleTricolorPlayer3s : $model->battlePlayer3s,
+                    true,
+                    1,
+                ),
                 $fullTranslate,
             ),
             'their_team_members' => BattlePlayerApiFormatter::toJson(
-                self::filterPlayers($model->battlePlayer3s, false),
+                self::filterPlayers(
+                    $tricolor ? $model->battleTricolorPlayer3s : $model->battlePlayer3s,
+                    false,
+                    2,
+                ),
+                $fullTranslate,
+            ),
+            'third_team_members' => BattlePlayerApiFormatter::toJson(
+                self::filterPlayers(
+                    $tricolor ? $model->battleTricolorPlayer3s : [],
+                    false,
+                    3,
+                ),
                 $fullTranslate,
             ),
             'note' => $model->note,
@@ -120,17 +140,19 @@ final class BattleApiFormatter
     }
 
     /**
-     * @param BattlePlayer3[] $players
-     * @return BattlePlayer3[]
+     * @param array<BattlePlayer3|BattleTricolorPlayer3> $players
+     * @return Array<BattlePlayer3|BattleTricolorPlayer3>
      */
-    private static function filterPlayers(array $players, bool $isOurTeam): array
+    private static function filterPlayers(array $players, bool $isOurTeam, int $team): array
     {
         return ArrayHelper::sort(
             \array_filter(
                 $players,
-                fn (BattlePlayer3 $model): bool => $model->is_our_team === $isOurTeam,
+                fn (BattlePlayer3|BattleTricolorPlayer3 $model): bool => $model instanceof BattlePlayer3
+                    ? $model->is_our_team === $isOurTeam
+                    : $model->team === $team,
             ),
-            fn (BattlePlayer3 $a, BattlePlayer3 $b): int => $a->id <=> $b->id,
+            fn ($a, $b): int => $a->id <=> $b->id,
         );
     }
 

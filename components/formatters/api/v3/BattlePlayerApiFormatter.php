@@ -11,11 +11,12 @@ declare(strict_types=1);
 namespace app\components\formatters\api\v3;
 
 use app\models\BattlePlayer3;
+use app\models\BattleTricolorPlayer3;
 
 final class BattlePlayerApiFormatter
 {
     /**
-     * @param BattlePlayer3[]|null $models
+     * @param array<BattlePlayer3|BattleTricolorPlayer3>|null $models
      */
     public static function toJson(?array $models, bool $fullTranslate = false): ?array
     {
@@ -25,7 +26,7 @@ final class BattlePlayerApiFormatter
 
         return \array_values(
             \array_map(
-                fn (BattlePlayer3 $model): array => [
+                fn (BattlePlayer3|BattleTricolorPlayer3 $model): array => [
                     'me' => $model->is_me,
                     'rank_in_team' => $model->rank_in_team,
                     'name' => $model->name,
@@ -37,6 +38,7 @@ final class BattlePlayerApiFormatter
                     'kill_or_assist' => $model->kill_or_assist,
                     'death' => $model->death,
                     'special' => $model->special,
+                    'signal' => $model instanceof BattleTricolorPlayer3 ? $model->signal : null,
                     'inked' => $model->inked,
                     'disconnected' => $model->is_disconnected,
                     'crown' => $model->is_crowned,
@@ -46,8 +48,8 @@ final class BattlePlayerApiFormatter
                         'shoes' => GearConfigurationApiFormatter::toJson($model->shoes, $fullTranslate),
                     ],
                 ],
-                $models
-            )
+                $models,
+            ),
         );
     }
 }

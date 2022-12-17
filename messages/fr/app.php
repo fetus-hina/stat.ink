@@ -570,6 +570,7 @@ return [
     'Total Inked' => 'Encrage Total',
     'To use Slack integration, you need to configure Slack\'s "Incoming Webhook" first.' => 'Pour utiliser l\'intégration Slack, vous avez besoin de configurer le "Webhook d\'entrée" avant.',
     'Trends' => 'Tendances',
+    'Try to secure the Ultra Signal' => '',
     'Turf Inked' => 'Surface encrée',
     'Turf inked (including bonus)' => 'Surface encrée (y compris bonus)',
     'Turf Inked + Bonus' => 'Surface encrée + bonus',

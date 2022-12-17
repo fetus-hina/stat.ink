@@ -22,6 +22,9 @@ return [
     'SZ' => '区域',
     'TC' => '塔楼',
     'Tower Control' => '真格塔楼',
+    'Tri' => '三色',
+    'Tricolor Battle' => '三色夺宝比赛',
+    'Tricolor Turf War' => '三色夺宝对战',
     'Turf War' => '占地对战',
     'TW' => '占地',
 ];

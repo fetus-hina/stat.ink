@@ -27,15 +27,25 @@ return [
               Html::encode(Yii::$app->formatter->asInteger($ourCount)),
               [
                 'class' => ['progress-bar', 'progress-bar-info'],
-                'style' => ['width' => sprintf('%.2f%%', $ourDrawPct)],
+                'style' => array_merge(
+                  ['width' => sprintf('%.2f%%', $ourDrawPct)],
+                  $model->our_team_color
+                    ? ['background-color' => "#{$model->our_team_color}"]
+                    : [],
+                ),
               ]
             ),
             Html::tag(
               'div',
               Html::encode(Yii::$app->formatter->asInteger($theirCount)),
               [
-                'class' => ['progress-bar', 'progress-bar-danger', 'text-right'],
-                'style' => ['width' => sprintf('%.2f%%', 100 - $ourDrawPct)],
+                'class' => ['progress-bar', 'progress-bar-danger'],
+                'style' => array_merge(
+                  ['width' => sprintf('%.2f%%', 100 - $ourDrawPct)],
+                  $model->their_team_color
+                    ? ['background-color' => "#{$model->their_team_color}"]
+                    : [],
+                ),
               ]
             )
           ]),

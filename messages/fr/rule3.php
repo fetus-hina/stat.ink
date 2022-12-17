@@ -21,6 +21,9 @@ return [
     'SZ' => 'Défense de zone',
     'TC' => 'Expédition risquée',
     'Tower Control' => 'Expédition risquée',
+    'Tri' => '',
+    'Tricolor Battle' => 'Match tricolore',
+    'Tricolor Turf War' => 'Guerre tricolore',
     'Turf War' => 'Guerre de territoire',
     'TW' => 'Guerre de territoire',
 ];

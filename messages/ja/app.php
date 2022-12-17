@@ -558,6 +558,7 @@ return [
     'Total Inked' => '合計塗った面積',
     'Total' => '合計',
     'Trends' => 'トレンド',
+    'Try to secure the Ultra Signal' => 'スーパーシグナルへの挑戦',
     'Turf Inked + Bonus' => '塗った面積+勝利ボーナス',
     'Turf Inked' => '塗った面積',
     'Turf inked (including bonus)' => '塗った面積（勝利ボーナス込み）',
