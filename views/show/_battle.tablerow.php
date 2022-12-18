@@ -1,9 +1,17 @@
 <?php
+
 use app\assets\KillRatioColumnAsset;
 use app\components\helpers\WeaponShortener;
 use app\components\widgets\EmbedVideo;
 use app\components\widgets\KillRatioBadgeWidget;
+use app\models\Battle;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var Battle $model
+ * @var View $this
+ */
 
 KillRatioColumnAsset::register($this);
 $this->registerJs('jQuery(".kill-ratio").killRatioColumn();');

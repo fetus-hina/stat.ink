@@ -7,8 +7,15 @@ use app\components\widgets\AdWidget;
 use app\components\widgets\BattleFilterWidget;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\WinLoseLegend;
+use app\models\User;
 use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\web\View;
+
+/**
+ * @var User $user
+ * @var View $this
+ */
 
 $title = Yii::t('app', "{name}'s Battle Stats (by Stage)", ['name' => $user->name]);
 $this->title = implode(' | ', [Yii::$app->name, $title]);

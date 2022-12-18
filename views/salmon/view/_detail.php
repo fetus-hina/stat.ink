@@ -11,6 +11,7 @@ use app\components\widgets\SalmonHazardHistory;
 use app\models\Salmon2;
 use app\models\SalmonSchedule2;
 use app\models\SalmonTitle2;
+use app\models\User;
 use yii\bootstrap\Progress;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -19,6 +20,8 @@ use yii\web\View;
 use yii\widgets\DetailView;
 
 /**
+ * @var Salmon2 $model
+ * @var User $user
  * @var View $this
  */
 

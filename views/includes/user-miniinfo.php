@@ -8,10 +8,16 @@ use app\components\widgets\ActivityWidget;
 use app\components\widgets\RemoteFollowDialog;
 use app\components\widgets\UserIcon;
 use app\models\Rank;
+use app\models\User;
 use statink\yii2\twitter\webintents\TwitterWebIntentsAsset;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
+
+/**
+ * @var View $this
+ * @var User $user
+ */
 
 UserMiniinfoAsset::register($this);
 $icons = AppLinkAsset::register($this);

@@ -8,11 +8,18 @@ use app\components\widgets\Battle2FilterWidget;
 use app\components\widgets\FA;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\UserMiniInfo2;
+use app\models\User;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\View;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
+
+/**
+ * @var User $user
+ * @var View $this
+ */
 
 $title = Yii::t('app', "{name}'s Splat Log", ['name' => $user->name]);
 $this->title = sprintf('%s | %s', Yii::$app->name, $title);

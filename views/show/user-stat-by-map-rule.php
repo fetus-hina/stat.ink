@@ -9,9 +9,16 @@ use app\components\widgets\BattleFilterWidget;
 use app\components\widgets\FA;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\WinLoseLegend;
+use app\models\User;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
+use yii\web\View;
+
+/**
+ * @var User $user
+ * @var View $this
+ */
 
 $title = Yii::t('app', "{name}'s Battle Stats (by Mode and Stage)", ['name' => $user->name]);
 $this->title = implode(' | ', [Yii::$app->name, $title]);

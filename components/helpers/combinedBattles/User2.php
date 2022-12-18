@@ -14,7 +14,12 @@ use DateTime;
 use DateTimeImmutable;
 use app\models\Battle2;
 use app\models\Salmon2;
+use app\models\User;
 use yii\db\ActiveQuery;
+
+/**
+ * @var User $user
+ */
 
 return [
     [

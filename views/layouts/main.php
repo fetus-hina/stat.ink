@@ -10,6 +10,12 @@ use app\components\widgets\LanguageDialog;
 use app\components\widgets\TimezoneDialog;
 use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\web\View;
+
+/**
+ * @var View $this
+ * @var string $content
+ */
 
 AppAsset::register($this);
 Yii::$app->theme->registerAssets($this);

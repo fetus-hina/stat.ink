@@ -6,8 +6,15 @@ use app\components\widgets\AdWidget;
 use app\components\widgets\SalmonFilterWidget;
 use app\components\widgets\SalmonUserInfo;
 use app\components\widgets\SnsWidget;
+use app\models\User;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\View;
+
+/**
+ * @var User $user
+ * @var View $this
+ */
 
 $title = Yii::t('app-salmon2', "{name}'s Salmon Log", ['name' => $user->name]);
 $this->title = sprintf('%s | %s', Yii::$app->name, $title);

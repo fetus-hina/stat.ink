@@ -5,6 +5,12 @@ declare(strict_types=1);
 use app\components\widgets\FA;
 use app\models\User;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var User $user
+ * @var View $this
+ */
 
 echo Html::tag(
   'p',

@@ -1,15 +1,23 @@
 <?php
+
 declare(strict_types=1);
 
 use app\components\widgets\AdWidget;
 use app\components\widgets\BattleFilterWidget;
 use app\components\widgets\FA;
 use app\components\widgets\SnsWidget;
+use app\models\User;
 use statink\yii2\sortableTable\SortableTableAsset;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\View;
+
+/**
+ * @var User $user
+ * @var View $this
+ */
 
 $this->context->layout = 'main';
 $title = Yii::t('app', '{name}\'s Battle Stats (by Weapon)', ['name' => $user->name]);

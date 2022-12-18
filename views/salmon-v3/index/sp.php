@@ -5,8 +5,15 @@ declare(strict_types=1);
 use app\assets\SimpleBattleListAsset;
 use app\components\i18n\Formatter;
 use app\components\widgets\FA;
+use app\models\User;
 use yii\helpers\Html;
+use yii\web\View;
 use yii\widgets\ListView;
+
+/**
+ * @var User $user
+ * @var View $this
+ */
 
 SimpleBattleListAsset::register($this);
 

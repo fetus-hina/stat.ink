@@ -5,7 +5,14 @@ declare(strict_types=1);
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\UserMiniInfo2;
+use app\models\User;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var User $user
+ * @var View $this
+ */
 
 $title = Yii::t('app', "{name}'s Battle Stats (Splatfest)", ['name' => $user->name]);
 $this->title = implode(' | ', [

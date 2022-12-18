@@ -17,6 +17,11 @@ use yii\bootstrap\ActiveForm;
 use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var View $this
+ */
 
 $title = Yii::t('app', 'Winning Percentage based on K/D');
 $this->title = Yii::$app->name . ' | ' . $title;

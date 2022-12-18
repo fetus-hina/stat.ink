@@ -2,7 +2,14 @@
 
 declare(strict_types=1);
 
+use app\models\Battle3;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var Battle3 $model
+ * @var View $this
+ */
 
 $this->registerCss('.cell-judge .progress{width:100%;min-width:150px;margin-bottom:0}');
 
