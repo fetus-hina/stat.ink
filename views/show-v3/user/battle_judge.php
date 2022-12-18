@@ -50,7 +50,8 @@ $draw = function (
               ? '700'
               : '400',
           ],
-          $color ? ['background-color' => "#{$color}"] : [],
+          // $color ? ['background-color' => "#{$color}"] : [],
+          [],
         ),
         'title' => $title ?? '',
       ])
