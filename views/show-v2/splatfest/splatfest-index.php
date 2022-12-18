@@ -2,8 +2,15 @@
 
 declare(strict_types=1);
 
+use app\models\User;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
+use yii\web\View;
+
+/**
+ * @var User $user
+ * @var View $this
+ */
 
 $percentile = fn($expr, $fraction) => vsprintf('PERCENTILE_CONT(%.2f) WITHIN GROUP (ORDER BY %s)', [
   $fraction,

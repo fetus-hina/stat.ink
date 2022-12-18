@@ -4,7 +4,14 @@ declare(strict_types=1);
 
 use app\assets\Spl2WeaponAsset;
 use app\components\widgets\Label;
+use app\models\Battle2;
 use yii\bootstrap\Html;
+use yii\web\View;
+
+/**
+ * @var View $this
+ * @var Battle2 $battle
+ */
 
 $fmt = Yii::$app->formatter;
 $icons = Spl2WeaponAsset::register($this);

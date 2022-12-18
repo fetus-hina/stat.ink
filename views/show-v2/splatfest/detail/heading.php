@@ -2,8 +2,17 @@
 
 declare(strict_types=1);
 
+use app\models\Splatfest2;
+use app\models\User;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\View;
+
+/**
+ * @var Splatfest2 $fest
+ * @var User $user
+ * @var View $this
+ */
 
 echo Html::tag(
   'h2',

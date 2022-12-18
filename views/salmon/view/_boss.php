@@ -1,14 +1,22 @@
 <?php
+
 declare(strict_types=1);
 
 use app\components\i18n\Formatter;
 use app\components\widgets\PlayerName2Widget;
+use app\models\Salmon2;
 use app\models\SalmonBossAppearance2;
 use app\models\SalmonPlayer2;
 use statink\yii2\sortableTable\SortableTableAsset;
 use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var Salmon2 $model
+ * @var View $this
+ */
 
 $formatter = Yii::createObject([
   'class' => Formatter::class,

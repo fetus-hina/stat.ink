@@ -83,6 +83,17 @@ $isTricolor = $battle->rule?->key === 'tricolor';
       ]) . "\n" ?>
 <?php } ?>
 <?php } else { ?>
+<?php if ($isTricolor) { ?>
+      <?= $this->render('//show-v3/battle/players/team', [
+        'abilities' => $abilities,
+        'color' => $battle->third_team_color,
+        'isTricolor' => $isTricolor,
+        'ourTeam' => true,
+        'players' => $thirdTeamPlayers,
+        'role' => $battle->thirdTeamRole,
+        'theme' => $battle->thirdTeamTheme,
+      ]) . "\n" ?>
+<?php } ?>
       <?= $this->render('//show-v3/battle/players/team', [
         'abilities' => $abilities,
         'color' => $battle->their_team_color,
@@ -101,17 +112,6 @@ $isTricolor = $battle->rule?->key === 'tricolor';
         'role' => $battle->ourTeamRole,
         'theme' => $battle->ourTeamTheme,
       ]) . "\n" ?>
-<?php if ($isTricolor) { ?>
-      <?= $this->render('//show-v3/battle/players/team', [
-        'abilities' => $abilities,
-        'color' => $battle->third_team_color,
-        'isTricolor' => $isTricolor,
-        'thirdTeam' => true,
-        'players' => $thirdTeamPlayers,
-        'role' => $battle->thirdTeamRole,
-        'theme' => $battle->thirdTeamTheme,
-      ]) . "\n" ?>
-<?php } ?>
 <?php } ?>
     </tbody>
   </table>

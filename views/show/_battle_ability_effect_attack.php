@@ -1,5 +1,13 @@
 <?php
+
+use app\models\Battle;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var Battle $battle
+ * @var View $this
+ */
 
 if (!$attack = $battle->weaponAttack) {
   return '';

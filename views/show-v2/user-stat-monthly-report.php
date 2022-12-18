@@ -6,8 +6,17 @@ use app\assets\UserStat2MonthlyReportAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\models\Battle2;
+use app\models\User;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var User $user
+ * @var View $this
+ * @var int $month
+ * @var int $year
+ */
 
 $title = Yii::t('app', "{name}'s Monthly Report - {date}", [
   'name' => $user->name,

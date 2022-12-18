@@ -4,9 +4,18 @@ declare(strict_types=1);
 
 use app\assets\UserStatSplatfestAsset;
 use app\models\Battle2;
+use app\models\Splatfest2;
+use app\models\User;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\View;
+
+/**
+ * @var Splatfest2 $fest
+ * @var User $user
+ * @var View $this
+ */
 
 $bool = fn($v) => is_bool($v) ? $v : null;
 $power = fn($v) => (float)$v > 0.1 ? (float)$v : null;

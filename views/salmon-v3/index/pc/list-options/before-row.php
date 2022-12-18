@@ -9,7 +9,6 @@ use app\components\widgets\v3\weaponIcon\WeaponIcon;
 use app\models\Salmon3;
 use app\models\SalmonSchedule3;
 use app\models\SalmonScheduleWeapon3;
-use app\models\User;
 use app\models\UserStatBigrun3;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
@@ -17,13 +16,12 @@ use yii\helpers\Html;
 use yii\web\View;
 
 /**
- * @var User $user
  * @var View $this
  */
 
 BattleListGroupHeaderAsset::register($this);
 
-return function (Salmon3 $model, int $key, int $index, GridView $widget) use ($user): ?string {
+return function (Salmon3 $model, int $key, int $index, GridView $widget): ?string {
   static $lastScheduleId = false;
   static $isPrivate = null;
   if ($lastScheduleId === $model->schedule_id && $model->is_private === $isPrivate) {

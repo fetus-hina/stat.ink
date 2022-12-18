@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use app\assets\TableResponsiveForceAsset;
@@ -7,7 +8,14 @@ use app\components\widgets\BattleFilterWidget;
 use app\components\widgets\FA;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\UserDetailedStatsCell;
+use app\models\User;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var User $user
+ * @var View $this
+ */
 
 $this->context->layout = 'main';
 $title = Yii::t('app', '{name}\'s Battle Stats (by Mode and Stage)', [

@@ -24,6 +24,7 @@ use yii\web\View;
 use yii\widgets\DetailView;
 
 /**
+ * @var Battle2 $battle
  * @var View $this
  */
 

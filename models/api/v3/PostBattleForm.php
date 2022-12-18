@@ -82,6 +82,7 @@ final class PostBattleForm extends Model
     public $kill_or_assist;
     public $death;
     public $special;
+    public $signal;
     public $inked;
     public $our_team_inked;
     public $their_team_inked;
@@ -192,7 +193,7 @@ final class PostBattleForm extends Model
                 'strict' => true,
             ],
             [['rank_in_team'], 'integer', 'min' => 1, 'max' => 4],
-            [['kill', 'assist', 'kill_or_assist', 'death', 'special'], 'integer', 'min' => 0, 'max' => 99],
+            [['kill', 'assist', 'kill_or_assist', 'death', 'special', 'signal'], 'integer', 'min' => 0, 'max' => 99],
             [['inked'], 'integer', 'min' => 0],
             [['our_team_inked', 'their_team_inked', 'third_team_inked'], 'integer', 'min' => 0],
             [['our_team_percent', 'their_team_percent', 'third_team_percent'], 'number', 'min' => 0, 'max' => 100],
@@ -424,6 +425,7 @@ final class PostBattleForm extends Model
             'kill_or_assist' => self::intVal($this->kill_or_assist), // あとで確認
             'death' => self::intVal($this->death),
             'special' => self::intVal($this->special),
+            'signal' => self::intVal($this->signal),
             'inked' => self::intVal($this->inked),
             'our_team_inked' => self::intVal($this->our_team_inked),
             'their_team_inked' => self::intVal($this->their_team_inked),

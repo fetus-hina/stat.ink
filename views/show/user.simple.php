@@ -1,12 +1,20 @@
 <?php
+
 use app\components\widgets\AdWidget;
 use app\components\widgets\BattleFilterWidget;
 use app\components\widgets\SnsWidget;
 use app\models\Language;
+use app\models\User;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\View;
 use yii\widgets\ListView;
+
+/**
+ * @var User $user
+ * @var View $this
+ */
 
 $title = Yii::t('app', '{name}\'s Splat Log', ['name' => $user->name]);
 $this->title = implode(' | ', [

@@ -10,7 +10,7 @@ return [
   'format' => 'integer',
   'headerOptions' => ['class' => 'cell-elapsed-sec'],
   'label' => Yii::t('app', 'Elapsed'),
-  'value' => function (Battle3 $model) use ($t): ?int {
+  'value' => function (Battle3 $model): ?int {
     if ($model->start_at === null || $model->end_at === null) {
       return null;
     }

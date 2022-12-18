@@ -11,6 +11,11 @@ use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\web\View;
+
+/**
+ * @var View $this
+ */
 
 $title = Yii::t('app', 'Battles and Users');
 $this->title = sprintf('%s | %s', Yii::$app->name, $title);
@@ -24,6 +29,7 @@ $this->registerCss('#graph{height:300px;margin-bottom:10px}');
 
 FlotAsset::register($this);
 FlotTimeAsset::register($this);
+
 ?>
 <div class="container">
   <h1>

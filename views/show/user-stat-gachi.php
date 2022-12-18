@@ -6,8 +6,15 @@ use app\assets\InlineListAsset;
 use app\assets\UserStatGachiAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
+use app\models\User;
 use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\web\View;
+
+/**
+ * @var User $user
+ * @var View $this
+ */
 
 $this->context->layout = 'main';
 $title = Yii::t('app', '{name}\'s Battle Stats (Ranked Battle)', [

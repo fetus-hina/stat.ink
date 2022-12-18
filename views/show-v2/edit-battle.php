@@ -1,6 +1,14 @@
 <?php
-use yii\bootstrap\Html;
+
+use app\models\Battle2;
 use yii\bootstrap\ActiveForm;
+use yii\bootstrap\Html;
+use yii\web\View;
+
+/**
+ * @var Battle2 $battle
+ * @var View $this
+ */
 
 $title = Yii::t('app', 'Edit Your Battle: #{0}', [$battle->id]);
 $this->title = sprintf('%s | %s', Yii::$app->name, $title);

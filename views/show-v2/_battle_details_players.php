@@ -3,10 +3,17 @@
 declare(strict_types=1);
 
 use app\assets\AppAsset;
+use app\models\Battle2;
 use app\models\BattlePlayer2;
 use yii\bootstrap\Html;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
+use yii\web\View;
+
+/**
+ * @var Battle2 $battle
+ * @var View $this
+ */
 
 $assetMgr = Yii::$app->assetManager;
 if ($battle->my_team_color_rgb && $battle->his_team_color_rgb) {

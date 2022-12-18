@@ -1,6 +1,16 @@
 <?php
-use yii\helpers\Html;
+
+use app\models\Battle;
+use app\models\User;
 use yii\bootstrap\ActiveForm;
+use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var Battle $battle
+ * @var User $user
+ * @var View $this
+ */
 
 $title = Yii::t('app', 'Edit Your Battle: #{0}', [
   $battle->id,
