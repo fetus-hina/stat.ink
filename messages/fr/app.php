@@ -577,6 +577,7 @@ return [
     'TV' => '',
     'Twitter @name' => 'Twitter @nom',
     'TZ' => '',
+    'Ultra Signals' => 'Tridenfusée',
     'Unknown' => 'Inconnu',
     'Unknown Result' => '',
     'Unlink account' => 'Délier compte',

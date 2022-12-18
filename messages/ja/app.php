@@ -564,6 +564,7 @@ return [
     'Turf inked (including bonus)' => '塗った面積（勝利ボーナス込み）',
     'Twitter @name' => 'ツイッター @id',
     'URL related to this battle' => '関連ページURL',
+    'Ultra Signals' => 'スーパーシグナル',
     'Unknown Result' => '不明な結果',
     'Unknown' => '不明',
     'Unlink account' => '関連づけを解除',

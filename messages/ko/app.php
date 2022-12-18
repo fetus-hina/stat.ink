@@ -576,6 +576,7 @@ return [
     'TV' => 'TV',
     'Twitter @name' => '',
     'TZ' => '',
+    'Ultra Signals' => '슈퍼 시그널',
     'Unknown' => '',
     'Unknown Result' => '',
     'Unlink account' => '',
