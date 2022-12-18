@@ -100,15 +100,13 @@ BattleDetailAsset::register($this);
   <?= SnsWidget::widget([
     'jsonUrl' => $jsonUrl,
   ]) . "\n" ?>
-<?php /*
-  <?= $this->render('_battle_details_top_images', [
+  <?= $this->render('battle/images', [
     'images' => [
-      // $model->battleImageJudge,
-      // $model->battleImageResult,
-      // $model->battleImageGear,
+       $model->battleImageJudge3,
+       $model->battleImageResult3,
+       $model->battleImageGear3,
     ],
   ]) . "\n" ?>
-*/ ?>
   <div class="row">
     <div class="col-xs-12 col-sm-8 col-lg-9">
       <?= BattlePrevNext::widget([
