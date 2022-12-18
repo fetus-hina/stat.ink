@@ -578,6 +578,7 @@ return [
     'TV' => '电视',
     'Twitter @name' => 'Twitter @昵称',
     'TZ' => '时区',
+    'Ultra Signals' => '超级信号',
     'Unknown' => '未知',
     'Unknown Result' => '未知结果',
     'Unlink account' => '取消绑定',

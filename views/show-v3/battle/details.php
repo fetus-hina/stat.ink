@@ -61,6 +61,7 @@ echo DetailView::widget([
     require __DIR__ . '/details/rank-in-team.php',
     require __DIR__ . '/details/kill-death.php',
     require __DIR__ . '/details/special.php',
+    require __DIR__ . '/details/signal.php',
     require __DIR__ . '/details/inked.php',
     require __DIR__ . '/details/medal.php',
     // cause-of-death

@@ -577,6 +577,7 @@ return [
     'TV' => '電視',
     'Twitter @name' => 'Twitter @暱稱',
     'TZ' => '時區',
+    'Ultra Signals' => '超級信號',
     'Unknown' => '未知',
     'Unknown Result' => '未知結果',
     'Unlink account' => '取消綁定',
