@@ -11,8 +11,10 @@ use app\components\widgets\UserMiniInfo3;
 use app\components\widgets\v3\BattlePrevNext;
 use app\components\widgets\v3\XMatchingCategory;
 use app\models\Battle3;
+use app\models\Language;
 use app\models\User;
 use yii\bootstrap\Html;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\View;
 
@@ -37,10 +39,46 @@ $canonicalUrl = Url::to(
 
 $this->title = sprintf('%s | %s', Yii::$app->name, $title);
 $this->registerLinkTag(['rel' => 'canonical', 'href' => $canonicalUrl]);
-$this->registerMetaTag(['name' => 'twitter:card', 'content' => 'photo']);
+$this->registerMetaTag(['property' => 'og:locale', 'content' => str_replace('-', '_', Yii::$app->language)]);
+foreach (Language::find()->standard()->all() as $lang) {
+  if (Yii::$app->language !== $lang->lang) {
+    $this->registerMetaTag([
+      'property' => 'og:locale:alternate',
+      'content' => str_replace('-', '_', $lang->lang),
+    ]);
+  }
+}
 $this->registerMetaTag(['name' => 'twitter:title', 'content' => $title]);
 $this->registerMetaTag(['name' => 'twitter:url', 'content' => $canonicalUrl]);
 $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
+$twitterCardImageCandidates = array_values(
+  array_filter([
+    $model->battleImageResult3,
+    $model->battleImageJudge3,
+    ArrayHelper::getValue(Yii::$app->params, 'useS3ImgGen') && $model->rule && $model->rule !== 'tricolor'
+      ? vsprintf('https://s3-img-gen.stats.ink/results/%s/%s.jpg', [
+        rawurlencode(Yii::$app->language),
+        rawurlencode($model->uuid),
+      ])
+      : null,
+  ]),
+);
+if ($twitterCardImageCandidates) {
+  $twitterCardImage = array_shift($twitterCardImageCandidates);
+  $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary_large_image']);
+  $this->registerMetaTag([
+    'name' => 'twitter:image',
+    'content' => is_string($twitterCardImage)
+      ? $twitterCardImage
+      : Url::to(
+        Yii::getAlias('@imageurl') . '/' . $twitterCardImage->filename,
+        true,
+      ),
+  ]);
+} else {
+  $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);
+}
+
 if ($user->twitter != '') {
   $this->registerMetaTag([
     'name' => 'twitter:creator',
