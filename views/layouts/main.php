@@ -71,7 +71,9 @@ $isApple = str_contains($ua, 'iPad') || str_contains($ua, 'iPhone') || str_conta
     'calendar' => (string)Yii::$app->localeCalendar,
   ],
 ]) . "\n" ?>
-  <head>
+  <?= Html::beginTag('head', [
+    'prefix' => 'og: https://ogp.me/ns#',
+  ]) . "\n" ?>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">

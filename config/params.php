@@ -3,8 +3,15 @@
 declare(strict_types=1);
 
 $tryLoad = function (string $path, $default = null) {
-    return @file_exists($path) && @is_file($path) && @is_readable($path) ? require $path : null;
+    return @file_exists($path) && @is_file($path) && @is_readable($path) ? require $path : $default;
 };
+
+$isOfficialStatink = str_contains($_SERVER['HTTP_HOST'] ?? '', 'stat.ink');
+$isProductionDB = false;
+if ($isOfficialStatink) {
+    $db = require __DIR__ . '/db.php';
+    $isProductionDB = str_ends_with($db['dsn'], 'dbname=statink');
+}
 
 return [
     'adminEmail' => 'admin@example.com',
@@ -17,5 +24,6 @@ return [
     'minimumPHP' => '8.0.0',
     'notifyEmail' => 'noreply@stat.ink',
     'twitter' => require __DIR__ . '/twitter.php',
-    'useImgStatInk' => strpos($_SERVER['HTTP_HOST'] ?? '', 'stat.ink') !== false,
+    'useImgStatInk' => $isOfficialStatink,
+    'useS3ImgGen' => $isOfficialStatink && $isProductionDB,
 ];

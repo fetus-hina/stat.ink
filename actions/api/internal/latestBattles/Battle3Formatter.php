@@ -14,6 +14,7 @@ use Yii;
 use app\assets\GameModeIconsAsset;
 use app\assets\Spl3StageAsset;
 use app\models\Battle3;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\AssetBundle;
 use yii\web\AssetManager;
@@ -46,9 +47,24 @@ trait Battle3Formatter
 
     private static function image3(Battle3 $model): ?string
     {
-        return $model->battleImageResult3
-            ? Url::to(Yii::getAlias('@imageurl') . '/' . $model->battleImageResult3->filename, true)
-            : null;
+        if ($model->battleImageResult3) {
+            return Url::to(
+                Yii::getAlias('@imageurl') . '/' . $model->battleImageResult3->filename,
+                true,
+            );
+        }
+
+        if (ArrayHelper::getValue(Yii::$app->params, 'useS3ImgGen')) {
+            $rule = $model->rule;
+            if ($rule && $rule->key !== 'tricolor') {
+                return \vsprintf('https://s3-img-gen.stats.ink/results/%s/%s.jpg', [
+                    \rawurlencode(Yii::$app->language),
+                    \rawurlencode($model->uuid),
+                ]);
+            }
+        }
+
+        return null;
     }
 
     private static function isWin3(Battle3 $model): ?bool
