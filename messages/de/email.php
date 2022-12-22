@@ -14,7 +14,7 @@ return [
     '(Unknown)' => '(Unbekannt)',
     'Auto (cookie)' => '',
     'Estimated location:' => 'Geschätzter Standort:',
-    'Here is your email verification code.' => '',
+    'Here is your email verification code.' => 'Hier ist dein Verifizierungscode.',
     'IP Address:' => 'IP-Adresse:',
     'Login method:' => 'Login-Methode:',
     'New:' => 'Neu:',
