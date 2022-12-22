@@ -9,7 +9,7 @@
 declare(strict_types=1);
 
 return [
-    '(It is not my real name)' => '(Es ist nicht mein richtiger Name)',
+    '(It is not my real name)' => '(Das ist nicht mein richtiger Name)',
     'About image sharing with the IkaLog team' => 'Über das Teilen von Bildern mit dem IkaLog-Team',
     'Access time' => 'Zugriffszeit',
     'Address' => 'Adresse',
