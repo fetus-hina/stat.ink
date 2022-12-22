@@ -26,6 +26,7 @@ use yii\db\ActiveRecord;
  *
  * @property Battle3[] $battle3s
  * @property RuleGroup3 $group
+ * @property Knockout3[] $knockout3s
  * @property Rule3Alias[] $rule3Aliases
  * @property Schedule3[] $schedule3s
  * @property UserStat3XMatch[] $userStat3XMatches
@@ -70,6 +71,11 @@ class Rule3 extends ActiveRecord
     public function getGroup(): ActiveQuery
     {
         return $this->hasOne(RuleGroup3::class, ['id' => 'group_id']);
+    }
+
+    public function getKnockout3s(): ActiveQuery
+    {
+        return $this->hasMany(Knockout3::class, ['rule_id' => 'id']);
     }
 
     public function getRule3Aliases(): ActiveQuery

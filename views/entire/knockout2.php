@@ -14,7 +14,7 @@ use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\widgets\ActiveForm;
 
-$title = Yii::t('app', 'Knockout Ratio');
+$title = Yii::t('app', 'Knockout Rate');
 $this->title = Yii::$app->name . ' | ' . $title;
 
 $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);
@@ -82,13 +82,17 @@ $this->registerCss(Html::renderCss([
   </h1>
   <?= AdWidget::widget() . "\n" ?>
   <?= SnsWidget::widget() . "\n" ?>
+
+  <aside>
+    <nav>
+      <?= $this->render('knockout/version-tabs', ['version' => 2]) . "\n" ?>
+    </nav>
+  </aside>
+
   <p>
     <?= Html::encode(Yii::t('app', 'Excluded: Private Battles')) . "\n" ?>
   </p>
-  <ul class="nav nav-tabs">
-    <li class="active"><a>Splatoon 2</a></li>
-    <li><?= Html::a('Splatoon', ['entire/knockout']) ?></li>
-  </ul>
+
   <?php $_form = ActiveForm::begin([
       'action' => ['entire/knockout2'],
       'method' => 'get',
@@ -157,9 +161,7 @@ $this->registerCss(Html::renderCss([
       </thead>
       <tbody>
         <tr>
-          <th>
-            <?= $this->render('_knockout_legends') . "\n" ?>
-          </th>
+          <th><?= $this->render('knockout/legends') ?></th>
 <?php foreach ($rules as $_key => $_name) { ?>
           <td>
 <?php if ($_total[$_key]['battle'] > 0) { ?>

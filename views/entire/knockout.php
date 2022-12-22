@@ -17,7 +17,7 @@ use yii\web\View;
 
 $this->context->layout = 'main';
 
-$title = Yii::t('app', 'Knockout Ratio');
+$title = Yii::t('app', 'Knockout Rate');
 $this->title = implode(' | ', [
   Yii::$app->name,
   $title,
@@ -65,15 +65,13 @@ $ruleTotal = function (string $ruleKey) use ($data): ?array {
   <?= AdWidget::widget() . "\n" ?>
   <?= SnsWidget::widget() . "\n" ?>
 
-  <p><?= Html::encode(Yii::t('app', 'Excluded: Private Battles')) ?></p>
-  <aside class="mb-3">
+  <aside>
     <nav>
-      <ul class="nav nav-tabs">
-        <li><a href="/entire/knockout2">Splatoon 2</a></li>
-        <li class="active"><a>Splatoon</a></li>
-      </ul>
+      <?= $this->render('knockout/version-tabs', ['version' => 1]) . "\n" ?>
     </nav>
   </aside>
+
+  <p><?= Html::encode(Yii::t('app', 'Excluded: Private Battles')) ?></p>
 
   <div class="table-responsive table-responsive-force">
     <table class="table table-condensed graph-container">
@@ -87,7 +85,7 @@ $ruleTotal = function (string $ruleKey) use ($data): ?array {
       </thead>
       <tbody>
         <tr>
-          <th><?= $this->render('_knockout_legends') ?></th>
+          <th><?= $this->render('knockout/legends') ?></th>
 <?php foreach ($rules as $ruleKey => $ruleName) { ?>
           <td><?php
             if ($json = $ruleTotal($ruleKey)) {
