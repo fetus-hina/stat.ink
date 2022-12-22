@@ -9,7 +9,7 @@
 declare(strict_types=1);
 
 return [
-    'now' => '',
+    'now' => 'Jetzt',
     '{delta} d' => '',
     '{delta} h' => '',
     '{delta} m' => '',
