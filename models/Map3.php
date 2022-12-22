@@ -25,6 +25,7 @@ use yii\db\ActiveRecord;
  * @property string $release_at
  *
  * @property Battle3[] $battle3s
+ * @property Knockout3[] $knockout3s
  * @property Map3Alias[] $map3Aliases
  * @property Salmon3[] $salmon3s
  * @property SalmonSchedule3[] $salmonSchedule3s
@@ -69,6 +70,11 @@ class Map3 extends ActiveRecord
     public function getBattle3s(): ActiveQuery
     {
         return $this->hasMany(Battle3::class, ['map_id' => 'id']);
+    }
+
+    public function getKnockout3s(): ActiveQuery
+    {
+        return $this->hasMany(Knockout3::class, ['map_id' => 'id']);
     }
 
     public function getMap3Aliases(): ActiveQuery

@@ -23,6 +23,8 @@ use yii\db\ActiveRecord;
  * @property string $start_at
  * @property string $end_at
  * @property string $term
+ *
+ * @property Knockout3[] $knockout3s
  */
 class Season3 extends ActiveRecord
 {
@@ -53,5 +55,10 @@ class Season3 extends ActiveRecord
             'end_at' => 'End At',
             'term' => 'Term',
         ];
+    }
+
+    public function getKnockout3s(): ActiveQuery
+    {
+        return $this->hasMany(Knockout3::class, ['season_id' => 'id']);
     }
 }

@@ -46,6 +46,7 @@ use yii\helpers\Console;
 
 final class StatController extends Controller
 {
+    use stat\Knockout3Trait;
     use stat\Salmon2Trait;
     use stat\Salmon3Trait;
     use stat\Weapon2Trait;
@@ -499,8 +500,9 @@ final class StatController extends Controller
      */
     public function actionUpdateKnockout()
     {
-        $this->updateKnockout1();
+        $this->updateKnockout3();
         $this->updateKnockout2();
+        $this->updateKnockout1();
     }
 
     private function updateKnockout1()
