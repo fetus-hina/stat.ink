@@ -28,7 +28,7 @@ assert($am instanceof AssetManager);
     <?= Html::tag(
       'th',
       '',
-      ['style' => $cellWidth],
+      ['style' => $cellStyle],
     ) . "\n" ?>
 <?php foreach ($rules as $rule) { ?>
     <?= Html::tag(
@@ -48,7 +48,7 @@ assert($am instanceof AssetManager);
       ]),
       [
         'class' => 'omit',
-        'style' => $cellWidth,
+        'style' => $cellStyle,
       ],
     ) . "\n" ?>
 <?php } ?>

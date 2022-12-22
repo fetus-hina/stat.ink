@@ -204,6 +204,7 @@ final class I18nController extends Controller
             'AIZAWA Hina <hina@bouhime.com>' => 'AIZAWA Hina <hina@fetus.jp>',
             'AIZAWA, Hina <hina@bouhime.com>' => 'AIZAWA Hina <hina@fetus.jp>',
             'GitHub <noreply@github.com>' => null,
+            'Lukas <github@muffl0n.de>' => 'Lukas Böttcher <github@muffl0n.de>',
             'Unknown <wkoichi@gmail.com>' => 'Koichi Watanabe <wkoichi@gmail.com>',
             'spacemeowx2 <spacemeowx2@gmail.com>' => 'imspace <spacemeowx2@gmail.com>',
         ];
