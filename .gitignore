@@ -29,6 +29,8 @@
 /data/GeoIP
 /data/licenses-composer
 /data/licenses-npm
+/messages/*.php
+/models.sh
 /node_modules
 /phpunit.xml
 /resources/.compiled
@@ -37,6 +39,7 @@
 /resources/app-link-logos/*.min.svg
 /resources/dseg/*.tar.gz
 /resources/dseg/*.zip
+/salmon*
 /test*.jpg
 /test*.php
 /test*.png

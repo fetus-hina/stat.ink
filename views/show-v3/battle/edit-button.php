@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\components\widgets\v3\BattleDeleteWidget;
 use app\models\Battle3;
 use app\models\User;
 use yii\bootstrap\Html;
@@ -15,23 +16,10 @@ use yii\bootstrap\Html;
 $currentUser = Yii::$app->user->identity;
 if ($currentUser && (int)$currentUser->id === (int)$user->id) {
   echo Html::tag(
-    'p',
-    Html::button(
-      Html::encode(Yii::t('app', 'Edit')),
-      [
-        'class' => 'btn btn-default auto-tooltip',
-        'disabled' => true,
-        'title' => 'This feature not implemented yet ' . mb_chr(0x1f647, 'UTF-8'),
-      ]
-    ),
-    // Html::a(
-    //   Html::encode(Yii::t('app', 'Edit')),
-    //   ['/show-v3/edit-battle',
-    //     'screen_name' => $user->screen_name,
-    //     'battle' => $model->uuid,
-    //   ],
-    //   ['class' => 'btn btn-default']
-    // ),
-    ['class' => 'text-right']
+    'div',
+    implode('', [
+      BattleDeleteWidget::widget(['model' => $model]),
+    ]),
+    ['class' => 'text-right'],
   );
 }

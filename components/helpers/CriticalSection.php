@@ -62,10 +62,15 @@ final class CriticalSection extends Component
         Yii::endProfile(__METHOD__ . ', acquire');
         if (!$status) {
             Yii::warning(
-                __METHOD__ . '(): Resource is busy, could not enter to a critical section that named' . $this->name
+                \vsprintf('%s(): Resource is busy, could not enter to a critical section that named %s', [
+                    __METHOD__,
+                    $this->name,
+                ]),
             );
+
             throw new RuntimeException('Resource is busy.');
         }
+
         Yii::trace(__METHOD__ . '(): Entered to a critical section that named ' . $this->name);
         return new Resource($this->name, function ($name) {
             $this->mutex->release($name);

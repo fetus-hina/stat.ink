@@ -16,6 +16,7 @@ use app\components\widgets\Label;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\UserMiniInfo2;
 use app\models\Battle2;
+use app\models\User;
 use yii\bootstrap\ActiveForm;
 use yii\grid\GridView;
 use yii\helpers\Html;
@@ -24,6 +25,7 @@ use yii\web\View;
 use yii\widgets\ListView;
 
 /**
+ * @var User $user
  * @var View $this
  */
 

@@ -60,7 +60,7 @@ return [
     'Rescues' => '助けた数',
     'Results of {userName}\'s job' => '{userName}さんのバイト結果',
     'Rotation' => 'スケジュール',
-    'Salmon Run' => 'サーモンラン',
+    'Salmon Run' => 'SALMON RUN',
     'Soon' => 'もうすぐ',
     'Special Use' => 'スペシャル使用',
     'Stats: Salmon Clear %' => '統計: 鮭クリア率',

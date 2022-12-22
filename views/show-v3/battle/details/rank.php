@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
+use app\components\widgets\FA;
 use app\components\widgets\v3\Rank;
 use app\models\Battle3;
 use app\models\Rank3;
-use yii\bootstrap\Html;
+use yii\helpers\Html;
 
 $renderRank = function (?Rank3 $rank, ?int $splusNum, ?int $pts): string {
   $html = Rank::widget([
@@ -24,7 +25,7 @@ $renderPointChange = function (?int $pts): ?string {
   return Yii::t('app', '{point}p', [
     'point' => vsprintf('%s%s', [
       $pts < 0 ? '-' : '+',
-      Yii::$app->formatter->asInteger(abs($pts)),
+      Yii::$app->formatter->asInteger((int)abs($pts)),
     ]),
   ]);
 };
@@ -40,11 +41,11 @@ return [
       return $change ? Html::encode($change) : null;
     }
 
-    return implode(' ', [
+    return implode('', [
       $renderRank($rankBefore, $model->rank_before_s_plus, $model->rank_before_exp),
-      Html::encode('→'),
+      (string)FA::fas('arrow-right')->fw(),
       $renderRank($rankAfter, $model->rank_after_s_plus, $model->rank_after_exp),
-      $change ? Html::encode("({$change})") : '',
+      $change ? Html::encode(" ({$change})") : '',
     ]);
   },
 ];

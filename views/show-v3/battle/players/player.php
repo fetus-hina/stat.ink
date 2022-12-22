@@ -2,16 +2,22 @@
 
 declare(strict_types=1);
 
+use app\components\widgets\FA;
 use app\components\widgets\v3\weaponIcon\SpecialIcon;
+use app\models\Ability3;
 use app\models\BattlePlayer3;
+use app\models\BattleTricolorPlayer3;
 use yii\helpers\Html;
 use yii\web\View;
 
 /**
- * @var BattlePlayer3 $player
+ * @var BattlePlayer3|BattleTricolorPlayer3 $player
  * @var View $this
+ * @var array<string, Ability3> $abilities
  * @var bool $isFirst
+ * @var bool $isTricolor
  * @var int $nPlayers
+ * @var string|null $colorClass
  */
 
 $f = Yii::$app->formatter;
@@ -23,37 +29,51 @@ if ($player->is_me) {
   $bgClass = 'bg-danger';
 }
 
+if ($player->is_crowned) {
+  $this->registerCss(
+    vsprintf('.player-crown{%s}', [
+      Html::cssStyleFromArray([
+        'color' => '#f41',
+        'text-shadow' => '1px 1px 0 #3336',
+      ]),
+    ]),
+  );
+}
+
 ?>
 <?= Html::beginTag('tr', ['class' => $bgClass]) . "\n" ?>
-  <td class="text-center"><?php
-    if ($player->is_me) {
-      echo Html::tag('span', '', [
-        'class' => 'fas fa-fw fa-rotate-90 fa-level-up-alt',
-      ]);
-    }
-  ?></td>
-  <td><?php
-    // TODO: blackout / anonymize
-    $title = $player->splashtagTitle;
-    if ($title || $player->number !== null) {
-      echo Html::tag(
-        'div',
-        trim(vsprintf('%s %s', [
-          Html::encode((string)$title->name),
-          Html::encode($player->number !== null ? sprintf('#%s', (string)$player->number) : ''),
-        ])),
-        ['class' => 'small text-muted']
-      );
-    }
-    echo Html::tag('div', Html::encode($player->name));
-  ?></td>
+  <?= Html::tag(
+    'td',
+    implode('', [
+      $player->is_crowned
+        ? Html::tag(
+          'div',
+          (string)FA::fas('crown')->fw(),
+          ['class' => 'player-crown'],
+        )
+        : '',
+      $player->is_me
+        ? Html::tag(
+          'div',
+          (string)FA::fas('level-up-alt')->fw()->rotate(90),
+        )
+        : '',
+    ]),
+    [
+      'class' => array_filter([
+        'text-center',
+        // $colorClass, // crown が見えないケースがあるのでとりあえずやめ
+      ]),
+    ],
+  ) . "\n" ?>
+  <td><?= $this->render('player/name', compact('player')) ?></td>
   <?= Html::tag(
     'td',
     Html::tag(
       'div',
       implode('', [
         $this->render('player/weapon', ['weapon' => $player->weapon]),
-        $this->render('player/abilities', ['player' => $player]),
+        $this->render('player/abilities', compact('abilities', 'player')),
       ]),
       ['class' => 'h-100 d-flex flex-row flex-column'],
     ),
@@ -92,9 +112,20 @@ if ($player->is_me) {
     }
   ?></td>
   <td class="text-right"><?php
-    if ($player->weapon) {
-      echo SpecialIcon::widget(['model' => $player->weapon->special]) . ' ';
+    if ($player->special !== null) {
+      if ($player->weapon) {
+        echo SpecialIcon::widget(['model' => $player->weapon->special]) . ' ';
+      }
+      echo $f->asInteger($player->special);
     }
-    echo $f->asInteger($player->special);
   ?></td>
+<?php if ($isTricolor) { ?>
+  <td class="text-right"><?php
+    echo $f->asInteger(
+      $player instanceof BattleTricolorPlayer3
+        ? $player->signal
+        : null,
+    )
+  ?></td>
+<?php } ?>
 </tr>

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -11,9 +11,14 @@ namespace app\commands;
 use Yii;
 use app\models\Language;
 use yii\console\Controller;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Console;
 
-class I18nController extends Controller
+use const SORT_FLAG_CASE;
+use const SORT_NATURAL;
+use const SORT_STRING;
+
+final class I18nController extends Controller
 {
     use i18n\GearNameTrait;
     use i18n\WeaponShortNameTrait;
@@ -198,19 +203,30 @@ class I18nController extends Controller
         $authorMap = [
             'AIZAWA Hina <hina@bouhime.com>' => 'AIZAWA Hina <hina@fetus.jp>',
             'AIZAWA, Hina <hina@bouhime.com>' => 'AIZAWA Hina <hina@fetus.jp>',
+            'GitHub <noreply@github.com>' => null,
             'Unknown <wkoichi@gmail.com>' => 'Koichi Watanabe <wkoichi@gmail.com>',
+            'spacemeowx2 <spacemeowx2@gmail.com>' => 'imspace <spacemeowx2@gmail.com>',
         ];
-        $list = array_unique(
-            array_map(
-                function ($name) use ($authorMap) {
-                    $name = trim($name);
-                    return $authorMap[$name] ?? $name;
-                },
-                $lines
-            )
+        return \array_values(
+            \array_unique(
+                \array_filter(
+                    ArrayHelper::sort(
+                        \array_map(
+                            function (string $name) use ($authorMap): ?string {
+                                $name = \trim($name);
+                                return $name !== '' && \array_key_exists($name, $authorMap)
+                                    ? $authorMap[$name]
+                                    : $name;
+                            },
+                            $lines,
+                        ),
+                        SORT_NATURAL | SORT_FLAG_CASE,
+                    ),
+                    fn (?string $name): bool => $name !== null && $name !== '',
+                ),
+                SORT_STRING,
+            ),
         );
-        natcasesort($list);
-        return $list;
         // }}}
     }
 

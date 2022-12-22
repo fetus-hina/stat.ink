@@ -15,6 +15,7 @@ use app\components\helpers\CriticalSection;
 use app\components\helpers\ImageConverter;
 use app\components\helpers\UuidRegexp;
 use app\components\helpers\db\Now;
+use app\components\validators\AgentVersionValidator;
 use app\components\validators\BattleAgentVariable3Validator;
 use app\components\validators\BattleImageValidator;
 use app\components\validators\BattlePlayer3FormValidator;
@@ -37,12 +38,17 @@ use app\models\Rank3;
 use app\models\Result3;
 use app\models\Rule3;
 use app\models\Rule3Alias;
+use app\models\Splatfest3Theme;
 use app\models\SplatoonVersion3;
+use app\models\TricolorRole3;
 use app\models\User;
 use app\models\Weapon3;
 use app\models\Weapon3Alias;
+use app\models\api\v3\postBattle\AgentVariableTrait;
+use app\models\api\v3\postBattle\GameVersionTrait;
 use app\models\api\v3\postBattle\PlayerForm;
 use app\models\api\v3\postBattle\TypeHelperTrait;
+use app\models\api\v3\postBattle\UserAgentTrait;
 use jp3cki\uuid\Uuid;
 use yii\base\InvalidConfigException;
 use yii\base\Model;
@@ -56,7 +62,10 @@ use yii\web\UploadedFile;
  */
 final class PostBattleForm extends Model
 {
+    use AgentVariableTrait;
+    use GameVersionTrait;
     use TypeHelperTrait;
+    use UserAgentTrait;
 
     public $test;
 
@@ -73,11 +82,14 @@ final class PostBattleForm extends Model
     public $kill_or_assist;
     public $death;
     public $special;
+    public $signal;
     public $inked;
     public $our_team_inked;
     public $their_team_inked;
+    public $third_team_inked;
     public $our_team_percent;
     public $their_team_percent;
+    public $third_team_percent;
     public $our_team_count;
     public $their_team_count;
     public $level_before;
@@ -92,6 +104,8 @@ final class PostBattleForm extends Model
     public $rank_up_battle;
     public $challenge_win;
     public $challenge_lose;
+    public $x_power_before;
+    public $x_power_after;
     public $fest_power;
     public $fest_dragon;
     public $clout_before;
@@ -99,8 +113,18 @@ final class PostBattleForm extends Model
     public $clout_change;
     public $cash_before;
     public $cash_after;
+    public $our_team_color;
+    public $their_team_color;
+    public $third_team_color;
+    public $our_team_role;
+    public $their_team_role;
+    public $third_team_role;
+    public $our_team_theme;
+    public $their_team_theme;
+    public $third_team_theme;
     public $our_team_players;
     public $their_team_players;
+    public $third_team_players;
     public $note;
     public $private_note;
     public $link_url;
@@ -140,6 +164,8 @@ final class PostBattleForm extends Model
         return [
             [['uuid', 'lobby', 'rule', 'stage', 'weapon', 'result', 'rank_before', 'rank_after', 'note'], 'string'],
             [['private_note', 'link_url', 'agent', 'agent_version'], 'string'],
+            [['our_team_role', 'their_team_role', 'third_team_role'], 'string'],
+            [['our_team_theme', 'their_team_theme', 'third_team_theme'], 'string'],
 
             [['uuid'], 'match', 'pattern' => UuidRegexp::get(true)],
             [['result'], 'in', 'range' => [
@@ -158,21 +184,25 @@ final class PostBattleForm extends Model
             [['agent', 'agent_version'], 'required',
                 'when' => fn () => \trim((string)$this->agent) !== '' || \trim((string)$this->agent_version) !== '',
             ],
+            [['agent_version'], AgentVersionValidator::class,
+                'gameVersion' => 'splatoon3',
+                'when' => fn () => \trim((string)$this->agent) !== '' && \trim((string)$this->agent_version) !== '',
+            ],
             [['test', 'knockout', 'automated', 'rank_up_battle'], 'in',
                 'range' => ['yes', 'no', true, false],
                 'strict' => true,
             ],
             [['rank_in_team'], 'integer', 'min' => 1, 'max' => 4],
-            [['kill', 'assist', 'kill_or_assist', 'death', 'special'], 'integer', 'min' => 0, 'max' => 99],
+            [['kill', 'assist', 'kill_or_assist', 'death', 'special', 'signal'], 'integer', 'min' => 0, 'max' => 99],
             [['inked'], 'integer', 'min' => 0],
-            [['our_team_inked', 'their_team_inked'], 'integer', 'min' => 0],
-            [['our_team_percent', 'their_team_percent'], 'number', 'min' => 0, 'max' => 100],
+            [['our_team_inked', 'their_team_inked', 'third_team_inked'], 'integer', 'min' => 0],
+            [['our_team_percent', 'their_team_percent', 'third_team_percent'], 'number', 'min' => 0, 'max' => 100],
             [['our_team_count', 'their_team_count'], 'integer', 'min' => 0, 'max' => 100],
             [['level_before', 'level_after'], 'integer', 'min' => 1, 'max' => 99],
             [['rank_before_s_plus', 'rank_after_s_plus'], 'integer', 'min' => 0, 'max' => 50],
-            [['rank_before_exp', 'rank_after_exp'], 'integer', 'min' => 0],
+            [['rank_before_exp', 'rank_after_exp'], 'integer'],
             [['rank_exp_change'], 'integer'],
-            [['fest_power'], 'number', 'min' => 0, 'max' => 99999.9],
+            [['fest_power', 'x_power_before', 'x_power_after'], 'number', 'min' => 0, 'max' => 99999.9],
             [['clout_before', 'clout_after', 'clout_change'], 'integer', 'min' => 0],
             [['cash_before', 'cash_after'], 'integer', 'min' => 0, 'max' => 9999999],
             [['start_at', 'end_at'], 'integer',
@@ -181,12 +211,31 @@ final class PostBattleForm extends Model
             ],
 
             [['challenge_win'], 'integer', 'min' => 0, 'max' => 5,
-                'when' => fn (self $model): bool => self::boolVal($model->rank_up_battle) !== true,
+                'when' => function (self $model): bool {
+                    return self::boolVal($model->rank_up_battle) !== true ||
+                        self::strVal($model->lobby) === 'xmatch';
+                },
             ],
             [['challenge_win'], 'integer', 'min' => 0, 'max' => 3,
-                'when' => fn (self $model): bool => self::boolVal($model->rank_up_battle) === true,
+                'when' => function (self $model): bool {
+                    return self::boolVal($model->rank_up_battle) === true &&
+                        self::strVal($model->lobby) !== 'xmatch';
+                },
             ],
-            [['challenge_lose'], 'integer', 'min' => 0, 'max' => 3],
+            [['challenge_lose'], 'integer', 'min' => 0, 'max' => 3,
+                'when' => function (self $model): bool {
+                    return self::strVal($model->lobby) !== 'xmatch';
+                },
+            ],
+            [['challenge_lose'], 'integer', 'min' => 0, 'max' => 5,
+                'when' => function (self $model): bool {
+                    return self::strVal($model->lobby) === 'xmatch';
+                },
+            ],
+
+            [['our_team_color', 'their_team_color', 'third_team_color'], 'match',
+                'pattern' => '/^[0-9a-f]{6}(?:[0-9a-f]{2})?$/i',
+            ],
 
             [['lobby'], KeyValidator::class, 'modelClass' => Lobby3::class],
             [['rule'], KeyValidator::class,
@@ -206,8 +255,11 @@ final class PostBattleForm extends Model
                 'aliasClass' => DragonMatch3Alias::class,
             ],
             [['rank_before', 'rank_after'], KeyValidator::class, 'modelClass' => Rank3::class],
+            [['our_team_role', 'their_team_role', 'third_team_role'], KeyValidator::class,
+                'modelClass' => TricolorRole3::class,
+            ],
 
-            [['our_team_players', 'their_team_players'], 'each',
+            [['our_team_players', 'their_team_players', 'third_team_players'], 'each',
                 'message' => '{attribute} must be an array',
                 'rule' => Yii::createObject(BattlePlayer3FormValidator::class),
             ],
@@ -318,13 +370,11 @@ final class PostBattleForm extends Model
             }
 
             return $connection->transactionEx(function (Connection $connection): ?Battle3 {
-                $rewriteKillAssist = $this->shouldRewriteKillAssist();
-
-                if (!$battle = $this->saveNewBattle($rewriteKillAssist)) {
+                if (!$battle = $this->saveNewBattle()) {
                     return null;
                 }
 
-                if (!$this->savePlayers($battle, $rewriteKillAssist)) {
+                if (!$this->savePlayers($battle)) {
                     return null;
                 }
 
@@ -332,7 +382,7 @@ final class PostBattleForm extends Model
                     return null;
                 }
 
-                if (!$this->saveAgentVariables($battle, $rewriteKillAssist)) {
+                if (!$this->saveAgentVariables($battle)) {
                     return null;
                 }
 
@@ -355,7 +405,7 @@ final class PostBattleForm extends Model
         }
     }
 
-    private function saveNewBattle(bool $rewriteKillAssist): ?Battle3
+    private function saveNewBattle(): ?Battle3
     {
         $uuid = (string)Uuid::v4();
         $model = Yii::createObject([
@@ -375,11 +425,14 @@ final class PostBattleForm extends Model
             'kill_or_assist' => self::intVal($this->kill_or_assist), // あとで確認
             'death' => self::intVal($this->death),
             'special' => self::intVal($this->special),
+            'signal' => self::intVal($this->signal),
             'inked' => self::intVal($this->inked),
             'our_team_inked' => self::intVal($this->our_team_inked),
             'their_team_inked' => self::intVal($this->their_team_inked),
+            'third_team_inked' => self::intVal($this->third_team_inked),
             'our_team_percent' => self::floatVal($this->our_team_percent),
             'their_team_percent' => self::floatVal($this->their_team_percent),
+            'third_team_percent' => self::floatVal($this->third_team_percent),
             'our_team_count' => self::intVal($this->our_team_count),
             'their_team_count' => self::intVal($this->their_team_count),
             'level_before' => self::intVal($this->level_before),
@@ -396,7 +449,12 @@ final class PostBattleForm extends Model
             'note' => self::strVal($this->note),
             'private_note' => self::strVal($this->private_note),
             'link_url' => self::strVal($this->link_url),
-            'version_id' => self::gameVersion(self::intVal($this->start_at), self::intVal($this->end_at)),
+            'version_id' => self::gameVersion(
+                self::guessStartAt(
+                    self::intVal($this->start_at),
+                    self::intVal($this->end_at),
+                ),
+            ),
             'agent_id' => self::userAgent($this->agent, $this->agent_version),
             'is_automated' => self::boolVal($this->automated) ?: false,
             'use_for_entire' => false, // あとで上書き
@@ -422,29 +480,26 @@ final class PostBattleForm extends Model
             ),
             'fest_power' => self::floatVal($this->fest_power),
             'has_disconnect' => $this->hasDisconnect(),
+            'x_power_before' => self::floatVal($this->x_power_before),
+            'x_power_after' => self::floatVal($this->x_power_after),
+            'our_team_role_id' => self::key2id($this->our_team_role, TricolorRole3::class),
+            'their_team_role_id' => self::key2id($this->their_team_role, TricolorRole3::class),
+            'third_team_role_id' => self::key2id($this->third_team_role, TricolorRole3::class),
+            'our_team_color' => self::colorVal($this->our_team_color),
+            'their_team_color' => self::colorVal($this->their_team_color),
+            'third_team_color' => self::colorVal($this->third_team_color),
+            'our_team_theme_id' => $this->findOrCreateSplatfestTheme(self::strVal($this->our_team_theme))?->id,
+            'their_team_theme_id' => $this->findOrCreateSplatfestTheme(self::strVal($this->their_team_theme))?->id,
+            'third_team_theme_id' => $this->findOrCreateSplatfestTheme(self::strVal($this->third_team_theme))?->id,
         ]);
 
-        if ($rewriteKillAssist) {
-            if (\is_int($model->kill) && \is_int($model->assist)) {
-                // kill_or_assist にゴミデータが、
-                // kill に kill + assist が入っている
-                $model->kill_or_assist = $model->kill;
-                $model->kill = $model->kill_or_assist - $model->assist;
-                if ($model->kill < 0) {
-                    $model->kill_or_assist = null;
-                    $model->kill = null;
-                    $model->assist = null;
-                }
-            }
-        } else {
-            // kill+assistが不明でkillとassistがわかっている
-            if (
-                $model->kill_or_assist === null &&
-                \is_int($model->kill) &&
-                \is_int($model->assist)
-            ) {
-                $model->kill_or_assist = $model->kill + $model->assist;
-            }
+        // kill+assistが不明でkillとassistがわかっている
+        if (
+            $model->kill_or_assist === null &&
+            \is_int($model->kill) &&
+            \is_int($model->assist)
+        ) {
+            $model->kill_or_assist = $model->kill + $model->assist;
         }
 
         // 設定された値から統計に使えそうか雑な判断をする
@@ -482,16 +537,26 @@ final class PostBattleForm extends Model
             }
         }
 
+        if (\is_array($this->third_team_players) && $this->third_team_players) {
+            foreach ($this->third_team_players as $player) {
+                $model = Yii::createObject(PlayerForm::class);
+                $model->attributes = $player;
+                if (self::boolVal($model->disconnected)) {
+                    return true;
+                }
+            }
+        }
+
         return false;
     }
 
-    private function savePlayers(Battle3 $battle, bool $rewriteKillAssist): bool
+    private function savePlayers(Battle3 $battle): bool
     {
         if (\is_array($this->our_team_players) && $this->our_team_players) {
             foreach ($this->our_team_players as $player) {
                 $model = Yii::createObject(PlayerForm::class);
                 $model->attributes = $player;
-                if (!$model->save($battle, true, $rewriteKillAssist)) {
+                if (!$model->save($battle, true, 1)) {
                     return false;
                 }
             }
@@ -501,7 +566,17 @@ final class PostBattleForm extends Model
             foreach ($this->their_team_players as $player) {
                 $model = Yii::createObject(PlayerForm::class);
                 $model->attributes = $player;
-                if (!$model->save($battle, false, $rewriteKillAssist)) {
+                if (!$model->save($battle, false, 2)) {
+                    return false;
+                }
+            }
+        }
+
+        if (\is_array($this->third_team_players) && $this->third_team_players) {
+            foreach ($this->third_team_players as $player) {
+                $model = Yii::createObject(PlayerForm::class);
+                $model->attributes = $player;
+                if (!$model->save($battle, false, 3)) {
                     return false;
                 }
             }
@@ -585,19 +660,11 @@ final class PostBattleForm extends Model
         return $model;
     }
 
-    private function saveAgentVariables(Battle3 $battle, bool $rewriteKillAssist): bool
+    private function saveAgentVariables(Battle3 $battle): bool
     {
         $map = $this->agent_variables;
         if (!\is_array($map) || !$map) {
-            if (!$rewriteKillAssist) {
-                return true;
-            }
-
-            $map = [];
-        }
-
-        if ($rewriteKillAssist) {
-            $map['s3s issue 30'] = 'Fixed by stat.ink API endpoint';
+            return true;
         }
 
         foreach ($map as $k => $v) {
@@ -613,40 +680,6 @@ final class PostBattleForm extends Model
         }
 
         return true;
-    }
-
-    private function findOrCreateAgentVariable(string $key, string $value): ?int
-    {
-        // use double-checking lock pattern
-        //
-        // 1. find data without lock (fast, the data already exists)
-        // In most cases, we'll find them here.
-        $model = AgentVariable3::findOne(['key' => $key, 'value' => $value]);
-        if (!$model) {
-            // 2. lock if not found
-            if (!$lock = CriticalSection::lock(AgentVariable3::class, 60)) {
-                return null;
-            }
-            try {
-                // 3. find data again with lock (it may created on another process/thread)
-                $model = AgentVariable3::findOne(['key' => $key, 'value' => $value]);
-                if (!$model) {
-                    // 4. create new data with lock (it's new!)
-                    $model = Yii::createObject([
-                        'class' => AgentVariable3::class,
-                        'key' => $key,
-                        'value' => $value,
-                    ]);
-                    if (!$model->save()) {
-                        return null;
-                    }
-                }
-            } finally {
-                unset($lock);
-            }
-        }
-
-        return (int)$model->id;
     }
 
     private function saveBattleImages(Battle3 $battle): bool
@@ -735,67 +768,47 @@ final class PostBattleForm extends Model
         return $model->save();
     }
 
-    private function shouldRewriteKillAssist(): bool
+    private function findOrCreateSplatfestTheme(?string $name): ?Splatfest3Theme
     {
-        // See
-        // https://github.com/fetus-hina/stat.ink/issues/1089
-        // https://github.com/frozenpandaman/s3s/issues/30
-        if (self::strVal($this->agent) === 's3s') {
-            $version = self::strVal($this->agent_version);
-            if (
-                $version &&
-                \version_compare($version, 'v0.1.3', '<')
-            ) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private static function userAgent(?string $agentName, ?string $agentVersion): ?int
-    {
-        $agentName = self::strVal($agentName);
-        $agentVersion = self::strVal($agentVersion);
-        if ($agentName === null || $agentVersion === null) {
+        $name = \trim((string)$name);
+        if ($name === '') {
             return null;
         }
 
-        $model = Agent::find()
-            ->andWhere([
-                'name' => $agentName,
-                'version' => $agentVersion,
-            ])
+        $model = Splatfest3Theme::find()
+            ->andWhere(['name' => $name])
             ->limit(1)
             ->one();
-        if (!$model) {
-            $model = Yii::createObject([
-                'class' => Agent::class,
-                'name' => $agentName,
-                'version' => $agentVersion,
-            ]);
-            if (!$model->save()) {
-                return null;
-            }
+        if ($model) {
+            return $model;
         }
 
-        return (int)$model->id;
+        if (!$lock = CriticalSection::lock(Splatfest3Theme::class, 60)) {
+            return null;
+        }
+        try {
+            $model = Splatfest3Theme::find()
+                ->andWhere(['name' => $name])
+                ->limit(1)
+                ->one();
+            if ($model) {
+                return $model;
+            }
+
+
+            $model = Yii::createObject([
+                'class' => Splatfest3Theme::class,
+                'name' => $name,
+            ]);
+            return $model->save() ? $model : null;
+        } finally {
+            unset($lock);
+        }
     }
 
     private static function now(): Now
     {
         return Yii::createObject(Now::class);
-    }
-
-    private static function gameVersion(?int $startAt, ?int $endAt): ?int
-    {
-        $startAt = self::guessStartAt($startAt, $endAt);
-        $model = SplatoonVersion3::find()
-            ->andWhere(['<=', 'release_at', self::tsVal($startAt)])
-            ->orderBy(['release_at' => SORT_DESC])
-            ->limit(1)
-            ->one();
-        return $model ? (int)$model->id : null;
     }
 
     private static function guessPeriod(?int $startAt, ?int $endAt): int

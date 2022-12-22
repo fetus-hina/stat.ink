@@ -10,6 +10,12 @@ use app\components\widgets\LanguageDialog;
 use app\components\widgets\TimezoneDialog;
 use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\web\View;
+
+/**
+ * @var View $this
+ * @var string $content
+ */
 
 AppAsset::register($this);
 Yii::$app->theme->registerAssets($this);
@@ -49,7 +55,11 @@ if ($_flashes) {
   }
 }
 
-$isPjax = Yii::$app->request->isPjax;
+$request = Yii::$app->request;
+$isPjax = $request->isPjax;
+
+$ua = trim((string)$request->userAgent);
+$isApple = str_contains($ua, 'iPad') || str_contains($ua, 'iPhone') || str_contains($ua, 'Mac OS X');
 
 ?>
 <?php $this->beginPage() ?>
@@ -61,7 +71,9 @@ $isPjax = Yii::$app->request->isPjax;
     'calendar' => (string)Yii::$app->localeCalendar,
   ],
 ]) . "\n" ?>
-  <head>
+  <?= Html::beginTag('head', [
+    'prefix' => 'og: https://ogp.me/ns#',
+  ]) . "\n" ?>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -83,6 +95,7 @@ $isPjax = Yii::$app->request->isPjax;
     ],
     'class' => [
       Yii::$app->theme->isDarkTheme ? 'theme-dark' : 'theme-light',
+      $isApple ? 'apple' : 'not-apple',
     ],
   ]) . "\n" ?>
     <?php $this->beginBody() ?><?= "\n" ?>

@@ -16,6 +16,7 @@ use app\components\widgets\FA;
 use app\components\widgets\KillRatioBadgeWidget;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\TimestampColumnWidget;
+use app\models\Battle;
 use app\models\Special;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -23,6 +24,11 @@ use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\JsExpression;
 use yii\web\View;
+
+/**
+ * @var Battle $battle
+ * @var View $this
+ */
 
 $this->context->layout = 'main';
 

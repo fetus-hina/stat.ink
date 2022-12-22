@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2021 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -14,6 +14,7 @@ use Yii;
 use app\assets\UserMiniinfoAsset;
 use app\components\i18n\Formatter;
 use app\models\SalmonStats2;
+use yii\base\Model;
 use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
 use yii\helpers\ArrayHelper;
@@ -29,8 +30,11 @@ class SalmonUserInfo extends Widget
     {
         parent::init();
 
-        BootstrapAsset::register($this->view);
-        UserMiniinfoAsset::register($this->view);
+        $view = $this->view;
+        if ($view instanceof View) {
+            BootstrapAsset::register($view);
+            UserMiniinfoAsset::register($view);
+        }
     }
 
     public function getId($autoGenerate = true)
@@ -284,7 +288,10 @@ class SalmonUserInfo extends Widget
         ]);
     }
 
-    protected function getUserStats(): SalmonStats2
+    /**
+     * @return SalmonStats2
+     */
+    protected function getUserStats(): Model
     {
         $model = SalmonStats2::find()
             ->andWhere(['user_id' => $this->user->id])

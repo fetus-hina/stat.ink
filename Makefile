@@ -54,6 +54,7 @@ RESOURCE_TARGETS := \
 	resources/.compiled/stat.ink/cookiealert.css \
 	resources/.compiled/stat.ink/cookiealert.js \
 	resources/.compiled/stat.ink/downloads.css \
+	resources/.compiled/stat.ink/entire-salmon3-tide-tide.js \
 	resources/.compiled/stat.ink/entire-weapon-based-on-k-or-d.js \
 	resources/.compiled/stat.ink/entire-weapon-kd-stats.js \
 	resources/.compiled/stat.ink/entire-weapon-kd-summary.js \
@@ -75,6 +76,8 @@ RESOURCE_TARGETS := \
 	resources/.compiled/stat.ink/ie-warning.css \
 	resources/.compiled/stat.ink/ie-warning.js \
 	resources/.compiled/stat.ink/inline-list.css \
+	resources/.compiled/stat.ink/jquery.twemoji.css \
+	resources/.compiled/stat.ink/jquery.twemoji.js \
 	resources/.compiled/stat.ink/kd-win.css \
 	resources/.compiled/stat.ink/kd-win.js \
 	resources/.compiled/stat.ink/kill-ratio-column.js \
@@ -94,10 +97,14 @@ RESOURCE_TARGETS := \
 	resources/.compiled/stat.ink/private-note.js \
 	resources/.compiled/stat.ink/ratio.css \
 	resources/.compiled/stat.ink/rewrite-link-for-ios-app.js \
+	resources/.compiled/stat.ink/salmon-bosses.css \
+	resources/.compiled/stat.ink/salmon-players.css \
 	resources/.compiled/stat.ink/salmon-stats-history.js \
+	resources/.compiled/stat.ink/salmon-waves.css \
 	resources/.compiled/stat.ink/salmon-work-list-config.js \
 	resources/.compiled/stat.ink/salmon-work-list-hazard.js \
 	resources/.compiled/stat.ink/salmon-work-list.js \
+	resources/.compiled/stat.ink/salmon3-work-list-config.js \
 	resources/.compiled/stat.ink/smooth-scroll.js \
 	resources/.compiled/stat.ink/stat-by-map-rule.js \
 	resources/.compiled/stat.ink/stat-by-map.js \
@@ -270,12 +277,13 @@ resources/.compiled/stat.ink/battles-simple.css: resources/stat.ink/battles-simp
 resources/.compiled/stat.ink/blackout-hint.css: resources/stat.ink/blackout-hint.scss node_modules
 resources/.compiled/stat.ink/blackout-hint.js: resources/stat.ink/blackout-hint.js node_modules
 resources/.compiled/stat.ink/blog-entries.css: resources/stat.ink/blog-entries.scss node_modules
-resources/.compiled/stat.ink/browser-icon-widget.js: resources/stat.ink/browser-icon-widget.es
+resources/.compiled/stat.ink/browser-icon-widget.js: resources/stat.ink/browser-icon-widget.es node_modules
 resources/.compiled/stat.ink/cal-heatmap-halloween.css: resources/stat.ink/cal-heatmap-halloween.scss node_modules
 resources/.compiled/stat.ink/color-scheme.js: resources/stat.ink/color-scheme.es node_modules
 resources/.compiled/stat.ink/cookiealert.css: resources/stat.ink/cookiealert.scss node_modules
 resources/.compiled/stat.ink/cookiealert.js: resources/stat.ink/cookiealert.es node_modules
 resources/.compiled/stat.ink/downloads.css: resources/stat.ink/downloads.scss node_modules
+resources/.compiled/stat.ink/entire-salmon3-tide-tide.js: resources/stat.ink/entire-salmon3-tide-tide.es node_modules
 resources/.compiled/stat.ink/entire-weapon-based-on-k-or-d.js: resources/stat.ink/entire-weapon-based-on-k-or-d.es node_modules
 resources/.compiled/stat.ink/entire-weapon-kd-stats.js: resources/stat.ink/entire-weapon-kd-stats.es node_modules
 resources/.compiled/stat.ink/entire-weapon-kd-summary.js: resources/stat.ink/entire-weapon-kd-summary.es node_modules
@@ -296,6 +304,8 @@ resources/.compiled/stat.ink/hsv2rgb.js: resources/stat.ink/hsv2rgb.es node_modu
 resources/.compiled/stat.ink/ie-warning.css: resources/stat.ink/ie-warning.scss node_modules
 resources/.compiled/stat.ink/ie-warning.js: resources/stat.ink/ie-warning.es node_modules
 resources/.compiled/stat.ink/inline-list.css: resources/stat.ink/inline-list.scss node_modules
+resources/.compiled/stat.ink/jquery.twemoji.css: resources/stat.ink/jquery.twemoji.scss node_modules
+resources/.compiled/stat.ink/jquery.twemoji.js: resources/stat.ink/jquery.twemoji.es node_modules
 resources/.compiled/stat.ink/kd-win.css: resources/stat.ink/kd-win.scss node_modules
 resources/.compiled/stat.ink/kd-win.js: resources/stat.ink/kd-win.js node_modules
 resources/.compiled/stat.ink/kill-ratio-column.js: resources/stat.ink/kill-ratio-column.es node_modules
@@ -314,16 +324,20 @@ resources/.compiled/stat.ink/permalink-dialog.js: resources/stat.ink/permalink-d
 resources/.compiled/stat.ink/private-note.js: resources/stat.ink/private-note.es node_modules
 resources/.compiled/stat.ink/ratio.css: resources/stat.ink/ratio.scss node_modules
 resources/.compiled/stat.ink/rewrite-link-for-ios-app.js: resources/stat.ink/rewrite-link-for-ios-app.es node_modules
+resources/.compiled/stat.ink/salmon-bosses.css: resources/stat.ink/salmon-bosses.scss node_modules
+resources/.compiled/stat.ink/salmon-players.css: resources/stat.ink/salmon-players.scss node_modules
 resources/.compiled/stat.ink/salmon-stats-history.js: resources/stat.ink/salmon-stats-history.es node_modules
+resources/.compiled/stat.ink/salmon-waves.css: resources/stat.ink/salmon-waves.scss node_modules
 resources/.compiled/stat.ink/salmon-work-list-config.js: resources/stat.ink/salmon-work-list-config.es node_modules
 resources/.compiled/stat.ink/salmon-work-list-hazard.js: resources/stat.ink/salmon-work-list-hazard.es node_modules
 resources/.compiled/stat.ink/salmon-work-list.js: resources/stat.ink/salmon-work-list.es node_modules
+resources/.compiled/stat.ink/salmon3-work-list-config.js: resources/stat.ink/salmon3-work-list-config.es node_modules
 resources/.compiled/stat.ink/smooth-scroll.js: resources/stat.ink/smooth-scroll.es node_modules
 resources/.compiled/stat.ink/stat-by-map-rule.js: resources/stat.ink/stat-by-map-rule.es node_modules
 resources/.compiled/stat.ink/stat-by-map.js: resources/stat.ink/stat-by-map.es node_modules
 resources/.compiled/stat.ink/stat-by-rule.js: resources/stat.ink/stat-by-rule.es node_modules
 resources/.compiled/stat.ink/table-responsive-force.css: resources/stat.ink/table-responsive-force.scss node_modules
-resources/.compiled/stat.ink/theme.js: resources/stat.ink/theme.es
+resources/.compiled/stat.ink/theme.js: resources/stat.ink/theme.es node_modules
 resources/.compiled/stat.ink/timezone-dialog.js: resources/stat.ink/timezone-dialog.es node_modules
 resources/.compiled/stat.ink/user-miniinfo.css: resources/stat.ink/user-miniinfo.scss node_modules
 resources/.compiled/stat.ink/user-stat-2-monthly-report-pie-winpct.js: resources/stat.ink/user-stat-2-monthly-report-pie-winpct.es node_modules

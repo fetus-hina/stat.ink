@@ -10,17 +10,20 @@ declare(strict_types=1);
 
 return [
     'Any Mode' => 'すべてのルール',
-    'Ranked Modes' => 'ガチルール',
-
-    'Clam Blitz' => 'ガチアサリ',
-    'Rainmaker' => 'ガチホコバトル',
-    'Splat Zones' => 'ガチエリア',
-    'Tower Control' => 'ガチヤグラ',
-    'Turf War' => 'ナワバリバトル',
-
+    'Attackers' => '攻撃チーム',
     'CB' => 'アサリ',
+    'Clam Blitz' => 'ガチアサリ',
+    'Defenders' => '守備チーム',
     'RM' => 'ホコ',
+    'Rainmaker' => 'ガチホコバトル',
+    'Ranked Modes' => 'ガチルール',
     'SZ' => 'エリア',
+    'Splat Zones' => 'ガチエリア',
     'TC' => 'ヤグラ',
     'TW' => 'ナワバリ',
+    'Tower Control' => 'ガチヤグラ',
+    'Tri' => 'トリカラ',
+    'Tricolor Battle' => 'トリカラマッチ',
+    'Tricolor Turf War' => 'トリカラバトル',
+    'Turf War' => 'ナワバリバトル',
 ];

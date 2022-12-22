@@ -10,15 +10,20 @@ declare(strict_types=1);
 
 return [
     'Any Mode' => '',
+    'Attackers' => '',
     'CB' => 'Schelpenstrijd',
     'Clam Blitz' => 'Schelpenstrijd',
+    'Defenders' => '',
     'Rainmaker' => 'Bazookarper',
     'Ranked Modes' => '',
     'RM' => 'Bazookarper',
-    'Splat Zones' => 'Spetterzones',
+    'Splat Zones' => 'Spetterzone',
     'SZ' => 'Spetterzones',
     'TC' => 'Torentwist',
     'Tower Control' => 'Torentwist',
+    'Tri' => '',
+    'Tricolor Battle' => 'Driekleurengevecht',
+    'Tricolor Turf War' => 'Driekleurenoorlog',
     'Turf War' => 'Grondoorlog',
     'TW' => 'Grondoorlog',
 ];

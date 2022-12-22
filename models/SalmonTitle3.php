@@ -22,7 +22,10 @@ use yii\db\ActiveRecord;
  * @property string $name
  * @property integer $rank
  *
+ * @property Salmon3[] $salmon3s
+ * @property Salmon3[] $salmon3s0
  * @property SalmonTitle3Alias[] $salmonTitle3Aliases
+ * @property UserStatSalmon3[] $userStatSalmon3s
  */
 class SalmonTitle3 extends ActiveRecord
 {
@@ -54,8 +57,23 @@ class SalmonTitle3 extends ActiveRecord
         ];
     }
 
+    public function getSalmon3s(): ActiveQuery
+    {
+        return $this->hasMany(Salmon3::class, ['title_before_id' => 'id']);
+    }
+
+    public function getSalmon3s0(): ActiveQuery
+    {
+        return $this->hasMany(Salmon3::class, ['title_after_id' => 'id']);
+    }
+
     public function getSalmonTitle3Aliases(): ActiveQuery
     {
         return $this->hasMany(SalmonTitle3Alias::class, ['title_id' => 'id']);
+    }
+
+    public function getUserStatSalmon3s(): ActiveQuery
+    {
+        return $this->hasMany(UserStatSalmon3::class, ['peak_title_id' => 'id']);
     }
 }

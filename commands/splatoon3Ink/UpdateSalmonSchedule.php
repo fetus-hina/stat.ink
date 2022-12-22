@@ -38,7 +38,22 @@ trait UpdateSalmonSchedule
                     $info['startAt'],
                     $info['endAt'],
                     $info['map_id'],
-                    $info['weapons']
+                    $info['weapons'],
+                    false,
+                )
+            ) {
+                $hasError = true;
+            }
+        }
+
+        foreach ($schedules['salmon_bigrun'] as $info) {
+            if (
+                !$this->registerSalmonSchedule(
+                    $info['startAt'],
+                    $info['endAt'],
+                    $info['map_id'],
+                    $info['weapons'],
+                    true,
                 )
             ) {
                 $hasError = true;
@@ -51,20 +66,26 @@ trait UpdateSalmonSchedule
     /**
      * @param array<SalmonWeapon3|SalmonRandom3|null> $weapons
      */
-    private function registerSalmonSchedule(int $startAt, int $endAt, int $mapId, array $weapons): bool
-    {
+    private function registerSalmonSchedule(
+        int $startAt,
+        int $endAt,
+        int $mapId,
+        array $weapons,
+        bool $isBigRun,
+    ): bool {
         return Yii::$app->db->transaction(
-            function (Connection $db) use ($startAt, $endAt, $mapId, $weapons): bool {
+            function (Connection $db) use ($startAt, $endAt, $mapId, $weapons, $isBigRun): bool {
                 // 既にデータが正しく保存されている
-                if ($this->isSalmonScheduleRegistered($startAt, $endAt, $mapId, $weapons)) {
+                if ($this->isSalmonScheduleRegistered($startAt, $endAt, $mapId, $weapons, $isBigRun)) {
                     return true;
                 }
 
                 if (
                     $this->cleanUpSalmonSchedule($startAt) &&
-                    $this->registerSalmonScheduleImpl($startAt, $endAt, $mapId, $weapons)
+                    $this->registerSalmonScheduleImpl($startAt, $endAt, $mapId, $weapons, $isBigRun)
                 ) {
-                    \vfprintf(STDERR, "Salmon run schedule registered, standard, period=%s - %s\n", [
+                    \vfprintf(STDERR, "Salmon run schedule registered, %s, period=%s - %s\n", [
+                        $isBigRun ? 'bigrun' : 'standard',
                         \date(DateTime::ATOM, $startAt),
                         \date(DateTime::ATOM, $endAt),
                     ]);
@@ -81,14 +102,29 @@ trait UpdateSalmonSchedule
     /**
      * @param array<SalmonWeapon3|SalmonRandom3|null> $weapons
      */
-    private function isSalmonScheduleRegistered(int $startAt, int $endAt, int $mapId, array $weapons): bool
-    {
+    private function isSalmonScheduleRegistered(
+        int $startAt,
+        int $endAt,
+        int $mapId,
+        array $weapons,
+        bool $isBigRun,
+    ): bool {
         $schedule = SalmonSchedule3::find()
             ->andWhere([
                 'end_at' => \date(DateTime::ATOM, $endAt),
-                'map_id' => $mapId,
                 'start_at' => \date(DateTime::ATOM, $startAt),
             ])
+            ->andWhere(
+                $isBigRun
+                    ? [
+                        'big_map_id' => $mapId,
+                        'map_id' => null,
+                    ]
+                    : [
+                        'big_map_id' => null,
+                        'map_id' => $mapId,
+                    ],
+            )
             ->limit(1)
             ->one();
         if (!$schedule) {
@@ -142,12 +178,18 @@ trait UpdateSalmonSchedule
     /**
      * @param array<SalmonWeapon3|SalmonRandom3|null> $weapons
      */
-    private function registerSalmonScheduleImpl(int $startAt, int $endAt, int $mapId, array $weapons): bool
-    {
+    private function registerSalmonScheduleImpl(
+        int $startAt,
+        int $endAt,
+        int $mapId,
+        array $weapons,
+        bool $isBigRun,
+    ): bool {
         $schedule = Yii::createObject([
             'class' => SalmonSchedule3::class,
+            'big_map_id' => $isBigRun ? $mapId : null,
             'end_at' => \date(DateTime::ATOM, $endAt),
-            'map_id' => $mapId,
+            'map_id' => $isBigRun ? null : $mapId,
             'start_at' => \date(DateTime::ATOM, $startAt),
         ]);
         if (!$schedule->save()) {

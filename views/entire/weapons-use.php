@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use app\assets\EntireWeaponsUseAsset;
@@ -10,6 +11,11 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
+use yii\web\View;
+
+/**
+ * @var View $this
+ */
 
 $this->context->layout = 'main';
 

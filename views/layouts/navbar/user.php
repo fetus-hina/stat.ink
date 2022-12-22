@@ -2,12 +2,19 @@
 
 declare(strict_types=1);
 
+use app\assets\GameModeIconsAsset;
 use app\components\widgets\FA;
 use app\components\widgets\GameVersionIcon;
 use app\components\widgets\UserIcon;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var View $this
+ */
 
 $user = Yii::$app->user->identity ?? null;
+$modeAsset = GameModeIconsAsset::register($this);
 
 ?>
 <?= Html::a(
@@ -61,6 +68,18 @@ $user = Yii::$app->user->identity ?? null;
       )),
       Html::tag('li', Html::a(
         implode('', [
+          Html::tag('span', '┃', ['class' => 'fa fa-fw']),
+          Html::tag('span', '┗', ['class' => 'fa fa-fw']),
+          Html::img(
+            Yii::$app->assetManager->getAssetUrl($modeAsset, 'spl3/salmon36x36.png'),
+            ['style' => ['height' => '1em']],
+          ),
+          Html::encode(Yii::t('app-salmon2', 'Salmon Run')),
+        ]),
+        ['salmon-v3/index', 'screen_name' => $user->screen_name],
+      )),
+      Html::tag('li', Html::a(
+        implode('', [
           Html::tag('span', '┣', ['class' => 'fa fa-fw']),
           GameVersionIcon::widget(['version' => 2]),
           Html::encode(Yii::t('app', 'Splatoon 2')),
@@ -71,7 +90,10 @@ $user = Yii::$app->user->identity ?? null;
         implode('', [
           Html::tag('span', '┃', ['class' => 'fa fa-fw']),
           Html::tag('span', '┗', ['class' => 'fa fa-fw']),
-          Html::tag('span', '', ['class' => 'fas fa-fw fa-fish']),
+          Html::img(
+            Yii::$app->assetManager->getAssetUrl($modeAsset, 'spl2/salmon.png'),
+            ['style' => ['height' => '1em']],
+          ),
           Html::encode(Yii::t('app-salmon2', 'Salmon Run')),
         ]),
         ['salmon/index', 'screen_name' => $user->screen_name]

@@ -10,15 +10,20 @@ declare(strict_types=1);
 
 return [
     'Any Mode' => '',
+    'Attackers' => '',
     'CB' => 'Vongol gol',
     'Clam Blitz' => 'Vongol gol',
+    'Defenders' => '',
     'Rainmaker' => 'Bazookarp',
     'Ranked Modes' => '',
     'RM' => 'Bazookarp',
     'Splat Zones' => 'Zona splat',
     'SZ' => 'Zona splat',
     'TC' => 'Torre Mobile',
-    'Tower Control' => 'Torre Mobile',
+    'Tower Control' => 'Torre mobile',
+    'Tri' => '',
+    'Tricolor Battle' => 'Scontro tricolore',
+    'Tricolor Turf War' => 'Partita tricolore',
     'Turf War' => 'Mischia mollusca',
     'TW' => 'Mischia mollusca',
 ];

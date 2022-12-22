@@ -20,17 +20,19 @@ $_agentRevision = Version::getShortRevision();
 $_maps = Map2::getSortedMap();
 ?>
 <?= Html::beginTag('div', [
-  'aria-labelledby' => 'inputModalLabel',
-  'aria-modal' => 'true',
-  'class' => ['modal', 'fade'],
-  'id' => 'inputModal2',
-  'role' => 'dialog',
-  'tabindex' => '-1',
+  'aria' => [
+    'labelledby' => 'inputModalLabel',
+    'modal' => 'true',
+  ],
+  'class' => ['battle-input-modal', 'fade', 'modal'],
   'data' => [
     'translate' => [
       'Favorite Weapons' => Yii::t('app', 'Favorite Weapons'),
     ],
   ],
+  'id' => 'inputModal2',
+  'role' => 'dialog',
+  'tabindex' => '-1',
 ]) . "\n" ?>
   <div class="modal-dialog" role="document">
     <div class="modal-content">

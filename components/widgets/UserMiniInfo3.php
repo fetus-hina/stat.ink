@@ -32,6 +32,8 @@ final class UserMiniInfo3 extends Widget
     public $id = 'user-miniinfo';
     public $user;
 
+    public ?Lobby3 $activeLobby = null;
+
     public function run(): string
     {
         $view = $this->view;
@@ -52,6 +54,7 @@ final class UserMiniInfo3 extends Widget
                         [
                             $this->renderStatsTotal($groups),
                             $this->renderStatsLobbies($groups),
+                            $this->renderLinkToSalmon(),
                             $this->renderActivity(),
                             $this->renderLinkStats(),
                         ],
@@ -163,12 +166,8 @@ final class UserMiniInfo3 extends Widget
                                         \sprintf('spl3/%s.png', \rawurlencode($groupInfo['group']->key)),
                                     ),
                                     [
-                                        'class' => 'auto-tooltip',
+                                        'class' => 'auto-tooltip basic-icon',
                                         'title' => Yii::t('app-lobby3', $groupInfo['group']->name),
-                                        'style' => [
-                                            'height' => '1.5em',
-                                            'width' => 'auto',
-                                        ],
                                     ],
                                 )
                                 : Html::encode($groupInfo['group']->name),
@@ -191,6 +190,45 @@ final class UserMiniInfo3 extends Widget
                 fn (?array $conf): bool => $conf !== null,
             ),
         ]);
+    }
+
+    private function renderLinkToSalmon(): string
+    {
+        $am = Yii::$app->assetManager;
+        return Html::tag(
+            'div',
+            Html::a(
+                \implode('', [
+                    Html::img(
+                        $am->getAssetUrl(
+                            $am->getBundle(GameModeIconsAsset::class),
+                            'spl3/salmon36x36.png',
+                        ),
+                        [
+                            'class' => 'basic-icon',
+                            'style' => 'height:1em',
+                        ],
+                    ),
+                    ' ',
+                    Html::encode(Yii::t('app-salmon2', 'Salmon Run')),
+                    (string)FA::fas('angle-right')->fw(),
+                ]),
+                ['salmon-v3/index',
+                    'screen_name' => $this->user->screen_name,
+                ],
+                [
+                    'class' => [
+                        'btn',
+                        'btn-block',
+                        'btn-default',
+                        'btn-sm',
+                    ],
+                ],
+            ),
+            [
+                'class' => 'miniinfo-databox mt-0',
+            ],
+        );
     }
 
     private function renderActivity(): string
@@ -312,9 +350,18 @@ final class UserMiniInfo3 extends Widget
         $importance = -1;
         foreach ($models as $model) {
             $group = $model['group'];
-            if ($group && $group->importance > $importance) {
-                $result = $group->key;
-                $importance = $group->importance;
+            if ($group) {
+                if ($this->activeLobby) {
+                    $activeGroup = $this->activeLobby->group;
+                    if ($activeGroup && $activeGroup->key === $group->key) {
+                        return $group->key;
+                    }
+                }
+
+                if ($group->importance > $importance) {
+                    $result = $group->key;
+                    $importance = $group->importance;
+                }
             }
         }
 

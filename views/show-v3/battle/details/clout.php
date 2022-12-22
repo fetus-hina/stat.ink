@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
+use app\components\i18n\Formatter;
 use app\components\widgets\Label;
+use app\components\widgets\FA;
 use app\models\Battle3;
-use yii\bootstrap\Html;
+use yii\helpers\Html;
 
 return [
   'label' => Yii::t('app', 'Clout'),
@@ -24,7 +26,10 @@ return [
       return null;
     }
 
-    $f = Yii::$app->formatter;
+    $f = Yii::createObject([
+      'class' => Formatter::class,
+      'nullDisplay' => (string)FA::fas('question')->fw(),
+    ]);
 
     $parts = [];
     if ($festDragon) {
@@ -45,17 +50,13 @@ return [
           ])
         );
       } else {
-        $parts[] = Html::encode(
-          implode(' ', [
-            $cloutBefore !== null ? $f->asInteger($cloutBefore) : '?',
-            '→',
-            $cloutAfter !== null ? $f->asInteger($cloutAfter) : '?',
-            $cloutChange !== null
-              ? vsprintf('(+%s)', [
-                $f->asInteger($cloutChange),
-              ])
-              : '',
-          ])
+        $parts[] = trim(
+          vsprintf('%s%s%s %s', [
+            $f->asInteger($cloutBefore),
+            (string)FA::fas('arrow-right')->fw(),
+            $f->asInteger($cloutAfter),
+            $cloutChange === null ? '' : sprintf('(+%s)', $f->asInteger($cloutChange)),
+          ]),
         );
       }
     }

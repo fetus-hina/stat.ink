@@ -42,7 +42,7 @@ $list = [
         ]),
       ],
       [
-        'url' => 'http://splatoon.nintendo.com/',
+        'url' => 'https://splatoon.nintendo.com/',
         'name' => implode(' ', [
           $us(),
           Html::encode(Yii::t('app', 'North America')),
@@ -68,21 +68,21 @@ $list = [
     ]),
     'sub' => [
       [
-        'url' => 'https://www.nintendo.co.jp/switch/aab6a',
+        'url' => 'https://www.nintendo.co.jp/switch/aab6a/',
         'name' => implode(' ', [
           $jp(),
           Html::encode(Yii::t('app', 'Japan')),
         ]),
       ],
       [
-        'url' => 'http://splatoon.nintendo.com/',
+        'url' => 'https://splatoon.nintendo.com/',
         'name' => implode(' ', [
           $us(),
-          Html::encode(Yii::t('app', 'North America')),
+          Html::tag('del', Html::encode(Yii::t('app', 'North America'))),
         ]),
       ],
       [
-        'url' => 'https://www.nintendo.co.uk/Games/Nintendo-Switch/Splatoon-2-1173295.html',
+        'url' => 'https://www.nintendo.co.uk/Games/Nintendo-Switch-games/Splatoon-2-1173295.html',
         'name' => implode(' ', [
           $eu(),
           Html::encode(Yii::t('app', 'Europe')),
@@ -101,7 +101,7 @@ $list = [
     ]),
     'sub' => [
       [
-        'url' => 'http://www.nintendo.co.jp/wiiu/agmj/',
+        'url' => 'https://www.nintendo.co.jp/wiiu/agmj/',
         'name' => implode(' ', [
           $jp(),
           Html::encode(Yii::t('app', 'Japan')),
@@ -111,11 +111,11 @@ $list = [
         'url' => 'http://splatoon.nintendo.com/splatoon/',
         'name' => implode(' ', [
           $us(),
-          Html::encode(Yii::t('app', 'North America')),
+          Html::tag('del', Html::encode(Yii::t('app', 'North America'))),
         ]),
       ],
       [
-        'url' => 'https://www.nintendo.co.uk/Games/Wii-U/Splatoon-892510.html',
+        'url' => 'https://www.nintendo.co.uk/Games/Wii-U-games/Splatoon-892510.html',
         'name' => implode(' ', [
           $eu(),
           Html::encode(Yii::t('app', 'Europe')),
@@ -132,10 +132,17 @@ $list = [
     ]),
     'sub' => [
       [
-        'url' => 'https://twitter.com/splatoonjp',
+        'url' => 'https://twitter.com/SplatoonJP',
         'name' => implode(' ', [
           $jp(),
           Html::encode(Yii::t('app', 'Japan')),
+        ]),
+      ],
+      [
+        'url' => 'https://twitter.com/SplatoonNA',
+        'name' => implode(' ', [
+          $us(),
+          Html::encode(Yii::t('app', 'North America')),
         ]),
       ],
       [
@@ -166,6 +173,27 @@ $list = [
     // }}}
   ],
   [
+    // Splatoon Base website {{{
+    'name' => Html::encode(Yii::t('app', 'Splatoon Base Official Website')),
+    'sub' => [
+      [
+        'url' => 'https://www.nintendo.co.jp/character/splatoon/',
+        'name' => implode(' ', [
+          $jp(),
+          Html::encode(Yii::t('app', 'Japanese')),
+        ]),
+      ],
+      [
+        'url' => 'https://www.nintendo.co.jp/character/splatoon/en/',
+        'name' => implode(' ', [
+          $us(),
+          Html::encode(Yii::t('app', 'English')),
+        ]),
+      ],
+    ],
+    // }}}
+  ],
+  [
     // Official app {{{
     'name' => Html::encode(Yii::t('app', 'Nintendo Switch Online app')),
     'sub' => [
@@ -177,7 +205,7 @@ $list = [
         ]),
       ],
       [
-        'url' => 'https://itunes.apple.com/app/nintendo-switch-online/id1234806557',
+        'url' => 'https://apps.apple.com/app/nintendo-switch-online/id1234806557',
         'name' => implode('', [
           (string)FA::fab('apple')->fw(),
           Html::encode(Yii::t('app', 'iOS (iPhone/iPad)')),
@@ -189,8 +217,8 @@ $list = [
   [],
   [
     // s3s
-    'url' => 'https://github.com/frozenpandaman/s3s/',
-    'name' => implode('', [
+    'url' => 'https://github.com/frozenpandaman/s3s',
+    'name' => implode(' ', [
       (string)FA::fab('python')->fw(),
       Html::encode(Yii::t('app', 's3s')),
       (string)FA::fab('windows')->fw(),
@@ -201,7 +229,7 @@ $list = [
   [
     // s3si.ts
     'url' => 'https://github.com/spacemeowx2/s3si.ts',
-    'name' => implode('', [
+    'name' => implode(' ', [
       (string)FA::fab('js')->fw(),
       Html::encode(Yii::t('app', 's3si.ts')),
       (string)FA::fab('windows')->fw(),
@@ -211,14 +239,14 @@ $list = [
   ],
   [],
   [
-    'name' => implode('', [
+    'name' => implode(' ', [
       GameVersionIcon::widget(['version' => 2]),
       Html::encode(Yii::t('app', 'Apps for {version}', ['version' => Yii::t('app', 'Splatoon 2')])),
     ]),
     'sub' => [
       [
-        'url' => 'https://github.com/frozenpandaman/splatnet2statink/',
-        'name' => implode('', [
+        'url' => 'https://github.com/frozenpandaman/splatnet2statink',
+        'name' => implode(' ', [
           (string)FA::fab('python')->fw(),
           Html::encode(Yii::t('app', 'splatnet2statink')),
           (string)FA::fab('windows')->fw(),
@@ -227,8 +255,8 @@ $list = [
         ]),
       ],
       [
-        'url' => 'https://github.com/hymm/squid-tracks/',
-        'name' => implode('', [
+        'url' => 'https://github.com/hymm/squid-tracks',
+        'name' => implode(' ', [
           $icon->squidTracks,
           Html::tag('del', Html::encode(Yii::t('app', 'SquidTracks'))),
           (string)FA::fab('windows')->fw(),
@@ -237,7 +265,7 @@ $list = [
         ]),
       ],
       [
-        'name' => implode('', [
+        'name' => implode(' ', [
           $icon->ikarecJa,
           Html::tag('del', Html::encode(Yii::t('app', 'IkaRec 2'))),
           Html::tag('span', '', ['class' => 'fab fa-fw fa-android']),
@@ -247,13 +275,13 @@ $list = [
     ],
   ],
   [
-    'name' => implode('', [
+    'name' => implode(' ', [
       GameVersionIcon::widget(['version' => 1]),
       Html::encode(Yii::t('app', 'Apps for {version}', ['version' => Yii::t('app', 'Splatoon 1')])),
     ]),
     'sub' => [
       [
-        'name' => implode('', [
+        'name' => implode(' ', [
           $icon->ikalog,
           (string)FA::fab('python')->fw(),
           Html::encode(Yii::t('app', 'IkaLog')),
@@ -279,7 +307,7 @@ $list = [
           [],
           [
             'url' => 'https://hasegaw.github.io/IkaLog/',
-            'name' => implode('', [
+            'name' => implode(' ', [
               (string)FA::fas('download')->fw(),
               Html::encode(Yii::t('app', 'IkaLog Download Page')),
               '(' . FA::fab('windows')->fw() . Html::encode(Yii::t('app', 'Windows')) . ')',
@@ -289,12 +317,12 @@ $list = [
       ],
       [
         'url' => 'https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec',
-        'name' => implode('', [
+        'name' => implode(' ', [
           $icon->ikarecJa,
           $jp(),
           Html::tag(
             'del',
-            implode('', [
+            implode(' ', [
               Html::encode(Yii::t('app', 'IkaRec')),
               '(' . Html::encode(Yii::t('app', 'for {title}', [
                 'title' => Yii::t('app', 'Splatoon'),
@@ -306,7 +334,7 @@ $list = [
       ],
       [
         'url' => 'https://play.google.com/store/apps/details?id=ink.pocketgopher.ikarec',
-        'name' => implode('', [
+        'name' => implode(' ', [
           $icon->ikarecEn,
           $us(),
           Html::encode(Yii::t('app', 'IkaRec')),
@@ -321,14 +349,14 @@ $list = [
   [],
   [
     'url' => 'https://ikanakama.ink/',
-    'name' => implode('', [
+    'name' => implode(' ', [
       $icon->ikanakama,
-      Html::encode(Yii::t('app', 'Ika-Nakama 2')),
+      Html::encode(Yii::t('app', 'Ika-Nakama')),
     ]),
   ],
   [
     'url' => 'https://fest.ink/',
-    'name' => implode('', [
+    'name' => implode(' ', [
       $icon->festink,
       Html::encode(Yii::t('app', 'fest.ink')),
     ]),
@@ -336,14 +364,14 @@ $list = [
   [],
   [
     'url' => 'https://blog.fetus.jp/',
-    'name' => implode('', [
+    'name' => implode(' ', [
       (string)FA::fab('wordpress')->fw(),
       Html::encode(Yii::t('app', 'Blog')),
     ]),
   ],
   [
     'url' => 'https://github.com/fetus-hina/stat.ink',
-    'name' => implode('', [
+    'name' => implode(' ', [
       (string)FA::fab('github-alt')->fw(),
       Html::encode(Yii::t('app', 'Source Code')),
     ]),

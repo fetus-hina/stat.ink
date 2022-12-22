@@ -9,11 +9,18 @@ use app\components\widgets\Battle2FilterWidget;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\UserMiniInfo2;
 use app\components\widgets\WinLoseLegend;
+use app\models\User;
 use jp3cki\yii2\flot\FlotPieAsset;
 use statink\yii2\stages\spl2\Spl2Stage;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
+use yii\web\View;
+
+/**
+ * @var User $user
+ * @var View $this
+ */
 
 TableResponsiveForceAsset::register($this);
 StatByMapRuleAsset::register($this);

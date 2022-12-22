@@ -11,10 +11,12 @@ declare(strict_types=1);
 namespace app\components\widgets\v3\userMiniInfo;
 
 use Yii;
+use app\assets\GameModeIconsAsset;
 use app\components\widgets\v3\Rank;
 use app\models\Rank3;
 use app\models\User;
 use app\models\UserStat3;
+use app\models\UserStat3XMatch;
 use yii\base\Widget;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
@@ -40,6 +42,9 @@ final class PerLobby extends Widget
         return \implode('', [
             $this->renderHeader($user, $model),
             $this->renderContent($user, $model),
+            $model->lobby?->key === 'xmatch'
+                ? $this->renderXMatch($user, $model)
+                : '',
         ]);
     }
 
@@ -91,9 +96,11 @@ final class PerLobby extends Widget
 
             case 'bankara_challenge':
             case 'bankara_open':
-            // case 'league':
-            // case 'xmatch':
                 return $this->getListAttributesForBankara($user, $model);
+
+            case 'xmatch':
+                return $this->getListAttributesForXMatch($user, $model);
+            // case 'league':
         }
 
         return $this->getListDefaultAttributes($user, $model);
@@ -137,6 +144,18 @@ final class PerLobby extends Widget
         ];
     }
 
+    private function getListAttributesForXMatch(User $user, UserStat3 $model): array
+    {
+        return [
+            require __DIR__ . '/items/battles.php',
+            require __DIR__ . '/items/win-pct.php',
+            require __DIR__ . '/items/empty.php',
+            require __DIR__ . '/items/kill-per-min.php',
+            require __DIR__ . '/items/death-per-min.php',
+            require __DIR__ . '/items/kill-ratio.php',
+        ];
+    }
+
     private function attrPeakRank(): array
     {
         if (!$this->peakRank) {
@@ -154,5 +173,73 @@ final class PerLobby extends Widget
                 ]);
             },
         ];
+    }
+
+    private function renderXMatch(User $user, UserStat3 $mainStatModel): string
+    {
+        $models = UserStat3XMatch::find()
+            ->innerJoinWith(['rule'], true)
+            ->andWhere(['user_id' => $user->id])
+            ->orderBy(['{{%rule3}}.[[rank]]' => SORT_ASC])
+            ->all();
+
+        $am = Yii::$app->assetManager;
+        $asset = GameModeIconsAsset::register($this->view);
+
+        return \implode(
+            '',
+            \array_map(
+                fn (UserStat3XMatch $model): string => Html::tag(
+                    'div',
+                    \implode(
+                        '',
+                        [
+                            // Rule header for X match
+                            Html::tag(
+                                'p',
+                                \vsprintf('%s%s', [
+                                    Html::img(
+                                        $am->getAssetUrl($asset, "spl3/{$model->rule->key}.png"),
+                                        ['class' => 'basic-icon mr-1'],
+                                    ),
+                                    Html::encode(Yii::t('app-rule3', $model->rule->name)),
+                                ]),
+                                ['class' => 'label-user mb-1'],
+                            ),
+                            Html::tag(
+                                'div',
+                                DetailView::widget([
+                                    'options' => [
+                                        'tag' => 'div',
+                                    ],
+                                    'model' => $model,
+                                    'template' => Html::tag(
+                                        'div',
+                                        \implode('', [
+                                            Html::tag('div', '{label}', [
+                                                'class' => 'user-label auto-tooltip',
+                                                'title' => '{label}',
+                                            ]),
+                                            Html::tag('div', '{value}', [
+                                                'class' => 'user-number',
+                                            ]),
+                                        ]),
+                                        ['class' => 'col-4 col-xs-4'],
+                                    ),
+                                    'attributes' => [
+                                        require __DIR__ . '/items/battles.php',
+                                        require __DIR__ . '/items/win-pct.php',
+                                        require __DIR__ . '/items/x-power.php',
+                                    ],
+                                ]),
+                                ['class' => 'row'],
+                            ),
+                        ],
+                    ),
+                    ['class' => 'mt-2'],
+                ),
+                $models,
+            ),
+        );
     }
 }

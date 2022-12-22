@@ -19,4 +19,5 @@ return [
     'Splatfest (Open)' => 'フェスマッチ（オープン）',
     'Splatfest (Pro)' => 'フェスマッチ（チャレンジ）',
     'Splatfest' => 'フェスマッチ',
+    'X Battle' => 'Xマッチ',
 ];

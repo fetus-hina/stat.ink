@@ -12,13 +12,14 @@ namespace app\components\widgets\v3\weaponIcon;
 
 use Yii;
 use app\models\Mainweapon3;
+use app\models\SalmonRandom3;
 use app\models\SalmonWeapon3;
 use app\models\Weapon3;
 
 final class WeaponIcon extends BaseWeaponIcon
 {
     /**
-     * @var Weapon3|Mainweapon3|SalmonWeapon3|null
+     * @var Weapon3|Mainweapon3|SalmonWeapon3|SalmonRandom3|null
      */
     public $model = null;
 
@@ -34,6 +35,14 @@ final class WeaponIcon extends BaseWeaponIcon
 
     protected function getAlt(): ?string
     {
-        return $this->model ? Yii::t('app-weapon3', $this->model->name) : null;
+        if (!$this->model) {
+            return null;
+        }
+
+        if ($this->model instanceof SalmonRandom3) {
+            return Yii::t('app-salmon2', $this->model->name);
+        }
+
+        return Yii::t('app-weapon3', $this->model->name);
     }
 }

@@ -1,5 +1,13 @@
 <?php
+
+use app\models\Battle2;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var Battle2 $model
+ * @var View $this
+ */
 
 $this->registerCss('.cell-judge .progress{width:100%;min-width:150px;margin-bottom:0}');
 
@@ -9,15 +17,15 @@ $draw = function (
     string $lhsString,
     string $rhsString,
     ?string $lhsTitle = null,
-    ?string $rhsTitle = null) : string
-{
+    ?string $rhsTitle = null,
+): string {
     $bar = function (
         float $curValue,
         float $otherValue,
         string $class,
         string $string,
-        ?string $title = null) : string
-    {
+        ?string $title = null,
+    ): string {
         return ($curValue > 0)
             ? Html::tag('div', Html::encode($string), [
                 'class' => [

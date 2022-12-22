@@ -1,0 +1,479 @@
+<?php
+
+/**
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ * @author AIZAWA Hina <hina@fetus.jp>
+ */
+
+declare(strict_types=1);
+
+namespace app\components\widgets\v3;
+
+use Yii;
+use app\assets\SalmonEggAsset;
+use app\assets\SalmonPlayersAsset;
+use app\assets\Spl3SalmonUniformAsset;
+use app\assets\Spl3WeaponAsset;
+use app\components\i18n\Formatter;
+use app\components\widgets\FA;
+use app\models\Salmon3;
+use app\models\SalmonPlayer3;
+use app\models\SalmonPlayerWeapon3;
+use app\models\SalmonWeapon3;
+use yii\base\Widget;
+use yii\bootstrap\BootstrapAsset;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
+use yii\i18n\Formatter as BaseFormatter;
+use yii\web\View;
+
+final class SalmonPlayers extends Widget
+{
+    public Salmon3 $job;
+
+    /**
+     * @var SalmonPlayers[]
+     */
+    public array $players = [];
+
+    public ?BaseFormatter $formatter = null;
+
+    /**
+     * @inheritdoc
+     * @return void
+     */
+    public function init()
+    {
+        parent::init();
+
+        if (!$this->formatter) {
+            $this->formatter = Yii::createObject([
+                'class' => Formatter::class,
+                'nullDisplay' => '-',
+            ]);
+        }
+
+        $view = $this->view;
+        if ($view instanceof View) {
+            BootstrapAsset::register($view);
+            SalmonPlayersAsset::register($view);
+        }
+    }
+
+    public function run(): string
+    {
+        return Html::tag(
+            'div',
+            Html::tag(
+                'table',
+                implode('', [
+                    $this->renderHeader(),
+                    $this->renderBody(),
+                ]),
+                [
+                    'class' => [
+                        'salmon-v3-players',
+                        'table',
+                        'table-bordered',
+                        'table-striped',
+                    ],
+                ]
+            ),
+            [
+                'class' => 'table-responsive',
+            ],
+        );
+    }
+
+    private function renderHeader(): string
+    {
+        $am = null;
+        $view = $this->view;
+        if ($view instanceof View) {
+            $am = Yii::$app->assetManager;
+        }
+
+        return Html::tag(
+            'thead',
+            Html::tag(
+                'tr',
+                \implode('', [
+                    Html::tag('th', ''),
+                    \implode('', ArrayHelper::getColumn(
+                        \array_slice(
+                            \array_merge($this->players, [null, null, null, null]),
+                            0,
+                            4,
+                        ),
+                        fn (?SalmonPlayer3 $player): string => Html::tag(
+                            'th',
+                            $player
+                                ? \trim(
+                                    \vsprintf('%s %s %s', [
+                                        $am && $player->uniform
+                                            ? Html::img(
+                                                $am->getAssetUrl(
+                                                    $am->getBundle(Spl3SalmonUniformAsset::class),
+                                                    \sprintf('%s.png', $player->uniform->key),
+                                                ),
+                                                [
+                                                    'class' => 'auto-tooltip basic-icon',
+                                                    'title' => Yii::t('app-salmon-uniform3', $player->uniform->name),
+                                                ],
+                                            )
+                                            : '',
+                                        $player->is_disconnected
+                                            ? Html::tag('span', FA::fas('tint-slash'), ['class' => 'text-danger'])
+                                            : '',
+                                        Html::tag(
+                                            'span',
+                                            Html::encode($player->name),
+                                            [
+                                                'class' => 'auto-tooltip',
+                                                'title' => \trim(
+                                                    \vsprintf('%s %s', [
+                                                        $player->name,
+                                                        $player->number !== null
+                                                            ? \sprintf('#%s', $player->number)
+                                                            : '',
+                                                    ]),
+                                                ),
+                                            ],
+                                        ),
+                                    ])
+                                )
+                                : '-',
+                            ['class' => 'omit'],
+                        ),
+                    )),
+                ]),
+            ),
+        );
+    }
+
+    private function renderBody(): string
+    {
+        $players = \array_slice(
+            \array_merge($this->players, [null, null, null, null]),
+            0,
+            4,
+        );
+
+        return Html::tag(
+            'tbody',
+            \implode(
+                '',
+                \array_filter(
+                    [
+                        $this->renderWeapons($players),
+                        $this->renderSpecial($players),
+                        $this->renderGoldenEggs($players),
+                        $this->renderPowerEggs($players),
+                        $this->renderRescues($players),
+                        $this->renderRescued($players),
+                        $this->renderBoss($players),
+                    ],
+                    fn (?string $html): bool => $html !== null,
+                ),
+            ),
+        );
+    }
+
+    /**
+     * @param (SalmonPlayer3|null)[] $players
+     */
+    private function renderWeapons(array $players): string
+    {
+        return Html::tag(
+            'tr',
+            \implode('', [
+                Html::tag('th', Html::encode(Yii::t('app', 'Weapons'))),
+                \implode('', ArrayHelper::getColumn(
+                    $players,
+                    fn (?SalmonPlayer3 $player): string => Html::tag(
+                        'td',
+                        ArrayHelper::getValue(
+                            $player,
+                            function (?SalmonPlayer3 $player): string {
+                                if (!$player) {
+                                    return Html::encode('-');
+                                }
+
+                                $weapons = ArrayHelper::getColumn(
+                                    ArrayHelper::sort(
+                                        $player->salmonPlayerWeapon3s,
+                                        function (SalmonPlayerWeapon3 $a, SalmonPlayerWeapon3 $b): int {
+                                            return $a->wave <=> $b->wave;
+                                        },
+                                    ),
+                                    'weapon',
+                                );
+
+                                $am = null;
+                                if ($this->view instanceof View) {
+                                    $am = Yii::$app->assetManager;
+                                }
+
+                                return \implode('', \array_map(
+                                    function (?SalmonWeapon3 $weapon) use ($am): string {
+                                        if (!$am) {
+                                            return '';
+                                        }
+
+                                        return Html::img(
+                                            $am->getBundle(Spl3WeaponAsset::class)
+                                                ->getIconUrl('main', $weapon ? $weapon->key : 'random'),
+                                            [
+                                                'class' => 'auto-tooltip basic-icon mr-1',
+                                                'title' => Yii::t('app-weapon3', $weapon ? $weapon->name : ''),
+                                            ],
+                                        );
+                                    },
+                                    $weapons,
+                                ));
+                            },
+                        ),
+                        ['class' => 'text-center'],
+                    ),
+                )),
+            ]),
+        );
+    }
+
+    /**
+     * @param (SalmonPlayer3|null)[] $players
+     */
+    private function renderSpecial(array $players): string
+    {
+        return Html::tag(
+            'tr',
+            \implode('', [
+                Html::tag('th', Html::encode(Yii::t('app', 'Special'))),
+                \implode('', ArrayHelper::getColumn(
+                    $players,
+                    fn (?SalmonPlayer3 $player): string => Html::tag(
+                        'td',
+                        ArrayHelper::getValue(
+                            $player,
+                            function (?SalmonPlayer3 $player): string {
+                                if (!$player || !$player->special) {
+                                    return Html::encode('-');
+                                }
+
+                                return Html::img(
+                                    Yii::$app->assetManager->getBundle(Spl3WeaponAsset::class)
+                                        ->getIconUrl('special', $player->special->key),
+                                    [
+                                        'class' => 'auto-tooltip basic-icon mr-1',
+                                        'title' => Html::encode(Yii::t('app-special3', $player->special->name)),
+                                    ],
+                                );
+                            },
+                        ),
+                        ['class' => 'text-center'],
+                    ),
+                )),
+            ]),
+        );
+    }
+
+    /**
+     * @param (SalmonPlayer3|null)[] $players
+     */
+    private function renderGoldenEggs(array $players): string
+    {
+        return Html::tag(
+            'tr',
+            \implode('', [
+                Html::tag(
+                    'th',
+                    \implode(' ', [
+                        Html::img(
+                            Yii::$app->assetManager->getAssetUrl(
+                                SalmonEggAsset::register($this->view),
+                                'golden-egg.png',
+                            ),
+                            ['class' => 'basic-icon'],
+                        ),
+                        Html::encode(Yii::t('app-salmon2', 'Delivers')),
+                    ]),
+                ),
+                \implode('', ArrayHelper::getColumn(
+                    $players,
+                    fn (?SalmonPlayer3 $player): string => Html::tag(
+                        'td',
+                        ArrayHelper::getValue(
+                            $player,
+                            function (?SalmonPlayer3 $player): string {
+                                if (!$player || $player->golden_eggs === null) {
+                                    return Html::encode('-');
+                                }
+
+                                if ($player->golden_assist > 0) {
+                                    return \vsprintf('%s %s', [
+                                        Html::encode($this->formatter->asInteger($player->golden_eggs)),
+                                        Html::tag(
+                                            'small',
+                                            Html::encode(
+                                                \vsprintf('<%s>', [
+                                                    $this->formatter->asInteger($player->golden_assist),
+                                                ]),
+                                            ),
+                                            ['class' => 'text-muted'],
+                                        ),
+                                    ]);
+                                }
+
+                                return Html::encode(
+                                    $this->formatter->asInteger($player->golden_eggs),
+                                );
+                            },
+                        ),
+                        ['class' => 'text-center'],
+                    ),
+                )),
+            ]),
+        );
+    }
+
+    /**
+     * @param (SalmonPlayer3|null)[] $players
+     */
+    private function renderPowerEggs(array $players): string
+    {
+        return Html::tag(
+            'tr',
+            \implode('', [
+                Html::tag(
+                    'th',
+                    \implode(' ', [
+                        Html::img(
+                            Yii::$app->assetManager->getAssetUrl(
+                                SalmonEggAsset::register($this->view),
+                                'power-egg.png',
+                            ),
+                            ['class' => 'basic-icon'],
+                        ),
+                        Html::encode(Yii::t('app-salmon2', 'Power Eggs')),
+                    ]),
+                ),
+                \implode('', ArrayHelper::getColumn(
+                    $players,
+                    fn (?SalmonPlayer3 $player): string => Html::tag(
+                        'td',
+                        ArrayHelper::getValue(
+                            $player,
+                            function (?SalmonPlayer3 $player): string {
+                                if (!$player || $player->power_eggs === null) {
+                                    return Html::encode('-');
+                                }
+
+                                return Html::encode(
+                                    $this->formatter->asInteger($player->power_eggs),
+                                );
+                            },
+                        ),
+                        ['class' => 'text-center'],
+                    ),
+                )),
+            ]),
+        );
+    }
+
+    /**
+     * @param (SalmonPlayer3|null)[] $players
+     */
+    private function renderRescues(array $players): string
+    {
+        return Html::tag(
+            'tr',
+            \implode('', [
+                Html::tag('th', Html::encode(Yii::t('app-salmon3', 'Rescues'))),
+                \implode('', ArrayHelper::getColumn(
+                    $players,
+                    fn (?SalmonPlayer3 $player): string => Html::tag(
+                        'td',
+                        ArrayHelper::getValue(
+                            $player,
+                            function (?SalmonPlayer3 $player): string {
+                                if (!$player || $player->rescue === null) {
+                                    return Html::encode('-');
+                                }
+
+                                return Html::encode(
+                                    $this->formatter->asInteger($player->rescue),
+                                );
+                            },
+                        ),
+                        ['class' => 'text-center'],
+                    ),
+                )),
+            ]),
+        );
+    }
+
+    /**
+     * @param (SalmonPlayer3|null)[] $players
+     */
+    private function renderRescued(array $players): string
+    {
+        return Html::tag(
+            'tr',
+            \implode('', [
+                Html::tag('th', Html::encode(Yii::t('app-salmon3', 'Rescued'))),
+                \implode('', ArrayHelper::getColumn(
+                    $players,
+                    fn (?SalmonPlayer3 $player): string => Html::tag(
+                        'td',
+                        ArrayHelper::getValue(
+                            $player,
+                            function (?SalmonPlayer3 $player): string {
+                                if (!$player || $player->rescued === null) {
+                                    return Html::encode('-');
+                                }
+
+                                return Html::encode(
+                                    $this->formatter->asInteger($player->rescued),
+                                );
+                            },
+                        ),
+                        ['class' => 'text-center'],
+                    ),
+                )),
+            ]),
+        );
+    }
+
+    /**
+     * @param (SalmonPlayer3|null)[] $players
+     */
+    private function renderBoss(array $players): string
+    {
+        return Html::tag(
+            'tr',
+            \implode('', [
+                Html::tag('th', Html::encode(Yii::t('app-salmon3', 'Boss Salmonid'))),
+                \implode('', ArrayHelper::getColumn(
+                    $players,
+                    fn (?SalmonPlayer3 $player): string => Html::tag(
+                        'td',
+                        ArrayHelper::getValue(
+                            $player,
+                            function (?SalmonPlayer3 $player): string {
+                                if (!$player || $player->defeat_boss === null) {
+                                    return Html::encode('-');
+                                }
+
+                                return Html::encode(
+                                    $this->formatter->asInteger($player->defeat_boss),
+                                );
+                            },
+                        ),
+                        ['class' => 'text-center'],
+                    ),
+                )),
+            ]),
+        );
+    }
+}

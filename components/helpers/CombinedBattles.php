@@ -16,6 +16,7 @@ use app\models\Battle2;
 use app\models\Battle3;
 use app\models\Battle;
 use app\models\Salmon2;
+use app\models\Salmon3;
 use app\models\User;
 use yii\base\Model;
 
@@ -85,20 +86,21 @@ final class CombinedBattles
                 Battle2::class => 2,
                 Salmon2::class => 3,
                 Battle3::class => 4,
+                Salmon3::class => 5,
             ];
             \usort($merged, function ($a, $b) use ($orderByClass): int {
                 return self::getCreatedAt($b) <=> self::getCreatedAt($a)
                     ?: $orderByClass[get_class($b)] <=> $orderByClass[get_class($a)]
                     ?: $b->id <=> $a->id;
             });
-            return \array_slice($merged, 0, $num);
+            return \array_slice(\array_values($merged), 0, $num);
         } finally {
             Yii::endProfile(__FUNCTION__, __METHOD__);
         }
     }
 
     /**
-     * @param Battle|Battle2|Battle3|Salmon2|null $model
+     * @param Battle|Battle2|Battle3|Salmon2|Salmon3|null $model
      */
     private static function getCreatedAt(?Model $model): ?int
     {

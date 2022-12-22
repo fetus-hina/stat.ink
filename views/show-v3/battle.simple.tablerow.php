@@ -7,7 +7,14 @@ use app\components\widgets\Label;
 use app\components\widgets\v3\weaponIcon\SpecialIcon;
 use app\components\widgets\v3\weaponIcon\SubweaponIcon;
 use app\components\widgets\v3\weaponIcon\WeaponIcon;
+use app\models\Battle3;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var Battle3 $model
+ * @var View $this
+ */
 
 ?>
 <?= Html::tag(

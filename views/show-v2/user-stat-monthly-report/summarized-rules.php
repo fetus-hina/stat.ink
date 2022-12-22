@@ -13,16 +13,13 @@ use yii\web\View;
  * @var array $data
  */
 
-static $rules = null;
-if ($rules === null) {
-  $rules = ArrayHelper::sort(
-    ArrayHelper::getColumn(
-      Mode2::findOne(['key' => 'gachi'])->rules,
-      fn (Rule2 $rule): array => $rule->attributes,
-    ),
-    fn (array $a, array $b): int => $a['id'] <=> $b['id'],
-  );
-}
+$rules = ArrayHelper::sort(
+  ArrayHelper::getColumn(
+    Mode2::findOne(['key' => 'gachi'])->rules,
+    fn (Rule2 $rule): array => $rule->attributes,
+  ),
+  fn (array $a, array $b): int => $a['id'] <=> $b['id'],
+);
 
 ?>
 <div class="row">

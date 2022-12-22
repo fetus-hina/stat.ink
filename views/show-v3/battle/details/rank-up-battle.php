@@ -10,6 +10,7 @@ return [
   'format' => 'raw',
   'value' => function (Battle3 $model): ?string {
     if (
+      $model->lobby?->key === 'xmatch' ||
       $model->is_rank_up_battle !== true || 
       $model->challenge_win === null ||
       $model->challenge_lose === null

@@ -2,19 +2,28 @@
 
 declare(strict_types=1);
 
+$tryLoad = function (string $path, $default = null) {
+    return @file_exists($path) && @is_file($path) && @is_readable($path) ? require $path : $default;
+};
+
+$isOfficialStatink = str_contains($_SERVER['HTTP_HOST'] ?? '', 'stat.ink');
+$isProductionDB = false;
+if ($isOfficialStatink) {
+    $db = require __DIR__ . '/db.php';
+    $isProductionDB = str_ends_with($db['dsn'], 'dbname=statink');
+}
+
 return [
     'adminEmail' => 'admin@example.com',
-    'amazonS3' => require(__DIR__ . '/amazon-s3.php'),
-    'assetRevision' => @file_exists(__DIR__ . '/asset-revision.php')
-        ? require(__DIR__ . '/asset-revision.php')
-        : null,
+    'agentRequirements' => require __DIR__ . '/agent-requirements.php',
+    'amazonS3' => require __DIR__ . '/amazon-s3.php',
+    'assetRevision' => $tryLoad(__DIR__ . '/asset-revision.php'),
     'deepl' => null,
-    'gitRevision' => @file_exists(__DIR__ . '/git-revision.php')
-        ? require(__DIR__ . '/git-revision.php')
-        : null,
-    'lepton' => require(__DIR__ . '/lepton.php'),
-    'minimumPHP' => '7.4.0',
+    'gitRevision' => $tryLoad(__DIR__ . '/git-revision.php'),
+    'lepton' => require __DIR__ . '/lepton.php',
+    'minimumPHP' => '8.0.0',
     'notifyEmail' => 'noreply@stat.ink',
-    'twitter' => require(__DIR__ . '/twitter.php'),
-    'useImgStatInk' => strpos($_SERVER['HTTP_HOST'] ?? '', 'stat.ink') !== false,
+    'twitter' => require __DIR__ . '/twitter.php',
+    'useImgStatInk' => $isOfficialStatink,
+    'useS3ImgGen' => $isOfficialStatink && $isProductionDB,
 ];

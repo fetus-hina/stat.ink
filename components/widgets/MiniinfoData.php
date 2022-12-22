@@ -22,10 +22,12 @@ class MiniinfoData extends Widget
 {
     public $label;
     public $labelTitle;
-    public $labelFormat = 'text';
+    public string|array $labelFormat = 'text';
     public $value;
     public $valueTitle;
-    public $valueFormat = 'text';
+    public string|array $valueFormat = 'text';
+    public ?string $nullDisplay = null;
+    public string|array $nullDisplayFormat = 'text';
     public $options = [
         'class' => 'col-xs-4',
     ];
@@ -74,7 +76,9 @@ class MiniinfoData extends Widget
             $this->label,
             $this->labelTitle,
             $this->labelFormat,
-            $this->labelOptions
+            $this->labelOptions,
+            null,
+            'text',
         );
     }
 
@@ -84,18 +88,31 @@ class MiniinfoData extends Widget
             $this->value,
             $this->valueTitle,
             $this->valueFormat,
-            $this->valueOptions
+            $this->valueOptions,
+            $this->nullDisplay,
+            $this->nullDisplayFormat,
         );
     }
 
-    protected function renderElement($value, $valueTitle, string $format, array $options): string
-    {
+    protected function renderElement(
+        $value,
+        $valueTitle,
+        $format,
+        array $options,
+        ?string $nullDisplay,
+        string|array $nullDisplayFormat,
+    ): string {
         $tag = ArrayHelper::remove($options, 'tag', 'div');
         if (!isset($options['title']) && $valueTitle != '') {
             $options['title'] = $valueTitle;
         }
 
         $f = $this->formatter;
+        if ($value === null && $nullDisplay !== null) {
+            $value = $nullDisplay;
+            $format = $nullDisplayFormat;
+        }
+
         return Html::tag(
             $tag,
             $f->format($value, $format),

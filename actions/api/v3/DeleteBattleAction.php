@@ -14,6 +14,7 @@ use Throwable;
 use Yii;
 use app\actions\api\v3\traits\ApiInitializerTrait;
 use app\components\helpers\UuidRegexp;
+use app\components\jobs\UserStatsJob;
 use app\models\Battle3;
 use app\models\User;
 use yii\base\Action;
@@ -76,7 +77,8 @@ final class DeleteBattleAction extends Action
                 }
 
                 $model->is_deleted = true;
-                if ($model->save()) {
+                if ($model->save(false)) {
+                    UserStatsJob::pushQueue3($user);
                     $resp->statusCode = 204;
                     return $resp;
                 }

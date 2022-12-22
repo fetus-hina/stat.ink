@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2018 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,12 +10,13 @@ declare(strict_types=1);
 
 namespace app\components\behaviors;
 
+use LogicException;
 use Yii;
 use yii\base\Behavior;
 use yii\base\Model;
 use yii\helpers\StringHelper;
 
-class UserAuthKeyBehavior extends Behavior
+final class UserAuthKeyBehavior extends Behavior
 {
     public const RAW_KEY_BITS = 256;
 
@@ -41,11 +42,10 @@ class UserAuthKeyBehavior extends Behavior
         // hint for finding
         $this->owner->auth_key_hint = static::raw2hint($raw_key);
 
+        [$algo, $algoOptions] = $this->getHashOptions();
+
         // hashed token
-        $this->owner->auth_key_hash = password_hash(
-            $raw_key,
-            PASSWORD_ARGON2I //TODO: use PASSWORD_ARGON2ID after upgrade to PHP 7.3
-        );
+        $this->owner->auth_key_hash = \password_hash($raw_key, $algo, $algoOptions);
     }
 
     protected function generateRawKey(): string
@@ -54,5 +54,27 @@ class UserAuthKeyBehavior extends Behavior
         $bytes = (int)ceil(static::RAW_KEY_BITS / 8);
         $binary = $security->generateRandomKey($bytes);
         return rtrim(StringHelper::base64UrlEncode($binary), '=');
+    }
+
+    /**
+     * @return array{string, array<string, int>}
+     */
+    private function getHashOptions(): array
+    {
+        return match (true) {
+            defined('PASSWORD_ARGON2ID'), defined('PASSWORD_ARGON2I') => [
+                match (true) {
+                    defined('PASSWORD_ARGON2ID') => PASSWORD_ARGON2ID,
+                    defined('PASSWORD_ARGON2I') => PASSWORD_ARGON2I,
+                    default => throw new LogicException(),
+                },
+                [
+                    'memory_cost' => 1024,
+                    'time_cost' => 2,
+                    'threads' => 2,
+                ],
+            ],
+            default => [PASSWORD_BCRYPT, []],
+        };
     }
 }

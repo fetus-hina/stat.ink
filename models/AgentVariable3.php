@@ -23,6 +23,8 @@ use yii\db\ActiveRecord;
  *
  * @property BattleAgentVariable3[] $battleAgentVariable3s
  * @property Battle3[] $battles
+ * @property Salmon3[] $salmon
+ * @property SalmonAgentVariable3[] $salmonAgentVariable3s
  */
 class AgentVariable3 extends ActiveRecord
 {
@@ -58,5 +60,15 @@ class AgentVariable3 extends ActiveRecord
     public function getBattles(): ActiveQuery
     {
         return $this->hasMany(Battle3::class, ['id' => 'battle_id'])->viaTable('battle_agent_variable3', ['variable_id' => 'id']);
+    }
+
+    public function getSalmon(): ActiveQuery
+    {
+        return $this->hasMany(Salmon3::class, ['id' => 'salmon_id'])->viaTable('salmon_agent_variable3', ['variable_id' => 'id']);
+    }
+
+    public function getSalmonAgentVariable3s(): ActiveQuery
+    {
+        return $this->hasMany(SalmonAgentVariable3::class, ['variable_id' => 'id']);
     }
 }

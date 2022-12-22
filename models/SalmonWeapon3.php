@@ -22,6 +22,7 @@ use yii\db\ActiveRecord;
  * @property string $name
  * @property integer $weapon_id
  *
+ * @property SalmonPlayerWeapon3[] $salmonPlayerWeapon3s
  * @property SalmonScheduleWeapon3[] $salmonScheduleWeapon3s
  * @property SalmonWeapon3Alias[] $salmonWeapon3Aliases
  * @property Weapon3 $weapon
@@ -55,6 +56,11 @@ class SalmonWeapon3 extends ActiveRecord
             'name' => 'Name',
             'weapon_id' => 'Weapon ID',
         ];
+    }
+
+    public function getSalmonPlayerWeapon3s(): ActiveQuery
+    {
+        return $this->hasMany(SalmonPlayerWeapon3::class, ['weapon_id' => 'id']);
     }
 
     public function getSalmonScheduleWeapon3s(): ActiveQuery

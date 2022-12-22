@@ -61,7 +61,7 @@ return [
     'Rescues' => 'Sauvés',
     'Results of {userName}\'s job' => 'Résultats du job de {userName}',
     'Rotation' => '',
-    'Salmon Run' => '',
+    'Salmon Run' => 'Salmon Run',
     'Soon' => 'Bientôt!',
     'Special Use' => 'Spéciaux utilisés',
     'Stats: Salmon Clear %' => 'Stats: Réussite Salmon %',

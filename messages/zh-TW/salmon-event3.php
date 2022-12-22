@@ -3,18 +3,19 @@
 /**
  * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ * @author ADe <loezone@gmail.com>
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 declare(strict_types=1);
 
 return [
-    'Cohock Charge' => '',
-    'Fog' => '',
-    'Giant Tornado' => '',
-    'Goldie Seeking' => '',
-    'Mudmouth Eruption' => '',
-    'Rush' => '',
-    'The Griller' => '',
-    'The Mothership' => '',
+    'Cohock Charge' => '大胖魚大量出現',
+    'Fog' => '霧',
+    'Giant Tornado' => '巨型龍捲風',
+    'Goldie Seeking' => '尋找金鮭魚',
+    'Mudmouth Eruptions' => '泥鮭魚噴發',
+    'Rush' => '狂潮',
+    'The Griller' => '烤架魚出動',
+    'The Mothership' => '走私魚來襲',
 ];

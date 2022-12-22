@@ -6,9 +6,16 @@ use app\assets\UserStatReportAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\FA;
 use app\components\widgets\SnsWidget;
+use app\models\User;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var User $user
+ * @var View $this
+ */
 
 $title = Yii::t('app', '{name}\'s Battle Report', ['name' => $user->name]);
 

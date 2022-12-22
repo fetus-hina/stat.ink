@@ -5,6 +5,7 @@
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Gosin <canling0@gmail.com>
+ * @author imspace <spacemeowx2@gmail.com>
  */
 
 declare(strict_types=1);
@@ -19,16 +20,16 @@ return [
     'Part-Timer' => '半吊子',
     'Profreshional' => '达人',
     'Profreshional (Avg. {from}-{to})' => '专业水平（平均{from}到{to}）',
-    '{boy}Apprentice' => '新手',
-    '{boy}Go-Getter' => '独当一面',
+    '{boy}Apprentice' => '{boy}新手',
+    '{boy}Go-Getter' => '{boy}独当一面',
     '{boy}Intern' => '{boy}实习生',
-    '{boy}Overachiever' => '熟练',
-    '{boy}Part-Timer' => '半吊子',
-    '{boy}Profreshional' => '达人',
-    '{girl}Apprentice' => '新手',
-    '{girl}Go-Getter' => '独当一面',
+    '{boy}Overachiever' => '{boy}熟练',
+    '{boy}Part-Timer' => '{boy}半吊子',
+    '{boy}Profreshional' => '{boy}达人',
+    '{girl}Apprentice' => '{girl}新手',
+    '{girl}Go-Getter' => '{girl}独当一面',
     '{girl}Intern' => '{girl}实习生',
-    '{girl}Overachiever' => '熟练',
-    '{girl}Part-Timer' => '半吊子',
-    '{girl}Profreshional' => '达人',
+    '{girl}Overachiever' => '{girl}熟练',
+    '{girl}Part-Timer' => '{girl}半吊子',
+    '{girl}Profreshional' => '{girl}达人',
 ];

@@ -11,7 +11,6 @@ declare(strict_types=1);
 namespace app\models;
 
 use Yii;
-use app\models\Weapon3;
 use app\models\battle3FilterForm\DropdownListTrait;
 use app\models\battle3FilterForm\PermalinkTrait;
 use app\models\battle3FilterForm\QueryDecoratorTrait;
@@ -31,6 +30,7 @@ final class Battle3FilterForm extends Model
     public const PREFIX_WEAPON_SPECIAL = '*';
     public const PREFIX_WEAPON_SUB = '+';
     public const PREFIX_WEAPON_TYPE = '@';
+    public const PREFIX_TERM_SEASON = '@';
 
     public const RESULT_NOT_DRAW = '~not_draw';
     public const RESULT_NOT_WIN = '~not_win';
@@ -44,6 +44,7 @@ final class Battle3FilterForm extends Model
     public ?string $weapon = null;
     public ?string $result = null;
     public ?string $knockout = null;
+    public ?string $term = null;
 
     /**
      * @inheritdoc
@@ -59,7 +60,7 @@ final class Battle3FilterForm extends Model
     public function rules()
     {
         return [
-            [['lobby', 'rule', 'map', 'weapon', 'result', 'knockout'], 'string'],
+            [['lobby', 'rule', 'map', 'weapon', 'result', 'knockout', 'term'], 'string'],
 
             [['lobby'], 'in',
                 'range' => \array_merge(
@@ -98,6 +99,9 @@ final class Battle3FilterForm extends Model
             [['knockout'], 'in',
                 'range' => ['yes', 'no'],
             ],
+            [['term'], 'in',
+                'range' => self::getKeyList(Season3::class, self::PREFIX_TERM_SEASON),
+            ],
         ];
     }
 
@@ -113,6 +117,7 @@ final class Battle3FilterForm extends Model
             'weapon' => Yii::t('app', 'Weapon'),
             'result' => Yii::t('app', 'Result'),
             'knockout' => Yii::t('app', 'Knockout'),
+            'term' => Yii::t('app', 'Term'),
         ];
     }
 

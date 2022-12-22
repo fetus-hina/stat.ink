@@ -2,11 +2,13 @@
 
 declare(strict_types=1);
 
+use app\assets\GameModeIconsAsset;
 use app\assets\InlineListAsset;
 use app\assets\PaintballAsset;
 use app\assets\ReactCounterAppAsset;
 use app\assets\ReactIndexAppAsset;
 use app\components\widgets\FA;
+use app\components\widgets\GameVersionIcon;
 use app\components\widgets\HappyNewYearWidget;
 use app\components\widgets\IndexI18nButtons;
 use app\components\widgets\SnsWidget;
@@ -27,6 +29,8 @@ assert($this->context instanceof Controller);
 $this->context->layout = 'main';
 
 PaintballAsset::register($this);
+
+$gameMode = GameModeIconsAsset::register($this);
 
 ?>
 <div class="container">
@@ -83,6 +87,21 @@ PaintballAsset::register($this);
         Html::a(Html::encode(Yii::t('app', 'Getting Started')), ['site/start']),
         Html::a(Html::encode(Yii::t('app', 'FAQ')), ['site/faq']),
         Html::a(Html::encode(Yii::t('app', 'Stats: User Activity')), ['entire/users']),
+      ],
+      [
+        vsprintf('%s %s', [
+          GameVersionIcon::widget(['version' => 3]),
+          Html::img(
+            Yii::$app->assetManager->getAssetUrl($gameMode, 'spl3/salmon.png'),
+            [
+              'class' => 'basic-icon',
+              'draggable' => 'false',
+              'style' => ['--icon-height' => '1em'],
+            ],
+          ),
+        ]),
+        Html::a(Html::encode(Yii::t('app-salmon3', 'Random Loan Rate')), ['entire/salmon3-random-loan']),
+        Html::a(Html::encode(Yii::t('app-salmon-tide2', 'Water Level')), ['entire/salmon3-tide']),
       ],
       [
         Html::a(Html::encode(Yii::t('app', 'Stats: K/D vs Win %')), ['entire/kd-win2']),

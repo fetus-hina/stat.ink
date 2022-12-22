@@ -26,44 +26,54 @@ use app\actions\entire\Weapons2Action;
 use app\actions\entire\Weapons2TierAction;
 use app\actions\entire\WeaponsAction;
 use app\actions\entire\WeaponsUseAction;
+use app\actions\entire\salmon3\RandomLoanAction;
+use app\actions\entire\salmon3\TideAction;
 use app\components\web\Controller;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 
-class EntireController extends Controller
+final class EntireController extends Controller
 {
-    public $layout = "main";
+    public $layout = 'main';
 
+    /**
+     * @inheritdoc
+     */
     public function behaviors()
     {
         return [
             'verbs' => [
                 'class' => VerbFilter::class,
                 'actions' => [
-                    '*' => [ 'head', 'get' ],
+                    '*' => ['head', 'get'],
                 ],
             ],
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
     public function actions()
     {
         return [
-            'agent' => [ 'class' => AgentAction::class ],
-            'combined-agent' => [ 'class' => CombinedAgentAction::class ],
-            'festpower2' => [ 'class' => Festpower2Action::class ],
-            'kd-win' => [ 'class' => KDWinAction::class ],
-            'kd-win2' => [ 'class' => KDWin2Action::class ],
-            'knockout' => [ 'class' => KnockoutAction::class ],
-            'knockout2' => [ 'class' => Knockout2Action::class ],
-            'salmon-clear' => [ 'class' => SalmonClearAction::class ],
-            'users' => [ 'class' => UsersAction::class ],
-            'weapon' => [ 'class' => WeaponAction::class ],
-            'weapon2' => [ 'class' => Weapon2Action::class ],
-            'weapons' => [ 'class' => WeaponsAction::class ],
-            'weapons-use' => [ 'class' => WeaponsUseAction::class ],
-            'weapons2' => [ 'class' => Weapons2Action::class ],
-            'weapons2-tier' => ['class' => Weapons2TierAction::class ],
+            'agent' => AgentAction::class,
+            'combined-agent' => CombinedAgentAction::class,
+            'festpower2' => Festpower2Action::class,
+            'kd-win' => KDWinAction::class,
+            'kd-win2' => KDWin2Action::class,
+            'knockout' => KnockoutAction::class,
+            'knockout2' => Knockout2Action::class,
+            'salmon-clear' => SalmonClearAction::class,
+            'salmon3-random-loan' => RandomLoanAction::class,
+            'salmon3-tide' => TideAction::class,
+            'users' => UsersAction::class,
+            'weapon' => WeaponAction::class,
+            'weapon2' => Weapon2Action::class,
+            'weapons' => WeaponsAction::class,
+            'weapons-use' => WeaponsUseAction::class,
+            'weapons2' => Weapons2Action::class,
+            'weapons2-tier' => Weapons2TierAction::class,
         ];
     }
 }

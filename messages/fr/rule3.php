@@ -10,8 +10,10 @@ declare(strict_types=1);
 
 return [
     'Any Mode' => '',
+    'Attackers' => '',
     'CB' => 'Pluie de palourdes',
     'Clam Blitz' => 'Pluie de palourdes',
+    'Defenders' => '',
     'Rainmaker' => 'Mission Bazookarpe',
     'Ranked Modes' => '',
     'RM' => 'Mission Bazookarpe',
@@ -19,6 +21,9 @@ return [
     'SZ' => 'Défense de zone',
     'TC' => 'Expédition risquée',
     'Tower Control' => 'Expédition risquée',
+    'Tri' => '',
+    'Tricolor Battle' => 'Match tricolore',
+    'Tricolor Turf War' => 'Guerre tricolore',
     'Turf War' => 'Guerre de territoire',
     'TW' => 'Guerre de territoire',
 ];

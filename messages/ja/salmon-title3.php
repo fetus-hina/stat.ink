@@ -9,13 +9,13 @@
 declare(strict_types=1);
 
 return [
-    'Apprentice' => 'はんにんまえ',
-    'Part-Timer' => 'かけだし',
-    'Go-Getter' => 'はんにんまえ',
+    'Apprentice' => 'かけだし',
+    'Eggsecutive VP' => 'でんせつ',
+    'Go-Getter' => 'いちにんまえ',
     'Overachiever' => 'じゅくれん',
-    'Profreshional' => 'たつじん',
+    'Part-Timer' => 'はんにんまえ',
     'Profreshional +1' => 'たつじん＋１',
     'Profreshional +2' => 'たつじん＋２',
     'Profreshional +3' => 'たつじん＋３',
-    'Eggsecutive VP' => 'でんせつ',
+    'Profreshional' => 'たつじん',
 ];

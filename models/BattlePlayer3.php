@@ -36,6 +36,7 @@ use yii\db\ActiveRecord;
  * @property integer $headgear_id
  * @property integer $clothing_id
  * @property integer $shoes_id
+ * @property boolean $is_crowned
  *
  * @property Battle3 $battle
  * @property GearConfiguration3 $clothing
@@ -57,7 +58,7 @@ class BattlePlayer3 extends ActiveRecord
             [['battle_id', 'is_our_team', 'is_me'], 'required'],
             [['battle_id', 'rank_in_team', 'weapon_id', 'inked', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'splashtag_title_id', 'headgear_id', 'clothing_id', 'shoes_id'], 'default', 'value' => null],
             [['battle_id', 'rank_in_team', 'weapon_id', 'inked', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'splashtag_title_id', 'headgear_id', 'clothing_id', 'shoes_id'], 'integer'],
-            [['is_our_team', 'is_me', 'is_disconnected'], 'boolean'],
+            [['is_our_team', 'is_me', 'is_disconnected', 'is_crowned'], 'boolean'],
             [['name'], 'string', 'max' => 10],
             [['number'], 'string', 'max' => 32],
             [['battle_id'], 'exist', 'skipOnError' => true, 'targetClass' => Battle3::class, 'targetAttribute' => ['battle_id' => 'id']],
@@ -91,6 +92,7 @@ class BattlePlayer3 extends ActiveRecord
             'headgear_id' => 'Headgear ID',
             'clothing_id' => 'Clothing ID',
             'shoes_id' => 'Shoes ID',
+            'is_crowned' => 'Is Crowned',
         ];
     }
 

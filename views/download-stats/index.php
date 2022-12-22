@@ -1,7 +1,13 @@
 <?php
+
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use yii\helpers\Html;
+use yii\web\View;
+
+/** 
+ * @var View $this
+ */
 
 $this->context->layout = 'main';
 $title = Yii::t('app', 'Downloads');

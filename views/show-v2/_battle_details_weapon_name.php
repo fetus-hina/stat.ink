@@ -4,7 +4,14 @@ declare(strict_types=1);
 
 use app\assets\Spl2WeaponAsset;
 use app\components\widgets\AbilityIcon;
+use app\models\Battle2;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var Battle2 $battle
+ * @var View $this
+ */
 
 if (!$battle || !$battle->weapon) {
   return;

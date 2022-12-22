@@ -10,8 +10,8 @@
 declare(strict_types=1);
 
 return [
-    'High Tide' => '涨潮',
-    'Low Tide' => '退潮',
+    'High Tide' => '满潮',
+    'Low Tide' => '干潮',
     'Mid Tide' => '普通',
     'Water Level' => '水位线',
 ];

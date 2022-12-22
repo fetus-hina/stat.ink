@@ -8,25 +8,26 @@
 
 declare(strict_types=1);
 
-namespace app\actions\api\v3;
+namespace app\actions\api\v3\salmon;
 
 use DateTimeZone;
 use Yii;
 use app\actions\api\v3\traits\ApiInitializerTrait;
-use app\components\formatters\api\v3\BattleApiFormatter;
+use app\components\formatters\api\v3\SalmonApiFormatter;
 use app\components\jobs\SlackJob;
 use app\components\web\ServiceUnavailableHttpException;
-use app\models\Battle3;
+use app\models\Salmon3;
 use app\models\Slack;
 use app\models\User;
-use app\models\api\v3\PostBattleForm;
+use app\models\api\v3\PostSalmonForm;
 use yii\base\Action;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\MethodNotAllowedHttpException;
 use yii\web\Response;
 use yii\web\UploadedFile;
 
-final class BattleAction extends Action
+final class PostSalmonAction extends Action
 {
     use ApiInitializerTrait;
 
@@ -41,50 +42,8 @@ final class BattleAction extends Action
 
     public function run(): Response
     {
-        switch (Yii::$app->request->method) {
-            case 'GET':
-                return $this->runGet();
-
-            case 'HEAD':
-                return $this->runHead();
-
-            case 'POST':
-            case 'PUT':
-                return $this->runPost();
-
-            default:
-                throw new MethodNotAllowedHttpException();
-        }
-    }
-
-    private function runHead(): Response
-    {
-        $resp = Yii::$app->response;
-        $resp->content = null;
-        $resp->data = null;
-        $resp->statusCode = 200;
-        return $resp;
-    }
-
-    private function runGet(): Response
-    {
-        $resp = Yii::$app->response;
-        $resp->content = null;
-        $resp->data = [
-            'TODO',
-        ];
-        return $resp;
-    }
-
-    private function runPost(): Response
-    {
-        $form = Yii::createObject(PostBattleForm::class);
+        $form = Yii::createObject(PostSalmonForm::class);
         $form->attributes = Yii::$app->request->getBodyParams();
-        foreach (['image_judge', 'image_result', 'image_gear'] as $key) {
-            if (!$form->$key) {
-                $form->$key = UploadedFile::getInstanceByName($key);
-            }
-        }
 
         $battle = $form->save();
         if (!$battle) {
@@ -94,7 +53,23 @@ final class BattleAction extends Action
         }
 
         // 保存時間の読み込みのために再読込する
-        $battle->refresh();
+        $uuid = $battle->uuid;
+        $battle = Salmon3::find()
+            ->with([
+                'salmonBossAppearance3s.boss',
+                'salmonPlayer3s.salmonPlayerWeapon3s.weapon',
+                'salmonPlayer3s.salmonPlayerWeapon3s.weapon.salmonWeapon3Aliases',
+                'salmonPlayer3s.special',
+                'salmonPlayer3s.splashtagTitle',
+                'salmonPlayer3s.uniform',
+                'salmonWave3s.event',
+                'salmonWave3s.salmonSpecialUse3s.special',
+                'salmonWave3s.tide',
+                'variables',
+            ])
+            ->andWhere(['uuid' => $uuid])
+            ->limit(1)
+            ->one();
 
         // バックグラウンドジョブの登録
         // (Slack への push のタスク登録など)
@@ -103,20 +78,20 @@ final class BattleAction extends Action
         return $this->created($battle);
     }
 
-    private function created(Battle3 $battle): Response
+    private function created(Salmon3 $battle): Response
     {
         $resp = Yii::$app->response;
         $resp->statusCode = 201;
         $resp->headers->fromArray([
             'Location' => Url::to(
-                ['/show-v3/battle',
+                ['/salmon-v3/view',
                     'screen_name' => $battle->user->screen_name,
                     'battle' => $battle->uuid,
                 ],
                 true,
             ),
             'X-Api-Location' => Url::to(
-                \vsprintf('@web/api/v3/battle/%s', [
+                \vsprintf('@web/api/v3/salmon/%s', [
                     \rawurlencode($battle->uuid),
                 ]),
                 true
@@ -124,7 +99,7 @@ final class BattleAction extends Action
             'X-User-Screen-Name' => $battle->user->screen_name,
             'X-Battle-ID' => $battle->uuid,
         ]);
-        $resp->data = BattleApiFormatter::toJson($battle, true, false);
+        $resp->data = SalmonApiFormatter::toJson($battle, true, false);
         return $resp;
     }
 
@@ -136,7 +111,7 @@ final class BattleAction extends Action
         return $resp;
     }
 
-    private function registerBackgroundJob(Battle3 $battle): void
+    private function registerBackgroundJob(Salmon3 $battle): void
     {
         $user = $battle->user;
         if (!$user) {

@@ -1,33 +1,36 @@
 cover 90%
-cover 92.5% in JP
-cover 92.5% in US
+cover 90% in AU
 cover 90% in DE
 cover 90% in ES
 cover 90% in FR
 cover 90% in GB
 cover 90% in IT
+cover 90% in JP
 cover 90% in NL
-cover 90% in RU
+cover 90% in US
 cover 85% in KR
+cover 85% in MO
+cover 85% in RU
 cover 85% in TW
 cover 80% in CN
 
-not dead
+# temporary ignore
+not Chrome >= 1
+not Edge >= 1
+not Firefox >= 1
+not Opera >= 1
+not Safari >= 1
+not Samsung >= 1
+not android <= 4.4.4
+not ie >= 1
+not ios_saf >= 1
+
+Firefox ESR
 
 last 4 Chrome versions
 last 4 Edge versions
 last 4 Firefox versions
 last 4 Opera versions
 last 4 Safari versions
-
-Firefox ESR
-IE >= 10
-
-not Chrome < 80
-not Edge < 18
-not Firefox < 70
-not Opera < 60
-not Safari < 10
-not Samsung < 10
-not ios_saf < 10
-not android < 4.4
+last 4 Samsung versions
+last 4 ios_saf versions

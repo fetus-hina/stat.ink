@@ -15,11 +15,11 @@ use app\assets\GameModeIconsAsset;
 use yii\base\Widget;
 use yii\helpers\Html;
 
-class GameModeIcon extends Widget
+final class GameModeIcon extends Widget
 {
-    public $icon;
-    public $path;
-    public $contentOptions;
+    public string $icon;
+    public string $path;
+    public array $contentOptions = [];
 
     public static function spl2(string $icon, array $contentOptions = []): string
     {
@@ -30,20 +30,24 @@ class GameModeIcon extends Widget
         ]);
     }
 
-    public function run()
+    public function run(): string
     {
         return Html::img(
             Yii::$app->assetManager->getAssetUrl(
                 GameModeIconsAsset::register($this->view),
-                $this->path
+                $this->path,
             ),
-            array_merge_recursive([
-                'id' => $this->id,
-                'class' => [
-                    'game-mode',
-                    'game-mode-' . $this->icon,
+            array_merge_recursive(
+                [
+                    'class' => [
+                        'game-mode',
+                        'game-mode-' . $this->icon,
+                    ],
+                    'draggable' => 'false',
+                    'id' => $this->id,
                 ],
-            ], $this->contentOptions)
+                (array)$this->contentOptions,
+            ),
         );
     }
 }
