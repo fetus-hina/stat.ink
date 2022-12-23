@@ -26,9 +26,9 @@ class UserTimeZone
         try {
             Yii::beginProfile(__FUNCTION__, __METHOD__);
             $methods = [
-                [static::class, 'guessByCookie'],
-                [static::class, 'guessByGeoIP'],
-                [static::class, 'guessByAppLanguage'],
+                [self::class, 'guessByCookie'],
+                [self::class, 'guessByGeoIP'],
+                [self::class, 'guessByAppLanguage'],
             ];
 
             foreach ($methods as $method) {
@@ -39,7 +39,11 @@ class UserTimeZone
 
             if ($getDefault) {
                 Yii::info("Returns default timezone, UTC", __METHOD__);
-                return Timezone::findOne(['identifier' => 'Etc/UTC']);
+                return Timezone::find()
+                    ->andWhere(['identifier' => 'Etc/UTC'])
+                    ->orderBy(null)
+                    ->limit(1)
+                    ->one();
             }
 
             return null;
@@ -52,12 +56,16 @@ class UserTimeZone
     {
         try {
             Yii::beginProfile(__FUNCTION__, __METHOD__);
-            $cookie = Yii::$app->request->cookies->get(static::COOKIE_KEY);
+            $cookie = Yii::$app->request->cookies->get(self::COOKIE_KEY);
             if (!$cookie) {
                 return null;
             }
 
-            $tz = Timezone::findOne(['identifier' => $cookie->value]);
+            $tz = Timezone::find()
+                ->andWhere(['identifier' => $cookie->value])
+                ->orderBy(null)
+                ->limit(1)
+                ->one();
             if ($tz) {
                 Yii::info(
                     "Detected timezone by cookie, " . $tz->identifier,
@@ -78,18 +86,19 @@ class UserTimeZone
 
             $map = [
                 'de*'   => 'Europe/Paris',
-                'en-GB' => 'Europe/London',
                 'en*'   => 'America/Los_Angeles',
-                'es-MX' => 'America/Mexico_City',
+                'en-GB' => 'Europe/London',
                 'es*'   => 'Europe/Paris',
-                'fr-CA' => 'America/New_York',
+                'es-MX' => 'America/Mexico_City',
                 'fr*'   => 'Europe/Paris',
+                'fr-CA' => 'America/New_York',
                 'it*'   => 'Europe/Paris',
                 'ja*'   => 'Asia/Tokyo',
+                'ko*'   => 'Asia/Seoul',
                 'nl*'   => 'Europe/Paris',
                 'ru*'   => 'Europe/Moscow',
-                'zh-TW' => 'Asia/Taipei',
                 'zh*'   => 'Asia/Shanghai',
+                'zh-TW' => 'Asia/Taipei',
             ];
 
             $wildcardOptions = [
@@ -101,7 +110,11 @@ class UserTimeZone
 
             foreach ($map as $match => $ourTZ) {
                 if (StringHelper::matchWildcard($match, $lang, $wildcardOptions)) {
-                    $tz = Timezone::findOne(['identifier' => $ourTZ]);
+                    $tz = Timezone::find()
+                        ->andWhere(['identifier' => $ourTZ])
+                        ->orderBy(null)
+                        ->limit(1)
+                        ->one();
                     if ($tz) {
                         Yii::info(
                             "Detected language by application language, " . $tz->identifier,
@@ -120,7 +133,7 @@ class UserTimeZone
 
     public static function guessByGeoIP(): ?Timezone
     {
-        if (!$result = static::guessByGeoIPEx()) {
+        if (!$result = self::guessByGeoIPEx()) {
             return null;
         }
 
@@ -136,11 +149,15 @@ class UserTimeZone
                 return null;
             }
 
-            if (!$identifier = static::consultGeoIPDB($ipAddr)) {
+            if (!$identifier = self::consultGeoIPDB($ipAddr)) {
                 return null;
             }
 
-            $tz = Timezone::findOne(['identifier' => $identifier]);
+            $tz = Timezone::find()
+                ->andWhere(['identifier' => $identifier])
+                ->orderBy(null)
+                ->limit(1)
+                ->one();
             if ($tz) {
                 Yii::info(
                     "Detected timezone by geoip, " . $tz->identifier,
@@ -153,7 +170,7 @@ class UserTimeZone
                 'There was no exact time zone match: ' . $identifier,
                 __METHOD__
             );
-            $tz = static::guessTimezoneByIdentifier($identifier);
+            $tz = self::guessTimezoneByIdentifier($identifier);
             if ($tz) {
                 Yii::info(
                     sprintf(
@@ -228,11 +245,11 @@ class UserTimeZone
             } catch (\Exception $e) {
                 return null;
             }
-            if ($guessed = static::guessTimezoneByTimezone($tz)) {
+            if ($guessed = self::guessTimezoneByTimezone($tz)) {
                 return $guessed;
             }
 
-            return static::createUTCOffsetTimezone($tz);
+            return self::createUTCOffsetTimezone($tz);
         } finally {
             Yii::endProfile(__FUNCTION__, __METHOD__);
         }
@@ -275,8 +292,12 @@ class UserTimeZone
     private static function createUTCOffsetTimezone(DateTimeZone $tz): ?Timezone
     {
         $offsetSec = (new DateTimeImmutable('now', $tz))->format('Z');
-        $offsetHours = (int)floor($offsetSec / 3600);
-        $tzName = sprintf('Etc/GMT%+d', -$offsetHours);
-        return Timezone::findOne(['identifier' => $tzName]);
+        $offsetHours = (int)\floor($offsetSec / 3600);
+        $tzName = \sprintf('Etc/GMT%+d', -$offsetHours);
+        return Timezone::find()
+            ->andWhere(['identifier' => $tzName])
+            ->orderBy(null)
+            ->limit(1)
+            ->one();
     }
 }

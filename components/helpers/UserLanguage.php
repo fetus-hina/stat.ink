@@ -26,9 +26,9 @@ class UserLanguage
         try {
             Yii::beginProfile('Detect language', __METHOD__);
             $methods = [
-                [static::class, 'guessByParam'],
-                [static::class, 'guessByCookie'],
-                [static::class, 'guessByAcceptLanguage'],
+                [self::class, 'guessByParam'],
+                [self::class, 'guessByCookie'],
+                [self::class, 'guessByAcceptLanguage'],
             ];
 
             foreach ($methods as $method) {
@@ -39,7 +39,11 @@ class UserLanguage
 
             if ($getDefault) {
                 Yii::info("Returns default language, en-US", __METHOD__);
-                return Language::findOne(['lang' => 'en-US']);
+                return Language::find()
+                    ->andWhere(['lang' => 'en-US'])
+                    ->orderBy(null)
+                    ->limit(1)
+                    ->one();
             }
 
             return null;
@@ -52,12 +56,16 @@ class UserLanguage
     {
         try {
             Yii::beginProfile(__FUNCTION__, __METHOD__);
-            $param = Yii::$app->request->get(static::PARAMETER_KEY);
+            $param = Yii::$app->request->get(self::PARAMETER_KEY);
             if (!is_scalar($param)) {
                 return null;
             }
 
-            $lang = Language::findOne(['lang' => (string)$param]);
+            $lang = Language::find()
+                ->andWhere(['lang' => (string)$param])
+                ->orderBy(null)
+                ->limit(1)
+                ->one();
             if ($lang) {
                 Yii::info(
                     "Detected language by parameter, " . $lang->lang,
@@ -75,12 +83,16 @@ class UserLanguage
     {
         try {
             Yii::beginProfile(__FUNCTION__, __METHOD__);
-            $cookie = Yii::$app->request->cookies->get(static::COOKIE_KEY);
+            $cookie = Yii::$app->request->cookies->get(self::COOKIE_KEY);
             if (!$cookie) {
                 return null;
             }
 
-            $lang = Language::findOne(['lang' => $cookie->value]);
+            $lang = Language::find()
+                ->andWhere(['lang' => $cookie->value])
+                ->orderBy(null)
+                ->limit(1)
+                ->one();
             if ($lang) {
                 Yii::info(
                     "Detected language by cookie, " . $lang->lang,
@@ -100,7 +112,7 @@ class UserLanguage
             Yii::beginProfile(__FUNCTION__, __METHOD__);
             $request = Yii::$app->request;
             $userLangs = $request->acceptableLanguages;
-            if (empty($userLangs) || static::isUABot((string)trim($request->userAgent))) {
+            if (empty($userLangs) || self::isUABot((string)trim($request->userAgent))) {
                 return null;
             }
 
