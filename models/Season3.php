@@ -25,6 +25,7 @@ use yii\db\ActiveRecord;
  * @property string $term
  *
  * @property Knockout3[] $knockout3s
+ * @property StatSpecialUse3[] $statSpecialUse3s
  */
 class Season3 extends ActiveRecord
 {
@@ -60,5 +61,10 @@ class Season3 extends ActiveRecord
     public function getKnockout3s(): ActiveQuery
     {
         return $this->hasMany(Knockout3::class, ['season_id' => 'id']);
+    }
+
+    public function getStatSpecialUse3s(): ActiveQuery
+    {
+        return $this->hasMany(StatSpecialUse3::class, ['season_id' => 'id']);
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2021 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -12,6 +12,11 @@ use DateInterval;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
+use app\commands\stat\Knockout3Trait;
+use app\commands\stat\Salmon2Trait;
+use app\commands\stat\Salmon3Trait;
+use app\commands\stat\Weapon2Trait;
+use app\commands\stat\Weapon3Trait;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\db\Now;
 use app\models\Battle2;
@@ -46,10 +51,11 @@ use yii\helpers\Console;
 
 final class StatController extends Controller
 {
-    use stat\Knockout3Trait;
-    use stat\Salmon2Trait;
-    use stat\Salmon3Trait;
-    use stat\Weapon2Trait;
+    use Knockout3Trait;
+    use Salmon2Trait;
+    use Salmon3Trait;
+    use Weapon2Trait;
+    use Weapon3Trait;
 
     /**
      * 全体統計 - ブキ統計を更新します
@@ -58,8 +64,9 @@ final class StatController extends Controller
      */
     public function actionUpdateEntireWeapons()
     {
-        // $this->updateEntireWeapons1();
+        $this->updateEntireWeapons3();
         $this->updateEntireWeapons2();
+        // $this->updateEntireWeapons1();
     }
 
     private function updateEntireWeapons1()

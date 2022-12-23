@@ -24,6 +24,7 @@ use yii\db\ActiveRecord;
  * @property SalmonPlayer3[] $salmonPlayer3s
  * @property SalmonSpecialUse3[] $salmonSpecialUse3s
  * @property Special3Alias[] $special3Aliases
+ * @property StatSpecialUse3[] $statSpecialUse3s
  * @property SalmonWave3[] $waves
  * @property Weapon3[] $weapon3s
  */
@@ -67,6 +68,11 @@ class Special3 extends ActiveRecord
     public function getSpecial3Aliases(): ActiveQuery
     {
         return $this->hasMany(Special3Alias::class, ['special_id' => 'id']);
+    }
+
+    public function getStatSpecialUse3s(): ActiveQuery
+    {
+        return $this->hasMany(StatSpecialUse3::class, ['special_id' => 'id']);
     }
 
     public function getWaves(): ActiveQuery
