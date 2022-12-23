@@ -10,11 +10,8 @@ declare(strict_types=1);
 
 namespace app\actions\entire\v3;
 
-use DateInterval;
-use DateTimeImmutable;
-use DateTimeInterface;
-use DateTimeZone;
 use Yii;
+use app\components\helpers\Season3Helper;
 use app\models\Knockout3;
 use app\models\Lobby3;
 use app\models\Map3;
@@ -38,9 +35,11 @@ final class Knockout3Action extends Action
         $controller = $this->controller;
         \assert($controller instanceof Controller);
 
-        if (!$season = $this->getTargetSeason()) {
-            $season = $this->getCurrentSeason();
-            return $controller->redirect(['entire/knockout3', self::PARAM_SEASON_ID => $season->id]);
+        if (!$season = Season3Helper::getUrlTargetSeason(self::PARAM_SEASON_ID)) {
+            $season = Season3Helper::getCurrentSeason();
+            return $season
+                ? $controller->redirect(['entire/knockout3', self::PARAM_SEASON_ID => $season->id])
+                : throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
         }
 
         $maps = ArrayHelper::map(
@@ -81,61 +80,17 @@ final class Knockout3Action extends Action
                 'maps' => $maps,
                 'rules' => $rules,
                 'season' => $season,
-                'seasons' => $this->getSeasons(),
+                'seasons' => Season3Helper::getSeasons(xSupported: true),
                 'total' => $this->getTotalData($season),
                 'xMatch' => $xMatch,
                 'seasonUrl' => fn (Season3 $season): string => Url::to(
                     ['entire/knockout3', self::PARAM_SEASON_ID => $season->id],
                 ),
             ],
-            Transaction::READ_COMMITTED,
+            Transaction::REPEATABLE_READ,
         );
 
         return $this->controller->render('v3/knockout3', $params);
-    }
-
-    private function getTargetSeason(): ?Season3
-    {
-        $id = \filter_var(
-            Yii::$app->request->get(self::PARAM_SEASON_ID),
-            FILTER_VALIDATE_INT,
-        );
-
-        return \is_int($id)
-            ? Season3::find()->andWhere(['id' => $id])->limit(1)->one()
-            : null;
-    }
-
-    private function getCurrentSeason(): Season3
-    {
-        $yesterday = (new DateTimeImmutable())
-            ->setTimestamp($_SERVER['REQUEST_TIME'])
-            ->sub(new DateInterval('P1D'));
-
-        $db = Yii::$app->db;
-
-        $model = Season3::find()
-            ->andWhere(
-                vsprintf('%s @> %s::timestamptz', [
-                    Yii::$app->db->quoteColumnName('term'),
-                    Yii::$app->db->quoteValue($yesterday->format(DateTimeInterface::ATOM)),
-                ]),
-            )
-            ->limit(1)
-            ->one();
-
-        return $model ?? throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
-    }
-
-    /**
-     * @return Season3[]
-     */
-    private function getSeasons(): array
-    {
-        return Season3::find()
-            ->andWhere(['<=', 'start_at', \date(DateTimeInterface::ATOM, $_SERVER['REQUEST_TIME'])])
-            ->orderBy(['start_at' => SORT_DESC])
-            ->all();
     }
 
     /**
