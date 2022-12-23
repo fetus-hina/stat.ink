@@ -13,10 +13,12 @@ use app\components\jobs\UserStatsJob;
 use app\models\Battle3;
 use app\models\Salmon3;
 use yii\base\Event;
+use yii\base\ViewEvent;
 use yii\base\Widget;
 use yii\data\Pagination;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\web\View;
 use yii\widgets\Pjax;
 
 Yii::$classMap[ArrayHelper::class] = __DIR__ . '/../components/overwrite/yii/helpers/ArrayHelper.php';
@@ -54,3 +56,14 @@ Yii::$container->set(Pagination::class, [
 Yii::$container->set(Pjax::class, [
     'scrollTo' => true,
 ]);
+
+if (YII_ENV_DEV) {
+    Yii::$container->set(View::class, [
+        'on beforeRender' => function (ViewEvent $ev): void {
+            Yii::beginProfile("render {$ev->viewFile}", get_class($ev->sender));
+        },
+        'on afterRender' => function (Event $ev): void {
+            Yii::endProfile("render {$ev->viewFile}", get_class($ev->sender));
+        },
+    ]);
+}
