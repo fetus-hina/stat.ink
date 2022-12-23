@@ -42,7 +42,7 @@ class Knockout3 extends ActiveRecord
     public function rules()
     {
         return [
-            [['season_id', 'rule_id', 'battles', 'knockout', 'avg_battle_time', 'stddev_battle_time', 'avg_knockout_time', 'stddev_knockout_time'], 'required'],
+            [['season_id', 'rule_id', 'battles', 'knockout'], 'required'],
             [['season_id', 'rule_id', 'map_id', 'battles', 'knockout'], 'default', 'value' => null],
             [['season_id', 'rule_id', 'map_id', 'battles', 'knockout'], 'integer'],
             [['avg_battle_time', 'stddev_battle_time', 'avg_knockout_time', 'stddev_knockout_time'], 'number'],

@@ -29,6 +29,7 @@ use yii\db\ActiveRecord;
  * @property Knockout3[] $knockout3s
  * @property Rule3Alias[] $rule3Aliases
  * @property Schedule3[] $schedule3s
+ * @property StatSpecialUse3[] $statSpecialUse3s
  * @property UserStat3XMatch[] $userStat3XMatches
  * @property User[] $users
  */
@@ -86,6 +87,11 @@ class Rule3 extends ActiveRecord
     public function getSchedule3s(): ActiveQuery
     {
         return $this->hasMany(Schedule3::class, ['rule_id' => 'id']);
+    }
+
+    public function getStatSpecialUse3s(): ActiveQuery
+    {
+        return $this->hasMany(StatSpecialUse3::class, ['rule_id' => 'id']);
     }
 
     public function getUserStat3XMatches(): ActiveQuery
