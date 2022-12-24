@@ -20,6 +20,7 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property string $key
  * @property string $name
+ * @property integer $rank
  *
  * @property SalmonPlayer3[] $salmonPlayer3s
  * @property SalmonSpecialUse3[] $salmonSpecialUse3s
@@ -38,11 +39,14 @@ class Special3 extends ActiveRecord
     public function rules()
     {
         return [
-            [['key', 'name'], 'required'],
+            [['key', 'name', 'rank'], 'required'],
+            [['rank'], 'default', 'value' => null],
+            [['rank'], 'integer'],
             [['key'], 'string', 'max' => 32],
             [['name'], 'string', 'max' => 48],
             [['key'], 'unique'],
             [['name'], 'unique'],
+            [['rank'], 'unique'],
         ];
     }
 
@@ -52,6 +56,7 @@ class Special3 extends ActiveRecord
             'id' => 'ID',
             'key' => 'Key',
             'name' => 'Name',
+            'rank' => 'Rank',
         ];
     }
 
