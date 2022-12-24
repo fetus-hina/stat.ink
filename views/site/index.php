@@ -91,6 +91,7 @@ $gameMode = GameModeIconsAsset::register($this);
       [
         GameVersionIcon::widget(['version' => 3]),
         Html::a(Html::encode(Yii::t('app', 'Knockout Rate')), ['entire/knockout3']),
+        Html::a(Html::encode(Yii::t('app', 'Special Uses')), ['entire/special-use3']),
       ],
       [
         vsprintf('%s %s', [
