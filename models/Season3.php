@@ -25,7 +25,10 @@ use yii\db\ActiveRecord;
  * @property string $term
  *
  * @property Knockout3[] $knockout3s
+ * @property Rule3[] $rules
  * @property StatSpecialUse3[] $statSpecialUse3s
+ * @property StatXPowerDistribAbstract[] $statXPowerDistribAbstracts
+ * @property StatXPowerDistrib[] $statXPowerDistribs
  */
 class Season3 extends ActiveRecord
 {
@@ -63,8 +66,23 @@ class Season3 extends ActiveRecord
         return $this->hasMany(Knockout3::class, ['season_id' => 'id']);
     }
 
+    public function getRules(): ActiveQuery
+    {
+        return $this->hasMany(Rule3::class, ['id' => 'rule_id'])->viaTable('stat_x_power_distrib_abstract', ['season_id' => 'id']);
+    }
+
     public function getStatSpecialUse3s(): ActiveQuery
     {
         return $this->hasMany(StatSpecialUse3::class, ['season_id' => 'id']);
+    }
+
+    public function getStatXPowerDistribAbstracts(): ActiveQuery
+    {
+        return $this->hasMany(StatXPowerDistribAbstract::class, ['season_id' => 'id']);
+    }
+
+    public function getStatXPowerDistribs(): ActiveQuery
+    {
+        return $this->hasMany(StatXPowerDistrib::class, ['season_id' => 'id']);
     }
 }
