@@ -53,17 +53,20 @@ class Map2 extends ActiveRecord
 
     public static function getSortedMap($callback = null): array
     {
-        $query = static::find();
-        if ($callback && is_callable($callback)) {
-            call_user_func($callback, $query);
-        }
-        return ArrayHelper::map(
-            static::sort($query->all()),
-            'key',
-            function (self $row): string {
-                return Yii::t('app-map2', $row->name);
+        Yii::beginProfile(__METHOD__, __CLASS__);
+        try {
+            $query = self::find();
+            if ($callback && \is_callable($callback)) {
+                \call_user_func($callback, $query);
             }
-        );
+            return ArrayHelper::map(
+                self::sort($query->all()),
+                'key',
+                fn (self $row): string => Yii::t('app-map2', $row->name),
+            );
+        } finally {
+            Yii::endProfile(__METHOD__, __CLASS__);
+        }
     }
 
     /**
@@ -117,28 +120,40 @@ class Map2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @param self[] $list
+     * @return self[]
+     */
     public static function sort(array $list): array
     {
-        usort($list, [static::class, 'compare']);
-        return $list;
+        $profile = \sprintf('Sort %d elements', \count($list));
+        Yii::beginProfile($profile, __METHOD__);
+        try {
+            return ArrayHelper::sort(
+                $list,
+                fn (self $a, self $b): int => self::compare($a, $b),
+            );
+        } finally {
+            Yii::endProfile($profile, __METHOD__);
+        }
     }
 
     public static function compare(self $a, self $b): int
     {
-        return static::getCompareClass($a) <=> static::getCompareClass($b)
-            ?: strnatcasecmp(Yii::t('app-map2', $a->name), Yii::t('app-map2', $b->name))
-            ?: strnatcasecmp($a->name, $b->name)
-            ?: strcmp($a->key, $b->key);
+        return self::getCompareClass($a) <=> self::getCompareClass($b)
+            ?: \strnatcasecmp(Yii::t('app-map2', $a->name), Yii::t('app-map2', $b->name))
+            ?: \strnatcasecmp($a->name, $b->name)
+            ?: \strcmp($a->key, $b->key);
     }
 
     private static function getCompareClass(self $self): int
     {
-        if (substr($self->key, 0, 7) === 'mystery') {
+        if (\str_starts_with($self->key, 'mystery')) {
             if ($self->key === 'mystery') {
                 return 1;
             }
 
-            return 1 + (int)substr($self->key, 8);
+            return 1 + (int)\substr($self->key, 8);
         }
 
         return 0;
