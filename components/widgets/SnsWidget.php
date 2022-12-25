@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Yoshiyuki Kawashima <ykawashi7@gmail.com>
@@ -19,12 +19,15 @@ use yii\base\Widget;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-class SnsWidget extends Widget
+use const PATHINFO_EXTENSION;
+
+final class SnsWidget extends Widget
 {
     public static $autoIdPrefix = 'sns-';
     public $template;
 
     public $tweetButton;
+    public $imageUrl;
     public $feedUrl;
     public $jsonUrl;
 
@@ -39,37 +42,47 @@ class SnsWidget extends Widget
 
         parent::init();
 
-        // <div id="{id}" class="sns">{tweet} {permalink}</div>
-        $this->template = Html::tag('div', '{tweet} {permalink} {feed} {json}', [
-            'id' => '{id}',
-            'class' => [
-                'sns',
+        $this->template = Html::tag(
+            'div',
+            \implode(' ', [
+                '{tweet}',
+                '{permalink}',
+                '{image}',
+                '{feed}',
+                '{json}',
+            ]),
+            [
+                'id' => '{id}',
+                'class' => [
+                    'sns',
+                ],
             ],
-        ]);
+        );
         $this->tweetButton = Yii::createObject([
             'class' => TweetButton::class
         ]);
 
-        $this->view->registerCss(sprintf(
-            '#%s .label{%s}',
-            $this->id,
-            Html::cssStyleFromArray([
-                'cursor'            => 'pointer',
-                'display'           => 'inline-block',
-                'font-size'         => '11px',
-                'font-weight'       => '500',
-                'height'            => '20px',
-                'padding'           => '5px 8px 3px 6px',
-                'vertical-align'    => 'top',
-            ])
-        ));
+        $this->view->registerCss(
+            \vsprintf('#%s .label{%s}', [
+                $this->id,
+                Html::cssStyleFromArray([
+                    'cursor' => 'pointer',
+                    'display' => 'inline-block',
+                    'font-size' => '11px',
+                    'font-weight' => '500',
+                    'height' => '20px',
+                    'padding' => '5px 8px 3px 6px',
+                    'vertical-align' => 'top',
+                ]),
+            ]),
+        );
     }
 
     public function __set($key, $value)
     {
         $this->init();
-        if (preg_match('/^tweet(.+)$/', $key, $match)) {
-            $attr = lcfirst($match[1]);
+        if (\preg_match('/^tweet(.+)$/', $key, $match)) {
+            $attr = \lcfirst($match[1]);
             $this->tweetButton->$attr = $value;
         } else {
             parent::__set($key, $value);
@@ -79,30 +92,24 @@ class SnsWidget extends Widget
     public function run()
     {
         $replace = [
+            'feed' => fn (): ?string => $this->procFeed(),
             'id' => $this->id,
-            'tweet' => function (): ?string {
-                return $this->tweetButton->run();
-            },
-            'permalink' => function (): ?string {
-                return $this->procPermaLink();
-            },
-            'feed' => function (): ?string {
-                return $this->procFeed();
-            },
-            'json' => function (): ?string {
-                return $this->procJson();
-            },
+            'image' => fn (): ?string => $this->procImage(),
+            'json' => fn (): ?string => $this->procJson(),
+            'permalink' => fn (): ?string => $this->procPermaLink(),
+            'tweet' => fn (): ?string => $this->tweetButton->run(),
         ];
-        return preg_replace_callback(
+        return \preg_replace_callback(
             '/\{(\w+)\}/',
             function (array $match) use ($replace): string {
                 if (isset($replace[$match[1]])) {
                     $value = $replace[$match[1]];
-                    return (string)(is_callable($value) ? $value() : $value);
+                    return (string)(\is_callable($value) ? $value() : $value);
                 }
+
                 return $match[0];
             },
-            $this->template
+            $this->template,
         );
     }
 
@@ -110,25 +117,26 @@ class SnsWidget extends Widget
     {
         PermalinkDialogAsset::register($this->view);
         $id = $this->id . '-permalink';
-        $this->view->registerCss(sprintf(
-            'body[data-theme="default"] .label-permalink:hover{%s}',
-            Html::cssStyleFromArray([
-                'background-color'  => '#1b3a63',
-            ])
-        ));
+        $this->view->registerCss(
+            \vsprintf('body[data-theme="default"] .label-permalink:hover{%s}', [
+                Html::cssStyleFromArray([
+                    'background-color'  => '#1b3a63',
+                ]),
+            ]),
+        );
         return Html::tag(
             'span',
-            implode(' ', [
+            \implode(' ', [
                 (string)FA::fas('anchor')->fw(),
                 Html::encode(Yii::t('app', 'Permalink')),
             ]),
             [
                 'id' => $id,
                 'class' => [
-                    'label',
-                    'label-success',
-                    'label-permalink',
                     'auto-tooltip',
+                    'label',
+                    'label-permalink',
+                    'label-success',
                 ],
                 'data' => [
                     'dialog-title' => Yii::t('app', 'Permalink'),
@@ -144,28 +152,29 @@ class SnsWidget extends Widget
         if (!$this->feedUrl) {
             return null;
         }
-        $this->view->registerCss(sprintf(
-            '.label-feed{%s}.label-feed[href]:hover{%s}',
-            Html::cssStyleFromArray([
-                'background-color'  => '#ff7010',
+        $this->view->registerCss(
+            \vsprintf('.label-feed{%s}.label-feed[href]:hover{%s}', [
+                Html::cssStyleFromArray([
+                    'background-color'  => '#ff7010',
+                ]),
+                Html::cssStyleFromArray([
+                    'background-color'  => '#dc5800',
+                ]),
             ]),
-            Html::cssStyleFromArray([
-                'background-color'  => '#dc5800',
-            ])
-        ));
+        );
         return Html::tag(
             'a',
             (string)FA::fas('rss')->fw(),
             [
                 'id' => $id,
                 'class' => [
-                    'label',
-                    'label-warning',
-                    'label-feed',
                     'auto-tooltip',
+                    'label',
+                    'label-feed',
+                    'label-warning',
                 ],
                 'href' => Url::to($this->feedUrl),
-            ]
+            ],
         );
     }
 
@@ -179,16 +188,45 @@ class SnsWidget extends Widget
             'a',
             (string)FA::fas('code')->fw(),
             [
-                'id' => $id,
-                'class' => [
-                    'label',
-                    'label-default',
-                    'auto-tooltip',
-                ],
+                'class' => ['auto-tooltip', 'label', 'label-default'],
                 'href' => Url::to($this->jsonUrl),
+                'id' => $id,
                 'rel' => 'nofollow',
+                'target' => '_blank',
                 'type' => 'application/json',
-            ]
+            ],
+        );
+    }
+
+    protected function procImage(): ?string
+    {
+        $id = $this->id . '-image';
+        if (!$this->imageUrl) {
+            return null;
+        }
+
+        $imageUrl = Url::to($this->imageUrl);
+
+        $contentType = match (is_string($imageUrl) ? \strtolower(\pathinfo($imageUrl, PATHINFO_EXTENSION)) : '') {
+            'avif' => 'image/avif',
+            'gif' => 'image/gif',
+            'jpg', 'jpeg' => 'image/jpeg',
+            'png' => 'image/png',
+            'webp' => 'image/webp',
+            default => null,
+        };
+
+        return Html::tag(
+            'a',
+            (string)FA::far('image')->fw(),
+            [
+                'class' => ['auto-tooltip', 'label', 'label-default'],
+                'href' => Url::to($this->imageUrl),
+                'id' => $id,
+                'rel' => 'nofollow',
+                'target' => '_blank',
+                'type' => $contentType,
+            ],
         );
     }
 }

@@ -37,6 +37,10 @@ $canonicalUrl = Url::to(
   true
 );
 
+$isS3ImgGenAvailable = ArrayHelper::getValue(Yii::$app->params, 'useS3ImgGen') &&
+  $model->rule &&
+  $model->rule !== 'tricolor';
+
 $this->title = sprintf('%s | %s', Yii::$app->name, $title);
 $this->registerLinkTag(['rel' => 'canonical', 'href' => $canonicalUrl]);
 $this->registerMetaTag(['property' => 'og:locale', 'content' => str_replace('-', '_', Yii::$app->language)]);
@@ -55,7 +59,7 @@ $twitterCardImageCandidates = array_values(
   array_filter([
     $model->battleImageResult3,
     $model->battleImageJudge3,
-    ArrayHelper::getValue(Yii::$app->params, 'useS3ImgGen') && $model->rule && $model->rule !== 'tricolor'
+    $isS3ImgGenAvailable
       ? vsprintf('https://s3-img-gen.stats.ink/results/%s/%s.jpg', [
         rawurlencode(Yii::$app->language),
         rawurlencode($model->uuid),
@@ -137,6 +141,12 @@ BattleDetailAsset::register($this);
   </h1>
   <?= SnsWidget::widget([
     'jsonUrl' => $jsonUrl,
+    'imageUrl' => $isS3ImgGenAvailable
+      ? vsprintf('https://s3-img-gen.stats.ink/results/%s/%s.jpg', [
+        rawurlencode(Yii::$app->language),
+        rawurlencode($model->uuid),
+      ])
+      : null,
   ]) . "\n" ?>
   <?= $this->render('battle/images', [
     'images' => [
