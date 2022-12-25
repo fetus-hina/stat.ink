@@ -17,6 +17,7 @@ use app\commands\stat\Salmon2Trait;
 use app\commands\stat\Salmon3Trait;
 use app\commands\stat\Weapon2Trait;
 use app\commands\stat\Weapon3Trait;
+use app\commands\stat\actions\XPowerDistrib3Action;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\db\Now;
 use app\models\Battle2;
@@ -56,6 +57,16 @@ final class StatController extends Controller
     use Salmon3Trait;
     use Weapon2Trait;
     use Weapon3Trait;
+
+    /**
+     * @inheritdoc
+     */
+    public function actions()
+    {
+        return [
+            'update-xpower-distrib3' => XPowerDistrib3Action::class,
+        ];
+    }
 
     /**
      * 全体統計 - ブキ統計を更新します

@@ -1,0 +1,10 @@
+[Unit]
+Description=Run stat.ink updater (timer)
+
+[Timer]
+OnCalendar=9:00
+Persistent=true
+RandomizedDelaySec=14400
+
+[Install]
+WantedBy=timers.target
