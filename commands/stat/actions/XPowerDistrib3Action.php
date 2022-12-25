@@ -155,7 +155,7 @@ final class XPowerDistrib3Action extends Action
             ]);
 
         $sql = \vsprintf('INSERT INTO %s ( %s ) %s', [
-            $db->quoteTableName('{{stat_x_power_distrib}}'),
+            $db->quoteTableName('{{stat_x_power_distrib3}}'),
             \implode(
                 ', ',
                 \array_map(
@@ -167,10 +167,10 @@ final class XPowerDistrib3Action extends Action
         ]);
 
         try {
-            \fwrite(STDERR, "Cleanup stat_x_power_distrib...\n");
-            $db->createCommand()->delete('{{%stat_x_power_distrib}}')->execute();
+            \fwrite(STDERR, "Cleanup stat_x_power_distrib3...\n");
+            $db->createCommand()->delete('{{%stat_x_power_distrib3}}')->execute();
 
-            \fwrite(STDERR, "Inserting stat_x_power_distrib...\n");
+            \fwrite(STDERR, "Inserting stat_x_power_distrib3...\n");
             $db->createCommand($sql)->execute();
             \fwrite(STDERR, "OK.\n");
 
@@ -201,7 +201,7 @@ final class XPowerDistrib3Action extends Action
             ->groupBy(['season_id', 'rule_id']);
 
         $sql = \vsprintf('INSERT INTO %s ( %s ) %s', [
-            $db->quoteTableName('{{stat_x_power_distrib_abstract}}'),
+            $db->quoteTableName('{{stat_x_power_distrib_abstract3}}'),
             \implode(
                 ', ',
                 \array_map(
@@ -213,10 +213,10 @@ final class XPowerDistrib3Action extends Action
         ]);
 
         try {
-            \fwrite(STDERR, "Cleanup stat_x_power_distrib_abstract...\n");
-            $db->createCommand()->delete('{{%stat_x_power_distrib_abstract}}')->execute();
+            \fwrite(STDERR, "Cleanup stat_x_power_distrib_abstract3...\n");
+            $db->createCommand()->delete('{{%stat_x_power_distrib_abstract3}}')->execute();
 
-            \fwrite(STDERR, "Inserting stat_x_power_distrib_abstract...\n");
+            \fwrite(STDERR, "Inserting stat_x_power_distrib_abstract3...\n");
             $db->createCommand($sql)->execute();
             \fwrite(STDERR, "OK.\n");
 
@@ -235,8 +235,8 @@ final class XPowerDistrib3Action extends Action
     private function vacuumTables(Connection $db): void
     {
         $tables = [
-            '{{%stat_x_power_distrib}}',
-            '{{%stat_x_power_distrib_abstract}}',
+            '{{%stat_x_power_distrib3}}',
+            '{{%stat_x_power_distrib_abstract3}}',
         ];
 
         foreach ($tables as $table) {
