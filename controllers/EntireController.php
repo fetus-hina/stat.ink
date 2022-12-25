@@ -30,6 +30,7 @@ use app\actions\entire\salmon3\RandomLoanAction;
 use app\actions\entire\salmon3\TideAction;
 use app\actions\entire\v3\Knockout3Action;
 use app\actions\entire\v3\SpecialUse3Action;
+use app\actions\entire\v3\XPowerDistrib3Action;
 use app\components\web\Controller;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -78,6 +79,7 @@ final class EntireController extends Controller
             'weapons-use' => WeaponsUseAction::class,
             'weapons2' => Weapons2Action::class,
             'weapons2-tier' => Weapons2TierAction::class,
+            'xpower-distrib3' => XPowerDistrib3Action::class,
         ];
     }
 }

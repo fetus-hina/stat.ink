@@ -29,7 +29,10 @@ use yii\db\ActiveRecord;
  * @property Knockout3[] $knockout3s
  * @property Rule3Alias[] $rule3Aliases
  * @property Schedule3[] $schedule3s
+ * @property Season3[] $seasons
  * @property StatSpecialUse3[] $statSpecialUse3s
+ * @property StatXPowerDistrib3[] $statXPowerDistrib3s
+ * @property StatXPowerDistribAbstract3[] $statXPowerDistribAbstract3s
  * @property UserStat3XMatch[] $userStat3XMatches
  * @property User[] $users
  */
@@ -89,9 +92,24 @@ class Rule3 extends ActiveRecord
         return $this->hasMany(Schedule3::class, ['rule_id' => 'id']);
     }
 
+    public function getSeasons(): ActiveQuery
+    {
+        return $this->hasMany(Season3::class, ['id' => 'season_id'])->viaTable('stat_x_power_distrib_abstract3', ['rule_id' => 'id']);
+    }
+
     public function getStatSpecialUse3s(): ActiveQuery
     {
         return $this->hasMany(StatSpecialUse3::class, ['rule_id' => 'id']);
+    }
+
+    public function getStatXPowerDistrib3s(): ActiveQuery
+    {
+        return $this->hasMany(StatXPowerDistrib3::class, ['rule_id' => 'id']);
+    }
+
+    public function getStatXPowerDistribAbstract3s(): ActiveQuery
+    {
+        return $this->hasMany(StatXPowerDistribAbstract3::class, ['rule_id' => 'id']);
     }
 
     public function getUserStat3XMatches(): ActiveQuery
