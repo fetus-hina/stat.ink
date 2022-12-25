@@ -20,6 +20,7 @@ use yii\web\View;
 ?>
 <div class="mb-3">
   <?= $this->render('rule/heading', compact('rule')) . "\n" ?>
+  <?= $this->render('rule/abstract', ['model' => $abstract]) . "\n" ?>
   <?= $this->render('rule/histogram', [
     'data' => StatXPowerDistrib3::find()
       ->andWhere([
@@ -29,5 +30,4 @@ use yii\web\View;
       ->orderBy(['x_power' => SORT_ASC])
       ->all(),
   ]) . "\n" ?>
-  <?= $this->render('rule/abstract', ['model' => $abstract]) . "\n" ?>
 </div>
