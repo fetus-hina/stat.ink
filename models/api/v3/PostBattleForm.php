@@ -8,6 +8,8 @@
 
 namespace app\models\api\v3;
 
+use JsonException;
+use Throwable;
 use Yii;
 use app\components\behaviors\TrimAttributesBehavior;
 use app\components\db\Connection;
@@ -53,8 +55,11 @@ use jp3cki\uuid\Uuid;
 use yii\base\InvalidConfigException;
 use yii\base\Model;
 use yii\db\ActiveRecord;
+use yii\helpers\FileHelper;
 use yii\helpers\Json;
 use yii\web\UploadedFile;
+
+use const JSON_THROW_ON_ERROR;
 
 /**
  * @property-read Battle3|null $sameBattle
@@ -148,6 +153,8 @@ final class PostBattleForm extends Model
 
     /** @var UploadedFile|string|null */
     public $image_gear;
+
+    public $splatnet_json;
 
     public function behaviors()
     {
@@ -275,6 +282,7 @@ final class PostBattleForm extends Model
 
             [['agent_variables'], BattleAgentVariable3Validator::class],
             [['image_judge', 'image_result', 'image_gear'], BattleImageValidator::class],
+            [['splatnet_json'], 'safe'],
         ];
     }
 
@@ -391,6 +399,8 @@ final class PostBattleForm extends Model
                 if (!$this->saveBattleImages($battle)) {
                     return null;
                 }
+
+                $this->saveSplatnetJson($battle);
 
                 return $battle;
             });
@@ -803,6 +813,52 @@ final class PostBattleForm extends Model
             return $model->save() ? $model : null;
         } finally {
             unset($lock);
+        }
+    }
+
+    private function saveSplatnetJson(Battle3 $model): void
+    {
+        try {
+            $json = null;
+            if (
+                \is_string($this->splatnet_json) &&
+                self::isValidJson($this->splatnet_json)
+            ) {
+                $json = $this->splatnet_json;
+            } elseif (
+                \is_array($this->splatnet_json) ||
+                \is_object($this->splatnet_json)
+            ) {
+                $json = Json::encode($this->splatnet_json);
+            }
+
+            if ($json) {
+                $path = \vsprintf('%s/%s/%s/%s.json.gz', [
+                    Yii::getAlias('@app/runtime/splatnet3-json'),
+                    \substr($model->uuid, 0, 2),
+                    \substr($model->uuid, 2, 2),
+                    $model->uuid,
+                ]);
+
+                FileHelper::createDirectory(dirname($path), 0755, true);
+
+                file_put_contents("compress.zlib://{$path}", $json);
+            }
+        } catch (Throwable $e) {
+        }
+    }
+
+    private static function isValidJson(string $maybeJson): bool
+    {
+        try {
+            @json_decode(
+                $maybeJson,
+                associative: true,
+                flags: JSON_THROW_ON_ERROR,
+            );
+            return true;
+        } catch (JsonException $e) {
+            return false;
         }
     }
 
