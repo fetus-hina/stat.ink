@@ -4,6 +4,7 @@
  * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
+ * @author cake monotone <cake.monotone@gmail.com>
  */
 
 declare(strict_types=1);
@@ -11,7 +12,7 @@ declare(strict_types=1);
 return [
     'Academy' => '해녀 미술 대학',
     'Alley' => '메기 지구',
-    'Any Stage' => '',
+    'Any Stage' => '모든 스테이지',
     'Bay' => '난파선',
     'Bridge' => '고등어 해협 대교',
     'Brinewater Springs' => '과메기 온천',
