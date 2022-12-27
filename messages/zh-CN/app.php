@@ -264,6 +264,7 @@ return [
     'Integrate' => '连接',
     'Internal ID' => '内部ID',
     'Interval' => '间隔',
+    'In the chart, "{representative}" means greater than or equal to {min} and less than {max}.' => '',
     'Invalid {0} or {1}.' => '无效的{0}或{1}。',
     'IQR' => '四分位距',
     'It looks this data is corrupt.' => '看上去这个数据已损坏。',
