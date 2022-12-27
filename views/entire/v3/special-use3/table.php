@@ -15,8 +15,9 @@ use yii\web\View;
 
 /**
  * @var Rule3|null $rule
- * @var array<int, Special3> $specials
  * @var StatSpecialUse3[] $data
+ * @var array<int, Special3> $specials
+ * @var float|null $maxAvgUses
  */
 
 TableResponsiveForceAsset::register($this);
@@ -69,46 +70,51 @@ $fmt = Yii::$app->formatter;
           ]),
         ],
         [
+          'format' => 'raw',
+          'headerOptions' => ['width' => '12%'],
           'label' => Yii::t('app', 'Avg. Uses'),
-          'contentOptions' => ['class' => 'text-right'],
-          'value' => fn (StatSpecialUse3 $model): string => $model->stddev === null
-            ? $fmt->asDecimal($model->avg_uses, 2)
-            : vsprintf('%s (σ=%s)', [
-              $fmt->asDecimal($model->avg_uses, 2),
-              $fmt->asDecimal($model->stddev, 2),
-            ]),
+          'value' => fn (StatSpecialUse3 $model): string => $this->render('avg-uses', [
+            'model' => $model,
+            'maxAvgUses' => $maxAvgUses,
+          ]),
         ],
         [
-          'label' => Yii::t('app', 'Median'),
+          'attribute' => 'stddev',
           'contentOptions' => ['class' => 'text-right'],
-          'format' => 'integer',
+          'format' => ['decimal', 2],
+          'label' => Yii::t('app', 'Std Dev'),
+        ],
+        [
           'attribute' => 'percentile_50',
-        ],
-        [
-          'label' => Yii::t('app', '{percentile} Percentile', ['percentile' => 25]),
           'contentOptions' => ['class' => 'text-right'],
           'format' => 'integer',
+          'label' => Yii::t('app', 'Median'),
+        ],
+        [
           'attribute' => 'percentile_25',
-        ],
-        [
-          'label' => Yii::t('app', '{percentile} Percentile', ['percentile' => 75]),
           'contentOptions' => ['class' => 'text-right'],
           'format' => 'integer',
-          'attribute' => 'percentile_75',
+          'label' => Yii::t('app', '{percentile} Percentile', ['percentile' => 25]),
         ],
         [
-          'label' => Yii::t('app', 'Win %'),
+          'attribute' => 'percentile_75',
+          'contentOptions' => ['class' => 'text-right'],
+          'format' => 'integer',
+          'label' => Yii::t('app', '{percentile} Percentile', ['percentile' => 75]),
+        ],
+        [
           'contentOptions' => ['class' => 'text-center'],
           'format' => ['percent', 2],
+          'label' => Yii::t('app', 'Win %'),
           'value' => fn (StatSpecialUse3 $model): ?float => $model->sample_size > 0
             ? $model->win / $model->sample_size
             : null,
         ],
         [
-          'label' => Yii::t('app', 'Samples'),
+          'attribute' => 'sample_size',
           'contentOptions' => ['class' => 'text-right'],
           'format' => 'integer',
-          'attribute' => 'sample_size',
+          'label' => Yii::t('app', 'Samples'),
         ],
       ],
     ]) . "\n" ?>
