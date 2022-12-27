@@ -1,10 +1,19 @@
 <?php
+
+declare(strict_types=1);
+
 use app\assets\TableResponsiveForceAsset;
 use app\components\helpers\WeaponShortener;
 use app\components\widgets\AdWidget;
+use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
 use statink\yii2\sortableTable\SortableTableAsset;
 use yii\bootstrap\Html;
+use yii\web\View;
+
+/**
+ * @var View $this
+ */
 
 TableResponsiveForceAsset::register($this);
 
@@ -28,8 +37,8 @@ $fmt = Yii::$app->formatter;
   <?= SnsWidget::widget() . "\n" ?>
   <p>
     <?= Html::a(
-      implode('', [
-        Html::tag('span', '', ['class' => ['fas fa-file-code fa-fw']]),
+      implode(' ', [
+        Icon::apiJson(),
         Html::encode(Yii::t('app', 'JSON format')),
       ]),
       ['api-v2/stage'],

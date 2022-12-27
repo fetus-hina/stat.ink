@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\components\widgets\Icon;
 use app\models\User;
 use statink\yii2\twitter\webintents\TwitterWebIntentsAsset;
 use yii\helpers\Html;
@@ -18,7 +19,7 @@ use yii\web\View;
   <tbody>
     <tr>
       <th>
-        <span class="fab fa-twitter left"></span>Twitter
+        <?= Icon::twitter() ?> Twitter
       </th>
       <td>
 <?php if (Yii::$app->params['twitter']['read_enabled'] ?? false): ?>

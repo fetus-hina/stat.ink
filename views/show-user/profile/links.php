@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use app\assets\AppLinkAsset;
+use app\components\widgets\Icon;
 use app\models\User;
 use yii\bootstrap\Html;
 use yii\web\View;
@@ -30,7 +31,7 @@ $css = [
 $links = [];
 if ($user->twitter) {
   $links[] = implode('', [
-    Html::tag('span', '', ['class' => ['fab', 'fa-fw', 'fa-twitter']]),
+    Icon::twitter(),
     Html::a(
       Html::encode('@' . $user->twitter),
       sprintf('https://twitter.com/%s', rawurlencode($user->twitter)),

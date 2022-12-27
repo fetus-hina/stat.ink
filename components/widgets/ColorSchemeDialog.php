@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -14,9 +14,12 @@ use Yii;
 use app\assets\ThemeAsset;
 use yii\helpers\Html;
 
-class ColorSchemeDialog extends Dialog
+final class ColorSchemeDialog extends Dialog
 {
-    public $bootswatch = [
+    /**
+     * @var array<string, string>
+     */
+    public array $bootswatch = [
         'bootswatch-cosmo' => 'Cosmo',
         'bootswatch-cyborg' => 'Cyborg',
         'bootswatch-darkly' => 'Darkly',
@@ -29,7 +32,7 @@ class ColorSchemeDialog extends Dialog
     {
         parent::init();
         $this->title = implode(' ', [
-            FA::fas('palette')->fw(),
+            Icon::colorScheme(),
             Html::encode(Yii::t('app', 'Color Scheme')),
         ]);
         $this->titleFormat = 'raw';

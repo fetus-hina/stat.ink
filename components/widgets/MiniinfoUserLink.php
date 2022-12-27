@@ -57,7 +57,7 @@ class MiniinfoUserLink extends Widget
 
         TwitterWebIntentsAsset::register($this->view);
         return $this->renderData(
-            Html::tag('span', '', ['class' => 'fab fa-fw fa-twitter']),
+            Icon::twitter(),
             "@{$this->user->twitter}",
             sprintf(
                 'https://twitter.com/intent/user?%s',

@@ -13,8 +13,8 @@ namespace app\components\widgets\alerts;
 use Yii;
 use app\assets\LanguageDialogAsset;
 use app\components\widgets\Alert;
-use app\components\widgets\FA;
 use app\components\widgets\FlagIcon;
+use app\components\widgets\Icon;
 use app\models\Language;
 use app\models\SupportLevel;
 use yii\base\Widget;
@@ -97,7 +97,10 @@ class LanguageSupportLevelWarning extends Widget
                 Html::encode($this->language->name),
             ])),
             Html::button(
-                FA::fas('language') . ' ' . Html::encode('Switch'),
+                \implode(' ', [
+                    Icon::language(),
+                    Html::encode('Switch'),
+                ]),
                 [
                     'class' => [
                         'btn',

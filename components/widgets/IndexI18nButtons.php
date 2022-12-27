@@ -51,7 +51,7 @@ final class IndexI18nButtons extends Widget
         ]);
         return $this->renderButton(
             '#language-dialog',
-            (string)FA::fas('language')->fw(),
+            Icon::language(),
             $lang
                 ? [
                     $this->flagIcon(strtolower($lang->getCountryCode())),
@@ -80,7 +80,7 @@ final class IndexI18nButtons extends Widget
         ]);
         return $this->renderButton(
             '#timezone-dialog',
-            (string)FA::far('clock')->fw(),
+            Icon::timezone(),
             $tz
                 ? array_map(
                     function (Country $country): string {

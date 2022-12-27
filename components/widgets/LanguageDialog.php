@@ -25,7 +25,7 @@ final class LanguageDialog extends Dialog
         parent::init();
 
         $this->title = implode(' ', [
-            (string)FA::fas('language')->fw(),
+            Icon::language(),
             Html::tag(
                 'span',
                 Html::encode('Choose your language'),
@@ -129,22 +129,22 @@ final class LanguageDialog extends Dialog
                 return FA::fas(null)->fw()->__toString();
 
             case SupportLevel::PARTIAL:
-                return FA::fas('exclamation-circle', ['options' => [
+                return Html::tag('span', Icon::languageLevelPartical(), [
                     'class' => 'auto-tooltip',
-                    'title' => 'Partially supported',
-                ]])->fw()->__toString();
+                    'title' => 'Partically supported',
+                ]);
 
             case SupportLevel::FEW:
-                return FA::fas('exclamation-triangle', ['options' => [
+                return Html::tag('span', Icon::languageLevelFew(), [
                     'class' => 'auto-tooltip',
                     'title' => 'Proper-noun only',
-                ]])->fw()->__toString();
+                ]);
 
             case SupportLevel::MACHINE:
-                return FA::fas('robot', ['options' => [
+                return Html::tag('span', Icon::languageLevelMachine(), [
                     'class' => 'auto-tooltip',
                     'title' => 'Machine-translated',
-                ]])->fw()->__toString();
+                ]);
         }
     }
 
@@ -177,10 +177,10 @@ final class LanguageDialog extends Dialog
                     ),
                     Html::tag(
                         'div',
-                        implode('<br>', [
-                          FA::fas('exclamation-circle')->fw() . ' : Partically supported',
-                          FA::fas('exclamation-triangle')->fw() . ' : Proper-noun only',
-                          FA::fas('robot')->fw() . ' : Almost machine-translated',
+                        \implode('<br>', [
+                            Icon::languageLevelPartical() . ' : Partically supported',
+                            Icon::languageLevelFew() . ' : Proper-noun only',
+                            Icon::languageLevelMachine() . ' : Almost machine-translated',
                         ]),
                         [
                             'class' => 'ml-auto',
@@ -196,12 +196,12 @@ final class LanguageDialog extends Dialog
                 ]
             ),
             Html::a(
-                FA::fas('question-circle')->fw() . ' About Translation',
+                Icon::help() . ' About Translation',
                 ['site/translate'],
                 ['class' => 'list-group-item']
             ),
             Html::a(
-                FA::fas('sync')->fw() . ' How to update',
+                Icon::refresh() . ' How to update',
                 'https://github.com/fetus-hina/stat.ink/wiki/Translation',
                 ['class' => 'list-group-item']
             ),

@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use app\components\widgets\AdWidget;
+use app\components\widgets\Icon;
 use app\models\LoginForm;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
@@ -64,7 +65,7 @@ $this->title = implode(' | ', [
 <?php if (Yii::$app->params['twitter']['read_enabled'] ?? false) { ?>
             <?= Html::a(
               implode(' ', [
-                Html::tag('span', '', ['class' => 'fab fa-fw fa-twitter']),
+                Icon::twitter(),
                 Html::encode(Yii::t('app', 'Log in with Twitter')),
               ]),
               ['/user/login-with-twitter'],

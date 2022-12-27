@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use app\assets\AboutAsset;
 use app\components\widgets\AdWidget;
+use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
 use yii\helpers\Html;
 use yii\web\View;
@@ -31,6 +32,13 @@ $aboutAsset = AboutAsset::register($this);
 
   <?= AdWidget::widget() . "\n" ?>
   <?= SnsWidget::widget() . "\n" ?>
+
+  <div class="alert alert-danger">
+    This document is outdated.<br>
+    To import Splatoon 3 data from SplatNet 3,
+    use <a href="https://github.com/frozenpandaman/s3s" target="_blank" class="alert-link">s3s</a>
+    or <a href="https://github.com/spacemeowx2/s3si.ts" target="_blank" class="alert-link">s3si.ts</a>.
+  </div>
 
   <h2>
     How do I make my Splat Log?
@@ -197,7 +205,7 @@ $aboutAsset = AboutAsset::register($this);
   </p>
   <hr>
   <p>
-    This website was developed by AIZAWA Hina &lt;hina@fetus.jp&gt; (<span class="fab fa-twitter left"></span>fetus_hina, <span class="fab fa-github left"></span>fetus-hina) as a personal project.&#32;
+    This website was developed by AIZAWA Hina &lt;hina@fetus.jp&gt; (<?= Icon::twitter() ?> fetus_hina, <?= Icon::github() ?> fetus-hina) as a personal project.&#32;
     This project was not produced in association with Nintendo.&#32;
     Don't ask them about stat.ink or IkaLog, they won't know anything.
   </p>

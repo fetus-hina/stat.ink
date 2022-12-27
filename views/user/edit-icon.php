@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use app\components\widgets\AdWidget;
+use app\components\widgets\Icon;
 use app\models\User;
 use app\models\UserIcon;
 use statink\yii2\jdenticon\Jdenticon;
@@ -57,13 +58,14 @@ $this->title = implode(' | ', [
 <?php if (Yii::$app->params['twitter']['read_enabled'] ?? null) { ?>
       <div class="panel panel-default">
         <div class="panel-heading">
+          <?= Icon::twitter() . "\n" ?>
           <?= Html::encode(Yii::t('app', 'Use profile icon of your twitter account')) . "\n" ?>
         </div>
         <div class="panel-body">
           <p class="text-right">
             <?= Html::a(
-              implode('', [
-                Html::tag('span', '', ['class' => 'fab fa-fw fa-twitter']),
+              implode(' ', [
+                Icon::twitter(),
                 Html::encode(Yii::t('app', 'Use your profile icon')),
               ]),
               ['icon-twitter'],

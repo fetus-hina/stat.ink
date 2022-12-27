@@ -26,7 +26,7 @@ class TimezoneDialog extends Dialog
     {
         parent::init();
         $this->title = implode(' ', [
-            FA::far('clock')->fw(),
+            Icon::timezone(),
             Html::encode(Yii::t('app', 'Time Zone')),
         ]);
         $this->titleFormat = 'raw';
@@ -222,7 +222,10 @@ class TimezoneDialog extends Dialog
     {
         $close = Html::tag(
             'button',
-            FA::fas('times') . ' ' . Html::encode(Yii::t('app', 'Close')),
+            \implode(' ', [
+                Icon::close(),
+                Html::encode(Yii::t('app', 'Close')),
+            ]),
             [
                 'type' => 'button',
                 'class' => 'btn btn-default',
@@ -255,7 +258,7 @@ class TimezoneDialog extends Dialog
                                 ),
                                 ' ',
                                 Html::a(
-                                    (string)FA::fas('question-circle'),
+                                    Icon::help(),
                                     'https://github.com/fetus-hina/stat.ink/wiki/Time-Zone-Detection',
                                     [
                                         'rel' => 'external',

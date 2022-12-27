@@ -55,7 +55,8 @@
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-httpclient": "*",
         "yiisoft/yii2-queue": "*",
-        "yiisoft/yii2-symfonymailer": "*"
+        "yiisoft/yii2-symfonymailer": "*",
+        "twbs/bootstrap-icons": "^1.10"
     },
     "require-dev": {
         "codeception/codeception": "*",

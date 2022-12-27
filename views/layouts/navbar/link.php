@@ -6,6 +6,7 @@ use app\assets\AppLinkAsset;
 use app\components\widgets\FA;
 use app\components\widgets\FlagIcon;
 use app\components\widgets\GameVersionIcon;
+use app\components\widgets\Icon;
 use yii\helpers\Html;
 use yii\web\View;
 
@@ -126,8 +127,8 @@ $list = [
   ],
   [
     // Twitter {{{
-    'name' => implode('', [
-      (string)FA::fab('twitter')->fw(),
+    'name' => implode(' ', [
+      Icon::twitter(),
       Html::encode(Yii::t('app', 'Official Twitter')),
     ]),
     'sub' => [
@@ -403,7 +404,7 @@ $renderEntry = function (array $entry) use (&$renderEntry) : string {
 ?>
 <?= Html::a(
   implode('', [
-    (string)FA::fas('link')->fw(),
+    Icon::link(),
     Html::encode(Yii::t('app', 'Links')),
     ' ',
     Html::tag('span', '', ['class' => 'caret']),

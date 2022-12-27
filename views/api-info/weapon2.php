@@ -7,9 +7,15 @@ use app\assets\TableResponsiveForceAsset;
 use app\components\helpers\WeaponShortener;
 use app\components\widgets\AbilityIcon;
 use app\components\widgets\AdWidget;
+use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
 use statink\yii2\sortableTable\SortableTableAsset;
 use yii\bootstrap\Html;
+use yii\web\View;
+
+/**
+ * @var View $this
+ */
 
 $this->context->layout = 'main';
 $this->title = Yii::t('app', 'API Info: Weapons (Splatoon 2)');
@@ -31,16 +37,16 @@ $icon = Spl2WeaponAsset::register($this);
   <?= SnsWidget::widget() . "\n" ?>
   <p>
     <?= Html::a(
-      implode('', [
-        Html::tag('span', '', ['class' => ['fas fa-file-code fa-fw']]),
+      implode(' ', [
+        Icon::apiJson(),
         Html::encode(Yii::t('app', 'JSON format')),
       ]),
       ['api-v2/weapon'],
       ['class' => 'label label-default']
     ) ."\n" ?>
     <?= Html::a(
-      implode('', [
-        Html::tag('span', '', ['class' => ['fas fa-file-excel fa-fw']]),
+      implode(' ', [
+        Icon::fileCsv(),
         Html::encode(Yii::t('app', 'CSV format')),
       ]),
       ['api-v2/weapon', 'format' => 'csv'],

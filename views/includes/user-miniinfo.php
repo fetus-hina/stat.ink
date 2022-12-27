@@ -5,6 +5,7 @@ declare(strict_types=1);
 use app\assets\AppLinkAsset;
 use app\assets\UserMiniinfoAsset;
 use app\components\widgets\ActivityWidget;
+use app\components\widgets\Icon;
 use app\components\widgets\RemoteFollowDialog;
 use app\components\widgets\UserIcon;
 use app\models\Rank;
@@ -353,7 +354,7 @@ $f = Yii::$app->formatter;
 <?php if ($user->twitter): ?>
 <?php TwitterWebIntentsAsset::register($this) ?>
       <div>
-        <span class="fab fa-twitter fa-fw"></span>
+        <?= Icon::twitter() . "\n" ?>
         <?= Html::a(
           Html::encode($user->twitter),
           'https://twitter.com/intent/user?' . http_build_query(['screen_name' => $user->twitter]),

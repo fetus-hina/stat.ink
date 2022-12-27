@@ -13,6 +13,7 @@ namespace app\components\widgets;
 use Yii;
 use app\assets\GameModeIconsAsset;
 use app\assets\UserMiniinfoAsset;
+use app\components\widgets\Icon;
 use app\models\Rank2;
 use app\models\Rule2;
 use app\models\UserStat2;
@@ -73,7 +74,7 @@ class UserMiniInfo2 extends Widget
                 Html::tag(
                     'span',
                     Html::a(
-                        (string)FA::fas('code'),
+                        Icon::apiJson(),
                         ['api-v2/user-stats', 'screen_name' => $this->user->screen_name],
                         ['class' => 'label label-default']
                     ),

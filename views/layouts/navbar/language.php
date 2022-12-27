@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-use app\components\widgets\FA;
+use app\components\widgets\Icon;
 use yii\helpers\Html;
 
 ?>
 <?= Html::a(
-  implode('', [
-    (string)FA::fas('language')->fw(),
+  implode(' ', [
+    Icon::language(),
     Html::encode('Language'),
     ' ',
     Html::tag('span', '', ['class' => 'caret']),

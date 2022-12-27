@@ -1,6 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 use app\components\widgets\AdWidget;
+use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
 use yii\helpers\Html;
 use yii\web\View;
@@ -49,7 +52,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
   <h2>Splatoon 2</h2>
   <ul>
     <li>
-      <span class="far fa-file-excel"></span>
+      <?= Icon::fileCsv() . "\n" ?>
       <a href="https://dl-stats.stat.ink/splatoon-2/battle-results-csv/">リザルト情報 (CSV)</a>
       <div style="margin-left:2em">
         ルール等や勝敗、ブキ構成、キルデスなどが一覧になっています。<br>
@@ -62,7 +65,8 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
   <h2>Splatoon</h2>
   <ul>
     <li>
-      <span class="far fa-file-excel"></span> ブキ・ルール・ステージ別にバトル数・勝率を集計したもの (CSV)
+      <?= Icon::fileCsv() . "\n" ?>
+      ブキ・ルール・ステージ別にバトル数・勝率を集計したもの (CSV)
       <?= $this->render('_dl-langs', ['route' => 'download-stats/weapon-rule-map']) . "\n" ?>
     </li>
   </ul>

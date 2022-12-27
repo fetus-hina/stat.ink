@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
+use app\components\widgets\Icon;
 use app\models\User;
 use statink\yii2\jdenticon\Jdenticon;
 use statink\yii2\twitter\webintents\TwitterWebIntentsAsset;
 use yii\helpers\Html;
-use yii\widgets\DetailView;
 use yii\web\View;
+use yii\widgets\DetailView;
 
 /**
  * @var User $user
@@ -162,8 +163,8 @@ $f = Yii::$app->formatter;
       'value' => function () use ($user): string {
         TwitterWebIntentsAsset::register($this);
         return Html::a(
-          implode('', [
-            Html::tag('span', '', ['class' => 'fab fa-fw fa-twitter']),
+          implode(' ', [
+            Icon::twitter(),
             '@' . Html::encode($user->twitter),
           ]),
           'https://twitter.com/intent/user?' . http_build_query([

@@ -1,12 +1,21 @@
 <?php
+
+declare(strict_types=1);
+
 use app\assets\AppLinkAsset;
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\AdWidget;
+use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
 use app\models\GearType;
 use app\models\Language;
 use statink\yii2\sortableTable\SortableTableAsset;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var View $this
+ */
 
 TableResponsiveForceAsset::register($this);
 
@@ -57,8 +66,8 @@ $inkipediaIcon = $icon->inkipedia;
   ) . "\n" ?>
   <p>
     <?= Html::a(
-      implode('', [
-        Html::tag('span', '', ['class' => ['fas fa-file-code fa-fw']]),
+      implode(' ', [
+        Icon::apiJson(),
         Html::encode(Yii::t('app', 'JSON format')),
       ]),
       ['api-v2/gear', 'type' => $type->key],
@@ -66,7 +75,7 @@ $inkipediaIcon = $icon->inkipedia;
     ) ."\n" ?>
     <?= Html::a(
       implode('', [
-        Html::tag('span', '', ['class' => ['fas fa-file-excel fa-fw']]),
+        Icon::fileCsv(),
         Html::encode(Yii::t('app', 'CSV format')),
       ]),
       ['api-v2/gear', 'type' => $type->key, 'format' => 'csv'],

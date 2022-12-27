@@ -31,28 +31,6 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
   <h1><?= Html::encode($this->title) ?></h1>
   <?= AdWidget::widget() . "\n" ?>
   <?= SnsWidget::widget() . "\n" ?>
-<?php if (false) { ?>
-  <p>
-    <?= implode(' ', [
-      Html::a(
-        implode('', [
-          Html::tag('span', '', ['class' => ['fas fa-file-code fa-fw']]),
-          Html::encode(Yii::t('app', 'JSON format')),
-        ]),
-        ['api-v3/weapon'],
-        ['class' => 'label label-default']
-      ),
-      Html::a(
-        implode('', [
-          Html::tag('span', '', ['class' => ['fas fa-file-code fa-fw']]),
-          Html::encode(Yii::t('app', 'JSON format (All langs)')),
-        ]),
-        ['api-v3/weapon', 'full' => 1],
-        ['class' => 'label label-default']
-      ),
-    ]) . "\n" ?>
-  </p>
-<?php } ?>
 
   <?= $this->render('boss-salmonid3/boss', ['langs' => $langs, 'salmonids' => $bosses]) . "\n" ?>
   <?= $this->render('boss-salmonid3/king', ['langs' => $langs, 'salmonids' => $kings]) . "\n" ?>
