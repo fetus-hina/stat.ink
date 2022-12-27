@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use app\components\widgets\AdWidget;
+use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
 use yii\helpers\Html;
 use yii\web\View;
@@ -38,8 +39,8 @@ if ($prevUrl) {
   $nextPrev[] = Html::tag(
     'div',
     Html::a(
-      implode('', [
-        Html::tag('span', '', ['class' => 'fa fa-fw fa-angle-double-left']),
+      implode(' ', [
+        Icon::prevPage(),
         Html::encode(Yii::t('app', 'Prev. Month')),
       ]),
       $prevUrl,
@@ -54,7 +55,7 @@ if ($nextUrl) {
     Html::a(
       implode('', [
         Html::encode(Yii::t('app', 'Next Month')),
-        Html::tag('span', '', ['class' => 'fa fa-fw fa-angle-double-right']),
+        Icon::nextPage(),
       ]),
       $nextUrl,
       ['class' => 'btn btn-default']

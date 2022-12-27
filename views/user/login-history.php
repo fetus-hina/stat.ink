@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\BrowserIconWidget;
-use app\components\widgets\FA;
+use app\components\widgets\Icon;
 use app\components\widgets\LocationColumnWidget;
 use app\components\widgets\MaxmindMessage;
 use app\components\widgets\OsIconWidget;
@@ -32,7 +32,7 @@ $this->title = implode(' | ', [
   <p>
     <?= Html::a(
       implode(' ', [
-        FA::fas('angle-double-left')->fw(),
+        Icon::back(),
         Yii::t('app', 'Back'),
       ]),
       ['user/profile'],

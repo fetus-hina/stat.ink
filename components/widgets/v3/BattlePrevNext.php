@@ -12,6 +12,7 @@ namespace app\components\widgets\v3;
 
 use LogicException;
 use Yii;
+use app\components\widgets\Icon;
 use app\models\Battle3;
 use app\models\Salmon3;
 use app\models\User;
@@ -65,8 +66,8 @@ final class BattlePrevNext extends Widget
         return Html::tag(
             'div',
             Html::a(
-                \implode('', [
-                    Html::tag('span', '', ['class' => 'fa fa-fw fa-angle-double-left']),
+                \implode(' ', [
+                    Icon::prevPage(),
                     $this->generatePrevLabel($this->prevBattle),
                 ]),
                 $this->generateUrl($this->prevBattle),
@@ -85,9 +86,9 @@ final class BattlePrevNext extends Widget
         return Html::tag(
             'div',
             Html::a(
-                \implode('', [
+                \implode(' ', [
                     $this->generateNextLabel($this->nextBattle),
-                    Html::tag('span', '', ['class' => 'fa fa-fw fa-angle-double-right']),
+                    Icon::nextPage(),
                 ]),
                 $this->generateUrl($this->nextBattle),
                 ['class' => 'btn btn-default']

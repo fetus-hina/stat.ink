@@ -103,11 +103,10 @@ class TimezoneDialog extends Dialog
         if ($renderGroup) {
             $ret .= Html::tag(
                 'div',
-                sprintf(
-                    '%s %s',
+                \implode(' ', [
                     Html::encode(Yii::t('app-tz', $tz->group->name)),
-                    FA::fas('angle-double-right')->fw()
-                ),
+                    Icon::subCategory(),
+                ]),
                 ['class' => 'small']
             );
         }

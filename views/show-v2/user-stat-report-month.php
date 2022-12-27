@@ -5,6 +5,7 @@ declare(strict_types=1);
 use app\assets\Spl2WeaponAsset;
 use app\assets\UserStatReportAsset;
 use app\components\widgets\AdWidget;
+use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
 use app\models\Battle2;
 use app\models\User;
@@ -52,8 +53,8 @@ $weapons = Spl2WeaponAsset::register($this);
     <div class="col-xs-6">
 <?php if ($prev) { ?>
       <?= Html::a(
-        implode('', [
-          Html::tag('span', '', ['class' => 'fa fa-fw fa-angle-double-left']),
+        implode(' ', [
+          Icon::prevPage(),
           Html::encode(Yii::t('app', 'Prev. Month')),
         ]),
         $prev,
@@ -64,9 +65,9 @@ $weapons = Spl2WeaponAsset::register($this);
     <div class="col-xs-6 pull-right text-right">
 <?php if ($next) { ?>
       <?= Html::a(
-        implode('', [
+        implode(' ', [
           Html::encode(Yii::t('app', 'Next Month')),
-          Html::tag('span', '', ['class' => 'fa fa-fw fa-angle-double-right']),
+          Icon::nextPage(),
         ]),
         $next,
         ['class' => 'btn btn-default']
@@ -109,7 +110,7 @@ $weapons = Spl2WeaponAsset::register($this);
         <tr>
           <td>
             <?= Html::a(
-              Html::tag('span', '', ['class' => 'fa fa-fw fa-search']),
+              Icon::search(),
               ['show-v2/user',
                 'screen_name' => $user->screen_name,
                 'filter' => [

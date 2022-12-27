@@ -44,9 +44,16 @@
         }
 
         const rawData = $this.data('data');
+        const icons = {
+          left1: '<span class="bi bi-chevron-left"></span>',
+          left2: '<span class="bi bi-chevron-double-left"></span>',
+          right1: '<span class="bi bi-chevron-right"></span>',
+          right2: '<span class="bi bi-chevron-double-right"></span>',
+        };
+
         const data = [
           {
-            label: '<span class="fa fa-fw fa-angle-left"></span> ' + strings.inked.turfInked,
+            label: `${icons.left1} ${strings.inked.turfInked}`,
             data: rawData.map((v, i, arr) => [i - (arr.length - 1), v.ink]),
             color: colorInked,
             lines: {
@@ -60,7 +67,7 @@
         ];
         if ($this.attr('data-filter')) {
           data.push({
-            label: '<span class="fa fa-fw fa-angle-double-left"></span> ' + strings.wp.entire,
+            label: `${icons.left2} ${strings.wp.entire}`,
             data: (json => {
               let battles = 0;
               let wins = 0;
@@ -88,7 +95,7 @@
             }
           });
           data.push({
-            label: '<span class="fa fa-fw fa-angle-right"></span> ' + strings.stats.avgKill,
+            label: `${icons.right1} ${strings.stats.avgKill}`,
             data: (json => {
               let battles = 0;
               let total = 0;
@@ -114,7 +121,7 @@
             }
           });
           data.push({
-            label: '<span class="fa fa-fw fa-angle-right"></span> ' + strings.stats.avgDeath,
+            label: `${icons.right1} ${strings.stats.avgDeath}`,
             data: (json => {
               let battles = 0;
               let total = 0;

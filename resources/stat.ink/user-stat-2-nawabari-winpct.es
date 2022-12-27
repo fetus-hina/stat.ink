@@ -9,12 +9,18 @@
   const convertToWPData = (bigJson, isRanked) => {
     // {{{
     const strings = JSON.parse($('#json-strings').text());
+    const icons = {
+      left1: '<span class="bi bi-chevron-left"></span>',
+      left2: '<span class="bi bi-chevron-double-left"></span>',
+      right1: '<span class="bi bi-chevron-right"></span>',
+      right2: '<span class="bi bi-chevron-double-right"></span>',
+    };
     const data = [];
     if (isRanked) {
       const x = bigJson.filter(v => (v.win !== null && v.x !== null)).length;
       if (x > 0) {
         data.push({
-          label: '<em class="fas fa-fw fa-angle-double-right"></em> ' + strings.rank.xpower,
+          label: `${icon.right2} ${strings.rank.xpower}`,
           data: bigJson
             .filter(v => (v.win !== null))
             .map((v, i, json) => {
@@ -26,7 +32,7 @@
         });
       }
       data.push({
-        label: '<em class="fas fa-fw fa-angle-right"></em> ' + strings.rank.rank,
+        label: `${icons.right1} ${strings.rank.rank}`,
         data: bigJson
           .filter(v => (v.win !== null))
           .map((v, i, json) => {
@@ -44,7 +50,7 @@
       });
     }
     data.push({
-      label: (isRanked ? '<em class="fas fa-fw fa-angle-left"></em> ' : ' ') + strings.wp.last50,
+      label: (isRanked ? icons.left1 : '') + ' ' + strings.wp.last50,
       data: (() => {
         let list = [];
         return bigJson
@@ -62,7 +68,7 @@
       color: colors.moving2
     });
     data.push({
-      label: (isRanked ? '<em class="fas fa-fw fa-angle-left"></em> ' : ' ') + strings.wp.last20,
+      label: (isRanked ? icons.left1 : '') + ' ' + strings.wp.last20,
       data: (() => {
         let list = [];
         return bigJson
@@ -80,7 +86,7 @@
       color: colors.moving1
     });
     data.push({
-      label: (isRanked ? '<em class="fas fa-fw fa-angle-left"></em> ' : ' ') + strings.wp.entire,
+      label: (isRanked ? icons.left1 : '') + ' ' + strings.wp.entire,
       data: (() => {
         let totalBattles = 0;
         let totalWins = 0;

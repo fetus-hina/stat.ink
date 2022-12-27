@@ -5,7 +5,7 @@ declare(strict_types=1);
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\BattleFilterWidget;
-use app\components\widgets\FA;
+use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\UserDetailedStatsCell;
 use app\models\User;
@@ -45,7 +45,7 @@ TableResponsiveForceAsset::register($this);
   <p><?= implode(' ', [
     Html::a(
       implode(' ', [
-        (string)FA::fas('angle-double-left')->fw(),
+        Icon::back(),
         Html::encode(Yii::t('app', 'Back')),
       ]),
       ['show/user-stat-by-map-rule', 'screen_name' => $user->screen_name],
@@ -53,7 +53,7 @@ TableResponsiveForceAsset::register($this);
     ),
     Html::a(
       implode(' ', [
-        (string)FA::fas('search')->fw(),
+        Icon::search(),
         Html::encode(Yii::t('app', 'Search')),
       ]),
       '#filter-form',
