@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\assets\NotoSansMathAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\models\Rule3;
@@ -38,6 +39,8 @@ $abstracts = ArrayHelper::map(
   fn (StatXPowerDistribAbstract3 $v): StatXPowerDistribAbstract3 => $v,
 );
 
+$fmt = Yii::$app->formatter;
+
 ?>
 <div class="container">
   <h1>
@@ -51,6 +54,21 @@ $abstracts = ArrayHelper::map(
       Yii::t('app', 'This data is based on {siteName} users and differs significantly from overall game statistics.', [
         'siteName' => Yii::$app->name,
       ]),
+    ) . "\n" ?>
+  </div>
+
+  <div class="alert alert-info mb-3">
+    <?= Html::encode(
+      Yii::t('app', 'In the chart, "{representative}" means greater than or equal to {min} and less than {max}.', [
+        'representative' => $fmt->asInteger(2000),
+        'min' => $fmt->asInteger(2000),
+        'max' => $fmt->asInteger(2050),
+      ]),
+    ) . "\n" ?>
+    <?= Html::tag(
+      'span',
+      '(2000 ≤ 𝑝<sub>𝒙</sub> &lt; 2050)',
+      ['style' => ['font-family' => 'Noto Sans Math']],
     ) . "\n" ?>
   </div>
 

@@ -263,6 +263,7 @@ return [
     'Integrate' => 'Intégrer',
     'Internal ID' => 'Identifiant interne',
     'Interval' => 'Intervalle',
+    'In the chart, "{representative}" means greater than or equal to {min} and less than {max}.' => '',
     'Invalid {0} or {1}.' => 'Invalide {0} ou {1}',
     'IQR' => '',
     'It looks this data is corrupt.' => '',

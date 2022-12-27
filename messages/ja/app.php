@@ -248,6 +248,7 @@ return [
     'IkaRec' => 'イカレコ',
     'Image Sharing' => '画像の共有',
     'In session' => '開催中',
+    'In the chart, "{representative}" means greater than or equal to {min} and less than {max}.' => 'グラフ中の "{representative}" は {min} 以上 {max} 未満を意味します。',
     'Incomplete Data' => '不完全なデータ',
     'Inked' => '塗面積',
     'Inked/min' => '塗/分',
