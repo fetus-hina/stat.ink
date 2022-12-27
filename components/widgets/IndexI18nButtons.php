@@ -104,13 +104,17 @@ final class IndexI18nButtons extends Widget
         string $popup
     ): string {
         return Html::button(
-            implode('', [
-                Html::tag('span', implode(' ', [
-                    $icon,
-                    implode(' ', $countries),
-                    $html,
-                ]), ['class' => 'mr-1']),
-                (string)FA::fas('caret-down')->fw(),
+            implode(' ', [
+                Html::tag(
+                    'span',
+                    implode(' ', [
+                        $icon,
+                        implode(' ', $countries),
+                        $html,
+                    ]),
+                    ['class' => 'mr-1'],
+                ),
+                Icon::caretDown(),
             ]),
             [
                 'class' => [
@@ -136,20 +140,16 @@ final class IndexI18nButtons extends Widget
 
     private function flagIcon(string $countryCode): string
     {
-        if ($countryCode === 'gb') {
-            return \implode(' ', [
+        return match ($countryCode) {
+            'gb' => \implode(' ', [
                 (string)FlagIcon::fg('gb'),
                 (string)FlagIcon::fg('au'),
-            ]);
-        }
-
-        if ($countryCode === 'tw') {
-            return \implode(' ', [
+            ]),
+            'tw' => \implode(' ', [
                 (string)FlagIcon::fg('tw'),
                 (string)FlagIcon::fg('hk'),
-            ]);
-        }
-
-        return (string)FlagIcon::fg($countryCode);
+            ]),
+            default => (string)FlagIcon::fg($countryCode),
+        };
     }
 }

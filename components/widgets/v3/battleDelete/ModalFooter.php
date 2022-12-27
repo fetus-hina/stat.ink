@@ -12,7 +12,7 @@ namespace app\components\widgets\v3\battleDelete;
 
 use LogicException;
 use Yii;
-use app\components\widgets\FA;
+use app\components\widgets\Icon;
 use app\models\Battle3;
 use app\models\Salmon3;
 use yii\base\Widget;
@@ -44,7 +44,7 @@ final class ModalFooter extends Widget
     {
         return Html::button(
             \vsprintf('%s %s', [
-                FA::fas('times')->fw(),
+                Icon::close(),
                 Html::encode(Yii::t('app', 'Close')),
             ]),
             [
@@ -63,7 +63,7 @@ final class ModalFooter extends Widget
 
         return Html::a(
             \vsprintf('%s %s', [
-                (string)FA::far('trash-alt')->fw(),
+                Icon::delete(),
                 Html::encode(Yii::t('app', 'Delete')),
             ]),
             match (true) {

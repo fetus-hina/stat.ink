@@ -68,7 +68,7 @@ class RemoteFollowDialog extends Widget
         return Html::button(
             Html::tag(
                 'span',
-                (string)FA::fas('times')->fw(),
+                Icon::close(),
                 ['aria-hidden' => 'true']
             ),
             [

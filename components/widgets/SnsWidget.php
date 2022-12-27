@@ -128,7 +128,7 @@ final class SnsWidget extends Widget
         return Html::tag(
             'span',
             \implode(' ', [
-                (string)FA::fas('anchor')->fw(),
+                Icon::permalink(),
                 Html::encode(Yii::t('app', 'Permalink')),
             ]),
             [
@@ -165,7 +165,7 @@ final class SnsWidget extends Widget
         );
         return Html::tag(
             'a',
-            (string)FA::fas('rss')->fw(),
+            Icon::feed(),
             [
                 'id' => $id,
                 'class' => [
@@ -219,7 +219,7 @@ final class SnsWidget extends Widget
 
         return Html::tag(
             'a',
-            (string)FA::far('image')->fw(),
+            Icon::image(),
             [
                 'class' => ['auto-tooltip', 'label', 'label-default'],
                 'href' => Url::to($this->imageUrl),

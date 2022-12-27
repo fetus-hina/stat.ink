@@ -12,7 +12,7 @@ namespace app\components\widgets;
 
 use Yii;
 use app\assets\AppAsset;
-use app\components\widgets\FA;
+use app\components\widgets\Icon;
 use yii\base\Widget;
 use yii\helpers\Html;
 
@@ -66,7 +66,7 @@ class BattleSummaryDialog extends Widget
     private function renderCloseButton(): string
     {
         return Html::button(
-            (string)FA::fas('times')->fw(),
+            Icon::close(),
             [
                 'type' => 'button',
                 'class' => 'close',

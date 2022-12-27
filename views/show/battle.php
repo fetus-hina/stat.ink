@@ -253,7 +253,7 @@ $specials = Special::find()->asArray()->all();
             <th><?= implode(' ', [
               Html::encode(Yii::t('app', 'Mode')),
               Html::a(
-                (string)FA::fas('chart-pie')->fw(),
+                Icon::stats(),
                 ['show/user-stat-by-rule', 'screen_name' => $user->screen_name]
               ),
             ]) ?></th>
@@ -276,7 +276,7 @@ $specials = Special::find()->asArray()->all();
             <th><?= implode(' ', [
               Html::encode(Yii::t('app', 'Stage')),
               Html::a(
-                (string)FA::fas('chart-pie')->fw(),
+                Icon::stats(),
                 ['show/user-stat-by-map', 'screen_name' => $user->screen_name],
               ),
             ]) ?></th>

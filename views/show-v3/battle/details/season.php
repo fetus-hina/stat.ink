@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use app\components\widgets\FA;
+use app\components\widgets\Icon;
 use app\models\Battle3;
 use app\models\Battle3FilterForm;
 use app\models\Season3;
@@ -33,7 +33,7 @@ return [
 
     return implode(' ', [
       Html::a(
-        (string)FA::fas('search')->fw(),
+        Icon::search(),
         ['/show-v3/user',
           'screen_name' => $model->user->screen_name,
           'f' => [

@@ -3,6 +3,7 @@
 use app\assets\BattleListAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\BattleFilterWidget;
+use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
 use app\models\Language;
 use app\models\User;
@@ -150,8 +151,22 @@ if ($battle &&
         ]
       ) . "\n" ?>
       <div>
-        <a href="#filter-form" class="visible-xs-inline btn btn-info"><span class="fas fa-fw fa-search"></span><?= Html::encode(Yii::t('app', 'Search')) ?></a>
-        <a href="#table-config" class="btn btn-default"><span class="fas fa-fw fa-cogs"></span><?= Html::encode(Yii::t('app', 'View Settings')) ?></a>
+        <?= Html::a(
+          implode(' ', [
+            Icon::search(),
+            Html::encode(Yii::t('app', 'Search')),
+          ]),
+          '#filter-form',
+          ['class' => 'visible-xs-inline btn btn-info'],
+        ) . "\n" ?>
+        <?= Html::a(
+          implode(' ', [
+            '<span class="fas fa-fw fa-cogs"></span>',
+            Html::encode(Yii::t('app', 'View Settings')),
+          ]),
+          '#table-config',
+          ['class' => 'btn btn-default'],
+        ) . "\n" ?>
         <?= Html::a(
           '<span class="fa fa-fw fa-list"></span>' . Html::encode(Yii::t('app', 'Simplified List')),
           array_merge($filter->toQueryParams(), ['show/user', 'v' => 'simple']),

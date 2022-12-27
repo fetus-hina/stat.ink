@@ -11,7 +11,7 @@ declare(strict_types=1);
 namespace app\components\widgets\v3\battleDelete;
 
 use Yii;
-use app\components\widgets\FA;
+use app\components\widgets\Icon;
 use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
 use yii\bootstrap\BootstrapPluginAsset;
@@ -31,7 +31,7 @@ final class Button extends Widget
         }
 
         return Html::button(
-            (string)FA::far('trash-alt')->fw(),
+            Icon::delete(),
             [
                 'class' => [
                     'auto-tooltip',

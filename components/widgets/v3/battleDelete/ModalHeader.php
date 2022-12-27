@@ -12,7 +12,7 @@ namespace app\components\widgets\v3\battleDelete;
 
 use LogicException;
 use Yii;
-use app\components\widgets\FA;
+use app\components\widgets\Icon;
 use app\models\Battle3;
 use app\models\Salmon3;
 use yii\base\Widget;
@@ -41,7 +41,7 @@ final class ModalHeader extends Widget
     private function renderButton(): string
     {
         return Html::button(
-            (string)FA::fas('times')->fw(),
+            Icon::close(),
             [
                 'aria' => ['label' => Yii::t('app', 'Close')],
                 'class' => 'close',

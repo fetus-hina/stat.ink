@@ -9,6 +9,7 @@
 namespace app\components\widgets\battle;
 
 use Yii;
+use app\components\widgets\Icon;
 use yii\base\Widget;
 use yii\bootstrap\Html;
 
@@ -93,8 +94,8 @@ class PanelListWidget extends Widget
             return '';
         }
         return Html::a(
-            implode('', [
-                Html::tag('span', '', ['class' => 'fa fa-fw fa-search']),
+            implode(' ', [
+                Icon::search(),
                 Html::encode($this->titleLinkText),
             ]),
             $this->titleLink,

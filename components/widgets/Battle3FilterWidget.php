@@ -206,8 +206,8 @@ final class Battle3FilterWidget extends Widget
 
         return Html::tag(
             'button',
-            \implode('', [
-                Html::tag('span', '', ['class' => 'fa fa-fw fa-search']),
+            \implode(' ', [
+                Icon::search(),
                 Html::encode(Yii::t('app', 'Search')),
             ]),
             [

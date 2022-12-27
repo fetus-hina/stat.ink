@@ -20,13 +20,20 @@ final class Icon
 {
     // apiJson
     // back
+    // caretDown
+    // checkboxChecked
+    // checkboxEmpty
     // close
     // colorScheme
     // config
+    // delete
+    // dummy
+    // feed
     // fileCsv
     // fileJson
     // github
     // help
+    // image
     // language
     // languageLevelFew
     // languageLevelMachine
@@ -36,15 +43,20 @@ final class Icon
     // loginHistory
     // logout
     // nextPage
+    // ok
+    // permalink
     // prevPage
     // refresh
     // scrollTo
     // search
+    // stats
     // subPage
     // timezone
     // twitter
+    // unknown
     // user
     // userAdd
+    // videoLink
 
     public static function apiJson(): string
     {
@@ -54,6 +66,21 @@ final class Icon
     public static function back(): string
     {
         return self::bi('chevron-left');
+    }
+
+    public static function caretDown(): string
+    {
+        return self::bi('caret-down-fill');
+    }
+
+    public static function checkboxChecked(): string
+    {
+        return self::bi('check2-square');
+    }
+
+    public static function checkboxEmpty(): string
+    {
+        return self::bi('square');
     }
 
     public static function close(): string
@@ -69,6 +96,29 @@ final class Icon
     public static function config(): string
     {
         return self::bi('person-fill-gear');
+    }
+
+    public static function delete(): string
+    {
+        return self::bi('trash3');
+    }
+
+    public static function dummy(): string
+    {
+        $view = Yii::$app->view;
+        if ($view instanceof View) {
+            return Html::tag('span', ' ', [
+                'class' => 'd-inline-block',
+                'style' => ['width' => '1em'],
+            ]);
+        }
+
+        return mb_chr(0x3000, 'UTF-8'); // Ideographic Space
+    }
+
+    public static function feed(): string
+    {
+        return self::bi('rss');
     }
 
     public static function fileCsv(): string
@@ -89,6 +139,11 @@ final class Icon
     public static function help(): string
     {
         return self::bi('question-circle-fill');
+    }
+
+    public static function image(): string
+    {
+        return self::bi('image');
     }
 
     public static function language(): string
@@ -136,6 +191,16 @@ final class Icon
         return self::bi('chevron-double-right');
     }
 
+    public static function ok(): string
+    {
+        return self::bi('check-lg');
+    }
+
+    public static function permalink(): string
+    {
+        return self::link();
+    }
+
     public static function prevPage(): string
     {
         return self::bi('chevron-double-left');
@@ -154,6 +219,11 @@ final class Icon
     public static function search(): string
     {
         return self::bi('search');
+    }
+
+    public static function stats(): string
+    {
+        return self::bi('pie-chart-fill');
     }
 
     public static function subCategory(): string
@@ -182,6 +252,11 @@ final class Icon
         );
     }
 
+    public static function unknown(): string
+    {
+        return self::bi('question');
+    }
+
     public static function user(): string
     {
         return self::bi('person-fill');
@@ -195,6 +270,11 @@ final class Icon
     public static function users(): string
     {
         return self::bi('people-fill');
+    }
+
+    public static function videoLink(): string
+    {
+        return self::bi('play-fill');
     }
 
     private static function bi(string $name, ?string $css = null): string
