@@ -16,6 +16,7 @@ use yii\web\View;
 /**
  * @var Rule3|null $rule
  * @var StatSpecialUse3[] $data
+ * @var View $this
  * @var array<int, Special3> $specials
  * @var float|null $maxAvgUses
  */
