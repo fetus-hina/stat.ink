@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2022 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -48,16 +48,19 @@ class Dialog extends Widget
         BootstrapPluginAsset::register($this->view);
         FlexboxAsset::register($this->view);
 
-        return $this->renderBeginModal() .
-            $this->renderHeader() .
-            $this->renderBody() .
-            $this->renderFooter() .
-            $this->renderEndModal();
+        return \implode('', [
+            $this->renderBeginModal(),
+            $this->renderHeader(),
+            $this->renderBody(),
+            $this->renderFooter(),
+            $this->renderEndModal(),
+        ]);
     }
 
     protected function renderBeginModal(): string
     {
-        return Html::beginTag('div', [
+        return \implode('', [
+            Html::beginTag('div', [
                 'id' => $this->id,
                 'class' => [
                     'modal',
@@ -65,7 +68,7 @@ class Dialog extends Widget
                 ],
                 'tabindex' => '-1',
                 'role' => 'dialog',
-            ]) .
+            ]),
             Html::beginTag('div', [
                 'class' => [
                     'modal-dialog',
@@ -73,10 +76,11 @@ class Dialog extends Widget
                     $this->size,
                 ],
                 'role' => 'document',
-            ]) .
+            ]),
             Html::beginTag('div', [
                 'class' => 'modal-content',
-            ]);
+            ]),
+        ]);
     }
 
     protected function renderEndModal(): string
@@ -106,7 +110,7 @@ class Dialog extends Widget
                     $this->hasClose
                         ? Html::tag(
                             'button',
-                            Html::tag('span', FA::fas('times')->fw(), ['aria-hidden' => 'true']),
+                            Icon::close(),
                             [
                                 'type' => 'button',
                                 'class' => 'close',
@@ -149,7 +153,7 @@ class Dialog extends Widget
         } elseif ($footer === static::FOOTER_CLOSE) {
             $footer = Html::tag(
                 'button',
-                FA::fas('times') . ' ' . Html::encode(Yii::t('app', 'Close')),
+                Icon::close() . ' ' . Html::encode(Yii::t('app', 'Close')),
                 [
                     'type' => 'button',
                     'class' => 'btn btn-default',

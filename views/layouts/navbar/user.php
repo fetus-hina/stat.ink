@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 use app\assets\GameModeIconsAsset;
-use app\components\widgets\FA;
 use app\components\widgets\GameVersionIcon;
+use app\components\widgets\Icon;
 use app\components\widgets\UserIcon;
 use yii\helpers\Html;
 use yii\web\View;
@@ -18,7 +18,7 @@ $modeAsset = GameModeIconsAsset::register($this);
 
 ?>
 <?= Html::a(
-  implode('', [
+  implode(' ', [
     $user
       ? UserIcon::widget([
         'user' => $user,
@@ -30,7 +30,7 @@ $modeAsset = GameModeIconsAsset::register($this);
           ],
         ],
       ])
-      : Html::tag('span', '', ['class' => 'fa fa-fw fa-user']),
+      : Icon::user(),
     $user
       ? Html::encode($user->name)
       : Html::encode(Yii::t('app', 'Guest')),
@@ -39,21 +39,19 @@ $modeAsset = GameModeIconsAsset::register($this);
   ]),
   '#',
   [
-    'class' => 'dropdown-toggle',
-    'data' => [
-      'toggle' => 'dropdown',
-    ],
-    'role' => 'button',
-    'aria-haspopup' => 'true',
     'aria-expanded' => 'false',
+    'aria-haspopup' => 'true',
+    'class' => 'dropdown-toggle',
+    'data' => ['toggle' => 'dropdown'],
+    'role' => 'button',
   ]
 ) . "\n" ?>
 <?= Html::tag('ul', implode('', array_merge(
   $user
     ? [
       Html::tag('li', Html::a(
-        implode('', [
-          Html::tag('span', '', ['class' => 'fa fa-fw fa-user']),
+        implode(' ', [
+          Icon::user(),
           Html::encode(Yii::t('app', 'Your Battles')),
         ]),
         ['/show-user/profile', 'screen_name' => $user->screen_name]
@@ -107,23 +105,23 @@ $modeAsset = GameModeIconsAsset::register($this);
         ['/show/user', 'screen_name' => $user->screen_name]
       )),
       Html::tag('li', Html::a(
-        implode('', [
-          Html::tag('span', '', ['class' => 'fa fa-fw fa-wrench']),
+        implode(' ', [
+          Icon::config(),
           Html::encode(Yii::t('app', 'Profile and Settings')),
         ]),
         ['/user/profile']
       )),
       Html::tag('li', Html::a(
         implode('', [
-          Html::tag('span', '', ['class' => 'fa fa-fw fa-user-clock']),
+          Icon::loginHistory(),
           Html::encode(Yii::t('app', 'Login History')),
         ]),
         ['/user/login-history']
       )),
       Html::tag('li', '', ['class' => 'divider']),
       Html::tag('li', Html::a(
-        implode('', [
-          Html::tag('span', '', ['class' => 'fa fa-fw fa-sign-out-alt']),
+        implode(' ', [
+          Icon::logout(),
           Html::encode(Yii::t('app', 'Logout')),
         ]),
         ['/user/logout']
@@ -131,8 +129,8 @@ $modeAsset = GameModeIconsAsset::register($this);
     ]
     : [
       Html::tag('li', Html::a(
-        implode('', [
-          Html::tag('span', '', ['class' => 'fa fa-fw fa-sign-in-alt']),
+        implode(' ', [
+          Icon::login(),
           Html::encode(Yii::t('app', 'Login')),
         ]),
         ['/user/login']
@@ -141,15 +139,16 @@ $modeAsset = GameModeIconsAsset::register($this);
         ? Html::tag('li', Html::a(
           implode('', [
             Html::tag('span', '┗', ['class' => 'fa fa-fw']),
-            Html::tag('span', '', ['class' => 'fab fa-fw fa-twitter']),
+            Icon::twitter(),
+            ' ',
             Html::encode(Yii::t('app', 'Log in with Twitter')),
           ]),
           ['/user/login-with-twitter']
         ))
         : '',
       Html::tag('li', Html::a(
-        implode('', [
-          Html::tag('span', '', ['class' => 'fa fa-fw fa-plus']),
+        implode(' ', [
+          Icon::userAdd(),
           Html::encode(Yii::t('app', 'Register')),
         ]),
         ['/user/register']
@@ -159,7 +158,10 @@ $modeAsset = GameModeIconsAsset::register($this);
     Html::tag('li', '', ['class' => 'divider']),
     Html::tag('li', implode('', [
       Html::a(
-        FA::fas('palette')->fw() . ' ' . Yii::t('app', 'Color Scheme'),
+        implode(' ', [
+          Icon::colorScheme(),
+          Html::encode(Yii::t('app', 'Color Scheme')),
+        ]),
         '#color-scheme-dialog',
         [
           'data-toggle' => 'modal',

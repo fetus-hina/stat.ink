@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use app\components\widgets\FA;
+use app\components\widgets\Icon;
 use app\models\User;
 use yii\helpers\Html;
 use yii\web\View;
@@ -44,7 +45,7 @@ $this->registerCss('.btn-block.text-left{text-align:left}');
       <p>
         <?= Html::a(
           implode(' ', [
-            FA::fas('user-clock')->fw(),
+            Icon::loginHistory(),
             Html::encode(Yii::t('app', 'Login History')),
           ]),
           ['user/login-history'],
@@ -55,7 +56,7 @@ $this->registerCss('.btn-block.text-left{text-align:left}');
       <p><?= implode('', [
         Html::a(
           implode(' ', [
-            FA::far('file-excel')->fw(),
+            Icon::fileCsv(),
             Html::encode(Yii::t('app', 'CSV')),
           ]),
           ['download2', 'type' => 'csv'],
@@ -63,7 +64,7 @@ $this->registerCss('.btn-block.text-left{text-align:left}');
         ),
         Html::a(
           implode(' ', [
-            FA::far('file-excel')->fw(),
+            Icon::fileCsv(),
             Html::encode(Yii::t('app', 'CSV (IkaLog compat.)')),
           ]),
           ['download2', 'type' => 'ikalog-csv'],
@@ -74,7 +75,7 @@ $this->registerCss('.btn-block.text-left{text-align:left}');
           implode('', [
             Html::a(
               implode(' ', [
-                FA::far('file-excel')->fw(),
+                Icon::fileCsv(),
                 FA::fas('fish')->fw(),
                 Html::encode(Yii::t('app', 'Salmon Run CSV')),
                 ' ',
@@ -100,7 +101,7 @@ $this->registerCss('.btn-block.text-left{text-align:left}');
       <p><?= implode('', [
         Html::a(
           implode(' ', [
-            FA::far('file-excel')->fw(),
+            Icon::fileCsv(),
             Html::encode(Yii::t('app', 'CSV (IkaLog compat.)')),
           ]),
           ['download', 'type' => 'ikalog-csv'],
@@ -108,7 +109,7 @@ $this->registerCss('.btn-block.text-left{text-align:left}');
         ),
         Html::a(
           implode(' ', [
-            FA::far('file-code')->fw(),
+            Icon::fileJson(),
             Html::encode(Yii::t('app', 'JSON (IkaLog compat.)')),
           ]),
           ['download', 'type' => 'ikalog-json'],
@@ -117,7 +118,7 @@ $this->registerCss('.btn-block.text-left{text-align:left}');
         $user->isUserJsonReady
           ? Html::a(
             implode(' ', [
-              FA::far('file-code')->fw(),
+              Icon::fileJson(),
               Html::encode(Yii::t('app', 'JSON (stat.ink format, gzipped)')),
             ]),
             ['download', 'type' => 'user-json'],
@@ -126,7 +127,7 @@ $this->registerCss('.btn-block.text-left{text-align:left}');
           : Html::tag(
             'button',
             implode(' ', [
-              FA::far('file-code')->fw(),
+              Icon::fileJson(),
               Html::encode(Yii::t('app', 'JSON (stat.ink format, gzipped)')),
             ]),
             ['class' => 'btn btn-default btn-block text-left', 'disabled ' => true]

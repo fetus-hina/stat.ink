@@ -14,6 +14,7 @@ namespace app\components\widgets;
 use Yii;
 use app\assets\PermalinkDialogAsset;
 use app\components\widgets\FA;
+use app\components\widgets\Icon;
 use jp3cki\yii2\twitter\widget\TweetButton;
 use yii\base\Widget;
 use yii\helpers\Html;
@@ -186,7 +187,7 @@ final class SnsWidget extends Widget
         }
         return Html::tag(
             'a',
-            (string)FA::fas('code')->fw(),
+            Icon::apiJson(),
             [
                 'class' => ['auto-tooltip', 'label', 'label-default'],
                 'href' => Url::to($this->jsonUrl),

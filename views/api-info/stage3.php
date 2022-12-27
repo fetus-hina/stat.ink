@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use app\components\widgets\AdWidget;
 use app\components\widgets\CcBy;
+use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
 use app\models\Map3;
 use yii\bootstrap\Html;
@@ -33,16 +34,16 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
   <p>
     <?= implode(' ', [
       Html::a(
-        implode('', [
-          Html::tag('span', '', ['class' => ['fas fa-file-code fa-fw']]),
+        implode(' ', [
+          Icon::apiJson(),
           Html::encode(Yii::t('app', 'JSON format')),
         ]),
         ['api-v3/stage'],
         ['class' => 'label label-default']
       ),
       Html::a(
-        implode('', [
-          Html::tag('span', '', ['class' => ['fas fa-file-code fa-fw']]),
+        implode(' ', [
+          Icon::apiJson(),
           Html::encode(Yii::t('app', 'JSON format (All langs)')),
         ]),
         ['api-v3/stage', 'full' => 1],

@@ -1,5 +1,7 @@
 <?php
+
 use app\components\Version;
+use app\components\widgets\Icon;
 use yii\helpers\Html;
 
 $params = Yii::$app->params;
@@ -54,7 +56,7 @@ if ($tmp = ($params['gitRevision']['lastCommitted'] ?? null)) {
           $committed ? $committed->format('Y') : 2017
         )),
         Html::a(
-          Html::tag('span', '', ['class' => 'fab fa-twitter']),
+          Icon::twitter(),
           'https://twitter.com/fetus_hina',
           [
             'title' => 'Twitter: fetus_hina',
@@ -62,7 +64,7 @@ if ($tmp = ($params['gitRevision']['lastCommitted'] ?? null)) {
           ]
         ),
         Html::a(
-          Html::tag('span', '', ['class' => 'fab fa-github']),
+          Icon::github(),
           'https://github.com/fetus-hina',
           [
             'title' => 'GitHub: fetus-hina',
@@ -101,7 +103,7 @@ if ($tmp = ($params['gitRevision']['lastCommitted'] ?? null)) {
             Yii::t('app', 'This website is an open source project. It is under the MIT License. The source code is available on GitHub.')
           ),
           Html::a(
-            Html::tag('span', '', ['class' => 'fab fa-github']),
+            Icon::github(),
             'https://github.com/fetus-hina/stat.ink'
           ),
         ]),
@@ -110,11 +112,11 @@ if ($tmp = ($params['gitRevision']['lastCommitted'] ?? null)) {
             Yii::t('app', 'Feedback or suggestions are welcome. Please contact me via GitHub or Twitter.')
           ),
           Html::a(
-            Html::tag('span', '', ['class' => 'fab fa-github']),
+            Icon::github(),
             'https://github.com/fetus-hina/stat.ink'
           ),
           Html::a(
-            Html::tag('span', '', ['class' => 'fab fa-twitter']),
+            Icon::twitter(),
             'https://twitter.com/fetus_hina'
           ),
         ]),

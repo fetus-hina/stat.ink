@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\components\widgets\Icon;
 use app\models\ProfileForm;
 use app\models\User;
 use yii\bootstrap\ActiveForm;
@@ -87,11 +88,31 @@ JS
       'inputTemplate' => '<div class="input-group"><span class="input-group-addon">SW-</span>{input}</div>'
     ]) . "\n" ?>
 
-    <?= $_->field($form, 'twitter', [
-      'inputTemplate' => '<div class="input-group"><span class="input-group-addon"><span class="fab fa-twitter left"></span>@</span>{input}</div>',
-    ])->hint(
-      Yii::t('app', 'This information will be public. Integration for "log in with twitter" can be done from the profile page.')
-    ) . "\n" ?>
+    <?= $_
+      ->field(
+        $form, 
+        'twitter',
+        [
+          'inputTemplate' => Html::tag(
+            'div',
+            implode('', [
+              Html::tag(
+                'span',
+                vsprintf('%s @', [
+                  Icon::twitter(),
+                ]),
+                ['class' => 'input-group-addon'],
+              ),
+              '{input}',
+            ]),
+            ['class' => 'input-group'],
+          ),
+        ],
+      )
+      ->hint(
+        Yii::t('app', 'This information will be public. Integration for "log in with twitter" can be done from the profile page.')
+      ) . "\n"
+    ?>
 
     <?= $_->field($form, 'ikanakama2', [
       'inputTemplate' => '<div class="input-group"><span class="input-group-addon">https://ikanakama.ink/users/</span>{input}</div>'

@@ -2,15 +2,14 @@
 
 declare(strict_types=1);
 
-use app\components\widgets\FA;
+use app\components\widgets\Icon;
 use yii\helpers\Html;
 
 ?>
 <?= Html::a(
-  implode('', [
-    FA::fas('clock')->fw()->__toString(),
+  implode(' ', [
+    Icon::timezone(),
     Html::encode(Yii::t('app', 'Time Zone')),
-    ' ',
     Html::tag('span', '', ['class' => 'caret']),
   ]),
   '#timezone-dialog',

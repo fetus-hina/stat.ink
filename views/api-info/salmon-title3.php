@@ -37,28 +37,6 @@ SortableTableAsset::register($this);
   <h1><?= Html::encode($this->title) ?></h1>
   <?= AdWidget::widget() . "\n" ?>
   <?= SnsWidget::widget() . "\n" ?>
-<?php if (false) { ?>
-  <p>
-    <?= implode(' ', [
-      Html::a(
-        implode('', [
-          Html::tag('span', '', ['class' => ['fas fa-file-code fa-fw']]),
-          Html::encode(Yii::t('app', 'JSON format')),
-        ]),
-        ['api-v3/weapon'],
-        ['class' => 'label label-default']
-      ),
-      Html::a(
-        implode('', [
-          Html::tag('span', '', ['class' => ['fas fa-file-code fa-fw']]),
-          Html::encode(Yii::t('app', 'JSON format (All langs)')),
-        ]),
-        ['api-v3/weapon', 'full' => 1],
-        ['class' => 'label label-default']
-      ),
-    ]) . "\n" ?>
-  </p>
-<?php } ?>
 
   <h2><?= Html::encode(Yii::t('app', 'Title')) ?></h2>
   <div class="table-responsive table-responsive-force">
