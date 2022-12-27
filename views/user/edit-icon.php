@@ -47,8 +47,8 @@ $this->title = implode(' | ', [
     <div class="col-xs-12 col-sm-6" style="padding:0 5%">
       <div class="form-group">
         <?= Html::a(
-          implode('', [
-            Html::tag('span', '', ['class' => 'fa fa-angle-double-left fa-fw']),
+          implode(' ', [
+            Icon::back(),
             Html::encode(Yii::t('app', 'Back')),
           ]),
           ['user/profile'],
@@ -143,8 +143,8 @@ $this->title = implode(' | ', [
 <?php } ?>
       <div class="form-group">
         <?= Html::a(
-          implode('', [
-            Html::tag('span', '', ['class' => 'fa fa-fw fa-angle-double-left']),
+          implode(' ', [
+            Icon::back(),
             Html::encode(Yii::t('app', 'Back')),
           ]),
           ['/user/profile'],

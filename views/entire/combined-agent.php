@@ -1,9 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 use Base32\Base32;
 use app\assets\EntireAgentAsset;
 use app\components\widgets\AdWidget;
+use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
 use yii\helpers\Html;
 use yii\helpers\Json;
@@ -36,8 +38,8 @@ $this->registerCss('#graph{height:300px}');
 
   <p>
     <?= Html::a(
-      implode('', [
-        Html::tag('span', '', ['class' => 'fas fa-fw fa-angle-double-left']),
+      implode(' ', [
+        Icon::back(),
         Html::encode(Yii::t('app', 'Back')),
       ]),
       ['entire/users'],

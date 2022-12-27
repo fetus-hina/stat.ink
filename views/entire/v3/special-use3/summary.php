@@ -8,6 +8,7 @@ use app\components\widgets\v3\weaponIcon\SpecialIcon;
 use app\models\Rule3;
 use app\models\Special3;
 use app\models\StatSpecialUse3;
+use yii\bootstrap\Progress;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\View;
@@ -17,6 +18,7 @@ use yii\web\View;
  * @var array<int, Rule3> $rules
  * @var array<int, Special3> $specials
  * @var array<int, StatSpecialUse3[]> $data
+ * @var float|null $maxAvgUses
  */
 
 TableResponsiveForceAsset::register($this);
@@ -47,18 +49,22 @@ $total2 = ArrayHelper::index($total, 'special_id');
         <thead>
           <tr>
             <th><?= Html::encode(Yii::t('app', 'Special')) ?></th>
-            <th><?= Html::encode(Yii::t('app', 'Avg. Uses')) ?></th>
+            <th width="14%"><?= Html::encode(Yii::t('app', 'Avg. Uses')) ?></th>
 <?php foreach ($rules as $rule) { ?>
-            <?= Html::tag('th', vsprintf('%s %s', [
-              Html::img(
-                Yii::$app->assetManager->getAssetUrl($modeIconAsset, sprintf('spl3/%s.png', $rule->key)),
-                [
-                  'class' => 'basic-icon',
-                  'draggable' => 'false',
-                ],
-              ),
-              Html::encode(Yii::t('app-rule3', $rule->name)),
-            ])) . "\n" ?>
+            <?= Html::tag(
+              'th',
+              vsprintf('%s %s', [
+                Html::img(
+                  Yii::$app->assetManager->getAssetUrl($modeIconAsset, sprintf('spl3/%s.png', $rule->key)),
+                  [
+                    'class' => 'basic-icon',
+                    'draggable' => 'false',
+                  ],
+                ),
+                Html::encode(Yii::t('app-rule3', $rule->name)),
+              ]),
+              ['width' => '14%'],
+            ) . "\n" ?>
 <?php } ?>
           </tr>
         </thead>
@@ -71,32 +77,18 @@ $total2 = ArrayHelper::index($total, 'special_id');
             ])) . "\n" ?>
             <?= Html::tag(
               'td',
-              ($v = $total2[$spId] ?? null)
-                ? (
-                  $v->stddev !== null
-                    ? vsprintf('%s (σ=%s)', [
-                      $fmt->asDecimal($v->avg_uses, 2),
-                      $fmt->asDecimal($v->stddev, 2),
-                    ])
-                    : $fmt->asDecimal($v->avg_uses, 2)
-                )
-                : '',
-              ['class' => 'text-right'],
+              $this->render('avg-uses', [
+                'model' => $total2[$spId] ?? null,
+                'maxAvgUses' => $maxAvgUses,
+              ]),
             ) . "\n" ?>
 <?php foreach ($rules as $rId => $rule) { ?>
             <?= Html::tag(
               'td',
-              ($v = $data2[$spId][$rId] ?? null)
-                ? (
-                  $v->stddev !== null
-                    ? vsprintf('%s (σ=%s)', [
-                      $fmt->asDecimal($v->avg_uses, 2),
-                      $fmt->asDecimal($v->stddev, 2),
-                    ])
-                    : $fmt->asDecimal($v->avg_uses, 2)
-                )
-                : '',
-              ['class' => 'text-right'],
+              $this->render('avg-uses', [
+                'model' => $data2[$spId][$rId] ?? null,
+                'maxAvgUses' => $maxAvgUses,
+              ]),
             ) . "\n" ?>
 <?php } ?>
           </tr>

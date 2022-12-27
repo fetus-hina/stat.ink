@@ -21,6 +21,7 @@ use yii\web\View;
  * @var array<int, Special3> $specials
  * @var array<int, StatSpecialUse3[]> $data
  * @var callable(Season3): string $seasonUrl
+ * @var int|null $maxAvgUses
  */
 
 $title = Yii::t('app', 'Special Uses');
@@ -45,6 +46,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
 
   <?= $this->render('special-use3/summary', [
     'data' => $data,
+    'maxAvgUses' => $maxAvgUses,
     'rules' => $rules,
     'specials' => $specials,
     'total' => $total,
@@ -52,6 +54,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
 
   <?= $this->render('special-use3/table', [
     'data' => $total,
+    'maxAvgUses' => $maxAvgUses,
     'rule' => null,
     'specials' => $specials,
   ]) . "\n" ?>
@@ -59,6 +62,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
 <?php foreach ($rules as $ruleId => $rule) { ?>
   <?= $this->render('special-use3/table', [
     'data' => $data[$ruleId] ?? [],
+    'maxAvgUses' => $maxAvgUses,
     'rule' => $rule,
     'specials' => $specials,
   ]) . "\n" ?>

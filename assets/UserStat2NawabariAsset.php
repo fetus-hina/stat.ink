@@ -24,6 +24,7 @@ class UserStat2NawabariAsset extends AssetBundle
     ];
     public $depends = [
         AppAsset::class,
+        BootstrapIconsAsset::class,
         FlotAsset::class,
     ];
 }

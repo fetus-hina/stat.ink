@@ -26,6 +26,7 @@ use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\web\ServerErrorHttpException;
 
+use const FILTER_VALIDATE_FLOAT;
 use const SORT_ASC;
 
 final class SpecialUse3Action extends Action
@@ -75,6 +76,7 @@ final class SpecialUse3Action extends Action
         $params = Yii::$app->db->transaction(
             fn () => [
                 'data' => $this->getData($season),
+                'maxAvgUses' => $this->getMaxAvgUses($season),
                 'rules' => $rules,
                 'season' => $season,
                 'seasons' => Season3Helper::getSeasons(xSupported: true),
@@ -130,5 +132,16 @@ final class SpecialUse3Action extends Action
         }
 
         return $results;
+    }
+
+    private function getMaxAvgUses(Season3 $season): ?float
+    {
+        $v = \filter_var(
+            StatSpecialUse3::find()
+                ->andWhere(['season_id' => $season->id])
+                ->max('avg_uses'),
+            FILTER_VALIDATE_FLOAT,
+        );
+        return \is_float($v) ? $v : null;
     }
 }

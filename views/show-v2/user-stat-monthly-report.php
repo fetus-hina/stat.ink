@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use app\assets\UserStat2MonthlyReportAsset;
 use app\components\widgets\AdWidget;
+use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
 use app\models\Battle2;
 use app\models\User;
@@ -92,8 +93,8 @@ $modes = [
     <div class="col-xs-6">
 <?php if ($prev) { ?>
       <?= Html::a(
-        implode('', [
-          Html::tag('span', '', ['class' => 'fas fa-fw fa-angle-double-left']),
+        implode(' ', [
+          Icon::prevPage(),
           Html::encode(Yii::t('app', 'Prev. Month')),
         ]),
         $prev,
@@ -104,9 +105,9 @@ $modes = [
     <div class="col-xs-6 pull-right text-right">
 <?php if ($next) { ?>
       <?= Html::a(
-        implode('', [
+        implode(' ', [
           Html::encode(Yii::t('app', 'Next Month')),
-          Html::tag('span', '', ['class' => 'fas fa-fw fa-angle-double-right']),
+          Icon::nextPage(),
         ]),
         $next,
         ['class' => 'btn btn-default']
@@ -125,7 +126,7 @@ $modes = [
 <?php if ($item && $modeKey !== 'private' && $modeKey !== 'nawabari') { ?>
         <?= Html::tag(
           'a',
-          Html::tag('span', '', ['class' => 'fas fa-angle-down']),
+          Icon::scrollTo(),
           ['href' => '#' . $modeKey]
         ) . "\n" ?>
 <?php } ?>

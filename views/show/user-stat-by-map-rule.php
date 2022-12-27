@@ -6,7 +6,7 @@ use app\assets\StatByMapRuleAsset;
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\BattleFilterWidget;
-use app\components\widgets\FA;
+use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\WinLoseLegend;
 use app\models\User;
@@ -48,9 +48,8 @@ $this->registerCss(implode('', [
   <p>
     <?= Html::a(
       implode(' ', [
-        (string)FA::far('newspaper')->fw(),
         Html::encode(Yii::t('app', 'Details')),
-        (string)FA::fas('angle-double-right')->fw(),
+        Icon::nextPage(),
       ]),
       ['show/user-stat-by-map-rule-detail', 'screen_name' => $user->screen_name],
       ['class' => 'btn btn-success']

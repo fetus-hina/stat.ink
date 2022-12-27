@@ -13,6 +13,7 @@ use app\components\helpers\IkalogVersion;
 use app\components\widgets\AdWidget;
 use app\components\widgets\EmbedVideo;
 use app\components\widgets\FA;
+use app\components\widgets\Icon;
 use app\components\widgets\KillRatioBadgeWidget;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\TimestampColumnWidget;
@@ -201,8 +202,8 @@ $specials = Special::find()->asArray()->all();
 <?php if ($battle->previousBattle) { ?>
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
           <?= Html::a(
-            implode('', [
-              (string)FA::fas('angle-double-left')->fw(),
+            implode(' ', [
+              Icon::prevPage(),
               Html::encode(Yii::t('app', 'Prev. Battle')),
             ]),
             ['show/battle',
@@ -218,7 +219,7 @@ $specials = Special::find()->asArray()->all();
           <?= Html::a(
             implode('', [
               Html::encode(Yii::t('app', 'Next Battle')),
-              (string)FA::fas('angle-double-right')->fw(),
+              Icon::nextPage(),
             ]),
             ['show/battle',
               'screen_name' => $user->screen_name,
@@ -258,7 +259,7 @@ $specials = Special::find()->asArray()->all();
             ]) ?></th>
             <td><?= implode(' ', [
               Html::a(
-                (string)FA::fas('search')->fw(),
+                Icon::search(),
                 ['show/user',
                   'screen_name' => $user->screen_name,
                   'filter' => [
@@ -281,7 +282,7 @@ $specials = Special::find()->asArray()->all();
             ]) ?></th>
             <td><?= implode(' ', [
               Html::a(
-                (string)FA::fas('search')->fw(),
+                Icon::search(),
                 ['show/user',
                   'screen_name' => $user->screen_name,
                   'filter' => [
@@ -302,7 +303,7 @@ $specials = Special::find()->asArray()->all();
             <th><?= Html::encode(Yii::t('app', 'Weapon')) ?></th>
             <td><?= implode(' ', [
               Html::a(
-                (string)FA::fas('search')->fw(),
+                Icon::search(),
                 ['show/user',
                   'screen_name' => $user->screen_name,
                   'filter' => [

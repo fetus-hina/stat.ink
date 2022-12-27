@@ -19,6 +19,7 @@ use yii\web\View;
 final class Icon
 {
     // apiJson
+    // back
     // close
     // colorScheme
     // config
@@ -34,7 +35,12 @@ final class Icon
     // login
     // loginHistory
     // logout
+    // nextPage
+    // prevPage
     // refresh
+    // scrollTo
+    // search
+    // subPage
     // timezone
     // twitter
     // user
@@ -43,6 +49,11 @@ final class Icon
     public static function apiJson(): string
     {
         return self::bi('braces');
+    }
+
+    public static function back(): string
+    {
+        return self::bi('chevron-left');
     }
 
     public static function close(): string
@@ -120,9 +131,39 @@ final class Icon
         return self::bi('box-arrow-right');
     }
 
+    public static function nextPage(): string
+    {
+        return self::bi('chevron-double-right');
+    }
+
+    public static function prevPage(): string
+    {
+        return self::bi('chevron-double-left');
+    }
+
     public static function refresh(): string
     {
         return self::bi('arrow-repeat');
+    }
+
+    public static function scrollTo(): string
+    {
+        return self::bi('chevron-down');
+    }
+
+    public static function search(): string
+    {
+        return self::bi('search');
+    }
+
+    public static function subCategory(): string
+    {
+        return self::bi('chevron-double-right');
+    }
+
+    public static function subPage(): string
+    {
+        return self::bi('chevron-right');
     }
 
     public static function timezone(): string

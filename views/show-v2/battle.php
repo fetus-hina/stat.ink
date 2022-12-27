@@ -5,6 +5,7 @@ declare(strict_types=1);
 use app\assets\BattleDetailAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\EmbedVideo;
+use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\UserMiniInfo2;
 use app\models\Battle2;
@@ -108,9 +109,9 @@ BattleDetailAsset::register($this);
 <?php if ($battle->previousBattle): ?>
         <div class="col-xs-6">
           <?= Html::a(
-            implode('', [
-              Html::tag('span', '', ['class' => 'fa fa-fw fa-angle-double-left']),
-              Yii::t('app', 'Prev. Battle'),
+            implode(' ', [
+              Icon::prevPage(),
+              Html::encode(Yii::t('app', 'Prev. Battle')),
             ]),
             ['/show-v2/battle', 'screen_name' => $user->screen_name, 'battle' => $battle->previousBattle->id],
             ['class' => 'btn btn-default']
@@ -120,9 +121,9 @@ BattleDetailAsset::register($this);
 <?php if ($battle->nextBattle): ?>
         <div class="col-xs-6 pull-right text-right">
           <?= Html::a(
-            implode('', [
-              Yii::t('app', 'Next Battle'),
-              Html::tag('span', '', ['class' => 'fa fa-fw fa-angle-double-right']),
+            implode(' ', [
+              Html::encode(Yii::t('app', 'Next Battle')),
+              Icon::nextPage(),
             ]),
             ['/show-v2/battle', 'screen_name' => $user->screen_name, 'battle' => $battle->nextBattle->id],
             ['class' => 'btn btn-default']
@@ -174,9 +175,9 @@ BattleDetailAsset::register($this);
 <?php if ($battle->previousBattle): ?>
         <div class="col-xs-6">
           <?= Html::a(
-            implode('', [
-              Html::tag('span', '', ['class' => 'fa fa-fw fa-angle-double-left']),
-              Yii::t('app', 'Prev. Battle'),
+            implode(' ', [
+              Icon::prevPage(),
+              Html::encode(Yii::t('app', 'Prev. Battle')),
             ]),
             ['/show-v2/battle', 'screen_name' => $user->screen_name, 'battle' => $battle->previousBattle->id],
             ['class' => 'btn btn-default']
@@ -187,8 +188,8 @@ BattleDetailAsset::register($this);
         <div class="col-xs-6 pull-right text-right">
           <?= Html::a(
             implode('', [
-              Yii::t('app', 'Next Battle'),
-              Html::tag('span', '', ['class' => 'fa fa-fw fa-angle-double-right']),
+              Html::encode(Yii::t('app', 'Next Battle')),
+              Icon::nextPage(),
             ]),
             ['/show-v2/battle', 'screen_name' => $user->screen_name, 'battle' => $battle->nextBattle->id],
             ['class' => 'btn btn-default']

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use app\assets\UserStatReportAsset;
 use app\components\widgets\AdWidget;
-use app\components\widgets\FA;
+use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
 use app\models\User;
 use yii\data\ArrayDataProvider;
@@ -60,7 +60,7 @@ UserStatReportAsset::register($this);
 <?php if ($prev) { ?>
     <div class="col-xs-6"><?= Html::a(
       implode(' ', [
-        (string)FA::fas('angle-double-left')->fw(),
+        Icon::prevPage(),
         Html::encode(Yii::t('app', 'Prev. Month')),
       ]),
       $prev,
@@ -71,7 +71,7 @@ UserStatReportAsset::register($this);
     <div class="col-xs-6 pull-right text-right"><?= Html::a(
       implode(' ', [
         Html::encode(Yii::t('app', 'Next Month')),
-        (string)FA::fas('angle-double-right')->fw(),
+        Icon::nextPage(),
       ]),
       $next,
       ['class' => 'btn btn-default']
@@ -101,7 +101,7 @@ UserStatReportAsset::register($this);
         'format' => 'raw',
         'value' => function (array $row) use ($user): string {
           return Html::a(
-            (string)FA::fas('search'),
+            Icon::search(),
             ['show/user',
               'screen_name' => $user->screen_name,
               'filter' => [
