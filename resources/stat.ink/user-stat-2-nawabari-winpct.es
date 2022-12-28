@@ -13,14 +13,14 @@
       left1: '<span class="bi bi-chevron-left"></span>',
       left2: '<span class="bi bi-chevron-double-left"></span>',
       right1: '<span class="bi bi-chevron-right"></span>',
-      right2: '<span class="bi bi-chevron-double-right"></span>',
+      right2: '<span class="bi bi-chevron-double-right"></span>'
     };
     const data = [];
     if (isRanked) {
       const x = bigJson.filter(v => (v.win !== null && v.x !== null)).length;
       if (x > 0) {
         data.push({
-          label: `${icon.right2} ${strings.rank.xpower}`,
+          label: `${icons.right2} ${strings.rank.xpower}`,
           data: bigJson
             .filter(v => (v.win !== null))
             .map((v, i, json) => {

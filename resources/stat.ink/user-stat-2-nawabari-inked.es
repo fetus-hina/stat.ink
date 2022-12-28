@@ -48,7 +48,7 @@
           left1: '<span class="bi bi-chevron-left"></span>',
           left2: '<span class="bi bi-chevron-double-left"></span>',
           right1: '<span class="bi bi-chevron-right"></span>',
-          right2: '<span class="bi bi-chevron-double-right"></span>',
+          right2: '<span class="bi bi-chevron-double-right"></span>'
         };
 
         const data = [
