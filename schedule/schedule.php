@@ -13,5 +13,4 @@ require __DIR__ . '/schedule/geoip.php';
 require __DIR__ . '/schedule/salmon2.php';
 require __DIR__ . '/schedule/salmon3.php';
 require __DIR__ . '/schedule/schedule.php';
-require __DIR__ . '/schedule/splatoon2.php';
 require __DIR__ . '/schedule/user-json.php';
