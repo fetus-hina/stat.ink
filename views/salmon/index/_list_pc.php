@@ -9,6 +9,7 @@ use app\components\grid\SalmonActionColumn;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\i18n\Formatter;
 use app\components\widgets\FA;
+use app\components\widgets\Icon;
 use app\components\widgets\Label;
 use app\models\Salmon2;
 use app\models\SalmonSchedule2;
@@ -448,7 +449,7 @@ SalmonWorkListAsset::register($this);
 
             return vsprintf('%s %s - %s (%s)', [
               Html::a(
-                (string)FA::fas('search')->fw(),
+                Icon::search(),
                 ['salmon/index',
                   'screen_name' => $user->screen_name,
                   'filter' => ArrayHelper::merge(

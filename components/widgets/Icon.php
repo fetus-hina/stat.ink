@@ -18,8 +18,10 @@ use yii\web\View;
 
 final class Icon
 {
+    // android
     // apiJson
     // back
+    // blog
     // caretDown
     // checkboxChecked
     // checkboxEmpty
@@ -27,6 +29,7 @@ final class Icon
     // colorScheme
     // config
     // delete
+    // download
     // dummy
     // feed
     // fileCsv
@@ -34,14 +37,17 @@ final class Icon
     // github
     // help
     // image
+    // ios
     // language
     // languageLevelFew
     // languageLevelMachine
     // languageLevelPartical
     // link
+    // linux
     // login
     // loginHistory
     // logout
+    // macOs
     // nextPage
     // ok
     // permalink
@@ -57,6 +63,12 @@ final class Icon
     // user
     // userAdd
     // videoLink
+    // windows
+
+    public static function android(): string
+    {
+        return self::bi('android2');
+    }
 
     public static function apiJson(): string
     {
@@ -66,6 +78,11 @@ final class Icon
     public static function back(): string
     {
         return self::bi('chevron-left');
+    }
+
+    public static function blog(): string
+    {
+        return self::bi('wordpress');
     }
 
     public static function caretDown(): string
@@ -101,6 +118,11 @@ final class Icon
     public static function delete(): string
     {
         return self::bi('trash3');
+    }
+
+    public static function download(): string
+    {
+        return self::bi('download');
     }
 
     public static function dummy(): string
@@ -146,6 +168,11 @@ final class Icon
         return self::bi('image');
     }
 
+    public static function ios(): string
+    {
+        return self::macOs();
+    }
+
     public static function language(): string
     {
         return self::bi('translate');
@@ -171,6 +198,11 @@ final class Icon
         return self::bi('link-45deg');
     }
 
+    public static function linux(): string
+    {
+        return self::bi('ubuntu'); // FIXME
+    }
+
     public static function login(): string
     {
         return self::bi('box-arrow-in-right');
@@ -184,6 +216,11 @@ final class Icon
     public static function logout(): string
     {
         return self::bi('box-arrow-right');
+    }
+
+    public static function macOs(): string
+    {
+        return self::bi('apple');
     }
 
     public static function nextPage(): string
@@ -275,6 +312,11 @@ final class Icon
     public static function videoLink(): string
     {
         return self::bi('play-fill');
+    }
+
+    public static function windows(): string
+    {
+        return self::bi('windows');
     }
 
     private static function bi(string $name, ?string $css = null): string

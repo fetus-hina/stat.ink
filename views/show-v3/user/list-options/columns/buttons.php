@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use app\components\widgets\EmbedVideo;
-use app\components\widgets\FA;
+use app\components\widgets\Icon;
 use app\models\Battle3;
 use yii\helpers\Html;
 
@@ -22,7 +22,9 @@ return [
       (!$model->link_url)
         ? ''
         : Html::a(
-          (string)FA::fas(EmbedVideo::isSupported($model->link_url) ? 'video' : 'link')->fw(),
+          EmbedVideo::isSupported($model->link_url)
+            ? Icon::videoLink()
+            : Icon::link(),
           $model->link_url,
           [
             'class' => 'btn btn-default btn-xs',

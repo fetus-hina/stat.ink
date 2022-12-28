@@ -55,7 +55,7 @@ class SalmonFilterWidget extends Widget
             echo $this->renderFields($form);
             echo Html::submitButton(
                 implode(' ', [
-                    FA::fas('search')->fw()->__toString(),
+                    Icon::search(),
                     Html::encode(Yii::t('app', 'Search')),
                 ]),
                 [

@@ -6,6 +6,7 @@ use app\assets\AboutAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\FA;
 use app\components\widgets\FlagIcon;
+use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -65,27 +66,29 @@ $img = function (string $file, array $options = []) use ($aboutAsset): string {
               Html::encode('splatnet2statink'),
               'https://github.com/frozenpandaman/splatnet2statink#splatnet2statink'
             ),
-            FA::fab('python')->fw() . Html::encode('Python 3 & 2'),
+            Html::encode('Python 3 & 2'),
             implode(', ', [
-              FA::fab('windows')->fw() . 'Windows',
-              FA::fab('apple')->fw() . 'macOS',
-              FA::fab('linux')->fw() . 'Linux',
+              Icon::windows() . ' Windows',
+              Icon::macOs() . ' macOS',
+              Icon::linux() . ' Linux',
             ]),
           ]) . "\n" ?>
         </li>
         <li>
-          <?= vsprintf('%s (%s / %s)', [
-            Html::a(
-              Html::encode('SquidTracks'),
-              'https://github.com/hymm/squid-tracks#squidtracks'
-            ),
-            'Electron',
-            implode(', ', [
-              FA::fab('windows')->fw() . 'Windows',
-              FA::fab('apple')->fw() . 'macOS',
-              FA::fab('linux')->fw() . 'Linux',
-            ]),
-          ]) . "\n" ?>
+          <del>
+            <?= vsprintf('%s (%s / %s)', [
+              Html::a(
+                Html::encode('SquidTracks'),
+                'https://github.com/hymm/squid-tracks#squidtracks'
+              ),
+              'Electron',
+              implode(', ', [
+                Icon::windows() . ' Windows',
+                Icon::macOs() . ' macOS',
+                Icon::linux() . ' Linux',
+              ]),
+            ]) . "\n" ?>
+          </del>
         </li>
         <li>
           <del>
@@ -94,7 +97,7 @@ $img = function (string $file, array $options = []) use ($aboutAsset): string {
                 Html::encode('IkaRec 2'),
                 'https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec2'
               ),
-              FA::fab('android')->fw() . 'Android',
+              Icon::android() . ' Android',
               implode(', ', [
                 FlagIcon::fg('jp') . '日本語',
                 vsprintf('%s%s', [
@@ -122,9 +125,9 @@ $img = function (string $file, array $options = []) use ($aboutAsset): string {
               'https://github.com/hasegaw/IkaLog/blob/master/doc/IkaUI.md'
             ),
             implode(', ', [
-              FA::fab('windows')->fw() . 'Windows',
-              FA::fab('apple')->fw() . 'macOS',
-              FA::fab('linux')->fw() . 'Linux',
+              Icon::windows() . ' Windows',
+              Icon::macOs() . ' macOS',
+              Icon::linux() . ' Linux',
             ]),
             implode(', ', [
               FlagIcon::fg('jp') . '日本語',
@@ -149,7 +152,7 @@ $img = function (string $file, array $options = []) use ($aboutAsset): string {
                     Html::encode('イカレコ'),
                     'https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec'
                   ),
-                  FA::fab('android')->fw() . 'Android',
+                  Icon::android() . ' Android',
                   FlagIcon::fg('jp') . '日本語',
                 ]) . "\n" ?>
               </del>
@@ -161,7 +164,7 @@ $img = function (string $file, array $options = []) use ($aboutAsset): string {
                   Html::encode('IkaRec'),
                   'https://play.google.com/store/apps/details?id=ink.pocketgopher.ikarec'
                 ),
-                FA::fab('android')->fw() . 'Android',
+                Icon::android() . ' Android',
                 implode(', ', [
                   vsprintf('%s%s', [
                     implode(' ', [
