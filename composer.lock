@@ -3845,16 +3845,16 @@
         },
         {
             "name": "twbs/bootstrap-icons",
-            "version": "v1.10.2",
+            "version": "v1.10.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/icons.git",
-                "reference": "4deaf1f69ccbe0a996c08a308525a26b05467242"
+                "reference": "817d780a476dbb24b269a89ba56ff1d0d4125132"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/icons/zipball/4deaf1f69ccbe0a996c08a308525a26b05467242",
-                "reference": "4deaf1f69ccbe0a996c08a308525a26b05467242",
+                "url": "https://api.github.com/repos/twbs/icons/zipball/817d780a476dbb24b269a89ba56ff1d0d4125132",
+                "reference": "817d780a476dbb24b269a89ba56ff1d0d4125132",
                 "shasum": ""
             },
             "type": "library",
@@ -3878,9 +3878,9 @@
             ],
             "support": {
                 "issues": "https://github.com/twbs/icons/issues",
-                "source": "https://github.com/twbs/icons/tree/v1.10.2"
+                "source": "https://github.com/twbs/icons/tree/v1.10.3"
             },
-            "time": "2022-11-13T17:44:34+00:00"
+            "time": "2022-12-27T05:46:02+00:00"
         },
         {
             "name": "yiisoft/yii2",
