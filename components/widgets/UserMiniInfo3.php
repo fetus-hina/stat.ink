@@ -198,7 +198,7 @@ final class UserMiniInfo3 extends Widget
         return Html::tag(
             'div',
             Html::a(
-                \implode('', [
+                \implode(' ', [
                     Html::img(
                         $am->getAssetUrl(
                             $am->getBundle(GameModeIconsAsset::class),
@@ -209,9 +209,8 @@ final class UserMiniInfo3 extends Widget
                             'style' => 'height:1em',
                         ],
                     ),
-                    ' ',
                     Html::encode(Yii::t('app-salmon2', 'Salmon Run')),
-                    (string)FA::fas('angle-right')->fw(),
+                    Icon::subPage(),
                 ]),
                 ['salmon-v3/index',
                     'screen_name' => $this->user->screen_name,
@@ -269,8 +268,8 @@ final class UserMiniInfo3 extends Widget
             \implode('', \array_map(
                 fn (string $text, array $link): string => Html::tag(
                     'li',
-                    \implode('', [
-                        Html::tag('span', (string)FA::fas('chart-pie')->fw()),
+                    \implode(' ', [
+                        Icon::stats(),
                         Html::a(
                             Html::encode($text),
                             $link,

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use app\components\i18n\Formatter;
 use app\components\widgets\FA;
+use app\components\widgets\Icon;
 use app\models\Battle3;
 
 return [
@@ -18,7 +19,7 @@ return [
 
     $f = Yii::createObject([
       'class' => Formatter::class,
-      'nullDisplay' => (string)FA::fas('question')->fw(),
+      'nullDisplay' => Icon::unknown(),
     ]);
 
     if (

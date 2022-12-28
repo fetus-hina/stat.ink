@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use app\assets\AppLinkAsset;
-use app\components\widgets\FA;
 use app\components\widgets\FlagIcon;
 use app\components\widgets\GameVersionIcon;
 use app\components\widgets\Icon;
@@ -201,14 +200,14 @@ $list = [
       [
         'url' => 'https://play.google.com/store/apps/details?id=com.nintendo.znca',
         'name' => implode('', [
-          (string)FA::fab('android')->fw(),
+          Icon::android(),
           Html::encode(Yii::t('app', 'Android')),
         ]),
       ],
       [
         'url' => 'https://apps.apple.com/app/nintendo-switch-online/id1234806557',
         'name' => implode('', [
-          (string)FA::fab('apple')->fw(),
+          Icon::ios(),
           Html::encode(Yii::t('app', 'iOS (iPhone/iPad)')),
         ]),
       ],
@@ -220,22 +219,20 @@ $list = [
     // s3s
     'url' => 'https://github.com/frozenpandaman/s3s',
     'name' => implode(' ', [
-      (string)FA::fab('python')->fw(),
       Html::encode(Yii::t('app', 's3s')),
-      (string)FA::fab('windows')->fw(),
-      (string)FA::fab('apple')->fw(),
-      (string)FA::fab('linux')->fw(),
+      Icon::windows(),
+      Icon::macOs(),
+      Icon::linux(),
     ]),
   ],
   [
     // s3si.ts
     'url' => 'https://github.com/spacemeowx2/s3si.ts',
     'name' => implode(' ', [
-      (string)FA::fab('js')->fw(),
       Html::encode(Yii::t('app', 's3si.ts')),
-      (string)FA::fab('windows')->fw(),
-      (string)FA::fab('apple')->fw(),
-      (string)FA::fab('linux')->fw(),
+      Icon::windows(),
+      Icon::macOs(),
+      Icon::linux(),
     ]),
   ],
   [],
@@ -248,11 +245,10 @@ $list = [
       [
         'url' => 'https://github.com/frozenpandaman/splatnet2statink',
         'name' => implode(' ', [
-          (string)FA::fab('python')->fw(),
           Html::encode(Yii::t('app', 'splatnet2statink')),
-          (string)FA::fab('windows')->fw(),
-          (string)FA::fab('apple')->fw(),
-          (string)FA::fab('linux')->fw(),
+          Icon::windows(),
+          Icon::macOs(),
+          Icon::linux(),
         ]),
       ],
       [
@@ -260,16 +256,16 @@ $list = [
         'name' => implode(' ', [
           $icon->squidTracks,
           Html::tag('del', Html::encode(Yii::t('app', 'SquidTracks'))),
-          (string)FA::fab('windows')->fw(),
-          (string)FA::fab('apple')->fw(),
-          (string)FA::fab('linux')->fw(),
+          Icon::windows(),
+          Icon::macOs(),
+          Icon::linux(),
         ]),
       ],
       [
         'name' => implode(' ', [
           $icon->ikarecJa,
           Html::tag('del', Html::encode(Yii::t('app', 'IkaRec 2'))),
-          Html::tag('span', '', ['class' => 'fab fa-fw fa-android']),
+          Icon::android(),
         ]),
         'url' => 'https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec2',
       ],
@@ -284,11 +280,10 @@ $list = [
       [
         'name' => implode(' ', [
           $icon->ikalog,
-          (string)FA::fab('python')->fw(),
           Html::encode(Yii::t('app', 'IkaLog')),
-          (string)FA::fab('windows')->fw(),
-          (string)FA::fab('apple')->fw(),
-          (string)FA::fab('linux')->fw(),
+          Icon::windows(),
+          Icon::macOs(),
+          Icon::linux(),
         ]),
         'sub' => [
           [
@@ -309,9 +304,9 @@ $list = [
           [
             'url' => 'https://hasegaw.github.io/IkaLog/',
             'name' => implode(' ', [
-              (string)FA::fas('download')->fw(),
+              Icon::download(),
               Html::encode(Yii::t('app', 'IkaLog Download Page')),
-              '(' . FA::fab('windows')->fw() . Html::encode(Yii::t('app', 'Windows')) . ')',
+              '(' . Icon::Windows() . ' ' . Html::encode(Yii::t('app', 'Windows')) . ')',
             ]),
           ],
         ],
@@ -330,7 +325,7 @@ $list = [
               ])) . ' / 日本語)',
             ]),
           ),
-          (string)FA::fab('android')->fw(),
+          Icon::android(),
         ]),
       ],
       [
@@ -342,7 +337,7 @@ $list = [
           '(' . Html::encode(Yii::t('app', 'for {title}', [
             'title' => Yii::t('app', 'Splatoon'),
           ])) . ' / English)',
-          (string)FA::fab('android')->fw(),
+          Icon::android(),
         ]),
       ],
     ],
@@ -366,14 +361,14 @@ $list = [
   [
     'url' => 'https://blog.fetus.jp/',
     'name' => implode(' ', [
-      (string)FA::fab('wordpress')->fw(),
+      Icon::blog(),
       Html::encode(Yii::t('app', 'Blog')),
     ]),
   ],
   [
     'url' => 'https://github.com/fetus-hina/stat.ink',
     'name' => implode(' ', [
-      (string)FA::fab('github-alt')->fw(),
+      Icon::github(),
       Html::encode(Yii::t('app', 'Source Code')),
     ]),
   ],

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use app\components\widgets\FA;
+use app\components\widgets\Icon;
 use yii\helpers\Html;
 
 /**
@@ -12,7 +12,7 @@ use yii\helpers\Html;
 ?>
 <?= Html::a(
   implode(' ', [
-    (string)FA::fas('search')->fw(),
+    Icon::search(),
     Html::encode(Yii::t('app', 'Search')),
   ]),
   '#filter-form',

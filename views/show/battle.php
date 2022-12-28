@@ -18,6 +18,7 @@ use app\components\widgets\KillRatioBadgeWidget;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\TimestampColumnWidget;
 use app\models\Battle;
+use app\models\BattleDeathReason;
 use app\models\Special;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -253,7 +254,7 @@ $specials = Special::find()->asArray()->all();
             <th><?= implode(' ', [
               Html::encode(Yii::t('app', 'Mode')),
               Html::a(
-                (string)FA::fas('chart-pie')->fw(),
+                Icon::stats(),
                 ['show/user-stat-by-rule', 'screen_name' => $user->screen_name]
               ),
             ]) ?></th>
@@ -276,7 +277,7 @@ $specials = Special::find()->asArray()->all();
             <th><?= implode(' ', [
               Html::encode(Yii::t('app', 'Stage')),
               Html::a(
-                (string)FA::fas('chart-pie')->fw(),
+                Icon::stats(),
                 ['show/user-stat-by-map', 'screen_name' => $user->screen_name],
               ),
             ]) ?></th>
@@ -502,10 +503,12 @@ $specials = Special::find()->asArray()->all();
             <td><?= Html::encode($battle->max_kill_streak) ?></td>
           </tr>
 <?php } ?>
-<?php $deathReasons = $battle->getBattleDeathReasons()
+<?php $deathReasons = BattleDeathReason::find()
+  ->andWhere(['battle_id' => $battle->id])
   ->with(['reason'])
   ->orderBy(['{{battle_death_reason}}.[[count]]' => SORT_DESC])
-  ->all() ?>
+  ->all()
+?>
 <?php if ($deathReasons) { ?>
           <tr>
             <th><?= Html::encode(Yii::t('app', 'Cause of Death')) ?></th>

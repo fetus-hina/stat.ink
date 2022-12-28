@@ -6,6 +6,7 @@ use app\assets\SimpleBattleListAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Battle2FilterWidget;
 use app\components\widgets\FA;
+use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\UserMiniInfo2;
 use app\models\User;
@@ -98,7 +99,7 @@ SimpleBattleListAsset::register($this);
       <div>
         <?= Html::a(
           implode(' ', [
-            (string)FA::fas('search')->fw(),
+            Icon::search(),
             Html::encode(Yii::t('app', 'Search')),
           ]),
           '#filter-form',

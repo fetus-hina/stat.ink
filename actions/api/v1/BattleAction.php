@@ -19,6 +19,7 @@ use app\components\jobs\SlackJob;
 use app\components\web\ServiceUnavailableHttpException;
 use app\models\Agent;
 use app\models\Battle;
+use app\models\BattleDeathReason;
 use app\models\OstatusPubsubhubbub;
 use app\models\Slack;
 use app\models\User;
@@ -533,17 +534,18 @@ class BattleAction extends BaseAction
     {
         return $this->runGetImpl2(
             $battle,
-            $battle->getBattleDeathReasons()
-                ->with([
-                    'reason',
-                    'reason.type',
-                ])
+            BattleDeathReason::find()
+                ->andWhere(['battle_id' => $battle->id])
+                ->with(['reason', 'reason.type'])
                 ->all(),
             $battle->battlePlayers,
             $battle->agent
         );
     }
 
+    /**
+     * @param BattleDeathReason[] $deathReasons
+     */
     private function runGetImpl2(
         Battle $battle,
         array $deathReasons,

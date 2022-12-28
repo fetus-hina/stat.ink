@@ -131,8 +131,8 @@ class Battle2FilterWidget extends Widget
             default:
                 $ret[] = Html::tag(
                     'button',
-                    implode('', [
-                        Html::tag('span', '', ['class' => 'fa fa-fw fa-search']),
+                    implode(' ', [
+                        Icon::search(),
                         Html::encode(Yii::t('app', 'Search')),
                     ]),
                     [

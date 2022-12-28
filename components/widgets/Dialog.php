@@ -143,7 +143,7 @@ class Dialog extends Widget
         if ($footer === static::FOOTER_OK) {
             $footer = Html::tag(
                 'button',
-                FA::fas('check') . ' ' . Html::encode(Yii::t('app', 'OK')),
+                Icon::ok() . ' ' . Html::encode(Yii::t('app', 'OK')),
                 [
                     'type' => 'button',
                     'class' => 'btn btn-default',

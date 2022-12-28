@@ -333,8 +333,8 @@ $f = Yii::$app->formatter;
       ) . "<br>\n"?>
 <?php else: ?>
       <?= Html::a(
-        implode('', [
-          Html::tag('span', '', ['class' => 'fas fa-fw fa-chart-pie']),
+        implode(' ', [
+          Icon::stats(),
           Html::encode(Yii::t('app', $item['text'])),
         ]),
         $item['url']

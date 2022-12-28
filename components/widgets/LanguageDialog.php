@@ -126,7 +126,7 @@ final class LanguageDialog extends Dialog
             case SupportLevel::FULL:
             case SupportLevel::ALMOST:
             default:
-                return FA::fas(null)->fw()->__toString();
+                return Icon::dummy();
 
             case SupportLevel::PARTIAL:
                 return Html::tag('span', Icon::languageLevelPartical(), [
@@ -160,8 +160,8 @@ final class LanguageDialog extends Dialog
                         'a',
                         implode(' ', [
                             $enabledMachineTranslation
-                                ? FA::far('check-square')->fw()
-                                : FA::far('square')->fw(),
+                                ? Icon::checkboxChecked()
+                                : Icon::checkboxEmpty(),
                             Html::encode(Yii::t('app', 'Enable machine-translation')),
                         ]),
                         [

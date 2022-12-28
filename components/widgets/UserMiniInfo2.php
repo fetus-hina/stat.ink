@@ -861,8 +861,8 @@ class UserMiniInfo2 extends Widget
             implode('<br>', array_merge(
                 [
                     Html::a(
-                        implode('', [
-                            (string)FA::fas('chart-pie')->fw(),
+                        implode(' ', [
+                            Icon::stats(),
                             Html::encode(Yii::t('app', 'Stats ({rule})', [
                                 'rule' => Yii::t('app-rule2', 'Turf War'),
                             ])),
@@ -875,8 +875,8 @@ class UserMiniInfo2 extends Widget
                 array_map(
                     function (Rule2 $rule): string {
                         return Html::a(
-                            implode('', [
-                                (string)FA::fas('chart-pie')->fw(),
+                            implode(' ', [
+                                Icon::stats(),
                                 Html::encode(Yii::t('app', 'Stats ({rule})', [
                                     'rule' => Yii::t('app-rule2', $rule->name),
                                 ])),
@@ -894,46 +894,46 @@ class UserMiniInfo2 extends Widget
                 ),
                 [
                     Html::a(
-                        implode('', [
-                            (string)FA::fas('chart-pie')->fw(),
+                        implode(' ', [
+                            Icon::stats(),
                             Html::encode(Yii::t('app', 'Stats (Splatfest)')),
                         ]),
                         ['show-v2/user-stat-splatfest', 'screen_name' => $this->user->screen_name]
                     ),
                     Html::a(
-                        implode('', [
-                            (string)FA::fas('chart-pie')->fw(),
+                        implode(' ', [
+                            Icon::stats(),
                             Html::encode(Yii::t('app', 'Stats (by Mode and Stage)')),
                         ]),
                         ['show-v2/user-stat-by-map-rule', 'screen_name' => $this->user->screen_name]
                     ),
                     Html::a(
-                        implode('', [
-                            (string)FA::fas('chart-pie')->fw(),
+                        implode(' ', [
+                            Icon::stats(),
                             Html::encode(Yii::t('app', 'Stats (by Weapon)')),
                         ]),
                         ['show-v2/user-stat-by-weapon', 'screen_name' => $this->user->screen_name]
                     ),
                     Html::a(
-                        implode('', [
-                            (string)FA::fas('chart-pie')->fw(),
+                        implode(' ', [
+                            Icon::stats(),
                             Html::encode(Yii::t('app', 'Daily Report')),
                         ]),
                         ['show-v2/user-stat-report', 'screen_name' => $this->user->screen_name]
                     ),
                     Html::a(
-                        implode('', [
-                            (string)FA::fas('chart-pie')->fw(),
+                        implode(' ', [
+                            Icon::stats(),
                             Html::encode(Yii::t('app', 'Monthly Report')),
                         ]),
                         ['show-v2/user-stat-monthly-report', 'screen_name' => $this->user->screen_name]
                     ),
                     '',
                     Html::a(
-                        implode('', [
+                        implode(' ', [
                             (string)FA::fas('fish')->fw(),
                             Html::encode(Yii::t('app-salmon2', 'Salmon Run')),
-                            (string)FA::fas('angle-right')->fw(),
+                            Icon::subPage(),
                         ]),
                         ['salmon/index', 'screen_name' => $this->user->screen_name],
                         ['class' => 'btn btn-sm btn-block btn-default']

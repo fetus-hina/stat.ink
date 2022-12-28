@@ -13,7 +13,7 @@ namespace app\components\grid;
 use LogicException;
 use Yii;
 use app\components\widgets\EmbedVideo;
-use app\components\widgets\FA;
+use app\components\widgets\Icon;
 use app\models\Salmon2;
 use app\models\Salmon3;
 use app\models\User;
@@ -53,7 +53,9 @@ final class SalmonActionColumn extends Column
                     ),
                     $model->link_url
                         ? Html::a(
-                            (string)FA::fas(EmbedVideo::isSupported($model->link_url) ? 'video' : 'link')->fw(),
+                            EmbedVideo::isSupported($model->link_url)
+                                ? Icon::videoLink()
+                                : Icon::link(),
                             $model->link_url,
                             [
                                 'class' => [

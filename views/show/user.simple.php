@@ -2,6 +2,7 @@
 
 use app\components\widgets\AdWidget;
 use app\components\widgets\BattleFilterWidget;
+use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
 use app\models\Language;
 use app\models\User;
@@ -151,9 +152,19 @@ if ($battle &&
         ]
       ) . "\n" ?>
       <div>
-        <a href="#filter-form" class="visible-xs-inline btn btn-info"><span class="fas fa-fw fa-search"></span><?= Html::encode(Yii::t('app', 'Search')) ?></a>
         <?= Html::a(
-          '<span class="fas fa-fw fa-list"></span>' . Html::encode(Yii::t('app', 'Detailed List')),
+          implode(' ', [
+            Icon::search(),
+            Html::encode(Yii::t('app', 'Search')),
+          ]),
+          '#filter-form',
+          ['class' => 'visible-xs-inline btn btn-info'],
+        ) . "\n" ?>
+        <?= Html::a(
+          implode(' ', [
+            '<span class="fas fa-fw fa-list"></span>',
+            Html::encode(Yii::t('app', 'Detailed List')),
+          ]),
           array_merge($filter->toQueryParams(), ['show/user', 'v' => 'standard']),
           ['class' => 'btn btn-default', 'rel' => 'nofollow']
         ) . "\n" ?>

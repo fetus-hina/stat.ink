@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\components\widgets\Icon;
 use app\models\Splatfest2;
 use app\models\User;
 use yii\helpers\Html;
@@ -19,9 +20,13 @@ echo Html::tag(
   implode('', [
     Html::tag(
       'small', 
-      Html::tag('a', Html::tag('span', '', ['class' => 'fas fa-link']), [
-        'href' => '#' . $fest->permaID,
-      ]),
+      Html::tag(
+        'a',
+        Icon::permalink(),
+        [
+          'href' => '#' . $fest->permaID,
+        ],
+      ),
       ['style' => ['font-size' => '1rem']]
     ),
     Yii::t('app-fest2', '{alpha} vs. {bravo}', [
@@ -31,7 +36,7 @@ echo Html::tag(
     Html::tag(
       'small',
       Html::a(
-        Html::tag('span', '', ['class' => 'fas fa-search']),
+        Icon::search(),
         ['show-v2/user',
           'screen_name' => $user->screen_name,
           'filter' => [

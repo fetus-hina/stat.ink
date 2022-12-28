@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use app\assets\GameModeIconsAsset;
-use app\components\widgets\FA;
+use app\components\widgets\Icon;
 use app\models\Battle3;
 use yii\base\Model;
 use yii\helpers\Html;
@@ -45,7 +45,7 @@ return [
       vsprintf('%s %s', [
         ($rule && $lobby)
           ? Html::a(
-            (string)FA::fas('search'),
+            Icon::search(),
             ['/show-v3/user',
               'screen_name' => $model->user->screen_name,
               'f' => [

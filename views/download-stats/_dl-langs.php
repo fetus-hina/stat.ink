@@ -1,9 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 use app\assets\DownloadsPageAsset;
 use app\components\widgets\FA;
 use app\components\widgets\FlagIcon;
+use app\components\widgets\Icon;
 use app\models\Language;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -34,12 +36,12 @@ $langs = Language::find()
 <?php $charset = $_charset['charset'] ?>
       <span class="charset">
         <?= Html::a(
-          trim(implode(' ', [
-            $_charset['is_win_acp']
-              ? (string)FA::fab('windows')
-              : '',
-            Html::encode($charset['name']),
-          ])),
+          trim(
+            implode(' ', [
+              $_charset['is_win_acp'] ? Icon::windows() : '',
+              Html::encode($charset['name']),
+            ]),
+          ),
           [$route,
             'lang' => $lang['lang'], 
             'charset' => $charset['php_name'],

@@ -12,6 +12,7 @@ use app\components\widgets\Battle2FilterWidget;
 use app\components\widgets\EmbedVideo;
 use app\components\widgets\FA;
 use app\components\widgets\GameModeIcon;
+use app\components\widgets\Icon;
 use app\components\widgets\Label;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\UserMiniInfo2;
@@ -99,7 +100,7 @@ if ($user->twitter != '') {
           implode(' ', [
             FA::fas('fish')->fw(),
             Html::encode(Yii::t('app-salmon2', 'Salmon Run')),
-            FA::fas('angle-right')->fw(),
+            Icon::subPage(),
           ]),
           ['salmon/index', 'screen_name' => $user->screen_name],
           ['class' => 'btn btn-default btn-xs']
@@ -123,7 +124,7 @@ if ($user->twitter != '') {
       ]) . "\n" ?>
       <div style="margin-bottom:10px">
         <a href="#filter-form" class="visible-xs-inline-block btn btn-info">
-          <?= FA::fas('search')->fw() . "\n" ?>
+          <?= Icon::search() . "\n" ?>
           <?= Html::encode(Yii::t('app', 'Search')) . "\n" ?>
         </a>
         <a href="#table-config" class="btn btn-default">

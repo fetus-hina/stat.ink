@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use app\components\widgets\FA;
+use app\components\widgets\Icon;
 use app\models\Battle3;
 use yii\helpers\Html;
 
@@ -17,7 +17,7 @@ return [
 
     return implode(' ', [
       Html::a(
-        (string)FA::fas('search'),
+        Icon::search(),
         ['/show-v3/user',
           'screen_name' => $model->user->screen_name,
           'f' => [
