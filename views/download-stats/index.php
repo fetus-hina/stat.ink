@@ -33,8 +33,68 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
   <?= AdWidget::widget() . "\n" ?>
   <?= SnsWidget::widget() . "\n" ?>
 
-  <hr>
+  <?= Html::tag(
+    'p',
+    implode('<br>', [
+      Html::encode(
+        Yii::t('app', 'The data is not something you will know immediately after downloading.'),
+      ),
+      Html::encode(
+        Yii::t(
+          'app',
+          'The data is intended to be analyzed using spreadsheet software (Excel, etc.) or programs to analyze.',
+        ),
+      ),
+    ]),
+  ) . "\n" ?>
 
+  <h2><?= Html::encode(Yii::t('app', 'Splatoon 3')) ?></h2>
+  <div class="alert alert-warning ml-3">
+    <p>This is a beta feature.</p>
+    <p>Not adequately verified and the schema may be changed.</p>
+  </div>
+  <ul>
+    <li>
+      <?= Icon::fileCsv() . "\n" ?>
+      <?= Html::a(
+        Html::encode(Yii::t('app', 'Battle results (CSV)')),
+        'https://dl-stats.stat.ink/splatoon-3/battle-results-csv/',
+        ['target' => '_blank', 'rel' => 'noopener nofollow'],
+      ) . "\n" ?>
+      /
+      <?= Html::a(
+        Html::encode(Yii::t('app', 'Schema')),
+        'https://github.com/fetus-hina/stat.ink/wiki/Spl3-%EF%BC%8D-CSV-Schema-%EF%BC%8D-Battle',
+        [
+          'target' => '_blank',
+          'rel' => 'noreferrer noopener nofollow',
+        ],
+      ) . "\n" ?>
+    </li>
+  </ul>
+
+  <h2><?= Html::encode(Yii::t('app', 'Splatoon 2')) ?></h2>
+  <ul>
+    <li>
+      <?= Icon::fileCsv() . "\n" ?>
+      <?= Html::a(
+        Html::encode(Yii::t('app', 'Battle results (CSV)')),
+        'https://dl-stats.stat.ink/splatoon-2/battle-results-csv/',
+        ['target' => '_blank', 'rel' => 'noopener nofollow'],
+      ) . "\n" ?>
+      /
+      <?= Html::a(
+        Html::encode(Yii::t('app', 'Schema')),
+        'https://github.com/fetus-hina/stat.ink/blob/master/doc/api-2/download-battle-csv.md',
+        [
+          'target' => '_blank',
+          'rel' => 'noreferrer noopener nofollow',
+        ],
+      ) . "\n" ?>
+    </li>
+  </ul>
+
+  <h2><?= Html::encode(Yii::t('app', 'Splatoon')) ?></h2>
   <p>
     データファイルをその場で生成してからダウンロード処理が行われます。
     クリックしてからしばらく時間がかかりますが、連打しないでください。
@@ -44,25 +104,6 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
     各言語や文字コードは、ブキやステージの名前のローカライズ部分にのみ影響します。（どれを落としても本質的な情報は同じです）
   </p>
 
-  <p>
-    ダウンロード後すぐに何かわかるデータではありません。
-    表計算ソフト(Excel等)やプログラムを駆使して何かを解析することを前提としたデータです。
-  </p>
-
-  <h2>Splatoon 2</h2>
-  <ul>
-    <li>
-      <?= Icon::fileCsv() . "\n" ?>
-      <a href="https://dl-stats.stat.ink/splatoon-2/battle-results-csv/">リザルト情報 (CSV)</a>
-      <div style="margin-left:2em">
-        ルール等や勝敗、ブキ構成、キルデスなどが一覧になっています。<br>
-        「A1」は投稿者であり、このプレーヤーを統計に含めると大きく偏ることに注意してください。<br>
-        <a href="https://github.com/fetus-hina/stat.ink/blob/master/doc/api-2/download-battle-csv.md">スキーマ Schema</a>
-      </div>
-    </li>
-  </ul>
-
-  <h2>Splatoon</h2>
   <ul>
     <li>
       <?= Icon::fileCsv() . "\n" ?>
