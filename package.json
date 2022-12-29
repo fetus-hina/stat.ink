@@ -27,7 +27,7 @@
     "cal-heatmap": "^3.6.2",
     "chart.js": "^3.9.1",
     "chartjs-plugin-datalabels": "^2.2.0",
-    "core-js": "^3.27.0",
+    "core-js": "^3.27.1",
     "cssnano": "^5.1.14",
     "emojify.js": "^1.1.0",
     "eonasdan-bootstrap-datetimepicker": "^4.17.49",
