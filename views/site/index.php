@@ -7,9 +7,9 @@ use app\assets\InlineListAsset;
 use app\assets\PaintballAsset;
 use app\assets\ReactCounterAppAsset;
 use app\assets\ReactIndexAppAsset;
-use app\components\widgets\FA;
 use app\components\widgets\GameVersionIcon;
 use app\components\widgets\HappyNewYearWidget;
+use app\components\widgets\Icon;
 use app\components\widgets\IndexI18nButtons;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\WashHandsWidget;
@@ -110,12 +110,19 @@ $gameMode = GameModeIconsAsset::register($this);
         Html::a(Html::encode(Yii::t('app-salmon-tide2', 'Water Level')), ['entire/salmon3-tide']),
       ],
       [
+        Icon::stats(),
         Html::a(Html::encode(Yii::t('app', 'Stats: K/D vs Win %')), ['entire/kd-win2']),
         Html::a(Html::encode(Yii::t('app', 'Stats: Weapons')), ['entire/weapons2']),
         Html::a(Html::encode(Yii::t('app', 'Stats: FestPwr diff vs Win %')), ['entire/festpower2']),
         Html::a(Html::encode(Yii::t('app-salmon2', 'Stats: Salmon Clear %')), ['entire/salmon-clear']),
         Html::a(Html::encode(Yii::t('app', 'Stats: Stages') . ' (Splatoon 1)'), ['stage/index']),
-        Html::a(Html::encode(Yii::t('app', 'Download Stats')), ['download-stats/index']),
+      ],
+      [
+        Icon::download(),
+        implode(' ', [
+          GameVersionIcon::widget(['version' => 3]),
+          Html::a(Html::encode(Yii::t('app', 'Download Stats')), ['download-stats/index']),
+        ]),
       ],
       [
         Html::a(Html::encode(Yii::t('app', 'About support for color-blindness')), ['site/color']),
