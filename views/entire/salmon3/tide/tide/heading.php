@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use app\assets\GameModeIconsAsset;
+use app\components\widgets\Icon;
 use app\models\Map3;
 use app\models\SalmonMap3;
 use yii\helpers\Html;
@@ -17,7 +18,13 @@ use yii\web\View;
 if ($map) {
   echo Html::tag(
     'h3',
-    Html::encode(Yii::t('app-map3', $map->name)),
+    implode(' ', [
+      Html::a(
+        Icon::scrollTo(),
+        sprintf('#event-%s', rawurlencode($map->key)),
+      ),
+      Html::encode(Yii::t('app-map3', $map->name)),
+    ]),
     [
       'class' => [
         'my-2',
@@ -29,7 +36,11 @@ if ($map) {
   $am = Yii::$app->assetManager;
   echo Html::tag(
     'h3',
-    vsprintf('%s%s', [
+    implode(' ', [
+      Html::a(
+        Icon::scrollTo(),
+        sprintf('#event-%s', rawurlencode($bigMap->key)),
+      ),
       Html::img(
         $am->getAssetUrl(
           $am->getBundle(GameModeIconsAsset::class),

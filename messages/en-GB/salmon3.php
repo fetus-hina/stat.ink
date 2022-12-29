@@ -29,6 +29,7 @@ return [
     'Max. Hazard Level (cleared)' => '',
     'MAX Hazard Level Cleared' => 'MAX Hazard Level Cleared',
     'Not Defeated' => '',
+    'Occurrence %' => '',
     'Pay Grade' => '',
     'Private Job' => 'Private Job',
     'Random Loan Rate' => '',

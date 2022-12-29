@@ -29,6 +29,7 @@ return [
     'MAX Hazard Level Cleared' => 'キケン度MAXをクリアした',
     'Max. Hazard Level (cleared)' => 'クリア時の最大キケン度',
     'Not Defeated' => '倒していない',
+    'Occurrence %' => '発生率',
     'Pay Grade' => '評価レート',
     'Private Job' => 'プライベートバイト',
     'Random Loan Rate' => 'ランダム支給率',

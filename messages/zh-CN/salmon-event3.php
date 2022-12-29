@@ -10,6 +10,7 @@
 declare(strict_types=1);
 
 return [
+    '(Normal)' => '',
     'Cohock Charge' => '大胖鱼大量出现',
     'Fog' => '雾',
     'Giant Tornado' => '巨型龙卷风',

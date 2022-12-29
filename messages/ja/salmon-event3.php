@@ -9,6 +9,7 @@
 declare(strict_types=1);
 
 return [
+    '(Normal)' => '(通常)',
     'Cohock Charge' => 'ドスコイ大量発生',
     'Fog' => '霧',
     'Giant Tornado' => '巨大タツマキ',

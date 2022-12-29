@@ -12,6 +12,7 @@ namespace app\actions\entire\salmon3;
 
 use Yii;
 use app\models\Map3;
+use app\models\SalmonEvent3;
 use app\models\SalmonMap3;
 use app\models\SalmonWaterLevel2;
 use yii\base\Action;
@@ -29,6 +30,7 @@ final class TideAction extends Action
         return Yii::$app->db->transaction(
             fn (Connection $db): string => $this->controller->render('salmon3/tide', [
                 'bigMaps' => $this->getBigMaps($db),
+                'events' => $this->getEvents($db),
                 'mapTides' => $this->getMapTides($db),
                 'maps' => $this->getMaps($db),
                 'tides' => $this->getTides($db),
@@ -107,6 +109,15 @@ final class TideAction extends Action
             SalmonWaterLevel2::find()->orderBy(['id' => SORT_ASC])->all($db),
             'id',
             fn (SalmonWaterLevel2 $model): SalmonWaterLevel2 => $model,
+        );
+    }
+
+    private function getEvents(Connection $db): array
+    {
+        return ArrayHelper::map(
+            SalmonEvent3::find()->orderBy(['id' => SORT_ASC])->all($db),
+            'id',
+            fn (SalmonEvent3 $model): SalmonEvent3 => $model,
         );
     }
 }
