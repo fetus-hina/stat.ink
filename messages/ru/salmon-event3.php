@@ -9,6 +9,7 @@
 declare(strict_types=1);
 
 return [
+    '(Normal)' => '',
     'Cohock Charge' => 'Штурм сковорейдеров',
     'Fog' => 'Туман',
     'Giant Tornado' => 'Огромный торнадо',

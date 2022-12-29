@@ -9,6 +9,7 @@
 declare(strict_types=1);
 
 return [
+    '(Normal)' => '',
     'Cohock Charge' => 'Orde di Pinne Pingui',
     'Fog' => 'Nebbia',
     'Giant Tornado' => 'Tornado gigante',

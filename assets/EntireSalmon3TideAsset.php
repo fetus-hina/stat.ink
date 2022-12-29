@@ -14,11 +14,12 @@ use Yii;
 use yii\web\AssetBundle;
 use yii\web\JqueryAsset;
 
-final class EntireSalmon3TideTideAsset extends AssetBundle
+final class EntireSalmon3TideAsset extends AssetBundle
 {
     public $sourcePath = '@app/resources/.compiled/stat.ink';
     public $js = [
         'entire-salmon3-tide-tide.js',
+        'entire-salmon3-tide-event.js',
     ];
     public $depends = [
         ChartJsAsset::class,

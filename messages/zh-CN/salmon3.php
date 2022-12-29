@@ -30,6 +30,7 @@ return [
     'Max. Hazard Level (cleared)' => '最高危险程度(通关)',
     'MAX Hazard Level Cleared' => '已通关危险度MAX',
     'Not Defeated' => '没有击倒',
+    'Occurrence %' => '',
     'Pay Grade' => '评价倍率',
     'Private Job' => '私人打工',
     'Random Loan Rate' => '',
