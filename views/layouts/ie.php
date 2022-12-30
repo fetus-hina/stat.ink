@@ -1,13 +1,20 @@
 <?php
+
 declare(strict_types=1);
 
 use app\assets\IEWarningAsset;
 use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\web\View;
+
+/**
+ * @var View $this
+ */
 
 IEWarningAsset::register($this);
 
 $this->registerJs(sprintf('jQuery(%s).ieWarning();', Json::encode('#ie-warning')));
+
 ?>
 <aside id="ie-warning">
   <div class="navbar bg-danger mb-0">

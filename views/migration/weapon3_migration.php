@@ -5,16 +5,18 @@
  * The following variables are available in this view:
  */
 
-/**
- * @var string $className string the new migration class name without namespace
- * @var string $namespace string the new migration class namespace
- */
-
 use app\components\db\Weapon3Migration;
 use app\models\Special3;
 use app\models\Subweapon3;
 use app\models\WeaponType3;
+use yii\base\View;
 use yii\helpers\ArrayHelper;
+
+/**
+ * @var View $this
+ * @var string $className string the new migration class name without namespace
+ * @var string $namespace string the new migration class namespace
+ */
 
 $sub = implode(
   ', ',

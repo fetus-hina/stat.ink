@@ -24,7 +24,7 @@ class FeedAction extends BaseAction
         Yii::$app->timeZone = 'Etc/UTC';
         Yii::$app->language = 'ja-JP';
 
-        if (!$user = $this->user) {
+        if (!$user = $this->getUser()) {
             return $this->http404();
         }
 

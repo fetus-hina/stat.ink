@@ -7,11 +7,13 @@ use app\components\widgets\SalmonFilterWidget;
 use app\components\widgets\SalmonUserInfo;
 use app\components\widgets\SnsWidget;
 use app\models\User;
+use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
 
 /**
+ * @var ActiveDataProvider $dataProvider
  * @var User $user
  * @var View $this
  */
