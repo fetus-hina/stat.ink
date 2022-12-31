@@ -303,7 +303,6 @@ final class PostSalmonForm extends Model
                 return $battle;
             });
         } catch (Throwable $e) {
-            throw $e;
             $this->addError(
                 '_system',
                 vsprintf('Failed to store your battle (internal error), %s', [

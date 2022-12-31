@@ -137,23 +137,6 @@ class Agent extends \yii\db\ActiveRecord
     public function getIsOldIkalogAsAtTheTime($t = null)
     {
         return false;
-
-        if ($t === null) {
-            $t = $_SERVER['REQUEST_TIME'] ?? time();
-        } elseif (is_string($t)) {
-            $t = strtotime($t);
-        } else {
-            $t = (int)$t;
-        }
-        if (!$this->getIsIkalog()) {
-            return false;
-        }
-        if (preg_match('/^unknown\b/', $this->version)) {
-            return false;
-        }
-        return preg_match('/_Win(?:Ika|Tako)Log$/', $this->version)
-            ? $this->getIsOldWinIkalogAsAtTheTime($t)
-            : $this->getIsOldCliIkalogAsAtTheTime($t);
     }
 
     private static $latestWinIkaLog;

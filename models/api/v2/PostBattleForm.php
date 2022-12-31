@@ -687,15 +687,11 @@ class PostBattleForm extends Model
                     ? null
                     : Species2::findOne(['key' => $form->species]);
 
-                $gender = (function ($v) {
-                    switch (trim((string)$v)) {
-                        case 'boy':
-                            return 1;
-                        case 'girl':
-                            return 2;
-                        return null;
-                    }
-                })($form->gender);
+                $gender = match ($form->gender) {
+                    'boy' => 1,
+                    'girl' => 2,
+                    default => null,
+                };
 
                 $festTitle = $form->fest_title == ''
                     ? null

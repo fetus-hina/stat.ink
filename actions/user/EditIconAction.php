@@ -40,7 +40,6 @@ class EditIconAction extends BaseAction
                             Yii::t('app', 'Your profile icon has been updated.'),
                         );
                         return $this->controller->redirect(['user/profile'], 303);
-                        break;
 
                     case 'update':
                         $model = DynamicModel::validateData(

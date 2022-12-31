@@ -123,6 +123,5 @@ class GearConfiguration extends \yii\db\ActiveRecord
                 )
                 : null,
         ];
-        return null;
     }
 }

@@ -78,6 +78,7 @@
   <rule ref="Squiz.PHP.GlobalKeyword"/>
   <rule ref="Squiz.PHP.InnerFunctions"/>
   <rule ref="Squiz.PHP.LowercasePHPFunctions"/>
+  <rule ref="Squiz.PHP.NonExecutableCode"/>
 
   <!--rule ref="SlevomatCodingStandard.Variables.UnusedVariable"/-->
   <!--rule ref="Universal.OOStructures.AlphabeticExtendsImplements"/-->
