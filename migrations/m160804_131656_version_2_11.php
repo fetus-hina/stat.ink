@@ -13,7 +13,7 @@ class m160804_131656_version_2_11 extends Migration
 {
     public function safeUp()
     {
-        $this->batchInsert('splatoon_version', [ 'tag', 'name', 'released_at' ], [
+        $this->batchInsert('splatoon_version', ['tag', 'name', 'released_at'], [
             [ '2.11.0', '2.11.0', '2016-08-03T10:00:00+09:00' ],
         ]);
         $this->update(

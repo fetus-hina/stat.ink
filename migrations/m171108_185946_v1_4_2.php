@@ -14,7 +14,7 @@ class m171108_185946_v1_4_2 extends Migration
 {
     public function safeUp()
     {
-        $this->batchInsert('splatoon_version2', [ 'tag', 'name', 'released_at' ], [
+        $this->batchInsert('splatoon_version2', ['tag', 'name', 'released_at'], [
             ['1.4.2', '1.4.2', '2017-11-01T10:00:00+09:00'],
         ]);
         $this->update(

@@ -121,7 +121,7 @@ class SplapiController extends Controller
         echo "inserting...\n";
         Yii::$app->db->createCommand()->batchInsert(
             PeriodMap::tableName(),
-            [ 'period', 'rule_id', 'map_id' ],
+            ['period', 'rule_id', 'map_id'],
             $insert
         )->execute();
         echo "done.\n";
@@ -188,7 +188,7 @@ class SplapiController extends Controller
         echo "inserting...\n";
         Yii::$app->db->createCommand()->batchInsert(
             PeriodMap::tableName(),
-            [ 'period', 'rule_id', 'map_id' ],
+            ['period', 'rule_id', 'map_id'],
             $insert
         )->execute();
         echo "done.\n";

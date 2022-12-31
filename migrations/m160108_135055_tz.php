@@ -16,7 +16,7 @@ class m160108_135055_tz extends Migration
         $regionNA = Region::findOne(['key' => 'na'])->id;
         $this->batchInsert(
             'timezone',
-            [ 'identifier', 'name', 'order', 'region_id' ],
+            ['identifier', 'name', 'order', 'region_id'],
             [
                 [ 'America/St_Johns', 'North America (Newfoundland)', 10001, $regionNA ],
                 [ 'America/Halifax', 'North America (AT)', 10002, $regionNA ],

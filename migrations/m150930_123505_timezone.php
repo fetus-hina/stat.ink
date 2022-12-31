@@ -18,7 +18,7 @@ class m150930_123505_timezone extends Migration
             'name'          => $this->string(32)->notNull()->unique(),
             'order'         => $this->integer()->unique(),
         ]);
-        $this->batchInsert('timezone', [ 'identifier', 'name', 'order' ], [
+        $this->batchInsert('timezone', ['identifier', 'name', 'order'], [
             [ 'Asia/Tokyo',             'Japan Time',                1 ],
             [ 'Europe/Athens',          'European Time (East)',     11 ],
             [ 'Europe/Paris',           'European Time (Central)',  12 ],

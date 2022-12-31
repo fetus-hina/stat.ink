@@ -28,7 +28,7 @@ class m151203_101156_splapi_rule extends Migration
 
         $this->batchInsert(
             'splapi_rule',
-            [ 'rule_id', 'name' ],
+            ['rule_id', 'name'],
             [
                 [ $rule['nawabari'], 'ナワバリバトル' ],
                 [ $rule['area'],     'ガチエリア' ],

@@ -2,10 +2,10 @@
 <ruleset name="Customized-PSR2">
   <description>A custom coding standard</description>
 
-  <ini name="memory_limit" value="-1" />
-  <arg name="extensions" value="php" />
+  <ini name="memory_limit" value="-1"/>
+  <arg name="extensions" value="php"/>
     
-  <rule ref="PSR12" />
+  <rule ref="PSR12"/>
   <file>.</file>
   <exclude-pattern>*/bin/</exclude-pattern>
   <exclude-pattern>*/data/</exclude-pattern>
@@ -20,19 +20,20 @@
 
   <rule ref="PSR12">
     <file>*/components/ability/effect/*</file>
-    <exclude name="Squiz.Classes.ValidClassName.NotCamelCaps" />
+    <exclude name="Squiz.Classes.ValidClassName.NotCamelCaps"/>
   </rule>
 
   <rule ref="PSR12">
     <file>*/migrations/*</file>
-    <exclude name="Squiz.Classes.ValidClassName.NotCamelCaps" />
-    <exclude name="PSR1.Classes.ClassDeclaration" />
+    <exclude name="Squiz.Classes.ValidClassName.NotCamelCaps"/>
+    <exclude name="PSR1.Classes.ClassDeclaration"/>
   </rule>
 
   <rule ref="PSR12">
     <file>*/messages/*</file>
-    <exclude name="Generic.Files.LineLength" />
+    <exclude name="Generic.Files.LineLength"/>
   </rule>
 
-  <rule ref="SlevomatCodingStandard.Arrays.TrailingArrayComma" />
+  <rule ref="SlevomatCodingStandard.Arrays.SingleLineArrayWhitespace"/>
+  <rule ref="SlevomatCodingStandard.Arrays.TrailingArrayComma"/>
 </ruleset>

@@ -13,14 +13,14 @@ class m151217_063309_map_add extends Migration
 {
     public function safeUp()
     {
-        $this->batchInsert('map', [ 'key', 'name' ], [
+        $this->batchInsert('map', ['key', 'name'], [
             ['shottsuru', 'Piranha Pit'],
             ['anchovy',   'Ancho-V Games'],
         ]);
 
         $this->batchInsert(
             'splapi_map',
-            [ 'map_id', 'name' ],
+            ['map_id', 'name'],
             [
                 [ Map::findOne(['key' => 'shottsuru'])->id, 'ショッツル鉱山' ],
                 [ Map::findOne(['key' => 'anchovy'])->id,   'アンチョビットゲームズ' ],

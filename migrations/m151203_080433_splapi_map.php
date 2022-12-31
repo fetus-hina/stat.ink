@@ -28,7 +28,7 @@ class m151203_080433_splapi_map extends Migration
 
         $this->batchInsert(
             'splapi_map',
-            [ 'map_id', 'name' ],
+            ['map_id', 'name'],
             [
                 [ $map['arowana'],  'アロワナモール' ],
                 [ $map['bbass'],    'Ｂバスパーク' ],

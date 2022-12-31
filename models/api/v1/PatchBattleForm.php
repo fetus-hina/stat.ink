@@ -99,7 +99,7 @@ class PatchBattleForm extends Model
                 : $this->link_url;
         }
 
-        $keys = [ 'note', 'private_note' ];
+        $keys = ['note', 'private_note'];
         foreach ($keys as $key) {
             if ($this->$key != '') {
                 $battle->$key = ($this->$key === static::DELETE_MARK)

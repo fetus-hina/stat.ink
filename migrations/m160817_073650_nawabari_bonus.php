@@ -17,7 +17,7 @@ class m160817_073650_nawabari_bonus extends Migration
             'bonus'     => $this->integer()->notNull(),
             'start_at'  => 'TIMESTAMP(0) WITH TIME ZONE NOT NULL',
         ]);
-        $this->batchInsert('turfwar_win_bonus', [ 'bonus', 'start_at' ], [
+        $this->batchInsert('turfwar_win_bonus', ['bonus', 'start_at'], [
             [  300, '2015-05-28 00:00:00+09' ],
             [ 1000, '2016-07-24 19:03:00+09' ],
         ]);

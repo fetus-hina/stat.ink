@@ -91,8 +91,8 @@ class PeriodMap extends \yii\db\ActiveRecord
             ],
         ];
         $list = static::findByModeAndPeriod(
-            [ 'regular', 'gachi' ],
-            [ $currentPeriod, $currentPeriod + 1 ]
+            ['regular', 'gachi'],
+            [$currentPeriod, $currentPeriod + 1]
         )->all();
         foreach ($list as $o) {
             $key = ($o->period == $currentPeriod) ? 'current' : 'next';

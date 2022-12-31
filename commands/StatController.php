@@ -330,7 +330,7 @@ final class StatController extends Controller
         $db->createCommand()
             ->batchInsert(
                 StatEntireUser::tableName(),
-                [ 'date', 'battle_count', 'user_count' ],
+                ['date', 'battle_count', 'user_count'],
                 array_map(
                     function ($row) {
                         return [
@@ -448,7 +448,7 @@ final class StatController extends Controller
         $db->createCommand()
             ->batchInsert(
                 StatAgentUser::tableName(),
-                [ 'agent', 'date', 'battle_count', 'user_count' ],
+                ['agent', 'date', 'battle_count', 'user_count'],
                 $insertList
             )
             ->execute();
@@ -532,7 +532,7 @@ final class StatController extends Controller
         $db->createCommand()
             ->batchInsert(
                 Knockout::tableName(),
-                [ 'map_id', 'rule_id', 'battles', 'knockouts' ],
+                ['map_id', 'rule_id', 'battles', 'knockouts'],
                 array_map(
                     function ($row) {
                         return [

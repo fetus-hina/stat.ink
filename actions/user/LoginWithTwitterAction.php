@@ -54,7 +54,7 @@ class LoginWithTwitterAction extends BaseAction
                 $info = LoginWithTwitter::findOne(['twitter_id' => $user['id_str']]);
                 if ($info && $info->login()) {
                     return $this->controller->goBack(
-                        ['show-user/profile', 'screen_name' => Yii::$app->user->identity->screen_name ]
+                        ['show-user/profile', 'screen_name' => Yii::$app->user->identity->screen_name]
                     );
                 }
 

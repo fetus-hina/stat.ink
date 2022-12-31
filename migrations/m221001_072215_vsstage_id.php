@@ -18,7 +18,7 @@ final class m221001_072215_vsstage_id extends Migration
     public function safeUp()
     {
         $this->batchInsert('{{%map3_alias}}', ['map_id', 'key'], array_map(
-            fn (string $key, int $vsId): array => [ $this->key2id('{{%map3}}', $key), (string)$vsId ],
+            fn (string $key, int $vsId): array => [$this->key2id('{{%map3}}', $key), (string)$vsId],
             array_keys($this->getData()),
             array_values($this->getData())
         ));

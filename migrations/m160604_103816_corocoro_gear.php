@@ -16,7 +16,7 @@ class m160604_103816_corocoro_gear extends Migration
     public function safeUp()
     {
         $zekko = Brand::findOne(['key' => 'zekko'])->id;
-        $this->batchInsert('gear', [ 'key', 'type_id', 'brand_id', 'name', 'ability_id'], [
+        $this->batchInsert('gear', ['key', 'type_id', 'brand_id', 'name', 'ability_id'], [
             [
                 'corocoro_cap',
                 GearType::findOne(['key' => 'headgear'])->id,

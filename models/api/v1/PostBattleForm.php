@@ -798,7 +798,7 @@ class PostBattleForm extends Model
 
         // stat.ink の要求する最小IkaLogバージョンを取得
         $ikalogReq = IkalogRequirement::find()
-            ->andWhere(['<=','[[from]]', new Now()])
+            ->andWhere(['<=', '[[from]]', new Now()])
             ->orderBy('[[from]] DESC')
             ->limit(1)
             ->one();

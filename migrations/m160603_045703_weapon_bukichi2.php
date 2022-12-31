@@ -20,7 +20,7 @@ class m160603_045703_weapon_bukichi2 extends Migration
     {
         $this->batchInsert(
             'weapon',
-            [ 'id', 'type_id', 'key', 'name', 'subweapon_id', 'special_id', 'canonical_id', 'main_group_id' ],
+            ['id', 'type_id', 'key', 'name', 'subweapon_id', 'special_id', 'canonical_id', 'main_group_id'],
             [
                 [
                     new Expression("nextval('weapon_id_seq'::regclass)"),

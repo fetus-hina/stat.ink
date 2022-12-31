@@ -20,7 +20,7 @@ class m160725_063530_utf16le extends Migration
             'substitute'    => ord('?'),
         ]);
         $id = Charset::findOne(['php_name' => 'UTF-16LE'])->id;
-        $this->batchInsert('language_charset', [ 'language_id', 'charset_id', 'is_win_acp' ], [
+        $this->batchInsert('language_charset', ['language_id', 'charset_id', 'is_win_acp'], [
             [ Language::findOne(['lang' => 'en-US'])->id, $id, false ],
             [ Language::findOne(['lang' => 'en-GB'])->id, $id, false ],
             [ Language::findOne(['lang' => 'es-ES'])->id, $id, false ],

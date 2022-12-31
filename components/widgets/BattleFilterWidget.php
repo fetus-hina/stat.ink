@@ -126,7 +126,7 @@ final class BattleFilterWidget extends Widget
     protected function drawLobby(ActiveForm $form)
     {
         $list = (function () {
-            $ret = [ '' => Yii::t('app-rule', 'Any Lobby') ];
+            $ret = ['' => Yii::t('app-rule', 'Any Lobby')];
             foreach (Lobby::find()->orderBy('[[id]] ASC')->asArray()->all() as $a) {
                 $ret[$a['key']] = Yii::t('app-rule', $a['name']);
             }
@@ -138,7 +138,7 @@ final class BattleFilterWidget extends Widget
     protected function drawRule(ActiveForm $form)
     {
         $list = (function () {
-            $ret = [ '' => Yii::t('app-rule', 'Any Mode') ];
+            $ret = ['' => Yii::t('app-rule', 'Any Mode')];
             foreach (GameMode::find()->orderBy('[[id]] ASC')->asArray()->all() as $gameMode) {
                 $gameModeText = Yii::t('app-rule', $gameMode['name']); // "ナワバリバトル"
                 $rules = Rule::find()
@@ -164,7 +164,7 @@ final class BattleFilterWidget extends Widget
     {
         $list = (function () {
             return array_merge(
-                [ '' => Yii::t('app-map', 'Any Stage') ],
+                ['' => Yii::t('app-map', 'Any Stage')],
                 (function () {
                     $ret = [];
                     foreach (Map::find()->asArray()->all() as $map) {
@@ -237,7 +237,7 @@ final class BattleFilterWidget extends Widget
             }
         }
         return array_merge(
-            [ '' => Yii::t('app-weapon', 'Any Weapon') ],
+            ['' => Yii::t('app-weapon', 'Any Weapon')],
             $ret
         );
     }
@@ -412,7 +412,7 @@ final class BattleFilterWidget extends Widget
                     ),
                 ])->input('text', ['placeholder' => 'YYYY-MM-DD hh:mm:ss'])->label(false),
             ]),
-            [ 'id' => $divId ]
+            ['id' => $divId]
         );
     }
 }

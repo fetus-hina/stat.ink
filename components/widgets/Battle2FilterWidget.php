@@ -309,7 +309,7 @@ class Battle2FilterWidget extends Widget
             }
         }
         return array_merge(
-            [ '' => Yii::t('app-weapon2', 'Any Weapon') ],
+            ['' => Yii::t('app-weapon2', 'Any Weapon')],
             $ret
         );
     }
@@ -555,7 +555,7 @@ class Battle2FilterWidget extends Widget
                     ),
                 ])->input('text', ['placeholder' => 'YYYY-MM-DD hh:mm:ss'])->label(false),
             ]),
-            [ 'id' => $divId ]
+            ['id' => $divId]
         );
     }
 }

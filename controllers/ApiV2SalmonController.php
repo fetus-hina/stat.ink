@@ -104,8 +104,8 @@ class ApiV2SalmonController extends Controller
         $header->set('Allow', implode(
             ', ',
             $id === null
-                ? [ 'GET', 'HEAD', 'POST', 'OPTIONS' ]
-                : [ 'GET', 'HEAD', /* 'PUT', 'PATCH', 'DELETE', */ 'OPTIONS']
+                ? ['GET', 'HEAD', 'POST', 'OPTIONS']
+                : ['GET', 'HEAD', /* 'PUT', 'PATCH', 'DELETE', */ 'OPTIONS']
         ));
         $header->set('Access-Control-Allow-Origin', '*');
         $header->set('Access-Control-Allow-Methods', $header->get('Allow'));

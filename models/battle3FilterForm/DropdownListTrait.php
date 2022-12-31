@@ -183,7 +183,7 @@ trait DropdownListTrait
                     : Yii::t($translateCatalog, $group->name);
             }
 
-            [$items, ] = $this->getSimpleDropdown(
+            [$items,] = $this->getSimpleDropdown(
                 $groupInfo['items'],
                 $translateCatalog,
                 null,

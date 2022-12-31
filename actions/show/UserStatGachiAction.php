@@ -206,7 +206,7 @@ class UserStatGachiAction extends BaseAction
         if ($entire = $this->getEntireRankStat()) {
             $exp = $this->calcGraphExp($battle->rankAfter->key, $battle->rank_exp_after);
 
-            $ranks = [ 'C-', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+', 'S', 'S+' ];
+            $ranks = ['C-', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+', 'S', 'S+'];
             $avgExp = (int)round($entire->average);
             $avgRank = Yii::t('app-rank', $ranks[floor($avgExp / 100)]);
             $avgRankExp = $avgExp % 100;
