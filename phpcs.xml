@@ -65,6 +65,7 @@
   <rule ref="SlevomatCodingStandard.PHP.UselessSemicolon"/>
   <rule ref="SlevomatCodingStandard.TypeHints.NullTypeHintOnLastPosition"/>
   <rule ref="SlevomatCodingStandard.TypeHints.NullableTypeForNullDefaultValue"/>
+  <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHintSpacing"/>
 
   <!--rule ref="Universal.OOStructures.AlphabeticExtendsImplements"/-->
 
