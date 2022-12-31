@@ -101,4 +101,8 @@
       <property name="spacesCountAfterReference" value="0"/>
     </properties>
   </rule>
+
+  <rule ref="Squiz.Classes.SelfMemberReference">
+    <exclude-pattern>*/models/*</exclude-pattern>
+  </rule>
 </ruleset>

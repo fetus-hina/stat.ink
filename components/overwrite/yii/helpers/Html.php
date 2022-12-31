@@ -121,12 +121,12 @@ class Html extends BaseHtml
         }
 
         if ($rankInfo[1] === null) {
-            return Html::encode(Yii::t('app-rank2', $rankInfo[0]));
+            return self::encode(Yii::t('app-rank2', $rankInfo[0]));
         }
 
         return implode('', [
-            Html::encode(Yii::t('app-rank2', $rankInfo[0])),
-            Html::tag('small', Html::encode(' ' . (string)$rankInfo[1])),
+            self::encode(Yii::t('app-rank2', $rankInfo[0])),
+            self::tag('small', self::encode(' ' . (string)$rankInfo[1])),
         ]);
     }
 }
