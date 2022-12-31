@@ -39,7 +39,7 @@ class Region extends \yii\db\ActiveRecord
             [['key', 'name'], 'required'],
             [['key'], 'string', 'max' => 2],
             [['name'], 'string', 'max' => 64],
-            [['key'], 'unique']
+            [['key'], 'unique'],
         ];
     }
 

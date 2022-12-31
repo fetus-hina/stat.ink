@@ -969,7 +969,7 @@ class UserMiniInfo2 extends Widget
     private function formatShortNumberJapanese(int $value): string
     {
         return $this->formatShortNumberImpl($value, 4, [
-            '万', '億', '兆', '京', '垓', '𥝱', '穣'
+            '万', '億', '兆', '京', '垓', '𥝱', '穣',
         ]);
     }
 
@@ -981,14 +981,14 @@ class UserMiniInfo2 extends Widget
     private function formatShortNumberChineseS(int $value): string
     {
         return $this->formatShortNumberImpl($value, 4, [
-            '万', '亿', '兆', '京', '垓', '秭', '穰'
+            '万', '亿', '兆', '京', '垓', '秭', '穰',
         ]);
     }
 
     private function formatShortNumberChineseT(int $value): string
     {
         return $this->formatShortNumberImpl($value, 4, [
-            '萬', '億', '兆', '京', '垓', '秭', '穰'
+            '萬', '億', '兆', '京', '垓', '秭', '穰',
         ]);
     }
 

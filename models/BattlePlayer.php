@@ -55,7 +55,7 @@ class BattlePlayer extends \yii\db\ActiveRecord
             [['battle_id', 'is_my_team', 'is_me'], 'required'],
             [['battle_id', 'weapon_id', 'rank_id', 'level', 'rank_in_team', 'kill', 'death', 'point'], 'integer'],
             [['my_kill'], 'integer'],
-            [['is_my_team', 'is_me'], 'boolean']
+            [['is_my_team', 'is_me'], 'boolean'],
         ];
     }
 

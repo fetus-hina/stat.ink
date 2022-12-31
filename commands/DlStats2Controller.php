@@ -135,7 +135,7 @@ class DlStats2Controller extends Controller
                     [
                         'battle2.is_automated' => true,
                         'battle2.use_for_entire' => true,
-                    ]
+                    ],
                 ])
                 ->orderBy(['battle2.start_at' => SORT_ASC]);
             foreach ($query->each(500) as $battle) {

@@ -340,7 +340,7 @@ class PostForm extends Model
             ->andWhere(['and',
                 ['user_id' => Yii::$app->user->id],
                 ['uuid' => $this->getUuidFormatted()],
-                ['>=', 'created_at', $findThreshold->format(DateTime::ATOM)]
+                ['>=', 'created_at', $findThreshold->format(DateTime::ATOM)],
             ])
             ->limit(1)
             ->one();

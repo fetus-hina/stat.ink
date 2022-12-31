@@ -53,7 +53,7 @@ class Knockout2Action extends BaseAction
                                 default:
                                     return 'ERROR';
                             }
-                        })($form->lobby)
+                        })($form->lobby),
                     ]);
             }
             if ($form->rank != '') {

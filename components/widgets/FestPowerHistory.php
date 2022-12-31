@@ -92,7 +92,7 @@ class FestPowerHistory extends Widget
                         'class' => [
                             'fest-power-history',
                             'mb-1',
-                        ]
+                        ],
                     ]),
                     ['class' => 'table-responsive']
                 ),

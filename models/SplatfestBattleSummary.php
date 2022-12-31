@@ -42,7 +42,7 @@ class SplatfestBattleSummary extends \yii\db\ActiveRecord
             [['fest_id', 'timestamp', 'alpha_win', 'alpha_lose', 'bravo_win', 'bravo_lose'], 'required'],
             [['summarized_at'], 'required'],
             [['fest_id', 'alpha_win', 'alpha_lose', 'bravo_win', 'bravo_lose'], 'integer'],
-            [['timestamp', 'summarized_at'], 'safe']
+            [['timestamp', 'summarized_at'], 'safe'],
         ];
     }
 

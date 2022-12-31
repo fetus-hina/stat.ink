@@ -39,7 +39,7 @@ class ActiveRelativeTimeWidget extends Widget
                 'data' => [
                     'time' => (string)(int)$this->datetime->getTimestamp(),
                     'mode' => $this->mode === 'short' ? 'short' : 'long',
-                ]
+                ],
             ]
         );
     }

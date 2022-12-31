@@ -80,7 +80,7 @@ class XPowerHistory extends Widget
                         'class' => [
                             'xpower-history',
                             'mb-1',
-                        ]
+                        ],
                     ]),
                     ['class' => 'table-responsive']
                 ),

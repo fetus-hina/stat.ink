@@ -235,7 +235,7 @@ class Slack extends \yii\db\ActiveRecord
         $url = Url::to(
             ['show-v2/battle',
                 'screen_name' => $battle->user->screen_name,
-                'battle' => $battle->id
+                'battle' => $battle->id,
             ],
             true
         );
@@ -324,7 +324,7 @@ class Slack extends \yii\db\ActiveRecord
                     $_SERVER['REQUEST_TIME'] ?? time(),
                     'long'
                 )
-            )
+            ),
         ], true);
     }
 

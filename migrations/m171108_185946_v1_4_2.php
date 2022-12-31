@@ -25,7 +25,7 @@ class m171108_185946_v1_4_2 extends Migration
                 BattleHelper::calcPeriod2(
                     (new DateTimeImmutable('2017-11-01T11:00:00+09:00'))
                         ->getTimestamp()
-                )
+                ),
             ]
         );
     }

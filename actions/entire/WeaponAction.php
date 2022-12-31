@@ -193,7 +193,7 @@ final class WeaponAction extends Action
                     ['and',
                         ['=', 'isoyear', 2015],
                         ['>=', 'isoweek', 46],
-                    ]
+                    ],
                 ],
                 ['<', 'isoyear', 2018],
             ])

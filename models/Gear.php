@@ -47,7 +47,7 @@ class Gear extends \yii\db\ActiveRecord
             [['key', 'type_id', 'brand_id', 'name', 'ability_id'], 'required'],
             [['type_id', 'brand_id', 'ability_id'], 'integer'],
             [['key', 'name'], 'string', 'max' => 32],
-            [['key'], 'unique']
+            [['key'], 'unique'],
         ];
     }
 

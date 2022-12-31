@@ -184,7 +184,7 @@ class Battle
                 'between',
                 'battle2.period',
                 $lastBattle->period - 47,
-                $lastBattle->period
+                $lastBattle->period,
             ])
             ->orderBy(['battle2.id' => SORT_ASC])
             ->limit(1)

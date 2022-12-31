@@ -47,7 +47,7 @@ class RemoteFollowModalForm extends Model
                 },
             ],
             [['host_name'], 'required'],
-            [['host_name'], 'validateHasIpAddr']
+            [['host_name'], 'validateHasIpAddr'],
         ];
     }
 

@@ -45,15 +45,15 @@ class StatWeaponMapTrend extends \yii\db\ActiveRecord
             [['rule_id', 'map_id', 'weapon_id', 'battles'], 'integer'],
             [['map_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Map::class,
-                'targetAttribute' => ['map_id' => 'id']
+                'targetAttribute' => ['map_id' => 'id'],
             ],
             [['rule_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Rule::class,
-                'targetAttribute' => ['rule_id' => 'id']
+                'targetAttribute' => ['rule_id' => 'id'],
             ],
             [['weapon_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Weapon::class,
-                'targetAttribute' => ['weapon_id' => 'id']
+                'targetAttribute' => ['weapon_id' => 'id'],
             ],
         ];
     }

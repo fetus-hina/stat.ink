@@ -153,7 +153,7 @@ class UserStat extends \yii\db\ActiveRecord
             sprintf(
                 '{{battle}}.[[my_point]] - (%s) > 0',
                 'CASE {{battle}}.[[is_win]] WHEN TRUE THEN {{turfwar_win_bonus}}.[[bonus]] ELSE 0 END'
-            )
+            ),
         ]));
 
         $condTimePresent = sprintf('(%s)', implode(' AND ', [

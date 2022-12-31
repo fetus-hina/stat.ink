@@ -60,7 +60,7 @@ final class SnsWidget extends Widget
             ],
         );
         $this->tweetButton = Yii::createObject([
-            'class' => TweetButton::class
+            'class' => TweetButton::class,
         ]);
 
         $this->view->registerCss(

@@ -38,7 +38,7 @@ class SplapiRule extends \yii\db\ActiveRecord
             [['rule_id', 'name'], 'required'],
             [['rule_id'], 'integer'],
             [['name'], 'string', 'max' => 32],
-            [['name'], 'unique']
+            [['name'], 'unique'],
         ];
     }
 

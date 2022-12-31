@@ -65,7 +65,7 @@ class Salmon2FilterForm extends Model
                     'failed-wave3',
                     'failed-wave2',
                     'failed-wave1',
-                ]
+                ],
             ],
             [['reason'], 'exist', 'skipOnError' => true,
                 'targetClass' => SalmonFailReason2::class,
@@ -217,14 +217,14 @@ class Salmon2FilterForm extends Model
                     $query->andWhere([
                         '>=',
                         '{{salmon2}}.[[shift_period]]',
-                        BattleHelper::calcPeriod2($date1->getTimestamp())
+                        BattleHelper::calcPeriod2($date1->getTimestamp()),
                     ]);
 
                     if ($date2) {
                         $query->andWhere([
                             '<',
                             '{{salmon2}}.[[shift_period]]',
-                            BattleHelper::calcPeriod2($date2->getTimestamp())
+                            BattleHelper::calcPeriod2($date2->getTimestamp()),
                         ]);
                     }
                 } else {

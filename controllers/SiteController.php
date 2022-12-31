@@ -120,7 +120,7 @@ class SiteController extends Controller
             default:
                 $resp->content = implode("\n", [
                     'User-agent: *',
-                    'Disallow: /'
+                    'Disallow: /',
                 ]);
         }
     }

@@ -42,7 +42,7 @@ class Ability extends \yii\db\ActiveRecord
         return [
             [['key', 'name'], 'required'],
             [['key', 'name'], 'string', 'max' => 32],
-            [['key'], 'unique']
+            [['key'], 'unique'],
         ];
     }
 

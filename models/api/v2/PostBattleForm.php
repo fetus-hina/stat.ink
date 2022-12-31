@@ -216,7 +216,7 @@ class PostBattleForm extends Model
                     } catch (\Exception $e) {
                     }
                     return null;
-                }
+                },
             ],
         ];
     }

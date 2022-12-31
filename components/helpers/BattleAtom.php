@@ -353,7 +353,7 @@ class BattleAtom
                 '<a href="%s">%s</a>',
                 Url::to(['/show/battle', 'screen_name' => $user->screen_name, 'battle' => $battle->id], true),
                 static::getHostName()
-            )
+            ),
         ]));
     }
 

@@ -119,7 +119,7 @@ trait Splatoon2
                     ];
                 },
                 $list
-            )
+            ),
         ];
     }
 

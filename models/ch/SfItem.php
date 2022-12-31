@@ -110,7 +110,7 @@ class SfItem extends Model
                     return '\\' . $match[1];
                 },
                 $value
-            )
+            ),
         ]);
     }
 

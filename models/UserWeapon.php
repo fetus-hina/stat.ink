@@ -37,7 +37,7 @@ class UserWeapon extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'weapon_id', 'count'], 'required'],
-            [['user_id', 'weapon_id', 'count'], 'integer']
+            [['user_id', 'weapon_id', 'count'], 'integer'],
         ];
     }
 

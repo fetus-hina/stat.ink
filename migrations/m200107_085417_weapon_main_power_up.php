@@ -61,7 +61,7 @@ class m200107_085417_weapon_main_power_up extends Migration
                     'main_group_id' => (new Query())
                         ->select('id')
                         ->from('weapon2')
-                        ->andWhere(['key' => $weapons])
+                        ->andWhere(['key' => $weapons]),
                 ]
             );
         }
@@ -148,7 +148,7 @@ class m200107_085417_weapon_main_power_up extends Migration
             ],
             $this->getKeyFromName('Increase movement speed') => [
                 'hokusai',
-                'pablo'
+                'pablo',
             ],
             $this->getKeyFromName('Speed up brella canopy regeneration') => [
                 'parashelter',

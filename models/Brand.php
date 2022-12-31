@@ -45,7 +45,7 @@ class Brand extends \yii\db\ActiveRecord
             [['key', 'name'], 'required'],
             [['strength_id', 'weakness_id'], 'integer'],
             [['key', 'name'], 'string', 'max' => 32],
-            [['key'], 'unique']
+            [['key'], 'unique'],
         ];
     }
 

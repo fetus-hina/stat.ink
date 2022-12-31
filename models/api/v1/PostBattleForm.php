@@ -197,7 +197,7 @@ class PostBattleForm extends Model
             [['agent_variables'], 'validateAgentVariables'],
             [['agent_game_version'], 'validateAndFixAgentGameVersion'],
             [['agent_game_version_date'], 'validateAndFixAgentGameVersionDate'],
-            [['max_kill_combo', 'max_kill_streak'], 'integer', 'min' => 0]
+            [['max_kill_combo', 'max_kill_streak'], 'integer', 'min' => 0],
         ];
     }
 

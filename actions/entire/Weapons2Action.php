@@ -66,7 +66,7 @@ class Weapons2Action extends BaseAction
                 ['and',
                     ['=', 'isoyear', $threshold[0]],
                     ['>=', 'isoweek', $threshold[1]],
-                ]
+                ],
             ])
             ->groupBy('weapon_id')
             ->orderBy([
@@ -97,7 +97,7 @@ class Weapons2Action extends BaseAction
                 ['and',
                     ['=', 'isoyear', 2017],
                     ['>=', 'isoweek', 31],
-                ]
+                ],
             ])
             ->groupBy('isoyear, isoweek')
             ->orderBy('isoyear, isoweek');
@@ -274,13 +274,13 @@ class Weapons2Action extends BaseAction
                 $query->andWhere([
                     '>=',
                     '{{stat_weapon2_use_count}}.[[period]]',
-                    BattleHelper::calcPeriod2(strtotime($v1->released_at))
+                    BattleHelper::calcPeriod2(strtotime($v1->released_at)),
                 ]);
                 if ($v2) {
                     $query->andWhere([
                         '<',
                         '{{stat_weapon2_use_count}}.[[period]]',
-                        BattleHelper::calcPeriod2(strtotime($v2->released_at))
+                        BattleHelper::calcPeriod2(strtotime($v2->released_at)),
                     ]);
                 }
             } elseif (substr($form->term, 0, 2) === '~v') {
@@ -305,13 +305,13 @@ class Weapons2Action extends BaseAction
                 $query->andWhere([
                     '>=',
                     '{{stat_weapon2_use_count}}.[[period]]',
-                    BattleHelper::calcPeriod2(strtotime($v1->released_at))
+                    BattleHelper::calcPeriod2(strtotime($v1->released_at)),
                 ]);
                 if ($v3) {
                     $query->andWhere([
                         '<',
                         '{{stat_weapon2_use_count}}.[[period]]',
-                        BattleHelper::calcPeriod2(strtotime($v3->released_at))
+                        BattleHelper::calcPeriod2(strtotime($v3->released_at)),
                     ]);
                 }
             } else {

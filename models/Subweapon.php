@@ -42,7 +42,7 @@ class Subweapon extends \yii\db\ActiveRecord
             [['key', 'name'], 'required'],
             [['key', 'name'], 'string', 'max' => 32],
             [['key'], 'unique'],
-            [['name'], 'unique']
+            [['name'], 'unique'],
         ];
     }
 

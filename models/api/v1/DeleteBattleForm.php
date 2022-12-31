@@ -112,7 +112,7 @@ class DeleteBattleForm extends Model
             if (!$battle) {
                 $this->errorIdList[] = [
                     'id'    => $id,
-                    'error' => 'not found'
+                    'error' => 'not found',
                 ];
                 continue;
             }
@@ -120,7 +120,7 @@ class DeleteBattleForm extends Model
             if ($battle->user_id != $user->id) {
                 $this->errorIdList[] = [
                     'id'    => $id,
-                    'error' => 'user not match'
+                    'error' => 'user not match',
                 ];
                 continue;
             }
@@ -128,7 +128,7 @@ class DeleteBattleForm extends Model
             if ($battle->is_automated) {
                 $this->errorIdList[] = [
                     'id'    => $id,
-                    'error' => 'automated result'
+                    'error' => 'automated result',
                 ];
                 continue;
             }

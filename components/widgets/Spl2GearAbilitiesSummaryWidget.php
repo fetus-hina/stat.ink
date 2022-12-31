@@ -85,7 +85,7 @@ class Spl2GearAbilitiesSummaryWidget extends Widget
                                             'height' => '1.667em',
                                         ],
                                     ]),
-                                    Html::encode(Yii::t('app-ability2', $model->ability->name))
+                                    Html::encode(Yii::t('app-ability2', $model->ability->name)),
                                 ]),
                                 ['class' => 'visible-lg-block']
                             );
@@ -237,7 +237,7 @@ class Spl2GearAbilitiesSummaryWidget extends Widget
                             Column $column
                         ): string {
                             return (string)$model->coefficient;
-                        }
+                        },
                     ],
                 ],
             ]),

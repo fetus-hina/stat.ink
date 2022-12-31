@@ -41,7 +41,7 @@ class BattleEvents extends \yii\db\ActiveRecord
         return [
             [['id', 'events'], 'required'],
             [['id'], 'integer'],
-            [['events'], 'string']
+            [['events'], 'string'],
         ];
     }
 

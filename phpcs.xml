@@ -33,4 +33,6 @@
     <file>*/messages/*</file>
     <exclude name="Generic.Files.LineLength" />
   </rule>
+
+  <rule ref="SlevomatCodingStandard.Arrays.TrailingArrayComma" />
 </ruleset>

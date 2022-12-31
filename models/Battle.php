@@ -1057,7 +1057,7 @@ class Battle extends ActiveRecord
         $gears = [
             $this->headgear,
             $this->clothing,
-            $this->shoes
+            $this->shoes,
         ];
 
         $init = function ($ability) {

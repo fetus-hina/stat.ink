@@ -40,7 +40,7 @@ class StatWeaponKillDeath extends \yii\db\ActiveRecord
     {
         return [
             [['weapon_id', 'rule_id', 'kill', 'death', 'battle', 'win'], 'required'],
-            [['weapon_id', 'rule_id', 'kill', 'death', 'battle', 'win'], 'integer']
+            [['weapon_id', 'rule_id', 'kill', 'death', 'battle', 'win'], 'integer'],
         ];
     }
 

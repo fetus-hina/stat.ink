@@ -131,7 +131,7 @@ trait Splatoon2
                     ->andWhere([
                         '>',
                         '{{salmon_schedule2}}.[[end_at]]',
-                        $this->now->format(DateTime::ATOM)
+                        $this->now->format(DateTime::ATOM),
                     ])
                     ->orderBy([
                         '{{salmon_schedule2}}.[[end_at]]' => SORT_ASC,

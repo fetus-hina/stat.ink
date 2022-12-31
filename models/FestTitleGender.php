@@ -38,7 +38,7 @@ class FestTitleGender extends \yii\db\ActiveRecord
         return [
             [['title_id', 'gender_id', 'name'], 'required'],
             [['title_id', 'gender_id'], 'integer'],
-            [['name'], 'string', 'max' => 32]
+            [['name'], 'string', 'max' => 32],
         ];
     }
 

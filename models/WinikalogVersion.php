@@ -37,7 +37,7 @@ class WinikalogVersion extends \yii\db\ActiveRecord
         return [
             [['revision_id'], 'integer'],
             [['build_at'], 'required'],
-            [['build_at'], 'safe']
+            [['build_at'], 'safe'],
         ];
     }
 

@@ -86,7 +86,7 @@ class Battle2Controller extends Controller
             ->with(['battlePlayers' => function ($query) {
                 $query->andWhere(['and',
                     ['not', ['is_my_team' => null]],
-                    ['not', ['point' => null]]
+                    ['not', ['point' => null]],
                 ]);
             }])
             ->andWhere(['and',

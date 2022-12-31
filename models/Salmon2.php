@@ -563,7 +563,7 @@ class Salmon2 extends ActiveRecord
                 'id' => $this->id,
             ], true),
             'api_endpoint' => Url::to(['api-v2-salmon/view',
-                'id' => $this->id
+                'id' => $this->id,
             ], true),
             'user' => $this->user->toSalmonJsonArray(),
             'stage' => $this->stage_id ? $this->stage->toJsonArray() : null,

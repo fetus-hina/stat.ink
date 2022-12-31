@@ -43,7 +43,7 @@ class StatWeapon extends \yii\db\ActiveRecord
         return [
             [['rule_id', 'weapon_id', 'players', 'total_kill', 'total_death', 'win_count'], 'required'],
             [['rule_id', 'weapon_id', 'players', 'total_kill', 'total_death', 'win_count'], 'integer'],
-            [['total_point', 'point_available'], 'integer']
+            [['total_point', 'point_available'], 'integer'],
         ];
     }
 

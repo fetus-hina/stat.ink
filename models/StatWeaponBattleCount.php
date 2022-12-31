@@ -35,7 +35,7 @@ class StatWeaponBattleCount extends \yii\db\ActiveRecord
     {
         return [
             [['count'], 'required'],
-            [['count'], 'integer']
+            [['count'], 'integer'],
         ];
     }
 

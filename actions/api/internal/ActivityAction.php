@@ -152,7 +152,7 @@ final class ActivityAction extends Action
                 'between',
                 $date,
                 $from->format(DateTime::ATOM),
-                $to->format(DateTime::ATOM)
+                $to->format(DateTime::ATOM),
             ])
             ->groupBy([$date])
             ->orderBy(['date' => SORT_ASC]);
@@ -180,7 +180,7 @@ final class ActivityAction extends Action
                 'between',
                 $date,
                 $from->format(DateTime::ATOM),
-                $to->format(DateTime::ATOM)
+                $to->format(DateTime::ATOM),
             ])
             ->groupBy([$date])
             ->orderBy(['date' => SORT_ASC]);
@@ -207,7 +207,7 @@ final class ActivityAction extends Action
                 'between',
                 $date,
                 $from->format(DateTime::ATOM),
-                $to->format(DateTime::ATOM)
+                $to->format(DateTime::ATOM),
             ])
             ->groupBy([$date])
             ->orderBy(['date' => SORT_ASC]);
@@ -238,7 +238,7 @@ final class ActivityAction extends Action
                 'between',
                 $date,
                 $from->format(DateTime::ATOM),
-                $to->format(DateTime::ATOM)
+                $to->format(DateTime::ATOM),
             ])
             ->groupBy([$date])
             ->orderBy(['date' => SORT_ASC]);
@@ -269,7 +269,7 @@ final class ActivityAction extends Action
                 'between',
                 $date,
                 $from->format(DateTime::ATOM),
-                $to->format(DateTime::ATOM)
+                $to->format(DateTime::ATOM),
             ])
             ->groupBy([$date])
             ->orderBy(['date' => SORT_ASC]);

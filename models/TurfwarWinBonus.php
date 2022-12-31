@@ -43,7 +43,7 @@ class TurfwarWinBonus extends \yii\db\ActiveRecord
                                 : (is_numeric($time)
                                     ? DateTimeFormatter::unixTimeToString($time, new DateTimeZone('Etc/UTC'))
                                     : (string)$time
-                                )
+                                ),
                         ]);
             }
         };

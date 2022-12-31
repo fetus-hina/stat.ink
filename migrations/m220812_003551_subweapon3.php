@@ -101,7 +101,7 @@ final class m220812_003551_subweapon3 extends Migration
             'splashbomb' => 'Splat Bomb',
             'splashshield' => 'Splash Wall',
             'sprinkler' => 'Sprinkler',
-            'torpedo' => 'Torpedo'
+            'torpedo' => 'Torpedo',
         ];
     }
 }

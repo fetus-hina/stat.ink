@@ -39,7 +39,7 @@ class SplatfestTeam extends \yii\db\ActiveRecord
         return [
             [['fest_id', 'team_id', 'name'], 'required'],
             [['fest_id', 'team_id', 'color_hue'], 'integer'],
-            [['name'], 'string', 'max' => 32]
+            [['name'], 'string', 'max' => 32],
         ];
     }
 

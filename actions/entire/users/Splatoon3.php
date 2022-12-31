@@ -113,7 +113,7 @@ trait Splatoon3
                         ];
                     },
                     $list
-                )
+                ),
             ];
         } finally {
             unset($tz);

@@ -94,7 +94,7 @@ abstract class Base extends Component
         $gears = [
             $this->battle->headgear,
             $this->battle->clothing,
-            $this->battle->shoes
+            $this->battle->shoes,
         ];
         $main = 0;
         $sub = 0;

@@ -41,7 +41,7 @@ trait Weapon2Trait
                 'death' => 'battle_player2.death',
                 'assist' => vsprintf('(%s - %s)', [
                     'battle_player2.kill_or_assist',
-                    'battle_player2.kill'
+                    'battle_player2.kill',
                 ]),
                 'special' => 'battle_player2.special',
                 'points' => vsprintf('(FLOOR((%s)::DOUBLE PRECISION / %2$.1f)::BIGINT * %2$d)', [
@@ -50,12 +50,12 @@ trait Weapon2Trait
                         "WHEN battle2.is_win = battle_player2.is_my_team THEN 1000",
                         "ELSE 0",
                     ])),
-                    $pointNormalize
+                    $pointNormalize,
                 ]),
                 'battles' => 'COUNT(*)',
                 'wins' => sprintf('SUM(CASE %s END)', implode(' ', [
                     'WHEN battle2.is_win = battle_player2.is_my_team THEN 1',
-                    'ELSE 0'
+                    'ELSE 0',
                 ])),
             ])
             ->innerJoinWith([
@@ -135,7 +135,7 @@ trait Weapon2Trait
                         ])),
                         $pointNormalize
                     ),
-                    0
+                    0,
                 ],
             ])
             ->orderBy(null);

@@ -71,7 +71,7 @@ abstract class BaseWidget extends Widget
                                 'div',
                                 $this->renderDatetimeHtml(),
                                 ['class' => 'simple-battle-at']
-                            )
+                            ),
                         ]),
                         ['class' => 'simple-battle-row-impl']
                     ),

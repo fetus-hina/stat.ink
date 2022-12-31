@@ -26,7 +26,7 @@ return [
                 'map',
                 'rule',
                 'user',
-                'user.userIcon'
+                'user.userIcon',
             ])
             ->limit($num ?? 100)
             ->orderBy(['battle.id' => SORT_DESC]),

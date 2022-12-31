@@ -29,19 +29,19 @@ class m160902_132006_lobby extends Migration
         return [
             'standard' => [
                 'Standard Battle',
-                'Solo Queue'
+                'Solo Queue',
             ],
             'squad_2' => [
                 'Squad Battle (2 Players)',
-                'Squad Battle (Twin)'
+                'Squad Battle (Twin)',
             ],
             'squad_3' => [
                 'Squad Battle (3 Players)',
-                'Squad Battle (Tri)'
+                'Squad Battle (Tri)',
             ],
             'squad_4' => [
                 'Squad Battle (4 Players)',
-                'Squad Battle (Quad)'
+                'Squad Battle (Quad)',
             ],
         ];
     }

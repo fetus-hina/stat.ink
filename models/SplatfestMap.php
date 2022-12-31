@@ -37,7 +37,7 @@ class SplatfestMap extends \yii\db\ActiveRecord
     {
         return [
             [['splatfest_id', 'map_id'], 'required'],
-            [['splatfest_id', 'map_id'], 'integer']
+            [['splatfest_id', 'map_id'], 'integer'],
         ];
     }
 

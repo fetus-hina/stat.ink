@@ -426,7 +426,7 @@ class DeeplTranslator extends Component
         try {
             $wrapped = vsprintf('%s<div id="wrap">%s</div>', [
                 '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">',
-                str_replace('<br>', '<br/>', $textMayXml)
+                str_replace('<br>', '<br/>', $textMayXml),
             ]);
             $doc = new DOMDocument();
             $doc->preserveWhiteSpace = true;

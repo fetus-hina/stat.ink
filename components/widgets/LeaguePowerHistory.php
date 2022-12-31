@@ -132,7 +132,7 @@ class LeaguePowerHistory extends Widget
                         'class' => [
                             'league-power-history',
                             'mb-1',
-                        ]
+                        ],
                     ]),
                     ['class' => 'table-responsive']
                 ),

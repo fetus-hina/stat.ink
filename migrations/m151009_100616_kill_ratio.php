@@ -18,7 +18,7 @@ class m151009_100616_kill_ratio extends Migration
                 'WHEN {{battle}}.[[kill]] = 0 AND {{battle}}.[[death]] = 0 THEN 1.00',
                 'WHEN {{battle}}.[[kill]] > 0 AND {{battle}}.[[death]] = 0 THEN 99.99',
                 'ELSE ({{battle}}.[[kill]]::float / {{battle}}.[[death]]::float)::numeric(4,2)',
-            'END'
+            'END',
         ]);
         $select = "SELECT {{battle}}.[[id]], {$selectRatio} AS [[kill_ratio]] " .
             "FROM {{battle}} " .

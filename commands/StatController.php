@@ -194,7 +194,7 @@ final class StatController extends Controller
                         'and',
                         ['<>', '{{battle}}.[[is_win]]', new \yii\db\Expression('battle_player.is_my_team')],
                         ['>', '{{battle_player}}.[[point]]', 0],
-                    ]
+                    ],
                 ],
             ],
             // タッグバトルなら味方全部除外（連戦で無意味な重複の可能性が高い）
@@ -207,7 +207,7 @@ final class StatController extends Controller
                         ['{{battle_player}}.[[is_my_team]]' => false],
                     ],
                 ],
-            ]
+            ],
         ]);
 
         $query->select([
@@ -221,7 +221,7 @@ final class StatController extends Controller
                 implode(' ', [
                     'WHEN {{battle}}.[[is_win]] = TRUE AND {{battle_player}}.[[is_my_team]] = TRUE THEN 1',
                     'WHEN {{battle}}.[[is_win]] = FALSE AND {{battle_player}}.[[is_my_team]] = FALSE THEN 1',
-                    'ELSE 0'
+                    'ELSE 0',
                 ])
             ),
             'total_point' => sprintf(
@@ -278,7 +278,7 @@ final class StatController extends Controller
                     implode(' ', [
                         'WHEN {{b}}.[[is_win]] = TRUE AND {{p}}.[[is_my_team]] = TRUE THEN 1',
                         'WHEN {{b}}.[[is_win]] = FALSE AND {{p}}.[[is_my_team]] = FALSE THEN 1',
-                        'ELSE 0'
+                        'ELSE 0',
                     ])
                 ),
             ])
@@ -336,7 +336,7 @@ final class StatController extends Controller
                         return [
                             $row['date'],
                             $row['battle_count'],
-                            $row['user_count']
+                            $row['user_count'],
                         ];
                     },
                     (new \yii\db\Query())
@@ -422,7 +422,7 @@ final class StatController extends Controller
                     $row['agent'],
                     $row['date'],
                     $row['battle_count'],
-                    $row['user_count']
+                    $row['user_count'],
                 ];
             },
             (new \yii\db\Query())
@@ -589,7 +589,7 @@ final class StatController extends Controller
                 'battlePlayers' => function ($query) {
                     $query->orderBy(null);
                 },
-                'battlePlayers.rank'
+                'battlePlayers.rank',
             ])
             ->where(['and',
                 ['not', ['battle2.is_win' => null]],
@@ -731,7 +731,7 @@ final class StatController extends Controller
                         'and',
                         ['<>', '{{b}}.[[is_win]]', new \yii\db\Expression('p.is_my_team')],
                         ['>', '{{p}}.[[point]]', 0],
-                    ]
+                    ],
                 ],
             ],
             // タッグバトルなら味方全部除外（連戦で無意味な重複の可能性が高い）
@@ -744,7 +744,7 @@ final class StatController extends Controller
                         ['{{p}}.[[is_my_team]]' => false],
                     ],
                 ],
-            ]
+            ],
         ]);
 
         $sql = sprintf(
@@ -1105,7 +1105,7 @@ final class StatController extends Controller
                         '{{battle2}}.[[is_win]] = {{battle_player2}}.[[is_my_team]]',
                         '({{battle_player2}}.[[point]] - 1000)'
                     ),
-                    'ELSE {{battle_player2}}.[[point]]'
+                    'ELSE {{battle_player2}}.[[point]]',
                 ])),
                 'inked_available' => sprintf('SUM(CASE %s END)', implode(' ', [
                     'WHEN {{battle_player2}}.[[point]] IS NULL THEN 0',
@@ -1122,7 +1122,7 @@ final class StatController extends Controller
                         '{{battle2}}.[[is_win]] = {{battle_player2}}.[[is_my_team]]',
                         '({{battle_player2}}.[[point]] - 1000)'
                     ),
-                    'ELSE {{battle_player2}}.[[point]]'
+                    'ELSE {{battle_player2}}.[[point]]',
                 ])),
                 'inked_time_available' => sprintf('SUM(CASE %s END)', implode(' ', [
                     'WHEN {{battle_player2}}.[[point]] IS NULL THEN 0',

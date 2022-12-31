@@ -56,7 +56,7 @@ class SplatoonVersion extends \yii\db\ActiveRecord
             [['tag', 'name', 'released_at'], 'required'],
             [['released_at'], 'safe'],
             [['tag', 'name'], 'string', 'max' => 32],
-            [['tag'], 'unique']
+            [['tag'], 'unique'],
         ];
     }
 

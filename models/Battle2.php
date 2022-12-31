@@ -313,7 +313,7 @@ class Battle2 extends ActiveRecord
                 }
                 if ($form->result != '' || is_bool($form->result)) {
                     $and[] = [
-                        'battle2.is_win' => ($form->result === 'win' || $form->result === true)
+                        'battle2.is_win' => ($form->result === 'win' || $form->result === true),
                     ];
                 }
                 if ($form->has_disconnect != '' || is_bool($form->has_disconnect)) {
@@ -333,14 +333,14 @@ class Battle2 extends ActiveRecord
                     $and[] = ['between',
                         'battle2.id',
                         (int)$form->filterIdRange[0],
-                        (int)$form->filterIdRange[1]
+                        (int)$form->filterIdRange[1],
                     ];
                 }
                 if ($form->filterPeriod) {
                     $and[] = ['between',
                         'battle2.period',
                         (int)$form->filterPeriod[0],
-                        (int)$form->filterPeriod[1]
+                        (int)$form->filterPeriod[1],
                     ];
                 }
                 if ($form->filterWithPrincipalId) {
@@ -437,7 +437,7 @@ class Battle2 extends ActiveRecord
                             'between',
                             'battle2.period',
                             BattleHelper::calcPeriod2($thisMonth->getTimestamp()),
-                            BattleHelper::calcPeriod2($now->getTimestamp())
+                            BattleHelper::calcPeriod2($now->getTimestamp()),
                         ]);
                         break;
 
@@ -524,7 +524,7 @@ class Battle2 extends ActiveRecord
                                     'between',
                                     'battle2.id',
                                     (int)$range['min_id'],
-                                    (int)$range['max_id']
+                                    (int)$range['max_id'],
                                 ]);
                             }
                         } elseif (preg_match('/^last-(\d+)-periods$/', $term, $match)) {
@@ -533,7 +533,7 @@ class Battle2 extends ActiveRecord
                                 'between',
                                 'battle2.period',
                                 $currentPeriod - $match[1] + 1,
-                                $currentPeriod
+                                $currentPeriod,
                             ]);
                         } elseif (preg_match('/^~?v\d+/', $term)) {
                             $versions = (function () use ($term) {
@@ -1394,7 +1394,7 @@ class Battle2 extends ActiveRecord
             'url' => Url::to([
                 'show-v2/battle',
                 'screen_name' => $this->user->screen_name,
-                'battle' => $this->id
+                'battle' => $this->id,
             ], true),
             'user' => !in_array('user', $skips, true) && $this->user
                 ? $this->user->toJsonArray()

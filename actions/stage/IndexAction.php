@@ -20,7 +20,7 @@ class IndexAction extends BaseAction
         $this->controller->redirect([
             'stage/month',
             'year' => 2017,
-            'month' => 9
+            'month' => 9,
         ]);
     }
 }

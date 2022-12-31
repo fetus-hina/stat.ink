@@ -33,7 +33,7 @@ class m171223_203717_update_automated_flag extends Migration
                         ]
                     )
                 )
-            )
+            ),
         ]);
         $this->execute($sql);
     }

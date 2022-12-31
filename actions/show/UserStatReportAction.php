@@ -62,7 +62,7 @@ class UserStatReportAction extends BaseAction
                 [['month'], 'integer',
                     'min' => 1,
                     'max' => 12,
-                ]
+                ],
             ]
         );
         if ($form->hasErrors()) {

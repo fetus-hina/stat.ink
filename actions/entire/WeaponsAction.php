@@ -60,7 +60,7 @@ class WeaponsAction extends ViewAction
                 ['and',
                     ['=', 'isoyear', $threshold[0]],
                     ['>=', 'isoweek', $threshold[1]],
-                ]
+                ],
             ])
             ->groupBy('weapon_id')
             ->orderBy('SUM(battles) DESC')
@@ -89,7 +89,7 @@ class WeaponsAction extends ViewAction
                 ['and',
                     ['=', 'isoyear', 2015],
                     ['>=', 'isoweek', 46],
-                ]
+                ],
             ])
             ->groupBy('isoyear, isoweek')
             ->orderBy('isoyear, isoweek');
@@ -251,7 +251,7 @@ class WeaponsAction extends ViewAction
                     ->select('(1)')
                     ->from('{{user_weapon}} AS {{s}}')
                     ->andWhere('{{m}}.[[user_id]] = {{s}}.[[user_id]]')
-                    ->andWhere('{{m}}.[[count]] < {{s}}.[[count]]')
+                    ->andWhere('{{m}}.[[count]] < {{s}}.[[count]]'),
             ]);
 
         $query = (new Query())

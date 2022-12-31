@@ -61,7 +61,7 @@ class FreshnessHistory extends Widget
                         'id' => $this->id,
                         'class' => [
                             'freshness-history',
-                        ]
+                        ],
                     ]),
                     ['class' => 'table-responsive']
                 ),

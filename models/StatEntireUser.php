@@ -35,7 +35,7 @@ class StatEntireUser extends \yii\db\ActiveRecord
         return [
             [['date', 'battle_count', 'user_count'], 'required'],
             [['date'], 'safe'],
-            [['battle_count', 'user_count'], 'integer']
+            [['battle_count', 'user_count'], 'integer'],
         ];
     }
 

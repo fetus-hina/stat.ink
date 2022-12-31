@@ -42,7 +42,7 @@ class StatWeaponKDWinRate extends \yii\db\ActiveRecord
     {
         return [
             [['rule_id', 'map_id', 'weapon_id', 'kill', 'death', 'battle_count', 'win_count'], 'required'],
-            [['rule_id', 'map_id', 'weapon_id', 'kill', 'death', 'battle_count', 'win_count'], 'integer']
+            [['rule_id', 'map_id', 'weapon_id', 'kill', 'death', 'battle_count', 'win_count'], 'integer'],
         ];
     }
 
