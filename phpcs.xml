@@ -76,6 +76,7 @@
   <rule ref="Squiz.Functions.GlobalFunction"/>
   <rule ref="Squiz.Operators.ValidLogicalOperators"/>
   <rule ref="Squiz.PHP.GlobalKeyword"/>
+  <rule ref="Squiz.PHP.InnerFunctions"/>
 
   <!--rule ref="SlevomatCodingStandard.Variables.UnusedVariable"/-->
   <!--rule ref="Universal.OOStructures.AlphabeticExtendsImplements"/-->
