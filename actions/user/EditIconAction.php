@@ -11,10 +11,10 @@ namespace app\actions\user;
 use Yii;
 use app\models\User;
 use app\models\UserIcon;
-use yii\web\ServerErrorHttpException;
-use yii\web\ViewAction as BaseAction;
-use yii\web\UploadedFile;
 use yii\base\DynamicModel;
+use yii\web\ServerErrorHttpException;
+use yii\web\UploadedFile;
+use yii\web\ViewAction as BaseAction;
 
 class EditIconAction extends BaseAction
 {

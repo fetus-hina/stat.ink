@@ -51,4 +51,11 @@
   <rule ref="SlevomatCodingStandard.Functions.RequireArrowFunction"/>
   <rule ref="SlevomatCodingStandard.Functions.RequireTrailingCommaInCall"/>
   <rule ref="SlevomatCodingStandard.Functions.UnusedInheritedVariablePassedToClosure"/>
+
+  <rule ref="SlevomatCodingStandard.Namespaces.AlphabeticallySortedUses">
+    <properties>
+      <property name="psr12Compatible" value="true"/>
+      <property name="caseSensitive" value="true"/>
+    </properties>
+  </rule>
 </ruleset>

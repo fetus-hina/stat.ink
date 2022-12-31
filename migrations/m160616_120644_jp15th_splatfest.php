@@ -6,9 +6,9 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
 use app\models\Region;
 use app\models\Splatfest;
+use yii\db\Migration;
 
 class m160616_120644_jp15th_splatfest extends Migration
 {

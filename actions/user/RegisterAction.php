@@ -9,10 +9,10 @@
 namespace app\actions\user;
 
 use Yii;
-use yii\web\ViewAction as BaseAction;
 use app\models\LoginForm;
 use app\models\RegisterForm;
 use app\models\User;
+use yii\web\ViewAction as BaseAction;
 
 class RegisterAction extends BaseAction
 {

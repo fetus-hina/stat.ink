@@ -6,11 +6,11 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
+use app\models\DeathReasonType;
 use app\models\Special;
 use app\models\Subweapon;
 use app\models\WeaponType;
-use app\models\DeathReasonType;
+use yii\db\Migration;
 
 class m151124_085332_weapon extends Migration
 {

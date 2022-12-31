@@ -9,8 +9,8 @@
 namespace app\components\validators;
 
 use Yii;
-use yii\validators\Validator;
 use app\models\api\v3\postBattle\PlayerForm;
+use yii\validators\Validator;
 
 final class BattlePlayer3FormValidator extends Validator
 {

@@ -9,12 +9,12 @@
 namespace app\commands;
 
 use Yii;
-use yii\console\Controller;
-use yii\helpers\Console;
 use app\models\Region;
 use app\models\Splatfest;
 use app\models\SplatfestBattleSummary;
 use app\models\SplatfestTeam;
+use yii\console\Controller;
+use yii\helpers\Console;
 
 class SplatfestController extends Controller
 {

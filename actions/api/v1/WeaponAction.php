@@ -9,9 +9,9 @@
 namespace app\actions\api\v1;
 
 use Yii;
-use yii\web\ViewAction as BaseAction;
 use app\models\Weapon;
 use app\models\api\v1\WeaponGetForm;
+use yii\web\ViewAction as BaseAction;
 
 class WeaponAction extends BaseAction
 {

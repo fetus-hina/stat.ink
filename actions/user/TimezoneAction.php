@@ -9,10 +9,10 @@
 namespace app\actions\user;
 
 use Yii;
+use app\models\Timezone;
 use yii\base\DynamicModel;
 use yii\web\Cookie;
 use yii\web\ViewAction as BaseAction;
-use app\models\Timezone;
 
 class TimezoneAction extends BaseAction
 {

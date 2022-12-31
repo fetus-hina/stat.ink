@@ -9,9 +9,8 @@
 namespace app\models;
 
 use Yii;
-use yii\base\Model;
-use app\components\helpers\db\Now;
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\db\Now;
 use app\models\Battle;
 use app\models\GameMode;
 use app\models\Lobby;
@@ -24,6 +23,7 @@ use app\models\Subweapon;
 use app\models\Timezone;
 use app\models\User;
 use app\models\Weapon;
+use yii\base\Model;
 
 class BattleFilterForm extends Model
 {

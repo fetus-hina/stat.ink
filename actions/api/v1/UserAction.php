@@ -9,9 +9,9 @@
 namespace app\actions\api\v1;
 
 use Yii;
-use yii\web\ViewAction as BaseAction;
 use app\models\Battle;
 use app\models\User;
+use yii\web\ViewAction as BaseAction;
 
 class UserAction extends BaseAction
 {

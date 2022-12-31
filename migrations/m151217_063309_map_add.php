@@ -6,8 +6,8 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
 use app\models\Map;
+use yii\db\Migration;
 
 class m151217_063309_map_add extends Migration
 {

@@ -9,8 +9,8 @@
 namespace app\components\ability\effect;
 
 use Yii;
-use yii\base\Component;
 use app\models\Battle;
+use yii\base\Component;
 
 abstract class Base extends Component
 {

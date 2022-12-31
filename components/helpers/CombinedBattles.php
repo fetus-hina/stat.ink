@@ -12,9 +12,9 @@ namespace app\components\helpers;
 
 use DateTimeImmutable;
 use Yii;
+use app\models\Battle;
 use app\models\Battle2;
 use app\models\Battle3;
-use app\models\Battle;
 use app\models\Salmon2;
 use app\models\Salmon3;
 use app\models\User;

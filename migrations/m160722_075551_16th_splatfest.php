@@ -6,10 +6,10 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
-use yii\helpers\ArrayHelper;
 use app\models\Region;
 use app\models\Splatfest;
+use yii\db\Migration;
+use yii\helpers\ArrayHelper;
 
 class m160722_075551_16th_splatfest extends Migration
 {

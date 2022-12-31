@@ -9,12 +9,12 @@
 namespace app\actions\fest;
 
 use Yii;
-use yii\base\DynamicModel;
-use yii\web\NotFoundHttpException;
-use yii\web\ViewAction as BaseAction;
 use app\models\Splatfest;
 use app\models\SplatfestBattleSummary;
 use app\models\SplatfestTeam;
+use yii\base\DynamicModel;
+use yii\web\NotFoundHttpException;
+use yii\web\ViewAction as BaseAction;
 
 class ViewAction extends BaseAction
 {

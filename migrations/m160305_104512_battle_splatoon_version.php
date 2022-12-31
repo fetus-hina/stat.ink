@@ -6,8 +6,8 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
 use app\models\SplatoonVersion;
+use yii\db\Migration;
 
 class m160305_104512_battle_splatoon_version extends Migration
 {

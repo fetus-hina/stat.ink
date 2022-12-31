@@ -8,11 +8,11 @@
 
 namespace app\actions\entire\users;
 
-use Yii;
 use DateInterval;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
+use Yii;
 use app\components\helpers\DateTimeFormatter;
 use app\models\Battle2;
 use app\models\StatEntireUser2;

@@ -6,9 +6,9 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
 use app\models\SplatoonVersion;
 use app\models\Weapon;
+use yii\db\Migration;
 
 class m160417_103225_weapon_attack_hydra extends Migration
 {

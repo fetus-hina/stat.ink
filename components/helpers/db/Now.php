@@ -10,8 +10,8 @@ namespace app\components\helpers\db;
 
 use DateTimeZone;
 use Yii;
-use yii\db\Expression;
 use app\components\helpers\DateTimeFormatter;
+use yii\db\Expression;
 
 class Now extends Expression
 {

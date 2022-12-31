@@ -6,8 +6,8 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
 use app\models\Rule;
+use yii\db\Migration;
 
 class m151203_101156_splapi_rule extends Migration
 {

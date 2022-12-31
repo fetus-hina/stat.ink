@@ -6,9 +6,9 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+use app\models\Splatfest;
 use yii\db\Migration;
 use yii\helpers\ArrayHelper;
-use app\models\Splatfest;
 
 class m160514_053244_14th_splatfest_color extends Migration
 {

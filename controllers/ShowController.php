@@ -9,10 +9,10 @@
 namespace app\controllers;
 
 use Yii;
+use app\components\web\Controller;
 use yii\filters\AccessControl;
 use yii\filters\AccessRule;
 use yii\filters\VerbFilter;
-use app\components\web\Controller;
 
 class ShowController extends Controller
 {

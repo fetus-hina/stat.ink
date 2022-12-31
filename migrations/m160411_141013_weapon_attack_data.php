@@ -6,9 +6,9 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
 use app\models\SplatoonVersion;
 use app\models\Weapon;
+use yii\db\Migration;
 
 class m160411_141013_weapon_attack_data extends Migration
 {

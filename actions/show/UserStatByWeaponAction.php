@@ -11,12 +11,12 @@ declare(strict_types=1);
 namespace app\actions\show;
 
 use Yii;
-use yii\db\Query;
-use yii\web\NotFoundHttpException;
-use yii\web\ViewAction as BaseAction;
 use app\models\BattleFilterForm;
 use app\models\User;
 use app\models\Weapon;
+use yii\db\Query;
+use yii\web\NotFoundHttpException;
+use yii\web\ViewAction as BaseAction;
 
 class UserStatByWeaponAction extends BaseAction
 {
