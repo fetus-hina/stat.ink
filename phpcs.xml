@@ -63,6 +63,7 @@
   <rule ref="SlevomatCodingStandard.PHP.TypeCast"/>
   <rule ref="SlevomatCodingStandard.PHP.UselessParentheses"/>
   <rule ref="SlevomatCodingStandard.PHP.UselessSemicolon"/>
+  <rule ref="SlevomatCodingStandard.TypeHints.NullTypeHintOnLastPosition"/>
 
   <!--rule ref="Universal.OOStructures.AlphabeticExtendsImplements"/-->
 
