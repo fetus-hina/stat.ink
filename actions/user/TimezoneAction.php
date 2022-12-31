@@ -52,7 +52,7 @@ class TimezoneAction extends BaseAction
 
     private function makeValidationModel()
     {
-        $model = DynamicModel::validateData(
+        return DynamicModel::validateData(
             ['timezone' => null],
             [
                 [['timezone'], 'required'],
@@ -61,6 +61,5 @@ class TimezoneAction extends BaseAction
                     'targetAttribute' => 'identifier'],
             ],
         );
-        return $model;
     }
 }

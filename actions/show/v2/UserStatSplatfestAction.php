@@ -62,7 +62,7 @@ final class UserStatSplatfestAction extends Action
     private function processInput(): DynamicModel
     {
         $request = Yii::$app->request;
-        $model = DynamicModel::validateData(
+        return DynamicModel::validateData(
             ['region' => $request->get('region')],
             [
                 [['region'], 'default', 'value' => null],
@@ -73,7 +73,6 @@ final class UserStatSplatfestAction extends Action
                 ],
             ],
         );
-        return $model;
     }
 
     private function initRegion(DynamicModel $model): void

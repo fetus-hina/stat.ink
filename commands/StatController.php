@@ -255,7 +255,7 @@ final class StatController extends Controller
 
     private function createSelectQueryForUpdateEntireWeaponsKillDeath()
     {
-        $query = (new \yii\db\Query())
+        return (new \yii\db\Query())
             ->select([
                 'weapon_id' => '{{p}}.[[weapon_id]]',
                 'rule_id'   => '{{b}}.[[rule_id]]',
@@ -289,7 +289,6 @@ final class StatController extends Controller
                 '{{p}}.[[kill]]',
                 '{{p}}.[[death]]',
             ]);
-        return $query;
         // }}}
     }
 

@@ -352,8 +352,6 @@ final class I18nController extends Controller
         $result |= $deepl->run() ? 0 : 1;
 
         $opencc = Yii::createObject(['class' => i18n\OpenCCTranslator::class]);
-        $result |= $opencc->run() ? 0 : 1;
-
-        return $result;
+        return $result | $opencc->run() ? 0 : 1;
     }
 }

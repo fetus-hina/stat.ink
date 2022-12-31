@@ -112,7 +112,7 @@ class UserStatByWeaponAction extends ViewAction
             $query->applyFilter($filter);
         }
 
-        $list = array_map(
+        return array_map(
             function (array $row): array {
                 foreach ($row as $key => $value) {
                     if ($value === null) {
@@ -147,7 +147,6 @@ class UserStatByWeaponAction extends ViewAction
             },
             $query->createCommand()->queryAll(),
         );
-        return $list;
         // }}}
     }
 }

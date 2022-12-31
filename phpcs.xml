@@ -70,6 +70,7 @@
   <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHintSpacing"/>
   <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHintSpacing"/>
   <rule ref="SlevomatCodingStandard.TypeHints.UselessConstantTypeHint"/>
+  <rule ref="SlevomatCodingStandard.Variables.UselessVariable"/>
 
   <!--rule ref="Universal.OOStructures.AlphabeticExtendsImplements"/-->
 
