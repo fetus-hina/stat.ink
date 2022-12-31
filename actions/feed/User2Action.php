@@ -340,14 +340,14 @@ class User2Action extends BaseAction
                         ? sprintf(
                             '%s %s',
                             Yii::t('app-rank2', $battle->rank->name, [], $lang),
-                            $battle->rank_exp !== null ? $battle->rank_exp : '',
+                            $battle->rank_exp ?? '',
                         )
                         : '???',
                     $battle->rankAfter
                         ? sprintf(
                             '%s %s',
                             Yii::t('app-rank2', $battle->rankAfter->name, [], $lang),
-                            $battle->rank_after_exp !== null ? $battle->rank_after_exp : '',
+                            $battle->rank_after_exp ?? '',
                         )
                         : '???',
                 ),

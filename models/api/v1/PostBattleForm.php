@@ -582,7 +582,7 @@ class PostBattleForm extends Model
         }
 
         if ($this->getIsTest()) {
-            $now = isset($_SERVER['REQUEST_TIME']) ? $_SERVER['REQUEST_TIME'] : time();
+            $now = $_SERVER['REQUEST_TIME'] ?? time();
             $o->id = 0;
             foreach ($o->attributes as $k => $v) {
                 if ($v instanceof Now) {

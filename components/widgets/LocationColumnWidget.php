@@ -122,9 +122,7 @@ class LocationColumnWidget extends Widget
             }
 
             $lang = $this->geoip->lang;
-            return isset($obj->names[$lang])
-                ? $obj->names[$lang]
-                : $obj->name;
+            return $obj->names[$lang] ?? $obj->name;
         };
 
         return Html::encode(implode(', ', array_filter([

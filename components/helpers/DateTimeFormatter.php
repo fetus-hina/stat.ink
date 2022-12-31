@@ -18,7 +18,7 @@ class DateTimeFormatter
     {
         $isFloat = is_float($unixtime);
         $datetime = self::createDateTimeFromFloatedUnixtime((float)$unixtime);
-        $datetime->setTimeZone($tz === null ? static::getDefaultTimeZone() : $tz);
+        $datetime->setTimeZone($tz ?? static::getDefaultTimeZone());
         return $datetime->format(
             $isFloat ? 'Y-m-d\TH:i:s.uP' : 'Y-m-d\TH:i:sP',
         );

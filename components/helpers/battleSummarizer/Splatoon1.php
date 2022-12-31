@@ -18,7 +18,7 @@ trait Splatoon1
     public static function getSummary(Query $oldQuery)
     {
         $db = Yii::$app->db;
-        $now = isset($_SERVER['REQUEST_TIME']) ? $_SERVER['REQUEST_TIME'] : time();
+        $now = $_SERVER['REQUEST_TIME'] ?? time();
         $cond24Hours = sprintf(
             '(({{battle}}.[[end_at]] IS NOT NULL) AND ({{battle}}.[[end_at]] BETWEEN %s AND %s))',
             $db->quoteValue(gmdate('Y-m-d H:i:sO', $now - 86400 + 1)),

@@ -271,14 +271,14 @@ final class UserAction extends Action
                         ? sprintf(
                             '%s %s',
                             Yii::t('app-rank', $battle->rank->name, [], $lang),
-                            $battle->rank_exp !== null ? $battle->rank_exp : '',
+                            $battle->rank_exp ?? '',
                         )
                         : '???',
                     $battle->rankAfter
                         ? sprintf(
                             '%s %s',
                             Yii::t('app-rank', $battle->rankAfter->name, [], $lang),
-                            $battle->rank_exp_after !== null ? $battle->rank_exp_after : '',
+                            $battle->rank_exp_after ?? '',
                         )
                         : '???',
                 ),

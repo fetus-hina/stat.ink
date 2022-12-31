@@ -17,9 +17,7 @@ class Now extends Expression
 {
     public function __construct()
     {
-        $time = isset($_SERVER['REQUEST_TIME_FLOAT'])
-            ? $_SERVER['REQUEST_TIME_FLOAT']
-            : microtime(true);
+        $time = $_SERVER['REQUEST_TIME_FLOAT'] ?? microtime(true);
         $strtime = DateTimeFormatter::unixTimeToString(
             $time,
             new DateTimeZone('Etc/UTC'),

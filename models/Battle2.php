@@ -1653,14 +1653,14 @@ class Battle2 extends ActiveRecord
                 ? trim(sprintf(
                     '%s %s',
                     Yii::t('app-rank2', $this->rank->name),
-                    $this->rank_exp !== null ? $this->rank_exp : '',
+                    $this->rank_exp ?? '',
                 ))
                 : '',
             $this->rankAfter
                 ? trim(sprintf(
                     '%s %s',
                     Yii::t('app-rank2', $this->rankAfter->name),
-                    $this->rank_after_exp !== null ? $this->rank_after_exp : '',
+                    $this->rank_after_exp ?? '',
                 ))
                 : '',
             $this->estimate_gachi_power,
