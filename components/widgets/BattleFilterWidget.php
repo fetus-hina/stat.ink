@@ -191,7 +191,7 @@ final class BattleFilterWidget extends Widget
     /**
      * @return int[]|null
      */
-    protected function getUsedWeaponIdList(User $user = null): ?array
+    protected function getUsedWeaponIdList(?User $user = null): ?array
     {
         if (!$user) {
             return null;

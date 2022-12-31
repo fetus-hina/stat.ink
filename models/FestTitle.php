@@ -89,7 +89,7 @@ class FestTitle extends \yii\db\ActiveRecord
             ->viaTable('fest_title_gender', ['title_id' => 'id']);
     }
 
-    public function getName(Gender $gender = null)
+    public function getName(?Gender $gender = null)
     {
         // 性別不明なとき
         if ($gender === null) {
@@ -116,7 +116,7 @@ class FestTitle extends \yii\db\ActiveRecord
         return $cache[$this->id][$gender->id] ?? null;
     }
 
-    public function toJsonArray(Gender $gender = null, string $theme = null)
+    public function toJsonArray(?Gender $gender = null, ?string $theme = null)
     {
         return [
             'key' => $this->key,
