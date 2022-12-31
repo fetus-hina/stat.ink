@@ -311,7 +311,7 @@ class Slack extends \yii\db\ActiveRecord
         $formatter->locale = $lang;
         $formatter->timeZone = 'Etc/UTC';
 
-        return null !== $this->doSend([
+        return $this->doSend([
             'text' => sprintf(
                 "%s (%s)\nWebhook Test",
                 $i18n->translate(
@@ -325,7 +325,7 @@ class Slack extends \yii\db\ActiveRecord
                     'long',
                 ),
             ),
-        ], true);
+        ], true) !== null;
     }
 
     protected function buildRealQuery(array $params): array
