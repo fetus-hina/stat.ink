@@ -356,14 +356,23 @@ final class PostSalmonForm extends Model
                 self::guessStartAt(
                     self::intVal($this->start_at),
                     self::intVal($this->end_at),
+                    self::intVal($this->clear_waves),
                 ),
             ),
             'agent_id' => self::userAgent($this->agent, $this->agent_version),
             'is_automated' => self::boolVal($this->automated) ?: false,
             'start_at' => self::tsVal($this->start_at),
             'end_at' => self::tsVal($this->end_at),
-            'period' => self::guessPeriod(self::intVal($this->start_at), self::intVal($this->end_at)),
-            'schedule_id' => self::guessScheduleId(self::intVal($this->start_at), self::intVal($this->end_at)),
+            'period' => self::guessPeriod(
+                self::intVal($this->start_at),
+                self::intVal($this->end_at),
+                self::intVal($this->clear_waves),
+            ),
+            'schedule_id' => self::guessScheduleId(
+                self::intVal($this->start_at),
+                self::intVal($this->end_at),
+                self::intVal($this->clear_waves),
+            ),
             'has_disconnect' => $this->hasDisconnect(),
             'is_deleted' => false,
             'has_broken_data' => $this->hasBrokenData(),
@@ -549,9 +558,11 @@ final class PostSalmonForm extends Model
         return Yii::createObject(Now::class);
     }
 
-    private static function guessPeriod(?int $startAt, ?int $endAt): int
+    private static function guessPeriod(?int $startAt, ?int $endAt, ?int $clearWaves = null): int
     {
-        return self::timestamp2period(self::guessStartAt($startAt, $endAt));
+        return self::timestamp2period(
+            self::guessStartAt($startAt, $endAt, $clearWaves),
+        );
     }
 
     private static function timestamp2period(int $ts): int
@@ -559,9 +570,12 @@ final class PostSalmonForm extends Model
         return (int)floor($ts / 7200);
     }
 
-    private static function guessScheduleId(?int $startAt, ?int $endAt): ?int
-    {
-        $startAt = self::guessStartAt($startAt, $endAt);
+    private static function guessScheduleId(
+        ?int $startAt,
+        ?int $endAt,
+        ?int $clearWaves = null,
+    ): ?int {
+        $startAt = self::guessStartAt($startAt, $endAt, $clearWaves);
         $model = SalmonSchedule3::find()
             ->andWhere(['and',
                 ['<=', 'start_at', \date('Y-m-d\TH:i:sP', $startAt)],
@@ -572,14 +586,17 @@ final class PostSalmonForm extends Model
         return $model ? (int)$model->id : null;
     }
 
-    private static function guessStartAt(?int $startAt, ?int $endAt): int
-    {
+    private static function guessStartAt(
+        ?int $startAt,
+        ?int $endAt,
+        ?int $clearWaves = null,
+    ): int {
         if (\is_int($startAt)) {
             return $startAt;
         }
 
         if (\is_int($endAt)) {
-            $playTime = self::guessPlayTime();
+            $playTime = self::guessPlayTime($clearWaves);
             if (\is_int($playTime)) {
                 return $endAt - $playTime;
             }
@@ -588,9 +605,8 @@ final class PostSalmonForm extends Model
         return \time() - 370;
     }
 
-    private static function guessPlayTime(): ?int
+    private static function guessPlayTime(?int $clearWaves): ?int
     {
-        $clearWaves = self::intVal($this->clear_waves);
         if (
             !\is_int($clearWaves) ||
             $clearWaves < 0 ||
@@ -599,16 +615,7 @@ final class PostSalmonForm extends Model
             return null;
         }
 
-        if ($clearWaves < 3) {
-            $failReason = self::strVal($this->fail_reason);
-            $waves = $failReason === 'wipe_out'
-                ? $clearWaves + 0.5
-                : $clearWaves + 1;
-        } else {
-            $kingSalmonid = self::strVal($this->king_salmonid);
-            $waves = $kingSalmonid ? 4 : 3;
-        }
-
+        $waves = min(3, $clearWaves + 1);
         return (int)floor(10 + $waves * 120);
     }
 }
