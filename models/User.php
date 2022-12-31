@@ -299,9 +299,6 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasOne(UserStat::class, ['user_id' => 'id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getUserStat2(): \yii\db\ActiveQuery
     {
         return $this->hasOne(UserStat2::class, ['user_id' => 'id']);

@@ -71,25 +71,16 @@ class Ability2 extends ActiveRecord
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getStrengthBrands(): ActiveQuery
     {
         return $this->hasMany(Brand2::class, ['strength_id' => 'id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getWeaknessBrands(): ActiveQuery
     {
         return $this->hasMany(Brand2::class, ['weakness_id' => 'id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getGears(): ActiveQuery
     {
         return $this->hasMany(Gear2::class, ['ability_id' => 'id']);

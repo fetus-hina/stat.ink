@@ -103,17 +103,11 @@ class SalmonSchedule2 extends ActiveRecord
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getMap(): ActiveQuery
     {
         return $this->hasOne(SalmonMap2::class, ['id' => 'map_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getWeapons(): ActiveQuery
     {
         return $this->hasMany(SalmonWeapon2::class, ['schedule_id' => 'id'])

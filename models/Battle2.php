@@ -1023,113 +1023,71 @@ class Battle2 extends ActiveRecord
             ->andWhere(['{{battle_player2}}.[[is_my_team]]' => false]);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getEnv(): ActiveQuery
     {
         return $this->hasOne(Environment::class, ['id' => 'env_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getEvents(): ActiveQuery
     {
         return $this->hasOne(BattleEvents2::class, ['id' => 'id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getLobby(): ActiveQuery
     {
         return $this->hasOne(Lobby2::class, ['id' => 'lobby_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getMap(): ActiveQuery
     {
         return $this->hasOne(Map2::class, ['id' => 'map_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getMode(): ActiveQuery
     {
         return $this->hasOne(Mode2::class, ['id' => 'mode_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getRank(): ActiveQuery
     {
         return $this->hasOne(Rank2::class, ['id' => 'rank_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getRankAfter(): ActiveQuery
     {
         return $this->hasOne(Rank2::class, ['id' => 'rank_after_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getRule(): ActiveQuery
     {
         return $this->hasOne(Rule2::class, ['id' => 'rule_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getVersion(): ActiveQuery
     {
         return $this->hasOne(SplatoonVersion2::class, ['id' => 'version_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getAgentGameVersion(): ActiveQuery
     {
         return $this->hasOne(SplatoonVersion2::class, ['id' => 'agent_game_version_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getBonus(): ActiveQuery
     {
         return $this->hasOne(TurfwarWinBonus2::class, ['id' => 'bonus_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getSplatnetJson(): ActiveQuery
     {
         return $this->hasOne(Battle2Splatnet::class, ['id' => 'id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getUser(): ActiveQuery
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getWeapon(): ActiveQuery
     {
         return $this->hasOne(Weapon2::class, ['id' => 'weapon_id']);
