@@ -260,19 +260,19 @@ class SalmonPlayer2 extends ActiveRecord
                 : null,
             'special_uses' => $this->specialUses
                 ? array_map(
-                    fn($model) => (int)$model->count,
+                    fn ($model) => (int)$model->count,
                     $this->specialUses,
                 )
                 : null,
             'weapons' => $this->weapons
                 ? array_map(
-                    fn($model) => $model->weapon ? $model->weapon->toJsonArray() : null,
+                    fn ($model) => $model->weapon ? $model->weapon->toJsonArray() : null,
                     $this->weapons,
                 )
                 : null,
             'boss_kills' => $this->bossKills
                 ? array_map(
-                    fn($model) => $model->toJsonArray(),
+                    fn ($model) => $model->toJsonArray(),
                     $this->bossKills,
                 )
                 : null,

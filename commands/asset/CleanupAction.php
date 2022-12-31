@@ -64,11 +64,11 @@ class CleanupAction extends Action
                         FilesystemIterator::SKIP_DOTS,
                         FilesystemIterator::UNIX_PATHS,
                     ],
-                    fn(int $carry, int $cur) => ($carry | $cur),
+                    fn (int $carry, int $cur) => ($carry | $cur),
                     0, // init value
                 ),
             ),
-            fn(SplFileInfo $f) => $f->isDir()
+            fn (SplFileInfo $f) => $f->isDir()
         );
         foreach ($it as $path => $entry) {
             $baseName = basename($path);

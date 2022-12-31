@@ -126,16 +126,16 @@ class DeeplTranslator extends Component
 
             $englishTexts = array_filter(
                 array_keys(include $japanesePath),
-                fn($text) => is_array(static::tokenizePattern($text))
+                fn ($text) => is_array(static::tokenizePattern($text))
             );
 
             // "Salmon Run" は翻訳対象から外す
-            $englishTexts = array_filter($englishTexts, fn($text) => $text !== 'Salmon Run');
+            $englishTexts = array_filter($englishTexts, fn ($text) => $text !== 'Salmon Run');
 
-            usort($englishTexts, fn($a, $b) => strnatcasecmp($a, $b) ?: strcmp($a, $b));
+            usort($englishTexts, fn ($a, $b) => strnatcasecmp($a, $b) ?: strcmp($a, $b));
             $englishTexts = array_values($englishTexts);
             $localizedTexts = array_map(
-                fn($text) => static::xml2template($text),
+                fn ($text) => static::xml2template($text),
                 $this->translate(
                     $lang,
                     array_map(
@@ -143,13 +143,13 @@ class DeeplTranslator extends Component
                         // テンプレート部分を XML の要素に押し込める
                         // 当該部分は翻訳されないことになるが、 "{start}" が "{開始}" とかに変換される
                         // 最悪の事態は避けられるし、不自然に翻訳が適用されない箇所も減らせるハズ
-                        fn($text) => static::template2xml($text) ?? '',
+                        fn ($text) => static::template2xml($text) ?? '',
                         $englishTexts,
                     ),
                 ),
             );
             $outputContents = array_combine($englishTexts, $localizedTexts);
-            $esc = fn($text) => str_replace(["\\", "'"], ["\\\\", "\\'"], $text);
+            $esc = fn ($text) => str_replace(["\\", "'"], ["\\\\", "\\'"], $text);
             $now = new DateTimeImmutable('now', new DateTimeZone('Asia/Tokyo')); // Japan Time
 
             fwrite(STDERR, "Writing...\n");
@@ -183,7 +183,7 @@ class DeeplTranslator extends Component
     private function getTargetLanguages(): array
     {
         $statinkLanguages = array_map(
-            fn(Language $lang) => $lang->lang,
+            fn (Language $lang) => $lang->lang,
             Language::find()
                 ->standard()
                 ->andWhere(['not like', 'lang', ['en%', 'ja%'], false])
@@ -321,12 +321,12 @@ class DeeplTranslator extends Component
                     : ['formality' => 'more'],
             ),
             implode('&', array_map(
-                fn($text) => 'text=' . rawurlencode($text),
+                fn ($text) => 'text=' . rawurlencode($text),
                 array_values($englishTexts),
             )),
         );
         return array_map(
-            fn($data) => Normalizer::normalize(trim($data['text']), Normalizer::FORM_C),
+            fn ($data) => Normalizer::normalize(trim($data['text']), Normalizer::FORM_C),
             $resp['translations'],
         );
     }
@@ -460,7 +460,7 @@ class DeeplTranslator extends Component
                 $node->attributes,
                 fn (DOMNode $attr): array => [$attr->nodeName => $attr->nodeValue],
             ),
-            fn(array $acc, array $cur) => array_merge($acc, $cur),
+            fn (array $acc, array $cur) => array_merge($acc, $cur),
             [],
         ));
 
@@ -505,7 +505,7 @@ class DeeplTranslator extends Component
     {
         $text = preg_replace_callback(
             '#<param data="([2-7A-Za-z]+=*)"\s*/>#',
-            fn($match) => ' ' . Base32::decode($match[1]) . ' ',
+            fn ($match) => ' ' . Base32::decode($match[1]) . ' ',
             $text,
         );
         $text = preg_replace('/\x20{2,}/', ' ', $text);

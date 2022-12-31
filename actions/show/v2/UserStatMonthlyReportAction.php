@@ -164,7 +164,7 @@ final class UserStatMonthlyReportAction extends BaseAction
         return ArrayHelper::map(
             $query->asArray()->all(),
             'group',
-            fn($row) => (object)[
+            fn ($row) => (object)[
                 'battles' => (int)$row['battles'],
                 'wins' => (int)$row['wins'],
                 'loses' => (int)$row['battles'] - (int)$row['wins'],

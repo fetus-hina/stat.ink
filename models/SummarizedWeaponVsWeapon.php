@@ -69,7 +69,7 @@ class SummarizedWeaponVsWeapon extends Model
             },
             $query->all(),
         );
-        usort($result, fn($a, $b) => ($b->winPct <=> $a->winPct));
+        usort($result, fn ($a, $b) => ($b->winPct <=> $a->winPct));
         return $result;
     }
 

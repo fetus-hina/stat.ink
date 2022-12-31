@@ -77,7 +77,7 @@ class Btl2SplatnetJsonAction extends Action
                     "SET [[json]] = ([[json]]->>0)::JSONB " .
                     "WHERE (JSONB_TYPEOF([[json]]) = 'string') " .
                     "AND ([[id]] IN (" . implode(', ', array_map(
-                        fn($id) => (string)$db->quoteValue($id),
+                        fn ($id) => (string)$db->quoteValue($id),
                         $idList,
                     )) . "))",
                 )
