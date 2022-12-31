@@ -58,7 +58,7 @@ class UserAction extends BaseAction
             $json = $model->user->toJsonArray();
             $json['latest_battle'] = null;
             $ret[] = $json;
-        };
+        }
 
         if ($user) {
             return count($ret) >= 1 ? array_shift($ret) : null;

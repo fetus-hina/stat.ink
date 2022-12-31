@@ -16,7 +16,7 @@ class m151203_101156_splapi_rule extends Migration
         $rule = []; // [ 'arowana' => 42, ... ]
         foreach (Rule::find()->all() as $_) {
             $rule[$_->key] = $_->id;
-        };
+        }
 
         // 今後表記揺れが発生する可能性がある(ないけど)ので rule_id を PKEY にはしない
         $this->createTable('splapi_rule', [
