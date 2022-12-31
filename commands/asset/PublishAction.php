@@ -27,7 +27,7 @@ class PublishAction extends Action
     public function run()
     {
         $url = Url::to(['site/asset-publish'], true);
-        list($host, $port) = $this->getHostAndPortFromURL($url);
+        [$host, $port] = $this->getHostAndPortFromURL($url);
         if (!$host || !$port) {
             fwrite(STDERR, "Unable to detect host name/port\n");
             return 1;

@@ -200,7 +200,7 @@ class Battle2 extends ActiveRecord
             public function withFreshness(): self
             {
                 if (!$this->select) {
-                    list(, $alias) = $this->getTableNameAndAlias();
+                    [, $alias] = $this->getTableNameAndAlias();
                     $this->select = ["{$alias}.*"];
                 }
                 $this->select['freshness_id'] = 'freshness2.id';
@@ -1525,7 +1525,7 @@ class Battle2 extends ActiveRecord
                 if (!$this->period) {
                     return null;
                 }
-                list($from, $to) = BattleHelper::periodToRange2($this->period);
+                [$from, $to] = BattleHelper::periodToRange2($this->period);
                 return sprintf(
                     '%s/%s',
                     gmdate(DateTime::ATOM, $from),

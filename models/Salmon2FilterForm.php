@@ -210,7 +210,7 @@ class Salmon2FilterForm extends Model
             } elseif (substr($this->term, 0, 1) === 'v') {
                 $vID = substr($this->term, 1);
                 if (isset($this->versions[$vID])) {
-                    list ($date1, $date2) = $this->versions[$vID]->getAvailableDateRange();
+                    [$date1, $date2] = $this->versions[$vID]->getAvailableDateRange();
 
                     $query->andWhere([
                         '>=',

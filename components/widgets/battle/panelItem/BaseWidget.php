@@ -152,7 +152,7 @@ abstract class BaseWidget extends Widget
 
     protected function renderKillDeathHtml(): string
     {
-        list($kill, $death) = $this->getKillDeath();
+        [$kill, $death] = $this->getKillDeath();
         return implode('', [
             sprintf(
                 '%sK / %sD',

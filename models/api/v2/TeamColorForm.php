@@ -73,7 +73,7 @@ class TeamColorForm extends Model
         if (!is_array($this->rgb) || count($this->rgb) !== 3) {
             return;
         }
-        list($r, $g, $b) = $this->rgb;
+        [$r, $g, $b] = $this->rgb;
         $this->hue = (int)Color::getHueFromRGB($r, $g, $b);
     }
 }

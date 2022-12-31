@@ -25,7 +25,7 @@ class SfItem extends Model
         if (!$_ = static::parseAndCreate($text)) {
             return null;
         }
-        list($obj, $remains) = $_;
+        [$obj, $remains] = $_;
         return ($obj instanceof self && trim((string)$remains) === '')
             ? $obj
             : null;

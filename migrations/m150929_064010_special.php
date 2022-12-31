@@ -31,7 +31,7 @@ class m150929_064010_special extends Migration
 
         $this->execute('ALTER TABLE {{weapon}} ADD COLUMN [[special_id]] INTEGER');
         foreach ($this->makeUpdate() as $tmp) {
-            list($weaponId, $specialId) = $tmp;
+            [$weaponId, $specialId] = $tmp;
             $this->update(
                 'weapon',
                 ['special_id' => $specialId],

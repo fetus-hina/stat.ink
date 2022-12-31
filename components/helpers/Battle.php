@@ -51,7 +51,7 @@ class Battle
 
     public static function periodToRange2DT(int $period, int $offset = 0): array
     {
-        list($from, $to) = static::periodToRange2($period, $offset);
+        [$from, $to] = static::periodToRange2($period, $offset);
         return [
             static::timestamp2datetime($from),
             static::timestamp2datetime($to),
