@@ -39,6 +39,7 @@
   <rule ref="SlevomatCodingStandard.Classes.ModernClassNameReference"/>
   <rule ref="SlevomatCodingStandard.Classes.TraitUseDeclaration"/>
   <rule ref="SlevomatCodingStandard.Commenting.EmptyComment"/>
+  <rule ref="SlevomatCodingStandard.Commenting.UselessInheritDocComment"/>
   <rule ref="SlevomatCodingStandard.Functions.RequireArrowFunction"/>
   <rule ref="SlevomatCodingStandard.Functions.RequireTrailingCommaInCall"/>
 </ruleset>

@@ -36,9 +36,6 @@ final class Emoji extends Widget
         ]);
     }
 
-    /**
-     * @inheritdoc
-     */
     public function run(): string
     {
         $id = $this->id;
