@@ -112,4 +112,11 @@
   <rule ref="Squiz.Classes.SelfMemberReference">
     <exclude-pattern>*/models/*</exclude-pattern>
   </rule>
+
+  <rule ref="Squiz.Strings.ConcatenationSpacing">
+    <properties>
+      <property name="spacing" value="1"/>
+      <property name="ignoreNewlines" value="true"/>
+    </properties>
+  </rule>
 </ruleset>
