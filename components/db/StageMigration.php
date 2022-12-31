@@ -28,14 +28,14 @@ trait StageMigration
                         ]);
                     },
                     array_keys($list),
-                    array_values($list)
+                    array_values($list),
                 ));
             })(),
         ]));
         $this->execute(
             $db->createCommand()
                 ->update('map2', ['area' => $value], ['key' => array_keys($list)])
-                ->rawSql
+                ->rawSql,
         );
     }
 }

@@ -34,10 +34,10 @@ final class MyLatestBattlesAction extends BaseLatestBattlesAction
             function (): array {
                 return CombinedBattles::getUserRecentBattles(
                     Yii::$app->user->identity,
-                    static::BATTLE_LIMIT
+                    static::BATTLE_LIMIT,
                 );
             },
-            Transaction::REPEATABLE_READ
+            Transaction::REPEATABLE_READ,
         );
     }
 

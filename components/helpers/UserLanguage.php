@@ -69,7 +69,7 @@ class UserLanguage
             if ($lang) {
                 Yii::info(
                     "Detected language by parameter, " . $lang->lang,
-                    __METHOD__
+                    __METHOD__,
                 );
             }
 
@@ -96,7 +96,7 @@ class UserLanguage
             if ($lang) {
                 Yii::info(
                     "Detected language by cookie, " . $lang->lang,
-                    __METHOD__
+                    __METHOD__,
                 );
             }
 
@@ -127,7 +127,7 @@ class UserLanguage
                                 $model->rule,
                                 $userLang,
                             ),
-                            __METHOD__
+                            __METHOD__,
                         );
                         return $lang;
                     }

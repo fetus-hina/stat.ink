@@ -32,7 +32,7 @@ final class UserApiFormatter
                 ['show-user/profile',
                     'screen_name' => $model->screen_name,
                 ],
-                true
+                true,
             ),
         ];
     }

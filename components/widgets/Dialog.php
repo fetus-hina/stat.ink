@@ -105,7 +105,7 @@ class Dialog extends Widget
                     Html::tag(
                         $tag,
                         Yii::$app->formatter->format((string)$this->title, $this->titleFormat),
-                        $options
+                        $options,
                     ),
                     $this->hasClose
                         ? Html::tag(
@@ -116,13 +116,13 @@ class Dialog extends Widget
                                 'class' => 'close',
                                 'data-dismiss' => 'modal',
                                 'aria-label' => Yii::t('app', 'Close'),
-                            ]
+                            ],
                         )
                         : '',
                 ]),
-                ['class' => 'd-flex justify-content-between']
+                ['class' => 'd-flex justify-content-between'],
             ),
-            ['class' => 'modal-header']
+            ['class' => 'modal-header'],
         );
     }
 
@@ -148,7 +148,7 @@ class Dialog extends Widget
                     'type' => 'button',
                     'class' => 'btn btn-default',
                     'data-dismiss' => 'modal',
-                ]
+                ],
             );
         } elseif ($footer === static::FOOTER_CLOSE) {
             $footer = Html::tag(
@@ -158,7 +158,7 @@ class Dialog extends Widget
                     'type' => 'button',
                     'class' => 'btn btn-default',
                     'data-dismiss' => 'modal',
-                ]
+                ],
             );
         }
 

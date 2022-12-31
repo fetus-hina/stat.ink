@@ -124,19 +124,19 @@ class Slack extends \yii\db\ActiveRecord
                 ? '???'
                 : ($battle->is_win ? 'won' : 'lost'),
             [],
-            $lang
+            $lang,
         );
         $rule = $i18n->translate(
             'app-rule',
             $battle->rule->name ?? $i18n->translate('app-slack', 'unknown mode', [], $lang),
             [],
-            $lang
+            $lang,
         );
         $stage = $i18n->translate(
             'app-map',
             $battle->map->name ?? $i18n->translate('app-slack', 'unknown stage', [], $lang),
             [],
-            $lang
+            $lang,
         );
         $url = Url::to(['show/battle', 'screen_name' => $battle->user->screen_name, 'battle' => $battle->id], true);
 
@@ -151,7 +151,7 @@ class Slack extends \yii\db\ActiveRecord
                     'stage'     => $stage,
                     'url'       => $url,
                 ],
-                $lang
+                $lang,
             ),
             'text' => $i18n->translate(
                 'app-slack',
@@ -164,7 +164,7 @@ class Slack extends \yii\db\ActiveRecord
                     'url'       => $url,
                     'id'        => $battle->id,
                 ],
-                $lang
+                $lang,
             ),
             'fields' => [
                 [
@@ -218,26 +218,26 @@ class Slack extends \yii\db\ActiveRecord
                 ? '???'
                 : ($battle->is_win ? 'won' : 'lost'),
             [],
-            $lang
+            $lang,
         );
         $rule = $i18n->translate(
             'app-rule2',
             $battle->rule->name ?? $i18n->translate('app-slack', 'unknown mode', [], $lang),
             [],
-            $lang
+            $lang,
         );
         $stage = $i18n->translate(
             'app-map2',
             $battle->map->name ?? $i18n->translate('app-slack', 'unknown stage', [], $lang),
             [],
-            $lang
+            $lang,
         );
         $url = Url::to(
             ['show-v2/battle',
                 'screen_name' => $battle->user->screen_name,
                 'battle' => $battle->id,
             ],
-            true
+            true,
         );
 
         $attachment = [
@@ -251,7 +251,7 @@ class Slack extends \yii\db\ActiveRecord
                     'stage'     => $stage,
                     'url'       => $url,
                 ],
-                $lang
+                $lang,
             ),
             'text' => $i18n->translate(
                 'app-slack',
@@ -264,7 +264,7 @@ class Slack extends \yii\db\ActiveRecord
                     'url'       => $url,
                     'id'        => $battle->id,
                 ],
-                $lang
+                $lang,
             ),
             'fields' => [
                 [
@@ -318,12 +318,12 @@ class Slack extends \yii\db\ActiveRecord
                     'app-slack',
                     'Staaaay Fresh!',
                     [],
-                    $lang
+                    $lang,
                 ),
                 $formatter->asDateTime(
                     $_SERVER['REQUEST_TIME'] ?? time(),
-                    'long'
-                )
+                    'long',
+                ),
             ),
         ], true);
     }
@@ -357,7 +357,7 @@ class Slack extends \yii\db\ActiveRecord
         $curl->setUserAgent(sprintf(
             '%s/%s (+https://github.com/fetus-hina/stat.ink)',
             Yii::$app->name,
-            Yii::$app->version
+            Yii::$app->version,
         ));
         $curl->setHeader('Content-Type', 'application/json');
         $curl->post($this->webhook_url, $params);

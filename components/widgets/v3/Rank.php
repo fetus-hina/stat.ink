@@ -80,10 +80,10 @@ final class Rank extends Widget
                 Html::encode(
                     Yii::t('app', '{point}p', [
                         'point' => (string)(int)$this->pts,
-                    ])
+                    ]),
                 ),
             ]),
-            ['class' => 'text-muted']
+            ['class' => 'text-muted'],
         );
     }
 }

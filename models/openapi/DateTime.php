@@ -34,7 +34,7 @@ class DateTime extends Component
                     'format' => 'date-time',
                     'description' => Yii::t(
                         'app-apidoc1',
-                        'Date and time expressed in ISO-8601 format'
+                        'Date and time expressed in ISO-8601 format',
                     ),
                 ],
             ],

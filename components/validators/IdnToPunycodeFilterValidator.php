@@ -25,7 +25,7 @@ class IdnToPunycodeFilterValidator extends FilterValidator
                         return strtolower(idn_to_ascii($match[1]));
                     },
                     $value,
-                    1
+                    1,
                 );
             }
             return preg_replace_callback(
@@ -34,7 +34,7 @@ class IdnToPunycodeFilterValidator extends FilterValidator
                     return strtolower(idn_to_ascii($match[1]));
                 },
                 $value,
-                1
+                1,
             );
         };
         parent::init();

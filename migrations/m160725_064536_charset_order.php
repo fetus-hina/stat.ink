@@ -34,7 +34,7 @@ class m160725_064536_charset_order extends Migration
                 ],
                 [
                     'id' => $charset['id'],
-                ]
+                ],
             );
         }
 

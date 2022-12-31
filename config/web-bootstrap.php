@@ -27,7 +27,7 @@ Yii::$classMap[Html::class] = __DIR__ . '/../components/overwrite/yii/helpers/Ht
 Widget::$autoIdPrefix = sprintf('w-%s-', substr(
     hash('sha256', uniqid(microtime(), true)),
     0,
-    8
+    8,
 ));
 
 Yii::$container->set(Battle3::class, [

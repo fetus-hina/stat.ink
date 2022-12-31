@@ -48,9 +48,9 @@ final class LanguageDialog extends Dialog
             'div',
             implode('', array_merge(
                 $this->createLanguageList(),
-                $this->createHintList()
+                $this->createHintList(),
             )),
-            ['class' => 'list-group-flush']
+            ['class' => 'list-group-flush'],
         );
     }
 
@@ -83,7 +83,7 @@ final class LanguageDialog extends Dialog
             ArrayHelper::sort(
                 Language::find()->with('supportLevel')->all(),
                 fn (Language $a, Language $b): int => strcmp($a->name, $b->name)
-            )
+            ),
         );
     }
 
@@ -116,7 +116,7 @@ final class LanguageDialog extends Dialog
                     'd-flex',
                     'justify-content-between',
                 ],
-            ]
+            ],
         );
     }
 
@@ -173,7 +173,7 @@ final class LanguageDialog extends Dialog
                             'data' => [
                                 'direction' => $enabledMachineTranslation ? 'disable' : 'enable',
                             ],
-                        ]
+                        ],
                     ),
                     Html::tag(
                         'div',
@@ -184,7 +184,7 @@ final class LanguageDialog extends Dialog
                         ]),
                         [
                             'class' => 'ml-auto',
-                        ]
+                        ],
                     ),
                 ]),
                 [
@@ -193,17 +193,17 @@ final class LanguageDialog extends Dialog
                         'hint',
                         'd-flex',
                     ],
-                ]
+                ],
             ),
             Html::a(
                 Icon::help() . ' About Translation',
                 ['site/translate'],
-                ['class' => 'list-group-item']
+                ['class' => 'list-group-item'],
             ),
             Html::a(
                 Icon::refresh() . ' How to update',
                 'https://github.com/fetus-hina/stat.ink/wiki/Translation',
-                ['class' => 'list-group-item']
+                ['class' => 'list-group-item'],
             ),
         ];
     }
@@ -225,7 +225,7 @@ final class LanguageDialog extends Dialog
                     sprintf('lang-%s', strtolower($codeLang)),
                     sprintf('lang-%s-%s', strtolower($codeLang), strtolower($codeRegion)),
                 ],
-            ]
+            ],
         );
     }
 
@@ -236,12 +236,12 @@ final class LanguageDialog extends Dialog
                 Html::tag(
                     'span',
                     FlagIcon::fg('gb'),
-                    ['class' => 'mr-1']
+                    ['class' => 'mr-1'],
                 ),
                 Html::tag(
                     'span',
                     FlagIcon::fg('au'),
-                    ['class' => 'mr-1']
+                    ['class' => 'mr-1'],
                 ),
             ]);
         }
@@ -251,12 +251,12 @@ final class LanguageDialog extends Dialog
                 Html::tag(
                     'span',
                     FlagIcon::fg('tw'),
-                    ['class' => 'mr-1']
+                    ['class' => 'mr-1'],
                 ),
                 Html::tag(
                     'span',
                     FlagIcon::fg('hk'),
-                    ['class' => 'mr-1']
+                    ['class' => 'mr-1'],
                 ),
             ]);
         }
@@ -264,7 +264,7 @@ final class LanguageDialog extends Dialog
         return Html::tag(
             'span',
             FlagIcon::fg(strtolower($countryCode)),
-            ['class' => 'mr-1']
+            ['class' => 'mr-1'],
         );
     }
 }

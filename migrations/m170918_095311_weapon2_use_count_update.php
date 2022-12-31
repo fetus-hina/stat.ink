@@ -69,7 +69,7 @@ class m170918_095311_weapon2_use_count_update extends Migration
                     'timeup_wins',
                     'knockout_loses',
                     'timeup_loses',
-                ]
+                ],
             )));
         }
     }

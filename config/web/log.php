@@ -16,7 +16,7 @@ return [
                     function (int $httpStatus): string {
                         return sprintf('%s:%03d', HttpException::class, $httpStatus);
                     },
-                    [400, 401, 403, 404, 405, 410, 414]
+                    [400, 401, 403, 404, 405, 410, 414],
                 ),
                 [
                 ],

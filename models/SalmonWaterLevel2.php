@@ -84,9 +84,9 @@ class SalmonWaterLevel2 extends ActiveRecord
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc2', 'Water level'),
                         'app-salmon-tide2',
-                        $values
+                        $values,
                     ),
-                    ArrayHelper::getColumn($values, 'key', false)
+                    ArrayHelper::getColumn($values, 'key', false),
                 ),
                 'splatnet' => static::oapiRef(openapi\SplatNet2ID::class),
                 'name' => static::oapiRef(openapi\Name::class),

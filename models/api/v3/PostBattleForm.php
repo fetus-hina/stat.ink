@@ -486,7 +486,7 @@ final class PostBattleForm extends Model
                 $this->fest_dragon,
                 DragonMatch3::class,
                 DragonMatch3Alias::class,
-                'dragon_id'
+                'dragon_id',
             ),
             'fest_power' => self::floatVal($this->fest_power),
             'has_disconnect' => $this->hasDisconnect(),
@@ -727,7 +727,7 @@ final class PostBattleForm extends Model
                     $target['modelClass'],
                     $target['attribute'],
                     $target['filename'],
-                    $target['isResult']
+                    $target['isResult'],
                 )
             ) {
                 return false;
@@ -763,7 +763,7 @@ final class PostBattleForm extends Model
                     $fileName,
                 ]),
                 false, // TODO: $blackoutPosList => $isResultImage を参照
-                null // $outPathArchivePng
+                null, // $outPathArchivePng
             )
         ) {
             return false;

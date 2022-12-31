@@ -45,7 +45,7 @@ class m200909_082721_shifty_names extends Migration
                     )),
                 ])),
             ],
-            ['key' => array_keys($data)]
+            ['key' => array_keys($data)],
         );
     }
 

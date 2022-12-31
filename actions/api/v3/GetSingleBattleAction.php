@@ -63,7 +63,7 @@ final class GetSingleBattleAction extends Action
                         ],
                         ['clothing', 'headgear', 'shoes'],
                     ),
-                ])
+                ]),
             )
             ->andWhere([
                 'is_deleted' => false,

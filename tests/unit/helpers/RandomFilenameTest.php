@@ -49,8 +49,8 @@ class RandomFilenameTest extends Unit
             basename($expect), // make flat
             Generator::formatFileNameFlat(
                 hex2bin($vector),
-                $ext
-            )
+                $ext,
+            ),
         );
     }
 
@@ -65,7 +65,7 @@ class RandomFilenameTest extends Unit
     ): void {
         $this->assertEquals(
             $expect,
-            Generator::formatFileName(hex2bin($vector), $ext, $level)
+            Generator::formatFileName(hex2bin($vector), $ext, $level),
         );
     }
 
@@ -93,7 +93,7 @@ class RandomFilenameTest extends Unit
 
             $this->assertEquals(1, preg_match(
                 '#^[a-z2-7]{2}/[a-z2-7]{2}/[a-z2-7]{26}\.jpg$#',
-                $value
+                $value,
             ));
 
             $parts = explode('/', $value);

@@ -29,7 +29,7 @@ class SlackTestAction extends BaseAction
             ['id' => $req->post('id')],
             [
                 [['id'], 'exist', 'targetClass' => Slack::class, 'targetAttribute' => 'id'],
-            ]
+            ],
         );
         if ($form->hasErrors()) {
             throw new NotFoundHttpException('Not Found');

@@ -52,7 +52,7 @@ final class GearAction extends Action
                 ->with(['brand', 'ability'])
                 ->andWhere(['type_id' => $type->id])
                 ->asArray()
-                ->all()
+                ->all(),
         );
         usort($gears, function (array $a, array $b): int {
             return strnatcasecmp($a['name'], $b['name']);

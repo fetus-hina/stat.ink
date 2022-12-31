@@ -44,7 +44,7 @@ class m151203_080433_splapi_map extends Migration
                 [ $map['negitoro'], 'ネギトロ炭鉱' ],
                 [ $map['shionome'], 'シオノメ油田' ],
                 [ $map['tachiuo'],  'タチウオパーキング' ],
-            ]
+            ],
         );
     }
 

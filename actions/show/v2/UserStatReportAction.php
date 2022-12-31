@@ -31,7 +31,7 @@ class UserStatReportAction extends BaseAction
         $db->createCommand(
             $db->createCommand('SET TIMEZONE TO :tz')
                 ->bindValue(':tz', Yii::$app->timeZone)
-                ->rawSql
+                ->rawSql,
         )->execute();
 
         $this->user = User::findOne(['screen_name' => Yii::$app->request->get('screen_name')]);
@@ -203,7 +203,7 @@ class UserStatReportAction extends BaseAction
                 $row['weapon_name'] = Yii::t('app-weapon2', $row['weapon_name']);
                 return $row;
             },
-            $query->asArray()->all()
+            $query->asArray()->all(),
         );
         usort($list, function (array $a, array $b): int {
             return strcmp($b['date'], $a['date'])

@@ -42,7 +42,7 @@ class FixAttributesBehavior extends Behavior
                         $value,
                         $fixData[trim($value)],
                     ]),
-                    __METHOD__
+                    __METHOD__,
                 );
             }
         }

@@ -211,7 +211,7 @@ class m190621_112921_shifty_stations extends Migration
                     null,
                     '2019-07-19T12:00:00+00',
                 ],
-            ]
+            ],
         );
     }
 
@@ -222,7 +222,7 @@ class m190621_112921_shifty_stations extends Migration
                 function (int $i): string {
                     return sprintf('mystery_%02d', $i);
                 },
-                range(1, 24)
+                range(1, 24),
             ),
         ]);
         $this->alterColumn('map2', 'name', $this->string(32)->notNull());

@@ -49,7 +49,7 @@ class ImageS3Job extends BaseObject implements JobInterface
                     implode('/', [
                         substr($file, 0, 2),
                         $file,
-                    ])
+                    ]),
                 );
                 if ($ret) {
                     @unlink($path);

@@ -36,8 +36,8 @@ class m190211_173812_central_america extends Migration
                     return [$cctld, $data['name']];
                 },
                 array_keys($data),
-                array_values($data)
-            )
+                array_values($data),
+            ),
         );
         return true;
     }
@@ -90,7 +90,7 @@ class m190211_173812_central_america extends Migration
                 ->select('id')
                 ->from('timezone')
                 ->where(['identifier' => $tzList])
-                ->all()
+                ->all(),
         );
         $this->delete('timezone_country', ['timezone_id' => $list]);
         $this->delete('timezone', ['id' => $list]);

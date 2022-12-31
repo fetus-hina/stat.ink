@@ -19,7 +19,7 @@ class m180330_191315_update_map2 extends Migration
                 'splatnet' => 12,
                 'release_at' => '2018-01-12T11:00:00+09:00',
             ],
-            ['key' => 'devon']
+            ['key' => 'devon'],
         );
         $this->update(
             'map2',
@@ -28,7 +28,7 @@ class m180330_191315_update_map2 extends Migration
                 'splatnet' => 15,
                 'release_at' => '2018-02-02T11:00:00+09:00',
             ],
-            ['key' => 'arowana']
+            ['key' => 'arowana'],
         );
         $this->update('map2', ['area' => 1632], ['key' => 'hakofugu']);
         $this->update('map2', ['area' => 2221], ['key' => 'ajifry']);
@@ -45,7 +45,7 @@ class m180330_191315_update_map2 extends Migration
             ['key' => [
                 'devon',
                 'arowana',
-            ]]
+            ]],
         );
         $this->update('map2', ['area' => null], ['key' => ['hakofugu', 'ajifry']]);
     }

@@ -23,7 +23,7 @@ class m180323_085210_splatspinner_collabo extends Migration
             'amefurashi',
             'splatspinner',
             null,
-            4001
+            4001,
         );
     }
 

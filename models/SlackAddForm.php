@@ -58,7 +58,7 @@ class SlackAddForm extends Model
                     implode('|', [
                         '(?:#[a-z0-9_-]{1,21})',
                         '(?:@[a-zA-Z0-9._-]{1,21})',
-                    ])
+                    ]),
                 ),
             ],
             [['language_id'], 'exist',
@@ -96,7 +96,7 @@ class SlackAddForm extends Model
             // Slack
             sprintf(
                 '/^%s/ui',
-                $quote('https://hooks.slack.com/services/')
+                $quote('https://hooks.slack.com/services/'),
             ),
 
             // Discord
@@ -124,7 +124,7 @@ class SlackAddForm extends Model
             $attr,
             Yii::t('yii', '{attribute} is not a valid URL.', [
                 'attribute' => $this->getAttributeLabel($attr),
-            ])
+            ]),
         );
     }
 

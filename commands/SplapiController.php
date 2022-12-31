@@ -40,7 +40,7 @@ class SplapiController extends Controller
                 Splatfest::find()
                     ->innerJoinWith(['region'])
                     ->andWhere(['{{region}}.[[key]]' => 'jp'])
-                    ->all()
+                    ->all(),
             ),
         ]);
         $this->mapUpdateRegular();
@@ -75,19 +75,19 @@ class SplapiController extends Controller
             array_map(
                 function ($item) {
                     $item->period = \app\components\helpers\Battle::calcPeriod(
-                        strtotime($item->start)
+                        strtotime($item->start),
                     );
                     return $item;
                 },
                 $this->queryJson(
                     $futureOnly
                         ? 'https://splapi.fetus.jp/regular/next_all'
-                        : 'https://splapi.fetus.jp/regular'
-                )->result
+                        : 'https://splapi.fetus.jp/regular',
+                )->result,
             ),
             function ($item) use ($latestPeriod) {
                 return $item->period > $latestPeriod;
-            }
+            },
         );
 
         if (empty($json)) {
@@ -122,7 +122,7 @@ class SplapiController extends Controller
         Yii::$app->db->createCommand()->batchInsert(
             PeriodMap::tableName(),
             ['period', 'rule_id', 'map_id'],
-            $insert
+            $insert,
         )->execute();
         echo "done.\n";
     }
@@ -138,19 +138,19 @@ class SplapiController extends Controller
             array_map(
                 function ($item) {
                     $item->period = \app\components\helpers\Battle::calcPeriod(
-                        strtotime($item->start)
+                        strtotime($item->start),
                     );
                     return $item;
                 },
                 $this->queryJson(
                     $futureOnly
                         ? 'https://splapi.fetus.jp/gachi/next_all'
-                        : 'https://splapi.fetus.jp/gachi'
-                )->result
+                        : 'https://splapi.fetus.jp/gachi',
+                )->result,
             ),
             function ($item) use ($latestPeriod) {
                 return $item->period > $latestPeriod;
-            }
+            },
         );
 
         if (empty($json)) {
@@ -189,7 +189,7 @@ class SplapiController extends Controller
         Yii::$app->db->createCommand()->batchInsert(
             PeriodMap::tableName(),
             ['period', 'rule_id', 'map_id'],
-            $insert
+            $insert,
         )->execute();
         echo "done.\n";
     }
@@ -204,7 +204,7 @@ class SplapiController extends Controller
                     function ($a) {
                         return $a->id;
                     },
-                    $gameMode->rules
+                    $gameMode->rules,
                 ),
             ])
             ->orderBy('{{period_map}}.[[period]] DESC')
@@ -272,7 +272,7 @@ class SplapiController extends Controller
         // 今がフェス中でなければ不要
         $now = gmdate(
             'Y-m-d\TH:i:sP',
-            (int)(@$_SERVER['REQUEST_TIME'] ?: time())
+            (int)(@$_SERVER['REQUEST_TIME'] ?: time()),
         );
         $fest = Splatfest::find()
             ->innerJoinWith('region', false)
@@ -302,7 +302,7 @@ class SplapiController extends Controller
             '%s/%s (+%s)',
             'stat.ink',
             Yii::$app->version,
-            'https://github.com/fetus-hina/stat.ink'
+            'https://github.com/fetus-hina/stat.ink',
         ));
         $curl->get($url, $data);
         if ($curl->error) {

@@ -50,7 +50,7 @@ class MigrateController extends BaseController
     {
         return array_merge(
             parent::options($actionID),
-            $actionID === 'create' ? ['template'] : []
+            $actionID === 'create' ? ['template'] : [],
         );
     }
 
@@ -60,7 +60,7 @@ class MigrateController extends BaseController
             if (!isset($this->generatorTemplateFiles[$this->template])) {
                 throw new InvalidConfigException(sprintf(
                     'You must specify --template={%s,default}',
-                    implode(',', array_keys($this->generatorTemplateFiles))
+                    implode(',', array_keys($this->generatorTemplateFiles)),
                 ));
             }
 

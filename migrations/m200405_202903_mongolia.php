@@ -66,7 +66,7 @@ class m200405_202903_mongolia extends Migration
                 ->select('*')
                 ->from('timezone')
                 ->where(['identifier' => ['Asia/Ulaanbaatar', 'Asia/Hovd']])
-                ->all()
+                ->all(),
         ));
     }
 

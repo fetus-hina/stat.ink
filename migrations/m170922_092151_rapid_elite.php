@@ -20,7 +20,7 @@ class m170922_092151_rapid_elite extends Migration
             'Rapid Blaster Pro',
             'blaster',
             'poisonmist',
-            'amefurashi'
+            'amefurashi',
         );
     }
 

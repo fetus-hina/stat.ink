@@ -52,7 +52,7 @@ trait Splatoon3
                         'user' => (int)$a['user_count'],
                     ];
                 },
-                $stats
+                $stats,
             );
         } finally {
             unset($tz);
@@ -108,11 +108,11 @@ trait Splatoon3
                                 $startAt,
                                 $endAt,
                                 (int)$row['min_id'],
-                                (int)$row['max_id']
+                                (int)$row['max_id'],
                             ),
                         ];
                     },
-                    $list
+                    $list,
                 ),
             ];
         } finally {
@@ -159,7 +159,7 @@ trait Splatoon3
                         'users' => (int)$row['users'],
                     ];
                 },
-                $versions
+                $versions,
             );
         } finally {
             unset($tz);

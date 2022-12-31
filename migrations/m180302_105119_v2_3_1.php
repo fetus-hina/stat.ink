@@ -20,7 +20,7 @@ class m180302_105119_v2_3_1 extends Migration
             '2.3.x',
             '2.3.1',
             '2.3.1',
-            new DateTimeImmutable('2018-03-02T11:00:00+09:00')
+            new DateTimeImmutable('2018-03-02T11:00:00+09:00'),
         );
     }
 

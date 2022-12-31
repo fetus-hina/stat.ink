@@ -39,7 +39,7 @@ class m200408_130229_hawaii extends Migration
             ],
             ['and',
                 ['>=', 'timezone.order', $pitcairnOrder],
-            ]
+            ],
         );
         $this->update(
             'timezone',
@@ -51,7 +51,7 @@ class m200408_130229_hawaii extends Migration
             ],
             ['and',
                 ['>=', 'timezone.order', $pitcairnOrder + 10000001],
-            ]
+            ],
         );
 
         // ハワイを目的の位置に入れる
@@ -61,7 +61,7 @@ class m200408_130229_hawaii extends Migration
                 'group_id' => $polynesia,
                 'order' => $pitcairnOrder,
             ],
-            ['identifier' => 'Pacific/Honolulu']
+            ['identifier' => 'Pacific/Honolulu'],
         );
     }
 
@@ -92,7 +92,7 @@ class m200408_130229_hawaii extends Migration
                 'order' => $guamOrder - 1,
                 'group_id' => $oceania,
             ],
-            ['identifier' => 'Pacific/Honolulu']
+            ['identifier' => 'Pacific/Honolulu'],
         );
 
         // hawaiiOldOrder より大きい order のタイムゾーンを戻す
@@ -106,7 +106,7 @@ class m200408_130229_hawaii extends Migration
             ],
             ['and',
                 ['>=', 'timezone.order', $hawaiiOldOrder],
-            ]
+            ],
         );
         $this->update(
             'timezone',
@@ -118,7 +118,7 @@ class m200408_130229_hawaii extends Migration
             ],
             ['and',
                 ['>=', 'timezone.order', $hawaiiOldOrder + 10000000],
-            ]
+            ],
         );
     }
 }

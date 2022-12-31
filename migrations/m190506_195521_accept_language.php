@@ -54,7 +54,7 @@ class m190506_195521_accept_language extends Migration
         return ArrayHelper::map(
             (new Query())->select('*')->from('language')->all(),
             'lang',
-            'id'
+            'id',
         );
     }
 }

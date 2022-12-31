@@ -133,7 +133,7 @@ final class BattleItem3Widget extends BaseWidget
             return sprintf(
                 '%s: %d',
                 Yii::t('app', 'Kill or Assist'),
-                $this->model->kill_or_assist
+                $this->model->kill_or_assist,
             );
         }
         return parent::renderKillDeathHtml();

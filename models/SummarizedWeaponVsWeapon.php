@@ -67,7 +67,7 @@ class SummarizedWeaponVsWeapon extends Model
                 $o->rhsWeapon = $weapons[$o->rhs_weapon_id] ?? null;
                 return $o;
             },
-            $query->all()
+            $query->all(),
         );
         usort($result, fn($a, $b) => ($b->winPct <=> $a->winPct));
         return $result;

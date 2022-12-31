@@ -20,7 +20,7 @@ class m171221_093028_bottlegeyser extends Migration
             'Squeezer',
             'shooter',
             'splashshield',
-            'presser'
+            'presser',
         );
     }
 

@@ -65,8 +65,8 @@ class CleanupAction extends Action
                         FilesystemIterator::UNIX_PATHS,
                     ],
                     fn(int $carry, int $cur) => ($carry | $cur),
-                    0 // init value
-                )
+                    0, // init value
+                ),
             ),
             fn(SplFileInfo $f) => $f->isDir()
         );
@@ -78,7 +78,7 @@ class CleanupAction extends Action
                 preg_match(
                     '/^([0-9]{4})([0-9]{2})([0-9]{2})-([0-9]{2})([0-9]{2})([0-9]{2})$/', // Ymd-His
                     $baseName,
-                    $match
+                    $match,
                 ) &&
                 (2021 <= (int)$match[1] && (int)$match[1] < 2100) && // year
                 (1 <= (int)$match[2] && (int)$match[2] <= 12) && // month
@@ -100,7 +100,7 @@ class CleanupAction extends Action
                 preg_match(
                     '/^([0-9]{4})([0-9]{2})([0-9]{2})-([0-9]+)$/', // Ymd-nnn format (n=seq)
                     $baseName,
-                    $match
+                    $match,
                 ) &&
                 (2021 <= (int)$match[1] && (int)$match[1] < 2100) && // year
                 (1 <= (int)$match[2] && (int)$match[2] <= 12) && // month
@@ -113,7 +113,7 @@ class CleanupAction extends Action
                     (new DateTimeImmutable('@0', new DateTimeZone('Etc/UTC')))
                         ->setDate((int)$match[1], (int)$match[2], (int)$match[3])
                         ->setTime(23, 59, 59),
-                    (int)$match[4]
+                    (int)$match[4],
                 );
             } elseif (preg_match('/^[a-z2-7]{16}$/', $baseName)) {
                 $this->procDirectory($entry, null, null);

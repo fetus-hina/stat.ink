@@ -20,7 +20,7 @@ class m190527_121013_fix_promodeler extends Migration
         $this->update(
             'weapon2',
             ['main_group_id' => $w['promodeler_mg']],
-            ['id' => [$w['promodeler_mg'], $w['promodeler_rg']]]
+            ['id' => [$w['promodeler_mg'], $w['promodeler_rg']]],
         );
     }
 
@@ -30,7 +30,7 @@ class m190527_121013_fix_promodeler extends Migration
         $this->update(
             'weapon2',
             ['main_group_id' => $w['promodeler_rg']],
-            ['id' => [$w['promodeler_mg'], $w['promodeler_rg']]]
+            ['id' => [$w['promodeler_mg'], $w['promodeler_rg']]],
         );
     }
 
@@ -43,7 +43,7 @@ class m190527_121013_fix_promodeler extends Migration
                 ->andWhere(['like', 'key', 'promodeler_%', false])
                 ->all(),
             'key',
-            'id'
+            'id',
         );
     }
 }

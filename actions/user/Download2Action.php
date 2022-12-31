@@ -44,8 +44,8 @@ class Download2Action extends BaseAction
             Yii::t(
                 'yii',
                 'Invalid data received for parameter "{param}".',
-                ['param' => 'type']
-            )
+                ['param' => 'type'],
+            ),
         );
     }
 
@@ -72,7 +72,7 @@ class Download2Action extends BaseAction
             'statink-ikalog-2.csv',
             'text/csv; charset=' . $charset[1],
             false,
-            null
+            null,
         );
         $resp->format = 'csv';
         $battles = $this->user->getBattle2s()

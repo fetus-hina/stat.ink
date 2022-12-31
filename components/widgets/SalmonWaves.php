@@ -65,9 +65,9 @@ final class SalmonWaves extends Widget
                         'table-bordered',
                         'table-striped',
                     ],
-                ]
+                ],
             ),
-            ['class' => 'table-responsive']
+            ['class' => 'table-responsive'],
         );
     }
 
@@ -76,16 +76,16 @@ final class SalmonWaves extends Widget
         return Html::tag('thead', Html::tag('tr', implode('', [
             Html::tag('th', ''),
             Html::tag('th', Html::encode(
-                Yii::t('app-salmon2', 'Wave {waveNumber}', ['waveNumber' => 1])
+                Yii::t('app-salmon2', 'Wave {waveNumber}', ['waveNumber' => 1]),
             )),
             Html::tag('th', Html::encode(
-                Yii::t('app-salmon2', 'Wave {waveNumber}', ['waveNumber' => 2])
+                Yii::t('app-salmon2', 'Wave {waveNumber}', ['waveNumber' => 2]),
             )),
             Html::tag('th', Html::encode(
-                Yii::t('app-salmon2', 'Wave {waveNumber}', ['waveNumber' => 3])
+                Yii::t('app-salmon2', 'Wave {waveNumber}', ['waveNumber' => 3]),
             )),
             Html::tag('th', Html::encode(
-                Yii::t('app', 'Total')
+                Yii::t('app', 'Total'),
             )),
         ])));
     }
@@ -148,7 +148,7 @@ final class SalmonWaves extends Widget
 
                     if (!isset($options[$wave->water->key])) {
                         return Html::encode(
-                            Yii::t('app-salmon-tide2', $wave->water->name ?? null)
+                            Yii::t('app-salmon-tide2', $wave->water->name ?? null),
                         );
                     }
 
@@ -167,14 +167,14 @@ final class SalmonWaves extends Widget
                                 'style' => [
                                     'width' => $opt['width'],
                                 ],
-                            ]
+                            ],
                         ),
                         [
                             'class' => 'progress',
                             'style' => [
                                 'margin-bottom' => '0',
                             ],
-                        ]
+                        ],
                     );
                 },
             ],
@@ -207,7 +207,7 @@ final class SalmonWaves extends Widget
             function (array $row): string {
                 return $this->renderRow($row);
             },
-            $data
+            $data,
         )));
     }
 
@@ -227,7 +227,7 @@ final class SalmonWaves extends Widget
         return Html::tag(
             'th',
             $this->formatter->asText($rowInfo['label']),
-            ['scope' => 'row']
+            ['scope' => 'row'],
         );
     }
 
@@ -237,8 +237,8 @@ final class SalmonWaves extends Widget
             'td',
             $this->formatter->format(
                 $this->renderCellValue($rowInfo, $wave, $waveNumber),
-                ArrayHelper::getValue($rowInfo, 'format', 'text')
-            )
+                ArrayHelper::getValue($rowInfo, 'format', 'text'),
+            ),
         );
     }
 
@@ -298,7 +298,7 @@ final class SalmonWaves extends Widget
                 }
                 return $this->formatter->format(
                     $total,
-                    ArrayHelper::getValue($rowInfo, 'format', 'text')
+                    ArrayHelper::getValue($rowInfo, 'format', 'text'),
                 );
         }
     }

@@ -32,7 +32,7 @@ class m160408_112546_weapon extends Migration
                     new Expression("currval('weapon_id_seq'::regclass)"),
                     Weapon::findOne(['key' => 'pablo'])->id,
                 ],
-            ]
+            ],
         );
 
         $type = DeathReasonType::findOne(['key' => 'main'])->id;
@@ -41,7 +41,7 @@ class m160408_112546_weapon extends Migration
             ['type_id', 'key', 'name', 'weapon_id'],
             [
                 [ $type, 'pablo_permanent', 'Permanent Inkbrush', Weapon::findOne(['key' => 'pablo_permanent'])->id ],
-            ]
+            ],
         );
     }
 

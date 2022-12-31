@@ -81,7 +81,7 @@ final class PostBattleAction extends Action
                         ],
                         ['clothing', 'headgear', 'shoes'],
                     ),
-                ])
+                ]),
             )
             ->andWhere(['uuid' => $uuid])
             ->limit(1)

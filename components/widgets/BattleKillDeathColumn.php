@@ -86,7 +86,7 @@ final class BattleKillDeathColumn extends Widget
                     \vsprintf('+ %s', [
                         $this->renderKDValue($this->assist, Yii::t('app', 'Assists')),
                     ]),
-                    ['class' => 'text-muted']
+                    ['class' => 'text-muted'],
                 ),
             ]);
 
@@ -112,7 +112,7 @@ final class BattleKillDeathColumn extends Widget
             [
                 'class' => 'auto-tooltip',
                 'title' => $label,
-            ]
+            ],
         );
     }
 
@@ -163,10 +163,10 @@ final class BattleKillDeathColumn extends Widget
                         ? Yii::t('app', 'N/A')
                         : $this->formatter->asPercent(
                             $this->kill / ($this->kill + $this->death),
-                            2
+                            2,
                         ),
                 ]),
-            ]
+            ],
         );
     }
 

@@ -147,8 +147,8 @@ class DeeplTranslator extends Component
                         // 最悪の事態は避けられるし、不自然に翻訳が適用されない箇所も減らせるハズ
                         fn($text) => static::template2xml($text) ?? '',
                         $englishTexts,
-                    )
-                )
+                    ),
+                ),
             );
             $outputContents = array_combine($englishTexts, $localizedTexts);
             $esc = fn($text) => str_replace(["\\", "'"], ["\\\\", "\\'"], $text);
@@ -190,7 +190,7 @@ class DeeplTranslator extends Component
                 ->standard()
                 ->andWhere(['not like', 'lang', ['en%', 'ja%'], false])
                 ->orderBy(['lang' => SORT_ASC])
-                ->all()
+                ->all(),
         );
         $deeplLanguages = $this->getDeeplSupportedLanguages();
         $results = [];
@@ -237,7 +237,7 @@ class DeeplTranslator extends Component
                         strtoupper(substr($lang, $pos + 1)),
                     ]);
                 },
-                $list
+                $list,
             ));
         }
         return $cache;
@@ -300,7 +300,7 @@ class DeeplTranslator extends Component
         for ($i = 0; $i < $count; ++$i) {
             $results = array_merge($results, $this->doTranslate(
                 $lang,
-                array_slice($englishTexts, $i * 50, 50)
+                array_slice($englishTexts, $i * 50, 50),
             ));
         }
         return $results;
@@ -324,12 +324,12 @@ class DeeplTranslator extends Component
             ),
             implode('&', array_map(
                 fn($text) => 'text=' . rawurlencode($text),
-                array_values($englishTexts)
-            ))
+                array_values($englishTexts),
+            )),
         );
         return array_map(
             fn($data) => Normalizer::normalize(trim($data['text']), Normalizer::FORM_C),
-            $resp['translations']
+            $resp['translations'],
         );
     }
 
@@ -417,7 +417,7 @@ class DeeplTranslator extends Component
                     return $token;
                 }
             },
-            $tokens
+            $tokens,
         ));
     }
 
@@ -462,10 +462,10 @@ class DeeplTranslator extends Component
                 $node->attributes,
                 function (DOMNode $attr): array {
                     return [$attr->nodeName => $attr->nodeValue];
-                }
+                },
             ),
             fn(array $acc, array $cur) => array_merge($acc, $cur),
-            []
+            [],
         ));
 
         // process empty element
@@ -510,7 +510,7 @@ class DeeplTranslator extends Component
         $text = preg_replace_callback(
             '#<param data="([2-7A-Za-z]+=*)"\s*/>#',
             fn($match) => ' ' . Base32::decode($match[1]) . ' ',
-            $text
+            $text,
         );
         $text = preg_replace('/\x20{2,}/', ' ', $text);
         return trim($text);
@@ -546,7 +546,7 @@ class DeeplTranslator extends Component
                 $tokens[] = explode(
                     ',',
                     mb_substr($pattern, $start + 1, $pos - $start - 1, $charset),
-                    3
+                    3,
                 );
                 $start = $pos + 1;
                 $tokens[] = mb_substr($pattern, $start, $open - $start, $charset);

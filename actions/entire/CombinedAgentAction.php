@@ -81,7 +81,7 @@ class CombinedAgentAction extends BaseAction
                     function ($a) {
                         return $a['agent_name'];
                     },
-                    $this->agentGroup->getAgentGroupMaps()->asArray()->all()
+                    $this->agentGroup->getAgentGroupMaps()->asArray()->all(),
                 ),
             ])
             ->groupBy('{{t}}.[[date]]')

@@ -89,7 +89,7 @@ class Mode2 extends ActiveRecord
                 function (Rule2 $rule): array {
                     return $rule->toJsonArray();
                 },
-                $this->rules
+                $this->rules,
             );
         }
         return $ret;
@@ -108,9 +108,9 @@ class Mode2 extends ActiveRecord
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc2', 'Mode'),
                         'app-rule2',
-                        $values
+                        $values,
                     ),
-                    ArrayHelper::getColumn($values, 'key', false)
+                    ArrayHelper::getColumn($values, 'key', false),
                 ),
                 'name' => static::oapiRef(openapi\Name::class),
                 'rules' => [
@@ -139,7 +139,7 @@ class Mode2 extends ActiveRecord
             static::find()
                 ->with(['rules'])
                 ->orderBy(['key' => SORT_ASC])
-                ->all()
+                ->all(),
         );
     }
 }

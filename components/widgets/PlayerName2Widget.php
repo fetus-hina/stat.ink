@@ -42,7 +42,7 @@ class PlayerName2Widget extends Widget
             $this->nameOnly
                 ? ($this->renderName($this->player->user ?? null))
                 : ($this->renderNamePart() . $this->renderSpeciesPart()),
-            ['id' => $this->id]
+            ['id' => $this->id],
         );
     }
 
@@ -52,7 +52,7 @@ class PlayerName2Widget extends Widget
         return $playerUser
             ? Html::a(
                 $this->renderInnerNamePart($playerUser),
-                ['show-user/profile', 'screen_name' => $playerUser->screen_name]
+                ['show-user/profile', 'screen_name' => $playerUser->screen_name],
             )
             : Html::tag('span', $this->renderInnerNamePart($playerUser));
     }
@@ -82,7 +82,7 @@ class PlayerName2Widget extends Widget
                     'width' => '1.2em',
                     'height' => 'auto',
                 ],
-            ]
+            ],
         );
     }
 
@@ -108,10 +108,10 @@ class PlayerName2Widget extends Widget
                     'sha256',
                     (preg_match('/^([0-9a-f]{2}+)[0-9a-f]?$/', $this->player->anonymizeSeed, $match))
                         ? hex2bin($match[1])
-                        : $this->player->anonymizeSeed
+                        : $this->player->anonymizeSeed,
                 ),
                 0,
-                40
+                40,
             );
 
             return Html::tag(
@@ -130,7 +130,7 @@ class PlayerName2Widget extends Widget
                         'text-overflow' => 'ellipsis',
                         'max-width' => 'calc(100% - 2.8rem)',
                     ],
-                ]
+                ],
             );
         } else {
             return Html::encode(trim($this->player->name));
@@ -211,7 +211,7 @@ class PlayerName2Widget extends Widget
                         'height' => 'calc(1.2em - 2px)',
                         'width' => 'auto',
                     ],
-                ]
+                ],
             ),
             [
                 'style' => [
@@ -221,7 +221,7 @@ class PlayerName2Widget extends Widget
                     'background' => $this->player->species->key === 'inkling' ? '#333' : '#ddd',
                     'border-radius' => '4px',
                 ],
-            ]
+            ],
         );
     }
 }

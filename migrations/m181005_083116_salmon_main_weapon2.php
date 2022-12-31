@@ -30,7 +30,7 @@ class m181005_083116_salmon_main_weapon2 extends Migration
                 'SELECT [[key]], [[name]], [[splatnet]], [[id]] ' .
                 'FROM {{weapon2}} ' .
                 'WHERE {{weapon2}}.[[id]] = {{weapon2}}.[[main_group_id]] ' .
-                'ORDER BY {{weapon2}}.[[splatnet]] ASC'
+                'ORDER BY {{weapon2}}.[[splatnet]] ASC',
             );
 
             $this->batchInsert('salmon_main_weapon2', ['key', 'name'], [

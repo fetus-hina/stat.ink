@@ -95,7 +95,7 @@ trait UpdateSalmonSchedule
 
                 $db->transaction->rollBack();
                 return false;
-            }
+            },
         );
     }
 

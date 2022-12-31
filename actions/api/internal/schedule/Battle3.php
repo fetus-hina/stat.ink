@@ -36,7 +36,7 @@ trait Battle3
             // keys
             \array_map(
                 fn (Lobby3 $lobby): string => $lobby->key,
-                $lobbies
+                $lobbies,
             ),
             // values
             \array_map(
@@ -50,8 +50,8 @@ trait Battle3
                     'source' => 's3ink',
                     'schedules' => $this->getBattleSchedules3($period, $lobby),
                 ],
-                $lobbies
-            )
+                $lobbies,
+            ),
         );
     }
 
@@ -108,11 +108,11 @@ trait Battle3
                                 'image' => $this->getImageUrlForMap3($map),
                             ];
                         },
-                        $schedule->scheduleMap3s
+                        $schedule->scheduleMap3s,
                     ),
                 ];
             },
-            $schedules
+            $schedules,
         );
     }
 
@@ -122,7 +122,7 @@ trait Battle3
             GameModeIconsAsset::class,
             \vsprintf('spl3/%s.png', [
                 $lobby->key,
-            ])
+            ]),
         );
     }
 
@@ -132,7 +132,7 @@ trait Battle3
             GameModeIconsAsset::class,
             \vsprintf('spl3/%s.png', [
                 $rule->key,
-            ])
+            ]),
         );
     }
 
@@ -142,7 +142,7 @@ trait Battle3
             Spl3StageAsset::class,
             \vsprintf('color-normal/%s.jpg', [
                 $map->key,
-            ])
+            ]),
         );
     }
 
@@ -158,7 +158,7 @@ trait Battle3
         $am = Yii::$app->assetManager;
         return Url::to(
             $am->getAssetUrl($am->getBundle($assetClass, true), $path),
-            true
+            true,
         );
     }
 }

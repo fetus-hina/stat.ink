@@ -17,7 +17,7 @@ class m200823_190217_inksplode extends Migration
         $this->update(
             'death_reason',
             ['name' => 'Rainmaker Inksplosion'],
-            ['key' => 'hoko_inksplode']
+            ['key' => 'hoko_inksplode'],
         );
     }
 
@@ -26,7 +26,7 @@ class m200823_190217_inksplode extends Migration
         $this->update(
             'death_reason',
             ['name' => 'Rainmaker Inksplode'],
-            ['key' => 'hoko_inksplode']
+            ['key' => 'hoko_inksplode'],
         );
     }
 }

@@ -47,7 +47,7 @@ class m151223_123831_splatfest_team extends Migration
                 // 色は推定
                 [$this->fest($jp, 9), 1, '赤いきつね', 335],
                 [$this->fest($jp, 9), 2, '緑のたぬき', 155],
-            ]
+            ],
         );
     }
 

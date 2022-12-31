@@ -211,9 +211,9 @@ class Weapon2 extends ActiveRecord
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc2', 'Weapon'),
                         'app-weapon2',
-                        $values
+                        $values,
                     ),
-                    ArrayHelper::getColumn($values, 'key', false)
+                    ArrayHelper::getColumn($values, 'key', false),
                 ),
                 'splatnet' => static::oapiRef(openapi\SplatNet2ID::class),
                 'type' => static::oapiRef(WeaponType2::class),
@@ -224,7 +224,7 @@ class Weapon2 extends ActiveRecord
                     'description' => Yii::t(
                         'app-apidoc2',
                         'If it is a weapon that only looks different, like the Hero series, ' .
-                        'this points to the original weapon.'
+                        'this points to the original weapon.',
                     ),
                     'nullable' => true,
                 ]),
@@ -264,7 +264,7 @@ class Weapon2 extends ActiveRecord
                     'sshooter_collabo',
                 ]])
                 ->orderBy(['splatnet' => SORT_ASC])
-                ->all()
+                ->all(),
         );
     }
 }

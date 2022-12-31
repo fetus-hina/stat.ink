@@ -37,7 +37,7 @@ class ApiToken extends Component implements SecurityInterface
             'description' => implode("\n", [
                 Html::encode(Yii::t(
                     'app-apidoc2',
-                    'An API Token with bearer auth format.'
+                    'An API Token with bearer auth format.',
                 )),
                 '',
                 Html::encode(Yii::t(
@@ -52,7 +52,7 @@ class ApiToken extends Component implements SecurityInterface
                 vsprintf('%s %s', [
                     Html::encode(Yii::t('app-apidoc2', 'Example:')),
                     Html::tag('code', Html::encode(
-                        'Authorization: Bearer sD093VHLHW41b9xdaM7zVpyIX2TbIornR0h47RaUNGA'
+                        'Authorization: Bearer sD093VHLHW41b9xdaM7zVpyIX2TbIornR0h47RaUNGA',
                     )),
                 ]),
             ]),

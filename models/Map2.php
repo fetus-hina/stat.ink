@@ -114,7 +114,7 @@ class Map2 extends ActiveRecord
             'release_at' => $t
                 ? DateTimeFormatter::unixTimeToJsonArray(
                     $t,
-                    new DateTimeZone('Etc/UTC')
+                    new DateTimeZone('Etc/UTC'),
                 )
                 : null,
         ];
@@ -170,9 +170,9 @@ class Map2 extends ActiveRecord
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc2', 'Stage'),
                         'app-map2',
-                        $values
+                        $values,
                     ),
-                    ArrayHelper::getColumn($values, 'key', false)
+                    ArrayHelper::getColumn($values, 'key', false),
                 ),
                 'splatnet' => static::oapiRef(openapi\SplatNet2ID::class),
                 'name' => static::oapiRef(openapi\Name::class),
@@ -212,8 +212,8 @@ class Map2 extends ActiveRecord
                         'battera',
                         'kombu',
                     ]])
-                    ->all()
-            )
+                    ->all(),
+            ),
         );
     }
 }

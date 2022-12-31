@@ -46,7 +46,7 @@ class LocationColumnWidget extends Widget
                 'class' => [
                     'd-flex',
                 ],
-            ]
+            ],
         );
     }
 
@@ -70,7 +70,7 @@ class LocationColumnWidget extends Widget
             'sha256',
             $this->remoteAddrMasked
                 ? $this->remoteAddrMasked
-                : $this->remoteAddr
+                : $this->remoteAddr,
         );
     }
 
@@ -85,13 +85,13 @@ class LocationColumnWidget extends Widget
                 array_filter([
                     $this->renderLocation(),
                     $this->renderIpAddress(),
-                ])
+                ]),
             )),
             [
                 'style' => [
                     'flex' => '1 1 auto',
                 ],
-            ]
+            ],
         );
     }
 
@@ -155,7 +155,7 @@ class LocationColumnWidget extends Widget
             return Html::tag(
                 'span',
                 Html::encode(strtolower($this->remoteHost)),
-                ['title' => $this->remoteAddr, 'class' => 'auto-tooltip']
+                ['title' => $this->remoteAddr, 'class' => 'auto-tooltip'],
             );
         }
 
@@ -163,7 +163,7 @@ class LocationColumnWidget extends Widget
             return Html::tag(
                 'span',
                 Html::encode(strtolower($this->remoteAddrMasked)),
-                ['title' => $this->remoteAddr, 'class' => 'auto-tooltip']
+                ['title' => $this->remoteAddr, 'class' => 'auto-tooltip'],
             );
         }
 

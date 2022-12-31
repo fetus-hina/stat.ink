@@ -33,8 +33,8 @@ class m151016_073134_nawabari extends Migration
                     'his_team_final_point',
                     'my_team_final_percent',
                     'his_team_final_percent',
-                ]
-            ))
+                ],
+            )),
         );
         $this->execute($update);
         $this->dropTable('battle_nawabari');

@@ -22,8 +22,8 @@ class m170718_073002_user_region extends Migration
                     ->select('id')
                     ->from('region')
                     ->where(['key' => 'jp'])
-                    ->scalar()
-            )
+                    ->scalar(),
+            ),
         );
     }
 

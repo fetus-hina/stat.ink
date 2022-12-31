@@ -22,7 +22,7 @@ class m190717_092015_s2_v4_9_1 extends Migration
             '4.9.x',
             '4.9.1',
             '4.9.1',
-            new DateTimeImmutable('2019-07-18T11:00:00+09:00')
+            new DateTimeImmutable('2019-07-18T11:00:00+09:00'),
         );
     }
 

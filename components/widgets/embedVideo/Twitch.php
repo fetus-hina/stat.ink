@@ -35,7 +35,7 @@ class Twitch extends Widget
             'allowfullscreen'   => 'allowfullscreen',
             'src' => sprintf(
                 'https://player.twitch.tv/?%s',
-                http_build_query(['video' => "v{$this->videoId}"], '', '&')
+                http_build_query(['video' => "v{$this->videoId}"], '', '&'),
             ),
         ]);
 

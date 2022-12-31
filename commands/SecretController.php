@@ -22,7 +22,7 @@ class SecretController extends Controller
         $key = substr(strtr(base64_encode($binary), '+/=', '_-.'), 0, $length);
         file_put_contents(
             __DIR__ . '/../config/cookie-secret.php',
-            sprintf("<?php\nreturn '%s';\n", $key)
+            sprintf("<?php\nreturn '%s';\n", $key),
         );
         $this->stdout("Done.\n", Console::FG_GREEN);
     }
@@ -36,7 +36,7 @@ class SecretController extends Controller
         $key = substr(strtr(base64_encode($binary), '+/=', '_-.'), 0, $length);
         file_put_contents(
             __DIR__ . '/../config/authkey-secret.php',
-            sprintf("<?php\nreturn '%s';\n", $key)
+            sprintf("<?php\nreturn '%s';\n", $key),
         );
         $this->stdout("Done.\n", Console::FG_GREEN);
     }
@@ -79,7 +79,7 @@ class SecretController extends Controller
         $file .= "];\n";
         file_put_contents(
             __DIR__ . '/../config/db.php',
-            $file
+            $file,
         );
         $this->stdout("Done.\n", Console::FG_GREEN);
     }

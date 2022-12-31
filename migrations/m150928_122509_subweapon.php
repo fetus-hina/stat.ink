@@ -39,7 +39,7 @@ class m150928_122509_subweapon extends Migration
                 'weapon',
                 ['subweapon_id' => $subWeaponId],
                 'id = :weapon_id',
-                ['weapon_id' => $weaponId]
+                ['weapon_id' => $weaponId],
             );
         }
         $this->addForeignKey('fk_weapon_1', 'weapon', 'subweapon_id', 'subweapon', 'id', 'RESTRICT');

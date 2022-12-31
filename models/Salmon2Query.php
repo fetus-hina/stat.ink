@@ -55,7 +55,7 @@ class Salmon2Query extends ActiveQuery
                     $stats('golden', '{{salmon_player2}}.[[golden_egg_delivered]]'),
                     $stats('power', '{{salmon_player2}}.[[power_egg_collected]]'),
                     $stats('rescue', '{{salmon_player2}}.[[rescue]]'),
-                    $stats('death', '{{salmon_player2}}.[[death]]')
+                    $stats('death', '{{salmon_player2}}.[[death]]'),
                 ));
             $this->summaryCache = $query->asArray()->one();
         }
@@ -76,7 +76,7 @@ class Salmon2Query extends ActiveQuery
             Yii::t(
                 'app-salmon2',
                 '{name}\'s Salmon Log',
-                ['name' => $user->name]
+                ['name' => $user->name],
             ),
             Yii::t(
                 'app-salmon2',
@@ -89,8 +89,8 @@ class Salmon2Query extends ActiveQuery
                     'avgPowerEggs' => $f->asDecimal($summary['avg_power'], 2),
                     'avgDeaths' => $f->asDecimal($summary['avg_death'], 2),
                     'avgRescues' => $f->asDecimal($summary['avg_rescue'], 2),
-                ]
-            )
+                ],
+            ),
         );
     }
 }

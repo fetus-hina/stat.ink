@@ -86,7 +86,7 @@ class UserStat2 extends ActiveRecord
         Yii::trace(sprintf(
             'Try to get UserStat2 lock for user #%d (%s)',
             $userId,
-            (Yii::$app instanceof \yii\web\Application) ? 'webapp' : 'console'
+            (Yii::$app instanceof \yii\web\Application) ? 'webapp' : 'console',
         ));
         $time = microtime(true);
         do {
@@ -94,7 +94,7 @@ class UserStat2 extends ActiveRecord
                 Yii::trace(sprintf(
                     'Got a UserStat2 lock for user #%d (%s)',
                     $userId,
-                    (Yii::$app instanceof \yii\web\Application) ? 'webapp' : 'console'
+                    (Yii::$app instanceof \yii\web\Application) ? 'webapp' : 'console',
                 ));
                 if ($autoRelease) {
                     return true;
@@ -110,7 +110,7 @@ class UserStat2 extends ActiveRecord
         Yii::trace(sprintf(
             'Failed to get a lock for user #%d (%s)',
             $userId,
-            (Yii::$app instanceof \yii\web\Application) ? 'webapp' : 'console'
+            (Yii::$app instanceof \yii\web\Application) ? 'webapp' : 'console',
         ));
         return false;
         // }}}
@@ -270,7 +270,7 @@ class UserStat2 extends ActiveRecord
         ];
         $excludeHaventInked = array_merge(
             $excludeHaventWinLose,
-            ['WHEN {{battle2}}.[[my_point]] IS NULL THEN 0']
+            ['WHEN {{battle2}}.[[my_point]] IS NULL THEN 0'],
         );
         $excludePrivate = [
             "WHEN {{lobby2}}.[[key]] = 'private' THEN 0",
@@ -312,9 +312,9 @@ class UserStat2 extends ActiveRecord
                             'WHEN {{rank2b}}.[[int_base]] IS NULL THEN 0',
                             'WHEN {{battle2}}.[[rank_after_exp]] IS NULL THEN 0',
                             'ELSE {{battle2}}.[[rank_after_exp]]',
-                        ]))
+                        ])),
                     ),
-                ]
+                ],
             )));
             // }}}
         };
@@ -327,13 +327,13 @@ class UserStat2 extends ActiveRecord
                     sprintf('WHEN {{rule2}}.[[key]] <> %s THEN NULL', $db->quoteValue($ruleKey)),
                     sprintf(
                         'WHEN {{rank2a}}.[[key]] <> %1$s AND {{rank2b}}.[[key]] <> %1$s THEN NULL',
-                        $db->quoteValue('x')
+                        $db->quoteValue('x'),
                     ),
                     vsprintf('ELSE GREATEST(%s, %s)', [
                         '{{battle2}}.[[x_power]]',
                         '{{battle2}}.[[x_power_after]]',
                     ]),
-                ]
+                ],
             )));
             // }}}
         };
@@ -343,53 +343,53 @@ class UserStat2 extends ActiveRecord
                 'battles' => 'COUNT(*)',
                 'have_win_lose' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludeHaventWinLose,
-                    ['ELSE 1']
+                    ['ELSE 1'],
                 ))),
                 'win_battles' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludeHaventWinLose,
                     [
                         'WHEN {{battle2}}.[[is_win]] = TRUE THEN 1',
                         'ELSE 0',
-                    ]
+                    ],
                 ))),
                 'have_kill_death' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludeHaventKillDeath,
                     [
                         'ELSE 1',
-                    ]
+                    ],
                 ))),
                 'kill' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludeHaventKillDeath,
                     [
                         'ELSE {{battle2}}.[[kill]]',
-                    ]
+                    ],
                 ))),
                 'death' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludeHaventKillDeath,
                     [
                     'ELSE {{battle2}}.[[death]]',
-                    ]
+                    ],
                 ))),
                 'have_kill_death_time' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludeHaventKillDeath,
                     $excludeHaventTimes,
                     [
                     'ELSE 1',
-                    ]
+                    ],
                 ))),
                 'kill_with_time' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludeHaventKillDeath,
                     $excludeHaventTimes,
                     [
                     'ELSE {{battle2}}.[[kill]]',
-                    ]
+                    ],
                 ))),
                 'death_with_time' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludeHaventKillDeath,
                     $excludeHaventTimes,
                     [
                     'ELSE {{battle2}}.[[death]]',
-                    ]
+                    ],
                 ))),
                 'total_seconds' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludeHaventKillDeath,
@@ -398,9 +398,9 @@ class UserStat2 extends ActiveRecord
                     sprintf(
                         'ELSE (%s - %s)',
                         $timestamp('{{battle2}}.[[end_at]]'),
-                        $timestamp('{{battle2}}.[[start_at]]')
+                        $timestamp('{{battle2}}.[[start_at]]'),
                     ),
-                    ]
+                    ],
                 ))),
                 // }}}
                 // ナワバリ {{{
@@ -409,7 +409,7 @@ class UserStat2 extends ActiveRecord
                     $excludeNonTurfWar,
                     [
                     'ELSE 1',
-                    ]
+                    ],
                 ))),
                 'turf_have_win_lose' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
@@ -417,7 +417,7 @@ class UserStat2 extends ActiveRecord
                     $excludeHaventWinLose,
                     [
                     'ELSE 1',
-                    ]
+                    ],
                 ))),
                 'turf_win_battles' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
@@ -426,7 +426,7 @@ class UserStat2 extends ActiveRecord
                     [
                     'WHEN {{battle2}}.[[is_win]] = TRUE THEN 1',
                     'ELSE 0',
-                    ]
+                    ],
                 ))),
                 'turf_have_kill_death' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
@@ -434,7 +434,7 @@ class UserStat2 extends ActiveRecord
                     $excludeHaventKillDeath,
                     [
                     'ELSE 1',
-                    ]
+                    ],
                 ))),
                 'turf_kill' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
@@ -442,7 +442,7 @@ class UserStat2 extends ActiveRecord
                     $excludeHaventKillDeath,
                     [
                     'ELSE {{battle2}}.[[kill]]',
-                    ]
+                    ],
                 ))),
                 'turf_death' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
@@ -450,7 +450,7 @@ class UserStat2 extends ActiveRecord
                     $excludeHaventKillDeath,
                     [
                     'ELSE {{battle2}}.[[death]]',
-                    ]
+                    ],
                 ))),
                 'turf_have_inked'  => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
@@ -458,7 +458,7 @@ class UserStat2 extends ActiveRecord
                     $excludeHaventInked,
                     [
                     'ELSE 1',
-                    ]
+                    ],
                 ))),
                 'turf_total_inked'  => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
@@ -467,7 +467,7 @@ class UserStat2 extends ActiveRecord
                     [
                     'WHEN {{battle2}}.[[is_win]] THEN {{battle2}}.[[my_point]] - 1000',
                     'ELSE {{battle2}}.[[my_point]]',
-                    ]
+                    ],
                 ))),
                 'turf_max_inked'  => sprintf('MAX(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
@@ -476,7 +476,7 @@ class UserStat2 extends ActiveRecord
                     [
                     'WHEN {{battle2}}.[[is_win]] THEN {{battle2}}.[[my_point]] - 1000',
                     'ELSE {{battle2}}.[[my_point]]',
-                    ]
+                    ],
                 ))),
                 // }}}
                 // ガチ {{{
@@ -485,7 +485,7 @@ class UserStat2 extends ActiveRecord
                     $excludeNonGachi,
                     [
                     'ELSE 1',
-                    ]
+                    ],
                 ))),
                 'gachi_have_win_lose' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
@@ -493,7 +493,7 @@ class UserStat2 extends ActiveRecord
                     $excludeHaventWinLose,
                     [
                     'ELSE 1',
-                    ]
+                    ],
                 ))),
                 'gachi_win_battles' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
@@ -502,7 +502,7 @@ class UserStat2 extends ActiveRecord
                     [
                     'WHEN {{battle2}}.[[is_win]] = TRUE THEN 1',
                     'ELSE 0',
-                    ]
+                    ],
                 ))),
                 'gachi_have_kill_death' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
@@ -510,7 +510,7 @@ class UserStat2 extends ActiveRecord
                     $excludeHaventKillDeath,
                     [
                     'ELSE 1',
-                    ]
+                    ],
                 ))),
                 'gachi_kill' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
@@ -518,7 +518,7 @@ class UserStat2 extends ActiveRecord
                     $excludeHaventKillDeath,
                     [
                     'ELSE {{battle2}}.[[kill]]',
-                    ]
+                    ],
                 ))),
                 'gachi_death' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
@@ -526,7 +526,7 @@ class UserStat2 extends ActiveRecord
                     $excludeHaventKillDeath,
                     [
                     'ELSE {{battle2}}.[[death]]',
-                    ]
+                    ],
                 ))),
                 'gachi_kill_death_time' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
@@ -535,7 +535,7 @@ class UserStat2 extends ActiveRecord
                     $excludeHaventTimes,
                     [
                     'ELSE 1',
-                    ]
+                    ],
                 ))),
                 'gachi_kill_with_time' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
@@ -544,7 +544,7 @@ class UserStat2 extends ActiveRecord
                     $excludeHaventTimes,
                     [
                     'ELSE {{battle2}}.[[kill]]',
-                    ]
+                    ],
                 ))),
                 'gachi_death_with_time' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
@@ -553,7 +553,7 @@ class UserStat2 extends ActiveRecord
                     $excludeHaventTimes,
                     [
                     'ELSE {{battle2}}.[[death]]',
-                    ]
+                    ],
                 ))),
                 'gachi_total_seconds' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
@@ -564,9 +564,9 @@ class UserStat2 extends ActiveRecord
                     sprintf(
                         'ELSE (%s - %s)',
                         $timestamp('{{battle2}}.[[end_at]]'),
-                        $timestamp('{{battle2}}.[[start_at]]')
+                        $timestamp('{{battle2}}.[[start_at]]'),
                     ),
-                    ]
+                    ],
                 ))),
                 'area_rank_peak' => $gachiRankPeak('area'),
                 'yagura_rank_peak' => $gachiRankPeak('yagura'),
@@ -679,7 +679,7 @@ class UserStat2 extends ActiveRecord
                             : (($this->kill > 0)
                                 ? '99.99'
                                 : 'null'
-                            )
+                            ),
                     )
                     : null,
                 'kill_total' => $this->kill,
@@ -712,7 +712,7 @@ class UserStat2 extends ActiveRecord
                             : (($this->turf_kill > 0)
                                 ? '99.99' // infinity が返したい
                                 : 'null'
-                            )
+                            ),
                     )
                     : null,
                 'kill_total' => $this->turf_kill,
@@ -750,7 +750,7 @@ class UserStat2 extends ActiveRecord
                             : (($this->gachi_kill > 0)
                                 ? '99.99' // infinity が返したい
                                 : 'null'
-                            )
+                            ),
                     )
                     : null,
                 'kill_total' => $this->gachi_kill,
@@ -775,19 +775,19 @@ class UserStat2 extends ActiveRecord
                     function (string $key): array {
                         return [
                             'rank_peak' => $this->rankFormatForJson(
-                                $this->{$key . '_rank_peak'}
+                                $this->{$key . '_rank_peak'},
                             ),
                             'rank_current' => $this->rankFormatForJson(
-                                $this->{$key . '_current_rank'}
+                                $this->{$key . '_current_rank'},
                             ),
                             'x_power_peak' => $this->xPowerFormatForJson(
-                                $this->{$key . '_x_power_peak'}
+                                $this->{$key . '_x_power_peak'},
                             ),
                             'x_power_current' => $this->xPowerFormatForJson(
-                                $this->{$key . '_current_x_power'}
+                                $this->{$key . '_current_x_power'},
                             ),
                         ];
-                    }
+                    },
                 ),
             ],
         ];

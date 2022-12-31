@@ -30,9 +30,9 @@ class BrowserIconWidget extends BaseUAIconWidget
                 'logos' => preg_replace(
                     '!/XXXXXXXX.*$!',
                     '/',
-                    $am->getAssetUrl($logos, 'XXXXXXXX')
+                    $am->getAssetUrl($logos, 'XXXXXXXX'),
                 ),
-            ]))
+            ])),
         ));
     }
 }

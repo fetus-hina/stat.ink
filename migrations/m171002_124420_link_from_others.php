@@ -45,7 +45,7 @@ class m171002_124420_link_from_others extends Migration
             'ALTER TABLE {{user}} ' .
             'ADD COLUMN [[link_mode_id]] INTEGER NOT NULL ' .
             'DEFAULT ' . $this->db->quoteValue($inGame) . ' ' .
-            'REFERENCES {{link_mode}}([[id]])'
+            'REFERENCES {{link_mode}}([[id]])',
         );
     }
 

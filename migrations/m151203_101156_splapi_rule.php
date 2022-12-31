@@ -34,7 +34,7 @@ class m151203_101156_splapi_rule extends Migration
                 [ $rule['area'],     'ガチエリア' ],
                 [ $rule['yagura'],   'ガチヤグラ' ],
                 [ $rule['hoko'],     'ガチホコ' ],
-            ]
+            ],
         );
     }
 

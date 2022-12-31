@@ -65,7 +65,7 @@ class UsersAction extends Action
             function ($a) {
                 return $a['agent'];
             },
-            $query->createCommand()->queryAll()
+            $query->createCommand()->queryAll(),
         );
         usort($list, 'strnatcasecmp');
         return $list;
@@ -77,7 +77,7 @@ class UsersAction extends Action
             function (array $a): string {
                 return $a['name'] ?? '';
             },
-            AgentGroup::find()->asArray()->all()
+            AgentGroup::find()->asArray()->all(),
         );
         \usort($list, 'strnatcasecmp');
         return $list;

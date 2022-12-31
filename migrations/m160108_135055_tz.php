@@ -21,7 +21,7 @@ class m160108_135055_tz extends Migration
                 [ 'America/St_Johns', 'North America (Newfoundland)', 10001, $regionNA ],
                 [ 'America/Halifax', 'North America (AT)', 10002, $regionNA ],
                 [ 'America/Regina', 'North America (Saskatchewan)', 10003, $regionNA ],
-            ]
+            ],
         );
 
         $newOrder = [

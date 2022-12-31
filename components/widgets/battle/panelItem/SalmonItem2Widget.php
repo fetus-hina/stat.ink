@@ -55,15 +55,15 @@ class SalmonItem2Widget extends Widget
                                     $this->renderResultHtml(),
                                     $this->renderDataHtml(),
                                 ]),
-                                ['class' => 'simple-battle-row-impl-main']
+                                ['class' => 'simple-battle-row-impl-main'],
                             ),
                             Html::tag(
                                 'div',
                                 $this->renderDatetimeHtml(),
-                                ['class' => 'simple-battle-at']
+                                ['class' => 'simple-battle-at'],
                             ),
                         ]),
-                        ['class' => 'simple-battle-row-impl']
+                        ['class' => 'simple-battle-row-impl'],
                     ),
                     ['salmon/view',
                         'screen_name' => $this->user->screen_name,
@@ -75,8 +75,8 @@ class SalmonItem2Widget extends Widget
                         ],
                     ],
                 ),
-                ['class' => 'simple-battle-row']
-            )
+                ['class' => 'simple-battle-row'],
+            ),
         );
     }
 
@@ -86,7 +86,7 @@ class SalmonItem2Widget extends Widget
             return Html::tag(
                 'div',
                 '?',
-                ['class' => 'simple-battle-result simple-battle-result-unk']
+                ['class' => 'simple-battle-result simple-battle-result-unk'],
             );
         }
 
@@ -94,7 +94,7 @@ class SalmonItem2Widget extends Widget
             return Html::tag(
                 'div',
                 Html::encode(Yii::t('app-salmon2', '✓')),
-                ['class' => 'simple-battle-result simple-battle-result-won']
+                ['class' => 'simple-battle-result simple-battle-result-won'],
             );
         }
 
@@ -102,7 +102,7 @@ class SalmonItem2Widget extends Widget
         return Html::tag(
             'div',
             Html::encode(Yii::t('app-salmon2', '✗')),
-            ['class' => 'simple-battle-result simple-battle-result-lost']
+            ['class' => 'simple-battle-result simple-battle-result-lost'],
         );
     }
 
@@ -112,22 +112,22 @@ class SalmonItem2Widget extends Widget
             Html::tag(
                 'div',
                 Html::encode($this->getMapName()),
-                ['class' => 'simple-battle-map omit']
+                ['class' => 'simple-battle-map omit'],
             ),
             Html::tag(
                 'div',
                 Html::encode($this->getSpecialWeaponName()),
-                ['class' => 'simple-battle-weapon omit']
+                ['class' => 'simple-battle-weapon omit'],
             ),
             Html::tag(
                 'div',
                 Html::encode($this->getHazardLevel()),
-                ['class' => 'simple-battle-rule omit']
+                ['class' => 'simple-battle-rule omit'],
             ),
             Html::tag(
                 'div',
                 Html::encode($this->getEggs()),
-                ['class' => 'simple-battle-kill-death omit']
+                ['class' => 'simple-battle-kill-death omit'],
             ),
         ]), ['class' => 'simple-battle-data']);
     }
@@ -179,7 +179,7 @@ class SalmonItem2Widget extends Widget
             Yii::t('app-salmon2', 'Golden Eggs'),
             $golden,
             Yii::t('app-salmon2', 'Power Eggs'),
-            $power
+            $power,
         );
     }
 
@@ -202,7 +202,7 @@ class SalmonItem2Widget extends Widget
               'datetime' => $dateTime->format(DateTime::ATOM),
               'title' => Yii::$app->formatter->asDatetime($dateTime, 'medium'),
               'class' => 'auto-tooltip',
-            ]
+            ],
         );
     }
 }

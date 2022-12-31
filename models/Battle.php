@@ -130,7 +130,7 @@ class Battle extends ActiveRecord
                     ->select('[[last_value]]')
                     ->from('{{battle_id_seq}}')
                     ->scalar(),
-                FILTER_VALIDATE_INT
+                FILTER_VALIDATE_INT,
             );
             if (is_int($count)) {
                 return $count;
@@ -811,7 +811,7 @@ class Battle extends ActiveRecord
                     function ($model) {
                         return $model->toJsonArray();
                     },
-                    $this->battleDeathReasons
+                    $this->battleDeathReasons,
                 ),
             'gender' => $this->gender ? $this->gender->toJsonArray() : null,
             'fest_title' => $this->festTitle
@@ -864,7 +864,7 @@ class Battle extends ActiveRecord
                     function ($model) {
                         return $model->toJsonArray();
                     },
-                    $this->battlePlayers
+                    $this->battlePlayers,
                 ),
             'events' => $events,
             'agent' => [
@@ -997,7 +997,7 @@ class Battle extends ActiveRecord
                     }
                     return $ret;
                 },
-                $this->battlePlayers
+                $this->battlePlayers,
             );
         }
         return $ret;
@@ -1161,7 +1161,7 @@ class Battle extends ActiveRecord
 
         return $this->saveEditHistoryImpl(
             Json::encode($before->toJsonArray(), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
-            Json::encode($this->toJsonArray(), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+            Json::encode($this->toJsonArray(), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
         );
     }
 
@@ -1173,7 +1173,7 @@ class Battle extends ActiveRecord
 
         return $this->saveEditHistoryImpl(
             Json::encode(['id' => $this->id], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
-            Json::encode(['_id' => 'deleted'], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+            Json::encode(['_id' => 'deleted'], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
         );
     }
 

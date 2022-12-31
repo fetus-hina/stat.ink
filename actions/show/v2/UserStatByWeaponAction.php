@@ -102,13 +102,13 @@ class UserStatByWeaponAction extends ViewAction
                     'win_rate' => sprintf(
                         '(%s::double precision / NULLIF(%s::double precision, 0.0))',
                         'SUM(CASE WHEN {{battle2}}.[[is_win]] = TRUE THEN 1 ELSE 0 END)',
-                        'SUM(CASE WHEN {{battle2}}.[[is_win]] IS NOT NULL THEN 1 ELSE 0 END)'
+                        'SUM(CASE WHEN {{battle2}}.[[is_win]] IS NOT NULL THEN 1 ELSE 0 END)',
                     ),
                 ],
                 $mkColumns('kill', $kill),
                 $mkColumns('death', $death),
                 $mkColumns('ka', '{{battle2}}.[[kill_or_assist]]'),
-                $mkColumns('sp', '{{battle2}}.[[special]]')
+                $mkColumns('sp', '{{battle2}}.[[special]]'),
             ));
         // }}}
 
@@ -149,7 +149,7 @@ class UserStatByWeaponAction extends ViewAction
                 }
                 return $row;
             },
-            $query->createCommand()->queryAll()
+            $query->createCommand()->queryAll(),
         );
         return $list;
         // }}}

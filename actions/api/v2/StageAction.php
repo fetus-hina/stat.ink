@@ -22,7 +22,7 @@ class StageAction extends BaseAction
             function (Map2 $map): array {
                 return $map->toJsonArray();
             },
-            Map2::find()->orderBy(['id' => SORT_ASC])->all()
+            Map2::find()->orderBy(['id' => SORT_ASC])->all(),
         );
     }
 }

@@ -32,7 +32,7 @@ class OpenCCTranslator extends Component
             if (
                 !$this->translateFile(
                     $inputPath,
-                    Yii::getAlias(static::OUTPUT_DIR) . '/' . basename($inputPath)
+                    Yii::getAlias(static::OUTPUT_DIR) . '/' . basename($inputPath),
                 )
             ) {
                 $status = false;
@@ -137,8 +137,8 @@ class OpenCCTranslator extends Component
             preg_replace(
                 '/\s+/',
                 ' ',
-                Normalizer::normalize($hantText, Normalizer::FORM_C)
-            )
+                Normalizer::normalize($hantText, Normalizer::FORM_C),
+            ),
         );
     }
 }

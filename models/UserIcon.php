@@ -82,7 +82,7 @@ class UserIcon extends ActiveRecord
             static::ICON_WIDTH,
             static::ICON_HEIGHT,
             $inSize,
-            $inSize
+            $inSize,
         );
         imagedestroy($in);
         return $out;

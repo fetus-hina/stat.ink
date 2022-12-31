@@ -41,7 +41,7 @@ class NumberFormatAsset extends AssetBundle
         Yii::$app->view->registerJs(
             sprintf('window.numberFormat = %s;', Json::encode($seps)),
             View::POS_HEAD,
-            hash('md5', self::class)
+            hash('md5', self::class),
         );
     }
 }

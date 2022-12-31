@@ -74,9 +74,9 @@ class ChallengeProgress extends Widget
                 \vsprintf('%s - %s', [
                     $f->asInteger($win),
                     $f->asInteger($lose),
-                ])
+                ]),
             ),
-            []
+            [],
         );
     }
 
@@ -89,22 +89,22 @@ class ChallengeProgress extends Widget
                     'span',
                     \str_repeat(
                         (string)FA::fas('circle')->fw(),
-                        $win
+                        $win,
                     ),
-                    ['class' => 'text-success']
+                    ['class' => 'text-success'],
                 ),
                 Html::tag(
                     'span',
                     \str_repeat(
                         (string)FA::fas('circle')->fw(),
-                        $max - $win
+                        $max - $win,
                     ),
                     [
                         'class' => 'text-muted',
                         'style' => [
                             'opacity' => '0.2',
                         ],
-                    ]
+                    ],
                 ),
             ]),
             ['class' => 'series-progress'],
@@ -120,22 +120,22 @@ class ChallengeProgress extends Widget
                     'span',
                     \str_repeat(
                         (string)FA::fas('square')->fw(),
-                        $max - $lose
+                        $max - $lose,
                     ),
-                    ['class' => 'text-warning']
+                    ['class' => 'text-warning'],
                 ),
                 Html::tag(
                     'span',
                     \str_repeat(
                         (string)FA::fas('times')->fw(),
-                        $lose
+                        $lose,
                     ),
                     [
                         'class' => 'text-danger',
                         'style' => [
                             'opacity' => '0.5',
                         ],
-                    ]
+                    ],
                 ),
             ]),
             ['class' => 'series-progress'],

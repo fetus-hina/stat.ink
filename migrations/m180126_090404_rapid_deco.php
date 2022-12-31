@@ -23,7 +23,7 @@ class m180126_090404_rapid_deco extends Migration
             'jetpack',
             'rapid',
             null,
-            241
+            241,
         );
     }
 

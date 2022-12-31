@@ -52,7 +52,7 @@ class Youtube extends Widget
                 'https://%s/embed/%s?%s',
                 $this->noCookie ? 'www.youtube-nocookie.com' : 'www.youtube.com',
                 rawurlencode($this->videoId),
-                http_build_query($params, '', '&')
+                http_build_query($params, '', '&'),
             ),
         ]);
 

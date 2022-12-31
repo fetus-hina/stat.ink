@@ -25,7 +25,7 @@ class m180328_124400_lang_support_level extends Migration
         ]);
         $this->execute(
             'ALTER TABLE {{language}} ' .
-            'ADD COLUMN [[support_level_id]] INTEGER REFERENCES {{support_level}} ([[id]])'
+            'ADD COLUMN [[support_level_id]] INTEGER REFERENCES {{support_level}} ([[id]])',
         );
         $this->update('{{language}}', ['support_level_id' => 1], ['lang' => 'ja-JP']);
         $this->update('{{language}}', ['support_level_id' => 2], ['lang' => ['en-US', 'en-GB']]);

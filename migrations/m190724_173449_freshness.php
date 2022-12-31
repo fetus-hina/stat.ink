@@ -27,7 +27,7 @@ class m190724_173449_freshness extends Migration
         $this->addColumn(
             'battle2',
             'freshness',
-            (string)$this->decimal(3, 1)->check('[[freshness]] BETWEEN 0.0 AND 99.9')
+            (string)$this->decimal(3, 1)->check('[[freshness]] BETWEEN 0.0 AND 99.9'),
         );
         $this->createTable('freshness2', [
             'id'    => $this->primaryKey(),

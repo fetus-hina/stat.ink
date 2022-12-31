@@ -52,7 +52,7 @@ trait UpdateSchedule
                     $lobby,
                     $schedule['period'],
                     $schedule['rule_id'],
-                    $schedule['map_ids']
+                    $schedule['map_ids'],
                 )
             ) {
                 return false;
@@ -85,7 +85,7 @@ trait UpdateSchedule
 
                 $db->transaction->rollBack();
                 return false;
-            }
+            },
         );
     }
 
@@ -111,7 +111,7 @@ trait UpdateSchedule
         // マップが違う
         $registeredMapIds = \array_map(
             fn (ScheduleMap3 $model): int => (int)$model->map_id,
-            $schedule->scheduleMap3s
+            $schedule->scheduleMap3s,
         );
         sort($mapIds);
         sort($registeredMapIds);

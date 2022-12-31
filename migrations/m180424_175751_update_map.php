@@ -18,7 +18,7 @@ class m180424_175751_update_map extends Migration
                 'splatnet' => 16,
                 'release_at' => '2018-04-25T11:00:00+09:00',
             ],
-            ['key' => 'mongara']
+            ['key' => 'mongara'],
         );
         $this->update(
             'map2',
@@ -26,7 +26,7 @@ class m180424_175751_update_map extends Migration
                 'area' => 3081,
                 'release_at' => '2018-03-31T11:00:00+09:00',
             ],
-            ['key' => 'shottsuru']
+            ['key' => 'shottsuru'],
         );
     }
 
@@ -35,12 +35,12 @@ class m180424_175751_update_map extends Migration
         $this->update(
             'map2',
             ['splatnet' => null, 'release_at' => null],
-            ['key' => 'mongara']
+            ['key' => 'mongara'],
         );
         $this->update(
             'map2',
             ['area' => null, 'release_at' => null],
-            ['key' => 'shottsuru']
+            ['key' => 'shottsuru'],
         );
     }
 }

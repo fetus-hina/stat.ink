@@ -87,7 +87,7 @@ class OpenApiSpec extends Component
         ];
         return Json::encode(
             $json,
-            JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT
+            JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT,
         );
     }
 

@@ -42,7 +42,7 @@ class LanguageAction extends BaseAction
                 'name' => 'language',
                 'value' => $form->language,
                 'expire' => time() + 86400 * 366,
-            ])
+            ]),
         );
 
         return [
@@ -60,7 +60,7 @@ class LanguageAction extends BaseAction
                 [['language'], 'exist',
                     'targetClass' => Language::className(),
                     'targetAttribute' => 'lang'],
-            ]
+            ],
         );
         return $model;
     }

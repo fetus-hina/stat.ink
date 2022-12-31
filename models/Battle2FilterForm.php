@@ -180,7 +180,7 @@ class Battle2FilterForm extends Model
                         },
                         SplatoonVersionGroup2::find()
                             ->asArray()
-                            ->all()
+                            ->all(),
                     ),
                     array_map(
                         function (array $a): string {
@@ -188,8 +188,8 @@ class Battle2FilterForm extends Model
                         },
                         SplatoonVersion2::find()
                             ->asArray()
-                            ->all()
-                    )
+                            ->all(),
+                    ),
                 ),
             ],
             [['term_from', 'term_to'], 'datetime', 'format' => 'php:Y-m-d H:i:s'],
@@ -244,7 +244,7 @@ class Battle2FilterForm extends Model
                 $attr,
                 Yii::t('yii', '{attribute} is invalid.', [
                     'attribute' => $this->getAttributeLabel($attr),
-                ])
+                ]),
             );
         }
     }
@@ -261,7 +261,7 @@ class Battle2FilterForm extends Model
                 $attr,
                 Yii::t('yii', '{attribute} is invalid.', [
                     'attribute' => $this->getAttributeLabel($attr),
-                ])
+                ]),
             );
         }
     }
@@ -277,7 +277,7 @@ class Battle2FilterForm extends Model
                 $attr,
                 Yii::t('yii', '{attribute} is invalid.', [
                     'attribute' => $this->getAttributeLabel($attr),
-                ])
+                ]),
             );
         }
     }
@@ -392,13 +392,13 @@ class Battle2FilterForm extends Model
             }
 
             $values = array_filter(
-                explode(' ', (string)($ret[$formKey] ?? ''))
+                explode(' ', (string)($ret[$formKey] ?? '')),
             );
             $values = array_filter(
                 $values,
                 function (string $_) use ($key): bool {
                     return substr($_, 0, strlen($key) + 1) !== $key . ':';
-                }
+                },
             );
             $values[] = $key . ':' . $value;
             $ret[$formKey] = implode(' ', $values);
@@ -486,7 +486,7 @@ class Battle2FilterForm extends Model
                         ->setTimezone(new DateTimeZone('Etc/UTC'))
                         ->setDate((int)$utcNow->format('Y'), (int)$utcNow->format('n') - 1, 1)
                         ->setTime(0, 0, 0)
-                        ->getTimestamp()
+                        ->getTimestamp(),
                 );
 
                 $thisMonthPeriod = BattleHelper::calcPeriod2(
@@ -494,7 +494,7 @@ class Battle2FilterForm extends Model
                         ->setTimezone(new DateTimeZone('Etc/UTC'))
                         ->setDate($utcNow->format('Y'), $utcNow->format('n'), 1)
                         ->setTime(0, 0, 0)
-                        ->getTimestamp()
+                        ->getTimestamp(),
                 );
                 $pushFilter('period', vsprintf('%d-%d', [
                     $lastMonthPeriod,
@@ -534,13 +534,13 @@ class Battle2FilterForm extends Model
                     }
                     $pushFilter(
                         'id',
-                        sprintf('%d-%d', (int)$range['min_id'], (int)$range['max_id'])
+                        sprintf('%d-%d', (int)$range['min_id'], (int)$range['max_id']),
                     );
                 } elseif (preg_match('/^last-(\d+)-periods/', $this->term, $match)) {
                     $currentPeriod = BattleHelper::calcPeriod2($now);
                     $pushFilter(
                         'period',
-                        sprintf('%d-%d', $currentPeriod - $match[1] + 1, $currentPeriod)
+                        sprintf('%d-%d', $currentPeriod - $match[1] + 1, $currentPeriod),
                     );
                 } elseif (preg_match('/^~?v\d+/', $this->term)) {
                     $push('term', $this->term);

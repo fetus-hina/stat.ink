@@ -22,7 +22,7 @@ class Now extends Expression
             : microtime(true);
         $strtime = DateTimeFormatter::unixTimeToString(
             $time,
-            new DateTimeZone('Etc/UTC')
+            new DateTimeZone('Etc/UTC'),
         );
         parent::__construct(Yii::$app->db->quoteValue($strtime));
     }

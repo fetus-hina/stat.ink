@@ -84,7 +84,7 @@ class Splapi2Controller extends Controller
                     function (stdClass $stage) use ($maps): int {
                         return $maps[$stage->key];
                     },
-                    $info->stages
+                    $info->stages,
                 )])
                 ->count();
             if ($exists == $matches) {
@@ -116,7 +116,7 @@ class Splapi2Controller extends Controller
             '%s/%s (+%s)',
             'stat.ink',
             Yii::$app->version,
-            'https://github.com/fetus-hina/stat.ink'
+            'https://github.com/fetus-hina/stat.ink',
         ));
         $curl->get($url, $data);
         if ($curl->error) {

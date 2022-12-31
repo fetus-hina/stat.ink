@@ -41,7 +41,7 @@ class m170728_123204_user_weapon2 extends Migration
             $select . ' ' .
             'ON CONFLICT ([[user_id]], [[weapon_id]]) DO UPDATE SET ' .
             '[[battles]] = EXCLUDED.[[battles]], ' .
-            '[[last_used_at]] = EXCLUDED.[[last_used_at]] '
+            '[[last_used_at]] = EXCLUDED.[[last_used_at]] ',
         );
     }
 

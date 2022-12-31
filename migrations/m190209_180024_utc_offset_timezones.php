@@ -32,12 +32,12 @@ class m190209_180024_utc_offset_timezones extends Migration
                     $groupEtc,
                 ];
             },
-            range(+14, -12, -1)
+            range(+14, -12, -1),
         ));
         $this->batchInsert(
             'timezone',
             ['identifier', 'name', 'order', 'region_id', 'group_id'],
-            $data
+            $data,
         );
     }
 

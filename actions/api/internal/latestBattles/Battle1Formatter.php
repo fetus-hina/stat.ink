@@ -40,15 +40,15 @@ trait Battle1Formatter
                     'image' => [
                         'lose' => Url::to(
                             $am->getAssetUrl($stageAsset, "gray-blur/{$battle->map->key}.jpg"),
-                            true
+                            true,
                         ),
                         'normal' => Url::to(
                             $am->getAssetUrl($stageAsset, "daytime/{$battle->map->key}.jpg"),
-                            true
+                            true,
                         ),
                         'win' => Url::to(
                             $am->getAssetUrl($stageAsset, "daytime-blur/{$battle->map->key}.jpg"),
-                            true
+                            true,
                         ),
                     ],
                 ]
@@ -132,7 +132,7 @@ trait Battle1Formatter
                     'battle' => $battle->id,
                     'screen_name' => $battle->user->screen_name,
                 ],
-                true
+                true,
             ),
             'user' => self::formatUser($battle->user),
             'variant' => 'splatoon1',

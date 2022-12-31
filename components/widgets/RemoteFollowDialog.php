@@ -42,12 +42,12 @@ class RemoteFollowDialog extends Widget
                     $this->renderHeader(),
                     $this->renderBody(),
                 ]),
-                ['class' => 'modal-content']
+                ['class' => 'modal-content'],
             ),
             [
                 'class' => 'modal-dialog',
                 'role' => 'document',
-            ]
+            ],
         );
     }
 
@@ -59,7 +59,7 @@ class RemoteFollowDialog extends Widget
                 $this->renderCloseButton(),
                 $this->renderTitle(),
             ]),
-            ['class' => 'modal-header']
+            ['class' => 'modal-header'],
         );
     }
 
@@ -69,13 +69,13 @@ class RemoteFollowDialog extends Widget
             Html::tag(
                 'span',
                 Icon::close(),
-                ['aria-hidden' => 'true']
+                ['aria-hidden' => 'true'],
             ),
             [
                 'aria-label' => Yii::t('app', 'Close'),
                 'class' => 'close',
                 'data-dismiss' => 'modal',
-            ]
+            ],
         );
     }
 
@@ -100,7 +100,7 @@ class RemoteFollowDialog extends Widget
             [
                 'class' => 'modal-title',
                 'id' => $this->id . '-label',
-            ]
+            ],
         );
     }
 
@@ -113,7 +113,7 @@ class RemoteFollowDialog extends Widget
                 Html::tag('hr'),
                 Html::tag('div', $this->renderForm(), ['class' => 'mt-3']),
             ]),
-            ['class' => 'modal-body']
+            ['class' => 'modal-body'],
         );
     }
 
@@ -125,8 +125,8 @@ class RemoteFollowDialog extends Widget
                 'p',
                 Html::encode(
                     'マストドンなどのOStatus対応サービスを利用して、' .
-                    'バトル結果を購読することができます。'
-                )
+                    'バトル結果を購読することができます。',
+                ),
             ),
             Html::tag(
                 'p',
@@ -142,7 +142,7 @@ class RemoteFollowDialog extends Widget
                         Html::tag('code', Html::encode('your_id@mstdn.jp')),
                         Html::tag('code', Html::encode('your_id@pawoo.net')),
                     ),
-                ])
+                ]),
             ),
         ]);
     }
@@ -167,9 +167,9 @@ class RemoteFollowDialog extends Widget
                 'div',
                 Html::submitButton(
                     Html::encode('指定アカウントでこのユーザをフォローする'),
-                    ['class' => 'btn btn-primary btn-block']
+                    ['class' => 'btn btn-primary btn-block'],
                 ),
-                ['class' => 'form-group']
+                ['class' => 'form-group'],
             );
             ActiveForm::end();
             return ob_get_contents();

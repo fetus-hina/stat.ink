@@ -38,7 +38,7 @@ class EditIconAction extends BaseAction
                         }
                         Yii::$app->session->addFlash(
                             'success',
-                            Yii::t('app', 'Your profile icon has been updated.')
+                            Yii::t('app', 'Your profile icon has been updated.'),
                         );
                         return $this->controller->redirect(['user/profile'], 303);
                         break;
@@ -56,7 +56,7 @@ class EditIconAction extends BaseAction
                                     'maxWidth' => 2000,
                                     'maxHeight' => 2000,
                                 ],
-                            ]
+                            ],
                         );
                         if ($model->hasErrors()) {
                             $message = $model->getFirstError('image');
@@ -79,7 +79,7 @@ class EditIconAction extends BaseAction
                             $transaction->commit();
                             Yii::$app->session->addFlash(
                                 'success',
-                                Yii::t('app', 'Your profile icon has been updated.')
+                                Yii::t('app', 'Your profile icon has been updated.'),
                             );
                             return $this->controller->redirect(['user/profile'], 303);
                         } catch (\Exception $e) {
@@ -92,7 +92,7 @@ class EditIconAction extends BaseAction
             }
             Yii::$app->session->addFlash(
                 'danger',
-                $message ?: Yii::t('app', 'Could not update your icon. Please try again.')
+                $message ?: Yii::t('app', 'Could not update your icon. Please try again.'),
             );
         }
         return $this->controller->render('edit-icon', [

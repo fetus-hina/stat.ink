@@ -22,7 +22,7 @@ class m170822_090200_splatoon2_120 extends Migration
         $this->update(
             'battle2',
             ['version_id' => $this->getId('1.1.2')],
-            ['version_id' => $this->getId('1.2.0')]
+            ['version_id' => $this->getId('1.2.0')],
         );
         $this->delete('splatoon_version2', ['tag' => '1.2.0']);
     }

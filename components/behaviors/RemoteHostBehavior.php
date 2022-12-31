@@ -24,7 +24,7 @@ class RemoteHostBehavior extends AttributeBehavior
     protected function getValue($event)
     {
         return IPHelper::reverseLookup(
-            Yii::$app->getRequest()->getUserIP()
+            Yii::$app->getRequest()->getUserIP(),
         );
     }
 }

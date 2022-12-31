@@ -99,9 +99,9 @@ final class StatController extends Controller
                 function ($k) use ($db) {
                     return $db->quoteColumnName($k);
                 },
-                array_keys($select->select)
+                array_keys($select->select),
             )),
-            $select->createCommand()->rawSql
+            $select->createCommand()->rawSql,
         );
         $db->createCommand($sql)->execute();
 
@@ -114,9 +114,9 @@ final class StatController extends Controller
                 function ($k) use ($db) {
                     return $db->quoteColumnName($k);
                 },
-                array_keys($select->select)
+                array_keys($select->select),
             )),
-            $select->createCommand()->rawSql
+            $select->createCommand()->rawSql,
         );
         $db->createCommand($sql)->execute();
 
@@ -129,9 +129,9 @@ final class StatController extends Controller
                 function ($k) use ($db) {
                     return $db->quoteColumnName($k);
                 },
-                array_keys($select->select)
+                array_keys($select->select),
             )),
-            $select->createCommand()->rawSql
+            $select->createCommand()->rawSql,
         );
         $db->createCommand($sql)->execute();
         echo "done.\n";
@@ -222,7 +222,7 @@ final class StatController extends Controller
                     'WHEN {{battle}}.[[is_win]] = TRUE AND {{battle_player}}.[[is_my_team]] = TRUE THEN 1',
                     'WHEN {{battle}}.[[is_win]] = FALSE AND {{battle_player}}.[[is_my_team]] = FALSE THEN 1',
                     'ELSE 0',
-                ])
+                ]),
             ),
             'total_point' => sprintf(
                 'CASE WHEN {{battle}}.[[rule_id]] <> %d THEN NULL ELSE %s END',
@@ -233,8 +233,8 @@ final class StatController extends Controller
                         'WHEN {{battle_player}}.[[point]] IS NULL THEN 0',
                         'WHEN {{battle}}.[[is_win]] = {{battle_player}}.[[is_my_team]] THEN battle_player.point - 300',
                         'ELSE {{battle_player}}.[[point]]',
-                    ])
-                )
+                    ]),
+                ),
             ),
             'point_available' => sprintf(
                 'CASE WHEN {{battle}}.[[rule_id]] <> %d THEN NULL ELSE %s END',
@@ -244,8 +244,8 @@ final class StatController extends Controller
                     implode(' ', [
                         'WHEN {{battle_player}}.[[point]] IS NULL THEN 0',
                         'ELSE 1',
-                    ])
-                )
+                    ]),
+                ),
             ),
         ]);
 
@@ -279,7 +279,7 @@ final class StatController extends Controller
                         'WHEN {{b}}.[[is_win]] = TRUE AND {{p}}.[[is_my_team]] = TRUE THEN 1',
                         'WHEN {{b}}.[[is_win]] = FALSE AND {{p}}.[[is_my_team]] = FALSE THEN 1',
                         'ELSE 0',
-                    ])
+                    ]),
                 ),
             ])
             ->from('{{battle_player}} {{p}}')
@@ -349,8 +349,8 @@ final class StatController extends Controller
                         ->andWhere(['<', '{{battle}}.[[at]]', $today->format(\DateTime::ATOM)])
                         ->groupBy('{{battle}}.[[at]]::date')
                         ->createCommand()
-                        ->queryAll()
-                )
+                        ->queryAll(),
+                ),
             )
             ->execute();
         $transaction->commit();
@@ -381,7 +381,7 @@ final class StatController extends Controller
                 'GROUP BY {{battle2}}.[[created_at]]::date ' .
                 'ON CONFLICT ([[date]]) DO UPDATE SET ' .
                 '[[battle_count]] = {{excluded}}.[[battle_count]], ' .
-                '[[user_count]] = {{excluded}}.[[user_count]]'
+                '[[user_count]] = {{excluded}}.[[user_count]]',
             )
             ->bindValue(':today', $today->format(\DateTime::ATOM), \PDO::PARAM_STR);
         $cmd->execute();
@@ -411,7 +411,7 @@ final class StatController extends Controller
         $transaction = $db->beginTransaction();
         $startDate = (new \DateTime(
             StatAgentUser::find()->max('date') ?? '2015-01-01',
-            new \DateTimeZone('Etc/GMT-6')
+            new \DateTimeZone('Etc/GMT-6'),
         ))
             ->setTime(0, 0, 0)
             ->add(new \DateInterval('P1D')); // +1 day
@@ -439,7 +439,7 @@ final class StatController extends Controller
                 ->andWhere(['<>', '{{agent}}.[[name]]', ''])
                 ->groupBy('{{agent}}.[[name]], {{battle}}.[[at]]::date')
                 ->createCommand()
-                ->queryAll()
+                ->queryAll(),
         );
         if (!$insertList) {
             $transaction->rollBack();
@@ -449,7 +449,7 @@ final class StatController extends Controller
             ->batchInsert(
                 StatAgentUser::tableName(),
                 ['agent', 'date', 'battle_count', 'user_count'],
-                $insertList
+                $insertList,
             )
             ->execute();
         $transaction->commit();
@@ -503,7 +503,7 @@ final class StatController extends Controller
         $cmd = Yii::$app->db
             ->createCommand(
                 'INSERT INTO "stat_agent_user2"("agent","date","battle_count","user_count") ' .
-                $select->rawSql
+                $select->rawSql,
             );
 
         $cmd->execute();
@@ -564,8 +564,8 @@ final class StatController extends Controller
                         ])
                         ->groupBy(['{{battle}}.[[map_id]]', '{{battle}}.[[rule_id]]'])
                         ->createCommand()
-                        ->queryAll()
-                )
+                        ->queryAll(),
+                ),
             )
             ->execute();
         $transaction->commit();
@@ -624,14 +624,14 @@ final class StatController extends Controller
                     sprintf(
                         '(%s - %s)::double precision',
                         $timestamp('battle2.end_at'),
-                        $timestamp('battle2.start_at')
-                    )
+                        $timestamp('battle2.start_at'),
+                    ),
                 ),
                 'avg_knockout_time' => sprintf('COALESCE(AVG(CASE %s END), 300)', implode(' ', [
                     sprintf(
                         'WHEN battle2.is_knockout THEN (%s - %s)::double precision',
                         $timestamp('battle2.end_at'),
-                        $timestamp('battle2.start_at')
+                        $timestamp('battle2.start_at'),
                     ),
                     'ELSE NULL',
                 ])),
@@ -645,7 +645,7 @@ final class StatController extends Controller
                 function (string $column): string {
                     return sprintf('%1$s = EXCLUDED.%1$s', $column);
                 },
-                ['battles', 'knockouts', 'avg_game_time', 'avg_knockout_time']
+                ['battles', 'knockouts', 'avg_game_time', 'avg_knockout_time'],
             ));
 
         $db->createCommand($insert)->execute();
@@ -754,9 +754,9 @@ final class StatController extends Controller
                 function ($col) {
                     return "[[{$col}]]";
                 },
-                array_keys($select->select)
+                array_keys($select->select),
             )),
-            $select->createCommand()->rawsql
+            $select->createCommand()->rawsql,
         );
         $db->createCommand($sql)->execute();
         $transaction->commit();
@@ -791,7 +791,7 @@ final class StatController extends Controller
                 'battle_count'  => 'COUNT(*)',
                 'win_count'     => sprintf(
                     'SUM(%s)',
-                    'CASE WHEN {{battle}}.[[is_win]] = {{player_lhs}}.[[is_my_team]] THEN 1 ELSE 0 END'
+                    'CASE WHEN {{battle}}.[[is_win]] = {{player_lhs}}.[[is_my_team]] THEN 1 ELSE 0 END',
                 ),
             ])
             ->from('battle')
@@ -829,15 +829,15 @@ final class StatController extends Controller
                     function (string $a): string {
                         return sprintf('[[%s]]', $a);
                     },
-                    array_keys($select->select)
-                )
+                    array_keys($select->select),
+                ),
             ),
             $select->createCommand()->rawSql,
             $constraintName,
             implode(', ', [
                 '[[battle_count]] = {{excluded}}.[[battle_count]]',
                 '[[win_count]] = {{excluded}}.[[win_count]]',
-            ])
+            ]),
         );
 
         $transaction = $db->beginTransaction();
@@ -918,7 +918,7 @@ final class StatController extends Controller
             implode(', ', array_map(function (string $a): string {
                 return "[[{$a}]]";
             }, array_keys($select->select))),
-            $select->createCommand()->rawSql
+            $select->createCommand()->rawSql,
         );
 
         $isoYear = "TO_CHAR(PERIOD_TO_TIMESTAMP({{t}}.[[period]]), 'IYYY')::integer";
@@ -978,7 +978,7 @@ final class StatController extends Controller
             implode(', ', [
                 '[[battles]] = {{excluded}}.[[battles]]',
                 '[[wins]] = {{excluded}}.[[wins]]',
-            ])
+            ]),
         );
 
         $transaction = $db->beginTransaction();
@@ -1061,7 +1061,7 @@ final class StatController extends Controller
                     sprintf(
                         'ELSE (EXTRACT(EPOCH FROM %s) - EXTRACT(EPOCH FROM %s))',
                         '{{battle2}}.[[end_at]]',
-                        '{{battle2}}.[[start_at]]'
+                        '{{battle2}}.[[start_at]]',
                     ),
                 ])),
                 'specials' => sprintf('SUM(CASE %s END)', implode(' ', [
@@ -1094,7 +1094,7 @@ final class StatController extends Controller
                     sprintf(
                         'ELSE (EXTRACT(EPOCH FROM %s) - EXTRACT(EPOCH FROM %s))',
                         '{{battle2}}.[[end_at]]',
-                        '{{battle2}}.[[start_at]]'
+                        '{{battle2}}.[[start_at]]',
                     ),
                 ])),
                 'inked' => sprintf('SUM(CASE %s END)', implode(' ', [
@@ -1103,7 +1103,7 @@ final class StatController extends Controller
                     sprintf(
                         'WHEN %s THEN %s',
                         '{{battle2}}.[[is_win]] = {{battle_player2}}.[[is_my_team]]',
-                        '({{battle_player2}}.[[point]] - 1000)'
+                        '({{battle_player2}}.[[point]] - 1000)',
                     ),
                     'ELSE {{battle_player2}}.[[point]]',
                 ])),
@@ -1120,7 +1120,7 @@ final class StatController extends Controller
                     sprintf(
                         'WHEN %s THEN %s',
                         '{{battle2}}.[[is_win]] = {{battle_player2}}.[[is_my_team]]',
-                        '({{battle_player2}}.[[point]] - 1000)'
+                        '({{battle_player2}}.[[point]] - 1000)',
                     ),
                     'ELSE {{battle_player2}}.[[point]]',
                 ])),
@@ -1139,7 +1139,7 @@ final class StatController extends Controller
                     sprintf(
                         'ELSE (EXTRACT(EPOCH FROM %s) - EXTRACT(EPOCH FROM %s))',
                         '{{battle2}}.[[end_at]]',
-                        '{{battle2}}.[[start_at]]'
+                        '{{battle2}}.[[start_at]]',
                     ),
                 ])),
                 'knockout_wins' => sprintf('SUM(CASE %s END)', implode(' ', [
@@ -1238,7 +1238,7 @@ final class StatController extends Controller
             implode(', ', array_map(function (string $a): string {
                 return "[[{$a}]]";
             }, array_keys($select->select))),
-            $select->createCommand()->rawSql
+            $select->createCommand()->rawSql,
         );
         $insert .= sprintf(
             ' ON CONFLICT ( %s ) DO UPDATE SET %s',
@@ -1246,7 +1246,7 @@ final class StatController extends Controller
                 function ($column) {
                     return '[[' . $column . ']]';
                 },
-                ['period', 'rule_id', 'weapon_id', 'map_id']
+                ['period', 'rule_id', 'weapon_id', 'map_id'],
             )),
             implode(', ', array_map(
                 function ($column) {
@@ -1276,8 +1276,8 @@ final class StatController extends Controller
                     'timeup_wins',
                     'knockout_loses',
                     'timeup_loses',
-                ]
-            ))
+                ],
+            )),
         );
         // }}}
 
@@ -1339,8 +1339,8 @@ final class StatController extends Controller
                     },
                     function (string $colName): string {
                         return "SUM({{t}}.[[{$colName}]])";
-                    }
-                )
+                    },
+                ),
             ))
             ->from(sprintf('{{%s}} {{t}}', StatWeapon2UseCount::tableName()))
             ->groupBy([
@@ -1369,7 +1369,7 @@ final class StatController extends Controller
             }, ['isoyear', 'isoweek', 'rule_id', 'weapon_id', 'map_id'])),
             implode(', ', array_map(function (string $a): string {
                 return sprintf('[[%1$s]] = {{excluded}}.[[%1$s]]', $a);
-            }, ['battles', 'wins']))
+            }, ['battles', 'wins'])),
         );
         // }}}
 
@@ -1450,7 +1450,7 @@ final class StatController extends Controller
             implode(', ', array_map(function (string $a): string {
                 return "[[{$a}]]";
             }, array_keys($select->select))),
-            $select->createCommand()->rawSql
+            $select->createCommand()->rawSql,
         );
 
         $transaction = $db->beginTransaction();
@@ -1498,7 +1498,7 @@ final class StatController extends Controller
             $mode = Mode2::findOne(['key' => 'gachi']);
             $ruleIds = ArrayHelper::getColumn(
                 Rule2::findAll(['key' => ['area', 'yagura', 'hoko', 'asari']]),
-                'id'
+                'id',
             );
             $month = $this->createPeriodToMonthColumnForSplatoon2();
             $per5min = function (string $column): string {
@@ -1570,28 +1570,28 @@ final class StatController extends Controller
                     'avg_kill' => sprintf('AVG(%s)', $per5min('{{battle_player2}}.[[kill]]')),
                     'med_kill' => sprintf(
                         'PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY %s)',
-                        $per5min('{{battle_player2}}.[[kill]]')
+                        $per5min('{{battle_player2}}.[[kill]]'),
                     ),
                     'stderr_kill' => sprintf(
                         'STDDEV_SAMP(%s) / SQRT(COUNT(*))',
-                        $per5min('{{battle_player2}}.[[kill]]')
+                        $per5min('{{battle_player2}}.[[kill]]'),
                     ),
                     'stddev_kill' => sprintf(
                         'STDDEV_SAMP(%s)',
-                        $per5min('{{battle_player2}}.[[kill]]')
+                        $per5min('{{battle_player2}}.[[kill]]'),
                     ),
                     'avg_death' => sprintf('AVG(%s)', $per5min('{{battle_player2}}.[[death]]')),
                     'med_death' => sprintf(
                         'PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY %s)',
-                        $per5min('{{battle_player2}}.[[death]]')
+                        $per5min('{{battle_player2}}.[[death]]'),
                     ),
                     'stderr_death' => sprintf(
                         'STDDEV_SAMP(%s) / SQRT(COUNT(*))',
-                        $per5min('{{battle_player2}}.[[death]]')
+                        $per5min('{{battle_player2}}.[[death]]'),
                     ),
                     'stddev_death' => sprintf(
                         'STDDEV_SAMP(%s)',
-                        $per5min('{{battle_player2}}.[[death]]')
+                        $per5min('{{battle_player2}}.[[death]]'),
                     ),
                     'updated_at' => 'NOW()',
                 ]);
@@ -1648,7 +1648,7 @@ final class StatController extends Controller
                 ]);
             },
             array_reverse(array_keys($data)),
-            array_reverse(array_values($data))
+            array_reverse(array_values($data)),
         )));
     }
 
@@ -1691,7 +1691,7 @@ final class StatController extends Controller
                 ->all(),
             function (SplatoonVersion2 $version): bool {
                 return !!version_compare($version->tag, '1.0', '>=');
-            }
+            },
         );
         // }}}
     }

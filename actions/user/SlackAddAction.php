@@ -46,7 +46,7 @@ class SlackAddAction extends BaseAction
             $langs[$row['id']] = sprintf(
                 '%s / %s',
                 $row['name'],
-                $row['name_en']
+                $row['name_en'],
             );
         }
         uasort($langs, 'strnatcasecmp');

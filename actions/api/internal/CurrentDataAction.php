@@ -58,7 +58,7 @@ class CurrentDataAction extends ViewAction
                     function (PeriodMap $pm): string {
                         return $pm->map->key;
                     },
-                    $periodMaps
+                    $periodMaps,
                 ),
             ];
         };

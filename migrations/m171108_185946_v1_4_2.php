@@ -24,9 +24,9 @@ class m171108_185946_v1_4_2 extends Migration
                 'period',
                 BattleHelper::calcPeriod2(
                     (new DateTimeImmutable('2017-11-01T11:00:00+09:00'))
-                        ->getTimestamp()
+                        ->getTimestamp(),
                 ),
-            ]
+            ],
         );
     }
 
@@ -35,7 +35,7 @@ class m171108_185946_v1_4_2 extends Migration
         $this->update(
             'battle2',
             ['version_id' => $this->getId('1.4.1')],
-            ['version_id' => $this->getId('1.4.2')]
+            ['version_id' => $this->getId('1.4.2')],
         );
         $this->delete('splatoon_version2', ['tag' => '1.4.2']);
     }

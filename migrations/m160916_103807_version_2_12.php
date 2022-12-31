@@ -19,7 +19,7 @@ class m160916_103807_version_2_12 extends Migration
         $this->update(
             'battle',
             ['version_id' => SplatoonVersion::findOne(['tag' => '2.12.0'])->id],
-            ['>=', 'end_at', '2016-09-14T10:00:00+09:00']
+            ['>=', 'end_at', '2016-09-14T10:00:00+09:00'],
         );
     }
 
@@ -28,7 +28,7 @@ class m160916_103807_version_2_12 extends Migration
         $this->update(
             'battle',
             ['version_id' => SplatoonVersion::findOne(['tag' => '2.11.0'])->id],
-            ['version_id' => SplatoonVersion::findOne(['tag' => '2.12.0'])->id]
+            ['version_id' => SplatoonVersion::findOne(['tag' => '2.12.0'])->id],
         );
         $this->delete('splatoon_version', ['tag' => '2.12.0']);
     }

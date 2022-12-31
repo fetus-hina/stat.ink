@@ -275,7 +275,7 @@ class BattlePlayer2 extends ActiveRecord
         return substr(
             hash('sha256', $id, false),
             0,
-            40
+            40,
         );
     }
 
@@ -331,7 +331,7 @@ class BattlePlayer2 extends ActiveRecord
                     $this->gender,
                     ($battle && $battle->my_team_fest_theme_id && $battle->his_team_fest_theme_id)
                         ? ($this->is_my_team ? $battle->myTeamFestTheme->name : $battle->hisTeamFestTheme->name)
-                        : null
+                        : null,
                 )
                 : null,
             'splatnet_id'   => (string)$this->splatnet_id === '' ? null : $this->splatnet_id,

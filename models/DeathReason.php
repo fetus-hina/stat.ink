@@ -178,9 +178,9 @@ class DeathReason extends \yii\db\ActiveRecord
                             $type = ArrayHelper::getValue($model, 'type.key');
                             return $map[$type] ?? 'app-death';
                         },
-                        $values
+                        $values,
                     ),
-                    ArrayHelper::getColumn($values, 'key', false)
+                    ArrayHelper::getColumn($values, 'key', false),
                 ),
                 'name' => static::oapiRef(openapi\Name::class),
                 'type' => array_merge(DeathReasonType::openApiSchema(), [

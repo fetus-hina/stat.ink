@@ -31,7 +31,7 @@ trait GearNameTrait
             function (string $value, string $key): bool {
                 return $value !== '';
             },
-            ARRAY_FILTER_USE_BOTH
+            ARRAY_FILTER_USE_BOTH,
         );
 
         $changed = false;
@@ -80,7 +80,7 @@ trait GearNameTrait
 
         file_put_contents(
             $path,
-            implode("\n", $file) . "\n"
+            implode("\n", $file) . "\n",
         );
 
         return 0;

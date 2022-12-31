@@ -23,7 +23,7 @@ class m151010_131258_ikalog_workaround2 extends Migration
                 "lobby_id = {$lobbyStandard}",
                 'gender_id IS NOT NULL',
                 'fest_title_id IS NOT NULL',
-            ])
+            ]),
         );
     }
 

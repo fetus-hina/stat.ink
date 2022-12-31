@@ -114,7 +114,7 @@ class BattleRerecognizeForm extends Model
             [
                 'rerecognized_agent' => sprintf('%s/%s', $this->agent ?: 'unknown', $this->agent_version ?: 'unknown'),
                 'rerecognized_at' => gmdate('Y-m-d\TH:i:sP', $this->recognition_at),
-            ]
+            ],
         ));
 
         foreach (array_keys($battle->dirtyAttributes) as $k) {
@@ -126,7 +126,7 @@ class BattleRerecognizeForm extends Model
                     Weapon::findOne(['id' => $battle->getOldAttribute($k)])->key ?? null,
                     $battle->getOldAttribute($k),
                     Weapon::findOne(['id' => $battle->$k])->key ?? null,
-                    $battle->$k
+                    $battle->$k,
                 );
             } else {
                 printf(
@@ -134,7 +134,7 @@ class BattleRerecognizeForm extends Model
                     $this->id,
                     $k,
                     $battle->getOldAttribute($k),
-                    $battle->$k
+                    $battle->$k,
                 );
             }
         }
@@ -191,7 +191,7 @@ class BattleRerecognizeForm extends Model
                         Weapon::findOne(['id' => $model->getOldAttribute($k)])->key ?? null,
                         $model->getOldAttribute($k),
                         Weapon::findOne(['id' => $model->$k])->key ?? null,
-                        $model->$k
+                        $model->$k,
                     );
                 } else {
                     printf(
@@ -200,7 +200,7 @@ class BattleRerecognizeForm extends Model
                         $i,
                         $k,
                         $model->getOldAttribute($k),
-                        $model->$k
+                        $model->$k,
                     );
                 }
             }

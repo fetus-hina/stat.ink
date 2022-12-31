@@ -22,7 +22,7 @@ class m210924_081613_splatoon2_5_5_0 extends Migration
             '5.5.x',
             '5.5.0',
             '5.5.0',
-            new DateTimeImmutable('2021-09-29T11:00:00+09:00')
+            new DateTimeImmutable('2021-09-29T11:00:00+09:00'),
         );
     }
 

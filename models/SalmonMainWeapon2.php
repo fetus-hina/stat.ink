@@ -130,9 +130,9 @@ class SalmonMainWeapon2 extends ActiveRecord
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc2', 'Weapon'),
                         'app-weapon2',
-                        $values
+                        $values,
                     ),
-                    ArrayHelper::getColumn($values, 'key', false)
+                    ArrayHelper::getColumn($values, 'key', false),
                 ),
                 'splatnet' => static::oapiRef(openapi\SplatNet2ID::class),
                 'name' => static::oapiRef(openapi\Name::class),
@@ -162,7 +162,7 @@ class SalmonMainWeapon2 extends ActiveRecord
                 ]])
                 ->sorted()
                 ->orderBy(['splatnet' => SORT_ASC])
-                ->all()
+                ->all(),
         );
     }
 }

@@ -102,9 +102,9 @@ class Brand extends \yii\db\ActiveRecord
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc1', 'Brand'),
                         'app-brand',
-                        $values
+                        $values,
                     ),
-                    ArrayHelper::getColumn($values, 'key', false)
+                    ArrayHelper::getColumn($values, 'key', false),
                 ),
                 'name' => static::oapiRef(openapi\Name::class),
                 'strength' => array_merge(Ability::openApiSchema(), [
@@ -136,7 +136,7 @@ class Brand extends \yii\db\ActiveRecord
             function ($model) {
                 return $model->toJsonArray();
             },
-            $models
+            $models,
         );
     }
 }

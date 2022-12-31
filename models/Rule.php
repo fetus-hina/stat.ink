@@ -139,9 +139,9 @@ final class Rule extends \yii\db\ActiveRecord
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc1', 'Mode'),
                         'app-rule',
-                        $values
+                        $values,
                     ),
-                    ArrayHelper::getColumn($values, 'key', false)
+                    ArrayHelper::getColumn($values, 'key', false),
                 ),
                 'mode' => static::oapiRef(GameMode::class),
                 'name' => static::oapiRef(openapi\Name::class),
@@ -168,7 +168,7 @@ final class Rule extends \yii\db\ActiveRecord
             function (self $model): array {
                 return $model->toJsonArray();
             },
-            $values
+            $values,
         );
     }
 }

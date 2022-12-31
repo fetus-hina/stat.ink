@@ -94,7 +94,7 @@ class UserStatGachiAction extends BaseAction
                 'rule'          => $model['rule']['key'],
                 'exp'           => $this->calcGraphExp(
                     $model['rankAfter']['key'],
-                    $model['rank_exp_after']
+                    $model['rank_exp_after'],
                 ),
                 'movingAvg'     => null,
                 'movingAvg50'   => null,
@@ -304,7 +304,7 @@ class UserStatGachiAction extends BaseAction
             'key',
             function (Map $map): string {
                 return Yii::t('app-map', $map->name);
-            }
+            },
         );
         uasort($list, 'strnatcasecmp');
         return $list;

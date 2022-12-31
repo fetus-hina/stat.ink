@@ -46,10 +46,10 @@ class UpdateLoginWithTwitterAction extends BaseAction
                 $twitter->requestAccessToken(
                     (string)$request->get('oauth_token'),
                     (string)$request->get('oauth_verifier'),
-                    $token->getRequestTokenSecret()
+                    $token->getRequestTokenSecret(),
                 );
                 $twUser = Json::decode(
-                    $twitter->request('account/verify_credentials.json')
+                    $twitter->request('account/verify_credentials.json'),
                 );
                 $user = Yii::$app->user->identity;
 
@@ -68,7 +68,7 @@ class UpdateLoginWithTwitterAction extends BaseAction
                     if ($dupInfo) {
                         Yii::$app->session->addFlash(
                             'danger',
-                            Yii::t('app', 'This twitter account has already been integrated with another user.')
+                            Yii::t('app', 'This twitter account has already been integrated with another user.'),
                         );
                         $transaction->rollback();
                         return $response->redirect(Url::to(['user/profile'], true), 303);
@@ -91,7 +91,7 @@ class UpdateLoginWithTwitterAction extends BaseAction
                     $transaction->rollback();
                     Yii::$app->session->addFlash(
                         'warning',
-                        Yii::t('app', 'Please try again later.')
+                        Yii::t('app', 'Please try again later.'),
                     );
                     return $response->redirect(Url::to(['user/profile'], true), 303);
                 }
@@ -111,14 +111,14 @@ class UpdateLoginWithTwitterAction extends BaseAction
         $credential = new OAuthCredentials(
             Yii::$app->params['twitter']['consumer_key'],
             Yii::$app->params['twitter']['consumer_secret'],
-            Url::to(['user/update-login-with-twitter'], true)
+            Url::to(['user/update-login-with-twitter'], true),
         );
 
         $factory = new OAuthFactory();
         return $factory->createService(
             'twitter',
             $credential,
-            $this->tokenStorage
+            $this->tokenStorage,
         );
     }
 

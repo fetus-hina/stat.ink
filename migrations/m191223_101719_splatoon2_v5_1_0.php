@@ -22,7 +22,7 @@ class m191223_101719_splatoon2_v5_1_0 extends Migration
             '5.1.x',
             '5.1.0',
             '5.1.0',
-            new DateTimeImmutable('2020-01-06T11:00:00+09:00')
+            new DateTimeImmutable('2020-01-06T11:00:00+09:00'),
         );
     }
 

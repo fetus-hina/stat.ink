@@ -41,10 +41,10 @@ final class PleaseUseLatest extends Alert
             function (string $message): string {
                 return Html::tag(
                     'p',
-                    Html::encode(Yii::t('app-alert', $message))
+                    Html::encode(Yii::t('app-alert', $message)),
                 );
             },
-            $messages
+            $messages,
         ));
     }
 }

@@ -80,7 +80,7 @@ class PostSalmonStatsForm extends Model
             function (string $param) use ($model): int {
                 return $model->$param != $this->$param ? 1 : 0;
             },
-            $params
+            $params,
         ));
         if ($mismatchCount > 0) {
             return null;
@@ -151,11 +151,11 @@ class PostSalmonStatsForm extends Model
                     'minimum' => static::SPLATOON2_4_1_RELEASED_AT,
                     'description' => implode("\n", [
                         Html::encode(
-                            Yii::t('app-apidoc2', 'When this data was acquired in Unix timestamp')
+                            Yii::t('app-apidoc2', 'When this data was acquired in Unix timestamp'),
                         ),
                         '',
                         Html::encode(
-                            Yii::t('app-apidoc2', 'Current date time will be used if omitted')
+                            Yii::t('app-apidoc2', 'Current date time will be used if omitted'),
                         ),
                     ]),
                 ],

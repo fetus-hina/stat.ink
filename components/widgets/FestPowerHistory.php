@@ -55,7 +55,7 @@ class FestPowerHistory extends Widget
                     function (Battle2 $model): ?float {
                         return $model->fest_power < 1 ? null : (float)$model->fest_power;
                     },
-                    $history
+                    $history,
                 ),
                 array_map(
                     function (Battle2 $model): ?float {
@@ -63,7 +63,7 @@ class FestPowerHistory extends Widget
                             ? null
                             : (float)$model->my_team_estimate_fest_power;
                     },
-                    $history
+                    $history,
                 ),
                 array_map(
                     function (Battle2 $model): ?float {
@@ -71,13 +71,13 @@ class FestPowerHistory extends Widget
                             ? null
                             : (float)$model->his_team_estimate_fest_power;
                     },
-                    $history
+                    $history,
                 ),
                 array_map(
                     function (Battle2 $model): ?bool {
                         return $model->is_win;
                     },
-                    $history
+                    $history,
                 ),
             ])),
         ]));
@@ -94,7 +94,7 @@ class FestPowerHistory extends Widget
                             'mb-1',
                         ],
                     ]),
-                    ['class' => 'table-responsive']
+                    ['class' => 'table-responsive'],
                 ),
                 Html::tag('div', '', [
                     'id' => $this->id . '-legends',
@@ -179,7 +179,7 @@ class FestPowerHistory extends Widget
                 $lastBattleTime = $time;
 
                 return true;
-            }
+            },
         );
 
         if (count($history) < 2) {

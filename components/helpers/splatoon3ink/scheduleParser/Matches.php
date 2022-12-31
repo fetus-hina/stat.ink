@@ -56,7 +56,7 @@ trait Matches
             if ($modeKey === null) {
                 $results[] = self::processNode(
                     ArrayHelper::getValue($node, $structureKey),
-                    ArrayHelper::getValue($node, 'startTime')
+                    ArrayHelper::getValue($node, 'startTime'),
                 );
             } else {
                 // バンカラマッチは $structureKey で示される構造がさらに配列になっている
@@ -64,7 +64,7 @@ trait Matches
                     if (ArrayHelper::getValue($settingNode, 'mode') === $modeKey) {
                         $results[] = self::processNode(
                             $settingNode,
-                            ArrayHelper::getValue($node, 'startTime')
+                            ArrayHelper::getValue($node, 'startTime'),
                         );
                     }
                 }
@@ -86,7 +86,7 @@ trait Matches
             'rule_id' => self::rule(\strtolower(ArrayHelper::getValue($dataStructure, 'vsRule.rule'))),
             'map_ids' => \array_map(
                 fn (array $stage) => self::map(ArrayHelper::getValue($stage, 'vsStageId')),
-                ArrayHelper::getValue($dataStructure, 'vsStages')
+                ArrayHelper::getValue($dataStructure, 'vsStages'),
             ),
         ];
     }
@@ -95,7 +95,7 @@ trait Matches
     {
         $timestamp = \filter_var(
             @\strtotime($startTimeStr),
-            FILTER_VALIDATE_INT
+            FILTER_VALIDATE_INT,
         );
         if (\is_int($timestamp)) {
             return (int)ceil($timestamp / 7200);

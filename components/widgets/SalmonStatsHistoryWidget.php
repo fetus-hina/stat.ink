@@ -52,8 +52,8 @@ class SalmonStatsHistoryWidget extends Widget
                                 ['api-internal/salmon-stats2',
                                     'screen_name' => $this->user->screen_name,
                                 ],
-                                true
-                            )
+                                true,
+                            ),
                         );
 
                     case 'close':
@@ -74,7 +74,7 @@ class SalmonStatsHistoryWidget extends Widget
 
                 return $match[0];
             },
-            $this->html
+            $this->html,
         );
     }
 
@@ -90,14 +90,14 @@ class SalmonStatsHistoryWidget extends Widget
                         Html::a(
                             Html::encode($short),
                             sprintf('#%s-%s', $this->id, $key),
-                            ['data-toggle' => 'tab']
+                            ['data-toggle' => 'tab'],
                         ),
                         [
                             'role' => 'presentation',
                             'class' => array_filter([
                                 $key === $this->getDefaultTab() ? 'active' : '',
                             ]),
-                        ]
+                        ],
                     );
                 },
                 array_keys($tabs),
@@ -106,7 +106,7 @@ class SalmonStatsHistoryWidget extends Widget
             [
                 'class' => 'nav nav-tabs mb-2',
                 'role' => 'tablist',
-            ]
+            ],
         );
     }
 
@@ -140,7 +140,7 @@ class SalmonStatsHistoryWidget extends Widget
                 array_keys($tabs),
                 array_values($tabs),
             )),
-            ['class' => 'tab-content']
+            ['class' => 'tab-content'],
         );
     }
 
@@ -150,7 +150,7 @@ class SalmonStatsHistoryWidget extends Widget
             Yii::t('app-salmon-history2', 'Total'),
             $key,
             $apiKey,
-            'total'
+            'total',
         );
     }
 
@@ -160,7 +160,7 @@ class SalmonStatsHistoryWidget extends Widget
             Yii::t('app-salmon-history2', 'Average'),
             $key,
             $apiKey,
-            'average'
+            'average',
         );
     }
 
@@ -183,7 +183,7 @@ class SalmonStatsHistoryWidget extends Widget
                     ],
                 ]),
             ]),
-            ['class' => 'mb-2']
+            ['class' => 'mb-2'],
         );
     }
 

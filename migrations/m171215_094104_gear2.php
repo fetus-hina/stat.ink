@@ -25,17 +25,17 @@ class m171215_094104_gear2 extends Migration
                     return sprintf(
                         'WHEN %s THEN %s',
                         $this->db->quoteValue($key),
-                        $this->db->quoteValue($value)
+                        $this->db->quoteValue($value),
                     );
                 },
                 array_keys($data),
-                array_values($data)
-            ))
+                array_values($data),
+            )),
         ));
         $this->update(
             'gear2',
             ['splatnet' => $updateCase],
-            ['key' => array_keys($data)]
+            ['key' => array_keys($data)],
         );
     }
 
@@ -45,14 +45,14 @@ class m171215_094104_gear2 extends Migration
         $this->update(
             'gear2',
             ['splatnet' => null],
-            ['key' => array_keys($data)]
+            ['key' => array_keys($data)],
         );
     }
 
     private function makeUpdateData(): void
     {
         $json = Json::decode(
-            file_get_contents(__FILE__, false, null, __COMPILER_HALT_OFFSET__)
+            file_get_contents(__FILE__, false, null, __COMPILER_HALT_OFFSET__),
         );
         $upd = [];
         foreach ($json as $key => $id) {

@@ -160,7 +160,7 @@ class DlStats2Controller extends Controller
                             $playerColumns('B1'),
                             $playerColumns('B2'),
                             $playerColumns('B3'),
-                            $playerColumns('B4')
+                            $playerColumns('B4'),
                         )) . "\x0d\x0a");
                         $header = true;
                     }
@@ -246,7 +246,7 @@ class DlStats2Controller extends Controller
                     [
                     'add_path' => basename(Yii::getAlias(static::BASE_BATTLE_RESULTS_CSV)) . '/',
                     'remove_all_path' => true,
-                    ]
+                    ],
                 )
             ) {
                 return false;
@@ -259,7 +259,7 @@ class DlStats2Controller extends Controller
                 implode('/', [
                     Yii::getAlias(static::BASE_BATTLE_RESULTS_CSV),
                     basename(Yii::getAlias(static::BASE_BATTLE_RESULTS_CSV)) . '.zip',
-                ])
+                ]),
             );
             return true;
         } finally {
@@ -298,7 +298,7 @@ class DlStats2Controller extends Controller
                     return '"' . str_replace('"', '""', $col) . '"';
                 }
             },
-            $cols
+            $cols,
         ));
     }
 }

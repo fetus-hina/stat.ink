@@ -17,7 +17,7 @@ class m160411_135803_weapon_attack extends Migration
             'id'                => $this->primaryKey(),
             'main_weapon_id'    => $this->integer()->notNull(),
             'version_id'        => $this->integer()->notNull()->defaultValue(
-                SplatoonVersion::findOne(['tag' => '1.0.0'])->id
+                SplatoonVersion::findOne(['tag' => '1.0.0'])->id,
             ),
             'damage'            => $this->decimal(4, 1)->notNull(), // 999.9
         ]);

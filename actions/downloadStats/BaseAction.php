@@ -42,7 +42,7 @@ abstract class BaseAction extends ViewAction
                 [['charset'], 'exist', 'skipOnError' => true,
                     'targetClass' => Charset::class,
                     'targetAttribute' => ['charset' => 'php_name']],
-            ]
+            ],
         );
         if ($config->hasErrors()) {
             throw new BadRequestHttpException('Bad parameters');

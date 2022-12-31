@@ -48,8 +48,8 @@ class MaintenanceInfo extends Widget
                     '<p><strong>%s</strong></p>',
                     Html::encode(Yii::t(
                         'app-alert',
-                        'We\'ll perform maintenance on the schedule below:'
-                    ))
+                        'We\'ll perform maintenance on the schedule below:',
+                    )),
                 ),
                 Html::tag(
                     'p',
@@ -59,8 +59,8 @@ class MaintenanceInfo extends Widget
                         [
                             'startDate' => $this->formatTime($model->start_at),
                             'endDate' => $this->formatTime($model->end_at),
-                        ]
-                    )
+                        ],
+                    ),
                 ),
                 Html::tag(
                     'p',
@@ -69,8 +69,8 @@ class MaintenanceInfo extends Widget
                         'Due to: {reason}',
                         [
                             'reason' => $model->reason,
-                        ]
-                    ))
+                        ],
+                    )),
                 ),
                 Html::tag('p', Html::encode(Yii::t('app-alert', 'Sorry for inconvenience.'))),
             ]),
@@ -81,7 +81,7 @@ class MaintenanceInfo extends Widget
     {
         $timestamp = filter_var(
             Yii::$app->formatter->asTimestamp($time),
-            FILTER_VALIDATE_INT
+            FILTER_VALIDATE_INT,
         );
         if (!is_int($timestamp)) {
             return Html::encode(Yii::t('app', 'Unknown'));
@@ -107,13 +107,13 @@ class MaintenanceInfo extends Widget
                         'data' => [
                             'toggle' => 'modal',
                         ],
-                    ]
+                    ],
                 ),
             ]),
             [
                 'datetime' => $dt->setTimezone(new DateTimeZone('Etc/UTC'))
                     ->format(DateTime::ATOM),
-            ]
+            ],
         );
     }
 }

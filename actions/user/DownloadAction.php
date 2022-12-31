@@ -37,8 +37,8 @@ class DownloadAction extends BaseAction
             Yii::t(
                 'yii',
                 'Invalid data received for parameter "{param}".',
-                ['param' => 'type']
-            )
+                ['param' => 'type'],
+            ),
         );
     }
 
@@ -98,7 +98,7 @@ class DownloadAction extends BaseAction
                 [
                     'mimeType' => 'application/octet-stream',
                     'inline' => false,
-                ]
+                ],
             )
             ->send();
     }

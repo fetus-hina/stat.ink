@@ -156,7 +156,7 @@ class Wave extends Model
                         '',
                         Html::encode(Yii::t(
                             'app-apidoc2',
-                            'Set `null`, empty string or omit the field if no event.'
+                            'Set `null`, empty string or omit the field if no event.',
                         )),
                         '',
                         static::oapiKeyValueTable(
@@ -169,7 +169,7 @@ class Wave extends Model
                             null,
                             null,
                             null,
-                            ['splatnet']
+                            ['splatnet'],
                         ),
                     ]),
                     ArrayHelper::getColumn(
@@ -178,9 +178,9 @@ class Wave extends Model
                             ->asArray()
                             ->all(),
                         'key',
-                        false
+                        false,
                     ),
-                    true // replace description
+                    true, // replace description
                 ),
                 'water_level' => static::oapiKey(
                     implode("\n", [
@@ -196,7 +196,7 @@ class Wave extends Model
                             null,
                             null,
                             null,
-                            ['splatnet']
+                            ['splatnet'],
                         ),
                     ]),
                     ArrayHelper::getColumn(
@@ -205,9 +205,9 @@ class Wave extends Model
                             ->asArray()
                             ->all(),
                         'key',
-                        false
+                        false,
                     ),
-                    true // replace description
+                    true, // replace description
                 ),
                 'golden_egg_quota' => [
                     'type' => 'integer',

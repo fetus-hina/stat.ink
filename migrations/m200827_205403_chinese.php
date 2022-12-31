@@ -33,7 +33,7 @@ class m200827_205403_chinese extends Migration
             [
                 ['GBK(GB 2312)', 'CP936', 63, false, 14],
                 ['GB 18030', 'GB18030', 63, false, 15],
-            ]
+            ],
         );
 
         $chinese = $this->getChineseLanguageId();
@@ -45,7 +45,7 @@ class m200827_205403_chinese extends Migration
                     return [$chinese, $_[0], $_[1]];
                 },
                 $this->getCharsetIds(),
-            )
+            ),
         );
 
         $this->insert('accept_language', [
@@ -98,7 +98,7 @@ class m200827_205403_chinese extends Migration
                 ->from('charset')
                 ->where(['php_name' => ['CP936', 'GB18030']])
                 ->orderBy(['id' => SORT_ASC])
-                ->all()
+                ->all(),
         );
     }
 
@@ -113,7 +113,7 @@ class m200827_205403_chinese extends Migration
                 ->from('charset')
                 ->where(['php_name' => ['UTF-8', 'UTF-16LE']])
                 ->orderBy(['id' => SORT_ASC])
-                ->column()
+                ->column(),
         );
     }
 }

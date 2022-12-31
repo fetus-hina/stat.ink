@@ -38,7 +38,7 @@ final class StageAction extends Action
             Map3::find()
                 ->with(['map3Aliases'])
                 ->orderBy(['id' => SORT_ASC])
-                ->all()
+                ->all(),
         );
     }
 }

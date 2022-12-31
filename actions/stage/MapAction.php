@@ -87,14 +87,14 @@ class MapAction extends BaseAction
                         $this->map->getPeriodMaps()
                             ->andWhere(['rule_id' => $rule->id])
                             ->orderBy('period ASC')
-                            ->all()
+                            ->all(),
                     );
                     return (object)[
                         'rule' => $rule,
                         'history' => array_slice(
                             array_reverse($histories),
                             0,
-                            5
+                            5,
                         ),
                         'trends' => StatWeaponMapTrend::find()
                             ->with('weapon')
@@ -113,12 +113,12 @@ class MapAction extends BaseAction
                             ->sum('battles'),
                     ];
                 },
-                $mode->rules
+                $mode->rules,
             );
             usort($tmp, function ($a, $b) {
                 return strnatcasecmp(
                     Yii::t('app-rule', $a->rule->name),
-                    Yii::t('app-rule', $b->rule->name)
+                    Yii::t('app-rule', $b->rule->name),
                 );
             });
             $rules = array_merge($rules, $tmp);

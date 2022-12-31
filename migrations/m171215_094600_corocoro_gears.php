@@ -21,7 +21,7 @@ class m171215_094600_corocoro_gears extends Migration
             'shoes',
             'enperry',
             'swim_speed_up',
-            2021
+            2021,
         );
         $this->upGear2(
             $this->name2key('Kaiser Cuff'),
@@ -29,7 +29,7 @@ class m171215_094600_corocoro_gears extends Migration
             'headgear',
             'enperry',
             'ink_saver_main',
-            10000
+            10000,
         );
         $this->upGear2(
             $this->name2key('King Bench Kaiser'),
@@ -37,7 +37,7 @@ class m171215_094600_corocoro_gears extends Migration
             'clothing',
             'enperry',
             'run_speed_up',
-            5032
+            5032,
         );
     }
 

@@ -31,7 +31,7 @@ class m220805_012235_korean extends Migration
             [
                 ['UHC', 'CP949', 63, false, 17],
                 ['EUC-KR', 'EUC-KR', 63, false, 18],
-            ]
+            ],
         );
 
         $korean = $this->getKoreanLanguageId();
@@ -43,7 +43,7 @@ class m220805_012235_korean extends Migration
                     return [$korean, $_[0], $_[1]];
                 },
                 $this->getCharsetIds(),
-            )
+            ),
         );
 
         $this->insert('accept_language', [
@@ -118,7 +118,7 @@ class m220805_012235_korean extends Migration
                 ->from('charset')
                 ->where(['php_name' => ['UTF-8', 'UTF-16LE']])
                 ->orderBy(['id' => SORT_ASC])
-                ->column()
+                ->column(),
         );
     }
 }

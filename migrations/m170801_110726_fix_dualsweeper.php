@@ -16,7 +16,7 @@ class m170801_110726_fix_dualsweeper extends Migration
             $this->update(
                 "{{{$table}}}",
                 ['name' => 'Dualie Squelchers'],
-                ['key' => 'dualsweeper']
+                ['key' => 'dualsweeper'],
             );
         }
     }
@@ -27,7 +27,7 @@ class m170801_110726_fix_dualsweeper extends Migration
             $this->update(
                 "{{{$table}}}",
                 ['name' => 'Splat Dualies'],
-                ['key' => 'dualsweeper']
+                ['key' => 'dualsweeper'],
             );
         }
     }

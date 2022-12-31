@@ -22,7 +22,7 @@ class RuleAction extends BaseAction
             function ($rule) {
                 return $rule->toJsonArray();
             },
-            Rule::find()->with('mode')->all()
+            Rule::find()->with('mode')->all(),
         );
     }
 }

@@ -22,7 +22,7 @@ class m200616_204434_s2_v5_2_1 extends Migration
             '5.2.x',
             '5.2.1',
             '5.2.1',
-            new DateTimeImmutable('2020-06-16T15:00:00+09:00')
+            new DateTimeImmutable('2020-06-16T15:00:00+09:00'),
         );
     }
 

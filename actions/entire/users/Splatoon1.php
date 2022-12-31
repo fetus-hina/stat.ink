@@ -47,7 +47,7 @@ trait Splatoon1
                     'user' => $a->user_count,
                 ];
             },
-            $stats
+            $stats,
         );
     }
 
@@ -65,7 +65,7 @@ trait Splatoon1
             function ($a) {
                 return $a['agent_id'];
             },
-            $list
+            $list,
         ));
         $t = @$_SERVER['REQUEST_TIME'] ?: time();
         foreach ($list as &$row) {
@@ -89,7 +89,7 @@ trait Splatoon1
             gmdate('s', $t2) + 1,
             gmdate('n', $t2),
             gmdate('j', $t2) - 1,
-            gmdate('Y', $t2)
+            gmdate('Y', $t2),
         );
         $query = (new Query())
             ->select([

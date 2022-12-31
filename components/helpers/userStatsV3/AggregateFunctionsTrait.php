@@ -118,7 +118,7 @@ trait AggregateFunctionsTrait
             ->andWhere(
                 $like
                     ? ['like', 'key', $lobby, false]
-                    : ['key' => $lobby]
+                    : ['key' => $lobby],
             )
             ->all();
 

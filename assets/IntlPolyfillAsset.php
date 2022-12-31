@@ -31,7 +31,7 @@ class IntlPolyfillAsset extends AssetBundle
         $this->js[] = 'https://cdn.polyfill.io/v2/polyfill.min.js?' . http_build_query(
             ['features' => implode(',', $features)],
             '',
-            '&'
+            '&',
         );
     }
 }

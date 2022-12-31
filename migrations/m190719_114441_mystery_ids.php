@@ -36,7 +36,7 @@ class m190719_114441_mystery_ids extends Migration
                 function (string $key) use ($db) {
                     return $db->quoteValue($key);
                 },
-                array_keys($data)
+                array_keys($data),
             )),
             $db->quoteColumnName('splatnet'),
             $case,
@@ -49,7 +49,7 @@ class m190719_114441_mystery_ids extends Migration
         $this->update(
             'map2',
             ['splatnet' => null],
-            ['key' => array_keys($this->getData())]
+            ['key' => array_keys($this->getData())],
         );
     }
 

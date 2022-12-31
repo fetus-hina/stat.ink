@@ -73,7 +73,7 @@ class BattleAction extends BaseAction
                 [['newer_than', 'older_than'], 'integer'],
                 [['count'], 'default', 'value' => 10],
                 [['count'], 'integer', 'min' => 1, 'max' => 100],
-            ]
+            ],
         );
         if (!$model->validate()) {
             return $this->formatError($model->getErrors(), 400);
@@ -154,7 +154,7 @@ class BattleAction extends BaseAction
             function ($model) {
                 return $model->toJsonArray();
             },
-            $list
+            $list,
         );
         // }}}
     }
@@ -173,7 +173,7 @@ class BattleAction extends BaseAction
         if (!$form->validate()) {
             $this->logError(array_merge(
                 $form->getErrors(),
-                ['req' => @base64_encode($request->getRawBody())]
+                ['req' => @base64_encode($request->getRawBody())],
             ));
             return $this->formatError($form->getErrors(), 400);
         }
@@ -217,7 +217,7 @@ class BattleAction extends BaseAction
                 $battle,
                 $deathReasons,
                 $players,
-                $agent
+                $agent,
             );
         }
 
@@ -393,7 +393,7 @@ class BattleAction extends BaseAction
                 $blackoutList = \app\components\helpers\Blackout::getBlackoutTargetList(
                     $form->lobby,
                     $form->user->blackout,
-                    (($form->result === 'win') ? 0 : 4) + $form->rank_in_team
+                    (($form->result === 'win') ? 0 : 4) + $form->rank_in_team,
                 );
             }
 
@@ -539,7 +539,7 @@ class BattleAction extends BaseAction
                 ->with(['reason', 'reason.type'])
                 ->all(),
             $battle->battlePlayers,
-            $battle->agent
+            $battle->agent,
         );
     }
 
@@ -557,14 +557,14 @@ class BattleAction extends BaseAction
             function ($model): array {
                 return $model->toJsonArray();
             },
-            $deathReasons
+            $deathReasons,
         );
         $ret['players'] = is_array($players) && !empty($players)
             ? array_map(
                 function ($model): array {
                     return $model->toJsonArray();
                 },
-                $players
+                $players,
             )
             : null;
         $ret['agent']['name'] = $agent ? $agent->name : null;
@@ -625,12 +625,12 @@ class BattleAction extends BaseAction
     {
         $output = json_encode(
             ['error' => $errors],
-            JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
+            JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE,
         );
         $text = sprintf(
             'API/Battle Error: RemoteAddr=[%s], Data=%s',
             $_SERVER['REMOTE_ADDR'],
-            $output
+            $output,
         );
         if (isset($errors['system'])) {
             Yii::error($text);

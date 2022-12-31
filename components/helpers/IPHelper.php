@@ -75,7 +75,7 @@ class IPHelper
             if ($records = @dns_get_record($hostName, $task[0])) {
                 $results = array_merge(
                     $results,
-                    array_column($records, $task[1])
+                    array_column($records, $task[1]),
                 );
             }
         }

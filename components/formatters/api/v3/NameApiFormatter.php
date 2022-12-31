@@ -66,7 +66,7 @@ final class NameApiFormatter
                 Language::find()
                     ->standard()
                     ->orderBy(['lang' => SORT_ASC])
-                    ->all()
+                    ->all(),
             );
         }
 

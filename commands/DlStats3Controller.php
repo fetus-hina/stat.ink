@@ -206,7 +206,7 @@ final class DlStats3Controller extends Controller
                                     $playerColumns('B3'),
                                     $playerColumns('B4'),
                                 ),
-                            ) . "\x0d\x0a"
+                            ) . "\x0d\x0a",
                         );
                         $header = true;
                     }
@@ -333,7 +333,7 @@ final class DlStats3Controller extends Controller
                     [
                         'add_path' => basename(Yii::getAlias(self::BASE_BATTLE_RESULTS_CSV)) . '/',
                         'remove_all_path' => true,
-                    ]
+                    ],
                 )
             ) {
                 return false;
@@ -348,7 +348,7 @@ final class DlStats3Controller extends Controller
                 \implode('/', [
                     Yii::getAlias(self::BASE_BATTLE_RESULTS_CSV),
                     \basename(Yii::getAlias(self::BASE_BATTLE_RESULTS_CSV)) . '.zip',
-                ])
+                ]),
             );
 
             return true;

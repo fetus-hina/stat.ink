@@ -268,7 +268,7 @@ class PostForm extends Model
         if (!$model) {
             $this->addError(
                 $attribute,
-                "{$attributeLabel} should be an instance of player structure"
+                "{$attributeLabel} should be an instance of player structure",
             );
             return;
         }
@@ -359,7 +359,7 @@ class PostForm extends Model
                 'clear_waves' => $this->clear_waves,
                 'fail_reason_id' => static::findRelatedId(
                     SalmonFailReason2::class,
-                    $this->fail_reason
+                    $this->fail_reason,
                 ),
                 'title_before_id' => static::findRelatedId(SalmonTitle2::class, $this->title),
                 'title_before_exp' => $this->title_exp,
@@ -522,8 +522,8 @@ class PostForm extends Model
                             sprintf(
                                 '%d@%s',
                                 (int)$this->splatnet_number,
-                                $myData->splatnet_id
-                            )
+                                $myData->splatnet_id,
+                            ),
                         );
                     }
                 }
@@ -534,8 +534,8 @@ class PostForm extends Model
                 sprintf(
                     '%d@%d',
                     (int)$this->splatnet_number,
-                    (int)Yii::$app->user->id
-                )
+                    (int)Yii::$app->user->id,
+                ),
             );
         }
 
@@ -592,25 +592,25 @@ class PostForm extends Model
                         '',
                         Html::encode(Yii::t(
                             'app-apidoc2',
-                            'Client application should specify a UUID to detect duplicated shift.'
+                            'Client application should specify a UUID to detect duplicated shift.',
                         )),
                         '',
                         Html::encode(Yii::t('app-apidoc2', 'How to create the UUID:')),
                         '',
                         Html::encode(sprintf('- %s', Yii::t(
                             'app-apidoc2',
-                            'SplatNet 2 based Application'
+                            'SplatNet 2 based Application',
                         ))),
                         Html::encode(sprintf('  - %s', Yii::t(
                             'app-apidoc2',
                             'Generate a UUID version 5 with namespace `{ns}`.',
-                            ['ns' => static::UUID_NAMESPACE_BY_PRINCIPAL_ID]
+                            ['ns' => static::UUID_NAMESPACE_BY_PRINCIPAL_ID],
                         ))),
                         '',
                         Html::encode(sprintf('    %s', Yii::t(
                             'app-apidoc2',
                             'Use "`splatnet_number`@`principal_id`" format. (Example: `{example}`)',
-                            ['example' => sprintf('%d@%s', 5436, '3f6fb10a91b0c551')]
+                            ['example' => sprintf('%d@%s', 5436, '3f6fb10a91b0c551')],
                         ))) . '<br>',
                         sprintf('    %s', sprintf(
                             '`uuid_v5("%s", sprintf("%%d@%%s", number, principal_id))`',
@@ -619,35 +619,35 @@ class PostForm extends Model
                         '',
                         Html::encode(sprintf('- %s', Yii::t(
                             'app-apidoc2',
-                            'Standalone Application (e.g., user\'s input or screen capture)'
+                            'Standalone Application (e.g., user\'s input or screen capture)',
                         ))),
                         Html::encode(sprintf('    - %s', Yii::t(
                             'app-apidoc2',
-                            'Nothing send (Disabled duplicate detection)'
+                            'Nothing send (Disabled duplicate detection)',
                         ))),
                         Html::encode(sprintf('    - %s', Yii::t(
                             'app-apidoc2',
-                            'Generate a UUID version 4 on your side'
+                            'Generate a UUID version 4 on your side',
                         ))),
                         Html::encode(sprintf('    - %s', Yii::t(
                             'app-apidoc2',
-                            'Generate a UUID version 3 or 5 on your side with your own namespace'
+                            'Generate a UUID version 3 or 5 on your side with your own namespace',
                         ))),
                         '',
                         Html::encode(Yii::t(
                             'app-apidoc2',
                             'The API endpoint will return `302 Found` if job has same UUID ' .
-                            'posted in last 24 hours.'
+                            'posted in last 24 hours.',
                         ) . '  '),
                         Html::encode(Yii::t(
                             'app-apidoc2',
                             'This is helpful for unintended duplication, but it is helpless ' .
-                            'for complate detect duplication.'
+                            'for complate detect duplication.',
                         )),
                         '',
                         Html::encode(Yii::t(
                             'app-apidoc2',
-                            'We recommend posting by the following procedure:'
+                            'We recommend posting by the following procedure:',
                         )),
                         '',
                         Html::encode('  1. ' . Yii::t(
@@ -656,33 +656,33 @@ class PostForm extends Model
                             [
                                 'url' => '/api/v2/user-salmon?only=splatnet_number',
                                 'link' => '#operation/getUserSalmon',
-                            ]
+                            ],
                         )),
                         '',
                         Html::encode('  2. ' . Yii::t(
                             'app-apidoc2',
-                            'Fetch data from SplatNet 2.'
+                            'Fetch data from SplatNet 2.',
                         )),
                         '',
                         Html::encode('  3. ' . Yii::t(
                             'app-apidoc2',
-                            'Filter unposted shifts and post to us.'
+                            'Filter unposted shifts and post to us.',
                         )),
                         '',
                         Html::encode(Yii::t(
                             'app-apidoc2',
-                            'About UUID, refer [RFC 4122](https://tools.ietf.org/html/rfc4122).'
+                            'About UUID, refer [RFC 4122](https://tools.ietf.org/html/rfc4122).',
                         )),
                         '',
                         Html::encode(Yii::t(
                             'app-apidoc2',
-                            'If omitted, we will automatically generate a random UUID.'
+                            'If omitted, we will automatically generate a random UUID.',
                         )),
                         '',
                         Html::encode(Yii::t(
                             'app-apidoc2',
                             'If the value is not correct as a UUID, we will use that value as a ' .
-                            'seed to generate a UUID.'
+                            'seed to generate a UUID.',
                         )),
                         Html::encode(Yii::t('app-apidoc2', 'Do not rely on this behavior.')),
                     ]),
@@ -701,15 +701,15 @@ class PostForm extends Model
                             null, // key column
                             null, // value column
                             null, // key label
-                            'splatnet_hint'
+                            'splatnet_hint',
                         ),
                     ]),
                     ArrayHelper::getColumn(
                         SalmonMap2::find()->orderBy(['key' => SORT_ASC])->asArray()->all(),
                         'key',
-                        false
+                        false,
                     ),
-                    true // replace description
+                    true, // replace description
                 ),
                 'clear_waves' => [
                     'type' => 'integer',
@@ -721,7 +721,7 @@ class PostForm extends Model
                         '',
                         Html::encode(Yii::t(
                             'app-apidoc2',
-                            '`3` if cleared. `0` if failed in wave 1.'
+                            '`3` if cleared. `0` if failed in wave 1.',
                         )),
                     ]),
                 ],
@@ -731,7 +731,7 @@ class PostForm extends Model
                         '',
                         Html::encode(Yii::t(
                             'app-apidoc2',
-                            '`null` or empty string if cleared or unknown'
+                            '`null` or empty string if cleared or unknown',
                         )),
                         '',
                         static::oapiKeyValueTable(
@@ -740,7 +740,7 @@ class PostForm extends Model
                             SalmonFailReason2::find()
                                 ->orderBy(['key' => SORT_ASC])
                                 ->asArray()
-                                ->all()
+                                ->all(),
                         ),
                     ]),
                     ArrayHelper::getColumn(
@@ -749,9 +749,9 @@ class PostForm extends Model
                             ->asArray()
                             ->all(),
                         'key',
-                        false
+                        false,
                     ),
-                    true // replace description
+                    true, // replace description
                 ),
                 'title' => static::oapiKey(
                     implode("\n", [
@@ -770,9 +770,9 @@ class PostForm extends Model
                     ArrayHelper::getColumn(
                         SalmonTitle2::find()->orderBy(['id' => SORT_ASC])->asArray()->all(),
                         'key',
-                        false
+                        false,
                     ),
-                    true // replace description
+                    true, // replace description
                 ),
                 'title_exp' => [
                     'type' => 'integer',
@@ -792,9 +792,9 @@ class PostForm extends Model
                     ArrayHelper::getColumn(
                         SalmonTitle2::find()->orderBy(['id' => SORT_ASC])->asArray()->all(),
                         'key',
-                        false
+                        false,
                     ),
-                    true // replace description
+                    true, // replace description
                 ),
                 'title_exp_after' => [
                     'type' => 'integer',
@@ -815,7 +815,7 @@ class PostForm extends Model
                     'multipleOf' => 0.1,
                     'description' => Yii::t(
                         'app-apidoc2',
-                        'Hazard Level, 200.0 = "Hazard Level MAX!!"'
+                        'Hazard Level, 200.0 = "Hazard Level MAX!!"',
                     ),
                 ],
                 'boss_appearances' => (function (): array {
@@ -829,12 +829,12 @@ class PostForm extends Model
                             Html::encode(Yii::t(
                                 'app-apidoc2',
                                 'If your client doesn\'t/cannot detect this data, omit this ' .
-                                'field or send just `null`.'
+                                'field or send just `null`.',
                             )),
                             '',
                             Yii::t(
                                 'app-apidoc2',
-                                'If not appearances the boss, you can send `0` or omit the boss.'
+                                'If not appearances the boss, you can send `0` or omit the boss.',
                             ),
                             '',
                             '```js',
@@ -891,7 +891,7 @@ class PostForm extends Model
                         Html::encode(Yii::t(
                             'app-apidoc2',
                             'If your client doesn\'t/cannot detect this data, omit this field or ' .
-                            'send just `null`.'
+                            'send just `null`.',
                         )),
                     ]),
                 ],
@@ -904,7 +904,7 @@ class PostForm extends Model
                     'description' => implode("\n", [
                         Html::encode(Yii::t(
                             'app-apidoc2',
-                            'Crew members\' (except `my_data`) data, typically have 3 elements'
+                            'Crew members\' (except `my_data`) data, typically have 3 elements',
                         )),
                     ]),
                 ],
@@ -913,7 +913,7 @@ class PostForm extends Model
                     'format' => 'int64',
                     'description' => Yii::t(
                         'app-apidoc2',
-                        'The time when this rotation (play window) started in unix time format.'
+                        'The time when this rotation (play window) started in unix time format.',
                     ),
                 ],
                 'start_at' => [
@@ -930,12 +930,12 @@ class PostForm extends Model
                     'description' => implode("\n", [
                         Yii::t(
                             'app-apidoc2',
-                            'The time when this shift ended in unix time format.'
+                            'The time when this shift ended in unix time format.',
                         ),
                         '',
                         Yii::t(
                             'app-apidoc2',
-                            'Note: this value may not be in SplatNet JSON.'
+                            'Note: this value may not be in SplatNet JSON.',
                         ),
                     ]),
                 ],
@@ -952,7 +952,7 @@ class PostForm extends Model
                     'format' => 'uri',
                     'description' => Yii::t(
                         'app-apidoc2',
-                        'URL that related to this post. (e.g., YouTube video)'
+                        'URL that related to this post. (e.g., YouTube video)',
                     ),
                 ],
                 'automated' => [
@@ -975,7 +975,7 @@ class PostForm extends Model
                         '',
                         Yii::t(
                             'app-apidoc2',
-                            'Choose `no` if this user\'s posts may be arbitrarily selected.'
+                            'Choose `no` if this user\'s posts may be arbitrarily selected.',
                         ),
                     ]),
                 ],

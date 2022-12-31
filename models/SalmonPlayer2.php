@@ -182,7 +182,7 @@ class SalmonPlayer2 extends ActiveRecord
         return substr(
             hash('sha256', $id, false),
             0,
-            40
+            40,
         );
     }
 
@@ -261,19 +261,19 @@ class SalmonPlayer2 extends ActiveRecord
             'special_uses' => $this->specialUses
                 ? array_map(
                     fn($model) => (int)$model->count,
-                    $this->specialUses
+                    $this->specialUses,
                 )
                 : null,
             'weapons' => $this->weapons
                 ? array_map(
                     fn($model) => $model->weapon ? $model->weapon->toJsonArray() : null,
-                    $this->weapons
+                    $this->weapons,
                 )
                 : null,
             'boss_kills' => $this->bossKills
                 ? array_map(
                     fn($model) => $model->toJsonArray(),
-                    $this->bossKills
+                    $this->bossKills,
                 )
                 : null,
         ];
@@ -343,7 +343,7 @@ class SalmonPlayer2 extends ActiveRecord
                     'nullable' => true,
                     'description' => Yii::t(
                         'app-apidoc2',
-                        'Number of times rescued by other players'
+                        'Number of times rescued by other players',
                     ),
                 ],
                 'golden_egg_delivered' => [
@@ -371,7 +371,7 @@ class SalmonPlayer2 extends ActiveRecord
                     'nullable' => true,
                     'description' => Yii::t(
                         'app-apidoc2',
-                        'How many times special weapon used in each wave'
+                        'How many times special weapon used in each wave',
                     ),
                     'items' => [
                         'type' => 'integer',

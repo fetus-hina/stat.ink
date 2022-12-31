@@ -30,9 +30,9 @@ final class CombinedBattles
                 \array_merge(
                     require __DIR__ . '/combinedBattles/Splatoon3.php',
                     require __DIR__ . '/combinedBattles/Splatoon2.php',
-                    require __DIR__ . '/combinedBattles/Splatoon1.php'
+                    require __DIR__ . '/combinedBattles/Splatoon1.php',
                 ),
-                $num
+                $num,
             );
         } finally {
             Yii::endProfile(__FUNCTION__, __METHOD__);
@@ -47,9 +47,9 @@ final class CombinedBattles
                 \array_merge(
                     require __DIR__ . '/combinedBattles/User3.php',
                     require __DIR__ . '/combinedBattles/User2.php',
-                    require __DIR__ . '/combinedBattles/User1.php'
+                    require __DIR__ . '/combinedBattles/User1.php',
                 ),
-                $num
+                $num,
             );
         } finally {
             Yii::endProfile(__FUNCTION__, __METHOD__);

@@ -38,7 +38,7 @@ class DeathReasonAction extends BaseAction
             function ($model) {
                 return $model->toJsonArray();
             },
-            $query->all()
+            $query->all(),
         );
     }
 }

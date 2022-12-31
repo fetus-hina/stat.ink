@@ -36,12 +36,12 @@ class m171104_130148_ability2_splatnet extends Migration
                         return sprintf(
                             'WHEN %s THEN %d',
                             $this->db->quoteValue($key),
-                            $value
+                            $value,
                         );
                     },
                     array_keys($this->getData()),
-                    array_values($this->getData())
-                ))
+                    array_values($this->getData()),
+                )),
             )),
         ];
     }

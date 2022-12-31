@@ -47,7 +47,7 @@ class Btl2SplatnetJsonAction extends Action
         $db->createCommand(
             "CREATE UNIQUE INDEX CONCURRENTLY IF NOT EXISTS " .
             "[[{$indexName}]] ON {{battle2_splatnet}}([[id]]) " .
-            "WHERE (JSONB_TYPEOF([[json]]) = 'string')"
+            "WHERE (JSONB_TYPEOF([[json]]) = 'string')",
         )
             ->execute();
         echo "Created\n";
@@ -78,8 +78,8 @@ class Btl2SplatnetJsonAction extends Action
                     "WHERE (JSONB_TYPEOF([[json]]) = 'string') " .
                     "AND ([[id]] IN (" . implode(', ', array_map(
                         fn($id) => (string)$db->quoteValue($id),
-                        $idList
-                    )) . "))"
+                        $idList,
+                    )) . "))",
                 )
                     ->execute();
                 echo "commit ...\n";

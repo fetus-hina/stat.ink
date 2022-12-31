@@ -42,7 +42,7 @@ class m160607_015542_weapon_bukichi2_3 extends Migration
                     new Expression("currval('weapon_id_seq'::regclass)"),
                     Weapon::findOne(['key' => 'barrelspinner'])->id,
                 ],
-            ]
+            ],
         );
 
         $type = DeathReasonType::findOne(['key' => 'main'])->id;
@@ -62,7 +62,7 @@ class m160607_015542_weapon_bukichi2_3 extends Migration
                     'Heavy Splatling Remix',
                     Weapon::findOne(['key' => 'barrelspinner'])->id,
                 ],
-            ]
+            ],
         );
     }
 

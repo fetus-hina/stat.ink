@@ -32,7 +32,7 @@ class m191112_153426_remove_duplicated_salmon_stats extends Migration
                             'total_eggs',
                             'total_rescued',
                             'total_point',
-                        ]
+                        ],
                     )),
                 ]),
             ]));

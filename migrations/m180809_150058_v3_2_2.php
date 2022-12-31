@@ -20,7 +20,7 @@ class m180809_150058_v3_2_2 extends Migration
             '3.2.x',
             '3.2.2',
             '3.2.2',
-            new DateTimeImmutable('2018-08-09T11:00:00+09:00')
+            new DateTimeImmutable('2018-08-09T11:00:00+09:00'),
         );
     }
 

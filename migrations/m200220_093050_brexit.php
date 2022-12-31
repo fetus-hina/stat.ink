@@ -45,7 +45,7 @@ class m200220_093050_brexit extends Migration
                 ->andWhere(['timezone.identifier' => 'Europe/London'])
                 ->limit(1)
                 ->scalar(),
-            FILTER_VALIDATE_INT
+            FILTER_VALIDATE_INT,
         );
     }
 
@@ -58,7 +58,7 @@ class m200220_093050_brexit extends Migration
                 ->andWhere(['country.key' => 'gb'])
                 ->limit(1)
                 ->scalar(),
-            FILTER_VALIDATE_INT
+            FILTER_VALIDATE_INT,
         );
     }
 }

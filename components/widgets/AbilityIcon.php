@@ -43,7 +43,7 @@ class AbilityIcon extends Widget
                     'ability',
                     'ability-' . $this->icon,
                 ],
-            ], $this->contentOptions)
+            ], $this->contentOptions),
         );
     }
 }

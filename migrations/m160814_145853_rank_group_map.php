@@ -24,7 +24,7 @@ class m160814_145853_rank_group_map extends Migration
             $this->update(
                 'rank',
                 ['group_id' => RankGroup::findOne(['key' => $groupKey])->id],
-                ['key' => $rankKeys]
+                ['key' => $rankKeys],
             );
         }
         $this->execute('ALTER TABLE {{rank}} ALTER COLUMN [[group_id]] SET NOT NULL');

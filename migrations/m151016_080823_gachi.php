@@ -29,8 +29,8 @@ class m151016_080823_gachi extends Migration
                     'is_knock_out',
                     'my_team_count',
                     'his_team_count',
-                ]
-            ))
+                ],
+            )),
         );
         $this->execute($update);
         $this->dropTable('battle_gachi');

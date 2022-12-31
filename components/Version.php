@@ -106,7 +106,7 @@ class Version
     {
         $gitCommand = sprintf(
             'git log -n 1 --format=%s --date=raw',
-            escapeshellarg($format)
+            escapeshellarg($format),
         );
         if (!$lines = static::doGit($gitCommand)) {
             return false;
@@ -124,12 +124,12 @@ class Version
         ) {
             $cmdline = sprintf(
                 '/usr/bin/scl enable git19 %s',
-                escapeshellarg($gitCommand)
+                escapeshellarg($gitCommand),
             );
         } else {
             $cmdline = sprintf(
                 '/bin/bash -c %s',
-                escapeshellarg($gitCommand)
+                escapeshellarg($gitCommand),
             );
         }
 

@@ -32,7 +32,7 @@ class m151223_113054_splatfest_order extends Migration
             $this->update(
                 'splatfest',
                 ['order' => $i + 1],
-                ['region_id' => $jp, 'start_at' => $startAt]
+                ['region_id' => $jp, 'start_at' => $startAt],
             );
         }
         $transaction->commit();

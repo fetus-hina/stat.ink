@@ -49,7 +49,7 @@ class m200107_085417_weapon_main_power_up extends Migration
         $mainPowerMap = ArrayHelper::map(
             (new Query())->select('*')->from('main_power_up2')->all(),
             'key',
-            'id'
+            'id',
         );
         foreach ($this->getUpdateTasks() as $mainPowerKey => $weapons) {
             $this->update(
@@ -62,7 +62,7 @@ class m200107_085417_weapon_main_power_up extends Migration
                         ->select('id')
                         ->from('weapon2')
                         ->andWhere(['key' => $weapons]),
-                ]
+                ],
             );
         }
 

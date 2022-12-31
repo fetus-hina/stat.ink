@@ -52,7 +52,7 @@ class m190621_194311_update_old_splatfest_shifty extends Migration
         $this->update(
             'battle2',
             ['map_id' => $stages['mystery']],
-            ['map_id' => array_values($stages)]
+            ['map_id' => array_values($stages)],
         );
     }
 

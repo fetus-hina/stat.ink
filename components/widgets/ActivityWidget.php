@@ -89,7 +89,7 @@ final class ActivityWidget extends CalHeatmapWidget
 
         return new JsExpression(
             'function(a){var b={};return a.forEach(function(c){' .
-            'var e=new Date(c.date);b[e.getTime()/1e3]=c.count}),b}'
+            'var e=new Date(c.date);b[e.getTime()/1e3]=c.count}),b}',
         );
     }
 
@@ -103,12 +103,12 @@ final class ActivityWidget extends CalHeatmapWidget
         $date = $today->setDate(
             (int)$today->format('Y'),
             (int)$today->format('n') - $this->months + 1,
-            1
+            1,
         );
 
         return new JsExpression(sprintf(
             'new Date(%s)',
-            Json::encode($date->format('Y-m-d'))
+            Json::encode($date->format('Y-m-d')),
         ));
     }
 
@@ -123,11 +123,11 @@ final class ActivityWidget extends CalHeatmapWidget
                     // LLLL: "January", LLL: "Jan"
                     return $f->asDate(
                         sprintf('2001-%02d-01', $m),
-                        $this->longLabel ? 'LLLL' : 'LLL'
+                        $this->longLabel ? 'LLLL' : 'LLL',
                     );
                 },
-                range(1, 12)
-            ))
+                range(1, 12),
+            )),
         ));
     }
 
@@ -148,7 +148,7 @@ final class ActivityWidget extends CalHeatmapWidget
         $fmt = IntlDateFormatter::create(
             Yii::$app->language,
             IntlDateFormatter::SHORT,
-            IntlDateFormatter::NONE
+            IntlDateFormatter::NONE,
         );
         $icuPattern = $fmt->getPattern();
 
@@ -171,7 +171,7 @@ final class ActivityWidget extends CalHeatmapWidget
             function (string $p): string {
                 return '(?:' . preg_quote($p, '/') . ')';
             },
-            array_keys($map)
+            array_keys($map),
         )) . '/';
 
         return preg_replace_callback(
@@ -179,7 +179,7 @@ final class ActivityWidget extends CalHeatmapWidget
             function (array $match) use ($map): string {
                 return $map[$match[0]] ?? $match[0];
             },
-            $icuPattern
+            $icuPattern,
         );
     }
 }

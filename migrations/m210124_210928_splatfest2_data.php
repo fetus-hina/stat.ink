@@ -36,7 +36,7 @@ class m210124_210928_splatfest2_data extends Migration
                 function (int $regionID) use ($id): array {
                     return [$id, $regionID];
                 },
-                $row->regions
+                $row->regions,
             ));
         }
     }

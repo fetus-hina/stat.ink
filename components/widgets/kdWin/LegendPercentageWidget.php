@@ -33,7 +33,7 @@ class LegendPercentageWidget extends Widget
             [
                 'id' => $this->id,
                 'class' => 'table-responsive',
-            ]
+            ],
         );
     }
 
@@ -47,15 +47,15 @@ class LegendPercentageWidget extends Widget
                     function (int $i): string {
                         return $this->renderRow($i);
                     },
-                    range(0, $this->numCells - 1)
-                ))
+                    range(0, $this->numCells - 1),
+                )),
             ),
             ['class' => [
                 'table',
                 'table-bordered',
                 'table-condensed',
                 'rule-table',
-            ]]
+            ]],
         );
     }
 
@@ -86,14 +86,14 @@ class LegendPercentageWidget extends Widget
                                 ($rowNumber === 0) ? '+' : '',
                                 ($rowNumber === $this->numCells - 1) ? '-' : '',
                             ])
-                            : '⋮'
+                            : '⋮',
                     ),
                     ['class' => [
                         'text-center',
                         'kdcell',
-                    ]]
+                    ]],
                 ),
-            ])
+            ]),
         );
     }
 }

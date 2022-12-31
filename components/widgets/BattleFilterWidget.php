@@ -91,7 +91,7 @@ final class BattleFilterWidget extends Widget
             $ret[] = $this->drawTerm($form);
             $ret[] = Html::hiddenInput(
                 sprintf('%s[%s]', $this->filter->formName(), 'timezone'),
-                Yii::$app->timeZone
+                Yii::$app->timeZone,
             );
         }
         switch ($this->action) {
@@ -102,7 +102,7 @@ final class BattleFilterWidget extends Widget
                     [
                         'type' => 'submit',
                         'class' => [ 'btn', 'btn-primary' ],
-                    ]
+                    ],
                 );
                 break;
 
@@ -117,7 +117,7 @@ final class BattleFilterWidget extends Widget
                     [
                         'type' => 'submit',
                         'class' => [ 'btn', 'btn-primary' ],
-                    ]
+                    ],
                 );
         }
         return implode('', $ret);
@@ -172,7 +172,7 @@ final class BattleFilterWidget extends Widget
                     }
                     uasort($ret, 'strnatcasecmp');
                     return $ret;
-                })()
+                })(),
             );
         })();
         return $form->field($this->filter, 'map')->dropDownList($list)->label(false);
@@ -186,7 +186,7 @@ final class BattleFilterWidget extends Widget
             $this->createMainWeaponList($weaponIdList),
             $this->createGroupedMainWeaponList($weaponIdList),
             $this->createSubWeaponList($weaponIdList),
-            $this->createSpecialWeaponList($weaponIdList)
+            $this->createSpecialWeaponList($weaponIdList),
         );
         return $form->field($this->filter, 'weapon')->dropDownList($list)->label(false);
     }
@@ -230,7 +230,7 @@ final class BattleFilterWidget extends Widget
                 uasort($tmp, 'strnatcasecmp');
                 $ret[$typeName] = array_merge(
                     ['@' . $type['key'] => Yii::t('app-weapon', 'All of {0}', $typeName)],
-                    $tmp
+                    $tmp,
                 );
             } elseif (count($tmp) === 1) {
                 $ret[$typeName] = $tmp;
@@ -238,7 +238,7 @@ final class BattleFilterWidget extends Widget
         }
         return array_merge(
             ['' => Yii::t('app-weapon', 'Any Weapon')],
-            $ret
+            $ret,
         );
     }
 
@@ -322,7 +322,7 @@ final class BattleFilterWidget extends Widget
                 $list[$rank['key']] = sprintf(
                     '%s %s',
                     (($i !== count($group['ranks']) - 1) ? '├' : '└'),
-                    Yii::t('app-rank', $rank['name'])
+                    Yii::t('app-rank', $rank['name']),
                 );
             }
         }
@@ -402,17 +402,17 @@ final class BattleFilterWidget extends Widget
                 $form->field($this->filter, 'term_from', [
                     'inputTemplate' => Yii::t(
                         'app',
-                        '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>'
+                        '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>',
                     ),
                 ])->input('text', ['placeholder' => 'YYYY-MM-DD hh:mm:ss'])->label(false),
                 $form->field($this->filter, 'term_to', [
                     'inputTemplate' => Yii::t(
                         'app',
-                        '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>'
+                        '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>',
                     ),
                 ])->input('text', ['placeholder' => 'YYYY-MM-DD hh:mm:ss'])->label(false),
             ]),
-            ['id' => $divId]
+            ['id' => $divId],
         );
     }
 }

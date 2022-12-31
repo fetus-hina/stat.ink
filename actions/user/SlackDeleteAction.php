@@ -30,7 +30,7 @@ class SlackDeleteAction extends BaseAction
             ],
             [
                 [['id'], 'exist', 'targetClass' => Slack::class, 'targetAttribute' => 'id'],
-            ]
+            ],
         );
         if ($form->hasErrors()) {
             throw new BadRequestHttpException('Bad Request');

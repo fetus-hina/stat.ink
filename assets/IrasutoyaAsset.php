@@ -28,7 +28,7 @@ class IrasutoyaAsset extends AssetBundle
                     'height' => '1em',
                     'width' => 'auto',
                 ],
-            ], $options)
+            ], $options),
         );
     }
 }

@@ -64,7 +64,7 @@ class Battle2FilterWidget extends Widget
                     'border-radius' => '5px',
                     'padding' => '15px',
                     'margin-bottom' => '15px',
-                ])
+                ]),
             ));
             echo Html::beginTag('div', ['id' => $divId]);
             $form = ActiveForm::begin([
@@ -106,7 +106,7 @@ class Battle2FilterWidget extends Widget
             $ret[] = $this->drawTerm($form);
             $ret[] = Html::hiddenInput(
                 sprintf('%s[%s]', $this->filter->formName(), 'timezone'),
-                Yii::$app->timeZone
+                Yii::$app->timeZone,
             );
         }
         if ($this->filterText) {
@@ -123,7 +123,7 @@ class Battle2FilterWidget extends Widget
                     [
                         'type' => 'submit',
                         'class' => [ 'btn', 'btn-primary' ],
-                    ]
+                    ],
                 );
                 break;
 
@@ -138,7 +138,7 @@ class Battle2FilterWidget extends Widget
                     [
                         'type' => 'submit',
                         'class' => [ 'btn', 'btn-primary' ],
-                    ]
+                    ],
                 );
         }
         return implode('', $ret);
@@ -234,7 +234,7 @@ class Battle2FilterWidget extends Widget
                     'key',
                     function (Map2 $map): string {
                         return Yii::t('app-map2', $map->name);
-                    }
+                    },
                 ),
             ))
             ->label(false);
@@ -248,7 +248,7 @@ class Battle2FilterWidget extends Widget
             $this->createMainWeaponList($weaponIdList),
             $this->createGroupedMainWeaponList($weaponIdList),
             $this->createSubWeaponList($weaponIdList),
-            $this->createSpecialWeaponList($weaponIdList)
+            $this->createSpecialWeaponList($weaponIdList),
         );
         return (string)$form->field($this->filter, 'weapon')->dropDownList($list)->label(false);
     }
@@ -295,14 +295,14 @@ class Battle2FilterWidget extends Widget
                     'key',
                     function (Weapon2 $weapon): string {
                         return Yii::t('app-weapon2', $weapon->name);
-                    }
+                    },
                 );
                 if ($weapons) {
                     uasort($weapons, 'strnatcasecmp');
                     $ret[$groupLabel] = (count($weapons) > 1)
                         ? array_merge(
                             ['@' . $type->key => Yii::t('app-weapon2', 'All of {0}', $typeName)],
-                            $weapons
+                            $weapons,
                         )
                         : $weapons;
                 }
@@ -310,7 +310,7 @@ class Battle2FilterWidget extends Widget
         }
         return array_merge(
             ['' => Yii::t('app-weapon2', 'Any Weapon')],
-            $ret
+            $ret,
         );
     }
 
@@ -396,7 +396,7 @@ class Battle2FilterWidget extends Widget
                 $list[$rank['key']] = sprintf(
                     '%s %s',
                     (($i !== count($group['ranks']) - 1) ? '├' : '└'),
-                    Yii::t('app-rank2', $rank['name'])
+                    Yii::t('app-rank2', $rank['name']),
                 );
             }
         }
@@ -442,7 +442,7 @@ class Battle2FilterWidget extends Widget
                     'good' => Yii::t('app', 'Good Guys'),
                     'bad' => Yii::t('app', 'Bad Guys'),
                 ],
-                ['prompt' => Yii::t('app', 'Target Player\'s Team')]
+                ['prompt' => Yii::t('app', 'Target Player\'s Team')],
             )
             ->label(false);
     }
@@ -488,13 +488,13 @@ class Battle2FilterWidget extends Widget
                     $result['v' . $version['tag']] = Yii::t(
                         'app',
                         'Version {0}',
-                        Yii::t('app-version2', $version['name'])
+                        Yii::t('app-version2', $version['name']),
                     );
                 } elseif ($n > 1) {
                     $result['~v' . $group['tag']] = Yii::t(
                         'app',
                         'Version {0}',
-                        Yii::t('app-version2', $group['name'])
+                        Yii::t('app-version2', $group['name']),
                     );
                     usort($group['versions'], function (array $a, array $b): int {
                         return version_compare($b['tag'], $a['tag']);
@@ -507,8 +507,8 @@ class Battle2FilterWidget extends Widget
                             Yii::t(
                                 'app',
                                 'Version {0}',
-                                Yii::t('app-version2', $version['name'])
-                            )
+                                Yii::t('app-version2', $version['name']),
+                            ),
                         );
                     }
                 }
@@ -545,17 +545,17 @@ class Battle2FilterWidget extends Widget
                 $form->field($this->filter, 'term_from', [
                     'inputTemplate' => Yii::t(
                         'app',
-                        '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>'
+                        '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>',
                     ),
                 ])->input('text', ['placeholder' => 'YYYY-MM-DD hh:mm:ss'])->label(false),
                 $form->field($this->filter, 'term_to', [
                     'inputTemplate' => Yii::t(
                         'app',
-                        '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>'
+                        '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>',
                     ),
                 ])->input('text', ['placeholder' => 'YYYY-MM-DD hh:mm:ss'])->label(false),
             ]),
-            ['id' => $divId]
+            ['id' => $divId],
         );
     }
 }

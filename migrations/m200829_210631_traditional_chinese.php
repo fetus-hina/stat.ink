@@ -27,7 +27,7 @@ class m200829_210631_traditional_chinese extends Migration
             ['name', 'php_name', 'substitute', 'is_unicode', 'order'],
             [
                 ['Big5', 'CP950', 63, false, 16],
-            ]
+            ],
         );
 
         $chinese = $this->getChineseLanguageId();
@@ -39,7 +39,7 @@ class m200829_210631_traditional_chinese extends Migration
                     return [$chinese, $_[0], $_[1]];
                 },
                 $this->getCharsetIds(),
-            )
+            ),
         );
 
         $this->batchInsert('accept_language', ['rule', 'language_id'], [
@@ -92,7 +92,7 @@ class m200829_210631_traditional_chinese extends Migration
                 ->from('charset')
                 ->where(['php_name' => ['CP950']])
                 ->orderBy(['id' => SORT_ASC])
-                ->all()
+                ->all(),
         );
     }
 
@@ -107,7 +107,7 @@ class m200829_210631_traditional_chinese extends Migration
                 ->from('charset')
                 ->where(['php_name' => ['UTF-8', 'UTF-16LE']])
                 ->orderBy(['id' => SORT_ASC])
-                ->column()
+                ->column(),
         );
     }
 }

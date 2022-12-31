@@ -18,13 +18,13 @@ class m181107_191150_salmon2_index extends Migration
             'ix_salmon2_user_id',
             'salmon2',
             ['user_id', 'id'],
-            true
+            true,
         );
         $this->createIndex(
             'ix_salmon2_splatnet_number',
             'salmon2',
             ['user_id', 'splatnet_number'],
-            false
+            false,
         );
         $this->execute('VACUUM ANALYZE {{salmon2}}');
     }

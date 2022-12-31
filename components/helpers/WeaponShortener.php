@@ -53,7 +53,7 @@ class WeaponShortener extends Component
             [
                 $match[1],
                 Yii::$app->language,
-            ]
+            ],
         );
 
         $list = [];
@@ -63,7 +63,7 @@ class WeaponShortener extends Component
                     include($path),
                     function (string $value): bool {
                         return trim((string)$value) !== '';
-                    }
+                    },
                 ));
             }
         }

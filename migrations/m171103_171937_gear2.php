@@ -285,7 +285,7 @@ class m171103_171937_gear2 extends Migration
                 ['white_norimaki_750s', 'White Norimaki 750s', $t->shoes, $b->tentatek, $a->swim_speed_up],
                 ['white_seahorses', 'White Seahorses', $t->shoes, $b->zink, $a->ink_recovery_up],
                 ['yellow_mesh_sneakers', 'Yellow-Mesh Sneakers', $t->shoes, $b->tentatek, $a->cold_blooded],
-            ]
+            ],
         );
     }
 
@@ -299,7 +299,7 @@ class m171103_171937_gear2 extends Migration
         return (object)ArrayHelper::map(
             (new Query())->select(['id', 'key'])->from($table)->all(),
             'key',
-            'id'
+            'id',
         );
     }
 }

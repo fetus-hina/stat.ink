@@ -129,8 +129,8 @@ class BattleFilterForm extends Model
                         function ($a) {
                             return 'v' . $a['tag'];
                         },
-                        SplatoonVersion::find()->asArray()->all()
-                    )
+                        SplatoonVersion::find()->asArray()->all(),
+                    ),
                 ),
             ],
             [['term_from', 'term_to'], 'date', 'format' => 'yyyy-M-d H:m:s'],
@@ -179,7 +179,7 @@ class BattleFilterForm extends Model
                 $attr,
                 Yii::t('yii', '{attribute} is invalid.', [
                     'attribute' => $this->getAttributeLabel($attr),
-                ])
+                ]),
             );
         }
     }
@@ -194,7 +194,7 @@ class BattleFilterForm extends Model
                 $attr,
                 Yii::t('yii', '{attribute} is invalid.', [
                     'attribute' => $this->getAttributeLabel($attr),
-                ])
+                ]),
             );
         }
     }
@@ -211,7 +211,7 @@ class BattleFilterForm extends Model
                 $attr,
                 Yii::t('yii', '{attribute} is invalid.', [
                     'attribute' => $this->getAttributeLabel($attr),
-                ])
+                ]),
             );
         }
     }
@@ -227,7 +227,7 @@ class BattleFilterForm extends Model
                 $attr,
                 Yii::t('yii', '{attribute} is invalid.', [
                     'attribute' => $this->getAttributeLabel($attr),
-                ])
+                ]),
             );
         }
     }

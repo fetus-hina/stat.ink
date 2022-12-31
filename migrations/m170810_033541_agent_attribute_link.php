@@ -16,12 +16,12 @@ class m170810_033541_agent_attribute_link extends Migration
         $this->update(
             'agent_attribute',
             ['link_url' => 'https://github.com/hasegaw/IkaLog/wiki/en_Home'],
-            ['name' => ['IkaLog', 'TakoLog']]
+            ['name' => ['IkaLog', 'TakoLog']],
         );
         $this->update(
             'agent_attribute',
             ['link_url' => 'https://play.google.com/store/apps/details?id=ink.pocketgopher.ikarec'],
-            ['name' => ['IkaRec', 'IkaRecord']]
+            ['name' => ['IkaRec', 'IkaRecord']],
         );
     }
 

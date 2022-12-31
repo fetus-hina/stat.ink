@@ -20,7 +20,7 @@ class m171229_121402_spygadget extends Migration
             'Undercover Brella',
             'brella',
             'trap',
-            'chakuchi'
+            'chakuchi',
         );
     }
 

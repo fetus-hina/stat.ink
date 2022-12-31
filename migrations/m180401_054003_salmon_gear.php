@@ -21,14 +21,14 @@ class m180401_054003_salmon_gear extends Migration
             'headgear',
             static::name2key('Grizzco'),
             null,
-            21006
+            21006,
         );
     }
 
     public function safeDown()
     {
         $this->downGear2(
-            static::name2key('Oceanic Hard Hat')
+            static::name2key('Oceanic Hard Hat'),
         );
     }
 }

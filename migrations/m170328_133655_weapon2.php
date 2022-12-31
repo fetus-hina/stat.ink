@@ -98,7 +98,7 @@ class m170328_133655_weapon2 extends Migration
         return ArrayHelper::map(
             (new Query())->select([$key, $id])->from($table)->all(),
             $key,
-            $id
+            $id,
         );
     }
 }

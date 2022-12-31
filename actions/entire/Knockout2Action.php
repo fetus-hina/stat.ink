@@ -69,7 +69,7 @@ class Knockout2Action extends BaseAction
             function (array $row): array {
                 return $row;
             },
-            'map'
+            'map',
         );
 
         return $this->controller->render('knockout2.php', [

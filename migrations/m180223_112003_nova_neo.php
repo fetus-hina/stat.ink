@@ -23,7 +23,7 @@ class m180223_112003_nova_neo extends Migration
             'pitcher',
             'nova',
             null,
-            201
+            201,
         );
     }
 

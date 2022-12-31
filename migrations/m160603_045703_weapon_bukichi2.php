@@ -72,7 +72,7 @@ class m160603_045703_weapon_bukichi2 extends Migration
                     new Expression("currval('weapon_id_seq'::regclass)"),
                     Weapon::findOne(['key' => 'splatroller'])->id,
                 ],
-            ]
+            ],
         );
 
         $type = DeathReasonType::findOne(['key' => 'main'])->id;
@@ -95,7 +95,7 @@ class m160603_045703_weapon_bukichi2 extends Migration
                     'CoroCoro Splat Roller',
                     Weapon::findOne(['key' => 'splatroller_corocoro'])->id,
                 ],
-            ]
+            ],
         );
     }
 

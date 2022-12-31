@@ -54,7 +54,7 @@ final class SalmonUserInfo3 extends SalmonUserInfo
                 'label' => Yii::t('app-salmon2', 'Jobs'),
                 'value' => Html::a(
                     Html::encode($fmt->asInteger((int)$stats->jobs)),
-                    ['salmon-v3/index', 'screen_name' => $this->user->screen_name]
+                    ['salmon-v3/index', 'screen_name' => $this->user->screen_name],
                 ),
                 'valueFormat' => 'raw',
                 'formatter' => $fmt,
@@ -206,7 +206,7 @@ final class SalmonUserInfo3 extends SalmonUserInfo
                         'btn-block',
                         'btn-default',
                     ],
-                ]
+                ],
             ),
             ['class' => 'miniinfo-databox'],
         );

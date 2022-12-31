@@ -53,7 +53,7 @@ final class Label extends Widget
             $class = trim(preg_replace(
                 '/\s+/',
                 ' ',
-                (string)$class . " label label-{$this->color}"
+                (string)$class . " label label-{$this->color}",
             ));
         }
         $options['class'] = $class;
@@ -62,13 +62,13 @@ final class Label extends Widget
             return Html::a(
                 $this->formatter->format($this->content, $this->format),
                 $this->link,
-                $options
+                $options,
             );
         } else {
             return Html::tag(
                 $tag ?: 'span',
                 $this->formatter->format($this->content, $this->format),
-                $options
+                $options,
             );
         }
     }

@@ -37,7 +37,7 @@ class UserAction extends BaseAction
                         'name' => 'battle-list',
                         'value' => $view,
                         'expire' => time() + 86400 * 366,
-                    ])
+                    ]),
                 );
             }
 
@@ -50,7 +50,7 @@ class UserAction extends BaseAction
 
         $permLink = Url::to(
             ['show-v2/user', 'screen_name' => $user->screen_name],
-            true
+            true,
         );
 
         $battle = Battle2::find()
@@ -101,7 +101,7 @@ class UserAction extends BaseAction
                         function (string $key): bool {
                             return !in_array($key, ['screen_name', 'id_from', 'id_to'], true);
                         },
-                        ARRAY_FILTER_USE_KEY
+                        ARRAY_FILTER_USE_KEY,
                     ),
                 ];
                 $this->controller->redirect(Url::to($next, true));
@@ -112,9 +112,9 @@ class UserAction extends BaseAction
             $permLink = Url::to(
                 array_merge(
                     $filter->toPermLink(),
-                    ['show-v2/user', 'screen_name' => $user->screen_name]
+                    ['show-v2/user', 'screen_name' => $user->screen_name],
                 ),
-                true
+                true,
             );
         }
 

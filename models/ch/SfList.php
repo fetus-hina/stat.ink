@@ -34,7 +34,7 @@ class SfList extends Model
             function (SfItem $item): string {
                 return (string)$item;
             },
-            $this->items
+            $this->items,
         ));
     }
 

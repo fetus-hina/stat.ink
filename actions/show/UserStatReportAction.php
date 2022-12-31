@@ -32,7 +32,7 @@ class UserStatReportAction extends BaseAction
             Yii::$app->db
                 ->createCommand('SET TIMEZONE TO :tz')
                 ->bindValue(':tz', Yii::$app->timeZone)
-                ->rawSql
+                ->rawSql,
         )->execute();
 
         $this->user = User::findOne(['screen_name' => Yii::$app->request->get('screen_name')]);
@@ -63,7 +63,7 @@ class UserStatReportAction extends BaseAction
                     'min' => 1,
                     'max' => 12,
                 ],
-            ]
+            ],
         );
         if ($form->hasErrors()) {
             $this->controller->redirect(['show/user-stat-report',
@@ -107,7 +107,7 @@ class UserStatReportAction extends BaseAction
             'list' => $this->query(
                 $from->format(DateTime::ATOM),
                 $to->format(DateTime::ATOM),
-                '{{battle}}.[[at]]::date'
+                '{{battle}}.[[at]]::date',
             ),
             'next' => $next <= $upperBound
                 ? Url::to(['show/user-stat-report',
@@ -178,7 +178,7 @@ class UserStatReportAction extends BaseAction
                 $row['weapon_name'] = Yii::t('app-weapon', $row['weapon_name']);
                 return $row;
             },
-            $query->createCommand()->queryAll()
+            $query->createCommand()->queryAll(),
         );
         usort($list, function ($a, $b) {
             return strcmp($b['date'], $a['date'])

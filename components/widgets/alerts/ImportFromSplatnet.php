@@ -39,8 +39,8 @@ final class ImportFromSplatnet extends Alert
                         // phpcs:disable
                         'You can import automatically from SplatNet, use these apps: (USE AT YOUR OWN RISK)'
                         // phpcs:enable
-                    )
-                )
+                    ),
+                ),
             ),
             Html::tag('ul', \implode('', [
                 Html::tag('li', \implode('', [
@@ -54,7 +54,7 @@ final class ImportFromSplatnet extends Alert
                                     'class' => 'alert-link',
                                     'rel' => 'noopener',
                                     'target' => '_blank',
-                                ]
+                                ],
                             ),
                             ' ',
                             Html::tag(
@@ -71,7 +71,7 @@ final class ImportFromSplatnet extends Alert
                                     'class' => 'alert-link',
                                     'rel' => 'noopener',
                                     'target' => '_blank',
-                                ]
+                                ],
                             ),
                             ' ',
                             Html::tag(
@@ -92,7 +92,7 @@ final class ImportFromSplatnet extends Alert
                                 'class' => 'alert-link',
                                 'rel' => 'noopener',
                                 'target' => '_blank',
-                            ]
+                            ],
                         )),
                         Html::tag(
                             'li',
@@ -105,9 +105,9 @@ final class ImportFromSplatnet extends Alert
                                         'class' => 'alert-link',
                                         'rel' => 'noopener',
                                         'target' => '_blank',
-                                    ]
-                                )
-                            )
+                                    ],
+                                ),
+                            ),
                         ),
                     ])),
                 ])),
@@ -120,9 +120,9 @@ final class ImportFromSplatnet extends Alert
                         // phpcs:disable
                         'We won\'t implement automatic importing to {appName} for security reasons.',
                         // phpcs:enable
-                        ['appName' => Yii::$app->name]
-                    )
-                )
+                        ['appName' => Yii::$app->name],
+                    ),
+                ),
             ),
         ]);
     }

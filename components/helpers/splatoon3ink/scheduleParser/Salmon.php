@@ -30,8 +30,8 @@ trait Salmon
         return \array_values(
             \array_map(
                 fn (array $schedule): array => self::processSalmonSchedule($schedule, $isBigRun),
-                $nodes
-            )
+                $nodes,
+            ),
         );
     }
 
@@ -46,7 +46,7 @@ trait Salmon
             ),
             'weapons' => \array_map(
                 fn (array $info): ?ActiveRecord => self::parseSalmonWeapon($info),
-                ArrayHelper::getValue($schedule, 'setting.weapons')
+                ArrayHelper::getValue($schedule, 'setting.weapons'),
             ),
         ];
     }

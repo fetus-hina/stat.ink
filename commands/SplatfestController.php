@@ -84,7 +84,7 @@ class SplatfestController extends Controller
         echo "    > create temporary table tmp_summary_ts ...\n";
         Yii::$app->db->createCommand(
             'CREATE TEMPORARY TABLE {{tmp_summary_ts}} ' .
-            '( [[timestamp]] TIMESTAMP (0) WITH TIME ZONE NOT NULL PRIMARY KEY )'
+            '( [[timestamp]] TIMESTAMP (0) WITH TIME ZONE NOT NULL PRIMARY KEY )',
         )->execute();
 
         echo "    > insert tmp_summary_ts ...\n";
@@ -97,7 +97,7 @@ class SplatfestController extends Controller
                         date('Y-m-d\TH:i:sP', $at),
                     ];
                 },
-                range($start_at, $end_at, 120)
+                range($start_at, $end_at, 120),
             ))->execute();
         }
     }
@@ -139,7 +139,7 @@ class SplatfestController extends Controller
         $sql = sprintf(
             'CREATE TEMPORARY TABLE {{%s}} AS %s',
             $tableName,
-            $select
+            $select,
         );
         $command = Yii::$app->db->createCommand($sql)->bindValues($bind);
         $command->execute();

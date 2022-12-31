@@ -32,7 +32,7 @@ final class Splatoon3InkController extends Controller
     public function actionUpdate(): int
     {
         $schedules = ScheduleParser::parseAll(
-            $this->queryJson('https://splatoon3.ink/data/schedules.json')
+            $this->queryJson('https://splatoon3.ink/data/schedules.json'),
         );
 
         $status = 0;
@@ -45,8 +45,8 @@ final class Splatoon3InkController extends Controller
     {
         return $this->updateSchedule(
             ScheduleParser::parseAll(
-                $this->queryJson('https://splatoon3.ink/data/schedules.json')
-            )
+                $this->queryJson('https://splatoon3.ink/data/schedules.json'),
+            ),
         );
     }
 
@@ -54,8 +54,8 @@ final class Splatoon3InkController extends Controller
     {
         return $this->updateSalmonSchedule(
             ScheduleParser::parseAll(
-                $this->queryJson('https://splatoon3.ink/data/schedules.json')
-            )
+                $this->queryJson('https://splatoon3.ink/data/schedules.json'),
+            ),
         );
     }
 
@@ -68,7 +68,7 @@ final class Splatoon3InkController extends Controller
                 'stat.ink',
                 Yii::$app->version,
                 'https://github.com/fetus-hina/stat.ink',
-            ])
+            ]),
         );
         $curl->get($url, $data);
         if ($curl->error) {

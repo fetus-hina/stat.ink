@@ -38,7 +38,7 @@ class I18n
         foreach (Language::find()->standard()->all() as $lang) {
             $newParams = array_merge(
                 [$route, '_lang_' => $lang->lang],
-                $params
+                $params,
             );
             $ret[] = Html::tag(
                 'link',
@@ -47,7 +47,7 @@ class I18n
                     'rel' => 'alternate',
                     'hreflang' => $lang->languageId,
                     'href' => Url::to($newParams, true),
-                ]
+                ],
             );
         }
         return implode("\n", $ret) . "\n";
@@ -62,7 +62,7 @@ class I18n
         // The author lives in Japan!
         $now = new DateTimeImmutable(
             sprintf('@%d', $_SERVER['REQUEST_TIME']),
-            new DateTimeZone('Asia/Tokyo')
+            new DateTimeZone('Asia/Tokyo'),
         );
         $php = [
             '<?php',
@@ -83,7 +83,7 @@ class I18n
             $php[] = sprintf(
                 "    '%s' => '%s',",
                 static::addslashes($englishName),
-                static::addslashes($localName)
+                static::addslashes($localName),
             );
         }
         $php[] = '];';
@@ -99,7 +99,7 @@ class I18n
             [$category, $oldLocale],
             function (array $oldData): void {
                 call_user_func_array('setlocale', $oldData);
-            }
+            },
         );
     }
 
@@ -108,7 +108,7 @@ class I18n
         return str_replace(
             ["\\", "'"],
             ["\\\\", "\\'"],
-            $string
+            $string,
         );
     }
 
@@ -118,7 +118,7 @@ class I18n
         $cmdline = sprintf(
             '/usr/bin/env git log --pretty=%s -- %s | sort | uniq',
             escapeshellarg('%an <%ae>%n%cn <%ce>'),
-            escapeshellarg($path)
+            escapeshellarg($path),
         );
         $status = null;
         $lines = [];
@@ -139,8 +139,8 @@ class I18n
                     $name = trim($name);
                     return $authorMap[$name] ?? $name;
                 },
-                $lines
-            )
+                $lines,
+            ),
         );
         natcasesort($list);
         return $list;

@@ -21,14 +21,14 @@ class m180601_173510_salmon_201806 extends Migration
             'headgear',
             static::name2key('Grizzco'),
             null,
-            21005
+            21005,
         );
     }
 
     public function safeDown()
     {
         $this->downGear2(
-            static::name2key('Cap of Legend')
+            static::name2key('Cap of Legend'),
         );
     }
 }

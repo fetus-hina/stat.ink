@@ -49,7 +49,7 @@ class m160511_092026_14th_splatfest extends Migration
                 ->where(['{{splatfest}}.[[order]]' => 14])
                 ->all(),
             'region',
-            'id'
+            'id',
         );
         $this->batchInsert(
             'splatfest_team',
@@ -61,7 +61,7 @@ class m160511_092026_14th_splatfest extends Migration
                 [ $ids['eu'], 2, 'Fancy Dress Party' ],
                 [ $ids['na'], 1, 'Fancy Party ' ],
                 [ $ids['na'], 2, 'Costume Party' ],
-            ]
+            ],
         );
     }
 
@@ -69,7 +69,7 @@ class m160511_092026_14th_splatfest extends Migration
     {
         $ids = ArrayHelper::getColumn(
             Splatfest::find()->asArray()->where(['order' => 14])->all(),
-            'id'
+            'id',
         );
         $this->delete('splatfest_team', ['fest_id' => $ids]);
         $this->delete('splatfest', ['id' => $ids]);

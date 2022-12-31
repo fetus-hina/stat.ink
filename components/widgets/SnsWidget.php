@@ -143,7 +143,7 @@ final class SnsWidget extends Widget
                     'dialog-title' => Yii::t('app', 'Permalink'),
                     'dialog-hint' => Yii::t('app', 'Please copy this URL:'),
                 ],
-            ]
+            ],
         );
     }
 

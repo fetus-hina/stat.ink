@@ -92,7 +92,7 @@ class Theme extends Component
                 vsprintf('isValidTheme() returns %s via BootswatchAsset::isValidTheme', [
                     Json::encode($value),
                 ]),
-                __METHOD__
+                __METHOD__,
             );
             return $value;
         }
@@ -109,7 +109,7 @@ class Theme extends Component
             vsprintf('window.colorLock = %s;', [
                 Json::encode($themeId === 'color-blind'),
             ]),
-            View::POS_HEAD
+            View::POS_HEAD,
         );
 
         if (preg_match('/^bootswatch-([a-z]+)$/', $themeId, $match)) {

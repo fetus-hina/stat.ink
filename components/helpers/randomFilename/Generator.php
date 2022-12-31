@@ -27,7 +27,7 @@ class Generator
         return static::formatFileName(
             static::generateUUIDv4Binary(),
             $ext,
-            $level
+            $level,
         );
     }
 

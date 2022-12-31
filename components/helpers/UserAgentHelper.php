@@ -112,7 +112,7 @@ class UserAgentHelper
         $version = ArrayHelper::getValue(
             $data,
             'os.versionName',
-            ArrayHelper::getValue($data, 'os.version')
+            ArrayHelper::getValue($data, 'os.version'),
         );
         return $version
             ? ($name . ' ' . $version)

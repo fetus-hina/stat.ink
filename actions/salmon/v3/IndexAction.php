@@ -49,7 +49,7 @@ final class IndexAction extends Action
                         'name' => 'work-list',
                         'value' => $view,
                         'expire' => \time() + 86400 * 366,
-                    ])
+                    ]),
                 );
             }
 

@@ -174,9 +174,9 @@ class Weapon extends \yii\db\ActiveRecord
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc1', 'Weapon'),
                         'app-weapon',
-                        $values
+                        $values,
                     ),
-                    ArrayHelper::getColumn($values, 'key', false)
+                    ArrayHelper::getColumn($values, 'key', false),
                 ),
                 'name' => static::oapiRef(openapi\Name::class),
                 'type' => static::oapiRef(WeaponType::class),

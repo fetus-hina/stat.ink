@@ -208,7 +208,7 @@ class PostBattleForm extends Model
 
                         $value = filter_var(
                             ArrayHelper::getValue($json, 'win_meter', null),
-                            FILTER_VALIDATE_FLOAT
+                            FILTER_VALIDATE_FLOAT,
                         );
                         if (is_float($value) && (0 <= $value && $value <= 99.9)) {
                             return $value;
@@ -604,7 +604,7 @@ class PostBattleForm extends Model
         $battle->ua_variables   = $this->agent_variables
             ? Json::encode(
                 $this->agent_variables,
-                JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_FORCE_OBJECT
+                JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_FORCE_OBJECT,
             )
             : null;
         $battle->start_at       = $datetime($this->start_at);
@@ -834,7 +834,7 @@ class PostBattleForm extends Model
         $fingerPrint = GearConfiguration2::generateFingerPrint(
             $gearModel ? $gearModel->id : null,
             $primaryAbility ? $primaryAbility->id : null,
-            $secondaryAbilityIdList
+            $secondaryAbilityIdList,
         );
 
         $lock = CriticalSection::lock(__METHOD__, 60);
@@ -896,10 +896,10 @@ class PostBattleForm extends Model
                     'sha256',
                     http_build_query($values, '', '&'),
                     Yii::getAlias('@app'),
-                    true
-                )
+                    true,
+                ),
             ),
-            '='
+            '=',
         );
     }
 
@@ -1085,7 +1085,7 @@ class PostBattleForm extends Model
         }
         return $this->validateImageStringImpl(
             file_get_contents($this->$attribute->tempName, false, null),
-            $attribute
+            $attribute,
         );
     }
 

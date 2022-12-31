@@ -36,7 +36,7 @@ class m150929_064010_special extends Migration
                 'weapon',
                 ['special_id' => $specialId],
                 'id = :weapon_id',
-                ['weapon_id' => $weaponId]
+                ['weapon_id' => $weaponId],
             );
         }
         $this->addForeignKey('fk_weapon_2', 'weapon', 'special_id', 'special', 'id', 'RESTRICT');

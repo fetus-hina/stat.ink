@@ -23,7 +23,7 @@ final class ImageApiFormatter
                 vsprintf('@imageurl/%s', [
                     $model->filename,
                 ]),
-                true
+                true,
             )
             : null;
     }

@@ -54,7 +54,7 @@ class PasswordForm extends Model
         if (!$user || !$user->validatePassword($this->password)) {
             $this->addError(
                 $attribute,
-                Yii::t('yii', '{attribute} is invalid.', ['attribute' => $this->getAttributeLabel('password')])
+                Yii::t('yii', '{attribute} is invalid.', ['attribute' => $this->getAttributeLabel('password')]),
             );
         }
     }

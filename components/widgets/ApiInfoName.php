@@ -30,7 +30,7 @@ final class ApiInfoName extends Widget
         return Html::tag(
             $lang === 'en-US' || $name !== $enName ? null : 'span',
             Html::encode($name),
-            ['class' => 'text-muted']
+            ['class' => 'text-muted'],
         );
     }
 }

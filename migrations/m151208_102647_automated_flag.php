@@ -25,7 +25,7 @@ class m151208_102647_automated_flag extends Migration
                 ['IkaRec', false],
                 ['IkaRecord', false],
                 ['TakoLog', true],
-            ]
+            ],
         );
 
         $this->execute('ALTER TABLE {{battle}} ADD COLUMN [[is_automated]] BOOLEAN NOT NULL DEFAULT FALSE');
@@ -39,8 +39,8 @@ class m151208_102647_automated_flag extends Migration
                     ->andWhere('{{battle}}.[[agent_id]] = {{agent}}.[[id]]')
                     ->andWhere(['{{agent}}.[[name]]' => ['IkaLog', 'TakoLog']])
                     ->createCommand()
-                    ->rawSql)
-            )
+                    ->rawSql),
+            ),
         );
         $this->execute('VACUUM {{battle}}');
     }

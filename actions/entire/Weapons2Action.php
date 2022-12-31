@@ -85,11 +85,11 @@ class Weapons2Action extends BaseAction
                         $key = sprintf('w%d', $trend['weapon_id']);
                         $ret[$key] = sprintf(
                             'SUM(CASE WHEN [[weapon_id]] = %d THEN [[battles]] ELSE 0 END)',
-                            $trend['weapon_id']
+                            $trend['weapon_id'],
                         );
                     }
                     return $ret;
-                })()
+                })(),
             ))
             ->from('stat_weapon2_use_count_per_week')
             ->where(['or',
@@ -178,51 +178,51 @@ class Weapons2Action extends BaseAction
             'avg_kill'          => sprintf(
                 '(%s / NULLIF(%s, 0))',
                 'SUM({{stat_weapon2_use_count}}.[[kills]])',
-                'SUM({{stat_weapon2_use_count}}.[[kd_available]])'
+                'SUM({{stat_weapon2_use_count}}.[[kd_available]])',
             ),
             'sum_kill'          => 'SUM({{stat_weapon2_use_count}}.[[kills]])',
             'kill_per_min'      => sprintf(
                 '(%s * 60.0 / NULLIF(%s, 0))',
                 'SUM({{stat_weapon2_use_count}}.[[kills_with_time]])',
-                'SUM({{stat_weapon2_use_count}}.[[kd_time_seconds]])'
+                'SUM({{stat_weapon2_use_count}}.[[kd_time_seconds]])',
             ),
             'avg_death'         => sprintf(
                 '(%s / NULLIF(%s, 0))',
                 'SUM({{stat_weapon2_use_count}}.[[deaths]])',
-                'SUM({{stat_weapon2_use_count}}.[[kd_available]])'
+                'SUM({{stat_weapon2_use_count}}.[[kd_available]])',
             ),
             'sum_death'         => 'SUM({{stat_weapon2_use_count}}.[[deaths]])',
             'death_per_min'     => sprintf(
                 '(%s * 60.0 / NULLIF(%s, 0))',
                 'SUM({{stat_weapon2_use_count}}.[[deaths_with_time]])',
-                'SUM({{stat_weapon2_use_count}}.[[kd_time_seconds]])'
+                'SUM({{stat_weapon2_use_count}}.[[kd_time_seconds]])',
             ),
             'avg_special'       => sprintf(
                 '(%s / NULLIF(%s, 0))',
                 'SUM({{stat_weapon2_use_count}}.[[specials]])',
-                'SUM({{stat_weapon2_use_count}}.[[specials_available]])'
+                'SUM({{stat_weapon2_use_count}}.[[specials_available]])',
             ),
             'sum_special'       => 'SUM({{stat_weapon2_use_count}}.[[specials]])',
             'special_per_min'   => sprintf(
                 '(%s * 60.0 / NULLIF(%s, 0))',
                 'SUM({{stat_weapon2_use_count}}.[[specials_with_time]])',
-                'SUM({{stat_weapon2_use_count}}.[[specials_time_seconds]])'
+                'SUM({{stat_weapon2_use_count}}.[[specials_time_seconds]])',
             ),
             'avg_inked'         => sprintf(
                 '(%s / NULLIF(%s, 0))',
                 'SUM({{stat_weapon2_use_count}}.[[inked]])',
-                'SUM({{stat_weapon2_use_count}}.[[inked_available]])'
+                'SUM({{stat_weapon2_use_count}}.[[inked_available]])',
             ),
             'sum_inked'         => 'SUM({{stat_weapon2_use_count}}.[[inked]])',
             'inked_per_min'     => sprintf(
                 '(%s * 60.0 / NULLIF(%s, 0))',
                 'SUM({{stat_weapon2_use_count}}.[[inked_with_time]])',
-                'SUM({{stat_weapon2_use_count}}.[[inked_time_seconds]])'
+                'SUM({{stat_weapon2_use_count}}.[[inked_time_seconds]])',
             ),
             'wp'                => sprintf(
                 '(%s * 100.0 / NULLIF(%s, 0))',
                 'SUM({{stat_weapon2_use_count}}.[[wins]])',
-                'SUM({{stat_weapon2_use_count}}.[[battles]])'
+                'SUM({{stat_weapon2_use_count}}.[[battles]])',
             ),
             'win_count'         => 'SUM({{stat_weapon2_use_count}}.[[wins]])',
         ];
@@ -366,7 +366,7 @@ class Weapons2Action extends BaseAction
                         : ((float)$model['avg_inked'] / (9 * (20 - (float)$model['avg_death']))),
                 ];
             },
-            $query->createCommand()->queryAll()
+            $query->createCommand()->queryAll(),
         );
 
         usort($list, function ($a, $b) {

@@ -35,7 +35,7 @@ class Ability2Info extends Model
     {
         return max(0, min(
             $this->primary * 10 + $this->secondary * 3,
-            57
+            57,
         ));
     }
 
@@ -150,7 +150,7 @@ class Ability2Info extends Model
                             'damage' => $f->asDecimal($values['damage'], 1),
                             'damageCap' => $f->asDecimal($values['damageCap'], 1),
                             'percent' => $f->asPercent($values['damageRate'], 1),
-                        ]
+                        ],
                     );
                 }
 
@@ -180,7 +180,7 @@ class Ability2Info extends Model
                                     'damage' => $f->asDecimal($values['damage' . $suffix], 1),
                                     'damageCap' => $f->asDecimal($values['damageCap' . $suffix], 1),
                                     'percent' => $f->asPercent($values['damageRate' . $suffix], 1),
-                                ]
+                                ],
                             ),
                         ]);
                     }
@@ -257,7 +257,7 @@ class Ability2Info extends Model
                     $rows[] = Yii::t('app-ability2', 'Duration: {sec} ({sec1}+{sec2}) sec', [
                         'sec' => $f->asDecimal(
                             ($values['armorDurationFrames1'] + $values['armorDurationFrames2']) / 60,
-                            3
+                            3,
                         ),
                         'sec1' => $f->asDecimal($values['armorDurationFrames1'] / 60, 3),
                         'sec2' => $f->asDecimal($values['armorDurationFrames2'] / 60, 3),
@@ -507,7 +507,7 @@ class Ability2Info extends Model
                     $this->weapon->mainReference,
                     $this->weapon->getWeaponAttack($this->version),
                     $this->version,
-                    $this->get57Format()
+                    $this->get57Format(),
                 );
 
             default:
@@ -563,7 +563,7 @@ class Ability2Info extends Model
             case 'bold':
                 return $calcDamage(
                     $baseDamage,
-                    version_compare($version->tag, '4.3.1', '<') ? 1.2 : 1.25
+                    version_compare($version->tag, '4.3.1', '<') ? 1.2 : 1.25,
                 );
 
             case 'prime':
@@ -578,19 +578,19 @@ class Ability2Info extends Model
             case 'l3reelgun':
                 return $calcDamage(
                     $baseDamage,
-                    version_compare($version->tag, '5.1.0', '<') ? 1.3 : 1.24
+                    version_compare($version->tag, '5.1.0', '<') ? 1.3 : 1.24,
                 );
 
             case 'h3reelgun':
                 return $calcDamage(
                     $baseDamage,
-                    version_compare($version->tag, '4.5.0', '<') ? 1.25 : 1.24
+                    version_compare($version->tag, '4.5.0', '<') ? 1.25 : 1.24,
                 );
 
             case 'bottlegeyser':
                 return $calcDamage(
                     $baseDamage,
-                    version_compare($version->tag, '4.3.1', '<') ? 1.2 : 1.3
+                    version_compare($version->tag, '4.3.1', '<') ? 1.2 : 1.3,
                 );
 
             case 'carbon':
@@ -620,7 +620,7 @@ class Ability2Info extends Model
                 return $calcDamage(
                     $baseDamage,
                     version_compare($version->tag, '4.3.1', '<') ? 1.2 : 1.16,
-                    version_compare($version->tag, '4.3.1', '<') ? 0.5 : 0.375
+                    version_compare($version->tag, '4.3.1', '<') ? 0.5 : 0.375,
                 );
 
             case 'splatcharger':
@@ -629,7 +629,7 @@ class Ability2Info extends Model
             case 'bamboo14mk1':
                 return $calcDamage(
                     $baseDamage,
-                    version_compare($version->tag, '5.1.0', '<') ? 1.2 : 1.19
+                    version_compare($version->tag, '5.1.0', '<') ? 1.2 : 1.19,
                 );
 
             case 'soytuber':

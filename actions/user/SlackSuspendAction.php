@@ -33,7 +33,7 @@ class SlackSuspendAction extends BaseAction
             [
                 [['id'], 'exist', 'targetClass' => Slack::class, 'targetAttribute' => 'id'],
                 [['suspend'], 'boolean', 'trueValue' => 'yes', 'falseValue' => 'no'],
-            ]
+            ],
         );
         if ($form->hasErrors()) {
             throw new BadRequestHttpException('Bad Request');

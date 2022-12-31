@@ -33,7 +33,7 @@ class Formatter extends \yii\i18n\Formatter
                 $this->asDate($timestamp, $formatD),
                 $this->asTime($timestamp, $formatT),
             ])),
-            ['datetime' => gmdate(Datetime::ATOM, $timestamp)]
+            ['datetime' => gmdate(Datetime::ATOM, $timestamp)],
         );
     }
 
@@ -51,7 +51,7 @@ class Formatter extends \yii\i18n\Formatter
               'datetime' => gmdate(Datetime::ATOM, $timestamp),
               'title' => $this->asDatetime($timestamp, 'medium'),
               'class' => 'auto-tooltip',
-            ]
+            ],
         );
     }
 
@@ -85,7 +85,7 @@ class Formatter extends \yii\i18n\Formatter
                 return sprintf(
                     '%s%s',
                     $this->asDecimal($value / $weight, $decimal),
-                    $prefix
+                    $prefix,
                 );
             }
         }

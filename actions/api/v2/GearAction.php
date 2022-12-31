@@ -63,7 +63,7 @@ class GearAction extends BaseAction
             function (Gear2 $gear): array {
                 return $gear->toJsonArray();
             },
-            $query->all()
+            $query->all(),
         );
     }
 
@@ -76,7 +76,7 @@ class GearAction extends BaseAction
             (preg_match('/^[a-z]+$/', (string)$type))
                 ? "statink-gear2-{$type}.csv"
                 : "statink-gear2.csv",
-            'text/csv; charset=UTF-8'
+            'text/csv; charset=UTF-8',
         );
         return [
             'separator'     => ',',
@@ -101,8 +101,8 @@ class GearAction extends BaseAction
                 function (string $lang): string {
                     return sprintf('[%s]', $lang);
                 },
-                $langs
-            )
+                $langs,
+            ),
         );
         $i18n = Yii::$app->i18n;
         foreach ($query->all() as $gear) {
@@ -118,8 +118,8 @@ class GearAction extends BaseAction
                     function (string $lang) use ($gear, $i18n) {
                         return $i18n->translate('app-gear2', $gear->name, [], $lang);
                     },
-                    $langs
-                )
+                    $langs,
+                ),
             );
         }
     }

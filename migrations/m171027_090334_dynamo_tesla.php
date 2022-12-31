@@ -23,7 +23,7 @@ class m171027_090334_dynamo_tesla extends Migration
             'armor',
             'dynamo',
             null,
-            1021
+            1021,
         );
     }
 

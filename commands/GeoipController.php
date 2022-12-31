@@ -105,7 +105,7 @@ class GeoipController extends Controller
                     function (array $match): string {
                         return $match[1] . str_repeat('*', strlen($match[2]));
                     },
-                    $url
+                    $url,
                 ),
             ]);
 
@@ -148,7 +148,7 @@ class GeoipController extends Controller
                 function (string $fileName): string {
                     return escapeshellarg('*/' . $fileName);
                 },
-                $files
+                $files,
             )),
         ]);
         @exec($cmdline, $line, $status);
@@ -175,7 +175,7 @@ class GeoipController extends Controller
 
                 return $_SERVER[$envName];
             },
-            $text
+            $text,
         );
     }
 }

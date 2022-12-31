@@ -32,12 +32,12 @@ class WashHandsWidget extends Widget
                     $this->renderText(),
                     $this->renderRightIcon(),
                 ]),
-                ['class' => 'd-flex align-items-center']
+                ['class' => 'd-flex align-items-center'],
             ),
             [
                 'class' => 'alert alert-info mb-3',
                 'id' => $this->id,
-            ]
+            ],
         );
     }
 
@@ -95,7 +95,7 @@ class WashHandsWidget extends Widget
                     'flex-shrink-1',
                 ],
                 'id' => $id,
-            ]
+            ],
         );
     }
 }

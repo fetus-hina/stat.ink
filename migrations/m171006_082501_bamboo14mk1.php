@@ -20,7 +20,7 @@ class m171006_082501_bamboo14mk1 extends Migration
             'Bamboozler 14 Mk I',
             'charger',
             'curlingbomb',
-            'missile'
+            'missile',
         );
     }
 

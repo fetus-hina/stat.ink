@@ -80,7 +80,7 @@ final class SalmonWaves extends Widget
                         'table-bordered',
                         'table-striped',
                     ],
-                ]
+                ],
             ),
             [
                 'class' => 'table-responsive',

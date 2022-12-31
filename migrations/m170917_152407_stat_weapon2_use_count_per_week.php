@@ -20,7 +20,7 @@ class m170917_152407_stat_weapon2_use_count_per_week extends Migration
             'IMMUTABLE ' .
             'LANGUAGE SQL ' .
             'SECURITY INVOKER ' .
-            'AS ' . $this->db->quoteValue('SELECT TO_TIMESTAMP($1 * 7200)')
+            'AS ' . $this->db->quoteValue('SELECT TO_TIMESTAMP($1 * 7200)'),
         );
 
         $this->createTable('stat_weapon2_use_count', [

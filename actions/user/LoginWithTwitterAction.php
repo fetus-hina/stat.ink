@@ -45,22 +45,22 @@ class LoginWithTwitterAction extends BaseAction
                 $twitter->requestAccessToken(
                     (string)$request->get('oauth_token'),
                     (string)$request->get('oauth_verifier'),
-                    $token->getRequestTokenSecret()
+                    $token->getRequestTokenSecret(),
                 );
                 $user = Json::decode(
-                    $twitter->request('account/verify_credentials.json')
+                    $twitter->request('account/verify_credentials.json'),
                 );
 
                 $info = LoginWithTwitter::findOne(['twitter_id' => $user['id_str']]);
                 if ($info && $info->login()) {
                     return $this->controller->goBack(
-                        ['show-user/profile', 'screen_name' => Yii::$app->user->identity->screen_name]
+                        ['show-user/profile', 'screen_name' => Yii::$app->user->identity->screen_name],
                     );
                 }
 
                 Yii::$app->session->addFlash(
                     'danger',
-                    Yii::t('app', 'There is no user associated with the specified twitter account.')
+                    Yii::t('app', 'There is no user associated with the specified twitter account.'),
                 );
                 return $response->redirect(Url::to(['user/login'], true), 303);
             } else {
@@ -79,14 +79,14 @@ class LoginWithTwitterAction extends BaseAction
         $credential = new OAuthCredentials(
             Yii::$app->params['twitter']['consumer_key'],
             Yii::$app->params['twitter']['consumer_secret'],
-            Url::to(['user/login-with-twitter'], true)
+            Url::to(['user/login-with-twitter'], true),
         );
 
         $factory = new OAuthFactory();
         return $factory->createService(
             'twitter',
             $credential,
-            $this->tokenStorage
+            $this->tokenStorage,
         );
     }
 

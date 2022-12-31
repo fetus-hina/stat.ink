@@ -105,7 +105,7 @@ final class Rank extends \yii\db\ActiveRecord
         return sprintf(
             '%s %d',
             Yii::t('app-rank', $rank['name']),
-            $intRank - $rank['int_base']
+            $intRank - $rank['int_base'],
         );
     }
 }

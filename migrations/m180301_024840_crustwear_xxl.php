@@ -21,14 +21,14 @@ class m180301_024840_crustwear_xxl extends Migration
             'clothing',
             static::name2key('Grizzco'),
             null,
-            21004
+            21004,
         );
     }
 
     public function safeDown()
     {
         $this->downGear2(
-            static::name2key('Crustwear XXL')
+            static::name2key('Crustwear XXL'),
         );
     }
 }

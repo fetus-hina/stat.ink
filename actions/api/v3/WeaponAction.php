@@ -42,7 +42,7 @@ final class WeaponAction extends ViewAction
                     '{{%weapon_type3}}.[[rank]]' => SORT_ASC,
                     '{{%weapon3}}.[[key]]' => SORT_ASC,
                 ])
-                ->all()
+                ->all(),
         );
     }
 }

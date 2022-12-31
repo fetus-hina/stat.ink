@@ -65,7 +65,7 @@ final class Total extends Widget
                             'class' => 'user-number',
                         ]),
                     ]),
-                    ['class' => 'col-4 col-xs-4']
+                    ['class' => 'col-4 col-xs-4'],
                 ),
                 'attributes' => [
                     [
@@ -75,7 +75,7 @@ final class Total extends Widget
                             Html::encode($fmt->asInteger($battles)),
                             ['show-v3/user',
                                 'screen_name' => $user->screen_name,
-                            ]
+                            ],
                         ),
                     ],
                     [
@@ -102,7 +102,7 @@ final class Total extends Widget
                     ],
                 ],
             ]),
-            ['class' => 'row']
+            ['class' => 'row'],
         );
     }
 }

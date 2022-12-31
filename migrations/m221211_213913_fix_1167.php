@@ -56,7 +56,7 @@ final class m221211_213913_fix_1167 extends Migration
             'UPDATE {{%salmon3}} ' .
             'SET [[golden_eggs]] = {{fix_1167}}.[[valid_count]] ' .
             'FROM {{fix_1167}} ' .
-            'WHERE {{%salmon3}}.[[id]] = {{fix_1167}}.[[salmon_id]]'
+            'WHERE {{%salmon3}}.[[id]] = {{fix_1167}}.[[salmon_id]]',
         );
 
         return true;

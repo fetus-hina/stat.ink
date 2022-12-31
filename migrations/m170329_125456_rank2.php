@@ -26,7 +26,7 @@ class m170329_125456_rank2 extends Migration
         $group = ArrayHelper::map(
             (new Query())->select(['key', 'id'])->from('rank_group2')->all(),
             'key',
-            'id'
+            'id',
         );
 
         $this->batchInsert('rank2', ['group_id', 'rank', 'key', 'name', 'int_base'], [

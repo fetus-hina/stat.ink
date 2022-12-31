@@ -77,7 +77,7 @@ class Battle2Controller extends Controller
                 }
                 return null;
             },
-            Agent::find()->andWhere(['name' => 'SquidTracks'])->asArray()->all()
+            Agent::find()->andWhere(['name' => 'SquidTracks'])->asArray()->all(),
         ));
         $this->stderr("done. id = [" . implode(", ", $agentIds) . "]\n");
 
@@ -123,7 +123,7 @@ class Battle2Controller extends Controller
                 echo "Updating battle2...\n";
                 Battle2::updateAll(
                     ['my_point' => new DbExpr('my_point - 1000')],
-                    ['id' => $myPointTargets]
+                    ['id' => $myPointTargets],
                 );
             }
 
@@ -131,7 +131,7 @@ class Battle2Controller extends Controller
                 echo "Updating battle_player2...\n";
                 BattlePlayer2::updateAll(
                     ['point' => new DbExpr('point - 1000')],
-                    ['id' => $playersTargets]
+                    ['id' => $playersTargets],
                 );
             }
         }
@@ -161,7 +161,7 @@ class Battle2Controller extends Controller
                 "curl -v -H %s -X POST -d %s %s\n\n",
                 escapeshellarg('Content-Type: application/json'),
                 escapeshellarg($slack->send($battle, false)),
-                escapeshellarg($slack->webhook_url)
+                escapeshellarg($slack->webhook_url),
             );
         }
     }

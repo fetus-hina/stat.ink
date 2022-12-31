@@ -158,13 +158,13 @@ final class I18nController extends Controller
         $cmdline = sprintf(
             '/usr/bin/env %s/yii splatoon2-ink-i18n/index %d',
             Yii::getAlias('@app'),
-            $strongUpdate ? 1 : 0
+            $strongUpdate ? 1 : 0,
         );
         passthru($cmdline, $status1);
 
         $cmdline = sprintf(
             '/usr/bin/env %s/yii api2-markdown',
-            Yii::getAlias('@app')
+            Yii::getAlias('@app'),
         );
         passthru($cmdline, $status2);
 
@@ -177,7 +177,7 @@ final class I18nController extends Controller
         $cmdline = sprintf(
             '/usr/bin/env git log --pretty=%s -- %s | sort | uniq',
             escapeshellarg('%an <%ae>%n%cn <%ce>'),
-            escapeshellarg($path)
+            escapeshellarg($path),
         );
         $status = null;
         $lines = [];

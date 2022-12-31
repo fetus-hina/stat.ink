@@ -33,9 +33,9 @@ final class XProgress extends ChallengeProgress
                 'span',
                 \str_repeat(
                     (string)FA::fas('circle')->fw(),
-                    $win
+                    $win,
                 ),
-                ['class' => 'text-success']
+                ['class' => 'text-success'],
             ),
             ['class' => 'series-progress'],
         );
@@ -49,14 +49,14 @@ final class XProgress extends ChallengeProgress
                 'span',
                 \str_repeat(
                     (string)FA::fas('times')->fw(),
-                    $lose
+                    $lose,
                 ),
                 [
                     'class' => 'text-danger',
                     'style' => [
                         'opacity' => '0.5',
                     ],
-                ]
+                ],
             ),
             ['class' => 'series-progress'],
         );

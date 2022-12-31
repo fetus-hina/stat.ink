@@ -54,9 +54,9 @@ trait Splatoon2
                         : Url::to(
                             $am->getAssetUrl(
                                 $am->getBundle(GameModeIconsAsset::class, true),
-                                \sprintf('spl2/%s.png', $mode->key)
+                                \sprintf('spl2/%s.png', $mode->key),
                             ),
-                            true
+                            true,
                         ),
                     'source' => 's2ink',
                     'schedules' => ArrayHelper::getColumn(
@@ -82,9 +82,9 @@ trait Splatoon2
                                     'icon' => Url::to(
                                         $am->getAssetUrl(
                                             $am->getBundle(GameModeIconsAsset::class, true),
-                                            \sprintf('spl2/%s.png', $sc->rule->key)
+                                            \sprintf('spl2/%s.png', $sc->rule->key),
                                         ),
-                                        true
+                                        true,
                                     ),
                                 ],
                                 'maps' => ArrayHelper::getColumn(
@@ -96,18 +96,18 @@ trait Splatoon2
                                             'image' => Url::to(
                                                 $am->getAssetUrl(
                                                     $am->getBundle(Stages2Asset::class, true),
-                                                    \sprintf('daytime/%s.jpg', $map->key)
+                                                    \sprintf('daytime/%s.jpg', $map->key),
                                                 ),
-                                                true
+                                                true,
                                             ),
                                         ];
-                                    }
+                                    },
                                 ),
                             ];
-                        }
+                        },
                     ),
                 ];
-            }
+            },
         );
     }
 
@@ -123,7 +123,7 @@ trait Splatoon2
                     $am->getBundle(GameModeIconsAsset::class, true),
                     'spl2/salmon.png',
                 ),
-                true
+                true,
             ),
             'source' => 's2ink',
             'schedules' => ArrayHelper::getColumn(
@@ -154,9 +154,9 @@ trait Splatoon2
                             'image' => Url::to(
                                 $am->getAssetUrl(
                                     $am->getBundle(Stages2Asset::class, true),
-                                    sprintf('daytime/%s.jpg', $sc->map->key)
+                                    sprintf('daytime/%s.jpg', $sc->map->key),
                                 ),
-                                true
+                                true,
                             ),
                         ]],
                         'weapons' => $this->fillSalmon2Weapon(
@@ -170,13 +170,13 @@ trait Splatoon2
                                         'icon' => Url::to(
                                             $am->getAssetUrl(
                                                 $am->getBundle(Spl2WeaponAsset::class, true),
-                                                $w->key . '.png'
+                                                $w->key . '.png',
                                             ),
-                                            true
+                                            true,
                                         ),
                                     ];
-                                }
-                            )
+                                },
+                            ),
                         ),
                     ];
                 },

@@ -17,7 +17,7 @@ class m190210_135940_fix_timezone_label extends Migration
         $this->update(
             'timezone',
             ['name' => 'Brazil (Western Amazonas)'],
-            ['identifier' => 'America/Eirunepe']
+            ['identifier' => 'America/Eirunepe'],
         );
     }
 
@@ -26,7 +26,7 @@ class m190210_135940_fix_timezone_label extends Migration
         $this->update(
             'timezone',
             ['name' => 'Brazil (Weastern Amazonas)'],
-            ['identifier' => 'America/Eirunepe']
+            ['identifier' => 'America/Eirunepe'],
         );
     }
 }

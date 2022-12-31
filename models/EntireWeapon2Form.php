@@ -73,7 +73,7 @@ class EntireWeapon2Form extends Model
             $list = array_merge(
                 ['' => Yii::t('app', 'Any Time')],
                 $this->getVersionList(),
-                $this->getMonthList()
+                $this->getMonthList(),
             );
         }
         return $list;
@@ -112,7 +112,7 @@ class EntireWeapon2Form extends Model
                             $i === $n - 1 ? '┗' : '┣',
                             Yii::t('app', 'Version {0}', [
                                 Yii::t('app-version2', $version['name']),
-                            ])
+                            ]),
                         );
                     }
                     break;

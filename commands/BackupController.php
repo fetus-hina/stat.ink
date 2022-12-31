@@ -26,7 +26,7 @@ class BackupController extends Controller
         $outPath = sprintf(
             '%s/statink-%s.dump.xz.gpg',
             Yii::getAlias('@app/runtime/backup'),
-            date('YmdHis', time())
+            date('YmdHis', time()),
         );
         if (!file_exists(dirname($outPath))) {
             mkdir(dirname($outPath), 0755, true);
@@ -45,7 +45,7 @@ class BackupController extends Controller
             $descriptorspec,
             $pipes,
             getcwd(),
-            $execinfo['env']
+            $execinfo['env'],
         );
         if (!$proc) {
             $this->stdout("ERROR\n", Console::FG_RED);
@@ -140,7 +140,7 @@ class BackupController extends Controller
                 preg_match(
                     '/^statink-\d+\.dump\.xz\.(?:aes|gpg)$/',
                     $entry->getBasename(),
-                    $match
+                    $match,
                 )
             ) {
                 $files[] = $entry->getPathname();
@@ -176,7 +176,7 @@ class BackupController extends Controller
             escapeshellarg($gpg['userId']), // recipient (gpg)
             escapeshellarg('none'),         // compress algo (gpg)
             escapeshellarg('AES256'),       // cipher algo (gpg)
-            escapeshellarg($outPath)
+            escapeshellarg($outPath),
         );
         $env = [
             'PGPASSWORD' => $config['password'],

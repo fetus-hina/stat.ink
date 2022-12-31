@@ -59,7 +59,7 @@ class SalmonHazardHistory extends Widget
                     return [$index, (float)$model->danger_rate];
                 },
                 array_reverse($history), // 古い順に取得
-                range(-1 * (count($history) - 1), 0) // 最新が 0 になるように
+                range(-1 * (count($history) - 1), 0), // 最新が 0 になるように
             ),
             'label' => Yii::t('app-salmon2', 'Hazard Level'),
             'lines' => [
@@ -75,7 +75,7 @@ class SalmonHazardHistory extends Widget
         $japaneseStyle = in_array(
             preg_replace('/@.+$/', '', Yii::$app->language),
             ['ja-JP', 'ko-KR', 'ko-KP'],
-            true
+            true,
         );
 
         // cleared
@@ -88,7 +88,7 @@ class SalmonHazardHistory extends Widget
                         : null;
                 },
                 array_reverse($history), // 古い順に取得
-                range(-1 * (count($history) - 1), 0) // 最新が 0 になるように
+                range(-1 * (count($history) - 1), 0), // 最新が 0 になるように
             ))),
             'lines' => [
                 'show' => false,
@@ -109,7 +109,7 @@ class SalmonHazardHistory extends Widget
                         : null;
                 },
                 array_reverse($history), // 古い順に取得
-                range(-1 * (count($history) - 1), 0) // 最新が 0 になるように
+                range(-1 * (count($history) - 1), 0), // 最新が 0 になるように
             ))),
             'lines' => [
                 'show' => false,
@@ -193,7 +193,7 @@ EOF;
         $this->view->registerJs(str_replace(
             array_keys($replMap),
             array_values($replMap),
-            'jQuery.plot("{selector}", {json}, {options});'
+            'jQuery.plot("{selector}", {json}, {options});',
         ));
 
         return Html::tag('div', '', [

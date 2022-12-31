@@ -51,11 +51,11 @@ class Weapon2Action extends BaseAction
                                             'subKey' => $weapon->subweapon->key,
                                         ];
                                     },
-                                    $type->weapons
+                                    $type->weapons,
                                 ),
                             ];
                         },
-                        $category->weaponTypes
+                        $category->weaponTypes,
                     ),
                 ];
             },
@@ -81,7 +81,7 @@ class Weapon2Action extends BaseAction
                 ->orderBy([
                     'id' => SORT_ASC,
                 ])
-                ->all()
+                ->all(),
         );
 
         $langs = Language::find()->standard()->asArray()->all();

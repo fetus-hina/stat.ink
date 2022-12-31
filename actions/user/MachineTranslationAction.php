@@ -48,7 +48,7 @@ class MachineTranslationAction extends BaseAction
                     'range' => ['enable', 'disable'],
                     'strict' => true,
                 ],
-            ]
+            ],
         );
     }
 }

@@ -23,7 +23,7 @@ class m171214_134752_bucketslosher_deco extends Migration
             'sphere',
             'bucketslosher',
             null,
-            3001
+            3001,
         );
     }
 

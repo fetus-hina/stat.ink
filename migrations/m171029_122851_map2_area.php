@@ -23,7 +23,7 @@ class m171029_122851_map2_area extends Migration
         $this->update(
             'map2',
             ['area' => null],
-            ['key' => array_keys($this->getList())]
+            ['key' => array_keys($this->getList())],
         );
     }
 

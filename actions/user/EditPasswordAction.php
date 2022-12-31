@@ -59,7 +59,7 @@ class EditPasswordAction extends BaseAction
         Yii::$app->mailer
             ->compose(
                 ['text' => '@app/views/email/change-password'],
-                ['user' => $user]
+                ['user' => $user],
             )
             ->setFrom(Yii::$app->params['notifyEmail'])
             ->setTo([$user->email => $user->name])
@@ -71,7 +71,7 @@ class EditPasswordAction extends BaseAction
                     'screen_name' => $user->screen_name,
                     'site' => Yii::$app->name,
                 ],
-                $user->emailLang->lang ?? 'en-US'
+                $user->emailLang->lang ?? 'en-US',
             ))
             ->send();
     }

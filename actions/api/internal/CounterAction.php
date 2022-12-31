@@ -51,9 +51,9 @@ final class CounterAction extends Action
                 self::format('battle2', 'battle', 'Battles', Battle2::getRoughCount()),
                 self::format('battle3', 'battle', 'Battles', self::getBattle3RoughCount($db)),
                 self::format('salmon2', 'salmon', 'Shifts', Salmon2::getRoughCount()),
-                self::format('user', 'user', 'Users', User::getRoughCount())
+                self::format('user', 'user', 'Users', User::getRoughCount()),
             ),
-            Transaction::READ_COMMITTED
+            Transaction::READ_COMMITTED,
         );
     }
 
@@ -81,7 +81,7 @@ final class CounterAction extends Action
                     ->from('{{%battle3_id_seq}}')
                     ->limit(1)
                     ->scalar($db),
-                FILTER_VALIDATE_INT
+                FILTER_VALIDATE_INT,
             );
             return \is_int($count) ? $count : null;
         } catch (Throwable $e) {

@@ -110,14 +110,14 @@ class StatWeaponMapTrend extends \yii\db\ActiveRecord
                     'format' => 'int32',
                     'description' => Yii::t(
                         'app-apidoc1',
-                        'Set in order from 1 in descending order of usage'
+                        'Set in order from 1 in descending order of usage',
                     ),
                 ],
                 'use_pct' => [
                     'type' => 'number',
                     'description' => Yii::t(
                         'app-apidoc1',
-                        'Use rate (%)'
+                        'Use rate (%)',
                     ),
                 ],
                 'weapon' => static::oapiRef(Weapon::class),

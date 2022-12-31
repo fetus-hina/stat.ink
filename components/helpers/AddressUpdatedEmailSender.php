@@ -36,7 +36,7 @@ class AddressUpdatedEmailSender
                 'lang' => $language->getLanguageId(),
                 'old' => $oldEmail,
                 'new' => $newEmail,
-            ]
+            ],
         );
         $mail->setFrom(Yii::$app->params['notifyEmail'])
             ->setSubject(Yii::t(
@@ -47,7 +47,7 @@ class AddressUpdatedEmailSender
                     'screen_name' => $user->screen_name,
                     'site' => Yii::$app->name,
                 ],
-                $language->getLanguageId()
+                $language->getLanguageId(),
             ));
         if ($newEmail) {
             $mail->setTo($newEmail);

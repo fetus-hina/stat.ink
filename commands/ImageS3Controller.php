@@ -32,7 +32,7 @@ class ImageS3Controller extends Controller
         if (!Yii::$app->imgS3->enabled) {
             $this->stderr(
                 "The component \"imgS3\" is not enabled.\n",
-                Console::FG_RED
+                Console::FG_RED,
             );
             return false;
         }
@@ -41,7 +41,7 @@ class ImageS3Controller extends Controller
             $this->stderr(
                 "The specified path {$path} is not a valid file name of image.\n",
                 Console::BOLD,
-                Console::FG_RED
+                Console::FG_RED,
             );
             return 2;
         }
@@ -50,7 +50,7 @@ class ImageS3Controller extends Controller
             $this->stderr(
                 "File does not exist: {$path}\n",
                 Console::BOLD,
-                Console::FG_RED
+                Console::FG_RED,
             );
             return 2;
         }
@@ -59,20 +59,20 @@ class ImageS3Controller extends Controller
             $this->stderr(sprintf(
                 "%s file %s to S3 storage.\n",
                 Console::ansiFormat("Uploading", [Console::BOLD, Console::FG_GREEN]),
-                Console::ansiFormat(basename($path), [Console::BOLD, Console::FG_PURPLE])
+                Console::ansiFormat(basename($path), [Console::BOLD, Console::FG_PURPLE]),
             ));
             $ret = Yii::$app->imgS3->uploadFile(
                 $path,
                 implode('/', [
                     substr(basename($path), 0, 2),
                     basename($path),
-                ])
+                ]),
             );
             if (!$ret) {
                 $this->stderr(
                     "Failed to upload file.\n",
                     Console::BOLD,
-                    Console::FG_RED
+                    Console::FG_RED,
                 );
                 return 1;
             }
@@ -86,7 +86,7 @@ class ImageS3Controller extends Controller
             $this->stderr(sprintf(
                 "%s: %s\n",
                 Console::ansiFormat("Queued", [Console::BOLD, Console::FG_GREEN]),
-                Console::ansiFormat(basename($path), [Console::BOLD, Console::FG_PURPLE])
+                Console::ansiFormat(basename($path), [Console::BOLD, Console::FG_PURPLE]),
             ));
         }
         return 0;
@@ -101,7 +101,7 @@ class ImageS3Controller extends Controller
         }
 
         $innerIterator = new \RecursiveIteratorIterator(
-            new \RecursiveDirectoryIterator(Yii::getAlias('@image'))
+            new \RecursiveDirectoryIterator(Yii::getAlias('@image')),
         );
         $iterator = new class ($innerIterator) extends FilterIterator {
             public function accept()
@@ -135,7 +135,7 @@ class ImageS3Controller extends Controller
             $this->stderr(
                 "Could not get file lock. Another process running?\n",
                 Console::FG_RED,
-                Console::BOLD
+                Console::BOLD,
             );
             return false;
         }

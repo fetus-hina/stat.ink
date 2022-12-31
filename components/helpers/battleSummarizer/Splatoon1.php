@@ -22,7 +22,7 @@ trait Splatoon1
         $cond24Hours = sprintf(
             '(({{battle}}.[[end_at]] IS NOT NULL) AND ({{battle}}.[[end_at]] BETWEEN %s AND %s))',
             $db->quoteValue(gmdate('Y-m-d H:i:sO', $now - 86400 + 1)),
-            $db->quoteValue(gmdate('Y-m-d H:i:sO', $now))
+            $db->quoteValue(gmdate('Y-m-d H:i:sO', $now)),
         );
         $condResultPresent = sprintf('(%s)', implode(' AND ', [
             '{{battle}}.[[is_win]] IS NOT NULL',
@@ -39,14 +39,14 @@ trait Splatoon1
                 implode(' AND ', [
                     $condResultPresent,
                     '{{battle}}.[[is_win]] = TRUE',
-                ])
+                ]),
             ),
             sprintf(
                 'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
                 implode(' AND ', [
                     $condResultPresent,
-                ])
-            )
+                ]),
+            ),
         );
         $column_wp_short = sprintf(
             "(%s * 100.0 / NULLIF(%s, 0))",
@@ -56,33 +56,33 @@ trait Splatoon1
                     $condResultPresent,
                     $cond24Hours,
                     '{{battle}}.[[is_win]] = TRUE',
-                ])
+                ]),
             ),
             sprintf(
                 'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
                 implode(' AND ', [
                     $condResultPresent,
                     $cond24Hours,
-                ])
-            )
+                ]),
+            ),
         );
         $column_total_kill = sprintf(
             'SUM(CASE WHEN (%s) THEN {{battle}}.[[kill]] ELSE 0 END)',
             implode(' AND ', [
                 $condKDPresent,
-            ])
+            ]),
         );
         $column_total_death = sprintf(
             'SUM(CASE WHEN (%s) THEN {{battle}}.[[death]] ELSE 0 END)',
             implode(' AND ', [
                 $condKDPresent,
-            ])
+            ]),
         );
         $column_kd_present = sprintf(
             'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
             implode(' AND ', [
                 $condKDPresent,
-            ])
+            ]),
         );
 
         $query = clone $oldQuery;

@@ -21,14 +21,14 @@ class m180501_070903_nonslipsenseis extends Migration
             'shoes',
             static::name2key('Grizzco'),
             null,
-            21002
+            21002,
         );
     }
 
     public function safeDown()
     {
         $this->downGear2(
-            static::name2key('Non-slip Senseis')
+            static::name2key('Non-slip Senseis'),
         );
     }
 }

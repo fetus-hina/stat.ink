@@ -32,8 +32,8 @@ class FallbackableImage extends Widget
                 (array)$this->srcs,
                 function (?string $url): bool {
                     return $url !== null;
-                }
-            )
+                },
+            ),
         );
 
         if (empty($this->srcs)) {
@@ -45,8 +45,8 @@ class FallbackableImage extends Widget
                 array_values($srcs)[0],
                 array_merge(
                     $this->options,
-                    ['id' => $this->id]
-                )
+                    ['id' => $this->id],
+                ),
             );
         }
 
@@ -60,8 +60,8 @@ class FallbackableImage extends Widget
             'data:image/gif;base64,R0lGODlhAQABAGAAACH5BAEKAP8ALAAAAAABAAEAAAgEAP8FBAA7',
             array_merge(
                 $this->options,
-                ['id' => $this->id]
-            )
+                ['id' => $this->id],
+            ),
         );
     }
 }

@@ -31,7 +31,7 @@ trait Battle2Formatter
             'image' => $battle->battleImageResult
                 ? Url::to(
                     Yii::getAlias('@imageurl') . '/' . $battle->battleImageResult->filename,
-                    true
+                    true,
                 )
                 : null,
             'isWin' => $battle->is_win,
@@ -43,7 +43,7 @@ trait Battle2Formatter
                             $am->getAssetUrl($modeAsset, vsprintf('spl2/%s.png', [
                                 $battle->mode->key,
                             ])),
-                            true
+                            true,
                         ),
                     'key' => $battle->mode->key,
                     'name' => Yii::t('app-rule2', $battle->mode->name),
@@ -56,15 +56,15 @@ trait Battle2Formatter
                     'image' => [
                         'lose' => Url::to(
                             $am->getAssetUrl($stageAsset, "gray-blur/{$battle->map->key}.jpg"),
-                            true
+                            true,
                         ),
                         'normal' => Url::to(
                             $am->getAssetUrl($stageAsset, "daytime/{$battle->map->key}.jpg"),
-                            true
+                            true,
                         ),
                         'win' => Url::to(
                             $am->getAssetUrl($stageAsset, "daytime-blur/{$battle->map->key}.jpg"),
-                            true
+                            true,
                         ),
                     ],
                 ]
@@ -136,7 +136,7 @@ trait Battle2Formatter
                 ? [
                     'icon' => Url::to(
                         $am->getAssetUrl($modeAsset, sprintf('spl2/%s.png', $battle->rule->key)),
-                        true
+                        true,
                     ),
                     'key' => $battle->rule->key,
                     'name' => Yii::t('app-rule2', $battle->rule->name),
@@ -147,7 +147,7 @@ trait Battle2Formatter
                     'battle' => $battle->id,
                     'screen_name' => $battle->user->screen_name,
                 ],
-                true
+                true,
             ),
             'user' => self::formatUser($battle->user),
             'variant' => 'splatoon2',

@@ -47,7 +47,7 @@ class m200117_094454_weapon_attack2 extends Migration
         $this->batchInsert(
             'weapon_attack2',
             ['weapon_id', 'damage', 'damage2', 'damage3'],
-            $data
+            $data,
         );
     }
 
@@ -65,7 +65,7 @@ class m200117_094454_weapon_attack2 extends Migration
                 ->all(),
             function (array $row): bool {
                 return version_compare($row['tag'], '1.0.0', '>=');
-            }
+            },
         );
         usort($versions, function (array $a, array $b): int {
             return version_compare($a['tag'], $b['tag']);

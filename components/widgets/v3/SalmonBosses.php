@@ -70,7 +70,7 @@ final class SalmonBosses extends Widget
                         'table-bordered',
                         'table-striped',
                     ],
-                ]
+                ],
             ),
             [
                 'class' => [
@@ -378,7 +378,7 @@ final class SalmonBosses extends Widget
                     [
                         'class' => 'text-center',
                         'scope' => 'row',
-                    ]
+                    ],
                 ),
                 Html::tag(
                     'td',

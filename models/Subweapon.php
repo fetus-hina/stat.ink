@@ -87,9 +87,9 @@ class Subweapon extends \yii\db\ActiveRecord
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc1', 'Sub Weapon'),
                         'app-subweapon',
-                        $values
+                        $values,
                     ),
-                    ArrayHelper::getColumn($values, 'key', false)
+                    ArrayHelper::getColumn($values, 'key', false),
                 ),
                 'name' => static::oapiRef(openapi\Name::class),
             ],
@@ -113,7 +113,7 @@ class Subweapon extends \yii\db\ActiveRecord
             function ($model) {
                 return $model->toJsonArray();
             },
-            $models
+            $models,
         );
     }
 }

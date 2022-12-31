@@ -35,11 +35,11 @@ class WeaponAction extends BaseAction
                             ->andWhere(['type_id' => $type['id']])
                             ->orderBy(['key' => SORT_ASC])
                             ->asArray()
-                            ->all()
+                            ->all(),
                     ),
                 ];
             },
-            WeaponType::find()->orderBy(['id' => SORT_ASC])->asArray()->all()
+            WeaponType::find()->orderBy(['id' => SORT_ASC])->asArray()->all(),
         );
 
         $langs = Language::find()->standard()->asArray()->all();

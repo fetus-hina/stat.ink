@@ -43,7 +43,7 @@ class m181119_120843_timezone extends Migration
             ['timezone_id' => [
                 $this->timezone('Asia/Seoul'),
                 $this->timezone('Asia/Taipei'),
-            ]]
+            ]],
         );
         $this->delete('timezone', ['identifier' => ['Asia/Seoul', 'Asia/Taipei']]);
         foreach ($this->namesTable() as $ident => $upd) {

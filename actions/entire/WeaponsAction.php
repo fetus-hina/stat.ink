@@ -77,11 +77,11 @@ class WeaponsAction extends ViewAction
                         $key = sprintf('w%d', $trend['weapon_id']);
                         $ret[$key] = sprintf(
                             'SUM(CASE WHEN [[weapon_id]] = %d THEN [[battles]] ELSE 0 END)',
-                            $trend['weapon_id']
+                            $trend['weapon_id'],
                         );
                     }
                     return $ret;
-                })()
+                })(),
             ))
             ->from('stat_weapon_use_count_per_week')
             ->where(['or',
@@ -128,7 +128,7 @@ class WeaponsAction extends ViewAction
             return [
                 'date' => date(
                     'Y-m-d',
-                    strtotime(sprintf('%04d-W%02d', $_['isoyear'], $_['isoweek']))
+                    strtotime(sprintf('%04d-W%02d', $_['isoyear'], $_['isoweek'])),
                 ),
                 'battles' => (int)$_['battles'],
                 'weapons' => $w,
@@ -218,7 +218,7 @@ class WeaponsAction extends ViewAction
                         : null,
                 ];
             },
-            $query->all()
+            $query->all(),
         );
 
         usort($list, function (stdClass $a, stdClass $b): int {
@@ -258,7 +258,7 @@ class WeaponsAction extends ViewAction
             ->select(['weapon_id', 'count' => 'COUNT(*)'])
             ->from(sprintf(
                 '(%s) AS {{tmp}}',
-                $favWeaponQuery->createCommand()->rawSql
+                $favWeaponQuery->createCommand()->rawSql,
             ))
             ->groupBy('{{tmp}}.[[weapon_id]]')
             ->orderBy('COUNT(*) DESC');
@@ -269,8 +269,8 @@ class WeaponsAction extends ViewAction
                 function (array $row): int {
                     return (int)$row['weapon_id'];
                 },
-                $list
-            )
+                $list,
+            ),
         );
 
         return array_map(
@@ -281,7 +281,7 @@ class WeaponsAction extends ViewAction
                     'weapon' => $weapons[$row['weapon_id']] ?? null,
                 ];
             },
-            $list
+            $list,
         );
     }
 

@@ -33,7 +33,7 @@ class m190401_012905_spring_fest extends Migration
     {
         return array_merge(
             $this->getHeadgears(),
-            $this->getShoes()
+            $this->getShoes(),
         );
     }
 
@@ -55,7 +55,7 @@ class m190401_012905_spring_fest extends Migration
                 'Pink Novelty Visor',
                 'Purple Novelty Visor',
                 'Green Novelty Visor',
-            ]
+            ],
         );
     }
 
@@ -81,7 +81,7 @@ class m190401_012905_spring_fest extends Migration
                 'New-Day Arrows',
                 'Trooper Power Stripes',
                 'Midnight Slip-Ons',
-            ]
+            ],
         );
     }
 }

@@ -37,7 +37,7 @@ class StatWeaponVsWeapon extends \yii\db\ActiveRecord
             public function weapon($weapon): ActiveQuery
             {
                 return $this->weaponImpl(
-                    ($weapon instanceof Weapon) ? $weapon->id : (int)$weapon
+                    ($weapon instanceof Weapon) ? $weapon->id : (int)$weapon,
                 );
             }
 

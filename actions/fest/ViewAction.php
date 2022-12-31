@@ -64,7 +64,7 @@ class ViewAction extends BaseAction
                 [['region', 'order'], 'required'],
                 [['region'], 'string', 'min' => 2, 'max' => 2],
                 [['order'], 'integer', 'min' => 1],
-            ]
+            ],
         );
         if ($model->validate()) {
             return $model;
@@ -96,7 +96,7 @@ class ViewAction extends BaseAction
                     'bravo' => $a->bravo_win + $a->alpha_lose,
                 ];
             },
-            $query->all()
+            $query->all(),
         );
     }
 }

@@ -45,7 +45,7 @@ class TimezoneDialog extends Dialog
         return Html::tag(
             'div',
             $this->currentTimezone() . $this->renderZoneGroups(),
-            ['class' => 'list-group-flush']
+            ['class' => 'list-group-flush'],
         );
     }
 
@@ -70,7 +70,7 @@ class TimezoneDialog extends Dialog
                         'color' => '#fff',
                         'background-color' => '#337ab7',
                     ],
-                ]
+                ],
             );
         } else {
             return Html::a(
@@ -81,7 +81,7 @@ class TimezoneDialog extends Dialog
                     'data' => [
                         'tz' => $tz->identifier,
                     ],
-                ]
+                ],
             );
         }
     }
@@ -96,7 +96,7 @@ class TimezoneDialog extends Dialog
 
                 return (string)FlagIcon::fg($country->key);
             },
-            array_slice(array_merge($tz->countries, [null, null]), 0, 2) // always 2 elements
+            array_slice(array_merge($tz->countries, [null, null]), 0, 2), // always 2 elements
         ));
 
         $ret = '';
@@ -107,7 +107,7 @@ class TimezoneDialog extends Dialog
                     Html::encode(Yii::t('app-tz', $tz->group->name)),
                     Icon::subCategory(),
                 ]),
-                ['class' => 'small']
+                ['class' => 'small'],
             );
         }
         $ret .= Html::tag(
@@ -115,15 +115,15 @@ class TimezoneDialog extends Dialog
             implode('', [
                 Html::tag(
                     'span',
-                    $flags . ' ' . Html::encode(Yii::t('app-tz', $tz->name))
+                    $flags . ' ' . Html::encode(Yii::t('app-tz', $tz->name)),
                 ),
                 Html::tag(
                     'span',
                     Html::encode($this->renderOffset($tz)),
-                    ['class' => 'd-inline small']
+                    ['class' => 'd-inline small'],
                 ),
             ]),
-            ['class' => 'd-flex justify-content-between']
+            ['class' => 'd-flex justify-content-between'],
         );
         return $ret;
     }
@@ -143,18 +143,18 @@ class TimezoneDialog extends Dialog
                             return $this->renderTimezone(
                                 $tz,
                                 $currentTz === $tz->identifier,
-                                false
+                                false,
                             );
                         },
-                        $group->timezones
+                        $group->timezones,
                     )),
                     [
                         'class' => 'collapse',
                         'id' => sprintf(
                             'tzgroup-%s',
-                            trim(preg_replace('/[^a-z]+/', '-', strtolower($group->name)), '-')
+                            trim(preg_replace('/[^a-z]+/', '-', strtolower($group->name)), '-'),
                         ),
-                    ]
+                    ],
                 );
             }
         }
@@ -182,10 +182,10 @@ class TimezoneDialog extends Dialog
                     'toggle' => 'collapse',
                     'target' => sprintf(
                         '#tzgroup-%s',
-                        trim(preg_replace('/[^a-z]+/', '-', strtolower($group->name)), '-')
+                        trim(preg_replace('/[^a-z]+/', '-', strtolower($group->name)), '-'),
                     ),
                 ],
-            ]
+            ],
         );
     }
 
@@ -213,7 +213,7 @@ class TimezoneDialog extends Dialog
             $isEast ? '+' : '-',
             floor($offset / 3600),
             floor(($offset % 3600) / 60),
-            $textOffset
+            $textOffset,
         ));
     }
 
@@ -229,7 +229,7 @@ class TimezoneDialog extends Dialog
                 'type' => 'button',
                 'class' => 'btn btn-default',
                 'data-dismiss' => 'modal',
-            ]
+            ],
         );
         return Html::tag(
             'div',
@@ -253,7 +253,7 @@ class TimezoneDialog extends Dialog
                                             'tooltip' => Yii::t('app', 'GeoIP guessed {timezone}'),
                                             'unknown' => Yii::t('app', 'Unknown'),
                                         ],
-                                    ]
+                                    ],
                                 ),
                                 ' ',
                                 Html::a(
@@ -262,11 +262,11 @@ class TimezoneDialog extends Dialog
                                     [
                                         'rel' => 'external',
                                         'target' => '_blank',
-                                    ]
+                                    ],
                                 ),
                             ])),
                             MaxmindMessage::widget(),
-                        ])
+                        ]),
                     ),
                     $close,
                 ]),
@@ -274,7 +274,7 @@ class TimezoneDialog extends Dialog
                     'd-flex',
                     'justify-content-between',
                     'align-items-center', // vertical middle
-                ]]
+                ]],
             ),
             ['class' => [
                 'modal-footer',

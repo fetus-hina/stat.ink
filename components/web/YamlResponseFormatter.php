@@ -37,7 +37,7 @@ class YamlResponseFormatter extends Component implements ResponseFormatterInterf
                 function (int $carry, int $item): int {
                     return $carry | $item;
                 },
-                0
+                0,
             );
         }
     }
@@ -49,7 +49,7 @@ class YamlResponseFormatter extends Component implements ResponseFormatterInterf
             $response->data,
             (int)$this->inline,
             (int)$this->indent,
-            (int)$this->encodeOptions
+            (int)$this->encodeOptions,
         );
     }
 }

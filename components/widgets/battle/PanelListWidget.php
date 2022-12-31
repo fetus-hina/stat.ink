@@ -34,7 +34,7 @@ class PanelListWidget extends Widget
                     Html::tag('div', '{title}{titleLink}', ['class' => 'panel-heading']),
                     '{list}',
                 ]),
-                ['class' => '{panelClass}']
+                ['class' => '{panelClass}'],
             );
         }
         if (!$this->emptyText) {
@@ -42,9 +42,9 @@ class PanelListWidget extends Widget
                 'div',
                 Html::tag(
                     'p',
-                    Html::encode(Yii::t('app', 'No Data'))
+                    Html::encode(Yii::t('app', 'No Data')),
                 ),
-                ['class' => 'panel-body']
+                ['class' => 'panel-body'],
             );
         }
         if (!$this->itemClass) {
@@ -65,7 +65,7 @@ class PanelListWidget extends Widget
             function (array $match) use ($replace): string {
                 return $replace[$match[0]] ?? $match[0];
             },
-            $this->template
+            $this->template,
         );
     }
 
@@ -82,7 +82,7 @@ class PanelListWidget extends Widget
             return Html::tag(
                 'table',
                 implode('', $ret),
-                ['class' => 'table']
+                ['class' => 'table'],
             );
         }
         return $this->emptyText;
@@ -104,7 +104,7 @@ class PanelListWidget extends Widget
                 'data' => [
                     'pjax' => '0',
                 ],
-            ]
+            ],
         );
     }
 }

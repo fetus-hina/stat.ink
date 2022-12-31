@@ -42,7 +42,7 @@ class EditEmailAction extends ViewAction
                             $oldEmail ? (string)$oldEmail : null,
                             $form->email ? (string)$form->email : null,
                             $user,
-                            $oldEmailLang
+                            $oldEmailLang,
                         );
                     }
                     $this->controller->redirect(['user/profile']);
@@ -71,7 +71,7 @@ class EditEmailAction extends ViewAction
                     [
                         'lang' => Yii::$app->language,
                         'code' => $verifyCode,
-                    ]
+                    ],
                 );
                 $mail->setFrom(Yii::$app->params['notifyEmail'])
                     ->setTo($form->email)
@@ -83,7 +83,7 @@ class EditEmailAction extends ViewAction
                             'screen_name' => $user->screen_name,
                             'site' => Yii::$app->name,
                         ],
-                        Yii::$app->language
+                        Yii::$app->language,
                     ))
                     ->send();
                 unset($mail);

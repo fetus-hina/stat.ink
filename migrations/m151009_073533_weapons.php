@@ -43,11 +43,11 @@ class m151009_073533_weapons extends Migration
     {
         $this->delete(
             'death_reason',
-            ['in', 'key', ['liter3k_scope_custom', 'longblaster_custom']]
+            ['in', 'key', ['liter3k_scope_custom', 'longblaster_custom']],
         );
         $this->delete(
             'weapon',
-            ['in', 'key', ['liter3k_scope_custom', 'longblaster_custom']]
+            ['in', 'key', ['liter3k_scope_custom', 'longblaster_custom']],
         );
     }
 }

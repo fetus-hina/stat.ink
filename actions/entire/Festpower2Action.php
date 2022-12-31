@@ -32,10 +32,10 @@ class Festpower2Action extends ViewAction
                             'data' => $this->getData(),
                         ],
                         $this->getTotalCounts(),
-                    )
+                    ),
                 );
             },
-            Transaction::REPEATABLE_READ
+            Transaction::REPEATABLE_READ,
         );
     }
 
@@ -93,7 +93,7 @@ class Festpower2Action extends ViewAction
                 }
                 $prev = (int)$row['diff'];
                 return $row;
-            }
+            },
         ));
     }
 

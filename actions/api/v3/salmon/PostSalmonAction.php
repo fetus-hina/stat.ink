@@ -94,7 +94,7 @@ final class PostSalmonAction extends Action
                 \vsprintf('@web/api/v3/salmon/%s', [
                     \rawurlencode($battle->uuid),
                 ]),
-                true
+                true,
             ),
             'X-User-Screen-Name' => $battle->user->screen_name,
             'X-Battle-ID' => $battle->uuid,

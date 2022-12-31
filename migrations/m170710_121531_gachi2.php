@@ -43,7 +43,7 @@ class m170710_121531_gachi2 extends Migration
                 ->select('id')
                 ->from('rule2')
                 ->where(['key' => ['area', 'yagura', 'hoko']])
-                ->column()
+                ->column(),
         ));
     }
 

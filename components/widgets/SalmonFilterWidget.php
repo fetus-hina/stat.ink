@@ -60,7 +60,7 @@ class SalmonFilterWidget extends Widget
                 ]),
                 [
                     'class' => 'btn btn-primary',
-                ]
+                ],
             );
             ActiveForm::end();
             return ob_get_contents();
@@ -88,7 +88,7 @@ class SalmonFilterWidget extends Widget
             'key',
             function (array $row): string {
                 return Yii::t('app-salmon-map2', $row['name']);
-            }
+            },
         );
         asort($stages, SORT_STRING);
 
@@ -107,7 +107,7 @@ class SalmonFilterWidget extends Widget
             'key',
             function (array $row): string {
                 return Yii::t('app-special2', $row['name']);
-            }
+            },
         );
         asort($specials, SORT_STRING);
 
@@ -153,7 +153,7 @@ class SalmonFilterWidget extends Widget
             'key',
             function (array $row): string {
                 return Yii::t('app-salmon2', $row['name']);
-            }
+            },
         );
 
         return $form->field($this->filter, 'reason')

@@ -24,7 +24,7 @@ class PrettyJsonResponseFormatter extends JsonResponseFormatter
         if ($response->data !== null) {
             $response->content = Json::encode(
                 $response->data,
-                JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
+                JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES,
             );
         }
     }

@@ -84,7 +84,7 @@ trait Salmon3Formatter
                     'battle' => $battle->uuid,
                     'screen_name' => $battle->user->screen_name,
                 ],
-                true
+                true,
             ),
             'user' => self::formatUser($battle->user),
             'variant' => 'salmon3',

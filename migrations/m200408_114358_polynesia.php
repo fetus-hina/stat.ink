@@ -22,7 +22,7 @@ class m200408_114358_polynesia extends Migration
         $regionId = $this->getRegionId();
         $tldIdMap = $this->upCountries();
         $order = 10 * ceil(
-            (1 + (int)(new Query())->select('MAX([[order]])')->from('timezone')->scalar()) / 10
+            (1 + (int)(new Query())->select('MAX([[order]])')->from('timezone')->scalar()) / 10,
         );
         foreach ($this->getData() as $cctld => $info) {
             foreach ($info['tz'] as $tzIdStr => $tzName) {
@@ -122,7 +122,7 @@ class m200408_114358_polynesia extends Migration
         return ArrayHelper::map(
             (new Query())->select('*')->from('country')->where(['key' => array_keys($data)])->all(),
             'key',
-            'id'
+            'id',
         );
     }
 

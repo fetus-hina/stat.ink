@@ -92,7 +92,7 @@ class MapDetailAction extends BaseAction
                 ->getPeriodMaps()
                 ->andWhere(['rule_id' => $this->rule->id])
                 ->orderBy('period ASC')
-                ->all()
+                ->all(),
         );
     }
 

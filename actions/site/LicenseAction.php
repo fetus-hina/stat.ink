@@ -79,7 +79,7 @@ class LicenseAction extends SimpleAction
                 return strnatcasecmp($aName2, $bName2)
                     ?: strnatcasecmp($aName, $bName)
                     ?: strcmp($aName, $bName);
-            }
+            },
         );
         return $ret;
     }
@@ -89,7 +89,7 @@ class LicenseAction extends SimpleAction
         $basedir = Yii::getAlias('@app/data/licenses/');
         $ret = [];
         $it = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($basedir)
+            new RecursiveDirectoryIterator($basedir),
         );
         foreach ($it as $entry) {
             if (!$entry->isFile()) {
@@ -124,7 +124,7 @@ class LicenseAction extends SimpleAction
         $basedir = Yii::getAlias('@app/data/licenses-composer/');
         $ret = [];
         $it = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($basedir)
+            new RecursiveDirectoryIterator($basedir),
         );
         foreach ($it as $entry) {
             if (!$entry->isFile()) {
@@ -161,7 +161,7 @@ class LicenseAction extends SimpleAction
         $basedir = Yii::getAlias('@app/data/licenses-npm/');
         $ret = [];
         $it = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($basedir)
+            new RecursiveDirectoryIterator($basedir),
         );
         foreach ($it as $entry) {
             if (!$entry->isFile()) {

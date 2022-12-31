@@ -25,16 +25,16 @@ class m160312_003018_jp12th_splatfest_color extends Migration
         $this->update(
             'splatfest_team',
             ['color_hue' => 338],
-            ['fest_id' => $fest->id, 'team_id' => 1]
+            ['fest_id' => $fest->id, 'team_id' => 1],
         );
         $this->update(
             'splatfest_team',
             ['color_hue' => 50],
-            ['fest_id' => $fest->id, 'team_id' => 2]
+            ['fest_id' => $fest->id, 'team_id' => 2],
         );
         $this->delete(
             'splatfest_battle_summary',
-            ['fest_id' => $fest->id]
+            ['fest_id' => $fest->id],
         );
     }
 
@@ -52,16 +52,16 @@ class m160312_003018_jp12th_splatfest_color extends Migration
         $this->update(
             'splatfest_team',
             ['color_hue' => 332],
-            ['fest_id' => $fest->id, 'team_id' => 1]
+            ['fest_id' => $fest->id, 'team_id' => 1],
         );
         $this->update(
             'splatfest_team',
             ['color_hue' => 34],
-            ['fest_id' => $fest->id, 'team_id' => 2]
+            ['fest_id' => $fest->id, 'team_id' => 2],
         );
         $this->delete(
             'splatfest_battle_summary',
-            ['fest_id' => $fest->id]
+            ['fest_id' => $fest->id],
         );
     }
 }

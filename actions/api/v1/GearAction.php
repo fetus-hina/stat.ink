@@ -44,7 +44,7 @@ class GearAction extends BaseAction
             function ($gear) {
                 return $gear->toJsonArray();
             },
-            $query->all()
+            $query->all(),
         );
     }
 }

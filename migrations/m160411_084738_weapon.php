@@ -62,7 +62,7 @@ class m160411_084738_weapon extends Migration
                     new Expression("currval('weapon_id_seq'::regclass)"),
                     Weapon::findOne(['key' => 'splatspinner'])->id,
                 ],
-            ]
+            ],
         );
 
         $type = DeathReasonType::findOne(['key' => 'main'])->id;
@@ -79,7 +79,7 @@ class m160411_084738_weapon extends Migration
                     'Refurbished Mini Splatling',
                     Weapon::findOne(['key' => 'splatspinner_repair'])->id,
                 ],
-            ]
+            ],
         );
     }
 

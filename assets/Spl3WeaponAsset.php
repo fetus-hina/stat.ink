@@ -24,7 +24,7 @@ final class Spl3WeaponAsset extends AssetBundle
     {
         return Yii::$app->assetManager->getAssetUrl(
             $this,
-            "{$type}/{$key}.png"
+            "{$type}/{$key}.png",
         );
     }
 }

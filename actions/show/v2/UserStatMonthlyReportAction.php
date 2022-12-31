@@ -67,7 +67,7 @@ final class UserStatMonthlyReportAction extends BaseAction
                         'year' => $dates->nextMonth->format('Y'),
                         'month' => $dates->nextMonth->format('n'),
                     ],
-                    true
+                    true,
                 )
                 : null,
             'prev' => ($dates->prevMonth >= $dates->queryLowerBound)
@@ -77,7 +77,7 @@ final class UserStatMonthlyReportAction extends BaseAction
                         'year' => $dates->prevMonth->format('Y'),
                         'month' => $dates->prevMonth->format('n'),
                     ],
-                    true
+                    true,
                 )
                 : null,
             'abstract' => $this->queryAbstract($dates->from, $dates->to),

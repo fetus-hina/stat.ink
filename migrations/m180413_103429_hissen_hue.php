@@ -23,7 +23,7 @@ class m180413_103429_hissen_hue extends Migration
             'amefurashi',
             'hissen',
             null,
-            3011
+            3011,
         );
     }
 

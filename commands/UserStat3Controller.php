@@ -84,7 +84,7 @@ final class UserStat3Controller extends Controller
             \fprintf(STDERR, "[regen-all / battle] user id=%d\n", $row['user_id']);
 
             UserStatsJob::pushQueue3(
-                User::find()->andWhere(['id' => $row['user_id']])->limit(1)->one()
+                User::find()->andWhere(['id' => $row['user_id']])->limit(1)->one(),
             );
         }
 
@@ -98,7 +98,7 @@ final class UserStat3Controller extends Controller
             \fprintf(STDERR, "[regen-all / salmon] user id=%d\n", $row['user_id']);
 
             SalmonStatsJob::pushQueue3(
-                User::find()->andWhere(['id' => $row['user_id']])->limit(1)->one()
+                User::find()->andWhere(['id' => $row['user_id']])->limit(1)->one(),
             );
         }
 

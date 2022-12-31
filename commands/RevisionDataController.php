@@ -62,7 +62,7 @@ class RevisionDataController extends Controller
                 'declare(strict_types=1);',
                 '',
                 sprintf('return \'%s\';', addslashes($version)),
-            ]) . "\n"
+            ]) . "\n",
         );
 
         return true;
@@ -91,7 +91,7 @@ class RevisionDataController extends Controller
 
         file_put_contents(
             Yii::getAlias('@app/config/git-revision.php'),
-            $contents
+            $contents,
         );
 
         return true;

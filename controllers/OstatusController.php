@@ -71,7 +71,7 @@ class OstatusController extends Controller
 
         $doc = new DOMDocument('1.0', 'UTF-8');
         $root = $doc->appendChild(
-            $doc->createElementNS('http://docs.oasis-open.org/ns/xri/xrd-1.0', 'XRD')
+            $doc->createElementNS('http://docs.oasis-open.org/ns/xri/xrd-1.0', 'XRD'),
         );
 
         $elem = $root->appendChild($doc->createElement('Link'));
@@ -131,7 +131,7 @@ class OstatusController extends Controller
                             'RSA',
                             $rsa->modulus,
                             $rsa->exponent,
-                        ])
+                        ]),
                     ),
                 ],
                 [

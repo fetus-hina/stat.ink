@@ -71,7 +71,7 @@ return [
             [
                 'baseUrl' => 'https://stat.ink/',
                 'hostInfo' => 'https://stat.ink',
-            ]
+            ],
         ),
         'cache' => require(__DIR__ . '/web/cache.php'),
         'db' => $db,

@@ -122,7 +122,7 @@ trait VersionMigration
         $this->update(
             $tableBattle,
             ['version_id' => $this->findId($tableVersion, $oldVersionTag)],
-            ['version_id' => $this->findId($tableVersion, $versionTag)]
+            ['version_id' => $this->findId($tableVersion, $versionTag)],
         );
 
         $this->delete($tableVersion, ['tag' => $versionTag]);

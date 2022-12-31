@@ -21,7 +21,7 @@ class m180309_071209_octogears extends Migration
             'headgear',
             'cuttlegear',
             'ink_recovery_up',
-            5005
+            5005,
         );
         $this->upGear2(
             static::name2key('Octo Layered LS'),
@@ -29,7 +29,7 @@ class m180309_071209_octogears extends Migration
             'clothing',
             'cuttlegear',
             'ink_saver_main',
-            3012
+            3012,
         );
     }
 

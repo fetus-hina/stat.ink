@@ -113,7 +113,7 @@ class FestTitle extends \yii\db\ActiveRecord
                 function (FestTitleGender $model): FestTitleGender {
                     return $model;
                 },
-                'title_id'
+                'title_id',
             );
         }
         return $cache[$this->id][$gender->id] ?? null;

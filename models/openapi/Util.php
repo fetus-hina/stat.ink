@@ -35,7 +35,7 @@ trait Util
         $hash = substr(
             strtolower(Base32::encode(hash('sha256', $fqcn, true))),
             0,
-            4
+            4,
         );
         return '__' . $hash . '__' . $baseName;
     }
@@ -112,9 +112,9 @@ trait Util
 
                         return Yii::t(
                             $_category,
-                            ArrayHelper::getValue($item, $valueColumn)
+                            ArrayHelper::getValue($item, $valueColumn),
                         );
-                    }
+                    },
                 ),
                 ArrayHelper::getColumn(
                     $items,
@@ -123,10 +123,10 @@ trait Util
                             function ($key) use ($item): string {
                                 return (string)ArrayHelper::getValue($item, $key);
                             },
-                            $splatnetKeys
+                            $splatnetKeys,
                         );
-                    }
-                )
+                    },
+                ),
             ),
         ]));
     }
@@ -144,7 +144,7 @@ trait Util
                 ? Html::tag(
                     'th',
                     Html::encode(Yii::t('app-apidoc2', 'SplatNet specified ID')),
-                    ['colspan' => (string)count($splatnetKeys)]
+                    ['colspan' => (string)count($splatnetKeys)],
                 )
                 : '',
         ])));
@@ -169,16 +169,16 @@ trait Util
                         function (string $value): string {
                             return Html::tag(
                                 'td',
-                                $value === '' ? '' : Html::tag('code', Html::encode($value))
+                                $value === '' ? '' : Html::tag('code', Html::encode($value)),
                             );
                         },
-                        $splatnetValues
+                        $splatnetValues,
                     )),
                 ]));
             },
             $keys,
             $values,
-            $splatnetValues
+            $splatnetValues,
         )));
     }
 }

@@ -23,7 +23,7 @@ class m180101_093333_hokusai_hue extends Migration
             'missile',
             'hokusai',
             null,
-            1111
+            1111,
         );
     }
 

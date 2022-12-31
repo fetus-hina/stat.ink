@@ -73,7 +73,7 @@ class Weapon2Action extends ViewAction
                     'win' => (int)$row['wins'],
                     'lose' => (int)$row['battles'] - (int)$row['wins'],
                 ];
-            }
+            },
             // }}}
         );
 
@@ -105,7 +105,7 @@ class Weapon2Action extends ViewAction
                     'battles' => (int)$row['battles'],
                 ];
             },
-            'map'
+            'map',
             // }}}
         );
 
@@ -137,7 +137,7 @@ class Weapon2Action extends ViewAction
                     'battles' => (int)$row['battles'],
                 ];
             },
-            'map'
+            'map',
             // }}}
         );
 
@@ -169,7 +169,7 @@ class Weapon2Action extends ViewAction
                     'battles' => (int)$row['battles'],
                 ];
             },
-            'map'
+            'map',
             // }}}
         );
 
@@ -201,7 +201,7 @@ class Weapon2Action extends ViewAction
                     'battles' => (int)$row['battles'],
                 ];
             },
-            'map'
+            'map',
             // }}}
         );
 

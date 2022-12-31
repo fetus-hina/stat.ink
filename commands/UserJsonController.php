@@ -101,7 +101,7 @@ class UserJsonController extends Controller
                     '/usr/bin/env %s user-json/update --userId=%s --basePath=%s',
                     escapeshellarg(dirname(__DIR__) . '/yii'),
                     escapeshellarg($row['user_id']),
-                    escapeshellarg($this->basePath)
+                    escapeshellarg($this->basePath),
                 );
                 passthru($cmdline);
             } else {
@@ -135,7 +135,7 @@ class UserJsonController extends Controller
             foreach ($list as $battle) {
                 $this->appendJson(
                     Json::encode($battle->toJsonArray(['user']), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
-                    strtotime($battle->at)
+                    strtotime($battle->at),
                 );
                 $lastId = $battle->id;
                 ++$count;
@@ -290,7 +290,7 @@ class UserJsonController extends Controller
         $cmdline = sprintf(
             '/usr/bin/zcat %s | /usr/bin/gzip -9c > %s',
             $mainPath,
-            $tmpPath
+            $tmpPath,
         );
         exec($cmdline, $lines, $status);
         if ($status !== 0) {

@@ -14,14 +14,14 @@ class m170828_102311_blackout2 extends Migration
     {
         $this->execute(
             'ALTER TABLE {{user}} ' .
-            "ADD COLUMN [[blackout_list]] blackout_type DEFAULT 'not-friend'::blackout_type "
+            "ADD COLUMN [[blackout_list]] blackout_type DEFAULT 'not-friend'::blackout_type ",
         );
     }
 
     public function down()
     {
         $this->execute(
-            'ALTER TABLE {{user}} DROP COLUMN [[blackout_list]]'
+            'ALTER TABLE {{user}} DROP COLUMN [[blackout_list]]',
         );
     }
 }

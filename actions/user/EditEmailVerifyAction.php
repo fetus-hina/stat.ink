@@ -62,7 +62,7 @@ class EditEmailVerifyAction extends ViewAction
                 $oldEmail,
                 $realEmail,
                 $user,
-                $oldEmailLang ?? $newEmailLang
+                $oldEmailLang ?? $newEmailLang,
             );
             $this->controller->redirect(['user/profile']);
         }

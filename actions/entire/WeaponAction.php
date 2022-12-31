@@ -37,7 +37,7 @@ final class WeaponAction extends Action
         }
         if (!$this->weapon) {
             throw new NotFoundHttpException(
-                Yii::t('yii', 'Page not found.')
+                Yii::t('yii', 'Page not found.'),
             );
         }
 
@@ -137,7 +137,7 @@ final class WeaponAction extends Action
                     'name' => Yii::t('app-map', $row['name']),
                 ];
             },
-            Map::find()->asArray()->all()
+            Map::find()->asArray()->all(),
         );
         usort($ret, function ($a, $b) {
             return strnatcasecmp($a['name'], $b['name']);
@@ -209,7 +209,7 @@ final class WeaponAction extends Action
                     'win_pct'   => $row['battles'] > 0 ? $row['wins'] / $row['battles'] * 100 : 0,
                 ];
             },
-            $query->createCommand()->queryAll()
+            $query->createCommand()->queryAll(),
         );
     }
 }

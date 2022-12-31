@@ -106,7 +106,7 @@ class Schedule2 extends ActiveRecord
     public static function getInfo(): \stdClass
     {
         $currentPeriod = \app\components\helpers\Battle::calcPeriod2(
-            (int)($_SERVER['REQUEST_TIME'] ?? time())
+            (int)($_SERVER['REQUEST_TIME'] ?? time()),
         );
         $formatter = function (int $period): array {
             return array_merge(
@@ -122,8 +122,8 @@ class Schedule2 extends ActiveRecord
                             'rule' => $model->rule,
                             'maps' => $model->maps,
                         ];
-                    }
-                )
+                    },
+                ),
             );
         };
         return (object)[

@@ -108,16 +108,16 @@ abstract class BaseLatestBattlesAction extends ViewAction
                             'one' => preg_replace(
                                 '/\b1\b/',
                                 '{delta}',
-                                Yii::t('app-reltime', $format, ['delta' => 1])
+                                Yii::t('app-reltime', $format, ['delta' => 1]),
                             ),
                             'many' => preg_replace(
                                 '/\b42\b/',
                                 '{delta}',
-                                Yii::t('app-reltime', $format, ['delta' => 42])
+                                Yii::t('app-reltime', $format, ['delta' => 42]),
                             ),
                         ];
-                    }
-                )
+                    },
+                ),
             ),
         ];
     }
@@ -148,7 +148,7 @@ abstract class BaseLatestBattlesAction extends ViewAction
                             default:
                                 return null;
                         }
-                    }
+                    },
                 ),
             ),
         );

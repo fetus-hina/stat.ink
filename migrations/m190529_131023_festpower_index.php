@@ -22,7 +22,7 @@ class m190529_131023_festpower_index extends Migration
                 '[[his_team_estimate_fest_power]] IS NOT NULL',
                 '[[is_win]] IS NOT NULL',
                 '[[period]] IS NOT NULL',
-            ]) . '))'
+            ]) . '))',
         );
     }
 

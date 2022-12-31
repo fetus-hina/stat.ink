@@ -61,8 +61,8 @@ class m170922_201548_russian_time extends Migration
                         'Asia/Kamchatka',
                     ]])
                     ->orderBy(['id' => SORT_ASC])
-                    ->all()
-            )
+                    ->all(),
+            ),
         );
     }
 

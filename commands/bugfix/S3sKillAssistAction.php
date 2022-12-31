@@ -107,7 +107,7 @@ final class S3sKillAssistAction extends Action
                     $models,
                 ),
                 fn (?int $id): bool => $id !== null,
-            )
+            ),
         );
     }
 

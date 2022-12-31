@@ -30,7 +30,7 @@ final class IndexI18nButtons extends Widget
             ['class' => [
                 'd-inline-block',
                 'mb-2',
-            ]]
+            ]],
         );
     }
 
@@ -134,7 +134,7 @@ final class IndexI18nButtons extends Widget
                 'aria-role' => 'button',
                 'aria-hidden' => 'true',
                 'title' => $popup,
-            ]
+            ],
         );
     }
 

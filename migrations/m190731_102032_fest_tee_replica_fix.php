@@ -20,7 +20,7 @@ class m190731_102032_fest_tee_replica_fix extends Migration
         $this->update(
             'gear2',
             ['splatnet' => 23000],
-            ['key' => static::name2key('Splatfest Tee Replica')]
+            ['key' => static::name2key('Splatfest Tee Replica')],
         );
     }
 
@@ -29,7 +29,7 @@ class m190731_102032_fest_tee_replica_fix extends Migration
         $this->update(
             'gear2',
             ['splatnet' => 26001], // wrong
-            ['key' => static::name2key('Splatfest Tee Replica')]
+            ['key' => static::name2key('Splatfest Tee Replica')],
         );
     }
 }

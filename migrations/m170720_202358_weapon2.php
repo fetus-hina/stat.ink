@@ -38,7 +38,7 @@ class m170720_202358_weapon2 extends Migration
             'charger',
             'splashshield',
             'pitcher',
-            'splatcharger'
+            'splatcharger',
         );
         $this->upWeapon(
             'splatscope_collabo',
@@ -46,7 +46,7 @@ class m170720_202358_weapon2 extends Migration
             'charger',
             'splashshield',
             'pitcher',
-            'splatcharger'
+            'splatcharger',
         );
         $this->upWeapon('liter4k', 'E-liter 4K', 'charger', 'trap', 'amefurashi');
         $this->upWeapon('liter4k_scope', 'E-liter 4K Scope', 'charger', 'trap', 'amefurashi', 'liter4k');

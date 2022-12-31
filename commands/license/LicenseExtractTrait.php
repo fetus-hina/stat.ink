@@ -53,7 +53,7 @@ trait LicenseExtractTrait
         ]);
         return ArrayHelper::getValue(
             Json::decode($this->execCommand($cmdline)),
-            'dependencies'
+            'dependencies',
         );
     }
 
@@ -64,7 +64,7 @@ trait LicenseExtractTrait
                 (isset($info['version']) && trim((string)$info['version']) !== '')
                     ? "{$name}@{$info['version']}"
                     : $name,
-                Yii::getAlias('@app/vendor') . '/' . $name
+                Yii::getAlias('@app/vendor') . '/' . $name,
             );
         }
     }
@@ -88,7 +88,7 @@ trait LicenseExtractTrait
         if (!FileHelper::createDirectory(dirname($distPath))) {
             fwrite(
                 STDERR,
-                "license/extract: could not create directory: " . dirname($distPath) . "\n"
+                "license/extract: could not create directory: " . dirname($distPath) . "\n",
             );
             return false;
         }
@@ -160,7 +160,7 @@ trait LicenseExtractTrait
         $packageName = preg_replace(
             '/[^!#$%()+,.\/-9@-Z_a-z]+/',
             '-',
-            $packageName
+            $packageName,
         );
         $packageName = str_replace('/../', '/', $packageName);
         $packageName = str_replace('/./', '/', $packageName);

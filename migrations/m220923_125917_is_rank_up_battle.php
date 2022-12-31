@@ -20,7 +20,7 @@ final class m220923_125917_is_rank_up_battle extends Migration
         $this->addColumn(
             '{{%battle3}}',
             'is_rank_up_battle',
-            (string)$this->boolean()->null()
+            (string)$this->boolean()->null(),
         );
 
         return true;

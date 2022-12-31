@@ -54,19 +54,19 @@ class XPowerHistory extends Widget
                 function (Battle2 $model): ?float {
                     return $model->x_power_after < 1 ? null : (float)$model->x_power_after;
                 },
-                $history
+                $history,
             )),
             Json::encode(array_map(
                 function (Battle2 $model): ?float {
                     return $model->estimate_x_power < 1 ? null : (float)$model->estimate_x_power;
                 },
-                $history
+                $history,
             )),
             Json::encode(array_map(
                 function (Battle2 $model): ?bool {
                     return $model->is_win;
                 },
-                $history
+                $history,
             )),
         ]));
 
@@ -82,7 +82,7 @@ class XPowerHistory extends Widget
                             'mb-1',
                         ],
                     ]),
-                    ['class' => 'table-responsive']
+                    ['class' => 'table-responsive'],
                 ),
                 Html::tag('div', '', [
                     'id' => $this->id . '-legends',
@@ -154,7 +154,7 @@ class XPowerHistory extends Widget
                 }
 
                 return true;
-            }
+            },
         );
 
         if (count($history) < 2) {

@@ -22,7 +22,7 @@ class m190331_170409_splatoon2_4_6_0 extends Migration
             '4.6.x',
             '4.6.0',
             '4.6.0',
-            new DateTimeImmutable('2019-04-03T11:00:00+09:00')
+            new DateTimeImmutable('2019-04-03T11:00:00+09:00'),
         );
     }
 

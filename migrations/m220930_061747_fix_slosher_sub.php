@@ -20,12 +20,12 @@ final class m220930_061747_fix_slosher_sub extends Migration
         $this->update(
             '{{%weapon3}}',
             ['subweapon_id' => $this->key2id('{{%subweapon3}}', 'splashbomb')],
-            ['key' => 'bucketslosher']
+            ['key' => 'bucketslosher'],
         );
         $this->update(
             '{{%weapon3}}',
             ['subweapon_id' => $this->key2id('{{%subweapon3}}', 'poisonmist')],
-            ['key' => 'hissen']
+            ['key' => 'hissen'],
         );
 
         return true;
@@ -39,12 +39,12 @@ final class m220930_061747_fix_slosher_sub extends Migration
         $this->update(
             '{{%weapon3}}',
             ['subweapon_id' => $this->key2id('{{%subweapon3}}', 'poisonmist')],
-            ['key' => 'bucketslosher']
+            ['key' => 'bucketslosher'],
         );
         $this->update(
             '{{%weapon3}}',
             ['subweapon_id' => $this->key2id('{{%subweapon3}}', 'splashbomb')],
-            ['key' => 'hissen']
+            ['key' => 'hissen'],
         );
 
         return true;

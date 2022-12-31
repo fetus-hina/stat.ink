@@ -65,7 +65,7 @@ class AssetManager extends FWAssetManager
         $hash = strtolower(substr(
             Base32::encode(hash_hmac('sha256', $path, Json::encode($options), true)),
             0,
-            16
+            16,
         ));
         Yii::endProfile($profile, __METHOD__);
         Yii::info("Asset path hash = {$hash}", __METHOD__);

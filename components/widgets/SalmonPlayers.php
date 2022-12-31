@@ -67,7 +67,7 @@ class SalmonPlayers extends Widget
                 "{$id} th:first-child" => [
                     'width' => 'auto',
                 ],
-            ])
+            ]),
         ));
 
         return Html::tag(
@@ -78,11 +78,11 @@ class SalmonPlayers extends Widget
                 [
                     'id' => $this->id,
                     'class' => 'table table-striped table-bordered',
-                ]
+                ],
             ),
             [
                 'class' => 'table-responsive',
-            ]
+            ],
         );
     }
 
@@ -98,8 +98,8 @@ class SalmonPlayers extends Widget
                         'nameOnly' => false,
                     ]));
                 },
-                $this->players
-            ))
+                $this->players,
+            )),
         ));
     }
 
@@ -145,7 +145,7 @@ class SalmonPlayers extends Widget
                         function (SalmonPlayerSpecialUse2 $use): string {
                             return $this->formatter->asInteger($use->count);
                         },
-                        $player->specialUses
+                        $player->specialUses,
                     ));
                 },
             ],
@@ -174,7 +174,7 @@ class SalmonPlayers extends Widget
             function (array $row): string {
                 return $this->renderRow($row);
             },
-            $data
+            $data,
         )));
     }
 
@@ -186,7 +186,7 @@ class SalmonPlayers extends Widget
                 function (SalmonPlayer2 $player) use ($rowInfo): ?string {
                     return $this->renderCellData($rowInfo, $player);
                 },
-                $this->players
+                $this->players,
             )),
         ]));
     }
@@ -196,7 +196,7 @@ class SalmonPlayers extends Widget
         return Html::tag(
             'th',
             $this->formatter->asText($rowInfo['label']),
-            ['scope' => 'row']
+            ['scope' => 'row'],
         );
     }
 
@@ -206,8 +206,8 @@ class SalmonPlayers extends Widget
             'td',
             $this->formatter->format(
                 $this->renderCellValue($rowInfo, $player),
-                ArrayHelper::getValue($rowInfo, 'format', 'text')
-            )
+                ArrayHelper::getValue($rowInfo, 'format', 'text'),
+            ),
         );
     }
 

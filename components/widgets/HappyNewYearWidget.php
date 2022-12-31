@@ -24,7 +24,7 @@ final class HappyNewYearWidget extends Widget
     {
         $now = new DateTimeImmutable(
             'now',
-            new DateTimeZone(Yii::$app->timeZone)
+            new DateTimeZone(Yii::$app->timeZone),
         );
 
         $month = (int)$now->format('n');
@@ -53,7 +53,7 @@ final class HappyNewYearWidget extends Widget
                     'align-items' => 'center',
                     'margin-bottom' => '15px',
                 ],
-            ]
+            ],
         );
     }
 
@@ -66,12 +66,12 @@ final class HappyNewYearWidget extends Widget
         $img = Html::img(
             $am->getAssetUrl(
                 $asset,
-                "eto/{$eto}.png"
+                "eto/{$eto}.png",
             ),
             ['style' => [
                 'width' => 'auto',
                 'height' => '100px',
-            ]]
+            ]],
         );
 
         $lang = Yii::$app->language;
@@ -97,7 +97,7 @@ final class HappyNewYearWidget extends Widget
                     'margin-left' => '15px',
                     'font-size' => '42px',
                 ],
-            ]
+            ],
         );
     }
 }

@@ -62,7 +62,7 @@ class m151009_133316_fest extends Migration
                 'ADD COLUMN [[his_team_color_hue]] INTEGER',
                 'ADD COLUMN [[my_team_color_rgb]] CHAR(6)',
                 'ADD COLUMN [[his_team_color_rgb]] CHAR(6)',
-            ])
+            ]),
         );
         $this->addForeignKey('fk_battle_9', 'battle', 'gender_id', 'gender', 'id');
         $this->addForeignKey('fk_battle_10', 'battle', 'fest_title_id', 'fest_title', 'id');
@@ -78,7 +78,7 @@ class m151009_133316_fest extends Migration
                 'DROP COLUMN [[his_team_color_hue]]',
                 'DROP COLUMN [[my_team_color_rgb]]',
                 'DROP COLUMN [[his_team_color_rgb]]',
-            ])
+            ]),
         );
         $this->dropTable('fest_title_gender');
         $this->dropTable('fest_title');

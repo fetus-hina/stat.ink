@@ -163,8 +163,8 @@ class Migration extends BaseMigration
                 function (string $column): string {
                     return $this->db->quoteColumnName($column);
                 },
-                (array)$columns
-            ))
+                (array)$columns,
+            )),
         );
     }
 
@@ -173,7 +173,7 @@ class Migration extends BaseMigration
         $time = $this->beginCommand(sprintf(
             'add columns %s to table %s',
             implode(', ', array_keys($columns)),
-            $table
+            $table,
         ));
 
         $db = $this->db;
@@ -183,7 +183,7 @@ class Migration extends BaseMigration
             $alter[] = sprintf(
                 'ADD COLUMN %s %s',
                 $db->quoteColumnName($column),
-                $db->getQueryBuilder()->getColumnType($type)
+                $db->getQueryBuilder()->getColumnType($type),
             );
 
             if ($type instanceof ColumnSchemaBuilder && $type->comment !== null) {
@@ -222,7 +222,7 @@ class Migration extends BaseMigration
         $time = $this->beginCommand(sprintf(
             "drop columns %s from table %s",
             implode(', ', array_keys($columns)),
-            $table
+            $table,
         ));
 
         $db = $this->db;
@@ -230,7 +230,7 @@ class Migration extends BaseMigration
             function (string $column) use ($db): string {
                 return 'DROP COLUMN ' . $db->quoteColumnName($column);
             },
-            $columns
+            $columns,
         ));
         $db->createCommand($sql)->execute();
         $this->endCommand($time);
@@ -249,8 +249,8 @@ class Migration extends BaseMigration
             $db->quoteValue(sprintf(
                 '%s.%s',
                 $db->quoteTableName($schema),
-                $db->quoteTableName($table)
-            ))
+                $db->quoteTableName($table),
+            )),
         );
         $result = $db->createCommand($sql)->queryScalar();
         return $result != '';

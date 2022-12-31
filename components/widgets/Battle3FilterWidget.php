@@ -100,7 +100,7 @@ final class Battle3FilterWidget extends Widget
             $form
                 ->field($filter, 'lobby')
                 ->dropDownList(...$filter->getLobbyDropdown())
-                ->label(false)
+                ->label(false),
         );
     }
 
@@ -114,7 +114,7 @@ final class Battle3FilterWidget extends Widget
             $form
                 ->field($filter, 'rule')
                 ->dropDownList(...$filter->getRuleDropdown())
-                ->label(false)
+                ->label(false),
         );
     }
 
@@ -128,7 +128,7 @@ final class Battle3FilterWidget extends Widget
             $form
                 ->field($filter, 'map')
                 ->dropDownList(...$filter->getMapDropdown())
-                ->label(false)
+                ->label(false),
         );
     }
 
@@ -142,7 +142,7 @@ final class Battle3FilterWidget extends Widget
             $form
                 ->field($filter, 'weapon')
                 ->dropDownList(...$filter->getWeaponDropdown($this->user))
-                ->label(false)
+                ->label(false),
         );
     }
 
@@ -156,7 +156,7 @@ final class Battle3FilterWidget extends Widget
             $form
                 ->field($filter, 'result')
                 ->dropDownList(...$filter->getResultDropdown())
-                ->label(false)
+                ->label(false),
         );
     }
 
@@ -170,7 +170,7 @@ final class Battle3FilterWidget extends Widget
             $form
                 ->field($filter, 'knockout')
                 ->dropDownList(...$filter->getKnockoutDropdown())
-                ->label(false)
+                ->label(false),
         );
     }
 
@@ -184,7 +184,7 @@ final class Battle3FilterWidget extends Widget
             $form
                 ->field($filter, 'term')
                 ->dropDownList(...$filter->getTermDropdown())
-                ->label(false)
+                ->label(false),
         );
     }
 
@@ -200,7 +200,7 @@ final class Battle3FilterWidget extends Widget
                         'btn',
                         'btn-primary',
                     ],
-                ]
+                ],
             );
         }
 
@@ -213,7 +213,7 @@ final class Battle3FilterWidget extends Widget
             [
                 'type' => 'submit',
                 'class' => ['btn', 'btn-primary'],
-            ]
+            ],
         );
     }
 

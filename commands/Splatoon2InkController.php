@@ -83,7 +83,7 @@ class Splatoon2InkController extends Controller
             $tmpRules = ArrayHelper::map(
                 Rule2::find()->asArray()->all(),
                 'key',
-                'id'
+                'id',
             );
             $rules = [
                 'turf_war'      => $tmpRules['nawabari'],
@@ -102,7 +102,7 @@ class Splatoon2InkController extends Controller
                     ->asArray()
                     ->all(),
                 'splatnet',
-                'id'
+                'id',
             );
         }
 
@@ -136,7 +136,7 @@ class Splatoon2InkController extends Controller
                     function (stdClass $stage) use ($maps): int {
                         return $maps[$stage->id] ?? -1;
                     },
-                    $stages
+                    $stages,
                 )])
                 ->count();
             if ($exists == $matches) {
@@ -267,11 +267,11 @@ class Splatoon2InkController extends Controller
                         ? (int)$id
                         : null;
                 },
-                $json->weapons
+                $json->weapons,
             ),
             function (?int $id): bool {
                 return $id !== null;
-            }
+            },
         );
 
         $currentWeapons = array_map(
@@ -282,7 +282,7 @@ class Splatoon2InkController extends Controller
                 ->with('weapon')
                 ->andWhere(['schedule_id' => $schedule->id])
                 ->orderBy(['id' => SORT_ASC])
-                ->all()
+                ->all(),
         );
 
         if ($jsonWeapons === $currentWeapons) {
@@ -326,7 +326,7 @@ class Splatoon2InkController extends Controller
             '%s/%s (+%s)',
             'stat.ink',
             Yii::$app->version,
-            'https://github.com/fetus-hina/stat.ink'
+            'https://github.com/fetus-hina/stat.ink',
         ));
         $curl->get($url, $data);
         if ($curl->error) {

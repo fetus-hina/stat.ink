@@ -23,7 +23,7 @@ class m180614_211329_octoshot extends Migration
             'jetpack',
             'sshooter',
             'sshooter_collabo',
-            46
+            46,
         );
     }
 

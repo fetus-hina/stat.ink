@@ -33,7 +33,7 @@ class m171125_144954_lang extends Migration
         $c = ArrayHelper::map(
             Charset::find()->asArray()->all(),
             'php_name',
-            'id'
+            'id',
         );
 
         $this->batchInsert('language_charset', ['language_id', 'charset_id', 'is_win_acp'], [

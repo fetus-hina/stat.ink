@@ -37,7 +37,7 @@ final class LobbyAction extends Action
             fn (Lobby3 $model): array => LobbyApiFormatter::toJson($model, $full),
             Lobby3::find()
                 ->orderBy(['rank' => SORT_ASC])
-                ->all()
+                ->all(),
         );
     }
 }

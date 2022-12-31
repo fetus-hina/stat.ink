@@ -17,7 +17,7 @@ class m181107_065855_polaris extends Migration
         $this->update(
             'salmon_map2',
             ['splatnet_hint' => '/images/coop_stage/50064ec6e97aac91e70df5fc2cfecf61ad8615fd.png'],
-            ['key' => 'polaris']
+            ['key' => 'polaris'],
         );
     }
 
@@ -26,7 +26,7 @@ class m181107_065855_polaris extends Migration
         $this->update(
             'salmon_map2',
             ['splatnet_hint' => null],
-            ['key' => 'polaris']
+            ['key' => 'polaris'],
         );
     }
 }

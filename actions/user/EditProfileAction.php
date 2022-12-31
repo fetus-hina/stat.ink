@@ -55,14 +55,14 @@ class EditProfileAction extends BaseAction
                         $row['_name'] = sprintf(
                             '%s / %s',
                             $row['name'],
-                            $row['name_en']
+                            $row['name_en'],
                         );
                         return $row;
                     },
-                    Language::find()->orderBy('name')->asArray()->all()
+                    Language::find()->orderBy('name')->asArray()->all(),
                 ),
                 'id',
-                '_name'
+                '_name',
             ),
             'regions' => ArrayHelper::map(
                 array_map(
@@ -72,10 +72,10 @@ class EditProfileAction extends BaseAction
                             'name' => Yii::t('app-region', $row['name']),
                         ];
                     },
-                    Region::find()->orderBy('id')->asArray()->all()
+                    Region::find()->orderBy('id')->asArray()->all(),
                 ),
                 'id',
-                'name'
+                'name',
             ),
         ]);
     }

@@ -39,7 +39,7 @@ trait SalmonWeaponMigration
             $this->execute(
                 'INSERT INTO {{salmon_main_weapon2}} ' .
                 '([[key]], [[name]], [[splatnet]], [[weapon_id]]) ' .
-                $select->createCommand()->rawSql
+                $select->createCommand()->rawSql,
             );
         });
     }

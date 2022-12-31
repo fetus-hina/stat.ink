@@ -61,14 +61,14 @@ final class UserMiniInfo3 extends Widget
                         fn (?string $item): bool => $item !== null,
                     )),
                 ]),
-                ['id' => $this->id . '-box']
+                ['id' => $this->id . '-box'],
             ),
             [
                 'id' => $this->id,
                 'itemprop' => 'author',
                 'itemscope' => true,
                 'itemtype' => 'http://schema.org/Person',
-            ]
+            ],
         );
     }
 
@@ -83,8 +83,8 @@ final class UserMiniInfo3 extends Widget
                 ]),
                 ['show-user/profile',
                     'screen_name' => $this->user->screen_name,
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -99,7 +99,7 @@ final class UserMiniInfo3 extends Widget
                     'width' => '48',
                 ],
             ]),
-            ['class' => 'miniinfo-user-icon']
+            ['class' => 'miniinfo-user-icon'],
         );
     }
 
@@ -111,7 +111,7 @@ final class UserMiniInfo3 extends Widget
             [
                 'class' => 'miniinfo-user-name',
                 'itemprop' => 'name',
-            ]
+            ],
         );
     }
 
@@ -238,7 +238,7 @@ final class UserMiniInfo3 extends Widget
                 Html::tag(
                     'div',
                     Html::encode(Yii::t('app', 'Activity')),
-                    ['class' => 'label-user']
+                    ['class' => 'label-user'],
                 ),
                 Html::tag(
                     'div',
@@ -249,10 +249,10 @@ final class UserMiniInfo3 extends Widget
                         'size' => 9,
                         'only' => 'spl3',
                     ]),
-                    ['class' => 'table-responsive bg-white']
+                    ['class' => 'table-responsive bg-white'],
                 ),
             ]),
-            ['class' => 'miniinfo-databox']
+            ['class' => 'miniinfo-databox'],
         );
     }
 

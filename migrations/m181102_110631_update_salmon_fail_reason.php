@@ -18,7 +18,7 @@ class m181102_110631_update_salmon_fail_reason extends Migration
             $this->update(
                 'salmon_fail_reason2',
                 ['key' => $new],
-                ['key' => $old]
+                ['key' => $old],
             );
         }
     }
@@ -29,7 +29,7 @@ class m181102_110631_update_salmon_fail_reason extends Migration
             $this->update(
                 'salmon_fail_reason2',
                 ['key' => $old],
-                ['key' => $new]
+                ['key' => $new],
             );
         }
     }

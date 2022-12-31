@@ -49,10 +49,10 @@ class AssetPublishAction extends Action
             array_map(
                 [$this, 'enumerateDirectoryClasses'],
                 array_keys($this->directories),
-                array_values($this->directories)
+                array_values($this->directories),
             ),
             'array_merge',
-            $this->classes
+            $this->classes,
         );
         natsort($list);
         return array_values(array_unique($list));
@@ -73,8 +73,8 @@ class AssetPublishAction extends Action
                     $result,
                     $this->enumerateDirectoryClasses(
                         $entry->getPathname(),
-                        $namespace . '\\' . $fileName
-                    )
+                        $namespace . '\\' . $fileName,
+                    ),
                 );
                 continue;
             }

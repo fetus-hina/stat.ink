@@ -61,7 +61,7 @@ final class WeaponsUseAction extends Action
                 Yii::t('app', 'Main Weapon') => $this->getMainWeapon(),
                 Yii::t('app', 'Sub Weapon') => $this->getSubWeapon(),
                 Yii::t('app', 'Special') => $this->getSpecialWeapon(),
-            ]
+            ],
         );
     }
 
@@ -79,7 +79,7 @@ final class WeaponsUseAction extends Action
                     }
                     uasort($ret, 'strnatcasecmp');
                     return $ret;
-                })($type)
+                })($type),
             );
         }
         return $ret;
@@ -196,12 +196,12 @@ final class WeaponsUseAction extends Action
                             date('Y-m-d', strtotime(sprintf(
                                 '%04d-W%02d',
                                 $row['isoyear'],
-                                $row['isoweek']
+                                $row['isoweek'],
                             ))),
                             $battles > 0 ? $row[$columnKey] * 100 / $battles : null,
                         ];
                     },
-                    $list
+                    $list,
                 ),
             ];
         }
@@ -351,11 +351,11 @@ final class WeaponsUseAction extends Action
             }
             $query->select['w' . $i] = sprintf(
                 'SUM(CASE WHEN (%s) THEN {{stat}}.[[battles]] ELSE 0 END)',
-                implode(' AND ', $when)
+                implode(' AND ', $when),
             );
             $query->select['b' . $i] = sprintf(
                 'SUM(CASE WHEN (%s) THEN {{stat}}.[[battles]] ELSE 0 END)',
-                implode(' AND ', $whenRule)
+                implode(' AND ', $whenRule),
             );
         }
         return $query->all();

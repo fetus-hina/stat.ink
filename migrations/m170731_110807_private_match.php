@@ -35,7 +35,7 @@ class m170731_110807_private_match extends Migration
                 ->select('*')
                 ->from('rule2')
                 ->where(['key' => ['nawabari', 'area', 'yagura', 'hoko']])
-                ->all()
+                ->all(),
         ));
     }
 

@@ -28,7 +28,7 @@ class BattleSummaryDialog extends Widget
                 'id' => $this->id,
                 'role' => 'dialog',
                 'tabindex' => '-1',
-            ]
+            ],
         );
     }
 
@@ -42,12 +42,12 @@ class BattleSummaryDialog extends Widget
                     $this->renderHeader(),
                     $this->renderBody(),
                 ]),
-                ['class' => 'modal-content']
+                ['class' => 'modal-content'],
             ),
             [
                 'class' => 'modal-dialog',
                 'role' => 'document',
-            ]
+            ],
         );
     }
 
@@ -59,7 +59,7 @@ class BattleSummaryDialog extends Widget
                 $this->renderCloseButton(),
                 $this->renderHeaderTitle(),
             ]),
-            ['class' => 'modal-header']
+            ['class' => 'modal-header'],
         );
     }
 
@@ -74,7 +74,7 @@ class BattleSummaryDialog extends Widget
                     'dismiss' => 'modal',
                 ],
                 'aria-label' => Yii::t('app', 'Close'),
-            ]
+            ],
         );
     }
 
@@ -98,17 +98,17 @@ class BattleSummaryDialog extends Widget
                             $this->renderPlotArea(),
                             $this->renderDataArea(),
                         ]),
-                        ['class' => 'col-12 col-xs-12 col-md-7']
+                        ['class' => 'col-12 col-xs-12 col-md-7'],
                     ),
                     Html::tag(
                         'div',
                         $this->renderLegend(),
-                        ['class' => 'col-12 col-xs-12 col-md-5']
+                        ['class' => 'col-12 col-xs-12 col-md-5'],
                     ),
                 ]),
-                ['class' => 'row']
+                ['class' => 'row'],
             ),
-            ['class' => 'modal-body']
+            ['class' => 'modal-body'],
         );
     }
 
@@ -151,7 +151,7 @@ class BattleSummaryDialog extends Widget
                     ]));
                 },
                 array_keys($data),
-                array_values($data)
+                array_values($data),
             ))),
             ['class' => [
                 'table',
@@ -159,7 +159,7 @@ class BattleSummaryDialog extends Widget
                 'table-hover',
                 'mx-auto',
                 'my-3',
-            ]]
+            ]],
         );
     }
 
@@ -170,13 +170,13 @@ class BattleSummaryDialog extends Widget
             Html::img(
                 Yii::$app->assetManager->getAssetUrl(
                     Yii::$app->assetManager->getBundle(AppAsset::class),
-                    'summary-legends.png'
+                    'summary-legends.png',
                 ),
                 ['style' => [
                     'width' => '100%',
                     'max-width' => '226px',
                     'height' => 'auto',
-                ]]
+                ]],
             ),
         ]));
     }

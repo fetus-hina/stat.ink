@@ -50,7 +50,7 @@ class Application extends Base
                         $result = MachineTranslateHelper::translate(
                             $event->category,
                             $event->message,
-                            $event->language
+                            $event->language,
                         );
                         if (is_string($result)) {
                             $event->translatedMessage = $result;
@@ -184,7 +184,7 @@ class Application extends Base
                 'name' => static::COOKIE_MACHINE_TRANSLATION,
                 'sameSite' => Cookie::SAME_SITE_LAX,
                 'value' => $enabled ? 'enabled' : 'disabled',
-            ])
+            ]),
         );
     }
 

@@ -41,7 +41,7 @@ class UserStatByMapRuleDetailAction extends BaseAction
                 'user' => $user,
                 'filter' => $filter,
             ],
-            $this->getData($user, $filter)
+            $this->getData($user, $filter),
         ));
     }
 

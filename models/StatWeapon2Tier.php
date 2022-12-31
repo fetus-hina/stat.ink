@@ -54,7 +54,7 @@ class StatWeapon2Tier extends ActiveRecord
                     ['>=',
                         '{{stat_weapon2_tier}}.[[players_count]]',
                         StatWeapon2Tier::PLAYERS_COUNT_THRESHOLD,
-                    ]
+                    ],
                 );
                 return $this;
             }
@@ -216,7 +216,7 @@ class StatWeapon2Tier extends ActiveRecord
             ->from(['t' => static::tableName()])
             ->innerJoin(
                 ['v' => SplatoonVersionGroup2::tableName()],
-                '{{t}}.[[version_group_id]] = {{v}}.[[id]]'
+                '{{t}}.[[version_group_id]] = {{v}}.[[id]]',
             )
             ->andWhere(['{{t}}.[[rule_id]]' => $rule->id])
             ->groupBy([
@@ -243,7 +243,7 @@ class StatWeapon2Tier extends ActiveRecord
                     'vTag' => $row['vtag'],
                     'vName' => $row['vname'],
                 ];
-            }
+            },
         );
     }
 }

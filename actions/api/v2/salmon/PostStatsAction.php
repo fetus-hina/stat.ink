@@ -56,7 +56,7 @@ class PostStatsAction extends \yii\web\ViewAction
 
         $resp->headers->set(
             'location',
-            Url::to(['api-v2-salmon/view-stats', 'id' => $newId], true)
+            Url::to(['api-v2-salmon/view-stats', 'id' => $newId], true),
         );
         return null;
     }
@@ -84,8 +84,8 @@ class PostStatsAction extends \yii\web\ViewAction
             $_SERVER['REMOTE_ADDR'],
             Json::encode(
                 ['error' => $errors],
-                JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
-            )
+                JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE,
+            ),
         ));
     }
 }

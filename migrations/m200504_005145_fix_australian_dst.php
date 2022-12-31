@@ -35,7 +35,7 @@ class m200504_005145_fix_australian_dst extends Migration
                 'name' => 'TEMPORARILY',
                 'order' => 0x7fffffff,
             ],
-            ['id' => $adelaide->id]
+            ['id' => $adelaide->id],
         );
 
         $this->update(
@@ -44,7 +44,7 @@ class m200504_005145_fix_australian_dst extends Migration
                 'name' => $adelaide->name,
                 'order' => $adelaide->order,
             ],
-            ['id' => $darwin->id]
+            ['id' => $darwin->id],
         );
 
         $this->update(
@@ -53,7 +53,7 @@ class m200504_005145_fix_australian_dst extends Migration
                 'name' => $darwin->name,
                 'order' => $darwin->order,
             ],
-            ['id' => $adelaide->id]
+            ['id' => $adelaide->id],
         );
 
         return true;

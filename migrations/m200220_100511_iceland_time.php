@@ -58,7 +58,7 @@ class m200220_100511_iceland_time extends Migration
                 ->andWhere(['timezone.identifier' => static::ICELAND_TZ])
                 ->limit(1)
                 ->scalar(),
-            FILTER_VALIDATE_INT
+            FILTER_VALIDATE_INT,
         );
     }
 
@@ -71,7 +71,7 @@ class m200220_100511_iceland_time extends Migration
                 ->andWhere(['country.key' => static::ICELAND_TLD])
                 ->limit(1)
                 ->scalar(),
-            FILTER_VALIDATE_INT
+            FILTER_VALIDATE_INT,
         );
     }
 
@@ -97,7 +97,7 @@ class m200220_100511_iceland_time extends Migration
                 ->select('order')
                 ->from('timezone')
                 ->orderBy(['order' => SORT_ASC])
-                ->column()
+                ->column(),
         );
 
         for ($v = $refId + 1;; ++$v) {

@@ -21,7 +21,7 @@ class m180316_081159_fix extends Migration
                 'key' => static::name2key('Sea Slug Volt 95s'),
                 'name' => 'Sea Slug Volt 95s',
             ],
-            ['key' => static::name2key('Sea Slug Volt 950s')]
+            ['key' => static::name2key('Sea Slug Volt 950s')],
         );
     }
 
@@ -33,7 +33,7 @@ class m180316_081159_fix extends Migration
                 'key' => static::name2key('Sea Slug Volt 950s'),
                 'name' => 'Sea Slug Volt 950s',
             ],
-            ['key' => static::name2key('Sea Slug Volt 95s')]
+            ['key' => static::name2key('Sea Slug Volt 95s')],
         );
     }
 }

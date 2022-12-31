@@ -53,7 +53,7 @@ final class BattlePrevNext extends Widget
                 'style' => [
                     'margin-bottom' => '15px',
                 ],
-            ]
+            ],
         );
     }
 
@@ -71,9 +71,9 @@ final class BattlePrevNext extends Widget
                     $this->generatePrevLabel($this->prevBattle),
                 ]),
                 $this->generateUrl($this->prevBattle),
-                ['class' => 'btn btn-default']
+                ['class' => 'btn btn-default'],
             ),
-            ['class' => 'col-xs-6']
+            ['class' => 'col-xs-6'],
         );
     }
 
@@ -91,9 +91,9 @@ final class BattlePrevNext extends Widget
                     Icon::nextPage(),
                 ]),
                 $this->generateUrl($this->nextBattle),
-                ['class' => 'btn btn-default']
+                ['class' => 'btn btn-default'],
             ),
-            ['class' => 'col-xs-6 pull-right text-right']
+            ['class' => 'col-xs-6 pull-right text-right'],
         );
     }
 

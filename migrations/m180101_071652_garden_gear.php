@@ -21,14 +21,14 @@ class m180101_071652_garden_gear extends Migration
             'clothing',
             static::name2key('Grizzco'),
             null,
-            21003
+            21003,
         );
     }
 
     public function safeDown()
     {
         $this->downGear2(
-            static::name2key('Garden Gear')
+            static::name2key('Garden Gear'),
         );
     }
 }

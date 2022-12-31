@@ -87,7 +87,7 @@ class User extends ActiveRecord implements IdentityInterface
                     ->select('[[last_value]]')
                     ->from('{{user_id_seq}}')
                     ->scalar(),
-                FILTER_VALIDATE_INT
+                FILTER_VALIDATE_INT,
             );
             if (is_int($count)) {
                 return $count;
@@ -362,7 +362,7 @@ class User extends ActiveRecord implements IdentityInterface
                 $query->innerJoin(
                     'battle_image',
                     'battle.id = battle_image.battle_id AND battle_image.type_id = :type',
-                    [':type' => BattleImageType::ID_RESULT]
+                    [':type' => BattleImageType::ID_RESULT],
                 );
                 $query->orderBy('{{battle}}.[[id]] DESC');
                 $query->limit(1);
@@ -478,7 +478,7 @@ class User extends ActiveRecord implements IdentityInterface
             'url' => Url::to(['show-user/profile', 'screen_name' => $this->screen_name], true),
             'join_at' => DateTimeFormatter::unixTimeToJsonArray(
                 strtotime($this->join_at),
-                new DateTimeZone('Etc/UTC')
+                new DateTimeZone('Etc/UTC'),
             ),
             'profile' => [
                 'nnid'          => (string)$this->nnid !== '' ? $this->nnid : null,
@@ -534,7 +534,7 @@ class User extends ActiveRecord implements IdentityInterface
             ], true),
             'join_at' => DateTimeFormatter::unixTimeToJsonArray(
                 strtotime($this->join_at),
-                new DateTimeZone('Etc/UTC')
+                new DateTimeZone('Etc/UTC'),
             ),
             'profile' => [
                 'nnid'          => (string)$this->nnid !== '' ? $this->nnid : null,
@@ -578,10 +578,10 @@ class User extends ActiveRecord implements IdentityInterface
             hash_hmac(
                 'sha256',
                 sprintf('uid=%08d', $this->id),
-                Url::to(['site/index'], true)
+                Url::to(['site/index'], true),
             ),
             0,
-            32
+            32,
         );
     }
 
@@ -594,7 +594,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return Url::to(
             Yii::getAlias('@jdenticon') . '/' . rawurlencode($this->identiconHash) . '.svg',
-            true
+            true,
         );
     }
 
@@ -648,7 +648,7 @@ class User extends ActiveRecord implements IdentityInterface
             [
                 'method' => LoginMethod::findOne(['id' => $loginMethod]),
                 'user' => $user,
-            ]
+            ],
         );
         $mail->setFrom(Yii::$app->params['notifyEmail'])
             ->setTo([$user->email => $user->name])
@@ -660,7 +660,7 @@ class User extends ActiveRecord implements IdentityInterface
                     'screen_name' => $user->screen_name,
                     'site' => Yii::$app->name,
                 ],
-                $user->emailLang->lang ?? 'en-US'
+                $user->emailLang->lang ?? 'en-US',
             ))
             ->send();
     }

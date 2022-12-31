@@ -31,7 +31,7 @@ class UserIcon extends Widget
                     ],
                     function (?string $src): bool {
                         return $src !== null;
-                    }
+                    },
                 ),
                 'options' => $this->options,
             ]),

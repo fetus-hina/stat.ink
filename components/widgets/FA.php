@@ -134,7 +134,7 @@ class FA extends Widget
                     ]),
                 ],
                 $this->contentOptions,
-            )
+            ),
         );
     }
 }

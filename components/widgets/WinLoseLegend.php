@@ -22,13 +22,13 @@ class WinLoseLegend extends Widget
             return Html::tag(
                 'div',
                 $span . ' ' . Html::encode($text),
-                ['class' => "{$base}-inner"]
+                ['class' => "{$base}-inner"],
             );
         };
         $html = Html::tag(
             'div',
             $mkLegend(Yii::t('app', 'Win'), 'win') . $mkLegend(Yii::t('app', 'Lose'), 'lose'),
-            ['id' => "{$base}"]
+            ['id' => "{$base}"],
         );
 
         $this->view->registerCss(implode("\n", [
@@ -39,7 +39,7 @@ class WinLoseLegend extends Widget
                     'display' => 'inline-block',
                     'border' => '2px solid #ddd',
                     'padding' => '2px 5px',
-                ])
+                ]),
             ),
             sprintf(
                 '#%1$s .%1$s-bg{%2$s}',
@@ -49,7 +49,7 @@ class WinLoseLegend extends Widget
                     'width' => '1.618em',
                     'height' => '1em',
                     'line-height' => '1px',
-                ])
+                ]),
             ),
         ]));
 
@@ -58,7 +58,7 @@ class WinLoseLegend extends Widget
                 "\$('.{$base}-bg').each(function(){" .
                     "\$(this).css('background-color', window.colorScheme[\$(this).attr('data-color')]);" .
                 "})" .
-            "})(jQuery);"
+            "})(jQuery);",
         );
         return $html;
     }

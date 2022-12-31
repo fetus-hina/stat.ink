@@ -35,7 +35,7 @@ class m170728_091805_weapon_category2_maneuver extends Migration
                 'key' => [
                     'manueuver', 'manueuver_collabo', 'sputtery',
                 ],
-            ]
+            ],
         );
     }
 
@@ -56,7 +56,7 @@ class m170728_091805_weapon_category2_maneuver extends Migration
                     ->from('weapon_type2')
                     ->where(['key' => 'maneuver'])
                     ->scalar(),
-            ]
+            ],
         );
         $this->delete('weapon_type2', ['key' => 'maneuver']);
     }

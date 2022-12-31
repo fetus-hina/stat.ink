@@ -38,7 +38,7 @@ final class BattleApiFormatter
                     'screen_name' => $model->user->screen_name,
                     'battle' => $model->uuid,
                 ],
-                true
+                true,
             ),
             'images' => [
                 'judge' => ImageApiFormatter::toJson($model->battleImageJudge3),
@@ -130,7 +130,7 @@ final class BattleApiFormatter
             'user_agent' => UserAgentApiFormatter::toJson(
                 $model->agent,
                 $model->variables,
-                $fullTranslate
+                $fullTranslate,
             ),
             'automated' => $model->is_automated,
             'start_at' => DateTimeApiFormatter::toJson($model->start_at),

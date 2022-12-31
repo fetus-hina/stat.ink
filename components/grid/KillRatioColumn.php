@@ -31,7 +31,7 @@ class KillRatioColumn extends DataColumn
             static::$idPrefix = sprintf('col-kr-%s-', substr(
                 hash('sha256', uniqid(microtime(false), true)),
                 0,
-                8
+                8,
             ));
         }
 

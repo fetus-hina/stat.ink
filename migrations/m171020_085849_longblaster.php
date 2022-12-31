@@ -20,7 +20,7 @@ class m171020_085849_longblaster extends Migration
             'Range Blaster',
             'blaster',
             'kyubanbomb',
-            'amefurashi'
+            'amefurashi',
         );
     }
 

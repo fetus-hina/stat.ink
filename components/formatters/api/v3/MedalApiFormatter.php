@@ -25,7 +25,7 @@ final class MedalApiFormatter
 
         return array_map(
             fn (Medal3 $model): string => $model->name,
-            $models
+            $models,
         );
     }
 }

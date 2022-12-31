@@ -17,7 +17,7 @@ class m151123_181256_fix30 extends Migration
         $this->update(
             'death_reason',
             ['name' => 'Bamboozler 14 Mk II'],
-            ['key' => 'bamboo14mk2']
+            ['key' => 'bamboo14mk2'],
         );
     }
 
@@ -27,7 +27,7 @@ class m151123_181256_fix30 extends Migration
         $this->update(
             'death_reason',
             ['name' => 'mboozler 14 Mk II'],
-            ['key' => 'bamboo14mk2']
+            ['key' => 'bamboo14mk2'],
         );
     }
 }

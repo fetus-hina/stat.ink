@@ -55,7 +55,7 @@ class User2Action extends BaseAction
                     'targetAttribute' => 'screen_name',
                 ],
                 [['type'], 'in', 'range' => ['atom', 'rss']],
-            ]
+            ],
         );
         if ($model->hasErrors()) {
             $resp->format = 'json';
@@ -84,35 +84,35 @@ class User2Action extends BaseAction
                 Yii::$app->name,
                 Yii::$app->version,
                 'Laminas-Feed-Writer',
-                \Laminas\Feed\Writer\Version::VERSION
+                \Laminas\Feed\Writer\Version::VERSION,
             ),
             Yii::$app->version,
-            Url::home(true)
+            Url::home(true),
         );
         $feed->setTitle(
             Yii::t(
                 'app',
                 '{name}\'s Splat Log',
                 ['name' => $user->name],
-                $model->lang
-            )
+                $model->lang,
+            ),
         );
         $feed->setDescription(
             Yii::t(
                 'app',
                 '{name}\'s Splat Log',
                 ['name' => $user->name],
-                $model->lang
-            )
+                $model->lang,
+            ),
         );
         $feed->setId(
             Uuid::v5(
                 UuidNS::url(),
-                Url::to(['show-v2/user', 'screen_name' => $user->screen_name], true)
-            )->formatAsUri()
+                Url::to(['show-v2/user', 'screen_name' => $user->screen_name], true),
+            )->formatAsUri(),
         );
         $feed->setLink(
-            Url::to(['show-v2/user', 'screen_name' => $user->screen_name], true)
+            Url::to(['show-v2/user', 'screen_name' => $user->screen_name], true),
         );
         // 複数の言語を持たすことはできなさげ
         foreach (['atom', 'rss'] as $type) {
@@ -123,9 +123,9 @@ class User2Action extends BaseAction
                         'screen_name' => $user->screen_name,
                         'type' => $type,
                     ],
-                    true
+                    true,
                 ),
-                $type
+                $type,
             );
         }
         $feed->addAuthors([
@@ -139,7 +139,7 @@ class User2Action extends BaseAction
             ],
         ]);
         $feed->setCopyright(
-            sprintf('Copyright (C) 2015-%s AIZAWA Hina', $now->format('Y'))
+            sprintf('Copyright (C) 2015-%s AIZAWA Hina', $now->format('Y')),
         );
         $feed->setLanguage($model->lang);
         $feed->setEncoding('UTF-8');
@@ -159,7 +159,7 @@ class User2Action extends BaseAction
                     ['term' => 'Game'],
                     ['term' => 'Splatoon'],
                     ['term' => 'Splatlog'],
-                ]
+                ],
         );
 
         $battles = Battle2::find()
@@ -201,9 +201,9 @@ class User2Action extends BaseAction
                             'screen_name' => $user->screen_name,
                             'battle' => $battle->id,
                         ],
-                        true
-                    )
-                )->formatAsUri()
+                        true,
+                    ),
+                )->formatAsUri(),
             );
             $entry->setLink(
                 Url::to(
@@ -212,8 +212,8 @@ class User2Action extends BaseAction
                         'screen_name' => $user->screen_name,
                         'battle' => $battle->id,
                     ],
-                    true
-                )
+                    true,
+                ),
             );
             $entry->setTitle(
                 vsprintf('%s / %s / %s - %s (#%d)', [
@@ -228,7 +228,7 @@ class User2Action extends BaseAction
                         : '???',
                     $user->name,
                     $battle->id,
-                ])
+                ]),
             );
             $entry->setContent($this->makeEntryContent($battle, $model->lang));
             $feed->addEntry($entry);
@@ -241,7 +241,7 @@ class User2Action extends BaseAction
         $resp->format = 'raw';
         $resp->headers->set(
             'Content-Type',
-            $contentType[$model->type] ?? 'text/xml; charset=UTF-8'
+            $contentType[$model->type] ?? 'text/xml; charset=UTF-8',
         );
         return $feed->export($model->type);
     }
@@ -267,7 +267,7 @@ class User2Action extends BaseAction
         $__ = function ($label, $value, $category) use ($_, $lang) {
             $_(
                 Yii::t('app', $label, [], $lang),
-                Yii::t($category, $value, [], $lang)
+                Yii::t($category, $value, [], $lang),
             );
         };
         if ($battle->lobby) {
@@ -319,7 +319,7 @@ class User2Action extends BaseAction
                             return Yii::t('app-rule2', 'Private Battle', [], $lang);
                     }
                     // }}}
-                })()
+                })(),
             );
         }
         if ($battle->rule) {
@@ -340,17 +340,17 @@ class User2Action extends BaseAction
                         ? sprintf(
                             '%s %s',
                             Yii::t('app-rank2', $battle->rank->name, [], $lang),
-                            $battle->rank_exp !== null ? $battle->rank_exp : ''
+                            $battle->rank_exp !== null ? $battle->rank_exp : '',
                         )
                         : '???',
                     $battle->rankAfter
                         ? sprintf(
                             '%s %s',
                             Yii::t('app-rank2', $battle->rankAfter->name, [], $lang),
-                            $battle->rank_after_exp !== null ? $battle->rank_after_exp : ''
+                            $battle->rank_after_exp !== null ? $battle->rank_after_exp : '',
                         )
-                        : '???'
-                )
+                        : '???',
+                ),
             );
         }
         if ($battle->level) {
@@ -360,20 +360,20 @@ class User2Action extends BaseAction
             $__('Result', $battle->is_win ? 'Won' : 'Lost', 'app');
             if ($battle->isGachi && $battle->is_knockout !== null) {
                 $dl[] = Html::tag('dt', Html::encode(
-                    Yii::t('app', $battle->is_knockout ? 'Knockout' : 'Time is up', [], $lang)
+                    Yii::t('app', $battle->is_knockout ? 'Knockout' : 'Time is up', [], $lang),
                 ));
             }
         }
         if ($battle->kill !== null && $battle->death !== null) {
             $_(
                 Yii::t('app', 'Kills / Deaths', [], $lang),
-                sprintf('%d / %d', $battle->kill, $battle->death)
+                sprintf('%d / %d', $battle->kill, $battle->death),
             );
             $_(
                 Yii::t('app', 'Kill Ratio', [], $lang),
                 $battle->kill_ratio === null
                     ? Yii::t('app', 'N/A', [], $lang)
-                    : sprintf('%.2f', $battle->kill_ratio)
+                    : sprintf('%.2f', $battle->kill_ratio),
             );
         }
         if (!empty($dl)) {

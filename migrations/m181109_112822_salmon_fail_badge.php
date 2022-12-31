@@ -28,12 +28,12 @@ class m181109_112822_salmon_fail_badge extends Migration
         $this->update(
             'salmon_fail_reason2',
             ['name' => 'Time is up', 'short_name' => 'Time', 'color' => 'warning'],
-            ['key' => 'time_limit']
+            ['key' => 'time_limit'],
         );
         $this->update(
             'salmon_fail_reason2',
             ['name' => 'Wipe out', 'short_name' => 'Wiped', 'color' => 'info'],
-            ['key' => 'wipe_out']
+            ['key' => 'wipe_out'],
         );
         return true;
     }
@@ -57,12 +57,12 @@ class m181109_112822_salmon_fail_badge extends Migration
         $this->update(
             'salmon_fail_reason2',
             ['name' => 'Time was up'],
-            ['key' => 'time_limit']
+            ['key' => 'time_limit'],
         );
         $this->update(
             'salmon_fail_reason2',
             ['name' => 'Dead all players'],
-            ['key' => 'wipe_out']
+            ['key' => 'wipe_out'],
         );
     }
 }

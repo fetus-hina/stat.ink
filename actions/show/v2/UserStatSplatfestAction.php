@@ -71,7 +71,7 @@ final class UserStatSplatfestAction extends Action
                     'targetClass' => Region2::class,
                     'targetAttribute' => ['region' => 'key'],
                 ],
-            ]
+            ],
         );
         return $model;
     }

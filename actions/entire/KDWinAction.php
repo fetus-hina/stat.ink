@@ -109,7 +109,7 @@ class KDWinAction extends BaseAction
                         $query
                             ->innerJoin(
                                 'weapon_type',
-                                '{{weapon}}.[[type_id]] = {{weapon_type}}.[[id]]'
+                                '{{weapon}}.[[type_id]] = {{weapon_type}}.[[id]]',
                             )
                             ->andWhere([
                                 '{{weapon_type}}.[[key]]' => substr($filter->weapon, 1),
@@ -120,7 +120,7 @@ class KDWinAction extends BaseAction
                         $query
                             ->innerJoin(
                                 'subweapon',
-                                '{{weapon}}.[[subweapon_id]] = {{subweapon}}.[[id]]'
+                                '{{weapon}}.[[subweapon_id]] = {{subweapon}}.[[id]]',
                             )
                             ->andWhere([
                                 '{{subweapon}}.[[key]]' => substr($filter->weapon, 1),
@@ -131,7 +131,7 @@ class KDWinAction extends BaseAction
                         $query
                             ->innerJoin(
                                 'special',
-                                '{{weapon}}.[[special_id]] = {{special}}.[[id]]'
+                                '{{weapon}}.[[special_id]] = {{special}}.[[id]]',
                             )
                             ->andWhere([
                                 '{{special}}.[[key]]' => substr($filter->weapon, 1),
@@ -152,7 +152,7 @@ class KDWinAction extends BaseAction
         asort($ret);
         return array_merge(
             ['' => Yii::t('app-map', 'Any Stage')],
-            $ret
+            $ret,
         );
     }
 
@@ -175,7 +175,7 @@ class KDWinAction extends BaseAction
                     }
                     asort($list);
                     return $list;
-                })()
+                })(),
             );
         }
         return $ret;

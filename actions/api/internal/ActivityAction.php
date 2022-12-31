@@ -67,7 +67,7 @@ final class ActivityAction extends Action
                     'targetAttribute' => 'screen_name',
                 ],
                 [['only'], 'in', 'range' => ['spl1', 'spl2', 'spl3', 'salmon2', 'salmon3']],
-            ]
+            ],
         );
     }
 
@@ -115,7 +115,7 @@ final class ActivityAction extends Action
                 ];
             },
             array_keys($inData),
-            array_values($inData)
+            array_values($inData),
         );
     }
 

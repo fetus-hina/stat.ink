@@ -47,7 +47,7 @@ class LeaguePowerHistory extends Widget
                 $history,
                 function (Battle2 $item): bool {
                     return filter_var($item->league_point, FILTER_VALIDATE_FLOAT) !== false;
-                }
+                },
             ),
             function (?array $carry, Battle2 $item): ?array {
                 $oldValue = $carry[0] ?? 0.0;
@@ -63,7 +63,7 @@ class LeaguePowerHistory extends Widget
 
                 return $carry;
             },
-            null
+            null,
         );
         if ($max === null) {
             return '';
@@ -84,7 +84,7 @@ class LeaguePowerHistory extends Widget
                                 Yii::t('app', 'Highest (current period)'),
                                 Yii::$app->formatter->asDecimal($max[0], 1),
                             ])),
-                            $max[1]
+                            $max[1],
                         )
                         : Html::encode(Yii::t('app', 'Highest (current period)')),
                     'highestEver' => $maxEver
@@ -93,7 +93,7 @@ class LeaguePowerHistory extends Widget
                                 Yii::t('app', 'Highest (this teammates)'),
                                 Yii::$app->formatter->asDecimal($maxEver[0], 1),
                             ])),
-                            $maxEver[1]
+                            $maxEver[1],
                         )
                         : Html::encode(Yii::t('app', 'Highest (this teammates)')),
                     'leaguePower' => Yii::t('app', 'League Power'),
@@ -117,7 +117,7 @@ class LeaguePowerHistory extends Widget
                             ]),
                         ];
                     },
-                    $history
+                    $history,
                 )),
             ]),
         ]));
@@ -134,7 +134,7 @@ class LeaguePowerHistory extends Widget
                             'mb-1',
                         ],
                     ]),
-                    ['class' => 'table-responsive']
+                    ['class' => 'table-responsive'],
                 ),
                 Html::tag('div', '', [
                     'id' => $this->id . '-legends',

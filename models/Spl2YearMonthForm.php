@@ -72,7 +72,7 @@ final class Spl2YearMonthForm extends Model
                     $attribute,
                     Yii::t('yii', '{attribute} is not in the allowed range.', [
                         'attribute' => $attribute,
-                    ])
+                    ]),
                 );
                 return;
             }
@@ -85,7 +85,7 @@ final class Spl2YearMonthForm extends Model
                     $attribute,
                     Yii::t('yii', '{attribute} is not in the allowed range.', [
                         'attribute' => $attribute,
-                    ])
+                    ]),
                 );
                 return;
             }

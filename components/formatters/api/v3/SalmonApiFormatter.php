@@ -32,7 +32,7 @@ final class SalmonApiFormatter
                     'screen_name' => $model->user->screen_name,
                     'battle' => $model->uuid,
                 ],
-                true
+                true,
             ),
             'user' => UserApiFormatter::toJson($model->user, $isAuthenticated, $fullTranslate),
             'uuid' => $model->client_uuid,

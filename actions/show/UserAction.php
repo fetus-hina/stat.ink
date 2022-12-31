@@ -37,7 +37,7 @@ class UserAction extends BaseAction
                         'name' => 'battle-list',
                         'value' => $view,
                         'expire' => time() + 86400 * 366,
-                    ])
+                    ]),
                 );
             }
 
@@ -73,9 +73,9 @@ class UserAction extends BaseAction
         $permLink = Url::to(
             array_merge(
                 ['show/user', 'screen_name' => $user->screen_name],
-                $filter->hasErrors() ? [] : $filter->toPermLink()
+                $filter->hasErrors() ? [] : $filter->toPermLink(),
             ),
-            true
+            true,
         );
 
         $template = $this->getViewMode() === 'simple' ? 'user.simple.php' : 'user.php';

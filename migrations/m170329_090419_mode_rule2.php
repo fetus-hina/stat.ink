@@ -37,7 +37,7 @@ class m170329_090419_mode_rule2 extends Migration
         return ArrayHelper::map(
             ((new Query())->select(['key', 'id'])->from('mode2')->all()),
             'key',
-            'id'
+            'id',
         );
     }
 
@@ -46,7 +46,7 @@ class m170329_090419_mode_rule2 extends Migration
         return ArrayHelper::map(
             ((new Query())->select(['key', 'id'])->from('rule2')->all()),
             'key',
-            'id'
+            'id',
         );
     }
 }

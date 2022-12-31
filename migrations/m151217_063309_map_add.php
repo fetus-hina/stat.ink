@@ -24,7 +24,7 @@ class m151217_063309_map_add extends Migration
             [
                 [ Map::findOne(['key' => 'shottsuru'])->id, 'ショッツル鉱山' ],
                 [ Map::findOne(['key' => 'anchovy'])->id,   'アンチョビットゲームズ' ],
-            ]
+            ],
         );
     }
 
@@ -35,7 +35,7 @@ class m151217_063309_map_add extends Migration
                 function ($a) {
                     return $a->id;
                 },
-                Map::findAll(['key' => ['shottsuru', 'anchovy']])
+                Map::findAll(['key' => ['shottsuru', 'anchovy']]),
             ),
         ]);
         $this->delete('map', ['key' => ['shottsuru', 'anchovy']]);

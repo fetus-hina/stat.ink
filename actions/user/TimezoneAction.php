@@ -41,7 +41,7 @@ class TimezoneAction extends BaseAction
                 'name' => 'timezone',
                 'value' => $form->timezone,
                 'expire' => time() + 86400 * 366,
-            ])
+            ]),
         );
 
         return [
@@ -59,7 +59,7 @@ class TimezoneAction extends BaseAction
                 [['timezone'], 'exist',
                     'targetClass' => Timezone::className(),
                     'targetAttribute' => 'identifier'],
-            ]
+            ],
         );
         return $model;
     }

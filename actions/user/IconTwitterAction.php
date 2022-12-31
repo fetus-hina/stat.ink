@@ -45,10 +45,10 @@ class IconTwitterAction extends BaseAction
                 $twitter->requestAccessToken(
                     (string)$request->get('oauth_token'),
                     (string)$request->get('oauth_verifier'),
-                    $token->getRequestTokenSecret()
+                    $token->getRequestTokenSecret(),
                 );
                 $user = Json::decode(
-                    $twitter->request('account/verify_credentials.json')
+                    $twitter->request('account/verify_credentials.json'),
                 );
                 if ($url = $user['profile_image_url_https'] ?? null) {
                     $url = str_replace('_normal', '', $url);
@@ -74,13 +74,13 @@ class IconTwitterAction extends BaseAction
                     $transaction->commit();
                     Yii::$app->session->addFlash(
                         'danger',
-                        Yii::t('app', 'Your profile icon has been updated.')
+                        Yii::t('app', 'Your profile icon has been updated.'),
                     );
                     return $response->redirect(Url::to(['user/profile'], true), 303);
                 } catch (\Exception $e) {
                     Yii::$app->session->addFlash(
                         'danger',
-                        Yii::t('app', 'Could not get your twitter icon at this time.')
+                        Yii::t('app', 'Could not get your twitter icon at this time.'),
                     );
                     return $response->redirect(Url::to(['user/edit-icon'], true), 303);
                 }
@@ -100,14 +100,14 @@ class IconTwitterAction extends BaseAction
         $credential = new OAuthCredentials(
             Yii::$app->params['twitter']['consumer_key'],
             Yii::$app->params['twitter']['consumer_secret'],
-            Url::to(['user/icon-twitter'], true)
+            Url::to(['user/icon-twitter'], true),
         );
 
         $factory = new OAuthFactory();
         return $factory->createService(
             'twitter',
             $credential,
-            $this->tokenStorage
+            $this->tokenStorage,
         );
     }
 

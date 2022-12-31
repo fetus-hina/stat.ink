@@ -37,13 +37,13 @@ class m180427_125916_v3_gears extends Migration
         $brands = ArrayHelper::map(
             Brand2::find()->asArray()->all(),
             'name',
-            'key'
+            'key',
         );
 
         $abilities = ArrayHelper::map(
             Ability2::find()->asArray()->all(),
             'name',
-            'key'
+            'key',
         );
 
         $type = null;

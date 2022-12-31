@@ -83,7 +83,7 @@ class StartRemoteFollowAction extends BaseAction
                                     return str_replace(
                                         '{uri}',
                                         sprintf('acct:%s', $accountName),
-                                        $link->getAttribute('template')
+                                        $link->getAttribute('template'),
                                     );
                                 }
                             }
@@ -120,7 +120,7 @@ class StartRemoteFollowAction extends BaseAction
                             return str_replace(
                                 '{uri}',
                                 sprintf('acct:%s@%s', $thisName, Yii::$app->request->hostName),
-                                $link['template']
+                                $link['template'],
                             );
                         }
                     }

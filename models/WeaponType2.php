@@ -118,9 +118,9 @@ class WeaponType2 extends ActiveRecord
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc2', 'Weapon category'),
                         'app-weapon2',
-                        $values
+                        $values,
                     ),
-                    ArrayHelper::getColumn($values, 'key', false)
+                    ArrayHelper::getColumn($values, 'key', false),
                 ),
                 'name' => static::oapiRef(openapi\Name::class),
                 'category' => static::oapiRef(WeaponCategory2::class),
@@ -146,7 +146,7 @@ class WeaponType2 extends ActiveRecord
             static::find()
                 ->orderBy(['id' => SORT_ASC])
                 ->limit(1)
-                ->all()
+                ->all(),
         );
     }
 }

@@ -38,7 +38,7 @@ final class RuleAction extends Action
             Rule3::find()
                 ->with(['rule3Aliases'])
                 ->orderBy(['rank' => SORT_ASC])
-                ->all()
+                ->all(),
         );
     }
 }

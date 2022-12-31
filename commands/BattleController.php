@@ -36,7 +36,7 @@ class BattleController extends Controller
 
         $atom = \app\components\helpers\BattleAtom::createUserFeed(
             $battle->user,
-            [$battle->id]
+            [$battle->id],
         );
         echo $atom . "\n";
     }
@@ -61,7 +61,7 @@ class BattleController extends Controller
                 "curl -v -H %s -X POST -d %s %s\n\n",
                 escapeshellarg('Content-Type: application/json'),
                 escapeshellarg($slack->send($battle, false)),
-                escapeshellarg($slack->webhook_url)
+                escapeshellarg($slack->webhook_url),
             );
         }
     }

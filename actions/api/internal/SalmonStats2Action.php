@@ -66,7 +66,7 @@ class SalmonStats2Action extends Action
                 [['screen_name'], 'match',
                     'pattern' => '/^[a-zA-Z0-9_]{1,15}$/',
                 ],
-            ]
+            ],
         );
     }
 }

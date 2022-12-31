@@ -23,7 +23,7 @@ class m180208_090239_soytuber_custom extends Migration
             'jetpack',
             'soytuber',
             null,
-            2061
+            2061,
         );
     }
 

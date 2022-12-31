@@ -34,7 +34,7 @@ class Uuid extends Component
                 '',
                 Yii::t(
                     'app-apidoc2',
-                    'Refer to [RFC 4122](https://tools.ietf.org/html/rfc4122) for format details.'
+                    'Refer to [RFC 4122](https://tools.ietf.org/html/rfc4122) for format details.',
                 ),
             ]),
         ];

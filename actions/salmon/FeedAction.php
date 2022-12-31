@@ -59,7 +59,7 @@ class FeedAction extends Action
                     'targetAttribute' => 'screen_name',
                 ],
                 [['type'], 'in', 'range' => ['atom', 'rss']],
-            ]
+            ],
         );
         if ($input->hasErrors()) {
             $resp->format = 'json';
@@ -87,22 +87,22 @@ class FeedAction extends Action
                 Yii::$app->name,
                 Yii::$app->version,
                 'Laminas-Feed-Writer',
-                FeedVersion::VERSION
+                FeedVersion::VERSION,
             ),
             Yii::$app->version,
-            Url::home(true)
+            Url::home(true),
         );
         $feed->setTitle(
-            Yii::t('app', '{name}\'s Salmon Log', ['name' => $user->name], $input->lang)
+            Yii::t('app', '{name}\'s Salmon Log', ['name' => $user->name], $input->lang),
         );
         $feed->setDescription(
-            Yii::t('app', '{name}\'s Salmon Log', ['name' => $user->name], $input->lang)
+            Yii::t('app', '{name}\'s Salmon Log', ['name' => $user->name], $input->lang),
         );
         $feed->setId(
             Uuid::v5(
                 UuidNS::url(),
-                Url::to(['salmon/index', 'screen_name' => $user->screen_name], true)
-            )->formatAsUri()
+                Url::to(['salmon/index', 'screen_name' => $user->screen_name], true),
+            )->formatAsUri(),
         );
         $feed->setLink(Url::to(['salmon/index', 'screen_name' => $user->screen_name], true));
         // 複数の言語を持たすことはできなさげ
@@ -114,9 +114,9 @@ class FeedAction extends Action
                         'screen_name' => $user->screen_name,
                         'type' => $type,
                     ],
-                    true
+                    true,
                 ),
-                $type
+                $type,
             );
         }
         $feed->addAuthors([
@@ -130,7 +130,7 @@ class FeedAction extends Action
             ],
         ]);
         $feed->setCopyright(
-            sprintf('Copyright (C) 2015-%s AIZAWA Hina', $now->format('Y'))
+            sprintf('Copyright (C) 2015-%s AIZAWA Hina', $now->format('Y')),
         );
         $feed->setLanguage($input->lang);
         $feed->setEncoding('UTF-8');
@@ -150,7 +150,7 @@ class FeedAction extends Action
                     ['term' => 'Game'],
                     ['term' => 'Splatoon'],
                     ['term' => 'Salmon Run'],
-                ]
+                ],
         );
 
         $models = Salmon2::find()
@@ -183,9 +183,9 @@ class FeedAction extends Action
                             'screen_name' => $user->screen_name,
                             'id' => $model->id,
                         ],
-                        true
-                    )
-                )->formatAsUri()
+                        true,
+                    ),
+                )->formatAsUri(),
             );
             $entry->setLink(
                 Url::to(
@@ -194,8 +194,8 @@ class FeedAction extends Action
                         'screen_name' => $user->screen_name,
                         'id' => $model->id,
                     ],
-                    true
-                )
+                    true,
+                ),
             );
             $entry->setTitle($this->makeEntryTitle($model, $input->lang));
             $entry->setContent($this->makeEntryContent($model, $input->lang));
@@ -209,7 +209,7 @@ class FeedAction extends Action
         $resp->format = 'raw';
         $resp->headers->set(
             'Content-Type',
-            $contentType[$input->type] ?? 'text/xml; charset=UTF-8'
+            $contentType[$input->type] ?? 'text/xml; charset=UTF-8',
         );
         return $feed->export($input->type);
     }

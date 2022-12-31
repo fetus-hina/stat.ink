@@ -22,7 +22,7 @@ class m170425_165119_user_lang extends Migration
         $this->execute(
             'ALTER TABLE {{user}} ' .
             sprintf('ADD COLUMN [[default_language_id]] INTEGER NOT NULL DEFAULT %d ', (int)$langId) .
-            'REFERENCES {{language}}([[id]])'
+            'REFERENCES {{language}}([[id]])',
         );
     }
 

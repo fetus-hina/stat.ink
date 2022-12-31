@@ -109,7 +109,7 @@ class SfItem extends Model
                 function (array $match): string {
                     return '\\' . $match[1];
                 },
-                $value
+                $value,
             ),
         ]);
     }
@@ -159,11 +159,11 @@ class SfItem extends Model
                 return preg_replace(
                     '/\x5c([\x22\x5c])/',
                     '$1',
-                    substr($match[0], 1, strlen($match[0]) - 2)
+                    substr($match[0], 1, strlen($match[0]) - 2),
                 );
             } elseif (preg_match("/\\A{$sfBinary}\\z/", $encoded, $match)) {
                 return base64_decode(
-                    substr($match[0], 1, strlen($match[0]) - 2)
+                    substr($match[0], 1, strlen($match[0]) - 2),
                 );
             } elseif (preg_match("/\\A{$sfBoolean}\\z/", $encoded, $match)) {
                 return $encoded === '?1';
@@ -177,7 +177,7 @@ class SfItem extends Model
                 "/\\A{$sfItem}(?<remains>.*)\\z/",
                 $encoded,
                 $match,
-                PREG_UNMATCHED_AS_NULL
+                PREG_UNMATCHED_AS_NULL,
             )
         ) {
             return null;
@@ -194,7 +194,7 @@ class SfItem extends Model
                     "/\\A(?<name>{$pname})(?:=(?<value>{$pvalue}))?/",
                     $paramsStr,
                     $match,
-                    PREG_UNMATCHED_AS_NULL
+                    PREG_UNMATCHED_AS_NULL,
                 )
             ) {
                 throw new LogicException('BUG');

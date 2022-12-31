@@ -92,7 +92,7 @@ class ImageConverter
                 $cpW,
                 $cpH,
                 $inW,
-                $inH
+                $inH,
             );
             if ($blackoutPosList) {
                 for ($i = 0; $i < 8; ++$i) {
@@ -107,7 +107,7 @@ class ImageConverter
                         $y,
                         812 + 172,
                         $y + 38,
-                        0x000000
+                        0x000000,
                     );
                 }
             }
@@ -128,12 +128,12 @@ class ImageConverter
                 escapeshellarg('convert'),
                 escapeshellarg($inPath),
                 self::JPEG_QUALITY,
-                escapeshellarg($outPath)
+                escapeshellarg($outPath),
             ),
             sprintf(
                 '/usr/bin/env %s --quiet --strip-all %s',
                 escapeshellarg('jpegoptim'),
-                escapeshellarg($outPath)
+                escapeshellarg($outPath),
             ),
         ];
         foreach ($cmdlines as $cmdline) {
@@ -161,7 +161,7 @@ class ImageConverter
             '/usr/bin/env %s %s %s',
             escapeshellarg($binPath),
             escapeshellarg($jpegPath),
-            escapeshellarg($leptonPath)
+            escapeshellarg($leptonPath),
         );
         $lines = [];
         $status = -1;

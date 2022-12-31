@@ -21,7 +21,7 @@ class Connection extends \yii\db\Connection
         $this->createCommand(
             $this->createCommand('SET TIMEZONE TO :tz')
                 ->bindValue(':tz', $timeZone)
-                ->rawSql
+                ->rawSql,
         )->execute();
     }
 

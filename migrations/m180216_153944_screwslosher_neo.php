@@ -23,7 +23,7 @@ class m180216_153944_screwslosher_neo extends Migration
             'pitcher',
             'screwslosher',
             null,
-            3021
+            3021,
         );
     }
 

@@ -81,7 +81,7 @@ class Salmon2FilterForm extends Model
                         ArrayHelper::toFlatten([
                             ['this-rotation', 'prev-rotation'],
                             array_keys($this->getValidVersions()),
-                        ])
+                        ]),
                     ),
                 ]))),
             ],
@@ -166,7 +166,7 @@ class Salmon2FilterForm extends Model
                     implode(' AND ', [
                         '{{salmon2}}.[[id]] = {{salmon_player2}}.[[work_id]]',
                         '{{salmon_player2}}.[[is_me]] = TRUE',
-                    ])
+                    ]),
                 )
                 ->andWhere([
                     '{{salmon_player2}}.[[special_id]]' => $special->id,
@@ -334,7 +334,7 @@ class Salmon2FilterForm extends Model
                 return Yii::t('app', 'Version {0}', [
                     Yii::t('app-version2', $v->name),
                 ]);
-            }
+            },
         );
     }
 
@@ -353,11 +353,11 @@ class Salmon2FilterForm extends Model
                     return (version_compare('4.0.0', $row['tag'], '<='))
                         ? (int)$row['group_id']
                         : null;
-                }
+                },
             ),
             function (?int $value): bool {
                 return $value !== null;
-            }
+            },
         );
 
         return ArrayHelper::map(
@@ -368,7 +368,7 @@ class Salmon2FilterForm extends Model
             'tag',
             function (SplatoonVersionGroup2 $row): SplatoonVersionGroup2 {
                 return $row;
-            }
+            },
         );
     }
 }

@@ -24,7 +24,7 @@ final class m220915_002513_splashtag_title extends Migration
         $this->addColumn(
             '{{%battle_player3}}',
             'splashtag_title_id',
-            (string)$this->pkRef('{{%splashtag_title3}}')->null()
+            (string)$this->pkRef('{{%splashtag_title3}}')->null(),
         );
 
         return true;

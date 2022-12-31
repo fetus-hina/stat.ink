@@ -29,10 +29,10 @@ class m171112_165011_gear_configuration2 extends Migration
                     'ADD COLUMN [[%s]] INTEGER NULL REFERENCES {{%s}}([[%s]])',
                     $column,
                     'gear_configuration2',
-                    'id'
+                    'id',
                 );
             },
-            ['headgear_id', 'clothing_id', 'shoes_id']
+            ['headgear_id', 'clothing_id', 'shoes_id'],
         )));
     }
 
@@ -42,7 +42,7 @@ class m171112_165011_gear_configuration2 extends Migration
             function (string $column): string {
                 return sprintf('DROP COLUMN [[%s]]', $column);
             },
-            ['headgear_id', 'clothing_id', 'shoes_id']
+            ['headgear_id', 'clothing_id', 'shoes_id'],
         )));
         $this->dropTable('gear_configuration_secondary2');
         $this->dropTable('gear_configuration2');

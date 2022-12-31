@@ -67,7 +67,7 @@ class m200107_074759_main_power_up extends Migration
                 'Increase range',
                 'Increase shot accuracy',
                 'Speed up brella canopy regeneration',
-            ]
+            ],
         );
     }
 }

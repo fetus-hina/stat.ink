@@ -110,15 +110,15 @@ class Gender extends \yii\db\ActiveRecord
                         $values,
                         function (self $model): string {
                             return strtolower($model->name);
-                        }
+                        },
                     ),
                     ArrayHelper::getColumn(
                         $values,
                         function (self $model): string {
                             return strtolower($model->name);
                         },
-                        false
-                    )
+                        false,
+                    ),
                 ),
                 'iso5218' => [
                     'type' => 'integer',
@@ -146,7 +146,7 @@ class Gender extends \yii\db\ActiveRecord
             },
             static::find()
                 ->orderBy(['id' => SORT_ASC])
-                ->all()
+                ->all(),
         );
     }
 }

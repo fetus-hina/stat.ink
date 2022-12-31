@@ -23,7 +23,7 @@ class m170507_103656_death_reason_data extends Migration
                 ['special', 'Special Weapon'],
                 ['oob',     'Out of Bounds'],
                 ['gadget',  'Gadgets'],
-            ]
+            ],
         );
 
         $types = $this->getReasonTypes();
@@ -39,7 +39,7 @@ class m170507_103656_death_reason_data extends Migration
                 [$types['oob'], 'fall', 'Fall'],
                 [$types['oob'], 'drown', 'Drowning'],
                 [$types['oob'], 'oob', 'Out of Bounds'],
-            ]
+            ],
         );
         $this->batchInsert(
             'death_reason2',
@@ -57,8 +57,8 @@ class m170507_103656_death_reason_data extends Migration
                     ->select(['id', 'key', 'name'])
                     ->from('weapon2')
                     ->orderBy('id')
-                    ->all()
-            )
+                    ->all(),
+            ),
         );
         // この時点のサブウェポンは全部殺せる
         $this->batchInsert(
@@ -77,8 +77,8 @@ class m170507_103656_death_reason_data extends Migration
                     ->select(['id', 'key', 'name'])
                     ->from('subweapon2')
                     ->orderBy('id')
-                    ->all()
-            )
+                    ->all(),
+            ),
         );
         // この時点のスペシャルウェポンは全部殺せる
         $this->batchInsert(
@@ -97,8 +97,8 @@ class m170507_103656_death_reason_data extends Migration
                     ->select(['id', 'key', 'name'])
                     ->from('special2')
                     ->orderBy('id')
-                    ->all()
-            )
+                    ->all(),
+            ),
         );
     }
 
@@ -116,7 +116,7 @@ class m170507_103656_death_reason_data extends Migration
                 ->from('death_reason_type2')
                 ->all(),
             'key',
-            'id'
+            'id',
         );
     }
 }

@@ -46,7 +46,7 @@ class BattleAction extends BaseAction
                     'headgear',
                     'clothing',
                     'shoes',
-                ]
+                ],
             )))
             ->limit(1)
             ->one();

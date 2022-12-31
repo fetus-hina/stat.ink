@@ -41,7 +41,7 @@ class UserStatByMapRuleAction extends BaseAction
                 'user' => $user,
                 'filter' => $filter,
             ],
-            $this->getData($user, $filter)
+            $this->getData($user, $filter),
         ));
     }
 
@@ -141,7 +141,7 @@ class UserStatByMapRuleAction extends BaseAction
             'key',
             function (Rule2 $rule): string {
                 return Yii::t('app-rule2', $rule->name);
-            }
+            },
         );
 
         return [

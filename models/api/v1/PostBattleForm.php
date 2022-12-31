@@ -373,7 +373,7 @@ class PostBattleForm extends Model
         }
         return $this->validateImageStringImpl(
             file_get_contents($this->$attribute->tempName, false, null),
-            $attribute
+            $attribute,
         );
     }
 
@@ -758,7 +758,7 @@ class PostBattleForm extends Model
         $fingerPrint = GearConfiguration::generateFingerPrint(
             $gearModel ? $gearModel->id : null,
             $primaryAbility ? $primaryAbility->id : null,
-            $secondaryAbilityIdList
+            $secondaryAbilityIdList,
         );
 
         $lock = CriticalSection::lock(__METHOD__, 60);
@@ -829,9 +829,9 @@ class PostBattleForm extends Model
                     },
                     explode(
                         '.',
-                        trim(preg_replace('/[^0-9]+/', '.', trim((string)$version_date)))
-                    )
-                )
+                        trim(preg_replace('/[^0-9]+/', '.', trim((string)$version_date))),
+                    ),
+                ),
             );
         };
 
@@ -839,7 +839,7 @@ class PostBattleForm extends Model
             version_compare(
                 $fConvertVersionDate($this->agent_game_version_date),
                 $fConvertVersionDate($ikalogReq->version_date),
-                '>='
+                '>=',
             )
         ) {
             return true;
@@ -852,9 +852,9 @@ class PostBattleForm extends Model
     {
         return rtrim(
             base64_encode(
-                hash_hmac('sha256', $this->apikey, __CLASS__, true)
+                hash_hmac('sha256', $this->apikey, __CLASS__, true),
             ),
-            '='
+            '=',
         );
     }
 

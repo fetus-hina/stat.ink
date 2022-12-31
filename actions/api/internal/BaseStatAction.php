@@ -29,9 +29,9 @@ abstract class BaseStatAction extends BaseAction
             http_build_query(
                 ['user_id' => $this->user->id, '__format' => $this->getCacheFormatVersion()],
                 '',
-                '&'
+                '&',
             ),
-            static::class
+            static::class,
         );
     }
 

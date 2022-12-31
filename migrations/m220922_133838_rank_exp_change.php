@@ -20,7 +20,7 @@ final class m220922_133838_rank_exp_change extends Migration
         $this->addColumn(
             '{{%battle3}}',
             'rank_exp_change',
-            (string)$this->integer()->null()
+            (string)$this->integer()->null(),
         );
 
         return true;

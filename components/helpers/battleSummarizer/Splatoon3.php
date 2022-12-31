@@ -30,7 +30,7 @@ trait Splatoon3
         $cond24Hours = sprintf(
             '(({{battle3}}.[[end_at]] IS NOT NULL) AND ({{battle3}}.[[end_at]] BETWEEN %s AND %s))',
             $db->quoteValue($now->sub(new DateInterval('PT86399S'))->format(DateTime::ATOM)),
-            $db->quoteValue($now->format(DateTime::ATOM))
+            $db->quoteValue($now->format(DateTime::ATOM)),
         );
         $condResultPresent = sprintf('(%s)', implode(' AND ', [
             '{{result3}}.[[aggregatable]] = TRUE',
@@ -58,14 +58,14 @@ trait Splatoon3
                 implode(' AND ', [
                     $condResultPresent,
                     '{{result3}}.[[is_win]] = TRUE',
-                ])
+                ]),
             ),
             sprintf(
                 'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
                 implode(' AND ', [
                     $condResultPresent,
-                ])
-            )
+                ]),
+            ),
         );
         $column_wp_short = sprintf(
             "(%s * 100.0 / NULLIF(%s, 0))",
@@ -75,15 +75,15 @@ trait Splatoon3
                     $condResultPresent,
                     $cond24Hours,
                     '{{result3}}.[[is_win]] = TRUE',
-                ])
+                ]),
             ),
             sprintf(
                 'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
                 implode(' AND ', [
                     $condResultPresent,
                     $cond24Hours,
-                ])
-            )
+                ]),
+            ),
         );
         $column_battles_short = sprintf(
             'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
@@ -91,7 +91,7 @@ trait Splatoon3
                 $condResultPresent,
                 $cond24Hours,
                 '{{result3}}.[[aggregatable]] = TRUE',
-            ])
+            ]),
         );
         $column_win_short = sprintf(
             'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
@@ -99,70 +99,70 @@ trait Splatoon3
                 $condResultPresent,
                 $cond24Hours,
                 '{{result3}}.[[is_win]] = TRUE',
-            ])
+            ]),
         );
         $column_total_kill = sprintf(
             'SUM(CASE WHEN (%s) THEN {{battle3}}.[[kill]] ELSE 0 END)',
             implode(' AND ', [
                 $condResultPresent,
                 $condKDPresent,
-            ])
+            ]),
         );
         $column_total_death = sprintf(
             'SUM(CASE WHEN (%s) THEN {{battle3}}.[[death]] ELSE 0 END)',
             implode(' AND ', [
                 $condResultPresent,
                 $condKDPresent,
-            ])
+            ]),
         );
         $column_kd_present = sprintf(
             'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
             implode(' AND ', [
                 $condResultPresent,
                 $condKDPresent,
-            ])
+            ]),
         );
         $column_total_specials = sprintf(
             'SUM(CASE WHEN (%s) THEN {{battle3}}.[[special]] ELSE 0 END)',
             implode(' AND ', [
                 $condResultPresent,
                 $condSpecialPresent,
-            ])
+            ]),
         );
         $column_specials_present = sprintf(
             'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
             implode(' AND ', [
                 $condResultPresent,
                 $condSpecialPresent,
-            ])
+            ]),
         );
         $column_total_assists = sprintf(
             'SUM(CASE WHEN (%s) THEN {{battle3}}.[[assist]] ELSE 0 END)',
             implode(' AND ', [
                 $condResultPresent,
                 $condAssistPresent,
-            ])
+            ]),
         );
         $column_assists_present = sprintf(
             'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
             implode(' AND ', [
                 $condResultPresent,
                 $condAssistPresent,
-            ])
+            ]),
         );
         $column_total_inked = sprintf(
             'SUM(CASE WHEN %s THEN {{battle3}}.[[inked]] ELSE 0 END)',
             implode(' AND ', [
                 $condResultPresent,
                 $condInkedPresent,
-            ])
+            ]),
         );
         $column_inked_present = sprintf(
             'SUM(CASE WHEN %s THEN 1 ELSE 0 END)',
             implode(' AND ', [
                 $condResultPresent,
                 $condInkedPresent,
-            ])
+            ]),
         );
 
         $query = clone $oldQuery;

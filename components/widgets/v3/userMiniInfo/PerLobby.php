@@ -78,11 +78,11 @@ final class PerLobby extends Widget
                             'class' => 'user-number',
                         ]),
                     ]),
-                    ['class' => 'col-4 col-xs-4']
+                    ['class' => 'col-4 col-xs-4'],
                 ),
                 'attributes' => $this->getListAttributes($user, $model),
             ]),
-            ['class' => 'row']
+            ['class' => 'row'],
         );
     }
 

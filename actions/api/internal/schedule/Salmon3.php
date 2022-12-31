@@ -39,7 +39,7 @@ trait Salmon3
                         $am->getBundle(GameModeIconsAsset::class, true),
                         'spl3/salmon36x36.png',
                     ),
-                    true
+                    true,
                 ),
                 'source' => 's3ink',
                 'schedules' => ArrayHelper::getColumn(
@@ -69,7 +69,7 @@ trait Salmon3
                             'weapons' => ArrayHelper::getColumn(
                                 ArrayHelper::sort(
                                     $sc->salmonScheduleWeapon3s,
-                                    fn (SalmonScheduleWeapon3 $a, SalmonScheduleWeapon3 $b): int => $a->id <=> $b->id
+                                    fn (SalmonScheduleWeapon3 $a, SalmonScheduleWeapon3 $b): int => $a->id <=> $b->id,
                                 ),
                                 function (SalmonScheduleWeapon3 $info) use ($am): array {
                                     $w = $info->weapon ?: $info->random;
@@ -79,12 +79,12 @@ trait Salmon3
                                         'icon' => Url::to(
                                             $am->getAssetUrl(
                                                 $am->getBundle(Spl3WeaponAsset::class, true),
-                                                'main/' . $w->key . '.png'
+                                                'main/' . $w->key . '.png',
                                             ),
-                                            true
+                                            true,
                                         ),
                                     ];
-                                }
+                                },
                             ),
                             'is_big_run' => $sc->map === null,
                         ];
@@ -107,7 +107,7 @@ trait Salmon3
             'image' => Url::to(
                 $am->getAssetUrl(
                     $am->getBundle(Spl3StageAsset::class, true),
-                    sprintf('color-normal/%s.jpg', $info->key)
+                    sprintf('color-normal/%s.jpg', $info->key),
                 ),
                 true,
             ),

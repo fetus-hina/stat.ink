@@ -93,9 +93,9 @@ class SalmonMap2 extends ActiveRecord
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc2', 'Stage'),
                         'app-salmon-map2',
-                        $values
+                        $values,
                     ),
-                    ArrayHelper::getColumn($values, 'key', false)
+                    ArrayHelper::getColumn($values, 'key', false),
                 ),
                 'splatnet' => static::oapiRef(openapi\SplatNet2ID::class),
                 'name' => static::oapiRef(openapi\Name::class),
@@ -120,7 +120,7 @@ class SalmonMap2 extends ActiveRecord
             },
             static::find()
                 ->orderBy(['key' => SORT_ASC])
-                ->all()
+                ->all(),
         );
     }
 }

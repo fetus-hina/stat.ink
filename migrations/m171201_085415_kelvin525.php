@@ -20,7 +20,7 @@ class m171201_085415_kelvin525 extends Migration
             'Glooga Dualies',
             'maneuver',
             'trap',
-            'jetpack'
+            'jetpack',
         );
     }
 

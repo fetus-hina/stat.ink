@@ -95,9 +95,9 @@ class Ability extends \yii\db\ActiveRecord
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc1', 'Ability'),
                         'app-ability',
-                        $values
+                        $values,
                     ),
-                    ArrayHelper::getColumn($values, 'key', false)
+                    ArrayHelper::getColumn($values, 'key', false),
                 ),
                 'name' => static::oapiRef(openapi\Name::class),
             ],
@@ -121,7 +121,7 @@ class Ability extends \yii\db\ActiveRecord
             function ($model) {
                 return $model->toJsonArray();
             },
-            $models
+            $models,
         );
     }
 }

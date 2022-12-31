@@ -21,7 +21,7 @@ final class m220929_151400_area extends Migration
             $this->update(
                 '{{%map3}}',
                 ['area' => $area],
-                ['key' => $key]
+                ['key' => $key],
             );
         }
 
@@ -36,7 +36,7 @@ final class m220929_151400_area extends Migration
         $this->update(
             '{{%map3}}',
             ['area' => null],
-            ['key' => array_keys($this->getData())]
+            ['key' => array_keys($this->getData())],
         );
 
         return true;

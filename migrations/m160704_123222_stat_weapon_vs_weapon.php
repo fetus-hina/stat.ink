@@ -24,7 +24,7 @@ class m160704_123222_stat_weapon_vs_weapon extends Migration
                 'CHECK ([[battle_count]] >= [[win_count]])',
                 'CHECK ([[weapon_id_1]] < [[weapon_id_2]])',
                 'PRIMARY KEY ([[version_id]], [[rule_id]], [[weapon_id_1]], [[weapon_id_2]])',
-            ])
+            ]),
         ));
     }
 

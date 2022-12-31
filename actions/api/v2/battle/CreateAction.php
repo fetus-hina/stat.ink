@@ -43,7 +43,7 @@ class CreateAction extends BaseAction
         if (!$form->validate()) {
             $this->logError(array_merge(
                 $form->getErrors(),
-                ['req' => @base64_encode($request->getRawBody())]
+                ['req' => @base64_encode($request->getRawBody())],
             ));
             return $this->formatError($form->getErrors(), 400);
         }
@@ -336,12 +336,12 @@ class CreateAction extends BaseAction
     {
         $output = json_encode(
             ['error' => $errors],
-            JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
+            JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE,
         );
         $text = sprintf(
             'API/Battle Error: RemoteAddr=[%s], Data=%s',
             $_SERVER['REMOTE_ADDR'],
-            $output
+            $output,
         );
         if (isset($errors['system'])) {
             Yii::error($text);

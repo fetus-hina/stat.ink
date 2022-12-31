@@ -50,8 +50,8 @@ class m190622_180334_shifty_map2 extends Migration
                         $stages[$row[2]],
                     ];
                 },
-                iterator_to_array($this->getLayouts())
-            )
+                iterator_to_array($this->getLayouts()),
+            ),
         );
     }
 

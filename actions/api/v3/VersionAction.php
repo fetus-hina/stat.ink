@@ -47,7 +47,7 @@ final class VersionAction extends ViewAction
 
         return \array_map(
             fn (SplatoonVersionGroup3 $group): array => SplatoonVersionGroupApiFormatter::toJson($group, $full, true),
-            $groups
+            $groups,
         );
     }
 }

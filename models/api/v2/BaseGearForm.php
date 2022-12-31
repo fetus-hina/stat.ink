@@ -73,7 +73,7 @@ abstract class BaseGearForm extends Model
             $this->addError($attribute, sprintf(
                 'Gear type mismatch. input=%s, require=%s',
                 $loaded->type->key,
-                $this->getType()
+                $this->getType(),
             ));
         }
     }

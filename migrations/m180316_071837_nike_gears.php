@@ -21,7 +21,7 @@ class m180316_071837_nike_gears extends Migration
             'shoes',
             'tentatek',
             'quick_super_jump',
-            2037
+            2037,
         );
         $this->upGear2(
             static::name2key('Sea Slug Volt 950s'),
@@ -29,7 +29,7 @@ class m180316_071837_nike_gears extends Migration
             'shoes',
             'tentatek',
             'ink_saver_sub',
-            3018
+            3018,
         );
     }
 

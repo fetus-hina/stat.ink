@@ -31,12 +31,12 @@ class m171201_164553_gear_v2 extends Migration
                     $abilities[$row['ability']],
                 ];
             },
-            $data
+            $data,
         );
         $this->batchInsert(
             'gear2',
             ['key', 'type_id', 'brand_id', 'name', 'ability_id'],
-            $insert
+            $insert,
         );
     }
 
@@ -49,7 +49,7 @@ class m171201_164553_gear_v2 extends Migration
             function (array $row): string {
                 return $row['key'];
             },
-            $data
+            $data,
         )]);
     }
 
@@ -75,7 +75,7 @@ class m171201_164553_gear_v2 extends Migration
         return ArrayHelper::map(
             (new Query())->select(['id', 'key'])->from('gear_type')->all(),
             'key',
-            'id'
+            'id',
         );
     }
 
@@ -84,7 +84,7 @@ class m171201_164553_gear_v2 extends Migration
         return ArrayHelper::map(
             (new Query())->select(['id', 'key'])->from('brand2')->all(),
             'key',
-            'id'
+            'id',
         );
     }
 
@@ -93,7 +93,7 @@ class m171201_164553_gear_v2 extends Migration
         return ArrayHelper::map(
             (new Query())->select(['id', 'key'])->from('ability2')->all(),
             'key',
-            'id'
+            'id',
         );
     }
 }

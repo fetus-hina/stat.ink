@@ -22,7 +22,7 @@ class m160608_080304_fix_weapon extends Migration
             ],
             [
                 'key' => 'barrelspinner_remix',
-            ]
+            ],
         );
     }
 
@@ -36,7 +36,7 @@ class m160608_080304_fix_weapon extends Migration
             ],
             [
                 'key' => 'barrelspinner_remix',
-            ]
+            ],
         );
     }
 }

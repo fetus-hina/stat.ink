@@ -41,7 +41,7 @@ final class Gear2Action extends Action
         \usort($gears, function (Gear2 $a, Gear2 $b): int {
             return \strnatcasecmp(
                 $a->translatedName,
-                $b->translatedName
+                $b->translatedName,
             );
         });
         $langs = Language::find()->standard()->all();

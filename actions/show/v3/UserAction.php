@@ -42,7 +42,7 @@ final class UserAction extends Action
                         'name' => 'battle-list',
                         'value' => $view,
                         'expire' => time() + 86400 * 366,
-                    ])
+                    ]),
                 );
             }
 
@@ -88,7 +88,7 @@ final class UserAction extends Action
                     'screen_name' => $user->screen_name,
                 ],
             ),
-            true
+            true,
         );
         $template = $this->viewMode === 'simple' ? 'user.simple.php' : 'user';
         $battleDataProvider = Yii::createObject([

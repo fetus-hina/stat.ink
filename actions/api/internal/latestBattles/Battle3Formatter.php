@@ -86,7 +86,7 @@ trait Battle3Formatter
                     $am->getAssetUrl($asset, vsprintf('spl3/%s.png', [
                         $lobby->key,
                     ])),
-                    true
+                    true,
                 ),
             'key' => $lobby->key,
             'name' => Yii::t('app-lobby3', $lobby->name),
@@ -105,15 +105,15 @@ trait Battle3Formatter
             'image' => [
                 'lose' => Url::to(
                     $am->getAssetUrl($asset, "gray-blur/{$map->key}.jpg"),
-                    true
+                    true,
                 ),
                 'normal' => Url::to(
                     $am->getAssetUrl($asset, "color-normal/{$map->key}.jpg"),
-                    true
+                    true,
                 ),
                 'win' => Url::to(
                     $am->getAssetUrl($asset, "color-blur/{$map->key}.jpg"),
-                    true
+                    true,
                 ),
             ],
         ];
@@ -167,7 +167,7 @@ trait Battle3Formatter
         return [
             'icon' => Url::to(
                 $am->getAssetUrl($asset, sprintf('spl3/%s.png', $rule->key)),
-                true
+                true,
             ),
             'key' => $rule->key,
             'name' => Yii::t('app-rule3', $rule->name),
@@ -181,7 +181,7 @@ trait Battle3Formatter
                 'battle' => $model->uuid,
                 'screen_name' => $model->user->screen_name,
             ],
-            true
+            true,
         );
     }
 }

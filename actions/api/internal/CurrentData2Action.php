@@ -60,7 +60,7 @@ final class CurrentData2Action extends Action
                     function (PeriodMap $pm): string {
                         return $pm->map->key;
                     },
-                    $periodMaps
+                    $periodMaps,
                 ),
             ];
         };
@@ -153,7 +153,7 @@ final class CurrentData2Action extends Action
                             : sprintf(
                                 '%s » %s',
                                 Yii::t('app-weapon2', $category->name),
-                                Yii::t('app-weapon2', $type->name)
+                                Yii::t('app-weapon2', $type->name),
                             ),
                         'list' => ArrayHelper::asort(
                             ArrayHelper::map(

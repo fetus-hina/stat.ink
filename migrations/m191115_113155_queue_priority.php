@@ -26,7 +26,7 @@ class m191115_113155_queue_priority extends Migration
                     function (string $jobName, int $priority): string {
                         return vsprintf('WHEN %s THEN %d', [
                             sprintf('[[job]] LIKE %s', Yii::$app->db->quoteValue(
-                                '%' . $jobName . '%' // 既知の値しか入らないのでエスケープ省略
+                                '%' . $jobName . '%', // 既知の値しか入らないのでエスケープ省略
                             )),
                             $priority,
                         ]);

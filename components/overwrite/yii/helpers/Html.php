@@ -28,10 +28,10 @@ class Html extends BaseHtml
                 str_replace(
                     ['%20', '%3a'],
                     ['_', ':'],
-                    rawurlencode($page)
-                )
+                    rawurlencode($page),
+                ),
             ),
-            $options
+            $options,
         );
     }
 
@@ -47,12 +47,12 @@ class Html extends BaseHtml
                     if ($headers->has('Link')) {
                         $headers->add('Link', sprintf(
                             '<%s>; rel=preload; as=style',
-                            $href
+                            $href,
                         ));
                     } else {
                         $headers->set('Link', sprintf(
                             '<%s>; rel=preload; as=style',
-                            $href
+                            $href,
                         ));
                     }
                 }
@@ -73,12 +73,12 @@ class Html extends BaseHtml
                     if ($headers->has('Link')) {
                         $headers->add('Link', sprintf(
                             '<%s>; rel=preload; as=script',
-                            $href
+                            $href,
                         ));
                     } else {
                         $headers->set('Link', sprintf(
                             '<%s>; rel=preload; as=script',
-                            $href
+                            $href,
                         ));
                     }
                 }
@@ -99,7 +99,7 @@ class Html extends BaseHtml
                 return "{$name}:{$value}";
             },
             array_keys($style),
-            array_values($style)
+            array_values($style),
         )));
         return $result === '' ? null : rtrim($result);
     }
@@ -111,7 +111,7 @@ class Html extends BaseHtml
                 return sprintf('%s{%s}', $selector, static::cssStyleFromArray($style));
             },
             array_keys($styles),
-            array_values($styles)
+            array_values($styles),
         ));
     }
 

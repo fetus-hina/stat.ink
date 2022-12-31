@@ -20,7 +20,7 @@ class DateTimeFormatter
         $datetime = self::createDateTimeFromFloatedUnixtime((float)$unixtime);
         $datetime->setTimeZone($tz === null ? static::getDefaultTimeZone() : $tz);
         return $datetime->format(
-            $isFloat ? 'Y-m-d\TH:i:s.uP' : 'Y-m-d\TH:i:sP'
+            $isFloat ? 'Y-m-d\TH:i:s.uP' : 'Y-m-d\TH:i:sP',
         );
     }
 
@@ -38,7 +38,7 @@ class DateTimeFormatter
         $t2 = (float)$time - $t1;       // time の小数部
         return DateTime::createFromFormat(
             'U u',
-            sprintf('%d %06d', $t1, (int)floor($t2 * 1000000))
+            sprintf('%d %06d', $t1, (int)floor($t2 * 1000000)),
         );
     }
 

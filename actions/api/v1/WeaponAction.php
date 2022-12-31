@@ -38,7 +38,7 @@ class WeaponAction extends BaseAction
             function ($weapon) {
                 return $weapon->toJsonArray();
             },
-            $query->all()
+            $query->all(),
         );
     }
 }

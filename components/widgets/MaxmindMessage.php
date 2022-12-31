@@ -36,10 +36,10 @@ class MaxmindMessage extends Widget
                     [
                         'rel' => 'external nofollow',
                         'target' => '_blank',
-                    ]
+                    ],
                 ),
             ]),
-            $opt
+            $opt,
         );
     }
 }

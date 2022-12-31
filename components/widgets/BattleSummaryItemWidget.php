@@ -106,7 +106,7 @@ class BattleSummaryItemWidget extends Widget
                         'number' => $this->total,
                         'battle' => $this->battles,
                     ]),
-            ]
+            ],
         );
     }
 }

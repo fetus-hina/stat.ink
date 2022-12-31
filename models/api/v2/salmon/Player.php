@@ -387,7 +387,7 @@ class Player extends Model
                             null,
                             null,
                             null,
-                            ['splatnet']
+                            ['splatnet'],
                         ),
                     ]),
                     ArrayHelper::getColumn(
@@ -395,9 +395,9 @@ class Player extends Model
                             ->orderBy(['key' => SORT_ASC])
                             ->all(),
                         'key',
-                        false
+                        false,
                     ),
-                    true // replace description
+                    true, // replace description
                 ),
                 'rescue' => [
                     'type' => 'integer',
@@ -411,7 +411,7 @@ class Player extends Model
                     'minimum' => 0,
                     'description' => Yii::t(
                         'app-apidoc2',
-                        'Number of times rescued by other players'
+                        'Number of times rescued by other players',
                     ),
                 ],
                 'golden_egg_delivered' => [
@@ -433,7 +433,7 @@ class Player extends Model
                         Html::encode(Yii::t(
                             'app-apidoc2',
                             'If your client doesn\'t/cannot detect this data, omit this field or ' .
-                            'send just `null`.'
+                            'send just `null`.',
                         )),
                         '',
                         static::oapiKeyValueTable(
@@ -451,9 +451,9 @@ class Player extends Model
                             ->asArray()
                             ->all(),
                         'key',
-                        false
+                        false,
                     ),
-                    true // replace description
+                    true, // replace description
                 ),
                 'gender' => static::oapiKey(
                     implode("\n", [
@@ -462,7 +462,7 @@ class Player extends Model
                         Html::encode(Yii::t(
                             'app-apidoc2',
                             'If your client doesn\'t/cannot detect this data, omit this field or ' .
-                            'send just `null`.'
+                            'send just `null`.',
                         )),
                         '',
                         static::oapiKeyValueTable(
@@ -473,7 +473,7 @@ class Player extends Model
                                 ->all(),
                             function (Gender $model): string {
                                 return strtolower($model->name);
-                            }
+                            },
                         ),
                     ]),
                     ArrayHelper::getColumn(
@@ -483,9 +483,9 @@ class Player extends Model
                         function (Gender $model): string {
                             return strtolower($model->name);
                         },
-                        false
+                        false,
                     ),
-                    true // replace description
+                    true, // replace description
                 ),
                 'special_uses' => [
                     'type' => 'array',
@@ -494,7 +494,7 @@ class Player extends Model
                     'description' => implode("\n", [
                         Html::encode(Yii::t(
                             'app-apidoc2',
-                            'How many times the special weapon was used in each wave'
+                            'How many times the special weapon was used in each wave',
                         )),
                         '',
                         '```js',
@@ -530,7 +530,7 @@ class Player extends Model
                             null,
                             null,
                             null,
-                            ['splatnet']
+                            ['splatnet'],
                         ),
                     ]),
                     'items' => static::oapiKey(
@@ -542,9 +542,9 @@ class Player extends Model
                                 ->orderBy(['key' => SORT_ASC])
                                 ->all(),
                             'key',
-                            false
+                            false,
                         ),
-                        true // replace description
+                        true, // replace description
                     ),
                 ],
                 'boss_kills' => [
@@ -554,7 +554,7 @@ class Player extends Model
                         '',
                         Yii::t(
                             'app-apidoc2',
-                            'If not kills the boss, you can send `0` or omit the boss.'
+                            'If not kills the boss, you can send `0` or omit the boss.',
                         ),
                     ]),
                     'properties' => ArrayHelper::map(
@@ -569,7 +569,7 @@ class Player extends Model
                                     Html::encode(Yii::t(
                                         'app-apidoc2',
                                         'Number of times the player kills {boss}',
-                                        ['boss' => Yii::t('app-salmon-boss2', $boss->name)]
+                                        ['boss' => Yii::t('app-salmon-boss2', $boss->name)],
                                     )),
                                 ]),
                             ];

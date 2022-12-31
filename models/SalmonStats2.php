@@ -145,7 +145,7 @@ class SalmonStats2 extends ActiveRecord
                 ],
                 function ($value): bool {
                     return $value !== null;
-                }
+                },
             );
         };
 

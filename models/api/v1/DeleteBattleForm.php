@@ -186,7 +186,7 @@ class DeleteBattleForm extends Model
                                     'key' => 'dry_run',
                                     'name' => 'Do more action but not to be deleted.',
                                 ],
-                            ]
+                            ],
                         ),
                     ]),
                     'enum' => [

@@ -27,7 +27,7 @@ final class AliasApiFormatter
         return \array_filter(
             \array_map(
                 fn (Model $model): ?string => self::toJson($model, $fullTranslate),
-                $models
+                $models,
             ),
             fn (?string $v): bool => $v !== null,
         );

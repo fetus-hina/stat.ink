@@ -50,12 +50,12 @@ trait WeaponShortNameTrait
                 function (Language $locale): bool {
                     return $this->checkLocaleDirectory($locale);
                 },
-                $locales
+                $locales,
             ),
             function (bool $old, bool $new): bool {
                 return $old && $new;
             },
-            true
+            true,
         );
     }
 
@@ -70,12 +70,12 @@ trait WeaponShortNameTrait
 
         $this->stderr(
             '[WeaponShortName] Directory does not exist for ' . $locale->lang . "\n",
-            Console::FG_PURPLE
+            Console::FG_PURPLE,
         );
         $this->stderr(
             '[WeaponShortName] Please make a directory or edit $map of ' . "\n" .
             '                  app\commands\i18n\WeaponShortNameTrait::getLocaleDirectory()' . "\n",
-            Console::FG_PURPLE
+            Console::FG_PURPLE,
         );
 
         return false;
@@ -116,12 +116,12 @@ trait WeaponShortNameTrait
                 function (Language $locale): bool {
                     return $this->createLocale($locale);
                 },
-                $locales
+                $locales,
             ),
             function (bool $old, bool $new): bool {
                 return $old && $new;
             },
-            true
+            true,
         );
     }
 
@@ -145,7 +145,7 @@ trait WeaponShortNameTrait
             function (string $value, string $key): bool {
                 return $value !== '';
             },
-            ARRAY_FILTER_USE_BOTH
+            ARRAY_FILTER_USE_BOTH,
         );
 
         $i18n = Yii::$app->i18n;
@@ -222,7 +222,7 @@ trait WeaponShortNameTrait
 
         file_put_contents(
             $path,
-            implode("\n", $file) . "\n"
+            implode("\n", $file) . "\n",
         );
 
         return true;

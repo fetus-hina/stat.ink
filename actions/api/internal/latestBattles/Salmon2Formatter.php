@@ -42,15 +42,15 @@ trait Salmon2Formatter
                     'image' => [
                         'lose' => Url::to(
                             $am->getAssetUrl($stageAsset, "gray-blur/{$battle->stage->key}.jpg"),
-                            true
+                            true,
                         ),
                         'normal' => Url::to(
                             $am->getAssetUrl($stageAsset, "daytime/{$battle->stage->key}.jpg"),
-                            true
+                            true,
                         ),
                         'win' => Url::to(
                             $am->getAssetUrl($stageAsset, "daytime-blur/{$battle->stage->key}.jpg"),
-                            true
+                            true,
                         ),
                     ],
                 ]
@@ -86,7 +86,7 @@ trait Salmon2Formatter
                     'id' => $battle->id,
                     'screen_name' => $battle->user->screen_name,
                 ],
-                true
+                true,
             ),
             'user' => self::formatUser($battle->user),
             'variant' => 'salmon2',

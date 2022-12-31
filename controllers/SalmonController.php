@@ -97,7 +97,7 @@ class SalmonController extends Controller
                         'name' => 'work-list',
                         'value' => $view,
                         'expire' => time() + 86400 * 366,
-                    ])
+                    ]),
                 );
             }
 
@@ -140,7 +140,7 @@ class SalmonController extends Controller
                     'screen_name' => $user->screen_name,
                     'filter' => $filter->toPermalinkParams(),
                 ],
-                true
+                true,
             ),
         ]);
     }
@@ -156,7 +156,7 @@ class SalmonController extends Controller
         if ($model->user->screen_name !== $screen_name) {
             $this->redirect(
                 ['salmon/view', 'id' => $model->id, 'screen_name' => $model->user->screen_name],
-                301
+                301,
             );
             return null;
         }
@@ -208,7 +208,7 @@ class SalmonController extends Controller
                 ['salmon/view',
                     'id' => $model->id,
                     'screen_name' => $model->user->screen_name,
-                ]
+                ],
             );
             return null;
         }
@@ -237,7 +237,7 @@ class SalmonController extends Controller
                 ['salmon/view',
                   'id' => $model->id,
                   'screen_name' => $model->user->screen_name,
-                ]
+                ],
             );
             return null;
         }
@@ -253,7 +253,7 @@ class SalmonController extends Controller
             $this->redirect(
                 ['salmon/index',
                     'screen_name' => $model->user->screen_name,
-                ]
+                ],
             );
             return null;
         }

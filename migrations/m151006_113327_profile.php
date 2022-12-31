@@ -18,7 +18,7 @@ class m151006_113327_profile extends Migration
                 'ADD COLUMN [[nnid]] VARCHAR(16)',
                 'ADD COLUMN [[twitter]] VARCHAR(15)',
                 'ADD COLUMN [[ikanakama]] INTEGER',
-            ])
+            ]),
         );
         $this->execute($sql);
     }
@@ -31,7 +31,7 @@ class m151006_113327_profile extends Migration
                 'DROP COLUMN [[nnid]]',
                 'DROP COLUMN [[twitter]]',
                 'DROP COLUMN [[ikanakama]]',
-            ])
+            ]),
         );
         $this->execute($sql);
     }

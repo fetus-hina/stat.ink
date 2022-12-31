@@ -48,10 +48,10 @@ class GearConfiguration extends \yii\db\ActiveRecord
                 hash(
                     'sha256',
                     http_build_query($data, '', '&'),
-                    true
-                )
+                    true,
+                ),
             ),
-            '='
+            '=',
         );
     }
 
@@ -123,7 +123,7 @@ class GearConfiguration extends \yii\db\ActiveRecord
                     function ($o) {
                         return $o->toJsonArray();
                     },
-                    $this->secondaries
+                    $this->secondaries,
                 )
                 : null,
         ];

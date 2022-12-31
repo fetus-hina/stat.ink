@@ -66,7 +66,7 @@ class MiniinfoData extends Widget
         return Html::tag(
             $tag,
             $this->renderHeader() . $this->renderValue(),
-            $options
+            $options,
         );
     }
 
@@ -116,7 +116,7 @@ class MiniinfoData extends Widget
         return Html::tag(
             $tag,
             $f->format($value, $format),
-            $options
+            $options,
         );
     }
 }

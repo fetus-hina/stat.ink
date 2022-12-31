@@ -115,7 +115,7 @@ class OstatusPubsubhubbub extends ActiveRecord
         $curl->setHeader('Content-Type', 'application/atom+xml');
         $curl->setHeader('Link', sprintf(
             '<%s>; rel=self',
-            Url::to(['/ostatus/feed', 'screen_name' => $battle->user->screen_name], true)
+            Url::to(['/ostatus/feed', 'screen_name' => $battle->user->screen_name], true),
         ));
         if ($hash) {
             $curl->setHeader('X-Hub-Signature', "sha1={$hash}");
@@ -125,7 +125,7 @@ class OstatusPubsubhubbub extends ActiveRecord
             Yii::error('app.ostatus', sprintf(
                 '%s(): post failed, %s',
                 __METHOD__,
-                $curl->errorMessage
+                $curl->errorMessage,
             ));
             return null;
         }

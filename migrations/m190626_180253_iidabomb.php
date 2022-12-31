@@ -17,7 +17,7 @@ class m190626_180253_iidabomb extends Migration
         $this->update(
             'death_reason2',
             ['name' => 'Hyperbomb'],
-            ['key' => 'iidabomb']
+            ['key' => 'iidabomb'],
         );
     }
 
@@ -26,7 +26,7 @@ class m190626_180253_iidabomb extends Migration
         $this->update(
             'death_reason2',
             ['name' => 'Marina Bomb'],
-            ['key' => 'iidabomb']
+            ['key' => 'iidabomb'],
         );
     }
 }

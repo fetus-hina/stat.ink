@@ -32,7 +32,7 @@ class NotoSansAsset extends AssetBundle
                         'Noto Sans KR',
                         'Noto Sans SC',
                         'Noto Sans TC',
-                    ]
+                    ],
                 ),
                 'display' => 'swap',
             ]),

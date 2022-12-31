@@ -20,7 +20,7 @@ class Password
         $algo = static::currentAlgo();
         return password_hash(
             self::preprocess($password, $algo),
-            $algo
+            $algo,
         );
     }
 
@@ -30,7 +30,7 @@ class Password
     ): bool {
         return password_verify(
             self::preprocess($password, self::detectAlgorithm($hash)),
-            $hash
+            $hash,
         );
     }
 
@@ -117,7 +117,7 @@ class Password
                         '$2$',
                     ],
                 ],
-            ]
+            ],
         );
     }
 }

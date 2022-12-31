@@ -38,14 +38,14 @@ class GearConfiguration2 extends ActiveRecord
                 function ($id): ?int {
                     return ($id > 0) ? (int)$id : null;
                 },
-                $secondaryAbitilyIdList
+                $secondaryAbitilyIdList,
             ),
         ];
         return rtrim(
             base64_encode(
-                hash('sha256', Json::encode($data), true)
+                hash('sha256', Json::encode($data), true),
             ),
-            '='
+            '=',
         );
     }
 
@@ -130,7 +130,7 @@ class GearConfiguration2 extends ActiveRecord
                     function (?GearConfigurationSecondary2 $o) {
                         return $o ? $o->toJsonArray() : null;
                     },
-                    $this->secondaries
+                    $this->secondaries,
                 )
                 : null,
         ];

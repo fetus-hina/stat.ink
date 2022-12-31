@@ -106,7 +106,7 @@ final class Map extends \yii\db\ActiveRecord
             'release_at' => $t
                 ? DateTimeFormatter::unixTimeToJsonArray(
                     $t,
-                    new DateTimeZone('Etc/UTC')
+                    new DateTimeZone('Etc/UTC'),
                 )
                 : null,
         ];
@@ -125,9 +125,9 @@ final class Map extends \yii\db\ActiveRecord
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc1', 'Stage'),
                         'app-map',
-                        $values
+                        $values,
                     ),
-                    ArrayHelper::getColumn($values, 'key', false)
+                    ArrayHelper::getColumn($values, 'key', false),
                 ),
                 'name' => static::oapiRef(openapi\Name::class),
                 'area' => [
@@ -161,7 +161,7 @@ final class Map extends \yii\db\ActiveRecord
             function (self $model): array {
                 return $model->toJsonArray();
             },
-            $values
+            $values,
         );
     }
 }

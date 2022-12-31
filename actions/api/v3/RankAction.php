@@ -37,7 +37,7 @@ final class RankAction extends Action
             fn (Rank3 $model): array => RankApiFormatter::toJson($model, $full),
             Rank3::find()
                 ->orderBy(['rank' => SORT_ASC])
-                ->all()
+                ->all(),
         );
     }
 }

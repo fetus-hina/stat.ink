@@ -51,12 +51,12 @@ class PostAction extends \yii\web\ViewAction
                     'screen_name' => $model->user->screen_name,
                     'id' => $model->id,
                 ],
-                true
-            )
+                true,
+            ),
         );
         $headers->set(
             'x-api-location',
-            Url::to(['api-v2-salmon/view', 'id' => $model->id], true)
+            Url::to(['api-v2-salmon/view', 'id' => $model->id], true),
         );
 
         return '';
@@ -85,8 +85,8 @@ class PostAction extends \yii\web\ViewAction
             $_SERVER['REMOTE_ADDR'],
             Json::encode(
                 ['error' => $errors],
-                JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
-            )
+                JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE,
+            ),
         ));
     }
 }

@@ -22,7 +22,7 @@ class FeedController extends Controller
                 'lang' => $lang,
                 'type' => $type,
             ],
-            308
+            308,
         );
     }
 

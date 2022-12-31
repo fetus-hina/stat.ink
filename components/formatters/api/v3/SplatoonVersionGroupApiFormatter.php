@@ -39,9 +39,9 @@ final class SplatoonVersionGroupApiFormatter
                 ? \array_map(
                     fn (SplatoonVersion3 $version): array => SplatoonVersionApiFormatter::toJson(
                         $version,
-                        $fullTranslate
+                        $fullTranslate,
                     ),
-                    $versions
+                    $versions,
                 )
                 : false,
         ];

@@ -129,7 +129,7 @@ class EditBattleAction extends BaseAction
         asort($ret);
         return static::arrayMerge(
             ['' => Yii::t('app', 'Unknown')],
-            $ret
+            $ret,
         );
     }
 
@@ -150,7 +150,7 @@ class EditBattleAction extends BaseAction
         }
         return static::arrayMerge(
             ['' => Yii::t('app', 'Unknown')],
-            $ret
+            $ret,
         );
     }
 

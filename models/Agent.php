@@ -100,7 +100,7 @@ class Agent extends \yii\db\ActiveRecord
             if ($ikalog) {
                 return sprintf(
                     'https://github.com/hasegaw/IkaLog/tree/%s',
-                    rawurlencode($ikalog->revision)
+                    rawurlencode($ikalog->revision),
                 );
             }
         }
@@ -110,7 +110,7 @@ class Agent extends \yii\db\ActiveRecord
                 if ($version) {
                     return sprintf(
                         'https://github.com/fetus-hina/stat.ink/tree/%s',
-                        rawurlencode($version)
+                        rawurlencode($version),
                     );
                 }
             }

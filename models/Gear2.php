@@ -175,7 +175,7 @@ class Gear2 extends ActiveRecord
             static::find()
                 ->orderBy(['key' => SORT_ASC])
                 ->limit(5)
-                ->all()
+                ->all(),
         );
     }
 }

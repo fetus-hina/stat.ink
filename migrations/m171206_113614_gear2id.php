@@ -23,17 +23,17 @@ class m171206_113614_gear2id extends Migration
                     return sprintf(
                         'WHEN %s THEN %s',
                         $this->db->quoteValue($key),
-                        $this->db->quoteValue($value)
+                        $this->db->quoteValue($value),
                     );
                 },
                 array_keys($data),
-                array_values($data)
-            ))
+                array_values($data),
+            )),
         ));
         $this->update(
             'gear2',
             ['splatnet' => $updateCase],
-            ['key' => array_keys($data)]
+            ['key' => array_keys($data)],
         );
     }
 
@@ -42,7 +42,7 @@ class m171206_113614_gear2id extends Migration
         $this->update(
             'gear2',
             ['splatnet' => null],
-            ['key' => array_keys($this->getUpdateData())]
+            ['key' => array_keys($this->getUpdateData())],
         );
     }
 

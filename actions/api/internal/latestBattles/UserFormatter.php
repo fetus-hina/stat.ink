@@ -25,14 +25,14 @@ trait UserFormatter
                         ? Url::to($model->userIcon->url, true)
                         : null,
                     Url::to($model->jdenticonUrl, true),
-                ])
+                ]),
             ),
             'name' => $model->name,
             'url' => Url::to(
                 ['show-user/profile',
                     'screen_name' => $model->screen_name,
                 ],
-                true
+                true,
             ),
         ];
     }

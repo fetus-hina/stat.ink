@@ -44,7 +44,7 @@ final class m221008_120634_dragon_match extends Migration
         $this->addColumn(
             '{{%battle3}}',
             'fest_dragon_id',
-            (string)$this->pkRef('{{%dragon_match3}}')->null()
+            (string)$this->pkRef('{{%dragon_match3}}')->null(),
         );
 
         return true;

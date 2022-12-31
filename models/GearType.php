@@ -97,9 +97,9 @@ class GearType extends ActiveRecord
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc1', 'Gear Type'),
                         'app-gear',
-                        $values
+                        $values,
                     ),
-                    ArrayHelper::getColumn($values, 'key', false)
+                    ArrayHelper::getColumn($values, 'key', false),
                 ),
                 'name' => static::oapiRef(openapi\Name::class),
             ],
@@ -123,7 +123,7 @@ class GearType extends ActiveRecord
             function ($model) {
                 return $model->toJsonArray();
             },
-            $models
+            $models,
         );
     }
 }

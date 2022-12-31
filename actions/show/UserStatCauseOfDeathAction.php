@@ -58,11 +58,11 @@ class UserStatCauseOfDeathAction extends BaseAction
             ->from('battle')
             ->innerJoin(
                 'battle_death_reason',
-                '{{battle}}.[[id]] = {{battle_death_reason}}.[[battle_id]]'
+                '{{battle}}.[[id]] = {{battle_death_reason}}.[[battle_id]]',
             )
             ->innerJoin(
                 'death_reason',
-                '{{battle_death_reason}}.[[reason_id]] = {{death_reason}}.[[id]]'
+                '{{battle_death_reason}}.[[reason_id]] = {{death_reason}}.[[id]]',
             )
             ->leftJoin('rule', '{{battle}}.[[rule_id]] = {{rule}}.[[id]]')
             ->leftJoin('game_mode', '{{rule}}.[[mode_id]] = {{game_mode}}.[[id]]')
@@ -113,7 +113,7 @@ class UserStatCauseOfDeathAction extends BaseAction
             },
             DeathReason::findAll(['id' => array_map(function ($row) {
                 return $row['reason_id'];
-            }, $list)])
+            }, $list)]),
         );
 
         $ret = array_map(
@@ -123,7 +123,7 @@ class UserStatCauseOfDeathAction extends BaseAction
                     'count' => (int)$row['count'],
                 ];
             },
-            $list
+            $list,
         );
         usort($ret, function ($a, $b) {
             return $b->count <=> $a->count ?: strcasecmp($a->name, $b->name);
@@ -152,7 +152,7 @@ class UserStatCauseOfDeathAction extends BaseAction
             ])
             ->leftJoin(
                 '{{weapon}} {{deadly_weapon}}',
-                '{{death_reason}}.[[weapon_id]] = {{deadly_weapon}}.[[id]]'
+                '{{death_reason}}.[[weapon_id]] = {{deadly_weapon}}.[[id]]',
             )
             ->groupBy('{{death_reason}}.[[id]]');
 
@@ -201,7 +201,7 @@ class UserStatCauseOfDeathAction extends BaseAction
         }
         $ret = array_merge(
             array_values($retWeapons),
-            array_values($retOthers)
+            array_values($retOthers),
         );
         usort($ret, function ($a, $b) {
             return $b->count <=> $a->count ?: strcasecmp($a->name, $b->name);
@@ -227,7 +227,7 @@ class UserStatCauseOfDeathAction extends BaseAction
                     'count' => (int)$row['count'],
                 ];
             },
-            $query->createCommand()->queryAll()
+            $query->createCommand()->queryAll(),
         );
         usort($ret, function ($a, $b) {
             return $b->count <=> $a->count ?: strcasecmp($a->name, $b->name);

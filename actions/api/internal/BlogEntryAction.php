@@ -45,7 +45,7 @@ class BlogEntryAction extends ViewAction
                         'relative' => $f->asRelativeTime($at, $now),
                     ],
                 ];
-            }
+            },
         );
     }
 }

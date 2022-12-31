@@ -31,7 +31,7 @@ class m170714_111746_weapon2 extends Migration
         $this->update(
             'special2',
             ['name' => 'Bomb Launcher'],
-            ['key' => 'pitcher']
+            ['key' => 'pitcher'],
         );
 
         // バブルランチャー
@@ -71,7 +71,7 @@ class m170714_111746_weapon2 extends Migration
         $this->update(
             'special2',
             ['name' => 'Bubble Blower'],
-            ['key' => 'pitcher']
+            ['key' => 'pitcher'],
         );
         // }}}
     }

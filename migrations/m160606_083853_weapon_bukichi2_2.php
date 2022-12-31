@@ -42,7 +42,7 @@ class m160606_083853_weapon_bukichi2_2 extends Migration
                     new Expression("currval('weapon_id_seq'::regclass)"),
                     Weapon::findOne(['key' => 'bold'])->id,
                 ],
-            ]
+            ],
         );
 
         $type = DeathReasonType::findOne(['key' => 'main'])->id;
@@ -62,7 +62,7 @@ class m160606_083853_weapon_bukichi2_2 extends Migration
                     'Sploosh-o-matic 7',
                     Weapon::findOne(['key' => 'bold'])->id,
                 ],
-            ]
+            ],
         );
     }
 

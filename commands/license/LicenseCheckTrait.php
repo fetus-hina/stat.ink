@@ -76,7 +76,7 @@ trait LicenseCheckTrait
                     $results[$package] = is_string($license) ? $license : Json::encode($license);
                 }
                 return $results;
-            }
+            },
         );
     }
 
@@ -95,9 +95,9 @@ trait LicenseCheckTrait
                         $tmp = $values['licenses'] ?? null;
                         return is_string($tmp) ? $tmp : Json::encode($tmp);
                     },
-                    $json
+                    $json,
                 );
-            }
+            },
         );
     }
 

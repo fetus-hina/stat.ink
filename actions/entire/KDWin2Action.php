@@ -37,9 +37,9 @@ class KDWin2Action extends ViewAction
                             $filter->attributes,
                             function (?string $value): bool {
                                 return trim((string)$value) !== '';
-                            }
+                            },
                         ),
-                    ]
+                    ],
                 );
                 return;
             }
@@ -103,7 +103,7 @@ class KDWin2Action extends ViewAction
         $version = SplatoonVersion2::findCurrentVersion();
         if (!$version) {
             throw new ServerErrorHttpException(
-                'Could not determinate current game version'
+                'Could not determinate current game version',
             );
         }
 

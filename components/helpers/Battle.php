@@ -81,7 +81,7 @@ class Battle
             ])
             ->from(sprintf(
                 '(%s) {{t}}',
-                $subQuery->createCommand()->rawSql
+                $subQuery->createCommand()->rawSql,
             ));
         return $query->createCommand()->queryOne();
     }
@@ -111,7 +111,7 @@ class Battle
             ])
             ->from(sprintf(
                 '(%s) {{t}}',
-                $subQuery->createCommand()->rawSql
+                $subQuery->createCommand()->rawSql,
             ));
 
         return $query->createCommand()->queryOne();
@@ -131,7 +131,7 @@ class Battle
                 ->setDate(
                     (int)$aYearAgo->format('Y'),
                     (int)$aYearAgo->format('n') + 1,
-                    1
+                    1,
                 )
                 ->setTime(0, 0, 0),
             (new DateTimeImmutable())
@@ -139,7 +139,7 @@ class Battle
                 ->setDate(
                     (int)$today->format('Y'),
                     (int)$today->format('n'),
-                    (int)$today->format('t') + 1
+                    (int)$today->format('t') + 1,
                 )
                 ->setTime(0, 0, -1),
         ];

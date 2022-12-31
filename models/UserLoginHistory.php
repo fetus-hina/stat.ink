@@ -63,7 +63,7 @@ class UserLoginHistory extends ActiveRecord
             return sprintf(
                 'WHEN %d THEN %s',
                 $ipVer,
-                "host(set_masklen({$column}::cidr, $maskLen))"
+                "host(set_masklen({$column}::cidr, $maskLen))",
             );
         };
         $remoteAddrMasked = new DbExpr(sprintf(
@@ -73,7 +73,7 @@ class UserLoginHistory extends ActiveRecord
                 $makeMask(4, 24),
                 $makeMask(6, 64),
                 'ELSE NULL',
-            ])
+            ]),
         ));
         return parent::find()
             ->select([

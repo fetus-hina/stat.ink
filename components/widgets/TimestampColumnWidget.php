@@ -52,7 +52,7 @@ class TimestampColumnWidget extends Widget
                         (new DateTimeImmutable())
                             ->setTimestamp((int)$f->asTimestamp($this->value))
                             ->setTimezone(new DateTimeZone(Yii::$app->timeZone))
-                            ->format('T')
+                            ->format('T'),
                     ),
                     '#timezone-dialog',
                     [
@@ -62,7 +62,7 @@ class TimestampColumnWidget extends Widget
                         'data' => [
                             'toggle' => 'modal',
                         ],
-                    ]
+                    ],
                 )
                 : null,
             $this->showRelative

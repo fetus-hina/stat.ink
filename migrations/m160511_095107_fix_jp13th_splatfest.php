@@ -19,7 +19,7 @@ class m160511_095107_fix_jp13th_splatfest extends Migration
             [
                 'region_id' => Region::findOne(['key' => 'jp'])->id,
                 'order' => 13,
-            ]
+            ],
         );
     }
 

@@ -56,7 +56,7 @@ trait Splatoon2
                     'user' => $a['user_count'],
                 ];
             },
-            $stats
+            $stats,
         );
     }
 
@@ -114,11 +114,11 @@ trait Splatoon2
                             $startAt,
                             $endAt,
                             (int)$row['min_id'],
-                            (int)$row['max_id']
+                            (int)$row['max_id'],
                         ),
                     ];
                 },
-                $list
+                $list,
             ),
         ];
     }
@@ -157,7 +157,7 @@ trait Splatoon2
                     'users' => (int)$row['users'],
                 ];
             },
-            $versions
+            $versions,
         );
     }
 }

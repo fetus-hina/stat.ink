@@ -17,7 +17,7 @@ class m171108_192208_version_group extends Migration
         $this->execute(
             'ALTER TABLE {{splatoon_version2}} ' .
             'ADD COLUMN [[group_id]] INTEGER NULL ' .
-            'REFERENCES {{splatoon_version_group2}}([[id]])'
+            'REFERENCES {{splatoon_version_group2}}([[id]])',
         );
         $transaction = $this->db->beginTransaction();
         $g = $this->getGroups();
@@ -25,13 +25,13 @@ class m171108_192208_version_group extends Migration
             $this->update(
                 '{{splatoon_version2}}',
                 ['group_id' => $g[$gTag]],
-                ['tag' => $vTags]
+                ['tag' => $vTags],
             );
         }
         $transaction->commit();
         $this->execute(
             'ALTER TABLE {{splatoon_version2}} ' .
-            'ALTER COLUMN [[group_id]] SET NOT NULL'
+            'ALTER COLUMN [[group_id]] SET NOT NULL',
         );
     }
 
@@ -73,7 +73,7 @@ class m171108_192208_version_group extends Migration
                 ->from('splatoon_version_group2')
                 ->all(),
             'tag',
-            'id'
+            'id',
         );
     }
 }

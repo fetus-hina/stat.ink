@@ -61,7 +61,7 @@ class UserStatVsWeaponAction extends BaseAction
                     : null;
                 return $data;
             },
-            ArrayHelper::merge($this->queryVersus(), $this->queryDeath())
+            ArrayHelper::merge($this->queryVersus(), $this->queryDeath()),
         );
         uasort($data, function (array $a, array $b): int {
             if ($a['win_pct'] === null) {
@@ -98,7 +98,7 @@ class UserStatVsWeaponAction extends BaseAction
             implode(', ', [
                 'battle_id BIGINT NOT NULL PRIMARY KEY',
                 'death BIGINT NOT NULL',
-            ])
+            ]),
         ))->execute();
 
         $db->createCommand(sprintf(
@@ -113,7 +113,7 @@ class UserStatVsWeaponAction extends BaseAction
                 ->andWhere(['battle.user_id' => $this->user->id])
                 ->groupBy('battle.id')
                 ->createCommand()
-                ->rawSql
+                ->rawSql,
         ))->execute();
     }
 
@@ -124,7 +124,7 @@ class UserStatVsWeaponAction extends BaseAction
             'CREATE TEMPORARY TABLE tmp_battle (%s) ON COMMIT DROP',
             implode(', ', [
                 'battle_id BIGINT NOT NULL PRIMARY KEY',
-            ])
+            ]),
         ))->execute();
 
         $query = (new Query())
@@ -163,7 +163,7 @@ class UserStatVsWeaponAction extends BaseAction
 
         $db->createCommand(sprintf(
             'INSERT INTO tmp_battle (battle_id) %s',
-            $query->createCommand()->rawSql
+            $query->createCommand()->rawSql,
         ))->execute();
     }
 
@@ -185,7 +185,7 @@ class UserStatVsWeaponAction extends BaseAction
             ->from('tmp_battle')
             ->innerJoin(
                 'battle_player',
-                '{{tmp_battle}}.[[battle_id]] = {{battle_player}}.[[battle_id]]'
+                '{{tmp_battle}}.[[battle_id]] = {{battle_player}}.[[battle_id]]',
             )
             ->innerJoin('weapon', '{{battle_player}}.[[weapon_id]] = {{weapon}}.[[id]]')
             ->innerJoin('subweapon', '{{weapon}}.[[subweapon_id]] = {{subweapon}}.[[id]]')
@@ -241,11 +241,11 @@ class UserStatVsWeaponAction extends BaseAction
             ->from('tmp_battle')
             ->innerJoin(
                 'battle_death_reason',
-                '{{tmp_battle}}.[[battle_id]] = {{battle_death_reason}}.[[battle_id]]'
+                '{{tmp_battle}}.[[battle_id]] = {{battle_death_reason}}.[[battle_id]]',
             )
             ->innerJoin(
                 'death_reason',
-                '{{battle_death_reason}}.[[reason_id]] = {{death_reason}}.[[id]]'
+                '{{battle_death_reason}}.[[reason_id]] = {{death_reason}}.[[id]]',
             )
             ->groupBy('{{battle_death_reason}}.[[reason_id]]');
         foreach ($query->createCommand($db)->queryAll() as $row) {

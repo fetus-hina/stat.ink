@@ -92,9 +92,9 @@ class SalmonFailReason2 extends ActiveRecord
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc2', 'Reason'),
                         'app-salmon2',
-                        $values
+                        $values,
                     ),
-                    ArrayHelper::getColumn($values, 'key', false)
+                    ArrayHelper::getColumn($values, 'key', false),
                 ),
                 'name' => static::oapiRef(openapi\Name::class),
             ],
@@ -117,7 +117,7 @@ class SalmonFailReason2 extends ActiveRecord
             },
             static::find()
                 ->orderBy(['id' => SORT_ASC])
-                ->all()
+                ->all(),
         );
     }
 }

@@ -22,7 +22,7 @@ class m190528_111240_splatton2_v4_8_0 extends Migration
             '4.8.x',
             '4.8.0',
             '4.8.0',
-            new DateTimeImmutable('2019-05-29T11:00:00+09:00')
+            new DateTimeImmutable('2019-05-29T11:00:00+09:00'),
         );
     }
 

@@ -30,7 +30,7 @@ trait Splatoon2
         $cond24Hours = sprintf(
             '(({{battle2}}.[[end_at]] IS NOT NULL) AND ({{battle2}}.[[end_at]] BETWEEN %s AND %s))',
             $db->quoteValue($now->sub(new DateInterval('PT86399S'))->format(DateTime::ATOM)),
-            $db->quoteValue($now->format(DateTime::ATOM))
+            $db->quoteValue($now->format(DateTime::ATOM)),
         );
         $condAfterSept2017 = sprintf('(%s)', implode(' AND ', [
             '{{battle2}}.[[end_at]] IS NOT NULL',
@@ -81,14 +81,14 @@ trait Splatoon2
                 implode(' AND ', [
                     $condResultPresent,
                     '{{battle2}}.[[is_win]] = TRUE',
-                ])
+                ]),
             ),
             sprintf(
                 'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
                 implode(' AND ', [
                     $condResultPresent,
-                ])
-            )
+                ]),
+            ),
         );
         $column_wp_short = sprintf(
             "(%s * 100.0 / NULLIF(%s, 0))",
@@ -98,15 +98,15 @@ trait Splatoon2
                     $condResultPresent,
                     $cond24Hours,
                     '{{battle2}}.[[is_win]] = TRUE',
-                ])
+                ]),
             ),
             sprintf(
                 'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
                 implode(' AND ', [
                     $condResultPresent,
                     $cond24Hours,
-                ])
-            )
+                ]),
+            ),
         );
         $column_battles_short = sprintf(
             'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
@@ -114,7 +114,7 @@ trait Splatoon2
                 $condResultPresent,
                 $cond24Hours,
                 '{{battle2}}.[[is_win]] IS NOT NULL',
-            ])
+            ]),
         );
         $column_win_short = sprintf(
             'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
@@ -122,66 +122,66 @@ trait Splatoon2
                 $condResultPresent,
                 $cond24Hours,
                 '{{battle2}}.[[is_win]] = TRUE',
-            ])
+            ]),
         );
         $column_total_kill = sprintf(
             'SUM(CASE WHEN (%s) THEN {{battle2}}.[[kill]] ELSE 0 END)',
             implode(' AND ', [
                 $condKDPresent,
-            ])
+            ]),
         );
         $column_total_death = sprintf(
             'SUM(CASE WHEN (%s) THEN {{battle2}}.[[death]] ELSE 0 END)',
             implode(' AND ', [
                 $condKDPresent,
-            ])
+            ]),
         );
         $column_kd_present = sprintf(
             'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
             implode(' AND ', [
                 $condKDPresent,
-            ])
+            ]),
         );
         $column_total_specials = sprintf(
             'SUM(CASE WHEN (%s) THEN {{battle2}}.[[special]] ELSE 0 END)',
             implode(' AND ', [
                 $condSpecialPresent,
-            ])
+            ]),
         );
         $column_specials_present = sprintf(
             'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
             implode(' AND ', [
                 $condSpecialPresent,
-            ])
+            ]),
         );
         $assist = sprintf(
             'CASE WHEN (%s) THEN {{battle2}}.[[kill_or_assist]] - {{battle2}}.[[kill]] ELSE NULL END',
             implode(' AND ', [
                 $condAssistPresent,
-            ])
+            ]),
         );
         $column_total_assists = sprintf(
             'SUM(CASE WHEN (%s) THEN {{battle2}}.[[kill_or_assist]] - {{battle2}}.[[kill]] ELSE 0 END)',
             implode(' AND ', [
                 $condAssistPresent,
-            ])
+            ]),
         );
         $column_assists_present = sprintf(
             'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
             implode(' AND ', [
                 $condAssistPresent,
-            ])
+            ]),
         );
         $inked = sprintf('CASE %s END', implode(' ', [
             sprintf(
                 'WHEN %s AND {{battle2}}.[[is_win]] = TRUE AND {{battle2}}.[[rule_id]] = %d ' .
                     'THEN {{battle2}}.[[my_point]] - 1000',
                 implode(' AND ', [$condInkedPresent]),
-                $turfWarId
+                $turfWarId,
             ),
             sprintf(
                 'WHEN %s THEN {{battle2}}.[[my_point]]',
-                implode(' AND ', [$condInkedPresent])
+                implode(' AND ', [$condInkedPresent]),
             ),
             'ELSE NULL',
         ]));
@@ -190,11 +190,11 @@ trait Splatoon2
                 'WHEN %s AND {{battle2}}.[[is_win]] = TRUE AND {{battle2}}.[[rule_id]] = %d ' .
                     'THEN {{battle2}}.[[my_point]] - 1000',
                 implode(' AND ', [$condInkedPresent]),
-                $turfWarId
+                $turfWarId,
             ),
             sprintf(
                 'WHEN %s THEN {{battle2}}.[[my_point]]',
-                implode(' AND ', [$condInkedPresent])
+                implode(' AND ', [$condInkedPresent]),
             ),
             'ELSE 0',
         ]));

@@ -20,7 +20,7 @@ class Differ
             '/usr/bin/env %s -u -d -- %s %s',
             escapeshellarg('diff'),
             escapeshellarg($fBefore->get()),
-            escapeshellarg($fAfter->get())
+            escapeshellarg($fAfter->get()),
         );
         $status = $lines = null;
         @exec($cmdline, $lines, $status);
@@ -56,7 +56,7 @@ class Differ
             tempnam($directory, 'diff-'),
             function ($path) {
                 @unlink($path);
-            }
+            },
         );
         if ($ret->get() === false) {
             throw new \Exception('Could not create temporary file');

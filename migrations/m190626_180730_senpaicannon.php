@@ -17,7 +17,7 @@ class m190626_180730_senpaicannon extends Migration
         $this->update(
             'death_reason2',
             ['name' => 'Princess Cannon'],
-            ['key' => 'senpaicannon']
+            ['key' => 'senpaicannon'],
         );
     }
 
@@ -26,7 +26,7 @@ class m190626_180730_senpaicannon extends Migration
         $this->update(
             'death_reason2',
             ['name' => 'Senpai Cannon'],
-            ['key' => 'senpaicannon']
+            ['key' => 'senpaicannon'],
         );
     }
 }

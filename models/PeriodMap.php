@@ -28,8 +28,8 @@ class PeriodMap extends \yii\db\ActiveRecord
         return static::findByModeAndPeriod(
             'regular',
             \app\components\helpers\Battle::calcPeriod(
-                @$_SERVER['REQUEST_TIME'] ?: time()
-            )
+                @$_SERVER['REQUEST_TIME'] ?: time(),
+            ),
         );
     }
 
@@ -38,8 +38,8 @@ class PeriodMap extends \yii\db\ActiveRecord
         return static::findByModeAndPeriod(
             'gachi',
             \app\components\helpers\Battle::calcPeriod(
-                @$_SERVER['REQUEST_TIME'] ?: time()
-            )
+                @$_SERVER['REQUEST_TIME'] ?: time(),
+            ),
         );
     }
 
@@ -48,8 +48,8 @@ class PeriodMap extends \yii\db\ActiveRecord
         return static::findByModeAndPeriod(
             'regular',
             \app\components\helpers\Battle::calcPeriod(
-                @$_SERVER['REQUEST_TIME'] ?: time()
-            )
+                @$_SERVER['REQUEST_TIME'] ?: time(),
+            ),
         );
     }
 
@@ -58,8 +58,8 @@ class PeriodMap extends \yii\db\ActiveRecord
         return static::findByModeAndPeriod(
             'gachi',
             \app\components\helpers\Battle::calcPeriod(
-                @$_SERVER['REQUEST_TIME'] ?: time()
-            )
+                @$_SERVER['REQUEST_TIME'] ?: time(),
+            ),
         );
     }
 
@@ -76,7 +76,7 @@ class PeriodMap extends \yii\db\ActiveRecord
     public static function getSchedule()
     {
         $currentPeriod = \app\components\helpers\Battle::calcPeriod(
-            @$_SERVER['REQUEST_TIME'] ?: time()
+            @$_SERVER['REQUEST_TIME'] ?: time(),
         );
         $ret = (object)[
             'current' => (object)[
@@ -92,7 +92,7 @@ class PeriodMap extends \yii\db\ActiveRecord
         ];
         $list = static::findByModeAndPeriod(
             ['regular', 'gachi'],
-            [$currentPeriod, $currentPeriod + 1]
+            [$currentPeriod, $currentPeriod + 1],
         )->all();
         foreach ($list as $o) {
             $key = ($o->period == $currentPeriod) ? 'current' : 'next';

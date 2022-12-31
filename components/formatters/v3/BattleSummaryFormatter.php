@@ -28,8 +28,8 @@ final class BattleSummaryFormatter
                     self::formatMap($model->map),
                     self::formatResult($model->result, $model->is_knockout, $model->rule),
                 ],
-                fn (?string $t): bool => $t !== null
-            )
+                fn (?string $t): bool => $t !== null,
+            ),
         );
     }
 

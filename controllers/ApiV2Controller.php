@@ -60,7 +60,7 @@ final class ApiV2Controller extends Controller
     {
         return $this->redirect(
             array_merge(Yii::$app->request->get(), ['/api-v2/stage']),
-            301
+            301,
         );
     }
 }

@@ -26,10 +26,10 @@ class ActiveRelativeTimeWidget extends Widget
         $this->view->registerJs(
             sprintf(
                 '!function(){window.reltimeFormats=%s}();',
-                Json::encode($this->getFormats())
+                Json::encode($this->getFormats()),
             ),
             View::POS_BEGIN,
-            hash('md5', sprintf('%s:%s:%d', __METHOD__, __FILE__, __LINE__))
+            hash('md5', sprintf('%s:%s:%d', __METHOD__, __FILE__, __LINE__)),
         );
         return Html::tag(
             'span',
@@ -40,7 +40,7 @@ class ActiveRelativeTimeWidget extends Widget
                     'time' => (string)(int)$this->datetime->getTimestamp(),
                     'mode' => $this->mode === 'short' ? 'short' : 'long',
                 ],
-            ]
+            ],
         );
     }
 

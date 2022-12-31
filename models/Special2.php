@@ -90,9 +90,9 @@ class Special2 extends ActiveRecord
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc2', 'Special weapon'),
                         'app-special2',
-                        $values
+                        $values,
                     ),
-                    ArrayHelper::getColumn($values, 'key', false)
+                    ArrayHelper::getColumn($values, 'key', false),
                 ),
                 'name' => static::oapiRef(openapi\Name::class),
             ],
@@ -115,7 +115,7 @@ class Special2 extends ActiveRecord
             },
             static::find()
                 ->orderBy(['key' => SORT_ASC])
-                ->all()
+                ->all(),
         );
     }
 }

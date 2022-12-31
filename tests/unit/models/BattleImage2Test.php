@@ -19,7 +19,7 @@ class BattleImage2Test extends Unit
             $this->assertFalse(in_array($value, $generated));
             $this->assertEquals(1, preg_match(
                 '#^[a-z2-7]{2}/[a-z2-7]{26}\.jpg$#',
-                $value
+                $value,
             ));
 
             $parts = explode('/', $value);

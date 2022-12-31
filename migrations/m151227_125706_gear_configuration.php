@@ -31,14 +31,14 @@ class m151227_125706_gear_configuration extends Migration
             'gear_configuration_secondary',
             'config_id',
             'gear_configuration',
-            'id'
+            'id',
         );
         $this->addForeignKey(
             'fk_gear_configuration_secondary_2',
             'gear_configuration_secondary',
             'ability_id',
             'ability',
-            'id'
+            'id',
         );
     }
 

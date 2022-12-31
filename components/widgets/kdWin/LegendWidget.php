@@ -26,7 +26,7 @@ class LegendWidget extends Widget
             Html::tag(
                 'h3',
                 Html::encode(Yii::t('app', 'Legend')),
-                ['id' => $this->id . '-legend']
+                ['id' => $this->id . '-legend'],
             ),
             Html::tag('div', implode('', [
                 LegendPercentageWidget::widget(['id' => $this->id . '-pct']),

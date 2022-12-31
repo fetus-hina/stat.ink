@@ -17,7 +17,7 @@ class m151120_215458_fest extends Migration
                 'ADD COLUMN [[fest_title_after_id]] INTEGER',
                 'ADD COLUMN [[fest_exp]] INTEGER',
                 'ADD COLUMN [[fest_exp_after]] INTEGER',
-            ])
+            ]),
         );
         $this->addForeignKey('fk_battle_12', 'battle', 'fest_title_after_id', 'fest_title', 'id');
     }
@@ -29,7 +29,7 @@ class m151120_215458_fest extends Migration
                 'DROP COLUMN [[fest_title_after_id]]',
                 'DROP COLUMN [[fest_exp]]',
                 'DROP COLUMN [[fest_exp_after]]',
-            ])
+            ]),
         );
     }
 }

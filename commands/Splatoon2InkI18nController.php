@@ -183,7 +183,7 @@ class Splatoon2InkI18nController extends Controller
                 ->asArray()
                 ->all(),
             'splatnet',
-            'name'
+            'name',
         ));
         return $status ? 0 : 1;
     }
@@ -215,7 +215,7 @@ class Splatoon2InkI18nController extends Controller
                 ->asArray()
                 ->all(),
             'splatnet',
-            'name'
+            'name',
         ));
         return $status ? 0 : 1;
     }
@@ -261,7 +261,7 @@ class Splatoon2InkI18nController extends Controller
                 ->asArray()
                 ->all(),
             'splatnet',
-            'name'
+            'name',
         ));
         return $status ? 0 : 1;
     }
@@ -276,7 +276,7 @@ class Splatoon2InkI18nController extends Controller
 
         $json = ArrayHelper::getValue(
             Json::decode(file_get_contents($cachePath)),
-            $jsonKey
+            $jsonKey,
         );
         $data = [];
         foreach ($json as $id => $value) {
@@ -309,7 +309,7 @@ class Splatoon2InkI18nController extends Controller
         $currentData = require($filePath);
         $splatNetData = ArrayHelper::getValue(
             Json::decode(file_get_contents($cachePath)),
-            $jsonKey
+            $jsonKey,
         );
         $updated = false;
         foreach ($englishData as $splatNetId => $englishName) {

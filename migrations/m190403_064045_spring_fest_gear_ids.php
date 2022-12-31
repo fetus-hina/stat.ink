@@ -26,13 +26,13 @@ class m190403_064045_spring_fest_gear_ids extends Migration
                     ]);
                 },
                 array_keys($data),
-                array_values($data)
+                array_values($data),
             )),
         ]);
         $this->update(
             'gear2',
             ['splatnet' => new Expression($case)],
-            ['key' => array_keys($data)]
+            ['key' => array_keys($data)],
         );
     }
 
@@ -41,7 +41,7 @@ class m190403_064045_spring_fest_gear_ids extends Migration
         $this->update(
             'gear2',
             ['splatnet' => null],
-            ['key' => array_keys($this->getData())]
+            ['key' => array_keys($this->getData())],
         );
     }
 

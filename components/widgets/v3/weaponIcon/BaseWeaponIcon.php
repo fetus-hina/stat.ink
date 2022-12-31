@@ -40,7 +40,7 @@ abstract class BaseWeaponIcon extends Widget
                 'alt' => $this->alt ? $this->getAlt() : null,
                 'class' => 'auto-tooltip basic-icon',
                 'title' => $this->getAlt(),
-            ]
+            ],
         );
     }
 }

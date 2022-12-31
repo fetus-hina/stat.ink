@@ -15,28 +15,28 @@ class m170329_132216_battle2 extends Migration
         $this->execute(
             Yii::$app->db
                 ->createCommand(
-                    'CREATE DOMAIN {{rgb}} CHAR(6) NOT NULL CHECK ( VALUE ~ :regex )'
+                    'CREATE DOMAIN {{rgb}} CHAR(6) NOT NULL CHECK ( VALUE ~ :regex )',
                 )
                 ->bindValue(':regex', '^\x{6}$')
-                ->rawSql
+                ->rawSql,
         );
         $this->execute(
             Yii::$app->db
                 ->createCommand(
-                    'CREATE DOMAIN {{hue}} SMALLINT NOT NULL CHECK ( VALUE BETWEEN 0 AND 359 )'
+                    'CREATE DOMAIN {{hue}} SMALLINT NOT NULL CHECK ( VALUE BETWEEN 0 AND 359 )',
                 )
-                ->rawSql
+                ->rawSql,
         );
         $this->execute(
             Yii::$app->db
                 ->createCommand(
-                    'CREATE DOMAIN {{httpurl}} TEXT NOT NULL CHECK ( VALUE ~ :regex )'
+                    'CREATE DOMAIN {{httpurl}} TEXT NOT NULL CHECK ( VALUE ~ :regex )',
                 )
                 ->bindValue(
                     ':regex',
-                    '^https?://[-_.!~*\'()a-zA-Z0-9;/?:@&=+$,%#]+$'
+                    '^https?://[-_.!~*\'()a-zA-Z0-9;/?:@&=+$,%#]+$',
                 )
-                ->rawSql
+                ->rawSql,
         );
         $this->createTable('battle2', [
             'id'                => $this->bigPrimaryKey(),

@@ -18,7 +18,7 @@ class m170611_074525_e3_weapons extends Migration
         $this->registerWeapons(
             $this->registerTypes(),
             $this->registerSubs(),
-            $this->registerSpecials()
+            $this->registerSpecials(),
         );
     }
 
@@ -41,7 +41,7 @@ class m170611_074525_e3_weapons extends Migration
                 ->from('special2')
                 ->all(),
             'key',
-            'id'
+            'id',
         );
     }
 
@@ -67,7 +67,7 @@ class m170611_074525_e3_weapons extends Migration
                 ->from('subweapon2')
                 ->all(),
             'key',
-            'id'
+            'id',
         );
     }
 
@@ -192,7 +192,7 @@ class m170611_074525_e3_weapons extends Migration
         return ArrayHelper::map(
             (new Query())->select(['id', 'key'])->from('weapon_type2')->all(),
             'key',
-            'id'
+            'id',
         );
     }
 

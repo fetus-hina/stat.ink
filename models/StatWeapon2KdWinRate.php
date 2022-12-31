@@ -71,7 +71,7 @@ class StatWeapon2KdWinRate extends ActiveRecord
                             ->andWhere(['like', 'key', 'mystery%', false])
                             ->asArray()
                             ->all(),
-                        'id'
+                        'id',
                     )]);
                 } else {
                     $model = Map2::findOne(['key' => $key]);

@@ -38,7 +38,7 @@ class m190819_171707_stat_weapon2_kd_win_rate extends Migration
             $this->createIndex(
                 "ix_stat_weapon2_kd_win_rate_{$key}",
                 'stat_weapon2_kd_win_rate',
-                ['rule_id', $key]
+                ['rule_id', $key],
             );
         }
     }

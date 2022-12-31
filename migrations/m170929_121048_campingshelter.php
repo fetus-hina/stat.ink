@@ -20,7 +20,7 @@ class m170929_121048_campingshelter extends Migration
             'Tenta Brella',
             'brella',
             'jumpbeacon',
-            'bubble'
+            'bubble',
         );
     }
 

@@ -55,7 +55,7 @@ class m171103_142752_brand2 extends Migration
         return (object)ArrayHelper::map(
             (new Query())->select(['id', 'key'])->from('ability2')->all(),
             'key',
-            'id'
+            'id',
         );
     }
 }

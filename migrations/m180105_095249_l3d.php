@@ -23,7 +23,7 @@ class m180105_095249_l3d extends Migration
             'jetpack',
             'l3reelgun',
             null,
-            301
+            301,
         );
     }
 

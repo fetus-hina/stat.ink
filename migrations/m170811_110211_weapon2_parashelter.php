@@ -23,7 +23,7 @@ class m170811_110211_weapon2_parashelter extends Migration
             'sprinkler',
             'amefurashi',
             'parashelter',
-            'parashelter'
+            'parashelter',
         );
     }
 

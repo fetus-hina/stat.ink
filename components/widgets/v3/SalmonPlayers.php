@@ -78,7 +78,7 @@ final class SalmonPlayers extends Widget
                         'table-bordered',
                         'table-striped',
                     ],
-                ]
+                ],
             ),
             [
                 'class' => 'table-responsive',
@@ -141,7 +141,7 @@ final class SalmonPlayers extends Widget
                                                 ),
                                             ],
                                         ),
-                                    ])
+                                    ]),
                                 )
                                 : '-',
                             ['class' => 'omit'],

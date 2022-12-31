@@ -111,7 +111,7 @@ trait Weapon2Trait
                 sprintf(
                     '(%s - %s)',
                     'battle_player2.kill_or_assist',
-                    'battle_player2.kill'
+                    'battle_player2.kill',
                 ),
                 'battle_player2.special',
                 sprintf(
@@ -121,7 +121,7 @@ trait Weapon2Trait
                         "WHEN battle2.is_win = battle_player2.is_my_team THEN 1000",
                         "ELSE 0",
                     ])),
-                    $pointNormalize
+                    $pointNormalize,
                 ),
             ])
             ->having(['and',
@@ -133,7 +133,7 @@ trait Weapon2Trait
                             "WHEN battle2.is_win = battle_player2.is_my_team THEN 1000",
                             "ELSE 0",
                         ])),
-                        $pointNormalize
+                        $pointNormalize,
                     ),
                     0,
                 ],
@@ -157,16 +157,16 @@ trait Weapon2Trait
                         array_keys($select->select),
                         function (string $column): bool {
                             return !in_array($column, ['battles', 'wins'], true);
-                        }
-                    )
+                        },
+                    ),
                 )),
                 implode(', ', array_map(
                     function (string $column): string {
                         return "[[{$column}]] = {{excluded}}.[[{$column}]]";
                     },
-                    ['battles', 'wins']
-                ))
-            )
+                    ['battles', 'wins'],
+                )),
+            ),
             // }}}
         );
         echo "Updating stat_weapon2_result...\n";
@@ -210,7 +210,7 @@ trait Weapon2Trait
                 function (string $cName) use ($db): string {
                     return $db->quoteColumnName($cName);
                 },
-                array_keys($select->select)
+                array_keys($select->select),
             )),
             $select->createCommand()->rawSql,
             $db->quoteColumnName('stat_weapon2_kd_win_rate_pkey'),
@@ -221,7 +221,7 @@ trait Weapon2Trait
                         $db->quoteTableName('excluded'),
                     ]);
                 },
-                ['battles', 'wins']
+                ['battles', 'wins'],
             )),
         ]);
 

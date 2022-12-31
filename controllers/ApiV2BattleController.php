@@ -313,7 +313,7 @@ class ApiV2BattleController extends Controller
                 function ($model) {
                     return $model->toJsonArray(['events', 'splatnet_json']);
                 },
-                $query->all()
+                $query->all(),
             );
         }
     }

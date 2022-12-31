@@ -21,14 +21,14 @@ class m180701_014543_salmon_july extends Migration
             'clothing',
             static::name2key('Grizzco'),
             null,
-            21007
+            21007,
         );
     }
 
     public function safeDown()
     {
         $this->downGear2(
-            static::name2key('Record Shop Look EP')
+            static::name2key('Record Shop Look EP'),
         );
     }
 }

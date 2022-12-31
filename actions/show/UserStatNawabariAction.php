@@ -115,7 +115,7 @@ class UserStatNawabariAction extends BaseAction
                 'index' => -1 * count($tmp->battles),
                 'inked' => max(
                     0,
-                    $battle['my_point'] - ($battle['is_win'] ? $battle['bonus']['bonus'] : 0)
+                    $battle['my_point'] - ($battle['is_win'] ? $battle['bonus']['bonus'] : 0),
                 ),
             ];
         }

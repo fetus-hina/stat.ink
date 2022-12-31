@@ -47,7 +47,7 @@ class FreshnessHistory extends Widget
                     function (Battle2 $model): ?float {
                         return $model->freshness === null ? null : (float)$model->freshness;
                     },
-                    $history
+                    $history,
                 ),
             ])),
         ]));
@@ -63,7 +63,7 @@ class FreshnessHistory extends Widget
                             'freshness-history',
                         ],
                     ]),
-                    ['class' => 'table-responsive']
+                    ['class' => 'table-responsive'],
                 ),
             ]),
             ['class' => [

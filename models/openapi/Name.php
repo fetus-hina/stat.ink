@@ -45,7 +45,7 @@ class Name extends Component
                 $category,
                 $value,
                 $options,
-                $lang->lang
+                $lang->lang,
             );
         }
         return $result;

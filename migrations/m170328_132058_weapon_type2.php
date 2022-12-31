@@ -45,7 +45,7 @@ class m170328_132058_weapon_type2 extends Migration
                 ->from('weapon_category2')
                 ->all(),
             'key',
-            'id'
+            'id',
         );
     }
 }

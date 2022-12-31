@@ -19,7 +19,7 @@ class m181106_083644_fix_jetsweeper_special extends Migration
         $this->update(
             'weapon2',
             ['special_id' => $this->getSpecialId('missile')],
-            ['key' => 'jetsweeper']
+            ['key' => 'jetsweeper'],
         );
     }
 
@@ -28,7 +28,7 @@ class m181106_083644_fix_jetsweeper_special extends Migration
         $this->update(
             'weapon2',
             ['special_id' => $this->getSpecialId('jetpack')],
-            ['key' => 'jetsweeper']
+            ['key' => 'jetsweeper'],
         );
     }
 

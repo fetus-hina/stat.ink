@@ -19,7 +19,7 @@ trait Splatoon3
     {
         return \array_merge(
             $this->getBattle3(),
-            $this->getSalmon3()
+            $this->getSalmon3(),
         );
     }
 }

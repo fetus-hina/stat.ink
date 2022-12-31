@@ -59,7 +59,7 @@ class BlogFeedController extends Controller
             (new UriValidator())->isValid($id)
                 ? UuidNs::url()
                 : 'd0ec81fc-c8e6-11e5-a890-9ca3ba01e1f8',
-            $id
+            $id,
         )->__toString();
         $link = $entry->getLink();
         if (!(new UriValidator())->isValid($link)) {

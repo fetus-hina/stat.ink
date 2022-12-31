@@ -23,7 +23,7 @@ class m180316_100111_h3d extends Migration
             'armor',
             'h3reelgun',
             null,
-            311
+            311,
         );
     }
 

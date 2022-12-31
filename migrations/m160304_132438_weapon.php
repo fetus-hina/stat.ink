@@ -52,7 +52,7 @@ class m160304_132438_weapon extends Migration
                     new Expression("currval('weapon_id_seq'::regclass)"),
                     Weapon::findOne(['key' => 'squiclean_a'])->id,
                 ],
-            ]
+            ],
         );
 
         $type = DeathReasonType::findOne(['key' => 'main'])->id;
@@ -63,7 +63,7 @@ class m160304_132438_weapon extends Migration
                 [ $type, 'sshooter_wasabi', 'Wasabi Splattershot', Weapon::findOne(['key' => 'sshooter_wasabi'])->id ],
                 [ $type, 'prime_berry', 'Berry Splattershot Pro',Weapon::findOne(['key' => 'prime_berry'])->id ],
                 [ $type, 'squiclean_g', 'Fresh Squiffer', Weapon::findOne(['key' => 'squiclean_g'])->id ],
-            ]
+            ],
         );
     }
 

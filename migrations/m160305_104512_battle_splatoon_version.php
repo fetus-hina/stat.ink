@@ -28,7 +28,7 @@ class m160305_104512_battle_splatoon_version extends Migration
                 ['and',
                     ['between', 'at', $lastReleasedAt, $version['released_at']],
                     ['version_id' => null],
-                ]
+                ],
             );
             $lastVersionId = $version['id'];
             $lastReleasedAt = $version['released_at'];
@@ -42,7 +42,7 @@ class m160305_104512_battle_splatoon_version extends Migration
             ['and',
                 ['>=', 'at', $lastReleasedAt],
                 ['version_id' => null],
-            ]
+            ],
         );
     }
 

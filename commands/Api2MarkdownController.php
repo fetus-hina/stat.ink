@@ -90,7 +90,7 @@ class Api2MarkdownController extends Controller
                         exit(1);
                 }
             },
-            file_get_contents($path)
+            file_get_contents($path),
         );
         file_put_contents($path, $markdown);
         echo "Updated $path\n";
@@ -130,7 +130,7 @@ class Api2MarkdownController extends Controller
                 }
                 return $match['start'] . "\n" . rtrim($repl) . "\n" . $match['end'];
             },
-            file_get_contents($path)
+            file_get_contents($path),
         );
         file_put_contents($path, $markdown);
         echo "Updated $path\n";
@@ -180,8 +180,8 @@ class Api2MarkdownController extends Controller
                                 function (string $value): string {
                                     return '`' . $value . '`';
                                 },
-                                (array)$compats[$weapon['key']]
-                            ))
+                                (array)$compats[$weapon['key']],
+                            )),
                         );
                         $remarks[] = sprintf(
                             'Also accepts %s for compatibility',
@@ -189,8 +189,8 @@ class Api2MarkdownController extends Controller
                                 function (string $value): string {
                                     return '`' . $value . '`';
                                 },
-                                (array)$compats[$weapon['key']]
-                            ))
+                                (array)$compats[$weapon['key']],
+                            )),
                         );
                     }
                     $data[] = [
@@ -255,8 +255,8 @@ class Api2MarkdownController extends Controller
                         function (string $value): string {
                             return '`' . $value . '`';
                         },
-                        (array)$compats[$map->key]
-                    ))
+                        (array)$compats[$map->key],
+                    )),
                 );
                 $colRemarks[] = sprintf(
                     'Also accepts %s for compatibility',
@@ -264,8 +264,8 @@ class Api2MarkdownController extends Controller
                         function (string $value): string {
                             return '`' . $value . '`';
                         },
-                        (array)$compats[$map->key]
-                    ))
+                        (array)$compats[$map->key],
+                    )),
                 );
             }
             $data[] = [
@@ -309,8 +309,8 @@ class Api2MarkdownController extends Controller
                         function (string $value): string {
                             return '`' . $value . '`';
                         },
-                        (array)$compats[$ability->key]
-                    ))
+                        (array)$compats[$ability->key],
+                    )),
                 );
                 $colRemarks[] = sprintf(
                     'Also accepts %s for compatibility',
@@ -318,8 +318,8 @@ class Api2MarkdownController extends Controller
                         function (string $value): string {
                             return '`' . $value . '`';
                         },
-                        (array)$compats[$ability->key]
-                    ))
+                        (array)$compats[$ability->key],
+                    )),
                 );
             }
             $data[] = [
@@ -405,8 +405,8 @@ class Api2MarkdownController extends Controller
                         function (string $value): string {
                             return '`' . $value . '`';
                         },
-                        (array)$compats[$title->key]
-                    ))
+                        (array)$compats[$title->key],
+                    )),
                 );
                 $colRemarks[] = sprintf(
                     'Also accepts %s for compatibility',
@@ -414,8 +414,8 @@ class Api2MarkdownController extends Controller
                         function (string $value): string {
                             return '`' . $value . '`';
                         },
-                        (array)$compats[$title->key]
-                    ))
+                        (array)$compats[$title->key],
+                    )),
                 );
             }
             $data[] = [
@@ -459,8 +459,8 @@ class Api2MarkdownController extends Controller
                         function (string $value): string {
                             return '`' . $value . '`';
                         },
-                        (array)$compats[$title->key]
-                    ))
+                        (array)$compats[$title->key],
+                    )),
                 );
                 $colRemarks[] = sprintf(
                     'Also accepts %s for compatibility',
@@ -468,8 +468,8 @@ class Api2MarkdownController extends Controller
                         function (string $value): string {
                             return '`' . $value . '`';
                         },
-                        (array)$compats[$title->key]
-                    ))
+                        (array)$compats[$title->key],
+                    )),
                 );
             }
             $data[] = [
@@ -520,8 +520,8 @@ class Api2MarkdownController extends Controller
                         function (string $value): string {
                             return '`' . $value . '`';
                         },
-                        (array)$compats[$row->key]
-                    ))
+                        (array)$compats[$row->key],
+                    )),
                 );
                 $colRemarks[] = sprintf(
                     'Also accepts %s for compatibility',
@@ -529,8 +529,8 @@ class Api2MarkdownController extends Controller
                         function (string $value): string {
                             return '`' . $value . '`';
                         },
-                        (array)$compats[$row->key]
-                    ))
+                        (array)$compats[$row->key],
+                    )),
                 );
             }
             $data[] = [
@@ -574,8 +574,8 @@ class Api2MarkdownController extends Controller
                         function (string $value): string {
                             return '`' . $value . '`';
                         },
-                        (array)$compats[$row->key]
-                    ))
+                        (array)$compats[$row->key],
+                    )),
                 );
                 $colRemarks[] = sprintf(
                     'Also accepts %s for compatibility',
@@ -583,8 +583,8 @@ class Api2MarkdownController extends Controller
                         function (string $value): string {
                             return '`' . $value . '`';
                         },
-                        (array)$compats[$row->key]
-                    ))
+                        (array)$compats[$row->key],
+                    )),
                 );
             }
             $data[] = [
@@ -631,8 +631,8 @@ class Api2MarkdownController extends Controller
                         function (string $value): string {
                             return '`' . $value . '`';
                         },
-                        (array)$compats[$weapon['key']]
-                    ))
+                        (array)$compats[$weapon['key']],
+                    )),
                 );
                 $remarks[] = sprintf(
                     'Also accepts %s for compatibility',
@@ -640,8 +640,8 @@ class Api2MarkdownController extends Controller
                         function (string $value): string {
                             return '`' . $value . '`';
                         },
-                        (array)$compats[$weapon['key']]
-                    ))
+                        (array)$compats[$weapon['key']],
+                    )),
                 );
             }
             $data[] = [
@@ -689,8 +689,8 @@ class Api2MarkdownController extends Controller
                         function (string $value): string {
                             return '`' . $value . '`';
                         },
-                        (array)$compats[$weapon['key']]
-                    ))
+                        (array)$compats[$weapon['key']],
+                    )),
                 );
                 $remarks[] = sprintf(
                     'Also accepts %s for compatibility',
@@ -698,8 +698,8 @@ class Api2MarkdownController extends Controller
                         function (string $value): string {
                             return '`' . $value . '`';
                         },
-                        (array)$compats[$weapon['key']]
-                    ))
+                        (array)$compats[$weapon['key']],
+                    )),
                 );
             }
             $data[] = [
@@ -769,12 +769,12 @@ class Api2MarkdownController extends Controller
                 function (string $line): int {
                     return self::strwidth($line);
                 },
-                $lines
+                $lines,
             ),
             function (int $a, int $b): int {
                 return max($a, $b);
             },
-            $minWidth
+            $minWidth,
         );
         // }}}
     }
@@ -792,7 +792,7 @@ class Api2MarkdownController extends Controller
                     function (int $cellWidth): string {
                         return str_repeat('-', $cellWidth);
                     },
-                    $widths
+                    $widths,
                 )));
             }
         }

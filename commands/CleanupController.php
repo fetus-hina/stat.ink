@@ -24,7 +24,7 @@ class CleanupController extends Controller
     {
         $time = (new DateTimeImmutable(
             'now',
-            new DateTimeZone(Yii::$app->timeZone)
+            new DateTimeZone(Yii::$app->timeZone),
         ))
             ->sub(new DateInterval('P30D'));
 

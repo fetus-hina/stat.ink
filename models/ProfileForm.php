@@ -105,7 +105,7 @@ class ProfileForm extends Model
             'id',
             function (array $row): string {
                 return Yii::t('app', $row['name']);
-            }
+            },
         );
     }
 }

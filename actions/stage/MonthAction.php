@@ -57,7 +57,7 @@ class MonthAction extends BaseAction
                 ->setTimezone(new DateTimeZone('Etc/GMT-6'))
                 ->setTime(0, 0, 0)
                 ->setDate($this->year, $this->month, 1)
-                ->getTimestamp()
+                ->getTimestamp(),
         );
         $this->periodE = BattleHelper::calcPeriod(
             (new DateTimeImmutable())
@@ -66,7 +66,7 @@ class MonthAction extends BaseAction
                 ->setDate($this->year, $this->month, 1)
                 ->add(new DateInterval('P1M')) // + 1 month
                 ->sub(new DateInterval('PT1S')) // - 1 second
-                ->getTimestamp()
+                ->getTimestamp(),
         );
         // }}}
     }
@@ -107,14 +107,14 @@ class MonthAction extends BaseAction
                                 'count' => $counts_ ? (int)array_shift($counts_)['count'] : 0,
                             ];
                         },
-                        $maps
+                        $maps,
                     ),
                 ];
                 usort($ret->maps, function ($a, $b) {
                     return $b->count <=> $a->count
                         ?: strnatcasecmp(
                             Yii::t('app-map', $a->map->name),
-                            Yii::t('app-map', $b->map->name)
+                            Yii::t('app-map', $b->map->name),
                         );
                 });
                 return $ret;
@@ -130,7 +130,7 @@ class MonthAction extends BaseAction
         $q = Map::find()
             ->andWhere(['<=', 'release_at', date(
                 'Y-m-d\TH:i:sP',
-                BattleHelper::periodToRange($this->periodE)[1]
+                BattleHelper::periodToRange($this->periodE)[1],
             ),
             ]);
         $ret = [];
@@ -150,7 +150,7 @@ class MonthAction extends BaseAction
             usort($tmp, function ($a, $b) {
                 return strnatcasecmp(
                     Yii::t('app-rule', $a->name),
-                    Yii::t('app-rule', $b->name)
+                    Yii::t('app-rule', $b->name),
                 );
             });
             foreach ($tmp as $o) {
@@ -264,7 +264,7 @@ class MonthAction extends BaseAction
                 Yii::$app->db
                     ->createCommand("SET timezone TO :timezone")
                     ->bindValue(':timezone', $timezone)
-                    ->rawSql
+                    ->rawSql,
             )->execute();
         };
 

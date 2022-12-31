@@ -39,11 +39,11 @@ class Nicovideo extends Widget
                             'h' => (string)(int)$this->height,
                         ],
                         '',
-                        '&'
-                    )
-                )
+                        '&',
+                    ),
+                ),
             ),
-            ['id' => $this->id]
+            ['id' => $this->id],
         );
     }
 }

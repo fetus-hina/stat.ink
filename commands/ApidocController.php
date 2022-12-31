@@ -212,7 +212,7 @@ class ApidocController extends Controller
                     )),
                 ),
             ]),
-            ['role' => 'table']
+            ['role' => 'table'],
         ) . "\n";
 
         return 0;
@@ -231,7 +231,7 @@ class ApidocController extends Controller
                     Html::encode($group->name),
                     Html::encode(Yii::t('app-tz', $group->name, [], 'ja-JP')),
                 ])),
-                ['colspan' => 5]
+                ['colspan' => 5],
             )),
             implode('', array_map(
                 function (Timezone $tz): string {
@@ -254,13 +254,13 @@ class ApidocController extends Controller
                                             function (int $codepoint): string {
                                                 return sprintf('&#x%x;', $codepoint);
                                             },
-                                            $country->regionalIndicatorSymbols
+                                            $country->regionalIndicatorSymbols,
                                         )),
                                     ]);
                                 },
-                                $tz->countries
+                                $tz->countries,
                             )),
-                            ['align' => 'center']
+                            ['align' => 'center'],
                         ),
                         Html::tag('td', implode('<br>', [
                             Html::encode($tz->name),
@@ -282,7 +282,7 @@ class ApidocController extends Controller
                             ]),
                     ]));
                 },
-                $group->timezones
+                $group->timezones,
             )),
         ]);
     }
@@ -313,7 +313,7 @@ class ApidocController extends Controller
                         return $match[0];
                 }
             },
-            static::FLAGICON_URL
+            static::FLAGICON_URL,
         );
     }
 

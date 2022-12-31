@@ -61,10 +61,10 @@ class KDWinTable extends Widget
                         ['class' => [
                             'text-center',
                             'kdcell',
-                        ]]
+                        ]],
                     );
                 },
-                range(0, $this->limit)
+                range(0, $this->limit),
             )),
         );
     }
@@ -86,7 +86,7 @@ class KDWinTable extends Widget
                             ['class' => [
                                 'text-center',
                                 'kdcell',
-                            ]]
+                            ]],
                         ),
                         implode('', array_map(
                             function (int $k) use ($d): string {
@@ -96,11 +96,11 @@ class KDWinTable extends Widget
                                     'formatter' => $this->formatter,
                                 ]);
                             },
-                            range(0, $this->limit)
+                            range(0, $this->limit),
                         )),
                     );
                 },
-                range(0, $this->limit)
+                range(0, $this->limit),
             )),
         );
     }

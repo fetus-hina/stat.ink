@@ -116,9 +116,9 @@ class SalmonTitle2 extends ActiveRecord
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc2', 'Title'),
                         'app-salmon-title2',
-                        $values
+                        $values,
                     ),
-                    ArrayHelper::getColumn($values, 'key', false)
+                    ArrayHelper::getColumn($values, 'key', false),
                 ),
                 'splatnet' => static::oapiRef(openapi\SplatNet2ID::class),
                 'name' => array_merge(openapi\Name::openApiSchema(), [
@@ -127,7 +127,7 @@ class SalmonTitle2 extends ActiveRecord
                 'generic_name' => array_merge(openapi\Name::openApiSchema(), [
                     'description' => Yii::t(
                         'app-apidoc2',
-                        'Salmon Run title (doesn\'t consider gender)'
+                        'Salmon Run title (doesn\'t consider gender)',
                     ),
                 ]),
             ],
@@ -149,7 +149,7 @@ class SalmonTitle2 extends ActiveRecord
             },
             static::find()
                 ->orderBy(['id' => SORT_ASC])
-                ->all()
+                ->all(),
         );
     }
 }

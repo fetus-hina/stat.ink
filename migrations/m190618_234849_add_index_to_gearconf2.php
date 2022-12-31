@@ -18,7 +18,7 @@ class m190618_234849_add_index_to_gearconf2 extends Migration
             'gear_configuration_secondary2_config_id',
             'gear_configuration_secondary2',
             ['config_id', 'id'],
-            true // id を含めているので unique になる
+            true, // id を含めているので unique になる
         );
     }
 
@@ -31,7 +31,7 @@ class m190618_234849_add_index_to_gearconf2 extends Migration
     {
         $this->dropIndex(
             'gear_configuration_secondary2_config_id',
-            'gear_configuration_secondary2'
+            'gear_configuration_secondary2',
         );
     }
 }

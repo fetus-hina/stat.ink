@@ -53,12 +53,12 @@ class m170328_140403_playstyle extends Migration
         $ns = ArrayHelper::map(
             (new Query())->select(['key', 'id'])->from('ns_mode2')->all(),
             'key',
-            'id'
+            'id',
         );
         $ctl = ArrayHelper::map(
             (new Query())->select(['key', 'id'])->from('controller_mode2')->all(),
             'key',
-            'id'
+            'id',
         );
         $this->createTable('playstyle2', [
             'ns_mode_id'            => $this->pkRef('ns_mode2'),

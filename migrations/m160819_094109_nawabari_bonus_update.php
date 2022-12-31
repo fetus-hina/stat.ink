@@ -18,7 +18,7 @@ class m160819_094109_nawabari_bonus_update extends Migration
 
         $this->execute('LOCK TABLE {{battle}} IN EXCLUSIVE MODE');
         $this->execute(
-            'ALTER TABLE {{battle}} ADD COLUMN [[bonus_id]] INTEGER NULL REFERENCES {{turfwar_win_bonus}}([[id]])'
+            'ALTER TABLE {{battle}} ADD COLUMN [[bonus_id]] INTEGER NULL REFERENCES {{turfwar_win_bonus}}([[id]])',
         );
         $this->update(
             'battle',
@@ -26,7 +26,7 @@ class m160819_094109_nawabari_bonus_update extends Migration
             ['and',
                 ['rule_id' => $nawabari],
                 ['<', 'at', '2016-07-24T19:03:00+09:00'],
-            ]
+            ],
         );
         $this->update(
             'battle',
@@ -34,7 +34,7 @@ class m160819_094109_nawabari_bonus_update extends Migration
             ['and',
                 ['rule_id' => $nawabari],
                 ['>=', 'at', '2016-07-24T19:03:00+09:00'],
-            ]
+            ],
         );
     }
 

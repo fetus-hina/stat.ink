@@ -72,7 +72,7 @@ class GearGetForm extends Model
                     'type' => 'string',
                     'enum' => ArrayHelper::getColumn(
                         GearType::find()->orderBy(['key' => SORT_ASC])->all(),
-                        'key'
+                        'key',
                     ),
                 ],
                 'description' => implode("\n\n", [
@@ -80,7 +80,7 @@ class GearGetForm extends Model
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc2', 'Gear category'),
                         'app-gear',
-                        GearType::find()->orderBy(['key' => SORT_ASC])->all()
+                        GearType::find()->orderBy(['key' => SORT_ASC])->all(),
                     ),
                 ]),
             ],
@@ -92,7 +92,7 @@ class GearGetForm extends Model
                     'type' => 'string',
                     'enum' => ArrayHelper::getColumn(
                         Brand2::find()->orderBy(['key' => SORT_ASC])->all(),
-                        'key'
+                        'key',
                     ),
                 ],
                 'description' => implode("\n\n", [
@@ -100,7 +100,7 @@ class GearGetForm extends Model
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc2', 'Brand'),
                         'app-brand2',
-                        Brand2::find()->orderBy(['key' => SORT_ASC])->all()
+                        Brand2::find()->orderBy(['key' => SORT_ASC])->all(),
                     ),
                 ]),
             ],
@@ -112,7 +112,7 @@ class GearGetForm extends Model
                     'type' => 'string',
                     'enum' => ArrayHelper::getColumn(
                         Ability2::find()->orderBy(['key' => SORT_ASC])->all(),
-                        'key'
+                        'key',
                     ),
                 ],
                 'description' => implode("\n\n", [
@@ -120,7 +120,7 @@ class GearGetForm extends Model
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc2', 'Ability'),
                         'app-ability2',
-                        Ability2::find()->orderBy(['key' => SORT_ASC])->all()
+                        Ability2::find()->orderBy(['key' => SORT_ASC])->all(),
                     ),
                 ]),
             ],

@@ -31,12 +31,12 @@ class m181206_132203_salmon_map_short extends Migration
                                 ]);
                             },
                             array_keys($names),
-                            array_values($names)
+                            array_values($names),
                         )),
-                    ])
+                    ]),
                 ),
             ],
-            ['key' => array_keys($names)]
+            ['key' => array_keys($names)],
         );
         $this->execute('ALTER TABLE {{salmon_map2}} ALTER COLUMN [[short_name]] SET NOT NULL');
     }

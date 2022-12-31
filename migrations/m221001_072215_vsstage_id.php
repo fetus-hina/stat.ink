@@ -20,7 +20,7 @@ final class m221001_072215_vsstage_id extends Migration
         $this->batchInsert('{{%map3_alias}}', ['map_id', 'key'], array_map(
             fn (string $key, int $vsId): array => [$this->key2id('{{%map3}}', $key), (string)$vsId],
             array_keys($this->getData()),
-            array_values($this->getData())
+            array_values($this->getData()),
         ));
 
         return true;
@@ -34,7 +34,7 @@ final class m221001_072215_vsstage_id extends Migration
         $this->delete('{{%map3_alias}}', [
             'key' => array_map(
                 fn (int $vsId): string => (string)$vsId,
-                array_values($this->getData())
+                array_values($this->getData()),
             ),
         ]);
 

@@ -71,7 +71,7 @@ abstract class Base extends Component
         return $this->calcDamageImpl(
             $baseDamage,
             $this->calcX('damage_up', 100),
-            ((0.99 * $def) - pow((0.09 * $def), 2)) / 100
+            ((0.99 * $def) - pow((0.09 * $def), 2)) / 100,
         );
     }
 

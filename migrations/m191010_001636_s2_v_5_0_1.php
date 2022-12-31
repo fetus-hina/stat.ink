@@ -22,7 +22,7 @@ class m191010_001636_s2_v_5_0_1 extends Migration
             '5.0.x',
             '5.0.1',
             '5.0.1',
-            new DateTimeImmutable('2019-10-10T11:00:00+09:00')
+            new DateTimeImmutable('2019-10-10T11:00:00+09:00'),
         );
     }
 

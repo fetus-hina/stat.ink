@@ -32,7 +32,7 @@ class CookieAlert extends Widget
             implode(' ', [
                 Html::encode(Yii::t(
                     'app-cookie',
-                    'We use cookies to ensure you get the best experience on our website.'
+                    'We use cookies to ensure you get the best experience on our website.',
                 )),
                 Html::a(
                     Html::encode(Yii::t('app-cookie', 'Privacy policy')),
@@ -40,20 +40,20 @@ class CookieAlert extends Widget
                     [
                         'class' => 'alert-link',
                         'target' => '_blank',
-                    ]
+                    ],
                 ),
                 Html::button(
                     Html::encode(Yii::t('app-cookie', 'I agree')),
                     [
                         'class' => 'btn btn-primary btn-sm acceptcookies',
                         'aria-label' => Yii::t('app', 'Close'),
-                    ]
+                    ],
                 ),
             ]),
             [
                 'class' => 'alert text-center cookiealert',
                 'role' => 'alert',
-            ]
+            ],
         );
     }
 

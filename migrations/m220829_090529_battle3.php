@@ -32,11 +32,11 @@ final class m220829_090529_battle3 extends Migration
                                 function ($value) {
                                     return $value instanceof Closure ? $value() : $value;
                                 },
-                                $row
+                                $row,
                             );
                         },
-                        $insertData[1]
-                    )
+                        $insertData[1],
+                    ),
                 );
             }
         }
@@ -51,8 +51,8 @@ final class m220829_090529_battle3 extends Migration
     {
         $this->dropTables(
             array_reverse(
-                array_keys($this->tableData())
-            )
+                array_keys($this->tableData()),
+            ),
         );
 
         return true;
@@ -272,7 +272,7 @@ final class m220829_090529_battle3 extends Migration
                 ->andWhere($where)
                 ->limit(1)
                 ->scalar(),
-            FILTER_VALIDATE_INT
+            FILTER_VALIDATE_INT,
         );
         if (is_int($value)) {
             return $value;

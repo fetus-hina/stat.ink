@@ -20,7 +20,7 @@ class m171208_101831_version2_1_0 extends Migration
             '2.1.x',
             '2.1.0',
             '2.1.0',
-            new DateTimeImmutable('2017-12-13T11:00:00+09:00')
+            new DateTimeImmutable('2017-12-13T11:00:00+09:00'),
         );
     }
 

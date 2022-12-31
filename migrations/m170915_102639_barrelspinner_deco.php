@@ -21,7 +21,7 @@ class m170915_102639_barrelspinner_deco extends Migration
             'splatling',
             'splashshield',
             'bubble',
-            'barrelspinner'
+            'barrelspinner',
         );
     }
 
