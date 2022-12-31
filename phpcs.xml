@@ -62,4 +62,10 @@
       <property name="caseSensitive" value="true"/>
     </properties>
   </rule>
+
+  <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses">
+    <properties>
+      <property name="searchAnnotations" value="true"/>
+    </properties>
+  </rule>
 </ruleset>

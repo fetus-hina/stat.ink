@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\commands\asset;
 
-use Yii;
 use yii\base\Action;
 use yii\helpers\Url;
 

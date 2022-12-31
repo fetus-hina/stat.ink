@@ -10,9 +10,7 @@ namespace app\actions\user;
 
 use Yii;
 use app\models\Language;
-use app\models\Slack;
 use app\models\SlackAddForm;
-use yii\helpers\ArrayHelper;
 use yii\web\ViewAction as BaseAction;
 
 class SlackAddAction extends BaseAction

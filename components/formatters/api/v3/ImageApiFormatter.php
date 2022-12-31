@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\components\formatters\api\v3;
 
-use Yii;
 use yii\base\Model;
 use yii\helpers\Url;
 

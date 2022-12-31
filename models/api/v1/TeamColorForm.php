@@ -8,7 +8,6 @@
 
 namespace app\models\api\v1;
 
-use Yii;
 use app\components\helpers\Color;
 use yii\base\Model;
 

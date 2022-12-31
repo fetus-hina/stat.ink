@@ -8,11 +8,8 @@
 
 namespace app\actions\api\v1;
 
-use DateTimeZone;
 use Yii;
-use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\ImageConverter;
-use app\components\jobs\ImageOptimizeJob;
 use app\components\jobs\ImageS3Job;
 use app\components\jobs\OstatusJob;
 use app\components\jobs\SlackJob;
@@ -20,14 +17,11 @@ use app\components\web\ServiceUnavailableHttpException;
 use app\models\Agent;
 use app\models\Battle;
 use app\models\BattleDeathReason;
-use app\models\OstatusPubsubhubbub;
-use app\models\Slack;
 use app\models\User;
 use app\models\api\v1\DeleteBattleForm;
 use app\models\api\v1\PatchBattleForm;
 use app\models\api\v1\PostBattleForm;
 use yii\base\DynamicModel;
-use yii\helpers\Url;
 use yii\web\MethodNotAllowedHttpException;
 use yii\web\UploadedFile;
 use yii\web\ViewAction as BaseAction;

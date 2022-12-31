@@ -15,7 +15,6 @@ use Yii;
 use app\components\behaviors\TimestampBehavior;
 use app\components\helpers\DateTimeFormatter;
 use yii\db\ActiveRecord;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
 /**

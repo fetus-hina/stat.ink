@@ -8,7 +8,6 @@
 
 namespace app\components\widgets\embedVideo;
 
-use Yii;
 use yii\base\Widget;
 use yii\helpers\Html;
 

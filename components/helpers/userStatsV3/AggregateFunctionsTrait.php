@@ -15,9 +15,6 @@ use DateTimeZone;
 use LogicException;
 use app\models\Lobby3;
 
-use const SORT_ASC;
-use const SORT_DESC;
-
 trait AggregateFunctionsTrait
 {
     /**

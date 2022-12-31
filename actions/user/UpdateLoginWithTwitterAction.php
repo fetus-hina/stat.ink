@@ -18,7 +18,6 @@ use app\models\LoginWithTwitter;
 use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
-use yii\web\ServerErrorHttpException;
 use yii\web\ViewAction as BaseAction;
 
 class UpdateLoginWithTwitterAction extends BaseAction

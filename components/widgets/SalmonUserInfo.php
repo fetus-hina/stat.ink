@@ -17,9 +17,7 @@ use app\models\SalmonStats2;
 use yii\base\Model;
 use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use yii\web\Event;
 use yii\web\View;
 
 class SalmonUserInfo extends Widget

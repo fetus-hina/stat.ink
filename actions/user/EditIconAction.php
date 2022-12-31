@@ -9,7 +9,6 @@
 namespace app\actions\user;
 
 use Yii;
-use app\models\User;
 use app\models\UserIcon;
 use yii\base\DynamicModel;
 use yii\web\ServerErrorHttpException;

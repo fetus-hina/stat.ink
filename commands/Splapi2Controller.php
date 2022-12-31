@@ -19,7 +19,6 @@ use app\models\ScheduleMode2;
 use stdClass;
 use yii\console\Controller;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Console;
 use yii\helpers\Json;
 
 class Splapi2Controller extends Controller

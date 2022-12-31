@@ -11,7 +11,6 @@ declare(strict_types=1);
 namespace app\components\formatters\api\v3;
 
 use app\models\SalmonSpecialUse3;
-use app\models\Special3;
 use yii\helpers\ArrayHelper;
 
 final class SalmonSpecialUseApiFormatter

@@ -10,9 +10,7 @@
 namespace app\actions\user;
 
 use Yii;
-use app\models\Battle;
 use yii\web\BadRequestHttpException;
-use yii\web\ServerErrorHttpException;
 use yii\web\ViewAction as BaseAction;
 
 class Download2Action extends BaseAction

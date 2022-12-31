@@ -8,8 +8,6 @@
 
 namespace app\models;
 
-use Yii;
-
 /**
  * This is the model class for table "agent_group_map".
  *

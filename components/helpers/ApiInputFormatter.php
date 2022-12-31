@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\components\helpers;
 
-use Yii;
 use yii\base\Component;
 
 class ApiInputFormatter extends Component

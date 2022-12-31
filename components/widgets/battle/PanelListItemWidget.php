@@ -8,7 +8,6 @@
 
 namespace app\components\widgets\battle;
 
-use Yii;
 use app\components\widgets\battle\panelItem\BattleItem1Widget;
 use app\components\widgets\battle\panelItem\BattleItem2Widget;
 use app\components\widgets\battle\panelItem\BattleItem3Widget;

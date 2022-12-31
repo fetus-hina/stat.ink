@@ -10,8 +10,6 @@ declare(strict_types=1);
 
 namespace yii\helpers;
 
-use Yii;
-
 use const SORT_FLAG_CASE;
 use const SORT_LOCALE_STRING;
 use const SORT_NATURAL;

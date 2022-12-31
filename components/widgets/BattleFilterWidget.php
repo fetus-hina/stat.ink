@@ -14,7 +14,6 @@ use app\components\helpers\db\Now;
 use app\models\GameMode;
 use app\models\Lobby;
 use app\models\Map;
-use app\models\Rank;
 use app\models\RankGroup;
 use app\models\Rule;
 use app\models\Special;

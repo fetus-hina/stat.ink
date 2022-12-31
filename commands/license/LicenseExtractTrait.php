@@ -13,7 +13,6 @@ namespace app\commands\license;
 use DirectoryIterator;
 use Yii;
 use stdClass;
-use yii\console\Controller;
 use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
 use yii\helpers\Json;

@@ -13,7 +13,6 @@ namespace app\actions\show;
 use Yii;
 use app\models\BattleFilterForm;
 use app\models\User;
-use app\models\Weapon;
 use yii\db\Query;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;

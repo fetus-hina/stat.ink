@@ -15,7 +15,6 @@ use yii\db\Connection;
 use yii\db\Query;
 use yii\db\Transaction;
 
-use const SORT_ASC;
 use const STDERR;
 
 trait Knockout3Trait

@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\models;
 
-use Exception;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\behaviors\AttributeTypecastBehavior;

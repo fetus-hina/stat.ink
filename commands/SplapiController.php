@@ -18,7 +18,6 @@ use app\models\SplapiRule;
 use app\models\Splatfest;
 use app\models\SplatfestMap;
 use yii\console\Controller;
-use yii\helpers\Console;
 use yii\helpers\Json;
 
 class SplapiController extends Controller

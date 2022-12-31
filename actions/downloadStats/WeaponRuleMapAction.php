@@ -11,7 +11,6 @@ namespace app\actions\downloadStats;
 use Yii;
 use app\components\web\CsvResponseFormatter;
 use app\models\Charset;
-use app\models\StatWeaponKDWinRate;
 use yii\db\Query;
 
 class WeaponRuleMapAction extends BaseAction

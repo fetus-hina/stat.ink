@@ -16,7 +16,6 @@ use yii\base\DynamicModel;
 use yii\filters\ContentNegotiator;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBearerAuth;
-use yii\helpers\Url;
 use yii\rest\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;

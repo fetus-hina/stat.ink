@@ -12,17 +12,12 @@ use Yii;
 use app\models\Battle2;
 use app\models\Battle2DeleteForm;
 use app\models\Battle2Form;
-use app\models\Lobby2;
 use app\models\Map2;
-use app\models\Mode2;
 use app\models\Rank2;
-use app\models\Rule2;
 use app\models\Weapon2;
-use app\models\WeaponCategory2;
 use app\models\WeaponType2;
 use yii\base\Action;
 use yii\helpers\ArrayHelper;
-use yii\web\NotFoundHttpException;
 
 use const SORT_ASC;
 use const SORT_DESC;

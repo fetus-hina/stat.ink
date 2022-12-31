@@ -14,8 +14,6 @@ use Yii;
 use app\models\Rule2;
 use app\models\SplatoonVersionGroup2;
 use app\models\StatWeapon2Tier;
-use yii\db\Query;
-use yii\helpers\Url;
 use yii\web\ViewAction;
 
 class Weapons2TierAction extends ViewAction

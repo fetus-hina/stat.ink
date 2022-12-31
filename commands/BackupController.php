@@ -11,7 +11,6 @@ namespace app\commands;
 use DirectoryIterator;
 use S3;
 use Yii;
-use app\components\helpers\Resource;
 use yii\console\Controller;
 use yii\helpers\Console;
 

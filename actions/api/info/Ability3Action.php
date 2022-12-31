@@ -11,7 +11,6 @@ declare(strict_types=1);
 namespace app\actions\api\info;
 
 use Yii;
-use app\components\helpers\Translator;
 use app\models\Ability3;
 use app\models\Language;
 use yii\web\ViewAction;

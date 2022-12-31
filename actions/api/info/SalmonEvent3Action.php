@@ -16,8 +16,6 @@ use app\models\SalmonEvent3;
 use yii\base\Action;
 use yii\helpers\ArrayHelper;
 
-use const SORT_ASC;
-
 final class SalmonEvent3Action extends Action
 {
     public function run()

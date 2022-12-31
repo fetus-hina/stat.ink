@@ -8,7 +8,6 @@
 
 namespace app\commands;
 
-use Yii;
 use app\components\helpers\Password;
 use yii\console\Controller;
 

@@ -22,8 +22,6 @@ use app\components\validators\KeyValidator;
 use app\components\validators\SalmonBoss3Validator;
 use app\components\validators\SalmonPlayer3FormValidator;
 use app\components\validators\SalmonWave3FormValidator;
-use app\models\Agent;
-use app\models\AgentVariable3;
 use app\models\Map3;
 use app\models\Map3Alias;
 use app\models\Salmon3;

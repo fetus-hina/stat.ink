@@ -16,7 +16,6 @@ use app\components\i18n\Formatter;
 use app\components\widgets\FA;
 use app\models\UserStatBigrun3;
 use app\models\UserStatSalmon3;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\View;
 

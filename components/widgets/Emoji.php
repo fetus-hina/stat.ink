@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
-use Yii;
 use app\assets\JqueryTwemojiAsset;
 use yii\base\Widget;
 use yii\helpers\Html;

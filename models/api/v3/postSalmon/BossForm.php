@@ -16,7 +16,6 @@ use app\models\SalmonBoss3Alias;
 use app\models\SalmonBossAppearance3;
 use app\models\api\v3\postBattle\TypeHelperTrait;
 use yii\base\Model;
-use yii\validators\CompareValidator;
 
 final class BossForm extends Model
 {

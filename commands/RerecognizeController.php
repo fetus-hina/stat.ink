@@ -12,7 +12,6 @@ use Yii;
 use app\models\BattleRerecognizeForm;
 use yii\base\InvalidParamException;
 use yii\console\Controller;
-use yii\helpers\Console;
 use yii\helpers\Json;
 
 class RerecognizeController extends Controller

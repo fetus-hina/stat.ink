@@ -11,14 +11,12 @@ declare(strict_types=1);
 namespace app\actions\api\info;
 
 use Yii;
-use app\components\helpers\Translator;
 use app\models\Language;
 use app\models\SalmonWeapon3;
 use app\models\Special3;
 use app\models\Subweapon3;
 use app\models\Weapon3;
 use yii\base\Action;
-use yii\db\Query;
 use yii\helpers\ArrayHelper;
 
 final class Weapon3Action extends Action

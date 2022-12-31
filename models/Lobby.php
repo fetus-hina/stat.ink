@@ -8,7 +8,6 @@
 
 namespace app\models;
 
-use Yii;
 use app\components\helpers\Translator;
 
 /**

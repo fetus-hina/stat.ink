@@ -11,7 +11,6 @@ declare(strict_types=1);
 namespace app\commands;
 
 use DateInterval;
-use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
@@ -26,7 +25,6 @@ use app\models\Season3;
 use yii\console\Controller;
 use yii\console\ExitCode;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Console;
 use yii\helpers\FileHelper;
 use yii\helpers\Json;
 

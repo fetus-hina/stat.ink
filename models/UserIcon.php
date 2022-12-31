@@ -14,7 +14,6 @@ use yii\db\ActiveRecord;
 use yii\db\Connection;
 use yii\helpers\FileHelper;
 use yii\helpers\Url;
-use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "user_icon".

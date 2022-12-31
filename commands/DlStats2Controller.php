@@ -18,7 +18,6 @@ use app\components\helpers\Battle as BattleHelper;
 use app\models\Battle2;
 use app\models\BattlePlayer2;
 use yii\console\Controller;
-use yii\helpers\Console;
 use yii\helpers\FileHelper;
 
 class DlStats2Controller extends Controller

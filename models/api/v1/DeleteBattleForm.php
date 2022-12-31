@@ -9,13 +9,11 @@
 namespace app\models\api\v1;
 
 use Yii;
-use app\components\helpers\db\Now;
 use app\models\Battle;
 use app\models\User;
 use app\models\openapi\Apikey;
 use app\models\openapi\Util;
 use yii\base\Model;
-use yii\helpers\ArrayHelper;
 
 class DeleteBattleForm extends Model
 {

@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\controllers;
 
-use Yii;
 use app\actions\entire\AgentAction;
 use app\actions\entire\CombinedAgentAction;
 use app\actions\entire\Festpower2Action;
@@ -32,7 +31,6 @@ use app\actions\entire\v3\Knockout3Action;
 use app\actions\entire\v3\SpecialUse3Action;
 use app\actions\entire\v3\XPowerDistrib3Action;
 use app\components\web\Controller;
-use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 
 final class EntireController extends Controller

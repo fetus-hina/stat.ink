@@ -7,7 +7,6 @@
  */
 
 use app\models\Region;
-use app\models\Splatfest;
 use yii\db\Migration;
 
 class m151223_113054_splatfest_order extends Migration

@@ -18,22 +18,16 @@ use app\actions\api\internal\latestBattles\Battle2Formatter;
 use app\actions\api\internal\latestBattles\Battle3Formatter;
 use app\actions\api\internal\latestBattles\Salmon2Formatter;
 use app\actions\api\internal\latestBattles\Salmon3Formatter;
-use app\assets\GameModeIconsAsset;
 use app\assets\NoDependedAppAsset;
-use app\assets\Spl3StageAsset;
-use app\components\helpers\CombinedBattles;
 use app\models\Battle;
 use app\models\Battle2;
 use app\models\Battle3;
 use app\models\Salmon2;
 use app\models\Salmon3;
-use yii\db\Transaction;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\ViewAction;
 
-use function array_filter;
-use function strtotime;
 use function time;
 
 abstract class BaseLatestBattlesAction extends ViewAction

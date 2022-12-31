@@ -20,8 +20,6 @@ use yii\console\Controller;
 use yii\console\ExitCode;
 use yii\helpers\Json;
 
-use const STDERR;
-
 final class Splatoon3InkController extends Controller
 {
     use UpdateSalmonSchedule;

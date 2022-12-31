@@ -13,7 +13,6 @@ namespace app\models\battle3FilterForm;
 use Yii;
 use app\models\Battle3FilterForm;
 use app\models\Lobby3;
-use app\models\LobbyGroup3;
 use app\models\Map3;
 use app\models\Result3;
 use app\models\Rule3;

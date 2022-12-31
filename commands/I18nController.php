@@ -12,7 +12,6 @@ use Yii;
 use app\models\Language;
 use yii\console\Controller;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Console;
 
 use const SORT_FLAG_CASE;
 use const SORT_NATURAL;

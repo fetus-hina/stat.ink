@@ -24,7 +24,6 @@ use yii\base\Action;
 use yii\base\DynamicModel;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\web\NotFoundHttpException;
 
 final class UserAction extends Action
 {

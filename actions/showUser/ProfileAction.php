@@ -10,9 +10,6 @@ namespace app\actions\showUser;
 
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
-use app\models\Battle;
-use app\models\Battle2;
-use app\models\Battle3;
 use app\models\User;
 use yii\base\Action;
 use yii\helpers\Url;

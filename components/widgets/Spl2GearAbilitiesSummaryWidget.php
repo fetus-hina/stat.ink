@@ -15,13 +15,11 @@ use app\assets\GearAbilityNumberSwitcherAsset;
 use app\assets\Spl2WeaponAsset;
 use app\components\widgets\AbilityIcon;
 use app\models\Ability2Info;
-use app\models\Special2;
 use yii\base\Widget;
 use yii\bootstrap\ButtonDropdown;
 use yii\data\ArrayDataProvider;
 use yii\grid\Column;
 use yii\grid\GridView;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
 

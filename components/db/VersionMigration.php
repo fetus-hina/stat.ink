@@ -10,7 +10,6 @@ namespace app\components\db;
 
 use DateTimeInterface;
 use app\components\helpers\Battle as BattleHelper;
-use yii\db\Expression;
 use yii\db\Query;
 
 trait VersionMigration

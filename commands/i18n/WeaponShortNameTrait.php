@@ -17,7 +17,6 @@ use app\models\SalmonWeapon3;
 use app\models\Weapon;
 use app\models\Weapon2;
 use app\models\Weapon3;
-use yii\console\Controller;
 use yii\helpers\Console;
 
 trait WeaponShortNameTrait

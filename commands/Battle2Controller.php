@@ -17,7 +17,6 @@ use app\models\User;
 use app\models\UserStat2;
 use yii\console\Controller;
 use yii\db\Expression as DbExpr;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Console;
 
 class Battle2Controller extends Controller

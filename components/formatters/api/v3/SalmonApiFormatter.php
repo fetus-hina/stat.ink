@@ -12,7 +12,6 @@ namespace app\components\formatters\api\v3;
 
 use app\models\Salmon3;
 use yii\helpers\Url;
-use yii\web\JsExpression;
 
 final class SalmonApiFormatter
 {

@@ -9,7 +9,6 @@
 namespace app\models;
 
 use Yii;
-use app\components\behaviors\TrimAttributesBehavior;
 use yii\db\ActiveRecord;
 
 /**

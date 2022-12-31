@@ -16,7 +16,6 @@ use DateTimeZone;
 use Yii;
 use app\assets\SalmonEggAsset;
 use app\assets\SimpleBattleListAsset;
-use app\components\widgets\ActiveRelativeTimeWidget;
 use app\models\Salmon3;
 use app\models\SalmonPlayer3;
 use app\models\User;

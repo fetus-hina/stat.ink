@@ -9,7 +9,6 @@
 namespace app\components;
 
 use S3;
-use Yii;
 use yii\base\Component;
 
 class ImageS3 extends Component

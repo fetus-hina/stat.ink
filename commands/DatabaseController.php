@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\commands;
 
-use Yii;
 use app\commands\database\VacuumAction;
 use yii\console\Controller;
 

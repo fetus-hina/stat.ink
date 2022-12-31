@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\actions\api\internal\latestBattles;
 
-use Yii;
 use app\models\User;
 use yii\helpers\Url;
 

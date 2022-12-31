@@ -19,7 +19,6 @@ use app\models\Map2;
 use app\models\Weapon2;
 use yii\console\Controller;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Console;
 use yii\helpers\FileHelper;
 use yii\helpers\Json;
 use yii\httpclient\Client as HttpClient;

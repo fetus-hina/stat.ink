@@ -11,7 +11,6 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use Yii;
-use app\assets\AppAsset;
 use app\assets\LanguageDialogAsset;
 use app\assets\TimezoneDialogAsset;
 use app\models\Country;

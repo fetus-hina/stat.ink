@@ -10,8 +10,6 @@ declare(strict_types=1);
 
 namespace app\models\ch;
 
-use DomainException;
-use LogicException;
 use Yii;
 use yii\base\Model;
 

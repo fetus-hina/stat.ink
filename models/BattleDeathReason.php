@@ -8,9 +8,6 @@
 
 namespace app\models;
 
-use Yii;
-use app\components\helpers\Translator;
-
 /**
  * This is the model class for table "battle_death_reason".
  *

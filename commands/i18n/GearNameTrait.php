@@ -8,7 +8,6 @@
 
 namespace app\commands\i18n;
 
-use Yii;
 use app\models\Gear2;
 
 trait GearNameTrait

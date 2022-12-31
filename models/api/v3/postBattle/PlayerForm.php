@@ -16,7 +16,6 @@ use app\models\Battle3;
 use app\models\BattlePlayer3;
 use app\models\BattleTricolorPlayer3;
 use app\models\Rule3;
-use app\models\SplashtagTitle3;
 use app\models\Weapon3;
 use app\models\Weapon3Alias;
 use yii\base\Model;

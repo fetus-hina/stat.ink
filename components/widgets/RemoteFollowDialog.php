@@ -15,7 +15,6 @@ use app\models\RemoteFollowModalForm;
 use yii\base\Widget;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
-use yii\helpers\Url;
 
 class RemoteFollowDialog extends Widget
 {

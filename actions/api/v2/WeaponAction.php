@@ -14,7 +14,6 @@ use Generator;
 use Yii;
 use app\models\Language;
 use app\models\Weapon2;
-use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
 use yii\web\ViewAction as BaseAction;
 

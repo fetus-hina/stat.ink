@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace tests\models;
 
 use Codeception\Test\Unit;
-use Yii;
 use app\models\BattleImage;
 
 class BattleImageTest extends Unit

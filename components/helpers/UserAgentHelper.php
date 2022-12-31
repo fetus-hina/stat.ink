@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\components\helpers;
 
-use Exception;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;

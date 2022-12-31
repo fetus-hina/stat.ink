@@ -14,13 +14,11 @@ use Yii;
 use app\assets\GameModeIconsAsset;
 use app\assets\UserMiniinfoAsset;
 use app\components\widgets\Icon;
-use app\models\Rank2;
 use app\models\Rule2;
 use app\models\UserStat2;
 use yii\base\Widget;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 class UserMiniInfo2 extends Widget

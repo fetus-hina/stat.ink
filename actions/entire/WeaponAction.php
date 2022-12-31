@@ -18,7 +18,6 @@ use app\models\WeaponType;
 use yii\base\Action;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 

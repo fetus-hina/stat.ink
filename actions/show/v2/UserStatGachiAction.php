@@ -9,7 +9,6 @@
 namespace app\actions\show\v2;
 
 use Yii;
-use app\models\Battle2;
 use app\models\Rule2;
 use app\models\User;
 use yii\web\NotFoundHttpException;

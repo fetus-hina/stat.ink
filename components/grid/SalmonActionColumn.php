@@ -19,7 +19,6 @@ use app\models\Salmon3;
 use app\models\User;
 use yii\grid\Column;
 use yii\helpers\Html;
-use yii\helpers\Url;
 
 final class SalmonActionColumn extends Column
 {

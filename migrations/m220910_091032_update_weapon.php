@@ -9,8 +9,6 @@
 declare(strict_types=1);
 
 use app\components\db\Migration;
-use yii\db\Query;
-use yii\helpers\ArrayHelper;
 
 final class m220910_091032_update_weapon extends Migration
 {

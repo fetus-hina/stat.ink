@@ -11,7 +11,6 @@ namespace app\models;
 use Yii;
 use app\components\helpers\Translator;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 
 /**
  * This is the model class for table "death_reason".

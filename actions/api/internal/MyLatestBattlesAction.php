@@ -13,9 +13,7 @@ namespace app\actions\api\internal;
 use Yii;
 use app\actions\api\internal\latestBattles\UserFormatter;
 use app\components\helpers\CombinedBattles;
-use app\models\User;
 use yii\db\Transaction;
-use yii\helpers\Url;
 
 final class MyLatestBattlesAction extends BaseLatestBattlesAction
 {

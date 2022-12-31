@@ -11,7 +11,6 @@ namespace app\actions\entire;
 use Base32\Base32;
 use Yii;
 use app\models\AgentGroup;
-use app\models\AgentGroupMap;
 use app\models\StatAgentUser;
 use yii\base\DynamicModel;
 use yii\db\Query;

@@ -10,7 +10,6 @@ namespace app\components\db;
 
 use Yii;
 use yii\db\Expression;
-use yii\db\Query;
 
 trait StageMigration
 {

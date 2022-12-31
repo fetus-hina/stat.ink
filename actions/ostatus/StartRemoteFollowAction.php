@@ -13,9 +13,7 @@ use DOMDocument;
 use DOMXpath;
 use Yii;
 use app\models\RemoteFollowModalForm;
-use app\models\User;
 use yii\helpers\Json;
-use yii\web\Response;
 use yii\web\ViewAction as BaseAction;
 
 class StartRemoteFollowAction extends BaseAction

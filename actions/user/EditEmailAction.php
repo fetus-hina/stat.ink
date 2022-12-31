@@ -10,12 +10,10 @@ declare(strict_types=1);
 
 namespace app\actions\user;
 
-use Exception;
 use Yii;
 use app\components\helpers\AddressUpdatedEmailSender;
 use app\models\EmailForm;
 use app\models\EmailVerifyForm;
-use app\models\User;
 use yii\web\ViewAction;
 
 class EditEmailAction extends ViewAction

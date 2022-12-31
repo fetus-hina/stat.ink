@@ -8,7 +8,6 @@
 
 namespace app\components\web;
 
-use Yii;
 use yii\web\BadRequestHttpException;
 use yii\web\Request as Base;
 use yii\web\UnsupportedMediaTypeHttpException;

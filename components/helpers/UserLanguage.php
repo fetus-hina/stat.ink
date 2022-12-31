@@ -14,7 +14,6 @@ use Jaybizzle\CrawlerDetect\CrawlerDetect;
 use Yii;
 use app\models\AcceptLanguage;
 use app\models\Language;
-use yii\helpers\StringHelper;
 
 class UserLanguage
 {

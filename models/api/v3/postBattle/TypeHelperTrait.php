@@ -8,7 +8,6 @@
 
 namespace app\models\api\v3\postBattle;
 
-use Yii;
 use yii\db\ActiveRecord;
 
 trait TypeHelperTrait

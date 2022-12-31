@@ -12,7 +12,6 @@ use Yii;
 use app\components\behaviors\AutoTrimAttributesBehavior;
 use app\components\validators\IdnToPunycodeFilterValidator;
 use yii\base\Model;
-use yii\db\ActiveQuery;
 
 class Battle2Form extends Model
 {

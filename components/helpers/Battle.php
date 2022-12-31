@@ -17,7 +17,6 @@ use Yii;
 use app\models\Battle as BattleModel;
 use app\models\Battle2 as Battle2Model;
 use app\models\Battle2FilterForm;
-use app\models\Battle3 as Battle3Model;
 use app\models\BattleFilterForm;
 use app\models\User;
 use yii\db\Query;

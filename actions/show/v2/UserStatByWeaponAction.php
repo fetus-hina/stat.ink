@@ -14,8 +14,6 @@ use Yii;
 use app\models\Battle2;
 use app\models\Battle2FilterForm;
 use app\models\User;
-use app\models\Weapon2;
-use yii\db\Query;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction;
 

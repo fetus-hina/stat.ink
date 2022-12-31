@@ -8,8 +8,6 @@
 
 namespace app\actions\stage;
 
-use Yii;
-use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
 class IndexAction extends BaseAction

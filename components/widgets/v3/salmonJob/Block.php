@@ -12,7 +12,6 @@ namespace app\components\widgets\v3\salmonJob;
 
 use Yii;
 use app\assets\FlexboxAsset;
-use app\components\widgets\v3\salmonJob\Block;
 use yii\base\Widget;
 use yii\helpers\Html;
 use yii\web\View;

@@ -12,11 +12,9 @@ namespace app\components\helpers\userStatsV3;
 
 use DateTimeImmutable;
 use DateTimeInterface;
-use DateTimeZone;
 use LogicException;
 use PDO;
 use Yii;
-use app\models\Battle3;
 use app\models\Lobby3;
 use app\models\Rule3;
 use app\models\User;
@@ -29,7 +27,6 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 
 use const SORT_ASC;
-use const SORT_DESC;
 
 trait XStatsTrait
 {

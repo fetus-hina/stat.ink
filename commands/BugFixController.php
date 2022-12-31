@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\commands;
 
-use Yii;
 use app\commands\bugfix\Btl2SplatnetJsonAction;
 use app\commands\bugfix\S3sKillAssistAction;
 use yii\console\Controller;

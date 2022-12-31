@@ -26,7 +26,6 @@ use app\models\Weapon2;
 use app\models\WeaponCategory2;
 use app\models\WeaponType2;
 use yii\console\Controller;
-use yii\helpers\Console;
 use yii\helpers\StringHelper;
 
 class Api2MarkdownController extends Controller

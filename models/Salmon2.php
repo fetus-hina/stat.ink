@@ -9,7 +9,6 @@
 namespace app\models;
 
 use DateTimeImmutable;
-use DateTimeZone;
 use Throwable;
 use Yii;
 use app\components\behaviors\TimestampBehavior;

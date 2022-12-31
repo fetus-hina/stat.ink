@@ -15,7 +15,6 @@ use app\components\widgets\v3\battleDelete\Button;
 use app\components\widgets\v3\battleDelete\Modal;
 use app\models\Battle3;
 use app\models\Salmon3;
-use app\models\User;
 use yii\base\Widget;
 
 final class BattleDeleteWidget extends Widget

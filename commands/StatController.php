@@ -22,9 +22,7 @@ use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\db\Now;
 use app\models\Battle2;
 use app\models\BattlePlayer;
-use app\models\BattlePlayer2;
 use app\models\Knockout;
-use app\models\Knockout2;
 use app\models\Lobby;
 use app\models\Lobby2;
 use app\models\Mode2;
@@ -48,7 +46,6 @@ use yii\console\Controller;
 use yii\db\Expression;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Console;
 
 final class StatController extends Controller
 {

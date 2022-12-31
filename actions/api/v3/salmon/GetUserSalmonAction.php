@@ -10,17 +10,13 @@ declare(strict_types=1);
 
 namespace app\actions\api\v3\salmon;
 
-use DateTimeZone;
 use Yii;
 use app\actions\api\v3\traits\ApiInitializerTrait;
 use app\components\formatters\api\v3\SalmonApiFormatter;
-use app\components\helpers\UuidRegexp;
 use app\models\Salmon3;
 use app\models\User;
 use yii\base\Action;
 use yii\helpers\Json;
-use yii\helpers\Url;
-use yii\web\BadRequestHttpException;
 use yii\web\JsExpression;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;

@@ -25,7 +25,6 @@ use app\components\helpers\BattleSummarizer;
 use app\components\helpers\DateTimeFormatter;
 use app\components\jobs\UserStatsJob;
 use jp3cki\uuid\Uuid;
-use stdClass;
 use yii\behaviors\AttributeBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;

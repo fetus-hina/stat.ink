@@ -11,7 +11,6 @@ declare(strict_types=1);
 namespace app\models;
 
 use DateTimeImmutable;
-use Yii;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 

@@ -22,7 +22,6 @@ use jp3cki\uuid\Uuid;
 use yii\base\DynamicModel;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
 class User2Action extends BaseAction

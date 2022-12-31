@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\components\widgets\v3\weaponIcon;
 
-use Yii;
 use app\assets\Spl3WeaponAsset;
 use yii\base\Widget;
 use yii\helpers\Html;

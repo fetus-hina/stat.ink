@@ -14,7 +14,6 @@ use DateTimeImmutable;
 use DateTimeZone;
 use app\models\Map3;
 use app\models\SalmonMap3;
-use app\models\SalmonMap3Alias;
 use app\models\SalmonRandom3;
 use app\models\SalmonWeapon3;
 use app\models\api\v3\postBattle\TypeHelperTrait;

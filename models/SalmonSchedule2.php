@@ -8,7 +8,6 @@
 
 namespace app\models;
 
-use Yii;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\db\Now;
 use yii\db\ActiveQuery;

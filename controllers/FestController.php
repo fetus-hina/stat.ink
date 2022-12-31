@@ -8,9 +8,7 @@
 
 namespace app\controllers;
 
-use Yii;
 use app\components\web\Controller;
-use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 
 class FestController extends Controller

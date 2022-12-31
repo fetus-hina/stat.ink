@@ -9,7 +9,6 @@
 namespace app\actions\api\info;
 
 use Yii;
-use app\components\helpers\Translator;
 use app\models\Gear2;
 use app\models\GearType;
 use app\models\Language;

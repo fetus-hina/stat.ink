@@ -14,7 +14,6 @@ use app\models\Splatfest;
 use app\models\SplatfestBattleSummary;
 use app\models\SplatfestTeam;
 use yii\console\Controller;
-use yii\helpers\Console;
 
 class SplatfestController extends Controller
 {
