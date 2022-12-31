@@ -51,6 +51,9 @@
   <rule ref="SlevomatCodingStandard.Functions.RequireArrowFunction"/>
   <rule ref="SlevomatCodingStandard.Functions.RequireTrailingCommaInCall"/>
   <rule ref="SlevomatCodingStandard.Functions.UnusedInheritedVariablePassedToClosure"/>
+  <rule ref="SlevomatCodingStandard.Namespaces.DisallowGroupUse"/>
+
+  <!--rule ref="Universal.OOStructures.AlphabeticExtendsImplements"/-->
 
   <rule ref="SlevomatCodingStandard.Namespaces.AlphabeticallySortedUses">
     <properties>
