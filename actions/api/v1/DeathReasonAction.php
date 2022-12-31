@@ -35,9 +35,7 @@ class DeathReasonAction extends BaseAction
         $form->filterQuery($query);
 
         return array_map(
-            function ($model) {
-                return $model->toJsonArray();
-            },
+            fn ($model) => $model->toJsonArray(),
             $query->all(),
         );
     }

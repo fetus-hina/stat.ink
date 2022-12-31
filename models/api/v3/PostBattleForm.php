@@ -218,26 +218,18 @@ final class PostBattleForm extends Model
             ],
 
             [['challenge_win'], 'integer', 'min' => 0, 'max' => 5,
-                'when' => function (self $model): bool {
-                    return self::boolVal($model->rank_up_battle) !== true ||
-                        self::strVal($model->lobby) === 'xmatch';
-                },
+                'when' => fn (self $model): bool => self::boolVal($model->rank_up_battle) !== true ||
+                        self::strVal($model->lobby) === 'xmatch',
             ],
             [['challenge_win'], 'integer', 'min' => 0, 'max' => 3,
-                'when' => function (self $model): bool {
-                    return self::boolVal($model->rank_up_battle) === true &&
-                        self::strVal($model->lobby) !== 'xmatch';
-                },
+                'when' => fn (self $model): bool => self::boolVal($model->rank_up_battle) === true &&
+                        self::strVal($model->lobby) !== 'xmatch',
             ],
             [['challenge_lose'], 'integer', 'min' => 0, 'max' => 3,
-                'when' => function (self $model): bool {
-                    return self::strVal($model->lobby) !== 'xmatch';
-                },
+                'when' => fn (self $model): bool => self::strVal($model->lobby) !== 'xmatch',
             ],
             [['challenge_lose'], 'integer', 'min' => 0, 'max' => 5,
-                'when' => function (self $model): bool {
-                    return self::strVal($model->lobby) === 'xmatch';
-                },
+                'when' => fn (self $model): bool => self::strVal($model->lobby) === 'xmatch',
             ],
 
             [['our_team_color', 'their_team_color', 'third_team_color'], 'match',

@@ -32,9 +32,7 @@ class m200107_074759_main_power_up extends Migration
         ]);
 
         $data = $this->getInsertData();
-        usort($data, function (array $a, array $b): int {
-            return strcmp($a[0], $b[0]);
-        });
+        usort($data, fn (array $a, array $b): int => strcmp($a[0], $b[0]));
         $this->batchInsert('main_power_up2', ['key', 'name'], $data);
     }
 

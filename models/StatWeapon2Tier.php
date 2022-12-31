@@ -225,25 +225,19 @@ class StatWeapon2Tier extends ActiveRecord
             ])
             ->andHaving(['>=', 'MAX({{t}}.[[players_count]])', static::PLAYERS_COUNT_THRESHOLD])
             ->all();
-        usort($list, function (array $a, array $b): int {
-            return version_compare($b['vtag'], $a['vtag'])
-                ?: strcmp($b['month'], $a['month']);
-        });
+        usort($list, fn (array $a, array $b): int => version_compare($b['vtag'], $a['vtag'])
+                ?: strcmp($b['month'], $a['month']));
         return ArrayHelper::map(
             $list,
-            function (array $row): string {
-                return vsprintf('v%s@%s', [
+            fn (array $row): string => vsprintf('v%s@%s', [
                     $row['vtag'],
                     substr($row['month'], 0, 7),
-                ]);
-            },
-            function (array $row): array {
-                return [
+                ]),
+            fn (array $row): array => [
                     'month' => substr($row['month'], 0, 7),
                     'vTag' => $row['vtag'],
                     'vName' => $row['vname'],
-                ];
-            },
+                ],
         );
     }
 }

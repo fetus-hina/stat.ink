@@ -32,14 +32,10 @@ class WeaponAttack extends \yii\db\ActiveRecord
             ->all();
 
         // 指定バージョンより先のバージョンは捨てる
-        $list = array_filter($list, function ($target) use ($version) {
-            return $target->version && version_compare($target->version->tag, $version->tag, '<=');
-        });
+        $list = array_filter($list, fn ($target) => $target->version && version_compare($target->version->tag, $version->tag, '<='));
 
         // 新しい順に並び替える
-        usort($list, function ($a, $b) {
-            return version_compare($b->version->tag, $a->version->tag);
-        });
+        usort($list, fn ($a, $b) => version_compare($b->version->tag, $a->version->tag));
 
         // 最初の要素が目的の代物
         return empty($list) ? null : array_shift($list);

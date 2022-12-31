@@ -55,9 +55,7 @@ class Blackout
     {
         return array_filter(
             range(1, 8),
-            function ($pos) use ($except) {
-                return !in_array($pos, $except);
-            },
+            fn ($pos) => !in_array($pos, $except),
         );
     }
 }

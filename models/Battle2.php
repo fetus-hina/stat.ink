@@ -547,9 +547,7 @@ class Battle2 extends ActiveRecord
                                     $query->andWhere(['tag' => substr($term, 1)]);
                                 }
                                 return array_map(
-                                    function (array $version): int {
-                                        return $version['id'];
-                                    },
+                                    fn (array $version): int => $version['id'],
                                     $query->all(),
                                 );
                             })();
@@ -591,11 +589,9 @@ class Battle2 extends ActiveRecord
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_INSERT => 'end_at',
                 ],
-                'value' => function ($event) {
-                    return ($event->sender->end_at)
+                'value' => fn ($event) => ($event->sender->end_at)
                         ? $event->sender->end_at
-                        : new \app\components\helpers\db\Now();
-                },
+                        : new \app\components\helpers\db\Now(),
             ],
             [
                 // client_uuid の格納形式を作成する
@@ -691,9 +687,7 @@ class Battle2 extends ActiveRecord
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_UPDATE => ['is_automated', 'use_for_entire'],
                 ],
-                'value' => function ($event) {
-                    return false;
-                },
+                'value' => fn ($event) => false,
             ],
         ];
     }
@@ -1365,9 +1359,7 @@ class Battle2 extends ActiveRecord
             }
 
             if (is_array($events)) {
-                usort($events, function (array $a, array $b): int {
-                    return ($a['at'] ?? null) <=> ($b['at'] ?? null);
-                });
+                usort($events, fn (array $a, array $b): int => ($a['at'] ?? null) <=> ($b['at'] ?? null));
             } else {
                 $events = null;
             }
@@ -1438,9 +1430,7 @@ class Battle2 extends ActiveRecord
             'death_reasons' => in_array('death_reasons', $skips, true)
                 ? null
                 : array_map(
-                    function ($model) {
-                        return $model->toJsonArray();
-                    },
+                    fn ($model) => $model->toJsonArray(),
                     $this->battleDeathReasons,
                 ),
             'my_point' => $this->my_point,
@@ -1546,9 +1536,7 @@ class Battle2 extends ActiveRecord
             'players' => (in_array('players', $skips, true) || count($this->battlePlayers) === 0)
                 ? null
                 : array_map(
-                    function ($model) {
-                        return $model->toJsonArray($this);
-                    },
+                    fn ($model) => $model->toJsonArray($this),
                     $this->battlePlayers,
                 ),
             'events' => $events,
@@ -1764,9 +1752,7 @@ class Battle2 extends ActiveRecord
     {
         return $this->getPrivateTeamId(array_filter(
             $this->battlePlayersPure,
-            function ($model): bool {
-                return $model->is_my_team === true;
-            },
+            fn ($model): bool => $model->is_my_team === true,
         ));
     }
 
@@ -1774,9 +1760,7 @@ class Battle2 extends ActiveRecord
     {
         return $this->getPrivateTeamId(array_filter(
             $this->battlePlayersPure,
-            function ($model): bool {
-                return $model->is_my_team === false;
-            },
+            fn ($model): bool => $model->is_my_team === false,
         ));
     }
 
@@ -1831,9 +1815,7 @@ class Battle2 extends ActiveRecord
         $specials = ArrayHelper::map(
             Special2::find()->all(),
             'key',
-            function (Special2 $model): Special2 {
-                return $model;
-            },
+            fn (Special2 $model): Special2 => $model,
         );
 
         $results = [];
@@ -1901,9 +1883,7 @@ class Battle2 extends ActiveRecord
 
     public function adjustUserWeapon($weaponIds, ?int $excludeBattle = null): void
     {
-        $weaponIds = array_unique(array_filter((array)$weaponIds, function ($value) {
-            return $value > 0;
-        }));
+        $weaponIds = array_unique(array_filter((array)$weaponIds, fn ($value) => $value > 0));
         if (!$weaponIds) {
             return;
         }
@@ -1926,9 +1906,7 @@ class Battle2 extends ActiveRecord
         $list = ArrayHelper::map(
             $query->all(),
             'weapon_id',
-            function ($a) {
-                return $a;
-            },
+            fn ($a) => $a,
         );
         // }}}
         foreach ($weaponIds as $weapon_id) {

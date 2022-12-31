@@ -60,9 +60,7 @@ final class m220812_003551_subweapon3 extends Migration
         $data = $this->getData();
         $this->batchInsert('{{%subweapon3}}', ['key', 'name'], array_values(
             array_map(
-                function (string $key, string $name): array {
-                    return [$key, $name];
-                },
+                fn (string $key, string $name): array => [$key, $name],
                 array_keys($data),
                 array_values($data),
             ),

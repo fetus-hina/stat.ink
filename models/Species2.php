@@ -118,9 +118,7 @@ class Species2 extends ActiveRecord
     public static function openApiExample(): array
     {
         return array_map(
-            function (self $model): array {
-                return $model->toJsonArray();
-            },
+            fn (self $model): array => $model->toJsonArray(),
             static::find()
                 ->orderBy(['key' => SORT_ASC])
                 ->all(),

@@ -19,9 +19,7 @@ class RuleAction extends BaseAction
         $response = Yii::$app->getResponse();
         $response->format = 'json';
         return array_map(
-            function ($rule) {
-                return $rule->toJsonArray();
-            },
+            fn ($rule) => $rule->toJsonArray(),
             Rule::find()->with('mode')->all(),
         );
     }

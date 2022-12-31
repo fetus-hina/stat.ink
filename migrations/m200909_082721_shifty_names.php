@@ -34,12 +34,10 @@ class m200909_082721_shifty_names extends Migration
                 'name' => new Expression(vsprintf('CASE %s %s END', [
                     $db->quoteColumnName('key'),
                     implode(' ', array_map(
-                        function (string $key, string $name) use ($prefix, $db): string {
-                            return vsprintf('WHEN %s THEN %s', [
+                        fn (string $key, string $name): string => vsprintf('WHEN %s THEN %s', [
                                 $db->quoteValue($key),
                                 $db->quoteValue($prefix . $name),
-                            ]);
-                        },
+                            ]),
                         array_keys($data),
                         array_values($data),
                     )),

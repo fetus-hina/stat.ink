@@ -45,13 +45,11 @@ trait Splatoon3
             }
 
             return \array_map(
-                function (array $a): array {
-                    return [
+                fn (array $a): array => [
                         'date' => $a['date'],
                         'battle' => (int)$a['battle_count'],
                         'user' => (int)$a['user_count'],
-                    ];
-                },
+                    ],
                 $stats,
             );
         } finally {
@@ -98,8 +96,7 @@ trait Splatoon3
                     'e' => DateTimeFormatter::unixTimeToJsonArray($endAt->getTimestamp() - 1),
                 ],
                 'agents' => array_map(
-                    function (array $row) use ($startAt, $endAt): array {
-                        return [
+                    fn (array $row): array => [
                             'name' => (string)$row['name'],
                             'battles' => (int)$row['battles'],
                             'users' => (int)$row['users'],
@@ -110,8 +107,7 @@ trait Splatoon3
                                 (int)$row['min_id'],
                                 (int)$row['max_id'],
                             ),
-                        ];
-                    },
+                        ],
                     $list,
                 ),
             ];
@@ -148,17 +144,13 @@ trait Splatoon3
                 ->groupBy(['{{%battle3}}.[[agent_id]]'])
                 ->asArray()
                 ->all();
-            \usort($versions, function (array $a, array $b): int {
-                return \version_compare($b['version'], $a['version']);
-            });
+            \usort($versions, fn (array $a, array $b): int => \version_compare($b['version'], $a['version']));
             return \array_map(
-                function (array $row): array {
-                    return [
+                fn (array $row): array => [
                         'version' => (string)$row['version'],
                         'battles' => (int)$row['battles'],
                         'users' => (int)$row['users'],
-                    ];
-                },
+                    ],
                 $versions,
             );
         } finally {

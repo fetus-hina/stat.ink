@@ -203,9 +203,7 @@ final class SalmonPlayers extends Widget
                                 $weapons = ArrayHelper::getColumn(
                                     ArrayHelper::sort(
                                         $player->salmonPlayerWeapon3s,
-                                        function (SalmonPlayerWeapon3 $a, SalmonPlayerWeapon3 $b): int {
-                                            return $a->wave <=> $b->wave;
-                                        },
+                                        fn (SalmonPlayerWeapon3 $a, SalmonPlayerWeapon3 $b): int => $a->wave <=> $b->wave,
                                     ),
                                     'weapon',
                                 );

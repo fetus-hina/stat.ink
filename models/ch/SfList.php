@@ -31,9 +31,7 @@ class SfList extends Model
     public function __toString()
     {
         return implode(',', array_map(
-            function (SfItem $item): string {
-                return (string)$item;
-            },
+            fn (SfItem $item): string => (string)$item,
             $this->items,
         ));
     }

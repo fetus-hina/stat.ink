@@ -100,50 +100,36 @@ class Battle2FilterForm extends Model
             [['weapon'], 'exist',
                 'targetClass' => Weapon2::class,
                 'targetAttribute' => 'key',
-                'when' => function (): bool {
-                    return !in_array(substr($this->weapon, 0, 1), ['@', '+', '*', '~'], true);
-                },
+                'when' => fn (): bool => !in_array(substr($this->weapon, 0, 1), ['@', '+', '*', '~'], true),
             ],
             [['weapon'], 'validateWeapon',
                 'params' => [
                     'modelClass' => WeaponType2::class,
                 ],
-                'when' => function (): bool {
-                    return substr($this->weapon, 0, 1) === '@';
-                },
+                'when' => fn (): bool => substr($this->weapon, 0, 1) === '@',
             ],
             [['weapon'], 'validateWeapon',
                 'params' => [
                     'modelClass' => Subweapon2::class,
                 ],
-                'when' => function (): bool {
-                    return substr($this->weapon, 0, 1) === '+';
-                },
+                'when' => fn (): bool => substr($this->weapon, 0, 1) === '+',
             ],
             [['weapon'], 'validateWeapon',
                 'params' => [
                     'modelClass' => Special2::class,
                 ],
-                'when' => function (): bool {
-                    return substr($this->weapon, 0, 1) === '*';
-                },
+                'when' => fn (): bool => substr($this->weapon, 0, 1) === '*',
             ],
             [['weapon'], 'validateRepresentativeWeapon',
-                'when' => function (): bool {
-                    return substr($this->weapon, 0, 1) === '~';
-                },
+                'when' => fn (): bool => substr($this->weapon, 0, 1) === '~',
             ],
             [['rank'], 'exist',
                 'targetClass' => Rank2::class,
                 'targetAttribute' => 'key',
-                'when' => function (): bool {
-                    return substr($this->rank, 0, 1) !== '~';
-                },
+                'when' => fn (): bool => substr($this->rank, 0, 1) !== '~',
             ],
             [['rank'], 'validateRankGroup',
-                'when' => function () {
-                    return substr($this->rank, 0, 1) === '~';
-                },
+                'when' => fn () => substr($this->rank, 0, 1) === '~',
             ],
             [['result'], 'boolean',
                 'trueValue' => 'win',
@@ -175,17 +161,13 @@ class Battle2FilterForm extends Model
                         'term',
                     ],
                     array_map(
-                        function (array $a): string {
-                            return '~v' . $a['tag'];
-                        },
+                        fn (array $a): string => '~v' . $a['tag'],
                         SplatoonVersionGroup2::find()
                             ->asArray()
                             ->all(),
                     ),
                     array_map(
-                        function (array $a): string {
-                            return 'v' . $a['tag'];
-                        },
+                        fn (array $a): string => 'v' . $a['tag'],
                         SplatoonVersion2::find()
                             ->asArray()
                             ->all(),
@@ -396,9 +378,7 @@ class Battle2FilterForm extends Model
             );
             $values = array_filter(
                 $values,
-                function (string $_) use ($key): bool {
-                    return substr($_, 0, strlen($key) + 1) !== $key . ':';
-                },
+                fn (string $_): bool => substr($_, 0, strlen($key) + 1) !== $key . ':',
             );
             $values[] = $key . ':' . $value;
             $ret[$formKey] = implode(' ', $values);

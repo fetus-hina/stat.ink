@@ -118,9 +118,7 @@ class m200504_045854_africa extends Migration
     private function upCountries(array $data): array
     {
         $this->batchInsert('country', ['key', 'name'], array_map(
-            function (string $cctld, array $cInfo): array {
-                return [$cctld, $cInfo['name']];
-            },
+            fn (string $cctld, array $cInfo): array => [$cctld, $cInfo['name']],
             array_keys($data),
             array_values($data),
         ));

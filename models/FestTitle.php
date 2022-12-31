@@ -110,9 +110,7 @@ class FestTitle extends \yii\db\ActiveRecord
             $cache = ArrayHelper::map(
                 FestTitleGender::find()->orderBy(['title_id' => SORT_ASC, 'gender_id' => SORT_ASC])->all(),
                 'gender_id',
-                function (FestTitleGender $model): FestTitleGender {
-                    return $model;
-                },
+                fn (FestTitleGender $model): FestTitleGender => $model,
                 'title_id',
             );
         }
@@ -127,9 +125,7 @@ class FestTitle extends \yii\db\ActiveRecord
                 if ($gender === null) {
                     return Translator::translateToAll('app-fest', $this->name);
                 }
-                $genders = array_filter($this->festTitleGenders, function ($row) use ($gender) {
-                    return $row->gender_id == $gender->id;
-                });
+                $genders = array_filter($this->festTitleGenders, fn ($row) => $row->gender_id == $gender->id);
                 if (count($genders) !== 1) {
                     return Translator::translateToAll('app-fest', $this->name);
                 }

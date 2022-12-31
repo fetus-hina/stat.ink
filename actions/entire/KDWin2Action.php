@@ -35,9 +35,7 @@ class KDWin2Action extends ViewAction
                     ['entire/kd-win2',
                         'filter' => array_filter(
                             $filter->attributes,
-                            function (?string $value): bool {
-                                return trim((string)$value) !== '';
-                            },
+                            fn (?string $value): bool => trim((string)$value) !== '',
                         ),
                     ],
                 );

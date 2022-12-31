@@ -153,24 +153,16 @@ class PostBattleForm extends Model
             [['image_judge', 'image_result', 'image_gear'], 'safe'],
             [['image_judge', 'image_result', 'image_gear'], 'file',
                 'maxSize' => 3 * 1024 * 1024,
-                'when' => function ($model, $attr) {
-                    return !is_string($model->$attr);
-                }],
+                'when' => fn ($model, $attr) => !is_string($model->$attr)],
             [['image_judge', 'image_result', 'image_gear'], 'validateImageFile',
-                'when' => function ($model, $attr) {
-                    return !is_string($model->$attr);
-                }],
+                'when' => fn ($model, $attr) => !is_string($model->$attr)],
             [['image_judge', 'image_result', 'image_gear'], 'validateImageString',
-                'when' => function ($model, $attr) {
-                    return is_string($model->$attr);
-                }],
+                'when' => fn ($model, $attr) => is_string($model->$attr)],
             [['start_at', 'end_at'], 'integer'],
             [['agent'], 'string', 'max' => 64],
             [['agent_version'], 'string', 'max' => 255],
             [['agent', 'agent_version'], 'required',
-                'when' => function ($model, $attr) {
-                    return (string)$this->agent !== '' || (string)$this->agent_version !== '';
-                }],
+                'when' => fn ($model, $attr) => (string)$this->agent !== '' || (string)$this->agent_version !== ''],
             [['agent_custom'], 'string'],
             [['agent', 'agent_version', 'agent_custom'], 'validateStrictUTF8'],
             [['uuid'], 'string', 'max' => 64],
@@ -333,9 +325,7 @@ class PostBattleForm extends Model
             }
             $newValues[] = $value;
         }
-        usort($newValues, function ($a, $b) {
-            return $a->at - $b->at;
-        });
+        usort($newValues, fn ($a, $b) => $a->at - $b->at);
         $this->$attribute = $newValues;
     }
 
@@ -820,20 +810,16 @@ class PostBattleForm extends Model
         // 3. 各要素の左側の "0" を取り去って
         // 4. 取り去った結果空文字列になる可能性があるのでそのときに "0" にするために int 経由して（黒魔術）
         // 5. "." で再結合する
-        $fConvertVersionDate = function ($version_date) {
-            return implode(
-                '.',
-                array_map(
-                    function ($a) {
-                        return (string)(int)ltrim($a, '0');
-                    },
-                    explode(
-                        '.',
-                        trim(preg_replace('/[^0-9]+/', '.', trim((string)$version_date))),
-                    ),
+        $fConvertVersionDate = fn ($version_date) => implode(
+            '.',
+            array_map(
+                fn ($a) => (string)(int)ltrim($a, '0'),
+                explode(
+                    '.',
+                    trim(preg_replace('/[^0-9]+/', '.', trim((string)$version_date))),
                 ),
-            );
-        };
+            ),
+        );
 
         if (
             version_compare(

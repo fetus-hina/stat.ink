@@ -19,18 +19,14 @@ trait StageMigration
         $db = Yii::$app->db;
         $value = new Expression(vsprintf('(CASE %s %s END)', [
             $db->quoteColumnName('key'),
-            (function () use ($list, $db): string {
-                return implode(' ', array_map(
-                    function (string $key, ?int $area) use ($db): string {
-                        return vsprintf('WHEN %s THEN %s', [
-                            $db->quoteValue($key),
-                            $area === null ? 'NULL' : $db->quoteValue($area),
-                        ]);
-                    },
-                    array_keys($list),
-                    array_values($list),
-                ));
-            })(),
+            (fn (): string => implode(' ', array_map(
+                fn (string $key, ?int $area): string => vsprintf('WHEN %s THEN %s', [
+                        $db->quoteValue($key),
+                        $area === null ? 'NULL' : $db->quoteValue($area),
+                    ]),
+                array_keys($list),
+                array_values($list),
+            )))(),
         ]));
         $this->execute(
             $db->createCommand()

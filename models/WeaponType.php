@@ -110,9 +110,7 @@ class WeaponType extends \yii\db\ActiveRecord
             ->orderBy(['id' => SORT_ASC])
             ->all();
         return array_map(
-            function ($model) {
-                return $model->toJsonArray();
-            },
+            fn ($model) => $model->toJsonArray(),
             $models,
         );
     }

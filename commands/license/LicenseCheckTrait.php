@@ -89,15 +89,13 @@ trait LicenseCheckTrait
                 escapeshellarg('license-checker-rseidelsohn'),
             ]),
             null,
-            function (array $json): array {
-                return array_map(
-                    function (array $values): string {
-                        $tmp = $values['licenses'] ?? null;
-                        return is_string($tmp) ? $tmp : Json::encode($tmp);
-                    },
-                    $json,
-                );
-            },
+            fn (array $json): array => array_map(
+                function (array $values): string {
+                    $tmp = $values['licenses'] ?? null;
+                    return is_string($tmp) ? $tmp : Json::encode($tmp);
+                },
+                $json,
+            ),
         );
     }
 

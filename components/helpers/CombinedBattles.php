@@ -88,11 +88,9 @@ final class CombinedBattles
                 Battle3::class => 4,
                 Salmon3::class => 5,
             ];
-            \usort($merged, function ($a, $b) use ($orderByClass): int {
-                return self::getCreatedAt($b) <=> self::getCreatedAt($a)
+            \usort($merged, fn ($a, $b): int => self::getCreatedAt($b) <=> self::getCreatedAt($a)
                     ?: $orderByClass[get_class($b)] <=> $orderByClass[get_class($a)]
-                    ?: $b->id <=> $a->id;
-            });
+                    ?: $b->id <=> $a->id);
             return \array_slice(\array_values($merged), 0, $num);
         } finally {
             Yii::endProfile(__FUNCTION__, __METHOD__);

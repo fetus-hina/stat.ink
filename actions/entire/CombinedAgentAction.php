@@ -78,9 +78,7 @@ class CombinedAgentAction extends BaseAction
             ->from(sprintf('%s t', StatAgentUser::tableName()))
             ->where([
                 '{{t}}.[[agent]]' => array_map(
-                    function ($a) {
-                        return $a['agent_name'];
-                    },
+                    fn ($a) => $a['agent_name'],
                     $this->agentGroup->getAgentGroupMaps()->asArray()->all(),
                 ),
             ])

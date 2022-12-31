@@ -51,11 +51,9 @@ class CloudflareController extends Controller
             $this->downloadIpRangesFile('https://www.cloudflare.com/ips-v6', FILTER_FLAG_IPV6) ?: [],
         );
 
-        $removeNetmask = function (string $cidr): string {
-            return (($pos = strpos($cidr, '/')) === false)
+        $removeNetmask = fn (string $cidr): string => (($pos = strpos($cidr, '/')) === false)
                 ? $cidr
                 : substr($cidr, 0, $pos);
-        };
 
         $isIPv4 = function (string $cidr) use ($removeNetmask): bool {
             $filtered = filter_var($removeNetmask($cidr), FILTER_VALIDATE_IP, FILTER_FLAG_IPV4);

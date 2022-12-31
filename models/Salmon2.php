@@ -289,9 +289,7 @@ class Salmon2 extends ActiveRecord
             return null;
         }
 
-        return array_filter($this->players, function (SalmonPlayer2 $player): bool {
-            return !$player->is_me;
-        });
+        return array_filter($this->players, fn (SalmonPlayer2 $player): bool => !$player->is_me);
     }
 
     private $sortedPlayersCache = false;
@@ -490,9 +488,7 @@ class Salmon2 extends ActiveRecord
         }
 
         return array_map(
-            function (SalmonWave2 $item): ?int {
-                return $item->power_egg_collected;
-            },
+            fn (SalmonWave2 $item): ?int => $item->power_egg_collected,
             $this->waves,
         );
     }
@@ -626,8 +622,7 @@ class Salmon2 extends ActiveRecord
                 'title_after',
                 'title_after',
             ],
-            array_map(function (int $wave): array {
-                return [
+            array_map(fn (int $wave): array => [
                     "w{$wave}_event",
                     "w{$wave}_event",
                     "w{$wave}_water",
@@ -636,8 +631,7 @@ class Salmon2 extends ActiveRecord
                     "w{$wave}_delivers",
                     "w{$wave}_appearances",
                     "w{$wave}_pwr_eggs",
-                ];
-            }, range(1, 3)),
+                ], range(1, 3)),
             array_map(function (int $i): array {
                 $prefix = $i === 0 ? 'player' : "mate{$i}";
                 return [
@@ -768,15 +762,13 @@ class Salmon2 extends ActiveRecord
                     $p->power_egg_collected ?? '',
                 ];
             }, range(0, 3)),
-            array_map(function (SalmonBoss2 $boss) use ($bossAppearances, $bossKillMap): array {
-                return [
+            array_map(fn (SalmonBoss2 $boss): array => [
                     (int)ArrayHelper::getValue($bossAppearances, $boss->id, 0),
                     $bossKillMap[0][$boss->id] ?? null,
                     $bossKillMap[1][$boss->id] ?? null,
                     $bossKillMap[2][$boss->id] ?? null,
                     $bossKillMap[3][$boss->id] ?? null,
-                ];
-            }, $bosses),
+                ], $bosses),
         ));
     }
 
@@ -787,9 +779,7 @@ class Salmon2 extends ActiveRecord
         }
 
         return array_map(
-            function (SalmonBossAppearance2 $bossAppearance): array {
-                return $bossAppearance->toJsonArray();
-            },
+            fn (SalmonBossAppearance2 $bossAppearance): array => $bossAppearance->toJsonArray(),
             $this->bossAppearances,
         );
     }
@@ -798,13 +788,11 @@ class Salmon2 extends ActiveRecord
     {
         // $pks[player_index][boss_id] = count
         return array_map(
-            function (SalmonPlayer2 $player): array {
-                return ArrayHelper::map(
-                    $player->bossKills,
-                    'boss_id',
-                    'count',
-                );
-            },
+            fn (SalmonPlayer2 $player): array => ArrayHelper::map(
+                $player->bossKills,
+                'boss_id',
+                'count',
+            ),
             $this->getSortedPlayers() ?: [],
         );
     }
@@ -816,9 +804,7 @@ class Salmon2 extends ActiveRecord
         }
 
         return array_map(
-            function (SalmonWave2 $wave): array {
-                return $wave->toJsonArray();
-            },
+            fn (SalmonWave2 $wave): array => $wave->toJsonArray(),
             $this->waves,
         );
     }
@@ -830,9 +816,7 @@ class Salmon2 extends ActiveRecord
         }
 
         return array_map(
-            function (SalmonPlayer2 $player): array {
-                return $player->toJsonArray();
-            },
+            fn (SalmonPlayer2 $player): array => $player->toJsonArray(),
             array_values($list),
         );
     }
@@ -1108,9 +1092,7 @@ class Salmon2 extends ActiveRecord
         $bosses = ArrayHelper::map(
             SalmonBoss2::find()->orderBy(['key' => SORT_ASC])->all(),
             'key',
-            function (SalmonBoss2 $boss): array {
-                return $boss->toJsonArray();
-            },
+            fn (SalmonBoss2 $boss): array => $boss->toJsonArray(),
         );
         $bossAppearances = [
             'drizzler' => 6,
@@ -1126,9 +1108,7 @@ class Salmon2 extends ActiveRecord
                 ->andWhere(['key' => ['splatroller', 'wakaba', 'explosher', 'hydra']])
                 ->all(),
             'key',
-            function (SalmonMainWeapon2 $weapon): array {
-                return $weapon->toJsonArray();
-            },
+            fn (SalmonMainWeapon2 $weapon): array => $weapon->toJsonArray(),
         );
 
         return [
@@ -1149,14 +1129,12 @@ class Salmon2 extends ActiveRecord
             'title_after' => $title,
             'title_exp_after' => 405,
             'boss_appearances' => array_filter(array_map(
-                function (array $boss) use ($bossAppearances): ?array {
-                    return isset($bossAppearances[$boss['key']])
+                fn (array $boss): ?array => isset($bossAppearances[$boss['key']])
                         ? [
                             'boss' => $boss,
                             'count' => $bossAppearances[$boss['key']],
                         ]
-                        : null;
-                },
+                        : null,
                 $bosses,
             )),
             'waves' => [

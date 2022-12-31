@@ -778,9 +778,7 @@ class Battle extends ActiveRecord
         $events = null;
         if ($this->events && !in_array('events', $skips, true)) {
             $events = Json::decode($this->events, false);
-            usort($events, function ($a, $b) {
-                return $a->at <=> $b->at;
-            });
+            usort($events, fn ($a, $b) => $a->at <=> $b->at);
         }
         return [
             'id' => $this->id,
@@ -808,9 +806,7 @@ class Battle extends ActiveRecord
             'death_reasons' => in_array('death_reasons', $skips, true)
                 ? null
                 : array_map(
-                    function ($model) {
-                        return $model->toJsonArray();
-                    },
+                    fn ($model) => $model->toJsonArray(),
                     $this->battleDeathReasons,
                 ),
             'gender' => $this->gender ? $this->gender->toJsonArray() : null,
@@ -861,9 +857,7 @@ class Battle extends ActiveRecord
             'players' => (in_array('players', $skips, true) || count($this->battlePlayers) === 0)
                 ? null
                 : array_map(
-                    function ($model) {
-                        return $model->toJsonArray();
-                    },
+                    fn ($model) => $model->toJsonArray(),
                     $this->battlePlayers,
                 ),
             'events' => $events,
@@ -1060,15 +1054,13 @@ class Battle extends ActiveRecord
             $this->shoes,
         ];
 
-        $init = function ($ability) {
-            return (object)[
+        $init = fn ($ability) => (object)[
                 'name' => Yii::t('app-ability', $ability->name),
                 'count' => (object)[
                     'main' => 0,
                     'sub' => 0,
                 ],
             ];
-        };
 
         $ret = [];
         foreach ($gears as $gear) {

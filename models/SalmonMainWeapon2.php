@@ -152,9 +152,7 @@ class SalmonMainWeapon2 extends ActiveRecord
     public static function openapiExample(): array
     {
         return array_map(
-            function (self $model): array {
-                return $model->toJsonArray();
-            },
+            fn (self $model): array => $model->toJsonArray(),
             static::find()
                 ->andWhere(['key' => [
                     'sshooter',

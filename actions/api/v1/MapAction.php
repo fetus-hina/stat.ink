@@ -19,9 +19,7 @@ class MapAction extends BaseAction
         $response = Yii::$app->getResponse();
         $response->format = 'json';
         return array_map(
-            function ($map) {
-                return $map->toJsonArray();
-            },
+            fn ($map) => $map->toJsonArray(),
             Map::find()->orderBy('{{map}}.[[id]] ASC')->all(),
         );
     }

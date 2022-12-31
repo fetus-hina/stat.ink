@@ -43,9 +43,7 @@ class BlogFeedController extends Controller
             }
             $ret[] = $entry;
         }
-        usort($ret, function ($a, $b) {
-            return $a->getDateCreated()->getTimestamp() <=> $b->getDateCreated()->getTimestamp();
-        });
+        usort($ret, fn ($a, $b) => $a->getDateCreated()->getTimestamp() <=> $b->getDateCreated()->getTimestamp());
         return $ret;
     }
 

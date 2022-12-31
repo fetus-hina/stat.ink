@@ -41,9 +41,7 @@ class GearAction extends BaseAction
         $form->filterQuery($query);
 
         return array_map(
-            function ($gear) {
-                return $gear->toJsonArray();
-            },
+            fn ($gear) => $gear->toJsonArray(),
             $query->all(),
         );
     }

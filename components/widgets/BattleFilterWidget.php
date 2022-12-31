@@ -162,19 +162,17 @@ final class BattleFilterWidget extends Widget
 
     protected function drawMap(ActiveForm $form)
     {
-        $list = (function () {
-            return array_merge(
-                ['' => Yii::t('app-map', 'Any Stage')],
-                (function () {
+        $list = (fn () => array_merge(
+            ['' => Yii::t('app-map', 'Any Stage')],
+            (function () {
                     $ret = [];
                     foreach (Map::find()->asArray()->all() as $map) {
                         $ret[$map['key']] = Yii::t('app-map', $map['name']);
                     }
                     uasort($ret, 'strnatcasecmp');
                     return $ret;
-                })(),
-            );
-        })();
+            })(),
+        ))();
         return $form->field($this->filter, 'map')->dropDownList($list)->label(false);
     }
 
@@ -306,9 +304,7 @@ final class BattleFilterWidget extends Widget
     {
         $groups = RankGroup::find()
             ->with([
-                'ranks' => function ($q) {
-                    return $q->orderBy('[[id]] DESC');
-                },
+                'ranks' => fn ($q) => $q->orderBy('[[id]] DESC'),
             ])
             ->orderBy('[[id]] DESC')
             ->asArray()
@@ -365,9 +361,7 @@ final class BattleFilterWidget extends Widget
             ->andWhere(['between', 'released_at', '2015-09-02T10:00:00+09:00', new Now()])
             ->asArray()
             ->all();
-        usort($versions, function ($a, $b) {
-            return version_compare($a['tag'], $b['tag']);
-        });
+        usort($versions, fn ($a, $b) => version_compare($a['tag'], $b['tag']));
         foreach ($versions as $version) {
             $list['v' . $version['tag']] = Yii::t('app', 'Version {0}', $version['name']);
         }

@@ -115,12 +115,10 @@ class MapAction extends BaseAction
                 },
                 $mode->rules,
             );
-            usort($tmp, function ($a, $b) {
-                return strnatcasecmp(
-                    Yii::t('app-rule', $a->rule->name),
-                    Yii::t('app-rule', $b->rule->name),
-                );
-            });
+            usort($tmp, fn ($a, $b) => strnatcasecmp(
+                Yii::t('app-rule', $a->rule->name),
+                Yii::t('app-rule', $b->rule->name),
+            ));
             $rules = array_merge($rules, $tmp);
         }
         return $rules;

@@ -32,13 +32,11 @@ class m171104_130148_ability2_splatnet extends Migration
                 '(CASE %s %s END)',
                 $this->db->quoteColumnName('key'),
                 implode(' ', array_map(
-                    function (string $key, int $value): string {
-                        return sprintf(
-                            'WHEN %s THEN %d',
-                            $this->db->quoteValue($key),
-                            $value,
-                        );
-                    },
+                    fn (string $key, int $value): string => sprintf(
+                        'WHEN %s THEN %d',
+                        $this->db->quoteValue($key),
+                        $value,
+                    ),
                     array_keys($this->getData()),
                     array_values($this->getData()),
                 )),

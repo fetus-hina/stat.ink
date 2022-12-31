@@ -66,12 +66,10 @@ class EditProfileAction extends BaseAction
             ),
             'regions' => ArrayHelper::map(
                 array_map(
-                    function (array $row): array {
-                        return [
+                    fn (array $row): array => [
                             'id' => $row['id'],
                             'name' => Yii::t('app-region', $row['name']),
-                        ];
-                    },
+                        ],
                     Region::find()->orderBy('id')->asArray()->all(),
                 ),
                 'id',

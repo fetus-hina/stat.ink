@@ -35,9 +35,7 @@ class WeaponAction extends BaseAction
         $form->filterQuery($query);
 
         return array_map(
-            function ($weapon) {
-                return $weapon->toJsonArray();
-            },
+            fn ($weapon) => $weapon->toJsonArray(),
             $query->all(),
         );
     }

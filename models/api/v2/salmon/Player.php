@@ -471,18 +471,14 @@ class Player extends Model
                             Gender::find()
                                 ->orderBy(['id' => SORT_ASC])
                                 ->all(),
-                            function (Gender $model): string {
-                                return strtolower($model->name);
-                            },
+                            fn (Gender $model): string => strtolower($model->name),
                         ),
                     ]),
                     ArrayHelper::getColumn(
                         Gender::find()
                             ->orderBy(['id' => SORT_ASC])
                             ->all(),
-                        function (Gender $model): string {
-                            return strtolower($model->name);
-                        },
+                        fn (Gender $model): string => strtolower($model->name),
                         false,
                     ),
                     true, // replace description
@@ -560,8 +556,7 @@ class Player extends Model
                     'properties' => ArrayHelper::map(
                         SalmonBoss2::find()->orderBy(['key' => SORT_ASC])->all(),
                         'key',
-                        function (SalmonBoss2 $boss): array {
-                            return [
+                        fn (SalmonBoss2 $boss): array => [
                                 'type' => 'integer',
                                 'format' => 'int32',
                                 'minimum' => 0,
@@ -572,8 +567,7 @@ class Player extends Model
                                         ['boss' => Yii::t('app-salmon-boss2', $boss->name)],
                                     )),
                                 ]),
-                            ];
-                        },
+                            ],
                     ),
                 ],
             ],

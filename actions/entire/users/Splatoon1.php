@@ -40,13 +40,11 @@ trait Splatoon1
         }
 
         return array_map(
-            function ($a) {
-                return [
+            fn ($a) => [
                     'date' => $a->date,
                     'battle' => $a->battle_count,
                     'user' => $a->user_count,
-                ];
-            },
+                ],
             $stats,
         );
     }
@@ -62,9 +60,7 @@ trait Splatoon1
     {
         $list = $this->queryAgentStats();
         $agents = $this->queryAgentDetails(array_map(
-            function ($a) {
-                return $a['agent_id'];
-            },
+            fn ($a) => $a['agent_id'],
             $list,
         ));
         $t = @$_SERVER['REQUEST_TIME'] ?: time();

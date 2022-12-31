@@ -57,8 +57,7 @@ trait Salmon3
                         ])
                         ->limit(10)
                         ->all(),
-                    function (SalmonSchedule3 $sc) use ($am): array {
-                        return [
+                    fn (SalmonSchedule3 $sc): array => [
                             'time' => [
                                 strtotime($sc->start_at),
                                 strtotime($sc->end_at),
@@ -87,8 +86,7 @@ trait Salmon3
                                 },
                             ),
                             'is_big_run' => $sc->map === null,
-                        ];
-                    },
+                        ],
                 ),
             ],
         ];

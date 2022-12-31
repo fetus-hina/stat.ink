@@ -160,9 +160,7 @@ class Migration extends BaseMigration
         return sprintf(
             'PRIMARY KEY ( %s )',
             implode(', ', array_map(
-                function (string $column): string {
-                    return $this->db->quoteColumnName($column);
-                },
+                fn (string $column): string => $this->db->quoteColumnName($column),
                 (array)$columns,
             )),
         );
@@ -227,9 +225,7 @@ class Migration extends BaseMigration
 
         $db = $this->db;
         $sql = 'ALTER TABLE ' . $db->quoteTableName($table) . ' ' . implode(', ', array_map(
-            function (string $column) use ($db): string {
-                return 'DROP COLUMN ' . $db->quoteColumnName($column);
-            },
+            fn (string $column): string => 'DROP COLUMN ' . $db->quoteColumnName($column),
             $columns,
         ));
         $db->createCommand($sql)->execute();

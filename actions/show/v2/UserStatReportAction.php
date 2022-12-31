@@ -205,15 +205,13 @@ class UserStatReportAction extends BaseAction
             },
             $query->asArray()->all(),
         );
-        usort($list, function (array $a, array $b): int {
-            return strcmp($b['date'], $a['date'])
+        usort($list, fn (array $a, array $b): int => strcmp($b['date'], $a['date'])
                 ?: $a['lobby_id'] <=> $b['lobby_id']
                 ?: $a['mode_id'] <=> $b['mode_id']
                 ?: strcmp($a['team_id'], $b['team_id'])
                 ?: $a['rule_id'] <=> $b['rule_id']
                 ?: strcmp($a['map_name'], $b['map_name'])
-                ?: strcmp($a['weapon_name'], $b['weapon_name']);
-        });
+                ?: strcmp($a['weapon_name'], $b['weapon_name']));
         return $list;
     }
 }

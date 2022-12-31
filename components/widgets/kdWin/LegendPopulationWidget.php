@@ -42,9 +42,7 @@ class LegendPopulationWidget extends Widget
             Html::tag(
                 'tbody',
                 implode('', array_map(
-                    function (int $i): string {
-                        return $this->renderRow($i);
-                    },
+                    fn (int $i): string => $this->renderRow($i),
                     range(0, $this->numCells - 1),
                 )),
             ),

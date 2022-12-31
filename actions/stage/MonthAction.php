@@ -99,9 +99,7 @@ class MonthAction extends BaseAction
                     'rule' => $rule,
                     'maps' => array_map(
                         function ($map) use ($rule, $counts) {
-                            $counts_ = array_filter($counts, function ($_) use ($rule, $map) {
-                                return $_['rule_id'] == $rule->id && $_['map_id'] == $map->id;
-                            });
+                            $counts_ = array_filter($counts, fn ($_) => $_['rule_id'] == $rule->id && $_['map_id'] == $map->id);
                             return (object)[
                                 'map' => $map,
                                 'count' => $counts_ ? (int)array_shift($counts_)['count'] : 0,
@@ -110,13 +108,11 @@ class MonthAction extends BaseAction
                         $maps,
                     ),
                 ];
-                usort($ret->maps, function ($a, $b) {
-                    return $b->count <=> $a->count
+                usort($ret->maps, fn ($a, $b) => $b->count <=> $a->count
                         ?: strnatcasecmp(
                             Yii::t('app-map', $a->map->name),
                             Yii::t('app-map', $b->map->name),
-                        );
-                });
+                        ));
                 return $ret;
             })();
         }
@@ -147,12 +143,10 @@ class MonthAction extends BaseAction
         $ret = [];
         foreach (GameMode::find()->orderBy('id ASC')->all() as $mode) {
             $tmp = $mode->rules;
-            usort($tmp, function ($a, $b) {
-                return strnatcasecmp(
-                    Yii::t('app-rule', $a->name),
-                    Yii::t('app-rule', $b->name),
-                );
-            });
+            usort($tmp, fn ($a, $b) => strnatcasecmp(
+                Yii::t('app-rule', $a->name),
+                Yii::t('app-rule', $b->name),
+            ));
             foreach ($tmp as $o) {
                 $ret[] = $o;
             }

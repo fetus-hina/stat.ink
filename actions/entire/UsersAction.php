@@ -62,9 +62,7 @@ class UsersAction extends Action
             ->from(StatAgentUser::tableName())
             ->groupBy('agent');
         $list = array_map(
-            function ($a) {
-                return $a['agent'];
-            },
+            fn ($a) => $a['agent'],
             $query->createCommand()->queryAll(),
         );
         usort($list, 'strnatcasecmp');
@@ -74,9 +72,7 @@ class UsersAction extends Action
     protected function getCombineds(): array
     {
         $list = array_map(
-            function (array $a): string {
-                return $a['name'] ?? '';
-            },
+            fn (array $a): string => $a['name'] ?? '',
             AgentGroup::find()->asArray()->all(),
         );
         \usort($list, 'strnatcasecmp');

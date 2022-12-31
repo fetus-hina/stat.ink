@@ -460,9 +460,7 @@ class DeeplTranslator extends Component
         $startTag = Html::beginTag($node->nodeName, array_reduce(
             ArrayHelper::getColumn(
                 $node->attributes,
-                function (DOMNode $attr): array {
-                    return [$attr->nodeName => $attr->nodeValue];
-                },
+                fn (DOMNode $attr): array => [$attr->nodeName => $attr->nodeValue],
             ),
             fn(array $acc, array $cur) => array_merge($acc, $cur),
             [],

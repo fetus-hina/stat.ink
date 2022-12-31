@@ -51,21 +51,15 @@ class XPowerHistory extends Widget
                 'xPower' => Yii::t('app', 'X Power'),
             ]),
             Json::encode(array_map(
-                function (Battle2 $model): ?float {
-                    return $model->x_power_after < 1 ? null : (float)$model->x_power_after;
-                },
+                fn (Battle2 $model): ?float => $model->x_power_after < 1 ? null : (float)$model->x_power_after,
                 $history,
             )),
             Json::encode(array_map(
-                function (Battle2 $model): ?float {
-                    return $model->estimate_x_power < 1 ? null : (float)$model->estimate_x_power;
-                },
+                fn (Battle2 $model): ?float => $model->estimate_x_power < 1 ? null : (float)$model->estimate_x_power,
                 $history,
             )),
             Json::encode(array_map(
-                function (Battle2 $model): ?bool {
-                    return $model->is_win;
-                },
+                fn (Battle2 $model): ?bool => $model->is_win,
                 $history,
             )),
         ]));

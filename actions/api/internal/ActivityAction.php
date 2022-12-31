@@ -108,12 +108,10 @@ final class ActivityAction extends Action
     private function reformatData(array $inData): array
     {
         return array_map(
-            function (string $date, int $count): array {
-                return [
+            fn (string $date, int $count): array => [
                     'date' => $date,
                     'count' => $count,
-                ];
-            },
+                ],
             array_keys($inData),
             array_values($inData),
         );

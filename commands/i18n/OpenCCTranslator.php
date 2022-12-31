@@ -75,9 +75,7 @@ class OpenCCTranslator extends Component
             $outputTexts[$enText] = $hantText;
         }
 
-        $esc = function (string $text): string {
-            return str_replace(["\\", "'"], ["\\\\", "\\'"], $text);
-        };
+        $esc = fn (string $text): string => str_replace(["\\", "'"], ["\\\\", "\\'"], $text);
 
         fwrite(STDERR, "Writing...\n");
         $fh = fopen($outputPath, 'wt');

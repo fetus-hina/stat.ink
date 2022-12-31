@@ -111,23 +111,17 @@ class UserStatCauseOfDeathAction extends BaseAction
             function ($o) use (&$deathReasons) {
                 $deathReasons[$o->id] = $o->getTranslatedName();
             },
-            DeathReason::findAll(['id' => array_map(function ($row) {
-                return $row['reason_id'];
-            }, $list)]),
+            DeathReason::findAll(['id' => array_map(fn ($row) => $row['reason_id'], $list)]),
         );
 
         $ret = array_map(
-            function ($row) use ($deathReasons) {
-                return (object)[
+            fn ($row) => (object)[
                     'name' => $deathReasons[$row['reason_id']] ?? '?',
                     'count' => (int)$row['count'],
-                ];
-            },
+                ],
             $list,
         );
-        usort($ret, function ($a, $b) {
-            return $b->count <=> $a->count ?: strcasecmp($a->name, $b->name);
-        });
+        usort($ret, fn ($a, $b) => $b->count <=> $a->count ?: strcasecmp($a->name, $b->name));
         return $ret;
     }
 
@@ -160,18 +154,14 @@ class UserStatCauseOfDeathAction extends BaseAction
 
         // 必要な死因名の一覧を作る
         $deathReasons = [];
-        $tmp = DeathReason::findAll(['id' => array_map(function ($row) {
-            return $row['reason_id'];
-        }, $list)]);
+        $tmp = DeathReason::findAll(['id' => array_map(fn ($row) => $row['reason_id'], $list)]);
         foreach ($tmp as $o) {
             $deathReasons[$o->id] = $o->getTranslatedName();
         }
 
         // 必要なブキ名の一覧を作る
         $weapons = [];
-        $tmp = Weapon::findAll(['id' => array_map(function ($row) use ($column) {
-            return $row[$column];
-        }, $list)]);
+        $tmp = Weapon::findAll(['id' => array_map(fn ($row) => $row[$column], $list)]);
         foreach ($tmp as $o) {
             if ($column === 'canonical_id') {
                 $weapons[$o->id] = Yii::t('app-weapon', $o->name);
@@ -203,9 +193,7 @@ class UserStatCauseOfDeathAction extends BaseAction
             array_values($retWeapons),
             array_values($retOthers),
         );
-        usort($ret, function ($a, $b) {
-            return $b->count <=> $a->count ?: strcasecmp($a->name, $b->name);
-        });
+        usort($ret, fn ($a, $b) => $b->count <=> $a->count ?: strcasecmp($a->name, $b->name));
         return $ret;
     }
 
@@ -221,17 +209,13 @@ class UserStatCauseOfDeathAction extends BaseAction
             ->groupBy('{{death_reason_type}}.[[id]]');
 
         $ret = array_map(
-            function ($row) {
-                return (object)[
+            fn ($row) => (object)[
                     'name' => Yii::t('app-death', ($row['id'] === null) ? 'Unknown' : $row['name']),
                     'count' => (int)$row['count'],
-                ];
-            },
+                ],
             $query->createCommand()->queryAll(),
         );
-        usort($ret, function ($a, $b) {
-            return $b->count <=> $a->count ?: strcasecmp($a->name, $b->name);
-        });
+        usort($ret, fn ($a, $b) => $b->count <=> $a->count ?: strcasecmp($a->name, $b->name));
         return $ret;
     }
 }

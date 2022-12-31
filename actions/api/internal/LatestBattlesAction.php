@@ -23,11 +23,9 @@ class LatestBattlesAction extends BaseLatestBattlesAction
     protected function fetchBattles(): array
     {
         return Yii::$app->db->transaction(
-            function (): array {
-                return CombinedBattles::getRecentBattles(
-                    self::BATTLE_LIMIT,
-                );
-            },
+            fn (): array => CombinedBattles::getRecentBattles(
+                self::BATTLE_LIMIT,
+            ),
             Transaction::READ_COMMITTED,
         );
     }

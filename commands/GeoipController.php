@@ -102,9 +102,7 @@ class GeoipController extends Controller
                 basename($savePath),
                 preg_replace_callback(
                     '/\b(license_key=)([^&]+)/',
-                    function (array $match): string {
-                        return $match[1] . str_repeat('*', strlen($match[2]));
-                    },
+                    fn (array $match): string => $match[1] . str_repeat('*', strlen($match[2])),
                     $url,
                 ),
             ]);
@@ -145,9 +143,7 @@ class GeoipController extends Controller
             escapeshellarg($archivePath),
             escapeshellarg(rtrim(Yii::getAlias(static::BASE_DIR), '/')),
             implode(' ', array_map(
-                function (string $fileName): string {
-                    return escapeshellarg('*/' . $fileName);
-                },
+                fn (string $fileName): string => escapeshellarg('*/' . $fileName),
                 $files,
             )),
         ]);

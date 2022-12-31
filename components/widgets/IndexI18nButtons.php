@@ -83,9 +83,7 @@ final class IndexI18nButtons extends Widget
             Icon::timezone(),
             $tz
                 ? array_map(
-                    function (Country $country): string {
-                        return (string)FlagIcon::fg($country->key);
-                    },
+                    fn (Country $country): string => (string)FlagIcon::fg($country->key),
                     $tz->countries,
                 )
                 : [],

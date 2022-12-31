@@ -104,9 +104,7 @@ class Rule2 extends ActiveRecord
         }
 
         if ($valueCallback === null) {
-            $valueCallback = function (self $row): string {
-                return Yii::t('app-rule2', ArrayHelper::getValue($row, 'name'));
-            };
+            $valueCallback = fn (self $row): string => Yii::t('app-rule2', ArrayHelper::getValue($row, 'name'));
         }
 
         return ArrayHelper::map($query->all(), 'key', $valueCallback);
@@ -143,9 +141,7 @@ class Rule2 extends ActiveRecord
     public static function openapiExample(): array
     {
         return array_map(
-            function (self $model): array {
-                return $model->toJsonArray();
-            },
+            fn (self $model): array => $model->toJsonArray(),
             static::find()
                 ->orderBy(['id' => SORT_ASC])
                 ->all(),

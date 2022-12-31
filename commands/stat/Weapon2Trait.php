@@ -143,27 +143,19 @@ trait Weapon2Trait
         $insert = sprintf(
             // {{{
             'INSERT INTO stat_weapon2_result ( %s ) %s %s',
-            implode(', ', array_map(function (string $column): string {
-                return "[[{$column}]]";
-            }, array_keys($select->select))),
+            implode(', ', array_map(fn (string $column): string => "[[{$column}]]", array_keys($select->select))),
             $select->createCommand()->rawSql,
             sprintf(
                 'ON CONFLICT ( %s ) DO UPDATE SET %s',
                 implode(', ', array_map(
-                    function (string $column): string {
-                        return "[[{$column}]]";
-                    },
+                    fn (string $column): string => "[[{$column}]]",
                     array_filter(
                         array_keys($select->select),
-                        function (string $column): bool {
-                            return !in_array($column, ['battles', 'wins'], true);
-                        },
+                        fn (string $column): bool => !in_array($column, ['battles', 'wins'], true),
                     ),
                 )),
                 implode(', ', array_map(
-                    function (string $column): string {
-                        return "[[{$column}]] = {{excluded}}.[[{$column}]]";
-                    },
+                    fn (string $column): string => "[[{$column}]] = {{excluded}}.[[{$column}]]",
                     ['battles', 'wins'],
                 )),
             ),
@@ -207,20 +199,16 @@ trait Weapon2Trait
         $sql = vsprintf('INSERT INTO %s (%s) %s ON CONFLICT ON CONSTRAINT %s DO UPDATE SET %s', [
             $db->quoteTableName('stat_weapon2_kd_win_rate'),
             implode(', ', array_map(
-                function (string $cName) use ($db): string {
-                    return $db->quoteColumnName($cName);
-                },
+                fn (string $cName): string => $db->quoteColumnName($cName),
                 array_keys($select->select),
             )),
             $select->createCommand()->rawSql,
             $db->quoteColumnName('stat_weapon2_kd_win_rate_pkey'),
             implode(', ', array_map(
-                function (string $cName) use ($db): string {
-                    return vsprintf('%1$s = %2$s.%1$s', [
+                fn (string $cName): string => vsprintf('%1$s = %2$s.%1$s', [
                         $db->quoteColumnName($cName),
                         $db->quoteTableName('excluded'),
-                    ]);
-                },
+                    ]),
                 ['battles', 'wins'],
             )),
         ]);

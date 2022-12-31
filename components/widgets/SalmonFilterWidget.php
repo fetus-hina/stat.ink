@@ -86,9 +86,7 @@ class SalmonFilterWidget extends Widget
         $stages = ArrayHelper::map(
             SalmonMap2::find()->asArray()->all(),
             'key',
-            function (array $row): string {
-                return Yii::t('app-salmon-map2', $row['name']);
-            },
+            fn (array $row): string => Yii::t('app-salmon-map2', $row['name']),
         );
         asort($stages, SORT_STRING);
 
@@ -105,9 +103,7 @@ class SalmonFilterWidget extends Widget
         $specials = ArrayHelper::map(
             SalmonSpecial2::find()->asArray()->all(),
             'key',
-            function (array $row): string {
-                return Yii::t('app-special2', $row['name']);
-            },
+            fn (array $row): string => Yii::t('app-special2', $row['name']),
         );
         asort($specials, SORT_STRING);
 
@@ -151,9 +147,7 @@ class SalmonFilterWidget extends Widget
         $reasons = ArrayHelper::map(
             SalmonFailReason2::find()->orderBy(['id' => SORT_ASC])->asArray()->all(),
             'key',
-            function (array $row): string {
-                return Yii::t('app-salmon2', $row['name']);
-            },
+            fn (array $row): string => Yii::t('app-salmon2', $row['name']),
         );
 
         return $form->field($this->filter, 'reason')

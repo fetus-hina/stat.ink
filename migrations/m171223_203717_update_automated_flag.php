@@ -23,9 +23,7 @@ class m171223_203717_update_automated_flag extends Migration
                 implode(
                     ', ',
                     array_map(
-                        function (string $name): string {
-                            return $this->db->quoteValue($name);
-                        },
+                        fn (string $name): string => $this->db->quoteValue($name),
                         [
                             'splatnet2statink',
                             'SquidTracks',

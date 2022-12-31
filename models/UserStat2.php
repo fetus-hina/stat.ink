@@ -242,9 +242,7 @@ class UserStat2 extends ActiveRecord
             [
                 'class' => TimestampBehavior::class,
                 'createdAtAttribute' => false,
-                'value' => function () {
-                    return new Now();
-                },
+                'value' => fn () => new Now(),
             ],
         ];
     }
@@ -282,9 +280,7 @@ class UserStat2 extends ActiveRecord
         $excludeNonGachi = [
             "WHEN {{rule2}}.[[key]] NOT IN ('area', 'yagura', 'hoko', 'asari') THEN 0",
         ];
-        $timestamp = function (string $column): string {
-            return sprintf('EXTRACT(EPOCH FROM %s)', $column);
-        };
+        $timestamp = fn (string $column): string => sprintf('EXTRACT(EPOCH FROM %s)', $column);
         $gachiRankPeak = function (string $ruleKey) use ($excludePrivate): string {
             // {{{
             $db = $this->getDb();
@@ -769,11 +765,8 @@ class UserStat2 extends ActiveRecord
                     : null,
                 'rules' => ArrayHelper::map(
                     ['area', 'yagura', 'hoko', 'asari'],
-                    function (string $key): string {
-                        return $key;
-                    },
-                    function (string $key): array {
-                        return [
+                    fn (string $key): string => $key,
+                    fn (string $key): array => [
                             'rank_peak' => $this->rankFormatForJson(
                                 $this->{$key . '_rank_peak'},
                             ),
@@ -786,8 +779,7 @@ class UserStat2 extends ActiveRecord
                             'x_power_current' => $this->xPowerFormatForJson(
                                 $this->{$key . '_current_x_power'},
                             ),
-                        ];
-                    },
+                        ],
                 ),
             ],
         ];

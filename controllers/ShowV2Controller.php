@@ -58,9 +58,7 @@ class ShowV2Controller extends Controller
                 ],
                 'ruleConfig' => [
                     'class' => AccessRule::class,
-                    'matchCallback' => function (AccessRule $rule, EditBattleAction $action): bool {
-                        return (bool)$action->isEditable;
-                    },
+                    'matchCallback' => fn (AccessRule $rule, EditBattleAction $action): bool => (bool)$action->isEditable,
                 ],
             ],
         ];

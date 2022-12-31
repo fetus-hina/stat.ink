@@ -219,9 +219,7 @@ class m190621_112921_shifty_stations extends Migration
     {
         $this->delete('map2', [
             'key' => array_map(
-                function (int $i): string {
-                    return sprintf('mystery_%02d', $i);
-                },
+                fn (int $i): string => sprintf('mystery_%02d', $i),
                 range(1, 24),
             ),
         ]);

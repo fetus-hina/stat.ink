@@ -75,9 +75,7 @@ class Salmon2FilterForm extends Model
                 'pattern' => sprintf('/^(?:(?:%s))$/', implode(')|(?:', ArrayHelper::toFlatten([
                     '\d{4}-\d{2}', // YYYY-MM
                     array_map(
-                        function (string $fixedPattern): string {
-                            return preg_quote($fixedPattern, '/');
-                        },
+                        fn (string $fixedPattern): string => preg_quote($fixedPattern, '/'),
                         ArrayHelper::toFlatten([
                             ['this-rotation', 'prev-rotation'],
                             array_keys($this->getValidVersions()),
@@ -327,14 +325,10 @@ class Salmon2FilterForm extends Model
     {
         return ArrayHelper::map(
             $this->versions,
-            function (SplatoonVersionGroup2 $v): string {
-                return 'v' . $v->tag;
-            },
-            function (SplatoonVersionGroup2 $v): string {
-                return Yii::t('app', 'Version {0}', [
+            fn (SplatoonVersionGroup2 $v): string => 'v' . $v->tag,
+            fn (SplatoonVersionGroup2 $v): string => Yii::t('app', 'Version {0}', [
                     Yii::t('app-version2', $v->name),
-                ]);
-            },
+                ]),
         );
     }
 
@@ -348,16 +342,11 @@ class Salmon2FilterForm extends Model
                     ])
                     ->asArray()
                     ->all(),
-                function (array $row): ?int {
-                    // サーモンランの記録に対応したのは v4.0.0 以降
-                    return (version_compare('4.0.0', $row['tag'], '<='))
+                fn (array $row): ?int => (version_compare('4.0.0', $row['tag'], '<='))
                         ? (int)$row['group_id']
-                        : null;
-                },
+                        : null,
             ),
-            function (?int $value): bool {
-                return $value !== null;
-            },
+            fn (?int $value): bool => $value !== null,
         );
 
         return ArrayHelper::map(
@@ -366,9 +355,7 @@ class Salmon2FilterForm extends Model
                 ->orderBy(['tag' => SORT_DESC])
                 ->all(),
             'tag',
-            function (SplatoonVersionGroup2 $row): SplatoonVersionGroup2 {
-                return $row;
-            },
+            fn (SplatoonVersionGroup2 $row): SplatoonVersionGroup2 => $row,
         );
     }
 }

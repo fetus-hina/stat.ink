@@ -35,9 +35,7 @@ class m200829_210631_traditional_chinese extends Migration
             'language_charset',
             ['language_id', 'charset_id', 'is_win_acp'],
             array_map(
-                function (array $_) use ($chinese): array {
-                    return [$chinese, $_[0], $_[1]];
-                },
+                fn (array $_): array => [$chinese, $_[0], $_[1]],
                 $this->getCharsetIds(),
             ),
         );
@@ -56,9 +54,7 @@ class m200829_210631_traditional_chinese extends Migration
         $this->delete('language_charset', ['language_id' => $chinese]);
         $this->delete('language', ['id' => $chinese]);
         $this->delete('charset', ['id' => array_map(
-            function (array $_): int {
-                return $_[0];
-            },
+            fn (array $_): int => $_[0],
             $this->getChineseCharsetIds(),
         )]);
     }
@@ -84,9 +80,7 @@ class m200829_210631_traditional_chinese extends Migration
     public function getChineseCharsetIds(): array
     {
         return array_map(
-            function (array $row): array {
-                return [(int)$row['id'], $row['php_name'] === 'CP950'];
-            },
+            fn (array $row): array => [(int)$row['id'], $row['php_name'] === 'CP950'],
             (new Query())
                 ->select('*')
                 ->from('charset')
@@ -99,9 +93,7 @@ class m200829_210631_traditional_chinese extends Migration
     public function getUnicodeCharsetIds(): array
     {
         return array_map(
-            function ($value): array {
-                return [(int)$value, false];
-            },
+            fn ($value): array => [(int)$value, false],
             (new Query())
                 ->select('id')
                 ->from('charset')

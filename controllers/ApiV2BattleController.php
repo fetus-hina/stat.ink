@@ -95,11 +95,9 @@ class ApiV2BattleController extends Controller
         ];
         $model = DynamicModel::validateData($params, [
             [['screen_name'], 'required',
-                'when' => function ($model) {
-                    return ($model->only === 'splatnet_number') ||
+                'when' => fn ($model) => ($model->only === 'splatnet_number') ||
                         ($model->order === 'splatnet_asc') ||
-                        ($model->order === 'splatnet_desc');
-                },
+                        ($model->order === 'splatnet_desc'),
             ],
             [['screen_name'], 'string'],
             [['screen_name'], 'exist', 'skipOnError' => true,
@@ -119,14 +117,10 @@ class ApiV2BattleController extends Controller
                 'splatnet_desc',
             ]],
             [['count'], 'integer', 'min' => 1, 'max' => 50,
-                'when' => function ($model): bool {
-                    return $model->only !== 'splatnet_number';
-                },
+                'when' => fn ($model): bool => $model->only !== 'splatnet_number',
             ],
             [['count'], 'integer', 'min' => 1, 'max' => 1000,
-                'when' => function ($model): bool {
-                    return $model->only === 'splatnet_number';
-                },
+                'when' => fn ($model): bool => $model->only === 'splatnet_number',
             ],
         ]);
         if ($model->hasErrors()) {
@@ -174,14 +168,10 @@ class ApiV2BattleController extends Controller
                 'splatnet_desc',
             ]],
             [['count'], 'integer', 'min' => 1, 'max' => 50,
-                'when' => function ($model): bool {
-                    return $model->only !== 'splatnet_number';
-                },
+                'when' => fn ($model): bool => $model->only !== 'splatnet_number',
             ],
             [['count'], 'integer', 'min' => 1, 'max' => 1000,
-                'when' => function ($model): bool {
-                    return $model->only === 'splatnet_number';
-                },
+                'when' => fn ($model): bool => $model->only === 'splatnet_number',
             ],
         ]);
         if ($model->hasErrors()) {
@@ -310,9 +300,7 @@ class ApiV2BattleController extends Controller
             return $result;
         } else {
             return array_map(
-                function ($model) {
-                    return $model->toJsonArray(['events', 'splatnet_json']);
-                },
+                fn ($model) => $model->toJsonArray(['events', 'splatnet_json']),
                 $query->all(),
             );
         }

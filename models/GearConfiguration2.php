@@ -35,9 +35,7 @@ class GearConfiguration2 extends ActiveRecord
             'gear'      => ($gearId > 0) ? (int)$gearId : null,
             'primary'   => ($primaryAbilityId > 0) ? (int)$primaryAbilityId : null,
             'secondary' => array_map(
-                function ($id): ?int {
-                    return ($id > 0) ? (int)$id : null;
-                },
+                fn ($id): ?int => ($id > 0) ? (int)$id : null,
                 $secondaryAbitilyIdList,
             ),
         ];
@@ -127,9 +125,7 @@ class GearConfiguration2 extends ActiveRecord
                 : null,
             'secondary_abilities' => $this->secondaries
                 ? array_map(
-                    function (?GearConfigurationSecondary2 $o) {
-                        return $o ? $o->toJsonArray() : null;
-                    },
+                    fn (?GearConfigurationSecondary2 $o) => $o ? $o->toJsonArray() : null,
                     $this->secondaries,
                 )
                 : null,

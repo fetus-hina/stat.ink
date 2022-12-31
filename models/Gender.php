@@ -108,15 +108,11 @@ class Gender extends \yii\db\ActiveRecord
                         Yii::t('app-apidoc2', 'Gender'),
                         'app',
                         $values,
-                        function (self $model): string {
-                            return strtolower($model->name);
-                        },
+                        fn (self $model): string => strtolower($model->name),
                     ),
                     ArrayHelper::getColumn(
                         $values,
-                        function (self $model): string {
-                            return strtolower($model->name);
-                        },
+                        fn (self $model): string => strtolower($model->name),
                         false,
                     ),
                 ),
@@ -141,9 +137,7 @@ class Gender extends \yii\db\ActiveRecord
     public static function openApiExample(): array
     {
         return array_map(
-            function (self $model): array {
-                return $model->toJsonArray();
-            },
+            fn (self $model): array => $model->toJsonArray(),
             static::find()
                 ->orderBy(['id' => SORT_ASC])
                 ->all(),

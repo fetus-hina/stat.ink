@@ -66,9 +66,7 @@ class Knockout2Action extends BaseAction
         $data = ArrayHelper::map(
             $query->all(),
             'rule',
-            function (array $row): array {
-                return $row;
-            },
+            fn (array $row): array => $row,
             'map',
         );
 

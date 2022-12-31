@@ -27,14 +27,10 @@ final class m220829_090529_battle3 extends Migration
                     $tableName,
                     $insertData[0],
                     array_map(
-                        function (array $row): array {
-                            return array_map(
-                                function ($value) {
-                                    return $value instanceof Closure ? $value() : $value;
-                                },
-                                $row,
-                            );
-                        },
+                        fn (array $row): array => array_map(
+                            fn ($value) => $value instanceof Closure ? $value() : $value,
+                            $row,
+                        ),
                         $insertData[1],
                     ),
                 );

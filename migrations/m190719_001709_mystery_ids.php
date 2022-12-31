@@ -19,12 +19,10 @@ class m190719_001709_mystery_ids extends Migration
         $case = vsprintf('(CASE %s %s END)', [
             $db->quoteColumnName('key'),
             implode(' ', array_map(
-                function (string $key, int $id) use ($db): string {
-                    return vsprintf('WHEN %s THEN %s', [
+                fn (string $key, int $id): string => vsprintf('WHEN %s THEN %s', [
                         $db->quoteValue($key),
                         $db->quoteValue($id),
-                    ]);
-                },
+                    ]),
                 array_keys($data),
                 array_values($data),
             )),
@@ -33,9 +31,7 @@ class m190719_001709_mystery_ids extends Migration
             $db->quoteTableName('map2'),
             $db->quoteColumnName('key'),
             implode(', ', array_map(
-                function (string $key) use ($db) {
-                    return $db->quoteValue($key);
-                },
+                fn (string $key) => $db->quoteValue($key),
                 array_keys($data),
             )),
             $db->quoteColumnName('splatnet'),

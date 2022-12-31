@@ -79,9 +79,7 @@ class LocationColumnWidget extends Widget
         return Html::tag(
             'div',
             implode('', array_map(
-                function (string $html): string {
-                    return Html::tag('div', $html);
-                },
+                fn (string $html): string => Html::tag('div', $html),
                 array_filter([
                     $this->renderLocation(),
                     $this->renderIpAddress(),

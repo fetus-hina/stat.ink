@@ -28,9 +28,7 @@ trait GearNameTrait
         // remove empty data
         $data = array_filter(
             $data,
-            function (string $value, string $key): bool {
-                return $value !== '';
-            },
+            fn (string $value, string $key): bool => $value !== '',
             ARRAY_FILTER_USE_BOTH,
         );
 
@@ -48,13 +46,9 @@ trait GearNameTrait
             return 0;
         }
 
-        uksort($data, function (string $a, string $b): int {
-            return strcmp($a . "'", $b . "'");
-        });
+        uksort($data, fn (string $a, string $b): int => strcmp($a . "'", $b . "'"));
 
-        $esc = function (string $text): string {
-            return str_replace(["\\", "'"], ["\\\\", "\\'"], $text);
-        };
+        $esc = fn (string $text): string => str_replace(["\\", "'"], ["\\\\", "\\'"], $text);
 
         $file = [];
         $file[] = '<?php';

@@ -58,8 +58,7 @@ class UserStatByWeaponAction extends ViewAction
             'ELSE {{battle2}}.[[death]]',
         ]));
 
-        $mkColumns = function (string $name, string $param): array {
-            return [
+        $mkColumns = fn (string $name, string $param): array => [
                 "min_{$name}" => "MIN({$param})",
                 "p5_{$name}"  => "PERCENTILE_CONT(0.05) WITHIN GROUP (ORDER BY {$param})",
                 "q1_{$name}"  => "PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY {$param})",
@@ -71,7 +70,6 @@ class UserStatByWeaponAction extends ViewAction
                 "sd_{$name}"  => "STDDEV_POP({$param})",
                 "mod_{$name}" => "mode() WITHIN GROUP (ORDER BY {$param})",
             ];
-        };
 
         $query = Battle2::find() // {{{
             ->innerJoinWith([

@@ -44,8 +44,7 @@ trait Splatoon2
         return ArrayHelper::map(
             ScheduleMode2::find()->orderBy(['id' => SORT_ASC])->all(),
             'key',
-            function (ScheduleMode2 $mode) use ($am): array {
-                return [
+            fn (ScheduleMode2 $mode): array => [
                     'key' => $mode->key,
                     'game' => 'splatoon2',
                     'name' => Yii::t('app-rule2', $mode->name),
@@ -72,8 +71,7 @@ trait Splatoon2
                                 'rule',
                             ])
                             ->all(),
-                        function (Schedule2 $sc) use ($am): array {
-                            return [
+                        fn (Schedule2 $sc): array => [
                                 'time' => BattleHelper::periodToRange2((int)$sc->period),
                                 'rule' => [
                                     'key' => $sc->rule->key,
@@ -89,8 +87,7 @@ trait Splatoon2
                                 ],
                                 'maps' => ArrayHelper::getColumn(
                                     $sc->maps,
-                                    function (Map2 $map) use ($am): array {
-                                        return [
+                                    fn (Map2 $map): array => [
                                             'key' => $map->key,
                                             'name' => Yii::t('app-map2', $map->name),
                                             'image' => Url::to(
@@ -100,14 +97,11 @@ trait Splatoon2
                                                 ),
                                                 true,
                                             ),
-                                        ];
-                                    },
+                                        ],
                                 ),
-                            ];
-                        },
+                            ],
                     ),
-                ];
-            },
+                ],
         );
     }
 
@@ -142,8 +136,7 @@ trait Splatoon2
                         'weapons.weapon',
                     ])
                     ->all(),
-                function (SalmonSchedule2 $sc) use ($am): array {
-                    return [
+                fn (SalmonSchedule2 $sc): array => [
                         'time' => [
                             strtotime($sc->start_at),
                             strtotime($sc->end_at),
@@ -178,8 +171,7 @@ trait Splatoon2
                                 },
                             ),
                         ),
-                    ];
-                },
+                    ],
             ),
         ];
     }

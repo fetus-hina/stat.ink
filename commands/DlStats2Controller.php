@@ -69,8 +69,7 @@ class DlStats2Controller extends Controller
             return false;
         }
         try {
-            $playerColumns = function (string $prefix): array {
-                return [
+            $playerColumns = fn (string $prefix): array => [
                     $prefix . '-weapon',
                     $prefix . '-kill-assist',
                     $prefix . '-kill',
@@ -81,7 +80,6 @@ class DlStats2Controller extends Controller
                     $prefix . '-rank',
                     $prefix . '-level',
                 ];
-            };
             $playerCsv = function (Battle2 $b, ?BattlePlayer2 $p): array {
                 if (!$p) {
                     return ['', '', '', '', '', '', '', '', ''];

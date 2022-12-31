@@ -34,14 +34,12 @@ class BattleAction extends BaseAction
                 'hisTeamPlayers.rank',
             ])
             ->with(ArrayHelper::toFlatten(array_map(
-                function (string $base): array {
-                    return [
+                fn (string $base): array => [
                         "{$base}",
                         "{$base}.primaryAbility",
                         "{$base}.gear",
                         "{$base}.secondaries.ability",
-                    ];
-                },
+                    ],
                 [
                     'headgear',
                     'clothing',

@@ -106,9 +106,7 @@ class Weapons2Action extends BaseAction
         }
 
         $weapons = Weapon2::findAll([
-            'id' => array_map(function ($_) {
-                return $_['weapon_id'];
-            }, $trends),
+            'id' => array_map(fn ($_) => $_['weapon_id'], $trends),
         ]);
 
         return array_map(function (array $_) use ($trends, $weapons): array {
@@ -447,13 +445,11 @@ class Weapons2Action extends BaseAction
             }
         }
 
-        usort($ret, function (stdClass $a, stdClass $b): int {
-            return $b->count <=> $a->count
+        usort($ret, fn (stdClass $a, stdClass $b): int => $b->count <=> $a->count
                 ?: $b->wp <=> $a->wp
                 ?: $b->avg_kill <=> $a->avg_kill
                 ?: $b->avg_death <=> $b->avg_death
-                ?: strnatcasecmp($a->name, $b->name);
-        });
+                ?: strnatcasecmp($a->name, $b->name));
         return $ret;
     }
 
@@ -509,13 +505,11 @@ class Weapons2Action extends BaseAction
             }
         }
 
-        usort($ret, function (stdClass $a, stdClass $b): int {
-            return $b->count <=> $a->count
+        usort($ret, fn (stdClass $a, stdClass $b): int => $b->count <=> $a->count
                 ?: $b->wp <=> $a->wp
                 ?: $b->avg_kill <=> $a->avg_kill
                 ?: $b->avg_death <=> $b->avg_death
-                ?: strnatcasecmp($a->name, $b->name);
-        });
+                ?: strnatcasecmp($a->name, $b->name));
         return $ret;
     }
 
@@ -555,13 +549,11 @@ class Weapons2Action extends BaseAction
             }
         }
 
-        usort($ret, function (stdClass $a, stdClass $b): int {
-            return $b->count <=> $a->count
+        usort($ret, fn (stdClass $a, stdClass $b): int => $b->count <=> $a->count
                 ?: $b->wp <=> $a->wp
                 ?: $b->avg_kill <=> $a->avg_kill
                 ?: $b->avg_death <=> $b->avg_death
-                ?: strnatcasecmp($a->name, $b->name);
-        });
+                ?: strnatcasecmp($a->name, $b->name));
         return $ret;
     }
 

@@ -19,11 +19,10 @@ class Salmon2Query extends ActiveQuery
     public function summary(): array
     {
         if (!$this->summaryCache) {
-            $stats = function (
+            $stats = fn (
                 string $suffix, // 'golden' => 'avg_golden'
                 string $attribute // '{{salmon_player2}}.[[golden_egg_delivered]]
-            ): array {
-                return [
+            ): array => [
                     "avail_$suffix" => "SUM(CASE WHEN $attribute IS NULL THEN 0 ELSE 1 END)",
                     "total_$suffix" => "SUM($attribute)",
                     "avg_$suffix" => "AVG($attribute)",
@@ -36,7 +35,6 @@ class Salmon2Query extends ActiveQuery
                     "max_$suffix" => "MAX($attribute)",
                     "stddev_$suffix" => "stddev_pop($attribute)",
                 ];
-            };
             $query = Salmon2::find()
                 ->leftJoin('salmon_player2', '(' . implode(' AND ', [
                     'salmon_player2.work_id = salmon2.id',

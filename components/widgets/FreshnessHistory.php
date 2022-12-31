@@ -44,9 +44,7 @@ class FreshnessHistory extends Widget
             Json::encode('#' . $this->id),
             implode(', ', array_map([Json::class, 'encode'], [
                 array_map(
-                    function (Battle2 $model): ?float {
-                        return $model->freshness === null ? null : (float)$model->freshness;
-                    },
+                    fn (Battle2 $model): ?float => $model->freshness === null ? null : (float)$model->freshness,
                     $history,
                 ),
             ])),

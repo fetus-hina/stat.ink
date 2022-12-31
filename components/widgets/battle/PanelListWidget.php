@@ -62,9 +62,7 @@ class PanelListWidget extends Widget
         ];
         return preg_replace_callback(
             '/\{\w+\}/',
-            function (array $match) use ($replace): string {
-                return $replace[$match[0]] ?? $match[0];
-            },
+            fn (array $match): string => $replace[$match[0]] ?? $match[0],
             $this->template,
         );
     }

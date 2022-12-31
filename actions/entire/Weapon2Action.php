@@ -68,12 +68,10 @@ class Weapon2Action extends ViewAction
                 ->asArray()
                 ->all(),
             'map',
-            function (array $row): array {
-                return [
+            fn (array $row): array => [
                     'win' => (int)$row['wins'],
                     'lose' => (int)$row['battles'] - (int)$row['wins'],
-                ];
-            },
+                ],
             // }}}
         );
 
@@ -99,12 +97,10 @@ class Weapon2Action extends ViewAction
                 ->asArray()
                 ->all(),
             'kill',
-            function ($row) {
-                return [
+            fn ($row) => [
                     'times' => (int)$row['kill'],
                     'battles' => (int)$row['battles'],
-                ];
-            },
+                ],
             'map',
             // }}}
         );
@@ -131,12 +127,10 @@ class Weapon2Action extends ViewAction
                 ->asArray()
                 ->all(),
             'death',
-            function ($row) {
-                return [
+            fn ($row) => [
                     'times' => (int)$row['death'],
                     'battles' => (int)$row['battles'],
-                ];
-            },
+                ],
             'map',
             // }}}
         );
@@ -163,12 +157,10 @@ class Weapon2Action extends ViewAction
                 ->asArray()
                 ->all(),
             'special',
-            function ($row) {
-                return [
+            fn ($row) => [
                     'times' => (int)$row['special'],
                     'battles' => (int)$row['battles'],
-                ];
-            },
+                ],
             'map',
             // }}}
         );
@@ -195,12 +187,10 @@ class Weapon2Action extends ViewAction
                 ->asArray()
                 ->all(),
             'assist',
-            function ($row) {
-                return [
+            fn ($row) => [
                     'times' => (int)$row['assist'],
                     'battles' => (int)$row['battles'],
-                ];
-            },
+                ],
             'map',
             // }}}
         );

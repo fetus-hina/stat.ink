@@ -106,9 +106,7 @@ class SfItem extends Model
         return vsprintf('"%s"', [
             preg_replace_callback(
                 '/([\x22\x5c])/',
-                function (array $match): string {
-                    return '\\' . $match[1];
-                },
+                fn (array $match): string => '\\' . $match[1],
                 $value,
             ),
         ]);

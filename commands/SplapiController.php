@@ -34,9 +34,7 @@ class SplapiController extends Controller
         PeriodMap::deleteAll();
         SplatfestMap::deleteAll([
             'splatfest_id' => array_map(
-                function (Splatfest $fest) {
-                    return $fest->id;
-                },
+                fn (Splatfest $fest) => $fest->id,
                 Splatfest::find()
                     ->innerJoinWith(['region'])
                     ->andWhere(['{{region}}.[[key]]' => 'jp'])
@@ -85,9 +83,7 @@ class SplapiController extends Controller
                         : 'https://splapi.fetus.jp/regular',
                 )->result,
             ),
-            function ($item) use ($latestPeriod) {
-                return $item->period > $latestPeriod;
-            },
+            fn ($item) => $item->period > $latestPeriod,
         );
 
         if (empty($json)) {
@@ -96,9 +92,7 @@ class SplapiController extends Controller
         }
 
         printf("count(new_data) = %d\n", count($json));
-        usort($json, function ($a, $b) {
-            return $a->period - $b->period;
-        });
+        usort($json, fn ($a, $b) => $a->period - $b->period);
 
         echo "Converting to insert data...\n";
         $map = $this->getMapTable();
@@ -148,9 +142,7 @@ class SplapiController extends Controller
                         : 'https://splapi.fetus.jp/gachi',
                 )->result,
             ),
-            function ($item) use ($latestPeriod) {
-                return $item->period > $latestPeriod;
-            },
+            fn ($item) => $item->period > $latestPeriod,
         );
 
         if (empty($json)) {
@@ -159,9 +151,7 @@ class SplapiController extends Controller
         }
 
         printf("count(new_data) = %d\n", count($json));
-        usort($json, function ($a, $b) {
-            return $a->period - $b->period;
-        });
+        usort($json, fn ($a, $b) => $a->period - $b->period);
 
         echo "Converting to insert data...\n";
         $map = $this->getMapTable();
@@ -201,9 +191,7 @@ class SplapiController extends Controller
                 'in',
                 'rule_id',
                 array_map(
-                    function ($a) {
-                        return $a->id;
-                    },
+                    fn ($a) => $a->id,
                     $gameMode->rules,
                 ),
             ])

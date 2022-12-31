@@ -438,20 +438,18 @@ final class SalmonWaves extends Widget
                         'td',
                         ArrayHelper::getValue(
                             $wave,
-                            function (array $wave): string {
-                                return \implode('', ArrayHelper::getColumn(
-                                    $wave['specials'],
-                                    function (SalmonSpecialUse3 $info): string {
-                                        $asset = Spl3WeaponAsset::register($this->view);
-                                        return \str_repeat(
-                                            Html::img($asset->getIconUrl('special', $info->special->key), [
-                                                'class' => 'basic-icon mr-1',
-                                            ]),
-                                            $info->count,
-                                        );
-                                    },
-                                ));
-                            },
+                            fn (array $wave): string => \implode('', ArrayHelper::getColumn(
+                                $wave['specials'],
+                                function (SalmonSpecialUse3 $info): string {
+                                    $asset = Spl3WeaponAsset::register($this->view);
+                                    return \str_repeat(
+                                        Html::img($asset->getIconUrl('special', $info->special->key), [
+                                            'class' => 'basic-icon mr-1',
+                                        ]),
+                                        $info->count,
+                                    );
+                                },
+                            )),
                         ),
                         ['style' => 'line-height:1.75em'],
                     ),

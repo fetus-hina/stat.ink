@@ -133,12 +133,10 @@ trait LicenseExtractTrait
             return null;
         }
 
-        usort($files, function (stdClass $a, stdClass $b): int {
-            return ($a->precedence <=> $b->precedence)
+        usort($files, fn (stdClass $a, stdClass $b): int => ($a->precedence <=> $b->precedence)
                 ?: strnatcasecmp($a->basename, $b->basename)
                 ?: strcasecmp($a->basename, $b->basename)
-                ?: strcmp($a->basename, $b->basename);
-        });
+                ?: strcmp($a->basename, $b->basename));
 
         while ($files) {
             $info = array_shift($files);

@@ -32,9 +32,7 @@ class m151217_063309_map_add extends Migration
     {
         $this->delete('splapi_map', [
             'map_id' => array_map(
-                function ($a) {
-                    return $a->id;
-                },
+                fn ($a) => $a->id,
                 Map::findAll(['key' => ['shottsuru', 'anchovy']]),
             ),
         ]);

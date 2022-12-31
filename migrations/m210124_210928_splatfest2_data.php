@@ -33,9 +33,7 @@ class m210124_210928_splatfest2_data extends Migration
             ]);
             $id = (int)$this->db->lastInsertID;
             $this->batchInsert('splatfest2_region', ['fest_id', 'region_id'], array_map(
-                function (int $regionID) use ($id): array {
-                    return [$id, $regionID];
-                },
+                fn (int $regionID): array => [$id, $regionID],
                 $row->regions,
             ));
         }
@@ -85,12 +83,10 @@ class m210124_210928_splatfest2_data extends Migration
             sort($results[$row->rowid]->regions, SORT_NUMERIC);
         }
 
-        usort($results, function (stdClass $a, stdClass $b): int {
-            return $a->start->getTimestamp() <=> $b->start->getTimestamp()
+        usort($results, fn (stdClass $a, stdClass $b): int => $a->start->getTimestamp() <=> $b->start->getTimestamp()
                 ?: strnatcasecmp(implode(',', $a->regions), implode(',', $b->regions))
                 ?: strcasecmp($a->alpha, $b->alpha)
-                ?: strcasecmp($a->bravo, $b->bravo);
-        });
+                ?: strcasecmp($a->bravo, $b->bravo));
 
         return $results;
     }

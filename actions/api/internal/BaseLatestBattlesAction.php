@@ -103,8 +103,7 @@ abstract class BaseLatestBattlesAction extends ViewAction
                 ['now' => Yii::t('app-reltime', 'now')],
                 ArrayHelper::getColumn(
                     $reltimes,
-                    function (string $format): array {
-                        return [
+                    fn (string $format): array => [
                             'one' => preg_replace(
                                 '/\b1\b/',
                                 '{delta}',
@@ -115,8 +114,7 @@ abstract class BaseLatestBattlesAction extends ViewAction
                                 '{delta}',
                                 Yii::t('app-reltime', $format, ['delta' => 42]),
                             ),
-                        ];
-                    },
+                        ],
                 ),
             ),
         ];

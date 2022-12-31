@@ -86,9 +86,7 @@ class Mode2 extends ActiveRecord
         ];
         if ($withRules) {
             $ret['rules'] = array_map(
-                function (Rule2 $rule): array {
-                    return $rule->toJsonArray();
-                },
+                fn (Rule2 $rule): array => $rule->toJsonArray(),
                 $this->rules,
             );
         }
@@ -133,9 +131,7 @@ class Mode2 extends ActiveRecord
     public static function openapiExample(): array
     {
         return array_map(
-            function (self $model): array {
-                return $model->toJsonArray();
-            },
+            fn (self $model): array => $model->toJsonArray(),
             static::find()
                 ->with(['rules'])
                 ->orderBy(['key' => SORT_ASC])

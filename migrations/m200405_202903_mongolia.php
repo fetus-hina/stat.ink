@@ -59,9 +59,7 @@ class m200405_202903_mongolia extends Migration
             ->scalar();
 
         $this->batchInsert('timezone_country', ['timezone_id', 'country_id'], array_map(
-            function (array $row) use ($country): array {
-                return [(int)$row['id'], (int)$country];
-            },
+            fn (array $row): array => [(int)$row['id'], (int)$country],
             (new Query())
                 ->select('*')
                 ->from('timezone')

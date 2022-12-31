@@ -38,12 +38,10 @@ final class Gear2Action extends Action
             ])
             ->andWhere(['type_id' => $type->id])
             ->all();
-        \usort($gears, function (Gear2 $a, Gear2 $b): int {
-            return \strnatcasecmp(
-                $a->translatedName,
-                $b->translatedName,
-            );
-        });
+        \usort($gears, fn (Gear2 $a, Gear2 $b): int => \strnatcasecmp(
+            $a->translatedName,
+            $b->translatedName,
+        ));
         $langs = Language::find()->standard()->all();
         $sysLang = Yii::$app->language;
         usort($langs, function (Language $a, Language $b) use ($sysLang): int {

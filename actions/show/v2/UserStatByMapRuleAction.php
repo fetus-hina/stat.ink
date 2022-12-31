@@ -132,16 +132,12 @@ class UserStatByMapRuleAction extends BaseAction
             }
         }
 
-        $maps2 = ArrayHelper::map($maps, 'key', function (Map2 $map): string {
-            return Yii::t('app-map2', $map->name);
-        });
+        $maps2 = ArrayHelper::map($maps, 'key', fn (Map2 $map): string => Yii::t('app-map2', $map->name));
 
         $rules2 = ArrayHelper::map(
             $rules,
             'key',
-            function (Rule2 $rule): string {
-                return Yii::t('app-rule2', $rule->name);
-            },
+            fn (Rule2 $rule): string => Yii::t('app-rule2', $rule->name),
         );
 
         return [

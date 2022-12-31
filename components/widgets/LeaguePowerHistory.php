@@ -45,9 +45,7 @@ class LeaguePowerHistory extends Widget
         $max = array_reduce(
             array_filter(
                 $history,
-                function (Battle2 $item): bool {
-                    return filter_var($item->league_point, FILTER_VALIDATE_FLOAT) !== false;
-                },
+                fn (Battle2 $item): bool => filter_var($item->league_point, FILTER_VALIDATE_FLOAT) !== false,
             ),
             function (?array $carry, Battle2 $item): ?array {
                 $oldValue = $carry[0] ?? 0.0;

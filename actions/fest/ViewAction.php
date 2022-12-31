@@ -89,13 +89,11 @@ class ViewAction extends BaseAction
             ->orderBy(['{{splatfest_battle_summary}}.[[timestamp]]' => SORT_ASC]);
 
         return array_map(
-            function ($a) {
-                return [
+            fn ($a) => [
                     'at' => strtotime($a->timestamp),
                     'alpha' => $a->alpha_win + $a->bravo_lose,
                     'bravo' => $a->bravo_win + $a->alpha_lose,
-                ];
-            },
+                ],
             $query->all(),
         );
     }

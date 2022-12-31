@@ -91,25 +91,17 @@ class WeaponCompareForm extends Model
 
     public function rules()
     {
-        $weapons = array_map(function ($i) {
-            return "weapon{$i}";
-        }, range(1, static::NUMBER));
-        $rules = array_map(function ($i) {
-            return "rule{$i}";
-        }, range(1, static::NUMBER));
+        $weapons = array_map(fn ($i) => "weapon{$i}", range(1, static::NUMBER));
+        $rules = array_map(fn ($i) => "rule{$i}", range(1, static::NUMBER));
         return [
             [$weapons, WeaponKeyValidator::class],
             [$rules, 'safe',
-                'when' => function ($model, $attribute) {
-                    return $model->$attribute === '@gachi';
-                },
+                'when' => fn ($model, $attribute) => $model->$attribute === '@gachi',
             ],
             [$rules, 'exist',
                 'targetClass' => Rule::class,
                 'targetAttribute' => 'key',
-                'when' => function ($model, $attribute) {
-                    return $model->$attribute !== '@gachi';
-                },
+                'when' => fn ($model, $attribute) => $model->$attribute !== '@gachi',
             ],
         ];
     }

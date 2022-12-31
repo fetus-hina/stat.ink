@@ -84,22 +84,20 @@ class SalmonStatsHistoryWidget extends Widget
         return Html::tag(
             'ul',
             implode('', array_map(
-                function (string $key, string $short) {
-                    return Html::tag(
-                        'li',
-                        Html::a(
-                            Html::encode($short),
-                            sprintf('#%s-%s', $this->id, $key),
-                            ['data-toggle' => 'tab'],
-                        ),
-                        [
+                fn (string $key, string $short) => Html::tag(
+                    'li',
+                    Html::a(
+                        Html::encode($short),
+                        sprintf('#%s-%s', $this->id, $key),
+                        ['data-toggle' => 'tab'],
+                    ),
+                    [
                             'role' => 'presentation',
                             'class' => array_filter([
                                 $key === $this->getDefaultTab() ? 'active' : '',
                             ]),
                         ],
-                    );
-                },
+                ),
                 array_keys($tabs),
                 ArrayHelper::getColumn($tabs, 'short'),
             )),
@@ -116,10 +114,9 @@ class SalmonStatsHistoryWidget extends Widget
         return Html::tag(
             'div',
             implode('', array_map(
-                function (string $key, array $options): string {
-                    return Html::tag(
-                        'div',
-                        implode('', [
+                fn (string $key, array $options): string => Html::tag(
+                    'div',
+                    implode('', [
                             $options['total']
                                 ? $this->renderBodyTotal($key, $options['api'])
                                 : '',
@@ -127,7 +124,7 @@ class SalmonStatsHistoryWidget extends Widget
                                 ? $this->renderBodyAverage($key, $options['api'])
                                 : '',
                         ]),
-                        [
+                    [
                             'id' => sprintf('%s-%s', $this->id, $key),
                             'role' => 'tabpanel',
                             'class' => array_filter([
@@ -135,8 +132,7 @@ class SalmonStatsHistoryWidget extends Widget
                                 $key === $this->getDefaultTab() ? 'active' : '',
                             ]),
                         ],
-                    );
-                },
+                ),
                 array_keys($tabs),
                 array_values($tabs),
             )),

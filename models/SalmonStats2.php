@@ -129,13 +129,12 @@ class SalmonStats2 extends ActiveRecord
 
     public static function openApiSchema(): array
     {
-        $nullableBigint = function (
+        $nullableBigint = fn (
             string $descriptionEn,
             ?int $minValue = null,
             ?int $maxValue = null
-        ): array {
-            return array_filter(
-                [
+        ): array => array_filter(
+            [
                     'type' => 'integer',
                     'format' => 'int64',
                     'minimum' => $minValue,
@@ -143,18 +142,13 @@ class SalmonStats2 extends ActiveRecord
                     'nullable' => true,
                     'description' => Html::encode(Yii::t('app-apidoc2', $descriptionEn)),
                 ],
-                function ($value): bool {
-                    return $value !== null;
-                },
-            );
-        };
+            fn ($value): bool => $value !== null,
+        );
 
-        $timestamp = function (string $descriptionEn, bool $nullable): array {
-            return array_merge(openapi\DateTime::openApiSchema(), [
+        $timestamp = fn (string $descriptionEn, bool $nullable): array => array_merge(openapi\DateTime::openApiSchema(), [
                 'nullable' => $nullable,
                 'description' => Html::encode(Yii::t('app-apidoc2', $descriptionEn)),
             ]);
-        };
 
         return [
             'type' => 'object',
@@ -180,9 +174,7 @@ class SalmonStats2 extends ActiveRecord
 
     public static function openapiExample(): array
     {
-        $ts = function (string $timestamp): array {
-            return DateTimeFormatter::unixTimeToJsonArray(strtotime($timestamp));
-        };
+        $ts = fn (string $timestamp): array => DateTimeFormatter::unixTimeToJsonArray(strtotime($timestamp));
 
         return [
             'work_count' => 388,

@@ -221,13 +221,11 @@ final class WeaponsUseAction extends Action
             ])
             ->orderBy('[[date]] ASC');
 
-        return array_map(function (array $row): array {
-            return [
+        return array_map(fn (array $row): array => [
                 date('Y-m-d', strtotime(date('o-\WW', strtotime($row['date'])))),
                 Yii::t('app-event', $row['name']),
                 $row['icon'],
-            ];
-        }, $query->asArray()->all());
+            ], $query->asArray()->all());
     }
 
     protected function makeLegend($weapon, $rule): string

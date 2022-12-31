@@ -158,9 +158,7 @@ final class Map extends \yii\db\ActiveRecord
             ->orderBy(['key' => SORT_ASC])
             ->all();
         return array_map(
-            function (self $model): array {
-                return $model->toJsonArray();
-            },
+            fn (self $model): array => $model->toJsonArray(),
             $values,
         );
     }

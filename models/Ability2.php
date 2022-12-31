@@ -139,9 +139,7 @@ class Ability2 extends ActiveRecord
             ->orderBy(['key' => SORT_ASC])
             ->all();
         return array_map(
-            function ($model) {
-                return $model->toJsonArray();
-            },
+            fn ($model) => $model->toJsonArray(),
             $models,
         );
     }

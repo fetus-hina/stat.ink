@@ -151,9 +151,7 @@ class BattleAction extends BaseAction
         $resp = Yii::$app->getResponse();
         $resp->format = 'json';
         return array_map(
-            function ($model) {
-                return $model->toJsonArray();
-            },
+            fn ($model) => $model->toJsonArray(),
             $list,
         );
         // }}}
@@ -554,16 +552,12 @@ class BattleAction extends BaseAction
     ) {
         $ret = $battle->toJsonArray();
         $ret['death_reasons'] = array_map(
-            function ($model): array {
-                return $model->toJsonArray();
-            },
+            fn ($model): array => $model->toJsonArray(),
             $deathReasons,
         );
         $ret['players'] = is_array($players) && !empty($players)
             ? array_map(
-                function ($model): array {
-                    return $model->toJsonArray();
-                },
+                fn ($model): array => $model->toJsonArray(),
                 $players,
             )
             : null;

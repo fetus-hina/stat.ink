@@ -42,9 +42,7 @@ class Splapi2Controller extends Controller
 
     private function importSchedules(ScheduleMode2 $mode, array $list)
     {
-        usort($list, function ($a, $b) {
-            return $a->start->unixtime <=> $b->start->unixtime;
-        });
+        usort($list, fn ($a, $b) => $a->start->unixtime <=> $b->start->unixtime);
         foreach ($list as $schedule) {
             $this->importSchedule($mode, $schedule);
         }
@@ -81,9 +79,7 @@ class Splapi2Controller extends Controller
         if ($exists == count($info->stages)) {
             $matches = $schedule->getScheduleMaps()
                 ->andWhere(['in', 'map_id', array_map(
-                    function (stdClass $stage) use ($maps): int {
-                        return $maps[$stage->key];
-                    },
+                    fn (stdClass $stage): int => $maps[$stage->key],
                     $info->stages,
                 )])
                 ->count();

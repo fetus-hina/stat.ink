@@ -57,22 +57,18 @@ final class CurrentData2Action extends Action
                     'name' => Yii::t('app-rule', $periodMaps[0]->rule->name),
                 ],
                 'maps' => array_map(
-                    function (PeriodMap $pm): string {
-                        return $pm->map->key;
-                    },
+                    fn (PeriodMap $pm): string => $pm->map->key,
                     $periodMaps,
                 ),
             ];
         };
-        $info2 = function (array $keys): array {
-            return [
+        $info2 = fn (array $keys): array => [
                 'rule' => [
                     'key' => 'nawabari',
                     'name' => Yii::t('app-rule2', 'Turf War'),
                 ],
                 'maps' => $keys,
             ];
-        };
         $now = microtime(true);
         $period = BattleHelper::calcPeriod2((int)$now);
         $range = BattleHelper::periodToRange2($period);
@@ -99,9 +95,7 @@ final class CurrentData2Action extends Action
                         'name' => Yii::t('app-rule2', $rule['name']),
                     ];
                 }
-                uasort($tmp, function ($a, $b) {
-                    return strcasecmp($a['name'], $b['name']);
-                });
+                uasort($tmp, fn ($a, $b) => strcasecmp($a['name'], $b['name']));
                 return $tmp;
             })($mode['rules']);
         }

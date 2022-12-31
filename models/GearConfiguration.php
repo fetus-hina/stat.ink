@@ -120,9 +120,7 @@ class GearConfiguration extends \yii\db\ActiveRecord
             'primary_ability' => $this->primaryAbility ? $this->primaryAbility->toJsonArray() : null,
             'secondary_abilities' => $this->secondaries
                 ? array_map(
-                    function ($o) {
-                        return $o->toJsonArray();
-                    },
+                    fn ($o) => $o->toJsonArray(),
                     $this->secondaries,
                 )
                 : null,

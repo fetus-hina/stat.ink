@@ -59,56 +59,38 @@ class BattleFilterForm extends Model
             [['rule'], 'exist',
                 'targetClass' => Rule::class,
                 'targetAttribute' => 'key',
-                'when' => function () {
-                    return substr($this->rule, 0, 1) !== '@';
-                }],
+                'when' => fn () => substr($this->rule, 0, 1) !== '@'],
             [['rule'], 'validateGameMode',
-                'when' => function () {
-                    return substr($this->rule, 0, 1) === '@';
-                }],
+                'when' => fn () => substr($this->rule, 0, 1) === '@'],
             [['map'], 'exist',
                 'targetClass' => Map::class,
                 'targetAttribute' => 'key'],
             [['weapon'], 'exist',
                 'targetClass' => Weapon::class,
                 'targetAttribute' => 'key',
-                'when' => function () {
-                    return !in_array(substr($this->weapon, 0, 1), ['@', '+', '*', '~'], true);
-                }],
+                'when' => fn () => !in_array(substr($this->weapon, 0, 1), ['@', '+', '*', '~'], true)],
             [['weapon'], 'validateWeapon',
                 'params' => [
                     'modelClass' => WeaponType::class,
                 ],
-                'when' => function () {
-                    return substr($this->weapon, 0, 1) === '@';
-                }],
+                'when' => fn () => substr($this->weapon, 0, 1) === '@'],
             [['weapon'], 'validateWeapon',
                 'params' => [
                     'modelClass' => Subweapon::class,
                 ],
-                'when' => function () {
-                    return substr($this->weapon, 0, 1) === '+';
-                }],
+                'when' => fn () => substr($this->weapon, 0, 1) === '+'],
             [['weapon'], 'validateWeapon',
                 'params' => [
                     'modelClass' => Special::class,
                 ],
-                'when' => function () {
-                    return substr($this->weapon, 0, 1) === '*';
-                }],
+                'when' => fn () => substr($this->weapon, 0, 1) === '*'],
             [['weapon'], 'validateRepresentativeWeapon',
-                'when' => function () {
-                    return substr($this->weapon, 0, 1) === '~';
-                }],
+                'when' => fn () => substr($this->weapon, 0, 1) === '~'],
             [['rank'], 'exist',
                 'targetClass' => Rank::class, 'targetAttribute' => 'key',
-                'when' => function () {
-                    return substr($this->rank, 0, 1) !== '~';
-                }],
+                'when' => fn () => substr($this->rank, 0, 1) !== '~'],
             [['rank'], 'validateRankGroup',
-                'when' => function () {
-                    return substr($this->rank, 0, 1) === '~';
-                }],
+                'when' => fn () => substr($this->rank, 0, 1) === '~'],
             [['result'], 'boolean', 'trueValue' => 'win', 'falseValue' => 'lose'],
             [['term'], 'in',
                 'range' => array_merge(
@@ -126,9 +108,7 @@ class BattleFilterForm extends Model
                         'term',
                     ],
                     array_map(
-                        function ($a) {
-                            return 'v' . $a['tag'];
-                        },
+                        fn ($a) => 'v' . $a['tag'],
                         SplatoonVersion::find()->asArray()->all(),
                     ),
                 ),

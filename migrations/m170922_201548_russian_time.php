@@ -38,12 +38,10 @@ class m170922_201548_russian_time extends Migration
             'timezone_country',
             ['timezone_id', 'country_id'],
             array_map(
-                function (array $row) use ($russia): array {
-                    return [
+                fn (array $row): array => [
                         $row['id'],
                         $russia,
-                    ];
-                },
+                    ],
                 (new Query())
                     ->select(['id'])
                     ->from('timezone')

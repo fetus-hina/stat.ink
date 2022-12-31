@@ -165,9 +165,7 @@ final class Rule extends \yii\db\ActiveRecord
             ->orderBy(['id' => SORT_ASC])
             ->all();
         return array_map(
-            function (self $model): array {
-                return $model->toJsonArray();
-            },
+            fn (self $model): array => $model->toJsonArray(),
             $values,
         );
     }

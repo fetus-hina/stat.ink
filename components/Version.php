@@ -60,13 +60,9 @@ class Version
             return [];
         }
 
-        $lines = array_filter($lines, function (string $line): bool {
-            return !!preg_match('/^v?\d+\.\d+\.\d+/', $line);
-        });
+        $lines = array_filter($lines, fn (string $line): bool => !!preg_match('/^v?\d+\.\d+\.\d+/', $line));
 
-        usort($lines, function (string $a, string $b): int {
-            return version_compare($b, $a);
-        });
+        usort($lines, fn (string $a, string $b): int => version_compare($b, $a));
 
         return $lines;
     }

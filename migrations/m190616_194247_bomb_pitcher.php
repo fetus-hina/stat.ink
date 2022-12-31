@@ -24,9 +24,7 @@ class m190616_194247_bomb_pitcher extends Migration
 
         $newData = $this->getNewData();
         $this->batchInsert('special2', ['key', 'name'], array_map(
-            function (string $key, array $values): array {
-                return [$key, $values['name']];
-            },
+            fn (string $key, array $values): array => [$key, $values['name']],
             array_keys($newData),
             array_values($newData),
         ));

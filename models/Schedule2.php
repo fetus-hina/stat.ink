@@ -108,24 +108,20 @@ class Schedule2 extends ActiveRecord
         $currentPeriod = \app\components\helpers\Battle::calcPeriod2(
             (int)($_SERVER['REQUEST_TIME'] ?? time()),
         );
-        $formatter = function (int $period): array {
-            return array_merge(
-                ['_t' => \app\components\helpers\Battle::periodToRange2($period)],
-                ArrayHelper::map(
-                    static::find()
+        $formatter = fn (int $period): array => array_merge(
+            ['_t' => \app\components\helpers\Battle::periodToRange2($period)],
+            ArrayHelper::map(
+                static::find()
                         ->andWhere(['period' => $period])
                         ->with(['mode', 'rule', 'maps'])
                         ->all(),
-                    'mode.key',
-                    function (self $model) {
-                        return (object)[
-                            'rule' => $model->rule,
-                            'maps' => $model->maps,
-                        ];
-                    },
-                ),
-            );
-        };
+                'mode.key',
+                fn (self $model) => (object)[
+                        'rule' => $model->rule,
+                        'maps' => $model->maps,
+                    ],
+            ),
+        );
         return (object)[
             'current' => (object)$formatter($currentPeriod),
             'next' => (object)$formatter($currentPeriod + 1),

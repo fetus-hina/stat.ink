@@ -49,14 +49,10 @@ class PatchBattleForm extends Model
             ],
 
             [['link_url'], 'url',
-                'when' => function ($model, $attr) {
-                    return $model->$attr !== static::DELETE_MARK;
-                },
+                'when' => fn ($model, $attr) => $model->$attr !== static::DELETE_MARK,
             ],
             [['link_url'], 'safe',
-                'when' => function ($model, $attr) {
-                    return $model->$attr === static::DELETE_MARK;
-                },
+                'when' => fn ($model, $attr) => $model->$attr === static::DELETE_MARK,
             ],
             [['note', 'private_note'], 'string'],
             [['note', 'private_note'], 'filter', 'filter' => function ($value) {

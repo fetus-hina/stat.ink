@@ -29,9 +29,7 @@ class UserIcon extends Widget
                         $this->user->userIcon->url ?? null,
                         $this->user->jdenticonUrl,
                     ],
-                    function (?string $src): bool {
-                        return $src !== null;
-                    },
+                    fn (?string $src): bool => $src !== null,
                 ),
                 'options' => $this->options,
             ]),

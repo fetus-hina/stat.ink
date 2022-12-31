@@ -144,12 +144,10 @@ class BattleSummaryDialog extends Widget
         return Html::tag(
             'table',
             Html::tag('tbody', implode('', array_map(
-                function (string $key, string $label): string {
-                    return Html::tag('tr', implode('', [
+                fn (string $key, string $label): string => Html::tag('tr', implode('', [
                         Html::tag('td', "{$label} :", ['class' => 'text-right w-50']),
                         Html::tag('td', '', ['data-key' => $key]),
-                    ]));
-                },
+                    ])),
                 array_keys($data),
                 array_values($data),
             ))),

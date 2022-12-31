@@ -98,9 +98,7 @@ class WeaponsAction extends ViewAction
         }
 
         $weapons = Weapon::findAll([
-            'id' => array_map(function ($_): int {
-                return (int)$_['weapon_id'];
-            }, $trends),
+            'id' => array_map(fn ($_): int => (int)$_['weapon_id'], $trends),
         ]);
 
         return array_map(function (array $_) use ($trends, $weapons): array {
@@ -155,9 +153,7 @@ class WeaponsAction extends ViewAction
                     'special' => $this->convertWeapons2Special($weapons),
                 ];
             }
-            usort($tmp, function (stdClass $a, stdClass $b): int {
-                return strnatcasecmp($a->name, $b->name);
-            });
+            usort($tmp, fn (stdClass $a, stdClass $b): int => strnatcasecmp($a->name, $b->name));
             while (!empty($tmp)) {
                 $rules[] = array_shift($tmp);
             }
@@ -266,21 +262,17 @@ class WeaponsAction extends ViewAction
         $list = $query->createCommand()->queryAll();
         $weapons = $this->getWeapons(
             array_map(
-                function (array $row): int {
-                    return (int)$row['weapon_id'];
-                },
+                fn (array $row): int => (int)$row['weapon_id'],
                 $list,
             ),
         );
 
         return array_map(
-            function (array $row) use ($weapons): stdClass {
-                return (object)[
+            fn (array $row): stdClass => (object)[
                     'weapon_id' => $row['weapon_id'],
                     'user_count' => $row['count'],
                     'weapon' => $weapons[$row['weapon_id']] ?? null,
-                ];
-            },
+                ],
             $list,
         );
     }

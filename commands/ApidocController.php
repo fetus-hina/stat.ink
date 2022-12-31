@@ -245,19 +245,15 @@ class ApidocController extends Controller
                         Html::tag(
                             'td',
                             implode('', array_map(
-                                function (Country $country): string {
-                                    return vsprintf('<img src="%s" height="%d" width="%d" alt="%s">', [
+                                fn (Country $country): string => vsprintf('<img src="%s" height="%d" width="%d" alt="%s">', [
                                         $this->getFlagIconUrl($country->key),
                                         16,
                                         round(16 * 4 / 3),
                                         implode('', array_map(
-                                            function (int $codepoint): string {
-                                                return sprintf('&#x%x;', $codepoint);
-                                            },
+                                            fn (int $codepoint): string => sprintf('&#x%x;', $codepoint),
                                             $country->regionalIndicatorSymbols,
                                         )),
-                                    ]);
-                                },
+                                    ]),
                                 $tz->countries,
                             )),
                             ['align' => 'center'],

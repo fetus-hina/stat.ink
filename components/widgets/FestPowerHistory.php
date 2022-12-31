@@ -52,31 +52,23 @@ class FestPowerHistory extends Widget
                    'win' => Yii::t('app', 'Win'),
                 ],
                 array_map(
-                    function (Battle2 $model): ?float {
-                        return $model->fest_power < 1 ? null : (float)$model->fest_power;
-                    },
+                    fn (Battle2 $model): ?float => $model->fest_power < 1 ? null : (float)$model->fest_power,
                     $history,
                 ),
                 array_map(
-                    function (Battle2 $model): ?float {
-                        return $model->my_team_estimate_fest_power < 1
+                    fn (Battle2 $model): ?float => $model->my_team_estimate_fest_power < 1
                             ? null
-                            : (float)$model->my_team_estimate_fest_power;
-                    },
+                            : (float)$model->my_team_estimate_fest_power,
                     $history,
                 ),
                 array_map(
-                    function (Battle2 $model): ?float {
-                        return $model->his_team_estimate_fest_power < 1
+                    fn (Battle2 $model): ?float => $model->his_team_estimate_fest_power < 1
                             ? null
-                            : (float)$model->his_team_estimate_fest_power;
-                    },
+                            : (float)$model->his_team_estimate_fest_power,
                     $history,
                 ),
                 array_map(
-                    function (Battle2 $model): ?bool {
-                        return $model->is_win;
-                    },
+                    fn (Battle2 $model): ?bool => $model->is_win,
                     $history,
                 ),
             ])),
@@ -132,12 +124,10 @@ class FestPowerHistory extends Widget
         ) {
             return null;
         }
-        $festPowerFilter = function (string $column): array {
-            return ['and',
+        $festPowerFilter = fn (string $column): array => ['and',
                 ['not', ["{{battle2}}.[[{$column}]]" => null]],
                 ['>', "{{battle2}}.[[{$column}]]", 0],
             ];
-        };
         $history = Battle2::find()
             ->andWhere(['and',
                 [

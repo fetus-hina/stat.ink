@@ -34,9 +34,7 @@ class YamlResponseFormatter extends Component implements ResponseFormatterInterf
                     Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK,
                     Yaml::DUMP_EMPTY_ARRAY_AS_SEQUENCE,
                 ],
-                function (int $carry, int $item): int {
-                    return $carry | $item;
-                },
+                fn (int $carry, int $item): int => $carry | $item,
                 0,
             );
         }

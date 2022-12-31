@@ -114,12 +114,10 @@ class SalmonUserInfo extends Widget
             'nullDisplay' => Yii::t('app', 'N/A'),
         ]);
         $stats = $this->getUserStats();
-        $avg = function ($value, int $decimal = 1) use ($fmt, $stats): string {
-            return $fmt->asDecimal(
-                $stats->work_count > 0 ? $value / $stats->work_count : null,
-                $decimal,
-            );
-        };
+        $avg = fn ($value, int $decimal = 1): string => $fmt->asDecimal(
+            $stats->work_count > 0 ? $value / $stats->work_count : null,
+            $decimal,
+        );
         $data = [
             [
                 'label' => Yii::t('app-salmon2', 'Jobs'),
@@ -231,9 +229,7 @@ class SalmonUserInfo extends Widget
         return Html::tag(
             'div',
             implode('', array_map(
-                function (array $item): string {
-                    return MiniinfoData::widget($item);
-                },
+                fn (array $item): string => MiniinfoData::widget($item),
                 $data,
             )) . $datetime,
             ['class' => 'row'],

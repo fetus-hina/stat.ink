@@ -24,9 +24,7 @@ class m151016_073134_nawabari extends Migration
         $update = sprintf(
             'UPDATE {{battle}} SET %s FROM {{battle_nawabari}} AS {{t}} WHERE {{battle}}.[[id]] = {{t}}.[[id]]',
             implode(', ', array_map(
-                function ($col) {
-                    return sprintf('[[%1$s]] = {{t}}.[[%1$s]]', $col);
-                },
+                fn ($col) => sprintf('[[%1$s]] = {{t}}.[[%1$s]]', $col),
                 [
                     'my_point',
                     'my_team_final_point',

@@ -119,13 +119,10 @@ final class ActivityWidget extends CalHeatmapWidget
         return new JsExpression(sprintf(
             'function(d){return %s[d.getMonth()]}',
             Json::encode(array_map(
-                function (int $m) use ($f): string {
-                    // LLLL: "January", LLL: "Jan"
-                    return $f->asDate(
-                        sprintf('2001-%02d-01', $m),
-                        $this->longLabel ? 'LLLL' : 'LLL',
-                    );
-                },
+                fn (int $m): string => $f->asDate(
+                    sprintf('2001-%02d-01', $m),
+                    $this->longLabel ? 'LLLL' : 'LLL',
+                ),
                 range(1, 12),
             )),
         ));
@@ -168,17 +165,13 @@ final class ActivityWidget extends CalHeatmapWidget
             'd' =>  '%d',
         ];
         $regex = '/' . implode('|', array_map(
-            function (string $p): string {
-                return '(?:' . preg_quote($p, '/') . ')';
-            },
+            fn (string $p): string => '(?:' . preg_quote($p, '/') . ')',
             array_keys($map),
         )) . '/';
 
         return preg_replace_callback(
             $regex,
-            function (array $match) use ($map): string {
-                return $map[$match[0]] ?? $match[0];
-            },
+            fn (array $match): string => $map[$match[0]] ?? $match[0],
             $icuPattern,
         );
     }

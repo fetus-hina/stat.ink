@@ -68,9 +68,7 @@ class Splatoon2InkController extends Controller
     // スケジュール 実装 {{{
     private function importSchedules(ScheduleMode2 $mode, array $list)
     {
-        usort($list, function (stdClass $a, stdClass $b): int {
-            return $a->start_time <=> $b->start_time;
-        });
+        usort($list, fn (stdClass $a, stdClass $b): int => $a->start_time <=> $b->start_time);
         foreach ($list as $schedule) {
             $this->importSchedule($mode, $schedule);
         }
@@ -133,9 +131,7 @@ class Splatoon2InkController extends Controller
         if ($exists == count($stages)) {
             $matches = $schedule->getScheduleMaps()
                 ->andWhere(['in', 'map_id', array_map(
-                    function (stdClass $stage) use ($maps): int {
-                        return $maps[$stage->id] ?? -1;
-                    },
+                    fn (stdClass $stage): int => $maps[$stage->id] ?? -1,
                     $stages,
                 )])
                 ->count();
@@ -189,9 +185,7 @@ class Splatoon2InkController extends Controller
     // スケジュール 実装 {{{
     private function importCoopSchedules(array $list): bool
     {
-        usort($list, function (stdClass $a, stdClass $b): int {
-            return $a->start_time <=> $b->start_time;
-        });
+        usort($list, fn (stdClass $a, stdClass $b): int => $a->start_time <=> $b->start_time);
         $ret = true;
         foreach ($list as $schedule) {
             $ret &= $this->importCoopSchedule($schedule);
@@ -269,15 +263,11 @@ class Splatoon2InkController extends Controller
                 },
                 $json->weapons,
             ),
-            function (?int $id): bool {
-                return $id !== null;
-            },
+            fn (?int $id): bool => $id !== null,
         );
 
         $currentWeapons = array_map(
-            function (SalmonWeapon2 $weapon): int {
-                return $weapon->weapon->splatnet;
-            },
+            fn (SalmonWeapon2 $weapon): int => $weapon->weapon->splatnet,
             SalmonWeapon2::find()
                 ->with('weapon')
                 ->andWhere(['schedule_id' => $schedule->id])
