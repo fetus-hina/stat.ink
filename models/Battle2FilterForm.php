@@ -341,7 +341,7 @@ class Battle2FilterForm extends Model
                         throw new Exception();
                 }
             }
-        } catch (Exception $e) {
+        } catch (\Throwable $e) {
             $this->addError($attr, Yii::t('yii', '{attribute} is invalid.', [
                 'attribute' => $this->getAttributeLabel($attr),
             ]));

@@ -61,7 +61,7 @@ class BlogEntry extends ActiveRecord
                 // error check and normalize
                 try {
                     $this->$attribute = (new Uuid($this->$attribute))->__toString();
-                } catch (\Exception $e) {
+                } catch (\Throwable $e) {
                     $this->addErrors($attribute, 'invalid uuid given');
                     return;
                 }

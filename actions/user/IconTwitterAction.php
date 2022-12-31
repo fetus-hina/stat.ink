@@ -77,7 +77,7 @@ class IconTwitterAction extends BaseAction
                         Yii::t('app', 'Your profile icon has been updated.'),
                     );
                     return $response->redirect(Url::to(['user/profile'], true), 303);
-                } catch (\Exception $e) {
+                } catch (\Throwable $e) {
                     Yii::$app->session->addFlash(
                         'danger',
                         Yii::t('app', 'Could not get your twitter icon at this time.'),
@@ -90,7 +90,7 @@ class IconTwitterAction extends BaseAction
                 $url = $twitter->getAuthorizationUri(array('oauth_token' => $token->getRequestToken()));
                 return $response->redirect((string)$url, 303);
             }
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
         }
         throw new BadRequestHttpException('Bad request.');
     }

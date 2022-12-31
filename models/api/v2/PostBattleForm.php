@@ -213,7 +213,7 @@ class PostBattleForm extends Model
                         if (is_float($value) && (0 <= $value && $value <= 99.9)) {
                             return $value;
                         }
-                    } catch (\Exception $e) {
+                    } catch (\Throwable $e) {
                     }
                     return null;
                 },
@@ -301,7 +301,7 @@ class PostBattleForm extends Model
                             } elseif ($json instanceof \stdClass) {
                                 return isset($json->battle_number) ? 'yes' : 'no';
                             }
-                        } catch (\Exception $e) {
+                        } catch (\Throwable $e) {
                         }
                     }
                     return 'no';

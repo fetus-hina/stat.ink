@@ -57,7 +57,7 @@ class Splatoon2InkController extends Controller
             }
             $transaction->commit();
             return 0;
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             echo $e->getMessage() . "\n";
             echo $e->getTraceAsString() . "\n";
             $transaction->rollBack();
@@ -174,7 +174,7 @@ class Splatoon2InkController extends Controller
                 $transaction->commit();
                 return 0;
             }
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             echo $e->getMessage() . "\n";
             echo $e->getTraceAsString() . "\n";
         }

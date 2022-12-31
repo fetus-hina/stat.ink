@@ -73,7 +73,7 @@ class Connection extends \yii\db\Connection
         if ($transaction->isActive && $transaction->level === $level) {
             try {
                 $transaction->rollBack();
-            } catch (Exception $e) {
+            } catch (\Throwable $e) {
                 Yii::error($e, __METHOD__);
             }
         }

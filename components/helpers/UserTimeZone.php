@@ -225,7 +225,7 @@ class UserTimeZone
             }
 
             return $tz;
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             Yii::warning(
                 'Catch an exception: ' . $e->getMessage(),
                 __METHOD__,
@@ -242,7 +242,7 @@ class UserTimeZone
             Yii::beginProfile(__FUNCTION__, __METHOD__);
             try {
                 $tz = new DateTimeZone($identifier);
-            } catch (\Exception $e) {
+            } catch (\Throwable $e) {
                 return null;
             }
             if ($guessed = self::guessTimezoneByTimezone($tz)) {

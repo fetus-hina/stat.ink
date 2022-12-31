@@ -75,7 +75,7 @@ class SlackJob extends BaseObject implements JobInterface
         foreach ($this->querySlackTask($battle->user) as $slack) {
             try {
                 $slack->send($battle);
-            } catch (Exception $e) {
+            } catch (\Throwable $e) {
             }
         }
     }
@@ -85,7 +85,7 @@ class SlackJob extends BaseObject implements JobInterface
         foreach ($this->querySlackTask($battle->user) as $slack) {
             try {
                 $slack->send($battle);
-            } catch (Exception $e) {
+            } catch (\Throwable $e) {
             }
         }
     }

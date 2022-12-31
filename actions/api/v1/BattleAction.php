@@ -235,7 +235,7 @@ class BattleAction extends BaseAction
                 return $battle;
             }
             $transaction->commit();
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             $transaction->rollback();
             $this->logError([
                 'system' => [ $e->getMessage() ],

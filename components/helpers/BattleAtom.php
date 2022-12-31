@@ -381,7 +381,7 @@ class BattleAtom
             if ($ret = $query->one()) {
                 return $ret;
             }
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
         }
         return null;
     }

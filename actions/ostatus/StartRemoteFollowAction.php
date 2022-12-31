@@ -53,7 +53,7 @@ class StartRemoteFollowAction extends BaseAction
                 return null;
             }
             return $url;
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             return null;
         }
     }
@@ -90,7 +90,7 @@ class StartRemoteFollowAction extends BaseAction
                         }
                     }
                 }
-            } catch (\Exception $e) {
+            } catch (\Throwable $e) {
             }
         }
         return null;
@@ -126,7 +126,7 @@ class StartRemoteFollowAction extends BaseAction
                     }
                 }
             }
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
         }
         //FIXME:XML
         return null;

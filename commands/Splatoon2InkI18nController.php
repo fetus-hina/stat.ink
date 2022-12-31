@@ -126,7 +126,7 @@ class Splatoon2InkI18nController extends Controller
         $body = $response->content;
         try {
             Json::decode($body);
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             fwrite(STDERR, "JSON decode failed\n");
             return 1;
         }

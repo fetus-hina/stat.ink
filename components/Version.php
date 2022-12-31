@@ -91,7 +91,7 @@ class Version
             self::$lastCommited = (new DateTimeImmutable())
                 ->setTimeZone(new DateTimeZone(Yii::$app->timeZone))
                 ->setTimestamp((int)$revisions[2]);
-        } catch (Exception $e) {
+        } catch (\Throwable $e) {
             self::$revision = false;
             self::$shortRevision = false;
             self::$lastCommited = false;

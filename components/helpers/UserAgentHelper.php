@@ -68,7 +68,7 @@ class UserAgentHelper
 
         try {
             return Json::decode($json);
-        } catch (Exception $e) {
+        } catch (\Throwable $e) {
             return null;
         }
     }

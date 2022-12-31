@@ -69,7 +69,7 @@ class LoginWithTwitterAction extends BaseAction
                 $url = $twitter->getAuthorizationUri(array('oauth_token' => $token->getRequestToken()));
                 return $response->redirect((string)$url, 303);
             }
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
         }
         throw new BadRequestHttpException('Bad request.');
     }

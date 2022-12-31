@@ -127,7 +127,7 @@ trait LicenseCheckTrait
             }
 
             return $this->doCheck($manager, $json);
-        } catch (Exception $e) {
+        } catch (\Throwable $e) {
             return 1;
         }
     }
@@ -192,7 +192,7 @@ trait LicenseCheckTrait
                         }
                     }
                 }
-            } catch (Exception $e) {
+            } catch (\Throwable $e) {
             }
         }
 

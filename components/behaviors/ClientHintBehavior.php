@@ -32,7 +32,7 @@ class ClientHintBehavior extends AttributeBehavior
             }
 
             return $model->id;
-        } catch (Exception $e) {
+        } catch (\Throwable $e) {
             return null;
         }
     }

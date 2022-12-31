@@ -30,7 +30,7 @@ class SplatfestController extends Controller
         foreach ($query->all() as $fest) {
             try {
                 $this->actionUpdate($fest->region->key, $fest->order);
-            } catch (\Exception $e) {
+            } catch (\Throwable $e) {
                 echo "Catch exception: " . $e->getMessage() . "\n";
             }
         }

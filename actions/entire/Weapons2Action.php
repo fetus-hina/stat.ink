@@ -315,7 +315,7 @@ class Weapons2Action extends BaseAction
             } else {
                 throw new \Exception();
             }
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             $query->andWhere('0 = 1');
         }
 

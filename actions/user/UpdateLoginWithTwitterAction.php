@@ -87,7 +87,7 @@ class UpdateLoginWithTwitterAction extends BaseAction
                     }
                     $transaction->commit();
                     return $response->redirect(Url::to(['user/profile'], true), 303);
-                } catch (\Exception $e) {
+                } catch (\Throwable $e) {
                     $transaction->rollback();
                     Yii::$app->session->addFlash(
                         'warning',
@@ -101,7 +101,7 @@ class UpdateLoginWithTwitterAction extends BaseAction
                 $url = $twitter->getAuthorizationUri(array('oauth_token' => $token->getRequestToken()));
                 return $response->redirect((string)$url, 303);
             }
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
         }
         throw new BadRequestHttpException('Bad request.');
     }

@@ -82,13 +82,13 @@ class EditIconAction extends BaseAction
                                 Yii::t('app', 'Your profile icon has been updated.'),
                             );
                             return $this->controller->redirect(['user/profile'], 303);
-                        } catch (\Exception $e) {
+                        } catch (\Throwable $e) {
                             $transaction->rollback();
                             throw $e;
                         }
                         break;
                 }
-            } catch (\Exception $e) {
+            } catch (\Throwable $e) {
             }
             Yii::$app->session->addFlash(
                 'danger',
