@@ -37,6 +37,7 @@
   <rule ref="SlevomatCodingStandard.Arrays.SingleLineArrayWhitespace"/>
   <rule ref="SlevomatCodingStandard.Arrays.TrailingArrayComma"/>
   <rule ref="SlevomatCodingStandard.Classes.ModernClassNameReference"/>
+  <rule ref="SlevomatCodingStandard.Classes.TraitUseDeclaration"/>
   <rule ref="SlevomatCodingStandard.Functions.RequireArrowFunction"/>
   <rule ref="SlevomatCodingStandard.Functions.RequireTrailingCommaInCall"/>
 </ruleset>
