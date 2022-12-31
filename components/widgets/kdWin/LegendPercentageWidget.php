@@ -78,11 +78,11 @@ class LegendPercentageWidget extends Widget
                 Html::tag(
                     'td',
                     Html::encode(
-                        ($rowNumber === 0 || $rowNumber === $this->numCells - 1 || $pct % 10 === 0)
+                        $rowNumber === 0 || $rowNumber === $this->numCells - 1 || $pct % 10 === 0
                             ? implode('', [
                                 Yii::$app->formatter->asPercent($pct / 100, 0),
-                                ($rowNumber === 0) ? '+' : '',
-                                ($rowNumber === $this->numCells - 1) ? '-' : '',
+                                $rowNumber === 0 ? '+' : '',
+                                $rowNumber === $this->numCells - 1 ? '-' : '',
                             ])
                             : '⋮',
                     ),

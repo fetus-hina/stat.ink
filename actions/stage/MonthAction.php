@@ -226,7 +226,7 @@ class MonthAction extends BaseAction
 
         // 今年なら今月以前のはず
         if (
-            ((int)$year === (int)date('Y', $now)) &&
+            (int)$year === (int)date('Y', $now) &&
             ((int)$month > (int)date('n', $now))
         ) {
             return false;

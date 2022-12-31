@@ -253,10 +253,10 @@ class Splatoon2InkController extends Controller
         $jsonWeapons = array_filter(
             array_map(
                 function ($weapon): ?int {
-                    $id = (is_object($weapon) && $weapon instanceof stdClass)
+                    $id = is_object($weapon) && $weapon instanceof stdClass
                         ? ($weapon->id ?? null)
                         : null;
-                    return ($id !== null && preg_match('/^\d+$/', $id))
+                    return $id !== null && preg_match('/^\d+$/', $id)
                         ? (int)$id
                         : null;
                 },

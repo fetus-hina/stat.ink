@@ -101,7 +101,7 @@ class SalmonStats2 extends ActiveRecord
                 return null;
             }
             $value = filter_var($value, FILTER_VALIDATE_INT);
-            return ($value === false) ? null : (int)$value;
+            return $value === false ? null : (int)$value;
         };
 
         $timestamp = function ($value): ?array {

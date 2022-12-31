@@ -27,7 +27,7 @@ class m200117_094454_weapon_attack2 extends Migration
             'PRIMARY KEY ([[weapon_id]], [[version_id]])',
         ]);
 
-        $f = fn (?float $value): ?string => ($value === null) ? null : sprintf('%.1f', $value);
+        $f = fn (?float $value): ?string => $value === null ? null : sprintf('%.1f', $value);
 
         $data = [];
         foreach ($this->getData() as $key => $damages) {

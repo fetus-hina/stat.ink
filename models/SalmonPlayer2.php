@@ -189,7 +189,7 @@ class SalmonPlayer2 extends ActiveRecord
     public function getAnonymizeSeed(): string
     {
         $value = trim($this->splatnet_id);
-        return ($value !== '')
+        return $value !== ''
             ? $value
             : hash_hmac('sha256', (string)$this->id, (string)$this->work_id);
     }

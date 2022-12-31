@@ -210,7 +210,7 @@ class UserStatCauseOfDeathAction extends BaseAction
 
         $ret = array_map(
             fn ($row) => (object)[
-                    'name' => Yii::t('app-death', ($row['id'] === null) ? 'Unknown' : $row['name']),
+                    'name' => Yii::t('app-death', $row['id'] === null ? 'Unknown' : $row['name']),
                     'count' => (int)$row['count'],
                 ],
             $query->createCommand()->queryAll(),

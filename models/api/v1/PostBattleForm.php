@@ -641,11 +641,11 @@ class PostBattleForm extends Model
                     throw new \Exception('Logic error: assert: instanceof PostBattlePlayerForm');
                 }
 
-                $weapon = ($form->weapon == '')
+                $weapon = $form->weapon == ''
                     ? null
                     : Weapon::findOne(['key' => $form->weapon]);
 
-                $rank = ($form->rank == '')
+                $rank = $form->rank == ''
                     ? null
                     : Rank::findOne(['key' => $form->rank]);
 

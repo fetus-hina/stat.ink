@@ -236,7 +236,7 @@ class Salmon2FilterForm extends Model
                 $month = (int)$match[2];
                 if (
                     (
-                        (2018 <= $year && $year < (int)$now->format('Y')) &&
+                        2018 <= $year && $year < (int)$now->format('Y') &&
                         (1 <= $month && $month <= 12)
                     ) || (
                         ($year === (int)$now->format('Y')) &&
@@ -342,7 +342,7 @@ class Salmon2FilterForm extends Model
                     ])
                     ->asArray()
                     ->all(),
-                fn (array $row): ?int => (version_compare('4.0.0', $row['tag'], '<='))
+                fn (array $row): ?int => version_compare('4.0.0', $row['tag'], '<=')
                         ? (int)$row['group_id']
                         : null,
             ),

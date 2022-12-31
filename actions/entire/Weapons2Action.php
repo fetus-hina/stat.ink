@@ -349,9 +349,9 @@ class Weapons2Action extends BaseAction
                     'avg_death' => (float)$model['avg_death'],
                     'sum_death' => (int)$model['sum_death'],
                     'death_per_min' => (float)$model['death_per_min'],
-                    'kill_ratio' => ($model['avg_death'] == 0)
+                    'kill_ratio' => $model['avg_death'] == 0
                         ? ($model['avg_kill'] == 0 ? null : 99.99)
-                        : ($model['avg_kill'] / $model['avg_death']),
+                        : $model['avg_kill'] / $model['avg_death'],
                     'wp'        => (float)$model['wp'],
                     'win_count' => (int)$model['win_count'],
                     'avg_inked' => (float)$model['avg_inked'],
@@ -359,9 +359,9 @@ class Weapons2Action extends BaseAction
                     'avg_special' => (float)$model['avg_special'],
                     'special_per_min' => (float)$model['special_per_min'],
                     'sum_special' => (int)$model['sum_special'],
-                    'ink_performance' => ($model['avg_death'] == 0)
+                    'ink_performance' => $model['avg_death'] == 0
                         ? null
-                        : ((float)$model['avg_inked'] / (9 * (20 - (float)$model['avg_death']))),
+                        : (float)$model['avg_inked'] / (9 * (20 - (float)$model['avg_death'])),
                 ];
             },
             $query->createCommand()->queryAll(),

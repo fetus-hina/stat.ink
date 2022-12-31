@@ -316,7 +316,7 @@ final class BattleFilterWidget extends Widget
             foreach ($group['ranks'] as $i => $rank) {
                 $list[$rank['key']] = sprintf(
                     '%s %s',
-                    (($i !== count($group['ranks']) - 1) ? '├' : '└'),
+                    ($i !== count($group['ranks']) - 1 ? '├' : '└'),
                     Yii::t('app-rank', $rank['name']),
                 );
             }

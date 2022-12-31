@@ -58,7 +58,7 @@ final class UserStatMonthlyReportAction extends BaseAction
             'user' => $this->user,
             'year' => (int)$form->year,
             'month' => (int)$form->month,
-            'next' => ($dates->nextMonth <= $dates->queryUpperBound)
+            'next' => $dates->nextMonth <= $dates->queryUpperBound
                 ? Url::to(
                     ['show-v2/user-stat-monthly-report',
                         'screen_name' => $this->user->screen_name,
@@ -68,7 +68,7 @@ final class UserStatMonthlyReportAction extends BaseAction
                     true,
                 )
                 : null,
-            'prev' => ($dates->prevMonth >= $dates->queryLowerBound)
+            'prev' => $dates->prevMonth >= $dates->queryLowerBound
                 ? Url::to(
                     ['show-v2/user-stat-monthly-report',
                         'screen_name' => $this->user->screen_name,

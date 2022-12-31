@@ -58,7 +58,7 @@ class PublishAction extends Action
         ) {
             return [
                 strtolower($urlInfo['host']),
-                (isset($urlInfo['port']))
+                isset($urlInfo['port'])
                     ? (int)$urlInfo['port']
                     : ($urlInfo['scheme'] === 'http' ? 80 : 443),
             ];

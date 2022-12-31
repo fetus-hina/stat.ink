@@ -31,10 +31,10 @@ class GearConfiguration2 extends ActiveRecord
         array $secondaryAbitilyIdList
     ): string {
         $data = [
-            'gear'      => ($gearId > 0) ? (int)$gearId : null,
-            'primary'   => ($primaryAbilityId > 0) ? (int)$primaryAbilityId : null,
+            'gear'      => $gearId > 0 ? (int)$gearId : null,
+            'primary'   => $primaryAbilityId > 0 ? (int)$primaryAbilityId : null,
             'secondary' => array_map(
-                fn ($id): ?int => ($id > 0) ? (int)$id : null,
+                fn ($id): ?int => $id > 0 ? (int)$id : null,
                 $secondaryAbitilyIdList,
             ),
         ];

@@ -489,10 +489,10 @@ class Battle2 extends ActiveRecord
 
                     case 'term':
                         try {
-                            $from = (($options['from'] ?? '') != '')
+                            $from = ($options['from'] ?? '') != ''
                                 ? (new DateTimeImmutable($options['from']))->setTimezone($tz)
                                 : null;
-                            $to = (($options['to'] ?? '') != '')
+                            $to = ($options['to'] ?? '') != ''
                                 ? (new DateTimeImmutable($options['to']))->setTimezone($tz)
                                 : null;
                             if ($from) {
@@ -588,7 +588,7 @@ class Battle2 extends ActiveRecord
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_INSERT => 'end_at',
                 ],
-                'value' => fn ($event) => ($event->sender->end_at)
+                'value' => fn ($event) => $event->sender->end_at
                         ? $event->sender->end_at
                         : new \app\components\helpers\db\Now(),
             ],
@@ -639,7 +639,7 @@ class Battle2 extends ActiveRecord
                     }
                     $kill = intval($kill, 10);
                     $death = intval($death, 10);
-                    return ($kill === 0 && $death === 0) ? null : ($kill * 100 / ($kill + $death));
+                    return $kill === 0 && $death === 0 ? null : ($kill * 100 / ($kill + $death));
                 },
             ],
             [
@@ -1266,7 +1266,7 @@ class Battle2 extends ActiveRecord
             return $this->my_point;
         }
         if ($this->rule->key === 'nawabari') {
-            return ($this->my_point < 1000) ? null : ($this->my_point - 1000);
+            return $this->my_point < 1000 ? null : $this->my_point - 1000;
         }
         return $this->my_point;
     }
@@ -1489,7 +1489,7 @@ class Battle2 extends ActiveRecord
             'total_clout_after' => $this->total_clout_after,
             'my_team_win_streak' => $this->my_team_win_streak,
             'his_team_win_streak' => $this->his_team_win_streak,
-            'synergy_bonus' => ($this->synergy_bonus === null)
+            'synergy_bonus' => $this->synergy_bonus === null
                 ? null
                 : new JsExpression(sprintf('%.1f', $this->synergy_bonus)),
             'special_battle' => $this->special_battle_id
@@ -1532,7 +1532,7 @@ class Battle2 extends ActiveRecord
                     gmdate(DateTime::ATOM, $to),
                 );
             })(),
-            'players' => (in_array('players', $skips, true) || count($this->battlePlayers) === 0)
+            'players' => in_array('players', $skips, true) || count($this->battlePlayers) === 0
                 ? null
                 : array_map(
                     fn ($model) => $model->toJsonArray($this),
@@ -1555,10 +1555,10 @@ class Battle2 extends ActiveRecord
             ],
             'automated' => !!$this->is_automated,
             'environment' => $this->env ? $this->env->text : null,
-            'link_url' => ((string)$this->link_url !== '') ? $this->link_url : null,
-            'note' => ((string)$this->note !== '') ? $this->note : null,
+            'link_url' => (string)$this->link_url !== '' ? $this->link_url : null,
+            'note' => (string)$this->note !== '' ? $this->note : null,
             'game_version' => $this->version ? $this->version->name : null,
-            'nawabari_bonus' => (($this->rule->key ?? null) === 'nawabari')
+            'nawabari_bonus' => ($this->rule->key ?? null) === 'nawabari'
                 ? 1000
                 : null,
             'start_at' => $this->start_at != ''

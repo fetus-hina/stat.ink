@@ -180,7 +180,7 @@ class Battle2Form extends Model
         $mode = $this->getMode();
         $lobby = $this->getLobby();
         if ($lobby && $lobby->key === 'private') {
-            return ($rule === null)
+            return $rule === null
                 ? null
                 : sprintf('private-private-%s', $rule->key);
         }
@@ -208,7 +208,7 @@ class Battle2Form extends Model
                 case 'yagura':
                 case 'hoko':
                 case 'asari':
-                    return ($lobby && ($lobby->key === 'squad_2' || $lobby->key === 'squad_4'))
+                    return $lobby && ($lobby->key === 'squad_2' || $lobby->key === 'squad_4')
                         ? sprintf('%s-gachi-%s', $lobby->key, $rule->key)
                         : sprintf('standard-gachi-%s', $rule->key);
 

@@ -51,12 +51,12 @@ class UserStatVsWeaponAction extends BaseAction
             function (array $data): array {
                 $battles = $data['battles'] ?? null;
                 $wins = $data['wins'] ?? null;
-                $data['win_pct'] = (is_int($battles) && is_int($wins) && $battles > 0)
+                $data['win_pct'] = is_int($battles) && is_int($wins) && $battles > 0
                     ? 100 * $wins / $battles
                     : null;
 
                 $deaths = $data['deaths'] ?? null;
-                $data['deaths_per_game'] = (is_int($battles) && is_int($deaths) && $battles > 0)
+                $data['deaths_per_game'] = is_int($battles) && is_int($deaths) && $battles > 0
                     ? $deaths / $battles
                     : null;
                 return $data;

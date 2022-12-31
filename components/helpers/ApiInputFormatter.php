@@ -32,7 +32,7 @@ class ApiInputFormatter extends Component
         }
 
         $value = filter_var($value, FILTER_VALIDATE_INT);
-        return ($value === false) ? null : $value;
+        return $value === false ? null : $value;
     }
 
     public function asKeyId(

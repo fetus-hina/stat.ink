@@ -195,7 +195,7 @@ class LicenseAction extends SimpleAction
     private function loadPlain(string $path, ?callable $checker = null): ?string
     {
         $text = $this->loadFile($path, $checker);
-        return ($text !== null)
+        return $text !== null
             ? Html::tag('pre', Html::encode($text))
             : null;
     }
@@ -203,7 +203,7 @@ class LicenseAction extends SimpleAction
     private function loadMarkdown($path, ?callable $checker = null): ?string
     {
         $text = $this->loadFile($path, $checker);
-        return ($text !== null)
+        return $text !== null
             ? $this->mdParser->parse($text)
             : null;
     }

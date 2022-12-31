@@ -298,7 +298,7 @@ class BattlePlayer2 extends ActiveRecord
     public function getAnonymizeSeed(): string
     {
         $value = trim($this->splatnet_id);
-        return ($value !== '')
+        return $value !== ''
             ? $value
             : hash_hmac('sha256', $this->id, $this->battle_id);
     }
@@ -328,7 +328,7 @@ class BattlePlayer2 extends ActiveRecord
             'fest_title'    => $this->fest_title_id
                 ? $this->festTitle->toJsonArray(
                     $this->gender,
-                    ($battle && $battle->my_team_fest_theme_id && $battle->his_team_fest_theme_id)
+                    $battle && $battle->my_team_fest_theme_id && $battle->his_team_fest_theme_id
                         ? ($this->is_my_team ? $battle->myTeamFestTheme->name : $battle->hisTeamFestTheme->name)
                         : null,
                 )

@@ -47,13 +47,13 @@ class WeaponKeyValidator extends Validator
     {
         switch (substr($value, 0, 1)) {
             case static::PREFIX_WEAPON_GROUP:
-                return ($this->enableWeaponGroup) &&
+                return $this->enableWeaponGroup &&
                     (WeaponType::find()
                         ->where(['key' => substr($value, 1)])
                         ->count() == 1);
 
             case static::PREFIX_MAIN_WEAPON:
-                return ($this->enableMainWeapon) &&
+                return $this->enableMainWeapon &&
                     (Weapon::find()
                         ->where(['and',
                             ['key' => substr($value, 1)],
@@ -62,13 +62,13 @@ class WeaponKeyValidator extends Validator
                         ->count() == 1);
 
             case static::PREFIX_SUB_WEAPON:
-                return ($this->enableSubWeapon) &&
+                return $this->enableSubWeapon &&
                     (Subweapon::find()
                         ->where(['key' => substr($value, 1)])
                         ->count() == 1);
 
             case static::PREFIX_SPECIAL_WEAPON:
-                return ($this->enableSpecialWeapon) &&
+                return $this->enableSpecialWeapon &&
                     (Special::find()
                         ->where(['key' => substr($value, 1)])
                         ->count() == 1);

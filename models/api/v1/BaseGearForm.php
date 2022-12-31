@@ -103,7 +103,7 @@ abstract class BaseGearForm extends Model
     public function getGearModel()
     {
         if ($this->gearModel === false) {
-            $this->gearModel = ($this->gear == '')
+            $this->gearModel = $this->gear == ''
                 ? null
                 : Gear::findOne(['key' => (string)$this->gear]);
         }

@@ -60,7 +60,7 @@ trait LicenseExtractTrait
     {
         foreach ($packages as $name => $info) {
             $this->extractPackage(
-                (isset($info['version']) && trim((string)$info['version']) !== '')
+                isset($info['version']) && trim((string)$info['version']) !== ''
                     ? "{$name}@{$info['version']}"
                     : $name,
                 Yii::getAlias('@app/vendor') . '/' . $name,
@@ -132,7 +132,7 @@ trait LicenseExtractTrait
             return null;
         }
 
-        usort($files, fn (stdClass $a, stdClass $b): int => ($a->precedence <=> $b->precedence)
+        usort($files, fn (stdClass $a, stdClass $b): int => $a->precedence <=> $b->precedence
                 ?: strnatcasecmp($a->basename, $b->basename)
                 ?: strcasecmp($a->basename, $b->basename)
                 ?: strcmp($a->basename, $b->basename));

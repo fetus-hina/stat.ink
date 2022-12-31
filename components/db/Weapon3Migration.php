@@ -62,7 +62,7 @@ trait Weapon3Migration
             sub: $sub,
             special: $special,
             canonical: $canonical,
-            mainWeaponId: ($main === null)
+            mainWeaponId: $main === null
                 ? $this->upMainWeapon3($key, $type, $name)
                 : $this->key2id('{{%mainweapon3}}', $main),
         );

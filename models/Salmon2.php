@@ -543,7 +543,7 @@ class Salmon2 extends ActiveRecord
 
     public function toJsonArray(): array
     {
-        $isCleared = ($this->clear_waves === null) ? null : ($this->clear_waves >= 3);
+        $isCleared = $this->clear_waves === null ? null : ($this->clear_waves >= 3);
         $gender = null;
         if ($myData = $this->getMyData()) {
             $gender = $myData->gender;
@@ -563,7 +563,7 @@ class Salmon2 extends ActiveRecord
             'user' => $this->user->toSalmonJsonArray(),
             'stage' => $this->stage_id ? $this->stage->toJsonArray() : null,
             'is_cleared' => $isCleared,
-            'fail_reason' => ($isCleared === false && $this->fail_reason_id)
+            'fail_reason' => $isCleared === false && $this->fail_reason_id
                 ? $this->failReason->toJsonArray()
                 : null,
             'clear_waves' => $this->clear_waves,
@@ -582,8 +582,8 @@ class Salmon2 extends ActiveRecord
                 'version' => $this->agent ? $this->agent->version : null,
             ],
             'automated' => !!$this->is_automated,
-            'note' => ((string)$this->note !== '') ? $this->note : null,
-            'link_url' => ((string)$this->link_url !== '') ? $this->link_url : null,
+            'note' => (string)$this->note !== '' ? $this->note : null,
+            'link_url' => (string)$this->link_url !== '' ? $this->link_url : null,
             'shift_start_at' => $this->shift_period
                 ? DateTimeFormatter::unixTimeToJsonArray(
                     BattleHelper::periodToRange2($this->shift_period)[0],
@@ -696,10 +696,10 @@ class Salmon2 extends ActiveRecord
                 $this->stage_id ? $this->stage->key : '',
                 $this->stage_id ? Yii::t('app-salmon-map2', $this->stage->name) : '',
                 (string)$this->clear_waves,
-                ($this->clear_waves === null || $this->clear_waves >= 3 || !$this->fail_reason_id)
+                $this->clear_waves === null || $this->clear_waves >= 3 || !$this->fail_reason_id
                     ? ''
                     : $this->failReason->key,
-                ($this->clear_waves === null || $this->clear_waves >= 3 || !$this->fail_reason_id)
+                $this->clear_waves === null || $this->clear_waves >= 3 || !$this->fail_reason_id
                     ? ''
                     : Yii::t('app-salmon2', $this->failReason->name),
                 $this->danger_rate ? sprintf('%.1f', $this->danger_rate) : '',

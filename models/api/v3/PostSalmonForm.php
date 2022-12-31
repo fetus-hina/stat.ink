@@ -602,8 +602,8 @@ final class PostSalmonForm extends Model
 
         if ($clearWaves < 3) {
             $failReason = self::strVal($this->fail_reason);
-            $waves = ($failReason === 'wipe_out')
-                ? ($clearWaves + 0.5)
+            $waves = $failReason === 'wipe_out'
+                ? $clearWaves + 0.5
                 : $clearWaves + 1;
         } else {
             $kingSalmonid = self::strVal($this->king_salmonid);

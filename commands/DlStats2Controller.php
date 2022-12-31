@@ -84,7 +84,7 @@ class DlStats2Controller extends Controller
                     return ['', '', '', '', '', '', '', '', ''];
                 }
 
-                $inked = (function (?int $point) use ($b, $p): ?int {
+                $inked = function (?int $point) use ($b, $p): ?int {
                     if ($point === null) {
                         return null;
                     }
@@ -96,13 +96,13 @@ class DlStats2Controller extends Controller
                     }
 
                     return $point;
-                });
+                };
 
                 return [
                     $p->weapon ? $p->weapon->key : '',
                     (string)$p->kill_or_assist,
                     (string)$p->kill,
-                    ($p->kill_or_assist !== null && $p->kill !== null)
+                    $p->kill_or_assist !== null && $p->kill !== null
                         ? (string)($p->kill_or_assist - $p->kill)
                         : '',
                     (string)$p->death,

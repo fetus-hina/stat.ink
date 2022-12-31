@@ -92,7 +92,7 @@ class KillRatioColumn extends DataColumn
     protected function getKillRate(Model $model): ?float
     {
         return $model->kill_rate !== null
-            ? ((float)$model->kill_rate / 100.0)
+            ? (float)$model->kill_rate / 100.0
             : null;
     }
 }

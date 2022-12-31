@@ -129,7 +129,7 @@ final class EditBattleAction extends Action
                         'weapon_type2.id' => SORT_ASC,
                     ])
                     ->all(),
-                fn (WeaponType2 $type): string => ($type->name === $type->category->name)
+                fn (WeaponType2 $type): string => $type->name === $type->category->name
                     ? Yii::t('app-weapon2', $type->category->name)
                     : \vsprintf('%s » %s', [
                         Yii::t('app-weapon2', $type->category->name),

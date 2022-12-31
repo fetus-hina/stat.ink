@@ -131,7 +131,7 @@ class WeaponsAction extends ViewAction
                 'battles' => (int)$_['battles'],
                 'weapons' => $w,
                 'others' => $_['battles'] - $total,
-                'others_pct' => ($_['battles'] > 0)
+                'others_pct' => $_['battles'] > 0
                     ? (($_['battles'] - $total) * 100 / $_['battles'])
                     : null,
             ];
@@ -197,11 +197,11 @@ class WeaponsAction extends ViewAction
                     ],
                     'count'     => (int)$model->players,
                     'avg_kill'  => $model->players > 0
-                        ? ($model->total_kill / $model->players)
+                        ? $model->total_kill / $model->players
                         : null,
                     'sum_kill'  => $model->total_kill,
                     'avg_death' => $model->players > 0
-                        ? ($model->total_death / $model->players)
+                        ? $model->total_death / $model->players
                         : null,
                     'sum_death' => $model->total_death,
                     'kr' => $kr,
@@ -210,7 +210,7 @@ class WeaponsAction extends ViewAction
                         : null,
                     'win_count' => $model->win_count,
                     'avg_inked' => $model->point_available > 0
-                        ? ($model->total_point / $model->point_available)
+                        ? $model->total_point / $model->point_available
                         : null,
                 ];
             },
@@ -377,8 +377,8 @@ class WeaponsAction extends ViewAction
                 $o->avg_death = $o->sum_death / $o->count;
                 $o->wp = $o->win_count / $o->count;
                 $encounterRate = $o->count / $in->player_count;
-                $o->encounter_3 = (1 - pow(1 - $encounterRate, 3));
-                $o->encounter_4 = (1 - pow(1 - $encounterRate, 4));
+                $o->encounter_3 = 1 - pow(1 - $encounterRate, 3);
+                $o->encounter_4 = 1 - pow(1 - $encounterRate, 4);
                 $o->encounter_r = $encounterRate;
                 if ($o->sum_death < 1) {
                     if ($o->sum_kill < 1) {

@@ -71,7 +71,7 @@ class GearAction extends BaseAction
 
         $type = Yii::$app->request->get('type');
         $resp->setDownloadHeaders(
-            (preg_match('/^[a-z]+$/', (string)$type))
+            preg_match('/^[a-z]+$/', (string)$type)
                 ? "statink-gear2-{$type}.csv"
                 : "statink-gear2.csv",
             'text/csv; charset=UTF-8',

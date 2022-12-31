@@ -58,7 +58,7 @@ final class IndexAction extends Action
 
         return ArrayHelper::getColumn(
             $models,
-            fn (Salmon2 $model) => ($form->only === 'splatnet_number')
+            fn (Salmon2 $model) => $form->only === 'splatnet_number'
                 ? $model->splatnet_number
                 : $model->toJsonArray(),
         );

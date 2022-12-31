@@ -42,7 +42,7 @@ final class SalmonUserInfo3 extends SalmonUserInfo
                 Yii::t('app-salmon-title3', $stats->peakTitle->name),
                 $stats->peak_title_exp === null ? '?' : $fmt->asInteger($stats->peak_title_exp),
             ]);
-            $maxTitle = ($stats->peakTitle->key === 'eggsecutive_vp' && $stats->peak_title_exp !== null)
+            $maxTitle = $stats->peakTitle->key === 'eggsecutive_vp' && $stats->peak_title_exp !== null
                 ? $fmt->asInteger($stats->peak_title_exp)
                 : Yii::t('app-salmon-title3', $stats->peakTitle->name);
         }

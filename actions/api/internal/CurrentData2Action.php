@@ -142,7 +142,7 @@ final class CurrentData2Action extends Action
                     ->all();
                 if ($weapons) {
                     $ret[] = [
-                        'name' => ($category->name === $type->name)
+                        'name' => $category->name === $type->name
                             ? Yii::t('app-weapon2', $type->name)
                             : sprintf(
                                 '%s » %s',

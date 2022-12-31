@@ -88,7 +88,7 @@ class PatchBattleForm extends Model
         }
 
         if ($this->link_url != '') {
-            $battle->link_url = ($this->link_url === static::DELETE_MARK)
+            $battle->link_url = $this->link_url === static::DELETE_MARK
                 ? null
                 : $this->link_url;
         }
@@ -96,7 +96,7 @@ class PatchBattleForm extends Model
         $keys = ['note', 'private_note'];
         foreach ($keys as $key) {
             if ($this->$key != '') {
-                $battle->$key = ($this->$key === static::DELETE_MARK)
+                $battle->$key = $this->$key === static::DELETE_MARK
                     ? null
                     : $this->$key;
             }

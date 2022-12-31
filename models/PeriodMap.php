@@ -93,7 +93,7 @@ class PeriodMap extends \yii\db\ActiveRecord
             [$currentPeriod, $currentPeriod + 1],
         )->all();
         foreach ($list as $o) {
-            $key = ($o->period == $currentPeriod) ? 'current' : 'next';
+            $key = $o->period == $currentPeriod ? 'current' : 'next';
             $ret->$key->{$o->rule->mode->key}[] = $o;
         }
         return $ret;

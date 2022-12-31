@@ -62,10 +62,10 @@ class AcceptLanguage extends ActiveRecord
         $ruleB = $b->rule;
 
         if ($ruleA === '*' || $ruleB === '*') {
-            return ($ruleA === '*') ? 1 : -1;
+            return $ruleA === '*' ? 1 : -1;
         }
 
-        return (strlen($ruleB) - strlen($ruleA))
+        return strlen($ruleB) - strlen($ruleA)
             ?: strcmp(str_replace('*', chr(0), $ruleA), str_replace('*', chr(0), $ruleB));
     }
 

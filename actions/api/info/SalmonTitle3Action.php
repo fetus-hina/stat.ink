@@ -39,8 +39,8 @@ final class SalmonTitle3Action extends Action
         $sysLang = Yii::$app->language;
         return ArrayHelper::sort(
             Language::find()->standard()->all(),
-            fn (Language $a, Language $b): int => (($a->lang === $sysLang) ? -1 : 0)
-                ?: (($b->lang === $sysLang) ? 1 : 0)
+            fn (Language $a, Language $b): int => ($a->lang === $sysLang ? -1 : 0)
+                ?: ($b->lang === $sysLang ? 1 : 0)
                 ?: \strnatcasecmp($a->name, $b->name),
         );
     }

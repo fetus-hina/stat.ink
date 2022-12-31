@@ -40,7 +40,7 @@ final class LoginWithTwitter extends \yii\db\ActiveRecord
             [['name'], 'filter',
                 'filter' => function ($value) {
                     $value = trim(mb_substr($value, 0, 32, 'UTF-8'));
-                    return ($value == '')
+                    return $value == ''
                         ? sprintf('@%s', $this->screen_name)
                         : $value;
                 },

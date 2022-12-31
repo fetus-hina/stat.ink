@@ -38,10 +38,10 @@ class m170728_092851_weapon2_dual extends Migration
             'type_id'       => $this->findId('weapon_type2', $type),
             'subweapon_id'  => $this->findId('subweapon2', $sub),
             'special_id'    => $this->findId('special2', $special),
-            'main_group_id' => ($main !== null)
+            'main_group_id' => $main !== null
                 ? $this->findId('weapon2', $main)
                 : new Expression("currval('weapon2_id_seq'::regclass)"),
-            'canonical_id'  => ($canonical !== null)
+            'canonical_id'  => $canonical !== null
                 ? $this->findId('weapon2', $canonical)
                 : new Expression("currval('weapon2_id_seq'::regclass)"),
         ]);

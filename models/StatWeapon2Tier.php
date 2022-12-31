@@ -184,7 +184,7 @@ class StatWeapon2Tier extends ActiveRecord
     public function getErrorPoint(): ?float
     {
         $stdError = $this->calcError();
-        return ($stdError === null)
+        return $stdError === null
             ? null
             : $stdError * 100 * 2;
     }
@@ -200,7 +200,7 @@ class StatWeapon2Tier extends ActiveRecord
 
         // ref. http://lfics81.techblog.jp/archives/2982884.html
         $winRate = $wins / $battles;
-        $s = sqrt(($battles / ($battles - 1.5)) * $winRate * (1.0 - $winRate));
+        $s = sqrt($battles / ($battles - 1.5) * $winRate * (1.0 - $winRate));
         return $s / sqrt($battles);
     }
 

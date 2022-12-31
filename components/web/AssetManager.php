@@ -78,7 +78,7 @@ class AssetManager extends FWAssetManager
 
         $result = vsprintf('%s-%s/%s', [
             gmdate('Ymd', $commitTime),
-            ($options['assetRevision'] >= 0)
+            $options['assetRevision'] >= 0
                 ? (string)$options['assetRevision']
                 : gmdate('His', $commitTime),
             $hash,

@@ -26,7 +26,7 @@ class SfItem extends Model
             return null;
         }
         [$obj, $remains] = $_;
-        return ($obj instanceof self && trim((string)$remains) === '')
+        return $obj instanceof self && trim((string)$remains) === ''
             ? $obj
             : null;
     }
@@ -198,7 +198,7 @@ class SfItem extends Model
                 throw new LogicException('BUG');
             }
 
-            $this->params[$match['name']] = ($match['value'] === null)
+            $this->params[$match['name']] = $match['value'] === null
                 ? null
                 : $parseValue((string)$match['value']);
 

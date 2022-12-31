@@ -128,7 +128,7 @@ final class Battle3FilterForm extends Model
     {
         return ArrayHelper::getColumn(
             $modelClass::find()->orderBy(['key' => SORT_ASC])->all(),
-            fn (ActiveRecord $model): string => ($prefix !== null)
+            fn (ActiveRecord $model): string => $prefix !== null
                 ? \sprintf('%s%s', $prefix, $model->key)
                 : $model->key,
         );

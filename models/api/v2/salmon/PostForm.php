@@ -363,22 +363,22 @@ class PostForm extends Model
                 'title_before_exp' => $this->title_exp,
                 'title_after_id' => static::findRelatedId(SalmonTitle2::class, $this->title_after),
                 'title_after_exp' => $this->title_exp_after,
-                'danger_rate' => ($this->danger_rate == '')
+                'danger_rate' => $this->danger_rate == ''
                     ? null
                     : sprintf('%.1f', (float)$this->danger_rate),
-                'shift_period' => ($this->shift_start_at == '')
+                'shift_period' => $this->shift_start_at == ''
                     ? null
                     : BattleHelper::calcPeriod2((int)$this->shift_start_at),
-                'start_at' => ($this->start_at == '')
+                'start_at' => $this->start_at == ''
                     ? null
                     : gmdate(\DateTime::ATOM, (int)$this->start_at),
-                'end_at' => ($this->end_at == '')
+                'end_at' => $this->end_at == ''
                     ? null
                     : gmdate(\DateTime::ATOM, (int)$this->end_at),
                 'note' => $this->note,
                 'private_note' => $this->private_note,
                 'link_url' => $this->link_url,
-                'is_automated' => ($this->automated == '')
+                'is_automated' => $this->automated == ''
                     ? ($agent ? $agent->getIsAutomatedByDefault() : null)
                     : ($this->automated === 'yes'),
                 'agent_id' => $agent->id ?? null,

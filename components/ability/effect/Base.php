@@ -69,13 +69,13 @@ abstract class Base extends Component
         return $this->calcDamageImpl(
             $baseDamage,
             $this->calcX('damage_up', 100),
-            ((0.99 * $def) - pow((0.09 * $def), 2)) / 100,
+            ((0.99 * $def) - pow(0.09 * $def, 2)) / 100,
         );
     }
 
     protected function calcDamageImpl($baseDamage, $a, $d)
     {
-        $x = ($a >= $d) ? (1 + ($a - $d)) : (1 + ($a - $d) / 1.8);
+        $x = $a >= $d ? 1 + $a - $d : (1 + ($a - $d) / 1.8);
         return $baseDamage * $x;
     }
 
@@ -124,6 +124,6 @@ abstract class Base extends Component
         if ($a === null) {
             return null;
         }
-        return ((0.99 * $a) - pow((0.09 * $a), 2)) / $divBy;
+        return ((0.99 * $a) - pow(0.09 * $a, 2)) / $divBy;
     }
 }

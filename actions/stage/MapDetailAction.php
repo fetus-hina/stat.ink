@@ -77,7 +77,7 @@ class MapDetailAction extends BaseAction
         return array_map(
             function (PeriodMap $period) use (&$endAt): \stdClass {
                 $times = BattleHelper::periodToRange($period->period);
-                $interval = ($endAt === null) ? null : ($times[0] - $endAt);
+                $interval = $endAt === null ? null : $times[0] - $endAt;
                 $endAt = $times[1];
                 return (object)[
                     'start' => $times[0],

@@ -155,7 +155,7 @@ final class UserMiniInfo3 extends Widget
         return Tabs::widget([
             'items' => \array_filter(
                 \array_map(
-                    fn (array $groupInfo): ?array => ($groupInfo['group'])
+                    fn (array $groupInfo): ?array => $groupInfo['group']
                         ? [
                             'active' => $defaultTab === $groupInfo['group']->key,
                             'encode' => false,

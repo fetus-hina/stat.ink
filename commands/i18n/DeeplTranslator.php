@@ -394,7 +394,7 @@ class DeeplTranslator extends Component
         // 通常の処理を行うと、テンプレート部分が XML に置換されて破壊される場合があるので
         // タグのようなものを見つけたら XML として解釈できないか試行して、地の文だけ翻訳を試みる
         // Ref. https://github.com/fetus-hina/stat.ink/issues/739
-        return (str_contains($text, '<'))
+        return str_contains($text, '<')
             ? static::templateToXmlMayXml($text)
             : static::templateToXmlSimple($text);
     }

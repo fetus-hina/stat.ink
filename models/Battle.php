@@ -431,7 +431,7 @@ class Battle extends ActiveRecord
     {
         $weapon = $this->weapon;
         $version = $this->splatoonVersion;
-        return ($weapon && $version)
+        return $weapon && $version
             ? WeaponAttack::findByWeaponAndVersion($weapon, $version)
             : null;
     }
@@ -576,8 +576,8 @@ class Battle extends ActiveRecord
         ) {
             return null;
         }
-        return ($this->is_win)
-            ? ($this->my_point - $this->bonus->bonus)
+        return $this->is_win
+            ? $this->my_point - $this->bonus->bonus
             : $this->my_point;
     }
 
@@ -652,7 +652,7 @@ class Battle extends ActiveRecord
             return;
         }
         if ($this->death == 0) {
-            $this->kill_ratio = ($this->kill == 0) ? 1.00 : 99.99;
+            $this->kill_ratio = $this->kill == 0 ? 1.00 : 99.99;
             return;
         }
         $this->kill_ratio = sprintf('%.2f', $this->kill / $this->death);
@@ -854,7 +854,7 @@ class Battle extends ActiveRecord
                     'shoes'    => $this->shoes ? $this->shoes->toJsonArray() : null,
                 ],
             'period' => $this->period,
-            'players' => (in_array('players', $skips, true) || count($this->battlePlayers) === 0)
+            'players' => in_array('players', $skips, true) || count($this->battlePlayers) === 0
                 ? null
                 : array_map(
                     fn ($model) => $model->toJsonArray(),
@@ -877,10 +877,10 @@ class Battle extends ActiveRecord
             ],
             'automated' => !!$this->is_automated,
             'environment' => $this->env ? $this->env->text : null,
-            'link_url' => ((string)$this->link_url !== '') ? $this->link_url : null,
-            'note' => ((string)$this->note !== '') ? $this->note : null,
+            'link_url' => (string)$this->link_url !== '' ? $this->link_url : null,
+            'note' => (string)$this->note !== '' ? $this->note : null,
             'game_version' => $this->splatoonVersion ? $this->splatoonVersion->name : null,
-            'nawabari_bonus' => (($this->rule->key ?? null) === 'nawabari' && $this->bonus)
+            'nawabari_bonus' => ($this->rule->key ?? null) === 'nawabari' && $this->bonus
                 ? (int)$this->bonus->bonus
                 : null,
             'start_at' => $this->start_at != ''
@@ -966,7 +966,7 @@ class Battle extends ActiveRecord
                 function ($p) {
                     $ret = [];
                     if ($this->is_win !== null) {
-                        $ret['team'] = ($this->is_win === $p->is_my_team) ? 1 : 2;
+                        $ret['team'] = $this->is_win === $p->is_my_team ? 1 : 2;
                     }
                     if ($p->kill !== null) {
                         $ret['kills'] = (int)$p->kill;

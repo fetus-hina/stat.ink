@@ -40,8 +40,8 @@ class PlayerName2Widget extends Widget
         return Html::tag(
             'div',
             $this->nameOnly
-                ? ($this->renderName($this->player->user ?? null))
-                : ($this->renderNamePart() . $this->renderSpeciesPart()),
+                ? $this->renderName($this->player->user ?? null)
+                : $this->renderNamePart() . $this->renderSpeciesPart(),
             ['id' => $this->id],
         );
     }
@@ -106,7 +106,7 @@ class PlayerName2Widget extends Widget
             $anonId = substr(
                 hash(
                     'sha256',
-                    (preg_match('/^([0-9a-f]{2}+)[0-9a-f]?$/', $this->player->anonymizeSeed, $match))
+                    preg_match('/^([0-9a-f]{2}+)[0-9a-f]?$/', $this->player->anonymizeSeed, $match)
                         ? hex2bin($match[1])
                         : $this->player->anonymizeSeed,
                 ),

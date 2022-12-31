@@ -65,7 +65,7 @@ class LanguageSupportLevelWarning extends Widget
                 Html::tag(
                     'p',
                     Html::encode(
-                        ((int)$this->language->support_level_id === SupportLevel::MACHINE)
+                        (int)$this->language->support_level_id === SupportLevel::MACHINE
                             ? 'Almost every text is machine translated.'
                             : 'Only proper nouns (e.g., weapons, stages) translated.',
                     ),

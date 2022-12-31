@@ -89,7 +89,7 @@ final class LanguageDialog extends Dialog
 
     private function renderLanguageItem(Language $lang): string
     {
-        $label = ($lang->name === $lang->name_en)
+        $label = $lang->name === $lang->name_en
             ? $this->langText($lang->name, 'en-US')
             : vsprintf('%s / %s', [
                 $this->langText($lang->name, $lang->lang),

@@ -82,7 +82,7 @@ class Country extends \yii\db\ActiveRecord
             if ($c < 'A' || $c > 'Z') {
                 return null;
             }
-            $results[] = 0x1f1e6 + (ord($c) - ord('A'));
+            $results[] = 0x1f1e6 + ord($c) - ord('A');
         }
         return $results;
     }

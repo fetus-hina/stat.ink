@@ -177,7 +177,7 @@ trait DropdownListTrait
             $group = $groupInfo['group'];
             $tmp = [];
             if (\count($groupInfo['items']) > 1) {
-                $tmp['@' . $group->key] = ($translateCatalog === null)
+                $tmp['@' . $group->key] = $translateCatalog === null
                     ? $group->name
                     : Yii::t($translateCatalog, $group->name);
             }
@@ -191,7 +191,7 @@ trait DropdownListTrait
             $tmp = \array_merge($tmp, $items);
 
             // make group
-            $groupName = ($translateCatalog === null)
+            $groupName = $translateCatalog === null
                 ? $group->name
                 : Yii::t($translateCatalog, $group->name);
 
@@ -217,7 +217,7 @@ trait DropdownListTrait
         $list = ArrayHelper::map(
             $models,
             'key',
-            fn (ActiveRecord $model): string => ($translateCatalog === null)
+            fn (ActiveRecord $model): string => $translateCatalog === null
                 ? $model->name
                 : Yii::t($translateCatalog, $model->name),
         );
