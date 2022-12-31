@@ -9,7 +9,6 @@
 namespace app\models;
 
 use Yii;
-use app\models\User;
 use yii\base\Model;
 
 class RemoteFollowModalForm extends Model

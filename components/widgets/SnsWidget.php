@@ -13,7 +13,6 @@ namespace app\components\widgets;
 
 use Yii;
 use app\assets\PermalinkDialogAsset;
-use app\components\widgets\Icon;
 use jp3cki\yii2\twitter\widget\TweetButton;
 use yii\base\Widget;
 use yii\helpers\Html;

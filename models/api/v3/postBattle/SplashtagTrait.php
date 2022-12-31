@@ -13,7 +13,6 @@ namespace app\models\api\v3\postBattle;
 use Yii;
 use app\components\helpers\CriticalSection;
 use app\models\SplashtagTitle3;
-use app\models\api\v3\postBattle\TypeHelperTrait;
 
 trait SplashtagTrait
 {

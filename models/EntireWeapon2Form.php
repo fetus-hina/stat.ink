@@ -12,7 +12,6 @@ use DateInterval;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
-use app\models\Map2;
 use yii\base\Model;
 
 class EntireWeapon2Form extends Model
