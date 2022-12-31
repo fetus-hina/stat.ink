@@ -71,7 +71,10 @@
   <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHintSpacing"/>
   <rule ref="SlevomatCodingStandard.TypeHints.UselessConstantTypeHint"/>
   <rule ref="SlevomatCodingStandard.Variables.UselessVariable"/>
+  <rule ref="Squiz.Arrays.ArrayBracketSpacing"/>
+  <rule ref="Squiz.Classes.ClassFileName"/>
 
+  <!--rule ref="SlevomatCodingStandard.Variables.UnusedVariable"/-->
   <!--rule ref="Universal.OOStructures.AlphabeticExtendsImplements"/-->
 
   <rule ref="SlevomatCodingStandard.Namespaces.AlphabeticallySortedUses">
