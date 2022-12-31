@@ -863,11 +863,7 @@ class PostBattleForm extends Model
         if ($startAt === false) {
             return false;
         }
-        if ($startAt < time() - 86400) {
-            return false;
-        }
-
-        return true;
+        return $startAt >= time() - 86400;
     }
 
     public function getCriticalSectionName()

@@ -175,10 +175,8 @@ class PlayerName2Widget extends Widget
                 if ($this->isPrivate) {
                     return false;
                 }
-                if ($this->isMyTeam) {
-                    return false;
-                }
-                return true;
+
+                return !$this->isMyTeam;
 
             case User::BLACKOUT_ALWAYS:
             default:

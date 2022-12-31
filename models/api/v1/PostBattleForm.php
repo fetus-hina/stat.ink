@@ -821,17 +821,11 @@ class PostBattleForm extends Model
             ),
         );
 
-        if (
-            version_compare(
-                $fConvertVersionDate($this->agent_game_version_date),
-                $fConvertVersionDate($ikalogReq->version_date),
-                '>=',
-            )
-        ) {
-            return true;
-        }
-
-        return false;
+        return (bool)version_compare(
+            $fConvertVersionDate($this->agent_game_version_date),
+            $fConvertVersionDate($ikalogReq->version_date),
+            '>=',
+        );
     }
 
     public function getCriticalSectionName()

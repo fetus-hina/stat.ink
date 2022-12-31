@@ -910,14 +910,10 @@ final class PostBattleForm extends Model
             return false;
         }
 
-        if (
-            $lobby->key === 'private' ||
-            !$result->aggregatable
-        ) {
-            return false;
-        }
-
-        return true;
+        return
+            $lobby->key !== 'private' &&
+            $result->aggregatable
+        ;
     }
 
     private static function generateRandomFilename(string $ext): string

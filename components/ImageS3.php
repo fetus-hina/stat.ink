@@ -64,9 +64,14 @@ class ImageS3 extends Component
         S3::setAuth($this->accessKey, $this->secret);
         S3::setSSL(true, strpos($this->endpoint, 'amazonaws') !== false);
         S3::setExceptions(true);
-        if (!S3::putObject($file, $this->bucket, $serverPath, $this->acl, [], [], $this->storageClass)) {
-            return false;
-        }
-        return true;
+        return (bool)S3::putObject(
+            $file,
+            $this->bucket,
+            $serverPath,
+            $this->acl,
+            [],
+            [],
+            $this->storageClass,
+        );
     }
 }

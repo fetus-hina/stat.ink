@@ -228,7 +228,7 @@ class MonthAction extends BaseAction
         // 今年なら今月以前のはず
         if (
             ((int)$year === (int)date('Y', $now)) &&
-                ((int)$month > (int)date('n', $now))
+            ((int)$month > (int)date('n', $now))
         ) {
             return false;
         }
@@ -236,11 +236,7 @@ class MonthAction extends BaseAction
         // データ持ってないかも
         $periodS = BattleHelper::calcPeriod(mktime(0, 0, 0, $month, 1, $year));
         $periodE = BattleHelper::calcPeriod(mktime(0, 0, -1, $month + 1, 1, $year));
-        if (!static::hasStageData($periodS, $periodE)) {
-            return false;
-        }
-
-        return true;
+        return (bool)static::hasStageData($periodS, $periodE);
         // }}}
     }
 

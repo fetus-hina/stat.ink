@@ -75,10 +75,6 @@ final class Translator
             return true;
         }
 
-        if ($version >= 3 && $langCode === 'ko-KR') {
-            return true;
-        }
-
-        return false;
+        return $version >= 3 && $langCode === 'ko-KR';
     }
 }

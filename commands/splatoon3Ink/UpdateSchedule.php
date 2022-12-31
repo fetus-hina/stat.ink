@@ -115,12 +115,8 @@ trait UpdateSchedule
         );
         sort($mapIds);
         sort($registeredMapIds);
-        if ($mapIds !== $registeredMapIds) {
-            return false;
-        }
 
-        // 持っているデータは正しい
-        return true;
+        return $mapIds === $registeredMapIds;
     }
 
     private function cleanUpSchedule(Lobby3 $lobby, int $period): bool
