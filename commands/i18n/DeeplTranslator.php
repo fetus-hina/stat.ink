@@ -127,7 +127,7 @@ class DeeplTranslator extends Component
             }
 
             $englishTexts = array_filter(
-                array_keys(include($japanesePath)),
+                array_keys(include $japanesePath),
                 fn($text) => is_array(static::tokenizePattern($text))
             );
 

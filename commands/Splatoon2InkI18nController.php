@@ -306,7 +306,7 @@ class Splatoon2InkI18nController extends Controller
         fprintf(STDERR, "Checking translations (%s, %s)\n", $fileName, $locale);
 
         $filePath = Yii::getAlias('@app/messages') . "/{$shortLocale}/{$fileName}.php";
-        $currentData = require($filePath);
+        $currentData = require $filePath;
         $splatNetData = ArrayHelper::getValue(
             Json::decode(file_get_contents($cachePath)),
             $jsonKey,

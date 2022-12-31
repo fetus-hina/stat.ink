@@ -28,7 +28,6 @@ class ImageS3Controller extends Controller
 
     public function actionUpload(string $path, bool $queue = false): int
     {
-        // {{{
         if (!Yii::$app->imgS3->enabled) {
             $this->stderr(
                 "The component \"imgS3\" is not enabled.\n",
@@ -89,13 +88,12 @@ class ImageS3Controller extends Controller
                 Console::ansiFormat(basename($path), [Console::BOLD, Console::FG_PURPLE]),
             ));
         }
+
         return 0;
-        // }}}
     }
 
     public function actionAutoUpload(): int
     {
-        // {{{
         if (!$lock = $this->lockAutoUpload()) {
             return 1;
         }
@@ -107,17 +105,15 @@ class ImageS3Controller extends Controller
             public function accept()
             {
                 $entry = $this->getInnerIterator()->current();
-                return (
-                    $entry->isFile() &&
+                return $entry->isFile() &&
                     preg_match('/^[a-z2-9]{26}\.jpg$/', $entry->getBasename()) &&
-                    time() - $entry->getMTime() >= ImageS3Controller::AUTOUPLOAD_DELAY
-                );
+                    time() - $entry->getMTime() >= ImageS3Controller::AUTOUPLOAD_DELAY;
             }
         };
         foreach ($iterator as $entry) {
             $status = $this->actionUpload($entry->getBasename(), true);
         }
-        //}}}
+
         return 0;
     }
 
@@ -127,10 +123,12 @@ class ImageS3Controller extends Controller
         if (!file_exists(dirname($path))) {
             FileHelper::createDirectory(dirname($path));
         }
+
         if (!$lock = @fopen($path, 'c+')) {
             $this->stderr("Could not open lock file: {$path}\n", Console::FG_RED, Console::BOLD);
             return false;
         }
+
         if (!flock($lock, LOCK_EX | LOCK_NB)) {
             $this->stderr(
                 "Could not get file lock. Another process running?\n",
@@ -139,6 +137,7 @@ class ImageS3Controller extends Controller
             );
             return false;
         }
+
         return $lock;
     }
 }

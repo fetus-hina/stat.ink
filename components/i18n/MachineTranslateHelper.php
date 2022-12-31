@@ -38,7 +38,7 @@ class MachineTranslateHelper
     {
         static $cache = [];
         if (!isset($cache[$path])) {
-            $cache[$path] = include($path);
+            $cache[$path] = include $path;
         }
 
         return $cache[$path][$message] ?? null;

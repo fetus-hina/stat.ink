@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 return (function (): array {
-    $p = require(dirname(__DIR__) . '/params.php');
+    $p = require dirname(__DIR__) . '/params.php';
 
     return [
         '@bower' => '@app/node_modules',

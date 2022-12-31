@@ -128,7 +128,7 @@ trait WeaponShortNameTrait
 
         $data = [];
         if (file_exists($path)) {
-            $data = require($path);
+            $data = require $path;
         }
 
         // remove empty data

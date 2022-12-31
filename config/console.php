@@ -14,9 +14,9 @@ Yii::setAlias('@tests', dirname(__DIR__) . '/tests');
 
 Yii::$classMap[ArrayHelper::class] = __DIR__ . '/../components/overwrite/yii/helpers/ArrayHelper.php';
 
-$params = require(__DIR__ . '/params.php');
+$params = require __DIR__ . '/params.php';
 if (file_exists(__DIR__ . '/deepl.php')) {
-    $params['deepl'] = require(__DIR__ . '/deepl.php');
+    $params['deepl'] = require __DIR__ . '/deepl.php';
 }
 
 $db = @file_exists(__DIR__ . '/db.php')

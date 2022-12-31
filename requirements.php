@@ -25,7 +25,7 @@ if (!is_dir($frameworkPath)) {
     echo 'on how to install Yii.</p>';
 }
 
-require_once($frameworkPath . '/requirements/YiiRequirementChecker.php');
+require_once $frameworkPath . '/requirements/YiiRequirementChecker.php';
 $requirementsChecker = new YiiRequirementChecker();
 
 /**
