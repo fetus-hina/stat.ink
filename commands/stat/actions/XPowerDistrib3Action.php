@@ -129,7 +129,7 @@ final class XPowerDistrib3Action extends Action
             return true;
         } catch (Throwable $e) {
             \vfprintf(STDERR, "Failed to create temporary table, exception=%s, message=%s, sql=%s\n", [
-                \get_class($e),
+                $e::class,
                 $e->getMessage(),
                 $sql,
             ]);
@@ -177,7 +177,7 @@ final class XPowerDistrib3Action extends Action
             return true;
         } catch (Throwable $e) {
             \vfprintf(STDERR, "Failed to update, exception=%s, message=%s, sql=%s\n", [
-                \get_class($e),
+                $e::class,
                 $e->getMessage(),
                 $sql,
             ]);
@@ -223,7 +223,7 @@ final class XPowerDistrib3Action extends Action
             return true;
         } catch (Throwable $e) {
             \vfprintf(STDERR, "Failed to update, exception=%s, message=%s, sql=%s\n", [
-                \get_class($e),
+                $e::class,
                 $e->getMessage(),
                 $sql,
             ]);

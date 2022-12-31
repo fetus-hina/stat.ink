@@ -838,7 +838,7 @@ class PostBattleForm extends Model
     {
         return rtrim(
             base64_encode(
-                hash_hmac('sha256', $this->apikey, __CLASS__, true),
+                hash_hmac('sha256', $this->apikey, self::class, true),
             ),
             '=',
         );

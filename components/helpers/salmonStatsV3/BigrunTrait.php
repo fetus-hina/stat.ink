@@ -43,7 +43,7 @@ trait BigrunTrait
         } catch (Throwable $e) {
             Yii::error(
                 \vsprintf('Catch %s, message=%s', [
-                    \get_class($e),
+                    $e::class,
                     $e->getMessage(),
                 ]),
                 __METHOD__,

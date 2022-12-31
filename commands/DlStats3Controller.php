@@ -300,7 +300,7 @@ final class DlStats3Controller extends Controller
             return true;
         } catch (Throwable $e) {
             \vfprintf(STDERR, "Catch exception, exception=%s, message=%s\n", [
-                \get_class($e),
+                $e::class,
                 $e->getMessage(),
             ]);
 

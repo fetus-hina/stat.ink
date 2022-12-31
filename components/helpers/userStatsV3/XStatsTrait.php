@@ -58,7 +58,7 @@ trait XStatsTrait
         } catch (DbException $e) {
             Yii::error(
                 \vsprintf('Catch %s, message=%s', [
-                    \get_class($e),
+                    $e::class,
                     $e->getMessage(),
                 ]),
                 __METHOD__,

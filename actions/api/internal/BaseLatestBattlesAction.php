@@ -127,7 +127,7 @@ abstract class BaseLatestBattlesAction extends ViewAction
                 ArrayHelper::getColumn(
                     $this->fetchBattles(),
                     function ($battle): ?array {
-                        switch (\get_class($battle)) {
+                        switch ($battle::class) {
                             case Battle::class:
                                 return $this->formatBattle1($battle);
 

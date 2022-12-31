@@ -873,7 +873,7 @@ class PostBattleForm extends Model
     public function getCriticalSectionName()
     {
         $values = [
-            'class' => __CLASS__,
+            'class' => self::class,
             'version' => 2,
             'user' => Yii::$app->user->identity->id,
         ];

@@ -89,7 +89,7 @@ final class CombinedBattles
                 Salmon3::class => 5,
             ];
             \usort($merged, fn ($a, $b): int => self::getCreatedAt($b) <=> self::getCreatedAt($a)
-                    ?: $orderByClass[get_class($b)] <=> $orderByClass[get_class($a)]
+                    ?: $orderByClass[$b::class] <=> $orderByClass[$a::class]
                     ?: $b->id <=> $a->id);
             return \array_slice(\array_values($merged), 0, $num);
         } finally {

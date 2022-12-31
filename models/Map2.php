@@ -53,7 +53,7 @@ class Map2 extends ActiveRecord
 
     public static function getSortedMap($callback = null): array
     {
-        Yii::beginProfile(__METHOD__, __CLASS__);
+        Yii::beginProfile(__METHOD__, self::class);
         try {
             $query = self::find();
             if ($callback && \is_callable($callback)) {
@@ -65,7 +65,7 @@ class Map2 extends ActiveRecord
                 fn (self $row): string => Yii::t('app-map2', $row->name),
             );
         } finally {
-            Yii::endProfile(__METHOD__, __CLASS__);
+            Yii::endProfile(__METHOD__, self::class);
         }
     }
 

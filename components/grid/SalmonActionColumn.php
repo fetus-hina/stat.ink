@@ -84,7 +84,7 @@ final class SalmonActionColumn extends Column
      */
     private function getDetailUrl($model, User $user): array
     {
-        switch (\get_class($model)) {
+        switch ($model::class) {
             case Salmon2::class:
                 return ['salmon/view',
                     'screen_name' => $user->screen_name,

@@ -102,7 +102,7 @@ final class BattlePrevNext extends Widget
      */
     private function generateNextLabel($model): string
     {
-        switch (\get_class($model)) {
+        switch ($model::class) {
             case Battle3::class:
                 return Html::encode(Yii::t('app', 'Next Battle'));
 
@@ -119,7 +119,7 @@ final class BattlePrevNext extends Widget
      */
     private function generatePrevLabel($model): string
     {
-        switch (\get_class($model)) {
+        switch ($model::class) {
             case Battle3::class:
                 return Html::encode(Yii::t('app', 'Prev. Battle'));
 
@@ -136,7 +136,7 @@ final class BattlePrevNext extends Widget
      */
     private function generateUrl($model): array
     {
-        switch (\get_class($model)) {
+        switch ($model::class) {
             case Battle3::class:
                 return ['/show-v3/battle',
                     'screen_name' => $this->user->screen_name,

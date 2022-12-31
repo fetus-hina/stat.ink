@@ -343,7 +343,7 @@ final class PostBattleForm extends Model
     private function getCriticalSectionId(): string
     {
         $values = [
-            'class' => __CLASS__,
+            'class' => self::class,
             'user' => Yii::$app->user->id,
             'version' => 1,
         ];
@@ -400,7 +400,7 @@ final class PostBattleForm extends Model
             $this->addError(
                 '_system',
                 vsprintf('Failed to store your battle (internal error), %s', [
-                    \get_class($e),
+                    $e::class,
                 ]),
             );
             return null;
