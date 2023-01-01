@@ -12,6 +12,7 @@ use DateInterval;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
+use Throwable;
 use Yii;
 use ZipArchive;
 use app\components\helpers\Battle as BattleHelper;
@@ -19,6 +20,33 @@ use app\models\Battle2;
 use app\models\BattlePlayer2;
 use yii\console\Controller;
 use yii\helpers\FileHelper;
+
+use function array_map;
+use function array_merge;
+use function basename;
+use function copy;
+use function count;
+use function dirname;
+use function fclose;
+use function file_exists;
+use function fopen;
+use function fseek;
+use function fwrite;
+use function gmdate;
+use function implode;
+use function printf;
+use function str_replace;
+use function stream_copy_to_stream;
+use function strpos;
+use function strtotime;
+use function tempnam;
+use function time;
+use function tmpfile;
+use function unlink;
+use function usort;
+
+use const SEEK_SET;
+use const SORT_ASC;
 
 class DlStats2Controller extends Controller
 {
@@ -213,7 +241,7 @@ class DlStats2Controller extends Controller
             echo "    done!\n";
 
             return true;
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             echo $e->getMessage() . "\n";
             return false;
         } finally {

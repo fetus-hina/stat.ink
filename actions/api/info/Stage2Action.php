@@ -15,6 +15,12 @@ use app\models\Language;
 use app\models\Map2;
 use yii\web\ViewAction;
 
+use function strcmp;
+use function strlen;
+use function strnatcasecmp;
+use function substr;
+use function usort;
+
 final class Stage2Action extends ViewAction
 {
     public function run()

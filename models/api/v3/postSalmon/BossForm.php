@@ -17,6 +17,8 @@ use app\models\SalmonBossAppearance3;
 use app\models\api\v3\postBattle\TypeHelperTrait;
 use yii\base\Model;
 
+use function array_keys;
+
 final class BossForm extends Model
 {
     use TypeHelperTrait;
@@ -30,7 +32,7 @@ final class BossForm extends Model
         return [
             [
                 'class' => TrimAttributesBehavior::class,
-                'targets' => \array_keys($this->attributes),
+                'targets' => array_keys($this->attributes),
             ],
         ];
     }

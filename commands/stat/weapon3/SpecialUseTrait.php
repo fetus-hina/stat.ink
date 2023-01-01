@@ -15,6 +15,14 @@ use yii\db\Connection;
 use yii\db\Query;
 use yii\db\Transaction;
 
+use function array_filter;
+use function array_keys;
+use function array_map;
+use function fwrite;
+use function implode;
+use function sprintf;
+use function vsprintf;
+
 use const STDERR;
 
 trait SpecialUseTrait
@@ -26,25 +34,25 @@ trait SpecialUseTrait
             return;
         }
 
-        \fwrite(STDERR, "Updating stat_special_use3...\n");
+        fwrite(STDERR, "Updating stat_special_use3...\n");
         $db->transaction(
             function (Connection $db): void {
                 foreach ([false, true] as $aggRule) {
                     $select = $this->buildSelectForWeapon3SpecialUse(aggRule: $aggRule);
-                    $sql = \vsprintf('INSERT INTO %s ( %s ) %s ON CONFLICT ( %s ) DO UPDATE SET %s', [
+                    $sql = vsprintf('INSERT INTO %s ( %s ) %s ON CONFLICT ( %s ) DO UPDATE SET %s', [
                         $db->quoteTableName('{{%stat_special_use3}}'),
-                        \implode(', ', \array_map(
+                        implode(', ', array_map(
                             fn (string $columnName): string => $db->quoteColumnName($columnName),
-                            \array_keys($select->select),
+                            array_keys($select->select),
                         )),
                         $select->createCommand($db)->rawSql,
-                        \implode(', ', [
+                        implode(', ', [
                             '[[season_id]]',
                             'COALESCE([[rule_id]], 0)',
                             '[[special_id]]',
                         ]),
-                        \implode(', ', \array_map(
-                            fn (string $columnName): string => \vsprintf('%1$s = {{excluded}}.%1$s', [
+                        implode(', ', array_map(
+                            fn (string $columnName): string => vsprintf('%1$s = {{excluded}}.%1$s', [
                                 $db->quoteColumnName($columnName),
                             ]),
                             [
@@ -67,14 +75,14 @@ trait SpecialUseTrait
             },
             Transaction::REPEATABLE_READ,
         );
-        \fwrite(STDERR, "Vacuuming stat_special_use3\n");
+        fwrite(STDERR, "Vacuuming stat_special_use3\n");
         $db->createCommand('VACUUM ( ANALYZE ) {{%stat_special_use3}}')->execute();
-        \fwrite(STDERR, "Update done\n");
+        fwrite(STDERR, "Update done\n");
     }
 
     private function buildSelectForWeapon3SpecialUse(bool $aggRule): Query
     {
-        $percentile = fn (int $pct): string => \sprintf(
+        $percentile = fn (int $pct): string => sprintf(
             'PERCENTILE_DISC(%.2f) WITHIN GROUP (ORDER BY {{bp}}.[[special]] ASC)',
             $pct / 100,
         );
@@ -117,7 +125,7 @@ trait SpecialUseTrait
                 ['not', ['{{bp}}.[[special]]' => null]],
             ])
             ->groupBy(
-                \array_filter([
+                array_filter([
                     '{{%season3}}.[[id]]',
                     $aggRule ? '{{%battle3}}.[[rule_id]]' : null,
                     '{{%weapon3}}.[[special_id]]',

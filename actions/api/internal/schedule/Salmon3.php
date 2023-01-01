@@ -22,6 +22,9 @@ use app\models\SalmonScheduleWeapon3;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
+use function sprintf;
+use function strtotime;
+
 use const SORT_ASC;
 
 trait Salmon3

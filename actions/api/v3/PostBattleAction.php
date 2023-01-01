@@ -21,6 +21,8 @@ use yii\helpers\Url;
 use yii\web\Response;
 use yii\web\UploadedFile;
 
+use function array_map;
+
 final class PostBattleAction extends Action
 {
     use ApiInitializerTrait;
@@ -67,7 +69,7 @@ final class PostBattleAction extends Action
                         'battlePlayer3s.weapon.subweapon',
                         'battlePlayer3s.weapon.weapon3Aliases',
                     ],
-                    \array_map(
+                    array_map(
                         fn (string $base): array => [
                             "battlePlayer3s.{$base}",
                             "battlePlayer3s.{$base}.ability",

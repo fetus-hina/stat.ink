@@ -12,6 +12,9 @@ use Yii;
 use yii\base\Behavior;
 use yii\base\Model;
 
+use function trim;
+use function vsprintf;
+
 class FixAttributesBehavior extends Behavior
 {
     // $attributes = [

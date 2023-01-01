@@ -14,6 +14,8 @@ use yii\base\Component;
 use yii\base\InvalidConfigException;
 use yii\mutex\Mutex;
 
+use function vsprintf;
+
 final class CriticalSection extends Component
 {
     public $name;
@@ -62,7 +64,7 @@ final class CriticalSection extends Component
         Yii::endProfile(__METHOD__ . ', acquire');
         if (!$status) {
             Yii::warning(
-                \vsprintf('%s(): Resource is busy, could not enter to a critical section that named %s', [
+                vsprintf('%s(): Resource is busy, could not enter to a critical section that named %s', [
                     __METHOD__,
                     $this->name,
                 ]),

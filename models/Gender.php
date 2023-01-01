@@ -10,7 +10,14 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+
+use function array_map;
+use function strtolower;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "gender".
@@ -22,7 +29,7 @@ use yii\helpers\ArrayHelper;
  * @property FestTitleGender[] $festTitleGenders
  * @property FestTitle[] $titles
  */
-class Gender extends \yii\db\ActiveRecord
+class Gender extends ActiveRecord
 {
     use openapi\Util;
 
@@ -59,7 +66,7 @@ class Gender extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattles()
     {
@@ -67,7 +74,7 @@ class Gender extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getFestTitleGenders()
     {
@@ -75,7 +82,7 @@ class Gender extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getTitles()
     {

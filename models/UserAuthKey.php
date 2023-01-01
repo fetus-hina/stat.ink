@@ -21,6 +21,9 @@ use yii\behaviors\AttributeBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
+use function password_verify;
+use function time;
+
 /**
  * This is the model class for table "user_auth_key".
  *

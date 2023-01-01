@@ -10,6 +10,11 @@ namespace app\components\validators;
 
 use yii\validators\FilterValidator;
 
+use function idn_to_ascii;
+use function preg_replace_callback;
+use function strpos;
+use function strtolower;
+
 class IdnToPunycodeFilterValidator extends FilterValidator
 {
     public function init()

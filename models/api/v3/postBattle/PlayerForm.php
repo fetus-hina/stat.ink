@@ -21,6 +21,12 @@ use app\models\Weapon3Alias;
 use yii\base\Model;
 use yii\helpers\Json;
 
+use function array_keys;
+use function array_merge;
+use function base64_encode;
+use function is_array;
+use function vsprintf;
+
 final class PlayerForm extends Model
 {
     use SplashtagTrait;
@@ -109,7 +115,7 @@ final class PlayerForm extends Model
 
         $isTricolor = self::isTricolor($battle);
         $model = Yii::createObject(
-            \array_merge(
+            array_merge(
                 [
                     'class' => $isTricolor ? BattleTricolorPlayer3::class : BattlePlayer3::class,
                     'battle_id' => $battle->id,
@@ -143,8 +149,8 @@ final class PlayerForm extends Model
         );
 
         if (!$model->save()) {
-            $this->addError('_system', \vsprintf('Failed to store new player info, info=%s', [
-                \base64_encode(Json::encode($model->getFirstErrors())),
+            $this->addError('_system', vsprintf('Failed to store new player info, info=%s', [
+                base64_encode(Json::encode($model->getFirstErrors())),
             ]));
             return null;
         }

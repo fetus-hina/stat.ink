@@ -8,6 +8,8 @@
 
 namespace app\models;
 
+use yii\db\ActiveRecord;
+
 /**
  * This is the model class for table "ikalog_requirement".
  *
@@ -15,7 +17,7 @@ namespace app\models;
  * @property string $from
  * @property string $version_date
  */
-class IkalogRequirement extends \yii\db\ActiveRecord
+class IkalogRequirement extends ActiveRecord
 {
     /**
      * @inheritdoc

@@ -23,6 +23,10 @@ use yii\db\Query;
 use yii\db\Transaction;
 use yii\web\HttpException;
 
+use function array_merge;
+use function filter_var;
+use function is_int;
+
 use const FILTER_VALIDATE_INT;
 
 final class CounterAction extends Action
@@ -45,7 +49,7 @@ final class CounterAction extends Action
     private function make(): array
     {
         return Yii::$app->db->transaction(
-            fn (Connection $db): array => \array_merge(
+            fn (Connection $db): array => array_merge(
                 self::format('battle1', 'battle', 'Battles', Battle::getRoughCount()),
                 self::format('battle2', 'battle', 'Battles', Battle2::getRoughCount()),
                 self::format('battle3', 'battle', 'Battles', self::getBattle3RoughCount($db)),
@@ -74,7 +78,7 @@ final class CounterAction extends Action
     private static function getBattle3RoughCount(Connection $db): ?int
     {
         try {
-            $count = \filter_var(
+            $count = filter_var(
                 (new Query())
                     ->select('[[last_value]]')
                     ->from('{{%battle3_id_seq}}')
@@ -82,7 +86,7 @@ final class CounterAction extends Action
                     ->scalar($db),
                 FILTER_VALIDATE_INT,
             );
-            return \is_int($count) ? $count : null;
+            return is_int($count) ? $count : null;
         } catch (Throwable $e) {
         }
 

@@ -11,6 +11,8 @@ namespace app\actions\user;
 use Yii;
 use yii\web\ViewAction as BaseAction;
 
+use function headers_sent;
+
 final class LogoutAction extends BaseAction
 {
     public function run()

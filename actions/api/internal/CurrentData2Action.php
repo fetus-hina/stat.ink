@@ -23,6 +23,17 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 
+use function array_map;
+use function max;
+use function microtime;
+use function sprintf;
+use function strcasecmp;
+use function uasort;
+use function vsprintf;
+
+use const SORT_ASC;
+use const SORT_DESC;
+
 final class CurrentData2Action extends Action
 {
     public function init()
@@ -117,7 +128,7 @@ final class CurrentData2Action extends Action
                     ),
                 ],
             ),
-            fn (array $a, array $b): int => \strcasecmp(
+            fn (array $a, array $b): int => strcasecmp(
                 (string)ArrayHelper::getValue($a, 'name'),
                 (string)ArrayHelper::getValue($b, 'name'),
             ),
@@ -188,7 +199,7 @@ final class CurrentData2Action extends Action
                 ->all(),
             fn (UserWeapon2 $model): array => [
                 'key' => (string)ArrayHelper::getValue($model, 'weapon.key'),
-                'name' => \vsprintf('%s (%s)', [
+                'name' => vsprintf('%s (%s)', [
                     Yii::t('app-weapon2', (string)ArrayHelper::getValue($model, 'weapon.name')),
                     $fmt->asInteger((int)$model->battles),
                 ]),

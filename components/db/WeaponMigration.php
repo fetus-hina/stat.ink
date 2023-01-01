@@ -10,8 +10,11 @@ declare(strict_types=1);
 
 namespace app\components\db;
 
+use Exception;
 use yii\db\Expression;
 use yii\db\Query;
+
+use function array_filter;
 
 trait WeaponMigration
 {
@@ -98,7 +101,7 @@ trait WeaponMigration
             ->limit(1)
             ->scalar();
         if ($parentId === null) {
-            throw new \Exception("Could not found {$main} in weapon2");
+            throw new Exception("Could not found {$main} in weapon2");
         }
         return ((int)$parentId) + -1 * $splatnet;
     }
@@ -112,7 +115,7 @@ trait WeaponMigration
             ->limit(1)
             ->scalar();
         if (!$id) {
-            throw new \Exception("Could not found {$key} in {$table}");
+            throw new Exception("Could not found {$key} in {$table}");
         }
 
         return (int)$id;

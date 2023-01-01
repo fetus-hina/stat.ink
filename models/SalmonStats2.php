@@ -17,6 +17,14 @@ use app\components\helpers\DateTimeFormatter;
 use yii\db\ActiveRecord;
 use yii\helpers\Html;
 
+use function array_filter;
+use function array_merge;
+use function filter_var;
+use function gmdate;
+use function strtotime;
+
+use const FILTER_VALIDATE_INT;
+
 /**
  * This is the model class for table "salmon_stats2".
  *

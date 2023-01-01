@@ -12,6 +12,11 @@ use Yii;
 use yii\base\Model;
 use yii\db\Query;
 
+use function array_map;
+use function usort;
+
+use const NAN;
+
 class SummarizedWeaponVsWeapon extends Model
 {
     public $lhs_weapon_id;

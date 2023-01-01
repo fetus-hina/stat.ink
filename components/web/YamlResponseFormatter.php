@@ -14,6 +14,9 @@ use Symfony\Component\Yaml\Yaml;
 use yii\base\Component;
 use yii\web\ResponseFormatterInterface;
 
+use function array_reduce;
+use function is_int;
+
 class YamlResponseFormatter extends Component implements ResponseFormatterInterface
 {
     public $contentType; // e.g., 'text/yaml', 'application/x-yaml'

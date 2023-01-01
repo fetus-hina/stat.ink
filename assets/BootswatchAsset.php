@@ -12,6 +12,8 @@ use yii\base\InvalidConfigException;
 use yii\bootstrap\BootstrapPluginAsset;
 use yii\web\AssetBundle;
 
+use function in_array;
+
 class BootswatchAsset extends AssetBundle
 {
     public $sourcePath = '@node/bootswatch';

@@ -8,7 +8,9 @@
 
 namespace app\components\db;
 
+use DateTime;
 use DateTimeInterface;
+use Exception;
 use app\components\helpers\Battle as BattleHelper;
 use yii\db\Query;
 
@@ -65,14 +67,14 @@ trait VersionMigration
         $this->insert($tableVersion, [
             'tag' => $versionTag,
             'name' => $versionName,
-            $releasedAtColumn => $releasedAt->format(\DateTime::ATOM),
+            $releasedAtColumn => $releasedAt->format(DateTime::ATOM),
             'group_id' => $groupId,
         ]);
         $this->update(
             $tableBattle,
             ['version_id' => $this->findId($tableVersion, $versionTag)],
             $byDate
-                ? ['>=', 'start_at', $releasedAt->format(\DateTime::ATOM)]
+                ? ['>=', 'start_at', $releasedAt->format(DateTime::ATOM)]
                 : ['>=', 'period', BattleHelper::calcPeriod2($releasedAt->getTimestamp())],
         );
         return $this->findId($tableVersion, $versionTag);
@@ -115,7 +117,7 @@ trait VersionMigration
             ->limit(1)
             ->scalar();
         if (!$groupId) {
-            throw new \Exception('Could not find version ' . $versionTag);
+            throw new Exception('Could not find version ' . $versionTag);
         }
 
         $this->update(
@@ -166,7 +168,7 @@ trait VersionMigration
             $id = $this->findId($table, $tag);
         }
         if ($id === null) {
-            throw new \Exception('Could not create new version group');
+            throw new Exception('Could not create new version group');
         }
         return $id;
     }

@@ -22,6 +22,11 @@ use yii\helpers\Json;
 use yii\web\Cookie;
 use yii\web\View;
 
+use function preg_match;
+use function sprintf;
+use function time;
+use function vsprintf;
+
 class Theme extends Component
 {
     private ?string $theme = null;

@@ -8,6 +8,9 @@
 
 namespace app\models;
 
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+
 /**
  * This is the model class for table "language_charset".
  *
@@ -18,7 +21,7 @@ namespace app\models;
  * @property Charset $charset
  * @property Language $language
  */
-class LanguageCharset extends \yii\db\ActiveRecord
+class LanguageCharset extends ActiveRecord
 {
     public static function find()
     {
@@ -66,7 +69,7 @@ class LanguageCharset extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getCharset()
     {
@@ -74,7 +77,7 @@ class LanguageCharset extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getLanguage()
     {

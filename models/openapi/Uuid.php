@@ -11,6 +11,8 @@ namespace app\models\openapi;
 use Yii;
 use yii\base\Component;
 
+use function implode;
+
 class Uuid extends Component
 {
     use Util;

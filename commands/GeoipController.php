@@ -11,10 +11,32 @@ declare(strict_types=1);
 namespace app\commands;
 
 use Curl\Curl;
+use Exception;
 use Throwable;
 use Yii;
 use yii\console\Controller;
 use yii\helpers\FileHelper;
+
+use function array_map;
+use function basename;
+use function dirname;
+use function escapeshellarg;
+use function exec;
+use function file_exists;
+use function file_put_contents;
+use function filesize;
+use function fprintf;
+use function fwrite;
+use function http_build_query;
+use function implode;
+use function preg_replace_callback;
+use function rtrim;
+use function str_repeat;
+use function strlen;
+use function vfprintf;
+use function vsprintf;
+
+use const STDERR;
 
 class GeoipController extends Controller
 {
@@ -164,7 +186,7 @@ class GeoipController extends Controller
             function (array $match): string {
                 $envName = $match[1];
                 if (!isset($_SERVER[$envName])) {
-                    throw new \Exception(vsprintf('The environment variable `%s` is not defined.', [
+                    throw new Exception(vsprintf('The environment variable `%s` is not defined.', [
                         $envName,
                     ]));
                 }

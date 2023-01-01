@@ -18,6 +18,19 @@ use yii\web\Cookie;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
+use function array_filter;
+use function array_merge;
+use function explode;
+use function implode;
+use function in_array;
+use function sprintf;
+use function strpos;
+use function substr;
+use function time;
+
+use const ARRAY_FILTER_USE_KEY;
+use const SORT_DESC;
+
 class UserAction extends BaseAction
 {
     public function run()

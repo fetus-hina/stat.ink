@@ -17,6 +17,8 @@ use app\models\Language;
 use yii\web\BadRequestHttpException;
 use yii\web\ViewAction;
 
+use function time;
+
 class EditEmailVerifyAction extends ViewAction
 {
     public function run()

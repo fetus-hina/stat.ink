@@ -20,6 +20,9 @@ use app\models\Weapon;
 use app\models\WeaponType;
 use yii\web\ViewAction as BaseAction;
 
+use function asort;
+use function func_get_args;
+
 class EditBattleAction extends BaseAction
 {
     private $battle;

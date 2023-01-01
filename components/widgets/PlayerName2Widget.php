@@ -17,6 +17,15 @@ use statink\yii2\anonymizer\AnonymizerAsset;
 use yii\base\Widget;
 use yii\bootstrap\Html;
 
+use function hash;
+use function hex2bin;
+use function implode;
+use function preg_match;
+use function str_repeat;
+use function substr;
+use function trim;
+use function vsprintf;
+
 class PlayerName2Widget extends Widget
 {
     public $player;

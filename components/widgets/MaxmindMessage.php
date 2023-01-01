@@ -14,6 +14,8 @@ use yii\base\Widget;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
+use function vsprintf;
+
 class MaxmindMessage extends Widget
 {
     public $options = [

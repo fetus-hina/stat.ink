@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\components\jobs;
 
+use Throwable;
 use Yii;
 use app\models\Battle;
 use app\models\Battle2;
@@ -17,6 +18,8 @@ use app\models\Slack;
 use app\models\User;
 use yii\base\BaseObject;
 use yii\queue\JobInterface;
+
+use const SORT_ASC;
 
 class SlackJob extends BaseObject implements JobInterface
 {
@@ -74,7 +77,7 @@ class SlackJob extends BaseObject implements JobInterface
         foreach ($this->querySlackTask($battle->user) as $slack) {
             try {
                 $slack->send($battle);
-            } catch (\Throwable $e) {
+            } catch (Throwable $e) {
             }
         }
     }
@@ -84,7 +87,7 @@ class SlackJob extends BaseObject implements JobInterface
         foreach ($this->querySlackTask($battle->user) as $slack) {
             try {
                 $slack->send($battle);
-            } catch (\Throwable $e) {
+            } catch (Throwable $e) {
             }
         }
     }

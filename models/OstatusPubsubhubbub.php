@@ -17,6 +17,9 @@ use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\Url;
 
+use function hash_hmac;
+use function sprintf;
+
 /**
  * This is the model class for table "ostatus_pubsubhubbub".
  *
@@ -97,7 +100,7 @@ class OstatusPubsubhubbub extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getTopicUser()
     {

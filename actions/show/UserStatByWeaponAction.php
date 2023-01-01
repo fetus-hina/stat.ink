@@ -17,6 +17,10 @@ use yii\db\Query;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
+use function implode;
+use function sprintf;
+use function usort;
+
 class UserStatByWeaponAction extends BaseAction
 {
     use UserStatFilterTrait;

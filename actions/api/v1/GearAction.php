@@ -13,6 +13,8 @@ use app\models\Gear;
 use app\models\api\v1\GearGetForm;
 use yii\web\ViewAction as BaseAction;
 
+use function array_map;
+
 class GearAction extends BaseAction
 {
     public function run()

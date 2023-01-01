@@ -8,6 +8,9 @@
 
 namespace app\models;
 
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+
 /**
  * This is the model class for table "stat_weapon_use_count_per_week".
  *
@@ -21,7 +24,7 @@ namespace app\models;
  * @property Rule $rule
  * @property Weapon $weapon
  */
-class StatWeaponUseCountPerWeek extends \yii\db\ActiveRecord
+class StatWeaponUseCountPerWeek extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -66,7 +69,7 @@ class StatWeaponUseCountPerWeek extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getRule()
     {
@@ -74,7 +77,7 @@ class StatWeaponUseCountPerWeek extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getWeapon()
     {

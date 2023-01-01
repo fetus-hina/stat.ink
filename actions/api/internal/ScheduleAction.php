@@ -20,6 +20,8 @@ use app\components\helpers\Battle as BattleHelper;
 use yii\base\Action;
 use yii\helpers\Url;
 
+use function time;
+
 final class ScheduleAction extends Action
 {
     use Splatoon2;
@@ -32,7 +34,7 @@ final class ScheduleAction extends Action
     {
         parent::init();
 
-        $t = (int)($_SERVER['REQUEST_TIME'] ?? \time());
+        $t = (int)($_SERVER['REQUEST_TIME'] ?? time());
         $this->now = (new DateTimeImmutable())
             ->setTimestamp($t)
             ->setTimezone(new DateTimeZone('Etc/UTC'));

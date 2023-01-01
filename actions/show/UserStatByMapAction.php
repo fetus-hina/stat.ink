@@ -11,6 +11,7 @@ namespace app\actions\show;
 use Yii;
 use app\models\BattleFilterForm;
 use app\models\User;
+use yii\db\Query;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
@@ -42,7 +43,7 @@ class UserStatByMapAction extends BaseAction
 
     private function getData(User $user, BattleFilterForm $filter)
     {
-        $query = (new \yii\db\Query())
+        $query = (new Query())
             ->select([
                 'map_key' => 'MAX({{map}}.[[key]])',
                 'map_name' => 'MAX({{map}}.[[name]])',

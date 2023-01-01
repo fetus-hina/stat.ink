@@ -14,6 +14,9 @@ use yii\base\Widget;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
+use function array_filter;
+use function implode;
+
 class UserIcon extends Widget
 {
     public $user;

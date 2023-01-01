@@ -14,6 +14,16 @@ use DateTimeZone;
 use Yii;
 use yii\base\Model;
 
+use function array_keys;
+use function array_merge;
+use function array_reverse;
+use function array_shift;
+use function count;
+use function sprintf;
+use function time;
+use function usort;
+use function version_compare;
+
 class EntireWeapon2Form extends Model
 {
     public $term;

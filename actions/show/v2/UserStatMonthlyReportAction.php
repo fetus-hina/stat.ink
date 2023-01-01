@@ -22,6 +22,10 @@ use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
+use function implode;
+use function sprintf;
+use function time;
+
 final class UserStatMonthlyReportAction extends BaseAction
 {
     private ?User $user;

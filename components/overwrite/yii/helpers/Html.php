@@ -11,6 +11,19 @@ namespace yii\helpers;
 use Yii;
 use app\models\Rank2;
 
+use function array_filter;
+use function array_keys;
+use function array_map;
+use function array_values;
+use function implode;
+use function in_array;
+use function rawurlencode;
+use function rtrim;
+use function sprintf;
+use function str_replace;
+use function strpos;
+use function trim;
+
 class Html extends BaseHtml
 {
     public static $enableServerPush = true;

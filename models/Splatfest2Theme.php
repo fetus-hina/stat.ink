@@ -9,7 +9,11 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+
+use function microtime;
+use function usleep;
 
 /**
  * This is the model class for table "splatfest2_theme".
@@ -99,7 +103,7 @@ class Splatfest2Theme extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattle2s()
     {
@@ -107,7 +111,7 @@ class Splatfest2Theme extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattle2s0()
     {

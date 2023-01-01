@@ -12,10 +12,27 @@ namespace app\components\helpers;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use Exception;
 use Yii;
 use app\models\Language;
 use yii\helpers\Html;
 use yii\helpers\Url;
+
+use function array_map;
+use function array_merge;
+use function array_unique;
+use function call_user_func_array;
+use function escapeshellarg;
+use function exec;
+use function implode;
+use function natcasesort;
+use function setlocale;
+use function sprintf;
+use function str_replace;
+use function trim;
+use function uksort;
+
+use const LC_COLLATE;
 
 class I18n
 {
@@ -122,7 +139,7 @@ class I18n
         $lines = [];
         @exec($cmdline, $lines, $status);
         if ($status !== 0) {
-            throw new \Exception('Could not get contributors');
+            throw new Exception('Could not get contributors');
         }
         $lines[] = 'AIZAWA Hina <hina@fetus.jp>';
 

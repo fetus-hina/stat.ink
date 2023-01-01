@@ -26,6 +26,11 @@ use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\web\ServerErrorHttpException;
 
+use function assert;
+use function strnatcasecmp;
+
+use const SORT_ASC;
+
 final class Knockout3Action extends Action
 {
     private const PARAM_SEASON_ID = 'season';
@@ -33,7 +38,7 @@ final class Knockout3Action extends Action
     public function run(): Response|string
     {
         $controller = $this->controller;
-        \assert($controller instanceof Controller);
+        assert($controller instanceof Controller);
 
         if (!$season = Season3Helper::getUrlTargetSeason(self::PARAM_SEASON_ID)) {
             $season = Season3Helper::getCurrentSeason();
@@ -47,7 +52,7 @@ final class Knockout3Action extends Action
                 Map3::find()
                     ->andWhere(['<', 'release_at', $season->end_at])
                     ->all(),
-                fn (Map3 $a, Map3 $b): int => \strnatcasecmp(
+                fn (Map3 $a, Map3 $b): int => strnatcasecmp(
                     Yii::t('app-map3', $a->name),
                     Yii::t('app-map3', $b->name),
                 ),

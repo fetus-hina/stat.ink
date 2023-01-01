@@ -12,6 +12,14 @@ namespace app\assets;
 
 use yii\web\AssetBundle;
 
+use function array_keys;
+use function array_map;
+use function array_values;
+use function implode;
+use function is_array;
+use function rawurlencode;
+use function vsprintf;
+
 class NotoSansAsset extends AssetBundle
 {
     public $css = [];

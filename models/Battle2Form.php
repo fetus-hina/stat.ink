@@ -13,6 +13,14 @@ use app\components\behaviors\AutoTrimAttributesBehavior;
 use app\components\validators\IdnToPunycodeFilterValidator;
 use yii\base\Model;
 
+use function array_keys;
+use function array_merge;
+use function is_bool;
+use function preg_match;
+use function preg_replace;
+use function sprintf;
+use function trim;
+
 class Battle2Form extends Model
 {
     public $lobby_id;

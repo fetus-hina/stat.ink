@@ -34,6 +34,7 @@ use function array_filter;
 use function array_keys;
 use function array_map;
 use function array_merge;
+use function array_reduce;
 use function array_slice;
 use function array_unique;
 use function array_values;
@@ -43,6 +44,7 @@ use function dirname;
 use function explode;
 use function fclose;
 use function file_exists;
+use function fopen;
 use function fprintf;
 use function fwrite;
 use function http_build_query;
@@ -72,6 +74,15 @@ use function trim;
 use function usort;
 use function vfprintf;
 use function vsprintf;
+
+use const LC_ALL;
+use const LIBXML_COMPACT;
+use const LIBXML_NOCDATA;
+use const LIBXML_NONET;
+use const SORT_ASC;
+use const STDERR;
+use const XML_ELEMENT_NODE;
+use const XML_TEXT_NODE;
 
 class DeeplTranslator extends Component
 {

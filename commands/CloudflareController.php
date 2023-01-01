@@ -16,6 +16,32 @@ use Yii;
 use yii\console\Controller;
 use yii\helpers\FileHelper;
 
+use function addslashes;
+use function array_merge;
+use function array_unique;
+use function array_values;
+use function dirname;
+use function explode;
+use function file_put_contents;
+use function filter_var;
+use function fwrite;
+use function implode;
+use function inet_pton;
+use function preg_match;
+use function preg_replace;
+use function strcmp;
+use function strpos;
+use function strtolower;
+use function substr;
+use function trim;
+use function usort;
+use function vfprintf;
+
+use const FILTER_FLAG_IPV4;
+use const FILTER_FLAG_IPV6;
+use const FILTER_VALIDATE_IP;
+use const STDERR;
+
 class CloudflareController extends Controller
 {
     public function actionUpdateIpRanges(): int

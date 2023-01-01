@@ -27,6 +27,15 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
+use function array_map;
+use function implode;
+use function sprintf;
+use function strtotime;
+use function time;
+use function vsprintf;
+
+use const SORT_DESC;
+
 class FeedAction extends Action
 {
     public function init()

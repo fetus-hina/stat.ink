@@ -14,6 +14,33 @@ use Yii;
 use yii\console\Controller;
 use yii\helpers\Console;
 
+use function array_reverse;
+use function array_slice;
+use function basename;
+use function count;
+use function date;
+use function dirname;
+use function escapeshellarg;
+use function fclose;
+use function file_exists;
+use function filesize;
+use function getcwd;
+use function microtime;
+use function mkdir;
+use function number_format;
+use function parse_str;
+use function preg_match;
+use function proc_close;
+use function proc_open;
+use function rsort;
+use function sort;
+use function sprintf;
+use function str_replace;
+use function stream_get_contents;
+use function strpos;
+use function time;
+use function unlink;
+
 class BackupController extends Controller
 {
     public const KEEP_ENTRIES = 7;

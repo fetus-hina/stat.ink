@@ -15,6 +15,12 @@ use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
 use yii\helpers\Html;
 
+use function array_map;
+use function implode;
+use function range;
+use function sprintf;
+use function vsprintf;
+
 class KDWinTable extends Widget
 {
     public $data = [];

@@ -22,6 +22,17 @@ use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
+use function array_filter;
+use function array_map;
+use function array_shift;
+use function date;
+use function is_scalar;
+use function mktime;
+use function preg_match;
+use function strnatcasecmp;
+use function time;
+use function usort;
+
 class MonthAction extends BaseAction
 {
     public $year;

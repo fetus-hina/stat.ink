@@ -26,6 +26,10 @@ use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\web\ServerErrorHttpException;
 
+use function array_sum;
+use function array_values;
+use function max;
+
 use const SORT_ASC;
 use const SORT_DESC;
 
@@ -64,10 +68,10 @@ final class RandomLoanAction extends Action
                 $counts = $this->getLoanCount($schedule);
                 return $controller->render('salmon3/random-loan', [
                     'counts' => $counts,
-                    'max' => $counts ? \max(\array_values($counts)) : 0,
+                    'max' => $counts ? max(array_values($counts)) : 0,
                     'schedule' => $schedule,
                     'schedules' => $schedules,
-                    'total' => \array_sum(\array_values($counts)),
+                    'total' => array_sum(array_values($counts)),
                     'weapons' => ArrayHelper::map(
                         SalmonWeapon3::find()->all(),
                         'key',

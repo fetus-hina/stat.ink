@@ -18,6 +18,10 @@ use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
+use function implode;
+
+use const SORT_ASC;
+
 class GearGetForm extends Model
 {
     use OapiUtil;

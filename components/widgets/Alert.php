@@ -12,6 +12,8 @@ namespace app\components\widgets;
 
 use yii\bootstrap\BootstrapAsset;
 
+use function array_merge_recursive;
+
 class Alert extends \yii\bootstrap\Alert
 {
     public $closeButton = false;

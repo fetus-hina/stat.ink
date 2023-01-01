@@ -16,6 +16,14 @@ use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
+use function array_filter;
+use function array_map;
+use function array_merge;
+use function array_shift;
+use function version_compare;
+
+use const SORT_ASC;
+
 /**
  * This is the model class for table "weapon2".
  *
@@ -158,18 +166,18 @@ class Weapon2 extends ActiveRecord
     public function getWeaponAttack(SplatoonVersion2 $version): ?WeaponAttack2
     {
         $attacks = ArrayHelper::sort(
-            \array_filter(
+            array_filter(
                 WeaponAttack2::find()
                     ->with(['version'])
                     ->andWhere(['weapon_id' => $this->id])
                     ->all(),
-                fn (WeaponAttack2 $model): bool => \version_compare(
+                fn (WeaponAttack2 $model): bool => version_compare(
                     $model->version->tag,
                     $version->tag,
                     '<=',
                 ),
             ),
-            fn (WeaponAttack2 $a, WeaponAttack2 $b): int => \version_compare(
+            fn (WeaponAttack2 $a, WeaponAttack2 $b): int => version_compare(
                 $b->version->tag,
                 $a->version->tag,
             ),

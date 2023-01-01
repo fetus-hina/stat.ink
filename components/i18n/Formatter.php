@@ -13,6 +13,12 @@ use Yii;
 use app\components\widgets\TimestampColumnWidget;
 use yii\helpers\Html;
 
+use function gmdate;
+use function implode;
+use function is_int;
+use function pow;
+use function sprintf;
+
 class Formatter extends \yii\i18n\Formatter
 {
     public function asHtmlDatetime($value, $format = null)

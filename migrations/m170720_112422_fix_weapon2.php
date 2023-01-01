@@ -37,7 +37,7 @@ class m170720_112422_fix_weapon2 extends Migration
         ];
         ArrayHelper::removeValue($update, null);
         if (!$update) {
-            throw new \Exception('No update field');
+            throw new Exception('No update field');
         }
         $this->update('weapon2', $update, ['key' => $weapon]);
     }
@@ -54,7 +54,7 @@ class m170720_112422_fix_weapon2 extends Migration
             ->limit(1)
             ->scalar();
         if ($id === false) {
-            throw new \Exception('Unknown ' . $table . ' ' . $key);
+            throw new Exception('Unknown ' . $table . ' ' . $key);
         }
         return (int)$id;
     }

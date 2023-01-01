@@ -11,6 +11,13 @@ namespace app\actions\entire\users;
 use app\models\StatEntireUser;
 use yii\db\Query;
 
+use function array_map;
+use function count;
+use function gmdate;
+use function gmmktime;
+use function implode;
+use function time;
+
 trait Splatoon1
 {
     protected function getPostStats()

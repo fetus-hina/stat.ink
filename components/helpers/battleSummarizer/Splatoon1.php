@@ -13,6 +13,11 @@ namespace app\components\helpers\battleSummarizer;
 use Yii;
 use yii\db\Query;
 
+use function gmdate;
+use function implode;
+use function sprintf;
+use function time;
+
 trait Splatoon1
 {
     public static function getSummary(Query $oldQuery)

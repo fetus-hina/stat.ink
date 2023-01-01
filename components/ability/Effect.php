@@ -11,6 +11,8 @@ namespace app\components\ability;
 use Yii;
 use app\models\Battle;
 
+use function version_compare;
+
 class Effect
 {
     public static function factory(Battle $battle)

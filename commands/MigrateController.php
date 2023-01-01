@@ -13,6 +13,11 @@ namespace app\commands;
 use yii\base\InvalidConfigException;
 use yii\console\controllers\MigrateController as BaseController;
 
+use function array_keys;
+use function array_merge;
+use function implode;
+use function sprintf;
+
 class MigrateController extends BaseController
 {
     public $templateFile = '@app/views/migration/default_migration.php';

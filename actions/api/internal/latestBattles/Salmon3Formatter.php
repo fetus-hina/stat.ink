@@ -16,6 +16,10 @@ use app\assets\Spl3StageAsset;
 use app\models\Salmon3;
 use yii\helpers\Url;
 
+use function sprintf;
+use function strtotime;
+use function vsprintf;
+
 trait Salmon3Formatter
 {
     use UserFormatter;
@@ -56,7 +60,7 @@ trait Salmon3Formatter
                 if ($battle->clear_waves !== null) {
                     if ($battle->clear_waves >= 3) {
                         if ($battle->kingSalmonid && $battle->clear_extra !== null) {
-                            $result = \vsprintf('%s:%s', [
+                            $result = vsprintf('%s:%s', [
                                 Yii::t('app-salmon-boss3', $battle->kingSalmonid->name),
                                 Yii::t('app-salmon2', $battle->clear_extra ? '✓' : '✗'),
                             ]);
@@ -70,14 +74,14 @@ trait Salmon3Formatter
                     }
                 }
 
-                return \sprintf('%s @%s', $result, $stageName);
+                return sprintf('%s @%s', $result, $stageName);
             })(),
             'summary2' => match (true) {
                 $battle->is_private === true => Yii::t('app-salmon3', 'Private Job'),
                 $battle->is_big_run === true => Yii::t('app-salmon3', 'Big Run'),
                 default => Yii::t('app-salmon3', 'Salmon Run'),
             },
-            'time' => \strtotime($battle->start_at ?: $battle->created_at),
+            'time' => strtotime($battle->start_at ?: $battle->created_at),
             'rule' => null,
             'url' => Url::to(
                 ['salmon-v3/view',

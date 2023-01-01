@@ -13,6 +13,8 @@ namespace app\components\widgets;
 use yii\base\Widget;
 use yii\helpers\Html;
 
+use function trim;
+
 abstract class BaseUAIconWidget extends Widget
 {
     public $ua;

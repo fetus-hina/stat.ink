@@ -102,6 +102,21 @@
     </properties>
   </rule>
 
+  <rule ref="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly">
+    <properties>
+      <property name="allowFallbackGlobalConstants" value="false"/>
+      <property name="allowFallbackGlobalFunctions" value="false"/>
+      <property name="allowFullyQualifiedGlobalClasses" value="false"/>
+      <property name="allowFullyQualifiedGlobalConstants" value="false"/>
+      <property name="allowFullyQualifiedGlobalFunctions" value="false"/>
+      <property name="allowFullyQualifiedNameForCollidingClasses" value="true"/>
+      <property name="allowFullyQualifiedNameForCollidingConstants" value="true"/>
+      <property name="allowFullyQualifiedNameForCollidingFunctions" value="true"/>
+      <property name="allowPartialUses" value="true"/>
+      <property name="searchAnnotations" value="true"/>
+    </properties>
+  </rule>
+
   <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses">
     <properties>
       <property name="searchAnnotations" value="true"/>

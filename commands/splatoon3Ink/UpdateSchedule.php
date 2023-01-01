@@ -18,6 +18,11 @@ use app\models\ScheduleMap3;
 use yii\console\ExitCode;
 use yii\db\Connection;
 
+use function array_map;
+use function fwrite;
+use function sort;
+use function vfprintf;
+
 use const STDERR;
 
 trait UpdateSchedule
@@ -109,7 +114,7 @@ trait UpdateSchedule
         }
 
         // マップが違う
-        $registeredMapIds = \array_map(
+        $registeredMapIds = array_map(
             fn (ScheduleMap3 $model): int => (int)$model->map_id,
             $schedule->scheduleMap3s,
         );

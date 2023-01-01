@@ -12,6 +12,15 @@ use yii\base\Behavior;
 use yii\base\Model;
 use yii\db\Query;
 
+use function call_user_func;
+use function filter_var;
+use function is_callable;
+use function strlen;
+use function substr;
+use function trim;
+
+use const FILTER_VALIDATE_INT;
+
 class SplatnetNumberBehavior extends Behavior
 {
     public $trigger = Model::EVENT_BEFORE_VALIDATE;

@@ -8,6 +8,9 @@
 
 namespace app\models;
 
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+
 /**
  * This is the model class for table "battle_player".
  *
@@ -28,7 +31,7 @@ namespace app\models;
  * @property Rank $rank
  * @property Weapon $weapon
  */
-class BattlePlayer extends \yii\db\ActiveRecord
+class BattlePlayer extends ActiveRecord
 {
     public static function find()
     {
@@ -79,7 +82,7 @@ class BattlePlayer extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattle()
     {
@@ -87,7 +90,7 @@ class BattlePlayer extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getRank()
     {
@@ -95,7 +98,7 @@ class BattlePlayer extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getWeapon()
     {

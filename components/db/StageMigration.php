@@ -11,6 +11,12 @@ namespace app\components\db;
 use Yii;
 use yii\db\Expression;
 
+use function array_keys;
+use function array_map;
+use function array_values;
+use function implode;
+use function vsprintf;
+
 trait StageMigration
 {
     protected function setArea(array $list): void

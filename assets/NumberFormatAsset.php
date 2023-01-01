@@ -15,6 +15,10 @@ use yii\helpers\Json;
 use yii\web\AssetBundle;
 use yii\web\View;
 
+use function hash;
+use function preg_match;
+use function sprintf;
+
 class NumberFormatAsset extends AssetBundle
 {
     public $sourcePath = '@app/resources/.compiled/stat.ink';

@@ -13,6 +13,8 @@ use Yii;
 use app\components\helpers\DateTimeFormatter;
 use yii\db\Expression;
 
+use function microtime;
+
 class Now extends Expression
 {
     public function __construct()

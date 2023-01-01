@@ -11,7 +11,13 @@ namespace app\models;
 use Yii;
 use app\components\behaviors\TimestampBehavior;
 use phpseclib3\Crypt\RSA;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+
+use function base64_encode;
+use function openssl_pkey_get_details;
+use function openssl_pkey_get_private;
+use function strtr;
 
 /**
  * This is the model class for table "ostatus_rsa".
@@ -101,7 +107,7 @@ class OstatusRsa extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getUser()
     {

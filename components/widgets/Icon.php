@@ -16,6 +16,9 @@ use yii\helpers\Html;
 use yii\web\AssetBundle;
 use yii\web\View;
 
+use function implode;
+use function mb_chr;
+
 final class Icon
 {
     // android
@@ -282,7 +285,7 @@ final class Icon
     {
         return self::bi(
             'twitter',
-            css: \implode('', [
+            css: implode('', [
                 '.bi-twitter{color:#1da1f2}',
                 '.btn .bi-twitter{color:inherit}',
             ]),

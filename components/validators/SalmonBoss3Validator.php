@@ -15,6 +15,11 @@ use app\models\api\v3\postSalmon\BossForm;
 use yii\helpers\ArrayHelper;
 use yii\validators\Validator;
 
+use function array_shift;
+use function in_array;
+use function is_array;
+use function vsprintf;
+
 final class SalmonBoss3Validator extends Validator
 {
     /**
@@ -64,12 +69,12 @@ final class SalmonBoss3Validator extends Validator
     {
         if (
             $value === null ||
-            (\is_array($value) && !$value) // empty array
+            (is_array($value) && !$value) // empty array
         ) {
             return [];
         }
 
-        if (!\is_array($value)) {
+        if (!is_array($value)) {
             return ['{attribute} is invalid. (must be map<string, struct>)'];
         }
 
@@ -81,7 +86,7 @@ final class SalmonBoss3Validator extends Validator
                 continue;
             }
 
-            if (!\is_array($v) || !ArrayHelper::isAssociative($v)) {
+            if (!is_array($v) || !ArrayHelper::isAssociative($v)) {
                 return ['{attribute} is invalid. (must be map<string, struct>)'];
             }
 
@@ -90,7 +95,7 @@ final class SalmonBoss3Validator extends Validator
                 return ["{attribute} is invalid. unknown boss {$boss}"];
             }
 
-            if (\in_array($boss->key, $exists, true)) {
+            if (in_array($boss->key, $exists, true)) {
                 return [
                     vsprintf('{attribute} is invalid. duplicate entry for %s', [
                         $boss->name,

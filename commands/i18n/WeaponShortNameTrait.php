@@ -19,6 +19,27 @@ use app\models\Weapon2;
 use app\models\Weapon3;
 use yii\helpers\Console;
 
+use function array_filter;
+use function array_map;
+use function array_reduce;
+use function file_exists;
+use function file_put_contents;
+use function gmdate;
+use function implode;
+use function in_array;
+use function natcasesort;
+use function str_replace;
+use function strcasecmp;
+use function strcmp;
+use function strpos;
+use function time;
+use function uksort;
+use function vsprintf;
+
+use const ARRAY_FILTER_USE_BOTH;
+use const DIRECTORY_SEPARATOR;
+use const SORT_ASC;
+
 trait WeaponShortNameTrait
 {
     public function actionShortWeapon(): int

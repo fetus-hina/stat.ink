@@ -16,6 +16,12 @@ use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
+use function array_map;
+use function implode;
+use function sprintf;
+
+use const SORT_ASC;
+
 /**
  * This is the model class for table "salmon_main_weapon2".
  *
@@ -100,7 +106,7 @@ class SalmonMainWeapon2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getWeapon()
     {

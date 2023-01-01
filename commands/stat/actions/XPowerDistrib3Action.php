@@ -19,6 +19,15 @@ use yii\db\Connection;
 use yii\db\Query;
 use yii\db\Transaction;
 
+use function array_keys;
+use function array_map;
+use function fprintf;
+use function fwrite;
+use function implode;
+use function sprintf;
+use function vfprintf;
+use function vsprintf;
+
 use const STDERR;
 
 final class XPowerDistrib3Action extends Action
@@ -52,7 +61,7 @@ final class XPowerDistrib3Action extends Action
             throw new LogicException();
         }
 
-        \fwrite(STDERR, "Updating X Power Distribution stats\n");
+        fwrite(STDERR, "Updating X Power Distribution stats\n");
         if (
             $this->createTmpUserXpowerTable($db) &&
             $this->updateDistrib($db) &&
@@ -97,16 +106,16 @@ final class XPowerDistrib3Action extends Action
                 '{{%season3}}.[[id]]',
             ]);
 
-        $sql = \vsprintf('CREATE TEMPORARY TABLE %s AS %s', [
+        $sql = vsprintf('CREATE TEMPORARY TABLE %s AS %s', [
             $db->quoteTableName(self::TMP_USER_XPOWER_TABLE_NAME),
             $select->createCommand($db)->rawSql,
         ]);
 
         try {
-            \fwrite(STDERR, "Creating temporary table...\n");
+            fwrite(STDERR, "Creating temporary table...\n");
             $db->createCommand($sql)->execute();
 
-            \fwrite(STDERR, "Creating index...\n");
+            fwrite(STDERR, "Creating index...\n");
             $db->createCommand()
                 ->createIndex(
                     name: 'tmp_user_xpower_pkey',
@@ -120,15 +129,15 @@ final class XPowerDistrib3Action extends Action
                 )
                 ->execute();
 
-            \fwrite(STDERR, "Analyze temporary table..\n");
+            fwrite(STDERR, "Analyze temporary table..\n");
             $db->createCommand(sprintf('ANALYZE %s', self::TMP_USER_XPOWER_TABLE_NAME))
                 ->execute();
 
-            \fwrite(STDERR, "OK.\n");
+            fwrite(STDERR, "OK.\n");
 
             return true;
         } catch (Throwable $e) {
-            \vfprintf(STDERR, "Failed to create temporary table, exception=%s, message=%s, sql=%s\n", [
+            vfprintf(STDERR, "Failed to create temporary table, exception=%s, message=%s, sql=%s\n", [
                 $e::class,
                 $e->getMessage(),
                 $sql,
@@ -154,29 +163,29 @@ final class XPowerDistrib3Action extends Action
                 'FLOOR({{t}}.[[x_power]] / 50)',
             ]);
 
-        $sql = \vsprintf('INSERT INTO %s ( %s ) %s', [
+        $sql = vsprintf('INSERT INTO %s ( %s ) %s', [
             $db->quoteTableName('{{stat_x_power_distrib3}}'),
-            \implode(
+            implode(
                 ', ',
-                \array_map(
+                array_map(
                     fn (string $columnName): string => $db->quoteColumnName($columnName),
-                    \array_keys($select->select),
+                    array_keys($select->select),
                 ),
             ),
             $select->createCommand($db)->rawSql,
         ]);
 
         try {
-            \fwrite(STDERR, "Cleanup stat_x_power_distrib3...\n");
+            fwrite(STDERR, "Cleanup stat_x_power_distrib3...\n");
             $db->createCommand()->delete('{{%stat_x_power_distrib3}}')->execute();
 
-            \fwrite(STDERR, "Inserting stat_x_power_distrib3...\n");
+            fwrite(STDERR, "Inserting stat_x_power_distrib3...\n");
             $db->createCommand($sql)->execute();
-            \fwrite(STDERR, "OK.\n");
+            fwrite(STDERR, "OK.\n");
 
             return true;
         } catch (Throwable $e) {
-            \vfprintf(STDERR, "Failed to update, exception=%s, message=%s, sql=%s\n", [
+            vfprintf(STDERR, "Failed to update, exception=%s, message=%s, sql=%s\n", [
                 $e::class,
                 $e->getMessage(),
                 $sql,
@@ -200,29 +209,29 @@ final class XPowerDistrib3Action extends Action
             ->from(['t' => self::TMP_USER_XPOWER_TABLE_NAME])
             ->groupBy(['season_id', 'rule_id']);
 
-        $sql = \vsprintf('INSERT INTO %s ( %s ) %s', [
+        $sql = vsprintf('INSERT INTO %s ( %s ) %s', [
             $db->quoteTableName('{{stat_x_power_distrib_abstract3}}'),
-            \implode(
+            implode(
                 ', ',
-                \array_map(
+                array_map(
                     fn (string $columnName): string => $db->quoteColumnName($columnName),
-                    \array_keys($select->select),
+                    array_keys($select->select),
                 ),
             ),
             $select->createCommand($db)->rawSql,
         ]);
 
         try {
-            \fwrite(STDERR, "Cleanup stat_x_power_distrib_abstract3...\n");
+            fwrite(STDERR, "Cleanup stat_x_power_distrib_abstract3...\n");
             $db->createCommand()->delete('{{%stat_x_power_distrib_abstract3}}')->execute();
 
-            \fwrite(STDERR, "Inserting stat_x_power_distrib_abstract3...\n");
+            fwrite(STDERR, "Inserting stat_x_power_distrib_abstract3...\n");
             $db->createCommand($sql)->execute();
-            \fwrite(STDERR, "OK.\n");
+            fwrite(STDERR, "OK.\n");
 
             return true;
         } catch (Throwable $e) {
-            \vfprintf(STDERR, "Failed to update, exception=%s, message=%s, sql=%s\n", [
+            vfprintf(STDERR, "Failed to update, exception=%s, message=%s, sql=%s\n", [
                 $e::class,
                 $e->getMessage(),
                 $sql,
@@ -240,13 +249,13 @@ final class XPowerDistrib3Action extends Action
         ];
 
         foreach ($tables as $table) {
-            \fprintf(STDERR, "Vacuuming %s\n", $table);
-            $sql = \vsprintf('VACUUM ( ANALYZE ) %s', [
+            fprintf(STDERR, "Vacuuming %s\n", $table);
+            $sql = vsprintf('VACUUM ( ANALYZE ) %s', [
                 $db->quoteTableName($table),
             ]);
             $db->createCommand($sql)->execute();
         }
 
-        \fwrite(STDERR, "OK\n");
+        fwrite(STDERR, "OK\n");
     }
 }

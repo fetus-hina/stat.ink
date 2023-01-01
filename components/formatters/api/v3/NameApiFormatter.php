@@ -14,6 +14,9 @@ use Yii;
 use app\models\Language;
 use yii\helpers\ArrayHelper;
 
+use function array_map;
+use function str_replace;
+
 use const SORT_ASC;
 
 final class NameApiFormatter
@@ -38,7 +41,7 @@ final class NameApiFormatter
 
         return ArrayHelper::map(
             $languages,
-            fn (string $lang): string => \str_replace('-', '_', $lang),
+            fn (string $lang): string => str_replace('-', '_', $lang),
             fn (string $lang): string => $i18n->translate($msgCategory, $usName, [], $lang),
         );
     }
@@ -61,7 +64,7 @@ final class NameApiFormatter
         /** @var string[]|null */
         static $cache = null;
         if ($cache === null) {
-            $cache = \array_map(
+            $cache = array_map(
                 fn (Language $model): string => $model->lang,
                 Language::find()
                     ->standard()

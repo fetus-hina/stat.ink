@@ -23,6 +23,9 @@ use yii\web\MethodNotAllowedHttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
+use function preg_match;
+use function usleep;
+
 final class DeleteBattleAction extends Action
 {
     use ApiInitializerTrait;
@@ -45,7 +48,7 @@ final class DeleteBattleAction extends Action
         $user = Yii::$app->user->identity;
         if (
             !$user instanceof User || // Logic error
-            !\preg_match(UuidRegexp::get(true), $uuid)
+            !preg_match(UuidRegexp::get(true), $uuid)
         ) {
             // Logic error
             throw new BadRequestHttpException();
@@ -67,7 +70,7 @@ final class DeleteBattleAction extends Action
         for ($retry = 0; $retry < 3; ++$retry) {
             try {
                 if ($retry > 0) {
-                    \usleep(250000);
+                    usleep(250000);
                     $model->refresh();
                     if ($model->is_deleted) {
                         $resp->statusCode = 409;

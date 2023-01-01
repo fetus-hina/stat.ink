@@ -9,6 +9,10 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+
+use function implode;
 
 /**
  * This is the model class for table "stat_weapon_map_trend".
@@ -22,7 +26,7 @@ use Yii;
  * @property Rule $rule
  * @property Weapon $weapon
  */
-class StatWeaponMapTrend extends \yii\db\ActiveRecord
+class StatWeaponMapTrend extends ActiveRecord
 {
     use openapi\Util;
 
@@ -71,7 +75,7 @@ class StatWeaponMapTrend extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getMap()
     {
@@ -79,7 +83,7 @@ class StatWeaponMapTrend extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getRule()
     {
@@ -87,7 +91,7 @@ class StatWeaponMapTrend extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getWeapon()
     {

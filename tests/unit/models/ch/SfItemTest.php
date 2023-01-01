@@ -7,6 +7,9 @@ namespace tests\models\ch;
 use Codeception\Test\Unit;
 use app\models\ch\SfItem;
 
+use function base64_encode;
+use function random_bytes;
+
 class SfItemTest extends Unit
 {
     public function testInteger()

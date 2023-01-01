@@ -11,6 +11,11 @@ namespace app\components;
 use S3;
 use yii\base\Component;
 
+use function base64_encode;
+use function hash;
+use function strlen;
+use function strpos;
+
 class ImageS3 extends Component
 {
     public $enabled = false;

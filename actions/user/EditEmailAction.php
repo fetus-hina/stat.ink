@@ -16,6 +16,9 @@ use app\models\EmailForm;
 use app\models\EmailVerifyForm;
 use yii\web\ViewAction;
 
+use function count;
+use function time;
+
 class EditEmailAction extends ViewAction
 {
     public function run()

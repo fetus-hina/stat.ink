@@ -8,6 +8,8 @@
 
 namespace app\models\api\v1;
 
+use Exception;
+use RuntimeException;
 use app\components\helpers\CriticalSection;
 use app\components\helpers\db\Now;
 use app\models\Ability;
@@ -30,8 +32,48 @@ use app\models\Rule;
 use app\models\SplatoonVersion;
 use app\models\User;
 use app\models\Weapon;
+use stdClass;
 use yii\base\Model;
 use yii\web\UploadedFile;
+
+use function array_map;
+use function base64_encode;
+use function count;
+use function explode;
+use function file_get_contents;
+use function filter_var;
+use function gmdate;
+use function hash_hmac;
+use function imagecreatefromstring;
+use function imagedestroy;
+use function implode;
+use function is_array;
+use function is_bool;
+use function is_callable;
+use function is_float;
+use function is_int;
+use function is_object;
+use function is_string;
+use function json_encode;
+use function ltrim;
+use function mb_check_encoding;
+use function preg_match;
+use function preg_replace;
+use function rtrim;
+use function sprintf;
+use function strtolower;
+use function substr;
+use function time;
+use function trim;
+use function usort;
+use function version_compare;
+use function vsprintf;
+
+use const FILTER_VALIDATE_FLOAT;
+use const FILTER_VALIDATE_INT;
+use const JSON_FORCE_OBJECT;
+use const JSON_UNESCAPED_SLASHES;
+use const JSON_UNESCAPED_UNICODE;
 
 class PostBattleForm extends Model
 {
@@ -232,7 +274,7 @@ class PostBattleForm extends Model
             $this->$attribute = [];
             return;
         }
-        if (!is_array($value) && !$value instanceof \stdClass) {
+        if (!is_array($value) && !$value instanceof stdClass) {
             $this->addError($attribute, "{$attribute} should be a map.");
             return;
         }
@@ -413,8 +455,8 @@ class PostBattleForm extends Model
             }
             $value = (object)$value;
         }
-        if (is_object($value) && ($value instanceof \stdClass)) {
-            $newValue = new \stdClass();
+        if (is_object($value) && ($value instanceof stdClass)) {
+            $newValue = new stdClass();
             foreach ($value as $k => $v) {
                 $k = is_int($k) ? "ARRAY[{$k}]" : (string)$k;
                 if (!mb_check_encoding($k, 'UTF-8')) {
@@ -606,7 +648,7 @@ class PostBattleForm extends Model
 
     public function toDeathReasons(Battle $battle)
     {
-        if (is_array($this->death_reasons) || $this->death_reasons instanceof \stdClass) {
+        if (is_array($this->death_reasons) || $this->death_reasons instanceof stdClass) {
             $unknownCount = 0;
             foreach ($this->death_reasons as $key => $count) {
                 $reason = DeathReason::findOne(['key' => $key]);
@@ -638,7 +680,7 @@ class PostBattleForm extends Model
         if (is_array($this->players) && !empty($this->players)) {
             foreach ($this->players as $form) {
                 if (!$form instanceof PostBattlePlayerForm) {
-                    throw new \Exception('Logic error: assert: instanceof PostBattlePlayerForm');
+                    throw new Exception('Logic error: assert: instanceof PostBattlePlayerForm');
                 }
 
                 $weapon = $form->weapon == ''
@@ -758,7 +800,7 @@ class PostBattleForm extends Model
             $config->gear_id = $gearModel ? $gearModel->id : null;
             $config->primary_ability_id = $primaryAbility ? $primaryAbility->id : null;
             if (!$config->save()) {
-                throw new \Exception('Could not save gear_counfiguration');
+                throw new Exception('Could not save gear_counfiguration');
             }
 
             foreach ($secondaryAbilityIdList as $aId) {
@@ -766,7 +808,7 @@ class PostBattleForm extends Model
                 $sub->config_id = $config->id;
                 $sub->ability_id = $aId;
                 if (!$sub->save()) {
-                    throw new \Exception('Could not save gear_configuration_secondary');
+                    throw new Exception('Could not save gear_configuration_secondary');
                 }
             }
         }
@@ -841,7 +883,7 @@ class PostBattleForm extends Model
     {
         try {
             return CriticalSection::lock($this->getCriticalSectionName(), $timeout);
-        } catch (\RuntimeException $e) {
+        } catch (RuntimeException $e) {
             return false;
         }
     }

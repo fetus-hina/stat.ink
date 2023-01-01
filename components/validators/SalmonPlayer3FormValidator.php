@@ -15,6 +15,10 @@ use app\models\api\v3\postSalmon\PlayerForm;
 use yii\helpers\ArrayHelper;
 use yii\validators\Validator;
 
+use function array_shift;
+use function is_array;
+use function vsprintf;
+
 final class SalmonPlayer3FormValidator extends Validator
 {
     /**
@@ -62,7 +66,7 @@ final class SalmonPlayer3FormValidator extends Validator
      */
     private function validateValueImpl($value): array
     {
-        if (!\is_array($value) || !ArrayHelper::isAssociative($value)) {
+        if (!is_array($value) || !ArrayHelper::isAssociative($value)) {
             return ['{attribute} is invalid.'];
         }
 
@@ -74,7 +78,7 @@ final class SalmonPlayer3FormValidator extends Validator
 
         $result = [];
         foreach ($form->getFirstErrors() as $key => $value) {
-            $result[] = \vsprintf('%s: %s', [
+            $result[] = vsprintf('%s: %s', [
                 $key,
                 $value,
             ]);

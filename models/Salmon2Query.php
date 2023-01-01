@@ -11,6 +11,10 @@ namespace app\models;
 use Yii;
 use yii\db\ActiveQuery;
 
+use function array_merge;
+use function implode;
+use function sprintf;
+
 class Salmon2Query extends ActiveQuery
 {
     private $summaryCache = null;

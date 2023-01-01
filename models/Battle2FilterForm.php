@@ -11,9 +11,30 @@ namespace app\models;
 use DateTimeImmutable;
 use DateTimeZone;
 use Exception;
+use Throwable;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
 use yii\base\Model;
+
+use function array_filter;
+use function array_map;
+use function array_merge;
+use function call_user_func;
+use function date;
+use function explode;
+use function implode;
+use function in_array;
+use function is_scalar;
+use function mktime;
+use function preg_match;
+use function sprintf;
+use function strlen;
+use function strpos;
+use function strtotime;
+use function substr;
+use function time;
+use function trim;
+use function vsprintf;
 
 class Battle2FilterForm extends Model
 {
@@ -340,7 +361,7 @@ class Battle2FilterForm extends Model
                         throw new Exception();
                 }
             }
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             $this->addError($attr, Yii::t('yii', '{attribute} is invalid.', [
                 'attribute' => $this->getAttributeLabel($attr),
             ]));

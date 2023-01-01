@@ -23,6 +23,13 @@ use app\models\Special3Alias;
 use app\models\api\v3\postBattle\TypeHelperTrait;
 use yii\base\Model;
 
+use function array_keys;
+use function filter_var;
+use function is_array;
+use function is_int;
+
+use const FILTER_VALIDATE_INT;
+
 final class WaveForm extends Model
 {
     use TypeHelperTrait;
@@ -39,7 +46,7 @@ final class WaveForm extends Model
         return [
             [
                 'class' => TrimAttributesBehavior::class,
-                'targets' => \array_keys($this->attributes),
+                'targets' => array_keys($this->attributes),
             ],
         ];
     }
@@ -86,12 +93,12 @@ final class WaveForm extends Model
             return null;
         }
 
-        if ($this->special_uses && \is_array($this->special_uses)) {
+        if ($this->special_uses && is_array($this->special_uses)) {
             foreach ($this->special_uses as $spKey => $spCount) {
                 $special = self::key2id($spKey, Special3::class, Special3Alias::class, 'special_id');
                 if ($special) {
-                    $spCountN = \filter_var($spCount, FILTER_VALIDATE_INT);
-                    if (\is_int($spCountN) && $spCountN > 0) {
+                    $spCountN = filter_var($spCount, FILTER_VALIDATE_INT);
+                    if (is_int($spCountN) && $spCountN > 0) {
                         $model2 = Yii::createObject([
                             'class' => SalmonSpecialUse3::class,
                             'wave_id' => $model->id,

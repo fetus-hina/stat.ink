@@ -14,6 +14,7 @@ use DateInterval;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
+use Throwable;
 use Yii;
 use app\components\behaviors\AutoTrimAttributesBehavior;
 use app\components\helpers\Battle as BattleHelper;
@@ -32,6 +33,20 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\UnsetArrayValue;
 use yii\validators\NumberValidator;
+
+use function addslashes;
+use function call_user_func;
+use function count;
+use function gmdate;
+use function implode;
+use function is_array;
+use function is_object;
+use function is_string;
+use function sprintf;
+use function time;
+use function trim;
+
+use const SORT_ASC;
 
 class PostForm extends Model
 {
@@ -371,10 +386,10 @@ class PostForm extends Model
                     : BattleHelper::calcPeriod2((int)$this->shift_start_at),
                 'start_at' => $this->start_at == ''
                     ? null
-                    : gmdate(\DateTime::ATOM, (int)$this->start_at),
+                    : gmdate(DateTime::ATOM, (int)$this->start_at),
                 'end_at' => $this->end_at == ''
                     ? null
-                    : gmdate(\DateTime::ATOM, (int)$this->end_at),
+                    : gmdate(DateTime::ATOM, (int)$this->end_at),
                 'note' => $this->note,
                 'private_note' => $this->private_note,
                 'link_url' => $this->link_url,
@@ -505,7 +520,7 @@ class PostForm extends Model
                     default:
                         break;
                 }
-            } catch (\Throwable $e) {
+            } catch (Throwable $e) {
             }
 
             return Uuid::v5(static::UUID_NAMESPACE_BY_FREETEXT, $this->uuid);

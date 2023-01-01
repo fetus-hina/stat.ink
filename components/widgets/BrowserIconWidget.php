@@ -15,6 +15,10 @@ use app\assets\BrowserIconWidgetAsset;
 use app\assets\BrowserLogosAsset;
 use yii\helpers\Json;
 
+use function array_merge;
+use function preg_replace;
+use function sprintf;
+
 class BrowserIconWidget extends BaseUAIconWidget
 {
     protected function registerTrigger(string $id, array $options): void

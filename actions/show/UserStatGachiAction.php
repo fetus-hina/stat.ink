@@ -20,6 +20,18 @@ use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
+use function array_filter;
+use function array_reverse;
+use function array_shift;
+use function array_slice;
+use function array_sum;
+use function count;
+use function floor;
+use function round;
+use function uasort;
+
+use const SORT_DESC;
+
 class UserStatGachiAction extends BaseAction
 {
     private $user;

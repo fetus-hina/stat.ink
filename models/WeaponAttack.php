@@ -8,6 +8,16 @@
 
 namespace app\models;
 
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+
+use function array_filter;
+use function array_shift;
+use function ceil;
+use function min;
+use function usort;
+use function version_compare;
+
 /**
  * This is the model class for table "weapon_attack".
  *
@@ -19,7 +29,7 @@ namespace app\models;
  * @property SplatoonVersion $version
  * @property Weapon $mainWeapon
  */
-class WeaponAttack extends \yii\db\ActiveRecord
+class WeaponAttack extends ActiveRecord
 {
     public static function findByWeaponAndVersion(Weapon $weapon, SplatoonVersion $version)
     {
@@ -82,7 +92,7 @@ class WeaponAttack extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getVersion()
     {
@@ -90,7 +100,7 @@ class WeaponAttack extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getMainWeapon()
     {

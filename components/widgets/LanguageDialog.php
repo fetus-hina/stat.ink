@@ -18,6 +18,15 @@ use app\models\SupportLevel;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
+use function array_map;
+use function array_merge;
+use function implode;
+use function preg_match;
+use function sprintf;
+use function strcmp;
+use function strtolower;
+use function vsprintf;
+
 final class LanguageDialog extends Dialog
 {
     public function init()
@@ -177,7 +186,7 @@ final class LanguageDialog extends Dialog
                     ),
                     Html::tag(
                         'div',
-                        \implode('<br>', [
+                        implode('<br>', [
                             Icon::languageLevelPartical() . ' : Partically supported',
                             Icon::languageLevelFew() . ' : Proper-noun only',
                             Icon::languageLevelMachine() . ' : Almost machine-translated',

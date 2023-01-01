@@ -11,6 +11,11 @@ namespace app\components\widgets\embedVideo;
 use yii\base\Widget;
 use yii\helpers\Html;
 
+use function http_build_query;
+use function implode;
+use function round;
+use function sprintf;
+
 class Twitch extends Widget
 {
     public static $autoIdPrefix = 'w-twitch-';

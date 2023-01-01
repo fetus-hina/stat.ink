@@ -18,6 +18,12 @@ use app\models\Battle2;
 use app\models\StatEntireUser2;
 use yii\db\Query;
 
+use function array_map;
+use function count;
+use function time;
+use function usort;
+use function version_compare;
+
 use const SORT_ASC;
 
 trait Splatoon2

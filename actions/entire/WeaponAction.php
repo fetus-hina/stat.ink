@@ -21,6 +21,18 @@ use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
+use function array_map;
+use function array_walk;
+use function date;
+use function is_scalar;
+use function sprintf;
+use function strnatcasecmp;
+use function strtotime;
+use function usort;
+
+use const SORT_ASC;
+use const SORT_NATURAL;
+
 final class WeaponAction extends Action
 {
     private ?Weapon $weapon = null;
@@ -31,7 +43,7 @@ final class WeaponAction extends Action
         parent::init();
 
         $key = Yii::$app->request->get('weapon');
-        if (\is_scalar($key)) {
+        if (is_scalar($key)) {
             $this->weapon = Weapon::findOne(['key' => $key]);
         }
         if (!$this->weapon) {
@@ -41,7 +53,7 @@ final class WeaponAction extends Action
         }
 
         $key = Yii::$app->request->get('rule');
-        if ($key !== '' && $key !== null && \is_scalar($key)) {
+        if ($key !== '' && $key !== null && is_scalar($key)) {
             $this->rule = Rule::findOne(['key' => $key]);
             if (!$this->rule) {
                 throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));

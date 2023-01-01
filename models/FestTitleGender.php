@@ -8,6 +8,9 @@
 
 namespace app\models;
 
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+
 /**
  * This is the model class for table "fest_title_gender".
  *
@@ -18,7 +21,7 @@ namespace app\models;
  * @property FestTitle $title
  * @property Gender $gender
  */
-class FestTitleGender extends \yii\db\ActiveRecord
+class FestTitleGender extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -53,7 +56,7 @@ class FestTitleGender extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getTitle()
     {
@@ -61,7 +64,7 @@ class FestTitleGender extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getGender()
     {

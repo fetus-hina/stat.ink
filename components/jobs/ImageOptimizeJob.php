@@ -15,6 +15,13 @@ use yii\base\BaseObject;
 use yii\helpers\FileHelper;
 use yii\queue\JobInterface;
 
+use function dirname;
+use function escapeshellarg;
+use function exec;
+use function file_exists;
+use function unlink;
+use function vsprintf;
+
 class ImageOptimizeJob extends BaseObject implements JobInterface
 {
     use JobPriority;

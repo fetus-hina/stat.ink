@@ -12,6 +12,8 @@ namespace app\components\formatters\api\v3;
 
 use app\models\AgentVariable3;
 
+use function ksort;
+
 use const SORT_STRING;
 
 final class UserAgentVariableApiFormatter

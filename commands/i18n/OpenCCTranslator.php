@@ -17,6 +17,29 @@ use Yii;
 use yii\base\Component;
 use yii\helpers\FileHelper;
 
+use function basename;
+use function dirname;
+use function escapeshellarg;
+use function fclose;
+use function fopen;
+use function fwrite;
+use function gmdate;
+use function is_resource;
+use function preg_replace;
+use function proc_close;
+use function proc_open;
+use function setlocale;
+use function str_replace;
+use function stream_get_contents;
+use function strtolower;
+use function time;
+use function trim;
+use function vfprintf;
+use function vsprintf;
+
+use const LC_ALL;
+use const STDERR;
+
 class OpenCCTranslator extends Component
 {
     private const INPUT_DIR = '@app/messages/_deepl/zh';

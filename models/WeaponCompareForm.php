@@ -13,6 +13,12 @@ use app\components\validators\WeaponKeyValidator;
 use yii\base\InvalidParamException;
 use yii\base\Model;
 
+use function array_map;
+use function preg_match;
+use function range;
+use function sprintf;
+use function trim;
+
 class WeaponCompareForm extends Model
 {
     public const NUMBER = 20;

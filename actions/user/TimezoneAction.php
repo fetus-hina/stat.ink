@@ -14,6 +14,8 @@ use yii\base\DynamicModel;
 use yii\web\Cookie;
 use yii\web\ViewAction as BaseAction;
 
+use function time;
+
 class TimezoneAction extends BaseAction
 {
     private $previousTimezone = null;

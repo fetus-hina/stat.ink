@@ -14,6 +14,10 @@ use Yii;
 use app\models\Salmon2;
 use yii\web\NotFoundHttpException;
 
+use function filter_var;
+
+use const FILTER_VALIDATE_INT;
+
 class ViewAction extends \yii\web\ViewAction
 {
     public function init()

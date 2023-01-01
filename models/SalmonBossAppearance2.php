@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -69,7 +70,7 @@ class SalmonBossAppearance2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getSalmon()
     {
@@ -77,7 +78,7 @@ class SalmonBossAppearance2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBoss()
     {

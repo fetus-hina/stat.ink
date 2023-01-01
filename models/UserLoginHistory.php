@@ -21,6 +21,9 @@ use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\Expression as DbExpr;
 
+use function implode;
+use function sprintf;
+
 /**
  * This is the model class for table "user_login_history".
  *

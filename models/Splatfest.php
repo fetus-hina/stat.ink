@@ -8,6 +8,12 @@
 
 namespace app\models;
 
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+
+use function gmdate;
+use function time;
+
 /**
  * This is the model class for table "splatfest".
  *
@@ -24,7 +30,7 @@ namespace app\models;
  * @property SplatfestTeam[] $splatfestTeams
  * @property Team[] $teams
  */
-class Splatfest extends \yii\db\ActiveRecord
+class Splatfest extends ActiveRecord
 {
     public static function findCurrentFest()
     {
@@ -76,7 +82,7 @@ class Splatfest extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getRegion()
     {
@@ -84,7 +90,7 @@ class Splatfest extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getSplatfestBattleSummaries()
     {
@@ -92,7 +98,7 @@ class Splatfest extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getSplatfestMaps()
     {
@@ -100,7 +106,7 @@ class Splatfest extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getSplatfestTeams()
     {
@@ -108,7 +114,7 @@ class Splatfest extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getTeams()
     {

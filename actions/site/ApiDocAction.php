@@ -11,6 +11,8 @@ namespace app\actions\site;
 use Yii;
 use cebe\markdown\GithubMarkdown as Markdown;
 
+use function file_get_contents;
+
 class ApiDocAction extends SimpleAction
 {
     public $view = 'api.tpl';

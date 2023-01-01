@@ -18,6 +18,9 @@ use app\assets\SimpleBattleListAsset;
 use yii\base\Widget;
 use yii\bootstrap\Html;
 
+use function implode;
+use function sprintf;
+
 class SalmonItem2Widget extends Widget
 {
     public $user;

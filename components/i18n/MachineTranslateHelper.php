@@ -12,6 +12,13 @@ namespace app\components\i18n;
 
 use Yii;
 
+use function file_exists;
+use function implode;
+use function is_file;
+use function is_readable;
+use function str_replace;
+use function substr;
+
 class MachineTranslateHelper
 {
     private const BASE_DIRECTORY = '@app/messages/_deepl';

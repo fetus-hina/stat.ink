@@ -8,13 +8,24 @@
 
 namespace app\models;
 
+use yii\db\ActiveRecord;
+
+use function base64_decode;
+use function base64_encode;
+use function gzdecode;
+use function gzencode;
+use function strlen;
+use function substr;
+
+use const FORCE_GZIP;
+
 /**
  * This is the model class for table "battle_events".
  *
  * @property integer $id
  * @property string $events
  */
-class BattleEvents extends \yii\db\ActiveRecord
+class BattleEvents extends ActiveRecord
 {
     public function init()
     {

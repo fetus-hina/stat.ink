@@ -15,6 +15,11 @@ use Yii;
 use app\models\AcceptLanguage;
 use app\models\Language;
 
+use function call_user_func;
+use function is_scalar;
+use function sprintf;
+use function trim;
+
 class UserLanguage
 {
     public const PARAMETER_KEY = '_lang_';

@@ -14,11 +14,20 @@ use Yii;
 use app\assets\UserMiniinfoAsset;
 use app\components\i18n\Formatter;
 use app\models\SalmonStats2;
+use yii\base\Event;
 use yii\base\Model;
 use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
 use yii\helpers\Html;
 use yii\web\View;
+
+use function array_map;
+use function implode;
+use function ob_get_clean;
+use function ob_start;
+use function sprintf;
+
+use const SORT_DESC;
 
 class SalmonUserInfo extends Widget
 {
@@ -192,7 +201,7 @@ class SalmonUserInfo extends Widget
 
             Yii::$app->view->on(
                 View::EVENT_END_BODY,
-                function (\yii\base\Event $event) use ($historyWidgetHtml): void {
+                function (Event $event) use ($historyWidgetHtml): void {
                     echo $historyWidgetHtml;
                 },
             );

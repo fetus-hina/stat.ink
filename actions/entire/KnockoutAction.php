@@ -16,6 +16,10 @@ use app\models\Rule;
 use stdClass;
 use yii\web\ViewAction as BaseAction;
 
+use function asort;
+use function strnatcasecmp;
+use function uasort;
+
 class KnockoutAction extends BaseAction
 {
     public function run()

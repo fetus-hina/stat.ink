@@ -11,6 +11,11 @@ namespace app\components\widgets\embedVideo;
 use yii\base\Widget;
 use yii\helpers\Html;
 
+use function http_build_query;
+use function rawurlencode;
+use function round;
+use function sprintf;
+
 class Nicovideo extends Widget
 {
     public static $autoIdPrefix = 'w-nico-';

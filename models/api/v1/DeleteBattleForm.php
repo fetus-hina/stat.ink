@@ -15,6 +15,15 @@ use app\models\openapi\Apikey;
 use app\models\openapi\Util;
 use yii\base\Model;
 
+use function count;
+use function filter_var;
+use function implode;
+use function is_array;
+use function is_scalar;
+use function vsprintf;
+
+use const FILTER_VALIDATE_INT;
+
 class DeleteBattleForm extends Model
 {
     use Util;

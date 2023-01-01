@@ -12,6 +12,9 @@ namespace app\assets;
 
 use yii\web\AssetBundle;
 
+use function http_build_query;
+use function vsprintf;
+
 final class NotoSansMathAsset extends AssetBundle
 {
     public $css = [];
@@ -20,8 +23,8 @@ final class NotoSansMathAsset extends AssetBundle
     {
         parent::init();
 
-        $this->css[] = \vsprintf('https://fonts.googleapis.com/css2?%s', [
-            \http_build_query(
+        $this->css[] = vsprintf('https://fonts.googleapis.com/css2?%s', [
+            http_build_query(
                 [
                     'family' => 'Noto Sans Math',
                     'display' => 'swap',

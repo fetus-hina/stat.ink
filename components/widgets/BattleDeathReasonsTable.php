@@ -15,6 +15,11 @@ use app\models\BattleDeathReason2;
 use yii\base\Widget;
 use yii\helpers\Html;
 
+use function array_map;
+use function implode;
+use function strcmp;
+use function usort;
+
 final class BattleDeathReasonsTable extends Widget
 {
     /**

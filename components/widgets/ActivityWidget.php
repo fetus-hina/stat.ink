@@ -21,6 +21,16 @@ use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\JsExpression;
 
+use function array_filter;
+use function array_keys;
+use function array_map;
+use function implode;
+use function preg_quote;
+use function preg_replace_callback;
+use function range;
+use function sprintf;
+use function time;
+
 final class ActivityWidget extends CalHeatmapWidget
 {
     public $user;

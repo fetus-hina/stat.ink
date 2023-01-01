@@ -28,6 +28,32 @@ use app\models\WeaponType2;
 use yii\console\Controller;
 use yii\helpers\StringHelper;
 
+use function array_filter;
+use function array_map;
+use function array_reduce;
+use function array_values;
+use function call_user_func;
+use function file_get_contents;
+use function file_put_contents;
+use function grapheme_extract;
+use function implode;
+use function max;
+use function ob_get_clean;
+use function ob_start;
+use function preg_replace_callback;
+use function preg_split;
+use function rtrim;
+use function sprintf;
+use function str_repeat;
+use function strlen;
+use function strnatcasecmp;
+use function substr;
+use function usort;
+
+use const GRAPHEME_EXTR_MAXCHARS;
+use const SORT_ASC;
+use const SORT_DESC;
+
 class Api2MarkdownController extends Controller
 {
     public $defaultAction = 'update';

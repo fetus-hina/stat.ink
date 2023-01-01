@@ -16,6 +16,10 @@ use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
+use function array_map;
+
+use const SORT_ASC;
+
 /**
  * This is the model class for table "ability2".
  *

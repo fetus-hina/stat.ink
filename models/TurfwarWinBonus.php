@@ -12,7 +12,10 @@ use DateTimeZone;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\db\Now;
 use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 use yii\db\Expression;
+
+use function is_numeric;
 
 /**
  * This is the model class for table "turfwar_win_bonus".
@@ -21,7 +24,7 @@ use yii\db\Expression;
  * @property integer $bonus
  * @property string $start_at
  */
-class TurfwarWinBonus extends \yii\db\ActiveRecord
+class TurfwarWinBonus extends ActiveRecord
 {
     public static function find()
     {

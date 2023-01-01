@@ -8,10 +8,14 @@
 
 namespace app\actions\user;
 
+use Throwable;
 use Yii;
 use app\models\Language;
 use app\models\SlackAddForm;
 use yii\web\ViewAction as BaseAction;
+
+use function sprintf;
+use function uasort;
 
 class SlackAddAction extends BaseAction
 {
@@ -30,7 +34,7 @@ class SlackAddAction extends BaseAction
                         $this->controller->redirect(['user/profile']);
                         return;
                     }
-                } catch (\Throwable $e) {
+                } catch (Throwable $e) {
                 }
                 $transaction->rollback();
             }

@@ -11,6 +11,7 @@ namespace app\actions\show;
 use Yii;
 use app\models\BattleFilterForm;
 use app\models\User;
+use yii\db\Query;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
@@ -40,7 +41,7 @@ class UserStatByRuleAction extends BaseAction
 
     private function getData(User $user, BattleFilterForm $filter)
     {
-        $query = (new \yii\db\Query())
+        $query = (new Query())
             ->select([
                 'rule_key' => 'MAX({{rule}}.[[key]])',
                 'rule_name' => 'MAX({{rule}}.[[name]])',

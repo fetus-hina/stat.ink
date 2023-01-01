@@ -21,6 +21,8 @@ use function array_merge;
 use function call_user_func;
 use function file_get_contents;
 use function ltrim;
+use function preg_match;
+use function preg_replace;
 use function strcmp;
 use function strlen;
 use function strnatcasecmp;

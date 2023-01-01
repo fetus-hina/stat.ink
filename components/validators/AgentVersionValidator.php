@@ -14,6 +14,10 @@ use Yii;
 use yii\helpers\ArrayHelper;
 use yii\validators\Validator;
 
+use function is_string;
+use function trim;
+use function version_compare;
+
 final class AgentVersionValidator extends Validator
 {
     public string $gameVersion = 'FILLME';
@@ -39,8 +43,8 @@ final class AgentVersionValidator extends Validator
             return;
         }
 
-        $agentName = \trim((string)ArrayHelper::getValue($model, 'agent'));
-        $agentVersion = \trim((string)ArrayHelper::getValue($model, 'agent_version'));
+        $agentName = trim((string)ArrayHelper::getValue($model, 'agent'));
+        $agentVersion = trim((string)ArrayHelper::getValue($model, 'agent_version'));
 
         $minimumVersion = match ($agentName) {
             's3s' => ArrayHelper::getValue(
@@ -53,11 +57,11 @@ final class AgentVersionValidator extends Validator
             ),
             default => null,
         };
-        if (!\is_string($minimumVersion)) {
+        if (!is_string($minimumVersion)) {
             return;
         }
 
-        if (\version_compare($agentVersion, $minimumVersion, '>=')) {
+        if (version_compare($agentVersion, $minimumVersion, '>=')) {
             return;
         }
 

@@ -16,6 +16,12 @@ use yii\base\Widget;
 use yii\helpers\Html;
 use yii\web\View;
 
+use function implode;
+use function max;
+use function min;
+use function str_repeat;
+use function vsprintf;
+
 class ChallengeProgress extends Widget
 {
     public int $win = 0;
@@ -33,7 +39,7 @@ class ChallengeProgress extends Widget
 
         return Html::tag(
             'div',
-            \implode('', [
+            implode('', [
                 $this->renderCounter($win, $lose),
                 $view instanceof View ? $this->renderWin($win, $maxWin) : '',
                 $view instanceof View ? $this->renderLose($lose, $maxLose) : '',
@@ -45,13 +51,13 @@ class ChallengeProgress extends Widget
     protected function getNormalizedWin(): int
     {
         $maxWin = $this->getMaxWin();
-        return \min(\max($this->win, 0), $maxWin);
+        return min(max($this->win, 0), $maxWin);
     }
 
     protected function getNormalizedLose(): int
     {
         $maxLose = $this->getMaxLose();
-        return \min(\max($this->lose, 0), $maxLose);
+        return min(max($this->lose, 0), $maxLose);
     }
 
     protected function getMaxWin(): int
@@ -71,7 +77,7 @@ class ChallengeProgress extends Widget
         return Html::tag(
             'div',
             Html::encode(
-                \vsprintf('%s - %s', [
+                vsprintf('%s - %s', [
                     $f->asInteger($win),
                     $f->asInteger($lose),
                 ]),
@@ -84,10 +90,10 @@ class ChallengeProgress extends Widget
     {
         return Html::tag(
             'div',
-            \implode('', [
+            implode('', [
                 Html::tag(
                     'span',
-                    \str_repeat(
+                    str_repeat(
                         (string)FA::fas('circle')->fw(),
                         $win,
                     ),
@@ -95,7 +101,7 @@ class ChallengeProgress extends Widget
                 ),
                 Html::tag(
                     'span',
-                    \str_repeat(
+                    str_repeat(
                         (string)FA::fas('circle')->fw(),
                         $max - $win,
                     ),
@@ -115,10 +121,10 @@ class ChallengeProgress extends Widget
     {
         return Html::tag(
             'div',
-            \implode('', [
+            implode('', [
                 Html::tag(
                     'span',
-                    \str_repeat(
+                    str_repeat(
                         (string)FA::fas('square')->fw(),
                         $max - $lose,
                     ),
@@ -126,7 +132,7 @@ class ChallengeProgress extends Widget
                 ),
                 Html::tag(
                     'span',
-                    \str_repeat(
+                    str_repeat(
                         (string)FA::fas('times')->fw(),
                         $lose,
                     ),

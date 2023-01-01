@@ -13,6 +13,8 @@ use app\models\DeathReason;
 use app\models\api\v1\DeathReasonGetForm;
 use yii\web\ViewAction as BaseAction;
 
+use function array_map;
+
 class DeathReasonAction extends BaseAction
 {
     public function run()

@@ -15,6 +15,9 @@ use app\assets\Spl2AbilityAsset;
 use yii\base\Widget;
 use yii\helpers\Html;
 
+use function array_merge_recursive;
+use function sprintf;
+
 class AbilityIcon extends Widget
 {
     public $icon;

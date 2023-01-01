@@ -23,7 +23,19 @@ use yii\console\ExitCode;
 use yii\db\Connection;
 use yii\db\Transaction;
 
+use function array_filter;
+use function array_map;
+use function array_values;
+use function assert;
+use function fprintf;
+use function fwrite;
+use function ltrim;
+use function str_starts_with;
+use function version_compare;
+use function vfprintf;
+
 use const SORT_ASC;
+use const STDERR;
 
 final class S3sKillAssistAction extends Action
 {
@@ -83,18 +95,18 @@ final class S3sKillAssistAction extends Action
             ->andWhere(['~', 'version', '^v?0\.'])
             ->orderBy(['id' => SORT_ASC])
             ->all();
-        return \array_values(
-            \array_filter(
-                \array_map(
+        return array_values(
+            array_filter(
+                array_map(
                     function (Agent $model): ?int {
                         if (
-                            \version_compare(
-                                \ltrim($model->version, 'v'),
+                            version_compare(
+                                ltrim($model->version, 'v'),
                                 '0.1.3',
                                 '<',
                             )
                         ) {
-                            \vfprintf(STDERR, "[Info] %s/%s id=%d\n", [
+                            vfprintf(STDERR, "[Info] %s/%s id=%d\n", [
                                 $model->name,
                                 $model->version,
                                 $model->id,
@@ -139,7 +151,7 @@ final class S3sKillAssistAction extends Action
         foreach ($model->variables as $var) {
             if (
                 $var->key === 's3s issue 30' &&
-                \str_starts_with($var->value, 'Fixed')
+                str_starts_with($var->value, 'Fixed')
             ) {
                 // vfprintf(STDERR, "[Debug] %d is already fixed\n", [
                 //     $model->id,

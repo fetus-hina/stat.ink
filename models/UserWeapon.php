@@ -8,6 +8,9 @@
 
 namespace app\models;
 
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+
 /**
  * This is the model class for table "user_weapon".
  *
@@ -18,7 +21,7 @@ namespace app\models;
  * @property User $user
  * @property Weapon $weapon
  */
-class UserWeapon extends \yii\db\ActiveRecord
+class UserWeapon extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -52,7 +55,7 @@ class UserWeapon extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getUser()
     {
@@ -60,7 +63,7 @@ class UserWeapon extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getWeapon()
     {

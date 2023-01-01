@@ -19,6 +19,8 @@ use app\models\User;
 use yii\base\Widget;
 use yii\helpers\Html;
 
+use function implode;
+
 final class BattlePrevNext extends Widget
 {
     public ?User $user = null;
@@ -44,7 +46,7 @@ final class BattlePrevNext extends Widget
 
         return Html::tag(
             'div',
-            \implode('', [
+            implode('', [
                 $this->renderPrev(),
                 $this->renderNext(),
             ]),
@@ -66,7 +68,7 @@ final class BattlePrevNext extends Widget
         return Html::tag(
             'div',
             Html::a(
-                \implode(' ', [
+                implode(' ', [
                     Icon::prevPage(),
                     $this->generatePrevLabel($this->prevBattle),
                 ]),
@@ -86,7 +88,7 @@ final class BattlePrevNext extends Widget
         return Html::tag(
             'div',
             Html::a(
-                \implode(' ', [
+                implode(' ', [
                     $this->generateNextLabel($this->nextBattle),
                     Icon::nextPage(),
                 ]),

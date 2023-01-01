@@ -22,6 +22,10 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
+use function assert;
+
+use const SORT_ASC;
+
 final class XPowerDistrib3Action extends Action
 {
     private const PARAM_SEASON_ID = 'season';
@@ -29,7 +33,7 @@ final class XPowerDistrib3Action extends Action
     public function run(): Response|string
     {
         $controller = $this->controller;
-        \assert($controller instanceof Controller);
+        assert($controller instanceof Controller);
 
         if (!$season = Season3Helper::getUrlTargetSeason(self::PARAM_SEASON_ID)) {
             $season = Season3Helper::getCurrentSeason();

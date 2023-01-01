@@ -26,6 +26,9 @@ use yii\db\Query;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 
+use function sprintf;
+use function vsprintf;
+
 use const SORT_ASC;
 
 trait XStatsTrait
@@ -54,7 +57,7 @@ trait XStatsTrait
             return true;
         } catch (DbException $e) {
             Yii::error(
-                \vsprintf('Catch %s, message=%s', [
+                vsprintf('Catch %s, message=%s', [
                     $e::class,
                     $e->getMessage(),
                 ]),
@@ -106,7 +109,7 @@ trait XStatsTrait
                 'rule_id' => '{{b}}.[[rule_id]]',
                 'battles' => 'COUNT(*)',
                 'agg_battles' => self::statsSum('1'),
-                'agg_seconds' => self::statsSum(\vsprintf('(%s) - (%s)', [
+                'agg_seconds' => self::statsSum(vsprintf('(%s) - (%s)', [
                     self::statsTimestamp('{{b}}.[[end_at]]'),
                     self::statsTimestamp('{{b}}.[[start_at]]'),
                 ])),
@@ -117,7 +120,7 @@ trait XStatsTrait
                 'specials' => self::statsSum('{{b}}.[[special]]'),
                 'inked' => self::statsSum('{{b}}.[[inked]]'),
                 'max_inked' => self::statsMax('{{b}}.[[inked]]'),
-                'peak_x_power' => \vsprintf('GREATEST(%s, %s)', [
+                'peak_x_power' => vsprintf('GREATEST(%s, %s)', [
                     self::statsMax('{{b}}.[[x_power_before]]'),
                     self::statsMax('{{b}}.[[x_power_after]]'),
                 ]),
@@ -125,7 +128,7 @@ trait XStatsTrait
                 'current_x_power' => $null,
                 'current_season' => $null,
                 'updated_at' => new Expression(
-                    \sprintf(
+                    sprintf(
                         '%s::TIMESTAMP(0) WITH TIME ZONE',
                         $db->quoteValue($now->format(DateTimeInterface::ATOM)),
                     ),

@@ -14,6 +14,8 @@ use DateInterval;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
+use Exception;
+use Throwable;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
 use app\models\EntireWeapon2Form;
@@ -27,6 +29,22 @@ use app\models\Weapon2;
 use stdClass;
 use yii\db\Query;
 use yii\web\ViewAction as BaseAction;
+
+use function array_map;
+use function array_merge;
+use function count;
+use function date;
+use function intval;
+use function pow;
+use function preg_match;
+use function sprintf;
+use function strnatcasecmp;
+use function strtotime;
+use function substr;
+use function usort;
+
+use const SORT_ASC;
+use const SORT_DESC;
 
 class Weapons2Action extends BaseAction
 {
@@ -237,7 +255,7 @@ class Weapons2Action extends BaseAction
             ->groupBy('{{stat_weapon2_use_count}}.[[weapon_id]]');
         try {
             if ($form->hasErrors()) {
-                throw new \Exception();
+                throw new Exception();
             }
             if ($form->map != '') {
                 $query->innerJoinWith('map');
@@ -262,7 +280,7 @@ class Weapons2Action extends BaseAction
                 ]);
             } elseif (substr($form->term, 0, 1) === 'v') {
                 if (!$v1 = SplatoonVersion2::findOne(['tag' => substr($form->term, 1)])) {
-                    throw new \Exception();
+                    throw new Exception();
                 }
                 $v2 = SplatoonVersion2::find()
                     ->andWhere(['>', 'released_at', $v1->released_at])
@@ -283,7 +301,7 @@ class Weapons2Action extends BaseAction
                 }
             } elseif (substr($form->term, 0, 2) === '~v') {
                 if (!$vg = SplatoonVersionGroup2::findOne(['tag' => substr($form->term, 2)])) {
-                    throw new \Exception();
+                    throw new Exception();
                 }
 
                 $versions = SplatoonVersion2::find()
@@ -291,7 +309,7 @@ class Weapons2Action extends BaseAction
                     ->orderBy(['released_at' => SORT_ASC])
                     ->all();
                 if (!$versions) {
-                    throw new \Exception();
+                    throw new Exception();
                 }
                 $v1 = $versions[0];
                 $v2 = $versions[count($versions) - 1];
@@ -313,9 +331,9 @@ class Weapons2Action extends BaseAction
                     ]);
                 }
             } else {
-                throw new \Exception();
+                throw new Exception();
             }
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             $query->andWhere('0 = 1');
         }
 
@@ -513,7 +531,7 @@ class Weapons2Action extends BaseAction
         return $ret;
     }
 
-    private function convertWeapons2Type(\stdClass $in): array
+    private function convertWeapons2Type(stdClass $in): array
     {
         $weapons = $in->weapons;
         $mergeKeys = [
@@ -557,7 +575,7 @@ class Weapons2Action extends BaseAction
         return $ret;
     }
 
-    private function convertWeapons2Category(\stdClass $in): array
+    private function convertWeapons2Category(stdClass $in): array
     {
         $weapons = $in->weapons;
         $mergeKeys = [

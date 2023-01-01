@@ -10,8 +10,15 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+
+use function array_map;
+use function call_user_func;
+use function is_callable;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "rule2".
@@ -65,7 +72,7 @@ class Rule2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getModeRules()
     {
@@ -73,7 +80,7 @@ class Rule2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getModes()
     {

@@ -12,6 +12,8 @@ use Curl\Curl;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
+use Exception;
+use Throwable;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
 use app\models\Map2;
@@ -27,6 +29,17 @@ use stdClass;
 use yii\console\Controller;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
+
+use function array_filter;
+use function array_map;
+use function count;
+use function is_object;
+use function preg_match;
+use function sprintf;
+use function strtotime;
+use function usort;
+
+use const SORT_ASC;
 
 class Splatoon2InkController extends Controller
 {
@@ -56,7 +69,7 @@ class Splatoon2InkController extends Controller
             }
             $transaction->commit();
             return 0;
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             echo $e->getMessage() . "\n";
             echo $e->getTraceAsString() . "\n";
             $transaction->rollBack();
@@ -115,7 +128,7 @@ class Splatoon2InkController extends Controller
         if ($schedule->isNewRecord || $schedule->dirtyAttributes) {
             if (!$schedule->save()) {
                 $this->stderr('Schedule insert/update error at line ' . __LINE__ . "\n");
-                throw new \Exception();
+                throw new Exception();
             }
             echo 'Created or updated schedule ' . Json::encode($schedule) . "\n";
         }
@@ -155,7 +168,7 @@ class Splatoon2InkController extends Controller
 
             if (!$stage->save()) {
                 $this->stderr('Could not insert to schedule_map2. ' . Json::encode($stage) . "\n");
-                throw new \Exception();
+                throw new Exception();
             }
         }
 
@@ -174,7 +187,7 @@ class Splatoon2InkController extends Controller
                 $transaction->commit();
                 return 0;
             }
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             echo $e->getMessage() . "\n";
             echo $e->getTraceAsString() . "\n";
         }
@@ -321,7 +334,7 @@ class Splatoon2InkController extends Controller
         ));
         $curl->get($url, $data);
         if ($curl->error) {
-            throw new \Exception("Request failed: url={$url}, code={$curl->errorCode}, msg={$curl->errorMessage}");
+            throw new Exception("Request failed: url={$url}, code={$curl->errorCode}, msg={$curl->errorMessage}");
         }
         return Json::decode($curl->rawResponse, false);
     }

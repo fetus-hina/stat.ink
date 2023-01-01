@@ -10,7 +10,13 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+
+use function array_map;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "death_reason_type".
@@ -21,7 +27,7 @@ use yii\helpers\ArrayHelper;
  *
  * @property DeathReason[] $deathReasons
  */
-class DeathReasonType extends \yii\db\ActiveRecord
+class DeathReasonType extends ActiveRecord
 {
     use openapi\Util;
 
@@ -59,7 +65,7 @@ class DeathReasonType extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getDeathReasons()
     {

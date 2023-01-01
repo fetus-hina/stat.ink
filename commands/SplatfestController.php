@@ -8,12 +8,25 @@
 
 namespace app\commands;
 
+use Throwable;
 use Yii;
 use app\models\Region;
 use app\models\Splatfest;
 use app\models\SplatfestBattleSummary;
 use app\models\SplatfestTeam;
 use yii\console\Controller;
+
+use function array_map;
+use function date;
+use function floor;
+use function implode;
+use function microtime;
+use function min;
+use function printf;
+use function range;
+use function sprintf;
+use function strtotime;
+use function time;
 
 class SplatfestController extends Controller
 {
@@ -29,7 +42,7 @@ class SplatfestController extends Controller
         foreach ($query->all() as $fest) {
             try {
                 $this->actionUpdate($fest->region->key, $fest->order);
-            } catch (\Throwable $e) {
+            } catch (Throwable $e) {
                 echo 'Catch exception: ' . $e->getMessage() . "\n";
             }
         }

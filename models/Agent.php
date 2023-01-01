@@ -10,6 +10,16 @@ namespace app\models;
 
 use Yii;
 use app\components\Version;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+
+use function date;
+use function in_array;
+use function preg_match;
+use function rawurlencode;
+use function sprintf;
+use function strtotime;
+use function trim;
 
 /**
  * This is the model class for table "agent".
@@ -23,7 +33,7 @@ use app\components\Version;
  * @property Battle[] $battles
  * @property Salmon2[] $salmon2s
  */
-class Agent extends \yii\db\ActiveRecord
+class Agent extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -61,7 +71,7 @@ class Agent extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattles()
     {

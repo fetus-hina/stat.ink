@@ -86,7 +86,7 @@ class m170922_201548_russian_time extends Migration
 
     private function getRussiaId(): int
     {
-        return (new \yii\db\Query())
+        return (new Query())
             ->select(['id'])
             ->from('country')
             ->where(['key' => 'ru'])

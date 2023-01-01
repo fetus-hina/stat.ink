@@ -15,6 +15,9 @@ use app\models\openapi\SecurityInterface;
 use yii\base\Component;
 use yii\helpers\Html;
 
+use function implode;
+use function vsprintf;
+
 class ApiToken extends Component implements SecurityInterface
 {
     public static function oapiSecUse(array $options = []): array

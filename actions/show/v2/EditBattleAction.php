@@ -19,6 +19,9 @@ use app\models\WeaponType2;
 use yii\base\Action;
 use yii\helpers\ArrayHelper;
 
+use function array_merge;
+use function vsprintf;
+
 use const SORT_ASC;
 use const SORT_DESC;
 use const SORT_NATURAL;
@@ -118,7 +121,7 @@ final class EditBattleAction extends Action
      */
     private function makeWeapons(): array
     {
-        return \array_merge(
+        return array_merge(
             ['' => Yii::t('app', 'Unknown')],
             ArrayHelper::map(
                 WeaponType2::find()
@@ -131,7 +134,7 @@ final class EditBattleAction extends Action
                     ->all(),
                 fn (WeaponType2 $type): string => $type->name === $type->category->name
                     ? Yii::t('app-weapon2', $type->category->name)
-                    : \vsprintf('%s » %s', [
+                    : vsprintf('%s » %s', [
                         Yii::t('app-weapon2', $type->category->name),
                         Yii::t('app-weapon2', $type->name),
                     ]),

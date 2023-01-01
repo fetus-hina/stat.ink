@@ -23,6 +23,7 @@ use app\components\behaviors\TimestampBehavior;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\BattleSummarizer;
 use app\components\helpers\DateTimeFormatter;
+use app\components\helpers\db\Now;
 use app\components\jobs\UserStatsJob;
 use jp3cki\uuid\Uuid;
 use yii\behaviors\AttributeBehavior;
@@ -33,6 +34,46 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\JsExpression;
+
+use function array_filter;
+use function array_map;
+use function array_unique;
+use function count;
+use function date;
+use function explode;
+use function filter_var;
+use function floatval;
+use function gmdate;
+use function hash;
+use function implode;
+use function in_array;
+use function intval;
+use function is_array;
+use function is_bool;
+use function is_int;
+use function is_object;
+use function is_scalar;
+use function is_string;
+use function ksort;
+use function preg_match;
+use function round;
+use function sort;
+use function sprintf;
+use function str_replace;
+use function strcmp;
+use function strtolower;
+use function strtotime;
+use function substr;
+use function time;
+use function trim;
+use function uasort;
+use function ucwords;
+use function usort;
+use function version_compare;
+
+use const FILTER_VALIDATE_INT;
+use const SORT_ASC;
+use const SORT_STRING;
 
 /**
  * This is the model class for table "battle2".
@@ -590,7 +631,7 @@ class Battle2 extends ActiveRecord
                 ],
                 'value' => fn ($event) => $event->sender->end_at
                         ? $event->sender->end_at
-                        : new \app\components\helpers\db\Now(),
+                        : new Now(),
             ],
             [
                 // client_uuid の格納形式を作成する
@@ -961,7 +1002,7 @@ class Battle2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getAgent()
     {
@@ -1845,7 +1886,7 @@ class Battle2 extends ActiveRecord
             return;
         }
         // $list: [weapon_id => attrs, ...] {{{
-        $query = (new \yii\db\Query())
+        $query = (new Query())
             ->select([
                 'weapon_id',
                 'battles' => 'COUNT(*)',

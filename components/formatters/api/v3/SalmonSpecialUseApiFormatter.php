@@ -13,6 +13,8 @@ namespace app\components\formatters\api\v3;
 use app\models\SalmonSpecialUse3;
 use yii\helpers\ArrayHelper;
 
+use function array_values;
+
 final class SalmonSpecialUseApiFormatter
 {
     /**
@@ -21,7 +23,7 @@ final class SalmonSpecialUseApiFormatter
     public static function allToJson(array $models, bool $fullTranslate = false): ?array
     {
         return ArrayHelper::map(
-            \array_values($models),
+            array_values($models),
             'special.key',
             fn (SalmonSpecialUse3 $model): array => self::toJson($model, $fullTranslate),
         );

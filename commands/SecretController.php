@@ -8,8 +8,20 @@
 
 namespace app\commands;
 
+use app\components\db\Connection;
 use yii\console\Controller;
 use yii\helpers\Console;
+
+use function addslashes;
+use function base64_encode;
+use function ceil;
+use function file_put_contents;
+use function http_build_query;
+use function is_bool;
+use function random_bytes;
+use function sprintf;
+use function strtr;
+use function substr;
 
 class SecretController extends Controller
 {
@@ -58,7 +70,7 @@ class SecretController extends Controller
         ];
 
         $options = [
-            'class' => \app\components\db\Connection::className(),
+            'class' => Connection::className(),
             'dsn' => $this->makeDsn('pgsql', $dsnOptions),
             'username' => 'statink',
             'password' => $password,

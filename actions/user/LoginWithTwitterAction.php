@@ -13,6 +13,7 @@ use OAuth\Common\Service\ServiceInterface as OAuthService;
 use OAuth\Common\Storage\Session as OAuthSessionStorage;
 use OAuth\Common\Storage\TokenStorageInterface as OAuthStorage;
 use OAuth\ServiceFactory as OAuthFactory;
+use Throwable;
 use Yii;
 use app\models\LoginWithTwitter;
 use yii\helpers\Json;
@@ -69,7 +70,7 @@ class LoginWithTwitterAction extends BaseAction
                 $url = $twitter->getAuthorizationUri(array('oauth_token' => $token->getRequestToken()));
                 return $response->redirect((string)$url, 303);
             }
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
         }
         throw new BadRequestHttpException('Bad request.');
     }

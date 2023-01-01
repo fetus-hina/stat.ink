@@ -10,6 +10,8 @@ namespace app\components\filters\auth;
 
 use yii\filters\auth\AuthMethod;
 
+use function is_string;
+
 class RequestBodyAuth extends AuthMethod
 {
     public $tokenParam = 'access-token';

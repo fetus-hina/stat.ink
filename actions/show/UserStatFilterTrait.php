@@ -14,6 +14,15 @@ use app\models\SplatoonVersion;
 use app\models\Weapon;
 use yii\db\Query;
 
+use function date;
+use function gmdate;
+use function mktime;
+use function preg_match;
+use function strtotime;
+use function substr;
+use function time;
+use function trim;
+
 trait UserStatFilterTrait
 {
     public function filter(Query $query, BattleFilterForm $filter)

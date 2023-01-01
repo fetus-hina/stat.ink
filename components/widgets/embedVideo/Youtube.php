@@ -11,6 +11,15 @@ namespace app\components\widgets\embedVideo;
 use yii\base\Widget;
 use yii\helpers\Html;
 
+use function filter_var;
+use function http_build_query;
+use function implode;
+use function preg_match;
+use function rawurlencode;
+use function sprintf;
+
+use const FILTER_VALIDATE_INT;
+
 class Youtube extends Widget
 {
     public static $autoIdPrefix = 'w-youtube-';

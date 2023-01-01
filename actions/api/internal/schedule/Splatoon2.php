@@ -24,13 +24,18 @@ use statink\yii2\stages\spl2\StagesAsset as Stages2Asset;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
+use function array_merge;
+use function count;
+use function sprintf;
+use function strtotime;
+
 use const SORT_ASC;
 
 trait Splatoon2
 {
     protected function getSplatoon2(): array
     {
-        return \array_merge(
+        return array_merge(
             $this->getSplatoon2Battles(),
             [
                 'salmon' => $this->getSalmon2(),
@@ -53,7 +58,7 @@ trait Splatoon2
                         : Url::to(
                             $am->getAssetUrl(
                                 $am->getBundle(GameModeIconsAsset::class, true),
-                                \sprintf('spl2/%s.png', $mode->key),
+                                sprintf('spl2/%s.png', $mode->key),
                             ),
                             true,
                         ),
@@ -80,7 +85,7 @@ trait Splatoon2
                                     'icon' => Url::to(
                                         $am->getAssetUrl(
                                             $am->getBundle(GameModeIconsAsset::class, true),
-                                            \sprintf('spl2/%s.png', $sc->rule->key),
+                                            sprintf('spl2/%s.png', $sc->rule->key),
                                         ),
                                         true,
                                     ),
@@ -93,7 +98,7 @@ trait Splatoon2
                                             'image' => Url::to(
                                                 $am->getAssetUrl(
                                                     $am->getBundle(Stages2Asset::class, true),
-                                                    \sprintf('daytime/%s.jpg', $map->key),
+                                                    sprintf('daytime/%s.jpg', $map->key),
                                                 ),
                                                 true,
                                             ),
@@ -178,7 +183,7 @@ trait Splatoon2
 
     private function fillSalmon2Weapon(array $list): array
     {
-        while (\count($list) < 4) {
+        while (count($list) < 4) {
             $list[] = [
                 'key' => 'random',
                 'name' => Yii::t('app-salmon2', 'Random'),

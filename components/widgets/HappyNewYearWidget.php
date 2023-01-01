@@ -18,6 +18,9 @@ use app\assets\PaintballAsset;
 use yii\base\Widget;
 use yii\helpers\Html;
 
+use function implode;
+use function substr;
+
 final class HappyNewYearWidget extends Widget
 {
     public function run()

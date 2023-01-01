@@ -10,9 +10,14 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Throwable;
 use Yii;
 use app\components\helpers\CriticalSection;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+
+use function mb_substr;
+use function trim;
 
 /**
  * This is the model class for table "team_nickname2".
@@ -52,7 +57,7 @@ class TeamNickname2 extends ActiveRecord
             if ($model->save()) {
                 return $model;
             }
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
         }
 
         return null;
@@ -90,7 +95,7 @@ class TeamNickname2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattle2s()
     {
@@ -98,7 +103,7 @@ class TeamNickname2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattle2s0()
     {

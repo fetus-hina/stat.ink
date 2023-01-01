@@ -13,6 +13,10 @@ use app\components\web\CsvResponseFormatter;
 use app\models\Charset;
 use yii\db\Query;
 
+use function implode;
+use function ord;
+use function sprintf;
+
 class WeaponRuleMapAction extends BaseAction
 {
     public function run()

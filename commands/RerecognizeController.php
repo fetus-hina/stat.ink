@@ -14,6 +14,14 @@ use yii\base\InvalidParamException;
 use yii\console\Controller;
 use yii\helpers\Json;
 
+use function feof;
+use function fgets;
+use function fopen;
+use function fwrite;
+use function trim;
+
+use const STDERR;
+
 class RerecognizeController extends Controller
 {
     public $defaultAction = 'update';

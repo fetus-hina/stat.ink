@@ -19,6 +19,18 @@ use app\models\Weapon;
 use stdClass;
 use yii\db\ActiveQuery;
 
+use function date;
+use function date_default_timezone_get;
+use function date_default_timezone_set;
+use function gmdate;
+use function is_scalar;
+use function mktime;
+use function preg_match;
+use function strtotime;
+use function substr;
+use function time;
+use function trim;
+
 class BattleQuery extends ActiveQuery
 {
     public function hasResultImage(): self

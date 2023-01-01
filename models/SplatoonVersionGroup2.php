@@ -11,8 +11,12 @@ declare(strict_types=1);
 namespace app\models;
 
 use DateTimeImmutable;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+
+use const SORT_ASC;
+use const SORT_DESC;
 
 /**
  * This is the model class for table "splatoon_version_group2".
@@ -59,7 +63,7 @@ class SplatoonVersionGroup2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getVersions()
     {

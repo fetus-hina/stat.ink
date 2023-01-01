@@ -11,6 +11,8 @@ namespace app\actions\site;
 use Yii;
 use yii\web\ViewAction as BaseAction;
 
+use function strtolower;
+
 class StartAction extends BaseAction
 {
     public function run()

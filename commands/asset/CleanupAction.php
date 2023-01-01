@@ -23,10 +23,16 @@ use yii\helpers\FileHelper;
 use function array_reduce;
 use function basename;
 use function checkdate;
+use function dirname;
 use function file_exists;
+use function fwrite;
 use function is_dir;
 use function is_readable;
 use function preg_match;
+use function rename;
+use function substr;
+
+use const STDERR;
 
 class CleanupAction extends Action
 {

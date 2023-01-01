@@ -7,6 +7,11 @@ namespace tests\models;
 use Codeception\Test\Unit;
 use app\models\BattleImage;
 
+use function explode;
+use function in_array;
+use function preg_match;
+use function substr;
+
 class BattleImageTest extends Unit
 {
     public function testGenerateFilename(): void

@@ -17,6 +17,9 @@ use app\models\Battle3;
 use app\models\Salmon3;
 use yii\base\Widget;
 
+use function implode;
+use function sprintf;
+
 final class BattleDeleteWidget extends Widget
 {
     public Battle3|Salmon3|null $model = null;
@@ -27,8 +30,8 @@ final class BattleDeleteWidget extends Widget
             return '';
         }
 
-        $modalId = \sprintf('%s-modal', (string)$this->id);
-        return \implode('', [
+        $modalId = sprintf('%s-modal', (string)$this->id);
+        return implode('', [
             Button::widget(['modalSelector' => "#{$modalId}"]),
             Modal::widget(['id' => $modalId, 'model' => $this->model]),
         ]);

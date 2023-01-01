@@ -13,6 +13,10 @@ use app\components\widgets\Icon;
 use yii\base\Widget;
 use yii\bootstrap\Html;
 
+use function call_user_func;
+use function implode;
+use function preg_replace_callback;
+
 class PanelListWidget extends Widget
 {
     public $panelClass = 'panel panel-default';

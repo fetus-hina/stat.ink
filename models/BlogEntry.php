@@ -10,9 +10,12 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Throwable;
 use jp3cki\uuid\Uuid;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+
+use const SORT_DESC;
 
 /**
  * This is the model class for table "blog_entry".
@@ -60,7 +63,7 @@ class BlogEntry extends ActiveRecord
                 // error check and normalize
                 try {
                     $this->$attribute = (new Uuid($this->$attribute))->__toString();
-                } catch (\Throwable $e) {
+                } catch (Throwable $e) {
                     $this->addErrors($attribute, 'invalid uuid given');
                     return;
                 }

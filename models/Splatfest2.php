@@ -15,6 +15,14 @@ use DateTimeZone;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
+use function is_array;
+use function preg_match;
+use function preg_replace;
+use function strtolower;
+use function substr;
+use function trim;
+use function vsprintf;
+
 /**
  * This is the model class for table "splatfest2".
  *

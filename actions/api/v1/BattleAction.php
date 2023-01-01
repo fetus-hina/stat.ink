@@ -8,7 +8,9 @@
 
 namespace app\actions\api\v1;
 
+use Throwable;
 use Yii;
+use app\components\helpers\Blackout;
 use app\components\helpers\ImageConverter;
 use app\components\jobs\ImageS3Job;
 use app\components\jobs\OstatusJob;
@@ -25,6 +27,20 @@ use yii\base\DynamicModel;
 use yii\web\MethodNotAllowedHttpException;
 use yii\web\UploadedFile;
 use yii\web\ViewAction as BaseAction;
+
+use function array_map;
+use function array_merge;
+use function array_shift;
+use function base64_encode;
+use function file_get_contents;
+use function is_array;
+use function is_string;
+use function json_encode;
+use function sprintf;
+use function time;
+
+use const JSON_UNESCAPED_SLASHES;
+use const JSON_UNESCAPED_UNICODE;
 
 class BattleAction extends BaseAction
 {
@@ -229,7 +245,7 @@ class BattleAction extends BaseAction
                 return $battle;
             }
             $transaction->commit();
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             $transaction->rollback();
             $this->logError([
                 'system' => [ $e->getMessage() ],
@@ -382,7 +398,7 @@ class BattleAction extends BaseAction
                     || $form->result === 'lose')
                     && ($form->lobby != '')
             ) {
-                $blackoutList = \app\components\helpers\Blackout::getBlackoutTargetList(
+                $blackoutList = Blackout::getBlackoutTargetList(
                     $form->lobby,
                     $form->user->blackout,
                     ($form->result === 'win' ? 0 : 4) + $form->rank_in_team,

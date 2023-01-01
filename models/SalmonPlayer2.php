@@ -14,6 +14,19 @@ use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
+use function array_map;
+use function array_merge;
+use function hash;
+use function hash_hmac;
+use function hex2bin;
+use function preg_match;
+use function str_repeat;
+use function substr;
+use function trim;
+
+use const SORT_ASC;
+use const SORT_DESC;
+
 /**
  * This is the model class for table "salmon_player2".
  *

@@ -18,6 +18,13 @@ use yii\base\Action;
 use yii\db\Connection;
 use yii\web\Response;
 
+use function array_keys;
+use function array_map;
+use function array_values;
+use function assert;
+use function implode;
+use function vsprintf;
+
 use const SORT_ASC;
 
 final class CauseOfDeathAction extends Action

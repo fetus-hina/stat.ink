@@ -11,7 +11,22 @@ namespace app\components;
 use DateTimeImmutable;
 use DateTimeZone;
 use Exception;
+use Throwable;
 use Yii;
+
+use function array_filter;
+use function array_shift;
+use function count;
+use function escapeshellarg;
+use function exec;
+use function explode;
+use function file_exists;
+use function is_executable;
+use function preg_match;
+use function sprintf;
+use function trim;
+use function usort;
+use function version_compare;
 
 class Version
 {
@@ -91,7 +106,7 @@ class Version
             self::$lastCommited = (new DateTimeImmutable())
                 ->setTimeZone(new DateTimeZone(Yii::$app->timeZone))
                 ->setTimestamp((int)$revisions[2]);
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             self::$revision = false;
             self::$shortRevision = false;
             self::$lastCommited = false;

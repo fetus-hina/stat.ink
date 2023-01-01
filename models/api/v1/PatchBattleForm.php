@@ -13,6 +13,9 @@ use app\models\User;
 use yii\base\Model;
 use yii\web\ServerErrorHttpException;
 
+use function preg_replace;
+use function trim;
+
 class PatchBattleForm extends Model
 {
     public const DELETE_MARK = '<<DELETE>>';

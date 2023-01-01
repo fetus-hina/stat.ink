@@ -12,6 +12,9 @@ use Yii;
 use app\components\validators\IdnToPunycodeFilterValidator;
 use yii\base\Model;
 
+use function preg_replace;
+use function trim;
+
 class BattleForm extends Model
 {
     public $lobby_id;

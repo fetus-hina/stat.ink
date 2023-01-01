@@ -24,6 +24,12 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\ServerErrorHttpException;
 
+use function implode;
+use function preg_match;
+use function sprintf;
+use function strtolower;
+use function vsprintf;
+
 class OstatusController extends Controller
 {
     public $enableCsrfValidation = false;

@@ -14,6 +14,8 @@ use Yii;
 use app\models\UserStat3XMatch;
 use yii\helpers\Html;
 
+use function preg_replace;
+
 return [
     'label' => Yii::t('app', 'X Power'),
     'format' => 'raw',

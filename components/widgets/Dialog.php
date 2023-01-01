@@ -18,6 +18,8 @@ use yii\bootstrap\BootstrapPluginAsset;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
+use function implode;
+
 class Dialog extends Widget
 {
     public const FOOTER_OK = '{ok}';
@@ -48,7 +50,7 @@ class Dialog extends Widget
         BootstrapPluginAsset::register($this->view);
         FlexboxAsset::register($this->view);
 
-        return \implode('', [
+        return implode('', [
             $this->renderBeginModal(),
             $this->renderHeader(),
             $this->renderBody(),
@@ -59,7 +61,7 @@ class Dialog extends Widget
 
     protected function renderBeginModal(): string
     {
-        return \implode('', [
+        return implode('', [
             Html::beginTag('div', [
                 'id' => $this->id,
                 'class' => [

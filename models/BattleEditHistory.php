@@ -8,6 +8,9 @@
 
 namespace app\models;
 
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+
 /**
  * This is the model class for table "battle_edit_history".
  *
@@ -18,7 +21,7 @@ namespace app\models;
  *
  * @property Battle $battle
  */
-class BattleEditHistory extends \yii\db\ActiveRecord
+class BattleEditHistory extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -55,7 +58,7 @@ class BattleEditHistory extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattle()
     {

@@ -21,6 +21,15 @@ use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\web\UnauthorizedHttpException;
 
+use function array_map;
+use function array_merge;
+use function implode;
+use function is_string;
+use function preg_match;
+
+use const SORT_ASC;
+use const SORT_DESC;
+
 class ApiV2BattleController extends Controller
 {
     public $enableCsrfValidation = false;

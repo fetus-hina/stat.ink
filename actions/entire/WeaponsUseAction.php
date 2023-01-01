@@ -24,6 +24,17 @@ use yii\base\Action;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
 
+use function array_map;
+use function array_merge;
+use function count;
+use function date;
+use function implode;
+use function range;
+use function sprintf;
+use function strtotime;
+use function substr;
+use function uasort;
+
 use const SORT_ASC;
 use const SORT_NATURAL;
 
@@ -90,7 +101,7 @@ final class WeaponsUseAction extends Action
      */
     public function getMainWeapon(): array
     {
-        return \array_merge(
+        return array_merge(
             ...ArrayHelper::getColumn(
                 WeaponType::find()->orderBy(['id' => SORT_ASC])->all(),
                 fn (WeaponType $type): array => ArrayHelper::asort(
@@ -99,7 +110,7 @@ final class WeaponsUseAction extends Action
                             ->andWhere(['type_id' => $type->id])
                             ->andWhere('[[id]] = [[main_group_id]]')
                             ->all(),
-                        fn (Weapon $weapon): string => \sprintf('~%s', $weapon->key),
+                        fn (Weapon $weapon): string => sprintf('~%s', $weapon->key),
                         fn (Weapon $weapon): string => Yii::t('app', '{0} etc.', [
                             Yii::t('app-weapon', $weapon['name']),
                         ]),
@@ -118,7 +129,7 @@ final class WeaponsUseAction extends Action
         return ArrayHelper::asort(
             ArrayHelper::map(
                 Subweapon::find()->all(),
-                fn (Subweapon $model): string => \sprintf('+%s', $model->key),
+                fn (Subweapon $model): string => sprintf('+%s', $model->key),
                 fn (Subweapon $model): string => Yii::t('app-subweapon', $model->name),
             ),
             SORT_NATURAL,
@@ -133,7 +144,7 @@ final class WeaponsUseAction extends Action
         return ArrayHelper::asort(
             ArrayHelper::map(
                 Special::find()->all(),
-                fn (Special $model): string => \sprintf('*%s', $model->key),
+                fn (Special $model): string => sprintf('*%s', $model->key),
                 fn (Special $model): string => Yii::t('app-special', $model->name),
             ),
             SORT_NATURAL,
@@ -145,7 +156,7 @@ final class WeaponsUseAction extends Action
      */
     public function getRules(): array
     {
-        return \array_merge(
+        return array_merge(
             ['' => Yii::t('app-rule', 'Any Mode')],
             ArrayHelper::map(
                 GameMode::find()
@@ -153,8 +164,8 @@ final class WeaponsUseAction extends Action
                     ->orderBy(['id' => SORT_ASC])
                     ->all(),
                 fn (GameMode $mode): string => Yii::t('app-rule', $mode->name),
-                fn (GameMode $mode): array => \array_merge(
-                    \count($mode->rules) > 1
+                fn (GameMode $mode): array => array_merge(
+                    count($mode->rules) > 1
                         ? [
                             "@{$mode->key}" => Yii::t('app-rule', 'All of {0}', [
                                 Yii::t('app-rule', $mode->name),

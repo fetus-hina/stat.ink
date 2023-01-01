@@ -22,6 +22,10 @@ use yii\web\Cookie;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
+use function assert;
+use function preg_match;
+use function time;
+
 use const SORT_DESC;
 
 final class IndexAction extends Action
@@ -48,7 +52,7 @@ final class IndexAction extends Action
                         'class' => Cookie::class,
                         'name' => 'work-list',
                         'value' => $view,
-                        'expire' => \time() + 86400 * 366,
+                        'expire' => time() + 86400 * 366,
                     ]),
                 );
             }
@@ -113,7 +117,7 @@ final class IndexAction extends Action
         }
 
         $ua = (string)$request->userAgent;
-        return \preg_match('/iP[ao]d|iPhone|Android/', $ua)
+        return preg_match('/iP[ao]d|iPhone|Android/', $ua)
             ? 'simple'
             : 'standard';
     }

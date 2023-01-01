@@ -18,6 +18,9 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
+use function assert;
+use function preg_match;
+
 use const SORT_ASC;
 use const SORT_DESC;
 
@@ -28,7 +31,7 @@ final class ViewAction extends Action
      */
     public function run(string $screen_name, string $battle)
     {
-        if (!\preg_match(UuidRegexp::get(true), $battle)) {
+        if (!preg_match(UuidRegexp::get(true), $battle)) {
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
         }
 

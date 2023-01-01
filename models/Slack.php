@@ -11,8 +11,14 @@ namespace app\models;
 
 use Curl\Curl;
 use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 use yii\helpers\Json;
 use yii\helpers\Url;
+
+use function sprintf;
+use function strpos;
+use function time;
 
 /**
  * This is the model class for table "slack".
@@ -31,7 +37,7 @@ use yii\helpers\Url;
  * @property Language $language
  * @property User $user
  */
-class Slack extends \yii\db\ActiveRecord
+class Slack extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -83,7 +89,7 @@ class Slack extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getLanguage()
     {
@@ -91,7 +97,7 @@ class Slack extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getUser()
     {

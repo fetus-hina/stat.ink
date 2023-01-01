@@ -19,6 +19,13 @@ use yii\bootstrap\BootstrapAsset;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
+use function array_filter;
+use function array_map;
+use function call_user_func;
+use function implode;
+use function is_callable;
+use function sprintf;
+
 class SalmonPlayers extends Widget
 {
     public $formatter;

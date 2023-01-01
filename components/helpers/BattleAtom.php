@@ -13,6 +13,7 @@ use DOMElement;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
+use Throwable;
 use Yii;
 use app\models\Battle;
 use app\models\User;
@@ -20,6 +21,19 @@ use jp3cki\uuid\NS as UuidNS;
 use jp3cki\uuid\Uuid;
 use yii\db\Query;
 use yii\helpers\Url;
+
+use function date;
+use function htmlspecialchars;
+use function implode;
+use function number_format;
+use function parse_url;
+use function preg_replace;
+use function sprintf;
+use function strtotime;
+use function time;
+
+use const ENT_QUOTES;
+use const PHP_URL_HOST;
 
 class BattleAtom
 {
@@ -381,7 +395,7 @@ class BattleAtom
             if ($ret = $query->one()) {
                 return $ret;
             }
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
         }
         return null;
     }

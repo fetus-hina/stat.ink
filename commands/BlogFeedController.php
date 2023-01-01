@@ -19,6 +19,9 @@ use jp3cki\uuid\NS as UuidNS;
 use jp3cki\uuid\Uuid;
 use yii\console\Controller;
 
+use function printf;
+use function usort;
+
 class BlogFeedController extends Controller
 {
     public function actionCrawl()

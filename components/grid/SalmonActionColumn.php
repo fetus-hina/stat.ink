@@ -20,6 +20,10 @@ use app\models\User;
 use yii\grid\Column;
 use yii\helpers\Html;
 
+use function array_filter;
+use function implode;
+use function trim;
+
 final class SalmonActionColumn extends Column
 {
     public ?User $user = null;
@@ -35,9 +39,9 @@ final class SalmonActionColumn extends Column
             throw new LogicException();
         }
 
-        return \implode(
+        return implode(
             ' ',
-            \array_filter(
+            array_filter(
                 [
                     Html::a(
                         Html::encode(Yii::t('app', 'Detail')),
@@ -62,7 +66,7 @@ final class SalmonActionColumn extends Column
                                     'btn-default',
                                     'btn-xs',
                                 ],
-                                'rel' => \implode(' ', [
+                                'rel' => implode(' ', [
                                     'nofollow',
                                     'noopener',
                                     'noreferrer',
@@ -72,7 +76,7 @@ final class SalmonActionColumn extends Column
                         )
                         : null,
                 ],
-                fn (?string $content): bool => $content !== null && \trim($content) !== '',
+                fn (?string $content): bool => $content !== null && trim($content) !== '',
             ),
         );
     }

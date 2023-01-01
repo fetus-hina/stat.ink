@@ -16,6 +16,9 @@ use app\models\Salmon2;
 use statink\yii2\stages\spl2\StagesAsset;
 use yii\helpers\Url;
 
+use function sprintf;
+use function strtotime;
+
 trait Salmon2Formatter
 {
     use UserFormatter;
@@ -76,10 +79,10 @@ trait Salmon2Formatter
                     }
                 }
 
-                return \sprintf('%s @%s', $result, $map);
+                return sprintf('%s @%s', $result, $map);
             })(),
             'summary2' => Yii::t('app-salmon2', 'Salmon Run'),
-            'time' => \strtotime($battle->end_at ?: $battle->created_at),
+            'time' => strtotime($battle->end_at ?: $battle->created_at),
             'rule' => null,
             'url' => Url::to(
                 ['salmon/view',

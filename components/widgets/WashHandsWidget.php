@@ -16,6 +16,10 @@ use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
 use yii\helpers\Html;
 
+use function call_user_func;
+use function implode;
+use function sprintf;
+
 class WashHandsWidget extends Widget
 {
     public function run()

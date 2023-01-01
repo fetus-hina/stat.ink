@@ -12,6 +12,11 @@ use Yii;
 use yii\helpers\ArrayHelper;
 use yii\validators\Validator;
 
+use function array_shift;
+use function is_array;
+use function is_string;
+use function mb_strlen;
+
 final class BattleAgentVariable3Validator extends Validator
 {
     /**
@@ -61,13 +66,13 @@ final class BattleAgentVariable3Validator extends Validator
     {
         if (
             $value === null ||
-            (\is_array($value) && !$value) // empty array
+            (is_array($value) && !$value) // empty array
         ) {
             return [];
         }
 
         if (
-            !\is_array($value) ||
+            !is_array($value) ||
             !ArrayHelper::isAssociative($value)
         ) {
             return ['{attribute} is invalid. (must be map<string, string>)'];

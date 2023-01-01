@@ -15,6 +15,32 @@ use LogicException;
 use Yii;
 use yii\base\Model;
 
+use function base64_decode;
+use function base64_encode;
+use function floatval;
+use function implode;
+use function intval;
+use function is_bool;
+use function is_float;
+use function is_infinite;
+use function is_int;
+use function is_nan;
+use function is_string;
+use function ksort;
+use function ltrim;
+use function preg_match;
+use function preg_replace;
+use function preg_replace_callback;
+use function sprintf;
+use function strcmp;
+use function strlen;
+use function substr;
+use function trim;
+use function vsprintf;
+
+use const PREG_UNMATCHED_AS_NULL;
+use const SORT_STRING;
+
 class SfItem extends Model
 {
     public $value;

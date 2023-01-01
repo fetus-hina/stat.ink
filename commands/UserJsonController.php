@@ -8,13 +8,53 @@
 
 namespace app\commands;
 
+use Exception;
 use Yii;
 use app\models\Battle;
 use app\models\User;
 use yii\base\InlineAction;
 use yii\console\Controller;
+use yii\db\Query;
 use yii\helpers\FileHelper;
 use yii\helpers\Json;
+
+use function clearstatcache;
+use function count;
+use function date;
+use function dirname;
+use function escapeshellarg;
+use function exec;
+use function fclose;
+use function fgets;
+use function file_exists;
+use function file_get_contents;
+use function filemtime;
+use function filesize;
+use function flock;
+use function fopen;
+use function fseek;
+use function ftell;
+use function ftruncate;
+use function fwrite;
+use function gzencode;
+use function memory_get_usage;
+use function number_format;
+use function passthru;
+use function printf;
+use function random_int;
+use function rtrim;
+use function sprintf;
+use function strtotime;
+use function touch;
+use function unlink;
+
+use const JSON_UNESCAPED_SLASHES;
+use const JSON_UNESCAPED_UNICODE;
+use const LOCK_EX;
+use const LOCK_NB;
+use const LOCK_UN;
+use const SEEK_END;
+use const SEEK_SET;
 
 class UserJsonController extends Controller
 {
@@ -82,7 +122,7 @@ class UserJsonController extends Controller
         }
         $lastExec = (int)fgets($lock);
 
-        $query = (new \yii\db\Query())
+        $query = (new Query())
             ->select([
                 'user_id',
                 'last_updated' => 'MAX({{battle}}.[[at]])',
@@ -256,7 +296,7 @@ class UserJsonController extends Controller
         }
 
         if (!$fh = @fopen($path, 'cb')) {
-            throw new \Exception('Could not open file in "c" mode: ' . $path);
+            throw new Exception('Could not open file in "c" mode: ' . $path);
         }
         flock($fh, LOCK_EX);
         fseek($fh, 0, SEEK_END);
@@ -271,7 +311,7 @@ class UserJsonController extends Controller
         $mainPath = $this->jsonPath;
         $tmpPath = $mainPath . '.tmp';
         if (!file_exists($mainPath)) {
-            throw new \Exception('File does not exists : ' . $mainPath);
+            throw new Exception('File does not exists : ' . $mainPath);
         }
         if (file_exists($tmpPath)) {
             unlink($tmpPath);
@@ -279,7 +319,7 @@ class UserJsonController extends Controller
 
         // 書き換えを防ぐためにロックする
         if (!$fh = @fopen($mainPath, 'r+')) {
-            throw new \Exception('Could not open file in "r+" mode: ' . $mainPath);
+            throw new Exception('Could not open file in "r+" mode: ' . $mainPath);
         }
         flock($fh, LOCK_EX);
         $mtime = filemtime($mainPath);
@@ -296,7 +336,7 @@ class UserJsonController extends Controller
             @unlink($tmpPath);
             flock($fh, LOCK_UN);
             fclose($fh);
-            throw new \Exception('Could not recompress file');
+            throw new Exception('Could not recompress file');
         }
         echo "Recomressed.\n";
         echo '  Before: ' . number_format(filesize($mainPath)) . "\n";

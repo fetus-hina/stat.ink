@@ -21,6 +21,8 @@ use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction;
 
+use const SORT_ASC;
+
 class Weapon2Action extends ViewAction
 {
     public $weapon;

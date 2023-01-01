@@ -20,6 +20,13 @@ use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
+use function array_map;
+use function implode;
+use function sprintf;
+use function strcmp;
+use function time;
+use function usort;
+
 class UserStatReportAction extends BaseAction
 {
     private $user;

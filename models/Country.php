@@ -8,6 +8,14 @@
 
 namespace app\models;
 
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+
+use function ord;
+use function strlen;
+use function strtoupper;
+use function substr;
+
 /**
  * This is the model class for table "country".
  *
@@ -18,7 +26,7 @@ namespace app\models;
  * @property TimezoneCountry[] $timezoneCountries
  * @property Timezone[] $timezones
  */
-class Country extends \yii\db\ActiveRecord
+class Country extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -54,7 +62,7 @@ class Country extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getTimezoneCountries()
     {
@@ -62,7 +70,7 @@ class Country extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getTimezones()
     {

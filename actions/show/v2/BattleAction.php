@@ -16,6 +16,8 @@ use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
+use function array_map;
+
 class BattleAction extends BaseAction
 {
     public function run()

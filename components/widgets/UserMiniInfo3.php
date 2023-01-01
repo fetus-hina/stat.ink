@@ -25,6 +25,16 @@ use yii\bootstrap\Tabs;
 use yii\helpers\Html;
 use yii\web\View;
 
+use function array_filter;
+use function array_keys;
+use function array_map;
+use function array_values;
+use function implode;
+use function rawurlencode;
+use function sprintf;
+use function usort;
+use function vsprintf;
+
 use const SORT_ASC;
 
 final class UserMiniInfo3 extends Widget
@@ -48,9 +58,9 @@ final class UserMiniInfo3 extends Widget
             'div',
             Html::tag(
                 'div',
-                \implode('', [
+                implode('', [
                     $this->renderHeading(),
-                    \implode('<hr>', \array_filter(
+                    implode('<hr>', array_filter(
                         [
                             $this->renderStatsTotal($groups),
                             $this->renderStatsLobbies($groups),
@@ -140,7 +150,7 @@ final class UserMiniInfo3 extends Widget
             $am = Yii::$app->assetManager;
             $iconAsset = GameModeIconsAsset::register($view);
 
-            $view->registerCss(\vsprintf('#%s .nav>li>a{%s}', [
+            $view->registerCss(vsprintf('#%s .nav>li>a{%s}', [
                 $this->id,
                 'padding:5px 10px',
             ]));
@@ -153,8 +163,8 @@ final class UserMiniInfo3 extends Widget
         $defaultTab = $this->decideDefaultLobbyTab($models);
 
         return Tabs::widget([
-            'items' => \array_filter(
-                \array_map(
+            'items' => array_filter(
+                array_map(
                     fn (array $groupInfo): ?array => $groupInfo['group']
                         ? [
                             'active' => $defaultTab === $groupInfo['group']->key,
@@ -163,7 +173,7 @@ final class UserMiniInfo3 extends Widget
                                 ? Html::img(
                                     $am->getAssetUrl(
                                         $iconAsset,
-                                        \sprintf('spl3/%s.png', \rawurlencode($groupInfo['group']->key)),
+                                        sprintf('spl3/%s.png', rawurlencode($groupInfo['group']->key)),
                                     ),
                                     [
                                         'class' => 'auto-tooltip basic-icon',
@@ -171,7 +181,7 @@ final class UserMiniInfo3 extends Widget
                                     ],
                                 )
                                 : Html::encode($groupInfo['group']->name),
-                            'content' => \implode('', \array_map(
+                            'content' => implode('', array_map(
                                 fn (UserStat3 $stat): string => Html::tag(
                                     'div',
                                     PerLobby::widget([
@@ -198,7 +208,7 @@ final class UserMiniInfo3 extends Widget
         return Html::tag(
             'div',
             Html::a(
-                \implode(' ', [
+                implode(' ', [
                     Html::img(
                         $am->getAssetUrl(
                             $am->getBundle(GameModeIconsAsset::class),
@@ -265,10 +275,10 @@ final class UserMiniInfo3 extends Widget
 
         return Html::tag(
             'ul',
-            \implode('', \array_map(
+            implode('', array_map(
                 fn (string $text, array $link): string => Html::tag(
                     'li',
-                    \implode(' ', [
+                    implode(' ', [
                         Icon::stats(),
                         Html::a(
                             Html::encode($text),
@@ -280,8 +290,8 @@ final class UserMiniInfo3 extends Widget
                         'style' => 'list-style-type:none',
                     ],
                 ),
-                \array_keys($links),
-                \array_values($links),
+                array_keys($links),
+                array_values($links),
             )),
             [
                 'class' => 'mt-3 mb-0 p-0',
@@ -321,7 +331,7 @@ final class UserMiniInfo3 extends Widget
             $results[$groupKey]['stats'][] = $stats;
         }
 
-        return \array_values($results);
+        return array_values($results);
     }
 
     /**
@@ -376,8 +386,8 @@ final class UserMiniInfo3 extends Widget
         /**
          * @var array{0: Rank3, 1: ?int}
          */
-        $list = \array_filter(
-            \array_map(
+        $list = array_filter(
+            array_map(
                 fn (UserStat3 $model): ?array => $model->peakRank
                     ? [$model->peakRank, $model->peak_s_plus]
                     : null,
@@ -390,7 +400,7 @@ final class UserMiniInfo3 extends Widget
             return null;
         }
 
-        \usort(
+        usort(
             $list,
             fn (array $a, array $b): int => $b[0]->rank <=> $a[0]->rank
                 ?: (int)($b[1] ?? -1) <=> (int)($a[1] ?? -1)

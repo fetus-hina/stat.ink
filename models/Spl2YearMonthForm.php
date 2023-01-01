@@ -14,6 +14,9 @@ use Yii;
 use yii\base\Model;
 use yii\validators\InlineValidator;
 
+use function substr;
+use function time;
+
 final class Spl2YearMonthForm extends Model
 {
     private const SPLATOON2_RELEASE_DATE = '2017-07-21';

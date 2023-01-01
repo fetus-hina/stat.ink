@@ -9,6 +9,7 @@
 namespace app\models;
 
 use app\components\behaviors\CompressBehavior;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -67,7 +68,7 @@ class BattleEvents2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattle2()
     {

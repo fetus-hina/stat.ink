@@ -10,6 +10,9 @@ namespace app\components\ability\effect;
 
 use yii\base\Component;
 
+use function ceil;
+use function pow;
+
 abstract class Base extends Component
 {
     public const SPECIAL_DURATION_40PCT = 75;

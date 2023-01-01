@@ -10,6 +10,9 @@ namespace app\models\api\v2;
 
 use DateInterval;
 use DateTimeImmutable;
+use Exception;
+use RuntimeException;
+use Throwable;
 use Yii;
 use app\components\behaviors\FixAttributesBehavior;
 use app\components\behaviors\SplatnetNumberBehavior;
@@ -41,12 +44,50 @@ use app\models\Species2;
 use app\models\Splatfest2Theme;
 use app\models\TeamNickname2;
 use app\models\Weapon2;
+use stdClass;
 use yii\base\InvalidParamException;
 use yii\base\Model;
 use yii\behaviors\AttributeBehavior;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\web\UploadedFile;
+
+use function array_keys;
+use function asort;
+use function base64_encode;
+use function count;
+use function file_get_contents;
+use function filter_var;
+use function floatval;
+use function floor;
+use function gmdate;
+use function hash_hmac;
+use function http_build_query;
+use function imagecreatefromstring;
+use function imagedestroy;
+use function in_array;
+use function intval;
+use function is_array;
+use function is_bool;
+use function is_callable;
+use function is_float;
+use function is_int;
+use function is_object;
+use function is_string;
+use function mb_check_encoding;
+use function preg_replace;
+use function rtrim;
+use function strtolower;
+use function time;
+use function trim;
+use function usort;
+use function vsprintf;
+
+use const FILTER_VALIDATE_FLOAT;
+use const FILTER_VALIDATE_INT;
+use const JSON_FORCE_OBJECT;
+use const JSON_UNESCAPED_SLASHES;
+use const JSON_UNESCAPED_UNICODE;
 
 class PostBattleForm extends Model
 {
@@ -210,7 +251,7 @@ class PostBattleForm extends Model
                         if (is_float($value) && (0 <= $value && $value <= 99.9)) {
                             return $value;
                         }
-                    } catch (\Throwable $e) {
+                    } catch (Throwable $e) {
                     }
                     return null;
                 },
@@ -295,10 +336,10 @@ class PostBattleForm extends Model
                                 : $this->splatnet_json;
                             if (is_array($json)) {
                                 return isset($json['battle_number']) ? 'yes' : 'no';
-                            } elseif ($json instanceof \stdClass) {
+                            } elseif ($json instanceof stdClass) {
                                 return isset($json->battle_number) ? 'yes' : 'no';
                             }
-                        } catch (\Throwable $e) {
+                        } catch (Throwable $e) {
                         }
                     }
                     return 'no';
@@ -626,7 +667,7 @@ class PostBattleForm extends Model
 
     public function toDeathReasons(Battle2 $battle)
     {
-        if (is_array($this->death_reasons) || $this->death_reasons instanceof \stdClass) {
+        if (is_array($this->death_reasons) || $this->death_reasons instanceof stdClass) {
             $unknownCount = 0;
             foreach ($this->death_reasons as $key => $count) {
                 $reason = DeathReason2::findOne(['key' => $key]);
@@ -672,7 +713,7 @@ class PostBattleForm extends Model
         if (is_array($this->players) && !empty($this->players)) {
             foreach ($this->players as $form) {
                 if (!$form instanceof PostBattlePlayerForm) {
-                    throw new \Exception('Logic error: assert: instanceof PostBattlePlayerForm');
+                    throw new Exception('Logic error: assert: instanceof PostBattlePlayerForm');
                 }
 
                 $weapon = $form->weapon == ''
@@ -828,7 +869,7 @@ class PostBattleForm extends Model
                 'primary_ability_id' => $primaryAbility ? $primaryAbility->id : null,
             ]);
             if (!$config->save()) {
-                throw new \Exception('Could not save gear_counfiguration2');
+                throw new Exception('Could not save gear_counfiguration2');
             }
 
             foreach ($secondaryAbilityIdList as $aId) {
@@ -838,7 +879,7 @@ class PostBattleForm extends Model
                     'ability_id' => $aId,
                 ]);
                 if (!$sub->save()) {
-                    throw new \Exception('Could not save gear_configuration_secondary2');
+                    throw new Exception('Could not save gear_configuration_secondary2');
                 }
             }
         }
@@ -884,7 +925,7 @@ class PostBattleForm extends Model
     {
         try {
             return CriticalSection::lock($this->getCriticalSectionName(), $timeout);
-        } catch (\RuntimeException $e) {
+        } catch (RuntimeException $e) {
             return false;
         }
     }
@@ -943,8 +984,8 @@ class PostBattleForm extends Model
             }
             $value = (object)$value;
         }
-        if (is_object($value) && ($value instanceof \stdClass)) {
-            $newValue = new \stdClass();
+        if (is_object($value) && ($value instanceof stdClass)) {
+            $newValue = new stdClass();
             foreach ($value as $k => $v) {
                 $k = is_int($k) ? "ARRAY[{$k}]" : (string)$k;
                 if (!mb_check_encoding($k, 'UTF-8')) {
@@ -1035,7 +1076,7 @@ class PostBattleForm extends Model
             $this->$attribute = [];
             return;
         }
-        if (!is_array($value) && !$value instanceof \stdClass) {
+        if (!is_array($value) && !$value instanceof stdClass) {
             $this->addError($attribute, "{$attribute} should be a map.");
             return;
         }

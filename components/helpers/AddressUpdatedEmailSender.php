@@ -15,6 +15,10 @@ use Yii;
 use app\models\Language;
 use app\models\User;
 
+use function random_bytes;
+use function strtolower;
+use function substr;
+
 class AddressUpdatedEmailSender
 {
     public static function generateVerifyCode(): string

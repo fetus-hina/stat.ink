@@ -18,6 +18,10 @@ use Yii;
 use app\models\Rule2;
 use yii\db\Query;
 
+use function implode;
+use function sprintf;
+use function time;
+
 trait Splatoon2
 {
     public static function getSummary2(Query $oldQuery)

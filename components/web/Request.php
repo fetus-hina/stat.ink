@@ -12,6 +12,12 @@ use yii\web\BadRequestHttpException;
 use yii\web\Request as Base;
 use yii\web\UnsupportedMediaTypeHttpException;
 
+use function gzdecode;
+use function is_array;
+use function is_object;
+use function stripos;
+use function strtoupper;
+
 class Request extends Base
 {
     public function getMethod()

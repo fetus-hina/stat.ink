@@ -15,6 +15,12 @@ use DateTimeZone;
 use LogicException;
 use app\models\Lobby3;
 
+use function array_map;
+use function array_merge;
+use function implode;
+use function sprintf;
+use function vsprintf;
+
 trait AggregateFunctionsTrait
 {
     /**
@@ -41,14 +47,14 @@ trait AggregateFunctionsTrait
         string $valueExpr,
         array $additionalConds = [],
     ): string {
-        $positive = fn (string $column): string => \vsprintf(
+        $positive = fn (string $column): string => vsprintf(
             '(%1$s IS NOT NULL) AND (%1$s >= 0)',
             [
                 $column,
             ],
         );
 
-        $conds = \array_merge(
+        $conds = array_merge(
             [
                 '{{b}}.[[result_id]] IS NOT NULL',
                 '{{r}}.[[aggregatable]] = TRUE',
@@ -64,13 +70,13 @@ trait AggregateFunctionsTrait
             ],
             $additionalConds,
         );
-        return \vsprintf('%1$s(CASE WHEN %3$s THEN %2$s ELSE 0 END)', [
+        return vsprintf('%1$s(CASE WHEN %3$s THEN %2$s ELSE 0 END)', [
             $func,
             $valueExpr,
-            \implode(
+            implode(
                 ' AND ',
-                \array_map(
-                    fn (string $cond): string => \sprintf('(%s)', $cond),
+                array_map(
+                    fn (string $cond): string => sprintf('(%s)', $cond),
                     $conds,
                 ),
             ),
@@ -79,7 +85,7 @@ trait AggregateFunctionsTrait
 
     protected static function statsTimestamp(string $column): string
     {
-        return \sprintf('EXTRACT(EPOCH FROM %s)', $column);
+        return sprintf('EXTRACT(EPOCH FROM %s)', $column);
     }
 
     /**
@@ -124,10 +130,10 @@ trait AggregateFunctionsTrait
         }
 
         return [
-            \vsprintf('{{b}}.[[lobby_id]] IN (%s)', [
-                \implode(
+            vsprintf('{{b}}.[[lobby_id]] IN (%s)', [
+                implode(
                     ', ',
-                    \array_map(
+                    array_map(
                         fn (Lobby3 $model): string => (string)$model->id,
                         $list,
                     ),
@@ -143,25 +149,25 @@ trait AggregateFunctionsTrait
         switch ((int)$date->format('n')) {
             case 1:
             case 2:
-                return \sprintf('%04d-%02d-%02d', (int)$date->format('Y') - 1, 12, 1);
+                return sprintf('%04d-%02d-%02d', (int)$date->format('Y') - 1, 12, 1);
 
             case 3:
             case 4:
             case 5:
-                return \sprintf('%04d-%02d-%02d', (int)$date->format('Y'), 3, 1);
+                return sprintf('%04d-%02d-%02d', (int)$date->format('Y'), 3, 1);
 
             case 6:
             case 7:
             case 8:
-                return \sprintf('%04d-%02d-%02d', (int)$date->format('Y'), 6, 1);
+                return sprintf('%04d-%02d-%02d', (int)$date->format('Y'), 6, 1);
 
             case 9:
             case 10:
             case 11:
-                return \sprintf('%04d-%02d-%02d', (int)$date->format('Y'), 9, 1);
+                return sprintf('%04d-%02d-%02d', (int)$date->format('Y'), 9, 1);
 
             case 12:
-                return \sprintf('%04d-%02d-%02d', (int)$date->format('Y'), 12, 1);
+                return sprintf('%04d-%02d-%02d', (int)$date->format('Y'), 12, 1);
 
             default:
                 throw new LogicException();

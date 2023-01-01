@@ -14,6 +14,8 @@ use app\models\User;
 use yii\web\Response;
 use yii\web\ViewAction as BaseAction;
 
+use function trim;
+
 class FeedAction extends BaseAction
 {
     public $screen_name;

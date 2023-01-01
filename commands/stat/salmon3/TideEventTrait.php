@@ -16,6 +16,11 @@ use yii\db\Connection;
 use yii\db\Query;
 use yii\db\Transaction;
 
+use function array_map;
+use function assert;
+use function implode;
+use function vsprintf;
+
 trait TideEventTrait
 {
     protected function makeStatSalmon3TideEvent(): void
@@ -27,11 +32,11 @@ trait TideEventTrait
             function (Connection $db): void {
                 StatSalmon3TideEvent::deleteAll();
                 $db
-                    ->createCommand(\vsprintf('INSERT INTO %s (%s) %s', [
+                    ->createCommand(vsprintf('INSERT INTO %s (%s) %s', [
                         $db->quoteTableName('{{%stat_salmon3_tide_event}}'),
-                        \implode(
+                        implode(
                             ', ',
-                            \array_map(
+                            array_map(
                                 fn (string $columnName): string => $db->quoteColumnName($columnName),
                                 ['stage_id', 'big_stage_id', 'tide_id', 'event_id', 'jobs', 'cleared'],
                             ),

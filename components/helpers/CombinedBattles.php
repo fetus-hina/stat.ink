@@ -20,6 +20,22 @@ use app\models\Salmon3;
 use app\models\User;
 use yii\base\Model;
 
+use function array_merge;
+use function array_slice;
+use function array_values;
+use function call_user_func;
+use function ceil;
+use function count;
+use function filter_var;
+use function is_callable;
+use function is_int;
+use function is_string;
+use function method_exists;
+use function strtotime;
+use function usort;
+
+use const FILTER_VALIDATE_INT;
+
 final class CombinedBattles
 {
     public static function getRecentBattles(int $num = 100): array
@@ -27,7 +43,7 @@ final class CombinedBattles
         try {
             Yii::beginProfile(__FUNCTION__, __METHOD__);
             return self::getRecentBattlesByQueries(
-                \array_merge(
+                array_merge(
                     require __DIR__ . '/combinedBattles/Splatoon3.php',
                     require __DIR__ . '/combinedBattles/Splatoon2.php',
                     require __DIR__ . '/combinedBattles/Splatoon1.php',
@@ -44,7 +60,7 @@ final class CombinedBattles
         try {
             Yii::beginProfile(__FUNCTION__, __METHOD__);
             return self::getRecentBattlesByQueries(
-                \array_merge(
+                array_merge(
                     require __DIR__ . '/combinedBattles/User3.php',
                     require __DIR__ . '/combinedBattles/User2.php',
                     require __DIR__ . '/combinedBattles/User1.php',
@@ -70,13 +86,13 @@ final class CombinedBattles
                 }
                 if ($list = $query->all()) {
                     $merged = array_merge($merged, $list);
-                    \usort($merged, fn ($a, $b): int => self::getCreatedAt($b) <=> self::getCreatedAt($a));
-                    if (\count($merged) >= $num) {
+                    usort($merged, fn ($a, $b): int => self::getCreatedAt($b) <=> self::getCreatedAt($a));
+                    if (count($merged) >= $num) {
                         $threshold = (new DateTimeImmutable())
                             ->setTimestamp(self::getCreatedAt($merged[$num - 1]));
                     }
-                    if (\count($merged) > \ceil($num * 1.2)) {
-                        $merged = \array_slice($merged, 0, (int)\ceil($num * 1.2));
+                    if (count($merged) > ceil($num * 1.2)) {
+                        $merged = array_slice($merged, 0, (int)ceil($num * 1.2));
                     }
                 }
                 Yii::endProfile($_['query']->modelClass, __METHOD__);
@@ -88,10 +104,10 @@ final class CombinedBattles
                 Battle3::class => 4,
                 Salmon3::class => 5,
             ];
-            \usort($merged, fn ($a, $b): int => self::getCreatedAt($b) <=> self::getCreatedAt($a)
+            usort($merged, fn ($a, $b): int => self::getCreatedAt($b) <=> self::getCreatedAt($a)
                     ?: $orderByClass[$b::class] <=> $orderByClass[$a::class]
                     ?: $b->id <=> $a->id);
-            return \array_slice(\array_values($merged), 0, $num);
+            return array_slice(array_values($merged), 0, $num);
         } finally {
             Yii::endProfile(__FUNCTION__, __METHOD__);
         }
@@ -103,8 +119,8 @@ final class CombinedBattles
     private static function getCreatedAt(?Model $model): ?int
     {
         if (
-            \method_exists($model, 'getCreatedAt') &&
-            \is_callable([$model, 'getCreatedAt'])
+            method_exists($model, 'getCreatedAt') &&
+            is_callable([$model, 'getCreatedAt'])
         ) {
             return self::prepareTimestamp($model->getCreatedAt());
         }
@@ -125,14 +141,14 @@ final class CombinedBattles
      */
     private static function prepareTimestamp($value): ?int
     {
-        $intVal = \filter_var($value, FILTER_VALIDATE_INT);
-        if (\is_int($intVal)) {
+        $intVal = filter_var($value, FILTER_VALIDATE_INT);
+        if (is_int($intVal)) {
             return $intVal;
         }
 
-        if (\is_string($value)) {
-            $intVal = @\strtotime($value);
-            if (\is_int($intVal)) {
+        if (is_string($value)) {
+            $intVal = @strtotime($value);
+            if (is_int($intVal)) {
                 return $intVal;
             }
         }

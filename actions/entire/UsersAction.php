@@ -19,6 +19,10 @@ use yii\base\Action;
 use yii\db\Query;
 use yii\web\Controller;
 
+use function array_map;
+use function assert;
+use function usort;
+
 class UsersAction extends Action
 {
     use Splatoon1;
@@ -75,7 +79,7 @@ class UsersAction extends Action
             fn (array $a): string => $a['name'] ?? '',
             AgentGroup::find()->asArray()->all(),
         );
-        \usort($list, 'strnatcasecmp');
+        usort($list, 'strnatcasecmp');
         return $list;
     }
 }

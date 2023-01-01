@@ -10,6 +10,7 @@ use app\components\helpers\randomFilename\Generator;
 
 use function basename;
 use function bin2hex;
+use function explode;
 use function hex2bin;
 use function in_array;
 use function preg_match;

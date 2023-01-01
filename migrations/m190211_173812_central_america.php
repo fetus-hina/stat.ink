@@ -151,7 +151,7 @@ class m190211_173812_central_america extends Migration
         $value = $query->scalar();
         $value = filter_var($value, FILTER_VALIDATE_INT);
         if ($value === false) {
-            throw new \Exception(vsprintf('Query Error at %s:%d, query=%s', [
+            throw new Exception(vsprintf('Query Error at %s:%d, query=%s', [
                 __FILE__,
                 __LINE__,
                 $query->createCommand()->rawSql,

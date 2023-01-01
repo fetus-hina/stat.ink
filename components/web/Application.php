@@ -20,6 +20,20 @@ use yii\i18n\MissingTranslationEvent;
 use yii\web\Application as Base;
 use yii\web\Cookie;
 
+use function extension_loaded;
+use function implode;
+use function is_array;
+use function is_string;
+use function preg_match;
+use function rtrim;
+use function str_replace;
+use function strpos;
+use function substr;
+use function time;
+use function vsprintf;
+
+use const PHP_INT_MAX;
+
 class Application extends Base
 {
     public const COOKIE_MACHINE_TRANSLATION = 'language-machine-translation';

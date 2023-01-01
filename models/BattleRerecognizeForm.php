@@ -10,6 +10,16 @@ namespace app\models;
 
 use yii\base\Model;
 
+use function array_keys;
+use function array_merge;
+use function count;
+use function gmdate;
+use function is_array;
+use function json_decode;
+use function json_encode;
+use function printf;
+use function sprintf;
+
 class BattleRerecognizeForm extends Model
 {
     public $id;

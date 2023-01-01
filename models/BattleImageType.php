@@ -8,6 +8,9 @@
 
 namespace app\models;
 
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+
 /**
  * This is the model class for table "battle_image_type".
  *
@@ -16,7 +19,7 @@ namespace app\models;
  *
  * @property BattleImage[] $battleImages
  */
-class BattleImageType extends \yii\db\ActiveRecord
+class BattleImageType extends ActiveRecord
 {
     public const ID_JUDGE = 1;
     public const ID_RESULT = 2;
@@ -55,7 +58,7 @@ class BattleImageType extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattleImages()
     {

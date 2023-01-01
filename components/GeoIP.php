@@ -13,8 +13,12 @@ namespace app\components;
 use GeoIp2\Database\Reader;
 use GeoIp2\Model\City;
 use GeoIp2\Model\Country;
+use Throwable;
 use Yii;
 use yii\base\Component;
+
+use function file_exists;
+use function substr;
 
 class GeoIP extends Component
 {
@@ -52,7 +56,7 @@ class GeoIP extends Component
 
         try {
             return new Reader($dbPath, $locales);
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             return null;
         }
     }

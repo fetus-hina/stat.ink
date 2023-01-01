@@ -14,6 +14,11 @@ use Yii;
 use app\assets\ThemeAsset;
 use yii\helpers\Html;
 
+use function array_keys;
+use function array_map;
+use function array_values;
+use function implode;
+
 final class ColorSchemeDialog extends Dialog
 {
     /**

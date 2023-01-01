@@ -22,6 +22,10 @@ use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Json;
 
+use function implode;
+use function sprintf;
+use function vsprintf;
+
 class Spl2GearAbilitiesSummaryWidget extends Widget
 {
     private static $serial = 0;

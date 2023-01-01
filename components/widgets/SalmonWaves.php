@@ -20,6 +20,12 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\View;
 
+use function array_filter;
+use function array_map;
+use function call_user_func;
+use function implode;
+use function is_callable;
+
 final class SalmonWaves extends Widget
 {
     public $work;

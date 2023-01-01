@@ -8,6 +8,12 @@
 
 namespace app\models;
 
+use app\components\helpers\Battle;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+
+use function time;
+
 /**
  * This is the model class for table "period_map".
  *
@@ -19,13 +25,13 @@ namespace app\models;
  * @property Map $map
  * @property Rule $rule
  */
-class PeriodMap extends \yii\db\ActiveRecord
+class PeriodMap extends ActiveRecord
 {
     public static function findCurrentRegular()
     {
         return static::findByModeAndPeriod(
             'regular',
-            \app\components\helpers\Battle::calcPeriod(
+            Battle::calcPeriod(
                 @$_SERVER['REQUEST_TIME'] ?: time(),
             ),
         );
@@ -35,7 +41,7 @@ class PeriodMap extends \yii\db\ActiveRecord
     {
         return static::findByModeAndPeriod(
             'gachi',
-            \app\components\helpers\Battle::calcPeriod(
+            Battle::calcPeriod(
                 @$_SERVER['REQUEST_TIME'] ?: time(),
             ),
         );
@@ -45,7 +51,7 @@ class PeriodMap extends \yii\db\ActiveRecord
     {
         return static::findByModeAndPeriod(
             'regular',
-            \app\components\helpers\Battle::calcPeriod(
+            Battle::calcPeriod(
                 @$_SERVER['REQUEST_TIME'] ?: time(),
             ),
         );
@@ -55,7 +61,7 @@ class PeriodMap extends \yii\db\ActiveRecord
     {
         return static::findByModeAndPeriod(
             'gachi',
-            \app\components\helpers\Battle::calcPeriod(
+            Battle::calcPeriod(
                 @$_SERVER['REQUEST_TIME'] ?: time(),
             ),
         );
@@ -73,17 +79,17 @@ class PeriodMap extends \yii\db\ActiveRecord
 
     public static function getSchedule()
     {
-        $currentPeriod = \app\components\helpers\Battle::calcPeriod(
+        $currentPeriod = Battle::calcPeriod(
             @$_SERVER['REQUEST_TIME'] ?: time(),
         );
         $ret = (object)[
             'current' => (object)[
-                't' => \app\components\helpers\Battle::periodToRange($currentPeriod),
+                't' => Battle::periodToRange($currentPeriod),
                 'regular' => [],
                 'gachi' => [],
             ],
             'next' => (object)[
-                't' => \app\components\helpers\Battle::periodToRange($currentPeriod + 1),
+                't' => Battle::periodToRange($currentPeriod + 1),
                 'regular' => [],
                 'gachi' => [],
             ],
@@ -132,7 +138,7 @@ class PeriodMap extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getMap()
     {
@@ -140,7 +146,7 @@ class PeriodMap extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getRule()
     {

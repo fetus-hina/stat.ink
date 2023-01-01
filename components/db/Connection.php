@@ -14,6 +14,11 @@ use Exception;
 use Throwable;
 use Yii;
 
+use function call_user_func;
+use function in_array;
+use function is_array;
+use function is_callable;
+
 class Connection extends \yii\db\Connection
 {
     public function setTimezone(string $timeZone): void
@@ -73,7 +78,7 @@ class Connection extends \yii\db\Connection
         if ($transaction->isActive && $transaction->level === $level) {
             try {
                 $transaction->rollBack();
-            } catch (\Throwable $e) {
+            } catch (Throwable $e) {
                 Yii::error($e, __METHOD__);
             }
         }

@@ -8,6 +8,9 @@
 
 namespace app\models;
 
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+
 /**
  * This is the model class for table "splatfest_battle_summary".
  *
@@ -21,7 +24,7 @@ namespace app\models;
  *
  * @property Splatfest $fest
  */
-class SplatfestBattleSummary extends \yii\db\ActiveRecord
+class SplatfestBattleSummary extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -61,7 +64,7 @@ class SplatfestBattleSummary extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getFest()
     {

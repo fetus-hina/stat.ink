@@ -18,6 +18,12 @@ use app\models\Language;
 use yii\base\Action;
 use yii\web\NotFoundHttpException;
 
+use function array_map;
+use function strnatcasecmp;
+use function usort;
+
+use const SORT_ASC;
+
 final class GearAction extends Action
 {
     public $type;

@@ -14,6 +14,10 @@ use DateTimeZone;
 use Yii;
 use yii\base\Component;
 
+use function filter_var;
+
+use const FILTER_VALIDATE_INT;
+
 class DateTime extends Component
 {
     use Util;

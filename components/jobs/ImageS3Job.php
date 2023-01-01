@@ -10,9 +10,16 @@ declare(strict_types=1);
 
 namespace app\components\jobs;
 
+use Throwable;
 use Yii;
 use yii\base\BaseObject;
 use yii\queue\JobInterface;
+
+use function file_exists;
+use function implode;
+use function preg_match;
+use function substr;
+use function unlink;
 
 class ImageS3Job extends BaseObject implements JobInterface
 {
@@ -54,7 +61,7 @@ class ImageS3Job extends BaseObject implements JobInterface
                     @unlink($path);
                     return;
                 }
-            } catch (\Throwable $e) {
+            } catch (Throwable $e) {
             }
         }
     }

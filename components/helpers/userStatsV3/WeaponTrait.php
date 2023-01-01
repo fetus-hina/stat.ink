@@ -18,6 +18,10 @@ use yii\db\Connection;
 use yii\db\Exception as DbException;
 use yii\db\Query;
 
+use function array_map;
+use function implode;
+use function vsprintf;
+
 trait WeaponTrait
 {
     protected static function createWeaponStats(
@@ -43,9 +47,9 @@ trait WeaponTrait
                 ->andWhere(['not', ['weapon_id' => null]])
                 ->groupBy(['user_id', 'weapon_id']);
 
-            $sql = \vsprintf('INSERT INTO %s ( %s ) %s', [
+            $sql = vsprintf('INSERT INTO %s ( %s ) %s', [
                 $db->quoteTableName(UserWeapon3::tableName()),
-                \implode(', ', \array_map(
+                implode(', ', array_map(
                     fn (string $column): string => $db->quoteColumnName($column),
                     ['user_id', 'weapon_id', 'battles', 'last_used_at'],
                 )),
@@ -56,7 +60,7 @@ trait WeaponTrait
             return true;
         } catch (DbException $e) {
             Yii::error(
-                \vsprintf('Catch %s, message=%s', [
+                vsprintf('Catch %s, message=%s', [
                     $e::class,
                     $e->getMessage(),
                 ]),

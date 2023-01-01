@@ -8,6 +8,8 @@
 
 namespace app\components\ability\effect;
 
+use function max;
+
 class v020700 extends v020600
 {
     public function getCalculatorVersion()

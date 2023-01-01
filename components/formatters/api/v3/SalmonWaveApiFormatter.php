@@ -12,6 +12,9 @@ namespace app\components\formatters\api\v3;
 
 use app\models\SalmonWave3;
 
+use function array_map;
+use function array_values;
+
 final class SalmonWaveApiFormatter
 {
     /**
@@ -19,9 +22,9 @@ final class SalmonWaveApiFormatter
      */
     public static function allToJson(array $models, bool $fullTranslate = false): ?array
     {
-        return \array_map(
+        return array_map(
             fn (?SalmonWave3 $model): ?array => self::toJson($model, $fullTranslate),
-            \array_values($models),
+            array_values($models),
         );
     }
 

@@ -20,6 +20,15 @@ use yii\base\Widget;
 use yii\helpers\Html;
 use yii\helpers\Json;
 
+use function array_filter;
+use function array_map;
+use function array_reverse;
+use function count;
+use function implode;
+use function vsprintf;
+
+use const SORT_DESC;
+
 class XPowerHistory extends Widget
 {
     public $user;

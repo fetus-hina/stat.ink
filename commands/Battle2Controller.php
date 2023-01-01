@@ -19,6 +19,17 @@ use yii\console\Controller;
 use yii\db\Expression as DbExpr;
 use yii\helpers\Console;
 
+use function array_filter;
+use function array_map;
+use function escapeshellarg;
+use function implode;
+use function printf;
+use function sprintf;
+use function substr;
+use function version_compare;
+
+use const SORT_ASC;
+
 class Battle2Controller extends Controller
 {
     public function actionUserStat($id)

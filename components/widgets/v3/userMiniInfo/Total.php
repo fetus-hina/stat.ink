@@ -17,6 +17,8 @@ use yii\base\Widget;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
+use function implode;
+
 final class Total extends Widget
 {
     public ?User $user = null;

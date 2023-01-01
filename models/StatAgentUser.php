@@ -8,6 +8,8 @@
 
 namespace app\models;
 
+use yii\db\ActiveRecord;
+
 /**
  * This is the model class for table "stat_agent_user".
  *
@@ -17,7 +19,7 @@ namespace app\models;
  * @property integer $battle_count
  * @property integer $user_count
  */
-class StatAgentUser extends \yii\db\ActiveRecord
+class StatAgentUser extends ActiveRecord
 {
     /**
      * @inheritdoc

@@ -9,12 +9,24 @@
 namespace app\actions\entire;
 
 use Base32\Base32;
+use DateInterval;
+use DateTime;
+use DateTimeZone;
 use Yii;
 use app\models\AgentGroup;
 use app\models\StatAgentUser;
 use yii\base\DynamicModel;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
+
+use function array_keys;
+use function array_values;
+use function ksort;
+use function max;
+use function mb_check_encoding;
+use function min;
+
+use const SORT_ASC;
 
 class AgentAction extends BaseAction
 {
@@ -82,10 +94,10 @@ class AgentAction extends BaseAction
         $minDate = min(array_keys($ret));
         $maxDate = max(array_keys($ret));
         if ($minDate !== $maxDate) {
-            $min = new \DateTime($minDate, new \DateTimeZone('Etc/GMT-6'));
-            $max = new \DateTime($maxDate, new \DateTimeZone('Etc/GMT-6'));
+            $min = new DateTime($minDate, new DateTimeZone('Etc/GMT-6'));
+            $max = new DateTime($maxDate, new DateTimeZone('Etc/GMT-6'));
             while ($min->format('U') < $max->format('U')) {
-                $min->add(new \DateInterval('P1D'));
+                $min->add(new DateInterval('P1D'));
                 $d = $min->format('Y-m-d');
                 if (!isset($ret[$d])) {
                     $ret[$d] = [

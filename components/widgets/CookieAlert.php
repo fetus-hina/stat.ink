@@ -16,6 +16,9 @@ use app\assets\CookieAlertAsset;
 use yii\base\Widget;
 use yii\helpers\Html;
 
+use function implode;
+use function trim;
+
 class CookieAlert extends Widget
 {
     public function run(): string

@@ -15,6 +15,14 @@ use Yii;
 use app\components\helpers\db\Now;
 use yii\base\Model;
 
+use function implode;
+use function is_string;
+use function preg_match;
+use function preg_quote;
+use function sprintf;
+use function strpos;
+use function trim;
+
 class SlackAddForm extends Model
 {
     /** @var string */

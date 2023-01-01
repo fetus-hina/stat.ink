@@ -30,6 +30,14 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\validators\NumberValidator;
 
+use function count;
+use function implode;
+use function is_array;
+use function sprintf;
+use function strtolower;
+
+use const SORT_ASC;
+
 class Player extends Model
 {
     use OpenAPIUtil;

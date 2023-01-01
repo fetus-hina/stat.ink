@@ -16,6 +16,17 @@ use yii\db\Transaction;
 use yii\helpers\ArrayHelper;
 use yii\web\ViewAction;
 
+use function array_filter;
+use function array_merge;
+use function ceil;
+use function floor;
+use function implode;
+use function sprintf;
+use function strtotime;
+use function vsprintf;
+
+use const SORT_ASC;
+
 class Festpower2Action extends ViewAction
 {
     public const MISTAKE_BEGIN = '2018-05-19T04:00:00+00:00';

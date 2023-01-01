@@ -19,6 +19,9 @@ use yii\base\Action;
 use yii\helpers\Url;
 use yii\web\Response;
 
+use function rawurlencode;
+use function vsprintf;
+
 final class PostSalmonAction extends Action
 {
     use ApiInitializerTrait;
@@ -83,8 +86,8 @@ final class PostSalmonAction extends Action
                 true,
             ),
             'X-Api-Location' => Url::to(
-                \vsprintf('@web/api/v3/salmon/%s', [
-                    \rawurlencode($battle->uuid),
+                vsprintf('@web/api/v3/salmon/%s', [
+                    rawurlencode($battle->uuid),
                 ]),
                 true,
             ),

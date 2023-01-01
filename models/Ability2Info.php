@@ -13,6 +13,21 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 
+use function array_merge;
+use function ceil;
+use function floor;
+use function implode;
+use function log;
+use function max;
+use function min;
+use function pow;
+use function round;
+use function strpos;
+use function trim;
+use function ucfirst;
+use function version_compare;
+use function vsprintf;
+
 class Ability2Info extends Model
 {
     private const WEIGHT_LIGHT = 0;

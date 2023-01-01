@@ -20,6 +20,12 @@ use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 use yii\web\ViewAction;
 
+use function array_map;
+use function max;
+use function microtime;
+use function strcasecmp;
+use function uasort;
+
 class CurrentDataAction extends ViewAction
 {
     public function init()

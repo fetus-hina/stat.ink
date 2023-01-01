@@ -18,6 +18,10 @@ use app\models\StatWeapon2KdWinRate;
 use yii\web\ServerErrorHttpException;
 use yii\web\ViewAction;
 
+use function array_filter;
+use function min;
+use function trim;
+
 class KDWin2Action extends ViewAction
 {
     public const KD_LIMIT = 16;

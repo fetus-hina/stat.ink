@@ -18,6 +18,12 @@ use app\models\UserStatSalmon3;
 use yii\helpers\Html;
 use yii\web\View;
 
+use function array_map;
+use function filter_var;
+use function implode;
+use function is_int;
+use function vsprintf;
+
 use const FILTER_VALIDATE_INT;
 
 final class SalmonUserInfo3 extends SalmonUserInfo
@@ -38,7 +44,7 @@ final class SalmonUserInfo3 extends SalmonUserInfo
         $maxTitle = null;
         $maxTitleFull = null;
         if ($stats->peakTitle) {
-            $maxTitleFull = \vsprintf('%s %s', [
+            $maxTitleFull = vsprintf('%s %s', [
                 Yii::t('app-salmon-title3', $stats->peakTitle->name),
                 $stats->peak_title_exp === null ? '?' : $fmt->asInteger($stats->peak_title_exp),
             ]);
@@ -173,9 +179,9 @@ final class SalmonUserInfo3 extends SalmonUserInfo
         ];
         return Html::tag(
             'div',
-            \implode(
+            implode(
                 '',
-                \array_map(
+                array_map(
                     fn (array $item): string => MiniinfoData::widget($item),
                     $data,
                 ),
@@ -214,7 +220,7 @@ final class SalmonUserInfo3 extends SalmonUserInfo
     {
         return Html::tag(
             'div',
-            \implode('', [
+            implode('', [
                 Html::tag(
                     'div',
                     Html::encode(Yii::t('app', 'Activity')),
@@ -251,12 +257,12 @@ final class SalmonUserInfo3 extends SalmonUserInfo
 
     protected function getBigRunHighScore(): ?int
     {
-        $v = \filter_var(
+        $v = filter_var(
             UserStatBigrun3::find()
                 ->andWhere(['user_id' => $this->user->id])
                 ->max('golden_eggs'),
             FILTER_VALIDATE_INT,
         );
-        return \is_int($v) ? $v : null;
+        return is_int($v) ? $v : null;
     }
 }

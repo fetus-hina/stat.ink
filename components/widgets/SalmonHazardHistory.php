@@ -18,6 +18,19 @@ use yii\base\Widget;
 use yii\helpers\Html;
 use yii\helpers\Json;
 
+use function array_filter;
+use function array_keys;
+use function array_map;
+use function array_reverse;
+use function array_values;
+use function count;
+use function in_array;
+use function preg_replace;
+use function range;
+use function str_replace;
+
+use const SORT_DESC;
+
 class SalmonHazardHistory extends Widget
 {
     public $user;

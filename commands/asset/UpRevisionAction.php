@@ -19,6 +19,8 @@ use function fprintf;
 use function implode;
 use function sprintf;
 
+use const STDERR;
+
 class UpRevisionAction extends Action
 {
     /**

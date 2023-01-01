@@ -14,6 +14,14 @@ use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\StringHelper;
 
+use function chr;
+use function preg_match;
+use function str_replace;
+use function strcmp;
+use function strlen;
+use function strtolower;
+use function usort;
+
 /**
  * This is the model class for table "accept_language".
  *

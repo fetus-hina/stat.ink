@@ -12,6 +12,10 @@ use Yii;
 use app\models\Language;
 use yii\base\Component;
 
+use function strtr;
+
+use const SORT_ASC;
+
 class Name extends Component
 {
     use Util;

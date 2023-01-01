@@ -12,6 +12,10 @@ use Yii;
 use app\models\User;
 use yii\web\ViewAction as BaseAction;
 
+use function hash_hmac;
+use function http_build_query;
+use function is_scalar;
+
 abstract class BaseStatAction extends BaseAction
 {
     public $user;

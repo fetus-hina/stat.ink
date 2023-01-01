@@ -8,6 +8,16 @@
 
 namespace app\models;
 
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+
+use function array_map;
+use function base64_encode;
+use function count;
+use function hash;
+use function http_build_query;
+use function rtrim;
+
 /**
  * This is the model class for table "gear_configuration".
  *
@@ -20,7 +30,7 @@ namespace app\models;
  * @property Gear $gear
  * @property GearConfigurationSecondary[] $secondaries
  */
-class GearConfiguration extends \yii\db\ActiveRecord
+class GearConfiguration extends ActiveRecord
 {
     public static function generateFingerPrint($gearId, $primaryAbilityId, array $secondaryAbitilyIdList)
     {
@@ -88,7 +98,7 @@ class GearConfiguration extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getPrimaryAbility()
     {
@@ -96,7 +106,7 @@ class GearConfiguration extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getGear()
     {
@@ -104,7 +114,7 @@ class GearConfiguration extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getSecondaries()
     {

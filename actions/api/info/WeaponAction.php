@@ -15,6 +15,12 @@ use app\models\Weapon;
 use app\models\WeaponType;
 use yii\web\ViewAction as BaseAction;
 
+use function array_map;
+use function strnatcasecmp;
+use function usort;
+
+use const SORT_ASC;
+
 class WeaponAction extends BaseAction
 {
     public function run()

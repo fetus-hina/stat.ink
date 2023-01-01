@@ -8,6 +8,9 @@
 
 namespace app\components\web;
 
+use function header;
+use function headers_sent;
+
 class Session extends \yii\web\Session
 {
     public function open()

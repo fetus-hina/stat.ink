@@ -15,6 +15,8 @@ use app\models\Weapon;
 use app\models\WeaponType;
 use yii\validators\Validator;
 
+use function substr;
+
 class WeaponKeyValidator extends Validator
 {
     public const PREFIX_WEAPON_GROUP = '@';

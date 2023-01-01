@@ -17,6 +17,8 @@ use app\models\Salmon2;
 use app\models\User;
 use yii\db\ActiveQuery;
 
+use const SORT_DESC;
+
 /**
  * @var User $user
  */

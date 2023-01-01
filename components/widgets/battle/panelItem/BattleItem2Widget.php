@@ -12,6 +12,8 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
 
+use function sprintf;
+
 class BattleItem2Widget extends BaseWidget
 {
     public function getBattleEndAt(): ?DateTimeImmutable

@@ -15,6 +15,21 @@ use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
+use function array_map;
+use function basename;
+use function call_user_func;
+use function count;
+use function hash;
+use function implode;
+use function is_callable;
+use function str_replace;
+use function strtolower;
+use function substr;
+use function trim;
+use function vsprintf;
+
+use const DIRECTORY_SEPARATOR;
+
 trait Util
 {
     /** @return array<string, string> */

@@ -25,7 +25,7 @@ class m170328_133655_weapon2 extends Migration
             'canonical_id' => $this->pkRef('weapon2'),
             'main_group_id' => $this->pkRef('weapon2'),
         ]);
-        $transaction = \Yii::$app->db->beginTransaction();
+        $transaction = Yii::$app->db->beginTransaction();
         $this->safeUp();
         $transaction->commit();
     }

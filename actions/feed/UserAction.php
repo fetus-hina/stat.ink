@@ -14,6 +14,7 @@ namespace app\actions\feed;
 use DateTimeImmutable;
 use DateTimeZone;
 use Laminas\Feed\Writer\Feed as FeedWriter;
+use Laminas\Feed\Writer\Version;
 use Yii;
 use app\models\Battle;
 use app\models\Language;
@@ -24,6 +25,12 @@ use yii\base\Action;
 use yii\base\DynamicModel;
 use yii\helpers\Html;
 use yii\helpers\Url;
+
+use function implode;
+use function sprintf;
+use function strtotime;
+use function time;
+use function vsprintf;
 
 final class UserAction extends Action
 {
@@ -79,11 +86,11 @@ final class UserAction extends Action
 
         $feed = new FeedWriter();
         $feed->setGenerator(
-            \vsprintf('%s/%s %s/%s', [
+            vsprintf('%s/%s %s/%s', [
                 Yii::$app->name,
                 Yii::$app->version,
                 'Laminas-Feed-Writer',
-                \Laminas\Feed\Writer\Version::VERSION,
+                Version::VERSION,
             ]),
             Yii::$app->version,
             Url::home(true),

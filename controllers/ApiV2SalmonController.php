@@ -21,6 +21,9 @@ use yii\filters\auth\HttpBearerAuth;
 use yii\rest\Controller;
 use yii\web\Response;
 
+use function array_merge;
+use function implode;
+
 class ApiV2SalmonController extends Controller
 {
     public $enableCsrfValidation = false;

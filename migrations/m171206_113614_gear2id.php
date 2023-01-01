@@ -7,13 +7,14 @@
  */
 
 use app\components\db\Migration;
+use yii\db\Expression;
 
 class m171206_113614_gear2id extends Migration
 {
     public function safeUp()
     {
         $data = $this->getUpdateData();
-        $updateCase = new \yii\db\Expression(sprintf(
+        $updateCase = new Expression(sprintf(
             '(CASE %s %s END)',
             $this->db->quoteColumnName('key'),
             implode(' ', array_map(

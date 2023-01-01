@@ -10,7 +10,13 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+
+use function array_merge;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "death_reason".
@@ -26,7 +32,7 @@ use yii\helpers\ArrayHelper;
  * @property DeathReasonType $type
  * @property Weapon $weapon
  */
-class DeathReason extends \yii\db\ActiveRecord
+class DeathReason extends ActiveRecord
 {
     use openapi\Util;
 
@@ -72,7 +78,7 @@ class DeathReason extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattleDeathReasons()
     {
@@ -80,7 +86,7 @@ class DeathReason extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattles()
     {
@@ -90,7 +96,7 @@ class DeathReason extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getType()
     {
@@ -98,7 +104,7 @@ class DeathReason extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getWeapon()
     {

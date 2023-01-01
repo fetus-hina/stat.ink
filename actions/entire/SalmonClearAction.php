@@ -13,6 +13,8 @@ namespace app\actions\entire;
 use app\models\StatSalmon2ClearRate;
 use yii\web\ViewAction;
 
+use const SORT_ASC;
+
 class SalmonClearAction extends ViewAction
 {
     public function run()

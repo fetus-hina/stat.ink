@@ -16,6 +16,8 @@ use app\models\Salmon3;
 use yii\base\Widget;
 use yii\helpers\Html;
 
+use function implode;
+
 final class Modal extends Widget
 {
     public Battle3|Salmon3|null $model = null;
@@ -48,7 +50,7 @@ final class Modal extends Widget
             'div',
             Html::tag(
                 'div',
-                \implode('', [
+                implode('', [
                     ModalHeader::widget(['model' => $model]),
                     ModalBody::widget(['model' => $model]),
                     ModalFooter::widget(['model' => $model]),

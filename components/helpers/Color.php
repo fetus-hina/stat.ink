@@ -8,6 +8,10 @@
 
 namespace app\components\helpers;
 
+use function max;
+use function min;
+use function round;
+
 class Color
 {
     public static function getHueFromRGB($r, $g, $b)

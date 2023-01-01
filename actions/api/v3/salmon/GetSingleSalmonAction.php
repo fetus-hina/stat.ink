@@ -20,6 +20,8 @@ use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
+use function preg_match;
+
 final class GetSingleSalmonAction extends Action
 {
     use ApiInitializerTrait;
@@ -35,7 +37,7 @@ final class GetSingleSalmonAction extends Action
 
     public function run(string $uuid, bool $full = false): Response
     {
-        if (!\preg_match(UuidRegexp::get(true), $uuid)) {
+        if (!preg_match(UuidRegexp::get(true), $uuid)) {
             throw new BadRequestHttpException();
         }
 

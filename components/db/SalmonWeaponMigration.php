@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\components\db;
 
+use Exception;
 use app\models\Weapon2;
 use yii\db\Query;
 
@@ -22,7 +23,7 @@ trait SalmonWeaponMigration
             foreach ($keys as $key) {
                 $query = Weapon2::find()->andWhere(['key' => $key]);
                 if (!$query->exists()) {
-                    throw new \Exception("Weapon does not exists: {$key}");
+                    throw new Exception("Weapon does not exists: {$key}");
                 }
             }
 

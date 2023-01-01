@@ -15,6 +15,8 @@ use yii\base\Action;
 use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 
+use function trim;
+
 final class ProfileAction extends Action
 {
     public function run(?string $tab = null): ?string
@@ -25,7 +27,7 @@ final class ProfileAction extends Action
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
         }
 
-        $tab = \trim((string)$tab);
+        $tab = trim((string)$tab);
         if ($tab !== '1' && $tab !== '2' && $tab !== '') {
             $this->controller->redirect(
                 ['show-user/profile',

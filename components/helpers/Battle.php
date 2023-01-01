@@ -21,6 +21,13 @@ use app\models\BattleFilterForm;
 use app\models\User;
 use yii\db\Query;
 
+use function floor;
+use function sprintf;
+use function time;
+
+use const SORT_ASC;
+use const SORT_DESC;
+
 class Battle
 {
     public static function calcPeriod(int $unixTime): int

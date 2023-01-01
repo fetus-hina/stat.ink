@@ -28,6 +28,10 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\ViewAction;
 
+use function array_filter;
+use function array_merge;
+use function array_values;
+use function preg_replace;
 use function time;
 
 abstract class BaseLatestBattlesAction extends ViewAction
@@ -117,8 +121,8 @@ abstract class BaseLatestBattlesAction extends ViewAction
 
     private function getBattles(): array
     {
-        return \array_values(
-            \array_filter(
+        return array_values(
+            array_filter(
                 ArrayHelper::getColumn(
                     $this->fetchBattles(),
                     function ($battle): ?array {

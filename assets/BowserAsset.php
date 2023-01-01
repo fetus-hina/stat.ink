@@ -13,6 +13,10 @@ namespace app\assets;
 use Yii;
 use yii\web\AssetBundle;
 
+use function preg_match;
+use function strlen;
+use function substr;
+
 class BowserAsset extends AssetBundle
 {
     public $sourcePath = '@node/bowser';

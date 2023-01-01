@@ -12,6 +12,17 @@ namespace app\components\helpers;
 
 use Yii;
 
+use function array_column;
+use function array_filter;
+use function array_merge;
+use function dns_get_record;
+use function gethostbyaddr;
+use function implode;
+use function in_array;
+
+use const DNS_A;
+use const DNS_AAAA;
+
 class IPHelper
 {
     public static function getLocationByIP(

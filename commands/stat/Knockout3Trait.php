@@ -15,13 +15,19 @@ use yii\db\Connection;
 use yii\db\Query;
 use yii\db\Transaction;
 
+use function array_keys;
+use function array_map;
+use function fwrite;
+use function implode;
+use function vsprintf;
+
 use const STDERR;
 
 trait Knockout3Trait
 {
     protected function updateKnockout3(): void
     {
-        \fwrite(STDERR, "Updating knockout3...\n");
+        fwrite(STDERR, "Updating knockout3...\n");
         Yii::$app->db->transaction(
             function (Connection $db): void {
                 $select = $this->buildBasicSelectForKnockout3();
@@ -33,7 +39,7 @@ trait Knockout3Trait
             },
             Transaction::READ_COMMITTED,
         );
-        \fwrite(STDERR, "Updated knockout3.\n");
+        fwrite(STDERR, "Updated knockout3.\n");
     }
 
     private function buildBasicSelectForKnockout3(): Query
@@ -81,29 +87,29 @@ trait Knockout3Trait
 
     private function updateKnockout3stats(Connection $db, Query $select): void
     {
-        $sql = \vsprintf('INSERT INTO %s (%s) %s ON CONFLICT %s %s', [
+        $sql = vsprintf('INSERT INTO %s (%s) %s ON CONFLICT %s %s', [
             $db->quoteTableName('{{%knockout3}}'),
-            \implode(
+            implode(
                 ', ',
-                \array_map(
+                array_map(
                     fn (string $columnName) => $db->quoteColumnName($columnName),
-                    \array_keys($select->select),
+                    array_keys($select->select),
                 ),
             ),
             $select->createCommand($db)->rawSql,
             // conflict_target
-            \vsprintf('(%s)', [
-                \implode(', ', [
+            vsprintf('(%s)', [
+                implode(', ', [
                     '[[season_id]]',
                     '[[rule_id]]',
                     'COALESCE([[map_id]], 0)',
                 ]),
             ]),
-            \vsprintf('DO UPDATE SET %s', [
-                \implode(
+            vsprintf('DO UPDATE SET %s', [
+                implode(
                     ', ',
-                    \array_map(
-                        fn (string $name): string => \vsprintf('%1$s = {{excluded}}.%1$s', [
+                    array_map(
+                        fn (string $name): string => vsprintf('%1$s = {{excluded}}.%1$s', [
                             $db->quoteColumnName($name),
                         ]),
                         [

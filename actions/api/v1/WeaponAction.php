@@ -13,6 +13,8 @@ use app\models\Weapon;
 use app\models\api\v1\WeaponGetForm;
 use yii\web\ViewAction as BaseAction;
 
+use function array_map;
+
 class WeaponAction extends BaseAction
 {
     public function run()

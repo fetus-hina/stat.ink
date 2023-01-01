@@ -19,19 +19,25 @@ use yii\helpers\Json;
 
 use function array_shift;
 use function copy;
+use function dirname;
 use function escapeshellarg;
 use function file_exists;
 use function file_get_contents;
 use function fwrite;
+use function implode;
 use function pathinfo;
 use function preg_match;
 use function preg_replace;
+use function str_replace;
 use function strcasecmp;
 use function strcmp;
 use function strnatcasecmp;
 use function trim;
 use function usort;
 use function vsprintf;
+
+use const PATHINFO_FILENAME;
+use const STDERR;
 
 trait LicenseExtractTrait
 {

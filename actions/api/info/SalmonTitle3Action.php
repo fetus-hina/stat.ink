@@ -16,6 +16,8 @@ use app\models\SalmonTitle3;
 use yii\base\Action;
 use yii\helpers\ArrayHelper;
 
+use function strnatcasecmp;
+
 use const SORT_ASC;
 
 final class SalmonTitle3Action extends Action
@@ -41,7 +43,7 @@ final class SalmonTitle3Action extends Action
             Language::find()->standard()->all(),
             fn (Language $a, Language $b): int => ($a->lang === $sysLang ? -1 : 0)
                 ?: ($b->lang === $sysLang ? 1 : 0)
-                ?: \strnatcasecmp($a->name, $b->name),
+                ?: strnatcasecmp($a->name, $b->name),
         );
     }
 }

@@ -125,7 +125,7 @@ class m181119_120843_timezone extends Migration
             ->limit(1)
             ->scalar();
         if ($ret === null) {
-            throw new \Exception('Could not find ID');
+            throw new Exception('Could not find ID');
         }
         return (int)$ret;
     }

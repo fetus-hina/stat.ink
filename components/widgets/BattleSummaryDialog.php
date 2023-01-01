@@ -15,6 +15,11 @@ use app\assets\AppAsset;
 use yii\base\Widget;
 use yii\helpers\Html;
 
+use function array_keys;
+use function array_map;
+use function array_values;
+use function implode;
+
 class BattleSummaryDialog extends Widget
 {
     public function run()

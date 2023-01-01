@@ -16,6 +16,11 @@ use app\models\Battle2;
 use statink\yii2\stages\spl2\StagesAsset;
 use yii\helpers\Url;
 
+use function in_array;
+use function sprintf;
+use function strtotime;
+use function vsprintf;
+
 trait Battle2Formatter
 {
     use UserFormatter;
@@ -101,10 +106,10 @@ trait Battle2Formatter
 
                     case 'gachi':
                         if (
-                            \in_array($rule->key, ['area', 'asari', 'hoko', 'yagura'], true) &&
-                            \in_array($lobby->key, ['standard', 'squad_2', 'squad_4'], true)
+                            in_array($rule->key, ['area', 'asari', 'hoko', 'yagura'], true) &&
+                            in_array($lobby->key, ['standard', 'squad_2', 'squad_4'], true)
                         ) {
-                            return \vsprintf('%s, %s', [
+                            return vsprintf('%s, %s', [
                                 Yii::t('app-rule2', $rule->name),
                                 (function () use ($lobby): string {
                                     switch ($lobby->key) {
@@ -131,7 +136,7 @@ trait Battle2Formatter
 
                 return null;
             })(),
-            'time' => \strtotime($battle->end_at ?: $battle->created_at),
+            'time' => strtotime($battle->end_at ?: $battle->created_at),
             'rule' => $battle->rule
                 ? [
                     'icon' => Url::to(

@@ -20,6 +20,8 @@ use app\actions\api\v2\WeaponAction;
 use app\components\web\Controller;
 use yii\filters\VerbFilter;
 
+use function array_merge;
+
 final class ApiV2Controller extends Controller
 {
     public $enableCsrfValidation = false;

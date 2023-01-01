@@ -11,6 +11,10 @@ namespace app\components\helpers;
 use DateTime;
 use DateTimeZone;
 
+use function floor;
+use function is_float;
+use function sprintf;
+
 class DateTimeFormatter
 {
     public static function unixTimeToString($unixtime, ?DateTimeZone $tz = null)

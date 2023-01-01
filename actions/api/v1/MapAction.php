@@ -12,6 +12,8 @@ use Yii;
 use app\models\Map;
 use yii\web\ViewAction as BaseAction;
 
+use function array_map;
+
 class MapAction extends BaseAction
 {
     public function run()

@@ -14,6 +14,9 @@ use Yii;
 use app\models\SalmonStats2;
 use app\models\User;
 
+use function array_merge;
+use function str_replace;
+
 class UserForSalmon2 extends User
 {
     use Util;

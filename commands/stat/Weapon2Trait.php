@@ -15,6 +15,14 @@ use app\models\Battle2;
 use app\models\Rank2;
 use yii\db\Query;
 
+use function array_filter;
+use function array_keys;
+use function array_map;
+use function implode;
+use function in_array;
+use function sprintf;
+use function vsprintf;
+
 trait Weapon2Trait
 {
     protected function updateEntireWeapons2(): void

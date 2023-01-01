@@ -9,7 +9,10 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+
+use function array_merge;
 
 /**
  * This is the model class for table "salmon_wave2".
@@ -88,7 +91,7 @@ class SalmonWave2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getSalmon()
     {
@@ -96,7 +99,7 @@ class SalmonWave2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getEvent()
     {
@@ -104,7 +107,7 @@ class SalmonWave2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getWater()
     {

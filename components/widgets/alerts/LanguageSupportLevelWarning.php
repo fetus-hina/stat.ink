@@ -20,6 +20,10 @@ use app\models\SupportLevel;
 use yii\base\Widget;
 use yii\helpers\Html;
 
+use function implode;
+use function in_array;
+use function strtolower;
+
 class LanguageSupportLevelWarning extends Widget
 {
     private $language;
@@ -97,7 +101,7 @@ class LanguageSupportLevelWarning extends Widget
                 Html::encode($this->language->name),
             ])),
             Html::button(
-                \implode(' ', [
+                implode(' ', [
                     Icon::language(),
                     Html::encode('Switch'),
                 ]),

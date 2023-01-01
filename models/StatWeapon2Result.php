@@ -11,6 +11,8 @@ namespace app\models;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
+use function substr;
+
 /**
  * This is the model class for table "stat_weapon2_result".
  *
@@ -199,7 +201,7 @@ class StatWeapon2Result extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getLobby()
     {
@@ -207,7 +209,7 @@ class StatWeapon2Result extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getMap()
     {
@@ -215,7 +217,7 @@ class StatWeapon2Result extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getMode()
     {
@@ -223,7 +225,7 @@ class StatWeapon2Result extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getRank()
     {
@@ -231,7 +233,7 @@ class StatWeapon2Result extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getRule()
     {
@@ -239,7 +241,7 @@ class StatWeapon2Result extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getVersion()
     {
@@ -247,7 +249,7 @@ class StatWeapon2Result extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getWeapon()
     {

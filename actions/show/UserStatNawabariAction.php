@@ -19,6 +19,17 @@ use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
+use function array_filter;
+use function array_reverse;
+use function array_slice;
+use function array_sum;
+use function count;
+use function implode;
+use function max;
+use function sprintf;
+use function strnatcasecmp;
+use function uasort;
+
 class UserStatNawabariAction extends BaseAction
 {
     private $user;

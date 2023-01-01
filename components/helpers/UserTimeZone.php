@@ -12,9 +12,17 @@ namespace app\components\helpers;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use Throwable;
 use Yii;
 use app\models\Timezone;
 use yii\helpers\StringHelper;
+
+use function call_user_func;
+use function floor;
+use function sprintf;
+use function trim;
+
+use const SORT_ASC;
 
 class UserTimeZone
 {
@@ -224,7 +232,7 @@ class UserTimeZone
             }
 
             return $tz;
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             Yii::warning(
                 'Catch an exception: ' . $e->getMessage(),
                 __METHOD__,
@@ -241,7 +249,7 @@ class UserTimeZone
             Yii::beginProfile(__FUNCTION__, __METHOD__);
             try {
                 $tz = new DateTimeZone($identifier);
-            } catch (\Throwable $e) {
+            } catch (Throwable $e) {
                 return null;
             }
             if ($guessed = self::guessTimezoneByTimezone($tz)) {
@@ -291,8 +299,8 @@ class UserTimeZone
     private static function createUTCOffsetTimezone(DateTimeZone $tz): ?Timezone
     {
         $offsetSec = (new DateTimeImmutable('now', $tz))->format('Z');
-        $offsetHours = (int)\floor($offsetSec / 3600);
-        $tzName = \sprintf('Etc/GMT%+d', -$offsetHours);
+        $offsetHours = (int)floor($offsetSec / 3600);
+        $tzName = sprintf('Etc/GMT%+d', -$offsetHours);
         return Timezone::find()
             ->andWhere(['identifier' => $tzName])
             ->orderBy(null)

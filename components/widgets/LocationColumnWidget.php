@@ -11,10 +11,18 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use GeoIp2\Model\City;
+use Throwable;
 use Yii;
 use statink\yii2\jdenticon\Jdenticon;
 use yii\base\Widget;
 use yii\helpers\Html;
+
+use function array_filter;
+use function array_map;
+use function hash;
+use function implode;
+use function strpos;
+use function strtolower;
 
 class LocationColumnWidget extends Widget
 {
@@ -109,7 +117,7 @@ class LocationColumnWidget extends Widget
                 $this->renderLocationText($city),
                 $this->renderLocationIcon($city),
             ]));
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             return null;
         }
     }
@@ -171,7 +179,7 @@ class LocationColumnWidget extends Widget
         if ($this->cityInfo === false) {
             try {
                 $this->cityInfo = $this->geoip->city($this->remoteAddr);
-            } catch (\Throwable $e) {
+            } catch (Throwable $e) {
                 $this->cityInfo = null;
             }
         }

@@ -13,6 +13,8 @@ namespace app\components\formatters\api\v3;
 use yii\base\Model;
 use yii\helpers\Url;
 
+use function vsprintf;
+
 final class ImageApiFormatter
 {
     public static function toJson(?Model $model): ?string

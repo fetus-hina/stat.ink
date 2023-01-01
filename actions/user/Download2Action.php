@@ -13,6 +13,8 @@ use Yii;
 use yii\web\BadRequestHttpException;
 use yii\web\ViewAction as BaseAction;
 
+use function is_scalar;
+
 class Download2Action extends BaseAction
 {
     private $user;

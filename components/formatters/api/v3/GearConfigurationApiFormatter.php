@@ -14,6 +14,8 @@ use app\models\GearConfiguration3;
 use app\models\GearConfigurationSecondary3;
 use yii\helpers\ArrayHelper;
 
+use function array_map;
+
 final class GearConfigurationApiFormatter
 {
     public static function toJson(?GearConfiguration3 $model, bool $fullTranslate = false): ?array
@@ -24,7 +26,7 @@ final class GearConfigurationApiFormatter
 
         return [
             'primary_ability' => AbilityApiFormatter::toJson($model->ability, $fullTranslate),
-            'secondary_abilities' => \array_map(
+            'secondary_abilities' => array_map(
                 fn (GearConfigurationSecondary3 $v) => AbilityApiFormatter::toJson(
                     $v->ability,
                     $fullTranslate,

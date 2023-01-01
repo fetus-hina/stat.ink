@@ -12,6 +12,7 @@ namespace app\commands;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use Exception;
 use Yii;
 use app\components\openapi\doc\V1 as V1Generator;
 use app\components\openapi\doc\V2 as V2Generator;
@@ -21,6 +22,24 @@ use app\models\TimezoneGroup;
 use yii\console\Controller;
 use yii\helpers\FileHelper;
 use yii\helpers\Html;
+
+use function array_map;
+use function chdir;
+use function count;
+use function dirname;
+use function escapeshellarg;
+use function exec;
+use function file_put_contents;
+use function getcwd;
+use function implode;
+use function preg_match;
+use function preg_replace_callback;
+use function random_int;
+use function rawurlencode;
+use function round;
+use function sprintf;
+use function time;
+use function vsprintf;
 
 class ApidocController extends Controller
 {
@@ -288,7 +307,7 @@ class ApidocController extends Controller
         static $flagIconCssVersion = false;
         if ($flagIconCssVersion === false) {
             if (!$flagIconCssVersion = $this->getFlagIconCssVersion()) {
-                throw new \Exception('Could not detect the version of flag-icons');
+                throw new Exception('Could not detect the version of flag-icons');
             }
         }
 

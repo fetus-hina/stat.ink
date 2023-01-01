@@ -19,6 +19,13 @@ use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
+use function array_map;
+use function implode;
+use function is_int;
+use function sprintf;
+use function strcasecmp;
+use function uasort;
+
 class UserStatVsWeaponAction extends BaseAction
 {
     use UserStatFilterTrait;

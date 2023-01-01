@@ -17,6 +17,15 @@ use app\models\openapi\Util;
 use yii\base\Model;
 use yii\helpers\Html;
 
+use function array_keys;
+use function array_map;
+use function array_sum;
+use function implode;
+use function strtotime;
+use function time;
+
+use const SORT_DESC;
+
 class PostSalmonStatsForm extends Model
 {
     use Util;

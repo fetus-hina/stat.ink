@@ -17,6 +17,8 @@ use app\models\Species2;
 use app\models\Weapon2;
 use yii\base\Model;
 
+use function array_keys;
+
 class PostBattlePlayerForm extends Model
 {
     public $team;

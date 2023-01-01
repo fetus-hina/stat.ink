@@ -14,12 +14,30 @@ use DateInterval;
 use DateTimeImmutable;
 use DateTimeZone;
 use Exception;
+use Throwable;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\db\Now;
 use yii\base\Model;
 use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
+
+use function array_filter;
+use function array_keys;
+use function array_map;
+use function explode;
+use function implode;
+use function in_array;
+use function preg_match;
+use function preg_quote;
+use function sprintf;
+use function strpos;
+use function substr;
+use function time;
+use function trim;
+use function version_compare;
+
+use const SORT_DESC;
 
 class Salmon2FilterForm extends Model
 {
@@ -137,7 +155,7 @@ class Salmon2FilterForm extends Model
                         throw new Exception();
                 }
             }
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             $this->addError($attr, Yii::t('yii', '{attribute} is invalid.', [
                 'attribute' => $this->getAttributeLabel($attr),
             ]));

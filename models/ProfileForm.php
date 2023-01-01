@@ -12,6 +12,10 @@ use Yii;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
 
+use function trim;
+
+use const SORT_ASC;
+
 class ProfileForm extends Model
 {
     public $name;

@@ -9,7 +9,9 @@
 namespace app\commands;
 
 use Curl\Curl;
+use Exception;
 use Yii;
+use app\components\helpers\Battle;
 use app\models\GameMode;
 use app\models\PeriodMap;
 use app\models\Rule;
@@ -19,6 +21,16 @@ use app\models\Splatfest;
 use app\models\SplatfestMap;
 use yii\console\Controller;
 use yii\helpers\Json;
+
+use function array_filter;
+use function array_map;
+use function count;
+use function gmdate;
+use function printf;
+use function sprintf;
+use function strtotime;
+use function time;
+use function usort;
 
 class SplapiController extends Controller
 {
@@ -66,12 +78,12 @@ class SplapiController extends Controller
     {
         echo "regular...\n";
         $latestPeriod = $this->getLatestPeriod(GameMode::findOne(['key' => 'regular']));
-        $currntPeriod = \app\components\helpers\Battle::calcPeriod(time());
+        $currntPeriod = Battle::calcPeriod(time());
         $futureOnly = ($latestPeriod >= $currntPeriod);
         $json = array_filter(
             array_map(
                 function ($item) {
-                    $item->period = \app\components\helpers\Battle::calcPeriod(
+                    $item->period = Battle::calcPeriod(
                         strtotime($item->start),
                     );
                     return $item;
@@ -125,12 +137,12 @@ class SplapiController extends Controller
         echo "gachi...\n";
         $gameMode = GameMode::findOne(['key' => 'gachi']);
         $latestPeriod = $this->getLatestPeriod($gameMode);
-        $currntPeriod = \app\components\helpers\Battle::calcPeriod(time());
+        $currntPeriod = Battle::calcPeriod(time());
         $futureOnly = ($latestPeriod >= $currntPeriod);
         $json = array_filter(
             array_map(
                 function ($item) {
-                    $item->period = \app\components\helpers\Battle::calcPeriod(
+                    $item->period = Battle::calcPeriod(
                         strtotime($item->start),
                     );
                     return $item;
@@ -239,7 +251,7 @@ class SplapiController extends Controller
                     'map_id' => $map->map_id,
                 ];
                 if (!$o->save()) {
-                    throw new \Exception('Save failed');
+                    throw new Exception('Save failed');
                 }
             }
         }
@@ -292,7 +304,7 @@ class SplapiController extends Controller
         ));
         $curl->get($url, $data);
         if ($curl->error) {
-            throw new \Exception("Request failed: url={$url}, code={$curl->errorCode}, msg={$curl->errorMessage}");
+            throw new Exception("Request failed: url={$url}, code={$curl->errorCode}, msg={$curl->errorMessage}");
         }
         return Json::decode($curl->rawResponse, false);
     }

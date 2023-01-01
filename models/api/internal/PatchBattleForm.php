@@ -10,6 +10,9 @@ namespace app\models\api\internal;
 
 use yii\base\Model;
 
+use function preg_replace;
+use function trim;
+
 class PatchBattleForm extends Model
 {
     public $link_url;

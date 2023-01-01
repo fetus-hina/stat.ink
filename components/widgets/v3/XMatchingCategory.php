@@ -18,6 +18,15 @@ use yii\base\Widget;
 use yii\helpers\Html;
 use yii\web\View;
 
+use function array_filter;
+use function array_map;
+use function count;
+use function implode;
+use function strcmp;
+use function strtolower;
+use function usort;
+use function vsprintf;
+
 final class XMatchingCategory extends Widget
 {
     public ?Battle3 $model = null;
@@ -37,7 +46,7 @@ final class XMatchingCategory extends Widget
             $view->registerCss($this->makeCss());
         }
 
-        return \implode('', [
+        return implode('', [
             $this->renderHeading(),
             $this->renderSource(),
             $this->renderTable($model),
@@ -74,7 +83,7 @@ final class XMatchingCategory extends Widget
             'table',
             Html::tag(
                 'tbody',
-                \implode('', [
+                implode('', [
                     $this->renderOurTeam($battle),
                     $this->renderTheirTeam($battle),
                 ]),
@@ -88,7 +97,7 @@ final class XMatchingCategory extends Widget
     private function renderOurTeam(Battle3 $battle): string
     {
         $data = $this->makeData($battle, ourTeam: true);
-        return \implode('', [
+        return implode('', [
             $this->renderTeamCategoryRow($data),
             $this->renderTeamWeaponRow($data),
         ]);
@@ -97,7 +106,7 @@ final class XMatchingCategory extends Widget
     private function renderTheirTeam(Battle3 $battle): string
     {
         $data = $this->makeData($battle, ourTeam: false);
-        return \implode('', [
+        return implode('', [
             $this->renderTeamWeaponRow($data),
             $this->renderTeamCategoryRow($data),
         ]);
@@ -107,7 +116,7 @@ final class XMatchingCategory extends Widget
     {
         return Html::tag(
             'tr',
-            \implode('', \array_map(
+            implode('', array_map(
                 fn (array $weapon): string => Html::tag(
                     'td',
                     $weapon['category'] ?? '?',
@@ -115,7 +124,7 @@ final class XMatchingCategory extends Widget
                         'class' => [
                             'fw-bold',
                             'text-center',
-                            'weapon-matching-category-' . \strtolower(($weapon['category'] ?? 'unknown')),
+                            'weapon-matching-category-' . strtolower(($weapon['category'] ?? 'unknown')),
                         ],
                     ],
                 ),
@@ -128,7 +137,7 @@ final class XMatchingCategory extends Widget
     {
         return Html::tag(
             'tr',
-            \implode('', \array_map(
+            implode('', array_map(
                 fn (array $weapon): string => Html::tag(
                     'td',
                     WeaponIcon::widget(['model' => $weapon['weapon']]),
@@ -146,7 +155,7 @@ final class XMatchingCategory extends Widget
 
     private function makeData(Battle3 $battle, bool $ourTeam): array
     {
-        $players = \array_filter(
+        $players = array_filter(
             $battle->battlePlayer3s,
             fn (BattlePlayer3 $player): bool => $player->is_our_team === $ourTeam,
         );
@@ -167,7 +176,7 @@ final class XMatchingCategory extends Widget
             }
         }
 
-        \usort($results, function ($a, $b): int {
+        usort($results, function ($a, $b): int {
             if ($a['weapon'] === null) {
                 return 1;
             }
@@ -200,11 +209,11 @@ final class XMatchingCategory extends Widget
             [['h', 'i'], '#bfff7f'],
         ];
 
-        return \implode('', \array_map(
+        return implode('', array_map(
             function (array $item): string {
                 [$classes, $color] = $item;
-                return \vsprintf('%s{%s}', [
-                    \implode(',', \array_map(
+                return vsprintf('%s{%s}', [
+                    implode(',', array_map(
                         fn (string $c): string => ".weapon-matching-category-{$c}",
                         $classes,
                     )),

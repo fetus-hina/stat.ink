@@ -11,6 +11,13 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 
+use function dns_get_record;
+use function preg_match;
+use function strtolower;
+
+use const DNS_A;
+use const DNS_AAAA;
+
 class RemoteFollowModalForm extends Model
 {
     public $screen_name;

@@ -15,6 +15,11 @@ use yii\base\Widget;
 use yii\helpers\Html;
 use yii\i18n\Formatter;
 
+use function array_filter;
+use function array_map;
+use function implode;
+use function vsprintf;
+
 final class BattleKillDeathColumn extends Widget
 {
     public ?int $kill = null;
@@ -37,18 +42,18 @@ final class BattleKillDeathColumn extends Widget
     {
         return Html::tag(
             'div',
-            \implode('', \array_map(
+            implode('', array_map(
                 fn (string $html): string => Html::tag('div', $html),
-                \array_filter(
+                array_filter(
                     [
-                        \implode(' ', \array_filter(
+                        implode(' ', array_filter(
                             [
                                 $this->renderValues(),
                                 $this->renderLabel(),
                             ],
                             fn (?string $v): bool => $v !== null,
                         )),
-                        \implode(' ', \array_filter(
+                        implode(' ', array_filter(
                             [
                                 $this->renderKillRatio(),
                             ],
@@ -79,11 +84,11 @@ final class BattleKillDeathColumn extends Widget
         } elseif ($this->assist === null) {
             $kPart = $kHtml;
         } else {
-            $kPart = \vsprintf('%s %s', [
+            $kPart = vsprintf('%s %s', [
                 $kHtml,
                 Html::tag(
                     'small',
-                    \vsprintf('+ %s', [
+                    vsprintf('+ %s', [
                         $this->renderKDValue($this->assist, Yii::t('app', 'Assists')),
                     ]),
                     ['class' => 'text-muted'],

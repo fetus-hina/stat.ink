@@ -10,8 +10,13 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Exception;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+
+use function preg_match;
+use function strtolower;
+use function vsprintf;
 
 /**
  * This is the model class for table "language".
@@ -95,7 +100,7 @@ class Language extends ActiveRecord
     private function splitLangId(): array
     {
         if (!preg_match('/^(\w+)[-_](\w+)/', $this->lang, $match)) {
-            throw new \Exception('Invalid language format: ' . $this->lang);
+            throw new Exception('Invalid language format: ' . $this->lang);
         }
 
         return [
@@ -110,8 +115,8 @@ class Language extends ActiveRecord
     public function getHtmlClasses(): array
     {
         return [
-            'lang-' . \strtolower($this->getLanguageCode()), // lang-ja
-            'lang-' . \strtolower($this->getLanguageId()), // lang-ja-jp
+            'lang-' . strtolower($this->getLanguageCode()), // lang-ja
+            'lang-' . strtolower($this->getLanguageId()), // lang-ja-jp
         ];
     }
 

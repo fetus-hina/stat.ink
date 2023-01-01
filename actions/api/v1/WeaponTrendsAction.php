@@ -13,6 +13,9 @@ use app\models\StatWeaponMapTrend;
 use app\models\api\v1\WeaponTrendsGetForm as Form;
 use yii\web\ViewAction as BaseAction;
 
+use function implode;
+use function ini_set;
+
 class WeaponTrendsAction extends BaseAction
 {
     public function init()

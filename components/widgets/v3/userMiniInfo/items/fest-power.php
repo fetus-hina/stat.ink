@@ -14,6 +14,8 @@ use Yii;
 use app\models\UserStat3;
 use yii\helpers\Html;
 
+use function preg_replace;
+
 return [
     'label' => Yii::t('app', 'Fest Power'),
     'format' => 'raw',

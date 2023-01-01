@@ -18,7 +18,19 @@ use yii\db\Migration as BaseMigration;
 use yii\db\Query;
 use yii\db\Schema;
 
+use function array_keys;
+use function array_map;
+use function assert;
+use function filter_var;
+use function implode;
+use function is_int;
+use function is_string;
+use function preg_split;
+use function sprintf;
+use function vsprintf;
+
 use const FILTER_VALIDATE_INT;
+use const PREG_SPLIT_NO_EMPTY;
 
 class Migration extends BaseMigration
 {
@@ -83,8 +95,8 @@ class Migration extends BaseMigration
         assert($db instanceof Connection);
 
         foreach ($tables as $table) {
-            $time = $this->beginCommand(\sprintf('vacuum table %s', $table));
-            $sql = \sprintf('VACUUM ( ANALYZE ) %s', $db->quoteTableName($table));
+            $time = $this->beginCommand(sprintf('vacuum table %s', $table));
+            $sql = sprintf('VACUUM ( ANALYZE ) %s', $db->quoteTableName($table));
             $this->db->createCommand($sql)->execute();
             $this->endCommand($time);
         }
@@ -92,7 +104,7 @@ class Migration extends BaseMigration
 
     public function key2id(string $tableName, string $key, string $keyColumn = 'key'): int
     {
-        $value = \filter_var(
+        $value = filter_var(
             (new Query())
                 ->select(['id'])
                 ->from($tableName)
@@ -101,7 +113,7 @@ class Migration extends BaseMigration
                 ->scalar(),
             FILTER_VALIDATE_INT,
         );
-        if (!\is_int($value)) {
+        if (!is_int($value)) {
             throw new InvalidArgumentException("The key $key is not exists in $tableName");
         }
         return $value;

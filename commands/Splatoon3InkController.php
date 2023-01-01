@@ -20,6 +20,8 @@ use yii\console\Controller;
 use yii\console\ExitCode;
 use yii\helpers\Json;
 
+use function vsprintf;
+
 final class Splatoon3InkController extends Controller
 {
     use UpdateSalmonSchedule;
@@ -62,7 +64,7 @@ final class Splatoon3InkController extends Controller
         echo "Querying {$url} ...\n";
         $curl = new Curl();
         $curl->setUserAgent(
-            \vsprintf('%s/%s (+%s)', [
+            vsprintf('%s/%s (+%s)', [
                 'stat.ink',
                 Yii::$app->version,
                 'https://github.com/fetus-hina/stat.ink',

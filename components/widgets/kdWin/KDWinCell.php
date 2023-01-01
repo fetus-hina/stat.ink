@@ -16,6 +16,9 @@ use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
 use yii\helpers\Html;
 
+use function implode;
+use function sprintf;
+
 class KDWinCell extends Widget
 {
     public $battles;

@@ -14,6 +14,8 @@ use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
+use function array_merge;
+
 /**
  * This is the model class for table "stat_weapon2_kd_win_rate".
  *

@@ -20,6 +20,12 @@ use yii\db\Query;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
+use function array_map;
+use function array_merge;
+use function array_values;
+use function strcasecmp;
+use function usort;
+
 class UserStatCauseOfDeathAction extends BaseAction
 {
     use UserStatFilterTrait;

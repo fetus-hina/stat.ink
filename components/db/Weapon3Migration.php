@@ -13,6 +13,8 @@ namespace app\components\db;
 use yii\db\Expression;
 use yii\db\Query;
 
+use function in_array;
+
 /**
  * @phpstan-type type3-string1 'blaster'|'brella'|'brush'|'charger'|'maneuver'|'reelgun'|'roller'
  * @phpstan-type type3-string2 'shooter'|'slosher'|'spinner'|'stringer'|'wiper'
@@ -69,7 +71,7 @@ trait Weapon3Migration
 
         if ($enableAutoKey) {
             $autoKey = self::name2key3($name);
-            if ($key !== $autoKey && !\in_array($autoKey, $aliases, true)) {
+            if ($key !== $autoKey && !in_array($autoKey, $aliases, true)) {
                 $aliases[] = $autoKey;
             }
         }

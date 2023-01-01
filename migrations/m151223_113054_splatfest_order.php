@@ -14,7 +14,7 @@ class m151223_113054_splatfest_order extends Migration
     public function up()
     {
         $this->execute('ALTER TABLE {{splatfest}} ADD COLUMN [[order]] INTEGER');
-        $transaction = \Yii::$app->db->beginTransaction();
+        $transaction = Yii::$app->db->beginTransaction();
         $jp = Region::findOne(['key' => 'jp'])->id;
         $jpStarts = [
             '2015-06-13 18:00:00+09',

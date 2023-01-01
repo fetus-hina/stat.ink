@@ -21,6 +21,10 @@ use app\models\GearConfigurationSecondary3;
 use yii\base\Model;
 use yii\db\Connection;
 
+use function array_keys;
+use function array_map;
+use function array_values;
+
 final class GearForm extends Model
 {
     public $primary_ability;
@@ -74,9 +78,9 @@ final class GearForm extends Model
             null,
             $this->primary_ability ? $this->findAbility($this->primary_ability) : null,
             $this->secondary_abilities
-                ? \array_map(
+                ? array_map(
                     fn (?string $key): ?Ability3 => $this->findAbility($key),
-                    \array_values($this->secondary_abilities),
+                    array_values($this->secondary_abilities),
                 )
                 : [],
         );

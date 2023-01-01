@@ -21,6 +21,9 @@ use yii\db\Query;
 use yii\db\Transaction;
 use yii\helpers\ArrayHelper;
 
+use function array_values;
+use function sprintf;
+
 use const SORT_ASC;
 
 final class TideAction extends Action
@@ -91,7 +94,7 @@ final class TideAction extends Action
             $results[$tmpId]['clears'][$row['tide_id']] = (int)$row['cleared'];
         }
 
-        return \array_values($results);
+        return array_values($results);
     }
 
     private function getMaps(Connection $db): array

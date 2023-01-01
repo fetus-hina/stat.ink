@@ -21,6 +21,17 @@ use yii\db\Query;
 use yii\helpers\ArrayHelper;
 use yii\web\Response;
 
+use function array_keys;
+use function array_map;
+use function array_values;
+use function implode;
+use function ksort;
+use function sprintf;
+use function time;
+
+use const SORT_ASC;
+use const SORT_STRING;
+
 final class ActivityAction extends Action
 {
     /** @var Response */

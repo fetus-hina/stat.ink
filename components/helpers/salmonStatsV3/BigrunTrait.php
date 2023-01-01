@@ -19,6 +19,8 @@ use app\models\UserStatBigrun3;
 use yii\db\Connection;
 use yii\db\Query;
 
+use function vsprintf;
+
 trait BigrunTrait
 {
     protected static function createBigrunStats(
@@ -42,7 +44,7 @@ trait BigrunTrait
             return true;
         } catch (Throwable $e) {
             Yii::error(
-                \vsprintf('Catch %s, message=%s', [
+                vsprintf('Catch %s, message=%s', [
                     $e::class,
                     $e->getMessage(),
                 ]),

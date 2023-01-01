@@ -13,12 +13,14 @@ namespace app\assets;
 use Yii;
 use yii\web\AssetBundle;
 
+use function sprintf;
+
 final class GameVersionIconAsset extends AssetBundle
 {
     public $sourcePath = '@app/resources/game-version-icon';
 
     public function getIconUrl(int $version): string
     {
-        return Yii::$app->assetManager->getAssetUrl($this, \sprintf('s%d.png', $version));
+        return Yii::$app->assetManager->getAssetUrl($this, sprintf('s%d.png', $version));
     }
 }

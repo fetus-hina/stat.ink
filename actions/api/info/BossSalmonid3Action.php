@@ -17,6 +17,9 @@ use app\models\SalmonKing3;
 use yii\base\Action;
 use yii\helpers\ArrayHelper;
 
+use function strcmp;
+use function strnatcasecmp;
+
 final class BossSalmonid3Action extends Action
 {
     public function run()
@@ -38,7 +41,7 @@ final class BossSalmonid3Action extends Action
             Language::find()->standard()->all(),
             fn (Language $a, Language $b): int => ($a->lang === $sysLang ? -1 : 0)
                 ?: ($b->lang === $sysLang ? 1 : 0)
-                ?: \strnatcasecmp($a->name, $b->name),
+                ?: strnatcasecmp($a->name, $b->name),
         );
     }
 
@@ -53,10 +56,10 @@ final class BossSalmonid3Action extends Action
                 $na = Yii::t('app-salmon-boss3', $a->name);
                 $nb = Yii::t('app-salmon-boss3', $b->name);
 
-                return \strnatcasecmp($na, $nb)
-                    ?: \strcmp($na, $nb)
-                    ?: \strnatcasecmp($a->name, $b->name)
-                    ?: \strcmp($a->name, $b->name);
+                return strnatcasecmp($na, $nb)
+                    ?: strcmp($na, $nb)
+                    ?: strnatcasecmp($a->name, $b->name)
+                    ?: strcmp($a->name, $b->name);
             },
         );
     }
@@ -72,10 +75,10 @@ final class BossSalmonid3Action extends Action
                 $na = Yii::t('app-salmon-boss3', $a->name);
                 $nb = Yii::t('app-salmon-boss3', $b->name);
 
-                return \strnatcasecmp($na, $nb)
-                    ?: \strcmp($na, $nb)
-                    ?: \strnatcasecmp($a->name, $b->name)
-                    ?: \strcmp($a->name, $b->name);
+                return strnatcasecmp($na, $nb)
+                    ?: strcmp($na, $nb)
+                    ?: strnatcasecmp($a->name, $b->name)
+                    ?: strcmp($a->name, $b->name);
             },
         );
     }

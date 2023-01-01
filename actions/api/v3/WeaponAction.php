@@ -15,6 +15,10 @@ use app\components\formatters\api\v3\WeaponApiFormatter;
 use app\models\Weapon3;
 use yii\web\ViewAction;
 
+use function array_map;
+
+use const SORT_ASC;
+
 final class WeaponAction extends ViewAction
 {
     use ApiInitializerTrait;
@@ -33,7 +37,7 @@ final class WeaponAction extends ViewAction
      */
     public function run(bool $full = false): array
     {
-        return \array_map(
+        return array_map(
             fn (Weapon3 $model): array => WeaponApiFormatter::toJson($model, $full),
             Weapon3::find()
                 ->joinWith(['mainweapon.type'], true)

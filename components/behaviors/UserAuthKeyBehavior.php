@@ -16,6 +16,16 @@ use yii\base\Behavior;
 use yii\base\Model;
 use yii\helpers\StringHelper;
 
+use function ceil;
+use function defined;
+use function hash;
+use function password_hash;
+use function rtrim;
+
+use const PASSWORD_ARGON2I;
+use const PASSWORD_ARGON2ID;
+use const PASSWORD_BCRYPT;
+
 final class UserAuthKeyBehavior extends Behavior
 {
     public const RAW_KEY_BITS = 256;
@@ -45,7 +55,7 @@ final class UserAuthKeyBehavior extends Behavior
         [$algo, $algoOptions] = $this->getHashOptions();
 
         // hashed token
-        $this->owner->auth_key_hash = \password_hash($raw_key, $algo, $algoOptions);
+        $this->owner->auth_key_hash = password_hash($raw_key, $algo, $algoOptions);
     }
 
     protected function generateRawKey(): string

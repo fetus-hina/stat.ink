@@ -16,6 +16,9 @@ use app\models\Result3;
 use app\models\Rule3;
 use yii\base\Widget;
 
+use function array_filter;
+use function implode;
+
 final class Result extends Widget
 {
     public ?Result3 $result = null;
@@ -34,7 +37,7 @@ final class Result extends Widget
             return $this->renderResult($result);
         }
 
-        return \implode($this->separator, array_filter([
+        return implode($this->separator, array_filter([
             $this->renderResult($result),
             $this->renderTimeKO($result, $this->isKnockout, $this->rule),
         ]));

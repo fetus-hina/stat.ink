@@ -19,6 +19,13 @@ use app\models\Battle3;
 use yii\db\Connection;
 use yii\db\Query;
 
+use function array_map;
+use function assert;
+use function sprintf;
+use function time;
+use function usort;
+use function version_compare;
+
 use const SORT_ASC;
 
 trait Splatoon3
@@ -44,7 +51,7 @@ trait Splatoon3
                 $stats[] = $row;
             }
 
-            return \array_map(
+            return array_map(
                 fn (array $a): array => [
                         'date' => $a['date'],
                         'battle' => (int)$a['battle_count'],
@@ -144,8 +151,8 @@ trait Splatoon3
                 ->groupBy(['{{%battle3}}.[[agent_id]]'])
                 ->asArray()
                 ->all();
-            \usort($versions, fn (array $a, array $b): int => \version_compare($b['version'], $a['version']));
-            return \array_map(
+            usort($versions, fn (array $a, array $b): int => version_compare($b['version'], $a['version']));
+            return array_map(
                 fn (array $row): array => [
                         'version' => (string)$row['version'],
                         'battles' => (int)$row['battles'],
@@ -161,7 +168,7 @@ trait Splatoon3
     private function utc3(): Resource
     {
         $conn = Yii::$app->db;
-        \assert($conn instanceof Connection);
+        assert($conn instanceof Connection);
 
         $oldTZ = $conn->createCommand("SELECT CURRENT_SETTING('TIMEZONE')")->queryScalar();
         $conn->createCommand("SET TIMEZONE TO 'Etc/UTC'")->execute();

@@ -14,6 +14,8 @@ use LogicException;
 use Yii;
 use yii\base\Model;
 
+use function is_array;
+
 final class GearsForm extends Model
 {
     public $headgear;
@@ -42,7 +44,7 @@ final class GearsForm extends Model
             return;
         }
 
-        if (!\is_array($data)) {
+        if (!is_array($data)) {
             $this->addError($attribute, "{$attribute} is invalid");
             return;
         }

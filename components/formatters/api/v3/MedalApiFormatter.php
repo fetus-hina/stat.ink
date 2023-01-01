@@ -12,6 +12,8 @@ namespace app\components\formatters\api\v3;
 
 use app\models\Medal3;
 
+use function array_map;
+
 final class MedalApiFormatter
 {
     /**

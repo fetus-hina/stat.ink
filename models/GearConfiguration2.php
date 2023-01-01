@@ -8,8 +8,14 @@
 
 namespace app\models;
 
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\Json;
+
+use function array_map;
+use function base64_encode;
+use function hash;
+use function rtrim;
 
 /**
  * This is the model class for table "gear_configuration2".
@@ -90,7 +96,7 @@ class GearConfiguration2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getPrimaryAbility()
     {
@@ -98,7 +104,7 @@ class GearConfiguration2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getGear()
     {
@@ -106,7 +112,7 @@ class GearConfiguration2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getSecondaries()
     {

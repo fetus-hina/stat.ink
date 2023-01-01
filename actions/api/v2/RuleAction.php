@@ -12,6 +12,8 @@ use Yii;
 use app\models\Mode2;
 use yii\web\ViewAction as BaseAction;
 
+use function array_map;
+
 class RuleAction extends BaseAction
 {
     public function run()

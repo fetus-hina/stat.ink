@@ -11,6 +11,19 @@ namespace app\commands;
 use app\components\helpers\Password;
 use yii\console\Controller;
 
+use function ceil;
+use function fprintf;
+use function implode;
+use function preg_match;
+use function preg_quote;
+use function preg_replace;
+use function printf;
+use function random_bytes;
+use function strlen;
+use function substr;
+
+use const STDERR;
+
 class PasswordController extends Controller
 {
     public const PASSWORD_LENGTH = 32;

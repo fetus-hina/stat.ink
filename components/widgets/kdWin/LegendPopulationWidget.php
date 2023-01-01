@@ -16,6 +16,11 @@ use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
 use yii\helpers\Html;
 
+use function array_map;
+use function floor;
+use function implode;
+use function range;
+
 class LegendPopulationWidget extends Widget
 {
     public $numCells = 7;

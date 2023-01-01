@@ -14,6 +14,8 @@ use Yii;
 use app\components\widgets\Alert;
 use yii\helpers\Html;
 
+use function implode;
+
 final class ImportFromSplatnet extends Alert
 {
     public function init()
@@ -30,7 +32,7 @@ final class ImportFromSplatnet extends Alert
 
     private function renderBody(): string
     {
-        return \implode('', [
+        return implode('', [
             Html::tag(
                 'p',
                 Html::encode(
@@ -42,11 +44,11 @@ final class ImportFromSplatnet extends Alert
                     ),
                 ),
             ),
-            Html::tag('ul', \implode('', [
-                Html::tag('li', \implode('', [
+            Html::tag('ul', implode('', [
+                Html::tag('li', implode('', [
                     Html::encode(Yii::t('app', 'Splatoon 3')),
-                    Html::tag('ul', \implode('', [
-                        Html::tag('li', \implode('', [
+                    Html::tag('ul', implode('', [
+                        Html::tag('li', implode('', [
                             Html::a(
                                 Html::encode('s3s'),
                                 'https://github.com/frozenpandaman/s3s',
@@ -63,7 +65,7 @@ final class ImportFromSplatnet extends Alert
                                 ['class' => 'text-muted'],
                             ),
                         ])),
-                        Html::tag('li', \implode('', [
+                        Html::tag('li', implode('', [
                             Html::a(
                                 Html::encode('s3si.ts'),
                                 'https://github.com/spacemeowx2/s3si.ts',
@@ -82,9 +84,9 @@ final class ImportFromSplatnet extends Alert
                         ])),
                     ])),
                 ])),
-                Html::tag('li', \implode('', [
+                Html::tag('li', implode('', [
                     Html::encode(Yii::t('app', 'Splatoon 2')),
-                    Html::tag('ul', \implode('', [
+                    Html::tag('ul', implode('', [
                         Html::tag('li', Html::a(
                             Html::encode('splatnet2statink'),
                             'https://github.com/frozenpandaman/splatnet2statink',

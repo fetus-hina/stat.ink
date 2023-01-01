@@ -8,6 +8,9 @@
 
 namespace app\models;
 
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+
 /**
  * This is the model class for table "splapi_rule".
  *
@@ -17,7 +20,7 @@ namespace app\models;
  *
  * @property Rule $rule
  */
-class SplapiRule extends \yii\db\ActiveRecord
+class SplapiRule extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -53,7 +56,7 @@ class SplapiRule extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getRule()
     {

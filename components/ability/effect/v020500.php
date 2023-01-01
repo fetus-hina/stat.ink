@@ -8,6 +8,10 @@
 
 namespace app\components\ability\effect;
 
+use function ceil;
+use function max;
+use function round;
+
 class v020500 extends Base
 {
     public function getCalculatorVersion()

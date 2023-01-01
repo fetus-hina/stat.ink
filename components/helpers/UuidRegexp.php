@@ -10,22 +10,25 @@ declare(strict_types=1);
 
 namespace app\components\helpers;
 
+use function implode;
+use function sprintf;
+
 final class UuidRegexp
 {
     public static function get(bool $wrap = false, bool $acceptNull = false): string
     {
         if ($wrap) {
-            return \sprintf('/^%s$/i', self::get(false, $acceptNull));
+            return sprintf('/^%s$/i', self::get(false, $acceptNull));
         }
 
         return $acceptNull
-            ? \sprintf('%s|%s', self::getRfc4122(), self::getNull())
+            ? sprintf('%s|%s', self::getRfc4122(), self::getNull())
             : self::getRfc4122();
     }
 
     private static function getRfc4122(): string
     {
-        return \implode('-', [
+        return implode('-', [
             '[0-9a-f]{8}',
             '[0-9a-f]{4}',
             '[1345][0-9a-f]{3}', // version

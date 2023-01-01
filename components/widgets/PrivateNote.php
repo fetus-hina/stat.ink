@@ -17,6 +17,8 @@ use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
 use yii\helpers\Html;
 
+use function is_array;
+
 class PrivateNote extends Widget
 {
     public $text;

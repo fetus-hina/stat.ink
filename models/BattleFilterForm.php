@@ -12,6 +12,20 @@ use Yii;
 use app\components\helpers\Battle as BattleHelper;
 use yii\base\Model;
 
+use function array_map;
+use function array_merge;
+use function call_user_func;
+use function date;
+use function in_array;
+use function is_scalar;
+use function mktime;
+use function preg_match;
+use function sprintf;
+use function strtotime;
+use function substr;
+use function time;
+use function trim;
+
 class BattleFilterForm extends Model
 {
     public $screen_name;

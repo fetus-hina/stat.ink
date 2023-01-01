@@ -19,6 +19,20 @@ use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
 
+use function array_filter;
+use function array_map;
+use function array_reduce;
+use function count;
+use function filter_var;
+use function implode;
+use function in_array;
+use function is_float;
+use function vsprintf;
+
+use const FILTER_VALIDATE_FLOAT;
+use const SORT_ASC;
+use const SORT_DESC;
+
 class LeaguePowerHistory extends Widget
 {
     public $user;

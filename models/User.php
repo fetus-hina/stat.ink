@@ -20,6 +20,28 @@ use yii\db\Query;
 use yii\helpers\Url;
 use yii\web\IdentityInterface;
 
+use function base64_encode;
+use function file_exists;
+use function filemtime;
+use function filesize;
+use function filter_var;
+use function hash_hmac;
+use function implode;
+use function is_int;
+use function preg_replace;
+use function random_bytes;
+use function rawurlencode;
+use function rtrim;
+use function sprintf;
+use function strtotime;
+use function strtr;
+use function substr;
+use function trim;
+
+use const FILTER_VALIDATE_INT;
+use const SORT_ASC;
+use const SORT_DESC;
+
 /**
  * This is the model class for table "user".
  *
@@ -197,7 +219,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattles()
     {
@@ -205,7 +227,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattle2s()
     {
@@ -213,7 +235,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getLoginWithTwitter()
     {
@@ -221,7 +243,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getSlacks()
     {
@@ -252,7 +274,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getEnv()
     {
@@ -260,7 +282,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getDefaultLanguage()
     {
@@ -268,7 +290,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getLinkMode()
     {
@@ -276,7 +298,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getRegion()
     {
@@ -284,7 +306,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getUserIcon()
     {
@@ -292,20 +314,20 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getUserStat()
     {
         return $this->hasOne(UserStat::class, ['user_id' => 'id']);
     }
 
-    public function getUserStat2(): \yii\db\ActiveQuery
+    public function getUserStat2(): ActiveQuery
     {
         return $this->hasOne(UserStat2::class, ['user_id' => 'id']);
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getUserWeapons()
     {
@@ -313,13 +335,13 @@ class User extends ActiveRecord implements IdentityInterface
             ->with(['weapon']);
     }
 
-    public function getUserWeapon2s(): \yii\db\ActiveQuery
+    public function getUserWeapon2s(): ActiveQuery
     {
         return $this->hasMany(UserWeapon2::class, ['user_id' => 'id']);
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getWeapons()
     {

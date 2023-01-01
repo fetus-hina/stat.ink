@@ -8,6 +8,9 @@
 
 namespace app\models;
 
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+
 /**
  * This is the model class for table "gear_configuration_secondary".
  *
@@ -18,7 +21,7 @@ namespace app\models;
  * @property Ability $ability
  * @property GearConfiguration $config
  */
-class GearConfigurationSecondary extends \yii\db\ActiveRecord
+class GearConfigurationSecondary extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -52,7 +55,7 @@ class GearConfigurationSecondary extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getAbility()
     {
@@ -60,7 +63,7 @@ class GearConfigurationSecondary extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getConfig()
     {

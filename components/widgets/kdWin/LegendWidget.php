@@ -14,6 +14,8 @@ use Yii;
 use yii\base\Widget;
 use yii\helpers\Html;
 
+use function implode;
+
 class LegendWidget extends Widget
 {
     public $id = 'kdwin-legend';

@@ -10,13 +10,44 @@ namespace app\models;
 
 use Throwable;
 use Yii;
+use app\components\ability\Effect;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Differ;
+use app\components\helpers\db\Now;
 use app\models\query\BattleQuery;
+use stdClass;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\Query;
 use yii\helpers\Json;
 use yii\helpers\Url;
+
+use function array_keys;
+use function array_map;
+use function call_user_func;
+use function count;
+use function date;
+use function filter_var;
+use function in_array;
+use function is_array;
+use function is_int;
+use function is_object;
+use function is_string;
+use function json_decode;
+use function ksort;
+use function sprintf;
+use function str_replace;
+use function strtotime;
+use function time;
+use function trim;
+use function ucwords;
+use function usort;
+
+use const FILTER_VALIDATE_INT;
+use const JSON_PRETTY_PRINT;
+use const JSON_UNESCAPED_SLASHES;
+use const JSON_UNESCAPED_UNICODE;
+use const SORT_STRING;
 
 /**
  * This is the model class for table "battle".
@@ -305,7 +336,7 @@ class Battle extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getAgent()
     {
@@ -313,7 +344,7 @@ class Battle extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getEnv()
     {
@@ -321,7 +352,7 @@ class Battle extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getFestTitle()
     {
@@ -329,7 +360,7 @@ class Battle extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getFestTitleAfter()
     {
@@ -337,7 +368,7 @@ class Battle extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getHeadgear()
     {
@@ -346,7 +377,7 @@ class Battle extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getClothing()
     {
@@ -355,7 +386,7 @@ class Battle extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getShoes()
     {
@@ -364,7 +395,7 @@ class Battle extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getGender()
     {
@@ -372,7 +403,7 @@ class Battle extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getLobby()
     {
@@ -380,7 +411,7 @@ class Battle extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getMap()
     {
@@ -388,7 +419,7 @@ class Battle extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getRank()
     {
@@ -396,7 +427,7 @@ class Battle extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getRankAfter()
     {
@@ -404,7 +435,7 @@ class Battle extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getRule()
     {
@@ -412,7 +443,7 @@ class Battle extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getUser()
     {
@@ -420,7 +451,7 @@ class Battle extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getWeapon()
     {
@@ -437,7 +468,7 @@ class Battle extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattleDeathReasons()
     {
@@ -445,7 +476,7 @@ class Battle extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getReasons()
     {
@@ -455,7 +486,7 @@ class Battle extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattlePlayers()
     {
@@ -477,7 +508,7 @@ class Battle extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattleImages()
     {
@@ -869,8 +900,8 @@ class Battle extends ActiveRecord
                 'custom' => $this->ua_custom,
                 'variables' => $this->ua_variables
                     ? match (true) {
-                        \is_array($this->ua_variables) => $this->ua_variables,
-                        \is_string($this->ua_variables) => @\json_decode($this->ua_variables, false),
+                        is_array($this->ua_variables) => $this->ua_variables,
+                        is_string($this->ua_variables) => @json_decode($this->ua_variables, false),
                         default => null,
                     }
                     : null,
@@ -987,7 +1018,7 @@ class Battle extends ActiveRecord
                         $ret['rank_in_team'] = (int)$p->rank_in_team;
                     }
                     if (empty($ret)) {
-                        return new \stdClass();
+                        return new stdClass();
                     }
                     return $ret;
                 },
@@ -1102,7 +1133,7 @@ class Battle extends ActiveRecord
         if (!$this->getHasAbilities()) {
             return null;
         }
-        return \app\components\ability\Effect::factory($this);
+        return Effect::factory($this);
     }
 
     public function getExtraData(): array
@@ -1175,7 +1206,7 @@ class Battle extends ActiveRecord
             $edit = new BattleEditHistory();
             $edit->battle_id = $this->id;
             $edit->diff = Differ::diff($jsonBefore, $jsonAfter);
-            $edit->at = new \app\components\helpers\db\Now();
+            $edit->at = new Now();
             if ($edit->diff == '') {
                 return true;
             }

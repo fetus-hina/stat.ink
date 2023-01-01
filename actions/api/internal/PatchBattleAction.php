@@ -17,6 +17,9 @@ use yii\web\MethodNotAllowedHttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction;
 
+use function is_scalar;
+use function preg_match;
+
 class PatchBattleAction extends ViewAction
 {
     public $battle;

@@ -14,6 +14,9 @@ use Yii;
 use app\components\widgets\Alert;
 use yii\helpers\Html;
 
+use function array_map;
+use function implode;
+
 final class PleaseUseLatest extends Alert
 {
     public function init()

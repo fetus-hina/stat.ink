@@ -14,6 +14,22 @@ use yii\helpers\StringHelper;
 use yii\web\Cookie;
 use yii\web\IdentityInterface;
 
+use function array_merge;
+use function implode;
+use function json_decode;
+use function json_encode;
+use function json_last_error;
+use function openssl_cipher_iv_length;
+use function openssl_decrypt;
+use function openssl_encrypt;
+use function sprintf;
+use function strlen;
+use function substr;
+use function time;
+
+use const JSON_ERROR_NONE;
+use const OPENSSL_RAW_DATA;
+
 class User extends \yii\web\User
 {
     public const CRYPT_KEY_BITS = 256;

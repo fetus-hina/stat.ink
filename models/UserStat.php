@@ -9,6 +9,14 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+use yii\db\Query;
+
+use function gmdate;
+use function implode;
+use function sprintf;
+use function time;
 
 /**
  * This is the model class for table "user_stat".
@@ -31,7 +39,7 @@ use Yii;
  *
  * @property User $user
  */
-class UserStat extends \yii\db\ActiveRecord
+class UserStat extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -84,7 +92,7 @@ class UserStat extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getUser()
     {
@@ -404,7 +412,7 @@ class UserStat extends \yii\db\ActiveRecord
             ),
         );
 
-        $query = (new \yii\db\Query())
+        $query = (new Query())
             ->select([
                 'battle_count' => $column_battle_count,
                 'wp' => $column_wp,

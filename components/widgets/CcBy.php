@@ -14,11 +14,13 @@ use Yii;
 use yii\base\Widget;
 use yii\bootstrap\Html;
 
+use function implode;
+
 final class CcBy extends Widget
 {
     public function run(): string
     {
-        return Html::tag('p', \implode('<br>', [
+        return Html::tag('p', implode('<br>', [
             Html::img('@web/static-assets/cc/cc-by.svg', [
                 'alt' => 'CC-BY 4.0',
             ]),

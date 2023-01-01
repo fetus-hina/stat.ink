@@ -16,6 +16,10 @@ use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
 use yii\helpers\Html;
 
+use function array_map;
+use function implode;
+use function range;
+
 class LegendPercentageWidget extends Widget
 {
     public $maxPct = 90;

@@ -10,6 +10,15 @@ declare(strict_types=1);
 
 namespace app\components\db;
 
+use function array_keys;
+use function array_values;
+use function preg_replace;
+use function rtrim;
+use function str_replace;
+use function strtolower;
+use function substr;
+use function trim;
+
 trait AutoKey
 {
     protected static function name2key(string $name): string

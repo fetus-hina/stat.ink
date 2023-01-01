@@ -16,6 +16,13 @@ use app\assets\UserDetailedStatsCellAsset;
 use yii\base\Widget;
 use yii\helpers\Html;
 
+use function array_filter;
+use function array_keys;
+use function array_map;
+use function array_values;
+use function implode;
+use function vsprintf;
+
 class UserDetailedStatsCell extends Widget
 {
     public $rule;

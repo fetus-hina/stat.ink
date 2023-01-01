@@ -16,6 +16,10 @@ use yii\base\Widget;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
+use function array_filter;
+use function array_merge_recursive;
+use function trim;
+
 final class FlagIcon extends Widget
 {
     public $tag = 'span';
@@ -104,7 +108,7 @@ final class FlagIcon extends Widget
                             "fi-{$this->cc}",
                             $this->isSquare ? 'fis' : null,
                         ],
-                        fn (?string $v): bool => \trim((string)$v) !== '',
+                        fn (?string $v): bool => trim((string)$v) !== '',
                     ),
                     'id' => $this->id,
                 ],

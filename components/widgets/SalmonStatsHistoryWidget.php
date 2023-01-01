@@ -19,6 +19,22 @@ use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\ServerErrorHttpException;
 
+use function array_filter;
+use function array_keys;
+use function array_map;
+use function array_values;
+use function fclose;
+use function fopen;
+use function fseek;
+use function implode;
+use function preg_replace_callback;
+use function sprintf;
+use function stream_get_contents;
+use function trim;
+use function vsprintf;
+
+use const SEEK_SET;
+
 class SalmonStatsHistoryWidget extends Widget
 {
     public $user;

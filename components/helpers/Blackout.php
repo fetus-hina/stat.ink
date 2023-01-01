@@ -10,6 +10,10 @@ namespace app\components\helpers;
 
 use app\models\User;
 
+use function array_filter;
+use function in_array;
+use function range;
+
 class Blackout
 {
     public static function getBlackoutTargetList($lobbyKey, $blackoutConfigValue, $myPosition): array

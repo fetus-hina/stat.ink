@@ -15,6 +15,9 @@ use app\models\Language;
 use yii\base\Action;
 use yii\web\NotFoundHttpException;
 
+use function strnatcasecmp;
+use function usort;
+
 final class Gear2Action extends Action
 {
     public $type;
@@ -37,7 +40,7 @@ final class Gear2Action extends Action
             ])
             ->andWhere(['type_id' => $type->id])
             ->all();
-        \usort($gears, fn (Gear2 $a, Gear2 $b): int => \strnatcasecmp(
+        usort($gears, fn (Gear2 $a, Gear2 $b): int => strnatcasecmp(
             $a->translatedName,
             $b->translatedName,
         ));

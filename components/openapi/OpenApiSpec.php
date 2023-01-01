@@ -15,6 +15,18 @@ use yii\base\Component;
 use yii\helpers\Json;
 use yii\helpers\Url;
 
+use function array_filter;
+use function call_user_func;
+use function in_array;
+use function ksort;
+use function rtrim;
+use function substr;
+use function vsprintf;
+
+use const JSON_PRETTY_PRINT;
+use const JSON_UNESCAPED_SLASHES;
+use const JSON_UNESCAPED_UNICODE;
+
 class OpenApiSpec extends Component
 {
     public $openapi = '3.0.2';

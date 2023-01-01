@@ -15,6 +15,15 @@ use yii\db\ActiveRecord;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
 
+use function max;
+use function min;
+use function sqrt;
+use function strcmp;
+use function substr;
+use function usort;
+use function version_compare;
+use function vsprintf;
+
 /**
  * This is the model class for table "stat_weapon2_tier".
  *

@@ -9,7 +9,21 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+
+use function hash;
+use function hash_hmac;
+use function hex2bin;
+use function is_infinite;
+use function is_nan;
+use function preg_match;
+use function substr;
+use function trim;
+
+use const INF;
+use const NAN;
+use const SORT_DESC;
 
 /**
  * This is the model class for table "battle_player2".
@@ -144,7 +158,7 @@ class BattlePlayer2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattle()
     {
@@ -152,7 +166,7 @@ class BattlePlayer2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getWeapon()
     {
@@ -160,7 +174,7 @@ class BattlePlayer2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getRank()
     {

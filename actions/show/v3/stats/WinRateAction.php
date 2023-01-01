@@ -20,6 +20,12 @@ use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
+use function array_map;
+use function assert;
+use function implode;
+use function sprintf;
+use function vsprintf;
+
 final class WinRateAction extends Action
 {
     public ?User $user = null;
@@ -50,7 +56,7 @@ final class WinRateAction extends Action
         }
 
         $c = $this->controller;
-        \assert($c instanceof Controller);
+        assert($c instanceof Controller);
         return $c->render('stats/win-rate', [
             'user' => $user,
             'stats' => $this->makeStats($user),
@@ -70,8 +76,8 @@ final class WinRateAction extends Action
                 'lose_unknown' => self::buildStatsAggregate(false, null),
                 'lose_knockout' => self::buildStatsAggregate(false, true),
                 'lose_time' => self::buildStatsAggregate(false, false),
-                'total_seconds' => \vsprintf('SUM(%s)', [
-                    \vsprintf('%s - %s', [
+                'total_seconds' => vsprintf('SUM(%s)', [
+                    vsprintf('%s - %s', [
                         'EXTRACT(EPOCH FROM {{%battle3}}.[[end_at]])',
                         'EXTRACT(EPOCH FROM {{%battle3}}.[[start_at]])',
                     ]),
@@ -103,7 +109,7 @@ final class WinRateAction extends Action
             ])
             ->all();
 
-        return \array_map(
+        return array_map(
             function (array $row): array {
                 foreach ($row as $k => $v) {
                     $row[$k] = (int)$v;
@@ -117,13 +123,13 @@ final class WinRateAction extends Action
 
     private static function buildStatsAggregate(bool $filterIsWin, ?bool $filterIsKO): string
     {
-        return \vsprintf('SUM(%s)', [
-            \vsprintf('CASE WHEN %s THEN 1 ELSE 0 END', [
-                \implode(' AND ', [
-                    \sprintf('{{%%result3}}.[[is_win]] = %s', $filterIsWin ? 'TRUE' : 'FALSE'),
+        return vsprintf('SUM(%s)', [
+            vsprintf('CASE WHEN %s THEN 1 ELSE 0 END', [
+                implode(' AND ', [
+                    sprintf('{{%%result3}}.[[is_win]] = %s', $filterIsWin ? 'TRUE' : 'FALSE'),
                     $filterIsKO === null
-                        ? \sprintf('%s IS NULL', self::isKnockout())
-                        : \sprintf('%s = %s', self::isKnockout(), $filterIsKO ? 'TRUE' : 'FALSE'),
+                        ? sprintf('%s IS NULL', self::isKnockout())
+                        : sprintf('%s = %s', self::isKnockout(), $filterIsKO ? 'TRUE' : 'FALSE'),
                 ]),
             ]),
         ]);
@@ -131,11 +137,11 @@ final class WinRateAction extends Action
 
     private static function isKnockout(): string
     {
-        return \vsprintf('(CASE %s END)', [
-            \implode(' ', [
+        return vsprintf('(CASE %s END)', [
+            implode(' ', [
                 // ナワバリバトル系統なら is_knockout は全て無視されるべき
-                \vsprintf('WHEN {{%%battle3}}.[[rule_id]] IN (%s) THEN FALSE', [
-                    \implode(', ', \array_map(
+                vsprintf('WHEN {{%%battle3}}.[[rule_id]] IN (%s) THEN FALSE', [
+                    implode(', ', array_map(
                         fn (int $id): string => (string)$id,
                         self::getNawabariRuleIdList(),
                     )),

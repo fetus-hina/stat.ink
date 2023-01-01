@@ -10,6 +10,8 @@ namespace app\controllers;
 
 use app\components\web\Controller;
 
+use function array_merge;
+
 class ShowCompatController extends Controller
 {
     public $layout = 'main';

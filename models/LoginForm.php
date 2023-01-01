@@ -11,6 +11,8 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 
+use function headers_sent;
+
 final class LoginForm extends Model
 {
     public $screen_name;

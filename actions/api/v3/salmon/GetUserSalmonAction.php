@@ -21,9 +21,12 @@ use yii\web\JsExpression;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
+use function array_map;
+
 use const JSON_THROW_ON_ERROR;
 use const JSON_UNESCAPED_SLASHES;
 use const JSON_UNESCAPED_UNICODE;
+use const SORT_DESC;
 
 final class GetUserSalmonAction extends Action
 {
@@ -88,7 +91,7 @@ final class GetUserSalmonAction extends Action
             : (int)$user->id === (int)Yii::$app->user->id;
 
         $resp = Yii::$app->response;
-        $resp->data = \array_map(
+        $resp->data = array_map(
             fn (Salmon3 $model): JsExpression => new JsExpression(
                 Json::encode(
                     SalmonApiFormatter::toJson(

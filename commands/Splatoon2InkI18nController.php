@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace app\commands;
 
 use Normalizer;
+use Throwable;
 use Yii;
 use app\components\helpers\I18n as I18nHelper;
 use app\models\Gear2;
@@ -23,6 +24,23 @@ use yii\helpers\FileHelper;
 use yii\helpers\Json;
 use yii\httpclient\Client as HttpClient;
 use yii\httpclient\CurlTransport;
+
+use function array_keys;
+use function dirname;
+use function fclose;
+use function file_exists;
+use function file_get_contents;
+use function file_put_contents;
+use function fopen;
+use function fprintf;
+use function fwrite;
+use function implode;
+use function mb_convert_kana;
+use function sprintf;
+use function trim;
+
+use const SORT_ASC;
+use const STDERR;
 
 class Splatoon2InkI18nController extends Controller
 {
@@ -125,7 +143,7 @@ class Splatoon2InkI18nController extends Controller
         $body = $response->content;
         try {
             Json::decode($body);
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             fwrite(STDERR, "JSON decode failed\n");
             return 1;
         }

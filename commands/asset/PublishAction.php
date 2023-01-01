@@ -18,8 +18,11 @@ use function fwrite;
 use function implode;
 use function is_array;
 use function parse_url;
+use function passthru;
 use function sprintf;
 use function strtolower;
+
+use const STDERR;
 
 class PublishAction extends Action
 {

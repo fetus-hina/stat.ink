@@ -19,6 +19,11 @@ use yii\db\Query;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
+use function array_merge;
+use function asort;
+use function implode;
+use function sprintf;
+
 class UserStatByMapRuleDetailAction extends BaseAction
 {
     use UserStatFilterTrait;

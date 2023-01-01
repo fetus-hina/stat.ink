@@ -17,6 +17,13 @@ use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
 
+use function array_filter;
+use function array_map;
+use function array_merge;
+use function array_values;
+use function count;
+use function vsprintf;
+
 class FallbackableImage extends Widget
 {
     public $srcs = [];

@@ -28,6 +28,15 @@ use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
+use function array_filter;
+use function filter_var;
+use function is_int;
+use function str_starts_with;
+use function substr;
+use function trim;
+
+use const FILTER_VALIDATE_INT;
+
 trait QueryDecoratorTrait
 {
     public function decorateQuery(ActiveQuery $query): void
@@ -65,17 +74,17 @@ trait QueryDecoratorTrait
 
     private function decorateWeaponFilter(ActiveQuery $query, ?string $key): void
     {
-        $key = \trim((string)$key);
+        $key = trim((string)$key);
         if ($key === '') {
             return;
         }
 
-        switch (\substr($key, 0, 1)) {
+        switch (substr($key, 0, 1)) {
             case Battle3FilterForm::PREFIX_WEAPON_TYPE:
                 $this->decorateSimpleFilter(
                     $query->innerJoinWith(['weapon.mainweapon'], false),
                     '{{%mainweapon3}}.[[type_id]]',
-                    \substr($key, 1),
+                    substr($key, 1),
                     WeaponType3::class,
                 );
                 return;
@@ -84,7 +93,7 @@ trait QueryDecoratorTrait
                 $this->decorateSimpleFilter(
                     $query->innerJoinWith(['weapon'], false),
                     '{{%weapon3}}.[[subweapon_id]]',
-                    \substr($key, 1),
+                    substr($key, 1),
                     Subweapon3::class,
                 );
                 return;
@@ -93,7 +102,7 @@ trait QueryDecoratorTrait
                 $this->decorateSimpleFilter(
                     $query->innerJoinWith(['weapon'], false),
                     '{{%weapon3}}.[[special_id]]',
-                    \substr($key, 1),
+                    substr($key, 1),
                     Special3::class,
                 );
                 return;
@@ -102,7 +111,7 @@ trait QueryDecoratorTrait
                 $this->decorateSimpleFilter(
                     $query->innerJoinWith(['weapon'], false),
                     '{{%weapon3}}.[[mainweapon_id]]',
-                    \substr($key, 1),
+                    substr($key, 1),
                     Mainweapon3::class,
                 );
                 return;
@@ -120,7 +129,7 @@ trait QueryDecoratorTrait
 
     private function decorateResultFilter(ActiveQuery $query, ?string $key): void
     {
-        $key = \trim((string)$key);
+        $key = trim((string)$key);
         if ($key === '') {
             return;
         }
@@ -183,7 +192,7 @@ trait QueryDecoratorTrait
 
     private function decorateKnockoutFilter(ActiveQuery $query, ?string $key): void
     {
-        $key = \trim((string)$key);
+        $key = trim((string)$key);
         if ($key === '') {
             return;
         }
@@ -202,17 +211,17 @@ trait QueryDecoratorTrait
 
     private function decorateTermFilter(ActiveQuery $query, ?string $key): void
     {
-        $key = \trim((string)$key);
+        $key = trim((string)$key);
         if ($key === '') {
             return;
         }
 
-        switch (\substr($key, 0, 1)) {
+        switch (substr($key, 0, 1)) {
             case Battle3FilterForm::PREFIX_TERM_SEASON:
                 $this->decorateSeasonFilter(
                     $query,
                     Season3::find()
-                        ->andWhere(['key' => \substr($key, 1)])
+                        ->andWhere(['key' => substr($key, 1)])
                         ->limit(1)
                         ->one(),
                 );
@@ -249,15 +258,15 @@ trait QueryDecoratorTrait
         string $groupClass,
         string $groupAttr // group_id
     ): void {
-        $key = \trim((string)$key);
+        $key = trim((string)$key);
         if ($key !== '') {
-            if (!\str_starts_with($key, '@')) {
+            if (!str_starts_with($key, '@')) {
                 // NOT group
                 $this->decorateSimpleFilter($query, $column, $key, $modelClass);
                 return;
             }
 
-            if (!$groupId = self::findIdByKey($groupClass, \substr($key, 1))) {
+            if (!$groupId = self::findIdByKey($groupClass, substr($key, 1))) {
                 $query->andWhere('1 <> 1');
                 return;
             }
@@ -282,7 +291,7 @@ trait QueryDecoratorTrait
         ?string $key,
         string $modelClass
     ): void {
-        $key = \trim((string)$key);
+        $key = trim((string)$key);
         if ($key !== '') {
             $query->andWhere([
                 $column => self::findIdByKey($modelClass, $key),
@@ -315,14 +324,14 @@ trait QueryDecoratorTrait
         array $key,
         string $column = 'key'
     ): array {
-        return \array_filter(
+        return array_filter(
             ArrayHelper::getColumn(
                 $modelClass::find()
                     ->andWhere([$column => $key])
                     ->all(),
-                fn (ActiveRecord $model) => \filter_var($model->id, FILTER_VALIDATE_INT),
+                fn (ActiveRecord $model) => filter_var($model->id, FILTER_VALIDATE_INT),
             ),
-            fn ($value): bool => \is_int($value), // PHP 8: \is_int(...)
+            fn ($value): bool => is_int($value), // PHP 8: \is_int(...)
         );
     }
 }

@@ -30,6 +30,18 @@ use yii\helpers\Html;
 use yii\i18n\Formatter as BaseFormatter;
 use yii\web\View;
 
+use function array_filter;
+use function array_map;
+use function array_reduce;
+use function array_slice;
+use function count;
+use function implode;
+use function min;
+use function range;
+use function sprintf;
+use function str_repeat;
+use function vsprintf;
+
 final class SalmonWaves extends Widget
 {
     public Salmon3 $job;
@@ -137,9 +149,9 @@ final class SalmonWaves extends Widget
 
         return Html::tag(
             'tbody',
-            \implode(
+            implode(
                 '',
-                \array_filter(
+                array_filter(
                     [
                         $this->renderResults($waves),
                         $this->renderEvents($waves),
@@ -161,9 +173,9 @@ final class SalmonWaves extends Widget
     {
         return Html::tag(
             'tr',
-            \implode('', [
+            implode('', [
                 Html::tag('th', Html::encode(Yii::t('app', 'Result'))),
-                \implode('', ArrayHelper::getColumn(
+                implode('', ArrayHelper::getColumn(
                     $waves,
                     fn (array $wave): string => Html::tag(
                         'td',
@@ -202,9 +214,9 @@ final class SalmonWaves extends Widget
     {
         return Html::tag(
             'tr',
-            \implode('', [
+            implode('', [
                 Html::tag('th', Html::encode(Yii::t('app-salmon-event2', 'Event'))),
-                \implode('', ArrayHelper::getColumn(
+                implode('', ArrayHelper::getColumn(
                     $waves,
                     function (array $wave): string {
                         if ($wave['king']) {
@@ -238,9 +250,9 @@ final class SalmonWaves extends Widget
     {
         return Html::tag(
             'tr',
-            \implode('', [
+            implode('', [
                 Html::tag('th', Html::encode(Yii::t('app-salmon-tide2', 'Water Level'))),
-                \implode('', ArrayHelper::getColumn(
+                implode('', ArrayHelper::getColumn(
                     $waves,
                     fn (array $wave): string => Html::tag(
                         'td',
@@ -298,10 +310,10 @@ final class SalmonWaves extends Widget
 
         return Html::tag(
             'tr',
-            \implode('', [
+            implode('', [
                 Html::tag(
                     'th',
-                    \vsprintf('%s %s/%s', [
+                    vsprintf('%s %s/%s', [
                         Html::img(
                             Yii::$app->assetManager->getAssetUrl($asset, 'golden-egg.png'),
                             ['class' => 'basic-icon'],
@@ -310,7 +322,7 @@ final class SalmonWaves extends Widget
                         Html::encode(Yii::t('app-salmon2', 'Quota')),
                     ]),
                 ),
-                \implode('', ArrayHelper::getColumn(
+                implode('', ArrayHelper::getColumn(
                     $waves,
                     function (array $wave): string {
                         $quota = $wave['quota'];
@@ -318,10 +330,10 @@ final class SalmonWaves extends Widget
                         if ($quota !== null && $deliv !== null && $quota > 0 && $deliv >= 0) {
                             return Html::tag(
                                 'td',
-                                \implode('', [
+                                implode('', [
                                     Html::tag(
                                         'div',
-                                        \vsprintf('%s / %s', [
+                                        vsprintf('%s / %s', [
                                             $this->formatter->asInteger($deliv),
                                             $this->formatter->asInteger($quota),
                                         ]),
@@ -351,7 +363,7 @@ final class SalmonWaves extends Widget
                         ),
                         Html::encode(
                             $this->formatter->asInteger(
-                                \array_reduce(
+                                array_reduce(
                                     ArrayHelper::getColumn($waves, 'deliv'),
                                     fn (int $carry, ?int $item): int => $carry + (int)$item,
                                     0,
@@ -374,10 +386,10 @@ final class SalmonWaves extends Widget
 
         return Html::tag(
             'tr',
-            \implode('', [
+            implode('', [
                 Html::tag(
                     'th',
-                    \vsprintf('%s %s', [
+                    vsprintf('%s %s', [
                         Html::img(
                             Yii::$app->assetManager->getAssetUrl($asset, 'golden-egg.png'),
                             ['class' => 'basic-icon'],
@@ -385,7 +397,7 @@ final class SalmonWaves extends Widget
                         Html::encode(Yii::t('app-salmon2', 'Appearances')),
                     ]),
                 ),
-                \implode('', \array_map(
+                implode('', array_map(
                     fn (array $wave, int $waveNumber): string => Html::tag(
                         'td',
                         $waveNumber < 4
@@ -394,7 +406,7 @@ final class SalmonWaves extends Widget
                         ['class' => 'text-center'],
                     ),
                     $waves,
-                    \range(1, count($waves)),
+                    range(1, count($waves)),
                 )),
                 Html::tag(
                     'td',
@@ -405,8 +417,8 @@ final class SalmonWaves extends Widget
                         ),
                         Html::encode(
                             $this->formatter->asInteger(
-                                \array_reduce(
-                                    \array_slice(
+                                array_reduce(
+                                    array_slice(
                                         ArrayHelper::getColumn($waves, 'apper'),
                                         0,
                                         3, // ignores xtrawave
@@ -430,19 +442,19 @@ final class SalmonWaves extends Widget
     {
         return Html::tag(
             'tr',
-            \implode('', [
+            implode('', [
                 Html::tag('th', Html::encode(Yii::t('app', 'Specials'))),
-                \implode('', ArrayHelper::getColumn(
+                implode('', ArrayHelper::getColumn(
                     $waves,
                     fn (array $wave): string => Html::tag(
                         'td',
                         ArrayHelper::getValue(
                             $wave,
-                            fn (array $wave): string => \implode('', ArrayHelper::getColumn(
+                            fn (array $wave): string => implode('', ArrayHelper::getColumn(
                                 $wave['specials'],
                                 function (SalmonSpecialUse3 $info): string {
                                     $asset = Spl3WeaponAsset::register($this->view);
-                                    return \str_repeat(
+                                    return str_repeat(
                                         Html::img($asset->getIconUrl('special', $info->special->key), [
                                             'class' => 'basic-icon mr-1',
                                         ]),

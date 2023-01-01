@@ -24,6 +24,19 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
+use function array_merge;
+use function asort;
+use function implode;
+use function ob_end_clean;
+use function ob_get_contents;
+use function ob_start;
+use function time;
+use function trim;
+use function vsprintf;
+
+use const SORT_ASC;
+use const SORT_STRING;
+
 class SalmonFilterWidget extends Widget
 {
     public $user;

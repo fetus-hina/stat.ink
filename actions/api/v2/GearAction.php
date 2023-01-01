@@ -15,6 +15,13 @@ use app\models\api\v2\GearGetForm;
 use yii\db\Query;
 use yii\web\ViewAction as BaseAction;
 
+use function array_map;
+use function array_merge;
+use function preg_match;
+use function sprintf;
+
+use const SORT_ASC;
+
 class GearAction extends BaseAction
 {
     public function run()

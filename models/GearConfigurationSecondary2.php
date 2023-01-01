@@ -8,7 +8,10 @@
 
 namespace app\models;
 
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "gear_configuration_secondary2".
@@ -68,7 +71,7 @@ class GearConfigurationSecondary2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getConfig()
     {
@@ -76,7 +79,7 @@ class GearConfigurationSecondary2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getAbility()
     {

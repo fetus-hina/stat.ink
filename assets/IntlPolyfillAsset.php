@@ -13,6 +13,9 @@ namespace app\assets;
 use Yii;
 use yii\web\AssetBundle;
 
+use function http_build_query;
+use function implode;
+
 class IntlPolyfillAsset extends AssetBundle
 {
     public $basePath = '@webroot';

@@ -18,6 +18,10 @@ use yii\web\Cookie;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
+use function array_merge;
+use function strpos;
+use function time;
+
 class UserAction extends BaseAction
 {
     public function run()

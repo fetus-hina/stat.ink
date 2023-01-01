@@ -12,6 +12,10 @@ use app\models\Ability;
 use app\models\Gear;
 use yii\base\Model;
 
+use function count;
+use function is_array;
+use function sprintf;
+
 abstract class BaseGearForm extends Model
 {
     public $gear;

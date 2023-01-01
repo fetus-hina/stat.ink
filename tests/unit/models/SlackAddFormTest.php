@@ -9,6 +9,8 @@ use Yii;
 use app\models\Language;
 use app\models\SlackAddForm;
 
+use function array_merge;
+
 class SlackAddFormTest extends Unit
 {
     /**

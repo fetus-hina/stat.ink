@@ -12,6 +12,13 @@ namespace app\models;
 
 use app\components\ImageS3;
 
+use function addslashes;
+use function gmdate;
+use function implode;
+use function is_bool;
+use function time;
+use function vsprintf;
+
 $japanTime = 9 * 3600;
 $data = [
     'class' => ImageS3::class,

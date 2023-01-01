@@ -8,11 +8,13 @@
 
 namespace app\actions\user;
 
+use Exception;
 use OAuth\Common\Consumer\Credentials as OAuthCredentials;
 use OAuth\Common\Service\ServiceInterface as OAuthService;
 use OAuth\Common\Storage\Session as OAuthSessionStorage;
 use OAuth\Common\Storage\TokenStorageInterface as OAuthStorage;
 use OAuth\ServiceFactory as OAuthFactory;
+use Throwable;
 use Yii;
 use app\models\LoginWithTwitter;
 use yii\helpers\Json;
@@ -58,7 +60,7 @@ class UpdateLoginWithTwitterAction extends BaseAction
                     $info = $user->loginWithTwitter;
                     if ($info) {
                         if (!$info->delete()) {
-                            throw new \Exception();
+                            throw new Exception();
                         }
                     }
 
@@ -82,11 +84,11 @@ class UpdateLoginWithTwitterAction extends BaseAction
                         'name' => $twUser['name'],
                     ]);
                     if (!$info->save()) {
-                        throw new \Exception();
+                        throw new Exception();
                     }
                     $transaction->commit();
                     return $response->redirect(Url::to(['user/profile'], true), 303);
-                } catch (\Throwable $e) {
+                } catch (Throwable $e) {
                     $transaction->rollback();
                     Yii::$app->session->addFlash(
                         'warning',
@@ -100,7 +102,7 @@ class UpdateLoginWithTwitterAction extends BaseAction
                 $url = $twitter->getAuthorizationUri(array('oauth_token' => $token->getRequestToken()));
                 return $response->redirect((string)$url, 303);
             }
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
         }
         throw new BadRequestHttpException('Bad request.');
     }

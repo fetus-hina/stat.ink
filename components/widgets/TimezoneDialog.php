@@ -20,6 +20,19 @@ use app\models\TimezoneGroup;
 use yii\helpers\Html;
 use yii\helpers\Json;
 
+use function abs;
+use function array_map;
+use function array_merge;
+use function array_slice;
+use function floor;
+use function implode;
+use function preg_match;
+use function preg_replace;
+use function sprintf;
+use function strtolower;
+use function time;
+use function trim;
+
 class TimezoneDialog extends Dialog
 {
     public function init()
@@ -103,7 +116,7 @@ class TimezoneDialog extends Dialog
         if ($renderGroup) {
             $ret .= Html::tag(
                 'div',
-                \implode(' ', [
+                implode(' ', [
                     Html::encode(Yii::t('app-tz', $tz->group->name)),
                     Icon::subCategory(),
                 ]),
@@ -219,7 +232,7 @@ class TimezoneDialog extends Dialog
     {
         $close = Html::tag(
             'button',
-            \implode(' ', [
+            implode(' ', [
                 Icon::close(),
                 Html::encode(Yii::t('app', 'Close')),
             ]),

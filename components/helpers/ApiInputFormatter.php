@@ -12,6 +12,14 @@ namespace app\components\helpers;
 
 use yii\base\Component;
 
+use function call_user_func;
+use function filter_var;
+use function preg_match;
+use function substr;
+use function trim;
+
+use const FILTER_VALIDATE_INT;
+
 class ApiInputFormatter extends Component
 {
     public function asString($value): ?string

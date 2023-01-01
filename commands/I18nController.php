@@ -8,11 +8,44 @@
 
 namespace app\commands;
 
+use DirectoryIterator;
+use Iterator;
 use Yii;
 use app\models\Language;
 use yii\console\Controller;
 use yii\helpers\ArrayHelper;
 
+use function array_diff;
+use function array_filter;
+use function array_key_exists;
+use function array_keys;
+use function array_map;
+use function array_unique;
+use function array_values;
+use function count;
+use function dirname;
+use function escapeshellarg;
+use function exec;
+use function file_exists;
+use function file_put_contents;
+use function gmdate;
+use function implode;
+use function mkdir;
+use function passthru;
+use function preg_match;
+use function setlocale;
+use function sprintf;
+use function str_replace;
+use function strcmp;
+use function strlen;
+use function strnatcasecmp;
+use function strtolower;
+use function substr;
+use function time;
+use function trim;
+use function uksort;
+
+use const LC_COLLATE;
 use const SORT_FLAG_CASE;
 use const SORT_NATURAL;
 use const SORT_STRING;
@@ -76,9 +109,9 @@ final class I18nController extends Controller
         return $status ? 0 : 1;
     }
 
-    private function findJapaneseFiles(): \Iterator
+    private function findJapaneseFiles(): Iterator
     {
-        $it = new \DirectoryIterator(Yii::getAlias('@messages/ja'));
+        $it = new DirectoryIterator(Yii::getAlias('@messages/ja'));
         foreach ($it as $item) {
             if ($item->isFile() && !$item->isDot() && strtolower($item->getExtension()) === 'php') {
                 // skip weapon-*** files because it includes by weapon.php
@@ -203,14 +236,14 @@ final class I18nController extends Controller
             'Unknown <wkoichi@gmail.com>' => 'Koichi Watanabe <wkoichi@gmail.com>',
             'spacemeowx2 <spacemeowx2@gmail.com>' => 'imspace <spacemeowx2@gmail.com>',
         ];
-        return \array_values(
-            \array_unique(
-                \array_filter(
+        return array_values(
+            array_unique(
+                array_filter(
                     ArrayHelper::sort(
-                        \array_map(
+                        array_map(
                             function (string $name) use ($authorMap): ?string {
-                                $name = \trim($name);
-                                return $name !== '' && \array_key_exists($name, $authorMap)
+                                $name = trim($name);
+                                return $name !== '' && array_key_exists($name, $authorMap)
                                     ? $authorMap[$name]
                                     : $name;
                             },

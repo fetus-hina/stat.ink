@@ -20,6 +20,20 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
+use function array_filter;
+use function array_map;
+use function array_merge;
+use function chr;
+use function count;
+use function implode;
+use function mb_convert_encoding;
+use function pow;
+use function strtolower;
+use function strtr;
+use function substr;
+
+use const SORT_ASC;
+
 class UserMiniInfo2 extends Widget
 {
     public $id = 'user-miniinfo';

@@ -15,6 +15,9 @@ use app\models\Ability3;
 use app\models\Language;
 use yii\web\ViewAction;
 
+use function strnatcasecmp;
+use function usort;
+
 use const SORT_ASC;
 
 final class Ability3Action extends ViewAction
@@ -27,7 +30,7 @@ final class Ability3Action extends ViewAction
             ->all();
         $sysLang = Yii::$app->language;
 
-        \usort($langs, function (Language $a, Language $b) use ($sysLang): int {
+        usort($langs, function (Language $a, Language $b) use ($sysLang): int {
             if ($a->lang === $sysLang) {
                 return -1;
             }

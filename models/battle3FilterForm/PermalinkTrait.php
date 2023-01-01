@@ -10,6 +10,10 @@ declare(strict_types=1);
 
 namespace app\models\battle3FilterForm;
 
+use function is_string;
+use function sprintf;
+use function trim;
+
 trait PermalinkTrait
 {
     /**
@@ -17,12 +21,12 @@ trait PermalinkTrait
      */
     public function toPermLink($formName = false)
     {
-        $formName = \trim(\is_string($formName) ? $formName : $this->formName());
+        $formName = trim(is_string($formName) ? $formName : $this->formName());
 
         $ret = [];
         $push = function (string $key, string $value) use ($formName, &$ret): void {
             if ($formName !== '') {
-                $key = \sprintf('%s[%s]', $formName, $key);
+                $key = sprintf('%s[%s]', $formName, $key);
             }
 
             $ret[$key] = $value;
@@ -38,7 +42,7 @@ trait PermalinkTrait
             'term',
         ];
         foreach ($copyKeys as $key) {
-            $value = \trim((string)$this->$key);
+            $value = trim((string)$this->$key);
             if ($value !== '') {
                 $push($key, $value);
             }

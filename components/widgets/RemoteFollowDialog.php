@@ -16,6 +16,13 @@ use yii\base\Widget;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 
+use function implode;
+use function ob_end_clean;
+use function ob_get_contents;
+use function ob_start;
+use function sprintf;
+use function vsprintf;
+
 class RemoteFollowDialog extends Widget
 {
     public $user;

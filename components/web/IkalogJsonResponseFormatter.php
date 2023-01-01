@@ -11,6 +11,14 @@ namespace app\components\web;
 use yii\base\Component;
 use yii\web\ResponseFormatterInterface;
 
+use function fseek;
+use function fwrite;
+use function json_encode;
+use function tmpfile;
+
+use const JSON_UNESCAPED_SLASHES;
+use const SEEK_SET;
+
 class IkalogJsonResponseFormatter extends Component implements ResponseFormatterInterface
 {
     public function format($response)

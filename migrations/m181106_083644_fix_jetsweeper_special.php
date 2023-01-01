@@ -41,7 +41,7 @@ class m181106_083644_fix_jetsweeper_special extends Migration
             ->limit(1);
 
         if (!$value = $query->scalar()) {
-            throw new \Exception("Unknown special: {$key}");
+            throw new Exception("Unknown special: {$key}");
         }
 
         return (int)$value;

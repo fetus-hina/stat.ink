@@ -17,6 +17,9 @@ use yii\base\Model;
 use yii\base\NotSupportedException;
 use yii\db\ActiveQuery;
 
+use const SORT_ASC;
+use const SORT_DESC;
+
 class IndexFilterForm extends Model
 {
     public $screen_name;

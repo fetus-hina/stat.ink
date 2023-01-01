@@ -12,7 +12,15 @@ use DateTimeZone;
 use Yii;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Translator;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+
+use function array_map;
+use function array_merge;
+use function strtotime;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "map".
@@ -28,7 +36,7 @@ use yii\helpers\ArrayHelper;
  * @property PeriodMap[] $periodMaps
  * @property SplapiMap[] $splapiMaps
  */
-final class Map extends \yii\db\ActiveRecord
+final class Map extends ActiveRecord
 {
     use SafeFindOneTrait;
     use openapi\Util;
@@ -73,7 +81,7 @@ final class Map extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattles()
     {
@@ -81,7 +89,7 @@ final class Map extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getPeriodMaps()
     {
@@ -89,7 +97,7 @@ final class Map extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getSplapiMaps()
     {

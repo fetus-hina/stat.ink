@@ -10,7 +10,13 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+
+use function array_map;
+use function array_merge;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "gear2".
@@ -85,7 +91,7 @@ class Gear2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getAbility()
     {
@@ -93,7 +99,7 @@ class Gear2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBrand()
     {
@@ -101,7 +107,7 @@ class Gear2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getType()
     {

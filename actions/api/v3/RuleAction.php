@@ -15,6 +15,10 @@ use app\components\formatters\api\v3\RuleApiFormatter;
 use app\models\Rule3;
 use yii\base\Action;
 
+use function array_map;
+
+use const SORT_ASC;
+
 final class RuleAction extends Action
 {
     use ApiInitializerTrait;
@@ -33,7 +37,7 @@ final class RuleAction extends Action
      */
     public function run(bool $full = false)
     {
-        return \array_map(
+        return array_map(
             fn (Rule3 $model): array => RuleApiFormatter::toJson($model, $full),
             Rule3::find()
                 ->with(['rule3Aliases'])

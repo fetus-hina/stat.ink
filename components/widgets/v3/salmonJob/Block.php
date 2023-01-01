@@ -16,6 +16,9 @@ use yii\base\Widget;
 use yii\helpers\Html;
 use yii\web\View;
 
+use function implode;
+use function trim;
+
 final class Block extends Widget
 {
     /**
@@ -39,7 +42,7 @@ final class Block extends Widget
 
         return Html::tag(
             'div',
-            \implode('', [
+            implode('', [
                 $this->renderLabel(),
                 $this->renderValue(),
             ]),
@@ -55,7 +58,7 @@ final class Block extends Widget
 
     private function renderLabel(): string
     {
-        $label = \trim((string)$this->label);
+        $label = trim((string)$this->label);
         if ($label === '') {
             return '';
         }

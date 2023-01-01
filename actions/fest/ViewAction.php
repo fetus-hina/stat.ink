@@ -16,6 +16,11 @@ use yii\base\DynamicModel;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
+use function array_map;
+use function strtotime;
+
+use const SORT_ASC;
+
 class ViewAction extends BaseAction
 {
     public $fest;

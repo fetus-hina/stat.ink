@@ -21,6 +21,8 @@ use yii\web\AssetBundle;
 use yii\web\JqueryAsset;
 use yii\web\View;
 
+use function vsprintf;
+
 class BattleSummaryDialogAsset extends AssetBundle
 {
     public $sourcePath = '@app/resources/.compiled/stat.ink';

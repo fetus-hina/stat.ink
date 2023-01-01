@@ -10,6 +10,10 @@ namespace app\models\api\v2;
 
 use app\components\helpers\Color;
 use yii\base\Model;
+use yii\validators\NumberValidator;
+
+use function count;
+use function is_array;
 
 class TeamColorForm extends Model
 {
@@ -52,7 +56,7 @@ class TeamColorForm extends Model
             return;
         }
 
-        $numberValidator = new \yii\validators\NumberValidator();
+        $numberValidator = new NumberValidator();
         $numberValidator->integerOnly = true;
         $numberValidator->min = 0;
         $numberValidator->max = 255;

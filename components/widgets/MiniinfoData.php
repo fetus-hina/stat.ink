@@ -18,6 +18,9 @@ use yii\bootstrap\BootstrapAsset;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
+use function is_array;
+use function is_string;
+
 class MiniinfoData extends Widget
 {
     public $label;

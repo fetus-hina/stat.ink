@@ -19,6 +19,11 @@ use yii\helpers\Url;
 use yii\web\AssetBundle;
 use yii\web\AssetManager;
 
+use function rawurlencode;
+use function sprintf;
+use function strtotime;
+use function vsprintf;
+
 trait Battle3Formatter
 {
     use UserFormatter;
@@ -37,7 +42,7 @@ trait Battle3Formatter
             'stage' => self::stage3($battle, $am, $stageAsset),
             'summary' => self::summary3a($battle),
             'summary2' => self::summary3b($battle),
-            'time' => \strtotime($battle->end_at ?: $battle->created_at),
+            'time' => strtotime($battle->end_at ?: $battle->created_at),
             'rule' => self::rule3($battle, $am, $modeAsset),
             'url' => self::url3($battle),
             'user' => self::formatUser($battle->user),
@@ -57,8 +62,8 @@ trait Battle3Formatter
         if (ArrayHelper::getValue(Yii::$app->params, 'useS3ImgGen')) {
             $rule = $model->rule;
             if ($rule && $rule->key !== 'tricolor') {
-                return \vsprintf('https://s3-img-gen.stats.ink/results/en-US/%s.jpg', [
-                    \rawurlencode($model->uuid),
+                return vsprintf('https://s3-img-gen.stats.ink/results/en-US/%s.jpg', [
+                    rawurlencode($model->uuid),
                 ]);
             }
         }
@@ -129,7 +134,7 @@ trait Battle3Formatter
 
         $mapText = $map ? Yii::t('app-map3', $map->name) : '?';
         $resultText = $result ? Yii::t('app', $result->name) : '?';
-        return \vsprintf('%s @%s', [
+        return vsprintf('%s @%s', [
             $resultText,
             $mapText,
         ]);

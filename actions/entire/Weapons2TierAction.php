@@ -16,6 +16,12 @@ use app\models\SplatoonVersionGroup2;
 use app\models\StatWeapon2Tier;
 use yii\web\ViewAction;
 
+use function preg_match;
+use function substr;
+
+use const SORT_ASC;
+use const SORT_DESC;
+
 class Weapons2TierAction extends ViewAction
 {
     public $input;

@@ -16,6 +16,10 @@ use yii\bootstrap\BootstrapAsset;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
+use function is_array;
+use function preg_replace;
+use function trim;
+
 final class Label extends Widget
 {
     public $link;

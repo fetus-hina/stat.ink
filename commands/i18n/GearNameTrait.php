@@ -10,6 +10,20 @@ namespace app\commands\i18n;
 
 use app\models\Gear2;
 
+use function array_filter;
+use function dirname;
+use function file_put_contents;
+use function gmdate;
+use function implode;
+use function str_replace;
+use function strcmp;
+use function time;
+use function uksort;
+use function vsprintf;
+
+use const ARRAY_FILTER_USE_BOTH;
+use const DIRECTORY_SEPARATOR;
+
 trait GearNameTrait
 {
     public function actionJapaneseGear2(): int

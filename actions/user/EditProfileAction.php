@@ -8,6 +8,8 @@
 
 namespace app\actions\user;
 
+use Exception;
+use Throwable;
 use Yii;
 use app\models\Environment;
 use app\models\Language;
@@ -15,6 +17,14 @@ use app\models\ProfileForm;
 use app\models\Region;
 use yii\helpers\ArrayHelper;
 use yii\web\ViewAction as BaseAction;
+
+use function array_map;
+use function base64_encode;
+use function hash;
+use function preg_replace;
+use function rtrim;
+use function sprintf;
+use function trim;
 
 class EditProfileAction extends BaseAction
 {
@@ -35,7 +45,7 @@ class EditProfileAction extends BaseAction
                         $this->controller->redirect(['user/profile']);
                         return;
                     }
-                } catch (\Throwable $e) {
+                } catch (Throwable $e) {
                 }
                 $transaction->rollback();
             }
@@ -96,7 +106,7 @@ class EditProfileAction extends BaseAction
         $model->sha256sum = $hash;
         $model->text = $text;
         if (!$model->save()) {
-            throw new \Exception();
+            throw new Exception();
         }
         return $model->id;
     }

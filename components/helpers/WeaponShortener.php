@@ -11,6 +11,17 @@ namespace app\components\helpers;
 use Yii;
 use yii\base\Component;
 
+use function array_filter;
+use function array_map;
+use function array_merge;
+use function file_exists;
+use function implode;
+use function is_array;
+use function preg_match;
+use function trim;
+
+use const DIRECTORY_SEPARATOR;
+
 class WeaponShortener extends Component
 {
     public $dictionary;

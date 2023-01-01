@@ -16,6 +16,9 @@ use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\web\View;
 
+use function mb_chr;
+use function vsprintf;
+
 final class Emoji extends Widget
 {
     public const CP_CROSS_MARK = 0x274c;
@@ -31,7 +34,7 @@ final class Emoji extends Widget
     public static function cp(int $codepoint): string
     {
         return self::widget([
-            'text' => \mb_chr($codepoint, 'UTF-8'),
+            'text' => mb_chr($codepoint, 'UTF-8'),
         ]);
     }
 
@@ -43,7 +46,7 @@ final class Emoji extends Widget
         if ($view instanceof View) {
             JqueryTwemojiAsset::register($view);
             $view->registerJs(
-                \vsprintf('jQuery(%s).twemoji();', [
+                vsprintf('jQuery(%s).twemoji();', [
                     Json::encode("#{$id}"),
                 ]),
             );

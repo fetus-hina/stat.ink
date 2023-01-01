@@ -12,6 +12,8 @@ namespace app\models\openapi;
 
 use Yii;
 
+use function array_merge;
+
 class ShortName extends Name
 {
     public static function openApiSchema(): array

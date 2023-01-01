@@ -10,7 +10,11 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "game_mode".
@@ -21,7 +25,7 @@ use yii\helpers\ArrayHelper;
  *
  * @property Rule[] $rules
  */
-final class GameMode extends \yii\db\ActiveRecord
+final class GameMode extends ActiveRecord
 {
     use SafeFindOneTrait;
     use openapi\Util;
@@ -61,7 +65,7 @@ final class GameMode extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getRules()
     {

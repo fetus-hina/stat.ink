@@ -48,12 +48,12 @@ class m180427_125916_v3_gears extends Migration
 
         $type = null;
         if (!$fh = fopen(__FILE__, 'rt')) {
-            throw new \Exception('Could not open ' . __FILE__);
+            throw new Exception('Could not open ' . __FILE__);
         }
 
         try {
             if (fseek($fh, __COMPILER_HALT_OFFSET__, SEEK_SET) === -1) {
-                throw new \Exception('Could not seek');
+                throw new Exception('Could not seek');
             }
 
             while (!feof($fh)) {
@@ -68,20 +68,20 @@ class m180427_125916_v3_gears extends Migration
                 }
 
                 if (!preg_match('/^\d+/', $line)) {
-                    throw new \Exception('Invalid format ' . $line);
+                    throw new Exception('Invalid format ' . $line);
                 }
 
                 $data = explode(';', rtrim($line, ';'));
                 if (count($data) !== 4) {
-                    throw new \Exception('Invalid number of data ' . json_encode($data));
+                    throw new Exception('Invalid number of data ' . json_encode($data));
                 }
 
                 if (!isset($brands[$data[2]])) {
-                    throw new \Exception('Unknown brand ' . $data[2]);
+                    throw new Exception('Unknown brand ' . $data[2]);
                 }
 
                 if (!isset($abilities[$data[3]])) {
-                    throw new \Exception('Unknown ability ' . $data[3]);
+                    throw new Exception('Unknown ability ' . $data[3]);
                 }
 
                 yield [

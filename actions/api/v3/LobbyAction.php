@@ -15,6 +15,10 @@ use app\components\formatters\api\v3\LobbyApiFormatter;
 use app\models\Lobby3;
 use yii\base\Action;
 
+use function array_map;
+
+use const SORT_ASC;
+
 final class LobbyAction extends Action
 {
     use ApiInitializerTrait;
@@ -33,7 +37,7 @@ final class LobbyAction extends Action
      */
     public function run(bool $full = false)
     {
-        return \array_map(
+        return array_map(
             fn (Lobby3 $model): array => LobbyApiFormatter::toJson($model, $full),
             Lobby3::find()
                 ->orderBy(['rank' => SORT_ASC])

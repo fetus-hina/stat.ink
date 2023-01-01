@@ -16,6 +16,13 @@ use yii\base\Model;
 use yii\grid\DataColumn;
 use yii\helpers\Json;
 
+use function hash;
+use function microtime;
+use function sprintf;
+use function substr;
+use function uniqid;
+use function vsprintf;
+
 class KillRatioColumn extends DataColumn
 {
     public static $idPrefix;

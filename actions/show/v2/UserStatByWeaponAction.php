@@ -17,6 +17,14 @@ use app\models\User;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction;
 
+use function array_map;
+use function array_merge;
+use function implode;
+use function sprintf;
+use function substr;
+
+use const SORT_DESC;
+
 class UserStatByWeaponAction extends ViewAction
 {
     public function run()

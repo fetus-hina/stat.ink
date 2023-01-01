@@ -17,6 +17,10 @@ use app\assets\SimpleBattleListAsset;
 use yii\base\Widget;
 use yii\bootstrap\Html;
 
+use function array_filter;
+use function implode;
+use function sprintf;
+
 abstract class BaseWidget extends Widget
 {
     public $model;
@@ -142,7 +146,7 @@ abstract class BaseWidget extends Widget
             ),
             Html::tag(
                 'div',
-                \implode(' ', \array_filter([
+                implode(' ', array_filter([
                     $this->getWeaponIcon(),
                     Html::encode($this->getWeaponName()),
                     $this->getSubSpIcon(),

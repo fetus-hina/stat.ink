@@ -8,6 +8,9 @@
 
 namespace app\models;
 
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+
 /**
  * This is the model class for table "stat_weapon_kd_win_rate".
  *
@@ -23,7 +26,7 @@ namespace app\models;
  * @property Rule $rule
  * @property Weapon $weapon
  */
-class StatWeaponKDWinRate extends \yii\db\ActiveRecord
+class StatWeaponKDWinRate extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -61,7 +64,7 @@ class StatWeaponKDWinRate extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getMap()
     {
@@ -69,7 +72,7 @@ class StatWeaponKDWinRate extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getRule()
     {
@@ -77,7 +80,7 @@ class StatWeaponKDWinRate extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getWeapon()
     {

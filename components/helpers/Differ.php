@@ -8,7 +8,21 @@
 
 namespace app\components\helpers;
 
+use Exception;
 use Yii;
+
+use function escapeshellarg;
+use function exec;
+use function file_exists;
+use function file_put_contents;
+use function gmdate;
+use function implode;
+use function mkdir;
+use function preg_match;
+use function sprintf;
+use function tempnam;
+use function time;
+use function unlink;
 
 class Differ
 {
@@ -28,7 +42,7 @@ class Differ
             if ($status == 0) {
                 return null;
             }
-            throw new \Exception('Could not create diff');
+            throw new Exception('Could not create diff');
         }
 
         if (
@@ -49,7 +63,7 @@ class Differ
         $directory = Yii::getAlias('@app/runtime/diff');
         if (!file_exists($directory)) {
             if (!mkdir($directory, 0700, true)) {
-                throw new \Exception('Could not create temporary directory');
+                throw new Exception('Could not create temporary directory');
             }
         }
         $ret = new Resource(
@@ -59,10 +73,10 @@ class Differ
             },
         );
         if ($ret->get() === false) {
-            throw new \Exception('Could not create temporary file');
+            throw new Exception('Could not create temporary file');
         }
         if (file_put_contents($ret->get(), $data) === false) {
-            throw new \Exception('Could not write to temporary file');
+            throw new Exception('Could not write to temporary file');
         }
         return $ret;
     }

@@ -12,6 +12,10 @@ use Yii;
 use yii\base\Widget;
 use yii\helpers\Html;
 
+use function hash;
+use function implode;
+use function sprintf;
+
 class WinLoseLegend extends Widget
 {
     public function run()

@@ -15,6 +15,10 @@ use app\models\Salmon2;
 use yii\web\BadRequestHttpException;
 use yii\web\ViewAction;
 
+use function is_scalar;
+
+use const SORT_ASC;
+
 class DownloadSalmon2Action extends ViewAction
 {
     private $user;

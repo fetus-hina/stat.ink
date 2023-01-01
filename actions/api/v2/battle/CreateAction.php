@@ -8,6 +8,7 @@
 
 namespace app\actions\api\v2\battle;
 
+use Throwable;
 use Yii;
 use app\components\helpers\ImageConverter;
 use app\components\jobs\OstatusJob;
@@ -18,6 +19,16 @@ use app\models\api\v2\PostBattleForm;
 use yii\helpers\Url;
 use yii\web\UploadedFile;
 use yii\web\ViewAction as BaseAction;
+
+use function array_merge;
+use function base64_encode;
+use function file_get_contents;
+use function is_string;
+use function json_encode;
+use function sprintf;
+
+use const JSON_UNESCAPED_SLASHES;
+use const JSON_UNESCAPED_UNICODE;
 
 class CreateAction extends BaseAction
 {
@@ -66,7 +77,7 @@ class CreateAction extends BaseAction
                 return $battle;
             }
             $transaction->commit();
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             $transaction->rollback();
             $this->logError([
                 'system' => [ $e->getMessage() ],

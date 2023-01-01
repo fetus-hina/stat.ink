@@ -14,6 +14,11 @@ use app\models\Ability3;
 use jp3cki\uuid\Uuid;
 use yii\helpers\Json;
 
+use function array_map;
+use function array_slice;
+use function array_values;
+use function count;
+
 final class GearConfiguration3Fingerprint
 {
     private const NS_UUID = '7b4f7ada-5b54-11ed-b954-7085c2ac6926';
@@ -34,15 +39,15 @@ final class GearConfiguration3Fingerprint
      */
     private static function makeData($gear, ?Ability3 $primary, array $secondaries): array
     {
-        $secondaries = \array_values($secondaries);
-        if (\count($secondaries) > 3) {
-            $secondaries = \array_slice($secondaries, 0, 3);
+        $secondaries = array_values($secondaries);
+        if (count($secondaries) > 3) {
+            $secondaries = array_slice($secondaries, 0, 3);
         }
 
         return [
             'gear' => null,
             'primary' => $primary ? $primary->key : null,
-            'secondary' => \array_map(
+            'secondary' => array_map(
                 fn (?Ability3 $secondary): ?string => $secondary ? $secondary->key : null,
                 $secondaries,
             ),

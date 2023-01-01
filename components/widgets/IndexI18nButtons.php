@@ -19,6 +19,11 @@ use app\models\Timezone;
 use yii\base\Widget;
 use yii\helpers\Html;
 
+use function array_map;
+use function implode;
+use function strtolower;
+use function vsprintf;
+
 final class IndexI18nButtons extends Widget
 {
     public function run()
@@ -60,7 +65,7 @@ final class IndexI18nButtons extends Widget
                 ? (
                     $lang->getLanguageCode() === 'en'
                         ? Html::encode($lang->name)
-                        : \vsprintf('%s / %s', [
+                        : vsprintf('%s / %s', [
                             Html::encode($lang->name),
                             Html::tag('small', Html::encode($lang->name_en)),
                         ])
@@ -138,11 +143,11 @@ final class IndexI18nButtons extends Widget
     private function flagIcon(string $countryCode): string
     {
         return match ($countryCode) {
-            'gb' => \implode(' ', [
+            'gb' => implode(' ', [
                 (string)FlagIcon::fg('gb'),
                 (string)FlagIcon::fg('au'),
             ]),
-            'tw' => \implode(' ', [
+            'tw' => implode(' ', [
                 (string)FlagIcon::fg('tw'),
                 (string)FlagIcon::fg('hk'),
             ]),

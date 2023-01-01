@@ -8,6 +8,9 @@
 
 namespace app\models;
 
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+
 /**
  * This is the model class for table "battle_death_reason".
  *
@@ -18,7 +21,7 @@ namespace app\models;
  * @property Battle $battle
  * @property DeathReason $reason
  */
-class BattleDeathReason extends \yii\db\ActiveRecord
+class BattleDeathReason extends ActiveRecord
 {
     public static function find()
     {
@@ -57,7 +60,7 @@ class BattleDeathReason extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattle()
     {
@@ -65,7 +68,7 @@ class BattleDeathReason extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getReason()
     {

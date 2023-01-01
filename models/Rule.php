@@ -10,7 +10,13 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+
+use function array_map;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "rule".
@@ -27,7 +33,7 @@ use yii\helpers\ArrayHelper;
  * @property Weapon[] $weapons
  * @property StatWeaponBattleCount $statWeaponBattleCount
  */
-final class Rule extends \yii\db\ActiveRecord
+final class Rule extends ActiveRecord
 {
     use SafeFindOneTrait;
     use openapi\Util;
@@ -69,7 +75,7 @@ final class Rule extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattles()
     {
@@ -77,7 +83,7 @@ final class Rule extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getMode()
     {
@@ -85,7 +91,7 @@ final class Rule extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getSplapiRules()
     {
@@ -93,7 +99,7 @@ final class Rule extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getStatWeapons()
     {
@@ -101,7 +107,7 @@ final class Rule extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getWeapons()
     {
@@ -109,7 +115,7 @@ final class Rule extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getStatWeaponBattleCount()
     {

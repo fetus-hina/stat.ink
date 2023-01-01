@@ -25,6 +25,18 @@ use stdClass;
 use yii\db\Query;
 use yii\web\ViewAction;
 
+use function array_map;
+use function array_merge;
+use function array_shift;
+use function date;
+use function pow;
+use function sprintf;
+use function strnatcasecmp;
+use function strtotime;
+use function usort;
+
+use const SORT_ASC;
+
 class WeaponsAction extends ViewAction
 {
     public function run()
