@@ -81,8 +81,7 @@ final class KeyValidator extends Validator
             return true;
         }
 
-        return
-            $this->aliasClass !== null &&
+        return $this->aliasClass !== null &&
             $this->isExists($value, $this->aliasClass, $this->aliasClassAttribute)
         ;
     }

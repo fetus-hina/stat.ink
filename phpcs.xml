@@ -81,6 +81,7 @@
   <rule ref="Squiz.PHP.NonExecutableCode"/>
   <rule ref="Squiz.Scope.StaticThisUsage"/>
   <rule ref="Squiz.WhiteSpace.FunctionOpeningBraceSpace"/>
+  <rule ref="Squiz.WhiteSpace.LanguageConstructSpacing"/>
 
   <!--rule ref="SlevomatCodingStandard.Variables.UnusedVariable"/-->
   <!--rule ref="Universal.OOStructures.AlphabeticExtendsImplements"/-->

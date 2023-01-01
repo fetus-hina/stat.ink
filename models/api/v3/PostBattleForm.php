@@ -906,8 +906,7 @@ final class PostBattleForm extends Model
             return false;
         }
 
-        return
-            $lobby->key !== 'private' &&
+        return $lobby->key !== 'private' &&
             $result->aggregatable
         ;
     }
