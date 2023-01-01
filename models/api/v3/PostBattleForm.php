@@ -907,8 +907,7 @@ final class PostBattleForm extends Model
         }
 
         return $lobby->key !== 'private' &&
-            $result->aggregatable
-        ;
+            $result->aggregatable;
     }
 
     private static function generateRandomFilename(string $ext): string
