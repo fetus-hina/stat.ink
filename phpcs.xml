@@ -34,6 +34,11 @@
     <exclude name="Generic.Files.LineLength"/>
   </rule>
 
+  <rule ref="Generic.NamingConventions.ConstructorName"/>
+  <rule ref="Generic.PHP.BacktickOperator"/>
+  <rule ref="Generic.PHP.CharacterBeforePHPOpeningTag"/>
+  <rule ref="Generic.PHP.DeprecatedFunctions"/>
+  <rule ref="Generic.PHP.SAPIUsage"/>
   <rule ref="SlevomatCodingStandard.Arrays.SingleLineArrayWhitespace"/>
   <rule ref="SlevomatCodingStandard.Arrays.TrailingArrayComma"/>
   <rule ref="SlevomatCodingStandard.Classes.ModernClassNameReference"/>
