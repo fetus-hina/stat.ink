@@ -246,9 +246,8 @@ final class ActivityAction extends Action
     private function makeDataSplatoon3Salmon(
         User $user,
         DateTimeImmutable $from,
-        DateTimeImmutable $to
+        DateTimeImmutable $to,
     ): array {
-
         $date = sprintf('(CASE %s END)::date', implode(' ', [
             'WHEN {{%salmon3}}.[[start_at]] IS NOT NULL THEN {{%salmon3}}.[[start_at]]',
             'ELSE {{%salmon3}}.[[created_at]]',
