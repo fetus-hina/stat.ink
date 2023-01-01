@@ -33,7 +33,6 @@ class I18n
             return '';
         }
 
-
         $ret = [];
         foreach (Language::find()->standard()->all() as $lang) {
             $newParams = array_merge(

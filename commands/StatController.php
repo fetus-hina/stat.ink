@@ -1185,7 +1185,6 @@ final class StatController extends Controller
                     ['{{lobby2}}.[[key]]' => 'standard'],
                 ],
 
-
                 // タッグマッチは敵だけ使う
                 ['and',
                     ['{{mode2}}.[[key]]' => 'gachi'],

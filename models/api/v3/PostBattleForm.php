@@ -793,7 +793,6 @@ final class PostBattleForm extends Model
                 return $model;
             }
 
-
             $model = Yii::createObject([
                 'class' => Splatfest3Theme::class,
                 'name' => $name,

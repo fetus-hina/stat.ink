@@ -257,7 +257,6 @@ trait QueryDecoratorTrait
                 return;
             }
 
-
             if (!$groupId = self::findIdByKey($groupClass, \substr($key, 1))) {
                 $query->andWhere('1 <> 1');
                 return;

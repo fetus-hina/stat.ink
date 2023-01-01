@@ -150,4 +150,8 @@
       <property name="ignoreBlankLines" value="false"/>
     </properties>
   </rule>
+
+  <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace.EmptyLines">
+    <severity>5</severity>
+  </rule>
 </ruleset>

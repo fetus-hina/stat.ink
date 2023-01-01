@@ -943,7 +943,6 @@ class Ability2Info extends Model
             case 'wakaba':
                 return static::WEIGHT_LIGHT;
 
-
             case 'campingshelter':
             case 'dynamo':
             case 'explosher':

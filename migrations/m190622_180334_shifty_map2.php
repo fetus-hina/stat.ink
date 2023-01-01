@@ -26,7 +26,6 @@ class m190622_180334_shifty_map2 extends Migration
             'EXCLUDE USING GIST ([[range_hint]] WITH &&)',
         ]);
 
-
         $db = $this->getDb();
         $stages = $this->getStages();
         $this->batchInsert(
