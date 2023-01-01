@@ -1114,31 +1114,31 @@ final class StatController extends Controller
                 ])),
                 'knockout_wins' => sprintf('SUM(CASE %s END)', implode(' ', [
                     "WHEN {{rule2}}.[[key]] = 'nawabari' THEN NULL",
-                    "WHEN {{battle2}}.[[is_knockout]] IS NULL THEN 0",
-                    "WHEN {{battle2}}.[[is_knockout]] = FALSE THEN 0",
-                    "WHEN {{battle2}}.[[is_win]] <> {{battle_player2}}.[[is_my_team]] THEN 0",
-                    "ELSE 1",
+                    'WHEN {{battle2}}.[[is_knockout]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[is_knockout]] = FALSE THEN 0',
+                    'WHEN {{battle2}}.[[is_win]] <> {{battle_player2}}.[[is_my_team]] THEN 0',
+                    'ELSE 1',
                 ])),
                 'timeup_wins' => sprintf('SUM(CASE %s END)', implode(' ', [
                     "WHEN {{rule2}}.[[key]] = 'nawabari' THEN NULL",
-                    "WHEN {{battle2}}.[[is_knockout]] IS NULL THEN 0",
-                    "WHEN {{battle2}}.[[is_knockout]] = TRUE THEN 0",
-                    "WHEN {{battle2}}.[[is_win]] <> {{battle_player2}}.[[is_my_team]] THEN 0",
-                    "ELSE 1",
+                    'WHEN {{battle2}}.[[is_knockout]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[is_knockout]] = TRUE THEN 0',
+                    'WHEN {{battle2}}.[[is_win]] <> {{battle_player2}}.[[is_my_team]] THEN 0',
+                    'ELSE 1',
                 ])),
                 'knockout_loses' => sprintf('SUM(CASE %s END)', implode(' ', [
                     "WHEN {{rule2}}.[[key]] = 'nawabari' THEN NULL",
-                    "WHEN {{battle2}}.[[is_knockout]] IS NULL THEN 0",
-                    "WHEN {{battle2}}.[[is_knockout]] = FALSE THEN 0",
-                    "WHEN {{battle2}}.[[is_win]] = {{battle_player2}}.[[is_my_team]] THEN 0",
-                    "ELSE 1",
+                    'WHEN {{battle2}}.[[is_knockout]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[is_knockout]] = FALSE THEN 0',
+                    'WHEN {{battle2}}.[[is_win]] = {{battle_player2}}.[[is_my_team]] THEN 0',
+                    'ELSE 1',
                 ])),
                 'timeup_loses' => sprintf('SUM(CASE %s END)', implode(' ', [
                     "WHEN {{rule2}}.[[key]] = 'nawabari' THEN NULL",
-                    "WHEN {{battle2}}.[[is_knockout]] IS NULL THEN 0",
-                    "WHEN {{battle2}}.[[is_knockout]] = TRUE THEN 0",
-                    "WHEN {{battle2}}.[[is_win]] = {{battle_player2}}.[[is_my_team]] THEN 0",
-                    "ELSE 1",
+                    'WHEN {{battle2}}.[[is_knockout]] IS NULL THEN 0',
+                    'WHEN {{battle2}}.[[is_knockout]] = TRUE THEN 0',
+                    'WHEN {{battle2}}.[[is_win]] = {{battle_player2}}.[[is_my_team]] THEN 0',
+                    'ELSE 1',
                 ])),
             ])
             ->innerJoinWith([
@@ -1426,15 +1426,15 @@ final class StatController extends Controller
         $db = Yii::$app->db;
 
         echo "Updating splatnet2_user_map...\n";
-        $sql = "INSERT INTO {{splatnet2_user_map}} ( [[splatnet_id]], [[user_id]], [[battles]] ) " .
-            "SELECT {{battle_player2}}.[[splatnet_id]], {{battle2}}.[[user_id]], COUNT(*) AS [[battles]] " .
-            "FROM {{battle_player2}} " .
-            "INNER JOIN {{battle2}} ON {{battle_player2}}.[[battle_id]] = {{battle2}}.[[id]] " .
-            "WHERE {{battle_player2}}.[[splatnet_id]] IS NOT NULL " .
-            "AND {{battle_player2}}.[[is_me]] = TRUE " .
-            "GROUP BY {{battle_player2}}.[[splatnet_id]], {{battle2}}.[[user_id]] " .
-            "ON CONFLICT ( [[splatnet_id]], [[user_id]] ) DO UPDATE SET " .
-            "[[battles]] = {{excluded}}.[[battles]] ";
+        $sql = 'INSERT INTO {{splatnet2_user_map}} ( [[splatnet_id]], [[user_id]], [[battles]] ) ' .
+            'SELECT {{battle_player2}}.[[splatnet_id]], {{battle2}}.[[user_id]], COUNT(*) AS [[battles]] ' .
+            'FROM {{battle_player2}} ' .
+            'INNER JOIN {{battle2}} ON {{battle_player2}}.[[battle_id]] = {{battle2}}.[[id]] ' .
+            'WHERE {{battle_player2}}.[[splatnet_id]] IS NOT NULL ' .
+            'AND {{battle_player2}}.[[is_me]] = TRUE ' .
+            'GROUP BY {{battle_player2}}.[[splatnet_id]], {{battle2}}.[[user_id]] ' .
+            'ON CONFLICT ( [[splatnet_id]], [[user_id]] ) DO UPDATE SET ' .
+            '[[battles]] = {{excluded}}.[[battles]] ';
         $db->createCommand($sql)->execute();
         echo "done.\n";
         echo "VACUUM...\n";
@@ -1453,7 +1453,7 @@ final class StatController extends Controller
             );
             $month = $this->createPeriodToMonthColumnForSplatoon2();
             $per5min = function (string $column): string {
-                $battleSec = "EXTRACT(EPOCH FROM {{battle2}}.[[end_at]] - {{battle2}}.[[start_at]])";
+                $battleSec = 'EXTRACT(EPOCH FROM {{battle2}}.[[end_at]] - {{battle2}}.[[start_at]])';
                 return vsprintf('(%s::float * 300.0 / %s)', [
                     $column,
                     $battleSec,
@@ -1472,7 +1472,7 @@ final class StatController extends Controller
                     ],
                     $this->createHighestRankFilter(),
                     ['BETWEEN',
-                        "{{battle2}}.[[end_at]] - {{battle2}}.[[start_at]]",
+                        '{{battle2}}.[[end_at]] - {{battle2}}.[[start_at]]',
                         new Expression("'30 seconds'::interval"),
                         new Expression("'600 seconds'::interval"),
                     ],

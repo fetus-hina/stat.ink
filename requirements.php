@@ -60,14 +60,14 @@ $requirements = array(
     'phpExposePhp' => array(
         'name' => 'Expose PHP',
         'mandatory' => false,
-        'condition' => $requirementsChecker->checkPhpIniOff("expose_php"),
+        'condition' => $requirementsChecker->checkPhpIniOff('expose_php'),
         'by' => 'Security reasons',
         'memo' => '"expose_php" should be disabled at php.ini',
     ),
     'phpAllowUrlInclude' => array(
         'name' => 'PHP allow url include',
         'mandatory' => false,
-        'condition' => $requirementsChecker->checkPhpIniOff("allow_url_include"),
+        'condition' => $requirementsChecker->checkPhpIniOff('allow_url_include'),
         'by' => 'Security reasons',
         'memo' => '"allow_url_include" should be disabled at php.ini',
     ),

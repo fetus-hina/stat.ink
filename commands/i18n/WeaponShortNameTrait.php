@@ -181,7 +181,7 @@ trait WeaponShortNameTrait
 
         uksort($data, fn (string $a, string $b): int => strcasecmp($a, $b) ?: strcmp($a, $b));
 
-        $esc = fn (string $text): string => str_replace(["\\", "'"], ["\\\\", "\\'"], $text);
+        $esc = fn (string $text): string => str_replace(['\\', "'"], ['\\\\', "\\'"], $text);
 
         $file = [];
         $file[] = '<?php';

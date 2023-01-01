@@ -299,8 +299,8 @@ class UserJsonController extends Controller
             throw new \Exception('Could not recompress file');
         }
         echo "Recomressed.\n";
-        echo "  Before: " . number_format(filesize($mainPath)) . "\n";
-        echo "  After:  " . number_format(filesize($tmpPath)) . "\n";
+        echo '  Before: ' . number_format(filesize($mainPath)) . "\n";
+        echo '  After:  ' . number_format(filesize($tmpPath)) . "\n";
 
         if (filesize($mainPath) > filesize($tmpPath)) {
             echo "Writing...\n";

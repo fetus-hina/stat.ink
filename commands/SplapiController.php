@@ -227,7 +227,7 @@ class SplapiController extends Controller
             if ($fest->getSplatfestMaps()->count() > 0) {
                 continue;
             }
-            echo "new data for [" . $fest->name . "]\n";
+            echo 'new data for [' . $fest->name . "]\n";
             if (!$maps = SplapiMap::findAll(['name' => $data->maps])) {
                 echo "  no map data available...\n";
                 continue;

@@ -163,7 +163,7 @@ class UserStat extends \yii\db\ActiveRecord
             "({{battle}}.[[end_at]] - {{battle}}.[[start_at]]) < '10 minutes'::interval",
         ]));
 
-        $column_battle_count = "COUNT(*)";
+        $column_battle_count = 'COUNT(*)';
         $column_wp = sprintf(
             '(%s * 100.0 / NULLIF(%s, 0))',
             sprintf(
@@ -182,7 +182,7 @@ class UserStat extends \yii\db\ActiveRecord
             ),
         );
         $column_wp_short = sprintf(
-            "(%s * 100.0 / NULLIF(%s, 0))",
+            '(%s * 100.0 / NULLIF(%s, 0))',
             sprintf(
                 'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
                 implode(' AND ', [

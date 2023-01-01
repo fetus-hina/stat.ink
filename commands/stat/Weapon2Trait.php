@@ -47,8 +47,8 @@ trait Weapon2Trait
                 'points' => vsprintf('(FLOOR((%s)::DOUBLE PRECISION / %2$.1f)::BIGINT * %2$d)', [
                     sprintf('(battle_player2.point - CASE %s END)', implode(' ', [
                         "WHEN rule2.key <> 'nawabari' THEN 0",
-                        "WHEN battle2.is_win = battle_player2.is_my_team THEN 1000",
-                        "ELSE 0",
+                        'WHEN battle2.is_win = battle_player2.is_my_team THEN 1000',
+                        'ELSE 0',
                     ])),
                     $pointNormalize,
                 ]),
@@ -118,8 +118,8 @@ trait Weapon2Trait
                     '(FLOOR((%s)::DOUBLE PRECISION / %2$.1f)::BIGINT * %2$d)',
                     sprintf('(battle_player2.point - CASE %s END)', implode(' ', [
                         "WHEN rule2.key <> 'nawabari' THEN 0",
-                        "WHEN battle2.is_win = battle_player2.is_my_team THEN 1000",
-                        "ELSE 0",
+                        'WHEN battle2.is_win = battle_player2.is_my_team THEN 1000',
+                        'ELSE 0',
                     ])),
                     $pointNormalize,
                 ),
@@ -130,8 +130,8 @@ trait Weapon2Trait
                         '(FLOOR((%s)::DOUBLE PRECISION / %2$.1f)::BIGINT * %2$d)',
                         sprintf('(battle_player2.point - CASE %s END)', implode(' ', [
                             "WHEN rule2.key <> 'nawabari' THEN 0",
-                            "WHEN battle2.is_win = battle_player2.is_my_team THEN 1000",
-                            "ELSE 0",
+                            'WHEN battle2.is_win = battle_player2.is_my_team THEN 1000',
+                            'ELSE 0',
                         ])),
                         $pointNormalize,
                     ),

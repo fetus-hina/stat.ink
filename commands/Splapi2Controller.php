@@ -68,10 +68,10 @@ class Splapi2Controller extends Controller
         $schedule->rule_id = $rules[$info->mode->key];
         if ($schedule->isNewRecord || $schedule->dirtyAttributes) {
             if (!$schedule->save()) {
-                $this->stderr("Schedule insert/update error at line " . __LINE__ . "\n");
+                $this->stderr('Schedule insert/update error at line ' . __LINE__ . "\n");
                 throw new \Exception();
             }
-            echo "Created or updated schedule " . Json::encode($schedule) . "\n";
+            echo 'Created or updated schedule ' . Json::encode($schedule) . "\n";
         }
 
         $exists = $schedule->getScheduleMaps()->count();
@@ -83,11 +83,11 @@ class Splapi2Controller extends Controller
                 )])
                 ->count();
             if ($exists == $matches) {
-                $this->stderr("Nothing changed. " . Json::encode($schedule) . "\n");
+                $this->stderr('Nothing changed. ' . Json::encode($schedule) . "\n");
                 return;
             }
         }
-        $this->stderr("Something changed (or new schedule) " . Json::encode($schedule) . "\n");
+        $this->stderr('Something changed (or new schedule) ' . Json::encode($schedule) . "\n");
         ScheduleMap2::deleteAll(['schedule_id' => $schedule->id]);
         foreach ($info->stages as $st) {
             $stage = Yii::createObject([

@@ -54,11 +54,11 @@ class WinLoseLegend extends Widget
         ]));
 
         $this->view->registerJs(
-            "(function(\$){" .
+            '(function($){' .
                 "\$('.{$base}-bg').each(function(){" .
                     "\$(this).css('background-color', window.colorScheme[\$(this).attr('data-color')]);" .
-                "})" .
-            "})(jQuery);",
+                '})' .
+            '})(jQuery);',
         );
         return $html;
     }

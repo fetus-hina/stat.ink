@@ -26,7 +26,7 @@ use yii\web\Cookie;
 
 class SalmonController extends Controller
 {
-    public $layout = "main";
+    public $layout = 'main';
 
     public function behaviors()
     {

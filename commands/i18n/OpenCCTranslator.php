@@ -59,10 +59,10 @@ class OpenCCTranslator extends Component
 
     private function translateFile(string $inputPath, string $outputPath): bool
     {
-        fwrite(STDERR, "Processing zh-CN to zh-TW with OpenCC: " . basename($inputPath) . "\n");
+        fwrite(STDERR, 'Processing zh-CN to zh-TW with OpenCC: ' . basename($inputPath) . "\n");
 
         if (!FileHelper::createDirectory(dirname($outputPath))) {
-            fwrite(STDERR, "Could not create directory: " . dirname($outputPath) . "\n");
+            fwrite(STDERR, 'Could not create directory: ' . dirname($outputPath) . "\n");
             return false;
         }
 
@@ -75,7 +75,7 @@ class OpenCCTranslator extends Component
             $outputTexts[$enText] = $hantText;
         }
 
-        $esc = fn (string $text): string => str_replace(["\\", "'"], ["\\\\", "\\'"], $text);
+        $esc = fn (string $text): string => str_replace(['\\', "'"], ['\\\\', "\\'"], $text);
 
         fwrite(STDERR, "Writing...\n");
         $fh = fopen($outputPath, 'wt');

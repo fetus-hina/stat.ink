@@ -80,6 +80,7 @@
   <rule ref="Squiz.PHP.LowercasePHPFunctions"/>
   <rule ref="Squiz.PHP.NonExecutableCode"/>
   <rule ref="Squiz.Scope.StaticThisUsage"/>
+  <rule ref="Squiz.Strings.DoubleQuoteUsage.NotRequired"/>
   <rule ref="Squiz.WhiteSpace.FunctionOpeningBraceSpace"/>
   <rule ref="Squiz.WhiteSpace.LanguageConstructSpacing"/>
   <rule ref="Squiz.WhiteSpace.LogicalOperatorSpacing"/>

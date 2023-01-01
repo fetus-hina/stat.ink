@@ -135,7 +135,7 @@ class Battle2Splatnet extends ActiveRecord
                 }
             }
         } catch (\Throwable $e) {
-            Yii::error("Could not convert to object: " . $e->getMessage(), __METHOD__);
+            Yii::error('Could not convert to object: ' . $e->getMessage(), __METHOD__);
         } finally {
             Yii::endProfile($profileId, __METHOD__);
         }

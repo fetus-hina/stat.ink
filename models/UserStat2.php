@@ -288,7 +288,7 @@ class UserStat2 extends ActiveRecord
                 $excludePrivate,
                 [
                     sprintf('WHEN {{rule2}}.[[key]] <> %s THEN 0', $db->quoteValue($ruleKey)),
-                    "WHEN {{rank2a}}.[[int_base]] IS NULL AND {{rank2b}}.[[int_base]] IS NULL THEN 0",
+                    'WHEN {{rank2a}}.[[int_base]] IS NULL AND {{rank2b}}.[[int_base]] IS NULL THEN 0',
                     sprintf(
                         'ELSE GREATEST(%s + %s, %s + %s)',
                         sprintf('(CASE %s END)', implode(' ', [

@@ -31,7 +31,7 @@ class BackupController extends Controller
             mkdir(dirname($outPath), 0755, true);
         }
 
-        $this->stdout("Dumping database... ", Console::FG_YELLOW);
+        $this->stdout('Dumping database... ', Console::FG_YELLOW);
         $execinfo = $this->createDumpCommandLine($outPath);
         $this->stdout("\n" . $execinfo['cmdline'] . "\n");
         $descriptorspec = [
@@ -69,7 +69,7 @@ class BackupController extends Controller
 
     public function actionUpload()
     {
-        $this->stdout("Uploading dump files... ", Console::FG_YELLOW);
+        $this->stdout('Uploading dump files... ', Console::FG_YELLOW);
         $config = include Yii::getAlias('@app/config/backup-s3.php');
         if (!$config['endpoint'] || !$config['accessKey'] || !$config['secret'] || !$config['bucket']) {
             $this->stdout("NOT CONFIGURED.\n", Console::FG_PURPLE);
@@ -116,7 +116,7 @@ class BackupController extends Controller
                 $this->stdout("    ERROR\n", Console::FG_RED);
                 return 1;
             }
-            $this->stdout("    SUCCESS ", Console::FG_GREEN);
+            $this->stdout('    SUCCESS ', Console::FG_GREEN);
             $this->stdout(sprintf("in %.3fsec\n", $t2 - $t1));
 
             unlink($path);

@@ -37,7 +37,7 @@ class UserLanguage
             }
 
             if ($getDefault) {
-                Yii::info("Returns default language, en-US", __METHOD__);
+                Yii::info('Returns default language, en-US', __METHOD__);
                 return Language::find()
                     ->andWhere(['lang' => 'en-US'])
                     ->orderBy(null)
@@ -67,7 +67,7 @@ class UserLanguage
                 ->one();
             if ($lang) {
                 Yii::info(
-                    "Detected language by parameter, " . $lang->lang,
+                    'Detected language by parameter, ' . $lang->lang,
                     __METHOD__,
                 );
             }
@@ -94,7 +94,7 @@ class UserLanguage
                 ->one();
             if ($lang) {
                 Yii::info(
-                    "Detected language by cookie, " . $lang->lang,
+                    'Detected language by cookie, ' . $lang->lang,
                     __METHOD__,
                 );
             }

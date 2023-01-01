@@ -84,7 +84,7 @@ abstract class BaseGearForm extends Model
             return;
         }
         if (count($values) < 1 || count($values) > 3) {
-            $this->addError($attribute, "{$attribute} must be contain 1-3 values, " . count($values) . " given.");
+            $this->addError($attribute, "{$attribute} must be contain 1-3 values, " . count($values) . ' given.');
             return;
         }
         foreach ($values as $i => $value) {

@@ -56,7 +56,7 @@ class ImageS3Controller extends Controller
         if (!$queue) {
             $this->stderr(sprintf(
                 "%s file %s to S3 storage.\n",
-                Console::ansiFormat("Uploading", [Console::BOLD, Console::FG_GREEN]),
+                Console::ansiFormat('Uploading', [Console::BOLD, Console::FG_GREEN]),
                 Console::ansiFormat(basename($path), [Console::BOLD, Console::FG_PURPLE]),
             ));
             $ret = Yii::$app->imgS3->uploadFile(
@@ -83,7 +83,7 @@ class ImageS3Controller extends Controller
                 ]));
             $this->stderr(sprintf(
                 "%s: %s\n",
-                Console::ansiFormat("Queued", [Console::BOLD, Console::FG_GREEN]),
+                Console::ansiFormat('Queued', [Console::BOLD, Console::FG_GREEN]),
                 Console::ansiFormat(basename($path), [Console::BOLD, Console::FG_PURPLE]),
             ));
         }

@@ -49,7 +49,7 @@ class User extends \yii\web\User
                 if (!$identity instanceof IdentityInterface) {
                     throw new InvalidValueException(
                         "$class::findIdentity() must return an object " .
-                        "implementing IdentityInterface.",
+                        'implementing IdentityInterface.',
                     );
                 } elseif (!$identity->validateAuthKey($data['authKey'])) {
                     Yii::warning(

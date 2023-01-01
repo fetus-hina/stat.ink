@@ -75,7 +75,7 @@ class m151007_123045_death_reason extends Migration
     {
         $typeId = DeathReasonType::findOne(['key' => $type_key])->id;
         $select = "SELECT {$typeId} AS [[type_id]], [[key]], [[name]] FROM {{{$table}}} ORDER BY [[id]]";
-        $sql = "INSERT INTO {{death_reason}} ( [[type_id]], [[key]], [[name]] ) " . $select;
+        $sql = 'INSERT INTO {{death_reason}} ( [[type_id]], [[key]], [[name]] ) ' . $select;
         $this->execute($sql);
     }
 }

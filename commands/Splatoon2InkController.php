@@ -114,10 +114,10 @@ class Splatoon2InkController extends Controller
         $schedule->rule_id = $rules[$info->rule->key];
         if ($schedule->isNewRecord || $schedule->dirtyAttributes) {
             if (!$schedule->save()) {
-                $this->stderr("Schedule insert/update error at line " . __LINE__ . "\n");
+                $this->stderr('Schedule insert/update error at line ' . __LINE__ . "\n");
                 throw new \Exception();
             }
-            echo "Created or updated schedule " . Json::encode($schedule) . "\n";
+            echo 'Created or updated schedule ' . Json::encode($schedule) . "\n";
         }
 
         $exists = $schedule->getScheduleMaps()->count();
@@ -135,12 +135,12 @@ class Splatoon2InkController extends Controller
                 )])
                 ->count();
             if ($exists == $matches) {
-                $this->stderr("Nothing changed. " . Json::encode($schedule) . "\n");
+                $this->stderr('Nothing changed. ' . Json::encode($schedule) . "\n");
                 return;
             }
         }
 
-        $this->stderr("Something changed (or new schedule) " . Json::encode($schedule) . "\n");
+        $this->stderr('Something changed (or new schedule) ' . Json::encode($schedule) . "\n");
         ScheduleMap2::deleteAll(['schedule_id' => $schedule->id]);
         foreach ($stages as $st) {
             if (!isset($maps[$st->id])) {
@@ -198,7 +198,7 @@ class Splatoon2InkController extends Controller
         $startTime = $this->dateTimeFromTimestamp($json->start_time);
         $endTime = $this->dateTimeFromTimestamp($json->end_time);
 
-        echo "Schedule: " . $startTime->format(DateTime::ATOM) . ' - ' . $endTime->format(DateTime::ATOM) . "\n";
+        echo 'Schedule: ' . $startTime->format(DateTime::ATOM) . ' - ' . $endTime->format(DateTime::ATOM) . "\n";
 
         // 期間の重なるスケジュールを全件取得
         $schedules = SalmonSchedule2::find()
@@ -215,10 +215,10 @@ class Splatoon2InkController extends Controller
                     @strtotime($_['end_at']) === $endTime->getTimestamp()
                 ) {
                     $schedule = $_;
-                    echo "Found same term schedule data, id = " . $_->id . "\n";
+                    echo 'Found same term schedule data, id = ' . $_->id . "\n";
                 } else {
                     // 開始・終了は一致しないが期間が重複しているのはおかしなデータ
-                    echo "Found invalid term schedule data, id = " . $_->id . "\n";
+                    echo 'Found invalid term schedule data, id = ' . $_->id . "\n";
                     if ($_->delete() === false) {
                         echo "Could not delete the data.\n";
                         return false;
@@ -238,7 +238,7 @@ class Splatoon2InkController extends Controller
 
         $map = SalmonMap2::findOne(['name' => $json->stage->name ?? '?']);
         if (!$map) {
-            echo "Unknown stage: " . ($json->stage->name ?? '??') . "\n";
+            echo 'Unknown stage: ' . ($json->stage->name ?? '??') . "\n";
             return false;
         }
 

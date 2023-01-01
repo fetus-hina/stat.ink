@@ -15,7 +15,7 @@ use yii\filters\VerbFilter;
 
 class ShowController extends Controller
 {
-    public $layout = "main";
+    public $layout = 'main';
 
     public function behaviors()
     {

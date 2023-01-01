@@ -13,7 +13,7 @@ use yii\filters\VerbFilter;
 
 class FestController extends Controller
 {
-    public $layout = "main";
+    public $layout = 'main';
 
     public function behaviors()
     {

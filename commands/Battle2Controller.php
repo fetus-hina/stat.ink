@@ -78,7 +78,7 @@ class Battle2Controller extends Controller
             },
             Agent::find()->andWhere(['name' => 'SquidTracks'])->asArray()->all(),
         ));
-        $this->stderr("done. id = [" . implode(", ", $agentIds) . "]\n");
+        $this->stderr('done. id = [' . implode(', ', $agentIds) . "]\n");
 
         $query = Battle2::find()
             ->innerJoinWith('rule', false)
@@ -96,7 +96,7 @@ class Battle2Controller extends Controller
             ->orderBy(['id' => SORT_ASC]);
 
         $count = $query->count();
-        $this->stderr("Target battles = " . $count . "\n");
+        $this->stderr('Target battles = ' . $count . "\n");
 
         $i = -1;
         foreach ($query->batch(200) as $batch) {

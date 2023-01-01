@@ -139,7 +139,7 @@ trait LicenseCheckTrait
                 !$this->shouldSkipChecking($name) &&
                 !$this->isSafeLicense($license)
             ) {
-                $list[] = \vsprintf("%-55s %s", [
+                $list[] = \vsprintf('%-55s %s', [
                     $name,
                     $license,
                 ]);

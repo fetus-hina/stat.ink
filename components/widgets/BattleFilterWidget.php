@@ -375,18 +375,18 @@ final class BattleFilterWidget extends Widget
         BootstrapDateTimePickerAsset::register($this->view);
         $this->view->registerCss("#{$divId}{margin-left:5%}");
         $this->view->registerJs(implode('', [
-            "(function(\$){",
+            '(function($){',
                 "\$('#{$divId} input').datetimepicker({",
                     "format: 'YYYY-MM-DD HH:mm:ss'",
-                "});",
+                '});',
                 "\$('#filter-term').change(function(){",
                     "if($(this).val()==='term'){",
                         "\$('#{$divId}').show();",
-                    "}else{",
+                    '}else{',
                         "\$('#{$divId}').hide();",
-                    "}",
-                "}).change();",
-            "})(jQuery);",
+                    '}',
+                '}).change();',
+            '})(jQuery);',
         ]));
         return Html::tag(
             'div',

@@ -251,7 +251,7 @@ class MonthAction extends BaseAction
                 //      LINE 1: SET timezone TO $1
                 // とかなるので一回エミュレートして埋め込む必要がある
                 Yii::$app->db
-                    ->createCommand("SET timezone TO :timezone")
+                    ->createCommand('SET timezone TO :timezone')
                     ->bindValue(':timezone', $timezone)
                     ->rawSql,
             )->execute();

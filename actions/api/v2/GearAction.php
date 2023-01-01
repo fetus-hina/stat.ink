@@ -73,7 +73,7 @@ class GearAction extends BaseAction
         $resp->setDownloadHeaders(
             preg_match('/^[a-z]+$/', (string)$type)
                 ? "statink-gear2-{$type}.csv"
-                : "statink-gear2.csv",
+                : 'statink-gear2.csv',
             'text/csv; charset=UTF-8',
         );
         return [

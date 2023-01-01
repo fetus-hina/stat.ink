@@ -87,7 +87,7 @@ trait LicenseExtractTrait
         if (!FileHelper::createDirectory(dirname($distPath))) {
             fwrite(
                 STDERR,
-                "license/extract: could not create directory: " . dirname($distPath) . "\n",
+                'license/extract: could not create directory: ' . dirname($distPath) . "\n",
             );
             return false;
         }

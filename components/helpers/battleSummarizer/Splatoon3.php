@@ -68,7 +68,7 @@ trait Splatoon3
             ),
         );
         $column_wp_short = sprintf(
-            "(%s * 100.0 / NULLIF(%s, 0))",
+            '(%s * 100.0 / NULLIF(%s, 0))',
             sprintf(
                 'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
                 implode(' AND ', [
@@ -211,26 +211,26 @@ trait Splatoon3
             'assist_present' => $column_assists_present,
             'total_assist' => $column_total_assists,
 
-            'min_assist' => "MIN({{battle3}}.[[assist]])",
-            'pct5_assist' => "percentile_cont(0.05) WITHIN GROUP (ORDER BY {{battle3}}.[[assist]])",
-            'q1_4_assist' => "percentile_cont(1.0/4) WITHIN GROUP (ORDER BY {{battle3}}.[[assist]])",
-            'median_assist' => "percentile_cont(2.0/4) WITHIN GROUP (ORDER BY {{battle3}}.[[assist]])",
-            'q3_4_assist' => "percentile_cont(3.0/4) WITHIN GROUP (ORDER BY {{battle3}}.[[assist]])",
-            'pct95_assist' => "percentile_cont(0.95) WITHIN GROUP (ORDER BY {{battle3}}.[[assist]])",
-            'max_assist' => "MAX({{battle3}}.[[assist]])",
-            'stddev_assist' => "stddev_pop({{battle3}}.[[assist]])",
+            'min_assist' => 'MIN({{battle3}}.[[assist]])',
+            'pct5_assist' => 'percentile_cont(0.05) WITHIN GROUP (ORDER BY {{battle3}}.[[assist]])',
+            'q1_4_assist' => 'percentile_cont(1.0/4) WITHIN GROUP (ORDER BY {{battle3}}.[[assist]])',
+            'median_assist' => 'percentile_cont(2.0/4) WITHIN GROUP (ORDER BY {{battle3}}.[[assist]])',
+            'q3_4_assist' => 'percentile_cont(3.0/4) WITHIN GROUP (ORDER BY {{battle3}}.[[assist]])',
+            'pct95_assist' => 'percentile_cont(0.95) WITHIN GROUP (ORDER BY {{battle3}}.[[assist]])',
+            'max_assist' => 'MAX({{battle3}}.[[assist]])',
+            'stddev_assist' => 'stddev_pop({{battle3}}.[[assist]])',
 
             'inked_present' => $column_inked_present,
             'total_inked' => $column_total_inked,
 
-            'min_inked' => "MIN({{battle3}}.[[inked]])",
-            'pct5_inked' => "percentile_cont(0.05) WITHIN GROUP (ORDER BY {{battle3}}.[[inked]])",
-            'q1_4_inked' => "percentile_cont(1.0/4) WITHIN GROUP (ORDER BY {{battle3}}.[[inked]])",
-            'median_inked' => "percentile_cont(2.0/4) WITHIN GROUP (ORDER BY {{battle3}}.[[inked]])",
-            'q3_4_inked' => "percentile_cont(3.0/4) WITHIN GROUP (ORDER BY {{battle3}}.[[inked]])",
-            'pct95_inked' => "percentile_cont(0.95) WITHIN GROUP (ORDER BY {{battle3}}.[[inked]])",
-            'max_inked' => "MAX({{battle3}}.[[inked]])",
-            'stddev_inked' => "stddev_pop({{battle3}}.[[inked]])",
+            'min_inked' => 'MIN({{battle3}}.[[inked]])',
+            'pct5_inked' => 'percentile_cont(0.05) WITHIN GROUP (ORDER BY {{battle3}}.[[inked]])',
+            'q1_4_inked' => 'percentile_cont(1.0/4) WITHIN GROUP (ORDER BY {{battle3}}.[[inked]])',
+            'median_inked' => 'percentile_cont(2.0/4) WITHIN GROUP (ORDER BY {{battle3}}.[[inked]])',
+            'q3_4_inked' => 'percentile_cont(3.0/4) WITHIN GROUP (ORDER BY {{battle3}}.[[inked]])',
+            'pct95_inked' => 'percentile_cont(0.95) WITHIN GROUP (ORDER BY {{battle3}}.[[inked]])',
+            'max_inked' => 'MAX({{battle3}}.[[inked]])',
+            'stddev_inked' => 'stddev_pop({{battle3}}.[[inked]])',
         ]);
         return (object)$query->createCommand()->queryOne();
     }

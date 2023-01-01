@@ -170,7 +170,7 @@ class BattleFilterForm extends Model
     {
         $value = substr($this->$attr, 1);
         $count = Weapon::find()
-            ->andWhere("{{weapon}}.[[id]] = {{weapon}}.[[main_group_id]]")
+            ->andWhere('{{weapon}}.[[id]] = {{weapon}}.[[main_group_id]]')
             ->andWhere(['key' => $value])
             ->count();
         if ($count < 1) {

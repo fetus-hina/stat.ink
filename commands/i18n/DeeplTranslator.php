@@ -120,7 +120,7 @@ class DeeplTranslator extends Component
             }
 
             if (!FileHelper::createDirectory(dirname($outputPath))) {
-                fwrite(STDERR, "Could not create directory: " . dirname($outputPath) . "\n");
+                fwrite(STDERR, 'Could not create directory: ' . dirname($outputPath) . "\n");
                 return false;
             }
 
@@ -149,7 +149,7 @@ class DeeplTranslator extends Component
                 ),
             );
             $outputContents = array_combine($englishTexts, $localizedTexts);
-            $esc = fn ($text) => str_replace(["\\", "'"], ["\\\\", "\\'"], $text);
+            $esc = fn ($text) => str_replace(['\\', "'"], ['\\\\', "\\'"], $text);
             $now = new DateTimeImmutable('now', new DateTimeZone('Asia/Tokyo')); // Japan Time
 
             fwrite(STDERR, "Writing...\n");

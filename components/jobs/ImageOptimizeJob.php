@@ -35,7 +35,7 @@ class ImageOptimizeJob extends BaseObject implements JobInterface
         }
 
         if (!FileHelper::createDirectory(dirname($this->outPath))) {
-            Yii::error("Could not create directory " . dirname($this->outPath), __METHOD__);
+            Yii::error('Could not create directory ' . dirname($this->outPath), __METHOD__);
             return;
         }
 
@@ -48,7 +48,7 @@ class ImageOptimizeJob extends BaseObject implements JobInterface
         $status = null;
         @exec($cmdline, $lines, $status);
         if ($status != 0) {
-            Yii::error("Optimize failed", __METHOD__);
+            Yii::error('Optimize failed', __METHOD__);
             return;
         }
         @unlink($this->inPath);
