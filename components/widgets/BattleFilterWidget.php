@@ -324,7 +324,6 @@ final class BattleFilterWidget extends Widget
         return $form->field($this->filter, 'rank')->dropDownList($list)->label(false);
     }
 
-
     protected function drawResult(ActiveForm $form)
     {
         $list = [

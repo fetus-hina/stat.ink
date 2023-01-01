@@ -22,12 +22,19 @@ abstract class BaseWidget extends Widget
     public $model;
 
     abstract public function getBattleEndAt(): ?DateTimeImmutable;
+
     abstract public function getIsKO(): ?bool;
+
     abstract public function getIsWin(): ?bool;
+
     abstract public function getKillDeath(): array;
+
     abstract public function getLinkRoute(): array;
+
     abstract public function getMapName(): string;
+
     abstract public function getRuleName(): string;
+
     abstract public function getWeaponName(): string;
 
     public function getIsDraw(): ?bool

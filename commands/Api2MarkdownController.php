@@ -789,5 +789,6 @@ class Api2MarkdownController extends Controller
         }
         return $width;
     }
+
     // }}}
 }

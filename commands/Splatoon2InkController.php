@@ -161,6 +161,7 @@ class Splatoon2InkController extends Controller
 
         $this->stderr("  => updated\n");
     }
+
     // }}}
 
     public function actionUpdateCoopSchedule(): int
@@ -305,6 +306,7 @@ class Splatoon2InkController extends Controller
 
         return true;
     }
+
     // }}}
 
     private function queryJson(string $url, array $data = [])

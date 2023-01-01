@@ -43,6 +43,7 @@ class m171030_105641_asian_time extends Migration
         $this->delete('country', ['key' => 'kr']);
         $this->update('timezone', ['name' => 'Japan Time'], ['identifier' => 'Asia/Tokyo']);
     }
+
     // }}}
 
     // china and taiwan {{{
@@ -69,6 +70,7 @@ class m171030_105641_asian_time extends Migration
         $this->delete('timezone', ['identifier' => ['Asia/Shanghai', 'Asia/Urumqi']]);
         $this->delete('country', ['key' => ['cn', 'tw']]);
     }
+
     // }}}
 
     // get id {{{
@@ -109,5 +111,6 @@ class m171030_105641_asian_time extends Migration
         }
         return (int)$ret;
     }
+
     // }}}
 }

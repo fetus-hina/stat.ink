@@ -20,7 +20,9 @@ abstract class BaseWeaponIcon extends Widget
     public bool $alt = true;
 
     abstract protected function getType(): string;
+
     abstract protected function getKey(): ?string;
+
     abstract protected function getAlt(): ?string;
 
     public function run(): string

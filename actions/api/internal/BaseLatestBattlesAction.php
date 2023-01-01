@@ -41,6 +41,7 @@ abstract class BaseLatestBattlesAction extends ViewAction
     private DateTimeImmutable $now;
 
     abstract protected function fetchBattles(): array;
+
     abstract protected function getHeading(): string;
 
     protected function isPrecheckOK(): bool

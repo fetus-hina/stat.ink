@@ -130,6 +130,7 @@ class BattleImage2 extends ActiveRecord
     }
 
     private $deleteFilename;
+
     public function beforeDelete()
     {
         if (!parent::beforeDelete()) {

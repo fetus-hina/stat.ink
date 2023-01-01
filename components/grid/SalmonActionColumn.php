@@ -77,7 +77,6 @@ final class SalmonActionColumn extends Column
         );
     }
 
-
     /**
      * @param Salmon2|Salmon3 $model
      */

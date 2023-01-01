@@ -112,7 +112,6 @@ class I18n
         );
     }
 
-
     private static function getGitContributors(string $path): array
     {
         $cmdline = sprintf(

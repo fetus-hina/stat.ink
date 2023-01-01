@@ -129,5 +129,6 @@ class m181119_120843_timezone extends Migration
         }
         return (int)$ret;
     }
+
     // }}}
 }

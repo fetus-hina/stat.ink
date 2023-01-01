@@ -926,7 +926,6 @@ class PostBattleForm extends Model
         $this->$attribute = $newValues;
     }
 
-
     public function validateAgentVariables(string $attribute, $params)
     {
         if ($this->hasErrors($attribute)) {

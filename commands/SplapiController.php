@@ -280,7 +280,6 @@ class SplapiController extends Controller
         return $count < 1;
     }
 
-
     private function queryJson($url, $data = [])
     {
         echo "Querying {$url} ...\n";
