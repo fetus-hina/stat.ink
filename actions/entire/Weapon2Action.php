@@ -60,9 +60,9 @@ class Weapon2Action extends ViewAction
                 ->applyFilter($stageFilter, ['result'])
                 ->groupBy('stat_weapon2_result.map_id')
                 ->select([
-                    'map'       => 'MAX(map2.key)',
-                    'battles'   => 'SUM(stat_weapon2_result.battles)',
-                    'wins'      => 'SUM(stat_weapon2_result.wins)',
+                    'map' => 'MAX(map2.key)',
+                    'battles' => 'SUM(stat_weapon2_result.battles)',
+                    'wins' => 'SUM(stat_weapon2_result.wins)',
                 ])
                 ->asArray()
                 ->all(),
@@ -85,9 +85,9 @@ class Weapon2Action extends ViewAction
                 ->applyFilter($stageFilter)
                 ->groupBy(['stat_weapon2_result.map_id', 'stat_weapon2_result.kill'])
                 ->select([
-                    'map'       => 'MAX(map2.key)',
-                    'kill'      => 'stat_weapon2_result.kill',
-                    'battles'   => 'SUM(stat_weapon2_result.battles)',
+                    'map' => 'MAX(map2.key)',
+                    'kill' => 'stat_weapon2_result.kill',
+                    'battles' => 'SUM(stat_weapon2_result.battles)',
                 ])
                 ->orderBy([
                   'map' => SORT_ASC,
@@ -115,9 +115,9 @@ class Weapon2Action extends ViewAction
                 ->applyFilter($stageFilter)
                 ->groupBy(['stat_weapon2_result.map_id', 'stat_weapon2_result.death'])
                 ->select([
-                    'map'       => 'MAX(map2.key)',
-                    'death'     => 'stat_weapon2_result.death',
-                    'battles'   => 'SUM(stat_weapon2_result.battles)',
+                    'map' => 'MAX(map2.key)',
+                    'death' => 'stat_weapon2_result.death',
+                    'battles' => 'SUM(stat_weapon2_result.battles)',
                 ])
                 ->orderBy([
                   'map' => SORT_ASC,
@@ -145,9 +145,9 @@ class Weapon2Action extends ViewAction
                 ->applyFilter($stageFilter)
                 ->groupBy(['stat_weapon2_result.map_id', 'stat_weapon2_result.special'])
                 ->select([
-                    'map'       => 'MAX(map2.key)',
-                    'special'   => 'stat_weapon2_result.special',
-                    'battles'   => 'SUM(stat_weapon2_result.battles)',
+                    'map' => 'MAX(map2.key)',
+                    'special' => 'stat_weapon2_result.special',
+                    'battles' => 'SUM(stat_weapon2_result.battles)',
                 ])
                 ->orderBy([
                   'map' => SORT_ASC,
@@ -175,9 +175,9 @@ class Weapon2Action extends ViewAction
                 ->applyFilter($stageFilter)
                 ->groupBy(['stat_weapon2_result.map_id', 'stat_weapon2_result.assist'])
                 ->select([
-                    'map'       => 'MAX(map2.key)',
-                    'assist'    => 'stat_weapon2_result.assist',
-                    'battles'   => 'SUM(stat_weapon2_result.battles)',
+                    'map' => 'MAX(map2.key)',
+                    'assist' => 'stat_weapon2_result.assist',
+                    'battles' => 'SUM(stat_weapon2_result.battles)',
                 ])
                 ->orderBy([
                   'map' => SORT_ASC,
@@ -196,14 +196,14 @@ class Weapon2Action extends ViewAction
 
         return $this->controller->render('weapon2', [
             'stageFilter' => $stageFilter,
-            'weapon'    => $this->weapon,
-            'rule'      => $this->rule,
-            'maps'      => $maps,
-            'winRate'   => $winRate,
-            'kills'     => $kills,
-            'deaths'    => $deaths,
-            'specials'  => $specials,
-            'assists'   => $assists,
+            'weapon' => $this->weapon,
+            'rule' => $this->rule,
+            'maps' => $maps,
+            'winRate' => $winRate,
+            'kills' => $kills,
+            'deaths' => $deaths,
+            'specials' => $specials,
+            'assists' => $assists,
         ]);
     }
 }

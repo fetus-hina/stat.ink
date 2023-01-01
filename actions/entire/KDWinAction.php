@@ -82,10 +82,10 @@ class KDWinAction extends BaseAction
         $t = StatWeaponKDWinRate::tableName();
         $query = (new \yii\db\Query())
             ->select([
-                'kill'  => "{{{$t}}}.[[kill]]",
+                'kill' => "{{{$t}}}.[[kill]]",
                 'death' => "{{{$t}}}.[[death]]",
                 'count' => "SUM({{{$t}}}.[[battle_count]])",
-                'win'   => "SUM({{{$t}}}.[[win_count]])",
+                'win' => "SUM({{{$t}}}.[[win_count]])",
             ])
             ->from($t)
             ->andWhere(["{{{$t}}}.[[rule_id]]" => $rule->id])

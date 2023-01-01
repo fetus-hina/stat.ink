@@ -38,7 +38,7 @@ final class PanelListItemWidget extends Widget
 
         if (!$this->itemClasses) {
             $this->itemClasses = [
-                Battle::class  => BattleItem1Widget::class,
+                Battle::class => BattleItem1Widget::class,
                 Battle2::class => BattleItem2Widget::class,
                 Battle3::class => BattleItem3Widget::class,
                 Salmon2::class => SalmonItem2Widget::class,

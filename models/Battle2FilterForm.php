@@ -30,7 +30,7 @@ class Battle2FilterForm extends Model
     public $term_to;
     public $timezone;
     public $id_from; // old, for compatibility. Use filterIdRange.
-    public $id_to;   // old, for compatibility. Use filterIdRange.
+    public $id_to; // old, for compatibility. Use filterIdRange.
     public $filter;
     public $with_team; // "good" or "bad", refs $filterWithPrincipalId
 

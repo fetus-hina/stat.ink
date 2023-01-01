@@ -14,8 +14,8 @@ class m170728_091805_weapon_category2_maneuver extends Migration
     public function safeUp()
     {
         $this->insert('weapon_type2', [
-            'key'   => 'maneuver',
-            'name'  => 'Dualies',
+            'key' => 'maneuver',
+            'name' => 'Dualies',
             'category_id' => (new Query())
                 ->select('id')
                 ->from('weapon_category2')

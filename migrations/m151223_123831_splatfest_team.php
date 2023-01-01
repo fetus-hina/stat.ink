@@ -15,9 +15,9 @@ class m151223_123831_splatfest_team extends Migration
     public function up()
     {
         $this->createTable('team', [
-            'id'        => 'INTEGER NOT NULL PRIMARY KEY',
-            'name'      => 'VARCHAR(8) NOT NULL',
-            'leader'    => 'VARCHAR(8) NOT NULL',
+            'id' => 'INTEGER NOT NULL PRIMARY KEY',
+            'name' => 'VARCHAR(8) NOT NULL',
+            'leader' => 'VARCHAR(8) NOT NULL',
         ]);
         $this->batchInsert('team', ['id', 'name', 'leader'], [
             [ 1, 'Alpha', 'Callie' ],
@@ -25,9 +25,9 @@ class m151223_123831_splatfest_team extends Migration
         ]);
 
         $this->createTable('splatfest_team', [
-            'fest_id'   => 'INTEGER NOT NULL',
-            'team_id'   => 'INTEGER NOT NULL',
-            'name'      => 'VARCHAR(32) NOT NULL',
+            'fest_id' => 'INTEGER NOT NULL',
+            'team_id' => 'INTEGER NOT NULL',
+            'name' => 'VARCHAR(32) NOT NULL',
             'color_hue' => 'INTEGER NULL',
         ]);
         $this->addPrimaryKey('pk_splatfest_team', 'splatfest_team', ['fest_id', 'team_id']);
@@ -40,10 +40,10 @@ class m151223_123831_splatfest_team extends Migration
             ['fest_id', 'team_id', 'name', 'color_hue'],
             [
                 // 色は実績に基づく
-                [$this->fest($jp, 7), 1, '愛',         332],
-                [$this->fest($jp, 7), 2, 'おカネ',      34],
-                [$this->fest($jp, 8), 1, '山の幸',     346],
-                [$this->fest($jp, 8), 2, '海の幸',     166],
+                [$this->fest($jp, 7), 1, '愛', 332],
+                [$this->fest($jp, 7), 2, 'おカネ', 34],
+                [$this->fest($jp, 8), 1, '山の幸', 346],
+                [$this->fest($jp, 8), 2, '海の幸', 166],
                 // 色は推定
                 [$this->fest($jp, 9), 1, '赤いきつね', 335],
                 [$this->fest($jp, 9), 2, '緑のたぬき', 155],

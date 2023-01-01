@@ -55,9 +55,9 @@ class BattleSummaryItemWidget extends Widget
             'data' => [
                 'stats' => Json::encode([
                     'min' => (int)$this->min,
-                    'q1'  => (float)$this->q1,
-                    'q2'  => (float)$this->median,
-                    'q3'  => (float)$this->q3,
+                    'q1' => (float)$this->q1,
+                    'q2' => (float)$this->median,
+                    'q3' => (float)$this->q3,
                     'max' => (int)$this->max,
                     'pct5' => (float)$this->pct5,
                     'pct95' => (float)$this->pct95,
@@ -66,9 +66,9 @@ class BattleSummaryItemWidget extends Widget
                 ]),
                 'disp' => Json::encode([
                     'min' => Yii::$app->formatter->asInteger((int)$this->min),
-                    'q1'  => Yii::$app->formatter->asDecimal((float)$this->q1, 2),
-                    'q2'  => Yii::$app->formatter->asDecimal((float)$this->median, 2),
-                    'q3'  => Yii::$app->formatter->asDecimal((float)$this->q3, 2),
+                    'q1' => Yii::$app->formatter->asDecimal((float)$this->q1, 2),
+                    'q2' => Yii::$app->formatter->asDecimal((float)$this->median, 2),
+                    'q3' => Yii::$app->formatter->asDecimal((float)$this->q3, 2),
                     'max' => Yii::$app->formatter->asInteger((int)$this->max),
                     'pct5' => Yii::$app->formatter->asDecimal((float)$this->pct5, 2),
                     'pct95' => Yii::$app->formatter->asDecimal((float)$this->pct95, 2),

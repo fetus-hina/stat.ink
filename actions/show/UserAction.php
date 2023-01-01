@@ -80,16 +80,16 @@ class UserAction extends BaseAction
 
         $template = $this->getViewMode() === 'simple' ? 'user.simple.php' : 'user.php';
         return $this->controller->render($template, [
-            'user'      => $user,
+            'user' => $user,
             'battleDataProvider' => new ActiveDataProvider([
                 'query' => $battle,
                 'pagination' => [
                     'pageSize' => 100,
                 ],
             ]),
-            'summary'   => $summary,
-            'filter'    => $filter,
-            'permLink'  => $permLink,
+            'summary' => $summary,
+            'filter' => $filter,
+            'permLink' => $permLink,
         ]);
     }
 

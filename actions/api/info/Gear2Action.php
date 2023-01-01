@@ -55,7 +55,7 @@ final class Gear2Action extends Action
             }
         });
         return $this->controller->render('gear2', [
-            'type'  => $type,
+            'type' => $type,
             'langs' => $langs,
             'gears' => $gears,
         ]);

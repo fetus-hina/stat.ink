@@ -13,9 +13,9 @@ class m180403_125022_salmon_map extends Migration
     public function up()
     {
         $this->createTable('salmon_map2', [
-            'id'        => $this->primaryKey(),
-            'key'       => $this->apiKey(),
-            'name'      => $this->string(32)->notNull(),
+            'id' => $this->primaryKey(),
+            'key' => $this->apiKey(),
+            'name' => $this->string(32)->notNull(),
         ]);
         $this->batchInsert('salmon_map2', ['key', 'name'], [
             [

@@ -173,8 +173,8 @@ class BackupController extends Controller
             escapeshellarg('xz'),
             escapeshellarg('gpg2'),
             escapeshellarg($gpg['userId']), // recipient (gpg)
-            escapeshellarg('none'),         // compress algo (gpg)
-            escapeshellarg('AES256'),       // cipher algo (gpg)
+            escapeshellarg('none'), // compress algo (gpg)
+            escapeshellarg('AES256'), // cipher algo (gpg)
             escapeshellarg($outPath),
         );
         $env = [

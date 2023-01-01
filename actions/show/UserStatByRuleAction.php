@@ -42,12 +42,12 @@ class UserStatByRuleAction extends BaseAction
     {
         $query = (new \yii\db\Query())
             ->select([
-                'rule_key'  => 'MAX({{rule}}.[[key]])',
+                'rule_key' => 'MAX({{rule}}.[[key]])',
                 'rule_name' => 'MAX({{rule}}.[[name]])',
-                'mode_key'  => 'MAX({{game_mode}}.[[key]])',
+                'mode_key' => 'MAX({{game_mode}}.[[key]])',
                 'mode_name' => 'MAX({{game_mode}}.[[name]])',
-                'result'    => '(CASE WHEN {{battle}}.[[is_win]] = TRUE THEN \'win\' ELSE \'lose\' END)',
-                'count'     => 'COUNT(*)',
+                'result' => '(CASE WHEN {{battle}}.[[is_win]] = TRUE THEN \'win\' ELSE \'lose\' END)',
+                'count' => 'COUNT(*)',
             ])
             ->from('battle')
             ->innerJoin('rule', '{{battle}}.[[rule_id]] = {{rule}}.[[id]]')

@@ -17,10 +17,10 @@ class m161030_130822_blackout extends Migration
                 ->createCommand(
                     'CREATE TYPE blackout_type AS ENUM ( :v1, :v2, :v3, :v4 )',
                     [
-                        ':v1' => 'no',              // 黒塗りしない
-                        ':v2' => 'not-private',     // プラベでは黒塗りしない（その他は黒塗り）
-                        ':v3' => 'not-friend',      // タッグの味方は黒塗りしない（プラベもしない、その他は黒塗り）
-                        ':v4' => 'always',          // 自分以外全員黒塗り
+                        ':v1' => 'no', // 黒塗りしない
+                        ':v2' => 'not-private', // プラベでは黒塗りしない（その他は黒塗り）
+                        ':v3' => 'not-friend', // タッグの味方は黒塗りしない（プラベもしない、その他は黒塗り）
+                        ':v4' => 'always', // 自分以外全員黒塗り
                     ],
                 )
                 ->rawSql,

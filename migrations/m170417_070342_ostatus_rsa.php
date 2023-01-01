@@ -13,14 +13,14 @@ class m170417_070342_ostatus_rsa extends Migration
     public function up()
     {
         $this->createTable('ostatus_rsa', [
-            'user_id'       => $this->primaryKey()->append('REFERENCES {{user}}([[id]])'),
-            'bits'          => $this->integer()->notNull(),
-            'privkey'       => $this->text()->notNull(),
-            'pubkey'        => $this->text()->notNull(),
-            'modulus'       => $this->text()->notNull(),
-            'exponent'      => $this->string(8)->notNull(),
-            'created_at'    => $this->timestampTZ()->notNull(),
-            'updated_at'    => $this->timestampTZ()->notNull(),
+            'user_id' => $this->primaryKey()->append('REFERENCES {{user}}([[id]])'),
+            'bits' => $this->integer()->notNull(),
+            'privkey' => $this->text()->notNull(),
+            'pubkey' => $this->text()->notNull(),
+            'modulus' => $this->text()->notNull(),
+            'exponent' => $this->string(8)->notNull(),
+            'created_at' => $this->timestampTZ()->notNull(),
+            'updated_at' => $this->timestampTZ()->notNull(),
         ]);
     }
 

@@ -21,7 +21,7 @@ class CompressBehavior extends Behavior
     public function events()
     {
         return [
-            ActiveRecord::EVENT_AFTER_FIND    => 'decompress',
+            ActiveRecord::EVENT_AFTER_FIND => 'decompress',
             ActiveRecord::EVENT_BEFORE_INSERT => 'compress',
             ActiveRecord::EVENT_BEFORE_UPDATE => 'compress',
         ];

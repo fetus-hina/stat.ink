@@ -39,9 +39,9 @@ class User2Action extends BaseAction
         $resp = Yii::$app->getResponse();
         $model = DynamicModel::validateData(
             [
-                'lang'          => $request->get('lang'),
-                'screen_name'   => $request->get('screen_name'),
-                'type'          => $request->get('type'),
+                'lang' => $request->get('lang'),
+                'screen_name' => $request->get('screen_name'),
+                'type' => $request->get('type'),
             ],
             [
                 [['lang', 'screen_name', 'type'], 'required'],
@@ -129,12 +129,12 @@ class User2Action extends BaseAction
         }
         $feed->addAuthors([
             [
-                'name'  => Yii::$app->name,
-                'uri'   => Url::home(true),
+                'name' => Yii::$app->name,
+                'uri' => Url::home(true),
             ],
             [
-                'name'  => $user->name,
-                'uri'   => Url::to(['show-v2/user', 'screen_name' => $user->screen_name], true),
+                'name' => $user->name,
+                'uri' => Url::to(['show-v2/user', 'screen_name' => $user->screen_name], true),
             ],
         ]);
         $feed->setCopyright(
@@ -234,7 +234,7 @@ class User2Action extends BaseAction
         }
 
         $contentType = [
-            'atom'  => 'application/atom+xml; charset=UTF-8',
+            'atom' => 'application/atom+xml; charset=UTF-8',
             'rss' => 'application/rss+xml; charset=UTF-8',
         ];
         $resp->format = 'raw';

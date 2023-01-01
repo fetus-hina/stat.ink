@@ -14,10 +14,10 @@ class m171002_124420_link_from_others extends Migration
     public function up()
     {
         $this->createTable('link_mode', [
-            'id'    => $this->primaryKey(),
-            'key'   => $this->apiKey(),
-            'name'  => $this->string(64)->notNull(),
-            'rank'  => $this->integer()->notNull()->unique(),
+            'id' => $this->primaryKey(),
+            'key' => $this->apiKey(),
+            'name' => $this->string(64)->notNull(),
+            'rank' => $this->integer()->notNull()->unique(),
         ]);
         $this->batchInsert('link_mode', ['key', 'name', 'rank'], [
             [

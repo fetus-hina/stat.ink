@@ -15,7 +15,7 @@ class m151217_063309_map_add extends Migration
     {
         $this->batchInsert('map', ['key', 'name'], [
             ['shottsuru', 'Piranha Pit'],
-            ['anchovy',   'Ancho-V Games'],
+            ['anchovy', 'Ancho-V Games'],
         ]);
 
         $this->batchInsert(
@@ -23,7 +23,7 @@ class m151217_063309_map_add extends Migration
             ['map_id', 'name'],
             [
                 [ Map::findOne(['key' => 'shottsuru'])->id, 'ショッツル鉱山' ],
-                [ Map::findOne(['key' => 'anchovy'])->id,   'アンチョビットゲームズ' ],
+                [ Map::findOne(['key' => 'anchovy'])->id, 'アンチョビットゲームズ' ],
             ],
         );
     }

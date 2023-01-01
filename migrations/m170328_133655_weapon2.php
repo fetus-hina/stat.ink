@@ -16,13 +16,13 @@ class m170328_133655_weapon2 extends Migration
     public function up()
     {
         $this->createTable('weapon2', [
-            'id'            => $this->primaryKey(),
-            'key'           => $this->apiKey(),
-            'type_id'       => $this->pkRef('weapon_type2'),
-            'subweapon_id'  => $this->pkRef('subweapon2'),
-            'special_id'    => $this->pkRef('special2'),
-            'name'          => $this->string(32)->notNull()->unique(),
-            'canonical_id'  => $this->pkRef('weapon2'),
+            'id' => $this->primaryKey(),
+            'key' => $this->apiKey(),
+            'type_id' => $this->pkRef('weapon_type2'),
+            'subweapon_id' => $this->pkRef('subweapon2'),
+            'special_id' => $this->pkRef('special2'),
+            'name' => $this->string(32)->notNull()->unique(),
+            'canonical_id' => $this->pkRef('weapon2'),
             'main_group_id' => $this->pkRef('weapon2'),
         ]);
         $transaction = \Yii::$app->db->beginTransaction();
@@ -36,39 +36,39 @@ class m170328_133655_weapon2 extends Migration
         $sub = $this->getSubweapons();
         $special = $this->getSpecials();
         $this->insert('weapon2', [
-            'type_id'       => $type['shooter'],
-            'key'           => 'sshooter',
-            'name'          => 'Splattershot',
-            'subweapon_id'  => $sub['quickbomb'],
-            'special_id'    => $special['missile'],
-            'canonical_id'  => new Expression("currval('weapon2_id_seq'::regclass)"),
+            'type_id' => $type['shooter'],
+            'key' => 'sshooter',
+            'name' => 'Splattershot',
+            'subweapon_id' => $sub['quickbomb'],
+            'special_id' => $special['missile'],
+            'canonical_id' => new Expression("currval('weapon2_id_seq'::regclass)"),
             'main_group_id' => new Expression("currval('weapon2_id_seq'::regclass)"),
         ]);
         $this->insert('weapon2', [
-            'type_id'       => $type['shooter'],
-            'key'           => 'manueuver',
-            'name'          => 'Splat Dualies',
-            'subweapon_id'  => $sub['curlingbomb'],
-            'special_id'    => $special['jetpack'],
-            'canonical_id'  => new Expression("currval('weapon2_id_seq'::regclass)"),
+            'type_id' => $type['shooter'],
+            'key' => 'manueuver',
+            'name' => 'Splat Dualies',
+            'subweapon_id' => $sub['curlingbomb'],
+            'special_id' => $special['jetpack'],
+            'canonical_id' => new Expression("currval('weapon2_id_seq'::regclass)"),
             'main_group_id' => new Expression("currval('weapon2_id_seq'::regclass)"),
         ]);
         $this->insert('weapon2', [
-            'type_id'       => $type['roller'],
-            'key'           => 'splatroller',
-            'name'          => 'Splat Roller',
-            'subweapon_id'  => $sub['kyubanbomb'],
-            'special_id'    => $special['chakuchi'],
-            'canonical_id'  => new Expression("currval('weapon2_id_seq'::regclass)"),
+            'type_id' => $type['roller'],
+            'key' => 'splatroller',
+            'name' => 'Splat Roller',
+            'subweapon_id' => $sub['kyubanbomb'],
+            'special_id' => $special['chakuchi'],
+            'canonical_id' => new Expression("currval('weapon2_id_seq'::regclass)"),
             'main_group_id' => new Expression("currval('weapon2_id_seq'::regclass)"),
         ]);
         $this->insert('weapon2', [
-            'type_id'       => $type['charger'],
-            'key'           => 'splatcharger',
-            'name'          => 'Splat Charger',
-            'subweapon_id'  => $sub['splashbomb'],
-            'special_id'    => $special['presser'],
-            'canonical_id'  => new Expression("currval('weapon2_id_seq'::regclass)"),
+            'type_id' => $type['charger'],
+            'key' => 'splatcharger',
+            'name' => 'Splat Charger',
+            'subweapon_id' => $sub['splashbomb'],
+            'special_id' => $special['presser'],
+            'canonical_id' => new Expression("currval('weapon2_id_seq'::regclass)"),
             'main_group_id' => new Expression("currval('weapon2_id_seq'::regclass)"),
         ]);
     }

@@ -90,14 +90,14 @@ class UserStatGachiAction extends BaseAction
         $ret = [];
         foreach ($query->asArray()->each(200) as $model) {
             $ret[] = (object)[
-                'index'         => $index--,
-                'rule'          => $model['rule']['key'],
-                'exp'           => $this->calcGraphExp(
+                'index' => $index--,
+                'rule' => $model['rule']['key'],
+                'exp' => $this->calcGraphExp(
                     $model['rankAfter']['key'],
                     $model['rank_exp_after'],
                 ),
-                'movingAvg'     => null,
-                'movingAvg50'   => null,
+                'movingAvg' => null,
+                'movingAvg50' => null,
             ];
         }
         $ret = array_reverse($ret);
@@ -145,13 +145,13 @@ class UserStatGachiAction extends BaseAction
         $battles = [];
         foreach ($query->asArray()->each(200) as $battle) {
             $battles[] = (object)[
-                'index'         => -1 * count($battles),
-                'is_win'        => $battle['is_win'],
-                'rule'          => $battle['rule']['key'],
-                'map'           => $battle['map']['key'] ?? null,
-                'totalWP'       => null,
-                'movingWP'      => null,
-                'movingWP50'    => null,
+                'index' => -1 * count($battles),
+                'is_win' => $battle['is_win'],
+                'rule' => $battle['rule']['key'],
+                'map' => $battle['map']['key'] ?? null,
+                'totalWP' => null,
+                'movingWP' => null,
+                'movingWP50' => null,
             ];
         }
         if (empty($battles)) {
@@ -211,10 +211,10 @@ class UserStatGachiAction extends BaseAction
         }
 
         return (object)[
-            'rank'      => Yii::t('app-rank', $battle->rankAfter->name),
-            'rankExp'   => (int)$battle->rank_exp_after,
+            'rank' => Yii::t('app-rank', $battle->rankAfter->name),
+            'rankExp' => (int)$battle->rank_exp_after,
             'deviation' => $deviation,
-            'avgRank'   => $avgRank,
+            'avgRank' => $avgRank,
             'avgRankExp' => $avgRankExp,
         ];
     }
@@ -227,34 +227,34 @@ class UserStatGachiAction extends BaseAction
                 $exp += 1000;
                 break;
             case 's':
-                $exp +=  900;
+                $exp += 900;
                 break;
             case 'a+':
-                $exp +=  800;
+                $exp += 800;
                 break;
             case 'a':
-                $exp +=  700;
+                $exp += 700;
                 break;
             case 'a-':
-                $exp +=  600;
+                $exp += 600;
                 break;
             case 'b+':
-                $exp +=  500;
+                $exp += 500;
                 break;
             case 'b':
-                $exp +=  400;
+                $exp += 400;
                 break;
             case 'b-':
-                $exp +=  300;
+                $exp += 300;
                 break;
             case 'c+':
-                $exp +=  200;
+                $exp += 200;
                 break;
             case 'c':
-                $exp +=  100;
+                $exp += 100;
                 break;
             case 'c-':
-                $exp +=    0;
+                $exp += 0;
                 break;
         }
         return $exp;

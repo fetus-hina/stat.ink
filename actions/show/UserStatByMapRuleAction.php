@@ -46,10 +46,10 @@ class UserStatByMapRuleAction extends BaseAction
     {
         $query = (new \yii\db\Query())
             ->select([
-                'map_key'   => 'MAX({{map}}.[[key]])',
-                'rule_key'  => 'MAX({{rule}}.[[key]])',
-                'result'    => '(CASE WHEN {{battle}}.[[is_win]] = TRUE THEN \'win\' ELSE \'lose\' END)',
-                'count'     => 'COUNT(*)',
+                'map_key' => 'MAX({{map}}.[[key]])',
+                'rule_key' => 'MAX({{rule}}.[[key]])',
+                'result' => '(CASE WHEN {{battle}}.[[is_win]] = TRUE THEN \'win\' ELSE \'lose\' END)',
+                'count' => 'COUNT(*)',
             ])
             ->from('battle')
             ->innerJoin('map', '{{battle}}.[[map_id]] = {{map}}.[[id]]')

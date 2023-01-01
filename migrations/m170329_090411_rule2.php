@@ -13,13 +13,13 @@ class m170329_090411_rule2 extends Migration
     public function up()
     {
         $this->createTable('rule2', [
-            'id'         => $this->primaryKey(),
-            'key'        => $this->apiKey(),
-            'name'       => $this->string(32)->notNull()->unique(),
+            'id' => $this->primaryKey(),
+            'key' => $this->apiKey(),
+            'name' => $this->string(32)->notNull()->unique(),
             'short_name' => $this->string(16)->notNull()->unique(),
         ]);
         $this->insert('rule2', [
-            'key'  => 'nawabari',
+            'key' => 'nawabari',
             'name' => 'Turf War',
             'short_name' => 'TW',
         ]);

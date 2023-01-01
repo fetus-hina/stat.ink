@@ -75,7 +75,7 @@ class ViewAction extends BaseAction
     public function run()
     {
         return $this->controller->render('view', [
-            'fest'  => $this->fest,
+            'fest' => $this->fest,
             'alpha' => $this->alpha,
             'bravo' => $this->bravo,
             'results' => $this->results,

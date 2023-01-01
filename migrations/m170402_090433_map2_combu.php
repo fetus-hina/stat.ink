@@ -13,11 +13,11 @@ class m170402_090433_map2_combu extends Migration
     public function safeUp()
     {
         $this->insert('map2', [
-            'key'           => 'combu',
-            'name'          => 'Humpback Pump Track',
-            'short_name'    => 'Track',
-            'area'          => null,
-            'release_at'    => null,
+            'key' => 'combu',
+            'name' => 'Humpback Pump Track',
+            'short_name' => 'Track',
+            'area' => null,
+            'release_at' => null,
         ]);
     }
 

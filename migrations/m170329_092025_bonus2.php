@@ -13,7 +13,7 @@ class m170329_092025_bonus2 extends Migration
     public function up()
     {
         $this->createTable('turfwar_win_bonus2', [
-            'id'    => $this->primaryKey(),
+            'id' => $this->primaryKey(),
             'bonus' => $this->integer()->notNull()->check('[[bonus]] >= 0'),
             'start_at' => $this->timestampTZ()->notNull(),
         ]);

@@ -69,7 +69,7 @@ final class Translator
             (
                 $langCode === 'ru-RU' ||
                 $langCode === 'zh-CN' || // unofficial
-                $langCode === 'zh-TW'    // unofficial
+                $langCode === 'zh-TW' // unofficial
             )
         ) {
             return true;

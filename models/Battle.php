@@ -851,7 +851,7 @@ class Battle extends ActiveRecord
                 : [
                     'headgear' => $this->headgear ? $this->headgear->toJsonArray() : null,
                     'clothing' => $this->clothing ? $this->clothing->toJsonArray() : null,
-                    'shoes'    => $this->shoes ? $this->shoes->toJsonArray() : null,
+                    'shoes' => $this->shoes ? $this->shoes->toJsonArray() : null,
                 ],
             'period' => $this->period,
             'players' => in_array('players', $skips, true) || count($this->battlePlayers) === 0

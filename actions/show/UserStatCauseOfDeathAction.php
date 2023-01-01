@@ -139,10 +139,10 @@ class UserStatCauseOfDeathAction extends BaseAction
     {
         $query
             ->select([
-                'reason_id'     => '{{death_reason}}.[[id]]',
-                'canonical_id'  => 'MAX({{deadly_weapon}}.[[canonical_id]])',
+                'reason_id' => '{{death_reason}}.[[id]]',
+                'canonical_id' => 'MAX({{deadly_weapon}}.[[canonical_id]])',
                 'main_group_id' => 'MAX({{deadly_weapon}}.[[main_group_id]])',
-                'count'         => 'SUM({{battle_death_reason}}.[[count]])',
+                'count' => 'SUM({{battle_death_reason}}.[[count]])',
             ])
             ->leftJoin(
                 '{{weapon}} {{deadly_weapon}}',
@@ -201,8 +201,8 @@ class UserStatCauseOfDeathAction extends BaseAction
     {
         $query
             ->select([
-                'id'    => '{{death_reason_type}}.[[id]]',
-                'name'  => 'MAX({{death_reason_type}}.[[name]])',
+                'id' => '{{death_reason_type}}.[[id]]',
+                'name' => 'MAX({{death_reason_type}}.[[name]])',
                 'count' => 'SUM({{battle_death_reason}}.[[count]])',
             ])
             ->leftJoin('{{death_reason_type}}', '{{death_reason}}.[[type_id]] = {{death_reason_type}}.[[id]]')

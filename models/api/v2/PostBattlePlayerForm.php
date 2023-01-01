@@ -78,7 +78,7 @@ class PostBattlePlayerForm extends Model
             [['team'], 'in', 'range' => [ 'my', 'his' ]],
             [['is_me'], 'boolean', 'trueValue' => 'yes', 'falseValue' => 'no'],
             [['weapon'], 'exist',
-                'targetClass' =>  Weapon2::class,
+                'targetClass' => Weapon2::class,
                 'targetAttribute' => 'key',
             ],
             [['level'], 'integer', 'min' => 1, 'max' => 99],

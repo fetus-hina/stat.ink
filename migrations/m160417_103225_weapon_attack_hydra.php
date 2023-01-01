@@ -17,9 +17,9 @@ class m160417_103225_weapon_attack_hydra extends Migration
         $version = SplatoonVersion::findOne(['tag' => '2.7.0'])->id;
         $weapon = Weapon::findOne(['key' => 'hydra'])->id;
         $this->insert('weapon_attack', [
-            'version_id'        => $version,
-            'main_weapon_id'    => $weapon,
-            'damage'            => 35.0,
+            'version_id' => $version,
+            'main_weapon_id' => $weapon,
+            'damage' => 35.0,
         ]);
     }
 
@@ -28,8 +28,8 @@ class m160417_103225_weapon_attack_hydra extends Migration
         $version = SplatoonVersion::findOne(['tag' => '2.7.0'])->id;
         $weapon = Weapon::findOne(['key' => 'hydra'])->id;
         $this->delete('weapon_attack', [
-            'version_id'        => $version,
-            'main_weapon_id'    => $weapon,
+            'version_id' => $version,
+            'main_weapon_id' => $weapon,
         ]);
     }
 }

@@ -13,18 +13,18 @@ class m170507_103030_death_reason2 extends Migration
     public function up()
     {
         $this->createTable('death_reason_type2', [
-            'id'            => $this->primaryKey(),
-            'key'           => $this->apiKey(),
-            'name'          => $this->string(32)->notNull(),
+            'id' => $this->primaryKey(),
+            'key' => $this->apiKey(),
+            'name' => $this->string(32)->notNull(),
         ]);
         $this->createTable('death_reason2', [
-            'id'            => $this->primaryKey(),
-            'key'           => $this->apiKey(),
-            'type_id'       => $this->pkRef('death_reason_type2')->null(),
-            'weapon_id'     => $this->pkRef('weapon2')->null(),
-            'subweapon_id'  => $this->pkRef('subweapon2')->null(),
-            'special_id'    => $this->pkRef('special2')->null(),
-            'name'          => $this->string(32)->notNull(),
+            'id' => $this->primaryKey(),
+            'key' => $this->apiKey(),
+            'type_id' => $this->pkRef('death_reason_type2')->null(),
+            'weapon_id' => $this->pkRef('weapon2')->null(),
+            'subweapon_id' => $this->pkRef('subweapon2')->null(),
+            'special_id' => $this->pkRef('special2')->null(),
+            'name' => $this->string(32)->notNull(),
         ]);
     }
 

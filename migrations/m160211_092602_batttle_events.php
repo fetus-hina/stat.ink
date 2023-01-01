@@ -13,8 +13,8 @@ class m160211_092602_batttle_events extends Migration
     public function up()
     {
         $this->createTable('battle_events', [
-            'id'        => 'BIGINT NOT NULL PRIMARY KEY',
-            'events'    => 'TEXT NOT NULL',
+            'id' => 'BIGINT NOT NULL PRIMARY KEY',
+            'events' => 'TEXT NOT NULL',
         ]);
         $this->execute(
             'INSERT INTO {{battle_events}} ( [[id]], [[events]] ) ' .

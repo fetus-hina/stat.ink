@@ -140,20 +140,20 @@ class Battle2FilterWidget extends Widget
 
     protected function drawRule(ActiveForm $form): string
     {
-        $regular    = Yii::t('app-rule2', 'Regular');
-        $gachi      = Yii::t('app-rule2', 'Ranked');
+        $regular = Yii::t('app-rule2', 'Regular');
+        $gachi = Yii::t('app-rule2', 'Ranked');
         $rankLeague = Yii::t('app-rule2', 'Ranked + League');
-        $league     = Yii::t('app-rule2', 'League Battle');
-        $league2    = Yii::t('app-rule2', 'League (Twin)');
-        $league4    = Yii::t('app-rule2', 'League (Quad)');
-        $private    = Yii::t('app-rule2', 'Private');
+        $league = Yii::t('app-rule2', 'League Battle');
+        $league2 = Yii::t('app-rule2', 'League (Twin)');
+        $league4 = Yii::t('app-rule2', 'League (Quad)');
+        $private = Yii::t('app-rule2', 'Private');
 
-        $any        = Yii::t('app-rule2', 'Any Mode');
-        $nawabari   = Yii::t('app-rule2', 'Turf War');
-        $area       = Yii::t('app-rule2', 'Splat Zones');
-        $yagura     = Yii::t('app-rule2', 'Tower Control');
-        $hoko       = Yii::t('app-rule2', 'Rainmaker');
-        $asari      = Yii::t('app-rule2', 'Clam Blitz');
+        $any = Yii::t('app-rule2', 'Any Mode');
+        $nawabari = Yii::t('app-rule2', 'Turf War');
+        $area = Yii::t('app-rule2', 'Splat Zones');
+        $yagura = Yii::t('app-rule2', 'Tower Control');
+        $hoko = Yii::t('app-rule2', 'Rainmaker');
+        $asari = Yii::t('app-rule2', 'Clam Blitz');
 
         $list = [
             '' => Yii::t('app-rule2', 'Any Mode'),
@@ -394,9 +394,9 @@ class Battle2FilterWidget extends Widget
     protected function drawResult(ActiveForm $form): string
     {
         $list = [
-            ''      => Yii::t('app', 'Won / Lost'),
-            'win'   => Yii::t('app', 'Won'),
-            'lose'  => Yii::t('app', 'Lost'),
+            '' => Yii::t('app', 'Won / Lost'),
+            'win' => Yii::t('app', 'Won'),
+            'lose' => Yii::t('app', 'Lost'),
         ];
         return (string)$form->field($this->filter, 'result')->dropDownList($list)->label(false);
     }
@@ -404,9 +404,9 @@ class Battle2FilterWidget extends Widget
     protected function drawConnectivity(ActiveForm $form): string
     {
         $list = [
-            ''      => Yii::t('app', 'Connectivity'),
-            'yes'   => Yii::t('app', 'Has disconnected player'),
-            'no'    => Yii::t('app', 'Hasn\'t disconnected player'),
+            '' => Yii::t('app', 'Connectivity'),
+            'yes' => Yii::t('app', 'Has disconnected player'),
+            'no' => Yii::t('app', 'Hasn\'t disconnected player'),
         ];
         return (string)$form->field($this->filter, 'has_disconnect')
             ->dropDownList($list)
@@ -443,24 +443,24 @@ class Battle2FilterWidget extends Widget
     protected function drawTermMain(ActiveForm $form): string
     {
         $list = [
-            ''                  => Yii::t('app', 'Any Time'),
-            'this-period'       => Yii::t('app', 'Current Period'),
-            'last-period'       => Yii::t('app', 'Previous Period'),
-            'last-2-periods'    => Yii::t('app', 'Last {n} Periods', ['n' => 2]),
-            'last-3-periods'    => Yii::t('app', 'Last {n} Periods', ['n' => 3]),
-            'last-4-periods'    => Yii::t('app', 'Last {n} Periods', ['n' => 4]),
-            '24h'               => Yii::t('app', 'Last 24 Hours'),
-            'today'             => Yii::t('app', 'Today'),
-            'yesterday'         => Yii::t('app', 'Yesterday'),
-            'this-month-utc'    => Yii::t('app', 'This Month (UTC)'),
-            'last-month-utc'    => Yii::t('app', 'Last Month (UTC)'),
-            'last-10-battles'   => Yii::t('app', 'Last {n} Battles', ['n' =>  10]),
-            'last-20-battles'   => Yii::t('app', 'Last {n} Battles', ['n' =>  20]),
-            'last-50-battles'   => Yii::t('app', 'Last {n} Battles', ['n' =>  50]),
-            'last-100-battles'  => Yii::t('app', 'Last {n} Battles', ['n' => 100]),
-            'last-200-battles'  => Yii::t('app', 'Last {n} Battles', ['n' => 200]),
-            'this-fest'         => Yii::t('app', 'Current/Last Splatfest'),
-            'term'              => Yii::t('app', 'Specify Period'),
+            '' => Yii::t('app', 'Any Time'),
+            'this-period' => Yii::t('app', 'Current Period'),
+            'last-period' => Yii::t('app', 'Previous Period'),
+            'last-2-periods' => Yii::t('app', 'Last {n} Periods', ['n' => 2]),
+            'last-3-periods' => Yii::t('app', 'Last {n} Periods', ['n' => 3]),
+            'last-4-periods' => Yii::t('app', 'Last {n} Periods', ['n' => 4]),
+            '24h' => Yii::t('app', 'Last 24 Hours'),
+            'today' => Yii::t('app', 'Today'),
+            'yesterday' => Yii::t('app', 'Yesterday'),
+            'this-month-utc' => Yii::t('app', 'This Month (UTC)'),
+            'last-month-utc' => Yii::t('app', 'Last Month (UTC)'),
+            'last-10-battles' => Yii::t('app', 'Last {n} Battles', ['n' => 10]),
+            'last-20-battles' => Yii::t('app', 'Last {n} Battles', ['n' => 20]),
+            'last-50-battles' => Yii::t('app', 'Last {n} Battles', ['n' => 50]),
+            'last-100-battles' => Yii::t('app', 'Last {n} Battles', ['n' => 100]),
+            'last-200-battles' => Yii::t('app', 'Last {n} Battles', ['n' => 200]),
+            'this-fest' => Yii::t('app', 'Current/Last Splatfest'),
+            'term' => Yii::t('app', 'Specify Period'),
         ];
 
         $versions = (function (): array {

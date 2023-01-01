@@ -105,16 +105,16 @@ class BattlePlayer extends \yii\db\ActiveRecord
     public function toJsonArray()
     {
         return [
-            'team'          => $this->is_my_team ? 'my' : 'his',
-            'is_me'         => !!$this->is_me,
-            'weapon'        => $this->weapon ? $this->weapon->toJsonArray() : null,
-            'rank'          => $this->rank ? $this->rank->toJsonArray() : null,
-            'level'         => (string)$this->level === '' ? null : (int)$this->level,
-            'rank_in_team'  => (string)$this->rank_in_team === '' ? null : (int)$this->rank_in_team,
-            'kill'          => (string)$this->kill === '' ? null : (int)$this->kill,
-            'death'         => (string)$this->death === '' ? null : (int)$this->death,
-            'my_kill'       => (string)$this->my_kill === '' ? null : (int)$this->my_kill,
-            'point'         => (string)$this->point === '' ? null : (int)$this->point,
+            'team' => $this->is_my_team ? 'my' : 'his',
+            'is_me' => !!$this->is_me,
+            'weapon' => $this->weapon ? $this->weapon->toJsonArray() : null,
+            'rank' => $this->rank ? $this->rank->toJsonArray() : null,
+            'level' => (string)$this->level === '' ? null : (int)$this->level,
+            'rank_in_team' => (string)$this->rank_in_team === '' ? null : (int)$this->rank_in_team,
+            'kill' => (string)$this->kill === '' ? null : (int)$this->kill,
+            'death' => (string)$this->death === '' ? null : (int)$this->death,
+            'my_kill' => (string)$this->my_kill === '' ? null : (int)$this->my_kill,
+            'point' => (string)$this->point === '' ? null : (int)$this->point,
         ];
     }
 }

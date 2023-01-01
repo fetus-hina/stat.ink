@@ -118,8 +118,8 @@ class UserAction extends BaseAction
 
         $template = $this->viewMode === 'simple' ? 'user.simple.php' : 'user';
         return $this->controller->render($template, [
-            'user'      => $user,
-            'filter'    => $filter,
+            'user' => $user,
+            'filter' => $filter,
             'battleDataProvider' => Yii::createObject([
                 'class' => ActiveDataProvider::class,
                 'query' => $battle,
@@ -128,8 +128,8 @@ class UserAction extends BaseAction
                 ],
                 'sort' => false,
             ]),
-            'summary'   => $summary,
-            'permLink'  => $permLink,
+            'summary' => $summary,
+            'permLink' => $permLink,
         ]);
     }
 

@@ -56,12 +56,12 @@ class ApiV2SalmonController extends Controller
     protected function verbs()
     {
         return [
-            'create'  => ['POST'],
+            'create' => ['POST'],
             'create-stats' => ['POST'],
-            'index'   => ['GET', 'HEAD'],
+            'index' => ['GET', 'HEAD'],
             'index-with-auth' => ['GET', 'HEAD'],
             'options' => ['OPTIONS'],
-            'view'    => ['GET', 'HEAD'],
+            'view' => ['GET', 'HEAD'],
             'view-stats' => ['GET', 'HEAD'],
         ];
     }

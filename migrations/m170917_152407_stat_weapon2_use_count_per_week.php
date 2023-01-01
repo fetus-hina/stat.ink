@@ -24,11 +24,11 @@ class m170917_152407_stat_weapon2_use_count_per_week extends Migration
         );
 
         $this->createTable('stat_weapon2_use_count', [
-            'period'    => $this->integer()->notNull(),
-            'rule_id'   => $this->pkRef('rule2'),
+            'period' => $this->integer()->notNull(),
+            'rule_id' => $this->pkRef('rule2'),
             'weapon_id' => $this->pkRef('weapon2'),
-            'battles'   => $this->bigInteger()->notNull(),
-            'wins'      => $this->bigInteger()->notNull(),
+            'battles' => $this->bigInteger()->notNull(),
+            'wins' => $this->bigInteger()->notNull(),
             $this->tablePrimaryKey([
                 'period',
                 'rule_id',
@@ -37,12 +37,12 @@ class m170917_152407_stat_weapon2_use_count_per_week extends Migration
         ]);
 
         $this->createTable('stat_weapon2_use_count_per_week', [
-            'isoyear'   => $this->integer()->notNull(),
-            'isoweek'   => $this->integer()->notNull(),
-            'rule_id'   => $this->pkRef('rule2'),
+            'isoyear' => $this->integer()->notNull(),
+            'isoweek' => $this->integer()->notNull(),
+            'rule_id' => $this->pkRef('rule2'),
             'weapon_id' => $this->pkRef('weapon2'),
-            'battles'   => $this->bigInteger()->notNull(),
-            'wins'      => $this->bigInteger()->notNull(),
+            'battles' => $this->bigInteger()->notNull(),
+            'wins' => $this->bigInteger()->notNull(),
             $this->tablePrimaryKey([
                 'isoyear',
                 'isoweek',

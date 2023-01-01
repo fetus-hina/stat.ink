@@ -63,10 +63,10 @@ class ApiV2BattleController extends Controller
     protected function verbs()
     {
         return [
-            'index'   => ['GET', 'HEAD'],
+            'index' => ['GET', 'HEAD'],
             'index-with-auth' => ['GET', 'HEAD'],
-            'view'    => ['GET', 'HEAD'],
-            'create'  => ['POST'],
+            'view' => ['GET', 'HEAD'],
+            'create' => ['POST'],
             'options' => ['OPTIONS'],
         ];
     }

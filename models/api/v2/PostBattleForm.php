@@ -255,7 +255,7 @@ class PostBattleForm extends Model
                 'targetAttribute' => 'key',
             ],
             [['weapon'], 'exist',
-                'targetClass' =>  Weapon2::class,
+                'targetClass' => Weapon2::class,
                 'targetAttribute' => 'key',
             ],
             [['level', 'level_after'], 'integer', 'min' => 1, 'max' => 99],
@@ -490,15 +490,15 @@ class PostBattleForm extends Model
         $map = $this->resolveStage();
         $user = Yii::$app->user->identity;
         $battle = Yii::createObject(['class' => Battle2::class]);
-        $battle->user_id        = $user->id;
-        $battle->env_id         = $user->env_id;
-        $battle->client_uuid    = $this->uuid;
+        $battle->user_id = $user->id;
+        $battle->env_id = $user->env_id;
+        $battle->client_uuid = $this->uuid;
         $battle->splatnet_number = $intval($this->splatnet_number);
-        $battle->lobby_id       = $key2id($this->lobby, Lobby2::class);
-        $battle->mode_id        = $key2id($this->mode, Mode2::class);
-        $battle->rule_id        = $key2id($this->rule, Rule2::class);
-        $battle->map_id         = $map ? $map->id : null;
-        $battle->weapon_id      = $key2id($this->weapon, Weapon2::class);
+        $battle->lobby_id = $key2id($this->lobby, Lobby2::class);
+        $battle->mode_id = $key2id($this->mode, Mode2::class);
+        $battle->rule_id = $key2id($this->rule, Rule2::class);
+        $battle->map_id = $map ? $map->id : null;
+        $battle->weapon_id = $key2id($this->weapon, Weapon2::class);
         $battle->is_win = (function ($value) {
             switch ((string)$value) {
                 case 'win':
@@ -519,34 +519,34 @@ class PostBattleForm extends Model
                     null;
             }
         })($this->knock_out);
-        $battle->rank_in_team   = $intval($this->rank_in_team);
-        $battle->kill           = $intval($this->kill);
-        $battle->death          = $intval($this->death);
+        $battle->rank_in_team = $intval($this->rank_in_team);
+        $battle->kill = $intval($this->kill);
+        $battle->death = $intval($this->death);
         $battle->kill_or_assist = $intval($this->kill_or_assist);
-        $battle->special        = $intval($this->special);
+        $battle->special = $intval($this->special);
         $battle->max_kill_combo = $intval($this->max_kill_combo);
         $battle->max_kill_streak = $intval($this->max_kill_streak);
-        $battle->level          = $intval($this->level);
-        $battle->level_after    = $intval($this->level_after);
-        $battle->star_rank      = $intval($this->star_rank);
-        $battle->rank_id        = $key2id($this->rank, Rank2::class);
-        $battle->rank_exp       = $intval($this->rank_exp);
-        $battle->rank_after_id  = $key2id($this->rank_after, Rank2::class);
+        $battle->level = $intval($this->level);
+        $battle->level_after = $intval($this->level_after);
+        $battle->star_rank = $intval($this->star_rank);
+        $battle->rank_id = $key2id($this->rank, Rank2::class);
+        $battle->rank_exp = $intval($this->rank_exp);
+        $battle->rank_after_id = $key2id($this->rank_after, Rank2::class);
         $battle->rank_after_exp = $intval($this->rank_exp_after);
-        $battle->x_power        = $floatval($this->x_power);
-        $battle->x_power_after  = $floatval($this->x_power_after);
+        $battle->x_power = $floatval($this->x_power);
+        $battle->x_power_after = $floatval($this->x_power_after);
         $battle->estimate_x_power = $intval($this->estimate_x_power);
-        $battle->my_point       = $intval($this->my_point);
-        $battle->my_team_point  = $intval($this->my_team_point);
+        $battle->my_point = $intval($this->my_point);
+        $battle->my_team_point = $intval($this->my_team_point);
         $battle->his_team_point = $intval($this->his_team_point);
-        $battle->my_team_percent  = $floatval($this->my_team_percent);
+        $battle->my_team_percent = $floatval($this->my_team_percent);
         $battle->his_team_percent = $floatval($this->his_team_percent);
-        $battle->my_team_count  = $intval($this->my_team_count);
+        $battle->my_team_count = $intval($this->my_team_count);
         $battle->his_team_count = $intval($this->his_team_count);
-        $battle->my_team_id     = $this->my_team_id;
-        $battle->his_team_id    = $this->his_team_id;
-        $battle->species_id     = $key2id($this->species, Species2::class);
-        $battle->gender_id      = (function ($v): ?int {
+        $battle->my_team_id = $this->my_team_id;
+        $battle->his_team_id = $this->his_team_id;
+        $battle->species_id = $key2id($this->species, Species2::class);
+        $battle->gender_id = (function ($v): ?int {
             switch (trim((string)$v)) {
                 case 'boy':
                     return 1;
@@ -556,49 +556,49 @@ class PostBattleForm extends Model
                     return null;
             }
         })($this->gender);
-        $battle->fest_title_id  = $key2id($this->fest_title, FestTitle::class);
-        $battle->fest_exp       = $intval($this->fest_exp);
+        $battle->fest_title_id = $key2id($this->fest_title, FestTitle::class);
+        $battle->fest_exp = $intval($this->fest_exp);
         $battle->fest_title_after_id = $key2id($this->fest_title_after, FestTitle::class);
         $battle->fest_exp_after = $intval($this->fest_exp_after);
-        $battle->fest_power     = $floatval($this->fest_power);
+        $battle->fest_power = $floatval($this->fest_power);
         $battle->my_team_estimate_fest_power = $intval($this->my_team_estimate_fest_power);
         $battle->his_team_estimate_fest_power = $intval($this->his_team_estimate_fest_power);
         $battle->my_team_fest_theme_id = $festTheme($this->my_team_fest_theme);
         $battle->his_team_fest_theme_id = $festTheme($this->his_team_fest_theme);
         $battle->my_team_nickname_id = $nickname($this->my_team_nickname);
         $battle->his_team_nickname_id = $nickname($this->his_team_nickname);
-        $battle->clout          = $intval($this->clout);
-        $battle->total_clout    = $intval($this->total_clout);
+        $battle->clout = $intval($this->clout);
+        $battle->total_clout = $intval($this->total_clout);
         $battle->total_clout_after = $intval($this->total_clout_after);
         $battle->my_team_win_streak = $intval($this->my_team_win_streak);
         $battle->his_team_win_streak = $intval($this->his_team_win_streak);
-        $battle->synergy_bonus  = $floatval($this->synergy_bonus);
+        $battle->synergy_bonus = $floatval($this->synergy_bonus);
         $battle->special_battle_id = $key2id($this->special_battle, SpecialBattle2::class);
         $battle->estimate_gachi_power = $intval($this->estimate_gachi_power);
         $battle->my_team_estimate_league_point = $intval($this->my_team_estimate_league_point);
         $battle->his_team_estimate_league_point = $intval($this->his_team_estimate_league_point);
-        $battle->league_point   = $floatval($this->league_point);
-        $battle->is_automated   = ($this->automated === 'yes');
-        $battle->link_url       = $this->link_url;
-        $battle->note           = $this->note;
-        $battle->private_note   = $this->private_note;
-        $battle->freshness      = $floatval($this->freshness);
+        $battle->league_point = $floatval($this->league_point);
+        $battle->is_automated = ($this->automated === 'yes');
+        $battle->link_url = $this->link_url;
+        $battle->note = $this->note;
+        $battle->private_note = $this->private_note;
+        $battle->freshness = $floatval($this->freshness);
         $battle->has_disconnect = $this->getHasDisconnect();
-        $battle->agent_id       = $this->getAgentId($this->agent, $this->agent_version);
-        $battle->ua_custom      = $this->agent_custom;
-        $battle->ua_variables   = $this->agent_variables
+        $battle->agent_id = $this->getAgentId($this->agent, $this->agent_version);
+        $battle->ua_custom = $this->agent_custom;
+        $battle->ua_variables = $this->agent_variables
             ? Json::encode(
                 $this->agent_variables,
                 JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_FORCE_OBJECT,
             )
             : null;
-        $battle->start_at       = $datetime($this->start_at);
-        $battle->end_at         = $datetime($this->end_at);
+        $battle->start_at = $datetime($this->start_at);
+        $battle->end_at = $datetime($this->end_at);
         $battle->use_for_entire = $this->getIsUsableForEntireStats();
         if ($this->gears) {
             $battle->headgear_id = $this->processGear('headgear');
             $battle->clothing_id = $this->processGear('clothing');
-            $battle->shoes_id    = $this->processGear('shoes');
+            $battle->shoes_id = $this->processGear('shoes');
         }
         if ($this->getIsTest()) {
             $now = (int)($_SERVER['REQUEST_TIME'] ?? time());
@@ -618,8 +618,8 @@ class PostBattleForm extends Model
             return null;
         }
         return Yii::createObject([
-            'class'  => BattleEvents2::class,
-            'id'     => $battle->id,
+            'class' => BattleEvents2::class,
+            'id' => $battle->id,
             'events' => Json::encode($this->events),
         ]);
     }
@@ -634,10 +634,10 @@ class PostBattleForm extends Model
                     $unknownCount += (int)$count;
                 } else {
                     yield Yii::createObject([
-                        'class'     => BattleDeathReason2::class,
+                        'class' => BattleDeathReason2::class,
                         'battle_id' => $battle->id,
                         'reason_id' => $reason->id,
-                        'count'     => (int)$count,
+                        'count' => (int)$count,
                     ]);
                 }
             }
@@ -648,7 +648,7 @@ class PostBattleForm extends Model
                         'class' => BattleDeathReason2::class,
                         'battle_id' => $battle->id,
                         'reason_id' => $reason->id,
-                        'count'     => (int)$unknownCount,
+                        'count' => (int)$unknownCount,
                     ]);
                 }
             }
@@ -709,27 +709,27 @@ class PostBattleForm extends Model
                 })($form->top_500);
 
                 yield Yii::createObject([
-                    'class'         => BattlePlayer2::class,
-                    'battle_id'     => $battle->id,
-                    'is_my_team'    => $form->team === 'my',
-                    'is_me'         => $form->is_me === 'yes',
-                    'weapon_id'     => $weapon->id ?? null,
-                    'level'         => $form->level,
-                    'star_rank'     => $form->star_rank,
-                    'rank_id'       => $rank->id ?? null,
-                    'rank_in_team'  => $form->rank_in_team,
-                    'kill'          => $form->kill,
-                    'death'         => $form->death,
+                    'class' => BattlePlayer2::class,
+                    'battle_id' => $battle->id,
+                    'is_my_team' => $form->team === 'my',
+                    'is_me' => $form->is_me === 'yes',
+                    'weapon_id' => $weapon->id ?? null,
+                    'level' => $form->level,
+                    'star_rank' => $form->star_rank,
+                    'rank_id' => $rank->id ?? null,
+                    'rank_in_team' => $form->rank_in_team,
+                    'kill' => $form->kill,
+                    'death' => $form->death,
                     'kill_or_assist' => $form->kill_or_assist,
-                    'special'       => $form->special,
-                    'point'         => $form->point,
-                    'my_kill'       => $form->my_kill,
-                    'name'          => $form->name,
-                    'species_id'    => $species->id ?? null,
-                    'gender_id'     => $gender,
+                    'special' => $form->special,
+                    'point' => $form->point,
+                    'my_kill' => $form->my_kill,
+                    'name' => $form->name,
+                    'species_id' => $species->id ?? null,
+                    'gender_id' => $gender,
                     'fest_title_id' => $festTitle->id ?? null,
-                    'splatnet_id'   => $form->splatnet_id,
-                    'top_500'       => $top500,
+                    'splatnet_id' => $form->splatnet_id,
+                    'top_500' => $top500,
                 ]);
             }
         }
@@ -759,10 +759,10 @@ class PostBattleForm extends Model
             return null;
         }
         return Yii::createObject([
-            'class'     => BattleImage2::class,
+            'class' => BattleImage2::class,
             'battle_id' => $battle->id,
-            'type_id'   => $imageTypeId,
-            'filename'  => BattleImage2::generateFilename(),
+            'type_id' => $imageTypeId,
+            'filename' => BattleImage2::generateFilename(),
             'bucket_id' => 1,
         ]);
     }
@@ -822,10 +822,10 @@ class PostBattleForm extends Model
         $config = GearConfiguration2::findOne(['finger_print' => $fingerPrint]);
         if (!$config) {
             $config = Yii::createObject([
-                'class'                 => GearConfiguration2::class,
-                'finger_print'          => $fingerPrint,
-                'gear_id'               => $gearModel ? $gearModel->id : null,
-                'primary_ability_id'    => $primaryAbility ? $primaryAbility->id : null,
+                'class' => GearConfiguration2::class,
+                'finger_print' => $fingerPrint,
+                'gear_id' => $gearModel ? $gearModel->id : null,
+                'primary_ability_id' => $primaryAbility ? $primaryAbility->id : null,
             ]);
             if (!$config->save()) {
                 throw new \Exception('Could not save gear_counfiguration2');
@@ -833,9 +833,9 @@ class PostBattleForm extends Model
 
             foreach ($secondaryAbilityIdList as $aId) {
                 $sub = Yii::createObject([
-                    'class'         => GearConfigurationSecondary2::class,
-                    'config_id'     => $config->id,
-                    'ability_id'    => $aId,
+                    'class' => GearConfigurationSecondary2::class,
+                    'config_id' => $config->id,
+                    'ability_id' => $aId,
                 ]);
                 if (!$sub->save()) {
                     throw new \Exception('Could not save gear_configuration_secondary2');

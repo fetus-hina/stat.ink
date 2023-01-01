@@ -83,11 +83,11 @@ class Splatoon2InkController extends Controller
                 'id',
             );
             $rules = [
-                'turf_war'      => $tmpRules['nawabari'],
-                'splat_zones'   => $tmpRules['area'],
+                'turf_war' => $tmpRules['nawabari'],
+                'splat_zones' => $tmpRules['area'],
                 'tower_control' => $tmpRules['yagura'],
-                'rainmaker'     => $tmpRules['hoko'],
-                'clam_blitz'    => $tmpRules['asari'],
+                'rainmaker' => $tmpRules['hoko'],
+                'clam_blitz' => $tmpRules['asari'],
             ];
         }
 

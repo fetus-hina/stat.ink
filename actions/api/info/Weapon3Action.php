@@ -93,7 +93,7 @@ final class Weapon3Action extends Action
                 $aN = Yii::t('app-weapon3', $a->name);
                 $bN = Yii::t('app-weapon3', $b->name);
                 return $a->mainweapon->type->rank <=> $b->mainweapon->type->rank
-                    ?:  \strnatcasecmp($aN, $bN)
+                    ?: \strnatcasecmp($aN, $bN)
                     ?: \strcmp($aN, $bN)
                     ?: \strnatcasecmp($a->name, $b->name)
                     ?: \strcmp($a->name, $b->name);

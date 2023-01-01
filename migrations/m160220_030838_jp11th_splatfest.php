@@ -18,10 +18,10 @@ class m160220_030838_jp11th_splatfest extends Migration
         $model = new Splatfest();
         $model->attributes = [
             'region_id' => Region::findOne(['key' => 'jp'])->id,
-            'name'      => 'ポケットモンスター 赤vs緑',
-            'start_at'  => '2016-02-20 06:00:00+09',
-            'end_at'    => '2016-02-21 06:00:00+09',
-            'order'     => 11,
+            'name' => 'ポケットモンスター 赤vs緑',
+            'start_at' => '2016-02-20 06:00:00+09',
+            'end_at' => '2016-02-21 06:00:00+09',
+            'order' => 11,
         ];
         if (!$model->save()) {
             return false;
@@ -31,7 +31,7 @@ class m160220_030838_jp11th_splatfest extends Migration
         $team->attributes = [
             'fest_id' => $model->id,
             'team_id' => 1,
-            'name'    => 'ポケットモンスター赤',
+            'name' => 'ポケットモンスター赤',
             'color_hue' => 348,
         ];
         if (!$team->save()) {
@@ -42,7 +42,7 @@ class m160220_030838_jp11th_splatfest extends Migration
         $team->attributes = [
             'fest_id' => $model->id,
             'team_id' => 2,
-            'name'    => 'ポケットモンスター緑',
+            'name' => 'ポケットモンスター緑',
             'color_hue' => 156,
         ];
         if (!$team->save()) {

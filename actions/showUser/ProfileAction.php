@@ -46,7 +46,7 @@ final class ProfileAction extends Action
         return $this->controller->render('profile', [
             'activityFrom' => $activityFrom,
             'activityTo' => $activityTo,
-            'permLink'  => $permLink,
+            'permLink' => $permLink,
             'tab' => $tab,
             'user' => $user,
         ]);

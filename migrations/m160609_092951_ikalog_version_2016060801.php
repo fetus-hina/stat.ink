@@ -13,8 +13,8 @@ class m160609_092951_ikalog_version_2016060801 extends Migration
     public function safeUp()
     {
         $this->insert('ikalog_requirement', [
-            'from'          => '2016-06-09 00:55:08+09:00',
-            'version_date'  => '2016-06-08_01',
+            'from' => '2016-06-09 00:55:08+09:00',
+            'version_date' => '2016-06-08_01',
         ]);
     }
 

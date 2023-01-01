@@ -309,23 +309,23 @@ class BattlePlayer2 extends ActiveRecord
             $battle = $this->battle;
         }
         return [
-            'team'          => $this->is_my_team ? 'my' : 'his',
-            'is_me'         => !!$this->is_me,
-            'weapon'        => $this->weapon_id ? $this->weapon->toJsonArray() : null,
-            'level'         => (string)$this->level === '' ? null : (int)$this->level,
-            'rank'          => $this->rank_id ? $this->rank->toJsonArray() : null,
-            'star_rank'     => (string)$this->star_rank === '' ? null : (int)$this->star_rank,
-            'rank_in_team'  => (string)$this->rank_in_team === '' ? null : (int)$this->rank_in_team,
-            'kill'          => (string)$this->kill === '' ? null : (int)$this->kill,
-            'death'         => (string)$this->death === '' ? null : (int)$this->death,
+            'team' => $this->is_my_team ? 'my' : 'his',
+            'is_me' => !!$this->is_me,
+            'weapon' => $this->weapon_id ? $this->weapon->toJsonArray() : null,
+            'level' => (string)$this->level === '' ? null : (int)$this->level,
+            'rank' => $this->rank_id ? $this->rank->toJsonArray() : null,
+            'star_rank' => (string)$this->star_rank === '' ? null : (int)$this->star_rank,
+            'rank_in_team' => (string)$this->rank_in_team === '' ? null : (int)$this->rank_in_team,
+            'kill' => (string)$this->kill === '' ? null : (int)$this->kill,
+            'death' => (string)$this->death === '' ? null : (int)$this->death,
             'kill_or_assist' => (string)$this->kill_or_assist === '' ? null : (int)$this->kill_or_assist,
-            'special'       => (string)$this->special === '' ? null : (int)$this->special,
-            'my_kill'       => (string)$this->my_kill === '' ? null : (int)$this->my_kill,
-            'point'         => (string)$this->point === '' ? null : (int)$this->point,
-            'name'          => (string)$this->name === '' ? null : $this->name,
-            'species'       => $this->species_id ? $this->species->toJsonArray() : null,
-            'gender'        => $this->gender_id ? $this->gender->toJsonArray() : null,
-            'fest_title'    => $this->fest_title_id
+            'special' => (string)$this->special === '' ? null : (int)$this->special,
+            'my_kill' => (string)$this->my_kill === '' ? null : (int)$this->my_kill,
+            'point' => (string)$this->point === '' ? null : (int)$this->point,
+            'name' => (string)$this->name === '' ? null : $this->name,
+            'species' => $this->species_id ? $this->species->toJsonArray() : null,
+            'gender' => $this->gender_id ? $this->gender->toJsonArray() : null,
+            'fest_title' => $this->fest_title_id
                 ? $this->festTitle->toJsonArray(
                     $this->gender,
                     $battle && $battle->my_team_fest_theme_id && $battle->his_team_fest_theme_id
@@ -333,9 +333,9 @@ class BattlePlayer2 extends ActiveRecord
                         : null,
                 )
                 : null,
-            'splatnet_id'   => (string)$this->splatnet_id === '' ? null : $this->splatnet_id,
-            'top_500'       => $this->top_500,
-            'icon'          => $this->iconUrl,
+            'splatnet_id' => (string)$this->splatnet_id === '' ? null : $this->splatnet_id,
+            'top_500' => $this->top_500,
+            'icon' => $this->iconUrl,
         ];
     }
 }

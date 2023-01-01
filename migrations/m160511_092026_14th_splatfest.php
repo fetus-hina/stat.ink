@@ -18,24 +18,24 @@ class m160511_092026_14th_splatfest extends Migration
         $this->batchInsert('splatfest', ['region_id', 'name', 'start_at', 'end_at', 'order'], [
             [
                 'region_id' => Region::findOne(['key' => 'jp'])->id,
-                'name'      => 'オシャレなパーティー vs コスプレパーティー',
-                'start_at'  => '2016-05-14 12:00:00+09',
-                'end_at'    => '2016-05-15 19:00:00+09',
-                'order'     => 14,
+                'name' => 'オシャレなパーティー vs コスプレパーティー',
+                'start_at' => '2016-05-14 12:00:00+09',
+                'end_at' => '2016-05-15 19:00:00+09',
+                'order' => 14,
             ],
             [
                 'region_id' => Region::findOne(['key' => 'eu'])->id,
-                'name'      => 'Black Tie Event vs Fancy Dress Party',
-                'start_at'  => '2016-05-14 12:00:00+09',
-                'end_at'    => '2016-05-15 19:00:00+09',
-                'order'     => 14,
+                'name' => 'Black Tie Event vs Fancy Dress Party',
+                'start_at' => '2016-05-14 12:00:00+09',
+                'end_at' => '2016-05-15 19:00:00+09',
+                'order' => 14,
             ],
             [
                 'region_id' => Region::findOne(['key' => 'na'])->id,
-                'name'      => 'Fancy Party vs Costume Party',
-                'start_at'  => '2016-05-14 12:00:00+09',
-                'end_at'    => '2016-05-15 19:00:00+09',
-                'order'     => 14,
+                'name' => 'Fancy Party vs Costume Party',
+                'start_at' => '2016-05-14 12:00:00+09',
+                'end_at' => '2016-05-15 19:00:00+09',
+                'order' => 14,
             ],
         ]);
         $ids = ArrayHelper::map(

@@ -33,7 +33,7 @@ class Splatfest extends \yii\db\ActiveRecord
             ->innerJoinWith('region', false)
             ->andWhere(['and',
                 ['<=', '{{splatfest}}.[[start_at]]', $t],
-                ['>',  '{{splatfest}}.[[end_at]]', $t],
+                ['>', '{{splatfest}}.[[end_at]]', $t],
             ]);
     }
 

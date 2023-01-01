@@ -162,7 +162,7 @@ final class ActivityWidget extends CalHeatmapWidget
             'MM' => '%m',
             'M' => '%m',
             'dd' => '%d',
-            'd' =>  '%d',
+            'd' => '%d',
         ];
         $regex = '/' . implode('|', array_map(
             fn (string $p): string => '(?:' . preg_quote($p, '/') . ')',

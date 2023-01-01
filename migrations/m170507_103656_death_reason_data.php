@@ -18,11 +18,11 @@ class m170507_103656_death_reason_data extends Migration
             'death_reason_type2',
             ['key', 'name'],
             [
-                ['main',    'Main Weapon'],
-                ['sub',     'Sub Weapon'],
+                ['main', 'Main Weapon'],
+                ['sub', 'Sub Weapon'],
                 ['special', 'Special Weapon'],
-                ['oob',     'Out of Bounds'],
-                ['gadget',  'Gadgets'],
+                ['oob', 'Out of Bounds'],
+                ['gadget', 'Gadgets'],
             ],
         );
 

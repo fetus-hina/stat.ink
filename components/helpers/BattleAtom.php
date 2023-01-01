@@ -286,18 +286,18 @@ class BattleAtom
         ));
         if ($battle->battleImageResult) {
             $root->appendChild(static::createElement($doc, 'link', [
-                'rel'    => 'enclosure',
-                'type'   => 'image/jpeg',
+                'rel' => 'enclosure',
+                'type' => 'image/jpeg',
                 'length' => '0',
-                'href'   => $battle->battleImageResult->url,
+                'href' => $battle->battleImageResult->url,
             ]));
         }
         if ($battle->battleImageJudge) {
             $root->appendChild(static::createElement($doc, 'link', [
-                'rel'    => 'enclosure',
-                'type'   => 'image/jpeg',
+                'rel' => 'enclosure',
+                'type' => 'image/jpeg',
                 'length' => '0',
-                'href'   => $battle->battleImageJudge->url,
+                'href' => $battle->battleImageJudge->url,
             ]));
         }
         if ($includeUser) {
@@ -335,10 +335,10 @@ class BattleAtom
                 $text .= "\n";
                 $text .= Yii::t('app', 'Last 24h: {winpct} win ({win}/{count}), Avg. {kill}k/{death}d', [
                     'winpct' => sprintf('%.1f%%', $stats24h['win_count'] * 100 / $stats24h['count']),
-                    'win'    => number_format($stats24h['win_count']),
-                    'count'  => number_format($stats24h['count']),
-                    'kill'   => sprintf('%.1f', $stats24h['kill'] / $stats24h['count']),
-                    'death'  => sprintf('%.1f', $stats24h['death'] / $stats24h['count']),
+                    'win' => number_format($stats24h['win_count']),
+                    'count' => number_format($stats24h['count']),
+                    'kill' => sprintf('%.1f', $stats24h['kill'] / $stats24h['count']),
+                    'death' => sprintf('%.1f', $stats24h['death'] / $stats24h['count']),
                 ]);
             }
         }
@@ -362,10 +362,10 @@ class BattleAtom
         try {
             $query = (new Query())
                 ->select([
-                    'count'     => 'COUNT(*)',
+                    'count' => 'COUNT(*)',
                     'win_count' => 'SUM(CASE WHEN [[is_win]] THEN 1 ELSE 0 END)',
-                    'kill'      => 'SUM([[kill]])',
-                    'death'     => 'SUM([[death]])',
+                    'kill' => 'SUM([[kill]])',
+                    'death' => 'SUM([[death]])',
                 ])
                 ->from('battle')
                 ->where(['and',

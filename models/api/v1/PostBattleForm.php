@@ -116,7 +116,7 @@ class PostBattleForm extends Model
                 'targetClass' => Map::class,
                 'targetAttribute' => 'key'],
             [['weapon'], 'exist',
-                'targetClass' =>  Weapon::class,
+                'targetClass' => Weapon::class,
                 'targetAttribute' => 'key'],
             [['rank', 'rank_after'], 'exist',
                 'targetClass' => Rank::class,
@@ -499,77 +499,77 @@ class PostBattleForm extends Model
         $user = $this->getUser();
 
         $o = new Battle();
-        $o->user_id         = $user->id;
-        $o->env_id          = $user->env_id;
-        $o->lobby_id        = $this->lobby ? Lobby::findOne(['key' => $this->lobby])->id : null;
-        $o->rule_id         = $this->rule ? Rule::findOne(['key' => $this->rule])->id : null;
-        $o->map_id          = $this->map ? Map::findOne(['key' => $this->map])->id : null;
-        $o->weapon_id       = $this->weapon ? Weapon::findOne(['key' => $this->weapon])->id : null;
-        $o->level           = $this->level ? (int)$this->level : null;
-        $o->level_after     = $this->level_after ? (int)$this->level_after : null;
-        $o->rank_id         = $this->rank ? Rank::findOne(['key' => $this->rank])->id : null;
-        $o->rank_after_id   = $this->rank_after ? Rank::findOne(['key' => $this->rank_after])->id : null;
-        $o->rank_exp        = (string)$this->rank_exp != '' ? (int)$this->rank_exp : null;
-        $o->rank_exp_after  = (string)$this->rank_exp_after != '' ? (int)$this->rank_exp_after : null;
-        $o->cash            = (string)$this->cash != '' ? (int)$this->cash : null;
-        $o->cash_after      = (string)$this->cash_after != '' ? (int)$this->cash_after : null;
-        $o->is_win          = $this->result === 'win' ? true : ($this->result === 'lose' ? false : null);
-        $o->rank_in_team    = $this->rank_in_team ? (int)$this->rank_in_team : null;
-        $o->kill            = (string)$this->kill != '' ? (int)$this->kill : null;
-        $o->death           = (string)$this->death != '' ? (int)$this->death : null;
-        $o->gender_id       = $this->gender === 'boy' ? 1 : ($this->gender === 'girl' ? 2 : null);
+        $o->user_id = $user->id;
+        $o->env_id = $user->env_id;
+        $o->lobby_id = $this->lobby ? Lobby::findOne(['key' => $this->lobby])->id : null;
+        $o->rule_id = $this->rule ? Rule::findOne(['key' => $this->rule])->id : null;
+        $o->map_id = $this->map ? Map::findOne(['key' => $this->map])->id : null;
+        $o->weapon_id = $this->weapon ? Weapon::findOne(['key' => $this->weapon])->id : null;
+        $o->level = $this->level ? (int)$this->level : null;
+        $o->level_after = $this->level_after ? (int)$this->level_after : null;
+        $o->rank_id = $this->rank ? Rank::findOne(['key' => $this->rank])->id : null;
+        $o->rank_after_id = $this->rank_after ? Rank::findOne(['key' => $this->rank_after])->id : null;
+        $o->rank_exp = (string)$this->rank_exp != '' ? (int)$this->rank_exp : null;
+        $o->rank_exp_after = (string)$this->rank_exp_after != '' ? (int)$this->rank_exp_after : null;
+        $o->cash = (string)$this->cash != '' ? (int)$this->cash : null;
+        $o->cash_after = (string)$this->cash_after != '' ? (int)$this->cash_after : null;
+        $o->is_win = $this->result === 'win' ? true : ($this->result === 'lose' ? false : null);
+        $o->rank_in_team = $this->rank_in_team ? (int)$this->rank_in_team : null;
+        $o->kill = (string)$this->kill != '' ? (int)$this->kill : null;
+        $o->death = (string)$this->death != '' ? (int)$this->death : null;
+        $o->gender_id = $this->gender === 'boy' ? 1 : ($this->gender === 'girl' ? 2 : null);
         $o->fest_title_id = $this->fest_title ? FestTitle::findOne(['key' => $this->fest_title])->id : null;
         $o->fest_title_after_id = $this->fest_title_after
             ? FestTitle::findOne(['key' => $this->fest_title_after])->id
             : null;
-        $o->fest_exp        = (string)$this->fest_exp != '' ? (int)$this->fest_exp : null;
-        $o->fest_exp_after  = (string)$this->fest_exp_after != '' ? (int)$this->fest_exp_after : null;
-        $o->fest_power      = (string)$this->fest_power != '' ? (int)$this->fest_power : null;
-        $o->my_team_power   = (string)$this->my_team_power != '' ? (int)$this->my_team_power : null;
-        $o->his_team_power  = (string)$this->his_team_power != '' ? (int)$this->his_team_power : null;
+        $o->fest_exp = (string)$this->fest_exp != '' ? (int)$this->fest_exp : null;
+        $o->fest_exp_after = (string)$this->fest_exp_after != '' ? (int)$this->fest_exp_after : null;
+        $o->fest_power = (string)$this->fest_power != '' ? (int)$this->fest_power : null;
+        $o->my_team_power = (string)$this->my_team_power != '' ? (int)$this->my_team_power : null;
+        $o->his_team_power = (string)$this->his_team_power != '' ? (int)$this->his_team_power : null;
         $o->my_team_color_hue = $this->my_team_color ? $this->my_team_color['hue'] : null;
         $o->my_team_color_rgb = $this->my_team_color ? vsprintf('%02x%02x%02x', $this->my_team_color['rgb']) : null;
         $o->his_team_color_hue = $this->his_team_color ? $this->his_team_color['hue'] : null;
         $o->his_team_color_rgb = $this->his_team_color ? vsprintf('%02x%02x%02x', $this->his_team_color['rgb']) : null;
-        $o->start_at        = $this->start_at != ''
+        $o->start_at = $this->start_at != ''
             ? gmdate('Y-m-d H:i:sP', (int)$this->start_at)
             : null;
-        $o->end_at          = $this->end_at != ''
+        $o->end_at = $this->end_at != ''
             ? gmdate('Y-m-d H:i:sP', (int)$this->end_at)
             : new Now();
-        $o->agent_id        = null;
-        $o->ua_custom       = (string)$this->agent_custom == '' ? null : (string)$this->agent_custom;
-        $o->ua_variables    = $this->agent_variables ? json_encode($this->agent_variables, JSON_FORCE_OBJECT) : null;
+        $o->agent_id = null;
+        $o->ua_custom = (string)$this->agent_custom == '' ? null : (string)$this->agent_custom;
+        $o->ua_variables = $this->agent_variables ? json_encode($this->agent_variables, JSON_FORCE_OBJECT) : null;
         $o->agent_game_version_id = $this->agent_game_version != ''
             ? (SplatoonVersion::findOne(['tag' => $this->agent_game_version])->id ?? null)
             : null;
         $o->agent_game_version_date = $this->agent_game_version_date != ''
             ? $this->agent_game_version_date
             : null;
-        $o->client_uuid     = (string)$this->uuid == '' ? null : (string)$this->uuid;
-        $o->at              = new Now();
-        $o->is_automated    = ($this->automated === 'yes');
-        $o->link_url        = (string)$this->link_url == '' ? null : (string)$this->link_url;
-        $o->note            = $this->note;
-        $o->private_note    = $this->private_note;
+        $o->client_uuid = (string)$this->uuid == '' ? null : (string)$this->uuid;
+        $o->at = new Now();
+        $o->is_automated = ($this->automated === 'yes');
+        $o->link_url = (string)$this->link_url == '' ? null : (string)$this->link_url;
+        $o->note = $this->note;
+        $o->private_note = $this->private_note;
 
-        $o->my_point                = (string)$this->my_point != '' ? (int)$this->my_point : null;
-        $o->my_team_final_point     = (string)$this->my_team_final_point != ''
+        $o->my_point = (string)$this->my_point != '' ? (int)$this->my_point : null;
+        $o->my_team_final_point = (string)$this->my_team_final_point != ''
             ? (int)$this->my_team_final_point
             : null;
-        $o->his_team_final_point    = (string)$this->his_team_final_point != ''
+        $o->his_team_final_point = (string)$this->his_team_final_point != ''
             ? (int)$this->his_team_final_point
             : null;
-        $o->my_team_final_percent   = (string)$this->my_team_final_percent != ''
+        $o->my_team_final_percent = (string)$this->my_team_final_percent != ''
             ? sprintf('%.1f', (float)$this->my_team_final_percent)
             : null;
-        $o->his_team_final_percent   = (string)$this->his_team_final_percent != ''
+        $o->his_team_final_percent = (string)$this->his_team_final_percent != ''
             ? sprintf('%.1f', (float)$this->his_team_final_percent)
             : null;
-        $o->is_knock_out    = $this->knock_out === 'yes' ? true : ($this->knock_out === 'no' ? false : null);
-        $o->my_team_count   = (string)$this->my_team_count != '' ? (int)$this->my_team_count : null;
-        $o->his_team_count  = (string)$this->his_team_count != '' ? (int)$this->his_team_count : null;
-        $o->max_kill_combo  = (string)$this->max_kill_combo != '' ? (int)$this->max_kill_combo : null;
+        $o->is_knock_out = $this->knock_out === 'yes' ? true : ($this->knock_out === 'no' ? false : null);
+        $o->my_team_count = (string)$this->my_team_count != '' ? (int)$this->my_team_count : null;
+        $o->his_team_count = (string)$this->his_team_count != '' ? (int)$this->his_team_count : null;
+        $o->max_kill_combo = (string)$this->max_kill_combo != '' ? (int)$this->max_kill_combo : null;
         $o->max_kill_streak = (string)$this->max_kill_streak != '' ? (int)$this->max_kill_streak : null;
 
         $o->use_for_entire = $this->getIsUsableForEntireStats();
@@ -577,7 +577,7 @@ class PostBattleForm extends Model
         if ($this->gears) {
             $o->headgear_id = $this->processGear('headgear');
             $o->clothing_id = $this->processGear('clothing');
-            $o->shoes_id    = $this->processGear('shoes');
+            $o->shoes_id = $this->processGear('shoes');
         }
 
         if ($this->getIsTest()) {

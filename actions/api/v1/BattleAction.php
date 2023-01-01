@@ -490,8 +490,8 @@ class BattleAction extends BaseAction
         $resp->format = 'json';
         $resp->statusCode = 200;
         return [
-            'deleted'       => $form->deletedIdList,
-            'not-deleted'   => $form->errorIdList,
+            'deleted' => $form->deletedIdList,
+            'not-deleted' => $form->errorIdList,
         ];
     }
 

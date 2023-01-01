@@ -13,13 +13,13 @@ class m160127_092116_kdwin_stat extends Migration
     public function up()
     {
         $this->createTable('stat_weapon_kd_win_rate', [
-            'rule_id'       => $this->integer()->notNull(),
-            'map_id'        => $this->integer()->notNull(),
-            'weapon_id'     => $this->integer()->notNull(),
-            'kill'          => $this->integer()->notNull(),
-            'death'         => $this->integer()->notNull(),
-            'battle_count'  => $this->bigInteger()->notNull(),
-            'win_count'     => $this->bigInteger()->notNull(),
+            'rule_id' => $this->integer()->notNull(),
+            'map_id' => $this->integer()->notNull(),
+            'weapon_id' => $this->integer()->notNull(),
+            'kill' => $this->integer()->notNull(),
+            'death' => $this->integer()->notNull(),
+            'battle_count' => $this->bigInteger()->notNull(),
+            'win_count' => $this->bigInteger()->notNull(),
         ]);
         $this->addPrimaryKey(
             'pk_stat_weapon_kd_win_rate',

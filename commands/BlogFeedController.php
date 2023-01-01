@@ -70,10 +70,10 @@ class BlogFeedController extends Controller
 
         $model = new BlogEntry();
         $model->attributes = [
-            'uuid'  => $uuid,
-            'url'   => $link,
+            'uuid' => $uuid,
+            'url' => $link,
             'title' => $entry->getTitle(),
-            'at'    => $entry->getDateCreated()->format('Y-m-d\TH:i:sP'),
+            'at' => $entry->getDateCreated()->format('Y-m-d\TH:i:sP'),
         ];
         if (!$model->save()) {
             echo "Could not create new blog entry\n";

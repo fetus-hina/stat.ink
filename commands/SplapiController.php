@@ -218,7 +218,7 @@ class SplapiController extends Controller
                 ->andWhere(['and',
                     ['{{region}}.[[key]]' => 'jp'],
                     ['<=', '{{splatfest}}.[[start_at]]', $t],
-                    ['>',  '{{splatfest}}.[[end_at]]', $t],
+                    ['>', '{{splatfest}}.[[end_at]]', $t],
                 ])
                 ->one();
             if (!$fest) {
@@ -266,7 +266,7 @@ class SplapiController extends Controller
             ->andWhere(['and',
                 ['{{region}}.[[key]]' => 'jp'],
                 ['<=', '{{splatfest}}.[[start_at]]', $now],
-                ['>',  '{{splatfest}}.[[end_at]]', $now],
+                ['>', '{{splatfest}}.[[end_at]]', $now],
             ])
             ->one();
         if (!$fest) {

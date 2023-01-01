@@ -13,11 +13,11 @@ class m170328_114202_map2 extends Migration
     public function up()
     {
         $this->createTable('map2', [
-            'id'    => $this->primaryKey(),
-            'key'   => $this->apiKey(),
-            'name'  => $this->string(32)->notNull()->unique(),
+            'id' => $this->primaryKey(),
+            'key' => $this->apiKey(),
+            'name' => $this->string(32)->notNull()->unique(),
             'short_name' => $this->string(16)->notNull()->unique(),
-            'area'  => $this->integer()->null(),
+            'area' => $this->integer()->null(),
             'release_at' => $this->timestampTZ()->null(),
         ]);
         $this->batchInsert('map2', ['key', 'name', 'short_name', 'area', 'release_at'], [

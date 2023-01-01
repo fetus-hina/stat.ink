@@ -16,10 +16,10 @@ class m160616_120644_jp15th_splatfest extends Migration
     {
         $this->insert('splatfest', [
             'region_id' => Region::findOne(['key' => 'jp'])->id,
-            'name'      => 'きのこの山 vs たけのこの里',
-            'start_at'  => '2016-06-18 09:00:00+09',
-            'end_at'    => '2016-06-19 09:00:00+09',
-            'order'     => 15,
+            'name' => 'きのこの山 vs たけのこの里',
+            'start_at' => '2016-06-18 09:00:00+09',
+            'end_at' => '2016-06-19 09:00:00+09',
+            'order' => 15,
         ]);
         $festId = Splatfest::find()
             ->joinWith('region', false)

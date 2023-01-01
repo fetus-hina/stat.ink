@@ -128,9 +128,9 @@ class BattleSummaryDialog extends Widget
             'pct95' => Html::encode(Yii::t('app', '{percentile} Percentile', [
                 'percentile' => '95',
             ])),
-            'q3'  => Yii::t('app', 'Q<sub>3/4</sub>'),
-            'q2'  => Html::encode(Yii::t('app', 'Median')),
-            'q1'  => Yii::t('app', 'Q<sub>1/4</sub>'),
+            'q3' => Yii::t('app', 'Q<sub>3/4</sub>'),
+            'q2' => Html::encode(Yii::t('app', 'Median')),
+            'q1' => Yii::t('app', 'Q<sub>1/4</sub>'),
             'pct5' => Html::encode(Yii::t('app', '{percentile} Percentile', [
                 'percentile' => '5',
             ])),

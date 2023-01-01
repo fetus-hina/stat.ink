@@ -43,10 +43,10 @@ class Youtube extends Widget
             }
         }
         $iframe = Html::tag('iframe', '', [
-            'width'             => (string)$this->width,
-            'height'            => (string)$this->height,
-            'frameborder'       => '0',
-            'allowfullscreen'   => 'allowfullscreen',
+            'width' => (string)$this->width,
+            'height' => (string)$this->height,
+            'frameborder' => '0',
+            'allowfullscreen' => 'allowfullscreen',
             'src' => sprintf(
                 'https://%s/embed/%s?%s',
                 $this->noCookie ? 'www.youtube-nocookie.com' : 'www.youtube.com',

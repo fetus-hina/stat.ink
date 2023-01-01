@@ -47,10 +47,10 @@ class RegisterForm extends Model
     public function attributeLabels()
     {
         return [
-            'screen_name'       => Yii::t('app', 'Screen Name (Login Name)'),
-            'password'          => Yii::t('app', 'Password'),
-            'password_repeat'   => Yii::t('app', 'Password (again)'),
-            'name'              => Yii::t('app', 'Name (for display)'),
+            'screen_name' => Yii::t('app', 'Screen Name (Login Name)'),
+            'password' => Yii::t('app', 'Password'),
+            'password_repeat' => Yii::t('app', 'Password (again)'),
+            'name' => Yii::t('app', 'Name (for display)'),
         ];
     }
 

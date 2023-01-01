@@ -25,9 +25,9 @@ class m170710_121531_gachi2 extends Migration
         ]);
 
         $this->batchInsert('rule2', ['key', 'name', 'short_name'], [
-            ['area',   'Splat Zones',   'SZ'],
+            ['area', 'Splat Zones', 'SZ'],
             ['yagura', 'Tower Control', 'TC'],
-            ['hoko',   'Rainmaker',     'RM'],
+            ['hoko', 'Rainmaker', 'RM'],
         ]);
 
         $modeId = (new Query())

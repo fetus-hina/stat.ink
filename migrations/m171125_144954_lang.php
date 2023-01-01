@@ -20,11 +20,11 @@ class m171125_144954_lang extends Migration
             ['ru-RU', 'Русский', 'Russian'],
         ]);
         $this->insert('charset', [
-            'name'          => 'Windows-1251',
-            'php_name'      => 'CP1251',
-            'substitute'    => 63,
-            'is_unicode'    => false,
-            'order'         => 13,
+            'name' => 'Windows-1251',
+            'php_name' => 'CP1251',
+            'substitute' => 63,
+            'is_unicode' => false,
+            'order' => 13,
         ]);
 
         $nl = Language::findOne(['lang' => 'nl-NL'])->id;
@@ -37,12 +37,12 @@ class m171125_144954_lang extends Migration
         );
 
         $this->batchInsert('language_charset', ['language_id', 'charset_id', 'is_win_acp'], [
-            [ $nl, $c['UTF-8'],     false ],
-            [ $nl, $c['UTF-16LE'],  false ],
-            [ $nl, $c['CP1252'],    true  ],
-            [ $ru, $c['UTF-8'],     false ],
-            [ $ru, $c['UTF-16LE'],  false ],
-            [ $ru, $c['CP1251'],    true  ],
+            [ $nl, $c['UTF-8'], false ],
+            [ $nl, $c['UTF-16LE'], false ],
+            [ $nl, $c['CP1252'], true ],
+            [ $ru, $c['UTF-8'], false ],
+            [ $ru, $c['UTF-16LE'], false ],
+            [ $ru, $c['CP1251'], true ],
         ]);
     }
 

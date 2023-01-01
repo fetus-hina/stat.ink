@@ -76,7 +76,7 @@ class Download2Action extends BaseAction
         $battles = $this->user->getBattle2s()
             ->with(['rule', 'map'])
             ->orderBy('{{battle2}}.[[id]] ASC');
-        $generator =  function () use ($battles) {
+        $generator = function () use ($battles) {
             foreach ($battles->each() as $battle) {
                 yield $battle->toIkaLogCsv();
             }
@@ -97,7 +97,7 @@ class Download2Action extends BaseAction
         $battles = $this->user->getBattle2s()
             ->with(['lobby', 'mode', 'rule', 'map', 'weapon', 'rank', 'rankAfter'])
             ->orderBy('{{battle2}}.[[id]] ASC');
-        $generator =  function () use ($battles) {
+        $generator = function () use ($battles) {
             yield [
                 Yii::t('app', 'Date Time'),
                 Yii::t('app', 'Date Time'),

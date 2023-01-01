@@ -13,9 +13,9 @@ class m170720_084422_splatoon2 extends Migration
     public function safeUp()
     {
         $this->insert('splatoon_version2', [
-            'tag'           => '1.0.0',
-            'name'          => '1.0.0',
-            'released_at'   => '2017-07-20 18:00:00+09',
+            'tag' => '1.0.0',
+            'name' => '1.0.0',
+            'released_at' => '2017-07-20 18:00:00+09',
         ]);
     }
 

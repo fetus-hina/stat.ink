@@ -611,7 +611,7 @@ class Battle2 extends ActiveRecord
                     ActiveRecord::EVENT_BEFORE_UPDATE => 'kill_ratio',
                 ],
                 'value' => function ($event) {
-                    $kill  = (string)$event->sender->kill;
+                    $kill = (string)$event->sender->kill;
                     $death = (string)$event->sender->death;
                     if ($kill === '' || $death === '') {
                         return null;
@@ -632,7 +632,7 @@ class Battle2 extends ActiveRecord
                     ActiveRecord::EVENT_BEFORE_UPDATE => 'kill_rate',
                 ],
                 'value' => function ($event) {
-                    $kill  = (string)$event->sender->kill;
+                    $kill = (string)$event->sender->kill;
                     $death = (string)$event->sender->death;
                     if ($kill === '' || $death === '') {
                         return null;
@@ -1476,7 +1476,7 @@ class Battle2 extends ActiveRecord
                 : [
                     'headgear' => $this->headgear_id ? $this->headgear->toJsonArray() : null,
                     'clothing' => $this->clothing_id ? $this->clothing->toJsonArray() : null,
-                    'shoes'    => $this->shoes_id ? $this->shoes->toJsonArray() : null,
+                    'shoes' => $this->shoes_id ? $this->shoes->toJsonArray() : null,
                 ],
             'period' => $this->period,
             'period_range' => (function () {
@@ -1729,7 +1729,7 @@ class Battle2 extends ActiveRecord
 
         $playerIds = array_map(
             function ($player): ?string {
-                $id =  trim($player->splatnet_id);
+                $id = trim($player->splatnet_id);
                 return preg_match('/^[0-9a-f]{16}$/u', $id)
                     ? $id
                     : null;
@@ -1848,8 +1848,8 @@ class Battle2 extends ActiveRecord
         $query = (new \yii\db\Query())
             ->select([
                 'weapon_id',
-                'battles'       => 'COUNT(*)',
-                'last_used_at'  => 'MAX(CASE WHEN [[end_at]] IS NOT NULL THEN [[end_at]] ELSE [[created_at]] END)',
+                'battles' => 'COUNT(*)',
+                'last_used_at' => 'MAX(CASE WHEN [[end_at]] IS NOT NULL THEN [[end_at]] ELSE [[created_at]] END)',
             ])
             ->from('battle2')
             ->where([

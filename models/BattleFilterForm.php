@@ -109,18 +109,18 @@ class BattleFilterForm extends Model
     public function attributeLabels()
     {
         return [
-            'screen_name'   => Yii::t('app', 'Screen Name'),
-            'lobby'         => Yii::t('app', 'Lobby'),
-            'rule'          => Yii::t('app', 'Mode'),
-            'map'           => Yii::t('app', 'Stage'),
-            'weapon'        => Yii::t('app', 'Weapon'),
-            'rank'          => Yii::t('app', 'Rank'),
-            'result'        => Yii::t('app', 'Result'),
-            'term'          => Yii::t('app', 'Term'),
-            'term_from'     => Yii::t('app', 'Period From'),
-            'term_to'       => Yii::t('app', 'Period To'),
-            'id_from'       => Yii::t('app', 'ID From'),
-            'id_to'         => Yii::t('app', 'ID To'),
+            'screen_name' => Yii::t('app', 'Screen Name'),
+            'lobby' => Yii::t('app', 'Lobby'),
+            'rule' => Yii::t('app', 'Mode'),
+            'map' => Yii::t('app', 'Stage'),
+            'weapon' => Yii::t('app', 'Weapon'),
+            'rank' => Yii::t('app', 'Rank'),
+            'result' => Yii::t('app', 'Result'),
+            'term' => Yii::t('app', 'Term'),
+            'term_from' => Yii::t('app', 'Period From'),
+            'term_to' => Yii::t('app', 'Period To'),
+            'id_from' => Yii::t('app', 'ID From'),
+            'id_to' => Yii::t('app', 'ID To'),
         ];
     }
 

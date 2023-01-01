@@ -21,7 +21,7 @@ class ShowUserController extends Controller
             'verbs' => [
                 'class' => VerbFilter::class,
                 'actions' => [
-                    '*'             => [ 'get' ],
+                    '*' => [ 'get' ],
                 ],
             ],
         ];

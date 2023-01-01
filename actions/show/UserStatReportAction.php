@@ -135,20 +135,20 @@ class UserStatReportAction extends BaseAction
     {
         $query = (new Query())
             ->select([
-                'date'          => $date,
-                'lobby_id'      => '{{battle}}.[[lobby_id]]',
-                'lobby_key'     => 'MAX({{lobby}}.[[key]])',
-                'lobby_name'    => 'MAX({{lobby}}.[[name]])',
-                'rule_key'      => 'MAX({{rule}}.[[key]])',
-                'rule_name'     => 'MAX({{rule}}.[[name]])',
-                'map_key'       => 'MAX({{map}}.[[key]])',
-                'map_name'      => 'MAX({{map}}.[[name]])',
-                'weapon_key'    => 'MAX({{weapon}}.[[key]])',
-                'weapon_name'   => 'MAX({{weapon}}.[[name]])',
-                'battles'       => 'COUNT(*)',
-                'wins'          => 'SUM(CASE WHEN {{battle}}.[[is_win]] THEN 1 ELSE 0 END)',
-                'kill'          => 'SUM({{battle}}.[[kill]])',
-                'death'         => 'SUM({{battle}}.[[death]])',
+                'date' => $date,
+                'lobby_id' => '{{battle}}.[[lobby_id]]',
+                'lobby_key' => 'MAX({{lobby}}.[[key]])',
+                'lobby_name' => 'MAX({{lobby}}.[[name]])',
+                'rule_key' => 'MAX({{rule}}.[[key]])',
+                'rule_name' => 'MAX({{rule}}.[[name]])',
+                'map_key' => 'MAX({{map}}.[[key]])',
+                'map_name' => 'MAX({{map}}.[[name]])',
+                'weapon_key' => 'MAX({{weapon}}.[[key]])',
+                'weapon_name' => 'MAX({{weapon}}.[[name]])',
+                'battles' => 'COUNT(*)',
+                'wins' => 'SUM(CASE WHEN {{battle}}.[[is_win]] THEN 1 ELSE 0 END)',
+                'kill' => 'SUM({{battle}}.[[kill]])',
+                'death' => 'SUM({{battle}}.[[death]])',
             ])
             ->from('battle')
             ->innerJoin('lobby', '{{battle}}.[[lobby_id]] = {{lobby}}.[[id]]')
@@ -172,9 +172,9 @@ class UserStatReportAction extends BaseAction
             ]);
         $list = array_map(
             function ($row) {
-                $row['lobby_name']  = Yii::t('app-rule', $row['lobby_name']);
-                $row['rule_name']   = Yii::t('app-rule', $row['rule_name']);
-                $row['map_name']    = Yii::t('app-map', $row['map_name']);
+                $row['lobby_name'] = Yii::t('app-rule', $row['lobby_name']);
+                $row['rule_name'] = Yii::t('app-rule', $row['rule_name']);
+                $row['map_name'] = Yii::t('app-map', $row['map_name']);
                 $row['weapon_name'] = Yii::t('app-weapon', $row['weapon_name']);
                 return $row;
             },

@@ -66,7 +66,7 @@ class DownloadSalmon2Action extends ViewAction
                 'waves.water',
             ])
             ->orderBy(['id' => SORT_ASC]);
-        $generator =  function () use ($query) {
+        $generator = function () use ($query) {
             $schema = Salmon2::csvArraySchema();
             $schema[0] = '# ' . $schema[0];
             yield $schema;

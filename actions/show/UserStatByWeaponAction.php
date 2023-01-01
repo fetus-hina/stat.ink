@@ -45,21 +45,21 @@ class UserStatByWeaponAction extends BaseAction
     {
         $query = (new Query())
             ->select([
-                'weapon_key'    => 'MAX({{weapon}}.[[key]])',
-                'weapon_name'   => 'MAX({{weapon}}.[[name]])',
-                'battles'       => 'COUNT(*)',
-                'battles_win'   => 'SUM(CASE WHEN {{battle}}.[[is_win]] = TRUE THEN 1 ELSE 0 END)',
-                'kills'         => sprintf('SUM(CASE %s END)', implode(' ', [
+                'weapon_key' => 'MAX({{weapon}}.[[key]])',
+                'weapon_name' => 'MAX({{weapon}}.[[name]])',
+                'battles' => 'COUNT(*)',
+                'battles_win' => 'SUM(CASE WHEN {{battle}}.[[is_win]] = TRUE THEN 1 ELSE 0 END)',
+                'kills' => sprintf('SUM(CASE %s END)', implode(' ', [
                     'WHEN {{battle}}.[[kill]] IS NULL THEN 0',
                     'WHEN {{battle}}.[[death]] IS NULL THEN 0',
                     'ELSE {{battle}}.[[kill]]',
                 ])),
-                'deaths'        => sprintf('SUM(CASE %s END)', implode(' ', [
+                'deaths' => sprintf('SUM(CASE %s END)', implode(' ', [
                     'WHEN {{battle}}.[[kill]] IS NULL THEN 0',
                     'WHEN {{battle}}.[[death]] IS NULL THEN 0',
                     'ELSE {{battle}}.[[death]]',
                 ])),
-                'kd_available'  => sprintf('SUM(CASE %s END)', implode(' ', [
+                'kd_available' => sprintf('SUM(CASE %s END)', implode(' ', [
                     'WHEN {{battle}}.[[kill]] IS NULL THEN 0',
                     'WHEN {{battle}}.[[death]] IS NULL THEN 0',
                     'ELSE 1',

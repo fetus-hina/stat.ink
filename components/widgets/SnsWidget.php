@@ -119,7 +119,7 @@ final class SnsWidget extends Widget
         $this->view->registerCss(
             \vsprintf('body[data-theme="default"] .label-permalink:hover{%s}', [
                 Html::cssStyleFromArray([
-                    'background-color'  => '#1b3a63',
+                    'background-color' => '#1b3a63',
                 ]),
             ]),
         );
@@ -154,10 +154,10 @@ final class SnsWidget extends Widget
         $this->view->registerCss(
             \vsprintf('.label-feed{%s}.label-feed[href]:hover{%s}', [
                 Html::cssStyleFromArray([
-                    'background-color'  => '#ff7010',
+                    'background-color' => '#ff7010',
                 ]),
                 Html::cssStyleFromArray([
-                    'background-color'  => '#dc5800',
+                    'background-color' => '#dc5800',
                 ]),
             ]),
         );

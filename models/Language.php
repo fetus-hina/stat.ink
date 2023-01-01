@@ -111,7 +111,7 @@ class Language extends ActiveRecord
     {
         return [
             'lang-' . \strtolower($this->getLanguageCode()), // lang-ja
-            'lang-' . \strtolower($this->getLanguageId()),   // lang-ja-jp
+            'lang-' . \strtolower($this->getLanguageId()), // lang-ja-jp
         ];
     }
 

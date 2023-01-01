@@ -95,13 +95,13 @@ class BattleRerecognizeForm extends Model
         $battle = $this->getBattle();
         $battle->skipSaveHistory = true;
         $battle->attributes = [
-            'weapon_id'     => $weapon->id ?? null,
-            'level'         => $my->level,
-            'rank_id'       => $rank->id ?? null,
-            'rank_in_team'  => $my->rank_in_team,
-            'kill'          => $my->kill,
-            'death'         => $my->death,
-            'my_point'      => $my->point,
+            'weapon_id' => $weapon->id ?? null,
+            'level' => $my->level,
+            'rank_id' => $rank->id ?? null,
+            'rank_in_team' => $my->rank_in_team,
+            'kill' => $my->kill,
+            'death' => $my->death,
+            'my_point' => $my->point,
         ];
 
         if (empty($battle->dirtyAttributes) && !$this->playersChanged) {
@@ -164,16 +164,16 @@ class BattleRerecognizeForm extends Model
                 'rank_in_team' => $form->rank_in_team,
             ]) ?? new BattlePlayer();
             $model->attributes = [
-                'battle_id'     => $this->id,
-                'is_my_team'    => $form->team === 'my',
-                'is_me'         => $form->is_me === 'yes',
-                'weapon_id'     => $weapon->id ?? null,
-                'rank_id'       => $rank->id ?? null,
-                'level'         => $form->level,
-                'rank_in_team'  => $form->rank_in_team,
-                'kill'          => $form->kill,
-                'death'         => $form->death,
-                'point'         => $form->point,
+                'battle_id' => $this->id,
+                'is_my_team' => $form->team === 'my',
+                'is_me' => $form->is_me === 'yes',
+                'weapon_id' => $weapon->id ?? null,
+                'rank_id' => $rank->id ?? null,
+                'level' => $form->level,
+                'rank_in_team' => $form->rank_in_team,
+                'kill' => $form->kill,
+                'death' => $form->death,
+                'point' => $form->point,
             ];
 
             if (empty($model->dirtyAttributes)) {

@@ -82,7 +82,7 @@ final class CombinedBattles
                 Yii::endProfile($_['query']->modelClass, __METHOD__);
             }
             $orderByClass = [
-                Battle::class  => 1,
+                Battle::class => 1,
                 Battle2::class => 2,
                 Salmon2::class => 3,
                 Battle3::class => 4,

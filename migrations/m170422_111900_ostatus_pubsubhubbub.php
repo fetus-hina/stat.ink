@@ -13,13 +13,13 @@ class m170422_111900_ostatus_pubsubhubbub extends Migration
     public function up()
     {
         $this->createTable('ostatus_pubsubhubbub', [
-            'id'            => $this->primaryKey(),
-            'topic'         => $this->pkRef('user'),
-            'callback'      => $this->string(255)->notNull(),
-            'lease_until'   => $this->timestampTZ(),
-            'secret'        => $this->string(200),
-            'created_at'    => $this->timestampTZ()->notNull(),
-            'updated_at'    => $this->timestampTZ()->notNull(),
+            'id' => $this->primaryKey(),
+            'topic' => $this->pkRef('user'),
+            'callback' => $this->string(255)->notNull(),
+            'lease_until' => $this->timestampTZ(),
+            'secret' => $this->string(200),
+            'created_at' => $this->timestampTZ()->notNull(),
+            'updated_at' => $this->timestampTZ()->notNull(),
         ]);
     }
 

@@ -13,9 +13,9 @@ class m170714_185817_version2 extends Migration
     public function safeUp()
     {
         $this->insert('splatoon_version2', [
-            'tag'           => '0.1.0',
-            'name'          => 'Splatfest World Premiere',
-            'released_at'   => '2017-07-15 00:00:00+09',
+            'tag' => '0.1.0',
+            'name' => 'Splatfest World Premiere',
+            'released_at' => '2017-07-15 00:00:00+09',
         ]);
     }
 

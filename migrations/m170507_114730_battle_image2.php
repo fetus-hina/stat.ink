@@ -13,10 +13,10 @@ class m170507_114730_battle_image2 extends Migration
     public function up()
     {
         $this->createTable('battle_image2', [
-            'id'        => $this->bigPrimaryKey(),
+            'id' => $this->bigPrimaryKey(),
             'battle_id' => $this->bigPkRef('battle2'),
-            'type_id'   => $this->pkRef('battle_image_type'),
-            'filename'  => $this->string(64)->notNull()->unique(),
+            'type_id' => $this->pkRef('battle_image_type'),
+            'filename' => $this->string(64)->notNull()->unique(),
             'UNIQUE ([[battle_id]], [[type_id]])',
         ]);
     }

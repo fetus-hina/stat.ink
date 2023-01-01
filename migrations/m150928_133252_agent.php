@@ -13,9 +13,9 @@ class m150928_133252_agent extends Migration
     public function up()
     {
         $this->createTable('agent', [
-            'id'        => $this->primaryKey(),
-            'name'      => $this->string(64)->notNull(),
-            'version'   => $this->string(255)->notNull(),
+            'id' => $this->primaryKey(),
+            'name' => $this->string(64)->notNull(),
+            'version' => $this->string(255)->notNull(),
         ]);
         $this->createIndex('ix_agent_1', 'agent', ['name', 'version'], true);
 

@@ -13,9 +13,9 @@ class m151208_102647_automated_flag extends Migration
     public function up()
     {
         $this->createTable('agent_attribute', [
-            'id'            => $this->primaryKey(),
-            'name'          => $this->string(64)->notNull()->unique(),
-            'is_automated'  => $this->boolean()->notNull(),
+            'id' => $this->primaryKey(),
+            'name' => $this->string(64)->notNull()->unique(),
+            'is_automated' => $this->boolean()->notNull(),
         ]);
         $this->batchInsert(
             'agent_attribute',

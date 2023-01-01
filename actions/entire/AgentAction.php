@@ -72,9 +72,9 @@ class AgentAction extends BaseAction
         $ret = [];
         foreach ($list as $a) {
             $ret[$a['date']] = [
-                'date'      => $a['date'],
-                'battle'    => (int)$a['battle_count'],
-                'user'      => (int)$a['user_count'],
+                'date' => $a['date'],
+                'battle' => (int)$a['battle_count'],
+                'user' => (int)$a['user_count'],
             ];
         }
 
@@ -89,9 +89,9 @@ class AgentAction extends BaseAction
                 $d = $min->format('Y-m-d');
                 if (!isset($ret[$d])) {
                     $ret[$d] = [
-                        'date'      => $d,
-                        'battle'    => 0,
-                        'user'      => 0,
+                        'date' => $d,
+                        'battle' => 0,
+                        'user' => 0,
                     ];
                 }
             }

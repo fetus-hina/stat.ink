@@ -63,9 +63,9 @@ class User extends ActiveRecord implements IdentityInterface
     use openapi\Util;
 
     public const BLACKOUT_NOT_BLACKOUT = 'no';
-    public const BLACKOUT_NOT_PRIVATE  = 'not-private';
-    public const BLACKOUT_NOT_FRIEND   = 'not-friend';
-    public const BLACKOUT_ALWAYS       = 'always';
+    public const BLACKOUT_NOT_PRIVATE = 'not-private';
+    public const BLACKOUT_NOT_FRIEND = 'not-friend';
+    public const BLACKOUT_ALWAYS = 'always';
 
     /**
      * @inheritdoc
@@ -174,24 +174,24 @@ class User extends ActiveRecord implements IdentityInterface
     public function attributeLabels()
     {
         return [
-            'id'            => Yii::t('app', 'Internal ID'),
-            'name'          => Yii::t('app', 'User Name'),
-            'screen_name'   => Yii::t('app', 'Login Name'),
-            'password'      => Yii::t('app', 'Password'),
-            'api_key'       => Yii::t('app', 'API Token'),
-            'join_at'       => Yii::t('app', 'Join At'),
-            'nnid'          => Yii::t('app', 'Nintendo Network ID'),
+            'id' => Yii::t('app', 'Internal ID'),
+            'name' => Yii::t('app', 'User Name'),
+            'screen_name' => Yii::t('app', 'Login Name'),
+            'password' => Yii::t('app', 'Password'),
+            'api_key' => Yii::t('app', 'API Token'),
+            'join_at' => Yii::t('app', 'Join At'),
+            'nnid' => Yii::t('app', 'Nintendo Network ID'),
             'sw_friend_code' => Yii::t('app', 'Friend Code (Switch)'),
-            'twitter'       => Yii::t('app', 'Twitter @name'),
-            'ikanakama'     => Yii::t('app', 'Ika-Nakama User ID'),
-            'ikanakama2'    => Yii::t('app', 'Ika-Nakama User ID'),
-            'env_id'        => Yii::t('app', 'Capture Environment'),
-            'blackout'      => Yii::t('app', 'Black out other players from the result image'),
+            'twitter' => Yii::t('app', 'Twitter @name'),
+            'ikanakama' => Yii::t('app', 'Ika-Nakama User ID'),
+            'ikanakama2' => Yii::t('app', 'Ika-Nakama User ID'),
+            'env_id' => Yii::t('app', 'Capture Environment'),
+            'blackout' => Yii::t('app', 'Black out other players from the result image'),
             'blackout_list' => Yii::t('app', 'Black out other players on details view'),
             'default_language_id' => Yii::t('app', 'Language (used for OStatus)'),
-            'region_id'     => Yii::t('app', 'Region (used for Splatfest)'),
-            'link_mode_id'  => Yii::t('app', 'Link from other user\'s results'),
-            'email'         => Yii::t('app', 'Email'),
+            'region_id' => Yii::t('app', 'Region (used for Splatfest)'),
+            'link_mode_id' => Yii::t('app', 'Link from other user\'s results'),
+            'email' => Yii::t('app', 'Email'),
             'email_lang_id' => Yii::t('app', 'Email Language'),
         ];
     }
@@ -474,8 +474,8 @@ class User extends ActiveRecord implements IdentityInterface
                 new DateTimeZone('Etc/UTC'),
             ),
             'profile' => [
-                'nnid'          => (string)$this->nnid !== '' ? $this->nnid : null,
-                'friend_code'   => (string)$this->sw_friend_code !== ''
+                'nnid' => (string)$this->nnid !== '' ? $this->nnid : null,
+                'friend_code' => (string)$this->sw_friend_code !== ''
                     ? implode('-', [
                         'SW',
                         substr((string)$this->sw_friend_code, 0, 4),
@@ -483,12 +483,12 @@ class User extends ActiveRecord implements IdentityInterface
                         substr((string)$this->sw_friend_code, 8, 4),
                     ])
                     : null,
-                'twitter'       => (string)$this->twitter != '' ? $this->twitter : null,
-                'ikanakama'     => null,
-                'ikanakama2'    => (string)$this->ikanakama2
+                'twitter' => (string)$this->twitter != '' ? $this->twitter : null,
+                'ikanakama' => null,
+                'ikanakama2' => (string)$this->ikanakama2
                     ? sprintf('https://ikanakama.ink/users/%d', $this->ikanakama2)
                     : null,
-                'environment'   => $this->env ? $this->env->text : null,
+                'environment' => $this->env ? $this->env->text : null,
             ],
             'stat' => $this->userStat ? $this->userStat->toJsonArray() : null,
             'stats' => [
@@ -530,8 +530,8 @@ class User extends ActiveRecord implements IdentityInterface
                 new DateTimeZone('Etc/UTC'),
             ),
             'profile' => [
-                'nnid'          => (string)$this->nnid !== '' ? $this->nnid : null,
-                'friend_code'   => (string)$this->sw_friend_code !== ''
+                'nnid' => (string)$this->nnid !== '' ? $this->nnid : null,
+                'friend_code' => (string)$this->sw_friend_code !== ''
                     ? implode('-', [
                         'SW',
                         substr((string)$this->sw_friend_code, 0, 4),
@@ -539,12 +539,12 @@ class User extends ActiveRecord implements IdentityInterface
                         substr((string)$this->sw_friend_code, 8, 4),
                     ])
                     : null,
-                'twitter'       => (string)$this->twitter != '' ? $this->twitter : null,
-                'ikanakama'     => null,
-                'ikanakama2'    => (string)$this->ikanakama2
+                'twitter' => (string)$this->twitter != '' ? $this->twitter : null,
+                'ikanakama' => null,
+                'ikanakama2' => (string)$this->ikanakama2
                     ? sprintf('https://ikanakama.ink/users/%d', $this->ikanakama2)
                     : null,
-                'environment'   => $this->env ? $this->env->text : null,
+                'environment' => $this->env ? $this->env->text : null,
             ],
             'stats' => $stats ? $stats->toJsonArray() : null,
         ];

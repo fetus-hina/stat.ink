@@ -13,9 +13,9 @@ class m171015_165205_timezone_group extends Migration
     public function up()
     {
         $this->createTable('timezone_group', [
-            'id'    => $this->primaryKey(),
+            'id' => $this->primaryKey(),
             'order' => $this->integer()->notNull()->unique(),
-            'name'  => $this->string()->notNull(),
+            'name' => $this->string()->notNull(),
         ]);
         $this->batchInsert('timezone_group', ['order', 'name'], [
             [ 10, 'East Asia' ],

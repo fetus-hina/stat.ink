@@ -21,8 +21,8 @@ class WeaponAction extends BaseAction
     {
         $types = array_map(
             fn (array $type): array => [
-                    'key'   => $type['key'],
-                    'name'  => Yii::t('app-weapon', $type['name']),
+                    'key' => $type['key'],
+                    'name' => Yii::t('app-weapon', $type['name']),
                     'weapons' => array_map(
                         fn (array $weapon): array => [
                                 'key' => $weapon['key'],

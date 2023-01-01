@@ -13,15 +13,15 @@ class m171112_165011_gear_configuration2 extends Migration
     public function up()
     {
         $this->createTable('gear_configuration2', [
-            'id'                    => $this->primaryKey(),
-            'finger_print'          => $this->char(43)->notNull()->unique(),
-            'gear_id'               => $this->pkRef('gear2')->null(),
-            'primary_ability_id'    => $this->pkRef('ability2')->null(),
+            'id' => $this->primaryKey(),
+            'finger_print' => $this->char(43)->notNull()->unique(),
+            'gear_id' => $this->pkRef('gear2')->null(),
+            'primary_ability_id' => $this->pkRef('ability2')->null(),
         ]);
         $this->createTable('gear_configuration_secondary2', [
-            'id'            => $this->primaryKey(),
-            'config_id'     => $this->pkRef('gear_configuration2'),
-            'ability_id'    => $this->pkRef('ability2')->null(),
+            'id' => $this->primaryKey(),
+            'config_id' => $this->pkRef('gear_configuration2'),
+            'ability_id' => $this->pkRef('ability2')->null(),
         ]);
         $this->execute('ALTER TABLE {{battle2}} ' . implode(', ', array_map(
             fn (string $column): string => sprintf(

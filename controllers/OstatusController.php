@@ -156,33 +156,33 @@ class OstatusController extends Controller
         $response = Yii::$app->getResponse();
 
         $form = Yii::createObject(PubsubhubbubForm::class);
-        $form->callback         = $request->post('hub_callback');
-        $form->mode             = $request->post('hub_mode');
-        $form->topic            = $request->post('hub_topic');
-        $form->lease_seconds    = $request->post('hub_lease_seconds');
-        $form->secret           = $request->post('hub_secret');
+        $form->callback = $request->post('hub_callback');
+        $form->mode = $request->post('hub_mode');
+        $form->topic = $request->post('hub_topic');
+        $form->lease_seconds = $request->post('hub_lease_seconds');
+        $form->secret = $request->post('hub_secret');
 
         if (!$form->validate()) {
             $response = Yii::$app->getResponse();
-            $response->statusCode   = 400;
-            $response->statusText   = 'Bad Request';
-            $response->format       = 'json';
+            $response->statusCode = 400;
+            $response->statusText = 'Bad Request';
+            $response->format = 'json';
             $response->data = [
                 'error' => 'Bad Request',
                 'details' => $form->getErrors(),
             ];
         } elseif (!$form->save()) {
-            $response->statusCode   = 500;
-            $response->statusText   = 'Internal Server Error';
-            $response->format       = 'json';
+            $response->statusCode = 500;
+            $response->statusText = 'Internal Server Error';
+            $response->format = 'json';
             $response->data = [
                 'error' => 'Internal Server Error',
             ];
         } else {
-            $response->statusCode   = 202;
-            $response->statusText   = 'Accepted';
-            $response->format       = 'raw';
-            $response->data         = '';
+            $response->statusCode = 202;
+            $response->statusText = 'Accepted';
+            $response->format = 'raw';
+            $response->data = '';
         }
         return $response;
     }
@@ -191,10 +191,10 @@ class OstatusController extends Controller
     public function actionSalmon()
     {
         $response = Yii::$app->getResponse();
-        $response->statusCode   = 202;
-        $response->statusText   = 'Accepted';
-        $response->format       = 'raw';
-        $response->data         = '';
+        $response->statusCode = 202;
+        $response->statusText = 'Accepted';
+        $response->format = 'raw';
+        $response->data = '';
         return $response;
     }
 }

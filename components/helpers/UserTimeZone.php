@@ -84,19 +84,19 @@ class UserTimeZone
             Yii::beginProfile(__FUNCTION__, __METHOD__);
 
             $map = [
-                'de*'   => 'Europe/Paris',
-                'en*'   => 'America/Los_Angeles',
+                'de*' => 'Europe/Paris',
+                'en*' => 'America/Los_Angeles',
                 'en-GB' => 'Europe/London',
-                'es*'   => 'Europe/Paris',
+                'es*' => 'Europe/Paris',
                 'es-MX' => 'America/Mexico_City',
-                'fr*'   => 'Europe/Paris',
+                'fr*' => 'Europe/Paris',
                 'fr-CA' => 'America/New_York',
-                'it*'   => 'Europe/Paris',
-                'ja*'   => 'Asia/Tokyo',
-                'ko*'   => 'Asia/Seoul',
-                'nl*'   => 'Europe/Paris',
-                'ru*'   => 'Europe/Moscow',
-                'zh*'   => 'Asia/Shanghai',
+                'it*' => 'Europe/Paris',
+                'ja*' => 'Asia/Tokyo',
+                'ko*' => 'Asia/Seoul',
+                'nl*' => 'Europe/Paris',
+                'ru*' => 'Europe/Moscow',
+                'zh*' => 'Asia/Shanghai',
                 'zh-TW' => 'Asia/Taipei',
             ];
 

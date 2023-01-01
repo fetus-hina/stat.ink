@@ -25,12 +25,12 @@ trait GearMigration
         ?int $splatnet
     ): void {
         $this->insert('gear2', [
-            'key'           => $key,
-            'name'          => $name,
-            'type_id'       => $this->findId('gear_type', $type),
-            'brand_id'      => $this->findId('brand2', $brand),
-            'ability_id'    => $ability ? $this->findId('ability2', $ability) : null,
-            'splatnet'      => $splatnet,
+            'key' => $key,
+            'name' => $name,
+            'type_id' => $this->findId('gear_type', $type),
+            'brand_id' => $this->findId('brand2', $brand),
+            'ability_id' => $ability ? $this->findId('ability2', $ability) : null,
+            'splatnet' => $splatnet,
         ]);
     }
 

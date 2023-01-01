@@ -30,9 +30,9 @@ class Effect
         foreach ($list as $classVersion => $className) {
             if (version_compare($classVersion, $gameVersion, '<=')) {
                 return Yii::createObject([
-                    'class'     => $className,
-                    'battle'    => $battle,
-                    'version'   => $gameVersion,
+                    'class' => $className,
+                    'battle' => $battle,
+                    'version' => $gameVersion,
                 ]);
             }
         }

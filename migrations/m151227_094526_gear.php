@@ -16,23 +16,23 @@ class m151227_094526_gear extends Migration
     public function up()
     {
         $this->createTable('gear_type', [
-            'id'    => $this->primaryKey(),
-            'key'   => 'VARCHAR(16) NOT NULL UNIQUE',
-            'name'  => 'VARCHAR(32) NOT NULL',
+            'id' => $this->primaryKey(),
+            'key' => 'VARCHAR(16) NOT NULL UNIQUE',
+            'name' => 'VARCHAR(32) NOT NULL',
         ]);
         $this->batchInsert('gear_type', ['key', 'name'], [
-            [ 'headgear',   'Headgear' ],
-            [ 'clothing',   'Clothing' ],
-            [ 'shoes',      'Shoes' ],
+            [ 'headgear', 'Headgear' ],
+            [ 'clothing', 'Clothing' ],
+            [ 'shoes', 'Shoes' ],
         ]);
 
         $this->createTable('gear', [
-            'id'            => $this->primaryKey(),
-            'key'           => 'VARCHAR(32) NOT NULL UNIQUE',
-            'type_id'       => 'INTEGER NOT NULL',
-            'brand_id'      => 'INTEGER NOT NULL',
-            'name'          => 'VARCHAR(32) NOT NULL',
-            'ability_id'    => 'INTEGER NOT NULL',
+            'id' => $this->primaryKey(),
+            'key' => 'VARCHAR(32) NOT NULL UNIQUE',
+            'type_id' => 'INTEGER NOT NULL',
+            'brand_id' => 'INTEGER NOT NULL',
+            'name' => 'VARCHAR(32) NOT NULL',
+            'ability_id' => 'INTEGER NOT NULL',
         ]);
         $this->addForeignKey('fk_gear_1', 'gear', 'type_id', 'gear_type', 'id');
         $this->addForeignKey('fk_gear_2', 'gear', 'brand_id', 'brand', 'id');

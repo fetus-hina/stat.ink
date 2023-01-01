@@ -13,11 +13,11 @@ class m171026_121218_bbass extends Migration
     public function safeUp()
     {
         $this->insert('map2', [
-            'key'           => 'bbass',
-            'name'          => 'Blackbelly Skatepark',
-            'short_name'    => 'Skatepark',
-            'splatnet'      => null,
-            'release_at'    => '2017-10-28T11:00:00+09:00',
+            'key' => 'bbass',
+            'name' => 'Blackbelly Skatepark',
+            'short_name' => 'Skatepark',
+            'splatnet' => null,
+            'release_at' => '2017-10-28T11:00:00+09:00',
         ]);
     }
 

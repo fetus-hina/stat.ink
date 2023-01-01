@@ -92,7 +92,7 @@ class m170611_074525_e3_weapons extends Migration
             'type_id' => $types['shooter'],
             'subweapon_id' => $subs['pointsensor'],
             'special_id' => $specials['amefurashi'],
-            'canonical_id'  => new Expression("currval('weapon2_id_seq'::regclass)"),
+            'canonical_id' => new Expression("currval('weapon2_id_seq'::regclass)"),
             'main_group_id' => new Expression("currval('weapon2_id_seq'::regclass)"),
         ]);
         $this->insert('weapon2', [
@@ -101,7 +101,7 @@ class m170611_074525_e3_weapons extends Migration
             'type_id' => $types['shooter'],
             'subweapon_id' => $subs['poisonmist'],
             'special_id' => $specials['jetpack'],
-            'canonical_id'  => new Expression("currval('weapon2_id_seq'::regclass)"),
+            'canonical_id' => new Expression("currval('weapon2_id_seq'::regclass)"),
             'main_group_id' => new Expression("currval('weapon2_id_seq'::regclass)"),
         ]);
         $this->insert('weapon2', [
@@ -110,7 +110,7 @@ class m170611_074525_e3_weapons extends Migration
             'type_id' => $types['blaster'],
             'subweapon_id' => $subs['poisonmist'],
             'special_id' => $specials['chakuchi'],
-            'canonical_id'  => new Expression("currval('weapon2_id_seq'::regclass)"),
+            'canonical_id' => new Expression("currval('weapon2_id_seq'::regclass)"),
             'main_group_id' => new Expression("currval('weapon2_id_seq'::regclass)"),
         ]);
         $this->insert('weapon2', [
@@ -119,7 +119,7 @@ class m170611_074525_e3_weapons extends Migration
             'type_id' => $types['roller'],
             'subweapon_id' => $subs['trap'],
             'special_id' => $specials['presser'],
-            'canonical_id'  => new Expression("currval('weapon2_id_seq'::regclass)"),
+            'canonical_id' => new Expression("currval('weapon2_id_seq'::regclass)"),
             'main_group_id' => new Expression("currval('weapon2_id_seq'::regclass)"),
         ]);
         $this->insert('weapon2', [
@@ -128,7 +128,7 @@ class m170611_074525_e3_weapons extends Migration
             'type_id' => $types['brush'],
             'subweapon_id' => $subs['rocketbomb'],
             'special_id' => $specials['jetpack'],
-            'canonical_id'  => new Expression("currval('weapon2_id_seq'::regclass)"),
+            'canonical_id' => new Expression("currval('weapon2_id_seq'::regclass)"),
             'main_group_id' => new Expression("currval('weapon2_id_seq'::regclass)"),
         ]);
         $this->insert('weapon2', [
@@ -137,7 +137,7 @@ class m170611_074525_e3_weapons extends Migration
             'type_id' => $types['charger'],
             'subweapon_id' => $subs['splashbomb'],
             'special_id' => $specials['presser'],
-            'canonical_id'  => new Expression("currval('weapon2_id_seq'::regclass)"),
+            'canonical_id' => new Expression("currval('weapon2_id_seq'::regclass)"),
             'main_group_id' => (new Query())
                 ->select('id')
                 ->from('weapon2')
@@ -150,7 +150,7 @@ class m170611_074525_e3_weapons extends Migration
             'type_id' => $types['slosher'],
             'subweapon_id' => $subs['kyubanbomb'],
             'special_id' => $specials['missile'],
-            'canonical_id'  => new Expression("currval('weapon2_id_seq'::regclass)"),
+            'canonical_id' => new Expression("currval('weapon2_id_seq'::regclass)"),
             'main_group_id' => new Expression("currval('weapon2_id_seq'::regclass)"),
         ]);
         $this->insert('weapon2', [
@@ -159,7 +159,7 @@ class m170611_074525_e3_weapons extends Migration
             'type_id' => $types['splatling'],
             'subweapon_id' => $subs['sprinkler'],
             'special_id' => $specials['presser'],
-            'canonical_id'  => new Expression("currval('weapon2_id_seq'::regclass)"),
+            'canonical_id' => new Expression("currval('weapon2_id_seq'::regclass)"),
             'main_group_id' => new Expression("currval('weapon2_id_seq'::regclass)"),
         ]);
     }

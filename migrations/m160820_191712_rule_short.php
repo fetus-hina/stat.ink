@@ -13,10 +13,10 @@ class m160820_191712_rule_short extends Migration
     public function up()
     {
         $data = [
-            'nawabari'  => 'TW',
-            'area'      => 'SZ',
-            'yagura'    => 'TC',
-            'hoko'      => 'RM',
+            'nawabari' => 'TW',
+            'area' => 'SZ',
+            'yagura' => 'TC',
+            'hoko' => 'RM',
         ];
 
         $this->execute('ALTER TABLE {{rule}} ADD COLUMN [[short_name]] VARCHAR(16)');

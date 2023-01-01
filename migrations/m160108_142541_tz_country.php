@@ -25,34 +25,34 @@ class m160108_142541_tz_country extends Migration
         $tz = $this->timezones;
         $cc = $this->countries;
         $this->batchInsert('timezone_country', ['timezone_id', 'country_id'], [
-            [ $tz['Asia/Tokyo'],            $cc['jp'] ],
+            [ $tz['Asia/Tokyo'], $cc['jp'] ],
 
-            [ $tz['Europe/Athens'],         $cc['eu'] ],
-            [ $tz['Europe/Paris'],          $cc['eu'] ],
-            [ $tz['Europe/London'],         $cc['eu'] ],
+            [ $tz['Europe/Athens'], $cc['eu'] ],
+            [ $tz['Europe/Paris'], $cc['eu'] ],
+            [ $tz['Europe/London'], $cc['eu'] ],
 
-            [ $tz['America/New_York'],      $cc['us'] ],
-            [ $tz['America/New_York'],      $cc['ca'] ],
-            [ $tz['America/Chicago'],       $cc['us'] ],
-            [ $tz['America/Chicago'],       $cc['ca'] ],
-            [ $tz['America/Denver'],        $cc['us'] ],
-            [ $tz['America/Denver'],        $cc['ca'] ],
-            [ $tz['America/Los_Angeles'],   $cc['us'] ],
-            [ $tz['America/Los_Angeles'],   $cc['ca'] ],
+            [ $tz['America/New_York'], $cc['us'] ],
+            [ $tz['America/New_York'], $cc['ca'] ],
+            [ $tz['America/Chicago'], $cc['us'] ],
+            [ $tz['America/Chicago'], $cc['ca'] ],
+            [ $tz['America/Denver'], $cc['us'] ],
+            [ $tz['America/Denver'], $cc['ca'] ],
+            [ $tz['America/Los_Angeles'], $cc['us'] ],
+            [ $tz['America/Los_Angeles'], $cc['ca'] ],
 
-            [ $tz['America/Phoenix'],       $cc['us'] ],
-            [ $tz['America/Anchorage'],     $cc['us'] ],
-            [ $tz['America/Adak'],          $cc['us'] ],
-            [ $tz['Pacific/Honolulu'],      $cc['us'] ],
-            [ $tz['America/St_Johns'],      $cc['ca'] ],
-            [ $tz['America/Halifax'],       $cc['ca'] ],
-            [ $tz['America/Regina'],        $cc['ca'] ],
+            [ $tz['America/Phoenix'], $cc['us'] ],
+            [ $tz['America/Anchorage'], $cc['us'] ],
+            [ $tz['America/Adak'], $cc['us'] ],
+            [ $tz['Pacific/Honolulu'], $cc['us'] ],
+            [ $tz['America/St_Johns'], $cc['ca'] ],
+            [ $tz['America/Halifax'], $cc['ca'] ],
+            [ $tz['America/Regina'], $cc['ca'] ],
 
-            [ $tz['Australia/Brisbane'],    $cc['au'] ],
-            [ $tz['Australia/Sydney'],      $cc['au'] ],
-            [ $tz['Australia/Adelaide'],    $cc['au'] ],
-            [ $tz['Australia/Darwin'],      $cc['au'] ],
-            [ $tz['Australia/Perth'],       $cc['au'] ],
+            [ $tz['Australia/Brisbane'], $cc['au'] ],
+            [ $tz['Australia/Sydney'], $cc['au'] ],
+            [ $tz['Australia/Adelaide'], $cc['au'] ],
+            [ $tz['Australia/Darwin'], $cc['au'] ],
+            [ $tz['Australia/Perth'], $cc['au'] ],
         ]);
     }
 

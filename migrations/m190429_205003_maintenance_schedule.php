@@ -15,11 +15,11 @@ class m190429_205003_maintenance_schedule extends Migration
     public function safeUp()
     {
         $this->createTable('maintenance_schedule', [
-            'id'        => $this->primaryKey(),
-            'reason'    => $this->text()->notNull(),
-            'start_at'  => $this->timestampTZ(0)->notNull(),
-            'end_at'    => $this->timestampTZ(0)->notNull(),
-            'enabled'   => $this->boolean()->notNull()->defaultValue(true),
+            'id' => $this->primaryKey(),
+            'reason' => $this->text()->notNull(),
+            'start_at' => $this->timestampTZ(0)->notNull(),
+            'end_at' => $this->timestampTZ(0)->notNull(),
+            'enabled' => $this->boolean()->notNull()->defaultValue(true),
         ]);
     }
 

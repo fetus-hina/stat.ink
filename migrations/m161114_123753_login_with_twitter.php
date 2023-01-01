@@ -13,10 +13,10 @@ class m161114_123753_login_with_twitter extends Migration
     public function up()
     {
         $this->createTable('login_with_twitter', [
-            'user_id'       => 'INTEGER NOT NULL PRIMARY KEY REFERENCES {{user}}([[id]]) ON DELETE CASCADE',
-            'twitter_id'    => 'BIGINT NOT NULL UNIQUE', // integer id
-            'screen_name'   => 'VARCHAR(15) NOT NULL', // just a hint. may duplicate.
-            'name'          => 'VARCHAR(32) NOT NULL', // just a hint.
+            'user_id' => 'INTEGER NOT NULL PRIMARY KEY REFERENCES {{user}}([[id]]) ON DELETE CASCADE',
+            'twitter_id' => 'BIGINT NOT NULL UNIQUE', // integer id
+            'screen_name' => 'VARCHAR(15) NOT NULL', // just a hint. may duplicate.
+            'name' => 'VARCHAR(32) NOT NULL', // just a hint.
         ]);
     }
 

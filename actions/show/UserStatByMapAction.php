@@ -44,10 +44,10 @@ class UserStatByMapAction extends BaseAction
     {
         $query = (new \yii\db\Query())
             ->select([
-                'map_key'  => 'MAX({{map}}.[[key]])',
+                'map_key' => 'MAX({{map}}.[[key]])',
                 'map_name' => 'MAX({{map}}.[[name]])',
-                'result'    => '(CASE WHEN {{battle}}.[[is_win]] = TRUE THEN \'win\' ELSE \'lose\' END)',
-                'count'     => 'COUNT(*)',
+                'result' => '(CASE WHEN {{battle}}.[[is_win]] = TRUE THEN \'win\' ELSE \'lose\' END)',
+                'count' => 'COUNT(*)',
             ])
             ->from('battle')
             ->innerJoin('map', '{{battle}}.[[map_id]] = {{map}}.[[id]]')

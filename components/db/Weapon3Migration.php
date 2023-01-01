@@ -14,29 +14,29 @@ use yii\db\Expression;
 use yii\db\Query;
 
 /**
- * @phpstan-type type3-string1  'blaster'|'brella'|'brush'|'charger'|'maneuver'|'reelgun'|'roller'
- * @phpstan-type type3-string2  'shooter'|'slosher'|'spinner'|'stringer'|'wiper'
- * @phpstan-type sub3-string1   'curlingbomb'|'jumpbeacon'|'kyubanbomb'|'linemarker'|'pointsensor'
- * @phpstan-type sub3-string2   'poisonmist'|'quickbomb'|'robotbomb'|'splashbomb'|'splashshield'
- * @phpstan-type sub3-string3   'sprinkler'|'tansanbomb'|'torpedo'|'trap'
- * @phsptan-type sp3-string1    'amefurashi'|'energystand'|'greatbarrier'|'hopsonar'|'jetpack'
- * @phpstan-type sp3-string2    'kanitank'|'kyuinki'|'megaphone'|'missile'|'nicedama'|'sameride'
- * @phpstan-type sp3-string3    'shokuwander'|'tripletornado'|'ultrahanko'|'ultrashot'
+ * @phpstan-type type3-string1 'blaster'|'brella'|'brush'|'charger'|'maneuver'|'reelgun'|'roller'
+ * @phpstan-type type3-string2 'shooter'|'slosher'|'spinner'|'stringer'|'wiper'
+ * @phpstan-type sub3-string1 'curlingbomb'|'jumpbeacon'|'kyubanbomb'|'linemarker'|'pointsensor'
+ * @phpstan-type sub3-string2 'poisonmist'|'quickbomb'|'robotbomb'|'splashbomb'|'splashshield'
+ * @phpstan-type sub3-string3 'sprinkler'|'tansanbomb'|'torpedo'|'trap'
+ * @phsptan-type sp3-string1 'amefurashi'|'energystand'|'greatbarrier'|'hopsonar'|'jetpack'
+ * @phpstan-type sp3-string2 'kanitank'|'kyuinki'|'megaphone'|'missile'|'nicedama'|'sameride'
+ * @phpstan-type sp3-string3 'shokuwander'|'tripletornado'|'ultrahanko'|'ultrashot'
  *
- * @phpstan-type type3-string   type3-string-1|type3-string-2
- * @phpstan-type sub3-string    sub3-string1|sub3-string2|sub3-string3
- * @phpstan-type sp3-string     sp3-string1|sp3-string2|sp3-string3
+ * @phpstan-type type3-string type3-string-1|type3-string-2
+ * @phpstan-type sub3-string sub3-string1|sub3-string2|sub3-string3
+ * @phpstan-type sp3-string sp3-string1|sp3-string2|sp3-string3
  */
 trait Weapon3Migration
 {
     use AutoKey;
 
     /**
-     * @phpstan-param non-empty-string      $key
-     * @phpstan-param non-empty-string      $name
-     * @phpstan-param type3-string          $type
-     * @phpstan-param sub3-string|null      $sub
-     * @phpstan-param sp3-string|null       $special
+     * @phpstan-param non-empty-string $key
+     * @phpstan-param non-empty-string $name
+     * @phpstan-param type3-string $type
+     * @phpstan-param sub3-string|null $sub
+     * @phpstan-param sp3-string|null $special
      * @phpstan-param non-empty-string|null $main
      * @phpstan-param non-empty-string|null $canonical
      */
@@ -115,10 +115,10 @@ trait Weapon3Migration
     }
 
     /**
-     * @phpstan-param non-empty-string      $key
-     * @phpstan-param non-empty-string      $name
-     * @phpstan-param sub3-string|null      $sub
-     * @phpstan-param sp3-string|null       $special
+     * @phpstan-param non-empty-string $key
+     * @phpstan-param non-empty-string $name
+     * @phpstan-param sub3-string|null $sub
+     * @phpstan-param sp3-string|null $special
      * @phpstan-param non-empty-string|null $canonical
      */
     private function upWeapon3Impl(

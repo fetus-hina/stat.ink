@@ -34,7 +34,7 @@ class DateTimeFormatter
     private static function createDateTimeFromFloatedUnixtime($time)
     {
         $t1 = (int)floor((float)$time); // time の整数部
-        $t2 = (float)$time - $t1;       // time の小数部
+        $t2 = (float)$time - $t1; // time の小数部
         return DateTime::createFromFormat(
             'U u',
             sprintf('%d %06d', $t1, (int)floor($t2 * 1000000)),

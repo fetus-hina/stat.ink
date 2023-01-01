@@ -42,13 +42,13 @@ class WeaponRuleMapAction extends BaseAction
     {
         $query = (new Query())
             ->select([
-                'weapon'    => 'MAX({{weapon}}.[[key]])',
-                'rule'      => 'MAX({{rule}}.[[key]])',
-                'map'       => 'MAX({{map}}.[[key]])',
-                'battle'    => 'SUM({{stat_weapon_kd_win_rate}}.[[battle_count]])',
-                'win'       => 'SUM({{stat_weapon_kd_win_rate}}.[[win_count]])',
-                'kill'      => 'SUM({{stat_weapon_kd_win_rate}}.[[kill]])',
-                'death'     => 'SUM({{stat_weapon_kd_win_rate}}.[[death]])',
+                'weapon' => 'MAX({{weapon}}.[[key]])',
+                'rule' => 'MAX({{rule}}.[[key]])',
+                'map' => 'MAX({{map}}.[[key]])',
+                'battle' => 'SUM({{stat_weapon_kd_win_rate}}.[[battle_count]])',
+                'win' => 'SUM({{stat_weapon_kd_win_rate}}.[[win_count]])',
+                'kill' => 'SUM({{stat_weapon_kd_win_rate}}.[[kill]])',
+                'death' => 'SUM({{stat_weapon_kd_win_rate}}.[[death]])',
             ])
             ->from('stat_weapon_kd_win_rate')
             ->innerJoin('weapon', '{{stat_weapon_kd_win_rate}}.[[weapon_id]] = {{weapon}}.[[id]]')
@@ -67,8 +67,8 @@ class WeaponRuleMapAction extends BaseAction
             ]));
         $dict = [
             'weapon' => $this->getWeapons(),
-            'rule'   => $this->getRules(),
-            'map'    => $this->getMaps(),
+            'rule' => $this->getRules(),
+            'map' => $this->getMaps(),
         ];
 
         return (function ($rows) use ($dict) {

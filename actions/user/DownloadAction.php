@@ -48,7 +48,7 @@ class DownloadAction extends BaseAction
         $battles = $this->user->getBattles()
             ->with(['rule', 'map'])
             ->orderBy('{{battle}}.[[id]] ASC');
-        $generator =  function () use ($battles) {
+        $generator = function () use ($battles) {
             foreach ($battles->each() as $battle) {
                 yield $battle->toIkaLogCsv();
             }
@@ -72,7 +72,7 @@ class DownloadAction extends BaseAction
                 'battlePlayers', 'battlePlayers.rank', 'battlePlayers.weapon',
             ])
             ->orderBy('{{battle}}.[[id]] ASC');
-        $generator =  function () use ($battles) {
+        $generator = function () use ($battles) {
             foreach ($battles->each() as $battle) {
                 yield $battle->toIkaLogJson();
             }

@@ -15,9 +15,9 @@ class m160725_063530_utf16le extends Migration
     public function safeUp()
     {
         $this->insert('charset', [
-            'name'          => 'UTF-16LE',
-            'php_name'      => 'UTF-16LE',
-            'substitute'    => ord('?'),
+            'name' => 'UTF-16LE',
+            'php_name' => 'UTF-16LE',
+            'substitute' => ord('?'),
         ]);
         $id = Charset::findOne(['php_name' => 'UTF-16LE'])->id;
         $this->batchInsert('language_charset', ['language_id', 'charset_id', 'is_win_acp'], [

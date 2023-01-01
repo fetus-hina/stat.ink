@@ -120,12 +120,12 @@ class FeedAction extends Action
         }
         $feed->addAuthors([
             [
-                'name'  => Yii::$app->name,
-                'uri'   => Url::home(true),
+                'name' => Yii::$app->name,
+                'uri' => Url::home(true),
             ],
             [
-                'name'  => $user->name,
-                'uri'   => Url::to(['salmon/index', 'screen_name' => $user->screen_name], true),
+                'name' => $user->name,
+                'uri' => Url::to(['salmon/index', 'screen_name' => $user->screen_name], true),
             ],
         ]);
         $feed->setCopyright(
@@ -202,7 +202,7 @@ class FeedAction extends Action
         }
 
         $contentType = [
-            'atom'  => 'application/atom+xml; charset=UTF-8',
+            'atom' => 'application/atom+xml; charset=UTF-8',
             'rss' => 'application/rss+xml; charset=UTF-8',
         ];
         $resp->format = 'raw';

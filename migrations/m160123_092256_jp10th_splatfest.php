@@ -20,7 +20,7 @@ class m160123_092256_jp10th_splatfest extends Migration
         ])->id;
 
         $this->update('splatfest_team', ['color_hue' => 110], ['fest_id' => $festId, 'team_id' => 1]);
-        $this->update('splatfest_team', ['color_hue' =>  22], ['fest_id' => $festId, 'team_id' => 2]);
+        $this->update('splatfest_team', ['color_hue' => 22], ['fest_id' => $festId, 'team_id' => 2]);
     }
 
     public function safeDown()

@@ -13,17 +13,17 @@ class m151009_133316_fest extends Migration
     public function up()
     {
         $this->createTable('gender', [
-            'id'    => 'INTEGER NOT NULL PRIMARY KEY', // See: ISO 5218
-            'name'  => $this->string(16)->notNull()->unique(),
+            'id' => 'INTEGER NOT NULL PRIMARY KEY', // See: ISO 5218
+            'name' => $this->string(16)->notNull()->unique(),
         ]);
         $this->batchInsert('gender', ['id', 'name'], [
-            [ 1, 'Boy'  ], // ISO 5218, "1" is Male
+            [ 1, 'Boy' ], // ISO 5218, "1" is Male
             [ 2, 'Girl' ], // ISO 5218, "2" is Female
         ]);
 
         $this->createTable('fest_title', [
-            'id'    => 'INTEGER NOT NULL PRIMARY KEY',
-            'key'   => $this->string(16)->notNull()->unique(),
+            'id' => 'INTEGER NOT NULL PRIMARY KEY',
+            'key' => $this->string(16)->notNull()->unique(),
         ]);
         $this->batchInsert('fest_title', ['id', 'key'], [
             [ 1, 'fanboy' ],
@@ -34,9 +34,9 @@ class m151009_133316_fest extends Migration
         ]);
 
         $this->createTable('fest_title_gender', [
-            'title_id'  => $this->integer()->notNull(),
+            'title_id' => $this->integer()->notNull(),
             'gender_id' => $this->integer()->notNull(),
-            'name'      => $this->string(32)->notNull(),
+            'name' => $this->string(32)->notNull(),
         ]);
         $this->addPrimaryKey('pk_fest_title_gender', 'fest_title_gender', ['title_id', 'gender_id']);
         $this->addForeignKey('fk_fest_title_gender_1', 'fest_title_gender', 'title_id', 'fest_title', 'id');

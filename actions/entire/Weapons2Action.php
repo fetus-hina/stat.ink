@@ -147,13 +147,13 @@ class Weapons2Action extends BaseAction
         foreach (Rule2::find()->orderBy(['id' => SORT_ASC])->all() as $rule) {
             $weapons = $this->getEntireWeaponsByRule($rule, $form);
             $rules[] = (object)[
-                'key'       => $rule->key,
-                'name'      => Yii::t('app-rule2', $rule->name),
-                'data'      => $weapons,
-                'sub'       => $this->convertWeapons2Sub($weapons),
-                'special'   => $this->convertWeapons2Special($weapons),
-                'type'      => $this->convertWeapons2Type($weapons),
-                'category'  => $this->convertWeapons2Category($weapons),
+                'key' => $rule->key,
+                'name' => Yii::t('app-rule2', $rule->name),
+                'data' => $weapons,
+                'sub' => $this->convertWeapons2Sub($weapons),
+                'special' => $this->convertWeapons2Special($weapons),
+                'type' => $this->convertWeapons2Type($weapons),
+                'category' => $this->convertWeapons2Category($weapons),
             ];
         }
         return $rules;
@@ -162,67 +162,67 @@ class Weapons2Action extends BaseAction
     private function getEntireWeaponsByRule(Rule2 $rule, EntireWeapon2Form $form)
     {
         $columns = [
-            'weapon_key'        => 'MAX({{weapon2}}.[[key]])',
-            'weapon_name'       => 'MAX({{weapon2}}.[[name]])',
-            'subweapon_key'     => 'MAX({{subweapon2}}.[[key]])',
-            'subweapon_name'    => 'MAX({{subweapon2}}.[[name]])',
-            'special_key'       => 'MAX({{special2}}.[[key]])',
-            'special_name'      => 'MAX({{special2}}.[[name]])',
-            'type_key'          => 'MAX({{weapon_type2}}.[[key]])',
-            'type_name'         => 'MAX({{weapon_type2}}.[[name]])',
-            'category_key'      => 'MAX({{weapon_category2}}.[[key]])',
-            'category_name'     => 'MAX({{weapon_category2}}.[[name]])',
-            'count'             => 'SUM({{stat_weapon2_use_count}}.[[battles]])',
-            'avg_kill'          => sprintf(
+            'weapon_key' => 'MAX({{weapon2}}.[[key]])',
+            'weapon_name' => 'MAX({{weapon2}}.[[name]])',
+            'subweapon_key' => 'MAX({{subweapon2}}.[[key]])',
+            'subweapon_name' => 'MAX({{subweapon2}}.[[name]])',
+            'special_key' => 'MAX({{special2}}.[[key]])',
+            'special_name' => 'MAX({{special2}}.[[name]])',
+            'type_key' => 'MAX({{weapon_type2}}.[[key]])',
+            'type_name' => 'MAX({{weapon_type2}}.[[name]])',
+            'category_key' => 'MAX({{weapon_category2}}.[[key]])',
+            'category_name' => 'MAX({{weapon_category2}}.[[name]])',
+            'count' => 'SUM({{stat_weapon2_use_count}}.[[battles]])',
+            'avg_kill' => sprintf(
                 '(%s / NULLIF(%s, 0))',
                 'SUM({{stat_weapon2_use_count}}.[[kills]])',
                 'SUM({{stat_weapon2_use_count}}.[[kd_available]])',
             ),
-            'sum_kill'          => 'SUM({{stat_weapon2_use_count}}.[[kills]])',
-            'kill_per_min'      => sprintf(
+            'sum_kill' => 'SUM({{stat_weapon2_use_count}}.[[kills]])',
+            'kill_per_min' => sprintf(
                 '(%s * 60.0 / NULLIF(%s, 0))',
                 'SUM({{stat_weapon2_use_count}}.[[kills_with_time]])',
                 'SUM({{stat_weapon2_use_count}}.[[kd_time_seconds]])',
             ),
-            'avg_death'         => sprintf(
+            'avg_death' => sprintf(
                 '(%s / NULLIF(%s, 0))',
                 'SUM({{stat_weapon2_use_count}}.[[deaths]])',
                 'SUM({{stat_weapon2_use_count}}.[[kd_available]])',
             ),
-            'sum_death'         => 'SUM({{stat_weapon2_use_count}}.[[deaths]])',
-            'death_per_min'     => sprintf(
+            'sum_death' => 'SUM({{stat_weapon2_use_count}}.[[deaths]])',
+            'death_per_min' => sprintf(
                 '(%s * 60.0 / NULLIF(%s, 0))',
                 'SUM({{stat_weapon2_use_count}}.[[deaths_with_time]])',
                 'SUM({{stat_weapon2_use_count}}.[[kd_time_seconds]])',
             ),
-            'avg_special'       => sprintf(
+            'avg_special' => sprintf(
                 '(%s / NULLIF(%s, 0))',
                 'SUM({{stat_weapon2_use_count}}.[[specials]])',
                 'SUM({{stat_weapon2_use_count}}.[[specials_available]])',
             ),
-            'sum_special'       => 'SUM({{stat_weapon2_use_count}}.[[specials]])',
-            'special_per_min'   => sprintf(
+            'sum_special' => 'SUM({{stat_weapon2_use_count}}.[[specials]])',
+            'special_per_min' => sprintf(
                 '(%s * 60.0 / NULLIF(%s, 0))',
                 'SUM({{stat_weapon2_use_count}}.[[specials_with_time]])',
                 'SUM({{stat_weapon2_use_count}}.[[specials_time_seconds]])',
             ),
-            'avg_inked'         => sprintf(
+            'avg_inked' => sprintf(
                 '(%s / NULLIF(%s, 0))',
                 'SUM({{stat_weapon2_use_count}}.[[inked]])',
                 'SUM({{stat_weapon2_use_count}}.[[inked_available]])',
             ),
-            'sum_inked'         => 'SUM({{stat_weapon2_use_count}}.[[inked]])',
-            'inked_per_min'     => sprintf(
+            'sum_inked' => 'SUM({{stat_weapon2_use_count}}.[[inked]])',
+            'inked_per_min' => sprintf(
                 '(%s * 60.0 / NULLIF(%s, 0))',
                 'SUM({{stat_weapon2_use_count}}.[[inked_with_time]])',
                 'SUM({{stat_weapon2_use_count}}.[[inked_time_seconds]])',
             ),
-            'wp'                => sprintf(
+            'wp' => sprintf(
                 '(%s * 100.0 / NULLIF(%s, 0))',
                 'SUM({{stat_weapon2_use_count}}.[[wins]])',
                 'SUM({{stat_weapon2_use_count}}.[[battles]])',
             ),
-            'win_count'         => 'SUM({{stat_weapon2_use_count}}.[[wins]])',
+            'win_count' => 'SUM({{stat_weapon2_use_count}}.[[wins]])',
         ];
         $query = StatWeapon2UseCount::find()
             ->select($columns)
@@ -324,27 +324,27 @@ class Weapons2Action extends BaseAction
             function ($model) use (&$totalPlayers) {
                 $totalPlayers += $model['count'];
                 return (object)[
-                    'key'       => $model['weapon_key'],
-                    'name'      => Yii::t('app-weapon2', $model['weapon_name']),
+                    'key' => $model['weapon_key'],
+                    'name' => Yii::t('app-weapon2', $model['weapon_name']),
                     'subweapon' => (object)[
-                        'key'   => $model['subweapon_key'],
-                        'name'  => Yii::t('app-subweapon2', $model['subweapon_name']),
+                        'key' => $model['subweapon_key'],
+                        'name' => Yii::t('app-subweapon2', $model['subweapon_name']),
                     ],
-                    'special'   => (object)[
-                        'key'   => $model['special_key'],
-                        'name'  => Yii::t('app-special2', $model['special_name']),
+                    'special' => (object)[
+                        'key' => $model['special_key'],
+                        'name' => Yii::t('app-special2', $model['special_name']),
                     ],
-                    'type'   => (object)[
-                        'key'   => $model['type_key'],
-                        'name'  => Yii::t('app-weapon2', $model['type_name']),
+                    'type' => (object)[
+                        'key' => $model['type_key'],
+                        'name' => Yii::t('app-weapon2', $model['type_name']),
                     ],
-                    'category'   => (object)[
-                        'key'   => $model['category_key'],
-                        'name'  => Yii::t('app-weapon2', $model['category_name']),
+                    'category' => (object)[
+                        'key' => $model['category_key'],
+                        'name' => Yii::t('app-weapon2', $model['category_name']),
                     ],
-                    'count'     => (int)$model['count'],
-                    'avg_kill'  => (float)$model['avg_kill'],
-                    'sum_kill'  => (int)$model['sum_kill'],
+                    'count' => (int)$model['count'],
+                    'avg_kill' => (float)$model['avg_kill'],
+                    'sum_kill' => (int)$model['sum_kill'],
                     'kill_per_min' => (float)$model['kill_per_min'],
                     'avg_death' => (float)$model['avg_death'],
                     'sum_death' => (int)$model['sum_death'],
@@ -352,7 +352,7 @@ class Weapons2Action extends BaseAction
                     'kill_ratio' => $model['avg_death'] == 0
                         ? ($model['avg_kill'] == 0 ? null : 99.99)
                         : $model['avg_kill'] / $model['avg_death'],
-                    'wp'        => (float)$model['wp'],
+                    'wp' => (float)$model['wp'],
                     'win_count' => (int)$model['win_count'],
                     'avg_inked' => (float)$model['avg_inked'],
                     'inked_per_min' => (float)$model['inked_per_min'],
@@ -405,32 +405,32 @@ class Weapons2Action extends BaseAction
         $ret = [];
         foreach ($subs as $sub) {
             $ret[$sub->key] = (object)[
-                'name'      => Yii::t('app-subweapon2', $sub->name),
-                'key'       => $sub->key,
-                'count'     => 0,
-                'sum_kill'  => 0,
+                'name' => Yii::t('app-subweapon2', $sub->name),
+                'key' => $sub->key,
+                'count' => 0,
+                'sum_kill' => 0,
                 'sum_death' => 0,
                 'sum_special' => 0,
                 'win_count' => 0,
-                'avg_kill'  => null,
+                'avg_kill' => null,
                 'avg_death' => null,
                 'avg_special' => null,
-                'wp'        => null,
+                'wp' => null,
                 'encounter_3' => null,
                 'encounter_4' => null,
             ];
         }
         foreach ($in->weapons as $weapon) {
             $o = $ret[$weapon->subweapon->key];
-            $o->count     += $weapon->count;
-            $o->sum_kill  += $weapon->sum_kill;
+            $o->count += $weapon->count;
+            $o->sum_kill += $weapon->sum_kill;
             $o->sum_death += $weapon->sum_death;
             $o->sum_special += $weapon->sum_special;
             $o->win_count += $weapon->win_count;
         }
         foreach ($ret as $o) {
             if ($o->count > 0) {
-                $o->avg_kill  = $o->sum_kill / $o->count;
+                $o->avg_kill = $o->sum_kill / $o->count;
                 $o->avg_death = $o->sum_death / $o->count;
                 $o->avg_special = $o->sum_special / $o->count;
                 $o->wp = $o->win_count * 100 / $o->count;
@@ -463,17 +463,17 @@ class Weapons2Action extends BaseAction
         $ret = [];
         foreach ($specials as $spe) {
             $ret[$spe->key] = (object)[
-                'name'      => Yii::t('app-special2', $spe->name),
-                'key'       => $spe->key,
-                'count'     => 0,
-                'sum_kill'  => 0,
+                'name' => Yii::t('app-special2', $spe->name),
+                'key' => $spe->key,
+                'count' => 0,
+                'sum_kill' => 0,
                 'sum_death' => 0,
                 'sum_special' => 0,
                 'win_count' => 0,
-                'avg_kill'  => null,
+                'avg_kill' => null,
                 'avg_death' => null,
                 'avg_special' => null,
-                'wp'        => null,
+                'wp' => null,
                 'encounter_3' => null,
                 'encounter_4' => null,
                 'kill_ratio' => null,
@@ -481,15 +481,15 @@ class Weapons2Action extends BaseAction
         }
         foreach ($in->weapons as $weapon) {
             $o = $ret[$weapon->special->key];
-            $o->count     += $weapon->count;
-            $o->sum_kill  += $weapon->sum_kill;
+            $o->count += $weapon->count;
+            $o->sum_kill += $weapon->sum_kill;
             $o->sum_death += $weapon->sum_death;
             $o->sum_special += $weapon->sum_special;
             $o->win_count += $weapon->win_count;
         }
         foreach ($ret as $o) {
             if ($o->count > 0) {
-                $o->avg_kill  = $o->sum_kill / $o->count;
+                $o->avg_kill = $o->sum_kill / $o->count;
                 $o->avg_death = $o->sum_death / $o->count;
                 $o->avg_special = $o->sum_special / $o->count;
                 $o->wp = $o->win_count * 100 / $o->count;

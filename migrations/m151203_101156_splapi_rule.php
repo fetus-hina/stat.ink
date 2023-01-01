@@ -20,9 +20,9 @@ class m151203_101156_splapi_rule extends Migration
 
         // 今後表記揺れが発生する可能性がある(ないけど)ので rule_id を PKEY にはしない
         $this->createTable('splapi_rule', [
-            'id'        => $this->primaryKey(),
-            'rule_id'   => $this->integer()->notNull(),
-            'name'      => $this->string(32)->notNull()->unique(),
+            'id' => $this->primaryKey(),
+            'rule_id' => $this->integer()->notNull(),
+            'name' => $this->string(32)->notNull()->unique(),
         ]);
         $this->addForeignKey('fk_splapi_rule_1', 'splapi_rule', 'rule_id', 'rule', 'id');
 
@@ -31,9 +31,9 @@ class m151203_101156_splapi_rule extends Migration
             ['rule_id', 'name'],
             [
                 [ $rule['nawabari'], 'ナワバリバトル' ],
-                [ $rule['area'],     'ガチエリア' ],
-                [ $rule['yagura'],   'ガチヤグラ' ],
-                [ $rule['hoko'],     'ガチホコ' ],
+                [ $rule['area'], 'ガチエリア' ],
+                [ $rule['yagura'], 'ガチヤグラ' ],
+                [ $rule['hoko'], 'ガチホコ' ],
             ],
         );
     }

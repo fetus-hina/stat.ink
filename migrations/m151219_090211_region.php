@@ -13,9 +13,9 @@ class m151219_090211_region extends Migration
     public function up()
     {
         $this->createTable('region', [
-            'id'    => $this->primaryKey(),
-            'key'   => 'CHAR(2) NOT NULL UNIQUE',
-            'name'  => 'VARCHAR(64) NOT NULL',
+            'id' => $this->primaryKey(),
+            'key' => 'CHAR(2) NOT NULL UNIQUE',
+            'name' => 'VARCHAR(64) NOT NULL',
         ]);
         $this->batchInsert('region', ['key', 'name'], [
             [ 'jp', 'Japan' ],

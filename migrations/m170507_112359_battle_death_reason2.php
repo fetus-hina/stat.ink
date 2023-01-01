@@ -15,7 +15,7 @@ class m170507_112359_battle_death_reason2 extends Migration
         $this->createTable('battle_death_reason2', [
             'battle_id' => $this->pkRef('battle2'),
             'reason_id' => $this->pkRef('death_reason2'),
-            'count'     => $this->integer()->notNull(),
+            'count' => $this->integer()->notNull(),
             'PRIMARY KEY([[battle_id]], [[reason_id]])',
         ]);
     }

@@ -13,9 +13,9 @@ class m160724_122248_lang_charset extends Migration
     public function up()
     {
         $this->createTable('language_charset', [
-            'language_id'   => $this->integer()->notNull(),
-            'charset_id'    => $this->integer()->notNull(),
-            'is_win_acp'    => $this->boolean()->notNull(),
+            'language_id' => $this->integer()->notNull(),
+            'charset_id' => $this->integer()->notNull(),
+            'is_win_acp' => $this->boolean()->notNull(),
         ]);
         $this->addPrimaryKey('pk_language_charset', 'language_charset', ['language_id', 'charset_id']);
         $this->addForeignKey('fk_language_charset_1', 'language_charset', 'language_id', 'language', 'id');

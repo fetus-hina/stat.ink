@@ -13,10 +13,10 @@ class m171016_120902_knockout2 extends Migration
     public function up()
     {
         $this->createTable('knockout2', [
-            'rule_id'   => $this->pkRef('rule2'),
-            'map_id'    => $this->pkRef('map2'),
-            'rank_id'   => $this->pkRef('rank2'),
-            'battles'   => $this->bigInteger()->notNull(),
+            'rule_id' => $this->pkRef('rule2'),
+            'map_id' => $this->pkRef('map2'),
+            'rank_id' => $this->pkRef('rank2'),
+            'battles' => $this->bigInteger()->notNull(),
             'knockouts' => $this->bigInteger()->notNull(),
             'avg_game_time' => $this->double()->notNull(),
             'avg_knockout_time' => $this->double()->notNull(),

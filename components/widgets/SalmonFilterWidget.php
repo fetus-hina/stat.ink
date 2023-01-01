@@ -118,7 +118,7 @@ class SalmonFilterWidget extends Widget
     protected function renderResultField(ActiveForm $form): string
     {
         $list = [
-            'cleared'   => Yii::t('app-salmon2', 'Cleared'),
+            'cleared' => Yii::t('app-salmon2', 'Cleared'),
             'failed' => Yii::t('app-salmon2', 'Failed'),
             'failed-wave3' => Yii::t('app-salmon2', 'Failed in wave {waveNumber}', [
                 'waveNumber' => 3,

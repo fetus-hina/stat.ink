@@ -448,7 +448,7 @@ class UserStat2 extends ActiveRecord
                     'ELSE {{battle2}}.[[death]]',
                     ],
                 ))),
-                'turf_have_inked'  => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
+                'turf_have_inked' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
                     $excludeNonTurfWar,
                     $excludeHaventInked,
@@ -456,7 +456,7 @@ class UserStat2 extends ActiveRecord
                     'ELSE 1',
                     ],
                 ))),
-                'turf_total_inked'  => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
+                'turf_total_inked' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
                     $excludeNonTurfWar,
                     $excludeHaventInked,
@@ -465,7 +465,7 @@ class UserStat2 extends ActiveRecord
                     'ELSE {{battle2}}.[[my_point]]',
                     ],
                 ))),
-                'turf_max_inked'  => sprintf('MAX(CASE %s END)', implode(' ', array_merge(
+                'turf_max_inked' => sprintf('MAX(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
                     $excludeNonTurfWar,
                     $excludeHaventInked,

@@ -28,10 +28,10 @@ abstract class BaseAction extends ViewAction
         $req = Yii::$app->request;
         $config = DynamicModel::validateData(
             [
-                'lang'      => $req->get('lang'),
-                'charset'   => $req->get('charset'),
-                'bom'       => $req->get('bom'),
-                'tsv'       => $req->get('tsv'),
+                'lang' => $req->get('lang'),
+                'charset' => $req->get('charset'),
+                'bom' => $req->get('bom'),
+                'tsv' => $req->get('tsv'),
             ],
             [
                 [['lang', 'charset'], 'string'],

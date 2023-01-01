@@ -77,11 +77,11 @@ class GearAction extends BaseAction
             'text/csv; charset=UTF-8',
         );
         return [
-            'separator'     => ',',
-            'inputCharset'  => Yii::$app->charset,
+            'separator' => ',',
+            'inputCharset' => Yii::$app->charset,
             'outputCharset' => 'UTF-8',
-            'appendBOM'     => true,
-            'rows'          => $this->formatCsvRows($query),
+            'appendBOM' => true,
+            'rows' => $this->formatCsvRows($query),
         ];
     }
 

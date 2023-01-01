@@ -87,8 +87,8 @@ class KDWinTable extends Widget
                     ),
                     implode('', array_map(
                         fn (int $k): string => KDWinCell::widget([
-                                'battles'   => (int)($this->data[$k][$d]['battle'] ?? 0),
-                                'win'       => (int)($this->data[$k][$d]['win'] ?? 0),
+                                'battles' => (int)($this->data[$k][$d]['battle'] ?? 0),
+                                'win' => (int)($this->data[$k][$d]['win'] ?? 0),
                                 'formatter' => $this->formatter,
                             ]),
                         range(0, $this->limit),

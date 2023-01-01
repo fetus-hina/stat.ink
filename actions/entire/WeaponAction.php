@@ -99,10 +99,10 @@ final class WeaponAction extends Action
             ->asArray()
             ->all();
         return array_map(fn ($a) => [
-                'kill'   => (int)$a['kill'],
-                'death'  => (int)$a['death'],
+                'kill' => (int)$a['kill'],
+                'death' => (int)$a['death'],
                 'battle' => (int)$a['battle'],
-                'win'    => (int)$a['win'],
+                'win' => (int)$a['win'],
             ], $tmp);
     }
 
@@ -144,9 +144,9 @@ final class WeaponAction extends Action
         $map = Map::tableName();
         $query = (new Query())
             ->select([
-                'map'       => "MAX({{{$map}}}.[[key]])",
-                'battle'    => "SUM({{{$table}}}.[[battle_count]])",
-                'win'       => "SUM({{{$table}}}.[[win_count]])",
+                'map' => "MAX({{{$map}}}.[[key]])",
+                'battle' => "SUM({{{$table}}}.[[battle_count]])",
+                'win' => "SUM({{{$table}}}.[[win_count]])",
             ])
             ->from($table)
             ->innerJoin($map, "{{{$table}}}.[[map_id]] = {{{$map}}}.[[id]]")
@@ -172,11 +172,11 @@ final class WeaponAction extends Action
         $weaponId = (int)$this->weapon->id;
         $query = (new Query())
             ->select([
-                'isoyear'       => 'isoyear',
-                'isoweek'       => 'isoweek',
-                'all_battles'   => 'SUM([[battles]])',
-                'battles'       => "SUM(CASE WHEN [[weapon_id]] = {$weaponId} THEN [[battles]] ELSE 0 END)",
-                'wins'          => "SUM(CASE WHEN [[weapon_id]] = {$weaponId} THEN [[wins]] ELSE 0 END)",
+                'isoyear' => 'isoyear',
+                'isoweek' => 'isoweek',
+                'all_battles' => 'SUM([[battles]])',
+                'battles' => "SUM(CASE WHEN [[weapon_id]] = {$weaponId} THEN [[battles]] ELSE 0 END)",
+                'wins' => "SUM(CASE WHEN [[weapon_id]] = {$weaponId} THEN [[wins]] ELSE 0 END)",
             ])
             ->from('stat_weapon_use_count_per_week')
             ->where(['and',
@@ -195,10 +195,10 @@ final class WeaponAction extends Action
             ->orderBy('isoyear, isoweek');
         return array_map(
             fn (array $row): array => [
-                    'date'      => date('Y-m-d', strtotime(sprintf('%04d-W%02d', $row['isoyear'], $row['isoweek']))),
-                    'battles'   => (int)$row['all_battles'],
-                    'use_pct'   => $row['battles'] / $row['all_battles'] * 100,
-                    'win_pct'   => $row['battles'] > 0 ? $row['wins'] / $row['battles'] * 100 : 0,
+                    'date' => date('Y-m-d', strtotime(sprintf('%04d-W%02d', $row['isoyear'], $row['isoweek']))),
+                    'battles' => (int)$row['all_battles'],
+                    'use_pct' => $row['battles'] / $row['all_battles'] * 100,
+                    'win_pct' => $row['battles'] > 0 ? $row['wins'] / $row['battles'] * 100 : 0,
                 ],
             $query->createCommand()->queryAll(),
         );

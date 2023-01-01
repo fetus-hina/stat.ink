@@ -13,8 +13,8 @@ class m170822_091213_stage2 extends Migration
     public function safeUp()
     {
         $this->insert('map2', [
-            'key'        => 'manta',
-            'name'       => 'Manta Maria',
+            'key' => 'manta',
+            'name' => 'Manta Maria',
             'short_name' => 'Manta',
             'release_at' => '2017-08-26T00:00:00+09',
         ]);

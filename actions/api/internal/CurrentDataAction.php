@@ -68,9 +68,9 @@ class CurrentDataAction extends ViewAction
                 'id' => $period,
                 'next' => max($range[1] - $now, 0), // in sec
             ],
-            'fest'    => false,
+            'fest' => false,
             'regular' => $info(PeriodMap::findCurrentRegular()->all()),
-            'gachi'   => $info(PeriodMap::findCurrentGachi()->all()),
+            'gachi' => $info(PeriodMap::findCurrentGachi()->all()),
         ];
     }
 

@@ -14,23 +14,23 @@ class m151007_123045_death_reason extends Migration
     public function up()
     {
         $this->createTable('death_reason_type', [
-            'id'    => $this->primaryKey(),
-            'key'   => $this->string(32)->notNull()->unique(),
-            'name'  => $this->string(32)->notNull()->unique(),
+            'id' => $this->primaryKey(),
+            'key' => $this->string(32)->notNull()->unique(),
+            'name' => $this->string(32)->notNull()->unique(),
         ]);
         $this->batchInsert('death_reason_type', ['key', 'name'], [
-            [ 'main',       'Main Weapon' ],
-            [ 'sub',        'Sub Weapon' ],
-            [ 'special',    'Special' ],
-            [ 'suicide',    'Out of Bounds' ],
-            [ 'hoko',       'Rainmaker' ],
+            [ 'main', 'Main Weapon' ],
+            [ 'sub', 'Sub Weapon' ],
+            [ 'special', 'Special' ],
+            [ 'suicide', 'Out of Bounds' ],
+            [ 'hoko', 'Rainmaker' ],
         ]);
 
         $this->createTable('death_reason', [
-            'id'        => $this->primaryKey(),
-            'type_id'   => $this->integer(),
-            'key'       => $this->string(32)->notNull()->unique(),
-            'name'      => $this->string(64)->notNull()->unique(),
+            'id' => $this->primaryKey(),
+            'type_id' => $this->integer(),
+            'key' => $this->string(32)->notNull()->unique(),
+            'name' => $this->string(64)->notNull()->unique(),
         ]);
         $this->addForeignKey('fk_death_reson_1', 'death_reason', 'type_id', 'death_reason_type', 'id');
 

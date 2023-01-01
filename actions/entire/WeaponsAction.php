@@ -185,27 +185,27 @@ class WeaponsAction extends ViewAction
                     $kr = $model->total_kill / $model->total_death;
                 }
                 return (object)[
-                    'key'       => $model->weapon->key,
-                    'name'      => Yii::t('app-weapon', $model->weapon->name),
+                    'key' => $model->weapon->key,
+                    'name' => Yii::t('app-weapon', $model->weapon->name),
                     'subweapon' => (object)[
-                        'key'   => $model->weapon->subweapon->key,
-                        'name'  => Yii::t('app-subweapon', $model->weapon->subweapon->name),
+                        'key' => $model->weapon->subweapon->key,
+                        'name' => Yii::t('app-subweapon', $model->weapon->subweapon->name),
                     ],
-                    'special'   => (object)[
-                        'key'   => $model->weapon->special->key,
-                        'name'  => Yii::t('app-special', $model->weapon->special->name),
+                    'special' => (object)[
+                        'key' => $model->weapon->special->key,
+                        'name' => Yii::t('app-special', $model->weapon->special->name),
                     ],
-                    'count'     => (int)$model->players,
-                    'avg_kill'  => $model->players > 0
+                    'count' => (int)$model->players,
+                    'avg_kill' => $model->players > 0
                         ? $model->total_kill / $model->players
                         : null,
-                    'sum_kill'  => $model->total_kill,
+                    'sum_kill' => $model->total_kill,
                     'avg_death' => $model->players > 0
                         ? $model->total_death / $model->players
                         : null,
                     'sum_death' => $model->total_death,
                     'kr' => $kr,
-                    'wp'        => $model->players > 0
+                    'wp' => $model->players > 0
                         ? $model->win_count / $model->players
                         : null,
                     'win_count' => $model->win_count,
@@ -294,29 +294,29 @@ class WeaponsAction extends ViewAction
         $ret = [];
         foreach (Subweapon::find()->all() as $sub) {
             $ret[$sub->key] = (object)[
-                'name'      => Yii::t('app-subweapon', $sub->name),
-                'count'     => 0,
-                'sum_kill'  => 0,
+                'name' => Yii::t('app-subweapon', $sub->name),
+                'count' => 0,
+                'sum_kill' => 0,
                 'sum_death' => 0,
                 'win_count' => 0,
-                'avg_kill'  => null,
+                'avg_kill' => null,
                 'avg_death' => null,
-                'kr'        => null,
-                'wp'        => null,
+                'kr' => null,
+                'wp' => null,
                 'encounter_3' => null,
                 'encounter_4' => null,
             ];
         }
         foreach ($in->weapons as $weapon) {
             $o = $ret[$weapon->subweapon->key];
-            $o->count     += $weapon->count;
-            $o->sum_kill  += $weapon->sum_kill;
+            $o->count += $weapon->count;
+            $o->sum_kill += $weapon->sum_kill;
             $o->sum_death += $weapon->sum_death;
             $o->win_count += $weapon->win_count;
         }
         foreach ($ret as $o) {
             if ($o->count > 0) {
-                $o->avg_kill  = $o->sum_kill / $o->count;
+                $o->avg_kill = $o->sum_kill / $o->count;
                 $o->avg_death = $o->sum_death / $o->count;
                 $o->wp = $o->win_count / $o->count;
                 $encounterRate = $o->count / $in->player_count;
@@ -351,29 +351,29 @@ class WeaponsAction extends ViewAction
         $ret = [];
         foreach (Special::find()->all() as $spe) {
             $ret[$spe->key] = (object)[
-                'name'      => Yii::t('app-special', $spe->name),
-                'count'     => 0,
-                'sum_kill'  => 0,
+                'name' => Yii::t('app-special', $spe->name),
+                'count' => 0,
+                'sum_kill' => 0,
                 'sum_death' => 0,
                 'win_count' => 0,
-                'avg_kill'  => null,
+                'avg_kill' => null,
                 'avg_death' => null,
-                'kr'        => null,
-                'wp'        => null,
+                'kr' => null,
+                'wp' => null,
                 'encounter_3' => null,
                 'encounter_4' => null,
             ];
         }
         foreach ($in->weapons as $weapon) {
             $o = $ret[$weapon->special->key];
-            $o->count     += $weapon->count;
-            $o->sum_kill  += $weapon->sum_kill;
+            $o->count += $weapon->count;
+            $o->sum_kill += $weapon->sum_kill;
             $o->sum_death += $weapon->sum_death;
             $o->win_count += $weapon->win_count;
         }
         foreach ($ret as $o) {
             if ($o->count > 0) {
-                $o->avg_kill  = $o->sum_kill / $o->count;
+                $o->avg_kill = $o->sum_kill / $o->count;
                 $o->avg_death = $o->sum_death / $o->count;
                 $o->wp = $o->win_count / $o->count;
                 $encounterRate = $o->count / $in->player_count;

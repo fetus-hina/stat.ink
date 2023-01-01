@@ -34,16 +34,16 @@ class UserDetailedStatsCell extends Widget
         UserDetailedStatsCellAsset::register($this->view);
 
         $map = [
-            'Win'           => $this->renderWin(),
-            'Lose'          => $this->renderLose(),
-            'Win %'         => $this->renderWinPct(),
-            'Kills'         => $this->renderKill(),
-            'Deaths'        => $this->renderDeath(),
-            'K/D'           => $this->renderKD(),
-            'Inked'         => $this->renderInked(),
-            'Max Inked'     => $this->renderMaxInked(),
-            'Kills/min'     => $this->renderKillPerMin(),
-            'Deaths/min'    => $this->renderDeathPerMin(),
+            'Win' => $this->renderWin(),
+            'Lose' => $this->renderLose(),
+            'Win %' => $this->renderWinPct(),
+            'Kills' => $this->renderKill(),
+            'Deaths' => $this->renderDeath(),
+            'K/D' => $this->renderKD(),
+            'Inked' => $this->renderInked(),
+            'Max Inked' => $this->renderMaxInked(),
+            'Kills/min' => $this->renderKillPerMin(),
+            'Deaths/min' => $this->renderDeathPerMin(),
         ];
 
         return implode('<br>', array_filter(array_map(

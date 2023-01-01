@@ -14,8 +14,8 @@ class m170709_184454_mode2_fest extends Migration
     public function safeUp()
     {
         $this->insert('mode2', [
-            'key'   => 'fest',
-            'name'  => 'Splatfest',
+            'key' => 'fest',
+            'name' => 'Splatfest',
         ]);
         $this->insert('mode_rule2', [
             'mode_id' => (new Query())

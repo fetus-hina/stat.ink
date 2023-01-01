@@ -78,9 +78,9 @@ final class CurrentData2Action extends Action
                 'id' => $period,
                 'next' => max($range[1] - $now, 0), // in sec
             ],
-            'fest'    => $fest,
+            'fest' => $fest,
             'regular' => false, // $info(PeriodMap::findCurrentRegular()->all()),
-            'gachi'   => false, // $info(PeriodMap::findCurrentGachi()->all()),
+            'gachi' => false, // $info(PeriodMap::findCurrentGachi()->all()),
         ];
     }
 

@@ -87,9 +87,9 @@ class CombinedAgentAction extends BaseAction
         $ret = [];
         foreach ($query->all() as $a) {
             $ret[$a['date']] = [
-                'date'      => $a['date'],
-                'battle'    => (int)$a['battle_count'],
-                'user'      => (int)$a['user_count'],
+                'date' => $a['date'],
+                'battle' => (int)$a['battle_count'],
+                'user' => (int)$a['user_count'],
             ];
         }
 
@@ -104,9 +104,9 @@ class CombinedAgentAction extends BaseAction
                 $d = $min->format('Y-m-d');
                 if (!isset($ret[$d])) {
                     $ret[$d] = [
-                        'date'      => $d,
-                        'battle'    => 0,
-                        'user'      => 0,
+                        'date' => $d,
+                        'battle' => 0,
+                        'user' => 0,
                     ];
                 }
             }

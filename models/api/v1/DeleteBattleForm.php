@@ -109,7 +109,7 @@ class DeleteBattleForm extends Model
             $battle = Battle::findOne(['id' => (int)(string)$id]);
             if (!$battle) {
                 $this->errorIdList[] = [
-                    'id'    => $id,
+                    'id' => $id,
                     'error' => 'not found',
                 ];
                 continue;
@@ -117,7 +117,7 @@ class DeleteBattleForm extends Model
 
             if ($battle->user_id != $user->id) {
                 $this->errorIdList[] = [
-                    'id'    => $id,
+                    'id' => $id,
                     'error' => 'user not match',
                 ];
                 continue;
@@ -125,7 +125,7 @@ class DeleteBattleForm extends Model
 
             if ($battle->is_automated) {
                 $this->errorIdList[] = [
-                    'id'    => $id,
+                    'id' => $id,
                     'error' => 'automated result',
                 ];
                 continue;
@@ -136,7 +136,7 @@ class DeleteBattleForm extends Model
             }
 
             $this->deletedIdList[] = [
-                'id'    => $id,
+                'id' => $id,
                 'error' => null,
             ];
         }

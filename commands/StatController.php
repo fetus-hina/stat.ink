@@ -200,11 +200,11 @@ final class StatController extends Controller
         ]);
 
         $query->select([
-            'rule_id'       => '{{battle}}.[[rule_id]]',
-            'weapon_id'     => '{{battle_player}}.[[weapon_id]]',
-            'players'       => 'COUNT(*)',
-            'total_kill'    => 'SUM({{battle_player}}.[[kill]])',
-            'total_death'   => 'SUM({{battle_player}}.[[death]])',
+            'rule_id' => '{{battle}}.[[rule_id]]',
+            'weapon_id' => '{{battle_player}}.[[weapon_id]]',
+            'players' => 'COUNT(*)',
+            'total_kill' => 'SUM({{battle_player}}.[[kill]])',
+            'total_death' => 'SUM({{battle_player}}.[[death]])',
             'win_count' => sprintf(
                 'SUM(CASE %s END)',
                 implode(' ', [
@@ -258,11 +258,11 @@ final class StatController extends Controller
         return (new \yii\db\Query())
             ->select([
                 'weapon_id' => '{{p}}.[[weapon_id]]',
-                'rule_id'   => '{{b}}.[[rule_id]]',
-                'kill'      => '{{p}}.[[kill]]',
-                'death'     => '{{p}}.[[death]]',
-                'battle'    => 'COUNT(*)',
-                'win'       => sprintf(
+                'rule_id' => '{{b}}.[[rule_id]]',
+                'kill' => '{{p}}.[[kill]]',
+                'death' => '{{p}}.[[death]]',
+                'battle' => 'COUNT(*)',
+                'win' => sprintf(
                     'SUM(CASE %s END)',
                     implode(' ', [
                         'WHEN {{b}}.[[is_win]] = TRUE AND {{p}}.[[is_my_team]] = TRUE THEN 1',
@@ -327,9 +327,9 @@ final class StatController extends Controller
                         ],
                     (new \yii\db\Query())
                         ->select([
-                            'date'          => '{{battle}}.[[at]]::date',
-                            'battle_count'  => 'COUNT({{battle}}.*)',
-                            'user_count'    => 'COUNT(DISTINCT {{battle}}.[[user_id]])',
+                            'date' => '{{battle}}.[[at]]::date',
+                            'battle_count' => 'COUNT({{battle}}.*)',
+                            'user_count' => 'COUNT(DISTINCT {{battle}}.[[user_id]])',
                         ])
                         ->from('battle')
                         ->andWhere(['<', '{{battle}}.[[at]]', $today->format(\DateTime::ATOM)])
@@ -411,10 +411,10 @@ final class StatController extends Controller
                 ],
             (new \yii\db\Query())
                 ->select([
-                    'agent'         => '{{agent}}.[[name]]',
-                    'date'          => '{{battle}}.[[at]]::date',
-                    'battle_count'  => 'COUNT({{battle}}.*)',
-                    'user_count'    => 'COUNT(DISTINCT {{battle}}.[[user_id]])',
+                    'agent' => '{{agent}}.[[name]]',
+                    'date' => '{{battle}}.[[at]]::date',
+                    'battle_count' => 'COUNT({{battle}}.*)',
+                    'user_count' => 'COUNT(DISTINCT {{battle}}.[[user_id]])',
                 ])
                 ->from('battle')
                 ->innerJoin('agent', '{{battle}}.[[agent_id]] = {{agent}}.[[id]]')
@@ -526,10 +526,10 @@ final class StatController extends Controller
                         ],
                     (new \yii\db\Query())
                         ->select([
-                            'map_id'        => '{{battle}}.[[map_id]]',
-                            'rule_id'       => '{{battle}}.[[rule_id]]',
-                            'battles'       => 'COUNT({{battle}}.*)',
-                            'knockouts'     => 'SUM(CASE WHEN {{battle}}.[[is_knock_out]] THEN 1 ELSE 0 END)',
+                            'map_id' => '{{battle}}.[[map_id]]',
+                            'rule_id' => '{{battle}}.[[rule_id]]',
+                            'battles' => 'COUNT({{battle}}.*)',
+                            'knockouts' => 'SUM(CASE WHEN {{battle}}.[[is_knock_out]] THEN 1 ELSE 0 END)',
                         ])
                         ->from('battle')
                         ->innerJoin('rule', '{{battle}}.[[rule_id]] = {{rule}}.[[id]]')
@@ -645,13 +645,13 @@ final class StatController extends Controller
 
         $select = (new \yii\db\Query())
             ->select([
-                'rule_id'       => '{{b}}.[[rule_id]]',
-                'map_id'        => '{{b}}.[[map_id]]',
-                'weapon_id'     => '{{p}}.[[weapon_id]]',
-                'kill'          => '{{p}}.[[kill]]',
-                'death'         => '{{p}}.[[death]]',
-                'battle_count'  => 'COUNT(*)',
-                'win_count'     => 'SUM(CASE WHEN {{b}}.[[is_win]] = {{p}}.[[is_my_team]] THEN 1 ELSE 0 END)',
+                'rule_id' => '{{b}}.[[rule_id]]',
+                'map_id' => '{{b}}.[[map_id]]',
+                'weapon_id' => '{{p}}.[[weapon_id]]',
+                'kill' => '{{p}}.[[kill]]',
+                'death' => '{{p}}.[[death]]',
+                'battle_count' => 'COUNT(*)',
+                'win_count' => 'SUM(CASE WHEN {{b}}.[[is_win]] = {{p}}.[[is_my_team]] THEN 1 ELSE 0 END)',
             ])
             ->from('battle b')
             ->innerJoin('battle_player p', '{{b}}.[[id]] = {{p}}.[[battle_id]]')
@@ -760,12 +760,12 @@ final class StatController extends Controller
 
         $select = (new \yii\db\Query())
             ->select([
-                'version_id'    => '{{battle}}.[[version_id]]',
-                'rule_id'       => '{{battle}}.[[rule_id]]',
-                'weapon_id_1'   => '{{player_lhs}}.[[weapon_id]]',
-                'weapon_id_2'   => '{{player_rhs}}.[[weapon_id]]',
-                'battle_count'  => 'COUNT(*)',
-                'win_count'     => sprintf(
+                'version_id' => '{{battle}}.[[version_id]]',
+                'rule_id' => '{{battle}}.[[rule_id]]',
+                'weapon_id_1' => '{{player_lhs}}.[[weapon_id]]',
+                'weapon_id_2' => '{{player_rhs}}.[[weapon_id]]',
+                'battle_count' => 'COUNT(*)',
+                'win_count' => sprintf(
                     'SUM(%s)',
                     'CASE WHEN {{battle}}.[[is_win]] = {{player_lhs}}.[[is_my_team]] THEN 1 ELSE 0 END',
                 ),
@@ -838,11 +838,11 @@ final class StatController extends Controller
         $maxCreatedPeriod = (int)StatWeaponUseCount::find()->max('period');
         $select = (new \yii\db\Query())
             ->select([
-                'period'    => '{{battle}}.[[period]]',
-                'rule_id'   => '{{battle}}.[[rule_id]]',
+                'period' => '{{battle}}.[[period]]',
+                'rule_id' => '{{battle}}.[[rule_id]]',
                 'weapon_id' => '{{battle_player}}.[[weapon_id]]',
-                'battles'   => 'COUNT(*)',
-                'wins'      => sprintf('SUM(CASE %s END)', implode(' ', [
+                'battles' => 'COUNT(*)',
+                'wins' => sprintf('SUM(CASE %s END)', implode(' ', [
                     'WHEN {{battle}}.[[is_win]] = {{battle_player}}.[[is_my_team]] THEN 1',
                     'ELSE 0',
                 ])),
@@ -908,12 +908,12 @@ final class StatController extends Controller
         }
         $selectWeek = (new \yii\db\Query())
             ->select([
-                'isoyear'   => $isoYear,
-                'isoweek'   => $isoWeek,
-                'rule_id'   => '{{t}}.[[rule_id]]',
+                'isoyear' => $isoYear,
+                'isoweek' => $isoWeek,
+                'rule_id' => '{{t}}.[[rule_id]]',
                 'weapon_id' => '{{t}}.[[weapon_id]]',
-                'battles'   => 'SUM({{t}}.[[battles]])',
-                'wins'      => 'SUM({{t}}.[[wins]])',
+                'battles' => 'SUM({{t}}.[[battles]])',
+                'wins' => 'SUM({{t}}.[[wins]])',
             ])
             ->from('stat_weapon_use_count t')
             ->groupBy([
@@ -1049,7 +1049,7 @@ final class StatController extends Controller
                     'WHEN {{battle2}}.[[start_at]] >= {{battle2}}.[[end_at]] IS NULL THEN 0',
                     'ELSE {{battle_player2}}.[[special]]',
                 ])),
-                'specials_time_available'  => sprintf('SUM(CASE %s END)', implode(' ', [
+                'specials_time_available' => sprintf('SUM(CASE %s END)', implode(' ', [
                     'WHEN {{battle_player2}}.[[special]] IS NULL THEN 0',
                     'WHEN {{battle2}}.[[start_at]] IS NULL THEN 0',
                     'WHEN {{battle2}}.[[end_at]] IS NULL THEN 0',
@@ -1356,10 +1356,10 @@ final class StatController extends Controller
         $db = Yii::$app->db;
         $select = (new \yii\db\Query())
             ->select([
-                'rule_id'   => '{{battle}}.[[rule_id]]',
-                'map_id'    => '{{battle}}.[[map_id]]',
+                'rule_id' => '{{battle}}.[[rule_id]]',
+                'map_id' => '{{battle}}.[[map_id]]',
                 'weapon_id' => '{{battle_player}}.[[weapon_id]]',
-                'battles'   => 'COUNT(*)',
+                'battles' => 'COUNT(*)',
             ])
             ->from('battle')
             ->innerJoin('lobby', '{{battle}}.[[lobby_id]] = {{lobby}}.[[id]]')

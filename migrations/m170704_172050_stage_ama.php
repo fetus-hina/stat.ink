@@ -13,11 +13,11 @@ class m170704_172050_stage_ama extends Migration
     public function safeUp()
     {
         $this->insert('map2', [
-            'key'           => 'ama',
-            'name'          => 'Inkblot Art Academy',
-            'short_name'    => 'Academy',
-            'area'          => null,
-            'release_at'    => null,
+            'key' => 'ama',
+            'name' => 'Inkblot Art Academy',
+            'short_name' => 'Academy',
+            'area' => null,
+            'release_at' => null,
         ]);
     }
 

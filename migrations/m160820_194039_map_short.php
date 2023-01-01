@@ -13,22 +13,22 @@ class m160820_194039_map_short extends Migration
     public function up()
     {
         $data = [
-            'arowana'   => 'Mall',
-            'bbass'     => 'Skatepark',
-            'shionome'  => 'Rig',
-            'dekaline'  => 'Underpass',
-            'hakofugu'  => 'Warehouse',
-            'hokke'     => 'Port',
-            'mozuku'    => 'Dome',
-            'negitoro'  => 'Depot',
-            'tachiuo'   => 'Towers',
-            'mongara'   => 'Camp',
-            'hirame'    => 'Heights',
-            'masaba'    => 'Bridge',
-            'kinmedai'  => 'Museum',
-            'mahimahi'  => 'Mahi-Mahi',
+            'arowana' => 'Mall',
+            'bbass' => 'Skatepark',
+            'shionome' => 'Rig',
+            'dekaline' => 'Underpass',
+            'hakofugu' => 'Warehouse',
+            'hokke' => 'Port',
+            'mozuku' => 'Dome',
+            'negitoro' => 'Depot',
+            'tachiuo' => 'Towers',
+            'mongara' => 'Camp',
+            'hirame' => 'Heights',
+            'masaba' => 'Bridge',
+            'kinmedai' => 'Museum',
+            'mahimahi' => 'Mahi-Mahi',
             'shottsuru' => 'Pit',
-            'anchovy'   => 'Ancho-V',
+            'anchovy' => 'Ancho-V',
         ];
 
         $this->execute('ALTER TABLE {{map}} ADD COLUMN [[short_name]] VARCHAR(16)');

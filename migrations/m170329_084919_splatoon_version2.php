@@ -13,15 +13,15 @@ class m170329_084919_splatoon_version2 extends Migration
     public function up()
     {
         $this->createTable('splatoon_version2', [
-            'id'    => $this->primaryKey(),
-            'tag'   => $this->apiKey(),
-            'name'  => $this->string(32)->notNull(),
+            'id' => $this->primaryKey(),
+            'tag' => $this->apiKey(),
+            'name' => $this->string(32)->notNull(),
             'released_at' => $this->timestampTZ()->notNull(),
         ]);
         $this->insert('splatoon_version2', [
-            'tag'           => '0.0.1',
-            'name'          => 'Testfire',
-            'released_at'   => '2017-03-25 04:00:00+09',
+            'tag' => '0.0.1',
+            'name' => 'Testfire',
+            'released_at' => '2017-03-25 04:00:00+09',
         ]);
     }
 

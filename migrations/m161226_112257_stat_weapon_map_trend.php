@@ -13,10 +13,10 @@ class m161226_112257_stat_weapon_map_trend extends Migration
     public function up()
     {
         $this->createTable('stat_weapon_map_trend', [
-            'rule_id'   => 'INTEGER NOT NULL REFERENCES {{rule}}([[id]])',
-            'map_id'    => 'INTEGER NOT NULL REFERENCES {{map}}([[id]])',
+            'rule_id' => 'INTEGER NOT NULL REFERENCES {{rule}}([[id]])',
+            'map_id' => 'INTEGER NOT NULL REFERENCES {{map}}([[id]])',
             'weapon_id' => 'INTEGER NOT NULL REFERENCES {{weapon}}([[id]])',
-            'battles'   => 'BIGINT NOT NULL',
+            'battles' => 'BIGINT NOT NULL',
         ]);
         $this->addPrimaryKey('pk_stat_weapon_map_trend', 'stat_weapon_map_trend', ['rule_id', 'map_id', 'weapon_id']);
         $this->createIndex('ix_stat_weapon_map_trend_1', 'stat_weapon_map_trend', ['rule_id', 'map_id', 'battles']);

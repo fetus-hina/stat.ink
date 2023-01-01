@@ -104,12 +104,12 @@ class m170714_111746_weapon2 extends Migration
             ->scalar();
 
         $this->insert('weapon2', [
-            'key'           => 'sshooter_collabo',
-            'name'          => 'Tentatek Splattershot',
-            'type_id'       => $shooter,
-            'subweapon_id'  => $bomb,
-            'special_id'    => $jetpack,
-            'canonical_id'  => new Expression("currval('weapon2_id_seq'::regclass)"),
+            'key' => 'sshooter_collabo',
+            'name' => 'Tentatek Splattershot',
+            'type_id' => $shooter,
+            'subweapon_id' => $bomb,
+            'special_id' => $jetpack,
+            'canonical_id' => new Expression("currval('weapon2_id_seq'::regclass)"),
             'main_group_id' => $sshooter,
         ]);
 

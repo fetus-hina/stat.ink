@@ -58,16 +58,16 @@ class SecretController extends Controller
         ];
 
         $options = [
-            'class'     => \app\components\db\Connection::className(),
-            'dsn'       => $this->makeDsn('pgsql', $dsnOptions),
-            'username'  => 'statink',
-            'password'  => $password,
-            'charset'   => 'UTF-8',
+            'class' => \app\components\db\Connection::className(),
+            'dsn' => $this->makeDsn('pgsql', $dsnOptions),
+            'username' => 'statink',
+            'password' => $password,
+            'charset' => 'UTF-8',
             'enableSchemaCache' => true,
             'schemaCache' => 'schemaCache',
         ];
 
-        $file  = "<?php\n";
+        $file = "<?php\n";
         $file .= "return [\n";
         foreach ($options as $k => $v) {
             if (is_bool($v)) {

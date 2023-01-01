@@ -13,8 +13,8 @@ class m170507_093805_battle_events2 extends Migration
     public function up()
     {
         $this->createTable('battle_events2', [
-            'id'        => $this->bigPkRef('battle2'),
-            'events'    => $this->text()->notNull(),
+            'id' => $this->bigPkRef('battle2'),
+            'events' => $this->text()->notNull(),
         ]);
     }
 

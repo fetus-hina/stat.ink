@@ -45,13 +45,13 @@ class ApiV1Controller extends Controller
     {
         $prefix = 'app\actions\api\v1';
         return [
-            'battle'        => [ 'class' => $prefix . '\BattleAction' ],
-            'death-reason'  => [ 'class' => $prefix . '\DeathReasonAction' ],
-            'gear'          => [ 'class' => $prefix . '\GearAction' ],
-            'map'           => [ 'class' => $prefix . '\MapAction' ],
-            'rule'          => [ 'class' => $prefix . '\RuleAction' ],
-            'user'          => [ 'class' => $prefix . '\UserAction' ],
-            'weapon'        => [ 'class' => $prefix . '\WeaponAction' ],
+            'battle' => [ 'class' => $prefix . '\BattleAction' ],
+            'death-reason' => [ 'class' => $prefix . '\DeathReasonAction' ],
+            'gear' => [ 'class' => $prefix . '\GearAction' ],
+            'map' => [ 'class' => $prefix . '\MapAction' ],
+            'rule' => [ 'class' => $prefix . '\RuleAction' ],
+            'user' => [ 'class' => $prefix . '\UserAction' ],
+            'weapon' => [ 'class' => $prefix . '\WeaponAction' ],
             'weapon-trends' => [ 'class' => $prefix . '\WeaponTrendsAction' ],
         ];
     }

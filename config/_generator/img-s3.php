@@ -43,6 +43,6 @@ foreach ($data as $key => $value) {
             : ("'" . addslashes($value) . "'"),
     ]);
 }
-$lines[] =  '];';
+$lines[] = '];';
 
 echo implode("\n", $lines) . "\n";

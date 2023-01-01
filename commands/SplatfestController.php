@@ -173,7 +173,7 @@ class SplatfestController extends Controller
     private function createHueRange($column, $hue, $permitError = 6)
     {
         $hue = (int)$hue;
-        $low  = $hue - $permitError;
+        $low = $hue - $permitError;
         $high = $hue + $permitError;
         if ($low < 0) {
             $low += 360;

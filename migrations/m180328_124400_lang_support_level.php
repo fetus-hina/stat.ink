@@ -13,8 +13,8 @@ class m180328_124400_lang_support_level extends Migration
     public function up()
     {
         $this->createTable('{{support_level}}', [
-            'id'    => $this->integer()->notNull(),
-            'name'  => $this->string(32)->notNull(),
+            'id' => $this->integer()->notNull(),
+            'name' => $this->string(32)->notNull(),
             'PRIMARY KEY ([[id]])',
         ]);
         $this->batchInsert('{{support_level}}', ['id', 'name'], [

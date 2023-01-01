@@ -13,9 +13,9 @@ class m171103_103422_ability2 extends Migration
     public function up()
     {
         $this->createTable('ability2', [
-            'id'    => $this->primaryKey(),
-            'key'   => $this->apiKey(32),
-            'name'  => $this->string(32)->notNull(),
+            'id' => $this->primaryKey(),
+            'key' => $this->apiKey(32),
+            'name' => $this->string(32)->notNull(),
         ]);
         $this->batchInsert('ability2', ['key', 'name'], [
             ['ability_doubler', 'Ability Doubler'],

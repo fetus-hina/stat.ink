@@ -15,11 +15,11 @@ class m171103_142752_brand2 extends Migration
     public function up()
     {
         $this->createTable('brand2', [
-            'id'            => $this->primaryKey(),
-            'key'           => $this->apiKey(32),
-            'name'          => $this->string(32)->notNull(),
-            'strength_id'   => $this->pkRef('ability2')->null(),
-            'weakness_id'   => $this->pkRef('ability2')->null(),
+            'id' => $this->primaryKey(),
+            'key' => $this->apiKey(32),
+            'name' => $this->string(32)->notNull(),
+            'strength_id' => $this->pkRef('ability2')->null(),
+            'weakness_id' => $this->pkRef('ability2')->null(),
         ]);
         $a = $this->getAbilities();
         $this->batchInsert('brand2', ['key', 'name', 'strength_id', 'weakness_id'], [

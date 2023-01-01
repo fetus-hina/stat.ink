@@ -18,24 +18,24 @@ class m160722_075551_16th_splatfest extends Migration
         $this->batchInsert('splatfest', ['region_id', 'name', 'start_at', 'end_at', 'order'], [
             [
                 'region_id' => Region::findOne(['key' => 'jp'])->id,
-                'name'      => 'アオリ vs ホタル',
-                'start_at'  => '2016-07-22 12:00:00+09',
-                'end_at'    => '2016-07-24 12:00:00+09',
-                'order'     => 16,
+                'name' => 'アオリ vs ホタル',
+                'start_at' => '2016-07-22 12:00:00+09',
+                'end_at' => '2016-07-24 12:00:00+09',
+                'order' => 16,
             ],
             [
                 'region_id' => Region::findOne(['key' => 'eu'])->id,
-                'name'      => 'Callie vs Marie',
-                'start_at'  => '2016-07-22 12:00:00+09',
-                'end_at'    => '2016-07-24 12:00:00+09',
-                'order'     => 16,
+                'name' => 'Callie vs Marie',
+                'start_at' => '2016-07-22 12:00:00+09',
+                'end_at' => '2016-07-24 12:00:00+09',
+                'order' => 16,
             ],
             [
                 'region_id' => Region::findOne(['key' => 'na'])->id,
-                'name'      => 'Callie vs Marie',
-                'start_at'  => '2016-07-22 12:00:00+09',
-                'end_at'    => '2016-07-24 12:00:00+09',
-                'order'     => 16,
+                'name' => 'Callie vs Marie',
+                'start_at' => '2016-07-22 12:00:00+09',
+                'end_at' => '2016-07-24 12:00:00+09',
+                'order' => 16,
             ],
         ]);
         $ids = ArrayHelper::map(
@@ -56,11 +56,11 @@ class m160722_075551_16th_splatfest extends Migration
             ['fest_id', 'team_id', 'name', 'color_hue'],
             [
                 [ $ids['jp'], 1, 'アオリ', 305],
-                [ $ids['jp'], 2, 'ホタル',  97],
+                [ $ids['jp'], 2, 'ホタル', 97],
                 [ $ids['eu'], 1, 'Callie', 305],
-                [ $ids['eu'], 2, 'Marie',   97],
+                [ $ids['eu'], 2, 'Marie', 97],
                 [ $ids['na'], 1, 'Callie', 305],
-                [ $ids['na'], 2, 'Marie',   97],
+                [ $ids['na'], 2, 'Marie', 97],
             ],
         );
     }

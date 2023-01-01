@@ -211,7 +211,7 @@ final class WeaponsUseAction extends Action
     protected function getEventData($firstData, $lastData): array
     {
         $first = strtotime(sprintf('%04d-W%02d', $firstData['isoyear'], $firstData['isoweek']));
-        $last  = strtotime(sprintf('%04d-W%02d', $lastData['isoyear'], $lastData['isoweek']));
+        $last = strtotime(sprintf('%04d-W%02d', $lastData['isoyear'], $lastData['isoweek']));
 
         $query = Event::find()
             ->andWhere(['between',

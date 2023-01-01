@@ -14,12 +14,12 @@ class m170731_110807_private_match extends Migration
     public function safeUp()
     {
         $this->insert('lobby2', [
-            'key'   => 'private',
-            'name'  => 'Private Battle',
+            'key' => 'private',
+            'name' => 'Private Battle',
         ]);
         $this->insert('mode2', [
-            'key'   => 'private',
-            'name'  => 'Private Battle',
+            'key' => 'private',
+            'name' => 'Private Battle',
         ]);
         $modeId = (new Query())
             ->select('id')

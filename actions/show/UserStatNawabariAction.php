@@ -62,11 +62,11 @@ class UserStatNawabariAction extends BaseAction
             ->groupBy(['{{battle}}.[[map_id]]'])
             ->orderBy(false)
             ->select([
-                'map'   => 'MAX({{map}}.[[key]])',
-                'pct5'  => "PERCENTILE_CONT(0.05) WITHIN GROUP (ORDER BY {$inked})",
+                'map' => 'MAX({{map}}.[[key]])',
+                'pct5' => "PERCENTILE_CONT(0.05) WITHIN GROUP (ORDER BY {$inked})",
                 'pct50' => "PERCENTILE_CONT(0.50) WITHIN GROUP (ORDER BY {$inked})",
                 'pct95' => "PERCENTILE_CONT(0.95) WITHIN GROUP (ORDER BY {$inked})",
-                'avg'   => "AVG({$inked})",
+                'avg' => "AVG({$inked})",
             ])
             ->asArray()
             ->createCommand()
