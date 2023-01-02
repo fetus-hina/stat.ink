@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use app\assets\EmojifyResourceAsset;
 use app\assets\SlackAsset;
+use app\components\widgets\Icon;
 use app\models\User;
 use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
@@ -16,16 +17,22 @@ use yii\web\View;
  */
 
 SlackAsset::register($this);
-?>
-<h2>
-  <?= Html::encode(Yii::t('app', 'Slack Integration')) . "\n" ?>
-  <?= Html::a(
-    '<span class="fas fa-plus"></span>',
-    ['slack-add'],
-    ['class' => 'btn btn-primary']
-  ) . "\n" ?>
-</h2>
-<?= GridView::widget([
+
+echo Html::tag(
+  'h2',
+  implode(' ', [
+    Icon::slack(),
+    Icon::discord(),
+    Html::encode(Yii::t('app', 'Slack Integration')),
+    Html::a(
+      Icon::addSomething(),
+      ['slack-add'],
+      ['class' => 'btn btn-primary'],
+    ),
+  ]),
+) . "\n";
+
+echo GridView::widget([
   'dataProvider' => new ActiveDataProvider([
     'query' => $user->getSlacks()->with('language'),
     'pagination' => false,
@@ -139,4 +146,4 @@ SlackAsset::register($this);
       },
     ],
   ],
-]) ?>
+]);
