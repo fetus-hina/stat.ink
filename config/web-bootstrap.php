@@ -9,6 +9,7 @@
 declare(strict_types=1);
 
 use app\components\jobs\SalmonStatsJob;
+use app\components\jobs\UserExportJson3Job;
 use app\components\jobs\UserStatsJob;
 use app\models\Battle3;
 use app\models\Salmon3;
@@ -35,6 +36,7 @@ Yii::$container->set(Battle3::class, [
         $model = $ev->sender;
         if ($model instanceof Battle3 && $model->user) {
             UserStatsJob::pushQueue3($model->user);
+            UserExportJson3Job::pushQueue($model->user);
         }
     },
 ]);

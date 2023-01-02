@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -12,6 +12,7 @@ namespace app\controllers;
 
 use app\actions\user\ClearLoginWithTwitterAction;
 use app\actions\user\Download2Action;
+use app\actions\user\Download3Action;
 use app\actions\user\DownloadAction;
 use app\actions\user\DownloadSalmon2Action;
 use app\actions\user\EditEmailAction;
@@ -50,6 +51,9 @@ class UserController extends Controller
                 'class' => AccessControl::class,
                 'only' => [
                     'clear-login-with-twitter',
+                    'download',
+                    'download2',
+                    'download3',
                     'edit-email',
                     'edit-email-verify',
                     'edit-icon',
@@ -82,6 +86,9 @@ class UserController extends Controller
                     [
                         'actions' => [
                             'clear-login-with-twitter',
+                            'download',
+                            'download2',
+                            'download3',
                             'edit-email',
                             'edit-email-verify',
                             'edit-icon',
@@ -134,6 +141,7 @@ class UserController extends Controller
             'download' => [ 'class' => DownloadAction::class ],
             'download-salmon' => [ 'class' => DownloadSalmon2Action::class ],
             'download2' => [ 'class' => Download2Action::class ],
+            'download3' => [ 'class' => Download3Action::class ],
             'edit-email' => [ 'class' => EditEmailAction::class ],
             'edit-email-verify' => [ 'class' => EditEmailVerifyAction::class ],
             'edit-icon' => [ 'class' => EditIconAction::class ],
