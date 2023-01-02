@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author cake monotone <cake.monotone@gmail.com>
@@ -371,6 +371,7 @@ return [
     'No Data' => '데이터가 없습니다',
     'No one in control' => '중립',
     'North America/Oceania' => '북미/오세아니아',
+    'Not configured.' => '',
     'Not Draws' => '무승부가 아닌',
     'Note' => '메모',
     'Note (private)' => '메모 (비공개)',
