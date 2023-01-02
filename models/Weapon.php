@@ -11,7 +11,10 @@ namespace app\models;
 use Yii;
 use app\components\helpers\Translator;
 use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "weapon".
@@ -34,7 +37,7 @@ use yii\helpers\ArrayHelper;
  * @property Weapon $canonical
  * @property Weapon $mainReference
  */
-class Weapon extends \yii\db\ActiveRecord
+class Weapon extends ActiveRecord
 {
     use SafeFindOneTrait;
     use openapi\Util;
@@ -71,7 +74,7 @@ class Weapon extends \yii\db\ActiveRecord
             [['type_id', 'subweapon_id', 'special_id', 'canonical_id', 'main_group_id'], 'integer'],
             [['key', 'name'], 'string', 'max' => 32],
             [['key'], 'unique'],
-            [['name'], 'unique']
+            [['name'], 'unique'],
         ];
     }
 
@@ -91,7 +94,7 @@ class Weapon extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattles()
     {
@@ -99,7 +102,7 @@ class Weapon extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getSpecial()
     {
@@ -107,7 +110,7 @@ class Weapon extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getSubweapon()
     {
@@ -115,7 +118,7 @@ class Weapon extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getType()
     {
@@ -123,7 +126,7 @@ class Weapon extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getUserWeapons()
     {
@@ -131,7 +134,7 @@ class Weapon extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getUsers()
     {
@@ -174,9 +177,9 @@ class Weapon extends \yii\db\ActiveRecord
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc1', 'Weapon'),
                         'app-weapon',
-                        $values
+                        $values,
                     ),
-                    ArrayHelper::getColumn($values, 'key', false)
+                    ArrayHelper::getColumn($values, 'key', false),
                 ),
                 'name' => static::oapiRef(openapi\Name::class),
                 'type' => static::oapiRef(WeaponType::class),

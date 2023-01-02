@@ -8,7 +8,7 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -41,7 +41,7 @@ class Splatnet2UserMap extends ActiveRecord
             [['splatnet_id'], 'string', 'max' => 16],
             [['user_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => User::class,
-                'targetAttribute' => ['user_id' => 'id']
+                'targetAttribute' => ['user_id' => 'id'],
             ],
         ];
     }
@@ -59,7 +59,7 @@ class Splatnet2UserMap extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getUser()
     {

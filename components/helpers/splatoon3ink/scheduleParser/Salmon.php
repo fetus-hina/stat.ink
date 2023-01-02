@@ -14,12 +14,14 @@ use DateTimeImmutable;
 use DateTimeZone;
 use app\models\Map3;
 use app\models\SalmonMap3;
-use app\models\SalmonMap3Alias;
 use app\models\SalmonRandom3;
 use app\models\SalmonWeapon3;
 use app\models\api\v3\postBattle\TypeHelperTrait;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+
+use function array_map;
+use function array_values;
 
 trait Salmon
 {
@@ -27,11 +29,11 @@ trait Salmon
 
     protected static function salmon(array $nodes, bool $isBigRun): array
     {
-        return \array_values(
-            \array_map(
+        return array_values(
+            array_map(
                 fn (array $schedule): array => self::processSalmonSchedule($schedule, $isBigRun),
-                $nodes
-            )
+                $nodes,
+            ),
         );
     }
 
@@ -44,9 +46,9 @@ trait Salmon
                 ArrayHelper::getValue($schedule, 'setting.coopStage.name'),
                 $isBigRun,
             ),
-            'weapons' => \array_map(
+            'weapons' => array_map(
                 fn (array $info): ?ActiveRecord => self::parseSalmonWeapon($info),
-                ArrayHelper::getValue($schedule, 'setting.weapons')
+                ArrayHelper::getValue($schedule, 'setting.weapons'),
             ),
         ];
     }

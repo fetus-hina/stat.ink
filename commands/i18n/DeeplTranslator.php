@@ -34,6 +34,7 @@ use function array_filter;
 use function array_keys;
 use function array_map;
 use function array_merge;
+use function array_reduce;
 use function array_slice;
 use function array_unique;
 use function array_values;
@@ -43,9 +44,9 @@ use function dirname;
 use function explode;
 use function fclose;
 use function file_exists;
+use function fopen;
 use function fprintf;
 use function fwrite;
-use function gmdate;
 use function http_build_query;
 use function implode;
 use function in_array;
@@ -69,11 +70,19 @@ use function strpos;
 use function strtolower;
 use function strtoupper;
 use function substr;
-use function time;
 use function trim;
 use function usort;
 use function vfprintf;
 use function vsprintf;
+
+use const LC_ALL;
+use const LIBXML_COMPACT;
+use const LIBXML_NOCDATA;
+use const LIBXML_NONET;
+use const SORT_ASC;
+use const STDERR;
+use const XML_ELEMENT_NODE;
+use const XML_TEXT_NODE;
 
 class DeeplTranslator extends Component
 {
@@ -122,22 +131,22 @@ class DeeplTranslator extends Component
             }
 
             if (!FileHelper::createDirectory(dirname($outputPath))) {
-                fwrite(STDERR, "Could not create directory: " . dirname($outputPath) . "\n");
+                fwrite(STDERR, 'Could not create directory: ' . dirname($outputPath) . "\n");
                 return false;
             }
 
             $englishTexts = array_filter(
-                array_keys(include($japanesePath)),
-                fn($text) => is_array(static::tokenizePattern($text))
+                array_keys(include $japanesePath),
+                fn ($text) => is_array(static::tokenizePattern($text))
             );
 
             // "Salmon Run" は翻訳対象から外す
-            $englishTexts = array_filter($englishTexts, fn($text) => $text !== 'Salmon Run');
+            $englishTexts = array_filter($englishTexts, fn ($text) => $text !== 'Salmon Run');
 
-            usort($englishTexts, fn($a, $b) => strnatcasecmp($a, $b) ?: strcmp($a, $b));
+            usort($englishTexts, fn ($a, $b) => strnatcasecmp($a, $b) ?: strcmp($a, $b));
             $englishTexts = array_values($englishTexts);
             $localizedTexts = array_map(
-                fn($text) => static::xml2template($text),
+                fn ($text) => static::xml2template($text),
                 $this->translate(
                     $lang,
                     array_map(
@@ -145,13 +154,13 @@ class DeeplTranslator extends Component
                         // テンプレート部分を XML の要素に押し込める
                         // 当該部分は翻訳されないことになるが、 "{start}" が "{開始}" とかに変換される
                         // 最悪の事態は避けられるし、不自然に翻訳が適用されない箇所も減らせるハズ
-                        fn($text) => static::template2xml($text) ?? '',
+                        fn ($text) => static::template2xml($text) ?? '',
                         $englishTexts,
-                    )
-                )
+                    ),
+                ),
             );
             $outputContents = array_combine($englishTexts, $localizedTexts);
-            $esc = fn($text) => str_replace(["\\", "'"], ["\\\\", "\\'"], $text);
+            $esc = fn ($text) => str_replace(['\\', "'"], ['\\\\', "\\'"], $text);
             $now = new DateTimeImmutable('now', new DateTimeZone('Asia/Tokyo')); // Japan Time
 
             fwrite(STDERR, "Writing...\n");
@@ -185,12 +194,12 @@ class DeeplTranslator extends Component
     private function getTargetLanguages(): array
     {
         $statinkLanguages = array_map(
-            fn(Language $lang) => $lang->lang,
+            fn (Language $lang) => $lang->lang,
             Language::find()
                 ->standard()
                 ->andWhere(['not like', 'lang', ['en%', 'ja%'], false])
                 ->orderBy(['lang' => SORT_ASC])
-                ->all()
+                ->all(),
         );
         $deeplLanguages = $this->getDeeplSupportedLanguages();
         $results = [];
@@ -237,7 +246,7 @@ class DeeplTranslator extends Component
                         strtoupper(substr($lang, $pos + 1)),
                     ]);
                 },
-                $list
+                $list,
             ));
         }
         return $cache;
@@ -300,7 +309,7 @@ class DeeplTranslator extends Component
         for ($i = 0; $i < $count; ++$i) {
             $results = array_merge($results, $this->doTranslate(
                 $lang,
-                array_slice($englishTexts, $i * 50, 50)
+                array_slice($englishTexts, $i * 50, 50),
             ));
         }
         return $results;
@@ -323,13 +332,13 @@ class DeeplTranslator extends Component
                     : ['formality' => 'more'],
             ),
             implode('&', array_map(
-                fn($text) => 'text=' . rawurlencode($text),
-                array_values($englishTexts)
-            ))
+                fn ($text) => 'text=' . rawurlencode($text),
+                array_values($englishTexts),
+            )),
         );
         return array_map(
-            fn($data) => Normalizer::normalize(trim($data['text']), Normalizer::FORM_C),
-            $resp['translations']
+            fn ($data) => Normalizer::normalize(trim($data['text']), Normalizer::FORM_C),
+            $resp['translations'],
         );
     }
 
@@ -396,7 +405,7 @@ class DeeplTranslator extends Component
         // 通常の処理を行うと、テンプレート部分が XML に置換されて破壊される場合があるので
         // タグのようなものを見つけたら XML として解釈できないか試行して、地の文だけ翻訳を試みる
         // Ref. https://github.com/fetus-hina/stat.ink/issues/739
-        return (str_contains($text, '<'))
+        return str_contains($text, '<')
             ? static::templateToXmlMayXml($text)
             : static::templateToXmlSimple($text);
     }
@@ -417,7 +426,7 @@ class DeeplTranslator extends Component
                     return $token;
                 }
             },
-            $tokens
+            $tokens,
         ));
     }
 
@@ -426,7 +435,7 @@ class DeeplTranslator extends Component
         try {
             $wrapped = vsprintf('%s<div id="wrap">%s</div>', [
                 '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">',
-                str_replace('<br>', '<br/>', $textMayXml)
+                str_replace('<br>', '<br/>', $textMayXml),
             ]);
             $doc = new DOMDocument();
             $doc->preserveWhiteSpace = true;
@@ -460,12 +469,10 @@ class DeeplTranslator extends Component
         $startTag = Html::beginTag($node->nodeName, array_reduce(
             ArrayHelper::getColumn(
                 $node->attributes,
-                function (DOMNode $attr): array {
-                    return [$attr->nodeName => $attr->nodeValue];
-                }
+                fn (DOMNode $attr): array => [$attr->nodeName => $attr->nodeValue],
             ),
-            fn(array $acc, array $cur) => array_merge($acc, $cur),
-            []
+            fn (array $acc, array $cur) => array_merge($acc, $cur),
+            [],
         ));
 
         // process empty element
@@ -509,8 +516,8 @@ class DeeplTranslator extends Component
     {
         $text = preg_replace_callback(
             '#<param data="([2-7A-Za-z]+=*)"\s*/>#',
-            fn($match) => ' ' . Base32::decode($match[1]) . ' ',
-            $text
+            fn ($match) => ' ' . Base32::decode($match[1]) . ' ',
+            $text,
         );
         $text = preg_replace('/\x20{2,}/', ' ', $text);
         return trim($text);
@@ -546,7 +553,7 @@ class DeeplTranslator extends Component
                 $tokens[] = explode(
                     ',',
                     mb_substr($pattern, $start + 1, $pos - $start - 1, $charset),
-                    3
+                    3,
                 );
                 $start = $pos + 1;
                 $tokens[] = mb_substr($pattern, $start, $open - $start, $charset);

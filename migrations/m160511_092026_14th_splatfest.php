@@ -6,40 +6,41 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
-use yii\helpers\ArrayHelper;
 use app\models\Region;
 use app\models\Splatfest;
+use yii\db\Migration;
+use yii\db\Query;
+use yii\helpers\ArrayHelper;
 
 class m160511_092026_14th_splatfest extends Migration
 {
     public function safeUp()
     {
-        $this->batchInsert('splatfest', [ 'region_id', 'name', 'start_at', 'end_at', 'order' ], [
+        $this->batchInsert('splatfest', ['region_id', 'name', 'start_at', 'end_at', 'order'], [
             [
                 'region_id' => Region::findOne(['key' => 'jp'])->id,
-                'name'      => 'オシャレなパーティー vs コスプレパーティー',
-                'start_at'  => '2016-05-14 12:00:00+09',
-                'end_at'    => '2016-05-15 19:00:00+09',
-                'order'     => 14,
+                'name' => 'オシャレなパーティー vs コスプレパーティー',
+                'start_at' => '2016-05-14 12:00:00+09',
+                'end_at' => '2016-05-15 19:00:00+09',
+                'order' => 14,
             ],
             [
                 'region_id' => Region::findOne(['key' => 'eu'])->id,
-                'name'      => 'Black Tie Event vs Fancy Dress Party',
-                'start_at'  => '2016-05-14 12:00:00+09',
-                'end_at'    => '2016-05-15 19:00:00+09',
-                'order'     => 14,
+                'name' => 'Black Tie Event vs Fancy Dress Party',
+                'start_at' => '2016-05-14 12:00:00+09',
+                'end_at' => '2016-05-15 19:00:00+09',
+                'order' => 14,
             ],
             [
                 'region_id' => Region::findOne(['key' => 'na'])->id,
-                'name'      => 'Fancy Party vs Costume Party',
-                'start_at'  => '2016-05-14 12:00:00+09',
-                'end_at'    => '2016-05-15 19:00:00+09',
-                'order'     => 14,
+                'name' => 'Fancy Party vs Costume Party',
+                'start_at' => '2016-05-14 12:00:00+09',
+                'end_at' => '2016-05-15 19:00:00+09',
+                'order' => 14,
             ],
         ]);
         $ids = ArrayHelper::map(
-            (new \yii\db\Query())
+            (new Query())
                 ->select([
                     'id' => '{{splatfest}}.[[id]]',
                     'region' => '{{region}}.[[key]]',
@@ -49,7 +50,7 @@ class m160511_092026_14th_splatfest extends Migration
                 ->where(['{{splatfest}}.[[order]]' => 14])
                 ->all(),
             'region',
-            'id'
+            'id',
         );
         $this->batchInsert(
             'splatfest_team',
@@ -61,7 +62,7 @@ class m160511_092026_14th_splatfest extends Migration
                 [ $ids['eu'], 2, 'Fancy Dress Party' ],
                 [ $ids['na'], 1, 'Fancy Party ' ],
                 [ $ids['na'], 2, 'Costume Party' ],
-            ]
+            ],
         );
     }
 
@@ -69,7 +70,7 @@ class m160511_092026_14th_splatfest extends Migration
     {
         $ids = ArrayHelper::getColumn(
             Splatfest::find()->asArray()->where(['order' => 14])->all(),
-            'id'
+            'id',
         );
         $this->delete('splatfest_team', ['fest_id' => $ids]);
         $this->delete('splatfest', ['id' => $ids]);

@@ -10,8 +10,13 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
-use yii\helpers\ArrayHelper;
+
+use function array_map;
+use function array_merge;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "gear2".
@@ -86,7 +91,7 @@ class Gear2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getAbility()
     {
@@ -94,7 +99,7 @@ class Gear2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBrand()
     {
@@ -102,7 +107,7 @@ class Gear2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getType()
     {
@@ -169,13 +174,11 @@ class Gear2 extends ActiveRecord
     public static function openapiExample(): array
     {
         return array_map(
-            function (self $model): array {
-                return $model->toJsonArray();
-            },
+            fn (self $model): array => $model->toJsonArray(),
             static::find()
                 ->orderBy(['key' => SORT_ASC])
                 ->limit(5)
-                ->all()
+                ->all(),
         );
     }
 }

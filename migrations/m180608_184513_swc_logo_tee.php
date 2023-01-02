@@ -21,14 +21,14 @@ class m180608_184513_swc_logo_tee extends Migration
             'clothing',
             static::name2key('SquidForce'),
             'swim_speed_up',
-            1061
+            1061,
         );
     }
 
     public function safeDown()
     {
         $this->downGear2(
-            static::name2key('SWC Logo Tee')
+            static::name2key('SWC Logo Tee'),
         );
     }
 }

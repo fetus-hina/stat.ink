@@ -200,6 +200,10 @@ check-style-php: vendor
 phpstan: vendor
 	php vendor/bin/phpstan --level=0 --memory-limit=1G
 
+.PHONY: phpstan1
+phpstan1: vendor
+	php vendor/bin/phpstan --level=1 --memory-limit=1G
+
 check-style-js: node_modules
 	npx updates --minor bootstrap,bootswatch
 	npx semistandard 'resources/**/*[ej]s'

@@ -19,6 +19,13 @@ use yii\bootstrap\BootstrapAsset;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
+use function array_filter;
+use function array_map;
+use function call_user_func;
+use function implode;
+use function is_callable;
+use function sprintf;
+
 class SalmonPlayers extends Widget
 {
     public $formatter;
@@ -67,7 +74,7 @@ class SalmonPlayers extends Widget
                 "{$id} th:first-child" => [
                     'width' => 'auto',
                 ],
-            ])
+            ]),
         ));
 
         return Html::tag(
@@ -78,11 +85,11 @@ class SalmonPlayers extends Widget
                 [
                     'id' => $this->id,
                     'class' => 'table table-striped table-bordered',
-                ]
+                ],
             ),
             [
                 'class' => 'table-responsive',
-            ]
+            ],
         );
     }
 
@@ -91,15 +98,13 @@ class SalmonPlayers extends Widget
         return Html::tag('thead', Html::tag(
             'tr',
             Html::tag('th', '') . implode('', array_map(
-                function (SalmonPlayer2 $player): string {
-                    return Html::tag('th', PlayerName2Widget::widget([
+                fn (SalmonPlayer2 $player): string => Html::tag('th', PlayerName2Widget::widget([
                         'player' => $player,
                         'user' => $this->work->user,
                         'nameOnly' => false,
-                    ]));
-                },
-                $this->players
-            ))
+                    ])),
+                $this->players,
+            )),
         ));
     }
 
@@ -133,21 +138,15 @@ class SalmonPlayers extends Widget
             [
                 'label' => Yii::t('app', 'Special'),
                 'format' => 'text',
-                'value' => function (SalmonPlayer2 $player, self $widget): string {
-                    return Yii::t('app-special2', $player->special->name ?? '?');
-                },
+                'value' => fn (SalmonPlayer2 $player, self $widget): string => Yii::t('app-special2', $player->special->name ?? '?'),
             ],
             [
                 'label' => Yii::t('app-salmon2', 'Special Use'),
                 'format' => 'text',
-                'value' => function (SalmonPlayer2 $player, self $widget): string {
-                    return implode(' - ', array_map(
-                        function (SalmonPlayerSpecialUse2 $use): string {
-                            return $this->formatter->asInteger($use->count);
-                        },
-                        $player->specialUses
-                    ));
-                },
+                'value' => fn (SalmonPlayer2 $player, self $widget): string => implode(' - ', array_map(
+                    fn (SalmonPlayerSpecialUse2 $use): string => $this->formatter->asInteger($use->count),
+                    $player->specialUses,
+                )),
             ],
             [
                 'label' => Yii::t('app-salmon2', 'Rescues'),
@@ -171,10 +170,8 @@ class SalmonPlayers extends Widget
             ],
         ]);
         return Html::tag('tbody', implode('', array_map(
-            function (array $row): string {
-                return $this->renderRow($row);
-            },
-            $data
+            fn (array $row): string => $this->renderRow($row),
+            $data,
         )));
     }
 
@@ -183,10 +180,8 @@ class SalmonPlayers extends Widget
         return Html::tag('tr', implode('', [
             $this->renderRowHeader($rowInfo),
             implode('', array_map(
-                function (SalmonPlayer2 $player) use ($rowInfo): ?string {
-                    return $this->renderCellData($rowInfo, $player);
-                },
-                $this->players
+                fn (SalmonPlayer2 $player): ?string => $this->renderCellData($rowInfo, $player),
+                $this->players,
             )),
         ]));
     }
@@ -196,7 +191,7 @@ class SalmonPlayers extends Widget
         return Html::tag(
             'th',
             $this->formatter->asText($rowInfo['label']),
-            ['scope' => 'row']
+            ['scope' => 'row'],
         );
     }
 
@@ -206,8 +201,8 @@ class SalmonPlayers extends Widget
             'td',
             $this->formatter->format(
                 $this->renderCellValue($rowInfo, $player),
-                ArrayHelper::getValue($rowInfo, 'format', 'text')
-            )
+                ArrayHelper::getValue($rowInfo, 'format', 'text'),
+            ),
         );
     }
 

@@ -17,6 +17,9 @@ use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\Url;
 
+use function hash_hmac;
+use function sprintf;
+
 /**
  * This is the model class for table "ostatus_pubsubhubbub".
  *
@@ -34,7 +37,7 @@ class OstatusPubsubhubbub extends ActiveRecord
 {
     public static function find()
     {
-        $query = new class (get_called_class()) extends ActiveQuery {
+        $query = new class (static::class) extends ActiveQuery {
             public function active(): ActiveQuery
             {
                 return $this->andWhere(['or',
@@ -97,7 +100,7 @@ class OstatusPubsubhubbub extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getTopicUser()
     {
@@ -115,7 +118,7 @@ class OstatusPubsubhubbub extends ActiveRecord
         $curl->setHeader('Content-Type', 'application/atom+xml');
         $curl->setHeader('Link', sprintf(
             '<%s>; rel=self',
-            Url::to(['/ostatus/feed', 'screen_name' => $battle->user->screen_name], true)
+            Url::to(['/ostatus/feed', 'screen_name' => $battle->user->screen_name], true),
         ));
         if ($hash) {
             $curl->setHeader('X-Hub-Signature', "sha1={$hash}");
@@ -125,7 +128,7 @@ class OstatusPubsubhubbub extends ActiveRecord
             Yii::error('app.ostatus', sprintf(
                 '%s(): post failed, %s',
                 __METHOD__,
-                $curl->errorMessage
+                $curl->errorMessage,
             ));
             return null;
         }

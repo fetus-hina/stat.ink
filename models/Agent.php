@@ -10,6 +10,16 @@ namespace app\models;
 
 use Yii;
 use app\components\Version;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+
+use function date;
+use function in_array;
+use function preg_match;
+use function rawurlencode;
+use function sprintf;
+use function strtotime;
+use function trim;
 
 /**
  * This is the model class for table "agent".
@@ -23,7 +33,7 @@ use app\components\Version;
  * @property Battle[] $battles
  * @property Salmon2[] $salmon2s
  */
-class Agent extends \yii\db\ActiveRecord
+class Agent extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -44,7 +54,7 @@ class Agent extends \yii\db\ActiveRecord
             [['version'], 'string', 'max' => 255],
             [['name', 'version'], 'unique',
                 'targetAttribute' => ['name', 'version'],
-                'message' => 'The combination of Name and Version has already been taken.']
+                'message' => 'The combination of Name and Version has already been taken.'],
         ];
     }
 
@@ -61,7 +71,7 @@ class Agent extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattles()
     {
@@ -76,10 +86,7 @@ class Agent extends \yii\db\ActiveRecord
     public function getIsAutomatedByDefault(): bool
     {
         $attr = $this->agentAttribute;
-        if ($attr && $attr->is_automated) {
-            return true;
-        }
-        return false;
+        return $attr && $attr->is_automated;
     }
 
     public function getProductUrl(): ?string
@@ -100,7 +107,7 @@ class Agent extends \yii\db\ActiveRecord
             if ($ikalog) {
                 return sprintf(
                     'https://github.com/hasegaw/IkaLog/tree/%s',
-                    rawurlencode($ikalog->revision)
+                    rawurlencode($ikalog->revision),
                 );
             }
         }
@@ -110,7 +117,7 @@ class Agent extends \yii\db\ActiveRecord
                 if ($version) {
                     return sprintf(
                         'https://github.com/fetus-hina/stat.ink/tree/%s',
-                        rawurlencode($version)
+                        rawurlencode($version),
                     );
                 }
             }
@@ -140,26 +147,10 @@ class Agent extends \yii\db\ActiveRecord
     public function getIsOldIkalogAsAtTheTime($t = null)
     {
         return false;
-
-        if ($t === null) {
-            $t = $_SERVER['REQUEST_TIME'] ?? time();
-        } elseif (is_string($t)) {
-            $t = strtotime($t);
-        } else {
-            $t = (int)$t;
-        }
-        if (!$this->getIsIkalog()) {
-            return false;
-        }
-        if (preg_match('/^unknown\b/', $this->version)) {
-            return false;
-        }
-        return preg_match('/_Win(?:Ika|Tako)Log$/', $this->version)
-            ? $this->getIsOldWinIkalogAsAtTheTime($t)
-            : $this->getIsOldCliIkalogAsAtTheTime($t);
     }
 
     private static $latestWinIkaLog;
+
     private function getIsOldWinIkalogAsAtTheTime($t)
     {
         if (!preg_match('/^([0-9a-f]{7,})_/', $this->version, $match)) {
@@ -193,7 +184,7 @@ class Agent extends \yii\db\ActiveRecord
         }
 
         $diff = $t - strtotime($thisWinIkaLog->build_at);
-        return ($diff >= 21 * 86400);
+        return $diff >= 21 * 86400;
     }
 
     private function getIsOldCliIkalogAsAtTheTime($t)
@@ -213,6 +204,7 @@ class Agent extends \yii\db\ActiveRecord
     }
 
     private static $latestIkaLog;
+
     private function getIsOldCliIkalogAsAtTheTimeImpl(IkalogVersion $ikalog, $t)
     {
         if (static::$latestIkaLog === null) {
@@ -228,6 +220,6 @@ class Agent extends \yii\db\ActiveRecord
         }
 
         $diff = $t - strtotime($ikalog->at);
-        return ($diff >= 21 * 86400);
+        return $diff >= 21 * 86400;
     }
 }

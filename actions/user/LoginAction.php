@@ -9,9 +9,8 @@
 namespace app\actions\user;
 
 use Yii;
-use yii\web\ViewAction as BaseAction;
 use app\models\LoginForm;
-use app\models\User;
+use yii\web\ViewAction as BaseAction;
 
 class LoginAction extends BaseAction
 {
@@ -23,7 +22,7 @@ class LoginAction extends BaseAction
             $form->attributes = $request->post('LoginForm');
             if ($form->login()) {
                 return $this->controller->goBack(
-                    ['show-user/profile', 'screen_name' => Yii::$app->user->identity->screen_name ]
+                    ['show-user/profile', 'screen_name' => Yii::$app->user->identity->screen_name],
                 );
             }
         }

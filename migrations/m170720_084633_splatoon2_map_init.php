@@ -15,12 +15,12 @@ class m170720_084633_splatoon2_map_init extends Migration
         $this->update(
             'map2',
             ['release_at' => '2017-07-15 17:00:00+09'],
-            ['key' => ['combu', 'gangaze', 'ama', 'tachiuo']]
+            ['key' => ['combu', 'gangaze', 'ama', 'tachiuo']],
         );
         $this->update(
             'map2',
             ['release_at' => '2017-07-21 00:00:00+09'],
-            ['key' => ['chozame', 'hokke']]
+            ['key' => ['chozame', 'hokke']],
         );
     }
 
@@ -31,7 +31,7 @@ class m170720_084633_splatoon2_map_init extends Migration
             ['release_at' => null],
             ['key' => [
                 'combu', 'gangaze', 'ama', 'tachiuo', 'chozame', 'hokke',
-            ]]
+            ]],
         );
     }
 }

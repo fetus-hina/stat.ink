@@ -11,6 +11,8 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 
+use function headers_sent;
+
 final class LoginForm extends Model
 {
     public $screen_name;
@@ -28,7 +30,7 @@ final class LoginForm extends Model
                 'pattern' => '/^[a-zA-Z0-9_]{1,15}$/',
                 'message' => Yii::t(
                     'app',
-                    '{attribute} must be at most 15 alphanumeric or underscore characters.'
+                    '{attribute} must be at most 15 alphanumeric or underscore characters.',
                 ),
             ],
             [['password'], 'validatePassword'],
@@ -61,7 +63,7 @@ final class LoginForm extends Model
                 Yii::t('app', 'Invalid {0} or {1}.', [
                     $this->getAttributeLabel('screen_name'),
                     $this->getAttributeLabel('password'),
-                ])
+                ]),
             );
         }
     }
@@ -91,7 +93,7 @@ final class LoginForm extends Model
             $user,
             $this->remember_me
                 ? UserAuthKey::VALID_PERIOD
-                : 0
+                : 0,
         );
     }
 

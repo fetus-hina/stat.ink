@@ -18,6 +18,9 @@ use app\components\web\Controller;
 use yii\filters\AccessControl;
 use yii\web\ErrorAction;
 
+use function defined;
+use function implode;
+
 class SiteController extends Controller
 {
     public function behaviors()
@@ -120,7 +123,7 @@ class SiteController extends Controller
             default:
                 $resp->content = implode("\n", [
                     'User-agent: *',
-                    'Disallow: /'
+                    'Disallow: /',
                 ]);
         }
     }

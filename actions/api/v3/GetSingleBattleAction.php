@@ -21,6 +21,9 @@ use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
+use function array_map;
+use function preg_match;
+
 final class GetSingleBattleAction extends Action
 {
     use ApiInitializerTrait;
@@ -36,7 +39,7 @@ final class GetSingleBattleAction extends Action
 
     public function run(string $uuid, bool $full = false): Response
     {
-        if (!\preg_match(UuidRegexp::get(true), $uuid)) {
+        if (!preg_match(UuidRegexp::get(true), $uuid)) {
             throw new BadRequestHttpException();
         }
 
@@ -54,7 +57,7 @@ final class GetSingleBattleAction extends Action
                         'battlePlayer3s.weapon.subweapon',
                         'battlePlayer3s.weapon.weapon3Aliases',
                     ],
-                    \array_map(
+                    array_map(
                         fn (string $base): array => [
                             "battlePlayer3s.{$base}",
                             "battlePlayer3s.{$base}.ability",
@@ -63,7 +66,7 @@ final class GetSingleBattleAction extends Action
                         ],
                         ['clothing', 'headgear', 'shoes'],
                     ),
-                ])
+                ]),
             )
             ->andWhere([
                 'is_deleted' => false,

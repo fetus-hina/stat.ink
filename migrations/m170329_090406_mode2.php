@@ -13,13 +13,13 @@ class m170329_090406_mode2 extends Migration
     public function up()
     {
         $this->createTable('mode2', [
-            'id'    => $this->primaryKey(),
-            'key'   => $this->apiKey(),
-            'name'  => $this->string(32)->notNull()->unique(),
+            'id' => $this->primaryKey(),
+            'key' => $this->apiKey(),
+            'name' => $this->string(32)->notNull()->unique(),
         ]);
         $this->insert('mode2', [
-            'key'   => 'regular',
-            'name'  => 'Regular Battle',
+            'key' => 'regular',
+            'name' => 'Regular Battle',
         ]);
     }
 

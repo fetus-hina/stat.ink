@@ -6,8 +6,8 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
 use app\models\SplatoonVersion;
+use yii\db\Migration;
 
 class m160708_074713_fix_version_2_10 extends Migration
 {
@@ -16,12 +16,12 @@ class m160708_074713_fix_version_2_10 extends Migration
         $this->update(
             'splatoon_version',
             ['released_at' => '2016-07-08T14:00:00+09:00'],
-            ['tag' => '2.10.0']
+            ['tag' => '2.10.0'],
         );
         $this->update(
             'battle',
             ['version_id' => SplatoonVersion::findOne(['tag' => '2.10.0'])->id],
-            ['>=', 'end_at', '2016-07-08T14:00:00+09:00']
+            ['>=', 'end_at', '2016-07-08T14:00:00+09:00'],
         );
     }
 
@@ -30,7 +30,7 @@ class m160708_074713_fix_version_2_10 extends Migration
         $this->update(
             'splatoon_version',
             ['released_at' => '2016-07-06T14:00:00+09:00'],
-            ['tag' => '2.10.0']
+            ['tag' => '2.10.0'],
         );
     }
 }

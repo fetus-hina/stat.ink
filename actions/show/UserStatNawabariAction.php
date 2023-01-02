@@ -19,6 +19,17 @@ use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
+use function array_filter;
+use function array_reverse;
+use function array_slice;
+use function array_sum;
+use function count;
+use function implode;
+use function max;
+use function sprintf;
+use function strnatcasecmp;
+use function uasort;
+
 class UserStatNawabariAction extends BaseAction
 {
     private $user;
@@ -62,11 +73,11 @@ class UserStatNawabariAction extends BaseAction
             ->groupBy(['{{battle}}.[[map_id]]'])
             ->orderBy(false)
             ->select([
-                'map'   => 'MAX({{map}}.[[key]])',
-                'pct5'  => "PERCENTILE_CONT(0.05) WITHIN GROUP (ORDER BY {$inked})",
+                'map' => 'MAX({{map}}.[[key]])',
+                'pct5' => "PERCENTILE_CONT(0.05) WITHIN GROUP (ORDER BY {$inked})",
                 'pct50' => "PERCENTILE_CONT(0.50) WITHIN GROUP (ORDER BY {$inked})",
                 'pct95' => "PERCENTILE_CONT(0.95) WITHIN GROUP (ORDER BY {$inked})",
-                'avg'   => "AVG({$inked})",
+                'avg' => "AVG({$inked})",
             ])
             ->asArray()
             ->createCommand()
@@ -75,7 +86,7 @@ class UserStatNawabariAction extends BaseAction
             $result = [];
             foreach ($row as $k => $v) {
                 if ($k !== 'map') {
-                    $result[$k] = ($v === null) ? null : (float)$v;
+                    $result[$k] = $v === null ? null : (float)$v;
                 }
             }
             return $result;
@@ -115,7 +126,7 @@ class UserStatNawabariAction extends BaseAction
                 'index' => -1 * count($tmp->battles),
                 'inked' => max(
                     0,
-                    $battle['my_point'] - ($battle['is_win'] ? $battle['bonus']['bonus'] : 0)
+                    $battle['my_point'] - ($battle['is_win'] ? $battle['bonus']['bonus'] : 0),
                 ),
             ];
         }
@@ -127,9 +138,7 @@ class UserStatNawabariAction extends BaseAction
             }
         }
 
-        uasort($maps, function (stdClass $a, stdClass $b): int {
-            return strnatcasecmp($a->name, $b->name);
-        });
+        uasort($maps, fn (stdClass $a, stdClass $b): int => strnatcasecmp($a->name, $b->name));
 
         return $maps;
     }
@@ -173,9 +182,7 @@ class UserStatNawabariAction extends BaseAction
             }
 
             $tmp = array_slice($battles, $currentIndex + 1 - $range, $range);
-            $win = count(array_filter($tmp, function ($a): bool {
-                return (bool)$a->is_win;
-            }));
+            $win = count(array_filter($tmp, fn ($a): bool => (bool)$a->is_win));
             return $win * 100 / $range;
         };
         $totalWin = 0;

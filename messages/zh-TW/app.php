@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author ADe <loezone@gmail.com>
  * @author AIZAWA Hina <hina@fetus.jp>
@@ -372,6 +372,7 @@ return [
     'No Data' => '沒有資料',
     'No one in control' => '無人控制',
     'North America/Oceania' => '北美/大洋洲',
+    'Not configured.' => '',
     'Not Draws' => '不是平手',
     'Note' => '備註',
     'Note (private)' => '備註(私人)',

@@ -40,7 +40,7 @@ class m170611_093418_e3_death_reasons2 extends Migration
                 'sharp',
                 'splatscope',
             ],
-            'weapon_id'
+            'weapon_id',
         );
     }
 
@@ -69,7 +69,7 @@ class m170611_093418_e3_death_reasons2 extends Migration
                 'sprinkler',
                 'trap',
             ],
-            'subweapon_id'
+            'subweapon_id',
         );
     }
 
@@ -89,7 +89,7 @@ class m170611_093418_e3_death_reasons2 extends Migration
             (int)(new Query())->select('id')->from('death_reason_type2')->where(['key' => 'special'])->scalar(),
             'special2',
             ['amefurashi'],
-            'special_id'
+            'special_id',
         );
     }
 
@@ -109,21 +109,19 @@ class m170611_093418_e3_death_reasons2 extends Migration
                 'name',
             ],
             array_map(
-                function (array $row) use ($typeId): array {
-                    return [
+                fn (array $row): array => [
                         $row['key'],
                         $typeId,
                         $row['id'],
                         $row['name'],
-                    ];
-                },
+                    ],
                 (new Query())
                     ->select(['key', 'id', 'name'])
                     ->from($table)
                     ->where(['key' => $keys])
                     ->orderBy('id ASC')
-                    ->all()
-            )
+                    ->all(),
+            ),
         );
     }
 

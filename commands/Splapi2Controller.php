@@ -9,6 +9,7 @@
 namespace app\commands;
 
 use Curl\Curl;
+use Exception;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
 use app\models\Map2;
@@ -19,8 +20,12 @@ use app\models\ScheduleMode2;
 use stdClass;
 use yii\console\Controller;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Console;
 use yii\helpers\Json;
+
+use function array_map;
+use function count;
+use function sprintf;
+use function usort;
 
 class Splapi2Controller extends Controller
 {
@@ -42,9 +47,7 @@ class Splapi2Controller extends Controller
 
     private function importSchedules(ScheduleMode2 $mode, array $list)
     {
-        usort($list, function ($a, $b) {
-            return $a->start->unixtime <=> $b->start->unixtime;
-        });
+        usort($list, fn ($a, $b) => $a->start->unixtime <=> $b->start->unixtime);
         foreach ($list as $schedule) {
             $this->importSchedule($mode, $schedule);
         }
@@ -71,28 +74,26 @@ class Splapi2Controller extends Controller
         $schedule->rule_id = $rules[$info->mode->key];
         if ($schedule->isNewRecord || $schedule->dirtyAttributes) {
             if (!$schedule->save()) {
-                $this->stderr("Schedule insert/update error at line " . __LINE__ . "\n");
-                throw new \Exception();
+                $this->stderr('Schedule insert/update error at line ' . __LINE__ . "\n");
+                throw new Exception();
             }
-            echo "Created or updated schedule " . Json::encode($schedule) . "\n";
+            echo 'Created or updated schedule ' . Json::encode($schedule) . "\n";
         }
 
         $exists = $schedule->getScheduleMaps()->count();
         if ($exists == count($info->stages)) {
             $matches = $schedule->getScheduleMaps()
                 ->andWhere(['in', 'map_id', array_map(
-                    function (stdClass $stage) use ($maps): int {
-                        return $maps[$stage->key];
-                    },
-                    $info->stages
+                    fn (stdClass $stage): int => $maps[$stage->key],
+                    $info->stages,
                 )])
                 ->count();
             if ($exists == $matches) {
-                $this->stderr("Nothing changed. " . Json::encode($schedule) . "\n");
+                $this->stderr('Nothing changed. ' . Json::encode($schedule) . "\n");
                 return;
             }
         }
-        $this->stderr("Something changed (or new schedule) " . Json::encode($schedule) . "\n");
+        $this->stderr('Something changed (or new schedule) ' . Json::encode($schedule) . "\n");
         ScheduleMap2::deleteAll(['schedule_id' => $schedule->id]);
         foreach ($info->stages as $st) {
             $stage = Yii::createObject([
@@ -102,7 +103,7 @@ class Splapi2Controller extends Controller
             ]);
             if (!$stage->save()) {
                 $this->stderr('Could not insert to schedule_map2. ' . Json::encode($stage) . "\n");
-                throw new \Exception();
+                throw new Exception();
             }
         }
         $this->stderr("  => updated\n");
@@ -116,11 +117,11 @@ class Splapi2Controller extends Controller
             '%s/%s (+%s)',
             'stat.ink',
             Yii::$app->version,
-            'https://github.com/fetus-hina/stat.ink'
+            'https://github.com/fetus-hina/stat.ink',
         ));
         $curl->get($url, $data);
         if ($curl->error) {
-            throw new \Exception("Request failed: url={$url}, code={$curl->errorCode}, msg={$curl->errorMessage}");
+            throw new Exception("Request failed: url={$url}, code={$curl->errorCode}, msg={$curl->errorMessage}");
         }
         return Json::decode($curl->rawResponse, false);
     }

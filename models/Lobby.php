@@ -8,8 +8,9 @@
 
 namespace app\models;
 
-use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "lobby".
@@ -20,7 +21,7 @@ use app\components\helpers\Translator;
  *
  * @property Battle[] $battles
  */
-class Lobby extends \yii\db\ActiveRecord
+class Lobby extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -40,7 +41,7 @@ class Lobby extends \yii\db\ActiveRecord
             [['key'], 'string', 'max' => 16],
             [['name'], 'string', 'max' => 32],
             [['key'], 'unique'],
-            [['name'], 'unique']
+            [['name'], 'unique'],
         ];
     }
 
@@ -57,7 +58,7 @@ class Lobby extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattles()
     {

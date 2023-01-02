@@ -11,7 +11,6 @@ namespace app\models\query;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\BattleSummarizer;
 use app\components\helpers\Resource;
-use app\models\Battle;
 use app\models\BattleFilterForm;
 use app\models\BattleImageType;
 use app\models\SplatoonVersion;
@@ -19,6 +18,18 @@ use app\models\Timezone;
 use app\models\Weapon;
 use stdClass;
 use yii\db\ActiveQuery;
+
+use function date;
+use function date_default_timezone_get;
+use function date_default_timezone_set;
+use function gmdate;
+use function is_scalar;
+use function mktime;
+use function preg_match;
+use function strtotime;
+use function substr;
+use function time;
+use function trim;
 
 class BattleQuery extends ActiveQuery
 {

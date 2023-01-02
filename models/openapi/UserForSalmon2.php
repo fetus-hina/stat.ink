@@ -14,6 +14,9 @@ use Yii;
 use app\models\SalmonStats2;
 use app\models\User;
 
+use function array_merge;
+use function str_replace;
+
 class UserForSalmon2 extends User
 {
     use Util;
@@ -93,7 +96,7 @@ class UserForSalmon2 extends User
                             'nullable' => true,
                             'description' => Yii::t(
                                 'app-apidoc2',
-                                '[Ika-Nakama](https://ikanakama.ink/) profile URL'
+                                '[Ika-Nakama](https://ikanakama.ink/) profile URL',
                             ),
                         ],
                         'environment' => [
@@ -102,7 +105,7 @@ class UserForSalmon2 extends User
                             'description' => Yii::t(
                                 'app-apidoc2',
                                 'IkaLog environment. This probably doesn\'t make sense in ' .
-                                'Splatoon 2'
+                                'Splatoon 2',
                             ),
                         ],
                     ],

@@ -21,14 +21,14 @@ class m180201_053837_add_welding_mask extends Migration
             'headgear',
             static::name2key('Grizzco'),
             null,
-            21002
+            21002,
         );
     }
 
     public function safeDown()
     {
         $this->downGear2(
-            static::name2key('Welding Mask')
+            static::name2key('Welding Mask'),
         );
     }
 }

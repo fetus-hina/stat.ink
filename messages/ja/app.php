@@ -361,6 +361,7 @@ return [
     'North America/Oceania' => '北米・オセアニア',
     'Not Draws' => '引き分け以外',
     'Not Winning' => '勝利していない',
+    'Not configured.' => '構成されていません。',
     'Note (private)' => 'メモ（非公開）',
     'Note (public)' => 'メモ（公開）',
     'Note' => 'メモ',

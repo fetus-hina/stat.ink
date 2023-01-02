@@ -14,6 +14,10 @@ use DateTimeZone;
 use Yii;
 use yii\base\Component;
 
+use function filter_var;
+
+use const FILTER_VALIDATE_INT;
+
 class DateTime extends Component
 {
     use Util;
@@ -34,7 +38,7 @@ class DateTime extends Component
                     'format' => 'date-time',
                     'description' => Yii::t(
                         'app-apidoc1',
-                        'Date and time expressed in ISO-8601 format'
+                        'Date and time expressed in ISO-8601 format',
                     ),
                 ],
             ],

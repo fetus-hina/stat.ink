@@ -16,6 +16,9 @@ use yii\base\Widget;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
+use function array_filter;
+use function sprintf;
+
 class FA extends Widget
 {
     public $tag = 'span';
@@ -134,7 +137,7 @@ class FA extends Widget
                     ]),
                 ],
                 $this->contentOptions,
-            )
+            ),
         );
     }
 }

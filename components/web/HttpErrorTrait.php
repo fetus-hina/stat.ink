@@ -19,7 +19,7 @@ trait HttpErrorTrait
     public static function error403(): void
     {
         throw new ForbiddenHttpException(
-            Yii::t('yii', 'You are not allowed to perform this action.')
+            Yii::t('yii', 'You are not allowed to perform this action.'),
         );
     }
 

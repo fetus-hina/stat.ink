@@ -9,13 +9,20 @@
 namespace app\models\api\v1;
 
 use Yii;
-use app\components\helpers\db\Now;
 use app\models\Battle;
 use app\models\User;
 use app\models\openapi\Apikey;
 use app\models\openapi\Util;
 use yii\base\Model;
-use yii\helpers\ArrayHelper;
+
+use function count;
+use function filter_var;
+use function implode;
+use function is_array;
+use function is_scalar;
+use function vsprintf;
+
+use const FILTER_VALIDATE_INT;
 
 class DeleteBattleForm extends Model
 {
@@ -69,7 +76,7 @@ class DeleteBattleForm extends Model
         }
 
         if (count($this->$attribute) > 100) {
-            $this->addError($attribute, "too many values.");
+            $this->addError($attribute, 'too many values.');
             return;
         }
 
@@ -111,24 +118,24 @@ class DeleteBattleForm extends Model
             $battle = Battle::findOne(['id' => (int)(string)$id]);
             if (!$battle) {
                 $this->errorIdList[] = [
-                    'id'    => $id,
-                    'error' => 'not found'
+                    'id' => $id,
+                    'error' => 'not found',
                 ];
                 continue;
             }
 
             if ($battle->user_id != $user->id) {
                 $this->errorIdList[] = [
-                    'id'    => $id,
-                    'error' => 'user not match'
+                    'id' => $id,
+                    'error' => 'user not match',
                 ];
                 continue;
             }
 
             if ($battle->is_automated) {
                 $this->errorIdList[] = [
-                    'id'    => $id,
-                    'error' => 'automated result'
+                    'id' => $id,
+                    'error' => 'automated result',
                 ];
                 continue;
             }
@@ -138,7 +145,7 @@ class DeleteBattleForm extends Model
             }
 
             $this->deletedIdList[] = [
-                'id'    => $id,
+                'id' => $id,
                 'error' => null,
             ];
         }
@@ -186,7 +193,7 @@ class DeleteBattleForm extends Model
                                     'key' => 'dry_run',
                                     'name' => 'Do more action but not to be deleted.',
                                 ],
-                            ]
+                            ],
                         ),
                     ]),
                     'enum' => [

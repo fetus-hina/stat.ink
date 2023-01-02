@@ -13,11 +13,11 @@ class m170328_131728_weapon_category2 extends Migration
     public function up()
     {
         $this->createTable('weapon_category2', [
-            'id'    => $this->primaryKey(),
-            'key'   => $this->apiKey(),
-            'name'  => $this->string(32)->notNull()->unique(),
+            'id' => $this->primaryKey(),
+            'key' => $this->apiKey(),
+            'name' => $this->string(32)->notNull()->unique(),
         ]);
-        $this->batchInsert('weapon_category2', [ 'key', 'name' ], [
+        $this->batchInsert('weapon_category2', ['key', 'name'], [
             [ 'shooter', 'Shooters' ],
             [ 'roller', 'Rollers' ],
             [ 'charger', 'Chargers' ],

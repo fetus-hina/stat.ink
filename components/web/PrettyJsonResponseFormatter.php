@@ -11,6 +11,10 @@ namespace app\components\web;
 use yii\helpers\Json;
 use yii\web\JsonResponseFormatter;
 
+use const JSON_PRETTY_PRINT;
+use const JSON_UNESCAPED_SLASHES;
+use const JSON_UNESCAPED_UNICODE;
+
 class PrettyJsonResponseFormatter extends JsonResponseFormatter
 {
     /**
@@ -24,7 +28,7 @@ class PrettyJsonResponseFormatter extends JsonResponseFormatter
         if ($response->data !== null) {
             $response->content = Json::encode(
                 $response->data,
-                JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
+                JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES,
             );
         }
     }

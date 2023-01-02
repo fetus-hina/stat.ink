@@ -17,6 +17,15 @@ use yii\db\Connection;
 use yii\db\Expression;
 use yii\db\Query;
 
+use function array_values;
+use function assert;
+use function gmdate;
+use function strcmp;
+use function time;
+use function usort;
+use function version_compare;
+use function vsprintf;
+
 final class UsageAction extends Action
 {
     use ApiInitializerTrait;
@@ -39,7 +48,7 @@ final class UsageAction extends Action
         assert($conn instanceof Connection);
         $conn->createCommand("SET TIMEZONE TO 'Etc/UTC'")->execute();
 
-        $today = \gmdate('Y-m-d', $_SERVER['REQUEST_TIME'] ?? time());
+        $today = gmdate('Y-m-d', $_SERVER['REQUEST_TIME'] ?? time());
         $query = (new Query())
             ->select([
                 'date' => '{{%battle3}}.[[created_at]]::date',
@@ -57,7 +66,7 @@ final class UsageAction extends Action
                 '>=',
                 '{{%battle3}}.[[created_at]]::date',
                 new Expression(
-                    \vsprintf("%s::date - '30 days'::interval", [
+                    vsprintf("%s::date - '30 days'::interval", [
                         $conn->quoteValue($today),
                     ]),
                 ),
@@ -67,11 +76,11 @@ final class UsageAction extends Action
                 '{{%battle3}}.[[agent_id]]',
             ]);
         $list = $query->createCommand()->queryAll();
-        \usort(
+        usort(
             $list,
-            fn (array $a, array $b): int => \strcmp($a['date'], $b['date'])
-                ?: \version_compare($a['version'], $b['version'])
-                ?: \strcmp($a['version'], $b['version'])
+            fn (array $a, array $b): int => strcmp($a['date'], $b['date'])
+                ?: version_compare($a['version'], $b['version'])
+                ?: strcmp($a['version'], $b['version'])
         );
 
         $results = [];

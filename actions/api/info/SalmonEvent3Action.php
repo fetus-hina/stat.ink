@@ -16,7 +16,8 @@ use app\models\SalmonEvent3;
 use yii\base\Action;
 use yii\helpers\ArrayHelper;
 
-use const SORT_ASC;
+use function strcmp;
+use function strnatcasecmp;
 
 final class SalmonEvent3Action extends Action
 {
@@ -30,10 +31,10 @@ final class SalmonEvent3Action extends Action
                 function (SalmonEvent3 $a, SalmonEvent3 $b): int {
                     $aN = Yii::t('app-salmon-event3', $a->name);
                     $bN = Yii::t('app-salmon-event3', $b->name);
-                    return \strnatcasecmp($aN, $bN)
-                        ?: \strcmp($aN, $bN)
-                        ?: \strnatcasecmp($a->name, $b->name)
-                        ?: \strcmp($a->name, $b->name);
+                    return strnatcasecmp($aN, $bN)
+                        ?: strcmp($aN, $bN)
+                        ?: strnatcasecmp($a->name, $b->name)
+                        ?: strcmp($a->name, $b->name);
                 },
             ),
             'langs' => $this->getLangs(),
@@ -48,9 +49,9 @@ final class SalmonEvent3Action extends Action
         $sysLang = Yii::$app->language;
         return ArrayHelper::sort(
             Language::find()->standard()->all(),
-            fn (Language $a, Language $b): int => (($a->lang === $sysLang) ? -1 : 0)
-                ?: (($b->lang === $sysLang) ? 1 : 0)
-                ?: \strnatcasecmp($a->name, $b->name),
+            fn (Language $a, Language $b): int => ($a->lang === $sysLang ? -1 : 0)
+                ?: ($b->lang === $sysLang ? 1 : 0)
+                ?: strnatcasecmp($a->name, $b->name),
         );
     }
 }

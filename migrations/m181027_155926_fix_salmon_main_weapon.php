@@ -23,7 +23,7 @@ class m181027_155926_fix_salmon_main_weapon extends Migration
             ],
             [
                 'key' => 'promodeler_rg',
-            ]
+            ],
         );
     }
 
@@ -38,7 +38,7 @@ class m181027_155926_fix_salmon_main_weapon extends Migration
             ],
             [
                 'key' => 'promodeler_mg',
-            ]
+            ],
         );
     }
 }

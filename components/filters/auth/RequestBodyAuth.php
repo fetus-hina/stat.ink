@@ -10,6 +10,8 @@ namespace app\components\filters\auth;
 
 use yii\filters\auth\AuthMethod;
 
+use function is_string;
+
 class RequestBodyAuth extends AuthMethod
 {
     public $tokenParam = 'access-token';
@@ -18,7 +20,7 @@ class RequestBodyAuth extends AuthMethod
     {
         $accessToken = $request->post($this->tokenParam);
         if (is_string($accessToken)) {
-            $identity = $user->loginByAccessToken($accessToken, get_class($this));
+            $identity = $user->loginByAccessToken($accessToken, static::class);
             if ($identity !== null) {
                 return $identity;
             }

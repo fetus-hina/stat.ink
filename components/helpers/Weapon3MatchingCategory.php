@@ -12,6 +12,8 @@ namespace app\components\helpers;
 
 use app\models\Weapon3;
 
+use function in_array;
+
 // https://twitter.com/sabot33n/status/1599075575272210433
 final class Weapon3MatchingCategory
 {
@@ -33,7 +35,7 @@ final class Weapon3MatchingCategory
         }
 
         foreach (self::getData() as $category => $keys) {
-            if (\in_array($key, $keys, true)) {
+            if (in_array($key, $keys, true)) {
                 return $category;
             }
         }

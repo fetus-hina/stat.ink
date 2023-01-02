@@ -14,6 +14,11 @@ use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\Url;
 
+use function file_exists;
+use function is_file;
+use function preg_replace;
+use function unlink;
+
 /**
  * This is the model class for table "battle_image2".
  *
@@ -103,7 +108,7 @@ class BattleImage2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattle()
     {
@@ -116,7 +121,7 @@ class BattleImage2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getType()
     {
@@ -130,6 +135,7 @@ class BattleImage2 extends ActiveRecord
     }
 
     private $deleteFilename;
+
     public function beforeDelete()
     {
         if (!parent::beforeDelete()) {

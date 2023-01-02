@@ -10,8 +10,13 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+
+use function array_map;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "gear_type".
@@ -61,7 +66,7 @@ class GearType extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getGears()
     {
@@ -69,7 +74,7 @@ class GearType extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getGear2s()
     {
@@ -97,9 +102,9 @@ class GearType extends ActiveRecord
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc1', 'Gear Type'),
                         'app-gear',
-                        $values
+                        $values,
                     ),
-                    ArrayHelper::getColumn($values, 'key', false)
+                    ArrayHelper::getColumn($values, 'key', false),
                 ),
                 'name' => static::oapiRef(openapi\Name::class),
             ],
@@ -120,10 +125,8 @@ class GearType extends ActiveRecord
             ->orderBy(['id' => SORT_ASC])
             ->all();
         return array_map(
-            function ($model) {
-                return $model->toJsonArray();
-            },
-            $models
+            fn ($model) => $model->toJsonArray(),
+            $models,
         );
     }
 }

@@ -15,7 +15,7 @@ class m170806_090715_fix_hero_dualie_replicas extends Migration
         $this->update(
             'weapon2',
             ['name' => 'Hero Dualie Replicas'],
-            ['key' => 'heromaneuver_replica']
+            ['key' => 'heromaneuver_replica'],
         );
     }
 
@@ -24,7 +24,7 @@ class m170806_090715_fix_hero_dualie_replicas extends Migration
         $this->update(
             'weapon2',
             ['name' => 'Hero Dualies Replica'],
-            ['key' => 'heromaneuver_replica']
+            ['key' => 'heromaneuver_replica'],
         );
     }
 }

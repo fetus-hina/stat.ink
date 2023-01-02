@@ -20,7 +20,7 @@ class m160910_082126_function_period_to_timestamp extends Migration
             'IMMUTABLE ' .
             'LANGUAGE SQL ' .
             'SECURITY INVOKER ' .
-            'AS ' . $this->db->quoteValue('SELECT TO_TIMESTAMP($1 * 14400 + 7200)')
+            'AS ' . $this->db->quoteValue('SELECT TO_TIMESTAMP($1 * 14400 + 7200)'),
         );
     }
 

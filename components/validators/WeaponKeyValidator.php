@@ -15,11 +15,13 @@ use app\models\Weapon;
 use app\models\WeaponType;
 use yii\validators\Validator;
 
+use function substr;
+
 class WeaponKeyValidator extends Validator
 {
-    public const PREFIX_WEAPON_GROUP   = '@';
-    public const PREFIX_MAIN_WEAPON    = '~';
-    public const PREFIX_SUB_WEAPON     = '+';
+    public const PREFIX_WEAPON_GROUP = '@';
+    public const PREFIX_MAIN_WEAPON = '~';
+    public const PREFIX_SUB_WEAPON = '+';
     public const PREFIX_SPECIAL_WEAPON = '*';
 
     public $enableWeaponGroup = true;
@@ -47,36 +49,36 @@ class WeaponKeyValidator extends Validator
     {
         switch (substr($value, 0, 1)) {
             case static::PREFIX_WEAPON_GROUP:
-                return ($this->enableWeaponGroup) &&
-                    (1 == WeaponType::find()
+                return $this->enableWeaponGroup &&
+                    (WeaponType::find()
                         ->where(['key' => substr($value, 1)])
-                        ->count());
+                        ->count() == 1);
 
             case static::PREFIX_MAIN_WEAPON:
-                return ($this->enableMainWeapon) &&
-                    (1 == Weapon::find()
+                return $this->enableMainWeapon &&
+                    (Weapon::find()
                         ->where(['and',
                             ['key' => substr($value, 1)],
                             '[[id]] = [[main_group_id]]',
                         ])
-                        ->count());
+                        ->count() == 1);
 
             case static::PREFIX_SUB_WEAPON:
-                return ($this->enableSubWeapon) &&
-                    (1 == Subweapon::find()
+                return $this->enableSubWeapon &&
+                    (Subweapon::find()
                         ->where(['key' => substr($value, 1)])
-                        ->count());
+                        ->count() == 1);
 
             case static::PREFIX_SPECIAL_WEAPON:
-                return ($this->enableSpecialWeapon) &&
-                    (1 == Special::find()
+                return $this->enableSpecialWeapon &&
+                    (Special::find()
                         ->where(['key' => substr($value, 1)])
-                        ->count());
+                        ->count() == 1);
 
             default:
-                return 1 == Weapon::find()
+                return Weapon::find()
                     ->where(['key' => $value])
-                    ->count();
+                    ->count() == 1;
         }
     }
 }

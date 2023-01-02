@@ -11,7 +11,6 @@ declare(strict_types=1);
 namespace app\models;
 
 use LogicException;
-use Normalizer;
 use Yii;
 use app\models\ch\SfItem;
 use app\models\ch\SfList;
@@ -19,6 +18,16 @@ use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\Json;
 use yii\web\HeaderCollection;
+
+use function base64_encode;
+use function hash;
+use function is_bool;
+use function is_string;
+use function ksort;
+use function preg_match;
+use function rtrim;
+
+use const SORT_STRING;
 
 /**
  * This is the model class for table "http_client_hint".

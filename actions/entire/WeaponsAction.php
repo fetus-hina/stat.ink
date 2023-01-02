@@ -25,6 +25,18 @@ use stdClass;
 use yii\db\Query;
 use yii\web\ViewAction;
 
+use function array_map;
+use function array_merge;
+use function array_shift;
+use function date;
+use function pow;
+use function sprintf;
+use function strnatcasecmp;
+use function strtotime;
+use function usort;
+
+use const SORT_ASC;
+
 class WeaponsAction extends ViewAction
 {
     public function run()
@@ -60,7 +72,7 @@ class WeaponsAction extends ViewAction
                 ['and',
                     ['=', 'isoyear', $threshold[0]],
                     ['>=', 'isoweek', $threshold[1]],
-                ]
+                ],
             ])
             ->groupBy('weapon_id')
             ->orderBy('SUM(battles) DESC')
@@ -77,11 +89,11 @@ class WeaponsAction extends ViewAction
                         $key = sprintf('w%d', $trend['weapon_id']);
                         $ret[$key] = sprintf(
                             'SUM(CASE WHEN [[weapon_id]] = %d THEN [[battles]] ELSE 0 END)',
-                            $trend['weapon_id']
+                            $trend['weapon_id'],
                         );
                     }
                     return $ret;
-                })()
+                })(),
             ))
             ->from('stat_weapon_use_count_per_week')
             ->where(['or',
@@ -89,7 +101,7 @@ class WeaponsAction extends ViewAction
                 ['and',
                     ['=', 'isoyear', 2015],
                     ['>=', 'isoweek', 46],
-                ]
+                ],
             ])
             ->groupBy('isoyear, isoweek')
             ->orderBy('isoyear, isoweek');
@@ -98,9 +110,7 @@ class WeaponsAction extends ViewAction
         }
 
         $weapons = Weapon::findAll([
-            'id' => array_map(function ($_): int {
-                return (int)$_['weapon_id'];
-            }, $trends),
+            'id' => array_map(fn ($_): int => (int)$_['weapon_id'], $trends),
         ]);
 
         return array_map(function (array $_) use ($trends, $weapons): array {
@@ -128,12 +138,12 @@ class WeaponsAction extends ViewAction
             return [
                 'date' => date(
                     'Y-m-d',
-                    strtotime(sprintf('%04d-W%02d', $_['isoyear'], $_['isoweek']))
+                    strtotime(sprintf('%04d-W%02d', $_['isoyear'], $_['isoweek'])),
                 ),
                 'battles' => (int)$_['battles'],
                 'weapons' => $w,
                 'others' => $_['battles'] - $total,
-                'others_pct' => ($_['battles'] > 0)
+                'others_pct' => $_['battles'] > 0
                     ? (($_['battles'] - $total) * 100 / $_['battles'])
                     : null,
             ];
@@ -155,9 +165,7 @@ class WeaponsAction extends ViewAction
                     'special' => $this->convertWeapons2Special($weapons),
                 ];
             }
-            usort($tmp, function (stdClass $a, stdClass $b): int {
-                return strnatcasecmp($a->name, $b->name);
-            });
+            usort($tmp, fn (stdClass $a, stdClass $b): int => strnatcasecmp($a->name, $b->name));
             while (!empty($tmp)) {
                 $rules[] = array_shift($tmp);
             }
@@ -189,36 +197,36 @@ class WeaponsAction extends ViewAction
                     $kr = $model->total_kill / $model->total_death;
                 }
                 return (object)[
-                    'key'       => $model->weapon->key,
-                    'name'      => Yii::t('app-weapon', $model->weapon->name),
+                    'key' => $model->weapon->key,
+                    'name' => Yii::t('app-weapon', $model->weapon->name),
                     'subweapon' => (object)[
-                        'key'   => $model->weapon->subweapon->key,
-                        'name'  => Yii::t('app-subweapon', $model->weapon->subweapon->name),
+                        'key' => $model->weapon->subweapon->key,
+                        'name' => Yii::t('app-subweapon', $model->weapon->subweapon->name),
                     ],
-                    'special'   => (object)[
-                        'key'   => $model->weapon->special->key,
-                        'name'  => Yii::t('app-special', $model->weapon->special->name),
+                    'special' => (object)[
+                        'key' => $model->weapon->special->key,
+                        'name' => Yii::t('app-special', $model->weapon->special->name),
                     ],
-                    'count'     => (int)$model->players,
-                    'avg_kill'  => $model->players > 0
-                        ? ($model->total_kill / $model->players)
+                    'count' => (int)$model->players,
+                    'avg_kill' => $model->players > 0
+                        ? $model->total_kill / $model->players
                         : null,
-                    'sum_kill'  => $model->total_kill,
+                    'sum_kill' => $model->total_kill,
                     'avg_death' => $model->players > 0
-                        ? ($model->total_death / $model->players)
+                        ? $model->total_death / $model->players
                         : null,
                     'sum_death' => $model->total_death,
                     'kr' => $kr,
-                    'wp'        => $model->players > 0
+                    'wp' => $model->players > 0
                         ? $model->win_count / $model->players
                         : null,
                     'win_count' => $model->win_count,
                     'avg_inked' => $model->point_available > 0
-                        ? ($model->total_point / $model->point_available)
+                        ? $model->total_point / $model->point_available
                         : null,
                 ];
             },
-            $query->all()
+            $query->all(),
         );
 
         usort($list, function (stdClass $a, stdClass $b): int {
@@ -251,14 +259,14 @@ class WeaponsAction extends ViewAction
                     ->select('(1)')
                     ->from('{{user_weapon}} AS {{s}}')
                     ->andWhere('{{m}}.[[user_id]] = {{s}}.[[user_id]]')
-                    ->andWhere('{{m}}.[[count]] < {{s}}.[[count]]')
+                    ->andWhere('{{m}}.[[count]] < {{s}}.[[count]]'),
             ]);
 
         $query = (new Query())
             ->select(['weapon_id', 'count' => 'COUNT(*)'])
             ->from(sprintf(
                 '(%s) AS {{tmp}}',
-                $favWeaponQuery->createCommand()->rawSql
+                $favWeaponQuery->createCommand()->rawSql,
             ))
             ->groupBy('{{tmp}}.[[weapon_id]]')
             ->orderBy('COUNT(*) DESC');
@@ -266,22 +274,18 @@ class WeaponsAction extends ViewAction
         $list = $query->createCommand()->queryAll();
         $weapons = $this->getWeapons(
             array_map(
-                function (array $row): int {
-                    return (int)$row['weapon_id'];
-                },
-                $list
-            )
+                fn (array $row): int => (int)$row['weapon_id'],
+                $list,
+            ),
         );
 
         return array_map(
-            function (array $row) use ($weapons): stdClass {
-                return (object)[
+            fn (array $row): stdClass => (object)[
                     'weapon_id' => $row['weapon_id'],
                     'user_count' => $row['count'],
                     'weapon' => $weapons[$row['weapon_id']] ?? null,
-                ];
-            },
-            $list
+                ],
+            $list,
         );
     }
 
@@ -302,29 +306,29 @@ class WeaponsAction extends ViewAction
         $ret = [];
         foreach (Subweapon::find()->all() as $sub) {
             $ret[$sub->key] = (object)[
-                'name'      => Yii::t('app-subweapon', $sub->name),
-                'count'     => 0,
-                'sum_kill'  => 0,
+                'name' => Yii::t('app-subweapon', $sub->name),
+                'count' => 0,
+                'sum_kill' => 0,
                 'sum_death' => 0,
                 'win_count' => 0,
-                'avg_kill'  => null,
+                'avg_kill' => null,
                 'avg_death' => null,
-                'kr'        => null,
-                'wp'        => null,
+                'kr' => null,
+                'wp' => null,
                 'encounter_3' => null,
                 'encounter_4' => null,
             ];
         }
         foreach ($in->weapons as $weapon) {
             $o = $ret[$weapon->subweapon->key];
-            $o->count     += $weapon->count;
-            $o->sum_kill  += $weapon->sum_kill;
+            $o->count += $weapon->count;
+            $o->sum_kill += $weapon->sum_kill;
             $o->sum_death += $weapon->sum_death;
             $o->win_count += $weapon->win_count;
         }
         foreach ($ret as $o) {
             if ($o->count > 0) {
-                $o->avg_kill  = $o->sum_kill / $o->count;
+                $o->avg_kill = $o->sum_kill / $o->count;
                 $o->avg_death = $o->sum_death / $o->count;
                 $o->wp = $o->win_count / $o->count;
                 $encounterRate = $o->count / $in->player_count;
@@ -359,34 +363,34 @@ class WeaponsAction extends ViewAction
         $ret = [];
         foreach (Special::find()->all() as $spe) {
             $ret[$spe->key] = (object)[
-                'name'      => Yii::t('app-special', $spe->name),
-                'count'     => 0,
-                'sum_kill'  => 0,
+                'name' => Yii::t('app-special', $spe->name),
+                'count' => 0,
+                'sum_kill' => 0,
                 'sum_death' => 0,
                 'win_count' => 0,
-                'avg_kill'  => null,
+                'avg_kill' => null,
                 'avg_death' => null,
-                'kr'        => null,
-                'wp'        => null,
+                'kr' => null,
+                'wp' => null,
                 'encounter_3' => null,
                 'encounter_4' => null,
             ];
         }
         foreach ($in->weapons as $weapon) {
             $o = $ret[$weapon->special->key];
-            $o->count     += $weapon->count;
-            $o->sum_kill  += $weapon->sum_kill;
+            $o->count += $weapon->count;
+            $o->sum_kill += $weapon->sum_kill;
             $o->sum_death += $weapon->sum_death;
             $o->win_count += $weapon->win_count;
         }
         foreach ($ret as $o) {
             if ($o->count > 0) {
-                $o->avg_kill  = $o->sum_kill / $o->count;
+                $o->avg_kill = $o->sum_kill / $o->count;
                 $o->avg_death = $o->sum_death / $o->count;
                 $o->wp = $o->win_count / $o->count;
                 $encounterRate = $o->count / $in->player_count;
-                $o->encounter_3 = (1 - pow(1 - $encounterRate, 3));
-                $o->encounter_4 = (1 - pow(1 - $encounterRate, 4));
+                $o->encounter_3 = 1 - pow(1 - $encounterRate, 3);
+                $o->encounter_4 = 1 - pow(1 - $encounterRate, 4);
                 $o->encounter_r = $encounterRate;
                 if ($o->sum_death < 1) {
                     if ($o->sum_kill < 1) {

@@ -18,6 +18,9 @@ use yii\bootstrap\BootstrapAsset;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
+use function is_array;
+use function is_string;
+
 class MiniinfoData extends Widget
 {
     public $label;
@@ -66,7 +69,7 @@ class MiniinfoData extends Widget
         return Html::tag(
             $tag,
             $this->renderHeader() . $this->renderValue(),
-            $options
+            $options,
         );
     }
 
@@ -116,7 +119,7 @@ class MiniinfoData extends Widget
         return Html::tag(
             $tag,
             $f->format($value, $format),
-            $options
+            $options,
         );
     }
 }

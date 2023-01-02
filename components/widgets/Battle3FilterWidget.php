@@ -19,6 +19,12 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\web\View;
 
+use function implode;
+use function ob_end_clean;
+use function ob_get_contents;
+use function ob_start;
+use function vsprintf;
+
 final class Battle3FilterWidget extends Widget
 {
     public $id = 'filter-form';
@@ -46,7 +52,7 @@ final class Battle3FilterWidget extends Widget
             $divId = $this->getId();
             $view = $this->view;
             if ($view instanceof View) {
-                $view->registerCss(\vsprintf('#%s{%s}', [
+                $view->registerCss(vsprintf('#%s{%s}', [
                     $divId,
                     Html::cssStyleFromArray([
                         'border' => '1px solid #ccc',
@@ -78,7 +84,7 @@ final class Battle3FilterWidget extends Widget
     {
         $filter = $this->filter ?: Yii::createObject(Battle3FilterForm::class);
 
-        return \implode('', [
+        return implode('', [
             $this->drawLobby($form, $filter),
             $this->drawRule($form, $filter),
             $this->drawMap($form, $filter),
@@ -100,7 +106,7 @@ final class Battle3FilterWidget extends Widget
             $form
                 ->field($filter, 'lobby')
                 ->dropDownList(...$filter->getLobbyDropdown())
-                ->label(false)
+                ->label(false),
         );
     }
 
@@ -114,7 +120,7 @@ final class Battle3FilterWidget extends Widget
             $form
                 ->field($filter, 'rule')
                 ->dropDownList(...$filter->getRuleDropdown())
-                ->label(false)
+                ->label(false),
         );
     }
 
@@ -128,7 +134,7 @@ final class Battle3FilterWidget extends Widget
             $form
                 ->field($filter, 'map')
                 ->dropDownList(...$filter->getMapDropdown())
-                ->label(false)
+                ->label(false),
         );
     }
 
@@ -142,7 +148,7 @@ final class Battle3FilterWidget extends Widget
             $form
                 ->field($filter, 'weapon')
                 ->dropDownList(...$filter->getWeaponDropdown($this->user))
-                ->label(false)
+                ->label(false),
         );
     }
 
@@ -156,7 +162,7 @@ final class Battle3FilterWidget extends Widget
             $form
                 ->field($filter, 'result')
                 ->dropDownList(...$filter->getResultDropdown())
-                ->label(false)
+                ->label(false),
         );
     }
 
@@ -170,7 +176,7 @@ final class Battle3FilterWidget extends Widget
             $form
                 ->field($filter, 'knockout')
                 ->dropDownList(...$filter->getKnockoutDropdown())
-                ->label(false)
+                ->label(false),
         );
     }
 
@@ -184,7 +190,7 @@ final class Battle3FilterWidget extends Widget
             $form
                 ->field($filter, 'term')
                 ->dropDownList(...$filter->getTermDropdown())
-                ->label(false)
+                ->label(false),
         );
     }
 
@@ -200,20 +206,20 @@ final class Battle3FilterWidget extends Widget
                         'btn',
                         'btn-primary',
                     ],
-                ]
+                ],
             );
         }
 
         return Html::tag(
             'button',
-            \implode(' ', [
+            implode(' ', [
                 Icon::search(),
                 Html::encode(Yii::t('app', 'Search')),
             ]),
             [
                 'type' => 'submit',
                 'class' => ['btn', 'btn-primary'],
-            ]
+            ],
         );
     }
 

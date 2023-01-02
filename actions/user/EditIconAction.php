@@ -8,13 +8,16 @@
 
 namespace app\actions\user;
 
+use Exception;
+use Throwable;
 use Yii;
-use app\models\User;
 use app\models\UserIcon;
-use yii\web\ServerErrorHttpException;
-use yii\web\ViewAction as BaseAction;
-use yii\web\UploadedFile;
 use yii\base\DynamicModel;
+use yii\web\ServerErrorHttpException;
+use yii\web\UploadedFile;
+use yii\web\ViewAction as BaseAction;
+
+use function file_get_contents;
 
 class EditIconAction extends BaseAction
 {
@@ -32,16 +35,15 @@ class EditIconAction extends BaseAction
                         if ($current = $user->userIcon) {
                             $transaction = Yii::$app->db->beginTransaction();
                             if (!$current->delete()) {
-                                throw new \Exception();
+                                throw new Exception();
                             }
                             $transaction->commit();
                         }
                         Yii::$app->session->addFlash(
                             'success',
-                            Yii::t('app', 'Your profile icon has been updated.')
+                            Yii::t('app', 'Your profile icon has been updated.'),
                         );
                         return $this->controller->redirect(['user/profile'], 303);
-                        break;
 
                     case 'update':
                         $model = DynamicModel::validateData(
@@ -56,7 +58,7 @@ class EditIconAction extends BaseAction
                                     'maxWidth' => 2000,
                                     'maxHeight' => 2000,
                                 ],
-                            ]
+                            ],
                         );
                         if ($model->hasErrors()) {
                             $message = $model->getFirstError('image');
@@ -66,33 +68,33 @@ class EditIconAction extends BaseAction
                         try {
                             if ($current = $user->userIcon) {
                                 if (!$current->delete()) {
-                                    throw new \Exception();
+                                    throw new Exception();
                                 }
                             }
                             if (!$binary = @file_get_contents($model->image->tempName)) {
-                                throw new \Exception();
+                                throw new Exception();
                             }
                             $icon = UserIcon::createNew($user->id, $binary);
                             if (!$icon->save()) {
-                                throw new \Exception();
+                                throw new Exception();
                             }
                             $transaction->commit();
                             Yii::$app->session->addFlash(
                                 'success',
-                                Yii::t('app', 'Your profile icon has been updated.')
+                                Yii::t('app', 'Your profile icon has been updated.'),
                             );
                             return $this->controller->redirect(['user/profile'], 303);
-                        } catch (\Exception $e) {
+                        } catch (Throwable $e) {
                             $transaction->rollback();
                             throw $e;
                         }
                         break;
                 }
-            } catch (\Exception $e) {
+            } catch (Throwable $e) {
             }
             Yii::$app->session->addFlash(
                 'danger',
-                $message ?: Yii::t('app', 'Could not update your icon. Please try again.')
+                $message ?: Yii::t('app', 'Could not update your icon. Please try again.'),
             );
         }
         return $this->controller->render('edit-icon', [

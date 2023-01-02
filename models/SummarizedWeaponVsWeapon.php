@@ -12,6 +12,11 @@ use Yii;
 use yii\base\Model;
 use yii\db\Query;
 
+use function array_map;
+use function usort;
+
+use const NAN;
+
 class SummarizedWeaponVsWeapon extends Model
 {
     public $lhs_weapon_id;
@@ -67,9 +72,9 @@ class SummarizedWeaponVsWeapon extends Model
                 $o->rhsWeapon = $weapons[$o->rhs_weapon_id] ?? null;
                 return $o;
             },
-            $query->all()
+            $query->all(),
         );
-        usort($result, fn($a, $b) => ($b->winPct <=> $a->winPct));
+        usort($result, fn ($a, $b) => ($b->winPct <=> $a->winPct));
         return $result;
     }
 

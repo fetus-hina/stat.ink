@@ -20,6 +20,12 @@ use app\models\SalmonWeapon3;
 use yii\console\ExitCode;
 use yii\db\Connection;
 
+use function array_values;
+use function count;
+use function date;
+use function vfprintf;
+
+use const SORT_ASC;
 use const STDERR;
 
 trait UpdateSalmonSchedule
@@ -84,10 +90,10 @@ trait UpdateSalmonSchedule
                     $this->cleanUpSalmonSchedule($startAt) &&
                     $this->registerSalmonScheduleImpl($startAt, $endAt, $mapId, $weapons, $isBigRun)
                 ) {
-                    \vfprintf(STDERR, "Salmon run schedule registered, %s, period=%s - %s\n", [
+                    vfprintf(STDERR, "Salmon run schedule registered, %s, period=%s - %s\n", [
                         $isBigRun ? 'bigrun' : 'standard',
-                        \date(DateTime::ATOM, $startAt),
-                        \date(DateTime::ATOM, $endAt),
+                        date(DateTime::ATOM, $startAt),
+                        date(DateTime::ATOM, $endAt),
                     ]);
 
                     return true;
@@ -95,7 +101,7 @@ trait UpdateSalmonSchedule
 
                 $db->transaction->rollBack();
                 return false;
-            }
+            },
         );
     }
 
@@ -111,8 +117,8 @@ trait UpdateSalmonSchedule
     ): bool {
         $schedule = SalmonSchedule3::find()
             ->andWhere([
-                'end_at' => \date(DateTime::ATOM, $endAt),
-                'start_at' => \date(DateTime::ATOM, $startAt),
+                'end_at' => date(DateTime::ATOM, $endAt),
+                'start_at' => date(DateTime::ATOM, $startAt),
             ])
             ->andWhere(
                 $isBigRun
@@ -137,12 +143,12 @@ trait UpdateSalmonSchedule
             ->orderBy(['id' => SORT_ASC])
             ->all();
 
-        if (\count($dbWeapons) !== \count($weapons)) {
+        if (count($dbWeapons) !== count($weapons)) {
             // 個数が一致しないはずがない
             return false;
         }
 
-        foreach (\array_values($weapons) as $i => $weapon) {
+        foreach (array_values($weapons) as $i => $weapon) {
             if ($weapon instanceof SalmonWeapon3) {
                 if ($dbWeapons[$i]->weapon_id !== $weapon->id) {
                     return false;
@@ -188,9 +194,9 @@ trait UpdateSalmonSchedule
         $schedule = Yii::createObject([
             'class' => SalmonSchedule3::class,
             'big_map_id' => $isBigRun ? $mapId : null,
-            'end_at' => \date(DateTime::ATOM, $endAt),
+            'end_at' => date(DateTime::ATOM, $endAt),
             'map_id' => $isBigRun ? null : $mapId,
-            'start_at' => \date(DateTime::ATOM, $startAt),
+            'start_at' => date(DateTime::ATOM, $startAt),
         ]);
         if (!$schedule->save()) {
             return false;

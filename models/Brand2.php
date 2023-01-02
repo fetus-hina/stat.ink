@@ -10,8 +10,14 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+
+use function array_map;
+use function array_merge;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "brand2".
@@ -74,7 +80,7 @@ class Brand2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getStrength()
     {
@@ -82,7 +88,7 @@ class Brand2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getWeakness()
     {
@@ -112,9 +118,9 @@ class Brand2 extends ActiveRecord
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc2', 'Brand'),
                         'app-brand2',
-                        $values
+                        $values,
                     ),
-                    ArrayHelper::getColumn($values, 'key', false)
+                    ArrayHelper::getColumn($values, 'key', false),
                 ),
                 'name' => static::oapiRef(openapi\Name::class),
                 'strength' => array_merge(Ability2::openApiSchema(), [
@@ -147,10 +153,8 @@ class Brand2 extends ActiveRecord
             ->orderBy(['key' => SORT_ASC])
             ->all();
         return array_map(
-            function ($model) {
-                return $model->toJsonArray();
-            },
-            $models
+            fn ($model) => $model->toJsonArray(),
+            $models,
         );
     }
 }

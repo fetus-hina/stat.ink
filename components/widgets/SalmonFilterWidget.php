@@ -24,6 +24,19 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
+use function array_merge;
+use function asort;
+use function implode;
+use function ob_end_clean;
+use function ob_get_contents;
+use function ob_start;
+use function time;
+use function trim;
+use function vsprintf;
+
+use const SORT_ASC;
+use const SORT_STRING;
+
 class SalmonFilterWidget extends Widget
 {
     public $user;
@@ -60,7 +73,7 @@ class SalmonFilterWidget extends Widget
                 ]),
                 [
                     'class' => 'btn btn-primary',
-                ]
+                ],
             );
             ActiveForm::end();
             return ob_get_contents();
@@ -86,9 +99,7 @@ class SalmonFilterWidget extends Widget
         $stages = ArrayHelper::map(
             SalmonMap2::find()->asArray()->all(),
             'key',
-            function (array $row): string {
-                return Yii::t('app-salmon-map2', $row['name']);
-            }
+            fn (array $row): string => Yii::t('app-salmon-map2', $row['name']),
         );
         asort($stages, SORT_STRING);
 
@@ -105,9 +116,7 @@ class SalmonFilterWidget extends Widget
         $specials = ArrayHelper::map(
             SalmonSpecial2::find()->asArray()->all(),
             'key',
-            function (array $row): string {
-                return Yii::t('app-special2', $row['name']);
-            }
+            fn (array $row): string => Yii::t('app-special2', $row['name']),
         );
         asort($specials, SORT_STRING);
 
@@ -122,7 +131,7 @@ class SalmonFilterWidget extends Widget
     protected function renderResultField(ActiveForm $form): string
     {
         $list = [
-            'cleared'   => Yii::t('app-salmon2', 'Cleared'),
+            'cleared' => Yii::t('app-salmon2', 'Cleared'),
             'failed' => Yii::t('app-salmon2', 'Failed'),
             'failed-wave3' => Yii::t('app-salmon2', 'Failed in wave {waveNumber}', [
                 'waveNumber' => 3,
@@ -151,9 +160,7 @@ class SalmonFilterWidget extends Widget
         $reasons = ArrayHelper::map(
             SalmonFailReason2::find()->orderBy(['id' => SORT_ASC])->asArray()->all(),
             'key',
-            function (array $row): string {
-                return Yii::t('app-salmon2', $row['name']);
-            }
+            fn (array $row): string => Yii::t('app-salmon2', $row['name']),
         );
 
         return $form->field($this->filter, 'reason')

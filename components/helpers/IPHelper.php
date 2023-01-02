@@ -10,8 +10,18 @@ declare(strict_types=1);
 
 namespace app\components\helpers;
 
-use GeoIp2\Model\City as GeoCity;
 use Yii;
+
+use function array_column;
+use function array_filter;
+use function array_merge;
+use function dns_get_record;
+use function gethostbyaddr;
+use function implode;
+use function in_array;
+
+use const DNS_A;
+use const DNS_AAAA;
 
 class IPHelper
 {
@@ -75,7 +85,7 @@ class IPHelper
             if ($records = @dns_get_record($hostName, $task[0])) {
                 $results = array_merge(
                     $results,
-                    array_column($records, $task[1])
+                    array_column($records, $task[1]),
                 );
             }
         }

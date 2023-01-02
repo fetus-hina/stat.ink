@@ -10,9 +10,10 @@ declare(strict_types=1);
 
 namespace app\components\formatters\api\v3;
 
-use Yii;
 use yii\base\Model;
 use yii\helpers\Url;
+
+use function vsprintf;
 
 final class ImageApiFormatter
 {
@@ -23,7 +24,7 @@ final class ImageApiFormatter
                 vsprintf('@imageurl/%s', [
                     $model->filename,
                 ]),
-                true
+                true,
             )
             : null;
     }

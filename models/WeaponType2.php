@@ -10,8 +10,13 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+
+use function array_map;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "weapon_type2".
@@ -69,7 +74,7 @@ class WeaponType2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getWeapons()
     {
@@ -77,7 +82,7 @@ class WeaponType2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getWeapon2s()
     {
@@ -85,7 +90,7 @@ class WeaponType2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getCategory()
     {
@@ -118,9 +123,9 @@ class WeaponType2 extends ActiveRecord
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc2', 'Weapon category'),
                         'app-weapon2',
-                        $values
+                        $values,
                     ),
-                    ArrayHelper::getColumn($values, 'key', false)
+                    ArrayHelper::getColumn($values, 'key', false),
                 ),
                 'name' => static::oapiRef(openapi\Name::class),
                 'category' => static::oapiRef(WeaponCategory2::class),
@@ -140,13 +145,11 @@ class WeaponType2 extends ActiveRecord
     public static function openapiExample(): array
     {
         return array_map(
-            function (self $model): array {
-                return $model->toJsonArray();
-            },
+            fn (self $model): array => $model->toJsonArray(),
             static::find()
                 ->orderBy(['id' => SORT_ASC])
                 ->limit(1)
-                ->all()
+                ->all(),
         );
     }
 }

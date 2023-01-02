@@ -8,8 +8,8 @@
 
 namespace app\models;
 
-use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -57,7 +57,7 @@ class DeathReasonType2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getDeathReasons()
     {

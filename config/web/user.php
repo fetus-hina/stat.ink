@@ -27,7 +27,7 @@ return (function (): array {
             'sameSite' => Cookie::SAME_SITE_LAX,
             'secure' => (bool)preg_match(
                 '/(?:^|\.)stat\.ink$/i',
-                $_SERVER['HTTP_HOST'] ?? ''
+                $_SERVER['HTTP_HOST'] ?? '',
             ),
         ],
         'identityFixedKey' => $authKeySecret,

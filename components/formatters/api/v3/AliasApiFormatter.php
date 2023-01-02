@@ -12,6 +12,9 @@ namespace app\components\formatters\api\v3;
 
 use yii\base\Model;
 
+use function array_filter;
+use function array_map;
+
 final class AliasApiFormatter
 {
     public static function toJson(?Model $model, bool $fullTranslate = false): ?string
@@ -24,10 +27,10 @@ final class AliasApiFormatter
      */
     public static function allToJson(array $models, bool $fullTranslate = false): array
     {
-        return \array_filter(
-            \array_map(
+        return array_filter(
+            array_map(
                 fn (Model $model): ?string => self::toJson($model, $fullTranslate),
-                $models
+                $models,
             ),
             fn (?string $v): bool => $v !== null,
         );

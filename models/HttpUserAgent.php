@@ -14,6 +14,10 @@ use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
+use function mb_convert_encoding;
+use function preg_replace;
+use function trim;
+
 /**
  * This is the model class for table "http_user_agent".
  *

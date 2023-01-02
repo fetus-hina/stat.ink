@@ -10,8 +10,13 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+
+use function array_map;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "species2".
@@ -61,7 +66,7 @@ class Species2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattles()
     {
@@ -69,7 +74,7 @@ class Species2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattlePlayers()
     {
@@ -98,9 +103,9 @@ class Species2 extends ActiveRecord
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc2', 'Species'),
                         'app',
-                        $values
+                        $values,
                     ),
-                    ArrayHelper::getColumn($values, 'key', false)
+                    ArrayHelper::getColumn($values, 'key', false),
                 ),
                 'name' => static::oapiRef(openapi\Name::class),
             ],
@@ -118,12 +123,10 @@ class Species2 extends ActiveRecord
     public static function openApiExample(): array
     {
         return array_map(
-            function (self $model): array {
-                return $model->toJsonArray();
-            },
+            fn (self $model): array => $model->toJsonArray(),
             static::find()
                 ->orderBy(['key' => SORT_ASC])
-                ->all()
+                ->all(),
         );
     }
 }

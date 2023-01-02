@@ -17,7 +17,7 @@ class m191216_105410_add_disconnect_to_battle2 extends Migration
         $this->addColumn(
             'battle2',
             'has_disconnect',
-            $this->boolean()->notNull()->defaultValue(false)
+            $this->boolean()->notNull()->defaultValue(false),
         );
     }
 

@@ -14,11 +14,31 @@ use Yii;
 use app\models\Language;
 use app\models\SalmonMainWeapon2;
 use app\models\SalmonWeapon3;
+use app\models\Weapon;
 use app\models\Weapon2;
 use app\models\Weapon3;
-use app\models\Weapon;
-use yii\console\Controller;
 use yii\helpers\Console;
+
+use function array_filter;
+use function array_map;
+use function array_reduce;
+use function file_exists;
+use function file_put_contents;
+use function gmdate;
+use function implode;
+use function in_array;
+use function natcasesort;
+use function str_replace;
+use function strcasecmp;
+use function strcmp;
+use function strpos;
+use function time;
+use function uksort;
+use function vsprintf;
+
+use const ARRAY_FILTER_USE_BOTH;
+use const DIRECTORY_SEPARATOR;
+use const SORT_ASC;
 
 trait WeaponShortNameTrait
 {
@@ -47,15 +67,11 @@ trait WeaponShortNameTrait
     {
         return array_reduce(
             array_map(
-                function (Language $locale): bool {
-                    return $this->checkLocaleDirectory($locale);
-                },
-                $locales
+                fn (Language $locale): bool => $this->checkLocaleDirectory($locale),
+                $locales,
             ),
-            function (bool $old, bool $new): bool {
-                return $old && $new;
-            },
-            true
+            fn (bool $old, bool $new): bool => $old && $new,
+            true,
         );
     }
 
@@ -70,12 +86,12 @@ trait WeaponShortNameTrait
 
         $this->stderr(
             '[WeaponShortName] Directory does not exist for ' . $locale->lang . "\n",
-            Console::FG_PURPLE
+            Console::FG_PURPLE,
         );
         $this->stderr(
             '[WeaponShortName] Please make a directory or edit $map of ' . "\n" .
             '                  app\commands\i18n\WeaponShortNameTrait::getLocaleDirectory()' . "\n",
-            Console::FG_PURPLE
+            Console::FG_PURPLE,
         );
 
         return false;
@@ -113,15 +129,11 @@ trait WeaponShortNameTrait
     {
         return array_reduce(
             array_map(
-                function (Language $locale): bool {
-                    return $this->createLocale($locale);
-                },
-                $locales
+                fn (Language $locale): bool => $this->createLocale($locale),
+                $locales,
             ),
-            function (bool $old, bool $new): bool {
-                return $old && $new;
-            },
-            true
+            fn (bool $old, bool $new): bool => $old && $new,
+            true,
         );
     }
 
@@ -136,16 +148,14 @@ trait WeaponShortNameTrait
 
         $data = [];
         if (file_exists($path)) {
-            $data = require($path);
+            $data = require $path;
         }
 
         // remove empty data
         $data = array_filter(
             $data,
-            function (string $value, string $key): bool {
-                return $value !== '';
-            },
-            ARRAY_FILTER_USE_BOTH
+            fn (string $value, string $key): bool => $value !== '',
+            ARRAY_FILTER_USE_BOTH,
         );
 
         $i18n = Yii::$app->i18n;
@@ -190,13 +200,9 @@ trait WeaponShortNameTrait
             }
         }
 
-        uksort($data, function (string $a, string $b): int {
-            return strcasecmp($a, $b) ?: strcmp($a, $b);
-        });
+        uksort($data, fn (string $a, string $b): int => strcasecmp($a, $b) ?: strcmp($a, $b));
 
-        $esc = function (string $text): string {
-            return str_replace(["\\", "'"], ["\\\\", "\\'"], $text);
-        };
+        $esc = fn (string $text): string => str_replace(['\\', "'"], ['\\\\', "\\'"], $text);
 
         $file = [];
         $file[] = '<?php';
@@ -222,7 +228,7 @@ trait WeaponShortNameTrait
 
         file_put_contents(
             $path,
-            implode("\n", $file) . "\n"
+            implode("\n", $file) . "\n",
         );
 
         return true;

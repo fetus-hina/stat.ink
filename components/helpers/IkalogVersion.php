@@ -12,6 +12,10 @@ use app\models\Agent;
 use app\models\Battle;
 use app\models\IkalogVersion as ARIkalogVersion;
 
+use function in_array;
+use function preg_match;
+use function strtotime;
+
 class IkalogVersion
 {
     public const V2_7_0_MINIMUM_REVISION = '16bb777';
@@ -58,11 +62,7 @@ class IkalogVersion
             return false;
         }
 
-        if (strtotime($agentRevision->at) < strtotime($minimumRevision->at)) {
-            return true;
-        }
-
-        return false;
+        return strtotime($agentRevision->at) < strtotime($minimumRevision->at);
     }
 
     public static function isIkaLog(Agent $agent): bool

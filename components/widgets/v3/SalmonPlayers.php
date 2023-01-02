@@ -28,6 +28,15 @@ use yii\helpers\Html;
 use yii\i18n\Formatter as BaseFormatter;
 use yii\web\View;
 
+use function array_filter;
+use function array_map;
+use function array_merge;
+use function array_slice;
+use function implode;
+use function sprintf;
+use function trim;
+use function vsprintf;
+
 final class SalmonPlayers extends Widget
 {
     public Salmon3 $job;
@@ -78,7 +87,7 @@ final class SalmonPlayers extends Widget
                         'table-bordered',
                         'table-striped',
                     ],
-                ]
+                ],
             ),
             [
                 'class' => 'table-responsive',
@@ -98,24 +107,24 @@ final class SalmonPlayers extends Widget
             'thead',
             Html::tag(
                 'tr',
-                \implode('', [
+                implode('', [
                     Html::tag('th', ''),
-                    \implode('', ArrayHelper::getColumn(
-                        \array_slice(
-                            \array_merge($this->players, [null, null, null, null]),
+                    implode('', ArrayHelper::getColumn(
+                        array_slice(
+                            array_merge($this->players, [null, null, null, null]),
                             0,
                             4,
                         ),
                         fn (?SalmonPlayer3 $player): string => Html::tag(
                             'th',
                             $player
-                                ? \trim(
-                                    \vsprintf('%s %s %s', [
+                                ? trim(
+                                    vsprintf('%s %s %s', [
                                         $am && $player->uniform
                                             ? Html::img(
                                                 $am->getAssetUrl(
                                                     $am->getBundle(Spl3SalmonUniformAsset::class),
-                                                    \sprintf('%s.png', $player->uniform->key),
+                                                    sprintf('%s.png', $player->uniform->key),
                                                 ),
                                                 [
                                                     'class' => 'auto-tooltip basic-icon',
@@ -131,17 +140,17 @@ final class SalmonPlayers extends Widget
                                             Html::encode($player->name),
                                             [
                                                 'class' => 'auto-tooltip',
-                                                'title' => \trim(
-                                                    \vsprintf('%s %s', [
+                                                'title' => trim(
+                                                    vsprintf('%s %s', [
                                                         $player->name,
                                                         $player->number !== null
-                                                            ? \sprintf('#%s', $player->number)
+                                                            ? sprintf('#%s', $player->number)
                                                             : '',
                                                     ]),
                                                 ),
                                             ],
                                         ),
-                                    ])
+                                    ]),
                                 )
                                 : '-',
                             ['class' => 'omit'],
@@ -154,17 +163,17 @@ final class SalmonPlayers extends Widget
 
     private function renderBody(): string
     {
-        $players = \array_slice(
-            \array_merge($this->players, [null, null, null, null]),
+        $players = array_slice(
+            array_merge($this->players, [null, null, null, null]),
             0,
             4,
         );
 
         return Html::tag(
             'tbody',
-            \implode(
+            implode(
                 '',
-                \array_filter(
+                array_filter(
                     [
                         $this->renderWeapons($players),
                         $this->renderSpecial($players),
@@ -187,9 +196,9 @@ final class SalmonPlayers extends Widget
     {
         return Html::tag(
             'tr',
-            \implode('', [
+            implode('', [
                 Html::tag('th', Html::encode(Yii::t('app', 'Weapons'))),
-                \implode('', ArrayHelper::getColumn(
+                implode('', ArrayHelper::getColumn(
                     $players,
                     fn (?SalmonPlayer3 $player): string => Html::tag(
                         'td',
@@ -203,9 +212,7 @@ final class SalmonPlayers extends Widget
                                 $weapons = ArrayHelper::getColumn(
                                     ArrayHelper::sort(
                                         $player->salmonPlayerWeapon3s,
-                                        function (SalmonPlayerWeapon3 $a, SalmonPlayerWeapon3 $b): int {
-                                            return $a->wave <=> $b->wave;
-                                        },
+                                        fn (SalmonPlayerWeapon3 $a, SalmonPlayerWeapon3 $b): int => $a->wave <=> $b->wave,
                                     ),
                                     'weapon',
                                 );
@@ -215,7 +222,7 @@ final class SalmonPlayers extends Widget
                                     $am = Yii::$app->assetManager;
                                 }
 
-                                return \implode('', \array_map(
+                                return implode('', array_map(
                                     function (?SalmonWeapon3 $weapon) use ($am): string {
                                         if (!$am) {
                                             return '';
@@ -248,9 +255,9 @@ final class SalmonPlayers extends Widget
     {
         return Html::tag(
             'tr',
-            \implode('', [
+            implode('', [
                 Html::tag('th', Html::encode(Yii::t('app', 'Special'))),
-                \implode('', ArrayHelper::getColumn(
+                implode('', ArrayHelper::getColumn(
                     $players,
                     fn (?SalmonPlayer3 $player): string => Html::tag(
                         'td',
@@ -285,10 +292,10 @@ final class SalmonPlayers extends Widget
     {
         return Html::tag(
             'tr',
-            \implode('', [
+            implode('', [
                 Html::tag(
                     'th',
-                    \implode(' ', [
+                    implode(' ', [
                         Html::img(
                             Yii::$app->assetManager->getAssetUrl(
                                 SalmonEggAsset::register($this->view),
@@ -299,7 +306,7 @@ final class SalmonPlayers extends Widget
                         Html::encode(Yii::t('app-salmon2', 'Delivers')),
                     ]),
                 ),
-                \implode('', ArrayHelper::getColumn(
+                implode('', ArrayHelper::getColumn(
                     $players,
                     fn (?SalmonPlayer3 $player): string => Html::tag(
                         'td',
@@ -311,12 +318,12 @@ final class SalmonPlayers extends Widget
                                 }
 
                                 if ($player->golden_assist > 0) {
-                                    return \vsprintf('%s %s', [
+                                    return vsprintf('%s %s', [
                                         Html::encode($this->formatter->asInteger($player->golden_eggs)),
                                         Html::tag(
                                             'small',
                                             Html::encode(
-                                                \vsprintf('<%s>', [
+                                                vsprintf('<%s>', [
                                                     $this->formatter->asInteger($player->golden_assist),
                                                 ]),
                                             ),
@@ -344,10 +351,10 @@ final class SalmonPlayers extends Widget
     {
         return Html::tag(
             'tr',
-            \implode('', [
+            implode('', [
                 Html::tag(
                     'th',
-                    \implode(' ', [
+                    implode(' ', [
                         Html::img(
                             Yii::$app->assetManager->getAssetUrl(
                                 SalmonEggAsset::register($this->view),
@@ -358,7 +365,7 @@ final class SalmonPlayers extends Widget
                         Html::encode(Yii::t('app-salmon2', 'Power Eggs')),
                     ]),
                 ),
-                \implode('', ArrayHelper::getColumn(
+                implode('', ArrayHelper::getColumn(
                     $players,
                     fn (?SalmonPlayer3 $player): string => Html::tag(
                         'td',
@@ -388,9 +395,9 @@ final class SalmonPlayers extends Widget
     {
         return Html::tag(
             'tr',
-            \implode('', [
+            implode('', [
                 Html::tag('th', Html::encode(Yii::t('app-salmon3', 'Rescues'))),
-                \implode('', ArrayHelper::getColumn(
+                implode('', ArrayHelper::getColumn(
                     $players,
                     fn (?SalmonPlayer3 $player): string => Html::tag(
                         'td',
@@ -420,9 +427,9 @@ final class SalmonPlayers extends Widget
     {
         return Html::tag(
             'tr',
-            \implode('', [
+            implode('', [
                 Html::tag('th', Html::encode(Yii::t('app-salmon3', 'Rescued'))),
-                \implode('', ArrayHelper::getColumn(
+                implode('', ArrayHelper::getColumn(
                     $players,
                     fn (?SalmonPlayer3 $player): string => Html::tag(
                         'td',
@@ -452,9 +459,9 @@ final class SalmonPlayers extends Widget
     {
         return Html::tag(
             'tr',
-            \implode('', [
+            implode('', [
                 Html::tag('th', Html::encode(Yii::t('app-salmon3', 'Boss Salmonid'))),
-                \implode('', ArrayHelper::getColumn(
+                implode('', ArrayHelper::getColumn(
                     $players,
                     fn (?SalmonPlayer3 $player): string => Html::tag(
                         'td',

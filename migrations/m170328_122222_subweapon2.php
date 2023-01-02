@@ -17,7 +17,7 @@ class m170328_122222_subweapon2 extends Migration
             'key' => $this->apiKey(),
             'name' => $this->string(32)->notNull()->unique(),
         ]);
-        $this->batchInsert('subweapon2', [ 'key', 'name' ], [
+        $this->batchInsert('subweapon2', ['key', 'name'], [
             [ 'curlingbomb', 'Curling Bomb' ],
             [ 'kyubanbomb', 'Suction Bomb' ],
             [ 'quickbomb', 'Burst Bomb' ],

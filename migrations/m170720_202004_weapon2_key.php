@@ -14,11 +14,11 @@ class m170720_202004_weapon2_key extends Migration
     {
         $this->execute(
             'ALTER TABLE {{weapon2}} ' .
-            'ALTER COLUMN [[key]] SET DATA TYPE VARCHAR(32)'
+            'ALTER COLUMN [[key]] SET DATA TYPE VARCHAR(32)',
         );
         $this->execute(
             'ALTER TABLE {{death_reason2}} ' .
-            'ALTER COLUMN [[key]] SET DATA TYPE VARCHAR(32)'
+            'ALTER COLUMN [[key]] SET DATA TYPE VARCHAR(32)',
         );
     }
 
@@ -26,11 +26,11 @@ class m170720_202004_weapon2_key extends Migration
     {
         $this->execute(
             'ALTER TABLE {{weapon2}} ' .
-            'ALTER COLUMN [[key]] SET DATA TYPE VARCHAR(16)'
+            'ALTER COLUMN [[key]] SET DATA TYPE VARCHAR(16)',
         );
         $this->execute(
             'ALTER TABLE {{death_reason2}} ' .
-            'ALTER COLUMN [[key]] SET DATA TYPE VARCHAR(16)'
+            'ALTER COLUMN [[key]] SET DATA TYPE VARCHAR(16)',
         );
     }
 }

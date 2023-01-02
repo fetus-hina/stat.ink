@@ -10,6 +10,8 @@ declare(strict_types=1);
 
 namespace app\actions\api\internal\schedule;
 
+use function array_merge;
+
 trait Splatoon3
 {
     use Battle3;
@@ -17,9 +19,9 @@ trait Splatoon3
 
     protected function getSplatoon3(): array
     {
-        return \array_merge(
+        return array_merge(
             $this->getBattle3(),
-            $this->getSalmon3()
+            $this->getSalmon3(),
         );
     }
 }

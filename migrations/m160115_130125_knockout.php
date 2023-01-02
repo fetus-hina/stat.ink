@@ -13,9 +13,9 @@ class m160115_130125_knockout extends Migration
     public function up()
     {
         $this->createTable('knockout', [
-            'map_id'    => $this->integer()->notNull(),
-            'rule_id'   => $this->integer()->notNull(),
-            'battles'   => $this->bigInteger()->notNull(),
+            'map_id' => $this->integer()->notNull(),
+            'rule_id' => $this->integer()->notNull(),
+            'battles' => $this->bigInteger()->notNull(),
             'knockouts' => $this->bigInteger()->notNull(),
         ]);
         $this->addPrimaryKey('pk_knockout', 'knockout', ['map_id', 'rule_id']);

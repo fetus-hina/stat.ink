@@ -15,6 +15,12 @@ use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
 use yii\helpers\Html;
 
+use function array_map;
+use function implode;
+use function range;
+use function sprintf;
+use function vsprintf;
+
 class KDWinTable extends Widget
 {
     public $data = [];
@@ -51,20 +57,18 @@ class KDWinTable extends Widget
                 Yii::t('app', 'k'),
             ]))),
             implode('', array_map(
-                function (int $k): string {
-                    return Html::tag(
-                        'th',
-                        Html::encode(implode('', [
+                fn (int $k): string => Html::tag(
+                    'th',
+                    Html::encode(implode('', [
                             $this->formatter->asInteger($k),
                             $k === $this->limit ? '+' : '',
                         ])),
-                        ['class' => [
+                    ['class' => [
                             'text-center',
                             'kdcell',
-                        ]]
-                    );
-                },
-                range(0, $this->limit)
+                        ]],
+                ),
+                range(0, $this->limit),
             )),
         );
     }
@@ -74,33 +78,29 @@ class KDWinTable extends Widget
         return sprintf(
             '<tbody>%s</tbody>',
             implode('', array_map(
-                function (int $d): string {
-                    return sprintf(
-                        '<tr>%s%s</tr>',
-                        Html::tag(
-                            'th',
-                            Html::encode(implode('', [
+                fn (int $d): string => sprintf(
+                    '<tr>%s%s</tr>',
+                    Html::tag(
+                        'th',
+                        Html::encode(implode('', [
                                 $this->formatter->asInteger($d),
                                 $d === $this->limit ? '+' : '',
                             ])),
-                            ['class' => [
+                        ['class' => [
                                 'text-center',
                                 'kdcell',
-                            ]]
-                        ),
-                        implode('', array_map(
-                            function (int $k) use ($d): string {
-                                return KDWinCell::widget([
-                                    'battles'   => (int)($this->data[$k][$d]['battle'] ?? 0),
-                                    'win'       => (int)($this->data[$k][$d]['win'] ?? 0),
-                                    'formatter' => $this->formatter,
-                                ]);
-                            },
-                            range(0, $this->limit)
-                        )),
-                    );
-                },
-                range(0, $this->limit)
+                            ]],
+                    ),
+                    implode('', array_map(
+                        fn (int $k): string => KDWinCell::widget([
+                                'battles' => (int)($this->data[$k][$d]['battle'] ?? 0),
+                                'win' => (int)($this->data[$k][$d]['win'] ?? 0),
+                                'formatter' => $this->formatter,
+                            ]),
+                        range(0, $this->limit),
+                    )),
+                ),
+                range(0, $this->limit),
             )),
         );
     }

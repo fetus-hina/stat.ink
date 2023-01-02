@@ -17,6 +17,8 @@ use app\models\Salmon3;
 use yii\base\Widget;
 use yii\helpers\Html;
 
+use function implode;
+
 final class ModalBody extends Widget
 {
     public Battle3|Salmon3|null $model = null;
@@ -29,11 +31,11 @@ final class ModalBody extends Widget
 
         return Html::tag(
             'div',
-            \implode('', [
+            implode('', [
                 Html::tag('p', Html::encode(Yii::t('app', 'You can delete this battle.'))),
                 Html::tag(
                     'ul',
-                    \implode('', $this->getMessages()),
+                    implode('', $this->getMessages()),
                     ['class' => 'mb-3'],
                 ),
             ]),
@@ -51,7 +53,7 @@ final class ModalBody extends Widget
             ),
             Html::tag(
                 'li',
-                \implode('<br>', [
+                implode('<br>', [
                     Html::tag(
                         'strong',
                         Html::encode(Yii::t('app', 'Please do not use this feature to destroy evidence.')),

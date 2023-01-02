@@ -7,9 +7,9 @@
  */
 
 use app\components\db\Migration;
-use yii\helpers\Json;
-use yii\helpers\ArrayHelper;
 use yii\db\Query;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Json;
 
 class m171201_164553_gear_v2 extends Migration
 {
@@ -22,21 +22,19 @@ class m171201_164553_gear_v2 extends Migration
         $brands = $this->brands;
         $abilities = $this->abilities;
         $insert = array_map(
-            function (array $row) use ($types, $brands, $abilities): array {
-                return [
+            fn (array $row): array => [
                     $row['key'],
                     $types[$row['type']],
                     $brands[$row['brand']],
                     $row['name'],
                     $abilities[$row['ability']],
-                ];
-            },
-            $data
+                ],
+            $data,
         );
         $this->batchInsert(
             'gear2',
             ['key', 'type_id', 'brand_id', 'name', 'ability_id'],
-            $insert
+            $insert,
         );
     }
 
@@ -46,10 +44,8 @@ class m171201_164553_gear_v2 extends Migration
             return false;
         }
         $this->delete('gear2', ['key' => array_map(
-            function (array $row): string {
-                return $row['key'];
-            },
-            $data
+            fn (array $row): string => $row['key'],
+            $data,
         )]);
     }
 
@@ -75,7 +71,7 @@ class m171201_164553_gear_v2 extends Migration
         return ArrayHelper::map(
             (new Query())->select(['id', 'key'])->from('gear_type')->all(),
             'key',
-            'id'
+            'id',
         );
     }
 
@@ -84,7 +80,7 @@ class m171201_164553_gear_v2 extends Migration
         return ArrayHelper::map(
             (new Query())->select(['id', 'key'])->from('brand2')->all(),
             'key',
-            'id'
+            'id',
         );
     }
 
@@ -93,7 +89,7 @@ class m171201_164553_gear_v2 extends Migration
         return ArrayHelper::map(
             (new Query())->select(['id', 'key'])->from('ability2')->all(),
             'key',
-            'id'
+            'id',
         );
     }
 }

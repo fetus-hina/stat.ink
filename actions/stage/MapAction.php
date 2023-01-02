@@ -15,9 +15,18 @@ use app\models\Map;
 use app\models\PeriodMap;
 use app\models\Rule;
 use app\models\StatWeaponMapTrend;
+use stdClass;
 use yii\base\DynamicModel;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
+
+use function array_map;
+use function array_merge;
+use function array_reverse;
+use function array_slice;
+use function strnatcasecmp;
+use function uasort;
+use function usort;
 
 class MapAction extends BaseAction
 {
@@ -71,12 +80,12 @@ class MapAction extends BaseAction
         $rules = [];
         foreach (GameMode::find()->orderBy('id ASC')->all() as $mode) {
             $tmp = array_map(
-                function (Rule $rule): \stdClass {
+                function (Rule $rule): stdClass {
                     $endAt = null;
                     $histories = array_map(
-                        function (PeriodMap $period) use (&$endAt): \stdClass {
+                        function (PeriodMap $period) use (&$endAt): stdClass {
                             $times = BattleHelper::periodToRange($period->period);
-                            $interval = ($endAt === null) ? null : ($times[0] - $endAt);
+                            $interval = $endAt === null ? null : $times[0] - $endAt;
                             $endAt = $times[1];
                             return (object)[
                                 'start' => $times[0],
@@ -87,14 +96,14 @@ class MapAction extends BaseAction
                         $this->map->getPeriodMaps()
                             ->andWhere(['rule_id' => $rule->id])
                             ->orderBy('period ASC')
-                            ->all()
+                            ->all(),
                     );
                     return (object)[
                         'rule' => $rule,
                         'history' => array_slice(
                             array_reverse($histories),
                             0,
-                            5
+                            5,
                         ),
                         'trends' => StatWeaponMapTrend::find()
                             ->with('weapon')
@@ -113,14 +122,12 @@ class MapAction extends BaseAction
                             ->sum('battles'),
                     ];
                 },
-                $mode->rules
+                $mode->rules,
             );
-            usort($tmp, function ($a, $b) {
-                return strnatcasecmp(
-                    Yii::t('app-rule', $a->rule->name),
-                    Yii::t('app-rule', $b->rule->name)
-                );
-            });
+            usort($tmp, fn ($a, $b) => strnatcasecmp(
+                Yii::t('app-rule', $a->rule->name),
+                Yii::t('app-rule', $b->rule->name),
+            ));
             $rules = array_merge($rules, $tmp);
         }
         return $rules;

@@ -26,7 +26,7 @@ class m200409_172543_new_caledonia extends Migration
         $this->update(
             'timezone_country',
             ['country_id' => $cc['fr']],
-            ['timezone_id' => $this->getTimezoneId()]
+            ['timezone_id' => $this->getTimezoneId()],
         );
     }
 
@@ -36,7 +36,7 @@ class m200409_172543_new_caledonia extends Migration
         $this->update(
             'timezone_country',
             ['country_id' => $cc['fc']],
-            ['timezone_id' => $this->getTimezoneId()]
+            ['timezone_id' => $this->getTimezoneId()],
         );
         $this->delete('country', ['key' => 'fr']);
     }
@@ -59,7 +59,7 @@ class m200409_172543_new_caledonia extends Migration
                 ->where(['key' => ['fc', 'fr']])
                 ->all(),
             'key',
-            'id'
+            'id',
         );
     }
 }

@@ -20,7 +20,7 @@ class m171202_102815_clownfish_basics extends Migration
             ],
             [
                 'key' => 'clowfish_basics',
-            ]
+            ],
         );
     }
 
@@ -34,7 +34,7 @@ class m171202_102815_clownfish_basics extends Migration
             ],
             [
                 'key' => 'clownfish_basics',
-            ]
+            ],
         );
     }
 }

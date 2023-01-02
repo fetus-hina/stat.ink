@@ -20,7 +20,7 @@ class m181119_120843_timezone extends Migration
         }
         $this->batchInsert('timezone', ['identifier', 'name', 'order', 'region_id', 'group_id'], [
             ['Asia/Seoul', 'Korea', 2, $this->region('jp'), $this->group('East Asia')],
-            ['Asia/Taipei', 'Taiwan', 5, $this->region('jp'), $this->group('East Asia')]
+            ['Asia/Taipei', 'Taiwan', 5, $this->region('jp'), $this->group('East Asia')],
         ]);
         $this->batchInsert('timezone_country', ['timezone_id', 'country_id'], [
             [$this->timezone('Asia/Seoul'), $this->country('kr')],
@@ -43,7 +43,7 @@ class m181119_120843_timezone extends Migration
             ['timezone_id' => [
                 $this->timezone('Asia/Seoul'),
                 $this->timezone('Asia/Taipei'),
-            ]]
+            ]],
         );
         $this->delete('timezone', ['identifier' => ['Asia/Seoul', 'Asia/Taipei']]);
         foreach ($this->namesTable() as $ident => $upd) {
@@ -125,9 +125,10 @@ class m181119_120843_timezone extends Migration
             ->limit(1)
             ->scalar();
         if ($ret === null) {
-            throw new \Exception('Could not find ID');
+            throw new Exception('Could not find ID');
         }
         return (int)$ret;
     }
+
     // }}}
 }

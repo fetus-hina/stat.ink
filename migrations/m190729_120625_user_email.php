@@ -24,7 +24,7 @@ class m190729_120625_user_email extends Migration
                         '@',
                         '[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?',
                         '(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*',
-                    ])))
+                    ]))),
                 ]))),
             'email_lang_id' => (string)$this->pkRef('language')->null(),
         ]);

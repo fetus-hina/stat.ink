@@ -18,6 +18,13 @@ use app\models\User;
 use yii\console\Controller;
 use yii\db\Query;
 
+use function filter_var;
+use function fprintf;
+use function fwrite;
+use function is_int;
+
+use const FILTER_VALIDATE_INT;
+use const SORT_ASC;
 use const STDERR;
 
 final class UserStat3Controller extends Controller
@@ -26,49 +33,49 @@ final class UserStat3Controller extends Controller
 
     public function actionUpdate($id): int
     {
-        $intId = \filter_var($id, FILTER_VALIDATE_INT);
-        if (\is_int($intId)) {
+        $intId = filter_var($id, FILTER_VALIDATE_INT);
+        if (is_int($intId)) {
             $user = User::findOne(['id' => $intId]);
         } else {
             $user = User::findOne(['screen_name' => $id]);
         }
 
         if (!$user) {
-            \fwrite(STDERR, "User unknown\n");
+            fwrite(STDERR, "User unknown\n");
             return 1;
         }
 
-        \fprintf(STDERR, "User id=%d, screen_name=%s\n", $user->id, $user->screen_name);
+        fprintf(STDERR, "User id=%d, screen_name=%s\n", $user->id, $user->screen_name);
         if (!UserStatsV3::create($user)) {
-            \fwrite(STDERR, "Failed to update\n");
+            fwrite(STDERR, "Failed to update\n");
             return 1;
         }
 
-        \fwrite(STDERR, "OK\n");
+        fwrite(STDERR, "OK\n");
         return 0;
     }
 
     public function actionSalmonUpdate($id): int
     {
-        $intId = \filter_var($id, FILTER_VALIDATE_INT);
-        if (\is_int($intId)) {
+        $intId = filter_var($id, FILTER_VALIDATE_INT);
+        if (is_int($intId)) {
             $user = User::findOne(['id' => $intId]);
         } else {
             $user = User::findOne(['screen_name' => $id]);
         }
 
         if (!$user) {
-            \fwrite(STDERR, "User unknown\n");
+            fwrite(STDERR, "User unknown\n");
             return 1;
         }
 
-        \fprintf(STDERR, "User id=%d, screen_name=%s\n", $user->id, $user->screen_name);
+        fprintf(STDERR, "User id=%d, screen_name=%s\n", $user->id, $user->screen_name);
         if (!SalmonStatsV3::create($user)) {
-            \fwrite(STDERR, "Failed to update\n");
+            fwrite(STDERR, "Failed to update\n");
             return 1;
         }
 
-        \fwrite(STDERR, "OK\n");
+        fwrite(STDERR, "OK\n");
         return 0;
     }
 
@@ -81,10 +88,10 @@ final class UserStat3Controller extends Controller
             ->groupBy(['user_id'])
             ->orderBy(['user_id' => SORT_ASC]);
         foreach ($query->each() as $row) {
-            \fprintf(STDERR, "[regen-all / battle] user id=%d\n", $row['user_id']);
+            fprintf(STDERR, "[regen-all / battle] user id=%d\n", $row['user_id']);
 
             UserStatsJob::pushQueue3(
-                User::find()->andWhere(['id' => $row['user_id']])->limit(1)->one()
+                User::find()->andWhere(['id' => $row['user_id']])->limit(1)->one(),
             );
         }
 
@@ -95,10 +102,10 @@ final class UserStat3Controller extends Controller
             ->groupBy(['user_id'])
             ->orderBy(['user_id' => SORT_ASC]);
         foreach ($query->each() as $row) {
-            \fprintf(STDERR, "[regen-all / salmon] user id=%d\n", $row['user_id']);
+            fprintf(STDERR, "[regen-all / salmon] user id=%d\n", $row['user_id']);
 
             SalmonStatsJob::pushQueue3(
-                User::find()->andWhere(['id' => $row['user_id']])->limit(1)->one()
+                User::find()->andWhere(['id' => $row['user_id']])->limit(1)->one(),
             );
         }
 

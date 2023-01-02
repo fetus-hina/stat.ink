@@ -16,6 +16,32 @@ use Yii;
 use yii\console\Controller;
 use yii\helpers\FileHelper;
 
+use function addslashes;
+use function array_merge;
+use function array_unique;
+use function array_values;
+use function dirname;
+use function explode;
+use function file_put_contents;
+use function filter_var;
+use function fwrite;
+use function implode;
+use function inet_pton;
+use function preg_match;
+use function preg_replace;
+use function strcmp;
+use function strpos;
+use function strtolower;
+use function substr;
+use function trim;
+use function usort;
+use function vfprintf;
+
+use const FILTER_FLAG_IPV4;
+use const FILTER_FLAG_IPV6;
+use const FILTER_VALIDATE_IP;
+use const STDERR;
+
 class CloudflareController extends Controller
 {
     public function actionUpdateIpRanges(): int
@@ -51,11 +77,9 @@ class CloudflareController extends Controller
             $this->downloadIpRangesFile('https://www.cloudflare.com/ips-v6', FILTER_FLAG_IPV6) ?: [],
         );
 
-        $removeNetmask = function (string $cidr): string {
-            return (($pos = strpos($cidr, '/')) === false)
+        $removeNetmask = fn (string $cidr): string => (($pos = strpos($cidr, '/')) === false)
                 ? $cidr
                 : substr($cidr, 0, $pos);
-        };
 
         $isIPv4 = function (string $cidr) use ($removeNetmask): bool {
             $filtered = filter_var($removeNetmask($cidr), FILTER_VALIDATE_IP, FILTER_FLAG_IPV4);

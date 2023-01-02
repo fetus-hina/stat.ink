@@ -25,7 +25,7 @@ final class SalmometerAsset extends AssetBundle
     {
         return Yii::$app->assetManager->getAssetUrl(
             $this,
-            "{$salmonid}/{$level}.png"
+            "{$salmonid}/{$level}.png",
         );
     }
 }

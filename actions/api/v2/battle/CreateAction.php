@@ -8,24 +8,27 @@
 
 namespace app\actions\api\v2\battle;
 
-use DateTimeZone;
+use Throwable;
 use Yii;
-use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\ImageConverter;
 use app\components\jobs\OstatusJob;
 use app\components\jobs\SlackJob;
 use app\components\web\ServiceUnavailableHttpException;
-use app\models\Agent;
 use app\models\Battle2;
-use app\models\OstatusPubsubhubbub;
-use app\models\Slack;
-use app\models\User;
 use app\models\api\v2\PostBattleForm;
-use yii\base\DynamicModel;
 use yii\helpers\Url;
-use yii\web\MethodNotAllowedHttpException;
 use yii\web\UploadedFile;
 use yii\web\ViewAction as BaseAction;
+
+use function array_merge;
+use function base64_encode;
+use function file_get_contents;
+use function is_string;
+use function json_encode;
+use function sprintf;
+
+use const JSON_UNESCAPED_SLASHES;
+use const JSON_UNESCAPED_UNICODE;
 
 class CreateAction extends BaseAction
 {
@@ -43,7 +46,7 @@ class CreateAction extends BaseAction
         if (!$form->validate()) {
             $this->logError(array_merge(
                 $form->getErrors(),
-                ['req' => @base64_encode($request->getRawBody())]
+                ['req' => @base64_encode($request->getRawBody())],
             ));
             return $this->formatError($form->getErrors(), 400);
         }
@@ -74,7 +77,7 @@ class CreateAction extends BaseAction
                 return $battle;
             }
             $transaction->commit();
-        } catch (\Exception $e) {
+        } catch (Throwable $e) {
             $transaction->rollback();
             $this->logError([
                 'system' => [ $e->getMessage() ],
@@ -183,24 +186,24 @@ class CreateAction extends BaseAction
                 $this->logError([
                     'system' => [
                         Yii::t('app', 'Could not convert "{0}" image.', 'judge'),
-                    ]
+                    ],
                 ]);
                 return $this->formatError([
                     'system' => [
                         Yii::t('app', 'Could not convert "{0}" image.', 'judge'),
-                    ]
+                    ],
                 ], 500);
             }
             if (!$image->save()) {
                 $this->logError([
                     'system' => [
                         Yii::t('app', 'Could not save {0}', 'battle_image(judge)'),
-                    ]
+                    ],
                 ]);
                 return $this->formatError([
                     'system' => [
                         Yii::t('app', 'Could not save {0}', 'battle_image(judge)'),
-                    ]
+                    ],
                 ], 500);
             }
         }
@@ -233,24 +236,24 @@ class CreateAction extends BaseAction
                 $this->logError([
                     'system' => [
                         Yii::t('app', 'Could not convert "{0}" image.', 'result'),
-                    ]
+                    ],
                 ]);
                 return $this->formatError([
                     'system' => [
                         Yii::t('app', 'Could not convert "{0}" image.', 'result'),
-                    ]
+                    ],
                 ], 500);
             }
             if (!$image->save()) {
                 $this->logError([
                     'system' => [
                         Yii::t('app', 'Could not save {0}', 'battle_image(result)'),
-                    ]
+                    ],
                 ]);
                 return $this->formatError([
                     'system' => [
                         Yii::t('app', 'Could not save {0}', 'battle_image(result)'),
-                    ]
+                    ],
                 ], 500);
             }
         }
@@ -269,24 +272,24 @@ class CreateAction extends BaseAction
                 $this->logError([
                     'system' => [
                         Yii::t('app', 'Could not convert "{0}" image.', 'gear'),
-                    ]
+                    ],
                 ]);
                 return $this->formatError([
                     'system' => [
                         Yii::t('app', 'Could not convert "{0}" image.', 'gear'),
-                    ]
+                    ],
                 ], 500);
             }
             if (!$image->save()) {
                 $this->logError([
                     'system' => [
                         Yii::t('app', 'Could not save {0}', 'battle_image(gear)'),
-                    ]
+                    ],
                 ]);
                 return $this->formatError([
                     'system' => [
                         Yii::t('app', 'Could not save {0}', 'battle_image(gear)'),
-                    ]
+                    ],
                 ], 500);
             }
         }
@@ -335,13 +338,13 @@ class CreateAction extends BaseAction
     private function logError(array $errors)
     {
         $output = json_encode(
-            [ 'error' => $errors ],
-            JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
+            ['error' => $errors],
+            JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE,
         );
         $text = sprintf(
             'API/Battle Error: RemoteAddr=[%s], Data=%s',
             $_SERVER['REMOTE_ADDR'],
-            $output
+            $output,
         );
         if (isset($errors['system'])) {
             Yii::error($text);
@@ -361,7 +364,7 @@ class CreateAction extends BaseAction
         $header->set('Location', Url::to([
             '/show-v2/battle',
             'screen_name' => $battle->user->screen_name,
-            'battle' => $battle->id
+            'battle' => $battle->id,
         ], true));
         $header->set('X-Api-Location', Url::to(['/api-v2-battle/view', 'id' => $battle->id], true));
         $header->set('X-User-Screen-Name', $battle->user->screen_name);

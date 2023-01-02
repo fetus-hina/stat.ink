@@ -18,9 +18,20 @@ use app\models\WeaponType;
 use yii\base\Action;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
+
+use function array_map;
+use function array_walk;
+use function date;
+use function is_scalar;
+use function sprintf;
+use function strnatcasecmp;
+use function strtotime;
+use function usort;
+
+use const SORT_ASC;
+use const SORT_NATURAL;
 
 final class WeaponAction extends Action
 {
@@ -32,17 +43,17 @@ final class WeaponAction extends Action
         parent::init();
 
         $key = Yii::$app->request->get('weapon');
-        if (\is_scalar($key)) {
+        if (is_scalar($key)) {
             $this->weapon = Weapon::findOne(['key' => $key]);
         }
         if (!$this->weapon) {
             throw new NotFoundHttpException(
-                Yii::t('yii', 'Page not found.')
+                Yii::t('yii', 'Page not found.'),
             );
         }
 
         $key = Yii::$app->request->get('rule');
-        if ($key !== '' && $key !== null && \is_scalar($key)) {
+        if ($key !== '' && $key !== null && is_scalar($key)) {
             $this->rule = Rule::findOne(['key' => $key]);
             if (!$this->rule) {
                 throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
@@ -99,14 +110,12 @@ final class WeaponAction extends Action
             ->orderBy('kill, death')
             ->asArray()
             ->all();
-        return array_map(function ($a) {
-            return [
-                'kill'   => (int)$a['kill'],
-                'death'  => (int)$a['death'],
+        return array_map(fn ($a) => [
+                'kill' => (int)$a['kill'],
+                'death' => (int)$a['death'],
                 'battle' => (int)$a['battle'],
-                'win'    => (int)$a['win'],
-            ];
-        }, $tmp);
+                'win' => (int)$a['win'],
+            ], $tmp);
     }
 
     /**
@@ -131,17 +140,13 @@ final class WeaponAction extends Action
     public function getMaps()
     {
         $ret = array_map(
-            function ($row) {
-                return [
+            fn ($row) => [
                     'key' => $row['key'],
                     'name' => Yii::t('app-map', $row['name']),
-                ];
-            },
-            Map::find()->asArray()->all()
+                ],
+            Map::find()->asArray()->all(),
         );
-        usort($ret, function ($a, $b) {
-            return strnatcasecmp($a['name'], $b['name']);
-        });
+        usort($ret, fn ($a, $b) => strnatcasecmp($a['name'], $b['name']));
         return $ret;
     }
 
@@ -151,9 +156,9 @@ final class WeaponAction extends Action
         $map = Map::tableName();
         $query = (new Query())
             ->select([
-                'map'       => "MAX({{{$map}}}.[[key]])",
-                'battle'    => "SUM({{{$table}}}.[[battle_count]])",
-                'win'       => "SUM({{{$table}}}.[[win_count]])",
+                'map' => "MAX({{{$map}}}.[[key]])",
+                'battle' => "SUM({{{$table}}}.[[battle_count]])",
+                'win' => "SUM({{{$table}}}.[[win_count]])",
             ])
             ->from($table)
             ->innerJoin($map, "{{{$table}}}.[[map_id]] = {{{$map}}}.[[id]]")
@@ -179,11 +184,11 @@ final class WeaponAction extends Action
         $weaponId = (int)$this->weapon->id;
         $query = (new Query())
             ->select([
-                'isoyear'       => 'isoyear',
-                'isoweek'       => 'isoweek',
-                'all_battles'   => 'SUM([[battles]])',
-                'battles'       => "SUM(CASE WHEN [[weapon_id]] = {$weaponId} THEN [[battles]] ELSE 0 END)",
-                'wins'          => "SUM(CASE WHEN [[weapon_id]] = {$weaponId} THEN [[wins]] ELSE 0 END)",
+                'isoyear' => 'isoyear',
+                'isoweek' => 'isoweek',
+                'all_battles' => 'SUM([[battles]])',
+                'battles' => "SUM(CASE WHEN [[weapon_id]] = {$weaponId} THEN [[battles]] ELSE 0 END)",
+                'wins' => "SUM(CASE WHEN [[weapon_id]] = {$weaponId} THEN [[wins]] ELSE 0 END)",
             ])
             ->from('stat_weapon_use_count_per_week')
             ->where(['and',
@@ -193,7 +198,7 @@ final class WeaponAction extends Action
                     ['and',
                         ['=', 'isoyear', 2015],
                         ['>=', 'isoweek', 46],
-                    ]
+                    ],
                 ],
                 ['<', 'isoyear', 2018],
             ])
@@ -201,15 +206,13 @@ final class WeaponAction extends Action
             ->having(['>', 'SUM([[battles]])', 0])
             ->orderBy('isoyear, isoweek');
         return array_map(
-            function (array $row): array {
-                return [
-                    'date'      => date('Y-m-d', strtotime(sprintf('%04d-W%02d', $row['isoyear'], $row['isoweek']))),
-                    'battles'   => (int)$row['all_battles'],
-                    'use_pct'   => $row['battles'] / $row['all_battles'] * 100,
-                    'win_pct'   => $row['battles'] > 0 ? $row['wins'] / $row['battles'] * 100 : 0,
-                ];
-            },
-            $query->createCommand()->queryAll()
+            fn (array $row): array => [
+                    'date' => date('Y-m-d', strtotime(sprintf('%04d-W%02d', $row['isoyear'], $row['isoweek']))),
+                    'battles' => (int)$row['all_battles'],
+                    'use_pct' => $row['battles'] / $row['all_battles'] * 100,
+                    'win_pct' => $row['battles'] > 0 ? $row['wins'] / $row['battles'] * 100 : 0,
+                ],
+            $query->createCommand()->queryAll(),
         );
     }
 }

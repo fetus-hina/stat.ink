@@ -20,7 +20,7 @@ class m180614_153323_v3_1_0 extends Migration
             '3.1.x',
             '3.1.0',
             '3.1.0',
-            new DateTimeImmutable('2018-06-14T11:00:00+09:00')
+            new DateTimeImmutable('2018-06-14T11:00:00+09:00'),
         );
     }
 

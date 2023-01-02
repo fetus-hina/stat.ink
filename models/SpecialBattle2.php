@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\models;
 
-use Yii;
 use app\components\helpers\Translator;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -59,9 +58,6 @@ class SpecialBattle2 extends ActiveRecord
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getBattles(): ActiveQuery
     {
         return $this->hasMany(Battle2::class, ['special_battle_id' => 'id']);

@@ -13,7 +13,6 @@ namespace app\models\battle3FilterForm;
 use Yii;
 use app\models\Battle3FilterForm;
 use app\models\Lobby3;
-use app\models\LobbyGroup3;
 use app\models\Map3;
 use app\models\Result3;
 use app\models\Rule3;
@@ -21,6 +20,12 @@ use app\models\battle3FilterForm\dropdownList\TermDropdownListTrait;
 use app\models\battle3FilterForm\dropdownList\WeaponDropdownListTrait;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+
+use function array_merge;
+use function count;
+use function sprintf;
+use function strcmp;
+use function uksort;
 
 use const SORT_ASC;
 use const SORT_LOCALE_STRING;
@@ -100,15 +105,15 @@ trait DropdownListTrait
             'key',
             fn (Result3 $model): string => Yii::t('app', $model->name),
         );
-        \uksort($list, function (string $a, string $b) use ($order): int {
+        uksort($list, function (string $a, string $b) use ($order): int {
             // どちらかがソート順に定義されていないなら、定義されていない方が後
             if (isset($order[$a]) !== isset($order[$b])) {
                 return isset($order[$a]) ? -1 : 1;
             }
 
             return isset($order[$a])
-                ? ($order[$a] <=> $order[$b] ?: \strcmp($a, $b))
-                : \strcmp($a, $b);
+                ? ($order[$a] <=> $order[$b] ?: strcmp($a, $b))
+                : strcmp($a, $b);
         });
 
         $list[Yii::t('app', 'Advanced Options')] = [
@@ -137,7 +142,7 @@ trait DropdownListTrait
                 'no' => Yii::t('app', 'Time is up'),
             ],
             [
-                'prompt' => \sprintf('%s / %s', Yii::t('app', 'Knockout'), Yii::t('app', 'Time')),
+                'prompt' => sprintf('%s / %s', Yii::t('app', 'Knockout'), Yii::t('app', 'Time')),
             ],
         ];
     }
@@ -171,28 +176,28 @@ trait DropdownListTrait
 
         $results = [];
         foreach ($groups as $groupInfo) {
-            if (\count($groupInfo['items']) < 1) {
+            if (count($groupInfo['items']) < 1) {
                 continue;
             }
 
             $group = $groupInfo['group'];
             $tmp = [];
-            if (\count($groupInfo['items']) > 1) {
-                $tmp['@' . $group->key] = ($translateCatalog === null)
+            if (count($groupInfo['items']) > 1) {
+                $tmp['@' . $group->key] = $translateCatalog === null
                     ? $group->name
                     : Yii::t($translateCatalog, $group->name);
             }
 
-            [$items, ] = $this->getSimpleDropdown(
+            [$items,] = $this->getSimpleDropdown(
                 $groupInfo['items'],
                 $translateCatalog,
                 null,
                 $sort,
             );
-            $tmp = \array_merge($tmp, $items);
+            $tmp = array_merge($tmp, $items);
 
             // make group
-            $groupName = ($translateCatalog === null)
+            $groupName = $translateCatalog === null
                 ? $group->name
                 : Yii::t($translateCatalog, $group->name);
 
@@ -218,7 +223,7 @@ trait DropdownListTrait
         $list = ArrayHelper::map(
             $models,
             'key',
-            fn (ActiveRecord $model): string => ($translateCatalog === null)
+            fn (ActiveRecord $model): string => $translateCatalog === null
                 ? $model->name
                 : Yii::t($translateCatalog, $model->name),
         );

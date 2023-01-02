@@ -13,9 +13,9 @@ class m180623_185400_species2 extends Migration
     public function up()
     {
         $this->createTable('{{species2}}', [
-            'id'    => $this->primaryKey(),
-            'key'   => $this->apiKey()->notNull(),
-            'name'  => $this->string(32)->notNull(),
+            'id' => $this->primaryKey(),
+            'key' => $this->apiKey()->notNull(),
+            'name' => $this->string(32)->notNull(),
         ]);
 
         $this->batchInsert('{{species2}}', ['key', 'name'], [
@@ -25,12 +25,12 @@ class m180623_185400_species2 extends Migration
 
         $this->execute(
             'ALTER TABLE {{battle2}} ' .
-            'ADD COLUMN [[species_id]] INTEGER NULL REFERENCES {{species2}}([[id]]) '
+            'ADD COLUMN [[species_id]] INTEGER NULL REFERENCES {{species2}}([[id]]) ',
         );
 
         $this->execute(
             'ALTER TABLE {{battle_player2}} ' .
-            'ADD COLUMN [[species_id]] INTEGER NULL REFERENCES {{species2}}([[id]]) '
+            'ADD COLUMN [[species_id]] INTEGER NULL REFERENCES {{species2}}([[id]]) ',
         );
     }
 

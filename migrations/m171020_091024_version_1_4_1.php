@@ -14,7 +14,7 @@ class m171020_091024_version_1_4_1 extends Migration
 {
     public function safeUp()
     {
-        $this->batchInsert('splatoon_version2', [ 'tag', 'name', 'released_at' ], [
+        $this->batchInsert('splatoon_version2', ['tag', 'name', 'released_at'], [
             ['1.4.1', '1.4.1', '2017-10-20T10:00:00+09:00'],
         ]);
         $this->update(
@@ -24,9 +24,9 @@ class m171020_091024_version_1_4_1 extends Migration
                 'period',
                 BattleHelper::calcPeriod2(
                     (new DateTimeImmutable('2017-10-20T11:00:00+09:00'))
-                        ->getTimestamp()
-                )
-            ]
+                        ->getTimestamp(),
+                ),
+            ],
         );
     }
 
@@ -35,7 +35,7 @@ class m171020_091024_version_1_4_1 extends Migration
         $this->update(
             'battle2',
             ['version_id' => $this->getId('1.4.0')],
-            ['version_id' => $this->getId('1.4.1')]
+            ['version_id' => $this->getId('1.4.1')],
         );
         $this->delete('splatoon_version2', ['tag' => '1.4.1']);
     }

@@ -18,9 +18,10 @@ use app\models\Weapon2;
 use app\models\Weapon2StageFilterForm;
 use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction;
+
+use const SORT_ASC;
 
 class Weapon2Action extends ViewAction
 {
@@ -61,19 +62,17 @@ class Weapon2Action extends ViewAction
                 ->applyFilter($stageFilter, ['result'])
                 ->groupBy('stat_weapon2_result.map_id')
                 ->select([
-                    'map'       => 'MAX(map2.key)',
-                    'battles'   => 'SUM(stat_weapon2_result.battles)',
-                    'wins'      => 'SUM(stat_weapon2_result.wins)',
+                    'map' => 'MAX(map2.key)',
+                    'battles' => 'SUM(stat_weapon2_result.battles)',
+                    'wins' => 'SUM(stat_weapon2_result.wins)',
                 ])
                 ->asArray()
                 ->all(),
             'map',
-            function (array $row): array {
-                return [
+            fn (array $row): array => [
                     'win' => (int)$row['wins'],
                     'lose' => (int)$row['battles'] - (int)$row['wins'],
-                ];
-            }
+                ],
             // }}}
         );
 
@@ -88,9 +87,9 @@ class Weapon2Action extends ViewAction
                 ->applyFilter($stageFilter)
                 ->groupBy(['stat_weapon2_result.map_id', 'stat_weapon2_result.kill'])
                 ->select([
-                    'map'       => 'MAX(map2.key)',
-                    'kill'      => 'stat_weapon2_result.kill',
-                    'battles'   => 'SUM(stat_weapon2_result.battles)',
+                    'map' => 'MAX(map2.key)',
+                    'kill' => 'stat_weapon2_result.kill',
+                    'battles' => 'SUM(stat_weapon2_result.battles)',
                 ])
                 ->orderBy([
                   'map' => SORT_ASC,
@@ -99,13 +98,11 @@ class Weapon2Action extends ViewAction
                 ->asArray()
                 ->all(),
             'kill',
-            function ($row) {
-                return [
+            fn ($row) => [
                     'times' => (int)$row['kill'],
                     'battles' => (int)$row['battles'],
-                ];
-            },
-            'map'
+                ],
+            'map',
             // }}}
         );
 
@@ -120,9 +117,9 @@ class Weapon2Action extends ViewAction
                 ->applyFilter($stageFilter)
                 ->groupBy(['stat_weapon2_result.map_id', 'stat_weapon2_result.death'])
                 ->select([
-                    'map'       => 'MAX(map2.key)',
-                    'death'     => 'stat_weapon2_result.death',
-                    'battles'   => 'SUM(stat_weapon2_result.battles)',
+                    'map' => 'MAX(map2.key)',
+                    'death' => 'stat_weapon2_result.death',
+                    'battles' => 'SUM(stat_weapon2_result.battles)',
                 ])
                 ->orderBy([
                   'map' => SORT_ASC,
@@ -131,13 +128,11 @@ class Weapon2Action extends ViewAction
                 ->asArray()
                 ->all(),
             'death',
-            function ($row) {
-                return [
+            fn ($row) => [
                     'times' => (int)$row['death'],
                     'battles' => (int)$row['battles'],
-                ];
-            },
-            'map'
+                ],
+            'map',
             // }}}
         );
 
@@ -152,9 +147,9 @@ class Weapon2Action extends ViewAction
                 ->applyFilter($stageFilter)
                 ->groupBy(['stat_weapon2_result.map_id', 'stat_weapon2_result.special'])
                 ->select([
-                    'map'       => 'MAX(map2.key)',
-                    'special'   => 'stat_weapon2_result.special',
-                    'battles'   => 'SUM(stat_weapon2_result.battles)',
+                    'map' => 'MAX(map2.key)',
+                    'special' => 'stat_weapon2_result.special',
+                    'battles' => 'SUM(stat_weapon2_result.battles)',
                 ])
                 ->orderBy([
                   'map' => SORT_ASC,
@@ -163,13 +158,11 @@ class Weapon2Action extends ViewAction
                 ->asArray()
                 ->all(),
             'special',
-            function ($row) {
-                return [
+            fn ($row) => [
                     'times' => (int)$row['special'],
                     'battles' => (int)$row['battles'],
-                ];
-            },
-            'map'
+                ],
+            'map',
             // }}}
         );
 
@@ -184,9 +177,9 @@ class Weapon2Action extends ViewAction
                 ->applyFilter($stageFilter)
                 ->groupBy(['stat_weapon2_result.map_id', 'stat_weapon2_result.assist'])
                 ->select([
-                    'map'       => 'MAX(map2.key)',
-                    'assist'    => 'stat_weapon2_result.assist',
-                    'battles'   => 'SUM(stat_weapon2_result.battles)',
+                    'map' => 'MAX(map2.key)',
+                    'assist' => 'stat_weapon2_result.assist',
+                    'battles' => 'SUM(stat_weapon2_result.battles)',
                 ])
                 ->orderBy([
                   'map' => SORT_ASC,
@@ -195,26 +188,24 @@ class Weapon2Action extends ViewAction
                 ->asArray()
                 ->all(),
             'assist',
-            function ($row) {
-                return [
+            fn ($row) => [
                     'times' => (int)$row['assist'],
                     'battles' => (int)$row['battles'],
-                ];
-            },
-            'map'
+                ],
+            'map',
             // }}}
         );
 
         return $this->controller->render('weapon2', [
             'stageFilter' => $stageFilter,
-            'weapon'    => $this->weapon,
-            'rule'      => $this->rule,
-            'maps'      => $maps,
-            'winRate'   => $winRate,
-            'kills'     => $kills,
-            'deaths'    => $deaths,
-            'specials'  => $specials,
-            'assists'   => $assists,
+            'weapon' => $this->weapon,
+            'rule' => $this->rule,
+            'maps' => $maps,
+            'winRate' => $winRate,
+            'kills' => $kills,
+            'deaths' => $deaths,
+            'specials' => $specials,
+            'assists' => $assists,
         ]);
     }
 }

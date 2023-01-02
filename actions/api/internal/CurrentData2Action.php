@@ -23,6 +23,17 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 
+use function array_map;
+use function max;
+use function microtime;
+use function sprintf;
+use function strcasecmp;
+use function uasort;
+use function vsprintf;
+
+use const SORT_ASC;
+use const SORT_DESC;
+
 final class CurrentData2Action extends Action
 {
     public function init()
@@ -57,22 +68,18 @@ final class CurrentData2Action extends Action
                     'name' => Yii::t('app-rule', $periodMaps[0]->rule->name),
                 ],
                 'maps' => array_map(
-                    function (PeriodMap $pm): string {
-                        return $pm->map->key;
-                    },
-                    $periodMaps
+                    fn (PeriodMap $pm): string => $pm->map->key,
+                    $periodMaps,
                 ),
             ];
         };
-        $info2 = function (array $keys): array {
-            return [
+        $info2 = fn (array $keys): array => [
                 'rule' => [
                     'key' => 'nawabari',
                     'name' => Yii::t('app-rule2', 'Turf War'),
                 ],
                 'maps' => $keys,
             ];
-        };
         $now = microtime(true);
         $period = BattleHelper::calcPeriod2((int)$now);
         $range = BattleHelper::periodToRange2($period);
@@ -82,9 +89,9 @@ final class CurrentData2Action extends Action
                 'id' => $period,
                 'next' => max($range[1] - $now, 0), // in sec
             ],
-            'fest'    => $fest,
+            'fest' => $fest,
             'regular' => false, // $info(PeriodMap::findCurrentRegular()->all()),
-            'gachi'   => false, // $info(PeriodMap::findCurrentGachi()->all()),
+            'gachi' => false, // $info(PeriodMap::findCurrentGachi()->all()),
         ];
     }
 
@@ -99,9 +106,7 @@ final class CurrentData2Action extends Action
                         'name' => Yii::t('app-rule2', $rule['name']),
                     ];
                 }
-                uasort($tmp, function ($a, $b) {
-                    return strcasecmp($a['name'], $b['name']);
-                });
+                uasort($tmp, fn ($a, $b) => strcasecmp($a['name'], $b['name']));
                 return $tmp;
             })($mode['rules']);
         }
@@ -123,7 +128,7 @@ final class CurrentData2Action extends Action
                     ),
                 ],
             ),
-            fn (array $a, array $b): int => \strcasecmp(
+            fn (array $a, array $b): int => strcasecmp(
                 (string)ArrayHelper::getValue($a, 'name'),
                 (string)ArrayHelper::getValue($b, 'name'),
             ),
@@ -148,12 +153,12 @@ final class CurrentData2Action extends Action
                     ->all();
                 if ($weapons) {
                     $ret[] = [
-                        'name' => ($category->name === $type->name)
+                        'name' => $category->name === $type->name
                             ? Yii::t('app-weapon2', $type->name)
                             : sprintf(
                                 '%s » %s',
                                 Yii::t('app-weapon2', $category->name),
-                                Yii::t('app-weapon2', $type->name)
+                                Yii::t('app-weapon2', $type->name),
                             ),
                         'list' => ArrayHelper::asort(
                             ArrayHelper::map(
@@ -194,7 +199,7 @@ final class CurrentData2Action extends Action
                 ->all(),
             fn (UserWeapon2 $model): array => [
                 'key' => (string)ArrayHelper::getValue($model, 'weapon.key'),
-                'name' => \vsprintf('%s (%s)', [
+                'name' => vsprintf('%s (%s)', [
                     Yii::t('app-weapon2', (string)ArrayHelper::getValue($model, 'weapon.name')),
                     $fmt->asInteger((int)$model->battles),
                 ]),

@@ -9,12 +9,27 @@
 namespace app\commands;
 
 use FilterIterator;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use Yii;
-use app\components\ImageS3;
 use app\components\jobs\ImageS3Job;
 use yii\console\Controller;
 use yii\helpers\Console;
 use yii\helpers\FileHelper;
+
+use function basename;
+use function dirname;
+use function file_exists;
+use function flock;
+use function fopen;
+use function implode;
+use function preg_match;
+use function sprintf;
+use function substr;
+use function time;
+
+use const LOCK_EX;
+use const LOCK_NB;
 
 class ImageS3Controller extends Controller
 {
@@ -28,11 +43,10 @@ class ImageS3Controller extends Controller
 
     public function actionUpload(string $path, bool $queue = false): int
     {
-        // {{{
         if (!Yii::$app->imgS3->enabled) {
             $this->stderr(
                 "The component \"imgS3\" is not enabled.\n",
-                Console::FG_RED
+                Console::FG_RED,
             );
             return false;
         }
@@ -41,7 +55,7 @@ class ImageS3Controller extends Controller
             $this->stderr(
                 "The specified path {$path} is not a valid file name of image.\n",
                 Console::BOLD,
-                Console::FG_RED
+                Console::FG_RED,
             );
             return 2;
         }
@@ -50,7 +64,7 @@ class ImageS3Controller extends Controller
             $this->stderr(
                 "File does not exist: {$path}\n",
                 Console::BOLD,
-                Console::FG_RED
+                Console::FG_RED,
             );
             return 2;
         }
@@ -58,21 +72,21 @@ class ImageS3Controller extends Controller
         if (!$queue) {
             $this->stderr(sprintf(
                 "%s file %s to S3 storage.\n",
-                Console::ansiFormat("Uploading", [Console::BOLD, Console::FG_GREEN]),
-                Console::ansiFormat(basename($path), [Console::BOLD, Console::FG_PURPLE])
+                Console::ansiFormat('Uploading', [Console::BOLD, Console::FG_GREEN]),
+                Console::ansiFormat(basename($path), [Console::BOLD, Console::FG_PURPLE]),
             ));
             $ret = Yii::$app->imgS3->uploadFile(
                 $path,
                 implode('/', [
                     substr(basename($path), 0, 2),
-                    basename($path)
-                ])
+                    basename($path),
+                ]),
             );
             if (!$ret) {
                 $this->stderr(
                     "Failed to upload file.\n",
                     Console::BOLD,
-                    Console::FG_RED
+                    Console::FG_RED,
                 );
                 return 1;
             }
@@ -85,39 +99,36 @@ class ImageS3Controller extends Controller
                 ]));
             $this->stderr(sprintf(
                 "%s: %s\n",
-                Console::ansiFormat("Queued", [Console::BOLD, Console::FG_GREEN]),
-                Console::ansiFormat(basename($path), [Console::BOLD, Console::FG_PURPLE])
+                Console::ansiFormat('Queued', [Console::BOLD, Console::FG_GREEN]),
+                Console::ansiFormat(basename($path), [Console::BOLD, Console::FG_PURPLE]),
             ));
         }
+
         return 0;
-        // }}}
     }
 
     public function actionAutoUpload(): int
     {
-        // {{{
         if (!$lock = $this->lockAutoUpload()) {
             return 1;
         }
 
-        $innerIterator = new \RecursiveIteratorIterator(
-            new \RecursiveDirectoryIterator(Yii::getAlias('@image'))
+        $innerIterator = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator(Yii::getAlias('@image')),
         );
         $iterator = new class ($innerIterator) extends FilterIterator {
             public function accept()
             {
                 $entry = $this->getInnerIterator()->current();
-                return (
-                    $entry->isFile() &&
+                return $entry->isFile() &&
                     preg_match('/^[a-z2-9]{26}\.jpg$/', $entry->getBasename()) &&
-                    time() - $entry->getMTime() >= ImageS3Controller::AUTOUPLOAD_DELAY
-                );
+                    time() - $entry->getMTime() >= ImageS3Controller::AUTOUPLOAD_DELAY;
             }
         };
         foreach ($iterator as $entry) {
             $status = $this->actionUpload($entry->getBasename(), true);
         }
-        //}}}
+
         return 0;
     }
 
@@ -127,18 +138,21 @@ class ImageS3Controller extends Controller
         if (!file_exists(dirname($path))) {
             FileHelper::createDirectory(dirname($path));
         }
+
         if (!$lock = @fopen($path, 'c+')) {
             $this->stderr("Could not open lock file: {$path}\n", Console::FG_RED, Console::BOLD);
             return false;
         }
+
         if (!flock($lock, LOCK_EX | LOCK_NB)) {
             $this->stderr(
                 "Could not get file lock. Another process running?\n",
                 Console::FG_RED,
-                Console::BOLD
+                Console::BOLD,
             );
             return false;
         }
+
         return $lock;
     }
 }

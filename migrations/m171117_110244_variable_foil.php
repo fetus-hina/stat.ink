@@ -23,7 +23,7 @@ class m171117_110244_variable_foil extends Migration
             'missile',
             'variableroller',
             null,
-            1031
+            1031,
         );
     }
 

@@ -8,8 +8,10 @@
 
 namespace app\models\api\internal;
 
-use Yii;
 use yii\base\Model;
+
+use function preg_replace;
+use function trim;
 
 class PatchBattleForm extends Model
 {

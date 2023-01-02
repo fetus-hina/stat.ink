@@ -23,7 +23,7 @@ return [
         file_exists(__DIR__ . '/../cloudflare/ip_ranges.php')
             ? include(__DIR__ . '/../cloudflare/ip_ranges.php')
             : [],
-        []
+        [],
     ),
     'parsers' => [
         'application/json' => JsonParser::class,

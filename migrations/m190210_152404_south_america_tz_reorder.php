@@ -15,19 +15,19 @@ class m190210_152404_south_america_tz_reorder extends Migration
     public function safeUp()
     {
         foreach ($this->getData() as $ident => $_) {
-            [$order, ] = $_;
+            [$order,] = $_;
             $this->update(
                 'timezone',
                 ['order' => $order + 100000],
-                ['identifier' => $ident]
+                ['identifier' => $ident],
             );
         }
         foreach ($this->getData() as $ident => $_) {
-            [$order, ] = $_;
+            [$order,] = $_;
             $this->update(
                 'timezone',
                 ['order' => $order],
-                ['identifier' => $ident]
+                ['identifier' => $ident],
             );
         }
     }
@@ -39,7 +39,7 @@ class m190210_152404_south_america_tz_reorder extends Migration
             $this->update(
                 'timezone',
                 ['order' => $order + 100000],
-                ['identifier' => $ident]
+                ['identifier' => $ident],
             );
         }
         foreach ($this->getData() as $ident => $_) {
@@ -47,7 +47,7 @@ class m190210_152404_south_america_tz_reorder extends Migration
             $this->update(
                 'timezone',
                 ['order' => $order],
-                ['identifier' => $ident]
+                ['identifier' => $ident],
             );
         }
     }

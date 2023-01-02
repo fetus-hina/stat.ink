@@ -8,6 +8,10 @@
 
 namespace app\components\helpers;
 
+use function max;
+use function min;
+use function round;
+
 class Color
 {
     public static function getHueFromRGB($r, $g, $b)
@@ -19,7 +23,7 @@ class Color
         $min = min($r, $g, $b);
         switch ($max) {
             case $r:
-                $hue = 60 * (($g - $b) / ($max - $min));
+                $hue = 60 * ($g - $b) / ($max - $min);
                 break;
 
             case $g:

@@ -19,6 +19,11 @@ use yii\db\Query;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
+use function array_merge;
+use function asort;
+use function implode;
+use function sprintf;
+
 class UserStatByMapRuleDetailAction extends BaseAction
 {
     use UserStatFilterTrait;
@@ -41,7 +46,7 @@ class UserStatByMapRuleDetailAction extends BaseAction
                 'user' => $user,
                 'filter' => $filter,
             ],
-            $this->getData($user, $filter)
+            $this->getData($user, $filter),
         ));
     }
 
@@ -50,15 +55,15 @@ class UserStatByMapRuleDetailAction extends BaseAction
         $nawabari = Rule::findOne(['key' => 'nawabari'])->id;
         $query = (new Query())
             ->select([
-                'map_key'   => 'MAX({{map}}.[[key]])',
-                'rule_key'  => 'MAX({{rule}}.[[key]])',
+                'map_key' => 'MAX({{map}}.[[key]])',
+                'rule_key' => 'MAX({{rule}}.[[key]])',
 
                 // 勝敗データ
-                'win'       => 'SUM(CASE WHEN {{battle}}.[[is_win]] = TRUE THEN 1 ELSE 0 END)',
-                'lose'      => 'SUM(CASE WHEN {{battle}}.[[is_win]] = FALSE THEN 1 ELSE 0 END)',
+                'win' => 'SUM(CASE WHEN {{battle}}.[[is_win]] = TRUE THEN 1 ELSE 0 END)',
+                'lose' => 'SUM(CASE WHEN {{battle}}.[[is_win]] = FALSE THEN 1 ELSE 0 END)',
 
                 // KO/時間切れ勝敗データ
-                'win_ko'    => sprintf('SUM(CASE %s END)', implode(' ', [
+                'win_ko' => sprintf('SUM(CASE %s END)', implode(' ', [
                     "WHEN {{battle}}.[[rule_id]] = {$nawabari} THEN 0",
                     'WHEN {{battle}}.[[is_win]] IS NULL THEN 0',
                     'WHEN {{battle}}.[[is_win]] = FALSE THEN 0',
@@ -66,7 +71,7 @@ class UserStatByMapRuleDetailAction extends BaseAction
                     'WHEN {{battle}}.[[is_knock_out]] = FALSE THEN 0',
                     'ELSE 1',
                 ])),
-                'lose_ko'   => sprintf('SUM(CASE %s END)', implode(' ', [
+                'lose_ko' => sprintf('SUM(CASE %s END)', implode(' ', [
                     "WHEN {{battle}}.[[rule_id]] = {$nawabari} THEN 0",
                     'WHEN {{battle}}.[[is_win]] IS NULL THEN 0',
                     'WHEN {{battle}}.[[is_win]] = TRUE THEN 0',
@@ -74,7 +79,7 @@ class UserStatByMapRuleDetailAction extends BaseAction
                     'WHEN {{battle}}.[[is_knock_out]] = FALSE THEN 0',
                     'ELSE 1',
                 ])),
-                'win_to'    => sprintf('SUM(CASE %s END)', implode(' ', [
+                'win_to' => sprintf('SUM(CASE %s END)', implode(' ', [
                     "WHEN {{battle}}.[[rule_id]] = {$nawabari} THEN 0",
                     'WHEN {{battle}}.[[is_win]] IS NULL THEN 0',
                     'WHEN {{battle}}.[[is_win]] = FALSE THEN 0',
@@ -82,7 +87,7 @@ class UserStatByMapRuleDetailAction extends BaseAction
                     'WHEN {{battle}}.[[is_knock_out]] = TRUE THEN 0',
                     'ELSE 1',
                 ])),
-                'lose_to'   => sprintf('SUM(CASE %s END)', implode(' ', [
+                'lose_to' => sprintf('SUM(CASE %s END)', implode(' ', [
                     "WHEN {{battle}}.[[rule_id]] = {$nawabari} THEN 0",
                     'WHEN {{battle}}.[[is_win]] IS NULL THEN 0',
                     'WHEN {{battle}}.[[is_win]] = TRUE THEN 0',
@@ -97,7 +102,7 @@ class UserStatByMapRuleDetailAction extends BaseAction
                     'WHEN {{battle}}.[[death]] IS NULL THEN 0',
                     'ELSE 1',
                 ])),
-                'kill_sum'  => 'SUM(COALESCE({{battle}}.[[kill]], 0))',
+                'kill_sum' => 'SUM(COALESCE({{battle}}.[[kill]], 0))',
                 'death_sum' => 'SUM(COALESCE({{battle}}.[[death]], 0))',
 
                 // ポイント

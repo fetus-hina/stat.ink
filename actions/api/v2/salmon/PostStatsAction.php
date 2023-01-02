@@ -15,8 +15,14 @@ use app\models\api\v2\PostSalmonStatsForm;
 use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\UnauthorizedHttpException;
+use yii\web\ViewAction;
 
-class PostStatsAction extends \yii\web\ViewAction
+use function sprintf;
+
+use const JSON_UNESCAPED_SLASHES;
+use const JSON_UNESCAPED_UNICODE;
+
+class PostStatsAction extends ViewAction
 {
     public function init()
     {
@@ -56,7 +62,7 @@ class PostStatsAction extends \yii\web\ViewAction
 
         $resp->headers->set(
             'location',
-            Url::to(['api-v2-salmon/view-stats', 'id' => $newId], true)
+            Url::to(['api-v2-salmon/view-stats', 'id' => $newId], true),
         );
         return null;
     }
@@ -84,8 +90,8 @@ class PostStatsAction extends \yii\web\ViewAction
             $_SERVER['REMOTE_ADDR'],
             Json::encode(
                 ['error' => $errors],
-                JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
-            )
+                JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE,
+            ),
         ));
     }
 }

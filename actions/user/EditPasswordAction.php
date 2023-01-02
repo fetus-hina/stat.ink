@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace app\actions\user;
 
-use Exception;
+use Throwable;
 use Yii;
 use app\components\helpers\Password;
 use app\models\PasswordForm;
@@ -38,7 +38,7 @@ class EditPasswordAction extends BaseAction
                         $this->controller->redirect(['user/profile']);
                         return;
                     }
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                 }
                 $transaction->rollback();
             }
@@ -59,7 +59,7 @@ class EditPasswordAction extends BaseAction
         Yii::$app->mailer
             ->compose(
                 ['text' => '@app/views/email/change-password'],
-                ['user' => $user]
+                ['user' => $user],
             )
             ->setFrom(Yii::$app->params['notifyEmail'])
             ->setTo([$user->email => $user->name])
@@ -71,7 +71,7 @@ class EditPasswordAction extends BaseAction
                     'screen_name' => $user->screen_name,
                     'site' => Yii::$app->name,
                 ],
-                $user->emailLang->lang ?? 'en-US'
+                $user->emailLang->lang ?? 'en-US',
             ))
             ->send();
     }

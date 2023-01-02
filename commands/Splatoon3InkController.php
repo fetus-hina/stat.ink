@@ -20,7 +20,7 @@ use yii\console\Controller;
 use yii\console\ExitCode;
 use yii\helpers\Json;
 
-use const STDERR;
+use function vsprintf;
 
 final class Splatoon3InkController extends Controller
 {
@@ -32,7 +32,7 @@ final class Splatoon3InkController extends Controller
     public function actionUpdate(): int
     {
         $schedules = ScheduleParser::parseAll(
-            $this->queryJson('https://splatoon3.ink/data/schedules.json')
+            $this->queryJson('https://splatoon3.ink/data/schedules.json'),
         );
 
         $status = 0;
@@ -45,8 +45,8 @@ final class Splatoon3InkController extends Controller
     {
         return $this->updateSchedule(
             ScheduleParser::parseAll(
-                $this->queryJson('https://splatoon3.ink/data/schedules.json')
-            )
+                $this->queryJson('https://splatoon3.ink/data/schedules.json'),
+            ),
         );
     }
 
@@ -54,8 +54,8 @@ final class Splatoon3InkController extends Controller
     {
         return $this->updateSalmonSchedule(
             ScheduleParser::parseAll(
-                $this->queryJson('https://splatoon3.ink/data/schedules.json')
-            )
+                $this->queryJson('https://splatoon3.ink/data/schedules.json'),
+            ),
         );
     }
 
@@ -64,11 +64,11 @@ final class Splatoon3InkController extends Controller
         echo "Querying {$url} ...\n";
         $curl = new Curl();
         $curl->setUserAgent(
-            \vsprintf('%s/%s (+%s)', [
+            vsprintf('%s/%s (+%s)', [
                 'stat.ink',
                 Yii::$app->version,
                 'https://github.com/fetus-hina/stat.ink',
-            ])
+            ]),
         );
         $curl->get($url, $data);
         if ($curl->error) {

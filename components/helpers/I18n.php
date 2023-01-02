@@ -12,10 +12,27 @@ namespace app\components\helpers;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use Exception;
 use Yii;
 use app\models\Language;
 use yii\helpers\Html;
 use yii\helpers\Url;
+
+use function array_map;
+use function array_merge;
+use function array_unique;
+use function call_user_func_array;
+use function escapeshellarg;
+use function exec;
+use function implode;
+use function natcasesort;
+use function setlocale;
+use function sprintf;
+use function str_replace;
+use function trim;
+use function uksort;
+
+use const LC_COLLATE;
 
 class I18n
 {
@@ -33,12 +50,11 @@ class I18n
             return '';
         }
 
-
         $ret = [];
         foreach (Language::find()->standard()->all() as $lang) {
             $newParams = array_merge(
                 [$route, '_lang_' => $lang->lang],
-                $params
+                $params,
             );
             $ret[] = Html::tag(
                 'link',
@@ -47,7 +63,7 @@ class I18n
                     'rel' => 'alternate',
                     'hreflang' => $lang->languageId,
                     'href' => Url::to($newParams, true),
-                ]
+                ],
             );
         }
         return implode("\n", $ret) . "\n";
@@ -62,7 +78,7 @@ class I18n
         // The author lives in Japan!
         $now = new DateTimeImmutable(
             sprintf('@%d', $_SERVER['REQUEST_TIME']),
-            new DateTimeZone('Asia/Tokyo')
+            new DateTimeZone('Asia/Tokyo'),
         );
         $php = [
             '<?php',
@@ -83,7 +99,7 @@ class I18n
             $php[] = sprintf(
                 "    '%s' => '%s',",
                 static::addslashes($englishName),
-                static::addslashes($localName)
+                static::addslashes($localName),
             );
         }
         $php[] = '];';
@@ -99,32 +115,31 @@ class I18n
             [$category, $oldLocale],
             function (array $oldData): void {
                 call_user_func_array('setlocale', $oldData);
-            }
+            },
         );
     }
 
     private static function addslashes(string $string): string
     {
         return str_replace(
-            ["\\", "'"],
-            ["\\\\", "\\'"],
-            $string
+            ['\\', "'"],
+            ['\\\\', "\\'"],
+            $string,
         );
     }
-
 
     private static function getGitContributors(string $path): array
     {
         $cmdline = sprintf(
             '/usr/bin/env git log --pretty=%s -- %s | sort | uniq',
             escapeshellarg('%an <%ae>%n%cn <%ce>'),
-            escapeshellarg($path)
+            escapeshellarg($path),
         );
         $status = null;
         $lines = [];
         @exec($cmdline, $lines, $status);
         if ($status !== 0) {
-            throw new \Exception('Could not get contributors');
+            throw new Exception('Could not get contributors');
         }
         $lines[] = 'AIZAWA Hina <hina@fetus.jp>';
 
@@ -139,8 +154,8 @@ class I18n
                     $name = trim($name);
                     return $authorMap[$name] ?? $name;
                 },
-                $lines
-            )
+                $lines,
+            ),
         );
         natcasesort($list);
         return $list;

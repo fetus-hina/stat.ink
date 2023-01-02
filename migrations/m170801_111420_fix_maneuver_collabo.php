@@ -16,7 +16,7 @@ class m170801_111420_fix_maneuver_collabo extends Migration
             $this->update(
                 "{{{$table}}}",
                 ['name' => 'Enperry Splat Dualies'],
-                ['key' => 'manueuver_collabo']
+                ['key' => 'manueuver_collabo'],
             );
         }
     }
@@ -27,7 +27,7 @@ class m170801_111420_fix_maneuver_collabo extends Migration
             $this->update(
                 "{{{$table}}}",
                 ['name' => 'スプラマニューバーコラボ'],
-                ['key' => 'manueuver_collabo']
+                ['key' => 'manueuver_collabo'],
             );
         }
     }

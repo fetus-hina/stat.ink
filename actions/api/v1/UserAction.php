@@ -9,9 +9,16 @@
 namespace app\actions\api\v1;
 
 use Yii;
-use yii\web\ViewAction as BaseAction;
 use app\models\Battle;
 use app\models\User;
+use yii\db\Query;
+use yii\web\ViewAction as BaseAction;
+
+use function array_shift;
+use function count;
+use function gmdate;
+use function is_scalar;
+use function time;
 
 class UserAction extends BaseAction
 {
@@ -28,14 +35,14 @@ class UserAction extends BaseAction
             } else {
                 return [
                     'error' => [
-                        'screen_name' => ['not found']
-                    ]
+                        'screen_name' => ['not found'],
+                    ],
                 ];
             }
         }
 
         $now = @$_SERVER['REQUEST_TIME'] ?: time();
-        $subQuery = (new \yii\db\Query())
+        $subQuery = (new Query())
             ->select(['id' => 'MAX({{battle}}.[[id]])'])
             ->from('battle')
             ->andWhere(['>=', '{{battle}}.[[at]]', gmdate('Y-m-d H:i:sO', $now - 60 * 86400)])
@@ -58,7 +65,7 @@ class UserAction extends BaseAction
             $json = $model->user->toJsonArray();
             $json['latest_battle'] = null;
             $ret[] = $json;
-        };
+        }
 
         if ($user) {
             return count($ret) >= 1 ? array_shift($ret) : null;

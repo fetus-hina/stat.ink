@@ -22,12 +22,12 @@ class m170328_132058_weapon_type2 extends Migration
         ]);
 
         $c = $this->getCategories();
-        $this->batchInsert('weapon_type2', [ 'category_id', 'key', 'name' ], [
-            [ $c['shooter'],   'shooter',   'Shooters' ],
-            [ $c['shooter'],   'blaster',   'Blasters' ],
-            [ $c['roller'],    'roller',    'Rollers' ],
-            [ $c['roller'],    'brush',     'Brushes' ],
-            [ $c['charger'],   'charger',   'Chargers' ],
+        $this->batchInsert('weapon_type2', ['category_id', 'key', 'name'], [
+            [ $c['shooter'], 'shooter', 'Shooters' ],
+            [ $c['shooter'], 'blaster', 'Blasters' ],
+            [ $c['roller'], 'roller', 'Rollers' ],
+            [ $c['roller'], 'brush', 'Brushes' ],
+            [ $c['charger'], 'charger', 'Chargers' ],
             [ $c['splatling'], 'splatling', 'Splatlings' ],
         ]);
     }
@@ -45,7 +45,7 @@ class m170328_132058_weapon_type2 extends Migration
                 ->from('weapon_category2')
                 ->all(),
             'key',
-            'id'
+            'id',
         );
     }
 }

@@ -9,12 +9,14 @@
 namespace app\actions\api\info;
 
 use Yii;
-use app\components\helpers\Translator;
 use app\models\Gear2;
 use app\models\GearType;
 use app\models\Language;
 use yii\base\Action;
 use yii\web\NotFoundHttpException;
+
+use function strnatcasecmp;
+use function usort;
 
 final class Gear2Action extends Action
 {
@@ -38,12 +40,10 @@ final class Gear2Action extends Action
             ])
             ->andWhere(['type_id' => $type->id])
             ->all();
-        \usort($gears, function (Gear2 $a, Gear2 $b): int {
-            return \strnatcasecmp(
-                $a->translatedName,
-                $b->translatedName
-            );
-        });
+        usort($gears, fn (Gear2 $a, Gear2 $b): int => strnatcasecmp(
+            $a->translatedName,
+            $b->translatedName,
+        ));
         $langs = Language::find()->standard()->all();
         $sysLang = Yii::$app->language;
         usort($langs, function (Language $a, Language $b) use ($sysLang): int {
@@ -58,7 +58,7 @@ final class Gear2Action extends Action
             }
         });
         return $this->controller->render('gear2', [
-            'type'  => $type,
+            'type' => $type,
             'langs' => $langs,
             'gears' => $gears,
         ]);

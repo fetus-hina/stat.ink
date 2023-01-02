@@ -22,6 +22,11 @@ use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
+use function array_map;
+use function strcmp;
+use function time;
+use function usort;
+
 class UserStatReportAction extends BaseAction
 {
     private $user;
@@ -32,7 +37,7 @@ class UserStatReportAction extends BaseAction
             Yii::$app->db
                 ->createCommand('SET TIMEZONE TO :tz')
                 ->bindValue(':tz', Yii::$app->timeZone)
-                ->rawSql
+                ->rawSql,
         )->execute();
 
         $this->user = User::findOne(['screen_name' => Yii::$app->request->get('screen_name')]);
@@ -62,8 +67,8 @@ class UserStatReportAction extends BaseAction
                 [['month'], 'integer',
                     'min' => 1,
                     'max' => 12,
-                ]
-            ]
+                ],
+            ],
         );
         if ($form->hasErrors()) {
             $this->controller->redirect(['show/user-stat-report',
@@ -107,7 +112,7 @@ class UserStatReportAction extends BaseAction
             'list' => $this->query(
                 $from->format(DateTime::ATOM),
                 $to->format(DateTime::ATOM),
-                '{{battle}}.[[at]]::date'
+                '{{battle}}.[[at]]::date',
             ),
             'next' => $next <= $upperBound
                 ? Url::to(['show/user-stat-report',
@@ -135,20 +140,20 @@ class UserStatReportAction extends BaseAction
     {
         $query = (new Query())
             ->select([
-                'date'          => $date,
-                'lobby_id'      => '{{battle}}.[[lobby_id]]',
-                'lobby_key'     => 'MAX({{lobby}}.[[key]])',
-                'lobby_name'    => 'MAX({{lobby}}.[[name]])',
-                'rule_key'      => 'MAX({{rule}}.[[key]])',
-                'rule_name'     => 'MAX({{rule}}.[[name]])',
-                'map_key'       => 'MAX({{map}}.[[key]])',
-                'map_name'      => 'MAX({{map}}.[[name]])',
-                'weapon_key'    => 'MAX({{weapon}}.[[key]])',
-                'weapon_name'   => 'MAX({{weapon}}.[[name]])',
-                'battles'       => 'COUNT(*)',
-                'wins'          => 'SUM(CASE WHEN {{battle}}.[[is_win]] THEN 1 ELSE 0 END)',
-                'kill'          => 'SUM({{battle}}.[[kill]])',
-                'death'         => 'SUM({{battle}}.[[death]])',
+                'date' => $date,
+                'lobby_id' => '{{battle}}.[[lobby_id]]',
+                'lobby_key' => 'MAX({{lobby}}.[[key]])',
+                'lobby_name' => 'MAX({{lobby}}.[[name]])',
+                'rule_key' => 'MAX({{rule}}.[[key]])',
+                'rule_name' => 'MAX({{rule}}.[[name]])',
+                'map_key' => 'MAX({{map}}.[[key]])',
+                'map_name' => 'MAX({{map}}.[[name]])',
+                'weapon_key' => 'MAX({{weapon}}.[[key]])',
+                'weapon_name' => 'MAX({{weapon}}.[[name]])',
+                'battles' => 'COUNT(*)',
+                'wins' => 'SUM(CASE WHEN {{battle}}.[[is_win]] THEN 1 ELSE 0 END)',
+                'kill' => 'SUM({{battle}}.[[kill]])',
+                'death' => 'SUM({{battle}}.[[death]])',
             ])
             ->from('battle')
             ->innerJoin('lobby', '{{battle}}.[[lobby_id]] = {{lobby}}.[[id]]')
@@ -172,21 +177,19 @@ class UserStatReportAction extends BaseAction
             ]);
         $list = array_map(
             function ($row) {
-                $row['lobby_name']  = Yii::t('app-rule', $row['lobby_name']);
-                $row['rule_name']   = Yii::t('app-rule', $row['rule_name']);
-                $row['map_name']    = Yii::t('app-map', $row['map_name']);
+                $row['lobby_name'] = Yii::t('app-rule', $row['lobby_name']);
+                $row['rule_name'] = Yii::t('app-rule', $row['rule_name']);
+                $row['map_name'] = Yii::t('app-map', $row['map_name']);
                 $row['weapon_name'] = Yii::t('app-weapon', $row['weapon_name']);
                 return $row;
             },
-            $query->createCommand()->queryAll()
+            $query->createCommand()->queryAll(),
         );
-        usort($list, function ($a, $b) {
-            return strcmp($b['date'], $a['date'])
+        usort($list, fn ($a, $b) => strcmp($b['date'], $a['date'])
                 ?: $a['lobby_id'] <=> $b['lobby_id']
                 ?: strcmp($a['rule_name'], $b['rule_name'])
                 ?: strcmp($a['map_name'], $b['map_name'])
-                ?: strcmp($a['weapon_name'], $b['weapon_name']);
-        });
+                ?: strcmp($a['weapon_name'], $b['weapon_name']));
         return $list;
     }
 }

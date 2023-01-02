@@ -21,6 +21,13 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
+use yii\web\View;
+
+/**
+ * @var Rule2 $rule
+ * @var View $this
+ * @var Weapon2 $weapon
+ */
 
 function calcError(int $battles, int $wins): ?float
 {

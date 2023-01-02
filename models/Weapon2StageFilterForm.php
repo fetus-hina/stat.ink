@@ -8,8 +8,9 @@
 
 namespace app\models;
 
-use Yii;
 use yii\base\Model;
+
+use function sprintf;
 
 class Weapon2StageFilterForm extends Model
 {

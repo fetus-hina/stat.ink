@@ -8,7 +8,6 @@
 
 namespace app\models;
 
-use Yii;
 use yii\base\Model;
 
 /**
@@ -46,7 +45,7 @@ class BattleRerecognizePlayerForm extends Model
 
     public function getWeaponModel(): ?Weapon
     {
-        return ($this->weapon)
+        return $this->weapon
             ? Weapon::findOne(['key' => $this->weapon])
             : null;
     }

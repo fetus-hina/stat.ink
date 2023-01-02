@@ -26,6 +26,15 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\View;
 
+use function assert;
+use function filter_var;
+use function implode;
+use function is_int;
+use function trim;
+use function vsprintf;
+
+use const FILTER_VALIDATE_INT;
+
 final class BigrunPercentile extends Widget
 {
     public ?SalmonSchedule3 $schedule = null;
@@ -44,7 +53,7 @@ final class BigrunPercentile extends Widget
         }
 
         $id = (string)$this->id;
-        return \implode('', [
+        return implode('', [
             $this->renderButton($id),
             $this->renderModal($id, $stats),
         ]);
@@ -82,7 +91,7 @@ final class BigrunPercentile extends Widget
                 'div',
                 Html::tag(
                     'div',
-                    \implode('', [
+                    implode('', [
                         $this->renderModalHeader(),
                         $this->renderModalBody($stats),
                         $this->renderModalFooter(),
@@ -103,7 +112,7 @@ final class BigrunPercentile extends Widget
     {
         return Html::tag(
             'div',
-            \implode('', [
+            implode('', [
                 $this->renderModalHeaderClose(),
                 $this->renderModalHeaderTitle(),
             ]),
@@ -137,7 +146,7 @@ final class BigrunPercentile extends Widget
     {
         return Html::tag(
             'div',
-            \implode('', [
+            implode('', [
                 $this->renderModalFooterClose(),
             ]),
             ['class' => 'modal-footer'],
@@ -147,7 +156,7 @@ final class BigrunPercentile extends Widget
     private function renderModalFooterClose(): string
     {
         return Html::button(
-            \implode('', [
+            implode('', [
                 (string)FA::fas('times')->fw(),
                 Html::encode(Yii::t('app', 'Close')),
             ]),
@@ -178,7 +187,7 @@ final class BigrunPercentile extends Widget
             'div',
             Html::tag(
                 'table',
-                \implode('', [
+                implode('', [
                     $this->renderTableHeader($stats),
                     $this->renderTableBody($stats),
                 ]),
@@ -194,7 +203,7 @@ final class BigrunPercentile extends Widget
             'thead',
             Html::tag(
                 'tr',
-                \implode('', [
+                implode('', [
                     Html::tag('th', '', ['style' => ['width' => '10em']]),
                     Html::tag(
                         'th',
@@ -217,7 +226,7 @@ final class BigrunPercentile extends Widget
 
         return Html::tag(
             'tbody',
-            \implode('', [
+            implode('', [
                 $this->renderTableRowGold($stats, $official),
                 $this->renderTableRowSilver($stats, $official),
                 $this->renderTableRowBronze($stats, $official),
@@ -273,11 +282,11 @@ final class BigrunPercentile extends Widget
 
         return Html::tag(
             'tr',
-            \implode('', [
+            implode('', [
                 Html::tag(
                     'th',
-                    \trim(
-                        \vsprintf('%s %s', [
+                    trim(
+                        vsprintf('%s %s', [
                             $view instanceof View
                                 ? Html::img(
                                     Yii::$app->assetManager->getAssetUrl(
@@ -296,10 +305,10 @@ final class BigrunPercentile extends Widget
                 ),
                 Html::tag(
                     'td',
-                    \trim(
+                    trim(
                         $userEggs === null
                             ? '-'
-                            : \vsprintf('%s %s', [
+                            : vsprintf('%s %s', [
                                 $egg,
                                 Html::encode(Yii::$app->formatter->asInteger($userEggs)),
                             ]),
@@ -307,10 +316,10 @@ final class BigrunPercentile extends Widget
                 ),
                 Html::tag(
                     'td',
-                    \trim(
+                    trim(
                         $officialEggs === null
                             ? '-'
-                            : \vsprintf('%s %s', [
+                            : vsprintf('%s %s', [
                                 $egg,
                                 Html::encode(Yii::$app->formatter->asInteger($officialEggs)),
                             ]),
@@ -332,7 +341,7 @@ final class BigrunPercentile extends Widget
 
         return Html::tag(
             'tr',
-            \implode('', [
+            implode('', [
                 Html::tag(
                     'th',
                     Html::encode(Yii::t('app', 'Average')),
@@ -340,7 +349,7 @@ final class BigrunPercentile extends Widget
                 ),
                 Html::tag(
                     'td',
-                    \vsprintf('%s %s (σ = %s)', [
+                    vsprintf('%s %s (σ = %s)', [
                         $egg,
                         Html::encode(Yii::$app->formatter->asDecimal($stats['avg'], 2)),
                         Html::encode(Yii::$app->formatter->asDecimal($stats['stddev'], 2)),
@@ -355,7 +364,7 @@ final class BigrunPercentile extends Widget
     {
         return Html::tag(
             'tr',
-            \implode('', [
+            implode('', [
                 Html::tag(
                     'th',
                     Html::encode(Yii::t('app', 'Users')),
@@ -363,7 +372,7 @@ final class BigrunPercentile extends Widget
                 ),
                 Html::tag(
                     'td',
-                    \vsprintf('%s %s', [
+                    vsprintf('%s %s', [
                         (string)FA::fas('user')->fw(),
                         Html::encode(Yii::$app->formatter->asInteger($stats['users'])),
                     ]),
@@ -416,7 +425,7 @@ final class BigrunPercentile extends Widget
 
     private static function intVal($value): ?int
     {
-        $value = \filter_var($value, FILTER_VALIDATE_INT);
-        return \is_int($value) ? $value : null;
+        $value = filter_var($value, FILTER_VALIDATE_INT);
+        return is_int($value) ? $value : null;
     }
 }

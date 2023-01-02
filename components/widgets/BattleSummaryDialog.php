@@ -12,9 +12,13 @@ namespace app\components\widgets;
 
 use Yii;
 use app\assets\AppAsset;
-use app\components\widgets\Icon;
 use yii\base\Widget;
 use yii\helpers\Html;
+
+use function array_keys;
+use function array_map;
+use function array_values;
+use function implode;
 
 class BattleSummaryDialog extends Widget
 {
@@ -28,7 +32,7 @@ class BattleSummaryDialog extends Widget
                 'id' => $this->id,
                 'role' => 'dialog',
                 'tabindex' => '-1',
-            ]
+            ],
         );
     }
 
@@ -42,12 +46,12 @@ class BattleSummaryDialog extends Widget
                     $this->renderHeader(),
                     $this->renderBody(),
                 ]),
-                ['class' => 'modal-content']
+                ['class' => 'modal-content'],
             ),
             [
                 'class' => 'modal-dialog',
                 'role' => 'document',
-            ]
+            ],
         );
     }
 
@@ -59,7 +63,7 @@ class BattleSummaryDialog extends Widget
                 $this->renderCloseButton(),
                 $this->renderHeaderTitle(),
             ]),
-            ['class' => 'modal-header']
+            ['class' => 'modal-header'],
         );
     }
 
@@ -74,7 +78,7 @@ class BattleSummaryDialog extends Widget
                     'dismiss' => 'modal',
                 ],
                 'aria-label' => Yii::t('app', 'Close'),
-            ]
+            ],
         );
     }
 
@@ -98,17 +102,17 @@ class BattleSummaryDialog extends Widget
                             $this->renderPlotArea(),
                             $this->renderDataArea(),
                         ]),
-                        ['class' => 'col-12 col-xs-12 col-md-7']
+                        ['class' => 'col-12 col-xs-12 col-md-7'],
                     ),
                     Html::tag(
                         'div',
                         $this->renderLegend(),
-                        ['class' => 'col-12 col-xs-12 col-md-5']
+                        ['class' => 'col-12 col-xs-12 col-md-5'],
                     ),
                 ]),
-                ['class' => 'row']
+                ['class' => 'row'],
             ),
-            ['class' => 'modal-body']
+            ['class' => 'modal-body'],
         );
     }
 
@@ -129,9 +133,9 @@ class BattleSummaryDialog extends Widget
             'pct95' => Html::encode(Yii::t('app', '{percentile} Percentile', [
                 'percentile' => '95',
             ])),
-            'q3'  => Yii::t('app', 'Q<sub>3/4</sub>'),
-            'q2'  => Html::encode(Yii::t('app', 'Median')),
-            'q1'  => Yii::t('app', 'Q<sub>1/4</sub>'),
+            'q3' => Yii::t('app', 'Q<sub>3/4</sub>'),
+            'q2' => Html::encode(Yii::t('app', 'Median')),
+            'q1' => Yii::t('app', 'Q<sub>1/4</sub>'),
             'pct5' => Html::encode(Yii::t('app', '{percentile} Percentile', [
                 'percentile' => '5',
             ])),
@@ -144,14 +148,12 @@ class BattleSummaryDialog extends Widget
         return Html::tag(
             'table',
             Html::tag('tbody', implode('', array_map(
-                function (string $key, string $label): string {
-                    return Html::tag('tr', implode('', [
+                fn (string $key, string $label): string => Html::tag('tr', implode('', [
                         Html::tag('td', "{$label} :", ['class' => 'text-right w-50']),
                         Html::tag('td', '', ['data-key' => $key]),
-                    ]));
-                },
+                    ])),
                 array_keys($data),
-                array_values($data)
+                array_values($data),
             ))),
             ['class' => [
                 'table',
@@ -159,7 +161,7 @@ class BattleSummaryDialog extends Widget
                 'table-hover',
                 'mx-auto',
                 'my-3',
-            ]]
+            ]],
         );
     }
 
@@ -170,13 +172,13 @@ class BattleSummaryDialog extends Widget
             Html::img(
                 Yii::$app->assetManager->getAssetUrl(
                     Yii::$app->assetManager->getBundle(AppAsset::class),
-                    'summary-legends.png'
+                    'summary-legends.png',
                 ),
                 ['style' => [
                     'width' => '100%',
                     'max-width' => '226px',
                     'height' => 'auto',
-                ]]
+                ]],
             ),
         ]));
     }

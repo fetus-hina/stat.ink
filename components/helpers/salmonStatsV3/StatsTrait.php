@@ -19,6 +19,10 @@ use app\models\UserStatSalmon3;
 use yii\db\Connection;
 use yii\db\Query;
 
+use function array_merge;
+use function implode;
+use function vsprintf;
+
 use const SORT_DESC;
 
 trait StatsTrait
@@ -32,7 +36,7 @@ trait StatsTrait
                     'user_id' => $user->id,
                 ]);
 
-            $model->attributes = \array_merge(
+            $model->attributes = array_merge(
                 self::makeBasicStats($db, $user, $now),
                 self::makeTitleStats($db, $user, $now),
             );
@@ -44,8 +48,8 @@ trait StatsTrait
             return true;
         } catch (Throwable $e) {
             Yii::error(
-                \vsprintf('Catch %s, message=%s', [
-                    \get_class($e),
+                vsprintf('Catch %s, message=%s', [
+                    $e::class,
                     $e->getMessage(),
                 ]),
                 __METHOD__,
@@ -60,7 +64,7 @@ trait StatsTrait
         $condBasic = self::getBasicStatsCond();
         $condKing = '{{%salmon3}}.[[king_salmonid_id]] IS NOT NULL';
 
-        $aggregate = fn (?string $additionalCond = null, string $then = '1', string $else = '0') => \vsprintf(
+        $aggregate = fn (?string $additionalCond = null, string $then = '1', string $else = '0') => vsprintf(
             'SUM(CASE WHEN %s AND %s THEN %s ELSE %s END)',
             [
                 $condBasic,
@@ -89,7 +93,7 @@ trait StatsTrait
                 ]),
             ])
             ->from('{{%salmon3}}')
-            ->innerJoin('{{%salmon_player3}}', \implode(' AND ', [
+            ->innerJoin('{{%salmon_player3}}', implode(' AND ', [
                 '{{%salmon3}}.[[id]] = {{%salmon_player3}}.[[salmon_id]]',
                 '{{%salmon_player3}}.[[is_me]] = TRUE',
             ]))
@@ -108,7 +112,7 @@ trait StatsTrait
                 'peak_title_exp' => 'MAX({{%salmon3}}.[[title_exp_after]])',
             ])
             ->from('{{%salmon3}}')
-            ->innerJoin('{{%salmon_player3}}', \implode(' AND ', [
+            ->innerJoin('{{%salmon_player3}}', implode(' AND ', [
                 '{{%salmon3}}.[[id]] = {{%salmon_player3}}.[[salmon_id]]',
                 '{{%salmon_player3}}.[[is_me]] = TRUE',
             ]))
@@ -133,7 +137,7 @@ trait StatsTrait
     private static function getBasicStatsCond(): string
     {
         // これらすべての条件がそろっているものを最低条件とみなす
-        return \implode(' AND ', [
+        return implode(' AND ', [
             '{{%salmon3}}.[[clear_waves]] IS NOT NULL',
             '{{%salmon3}}.[[danger_rate]] IS NOT NULL',
             '{{%salmon3}}.[[danger_rate]] > 0.0',
@@ -146,7 +150,7 @@ trait StatsTrait
             '{{%salmon_player3}}.[[power_eggs]] IS NOT NULL',
             '{{%salmon_player3}}.[[rescue]] IS NOT NULL',
             '{{%salmon_player3}}.[[rescued]] IS NOT NULL',
-            \vsprintf('((%1$s IS NULL) OR (%1$s IS NOT NULL AND %2$s IS NOT NULL))', [
+            vsprintf('((%1$s IS NULL) OR (%1$s IS NOT NULL AND %2$s IS NOT NULL))', [
                 '{{%salmon3}}.[[king_salmonid_id]]',
                 '{{%salmon3}}.[[clear_extra]]',
             ]),

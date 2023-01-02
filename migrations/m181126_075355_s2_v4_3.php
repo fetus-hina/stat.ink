@@ -22,7 +22,7 @@ class m181126_075355_s2_v4_3 extends Migration
             '4.3.x',
             '4.3.0',
             '4.3.0',
-            new DateTimeImmutable('2018-12-05T11:00:00+09:00')
+            new DateTimeImmutable('2018-12-05T11:00:00+09:00'),
         );
     }
 

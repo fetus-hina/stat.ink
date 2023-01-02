@@ -20,7 +20,7 @@ class m180207_081121_v2_2_2 extends Migration
             '2.2.x',
             '2.2.2',
             '2.2.2',
-            new DateTimeImmutable('2018-02-07T17:00:00+09:00')
+            new DateTimeImmutable('2018-02-07T17:00:00+09:00'),
         );
     }
 

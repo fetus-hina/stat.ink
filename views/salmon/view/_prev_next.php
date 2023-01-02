@@ -4,8 +4,17 @@ declare(strict_types=1);
 
 use app\components\widgets\Icon;
 use app\models\Salmon2;
+use app\models\User;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\View;
+
+/**
+ * @var Salmon2|null $next
+ * @var Salmon2|null $prev
+ * @var User $user
+ * @var View $this
+ */
 
 if (!$prev && !$next) {
   return;

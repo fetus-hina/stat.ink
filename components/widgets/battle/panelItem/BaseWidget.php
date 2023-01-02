@@ -12,25 +12,33 @@ namespace app\components\widgets\battle\panelItem;
 
 use DateTime;
 use DateTimeImmutable;
-use DateTimeZone;
 use Yii;
 use app\assets\SimpleBattleListAsset;
-use app\components\widgets\ActiveRelativeTimeWidget;
-use app\models\User;
 use yii\base\Widget;
 use yii\bootstrap\Html;
+
+use function array_filter;
+use function implode;
+use function sprintf;
 
 abstract class BaseWidget extends Widget
 {
     public $model;
 
     abstract public function getBattleEndAt(): ?DateTimeImmutable;
+
     abstract public function getIsKO(): ?bool;
+
     abstract public function getIsWin(): ?bool;
+
     abstract public function getKillDeath(): array;
+
     abstract public function getLinkRoute(): array;
+
     abstract public function getMapName(): string;
+
     abstract public function getRuleName(): string;
+
     abstract public function getWeaponName(): string;
 
     public function getIsDraw(): ?bool
@@ -65,15 +73,15 @@ abstract class BaseWidget extends Widget
                                     $this->renderResultHtml(),
                                     $this->renderDataHtml(),
                                 ]),
-                                ['class' => 'simple-battle-row-impl-main']
+                                ['class' => 'simple-battle-row-impl-main'],
                             ),
                             Html::tag(
                                 'div',
                                 $this->renderDatetimeHtml(),
-                                ['class' => 'simple-battle-at']
-                            )
+                                ['class' => 'simple-battle-at'],
+                            ),
                         ]),
-                        ['class' => 'simple-battle-row-impl']
+                        ['class' => 'simple-battle-row-impl'],
                     ),
                     $this->getLinkRoute(),
                     [
@@ -82,8 +90,8 @@ abstract class BaseWidget extends Widget
                         ],
                     ],
                 ),
-                ['class' => 'simple-battle-row']
-            )
+                ['class' => 'simple-battle-row'],
+            ),
         );
     }
 
@@ -96,7 +104,7 @@ abstract class BaseWidget extends Widget
             return Html::tag(
                 'div',
                 '?',
-                ['class' => 'simple-battle-result simple-battle-result-unk']
+                ['class' => 'simple-battle-result simple-battle-result-unk'],
             );
         }
 
@@ -104,7 +112,7 @@ abstract class BaseWidget extends Widget
             return Html::tag(
                 'div',
                 Html::encode(Yii::t('app', 'Draw')),
-                ['class' => 'simple-battle-result simple-battle-result-unk']
+                ['class' => 'simple-battle-result simple-battle-result-unk'],
             );
         }
 
@@ -119,7 +127,7 @@ abstract class BaseWidget extends Widget
             ['class' => [
                 'simple-battle-result',
                 $result ? 'simple-battle-result-won' : 'simple-battle-result-lost',
-            ]]
+            ]],
         );
     }
 
@@ -129,38 +137,38 @@ abstract class BaseWidget extends Widget
             Html::tag(
                 'div',
                 Html::encode($this->getMapName()),
-                ['class' => 'simple-battle-map omit']
+                ['class' => 'simple-battle-map omit'],
             ),
             Html::tag(
                 'div',
                 Html::encode($this->getRuleName()),
-                ['class' => 'simple-battle-rule omit']
+                ['class' => 'simple-battle-rule omit'],
             ),
             Html::tag(
                 'div',
-                \implode(' ', \array_filter([
+                implode(' ', array_filter([
                     $this->getWeaponIcon(),
                     Html::encode($this->getWeaponName()),
                     $this->getSubSpIcon(),
                 ])),
-                ['class' => 'simple-battle-weapon omit']
+                ['class' => 'simple-battle-weapon omit'],
             ),
             Html::tag(
                 'div',
                 $this->renderKillDeathHtml(),
-                ['class' => 'simple-battle-kill-death omit']
+                ['class' => 'simple-battle-kill-death omit'],
             ),
         ]), ['class' => 'simple-battle-data']);
     }
 
     protected function renderKillDeathHtml(): string
     {
-        list($kill, $death) = $this->getKillDeath();
+        [$kill, $death] = $this->getKillDeath();
         return implode('', [
             sprintf(
                 '%sK / %sD',
                 $kill === null ? '?' : (string)(int)$kill,
-                $death === null ? '?' : (string)(int)$death
+                $death === null ? '?' : (string)(int)$death,
             ),
             ' ',
             (function () use ($kill, $death): string {
@@ -190,7 +198,7 @@ abstract class BaseWidget extends Widget
               'datetime' => $datetime->format(DateTime::ATOM),
               'title' => Yii::$app->formatter->asDatetime($datetime, 'medium'),
               'class' => 'auto-tooltip',
-            ]
+            ],
         );
     }
 }

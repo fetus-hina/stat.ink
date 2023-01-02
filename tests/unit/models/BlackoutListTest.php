@@ -2,10 +2,15 @@
 
 namespace tests\models;
 
-use app\models\User;
+use Codeception\Test\Unit;
 use app\components\helpers\Blackout;
+use app\models\User;
 
-class BlackoutListTest extends \Codeception\Test\Unit
+use function count;
+use function is_array;
+use function range;
+
+class BlackoutListTest extends Unit
 {
     public function testNoBlackout()
     {

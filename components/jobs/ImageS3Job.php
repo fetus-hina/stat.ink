@@ -10,10 +10,16 @@ declare(strict_types=1);
 
 namespace app\components\jobs;
 
-use Exception;
+use Throwable;
 use Yii;
 use yii\base\BaseObject;
 use yii\queue\JobInterface;
+
+use function file_exists;
+use function implode;
+use function preg_match;
+use function substr;
+use function unlink;
 
 class ImageS3Job extends BaseObject implements JobInterface
 {
@@ -37,7 +43,7 @@ class ImageS3Job extends BaseObject implements JobInterface
         $path = implode('/', [
             Yii::getAlias('@app/web/images'),
             substr($file, 0, 2),
-            $file
+            $file,
         ]);
         for ($retry = 0; $retry < 3; ++$retry) {
             if (!@file_exists($path)) {
@@ -49,13 +55,13 @@ class ImageS3Job extends BaseObject implements JobInterface
                     implode('/', [
                         substr($file, 0, 2),
                         $file,
-                    ])
+                    ]),
                 );
                 if ($ret) {
                     @unlink($path);
                     return;
                 }
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
             }
         }
     }

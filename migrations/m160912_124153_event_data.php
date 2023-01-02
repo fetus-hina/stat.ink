@@ -55,14 +55,14 @@ class m160912_124153_event_data extends Migration
             ['2016-01-09T11:00:00+09', 'Sloshing Machine Neo', 'release_weapon'],
             ['2016-01-16T11:00:00+09', 'Custom Hydra Splatling', 'release_weapon'],
             ['2016-01-23T12:00:00+09', 'Splatfest JP #10', 'splatfest'],
-            ['2016-02-20T06:00:00+09', 'Splatfest #11',    'splatfest'],
+            ['2016-02-20T06:00:00+09', 'Splatfest #11', 'splatfest'],
             ['2016-03-12T09:00:00+09', 'Splatfest JP #12', 'splatfest'],
             ['2016-04-13T11:00:00+09', 'Sheldon\'s Picks Vol.1', 'sheldon'],
             ['2016-04-23T09:00:00+09', 'Splatfest JP #13', 'splatfest'],
-            ['2016-05-14T12:00:00+09', 'Splatfest #14',    'splatfest'],
+            ['2016-05-14T12:00:00+09', 'Splatfest #14', 'splatfest'],
             ['2016-06-08T11:00:00+09', 'Sheldon\'s Picks Vol.2', 'sheldon'],
             ['2016-06-18T09:00:00+09', 'Splatfest JP #15', 'splatfest'],
-            ['2016-07-22T12:00:00+09', 'Final Splatfest',  'splatfest'],
+            ['2016-07-22T12:00:00+09', 'Final Splatfest', 'splatfest'],
         ]);
     }
 

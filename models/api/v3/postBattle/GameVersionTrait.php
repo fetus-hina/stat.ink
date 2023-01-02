@@ -8,7 +8,6 @@
 
 namespace app\models\api\v3\postBattle;
 
-use Yii;
 use app\models\SplatoonVersion3;
 
 use const SORT_DESC;

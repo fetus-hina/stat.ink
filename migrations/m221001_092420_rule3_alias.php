@@ -31,7 +31,7 @@ final class m221001_092420_rule3_alias extends Migration
         $idMap = ArrayHelper::map(
             (new Query())->select(['id', 'key'])->from('{{%rule3}}')->all(),
             'key',
-            'id'
+            'id',
         );
 
         $this->batchInsert('{{%rule3_alias}}', ['key', 'rule_id'], [

@@ -14,6 +14,11 @@ use Traversable;
 use yii\base\Behavior;
 use yii\base\Model;
 
+use function is_array;
+use function is_bool;
+use function is_scalar;
+use function trim;
+
 class TrimAttributesBehavior extends Behavior
 {
     /**
@@ -33,7 +38,7 @@ class TrimAttributesBehavior extends Behavior
     {
         parent::init();
 
-        if (!\is_array($this->targets)) {
+        if (!is_array($this->targets)) {
             $this->targets = [];
         }
 
@@ -61,16 +66,16 @@ class TrimAttributesBehavior extends Behavior
 
     protected function doTrim($value)
     {
-        if ($value === null || \is_bool($value)) {
+        if ($value === null || is_bool($value)) {
             return $value;
         }
 
-        if (\is_scalar($value)) {
-            $value = \trim((string)$value);
+        if (is_scalar($value)) {
+            $value = trim((string)$value);
             return $value === '' ? null : $value;
         }
 
-        if (\is_array($value) || $value instanceof Traversable) {
+        if (is_array($value) || $value instanceof Traversable) {
             if ($this->recursive) {
                 foreach ($value as $k => $v) {
                     $value[$k] = $this->doTrim($v);

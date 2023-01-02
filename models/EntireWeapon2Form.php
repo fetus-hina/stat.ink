@@ -12,8 +12,17 @@ use DateInterval;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
-use app\models\Map2;
 use yii\base\Model;
+
+use function array_keys;
+use function array_merge;
+use function array_reverse;
+use function array_shift;
+use function count;
+use function sprintf;
+use function time;
+use function usort;
+use function version_compare;
 
 class EntireWeapon2Form extends Model
 {
@@ -73,7 +82,7 @@ class EntireWeapon2Form extends Model
             $list = array_merge(
                 ['' => Yii::t('app', 'Any Time')],
                 $this->getVersionList(),
-                $this->getMonthList()
+                $this->getMonthList(),
             );
         }
         return $list;
@@ -83,9 +92,7 @@ class EntireWeapon2Form extends Model
     {
         $result = [];
         $groups = SplatoonVersionGroup2::find()->with('versions')->asArray()->all();
-        usort($groups, function (array $a, array $b): int {
-            return version_compare($b['tag'], $a['tag']);
-        });
+        usort($groups, fn (array $a, array $b): int => version_compare($b['tag'], $a['tag']));
         foreach ($groups as $group) {
             switch (count($group['versions'])) {
                 case 0:
@@ -102,9 +109,7 @@ class EntireWeapon2Form extends Model
                     $result['~v' . $group['tag']] = Yii::t('app', 'Version {0}', [
                         Yii::t('app-version2', $group['name']),
                     ]);
-                    usort($group['versions'], function (array $a, array $b): int {
-                        return version_compare($b['tag'], $a['tag']);
-                    });
+                    usort($group['versions'], fn (array $a, array $b): int => version_compare($b['tag'], $a['tag']));
                     $n = count($group['versions']);
                     foreach ($group['versions'] as $i => $version) {
                         $result['v' . $version['tag']] = sprintf(
@@ -112,7 +117,7 @@ class EntireWeapon2Form extends Model
                             $i === $n - 1 ? '┗' : '┣',
                             Yii::t('app', 'Version {0}', [
                                 Yii::t('app-version2', $version['name']),
-                            ])
+                            ]),
                         );
                     }
                     break;

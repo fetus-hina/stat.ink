@@ -22,8 +22,6 @@ use app\components\validators\BattleAgentVariable3Validator;
 use app\components\validators\BattleImageValidator;
 use app\components\validators\BattlePlayer3FormValidator;
 use app\components\validators\KeyValidator;
-use app\models\Agent;
-use app\models\AgentVariable3;
 use app\models\Battle3;
 use app\models\BattleAgentVariable3;
 use app\models\BattleImageGear3;
@@ -41,9 +39,7 @@ use app\models\Result3;
 use app\models\Rule3;
 use app\models\Rule3Alias;
 use app\models\Splatfest3Theme;
-use app\models\SplatoonVersion3;
 use app\models\TricolorRole3;
-use app\models\User;
 use app\models\Weapon3;
 use app\models\Weapon3Alias;
 use app\models\api\v3\postBattle\AgentVariableTrait;
@@ -58,6 +54,27 @@ use yii\db\ActiveRecord;
 use yii\helpers\FileHelper;
 use yii\helpers\Json;
 use yii\web\UploadedFile;
+
+use function array_keys;
+use function asort;
+use function base64_encode;
+use function dirname;
+use function file_get_contents;
+use function file_put_contents;
+use function floor;
+use function hash_hmac;
+use function is_array;
+use function is_int;
+use function is_object;
+use function is_string;
+use function json_decode;
+use function rtrim;
+use function strtolower;
+use function strtotime;
+use function substr;
+use function time;
+use function trim;
+use function vsprintf;
 
 use const JSON_THROW_ON_ERROR;
 
@@ -189,11 +206,11 @@ final class PostBattleForm extends Model
             [['agent'], 'string', 'max' => 64],
             [['agent_version'], 'string', 'max' => 255],
             [['agent', 'agent_version'], 'required',
-                'when' => fn () => \trim((string)$this->agent) !== '' || \trim((string)$this->agent_version) !== '',
+                'when' => fn () => trim((string)$this->agent) !== '' || trim((string)$this->agent_version) !== '',
             ],
             [['agent_version'], AgentVersionValidator::class,
                 'gameVersion' => 'splatoon3',
-                'when' => fn () => \trim((string)$this->agent) !== '' && \trim((string)$this->agent_version) !== '',
+                'when' => fn () => trim((string)$this->agent) !== '' && trim((string)$this->agent_version) !== '',
             ],
             [['test', 'knockout', 'automated', 'rank_up_battle'], 'in',
                 'range' => ['yes', 'no', true, false],
@@ -213,31 +230,23 @@ final class PostBattleForm extends Model
             [['clout_before', 'clout_after', 'clout_change'], 'integer', 'min' => 0],
             [['cash_before', 'cash_after'], 'integer', 'min' => 0, 'max' => 9999999],
             [['start_at', 'end_at'], 'integer',
-                'min' => \strtotime('2022-01-01T00:00:00+00:00'),
+                'min' => strtotime('2022-01-01T00:00:00+00:00'),
                 'max' => time() + 3600,
             ],
 
             [['challenge_win'], 'integer', 'min' => 0, 'max' => 5,
-                'when' => function (self $model): bool {
-                    return self::boolVal($model->rank_up_battle) !== true ||
-                        self::strVal($model->lobby) === 'xmatch';
-                },
+                'when' => fn (self $model): bool => self::boolVal($model->rank_up_battle) !== true ||
+                        self::strVal($model->lobby) === 'xmatch',
             ],
             [['challenge_win'], 'integer', 'min' => 0, 'max' => 3,
-                'when' => function (self $model): bool {
-                    return self::boolVal($model->rank_up_battle) === true &&
-                        self::strVal($model->lobby) !== 'xmatch';
-                },
+                'when' => fn (self $model): bool => self::boolVal($model->rank_up_battle) === true &&
+                        self::strVal($model->lobby) !== 'xmatch',
             ],
             [['challenge_lose'], 'integer', 'min' => 0, 'max' => 3,
-                'when' => function (self $model): bool {
-                    return self::strVal($model->lobby) !== 'xmatch';
-                },
+                'when' => fn (self $model): bool => self::strVal($model->lobby) !== 'xmatch',
             ],
             [['challenge_lose'], 'integer', 'min' => 0, 'max' => 5,
-                'when' => function (self $model): bool {
-                    return self::strVal($model->lobby) === 'xmatch';
-                },
+                'when' => fn (self $model): bool => self::strVal($model->lobby) === 'xmatch',
             ],
 
             [['our_team_color', 'their_team_color', 'third_team_color'], 'match',
@@ -298,7 +307,7 @@ final class PostBattleForm extends Model
     public function getSameBattle(): ?Battle3
     {
         if (
-            !\is_string($this->uuid) ||
+            !is_string($this->uuid) ||
             $this->uuid === ''
         ) {
             return null;
@@ -351,14 +360,14 @@ final class PostBattleForm extends Model
     private function getCriticalSectionId(): string
     {
         $values = [
-            'class' => __CLASS__,
+            'class' => self::class,
             'user' => Yii::$app->user->id,
             'version' => 1,
         ];
-        \asort($values);
-        return \rtrim(
-            \base64_encode(
-                \hash_hmac(
+        asort($values);
+        return rtrim(
+            base64_encode(
+                hash_hmac(
                     'sha256',
                     Json::encode($values),
                     (string)Yii::getAlias('@app'),
@@ -408,7 +417,7 @@ final class PostBattleForm extends Model
             $this->addError(
                 '_system',
                 vsprintf('Failed to store your battle (internal error), %s', [
-                    \get_class($e),
+                    $e::class,
                 ]),
             );
             return null;
@@ -486,7 +495,7 @@ final class PostBattleForm extends Model
                 $this->fest_dragon,
                 DragonMatch3::class,
                 DragonMatch3Alias::class,
-                'dragon_id'
+                'dragon_id',
             ),
             'fest_power' => self::floatVal($this->fest_power),
             'has_disconnect' => $this->hasDisconnect(),
@@ -506,8 +515,8 @@ final class PostBattleForm extends Model
         // kill+assistが不明でkillとassistがわかっている
         if (
             $model->kill_or_assist === null &&
-            \is_int($model->kill) &&
-            \is_int($model->assist)
+            is_int($model->kill) &&
+            is_int($model->assist)
         ) {
             $model->kill_or_assist = $model->kill + $model->assist;
         }
@@ -517,7 +526,7 @@ final class PostBattleForm extends Model
 
         if (!$model->save()) {
             $this->addError('_system', vsprintf('Failed to store new battle, info=%s', [
-                \base64_encode(Json::encode($model->getFirstErrors())),
+                base64_encode(Json::encode($model->getFirstErrors())),
             ]));
             return null;
         }
@@ -527,7 +536,7 @@ final class PostBattleForm extends Model
 
     private function hasDisconnect(): bool
     {
-        if (\is_array($this->our_team_players) && $this->our_team_players) {
+        if (is_array($this->our_team_players) && $this->our_team_players) {
             foreach ($this->our_team_players as $player) {
                 $model = Yii::createObject(PlayerForm::class);
                 $model->attributes = $player;
@@ -537,7 +546,7 @@ final class PostBattleForm extends Model
             }
         }
 
-        if (\is_array($this->their_team_players) && $this->their_team_players) {
+        if (is_array($this->their_team_players) && $this->their_team_players) {
             foreach ($this->their_team_players as $player) {
                 $model = Yii::createObject(PlayerForm::class);
                 $model->attributes = $player;
@@ -547,7 +556,7 @@ final class PostBattleForm extends Model
             }
         }
 
-        if (\is_array($this->third_team_players) && $this->third_team_players) {
+        if (is_array($this->third_team_players) && $this->third_team_players) {
             foreach ($this->third_team_players as $player) {
                 $model = Yii::createObject(PlayerForm::class);
                 $model->attributes = $player;
@@ -562,7 +571,7 @@ final class PostBattleForm extends Model
 
     private function savePlayers(Battle3 $battle): bool
     {
-        if (\is_array($this->our_team_players) && $this->our_team_players) {
+        if (is_array($this->our_team_players) && $this->our_team_players) {
             foreach ($this->our_team_players as $player) {
                 $model = Yii::createObject(PlayerForm::class);
                 $model->attributes = $player;
@@ -572,7 +581,7 @@ final class PostBattleForm extends Model
             }
         }
 
-        if (\is_array($this->their_team_players) && $this->their_team_players) {
+        if (is_array($this->their_team_players) && $this->their_team_players) {
             foreach ($this->their_team_players as $player) {
                 $model = Yii::createObject(PlayerForm::class);
                 $model->attributes = $player;
@@ -582,7 +591,7 @@ final class PostBattleForm extends Model
             }
         }
 
-        if (\is_array($this->third_team_players) && $this->third_team_players) {
+        if (is_array($this->third_team_players) && $this->third_team_players) {
             foreach ($this->third_team_players as $player) {
                 $model = Yii::createObject(PlayerForm::class);
                 $model->attributes = $player;
@@ -634,7 +643,7 @@ final class PostBattleForm extends Model
 
     private function findOrCreateMedal(string $text): ?Medal3
     {
-        $text = \trim($text);
+        $text = trim($text);
         if ($text === null) {
             return null;
         }
@@ -673,7 +682,7 @@ final class PostBattleForm extends Model
     private function saveAgentVariables(Battle3 $battle): bool
     {
         $map = $this->agent_variables;
-        if (!\is_array($map) || !$map) {
+        if (!is_array($map) || !$map) {
             return true;
         }
 
@@ -727,7 +736,7 @@ final class PostBattleForm extends Model
                     $target['modelClass'],
                     $target['attribute'],
                     $target['filename'],
-                    $target['isResult']
+                    $target['isResult'],
                 )
             ) {
                 return false;
@@ -752,18 +761,18 @@ final class PostBattleForm extends Model
         }
 
         $binary = $this->$attribute instanceof UploadedFile
-            ? (string)@\file_get_contents($this->$attribute->tempName)
+            ? (string)@file_get_contents($this->$attribute->tempName)
             : $this->$attribute;
 
         if (
             !ImageConverter::convert(
                 $binary,
-                \vsprintf('%s/%s', [
+                vsprintf('%s/%s', [
                     (string)Yii::getAlias('@webroot/images'),
                     $fileName,
                 ]),
                 false, // TODO: $blackoutPosList => $isResultImage を参照
-                null // $outPathArchivePng
+                null, // $outPathArchivePng
             )
         ) {
             return false;
@@ -780,7 +789,7 @@ final class PostBattleForm extends Model
 
     private function findOrCreateSplatfestTheme(?string $name): ?Splatfest3Theme
     {
-        $name = \trim((string)$name);
+        $name = trim((string)$name);
         if ($name === '') {
             return null;
         }
@@ -805,7 +814,6 @@ final class PostBattleForm extends Model
                 return $model;
             }
 
-
             $model = Yii::createObject([
                 'class' => Splatfest3Theme::class,
                 'name' => $name,
@@ -821,22 +829,22 @@ final class PostBattleForm extends Model
         try {
             $json = null;
             if (
-                \is_string($this->splatnet_json) &&
+                is_string($this->splatnet_json) &&
                 self::isValidJson($this->splatnet_json)
             ) {
                 $json = $this->splatnet_json;
             } elseif (
-                \is_array($this->splatnet_json) ||
-                \is_object($this->splatnet_json)
+                is_array($this->splatnet_json) ||
+                is_object($this->splatnet_json)
             ) {
                 $json = Json::encode($this->splatnet_json);
             }
 
             if ($json) {
-                $path = \vsprintf('%s/%s/%s/%s.json.gz', [
+                $path = vsprintf('%s/%s/%s/%s.json.gz', [
                     Yii::getAlias('@app/runtime/splatnet3-json'),
-                    \substr($model->uuid, 0, 2),
-                    \substr($model->uuid, 2, 2),
+                    substr($model->uuid, 0, 2),
+                    substr($model->uuid, 2, 2),
                     $model->uuid,
                 ]);
 
@@ -879,11 +887,11 @@ final class PostBattleForm extends Model
 
     private static function guessStartAt(?int $startAt, ?int $endAt): int
     {
-        if (\is_int($startAt)) {
+        if (is_int($startAt)) {
             return $startAt;
         }
 
-        if (\is_int($endAt)) {
+        if (is_int($endAt)) {
             // Guess the battle started 3 minutes before the end time.
             // It is clear if the battle is Turf War.
             // In other modes, the regulation time is 5 minutes,
@@ -892,16 +900,16 @@ final class PostBattleForm extends Model
         }
 
         // Use 5 minutes before the current time as an estimated value if the time is unknown.
-        return \time() - 300;
+        return time() - 300;
     }
 
     private static function isUsableForEntireStats(Battle3 $model, ?int $startAt): bool
     {
         if (
             !$model->is_automated ||
-            !\is_int($startAt) ||
-            $startAt < \time() - 86400 ||
-            $startAt > \time() ||
+            !is_int($startAt) ||
+            $startAt < time() - 86400 ||
+            $startAt > time() ||
             !$model->lobby_id ||
             !$model->rule_id ||
             !$model->map_id ||
@@ -918,24 +926,18 @@ final class PostBattleForm extends Model
             return false;
         }
 
-        if (
-            $lobby->key === 'private' ||
-            !$result->aggregatable
-        ) {
-            return false;
-        }
-
-        return true;
+        return $lobby->key !== 'private' &&
+            $result->aggregatable;
     }
 
     private static function generateRandomFilename(string $ext): string
     {
-        $uuid = \strtolower((string)Uuid::v4());
-        return \vsprintf('%s/%s/%s.%s', [
+        $uuid = strtolower((string)Uuid::v4());
+        return vsprintf('%s/%s/%s.%s', [
             'spl3',
-            \substr($uuid, 0, 2),
+            substr($uuid, 0, 2),
             $uuid,
-            \strtolower($ext),
+            strtolower($ext),
         ]);
     }
 }

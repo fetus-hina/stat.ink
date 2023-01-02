@@ -10,13 +10,12 @@ namespace app\actions\showUser;
 
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
-use app\models\Battle2;
-use app\models\Battle3;
-use app\models\Battle;
 use app\models\User;
 use yii\base\Action;
 use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
+
+use function trim;
 
 final class ProfileAction extends Action
 {
@@ -28,7 +27,7 @@ final class ProfileAction extends Action
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
         }
 
-        $tab = \trim((string)$tab);
+        $tab = trim((string)$tab);
         if ($tab !== '1' && $tab !== '2' && $tab !== '') {
             $this->controller->redirect(
                 ['show-user/profile',
@@ -49,7 +48,7 @@ final class ProfileAction extends Action
         return $this->controller->render('profile', [
             'activityFrom' => $activityFrom,
             'activityTo' => $activityTo,
-            'permLink'  => $permLink,
+            'permLink' => $permLink,
             'tab' => $tab,
             'user' => $user,
         ]);

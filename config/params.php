@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-$tryLoad = function (string $path, $default = null) {
-    return @file_exists($path) && @is_file($path) && @is_readable($path) ? require $path : $default;
-};
+$tryLoad = fn (string $path, $default = null) => @file_exists($path) && @is_file($path) && @is_readable($path) ? require $path : $default;
 
 $isOfficialStatink = str_contains($_SERVER['HTTP_HOST'] ?? '', 'stat.ink');
 $isProductionDB = false;

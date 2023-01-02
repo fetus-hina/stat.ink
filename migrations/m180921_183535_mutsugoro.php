@@ -21,7 +21,7 @@ class m180921_183535_mutsugoro extends Migration
                 'short_name' => 'Pavilion',
                 'splatnet' => 22, // maybe
             ],
-            ['key' => 'mutsugoro']
+            ['key' => 'mutsugoro'],
         );
     }
 
@@ -34,7 +34,7 @@ class m180921_183535_mutsugoro extends Migration
                 'short_name' => 'ムツゴ楼',
                 'splatnet' => null,
             ],
-            ['key' => 'mutsugoro']
+            ['key' => 'mutsugoro'],
         );
     }
 }

@@ -18,6 +18,8 @@ use yii\base\DynamicModel;
 use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
 
+use const SORT_DESC;
+
 class SalmonStats2Action extends Action
 {
     public function init()
@@ -66,7 +68,7 @@ class SalmonStats2Action extends Action
                 [['screen_name'], 'match',
                     'pattern' => '/^[a-zA-Z0-9_]{1,15}$/',
                 ],
-            ]
+            ],
         );
     }
 }

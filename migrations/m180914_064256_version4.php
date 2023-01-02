@@ -20,7 +20,7 @@ class m180914_064256_version4 extends Migration
             '4.0.x',
             '4.0.0',
             '4.0.0',
-            new DateTimeImmutable('2018-09-14T11:00:00+09:00')
+            new DateTimeImmutable('2018-09-14T11:00:00+09:00'),
         );
     }
 

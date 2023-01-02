@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\components\widgets\v3\weaponIcon;
 
-use Yii;
 use app\assets\Spl3WeaponAsset;
 use yii\base\Widget;
 use yii\helpers\Html;
@@ -21,7 +20,9 @@ abstract class BaseWeaponIcon extends Widget
     public bool $alt = true;
 
     abstract protected function getType(): string;
+
     abstract protected function getKey(): ?string;
+
     abstract protected function getAlt(): ?string;
 
     public function run(): string
@@ -40,7 +41,7 @@ abstract class BaseWeaponIcon extends Widget
                 'alt' => $this->alt ? $this->getAlt() : null,
                 'class' => 'auto-tooltip basic-icon',
                 'title' => $this->getAlt(),
-            ]
+            ],
         );
     }
 }

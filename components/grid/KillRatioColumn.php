@@ -16,6 +16,13 @@ use yii\base\Model;
 use yii\grid\DataColumn;
 use yii\helpers\Json;
 
+use function hash;
+use function microtime;
+use function sprintf;
+use function substr;
+use function uniqid;
+use function vsprintf;
+
 class KillRatioColumn extends DataColumn
 {
     public static $idPrefix;
@@ -31,7 +38,7 @@ class KillRatioColumn extends DataColumn
             static::$idPrefix = sprintf('col-kr-%s-', substr(
                 hash('sha256', uniqid(microtime(false), true)),
                 0,
-                8
+                8,
             ));
         }
 
@@ -92,7 +99,7 @@ class KillRatioColumn extends DataColumn
     protected function getKillRate(Model $model): ?float
     {
         return $model->kill_rate !== null
-            ? ((float)$model->kill_rate / 100.0)
+            ? (float)$model->kill_rate / 100.0
             : null;
     }
 }

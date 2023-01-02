@@ -14,11 +14,11 @@ class m160117_123500_weapon_kd extends Migration
     {
         $this->createTable('stat_weapon_kill_death', [
             'weapon_id' => $this->integer()->notNull(),
-            'rule_id'   => $this->integer()->notNull(),
-            'kill'      => $this->integer()->notNull(),
-            'death'     => $this->integer()->notNull(),
-            'battle'    => $this->bigInteger()->notNull(),
-            'win'       => $this->bigInteger()->notNull(),
+            'rule_id' => $this->integer()->notNull(),
+            'kill' => $this->integer()->notNull(),
+            'death' => $this->integer()->notNull(),
+            'battle' => $this->bigInteger()->notNull(),
+            'win' => $this->bigInteger()->notNull(),
         ]);
         $this->addPrimaryKey('pk_stat_weapon_kill_death', 'stat_weapon_kill_death', [
             'weapon_id',

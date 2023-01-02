@@ -17,6 +17,9 @@ use yii\base\Widget;
 use yii\helpers\Html;
 use yii\web\View;
 
+use function implode;
+use function vsprintf;
+
 final class SalmonJobPoint extends Widget
 {
     public int $jobPoint;
@@ -37,7 +40,7 @@ final class SalmonJobPoint extends Widget
 
         return Html::tag(
             'div',
-            \implode('', [
+            implode('', [
                 Block::widget(['value' => $this->jobPoint]),
                 Block::widget(['value' => '=']),
                 Block::widget([

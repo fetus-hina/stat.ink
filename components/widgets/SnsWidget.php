@@ -13,12 +13,20 @@ namespace app\components\widgets;
 
 use Yii;
 use app\assets\PermalinkDialogAsset;
-use app\components\widgets\FA;
-use app\components\widgets\Icon;
 use jp3cki\yii2\twitter\widget\TweetButton;
 use yii\base\Widget;
 use yii\helpers\Html;
 use yii\helpers\Url;
+
+use function implode;
+use function is_callable;
+use function is_string;
+use function lcfirst;
+use function pathinfo;
+use function preg_match;
+use function preg_replace_callback;
+use function strtolower;
+use function vsprintf;
 
 use const PATHINFO_EXTENSION;
 
@@ -45,7 +53,7 @@ final class SnsWidget extends Widget
 
         $this->template = Html::tag(
             'div',
-            \implode(' ', [
+            implode(' ', [
                 '{tweet}',
                 '{permalink}',
                 '{image}',
@@ -60,11 +68,11 @@ final class SnsWidget extends Widget
             ],
         );
         $this->tweetButton = Yii::createObject([
-            'class' => TweetButton::class
+            'class' => TweetButton::class,
         ]);
 
         $this->view->registerCss(
-            \vsprintf('#%s .label{%s}', [
+            vsprintf('#%s .label{%s}', [
                 $this->id,
                 Html::cssStyleFromArray([
                     'cursor' => 'pointer',
@@ -82,8 +90,8 @@ final class SnsWidget extends Widget
     public function __set($key, $value)
     {
         $this->init();
-        if (\preg_match('/^tweet(.+)$/', $key, $match)) {
-            $attr = \lcfirst($match[1]);
+        if (preg_match('/^tweet(.+)$/', $key, $match)) {
+            $attr = lcfirst($match[1]);
             $this->tweetButton->$attr = $value;
         } else {
             parent::__set($key, $value);
@@ -100,12 +108,12 @@ final class SnsWidget extends Widget
             'permalink' => fn (): ?string => $this->procPermaLink(),
             'tweet' => fn (): ?string => $this->tweetButton->run(),
         ];
-        return \preg_replace_callback(
+        return preg_replace_callback(
             '/\{(\w+)\}/',
             function (array $match) use ($replace): string {
                 if (isset($replace[$match[1]])) {
                     $value = $replace[$match[1]];
-                    return (string)(\is_callable($value) ? $value() : $value);
+                    return (string)(is_callable($value) ? $value() : $value);
                 }
 
                 return $match[0];
@@ -119,15 +127,15 @@ final class SnsWidget extends Widget
         PermalinkDialogAsset::register($this->view);
         $id = $this->id . '-permalink';
         $this->view->registerCss(
-            \vsprintf('body[data-theme="default"] .label-permalink:hover{%s}', [
+            vsprintf('body[data-theme="default"] .label-permalink:hover{%s}', [
                 Html::cssStyleFromArray([
-                    'background-color'  => '#1b3a63',
+                    'background-color' => '#1b3a63',
                 ]),
             ]),
         );
         return Html::tag(
             'span',
-            \implode(' ', [
+            implode(' ', [
                 Icon::permalink(),
                 Html::encode(Yii::t('app', 'Permalink')),
             ]),
@@ -143,7 +151,7 @@ final class SnsWidget extends Widget
                     'dialog-title' => Yii::t('app', 'Permalink'),
                     'dialog-hint' => Yii::t('app', 'Please copy this URL:'),
                 ],
-            ]
+            ],
         );
     }
 
@@ -154,12 +162,12 @@ final class SnsWidget extends Widget
             return null;
         }
         $this->view->registerCss(
-            \vsprintf('.label-feed{%s}.label-feed[href]:hover{%s}', [
+            vsprintf('.label-feed{%s}.label-feed[href]:hover{%s}', [
                 Html::cssStyleFromArray([
-                    'background-color'  => '#ff7010',
+                    'background-color' => '#ff7010',
                 ]),
                 Html::cssStyleFromArray([
-                    'background-color'  => '#dc5800',
+                    'background-color' => '#dc5800',
                 ]),
             ]),
         );
@@ -208,7 +216,7 @@ final class SnsWidget extends Widget
 
         $imageUrl = Url::to($this->imageUrl);
 
-        $contentType = match (is_string($imageUrl) ? \strtolower(\pathinfo($imageUrl, PATHINFO_EXTENSION)) : '') {
+        $contentType = match (is_string($imageUrl) ? strtolower(pathinfo($imageUrl, PATHINFO_EXTENSION)) : '') {
             'avif' => 'image/avif',
             'gif' => 'image/gif',
             'jpg', 'jpeg' => 'image/jpeg',

@@ -10,7 +10,10 @@ namespace app\models;
 
 use Yii;
 use yii\db\ActiveQuery;
-use yii\db\Query;
+
+use function array_merge;
+use function implode;
+use function sprintf;
 
 class Salmon2Query extends ActiveQuery
 {
@@ -19,11 +22,10 @@ class Salmon2Query extends ActiveQuery
     public function summary(): array
     {
         if (!$this->summaryCache) {
-            $stats = function (
+            $stats = fn (
                 string $suffix, // 'golden' => 'avg_golden'
                 string $attribute // '{{salmon_player2}}.[[golden_egg_delivered]]
-            ): array {
-                return [
+            ): array => [
                     "avail_$suffix" => "SUM(CASE WHEN $attribute IS NULL THEN 0 ELSE 1 END)",
                     "total_$suffix" => "SUM($attribute)",
                     "avg_$suffix" => "AVG($attribute)",
@@ -36,7 +38,6 @@ class Salmon2Query extends ActiveQuery
                     "max_$suffix" => "MAX($attribute)",
                     "stddev_$suffix" => "stddev_pop($attribute)",
                 ];
-            };
             $query = Salmon2::find()
                 ->leftJoin('salmon_player2', '(' . implode(' AND ', [
                     'salmon_player2.work_id = salmon2.id',
@@ -55,7 +56,7 @@ class Salmon2Query extends ActiveQuery
                     $stats('golden', '{{salmon_player2}}.[[golden_egg_delivered]]'),
                     $stats('power', '{{salmon_player2}}.[[power_egg_collected]]'),
                     $stats('rescue', '{{salmon_player2}}.[[rescue]]'),
-                    $stats('death', '{{salmon_player2}}.[[death]]')
+                    $stats('death', '{{salmon_player2}}.[[death]]'),
                 ));
             $this->summaryCache = $query->asArray()->one();
         }
@@ -76,7 +77,7 @@ class Salmon2Query extends ActiveQuery
             Yii::t(
                 'app-salmon2',
                 '{name}\'s Salmon Log',
-                ['name' => $user->name]
+                ['name' => $user->name],
             ),
             Yii::t(
                 'app-salmon2',
@@ -89,8 +90,8 @@ class Salmon2Query extends ActiveQuery
                     'avgPowerEggs' => $f->asDecimal($summary['avg_power'], 2),
                     'avgDeaths' => $f->asDecimal($summary['avg_death'], 2),
                     'avgRescues' => $f->asDecimal($summary['avg_rescue'], 2),
-                ]
-            )
+                ],
+            ),
         );
     }
 }

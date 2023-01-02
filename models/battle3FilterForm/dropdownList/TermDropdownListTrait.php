@@ -15,6 +15,8 @@ use app\models\Battle3FilterForm;
 use app\models\Season3;
 use yii\helpers\ArrayHelper;
 
+use function sprintf;
+
 use const SORT_DESC;
 
 trait TermDropdownListTrait

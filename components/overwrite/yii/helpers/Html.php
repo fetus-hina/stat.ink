@@ -11,6 +11,19 @@ namespace yii\helpers;
 use Yii;
 use app\models\Rank2;
 
+use function array_filter;
+use function array_keys;
+use function array_map;
+use function array_values;
+use function implode;
+use function in_array;
+use function rawurlencode;
+use function rtrim;
+use function sprintf;
+use function str_replace;
+use function strpos;
+use function trim;
+
 class Html extends BaseHtml
 {
     public static $enableServerPush = true;
@@ -28,10 +41,10 @@ class Html extends BaseHtml
                 str_replace(
                     ['%20', '%3a'],
                     ['_', ':'],
-                    rawurlencode($page)
-                )
+                    rawurlencode($page),
+                ),
             ),
-            $options
+            $options,
         );
     }
 
@@ -47,12 +60,12 @@ class Html extends BaseHtml
                     if ($headers->has('Link')) {
                         $headers->add('Link', sprintf(
                             '<%s>; rel=preload; as=style',
-                            $href
+                            $href,
                         ));
                     } else {
                         $headers->set('Link', sprintf(
                             '<%s>; rel=preload; as=style',
-                            $href
+                            $href,
                         ));
                     }
                 }
@@ -73,12 +86,12 @@ class Html extends BaseHtml
                     if ($headers->has('Link')) {
                         $headers->add('Link', sprintf(
                             '<%s>; rel=preload; as=script',
-                            $href
+                            $href,
                         ));
                     } else {
                         $headers->set('Link', sprintf(
                             '<%s>; rel=preload; as=script',
-                            $href
+                            $href,
                         ));
                     }
                 }
@@ -99,7 +112,7 @@ class Html extends BaseHtml
                 return "{$name}:{$value}";
             },
             array_keys($style),
-            array_values($style)
+            array_values($style),
         )));
         return $result === '' ? null : rtrim($result);
     }
@@ -107,11 +120,9 @@ class Html extends BaseHtml
     public static function renderCss(array $styles): string
     {
         return implode('', array_map(
-            function (string $selector, array $style): string {
-                return sprintf('%s{%s}', $selector, static::cssStyleFromArray($style));
-            },
+            fn (string $selector, array $style): string => sprintf('%s{%s}', $selector, static::cssStyleFromArray($style)),
             array_keys($styles),
-            array_values($styles)
+            array_values($styles),
         ));
     }
 
@@ -123,12 +134,12 @@ class Html extends BaseHtml
         }
 
         if ($rankInfo[1] === null) {
-            return Html::encode(Yii::t('app-rank2', $rankInfo[0]));
+            return self::encode(Yii::t('app-rank2', $rankInfo[0]));
         }
 
         return implode('', [
-            Html::encode(Yii::t('app-rank2', $rankInfo[0])),
-            Html::tag('small', Html::encode(' ' . (string)$rankInfo[1])),
+            self::encode(Yii::t('app-rank2', $rankInfo[0])),
+            self::tag('small', self::encode(' ' . (string)$rankInfo[1])),
         ]);
     }
 }

@@ -18,6 +18,19 @@ use yii\web\Cookie;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
+use function array_filter;
+use function array_merge;
+use function explode;
+use function implode;
+use function in_array;
+use function sprintf;
+use function strpos;
+use function substr;
+use function time;
+
+use const ARRAY_FILTER_USE_KEY;
+use const SORT_DESC;
+
 class UserAction extends BaseAction
 {
     public function run()
@@ -37,7 +50,7 @@ class UserAction extends BaseAction
                         'name' => 'battle-list',
                         'value' => $view,
                         'expire' => time() + 86400 * 366,
-                    ])
+                    ]),
                 );
             }
 
@@ -50,7 +63,7 @@ class UserAction extends BaseAction
 
         $permLink = Url::to(
             ['show-v2/user', 'screen_name' => $user->screen_name],
-            true
+            true,
         );
 
         $battle = Battle2::find()
@@ -87,9 +100,7 @@ class UserAction extends BaseAction
             if ($filter->id_from && $filter->id_to) {
                 $tmp = explode(' ', (string)$filter->filter);
                 $tmp = array_filter($tmp);
-                $tmp = array_filter($tmp, function (string $value): bool {
-                    return substr($value, 0, 3) !== 'id:';
-                });
+                $tmp = array_filter($tmp, fn (string $value): bool => substr($value, 0, 3) !== 'id:');
                 $tmp[] = sprintf('id:%d-%d', (int)$filter->id_from, (int)$filter->id_to);
                 $filter->filter = implode(' ', $tmp);
 
@@ -98,10 +109,8 @@ class UserAction extends BaseAction
                     'screen_name' => $user->screen_name,
                     'filter' => array_filter(
                         $filter->attributes,
-                        function (string $key): bool {
-                            return !in_array($key, ['screen_name', 'id_from', 'id_to'], true);
-                        },
-                        ARRAY_FILTER_USE_KEY
+                        fn (string $key): bool => !in_array($key, ['screen_name', 'id_from', 'id_to'], true),
+                        ARRAY_FILTER_USE_KEY,
                     ),
                 ];
                 $this->controller->redirect(Url::to($next, true));
@@ -112,9 +121,9 @@ class UserAction extends BaseAction
             $permLink = Url::to(
                 array_merge(
                     $filter->toPermLink(),
-                    ['show-v2/user', 'screen_name' => $user->screen_name]
+                    ['show-v2/user', 'screen_name' => $user->screen_name],
                 ),
-                true
+                true,
             );
         }
 
@@ -122,8 +131,8 @@ class UserAction extends BaseAction
 
         $template = $this->viewMode === 'simple' ? 'user.simple.php' : 'user';
         return $this->controller->render($template, [
-            'user'      => $user,
-            'filter'    => $filter,
+            'user' => $user,
+            'filter' => $filter,
             'battleDataProvider' => Yii::createObject([
                 'class' => ActiveDataProvider::class,
                 'query' => $battle,
@@ -132,8 +141,8 @@ class UserAction extends BaseAction
                 ],
                 'sort' => false,
             ]),
-            'summary'   => $summary,
-            'permLink'  => $permLink,
+            'summary' => $summary,
+            'permLink' => $permLink,
         ]);
     }
 

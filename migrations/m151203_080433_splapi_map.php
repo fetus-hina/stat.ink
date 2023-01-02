@@ -6,8 +6,8 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
 use app\models\Map;
+use yii\db\Migration;
 
 class m151203_080433_splapi_map extends Migration
 {
@@ -16,35 +16,35 @@ class m151203_080433_splapi_map extends Migration
         $map = []; // [ 'arowana' => 42, ... ]
         foreach (Map::find()->all() as $_) {
             $map[$_->key] = $_->id;
-        };
+        }
 
         // 今後表記揺れが発生する可能性があるので map_id を PKEY にはしない
         $this->createTable('splapi_map', [
-            'id'        => $this->primaryKey(),
-            'map_id'    => $this->integer()->notNull(),
-            'name'      => $this->string(32)->notNull()->unique(),
+            'id' => $this->primaryKey(),
+            'map_id' => $this->integer()->notNull(),
+            'name' => $this->string(32)->notNull()->unique(),
         ]);
         $this->addForeignKey('fk_splapi_map_1', 'splapi_map', 'map_id', 'map', 'id');
 
         $this->batchInsert(
             'splapi_map',
-            [ 'map_id', 'name' ],
+            ['map_id', 'name'],
             [
-                [ $map['arowana'],  'アロワナモール' ],
-                [ $map['bbass'],    'Ｂバスパーク' ],
+                [ $map['arowana'], 'アロワナモール' ],
+                [ $map['bbass'], 'Ｂバスパーク' ],
                 [ $map['dekaline'], 'デカライン高架下' ],
                 [ $map['hakofugu'], 'ハコフグ倉庫' ],
-                [ $map['hirame'],   'ヒラメが丘団地' ],
-                [ $map['hokke'],    'ホッケふ頭' ],
+                [ $map['hirame'], 'ヒラメが丘団地' ],
+                [ $map['hokke'], 'ホッケふ頭' ],
                 [ $map['kinmedai'], 'キンメダイ美術館' ],
                 [ $map['mahimahi'], 'マヒマヒリゾート＆スパ' ], // たぶん...
-                [ $map['masaba'],   'マサバ海峡大橋' ],
-                [ $map['mongara'],  'モンガラキャンプ場' ],
-                [ $map['mozuku'],   'モズク農園' ],
+                [ $map['masaba'], 'マサバ海峡大橋' ],
+                [ $map['mongara'], 'モンガラキャンプ場' ],
+                [ $map['mozuku'], 'モズク農園' ],
                 [ $map['negitoro'], 'ネギトロ炭鉱' ],
                 [ $map['shionome'], 'シオノメ油田' ],
-                [ $map['tachiuo'],  'タチウオパーキング' ],
-            ]
+                [ $map['tachiuo'], 'タチウオパーキング' ],
+            ],
         );
     }
 

@@ -14,6 +14,8 @@ use Yii;
 use app\components\widgets\Alert;
 use yii\helpers\Html;
 
+use function implode;
+
 final class ImportFromSplatnet extends Alert
 {
     public function init()
@@ -30,7 +32,7 @@ final class ImportFromSplatnet extends Alert
 
     private function renderBody(): string
     {
-        return \implode('', [
+        return implode('', [
             Html::tag(
                 'p',
                 Html::encode(
@@ -39,14 +41,14 @@ final class ImportFromSplatnet extends Alert
                         // phpcs:disable
                         'You can import automatically from SplatNet, use these apps: (USE AT YOUR OWN RISK)'
                         // phpcs:enable
-                    )
-                )
+                    ),
+                ),
             ),
-            Html::tag('ul', \implode('', [
-                Html::tag('li', \implode('', [
+            Html::tag('ul', implode('', [
+                Html::tag('li', implode('', [
                     Html::encode(Yii::t('app', 'Splatoon 3')),
-                    Html::tag('ul', \implode('', [
-                        Html::tag('li', \implode('', [
+                    Html::tag('ul', implode('', [
+                        Html::tag('li', implode('', [
                             Html::a(
                                 Html::encode('s3s'),
                                 'https://github.com/frozenpandaman/s3s',
@@ -54,7 +56,7 @@ final class ImportFromSplatnet extends Alert
                                     'class' => 'alert-link',
                                     'rel' => 'noopener',
                                     'target' => '_blank',
-                                ]
+                                ],
                             ),
                             ' ',
                             Html::tag(
@@ -63,7 +65,7 @@ final class ImportFromSplatnet extends Alert
                                 ['class' => 'text-muted'],
                             ),
                         ])),
-                        Html::tag('li', \implode('', [
+                        Html::tag('li', implode('', [
                             Html::a(
                                 Html::encode('s3si.ts'),
                                 'https://github.com/spacemeowx2/s3si.ts',
@@ -71,7 +73,7 @@ final class ImportFromSplatnet extends Alert
                                     'class' => 'alert-link',
                                     'rel' => 'noopener',
                                     'target' => '_blank',
-                                ]
+                                ],
                             ),
                             ' ',
                             Html::tag(
@@ -82,9 +84,9 @@ final class ImportFromSplatnet extends Alert
                         ])),
                     ])),
                 ])),
-                Html::tag('li', \implode('', [
+                Html::tag('li', implode('', [
                     Html::encode(Yii::t('app', 'Splatoon 2')),
-                    Html::tag('ul', \implode('', [
+                    Html::tag('ul', implode('', [
                         Html::tag('li', Html::a(
                             Html::encode('splatnet2statink'),
                             'https://github.com/frozenpandaman/splatnet2statink',
@@ -92,7 +94,7 @@ final class ImportFromSplatnet extends Alert
                                 'class' => 'alert-link',
                                 'rel' => 'noopener',
                                 'target' => '_blank',
-                            ]
+                            ],
                         )),
                         Html::tag(
                             'li',
@@ -105,9 +107,9 @@ final class ImportFromSplatnet extends Alert
                                         'class' => 'alert-link',
                                         'rel' => 'noopener',
                                         'target' => '_blank',
-                                    ]
-                                )
-                            )
+                                    ],
+                                ),
+                            ),
                         ),
                     ])),
                 ])),
@@ -120,9 +122,9 @@ final class ImportFromSplatnet extends Alert
                         // phpcs:disable
                         'We won\'t implement automatic importing to {appName} for security reasons.',
                         // phpcs:enable
-                        ['appName' => Yii::$app->name]
-                    )
-                )
+                        ['appName' => Yii::$app->name],
+                    ),
+                ),
             ),
         ]);
     }

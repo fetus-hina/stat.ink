@@ -9,8 +9,6 @@
 namespace app\actions\show;
 
 use Yii;
-use yii\web\NotFoundHttpException;
-use yii\web\ViewAction as BaseAction;
 use app\models\Battle;
 use app\models\BattleDeleteForm;
 use app\models\BattleForm;
@@ -20,6 +18,10 @@ use app\models\Map;
 use app\models\Rule;
 use app\models\Weapon;
 use app\models\WeaponType;
+use yii\web\ViewAction as BaseAction;
+
+use function asort;
+use function func_get_args;
 
 class EditBattleAction extends BaseAction
 {
@@ -129,7 +131,7 @@ class EditBattleAction extends BaseAction
         asort($ret);
         return static::arrayMerge(
             ['' => Yii::t('app', 'Unknown')],
-            $ret
+            $ret,
         );
     }
 
@@ -150,7 +152,7 @@ class EditBattleAction extends BaseAction
         }
         return static::arrayMerge(
             ['' => Yii::t('app', 'Unknown')],
-            $ret
+            $ret,
         );
     }
 

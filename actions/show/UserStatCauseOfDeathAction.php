@@ -20,6 +20,12 @@ use yii\db\Query;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
+use function array_map;
+use function array_merge;
+use function array_values;
+use function strcasecmp;
+use function usort;
+
 class UserStatCauseOfDeathAction extends BaseAction
 {
     use UserStatFilterTrait;
@@ -58,11 +64,11 @@ class UserStatCauseOfDeathAction extends BaseAction
             ->from('battle')
             ->innerJoin(
                 'battle_death_reason',
-                '{{battle}}.[[id]] = {{battle_death_reason}}.[[battle_id]]'
+                '{{battle}}.[[id]] = {{battle_death_reason}}.[[battle_id]]',
             )
             ->innerJoin(
                 'death_reason',
-                '{{battle_death_reason}}.[[reason_id]] = {{death_reason}}.[[id]]'
+                '{{battle_death_reason}}.[[reason_id]] = {{death_reason}}.[[id]]',
             )
             ->leftJoin('rule', '{{battle}}.[[rule_id]] = {{rule}}.[[id]]')
             ->leftJoin('game_mode', '{{rule}}.[[mode_id]] = {{game_mode}}.[[id]]')
@@ -111,23 +117,17 @@ class UserStatCauseOfDeathAction extends BaseAction
             function ($o) use (&$deathReasons) {
                 $deathReasons[$o->id] = $o->getTranslatedName();
             },
-            DeathReason::findAll(['id' => array_map(function ($row) {
-                return $row['reason_id'];
-            }, $list)])
+            DeathReason::findAll(['id' => array_map(fn ($row) => $row['reason_id'], $list)]),
         );
 
         $ret = array_map(
-            function ($row) use ($deathReasons) {
-                return (object)[
+            fn ($row) => (object)[
                     'name' => $deathReasons[$row['reason_id']] ?? '?',
                     'count' => (int)$row['count'],
-                ];
-            },
-            $list
+                ],
+            $list,
         );
-        usort($ret, function ($a, $b) {
-            return $b->count <=> $a->count ?: strcasecmp($a->name, $b->name);
-        });
+        usort($ret, fn ($a, $b) => $b->count <=> $a->count ?: strcasecmp($a->name, $b->name));
         return $ret;
     }
 
@@ -145,14 +145,14 @@ class UserStatCauseOfDeathAction extends BaseAction
     {
         $query
             ->select([
-                'reason_id'     => '{{death_reason}}.[[id]]',
-                'canonical_id'  => 'MAX({{deadly_weapon}}.[[canonical_id]])',
+                'reason_id' => '{{death_reason}}.[[id]]',
+                'canonical_id' => 'MAX({{deadly_weapon}}.[[canonical_id]])',
                 'main_group_id' => 'MAX({{deadly_weapon}}.[[main_group_id]])',
-                'count'         => 'SUM({{battle_death_reason}}.[[count]])',
+                'count' => 'SUM({{battle_death_reason}}.[[count]])',
             ])
             ->leftJoin(
                 '{{weapon}} {{deadly_weapon}}',
-                '{{death_reason}}.[[weapon_id]] = {{deadly_weapon}}.[[id]]'
+                '{{death_reason}}.[[weapon_id]] = {{deadly_weapon}}.[[id]]',
             )
             ->groupBy('{{death_reason}}.[[id]]');
 
@@ -160,18 +160,14 @@ class UserStatCauseOfDeathAction extends BaseAction
 
         // 必要な死因名の一覧を作る
         $deathReasons = [];
-        $tmp = DeathReason::findAll(['id' => array_map(function ($row) {
-            return $row['reason_id'];
-        }, $list)]);
+        $tmp = DeathReason::findAll(['id' => array_map(fn ($row) => $row['reason_id'], $list)]);
         foreach ($tmp as $o) {
             $deathReasons[$o->id] = $o->getTranslatedName();
         }
 
         // 必要なブキ名の一覧を作る
         $weapons = [];
-        $tmp = Weapon::findAll(['id' => array_map(function ($row) use ($column) {
-            return $row[$column];
-        }, $list)]);
+        $tmp = Weapon::findAll(['id' => array_map(fn ($row) => $row[$column], $list)]);
         foreach ($tmp as $o) {
             if ($column === 'canonical_id') {
                 $weapons[$o->id] = Yii::t('app-weapon', $o->name);
@@ -201,11 +197,9 @@ class UserStatCauseOfDeathAction extends BaseAction
         }
         $ret = array_merge(
             array_values($retWeapons),
-            array_values($retOthers)
+            array_values($retOthers),
         );
-        usort($ret, function ($a, $b) {
-            return $b->count <=> $a->count ?: strcasecmp($a->name, $b->name);
-        });
+        usort($ret, fn ($a, $b) => $b->count <=> $a->count ?: strcasecmp($a->name, $b->name));
         return $ret;
     }
 
@@ -213,25 +207,21 @@ class UserStatCauseOfDeathAction extends BaseAction
     {
         $query
             ->select([
-                'id'    => '{{death_reason_type}}.[[id]]',
-                'name'  => 'MAX({{death_reason_type}}.[[name]])',
+                'id' => '{{death_reason_type}}.[[id]]',
+                'name' => 'MAX({{death_reason_type}}.[[name]])',
                 'count' => 'SUM({{battle_death_reason}}.[[count]])',
             ])
             ->leftJoin('{{death_reason_type}}', '{{death_reason}}.[[type_id]] = {{death_reason_type}}.[[id]]')
             ->groupBy('{{death_reason_type}}.[[id]]');
 
         $ret = array_map(
-            function ($row) {
-                return (object)[
-                    'name' => Yii::t('app-death', ($row['id'] === null) ? 'Unknown' : $row['name']),
+            fn ($row) => (object)[
+                    'name' => Yii::t('app-death', $row['id'] === null ? 'Unknown' : $row['name']),
                     'count' => (int)$row['count'],
-                ];
-            },
-            $query->createCommand()->queryAll()
+                ],
+            $query->createCommand()->queryAll(),
         );
-        usort($ret, function ($a, $b) {
-            return $b->count <=> $a->count ?: strcasecmp($a->name, $b->name);
-        });
+        usort($ret, fn ($a, $b) => $b->count <=> $a->count ?: strcasecmp($a->name, $b->name));
         return $ret;
     }
 }

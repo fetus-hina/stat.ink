@@ -6,31 +6,31 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
 use app\models\DeathReasonType;
+use yii\db\Migration;
 
 class m151007_123045_death_reason extends Migration
 {
     public function up()
     {
         $this->createTable('death_reason_type', [
-            'id'    => $this->primaryKey(),
-            'key'   => $this->string(32)->notNull()->unique(),
-            'name'  => $this->string(32)->notNull()->unique(),
+            'id' => $this->primaryKey(),
+            'key' => $this->string(32)->notNull()->unique(),
+            'name' => $this->string(32)->notNull()->unique(),
         ]);
-        $this->batchInsert('death_reason_type', [ 'key', 'name' ], [
-            [ 'main',       'Main Weapon' ],
-            [ 'sub',        'Sub Weapon' ],
-            [ 'special',    'Special' ],
-            [ 'suicide',    'Out of Bounds' ],
-            [ 'hoko',       'Rainmaker' ],
+        $this->batchInsert('death_reason_type', ['key', 'name'], [
+            [ 'main', 'Main Weapon' ],
+            [ 'sub', 'Sub Weapon' ],
+            [ 'special', 'Special' ],
+            [ 'suicide', 'Out of Bounds' ],
+            [ 'hoko', 'Rainmaker' ],
         ]);
 
         $this->createTable('death_reason', [
-            'id'        => $this->primaryKey(),
-            'type_id'   => $this->integer(),
-            'key'       => $this->string(32)->notNull()->unique(),
-            'name'      => $this->string(64)->notNull()->unique(),
+            'id' => $this->primaryKey(),
+            'type_id' => $this->integer(),
+            'key' => $this->string(32)->notNull()->unique(),
+            'name' => $this->string(64)->notNull()->unique(),
         ]);
         $this->addForeignKey('fk_death_reson_1', 'death_reason', 'type_id', 'death_reason_type', 'id');
 
@@ -45,7 +45,7 @@ class m151007_123045_death_reason extends Migration
 
         $suicide = DeathReasonType::findOne(['key' => 'suicide'])->id;
         $hoko = DeathReasonType::findOne(['key' => 'hoko'])->id;
-        $this->batchInsert('death_reason', [ 'type_id', 'key', 'name' ], [
+        $this->batchInsert('death_reason', ['type_id', 'key', 'name'], [
             [ $suicide, 'oob', 'Out of Bounds' ],
             [ $suicide, 'drown', 'Drowning' ],
             [ $suicide, 'fall', 'Fall' ],
@@ -75,7 +75,7 @@ class m151007_123045_death_reason extends Migration
     {
         $typeId = DeathReasonType::findOne(['key' => $type_key])->id;
         $select = "SELECT {$typeId} AS [[type_id]], [[key]], [[name]] FROM {{{$table}}} ORDER BY [[id]]";
-        $sql = "INSERT INTO {{death_reason}} ( [[type_id]], [[key]], [[name]] ) " . $select;
+        $sql = 'INSERT INTO {{death_reason}} ( [[type_id]], [[key]], [[name]] ) ' . $select;
         $this->execute($sql);
     }
 }

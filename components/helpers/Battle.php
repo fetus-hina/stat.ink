@@ -17,10 +17,16 @@ use Yii;
 use app\models\Battle as BattleModel;
 use app\models\Battle2 as Battle2Model;
 use app\models\Battle2FilterForm;
-use app\models\Battle3 as Battle3Model;
 use app\models\BattleFilterForm;
 use app\models\User;
 use yii\db\Query;
+
+use function floor;
+use function sprintf;
+use function time;
+
+use const SORT_ASC;
+use const SORT_DESC;
 
 class Battle
 {
@@ -52,7 +58,7 @@ class Battle
 
     public static function periodToRange2DT(int $period, int $offset = 0): array
     {
-        list($from, $to) = static::periodToRange2($period, $offset);
+        [$from, $to] = static::periodToRange2($period, $offset);
         return [
             static::timestamp2datetime($from),
             static::timestamp2datetime($to),
@@ -81,7 +87,7 @@ class Battle
             ])
             ->from(sprintf(
                 '(%s) {{t}}',
-                $subQuery->createCommand()->rawSql
+                $subQuery->createCommand()->rawSql,
             ));
         return $query->createCommand()->queryOne();
     }
@@ -111,7 +117,7 @@ class Battle
             ])
             ->from(sprintf(
                 '(%s) {{t}}',
-                $subQuery->createCommand()->rawSql
+                $subQuery->createCommand()->rawSql,
             ));
 
         return $query->createCommand()->queryOne();
@@ -131,7 +137,7 @@ class Battle
                 ->setDate(
                     (int)$aYearAgo->format('Y'),
                     (int)$aYearAgo->format('n') + 1,
-                    1
+                    1,
                 )
                 ->setTime(0, 0, 0),
             (new DateTimeImmutable())
@@ -139,7 +145,7 @@ class Battle
                 ->setDate(
                     (int)$today->format('Y'),
                     (int)$today->format('n'),
-                    (int)$today->format('t') + 1
+                    (int)$today->format('t') + 1,
                 )
                 ->setTime(0, 0, -1),
         ];
@@ -184,7 +190,7 @@ class Battle
                 'between',
                 'battle2.period',
                 $lastBattle->period - 47,
-                $lastBattle->period
+                $lastBattle->period,
             ])
             ->orderBy(['battle2.id' => SORT_ASC])
             ->limit(1)

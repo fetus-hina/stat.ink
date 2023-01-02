@@ -6,23 +6,23 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
 use app\models\GameMode;
+use yii\db\Migration;
 
 class m150923_120331_rule extends Migration
 {
     public function up()
     {
         $this->createTable('game_mode', [
-            'id'    => $this->primaryKey(),
-            'key'   => $this->string(16)->notNull()->unique(),
-            'name'  => $this->string(32)->notNull()->unique(),
+            'id' => $this->primaryKey(),
+            'key' => $this->string(16)->notNull()->unique(),
+            'name' => $this->string(32)->notNull()->unique(),
         ]);
         $this->createTable('rule', [
-            'id'        => $this->primarykey(),
-            'mode_id'   => $this->integer()->notNull(),
-            'key'       => $this->string(16)->notNull()->unique(),
-            'name'      => $this->string(32)->notNull()->unique(),
+            'id' => $this->primarykey(),
+            'mode_id' => $this->integer()->notNull(),
+            'key' => $this->string(16)->notNull()->unique(),
+            'name' => $this->string(32)->notNull()->unique(),
         ]);
         $this->addForeignKey('fk_rule_1', 'rule', 'mode_id', 'game_mode', 'id');
 
@@ -32,12 +32,12 @@ class m150923_120331_rule extends Migration
         ]);
 
         $modeRegular = GameMode::findOne(['key' => 'regular'])->id;
-        $modeGachi   = GameMode::findOne(['key' => 'gachi'])->id;
+        $modeGachi = GameMode::findOne(['key' => 'gachi'])->id;
         $this->batchInsert('rule', ['key', 'mode_id', 'name'], [
-            [ 'nawabari',   $modeRegular,   'Turf War' ],
-            [ 'area',       $modeGachi,     'Splat Zones' ],
-            [ 'yagura',     $modeGachi,     'Tower Control' ],
-            [ 'hoko',       $modeGachi,     'Rainmaker'],
+            [ 'nawabari', $modeRegular, 'Turf War' ],
+            [ 'area', $modeGachi, 'Splat Zones' ],
+            [ 'yagura', $modeGachi, 'Tower Control' ],
+            [ 'hoko', $modeGachi, 'Rainmaker'],
         ]);
     }
 

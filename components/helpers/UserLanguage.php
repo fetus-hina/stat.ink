@@ -14,7 +14,11 @@ use Jaybizzle\CrawlerDetect\CrawlerDetect;
 use Yii;
 use app\models\AcceptLanguage;
 use app\models\Language;
-use yii\helpers\StringHelper;
+
+use function call_user_func;
+use function is_scalar;
+use function sprintf;
+use function trim;
 
 class UserLanguage
 {
@@ -38,7 +42,7 @@ class UserLanguage
             }
 
             if ($getDefault) {
-                Yii::info("Returns default language, en-US", __METHOD__);
+                Yii::info('Returns default language, en-US', __METHOD__);
                 return Language::find()
                     ->andWhere(['lang' => 'en-US'])
                     ->orderBy(null)
@@ -68,8 +72,8 @@ class UserLanguage
                 ->one();
             if ($lang) {
                 Yii::info(
-                    "Detected language by parameter, " . $lang->lang,
-                    __METHOD__
+                    'Detected language by parameter, ' . $lang->lang,
+                    __METHOD__,
                 );
             }
 
@@ -95,8 +99,8 @@ class UserLanguage
                 ->one();
             if ($lang) {
                 Yii::info(
-                    "Detected language by cookie, " . $lang->lang,
-                    __METHOD__
+                    'Detected language by cookie, ' . $lang->lang,
+                    __METHOD__,
                 );
             }
 
@@ -127,7 +131,7 @@ class UserLanguage
                                 $model->rule,
                                 $userLang,
                             ),
-                            __METHOD__
+                            __METHOD__,
                         );
                         return $lang;
                     }

@@ -24,13 +24,18 @@ use statink\yii2\stages\spl2\StagesAsset as Stages2Asset;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
+use function array_merge;
+use function count;
+use function sprintf;
+use function strtotime;
+
 use const SORT_ASC;
 
 trait Splatoon2
 {
     protected function getSplatoon2(): array
     {
-        return \array_merge(
+        return array_merge(
             $this->getSplatoon2Battles(),
             [
                 'salmon' => $this->getSalmon2(),
@@ -44,8 +49,7 @@ trait Splatoon2
         return ArrayHelper::map(
             ScheduleMode2::find()->orderBy(['id' => SORT_ASC])->all(),
             'key',
-            function (ScheduleMode2 $mode) use ($am): array {
-                return [
+            fn (ScheduleMode2 $mode): array => [
                     'key' => $mode->key,
                     'game' => 'splatoon2',
                     'name' => Yii::t('app-rule2', $mode->name),
@@ -54,9 +58,9 @@ trait Splatoon2
                         : Url::to(
                             $am->getAssetUrl(
                                 $am->getBundle(GameModeIconsAsset::class, true),
-                                \sprintf('spl2/%s.png', $mode->key)
+                                sprintf('spl2/%s.png', $mode->key),
                             ),
-                            true
+                            true,
                         ),
                     'source' => 's2ink',
                     'schedules' => ArrayHelper::getColumn(
@@ -72,8 +76,7 @@ trait Splatoon2
                                 'rule',
                             ])
                             ->all(),
-                        function (Schedule2 $sc) use ($am): array {
-                            return [
+                        fn (Schedule2 $sc): array => [
                                 'time' => BattleHelper::periodToRange2((int)$sc->period),
                                 'rule' => [
                                     'key' => $sc->rule->key,
@@ -82,32 +85,28 @@ trait Splatoon2
                                     'icon' => Url::to(
                                         $am->getAssetUrl(
                                             $am->getBundle(GameModeIconsAsset::class, true),
-                                            \sprintf('spl2/%s.png', $sc->rule->key)
+                                            sprintf('spl2/%s.png', $sc->rule->key),
                                         ),
-                                        true
+                                        true,
                                     ),
                                 ],
                                 'maps' => ArrayHelper::getColumn(
                                     $sc->maps,
-                                    function (Map2 $map) use ($am): array {
-                                        return [
+                                    fn (Map2 $map): array => [
                                             'key' => $map->key,
                                             'name' => Yii::t('app-map2', $map->name),
                                             'image' => Url::to(
                                                 $am->getAssetUrl(
                                                     $am->getBundle(Stages2Asset::class, true),
-                                                    \sprintf('daytime/%s.jpg', $map->key)
+                                                    sprintf('daytime/%s.jpg', $map->key),
                                                 ),
-                                                true
+                                                true,
                                             ),
-                                        ];
-                                    }
+                                        ],
                                 ),
-                            ];
-                        }
+                            ],
                     ),
-                ];
-            }
+                ],
         );
     }
 
@@ -123,7 +122,7 @@ trait Splatoon2
                     $am->getBundle(GameModeIconsAsset::class, true),
                     'spl2/salmon.png',
                 ),
-                true
+                true,
             ),
             'source' => 's2ink',
             'schedules' => ArrayHelper::getColumn(
@@ -131,7 +130,7 @@ trait Splatoon2
                     ->andWhere([
                         '>',
                         '{{salmon_schedule2}}.[[end_at]]',
-                        $this->now->format(DateTime::ATOM)
+                        $this->now->format(DateTime::ATOM),
                     ])
                     ->orderBy([
                         '{{salmon_schedule2}}.[[end_at]]' => SORT_ASC,
@@ -142,8 +141,7 @@ trait Splatoon2
                         'weapons.weapon',
                     ])
                     ->all(),
-                function (SalmonSchedule2 $sc) use ($am): array {
-                    return [
+                fn (SalmonSchedule2 $sc): array => [
                         'time' => [
                             strtotime($sc->start_at),
                             strtotime($sc->end_at),
@@ -154,9 +152,9 @@ trait Splatoon2
                             'image' => Url::to(
                                 $am->getAssetUrl(
                                     $am->getBundle(Stages2Asset::class, true),
-                                    sprintf('daytime/%s.jpg', $sc->map->key)
+                                    sprintf('daytime/%s.jpg', $sc->map->key),
                                 ),
-                                true
+                                true,
                             ),
                         ]],
                         'weapons' => $this->fillSalmon2Weapon(
@@ -170,23 +168,22 @@ trait Splatoon2
                                         'icon' => Url::to(
                                             $am->getAssetUrl(
                                                 $am->getBundle(Spl2WeaponAsset::class, true),
-                                                $w->key . '.png'
+                                                $w->key . '.png',
                                             ),
-                                            true
+                                            true,
                                         ),
                                     ];
-                                }
-                            )
+                                },
+                            ),
                         ),
-                    ];
-                },
+                    ],
             ),
         ];
     }
 
     private function fillSalmon2Weapon(array $list): array
     {
-        while (\count($list) < 4) {
+        while (count($list) < 4) {
             $list[] = [
                 'key' => 'random',
                 'name' => Yii::t('app-salmon2', 'Random'),

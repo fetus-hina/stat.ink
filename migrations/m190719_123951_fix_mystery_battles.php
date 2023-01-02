@@ -23,7 +23,7 @@ class m190719_123951_fix_mystery_battles extends Migration
         $this->execute(
             "CREATE UNIQUE INDEX {$index} ON {{battle2}}([[id]]) " .
             'WHERE ([[map_id]] IS NULL) ' .
-            "AND ([[period]] >= {$startPeriod})"
+            "AND ([[period]] >= {$startPeriod})",
         );
 
         // 現在、battle2_splatnet テーブルの中身が、テキストになっているので、
@@ -40,7 +40,7 @@ class m190719_123951_fix_mystery_battles extends Migration
                 'JSONB_TYPEOF({{j}}.[[json]]) = ' . $db->quoteValue('string'),
                 '{{battle2}}.[[map_id]] IS NULL',
                 '{{battle2}}.[[period]] >= ' . $db->quoteValue($startPeriod),
-            ]) . '))'
+            ]) . '))',
         );
 
         $this->execute("DROP INDEX {$index}");

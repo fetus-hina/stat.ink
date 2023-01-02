@@ -21,7 +21,7 @@ class m151007_094737_api_update extends Migration
                 'ADD COLUMN [[rank_exp_after]] INTEGER',
                 'ADD COLUMN [[cash]] INTEGER',
                 'ADD COLUMN [[cash_after]] INTEGER',
-            ])
+            ]),
         );
         $this->execute($sql);
         $this->addForeignKey('fk_battle_7', 'battle', 'rank_after_id', 'rank', 'id', 'RESTRICT');
@@ -38,7 +38,7 @@ class m151007_094737_api_update extends Migration
                 'DROP COLUMN [[rank_exp_after]]',
                 'DROP COLUMN [[cash]]',
                 'DROP COLUMN [[cash_after]]',
-            ])
+            ]),
         );
         $this->execute($sql);
     }

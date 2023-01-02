@@ -9,7 +9,10 @@
 namespace app\models;
 
 use Yii;
-use yii\helpers\ArrayHelper;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+
+use function implode;
 
 /**
  * This is the model class for table "stat_weapon_map_trend".
@@ -23,7 +26,7 @@ use yii\helpers\ArrayHelper;
  * @property Rule $rule
  * @property Weapon $weapon
  */
-class StatWeaponMapTrend extends \yii\db\ActiveRecord
+class StatWeaponMapTrend extends ActiveRecord
 {
     use openapi\Util;
 
@@ -45,15 +48,15 @@ class StatWeaponMapTrend extends \yii\db\ActiveRecord
             [['rule_id', 'map_id', 'weapon_id', 'battles'], 'integer'],
             [['map_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Map::class,
-                'targetAttribute' => ['map_id' => 'id']
+                'targetAttribute' => ['map_id' => 'id'],
             ],
             [['rule_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Rule::class,
-                'targetAttribute' => ['rule_id' => 'id']
+                'targetAttribute' => ['rule_id' => 'id'],
             ],
             [['weapon_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Weapon::class,
-                'targetAttribute' => ['weapon_id' => 'id']
+                'targetAttribute' => ['weapon_id' => 'id'],
             ],
         ];
     }
@@ -72,7 +75,7 @@ class StatWeaponMapTrend extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getMap()
     {
@@ -80,7 +83,7 @@ class StatWeaponMapTrend extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getRule()
     {
@@ -88,7 +91,7 @@ class StatWeaponMapTrend extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getWeapon()
     {
@@ -110,14 +113,14 @@ class StatWeaponMapTrend extends \yii\db\ActiveRecord
                     'format' => 'int32',
                     'description' => Yii::t(
                         'app-apidoc1',
-                        'Set in order from 1 in descending order of usage'
+                        'Set in order from 1 in descending order of usage',
                     ),
                 ],
                 'use_pct' => [
                     'type' => 'number',
                     'description' => Yii::t(
                         'app-apidoc1',
-                        'Use rate (%)'
+                        'Use rate (%)',
                     ),
                 ],
                 'weapon' => static::oapiRef(Weapon::class),

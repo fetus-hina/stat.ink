@@ -38,7 +38,7 @@ final class m220916_002751_spl3_1_1_1 extends Migration
         $this->update(
             '{{%battle3}}',
             ['version_id' => $this->getVersionId('1.1.0')],
-            ['version_id' => $versionId]
+            ['version_id' => $versionId],
         );
 
         $this->delete('{{%splatoon_version3}}', ['id' => $versionId]);

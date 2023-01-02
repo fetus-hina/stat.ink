@@ -14,6 +14,13 @@ use app\models\OstatusPubsubhubbub;
 use app\models\User;
 use yii\base\Model;
 
+use function base64_encode;
+use function gmdate;
+use function preg_match;
+use function random_bytes;
+use function strtr;
+use function trim;
+
 class PubsubhubbubForm extends Model
 {
     public $callback;

@@ -9,8 +9,6 @@
 declare(strict_types=1);
 
 use app\components\db\Migration;
-use yii\db\Query;
-use yii\helpers\ArrayHelper;
 
 final class m220910_091032_update_weapon extends Migration
 {
@@ -43,7 +41,7 @@ final class m220910_091032_update_weapon extends Migration
                 ],
                 [
                     'key' => $wKey,
-                ]
+                ],
             );
         }
 
@@ -58,7 +56,7 @@ final class m220910_091032_update_weapon extends Migration
         $this->update(
             '{{%weapon3}}',
             ['subweapon_id' => null, 'special_id' => null],
-            ['key' => array_keys($this->getData())]
+            ['key' => array_keys($this->getData())],
         );
 
         $this->delete('{{%subweapon3}}', [

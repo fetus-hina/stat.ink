@@ -8,12 +8,44 @@
 
 namespace app\commands;
 
+use DirectoryIterator;
+use Iterator;
 use Yii;
 use app\models\Language;
 use yii\console\Controller;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Console;
 
+use function array_diff;
+use function array_filter;
+use function array_key_exists;
+use function array_keys;
+use function array_map;
+use function array_unique;
+use function array_values;
+use function count;
+use function dirname;
+use function escapeshellarg;
+use function exec;
+use function file_exists;
+use function file_put_contents;
+use function gmdate;
+use function implode;
+use function mkdir;
+use function passthru;
+use function preg_match;
+use function setlocale;
+use function sprintf;
+use function str_replace;
+use function strcmp;
+use function strlen;
+use function strnatcasecmp;
+use function strtolower;
+use function substr;
+use function time;
+use function trim;
+use function uksort;
+
+use const LC_COLLATE;
 use const SORT_FLAG_CASE;
 use const SORT_NATURAL;
 use const SORT_STRING;
@@ -77,9 +109,9 @@ final class I18nController extends Controller
         return $status ? 0 : 1;
     }
 
-    private function findJapaneseFiles(): \Iterator
+    private function findJapaneseFiles(): Iterator
     {
-        $it = new \DirectoryIterator(Yii::getAlias('@messages/ja'));
+        $it = new DirectoryIterator(Yii::getAlias('@messages/ja'));
         foreach ($it as $item) {
             if ($item->isFile() && !$item->isDot() && strtolower($item->getExtension()) === 'php') {
                 // skip weapon-*** files because it includes by weapon.php
@@ -101,7 +133,7 @@ final class I18nController extends Controller
         }
 
         $changed = false;
-        $inData = include($inPath);
+        $inData = include $inPath;
         $current = file_exists($outPath) ? include($outPath) : [];
         $new = !file_exists($outPath);
         foreach (array_keys($inData) as $enText) {
@@ -122,13 +154,9 @@ final class I18nController extends Controller
         }
 
         setlocale(LC_COLLATE, 'C');
-        uksort($current, function (string $a, string $b): int {
-            return strnatcasecmp($a, $b) ?: strcmp($a, $b);
-        });
+        uksort($current, fn (string $a, string $b): int => strnatcasecmp($a, $b) ?: strcmp($a, $b));
 
-        $esc = function (string $text): string {
-            return str_replace(["\\", "'"], ["\\\\", "\\'"], $text);
-        };
+        $esc = fn (string $text): string => str_replace(['\\', "'"], ['\\\\', "\\'"], $text);
 
         $file = [];
         $file[] = '<?php';
@@ -158,13 +186,13 @@ final class I18nController extends Controller
         $cmdline = sprintf(
             '/usr/bin/env %s/yii splatoon2-ink-i18n/index %d',
             Yii::getAlias('@app'),
-            $strongUpdate ? 1 : 0
+            $strongUpdate ? 1 : 0,
         );
         passthru($cmdline, $status1);
 
         $cmdline = sprintf(
             '/usr/bin/env %s/yii api2-markdown',
-            Yii::getAlias('@app')
+            Yii::getAlias('@app'),
         );
         passthru($cmdline, $status2);
 
@@ -177,7 +205,7 @@ final class I18nController extends Controller
         $cmdline = sprintf(
             '/usr/bin/env git log --pretty=%s -- %s | sort | uniq',
             escapeshellarg('%an <%ae>%n%cn <%ce>'),
-            escapeshellarg($path)
+            escapeshellarg($path),
         );
         $status = null;
         $lines = [];
@@ -208,14 +236,14 @@ final class I18nController extends Controller
             'Unknown <wkoichi@gmail.com>' => 'Koichi Watanabe <wkoichi@gmail.com>',
             'spacemeowx2 <spacemeowx2@gmail.com>' => 'imspace <spacemeowx2@gmail.com>',
         ];
-        return \array_values(
-            \array_unique(
-                \array_filter(
+        return array_values(
+            array_unique(
+                array_filter(
                     ArrayHelper::sort(
-                        \array_map(
+                        array_map(
                             function (string $name) use ($authorMap): ?string {
-                                $name = \trim($name);
-                                return $name !== '' && \array_key_exists($name, $authorMap)
+                                $name = trim($name);
+                                return $name !== '' && array_key_exists($name, $authorMap)
                                     ? $authorMap[$name]
                                     : $name;
                             },
@@ -357,8 +385,6 @@ final class I18nController extends Controller
         $result |= $deepl->run() ? 0 : 1;
 
         $opencc = Yii::createObject(['class' => i18n\OpenCCTranslator::class]);
-        $result |= $opencc->run() ? 0 : 1;
-
-        return $result;
+        return $result | $opencc->run() ? 0 : 1;
     }
 }

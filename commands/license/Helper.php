@@ -18,6 +18,8 @@ use function fwrite;
 use function getcwd;
 use function implode;
 
+use const STDERR;
+
 trait Helper
 {
     protected function execCommand(string $cmdline): ?string

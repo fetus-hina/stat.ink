@@ -8,7 +8,8 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "team".
@@ -20,7 +21,7 @@ use Yii;
  * @property SplatfestTeam[] $splatfestTeams
  * @property Splatfest[] $fests
  */
-class Team extends \yii\db\ActiveRecord
+class Team extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -38,7 +39,7 @@ class Team extends \yii\db\ActiveRecord
         return [
             [['id', 'name', 'leader'], 'required'],
             [['id'], 'integer'],
-            [['name', 'leader'], 'string', 'max' => 8]
+            [['name', 'leader'], 'string', 'max' => 8],
         ];
     }
 
@@ -55,7 +56,7 @@ class Team extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getSplatfestTeams()
     {
@@ -63,7 +64,7 @@ class Team extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getFests()
     {

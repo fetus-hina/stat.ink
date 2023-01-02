@@ -27,16 +27,12 @@ final class m220829_090529_battle3 extends Migration
                     $tableName,
                     $insertData[0],
                     array_map(
-                        function (array $row): array {
-                            return array_map(
-                                function ($value) {
-                                    return $value instanceof Closure ? $value() : $value;
-                                },
-                                $row
-                            );
-                        },
-                        $insertData[1]
-                    )
+                        fn (array $row): array => array_map(
+                            fn ($value) => $value instanceof Closure ? $value() : $value,
+                            $row,
+                        ),
+                        $insertData[1],
+                    ),
                 );
             }
         }
@@ -51,8 +47,8 @@ final class m220829_090529_battle3 extends Migration
     {
         $this->dropTables(
             array_reverse(
-                array_keys($this->tableData())
-            )
+                array_keys($this->tableData()),
+            ),
         );
 
         return true;
@@ -145,15 +141,15 @@ final class m220829_090529_battle3 extends Migration
                     ['key', 'name', 'rank', 'group_id'],
                     [
                         ['c-', 'C-', 10, fn () => $this->getRankGroupId('c')],
-                        ['c',  'C',  11, fn () => $this->getRankGroupId('c')],
+                        ['c', 'C', 11, fn () => $this->getRankGroupId('c')],
                         ['c+', 'C+', 12, fn () => $this->getRankGroupId('c')],
                         ['b-', 'B-', 20, fn () => $this->getRankGroupId('b')],
-                        ['b',  'B',  21, fn () => $this->getRankGroupId('b')],
+                        ['b', 'B', 21, fn () => $this->getRankGroupId('b')],
                         ['b+', 'B+', 22, fn () => $this->getRankGroupId('b')],
                         ['a-', 'A-', 30, fn () => $this->getRankGroupId('a')],
-                        ['a',  'A',  31, fn () => $this->getRankGroupId('a')],
+                        ['a', 'A', 31, fn () => $this->getRankGroupId('a')],
                         ['a+', 'A+', 32, fn () => $this->getRankGroupId('a')],
-                        ['s',  'S',  41, fn () => $this->getRankGroupId('s')],
+                        ['s', 'S', 41, fn () => $this->getRankGroupId('s')],
                         ['s+', 'S+', 42, fn () => $this->getRankGroupId('s')],
                     ],
                 ],
@@ -272,7 +268,7 @@ final class m220829_090529_battle3 extends Migration
                 ->andWhere($where)
                 ->limit(1)
                 ->scalar(),
-            FILTER_VALIDATE_INT
+            FILTER_VALIDATE_INT,
         );
         if (is_int($value)) {
             return $value;

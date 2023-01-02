@@ -13,10 +13,29 @@ use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Resource;
 use app\components\helpers\db\Now;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
+use yii\web\Application;
 use yii\web\JsExpression;
+
+use function array_key_exists;
+use function array_keys;
+use function array_merge;
+use function filter_var;
+use function http_build_query;
+use function implode;
+use function is_float;
+use function microtime;
+use function sprintf;
+use function strpos;
+use function strtotime;
+use function usleep;
+use function vsprintf;
+
+use const FILTER_VALIDATE_FLOAT;
+use const SORT_DESC;
 
 /**
  * This is the model class for table "user_stat2".
@@ -86,7 +105,7 @@ class UserStat2 extends ActiveRecord
         Yii::trace(sprintf(
             'Try to get UserStat2 lock for user #%d (%s)',
             $userId,
-            (Yii::$app instanceof \yii\web\Application) ? 'webapp' : 'console'
+            Yii::$app instanceof Application ? 'webapp' : 'console',
         ));
         $time = microtime(true);
         do {
@@ -94,7 +113,7 @@ class UserStat2 extends ActiveRecord
                 Yii::trace(sprintf(
                     'Got a UserStat2 lock for user #%d (%s)',
                     $userId,
-                    (Yii::$app instanceof \yii\web\Application) ? 'webapp' : 'console'
+                    Yii::$app instanceof Application ? 'webapp' : 'console',
                 ));
                 if ($autoRelease) {
                     return true;
@@ -110,7 +129,7 @@ class UserStat2 extends ActiveRecord
         Yii::trace(sprintf(
             'Failed to get a lock for user #%d (%s)',
             $userId,
-            (Yii::$app instanceof \yii\web\Application) ? 'webapp' : 'console'
+            Yii::$app instanceof Application ? 'webapp' : 'console',
         ));
         return false;
         // }}}
@@ -142,7 +161,7 @@ class UserStat2 extends ActiveRecord
                     'gachi_kill_death_time', 'gachi_kill_with_time', 'gachi_death_with_time',
                     'gachi_total_seconds', 'area_rank_peak', 'yagura_rank_peak', 'hoko_rank_peak',
                     'asari_rank_peak', 'area_current_rank', 'yagura_current_rank',
-                    'hoko_current_rank', 'asari_current_rank'
+                    'hoko_current_rank', 'asari_current_rank',
                 ],
                 'default',
                 'value' => null,
@@ -158,7 +177,7 @@ class UserStat2 extends ActiveRecord
                     'gachi_kill_death_time', 'gachi_kill_with_time', 'gachi_death_with_time',
                     'gachi_total_seconds', 'area_rank_peak', 'yagura_rank_peak', 'hoko_rank_peak',
                     'asari_rank_peak', 'area_current_rank', 'yagura_current_rank',
-                    'hoko_current_rank', 'asari_current_rank'
+                    'hoko_current_rank', 'asari_current_rank',
                 ],
                 'integer',
             ],
@@ -169,7 +188,7 @@ class UserStat2 extends ActiveRecord
                     'asari_current_x_power', 'area_x_power_peak', 'yagura_x_power_peak',
                     'hoko_x_power_peak', 'asari_x_power_peak',
                 ],
-                'number'
+                'number',
             ],
             [['user_id'], 'unique'],
             [['user_id'], 'exist',
@@ -242,15 +261,13 @@ class UserStat2 extends ActiveRecord
             [
                 'class' => TimestampBehavior::class,
                 'createdAtAttribute' => false,
-                'value' => function () {
-                    return new Now();
-                },
+                'value' => fn () => new Now(),
             ],
         ];
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getUser()
     {
@@ -270,7 +287,7 @@ class UserStat2 extends ActiveRecord
         ];
         $excludeHaventInked = array_merge(
             $excludeHaventWinLose,
-            ['WHEN {{battle2}}.[[my_point]] IS NULL THEN 0']
+            ['WHEN {{battle2}}.[[my_point]] IS NULL THEN 0'],
         );
         $excludePrivate = [
             "WHEN {{lobby2}}.[[key]] = 'private' THEN 0",
@@ -282,9 +299,7 @@ class UserStat2 extends ActiveRecord
         $excludeNonGachi = [
             "WHEN {{rule2}}.[[key]] NOT IN ('area', 'yagura', 'hoko', 'asari') THEN 0",
         ];
-        $timestamp = function (string $column): string {
-            return sprintf('EXTRACT(EPOCH FROM %s)', $column);
-        };
+        $timestamp = fn (string $column): string => sprintf('EXTRACT(EPOCH FROM %s)', $column);
         $gachiRankPeak = function (string $ruleKey) use ($excludePrivate): string {
             // {{{
             $db = $this->getDb();
@@ -292,7 +307,7 @@ class UserStat2 extends ActiveRecord
                 $excludePrivate,
                 [
                     sprintf('WHEN {{rule2}}.[[key]] <> %s THEN 0', $db->quoteValue($ruleKey)),
-                    "WHEN {{rank2a}}.[[int_base]] IS NULL AND {{rank2b}}.[[int_base]] IS NULL THEN 0",
+                    'WHEN {{rank2a}}.[[int_base]] IS NULL AND {{rank2b}}.[[int_base]] IS NULL THEN 0',
                     sprintf(
                         'ELSE GREATEST(%s + %s, %s + %s)',
                         sprintf('(CASE %s END)', implode(' ', [
@@ -312,9 +327,9 @@ class UserStat2 extends ActiveRecord
                             'WHEN {{rank2b}}.[[int_base]] IS NULL THEN 0',
                             'WHEN {{battle2}}.[[rank_after_exp]] IS NULL THEN 0',
                             'ELSE {{battle2}}.[[rank_after_exp]]',
-                        ]))
+                        ])),
                     ),
-                ]
+                ],
             )));
             // }}}
         };
@@ -327,13 +342,13 @@ class UserStat2 extends ActiveRecord
                     sprintf('WHEN {{rule2}}.[[key]] <> %s THEN NULL', $db->quoteValue($ruleKey)),
                     sprintf(
                         'WHEN {{rank2a}}.[[key]] <> %1$s AND {{rank2b}}.[[key]] <> %1$s THEN NULL',
-                        $db->quoteValue('x')
+                        $db->quoteValue('x'),
                     ),
                     vsprintf('ELSE GREATEST(%s, %s)', [
                         '{{battle2}}.[[x_power]]',
                         '{{battle2}}.[[x_power_after]]',
                     ]),
-                ]
+                ],
             )));
             // }}}
         };
@@ -343,53 +358,53 @@ class UserStat2 extends ActiveRecord
                 'battles' => 'COUNT(*)',
                 'have_win_lose' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludeHaventWinLose,
-                    ['ELSE 1']
+                    ['ELSE 1'],
                 ))),
                 'win_battles' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludeHaventWinLose,
                     [
                         'WHEN {{battle2}}.[[is_win]] = TRUE THEN 1',
                         'ELSE 0',
-                    ]
+                    ],
                 ))),
                 'have_kill_death' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludeHaventKillDeath,
                     [
                         'ELSE 1',
-                    ]
+                    ],
                 ))),
                 'kill' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludeHaventKillDeath,
                     [
                         'ELSE {{battle2}}.[[kill]]',
-                    ]
+                    ],
                 ))),
                 'death' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludeHaventKillDeath,
                     [
                     'ELSE {{battle2}}.[[death]]',
-                    ]
+                    ],
                 ))),
                 'have_kill_death_time' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludeHaventKillDeath,
                     $excludeHaventTimes,
                     [
                     'ELSE 1',
-                    ]
+                    ],
                 ))),
                 'kill_with_time' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludeHaventKillDeath,
                     $excludeHaventTimes,
                     [
                     'ELSE {{battle2}}.[[kill]]',
-                    ]
+                    ],
                 ))),
                 'death_with_time' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludeHaventKillDeath,
                     $excludeHaventTimes,
                     [
                     'ELSE {{battle2}}.[[death]]',
-                    ]
+                    ],
                 ))),
                 'total_seconds' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludeHaventKillDeath,
@@ -398,9 +413,9 @@ class UserStat2 extends ActiveRecord
                     sprintf(
                         'ELSE (%s - %s)',
                         $timestamp('{{battle2}}.[[end_at]]'),
-                        $timestamp('{{battle2}}.[[start_at]]')
+                        $timestamp('{{battle2}}.[[start_at]]'),
                     ),
-                    ]
+                    ],
                 ))),
                 // }}}
                 // ナワバリ {{{
@@ -409,7 +424,7 @@ class UserStat2 extends ActiveRecord
                     $excludeNonTurfWar,
                     [
                     'ELSE 1',
-                    ]
+                    ],
                 ))),
                 'turf_have_win_lose' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
@@ -417,7 +432,7 @@ class UserStat2 extends ActiveRecord
                     $excludeHaventWinLose,
                     [
                     'ELSE 1',
-                    ]
+                    ],
                 ))),
                 'turf_win_battles' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
@@ -426,7 +441,7 @@ class UserStat2 extends ActiveRecord
                     [
                     'WHEN {{battle2}}.[[is_win]] = TRUE THEN 1',
                     'ELSE 0',
-                    ]
+                    ],
                 ))),
                 'turf_have_kill_death' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
@@ -434,7 +449,7 @@ class UserStat2 extends ActiveRecord
                     $excludeHaventKillDeath,
                     [
                     'ELSE 1',
-                    ]
+                    ],
                 ))),
                 'turf_kill' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
@@ -442,7 +457,7 @@ class UserStat2 extends ActiveRecord
                     $excludeHaventKillDeath,
                     [
                     'ELSE {{battle2}}.[[kill]]',
-                    ]
+                    ],
                 ))),
                 'turf_death' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
@@ -450,33 +465,33 @@ class UserStat2 extends ActiveRecord
                     $excludeHaventKillDeath,
                     [
                     'ELSE {{battle2}}.[[death]]',
-                    ]
+                    ],
                 ))),
-                'turf_have_inked'  => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
+                'turf_have_inked' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
                     $excludeNonTurfWar,
                     $excludeHaventInked,
                     [
                     'ELSE 1',
-                    ]
+                    ],
                 ))),
-                'turf_total_inked'  => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
+                'turf_total_inked' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
                     $excludeNonTurfWar,
                     $excludeHaventInked,
                     [
                     'WHEN {{battle2}}.[[is_win]] THEN {{battle2}}.[[my_point]] - 1000',
                     'ELSE {{battle2}}.[[my_point]]',
-                    ]
+                    ],
                 ))),
-                'turf_max_inked'  => sprintf('MAX(CASE %s END)', implode(' ', array_merge(
+                'turf_max_inked' => sprintf('MAX(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
                     $excludeNonTurfWar,
                     $excludeHaventInked,
                     [
                     'WHEN {{battle2}}.[[is_win]] THEN {{battle2}}.[[my_point]] - 1000',
                     'ELSE {{battle2}}.[[my_point]]',
-                    ]
+                    ],
                 ))),
                 // }}}
                 // ガチ {{{
@@ -485,7 +500,7 @@ class UserStat2 extends ActiveRecord
                     $excludeNonGachi,
                     [
                     'ELSE 1',
-                    ]
+                    ],
                 ))),
                 'gachi_have_win_lose' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
@@ -493,7 +508,7 @@ class UserStat2 extends ActiveRecord
                     $excludeHaventWinLose,
                     [
                     'ELSE 1',
-                    ]
+                    ],
                 ))),
                 'gachi_win_battles' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
@@ -502,7 +517,7 @@ class UserStat2 extends ActiveRecord
                     [
                     'WHEN {{battle2}}.[[is_win]] = TRUE THEN 1',
                     'ELSE 0',
-                    ]
+                    ],
                 ))),
                 'gachi_have_kill_death' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
@@ -510,7 +525,7 @@ class UserStat2 extends ActiveRecord
                     $excludeHaventKillDeath,
                     [
                     'ELSE 1',
-                    ]
+                    ],
                 ))),
                 'gachi_kill' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
@@ -518,7 +533,7 @@ class UserStat2 extends ActiveRecord
                     $excludeHaventKillDeath,
                     [
                     'ELSE {{battle2}}.[[kill]]',
-                    ]
+                    ],
                 ))),
                 'gachi_death' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
@@ -526,7 +541,7 @@ class UserStat2 extends ActiveRecord
                     $excludeHaventKillDeath,
                     [
                     'ELSE {{battle2}}.[[death]]',
-                    ]
+                    ],
                 ))),
                 'gachi_kill_death_time' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
@@ -535,7 +550,7 @@ class UserStat2 extends ActiveRecord
                     $excludeHaventTimes,
                     [
                     'ELSE 1',
-                    ]
+                    ],
                 ))),
                 'gachi_kill_with_time' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
@@ -544,7 +559,7 @@ class UserStat2 extends ActiveRecord
                     $excludeHaventTimes,
                     [
                     'ELSE {{battle2}}.[[kill]]',
-                    ]
+                    ],
                 ))),
                 'gachi_death_with_time' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
@@ -553,7 +568,7 @@ class UserStat2 extends ActiveRecord
                     $excludeHaventTimes,
                     [
                     'ELSE {{battle2}}.[[death]]',
-                    ]
+                    ],
                 ))),
                 'gachi_total_seconds' => sprintf('SUM(CASE %s END)', implode(' ', array_merge(
                     $excludePrivate,
@@ -564,9 +579,9 @@ class UserStat2 extends ActiveRecord
                     sprintf(
                         'ELSE (%s - %s)',
                         $timestamp('{{battle2}}.[[end_at]]'),
-                        $timestamp('{{battle2}}.[[start_at]]')
+                        $timestamp('{{battle2}}.[[start_at]]'),
                     ),
-                    ]
+                    ],
                 ))),
                 'area_rank_peak' => $gachiRankPeak('area'),
                 'yagura_rank_peak' => $gachiRankPeak('yagura'),
@@ -666,128 +681,124 @@ class UserStat2 extends ActiveRecord
             'updated_at' => DateTimeFormatter::unixTimeToJsonArray(strtotime($this->updated_at)),
             'entire' => [
                 'battles' => $this->battles,
-                'win_pct' => ($this->have_win_lose > 0)
+                'win_pct' => $this->have_win_lose > 0
                     ? ($this->win_battles * 100 / $this->have_win_lose)
                     : null,
-                'kill_ratio' => ($this->have_kill_death > 0)
+                'kill_ratio' => $this->have_kill_death > 0
                     ? new JsExpression(
                         // 小数点以下の精度を保証するために
                         // 浮動小数点数をそのまま渡すのではなく、
                         // あらかじめ規定の精度でフォーマットしたものをそのまま出力させる
-                        ($this->death > 0)
+                        $this->death > 0
                             ? sprintf('%.2f', $this->kill / $this->death)
-                            : (($this->kill > 0)
+                            : ($this->kill > 0
                                 ? '99.99'
                                 : 'null'
-                            )
+                            ),
                     )
                     : null,
                 'kill_total' => $this->kill,
-                'kill_avg' => ($this->have_kill_death > 0)
+                'kill_avg' => $this->have_kill_death > 0
                     ? $this->kill / $this->have_kill_death
                     : null,
-                'kill_per_min' => ($this->have_kill_death_time > 0 && $this->total_seconds > 0)
+                'kill_per_min' => $this->have_kill_death_time > 0 && $this->total_seconds > 0
                     ? ($this->kill_with_time * 60 / $this->total_seconds)
                     : null,
                 'death_total' => $this->death,
-                'death_avg' => ($this->have_kill_death > 0)
+                'death_avg' => $this->have_kill_death > 0
                     ? $this->death / $this->have_kill_death
                     : null,
-                'death_per_min' => ($this->have_kill_death_time > 0 && $this->total_seconds > 0)
+                'death_per_min' => $this->have_kill_death_time > 0 && $this->total_seconds > 0
                     ? ($this->death_with_time * 60 / $this->total_seconds)
                     : null,
             ],
             'nawabari' => [
                 'battles' => $this->turf_battles,
-                'win_pct' => ($this->turf_have_win_lose > 0)
+                'win_pct' => $this->turf_have_win_lose > 0
                     ? $this->turf_win_battles * 100 / $this->turf_have_win_lose
                     : null,
-                'kill_ratio' => ($this->turf_have_kill_death > 0)
+                'kill_ratio' => $this->turf_have_kill_death > 0
                     ? new JsExpression(
                         // 小数点以下の精度を保証するために
                         // 浮動小数点数をそのまま渡すのではなく、
                         // あらかじめ規定の精度でフォーマットしたものをそのまま出力させる
-                        ($this->turf_death > 0)
+                        $this->turf_death > 0
                             ? sprintf('%.2f', $this->turf_kill / $this->turf_death)
-                            : (($this->turf_kill > 0)
+                            : ($this->turf_kill > 0
                                 ? '99.99' // infinity が返したい
                                 : 'null'
-                            )
+                            ),
                     )
                     : null,
                 'kill_total' => $this->turf_kill,
-                'kill_avg' => ($this->turf_have_kill_death > 0)
+                'kill_avg' => $this->turf_have_kill_death > 0
                     ? $this->turf_kill / $this->turf_have_kill_death
                     : null,
-                'kill_per_min' => ($this->turf_have_kill_death > 0)
+                'kill_per_min' => $this->turf_have_kill_death > 0
                     ? $this->turf_kill / $this->turf_have_kill_death / 3.0
                     : null,
                 'death_total' => $this->turf_death,
-                'death_avg' => ($this->turf_have_kill_death > 0)
+                'death_avg' => $this->turf_have_kill_death > 0
                     ? $this->turf_death / $this->turf_have_kill_death
                     : null,
-                'death_per_min' => ($this->turf_have_kill_death > 0)
+                'death_per_min' => $this->turf_have_kill_death > 0
                     ? $this->turf_death / $this->turf_have_kill_death / 3.0
                     : null,
                 'total_inked' => $this->turf_total_inked,
                 'max_inked' => $this->turf_max_inked,
-                'avg_inked' => ($this->turf_have_inked > 0)
+                'avg_inked' => $this->turf_have_inked > 0
                     ? $this->turf_total_inked / $this->turf_have_inked
                     : null,
             ],
             'gachi' => [
                 'battles' => $this->gachi_battles,
-                'win_pct' => ($this->gachi_have_win_lose > 0)
+                'win_pct' => $this->gachi_have_win_lose > 0
                     ? $this->gachi_win_battles * 100 / $this->gachi_have_win_lose
                     : null,
-                'kill_ratio' => ($this->gachi_have_kill_death > 0)
+                'kill_ratio' => $this->gachi_have_kill_death > 0
                     ? new JsExpression(
                         // 小数点以下の精度を保証するために
                         // 浮動小数点数をそのまま渡すのではなく、
                         // あらかじめ規定の精度でフォーマットしたものをそのまま出力させる
-                        ($this->gachi_death > 0)
+                        $this->gachi_death > 0
                             ? sprintf('%.2f', $this->gachi_kill / $this->gachi_death)
-                            : (($this->gachi_kill > 0)
+                            : ($this->gachi_kill > 0
                                 ? '99.99' // infinity が返したい
                                 : 'null'
-                            )
+                            ),
                     )
                     : null,
                 'kill_total' => $this->gachi_kill,
-                'kill_avg' => ($this->gachi_have_kill_death > 0)
+                'kill_avg' => $this->gachi_have_kill_death > 0
                     ? $this->gachi_kill / $this->gachi_have_kill_death
                     : null,
-                'kill_per_min' => ($this->gachi_kill_death_time > 0 && $this->gachi_total_seconds > 0)
+                'kill_per_min' => $this->gachi_kill_death_time > 0 && $this->gachi_total_seconds > 0
                     ? ($this->gachi_kill_with_time * 60 / $this->gachi_total_seconds)
                     : null,
                 'death_total' => $this->gachi_death,
-                'death_avg' => ($this->gachi_have_kill_death > 0)
+                'death_avg' => $this->gachi_have_kill_death > 0
                     ? $this->gachi_death / $this->gachi_have_kill_death
                     : null,
-                'death_per_min' => ($this->gachi_kill_death_time > 0 && $this->gachi_total_seconds > 0)
+                'death_per_min' => $this->gachi_kill_death_time > 0 && $this->gachi_total_seconds > 0
                     ? ($this->gachi_death_with_time * 60 / $this->gachi_total_seconds)
                     : null,
                 'rules' => ArrayHelper::map(
                     ['area', 'yagura', 'hoko', 'asari'],
-                    function (string $key): string {
-                        return $key;
-                    },
-                    function (string $key): array {
-                        return [
+                    fn (string $key): string => $key,
+                    fn (string $key): array => [
                             'rank_peak' => $this->rankFormatForJson(
-                                $this->{$key . '_rank_peak'}
+                                $this->{$key . '_rank_peak'},
                             ),
                             'rank_current' => $this->rankFormatForJson(
-                                $this->{$key . '_current_rank'}
+                                $this->{$key . '_current_rank'},
                             ),
                             'x_power_peak' => $this->xPowerFormatForJson(
-                                $this->{$key . '_x_power_peak'}
+                                $this->{$key . '_x_power_peak'},
                             ),
                             'x_power_current' => $this->xPowerFormatForJson(
-                                $this->{$key . '_current_x_power'}
+                                $this->{$key . '_current_x_power'},
                             ),
-                        ];
-                    }
+                        ],
                 ),
             ],
         ];
@@ -806,7 +817,7 @@ class UserStat2 extends ActiveRecord
                 if (!$info = Rank2::parseRankNumber($value)) {
                     return null;
                 }
-                return ($info[1] === null)
+                return $info[1] === null
                     ? $info[0] // S+ 以外
                     : implode(' ', [$info[0], (string)$info[1]]); // e.g., "S+ 5"
             })();
@@ -818,7 +829,7 @@ class UserStat2 extends ActiveRecord
     private function xPowerFormatForJson($value): JsExpression
     {
         $value = filter_var($value, FILTER_VALIDATE_FLOAT);
-        return (is_float($value) && $value > 0.0)
+        return is_float($value) && $value > 0.0
             ? new JsExpression(sprintf('%.1f', $value))
             : new JsExpression('null');
     }

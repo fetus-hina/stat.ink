@@ -14,9 +14,14 @@ use Yii;
 use app\models\api\v2\salmon\PostForm;
 use yii\helpers\Json;
 use yii\helpers\Url;
-use yii\web\UnauthorizedHttpException;
+use yii\web\ViewAction;
 
-class PostAction extends \yii\web\ViewAction
+use function sprintf;
+
+use const JSON_UNESCAPED_SLASHES;
+use const JSON_UNESCAPED_UNICODE;
+
+class PostAction extends ViewAction
 {
     public function init()
     {
@@ -51,12 +56,12 @@ class PostAction extends \yii\web\ViewAction
                     'screen_name' => $model->user->screen_name,
                     'id' => $model->id,
                 ],
-                true
-            )
+                true,
+            ),
         );
         $headers->set(
             'x-api-location',
-            Url::to(['api-v2-salmon/view', 'id' => $model->id], true)
+            Url::to(['api-v2-salmon/view', 'id' => $model->id], true),
         );
 
         return '';
@@ -85,8 +90,8 @@ class PostAction extends \yii\web\ViewAction
             $_SERVER['REMOTE_ADDR'],
             Json::encode(
                 ['error' => $errors],
-                JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
-            )
+                JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE,
+            ),
         ));
     }
 }

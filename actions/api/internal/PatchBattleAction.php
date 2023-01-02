@@ -17,6 +17,9 @@ use yii\web\MethodNotAllowedHttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction;
 
+use function is_scalar;
+use function preg_match;
+
 class PatchBattleAction extends ViewAction
 {
     public $battle;
@@ -64,7 +67,7 @@ class PatchBattleAction extends ViewAction
         $battle = $this->battle;
         foreach ($form->attributes as $key => $value) {
             if ($value !== null) {
-                $battle->$key = ($value === '') ? null : $value;
+                $battle->$key = $value === '' ? null : $value;
             }
         }
         if (!$battle->save()) {

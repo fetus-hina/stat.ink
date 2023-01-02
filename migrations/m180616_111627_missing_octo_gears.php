@@ -22,7 +22,7 @@ class m180616_111627_missing_octo_gears extends Migration
             'headgear',
             static::name2key('Grizzco'),
             null,
-            21004
+            21004,
         );
         $this->upGear2(
             static::name2key('Fresh Octo Tee'),
@@ -30,7 +30,7 @@ class m180616_111627_missing_octo_gears extends Migration
             'clothing',
             static::name2key('Cuttlegear'),
             static::name2key('Ink Saver (Sub)'),
-            3
+            3,
         );
 
         $brand = (new Query())
@@ -45,7 +45,7 @@ class m180616_111627_missing_octo_gears extends Migration
             ['key' => [
                 static::name2key('Octoleet Armor'),
                 static::name2key('Octoleet Boots'),
-            ]]
+            ]],
         );
     }
 
@@ -66,7 +66,7 @@ class m180616_111627_missing_octo_gears extends Migration
             ['key' => [
                 static::name2key('Octoleet Armor'),
                 static::name2key('Octoleet Boots'),
-            ]]
+            ]],
         );
     }
 }

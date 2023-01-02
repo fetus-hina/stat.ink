@@ -12,10 +12,9 @@ namespace app\models\api\v3\postBattle;
 
 use LogicException;
 use Yii;
-use app\components\helpers\GearConfiguration3Fingerprint;
-use app\models\GearConfiguration3;
-use app\models\GearConfigurationSecondary3;
 use yii\base\Model;
+
+use function is_array;
 
 final class GearsForm extends Model
 {
@@ -45,7 +44,7 @@ final class GearsForm extends Model
             return;
         }
 
-        if (!\is_array($data)) {
+        if (!is_array($data)) {
             $this->addError($attribute, "{$attribute} is invalid");
             return;
         }

@@ -13,6 +13,9 @@ namespace app\components\formatters\api\v3;
 use app\models\BattlePlayer3;
 use app\models\BattleTricolorPlayer3;
 
+use function array_map;
+use function array_values;
+
 final class BattlePlayerApiFormatter
 {
     /**
@@ -24,8 +27,8 @@ final class BattlePlayerApiFormatter
             return null;
         }
 
-        return \array_values(
-            \array_map(
+        return array_values(
+            array_map(
                 fn (BattlePlayer3|BattleTricolorPlayer3 $model): array => [
                     'me' => $model->is_me,
                     'rank_in_team' => $model->rank_in_team,

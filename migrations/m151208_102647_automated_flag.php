@@ -7,15 +7,16 @@
  */
 
 use yii\db\Migration;
+use yii\db\Query;
 
 class m151208_102647_automated_flag extends Migration
 {
     public function up()
     {
         $this->createTable('agent_attribute', [
-            'id'            => $this->primaryKey(),
-            'name'          => $this->string(64)->notNull()->unique(),
-            'is_automated'  => $this->boolean()->notNull(),
+            'id' => $this->primaryKey(),
+            'name' => $this->string(64)->notNull()->unique(),
+            'is_automated' => $this->boolean()->notNull(),
         ]);
         $this->batchInsert(
             'agent_attribute',
@@ -25,7 +26,7 @@ class m151208_102647_automated_flag extends Migration
                 ['IkaRec', false],
                 ['IkaRecord', false],
                 ['TakoLog', true],
-            ]
+            ],
         );
 
         $this->execute('ALTER TABLE {{battle}} ADD COLUMN [[is_automated]] BOOLEAN NOT NULL DEFAULT FALSE');
@@ -34,13 +35,13 @@ class m151208_102647_automated_flag extends Migration
             preg_replace(
                 '/^.+ FROM\s/',
                 'FROM ',
-                ((new \yii\db\Query())
+                ((new Query())
                     ->from('agent')
                     ->andWhere('{{battle}}.[[agent_id]] = {{agent}}.[[id]]')
                     ->andWhere(['{{agent}}.[[name]]' => ['IkaLog', 'TakoLog']])
                     ->createCommand()
-                    ->rawSql)
-            )
+                    ->rawSql),
+            ),
         );
         $this->execute('VACUUM {{battle}}');
     }

@@ -30,25 +30,21 @@ class m181005_104443_salmon_special extends Migration
             'presser' => 7,
         ];
         $keys = implode(', ', array_map(
-            function (string $key): string {
-                return $this->db->quoteValue($key);
-            },
-            array_keys($data)
+            fn (string $key): string => $this->db->quoteValue($key),
+            array_keys($data),
         ));
         $splatnet = sprintf(
             'CASE %s %s END',
             $this->db->quoteColumnName('key'),
             implode(' ', array_map(
-                function (string $key, int $splatnet): string {
-                    return sprintf(
-                        'WHEN %s THEN %d',
-                        $this->db->quoteValue($key),
-                        $splatnet
-                    );
-                },
+                fn (string $key, int $splatnet): string => sprintf(
+                    'WHEN %s THEN %d',
+                    $this->db->quoteValue($key),
+                    $splatnet,
+                ),
                 array_keys($data),
-                array_values($data)
-            ))
+                array_values($data),
+            )),
         );
         $name = sprintf(
             'CASE %s %s END',
@@ -57,17 +53,17 @@ class m181005_104443_salmon_special extends Migration
                 sprintf(
                     'WHEN %s THEN %s',
                     $this->db->quoteValue('pitcher'),
-                    $this->db->quoteValue('Splat-Bomb Launcher')
+                    $this->db->quoteValue('Splat-Bomb Launcher'),
                 ),
                 'ELSE ' . $this->db->quoteColumnName('name'),
-            ])
+            ]),
         );
         $this->execute(
             'INSERT INTO {{salmon_special2}}([[key]], [[name]], [[splatnet]], [[special_id]]) ' .
             "SELECT [[key]], {$name}, {$splatnet}, [[id]] " .
             'FROM {{special2}} ' .
             "WHERE {{key}} IN ({$keys}) " .
-            'ORDER BY [[name]] ASC'
+            'ORDER BY [[name]] ASC',
         );
     }
 

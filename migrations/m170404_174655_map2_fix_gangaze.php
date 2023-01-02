@@ -20,7 +20,7 @@ class m170404_174655_map2_fix_gangaze extends Migration
             ],
             [
                 'key' => 'gangaze',
-            ]
+            ],
         );
     }
 
@@ -34,7 +34,7 @@ class m170404_174655_map2_fix_gangaze extends Migration
             ],
             [
                 'key' => 'gangaze',
-            ]
+            ],
         );
     }
 }

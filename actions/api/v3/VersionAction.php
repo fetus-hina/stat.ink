@@ -15,6 +15,11 @@ use app\components\formatters\api\v3\SplatoonVersionGroupApiFormatter;
 use app\models\SplatoonVersionGroup3;
 use yii\web\ViewAction;
 
+use function array_map;
+use function strcmp;
+use function usort;
+use function version_compare;
+
 final class VersionAction extends ViewAction
 {
     use ApiInitializerTrait;
@@ -38,16 +43,16 @@ final class VersionAction extends ViewAction
             ->andWhere(['not', ['tag' => '0.0']])
             ->all();
 
-        \usort(
+        usort(
             $groups,
-            fn (SplatoonVersionGroup3 $a, SplatoonVersionGroup3 $b): int => \version_compare($b->tag, $a->tag)
-                ?: \strcmp($b->tag, $a->tag)
+            fn (SplatoonVersionGroup3 $a, SplatoonVersionGroup3 $b): int => version_compare($b->tag, $a->tag)
+                ?: strcmp($b->tag, $a->tag)
                 ?: $b->id <=> $a->id
         );
 
-        return \array_map(
+        return array_map(
             fn (SplatoonVersionGroup3 $group): array => SplatoonVersionGroupApiFormatter::toJson($group, $full, true),
-            $groups
+            $groups,
         );
     }
 }

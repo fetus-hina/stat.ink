@@ -17,13 +17,13 @@ class m171104_190602_gear2_splatnet extends Migration
             __FILE__,
             false,
             null,
-            __COMPILER_HALT_OFFSET__
+            __COMPILER_HALT_OFFSET__,
         );
         preg_match_all(
             '/^\s+#?\s+(\d+)\s*:\s*\'(\w+)\'/m',
             $code,
             $matches,
-            PREG_SET_ORDER
+            PREG_SET_ORDER,
         );
         $update = [];
         foreach ($matches as $match) {
@@ -36,7 +36,7 @@ class m171104_190602_gear2_splatnet extends Migration
                 $this->update(
                     'gear2',
                     ['splatnet' => (int)$match[1]],
-                    ['key' => $match[2]]
+                    ['key' => $match[2]],
                 );
             }
         }

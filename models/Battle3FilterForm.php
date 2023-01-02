@@ -18,6 +18,9 @@ use yii\base\Model;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
+use function array_merge;
+use function sprintf;
+
 use const SORT_ASC;
 
 final class Battle3FilterForm extends Model
@@ -63,13 +66,13 @@ final class Battle3FilterForm extends Model
             [['lobby', 'rule', 'map', 'weapon', 'result', 'knockout', 'term'], 'string'],
 
             [['lobby'], 'in',
-                'range' => \array_merge(
+                'range' => array_merge(
                     self::getKeyList(Lobby3::class),
                     self::getKeyList(LobbyGroup3::class, '@'),
                 ),
             ],
             [['rule'], 'in',
-                'range' => \array_merge(
+                'range' => array_merge(
                     self::getKeyList(Rule3::class),
                     self::getKeyList(RuleGroup3::class, '@'),
                 ),
@@ -79,7 +82,7 @@ final class Battle3FilterForm extends Model
                 'targetAttribute' => 'key',
             ],
             [['weapon'], 'in',
-                'range' => \array_merge(
+                'range' => array_merge(
                     self::getKeyList(Weapon3::class),
                     self::getKeyList(WeaponType3::class, self::PREFIX_WEAPON_TYPE),
                     self::getKeyList(Subweapon3::class, self::PREFIX_WEAPON_SUB),
@@ -88,7 +91,7 @@ final class Battle3FilterForm extends Model
                 ),
             ],
             [['result'], 'in',
-                'range' => \array_merge(self::getKeyList(Result3::class), [
+                'range' => array_merge(self::getKeyList(Result3::class), [
                     self::RESULT_NOT_DRAW,
                     self::RESULT_NOT_WIN,
                     self::RESULT_UNKNOWN,
@@ -128,8 +131,8 @@ final class Battle3FilterForm extends Model
     {
         return ArrayHelper::getColumn(
             $modelClass::find()->orderBy(['key' => SORT_ASC])->all(),
-            fn (ActiveRecord $model): string => ($prefix !== null)
-                ? \sprintf('%s%s', $prefix, $model->key)
+            fn (ActiveRecord $model): string => $prefix !== null
+                ? sprintf('%s%s', $prefix, $model->key)
                 : $model->key,
         );
     }

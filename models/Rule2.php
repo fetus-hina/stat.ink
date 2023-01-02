@@ -10,8 +10,15 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+
+use function array_map;
+use function call_user_func;
+use function is_callable;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "rule2".
@@ -65,7 +72,7 @@ class Rule2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getModeRules()
     {
@@ -73,7 +80,7 @@ class Rule2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getModes()
     {
@@ -104,9 +111,7 @@ class Rule2 extends ActiveRecord
         }
 
         if ($valueCallback === null) {
-            $valueCallback = function (self $row): string {
-                return Yii::t('app-rule2', ArrayHelper::getValue($row, 'name'));
-            };
+            $valueCallback = fn (self $row): string => Yii::t('app-rule2', ArrayHelper::getValue($row, 'name'));
         }
 
         return ArrayHelper::map($query->all(), 'key', $valueCallback);
@@ -123,9 +128,9 @@ class Rule2 extends ActiveRecord
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc2', 'Mode'),
                         'app-rule2',
-                        $values
+                        $values,
                     ),
-                    ArrayHelper::getColumn($values, 'key', false)
+                    ArrayHelper::getColumn($values, 'key', false),
                 ),
                 'name' => static::oapiRef(openapi\Name::class),
             ],
@@ -143,12 +148,10 @@ class Rule2 extends ActiveRecord
     public static function openapiExample(): array
     {
         return array_map(
-            function (self $model): array {
-                return $model->toJsonArray();
-            },
+            fn (self $model): array => $model->toJsonArray(),
             static::find()
                 ->orderBy(['id' => SORT_ASC])
-                ->all()
+                ->all(),
         );
     }
 }

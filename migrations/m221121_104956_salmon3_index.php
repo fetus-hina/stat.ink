@@ -21,13 +21,13 @@ final class m221121_104956_salmon3_index extends Migration
         $this->dropIndex('salmon3_user_id_client_uuid', '{{%salmon3}}');
         $this->execute(
             'CREATE INDEX salmon3_user_id_client_uuid ON {{%salmon3}} ([[user_id]], [[client_uuid]]) ' .
-            'WHERE ([[is_deleted]] = FALSE)'
+            'WHERE ([[is_deleted]] = FALSE)',
         );
 
         // New index
         $this->execute(
             'CREATE INDEX salmon3_user_id_start_at ON {{%salmon3}} ([[user_id]], [[start_at]], [[id]]) ' .
-            'WHERE ([[is_deleted]] = FALSE)'
+            'WHERE ([[is_deleted]] = FALSE)',
         );
 
         return true;
@@ -42,7 +42,7 @@ final class m221121_104956_salmon3_index extends Migration
         $this->dropIndex('salmon3_user_id_client_uuid', '{{%salmon3}}');
         $this->execute(
             'CREATE UNIQUE INDEX salmon3_user_id_client_uuid ON {{%salmon3}} ([[user_id]], [[client_uuid]]) ' .
-            'WHERE ([[is_deleted]] = FALSE)'
+            'WHERE ([[is_deleted]] = FALSE)',
         );
 
         return true;

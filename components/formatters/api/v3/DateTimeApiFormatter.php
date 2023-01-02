@@ -15,6 +15,10 @@ use DateTimeZone;
 use app\components\helpers\DateTimeFormatter;
 use yii\base\InvalidArgumentException;
 
+use function is_int;
+use function is_string;
+use function strtotime;
+
 final class DateTimeApiFormatter
 {
     /**
@@ -33,13 +37,13 @@ final class DateTimeApiFormatter
      */
     private static function convert($value): ?int
     {
-        if ($value === null || \is_int($value)) {
+        if ($value === null || is_int($value)) {
             return $value;
         } elseif ($value instanceof DateTimeInterface) {
             return $value->getTimestamp();
-        } elseif (\is_string($value)) {
-            $t = @\strtotime($value);
-            if (\is_int($t)) {
+        } elseif (is_string($value)) {
+            $t = @strtotime($value);
+            if (is_int($t)) {
                 return $t;
             }
         }

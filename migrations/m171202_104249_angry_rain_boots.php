@@ -21,14 +21,14 @@ class m171202_104249_angry_rain_boots extends Migration
             'shoes',
             static::name2key('Grizzco'),
             null,
-            21001
+            21001,
         );
     }
 
     public function safeDown()
     {
         $this->downGear2(
-            static::name2key('Angry Rain Boots')
+            static::name2key('Angry Rain Boots'),
         );
     }
 }

@@ -19,7 +19,10 @@ use app\models\Salmon3;
 use app\models\User;
 use yii\grid\Column;
 use yii\helpers\Html;
-use yii\helpers\Url;
+
+use function array_filter;
+use function implode;
+use function trim;
 
 final class SalmonActionColumn extends Column
 {
@@ -36,9 +39,9 @@ final class SalmonActionColumn extends Column
             throw new LogicException();
         }
 
-        return \implode(
+        return implode(
             ' ',
-            \array_filter(
+            array_filter(
                 [
                     Html::a(
                         Html::encode(Yii::t('app', 'Detail')),
@@ -63,7 +66,7 @@ final class SalmonActionColumn extends Column
                                     'btn-default',
                                     'btn-xs',
                                 ],
-                                'rel' => \implode(' ', [
+                                'rel' => implode(' ', [
                                     'nofollow',
                                     'noopener',
                                     'noreferrer',
@@ -73,18 +76,17 @@ final class SalmonActionColumn extends Column
                         )
                         : null,
                 ],
-                fn (?string $content): bool => $content !== null && \trim($content) !== '',
+                fn (?string $content): bool => $content !== null && trim($content) !== '',
             ),
         );
     }
-
 
     /**
      * @param Salmon2|Salmon3 $model
      */
     private function getDetailUrl($model, User $user): array
     {
-        switch (\get_class($model)) {
+        switch ($model::class) {
             case Salmon2::class:
                 return ['salmon/view',
                     'screen_name' => $user->screen_name,

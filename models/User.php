@@ -8,13 +8,9 @@
 
 namespace app\models;
 
-use DateInterval;
-use DateTime;
-use DateTimeImmutable;
 use DateTimeZone;
 use Throwable;
 use Yii;
-use app\components\behaviors\UserAuthKeyBehavior;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Password;
 use app\components\helpers\db\Now;
@@ -23,6 +19,28 @@ use yii\db\ActiveRecord;
 use yii\db\Query;
 use yii\helpers\Url;
 use yii\web\IdentityInterface;
+
+use function base64_encode;
+use function file_exists;
+use function filemtime;
+use function filesize;
+use function filter_var;
+use function hash_hmac;
+use function implode;
+use function is_int;
+use function preg_replace;
+use function random_bytes;
+use function rawurlencode;
+use function rtrim;
+use function sprintf;
+use function strtotime;
+use function strtr;
+use function substr;
+use function trim;
+
+use const FILTER_VALIDATE_INT;
+use const SORT_ASC;
+use const SORT_DESC;
 
 /**
  * This is the model class for table "user".
@@ -67,9 +85,9 @@ class User extends ActiveRecord implements IdentityInterface
     use openapi\Util;
 
     public const BLACKOUT_NOT_BLACKOUT = 'no';
-    public const BLACKOUT_NOT_PRIVATE  = 'not-private';
-    public const BLACKOUT_NOT_FRIEND   = 'not-friend';
-    public const BLACKOUT_ALWAYS       = 'always';
+    public const BLACKOUT_NOT_PRIVATE = 'not-private';
+    public const BLACKOUT_NOT_FRIEND = 'not-friend';
+    public const BLACKOUT_ALWAYS = 'always';
 
     /**
      * @inheritdoc
@@ -87,7 +105,7 @@ class User extends ActiveRecord implements IdentityInterface
                     ->select('[[last_value]]')
                     ->from('{{user_id_seq}}')
                     ->scalar(),
-                FILTER_VALIDATE_INT
+                FILTER_VALIDATE_INT,
             );
             if (is_int($count)) {
                 return $count;
@@ -178,30 +196,30 @@ class User extends ActiveRecord implements IdentityInterface
     public function attributeLabels()
     {
         return [
-            'id'            => Yii::t('app', 'Internal ID'),
-            'name'          => Yii::t('app', 'User Name'),
-            'screen_name'   => Yii::t('app', 'Login Name'),
-            'password'      => Yii::t('app', 'Password'),
-            'api_key'       => Yii::t('app', 'API Token'),
-            'join_at'       => Yii::t('app', 'Join At'),
-            'nnid'          => Yii::t('app', 'Nintendo Network ID'),
+            'id' => Yii::t('app', 'Internal ID'),
+            'name' => Yii::t('app', 'User Name'),
+            'screen_name' => Yii::t('app', 'Login Name'),
+            'password' => Yii::t('app', 'Password'),
+            'api_key' => Yii::t('app', 'API Token'),
+            'join_at' => Yii::t('app', 'Join At'),
+            'nnid' => Yii::t('app', 'Nintendo Network ID'),
             'sw_friend_code' => Yii::t('app', 'Friend Code (Switch)'),
-            'twitter'       => Yii::t('app', 'Twitter @name'),
-            'ikanakama'     => Yii::t('app', 'Ika-Nakama User ID'),
-            'ikanakama2'    => Yii::t('app', 'Ika-Nakama User ID'),
-            'env_id'        => Yii::t('app', 'Capture Environment'),
-            'blackout'      => Yii::t('app', 'Black out other players from the result image'),
+            'twitter' => Yii::t('app', 'Twitter @name'),
+            'ikanakama' => Yii::t('app', 'Ika-Nakama User ID'),
+            'ikanakama2' => Yii::t('app', 'Ika-Nakama User ID'),
+            'env_id' => Yii::t('app', 'Capture Environment'),
+            'blackout' => Yii::t('app', 'Black out other players from the result image'),
             'blackout_list' => Yii::t('app', 'Black out other players on details view'),
             'default_language_id' => Yii::t('app', 'Language (used for OStatus)'),
-            'region_id'     => Yii::t('app', 'Region (used for Splatfest)'),
-            'link_mode_id'  => Yii::t('app', 'Link from other user\'s results'),
-            'email'         => Yii::t('app', 'Email'),
+            'region_id' => Yii::t('app', 'Region (used for Splatfest)'),
+            'link_mode_id' => Yii::t('app', 'Link from other user\'s results'),
+            'email' => Yii::t('app', 'Email'),
             'email_lang_id' => Yii::t('app', 'Email Language'),
         ];
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattles()
     {
@@ -209,7 +227,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattle2s()
     {
@@ -217,7 +235,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getLoginWithTwitter()
     {
@@ -225,7 +243,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getSlacks()
     {
@@ -256,7 +274,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getEnv()
     {
@@ -264,7 +282,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getDefaultLanguage()
     {
@@ -272,7 +290,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getLinkMode()
     {
@@ -280,7 +298,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getRegion()
     {
@@ -288,7 +306,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getUserIcon()
     {
@@ -296,23 +314,20 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getUserStat()
     {
         return $this->hasOne(UserStat::class, ['user_id' => 'id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUserStat2(): \yii\db\ActiveQuery
+    public function getUserStat2(): ActiveQuery
     {
         return $this->hasOne(UserStat2::class, ['user_id' => 'id']);
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getUserWeapons()
     {
@@ -320,13 +335,13 @@ class User extends ActiveRecord implements IdentityInterface
             ->with(['weapon']);
     }
 
-    public function getUserWeapon2s(): \yii\db\ActiveQuery
+    public function getUserWeapon2s(): ActiveQuery
     {
         return $this->hasMany(UserWeapon2::class, ['user_id' => 'id']);
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getWeapons()
     {
@@ -362,7 +377,7 @@ class User extends ActiveRecord implements IdentityInterface
                 $query->innerJoin(
                     'battle_image',
                     'battle.id = battle_image.battle_id AND battle_image.type_id = :type',
-                    [':type' => BattleImageType::ID_RESULT]
+                    [':type' => BattleImageType::ID_RESULT],
                 );
                 $query->orderBy('{{battle}}.[[id]] DESC');
                 $query->limit(1);
@@ -478,11 +493,11 @@ class User extends ActiveRecord implements IdentityInterface
             'url' => Url::to(['show-user/profile', 'screen_name' => $this->screen_name], true),
             'join_at' => DateTimeFormatter::unixTimeToJsonArray(
                 strtotime($this->join_at),
-                new DateTimeZone('Etc/UTC')
+                new DateTimeZone('Etc/UTC'),
             ),
             'profile' => [
-                'nnid'          => (string)$this->nnid !== '' ? $this->nnid : null,
-                'friend_code'   => (string)$this->sw_friend_code !== ''
+                'nnid' => (string)$this->nnid !== '' ? $this->nnid : null,
+                'friend_code' => (string)$this->sw_friend_code !== ''
                     ? implode('-', [
                         'SW',
                         substr((string)$this->sw_friend_code, 0, 4),
@@ -490,12 +505,12 @@ class User extends ActiveRecord implements IdentityInterface
                         substr((string)$this->sw_friend_code, 8, 4),
                     ])
                     : null,
-                'twitter'       => (string)$this->twitter != '' ? $this->twitter : null,
-                'ikanakama'     => null,
-                'ikanakama2'    => (string)$this->ikanakama2
+                'twitter' => (string)$this->twitter != '' ? $this->twitter : null,
+                'ikanakama' => null,
+                'ikanakama2' => (string)$this->ikanakama2
                     ? sprintf('https://ikanakama.ink/users/%d', $this->ikanakama2)
                     : null,
-                'environment'   => $this->env ? $this->env->text : null,
+                'environment' => $this->env ? $this->env->text : null,
             ],
             'stat' => $this->userStat ? $this->userStat->toJsonArray() : null,
             'stats' => [
@@ -534,11 +549,11 @@ class User extends ActiveRecord implements IdentityInterface
             ], true),
             'join_at' => DateTimeFormatter::unixTimeToJsonArray(
                 strtotime($this->join_at),
-                new DateTimeZone('Etc/UTC')
+                new DateTimeZone('Etc/UTC'),
             ),
             'profile' => [
-                'nnid'          => (string)$this->nnid !== '' ? $this->nnid : null,
-                'friend_code'   => (string)$this->sw_friend_code !== ''
+                'nnid' => (string)$this->nnid !== '' ? $this->nnid : null,
+                'friend_code' => (string)$this->sw_friend_code !== ''
                     ? implode('-', [
                         'SW',
                         substr((string)$this->sw_friend_code, 0, 4),
@@ -546,12 +561,12 @@ class User extends ActiveRecord implements IdentityInterface
                         substr((string)$this->sw_friend_code, 8, 4),
                     ])
                     : null,
-                'twitter'       => (string)$this->twitter != '' ? $this->twitter : null,
-                'ikanakama'     => null,
-                'ikanakama2'    => (string)$this->ikanakama2
+                'twitter' => (string)$this->twitter != '' ? $this->twitter : null,
+                'ikanakama' => null,
+                'ikanakama2' => (string)$this->ikanakama2
                     ? sprintf('https://ikanakama.ink/users/%d', $this->ikanakama2)
                     : null,
-                'environment'   => $this->env ? $this->env->text : null,
+                'environment' => $this->env ? $this->env->text : null,
             ],
             'stats' => $stats ? $stats->toJsonArray() : null,
         ];
@@ -578,10 +593,10 @@ class User extends ActiveRecord implements IdentityInterface
             hash_hmac(
                 'sha256',
                 sprintf('uid=%08d', $this->id),
-                Url::to(['site/index'], true)
+                Url::to(['site/index'], true),
             ),
             0,
-            32
+            32,
         );
     }
 
@@ -594,7 +609,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return Url::to(
             Yii::getAlias('@jdenticon') . '/' . rawurlencode($this->identiconHash) . '.svg',
-            true
+            true,
         );
     }
 
@@ -648,7 +663,7 @@ class User extends ActiveRecord implements IdentityInterface
             [
                 'method' => LoginMethod::findOne(['id' => $loginMethod]),
                 'user' => $user,
-            ]
+            ],
         );
         $mail->setFrom(Yii::$app->params['notifyEmail'])
             ->setTo([$user->email => $user->name])
@@ -660,7 +675,7 @@ class User extends ActiveRecord implements IdentityInterface
                     'screen_name' => $user->screen_name,
                     'site' => Yii::$app->name,
                 ],
-                $user->emailLang->lang ?? 'en-US'
+                $user->emailLang->lang ?? 'en-US',
             ))
             ->send();
     }

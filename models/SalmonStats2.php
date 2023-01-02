@@ -15,8 +15,15 @@ use Yii;
 use app\components\behaviors\TimestampBehavior;
 use app\components\helpers\DateTimeFormatter;
 use yii\db\ActiveRecord;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+
+use function array_filter;
+use function array_merge;
+use function filter_var;
+use function gmdate;
+use function strtotime;
+
+use const FILTER_VALIDATE_INT;
 
 /**
  * This is the model class for table "salmon_stats2".
@@ -102,7 +109,7 @@ class SalmonStats2 extends ActiveRecord
                 return null;
             }
             $value = filter_var($value, FILTER_VALIDATE_INT);
-            return ($value === false) ? null : (int)$value;
+            return $value === false ? null : (int)$value;
         };
 
         $timestamp = function ($value): ?array {
@@ -129,13 +136,12 @@ class SalmonStats2 extends ActiveRecord
 
     public static function openApiSchema(): array
     {
-        $nullableBigint = function (
+        $nullableBigint = fn (
             string $descriptionEn,
             ?int $minValue = null,
             ?int $maxValue = null
-        ): array {
-            return array_filter(
-                [
+        ): array => array_filter(
+            [
                     'type' => 'integer',
                     'format' => 'int64',
                     'minimum' => $minValue,
@@ -143,18 +149,13 @@ class SalmonStats2 extends ActiveRecord
                     'nullable' => true,
                     'description' => Html::encode(Yii::t('app-apidoc2', $descriptionEn)),
                 ],
-                function ($value): bool {
-                    return $value !== null;
-                }
-            );
-        };
+            fn ($value): bool => $value !== null,
+        );
 
-        $timestamp = function (string $descriptionEn, bool $nullable): array {
-            return array_merge(openapi\DateTime::openApiSchema(), [
+        $timestamp = fn (string $descriptionEn, bool $nullable): array => array_merge(openapi\DateTime::openApiSchema(), [
                 'nullable' => $nullable,
                 'description' => Html::encode(Yii::t('app-apidoc2', $descriptionEn)),
             ]);
-        };
 
         return [
             'type' => 'object',
@@ -180,9 +181,7 @@ class SalmonStats2 extends ActiveRecord
 
     public static function openapiExample(): array
     {
-        $ts = function (string $timestamp): array {
-            return DateTimeFormatter::unixTimeToJsonArray(strtotime($timestamp));
-        };
+        $ts = fn (string $timestamp): array => DateTimeFormatter::unixTimeToJsonArray(strtotime($timestamp));
 
         return [
             'work_count' => 388,

@@ -18,6 +18,15 @@ use app\models\Rule3Alias;
 use app\models\api\v3\postBattle\TypeHelperTrait;
 use yii\helpers\ArrayHelper;
 
+use function array_map;
+use function array_values;
+use function ceil;
+use function filter_var;
+use function is_int;
+use function strtolower;
+use function strtotime;
+use function usort;
+
 use const FILTER_VALIDATE_INT;
 
 trait Matches
@@ -56,7 +65,7 @@ trait Matches
             if ($modeKey === null) {
                 $results[] = self::processNode(
                     ArrayHelper::getValue($node, $structureKey),
-                    ArrayHelper::getValue($node, 'startTime')
+                    ArrayHelper::getValue($node, 'startTime'),
                 );
             } else {
                 // バンカラマッチは $structureKey で示される構造がさらに配列になっている
@@ -64,40 +73,40 @@ trait Matches
                     if (ArrayHelper::getValue($settingNode, 'mode') === $modeKey) {
                         $results[] = self::processNode(
                             $settingNode,
-                            ArrayHelper::getValue($node, 'startTime')
+                            ArrayHelper::getValue($node, 'startTime'),
                         );
                     }
                 }
             }
         }
 
-        \usort(
+        usort(
             $results,
             fn (array $a, array $b): int => $a['period'] <=> $b['period']
         );
 
-        return \array_values($results);
+        return array_values($results);
     }
 
     private static function processNode(array $dataStructure, string $startTimeStr): array
     {
         return [
             'period' => self::calcPeriod($startTimeStr),
-            'rule_id' => self::rule(\strtolower(ArrayHelper::getValue($dataStructure, 'vsRule.rule'))),
-            'map_ids' => \array_map(
+            'rule_id' => self::rule(strtolower(ArrayHelper::getValue($dataStructure, 'vsRule.rule'))),
+            'map_ids' => array_map(
                 fn (array $stage) => self::map(ArrayHelper::getValue($stage, 'vsStageId')),
-                ArrayHelper::getValue($dataStructure, 'vsStages')
+                ArrayHelper::getValue($dataStructure, 'vsStages'),
             ),
         ];
     }
 
     private static function calcPeriod(string $startTimeStr): int
     {
-        $timestamp = \filter_var(
-            @\strtotime($startTimeStr),
-            FILTER_VALIDATE_INT
+        $timestamp = filter_var(
+            @strtotime($startTimeStr),
+            FILTER_VALIDATE_INT,
         );
-        if (\is_int($timestamp)) {
+        if (is_int($timestamp)) {
             return (int)ceil($timestamp / 7200);
         }
 

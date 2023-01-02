@@ -13,6 +13,8 @@ namespace app\components\widgets\v3;
 use app\components\widgets\FA;
 use yii\helpers\Html;
 
+use function str_repeat;
+
 final class XProgress extends ChallengeProgress
 {
     protected function getMaxWin(): int
@@ -31,11 +33,11 @@ final class XProgress extends ChallengeProgress
             'div',
             Html::tag(
                 'span',
-                \str_repeat(
+                str_repeat(
                     (string)FA::fas('circle')->fw(),
-                    $win
+                    $win,
                 ),
-                ['class' => 'text-success']
+                ['class' => 'text-success'],
             ),
             ['class' => 'series-progress'],
         );
@@ -47,16 +49,16 @@ final class XProgress extends ChallengeProgress
             'div',
             Html::tag(
                 'span',
-                \str_repeat(
+                str_repeat(
                     (string)FA::fas('times')->fw(),
-                    $lose
+                    $lose,
                 ),
                 [
                     'class' => 'text-danger',
                     'style' => [
                         'opacity' => '0.5',
                     ],
-                ]
+                ],
             ),
             ['class' => 'series-progress'],
         );

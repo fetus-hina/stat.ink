@@ -19,6 +19,9 @@ use yii\base\Action;
 use yii\base\DynamicModel;
 use yii\web\NotFoundHttpException;
 
+use const SORT_ASC;
+use const SORT_DESC;
+
 final class UserStatSplatfestAction extends Action
 {
     private ?User $user = null;
@@ -62,7 +65,7 @@ final class UserStatSplatfestAction extends Action
     private function processInput(): DynamicModel
     {
         $request = Yii::$app->request;
-        $model = DynamicModel::validateData(
+        return DynamicModel::validateData(
             ['region' => $request->get('region')],
             [
                 [['region'], 'default', 'value' => null],
@@ -71,9 +74,8 @@ final class UserStatSplatfestAction extends Action
                     'targetClass' => Region2::class,
                     'targetAttribute' => ['region' => 'key'],
                 ],
-            ]
+            ],
         );
-        return $model;
     }
 
     private function initRegion(DynamicModel $model): void

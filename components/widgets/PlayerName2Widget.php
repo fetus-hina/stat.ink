@@ -17,6 +17,15 @@ use statink\yii2\anonymizer\AnonymizerAsset;
 use yii\base\Widget;
 use yii\bootstrap\Html;
 
+use function hash;
+use function hex2bin;
+use function implode;
+use function preg_match;
+use function str_repeat;
+use function substr;
+use function trim;
+use function vsprintf;
+
 class PlayerName2Widget extends Widget
 {
     public $player;
@@ -34,15 +43,15 @@ class PlayerName2Widget extends Widget
                 'align-items' => 'center',
                 'justify-content' => 'space-between',
                 'white-space' => 'nowrap',
-            ])
+            ]),
         ]));
 
         return Html::tag(
             'div',
             $this->nameOnly
-                ? ($this->renderName($this->player->user ?? null))
-                : ($this->renderNamePart() . $this->renderSpeciesPart()),
-            ['id' => $this->id]
+                ? $this->renderName($this->player->user ?? null)
+                : $this->renderNamePart() . $this->renderSpeciesPart(),
+            ['id' => $this->id],
         );
     }
 
@@ -52,7 +61,7 @@ class PlayerName2Widget extends Widget
         return $playerUser
             ? Html::a(
                 $this->renderInnerNamePart($playerUser),
-                ['show-user/profile', 'screen_name' => $playerUser->screen_name]
+                ['show-user/profile', 'screen_name' => $playerUser->screen_name],
             )
             : Html::tag('span', $this->renderInnerNamePart($playerUser));
     }
@@ -82,7 +91,7 @@ class PlayerName2Widget extends Widget
                     'width' => '1.2em',
                     'height' => 'auto',
                 ],
-            ]
+            ],
         );
     }
 
@@ -106,12 +115,12 @@ class PlayerName2Widget extends Widget
             $anonId = substr(
                 hash(
                     'sha256',
-                    (preg_match('/^([0-9a-f]{2}+)[0-9a-f]?$/', $this->player->anonymizeSeed, $match))
+                    preg_match('/^([0-9a-f]{2}+)[0-9a-f]?$/', $this->player->anonymizeSeed, $match)
                         ? hex2bin($match[1])
-                        : $this->player->anonymizeSeed
+                        : $this->player->anonymizeSeed,
                 ),
                 0,
-                40
+                40,
             );
 
             return Html::tag(
@@ -130,7 +139,7 @@ class PlayerName2Widget extends Widget
                         'text-overflow' => 'ellipsis',
                         'max-width' => 'calc(100% - 2.8rem)',
                     ],
-                ]
+                ],
             );
         } else {
             return Html::encode(trim($this->player->name));
@@ -175,10 +184,8 @@ class PlayerName2Widget extends Widget
                 if ($this->isPrivate) {
                     return false;
                 }
-                if ($this->isMyTeam) {
-                    return false;
-                }
-                return true;
+
+                return !$this->isMyTeam;
 
             case User::BLACKOUT_ALWAYS:
             default:
@@ -211,7 +218,7 @@ class PlayerName2Widget extends Widget
                         'height' => 'calc(1.2em - 2px)',
                         'width' => 'auto',
                     ],
-                ]
+                ],
             ),
             [
                 'style' => [
@@ -221,7 +228,7 @@ class PlayerName2Widget extends Widget
                     'background' => $this->player->species->key === 'inkling' ? '#333' : '#ddd',
                     'border-radius' => '4px',
                 ],
-            ]
+            ],
         );
     }
 }

@@ -9,9 +9,24 @@
 namespace app\components\web;
 
 use Yii;
+use app\components\helpers\Resource;
 use yii\base\Component;
 use yii\web\ResponseFormatterInterface;
-use app\components\helpers\Resource;
+
+use function array_map;
+use function fseek;
+use function fwrite;
+use function implode;
+use function in_array;
+use function mb_convert_encoding;
+use function mb_str_replace;
+use function mb_substitute_character;
+use function preg_match;
+use function preg_quote;
+use function sprintf;
+use function tmpfile;
+
+use const SEEK_SET;
 
 class CsvResponseFormatter extends Component implements ResponseFormatterInterface
 {
@@ -37,7 +52,7 @@ class CsvResponseFormatter extends Component implements ResponseFormatterInterfa
             mb_substitute_character(),
             function ($old) {
                 mb_substitute_character($old);
-            }
+            },
         );
         mb_substitute_character($this->substituteCharacter);
 
@@ -65,11 +80,11 @@ class CsvResponseFormatter extends Component implements ResponseFormatterInterfa
                 }
                 return mb_convert_encoding($utf8, $this->outputCharset, 'UTF-8');
             },
-            $row
+            $row,
         );
         return implode(
             mb_convert_encoding($this->separator, $this->outputCharset, 'ASCII'),
-            $ret
+            $ret,
         );
     }
 }

@@ -10,8 +10,13 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+
+use function array_map;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "mode2".
@@ -62,7 +67,7 @@ class Mode2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getModeRules()
     {
@@ -70,7 +75,7 @@ class Mode2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getRules()
     {
@@ -86,10 +91,8 @@ class Mode2 extends ActiveRecord
         ];
         if ($withRules) {
             $ret['rules'] = array_map(
-                function (Rule2 $rule): array {
-                    return $rule->toJsonArray();
-                },
-                $this->rules
+                fn (Rule2 $rule): array => $rule->toJsonArray(),
+                $this->rules,
             );
         }
         return $ret;
@@ -108,9 +111,9 @@ class Mode2 extends ActiveRecord
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc2', 'Mode'),
                         'app-rule2',
-                        $values
+                        $values,
                     ),
-                    ArrayHelper::getColumn($values, 'key', false)
+                    ArrayHelper::getColumn($values, 'key', false),
                 ),
                 'name' => static::oapiRef(openapi\Name::class),
                 'rules' => [
@@ -133,13 +136,11 @@ class Mode2 extends ActiveRecord
     public static function openapiExample(): array
     {
         return array_map(
-            function (self $model): array {
-                return $model->toJsonArray();
-            },
+            fn (self $model): array => $model->toJsonArray(),
             static::find()
                 ->with(['rules'])
                 ->orderBy(['key' => SORT_ASC])
-                ->all()
+                ->all(),
         );
     }
 }

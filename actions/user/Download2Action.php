@@ -10,10 +10,10 @@
 namespace app\actions\user;
 
 use Yii;
-use app\models\Battle;
 use yii\web\BadRequestHttpException;
-use yii\web\ServerErrorHttpException;
 use yii\web\ViewAction as BaseAction;
+
+use function is_scalar;
 
 class Download2Action extends BaseAction
 {
@@ -44,8 +44,8 @@ class Download2Action extends BaseAction
             Yii::t(
                 'yii',
                 'Invalid data received for parameter "{param}".',
-                [ 'param' => 'type' ]
-            )
+                ['param' => 'type'],
+            ),
         );
     }
 
@@ -65,20 +65,20 @@ class Download2Action extends BaseAction
             'zh-CN' => [ 'CP936', 'gb2312' ],
             'zh-TW' => [ 'BIG-5', 'big5' ],
         ];
-        $charset = $charsets[Yii::$app->language] ?? [ 'UTF-8', 'UTF-8' ];
+        $charset = $charsets[Yii::$app->language] ?? ['UTF-8', 'UTF-8'];
 
         $resp = Yii::$app->response;
         $resp->setDownloadHeaders(
             'statink-ikalog-2.csv',
             'text/csv; charset=' . $charset[1],
             false,
-            null
+            null,
         );
         $resp->format = 'csv';
         $battles = $this->user->getBattle2s()
             ->with(['rule', 'map'])
             ->orderBy('{{battle2}}.[[id]] ASC');
-        $generator =  function () use ($battles) {
+        $generator = function () use ($battles) {
             foreach ($battles->each() as $battle) {
                 yield $battle->toIkaLogCsv();
             }
@@ -99,7 +99,7 @@ class Download2Action extends BaseAction
         $battles = $this->user->getBattle2s()
             ->with(['lobby', 'mode', 'rule', 'map', 'weapon', 'rank', 'rankAfter'])
             ->orderBy('{{battle2}}.[[id]] ASC');
-        $generator =  function () use ($battles) {
+        $generator = function () use ($battles) {
             yield [
                 Yii::t('app', 'Date Time'),
                 Yii::t('app', 'Date Time'),

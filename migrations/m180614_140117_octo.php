@@ -44,7 +44,7 @@ class m180614_140117_octo extends Migration
                     $type,
                     static::name2key('Cuttlegear'), // maybe wrong
                     null, // primary
-                    $gearId
+                    $gearId,
                 );
             }
         }

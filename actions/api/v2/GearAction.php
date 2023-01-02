@@ -15,6 +15,13 @@ use app\models\api\v2\GearGetForm;
 use yii\db\Query;
 use yii\web\ViewAction as BaseAction;
 
+use function array_map;
+use function array_merge;
+use function preg_match;
+use function sprintf;
+
+use const SORT_ASC;
+
 class GearAction extends BaseAction
 {
     public function run()
@@ -60,10 +67,8 @@ class GearAction extends BaseAction
     protected function formatJson(Query $query): array
     {
         return array_map(
-            function (Gear2 $gear): array {
-                return $gear->toJsonArray();
-            },
-            $query->all()
+            fn (Gear2 $gear): array => $gear->toJsonArray(),
+            $query->all(),
         );
     }
 
@@ -73,17 +78,17 @@ class GearAction extends BaseAction
 
         $type = Yii::$app->request->get('type');
         $resp->setDownloadHeaders(
-            (preg_match('/^[a-z]+$/', (string)$type))
+            preg_match('/^[a-z]+$/', (string)$type)
                 ? "statink-gear2-{$type}.csv"
-                : "statink-gear2.csv",
-            'text/csv; charset=UTF-8'
+                : 'statink-gear2.csv',
+            'text/csv; charset=UTF-8',
         );
         return [
-            'separator'     => ',',
-            'inputCharset'  => Yii::$app->charset,
+            'separator' => ',',
+            'inputCharset' => Yii::$app->charset,
             'outputCharset' => 'UTF-8',
-            'appendBOM'     => true,
-            'rows'          => $this->formatCsvRows($query),
+            'appendBOM' => true,
+            'rows' => $this->formatCsvRows($query),
         ];
     }
 
@@ -98,11 +103,9 @@ class GearAction extends BaseAction
         yield array_merge(
             ['type', 'brand', 'key', 'splatnet', 'primary_ability'],
             array_map(
-                function (string $lang): string {
-                    return sprintf('[%s]', $lang);
-                },
-                $langs
-            )
+                fn (string $lang): string => sprintf('[%s]', $lang),
+                $langs,
+            ),
         );
         $i18n = Yii::$app->i18n;
         foreach ($query->all() as $gear) {
@@ -115,11 +118,9 @@ class GearAction extends BaseAction
                     $gear->ability->key ?? '',
                 ],
                 array_map(
-                    function (string $lang) use ($gear, $i18n) {
-                        return $i18n->translate('app-gear2', $gear->name, [], $lang);
-                    },
-                    $langs
-                )
+                    fn (string $lang) => $i18n->translate('app-gear2', $gear->name, [], $lang),
+                    $langs,
+                ),
             );
         }
     }

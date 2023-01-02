@@ -12,7 +12,14 @@ use Yii;
 use app\components\behaviors\AutoTrimAttributesBehavior;
 use app\components\validators\IdnToPunycodeFilterValidator;
 use yii\base\Model;
-use yii\db\ActiveQuery;
+
+use function array_keys;
+use function array_merge;
+use function is_bool;
+use function preg_match;
+use function preg_replace;
+use function sprintf;
+use function trim;
 
 class Battle2Form extends Model
 {
@@ -86,59 +93,59 @@ class Battle2Form extends Model
     public function attributeLabels()
     {
         return [
-            'lobby_id'  => Yii::t('app', 'Lobby'),
-            'mode_id'   => Yii::t('app', 'Game Mode'),
-            'rule_id'   => Yii::t('app', 'Mode'),
-            'map_id'    => Yii::t('app', 'Stage'),
+            'lobby_id' => Yii::t('app', 'Lobby'),
+            'mode_id' => Yii::t('app', 'Game Mode'),
+            'rule_id' => Yii::t('app', 'Mode'),
+            'map_id' => Yii::t('app', 'Stage'),
             'weapon_id' => Yii::t('app', 'Weapon'),
-            'result'    => Yii::t('app', 'Result'),
-            'kill'      => Yii::t('app', 'Kills'),
-            'death'     => Yii::t('app', 'Deaths'),
+            'result' => Yii::t('app', 'Result'),
+            'kill' => Yii::t('app', 'Kills'),
+            'death' => Yii::t('app', 'Deaths'),
             'kill_or_assist' => Yii::t('app', 'Kill or Assist'),
-            'special'   => Yii::t('app', 'Specials'),
-            'my_point'  => Yii::t('app', 'Turf inked (including bonus)'),
-            'link_url'  => Yii::t('app', 'URL related to this battle'),
-            'note'      => Yii::t('app', 'Note (public)'),
+            'special' => Yii::t('app', 'Specials'),
+            'my_point' => Yii::t('app', 'Turf inked (including bonus)'),
+            'link_url' => Yii::t('app', 'URL related to this battle'),
+            'note' => Yii::t('app', 'Note (public)'),
             'private_note' => Yii::t('app', 'Note (private)'),
 
-            'xMode'    => Yii::t('app', 'Mode'),
+            'xMode' => Yii::t('app', 'Mode'),
         ];
     }
 
     public function createModeList(): array
     {
-        $solo       = Yii::t('app-rule2', '(Solo)');
-        $twin       = Yii::t('app-rule2', '(Twin)');
-        $quad       = Yii::t('app-rule2', '(Quad)');
-        $priv       = Yii::t('app-rule2', '(Private)');
-        $nawabari   = Yii::t('app-rule2', 'Turf War');
-        $area       = Yii::t('app-rule2', 'Splat Zones');
-        $yagura     = Yii::t('app-rule2', 'Tower Control');
-        $hoko       = Yii::t('app-rule2', 'Rainmaker');
-        $asari      = Yii::t('app-rule2', 'Clam Blitz');
-        $private    = Yii::t('app-rule2', 'Private Battle');
+        $solo = Yii::t('app-rule2', '(Solo)');
+        $twin = Yii::t('app-rule2', '(Twin)');
+        $quad = Yii::t('app-rule2', '(Quad)');
+        $priv = Yii::t('app-rule2', '(Private)');
+        $nawabari = Yii::t('app-rule2', 'Turf War');
+        $area = Yii::t('app-rule2', 'Splat Zones');
+        $yagura = Yii::t('app-rule2', 'Tower Control');
+        $hoko = Yii::t('app-rule2', 'Rainmaker');
+        $asari = Yii::t('app-rule2', 'Clam Blitz');
+        $private = Yii::t('app-rule2', 'Private Battle');
         return [
             '' => Yii::t('app', 'Unknown'),
             Yii::t('app-rule2', 'Regular Battle') => [
                 'standard-regular-nawabari' => $nawabari,
             ],
             Yii::t('app-rule2', 'Ranked Battle') => [
-                'standard-gachi-area'   => "{$area} {$solo}",
+                'standard-gachi-area' => "{$area} {$solo}",
                 'standard-gachi-yagura' => "{$yagura} {$solo}",
-                'standard-gachi-hoko'   => "{$hoko} {$solo}",
-                'standard-gachi-asari'  => "{$asari} {$solo}",
+                'standard-gachi-hoko' => "{$hoko} {$solo}",
+                'standard-gachi-asari' => "{$asari} {$solo}",
             ],
             Yii::t('app-rule2', 'League Battle (Twin)') => [
-                'squad_2-gachi-area'    => "{$area} {$twin}",
-                'squad_2-gachi-yagura'  => "{$yagura} {$twin}",
-                'squad_2-gachi-hoko'    => "{$hoko} {$twin}",
-                'squad_2-gachi-asari'   => "{$asari} {$twin}",
+                'squad_2-gachi-area' => "{$area} {$twin}",
+                'squad_2-gachi-yagura' => "{$yagura} {$twin}",
+                'squad_2-gachi-hoko' => "{$hoko} {$twin}",
+                'squad_2-gachi-asari' => "{$asari} {$twin}",
             ],
             Yii::t('app-rule2', 'League Battle (Quad)') => [
-                'squad_4-gachi-area'    => "{$area} {$quad}",
-                'squad_4-gachi-yagura'  => "{$yagura} {$quad}",
-                'squad_4-gachi-hoko'    => "{$hoko} {$quad}",
-                'squad_4-gachi-asari'   => "{$asari} {$quad}",
+                'squad_4-gachi-area' => "{$area} {$quad}",
+                'squad_4-gachi-yagura' => "{$yagura} {$quad}",
+                'squad_4-gachi-hoko' => "{$hoko} {$quad}",
+                'squad_4-gachi-asari' => "{$asari} {$quad}",
             ],
             Yii::t('app-rule2', 'Splatfest') => [
                 'fest_normal-fest-nawabari' => Yii::t('app-rule2', 'Splatfest (Normal)'),
@@ -146,11 +153,11 @@ class Battle2Form extends Model
                 'squad_4-fest-nawabari' => Yii::t('app-rule2', 'Splatfest (Team)'),
             ],
             $private => [
-                'private-private-nawabari'  => "{$nawabari} {$priv}",
-                'private-private-area'      => "{$area} {$priv}",
-                'private-private-yagura'    => "{$yagura} {$priv}",
-                'private-private-hoko'      => "{$hoko} {$priv}",
-                'private-private-asari'     => "{$asari} {$priv}",
+                'private-private-nawabari' => "{$nawabari} {$priv}",
+                'private-private-area' => "{$area} {$priv}",
+                'private-private-yagura' => "{$yagura} {$priv}",
+                'private-private-hoko' => "{$hoko} {$priv}",
+                'private-private-asari' => "{$asari} {$priv}",
             ],
         ];
     }
@@ -181,7 +188,7 @@ class Battle2Form extends Model
         $mode = $this->getMode();
         $lobby = $this->getLobby();
         if ($lobby && $lobby->key === 'private') {
-            return ($rule === null)
+            return $rule === null
                 ? null
                 : sprintf('private-private-%s', $rule->key);
         }
@@ -209,7 +216,7 @@ class Battle2Form extends Model
                 case 'yagura':
                 case 'hoko':
                 case 'asari':
-                    return ($lobby && ($lobby->key === 'squad_2' || $lobby->key === 'squad_4'))
+                    return $lobby && ($lobby->key === 'squad_2' || $lobby->key === 'squad_4')
                         ? sprintf('%s-gachi-%s', $lobby->key, $rule->key)
                         : sprintf('standard-gachi-%s', $rule->key);
 

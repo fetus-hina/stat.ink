@@ -14,6 +14,11 @@ use Yii;
 use app\assets\ThemeAsset;
 use yii\helpers\Html;
 
+use function array_keys;
+use function array_map;
+use function array_values;
+use function implode;
+
 final class ColorSchemeDialog extends Dialog
 {
     /**
@@ -49,7 +54,7 @@ final class ColorSchemeDialog extends Dialog
         return Html::tag(
             'div',
             $this->renderDefaultScheme() . $this->renderBootswatch(),
-            ['class' => 'list-group-flush']
+            ['class' => 'list-group-flush'],
         );
     }
 
@@ -75,7 +80,7 @@ final class ColorSchemeDialog extends Dialog
                             'style' => [
                                 'color' => '#fff',
                             ],
-                        ]
+                        ],
                     ),
                 ]),
                 [
@@ -85,19 +90,17 @@ final class ColorSchemeDialog extends Dialog
                         'background-color' => '#868e96',
                         'font-size' => '75%',
                     ],
-                ]
+                ],
             ),
             implode('', array_map(
-                function (string $key, string $name): string {
-                    return $this->renderScheme(
-                        $key,
-                        Yii::t('app', '{theme} Theme', [
+                fn (string $key, string $name): string => $this->renderScheme(
+                    $key,
+                    Yii::t('app', '{theme} Theme', [
                             'theme' => $name,
-                        ])
-                    );
-                },
+                        ]),
+                ),
                 array_keys($this->bootswatch),
-                array_values($this->bootswatch)
+                array_values($this->bootswatch),
             )),
         ]);
     }
@@ -116,7 +119,7 @@ final class ColorSchemeDialog extends Dialog
                         'color' => '#fff',
                         'background' => '#337ab7',
                     ],
-                ]
+                ],
             );
         } else {
             return Html::a(
@@ -132,7 +135,7 @@ final class ColorSchemeDialog extends Dialog
                     'data' => [
                         'theme' => $key,
                     ],
-                ]
+                ],
             );
         }
     }

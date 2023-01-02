@@ -8,7 +8,7 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -61,7 +61,7 @@ class ScheduleMap2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getMap()
     {
@@ -69,7 +69,7 @@ class ScheduleMap2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getSchedule()
     {

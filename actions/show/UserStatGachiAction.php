@@ -20,6 +20,18 @@ use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
+use function array_filter;
+use function array_reverse;
+use function array_shift;
+use function array_slice;
+use function array_sum;
+use function count;
+use function floor;
+use function round;
+use function uasort;
+
+use const SORT_DESC;
+
 class UserStatGachiAction extends BaseAction
 {
     private $user;
@@ -90,14 +102,14 @@ class UserStatGachiAction extends BaseAction
         $ret = [];
         foreach ($query->asArray()->each(200) as $model) {
             $ret[] = (object)[
-                'index'         => $index--,
-                'rule'          => $model['rule']['key'],
-                'exp'           => $this->calcGraphExp(
+                'index' => $index--,
+                'rule' => $model['rule']['key'],
+                'exp' => $this->calcGraphExp(
                     $model['rankAfter']['key'],
-                    $model['rank_exp_after']
+                    $model['rank_exp_after'],
                 ),
-                'movingAvg'     => null,
-                'movingAvg50'   => null,
+                'movingAvg' => null,
+                'movingAvg50' => null,
             ];
         }
         $ret = array_reverse($ret);
@@ -145,13 +157,13 @@ class UserStatGachiAction extends BaseAction
         $battles = [];
         foreach ($query->asArray()->each(200) as $battle) {
             $battles[] = (object)[
-                'index'         => -1 * count($battles),
-                'is_win'        => $battle['is_win'],
-                'rule'          => $battle['rule']['key'],
-                'map'           => $battle['map']['key'] ?? null,
-                'totalWP'       => null,
-                'movingWP'      => null,
-                'movingWP50'    => null,
+                'index' => -1 * count($battles),
+                'is_win' => $battle['is_win'],
+                'rule' => $battle['rule']['key'],
+                'map' => $battle['map']['key'] ?? null,
+                'totalWP' => null,
+                'movingWP' => null,
+                'movingWP50' => null,
             ];
         }
         if (empty($battles)) {
@@ -165,9 +177,7 @@ class UserStatGachiAction extends BaseAction
             }
 
             $tmp = array_slice($battles, $currentIndex + 1 - $range, $range);
-            $win = count(array_filter($tmp, function (stdClass $a): bool {
-                return (bool)$a->is_win;
-            }));
+            $win = count(array_filter($tmp, fn (stdClass $a): bool => (bool)$a->is_win));
             return $win * 100 / $range;
         };
         $totalWin = 0;
@@ -206,17 +216,17 @@ class UserStatGachiAction extends BaseAction
         if ($entire = $this->getEntireRankStat()) {
             $exp = $this->calcGraphExp($battle->rankAfter->key, $battle->rank_exp_after);
 
-            $ranks = [ 'C-', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+', 'S', 'S+' ];
+            $ranks = ['C-', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+', 'S', 'S+'];
             $avgExp = (int)round($entire->average);
             $avgRank = Yii::t('app-rank', $ranks[floor($avgExp / 100)]);
             $avgRankExp = $avgExp % 100;
         }
 
         return (object)[
-            'rank'      => Yii::t('app-rank', $battle->rankAfter->name),
-            'rankExp'   => (int)$battle->rank_exp_after,
+            'rank' => Yii::t('app-rank', $battle->rankAfter->name),
+            'rankExp' => (int)$battle->rank_exp_after,
             'deviation' => $deviation,
-            'avgRank'   => $avgRank,
+            'avgRank' => $avgRank,
             'avgRankExp' => $avgRankExp,
         ];
     }
@@ -229,34 +239,34 @@ class UserStatGachiAction extends BaseAction
                 $exp += 1000;
                 break;
             case 's':
-                $exp +=  900;
+                $exp += 900;
                 break;
             case 'a+':
-                $exp +=  800;
+                $exp += 800;
                 break;
             case 'a':
-                $exp +=  700;
+                $exp += 700;
                 break;
             case 'a-':
-                $exp +=  600;
+                $exp += 600;
                 break;
             case 'b+':
-                $exp +=  500;
+                $exp += 500;
                 break;
             case 'b':
-                $exp +=  400;
+                $exp += 400;
                 break;
             case 'b-':
-                $exp +=  300;
+                $exp += 300;
                 break;
             case 'c+':
-                $exp +=  200;
+                $exp += 200;
                 break;
             case 'c':
-                $exp +=  100;
+                $exp += 100;
                 break;
             case 'c-':
-                $exp +=    0;
+                $exp += 0;
                 break;
         }
         return $exp;
@@ -302,9 +312,7 @@ class UserStatGachiAction extends BaseAction
         $list = ArrayHelper::map(
             Map::find()->all(),
             'key',
-            function (Map $map): string {
-                return Yii::t('app-map', $map->name);
-            }
+            fn (Map $map): string => Yii::t('app-map', $map->name),
         );
         uasort($list, 'strnatcasecmp');
         return $list;

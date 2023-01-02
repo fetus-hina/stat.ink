@@ -8,9 +8,12 @@
 
 namespace app\models\api\v2;
 
-use Yii;
-use yii\base\Model;
 use app\components\helpers\Color;
+use yii\base\Model;
+use yii\validators\NumberValidator;
+
+use function count;
+use function is_array;
 
 class TeamColorForm extends Model
 {
@@ -22,9 +25,7 @@ class TeamColorForm extends Model
         return [
             [['hue'], 'number', 'min' => 0, 'max' => 360],
             [['hue'], 'filter',
-                'filter' => function ($value) {
-                    return $value % 360;
-                },
+                'filter' => fn ($value) => $value % 360,
             ],
             [['rgb'], 'validateRgb'],
             [['rgb'], 'makeHue'],
@@ -55,7 +56,7 @@ class TeamColorForm extends Model
             return;
         }
 
-        $numberValidator = new \yii\validators\NumberValidator();
+        $numberValidator = new NumberValidator();
         $numberValidator->integerOnly = true;
         $numberValidator->min = 0;
         $numberValidator->max = 255;
@@ -76,7 +77,7 @@ class TeamColorForm extends Model
         if (!is_array($this->rgb) || count($this->rgb) !== 3) {
             return;
         }
-        list($r, $g, $b) = $this->rgb;
+        [$r, $g, $b] = $this->rgb;
         $this->hue = (int)Color::getHueFromRGB($r, $g, $b);
     }
 }

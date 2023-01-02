@@ -124,7 +124,7 @@ class m180616_103147_octo_gears extends Migration
         return ArrayHelper::map(
             $query->all(),
             'key',
-            'id'
+            'id',
         );
     }
 }

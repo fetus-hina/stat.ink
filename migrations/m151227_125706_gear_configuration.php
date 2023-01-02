@@ -13,17 +13,17 @@ class m151227_125706_gear_configuration extends Migration
     public function up()
     {
         $this->createTable('gear_configuration', [
-            'id'                 => $this->bigPrimaryKey(),
-            'finger_print'       => 'CHAR(43) NOT NULL UNIQUE',
-            'gear_id'            => 'INTEGER NULL',
+            'id' => $this->bigPrimaryKey(),
+            'finger_print' => 'CHAR(43) NOT NULL UNIQUE',
+            'gear_id' => 'INTEGER NULL',
             'primary_ability_id' => 'INTEGER NULL',
         ]);
         $this->addForeignKey('fk_gear_configuration_1', 'gear_configuration', 'gear_id', 'gear', 'id');
         $this->addForeignKey('fk_gear_configuration_2', 'gear_configuration', 'primary_ability_id', 'ability', 'id');
 
         $this->createTable('gear_configuration_secondary', [
-            'id'         => $this->bigPrimaryKey(),
-            'config_id'  => 'BIGINT NOT NULL',
+            'id' => $this->bigPrimaryKey(),
+            'config_id' => 'BIGINT NOT NULL',
             'ability_id' => 'INTEGER NULL',
         ]);
         $this->addForeignKey(
@@ -31,14 +31,14 @@ class m151227_125706_gear_configuration extends Migration
             'gear_configuration_secondary',
             'config_id',
             'gear_configuration',
-            'id'
+            'id',
         );
         $this->addForeignKey(
             'fk_gear_configuration_secondary_2',
             'gear_configuration_secondary',
             'ability_id',
             'ability',
-            'id'
+            'id',
         );
     }
 

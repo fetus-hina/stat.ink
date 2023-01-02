@@ -5,8 +5,12 @@ declare(strict_types=1);
 namespace tests\models;
 
 use Codeception\Test\Unit;
-use Yii;
 use app\models\BattleImage2;
+
+use function explode;
+use function in_array;
+use function preg_match;
+use function substr;
 
 class BattleImage2Test extends Unit
 {
@@ -19,7 +23,7 @@ class BattleImage2Test extends Unit
             $this->assertFalse(in_array($value, $generated));
             $this->assertEquals(1, preg_match(
                 '#^[a-z2-7]{2}/[a-z2-7]{26}\.jpg$#',
-                $value
+                $value,
             ));
 
             $parts = explode('/', $value);

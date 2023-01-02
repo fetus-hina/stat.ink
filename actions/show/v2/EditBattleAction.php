@@ -12,17 +12,15 @@ use Yii;
 use app\models\Battle2;
 use app\models\Battle2DeleteForm;
 use app\models\Battle2Form;
-use app\models\Lobby2;
 use app\models\Map2;
-use app\models\Mode2;
 use app\models\Rank2;
-use app\models\Rule2;
 use app\models\Weapon2;
-use app\models\WeaponCategory2;
 use app\models\WeaponType2;
 use yii\base\Action;
 use yii\helpers\ArrayHelper;
-use yii\web\NotFoundHttpException;
+
+use function array_merge;
+use function vsprintf;
 
 use const SORT_ASC;
 use const SORT_DESC;
@@ -123,7 +121,7 @@ final class EditBattleAction extends Action
      */
     private function makeWeapons(): array
     {
-        return \array_merge(
+        return array_merge(
             ['' => Yii::t('app', 'Unknown')],
             ArrayHelper::map(
                 WeaponType2::find()
@@ -134,9 +132,9 @@ final class EditBattleAction extends Action
                         'weapon_type2.id' => SORT_ASC,
                     ])
                     ->all(),
-                fn (WeaponType2 $type): string => ($type->name === $type->category->name)
+                fn (WeaponType2 $type): string => $type->name === $type->category->name
                     ? Yii::t('app-weapon2', $type->category->name)
-                    : \vsprintf('%s » %s', [
+                    : vsprintf('%s » %s', [
                         Yii::t('app-weapon2', $type->category->name),
                         Yii::t('app-weapon2', $type->name),
                     ]),

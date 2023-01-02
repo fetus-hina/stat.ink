@@ -13,16 +13,18 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
-use app\components\helpers\Battle as BattleHelper;
 use app\models\Battle2;
 use app\models\Spl2YearMonthForm;
 use app\models\User;
 use stdClass;
-use yii\base\Model;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
+
+use function implode;
+use function sprintf;
+use function time;
 
 final class UserStatMonthlyReportAction extends BaseAction
 {
@@ -60,24 +62,24 @@ final class UserStatMonthlyReportAction extends BaseAction
             'user' => $this->user,
             'year' => (int)$form->year,
             'month' => (int)$form->month,
-            'next' => ($dates->nextMonth <= $dates->queryUpperBound)
+            'next' => $dates->nextMonth <= $dates->queryUpperBound
                 ? Url::to(
                     ['show-v2/user-stat-monthly-report',
                         'screen_name' => $this->user->screen_name,
                         'year' => $dates->nextMonth->format('Y'),
                         'month' => $dates->nextMonth->format('n'),
                     ],
-                    true
+                    true,
                 )
                 : null,
-            'prev' => ($dates->prevMonth >= $dates->queryLowerBound)
+            'prev' => $dates->prevMonth >= $dates->queryLowerBound
                 ? Url::to(
                     ['show-v2/user-stat-monthly-report',
                         'screen_name' => $this->user->screen_name,
                         'year' => $dates->prevMonth->format('Y'),
                         'month' => $dates->prevMonth->format('n'),
                     ],
-                    true
+                    true,
                 )
                 : null,
             'abstract' => $this->queryAbstract($dates->from, $dates->to),
@@ -166,7 +168,7 @@ final class UserStatMonthlyReportAction extends BaseAction
         return ArrayHelper::map(
             $query->asArray()->all(),
             'group',
-            fn($row) => (object)[
+            fn ($row) => (object)[
                 'battles' => (int)$row['battles'],
                 'wins' => (int)$row['wins'],
                 'loses' => (int)$row['battles'] - (int)$row['wins'],

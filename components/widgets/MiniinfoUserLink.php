@@ -17,6 +17,12 @@ use statink\yii2\twitter\webintents\TwitterWebIntentsAsset;
 use yii\base\Widget;
 use yii\helpers\Html;
 
+use function http_build_query;
+use function implode;
+use function sprintf;
+use function substr;
+use function trim;
+
 class MiniinfoUserLink extends Widget
 {
     public $user;
@@ -45,7 +51,7 @@ class MiniinfoUserLink extends Widget
             [
                 'id' => $id,
                 'class' => 'miniinfo-databox',
-            ]
+            ],
         );
     }
 
@@ -63,8 +69,8 @@ class MiniinfoUserLink extends Widget
                 'https://twitter.com/intent/user?%s',
                 http_build_query([
                     'screen_name' => $this->user->twitter,
-                ], '', '&')
-            )
+                ], '', '&'),
+            ),
         );
     }
 
@@ -72,7 +78,7 @@ class MiniinfoUserLink extends Widget
     {
         return $this->renderData(
             $this->iconAsset->nnid,
-            $this->user->nnid
+            $this->user->nnid,
         );
     }
 
@@ -88,8 +94,8 @@ class MiniinfoUserLink extends Widget
                 'SW-%s-%s-%s',
                 substr($this->user->sw_friend_code, 0, 4),
                 substr($this->user->sw_friend_code, 4, 4),
-                substr($this->user->sw_friend_code, 8, 4)
-            )
+                substr($this->user->sw_friend_code, 8, 4),
+            ),
         );
     }
 
@@ -102,7 +108,7 @@ class MiniinfoUserLink extends Widget
         return $this->renderData(
             $this->iconAsset->ikanakama,
             Yii::t('app', 'Ika-Nakama'),
-            sprintf('https://ikanakama.ink/users/%d', $this->user->ikanakama2)
+            sprintf('https://ikanakama.ink/users/%d', $this->user->ikanakama2),
         );
     }
 
@@ -118,12 +124,12 @@ class MiniinfoUserLink extends Widget
 
         return Html::tag('div', implode('', [
             $icon,
-            ($link === null)
+            $link === null
                 ? Html::encode($value)
                 : Html::a(
                     Html::encode($value),
                     $link,
-                    ['rel' => 'nofollow', 'target' => '_blank']
+                    ['rel' => 'nofollow', 'target' => '_blank'],
                 ),
         ]));
     }

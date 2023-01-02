@@ -30,15 +30,13 @@ class m171219_110233_fest_theme_table extends Migration
     private function createData(): array
     {
         return array_map( // [ [name], [name], [name] ... ] ( for batchInsert )
-            function (string $name): array {
-                return [$name];
-            },
+            fn (string $name): array => [$name],
             array_keys( // [ name, name, name ... ]
                 $this->mergeData( // [ name => first_seen ]
                     $this->queryData('my_team_fes_theme'), // [ name => first_seen ]
-                    $this->queryData('other_team_fes_theme')
-                )
-            )
+                    $this->queryData('other_team_fes_theme'),
+                ),
+            ),
         );
     }
 
@@ -50,7 +48,7 @@ class m171219_110233_fest_theme_table extends Migration
             $db->quoteTableName('battle2_splatnet'),
             $db->quoteColumnName('json'),
             $db->quoteValue($field),
-            $db->quoteValue('name')
+            $db->quoteValue('name'),
         ));
         $query = (new Query())
             ->select([
@@ -72,7 +70,7 @@ class m171219_110233_fest_theme_table extends Migration
         return ArrayHelper::map(
             $query->all(),
             'name',
-            'first_seen'
+            'first_seen',
         );
     }
 

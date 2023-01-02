@@ -8,6 +8,8 @@
 
 namespace app\actions\user;
 
+use Exception;
+use Throwable;
 use Yii;
 use app\models\Environment;
 use app\models\Language;
@@ -15,6 +17,14 @@ use app\models\ProfileForm;
 use app\models\Region;
 use yii\helpers\ArrayHelper;
 use yii\web\ViewAction as BaseAction;
+
+use function array_map;
+use function base64_encode;
+use function hash;
+use function preg_replace;
+use function rtrim;
+use function sprintf;
+use function trim;
 
 class EditProfileAction extends BaseAction
 {
@@ -35,7 +45,7 @@ class EditProfileAction extends BaseAction
                         $this->controller->redirect(['user/profile']);
                         return;
                     }
-                } catch (\Exception $e) {
+                } catch (Throwable $e) {
                 }
                 $transaction->rollback();
             }
@@ -55,27 +65,25 @@ class EditProfileAction extends BaseAction
                         $row['_name'] = sprintf(
                             '%s / %s',
                             $row['name'],
-                            $row['name_en']
+                            $row['name_en'],
                         );
                         return $row;
                     },
-                    Language::find()->orderBy('name')->asArray()->all()
+                    Language::find()->orderBy('name')->asArray()->all(),
                 ),
                 'id',
-                '_name'
+                '_name',
             ),
             'regions' => ArrayHelper::map(
                 array_map(
-                    function (array $row): array {
-                        return [
+                    fn (array $row): array => [
                             'id' => $row['id'],
                             'name' => Yii::t('app-region', $row['name']),
-                        ];
-                    },
-                    Region::find()->orderBy('id')->asArray()->all()
+                        ],
+                    Region::find()->orderBy('id')->asArray()->all(),
                 ),
                 'id',
-                'name'
+                'name',
             ),
         ]);
     }
@@ -98,7 +106,7 @@ class EditProfileAction extends BaseAction
         $model->sha256sum = $hash;
         $model->text = $text;
         if (!$model->save()) {
-            throw new \Exception();
+            throw new Exception();
         }
         return $model->id;
     }

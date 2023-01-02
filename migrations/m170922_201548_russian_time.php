@@ -22,28 +22,26 @@ class m170922_201548_russian_time extends Migration
             ->limit(1)
             ->scalar();
         $this->batchInsert('timezone', ['identifier', 'name', 'order', 'region_id'], [
-            [ 'Europe/Kaliningrad', 'Russia Time (Kaliningrad)',   51, $euRegion ],
-            [ 'Europe/Moscow',      'Russia Time (Moscow)',        52, $euRegion ],
-            [ 'Europe/Samara',      'Russia Time (Samara)',        53, $euRegion ],
+            [ 'Europe/Kaliningrad', 'Russia Time (Kaliningrad)', 51, $euRegion ],
+            [ 'Europe/Moscow', 'Russia Time (Moscow)', 52, $euRegion ],
+            [ 'Europe/Samara', 'Russia Time (Samara)', 53, $euRegion ],
             [ 'Asia/Yekaterinburg', 'Russia Time (Yekaterinburg)', 54, $euRegion ],
-            [ 'Asia/Omsk',          'Russia Time (Omsk)',          55, $euRegion ],
-            [ 'Asia/Krasnoyarsk',   'Russia Time (Krasnoyarsk)',   56, $euRegion ],
-            [ 'Asia/Irkutsk',       'Russia Time (Irkutsk)',       57, $euRegion ],
-            [ 'Asia/Yakutsk',       'Russia Time (Yakutsk)',       58, $euRegion ],
-            [ 'Asia/Vladivostok',   'Russia Time (Vladivostok)',   59, $euRegion ],
-            [ 'Asia/Magadan',       'Russia Time (Magadan)',       60, $euRegion ],
-            [ 'Asia/Kamchatka',     'Russia Time (Kamchatka)',     61, $euRegion ],
+            [ 'Asia/Omsk', 'Russia Time (Omsk)', 55, $euRegion ],
+            [ 'Asia/Krasnoyarsk', 'Russia Time (Krasnoyarsk)', 56, $euRegion ],
+            [ 'Asia/Irkutsk', 'Russia Time (Irkutsk)', 57, $euRegion ],
+            [ 'Asia/Yakutsk', 'Russia Time (Yakutsk)', 58, $euRegion ],
+            [ 'Asia/Vladivostok', 'Russia Time (Vladivostok)', 59, $euRegion ],
+            [ 'Asia/Magadan', 'Russia Time (Magadan)', 60, $euRegion ],
+            [ 'Asia/Kamchatka', 'Russia Time (Kamchatka)', 61, $euRegion ],
         ]);
         $this->batchInsert(
             'timezone_country',
             ['timezone_id', 'country_id'],
             array_map(
-                function (array $row) use ($russia): array {
-                    return [
+                fn (array $row): array => [
                         $row['id'],
                         $russia,
-                    ];
-                },
+                    ],
                 (new Query())
                     ->select(['id'])
                     ->from('timezone')
@@ -61,8 +59,8 @@ class m170922_201548_russian_time extends Migration
                         'Asia/Kamchatka',
                     ]])
                     ->orderBy(['id' => SORT_ASC])
-                    ->all()
-            )
+                    ->all(),
+            ),
         );
     }
 
@@ -88,7 +86,7 @@ class m170922_201548_russian_time extends Migration
 
     private function getRussiaId(): int
     {
-        return (new \yii\db\Query())
+        return (new Query())
             ->select(['id'])
             ->from('country')
             ->where(['key' => 'ru'])

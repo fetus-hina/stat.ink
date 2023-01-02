@@ -26,7 +26,7 @@ final class m221025_020033_s3_v1_2_0 extends Migration
             'v1.2.x',
             '1.2.0',
             'v1.2.0',
-            new DateTimeImmutable('2022-10-26T10:00:00+09:00')
+            new DateTimeImmutable('2022-10-26T10:00:00+09:00'),
         );
     }
 

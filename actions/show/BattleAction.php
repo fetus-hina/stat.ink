@@ -9,11 +9,9 @@
 namespace app\actions\show;
 
 use Yii;
+use app\models\Battle;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
-use app\models\Battle;
-use app\models\User;
-use app\components\helpers\DateTimeFormatter;
 
 class BattleAction extends BaseAction
 {
@@ -26,7 +24,7 @@ class BattleAction extends BaseAction
         ]);
         if (!$battle || !$battle->user) {
             throw new NotFoundHttpException(
-                Yii::t('app', 'Could not find specified battle.')
+                Yii::t('app', 'Could not find specified battle.'),
             );
         }
 

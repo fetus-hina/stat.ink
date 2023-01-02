@@ -11,12 +11,15 @@ declare(strict_types=1);
 namespace app\actions\show;
 
 use Yii;
+use app\models\BattleFilterForm;
+use app\models\User;
 use yii\db\Query;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
-use app\models\BattleFilterForm;
-use app\models\User;
-use app\models\Weapon;
+
+use function implode;
+use function sprintf;
+use function usort;
 
 class UserStatByWeaponAction extends BaseAction
 {
@@ -46,24 +49,24 @@ class UserStatByWeaponAction extends BaseAction
     {
         $query = (new Query())
             ->select([
-                'weapon_key'    => 'MAX({{weapon}}.[[key]])',
-                'weapon_name'   => 'MAX({{weapon}}.[[name]])',
-                'battles'       => 'COUNT(*)',
-                'battles_win'   => 'SUM(CASE WHEN {{battle}}.[[is_win]] = TRUE THEN 1 ELSE 0 END)',
-                'kills'         => sprintf('SUM(CASE %s END)', implode(' ', [
+                'weapon_key' => 'MAX({{weapon}}.[[key]])',
+                'weapon_name' => 'MAX({{weapon}}.[[name]])',
+                'battles' => 'COUNT(*)',
+                'battles_win' => 'SUM(CASE WHEN {{battle}}.[[is_win]] = TRUE THEN 1 ELSE 0 END)',
+                'kills' => sprintf('SUM(CASE %s END)', implode(' ', [
                     'WHEN {{battle}}.[[kill]] IS NULL THEN 0',
                     'WHEN {{battle}}.[[death]] IS NULL THEN 0',
                     'ELSE {{battle}}.[[kill]]',
                 ])),
-                'deaths'        => sprintf('SUM(CASE %s END)', implode(' ', [
+                'deaths' => sprintf('SUM(CASE %s END)', implode(' ', [
                     'WHEN {{battle}}.[[kill]] IS NULL THEN 0',
                     'WHEN {{battle}}.[[death]] IS NULL THEN 0',
                     'ELSE {{battle}}.[[death]]',
                 ])),
-                'kd_available'  => sprintf('SUM(CASE %s END)', implode(' ', [
+                'kd_available' => sprintf('SUM(CASE %s END)', implode(' ', [
                     'WHEN {{battle}}.[[kill]] IS NULL THEN 0',
                     'WHEN {{battle}}.[[death]] IS NULL THEN 0',
-                    'ELSE 1'
+                    'ELSE 1',
                 ])),
             ])
             ->from('battle')
@@ -86,9 +89,7 @@ class UserStatByWeaponAction extends BaseAction
             $this->filter($query, $filter);
         }
         $list = $query->all();
-        usort($list, function (array $a, array $b): int {
-            return $b['battles'] <=> $a['battles'];
-        });
+        usort($list, fn (array $a, array $b): int => $b['battles'] <=> $a['battles']);
         return $list;
     }
 }

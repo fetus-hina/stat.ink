@@ -20,7 +20,7 @@ class m180712_084034_v3_2_0 extends Migration
             '3.2.x',
             '3.2.0',
             '3.2.0',
-            new DateTimeImmutable('2018-07-13T11:00:00+09:00')
+            new DateTimeImmutable('2018-07-13T11:00:00+09:00'),
         );
     }
 

@@ -18,7 +18,19 @@ use yii\db\Migration as BaseMigration;
 use yii\db\Query;
 use yii\db\Schema;
 
+use function array_keys;
+use function array_map;
+use function assert;
+use function filter_var;
+use function implode;
+use function is_int;
+use function is_string;
+use function preg_split;
+use function sprintf;
+use function vsprintf;
+
 use const FILTER_VALIDATE_INT;
+use const PREG_SPLIT_NO_EMPTY;
 
 class Migration extends BaseMigration
 {
@@ -83,8 +95,8 @@ class Migration extends BaseMigration
         assert($db instanceof Connection);
 
         foreach ($tables as $table) {
-            $time = $this->beginCommand(\sprintf('vacuum table %s', $table));
-            $sql = \sprintf('VACUUM ( ANALYZE ) %s', $db->quoteTableName($table));
+            $time = $this->beginCommand(sprintf('vacuum table %s', $table));
+            $sql = sprintf('VACUUM ( ANALYZE ) %s', $db->quoteTableName($table));
             $this->db->createCommand($sql)->execute();
             $this->endCommand($time);
         }
@@ -92,7 +104,7 @@ class Migration extends BaseMigration
 
     public function key2id(string $tableName, string $key, string $keyColumn = 'key'): int
     {
-        $value = \filter_var(
+        $value = filter_var(
             (new Query())
                 ->select(['id'])
                 ->from($tableName)
@@ -101,7 +113,7 @@ class Migration extends BaseMigration
                 ->scalar(),
             FILTER_VALIDATE_INT,
         );
-        if (!\is_int($value)) {
+        if (!is_int($value)) {
             throw new InvalidArgumentException("The key $key is not exists in $tableName");
         }
         return $value;
@@ -160,11 +172,9 @@ class Migration extends BaseMigration
         return sprintf(
             'PRIMARY KEY ( %s )',
             implode(', ', array_map(
-                function (string $column): string {
-                    return $this->db->quoteColumnName($column);
-                },
-                (array)$columns
-            ))
+                fn (string $column): string => $this->db->quoteColumnName($column),
+                (array)$columns,
+            )),
         );
     }
 
@@ -173,7 +183,7 @@ class Migration extends BaseMigration
         $time = $this->beginCommand(sprintf(
             'add columns %s to table %s',
             implode(', ', array_keys($columns)),
-            $table
+            $table,
         ));
 
         $db = $this->db;
@@ -183,7 +193,7 @@ class Migration extends BaseMigration
             $alter[] = sprintf(
                 'ADD COLUMN %s %s',
                 $db->quoteColumnName($column),
-                $db->getQueryBuilder()->getColumnType($type)
+                $db->getQueryBuilder()->getColumnType($type),
             );
 
             if ($type instanceof ColumnSchemaBuilder && $type->comment !== null) {
@@ -220,17 +230,15 @@ class Migration extends BaseMigration
     public function dropColumns(string $table, array $columns): void
     {
         $time = $this->beginCommand(sprintf(
-            "drop columns %s from table %s",
+            'drop columns %s from table %s',
             implode(', ', array_keys($columns)),
-            $table
+            $table,
         ));
 
         $db = $this->db;
         $sql = 'ALTER TABLE ' . $db->quoteTableName($table) . ' ' . implode(', ', array_map(
-            function (string $column) use ($db): string {
-                return 'DROP COLUMN ' . $db->quoteColumnName($column);
-            },
-            $columns
+            fn (string $column): string => 'DROP COLUMN ' . $db->quoteColumnName($column),
+            $columns,
         ));
         $db->createCommand($sql)->execute();
         $this->endCommand($time);
@@ -249,8 +257,8 @@ class Migration extends BaseMigration
             $db->quoteValue(sprintf(
                 '%s.%s',
                 $db->quoteTableName($schema),
-                $db->quoteTableName($table)
-            ))
+                $db->quoteTableName($table),
+            )),
         );
         $result = $db->createCommand($sql)->queryScalar();
         return $result != '';

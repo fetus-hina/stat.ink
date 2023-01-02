@@ -12,6 +12,8 @@ namespace app\components\behaviors;
 
 use yii\base\Model;
 
+use function array_keys;
+
 class AutoTrimAttributesBehavior extends TrimAttributesBehavior
 {
     /**

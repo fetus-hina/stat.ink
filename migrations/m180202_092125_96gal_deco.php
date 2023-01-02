@@ -23,7 +23,7 @@ class m180202_092125_96gal_deco extends Migration
             'chakuchi',
             '96gal',
             null,
-            81
+            81,
         );
     }
 

@@ -13,6 +13,10 @@ namespace app\assets;
 use Yii;
 use yii\web\AssetBundle;
 
+use function preg_match;
+use function strlen;
+use function substr;
+
 class BowserAsset extends AssetBundle
 {
     public $sourcePath = '@node/bowser';
@@ -41,10 +45,6 @@ class BowserAsset extends AssetBundle
             return true;
         }
 
-        if (preg_match('![^/]+\.js$!i', $path)) {
-            return true;
-        }
-
-        return false;
+        return (bool)preg_match('![^/]+\.js$!i', $path);
     }
 }

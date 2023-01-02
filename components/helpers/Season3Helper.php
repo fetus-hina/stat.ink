@@ -20,6 +20,10 @@ use yii\base\InvalidConfigException;
 use yii\db\Connection;
 use yii\web\Request;
 
+use function filter_var;
+use function is_int;
+use function vsprintf;
+
 use const FILTER_VALIDATE_INT;
 use const SORT_DESC;
 
@@ -35,8 +39,8 @@ final class Season3Helper
             throw new InvalidCallException();
         }
 
-        $id = \filter_var($request->get($paramName), FILTER_VALIDATE_INT);
-        return \is_int($id)
+        $id = filter_var($request->get($paramName), FILTER_VALIDATE_INT);
+        return is_int($id)
             ? Season3::find()->andWhere(['id' => $id])->limit(1)->one()
             : null;
     }
@@ -51,7 +55,7 @@ final class Season3Helper
         $timestamp = self::timestamp($offset);
         return Season3::find()
             ->andWhere(
-                \vsprintf('%s @> %s::timestamptz', [
+                vsprintf('%s @> %s::timestamptz', [
                     $db->quoteColumnName('term'),
                     $db->quoteValue($timestamp->format(DateTimeInterface::ATOM)),
                 ]),

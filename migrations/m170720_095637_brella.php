@@ -14,12 +14,12 @@ class m170720_095637_brella extends Migration
     public function safeUp()
     {
         $this->insert('weapon_category2', [
-            'key'   => 'brella',
-            'name'  => 'Brellas',
+            'key' => 'brella',
+            'name' => 'Brellas',
         ]);
         $this->insert('weapon_type2', [
-            'key'   => 'brella',
-            'name'  => 'Brellas',
+            'key' => 'brella',
+            'name' => 'Brellas',
             'category_id' => (new Query())
                 ->select('id')
                 ->from('weapon_category2')

@@ -23,7 +23,7 @@ class m171110_122525_pablo_hue extends Migration
             'sphere',
             'pablo',
             null,
-            1101
+            1101,
         );
     }
 

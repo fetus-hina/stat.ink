@@ -15,6 +15,10 @@ use app\assets\OsIconWidgetAsset;
 use app\assets\OsLogosAsset;
 use yii\helpers\Json;
 
+use function array_merge;
+use function preg_replace;
+use function sprintf;
+
 class OsIconWidget extends BaseUAIconWidget
 {
     protected function registerTrigger(string $id, array $options): void
@@ -30,9 +34,9 @@ class OsIconWidget extends BaseUAIconWidget
                 'logos' => preg_replace(
                     '!/XXXXXXXX.*$!',
                     '/',
-                    $am->getAssetUrl($logos, 'XXXXXXXX')
+                    $am->getAssetUrl($logos, 'XXXXXXXX'),
                 ),
-            ]))
+            ])),
         ));
     }
 }

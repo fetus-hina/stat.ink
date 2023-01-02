@@ -9,6 +9,13 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+
+use function headers_sent;
+use function mb_substr;
+use function sprintf;
+use function trim;
 
 /**
  * This is the model class for table "login_with_twitter".
@@ -20,7 +27,7 @@ use Yii;
  *
  * @property User $user
  */
-final class LoginWithTwitter extends \yii\db\ActiveRecord
+final class LoginWithTwitter extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -40,7 +47,7 @@ final class LoginWithTwitter extends \yii\db\ActiveRecord
             [['name'], 'filter',
                 'filter' => function ($value) {
                     $value = trim(mb_substr($value, 0, 32, 'UTF-8'));
-                    return ($value == '')
+                    return $value == ''
                         ? sprintf('@%s', $this->screen_name)
                         : $value;
                 },
@@ -73,7 +80,7 @@ final class LoginWithTwitter extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getUser()
     {

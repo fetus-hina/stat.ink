@@ -20,6 +20,20 @@ use yii\i18n\MissingTranslationEvent;
 use yii\web\Application as Base;
 use yii\web\Cookie;
 
+use function extension_loaded;
+use function implode;
+use function is_array;
+use function is_string;
+use function preg_match;
+use function rtrim;
+use function str_replace;
+use function strpos;
+use function substr;
+use function time;
+use function vsprintf;
+
+use const PHP_INT_MAX;
+
 class Application extends Base
 {
     public const COOKIE_MACHINE_TRANSLATION = 'language-machine-translation';
@@ -50,7 +64,7 @@ class Application extends Base
                         $result = MachineTranslateHelper::translate(
                             $event->category,
                             $event->message,
-                            $event->language
+                            $event->language,
                         );
                         if (is_string($result)) {
                             $event->translatedMessage = $result;
@@ -70,7 +84,7 @@ class Application extends Base
     public function setLocale(string $locale): self
     {
         $atPos = strpos($locale, '@');
-        $additional = ($atPos === false)
+        $additional = $atPos === false
             ? ''
             : substr($locale, $atPos + 1);
         $this->locale = $locale;
@@ -79,7 +93,7 @@ class Application extends Base
             str_replace('-', '_', Yii::$app->language),
             $additional,
         ]), '@');
-        Yii::$app->formatter->calendar = (strpos($additional, 'calendar=') !== false)
+        Yii::$app->formatter->calendar = strpos($additional, 'calendar=') !== false
             ? IntlDateFormatter::TRADITIONAL
             : IntlDateFormatter::GREGORIAN;
         $sep = $this->getNumericSeparators();
@@ -184,7 +198,7 @@ class Application extends Base
                 'name' => static::COOKIE_MACHINE_TRANSLATION,
                 'sameSite' => Cookie::SAME_SITE_LAX,
                 'value' => $enabled ? 'enabled' : 'disabled',
-            ])
+            ]),
         );
     }
 

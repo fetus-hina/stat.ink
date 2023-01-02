@@ -11,12 +11,12 @@ declare(strict_types=1);
 namespace app\actions\show\v2;
 
 use Yii;
-use app\components\helpers\DateTimeFormatter;
 use app\models\Battle2;
-use app\models\User;
 use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
+
+use function array_map;
 
 class BattleAction extends BaseAction
 {
@@ -34,19 +34,17 @@ class BattleAction extends BaseAction
                 'hisTeamPlayers.rank',
             ])
             ->with(ArrayHelper::toFlatten(array_map(
-                function (string $base): array {
-                    return [
+                fn (string $base): array => [
                         "{$base}",
                         "{$base}.primaryAbility",
                         "{$base}.gear",
                         "{$base}.secondaries.ability",
-                    ];
-                },
+                    ],
                 [
                     'headgear',
                     'clothing',
                     'shoes',
-                ]
+                ],
             )))
             ->limit(1)
             ->one();

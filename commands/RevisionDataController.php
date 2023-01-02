@@ -14,6 +14,21 @@ use app\components\Version;
 use yii\console\Controller;
 use yii\helpers\Json;
 
+use function addslashes;
+use function array_shift;
+use function file_put_contents;
+use function fwrite;
+use function implode;
+use function is_array;
+use function is_bool;
+use function is_int;
+use function ltrim;
+use function sprintf;
+use function str_repeat;
+use function vsprintf;
+
+use const STDERR;
+
 class RevisionDataController extends Controller
 {
     public function actionIndex(): int
@@ -62,7 +77,7 @@ class RevisionDataController extends Controller
                 'declare(strict_types=1);',
                 '',
                 sprintf('return \'%s\';', addslashes($version)),
-            ]) . "\n"
+            ]) . "\n",
         );
 
         return true;
@@ -91,7 +106,7 @@ class RevisionDataController extends Controller
 
         file_put_contents(
             Yii::getAlias('@app/config/git-revision.php'),
-            $contents
+            $contents,
         );
 
         return true;

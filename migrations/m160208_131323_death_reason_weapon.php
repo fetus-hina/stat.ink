@@ -15,7 +15,7 @@ class m160208_131323_death_reason_weapon extends Migration
         $this->execute('ALTER TABLE {{death_reason}} ADD COLUMN [[weapon_id]] INTEGER');
         $this->addForeignKey('fk_death_reason_2', 'death_reason', 'weapon_id', 'weapon', 'id');
 
-        $update  = 'UPDATE {{death_reason}} ';
+        $update = 'UPDATE {{death_reason}} ';
         $update .= 'SET {{weapon_id}} = {{weapon}}.[[id]] ';
         $update .= 'FROM {{weapon}}, {{death_reason_type}} ';
         $update .= 'WHERE ( {{death_reason}}.[[key]] = {{weapon}}.[[key]] ) ';

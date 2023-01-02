@@ -18,16 +18,16 @@ class m170803_145725_fix_period extends Migration
                 "WHEN [[start_at]] IS NOT NULL THEN [[start_at]] - '5 seconds'::interval",
                 "WHEN [[end_at]] IS NOT NULL THEN [[end_at]] - '195 seconds'::interval",
                 "ELSE [[created_at]] - '210 seconds'::interval",
-            ])
+            ]),
         );
         $calcBattlePeriod = sprintf(
             '(EXTRACT(epoch from %s) / %d)',
             $guessBattleStart,
-            2 * 3600
+            2 * 3600,
         );
         $this->execute(sprintf(
             'UPDATE {{battle2}} SET [[period]] = %s WHERE [[period]] IS NULL',
-            $calcBattlePeriod
+            $calcBattlePeriod,
         ));
     }
 

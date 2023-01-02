@@ -14,9 +14,13 @@ use Yii;
 use app\models\Rule2;
 use app\models\SplatoonVersionGroup2;
 use app\models\StatWeapon2Tier;
-use yii\db\Query;
-use yii\helpers\Url;
 use yii\web\ViewAction;
+
+use function preg_match;
+use function substr;
+
+use const SORT_ASC;
+use const SORT_DESC;
 
 class Weapons2TierAction extends ViewAction
 {
@@ -121,8 +125,7 @@ class Weapons2TierAction extends ViewAction
 
     private function getRules(SplatoonVersionGroup2 $version): array
     {
-        return Rule2::getSortedAll('gachi', null, function (Rule2 $rule) use ($version): array {
-            return [
+        return Rule2::getSortedAll('gachi', null, fn (Rule2 $rule): array => [
                 'name' => $rule->name,
                 'enabled' => StatWeapon2Tier::find()
                     ->thresholded()
@@ -133,7 +136,6 @@ class Weapons2TierAction extends ViewAction
                     ])
                     ->limit(1)
                     ->exists(),
-            ];
-        });
+            ]);
     }
 }

@@ -27,9 +27,7 @@ class m200117_094454_weapon_attack2 extends Migration
             'PRIMARY KEY ([[weapon_id]], [[version_id]])',
         ]);
 
-        $f = function (?float $value): ?string {
-            return ($value === null) ? null : sprintf('%.1f', $value);
-        };
+        $f = fn (?float $value): ?string => $value === null ? null : sprintf('%.1f', $value);
 
         $data = [];
         foreach ($this->getData() as $key => $damages) {
@@ -47,7 +45,7 @@ class m200117_094454_weapon_attack2 extends Migration
         $this->batchInsert(
             'weapon_attack2',
             ['weapon_id', 'damage', 'damage2', 'damage3'],
-            $data
+            $data,
         );
     }
 
@@ -63,13 +61,9 @@ class m200117_094454_weapon_attack2 extends Migration
                 ->select(['id', 'tag'])
                 ->from('splatoon_version2')
                 ->all(),
-            function (array $row): bool {
-                return version_compare($row['tag'], '1.0.0', '>=');
-            }
+            fn (array $row): bool => version_compare($row['tag'], '1.0.0', '>='),
         );
-        usort($versions, function (array $a, array $b): int {
-            return version_compare($a['tag'], $b['tag']);
-        });
+        usort($versions, fn (array $a, array $b): int => version_compare($a['tag'], $b['tag']));
         return (int)array_shift($versions)['id'];
     }
 

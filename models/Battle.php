@@ -10,13 +10,44 @@ namespace app\models;
 
 use Throwable;
 use Yii;
+use app\components\ability\Effect;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Differ;
+use app\components\helpers\db\Now;
 use app\models\query\BattleQuery;
+use stdClass;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\Query;
 use yii\helpers\Json;
 use yii\helpers\Url;
+
+use function array_keys;
+use function array_map;
+use function call_user_func;
+use function count;
+use function date;
+use function filter_var;
+use function in_array;
+use function is_array;
+use function is_int;
+use function is_object;
+use function is_string;
+use function json_decode;
+use function ksort;
+use function sprintf;
+use function str_replace;
+use function strtotime;
+use function time;
+use function trim;
+use function ucwords;
+use function usort;
+
+use const FILTER_VALIDATE_INT;
+use const JSON_PRETTY_PRINT;
+use const JSON_UNESCAPED_SLASHES;
+use const JSON_UNESCAPED_UNICODE;
+use const SORT_STRING;
 
 /**
  * This is the model class for table "battle".
@@ -130,7 +161,7 @@ class Battle extends ActiveRecord
                     ->select('[[last_value]]')
                     ->from('{{battle_id_seq}}')
                     ->scalar(),
-                FILTER_VALIDATE_INT
+                FILTER_VALIDATE_INT,
             );
             if (is_int($count)) {
                 return $count;
@@ -305,7 +336,7 @@ class Battle extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getAgent()
     {
@@ -313,7 +344,7 @@ class Battle extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getEnv()
     {
@@ -321,7 +352,7 @@ class Battle extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getFestTitle()
     {
@@ -329,7 +360,7 @@ class Battle extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getFestTitleAfter()
     {
@@ -337,7 +368,7 @@ class Battle extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getHeadgear()
     {
@@ -346,7 +377,7 @@ class Battle extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getClothing()
     {
@@ -355,7 +386,7 @@ class Battle extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getShoes()
     {
@@ -364,7 +395,7 @@ class Battle extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getGender()
     {
@@ -372,7 +403,7 @@ class Battle extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getLobby()
     {
@@ -380,7 +411,7 @@ class Battle extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getMap()
     {
@@ -388,7 +419,7 @@ class Battle extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getRank()
     {
@@ -396,7 +427,7 @@ class Battle extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getRankAfter()
     {
@@ -404,7 +435,7 @@ class Battle extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getRule()
     {
@@ -412,7 +443,7 @@ class Battle extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getUser()
     {
@@ -420,7 +451,7 @@ class Battle extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getWeapon()
     {
@@ -431,13 +462,13 @@ class Battle extends ActiveRecord
     {
         $weapon = $this->weapon;
         $version = $this->splatoonVersion;
-        return ($weapon && $version)
+        return $weapon && $version
             ? WeaponAttack::findByWeaponAndVersion($weapon, $version)
             : null;
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattleDeathReasons()
     {
@@ -445,7 +476,7 @@ class Battle extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getReasons()
     {
@@ -455,7 +486,7 @@ class Battle extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattlePlayers()
     {
@@ -477,7 +508,7 @@ class Battle extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattleImages()
     {
@@ -576,8 +607,8 @@ class Battle extends ActiveRecord
         ) {
             return null;
         }
-        return ($this->is_win)
-            ? ($this->my_point - $this->bonus->bonus)
+        return $this->is_win
+            ? $this->my_point - $this->bonus->bonus
             : $this->my_point;
     }
 
@@ -652,7 +683,7 @@ class Battle extends ActiveRecord
             return;
         }
         if ($this->death == 0) {
-            $this->kill_ratio = ($this->kill == 0) ? 1.00 : 99.99;
+            $this->kill_ratio = $this->kill == 0 ? 1.00 : 99.99;
             return;
         }
         $this->kill_ratio = sprintf('%.2f', $this->kill / $this->death);
@@ -778,9 +809,7 @@ class Battle extends ActiveRecord
         $events = null;
         if ($this->events && !in_array('events', $skips, true)) {
             $events = Json::decode($this->events, false);
-            usort($events, function ($a, $b) {
-                return $a->at <=> $b->at;
-            });
+            usort($events, fn ($a, $b) => $a->at <=> $b->at);
         }
         return [
             'id' => $this->id,
@@ -808,10 +837,8 @@ class Battle extends ActiveRecord
             'death_reasons' => in_array('death_reasons', $skips, true)
                 ? null
                 : array_map(
-                    function ($model) {
-                        return $model->toJsonArray();
-                    },
-                    $this->battleDeathReasons
+                    fn ($model) => $model->toJsonArray(),
+                    $this->battleDeathReasons,
                 ),
             'gender' => $this->gender ? $this->gender->toJsonArray() : null,
             'fest_title' => $this->festTitle
@@ -855,16 +882,14 @@ class Battle extends ActiveRecord
                 : [
                     'headgear' => $this->headgear ? $this->headgear->toJsonArray() : null,
                     'clothing' => $this->clothing ? $this->clothing->toJsonArray() : null,
-                    'shoes'    => $this->shoes ? $this->shoes->toJsonArray() : null,
+                    'shoes' => $this->shoes ? $this->shoes->toJsonArray() : null,
                 ],
             'period' => $this->period,
-            'players' => (in_array('players', $skips, true) || count($this->battlePlayers) === 0)
+            'players' => in_array('players', $skips, true) || count($this->battlePlayers) === 0
                 ? null
                 : array_map(
-                    function ($model) {
-                        return $model->toJsonArray();
-                    },
-                    $this->battlePlayers
+                    fn ($model) => $model->toJsonArray(),
+                    $this->battlePlayers,
                 ),
             'events' => $events,
             'agent' => [
@@ -875,18 +900,18 @@ class Battle extends ActiveRecord
                 'custom' => $this->ua_custom,
                 'variables' => $this->ua_variables
                     ? match (true) {
-                        \is_array($this->ua_variables) => $this->ua_variables,
-                        \is_string($this->ua_variables) => @\json_decode($this->ua_variables, false),
+                        is_array($this->ua_variables) => $this->ua_variables,
+                        is_string($this->ua_variables) => @json_decode($this->ua_variables, false),
                         default => null,
                     }
                     : null,
             ],
             'automated' => !!$this->is_automated,
             'environment' => $this->env ? $this->env->text : null,
-            'link_url' => ((string)$this->link_url !== '') ? $this->link_url : null,
-            'note' => ((string)$this->note !== '') ? $this->note : null,
+            'link_url' => (string)$this->link_url !== '' ? $this->link_url : null,
+            'note' => (string)$this->note !== '' ? $this->note : null,
             'game_version' => $this->splatoonVersion ? $this->splatoonVersion->name : null,
-            'nawabari_bonus' => (($this->rule->key ?? null) === 'nawabari' && $this->bonus)
+            'nawabari_bonus' => ($this->rule->key ?? null) === 'nawabari' && $this->bonus
                 ? (int)$this->bonus->bonus
                 : null,
             'start_at' => $this->start_at != ''
@@ -972,7 +997,7 @@ class Battle extends ActiveRecord
                 function ($p) {
                     $ret = [];
                     if ($this->is_win !== null) {
-                        $ret['team'] = ($this->is_win === $p->is_my_team) ? 1 : 2;
+                        $ret['team'] = $this->is_win === $p->is_my_team ? 1 : 2;
                     }
                     if ($p->kill !== null) {
                         $ret['kills'] = (int)$p->kill;
@@ -993,11 +1018,11 @@ class Battle extends ActiveRecord
                         $ret['rank_in_team'] = (int)$p->rank_in_team;
                     }
                     if (empty($ret)) {
-                        return new \stdClass();
+                        return new stdClass();
                     }
                     return $ret;
                 },
-                $this->battlePlayers
+                $this->battlePlayers,
             );
         }
         return $ret;
@@ -1057,18 +1082,16 @@ class Battle extends ActiveRecord
         $gears = [
             $this->headgear,
             $this->clothing,
-            $this->shoes
+            $this->shoes,
         ];
 
-        $init = function ($ability) {
-            return (object)[
+        $init = fn ($ability) => (object)[
                 'name' => Yii::t('app-ability', $ability->name),
                 'count' => (object)[
                     'main' => 0,
                     'sub' => 0,
                 ],
             ];
-        };
 
         $ret = [];
         foreach ($gears as $gear) {
@@ -1110,7 +1133,7 @@ class Battle extends ActiveRecord
         if (!$this->getHasAbilities()) {
             return null;
         }
-        return \app\components\ability\Effect::factory($this);
+        return Effect::factory($this);
     }
 
     public function getExtraData(): array
@@ -1161,7 +1184,7 @@ class Battle extends ActiveRecord
 
         return $this->saveEditHistoryImpl(
             Json::encode($before->toJsonArray(), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
-            Json::encode($this->toJsonArray(), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+            Json::encode($this->toJsonArray(), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
         );
     }
 
@@ -1173,7 +1196,7 @@ class Battle extends ActiveRecord
 
         return $this->saveEditHistoryImpl(
             Json::encode(['id' => $this->id], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
-            Json::encode(['_id' => 'deleted'], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+            Json::encode(['_id' => 'deleted'], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
         );
     }
 
@@ -1183,7 +1206,7 @@ class Battle extends ActiveRecord
             $edit = new BattleEditHistory();
             $edit->battle_id = $this->id;
             $edit->diff = Differ::diff($jsonBefore, $jsonAfter);
-            $edit->at = new \app\components\helpers\db\Now();
+            $edit->at = new Now();
             if ($edit->diff == '') {
                 return true;
             }

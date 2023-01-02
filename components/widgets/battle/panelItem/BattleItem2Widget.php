@@ -12,6 +12,8 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
 
+use function sprintf;
+
 class BattleItem2Widget extends BaseWidget
 {
     public function getBattleEndAt(): ?DateTimeImmutable
@@ -83,7 +85,7 @@ class BattleItem2Widget extends BaseWidget
             return sprintf(
                 '%s: %d',
                 Yii::t('app', 'Kill or Assist'),
-                $this->model->kill_or_assist
+                $this->model->kill_or_assist,
             );
         }
         return parent::renderKillDeathHtml();

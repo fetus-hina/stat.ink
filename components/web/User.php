@@ -14,6 +14,22 @@ use yii\helpers\StringHelper;
 use yii\web\Cookie;
 use yii\web\IdentityInterface;
 
+use function array_merge;
+use function implode;
+use function json_decode;
+use function json_encode;
+use function json_last_error;
+use function openssl_cipher_iv_length;
+use function openssl_decrypt;
+use function openssl_encrypt;
+use function sprintf;
+use function strlen;
+use function substr;
+use function time;
+
+use const JSON_ERROR_NONE;
+use const OPENSSL_RAW_DATA;
+
 class User extends \yii\web\User
 {
     public const CRYPT_KEY_BITS = 256;
@@ -49,16 +65,16 @@ class User extends \yii\web\User
                 if (!$identity instanceof IdentityInterface) {
                     throw new InvalidValueException(
                         "$class::findIdentity() must return an object " .
-                        "implementing IdentityInterface."
+                        'implementing IdentityInterface.',
                     );
                 } elseif (!$identity->validateAuthKey($data['authKey'])) {
                     Yii::warning(
                         sprintf(
                             "Invalid auth key attempted for user '%s': %s",
                             $data['id'],
-                            $data['authKey']
+                            $data['authKey'],
                         ),
-                        __METHOD__
+                        __METHOD__,
                     );
                 } else {
                     return [
@@ -81,7 +97,7 @@ class User extends \yii\web\User
 
         $security = Yii::$app->security;
         $ivBinary = $security->generateRandomKey(
-            openssl_cipher_iv_length(static::CRYPT_METHOD)
+            openssl_cipher_iv_length(static::CRYPT_METHOD),
         );
         $keySaltBinary = $security->generateRandomKey(static::CRYPT_KEY_SALT_BYTES);
         $keyBinary = $this->generateIdentityEncodeKey($keySaltBinary);
@@ -99,7 +115,7 @@ class User extends \yii\web\User
             $ivBinary,
             $tagBinary,
             '',
-            16
+            16,
         );
         $result = StringHelper::base64UrlEncode(implode('', [
             $ivBinary,
@@ -149,7 +165,7 @@ class User extends \yii\web\User
                 $this->generateIdentityEncodeKey($keySaltBinary),
                 OPENSSL_RAW_DATA,
                 $ivBinary,
-                $tagBinary
+                $tagBinary,
             );
             if (!$decoded) {
                 return null;
@@ -173,7 +189,7 @@ class User extends \yii\web\User
             $saltBinary,
             $this->identityFixedKey,
             1000,
-            static::CRYPT_KEY_BITS / 8
+            static::CRYPT_KEY_BITS / 8,
         );
         Yii::endProfile('generateIdentityEncodeKey', __METHOD__);
         return $result;

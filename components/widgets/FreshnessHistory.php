@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
-use Yii;
 use app\assets\FreshnessHistoryAsset;
 use app\models\Battle2;
 use app\models\Mode2;
@@ -18,6 +17,14 @@ use app\models\Rule2;
 use yii\base\Widget;
 use yii\helpers\Html;
 use yii\helpers\Json;
+
+use function array_map;
+use function array_reverse;
+use function count;
+use function implode;
+use function vsprintf;
+
+use const SORT_DESC;
 
 class FreshnessHistory extends Widget
 {
@@ -44,10 +51,8 @@ class FreshnessHistory extends Widget
             Json::encode('#' . $this->id),
             implode(', ', array_map([Json::class, 'encode'], [
                 array_map(
-                    function (Battle2 $model): ?float {
-                        return $model->freshness === null ? null : (float)$model->freshness;
-                    },
-                    $history
+                    fn (Battle2 $model): ?float => $model->freshness === null ? null : (float)$model->freshness,
+                    $history,
                 ),
             ])),
         ]));
@@ -61,9 +66,9 @@ class FreshnessHistory extends Widget
                         'id' => $this->id,
                         'class' => [
                             'freshness-history',
-                        ]
+                        ],
                     ]),
-                    ['class' => 'table-responsive']
+                    ['class' => 'table-responsive'],
                 ),
             ]),
             ['class' => [

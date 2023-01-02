@@ -19,7 +19,7 @@ class m171122_075038_asari extends Migration
         ]);
         $this->execute(
             'ALTER TABLE {{user_stat2}} ' .
-            'ADD COLUMN [[asari_rank_peak]] INTEGER NOT NULL DEFAULT 0'
+            'ADD COLUMN [[asari_rank_peak]] INTEGER NOT NULL DEFAULT 0',
         );
     }
 

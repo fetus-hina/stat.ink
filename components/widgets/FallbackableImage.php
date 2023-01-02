@@ -17,6 +17,13 @@ use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
 
+use function array_filter;
+use function array_map;
+use function array_merge;
+use function array_values;
+use function count;
+use function vsprintf;
+
 class FallbackableImage extends Widget
 {
     public $srcs = [];
@@ -25,15 +32,11 @@ class FallbackableImage extends Widget
     public function run(): string
     {
         $srcs = array_map(
-            function (string $url): string {
-                return Url::to($url, true);
-            },
+            fn (string $url): string => Url::to($url, true),
             array_filter(
                 (array)$this->srcs,
-                function (?string $url): bool {
-                    return $url !== null;
-                }
-            )
+                fn (?string $url): bool => $url !== null,
+            ),
         );
 
         if (empty($this->srcs)) {
@@ -45,8 +48,8 @@ class FallbackableImage extends Widget
                 array_values($srcs)[0],
                 array_merge(
                     $this->options,
-                    ['id' => $this->id]
-                )
+                    ['id' => $this->id],
+                ),
             );
         }
 
@@ -60,8 +63,8 @@ class FallbackableImage extends Widget
             'data:image/gif;base64,R0lGODlhAQABAGAAACH5BAEKAP8ALAAAAAABAAEAAAgEAP8FBAA7',
             array_merge(
                 $this->options,
-                ['id' => $this->id]
-            )
+                ['id' => $this->id],
+            ),
         );
     }
 }

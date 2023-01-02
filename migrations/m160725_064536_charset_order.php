@@ -19,10 +19,10 @@ class m160725_064536_charset_order extends Migration
         ]));
 
         $order = [
-            'UTF-8'     =>  1,
-            'UTF-16LE'  =>  2,
-            'CP1252'    => 11,
-            'CP932'     => 12,
+            'UTF-8' => 1,
+            'UTF-16LE' => 2,
+            'CP1252' => 11,
+            'CP932' => 12,
         ];
         foreach (Charset::find()->asArray()->all() as $charset) {
             $name = $charset['php_name'];
@@ -34,7 +34,7 @@ class m160725_064536_charset_order extends Migration
                 ],
                 [
                     'id' => $charset['id'],
-                ]
+                ],
             );
         }
 

@@ -18,6 +18,8 @@ use app\models\BlogEntry;
 use yii\helpers\ArrayHelper;
 use yii\web\ViewAction;
 
+use function time;
+
 class BlogEntryAction extends ViewAction
 {
     public function run()
@@ -45,7 +47,7 @@ class BlogEntryAction extends ViewAction
                         'relative' => $f->asRelativeTime($at, $now),
                     ],
                 ];
-            }
+            },
         );
     }
 }

@@ -8,7 +8,8 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "stat_weapon".
@@ -25,7 +26,7 @@ use Yii;
  * @property Rule $rule
  * @property Weapon $weapon
  */
-class StatWeapon extends \yii\db\ActiveRecord
+class StatWeapon extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -43,7 +44,7 @@ class StatWeapon extends \yii\db\ActiveRecord
         return [
             [['rule_id', 'weapon_id', 'players', 'total_kill', 'total_death', 'win_count'], 'required'],
             [['rule_id', 'weapon_id', 'players', 'total_kill', 'total_death', 'win_count'], 'integer'],
-            [['total_point', 'point_available'], 'integer']
+            [['total_point', 'point_available'], 'integer'],
         ];
     }
 
@@ -65,7 +66,7 @@ class StatWeapon extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getRule()
     {
@@ -73,7 +74,7 @@ class StatWeapon extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getWeapon()
     {

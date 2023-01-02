@@ -12,23 +12,27 @@ use Yii;
 use yii\base\Widget;
 use yii\helpers\Html;
 
+use function hash;
+use function implode;
+use function sprintf;
+
 class WinLoseLegend extends Widget
 {
     public function run()
     {
-        $base = sprintf('legend-%s', hash('crc32b', __CLASS__ . '&' . $this->id));
+        $base = sprintf('legend-%s', hash('crc32b', self::class . '&' . $this->id));
         $mkLegend = function ($text, $color) use ($base) {
             $span = Html::tag('span', '', ['class' => "{$base}-bg", 'data' => ['color' => $color]]);
             return Html::tag(
                 'div',
                 $span . ' ' . Html::encode($text),
-                ['class' => "{$base}-inner"]
+                ['class' => "{$base}-inner"],
             );
         };
         $html = Html::tag(
             'div',
             $mkLegend(Yii::t('app', 'Win'), 'win') . $mkLegend(Yii::t('app', 'Lose'), 'lose'),
-            ['id' => "{$base}"]
+            ['id' => "{$base}"],
         );
 
         $this->view->registerCss(implode("\n", [
@@ -39,7 +43,7 @@ class WinLoseLegend extends Widget
                     'display' => 'inline-block',
                     'border' => '2px solid #ddd',
                     'padding' => '2px 5px',
-                ])
+                ]),
             ),
             sprintf(
                 '#%1$s .%1$s-bg{%2$s}',
@@ -49,16 +53,16 @@ class WinLoseLegend extends Widget
                     'width' => '1.618em',
                     'height' => '1em',
                     'line-height' => '1px',
-                ])
+                ]),
             ),
         ]));
 
         $this->view->registerJs(
-            "(function(\$){" .
+            '(function($){' .
                 "\$('.{$base}-bg').each(function(){" .
                     "\$(this).css('background-color', window.colorScheme[\$(this).attr('data-color')]);" .
-                "})" .
-            "})(jQuery);"
+                '})' .
+            '})(jQuery);',
         );
         return $html;
     }

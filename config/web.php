@@ -5,7 +5,7 @@ declare(strict_types=1);
 use yii\debug\Module as DebugModule;
 use yii\gii\Module as GiiModule;
 
-$params = require(__DIR__ . '/params.php');
+$params = require __DIR__ . '/params.php';
 $config = [
     'name' => 'stat.ink',
     'version' => @file_exists(__DIR__ . '/version.php')

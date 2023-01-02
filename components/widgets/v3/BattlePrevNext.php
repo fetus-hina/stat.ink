@@ -19,6 +19,8 @@ use app\models\User;
 use yii\base\Widget;
 use yii\helpers\Html;
 
+use function implode;
+
 final class BattlePrevNext extends Widget
 {
     public ?User $user = null;
@@ -44,7 +46,7 @@ final class BattlePrevNext extends Widget
 
         return Html::tag(
             'div',
-            \implode('', [
+            implode('', [
                 $this->renderPrev(),
                 $this->renderNext(),
             ]),
@@ -53,7 +55,7 @@ final class BattlePrevNext extends Widget
                 'style' => [
                     'margin-bottom' => '15px',
                 ],
-            ]
+            ],
         );
     }
 
@@ -66,14 +68,14 @@ final class BattlePrevNext extends Widget
         return Html::tag(
             'div',
             Html::a(
-                \implode(' ', [
+                implode(' ', [
                     Icon::prevPage(),
                     $this->generatePrevLabel($this->prevBattle),
                 ]),
                 $this->generateUrl($this->prevBattle),
-                ['class' => 'btn btn-default']
+                ['class' => 'btn btn-default'],
             ),
-            ['class' => 'col-xs-6']
+            ['class' => 'col-xs-6'],
         );
     }
 
@@ -86,14 +88,14 @@ final class BattlePrevNext extends Widget
         return Html::tag(
             'div',
             Html::a(
-                \implode(' ', [
+                implode(' ', [
                     $this->generateNextLabel($this->nextBattle),
                     Icon::nextPage(),
                 ]),
                 $this->generateUrl($this->nextBattle),
-                ['class' => 'btn btn-default']
+                ['class' => 'btn btn-default'],
             ),
-            ['class' => 'col-xs-6 pull-right text-right']
+            ['class' => 'col-xs-6 pull-right text-right'],
         );
     }
 
@@ -102,7 +104,7 @@ final class BattlePrevNext extends Widget
      */
     private function generateNextLabel($model): string
     {
-        switch (\get_class($model)) {
+        switch ($model::class) {
             case Battle3::class:
                 return Html::encode(Yii::t('app', 'Next Battle'));
 
@@ -119,7 +121,7 @@ final class BattlePrevNext extends Widget
      */
     private function generatePrevLabel($model): string
     {
-        switch (\get_class($model)) {
+        switch ($model::class) {
             case Battle3::class:
                 return Html::encode(Yii::t('app', 'Prev. Battle'));
 
@@ -136,7 +138,7 @@ final class BattlePrevNext extends Widget
      */
     private function generateUrl($model): array
     {
-        switch (\get_class($model)) {
+        switch ($model::class) {
             case Battle3::class:
                 return ['/show-v3/battle',
                     'screen_name' => $this->user->screen_name,

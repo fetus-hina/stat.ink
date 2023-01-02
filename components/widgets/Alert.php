@@ -10,8 +10,9 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
-use Yii;
 use yii\bootstrap\BootstrapAsset;
+
+use function array_merge_recursive;
 
 class Alert extends \yii\bootstrap\Alert
 {

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -15,23 +15,14 @@ trait JobPriority
     public static function getJobPriority(): int
     {
         $defaultPriority = static::defaultPriority();
-
-        switch (static::class) {
-            case SlackJob::class:
-                return $defaultPriority - 3;
-
-            case OstatusJob::class:
-                return $defaultPriority - 2;
-
-            case UserStatsJob::class:
-                return $defaultPriority - 1;
-
-            case ImageS3Job::class:
-                return $defaultPriority + 1;
-
-            default:
-                return $defaultPriority;
-        }
+        return match (static::class) {
+            ImageS3Job::class => $defaultPriority + 2,
+            OstatusJob::class => $defaultPriority - 2,
+            SlackJob::class => $defaultPriority - 3,
+            UserExportJson3Job::class => $defaultPriority + 1,
+            UserStatsJob::class => $defaultPriority - 1,
+            default => $defaultPriority,
+        };
     }
 
     protected static function defaultPriority(): int

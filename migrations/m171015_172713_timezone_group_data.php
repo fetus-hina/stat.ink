@@ -17,7 +17,7 @@ class m171015_172713_timezone_group_data extends Migration
         $this->addColumn(
             'timezone',
             'group_id',
-            $this->pkRef('timezone_group')->null()
+            $this->pkRef('timezone_group')->null(),
         );
         $this->upData();
         $this->execute('ALTER TABLE {{timezone}} ALTER COLUMN [[group_id]] SET NOT NULL');
@@ -88,7 +88,7 @@ class m171015_172713_timezone_group_data extends Migration
             $this->update(
                 'timezone',
                 ['group_id' => $groups[$groupName]],
-                ['identifier' => $timeZones]
+                ['identifier' => $timeZones],
             );
         }
     }
@@ -101,7 +101,7 @@ class m171015_172713_timezone_group_data extends Migration
                 ->from('timezone_group')
                 ->all(),
             'name',
-            'id'
+            'id',
         );
     }
 }

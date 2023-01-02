@@ -10,18 +10,17 @@ declare(strict_types=1);
 
 namespace app\actions\api\v3\salmon;
 
-use DateTimeZone;
 use Yii;
 use app\actions\api\v3\traits\ApiInitializerTrait;
 use app\components\formatters\api\v3\SalmonApiFormatter;
 use app\components\helpers\UuidRegexp;
 use app\models\Salmon3;
-use app\models\User;
 use yii\base\Action;
-use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
+
+use function preg_match;
 
 final class GetSingleSalmonAction extends Action
 {
@@ -38,7 +37,7 @@ final class GetSingleSalmonAction extends Action
 
     public function run(string $uuid, bool $full = false): Response
     {
-        if (!\preg_match(UuidRegexp::get(true), $uuid)) {
+        if (!preg_match(UuidRegexp::get(true), $uuid)) {
             throw new BadRequestHttpException();
         }
 

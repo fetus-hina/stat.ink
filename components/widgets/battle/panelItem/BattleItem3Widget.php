@@ -15,6 +15,10 @@ use app\components\widgets\v3\weaponIcon\SpecialIcon;
 use app\components\widgets\v3\weaponIcon\SubweaponIcon;
 use app\components\widgets\v3\weaponIcon\WeaponIcon;
 
+use function implode;
+use function sprintf;
+use function vsprintf;
+
 final class BattleItem3Widget extends BaseWidget
 {
     public function getBattleEndAt(): ?DateTimeImmutable
@@ -82,7 +86,7 @@ final class BattleItem3Widget extends BaseWidget
             return Yii::t('app', 'Unknown');
         }
 
-        return \vsprintf('%s - %s', [
+        return vsprintf('%s - %s', [
             $rule ? Yii::t('app-rule3', $rule->name) : Yii::t('app', 'Unknown'),
             $lobby ? Yii::t('app-lobby3', $lobby->name) : Yii::t('app', 'Unknown'),
         ]);
@@ -121,7 +125,7 @@ final class BattleItem3Widget extends BaseWidget
             return null;
         }
 
-        return \implode(' ', [
+        return implode(' ', [
             SubweaponIcon::widget(['model' => $w->subweapon]),
             SpecialIcon::widget(['model' => $w->special]),
         ]);
@@ -133,7 +137,7 @@ final class BattleItem3Widget extends BaseWidget
             return sprintf(
                 '%s: %d',
                 Yii::t('app', 'Kill or Assist'),
-                $this->model->kill_or_assist
+                $this->model->kill_or_assist,
             );
         }
         return parent::renderKillDeathHtml();

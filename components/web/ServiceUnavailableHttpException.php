@@ -9,11 +9,12 @@
 
 namespace app\components\web;
 
+use Throwable;
 use yii\web\HttpException;
 
 class ServiceUnavailableHttpException extends HttpException
 {
-    public function __construct($message = null, $code = 0, \Exception $previous = null)
+    public function __construct($message = null, $code = 0, ?Throwable $previous = null)
     {
         parent::__construct(503, $message, $code, $previous);
     }

@@ -9,9 +9,11 @@
 namespace app\actions\api\v1;
 
 use Yii;
-use yii\web\ViewAction as BaseAction;
 use app\models\Gear;
 use app\models\api\v1\GearGetForm;
+use yii\web\ViewAction as BaseAction;
+
+use function array_map;
 
 class GearAction extends BaseAction
 {
@@ -41,10 +43,8 @@ class GearAction extends BaseAction
         $form->filterQuery($query);
 
         return array_map(
-            function ($gear) {
-                return $gear->toJsonArray();
-            },
-            $query->all()
+            fn ($gear) => $gear->toJsonArray(),
+            $query->all(),
         );
     }
 }

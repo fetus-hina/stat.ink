@@ -8,7 +8,8 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "splatfest_map".
@@ -20,7 +21,7 @@ use Yii;
  * @property Map $map
  * @property Splatfest $splatfest
  */
-class SplatfestMap extends \yii\db\ActiveRecord
+class SplatfestMap extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -37,7 +38,7 @@ class SplatfestMap extends \yii\db\ActiveRecord
     {
         return [
             [['splatfest_id', 'map_id'], 'required'],
-            [['splatfest_id', 'map_id'], 'integer']
+            [['splatfest_id', 'map_id'], 'integer'],
         ];
     }
 
@@ -54,7 +55,7 @@ class SplatfestMap extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getMap()
     {
@@ -62,7 +63,7 @@ class SplatfestMap extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getSplatfest()
     {

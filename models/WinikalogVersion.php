@@ -8,7 +8,8 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "winikalog_version".
@@ -19,7 +20,7 @@ use Yii;
  *
  * @property IkalogVersion $revision
  */
-class WinikalogVersion extends \yii\db\ActiveRecord
+class WinikalogVersion extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -37,7 +38,7 @@ class WinikalogVersion extends \yii\db\ActiveRecord
         return [
             [['revision_id'], 'integer'],
             [['build_at'], 'required'],
-            [['build_at'], 'safe']
+            [['build_at'], 'safe'],
         ];
     }
 
@@ -54,7 +55,7 @@ class WinikalogVersion extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getRevision()
     {

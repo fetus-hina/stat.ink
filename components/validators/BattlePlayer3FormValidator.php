@@ -9,8 +9,12 @@
 namespace app\components\validators;
 
 use Yii;
-use yii\validators\Validator;
 use app\models\api\v3\postBattle\PlayerForm;
+use yii\validators\Validator;
+
+use function array_shift;
+use function is_array;
+use function vsprintf;
 
 final class BattlePlayer3FormValidator extends Validator
 {
@@ -59,7 +63,7 @@ final class BattlePlayer3FormValidator extends Validator
      */
     private function validateValueImpl($value): array
     {
-        if (!\is_array($value)) {
+        if (!is_array($value)) {
             return [$this->message];
         }
 
@@ -72,7 +76,7 @@ final class BattlePlayer3FormValidator extends Validator
 
         $result = [];
         foreach ($form->getFirstErrors() as $key => $value) {
-            $result[] = \vsprintf('%s: %s', [
+            $result[] = vsprintf('%s: %s', [
                 $key,
                 $value,
             ]);

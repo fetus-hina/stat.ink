@@ -12,11 +12,23 @@ namespace app\components\web;
 
 use DirectoryIterator;
 use ReflectionClass;
+use Throwable;
 use Yii;
 use yii\base\Action;
 use yii\web\AssetBundle;
 use yii\web\JqueryAsset;
 use yii\web\YiiAsset;
+
+use function array_keys;
+use function array_map;
+use function array_merge;
+use function array_reduce;
+use function array_unique;
+use function array_values;
+use function class_exists;
+use function natsort;
+use function preg_match;
+use function substr;
 
 class AssetPublishAction extends Action
 {
@@ -49,10 +61,10 @@ class AssetPublishAction extends Action
             array_map(
                 [$this, 'enumerateDirectoryClasses'],
                 array_keys($this->directories),
-                array_values($this->directories)
+                array_values($this->directories),
             ),
             'array_merge',
-            $this->classes
+            $this->classes,
         );
         natsort($list);
         return array_values(array_unique($list));
@@ -73,8 +85,8 @@ class AssetPublishAction extends Action
                     $result,
                     $this->enumerateDirectoryClasses(
                         $entry->getPathname(),
-                        $namespace . '\\' . $fileName
-                    )
+                        $namespace . '\\' . $fileName,
+                    ),
                 );
                 continue;
             }
@@ -95,7 +107,7 @@ class AssetPublishAction extends Action
                     if ($ref->isInstantiable() && $ref->isSubclassOf(AssetBundle::class)) {
                         $result[] = $fqcn;
                     }
-                } catch (\Exception $e) {
+                } catch (Throwable $e) {
                 }
             }
         }

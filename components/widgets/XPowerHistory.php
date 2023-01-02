@@ -20,6 +20,15 @@ use yii\base\Widget;
 use yii\helpers\Html;
 use yii\helpers\Json;
 
+use function array_filter;
+use function array_map;
+use function array_reverse;
+use function count;
+use function implode;
+use function vsprintf;
+
+use const SORT_DESC;
+
 class XPowerHistory extends Widget
 {
     public $user;
@@ -51,22 +60,16 @@ class XPowerHistory extends Widget
                 'xPower' => Yii::t('app', 'X Power'),
             ]),
             Json::encode(array_map(
-                function (Battle2 $model): ?float {
-                    return $model->x_power_after < 1 ? null : (float)$model->x_power_after;
-                },
-                $history
+                fn (Battle2 $model): ?float => $model->x_power_after < 1 ? null : (float)$model->x_power_after,
+                $history,
             )),
             Json::encode(array_map(
-                function (Battle2 $model): ?float {
-                    return $model->estimate_x_power < 1 ? null : (float)$model->estimate_x_power;
-                },
-                $history
+                fn (Battle2 $model): ?float => $model->estimate_x_power < 1 ? null : (float)$model->estimate_x_power,
+                $history,
             )),
             Json::encode(array_map(
-                function (Battle2 $model): ?bool {
-                    return $model->is_win;
-                },
-                $history
+                fn (Battle2 $model): ?bool => $model->is_win,
+                $history,
             )),
         ]));
 
@@ -80,9 +83,9 @@ class XPowerHistory extends Widget
                         'class' => [
                             'xpower-history',
                             'mb-1',
-                        ]
+                        ],
                     ]),
-                    ['class' => 'table-responsive']
+                    ['class' => 'table-responsive'],
                 ),
                 Html::tag('div', '', [
                     'id' => $this->id . '-legends',
@@ -154,7 +157,7 @@ class XPowerHistory extends Widget
                 }
 
                 return true;
-            }
+            },
         );
 
         if (count($history) < 2) {

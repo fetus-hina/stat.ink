@@ -28,10 +28,10 @@ abstract class BaseAction extends ViewAction
         $req = Yii::$app->request;
         $config = DynamicModel::validateData(
             [
-                'lang'      => $req->get('lang'),
-                'charset'   => $req->get('charset'),
-                'bom'       => $req->get('bom'),
-                'tsv'       => $req->get('tsv'),
+                'lang' => $req->get('lang'),
+                'charset' => $req->get('charset'),
+                'bom' => $req->get('bom'),
+                'tsv' => $req->get('tsv'),
             ],
             [
                 [['lang', 'charset'], 'string'],
@@ -42,7 +42,7 @@ abstract class BaseAction extends ViewAction
                 [['charset'], 'exist', 'skipOnError' => true,
                     'targetClass' => Charset::class,
                     'targetAttribute' => ['charset' => 'php_name']],
-            ]
+            ],
         );
         if ($config->hasErrors()) {
             throw new BadRequestHttpException('Bad parameters');

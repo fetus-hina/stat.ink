@@ -10,9 +10,6 @@ declare(strict_types=1);
 
 namespace app\assets;
 
-use app\assets\ChartJsAsset;
-use app\assets\ColorSchemeAsset;
-use app\assets\LuxonAsset;
 use jp3cki\yii2\jqueryColor\JqueryColorAsset;
 use yii\web\AssetBundle;
 use yii\web\JqueryAsset;

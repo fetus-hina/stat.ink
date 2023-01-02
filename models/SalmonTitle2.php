@@ -15,6 +15,11 @@ use app\components\helpers\Translator;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
+use function array_map;
+use function array_merge;
+
+use const SORT_ASC;
+
 /**
  * This is the model class for table "salmon_title2".
  *
@@ -116,9 +121,9 @@ class SalmonTitle2 extends ActiveRecord
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc2', 'Title'),
                         'app-salmon-title2',
-                        $values
+                        $values,
                     ),
-                    ArrayHelper::getColumn($values, 'key', false)
+                    ArrayHelper::getColumn($values, 'key', false),
                 ),
                 'splatnet' => static::oapiRef(openapi\SplatNet2ID::class),
                 'name' => array_merge(openapi\Name::openApiSchema(), [
@@ -127,7 +132,7 @@ class SalmonTitle2 extends ActiveRecord
                 'generic_name' => array_merge(openapi\Name::openApiSchema(), [
                     'description' => Yii::t(
                         'app-apidoc2',
-                        'Salmon Run title (doesn\'t consider gender)'
+                        'Salmon Run title (doesn\'t consider gender)',
                     ),
                 ]),
             ],
@@ -144,12 +149,10 @@ class SalmonTitle2 extends ActiveRecord
     public static function openapiExample(): array
     {
         return array_map(
-            function (self $model): array {
-                return $model->toJsonArray();
-            },
+            fn (self $model): array => $model->toJsonArray(),
             static::find()
                 ->orderBy(['id' => SORT_ASC])
-                ->all()
+                ->all(),
         );
     }
 }

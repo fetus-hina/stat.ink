@@ -19,23 +19,26 @@ use app\models\WeaponType2;
 use yii\db\Query;
 use yii\web\ViewAction as BaseAction;
 
+use function array_map;
+use function strnatcasecmp;
+use function usort;
+
+use const SORT_ASC;
+
 class Weapon2Action extends BaseAction
 {
     public function run()
     {
         $categories = array_map(
-            function (WeaponCategory2 $category): array {
-                return [
+            fn (WeaponCategory2 $category): array => [
                     'key' => $category->key,
                     'name' => Yii::t('app-weapon2', $category->name),
                     'types' => array_map(
-                        function (WeaponType2 $type): array {
-                            return [
+                        fn (WeaponType2 $type): array => [
                                 'key' => $type->key,
                                 'name' => Yii::t('app-weapon2', $type->name),
                                 'weapons' => array_map(
-                                    function (Weapon2 $weapon): array {
-                                        return [
+                                    fn (Weapon2 $weapon): array => [
                                             'canonical' => Yii::t('app-weapon2', $weapon->canonical->name),
                                             'canonicalKey' => $weapon->canonical->key,
                                             'key' => $weapon->key,
@@ -49,16 +52,13 @@ class Weapon2Action extends BaseAction
                                             'splatnet' => $weapon->splatnet,
                                             'sub' => Yii::t('app-subweapon2', $weapon->subweapon->name),
                                             'subKey' => $weapon->subweapon->key,
-                                        ];
-                                    },
-                                    $type->weapons
+                                        ],
+                                    $type->weapons,
                                 ),
-                            ];
-                        },
-                        $category->weaponTypes
+                            ],
+                        $category->weaponTypes,
                     ),
-                ];
-            },
+                ],
             WeaponCategory2::find()
                 ->with([
                     'weaponTypes' => function (Query $query): void {
@@ -81,7 +81,7 @@ class Weapon2Action extends BaseAction
                 ->orderBy([
                     'id' => SORT_ASC,
                 ])
-                ->all()
+                ->all(),
         );
 
         $langs = Language::find()->standard()->asArray()->all();

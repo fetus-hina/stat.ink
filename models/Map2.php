@@ -12,9 +12,21 @@ use DateTimeZone;
 use Yii;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Translator;
-use yii\db\ActiveRecord;
 use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+
+use function array_map;
+use function array_merge;
+use function call_user_func;
+use function count;
+use function is_callable;
+use function sprintf;
+use function str_starts_with;
+use function strcmp;
+use function strnatcasecmp;
+use function strtotime;
+use function substr;
 
 /**
  * This is the model class for table "map2".
@@ -53,11 +65,11 @@ class Map2 extends ActiveRecord
 
     public static function getSortedMap($callback = null): array
     {
-        Yii::beginProfile(__METHOD__, __CLASS__);
+        Yii::beginProfile(__METHOD__, self::class);
         try {
             $query = self::find();
-            if ($callback && \is_callable($callback)) {
-                \call_user_func($callback, $query);
+            if ($callback && is_callable($callback)) {
+                call_user_func($callback, $query);
             }
             return ArrayHelper::map(
                 self::sort($query->all()),
@@ -65,7 +77,7 @@ class Map2 extends ActiveRecord
                 fn (self $row): string => Yii::t('app-map2', $row->name),
             );
         } finally {
-            Yii::endProfile(__METHOD__, __CLASS__);
+            Yii::endProfile(__METHOD__, self::class);
         }
     }
 
@@ -114,7 +126,7 @@ class Map2 extends ActiveRecord
             'release_at' => $t
                 ? DateTimeFormatter::unixTimeToJsonArray(
                     $t,
-                    new DateTimeZone('Etc/UTC')
+                    new DateTimeZone('Etc/UTC'),
                 )
                 : null,
         ];
@@ -126,7 +138,7 @@ class Map2 extends ActiveRecord
      */
     public static function sort(array $list): array
     {
-        $profile = \sprintf('Sort %d elements', \count($list));
+        $profile = sprintf('Sort %d elements', count($list));
         Yii::beginProfile($profile, __METHOD__);
         try {
             return ArrayHelper::sort(
@@ -141,19 +153,19 @@ class Map2 extends ActiveRecord
     public static function compare(self $a, self $b): int
     {
         return self::getCompareClass($a) <=> self::getCompareClass($b)
-            ?: \strnatcasecmp(Yii::t('app-map2', $a->name), Yii::t('app-map2', $b->name))
-            ?: \strnatcasecmp($a->name, $b->name)
-            ?: \strcmp($a->key, $b->key);
+            ?: strnatcasecmp(Yii::t('app-map2', $a->name), Yii::t('app-map2', $b->name))
+            ?: strnatcasecmp($a->name, $b->name)
+            ?: strcmp($a->key, $b->key);
     }
 
     private static function getCompareClass(self $self): int
     {
-        if (\str_starts_with($self->key, 'mystery')) {
+        if (str_starts_with($self->key, 'mystery')) {
             if ($self->key === 'mystery') {
                 return 1;
             }
 
-            return 1 + (int)\substr($self->key, 8);
+            return 1 + (int)substr($self->key, 8);
         }
 
         return 0;
@@ -170,9 +182,9 @@ class Map2 extends ActiveRecord
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc2', 'Stage'),
                         'app-map2',
-                        $values
+                        $values,
                     ),
-                    ArrayHelper::getColumn($values, 'key', false)
+                    ArrayHelper::getColumn($values, 'key', false),
                 ),
                 'splatnet' => static::oapiRef(openapi\SplatNet2ID::class),
                 'name' => static::oapiRef(openapi\Name::class),
@@ -203,17 +215,15 @@ class Map2 extends ActiveRecord
     public static function openapiExample(): array
     {
         return array_map(
-            function (self $model): array {
-                return $model->toJsonArray();
-            },
+            fn (self $model): array => $model->toJsonArray(),
             static::sort(
                 static::find()
                     ->andWhere(['key' => [
                         'battera',
                         'kombu',
                     ]])
-                    ->all()
-            )
+                    ->all(),
+            ),
         );
     }
 }

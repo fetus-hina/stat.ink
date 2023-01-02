@@ -9,12 +9,17 @@
 namespace app\actions\fest;
 
 use Yii;
-use yii\base\DynamicModel;
-use yii\web\NotFoundHttpException;
-use yii\web\ViewAction as BaseAction;
 use app\models\Splatfest;
 use app\models\SplatfestBattleSummary;
 use app\models\SplatfestTeam;
+use yii\base\DynamicModel;
+use yii\web\NotFoundHttpException;
+use yii\web\ViewAction as BaseAction;
+
+use function array_map;
+use function strtotime;
+
+use const SORT_ASC;
 
 class ViewAction extends BaseAction
 {
@@ -64,7 +69,7 @@ class ViewAction extends BaseAction
                 [['region', 'order'], 'required'],
                 [['region'], 'string', 'min' => 2, 'max' => 2],
                 [['order'], 'integer', 'min' => 1],
-            ]
+            ],
         );
         if ($model->validate()) {
             return $model;
@@ -75,7 +80,7 @@ class ViewAction extends BaseAction
     public function run()
     {
         return $this->controller->render('view', [
-            'fest'  => $this->fest,
+            'fest' => $this->fest,
             'alpha' => $this->alpha,
             'bravo' => $this->bravo,
             'results' => $this->results,
@@ -89,14 +94,12 @@ class ViewAction extends BaseAction
             ->orderBy(['{{splatfest_battle_summary}}.[[timestamp]]' => SORT_ASC]);
 
         return array_map(
-            function ($a) {
-                return [
+            fn ($a) => [
                     'at' => strtotime($a->timestamp),
                     'alpha' => $a->alpha_win + $a->bravo_lose,
                     'bravo' => $a->bravo_win + $a->alpha_lose,
-                ];
-            },
-            $query->all()
+                ],
+            $query->all(),
         );
     }
 }

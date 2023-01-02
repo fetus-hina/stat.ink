@@ -10,10 +10,23 @@ declare(strict_types=1);
 
 namespace app\components\helpers;
 
-use Exception;
+use Throwable;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
+
+use function array_filter;
+use function escapeshellarg;
+use function fclose;
+use function fwrite;
+use function implode;
+use function mb_convert_encoding;
+use function proc_close;
+use function proc_open;
+use function sprintf;
+use function stream_get_contents;
+use function trim;
+use function vsprintf;
 
 class UserAgentHelper
 {
@@ -68,7 +81,7 @@ class UserAgentHelper
 
         try {
             return Json::decode($json);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             return null;
         }
     }
@@ -112,7 +125,7 @@ class UserAgentHelper
         $version = ArrayHelper::getValue(
             $data,
             'os.versionName',
-            ArrayHelper::getValue($data, 'os.version')
+            ArrayHelper::getValue($data, 'os.version'),
         );
         return $version
             ? ($name . ' ' . $version)

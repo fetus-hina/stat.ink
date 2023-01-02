@@ -14,6 +14,8 @@ use DateTimeZone;
 use app\components\helpers\DateTimeFormatter;
 use app\models\SalmonSchedule3;
 
+use function strtotime;
+
 final class SalmonScheduleApiFormatter
 {
     public static function toJson(?SalmonSchedule3 $model): ?array
@@ -26,11 +28,11 @@ final class SalmonScheduleApiFormatter
 
         return [
             'from' => DateTimeFormatter::unixTimeToString(
-                \strtotime($model->start_at),
+                strtotime($model->start_at),
                 $tz,
             ),
             'to' => DateTimeFormatter::unixTimeToString(
-                \strtotime($model->end_at),
+                strtotime($model->end_at),
                 $tz,
             ),
         ];

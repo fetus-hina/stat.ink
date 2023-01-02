@@ -16,6 +16,10 @@ use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
+use function array_map;
+
+use const SORT_ASC;
+
 /**
  * This is the model class for table "ability2".
  *
@@ -71,25 +75,16 @@ class Ability2 extends ActiveRecord
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getStrengthBrands(): ActiveQuery
     {
         return $this->hasMany(Brand2::class, ['strength_id' => 'id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getWeaknessBrands(): ActiveQuery
     {
         return $this->hasMany(Brand2::class, ['weakness_id' => 'id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getGears(): ActiveQuery
     {
         return $this->hasMany(Gear2::class, ['ability_id' => 'id']);
@@ -116,9 +111,9 @@ class Ability2 extends ActiveRecord
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc2', 'Ability'),
                         'app-ability2',
-                        $values
+                        $values,
                     ),
-                    ArrayHelper::getColumn($values, 'key', false)
+                    ArrayHelper::getColumn($values, 'key', false),
                 ),
                 'name' => static::oapiRef(openapi\Name::class),
             ],
@@ -139,10 +134,8 @@ class Ability2 extends ActiveRecord
             ->orderBy(['key' => SORT_ASC])
             ->all();
         return array_map(
-            function ($model) {
-                return $model->toJsonArray();
-            },
-            $models
+            fn ($model) => $model->toJsonArray(),
+            $models,
         );
     }
 }

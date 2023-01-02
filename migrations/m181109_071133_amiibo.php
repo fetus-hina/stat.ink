@@ -45,7 +45,7 @@ class m181109_071133_amiibo extends Migration
             }
             $row = $this->parseCsvRow($line);
             if (count($row) !== 4) {
-                throw new \Exception("CSV format error in {$line}");
+                throw new Exception("CSV format error in {$line}");
             }
             yield [
                 static::name2key(trim($row[0])),

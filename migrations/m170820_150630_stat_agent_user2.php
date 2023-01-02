@@ -13,11 +13,11 @@ class m170820_150630_stat_agent_user2 extends Migration
     public function up()
     {
         $this->createTable('stat_agent_user2', [
-            'id'            => $this->primaryKey(),
-            'agent'         => 'VARCHAR(64) NOT NULL',
-            'date'          => 'DATE NOT NULL',
-            'battle_count'  => 'BIGINT NOT NULL',
-            'user_count'    => 'BIGINT NOT NULL',
+            'id' => $this->primaryKey(),
+            'agent' => 'VARCHAR(64) NOT NULL',
+            'date' => 'DATE NOT NULL',
+            'battle_count' => 'BIGINT NOT NULL',
+            'user_count' => 'BIGINT NOT NULL',
             'UNIQUE ([[agent]], [[date]])',
         ]);
     }

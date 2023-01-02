@@ -10,7 +10,13 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+
+use function array_map;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "ability".
@@ -22,7 +28,7 @@ use yii\helpers\ArrayHelper;
  * @property Brand[] $strengthBrands
  * @property Brand[] $weaknessBrands
  */
-class Ability extends \yii\db\ActiveRecord
+class Ability extends ActiveRecord
 {
     use openapi\Util;
 
@@ -42,7 +48,7 @@ class Ability extends \yii\db\ActiveRecord
         return [
             [['key', 'name'], 'required'],
             [['key', 'name'], 'string', 'max' => 32],
-            [['key'], 'unique']
+            [['key'], 'unique'],
         ];
     }
 
@@ -59,7 +65,7 @@ class Ability extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getStrengthBrands()
     {
@@ -67,7 +73,7 @@ class Ability extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getWeaknessBrands()
     {
@@ -95,9 +101,9 @@ class Ability extends \yii\db\ActiveRecord
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc1', 'Ability'),
                         'app-ability',
-                        $values
+                        $values,
                     ),
-                    ArrayHelper::getColumn($values, 'key', false)
+                    ArrayHelper::getColumn($values, 'key', false),
                 ),
                 'name' => static::oapiRef(openapi\Name::class),
             ],
@@ -118,10 +124,8 @@ class Ability extends \yii\db\ActiveRecord
             ->orderBy(['key' => SORT_ASC])
             ->all();
         return array_map(
-            function ($model) {
-                return $model->toJsonArray();
-            },
-            $models
+            fn ($model) => $model->toJsonArray(),
+            $models,
         );
     }
 }

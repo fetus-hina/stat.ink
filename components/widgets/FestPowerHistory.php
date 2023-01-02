@@ -19,6 +19,16 @@ use yii\base\Widget;
 use yii\helpers\Html;
 use yii\helpers\Json;
 
+use function array_filter;
+use function array_map;
+use function array_reverse;
+use function count;
+use function implode;
+use function sprintf;
+use function vsprintf;
+
+use const SORT_DESC;
+
 class FestPowerHistory extends Widget
 {
     public $user;
@@ -52,32 +62,24 @@ class FestPowerHistory extends Widget
                    'win' => Yii::t('app', 'Win'),
                 ],
                 array_map(
-                    function (Battle2 $model): ?float {
-                        return $model->fest_power < 1 ? null : (float)$model->fest_power;
-                    },
-                    $history
+                    fn (Battle2 $model): ?float => $model->fest_power < 1 ? null : (float)$model->fest_power,
+                    $history,
                 ),
                 array_map(
-                    function (Battle2 $model): ?float {
-                        return $model->my_team_estimate_fest_power < 1
+                    fn (Battle2 $model): ?float => $model->my_team_estimate_fest_power < 1
                             ? null
-                            : (float)$model->my_team_estimate_fest_power;
-                    },
-                    $history
+                            : (float)$model->my_team_estimate_fest_power,
+                    $history,
                 ),
                 array_map(
-                    function (Battle2 $model): ?float {
-                        return $model->his_team_estimate_fest_power < 1
+                    fn (Battle2 $model): ?float => $model->his_team_estimate_fest_power < 1
                             ? null
-                            : (float)$model->his_team_estimate_fest_power;
-                    },
-                    $history
+                            : (float)$model->his_team_estimate_fest_power,
+                    $history,
                 ),
                 array_map(
-                    function (Battle2 $model): ?bool {
-                        return $model->is_win;
-                    },
-                    $history
+                    fn (Battle2 $model): ?bool => $model->is_win,
+                    $history,
                 ),
             ])),
         ]));
@@ -92,9 +94,9 @@ class FestPowerHistory extends Widget
                         'class' => [
                             'fest-power-history',
                             'mb-1',
-                        ]
+                        ],
                     ]),
-                    ['class' => 'table-responsive']
+                    ['class' => 'table-responsive'],
                 ),
                 Html::tag('div', '', [
                     'id' => $this->id . '-legends',
@@ -132,12 +134,10 @@ class FestPowerHistory extends Widget
         ) {
             return null;
         }
-        $festPowerFilter = function (string $column): array {
-            return ['and',
+        $festPowerFilter = fn (string $column): array => ['and',
                 ['not', ["{{battle2}}.[[{$column}]]" => null]],
                 ['>', "{{battle2}}.[[{$column}]]", 0],
             ];
-        };
         $history = Battle2::find()
             ->andWhere(['and',
                 [
@@ -179,7 +179,7 @@ class FestPowerHistory extends Widget
                 $lastBattleTime = $time;
 
                 return true;
-            }
+            },
         );
 
         if (count($history) < 2) {

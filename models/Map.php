@@ -12,7 +12,15 @@ use DateTimeZone;
 use Yii;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Translator;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+
+use function array_map;
+use function array_merge;
+use function strtotime;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "map".
@@ -28,7 +36,7 @@ use yii\helpers\ArrayHelper;
  * @property PeriodMap[] $periodMaps
  * @property SplapiMap[] $splapiMaps
  */
-final class Map extends \yii\db\ActiveRecord
+final class Map extends ActiveRecord
 {
     use SafeFindOneTrait;
     use openapi\Util;
@@ -53,7 +61,7 @@ final class Map extends \yii\db\ActiveRecord
             [['key', 'short_name'], 'string', 'max' => 16],
             [['name'], 'string', 'max' => 32],
             [['key'], 'unique'],
-            [['name'], 'unique']
+            [['name'], 'unique'],
         ];
     }
 
@@ -73,7 +81,7 @@ final class Map extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattles()
     {
@@ -81,7 +89,7 @@ final class Map extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getPeriodMaps()
     {
@@ -89,7 +97,7 @@ final class Map extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getSplapiMaps()
     {
@@ -106,7 +114,7 @@ final class Map extends \yii\db\ActiveRecord
             'release_at' => $t
                 ? DateTimeFormatter::unixTimeToJsonArray(
                     $t,
-                    new DateTimeZone('Etc/UTC')
+                    new DateTimeZone('Etc/UTC'),
                 )
                 : null,
         ];
@@ -125,9 +133,9 @@ final class Map extends \yii\db\ActiveRecord
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc1', 'Stage'),
                         'app-map',
-                        $values
+                        $values,
                     ),
-                    ArrayHelper::getColumn($values, 'key', false)
+                    ArrayHelper::getColumn($values, 'key', false),
                 ),
                 'name' => static::oapiRef(openapi\Name::class),
                 'area' => [
@@ -158,10 +166,8 @@ final class Map extends \yii\db\ActiveRecord
             ->orderBy(['key' => SORT_ASC])
             ->all();
         return array_map(
-            function (self $model): array {
-                return $model->toJsonArray();
-            },
-            $values
+            fn (self $model): array => $model->toJsonArray(),
+            $values,
         );
     }
 }

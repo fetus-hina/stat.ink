@@ -12,6 +12,8 @@ namespace app\components\formatters\api\v3;
 
 use app\models\Medal3;
 
+use function array_map;
+
 final class MedalApiFormatter
 {
     /**
@@ -25,7 +27,7 @@ final class MedalApiFormatter
 
         return array_map(
             fn (Medal3 $model): string => $model->name,
-            $models
+            $models,
         );
     }
 }

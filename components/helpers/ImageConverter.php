@@ -9,7 +9,39 @@
 namespace app\components\helpers;
 
 use Exception;
+use Throwable;
 use Yii;
+
+use function chmod;
+use function dirname;
+use function escapeshellarg;
+use function exec;
+use function file_exists;
+use function filesize;
+use function imagealphablending;
+use function imagecopyresampled;
+use function imagecreatefromstring;
+use function imagecreatetruecolor;
+use function imagefill;
+use function imagefilledrectangle;
+use function imagepng;
+use function imagesx;
+use function imagesy;
+use function in_array;
+use function is_array;
+use function is_executable;
+use function max;
+use function min;
+use function mkdir;
+use function preg_replace;
+use function round;
+use function sprintf;
+use function sys_get_temp_dir;
+use function tempnam;
+use function unlink;
+
+use const PNG_ALL_FILTERS;
+use const PNG_NO_FILTER;
 
 class ImageConverter
 {
@@ -92,7 +124,7 @@ class ImageConverter
                 $cpW,
                 $cpH,
                 $inW,
-                $inH
+                $inH,
             );
             if ($blackoutPosList) {
                 for ($i = 0; $i < 8; ++$i) {
@@ -107,14 +139,14 @@ class ImageConverter
                         $y,
                         812 + 172,
                         $y + 38,
-                        0x000000
+                        0x000000,
                     );
                 }
             }
             $tmpName = new Resource(tempnam(sys_get_temp_dir(), 'statink-'), 'unlink');
             imagepng($out->get(), $tmpName->get(), 9, PNG_ALL_FILTERS);
             return $tmpName;
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
         }
         return false;
     }
@@ -128,12 +160,12 @@ class ImageConverter
                 escapeshellarg('convert'),
                 escapeshellarg($inPath),
                 self::JPEG_QUALITY,
-                escapeshellarg($outPath)
+                escapeshellarg($outPath),
             ),
             sprintf(
                 '/usr/bin/env %s --quiet --strip-all %s',
                 escapeshellarg('jpegoptim'),
-                escapeshellarg($outPath)
+                escapeshellarg($outPath),
             ),
         ];
         foreach ($cmdlines as $cmdline) {
@@ -161,7 +193,7 @@ class ImageConverter
             '/usr/bin/env %s %s %s',
             escapeshellarg($binPath),
             escapeshellarg($jpegPath),
-            escapeshellarg($leptonPath)
+            escapeshellarg($leptonPath),
         );
         $lines = [];
         $status = -1;

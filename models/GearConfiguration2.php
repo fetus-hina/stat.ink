@@ -8,9 +8,14 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\Json;
+
+use function array_map;
+use function base64_encode;
+use function hash;
+use function rtrim;
 
 /**
  * This is the model class for table "gear_configuration2".
@@ -32,20 +37,18 @@ class GearConfiguration2 extends ActiveRecord
         array $secondaryAbitilyIdList
     ): string {
         $data = [
-            'gear'      => ($gearId > 0) ? (int)$gearId : null,
-            'primary'   => ($primaryAbilityId > 0) ? (int)$primaryAbilityId : null,
+            'gear' => $gearId > 0 ? (int)$gearId : null,
+            'primary' => $primaryAbilityId > 0 ? (int)$primaryAbilityId : null,
             'secondary' => array_map(
-                function ($id): ?int {
-                    return ($id > 0) ? (int)$id : null;
-                },
-                $secondaryAbitilyIdList
+                fn ($id): ?int => $id > 0 ? (int)$id : null,
+                $secondaryAbitilyIdList,
             ),
         ];
         return rtrim(
             base64_encode(
-                hash('sha256', Json::encode($data), true)
+                hash('sha256', Json::encode($data), true),
             ),
-            '='
+            '=',
         );
     }
 
@@ -93,7 +96,7 @@ class GearConfiguration2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getPrimaryAbility()
     {
@@ -101,7 +104,7 @@ class GearConfiguration2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getGear()
     {
@@ -109,7 +112,7 @@ class GearConfiguration2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getSecondaries()
     {
@@ -127,10 +130,8 @@ class GearConfiguration2 extends ActiveRecord
                 : null,
             'secondary_abilities' => $this->secondaries
                 ? array_map(
-                    function (?GearConfigurationSecondary2 $o) {
-                        return $o ? $o->toJsonArray() : null;
-                    },
-                    $this->secondaries
+                    fn (?GearConfigurationSecondary2 $o) => $o ? $o->toJsonArray() : null,
+                    $this->secondaries,
                 )
                 : null,
         ];

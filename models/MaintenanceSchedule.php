@@ -10,10 +10,11 @@ declare(strict_types=1);
 
 namespace app\models;
 
-use Yii;
 use app\components\helpers\db\Now;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "maintenance_schedule".

@@ -18,6 +18,8 @@ use app\models\UserStatSalmon3;
 use yii\base\BaseObject;
 use yii\queue\JobInterface;
 
+use function hash_hmac;
+
 final class SalmonStatsJob extends BaseObject implements JobInterface
 {
     use JobPriority;
@@ -42,7 +44,7 @@ final class SalmonStatsJob extends BaseObject implements JobInterface
 
             case 3:
                 $lock = CriticalSection::lock(
-                    \hash_hmac('sha256', (string)$user->id, UserStatSalmon3::class),
+                    hash_hmac('sha256', (string)$user->id, UserStatSalmon3::class),
                     60,
                     Yii::$app->pgMutex,
                 );

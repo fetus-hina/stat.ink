@@ -22,15 +22,13 @@ class m151016_080823_gachi extends Migration
         $update = sprintf(
             'UPDATE {{battle}} SET %s FROM {{battle_gachi}} AS {{t}} WHERE {{battle}}.[[id]] = {{t}}.[[id]]',
             implode(', ', array_map(
-                function ($col) {
-                    return sprintf('[[%1$s]] = {{t}}.[[%1$s]]', $col);
-                },
+                fn ($col) => sprintf('[[%1$s]] = {{t}}.[[%1$s]]', $col),
                 [
                     'is_knock_out',
                     'my_team_count',
                     'his_team_count',
-                ]
-            ))
+                ],
+            )),
         );
         $this->execute($update);
         $this->dropTable('battle_gachi');

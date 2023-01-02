@@ -9,21 +9,22 @@
 namespace app\models;
 
 use Yii;
-use yii\base\Model;
-use app\components\helpers\db\Now;
 use app\components\helpers\Battle as BattleHelper;
-use app\models\Battle;
-use app\models\GameMode;
-use app\models\Lobby;
-use app\models\Map;
-use app\models\Rank;
-use app\models\RankGroup;
-use app\models\Rule;
-use app\models\Special;
-use app\models\Subweapon;
-use app\models\Timezone;
-use app\models\User;
-use app\models\Weapon;
+use yii\base\Model;
+
+use function array_map;
+use function array_merge;
+use function call_user_func;
+use function date;
+use function in_array;
+use function is_scalar;
+use function mktime;
+use function preg_match;
+use function sprintf;
+use function strtotime;
+use function substr;
+use function time;
+use function trim;
 
 class BattleFilterForm extends Model
 {
@@ -59,56 +60,38 @@ class BattleFilterForm extends Model
             [['rule'], 'exist',
                 'targetClass' => Rule::class,
                 'targetAttribute' => 'key',
-                'when' => function () {
-                    return substr($this->rule, 0, 1) !== '@';
-                }],
+                'when' => fn () => substr($this->rule, 0, 1) !== '@'],
             [['rule'], 'validateGameMode',
-                'when' => function () {
-                    return substr($this->rule, 0, 1) === '@';
-                }],
+                'when' => fn () => substr($this->rule, 0, 1) === '@'],
             [['map'], 'exist',
                 'targetClass' => Map::class,
                 'targetAttribute' => 'key'],
             [['weapon'], 'exist',
                 'targetClass' => Weapon::class,
                 'targetAttribute' => 'key',
-                'when' => function () {
-                    return !in_array(substr($this->weapon, 0, 1), ['@', '+', '*', '~'], true);
-                }],
+                'when' => fn () => !in_array(substr($this->weapon, 0, 1), ['@', '+', '*', '~'], true)],
             [['weapon'], 'validateWeapon',
                 'params' => [
                     'modelClass' => WeaponType::class,
                 ],
-                'when' => function () {
-                    return substr($this->weapon, 0, 1) === '@';
-                }],
+                'when' => fn () => substr($this->weapon, 0, 1) === '@'],
             [['weapon'], 'validateWeapon',
                 'params' => [
                     'modelClass' => Subweapon::class,
                 ],
-                'when' => function () {
-                    return substr($this->weapon, 0, 1) === '+';
-                }],
+                'when' => fn () => substr($this->weapon, 0, 1) === '+'],
             [['weapon'], 'validateWeapon',
                 'params' => [
                     'modelClass' => Special::class,
                 ],
-                'when' => function () {
-                    return substr($this->weapon, 0, 1) === '*';
-                }],
+                'when' => fn () => substr($this->weapon, 0, 1) === '*'],
             [['weapon'], 'validateRepresentativeWeapon',
-                'when' => function () {
-                    return substr($this->weapon, 0, 1) === '~';
-                }],
+                'when' => fn () => substr($this->weapon, 0, 1) === '~'],
             [['rank'], 'exist',
                 'targetClass' => Rank::class, 'targetAttribute' => 'key',
-                'when' => function () {
-                    return substr($this->rank, 0, 1) !== '~';
-                }],
+                'when' => fn () => substr($this->rank, 0, 1) !== '~'],
             [['rank'], 'validateRankGroup',
-                'when' => function () {
-                    return substr($this->rank, 0, 1) === '~';
-                }],
+                'when' => fn () => substr($this->rank, 0, 1) === '~'],
             [['result'], 'boolean', 'trueValue' => 'win', 'falseValue' => 'lose'],
             [['term'], 'in',
                 'range' => array_merge(
@@ -126,11 +109,9 @@ class BattleFilterForm extends Model
                         'term',
                     ],
                     array_map(
-                        function ($a) {
-                            return 'v' . $a['tag'];
-                        },
-                        SplatoonVersion::find()->asArray()->all()
-                    )
+                        fn ($a) => 'v' . $a['tag'],
+                        SplatoonVersion::find()->asArray()->all(),
+                    ),
                 ),
             ],
             [['term_from', 'term_to'], 'date', 'format' => 'yyyy-M-d H:m:s'],
@@ -142,18 +123,18 @@ class BattleFilterForm extends Model
     public function attributeLabels()
     {
         return [
-            'screen_name'   => Yii::t('app', 'Screen Name'),
-            'lobby'         => Yii::t('app', 'Lobby'),
-            'rule'          => Yii::t('app', 'Mode'),
-            'map'           => Yii::t('app', 'Stage'),
-            'weapon'        => Yii::t('app', 'Weapon'),
-            'rank'          => Yii::t('app', 'Rank'),
-            'result'        => Yii::t('app', 'Result'),
-            'term'          => Yii::t('app', 'Term'),
-            'term_from'     => Yii::t('app', 'Period From'),
-            'term_to'       => Yii::t('app', 'Period To'),
-            'id_from'       => Yii::t('app', 'ID From'),
-            'id_to'         => Yii::t('app', 'ID To'),
+            'screen_name' => Yii::t('app', 'Screen Name'),
+            'lobby' => Yii::t('app', 'Lobby'),
+            'rule' => Yii::t('app', 'Mode'),
+            'map' => Yii::t('app', 'Stage'),
+            'weapon' => Yii::t('app', 'Weapon'),
+            'rank' => Yii::t('app', 'Rank'),
+            'result' => Yii::t('app', 'Result'),
+            'term' => Yii::t('app', 'Term'),
+            'term_from' => Yii::t('app', 'Period From'),
+            'term_to' => Yii::t('app', 'Period To'),
+            'id_from' => Yii::t('app', 'ID From'),
+            'id_to' => Yii::t('app', 'ID To'),
         ];
     }
 
@@ -179,7 +160,7 @@ class BattleFilterForm extends Model
                 $attr,
                 Yii::t('yii', '{attribute} is invalid.', [
                     'attribute' => $this->getAttributeLabel($attr),
-                ])
+                ]),
             );
         }
     }
@@ -194,7 +175,7 @@ class BattleFilterForm extends Model
                 $attr,
                 Yii::t('yii', '{attribute} is invalid.', [
                     'attribute' => $this->getAttributeLabel($attr),
-                ])
+                ]),
             );
         }
     }
@@ -203,7 +184,7 @@ class BattleFilterForm extends Model
     {
         $value = substr($this->$attr, 1);
         $count = Weapon::find()
-            ->andWhere("{{weapon}}.[[id]] = {{weapon}}.[[main_group_id]]")
+            ->andWhere('{{weapon}}.[[id]] = {{weapon}}.[[main_group_id]]')
             ->andWhere(['key' => $value])
             ->count();
         if ($count < 1) {
@@ -211,7 +192,7 @@ class BattleFilterForm extends Model
                 $attr,
                 Yii::t('yii', '{attribute} is invalid.', [
                     'attribute' => $this->getAttributeLabel($attr),
-                ])
+                ]),
             );
         }
     }
@@ -227,7 +208,7 @@ class BattleFilterForm extends Model
                 $attr,
                 Yii::t('yii', '{attribute} is invalid.', [
                     'attribute' => $this->getAttributeLabel($attr),
-                ])
+                ]),
             );
         }
     }

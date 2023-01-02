@@ -8,14 +8,27 @@
 
 namespace app\models\api\v3\postBattle;
 
-use Yii;
 use yii\db\ActiveRecord;
+
+use function filter_var;
+use function gmdate;
+use function is_bool;
+use function is_float;
+use function is_int;
+use function is_scalar;
+use function preg_match;
+use function strlen;
+use function strtolower;
+use function trim;
+
+use const FILTER_VALIDATE_FLOAT;
+use const FILTER_VALIDATE_INT;
 
 trait TypeHelperTrait
 {
     protected static function boolVal($value): ?bool
     {
-        if (\is_bool($value)) {
+        if (is_bool($value)) {
             return $value;
         } elseif ($value === null || $value === '') {
             return null;
@@ -35,11 +48,11 @@ trait TypeHelperTrait
             return null;
         }
 
-        if (!\preg_match('/^[0-9a-f]{6}(?:[0-9a-f]{2})?$/i', $value)) {
+        if (!preg_match('/^[0-9a-f]{6}(?:[0-9a-f]{2})?$/i', $value)) {
             return null;
         }
 
-        return \strtolower(\strlen($value) === 8 ? $value : "{$value}ff");
+        return strtolower(strlen($value) === 8 ? $value : "{$value}ff");
     }
 
     protected static function intVal($value): ?int
@@ -49,8 +62,8 @@ trait TypeHelperTrait
             return null;
         }
 
-        $value = \filter_var($value, FILTER_VALIDATE_INT);
-        return \is_int($value) ? $value : null;
+        $value = filter_var($value, FILTER_VALIDATE_INT);
+        return is_int($value) ? $value : null;
     }
 
     protected static function floatVal($value): ?float
@@ -60,28 +73,28 @@ trait TypeHelperTrait
             return null;
         }
 
-        $value = \filter_var($value, FILTER_VALIDATE_FLOAT);
-        return \is_float($value) ? $value : null;
+        $value = filter_var($value, FILTER_VALIDATE_FLOAT);
+        return is_float($value) ? $value : null;
     }
 
     protected static function strVal($value): ?string
     {
-        if ($value === null || !\is_scalar($value)) {
+        if ($value === null || !is_scalar($value)) {
             return null;
         }
 
-        $value = \trim((string)$value);
+        $value = trim((string)$value);
         return $value !== '' ? $value : null;
     }
 
     protected static function tsVal($value): ?string
     {
         $value = self::intVal($value);
-        if (!\is_int($value)) {
+        if (!is_int($value)) {
             return null;
         }
 
-        return \gmdate('Y-m-d\TH:i:sP', $value);
+        return gmdate('Y-m-d\TH:i:sP', $value);
     }
 
     /**

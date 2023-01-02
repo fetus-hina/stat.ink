@@ -19,6 +19,10 @@ use yii\base\Action;
 use yii\db\Query;
 use yii\web\Controller;
 
+use function array_map;
+use function assert;
+use function usort;
+
 class UsersAction extends Action
 {
     use Splatoon1;
@@ -62,10 +66,8 @@ class UsersAction extends Action
             ->from(StatAgentUser::tableName())
             ->groupBy('agent');
         $list = array_map(
-            function ($a) {
-                return $a['agent'];
-            },
-            $query->createCommand()->queryAll()
+            fn ($a) => $a['agent'],
+            $query->createCommand()->queryAll(),
         );
         usort($list, 'strnatcasecmp');
         return $list;
@@ -74,12 +76,10 @@ class UsersAction extends Action
     protected function getCombineds(): array
     {
         $list = array_map(
-            function (array $a): string {
-                return $a['name'] ?? '';
-            },
-            AgentGroup::find()->asArray()->all()
+            fn (array $a): string => $a['name'] ?? '',
+            AgentGroup::find()->asArray()->all(),
         );
-        \usort($list, 'strnatcasecmp');
+        usort($list, 'strnatcasecmp');
         return $list;
     }
 }

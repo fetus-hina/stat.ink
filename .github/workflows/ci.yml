@@ -51,13 +51,19 @@ jobs:
     runs-on: ubuntu-22.04
     needs:
       - ciDoesNotSkip
+      - phpSyntaxCheck
+      - setupComposer
     if: '!contains(github.event.head_commit.message, ''[no php]'')'
     steps:
       -
         uses: actions/checkout@v3
       -
-        name: 'Fetch Latest phpcs.phar'
-        run: 'curl -fsSL -o phpcs "https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar"'
+        uses: actions/cache@v3
+        with:
+          path: |
+            vendor
+            ~/.cache/composer/files
+          key: 'composer-${{ hashFiles(''composer.lock'') }}'
       -
         name: 'Set PHP environment (PHP 8.0)'
         uses: shivammathur/setup-php@v2
@@ -65,7 +71,7 @@ jobs:
           php-version: '8.0'
       -
         name: 'Run PHPCS'
-        run: 'php phpcs -p'
+        run: 'php vendor/bin/phpcs -p'
   phpCheckAuthor:
     name: 'Check Author'
     runs-on: ubuntu-22.04

@@ -9,37 +9,39 @@
 namespace app\actions\api\info;
 
 use Yii;
-use yii\web\ViewAction as BaseAction;
 use app\components\helpers\Translator;
 use app\models\Language;
 use app\models\Weapon;
 use app\models\WeaponType;
+use yii\web\ViewAction as BaseAction;
+
+use function array_map;
+use function strnatcasecmp;
+use function usort;
+
+use const SORT_ASC;
 
 class WeaponAction extends BaseAction
 {
     public function run()
     {
         $types = array_map(
-            function (array $type): array {
-                return [
-                    'key'   => $type['key'],
-                    'name'  => Yii::t('app-weapon', $type['name']),
+            fn (array $type): array => [
+                    'key' => $type['key'],
+                    'name' => Yii::t('app-weapon', $type['name']),
                     'weapons' => array_map(
-                        function (array $weapon): array {
-                            return [
+                        fn (array $weapon): array => [
                                 'key' => $weapon['key'],
                                 'names' => Translator::translateToAll('app-weapon', $weapon['name']),
-                            ];
-                        },
+                            ],
                         Weapon::find()
                             ->andWhere(['type_id' => $type['id']])
                             ->orderBy(['key' => SORT_ASC])
                             ->asArray()
-                            ->all()
+                            ->all(),
                     ),
-                ];
-            },
-            WeaponType::find()->orderBy(['id' => SORT_ASC])->asArray()->all()
+                ],
+            WeaponType::find()->orderBy(['id' => SORT_ASC])->asArray()->all(),
         );
 
         $langs = Language::find()->standard()->asArray()->all();

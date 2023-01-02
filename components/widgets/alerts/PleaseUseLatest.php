@@ -14,6 +14,9 @@ use Yii;
 use app\components\widgets\Alert;
 use yii\helpers\Html;
 
+use function array_map;
+use function implode;
+
 final class PleaseUseLatest extends Alert
 {
     public function init()
@@ -38,13 +41,11 @@ final class PleaseUseLatest extends Alert
         // phpcs:enable
 
         return implode('', array_map(
-            function (string $message): string {
-                return Html::tag(
-                    'p',
-                    Html::encode(Yii::t('app-alert', $message))
-                );
-            },
-            $messages
+            fn (string $message): string => Html::tag(
+                'p',
+                Html::encode(Yii::t('app-alert', $message)),
+            ),
+            $messages,
         ));
     }
 }

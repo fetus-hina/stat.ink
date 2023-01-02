@@ -23,7 +23,7 @@ class SfListTest extends Unit
     public function testStringList()
     {
         $model = SfList::create(
-            '"\\\\Not\\"A;Brand";v="99", "Chromium";v="84", "Google Chrome";v="84"'
+            '"\\\\Not\\"A;Brand";v="99", "Chromium";v="84", "Google Chrome";v="84"',
         );
         $this->assertInstanceOf(SfList::class, $model);
         $this->assertCount(3, $model->items);
@@ -33,7 +33,7 @@ class SfListTest extends Unit
         $this->assertEquals('"\\\\Not\"A;Brand";v="99"', (string)$model->items[2]);
         $this->assertEquals(
             '"Chromium";v="84","Google Chrome";v="84","\\\\Not\\"A;Brand";v="99"',
-            (string)$model
+            (string)$model,
         );
     }
 }

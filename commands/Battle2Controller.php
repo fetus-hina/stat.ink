@@ -17,8 +17,18 @@ use app\models\User;
 use app\models\UserStat2;
 use yii\console\Controller;
 use yii\db\Expression as DbExpr;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Console;
+
+use function array_filter;
+use function array_map;
+use function escapeshellarg;
+use function implode;
+use function printf;
+use function sprintf;
+use function substr;
+use function version_compare;
+
+use const SORT_ASC;
 
 class Battle2Controller extends Controller
 {
@@ -77,16 +87,16 @@ class Battle2Controller extends Controller
                 }
                 return null;
             },
-            Agent::find()->andWhere(['name' => 'SquidTracks'])->asArray()->all()
+            Agent::find()->andWhere(['name' => 'SquidTracks'])->asArray()->all(),
         ));
-        $this->stderr("done. id = [" . implode(", ", $agentIds) . "]\n");
+        $this->stderr('done. id = [' . implode(', ', $agentIds) . "]\n");
 
         $query = Battle2::find()
             ->innerJoinWith('rule', false)
             ->with(['battlePlayers' => function ($query) {
                 $query->andWhere(['and',
                     ['not', ['is_my_team' => null]],
-                    ['not', ['point' => null]]
+                    ['not', ['point' => null]],
                 ]);
             }])
             ->andWhere(['and',
@@ -97,7 +107,7 @@ class Battle2Controller extends Controller
             ->orderBy(['id' => SORT_ASC]);
 
         $count = $query->count();
-        $this->stderr("Target battles = " . $count . "\n");
+        $this->stderr('Target battles = ' . $count . "\n");
 
         $i = -1;
         foreach ($query->batch(200) as $batch) {
@@ -123,7 +133,7 @@ class Battle2Controller extends Controller
                 echo "Updating battle2...\n";
                 Battle2::updateAll(
                     ['my_point' => new DbExpr('my_point - 1000')],
-                    ['id' => $myPointTargets]
+                    ['id' => $myPointTargets],
                 );
             }
 
@@ -131,7 +141,7 @@ class Battle2Controller extends Controller
                 echo "Updating battle_player2...\n";
                 BattlePlayer2::updateAll(
                     ['point' => new DbExpr('point - 1000')],
-                    ['id' => $playersTargets]
+                    ['id' => $playersTargets],
                 );
             }
         }
@@ -161,7 +171,7 @@ class Battle2Controller extends Controller
                 "curl -v -H %s -X POST -d %s %s\n\n",
                 escapeshellarg('Content-Type: application/json'),
                 escapeshellarg($slack->send($battle, false)),
-                escapeshellarg($slack->webhook_url)
+                escapeshellarg($slack->webhook_url),
             );
         }
     }

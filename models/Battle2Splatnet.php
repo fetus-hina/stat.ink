@@ -10,14 +10,20 @@ declare(strict_types=1);
 
 namespace app\models;
 
-use Exception;
+use Throwable;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\behaviors\AttributeTypecastBehavior;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\helpers\VarDumper;
+
+use function array_merge;
+use function is_array;
+use function is_object;
+use function is_string;
 
 /**
  * This is the model class for table "battle2_splatnet".
@@ -43,9 +49,7 @@ class Battle2Splatnet extends ActiveRecord
             'typecast' => [
                 'class' => AttributeTypecastBehavior::class,
                 'attributeTypes' => [
-                    'json' => function ($value): ?object {
-                        return static::convertToObject($value);
-                    },
+                    'json' => fn ($value): ?object => static::convertToObject($value),
                 ],
                 'typecastAfterValidate' => true,
                 'typecastBeforeSave' => false,
@@ -83,7 +87,7 @@ class Battle2Splatnet extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattle()
     {
@@ -137,8 +141,8 @@ class Battle2Splatnet extends ActiveRecord
                     Yii::endProfile('Decode JSON string', __METHOD__);
                 }
             }
-        } catch (Exception $e) {
-            Yii::error("Could not convert to object: " . $e->getMessage(), __METHOD__);
+        } catch (Throwable $e) {
+            Yii::error('Could not convert to object: ' . $e->getMessage(), __METHOD__);
         } finally {
             Yii::endProfile($profileId, __METHOD__);
         }

@@ -11,7 +11,6 @@ namespace app\models\api\v3\postBattle;
 use Yii;
 use app\components\helpers\CriticalSection;
 use app\models\Agent;
-use app\models\api\v3\postBattle\TypeHelperTrait;
 
 trait UserAgentTrait
 {

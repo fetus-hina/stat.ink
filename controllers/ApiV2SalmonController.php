@@ -21,6 +21,9 @@ use yii\filters\auth\HttpBearerAuth;
 use yii\rest\Controller;
 use yii\web\Response;
 
+use function array_merge;
+use function implode;
+
 class ApiV2SalmonController extends Controller
 {
     public $enableCsrfValidation = false;
@@ -56,12 +59,12 @@ class ApiV2SalmonController extends Controller
     protected function verbs()
     {
         return [
-            'create'  => ['POST'],
+            'create' => ['POST'],
             'create-stats' => ['POST'],
-            'index'   => ['GET', 'HEAD'],
+            'index' => ['GET', 'HEAD'],
             'index-with-auth' => ['GET', 'HEAD'],
             'options' => ['OPTIONS'],
-            'view'    => ['GET', 'HEAD'],
+            'view' => ['GET', 'HEAD'],
             'view-stats' => ['GET', 'HEAD'],
         ];
     }
@@ -104,8 +107,8 @@ class ApiV2SalmonController extends Controller
         $header->set('Allow', implode(
             ', ',
             $id === null
-                ? [ 'GET', 'HEAD', 'POST', 'OPTIONS' ]
-                : [ 'GET', 'HEAD', /* 'PUT', 'PATCH', 'DELETE', */ 'OPTIONS']
+                ? ['GET', 'HEAD', 'POST', 'OPTIONS']
+                : ['GET', 'HEAD', /* 'PUT', 'PATCH', 'DELETE', */ 'OPTIONS'],
         ));
         $header->set('Access-Control-Allow-Origin', '*');
         $header->set('Access-Control-Allow-Methods', $header->get('Allow'));

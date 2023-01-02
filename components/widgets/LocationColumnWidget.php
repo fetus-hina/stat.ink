@@ -11,10 +11,18 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use GeoIp2\Model\City;
+use Throwable;
 use Yii;
 use statink\yii2\jdenticon\Jdenticon;
 use yii\base\Widget;
 use yii\helpers\Html;
+
+use function array_filter;
+use function array_map;
+use function hash;
+use function implode;
+use function strpos;
+use function strtolower;
 
 class LocationColumnWidget extends Widget
 {
@@ -46,7 +54,7 @@ class LocationColumnWidget extends Widget
                 'class' => [
                     'd-flex',
                 ],
-            ]
+            ],
         );
     }
 
@@ -70,7 +78,7 @@ class LocationColumnWidget extends Widget
             'sha256',
             $this->remoteAddrMasked
                 ? $this->remoteAddrMasked
-                : $this->remoteAddr
+                : $this->remoteAddr,
         );
     }
 
@@ -79,19 +87,17 @@ class LocationColumnWidget extends Widget
         return Html::tag(
             'div',
             implode('', array_map(
-                function (string $html): string {
-                    return Html::tag('div', $html);
-                },
+                fn (string $html): string => Html::tag('div', $html),
                 array_filter([
                     $this->renderLocation(),
                     $this->renderIpAddress(),
-                ])
+                ]),
             )),
             [
                 'style' => [
                     'flex' => '1 1 auto',
                 ],
-            ]
+            ],
         );
     }
 
@@ -111,7 +117,7 @@ class LocationColumnWidget extends Widget
                 $this->renderLocationText($city),
                 $this->renderLocationIcon($city),
             ]));
-        } catch (\Exception $e) {
+        } catch (Throwable $e) {
             return null;
         }
     }
@@ -124,9 +130,7 @@ class LocationColumnWidget extends Widget
             }
 
             $lang = $this->geoip->lang;
-            return isset($obj->names[$lang])
-                ? $obj->names[$lang]
-                : $obj->name;
+            return $obj->names[$lang] ?? $obj->name;
         };
 
         return Html::encode(implode(', ', array_filter([
@@ -155,7 +159,7 @@ class LocationColumnWidget extends Widget
             return Html::tag(
                 'span',
                 Html::encode(strtolower($this->remoteHost)),
-                ['title' => $this->remoteAddr, 'class' => 'auto-tooltip']
+                ['title' => $this->remoteAddr, 'class' => 'auto-tooltip'],
             );
         }
 
@@ -163,7 +167,7 @@ class LocationColumnWidget extends Widget
             return Html::tag(
                 'span',
                 Html::encode(strtolower($this->remoteAddrMasked)),
-                ['title' => $this->remoteAddr, 'class' => 'auto-tooltip']
+                ['title' => $this->remoteAddr, 'class' => 'auto-tooltip'],
             );
         }
 
@@ -175,7 +179,7 @@ class LocationColumnWidget extends Widget
         if ($this->cityInfo === false) {
             try {
                 $this->cityInfo = $this->geoip->city($this->remoteAddr);
-            } catch (\Exception $e) {
+            } catch (Throwable $e) {
                 $this->cityInfo = null;
             }
         }

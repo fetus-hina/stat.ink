@@ -38,7 +38,7 @@ class m170720_202358_weapon2 extends Migration
             'charger',
             'splashshield',
             'pitcher',
-            'splatcharger'
+            'splatcharger',
         );
         $this->upWeapon(
             'splatscope_collabo',
@@ -46,7 +46,7 @@ class m170720_202358_weapon2 extends Migration
             'charger',
             'splashshield',
             'pitcher',
-            'splatcharger'
+            'splatcharger',
         );
         $this->upWeapon('liter4k', 'E-liter 4K', 'charger', 'trap', 'amefurashi');
         $this->upWeapon('liter4k_scope', 'E-liter 4K Scope', 'charger', 'trap', 'amefurashi', 'liter4k');
@@ -95,24 +95,24 @@ class m170720_202358_weapon2 extends Migration
         ?string $canonical = null
     ) {
         $this->insert('weapon2', [
-            'key'           => $key,
-            'name'          => $name,
-            'type_id'       => $this->findId('weapon_type2', $type),
-            'subweapon_id'  => $this->findId('subweapon2', $sub),
-            'special_id'    => $this->findId('special2', $special),
-            'main_group_id' => ($main !== null)
+            'key' => $key,
+            'name' => $name,
+            'type_id' => $this->findId('weapon_type2', $type),
+            'subweapon_id' => $this->findId('subweapon2', $sub),
+            'special_id' => $this->findId('special2', $special),
+            'main_group_id' => $main !== null
                 ? $this->findId('weapon2', $main)
                 : new Expression("currval('weapon2_id_seq'::regclass)"),
-            'canonical_id'  => ($canonical !== null)
+            'canonical_id' => $canonical !== null
                 ? $this->findId('weapon2', $canonical)
                 : new Expression("currval('weapon2_id_seq'::regclass)"),
         ]);
 
         $this->insert('death_reason2', [
-            'key'           => $key,
-            'name'          => $name,
-            'type_id'       => $this->findId('death_reason_type2', 'main'),
-            'weapon_id'     => $this->findId('weapon2', $key),
+            'key' => $key,
+            'name' => $name,
+            'type_id' => $this->findId('death_reason_type2', 'main'),
+            'weapon_id' => $this->findId('weapon2', $key),
         ]);
     }
 

@@ -13,10 +13,10 @@ class m160912_123842_events extends Migration
     public function up()
     {
         $this->createTable('event', [
-            'id'    => $this->primaryKey(),
-            'date'  => 'TIMESTAMP(0) WITH TIME ZONE NOT NULL',
-            'name'  => $this->string(64)->notNull(),
-            'icon'  => $this->string(32)->notNull(),
+            'id' => $this->primaryKey(),
+            'date' => 'TIMESTAMP(0) WITH TIME ZONE NOT NULL',
+            'name' => $this->string(64)->notNull(),
+            'icon' => $this->string(32)->notNull(),
         ]);
     }
 

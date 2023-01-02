@@ -24,19 +24,17 @@ class m181206_132203_salmon_map_short extends Migration
                     vsprintf('(CASE %s %s END)', [
                         $this->db->quoteColumnName('key'),
                         implode(' ', array_map(
-                            function (string $key, string $name): string {
-                                return vsprintf('WHEN %s THEN %s', [
+                            fn (string $key, string $name): string => vsprintf('WHEN %s THEN %s', [
                                     $this->db->quoteValue($key),
                                     $this->db->quoteValue($name),
-                                ]);
-                            },
+                                ]),
                             array_keys($names),
-                            array_values($names)
+                            array_values($names),
                         )),
-                    ])
+                    ]),
                 ),
             ],
-            ['key' => array_keys($names)]
+            ['key' => array_keys($names)],
         );
         $this->execute('ALTER TABLE {{salmon_map2}} ALTER COLUMN [[short_name]] SET NOT NULL');
     }

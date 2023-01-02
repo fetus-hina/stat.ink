@@ -18,7 +18,7 @@ class m181006_113209_salmon_weapons extends Migration
             $this->update(
                 'salmon_main_weapon2',
                 ['splatnet' => $v],
-                ['key' => $k]
+                ['key' => $k],
             );
         }
     }
@@ -28,7 +28,7 @@ class m181006_113209_salmon_weapons extends Migration
         $this->update(
             'salmon_main_weapon2',
             ['splatnet' => null],
-            ['key' => array_keys($this->getData())]
+            ['key' => array_keys($this->getData())],
         );
     }
 

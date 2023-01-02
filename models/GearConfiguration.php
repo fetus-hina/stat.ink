@@ -8,7 +8,15 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+
+use function array_map;
+use function base64_encode;
+use function count;
+use function hash;
+use function http_build_query;
+use function rtrim;
 
 /**
  * This is the model class for table "gear_configuration".
@@ -22,7 +30,7 @@ use Yii;
  * @property Gear $gear
  * @property GearConfigurationSecondary[] $secondaries
  */
-class GearConfiguration extends \yii\db\ActiveRecord
+class GearConfiguration extends ActiveRecord
 {
     public static function generateFingerPrint($gearId, $primaryAbilityId, array $secondaryAbitilyIdList)
     {
@@ -48,10 +56,10 @@ class GearConfiguration extends \yii\db\ActiveRecord
                 hash(
                     'sha256',
                     http_build_query($data, '', '&'),
-                    true
-                )
+                    true,
+                ),
             ),
-            '='
+            '=',
         );
     }
 
@@ -72,7 +80,7 @@ class GearConfiguration extends \yii\db\ActiveRecord
             [['finger_print'], 'required'],
             [['gear_id', 'primary_ability_id'], 'integer'],
             [['finger_print'], 'string', 'max' => 43],
-            [['finger_print'], 'unique']
+            [['finger_print'], 'unique'],
         ];
     }
 
@@ -90,7 +98,7 @@ class GearConfiguration extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getPrimaryAbility()
     {
@@ -98,7 +106,7 @@ class GearConfiguration extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getGear()
     {
@@ -106,7 +114,7 @@ class GearConfiguration extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getSecondaries()
     {
@@ -120,13 +128,10 @@ class GearConfiguration extends \yii\db\ActiveRecord
             'primary_ability' => $this->primaryAbility ? $this->primaryAbility->toJsonArray() : null,
             'secondary_abilities' => $this->secondaries
                 ? array_map(
-                    function ($o) {
-                        return $o->toJsonArray();
-                    },
-                    $this->secondaries
+                    fn ($o) => $o->toJsonArray(),
+                    $this->secondaries,
                 )
                 : null,
         ];
-        return null;
     }
 }

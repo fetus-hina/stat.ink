@@ -20,7 +20,7 @@ class m180301_103246_quadhopper_black extends Migration
             'Dark Tetra Dualies',
             'maneuver',
             'robotbomb',
-            'chakuchi'
+            'chakuchi',
         );
     }
 

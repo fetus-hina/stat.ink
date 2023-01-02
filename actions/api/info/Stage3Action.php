@@ -11,10 +11,13 @@ declare(strict_types=1);
 namespace app\actions\api\info;
 
 use Yii;
-use app\components\helpers\Translator;
 use app\models\Language;
 use app\models\Map3;
 use yii\web\ViewAction;
+
+use function strcmp;
+use function strnatcasecmp;
+use function usort;
 
 final class Stage3Action extends ViewAction
 {
@@ -36,12 +39,10 @@ final class Stage3Action extends ViewAction
             return strnatcasecmp($a->name, $b->name);
         });
 
-        usort($stages, function (Map3 $a, Map3 $b): int {
-            return strnatcasecmp(Yii::t('app-map3', $a->name), Yii::t('app-map3', $b->name))
+        usort($stages, fn (Map3 $a, Map3 $b): int => strnatcasecmp(Yii::t('app-map3', $a->name), Yii::t('app-map3', $b->name))
                 ?: strnatcasecmp($a->name, $b->name)
                 ?: strnatcasecmp($a->key, $b->key)
-                ?: strcmp($a->key, $b->key);
-        });
+                ?: strcmp($a->key, $b->key));
 
         return $this->controller->render('stage3', [
             'stages' => $stages,

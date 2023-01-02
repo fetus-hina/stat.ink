@@ -8,7 +8,6 @@
 
 namespace app\components\widgets;
 
-use Yii;
 use yii\base\Widget;
 use yii\helpers\Html;
 
@@ -30,7 +29,7 @@ final class ApiInfoName extends Widget
         return Html::tag(
             $lang === 'en-US' || $name !== $enName ? null : 'span',
             Html::encode($name),
-            ['class' => 'text-muted']
+            ['class' => 'text-muted'],
         );
     }
 }

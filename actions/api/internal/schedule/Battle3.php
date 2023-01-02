@@ -24,6 +24,10 @@ use yii\helpers\Url;
 use yii\web\AssetBundle;
 use yii\web\View;
 
+use function array_combine;
+use function array_map;
+use function vsprintf;
+
 use const SORT_ASC;
 
 trait Battle3
@@ -32,14 +36,14 @@ trait Battle3
     {
         $period = $this->currentPeriod;
         $lobbies = $this->getLobbies3($period);
-        return \array_combine(
+        return array_combine(
             // keys
-            \array_map(
+            array_map(
                 fn (Lobby3 $lobby): string => $lobby->key,
-                $lobbies
+                $lobbies,
             ),
             // values
-            \array_map(
+            array_map(
                 fn (Lobby3 $lobby): array => [
                     'key' => $lobby->key,
                     'game' => 'splatoon3',
@@ -50,8 +54,8 @@ trait Battle3
                     'source' => 's3ink',
                     'schedules' => $this->getBattleSchedules3($period, $lobby),
                 ],
-                $lobbies
-            )
+                $lobbies,
+            ),
         );
     }
 
@@ -88,7 +92,7 @@ trait Battle3
             ->orderBy(['period' => SORT_ASC])
             ->all();
 
-        return \array_map(
+        return array_map(
             function (Schedule3 $schedule): array {
                 $rule = $schedule->rule;
                 return [
@@ -99,7 +103,7 @@ trait Battle3
                         'short' => Yii::t('app-rule3', $rule->short_name),
                         'icon' => $this->getIconUrlForRule3($rule),
                     ],
-                    'maps' => \array_map(
+                    'maps' => array_map(
                         function (ScheduleMap3 $model): array {
                             $map = $model->map;
                             return [
@@ -108,11 +112,11 @@ trait Battle3
                                 'image' => $this->getImageUrlForMap3($map),
                             ];
                         },
-                        $schedule->scheduleMap3s
+                        $schedule->scheduleMap3s,
                     ),
                 ];
             },
-            $schedules
+            $schedules,
         );
     }
 
@@ -120,9 +124,9 @@ trait Battle3
     {
         return self::getAssetUrl3(
             GameModeIconsAsset::class,
-            \vsprintf('spl3/%s.png', [
+            vsprintf('spl3/%s.png', [
                 $lobby->key,
-            ])
+            ]),
         );
     }
 
@@ -130,9 +134,9 @@ trait Battle3
     {
         return self::getAssetUrl3(
             GameModeIconsAsset::class,
-            \vsprintf('spl3/%s.png', [
+            vsprintf('spl3/%s.png', [
                 $rule->key,
-            ])
+            ]),
         );
     }
 
@@ -140,9 +144,9 @@ trait Battle3
     {
         return self::getAssetUrl3(
             Spl3StageAsset::class,
-            \vsprintf('color-normal/%s.jpg', [
+            vsprintf('color-normal/%s.jpg', [
                 $map->key,
-            ])
+            ]),
         );
     }
 
@@ -158,7 +162,7 @@ trait Battle3
         $am = Yii::$app->assetManager;
         return Url::to(
             $am->getAssetUrl($am->getBundle($assetClass, true), $path),
-            true
+            true,
         );
     }
 }

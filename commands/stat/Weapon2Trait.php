@@ -15,6 +15,14 @@ use app\models\Battle2;
 use app\models\Rank2;
 use yii\db\Query;
 
+use function array_filter;
+use function array_keys;
+use function array_map;
+use function implode;
+use function in_array;
+use function sprintf;
+use function vsprintf;
+
 trait Weapon2Trait
 {
     protected function updateEntireWeapons2(): void
@@ -41,21 +49,21 @@ trait Weapon2Trait
                 'death' => 'battle_player2.death',
                 'assist' => vsprintf('(%s - %s)', [
                     'battle_player2.kill_or_assist',
-                    'battle_player2.kill'
+                    'battle_player2.kill',
                 ]),
                 'special' => 'battle_player2.special',
                 'points' => vsprintf('(FLOOR((%s)::DOUBLE PRECISION / %2$.1f)::BIGINT * %2$d)', [
                     sprintf('(battle_player2.point - CASE %s END)', implode(' ', [
                         "WHEN rule2.key <> 'nawabari' THEN 0",
-                        "WHEN battle2.is_win = battle_player2.is_my_team THEN 1000",
-                        "ELSE 0",
+                        'WHEN battle2.is_win = battle_player2.is_my_team THEN 1000',
+                        'ELSE 0',
                     ])),
-                    $pointNormalize
+                    $pointNormalize,
                 ]),
                 'battles' => 'COUNT(*)',
                 'wins' => sprintf('SUM(CASE %s END)', implode(' ', [
                     'WHEN battle2.is_win = battle_player2.is_my_team THEN 1',
-                    'ELSE 0'
+                    'ELSE 0',
                 ])),
             ])
             ->innerJoinWith([
@@ -111,17 +119,17 @@ trait Weapon2Trait
                 sprintf(
                     '(%s - %s)',
                     'battle_player2.kill_or_assist',
-                    'battle_player2.kill'
+                    'battle_player2.kill',
                 ),
                 'battle_player2.special',
                 sprintf(
                     '(FLOOR((%s)::DOUBLE PRECISION / %2$.1f)::BIGINT * %2$d)',
                     sprintf('(battle_player2.point - CASE %s END)', implode(' ', [
                         "WHEN rule2.key <> 'nawabari' THEN 0",
-                        "WHEN battle2.is_win = battle_player2.is_my_team THEN 1000",
-                        "ELSE 0",
+                        'WHEN battle2.is_win = battle_player2.is_my_team THEN 1000',
+                        'ELSE 0',
                     ])),
-                    $pointNormalize
+                    $pointNormalize,
                 ),
             ])
             ->having(['and',
@@ -130,12 +138,12 @@ trait Weapon2Trait
                         '(FLOOR((%s)::DOUBLE PRECISION / %2$.1f)::BIGINT * %2$d)',
                         sprintf('(battle_player2.point - CASE %s END)', implode(' ', [
                             "WHEN rule2.key <> 'nawabari' THEN 0",
-                            "WHEN battle2.is_win = battle_player2.is_my_team THEN 1000",
-                            "ELSE 0",
+                            'WHEN battle2.is_win = battle_player2.is_my_team THEN 1000',
+                            'ELSE 0',
                         ])),
-                        $pointNormalize
+                        $pointNormalize,
                     ),
-                    0
+                    0,
                 ],
             ])
             ->orderBy(null);
@@ -143,30 +151,22 @@ trait Weapon2Trait
         $insert = sprintf(
             // {{{
             'INSERT INTO stat_weapon2_result ( %s ) %s %s',
-            implode(', ', array_map(function (string $column): string {
-                return "[[{$column}]]";
-            }, array_keys($select->select))),
+            implode(', ', array_map(fn (string $column): string => "[[{$column}]]", array_keys($select->select))),
             $select->createCommand()->rawSql,
             sprintf(
                 'ON CONFLICT ( %s ) DO UPDATE SET %s',
                 implode(', ', array_map(
-                    function (string $column): string {
-                        return "[[{$column}]]";
-                    },
+                    fn (string $column): string => "[[{$column}]]",
                     array_filter(
                         array_keys($select->select),
-                        function (string $column): bool {
-                            return !in_array($column, ['battles', 'wins'], true);
-                        }
-                    )
+                        fn (string $column): bool => !in_array($column, ['battles', 'wins'], true),
+                    ),
                 )),
                 implode(', ', array_map(
-                    function (string $column): string {
-                        return "[[{$column}]] = {{excluded}}.[[{$column}]]";
-                    },
-                    ['battles', 'wins']
-                ))
-            )
+                    fn (string $column): string => "[[{$column}]] = {{excluded}}.[[{$column}]]",
+                    ['battles', 'wins'],
+                )),
+            ),
             // }}}
         );
         echo "Updating stat_weapon2_result...\n";
@@ -207,21 +207,17 @@ trait Weapon2Trait
         $sql = vsprintf('INSERT INTO %s (%s) %s ON CONFLICT ON CONSTRAINT %s DO UPDATE SET %s', [
             $db->quoteTableName('stat_weapon2_kd_win_rate'),
             implode(', ', array_map(
-                function (string $cName) use ($db): string {
-                    return $db->quoteColumnName($cName);
-                },
-                array_keys($select->select)
+                fn (string $cName): string => $db->quoteColumnName($cName),
+                array_keys($select->select),
             )),
             $select->createCommand()->rawSql,
             $db->quoteColumnName('stat_weapon2_kd_win_rate_pkey'),
             implode(', ', array_map(
-                function (string $cName) use ($db): string {
-                    return vsprintf('%1$s = %2$s.%1$s', [
+                fn (string $cName): string => vsprintf('%1$s = %2$s.%1$s', [
                         $db->quoteColumnName($cName),
                         $db->quoteTableName('excluded'),
-                    ]);
-                },
-                ['battles', 'wins']
+                    ]),
+                ['battles', 'wins'],
             )),
         ]);
 

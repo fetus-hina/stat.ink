@@ -52,9 +52,7 @@ class m220805_002623_map3 extends Migration
             '{{%map3}}',
             ['key', 'name', 'short_name', 'release_at'],
             array_map(
-                function (string $key, array $names): array {
-                    return [$key, $names[0], $names[1], self::S3_LAUNCH];
-                },
+                fn (string $key, array $names): array => [$key, $names[0], $names[1], self::S3_LAUNCH],
                 array_keys($allData),
                 array_values($allData),
             ),

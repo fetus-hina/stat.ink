@@ -48,7 +48,7 @@ class m170924_143044_type_reelgun extends Migration
                     ->where(['key' => 'reelgun'])
                     ->scalar(),
             ],
-            ['key' => ['l3reelgun', 'h3reelgun']]
+            ['key' => ['l3reelgun', 'h3reelgun']],
         );
         $transaction->commit();
         $this->execute('ALTER TABLE {{weapon_type2}} ALTER COLUMN [[rank]] SET NOT NULL');
@@ -72,7 +72,7 @@ class m170924_143044_type_reelgun extends Migration
                     ->from('weapon_type2')
                     ->where(['key' => 'reelgun'])
                     ->scalar(),
-            ]
+            ],
         );
         $this->dropIndex('ix_weapon_type2_1', 'weapon_type2');
         $this->delete('weapon_type2', ['key' => 'reelgun']);

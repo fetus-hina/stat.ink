@@ -38,10 +38,10 @@ class PasswordForm extends Model
     public function attributeLabels()
     {
         return [
-            'screen_name'           => Yii::t('app', 'Screen Name (Login Name)'),
-            'password'              => Yii::t('app', 'Current Password'),
-            'new_password'          => Yii::t('app', 'New Password'),
-            'new_password_repeat'   => Yii::t('app', 'New Password (again)'),
+            'screen_name' => Yii::t('app', 'Screen Name (Login Name)'),
+            'password' => Yii::t('app', 'Current Password'),
+            'new_password' => Yii::t('app', 'New Password'),
+            'new_password_repeat' => Yii::t('app', 'New Password (again)'),
         ];
     }
 
@@ -54,7 +54,7 @@ class PasswordForm extends Model
         if (!$user || !$user->validatePassword($this->password)) {
             $this->addError(
                 $attribute,
-                Yii::t('yii', '{attribute} is invalid.', ['attribute' => $this->getAttributeLabel('password')])
+                Yii::t('yii', '{attribute} is invalid.', ['attribute' => $this->getAttributeLabel('password')]),
             );
         }
     }

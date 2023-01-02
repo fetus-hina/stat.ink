@@ -10,13 +10,14 @@ declare(strict_types=1);
 
 namespace app\actions\user;
 
-use Exception;
 use Yii;
 use app\components\helpers\AddressUpdatedEmailSender;
 use app\models\EmailForm;
 use app\models\EmailVerifyForm;
-use app\models\User;
 use yii\web\ViewAction;
+
+use function count;
+use function time;
 
 class EditEmailAction extends ViewAction
 {
@@ -42,7 +43,7 @@ class EditEmailAction extends ViewAction
                             $oldEmail ? (string)$oldEmail : null,
                             $form->email ? (string)$form->email : null,
                             $user,
-                            $oldEmailLang
+                            $oldEmailLang,
                         );
                     }
                     $this->controller->redirect(['user/profile']);
@@ -71,7 +72,7 @@ class EditEmailAction extends ViewAction
                     [
                         'lang' => Yii::$app->language,
                         'code' => $verifyCode,
-                    ]
+                    ],
                 );
                 $mail->setFrom(Yii::$app->params['notifyEmail'])
                     ->setTo($form->email)
@@ -83,7 +84,7 @@ class EditEmailAction extends ViewAction
                             'screen_name' => $user->screen_name,
                             'site' => Yii::$app->name,
                         ],
-                        Yii::$app->language
+                        Yii::$app->language,
                     ))
                     ->send();
                 unset($mail);

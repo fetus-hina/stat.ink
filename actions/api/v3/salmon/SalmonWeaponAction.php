@@ -16,6 +16,8 @@ use app\models\SalmonWeapon3;
 use yii\helpers\ArrayHelper;
 use yii\web\ViewAction;
 
+use function array_values;
+
 use const SORT_ASC;
 
 final class SalmonWeaponAction extends ViewAction
@@ -36,7 +38,7 @@ final class SalmonWeaponAction extends ViewAction
      */
     public function run(bool $full = false): array
     {
-        return \array_values(
+        return array_values(
             ArrayHelper::getColumn(
                 SalmonWeapon3::find()
                     ->with(['salmonWeapon3Aliases'])

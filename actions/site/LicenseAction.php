@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\actions\site;
 
-use DirectoryIterator;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use Yii;
@@ -22,6 +21,8 @@ use function array_merge;
 use function call_user_func;
 use function file_get_contents;
 use function ltrim;
+use function preg_match;
+use function preg_replace;
 use function strcmp;
 use function strlen;
 use function strnatcasecmp;
@@ -79,7 +80,7 @@ class LicenseAction extends SimpleAction
                 return strnatcasecmp($aName2, $bName2)
                     ?: strnatcasecmp($aName, $bName)
                     ?: strcmp($aName, $bName);
-            }
+            },
         );
         return $ret;
     }
@@ -89,7 +90,7 @@ class LicenseAction extends SimpleAction
         $basedir = Yii::getAlias('@app/data/licenses/');
         $ret = [];
         $it = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($basedir)
+            new RecursiveDirectoryIterator($basedir),
         );
         foreach ($it as $entry) {
             if (!$entry->isFile()) {
@@ -124,7 +125,7 @@ class LicenseAction extends SimpleAction
         $basedir = Yii::getAlias('@app/data/licenses-composer/');
         $ret = [];
         $it = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($basedir)
+            new RecursiveDirectoryIterator($basedir),
         );
         foreach ($it as $entry) {
             if (!$entry->isFile()) {
@@ -142,7 +143,7 @@ class LicenseAction extends SimpleAction
             $basename = substr($pathname, strlen($basedir));
             $html = $this->loadPlain(
                 $entry->getPathname(),
-                fn(string $t): bool => (bool)preg_match('/copyright|licen[cs]e/i', $t),
+                fn (string $t): bool => (bool)preg_match('/copyright|licen[cs]e/i', $t),
             );
             if ($html) {
                 $ret[] = (object)[
@@ -161,7 +162,7 @@ class LicenseAction extends SimpleAction
         $basedir = Yii::getAlias('@app/data/licenses-npm/');
         $ret = [];
         $it = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($basedir)
+            new RecursiveDirectoryIterator($basedir),
         );
         foreach ($it as $entry) {
             if (!$entry->isFile()) {
@@ -179,7 +180,7 @@ class LicenseAction extends SimpleAction
             $basename = substr($pathname, strlen($basedir));
             $html = $this->loadPlain(
                 $entry->getPathname(),
-                fn(string $t): bool => (bool)preg_match('/copyright|licen[cs]e/i', $t),
+                fn (string $t): bool => (bool)preg_match('/copyright|licen[cs]e/i', $t),
             );
             if ($html) {
                 $ret[] = (object)[
@@ -196,7 +197,7 @@ class LicenseAction extends SimpleAction
     private function loadPlain(string $path, ?callable $checker = null): ?string
     {
         $text = $this->loadFile($path, $checker);
-        return ($text !== null)
+        return $text !== null
             ? Html::tag('pre', Html::encode($text))
             : null;
     }
@@ -204,7 +205,7 @@ class LicenseAction extends SimpleAction
     private function loadMarkdown($path, ?callable $checker = null): ?string
     {
         $text = $this->loadFile($path, $checker);
-        return ($text !== null)
+        return $text !== null
             ? $this->mdParser->parse($text)
             : null;
     }

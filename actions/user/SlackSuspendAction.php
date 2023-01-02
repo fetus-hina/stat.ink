@@ -9,11 +9,11 @@
 namespace app\actions\user;
 
 use Yii;
+use app\components\helpers\db\Now;
+use app\models\Slack;
 use yii\base\DynamicModel;
 use yii\web\BadRequestHttpException;
 use yii\web\ViewAction as BaseAction;
-use app\components\helpers\db\Now;
-use app\models\Slack;
 
 class SlackSuspendAction extends BaseAction
 {
@@ -33,7 +33,7 @@ class SlackSuspendAction extends BaseAction
             [
                 [['id'], 'exist', 'targetClass' => Slack::class, 'targetAttribute' => 'id'],
                 [['suspend'], 'boolean', 'trueValue' => 'yes', 'falseValue' => 'no'],
-            ]
+            ],
         );
         if ($form->hasErrors()) {
             throw new BadRequestHttpException('Bad Request');

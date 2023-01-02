@@ -11,6 +11,15 @@ namespace app\components\behaviors;
 use yii\base\Behavior;
 use yii\db\ActiveRecord;
 
+use function base64_decode;
+use function base64_encode;
+use function gzdecode;
+use function gzencode;
+use function strlen;
+use function substr;
+
+use const FORCE_GZIP;
+
 class CompressBehavior extends Behavior
 {
     public const PREFIX_PLAIN = '[{';
@@ -21,7 +30,7 @@ class CompressBehavior extends Behavior
     public function events()
     {
         return [
-            ActiveRecord::EVENT_AFTER_FIND    => 'decompress',
+            ActiveRecord::EVENT_AFTER_FIND => 'decompress',
             ActiveRecord::EVENT_BEFORE_INSERT => 'compress',
             ActiveRecord::EVENT_BEFORE_UPDATE => 'compress',
         ];

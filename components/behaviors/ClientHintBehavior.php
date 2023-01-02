@@ -10,8 +10,7 @@ declare(strict_types=1);
 
 namespace app\components\behaviors;
 
-use Exception;
-use Yii;
+use Throwable;
 use app\models\HttpClientHint;
 use yii\behaviors\AttributeBehavior;
 use yii\db\ActiveRecord;
@@ -32,7 +31,7 @@ class ClientHintBehavior extends AttributeBehavior
             }
 
             return $model->id;
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             return null;
         }
     }

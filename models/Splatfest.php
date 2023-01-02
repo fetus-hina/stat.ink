@@ -8,7 +8,11 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+
+use function gmdate;
+use function time;
 
 /**
  * This is the model class for table "splatfest".
@@ -26,7 +30,7 @@ use Yii;
  * @property SplatfestTeam[] $splatfestTeams
  * @property Team[] $teams
  */
-class Splatfest extends \yii\db\ActiveRecord
+class Splatfest extends ActiveRecord
 {
     public static function findCurrentFest()
     {
@@ -35,7 +39,7 @@ class Splatfest extends \yii\db\ActiveRecord
             ->innerJoinWith('region', false)
             ->andWhere(['and',
                 ['<=', '{{splatfest}}.[[start_at]]', $t],
-                ['>',  '{{splatfest}}.[[end_at]]', $t],
+                ['>', '{{splatfest}}.[[end_at]]', $t],
             ]);
     }
 
@@ -58,7 +62,7 @@ class Splatfest extends \yii\db\ActiveRecord
             [['start_at', 'end_at'], 'safe'],
             [['name'], 'string', 'max' => 64],
             [['region_id', 'order'], 'unique', 'targetAttribute' => ['region_id', 'order'],
-                'message' => 'The combination of  and Region ID has already been taken.']
+                'message' => 'The combination of  and Region ID has already been taken.'],
         ];
     }
 
@@ -78,7 +82,7 @@ class Splatfest extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getRegion()
     {
@@ -86,7 +90,7 @@ class Splatfest extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getSplatfestBattleSummaries()
     {
@@ -94,7 +98,7 @@ class Splatfest extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getSplatfestMaps()
     {
@@ -102,7 +106,7 @@ class Splatfest extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getSplatfestTeams()
     {
@@ -110,7 +114,7 @@ class Splatfest extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getTeams()
     {

@@ -20,7 +20,7 @@ final class m220916_020814_s3_111_time extends Migration
         $this->update(
             '{{%splatoon_version3}}',
             ['release_at' => '2022-09-16T10:00:00+09:00'],
-            ['tag' => '1.1.1']
+            ['tag' => '1.1.1'],
         );
 
         return true;
@@ -34,7 +34,7 @@ final class m220916_020814_s3_111_time extends Migration
         $this->update(
             '{{%splatoon_version3}}',
             ['release_at' => '2022-09-16T11:00:00+09:00'],
-            ['tag' => '1.1.1']
+            ['tag' => '1.1.1'],
         );
 
         return true;

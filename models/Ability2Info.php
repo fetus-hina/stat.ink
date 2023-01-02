@@ -13,6 +13,21 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 
+use function array_merge;
+use function ceil;
+use function floor;
+use function implode;
+use function log;
+use function max;
+use function min;
+use function pow;
+use function round;
+use function strpos;
+use function trim;
+use function ucfirst;
+use function version_compare;
+use function vsprintf;
+
 class Ability2Info extends Model
 {
     private const WEIGHT_LIGHT = 0;
@@ -35,7 +50,7 @@ class Ability2Info extends Model
     {
         return max(0, min(
             $this->primary * 10 + $this->secondary * 3,
-            57
+            57,
         ));
     }
 
@@ -142,7 +157,7 @@ class Ability2Info extends Model
                 ) {
                     $rows[] = Yii::t(
                         'app-ability2',
-                        ($values['damageCap'] < $values['damage'])
+                        $values['damageCap'] < $values['damage']
                             ? 'Damage: {damageCap} = {baseDamage}×{percent} ({damage}, capped)'
                             : 'Damage: {damage} = {baseDamage}×{percent}',
                         [
@@ -150,7 +165,7 @@ class Ability2Info extends Model
                             'damage' => $f->asDecimal($values['damage'], 1),
                             'damageCap' => $f->asDecimal($values['damageCap'], 1),
                             'percent' => $f->asPercent($values['damageRate'], 1),
-                        ]
+                        ],
                     );
                 }
 
@@ -172,7 +187,7 @@ class Ability2Info extends Model
                             Yii::t('app-ability2', $textPrefix),
                             Yii::t(
                                 'app-ability2',
-                                ($values['damageCap' . $suffix] < $values['damage' . $suffix])
+                                $values['damageCap' . $suffix] < $values['damage' . $suffix]
                                     ? 'Damage: {damageCap} = {baseDamage}×{percent} ({damage}, capped)'
                                     : 'Damage: {damage} = {baseDamage}×{percent}',
                                 [
@@ -180,7 +195,7 @@ class Ability2Info extends Model
                                     'damage' => $f->asDecimal($values['damage' . $suffix], 1),
                                     'damageCap' => $f->asDecimal($values['damageCap' . $suffix], 1),
                                     'percent' => $f->asPercent($values['damageRate' . $suffix], 1),
-                                ]
+                                ],
                             ),
                         ]);
                     }
@@ -202,7 +217,7 @@ class Ability2Info extends Model
 
                 if (($values['runSpeedRatio'] ?? null) !== null) {
                     $rows[] = Yii::t('app-ability2', 'Normal: {value}', [
-                        'value' => (($values['runSpeedDUPF'] ?? null) !== null)
+                        'value' => ($values['runSpeedDUPF'] ?? null) !== null
                             ? Yii::t('app-ability2', '{pct} ({dupf} DU/f)', [
                                 'pct' => $f->asPercent($values['runSpeedRatio'], 1),
                                 'dupf' => $f->asDecimal($values['runSpeedDUPF'], 3),
@@ -257,7 +272,7 @@ class Ability2Info extends Model
                     $rows[] = Yii::t('app-ability2', 'Duration: {sec} ({sec1}+{sec2}) sec', [
                         'sec' => $f->asDecimal(
                             ($values['armorDurationFrames1'] + $values['armorDurationFrames2']) / 60,
-                            3
+                            3,
                         ),
                         'sec1' => $f->asDecimal($values['armorDurationFrames1'] / 60, 3),
                         'sec2' => $f->asDecimal($values['armorDurationFrames2'] / 60, 3),
@@ -368,19 +383,19 @@ class Ability2Info extends Model
         $runSpeed = (function () use ($gp, $vTag): float {
             // {{{
             if (version_compare($vTag, '4.6.0', '<')) {
-                return (static::calcCoefficient($gp, 0.72, 0.24, 0.5)) / 0.24;
+                return static::calcCoefficient($gp, 0.72, 0.24, 0.5) / 0.24;
             }
 
-            return (static::calcCoefficient($gp, 0.769, 0.24, 0.6)) / 0.24;
+            return static::calcCoefficient($gp, 0.769, 0.24, 0.6) / 0.24;
             // }}}
         })();
         $runSpeedShoot = (function () use ($gp, $vTag): float {
             // {{{
             if (version_compare($vTag, '4.6.0', '<')) {
-                return (static::calcCoefficient($gp, 0.40, 0.12, 0.5)) / 0.12;
+                return static::calcCoefficient($gp, 0.40, 0.12, 0.5) / 0.12;
             }
 
-            return (static::calcCoefficient($gp, 0.42, 0.12, 0.7)) / 0.12;
+            return static::calcCoefficient($gp, 0.42, 0.12, 0.7) / 0.12;
             // }}}
         })();
         $runSpeedCharge = (function () use ($gp): ?float {
@@ -391,17 +406,17 @@ class Ability2Info extends Model
 
             switch ($this->weapon->mainReference->key) {
                 case 'splatspinner':
-                    return (0.7 * static::calcCoefficient($gp, 1, 0.5)) / (0.7 * 0.5);
+                    return 0.7 * static::calcCoefficient($gp, 1, 0.5) / (0.7 * 0.5);
 
                 case 'barrelspinner':
-                    return (0.6 * static::calcCoefficient($gp, 1, 0.5)) / (0.6 * 0.5);
+                    return 0.6 * static::calcCoefficient($gp, 1, 0.5) / (0.6 * 0.5);
 
                 case 'hydra':
                 case 'nautilus47':
-                    return (0.4 * static::calcCoefficient($gp, 1, 0.5)) / (0.4 * 0.5);
+                    return 0.4 * static::calcCoefficient($gp, 1, 0.5) / (0.4 * 0.5);
 
                 case 'kugelschreiber':
-                    return (0.96 * static::calcCoefficient($gp, 1, 0.5)) / (0.96 * 0.5);
+                    return 0.96 * static::calcCoefficient($gp, 1, 0.5) / (0.96 * 0.5);
             }
 
             return null;
@@ -507,7 +522,7 @@ class Ability2Info extends Model
                     $this->weapon->mainReference,
                     $this->weapon->getWeaponAttack($this->version),
                     $this->version,
-                    $this->get57Format()
+                    $this->get57Format(),
                 );
 
             default:
@@ -563,7 +578,7 @@ class Ability2Info extends Model
             case 'bold':
                 return $calcDamage(
                     $baseDamage,
-                    version_compare($version->tag, '4.3.1', '<') ? 1.2 : 1.25
+                    version_compare($version->tag, '4.3.1', '<') ? 1.2 : 1.25,
                 );
 
             case 'prime':
@@ -578,19 +593,19 @@ class Ability2Info extends Model
             case 'l3reelgun':
                 return $calcDamage(
                     $baseDamage,
-                    version_compare($version->tag, '5.1.0', '<') ? 1.3 : 1.24
+                    version_compare($version->tag, '5.1.0', '<') ? 1.3 : 1.24,
                 );
 
             case 'h3reelgun':
                 return $calcDamage(
                     $baseDamage,
-                    version_compare($version->tag, '4.5.0', '<') ? 1.25 : 1.24
+                    version_compare($version->tag, '4.5.0', '<') ? 1.25 : 1.24,
                 );
 
             case 'bottlegeyser':
                 return $calcDamage(
                     $baseDamage,
-                    version_compare($version->tag, '4.3.1', '<') ? 1.2 : 1.3
+                    version_compare($version->tag, '4.3.1', '<') ? 1.2 : 1.3,
                 );
 
             case 'carbon':
@@ -608,7 +623,6 @@ class Ability2Info extends Model
                     $calcDamage((float)$attack->damage2, 1.15, 2 / 3, 'V'),
                     $calcDamage((float)$attack->damage3, 1.15, 2 / 3, 'Sq'),
                 );
-                return null;
 
             case 'sputtery':
             case 'kelvin525':
@@ -620,7 +634,7 @@ class Ability2Info extends Model
                 return $calcDamage(
                     $baseDamage,
                     version_compare($version->tag, '4.3.1', '<') ? 1.2 : 1.16,
-                    version_compare($version->tag, '4.3.1', '<') ? 0.5 : 0.375
+                    version_compare($version->tag, '4.3.1', '<') ? 0.5 : 0.375,
                 );
 
             case 'splatcharger':
@@ -629,7 +643,7 @@ class Ability2Info extends Model
             case 'bamboo14mk1':
                 return $calcDamage(
                     $baseDamage,
-                    version_compare($version->tag, '5.1.0', '<') ? 1.2 : 1.19
+                    version_compare($version->tag, '5.1.0', '<') ? 1.2 : 1.19,
                 );
 
             case 'soytuber':
@@ -943,7 +957,6 @@ class Ability2Info extends Model
             case 'spygadget':
             case 'wakaba':
                 return static::WEIGHT_LIGHT;
-
 
             case 'campingshelter':
             case 'dynamo':

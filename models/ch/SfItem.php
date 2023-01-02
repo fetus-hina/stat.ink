@@ -15,6 +15,32 @@ use LogicException;
 use Yii;
 use yii\base\Model;
 
+use function base64_decode;
+use function base64_encode;
+use function floatval;
+use function implode;
+use function intval;
+use function is_bool;
+use function is_float;
+use function is_infinite;
+use function is_int;
+use function is_nan;
+use function is_string;
+use function ksort;
+use function ltrim;
+use function preg_match;
+use function preg_replace;
+use function preg_replace_callback;
+use function sprintf;
+use function strcmp;
+use function strlen;
+use function substr;
+use function trim;
+use function vsprintf;
+
+use const PREG_UNMATCHED_AS_NULL;
+use const SORT_STRING;
+
 class SfItem extends Model
 {
     public $value;
@@ -25,8 +51,8 @@ class SfItem extends Model
         if (!$_ = static::parseAndCreate($text)) {
             return null;
         }
-        list($obj, $remains) = $_;
-        return ($obj instanceof self && trim((string)$remains) === '')
+        [$obj, $remains] = $_;
+        return $obj instanceof self && trim((string)$remains) === ''
             ? $obj
             : null;
     }
@@ -106,11 +132,9 @@ class SfItem extends Model
         return vsprintf('"%s"', [
             preg_replace_callback(
                 '/([\x22\x5c])/',
-                function (array $match): string {
-                    return '\\' . $match[1];
-                },
-                $value
-            )
+                fn (array $match): string => '\\' . $match[1],
+                $value,
+            ),
         ]);
     }
 
@@ -159,11 +183,11 @@ class SfItem extends Model
                 return preg_replace(
                     '/\x5c([\x22\x5c])/',
                     '$1',
-                    substr($match[0], 1, strlen($match[0]) - 2)
+                    substr($match[0], 1, strlen($match[0]) - 2),
                 );
             } elseif (preg_match("/\\A{$sfBinary}\\z/", $encoded, $match)) {
                 return base64_decode(
-                    substr($match[0], 1, strlen($match[0]) - 2)
+                    substr($match[0], 1, strlen($match[0]) - 2),
                 );
             } elseif (preg_match("/\\A{$sfBoolean}\\z/", $encoded, $match)) {
                 return $encoded === '?1';
@@ -177,7 +201,7 @@ class SfItem extends Model
                 "/\\A{$sfItem}(?<remains>.*)\\z/",
                 $encoded,
                 $match,
-                PREG_UNMATCHED_AS_NULL
+                PREG_UNMATCHED_AS_NULL,
             )
         ) {
             return null;
@@ -194,13 +218,13 @@ class SfItem extends Model
                     "/\\A(?<name>{$pname})(?:=(?<value>{$pvalue}))?/",
                     $paramsStr,
                     $match,
-                    PREG_UNMATCHED_AS_NULL
+                    PREG_UNMATCHED_AS_NULL,
                 )
             ) {
                 throw new LogicException('BUG');
             }
 
-            $this->params[$match['name']] = ($match['value'] === null)
+            $this->params[$match['name']] = $match['value'] === null
                 ? null
                 : $parseValue((string)$match['value']);
 

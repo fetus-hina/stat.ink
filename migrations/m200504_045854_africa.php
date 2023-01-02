@@ -21,7 +21,7 @@ class m200504_045854_africa extends Migration
             $tzGroupId = $this->upTzGroup($groupName);
             $tldIdMap = $this->upCountries($groupData);
             $order = 10 * ceil(
-                (1 + (int)(new Query())->select('MAX([[order]])')->from('timezone')->scalar()) / 10
+                (1 + (int)(new Query())->select('MAX([[order]])')->from('timezone')->scalar()) / 10,
             );
 
             foreach ($groupData as $cctld => $info) {
@@ -118,9 +118,7 @@ class m200504_045854_africa extends Migration
     private function upCountries(array $data): array
     {
         $this->batchInsert('country', ['key', 'name'], array_map(
-            function (string $cctld, array $cInfo): array {
-                return [$cctld, $cInfo['name']];
-            },
+            fn (string $cctld, array $cInfo): array => [$cctld, $cInfo['name']],
             array_keys($data),
             array_values($data),
         ));
@@ -128,7 +126,7 @@ class m200504_045854_africa extends Migration
         return ArrayHelper::map(
             (new Query())->select('*')->from('country')->where(['key' => array_keys($data)])->all(),
             'key',
-            'id'
+            'id',
         );
     }
 

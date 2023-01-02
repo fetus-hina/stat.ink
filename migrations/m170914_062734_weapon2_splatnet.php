@@ -25,10 +25,10 @@ class m170914_062734_weapon2_splatnet extends Migration
     private function getList(): array
     {
         return [
-            'squiclean_a'   => 2000,
+            'squiclean_a' => 2000,
             'prime_collabo' => 71,
-            'screwslosher'  => 3020,
-            'momiji'        => 11,
+            'screwslosher' => 3020,
+            'momiji' => 11,
         ];
     }
 }

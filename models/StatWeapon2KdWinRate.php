@@ -10,10 +10,11 @@ declare(strict_types=1);
 
 namespace app\models;
 
-use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+
+use function array_merge;
 
 /**
  * This is the model class for table "stat_weapon2_kd_win_rate".
@@ -71,7 +72,7 @@ class StatWeapon2KdWinRate extends ActiveRecord
                             ->andWhere(['like', 'key', 'mystery%', false])
                             ->asArray()
                             ->all(),
-                        'id'
+                        'id',
                     )]);
                 } else {
                     $model = Map2::findOne(['key' => $key]);

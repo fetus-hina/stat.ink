@@ -8,7 +8,13 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+
+use function ord;
+use function strlen;
+use function strtoupper;
+use function substr;
 
 /**
  * This is the model class for table "country".
@@ -20,7 +26,7 @@ use Yii;
  * @property TimezoneCountry[] $timezoneCountries
  * @property Timezone[] $timezones
  */
-class Country extends \yii\db\ActiveRecord
+class Country extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -39,7 +45,7 @@ class Country extends \yii\db\ActiveRecord
             [['key', 'name'], 'required'],
             [['key'], 'string', 'max' => 2],
             [['name'], 'string', 'max' => 32],
-            [['key'], 'unique']
+            [['key'], 'unique'],
         ];
     }
 
@@ -56,7 +62,7 @@ class Country extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getTimezoneCountries()
     {
@@ -64,7 +70,7 @@ class Country extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getTimezones()
     {
@@ -84,7 +90,7 @@ class Country extends \yii\db\ActiveRecord
             if ($c < 'A' || $c > 'Z') {
                 return null;
             }
-            $results[] = 0x1f1e6 + (ord($c) - ord('A'));
+            $results[] = 0x1f1e6 + ord($c) - ord('A');
         }
         return $results;
     }

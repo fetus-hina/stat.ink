@@ -6,20 +6,20 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
 use app\models\SplatoonVersion;
+use yii\db\Migration;
 
 class m160411_135803_weapon_attack extends Migration
 {
     public function up()
     {
         $this->createTable('weapon_attack', [
-            'id'                => $this->primaryKey(),
-            'main_weapon_id'    => $this->integer()->notNull(),
-            'version_id'        => $this->integer()->notNull()->defaultValue(
-                SplatoonVersion::findOne(['tag' => '1.0.0'])->id
+            'id' => $this->primaryKey(),
+            'main_weapon_id' => $this->integer()->notNull(),
+            'version_id' => $this->integer()->notNull()->defaultValue(
+                SplatoonVersion::findOne(['tag' => '1.0.0'])->id,
             ),
-            'damage'            => $this->decimal(4, 1)->notNull(), // 999.9
+            'damage' => $this->decimal(4, 1)->notNull(), // 999.9
         ]);
         $this->createIndex('ix_weapon_attack_1', 'weapon_attack', ['main_weapon_id', 'version_id'], true);
         $this->addForeignKey('fk_weapon_attack_1', 'weapon_attack', 'main_weapon_id', 'weapon', 'id');

@@ -8,7 +8,8 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "environment".
@@ -20,7 +21,7 @@ use Yii;
  * @property Battle[] $battles
  * @property User[] $users
  */
-class Environment extends \yii\db\ActiveRecord
+class Environment extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -39,7 +40,7 @@ class Environment extends \yii\db\ActiveRecord
             [['sha256sum', 'text'], 'required'],
             [['text'], 'string'],
             [['sha256sum'], 'string', 'max' => 43],
-            [['sha256sum'], 'unique']
+            [['sha256sum'], 'unique'],
         ];
     }
 
@@ -56,7 +57,7 @@ class Environment extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattles()
     {
@@ -64,7 +65,7 @@ class Environment extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getUsers()
     {

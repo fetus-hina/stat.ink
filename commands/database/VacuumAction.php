@@ -15,6 +15,11 @@ use yii\base\Action;
 use yii\console\ExitCode;
 use yii\db\Connection;
 
+use function assert;
+use function microtime;
+use function preg_match;
+use function vfprintf;
+
 use const STDERR;
 
 final class VacuumAction extends Action
@@ -22,15 +27,15 @@ final class VacuumAction extends Action
     public function run(): int
     {
         $db = Yii::$app->db;
-        \assert($db instanceof Connection);
+        assert($db instanceof Connection);
 
         vfprintf(STDERR, "Vacuuming database (database=%s)\n", [
             $this->getDatabaseName($db) ?? '[unknown]',
         ]);
 
-        $t1 = \microtime(true);
+        $t1 = microtime(true);
         $db->createCommand('VACUUM ( ANALYZE )')->execute();
-        $t2 = \microtime(true);
+        $t2 = microtime(true);
 
         vfprintf(STDERR, "Done the vacuum, took=%.3fsec\n", [
             $t2 - $t1,
@@ -41,7 +46,7 @@ final class VacuumAction extends Action
 
     private function getDatabaseName(Connection $db): ?string
     {
-        return \preg_match('/^.*?dbname=([\w-]+)\b.*$/', $db->dsn, $match)
+        return preg_match('/^.*?dbname=([\w-]+)\b.*$/', $db->dsn, $match)
             ? $match[1]
             : null;
     }

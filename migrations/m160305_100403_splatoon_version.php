@@ -13,10 +13,10 @@ class m160305_100403_splatoon_version extends Migration
     public function up()
     {
         $this->createTable('splatoon_version', [
-            'id'            => $this->primaryKey(),
-            'tag'           => $this->string(32)->notNull()->unique(),
-            'name'          => $this->string(32)->notNull(),
-            'released_at'   => 'TIMESTAMP(0) WITH TIME ZONE NOT NULL',
+            'id' => $this->primaryKey(),
+            'tag' => $this->string(32)->notNull()->unique(),
+            'name' => $this->string(32)->notNull(),
+            'released_at' => 'TIMESTAMP(0) WITH TIME ZONE NOT NULL',
         ]);
         $this->createIndex('ix_splatoon_version_1', 'splatoon_version', 'released_at');
 

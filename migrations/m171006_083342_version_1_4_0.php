@@ -12,7 +12,7 @@ class m171006_083342_version_1_4_0 extends Migration
 {
     public function safeUp()
     {
-        $this->batchInsert('splatoon_version2', [ 'tag', 'name', 'released_at' ], [
+        $this->batchInsert('splatoon_version2', ['tag', 'name', 'released_at'], [
             ['1.4.0', '1.4.0', '2017-10-11T10:00:00+09:00'],
         ]);
     }
@@ -22,7 +22,7 @@ class m171006_083342_version_1_4_0 extends Migration
         $this->update(
             'battle2',
             ['version_id' => $this->getId('1.3.0')],
-            ['version_id' => $this->getId('1.4.0')]
+            ['version_id' => $this->getId('1.4.0')],
         );
         $this->delete('splatoon_version2', ['tag' => '1.4.0']);
     }

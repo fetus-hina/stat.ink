@@ -8,7 +8,8 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "region".
@@ -20,7 +21,7 @@ use Yii;
  * @property Splatfest[] $splatfests
  * @property Timezone[] $timezones
  */
-class Region extends \yii\db\ActiveRecord
+class Region extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -39,7 +40,7 @@ class Region extends \yii\db\ActiveRecord
             [['key', 'name'], 'required'],
             [['key'], 'string', 'max' => 2],
             [['name'], 'string', 'max' => 64],
-            [['key'], 'unique']
+            [['key'], 'unique'],
         ];
     }
 
@@ -56,7 +57,7 @@ class Region extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getSplatfests()
     {
@@ -64,7 +65,7 @@ class Region extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getTimezones()
     {

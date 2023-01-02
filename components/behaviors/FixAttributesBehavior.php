@@ -12,6 +12,9 @@ use Yii;
 use yii\base\Behavior;
 use yii\base\Model;
 
+use function trim;
+use function vsprintf;
+
 class FixAttributesBehavior extends Behavior
 {
     // $attributes = [
@@ -42,7 +45,7 @@ class FixAttributesBehavior extends Behavior
                         $value,
                         $fixData[trim($value)],
                     ]),
-                    __METHOD__
+                    __METHOD__,
                 );
             }
         }

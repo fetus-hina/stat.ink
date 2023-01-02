@@ -44,9 +44,7 @@ class m170918_095311_weapon2_use_count_update extends Migration
     {
         foreach (['stat_weapon2_use_count', 'stat_weapon2_use_count_per_week'] as $table) {
             $this->execute("ALTER TABLE {{{$table}}} " . implode(', ', array_map(
-                function (string $column): string {
-                    return 'DROP COLUMN [[' . $column . ']]';
-                },
+                fn (string $column): string => 'DROP COLUMN [[' . $column . ']]',
                 [
                     'kills',
                     'deaths',
@@ -69,7 +67,7 @@ class m170918_095311_weapon2_use_count_update extends Migration
                     'timeup_wins',
                     'knockout_loses',
                     'timeup_loses',
-                ]
+                ],
             )));
         }
     }

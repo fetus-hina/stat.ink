@@ -23,7 +23,7 @@ class m180309_093012_bold_neo extends Migration
             'missile',
             'bold',
             null,
-            1
+            1,
         );
     }
 

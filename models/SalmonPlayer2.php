@@ -14,6 +14,19 @@ use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
+use function array_map;
+use function array_merge;
+use function hash;
+use function hash_hmac;
+use function hex2bin;
+use function preg_match;
+use function str_repeat;
+use function substr;
+use function trim;
+
+use const SORT_ASC;
+use const SORT_DESC;
+
 /**
  * This is the model class for table "salmon_player2".
  *
@@ -182,14 +195,14 @@ class SalmonPlayer2 extends ActiveRecord
         return substr(
             hash('sha256', $id, false),
             0,
-            40
+            40,
         );
     }
 
     public function getAnonymizeSeed(): string
     {
         $value = trim($this->splatnet_id);
-        return ($value !== '')
+        return $value !== ''
             ? $value
             : hash_hmac('sha256', (string)$this->id, (string)$this->work_id);
     }
@@ -260,20 +273,20 @@ class SalmonPlayer2 extends ActiveRecord
                 : null,
             'special_uses' => $this->specialUses
                 ? array_map(
-                    fn($model) => (int)$model->count,
-                    $this->specialUses
+                    fn ($model) => (int)$model->count,
+                    $this->specialUses,
                 )
                 : null,
             'weapons' => $this->weapons
                 ? array_map(
-                    fn($model) => $model->weapon ? $model->weapon->toJsonArray() : null,
-                    $this->weapons
+                    fn ($model) => $model->weapon ? $model->weapon->toJsonArray() : null,
+                    $this->weapons,
                 )
                 : null,
             'boss_kills' => $this->bossKills
                 ? array_map(
-                    fn($model) => $model->toJsonArray(),
-                    $this->bossKills
+                    fn ($model) => $model->toJsonArray(),
+                    $this->bossKills,
                 )
                 : null,
         ];
@@ -343,7 +356,7 @@ class SalmonPlayer2 extends ActiveRecord
                     'nullable' => true,
                     'description' => Yii::t(
                         'app-apidoc2',
-                        'Number of times rescued by other players'
+                        'Number of times rescued by other players',
                     ),
                 ],
                 'golden_egg_delivered' => [
@@ -371,7 +384,7 @@ class SalmonPlayer2 extends ActiveRecord
                     'nullable' => true,
                     'description' => Yii::t(
                         'app-apidoc2',
-                        'How many times special weapon used in each wave'
+                        'How many times special weapon used in each wave',
                     ),
                     'items' => [
                         'type' => 'integer',

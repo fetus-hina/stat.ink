@@ -13,6 +13,9 @@ namespace app\components\formatters\api\v3;
 use app\models\SalmonPlayer3;
 use app\models\SalmonPlayerWeapon3;
 
+use function array_map;
+use function array_values;
+
 final class SalmonPlayerApiFormatter
 {
     /**
@@ -20,9 +23,9 @@ final class SalmonPlayerApiFormatter
      */
     public static function allToJson(array $models, bool $fullTranslate = false): ?array
     {
-        return \array_map(
+        return array_map(
             fn (?SalmonPlayer3 $model): ?array => self::toJson($model, $fullTranslate),
-            \array_values($models),
+            array_values($models),
         );
     }
 
@@ -44,7 +47,7 @@ final class SalmonPlayerApiFormatter
                     $model->weapon,
                     $fullTranslate,
                 ),
-                \array_values($model->salmonPlayerWeapon3s),
+                array_values($model->salmonPlayerWeapon3s),
             ),
             'golden_eggs' => $model->golden_eggs,
             'golden_assist' => $model->golden_assist,

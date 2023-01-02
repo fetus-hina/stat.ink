@@ -14,12 +14,12 @@ class m170731_110807_private_match extends Migration
     public function safeUp()
     {
         $this->insert('lobby2', [
-            'key'   => 'private',
-            'name'  => 'Private Battle',
+            'key' => 'private',
+            'name' => 'Private Battle',
         ]);
         $this->insert('mode2', [
-            'key'   => 'private',
-            'name'  => 'Private Battle',
+            'key' => 'private',
+            'name' => 'Private Battle',
         ]);
         $modeId = (new Query())
             ->select('id')
@@ -28,14 +28,12 @@ class m170731_110807_private_match extends Migration
             ->limit(1)
             ->scalar();
         $this->batchInsert('mode_rule2', ['mode_id', 'rule_id'], array_map(
-            function ($rule) use ($modeId) {
-                return [$modeId, $rule['id']];
-            },
+            fn ($rule) => [$modeId, $rule['id']],
             (new Query())
                 ->select('*')
                 ->from('rule2')
                 ->where(['key' => ['nawabari', 'area', 'yagura', 'hoko']])
-                ->all()
+                ->all(),
         ));
     }
 

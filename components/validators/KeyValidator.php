@@ -13,6 +13,8 @@ use yii\db\ActiveRecord;
 use yii\validators\ExistValidator;
 use yii\validators\Validator;
 
+use function is_scalar;
+
 final class KeyValidator extends Validator
 {
     /**
@@ -72,7 +74,7 @@ final class KeyValidator extends Validator
             return true;
         }
 
-        if (!\is_scalar($value)) {
+        if (!is_scalar($value)) {
             return false;
         }
 
@@ -81,14 +83,8 @@ final class KeyValidator extends Validator
             return true;
         }
 
-        if (
-            $this->aliasClass !== null &&
-            $this->isExists($value, $this->aliasClass, $this->aliasClassAttribute)
-        ) {
-            return true;
-        }
-
-        return false;
+        return $this->aliasClass !== null &&
+            $this->isExists($value, $this->aliasClass, $this->aliasClassAttribute);
     }
 
     /**

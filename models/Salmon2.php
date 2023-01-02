@@ -9,18 +9,40 @@
 namespace app\models;
 
 use DateTimeImmutable;
-use DateTimeZone;
 use Throwable;
 use Yii;
 use app\components\behaviors\TimestampBehavior;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\DateTimeFormatter;
+use stdClass;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
+
+use function array_filter;
+use function array_map;
+use function array_merge;
+use function array_reduce;
+use function array_values;
+use function date;
+use function filter_var;
+use function implode;
+use function is_int;
+use function min;
+use function preg_replace;
+use function range;
+use function sprintf;
+use function strtolower;
+use function strtotime;
+use function usort;
+
+use const DATE_ATOM;
+use const FILTER_VALIDATE_INT;
+use const SORT_ASC;
+use const SORT_DESC;
 
 /**
  * This is the model class for table "salmon2".
@@ -75,7 +97,7 @@ class Salmon2 extends ActiveRecord
                     ->select('[[last_value]]')
                     ->from('{{salmon2_id_seq}}')
                     ->scalar(),
-                FILTER_VALIDATE_INT
+                FILTER_VALIDATE_INT,
             );
             if (is_int($count)) {
                 return $count;
@@ -185,7 +207,7 @@ class Salmon2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getAgent()
     {
@@ -193,7 +215,7 @@ class Salmon2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getFailReason()
     {
@@ -201,7 +223,7 @@ class Salmon2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getStage()
     {
@@ -209,7 +231,7 @@ class Salmon2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getTitleBefore()
     {
@@ -217,7 +239,7 @@ class Salmon2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getTitleAfter()
     {
@@ -289,9 +311,7 @@ class Salmon2 extends ActiveRecord
             return null;
         }
 
-        return array_filter($this->players, function (SalmonPlayer2 $player): bool {
-            return !$player->is_me;
-        });
+        return array_filter($this->players, fn (SalmonPlayer2 $player): bool => !$player->is_me);
     }
 
     private $sortedPlayersCache = false;
@@ -440,7 +460,7 @@ class Salmon2 extends ActiveRecord
                 }
                 return $carry + $item->golden_egg_delivered;
             },
-            0
+            0,
         );
     }
 
@@ -451,7 +471,7 @@ class Salmon2 extends ActiveRecord
         }
 
         return array_map(
-            function (SalmonWave2 $item): ?\stdClass {
+            function (SalmonWave2 $item): ?stdClass {
                 if ($item->golden_egg_delivered === null) {
                     return null;
                 }
@@ -461,7 +481,7 @@ class Salmon2 extends ActiveRecord
                     'delivered' => $item->golden_egg_delivered,
                 ];
             },
-            $this->waves
+            $this->waves,
         );
     }
 
@@ -479,7 +499,7 @@ class Salmon2 extends ActiveRecord
                 }
                 return $carry + $item->power_egg_collected;
             },
-            0
+            0,
         );
     }
 
@@ -490,10 +510,8 @@ class Salmon2 extends ActiveRecord
         }
 
         return array_map(
-            function (SalmonWave2 $item): ?int {
-                return $item->power_egg_collected;
-            },
-            $this->waves
+            fn (SalmonWave2 $item): ?int => $item->power_egg_collected,
+            $this->waves,
         );
     }
 
@@ -504,39 +522,39 @@ class Salmon2 extends ActiveRecord
         }
         $danger = (float)$this->danger_rate;
         $data = [
-            [200,   [21, 23, 25]],
-            [189,   [20, 22, 24]],
+            [200, [21, 23, 25]],
+            [189, [20, 22, 24]],
             [187.6, [20, 21, 23]],
             [177.8, [19, 21, 23]],
-            [175,   [19, 20, 22]],
+            [175, [19, 20, 22]],
             [166.8, [18, 20, 22]],
             [162.6, [18, 19, 21]],
             [155.6, [17, 19, 21]],
-            [150,   [17, 18, 20]],
+            [150, [17, 18, 20]],
             [144.6, [16, 18, 20]],
             [137.6, [16, 17, 19]],
             [133.4, [15, 17, 19]],
-            [125,   [15, 16, 18]],
+            [125, [15, 16, 18]],
             [122.4, [14, 16, 18]],
             [112.6, [14, 15, 17]],
             [111.2, [13, 15, 17]],
-            [100,   [13, 14, 16]],
+            [100, [13, 14, 16]],
             [ 93.4, [12, 13, 15]],
             [ 86.8, [11, 12, 14]],
-            [ 80,   [10, 11, 13]],
-            [ 70,   [ 9, 10, 12]],
-            [ 60,   [ 8,  9, 11]],
-            [ 40,   [ 7,  8, 10]],
-            [ 30,   [ 6,  7,  9]],
-            [ 20,   [ 6,  7,  8]],
-            [ 14,   [ 5,  6,  7]],
-            [  8,   [ 4,  5,  6]],
-            [  4,   [ 3,  4,  5]],
-            [  0,   [ 2,  3,  4]],
+            [ 80, [10, 11, 13]],
+            [ 70, [ 9, 10, 12]],
+            [ 60, [ 8, 9, 11]],
+            [ 40, [ 7, 8, 10]],
+            [ 30, [ 6, 7, 9]],
+            [ 20, [ 6, 7, 8]],
+            [ 14, [ 5, 6, 7]],
+            [ 8, [ 4, 5, 6]],
+            [ 4, [ 3, 4, 5]],
+            [ 0, [ 2, 3, 4]],
         ];
 
         foreach ($data as $_) {
-            list($minDanger, $quota) = $_;
+            [$minDanger, $quota] = $_;
             if ($minDanger <= $danger) {
                 return $quota;
             }
@@ -548,7 +566,7 @@ class Salmon2 extends ActiveRecord
 
     public function toJsonArray(): array
     {
-        $isCleared = ($this->clear_waves === null) ? null : ($this->clear_waves >= 3);
+        $isCleared = $this->clear_waves === null ? null : ($this->clear_waves >= 3);
         $gender = null;
         if ($myData = $this->getMyData()) {
             $gender = $myData->gender;
@@ -563,12 +581,12 @@ class Salmon2 extends ActiveRecord
                 'id' => $this->id,
             ], true),
             'api_endpoint' => Url::to(['api-v2-salmon/view',
-                'id' => $this->id
+                'id' => $this->id,
             ], true),
             'user' => $this->user->toSalmonJsonArray(),
             'stage' => $this->stage_id ? $this->stage->toJsonArray() : null,
             'is_cleared' => $isCleared,
-            'fail_reason' => ($isCleared === false && $this->fail_reason_id)
+            'fail_reason' => $isCleared === false && $this->fail_reason_id
                 ? $this->failReason->toJsonArray()
                 : null,
             'clear_waves' => $this->clear_waves,
@@ -587,11 +605,11 @@ class Salmon2 extends ActiveRecord
                 'version' => $this->agent ? $this->agent->version : null,
             ],
             'automated' => !!$this->is_automated,
-            'note' => ((string)$this->note !== '') ? $this->note : null,
-            'link_url' => ((string)$this->link_url !== '') ? $this->link_url : null,
+            'note' => (string)$this->note !== '' ? $this->note : null,
+            'link_url' => (string)$this->link_url !== '' ? $this->link_url : null,
             'shift_start_at' => $this->shift_period
                 ? DateTimeFormatter::unixTimeToJsonArray(
-                    BattleHelper::periodToRange2($this->shift_period)[0]
+                    BattleHelper::periodToRange2($this->shift_period)[0],
                 )
                 : null,
             'start_at' => $this->start_at != ''
@@ -626,8 +644,7 @@ class Salmon2 extends ActiveRecord
                 'title_after',
                 'title_after',
             ],
-            array_map(function (int $wave): array {
-                return [
+            array_map(fn (int $wave): array => [
                     "w{$wave}_event",
                     "w{$wave}_event",
                     "w{$wave}_water",
@@ -636,8 +653,7 @@ class Salmon2 extends ActiveRecord
                     "w{$wave}_delivers",
                     "w{$wave}_appearances",
                     "w{$wave}_pwr_eggs",
-                ];
-            }, range(1, 3)),
+                ], range(1, 3)),
             array_map(function (int $i): array {
                 $prefix = $i === 0 ? 'player' : "mate{$i}";
                 return [
@@ -703,10 +719,10 @@ class Salmon2 extends ActiveRecord
                 $this->stage_id ? $this->stage->key : '',
                 $this->stage_id ? Yii::t('app-salmon-map2', $this->stage->name) : '',
                 (string)$this->clear_waves,
-                ($this->clear_waves === null || $this->clear_waves >= 3 || !$this->fail_reason_id)
+                $this->clear_waves === null || $this->clear_waves >= 3 || !$this->fail_reason_id
                     ? ''
                     : $this->failReason->key,
-                ($this->clear_waves === null || $this->clear_waves >= 3 || !$this->fail_reason_id)
+                $this->clear_waves === null || $this->clear_waves >= 3 || !$this->fail_reason_id
                     ? ''
                     : Yii::t('app-salmon2', $this->failReason->name),
                 $this->danger_rate ? sprintf('%.1f', $this->danger_rate) : '',
@@ -768,15 +784,13 @@ class Salmon2 extends ActiveRecord
                     $p->power_egg_collected ?? '',
                 ];
             }, range(0, 3)),
-            array_map(function (SalmonBoss2 $boss) use ($bossAppearances, $bossKillMap): array {
-                return [
+            array_map(fn (SalmonBoss2 $boss): array => [
                     (int)ArrayHelper::getValue($bossAppearances, $boss->id, 0),
                     $bossKillMap[0][$boss->id] ?? null,
                     $bossKillMap[1][$boss->id] ?? null,
                     $bossKillMap[2][$boss->id] ?? null,
                     $bossKillMap[3][$boss->id] ?? null,
-                ];
-            }, $bosses),
+                ], $bosses),
         ));
     }
 
@@ -787,10 +801,8 @@ class Salmon2 extends ActiveRecord
         }
 
         return array_map(
-            function (SalmonBossAppearance2 $bossAppearance): array {
-                return $bossAppearance->toJsonArray();
-            },
-            $this->bossAppearances
+            fn (SalmonBossAppearance2 $bossAppearance): array => $bossAppearance->toJsonArray(),
+            $this->bossAppearances,
         );
     }
 
@@ -798,14 +810,12 @@ class Salmon2 extends ActiveRecord
     {
         // $pks[player_index][boss_id] = count
         return array_map(
-            function (SalmonPlayer2 $player): array {
-                return ArrayHelper::map(
-                    $player->bossKills,
-                    'boss_id',
-                    'count'
-                );
-            },
-            $this->getSortedPlayers() ?: []
+            fn (SalmonPlayer2 $player): array => ArrayHelper::map(
+                $player->bossKills,
+                'boss_id',
+                'count',
+            ),
+            $this->getSortedPlayers() ?: [],
         );
     }
 
@@ -816,10 +826,8 @@ class Salmon2 extends ActiveRecord
         }
 
         return array_map(
-            function (SalmonWave2 $wave): array {
-                return $wave->toJsonArray();
-            },
-            $this->waves
+            fn (SalmonWave2 $wave): array => $wave->toJsonArray(),
+            $this->waves,
         );
     }
 
@@ -830,10 +838,8 @@ class Salmon2 extends ActiveRecord
         }
 
         return array_map(
-            function (SalmonPlayer2 $player): array {
-                return $player->toJsonArray();
-            },
-            array_values($list)
+            fn (SalmonPlayer2 $player): array => $player->toJsonArray(),
+            array_values($list),
         );
     }
 
@@ -950,7 +956,7 @@ class Salmon2 extends ActiveRecord
                     'nullable' => true,
                     'description' => Yii::t(
                         'app-apidoc2',
-                        'Number of cleared waves. 3 if cleared, 0 if failed in wave 1.'
+                        'Number of cleared waves. 3 if cleared, 0 if failed in wave 1.',
                     ),
                 ],
                 'danger_rate' => [
@@ -962,7 +968,7 @@ class Salmon2 extends ActiveRecord
                     'nullable' => true,
                     'description' => Yii::t(
                         'app-apidoc2',
-                        'Hazard Level, 200.0 = "Hazard Level MAX!!"'
+                        'Hazard Level, 200.0 = "Hazard Level MAX!!"',
                     ),
                 ],
                 'quota' => [
@@ -1060,14 +1066,14 @@ class Salmon2 extends ActiveRecord
                     'nullable' => true,
                     'description' => Yii::t(
                         'app-apidoc2',
-                        'URL that related to this post. (e.g., YouTube video)'
+                        'URL that related to this post. (e.g., YouTube video)',
                     ),
                 ],
                 'shift_start_at' => array_merge(openapi\DateTime::openApiSchema(), [
                     'nullable' => true,
                     'description' => Yii::t(
                         'app-apidoc2',
-                        'Which rotation (play window, schedule)'
+                        'Which rotation (play window, schedule)',
                     ),
                 ]),
                 'start_at' => array_merge(openapi\DateTime::openApiSchema(), [
@@ -1108,9 +1114,7 @@ class Salmon2 extends ActiveRecord
         $bosses = ArrayHelper::map(
             SalmonBoss2::find()->orderBy(['key' => SORT_ASC])->all(),
             'key',
-            function (SalmonBoss2 $boss): array {
-                return $boss->toJsonArray();
-            }
+            fn (SalmonBoss2 $boss): array => $boss->toJsonArray(),
         );
         $bossAppearances = [
             'drizzler' => 6,
@@ -1126,9 +1130,7 @@ class Salmon2 extends ActiveRecord
                 ->andWhere(['key' => ['splatroller', 'wakaba', 'explosher', 'hydra']])
                 ->all(),
             'key',
-            function (SalmonMainWeapon2 $weapon): array {
-                return $weapon->toJsonArray();
-            }
+            fn (SalmonMainWeapon2 $weapon): array => $weapon->toJsonArray(),
         );
 
         return [
@@ -1149,14 +1151,12 @@ class Salmon2 extends ActiveRecord
             'title_after' => $title,
             'title_exp_after' => 405,
             'boss_appearances' => array_filter(array_map(
-                function (array $boss) use ($bossAppearances): ?array {
-                    return isset($bossAppearances[$boss['key']])
+                fn (array $boss): ?array => isset($bossAppearances[$boss['key']])
                         ? [
                             'boss' => $boss,
                             'count' => $bossAppearances[$boss['key']],
                         ]
-                        : null;
-                },
+                        : null,
                 $bosses,
             )),
             'waves' => [

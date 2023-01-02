@@ -13,8 +13,8 @@ class m150923_174015_battle_image extends Migration
     public function up()
     {
         $this->createTable('battle_image_type', [
-            'id'        => $this->integer()->notNull(),
-            'name'      => $this->string(16)->notNull()->unique(),
+            'id' => $this->integer()->notNull(),
+            'name' => $this->string(16)->notNull()->unique(),
         ]);
         $this->addPrimaryKey('pk_battle_image_type', 'battle_image_type', 'id');
         $this->batchInsert('battle_image_type', ['id', 'name'], [
@@ -23,10 +23,10 @@ class m150923_174015_battle_image extends Migration
         ]);
 
         $this->createTable('battle_image', [
-            'id'        => $this->bigPrimaryKey(),
+            'id' => $this->bigPrimaryKey(),
             'battle_id' => $this->bigInteger()->notNull(),
-            'type_id'   => $this->integer()->notNull(),
-            'filename'  => $this->string(64)->notNull(),
+            'type_id' => $this->integer()->notNull(),
+            'filename' => $this->string(64)->notNull(),
         ]);
         $this->addForeignKey('fk_battle_image_1', 'battle_image', 'battle_id', 'battle', 'id', 'RESTRICT');
         $this->addForeignKey('fk_battle_image_2', 'battle_image', 'type_id', 'battle_image_type', 'id', 'RESTRICT');

@@ -17,7 +17,7 @@ class m200409_174248_rename_australia_zone extends Migration
         $this->update(
             'timezone_group',
             ['name' => 'Australia'],
-            ['name' => 'Australia/Oceania']
+            ['name' => 'Australia/Oceania'],
         );
     }
 
@@ -26,7 +26,7 @@ class m200409_174248_rename_australia_zone extends Migration
         $this->update(
             'timezone_group',
             ['name' => 'Australia/Oceania'],
-            ['name' => 'Australia']
+            ['name' => 'Australia'],
         );
     }
 }

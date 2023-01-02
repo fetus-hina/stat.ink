@@ -8,10 +8,13 @@
 
 namespace app\models\api\v1;
 
-use Yii;
-use yii\base\Model;
 use app\models\Ability;
 use app\models\Gear;
+use yii\base\Model;
+
+use function count;
+use function is_array;
+use function sprintf;
 
 abstract class BaseGearForm extends Model
 {
@@ -51,7 +54,7 @@ abstract class BaseGearForm extends Model
             $this->addError($attribute, sprintf(
                 'Gear type mismatch. input=%s, require=%s',
                 $loaded->type->key,
-                $this->getType()
+                $this->getType(),
             ));
         }
     }
@@ -85,7 +88,7 @@ abstract class BaseGearForm extends Model
             return;
         }
         if (count($values) < 1 || count($values) > 3) {
-            $this->addError($attribute, "{$attribute} must be contain 1-3 values, " . count($values) . " given.");
+            $this->addError($attribute, "{$attribute} must be contain 1-3 values, " . count($values) . ' given.');
             return;
         }
         foreach ($values as $i => $value) {
@@ -101,10 +104,11 @@ abstract class BaseGearForm extends Model
     }
 
     private $gearModel = false;
+
     public function getGearModel()
     {
         if ($this->gearModel === false) {
-            $this->gearModel = ($this->gear == '')
+            $this->gearModel = $this->gear == ''
                 ? null
                 : Gear::findOne(['key' => (string)$this->gear]);
         }

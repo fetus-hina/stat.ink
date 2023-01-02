@@ -10,21 +10,18 @@ declare(strict_types=1);
 
 namespace app\actions\api\v3;
 
-use DateTimeZone;
 use Yii;
 use app\actions\api\v3\traits\ApiInitializerTrait;
 use app\components\formatters\api\v3\BattleApiFormatter;
-use app\components\jobs\SlackJob;
-use app\components\web\ServiceUnavailableHttpException;
 use app\models\Battle3;
-use app\models\Slack;
-use app\models\User;
 use app\models\api\v3\PostBattleForm;
 use yii\base\Action;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\Response;
 use yii\web\UploadedFile;
+
+use function array_map;
 
 final class PostBattleAction extends Action
 {
@@ -72,7 +69,7 @@ final class PostBattleAction extends Action
                         'battlePlayer3s.weapon.subweapon',
                         'battlePlayer3s.weapon.weapon3Aliases',
                     ],
-                    \array_map(
+                    array_map(
                         fn (string $base): array => [
                             "battlePlayer3s.{$base}",
                             "battlePlayer3s.{$base}.ability",
@@ -81,7 +78,7 @@ final class PostBattleAction extends Action
                         ],
                         ['clothing', 'headgear', 'shoes'],
                     ),
-                ])
+                ]),
             )
             ->andWhere(['uuid' => $uuid])
             ->limit(1)

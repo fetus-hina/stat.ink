@@ -11,9 +11,35 @@ namespace app\commands;
 use DirectoryIterator;
 use S3;
 use Yii;
-use app\components\helpers\Resource;
 use yii\console\Controller;
 use yii\helpers\Console;
+
+use function array_reverse;
+use function array_slice;
+use function basename;
+use function count;
+use function date;
+use function dirname;
+use function escapeshellarg;
+use function fclose;
+use function file_exists;
+use function filesize;
+use function getcwd;
+use function microtime;
+use function mkdir;
+use function number_format;
+use function parse_str;
+use function preg_match;
+use function proc_close;
+use function proc_open;
+use function rsort;
+use function sort;
+use function sprintf;
+use function str_replace;
+use function stream_get_contents;
+use function strpos;
+use function time;
+use function unlink;
 
 class BackupController extends Controller
 {
@@ -26,13 +52,13 @@ class BackupController extends Controller
         $outPath = sprintf(
             '%s/statink-%s.dump.xz.gpg',
             Yii::getAlias('@app/runtime/backup'),
-            date('YmdHis', time())
+            date('YmdHis', time()),
         );
         if (!file_exists(dirname($outPath))) {
             mkdir(dirname($outPath), 0755, true);
         }
 
-        $this->stdout("Dumping database... ", Console::FG_YELLOW);
+        $this->stdout('Dumping database... ', Console::FG_YELLOW);
         $execinfo = $this->createDumpCommandLine($outPath);
         $this->stdout("\n" . $execinfo['cmdline'] . "\n");
         $descriptorspec = [
@@ -45,7 +71,7 @@ class BackupController extends Controller
             $descriptorspec,
             $pipes,
             getcwd(),
-            $execinfo['env']
+            $execinfo['env'],
         );
         if (!$proc) {
             $this->stdout("ERROR\n", Console::FG_RED);
@@ -70,8 +96,8 @@ class BackupController extends Controller
 
     public function actionUpload()
     {
-        $this->stdout("Uploading dump files... ", Console::FG_YELLOW);
-        $config = include(Yii::getAlias('@app/config/backup-s3.php'));
+        $this->stdout('Uploading dump files... ', Console::FG_YELLOW);
+        $config = include Yii::getAlias('@app/config/backup-s3.php');
         if (!$config['endpoint'] || !$config['accessKey'] || !$config['secret'] || !$config['bucket']) {
             $this->stdout("NOT CONFIGURED.\n", Console::FG_PURPLE);
             return 0;
@@ -117,7 +143,7 @@ class BackupController extends Controller
                 $this->stdout("    ERROR\n", Console::FG_RED);
                 return 1;
             }
-            $this->stdout("    SUCCESS ", Console::FG_GREEN);
+            $this->stdout('    SUCCESS ', Console::FG_GREEN);
             $this->stdout(sprintf("in %.3fsec\n", $t2 - $t1));
 
             unlink($path);
@@ -140,7 +166,7 @@ class BackupController extends Controller
                 preg_match(
                     '/^statink-\d+\.dump\.xz\.(?:aes|gpg)$/',
                     $entry->getBasename(),
-                    $match
+                    $match,
                 )
             ) {
                 $files[] = $entry->getPathname();
@@ -161,8 +187,8 @@ class BackupController extends Controller
 
     private function createDumpCommandLine($outPath)
     {
-        $config = include(__DIR__ . '/../config/db.php');
-        $gpg = include(__DIR__ . '/../config/backup-gpg.php');
+        $config = include __DIR__ . '/../config/db.php';
+        $gpg = include __DIR__ . '/../config/backup-gpg.php';
         $dsn = $this->parseDsn($config['dsn']);
         $cmdline = sprintf(
             '/usr/bin/env %s -F c -Z 0 %s %s -U %s %s | %s -6 | %s -e -r %s --compress-algo %s --cipher-algo %s -o %s',
@@ -174,9 +200,9 @@ class BackupController extends Controller
             escapeshellarg('xz'),
             escapeshellarg('gpg2'),
             escapeshellarg($gpg['userId']), // recipient (gpg)
-            escapeshellarg('none'),         // compress algo (gpg)
-            escapeshellarg('AES256'),       // cipher algo (gpg)
-            escapeshellarg($outPath)
+            escapeshellarg('none'), // compress algo (gpg)
+            escapeshellarg('AES256'), // cipher algo (gpg)
+            escapeshellarg($outPath),
         );
         $env = [
             'PGPASSWORD' => $config['password'],

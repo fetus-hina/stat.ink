@@ -23,7 +23,7 @@ class m180406_083523_clashblaster_neo extends Migration
             'missile',
             'clashblaster',
             null,
-            231
+            231,
         );
     }
 

@@ -11,9 +11,11 @@ declare(strict_types=1);
 namespace app\components\web;
 
 use Symfony\Component\Yaml\Yaml;
-use Yii;
 use yii\base\Component;
 use yii\web\ResponseFormatterInterface;
+
+use function array_reduce;
+use function is_int;
 
 class YamlResponseFormatter extends Component implements ResponseFormatterInterface
 {
@@ -34,10 +36,8 @@ class YamlResponseFormatter extends Component implements ResponseFormatterInterf
                     Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK,
                     Yaml::DUMP_EMPTY_ARRAY_AS_SEQUENCE,
                 ],
-                function (int $carry, int $item): int {
-                    return $carry | $item;
-                },
-                0
+                fn (int $carry, int $item): int => $carry | $item,
+                0,
             );
         }
     }
@@ -49,7 +49,7 @@ class YamlResponseFormatter extends Component implements ResponseFormatterInterf
             $response->data,
             (int)$this->inline,
             (int)$this->indent,
-            (int)$this->encodeOptions
+            (int)$this->encodeOptions,
         );
     }
 }

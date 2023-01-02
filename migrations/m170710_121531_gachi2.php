@@ -25,9 +25,9 @@ class m170710_121531_gachi2 extends Migration
         ]);
 
         $this->batchInsert('rule2', ['key', 'name', 'short_name'], [
-            ['area',   'Splat Zones',   'SZ'],
+            ['area', 'Splat Zones', 'SZ'],
             ['yagura', 'Tower Control', 'TC'],
-            ['hoko',   'Rainmaker',     'RM'],
+            ['hoko', 'Rainmaker', 'RM'],
         ]);
 
         $modeId = (new Query())
@@ -36,14 +36,12 @@ class m170710_121531_gachi2 extends Migration
             ->where(['key' => 'gachi'])
             ->scalar();
         $this->batchInsert('mode_rule2', ['mode_id', 'rule_id'], array_map(
-            function (int $ruleId) use ($modeId): array {
-                return [(int)$modeId, $ruleId];
-            },
+            fn (int $ruleId): array => [(int)$modeId, $ruleId],
             (new Query())
                 ->select('id')
                 ->from('rule2')
                 ->where(['key' => ['area', 'yagura', 'hoko']])
-                ->column()
+                ->column(),
         ));
     }
 

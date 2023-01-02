@@ -8,8 +8,21 @@
 
 namespace app\commands\i18n;
 
-use Yii;
 use app\models\Gear2;
+
+use function array_filter;
+use function dirname;
+use function file_put_contents;
+use function gmdate;
+use function implode;
+use function str_replace;
+use function strcmp;
+use function time;
+use function uksort;
+use function vsprintf;
+
+use const ARRAY_FILTER_USE_BOTH;
+use const DIRECTORY_SEPARATOR;
 
 trait GearNameTrait
 {
@@ -23,15 +36,13 @@ trait GearNameTrait
         ]);
 
         $this->stderr('[JapaneseGear2] Updating ' . $path . "\n");
-        $data = require($path);
+        $data = require $path;
 
         // remove empty data
         $data = array_filter(
             $data,
-            function (string $value, string $key): bool {
-                return $value !== '';
-            },
-            ARRAY_FILTER_USE_BOTH
+            fn (string $value, string $key): bool => $value !== '',
+            ARRAY_FILTER_USE_BOTH,
         );
 
         $changed = false;
@@ -48,13 +59,9 @@ trait GearNameTrait
             return 0;
         }
 
-        uksort($data, function (string $a, string $b): int {
-            return strcmp($a . "'", $b . "'");
-        });
+        uksort($data, fn (string $a, string $b): int => strcmp($a . "'", $b . "'"));
 
-        $esc = function (string $text): string {
-            return str_replace(["\\", "'"], ["\\\\", "\\'"], $text);
-        };
+        $esc = fn (string $text): string => str_replace(['\\', "'"], ['\\\\', "\\'"], $text);
 
         $file = [];
         $file[] = '<?php';
@@ -80,7 +87,7 @@ trait GearNameTrait
 
         file_put_contents(
             $path,
-            implode("\n", $file) . "\n"
+            implode("\n", $file) . "\n",
         );
 
         return 0;

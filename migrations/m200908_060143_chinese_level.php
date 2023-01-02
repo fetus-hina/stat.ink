@@ -17,7 +17,7 @@ class m200908_060143_chinese_level extends Migration
         $this->update(
             'language',
             ['support_level_id' => 2], // ALMOST
-            ['lang' => ['zh-CN', 'zh-TW']]
+            ['lang' => ['zh-CN', 'zh-TW']],
         );
     }
 
@@ -26,7 +26,7 @@ class m200908_060143_chinese_level extends Migration
         $this->update(
             'language',
             ['support_level_id' => 5], // Machine-translated
-            ['lang' => ['zh-CN', 'zh-TW']]
+            ['lang' => ['zh-CN', 'zh-TW']],
         );
     }
 }

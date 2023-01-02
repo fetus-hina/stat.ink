@@ -14,6 +14,17 @@ use app\models\Special3Alias;
 use yii\helpers\ArrayHelper;
 use yii\validators\Validator;
 
+use function array_shift;
+use function filter_var;
+use function in_array;
+use function is_array;
+use function is_int;
+use function is_string;
+use function sprintf;
+use function vsprintf;
+
+use const FILTER_VALIDATE_INT;
+
 final class SalmonSpecialUse3Validator extends Validator
 {
     /**
@@ -64,13 +75,13 @@ final class SalmonSpecialUse3Validator extends Validator
     {
         if (
             $value === null ||
-            (\is_array($value) && !$value) // empty array
+            (is_array($value) && !$value) // empty array
         ) {
             return [];
         }
 
         if (
-            !\is_array($value) ||
+            !is_array($value) ||
             !ArrayHelper::isAssociative($value)
         ) {
             return ['{attribute} is invalid. (must be map<string, int>)'];
@@ -84,8 +95,8 @@ final class SalmonSpecialUse3Validator extends Validator
                 continue;
             }
 
-            $intV = \filter_var($v, FILTER_VALIDATE_INT);
-            if (!\is_string($k) || !\is_int($intV)) {
+            $intV = filter_var($v, FILTER_VALIDATE_INT);
+            if (!is_string($k) || !is_int($intV)) {
                 return ['{attribute} is invalid. (must be map<string, int>)'];
             }
 
@@ -99,7 +110,7 @@ final class SalmonSpecialUse3Validator extends Validator
                 return ["{attribute} is invalid. unknown special {$k}"];
             }
 
-            if (\in_array($special->key, $exists, true)) {
+            if (in_array($special->key, $exists, true)) {
                 return [
                     vsprintf('{attribute} is invalid. duplicate entry for %s', [
                         $special->name,

@@ -11,6 +11,13 @@ namespace app\actions\entire\users;
 use app\models\StatEntireUser;
 use yii\db\Query;
 
+use function array_map;
+use function count;
+use function gmdate;
+use function gmmktime;
+use function implode;
+use function time;
+
 trait Splatoon1
 {
     protected function getPostStats()
@@ -40,14 +47,12 @@ trait Splatoon1
         }
 
         return array_map(
-            function ($a) {
-                return [
+            fn ($a) => [
                     'date' => $a->date,
                     'battle' => $a->battle_count,
                     'user' => $a->user_count,
-                ];
-            },
-            $stats
+                ],
+            $stats,
         );
     }
 
@@ -62,10 +67,8 @@ trait Splatoon1
     {
         $list = $this->queryAgentStats();
         $agents = $this->queryAgentDetails(array_map(
-            function ($a) {
-                return $a['agent_id'];
-            },
-            $list
+            fn ($a) => $a['agent_id'],
+            $list,
         ));
         $t = @$_SERVER['REQUEST_TIME'] ?: time();
         foreach ($list as &$row) {
@@ -82,14 +85,14 @@ trait Splatoon1
 
     private function queryAgentStats()
     {
-        $t2 = isset($_SERVER['REQUEST_TIME']) ? $_SERVER['REQUEST_TIME'] : time();
+        $t2 = $_SERVER['REQUEST_TIME'] ?? time();
         $t1 = gmmktime(
             gmdate('H', $t2),
             gmdate('i', $t2),
             gmdate('s', $t2) + 1,
             gmdate('n', $t2),
             gmdate('j', $t2) - 1,
-            gmdate('Y', $t2)
+            gmdate('Y', $t2),
         );
         $query = (new Query())
             ->select([

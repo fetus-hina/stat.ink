@@ -13,8 +13,8 @@ class m170801_112751_mystery_zone extends Migration
     public function safeUp()
     {
         $this->insert('{{map2}}', [
-            'key'        => 'mystery',
-            'name'       => 'Shifty Station',
+            'key' => 'mystery',
+            'name' => 'Shifty Station',
             'short_name' => 'Shifty',
             'release_at' => '2017-08-04T15:00:00+09',
         ]);

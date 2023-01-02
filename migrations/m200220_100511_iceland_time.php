@@ -58,7 +58,7 @@ class m200220_100511_iceland_time extends Migration
                 ->andWhere(['timezone.identifier' => static::ICELAND_TZ])
                 ->limit(1)
                 ->scalar(),
-            FILTER_VALIDATE_INT
+            FILTER_VALIDATE_INT,
         );
     }
 
@@ -71,7 +71,7 @@ class m200220_100511_iceland_time extends Migration
                 ->andWhere(['country.key' => static::ICELAND_TLD])
                 ->limit(1)
                 ->scalar(),
-            FILTER_VALIDATE_INT
+            FILTER_VALIDATE_INT,
         );
     }
 
@@ -90,14 +90,12 @@ class m200220_100511_iceland_time extends Migration
     private function createTimezoneOrderNear(int $refId): int
     {
         $exists = array_map(
-            function ($row): int {
-                return filter_var($row, FILTER_VALIDATE_INT);
-            },
+            fn ($row): int => filter_var($row, FILTER_VALIDATE_INT),
             (new Query())
                 ->select('order')
                 ->from('timezone')
                 ->orderBy(['order' => SORT_ASC])
-                ->column()
+                ->column(),
         );
 
         for ($v = $refId + 1;; ++$v) {

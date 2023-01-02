@@ -17,11 +17,21 @@ use app\components\helpers\Resource;
 use app\models\GameMode;
 use app\models\Map;
 use app\models\PeriodMap;
-use yii\base\DynamicModel;
 use yii\db\Query;
 use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
+
+use function array_filter;
+use function array_map;
+use function array_shift;
+use function date;
+use function is_scalar;
+use function mktime;
+use function preg_match;
+use function strnatcasecmp;
+use function time;
+use function usort;
 
 class MonthAction extends BaseAction
 {
@@ -57,7 +67,7 @@ class MonthAction extends BaseAction
                 ->setTimezone(new DateTimeZone('Etc/GMT-6'))
                 ->setTime(0, 0, 0)
                 ->setDate($this->year, $this->month, 1)
-                ->getTimestamp()
+                ->getTimestamp(),
         );
         $this->periodE = BattleHelper::calcPeriod(
             (new DateTimeImmutable())
@@ -66,7 +76,7 @@ class MonthAction extends BaseAction
                 ->setDate($this->year, $this->month, 1)
                 ->add(new DateInterval('P1M')) // + 1 month
                 ->sub(new DateInterval('PT1S')) // - 1 second
-                ->getTimestamp()
+                ->getTimestamp(),
         );
         // }}}
     }
@@ -99,24 +109,20 @@ class MonthAction extends BaseAction
                     'rule' => $rule,
                     'maps' => array_map(
                         function ($map) use ($rule, $counts) {
-                            $counts_ = array_filter($counts, function ($_) use ($rule, $map) {
-                                return $_['rule_id'] == $rule->id && $_['map_id'] == $map->id;
-                            });
+                            $counts_ = array_filter($counts, fn ($_) => $_['rule_id'] == $rule->id && $_['map_id'] == $map->id);
                             return (object)[
                                 'map' => $map,
                                 'count' => $counts_ ? (int)array_shift($counts_)['count'] : 0,
                             ];
                         },
-                        $maps
+                        $maps,
                     ),
                 ];
-                usort($ret->maps, function ($a, $b) {
-                    return $b->count <=> $a->count
+                usort($ret->maps, fn ($a, $b) => $b->count <=> $a->count
                         ?: strnatcasecmp(
                             Yii::t('app-map', $a->map->name),
-                            Yii::t('app-map', $b->map->name)
-                        );
-                });
+                            Yii::t('app-map', $b->map->name),
+                        ));
                 return $ret;
             })();
         }
@@ -130,8 +136,8 @@ class MonthAction extends BaseAction
         $q = Map::find()
             ->andWhere(['<=', 'release_at', date(
                 'Y-m-d\TH:i:sP',
-                BattleHelper::periodToRange($this->periodE)[1]
-            )
+                BattleHelper::periodToRange($this->periodE)[1],
+            ),
             ]);
         $ret = [];
         foreach ($q->all() as $_) {
@@ -147,12 +153,10 @@ class MonthAction extends BaseAction
         $ret = [];
         foreach (GameMode::find()->orderBy('id ASC')->all() as $mode) {
             $tmp = $mode->rules;
-            usort($tmp, function ($a, $b) {
-                return strnatcasecmp(
-                    Yii::t('app-rule', $a->name),
-                    Yii::t('app-rule', $b->name)
-                );
-            });
+            usort($tmp, fn ($a, $b) => strnatcasecmp(
+                Yii::t('app-rule', $a->name),
+                Yii::t('app-rule', $b->name),
+            ));
             foreach ($tmp as $o) {
                 $ret[] = $o;
             }
@@ -233,8 +237,8 @@ class MonthAction extends BaseAction
 
         // 今年なら今月以前のはず
         if (
-            ((int)$year === (int)date('Y', $now)) &&
-                ((int)$month > (int)date('n', $now))
+            (int)$year === (int)date('Y', $now) &&
+            ((int)$month > (int)date('n', $now))
         ) {
             return false;
         }
@@ -242,11 +246,7 @@ class MonthAction extends BaseAction
         // データ持ってないかも
         $periodS = BattleHelper::calcPeriod(mktime(0, 0, 0, $month, 1, $year));
         $periodE = BattleHelper::calcPeriod(mktime(0, 0, -1, $month + 1, 1, $year));
-        if (!static::hasStageData($periodS, $periodE)) {
-            return false;
-        }
-
-        return true;
+        return (bool)static::hasStageData($periodS, $periodE);
         // }}}
     }
 
@@ -262,9 +262,9 @@ class MonthAction extends BaseAction
                 //      LINE 1: SET timezone TO $1
                 // とかなるので一回エミュレートして埋め込む必要がある
                 Yii::$app->db
-                    ->createCommand("SET timezone TO :timezone")
+                    ->createCommand('SET timezone TO :timezone')
                     ->bindValue(':timezone', $timezone)
-                    ->rawSql
+                    ->rawSql,
             )->execute();
         };
 

@@ -27,7 +27,7 @@ class m200829_210631_traditional_chinese extends Migration
             ['name', 'php_name', 'substitute', 'is_unicode', 'order'],
             [
                 ['Big5', 'CP950', 63, false, 16],
-            ]
+            ],
         );
 
         $chinese = $this->getChineseLanguageId();
@@ -35,11 +35,9 @@ class m200829_210631_traditional_chinese extends Migration
             'language_charset',
             ['language_id', 'charset_id', 'is_win_acp'],
             array_map(
-                function (array $_) use ($chinese): array {
-                    return [$chinese, $_[0], $_[1]];
-                },
+                fn (array $_): array => [$chinese, $_[0], $_[1]],
                 $this->getCharsetIds(),
-            )
+            ),
         );
 
         $this->batchInsert('accept_language', ['rule', 'language_id'], [
@@ -56,9 +54,7 @@ class m200829_210631_traditional_chinese extends Migration
         $this->delete('language_charset', ['language_id' => $chinese]);
         $this->delete('language', ['id' => $chinese]);
         $this->delete('charset', ['id' => array_map(
-            function (array $_): int {
-                return $_[0];
-            },
+            fn (array $_): int => $_[0],
             $this->getChineseCharsetIds(),
         )]);
     }
@@ -84,30 +80,26 @@ class m200829_210631_traditional_chinese extends Migration
     public function getChineseCharsetIds(): array
     {
         return array_map(
-            function (array $row): array {
-                return [(int)$row['id'], $row['php_name'] === 'CP950'];
-            },
+            fn (array $row): array => [(int)$row['id'], $row['php_name'] === 'CP950'],
             (new Query())
                 ->select('*')
                 ->from('charset')
                 ->where(['php_name' => ['CP950']])
                 ->orderBy(['id' => SORT_ASC])
-                ->all()
+                ->all(),
         );
     }
 
     public function getUnicodeCharsetIds(): array
     {
         return array_map(
-            function ($value): array {
-                return [(int)$value, false];
-            },
+            fn ($value): array => [(int)$value, false],
             (new Query())
                 ->select('id')
                 ->from('charset')
                 ->where(['php_name' => ['UTF-8', 'UTF-16LE']])
                 ->orderBy(['id' => SORT_ASC])
-                ->column()
+                ->column(),
         );
     }
 }

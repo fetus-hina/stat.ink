@@ -16,20 +16,24 @@ use app\models\Map3;
 use app\models\Result3;
 use app\models\Rule3;
 
+use function array_filter;
+use function implode;
+use function vsprintf;
+
 final class BattleSummaryFormatter
 {
     public static function format(Battle3 $model): string
     {
-        return \implode(
+        return implode(
             ' | ',
-            \array_filter(
+            array_filter(
                 [
                     self::formatRule($model->rule),
                     self::formatMap($model->map),
                     self::formatResult($model->result, $model->is_knockout, $model->rule),
                 ],
-                fn (?string $t): bool => $t !== null
-            )
+                fn (?string $t): bool => $t !== null,
+            ),
         );
     }
 
@@ -57,7 +61,7 @@ final class BattleSummaryFormatter
             return Yii::t('app', $result->name);
         }
 
-        return \vsprintf('%s (%s)', [
+        return vsprintf('%s (%s)', [
             Yii::t('app', $result->name),
             $isKO ? Yii::t('app', 'Knockout') : Yii::t('app', 'Time is up'),
         ]);

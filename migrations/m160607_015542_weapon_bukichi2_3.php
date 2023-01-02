@@ -6,13 +6,13 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
-use yii\db\Expression;
+use app\models\DeathReasonType;
 use app\models\Special;
 use app\models\Subweapon;
 use app\models\Weapon;
 use app\models\WeaponType;
-use app\models\DeathReasonType;
+use yii\db\Expression;
+use yii\db\Migration;
 
 class m160607_015542_weapon_bukichi2_3 extends Migration
 {
@@ -42,7 +42,7 @@ class m160607_015542_weapon_bukichi2_3 extends Migration
                     new Expression("currval('weapon_id_seq'::regclass)"),
                     Weapon::findOne(['key' => 'barrelspinner'])->id,
                 ],
-            ]
+            ],
         );
 
         $type = DeathReasonType::findOne(['key' => 'main'])->id;
@@ -62,7 +62,7 @@ class m160607_015542_weapon_bukichi2_3 extends Migration
                     'Heavy Splatling Remix',
                     Weapon::findOne(['key' => 'barrelspinner'])->id,
                 ],
-            ]
+            ],
         );
     }
 

@@ -6,9 +6,9 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
 use app\models\Special;
 use app\models\Subweapon;
+use yii\db\Migration;
 
 class m160608_080304_fix_weapon extends Migration
 {
@@ -17,12 +17,12 @@ class m160608_080304_fix_weapon extends Migration
         $this->update(
             'weapon',
             [
-                'subweapon_id'  => Subweapon::findOne(['key' => 'sprinkler'])->id,
-                'special_id'    => Special::findOne(['key' => 'megaphone'])->id,
+                'subweapon_id' => Subweapon::findOne(['key' => 'sprinkler'])->id,
+                'special_id' => Special::findOne(['key' => 'megaphone'])->id,
             ],
             [
                 'key' => 'barrelspinner_remix',
-            ]
+            ],
         );
     }
 
@@ -31,12 +31,12 @@ class m160608_080304_fix_weapon extends Migration
         $this->update(
             'weapon',
             [
-                'subweapon_id'  => Subweapon::findOne(['key' => 'splashbomb'])->id,
-                'special_id'    => Special::findOne(['key' => 'supershot'])->id,
+                'subweapon_id' => Subweapon::findOne(['key' => 'splashbomb'])->id,
+                'special_id' => Special::findOne(['key' => 'supershot'])->id,
             ],
             [
                 'key' => 'barrelspinner_remix',
-            ]
+            ],
         );
     }
 }

@@ -38,7 +38,7 @@ class m190205_101752_gears extends Migration
                 'headgear',
                 'squidforce',
                 'swim_speed_up',
-                8013
+                8013,
             ],
             [
                 static::name2key('Octo Support Hoodie'),
@@ -46,7 +46,7 @@ class m190205_101752_gears extends Migration
                 'clothing',
                 'squidforce',
                 'main_power_up',
-                10011
+                10011,
             ],
             [
                 static::name2key('Office Attire'),
@@ -54,8 +54,8 @@ class m190205_101752_gears extends Migration
                 'clothing',
                 'grizzco',
                 null,
-                21009
-            ]
+                21009,
+            ],
         ];
     }
 }

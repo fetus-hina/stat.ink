@@ -85,9 +85,9 @@ class AppLinkAsset extends AssetBundle
                         'height' => '1em',
                         'width' => 'auto',
                     ],
-                ]
+                ],
             ),
-            ['class' => 'fas fa-fw']
+            ['class' => 'fas fa-fw'],
         );
     }
 }

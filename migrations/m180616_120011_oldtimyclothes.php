@@ -21,7 +21,7 @@ class m180616_120011_oldtimyclothes extends Migration
             'clothing',
             static::name2key('Cuttlegear'),
             static::name2key('Thermal Ink'),
-            27106
+            27106,
         );
     }
 

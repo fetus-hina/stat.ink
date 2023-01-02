@@ -13,6 +13,8 @@ namespace app\models\openapi;
 interface SecurityInterface
 {
     public static function oapiSecUse(array $options = []): array;
+
     public static function oapiSecName(): string;
+
     public static function oapiSecurity(): array;
 }

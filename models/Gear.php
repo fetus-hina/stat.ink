@@ -10,7 +10,10 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
-use yii\helpers\ArrayHelper;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+
+use function array_merge;
 
 /**
  * This is the model class for table "gear".
@@ -26,7 +29,7 @@ use yii\helpers\ArrayHelper;
  * @property Brand $brand
  * @property GearType $type
  */
-class Gear extends \yii\db\ActiveRecord
+class Gear extends ActiveRecord
 {
     use openapi\Util;
 
@@ -47,7 +50,7 @@ class Gear extends \yii\db\ActiveRecord
             [['key', 'type_id', 'brand_id', 'name', 'ability_id'], 'required'],
             [['type_id', 'brand_id', 'ability_id'], 'integer'],
             [['key', 'name'], 'string', 'max' => 32],
-            [['key'], 'unique']
+            [['key'], 'unique'],
         ];
     }
 
@@ -67,7 +70,7 @@ class Gear extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getAbility()
     {
@@ -75,7 +78,7 @@ class Gear extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBrand()
     {
@@ -83,7 +86,7 @@ class Gear extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getType()
     {

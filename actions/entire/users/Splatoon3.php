@@ -19,6 +19,13 @@ use app\models\Battle3;
 use yii\db\Connection;
 use yii\db\Query;
 
+use function array_map;
+use function assert;
+use function sprintf;
+use function time;
+use function usort;
+use function version_compare;
+
 use const SORT_ASC;
 
 trait Splatoon3
@@ -44,15 +51,13 @@ trait Splatoon3
                 $stats[] = $row;
             }
 
-            return \array_map(
-                function (array $a): array {
-                    return [
+            return array_map(
+                fn (array $a): array => [
                         'date' => $a['date'],
                         'battle' => (int)$a['battle_count'],
                         'user' => (int)$a['user_count'],
-                    ];
-                },
-                $stats
+                    ],
+                $stats,
             );
         } finally {
             unset($tz);
@@ -98,8 +103,7 @@ trait Splatoon3
                     'e' => DateTimeFormatter::unixTimeToJsonArray($endAt->getTimestamp() - 1),
                 ],
                 'agents' => array_map(
-                    function (array $row) use ($startAt, $endAt): array {
-                        return [
+                    fn (array $row): array => [
                             'name' => (string)$row['name'],
                             'battles' => (int)$row['battles'],
                             'users' => (int)$row['users'],
@@ -108,12 +112,11 @@ trait Splatoon3
                                 $startAt,
                                 $endAt,
                                 (int)$row['min_id'],
-                                (int)$row['max_id']
+                                (int)$row['max_id'],
                             ),
-                        ];
-                    },
-                    $list
-                )
+                        ],
+                    $list,
+                ),
             ];
         } finally {
             unset($tz);
@@ -148,18 +151,14 @@ trait Splatoon3
                 ->groupBy(['{{%battle3}}.[[agent_id]]'])
                 ->asArray()
                 ->all();
-            \usort($versions, function (array $a, array $b): int {
-                return \version_compare($b['version'], $a['version']);
-            });
-            return \array_map(
-                function (array $row): array {
-                    return [
+            usort($versions, fn (array $a, array $b): int => version_compare($b['version'], $a['version']));
+            return array_map(
+                fn (array $row): array => [
                         'version' => (string)$row['version'],
                         'battles' => (int)$row['battles'],
                         'users' => (int)$row['users'],
-                    ];
-                },
-                $versions
+                    ],
+                $versions,
             );
         } finally {
             unset($tz);
@@ -169,7 +168,7 @@ trait Splatoon3
     private function utc3(): Resource
     {
         $conn = Yii::$app->db;
-        \assert($conn instanceof Connection);
+        assert($conn instanceof Connection);
 
         $oldTZ = $conn->createCommand("SELECT CURRENT_SETTING('TIMEZONE')")->queryScalar();
         $conn->createCommand("SET TIMEZONE TO 'Etc/UTC'")->execute();

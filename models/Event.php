@@ -8,7 +8,7 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "event".
@@ -18,7 +18,7 @@ use Yii;
  * @property string $name
  * @property string $icon
  */
-class Event extends \yii\db\ActiveRecord
+class Event extends ActiveRecord
 {
     /**
      * @inheritdoc

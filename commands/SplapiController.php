@@ -9,10 +9,9 @@
 namespace app\commands;
 
 use Curl\Curl;
+use Exception;
 use Yii;
-use yii\console\Controller;
-use yii\helpers\Console;
-use yii\helpers\Json;
+use app\components\helpers\Battle;
 use app\models\GameMode;
 use app\models\PeriodMap;
 use app\models\Rule;
@@ -20,6 +19,18 @@ use app\models\SplapiMap;
 use app\models\SplapiRule;
 use app\models\Splatfest;
 use app\models\SplatfestMap;
+use yii\console\Controller;
+use yii\helpers\Json;
+
+use function array_filter;
+use function array_map;
+use function count;
+use function gmdate;
+use function printf;
+use function sprintf;
+use function strtotime;
+use function time;
+use function usort;
 
 class SplapiController extends Controller
 {
@@ -34,13 +45,11 @@ class SplapiController extends Controller
         PeriodMap::deleteAll();
         SplatfestMap::deleteAll([
             'splatfest_id' => array_map(
-                function (Splatfest $fest) {
-                    return $fest->id;
-                },
+                fn (Splatfest $fest) => $fest->id,
                 Splatfest::find()
                     ->innerJoinWith(['region'])
                     ->andWhere(['{{region}}.[[key]]' => 'jp'])
-                    ->all()
+                    ->all(),
             ),
         ]);
         $this->mapUpdateRegular();
@@ -69,25 +78,23 @@ class SplapiController extends Controller
     {
         echo "regular...\n";
         $latestPeriod = $this->getLatestPeriod(GameMode::findOne(['key' => 'regular']));
-        $currntPeriod = \app\components\helpers\Battle::calcPeriod(time());
+        $currntPeriod = Battle::calcPeriod(time());
         $futureOnly = ($latestPeriod >= $currntPeriod);
         $json = array_filter(
             array_map(
                 function ($item) {
-                    $item->period = \app\components\helpers\Battle::calcPeriod(
-                        strtotime($item->start)
+                    $item->period = Battle::calcPeriod(
+                        strtotime($item->start),
                     );
                     return $item;
                 },
                 $this->queryJson(
                     $futureOnly
                         ? 'https://splapi.fetus.jp/regular/next_all'
-                        : 'https://splapi.fetus.jp/regular'
-                )->result
+                        : 'https://splapi.fetus.jp/regular',
+                )->result,
             ),
-            function ($item) use ($latestPeriod) {
-                return $item->period > $latestPeriod;
-            }
+            fn ($item) => $item->period > $latestPeriod,
         );
 
         if (empty($json)) {
@@ -96,9 +103,7 @@ class SplapiController extends Controller
         }
 
         printf("count(new_data) = %d\n", count($json));
-        usort($json, function ($a, $b) {
-            return $a->period - $b->period;
-        });
+        usort($json, fn ($a, $b) => $a->period - $b->period);
 
         echo "Converting to insert data...\n";
         $map = $this->getMapTable();
@@ -121,8 +126,8 @@ class SplapiController extends Controller
         echo "inserting...\n";
         Yii::$app->db->createCommand()->batchInsert(
             PeriodMap::tableName(),
-            [ 'period', 'rule_id', 'map_id' ],
-            $insert
+            ['period', 'rule_id', 'map_id'],
+            $insert,
         )->execute();
         echo "done.\n";
     }
@@ -132,25 +137,23 @@ class SplapiController extends Controller
         echo "gachi...\n";
         $gameMode = GameMode::findOne(['key' => 'gachi']);
         $latestPeriod = $this->getLatestPeriod($gameMode);
-        $currntPeriod = \app\components\helpers\Battle::calcPeriod(time());
+        $currntPeriod = Battle::calcPeriod(time());
         $futureOnly = ($latestPeriod >= $currntPeriod);
         $json = array_filter(
             array_map(
                 function ($item) {
-                    $item->period = \app\components\helpers\Battle::calcPeriod(
-                        strtotime($item->start)
+                    $item->period = Battle::calcPeriod(
+                        strtotime($item->start),
                     );
                     return $item;
                 },
                 $this->queryJson(
                     $futureOnly
                         ? 'https://splapi.fetus.jp/gachi/next_all'
-                        : 'https://splapi.fetus.jp/gachi'
-                )->result
+                        : 'https://splapi.fetus.jp/gachi',
+                )->result,
             ),
-            function ($item) use ($latestPeriod) {
-                return $item->period > $latestPeriod;
-            }
+            fn ($item) => $item->period > $latestPeriod,
         );
 
         if (empty($json)) {
@@ -159,9 +162,7 @@ class SplapiController extends Controller
         }
 
         printf("count(new_data) = %d\n", count($json));
-        usort($json, function ($a, $b) {
-            return $a->period - $b->period;
-        });
+        usort($json, fn ($a, $b) => $a->period - $b->period);
 
         echo "Converting to insert data...\n";
         $map = $this->getMapTable();
@@ -188,8 +189,8 @@ class SplapiController extends Controller
         echo "inserting...\n";
         Yii::$app->db->createCommand()->batchInsert(
             PeriodMap::tableName(),
-            [ 'period', 'rule_id', 'map_id' ],
-            $insert
+            ['period', 'rule_id', 'map_id'],
+            $insert,
         )->execute();
         echo "done.\n";
     }
@@ -201,11 +202,9 @@ class SplapiController extends Controller
                 'in',
                 'rule_id',
                 array_map(
-                    function ($a) {
-                        return $a->id;
-                    },
-                    $gameMode->rules
-                )
+                    fn ($a) => $a->id,
+                    $gameMode->rules,
+                ),
             ])
             ->orderBy('{{period_map}}.[[period]] DESC')
             ->limit(1)
@@ -231,7 +230,7 @@ class SplapiController extends Controller
                 ->andWhere(['and',
                     ['{{region}}.[[key]]' => 'jp'],
                     ['<=', '{{splatfest}}.[[start_at]]', $t],
-                    ['>',  '{{splatfest}}.[[end_at]]', $t],
+                    ['>', '{{splatfest}}.[[end_at]]', $t],
                 ])
                 ->one();
             if (!$fest) {
@@ -240,7 +239,7 @@ class SplapiController extends Controller
             if ($fest->getSplatfestMaps()->count() > 0) {
                 continue;
             }
-            echo "new data for [" . $fest->name . "]\n";
+            echo 'new data for [' . $fest->name . "]\n";
             if (!$maps = SplapiMap::findAll(['name' => $data->maps])) {
                 echo "  no map data available...\n";
                 continue;
@@ -252,7 +251,7 @@ class SplapiController extends Controller
                     'map_id' => $map->map_id,
                 ];
                 if (!$o->save()) {
-                    throw new \Exception('Save failed');
+                    throw new Exception('Save failed');
                 }
             }
         }
@@ -272,14 +271,14 @@ class SplapiController extends Controller
         // 今がフェス中でなければ不要
         $now = gmdate(
             'Y-m-d\TH:i:sP',
-            (int)(@$_SERVER['REQUEST_TIME'] ?: time())
+            (int)(@$_SERVER['REQUEST_TIME'] ?: time()),
         );
         $fest = Splatfest::find()
             ->innerJoinWith('region', false)
             ->andWhere(['and',
                 ['{{region}}.[[key]]' => 'jp'],
                 ['<=', '{{splatfest}}.[[start_at]]', $now],
-                ['>',  '{{splatfest}}.[[end_at]]', $now],
+                ['>', '{{splatfest}}.[[end_at]]', $now],
             ])
             ->one();
         if (!$fest) {
@@ -293,7 +292,6 @@ class SplapiController extends Controller
         return $count < 1;
     }
 
-
     private function queryJson($url, $data = [])
     {
         echo "Querying {$url} ...\n";
@@ -302,11 +300,11 @@ class SplapiController extends Controller
             '%s/%s (+%s)',
             'stat.ink',
             Yii::$app->version,
-            'https://github.com/fetus-hina/stat.ink'
+            'https://github.com/fetus-hina/stat.ink',
         ));
         $curl->get($url, $data);
         if ($curl->error) {
-            throw new \Exception("Request failed: url={$url}, code={$curl->errorCode}, msg={$curl->errorMessage}");
+            throw new Exception("Request failed: url={$url}, code={$curl->errorCode}, msg={$curl->errorMessage}");
         }
         return Json::decode($curl->rawResponse, false);
     }

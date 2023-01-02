@@ -30,6 +30,8 @@ use statink\yii2\calHeatmap\CalHeatmapAsset;
 use statink\yii2\calHeatmap\D3Asset;
 use statink\yii2\ipBadge\assets\Audiowide;
 use statink\yii2\jdenticon\JdenticonAsset;
+use statink\yii2\momentjs\MomentAsset;
+use statink\yii2\momentjs\MomentTimezoneAsset;
 use statink\yii2\sortableTable\JqueryStupidTableAsset;
 use yii\bootstrap\BootstrapAsset;
 use yii\bootstrap\BootstrapPluginAsset;
@@ -159,10 +161,10 @@ return [
         PjaxAsset::class => [
             'sourcePath' => '@node/yii2-pjax',
         ],
-        \statink\yii2\momentjs\MomentAsset::class => [
+        MomentAsset::class => [
             'sourcePath' => '@node/moment/min',
         ],
-        \statink\yii2\momentjs\MomentTimezoneAsset::class => [
+        MomentTimezoneAsset::class => [
             'sourcePath' => '@node/moment-timezone/builds',
         ],
     ],

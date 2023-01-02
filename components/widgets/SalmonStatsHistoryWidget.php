@@ -19,6 +19,22 @@ use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\ServerErrorHttpException;
 
+use function array_filter;
+use function array_keys;
+use function array_map;
+use function array_values;
+use function fclose;
+use function fopen;
+use function fseek;
+use function implode;
+use function preg_replace_callback;
+use function sprintf;
+use function stream_get_contents;
+use function trim;
+use function vsprintf;
+
+use const SEEK_SET;
+
 class SalmonStatsHistoryWidget extends Widget
 {
     public $user;
@@ -52,8 +68,8 @@ class SalmonStatsHistoryWidget extends Widget
                                 ['api-internal/salmon-stats2',
                                     'screen_name' => $this->user->screen_name,
                                 ],
-                                true
-                            )
+                                true,
+                            ),
                         );
 
                     case 'close':
@@ -74,7 +90,7 @@ class SalmonStatsHistoryWidget extends Widget
 
                 return $match[0];
             },
-            $this->html
+            $this->html,
         );
     }
 
@@ -84,29 +100,27 @@ class SalmonStatsHistoryWidget extends Widget
         return Html::tag(
             'ul',
             implode('', array_map(
-                function (string $key, string $short) {
-                    return Html::tag(
-                        'li',
-                        Html::a(
-                            Html::encode($short),
-                            sprintf('#%s-%s', $this->id, $key),
-                            ['data-toggle' => 'tab']
-                        ),
-                        [
+                fn (string $key, string $short) => Html::tag(
+                    'li',
+                    Html::a(
+                        Html::encode($short),
+                        sprintf('#%s-%s', $this->id, $key),
+                        ['data-toggle' => 'tab'],
+                    ),
+                    [
                             'role' => 'presentation',
                             'class' => array_filter([
                                 $key === $this->getDefaultTab() ? 'active' : '',
                             ]),
-                        ]
-                    );
-                },
+                        ],
+                ),
                 array_keys($tabs),
                 ArrayHelper::getColumn($tabs, 'short'),
             )),
             [
                 'class' => 'nav nav-tabs mb-2',
                 'role' => 'tablist',
-            ]
+            ],
         );
     }
 
@@ -116,10 +130,9 @@ class SalmonStatsHistoryWidget extends Widget
         return Html::tag(
             'div',
             implode('', array_map(
-                function (string $key, array $options): string {
-                    return Html::tag(
-                        'div',
-                        implode('', [
+                fn (string $key, array $options): string => Html::tag(
+                    'div',
+                    implode('', [
                             $options['total']
                                 ? $this->renderBodyTotal($key, $options['api'])
                                 : '',
@@ -127,7 +140,7 @@ class SalmonStatsHistoryWidget extends Widget
                                 ? $this->renderBodyAverage($key, $options['api'])
                                 : '',
                         ]),
-                        [
+                    [
                             'id' => sprintf('%s-%s', $this->id, $key),
                             'role' => 'tabpanel',
                             'class' => array_filter([
@@ -135,12 +148,11 @@ class SalmonStatsHistoryWidget extends Widget
                                 $key === $this->getDefaultTab() ? 'active' : '',
                             ]),
                         ],
-                    );
-                },
+                ),
                 array_keys($tabs),
                 array_values($tabs),
             )),
-            ['class' => 'tab-content']
+            ['class' => 'tab-content'],
         );
     }
 
@@ -150,7 +162,7 @@ class SalmonStatsHistoryWidget extends Widget
             Yii::t('app-salmon-history2', 'Total'),
             $key,
             $apiKey,
-            'total'
+            'total',
         );
     }
 
@@ -160,7 +172,7 @@ class SalmonStatsHistoryWidget extends Widget
             Yii::t('app-salmon-history2', 'Average'),
             $key,
             $apiKey,
-            'average'
+            'average',
         );
     }
 
@@ -183,7 +195,7 @@ class SalmonStatsHistoryWidget extends Widget
                     ],
                 ]),
             ]),
-            ['class' => 'mb-2']
+            ['class' => 'mb-2'],
         );
     }
 

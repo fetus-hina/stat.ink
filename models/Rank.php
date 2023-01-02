@@ -10,6 +10,12 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+
+use function sprintf;
+
+use const SORT_DESC;
 
 /**
  * This is the model class for table "rank".
@@ -22,7 +28,7 @@ use app\components\helpers\Translator;
  * @property Battle[] $battles
  * @property RankGroup $group
  */
-final class Rank extends \yii\db\ActiveRecord
+final class Rank extends ActiveRecord
 {
     use SafeFindOneTrait;
 
@@ -61,7 +67,7 @@ final class Rank extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattles()
     {
@@ -69,7 +75,7 @@ final class Rank extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getGroup()
     {
@@ -105,7 +111,7 @@ final class Rank extends \yii\db\ActiveRecord
         return sprintf(
             '%s %d',
             Yii::t('app-rank', $rank['name']),
-            $intRank - $rank['int_base']
+            $intRank - $rank['int_base'],
         );
     }
 }

@@ -10,9 +10,14 @@ namespace app\models;
 
 use Yii;
 use app\components\validators\WeaponKeyValidator;
-use app\models\Rule;
 use yii\base\InvalidParamException;
 use yii\base\Model;
+
+use function array_map;
+use function preg_match;
+use function range;
+use function sprintf;
+use function trim;
 
 class WeaponCompareForm extends Model
 {
@@ -25,16 +30,13 @@ class WeaponCompareForm extends Model
         if (!preg_match('/^(?:weapon|rule)(\d+)$/', $name, $match)) {
             return false;
         }
-        if ($match[1] < 1 || $match[1] > static::NUMBER) {
-            return false;
-        }
-        return true;
+        return $match[1] >= 1 && $match[1] <= static::NUMBER;
     }
 
     public function getAttribute(string $name)
     {
         if (!$this->hasAttribute($name)) {
-            throw new InvalidParamException(get_class($this) . ' has no attribute named "' . $name . '".');
+            throw new InvalidParamException(static::class . ' has no attribute named "' . $name . '".');
         }
         return $this->attributes[$name] ?? null;
     }
@@ -42,7 +44,7 @@ class WeaponCompareForm extends Model
     public function setAttribute(string $name, $value): self
     {
         if (!$this->hasAttribute($name)) {
-            throw new InvalidParamException(get_class($this) . ' has no attribute named "' . $name . '".');
+            throw new InvalidParamException(static::class . ' has no attribute named "' . $name . '".');
         }
         $this->attributes[$name] = $value;
         return $this;
@@ -91,25 +93,17 @@ class WeaponCompareForm extends Model
 
     public function rules()
     {
-        $weapons = array_map(function ($i) {
-            return "weapon{$i}";
-        }, range(1, static::NUMBER));
-        $rules = array_map(function ($i) {
-            return "rule{$i}";
-        }, range(1, static::NUMBER));
+        $weapons = array_map(fn ($i) => "weapon{$i}", range(1, static::NUMBER));
+        $rules = array_map(fn ($i) => "rule{$i}", range(1, static::NUMBER));
         return [
             [$weapons, WeaponKeyValidator::class],
             [$rules, 'safe',
-                'when' => function ($model, $attribute) {
-                    return $model->$attribute === '@gachi';
-                },
+                'when' => fn ($model, $attribute) => $model->$attribute === '@gachi',
             ],
             [$rules, 'exist',
                 'targetClass' => Rule::class,
                 'targetAttribute' => 'key',
-                'when' => function ($model, $attribute) {
-                    return $model->$attribute !== '@gachi';
-                },
+                'when' => fn ($model, $attribute) => $model->$attribute !== '@gachi',
             ],
         ];
     }

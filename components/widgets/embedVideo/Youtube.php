@@ -8,9 +8,17 @@
 
 namespace app\components\widgets\embedVideo;
 
-use Yii;
 use yii\base\Widget;
 use yii\helpers\Html;
+
+use function filter_var;
+use function http_build_query;
+use function implode;
+use function preg_match;
+use function rawurlencode;
+use function sprintf;
+
+use const FILTER_VALIDATE_INT;
 
 class Youtube extends Widget
 {
@@ -44,15 +52,15 @@ class Youtube extends Widget
             }
         }
         $iframe = Html::tag('iframe', '', [
-            'width'             => (string)$this->width,
-            'height'            => (string)$this->height,
-            'frameborder'       => '0',
-            'allowfullscreen'   => 'allowfullscreen',
+            'width' => (string)$this->width,
+            'height' => (string)$this->height,
+            'frameborder' => '0',
+            'allowfullscreen' => 'allowfullscreen',
             'src' => sprintf(
                 'https://%s/embed/%s?%s',
                 $this->noCookie ? 'www.youtube-nocookie.com' : 'www.youtube.com',
                 rawurlencode($this->videoId),
-                http_build_query($params, '', '&')
+                http_build_query($params, '', '&'),
             ),
         ]);
 

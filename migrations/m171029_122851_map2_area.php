@@ -23,16 +23,16 @@ class m171029_122851_map2_area extends Migration
         $this->update(
             'map2',
             ['area' => null],
-            ['key' => array_keys($this->getList())]
+            ['key' => array_keys($this->getList())],
         );
     }
 
     public function getList()
     {
         return [
-            'mozuku'    => 2315,
-            'engawa'    => 2250,
-            'bbass'     => 1947,
+            'mozuku' => 2315,
+            'engawa' => 2250,
+            'bbass' => 1947,
         ];
     }
 }

@@ -14,6 +14,8 @@ use app\models\SalmonBoss3;
 use app\models\SalmonBossAppearance3;
 use yii\helpers\ArrayHelper;
 
+use function ksort;
+
 final class SalmonBossAppearanceApiFormatter
 {
     /**
@@ -40,7 +42,7 @@ final class SalmonBossAppearanceApiFormatter
                 'defeated_by_me' => (int)$model->defeated_by_me,
             ];
         }
-        \ksort($results);
+        ksort($results);
         return $results;
     }
 }

@@ -62,7 +62,7 @@ class EmailVerifyForm extends Model
     {
         $this->email = Yii::$app->security->hashData(
             $email,
-            Yii::$app->request->cookieValidationKey
+            Yii::$app->request->cookieValidationKey,
         );
 
         return $this;
@@ -72,7 +72,7 @@ class EmailVerifyForm extends Model
     {
         $result = Yii::$app->security->validateData(
             $this->email,
-            Yii::$app->request->cookieValidationKey
+            Yii::$app->request->cookieValidationKey,
         );
 
         return $result === false ? null : $result;

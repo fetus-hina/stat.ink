@@ -20,6 +20,9 @@ use yii\helpers\Html;
 use yii\web\View;
 use yii\web\YiiAsset;
 
+use function implode;
+use function vsprintf;
+
 final class ModalFooter extends Widget
 {
     public Battle3|Salmon3|null $model = null;
@@ -32,7 +35,7 @@ final class ModalFooter extends Widget
 
         return Html::tag(
             'div',
-            \implode('', [
+            implode('', [
                 $this->renderCloseButton(),
                 $this->renderDeleteButton($model),
             ]),
@@ -43,7 +46,7 @@ final class ModalFooter extends Widget
     private function renderCloseButton(): string
     {
         return Html::button(
-            \vsprintf('%s %s', [
+            vsprintf('%s %s', [
                 Icon::close(),
                 Html::encode(Yii::t('app', 'Close')),
             ]),
@@ -62,7 +65,7 @@ final class ModalFooter extends Widget
         }
 
         return Html::a(
-            \vsprintf('%s %s', [
+            vsprintf('%s %s', [
                 Icon::delete(),
                 Html::encode(Yii::t('app', 'Delete')),
             ]),

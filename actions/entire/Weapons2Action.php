@@ -10,11 +10,12 @@ declare(strict_types=1);
 
 namespace app\actions\entire;
 
-use stdClass;
 use DateInterval;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
+use Exception;
+use Throwable;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
 use app\models\EntireWeapon2Form;
@@ -25,8 +26,25 @@ use app\models\SplatoonVersionGroup2;
 use app\models\StatWeapon2UseCount;
 use app\models\Subweapon2;
 use app\models\Weapon2;
+use stdClass;
 use yii\db\Query;
 use yii\web\ViewAction as BaseAction;
+
+use function array_map;
+use function array_merge;
+use function count;
+use function date;
+use function intval;
+use function pow;
+use function preg_match;
+use function sprintf;
+use function strnatcasecmp;
+use function strtotime;
+use function substr;
+use function usort;
+
+use const SORT_ASC;
+use const SORT_DESC;
 
 class Weapons2Action extends BaseAction
 {
@@ -66,7 +84,7 @@ class Weapons2Action extends BaseAction
                 ['and',
                     ['=', 'isoyear', $threshold[0]],
                     ['>=', 'isoweek', $threshold[1]],
-                ]
+                ],
             ])
             ->groupBy('weapon_id')
             ->orderBy([
@@ -85,11 +103,11 @@ class Weapons2Action extends BaseAction
                         $key = sprintf('w%d', $trend['weapon_id']);
                         $ret[$key] = sprintf(
                             'SUM(CASE WHEN [[weapon_id]] = %d THEN [[battles]] ELSE 0 END)',
-                            $trend['weapon_id']
+                            $trend['weapon_id'],
                         );
                     }
                     return $ret;
-                })()
+                })(),
             ))
             ->from('stat_weapon2_use_count_per_week')
             ->where(['or',
@@ -97,7 +115,7 @@ class Weapons2Action extends BaseAction
                 ['and',
                     ['=', 'isoyear', 2017],
                     ['>=', 'isoweek', 31],
-                ]
+                ],
             ])
             ->groupBy('isoyear, isoweek')
             ->orderBy('isoyear, isoweek');
@@ -106,9 +124,7 @@ class Weapons2Action extends BaseAction
         }
 
         $weapons = Weapon2::findAll([
-            'id' => array_map(function ($_) {
-                return $_['weapon_id'];
-            }, $trends),
+            'id' => array_map(fn ($_) => $_['weapon_id'], $trends),
         ]);
 
         return array_map(function (array $_) use ($trends, $weapons): array {
@@ -149,13 +165,13 @@ class Weapons2Action extends BaseAction
         foreach (Rule2::find()->orderBy(['id' => SORT_ASC])->all() as $rule) {
             $weapons = $this->getEntireWeaponsByRule($rule, $form);
             $rules[] = (object)[
-                'key'       => $rule->key,
-                'name'      => Yii::t('app-rule2', $rule->name),
-                'data'      => $weapons,
-                'sub'       => $this->convertWeapons2Sub($weapons),
-                'special'   => $this->convertWeapons2Special($weapons),
-                'type'      => $this->convertWeapons2Type($weapons),
-                'category'  => $this->convertWeapons2Category($weapons),
+                'key' => $rule->key,
+                'name' => Yii::t('app-rule2', $rule->name),
+                'data' => $weapons,
+                'sub' => $this->convertWeapons2Sub($weapons),
+                'special' => $this->convertWeapons2Special($weapons),
+                'type' => $this->convertWeapons2Type($weapons),
+                'category' => $this->convertWeapons2Category($weapons),
             ];
         }
         return $rules;
@@ -164,67 +180,67 @@ class Weapons2Action extends BaseAction
     private function getEntireWeaponsByRule(Rule2 $rule, EntireWeapon2Form $form)
     {
         $columns = [
-            'weapon_key'        => 'MAX({{weapon2}}.[[key]])',
-            'weapon_name'       => 'MAX({{weapon2}}.[[name]])',
-            'subweapon_key'     => 'MAX({{subweapon2}}.[[key]])',
-            'subweapon_name'    => 'MAX({{subweapon2}}.[[name]])',
-            'special_key'       => 'MAX({{special2}}.[[key]])',
-            'special_name'      => 'MAX({{special2}}.[[name]])',
-            'type_key'          => 'MAX({{weapon_type2}}.[[key]])',
-            'type_name'         => 'MAX({{weapon_type2}}.[[name]])',
-            'category_key'      => 'MAX({{weapon_category2}}.[[key]])',
-            'category_name'     => 'MAX({{weapon_category2}}.[[name]])',
-            'count'             => 'SUM({{stat_weapon2_use_count}}.[[battles]])',
-            'avg_kill'          => sprintf(
+            'weapon_key' => 'MAX({{weapon2}}.[[key]])',
+            'weapon_name' => 'MAX({{weapon2}}.[[name]])',
+            'subweapon_key' => 'MAX({{subweapon2}}.[[key]])',
+            'subweapon_name' => 'MAX({{subweapon2}}.[[name]])',
+            'special_key' => 'MAX({{special2}}.[[key]])',
+            'special_name' => 'MAX({{special2}}.[[name]])',
+            'type_key' => 'MAX({{weapon_type2}}.[[key]])',
+            'type_name' => 'MAX({{weapon_type2}}.[[name]])',
+            'category_key' => 'MAX({{weapon_category2}}.[[key]])',
+            'category_name' => 'MAX({{weapon_category2}}.[[name]])',
+            'count' => 'SUM({{stat_weapon2_use_count}}.[[battles]])',
+            'avg_kill' => sprintf(
                 '(%s / NULLIF(%s, 0))',
                 'SUM({{stat_weapon2_use_count}}.[[kills]])',
-                'SUM({{stat_weapon2_use_count}}.[[kd_available]])'
+                'SUM({{stat_weapon2_use_count}}.[[kd_available]])',
             ),
-            'sum_kill'          => 'SUM({{stat_weapon2_use_count}}.[[kills]])',
-            'kill_per_min'      => sprintf(
+            'sum_kill' => 'SUM({{stat_weapon2_use_count}}.[[kills]])',
+            'kill_per_min' => sprintf(
                 '(%s * 60.0 / NULLIF(%s, 0))',
                 'SUM({{stat_weapon2_use_count}}.[[kills_with_time]])',
-                'SUM({{stat_weapon2_use_count}}.[[kd_time_seconds]])'
+                'SUM({{stat_weapon2_use_count}}.[[kd_time_seconds]])',
             ),
-            'avg_death'         => sprintf(
+            'avg_death' => sprintf(
                 '(%s / NULLIF(%s, 0))',
                 'SUM({{stat_weapon2_use_count}}.[[deaths]])',
-                'SUM({{stat_weapon2_use_count}}.[[kd_available]])'
+                'SUM({{stat_weapon2_use_count}}.[[kd_available]])',
             ),
-            'sum_death'         => 'SUM({{stat_weapon2_use_count}}.[[deaths]])',
-            'death_per_min'     => sprintf(
+            'sum_death' => 'SUM({{stat_weapon2_use_count}}.[[deaths]])',
+            'death_per_min' => sprintf(
                 '(%s * 60.0 / NULLIF(%s, 0))',
                 'SUM({{stat_weapon2_use_count}}.[[deaths_with_time]])',
-                'SUM({{stat_weapon2_use_count}}.[[kd_time_seconds]])'
+                'SUM({{stat_weapon2_use_count}}.[[kd_time_seconds]])',
             ),
-            'avg_special'       => sprintf(
+            'avg_special' => sprintf(
                 '(%s / NULLIF(%s, 0))',
                 'SUM({{stat_weapon2_use_count}}.[[specials]])',
-                'SUM({{stat_weapon2_use_count}}.[[specials_available]])'
+                'SUM({{stat_weapon2_use_count}}.[[specials_available]])',
             ),
-            'sum_special'       => 'SUM({{stat_weapon2_use_count}}.[[specials]])',
-            'special_per_min'   => sprintf(
+            'sum_special' => 'SUM({{stat_weapon2_use_count}}.[[specials]])',
+            'special_per_min' => sprintf(
                 '(%s * 60.0 / NULLIF(%s, 0))',
                 'SUM({{stat_weapon2_use_count}}.[[specials_with_time]])',
-                'SUM({{stat_weapon2_use_count}}.[[specials_time_seconds]])'
+                'SUM({{stat_weapon2_use_count}}.[[specials_time_seconds]])',
             ),
-            'avg_inked'         => sprintf(
+            'avg_inked' => sprintf(
                 '(%s / NULLIF(%s, 0))',
                 'SUM({{stat_weapon2_use_count}}.[[inked]])',
-                'SUM({{stat_weapon2_use_count}}.[[inked_available]])'
+                'SUM({{stat_weapon2_use_count}}.[[inked_available]])',
             ),
-            'sum_inked'         => 'SUM({{stat_weapon2_use_count}}.[[inked]])',
-            'inked_per_min'     => sprintf(
+            'sum_inked' => 'SUM({{stat_weapon2_use_count}}.[[inked]])',
+            'inked_per_min' => sprintf(
                 '(%s * 60.0 / NULLIF(%s, 0))',
                 'SUM({{stat_weapon2_use_count}}.[[inked_with_time]])',
-                'SUM({{stat_weapon2_use_count}}.[[inked_time_seconds]])'
+                'SUM({{stat_weapon2_use_count}}.[[inked_time_seconds]])',
             ),
-            'wp'                => sprintf(
+            'wp' => sprintf(
                 '(%s * 100.0 / NULLIF(%s, 0))',
                 'SUM({{stat_weapon2_use_count}}.[[wins]])',
-                'SUM({{stat_weapon2_use_count}}.[[battles]])'
+                'SUM({{stat_weapon2_use_count}}.[[battles]])',
             ),
-            'win_count'         => 'SUM({{stat_weapon2_use_count}}.[[wins]])',
+            'win_count' => 'SUM({{stat_weapon2_use_count}}.[[wins]])',
         ];
         $query = StatWeapon2UseCount::find()
             ->select($columns)
@@ -239,7 +255,7 @@ class Weapons2Action extends BaseAction
             ->groupBy('{{stat_weapon2_use_count}}.[[weapon_id]]');
         try {
             if ($form->hasErrors()) {
-                throw new \Exception();
+                throw new Exception();
             }
             if ($form->map != '') {
                 $query->innerJoinWith('map');
@@ -264,7 +280,7 @@ class Weapons2Action extends BaseAction
                 ]);
             } elseif (substr($form->term, 0, 1) === 'v') {
                 if (!$v1 = SplatoonVersion2::findOne(['tag' => substr($form->term, 1)])) {
-                    throw new \Exception();
+                    throw new Exception();
                 }
                 $v2 = SplatoonVersion2::find()
                     ->andWhere(['>', 'released_at', $v1->released_at])
@@ -274,18 +290,18 @@ class Weapons2Action extends BaseAction
                 $query->andWhere([
                     '>=',
                     '{{stat_weapon2_use_count}}.[[period]]',
-                    BattleHelper::calcPeriod2(strtotime($v1->released_at))
+                    BattleHelper::calcPeriod2(strtotime($v1->released_at)),
                 ]);
                 if ($v2) {
                     $query->andWhere([
                         '<',
                         '{{stat_weapon2_use_count}}.[[period]]',
-                        BattleHelper::calcPeriod2(strtotime($v2->released_at))
+                        BattleHelper::calcPeriod2(strtotime($v2->released_at)),
                     ]);
                 }
             } elseif (substr($form->term, 0, 2) === '~v') {
                 if (!$vg = SplatoonVersionGroup2::findOne(['tag' => substr($form->term, 2)])) {
-                    throw new \Exception();
+                    throw new Exception();
                 }
 
                 $versions = SplatoonVersion2::find()
@@ -293,7 +309,7 @@ class Weapons2Action extends BaseAction
                     ->orderBy(['released_at' => SORT_ASC])
                     ->all();
                 if (!$versions) {
-                    throw new \Exception();
+                    throw new Exception();
                 }
                 $v1 = $versions[0];
                 $v2 = $versions[count($versions) - 1];
@@ -305,19 +321,19 @@ class Weapons2Action extends BaseAction
                 $query->andWhere([
                     '>=',
                     '{{stat_weapon2_use_count}}.[[period]]',
-                    BattleHelper::calcPeriod2(strtotime($v1->released_at))
+                    BattleHelper::calcPeriod2(strtotime($v1->released_at)),
                 ]);
                 if ($v3) {
                     $query->andWhere([
                         '<',
                         '{{stat_weapon2_use_count}}.[[period]]',
-                        BattleHelper::calcPeriod2(strtotime($v3->released_at))
+                        BattleHelper::calcPeriod2(strtotime($v3->released_at)),
                     ]);
                 }
             } else {
-                throw new \Exception();
+                throw new Exception();
             }
-        } catch (\Exception $e) {
+        } catch (Throwable $e) {
             $query->andWhere('0 = 1');
         }
 
@@ -326,47 +342,47 @@ class Weapons2Action extends BaseAction
             function ($model) use (&$totalPlayers) {
                 $totalPlayers += $model['count'];
                 return (object)[
-                    'key'       => $model['weapon_key'],
-                    'name'      => Yii::t('app-weapon2', $model['weapon_name']),
+                    'key' => $model['weapon_key'],
+                    'name' => Yii::t('app-weapon2', $model['weapon_name']),
                     'subweapon' => (object)[
-                        'key'   => $model['subweapon_key'],
-                        'name'  => Yii::t('app-subweapon2', $model['subweapon_name']),
+                        'key' => $model['subweapon_key'],
+                        'name' => Yii::t('app-subweapon2', $model['subweapon_name']),
                     ],
-                    'special'   => (object)[
-                        'key'   => $model['special_key'],
-                        'name'  => Yii::t('app-special2', $model['special_name']),
+                    'special' => (object)[
+                        'key' => $model['special_key'],
+                        'name' => Yii::t('app-special2', $model['special_name']),
                     ],
-                    'type'   => (object)[
-                        'key'   => $model['type_key'],
-                        'name'  => Yii::t('app-weapon2', $model['type_name']),
+                    'type' => (object)[
+                        'key' => $model['type_key'],
+                        'name' => Yii::t('app-weapon2', $model['type_name']),
                     ],
-                    'category'   => (object)[
-                        'key'   => $model['category_key'],
-                        'name'  => Yii::t('app-weapon2', $model['category_name']),
+                    'category' => (object)[
+                        'key' => $model['category_key'],
+                        'name' => Yii::t('app-weapon2', $model['category_name']),
                     ],
-                    'count'     => (int)$model['count'],
-                    'avg_kill'  => (float)$model['avg_kill'],
-                    'sum_kill'  => (int)$model['sum_kill'],
+                    'count' => (int)$model['count'],
+                    'avg_kill' => (float)$model['avg_kill'],
+                    'sum_kill' => (int)$model['sum_kill'],
                     'kill_per_min' => (float)$model['kill_per_min'],
                     'avg_death' => (float)$model['avg_death'],
                     'sum_death' => (int)$model['sum_death'],
                     'death_per_min' => (float)$model['death_per_min'],
-                    'kill_ratio' => ($model['avg_death'] == 0)
+                    'kill_ratio' => $model['avg_death'] == 0
                         ? ($model['avg_kill'] == 0 ? null : 99.99)
-                        : ($model['avg_kill'] / $model['avg_death']),
-                    'wp'        => (float)$model['wp'],
+                        : $model['avg_kill'] / $model['avg_death'],
+                    'wp' => (float)$model['wp'],
                     'win_count' => (int)$model['win_count'],
                     'avg_inked' => (float)$model['avg_inked'],
                     'inked_per_min' => (float)$model['inked_per_min'],
                     'avg_special' => (float)$model['avg_special'],
                     'special_per_min' => (float)$model['special_per_min'],
                     'sum_special' => (int)$model['sum_special'],
-                    'ink_performance' => ($model['avg_death'] == 0)
+                    'ink_performance' => $model['avg_death'] == 0
                         ? null
-                        : ((float)$model['avg_inked'] / (9 * (20 - (float)$model['avg_death']))),
+                        : (float)$model['avg_inked'] / (9 * (20 - (float)$model['avg_death'])),
                 ];
             },
-            $query->createCommand()->queryAll()
+            $query->createCommand()->queryAll(),
         );
 
         usort($list, function ($a, $b) {
@@ -407,32 +423,32 @@ class Weapons2Action extends BaseAction
         $ret = [];
         foreach ($subs as $sub) {
             $ret[$sub->key] = (object)[
-                'name'      => Yii::t('app-subweapon2', $sub->name),
-                'key'       => $sub->key,
-                'count'     => 0,
-                'sum_kill'  => 0,
+                'name' => Yii::t('app-subweapon2', $sub->name),
+                'key' => $sub->key,
+                'count' => 0,
+                'sum_kill' => 0,
                 'sum_death' => 0,
                 'sum_special' => 0,
                 'win_count' => 0,
-                'avg_kill'  => null,
+                'avg_kill' => null,
                 'avg_death' => null,
                 'avg_special' => null,
-                'wp'        => null,
+                'wp' => null,
                 'encounter_3' => null,
                 'encounter_4' => null,
             ];
         }
         foreach ($in->weapons as $weapon) {
             $o = $ret[$weapon->subweapon->key];
-            $o->count     += $weapon->count;
-            $o->sum_kill  += $weapon->sum_kill;
+            $o->count += $weapon->count;
+            $o->sum_kill += $weapon->sum_kill;
             $o->sum_death += $weapon->sum_death;
             $o->sum_special += $weapon->sum_special;
             $o->win_count += $weapon->win_count;
         }
         foreach ($ret as $o) {
             if ($o->count > 0) {
-                $o->avg_kill  = $o->sum_kill / $o->count;
+                $o->avg_kill = $o->sum_kill / $o->count;
                 $o->avg_death = $o->sum_death / $o->count;
                 $o->avg_special = $o->sum_special / $o->count;
                 $o->wp = $o->win_count * 100 / $o->count;
@@ -447,13 +463,11 @@ class Weapons2Action extends BaseAction
             }
         }
 
-        usort($ret, function (stdClass $a, stdClass $b): int {
-            return $b->count <=> $a->count
+        usort($ret, fn (stdClass $a, stdClass $b): int => $b->count <=> $a->count
                 ?: $b->wp <=> $a->wp
                 ?: $b->avg_kill <=> $a->avg_kill
                 ?: $b->avg_death <=> $b->avg_death
-                ?: strnatcasecmp($a->name, $b->name);
-        });
+                ?: strnatcasecmp($a->name, $b->name));
         return $ret;
     }
 
@@ -467,17 +481,17 @@ class Weapons2Action extends BaseAction
         $ret = [];
         foreach ($specials as $spe) {
             $ret[$spe->key] = (object)[
-                'name'      => Yii::t('app-special2', $spe->name),
-                'key'       => $spe->key,
-                'count'     => 0,
-                'sum_kill'  => 0,
+                'name' => Yii::t('app-special2', $spe->name),
+                'key' => $spe->key,
+                'count' => 0,
+                'sum_kill' => 0,
                 'sum_death' => 0,
                 'sum_special' => 0,
                 'win_count' => 0,
-                'avg_kill'  => null,
+                'avg_kill' => null,
                 'avg_death' => null,
                 'avg_special' => null,
-                'wp'        => null,
+                'wp' => null,
                 'encounter_3' => null,
                 'encounter_4' => null,
                 'kill_ratio' => null,
@@ -485,15 +499,15 @@ class Weapons2Action extends BaseAction
         }
         foreach ($in->weapons as $weapon) {
             $o = $ret[$weapon->special->key];
-            $o->count     += $weapon->count;
-            $o->sum_kill  += $weapon->sum_kill;
+            $o->count += $weapon->count;
+            $o->sum_kill += $weapon->sum_kill;
             $o->sum_death += $weapon->sum_death;
             $o->sum_special += $weapon->sum_special;
             $o->win_count += $weapon->win_count;
         }
         foreach ($ret as $o) {
             if ($o->count > 0) {
-                $o->avg_kill  = $o->sum_kill / $o->count;
+                $o->avg_kill = $o->sum_kill / $o->count;
                 $o->avg_death = $o->sum_death / $o->count;
                 $o->avg_special = $o->sum_special / $o->count;
                 $o->wp = $o->win_count * 100 / $o->count;
@@ -509,17 +523,15 @@ class Weapons2Action extends BaseAction
             }
         }
 
-        usort($ret, function (stdClass $a, stdClass $b): int {
-            return $b->count <=> $a->count
+        usort($ret, fn (stdClass $a, stdClass $b): int => $b->count <=> $a->count
                 ?: $b->wp <=> $a->wp
                 ?: $b->avg_kill <=> $a->avg_kill
                 ?: $b->avg_death <=> $b->avg_death
-                ?: strnatcasecmp($a->name, $b->name);
-        });
+                ?: strnatcasecmp($a->name, $b->name));
         return $ret;
     }
 
-    private function convertWeapons2Type(\stdClass $in): array
+    private function convertWeapons2Type(stdClass $in): array
     {
         $weapons = $in->weapons;
         $mergeKeys = [
@@ -555,17 +567,15 @@ class Weapons2Action extends BaseAction
             }
         }
 
-        usort($ret, function (stdClass $a, stdClass $b): int {
-            return $b->count <=> $a->count
+        usort($ret, fn (stdClass $a, stdClass $b): int => $b->count <=> $a->count
                 ?: $b->wp <=> $a->wp
                 ?: $b->avg_kill <=> $a->avg_kill
                 ?: $b->avg_death <=> $b->avg_death
-                ?: strnatcasecmp($a->name, $b->name);
-        });
+                ?: strnatcasecmp($a->name, $b->name));
         return $ret;
     }
 
-    private function convertWeapons2Category(\stdClass $in): array
+    private function convertWeapons2Category(stdClass $in): array
     {
         $weapons = $in->weapons;
         $mergeKeys = [

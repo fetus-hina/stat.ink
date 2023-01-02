@@ -9,11 +9,13 @@
 namespace app\models;
 
 use DateTimeZone;
-use Yii;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\db\Now;
 use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 use yii\db\Expression;
+
+use function is_numeric;
 
 /**
  * This is the model class for table "turfwar_win_bonus".
@@ -22,11 +24,11 @@ use yii\db\Expression;
  * @property integer $bonus
  * @property string $start_at
  */
-class TurfwarWinBonus extends \yii\db\ActiveRecord
+class TurfwarWinBonus extends ActiveRecord
 {
     public static function find()
     {
-        return new class (get_called_class()) extends ActiveQuery {
+        return new class (static::class) extends ActiveQuery {
             public function current(): self
             {
                 return $this->at(new Now());
@@ -38,12 +40,12 @@ class TurfwarWinBonus extends \yii\db\ActiveRecord
                     ->orderBy('[[start_at]] DESC')
                     ->limit(1)
                     ->andWhere(['<=', '[[start_at]]',
-                            ($time instanceof Expression)
+                            $time instanceof Expression
                                 ? $time
                                 : (is_numeric($time)
                                     ? DateTimeFormatter::unixTimeToString($time, new DateTimeZone('Etc/UTC'))
                                     : (string)$time
-                                )
+                                ),
                         ]);
             }
         };

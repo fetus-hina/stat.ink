@@ -22,7 +22,7 @@ class m190315_144456_s2_v4_5_1 extends Migration
             '4.5.x',
             '4.5.1',
             '4.5.1',
-            new DateTimeImmutable('2019-03-15T11:00:00+09:00')
+            new DateTimeImmutable('2019-03-15T11:00:00+09:00'),
         );
     }
 

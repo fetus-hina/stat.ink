@@ -23,10 +23,10 @@ class m151024_080455_battle_period extends Migration
             'FLOOR((EXTRACT(epoch from %s) - %d) / %d)',
             $guessBattleStart,
             2 * 3600, // 02:00UTC に切り替わるのを基準にする
-            4 * 3600  // 4 時間ごとに切り替わる
+            4 * 3600, // 4 時間ごとに切り替わる
         );
         $this->execute(
-            sprintf('UPDATE {{battle}} SET period = %s', $calcBattlePeriod)
+            sprintf('UPDATE {{battle}} SET period = %s', $calcBattlePeriod),
         );
         $this->execute('ALTER TABLE {{battle}} ALTER COLUMN [[period]] SET NOT NULL');
     }

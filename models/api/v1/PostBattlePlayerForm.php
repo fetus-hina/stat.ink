@@ -8,7 +8,6 @@
 
 namespace app\models\api\v1;
 
-use Yii;
 use app\models\Rank;
 use app\models\Weapon;
 use yii\base\Model;
@@ -33,7 +32,7 @@ class PostBattlePlayerForm extends Model
             [['team'], 'in', 'range' => [ 'my', 'his' ]],
             [['is_me'], 'boolean', 'trueValue' => 'yes', 'falseValue' => 'no'],
             [['weapon'], 'exist',
-                'targetClass' =>  Weapon::class,
+                'targetClass' => Weapon::class,
                 'targetAttribute' => 'key'],
             [['rank'], 'exist',
                 'targetClass' => Rank::class,

@@ -10,22 +10,17 @@ declare(strict_types=1);
 
 namespace app\actions\api\v3\salmon;
 
-use DateTimeZone;
 use Yii;
 use app\actions\api\v3\traits\ApiInitializerTrait;
 use app\components\formatters\api\v3\SalmonApiFormatter;
-use app\components\jobs\SlackJob;
-use app\components\web\ServiceUnavailableHttpException;
 use app\models\Salmon3;
-use app\models\Slack;
-use app\models\User;
 use app\models\api\v3\PostSalmonForm;
 use yii\base\Action;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
-use yii\web\MethodNotAllowedHttpException;
 use yii\web\Response;
-use yii\web\UploadedFile;
+
+use function rawurlencode;
+use function vsprintf;
 
 final class PostSalmonAction extends Action
 {
@@ -91,10 +86,10 @@ final class PostSalmonAction extends Action
                 true,
             ),
             'X-Api-Location' => Url::to(
-                \vsprintf('@web/api/v3/salmon/%s', [
-                    \rawurlencode($battle->uuid),
+                vsprintf('@web/api/v3/salmon/%s', [
+                    rawurlencode($battle->uuid),
                 ]),
-                true
+                true,
             ),
             'X-User-Screen-Name' => $battle->user->screen_name,
             'X-Battle-ID' => $battle->uuid,

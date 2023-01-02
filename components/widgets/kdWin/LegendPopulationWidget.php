@@ -16,6 +16,11 @@ use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
 use yii\helpers\Html;
 
+use function array_map;
+use function floor;
+use function implode;
+use function range;
+
 class LegendPopulationWidget extends Widget
 {
     public $numCells = 7;
@@ -31,7 +36,7 @@ class LegendPopulationWidget extends Widget
             [
                 'id' => $this->id,
                 'class' => 'table-responsive',
-            ]
+            ],
         );
     }
 
@@ -42,18 +47,16 @@ class LegendPopulationWidget extends Widget
             Html::tag(
                 'tbody',
                 implode('', array_map(
-                    function (int $i): string {
-                        return $this->renderRow($i);
-                    },
-                    range(0, $this->numCells - 1)
-                ))
+                    fn (int $i): string => $this->renderRow($i),
+                    range(0, $this->numCells - 1),
+                )),
             ),
             ['class' => [
                 'table',
                 'table-bordered',
                 'table-condensed',
                 'rule-table',
-            ]]
+            ]],
         );
     }
 
@@ -91,9 +94,9 @@ class LegendPopulationWidget extends Widget
                     ['class' => [
                         'text-center',
                         'kdcell',
-                    ]]
+                    ]],
                 ),
-            ])
+            ]),
         );
     }
 }

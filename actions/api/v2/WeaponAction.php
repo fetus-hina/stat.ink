@@ -14,9 +14,13 @@ use Generator;
 use Yii;
 use app\models\Language;
 use app\models\Weapon2;
-use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
 use yii\web\ViewAction as BaseAction;
+
+use function array_merge;
+use function sprintf;
+
+use const SORT_ASC;
 
 class WeaponAction extends BaseAction
 {
@@ -80,17 +84,17 @@ class WeaponAction extends BaseAction
             ->asArray()
             ->select(['lang'])
             ->column();
-        yield \array_merge(
+        yield array_merge(
             ['category1', 'category2', 'key', 'subweapon', 'special', 'mainweapon', 'reskin', 'splatnet'],
             ArrayHelper::getColumn(
                 $langs,
-                fn (string $lang) => \sprintf('[%s]', $lang),
+                fn (string $lang) => sprintf('[%s]', $lang),
             ),
         );
 
         $i18n = Yii::$app->i18n;
         foreach ($weapons as $weapon) {
-            yield \array_merge(
+            yield array_merge(
                 [
                     (string)ArrayHelper::getValue($weapon, 'type.category.key'),
                     (string)ArrayHelper::getValue($weapon, 'type.key'),

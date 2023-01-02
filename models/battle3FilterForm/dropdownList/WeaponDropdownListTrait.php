@@ -20,6 +20,10 @@ use app\models\Weapon3;
 use app\models\WeaponType3;
 use yii\helpers\ArrayHelper;
 
+use function array_merge;
+use function sprintf;
+use function vsprintf;
+
 use const SORT_ASC;
 use const SORT_DESC;
 use const SORT_LOCALE_STRING;
@@ -29,7 +33,7 @@ trait WeaponDropdownListTrait
     public function getWeaponDropdown(?User $user): array
     {
         return [
-            \array_merge(
+            array_merge(
                 $this->getFrequentlyUsedWeaponDropdown($user),
                 $this->getWeaponTypeDropdown(),
                 $this->getSubweaponDropdown(),
@@ -64,7 +68,7 @@ trait WeaponDropdownListTrait
             Yii::t('app', 'Favorite Weapons') => ArrayHelper::map(
                 $list,
                 'weapon.key',
-                fn (UserWeapon3 $model): string => \vsprintf('%s (%s)', [
+                fn (UserWeapon3 $model): string => vsprintf('%s (%s)', [
                     Yii::t('app-weapon3', $model->weapon->name),
                     $fmt->asInteger((int)$model->battles),
                 ]),
@@ -98,9 +102,9 @@ trait WeaponDropdownListTrait
         /**
          * @var string $typeKey e.g., "@shooter"
          */
-        $typeKey = \sprintf('%s%s', Battle3FilterForm::PREFIX_WEAPON_TYPE, $type->key);
+        $typeKey = sprintf('%s%s', Battle3FilterForm::PREFIX_WEAPON_TYPE, $type->key);
 
-        return \array_merge(
+        return array_merge(
             [
                 $typeKey => Yii::t('app-weapon3', 'All of {0}', [
                     Yii::t('app-weapon3', $type->name),
@@ -119,7 +123,7 @@ trait WeaponDropdownListTrait
             Yii::t('app', 'Sub Weapon') => ArrayHelper::asort(
                 ArrayHelper::map(
                     Subweapon3::find()->all(),
-                    fn (Subweapon3 $model): string => \vsprintf('%s%s', [
+                    fn (Subweapon3 $model): string => vsprintf('%s%s', [
                         Battle3FilterForm::PREFIX_WEAPON_SUB,
                         $model->key,
                     ]),
@@ -136,7 +140,7 @@ trait WeaponDropdownListTrait
             Yii::t('app', 'Special') => ArrayHelper::asort(
                 ArrayHelper::map(
                     Special3::find()->all(),
-                    fn (Special3 $model): string => \vsprintf('%s%s', [
+                    fn (Special3 $model): string => vsprintf('%s%s', [
                         Battle3FilterForm::PREFIX_WEAPON_SPECIAL,
                         $model->key,
                     ]),

@@ -21,6 +21,9 @@ use yii\behaviors\AttributeBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
+use function password_verify;
+use function time;
+
 /**
  * This is the model class for table "user_auth_key".
  *
@@ -66,12 +69,10 @@ class UserAuthKey extends ActiveRecord
                 'attributes' => [
                     static::EVENT_BEFORE_VALIDATE => 'expires_at',
                 ],
-                'value' => function ($event): string {
-                    return (new DateTimeImmutable())
+                'value' => fn ($event): string => (new DateTimeImmutable())
                         ->setTimezone(new DateTimeZone(Yii::$app->timeZone))
                         ->setTimestamp(time() + static::VALID_PERIOD)
-                        ->format(DateTime::ATOM);
-                },
+                        ->format(DateTime::ATOM),
             ],
         ];
     }

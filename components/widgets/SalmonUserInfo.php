@@ -14,13 +14,20 @@ use Yii;
 use app\assets\UserMiniinfoAsset;
 use app\components\i18n\Formatter;
 use app\models\SalmonStats2;
+use yii\base\Event;
 use yii\base\Model;
 use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use yii\web\Event;
 use yii\web\View;
+
+use function array_map;
+use function implode;
+use function ob_get_clean;
+use function ob_start;
+use function sprintf;
+
+use const SORT_DESC;
 
 class SalmonUserInfo extends Widget
 {
@@ -57,14 +64,14 @@ class SalmonUserInfo extends Widget
                     '<hr>',
                     $this->renderLinks(),
                 ]),
-                ['id' => 'user-miniinfo-box']
+                ['id' => 'user-miniinfo-box'],
             ),
             [
                 'id' => $this->id,
                 'itemscope' => null,
                 'itemtype' => 'http://schema.org/Person',
                 'itemprop' => 'author',
-            ]
+            ],
         );
     }
 
@@ -77,8 +84,8 @@ class SalmonUserInfo extends Widget
                     $this->renderIcon(),
                     $this->renderName(),
                 ]),
-                ['show-user/profile', 'screen_name' => $this->user->screen_name]
-            )
+                ['show-user/profile', 'screen_name' => $this->user->screen_name],
+            ),
         );
     }
 
@@ -93,9 +100,9 @@ class SalmonUserInfo extends Widget
                     'height' => 48,
                     'alt' => '',
                     'itemprop' => 'image',
-                ]
+                ],
             ),
-            ['class' => 'miniinfo-user-icon']
+            ['class' => 'miniinfo-user-icon'],
         );
     }
 
@@ -114,18 +121,16 @@ class SalmonUserInfo extends Widget
             'nullDisplay' => Yii::t('app', 'N/A'),
         ]);
         $stats = $this->getUserStats();
-        $avg = function ($value, int $decimal = 1) use ($fmt, $stats): string {
-            return $fmt->asDecimal(
-                $stats->work_count > 0 ? $value / $stats->work_count : null,
-                $decimal
-            );
-        };
+        $avg = fn ($value, int $decimal = 1): string => $fmt->asDecimal(
+            $stats->work_count > 0 ? $value / $stats->work_count : null,
+            $decimal,
+        );
         $data = [
             [
                 'label' => Yii::t('app-salmon2', 'Jobs'),
                 'value' => Html::a(
                     Html::encode($fmt->asInteger($stats->work_count)),
-                    ['salmon/index', 'screen_name' => $this->user->screen_name]
+                    ['salmon/index', 'screen_name' => $this->user->screen_name],
                 ),
                 'valueFormat' => 'raw',
                 'formatter' => $fmt,
@@ -196,9 +201,9 @@ class SalmonUserInfo extends Widget
 
             Yii::$app->view->on(
                 View::EVENT_END_BODY,
-                function (\yii\base\Event $event) use ($historyWidgetHtml): void {
+                function (Event $event) use ($historyWidgetHtml): void {
                     echo $historyWidgetHtml;
-                }
+                },
             );
 
             $datetime = Html::tag(
@@ -215,28 +220,26 @@ class SalmonUserInfo extends Widget
                             [
                                 'class' => 'btn btn-default btn-sm',
                                 'data-toggle' => 'modal',
-                            ]
+                            ],
                         ),
                     ]),
-                    ['class' => 'user-label text-right']
+                    ['class' => 'user-label text-right'],
                 ),
                 [
                     'class' => 'col-xs-12',
                     'style' => [
                         'margin-top' => '10px',
                     ],
-                ]
+                ],
             );
         }
         return Html::tag(
             'div',
             implode('', array_map(
-                function (array $item): string {
-                    return MiniinfoData::widget($item);
-                },
-                $data
+                fn (array $item): string => MiniinfoData::widget($item),
+                $data,
             )) . $datetime,
-            ['class' => 'row']
+            ['class' => 'row'],
         );
     }
 
@@ -253,9 +256,9 @@ class SalmonUserInfo extends Widget
                 ['show-v2/user', 'screen_name' => $this->user->screen_name],
                 [
                     'class' => 'btn btn-sm btn-block btn-default',
-                ]
+                ],
             ),
-            ['class' => 'miniinfo-databox']
+            ['class' => 'miniinfo-databox'],
         );
     }
 
@@ -265,7 +268,7 @@ class SalmonUserInfo extends Widget
             Html::tag(
                 'div',
                 Html::encode(Yii::t('app', 'Activity')),
-                ['class' => 'user-label']
+                ['class' => 'user-label'],
             ),
             Html::tag(
                 'div',
@@ -276,7 +279,7 @@ class SalmonUserInfo extends Widget
                     'size' => 9,
                     'only' => 'salmon2',
                 ]),
-                ['class' => 'table-responsive bg-white']
+                ['class' => 'table-responsive bg-white'],
             ),
         ]), ['class' => 'miniinfo-databox']);
     }

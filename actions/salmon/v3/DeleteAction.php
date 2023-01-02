@@ -21,13 +21,18 @@ use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\web\ServerErrorHttpException;
 
+use function assert;
+use function date;
+use function preg_match;
+use function time;
+
 use const DATE_ATOM;
 
 final class DeleteAction extends Action
 {
     public function run(string $screen_name, string $battle): Response
     {
-        if (!\preg_match(UuidRegexp::get(true), $battle)) {
+        if (!preg_match(UuidRegexp::get(true), $battle)) {
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
         }
 
@@ -51,7 +56,7 @@ final class DeleteAction extends Action
         }
 
         $model->is_deleted = true;
-        $model->updated_at = \date(DATE_ATOM, $_SERVER['REQUEST_TIME'] ?? time());
+        $model->updated_at = date(DATE_ATOM, $_SERVER['REQUEST_TIME'] ?? time());
         if (!$model->save(false)) {
             throw new ServerErrorHttpException();
         }

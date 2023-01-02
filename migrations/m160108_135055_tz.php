@@ -6,8 +6,8 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
 use app\models\Region;
+use yii\db\Migration;
 
 class m160108_135055_tz extends Migration
 {
@@ -16,12 +16,12 @@ class m160108_135055_tz extends Migration
         $regionNA = Region::findOne(['key' => 'na'])->id;
         $this->batchInsert(
             'timezone',
-            [ 'identifier', 'name', 'order', 'region_id' ],
+            ['identifier', 'name', 'order', 'region_id'],
             [
                 [ 'America/St_Johns', 'North America (Newfoundland)', 10001, $regionNA ],
                 [ 'America/Halifax', 'North America (AT)', 10002, $regionNA ],
                 [ 'America/Regina', 'North America (Saskatchewan)', 10003, $regionNA ],
-            ]
+            ],
         );
 
         $newOrder = [

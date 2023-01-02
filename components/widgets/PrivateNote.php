@@ -17,6 +17,8 @@ use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
 use yii\helpers\Html;
 
+use function is_array;
+
 class PrivateNote extends Widget
 {
     public $text;
@@ -40,7 +42,7 @@ class PrivateNote extends Widget
         return Html::tag(
             'div',
             $this->renderButton() . $this->renderText(),
-            ['id' => $this->id]
+            ['id' => $this->id],
         );
     }
 
@@ -60,7 +62,7 @@ class PrivateNote extends Widget
                 'data' => [
                     'target' => '#' . $this->textId,
                 ],
-            ]
+            ],
         );
     }
 
@@ -71,7 +73,7 @@ class PrivateNote extends Widget
         return Html::tag(
             'div',
             $this->formatter->asNtext($this->text),
-            ['id' => $this->textId]
+            ['id' => $this->textId],
         );
     }
 

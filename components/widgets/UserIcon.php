@@ -10,10 +10,12 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
-use Yii;
 use yii\base\Widget;
 use yii\helpers\Html;
 use yii\helpers\Url;
+
+use function array_filter;
+use function implode;
 
 class UserIcon extends Widget
 {
@@ -29,9 +31,7 @@ class UserIcon extends Widget
                         $this->user->userIcon->url ?? null,
                         $this->user->jdenticonUrl,
                     ],
-                    function (?string $src): bool {
-                        return $src !== null;
-                    }
+                    fn (?string $src): bool => $src !== null,
                 ),
                 'options' => $this->options,
             ]),

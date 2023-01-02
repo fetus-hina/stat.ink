@@ -13,8 +13,11 @@ namespace app\actions\user;
 use Yii;
 use app\models\Salmon2;
 use yii\web\BadRequestHttpException;
-use yii\web\ServerErrorHttpException;
 use yii\web\ViewAction;
+
+use function is_scalar;
+
+use const SORT_ASC;
 
 class DownloadSalmon2Action extends ViewAction
 {
@@ -39,8 +42,8 @@ class DownloadSalmon2Action extends ViewAction
             Yii::t(
                 'yii',
                 'Invalid data received for parameter "{param}".',
-                [ 'param' => 'type' ]
-            )
+                ['param' => 'type'],
+            ),
         );
     }
 
@@ -67,7 +70,7 @@ class DownloadSalmon2Action extends ViewAction
                 'waves.water',
             ])
             ->orderBy(['id' => SORT_ASC]);
-        $generator =  function () use ($query) {
+        $generator = function () use ($query) {
             $schema = Salmon2::csvArraySchema();
             $schema[0] = '# ' . $schema[0];
             yield $schema;

@@ -13,13 +13,18 @@ use app\components\helpers\Battle as BattleHelper;
 use app\models\GameMode;
 use app\models\Map;
 use app\models\PeriodMap;
-use app\models\UserWeapon;
 use app\models\Weapon;
 use app\models\WeaponType;
 use statink\yii2\stages\spl1\Spl1Stage;
 use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 use yii\web\ViewAction;
+
+use function array_map;
+use function max;
+use function microtime;
+use function strcasecmp;
+use function uasort;
 
 class CurrentDataAction extends ViewAction
 {
@@ -55,10 +60,8 @@ class CurrentDataAction extends ViewAction
                     'name' => Yii::t('app-rule', $periodMaps[0]->rule->name),
                 ],
                 'maps' => array_map(
-                    function (PeriodMap $pm): string {
-                        return $pm->map->key;
-                    },
-                    $periodMaps
+                    fn (PeriodMap $pm): string => $pm->map->key,
+                    $periodMaps,
                 ),
             ];
         };
@@ -71,9 +74,9 @@ class CurrentDataAction extends ViewAction
                 'id' => $period,
                 'next' => max($range[1] - $now, 0), // in sec
             ],
-            'fest'    => false,
+            'fest' => false,
             'regular' => $info(PeriodMap::findCurrentRegular()->all()),
-            'gachi'   => $info(PeriodMap::findCurrentGachi()->all()),
+            'gachi' => $info(PeriodMap::findCurrentGachi()->all()),
         ];
     }
 
@@ -88,9 +91,7 @@ class CurrentDataAction extends ViewAction
                         'name' => Yii::t('app-rule', $rule['name']),
                     ];
                 }
-                uasort($tmp, function ($a, $b) {
-                    return strcasecmp($a['name'], $b['name']);
-                });
+                uasort($tmp, fn ($a, $b) => strcasecmp($a['name'], $b['name']));
                 return $tmp;
             })($mode['rules']);
         }
@@ -107,9 +108,7 @@ class CurrentDataAction extends ViewAction
                 'image' => Url::to(Spl1Stage::url('daytime', $map['key']), true),
             ];
         }
-        uasort($ret, function ($a, $b) {
-            return strcasecmp($a['name'], $b['name']);
-        });
+        uasort($ret, fn ($a, $b) => strcasecmp($a['name'], $b['name']));
         return $ret;
     }
 
@@ -126,9 +125,7 @@ class CurrentDataAction extends ViewAction
                             'name' => Yii::t('app-weapon', $_['name']),
                         ];
                     }
-                    uasort($tmp, function ($a, $b) {
-                        return strcasecmp($a['name'], $b['name']);
-                    });
+                    uasort($tmp, fn ($a, $b) => strcasecmp($a['name'], $b['name']));
                     return $tmp;
                 })($type),
             ];
@@ -147,11 +144,9 @@ class CurrentDataAction extends ViewAction
             ->limit(10)
             ->asArray()
             ->all();
-        return array_map(function (array $uw): array {
-            return [
+        return array_map(fn (array $uw): array => [
                 'key' => $uw['weapon']['key'],
                 'name' => Yii::t('app-weapon', $uw['weapon']['name']),
-            ];
-        }, $list);
+            ], $list);
     }
 }

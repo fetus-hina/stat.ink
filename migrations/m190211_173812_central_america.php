@@ -32,12 +32,10 @@ class m190211_173812_central_america extends Migration
             'country',
             ['key', 'name'],
             array_map(
-                function (string $cctld, array $data): array {
-                    return [$cctld, $data['name']];
-                },
+                fn (string $cctld, array $data): array => [$cctld, $data['name']],
                 array_keys($data),
-                array_values($data)
-            )
+                array_values($data),
+            ),
         );
         return true;
     }
@@ -83,14 +81,12 @@ class m190211_173812_central_america extends Migration
         }
 
         $list = array_map(
-            function (array $data): int {
-                return (int)$data['id'];
-            },
+            fn (array $data): int => (int)$data['id'],
             (new Query())
                 ->select('id')
                 ->from('timezone')
                 ->where(['identifier' => $tzList])
-                ->all()
+                ->all(),
         );
         $this->delete('timezone_country', ['timezone_id' => $list]);
         $this->delete('timezone', ['id' => $list]);
@@ -155,7 +151,7 @@ class m190211_173812_central_america extends Migration
         $value = $query->scalar();
         $value = filter_var($value, FILTER_VALIDATE_INT);
         if ($value === false) {
-            throw new \Exception(vsprintf('Query Error at %s:%d, query=%s', [
+            throw new Exception(vsprintf('Query Error at %s:%d, query=%s', [
                 __FILE__,
                 __LINE__,
                 $query->createCommand()->rawSql,

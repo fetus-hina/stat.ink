@@ -33,7 +33,7 @@ class m200106_202356_primary_only_abilities extends Migration
                 'stealth_jump',
                 'tenacity',
                 'thermal_ink',
-            ]]
+            ]],
         );
     }
 

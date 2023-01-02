@@ -8,6 +8,10 @@
 
 namespace app\components\ability\effect;
 
+use function ceil;
+use function max;
+use function round;
+
 class v020500 extends Base
 {
     public function getCalculatorVersion()
@@ -134,10 +138,10 @@ class v020500 extends Base
             return null;
         }
         return [
-            'prepare'   => (60 * (1 - $x)) / 60,
-            'pullup'    => (120 * (1 - $x)) / 60,
-            'pulldown'  => 40 / 60,
-            'rigid'     => 10 / 60,
+            'prepare' => 60 * (1 - $x) / 60,
+            'pullup' => 120 * (1 - $x) / 60,
+            'pulldown' => 40 / 60,
+            'rigid' => 10 / 60,
         ];
     }
 

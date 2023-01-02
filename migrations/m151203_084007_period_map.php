@@ -13,10 +13,10 @@ class m151203_084007_period_map extends Migration
     public function up()
     {
         $this->createTable('period_map', [
-            'id'        => $this->primaryKey(),
-            'period'    => $this->integer()->notNull(),
-            'rule_id'   => $this->integer()->notNull(),
-            'map_id'    => $this->integer()->notNull(),
+            'id' => $this->primaryKey(),
+            'period' => $this->integer()->notNull(),
+            'rule_id' => $this->integer()->notNull(),
+            'map_id' => $this->integer()->notNull(),
         ]);
         $this->createIndex('ix_period_map_1', 'period_map', 'period');
         $this->addForeignKey('fk_period_map_1', 'period_map', 'rule_id', 'rule', 'id');

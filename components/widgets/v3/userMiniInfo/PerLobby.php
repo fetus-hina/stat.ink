@@ -21,6 +21,12 @@ use yii\base\Widget;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
+use function array_map;
+use function implode;
+use function vsprintf;
+
+use const SORT_ASC;
+
 final class PerLobby extends Widget
 {
     public ?User $user = null;
@@ -39,7 +45,7 @@ final class PerLobby extends Widget
             return '';
         }
 
-        return \implode('', [
+        return implode('', [
             $this->renderHeader($user, $model),
             $this->renderContent($user, $model),
             $model->lobby?->key === 'xmatch'
@@ -78,11 +84,11 @@ final class PerLobby extends Widget
                             'class' => 'user-number',
                         ]),
                     ]),
-                    ['class' => 'col-4 col-xs-4']
+                    ['class' => 'col-4 col-xs-4'],
                 ),
                 'attributes' => $this->getListAttributes($user, $model),
             ]),
-            ['class' => 'row']
+            ['class' => 'row'],
         );
     }
 
@@ -186,18 +192,18 @@ final class PerLobby extends Widget
         $am = Yii::$app->assetManager;
         $asset = GameModeIconsAsset::register($this->view);
 
-        return \implode(
+        return implode(
             '',
-            \array_map(
+            array_map(
                 fn (UserStat3XMatch $model): string => Html::tag(
                     'div',
-                    \implode(
+                    implode(
                         '',
                         [
                             // Rule header for X match
                             Html::tag(
                                 'p',
-                                \vsprintf('%s%s', [
+                                vsprintf('%s%s', [
                                     Html::img(
                                         $am->getAssetUrl($asset, "spl3/{$model->rule->key}.png"),
                                         ['class' => 'basic-icon mr-1'],
@@ -215,7 +221,7 @@ final class PerLobby extends Widget
                                     'model' => $model,
                                     'template' => Html::tag(
                                         'div',
-                                        \implode('', [
+                                        implode('', [
                                             Html::tag('div', '{label}', [
                                                 'class' => 'user-label auto-tooltip',
                                                 'title' => '{label}',

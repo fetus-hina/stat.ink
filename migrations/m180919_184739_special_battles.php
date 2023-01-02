@@ -26,7 +26,7 @@ class m180919_184739_special_battles extends Migration
         $this->addColumn(
             'battle2',
             'special_battle_id',
-            $this->pkRef('special_battle2')->null()
+            $this->pkRef('special_battle2')->null(),
         );
     }
 

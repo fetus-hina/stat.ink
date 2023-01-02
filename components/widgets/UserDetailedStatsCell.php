@@ -16,6 +16,13 @@ use app\assets\UserDetailedStatsCellAsset;
 use yii\base\Widget;
 use yii\helpers\Html;
 
+use function array_filter;
+use function array_keys;
+use function array_map;
+use function array_values;
+use function implode;
+use function vsprintf;
+
 class UserDetailedStatsCell extends Widget
 {
     public $rule;
@@ -34,16 +41,16 @@ class UserDetailedStatsCell extends Widget
         UserDetailedStatsCellAsset::register($this->view);
 
         $map = [
-            'Win'           => $this->renderWin(),
-            'Lose'          => $this->renderLose(),
-            'Win %'         => $this->renderWinPct(),
-            'Kills'         => $this->renderKill(),
-            'Deaths'        => $this->renderDeath(),
-            'K/D'           => $this->renderKD(),
-            'Inked'         => $this->renderInked(),
-            'Max Inked'     => $this->renderMaxInked(),
-            'Kills/min'     => $this->renderKillPerMin(),
-            'Deaths/min'    => $this->renderDeathPerMin(),
+            'Win' => $this->renderWin(),
+            'Lose' => $this->renderLose(),
+            'Win %' => $this->renderWinPct(),
+            'Kills' => $this->renderKill(),
+            'Deaths' => $this->renderDeath(),
+            'K/D' => $this->renderKD(),
+            'Inked' => $this->renderInked(),
+            'Max Inked' => $this->renderMaxInked(),
+            'Kills/min' => $this->renderKillPerMin(),
+            'Deaths/min' => $this->renderDeathPerMin(),
         ];
 
         return implode('<br>', array_filter(array_map(
@@ -67,12 +74,12 @@ class UserDetailedStatsCell extends Widget
             Html::tag('span', Html::encode($this->f->asInteger($this->data->win)), [
                 'class' => 'positive',
             ]),
-            ($this->data->win_ko > 0 && $this->data->win_to > 0)
+            $this->data->win_ko > 0 && $this->data->win_to > 0
                 ? vsprintf('%s: %s', [
                     Html::encode(Yii::t('app', 'KO')),
                     Html::encode($this->f->asPercent(
                         $this->data->win_ko / ($this->data->win_ko + $this->data->win_to),
-                        1
+                        1,
                     )),
                 ])
                 : null,
@@ -85,12 +92,12 @@ class UserDetailedStatsCell extends Widget
             Html::tag('span', Html::encode($this->f->asInteger($this->data->lose)), [
                 'class' => 'negative',
             ]),
-            ($this->data->lose_ko > 0 && $this->data->lose_to > 0)
+            $this->data->lose_ko > 0 && $this->data->lose_to > 0
                 ? vsprintf('%s: %s', [
                     Html::encode(Yii::t('app', 'KO')),
                     Html::encode($this->f->asPercent(
                         $this->data->lose_ko / ($this->data->lose_ko + $this->data->lose_to),
-                        1
+                        1,
                     )),
                 ])
                 : null,
@@ -104,7 +111,7 @@ class UserDetailedStatsCell extends Widget
         }
 
         return Html::encode(
-            $this->f->asPercent($this->data->win / ($this->data->win + $this->data->lose), 1)
+            $this->f->asPercent($this->data->win / ($this->data->win + $this->data->lose), 1),
         );
     }
 
@@ -114,16 +121,16 @@ class UserDetailedStatsCell extends Widget
             Html::tag('span', Html::encode($this->f->asInteger($this->data->kill_sum)), [
                 'class' => 'positive',
             ]),
-            ($this->data->battles_kd > 0)
+            $this->data->battles_kd > 0
                 ? vsprintf('(%s: %s)', [
                     Html::encode(Yii::t('app', 'Avg.')),
                     Html::tag(
                         'span',
                         Html::encode($this->f->asDecimal(
                             $this->data->kill_sum / $this->data->battles_kd,
-                            2
+                            2,
                         )),
-                        ['class' => 'positive']
+                        ['class' => 'positive'],
                     ),
                 ])
                 : null,
@@ -136,16 +143,16 @@ class UserDetailedStatsCell extends Widget
             Html::tag('span', Html::encode($this->f->asInteger($this->data->death_sum)), [
                 'class' => 'negative',
             ]),
-            ($this->data->battles_kd > 0)
+            $this->data->battles_kd > 0
                 ? vsprintf('(%s: %s)', [
                     Html::encode(Yii::t('app', 'Avg.')),
                     Html::tag(
                         'span',
                         Html::encode($this->f->asDecimal(
                             $this->data->death_sum / $this->data->battles_kd,
-                            2
+                            2,
                         )),
-                        ['class' => 'negative']
+                        ['class' => 'negative'],
                     ),
                 ])
                 : null,
@@ -196,7 +203,7 @@ class UserDetailedStatsCell extends Widget
                     Html::encode(Yii::t('app', 'Avg.')),
                     Html::encode($this->f->asDecimal(
                         $this->data->point_sum / $this->data->battles_pt,
-                        1
+                        1,
                     )),
                 ])
                 : null,
@@ -229,9 +236,9 @@ class UserDetailedStatsCell extends Widget
         return Html::tag(
             'span',
             Html::encode(
-                $this->f->asDecimal($this->data->kill_sum * 60 / $this->data->time_sum, 2)
+                $this->f->asDecimal($this->data->kill_sum * 60 / $this->data->time_sum, 2),
             ),
-            ['class' => 'positive']
+            ['class' => 'positive'],
         );
     }
 
@@ -252,9 +259,9 @@ class UserDetailedStatsCell extends Widget
         return Html::tag(
             'span',
             Html::encode(
-                $this->f->asDecimal($this->data->death_sum * 60 / $this->data->time_sum, 2)
+                $this->f->asDecimal($this->data->death_sum * 60 / $this->data->time_sum, 2),
             ),
-            ['class' => 'negative']
+            ['class' => 'negative'],
         );
     }
 

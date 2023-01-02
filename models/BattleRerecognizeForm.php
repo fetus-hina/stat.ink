@@ -8,8 +8,17 @@
 
 namespace app\models;
 
-use Yii;
 use yii\base\Model;
+
+use function array_keys;
+use function array_merge;
+use function count;
+use function gmdate;
+use function is_array;
+use function json_decode;
+use function json_encode;
+use function printf;
+use function sprintf;
 
 class BattleRerecognizeForm extends Model
 {
@@ -96,13 +105,13 @@ class BattleRerecognizeForm extends Model
         $battle = $this->getBattle();
         $battle->skipSaveHistory = true;
         $battle->attributes = [
-            'weapon_id'     => $weapon->id ?? null,
-            'level'         => $my->level,
-            'rank_id'       => $rank->id ?? null,
-            'rank_in_team'  => $my->rank_in_team,
-            'kill'          => $my->kill,
-            'death'         => $my->death,
-            'my_point'      => $my->point,
+            'weapon_id' => $weapon->id ?? null,
+            'level' => $my->level,
+            'rank_id' => $rank->id ?? null,
+            'rank_in_team' => $my->rank_in_team,
+            'kill' => $my->kill,
+            'death' => $my->death,
+            'my_point' => $my->point,
         ];
 
         if (empty($battle->dirtyAttributes) && !$this->playersChanged) {
@@ -114,7 +123,7 @@ class BattleRerecognizeForm extends Model
             [
                 'rerecognized_agent' => sprintf('%s/%s', $this->agent ?: 'unknown', $this->agent_version ?: 'unknown'),
                 'rerecognized_at' => gmdate('Y-m-d\TH:i:sP', $this->recognition_at),
-            ]
+            ],
         ));
 
         foreach (array_keys($battle->dirtyAttributes) as $k) {
@@ -126,7 +135,7 @@ class BattleRerecognizeForm extends Model
                     Weapon::findOne(['id' => $battle->getOldAttribute($k)])->key ?? null,
                     $battle->getOldAttribute($k),
                     Weapon::findOne(['id' => $battle->$k])->key ?? null,
-                    $battle->$k
+                    $battle->$k,
                 );
             } else {
                 printf(
@@ -134,7 +143,7 @@ class BattleRerecognizeForm extends Model
                     $this->id,
                     $k,
                     $battle->getOldAttribute($k),
-                    $battle->$k
+                    $battle->$k,
                 );
             }
         }
@@ -165,16 +174,16 @@ class BattleRerecognizeForm extends Model
                 'rank_in_team' => $form->rank_in_team,
             ]) ?? new BattlePlayer();
             $model->attributes = [
-                'battle_id'     => $this->id,
-                'is_my_team'    => $form->team === 'my',
-                'is_me'         => $form->is_me === 'yes',
-                'weapon_id'     => $weapon->id ?? null,
-                'rank_id'       => $rank->id ?? null,
-                'level'         => $form->level,
-                'rank_in_team'  => $form->rank_in_team,
-                'kill'          => $form->kill,
-                'death'         => $form->death,
-                'point'         => $form->point,
+                'battle_id' => $this->id,
+                'is_my_team' => $form->team === 'my',
+                'is_me' => $form->is_me === 'yes',
+                'weapon_id' => $weapon->id ?? null,
+                'rank_id' => $rank->id ?? null,
+                'level' => $form->level,
+                'rank_in_team' => $form->rank_in_team,
+                'kill' => $form->kill,
+                'death' => $form->death,
+                'point' => $form->point,
             ];
 
             if (empty($model->dirtyAttributes)) {
@@ -191,7 +200,7 @@ class BattleRerecognizeForm extends Model
                         Weapon::findOne(['id' => $model->getOldAttribute($k)])->key ?? null,
                         $model->getOldAttribute($k),
                         Weapon::findOne(['id' => $model->$k])->key ?? null,
-                        $model->$k
+                        $model->$k,
                     );
                 } else {
                     printf(
@@ -200,7 +209,7 @@ class BattleRerecognizeForm extends Model
                         $i,
                         $k,
                         $model->getOldAttribute($k),
-                        $model->$k
+                        $model->$k,
                     );
                 }
             }

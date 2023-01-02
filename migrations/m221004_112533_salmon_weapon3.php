@@ -53,7 +53,7 @@ final class m221004_112533_salmon_weapon3 extends Migration
             $db->quoteTableName('{{%salmon_weapon3}}'),
             implode(', ', array_map(
                 fn (string $columnName): string => $db->quoteColumnName($columnName),
-                ['key', 'name', 'weapon_id']
+                ['key', 'name', 'weapon_id'],
             )),
             (new Query())
                 ->select(['key', 'name', 'id'])
@@ -69,7 +69,7 @@ final class m221004_112533_salmon_weapon3 extends Migration
             $db->quoteTableName('{{%salmon_weapon3_alias}}'),
             implode(', ', array_map(
                 fn (string $columnName): string => $db->quoteColumnName($columnName),
-                ['weapon_id', 'key']
+                ['weapon_id', 'key'],
             )),
             (new Query())
                 ->select([

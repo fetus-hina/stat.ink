@@ -8,18 +8,20 @@
 
 namespace app\components\widgets\battle;
 
-use Yii;
 use app\components\widgets\battle\panelItem\BattleItem1Widget;
 use app\components\widgets\battle\panelItem\BattleItem2Widget;
 use app\components\widgets\battle\panelItem\BattleItem3Widget;
 use app\components\widgets\battle\panelItem\SalmonItem2Widget;
 use app\components\widgets\battle\panelItem\SalmonItem3Widget;
+use app\models\Battle;
 use app\models\Battle2;
 use app\models\Battle3;
-use app\models\Battle;
 use app\models\Salmon2;
 use app\models\Salmon3;
 use yii\base\Widget;
+
+use function call_user_func;
+use function get_class;
 
 final class PanelListItemWidget extends Widget
 {
@@ -39,7 +41,7 @@ final class PanelListItemWidget extends Widget
 
         if (!$this->itemClasses) {
             $this->itemClasses = [
-                Battle::class  => BattleItem1Widget::class,
+                Battle::class => BattleItem1Widget::class,
                 Battle2::class => BattleItem2Widget::class,
                 Battle3::class => BattleItem3Widget::class,
                 Salmon2::class => SalmonItem2Widget::class,
@@ -50,8 +52,8 @@ final class PanelListItemWidget extends Widget
 
     public function run()
     {
-        $implClass = $this->itemClasses[\get_class($this->model)];
-        return \call_user_func(
+        $implClass = $this->itemClasses[get_class($this->model)];
+        return call_user_func(
             [$implClass, 'widget'],
             ['model' => $this->model],
         );

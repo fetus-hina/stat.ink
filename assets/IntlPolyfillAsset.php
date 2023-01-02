@@ -13,6 +13,9 @@ namespace app\assets;
 use Yii;
 use yii\web\AssetBundle;
 
+use function http_build_query;
+use function implode;
+
 class IntlPolyfillAsset extends AssetBundle
 {
     public $basePath = '@webroot';
@@ -31,7 +34,7 @@ class IntlPolyfillAsset extends AssetBundle
         $this->js[] = 'https://cdn.polyfill.io/v2/polyfill.min.js?' . http_build_query(
             ['features' => implode(',', $features)],
             '',
-            '&'
+            '&',
         );
     }
 }

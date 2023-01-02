@@ -8,9 +8,13 @@
 
 namespace app\components\widgets\embedVideo;
 
-use Yii;
 use yii\base\Widget;
 use yii\helpers\Html;
+
+use function http_build_query;
+use function implode;
+use function round;
+use function sprintf;
 
 class Twitch extends Widget
 {
@@ -28,14 +32,14 @@ class Twitch extends Widget
         }
 
         $iframe = Html::tag('iframe', '', [
-            'width'             => (string)$this->width,
-            'height'            => (string)$this->height,
-            'frameborder'       => '0',
-            'scrolling'         => 'no',
-            'allowfullscreen'   => 'allowfullscreen',
+            'width' => (string)$this->width,
+            'height' => (string)$this->height,
+            'frameborder' => '0',
+            'scrolling' => 'no',
+            'allowfullscreen' => 'allowfullscreen',
             'src' => sprintf(
                 'https://player.twitch.tv/?%s',
-                http_build_query(['video' => "v{$this->videoId}"], '', '&')
+                http_build_query(['video' => "v{$this->videoId}"], '', '&'),
             ),
         ]);
 

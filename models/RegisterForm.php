@@ -22,7 +22,7 @@ class RegisterForm extends Model
 
     public function rules()
     {
-        $rules = [
+        return [
             [['screen_name', 'password', 'password_repeat'], 'required'],
             [['screen_name'], 'string', 'max' => 15],
             [['screen_name'], 'match',
@@ -39,7 +39,6 @@ class RegisterForm extends Model
                 'compareAttribute' => 'password',
                 'operator' => '==='],
         ];
-        return $rules;
     }
 
     /**
@@ -48,10 +47,10 @@ class RegisterForm extends Model
     public function attributeLabels()
     {
         return [
-            'screen_name'       => Yii::t('app', 'Screen Name (Login Name)'),
-            'password'          => Yii::t('app', 'Password'),
-            'password_repeat'   => Yii::t('app', 'Password (again)'),
-            'name'              => Yii::t('app', 'Name (for display)'),
+            'screen_name' => Yii::t('app', 'Screen Name (Login Name)'),
+            'password' => Yii::t('app', 'Password'),
+            'password_repeat' => Yii::t('app', 'Password (again)'),
+            'name' => Yii::t('app', 'Name (for display)'),
         ];
     }
 

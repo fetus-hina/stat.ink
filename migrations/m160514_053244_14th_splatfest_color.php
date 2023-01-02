@@ -6,9 +6,9 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+use app\models\Splatfest;
 use yii\db\Migration;
 use yii\helpers\ArrayHelper;
-use app\models\Splatfest;
 
 class m160514_053244_14th_splatfest_color extends Migration
 {
@@ -17,12 +17,12 @@ class m160514_053244_14th_splatfest_color extends Migration
         $this->update(
             'splatfest_team',
             ['color_hue' => 169],
-            ['fest_id' => $this->festIdList, 'team_id' => 1]
+            ['fest_id' => $this->festIdList, 'team_id' => 1],
         );
         $this->update(
             'splatfest_team',
             ['color_hue' => 33],
-            ['fest_id' => $this->festIdList, 'team_id' => 2]
+            ['fest_id' => $this->festIdList, 'team_id' => 2],
         );
     }
 
@@ -31,7 +31,7 @@ class m160514_053244_14th_splatfest_color extends Migration
         $this->update(
             'splatfest_team',
             ['color_hue' => null],
-            ['fest_id' => $this->festIdList]
+            ['fest_id' => $this->festIdList],
         );
     }
 
@@ -42,7 +42,7 @@ class m160514_053244_14th_splatfest_color extends Migration
                 ->where(['{{splatfest}}.[[order]]' => 14])
                 ->asArray()
                 ->all(),
-            'id'
+            'id',
         );
     }
 }

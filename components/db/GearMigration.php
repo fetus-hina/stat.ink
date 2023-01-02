@@ -10,9 +10,6 @@ declare(strict_types=1);
 
 namespace app\components\db;
 
-use DateTimeInterface;
-use app\components\helpers\Battle as BattleHelper;
-use yii\db\Expression;
 use yii\db\Query;
 
 trait GearMigration
@@ -28,12 +25,12 @@ trait GearMigration
         ?int $splatnet
     ): void {
         $this->insert('gear2', [
-            'key'           => $key,
-            'name'          => $name,
-            'type_id'       => $this->findId('gear_type', $type),
-            'brand_id'      => $this->findId('brand2', $brand),
-            'ability_id'    => $ability ? $this->findId('ability2', $ability) : null,
-            'splatnet'      => $splatnet,
+            'key' => $key,
+            'name' => $name,
+            'type_id' => $this->findId('gear_type', $type),
+            'brand_id' => $this->findId('brand2', $brand),
+            'ability_id' => $ability ? $this->findId('ability2', $ability) : null,
+            'splatnet' => $splatnet,
         ]);
     }
 

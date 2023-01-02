@@ -38,7 +38,7 @@ final class m221212_054227_bigrun_official extends Migration
                 ->scalar(),
             FILTER_VALIDATE_INT,
         );
-        if (\is_int($id)) {
+        if (is_int($id)) {
             $this->insert('{{%bigrun_official_result3}}', [
                 'schedule_id' => (int)$id,
                 'gold' => 137,

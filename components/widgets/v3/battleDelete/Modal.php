@@ -11,12 +11,12 @@ declare(strict_types=1);
 namespace app\components\widgets\v3\battleDelete;
 
 use LogicException;
-use Yii;
 use app\models\Battle3;
 use app\models\Salmon3;
-use app\models\User;
 use yii\base\Widget;
 use yii\helpers\Html;
+
+use function implode;
 
 final class Modal extends Widget
 {
@@ -50,7 +50,7 @@ final class Modal extends Widget
             'div',
             Html::tag(
                 'div',
-                \implode('', [
+                implode('', [
                     ModalHeader::widget(['model' => $model]),
                     ModalBody::widget(['model' => $model]),
                     ModalFooter::widget(['model' => $model]),

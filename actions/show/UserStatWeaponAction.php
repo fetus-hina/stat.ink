@@ -9,9 +9,9 @@
 namespace app\actions\show;
 
 use Yii;
+use app\models\User;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
-use app\models\User;
 
 class UserStatWeaponAction extends BaseAction
 {
@@ -25,7 +25,7 @@ class UserStatWeaponAction extends BaseAction
 
         return $this->controller->redirect(
             ['show/user-stat-by-weapon', 'screen_name' => $user->screen_name],
-            301
+            301,
         );
     }
 }

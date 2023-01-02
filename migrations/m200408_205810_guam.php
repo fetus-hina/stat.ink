@@ -9,7 +9,6 @@
 declare(strict_types=1);
 
 use app\components\db\Migration;
-use yii\db\Expression;
 use yii\db\Query;
 
 class m200408_205810_guam extends Migration
@@ -32,7 +31,7 @@ class m200408_205810_guam extends Migration
         $this->update(
             'timezone',
             ['order' => $saipanOrder + 1],
-            ['timezone.identifier' => 'Pacific/Saipan']
+            ['timezone.identifier' => 'Pacific/Saipan'],
         );
 
         // グアムの移籍
@@ -48,7 +47,7 @@ class m200408_205810_guam extends Migration
                 'group_id' => $micronesia,
                 'order' => $saipanOrder,
             ],
-            ['id' => $guam]
+            ['id' => $guam],
         );
 
         $this->insert('country', ['key' => 'gu', 'name' => 'Guam']);

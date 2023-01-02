@@ -23,7 +23,7 @@ class m171013_094421_4k_custom extends Migration
             'bubble',
             'liter4k',
             null,
-            2031
+            2031,
         );
         $this->upWeapon(
             'liter4k_scope_custom',
@@ -33,7 +33,7 @@ class m171013_094421_4k_custom extends Migration
             'bubble',
             'liter4k',
             null,
-            2041
+            2041,
         );
     }
 

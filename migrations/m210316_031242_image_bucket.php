@@ -20,19 +20,19 @@ class m210316_031242_image_bucket extends Migration
         ]);
         $this->insert('image_bucket', [
             'id' => 1,
-            'name' => 'default'
+            'name' => 'default',
         ]);
 
         $this->addColumn(
             'battle_image',
             'bucket_id',
-            (string)$this->pkRef('image_bucket')->notNull()->defaultValue(1)
+            (string)$this->pkRef('image_bucket')->notNull()->defaultValue(1),
         );
 
         $this->addColumn(
             'battle_image2',
             'bucket_id',
-            (string)$this->pkRef('image_bucket')->notNull()->defaultValue(1)
+            (string)$this->pkRef('image_bucket')->notNull()->defaultValue(1),
         );
 
         return true;

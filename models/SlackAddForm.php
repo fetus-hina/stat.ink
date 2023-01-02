@@ -15,6 +15,14 @@ use Yii;
 use app\components\helpers\db\Now;
 use yii\base\Model;
 
+use function implode;
+use function is_string;
+use function preg_match;
+use function preg_quote;
+use function sprintf;
+use function strpos;
+use function trim;
+
 class SlackAddForm extends Model
 {
     /** @var string */
@@ -33,23 +41,17 @@ class SlackAddForm extends Model
         return [
             [['webhook_url', 'language_id'], 'required'],
             [['username', 'icon', 'channel'], 'filter',
-                'filter' => function ($v) {
-                    return (trim($v) === '') ? null : trim($v);
-                },
+                'filter' => fn ($v) => trim($v) === '' ? null : trim($v),
             ],
             [['webhook_url'], 'url'],
             [['webhook_url'], 'validateWebhookUrl'],
             [['username'], 'match', 'pattern' => '/^[a-zA-Z0-9._-]{1,21}$/'],
             [['icon'], 'match', 'pattern' => '/^:[a-zA-Z0-9+._-]+:$/',
-                'when' => function ($model) {
-                    return is_string($model->icon) && strpos($model->icon, '//') === false;
-                },
+                'when' => fn ($model) => is_string($model->icon) && strpos($model->icon, '//') === false,
                 'whenClient' => 'function(){return $("#slackaddform-icon").val().indexOf("//")<0}',
             ],
             [['icon'], 'url',
-                'when' => function ($model) {
-                    return !(is_string($model->icon) && strpos($model->icon, '//') === false);
-                },
+                'when' => fn ($model) => !(is_string($model->icon) && strpos($model->icon, '//') === false),
                 'whenClient' => 'function(){return $("#slackaddform-icon").val().indexOf("//")>=0}',
             ],
             [['channel'], 'match',
@@ -58,7 +60,7 @@ class SlackAddForm extends Model
                     implode('|', [
                         '(?:#[a-z0-9_-]{1,21})',
                         '(?:@[a-zA-Z0-9._-]{1,21})',
-                    ])
+                    ]),
                 ),
             ],
             [['language_id'], 'exist',
@@ -91,12 +93,12 @@ class SlackAddForm extends Model
             return;
         }
 
-        $quote = fn(string $regex) => preg_quote($regex, '/');
+        $quote = fn (string $regex) => preg_quote($regex, '/');
         $okUrls = [
             // Slack
             sprintf(
                 '/^%s/ui',
-                $quote('https://hooks.slack.com/services/')
+                $quote('https://hooks.slack.com/services/'),
             ),
 
             // Discord
@@ -124,7 +126,7 @@ class SlackAddForm extends Model
             $attr,
             Yii::t('yii', '{attribute} is not a valid URL.', [
                 'attribute' => $this->getAttributeLabel($attr),
-            ])
+            ]),
         );
     }
 

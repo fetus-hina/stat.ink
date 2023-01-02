@@ -10,10 +10,15 @@ declare(strict_types=1);
 
 namespace app\models\ch;
 
-use DomainException;
-use LogicException;
 use Yii;
 use yii\base\Model;
+
+use function array_map;
+use function array_values;
+use function implode;
+use function preg_match;
+use function strlen;
+use function usort;
 
 class SfList extends Model
 {
@@ -31,10 +36,8 @@ class SfList extends Model
     public function __toString()
     {
         return implode(',', array_map(
-            function (SfItem $item): string {
-                return (string)$item;
-            },
-            $this->items
+            fn (SfItem $item): string => (string)$item,
+            $this->items,
         ));
     }
 

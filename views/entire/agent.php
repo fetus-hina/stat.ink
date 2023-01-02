@@ -9,6 +9,12 @@ use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
 use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\web\View;
+
+/**
+ * @var View $this
+ * @var string $name
+ */
 
 $title = sprintf(
   '%s - %s',

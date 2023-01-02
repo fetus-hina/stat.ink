@@ -13,13 +13,13 @@ class m170329_085347_lobby2 extends Migration
     public function up()
     {
         $this->createTable('lobby2', [
-            'id'    => $this->primaryKey(),
-            'key'   => $this->apiKey(),
-            'name'  => $this->string(32)->notNull()->unique(),
+            'id' => $this->primaryKey(),
+            'key' => $this->apiKey(),
+            'name' => $this->string(32)->notNull()->unique(),
         ]);
         $this->insert('lobby2', [
-            'key'   => 'standard',
-            'name'  => 'Solo Queue',
+            'key' => 'standard',
+            'name' => 'Solo Queue',
         ]);
     }
 

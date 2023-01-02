@@ -16,10 +16,16 @@ use yii\helpers\Html;
 use yii\web\AssetBundle;
 use yii\web\View;
 
+use function implode;
+use function mb_chr;
+
 final class Icon
 {
+    // addSomething
     // android
     // apiJson
+    // appLink
+    // appUnlink
     // back
     // blog
     // caretDown
@@ -29,8 +35,10 @@ final class Icon
     // colorScheme
     // config
     // delete
+    // discord
     // download
     // dummy
+    // edit
     // feed
     // fileCsv
     // fileJson
@@ -55,6 +63,7 @@ final class Icon
     // refresh
     // scrollTo
     // search
+    // slack
     // stats
     // subPage
     // timezone
@@ -65,6 +74,11 @@ final class Icon
     // videoLink
     // windows
 
+    public static function addSomething(): string
+    {
+        return self::bi('plus-circle');
+    }
+
     public static function android(): string
     {
         return self::bi('android2');
@@ -73,6 +87,16 @@ final class Icon
     public static function apiJson(): string
     {
         return self::bi('braces');
+    }
+
+    public static function appLink(): string
+    {
+        return self::fas('link');
+    }
+
+    public static function appUnlink(): string
+    {
+        return self::fas('unlink');
     }
 
     public static function back(): string
@@ -120,6 +144,11 @@ final class Icon
         return self::bi('trash3');
     }
 
+    public static function discord(): string
+    {
+        return self::bi('discord');
+    }
+
     public static function download(): string
     {
         return self::bi('download');
@@ -136,6 +165,11 @@ final class Icon
         }
 
         return mb_chr(0x3000, 'UTF-8'); // Ideographic Space
+    }
+
+    public static function edit(): string
+    {
+        return self::bi('pencil-square');
     }
 
     public static function feed(): string
@@ -258,6 +292,11 @@ final class Icon
         return self::bi('search');
     }
 
+    public static function slack(): string
+    {
+        return self::bi('slack');
+    }
+
     public static function stats(): string
     {
         return self::bi('pie-chart-fill');
@@ -282,7 +321,7 @@ final class Icon
     {
         return self::bi(
             'twitter',
-            css: \implode('', [
+            css: implode('', [
                 '.bi-twitter{color:#1da1f2}',
                 '.btn .bi-twitter{color:inherit}',
             ]),
@@ -327,6 +366,11 @@ final class Icon
             'aria' => ['hidden' => 'true'],
             'class' => ['bi', "bi-{$name}"],
         ]);
+    }
+
+    private static function fas(string $name): string
+    {
+        return (string)FA::fas($name);
     }
 
     /**

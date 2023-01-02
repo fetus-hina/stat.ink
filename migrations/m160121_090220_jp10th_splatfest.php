@@ -6,10 +6,10 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
 use app\models\Region;
 use app\models\Splatfest;
 use app\models\SplatfestTeam;
+use yii\db\Migration;
 
 class m160121_090220_jp10th_splatfest extends Migration
 {
@@ -18,10 +18,10 @@ class m160121_090220_jp10th_splatfest extends Migration
         $model = new Splatfest();
         $model->attributes = [
             'region_id' => Region::findOne(['key' => 'jp'])->id,
-            'name'      => 'カンペキなカラダ vs カンペキな頭脳',
-            'start_at'  => '2016-01-23 12:00:00+09',
-            'end_at'    => '2016-01-24 12:00:00+09',
-            'order'     => 10,
+            'name' => 'カンペキなカラダ vs カンペキな頭脳',
+            'start_at' => '2016-01-23 12:00:00+09',
+            'end_at' => '2016-01-24 12:00:00+09',
+            'order' => 10,
         ];
         if (!$model->save()) {
             return false;
@@ -31,7 +31,7 @@ class m160121_090220_jp10th_splatfest extends Migration
         $team->attributes = [
             'fest_id' => $model->id,
             'team_id' => 1,
-            'name'    => 'カンペキなカラダ',
+            'name' => 'カンペキなカラダ',
         ];
         if (!$team->save()) {
             return false;
@@ -41,7 +41,7 @@ class m160121_090220_jp10th_splatfest extends Migration
         $team->attributes = [
             'fest_id' => $model->id,
             'team_id' => 2,
-            'name'    => 'カンペキな頭脳',
+            'name' => 'カンペキな頭脳',
         ];
         if (!$team->save()) {
             return false;

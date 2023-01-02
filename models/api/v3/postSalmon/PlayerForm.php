@@ -24,6 +24,10 @@ use app\models\api\v3\postBattle\SplashtagTrait;
 use app\models\api\v3\postBattle\TypeHelperTrait;
 use yii\base\Model;
 
+use function array_keys;
+use function array_values;
+use function is_array;
+
 final class PlayerForm extends Model
 {
     use SplashtagTrait;
@@ -49,7 +53,7 @@ final class PlayerForm extends Model
         return [
             [
                 'class' => TrimAttributesBehavior::class,
-                'targets' => \array_keys($this->attributes),
+                'targets' => array_keys($this->attributes),
             ],
         ];
     }
@@ -118,8 +122,8 @@ final class PlayerForm extends Model
             return null;
         }
 
-        if ($this->weapons && \is_array($this->weapons)) {
-            foreach (\array_values($this->weapons) as $i => $weapon) {
+        if ($this->weapons && is_array($this->weapons)) {
+            foreach (array_values($this->weapons) as $i => $weapon) {
                 $model2 = Yii::createObject([
                     'class' => SalmonPlayerWeapon3::class,
                     'player_id' => $model->id,

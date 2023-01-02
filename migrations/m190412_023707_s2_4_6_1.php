@@ -22,7 +22,7 @@ class m190412_023707_s2_4_6_1 extends Migration
             '4.6.x',
             '4.6.1',
             '4.6.1',
-            new DateTimeImmutable('2019-04-12T11:00:00+09:00')
+            new DateTimeImmutable('2019-04-12T11:00:00+09:00'),
         );
     }
 

@@ -16,6 +16,11 @@ use app\models\Battle2;
 use statink\yii2\stages\spl2\StagesAsset;
 use yii\helpers\Url;
 
+use function in_array;
+use function sprintf;
+use function strtotime;
+use function vsprintf;
+
 trait Battle2Formatter
 {
     use UserFormatter;
@@ -31,7 +36,7 @@ trait Battle2Formatter
             'image' => $battle->battleImageResult
                 ? Url::to(
                     Yii::getAlias('@imageurl') . '/' . $battle->battleImageResult->filename,
-                    true
+                    true,
                 )
                 : null,
             'isWin' => $battle->is_win,
@@ -43,7 +48,7 @@ trait Battle2Formatter
                             $am->getAssetUrl($modeAsset, vsprintf('spl2/%s.png', [
                                 $battle->mode->key,
                             ])),
-                            true
+                            true,
                         ),
                     'key' => $battle->mode->key,
                     'name' => Yii::t('app-rule2', $battle->mode->name),
@@ -56,15 +61,15 @@ trait Battle2Formatter
                     'image' => [
                         'lose' => Url::to(
                             $am->getAssetUrl($stageAsset, "gray-blur/{$battle->map->key}.jpg"),
-                            true
+                            true,
                         ),
                         'normal' => Url::to(
                             $am->getAssetUrl($stageAsset, "daytime/{$battle->map->key}.jpg"),
-                            true
+                            true,
                         ),
                         'win' => Url::to(
                             $am->getAssetUrl($stageAsset, "daytime-blur/{$battle->map->key}.jpg"),
-                            true
+                            true,
                         ),
                     ],
                 ]
@@ -101,10 +106,10 @@ trait Battle2Formatter
 
                     case 'gachi':
                         if (
-                            \in_array($rule->key, ['area', 'asari', 'hoko', 'yagura'], true) &&
-                            \in_array($lobby->key, ['standard', 'squad_2', 'squad_4'], true)
+                            in_array($rule->key, ['area', 'asari', 'hoko', 'yagura'], true) &&
+                            in_array($lobby->key, ['standard', 'squad_2', 'squad_4'], true)
                         ) {
-                            return \vsprintf('%s, %s', [
+                            return vsprintf('%s, %s', [
                                 Yii::t('app-rule2', $rule->name),
                                 (function () use ($lobby): string {
                                     switch ($lobby->key) {
@@ -131,12 +136,12 @@ trait Battle2Formatter
 
                 return null;
             })(),
-            'time' => \strtotime($battle->end_at ?: $battle->created_at),
+            'time' => strtotime($battle->end_at ?: $battle->created_at),
             'rule' => $battle->rule
                 ? [
                     'icon' => Url::to(
                         $am->getAssetUrl($modeAsset, sprintf('spl2/%s.png', $battle->rule->key)),
-                        true
+                        true,
                     ),
                     'key' => $battle->rule->key,
                     'name' => Yii::t('app-rule2', $battle->rule->name),
@@ -147,7 +152,7 @@ trait Battle2Formatter
                     'battle' => $battle->id,
                     'screen_name' => $battle->user->screen_name,
                 ],
-                true
+                true,
             ),
             'user' => self::formatUser($battle->user),
             'variant' => 'splatoon2',

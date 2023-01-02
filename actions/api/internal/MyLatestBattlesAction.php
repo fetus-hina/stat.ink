@@ -13,9 +13,7 @@ namespace app\actions\api\internal;
 use Yii;
 use app\actions\api\internal\latestBattles\UserFormatter;
 use app\components\helpers\CombinedBattles;
-use app\models\User;
 use yii\db\Transaction;
-use yii\helpers\Url;
 
 final class MyLatestBattlesAction extends BaseLatestBattlesAction
 {
@@ -31,13 +29,11 @@ final class MyLatestBattlesAction extends BaseLatestBattlesAction
     protected function fetchBattles(): array
     {
         return Yii::$app->db->transaction(
-            function (): array {
-                return CombinedBattles::getUserRecentBattles(
-                    Yii::$app->user->identity,
-                    static::BATTLE_LIMIT
-                );
-            },
-            Transaction::REPEATABLE_READ
+            fn (): array => CombinedBattles::getUserRecentBattles(
+                Yii::$app->user->identity,
+                static::BATTLE_LIMIT,
+            ),
+            Transaction::REPEATABLE_READ,
         );
     }
 

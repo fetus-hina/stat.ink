@@ -13,17 +13,18 @@ namespace app\components\widgets;
 use Yii;
 use app\assets\GearAbilityNumberSwitcherAsset;
 use app\assets\Spl2WeaponAsset;
-use app\components\widgets\AbilityIcon;
 use app\models\Ability2Info;
-use app\models\Special2;
 use yii\base\Widget;
 use yii\bootstrap\ButtonDropdown;
 use yii\data\ArrayDataProvider;
 use yii\grid\Column;
 use yii\grid\GridView;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
+
+use function implode;
+use function sprintf;
+use function vsprintf;
 
 class Spl2GearAbilitiesSummaryWidget extends Widget
 {
@@ -75,7 +76,7 @@ class Spl2GearAbilitiesSummaryWidget extends Widget
                                         'height' => '3em',
                                     ],
                                 ]),
-                                ['class' => 'hidden-lg']
+                                ['class' => 'hidden-lg'],
                             );
                             $items[] = Html::tag(
                                 'div',
@@ -85,9 +86,9 @@ class Spl2GearAbilitiesSummaryWidget extends Widget
                                             'height' => '1.667em',
                                         ],
                                     ]),
-                                    Html::encode(Yii::t('app-ability2', $model->ability->name))
+                                    Html::encode(Yii::t('app-ability2', $model->ability->name)),
                                 ]),
-                                ['class' => 'visible-lg-block']
+                                ['class' => 'visible-lg-block'],
                             );
                             if (
                                 $model->ability->key === 'special_power_up' &&
@@ -107,10 +108,10 @@ class Spl2GearAbilitiesSummaryWidget extends Widget
                                                 ],
                                                 'title' => Yii::t('app-special2', $sp->name),
                                                 'class' => 'auto-tooltip',
-                                            ]
+                                            ],
                                         ),
                                     ]),
-                                    ['class' => 'hidden-lg pl-2']
+                                    ['class' => 'hidden-lg pl-2'],
                                 );
                                 $items[] = Html::tag(
                                     'div',
@@ -119,11 +120,11 @@ class Spl2GearAbilitiesSummaryWidget extends Widget
                                             $icons->getIconUrl('sp/' . $sp->key),
                                             ['style' => [
                                                 'height' => '1.333em',
-                                            ]]
+                                            ]],
                                         ),
                                         Html::encode(Yii::t('app-special2', $sp->name)),
                                     ]),
-                                    ['class' => 'visible-lg-block pl-4']
+                                    ['class' => 'visible-lg-block pl-4'],
                                 );
                             }
 
@@ -223,28 +224,26 @@ class Spl2GearAbilitiesSummaryWidget extends Widget
                                             ]),
                                         ]),
                                     ],
-                                ]
+                                ],
                             );
                         },
                     ],
                     [
                         'label' => Yii::t('app', 'Effects'),
                         'format' => 'ntext',
-                        'value' => function (
+                        'value' => fn (
                             Ability2Info $model,
                             $key,
                             $index,
                             Column $column
-                        ): string {
-                            return (string)$model->coefficient;
-                        }
+                        ): string => (string)$model->coefficient,
                     ],
                 ],
             ]),
             [
                 'class' => 'table-responsive table-responsive-force nobr',
                 'id' => $this->id,
-            ]
+            ],
         );
     }
 }

@@ -11,7 +11,22 @@ namespace app\components;
 use DateTimeImmutable;
 use DateTimeZone;
 use Exception;
+use Throwable;
 use Yii;
+
+use function array_filter;
+use function array_shift;
+use function count;
+use function escapeshellarg;
+use function exec;
+use function explode;
+use function file_exists;
+use function is_executable;
+use function preg_match;
+use function sprintf;
+use function trim;
+use function usort;
+use function version_compare;
 
 class Version
 {
@@ -60,13 +75,9 @@ class Version
             return [];
         }
 
-        $lines = array_filter($lines, function (string $line): bool {
-            return !!preg_match('/^v?\d+\.\d+\.\d+/', $line);
-        });
+        $lines = array_filter($lines, fn (string $line): bool => !!preg_match('/^v?\d+\.\d+\.\d+/', $line));
 
-        usort($lines, function (string $a, string $b): int {
-            return version_compare($b, $a);
-        });
+        usort($lines, fn (string $a, string $b): int => version_compare($b, $a));
 
         return $lines;
     }
@@ -95,7 +106,7 @@ class Version
             self::$lastCommited = (new DateTimeImmutable())
                 ->setTimeZone(new DateTimeZone(Yii::$app->timeZone))
                 ->setTimestamp((int)$revisions[2]);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             self::$revision = false;
             self::$shortRevision = false;
             self::$lastCommited = false;
@@ -106,7 +117,7 @@ class Version
     {
         $gitCommand = sprintf(
             'git log -n 1 --format=%s --date=raw',
-            escapeshellarg($format)
+            escapeshellarg($format),
         );
         if (!$lines = static::doGit($gitCommand)) {
             return false;
@@ -124,12 +135,12 @@ class Version
         ) {
             $cmdline = sprintf(
                 '/usr/bin/scl enable git19 %s',
-                escapeshellarg($gitCommand)
+                escapeshellarg($gitCommand),
             );
         } else {
             $cmdline = sprintf(
                 '/bin/bash -c %s',
-                escapeshellarg($gitCommand)
+                escapeshellarg($gitCommand),
             );
         }
 

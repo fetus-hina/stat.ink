@@ -13,9 +13,12 @@ namespace app\components\widgets;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
-use app\components\i18n\Formatter;
 use yii\base\Widget;
 use yii\helpers\Html;
+
+use function array_filter;
+use function implode;
+use function is_array;
 
 class TimestampColumnWidget extends Widget
 {
@@ -52,7 +55,7 @@ class TimestampColumnWidget extends Widget
                         (new DateTimeImmutable())
                             ->setTimestamp((int)$f->asTimestamp($this->value))
                             ->setTimezone(new DateTimeZone(Yii::$app->timeZone))
-                            ->format('T')
+                            ->format('T'),
                     ),
                     '#timezone-dialog',
                     [
@@ -62,7 +65,7 @@ class TimestampColumnWidget extends Widget
                         'data' => [
                             'toggle' => 'modal',
                         ],
-                    ]
+                    ],
                 )
                 : null,
             $this->showRelative

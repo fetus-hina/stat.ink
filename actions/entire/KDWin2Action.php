@@ -15,9 +15,12 @@ use app\models\KDWin2FilterForm;
 use app\models\SplatoonVersion2;
 use app\models\SplatoonVersionGroup2;
 use app\models\StatWeapon2KdWinRate;
-use yii\helpers\ArrayHelper;
 use yii\web\ServerErrorHttpException;
 use yii\web\ViewAction;
+
+use function array_filter;
+use function min;
+use function trim;
 
 class KDWin2Action extends ViewAction
 {
@@ -35,11 +38,9 @@ class KDWin2Action extends ViewAction
                     ['entire/kd-win2',
                         'filter' => array_filter(
                             $filter->attributes,
-                            function (?string $value): bool {
-                                return trim((string)$value) !== '';
-                            }
+                            fn (?string $value): bool => trim((string)$value) !== '',
                         ),
-                    ]
+                    ],
                 );
                 return;
             }
@@ -103,7 +104,7 @@ class KDWin2Action extends ViewAction
         $version = SplatoonVersion2::findCurrentVersion();
         if (!$version) {
             throw new ServerErrorHttpException(
-                'Could not determinate current game version'
+                'Could not determinate current game version',
             );
         }
 

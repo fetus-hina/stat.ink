@@ -27,22 +27,22 @@ class m190724_173449_freshness extends Migration
         $this->addColumn(
             'battle2',
             'freshness',
-            (string)$this->decimal(3, 1)->check('[[freshness]] BETWEEN 0.0 AND 99.9')
+            (string)$this->decimal(3, 1)->check('[[freshness]] BETWEEN 0.0 AND 99.9'),
         );
         $this->createTable('freshness2', [
-            'id'    => $this->primaryKey(),
-            'name'  => $this->string(12)->notNull(),
+            'id' => $this->primaryKey(),
+            'name' => $this->string(12)->notNull(),
             'color' => $this->string(8)->notNull(),
             'range' => 'numrange NOT NULL',
             'EXCLUDE USING gist ([[range]] WITH &&)',
         ]);
         $this->batchInsert('freshness2', ['name', 'color', 'range'], [
-            ['Dry',         'grey',     $this->mkrange(null, 5.0)],
-            ['Raw',         'green',    $this->mkrange(5.0, 10.0)],
-            ['Fresh',       'orange',   $this->mkrange(10.0, 15.0)],
-            ['SUPERFRESH!', 'silver',   $this->mkrange(15.0, 20.0)],
-            ['SUPERFRESH!', 'white',    $this->mkrange(20.0, 50.0)],
-            ['SUPERFRESH!', 'gold',     $this->mkrange(50.0, null)],
+            ['Dry', 'grey', $this->mkrange(null, 5.0)],
+            ['Raw', 'green', $this->mkrange(5.0, 10.0)],
+            ['Fresh', 'orange', $this->mkrange(10.0, 15.0)],
+            ['SUPERFRESH!', 'silver', $this->mkrange(15.0, 20.0)],
+            ['SUPERFRESH!', 'white', $this->mkrange(20.0, 50.0)],
+            ['SUPERFRESH!', 'gold', $this->mkrange(50.0, null)],
         ]);
     }
 

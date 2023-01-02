@@ -23,7 +23,7 @@ class m180112_091011_sputtery_hue extends Migration
             'amefurashi',
             'sputtery',
             null,
-            5001
+            5001,
         );
     }
 

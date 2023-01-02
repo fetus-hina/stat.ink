@@ -12,6 +12,7 @@ namespace app\commands;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use Exception;
 use Yii;
 use app\components\openapi\doc\V1 as V1Generator;
 use app\components\openapi\doc\V2 as V2Generator;
@@ -21,6 +22,24 @@ use app\models\TimezoneGroup;
 use yii\console\Controller;
 use yii\helpers\FileHelper;
 use yii\helpers\Html;
+
+use function array_map;
+use function chdir;
+use function count;
+use function dirname;
+use function escapeshellarg;
+use function exec;
+use function file_put_contents;
+use function getcwd;
+use function implode;
+use function preg_match;
+use function preg_replace_callback;
+use function random_int;
+use function rawurlencode;
+use function round;
+use function sprintf;
+use function time;
+use function vsprintf;
 
 class ApidocController extends Controller
 {
@@ -212,7 +231,7 @@ class ApidocController extends Controller
                     )),
                 ),
             ]),
-            ['role' => 'table']
+            ['role' => 'table'],
         ) . "\n";
 
         return 0;
@@ -231,7 +250,7 @@ class ApidocController extends Controller
                     Html::encode($group->name),
                     Html::encode(Yii::t('app-tz', $group->name, [], 'ja-JP')),
                 ])),
-                ['colspan' => 5]
+                ['colspan' => 5],
             )),
             implode('', array_map(
                 function (Timezone $tz): string {
@@ -245,29 +264,25 @@ class ApidocController extends Controller
                         Html::tag(
                             'td',
                             implode('', array_map(
-                                function (Country $country): string {
-                                    return vsprintf('<img src="%s" height="%d" width="%d" alt="%s">', [
+                                fn (Country $country): string => vsprintf('<img src="%s" height="%d" width="%d" alt="%s">', [
                                         $this->getFlagIconUrl($country->key),
                                         16,
                                         round(16 * 4 / 3),
                                         implode('', array_map(
-                                            function (int $codepoint): string {
-                                                return sprintf('&#x%x;', $codepoint);
-                                            },
-                                            $country->regionalIndicatorSymbols
+                                            fn (int $codepoint): string => sprintf('&#x%x;', $codepoint),
+                                            $country->regionalIndicatorSymbols,
                                         )),
-                                    ]);
-                                },
-                                $tz->countries
+                                    ]),
+                                $tz->countries,
                             )),
-                            ['align' => 'center']
+                            ['align' => 'center'],
                         ),
                         Html::tag('td', implode('<br>', [
                             Html::encode($tz->name),
                             Html::encode(Yii::t('app-tz', $tz->name, [], 'ja-JP')),
                         ])),
                         Html::tag('td', Html::tag('code', Html::encode($tz->identifier))),
-                        ($offsetJan === $offsetJul)
+                        $offsetJan === $offsetJul
                             ? Html::tag('td', Html::encode($offsetJan), [
                                 'colspan' => 2,
                                 'align' => 'center',
@@ -282,7 +297,7 @@ class ApidocController extends Controller
                             ]),
                     ]));
                 },
-                $group->timezones
+                $group->timezones,
             )),
         ]);
     }
@@ -292,7 +307,7 @@ class ApidocController extends Controller
         static $flagIconCssVersion = false;
         if ($flagIconCssVersion === false) {
             if (!$flagIconCssVersion = $this->getFlagIconCssVersion()) {
-                throw new \Exception('Could not detect the version of flag-icons');
+                throw new Exception('Could not detect the version of flag-icons');
             }
         }
 
@@ -313,7 +328,7 @@ class ApidocController extends Controller
                         return $match[0];
                 }
             },
-            static::FLAGICON_URL
+            static::FLAGICON_URL,
         );
     }
 

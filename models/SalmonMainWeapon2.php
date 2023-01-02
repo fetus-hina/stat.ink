@@ -16,6 +16,12 @@ use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
+use function array_map;
+use function implode;
+use function sprintf;
+
+use const SORT_ASC;
+
 /**
  * This is the model class for table "salmon_main_weapon2".
  *
@@ -100,7 +106,7 @@ class SalmonMainWeapon2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getWeapon()
     {
@@ -130,9 +136,9 @@ class SalmonMainWeapon2 extends ActiveRecord
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc2', 'Weapon'),
                         'app-weapon2',
-                        $values
+                        $values,
                     ),
-                    ArrayHelper::getColumn($values, 'key', false)
+                    ArrayHelper::getColumn($values, 'key', false),
                 ),
                 'splatnet' => static::oapiRef(openapi\SplatNet2ID::class),
                 'name' => static::oapiRef(openapi\Name::class),
@@ -152,9 +158,7 @@ class SalmonMainWeapon2 extends ActiveRecord
     public static function openapiExample(): array
     {
         return array_map(
-            function (self $model): array {
-                return $model->toJsonArray();
-            },
+            fn (self $model): array => $model->toJsonArray(),
             static::find()
                 ->andWhere(['key' => [
                     'sshooter',
@@ -162,7 +166,7 @@ class SalmonMainWeapon2 extends ActiveRecord
                 ]])
                 ->sorted()
                 ->orderBy(['splatnet' => SORT_ASC])
-                ->all()
+                ->all(),
         );
     }
 }

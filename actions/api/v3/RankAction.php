@@ -15,6 +15,10 @@ use app\components\formatters\api\v3\RankApiFormatter;
 use app\models\Rank3;
 use yii\base\Action;
 
+use function array_map;
+
+use const SORT_ASC;
+
 final class RankAction extends Action
 {
     use ApiInitializerTrait;
@@ -33,11 +37,11 @@ final class RankAction extends Action
      */
     public function run(bool $full = false)
     {
-        return \array_map(
+        return array_map(
             fn (Rank3 $model): array => RankApiFormatter::toJson($model, $full),
             Rank3::find()
                 ->orderBy(['rank' => SORT_ASC])
-                ->all()
+                ->all(),
         );
     }
 }

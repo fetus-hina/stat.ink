@@ -12,7 +12,6 @@ namespace app\actions\user;
 
 use Yii;
 use yii\base\DynamicModel;
-use yii\web\Cookie;
 use yii\web\ViewAction as BaseAction;
 
 class MachineTranslationAction extends BaseAction
@@ -48,7 +47,7 @@ class MachineTranslationAction extends BaseAction
                     'range' => ['enable', 'disable'],
                     'strict' => true,
                 ],
-            ]
+            ],
         );
     }
 }

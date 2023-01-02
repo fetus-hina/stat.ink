@@ -19,6 +19,9 @@ use jp3cki\uuid\NS as UuidNS;
 use jp3cki\uuid\Uuid;
 use yii\console\Controller;
 
+use function printf;
+use function usort;
+
 class BlogFeedController extends Controller
 {
     public function actionCrawl()
@@ -43,9 +46,7 @@ class BlogFeedController extends Controller
             }
             $ret[] = $entry;
         }
-        usort($ret, function ($a, $b) {
-            return $a->getDateCreated()->getTimestamp() <=> $b->getDateCreated()->getTimestamp();
-        });
+        usort($ret, fn ($a, $b) => $a->getDateCreated()->getTimestamp() <=> $b->getDateCreated()->getTimestamp());
         return $ret;
     }
 
@@ -59,7 +60,7 @@ class BlogFeedController extends Controller
             (new UriValidator())->isValid($id)
                 ? UuidNs::url()
                 : 'd0ec81fc-c8e6-11e5-a890-9ca3ba01e1f8',
-            $id
+            $id,
         )->__toString();
         $link = $entry->getLink();
         if (!(new UriValidator())->isValid($link)) {
@@ -72,10 +73,10 @@ class BlogFeedController extends Controller
 
         $model = new BlogEntry();
         $model->attributes = [
-            'uuid'  => $uuid,
-            'url'   => $link,
+            'uuid' => $uuid,
+            'url' => $link,
             'title' => $entry->getTitle(),
-            'at'    => $entry->getDateCreated()->format('Y-m-d\TH:i:sP'),
+            'at' => $entry->getDateCreated()->format('Y-m-d\TH:i:sP'),
         ];
         if (!$model->save()) {
             echo "Could not create new blog entry\n";

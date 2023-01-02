@@ -25,6 +25,10 @@ use yii\db\Expression;
 use yii\db\Query;
 use yii\helpers\Json;
 
+use function sprintf;
+use function str_starts_with;
+use function vsprintf;
+
 use const SORT_ASC;
 use const SORT_DESC;
 
@@ -51,8 +55,8 @@ trait StatsTrait
             return true;
         } catch (DbException $e) {
             Yii::error(
-                \vsprintf('Catch %s, message=%s', [
-                    \get_class($e),
+                vsprintf('Catch %s, message=%s', [
+                    $e::class,
                     $e->getMessage(),
                 ]),
                 __METHOD__,
@@ -91,7 +95,7 @@ trait StatsTrait
                 'lobby_id' => '{{b}}.[[lobby_id]]',
                 'battles' => 'COUNT(*)',
                 'agg_battles' => self::statsSum('1'),
-                'agg_seconds' => self::statsSum(\vsprintf('(%s) - (%s)', [
+                'agg_seconds' => self::statsSum(vsprintf('(%s) - (%s)', [
                     self::statsTimestamp('{{b}}.[[end_at]]'),
                     self::statsTimestamp('{{b}}.[[start_at]]'),
                 ])),
@@ -102,12 +106,12 @@ trait StatsTrait
                 'specials' => self::statsSum('{{b}}.[[special]]'),
                 'inked' => self::statsSum('{{b}}.[[inked]]'),
                 'max_inked' => self::statsMax('{{b}}.[[inked]]'),
-                '_peak_rank_rank' => \vsprintf('GREATEST(%s, %s)', [
+                '_peak_rank_rank' => vsprintf('GREATEST(%s, %s)', [
                     self::statsMax('{{rank_before}}.[[rank]]', self::statsCondBankara()),
                     self::statsMax('{{rank_after}}.[[rank]]', self::statsCondBankara()),
                 ]),
                 'peak_rank_id' => $null,
-                'peak_s_plus' => \vsprintf('GREATEST(%s, %s)', [
+                'peak_s_plus' => vsprintf('GREATEST(%s, %s)', [
                     self::statsMax('{{b}}.[[rank_before_s_plus]]', self::statsCondBankara()),
                     self::statsMax('{{b}}.[[rank_after_s_plus]]', self::statsCondBankara()),
                 ]),
@@ -119,7 +123,7 @@ trait StatsTrait
                 'current_x_power' => $null,
                 'current_season' => $null,
                 'updated_at' => new Expression(
-                    \sprintf(
+                    sprintf(
                         '%s::TIMESTAMP(0) WITH TIME ZONE',
                         $db->quoteValue($now->format(DateTimeInterface::ATOM)),
                     ),
@@ -144,7 +148,7 @@ trait StatsTrait
         $model->attributes = $row;
         $model->id = ((int)$user->id << 32) | (int)$row['lobby_id'];
 
-        if (\str_starts_with($lobby->key ?? '', 'bankara_')) {
+        if (str_starts_with($lobby->key ?? '', 'bankara_')) {
             $rankModel = Rank3::find()
                 ->andWhere(['rank' => (int)$row['_peak_rank_rank']])
                 ->limit(1)
@@ -220,7 +224,7 @@ trait StatsTrait
     {
         $battle = Battle3::find()
             ->andWhere([
-                'fest_power' => \sprintf('%.1f', $power),
+                'fest_power' => sprintf('%.1f', $power),
                 'is_deleted' => false,
                 'lobby_id' => $lobby->id,
                 'user_id' => $user->id,

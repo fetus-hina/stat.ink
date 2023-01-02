@@ -34,7 +34,7 @@ class m171219_131548_mode_rule_asari extends Migration
         return ArrayHelper::map(
             (new Query())->select(['key', 'id'])->from('mode2')->all(),
             'key',
-            'id'
+            'id',
         );
     }
 
@@ -43,7 +43,7 @@ class m171219_131548_mode_rule_asari extends Migration
         return ArrayHelper::map(
             (new Query())->select(['key', 'id'])->from('rule2')->all(),
             'key',
-            'id'
+            'id',
         );
     }
 }

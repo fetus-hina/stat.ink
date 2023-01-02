@@ -26,15 +26,13 @@ class m190622_180334_shifty_map2 extends Migration
             'EXCLUDE USING GIST ([[range_hint]] WITH &&)',
         ]);
 
-
         $db = $this->getDb();
         $stages = $this->getStages();
         $this->batchInsert(
             'shifty_map2',
             ['period_range', 'range_hint', 'map_id'],
             array_map(
-                function (array $row) use ($db, $stages): array {
-                    return [
+                fn (array $row): array => [
                         new Expression(vsprintf('%s::int4range', [
                             $db->quoteValue(vsprintf('[%d,%d)', [
                                 static::timestamp2period($row[0]) - 1,
@@ -48,10 +46,9 @@ class m190622_180334_shifty_map2 extends Migration
                             ])),
                         ])),
                         $stages[$row[2]],
-                    ];
-                },
-                iterator_to_array($this->getLayouts())
-            )
+                    ],
+                iterator_to_array($this->getLayouts()),
+            ),
         );
     }
 

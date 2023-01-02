@@ -29,14 +29,12 @@ final class m220810_233430_stage3 extends Migration
             '{{%map3}}',
             ['key', 'name', 'short_name', 'release_at'],
             array_map(
-                function (string $key, array $names): array {
-                    return [
+                fn (string $key, array $names): array => [
                         $key,
                         $names[0],
                         $names[1],
                         self::S3_LAUNCH,
-                    ];
-                },
+                    ],
                 array_keys($data),
                 array_values($data),
             ),
@@ -55,9 +53,7 @@ final class m220810_233430_stage3 extends Migration
             );
             sort($tmp, SORT_REGULAR);
             $aliases = array_merge($aliases, array_map(
-                function (string $alias) use ($mapId): array {
-                    return [$mapId, $alias];
-                },
+                fn (string $alias): array => [$mapId, $alias],
                 array_values(array_unique($tmp)),
             ));
         }

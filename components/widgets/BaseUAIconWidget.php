@@ -10,9 +10,10 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
-use Yii;
 use yii\base\Widget;
 use yii\helpers\Html;
+
+use function trim;
 
 abstract class BaseUAIconWidget extends Widget
 {

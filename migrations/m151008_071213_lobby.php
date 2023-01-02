@@ -13,11 +13,11 @@ class m151008_071213_lobby extends Migration
     public function up()
     {
         $this->createTable('lobby', [
-            'id'    => $this->primaryKey(),
-            'key'   => $this->string(16)->notNull()->unique(),
-            'name'  => $this->string(32)->notNull()->unique(),
+            'id' => $this->primaryKey(),
+            'key' => $this->string(16)->notNull()->unique(),
+            'name' => $this->string(32)->notNull()->unique(),
         ]);
-        $this->batchInsert('lobby', [ 'key', 'name' ], [
+        $this->batchInsert('lobby', ['key', 'name'], [
             [ 'standard', 'Standard Battle' ],
             [ 'squad_2', 'Squad Battle (2 Players)' ],
             [ 'squad_3', 'Squad Battle (3 Players)' ],

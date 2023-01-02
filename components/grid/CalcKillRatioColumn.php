@@ -12,6 +12,9 @@ namespace app\components\grid;
 
 use yii\base\Model;
 
+use function filter_var;
+use function is_int;
+
 use const FILTER_VALIDATE_INT;
 
 final class CalcKillRatioColumn extends KillRatioColumn
@@ -40,12 +43,12 @@ final class CalcKillRatioColumn extends KillRatioColumn
 
     private function getKD(Model $model): array
     {
-        $k = \filter_var($model->kill, FILTER_VALIDATE_INT);
-        $d = \filter_var($model->death, FILTER_VALIDATE_INT);
+        $k = filter_var($model->kill, FILTER_VALIDATE_INT);
+        $d = filter_var($model->death, FILTER_VALIDATE_INT);
 
         return [
-            \is_int($k) && $k >= 0 ? $k : null,
-            \is_int($d) && $d >= 0 ? $d : null,
+            is_int($k) && $k >= 0 ? $k : null,
+            is_int($d) && $d >= 0 ? $d : null,
         ];
     }
 }

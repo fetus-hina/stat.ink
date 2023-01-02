@@ -19,7 +19,7 @@ class m181106_083644_fix_jetsweeper_special extends Migration
         $this->update(
             'weapon2',
             ['special_id' => $this->getSpecialId('missile')],
-            ['key' => 'jetsweeper']
+            ['key' => 'jetsweeper'],
         );
     }
 
@@ -28,7 +28,7 @@ class m181106_083644_fix_jetsweeper_special extends Migration
         $this->update(
             'weapon2',
             ['special_id' => $this->getSpecialId('jetpack')],
-            ['key' => 'jetsweeper']
+            ['key' => 'jetsweeper'],
         );
     }
 
@@ -41,7 +41,7 @@ class m181106_083644_fix_jetsweeper_special extends Migration
             ->limit(1);
 
         if (!$value = $query->scalar()) {
-            throw new \Exception("Unknown special: {$key}");
+            throw new Exception("Unknown special: {$key}");
         }
 
         return (int)$value;

@@ -11,18 +11,21 @@ declare(strict_types=1);
 namespace app\components\openapi;
 
 use Yii;
-use app\models\Gear;
-use app\models\Map;
-use app\models\Rule;
-use app\models\Special;
-use app\models\Subweapon;
-use app\models\Weapon;
-use app\models\WeaponType;
-use app\models\openapi\Name;
 use yii\base\Component;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\helpers\Url;
+
+use function array_filter;
+use function call_user_func;
+use function in_array;
+use function ksort;
+use function rtrim;
+use function substr;
+use function vsprintf;
+
+use const JSON_PRETTY_PRINT;
+use const JSON_UNESCAPED_SLASHES;
+use const JSON_UNESCAPED_UNICODE;
 
 class OpenApiSpec extends Component
 {
@@ -87,7 +90,7 @@ class OpenApiSpec extends Component
         ];
         return Json::encode(
             $json,
-            JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT
+            JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT,
         );
     }
 

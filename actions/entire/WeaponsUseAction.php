@@ -24,6 +24,17 @@ use yii\base\Action;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
 
+use function array_map;
+use function array_merge;
+use function count;
+use function date;
+use function implode;
+use function range;
+use function sprintf;
+use function strtotime;
+use function substr;
+use function uasort;
+
 use const SORT_ASC;
 use const SORT_NATURAL;
 
@@ -55,13 +66,13 @@ final class WeaponsUseAction extends Action
     public function getWeapons(): array
     {
         return array_merge(
-            [ '' => '-' ],
+            ['' => '-'],
             $this->getWeaponGroups(),
             [
                 Yii::t('app', 'Main Weapon') => $this->getMainWeapon(),
                 Yii::t('app', 'Sub Weapon') => $this->getSubWeapon(),
                 Yii::t('app', 'Special') => $this->getSpecialWeapon(),
-            ]
+            ],
         );
     }
 
@@ -71,7 +82,7 @@ final class WeaponsUseAction extends Action
         foreach (WeaponType::find()->orderBy('[[id]] ASC')->all() as $type) {
             $typeName = Yii::t('app-weapon', $type->name);
             $ret[$typeName] = array_merge(
-                [ "@{$type->key}" => Yii::t('app-weapon', 'All of {0}', $typeName) ],
+                ["@{$type->key}" => Yii::t('app-weapon', 'All of {0}', $typeName)],
                 (function (WeaponType $type): array {
                     $ret = [];
                     foreach ($type->weapons as $weapon) {
@@ -79,7 +90,7 @@ final class WeaponsUseAction extends Action
                     }
                     uasort($ret, 'strnatcasecmp');
                     return $ret;
-                })($type)
+                })($type),
             );
         }
         return $ret;
@@ -90,7 +101,7 @@ final class WeaponsUseAction extends Action
      */
     public function getMainWeapon(): array
     {
-        return \array_merge(
+        return array_merge(
             ...ArrayHelper::getColumn(
                 WeaponType::find()->orderBy(['id' => SORT_ASC])->all(),
                 fn (WeaponType $type): array => ArrayHelper::asort(
@@ -99,7 +110,7 @@ final class WeaponsUseAction extends Action
                             ->andWhere(['type_id' => $type->id])
                             ->andWhere('[[id]] = [[main_group_id]]')
                             ->all(),
-                        fn (Weapon $weapon): string => \sprintf('~%s', $weapon->key),
+                        fn (Weapon $weapon): string => sprintf('~%s', $weapon->key),
                         fn (Weapon $weapon): string => Yii::t('app', '{0} etc.', [
                             Yii::t('app-weapon', $weapon['name']),
                         ]),
@@ -118,7 +129,7 @@ final class WeaponsUseAction extends Action
         return ArrayHelper::asort(
             ArrayHelper::map(
                 Subweapon::find()->all(),
-                fn (Subweapon $model): string => \sprintf('+%s', $model->key),
+                fn (Subweapon $model): string => sprintf('+%s', $model->key),
                 fn (Subweapon $model): string => Yii::t('app-subweapon', $model->name),
             ),
             SORT_NATURAL,
@@ -133,7 +144,7 @@ final class WeaponsUseAction extends Action
         return ArrayHelper::asort(
             ArrayHelper::map(
                 Special::find()->all(),
-                fn (Special $model): string => \sprintf('*%s', $model->key),
+                fn (Special $model): string => sprintf('*%s', $model->key),
                 fn (Special $model): string => Yii::t('app-special', $model->name),
             ),
             SORT_NATURAL,
@@ -145,7 +156,7 @@ final class WeaponsUseAction extends Action
      */
     public function getRules(): array
     {
-        return \array_merge(
+        return array_merge(
             ['' => Yii::t('app-rule', 'Any Mode')],
             ArrayHelper::map(
                 GameMode::find()
@@ -153,8 +164,8 @@ final class WeaponsUseAction extends Action
                     ->orderBy(['id' => SORT_ASC])
                     ->all(),
                 fn (GameMode $mode): string => Yii::t('app-rule', $mode->name),
-                fn (GameMode $mode): array => \array_merge(
-                    \count($mode->rules) > 1
+                fn (GameMode $mode): array => array_merge(
+                    count($mode->rules) > 1
                         ? [
                             "@{$mode->key}" => Yii::t('app-rule', 'All of {0}', [
                                 Yii::t('app-rule', $mode->name),
@@ -196,12 +207,12 @@ final class WeaponsUseAction extends Action
                             date('Y-m-d', strtotime(sprintf(
                                 '%04d-W%02d',
                                 $row['isoyear'],
-                                $row['isoweek']
+                                $row['isoweek'],
                             ))),
                             $battles > 0 ? $row[$columnKey] * 100 / $battles : null,
                         ];
                     },
-                    $list
+                    $list,
                 ),
             ];
         }
@@ -211,23 +222,21 @@ final class WeaponsUseAction extends Action
     protected function getEventData($firstData, $lastData): array
     {
         $first = strtotime(sprintf('%04d-W%02d', $firstData['isoyear'], $firstData['isoweek']));
-        $last  = strtotime(sprintf('%04d-W%02d', $lastData['isoyear'], $lastData['isoweek']));
+        $last = strtotime(sprintf('%04d-W%02d', $lastData['isoyear'], $lastData['isoweek']));
 
         $query = Event::find()
             ->andWhere(['between',
                 'date',
                 date('Y-m-d\TH:i:sO', $first),
-                date('Y-m-d\TH:i:sO', $last)
+                date('Y-m-d\TH:i:sO', $last),
             ])
             ->orderBy('[[date]] ASC');
 
-        return array_map(function (array $row): array {
-            return [
+        return array_map(fn (array $row): array => [
                 date('Y-m-d', strtotime(date('o-\WW', strtotime($row['date'])))),
                 Yii::t('app-event', $row['name']),
                 $row['icon'],
-            ];
-        }, $query->asArray()->all());
+            ], $query->asArray()->all());
     }
 
     protected function makeLegend($weapon, $rule): string
@@ -301,7 +310,7 @@ final class WeaponsUseAction extends Action
                 ['and',
                     ['=', '{{stat}}.[[isoyear]]', 2015],
                     ['>=', '{{stat}}.[[isoweek]]', 46],
-                ]
+                ],
             ])
             ->andWhere(['<', '{{stat}}.[[isoyear]]', 2018])
             ->groupBy('{{stat}}.[[isoyear]], {{stat}}.[[isoweek]]')
@@ -351,11 +360,11 @@ final class WeaponsUseAction extends Action
             }
             $query->select['w' . $i] = sprintf(
                 'SUM(CASE WHEN (%s) THEN {{stat}}.[[battles]] ELSE 0 END)',
-                implode(' AND ', $when)
+                implode(' AND ', $when),
             );
             $query->select['b' . $i] = sprintf(
                 'SUM(CASE WHEN (%s) THEN {{stat}}.[[battles]] ELSE 0 END)',
-                implode(' AND ', $whenRule)
+                implode(' AND ', $whenRule),
             );
         }
         return $query->all();

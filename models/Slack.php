@@ -10,10 +10,15 @@
 namespace app\models;
 
 use Curl\Curl;
-use DateTime;
 use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 use yii\helpers\Json;
 use yii\helpers\Url;
+
+use function sprintf;
+use function strpos;
+use function time;
 
 /**
  * This is the model class for table "slack".
@@ -32,7 +37,7 @@ use yii\helpers\Url;
  * @property Language $language
  * @property User $user
  */
-class Slack extends \yii\db\ActiveRecord
+class Slack extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -84,7 +89,7 @@ class Slack extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getLanguage()
     {
@@ -92,7 +97,7 @@ class Slack extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getUser()
     {
@@ -124,19 +129,19 @@ class Slack extends \yii\db\ActiveRecord
                 ? '???'
                 : ($battle->is_win ? 'won' : 'lost'),
             [],
-            $lang
+            $lang,
         );
         $rule = $i18n->translate(
             'app-rule',
             $battle->rule->name ?? $i18n->translate('app-slack', 'unknown mode', [], $lang),
             [],
-            $lang
+            $lang,
         );
         $stage = $i18n->translate(
             'app-map',
             $battle->map->name ?? $i18n->translate('app-slack', 'unknown stage', [], $lang),
             [],
-            $lang
+            $lang,
         );
         $url = Url::to(['show/battle', 'screen_name' => $battle->user->screen_name, 'battle' => $battle->id], true);
 
@@ -145,47 +150,47 @@ class Slack extends \yii\db\ActiveRecord
                 'app-slack',
                 '{name}: Just {winlose} {rule} at {stage}. {url}',
                 [
-                    'name'      => $battle->user->name,
-                    'winlose'   => $winlose,
-                    'rule'      => $rule,
-                    'stage'     => $stage,
-                    'url'       => $url,
+                    'name' => $battle->user->name,
+                    'winlose' => $winlose,
+                    'rule' => $rule,
+                    'stage' => $stage,
+                    'url' => $url,
                 ],
-                $lang
+                $lang,
             ),
             'text' => $i18n->translate(
                 'app-slack',
                 '{name}: Just {winlose} {rule} at {stage}. <{url}|Detail>',
                 [
-                    'name'      => $battle->user->name,
-                    'winlose'   => $winlose,
-                    'rule'      => $rule,
-                    'stage'     => $stage,
-                    'url'       => $url,
-                    'id'        => $battle->id,
+                    'name' => $battle->user->name,
+                    'winlose' => $winlose,
+                    'rule' => $rule,
+                    'stage' => $stage,
+                    'url' => $url,
+                    'id' => $battle->id,
                 ],
-                $lang
+                $lang,
             ),
             'fields' => [
                 [
-                    'title'     => $i18n->translate('app', 'Mode', [], $lang),
-                    'value'     => $rule,
-                    'short'     => true,
+                    'title' => $i18n->translate('app', 'Mode', [], $lang),
+                    'value' => $rule,
+                    'short' => true,
                 ],
                 [
-                    'title'     => $i18n->translate('app', 'Stage', [], $lang),
-                    'value'     => $stage,
-                    'short'     => true,
+                    'title' => $i18n->translate('app', 'Stage', [], $lang),
+                    'value' => $stage,
+                    'short' => true,
                 ],
                 [
-                    'title'     => $i18n->translate('app', 'Weapon', [], $lang),
-                    'value'     => $i18n->translate('app-weapon', $battle->weapon->name ?? '???', [], $lang),
-                    'short'     => true,
+                    'title' => $i18n->translate('app', 'Weapon', [], $lang),
+                    'value' => $i18n->translate('app-weapon', $battle->weapon->name ?? '???', [], $lang),
+                    'short' => true,
                 ],
                 [
-                    'title'     => $i18n->translate('app', 'Kill / Death', [], $lang),
-                    'value'     => sprintf('%s / %s', $battle->kill ?? '?', $battle->death ?? '?'),
-                    'short'     => true,
+                    'title' => $i18n->translate('app', 'Kill / Death', [], $lang),
+                    'value' => sprintf('%s / %s', $battle->kill ?? '?', $battle->death ?? '?'),
+                    'short' => true,
                 ],
             ],
             'color' => $battle->is_win === null
@@ -218,26 +223,26 @@ class Slack extends \yii\db\ActiveRecord
                 ? '???'
                 : ($battle->is_win ? 'won' : 'lost'),
             [],
-            $lang
+            $lang,
         );
         $rule = $i18n->translate(
             'app-rule2',
             $battle->rule->name ?? $i18n->translate('app-slack', 'unknown mode', [], $lang),
             [],
-            $lang
+            $lang,
         );
         $stage = $i18n->translate(
             'app-map2',
             $battle->map->name ?? $i18n->translate('app-slack', 'unknown stage', [], $lang),
             [],
-            $lang
+            $lang,
         );
         $url = Url::to(
             ['show-v2/battle',
                 'screen_name' => $battle->user->screen_name,
-                'battle' => $battle->id
+                'battle' => $battle->id,
             ],
-            true
+            true,
         );
 
         $attachment = [
@@ -245,47 +250,47 @@ class Slack extends \yii\db\ActiveRecord
                 'app-slack',
                 '{name}: Just {winlose} {rule} at {stage}. {url}',
                 [
-                    'name'      => $battle->user->name,
-                    'winlose'   => $winlose,
-                    'rule'      => $rule,
-                    'stage'     => $stage,
-                    'url'       => $url,
+                    'name' => $battle->user->name,
+                    'winlose' => $winlose,
+                    'rule' => $rule,
+                    'stage' => $stage,
+                    'url' => $url,
                 ],
-                $lang
+                $lang,
             ),
             'text' => $i18n->translate(
                 'app-slack',
                 '{name}: Just {winlose} {rule} at {stage}. <{url}|Detail>',
                 [
-                    'name'      => $battle->user->name,
-                    'winlose'   => $winlose,
-                    'rule'      => $rule,
-                    'stage'     => $stage,
-                    'url'       => $url,
-                    'id'        => $battle->id,
+                    'name' => $battle->user->name,
+                    'winlose' => $winlose,
+                    'rule' => $rule,
+                    'stage' => $stage,
+                    'url' => $url,
+                    'id' => $battle->id,
                 ],
-                $lang
+                $lang,
             ),
             'fields' => [
                 [
-                    'title'     => $i18n->translate('app', 'Mode', [], $lang),
-                    'value'     => $rule,
-                    'short'     => true,
+                    'title' => $i18n->translate('app', 'Mode', [], $lang),
+                    'value' => $rule,
+                    'short' => true,
                 ],
                 [
-                    'title'     => $i18n->translate('app', 'Stage', [], $lang),
-                    'value'     => $stage,
-                    'short'     => true,
+                    'title' => $i18n->translate('app', 'Stage', [], $lang),
+                    'value' => $stage,
+                    'short' => true,
                 ],
                 [
-                    'title'     => $i18n->translate('app', 'Weapon', [], $lang),
-                    'value'     => $i18n->translate('app-weapon2', $battle->weapon->name ?? '???', [], $lang),
-                    'short'     => true,
+                    'title' => $i18n->translate('app', 'Weapon', [], $lang),
+                    'value' => $i18n->translate('app-weapon2', $battle->weapon->name ?? '???', [], $lang),
+                    'short' => true,
                 ],
                 [
-                    'title'     => $i18n->translate('app', 'Kill / Death', [], $lang),
-                    'value'     => sprintf('%s / %s', $battle->kill ?? '?', $battle->death ?? '?'),
-                    'short'     => true,
+                    'title' => $i18n->translate('app', 'Kill / Death', [], $lang),
+                    'value' => sprintf('%s / %s', $battle->kill ?? '?', $battle->death ?? '?'),
+                    'short' => true,
                 ],
             ],
             'color' => $battle->is_win === null
@@ -311,21 +316,21 @@ class Slack extends \yii\db\ActiveRecord
         $formatter->locale = $lang;
         $formatter->timeZone = 'Etc/UTC';
 
-        return null !== $this->doSend([
+        return $this->doSend([
             'text' => sprintf(
                 "%s (%s)\nWebhook Test",
                 $i18n->translate(
                     'app-slack',
                     'Staaaay Fresh!',
                     [],
-                    $lang
+                    $lang,
                 ),
                 $formatter->asDateTime(
                     $_SERVER['REQUEST_TIME'] ?? time(),
-                    'long'
-                )
-            )
-        ], true);
+                    'long',
+                ),
+            ),
+        ], true) !== null;
     }
 
     protected function buildRealQuery(array $params): array
@@ -357,7 +362,7 @@ class Slack extends \yii\db\ActiveRecord
         $curl->setUserAgent(sprintf(
             '%s/%s (+https://github.com/fetus-hina/stat.ink)',
             Yii::$app->name,
-            Yii::$app->version
+            Yii::$app->version,
         ));
         $curl->setHeader('Content-Type', 'application/json');
         $curl->post($this->webhook_url, $params);

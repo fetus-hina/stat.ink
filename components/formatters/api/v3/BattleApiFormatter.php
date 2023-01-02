@@ -17,6 +17,11 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\JsExpression;
 
+use function array_filter;
+use function filter_var;
+use function is_float;
+use function sprintf;
+
 use const FILTER_VALIDATE_FLOAT;
 
 final class BattleApiFormatter
@@ -38,7 +43,7 @@ final class BattleApiFormatter
                     'screen_name' => $model->user->screen_name,
                     'battle' => $model->uuid,
                 ],
-                true
+                true,
             ),
             'images' => [
                 'judge' => ImageApiFormatter::toJson($model->battleImageJudge3),
@@ -130,7 +135,7 @@ final class BattleApiFormatter
             'user_agent' => UserAgentApiFormatter::toJson(
                 $model->agent,
                 $model->variables,
-                $fullTranslate
+                $fullTranslate,
             ),
             'automated' => $model->is_automated,
             'start_at' => DateTimeApiFormatter::toJson($model->start_at),
@@ -147,7 +152,7 @@ final class BattleApiFormatter
     private static function filterPlayers(array $players, bool $isOurTeam, int $team): array
     {
         return ArrayHelper::sort(
-            \array_filter(
+            array_filter(
                 $players,
                 fn (BattlePlayer3|BattleTricolorPlayer3 $model): bool => $model instanceof BattlePlayer3
                     ? $model->is_our_team === $isOurTeam
@@ -159,13 +164,13 @@ final class BattleApiFormatter
 
     private static function formatPower($value): ?JsExpression
     {
-        $value = \filter_var($value, FILTER_VALIDATE_FLOAT);
-        if (!\is_float($value)) {
+        $value = filter_var($value, FILTER_VALIDATE_FLOAT);
+        if (!is_float($value)) {
             return null;
         }
 
         return new JsExpression(
-            \sprintf('%.1f', $value),
+            sprintf('%.1f', $value),
         );
     }
 }

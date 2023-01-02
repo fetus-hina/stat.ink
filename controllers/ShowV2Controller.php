@@ -10,23 +10,16 @@ declare(strict_types=1);
 
 namespace app\controllers;
 
-use Yii;
 use app\actions\show\v2\BattleAction;
 use app\actions\show\v2\EditBattleAction;
 use app\actions\show\v2\UserAction;
-use app\actions\show\v2\UserStatByMapAction;
 use app\actions\show\v2\UserStatByMapRuleAction;
-use app\actions\show\v2\UserStatByMapRuleDetailAction;
-use app\actions\show\v2\UserStatByRuleAction;
 use app\actions\show\v2\UserStatByWeaponAction;
-use app\actions\show\v2\UserStatCauseOfDeathAction;
 use app\actions\show\v2\UserStatGachiAction;
 use app\actions\show\v2\UserStatMonthlyReportAction;
 use app\actions\show\v2\UserStatNawabariAction;
 use app\actions\show\v2\UserStatReportAction;
 use app\actions\show\v2\UserStatSplatfestAction;
-use app\actions\show\v2\UserStatVsWeaponAction;
-use app\actions\show\v2\UserStatWeaponAction;
 use app\components\web\Controller;
 use yii\filters\AccessControl;
 use yii\filters\AccessRule;
@@ -34,7 +27,7 @@ use yii\filters\VerbFilter;
 
 class ShowV2Controller extends Controller
 {
-    public $layout = "main";
+    public $layout = 'main';
 
     public function behaviors()
     {
@@ -58,9 +51,7 @@ class ShowV2Controller extends Controller
                 ],
                 'ruleConfig' => [
                     'class' => AccessRule::class,
-                    'matchCallback' => function (AccessRule $rule, EditBattleAction $action): bool {
-                        return (bool)$action->isEditable;
-                    },
+                    'matchCallback' => fn (AccessRule $rule, EditBattleAction $action): bool => (bool)$action->isEditable,
                 ],
             ],
         ];

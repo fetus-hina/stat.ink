@@ -15,6 +15,8 @@ use app\assets\GameModeIconsAsset;
 use yii\base\Widget;
 use yii\helpers\Html;
 
+use function array_merge_recursive;
+
 final class GameModeIcon extends Widget
 {
     public string $icon;

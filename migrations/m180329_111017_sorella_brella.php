@@ -23,7 +23,7 @@ class m180329_111017_sorella_brella extends Migration
             'pitcher',
             'parashelter',
             null,
-            6001
+            6001,
         );
     }
 

@@ -22,7 +22,7 @@ class m210218_121351_s2_v5_4_0 extends Migration
             '5.4.x',
             '5.4.0',
             '5.4.0',
-            new DateTimeImmutable('2021-02-24T11:00:00+09:00')
+            new DateTimeImmutable('2021-02-24T11:00:00+09:00'),
         );
     }
 

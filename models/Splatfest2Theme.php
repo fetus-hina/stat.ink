@@ -9,7 +9,11 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+
+use function microtime;
+use function usleep;
 
 /**
  * This is the model class for table "splatfest2_theme".
@@ -54,7 +58,7 @@ class Splatfest2Theme extends ActiveRecord
     {
         $timeout = microtime(true) + 30.0;
         while (microtime(true) <= $timeout) {
-            if (Yii::$app->pgMutex->acquire(__CLASS__)) {
+            if (Yii::$app->pgMutex->acquire(self::class)) {
                 return true;
             }
             usleep(1);
@@ -64,7 +68,7 @@ class Splatfest2Theme extends ActiveRecord
 
     private static function freeForFindOrCreate()
     {
-        Yii::$app->pgMutex->release(__CLASS__);
+        Yii::$app->pgMutex->release(self::class);
     }
 
     /**
@@ -99,7 +103,7 @@ class Splatfest2Theme extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattle2s()
     {
@@ -107,7 +111,7 @@ class Splatfest2Theme extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattle2s0()
     {

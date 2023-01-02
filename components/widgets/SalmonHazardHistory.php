@@ -18,6 +18,19 @@ use yii\base\Widget;
 use yii\helpers\Html;
 use yii\helpers\Json;
 
+use function array_filter;
+use function array_keys;
+use function array_map;
+use function array_reverse;
+use function array_values;
+use function count;
+use function in_array;
+use function preg_replace;
+use function range;
+use function str_replace;
+
+use const SORT_DESC;
+
 class SalmonHazardHistory extends Widget
 {
     public $user;
@@ -55,11 +68,9 @@ class SalmonHazardHistory extends Widget
         $series1 = [
             'color' => '#f5a101',
             'data' => array_map(
-                function (Salmon2 $model, int $index): array {
-                    return [$index, (float)$model->danger_rate];
-                },
+                fn (Salmon2 $model, int $index): array => [$index, (float)$model->danger_rate],
                 array_reverse($history), // 古い順に取得
-                range(-1 * (count($history) - 1), 0) // 最新が 0 になるように
+                range(-1 * (count($history) - 1), 0), // 最新が 0 になるように
             ),
             'label' => Yii::t('app-salmon2', 'Hazard Level'),
             'lines' => [
@@ -75,20 +86,18 @@ class SalmonHazardHistory extends Widget
         $japaneseStyle = in_array(
             preg_replace('/@.+$/', '', Yii::$app->language),
             ['ja-JP', 'ko-KR', 'ko-KP'],
-            true
+            true,
         );
 
         // cleared
         $series2 = [
             'color' => '#3169b3',
             'data' => array_values(array_filter(array_map(
-                function (Salmon2 $model, int $index): ?array {
-                    return ($model->clear_waves >= 3)
+                fn (Salmon2 $model, int $index): ?array => $model->clear_waves >= 3
                         ? [$index, (float)$model->danger_rate]
-                        : null;
-                },
+                        : null,
                 array_reverse($history), // 古い順に取得
-                range(-1 * (count($history) - 1), 0) // 最新が 0 になるように
+                range(-1 * (count($history) - 1), 0), // 最新が 0 になるように
             ))),
             'lines' => [
                 'show' => false,
@@ -103,13 +112,11 @@ class SalmonHazardHistory extends Widget
         $series3 = [
             'color' => '#ec6110',
             'data' => array_values(array_filter(array_map(
-                function (Salmon2 $model, int $index): ?array {
-                    return ($model->clear_waves < 3)
+                fn (Salmon2 $model, int $index): ?array => $model->clear_waves < 3
                         ? [$index, (float)$model->danger_rate]
-                        : null;
-                },
+                        : null,
                 array_reverse($history), // 古い順に取得
-                range(-1 * (count($history) - 1), 0) // 最新が 0 になるように
+                range(-1 * (count($history) - 1), 0), // 最新が 0 になるように
             ))),
             'lines' => [
                 'show' => false,
@@ -193,7 +200,7 @@ EOF;
         $this->view->registerJs(str_replace(
             array_keys($replMap),
             array_values($replMap),
-            'jQuery.plot("{selector}", {json}, {options});'
+            'jQuery.plot("{selector}", {json}, {options});',
         ));
 
         return Html::tag('div', '', [

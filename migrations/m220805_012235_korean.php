@@ -31,7 +31,7 @@ class m220805_012235_korean extends Migration
             [
                 ['UHC', 'CP949', 63, false, 17],
                 ['EUC-KR', 'EUC-KR', 63, false, 18],
-            ]
+            ],
         );
 
         $korean = $this->getKoreanLanguageId();
@@ -39,11 +39,9 @@ class m220805_012235_korean extends Migration
             'language_charset',
             ['language_id', 'charset_id', 'is_win_acp'],
             array_map(
-                function (array $_) use ($korean): array {
-                    return [$korean, $_[0], $_[1]];
-                },
+                fn (array $_): array => [$korean, $_[0], $_[1]],
                 $this->getCharsetIds(),
-            )
+            ),
         );
 
         $this->insert('accept_language', [
@@ -65,9 +63,7 @@ class m220805_012235_korean extends Migration
             'charset',
             [
                 'id' => array_map(
-                    function (array $_): int {
-                        return $_[0];
-                    },
+                    fn (array $_): int => $_[0],
                     $this->getKoreanCharsetIds(),
                 ),
             ],
@@ -95,9 +91,7 @@ class m220805_012235_korean extends Migration
     public function getKoreanCharsetIds(): array
     {
         return array_map(
-            function (array $row): array {
-                return [(int)$row['id'], $row['php_name'] === 'CP949'];
-            },
+            fn (array $row): array => [(int)$row['id'], $row['php_name'] === 'CP949'],
             (new Query())
                 ->select('*')
                 ->from('charset')
@@ -110,15 +104,13 @@ class m220805_012235_korean extends Migration
     public function getUnicodeCharsetIds(): array
     {
         return array_map(
-            function ($value): array {
-                return [(int)$value, false];
-            },
+            fn ($value): array => [(int)$value, false],
             (new Query())
                 ->select('id')
                 ->from('charset')
                 ->where(['php_name' => ['UTF-8', 'UTF-16LE']])
                 ->orderBy(['id' => SORT_ASC])
-                ->column()
+                ->column(),
         );
     }
 }

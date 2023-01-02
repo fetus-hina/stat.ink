@@ -22,7 +22,7 @@ class m200415_091509_s2_5_2_0 extends Migration
             '5.2.x',
             '5.2.0',
             '5.2.0',
-            new DateTimeImmutable('2020-04-22T11:00:00+09:00')
+            new DateTimeImmutable('2020-04-22T11:00:00+09:00'),
         );
     }
 

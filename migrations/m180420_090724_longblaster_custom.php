@@ -23,7 +23,7 @@ class m180420_090724_longblaster_custom extends Migration
             'bubble',
             'longblaster',
             null,
-            221
+            221,
         );
     }
 

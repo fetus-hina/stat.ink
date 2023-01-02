@@ -12,7 +12,12 @@ namespace app\components\formatters\api\v3;
 
 use app\models\Salmon3;
 use yii\helpers\Url;
-use yii\web\JsExpression;
+
+use function filter_var;
+use function is_float;
+use function is_scalar;
+
+use const FILTER_VALIDATE_FLOAT;
 
 final class SalmonApiFormatter
 {
@@ -32,7 +37,7 @@ final class SalmonApiFormatter
                     'screen_name' => $model->user->screen_name,
                     'battle' => $model->uuid,
                 ],
-                true
+                true,
             ),
             'user' => UserApiFormatter::toJson($model->user, $isAuthenticated, $fullTranslate),
             'uuid' => $model->client_uuid,
@@ -88,9 +93,9 @@ final class SalmonApiFormatter
 
     private static function floatVal($value): ?float
     {
-        if (\is_scalar($value)) {
-            $value = \filter_var($value, FILTER_VALIDATE_FLOAT);
+        if (is_scalar($value)) {
+            $value = filter_var($value, FILTER_VALIDATE_FLOAT);
         }
-        return \is_float($value) ? $value : null;
+        return is_float($value) ? $value : null;
     }
 }

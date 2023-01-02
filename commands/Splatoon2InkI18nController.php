@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace app\commands;
 
 use Normalizer;
+use Throwable;
 use Yii;
 use app\components\helpers\I18n as I18nHelper;
 use app\models\Gear2;
@@ -19,11 +20,27 @@ use app\models\Map2;
 use app\models\Weapon2;
 use yii\console\Controller;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Console;
 use yii\helpers\FileHelper;
 use yii\helpers\Json;
 use yii\httpclient\Client as HttpClient;
 use yii\httpclient\CurlTransport;
+
+use function array_keys;
+use function dirname;
+use function fclose;
+use function file_exists;
+use function file_get_contents;
+use function file_put_contents;
+use function fopen;
+use function fprintf;
+use function fwrite;
+use function implode;
+use function mb_convert_kana;
+use function sprintf;
+use function trim;
+
+use const SORT_ASC;
+use const STDERR;
 
 class Splatoon2InkI18nController extends Controller
 {
@@ -126,7 +143,7 @@ class Splatoon2InkI18nController extends Controller
         $body = $response->content;
         try {
             Json::decode($body);
-        } catch (\Exception $e) {
+        } catch (Throwable $e) {
             fwrite(STDERR, "JSON decode failed\n");
             return 1;
         }
@@ -183,7 +200,7 @@ class Splatoon2InkI18nController extends Controller
                 ->asArray()
                 ->all(),
             'splatnet',
-            'name'
+            'name',
         ));
         return $status ? 0 : 1;
     }
@@ -215,7 +232,7 @@ class Splatoon2InkI18nController extends Controller
                 ->asArray()
                 ->all(),
             'splatnet',
-            'name'
+            'name',
         ));
         return $status ? 0 : 1;
     }
@@ -261,7 +278,7 @@ class Splatoon2InkI18nController extends Controller
                 ->asArray()
                 ->all(),
             'splatnet',
-            'name'
+            'name',
         ));
         return $status ? 0 : 1;
     }
@@ -276,7 +293,7 @@ class Splatoon2InkI18nController extends Controller
 
         $json = ArrayHelper::getValue(
             Json::decode(file_get_contents($cachePath)),
-            $jsonKey
+            $jsonKey,
         );
         $data = [];
         foreach ($json as $id => $value) {
@@ -286,10 +303,10 @@ class Splatoon2InkI18nController extends Controller
     }
 
     private function update(
-        string $locale,     // "ja-JP"
-        string $fileName,   // "weapon2"
-        string $jsonKey,    // "weapons"
-        array $englishData  // [0 => "Sploosh-o-matic"]
+        string $locale, // "ja-JP"
+        string $fileName, // "weapon2"
+        string $jsonKey, // "weapons"
+        array $englishData // [0 => "Sploosh-o-matic"]
     ): bool {
         // {{{
         if (!$shortLocale = $this->localeMap[$locale] ?? null) {
@@ -306,10 +323,10 @@ class Splatoon2InkI18nController extends Controller
         fprintf(STDERR, "Checking translations (%s, %s)\n", $fileName, $locale);
 
         $filePath = Yii::getAlias('@app/messages') . "/{$shortLocale}/{$fileName}.php";
-        $currentData = require($filePath);
+        $currentData = require $filePath;
         $splatNetData = ArrayHelper::getValue(
             Json::decode(file_get_contents($cachePath)),
-            $jsonKey
+            $jsonKey,
         );
         $updated = false;
         foreach ($englishData as $splatNetId => $englishName) {

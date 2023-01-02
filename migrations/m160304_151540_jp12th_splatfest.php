@@ -6,9 +6,9 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
 use app\models\Region;
 use app\models\Splatfest;
+use yii\db\Migration;
 
 class m160304_151540_jp12th_splatfest extends Migration
 {
@@ -16,10 +16,10 @@ class m160304_151540_jp12th_splatfest extends Migration
     {
         $this->insert('splatfest', [
             'region_id' => Region::findOne(['key' => 'jp'])->id,
-            'name'      => 'ガンガンいこうぜ vs いのちだいじに',
-            'start_at'  => '2016-03-12 09:00:00+09',
-            'end_at'    => '2016-03-13 09:00:00+09',
-            'order'     => 12,
+            'name' => 'ガンガンいこうぜ vs いのちだいじに',
+            'start_at' => '2016-03-12 09:00:00+09',
+            'end_at' => '2016-03-13 09:00:00+09',
+            'order' => 12,
         ]);
         $festId = Splatfest::find()
             ->joinWith(['region'])

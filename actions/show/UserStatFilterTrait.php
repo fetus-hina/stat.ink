@@ -8,11 +8,20 @@
 
 namespace app\actions\show;
 
-use yii\db\Query;
 use app\components\helpers\Battle as BattleHelper;
 use app\models\BattleFilterForm;
 use app\models\SplatoonVersion;
 use app\models\Weapon;
+use yii\db\Query;
+
+use function date;
+use function gmdate;
+use function mktime;
+use function preg_match;
+use function strtotime;
+use function substr;
+use function time;
+use function trim;
 
 trait UserStatFilterTrait
 {

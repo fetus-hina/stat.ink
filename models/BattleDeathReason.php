@@ -8,8 +8,8 @@
 
 namespace app\models;
 
-use Yii;
-use app\components\helpers\Translator;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "battle_death_reason".
@@ -21,7 +21,7 @@ use app\components\helpers\Translator;
  * @property Battle $battle
  * @property DeathReason $reason
  */
-class BattleDeathReason extends \yii\db\ActiveRecord
+class BattleDeathReason extends ActiveRecord
 {
     public static function find()
     {
@@ -43,7 +43,7 @@ class BattleDeathReason extends \yii\db\ActiveRecord
     {
         return [
             [['battle_id', 'reason_id', 'count'], 'required'],
-            [['battle_id', 'reason_id', 'count'], 'integer']
+            [['battle_id', 'reason_id', 'count'], 'integer'],
         ];
     }
 
@@ -60,7 +60,7 @@ class BattleDeathReason extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattle()
     {
@@ -68,7 +68,7 @@ class BattleDeathReason extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getReason()
     {

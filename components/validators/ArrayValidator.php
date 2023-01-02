@@ -13,6 +13,9 @@ namespace app\components\validators;
 use ArrayAccess;
 use yii\validators\EachValidator;
 
+use function count;
+use function is_array;
+
 final class ArrayValidator extends EachValidator
 {
     public ?int $min = null;
@@ -44,13 +47,13 @@ final class ArrayValidator extends EachValidator
     public function validateAttribute($model, $attribute)
     {
         $arrayOfValues = $model->$attribute;
-        if (\is_array($arrayOfValues) || $arrayOfValues instanceof ArrayAccess) {
-            if ($this->min !== null && \count($arrayOfValues) < $this->min) {
+        if (is_array($arrayOfValues) || $arrayOfValues instanceof ArrayAccess) {
+            if ($this->min !== null && count($arrayOfValues) < $this->min) {
                 $this->addError($model, $attribute, $this->tooSmall, ['min' => $this->min]);
                 return;
             }
 
-            if ($this->max !== null && \count($arrayOfValues) > $this->max) {
+            if ($this->max !== null && count($arrayOfValues) > $this->max) {
                 $this->addError($model, $attribute, $this->tooBig, ['max' => $this->max]);
                 return;
             }
@@ -64,12 +67,12 @@ final class ArrayValidator extends EachValidator
      */
     protected function validateValue($value)
     {
-        if (\is_array($value) || $value instanceof ArrayAccess) {
-            if ($this->min !== null && \count($value) < $this->min) {
+        if (is_array($value) || $value instanceof ArrayAccess) {
+            if ($this->min !== null && count($value) < $this->min) {
                 return [$this->tooSmall, ['min' => $this->min]];
             }
 
-            if ($this->max !== null && \count($value) > $this->max) {
+            if ($this->max !== null && count($value) > $this->max) {
                 return [$this->tooBig, ['max' => $this->max]];
             }
         }

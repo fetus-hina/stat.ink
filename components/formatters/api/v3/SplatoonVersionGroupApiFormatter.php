@@ -13,6 +13,11 @@ namespace app\components\formatters\api\v3;
 use app\models\SplatoonVersion3;
 use app\models\SplatoonVersionGroup3;
 
+use function array_map;
+use function strcmp;
+use function usort;
+use function version_compare;
+
 final class SplatoonVersionGroupApiFormatter
 {
     public static function toJson(
@@ -25,10 +30,10 @@ final class SplatoonVersionGroupApiFormatter
         }
 
         $versions = $expandVersions ? $model->splatoonVersion3s : [];
-        \usort(
+        usort(
             $versions,
-            fn (SplatoonVersion3 $a, SplatoonVersion3 $b): int => \version_compare($b->tag, $a->tag)
-                ?: \strcmp($b->tag, $a->tag)
+            fn (SplatoonVersion3 $a, SplatoonVersion3 $b): int => version_compare($b->tag, $a->tag)
+                ?: strcmp($b->tag, $a->tag)
                 ?: $b->id <=> $a->id
         );
 
@@ -36,12 +41,12 @@ final class SplatoonVersionGroupApiFormatter
             'tag' => $model->tag,
             'name' => NameApiFormatter::toJson($model->name, 'app-version3', $fullTranslate),
             'versions' => $expandVersions
-                ? \array_map(
+                ? array_map(
                     fn (SplatoonVersion3 $version): array => SplatoonVersionApiFormatter::toJson(
                         $version,
-                        $fullTranslate
+                        $fullTranslate,
                     ),
-                    $versions
+                    $versions,
                 )
                 : false,
         ];

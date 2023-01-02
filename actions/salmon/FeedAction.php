@@ -26,7 +26,15 @@ use yii\base\DynamicModel;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\web\NotFoundHttpException;
+
+use function array_map;
+use function implode;
+use function sprintf;
+use function strtotime;
+use function time;
+use function vsprintf;
+
+use const SORT_DESC;
 
 class FeedAction extends Action
 {
@@ -59,7 +67,7 @@ class FeedAction extends Action
                     'targetAttribute' => 'screen_name',
                 ],
                 [['type'], 'in', 'range' => ['atom', 'rss']],
-            ]
+            ],
         );
         if ($input->hasErrors()) {
             $resp->format = 'json';
@@ -87,22 +95,22 @@ class FeedAction extends Action
                 Yii::$app->name,
                 Yii::$app->version,
                 'Laminas-Feed-Writer',
-                FeedVersion::VERSION
+                FeedVersion::VERSION,
             ),
             Yii::$app->version,
-            Url::home(true)
+            Url::home(true),
         );
         $feed->setTitle(
-            Yii::t('app', '{name}\'s Salmon Log', ['name' => $user->name], $input->lang)
+            Yii::t('app', '{name}\'s Salmon Log', ['name' => $user->name], $input->lang),
         );
         $feed->setDescription(
-            Yii::t('app', '{name}\'s Salmon Log', ['name' => $user->name], $input->lang)
+            Yii::t('app', '{name}\'s Salmon Log', ['name' => $user->name], $input->lang),
         );
         $feed->setId(
             Uuid::v5(
                 UuidNS::url(),
-                Url::to(['salmon/index', 'screen_name' => $user->screen_name], true)
-            )->formatAsUri()
+                Url::to(['salmon/index', 'screen_name' => $user->screen_name], true),
+            )->formatAsUri(),
         );
         $feed->setLink(Url::to(['salmon/index', 'screen_name' => $user->screen_name], true));
         // 複数の言語を持たすことはできなさげ
@@ -114,23 +122,23 @@ class FeedAction extends Action
                         'screen_name' => $user->screen_name,
                         'type' => $type,
                     ],
-                    true
+                    true,
                 ),
-                $type
+                $type,
             );
         }
         $feed->addAuthors([
             [
-                'name'  => Yii::$app->name,
-                'uri'   => Url::home(true),
+                'name' => Yii::$app->name,
+                'uri' => Url::home(true),
             ],
             [
-                'name'  => $user->name,
-                'uri'   => Url::to(['salmon/index', 'screen_name' => $user->screen_name], true),
+                'name' => $user->name,
+                'uri' => Url::to(['salmon/index', 'screen_name' => $user->screen_name], true),
             ],
         ]);
         $feed->setCopyright(
-            sprintf('Copyright (C) 2015-%s AIZAWA Hina', $now->format('Y'))
+            sprintf('Copyright (C) 2015-%s AIZAWA Hina', $now->format('Y')),
         );
         $feed->setLanguage($input->lang);
         $feed->setEncoding('UTF-8');
@@ -150,7 +158,7 @@ class FeedAction extends Action
                     ['term' => 'Game'],
                     ['term' => 'Splatoon'],
                     ['term' => 'Salmon Run'],
-                ]
+                ],
         );
 
         $models = Salmon2::find()
@@ -183,9 +191,9 @@ class FeedAction extends Action
                             'screen_name' => $user->screen_name,
                             'id' => $model->id,
                         ],
-                        true
-                    )
-                )->formatAsUri()
+                        true,
+                    ),
+                )->formatAsUri(),
             );
             $entry->setLink(
                 Url::to(
@@ -194,8 +202,8 @@ class FeedAction extends Action
                         'screen_name' => $user->screen_name,
                         'id' => $model->id,
                     ],
-                    true
-                )
+                    true,
+                ),
             );
             $entry->setTitle($this->makeEntryTitle($model, $input->lang));
             $entry->setContent($this->makeEntryContent($model, $input->lang));
@@ -203,13 +211,13 @@ class FeedAction extends Action
         }
 
         $contentType = [
-            'atom'  => 'application/atom+xml; charset=UTF-8',
+            'atom' => 'application/atom+xml; charset=UTF-8',
             'rss' => 'application/rss+xml; charset=UTF-8',
         ];
         $resp->format = 'raw';
         $resp->headers->set(
             'Content-Type',
-            $contentType[$input->type] ?? 'text/xml; charset=UTF-8'
+            $contentType[$input->type] ?? 'text/xml; charset=UTF-8',
         );
         return $feed->export($input->type);
     }
@@ -279,8 +287,6 @@ class FeedAction extends Action
             ],
         ];
 
-        return Html::tag('dl', implode('', array_map(function (array $row): string {
-            return Html::tag('dt', Html::encode($row[0])) . Html::tag('dd', Html::encode($row[1]));
-        }, $data)));
+        return Html::tag('dl', implode('', array_map(fn (array $row): string => Html::tag('dt', Html::encode($row[0])) . Html::tag('dd', Html::encode($row[1])), $data)));
     }
 }

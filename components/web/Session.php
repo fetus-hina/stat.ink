@@ -8,7 +8,8 @@
 
 namespace app\components\web;
 
-use Yii;
+use function header;
+use function headers_sent;
 
 class Session extends \yii\web\Session
 {

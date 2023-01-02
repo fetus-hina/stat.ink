@@ -16,6 +16,10 @@ use yii\bootstrap\BootstrapAsset;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
+use function is_array;
+use function preg_replace;
+use function trim;
+
 final class Label extends Widget
 {
     public $link;
@@ -53,7 +57,7 @@ final class Label extends Widget
             $class = trim(preg_replace(
                 '/\s+/',
                 ' ',
-                (string)$class . " label label-{$this->color}"
+                (string)$class . " label label-{$this->color}",
             ));
         }
         $options['class'] = $class;
@@ -62,13 +66,13 @@ final class Label extends Widget
             return Html::a(
                 $this->formatter->format($this->content, $this->format),
                 $this->link,
-                $options
+                $options,
             );
         } else {
             return Html::tag(
                 $tag ?: 'span',
                 $this->formatter->format($this->content, $this->format),
-                $options
+                $options,
             );
         }
     }

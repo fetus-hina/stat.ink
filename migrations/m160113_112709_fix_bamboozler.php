@@ -15,7 +15,7 @@ class m160113_112709_fix_bamboozler extends Migration
         $this->update(
             'weapon',
             ['name' => 'Bamboozler 14 Mk I'],
-            ['key' => 'bamboo14mk1']
+            ['key' => 'bamboo14mk1'],
         );
     }
 
@@ -24,7 +24,7 @@ class m160113_112709_fix_bamboozler extends Migration
         $this->update(
             'weapon',
             ['name' => 'Bamboozler 14 MK I'],
-            ['key' => 'bamboo14mk1']
+            ['key' => 'bamboo14mk1'],
         );
     }
 }

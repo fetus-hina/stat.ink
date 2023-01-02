@@ -23,7 +23,7 @@ class m171208_100736_nzap89 extends Migration
             'missile',
             'nzap85',
             null,
-            61
+            61,
         );
     }
 

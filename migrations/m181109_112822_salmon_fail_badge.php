@@ -18,9 +18,7 @@ class m181109_112822_salmon_fail_badge extends Migration
             'short_name' => $this->string(32)->null(),
             'color' => $this->string(32)->null(),
         ]);
-        return $this->db->transaction(function (): bool {
-            return $this->safeUp();
-        });
+        return $this->db->transaction(fn (): bool => $this->safeUp());
     }
 
     public function safeUp()
@@ -28,21 +26,19 @@ class m181109_112822_salmon_fail_badge extends Migration
         $this->update(
             'salmon_fail_reason2',
             ['name' => 'Time is up', 'short_name' => 'Time', 'color' => 'warning'],
-            ['key' => 'time_limit']
+            ['key' => 'time_limit'],
         );
         $this->update(
             'salmon_fail_reason2',
             ['name' => 'Wipe out', 'short_name' => 'Wiped', 'color' => 'info'],
-            ['key' => 'wipe_out']
+            ['key' => 'wipe_out'],
         );
         return true;
     }
 
     public function down()
     {
-        $status = $this->db->transaction(function (): bool {
-            return $this->safeDown();
-        });
+        $status = $this->db->transaction(fn (): bool => $this->safeDown());
         if (!$status) {
             return $status;
         }
@@ -57,12 +53,12 @@ class m181109_112822_salmon_fail_badge extends Migration
         $this->update(
             'salmon_fail_reason2',
             ['name' => 'Time was up'],
-            ['key' => 'time_limit']
+            ['key' => 'time_limit'],
         );
         $this->update(
             'salmon_fail_reason2',
             ['name' => 'Dead all players'],
-            ['key' => 'wipe_out']
+            ['key' => 'wipe_out'],
         );
     }
 }

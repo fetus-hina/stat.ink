@@ -10,8 +10,13 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
+
+use function array_merge;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "death_reason".
@@ -27,7 +32,7 @@ use yii\helpers\Html;
  * @property DeathReasonType $type
  * @property Weapon $weapon
  */
-class DeathReason extends \yii\db\ActiveRecord
+class DeathReason extends ActiveRecord
 {
     use openapi\Util;
 
@@ -55,7 +60,7 @@ class DeathReason extends \yii\db\ActiveRecord
             [['key'], 'string', 'max' => 32],
             [['name'], 'string', 'max' => 64],
             [['key'], 'unique'],
-            [['name'], 'unique']
+            [['name'], 'unique'],
         ];
     }
 
@@ -73,7 +78,7 @@ class DeathReason extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattleDeathReasons()
     {
@@ -81,7 +86,7 @@ class DeathReason extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattles()
     {
@@ -91,7 +96,7 @@ class DeathReason extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getType()
     {
@@ -99,7 +104,7 @@ class DeathReason extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getWeapon()
     {
@@ -178,9 +183,9 @@ class DeathReason extends \yii\db\ActiveRecord
                             $type = ArrayHelper::getValue($model, 'type.key');
                             return $map[$type] ?? 'app-death';
                         },
-                        $values
+                        $values,
                     ),
-                    ArrayHelper::getColumn($values, 'key', false)
+                    ArrayHelper::getColumn($values, 'key', false),
                 ),
                 'name' => static::oapiRef(openapi\Name::class),
                 'type' => array_merge(DeathReasonType::openApiSchema(), [

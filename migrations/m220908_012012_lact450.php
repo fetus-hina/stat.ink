@@ -37,9 +37,7 @@ final class m220908_012012_lact450 extends Migration
         $this->delete('{{%weapon3_alias}}', [
             'key' => ArrayHelper::getColumn(
                 $this->getWeaponData(),
-                function (array $data): string {
-                    return self::name2key3($data['name']);
-                },
+                fn (array $data): string => self::name2key3($data['name']),
             ),
         ]);
 
@@ -66,13 +64,11 @@ final class m220908_012012_lact450 extends Migration
         );
 
         $this->batchInsert('{{%mainweapon3}}', ['key', 'type_id', 'name'], array_map(
-            function (array $item) use ($types): array {
-                return [
+            fn (array $item): array => [
                     $item['key'],
                     (int)$types[$item['type']],
                     $item['name'],
-                ];
-            },
+                ],
             $this->getWeaponData(),
         ));
     }
@@ -95,13 +91,11 @@ final class m220908_012012_lact450 extends Migration
         );
 
         $this->batchInsert('{{%weapon3}}', ['key', 'mainweapon_id', 'name'], array_map(
-            function (array $item) use ($mains): array {
-                return [
+            fn (array $item): array => [
                     $item['key'],
                     $mains[$item['key']],
                     $item['name'],
-                ];
-            },
+                ],
             $this->getWeaponData(),
         ));
     }
@@ -124,12 +118,10 @@ final class m220908_012012_lact450 extends Migration
         );
 
         $this->batchInsert('{{%weapon3_alias}}', ['weapon_id', 'key'], array_map(
-            function (array $item) use ($weapons): array {
-                return [
+            fn (array $item): array => [
                     $weapons[$item['key']],
                     self::name2key3($item['name']),
-                ];
-            },
+                ],
             $this->getWeaponData(),
         ));
     }

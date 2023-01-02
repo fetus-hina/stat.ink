@@ -8,9 +8,13 @@
 
 namespace app\components\widgets\embedVideo;
 
-use Yii;
 use yii\base\Widget;
 use yii\helpers\Html;
+
+use function http_build_query;
+use function rawurlencode;
+use function round;
+use function sprintf;
 
 class Nicovideo extends Widget
 {
@@ -39,11 +43,11 @@ class Nicovideo extends Widget
                             'h' => (string)(int)$this->height,
                         ],
                         '',
-                        '&'
-                    )
-                )
+                        '&',
+                    ),
+                ),
             ),
-            ['id' => $this->id]
+            ['id' => $this->id],
         );
     }
 }

@@ -10,24 +10,23 @@ declare(strict_types=1);
 
 namespace app\actions\api\v3\salmon;
 
-use DateTimeZone;
 use Yii;
 use app\actions\api\v3\traits\ApiInitializerTrait;
 use app\components\formatters\api\v3\SalmonApiFormatter;
-use app\components\helpers\UuidRegexp;
 use app\models\Salmon3;
 use app\models\User;
 use yii\base\Action;
 use yii\helpers\Json;
-use yii\helpers\Url;
-use yii\web\BadRequestHttpException;
 use yii\web\JsExpression;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
+use function array_map;
+
 use const JSON_THROW_ON_ERROR;
 use const JSON_UNESCAPED_SLASHES;
 use const JSON_UNESCAPED_UNICODE;
+use const SORT_DESC;
 
 final class GetUserSalmonAction extends Action
 {
@@ -92,7 +91,7 @@ final class GetUserSalmonAction extends Action
             : (int)$user->id === (int)Yii::$app->user->id;
 
         $resp = Yii::$app->response;
-        $resp->data = \array_map(
+        $resp->data = array_map(
             fn (Salmon3 $model): JsExpression => new JsExpression(
                 Json::encode(
                     SalmonApiFormatter::toJson(

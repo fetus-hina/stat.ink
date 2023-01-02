@@ -27,7 +27,7 @@ class m170906_154159_playerid_map extends Migration
             'WHERE {{battle_player2}}.[[splatnet_id]] IS NOT NULL ' .
             'AND {{battle_player2}}.[[is_me]] = TRUE ' .
             'GROUP BY {{battle_player2}}.[[splatnet_id]], {{battle2}}.[[user_id]] ' .
-            'ON CONFLICT ([[splatnet_id]], [[user_id]]) DO NOTHING '
+            'ON CONFLICT ([[splatnet_id]], [[user_id]]) DO NOTHING ',
         );
         $this->execute('VACUUM ANALYZE {{splatnet2_user_map}}');
     }

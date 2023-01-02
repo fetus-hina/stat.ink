@@ -15,6 +15,9 @@ use app\models\Rank3;
 use yii\base\Widget;
 use yii\bootstrap\Html;
 
+use function trim;
+use function vsprintf;
+
 final class Rank extends Widget
 {
     public ?Rank3 $model = null;
@@ -35,8 +38,8 @@ final class Rank extends Widget
 
     private function renderSPlus(): string
     {
-        return \trim(
-            \vsprintf('%s%s %s', [
+        return trim(
+            vsprintf('%s%s %s', [
                 $this->renderRank(),
                 $this->renderSPlusNumber(),
                 $this->renderPts(),
@@ -46,8 +49,8 @@ final class Rank extends Widget
 
     private function renderStandard(): string
     {
-        return \trim(
-            \vsprintf('%s %s', [
+        return trim(
+            vsprintf('%s %s', [
                 $this->renderRank(),
                 $this->renderPts(),
             ]),
@@ -76,14 +79,14 @@ final class Rank extends Widget
 
         return Html::tag(
             'small',
-            \vsprintf('(%s)', [
+            vsprintf('(%s)', [
                 Html::encode(
                     Yii::t('app', '{point}p', [
                         'point' => (string)(int)$this->pts,
-                    ])
+                    ]),
                 ),
             ]),
-            ['class' => 'text-muted']
+            ['class' => 'text-muted'],
         );
     }
 }

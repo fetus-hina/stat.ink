@@ -8,16 +8,16 @@
 
 namespace app\models\api\v2;
 
-use Yii;
 use app\components\behaviors\FixAttributesBehavior;
 use app\components\behaviors\SplatnetNumberBehavior;
 use app\components\behaviors\TrimAttributesBehavior;
 use app\models\FestTitle;
-use app\models\Gender;
 use app\models\Rank2;
 use app\models\Species2;
 use app\models\Weapon2;
 use yii\base\Model;
+
+use function array_keys;
 
 class PostBattlePlayerForm extends Model
 {
@@ -80,7 +80,7 @@ class PostBattlePlayerForm extends Model
             [['team'], 'in', 'range' => [ 'my', 'his' ]],
             [['is_me'], 'boolean', 'trueValue' => 'yes', 'falseValue' => 'no'],
             [['weapon'], 'exist',
-                'targetClass' =>  Weapon2::class,
+                'targetClass' => Weapon2::class,
                 'targetAttribute' => 'key',
             ],
             [['level'], 'integer', 'min' => 1, 'max' => 99],

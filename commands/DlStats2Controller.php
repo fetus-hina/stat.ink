@@ -12,14 +12,41 @@ use DateInterval;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
+use Throwable;
 use Yii;
 use ZipArchive;
 use app\components\helpers\Battle as BattleHelper;
 use app\models\Battle2;
 use app\models\BattlePlayer2;
 use yii\console\Controller;
-use yii\helpers\Console;
 use yii\helpers\FileHelper;
+
+use function array_map;
+use function array_merge;
+use function basename;
+use function copy;
+use function count;
+use function dirname;
+use function fclose;
+use function file_exists;
+use function fopen;
+use function fseek;
+use function fwrite;
+use function gmdate;
+use function implode;
+use function printf;
+use function str_replace;
+use function stream_copy_to_stream;
+use function strpos;
+use function strtotime;
+use function tempnam;
+use function time;
+use function tmpfile;
+use function unlink;
+use function usort;
+
+use const SEEK_SET;
+use const SORT_ASC;
 
 class DlStats2Controller extends Controller
 {
@@ -69,8 +96,7 @@ class DlStats2Controller extends Controller
             return false;
         }
         try {
-            $playerColumns = function (string $prefix): array {
-                return [
+            $playerColumns = fn (string $prefix): array => [
                     $prefix . '-weapon',
                     $prefix . '-kill-assist',
                     $prefix . '-kill',
@@ -81,13 +107,12 @@ class DlStats2Controller extends Controller
                     $prefix . '-rank',
                     $prefix . '-level',
                 ];
-            };
             $playerCsv = function (Battle2 $b, ?BattlePlayer2 $p): array {
                 if (!$p) {
                     return ['', '', '', '', '', '', '', '', ''];
                 }
 
-                $inked = (function (?int $point) use ($b, $p): ?int {
+                $inked = function (?int $point) use ($b, $p): ?int {
                     if ($point === null) {
                         return null;
                     }
@@ -99,13 +124,13 @@ class DlStats2Controller extends Controller
                     }
 
                     return $point;
-                });
+                };
 
                 return [
                     $p->weapon ? $p->weapon->key : '',
                     (string)$p->kill_or_assist,
                     (string)$p->kill,
-                    ($p->kill_or_assist !== null && $p->kill !== null)
+                    $p->kill_or_assist !== null && $p->kill !== null
                         ? (string)($p->kill_or_assist - $p->kill)
                         : '',
                     (string)$p->death,
@@ -135,7 +160,7 @@ class DlStats2Controller extends Controller
                     [
                         'battle2.is_automated' => true,
                         'battle2.use_for_entire' => true,
-                    ]
+                    ],
                 ])
                 ->orderBy(['battle2.start_at' => SORT_ASC]);
             foreach ($query->each(500) as $battle) {
@@ -160,7 +185,7 @@ class DlStats2Controller extends Controller
                             $playerColumns('B1'),
                             $playerColumns('B2'),
                             $playerColumns('B3'),
-                            $playerColumns('B4')
+                            $playerColumns('B4'),
                         )) . "\x0d\x0a");
                         $header = true;
                     }
@@ -216,7 +241,7 @@ class DlStats2Controller extends Controller
             echo "    done!\n";
 
             return true;
-        } catch (\Exception $e) {
+        } catch (Throwable $e) {
             echo $e->getMessage() . "\n";
             return false;
         } finally {
@@ -246,7 +271,7 @@ class DlStats2Controller extends Controller
                     [
                     'add_path' => basename(Yii::getAlias(static::BASE_BATTLE_RESULTS_CSV)) . '/',
                     'remove_all_path' => true,
-                    ]
+                    ],
                 )
             ) {
                 return false;
@@ -259,7 +284,7 @@ class DlStats2Controller extends Controller
                 implode('/', [
                     Yii::getAlias(static::BASE_BATTLE_RESULTS_CSV),
                     basename(Yii::getAlias(static::BASE_BATTLE_RESULTS_CSV)) . '.zip',
-                ])
+                ]),
             );
             return true;
         } finally {
@@ -298,7 +323,7 @@ class DlStats2Controller extends Controller
                     return '"' . str_replace('"', '""', $col) . '"';
                 }
             },
-            $cols
+            $cols,
         ));
     }
 }

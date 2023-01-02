@@ -23,7 +23,7 @@ class m171102_120015_custom_jetsweeper extends Migration
             'presser',
             'jetsweeper',
             null,
-            91
+            91,
         );
     }
 

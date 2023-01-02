@@ -9,9 +9,11 @@
 namespace app\actions\api\v1;
 
 use Yii;
-use yii\web\ViewAction as BaseAction;
 use app\models\Weapon;
 use app\models\api\v1\WeaponGetForm;
+use yii\web\ViewAction as BaseAction;
+
+use function array_map;
 
 class WeaponAction extends BaseAction
 {
@@ -35,10 +37,8 @@ class WeaponAction extends BaseAction
         $form->filterQuery($query);
 
         return array_map(
-            function ($weapon) {
-                return $weapon->toJsonArray();
-            },
-            $query->all()
+            fn ($weapon) => $weapon->toJsonArray(),
+            $query->all(),
         );
     }
 }

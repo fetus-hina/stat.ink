@@ -43,7 +43,7 @@ class m170810_040928_ua_attr_groups extends Migration
             ->where(['name' => $name])
             ->scalar();
         if (!$ret) {
-            throw new \Exception('Invalid UA group name: ' . $name);
+            throw new Exception('Invalid UA group name: ' . $name);
         }
         return (int)$ret;
     }

@@ -18,7 +18,6 @@ use Base32\Base32;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
-use yii\helpers\Url;
 use yii\web\AssetManager as FWAssetManager;
 
 use function call_user_func;
@@ -65,7 +64,7 @@ class AssetManager extends FWAssetManager
         $hash = strtolower(substr(
             Base32::encode(hash_hmac('sha256', $path, Json::encode($options), true)),
             0,
-            16
+            16,
         ));
         Yii::endProfile($profile, __METHOD__);
         Yii::info("Asset path hash = {$hash}", __METHOD__);
@@ -79,7 +78,7 @@ class AssetManager extends FWAssetManager
 
         $result = vsprintf('%s-%s/%s', [
             gmdate('Ymd', $commitTime),
-            ($options['assetRevision'] >= 0)
+            $options['assetRevision'] >= 0
                 ? (string)$options['assetRevision']
                 : gmdate('His', $commitTime),
             $hash,

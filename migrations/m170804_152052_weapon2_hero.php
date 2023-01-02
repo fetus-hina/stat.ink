@@ -22,7 +22,7 @@ class m170804_152052_weapon2_hero extends Migration
             'quickbomb',
             'chakuchi',
             'sshooter',
-            'sshooter'
+            'sshooter',
         );
         $this->upWeapon(
             'heroblaster_replica',
@@ -31,7 +31,7 @@ class m170804_152052_weapon2_hero extends Migration
             'poisonmist',
             'chakuchi',
             'hotblaster',
-            'hotblaster'
+            'hotblaster',
         );
         $this->upWeapon(
             'heromaneuver_replica',
@@ -40,7 +40,7 @@ class m170804_152052_weapon2_hero extends Migration
             'quickbomb',
             'missile',
             'maneuver',
-            'maneuver'
+            'maneuver',
         );
         $this->upWeapon(
             'herocharger_replica',
@@ -49,7 +49,7 @@ class m170804_152052_weapon2_hero extends Migration
             'splashbomb',
             'presser',
             'splatcharger',
-            'splatcharger'
+            'splatcharger',
         );
         $this->upWeapon(
             'heroroller_replica',
@@ -58,7 +58,7 @@ class m170804_152052_weapon2_hero extends Migration
             'curlingbomb',
             'chakuchi',
             'splatroller',
-            'splatroller'
+            'splatroller',
         );
         $this->upWeapon(
             'herobrush_replica',
@@ -67,7 +67,7 @@ class m170804_152052_weapon2_hero extends Migration
             'robotbomb',
             'jetpack',
             'hokusai',
-            'hokusai'
+            'hokusai',
         );
         $this->upWeapon(
             'heroslosher_replica',
@@ -76,7 +76,7 @@ class m170804_152052_weapon2_hero extends Migration
             'kyubanbomb',
             'missile',
             'bucketslosher',
-            'bucketslosher'
+            'bucketslosher',
         );
         $this->upWeapon(
             'herospinner_replica',
@@ -85,7 +85,7 @@ class m170804_152052_weapon2_hero extends Migration
             'sprinkler',
             'presser',
             'barrelspinner',
-            'barrelspinner'
+            'barrelspinner',
         );
     }
 

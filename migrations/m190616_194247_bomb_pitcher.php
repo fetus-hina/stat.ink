@@ -19,16 +19,14 @@ class m190616_194247_bomb_pitcher extends Migration
         $this->alterColumn(
             'special2',
             'key',
-            $this->string(32)->notNull()
+            $this->string(32)->notNull(),
         );
 
         $newData = $this->getNewData();
         $this->batchInsert('special2', ['key', 'name'], array_map(
-            function (string $key, array $values): array {
-                return [$key, $values['name']];
-            },
+            fn (string $key, array $values): array => [$key, $values['name']],
             array_keys($newData),
-            array_values($newData)
+            array_values($newData),
         ));
 
         $ids = $this->getSpecialIDs();
@@ -40,7 +38,7 @@ class m190616_194247_bomb_pitcher extends Migration
             $this->update(
                 'weapon2',
                 ['special_id' => $ids[$key]],
-                ['key' => $data['weapons']]
+                ['key' => $data['weapons']],
             );
         }
     }
@@ -51,7 +49,7 @@ class m190616_194247_bomb_pitcher extends Migration
         $this->update(
             'weapon2',
             ['special_id' => $ids['pitcher']],
-            ['special_id' => array_values($ids)]
+            ['special_id' => array_values($ids)],
         );
 
         $this->delete('special2', [
@@ -61,7 +59,7 @@ class m190616_194247_bomb_pitcher extends Migration
         $this->alterColumn(
             'special2',
             'key',
-            $this->string(16)->notNull()
+            $this->string(16)->notNull(),
         );
     }
 
@@ -123,7 +121,7 @@ class m190616_194247_bomb_pitcher extends Migration
         return ArrayHelper::map(
             (new Query())->select('*')->from('special2')->andWhere(['key' => $keys])->all(),
             'key',
-            'id'
+            'id',
         );
     }
 
@@ -132,7 +130,7 @@ class m190616_194247_bomb_pitcher extends Migration
         $current = ArrayHelper::map(
             (new Query())->select('*')->from('weapon2')->andWhere(['key' => $weaponKeys])->all(),
             'key',
-            'special_id'
+            'special_id',
         );
         $results = true;
         foreach ($weaponKeys as $key) {

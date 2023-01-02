@@ -13,26 +13,31 @@ namespace app\commands\license;
 use DirectoryIterator;
 use Yii;
 use stdClass;
-use yii\console\Controller;
 use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
 use yii\helpers\Json;
 
 use function array_shift;
 use function copy;
+use function dirname;
 use function escapeshellarg;
 use function file_exists;
 use function file_get_contents;
 use function fwrite;
+use function implode;
 use function pathinfo;
 use function preg_match;
 use function preg_replace;
+use function str_replace;
 use function strcasecmp;
 use function strcmp;
 use function strnatcasecmp;
 use function trim;
 use function usort;
 use function vsprintf;
+
+use const PATHINFO_FILENAME;
+use const STDERR;
 
 trait LicenseExtractTrait
 {
@@ -53,7 +58,7 @@ trait LicenseExtractTrait
         ]);
         return ArrayHelper::getValue(
             Json::decode($this->execCommand($cmdline)),
-            'dependencies'
+            'dependencies',
         );
     }
 
@@ -61,10 +66,10 @@ trait LicenseExtractTrait
     {
         foreach ($packages as $name => $info) {
             $this->extractPackage(
-                (isset($info['version']) && trim((string)$info['version']) !== '')
+                isset($info['version']) && trim((string)$info['version']) !== ''
                     ? "{$name}@{$info['version']}"
                     : $name,
-                Yii::getAlias('@app/vendor') . '/' . $name
+                Yii::getAlias('@app/vendor') . '/' . $name,
             );
         }
     }
@@ -88,7 +93,7 @@ trait LicenseExtractTrait
         if (!FileHelper::createDirectory(dirname($distPath))) {
             fwrite(
                 STDERR,
-                "license/extract: could not create directory: " . dirname($distPath) . "\n"
+                'license/extract: could not create directory: ' . dirname($distPath) . "\n",
             );
             return false;
         }
@@ -133,12 +138,10 @@ trait LicenseExtractTrait
             return null;
         }
 
-        usort($files, function (stdClass $a, stdClass $b): int {
-            return ($a->precedence <=> $b->precedence)
+        usort($files, fn (stdClass $a, stdClass $b): int => $a->precedence <=> $b->precedence
                 ?: strnatcasecmp($a->basename, $b->basename)
                 ?: strcasecmp($a->basename, $b->basename)
-                ?: strcmp($a->basename, $b->basename);
-        });
+                ?: strcmp($a->basename, $b->basename));
 
         while ($files) {
             $info = array_shift($files);
@@ -160,7 +163,7 @@ trait LicenseExtractTrait
         $packageName = preg_replace(
             '/[^!#$%()+,.\/-9@-Z_a-z]+/',
             '-',
-            $packageName
+            $packageName,
         );
         $packageName = str_replace('/../', '/', $packageName);
         $packageName = str_replace('/./', '/', $packageName);

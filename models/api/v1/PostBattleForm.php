@@ -8,7 +8,8 @@
 
 namespace app\models\api\v1;
 
-use Yii;
+use Exception;
+use RuntimeException;
 use app\components\helpers\CriticalSection;
 use app\components\helpers\db\Now;
 use app\models\Ability;
@@ -31,8 +32,48 @@ use app\models\Rule;
 use app\models\SplatoonVersion;
 use app\models\User;
 use app\models\Weapon;
+use stdClass;
 use yii\base\Model;
 use yii\web\UploadedFile;
+
+use function array_map;
+use function base64_encode;
+use function count;
+use function explode;
+use function file_get_contents;
+use function filter_var;
+use function gmdate;
+use function hash_hmac;
+use function imagecreatefromstring;
+use function imagedestroy;
+use function implode;
+use function is_array;
+use function is_bool;
+use function is_callable;
+use function is_float;
+use function is_int;
+use function is_object;
+use function is_string;
+use function json_encode;
+use function ltrim;
+use function mb_check_encoding;
+use function preg_match;
+use function preg_replace;
+use function rtrim;
+use function sprintf;
+use function strtolower;
+use function substr;
+use function time;
+use function trim;
+use function usort;
+use function version_compare;
+use function vsprintf;
+
+use const FILTER_VALIDATE_FLOAT;
+use const FILTER_VALIDATE_INT;
+use const JSON_FORCE_OBJECT;
+use const JSON_UNESCAPED_SLASHES;
+use const JSON_UNESCAPED_UNICODE;
 
 class PostBattleForm extends Model
 {
@@ -117,7 +158,7 @@ class PostBattleForm extends Model
                 'targetClass' => Map::class,
                 'targetAttribute' => 'key'],
             [['weapon'], 'exist',
-                'targetClass' =>  Weapon::class,
+                'targetClass' => Weapon::class,
                 'targetAttribute' => 'key'],
             [['rank', 'rank_after'], 'exist',
                 'targetClass' => Rank::class,
@@ -153,24 +194,16 @@ class PostBattleForm extends Model
             [['image_judge', 'image_result', 'image_gear'], 'safe'],
             [['image_judge', 'image_result', 'image_gear'], 'file',
                 'maxSize' => 3 * 1024 * 1024,
-                'when' => function ($model, $attr) {
-                    return !is_string($model->$attr);
-                }],
+                'when' => fn ($model, $attr) => !is_string($model->$attr)],
             [['image_judge', 'image_result', 'image_gear'], 'validateImageFile',
-                'when' => function ($model, $attr) {
-                    return !is_string($model->$attr);
-                }],
+                'when' => fn ($model, $attr) => !is_string($model->$attr)],
             [['image_judge', 'image_result', 'image_gear'], 'validateImageString',
-                'when' => function ($model, $attr) {
-                    return is_string($model->$attr);
-                }],
+                'when' => fn ($model, $attr) => is_string($model->$attr)],
             [['start_at', 'end_at'], 'integer'],
             [['agent'], 'string', 'max' => 64],
             [['agent_version'], 'string', 'max' => 255],
             [['agent', 'agent_version'], 'required',
-                'when' => function ($model, $attr) {
-                    return (string)$this->agent !== '' || (string)$this->agent_version !== '';
-                }],
+                'when' => fn ($model, $attr) => (string)$this->agent !== '' || (string)$this->agent_version !== ''],
             [['agent_custom'], 'string'],
             [['agent', 'agent_version', 'agent_custom'], 'validateStrictUTF8'],
             [['uuid'], 'string', 'max' => 64],
@@ -197,7 +230,7 @@ class PostBattleForm extends Model
             [['agent_variables'], 'validateAgentVariables'],
             [['agent_game_version'], 'validateAndFixAgentGameVersion'],
             [['agent_game_version_date'], 'validateAndFixAgentGameVersionDate'],
-            [['max_kill_combo', 'max_kill_streak'], 'integer', 'min' => 0]
+            [['max_kill_combo', 'max_kill_streak'], 'integer', 'min' => 0],
         ];
     }
 
@@ -241,7 +274,7 @@ class PostBattleForm extends Model
             $this->$attribute = [];
             return;
         }
-        if (!is_array($value) && !$value instanceof \stdClass) {
+        if (!is_array($value) && !$value instanceof stdClass) {
             $this->addError($attribute, "{$attribute} should be a map.");
             return;
         }
@@ -333,9 +366,7 @@ class PostBattleForm extends Model
             }
             $newValues[] = $value;
         }
-        usort($newValues, function ($a, $b) {
-            return $a->at - $b->at;
-        });
+        usort($newValues, fn ($a, $b) => $a->at - $b->at);
         $this->$attribute = $newValues;
     }
 
@@ -373,7 +404,7 @@ class PostBattleForm extends Model
         }
         return $this->validateImageStringImpl(
             file_get_contents($this->$attribute->tempName, false, null),
-            $attribute
+            $attribute,
         );
     }
 
@@ -424,8 +455,8 @@ class PostBattleForm extends Model
             }
             $value = (object)$value;
         }
-        if (is_object($value) && ($value instanceof \stdClass)) {
-            $newValue = new \stdClass();
+        if (is_object($value) && ($value instanceof stdClass)) {
+            $newValue = new stdClass();
             foreach ($value as $k => $v) {
                 $k = is_int($k) ? "ARRAY[{$k}]" : (string)$k;
                 if (!mb_check_encoding($k, 'UTF-8')) {
@@ -510,77 +541,77 @@ class PostBattleForm extends Model
         $user = $this->getUser();
 
         $o = new Battle();
-        $o->user_id         = $user->id;
-        $o->env_id          = $user->env_id;
-        $o->lobby_id        = $this->lobby ? Lobby::findOne(['key' => $this->lobby])->id : null;
-        $o->rule_id         = $this->rule ? Rule::findOne(['key' => $this->rule])->id : null;
-        $o->map_id          = $this->map ? Map::findOne(['key' => $this->map])->id : null;
-        $o->weapon_id       = $this->weapon ? Weapon::findOne(['key' => $this->weapon])->id : null;
-        $o->level           = $this->level ? (int)$this->level : null;
-        $o->level_after     = $this->level_after ? (int)$this->level_after : null;
-        $o->rank_id         = $this->rank ? Rank::findOne(['key' => $this->rank])->id : null;
-        $o->rank_after_id   = $this->rank_after ? Rank::findOne(['key' => $this->rank_after])->id : null;
-        $o->rank_exp        = (string)$this->rank_exp != '' ? (int)$this->rank_exp : null;
-        $o->rank_exp_after  = (string)$this->rank_exp_after != '' ? (int)$this->rank_exp_after : null;
-        $o->cash            = (string)$this->cash != '' ? (int)$this->cash : null;
-        $o->cash_after      = (string)$this->cash_after != '' ? (int)$this->cash_after : null;
-        $o->is_win          = $this->result === 'win' ? true : ($this->result === 'lose' ? false : null);
-        $o->rank_in_team    = $this->rank_in_team ? (int)$this->rank_in_team : null;
-        $o->kill            = (string)$this->kill != '' ? (int)$this->kill : null;
-        $o->death           = (string)$this->death != '' ? (int)$this->death : null;
-        $o->gender_id       = $this->gender === 'boy' ? 1 : ($this->gender === 'girl' ? 2 : null);
+        $o->user_id = $user->id;
+        $o->env_id = $user->env_id;
+        $o->lobby_id = $this->lobby ? Lobby::findOne(['key' => $this->lobby])->id : null;
+        $o->rule_id = $this->rule ? Rule::findOne(['key' => $this->rule])->id : null;
+        $o->map_id = $this->map ? Map::findOne(['key' => $this->map])->id : null;
+        $o->weapon_id = $this->weapon ? Weapon::findOne(['key' => $this->weapon])->id : null;
+        $o->level = $this->level ? (int)$this->level : null;
+        $o->level_after = $this->level_after ? (int)$this->level_after : null;
+        $o->rank_id = $this->rank ? Rank::findOne(['key' => $this->rank])->id : null;
+        $o->rank_after_id = $this->rank_after ? Rank::findOne(['key' => $this->rank_after])->id : null;
+        $o->rank_exp = (string)$this->rank_exp != '' ? (int)$this->rank_exp : null;
+        $o->rank_exp_after = (string)$this->rank_exp_after != '' ? (int)$this->rank_exp_after : null;
+        $o->cash = (string)$this->cash != '' ? (int)$this->cash : null;
+        $o->cash_after = (string)$this->cash_after != '' ? (int)$this->cash_after : null;
+        $o->is_win = $this->result === 'win' ? true : ($this->result === 'lose' ? false : null);
+        $o->rank_in_team = $this->rank_in_team ? (int)$this->rank_in_team : null;
+        $o->kill = (string)$this->kill != '' ? (int)$this->kill : null;
+        $o->death = (string)$this->death != '' ? (int)$this->death : null;
+        $o->gender_id = $this->gender === 'boy' ? 1 : ($this->gender === 'girl' ? 2 : null);
         $o->fest_title_id = $this->fest_title ? FestTitle::findOne(['key' => $this->fest_title])->id : null;
         $o->fest_title_after_id = $this->fest_title_after
             ? FestTitle::findOne(['key' => $this->fest_title_after])->id
             : null;
-        $o->fest_exp        = (string)$this->fest_exp != '' ? (int)$this->fest_exp : null;
-        $o->fest_exp_after  = (string)$this->fest_exp_after != '' ? (int)$this->fest_exp_after : null;
-        $o->fest_power      = (string)$this->fest_power != '' ? (int)$this->fest_power : null;
-        $o->my_team_power   = (string)$this->my_team_power != '' ? (int)$this->my_team_power : null;
-        $o->his_team_power  = (string)$this->his_team_power != '' ? (int)$this->his_team_power : null;
+        $o->fest_exp = (string)$this->fest_exp != '' ? (int)$this->fest_exp : null;
+        $o->fest_exp_after = (string)$this->fest_exp_after != '' ? (int)$this->fest_exp_after : null;
+        $o->fest_power = (string)$this->fest_power != '' ? (int)$this->fest_power : null;
+        $o->my_team_power = (string)$this->my_team_power != '' ? (int)$this->my_team_power : null;
+        $o->his_team_power = (string)$this->his_team_power != '' ? (int)$this->his_team_power : null;
         $o->my_team_color_hue = $this->my_team_color ? $this->my_team_color['hue'] : null;
         $o->my_team_color_rgb = $this->my_team_color ? vsprintf('%02x%02x%02x', $this->my_team_color['rgb']) : null;
         $o->his_team_color_hue = $this->his_team_color ? $this->his_team_color['hue'] : null;
         $o->his_team_color_rgb = $this->his_team_color ? vsprintf('%02x%02x%02x', $this->his_team_color['rgb']) : null;
-        $o->start_at        = $this->start_at != ''
+        $o->start_at = $this->start_at != ''
             ? gmdate('Y-m-d H:i:sP', (int)$this->start_at)
             : null;
-        $o->end_at          = $this->end_at != ''
+        $o->end_at = $this->end_at != ''
             ? gmdate('Y-m-d H:i:sP', (int)$this->end_at)
             : new Now();
-        $o->agent_id        = null;
-        $o->ua_custom       = (string)$this->agent_custom == '' ? null : (string)$this->agent_custom;
-        $o->ua_variables    = $this->agent_variables ? json_encode($this->agent_variables, JSON_FORCE_OBJECT) : null;
+        $o->agent_id = null;
+        $o->ua_custom = (string)$this->agent_custom == '' ? null : (string)$this->agent_custom;
+        $o->ua_variables = $this->agent_variables ? json_encode($this->agent_variables, JSON_FORCE_OBJECT) : null;
         $o->agent_game_version_id = $this->agent_game_version != ''
             ? (SplatoonVersion::findOne(['tag' => $this->agent_game_version])->id ?? null)
             : null;
         $o->agent_game_version_date = $this->agent_game_version_date != ''
             ? $this->agent_game_version_date
             : null;
-        $o->client_uuid     = (string)$this->uuid == '' ? null : (string)$this->uuid;
-        $o->at              = new Now();
-        $o->is_automated    = ($this->automated === 'yes');
-        $o->link_url        = (string)$this->link_url == '' ? null : (string)$this->link_url;
-        $o->note            = $this->note;
-        $o->private_note    = $this->private_note;
+        $o->client_uuid = (string)$this->uuid == '' ? null : (string)$this->uuid;
+        $o->at = new Now();
+        $o->is_automated = ($this->automated === 'yes');
+        $o->link_url = (string)$this->link_url == '' ? null : (string)$this->link_url;
+        $o->note = $this->note;
+        $o->private_note = $this->private_note;
 
-        $o->my_point                = (string)$this->my_point != '' ? (int)$this->my_point : null;
-        $o->my_team_final_point     = (string)$this->my_team_final_point != ''
+        $o->my_point = (string)$this->my_point != '' ? (int)$this->my_point : null;
+        $o->my_team_final_point = (string)$this->my_team_final_point != ''
             ? (int)$this->my_team_final_point
             : null;
-        $o->his_team_final_point    = (string)$this->his_team_final_point != ''
+        $o->his_team_final_point = (string)$this->his_team_final_point != ''
             ? (int)$this->his_team_final_point
             : null;
-        $o->my_team_final_percent   = (string)$this->my_team_final_percent != ''
+        $o->my_team_final_percent = (string)$this->my_team_final_percent != ''
             ? sprintf('%.1f', (float)$this->my_team_final_percent)
             : null;
-        $o->his_team_final_percent   = (string)$this->his_team_final_percent != ''
+        $o->his_team_final_percent = (string)$this->his_team_final_percent != ''
             ? sprintf('%.1f', (float)$this->his_team_final_percent)
             : null;
-        $o->is_knock_out    = $this->knock_out === 'yes' ? true : ($this->knock_out === 'no' ? false : null);
-        $o->my_team_count   = (string)$this->my_team_count != '' ? (int)$this->my_team_count : null;
-        $o->his_team_count  = (string)$this->his_team_count != '' ? (int)$this->his_team_count : null;
-        $o->max_kill_combo  = (string)$this->max_kill_combo != '' ? (int)$this->max_kill_combo : null;
+        $o->is_knock_out = $this->knock_out === 'yes' ? true : ($this->knock_out === 'no' ? false : null);
+        $o->my_team_count = (string)$this->my_team_count != '' ? (int)$this->my_team_count : null;
+        $o->his_team_count = (string)$this->his_team_count != '' ? (int)$this->his_team_count : null;
+        $o->max_kill_combo = (string)$this->max_kill_combo != '' ? (int)$this->max_kill_combo : null;
         $o->max_kill_streak = (string)$this->max_kill_streak != '' ? (int)$this->max_kill_streak : null;
 
         $o->use_for_entire = $this->getIsUsableForEntireStats();
@@ -588,11 +619,11 @@ class PostBattleForm extends Model
         if ($this->gears) {
             $o->headgear_id = $this->processGear('headgear');
             $o->clothing_id = $this->processGear('clothing');
-            $o->shoes_id    = $this->processGear('shoes');
+            $o->shoes_id = $this->processGear('shoes');
         }
 
         if ($this->getIsTest()) {
-            $now = isset($_SERVER['REQUEST_TIME']) ? $_SERVER['REQUEST_TIME'] : time();
+            $now = $_SERVER['REQUEST_TIME'] ?? time();
             $o->id = 0;
             foreach ($o->attributes as $k => $v) {
                 if ($v instanceof Now) {
@@ -617,7 +648,7 @@ class PostBattleForm extends Model
 
     public function toDeathReasons(Battle $battle)
     {
-        if (is_array($this->death_reasons) || $this->death_reasons instanceof \stdClass) {
+        if (is_array($this->death_reasons) || $this->death_reasons instanceof stdClass) {
             $unknownCount = 0;
             foreach ($this->death_reasons as $key => $count) {
                 $reason = DeathReason::findOne(['key' => $key]);
@@ -649,14 +680,14 @@ class PostBattleForm extends Model
         if (is_array($this->players) && !empty($this->players)) {
             foreach ($this->players as $form) {
                 if (!$form instanceof PostBattlePlayerForm) {
-                    throw new \Exception('Logic error: assert: instanceof PostBattlePlayerForm');
+                    throw new Exception('Logic error: assert: instanceof PostBattlePlayerForm');
                 }
 
-                $weapon = ($form->weapon == '')
+                $weapon = $form->weapon == ''
                     ? null
                     : Weapon::findOne(['key' => $form->weapon]);
 
-                $rank = ($form->rank == '')
+                $rank = $form->rank == ''
                     ? null
                     : Rank::findOne(['key' => $form->rank]);
 
@@ -758,7 +789,7 @@ class PostBattleForm extends Model
         $fingerPrint = GearConfiguration::generateFingerPrint(
             $gearModel ? $gearModel->id : null,
             $primaryAbility ? $primaryAbility->id : null,
-            $secondaryAbilityIdList
+            $secondaryAbilityIdList,
         );
 
         $lock = CriticalSection::lock(__METHOD__, 60);
@@ -769,7 +800,7 @@ class PostBattleForm extends Model
             $config->gear_id = $gearModel ? $gearModel->id : null;
             $config->primary_ability_id = $primaryAbility ? $primaryAbility->id : null;
             if (!$config->save()) {
-                throw new \Exception('Could not save gear_counfiguration');
+                throw new Exception('Could not save gear_counfiguration');
             }
 
             foreach ($secondaryAbilityIdList as $aId) {
@@ -777,7 +808,7 @@ class PostBattleForm extends Model
                 $sub->config_id = $config->id;
                 $sub->ability_id = $aId;
                 if (!$sub->save()) {
-                    throw new \Exception('Could not save gear_configuration_secondary');
+                    throw new Exception('Could not save gear_configuration_secondary');
                 }
             }
         }
@@ -798,7 +829,7 @@ class PostBattleForm extends Model
 
         // stat.ink の要求する最小IkaLogバージョンを取得
         $ikalogReq = IkalogRequirement::find()
-            ->andWhere(['<=','[[from]]', new Now()])
+            ->andWhere(['<=', '[[from]]', new Now()])
             ->orderBy('[[from]] DESC')
             ->limit(1)
             ->one();
@@ -820,41 +851,31 @@ class PostBattleForm extends Model
         // 3. 各要素の左側の "0" を取り去って
         // 4. 取り去った結果空文字列になる可能性があるのでそのときに "0" にするために int 経由して（黒魔術）
         // 5. "." で再結合する
-        $fConvertVersionDate = function ($version_date) {
-            return implode(
-                '.',
-                array_map(
-                    function ($a) {
-                        return (string)(int)ltrim($a, '0');
-                    },
-                    explode(
-                        '.',
-                        trim(preg_replace('/[^0-9]+/', '.', trim((string)$version_date)))
-                    )
-                )
-            );
-        };
+        $fConvertVersionDate = fn ($version_date) => implode(
+            '.',
+            array_map(
+                fn ($a) => (string)(int)ltrim($a, '0'),
+                explode(
+                    '.',
+                    trim(preg_replace('/[^0-9]+/', '.', trim((string)$version_date))),
+                ),
+            ),
+        );
 
-        if (
-            version_compare(
-                $fConvertVersionDate($this->agent_game_version_date),
-                $fConvertVersionDate($ikalogReq->version_date),
-                '>='
-            )
-        ) {
-            return true;
-        }
-
-        return false;
+        return (bool)version_compare(
+            $fConvertVersionDate($this->agent_game_version_date),
+            $fConvertVersionDate($ikalogReq->version_date),
+            '>=',
+        );
     }
 
     public function getCriticalSectionName()
     {
         return rtrim(
             base64_encode(
-                hash_hmac('sha256', $this->apikey, __CLASS__, true)
+                hash_hmac('sha256', $this->apikey, self::class, true),
             ),
-            '='
+            '=',
         );
     }
 
@@ -862,7 +883,7 @@ class PostBattleForm extends Model
     {
         try {
             return CriticalSection::lock($this->getCriticalSectionName(), $timeout);
-        } catch (\RuntimeException $e) {
+        } catch (RuntimeException $e) {
             return false;
         }
     }

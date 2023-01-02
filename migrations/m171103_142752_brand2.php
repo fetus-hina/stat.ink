@@ -15,11 +15,11 @@ class m171103_142752_brand2 extends Migration
     public function up()
     {
         $this->createTable('brand2', [
-            'id'            => $this->primaryKey(),
-            'key'           => $this->apiKey(32),
-            'name'          => $this->string(32)->notNull(),
-            'strength_id'   => $this->pkRef('ability2')->null(),
-            'weakness_id'   => $this->pkRef('ability2')->null(),
+            'id' => $this->primaryKey(),
+            'key' => $this->apiKey(32),
+            'name' => $this->string(32)->notNull(),
+            'strength_id' => $this->pkRef('ability2')->null(),
+            'weakness_id' => $this->pkRef('ability2')->null(),
         ]);
         $a = $this->getAbilities();
         $this->batchInsert('brand2', ['key', 'name', 'strength_id', 'weakness_id'], [
@@ -50,12 +50,12 @@ class m171103_142752_brand2 extends Migration
         $this->dropTable('brand2');
     }
 
-    public function getAbilities(): \stdClass
+    public function getAbilities(): stdClass
     {
         return (object)ArrayHelper::map(
             (new Query())->select(['id', 'key'])->from('ability2')->all(),
             'key',
-            'id'
+            'id',
         );
     }
 }

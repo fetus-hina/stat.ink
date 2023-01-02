@@ -13,10 +13,10 @@ class m170728_123204_user_weapon2 extends Migration
     public function up()
     {
         $this->createTable('user_weapon2', [
-            'user_id'       => $this->integer()->notNull(),
-            'weapon_id'     => $this->integer()->NotNull(),
-            'battles'       => $this->bigInteger()->notNull()->check('[[battles]] >= 0'),
-            'last_used_at'  => $this->timestampTZ()->notNull(),
+            'user_id' => $this->integer()->notNull(),
+            'weapon_id' => $this->integer()->NotNull(),
+            'battles' => $this->bigInteger()->notNull()->check('[[battles]] >= 0'),
+            'last_used_at' => $this->timestampTZ()->notNull(),
             'PRIMARY KEY ([[user_id]], [[weapon_id]])',
             'FOREIGN KEY ([[user_id]]) REFERENCES {{user}}([[id]])',
             'FOREIGN KEY ([[weapon_id]]) REFERENCES {{weapon2}}([[id]])',
@@ -41,7 +41,7 @@ class m170728_123204_user_weapon2 extends Migration
             $select . ' ' .
             'ON CONFLICT ([[user_id]], [[weapon_id]]) DO UPDATE SET ' .
             '[[battles]] = EXCLUDED.[[battles]], ' .
-            '[[last_used_at]] = EXCLUDED.[[last_used_at]] '
+            '[[last_used_at]] = EXCLUDED.[[last_used_at]] ',
         );
     }
 

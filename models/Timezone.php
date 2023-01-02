@@ -8,8 +8,10 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "timezone".
@@ -83,7 +85,7 @@ class Timezone extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getRegion()
     {
@@ -91,7 +93,7 @@ class Timezone extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getGroup()
     {
@@ -99,7 +101,7 @@ class Timezone extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getTimezoneCountries()
     {
@@ -107,7 +109,7 @@ class Timezone extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getCountries()
     {

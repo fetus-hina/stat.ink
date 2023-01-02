@@ -8,15 +8,21 @@
 
 namespace app\actions\entire\users;
 
-use Yii;
 use DateInterval;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
+use Yii;
 use app\components\helpers\DateTimeFormatter;
 use app\models\Battle2;
 use app\models\StatEntireUser2;
 use yii\db\Query;
+
+use function array_map;
+use function count;
+use function time;
+use function usort;
+use function version_compare;
 
 use const SORT_ASC;
 
@@ -49,14 +55,12 @@ trait Splatoon2
         }
 
         return array_map(
-            function ($a) {
-                return [
+            fn ($a) => [
                     'date' => $a['date'],
                     'battle' => $a['battle_count'],
                     'user' => $a['user_count'],
-                ];
-            },
-            $stats
+                ],
+            $stats,
         );
     }
 
@@ -104,8 +108,7 @@ trait Splatoon2
                 'e' => DateTimeFormatter::unixTimeToJsonArray($endAt->getTimestamp() - 1),
             ],
             'agents' => array_map(
-                function (array $row) use ($startAt, $endAt): array {
-                    return [
+                fn (array $row): array => [
                         'name' => (string)$row['name'],
                         'battles' => (int)$row['battles'],
                         'users' => (int)$row['users'],
@@ -114,12 +117,11 @@ trait Splatoon2
                             $startAt,
                             $endAt,
                             (int)$row['min_id'],
-                            (int)$row['max_id']
+                            (int)$row['max_id'],
                         ),
-                    ];
-                },
-                $list
-            )
+                    ],
+                $list,
+            ),
         ];
     }
 
@@ -146,18 +148,14 @@ trait Splatoon2
             ->groupBy(['{{battle2}}.[[agent_id]]'])
             ->asArray()
             ->all();
-        usort($versions, function (array $a, array $b): int {
-            return version_compare($b['version'], $a['version']);
-        });
+        usort($versions, fn (array $a, array $b): int => version_compare($b['version'], $a['version']));
         return array_map(
-            function (array $row): array {
-                return [
+            fn (array $row): array => [
                     'version' => (string)$row['version'],
                     'battles' => (int)$row['battles'],
                     'users' => (int)$row['users'],
-                ];
-            },
-            $versions
+                ],
+            $versions,
         );
     }
 }

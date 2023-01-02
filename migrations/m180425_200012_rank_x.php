@@ -15,12 +15,12 @@ class m180425_200012_rank_x extends Migration
         $this->addColumn(
             'battle2',
             'estimate_x_power',
-            $this->integer()->null()
+            $this->integer()->null(),
         );
         $this->addColumn(
             'battle_player2',
             'top_500',
-            $this->boolean()->null()
+            $this->boolean()->null(),
         );
     }
 

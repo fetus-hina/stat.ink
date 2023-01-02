@@ -22,7 +22,7 @@ class m190723_142850_update_stage extends Migration
                 'area' => 2439,
                 'release_at' => '2018-10-03T11:00:00+09:00',
             ],
-            ['key' => 'mutsugoro']
+            ['key' => 'mutsugoro'],
         );
     }
 

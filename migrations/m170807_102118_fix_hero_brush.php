@@ -15,7 +15,7 @@ class m170807_102118_fix_hero_brush extends Migration
         $this->update(
             'weapon2',
             ['name' => 'Herobrush Replica'],
-            ['key' => 'herobrush_replica']
+            ['key' => 'herobrush_replica'],
         );
     }
 
@@ -24,7 +24,7 @@ class m170807_102118_fix_hero_brush extends Migration
         $this->update(
             'weapon2',
             ['name' => 'Hero Brush Replica'],
-            ['key' => 'herobrush_replica']
+            ['key' => 'herobrush_replica'],
         );
     }
 }

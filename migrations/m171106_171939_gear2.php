@@ -15,7 +15,7 @@ class m171106_171939_gear2 extends Migration
         $this->update(
             'gear2',
             ['key' => 'painters_mask', 'splatnet' => 8004],
-            ['key' => 'painter_s_mask']
+            ['key' => 'painter_s_mask'],
         );
     }
 
@@ -24,7 +24,7 @@ class m171106_171939_gear2 extends Migration
         $this->update(
             'gear2',
             ['key' => 'painter_s_mask', 'splatnet' => null],
-            ['key' => 'painters_mask']
+            ['key' => 'painters_mask'],
         );
     }
 }

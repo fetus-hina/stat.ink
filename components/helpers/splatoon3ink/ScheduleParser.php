@@ -23,19 +23,19 @@ final class ScheduleParser
     {
         return [
             'regular' => self::regularMatch(
-                ArrayHelper::getValue($json, 'data.regularSchedules.nodes')
+                ArrayHelper::getValue($json, 'data.regularSchedules.nodes'),
             ),
             'bankara_open' => self::bankaraOpen(
-                ArrayHelper::getValue($json, 'data.bankaraSchedules.nodes')
+                ArrayHelper::getValue($json, 'data.bankaraSchedules.nodes'),
             ),
             'bankara_challenge' => self::bankaraChallenge(
-                ArrayHelper::getValue($json, 'data.bankaraSchedules.nodes')
+                ArrayHelper::getValue($json, 'data.bankaraSchedules.nodes'),
             ),
             'xmatch' => self::xMatch(
-                ArrayHelper::getValue($json, 'data.xSchedules.nodes')
+                ArrayHelper::getValue($json, 'data.xSchedules.nodes'),
             ),
             'league' => self::leagueMatch(
-                ArrayHelper::getValue($json, 'data.leagueSchedules.nodes')
+                ArrayHelper::getValue($json, 'data.leagueSchedules.nodes'),
             ),
             'salmon_regular' => self::salmon(
                 ArrayHelper::getValue($json, 'data.coopGroupingSchedule.regularSchedules.nodes'),

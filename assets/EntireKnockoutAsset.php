@@ -10,11 +10,9 @@ declare(strict_types=1);
 
 namespace app\assets;
 
-use Yii;
 use jp3cki\yii2\flot\FlotAsset;
 use jp3cki\yii2\flot\FlotPieAsset;
 use jp3cki\yii2\flot\FlotResizeAsset;
-use yii\helpers\ArrayHelper;
 use yii\web\AssetBundle;
 use yii\web\JqueryAsset;
 

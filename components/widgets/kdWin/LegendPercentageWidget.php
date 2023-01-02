@@ -16,6 +16,10 @@ use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
 use yii\helpers\Html;
 
+use function array_map;
+use function implode;
+use function range;
+
 class LegendPercentageWidget extends Widget
 {
     public $maxPct = 90;
@@ -33,7 +37,7 @@ class LegendPercentageWidget extends Widget
             [
                 'id' => $this->id,
                 'class' => 'table-responsive',
-            ]
+            ],
         );
     }
 
@@ -44,18 +48,16 @@ class LegendPercentageWidget extends Widget
             Html::tag(
                 'tbody',
                 implode('', array_map(
-                    function (int $i): string {
-                        return $this->renderRow($i);
-                    },
-                    range(0, $this->numCells - 1)
-                ))
+                    fn (int $i): string => $this->renderRow($i),
+                    range(0, $this->numCells - 1),
+                )),
             ),
             ['class' => [
                 'table',
                 'table-bordered',
                 'table-condensed',
                 'rule-table',
-            ]]
+            ]],
         );
     }
 
@@ -80,20 +82,20 @@ class LegendPercentageWidget extends Widget
                 Html::tag(
                     'td',
                     Html::encode(
-                        ($rowNumber === 0 || $rowNumber === $this->numCells - 1 || $pct % 10 === 0)
+                        $rowNumber === 0 || $rowNumber === $this->numCells - 1 || $pct % 10 === 0
                             ? implode('', [
                                 Yii::$app->formatter->asPercent($pct / 100, 0),
-                                ($rowNumber === 0) ? '+' : '',
-                                ($rowNumber === $this->numCells - 1) ? '-' : '',
+                                $rowNumber === 0 ? '+' : '',
+                                $rowNumber === $this->numCells - 1 ? '-' : '',
                             ])
-                            : '⋮'
+                            : '⋮',
                     ),
                     ['class' => [
                         'text-center',
                         'kdcell',
-                    ]]
+                    ]],
                 ),
-            ])
+            ]),
         );
     }
 }

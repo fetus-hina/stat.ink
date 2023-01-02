@@ -15,6 +15,10 @@ use Yii;
 use app\models\Language;
 use app\models\User;
 
+use function random_bytes;
+use function strtolower;
+use function substr;
+
 class AddressUpdatedEmailSender
 {
     public static function generateVerifyCode(): string
@@ -36,7 +40,7 @@ class AddressUpdatedEmailSender
                 'lang' => $language->getLanguageId(),
                 'old' => $oldEmail,
                 'new' => $newEmail,
-            ]
+            ],
         );
         $mail->setFrom(Yii::$app->params['notifyEmail'])
             ->setSubject(Yii::t(
@@ -47,7 +51,7 @@ class AddressUpdatedEmailSender
                     'screen_name' => $user->screen_name,
                     'site' => Yii::$app->name,
                 ],
-                $language->getLanguageId()
+                $language->getLanguageId(),
             ));
         if ($newEmail) {
             $mail->setTo($newEmail);

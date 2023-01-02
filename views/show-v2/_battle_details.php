@@ -229,7 +229,7 @@ use yii\widgets\DetailView;
         }
         $gender = $model->gender;
         $theme = $model->myTeamFestTheme;
-        $format = function ($title, $exp) use ($model, $gender, $theme) : string {
+        $format = function ($title, $exp) use ($gender, $theme) : string {
           if (!$title) {
             return '?';
           }

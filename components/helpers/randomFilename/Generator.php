@@ -13,10 +13,14 @@ namespace app\components\helpers\randomFilename;
 use Base32\Base32;
 
 use function chr;
+use function implode;
+use function max;
+use function min;
 use function ord;
 use function random_bytes;
 use function rtrim;
 use function strtolower;
+use function substr;
 use function trim;
 use function vsprintf;
 
@@ -27,7 +31,7 @@ class Generator
         return static::formatFileName(
             static::generateUUIDv4Binary(),
             $ext,
-            $level
+            $level,
         );
     }
 
@@ -63,8 +67,8 @@ class Generator
 
         return vsprintf('%s%s', [
             $base32,
-            ($ext !== '')
-              ? ('.' . $ext)
+            $ext !== ''
+              ? '.' . $ext
               : '',
         ]);
     }

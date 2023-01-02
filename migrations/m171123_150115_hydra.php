@@ -23,7 +23,7 @@ class m171123_150115_hydra extends Migration
             'chakuchi',
             null,
             null,
-            4020
+            4020,
         );
     }
 

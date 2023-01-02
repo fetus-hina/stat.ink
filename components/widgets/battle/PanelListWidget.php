@@ -13,6 +13,10 @@ use app\components\widgets\Icon;
 use yii\base\Widget;
 use yii\bootstrap\Html;
 
+use function call_user_func;
+use function implode;
+use function preg_replace_callback;
+
 class PanelListWidget extends Widget
 {
     public $panelClass = 'panel panel-default';
@@ -34,7 +38,7 @@ class PanelListWidget extends Widget
                     Html::tag('div', '{title}{titleLink}', ['class' => 'panel-heading']),
                     '{list}',
                 ]),
-                ['class' => '{panelClass}']
+                ['class' => '{panelClass}'],
             );
         }
         if (!$this->emptyText) {
@@ -42,9 +46,9 @@ class PanelListWidget extends Widget
                 'div',
                 Html::tag(
                     'p',
-                    Html::encode(Yii::t('app', 'No Data'))
+                    Html::encode(Yii::t('app', 'No Data')),
                 ),
-                ['class' => 'panel-body']
+                ['class' => 'panel-body'],
             );
         }
         if (!$this->itemClass) {
@@ -62,10 +66,8 @@ class PanelListWidget extends Widget
         ];
         return preg_replace_callback(
             '/\{\w+\}/',
-            function (array $match) use ($replace): string {
-                return $replace[$match[0]] ?? $match[0];
-            },
-            $this->template
+            fn (array $match): string => $replace[$match[0]] ?? $match[0],
+            $this->template,
         );
     }
 
@@ -82,7 +84,7 @@ class PanelListWidget extends Widget
             return Html::tag(
                 'table',
                 implode('', $ret),
-                ['class' => 'table']
+                ['class' => 'table'],
             );
         }
         return $this->emptyText;
@@ -104,7 +106,7 @@ class PanelListWidget extends Widget
                 'data' => [
                     'pjax' => '0',
                 ],
-            ]
+            ],
         );
     }
 }

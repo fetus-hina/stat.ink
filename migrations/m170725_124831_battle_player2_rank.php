@@ -14,7 +14,7 @@ class m170725_124831_battle_player2_rank extends Migration
     {
         $this->execute(
             'ALTER TABLE {{battle_player2}} ' .
-            'ADD COLUMN [[rank_id]] INTEGER REFERENCES {{rank2}}([[id]])'
+            'ADD COLUMN [[rank_id]] INTEGER REFERENCES {{rank2}}([[id]])',
         );
     }
 

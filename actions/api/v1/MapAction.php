@@ -9,8 +9,10 @@
 namespace app\actions\api\v1;
 
 use Yii;
-use yii\web\ViewAction as BaseAction;
 use app\models\Map;
+use yii\web\ViewAction as BaseAction;
+
+use function array_map;
 
 class MapAction extends BaseAction
 {
@@ -19,10 +21,8 @@ class MapAction extends BaseAction
         $response = Yii::$app->getResponse();
         $response->format = 'json';
         return array_map(
-            function ($map) {
-                return $map->toJsonArray();
-            },
-            Map::find()->orderBy('{{map}}.[[id]] ASC')->all()
+            fn ($map) => $map->toJsonArray(),
+            Map::find()->orderBy('{{map}}.[[id]] ASC')->all(),
         );
     }
 }

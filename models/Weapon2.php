@@ -16,6 +16,14 @@ use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
+use function array_filter;
+use function array_map;
+use function array_merge;
+use function array_shift;
+use function version_compare;
+
+use const SORT_ASC;
+
 /**
  * This is the model class for table "weapon2".
  *
@@ -158,18 +166,18 @@ class Weapon2 extends ActiveRecord
     public function getWeaponAttack(SplatoonVersion2 $version): ?WeaponAttack2
     {
         $attacks = ArrayHelper::sort(
-            \array_filter(
+            array_filter(
                 WeaponAttack2::find()
                     ->with(['version'])
                     ->andWhere(['weapon_id' => $this->id])
                     ->all(),
-                fn (WeaponAttack2 $model): bool => \version_compare(
+                fn (WeaponAttack2 $model): bool => version_compare(
                     $model->version->tag,
                     $version->tag,
                     '<=',
                 ),
             ),
-            fn (WeaponAttack2 $a, WeaponAttack2 $b): int => \version_compare(
+            fn (WeaponAttack2 $a, WeaponAttack2 $b): int => version_compare(
                 $b->version->tag,
                 $a->version->tag,
             ),
@@ -211,9 +219,9 @@ class Weapon2 extends ActiveRecord
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc2', 'Weapon'),
                         'app-weapon2',
-                        $values
+                        $values,
                     ),
-                    ArrayHelper::getColumn($values, 'key', false)
+                    ArrayHelper::getColumn($values, 'key', false),
                 ),
                 'splatnet' => static::oapiRef(openapi\SplatNet2ID::class),
                 'type' => static::oapiRef(WeaponType2::class),
@@ -224,7 +232,7 @@ class Weapon2 extends ActiveRecord
                     'description' => Yii::t(
                         'app-apidoc2',
                         'If it is a weapon that only looks different, like the Hero series, ' .
-                        'this points to the original weapon.'
+                        'this points to the original weapon.',
                     ),
                     'nullable' => true,
                 ]),
@@ -252,9 +260,7 @@ class Weapon2 extends ActiveRecord
     public static function openapiExample(): array
     {
         return array_map(
-            function (self $model): array {
-                return $model->toJsonArray();
-            },
+            fn (self $model): array => $model->toJsonArray(),
             static::find()
                 ->andWhere(['key' => [
                     'heroshooter_replica',
@@ -264,7 +270,7 @@ class Weapon2 extends ActiveRecord
                     'sshooter_collabo',
                 ]])
                 ->orderBy(['splatnet' => SORT_ASC])
-                ->all()
+                ->all(),
         );
     }
 }

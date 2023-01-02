@@ -13,6 +13,8 @@ namespace app\components\formatters\api\v3;
 use DateTimeZone;
 use app\components\helpers\DateTimeFormatter;
 
+use function is_int;
+
 final class PeriodApiFormatter
 {
     /**
@@ -20,7 +22,7 @@ final class PeriodApiFormatter
      */
     public static function toJson($value): ?array
     {
-        if (!\is_int($value)) {
+        if (!is_int($value)) {
             return null;
         }
 

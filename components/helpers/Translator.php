@@ -13,6 +13,10 @@ namespace app\components\helpers;
 use Yii;
 use app\models\Language;
 
+use function strtr;
+
+use const SORT_ASC;
+
 final class Translator
 {
     private static $langs = null;
@@ -69,16 +73,12 @@ final class Translator
             (
                 $langCode === 'ru-RU' ||
                 $langCode === 'zh-CN' || // unofficial
-                $langCode === 'zh-TW'    // unofficial
+                $langCode === 'zh-TW' // unofficial
             )
         ) {
             return true;
         }
 
-        if ($version >= 3 && $langCode === 'ko-KR') {
-            return true;
-        }
-
-        return false;
+        return $version >= 3 && $langCode === 'ko-KR';
     }
 }

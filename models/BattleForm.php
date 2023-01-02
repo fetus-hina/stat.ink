@@ -9,8 +9,11 @@
 namespace app\models;
 
 use Yii;
-use yii\base\Model;
 use app\components\validators\IdnToPunycodeFilterValidator;
+use yii\base\Model;
+
+use function preg_replace;
+use function trim;
 
 class BattleForm extends Model
 {
@@ -28,7 +31,7 @@ class BattleForm extends Model
             [['lobby_id', 'rule_id', 'map_id', 'weapon_id', 'link_url', 'note', 'private_note'], 'filter',
                 'filter' => function ($value) {
                     $value = trim((string)$value);
-                    return ($value === '') ? null : $value;
+                    return $value === '' ? null : $value;
                 },
             ],
             [['lobby_id'], 'exist',
@@ -62,12 +65,12 @@ class BattleForm extends Model
     public function attributeLabels()
     {
         return [
-            'lobby_id'  => Yii::t('app', 'Lobby'),
-            'rule_id'   => Yii::t('app', 'Mode'),
-            'map_id'    => Yii::t('app', 'Stage'),
+            'lobby_id' => Yii::t('app', 'Lobby'),
+            'rule_id' => Yii::t('app', 'Mode'),
+            'map_id' => Yii::t('app', 'Stage'),
             'weapon_id' => Yii::t('app', 'Weapon'),
-            'link_url'  => Yii::t('app', 'URL related to this battle'),
-            'note'      => Yii::t('app', 'Note (public)'),
+            'link_url' => Yii::t('app', 'URL related to this battle'),
+            'note' => Yii::t('app', 'Note (public)'),
             'private_note' => Yii::t('app', 'Note (private)'),
         ];
     }

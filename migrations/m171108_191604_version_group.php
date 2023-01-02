@@ -13,9 +13,9 @@ class m171108_191604_version_group extends Migration
     public function up()
     {
         $this->createTable('splatoon_version_group2', [
-            'id'    => $this->primaryKey(),
-            'tag'   => $this->string(16)->unique(),
-            'name'  => $this->string(32)->unique(),
+            'id' => $this->primaryKey(),
+            'tag' => $this->string(16)->unique(),
+            'name' => $this->string(32)->unique(),
         ]);
         $this->batchInsert('splatoon_version_group2', ['tag', 'name'], [
             ['0.0', 'Prerelease'],

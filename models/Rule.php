@@ -10,7 +10,13 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+
+use function array_map;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "rule".
@@ -27,7 +33,7 @@ use yii\helpers\ArrayHelper;
  * @property Weapon[] $weapons
  * @property StatWeaponBattleCount $statWeaponBattleCount
  */
-final class Rule extends \yii\db\ActiveRecord
+final class Rule extends ActiveRecord
 {
     use SafeFindOneTrait;
     use openapi\Util;
@@ -51,7 +57,7 @@ final class Rule extends \yii\db\ActiveRecord
             [['key', 'short_name'], 'string', 'max' => 16],
             [['name'], 'string', 'max' => 32],
             [['key'], 'unique'],
-            [['name'], 'unique']
+            [['name'], 'unique'],
         ];
     }
 
@@ -69,7 +75,7 @@ final class Rule extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattles()
     {
@@ -77,7 +83,7 @@ final class Rule extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getMode()
     {
@@ -85,7 +91,7 @@ final class Rule extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getSplapiRules()
     {
@@ -93,7 +99,7 @@ final class Rule extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getStatWeapons()
     {
@@ -101,7 +107,7 @@ final class Rule extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getWeapons()
     {
@@ -109,7 +115,7 @@ final class Rule extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getStatWeaponBattleCount()
     {
@@ -139,9 +145,9 @@ final class Rule extends \yii\db\ActiveRecord
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc1', 'Mode'),
                         'app-rule',
-                        $values
+                        $values,
                     ),
-                    ArrayHelper::getColumn($values, 'key', false)
+                    ArrayHelper::getColumn($values, 'key', false),
                 ),
                 'mode' => static::oapiRef(GameMode::class),
                 'name' => static::oapiRef(openapi\Name::class),
@@ -165,10 +171,8 @@ final class Rule extends \yii\db\ActiveRecord
             ->orderBy(['id' => SORT_ASC])
             ->all();
         return array_map(
-            function (self $model): array {
-                return $model->toJsonArray();
-            },
-            $values
+            fn (self $model): array => $model->toJsonArray(),
+            $values,
         );
     }
 }

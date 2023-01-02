@@ -8,10 +8,13 @@
 
 namespace app\actions\api\internal;
 
-use DateTimeZone;
 use Yii;
-use yii\web\ViewAction as BaseAction;
 use app\models\User;
+use yii\web\ViewAction as BaseAction;
+
+use function hash_hmac;
+use function http_build_query;
+use function is_scalar;
 
 abstract class BaseStatAction extends BaseAction
 {
@@ -29,9 +32,9 @@ abstract class BaseStatAction extends BaseAction
             http_build_query(
                 ['user_id' => $this->user->id, '__format' => $this->getCacheFormatVersion()],
                 '',
-                '&'
+                '&',
             ),
-            static::class
+            static::class,
         );
     }
 

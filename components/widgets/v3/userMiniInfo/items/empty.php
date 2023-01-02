@@ -10,7 +10,9 @@ declare(strict_types=1);
 
 namespace app\components\widgets\v3\userMiniInfo\items;
 
-$zwsp = \mb_chr(0x200b, 'UTF-8');
+use function mb_chr;
+
+$zwsp = mb_chr(0x200b, 'UTF-8');
 
 return [
     'label' => $zwsp,

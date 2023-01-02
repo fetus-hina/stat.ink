@@ -18,7 +18,7 @@ class m180531_150746_sumeshi extends Migration
                 'splatnet' => 20,
                 'release_at' => '2018-06-01T09:00:00+09:00',
             ],
-            ['key' => 'sumeshi']
+            ['key' => 'sumeshi'],
         );
     }
 
@@ -30,7 +30,7 @@ class m180531_150746_sumeshi extends Migration
                 'splatnet' => null,
                 'release_at' => null,
             ],
-            ['key' => 'sumeshi']
+            ['key' => 'sumeshi'],
         );
     }
 }

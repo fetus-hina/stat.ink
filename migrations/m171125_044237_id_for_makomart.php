@@ -15,7 +15,7 @@ class m171125_044237_id_for_makomart extends Migration
         $this->update(
             'map2',
             ['splatnet' => 13],
-            ['key' => 'zatou']
+            ['key' => 'zatou'],
         );
     }
 
@@ -24,7 +24,7 @@ class m171125_044237_id_for_makomart extends Migration
         $this->update(
             'map2',
             ['splatnet' => null],
-            ['key' => 'zatou']
+            ['key' => 'zatou'],
         );
     }
 }

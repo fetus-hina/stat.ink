@@ -32,12 +32,12 @@ class m190209_180024_utc_offset_timezones extends Migration
                     $groupEtc,
                 ];
             },
-            range(+14, -12, -1)
+            range(+14, -12, -1),
         ));
         $this->batchInsert(
             'timezone',
             ['identifier', 'name', 'order', 'region_id', 'group_id'],
-            $data
+            $data,
         );
     }
 
@@ -56,7 +56,7 @@ class m190209_180024_utc_offset_timezones extends Migration
         $value = $query->scalar();
         $value = filter_var($value, FILTER_VALIDATE_INT);
         if ($value === false) {
-            throw new \Exception(vsprintf('Query Error at %s:%d, query=%s', [
+            throw new Exception(vsprintf('Query Error at %s:%d, query=%s', [
                 __FILE__,
                 __LINE__,
                 $query->createCommand()->rawSql,

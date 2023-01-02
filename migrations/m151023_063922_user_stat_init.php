@@ -6,9 +6,9 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-use yii\db\Migration;
 use app\models\User;
 use app\models\UserStat;
+use yii\db\Migration;
 
 class m151023_063922_user_stat_init extends Migration
 {

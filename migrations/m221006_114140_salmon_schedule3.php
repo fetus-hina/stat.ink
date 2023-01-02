@@ -53,7 +53,7 @@ final class m221006_114140_salmon_schedule3 extends Migration
                             ],
                         ])
                         ->createCommand($db)
-                        ->getRawSql()
+                        ->getRawSql(),
                 ),
             ]),
         ]);

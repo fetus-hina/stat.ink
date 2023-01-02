@@ -13,15 +13,15 @@ class m150923_123420_weapon_type extends Migration
     public function up()
     {
         $this->createTable('weapon_type', [
-            'id'    => $this->primaryKey(),
-            'key'   => $this->string(16)->notNull()->unique(),
-            'name'  => $this->string(16)->notNull()->unique(),
+            'id' => $this->primaryKey(),
+            'key' => $this->string(16)->notNull()->unique(),
+            'name' => $this->string(16)->notNull()->unique(),
         ]);
-        $this->batchInsert('weapon_type', [ 'key', 'name' ], [
-            [ 'shooter',   'Shooters' ],
-            [ 'roller',    'Rollers' ],
-            [ 'charger',   'Chargers' ],
-            [ 'slosher',   'Sloshers' ],
+        $this->batchInsert('weapon_type', ['key', 'name'], [
+            [ 'shooter', 'Shooters' ],
+            [ 'roller', 'Rollers' ],
+            [ 'charger', 'Chargers' ],
+            [ 'slosher', 'Sloshers' ],
             [ 'splatling', 'Splatlings' ],
         ]);
     }

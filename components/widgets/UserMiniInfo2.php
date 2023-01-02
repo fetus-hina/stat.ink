@@ -13,15 +13,26 @@ namespace app\components\widgets;
 use Yii;
 use app\assets\GameModeIconsAsset;
 use app\assets\UserMiniinfoAsset;
-use app\components\widgets\Icon;
-use app\models\Rank2;
 use app\models\Rule2;
 use app\models\UserStat2;
 use yii\base\Widget;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use yii\helpers\Url;
 use yii\widgets\DetailView;
+
+use function array_filter;
+use function array_map;
+use function array_merge;
+use function chr;
+use function count;
+use function implode;
+use function mb_convert_encoding;
+use function pow;
+use function strtolower;
+use function strtr;
+use function substr;
+
+use const SORT_ASC;
 
 class UserMiniInfo2 extends Widget
 {
@@ -47,14 +58,14 @@ class UserMiniInfo2 extends Widget
                         $this->renderLinks(),
                     ])),
                 ]),
-                ['id' => $this->id . '-box']
+                ['id' => $this->id . '-box'],
             ),
             [
                 'id' => $this->id,
                 'itemprop' => 'author',
                 'itemscope' => true,
                 'itemtype' => 'http://schema.org/Person',
-            ]
+            ],
         );
     }
 
@@ -69,24 +80,24 @@ class UserMiniInfo2 extends Widget
                         $this->renderUserName(),
                     ]),
                     ['show-user/profile', 'screen_name' => $this->user->screen_name],
-                    ['class' => 'flex-grow-1']
+                    ['class' => 'flex-grow-1'],
                 ),
                 Html::tag(
                     'span',
                     Html::a(
                         Icon::apiJson(),
                         ['api-v2/user-stats', 'screen_name' => $this->user->screen_name],
-                        ['class' => 'label label-default']
+                        ['class' => 'label label-default'],
                     ),
                     [
                         'class' => 'ml-1 mr-1',
                         'style' => [
                             'font-size' => '14px',
                         ],
-                    ]
+                    ],
                 ),
             ]),
-            ['class' => 'd-flex']
+            ['class' => 'd-flex'],
         );
     }
 
@@ -101,7 +112,7 @@ class UserMiniInfo2 extends Widget
                     'width' => '48',
                 ],
             ]),
-            ['class' => 'miniinfo-user-icon']
+            ['class' => 'miniinfo-user-icon'],
         );
     }
 
@@ -113,7 +124,7 @@ class UserMiniInfo2 extends Widget
             [
                 'class' => 'miniinfo-user-name',
                 'itemprop' => 'name',
-            ]
+            ],
         );
     }
 
@@ -143,26 +154,22 @@ class UserMiniInfo2 extends Widget
                             'class' => 'user-number',
                         ]),
                     ]),
-                    ['class' => 'col-4 col-xs-4']
+                    ['class' => 'col-4 col-xs-4'],
                 ),
                 'attributes' => [
                     [
                         'label' => Yii::t('app', 'Battles'),
                         'format' => 'raw',
-                        'value' => function (UserStat2 $model) use ($fmt): string {
-                            return Html::a(
-                                Html::encode($fmt->asInteger($model->battles)),
-                                ['show-v2/user', 'screen_name' => $this->user->screen_name]
-                            );
-                        },
+                        'value' => fn (UserStat2 $model): string => Html::a(
+                            Html::encode($fmt->asInteger($model->battles)),
+                            ['show-v2/user', 'screen_name' => $this->user->screen_name],
+                        ),
                     ],
                     [
                         'label' => Yii::t('app', 'Win %'),
-                        'value' => function (UserStat2 $model) use ($fmt): string {
-                            return ($model->have_win_lose < 1)
+                        'value' => fn (UserStat2 $model): string => $model->have_win_lose < 1
                                 ? Yii::t('app', 'N/A')
-                                : $fmt->asPercent($model->win_battles / $model->have_win_lose, 1);
-                        },
+                                : $fmt->asPercent($model->win_battles / $model->have_win_lose, 1),
                     ],
                     [
                         'label' => $this->zwsp(),
@@ -174,19 +181,15 @@ class UserMiniInfo2 extends Widget
                     // ],
                     [
                         'label' => Yii::t('app', 'Avg Kills'),
-                        'value' => function (UserStat2 $model) use ($fmt): string {
-                            return ($model->have_kill_death < 1)
+                        'value' => fn (UserStat2 $model): string => $model->have_kill_death < 1
                                 ? Yii::t('app', 'N/A')
-                                : $fmt->asDecimal($model->kill / $model->have_kill_death, 2);
-                        },
+                                : $fmt->asDecimal($model->kill / $model->have_kill_death, 2),
                     ],
                     [
                         'label' => Yii::t('app', 'Avg Deaths'),
-                        'value' => function (UserStat2 $model) use ($fmt): string {
-                            return ($model->have_kill_death < 1)
+                        'value' => fn (UserStat2 $model): string => $model->have_kill_death < 1
                                 ? Yii::t('app', 'N/A')
-                                : $fmt->asDecimal($model->death / $model->have_kill_death, 2);
-                        },
+                                : $fmt->asDecimal($model->death / $model->have_kill_death, 2),
                     ],
                     [
                         'label' => Yii::t('app', 'Kill Ratio'),
@@ -207,25 +210,21 @@ class UserMiniInfo2 extends Widget
                     ],
                     [
                         'label' => Yii::t('app', 'Kills/min'),
-                        'value' => function (UserStat2 $model) use ($fmt): string {
-                            return ($model->have_kill_death_time < 1 || $model->total_seconds < 1)
+                        'value' => fn (UserStat2 $model): string => $model->have_kill_death_time < 1 || $model->total_seconds < 1
                                 ? Yii::t('app', 'N/A')
                                 : $fmt->asDecimal(
                                     $model->kill_with_time * 60 / $model->total_seconds,
-                                    3
-                                );
-                        },
+                                    3,
+                                ),
                     ],
                     [
                         'label' => Yii::t('app', 'Deaths/min'),
-                        'value' => function (UserStat2 $model) use ($fmt): string {
-                            return ($model->have_kill_death_time < 1 || $model->total_seconds < 1)
+                        'value' => fn (UserStat2 $model): string => $model->have_kill_death_time < 1 || $model->total_seconds < 1
                                 ? Yii::t('app', 'N/A')
                                 : $fmt->asDecimal(
                                     $model->death_with_time * 60 / $model->total_seconds,
-                                    3
-                                );
-                        },
+                                    3,
+                                ),
                     ],
                     [
                         'label' => Yii::t('app', 'Kill Rate'),
@@ -238,13 +237,13 @@ class UserMiniInfo2 extends Widget
                             }
                             return $fmt->asPercent(
                                 $model->kill / ($model->kill + $model->death),
-                                1
+                                1,
                             );
                         },
                     ],
                 ],
             ]),
-            ['class' => 'row']
+            ['class' => 'row'],
         );
         // }}}
     }
@@ -265,9 +264,9 @@ class UserMiniInfo2 extends Widget
                     Html::tag(
                         'div',
                         Html::encode(Yii::t('app-rule2', 'Turf War')),
-                        ['class' => 'user-label']
+                        ['class' => 'user-label'],
                     ),
-                    ['class' => 'col-12 col-xs-12']
+                    ['class' => 'col-12 col-xs-12'],
                 ),
                 DetailView::widget([
                     'options' => ['tag' => 'div'],
@@ -281,7 +280,7 @@ class UserMiniInfo2 extends Widget
                             ]),
                             Html::tag('div', '{value}', ['class' => 'user-number']),
                         ]),
-                        ['class' => 'col-4 col-xs-4']
+                        ['class' => 'col-4 col-xs-4'],
                     ),
                     'attributes' => [
                         [
@@ -291,14 +290,12 @@ class UserMiniInfo2 extends Widget
                         ],
                         [
                             'label' => Yii::t('app', 'Win %'),
-                            'value' => function (UserStat2 $model) use ($fmt): string {
-                                return ($model->turf_have_win_lose < 1)
+                            'value' => fn (UserStat2 $model): string => $model->turf_have_win_lose < 1
                                     ? Yii::t('app', 'N/A')
                                     : $fmt->asPercent(
                                         $model->turf_win_battles / $model->turf_have_win_lose,
-                                        1
-                                    );
-                            },
+                                        1,
+                                    ),
                         ],
                         [
                             'label' => $this->zwsp(),
@@ -310,25 +307,21 @@ class UserMiniInfo2 extends Widget
                         // ],
                         [
                             'label' => Yii::t('app', 'Avg Kills'),
-                            'value' => function (UserStat2 $model) use ($fmt): string {
-                                return ($model->turf_have_kill_death < 1)
+                            'value' => fn (UserStat2 $model): string => $model->turf_have_kill_death < 1
                                     ? Yii::t('app', 'N/A')
                                     : $fmt->asDecimal(
                                         $model->turf_kill / $model->turf_have_kill_death,
-                                        2
-                                    );
-                            },
+                                        2,
+                                    ),
                         ],
                         [
                             'label' => Yii::t('app', 'Avg Deaths'),
-                            'value' => function (UserStat2 $model) use ($fmt): string {
-                                return ($model->turf_have_kill_death < 1)
+                            'value' => fn (UserStat2 $model): string => $model->turf_have_kill_death < 1
                                     ? Yii::t('app', 'N/A')
                                     : $fmt->asDecimal(
                                         $model->turf_death / $model->turf_have_kill_death,
-                                        2
-                                    );
-                            },
+                                        2,
+                                    ),
                         ],
                         [
                             'label' => Yii::t('app', 'Kill Ratio'),
@@ -362,33 +355,29 @@ class UserMiniInfo2 extends Widget
                                         'title' => Yii::t('app', '{point, plural, other{#p}}', [
                                             'point' => $model->turf_total_inked,
                                         ]),
-                                    ]
+                                    ],
                                 );
                             },
                         ],
                         [
                             'label' => Yii::t('app', 'Avg Inked'),
-                            'value' => function ($model) use ($fmt): string {
-                                return ($model->turf_have_inked < 1)
+                            'value' => fn ($model): string => $model->turf_have_inked < 1
                                     ? Yii::t('app', 'N/A')
                                     : $fmt->asDecimal(
                                         $model->turf_total_inked / $model->turf_have_inked,
-                                        1
-                                    );
-                            },
+                                        1,
+                                    ),
                         ],
                         [
                             'label' => Yii::t('app', 'Max Inked'),
-                            'value' => function ($model) use ($fmt): string {
-                                return ($model->turf_have_inked < 1)
+                            'value' => fn ($model): string => $model->turf_have_inked < 1
                                     ? Yii::t('app', 'N/A')
-                                    : $fmt->asInteger($model->turf_max_inked);
-                            },
+                                    : $fmt->asInteger($model->turf_max_inked),
                         ],
                     ],
                 ]),
             ]),
-            ['class' => 'row']
+            ['class' => 'row'],
         );
         // }}}
     }
@@ -409,9 +398,9 @@ class UserMiniInfo2 extends Widget
                     Html::tag(
                         'div',
                         Html::encode(Yii::t('app-rule2', 'Ranked Battle')),
-                        ['class' => 'user-label']
+                        ['class' => 'user-label'],
                     ),
-                    ['class' => 'col-12 col-xs-12']
+                    ['class' => 'col-12 col-xs-12'],
                 ),
                 DetailView::widget([
                     'options' => ['tag' => 'div'],
@@ -427,13 +416,13 @@ class UserMiniInfo2 extends Widget
                                 ]),
                                 Html::tag('div', '{value}', ['class' => 'user-number']),
                             ]),
-                            ['class' => 'col-4 col-xs-4']
+                            ['class' => 'col-4 col-xs-4'],
                         );
                         $captionOptions = Html::renderTagAttributes(
-                            ArrayHelper::getValue($attribute, 'captionOptions', [])
+                            ArrayHelper::getValue($attribute, 'captionOptions', []),
                         );
                         $contentOptions = Html::renderTagAttributes(
-                            ArrayHelper::getValue($attribute, 'contentOptions', [])
+                            ArrayHelper::getValue($attribute, 'contentOptions', []),
                         );
                         return strtr($html, [
                             '{captionOptions}' => $captionOptions,
@@ -441,7 +430,7 @@ class UserMiniInfo2 extends Widget
                             '{label}' => $attribute['label'],
                             '{value}' => $widget->formatter->format(
                                 $attribute['value'],
-                                $attribute['format']
+                                $attribute['format'],
                             ),
                         ]);
                         // }}}
@@ -454,14 +443,12 @@ class UserMiniInfo2 extends Widget
                         ],
                         [
                             'label' => Yii::t('app', 'Win %'),
-                            'value' => function (UserStat2 $model) use ($fmt): string {
-                                return ($model->gachi_have_win_lose < 1)
+                            'value' => fn (UserStat2 $model): string => $model->gachi_have_win_lose < 1
                                     ? Yii::t('app', 'N/A')
                                     : $fmt->asPercent(
                                         $model->gachi_win_battles / $model->gachi_have_win_lose,
-                                        1
-                                    );
-                            },
+                                        1,
+                                    ),
                         ],
                         [
                             'label' => $this->zwsp(),
@@ -473,25 +460,21 @@ class UserMiniInfo2 extends Widget
                         // ],
                         [
                             'label' => Yii::t('app', 'Avg Kills'),
-                            'value' => function (UserStat2 $model) use ($fmt): string {
-                                return ($model->gachi_have_kill_death < 1)
+                            'value' => fn (UserStat2 $model): string => $model->gachi_have_kill_death < 1
                                     ? Yii::t('app', 'N/A')
                                     : $fmt->asDecimal(
                                         $model->gachi_kill / $model->gachi_have_kill_death,
-                                        2
-                                    );
-                            },
+                                        2,
+                                    ),
                         ],
                         [
                             'label' => Yii::t('app', 'Avg Deaths'),
-                            'value' => function (UserStat2 $model) use ($fmt): string {
-                                return ($model->gachi_have_kill_death < 1)
+                            'value' => fn (UserStat2 $model): string => $model->gachi_have_kill_death < 1
                                     ? Yii::t('app', 'N/A')
                                     : $fmt->asDecimal(
                                         $model->gachi_death / $model->gachi_have_kill_death,
-                                        2
-                                    );
-                            },
+                                        2,
+                                    ),
                         ],
                         [
                             'label' => Yii::t('app', 'Kill Ratio'),
@@ -521,7 +504,7 @@ class UserMiniInfo2 extends Widget
 
                                 return $fmt->asDecimal(
                                     $model->gachi_kill_with_time * 60 / $model->gachi_total_seconds,
-                                    3
+                                    3,
                                 );
                             },
                         ],
@@ -537,7 +520,7 @@ class UserMiniInfo2 extends Widget
 
                                 return $fmt->asDecimal(
                                     $model->gachi_death_with_time * 60 / $model->gachi_total_seconds,
-                                    3
+                                    3,
                                 );
                             },
                         ],
@@ -552,7 +535,7 @@ class UserMiniInfo2 extends Widget
                                 }
                                 return $fmt->asPercent(
                                     $model->gachi_kill / ($model->gachi_kill + $model->gachi_death),
-                                    1
+                                    1,
                                 );
                             },
                         ],
@@ -561,7 +544,7 @@ class UserMiniInfo2 extends Widget
                 $this->renderStatsRankedCurrent($model),
                 $this->renderStatsRankedPeak($model),
             ]),
-            ['class' => 'row']
+            ['class' => 'row'],
         );
         // }}}
     }
@@ -607,9 +590,9 @@ class UserMiniInfo2 extends Widget
                 Html::tag(
                     'div',
                     Html::encode(Yii::t('app', 'Rank: Current')),
-                    ['class' => 'user-label']
+                    ['class' => 'user-label'],
                 ),
-                ['class' => 'col-12 col-xs-12']
+                ['class' => 'col-12 col-xs-12'],
             ),
             DetailView::widget([
                 'options' => ['tag' => 'div'],
@@ -624,13 +607,13 @@ class UserMiniInfo2 extends Widget
                             ]),
                             Html::tag('div', '{value}', ['class' => 'user-number']),
                         ]),
-                        ['class' => 'col-3 col-xs-3']
+                        ['class' => 'col-3 col-xs-3'],
                     );
                     $captionOptions = Html::renderTagAttributes(
-                        ArrayHelper::getValue($attribute, 'captionOptions', [])
+                        ArrayHelper::getValue($attribute, 'captionOptions', []),
                     );
                     $contentOptions = Html::renderTagAttributes(
-                        ArrayHelper::getValue($attribute, 'contentOptions', [])
+                        ArrayHelper::getValue($attribute, 'contentOptions', []),
                     );
                     return strtr($html, [
                         '{captionOptions}' => $captionOptions,
@@ -638,14 +621,13 @@ class UserMiniInfo2 extends Widget
                         '{label}' => $attribute['label'],
                         '{value}' => $widget->formatter->format(
                             $attribute['value'],
-                            $attribute['format']
+                            $attribute['format'],
                         ),
                     ]);
                     // }}}
                 },
                 'attributes' => array_map(
-                    function (array $info): array {
-                        return [
+                    fn (array $info): array => [
                             'attribute' => $info['attribute'],
                             'label' => Html::img($info['icon'], [
                                 'alt' => $info['ruleName'],
@@ -666,30 +648,25 @@ class UserMiniInfo2 extends Widget
 
                                 return Html::tag('span', $html, ['class' => 'nobr']);
                             },
-                        ];
-                    },
-                    $rules
+                        ],
+                    $rules,
                 ),
             ]),
         ];
 
-        $xPowerAvailable = count(array_filter($rules, function (array $rule) use ($model): bool {
-            return $model->{$rule['attributeX']} > 0;
-        }));
+        $xPowerAvailable = count(array_filter($rules, fn (array $rule): bool => $model->{$rule['attributeX']} > 0));
         if ($xPowerAvailable > 0) {
             $rows[] = implode('', array_map(
-                function (array $rule) use ($model): string {
-                    return Html::tag(
-                        'div',
-                        ($model->{$rule['attributeX']} > 0)
+                fn (array $rule): string => Html::tag(
+                    'div',
+                    $model->{$rule['attributeX']} > 0
                             ? Html::tag('small', Html::encode(
-                                Yii::$app->formatter->asDecimal($model->{$rule['attributeX']}, 1)
+                                Yii::$app->formatter->asDecimal($model->{$rule['attributeX']}, 1),
                             ))
                             : '&#8203;',
-                        ['class' => 'col-3 col-xs-3 nobr']
-                    );
-                },
-                $rules
+                    ['class' => 'col-3 col-xs-3 nobr'],
+                ),
+                $rules,
             ));
         }
 
@@ -738,9 +715,9 @@ class UserMiniInfo2 extends Widget
                 Html::tag(
                     'div',
                     Html::encode(Yii::t('app', 'Rank: Peak')),
-                    ['class' => 'user-label']
+                    ['class' => 'user-label'],
                 ),
-                ['class' => 'col-12 col-xs-12']
+                ['class' => 'col-12 col-xs-12'],
             ),
             DetailView::widget([
                 'options' => ['tag' => 'div'],
@@ -755,13 +732,13 @@ class UserMiniInfo2 extends Widget
                             ]),
                             Html::tag('div', '{value}', ['class' => 'user-number']),
                         ]),
-                        ['class' => 'col-3 col-xs-3']
+                        ['class' => 'col-3 col-xs-3'],
                     );
                     $captionOptions = Html::renderTagAttributes(
-                        ArrayHelper::getValue($attribute, 'captionOptions', [])
+                        ArrayHelper::getValue($attribute, 'captionOptions', []),
                     );
                     $contentOptions = Html::renderTagAttributes(
-                        ArrayHelper::getValue($attribute, 'contentOptions', [])
+                        ArrayHelper::getValue($attribute, 'contentOptions', []),
                     );
                     return strtr($html, [
                         '{captionOptions}' => $captionOptions,
@@ -769,14 +746,13 @@ class UserMiniInfo2 extends Widget
                         '{label}' => $attribute['label'],
                         '{value}' => $widget->formatter->format(
                             $attribute['value'],
-                            $attribute['format']
+                            $attribute['format'],
                         ),
                     ]);
                     // }}}
                 },
                 'attributes' => array_map(
-                    function (array $info): array {
-                        return [
+                    fn (array $info): array => [
                             'attribute' => $info['attribute'],
                             'label' => Html::img($info['icon'], [
                                 'alt' => $info['ruleName'],
@@ -797,30 +773,25 @@ class UserMiniInfo2 extends Widget
 
                                 return Html::tag('span', $html, ['class' => 'nobr']);
                             },
-                        ];
-                    },
-                    $rules
+                        ],
+                    $rules,
                 ),
             ]),
         ];
 
-        $xPowerAvailable = count(array_filter($rules, function (array $rule) use ($model): bool {
-            return $model->{$rule['attributeX']} > 0;
-        }));
+        $xPowerAvailable = count(array_filter($rules, fn (array $rule): bool => $model->{$rule['attributeX']} > 0));
         if ($xPowerAvailable > 0) {
             $rows[] = implode('', array_map(
-                function (array $rule) use ($model): string {
-                    return Html::tag(
-                        'div',
-                        ($model->{$rule['attributeX']} > 0)
+                fn (array $rule): string => Html::tag(
+                    'div',
+                    $model->{$rule['attributeX']} > 0
                             ? Html::tag('small', Html::encode(
-                                Yii::$app->formatter->asDecimal($model->{$rule['attributeX']}, 1)
+                                Yii::$app->formatter->asDecimal($model->{$rule['attributeX']}, 1),
                             ))
                             : '&#8203;',
-                        ['class' => 'col-3 col-xs-3 nobr']
-                    );
-                },
-                $rules
+                    ['class' => 'col-3 col-xs-3 nobr'],
+                ),
+                $rules,
             ));
         }
 
@@ -836,7 +807,7 @@ class UserMiniInfo2 extends Widget
                 Html::tag(
                     'div',
                     Html::encode(Yii::t('app', 'Activity')),
-                    ['class' => 'label-user']
+                    ['class' => 'label-user'],
                 ),
                 Html::tag(
                     'div',
@@ -847,10 +818,10 @@ class UserMiniInfo2 extends Widget
                         'size' => 9,
                         'only' => 'spl2',
                     ]),
-                    ['class' => 'table-responsive bg-white']
+                    ['class' => 'table-responsive bg-white'],
                 ),
             ]),
-            ['class' => 'miniinfo-databox']
+            ['class' => 'miniinfo-databox'],
         );
     }
 
@@ -869,28 +840,26 @@ class UserMiniInfo2 extends Widget
                         ]),
                         ['show-v2/user-stat-nawabari',
                             'screen_name' => $this->user->screen_name,
-                        ]
+                        ],
                     ),
                 ],
                 array_map(
-                    function (Rule2 $rule): string {
-                        return Html::a(
-                            implode(' ', [
+                    fn (Rule2 $rule): string => Html::a(
+                        implode(' ', [
                                 Icon::stats(),
                                 Html::encode(Yii::t('app', 'Stats ({rule})', [
                                     'rule' => Yii::t('app-rule2', $rule->name),
                                 ])),
                             ]),
-                            ['show-v2/user-stat-gachi',
+                        ['show-v2/user-stat-gachi',
                                 'screen_name' => $this->user->screen_name,
                                 'rule' => $rule->key,
-                            ]
-                        );
-                    },
+                            ],
+                    ),
                     Rule2::find()
                         ->where(['not', ['key' => 'nawabari']])
                         ->orderBy(['id' => SORT_ASC])
-                        ->all()
+                        ->all(),
                 ),
                 [
                     Html::a(
@@ -898,35 +867,35 @@ class UserMiniInfo2 extends Widget
                             Icon::stats(),
                             Html::encode(Yii::t('app', 'Stats (Splatfest)')),
                         ]),
-                        ['show-v2/user-stat-splatfest', 'screen_name' => $this->user->screen_name]
+                        ['show-v2/user-stat-splatfest', 'screen_name' => $this->user->screen_name],
                     ),
                     Html::a(
                         implode(' ', [
                             Icon::stats(),
                             Html::encode(Yii::t('app', 'Stats (by Mode and Stage)')),
                         ]),
-                        ['show-v2/user-stat-by-map-rule', 'screen_name' => $this->user->screen_name]
+                        ['show-v2/user-stat-by-map-rule', 'screen_name' => $this->user->screen_name],
                     ),
                     Html::a(
                         implode(' ', [
                             Icon::stats(),
                             Html::encode(Yii::t('app', 'Stats (by Weapon)')),
                         ]),
-                        ['show-v2/user-stat-by-weapon', 'screen_name' => $this->user->screen_name]
+                        ['show-v2/user-stat-by-weapon', 'screen_name' => $this->user->screen_name],
                     ),
                     Html::a(
                         implode(' ', [
                             Icon::stats(),
                             Html::encode(Yii::t('app', 'Daily Report')),
                         ]),
-                        ['show-v2/user-stat-report', 'screen_name' => $this->user->screen_name]
+                        ['show-v2/user-stat-report', 'screen_name' => $this->user->screen_name],
                     ),
                     Html::a(
                         implode(' ', [
                             Icon::stats(),
                             Html::encode(Yii::t('app', 'Monthly Report')),
                         ]),
-                        ['show-v2/user-stat-monthly-report', 'screen_name' => $this->user->screen_name]
+                        ['show-v2/user-stat-monthly-report', 'screen_name' => $this->user->screen_name],
                     ),
                     '',
                     Html::a(
@@ -936,11 +905,11 @@ class UserMiniInfo2 extends Widget
                             Icon::subPage(),
                         ]),
                         ['salmon/index', 'screen_name' => $this->user->screen_name],
-                        ['class' => 'btn btn-sm btn-block btn-default']
+                        ['class' => 'btn btn-sm btn-block btn-default'],
                     ),
-                ]
+                ],
             )),
-            ['class' => 'miniinfo-databox']
+            ['class' => 'miniinfo-databox'],
         );
     }
 
@@ -969,7 +938,7 @@ class UserMiniInfo2 extends Widget
     private function formatShortNumberJapanese(int $value): string
     {
         return $this->formatShortNumberImpl($value, 4, [
-            '万', '億', '兆', '京', '垓', '𥝱', '穣'
+            '万', '億', '兆', '京', '垓', '𥝱', '穣',
         ]);
     }
 
@@ -981,14 +950,14 @@ class UserMiniInfo2 extends Widget
     private function formatShortNumberChineseS(int $value): string
     {
         return $this->formatShortNumberImpl($value, 4, [
-            '万', '亿', '兆', '京', '垓', '秭', '穰'
+            '万', '亿', '兆', '京', '垓', '秭', '穰',
         ]);
     }
 
     private function formatShortNumberChineseT(int $value): string
     {
         return $this->formatShortNumberImpl($value, 4, [
-            '萬', '億', '兆', '京', '垓', '秭', '穰'
+            '萬', '億', '兆', '京', '垓', '秭', '穰',
         ]);
     }
 

@@ -8,7 +8,8 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "agent_group_map".
@@ -18,7 +19,7 @@ use Yii;
  *
  * @property AgentGroup $group
  */
-class AgentGroupMap extends \yii\db\ActiveRecord
+class AgentGroupMap extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -55,7 +56,7 @@ class AgentGroupMap extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getGroup()
     {

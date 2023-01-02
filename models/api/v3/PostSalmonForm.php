@@ -22,8 +22,6 @@ use app\components\validators\KeyValidator;
 use app\components\validators\SalmonBoss3Validator;
 use app\components\validators\SalmonPlayer3FormValidator;
 use app\components\validators\SalmonWave3FormValidator;
-use app\models\Agent;
-use app\models\AgentVariable3;
 use app\models\Map3;
 use app\models\Map3Alias;
 use app\models\Salmon3;
@@ -48,6 +46,24 @@ use yii\base\InvalidConfigException;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
+
+use function array_keys;
+use function array_values;
+use function base64_encode;
+use function date;
+use function floor;
+use function hash_hmac;
+use function is_array;
+use function is_int;
+use function is_string;
+use function ksort;
+use function min;
+use function rtrim;
+use function strtotime;
+use function time;
+use function trim;
+use function version_compare;
+use function vsprintf;
 
 /**
  * @property-read Salmon3|null $sameBattle
@@ -134,8 +150,8 @@ final class PostSalmonForm extends Model
             [['job_point', 'job_score', 'job_bonus'], 'integer', 'min' => 0],
             [['job_rate'], 'number', 'min' => 0],
             [['start_at', 'end_at'], 'integer',
-                'min' => \strtotime('2022-01-01T00:00:00+00:00'),
-                'max' => \time() + 3600,
+                'min' => strtotime('2022-01-01T00:00:00+00:00'),
+                'max' => time() + 3600,
             ],
 
             [['uuid'], 'match', 'pattern' => UuidRegexp::get(true)],
@@ -145,11 +161,11 @@ final class PostSalmonForm extends Model
                 'enableIDN' => false,
             ],
             [['agent', 'agent_version'], 'required',
-                'when' => fn () => \trim((string)$this->agent) !== '' || \trim((string)$this->agent_version) !== '',
+                'when' => fn () => trim((string)$this->agent) !== '' || trim((string)$this->agent_version) !== '',
             ],
             [['agent_version'], AgentVersionValidator::class,
                 'gameVersion' => 'splatoon3',
-                'when' => fn () => \trim((string)$this->agent) !== '' && \trim((string)$this->agent_version) !== '',
+                'when' => fn () => trim((string)$this->agent) !== '' && trim((string)$this->agent_version) !== '',
             ],
             [['stage'], KeyValidator::class,
                 'modelClass' => SalmonMap3::class,
@@ -200,7 +216,7 @@ final class PostSalmonForm extends Model
     public function getSameBattle(): ?Salmon3
     {
         if (
-            !\is_string($this->uuid) ||
+            !is_string($this->uuid) ||
             $this->uuid === ''
         ) {
             return null;
@@ -253,14 +269,14 @@ final class PostSalmonForm extends Model
     private function getCriticalSectionId(): string
     {
         $values = [
-            'class' => __CLASS__,
+            'class' => self::class,
             'user' => Yii::$app->user->id,
             'version' => 1,
         ];
-        \ksort($values);
-        return \rtrim(
-            \base64_encode(
-                \hash_hmac(
+        ksort($values);
+        return rtrim(
+            base64_encode(
+                hash_hmac(
                     'sha256',
                     Json::encode($values),
                     (string)Yii::getAlias('@app'),
@@ -305,11 +321,10 @@ final class PostSalmonForm extends Model
                 return $battle;
             });
         } catch (Throwable $e) {
-            throw $e;
             $this->addError(
                 '_system',
                 vsprintf('Failed to store your battle (internal error), %s', [
-                    \get_class($e),
+                    $e::class,
                 ]),
             );
             return null;
@@ -359,14 +374,23 @@ final class PostSalmonForm extends Model
                 self::guessStartAt(
                     self::intVal($this->start_at),
                     self::intVal($this->end_at),
+                    self::intVal($this->clear_waves),
                 ),
             ),
             'agent_id' => self::userAgent($this->agent, $this->agent_version),
             'is_automated' => self::boolVal($this->automated) ?: false,
             'start_at' => self::tsVal($this->start_at),
             'end_at' => self::tsVal($this->end_at),
-            'period' => self::guessPeriod(self::intVal($this->start_at), self::intVal($this->end_at)),
-            'schedule_id' => self::guessScheduleId(self::intVal($this->start_at), self::intVal($this->end_at)),
+            'period' => self::guessPeriod(
+                self::intVal($this->start_at),
+                self::intVal($this->end_at),
+                self::intVal($this->clear_waves),
+            ),
+            'schedule_id' => self::guessScheduleId(
+                self::intVal($this->start_at),
+                self::intVal($this->end_at),
+                self::intVal($this->clear_waves),
+            ),
             'has_disconnect' => $this->hasDisconnect(),
             'is_deleted' => false,
             'has_broken_data' => $this->hasBrokenData(),
@@ -382,11 +406,11 @@ final class PostSalmonForm extends Model
             $model->golden_eggs === null || // おまけ
             (
                 self::strVal($this->agent) === 's3s' &&
-                \version_compare(self::strVal($this->agent_version), 'v0.2.6', '<')
+                version_compare(self::strVal($this->agent_version), 'v0.2.6', '<')
             ) ||
             (
                 self::strVal($this->agent) === 's3si.ts' &&
-                \version_compare(self::strVal($this->agent_version), '0.2.4', '<')
+                version_compare(self::strVal($this->agent_version), '0.2.4', '<')
             )
         ) {
             $goldenEggs = $this->getGoldenEggsFromWaves();
@@ -397,7 +421,7 @@ final class PostSalmonForm extends Model
 
         if (!$model->save()) {
             $this->addError('_system', vsprintf('Failed to store new battle, info=%s', [
-                \base64_encode(Json::encode($model->getFirstErrors())),
+                base64_encode(Json::encode($model->getFirstErrors())),
             ]));
             return null;
         }
@@ -407,7 +431,7 @@ final class PostSalmonForm extends Model
 
     private function hasDisconnect(): bool
     {
-        if (\is_array($this->players)) {
+        if (is_array($this->players)) {
             foreach ($this->players as $player) {
                 $value = self::boolVal(ArrayHelper::getValue($player, 'disconnected'));
                 if ($value === true) {
@@ -421,7 +445,7 @@ final class PostSalmonForm extends Model
 
     private function hasBrokenData(): bool
     {
-        if (\is_array($this->bosses)) {
+        if (is_array($this->bosses)) {
             foreach ($this->bosses as $key => $data) {
                 if ($data === null) {
                     continue;
@@ -447,7 +471,7 @@ final class PostSalmonForm extends Model
 
     private function savePlayers(Salmon3 $battle): bool
     {
-        if (\is_array($this->players)) {
+        if (is_array($this->players)) {
             foreach ($this->players as $player) {
                 $model = Yii::createObject(PlayerForm::class);
                 $model->attributes = $player;
@@ -462,8 +486,8 @@ final class PostSalmonForm extends Model
 
     private function saveWaves(Salmon3 $battle): bool
     {
-        if (\is_array($this->waves) && $this->waves) {
-            foreach (\array_values($this->waves) as $i => $data) {
+        if (is_array($this->waves) && $this->waves) {
+            foreach (array_values($this->waves) as $i => $data) {
                 if (!$data) {
                     return false;
                 }
@@ -481,7 +505,7 @@ final class PostSalmonForm extends Model
 
     private function saveBosses(Salmon3 $battle): bool
     {
-        if (\is_array($this->bosses)) {
+        if (is_array($this->bosses)) {
             foreach ($this->bosses as $key => $data) {
                 if ($data === null) {
                     continue;
@@ -501,7 +525,7 @@ final class PostSalmonForm extends Model
     private function saveAgentVariables(Salmon3 $battle): bool
     {
         $map = $this->agent_variables;
-        if (!\is_array($map) || !$map) {
+        if (!is_array($map) || !$map) {
             return true;
         }
 
@@ -522,12 +546,12 @@ final class PostSalmonForm extends Model
 
     private function getGoldenEggsFromWaves(): ?int
     {
-        if (!\is_array($this->waves) || !$this->waves) {
+        if (!is_array($this->waves) || !$this->waves) {
             return null;
         }
 
         $total = 0;
-        foreach (\array_values($this->waves) as $i => $data) {
+        foreach (array_values($this->waves) as $i => $data) {
             if (!$data) {
                 return null;
             }
@@ -538,7 +562,7 @@ final class PostSalmonForm extends Model
             }
 
             $deliv = self::intVal(ArrayHelper::getValue($data, 'golden_delivered'));
-            if (!\is_int($deliv) || $deliv < 0) {
+            if (!is_int($deliv) || $deliv < 0) {
                 return null;
             }
             $total += $deliv;
@@ -552,9 +576,11 @@ final class PostSalmonForm extends Model
         return Yii::createObject(Now::class);
     }
 
-    private static function guessPeriod(?int $startAt, ?int $endAt): int
+    private static function guessPeriod(?int $startAt, ?int $endAt, ?int $clearWaves = null): int
     {
-        return self::timestamp2period(self::guessStartAt($startAt, $endAt));
+        return self::timestamp2period(
+            self::guessStartAt($startAt, $endAt, $clearWaves),
+        );
     }
 
     private static function timestamp2period(int $ts): int
@@ -562,56 +588,52 @@ final class PostSalmonForm extends Model
         return (int)floor($ts / 7200);
     }
 
-    private static function guessScheduleId(?int $startAt, ?int $endAt): ?int
-    {
-        $startAt = self::guessStartAt($startAt, $endAt);
+    private static function guessScheduleId(
+        ?int $startAt,
+        ?int $endAt,
+        ?int $clearWaves = null,
+    ): ?int {
+        $startAt = self::guessStartAt($startAt, $endAt, $clearWaves);
         $model = SalmonSchedule3::find()
             ->andWhere(['and',
-                ['<=', 'start_at', \date('Y-m-d\TH:i:sP', $startAt)],
-                ['>', 'end_at', \date('Y-m-d\TH:i:sP', $startAt)],
+                ['<=', 'start_at', date('Y-m-d\TH:i:sP', $startAt)],
+                ['>', 'end_at', date('Y-m-d\TH:i:sP', $startAt)],
             ])
             ->limit(1)
             ->one();
         return $model ? (int)$model->id : null;
     }
 
-    private static function guessStartAt(?int $startAt, ?int $endAt): int
-    {
-        if (\is_int($startAt)) {
+    private static function guessStartAt(
+        ?int $startAt,
+        ?int $endAt,
+        ?int $clearWaves = null,
+    ): int {
+        if (is_int($startAt)) {
             return $startAt;
         }
 
-        if (\is_int($endAt)) {
-            $playTime = self::guessPlayTime();
-            if (\is_int($playTime)) {
+        if (is_int($endAt)) {
+            $playTime = self::guessPlayTime($clearWaves);
+            if (is_int($playTime)) {
                 return $endAt - $playTime;
             }
         }
 
-        return \time() - 370;
+        return time() - 370;
     }
 
-    private static function guessPlayTime(): ?int
+    private static function guessPlayTime(?int $clearWaves): ?int
     {
-        $clearWaves = self::intVal($this->clear_waves);
         if (
-            !\is_int($clearWaves) ||
+            !is_int($clearWaves) ||
             $clearWaves < 0 ||
             $clearWaves > 3
         ) {
             return null;
         }
 
-        if ($clearWaves < 3) {
-            $failReason = self::strVal($this->fail_reason);
-            $waves = ($failReason === 'wipe_out')
-                ? ($clearWaves + 0.5)
-                : $clearWaves + 1;
-        } else {
-            $kingSalmonid = self::strVal($this->king_salmonid);
-            $waves = $kingSalmonid ? 4 : 3;
-        }
-
+        $waves = min(3, $clearWaves + 1);
         return (int)floor(10 + $waves * 120);
     }
 }

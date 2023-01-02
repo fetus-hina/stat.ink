@@ -11,12 +11,19 @@ namespace app\actions\ostatus;
 use Curl\Curl;
 use DOMDocument;
 use DOMXpath;
+use Throwable;
 use Yii;
 use app\models\RemoteFollowModalForm;
-use app\models\User;
 use yii\helpers\Json;
-use yii\web\Response;
 use yii\web\ViewAction as BaseAction;
+
+use function preg_match;
+use function sprintf;
+use function str_replace;
+use function substr;
+
+use const CURLOPT_FOLLOWLOCATION;
+use const CURLOPT_MAXREDIRS;
 
 class StartRemoteFollowAction extends BaseAction
 {
@@ -53,7 +60,7 @@ class StartRemoteFollowAction extends BaseAction
                 return null;
             }
             return $url;
-        } catch (\Exception $e) {
+        } catch (Throwable $e) {
             return null;
         }
     }
@@ -83,14 +90,14 @@ class StartRemoteFollowAction extends BaseAction
                                     return str_replace(
                                         '{uri}',
                                         sprintf('acct:%s', $accountName),
-                                        $link->getAttribute('template')
+                                        $link->getAttribute('template'),
                                     );
                                 }
                             }
                         }
                     }
                 }
-            } catch (\Exception $e) {
+            } catch (Throwable $e) {
             }
         }
         return null;
@@ -120,13 +127,13 @@ class StartRemoteFollowAction extends BaseAction
                             return str_replace(
                                 '{uri}',
                                 sprintf('acct:%s@%s', $thisName, Yii::$app->request->hostName),
-                                $link['template']
+                                $link['template'],
                             );
                         }
                     }
                 }
             }
-        } catch (\Exception $e) {
+        } catch (Throwable $e) {
         }
         //FIXME:XML
         return null;

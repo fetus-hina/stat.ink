@@ -19,6 +19,9 @@ use app\models\Weapon3;
 use yii\base\Widget;
 use yii\helpers\Html;
 
+use function implode;
+use function vsprintf;
+
 final class WeaponName extends Widget
 {
     public Weapon3|SalmonWeapon3|null $model = null;
@@ -33,7 +36,7 @@ final class WeaponName extends Widget
         }
 
         return $this->subInfo
-            ? \vsprintf('%s (%s)', [
+            ? vsprintf('%s (%s)', [
                 $this->renderMainWeapon($model),
                 $this->renderSubSp($model),
             ])
@@ -43,7 +46,7 @@ final class WeaponName extends Widget
     private function renderMainWeapon(Weapon3|SalmonWeapon3 $model): string
     {
         if ($this->showName) {
-            return \implode(' ', [
+            return implode(' ', [
                 WeaponIcon::widget(['model' => $model, 'alt' => false]),
                 Html::encode(Yii::t('app-weapon3', $model->name)),
             ]);
@@ -65,17 +68,17 @@ final class WeaponName extends Widget
         }
 
         return $this->showName
-            ? \vsprintf('%s / %s', [
-                \implode(' ', [
+            ? vsprintf('%s / %s', [
+                implode(' ', [
                     SubweaponIcon::widget(['model' => $sub, 'alt' => false]),
                     Html::encode(Yii::t('app-subweapon3', $sub->name)),
                 ]),
-                \implode(' ', [
+                implode(' ', [
                     SpecialIcon::widget(['model' => $sp, 'alt' => false]),
                     Html::encode(Yii::t('app-special3', $sp->name)),
                 ]),
             ])
-            : \implode(' ', [
+            : implode(' ', [
                 SubweaponIcon::widget(['model' => $sub]),
                 SpecialIcon::widget(['model' => $sp]),
             ]);

@@ -17,7 +17,7 @@ class m170328_130421_special2 extends Migration
             'key' => $this->apiKey(),
             'name' => $this->string(32)->notNull()->unique(),
         ]);
-        $this->batchInsert('special2', [ 'key', 'name' ], [
+        $this->batchInsert('special2', ['key', 'name'], [
             [ 'chakuchi', 'Splashdown' ],
             [ 'jetpack', 'Inkjet' ],
             [ 'missile', 'Tenta Missiles' ],

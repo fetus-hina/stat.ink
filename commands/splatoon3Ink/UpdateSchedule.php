@@ -18,6 +18,11 @@ use app\models\ScheduleMap3;
 use yii\console\ExitCode;
 use yii\db\Connection;
 
+use function array_map;
+use function fwrite;
+use function sort;
+use function vfprintf;
+
 use const STDERR;
 
 trait UpdateSchedule
@@ -52,7 +57,7 @@ trait UpdateSchedule
                     $lobby,
                     $schedule['period'],
                     $schedule['rule_id'],
-                    $schedule['map_ids']
+                    $schedule['map_ids'],
                 )
             ) {
                 return false;
@@ -85,7 +90,7 @@ trait UpdateSchedule
 
                 $db->transaction->rollBack();
                 return false;
-            }
+            },
         );
     }
 
@@ -109,18 +114,14 @@ trait UpdateSchedule
         }
 
         // マップが違う
-        $registeredMapIds = \array_map(
+        $registeredMapIds = array_map(
             fn (ScheduleMap3 $model): int => (int)$model->map_id,
-            $schedule->scheduleMap3s
+            $schedule->scheduleMap3s,
         );
         sort($mapIds);
         sort($registeredMapIds);
-        if ($mapIds !== $registeredMapIds) {
-            return false;
-        }
 
-        // 持っているデータは正しい
-        return true;
+        return $mapIds === $registeredMapIds;
     }
 
     private function cleanUpSchedule(Lobby3 $lobby, int $period): bool

@@ -19,6 +19,13 @@ use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
+use function array_merge;
+use function implode;
+use function sprintf;
+use function substr;
+
+use const SORT_ASC;
+
 class UserStatByMapRuleAction extends BaseAction
 {
     public function run()
@@ -41,7 +48,7 @@ class UserStatByMapRuleAction extends BaseAction
                 'user' => $user,
                 'filter' => $filter,
             ],
-            $this->getData($user, $filter)
+            $this->getData($user, $filter),
         ));
     }
 
@@ -132,16 +139,12 @@ class UserStatByMapRuleAction extends BaseAction
             }
         }
 
-        $maps2 = ArrayHelper::map($maps, 'key', function (Map2 $map): string {
-            return Yii::t('app-map2', $map->name);
-        });
+        $maps2 = ArrayHelper::map($maps, 'key', fn (Map2 $map): string => Yii::t('app-map2', $map->name));
 
         $rules2 = ArrayHelper::map(
             $rules,
             'key',
-            function (Rule2 $rule): string {
-                return Yii::t('app-rule2', $rule->name);
-            }
+            fn (Rule2 $rule): string => Yii::t('app-rule2', $rule->name),
         );
 
         return [

@@ -8,8 +8,8 @@
 
 namespace app\models;
 
-use Yii;
 use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "stat_weapon_vs_weapon".
@@ -26,18 +26,18 @@ use yii\db\ActiveQuery;
  * @property Weapon $weaponId1
  * @property Weapon $weaponId2
  */
-class StatWeaponVsWeapon extends \yii\db\ActiveRecord
+class StatWeaponVsWeapon extends ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function find()
     {
-        return new class (get_called_class()) extends ActiveQuery {
+        return new class (static::class) extends ActiveQuery {
             public function weapon($weapon): ActiveQuery
             {
                 return $this->weaponImpl(
-                    ($weapon instanceof Weapon) ? $weapon->id : (int)$weapon
+                    $weapon instanceof Weapon ? $weapon->id : (int)$weapon,
                 );
             }
 
@@ -98,7 +98,7 @@ class StatWeaponVsWeapon extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getVersion()
     {
@@ -106,7 +106,7 @@ class StatWeaponVsWeapon extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getRule()
     {
@@ -114,7 +114,7 @@ class StatWeaponVsWeapon extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getWeaponId1()
     {
@@ -122,7 +122,7 @@ class StatWeaponVsWeapon extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getWeaponId2()
     {

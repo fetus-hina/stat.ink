@@ -9,6 +9,14 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+use yii\db\Query;
+
+use function gmdate;
+use function implode;
+use function sprintf;
+use function time;
 
 /**
  * This is the model class for table "user_stat".
@@ -31,7 +39,7 @@ use Yii;
  *
  * @property User $user
  */
-class UserStat extends \yii\db\ActiveRecord
+class UserStat extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -84,7 +92,7 @@ class UserStat extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getUser()
     {
@@ -104,19 +112,19 @@ class UserStat extends \yii\db\ActiveRecord
 
         $condIsNawabari = sprintf(
             '({{battle}}.[[rule_id]] = %s)',
-            $db->quoteValue($rules['nawabari'])
+            $db->quoteValue($rules['nawabari']),
         );
         $condIsArea = sprintf(
             '({{battle}}.[[rule_id]] = %s)',
-            $db->quoteValue($rules['area'])
+            $db->quoteValue($rules['area']),
         );
         $condIsYagura = sprintf(
             '({{battle}}.[[rule_id]] = %s)',
-            $db->quoteValue($rules['yagura'])
+            $db->quoteValue($rules['yagura']),
         );
         $condIsHoko = sprintf(
             '({{battle}}.[[rule_id]] = %s)',
-            $db->quoteValue($rules['hoko'])
+            $db->quoteValue($rules['hoko']),
         );
         $condIsGachi = sprintf('(%s)', implode(' OR ', [
             $condIsArea,
@@ -130,14 +138,14 @@ class UserStat extends \yii\db\ActiveRecord
         }
         $condIsNotPrivate = sprintf(
             '({{battle}}.[[lobby_id]] IS NULL OR {{battle}}.[[lobby_id]] <> %s)',
-            $db->quoteValue($private)
+            $db->quoteValue($private),
         );
 
         $now = $_SERVER['REQUEST_TIME'] ?? time();
         $cond24Hours = sprintf(
             '(({{battle}}.[[end_at]] IS NOT NULL) AND ({{battle}}.[[end_at]] BETWEEN %s AND %s))',
             $db->quoteValue(gmdate('Y-m-d H:i:sO', $now - 86400 + 1)),
-            $db->quoteValue(gmdate('Y-m-d H:i:sO', $now))
+            $db->quoteValue(gmdate('Y-m-d H:i:sO', $now)),
         );
 
         $condKDPresent = sprintf('(%s)', implode(' AND ', [
@@ -152,8 +160,8 @@ class UserStat extends \yii\db\ActiveRecord
             '{{battle}}.[[my_point]] > 0',
             sprintf(
                 '{{battle}}.[[my_point]] - (%s) > 0',
-                'CASE {{battle}}.[[is_win]] WHEN TRUE THEN {{turfwar_win_bonus}}.[[bonus]] ELSE 0 END'
-            )
+                'CASE {{battle}}.[[is_win]] WHEN TRUE THEN {{turfwar_win_bonus}}.[[bonus]] ELSE 0 END',
+            ),
         ]));
 
         $condTimePresent = sprintf('(%s)', implode(' AND ', [
@@ -163,7 +171,7 @@ class UserStat extends \yii\db\ActiveRecord
             "({{battle}}.[[end_at]] - {{battle}}.[[start_at]]) < '10 minutes'::interval",
         ]));
 
-        $column_battle_count = "COUNT(*)";
+        $column_battle_count = 'COUNT(*)';
         $column_wp = sprintf(
             '(%s * 100.0 / NULLIF(%s, 0))',
             sprintf(
@@ -171,25 +179,25 @@ class UserStat extends \yii\db\ActiveRecord
                 implode(' AND ', [
                     $condIsNotPrivate,
                     '{{battle}}.[[is_win]] = TRUE',
-                ])
+                ]),
             ),
             sprintf(
                 'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
                 implode(' AND ', [
                     $condIsNotPrivate,
                     '{{battle}}.[[is_win]] IS NOT NULL',
-                ])
-            )
+                ]),
+            ),
         );
         $column_wp_short = sprintf(
-            "(%s * 100.0 / NULLIF(%s, 0))",
+            '(%s * 100.0 / NULLIF(%s, 0))',
             sprintf(
                 'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
                 implode(' AND ', [
                     $condIsNotPrivate,
                     $cond24Hours,
                     '{{battle}}.[[is_win]] = TRUE',
-                ])
+                ]),
             ),
             sprintf(
                 'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
@@ -197,36 +205,36 @@ class UserStat extends \yii\db\ActiveRecord
                     $condIsNotPrivate,
                     $cond24Hours,
                     '{{battle}}.[[is_win]] IS NOT NULL',
-                ])
-            )
+                ]),
+            ),
         );
         $column_total_kd_battle_count = sprintf(
             'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
             implode(' AND ', [
                 $condIsNotPrivate,
                 $condKDPresent,
-            ])
+            ]),
         );
         $column_total_kill = sprintf(
             'SUM(CASE WHEN (%s) THEN {{battle}}.[[kill]] ELSE 0 END)',
             implode(' AND ', [
                 $condIsNotPrivate,
                 $condKDPresent,
-            ])
+            ]),
         );
         $column_total_death = sprintf(
             'SUM(CASE WHEN (%s) THEN {{battle}}.[[death]] ELSE 0 END)',
             implode(' AND ', [
                 $condIsNotPrivate,
                 $condKDPresent,
-            ])
+            ]),
         );
         $column_nawabari_count = sprintf(
             'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
             implode(' AND ', [
                 $condIsNotPrivate,
                 $condIsNawabari,
-            ])
+            ]),
         );
         $column_nawabari_wp = sprintf(
             '(%s * 100.0 / NULLIF(%s, 0))',
@@ -236,7 +244,7 @@ class UserStat extends \yii\db\ActiveRecord
                     $condIsNotPrivate,
                     $condIsNawabari,
                     '{{battle}}.[[is_win]] = TRUE',
-                ])
+                ]),
             ),
             sprintf(
                 'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
@@ -244,8 +252,8 @@ class UserStat extends \yii\db\ActiveRecord
                     $condIsNotPrivate,
                     $condIsNawabari,
                     '{{battle}}.[[is_win]] IS NOT NULL',
-                ])
-            )
+                ]),
+            ),
         );
         $column_nawabari_kill = sprintf(
             'SUM(CASE WHEN (%s) THEN {{battle}}.[[kill]] ELSE 0 END)',
@@ -253,7 +261,7 @@ class UserStat extends \yii\db\ActiveRecord
                 $condIsNotPrivate,
                 $condIsNawabari,
                 $condKDPresent,
-            ])
+            ]),
         );
         $column_nawabari_death = sprintf(
             'SUM(CASE WHEN (%s) THEN {{battle}}.[[death]] ELSE 0 END)',
@@ -261,7 +269,7 @@ class UserStat extends \yii\db\ActiveRecord
                 $condIsNotPrivate,
                 $condIsNawabari,
                 $condKDPresent,
-            ])
+            ]),
         );
         $column_nawabari_inked = sprintf(
             'SUM(CASE WHEN (%1$s AND %2$s) THEN (%4$s - %5$s) WHEN (%1$s AND %3$s) THEN %4$s ELSE 0 END)',
@@ -274,7 +282,7 @@ class UserStat extends \yii\db\ActiveRecord
             '{{battle}}.[[is_win]] = TRUE',
             '{{battle}}.[[is_win]] = FALSE',
             '{{battle}}.[[my_point]]',
-            '{{turfwar_win_bonus}}.[[bonus]]'
+            '{{turfwar_win_bonus}}.[[bonus]]',
         );
         $column_nawabari_inked_max = sprintf(
             'MAX(CASE WHEN (%1$s AND %2$s) THEN (%4$s - %5$s) WHEN (%1$s AND %3$s) THEN %4$s ELSE 0 END)',
@@ -287,7 +295,7 @@ class UserStat extends \yii\db\ActiveRecord
             '{{battle}}.[[is_win]] = TRUE',
             '{{battle}}.[[is_win]] = FALSE',
             '{{battle}}.[[my_point]]',
-            '{{turfwar_win_bonus}}.[[bonus]]'
+            '{{turfwar_win_bonus}}.[[bonus]]',
         );
 
         $column_nawabari_inked_battle = sprintf(
@@ -298,7 +306,7 @@ class UserStat extends \yii\db\ActiveRecord
                 $condBonusPointPresent,
                 $condTurfInkedPresent,
                 '{{battle}}.[[is_win]] IS NOT NULL',
-            ])
+            ]),
         );
 
         $column_gachi_count = sprintf(
@@ -306,7 +314,7 @@ class UserStat extends \yii\db\ActiveRecord
             implode(' AND ', [
                 $condIsNotPrivate,
                 $condIsGachi,
-            ])
+            ]),
         );
         $column_gachi_wp = sprintf(
             '(%s * 100.0 / NULLIF(%s, 0))',
@@ -316,7 +324,7 @@ class UserStat extends \yii\db\ActiveRecord
                     $condIsNotPrivate,
                     $condIsGachi,
                     '{{battle}}.[[is_win]] = TRUE',
-                ])
+                ]),
             ),
             sprintf(
                 'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
@@ -324,8 +332,8 @@ class UserStat extends \yii\db\ActiveRecord
                     $condIsNotPrivate,
                     $condIsGachi,
                     '{{battle}}.[[is_win]] IS NOT NULL',
-                ])
-            )
+                ]),
+            ),
         );
         $column_gachi_kill = sprintf(
             'SUM(CASE WHEN (%s) THEN {{battle}}.[[kill]] ELSE 0 END)',
@@ -333,7 +341,7 @@ class UserStat extends \yii\db\ActiveRecord
                 $condIsNotPrivate,
                 $condIsGachi,
                 $condKDPresent,
-            ])
+            ]),
         );
         $column_gachi_death = sprintf(
             'SUM(CASE WHEN (%s) THEN {{battle}}.[[death]] ELSE 0 END)',
@@ -341,7 +349,7 @@ class UserStat extends \yii\db\ActiveRecord
                 $condIsNotPrivate,
                 $condIsGachi,
                 $condKDPresent,
-            ])
+            ]),
         );
         $column_gachi_kd_battle = sprintf(
             'SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)',
@@ -349,7 +357,7 @@ class UserStat extends \yii\db\ActiveRecord
                 $condIsNotPrivate,
                 $condIsGachi,
                 $condKDPresent,
-            ])
+            ]),
         );
         $column_gachi_kill2 = sprintf(
             'SUM(CASE WHEN (%s) THEN {{battle}}.[[kill]] ELSE 0 END)',
@@ -358,7 +366,7 @@ class UserStat extends \yii\db\ActiveRecord
                 $condIsGachi,
                 $condKDPresent,
                 $condTimePresent,
-            ])
+            ]),
         );
         $column_gachi_death2 = sprintf(
             'SUM(CASE WHEN (%s) THEN {{battle}}.[[death]] ELSE 0 END)',
@@ -367,7 +375,7 @@ class UserStat extends \yii\db\ActiveRecord
                 $condIsGachi,
                 $condKDPresent,
                 $condTimePresent,
-            ])
+            ]),
         );
         $column_gachi_total_time = sprintf(
             'SUM(CASE WHEN (%s) THEN (%s) ELSE 0 END)',
@@ -377,7 +385,7 @@ class UserStat extends \yii\db\ActiveRecord
                 $condKDPresent,
                 $condTimePresent,
             ]),
-            'EXTRACT(EPOCH FROM ({{battle}}.[[end_at]] - {{battle}}.[[start_at]]))'
+            'EXTRACT(EPOCH FROM ({{battle}}.[[end_at]] - {{battle}}.[[start_at]]))',
         );
 
         $column_gachi_rank_peak = sprintf(
@@ -390,7 +398,7 @@ class UserStat extends \yii\db\ActiveRecord
                     '{{battle}}.[[rank_id]] IS NOT NULL',
                     '{{battle}}.[[rank_exp]] IS NOT NULL',
                 ]),
-                '{{rank_before}}.[[int_base]] + {{battle}}.[[rank_exp]]'
+                '{{rank_before}}.[[int_base]] + {{battle}}.[[rank_exp]]',
             ),
             sprintf(
                 'MAX(CASE WHEN (%s) THEN (%s) ELSE 0 END)',
@@ -400,34 +408,34 @@ class UserStat extends \yii\db\ActiveRecord
                     '{{battle}}.[[rank_after_id]] IS NOT NULL',
                     '{{battle}}.[[rank_exp_after]] IS NOT NULL',
                 ]),
-                '{{rank_after}}.[[int_base]] + {{battle}}.[[rank_exp_after]]'
-            )
+                '{{rank_after}}.[[int_base]] + {{battle}}.[[rank_exp_after]]',
+            ),
         );
 
-        $query = (new \yii\db\Query())
+        $query = (new Query())
             ->select([
-                'battle_count'      => $column_battle_count,
-                'wp'                => $column_wp,
-                'wp_short'          => $column_wp_short,
-                'total_kill'        => $column_total_kill,
-                'total_death'       => $column_total_death,
+                'battle_count' => $column_battle_count,
+                'wp' => $column_wp,
+                'wp_short' => $column_wp_short,
+                'total_kill' => $column_total_kill,
+                'total_death' => $column_total_death,
                 'total_kd_battle_count' => $column_total_kd_battle_count,
-                'nawabari_count'    => $column_nawabari_count,
-                'nawabari_wp'       => $column_nawabari_wp,
-                'nawabari_kill'     => $column_nawabari_kill,
-                'nawabari_death'    => $column_nawabari_death,
-                'nawabari_inked'    => $column_nawabari_inked,
+                'nawabari_count' => $column_nawabari_count,
+                'nawabari_wp' => $column_nawabari_wp,
+                'nawabari_kill' => $column_nawabari_kill,
+                'nawabari_death' => $column_nawabari_death,
+                'nawabari_inked' => $column_nawabari_inked,
                 'nawabari_inked_max' => $column_nawabari_inked_max,
                 'nawabari_inked_battle' => $column_nawabari_inked_battle,
-                'gachi_count'       => $column_gachi_count,
-                'gachi_wp'          => $column_gachi_wp,
-                'gachi_kill'        => $column_gachi_kill,
-                'gachi_death'       => $column_gachi_death,
-                'gachi_kd_battle'   => $column_gachi_kd_battle,
-                'gachi_kill2'       => $column_gachi_kill2,
-                'gachi_death2'      => $column_gachi_death2,
-                'gachi_total_time'  => $column_gachi_total_time,
-                'gachi_rank_peak'   => $column_gachi_rank_peak,
+                'gachi_count' => $column_gachi_count,
+                'gachi_wp' => $column_gachi_wp,
+                'gachi_kill' => $column_gachi_kill,
+                'gachi_death' => $column_gachi_death,
+                'gachi_kd_battle' => $column_gachi_kd_battle,
+                'gachi_kill2' => $column_gachi_kill2,
+                'gachi_death2' => $column_gachi_death2,
+                'gachi_total_time' => $column_gachi_total_time,
+                'gachi_rank_peak' => $column_gachi_rank_peak,
             ])
             ->from('battle')
             ->leftJoin('turfwar_win_bonus', '{{battle}}.[[bonus_id]] = {{turfwar_win_bonus}}.[[id]]')
@@ -454,24 +462,24 @@ class UserStat extends \yii\db\ActiveRecord
     {
         return [
             'entire' => [
-                'battle_count'  => $this->battle_count,
-                'wp'            => $this->wp === null ? null : (float)$this->wp,
-                'wp_24h'        => $this->wp_short === null ? null : (float)$this->wp_short,
-                'kill'          => $this->total_kill,
-                'death'         => $this->total_death,
+                'battle_count' => $this->battle_count,
+                'wp' => $this->wp === null ? null : (float)$this->wp,
+                'wp_24h' => $this->wp_short === null ? null : (float)$this->wp_short,
+                'kill' => $this->total_kill,
+                'death' => $this->total_death,
                 'kd_available_battle' => $this->total_kd_battle_count,
             ],
             'nawabari' => [
-                'battle_count'  => $this->nawabari_count,
-                'wp'            => $this->nawabari_wp === null ? null : (float)$this->nawabari_wp,
-                'kill'          => $this->nawabari_kill,
-                'death'         => $this->nawabari_death,
+                'battle_count' => $this->nawabari_count,
+                'wp' => $this->nawabari_wp === null ? null : (float)$this->nawabari_wp,
+                'kill' => $this->nawabari_kill,
+                'death' => $this->nawabari_death,
             ],
             'gachi' => [
-                'battle_count'  => $this->gachi_count,
-                'wp'            => $this->gachi_wp === null ? null : (float)$this->gachi_wp,
-                'kill'          => $this->gachi_kill,
-                'death'         => $this->gachi_death,
+                'battle_count' => $this->gachi_count,
+                'wp' => $this->gachi_wp === null ? null : (float)$this->gachi_wp,
+                'kill' => $this->gachi_kill,
+                'death' => $this->gachi_death,
             ],
         ];
     }

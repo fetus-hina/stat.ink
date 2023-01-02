@@ -10,7 +10,13 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+
+use function array_map;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "death_reason_type".
@@ -21,7 +27,7 @@ use yii\helpers\ArrayHelper;
  *
  * @property DeathReason[] $deathReasons
  */
-class DeathReasonType extends \yii\db\ActiveRecord
+class DeathReasonType extends ActiveRecord
 {
     use openapi\Util;
 
@@ -42,7 +48,7 @@ class DeathReasonType extends \yii\db\ActiveRecord
             [['key', 'name'], 'required'],
             [['key', 'name'], 'string', 'max' => 32],
             [['key'], 'unique'],
-            [['name'], 'unique']
+            [['name'], 'unique'],
         ];
     }
 
@@ -59,7 +65,7 @@ class DeathReasonType extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getDeathReasons()
     {
@@ -87,9 +93,9 @@ class DeathReasonType extends \yii\db\ActiveRecord
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc1', 'Category'),
                         'app-death',
-                        $values
+                        $values,
                     ),
-                    ArrayHelper::getColumn($values, 'key', false)
+                    ArrayHelper::getColumn($values, 'key', false),
                 ),
                 'name' => static::oapiRef(openapi\Name::class),
             ],
@@ -110,10 +116,8 @@ class DeathReasonType extends \yii\db\ActiveRecord
             ->orderBy(['id' => SORT_ASC])
             ->all();
         return array_map(
-            function ($model) {
-                return $model->toJsonArray();
-            },
-            $models
+            fn ($model) => $model->toJsonArray(),
+            $models,
         );
     }
 }

@@ -15,6 +15,8 @@ use app\components\helpers\Translator;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
+use const SORT_ASC;
+
 /**
  * This is the model class for table "salmon_event2".
  *
@@ -85,9 +87,9 @@ class SalmonEvent2 extends ActiveRecord
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc2', 'Event'),
                         'app-salmon-event2',
-                        $values
+                        $values,
                     ),
-                    ArrayHelper::getColumn($values, 'key', false)
+                    ArrayHelper::getColumn($values, 'key', false),
                 ),
                 'splatnet' => static::oapiRef(openapi\SplatNet2ID::class),
                 'name' => static::oapiRef(openapi\Name::class),

@@ -12,6 +12,13 @@ namespace app\components\i18n;
 
 use Yii;
 
+use function file_exists;
+use function implode;
+use function is_file;
+use function is_readable;
+use function str_replace;
+use function substr;
+
 class MachineTranslateHelper
 {
     private const BASE_DIRECTORY = '@app/messages/_deepl';
@@ -38,7 +45,7 @@ class MachineTranslateHelper
     {
         static $cache = [];
         if (!isset($cache[$path])) {
-            $cache[$path] = include($path);
+            $cache[$path] = include $path;
         }
 
         return $cache[$path][$message] ?? null;
@@ -59,7 +66,7 @@ class MachineTranslateHelper
     private static function getMessagePathsImpl(string $category, string $language): ?array
     {
         $msgSource = Yii::$app->i18n->getMessageSource($category);
-        $fileName = $msgSource->fileMap[$category] ?? (str_replace('\\', '/', $category) . '.php');
+        $fileName = $msgSource->fileMap[$category] ?? str_replace('\\', '/', $category) . '.php';
         $langCandidates = [
             $language,
             substr($language, 0, 2),

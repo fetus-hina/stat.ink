@@ -33,45 +33,41 @@ class m190401_012905_spring_fest extends Migration
     {
         return array_merge(
             $this->getHeadgears(),
-            $this->getShoes()
+            $this->getShoes(),
         );
     }
 
     private function getHeadgears(): array
     {
         return array_map(
-            function (string $name): array {
-                return [
+            fn (string $name): array => [
                     static::name2key($name),
                     $name,
                     'headgear',
                     'squidforce', // not verified
                     null, // ability
                     null, // splatnet
-                ];
-            },
+                ],
             [
                 'Orange Novelty Visor',
                 'Pink Novelty Visor',
                 'Purple Novelty Visor',
                 'Green Novelty Visor',
-            ]
+            ],
         );
     }
 
     private function getShoes(): array
     {
         return array_map(
-            function (string $name): array {
-                return [
+            fn (string $name): array => [
                     static::name2key($name),
                     $name,
                     'shoes',
                     'squidforce', // not verified
                     null, // ability
                     null, // splatnet
-                ];
-            },
+                ],
             [
                 'Pearl-Scout Lace-Ups',
                 'Pearlescent Squidkid IV',
@@ -81,7 +77,7 @@ class m190401_012905_spring_fest extends Migration
                 'New-Day Arrows',
                 'Trooper Power Stripes',
                 'Midnight Slip-Ons',
-            ]
+            ],
         );
     }
 }

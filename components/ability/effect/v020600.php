@@ -8,6 +8,8 @@
 
 namespace app\components\ability\effect;
 
+use function ceil;
+
 class v020600 extends v020500
 {
     public function getCalculatorVersion()

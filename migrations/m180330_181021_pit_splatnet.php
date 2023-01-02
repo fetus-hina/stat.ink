@@ -18,7 +18,7 @@ class m180330_181021_pit_splatnet extends Migration
                 'splatnet' => 17,
                 'release_at' => '2018-03-31T11:00:00+09',
             ],
-            ['key' => 'shottsuru']
+            ['key' => 'shottsuru'],
         );
     }
 
@@ -30,7 +30,7 @@ class m180330_181021_pit_splatnet extends Migration
                 'splatnet' => null,
                 'release_at' => null,
             ],
-            ['key' => 'shottsuru']
+            ['key' => 'shottsuru'],
         );
     }
 }

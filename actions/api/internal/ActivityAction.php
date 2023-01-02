@@ -21,6 +21,17 @@ use yii\db\Query;
 use yii\helpers\ArrayHelper;
 use yii\web\Response;
 
+use function array_keys;
+use function array_map;
+use function array_values;
+use function implode;
+use function ksort;
+use function sprintf;
+use function time;
+
+use const SORT_ASC;
+use const SORT_STRING;
+
 final class ActivityAction extends Action
 {
     /** @var Response */
@@ -67,7 +78,7 @@ final class ActivityAction extends Action
                     'targetAttribute' => 'screen_name',
                 ],
                 [['only'], 'in', 'range' => ['spl1', 'spl2', 'spl3', 'salmon2', 'salmon3']],
-            ]
+            ],
         );
     }
 
@@ -108,14 +119,12 @@ final class ActivityAction extends Action
     private function reformatData(array $inData): array
     {
         return array_map(
-            function (string $date, int $count): array {
-                return [
+            fn (string $date, int $count): array => [
                     'date' => $date,
                     'count' => $count,
-                ];
-            },
+                ],
             array_keys($inData),
-            array_values($inData)
+            array_values($inData),
         );
     }
 
@@ -152,7 +161,7 @@ final class ActivityAction extends Action
                 'between',
                 $date,
                 $from->format(DateTime::ATOM),
-                $to->format(DateTime::ATOM)
+                $to->format(DateTime::ATOM),
             ])
             ->groupBy([$date])
             ->orderBy(['date' => SORT_ASC]);
@@ -180,7 +189,7 @@ final class ActivityAction extends Action
                 'between',
                 $date,
                 $from->format(DateTime::ATOM),
-                $to->format(DateTime::ATOM)
+                $to->format(DateTime::ATOM),
             ])
             ->groupBy([$date])
             ->orderBy(['date' => SORT_ASC]);
@@ -207,7 +216,7 @@ final class ActivityAction extends Action
                 'between',
                 $date,
                 $from->format(DateTime::ATOM),
-                $to->format(DateTime::ATOM)
+                $to->format(DateTime::ATOM),
             ])
             ->groupBy([$date])
             ->orderBy(['date' => SORT_ASC]);
@@ -238,7 +247,7 @@ final class ActivityAction extends Action
                 'between',
                 $date,
                 $from->format(DateTime::ATOM),
-                $to->format(DateTime::ATOM)
+                $to->format(DateTime::ATOM),
             ])
             ->groupBy([$date])
             ->orderBy(['date' => SORT_ASC]);
@@ -248,9 +257,8 @@ final class ActivityAction extends Action
     private function makeDataSplatoon3Salmon(
         User $user,
         DateTimeImmutable $from,
-        DateTimeImmutable $to
+        DateTimeImmutable $to,
     ): array {
-
         $date = sprintf('(CASE %s END)::date', implode(' ', [
             'WHEN {{%salmon3}}.[[start_at]] IS NOT NULL THEN {{%salmon3}}.[[start_at]]',
             'ELSE {{%salmon3}}.[[created_at]]',
@@ -269,7 +277,7 @@ final class ActivityAction extends Action
                 'between',
                 $date,
                 $from->format(DateTime::ATOM),
-                $to->format(DateTime::ATOM)
+                $to->format(DateTime::ATOM),
             ])
             ->groupBy([$date])
             ->orderBy(['date' => SORT_ASC]);

@@ -11,15 +11,16 @@ declare(strict_types=1);
 namespace app\actions\api\info;
 
 use Yii;
-use app\components\helpers\Translator;
 use app\models\Language;
 use app\models\SalmonWeapon3;
 use app\models\Special3;
 use app\models\Subweapon3;
 use app\models\Weapon3;
 use yii\base\Action;
-use yii\db\Query;
 use yii\helpers\ArrayHelper;
+
+use function strcmp;
+use function strnatcasecmp;
 
 final class Weapon3Action extends Action
 {
@@ -42,9 +43,9 @@ final class Weapon3Action extends Action
         $sysLang = Yii::$app->language;
         return ArrayHelper::sort(
             Language::find()->standard()->all(),
-            fn (Language $a, Language $b): int => (($a->lang === $sysLang) ? -1 : 0)
-                ?: (($b->lang === $sysLang) ? 1 : 0)
-                ?: \strnatcasecmp($a->name, $b->name),
+            fn (Language $a, Language $b): int => ($a->lang === $sysLang ? -1 : 0)
+                ?: ($b->lang === $sysLang ? 1 : 0)
+                ?: strnatcasecmp($a->name, $b->name),
         );
     }
 
@@ -55,10 +56,10 @@ final class Weapon3Action extends Action
             function (Special3 $a, Special3 $b): int {
                 $aN = Yii::t('app-special3', $a->name);
                 $bN = Yii::t('app-special3', $b->name);
-                return \strnatcasecmp($aN, $bN)
-                    ?: \strcmp($aN, $bN)
-                    ?: \strnatcasecmp($a->name, $b->name)
-                    ?: \strcmp($a->name, $b->name);
+                return strnatcasecmp($aN, $bN)
+                    ?: strcmp($aN, $bN)
+                    ?: strnatcasecmp($a->name, $b->name)
+                    ?: strcmp($a->name, $b->name);
             },
         );
     }
@@ -70,10 +71,10 @@ final class Weapon3Action extends Action
             function (Subweapon3 $a, Subweapon3 $b): int {
                 $aN = Yii::t('app-subweapon3', $a->name);
                 $bN = Yii::t('app-subweapon3', $b->name);
-                return \strnatcasecmp($aN, $bN)
-                    ?: \strcmp($aN, $bN)
-                    ?: \strnatcasecmp($a->name, $b->name)
-                    ?: \strcmp($a->name, $b->name);
+                return strnatcasecmp($aN, $bN)
+                    ?: strcmp($aN, $bN)
+                    ?: strnatcasecmp($a->name, $b->name)
+                    ?: strcmp($a->name, $b->name);
             },
         );
     }
@@ -95,10 +96,10 @@ final class Weapon3Action extends Action
                 $aN = Yii::t('app-weapon3', $a->name);
                 $bN = Yii::t('app-weapon3', $b->name);
                 return $a->mainweapon->type->rank <=> $b->mainweapon->type->rank
-                    ?:  \strnatcasecmp($aN, $bN)
-                    ?: \strcmp($aN, $bN)
-                    ?: \strnatcasecmp($a->name, $b->name)
-                    ?: \strcmp($a->name, $b->name);
+                    ?: strnatcasecmp($aN, $bN)
+                    ?: strcmp($aN, $bN)
+                    ?: strnatcasecmp($a->name, $b->name)
+                    ?: strcmp($a->name, $b->name);
             },
         );
     }
@@ -113,10 +114,10 @@ final class Weapon3Action extends Action
             function (SalmonWeapon3 $a, SalmonWeapon3 $b): int {
                 $aN = Yii::t('app-weapon3', $a->name);
                 $bN = Yii::t('app-weapon3', $b->name);
-                return \strnatcasecmp($aN, $bN)
-                    ?: \strcmp($aN, $bN)
-                    ?: \strnatcasecmp($a->name, $b->name)
-                    ?: \strcmp($a->name, $b->name);
+                return strnatcasecmp($aN, $bN)
+                    ?: strcmp($aN, $bN)
+                    ?: strnatcasecmp($a->name, $b->name)
+                    ?: strcmp($a->name, $b->name);
             },
         );
     }

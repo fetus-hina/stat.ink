@@ -13,12 +13,16 @@ namespace app\components\widgets;
 use Yii;
 use app\assets\SalmonEggAsset;
 use app\components\i18n\Formatter;
-use app\components\widgets\FA;
 use app\models\UserStatBigrun3;
 use app\models\UserStatSalmon3;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\View;
+
+use function array_map;
+use function filter_var;
+use function implode;
+use function is_int;
+use function vsprintf;
 
 use const FILTER_VALIDATE_INT;
 
@@ -40,11 +44,11 @@ final class SalmonUserInfo3 extends SalmonUserInfo
         $maxTitle = null;
         $maxTitleFull = null;
         if ($stats->peakTitle) {
-            $maxTitleFull = \vsprintf('%s %s', [
+            $maxTitleFull = vsprintf('%s %s', [
                 Yii::t('app-salmon-title3', $stats->peakTitle->name),
                 $stats->peak_title_exp === null ? '?' : $fmt->asInteger($stats->peak_title_exp),
             ]);
-            $maxTitle = ($stats->peakTitle->key === 'eggsecutive_vp' && $stats->peak_title_exp !== null)
+            $maxTitle = $stats->peakTitle->key === 'eggsecutive_vp' && $stats->peak_title_exp !== null
                 ? $fmt->asInteger($stats->peak_title_exp)
                 : Yii::t('app-salmon-title3', $stats->peakTitle->name);
         }
@@ -54,7 +58,7 @@ final class SalmonUserInfo3 extends SalmonUserInfo
                 'label' => Yii::t('app-salmon2', 'Jobs'),
                 'value' => Html::a(
                     Html::encode($fmt->asInteger((int)$stats->jobs)),
-                    ['salmon-v3/index', 'screen_name' => $this->user->screen_name]
+                    ['salmon-v3/index', 'screen_name' => $this->user->screen_name],
                 ),
                 'valueFormat' => 'raw',
                 'formatter' => $fmt,
@@ -175,9 +179,9 @@ final class SalmonUserInfo3 extends SalmonUserInfo
         ];
         return Html::tag(
             'div',
-            \implode(
+            implode(
                 '',
-                \array_map(
+                array_map(
                     fn (array $item): string => MiniinfoData::widget($item),
                     $data,
                 ),
@@ -206,7 +210,7 @@ final class SalmonUserInfo3 extends SalmonUserInfo
                         'btn-block',
                         'btn-default',
                     ],
-                ]
+                ],
             ),
             ['class' => 'miniinfo-databox'],
         );
@@ -216,7 +220,7 @@ final class SalmonUserInfo3 extends SalmonUserInfo
     {
         return Html::tag(
             'div',
-            \implode('', [
+            implode('', [
                 Html::tag(
                     'div',
                     Html::encode(Yii::t('app', 'Activity')),
@@ -253,12 +257,12 @@ final class SalmonUserInfo3 extends SalmonUserInfo
 
     protected function getBigRunHighScore(): ?int
     {
-        $v = \filter_var(
+        $v = filter_var(
             UserStatBigrun3::find()
                 ->andWhere(['user_id' => $this->user->id])
                 ->max('golden_eggs'),
             FILTER_VALIDATE_INT,
         );
-        return \is_int($v) ? $v : null;
+        return is_int($v) ? $v : null;
     }
 }

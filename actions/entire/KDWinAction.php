@@ -17,7 +17,16 @@ use app\models\Map;
 use app\models\Rule;
 use app\models\StatWeaponKDWinRate;
 use app\models\WeaponType;
+use stdClass;
+use yii\db\Query;
 use yii\web\ViewAction as BaseAction;
+
+use function array_merge;
+use function asort;
+use function range;
+use function strcmp;
+use function substr;
+use function usort;
 
 class KDWinAction extends BaseAction
 {
@@ -40,9 +49,7 @@ class KDWinAction extends BaseAction
                     'data' => $this->makeData($rule, $filter),
                 ];
             }
-            usort($tmpData, function (\stdClass $a, \stdClass $b): int {
-                return strcmp($a->name, $b->name);
-            });
+            usort($tmpData, fn (stdClass $a, stdClass $b): int => strcmp($a->name, $b->name));
             $data = array_merge($data, $tmpData);
         }
 
@@ -82,12 +89,12 @@ class KDWinAction extends BaseAction
     private function query(Rule $rule, BattleFilterForm $filter): array
     {
         $t = StatWeaponKDWinRate::tableName();
-        $query = (new \yii\db\Query())
+        $query = (new Query())
             ->select([
-                'kill'  => "{{{$t}}}.[[kill]]",
+                'kill' => "{{{$t}}}.[[kill]]",
                 'death' => "{{{$t}}}.[[death]]",
                 'count' => "SUM({{{$t}}}.[[battle_count]])",
-                'win'   => "SUM({{{$t}}}.[[win_count]])",
+                'win' => "SUM({{{$t}}}.[[win_count]])",
             ])
             ->from($t)
             ->andWhere(["{{{$t}}}.[[rule_id]]" => $rule->id])
@@ -109,7 +116,7 @@ class KDWinAction extends BaseAction
                         $query
                             ->innerJoin(
                                 'weapon_type',
-                                '{{weapon}}.[[type_id]] = {{weapon_type}}.[[id]]'
+                                '{{weapon}}.[[type_id]] = {{weapon_type}}.[[id]]',
                             )
                             ->andWhere([
                                 '{{weapon_type}}.[[key]]' => substr($filter->weapon, 1),
@@ -120,7 +127,7 @@ class KDWinAction extends BaseAction
                         $query
                             ->innerJoin(
                                 'subweapon',
-                                '{{weapon}}.[[subweapon_id]] = {{subweapon}}.[[id]]'
+                                '{{weapon}}.[[subweapon_id]] = {{subweapon}}.[[id]]',
                             )
                             ->andWhere([
                                 '{{subweapon}}.[[key]]' => substr($filter->weapon, 1),
@@ -131,7 +138,7 @@ class KDWinAction extends BaseAction
                         $query
                             ->innerJoin(
                                 'special',
-                                '{{weapon}}.[[special_id]] = {{special}}.[[id]]'
+                                '{{weapon}}.[[special_id]] = {{special}}.[[id]]',
                             )
                             ->andWhere([
                                 '{{special}}.[[key]]' => substr($filter->weapon, 1),
@@ -152,7 +159,7 @@ class KDWinAction extends BaseAction
         asort($ret);
         return array_merge(
             ['' => Yii::t('app-map', 'Any Stage')],
-            $ret
+            $ret,
         );
     }
 
@@ -175,7 +182,7 @@ class KDWinAction extends BaseAction
                     }
                     asort($list);
                     return $list;
-                })()
+                })(),
             );
         }
         return $ret;

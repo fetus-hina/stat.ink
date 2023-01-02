@@ -8,8 +8,6 @@
 
 namespace app\components\web;
 
-use Yii;
-
 class Response extends \yii\web\Response
 {
 }

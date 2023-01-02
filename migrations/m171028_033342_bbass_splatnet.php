@@ -15,7 +15,7 @@ class m171028_033342_bbass_splatnet extends Migration
         $this->update(
             'map2',
             ['splatnet' => 11],
-            ['key' => 'bbass']
+            ['key' => 'bbass'],
         );
     }
 
@@ -24,7 +24,7 @@ class m171028_033342_bbass_splatnet extends Migration
         $this->update(
             'map2',
             ['splatnet' => null],
-            ['key' => 'bbass']
+            ['key' => 'bbass'],
         );
     }
 }

@@ -10,10 +10,11 @@ namespace app\actions\ostatus;
 
 use Yii;
 use app\components\helpers\BattleAtom;
-use app\models\Battle;
 use app\models\User;
 use yii\web\Response;
 use yii\web\ViewAction as BaseAction;
+
+use function trim;
 
 class FeedAction extends BaseAction
 {
@@ -24,7 +25,7 @@ class FeedAction extends BaseAction
         Yii::$app->timeZone = 'Etc/UTC';
         Yii::$app->language = 'ja-JP';
 
-        if (!$user = $this->user) {
+        if (!$user = $this->getUser()) {
             return $this->http404();
         }
 

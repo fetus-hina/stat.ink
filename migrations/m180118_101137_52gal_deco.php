@@ -23,7 +23,7 @@ class m180118_101137_52gal_deco extends Migration
             'presser',
             '52gal',
             null,
-            51
+            51,
         );
     }
 

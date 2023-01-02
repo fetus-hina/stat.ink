@@ -20,6 +20,12 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\View;
 
+use function array_filter;
+use function array_map;
+use function call_user_func;
+use function implode;
+use function is_callable;
+
 final class SalmonWaves extends Widget
 {
     public $work;
@@ -65,9 +71,9 @@ final class SalmonWaves extends Widget
                         'table-bordered',
                         'table-striped',
                     ],
-                ]
+                ],
             ),
-            ['class' => 'table-responsive']
+            ['class' => 'table-responsive'],
         );
     }
 
@@ -76,16 +82,16 @@ final class SalmonWaves extends Widget
         return Html::tag('thead', Html::tag('tr', implode('', [
             Html::tag('th', ''),
             Html::tag('th', Html::encode(
-                Yii::t('app-salmon2', 'Wave {waveNumber}', ['waveNumber' => 1])
+                Yii::t('app-salmon2', 'Wave {waveNumber}', ['waveNumber' => 1]),
             )),
             Html::tag('th', Html::encode(
-                Yii::t('app-salmon2', 'Wave {waveNumber}', ['waveNumber' => 2])
+                Yii::t('app-salmon2', 'Wave {waveNumber}', ['waveNumber' => 2]),
             )),
             Html::tag('th', Html::encode(
-                Yii::t('app-salmon2', 'Wave {waveNumber}', ['waveNumber' => 3])
+                Yii::t('app-salmon2', 'Wave {waveNumber}', ['waveNumber' => 3]),
             )),
             Html::tag('th', Html::encode(
-                Yii::t('app', 'Total')
+                Yii::t('app', 'Total'),
             )),
         ])));
     }
@@ -93,7 +99,7 @@ final class SalmonWaves extends Widget
     protected function renderBody(): string
     {
         $data = array_filter([
-            ($this->work && $this->work->clear_waves !== null)
+            $this->work && $this->work->clear_waves !== null
                 ? [
                     'label' => '',
                     'format' => 'raw',
@@ -122,9 +128,7 @@ final class SalmonWaves extends Widget
                 'label' => Yii::t('app-salmon-event2', 'Event'),
                 'format' => 'text',
                 'total' => null,
-                'value' => function (SalmonWave2 $wave, int $waveNumber, self $widget): ?string {
-                    return Yii::t('app-salmon-event2', $wave->event->name ?? null);
-                },
+                'value' => fn (SalmonWave2 $wave, int $waveNumber, self $widget): ?string => Yii::t('app-salmon-event2', $wave->event->name ?? null),
             ],
             [
                 'label' => Yii::t('app-salmon-tide2', 'Water Level'),
@@ -148,7 +152,7 @@ final class SalmonWaves extends Widget
 
                     if (!isset($options[$wave->water->key])) {
                         return Html::encode(
-                            Yii::t('app-salmon-tide2', $wave->water->name ?? null)
+                            Yii::t('app-salmon-tide2', $wave->water->name ?? null),
                         );
                     }
 
@@ -167,14 +171,14 @@ final class SalmonWaves extends Widget
                                 'style' => [
                                     'width' => $opt['width'],
                                 ],
-                            ]
+                            ],
                         ),
                         [
                             'class' => 'progress',
                             'style' => [
                                 'margin-bottom' => '0',
                             ],
-                        ]
+                        ],
                     );
                 },
             ],
@@ -204,10 +208,8 @@ final class SalmonWaves extends Widget
             ],
         ]);
         return Html::tag('tbody', implode('', array_map(
-            function (array $row): string {
-                return $this->renderRow($row);
-            },
-            $data
+            fn (array $row): string => $this->renderRow($row),
+            $data,
         )));
     }
 
@@ -227,7 +229,7 @@ final class SalmonWaves extends Widget
         return Html::tag(
             'th',
             $this->formatter->asText($rowInfo['label']),
-            ['scope' => 'row']
+            ['scope' => 'row'],
         );
     }
 
@@ -237,8 +239,8 @@ final class SalmonWaves extends Widget
             'td',
             $this->formatter->format(
                 $this->renderCellValue($rowInfo, $wave, $waveNumber),
-                ArrayHelper::getValue($rowInfo, 'format', 'text')
-            )
+                ArrayHelper::getValue($rowInfo, 'format', 'text'),
+            ),
         );
     }
 
@@ -298,7 +300,7 @@ final class SalmonWaves extends Widget
                 }
                 return $this->formatter->format(
                     $total,
-                    ArrayHelper::getValue($rowInfo, 'format', 'text')
+                    ArrayHelper::getValue($rowInfo, 'format', 'text'),
                 );
         }
     }

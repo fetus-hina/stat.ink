@@ -8,13 +8,25 @@
 
 namespace app\commands;
 
+use Throwable;
 use Yii;
-use yii\console\Controller;
-use yii\helpers\Console;
 use app\models\Region;
 use app\models\Splatfest;
 use app\models\SplatfestBattleSummary;
 use app\models\SplatfestTeam;
+use yii\console\Controller;
+
+use function array_map;
+use function date;
+use function floor;
+use function implode;
+use function microtime;
+use function min;
+use function printf;
+use function range;
+use function sprintf;
+use function strtotime;
+use function time;
 
 class SplatfestController extends Controller
 {
@@ -30,8 +42,8 @@ class SplatfestController extends Controller
         foreach ($query->all() as $fest) {
             try {
                 $this->actionUpdate($fest->region->key, $fest->order);
-            } catch (\Exception $e) {
-                echo "Catch exception: " . $e->getMessage() . "\n";
+            } catch (Throwable $e) {
+                echo 'Catch exception: ' . $e->getMessage() . "\n";
             }
         }
     }
@@ -84,7 +96,7 @@ class SplatfestController extends Controller
         echo "    > create temporary table tmp_summary_ts ...\n";
         Yii::$app->db->createCommand(
             'CREATE TEMPORARY TABLE {{tmp_summary_ts}} ' .
-            '( [[timestamp]] TIMESTAMP (0) WITH TIME ZONE NOT NULL PRIMARY KEY )'
+            '( [[timestamp]] TIMESTAMP (0) WITH TIME ZONE NOT NULL PRIMARY KEY )',
         )->execute();
 
         echo "    > insert tmp_summary_ts ...\n";
@@ -92,12 +104,10 @@ class SplatfestController extends Controller
             echo "    >> skip (future)\n";
         } else {
             Yii::$app->db->createCommand()->batchInsert('tmp_summary_ts', ['timestamp'], array_map(
-                function ($at) {
-                    return [
+                fn ($at) => [
                         date('Y-m-d\TH:i:sP', $at),
-                    ];
-                },
-                range($start_at, $end_at, 120)
+                    ],
+                range($start_at, $end_at, 120),
             ))->execute();
         }
     }
@@ -105,7 +115,7 @@ class SplatfestController extends Controller
     private function createBattleSummaryTmpTable($tableName, Splatfest $fest, $hueMy, $hueHis)
     {
         $t1 = microtime(true);
-        printf("    > create temporary table %s ... ", $tableName);
+        printf('    > create temporary table %s ... ', $tableName);
 
         $timestamp_ = 'CEILING(EXTRACT(EPOCH FROM {{battle}}.[[end_at]]) / 120) * 120';
         $timestamp = "TO_TIMESTAMP({$timestamp_})";
@@ -139,7 +149,7 @@ class SplatfestController extends Controller
         $sql = sprintf(
             'CREATE TEMPORARY TABLE {{%s}} AS %s',
             $tableName,
-            $select
+            $select,
         );
         $command = Yii::$app->db->createCommand($sql)->bindValues($bind);
         $command->execute();
@@ -165,7 +175,7 @@ class SplatfestController extends Controller
             'LEFT JOIN {{tmp_summary_a}} AS {{a}} ON {{ts}}.[[timestamp]] = {{a}}.[[timestamp]] ' .
             'LEFT JOIN {{tmp_summary_b}} AS {{b}} ON {{ts}}.[[timestamp]] = {{b}}.[[timestamp]] ';
         Yii::$app->db
-            ->createCommand("INSERT INTO {{splatfest_battle_summary}} " . $select)
+            ->createCommand('INSERT INTO {{splatfest_battle_summary}} ' . $select)
             ->bindValues([
                 ':fest_id' => $fest->id,
                 ':now' => date('Y-m-d\TH:i:sP', (int)(@$_SERVER['REQUEST_TIME'] ?: time())),
@@ -176,7 +186,7 @@ class SplatfestController extends Controller
     private function createHueRange($column, $hue, $permitError = 6)
     {
         $hue = (int)$hue;
-        $low  = $hue - $permitError;
+        $low = $hue - $permitError;
         $high = $hue + $permitError;
         if ($low < 0) {
             $low += 360;
@@ -193,7 +203,7 @@ class SplatfestController extends Controller
     {
         foreach (['tmp_summary_ts', 'tmp_summary_a', 'tmp_summary_b'] as $tableName) {
             $t1 = microtime(true);
-            printf("    > drop temporary table %s ... ", $tableName);
+            printf('    > drop temporary table %s ... ', $tableName);
             $sql = sprintf('DROP TABLE {{%s}}', $tableName);
             Yii::$app->db->createCommand($sql)->execute();
             $t2 = microtime(true);

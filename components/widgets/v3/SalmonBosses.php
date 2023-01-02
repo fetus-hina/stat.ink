@@ -25,6 +25,16 @@ use yii\helpers\Html;
 use yii\i18n\Formatter as BaseFormatter;
 use yii\web\View;
 
+use function implode;
+use function is_int;
+use function max;
+use function sprintf;
+use function trim;
+use function vsprintf;
+
+use const SORT_ASC;
+use const SORT_DESC;
+
 final class SalmonBosses extends Widget
 {
     public Salmon3 $job;
@@ -70,7 +80,7 @@ final class SalmonBosses extends Widget
                         'table-bordered',
                         'table-striped',
                     ],
-                ]
+                ],
             ),
             [
                 'class' => [
@@ -86,7 +96,7 @@ final class SalmonBosses extends Widget
             'thead',
             Html::tag(
                 'tr',
-                \implode('', [
+                implode('', [
                     Html::tag(
                         'th',
                         Html::encode(Yii::t('app-salmon2', 'Boss Salmonid')),
@@ -137,14 +147,14 @@ final class SalmonBosses extends Widget
             ])
             ->all();
 
-        $maxAppearances = \max(ArrayHelper::getColumn($data, 'appearances'));
-        $body = \implode(
+        $maxAppearances = max(ArrayHelper::getColumn($data, 'appearances'));
+        $body = implode(
             '',
             ArrayHelper::getColumn(
                 $data,
                 fn (SalmonBossAppearance3 $model): string => Html::tag(
                     'tr',
-                    \implode('', [
+                    implode('', [
                         $this->renderBossSalmonid($model),
                         $this->renderDefeated($model),
                         $this->renderAppearances($model),
@@ -172,15 +182,15 @@ final class SalmonBosses extends Widget
 
         $iconHtml = $am && $asset
             ? Html::img(
-                $am->getAssetUrl($asset, \sprintf('%s.png', $model->boss->key)),
+                $am->getAssetUrl($asset, sprintf('%s.png', $model->boss->key)),
                 ['class' => 'basic-icon'],
             )
             : '';
 
         return Html::tag(
             'th',
-            \trim(
-                \vsprintf('%s %s %s', [
+            trim(
+                vsprintf('%s %s %s', [
                     $iconHtml,
                     Html::encode(Yii::t('app-salmon-boss3', $model->boss->name)),
                     $this->isAllDefeated($model) && !$this->isBrokenData($model)
@@ -200,14 +210,14 @@ final class SalmonBosses extends Widget
 
         return Html::tag(
             'td',
-            \trim(
+            trim(
                 $model->defeated_by_me > 0
-                    ? \vsprintf('%s %s', [
+                    ? vsprintf('%s %s', [
                         Html::encode($this->formatter->asInteger($model->defeated)),
                         Html::tag(
                             'small',
                             Html::encode(
-                                \vsprintf('(%s)', [
+                                vsprintf('(%s)', [
                                     $this->formatter->asInteger($model->defeated_by_me),
                                 ]),
                             ),
@@ -233,9 +243,9 @@ final class SalmonBosses extends Widget
         $f = $this->formatter;
         if (
             $maxAppearances < 1 ||
-            !\is_int($model->defeated_by_me) ||
-            !\is_int($model->defeated) ||
-            !\is_int($model->appearances) ||
+            !is_int($model->defeated_by_me) ||
+            !is_int($model->defeated) ||
+            !is_int($model->appearances) ||
             $model->appearances < 1
         ) {
             return Html::tag('td', '');
@@ -244,7 +254,7 @@ final class SalmonBosses extends Widget
         if ($this->isBrokenData($model)) {
             return Html::tag(
                 'td',
-                \vsprintf('%s %s', [
+                vsprintf('%s %s', [
                     Emoji::cp(Emoji::CP_CROSS_MARK),
                     Yii::t('app', 'It looks this data is corrupt.'),
                 ]),
@@ -371,19 +381,19 @@ final class SalmonBosses extends Widget
         $f = $this->formatter;
         return Html::tag(
             'tr',
-            \implode('', [
+            implode('', [
                 Html::tag(
                     'th',
                     Html::encode(Yii::t('app', 'Total')),
                     [
                         'class' => 'text-center',
                         'scope' => 'row',
-                    ]
+                    ],
                 ),
                 Html::tag(
                     'td',
                     Html::encode(
-                        \vsprintf('%s (%s)', [
+                        vsprintf('%s (%s)', [
                             $f->asInteger($defeated),
                             $f->asInteger($defeatedByMe),
                         ]),

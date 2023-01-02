@@ -13,6 +13,12 @@ use Yii;
 use app\components\widgets\TimestampColumnWidget;
 use yii\helpers\Html;
 
+use function gmdate;
+use function implode;
+use function is_int;
+use function pow;
+use function sprintf;
+
 class Formatter extends \yii\i18n\Formatter
 {
     public function asHtmlDatetime($value, $format = null)
@@ -33,7 +39,7 @@ class Formatter extends \yii\i18n\Formatter
                 $this->asDate($timestamp, $formatD),
                 $this->asTime($timestamp, $formatT),
             ])),
-            ['datetime' => gmdate(Datetime::ATOM, $timestamp)]
+            ['datetime' => gmdate(Datetime::ATOM, $timestamp)],
         );
     }
 
@@ -51,7 +57,7 @@ class Formatter extends \yii\i18n\Formatter
               'datetime' => gmdate(Datetime::ATOM, $timestamp),
               'title' => $this->asDatetime($timestamp, 'medium'),
               'class' => 'auto-tooltip',
-            ]
+            ],
         );
     }
 
@@ -85,7 +91,7 @@ class Formatter extends \yii\i18n\Formatter
                 return sprintf(
                     '%s%s',
                     $this->asDecimal($value / $weight, $decimal),
-                    $prefix
+                    $prefix,
                 );
             }
         }

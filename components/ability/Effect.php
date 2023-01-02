@@ -11,6 +11,8 @@ namespace app\components\ability;
 use Yii;
 use app\models\Battle;
 
+use function version_compare;
+
 class Effect
 {
     public static function factory(Battle $battle)
@@ -30,9 +32,9 @@ class Effect
         foreach ($list as $classVersion => $className) {
             if (version_compare($classVersion, $gameVersion, '<=')) {
                 return Yii::createObject([
-                    'class'     => $className,
-                    'battle'    => $battle,
-                    'version'   => $gameVersion,
+                    'class' => $className,
+                    'battle' => $battle,
+                    'version' => $gameVersion,
                 ]);
             }
         }

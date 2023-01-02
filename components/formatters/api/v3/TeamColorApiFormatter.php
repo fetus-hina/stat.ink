@@ -10,8 +10,6 @@ declare(strict_types=1);
 
 namespace app\components\formatters\api\v3;
 
-use Yii;
-
 final class TeamColorApiFormatter
 {
     public static function toJson(?string $value, bool $fullTranslate): ?string

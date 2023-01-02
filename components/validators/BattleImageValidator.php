@@ -12,6 +12,15 @@ use Yii;
 use yii\validators\Validator;
 use yii\web\UploadedFile;
 
+use function file_get_contents;
+use function imagecreatefromstring;
+use function imagedestroy;
+use function imagesx;
+use function imagesy;
+use function is_file;
+use function is_readable;
+use function is_string;
+
 final class BattleImageValidator extends Validator
 {
     public const FILESIZE_LIMIT = 3 * 1024 * 1024;
@@ -64,29 +73,29 @@ final class BattleImageValidator extends Validator
             if (
                 $value->hasError ||
                 $value->size > self::FILESIZE_LIMIT ||
-                \is_file($value->tempName) ||
-                \is_readable($value->tempName)
+                is_file($value->tempName) ||
+                is_readable($value->tempName)
             ) {
                 return false;
             }
 
-            if (!$value = @\file_get_contents($value->tempName)) {
+            if (!$value = @file_get_contents($value->tempName)) {
                 return false;
             }
         }
 
-        if (!\is_string($value)) {
+        if (!is_string($value)) {
             return false;
         }
 
-        if (!$gd = @\imagecreatefromstring($value)) {
+        if (!$gd = @imagecreatefromstring($value)) {
             return false;
         }
         try {
-            return \imagesx($gd) > 100 &&
-                \imagesy($gd) > 100 &&
-                \imagesx($gd) <= 3840 &&
-                \imagesy($gd) <= 2160;
+            return imagesx($gd) > 100 &&
+                imagesy($gd) > 100 &&
+                imagesx($gd) <= 3840 &&
+                imagesy($gd) <= 2160;
         } finally {
             @imagedestroy($gd);
         }

@@ -16,13 +16,15 @@ use DateTimeZone;
 use Yii;
 use app\assets\SalmonEggAsset;
 use app\assets\SimpleBattleListAsset;
-use app\components\widgets\ActiveRelativeTimeWidget;
 use app\models\Salmon3;
 use app\models\SalmonPlayer3;
 use app\models\User;
 use yii\base\Widget;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+
+use function implode;
+use function vsprintf;
 
 final class SalmonItem3Widget extends Widget
 {
@@ -55,10 +57,10 @@ final class SalmonItem3Widget extends Widget
                 Html::a(
                     Html::tag(
                         'div',
-                        \implode('', [
+                        implode('', [
                             Html::tag(
                                 'div',
-                                \implode('', [
+                                implode('', [
                                     $this->renderResultHtml(),
                                     $this->renderDataHtml(),
                                 ]),
@@ -68,7 +70,7 @@ final class SalmonItem3Widget extends Widget
                                 'div',
                                 $this->renderDatetimeHtml(),
                                 ['class' => 'simple-battle-at'],
-                            )
+                            ),
                         ]),
                         ['class' => 'simple-battle-row-impl'],
                     ),
@@ -108,7 +110,7 @@ final class SalmonItem3Widget extends Widget
 
             return Html::tag(
                 'div',
-                \implode('', [
+                implode('', [
                     Html::tag(
                         'div',
                         Html::encode(Yii::t('app-salmon2', '✓')),
@@ -117,7 +119,7 @@ final class SalmonItem3Widget extends Widget
                         'div',
                         Html::encode(Yii::t('app-salmon-boss3', $this->model->kingSalmonid->name)),
                         [
-                            'class' => \implode(' ', [
+                            'class' => implode(' ', [
                                 'small',
                                 $this->model->clear_extra === null
                                     ? 'simple-battle-result-unk'
@@ -144,7 +146,7 @@ final class SalmonItem3Widget extends Widget
     {
         return Html::tag(
             'div',
-            \implode('', [
+            implode('', [
                 Html::tag(
                     'div',
                     Html::encode($this->getMapName()),
@@ -190,12 +192,12 @@ final class SalmonItem3Widget extends Widget
     protected function getHazardLevel(): string
     {
         if ($this->model->danger_rate === null) {
-            return \vsprintf('%s: ?', [
+            return vsprintf('%s: ?', [
                 Yii::t('app-salmon2', 'Hazard Level'),
             ]);
         }
 
-        return \vsprintf('%s: %s', [
+        return vsprintf('%s: %s', [
             Yii::t('app-salmon2', 'Hazard Level'),
             Yii::$app->formatter->asPercent((int)$this->model->danger_rate / 100, 0),
         ]);

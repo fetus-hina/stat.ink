@@ -11,10 +11,10 @@ declare(strict_types=1);
 namespace app\components\widgets\kdWin;
 
 use Yii;
-use app\assets\EntireKDWinAsset;
 use yii\base\Widget;
-use yii\bootstrap\BootstrapAsset;
 use yii\helpers\Html;
+
+use function implode;
 
 class LegendWidget extends Widget
 {
@@ -26,7 +26,7 @@ class LegendWidget extends Widget
             Html::tag(
                 'h3',
                 Html::encode(Yii::t('app', 'Legend')),
-                ['id' => $this->id . '-legend']
+                ['id' => $this->id . '-legend'],
             ),
             Html::tag('div', implode('', [
                 LegendPercentageWidget::widget(['id' => $this->id . '-pct']),

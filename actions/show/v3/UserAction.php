@@ -21,6 +21,12 @@ use yii\helpers\Url;
 use yii\web\Cookie;
 use yii\web\NotFoundHttpException;
 
+use function array_merge;
+use function strpos;
+use function time;
+
+use const SORT_DESC;
+
 final class UserAction extends Action
 {
     public function run()
@@ -42,7 +48,7 @@ final class UserAction extends Action
                         'name' => 'battle-list',
                         'value' => $view,
                         'expire' => time() + 86400 * 366,
-                    ])
+                    ]),
                 );
             }
 
@@ -82,13 +88,13 @@ final class UserAction extends Action
         }
 
         $permLink = Url::to(
-            \array_merge(
+            array_merge(
                 $form->toPermLink(),
                 ['show-v3/user',
                     'screen_name' => $user->screen_name,
                 ],
             ),
-            true
+            true,
         );
         $template = $this->viewMode === 'simple' ? 'user.simple.php' : 'user';
         $battleDataProvider = Yii::createObject([

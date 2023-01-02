@@ -8,8 +8,13 @@
 
 namespace app\models;
 
-use Yii;
+use DateTimeInterface;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+
+use function gmdate;
+use function is_int;
+use function time;
 
 /**
  * This is the model class for table "splatoon_version2".
@@ -33,7 +38,7 @@ class SplatoonVersion2 extends ActiveRecord
         }
         if (is_int($at)) {
             $at = gmdate('Y-m-d\TH:i:sP', $at);
-        } elseif ($at instanceof \DateTimeInterface) {
+        } elseif ($at instanceof DateTimeInterface) {
             $at = $at->format('Y-m-d\TH:i:sP');
         }
         return static::find()
@@ -86,7 +91,7 @@ class SplatoonVersion2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattles()
     {
@@ -94,7 +99,7 @@ class SplatoonVersion2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getGroup()
     {
@@ -102,7 +107,7 @@ class SplatoonVersion2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getStatWeapon2Results()
     {

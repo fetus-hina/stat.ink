@@ -8,9 +8,16 @@
 
 namespace app\models;
 
-use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+
+use function array_filter;
+use function array_shift;
+use function count;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "fest_title".
@@ -23,7 +30,7 @@ use yii\helpers\ArrayHelper;
  * @property FestTitleGender[] $festTitleGenders
  * @property Gender[] $genders
  */
-class FestTitle extends \yii\db\ActiveRecord
+class FestTitle extends ActiveRecord
 {
     public static function find()
     {
@@ -65,7 +72,7 @@ class FestTitle extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattles()
     {
@@ -73,7 +80,7 @@ class FestTitle extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getFestTitleGenders()
     {
@@ -81,7 +88,7 @@ class FestTitle extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getGenders()
     {
@@ -90,7 +97,7 @@ class FestTitle extends \yii\db\ActiveRecord
             ->viaTable('fest_title_gender', ['title_id' => 'id']);
     }
 
-    public function getName(Gender $gender = null)
+    public function getName(?Gender $gender = null)
     {
         // 性別不明なとき
         if ($gender === null) {
@@ -110,16 +117,14 @@ class FestTitle extends \yii\db\ActiveRecord
             $cache = ArrayHelper::map(
                 FestTitleGender::find()->orderBy(['title_id' => SORT_ASC, 'gender_id' => SORT_ASC])->all(),
                 'gender_id',
-                function (FestTitleGender $model): FestTitleGender {
-                    return $model;
-                },
-                'title_id'
+                fn (FestTitleGender $model): FestTitleGender => $model,
+                'title_id',
             );
         }
         return $cache[$this->id][$gender->id] ?? null;
     }
 
-    public function toJsonArray(Gender $gender = null, string $theme = null)
+    public function toJsonArray(?Gender $gender = null, ?string $theme = null)
     {
         return [
             'key' => $this->key,
@@ -127,9 +132,7 @@ class FestTitle extends \yii\db\ActiveRecord
                 if ($gender === null) {
                     return Translator::translateToAll('app-fest', $this->name);
                 }
-                $genders = array_filter($this->festTitleGenders, function ($row) use ($gender) {
-                    return $row->gender_id == $gender->id;
-                });
+                $genders = array_filter($this->festTitleGenders, fn ($row) => $row->gender_id == $gender->id);
                 if (count($genders) !== 1) {
                     return Translator::translateToAll('app-fest', $this->name);
                 }

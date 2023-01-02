@@ -9,14 +9,18 @@
 namespace app\actions\show;
 
 use Yii;
+use app\models\Battle;
+use app\models\BattleFilterForm;
+use app\models\User;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Url;
 use yii\web\Cookie;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
-use app\models\BattleFilterForm;
-use app\models\Battle;
-use app\models\User;
+
+use function array_merge;
+use function strpos;
+use function time;
 
 class UserAction extends BaseAction
 {
@@ -37,7 +41,7 @@ class UserAction extends BaseAction
                         'name' => 'battle-list',
                         'value' => $view,
                         'expire' => time() + 86400 * 366,
-                    ])
+                    ]),
                 );
             }
 
@@ -73,23 +77,23 @@ class UserAction extends BaseAction
         $permLink = Url::to(
             array_merge(
                 ['show/user', 'screen_name' => $user->screen_name],
-                $filter->hasErrors() ? [] : $filter->toPermLink()
+                $filter->hasErrors() ? [] : $filter->toPermLink(),
             ),
-            true
+            true,
         );
 
         $template = $this->getViewMode() === 'simple' ? 'user.simple.php' : 'user.php';
         return $this->controller->render($template, [
-            'user'      => $user,
+            'user' => $user,
             'battleDataProvider' => new ActiveDataProvider([
                 'query' => $battle,
                 'pagination' => [
                     'pageSize' => 100,
                 ],
             ]),
-            'summary'   => $summary,
-            'filter'    => $filter,
-            'permLink'  => $permLink,
+            'summary' => $summary,
+            'filter' => $filter,
+            'permLink' => $permLink,
         ]);
     }
 

@@ -10,7 +10,14 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+
+use function array_map;
+use function array_merge;
+
+use const SORT_ASC;
 
 /**
  * This is the model class for table "brand".
@@ -24,7 +31,7 @@ use yii\helpers\ArrayHelper;
  * @property Ability $strength
  * @property Ability $weakness
  */
-class Brand extends \yii\db\ActiveRecord
+class Brand extends ActiveRecord
 {
     use openapi\Util;
 
@@ -45,7 +52,7 @@ class Brand extends \yii\db\ActiveRecord
             [['key', 'name'], 'required'],
             [['strength_id', 'weakness_id'], 'integer'],
             [['key', 'name'], 'string', 'max' => 32],
-            [['key'], 'unique']
+            [['key'], 'unique'],
         ];
     }
 
@@ -64,7 +71,7 @@ class Brand extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getStrength()
     {
@@ -72,7 +79,7 @@ class Brand extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getWeakness()
     {
@@ -102,9 +109,9 @@ class Brand extends \yii\db\ActiveRecord
                     static::oapiKeyValueTable(
                         Yii::t('app-apidoc1', 'Brand'),
                         'app-brand',
-                        $values
+                        $values,
                     ),
-                    ArrayHelper::getColumn($values, 'key', false)
+                    ArrayHelper::getColumn($values, 'key', false),
                 ),
                 'name' => static::oapiRef(openapi\Name::class),
                 'strength' => array_merge(Ability::openApiSchema(), [
@@ -133,10 +140,8 @@ class Brand extends \yii\db\ActiveRecord
             ->orderBy(['key' => SORT_ASC])
             ->all();
         return array_map(
-            function ($model) {
-                return $model->toJsonArray();
-            },
-            $models
+            fn ($model) => $model->toJsonArray(),
+            $models,
         );
     }
 }

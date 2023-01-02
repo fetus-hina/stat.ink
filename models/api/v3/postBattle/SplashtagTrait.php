@@ -13,7 +13,8 @@ namespace app\models\api\v3\postBattle;
 use Yii;
 use app\components\helpers\CriticalSection;
 use app\models\SplashtagTitle3;
-use app\models\api\v3\postBattle\TypeHelperTrait;
+
+use function sprintf;
 
 trait SplashtagTrait
 {
@@ -55,7 +56,7 @@ trait SplashtagTrait
         // もし3桁以下の数字だったら0埋めする
         $intVal = self::intVal($value);
         if ($intVal && $intVal < 1000) {
-            return \sprintf('%04d', $intVal);
+            return sprintf('%04d', $intVal);
         }
 
         return self::strVal($value);

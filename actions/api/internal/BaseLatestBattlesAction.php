@@ -18,22 +18,20 @@ use app\actions\api\internal\latestBattles\Battle2Formatter;
 use app\actions\api\internal\latestBattles\Battle3Formatter;
 use app\actions\api\internal\latestBattles\Salmon2Formatter;
 use app\actions\api\internal\latestBattles\Salmon3Formatter;
-use app\assets\GameModeIconsAsset;
 use app\assets\NoDependedAppAsset;
-use app\assets\Spl3StageAsset;
-use app\components\helpers\CombinedBattles;
+use app\models\Battle;
 use app\models\Battle2;
 use app\models\Battle3;
-use app\models\Battle;
 use app\models\Salmon2;
 use app\models\Salmon3;
-use yii\db\Transaction;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\ViewAction;
 
 use function array_filter;
-use function strtotime;
+use function array_merge;
+use function array_values;
+use function preg_replace;
 use function time;
 
 abstract class BaseLatestBattlesAction extends ViewAction
@@ -47,6 +45,7 @@ abstract class BaseLatestBattlesAction extends ViewAction
     private DateTimeImmutable $now;
 
     abstract protected function fetchBattles(): array;
+
     abstract protected function getHeading(): string;
 
     protected function isPrecheckOK(): bool
@@ -103,33 +102,31 @@ abstract class BaseLatestBattlesAction extends ViewAction
                 ['now' => Yii::t('app-reltime', 'now')],
                 ArrayHelper::getColumn(
                     $reltimes,
-                    function (string $format): array {
-                        return [
+                    fn (string $format): array => [
                             'one' => preg_replace(
                                 '/\b1\b/',
                                 '{delta}',
-                                Yii::t('app-reltime', $format, ['delta' => 1])
+                                Yii::t('app-reltime', $format, ['delta' => 1]),
                             ),
                             'many' => preg_replace(
                                 '/\b42\b/',
                                 '{delta}',
-                                Yii::t('app-reltime', $format, ['delta' => 42])
+                                Yii::t('app-reltime', $format, ['delta' => 42]),
                             ),
-                        ];
-                    }
-                )
+                        ],
+                ),
             ),
         ];
     }
 
     private function getBattles(): array
     {
-        return \array_values(
-            \array_filter(
+        return array_values(
+            array_filter(
                 ArrayHelper::getColumn(
                     $this->fetchBattles(),
                     function ($battle): ?array {
-                        switch (\get_class($battle)) {
+                        switch ($battle::class) {
                             case Battle::class:
                                 return $this->formatBattle1($battle);
 
@@ -148,7 +145,7 @@ abstract class BaseLatestBattlesAction extends ViewAction
                             default:
                                 return null;
                         }
-                    }
+                    },
                 ),
             ),
         );

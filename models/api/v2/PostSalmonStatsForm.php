@@ -17,6 +17,15 @@ use app\models\openapi\Util;
 use yii\base\Model;
 use yii\helpers\Html;
 
+use function array_keys;
+use function array_map;
+use function array_sum;
+use function implode;
+use function strtotime;
+use function time;
+
+use const SORT_DESC;
+
 class PostSalmonStatsForm extends Model
 {
     use Util;
@@ -45,9 +54,7 @@ class PostSalmonStatsForm extends Model
     public function rules()
     {
         return [
-            [['as_of'], 'default', 'value' => function (self $model, string $attribute): int {
-                return $_SERVER['REQUEST_TIME'] ?? time();
-            }],
+            [['as_of'], 'default', 'value' => fn (self $model, string $attribute): int => $_SERVER['REQUEST_TIME'] ?? time()],
             [['work_count', 'total_golden_eggs', 'total_eggs'], 'integer', 'min' => 0],
             [['total_rescued', 'total_point'], 'integer', 'min' => 0],
             [['as_of'], 'integer', 'min' => static::SPLATOON2_4_1_RELEASED_AT],
@@ -77,10 +84,8 @@ class PostSalmonStatsForm extends Model
             'total_point',
         ];
         $mismatchCount = (int)array_sum(array_map(
-            function (string $param) use ($model): int {
-                return $model->$param != $this->$param ? 1 : 0;
-            },
-            $params
+            fn (string $param): int => $model->$param != $this->$param ? 1 : 0,
+            $params,
         ));
         if ($mismatchCount > 0) {
             return null;
@@ -151,11 +156,11 @@ class PostSalmonStatsForm extends Model
                     'minimum' => static::SPLATOON2_4_1_RELEASED_AT,
                     'description' => implode("\n", [
                         Html::encode(
-                            Yii::t('app-apidoc2', 'When this data was acquired in Unix timestamp')
+                            Yii::t('app-apidoc2', 'When this data was acquired in Unix timestamp'),
                         ),
                         '',
                         Html::encode(
-                            Yii::t('app-apidoc2', 'Current date time will be used if omitted')
+                            Yii::t('app-apidoc2', 'Current date time will be used if omitted'),
                         ),
                     ]),
                 ],

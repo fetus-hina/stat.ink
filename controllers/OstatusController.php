@@ -11,22 +11,24 @@ declare(strict_types=1);
 namespace app\controllers;
 
 use DOMDocument;
-use Laminas\Feed\Writer\Feed as FeedWriter;
 use Yii;
 use app\actions\ostatus\FeedAction;
 use app\actions\ostatus\StartRemoteFollowAction;
 use app\models\OstatusRsa;
 use app\models\User;
 use app\models\api\internal\PubsubhubbubForm;
-use jp3cki\uuid\NS as UuidNs;
-use jp3cki\uuid\Uuid;
 use yii\filters\VerbFilter;
 use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\web\Response;
 use yii\web\ServerErrorHttpException;
+
+use function implode;
+use function preg_match;
+use function sprintf;
+use function strtolower;
+use function vsprintf;
 
 class OstatusController extends Controller
 {
@@ -71,7 +73,7 @@ class OstatusController extends Controller
 
         $doc = new DOMDocument('1.0', 'UTF-8');
         $root = $doc->appendChild(
-            $doc->createElementNS('http://docs.oasis-open.org/ns/xri/xrd-1.0', 'XRD')
+            $doc->createElementNS('http://docs.oasis-open.org/ns/xri/xrd-1.0', 'XRD'),
         );
 
         $elem = $root->appendChild($doc->createElement('Link'));
@@ -131,7 +133,7 @@ class OstatusController extends Controller
                             'RSA',
                             $rsa->modulus,
                             $rsa->exponent,
-                        ])
+                        ]),
                     ),
                 ],
                 [
@@ -160,33 +162,33 @@ class OstatusController extends Controller
         $response = Yii::$app->getResponse();
 
         $form = Yii::createObject(PubsubhubbubForm::class);
-        $form->callback         = $request->post('hub_callback');
-        $form->mode             = $request->post('hub_mode');
-        $form->topic            = $request->post('hub_topic');
-        $form->lease_seconds    = $request->post('hub_lease_seconds');
-        $form->secret           = $request->post('hub_secret');
+        $form->callback = $request->post('hub_callback');
+        $form->mode = $request->post('hub_mode');
+        $form->topic = $request->post('hub_topic');
+        $form->lease_seconds = $request->post('hub_lease_seconds');
+        $form->secret = $request->post('hub_secret');
 
         if (!$form->validate()) {
             $response = Yii::$app->getResponse();
-            $response->statusCode   = 400;
-            $response->statusText   = 'Bad Request';
-            $response->format       = 'json';
+            $response->statusCode = 400;
+            $response->statusText = 'Bad Request';
+            $response->format = 'json';
             $response->data = [
                 'error' => 'Bad Request',
                 'details' => $form->getErrors(),
             ];
         } elseif (!$form->save()) {
-            $response->statusCode   = 500;
-            $response->statusText   = 'Internal Server Error';
-            $response->format       = 'json';
+            $response->statusCode = 500;
+            $response->statusText = 'Internal Server Error';
+            $response->format = 'json';
             $response->data = [
                 'error' => 'Internal Server Error',
             ];
         } else {
-            $response->statusCode   = 202;
-            $response->statusText   = 'Accepted';
-            $response->format       = 'raw';
-            $response->data         = '';
+            $response->statusCode = 202;
+            $response->statusText = 'Accepted';
+            $response->format = 'raw';
+            $response->data = '';
         }
         return $response;
     }
@@ -195,10 +197,10 @@ class OstatusController extends Controller
     public function actionSalmon()
     {
         $response = Yii::$app->getResponse();
-        $response->statusCode   = 202;
-        $response->statusText   = 'Accepted';
-        $response->format       = 'raw';
-        $response->data         = '';
+        $response->statusCode = 202;
+        $response->statusText = 'Accepted';
+        $response->format = 'raw';
+        $response->data = '';
         return $response;
     }
 }

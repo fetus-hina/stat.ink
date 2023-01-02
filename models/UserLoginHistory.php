@@ -21,6 +21,9 @@ use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\Expression as DbExpr;
 
+use function implode;
+use function sprintf;
+
 /**
  * This is the model class for table "user_login_history".
  *
@@ -63,7 +66,7 @@ class UserLoginHistory extends ActiveRecord
             return sprintf(
                 'WHEN %d THEN %s',
                 $ipVer,
-                "host(set_masklen({$column}::cidr, $maskLen))"
+                "host(set_masklen({$column}::cidr, $maskLen))",
             );
         };
         $remoteAddrMasked = new DbExpr(sprintf(
@@ -73,7 +76,7 @@ class UserLoginHistory extends ActiveRecord
                 $makeMask(4, 24),
                 $makeMask(6, 64),
                 'ELSE NULL',
-            ])
+            ]),
         ));
         return parent::find()
             ->select([

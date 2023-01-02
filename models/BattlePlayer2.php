@@ -9,8 +9,21 @@
 namespace app\models;
 
 use Yii;
-use app\components\behaviors\TrimAttributesBehavior;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+
+use function hash;
+use function hash_hmac;
+use function hex2bin;
+use function is_infinite;
+use function is_nan;
+use function preg_match;
+use function substr;
+use function trim;
+
+use const INF;
+use const NAN;
+use const SORT_DESC;
 
 /**
  * This is the model class for table "battle_player2".
@@ -145,7 +158,7 @@ class BattlePlayer2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBattle()
     {
@@ -153,7 +166,7 @@ class BattlePlayer2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getWeapon()
     {
@@ -161,7 +174,7 @@ class BattlePlayer2 extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getRank()
     {
@@ -275,7 +288,7 @@ class BattlePlayer2 extends ActiveRecord
         return substr(
             hash('sha256', $id, false),
             0,
-            40
+            40,
         );
     }
 
@@ -293,13 +306,13 @@ class BattlePlayer2 extends ActiveRecord
         if ((string)$this->point === '') {
             return false;
         }
-        return ($this->point == 0);
+        return $this->point == 0;
     }
 
     public function getAnonymizeSeed(): string
     {
         $value = trim($this->splatnet_id);
-        return ($value !== '')
+        return $value !== ''
             ? $value
             : hash_hmac('sha256', $this->id, $this->battle_id);
     }
@@ -310,33 +323,33 @@ class BattlePlayer2 extends ActiveRecord
             $battle = $this->battle;
         }
         return [
-            'team'          => $this->is_my_team ? 'my' : 'his',
-            'is_me'         => !!$this->is_me,
-            'weapon'        => $this->weapon_id ? $this->weapon->toJsonArray() : null,
-            'level'         => (string)$this->level === '' ? null : (int)$this->level,
-            'rank'          => $this->rank_id ? $this->rank->toJsonArray() : null,
-            'star_rank'     => (string)$this->star_rank === '' ? null : (int)$this->star_rank,
-            'rank_in_team'  => (string)$this->rank_in_team === '' ? null : (int)$this->rank_in_team,
-            'kill'          => (string)$this->kill === '' ? null : (int)$this->kill,
-            'death'         => (string)$this->death === '' ? null : (int)$this->death,
+            'team' => $this->is_my_team ? 'my' : 'his',
+            'is_me' => !!$this->is_me,
+            'weapon' => $this->weapon_id ? $this->weapon->toJsonArray() : null,
+            'level' => (string)$this->level === '' ? null : (int)$this->level,
+            'rank' => $this->rank_id ? $this->rank->toJsonArray() : null,
+            'star_rank' => (string)$this->star_rank === '' ? null : (int)$this->star_rank,
+            'rank_in_team' => (string)$this->rank_in_team === '' ? null : (int)$this->rank_in_team,
+            'kill' => (string)$this->kill === '' ? null : (int)$this->kill,
+            'death' => (string)$this->death === '' ? null : (int)$this->death,
             'kill_or_assist' => (string)$this->kill_or_assist === '' ? null : (int)$this->kill_or_assist,
-            'special'       => (string)$this->special === '' ? null : (int)$this->special,
-            'my_kill'       => (string)$this->my_kill === '' ? null : (int)$this->my_kill,
-            'point'         => (string)$this->point === '' ? null : (int)$this->point,
-            'name'          => (string)$this->name === '' ? null : $this->name,
-            'species'       => $this->species_id ? $this->species->toJsonArray() : null,
-            'gender'        => $this->gender_id ? $this->gender->toJsonArray() : null,
-            'fest_title'    => $this->fest_title_id
+            'special' => (string)$this->special === '' ? null : (int)$this->special,
+            'my_kill' => (string)$this->my_kill === '' ? null : (int)$this->my_kill,
+            'point' => (string)$this->point === '' ? null : (int)$this->point,
+            'name' => (string)$this->name === '' ? null : $this->name,
+            'species' => $this->species_id ? $this->species->toJsonArray() : null,
+            'gender' => $this->gender_id ? $this->gender->toJsonArray() : null,
+            'fest_title' => $this->fest_title_id
                 ? $this->festTitle->toJsonArray(
                     $this->gender,
-                    ($battle && $battle->my_team_fest_theme_id && $battle->his_team_fest_theme_id)
+                    $battle && $battle->my_team_fest_theme_id && $battle->his_team_fest_theme_id
                         ? ($this->is_my_team ? $battle->myTeamFestTheme->name : $battle->hisTeamFestTheme->name)
-                        : null
+                        : null,
                 )
                 : null,
-            'splatnet_id'   => (string)$this->splatnet_id === '' ? null : $this->splatnet_id,
-            'top_500'       => $this->top_500,
-            'icon'          => $this->iconUrl,
+            'splatnet_id' => (string)$this->splatnet_id === '' ? null : $this->splatnet_id,
+            'top_500' => $this->top_500,
+            'icon' => $this->iconUrl,
         ];
     }
 }

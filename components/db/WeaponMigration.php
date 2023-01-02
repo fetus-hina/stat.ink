@@ -10,8 +10,11 @@ declare(strict_types=1);
 
 namespace app\components\db;
 
+use Exception;
 use yii\db\Expression;
 use yii\db\Query;
+
+use function array_filter;
 
 trait WeaponMigration
 {
@@ -41,10 +44,10 @@ trait WeaponMigration
                 'type_id' => $this->findId('weapon_type2', $type),
                 'subweapon_id' => $this->findId('subweapon2', $sub),
                 'special_id' => $this->findId('special2', $special),
-                'main_group_id' => ($main !== null)
+                'main_group_id' => $main !== null
                     ? $this->findId('weapon2', $main)
                     : new Expression("currval('weapon2_id_seq'::regclass)"),
-                'canonical_id' => ($canonical !== null)
+                'canonical_id' => $canonical !== null
                     ? $this->findId('weapon2', $canonical)
                     : new Expression("currval('weapon2_id_seq'::regclass)"),
                 'splatnet' => $this->splatnetId($splatnet, $main),
@@ -98,7 +101,7 @@ trait WeaponMigration
             ->limit(1)
             ->scalar();
         if ($parentId === null) {
-            throw new \Exception("Could not found {$main} in weapon2");
+            throw new Exception("Could not found {$main} in weapon2");
         }
         return ((int)$parentId) + -1 * $splatnet;
     }
@@ -112,7 +115,7 @@ trait WeaponMigration
             ->limit(1)
             ->scalar();
         if (!$id) {
-            throw new \Exception("Could not found {$key} in {$table}");
+            throw new Exception("Could not found {$key} in {$table}");
         }
 
         return (int)$id;

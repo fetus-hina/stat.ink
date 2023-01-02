@@ -9,12 +9,16 @@
 namespace app\actions\show;
 
 use Yii;
-use yii\web\NotFoundHttpException;
-use yii\web\ViewAction as BaseAction;
 use app\models\BattleFilterForm;
 use app\models\Map;
 use app\models\Rule;
 use app\models\User;
+use yii\db\Query;
+use yii\web\NotFoundHttpException;
+use yii\web\ViewAction as BaseAction;
+
+use function array_merge;
+use function asort;
 
 class UserStatByMapRuleAction extends BaseAction
 {
@@ -38,18 +42,18 @@ class UserStatByMapRuleAction extends BaseAction
                 'user' => $user,
                 'filter' => $filter,
             ],
-            $this->getData($user, $filter)
+            $this->getData($user, $filter),
         ));
     }
 
     private function getData(User $user, BattleFilterForm $filter)
     {
-        $query = (new \yii\db\Query())
+        $query = (new Query())
             ->select([
-                'map_key'   => 'MAX({{map}}.[[key]])',
-                'rule_key'  => 'MAX({{rule}}.[[key]])',
-                'result'    => '(CASE WHEN {{battle}}.[[is_win]] = TRUE THEN \'win\' ELSE \'lose\' END)',
-                'count'     => 'COUNT(*)',
+                'map_key' => 'MAX({{map}}.[[key]])',
+                'rule_key' => 'MAX({{rule}}.[[key]])',
+                'result' => '(CASE WHEN {{battle}}.[[is_win]] = TRUE THEN \'win\' ELSE \'lose\' END)',
+                'count' => 'COUNT(*)',
             ])
             ->from('battle')
             ->innerJoin('map', '{{battle}}.[[map_id]] = {{map}}.[[id]]')

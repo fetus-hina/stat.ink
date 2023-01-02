@@ -11,27 +11,35 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use Yii;
-use app\components\helpers\Resource;
-use app\components\helpers\db\Now;
-use app\models\GameMode;
 use app\models\Map2;
-use app\models\Rank2;
 use app\models\RankGroup2;
 use app\models\Special2;
-use app\models\SplatoonVersion2;
 use app\models\SplatoonVersionGroup2;
 use app\models\Subweapon2;
 use app\models\User;
 use app\models\UserWeapon2;
 use app\models\Weapon2;
 use app\models\WeaponCategory2;
-use app\models\WeaponType2;
 use jp3cki\yii2\datetimepicker\BootstrapDateTimePickerAsset;
 use yii\base\Widget;
 use yii\bootstrap\ActiveForm;
 use yii\db\ActiveQuery;
+use yii\db\Query;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+
+use function array_merge;
+use function count;
+use function implode;
+use function ob_end_clean;
+use function ob_get_contents;
+use function ob_start;
+use function sprintf;
+use function uasort;
+use function usort;
+use function version_compare;
+
+use const SORT_ASC;
 
 class Battle2FilterWidget extends Widget
 {
@@ -64,7 +72,7 @@ class Battle2FilterWidget extends Widget
                     'border-radius' => '5px',
                     'padding' => '15px',
                     'margin-bottom' => '15px',
-                ])
+                ]),
             ));
             echo Html::beginTag('div', ['id' => $divId]);
             $form = ActiveForm::begin([
@@ -106,7 +114,7 @@ class Battle2FilterWidget extends Widget
             $ret[] = $this->drawTerm($form);
             $ret[] = Html::hiddenInput(
                 sprintf('%s[%s]', $this->filter->formName(), 'timezone'),
-                Yii::$app->timeZone
+                Yii::$app->timeZone,
             );
         }
         if ($this->filterText) {
@@ -123,7 +131,7 @@ class Battle2FilterWidget extends Widget
                     [
                         'type' => 'submit',
                         'class' => [ 'btn', 'btn-primary' ],
-                    ]
+                    ],
                 );
                 break;
 
@@ -138,7 +146,7 @@ class Battle2FilterWidget extends Widget
                     [
                         'type' => 'submit',
                         'class' => [ 'btn', 'btn-primary' ],
-                    ]
+                    ],
                 );
         }
         return implode('', $ret);
@@ -146,20 +154,20 @@ class Battle2FilterWidget extends Widget
 
     protected function drawRule(ActiveForm $form): string
     {
-        $regular    = Yii::t('app-rule2', 'Regular');
-        $gachi      = Yii::t('app-rule2', 'Ranked');
+        $regular = Yii::t('app-rule2', 'Regular');
+        $gachi = Yii::t('app-rule2', 'Ranked');
         $rankLeague = Yii::t('app-rule2', 'Ranked + League');
-        $league     = Yii::t('app-rule2', 'League Battle');
-        $league2    = Yii::t('app-rule2', 'League (Twin)');
-        $league4    = Yii::t('app-rule2', 'League (Quad)');
-        $private    = Yii::t('app-rule2', 'Private');
+        $league = Yii::t('app-rule2', 'League Battle');
+        $league2 = Yii::t('app-rule2', 'League (Twin)');
+        $league4 = Yii::t('app-rule2', 'League (Quad)');
+        $private = Yii::t('app-rule2', 'Private');
 
-        $any        = Yii::t('app-rule2', 'Any Mode');
-        $nawabari   = Yii::t('app-rule2', 'Turf War');
-        $area       = Yii::t('app-rule2', 'Splat Zones');
-        $yagura     = Yii::t('app-rule2', 'Tower Control');
-        $hoko       = Yii::t('app-rule2', 'Rainmaker');
-        $asari      = Yii::t('app-rule2', 'Clam Blitz');
+        $any = Yii::t('app-rule2', 'Any Mode');
+        $nawabari = Yii::t('app-rule2', 'Turf War');
+        $area = Yii::t('app-rule2', 'Splat Zones');
+        $yagura = Yii::t('app-rule2', 'Tower Control');
+        $hoko = Yii::t('app-rule2', 'Rainmaker');
+        $asari = Yii::t('app-rule2', 'Clam Blitz');
 
         $list = [
             '' => Yii::t('app-rule2', 'Any Mode'),
@@ -232,9 +240,7 @@ class Battle2FilterWidget extends Widget
                 ArrayHelper::map(
                     Map2::sort(Map2::find()->all()),
                     'key',
-                    function (Map2 $map): string {
-                        return Yii::t('app-map2', $map->name);
-                    }
+                    fn (Map2 $map): string => Yii::t('app-map2', $map->name),
                 ),
             ))
             ->label(false);
@@ -248,7 +254,7 @@ class Battle2FilterWidget extends Widget
             $this->createMainWeaponList($weaponIdList),
             $this->createGroupedMainWeaponList($weaponIdList),
             $this->createSubWeaponList($weaponIdList),
-            $this->createSpecialWeaponList($weaponIdList)
+            $this->createSpecialWeaponList($weaponIdList),
         );
         return (string)$form->field($this->filter, 'weapon')->dropDownList($list)->label(false);
     }
@@ -256,7 +262,7 @@ class Battle2FilterWidget extends Widget
     /**
      * @return int[]|null
      */
-    protected function getUsedWeaponIdList(User $user = null): ?array
+    protected function getUsedWeaponIdList(?User $user = null): ?array
     {
         if (!$user) {
             return null;
@@ -287,30 +293,28 @@ class Battle2FilterWidget extends Widget
             $categoryName = Yii::t('app-weapon2', $category->name);
             foreach ($category->weaponTypes as $type) {
                 $typeName = Yii::t('app-weapon2', $type->name);
-                $groupLabel = ($categoryName !== $typeName)
+                $groupLabel = $categoryName !== $typeName
                     ? sprintf('%s » %s', $categoryName, $typeName)
                     : $typeName;
                 $weapons = ArrayHelper::map(
                     $type->weapons, // already filtered (see "with" above)
                     'key',
-                    function (Weapon2 $weapon): string {
-                        return Yii::t('app-weapon2', $weapon->name);
-                    }
+                    fn (Weapon2 $weapon): string => Yii::t('app-weapon2', $weapon->name),
                 );
                 if ($weapons) {
                     uasort($weapons, 'strnatcasecmp');
-                    $ret[$groupLabel] = (count($weapons) > 1)
+                    $ret[$groupLabel] = count($weapons) > 1
                         ? array_merge(
                             ['@' . $type->key => Yii::t('app-weapon2', 'All of {0}', $typeName)],
-                            $weapons
+                            $weapons,
                         )
                         : $weapons;
                 }
             }
         }
         return array_merge(
-            [ '' => Yii::t('app-weapon2', 'Any Weapon') ],
-            $ret
+            ['' => Yii::t('app-weapon2', 'Any Weapon')],
+            $ret,
         );
     }
 
@@ -319,7 +323,7 @@ class Battle2FilterWidget extends Widget
         return [
             Yii::t('app', 'Main Weapon') => (function () use ($weaponIdList): array {
                 $ret = [];
-                $subQuery = (new \yii\db\Query())
+                $subQuery = (new Query())
                     ->select(['id' => '{{weapon2}}.[[main_group_id]]'])
                     ->from('weapon2')
                     ->andWhere(['in', '{{weapon2}}.[[id]]', $weaponIdList]);
@@ -380,9 +384,7 @@ class Battle2FilterWidget extends Widget
     {
         $groups = RankGroup2::find()
             ->with([
-                'ranks' => function ($q) {
-                    return $q->orderBy('[[id]] DESC');
-                },
+                'ranks' => fn ($q) => $q->orderBy('[[id]] DESC'),
             ])
             ->orderBy('[[id]] DESC')
             ->asArray()
@@ -395,8 +397,8 @@ class Battle2FilterWidget extends Widget
             foreach ($group['ranks'] as $i => $rank) {
                 $list[$rank['key']] = sprintf(
                     '%s %s',
-                    (($i !== count($group['ranks']) - 1) ? '├' : '└'),
-                    Yii::t('app-rank2', $rank['name'])
+                    ($i !== count($group['ranks']) - 1 ? '├' : '└'),
+                    Yii::t('app-rank2', $rank['name']),
                 );
             }
         }
@@ -406,9 +408,9 @@ class Battle2FilterWidget extends Widget
     protected function drawResult(ActiveForm $form): string
     {
         $list = [
-            ''      => Yii::t('app', 'Won / Lost'),
-            'win'   => Yii::t('app', 'Won'),
-            'lose'  => Yii::t('app', 'Lost'),
+            '' => Yii::t('app', 'Won / Lost'),
+            'win' => Yii::t('app', 'Won'),
+            'lose' => Yii::t('app', 'Lost'),
         ];
         return (string)$form->field($this->filter, 'result')->dropDownList($list)->label(false);
     }
@@ -416,9 +418,9 @@ class Battle2FilterWidget extends Widget
     protected function drawConnectivity(ActiveForm $form): string
     {
         $list = [
-            ''      => Yii::t('app', 'Connectivity'),
-            'yes'   => Yii::t('app', 'Has disconnected player'),
-            'no'    => Yii::t('app', 'Hasn\'t disconnected player'),
+            '' => Yii::t('app', 'Connectivity'),
+            'yes' => Yii::t('app', 'Has disconnected player'),
+            'no' => Yii::t('app', 'Hasn\'t disconnected player'),
         ];
         return (string)$form->field($this->filter, 'has_disconnect')
             ->dropDownList($list)
@@ -442,7 +444,7 @@ class Battle2FilterWidget extends Widget
                     'good' => Yii::t('app', 'Good Guys'),
                     'bad' => Yii::t('app', 'Bad Guys'),
                 ],
-                ['prompt' => Yii::t('app', 'Target Player\'s Team')]
+                ['prompt' => Yii::t('app', 'Target Player\'s Team')],
             )
             ->label(false);
     }
@@ -455,32 +457,30 @@ class Battle2FilterWidget extends Widget
     protected function drawTermMain(ActiveForm $form): string
     {
         $list = [
-            ''                  => Yii::t('app', 'Any Time'),
-            'this-period'       => Yii::t('app', 'Current Period'),
-            'last-period'       => Yii::t('app', 'Previous Period'),
-            'last-2-periods'    => Yii::t('app', 'Last {n} Periods', ['n' => 2]),
-            'last-3-periods'    => Yii::t('app', 'Last {n} Periods', ['n' => 3]),
-            'last-4-periods'    => Yii::t('app', 'Last {n} Periods', ['n' => 4]),
-            '24h'               => Yii::t('app', 'Last 24 Hours'),
-            'today'             => Yii::t('app', 'Today'),
-            'yesterday'         => Yii::t('app', 'Yesterday'),
-            'this-month-utc'    => Yii::t('app', 'This Month (UTC)'),
-            'last-month-utc'    => Yii::t('app', 'Last Month (UTC)'),
-            'last-10-battles'   => Yii::t('app', 'Last {n} Battles', ['n' =>  10]),
-            'last-20-battles'   => Yii::t('app', 'Last {n} Battles', ['n' =>  20]),
-            'last-50-battles'   => Yii::t('app', 'Last {n} Battles', ['n' =>  50]),
-            'last-100-battles'  => Yii::t('app', 'Last {n} Battles', ['n' => 100]),
-            'last-200-battles'  => Yii::t('app', 'Last {n} Battles', ['n' => 200]),
-            'this-fest'         => Yii::t('app', 'Current/Last Splatfest'),
-            'term'              => Yii::t('app', 'Specify Period'),
+            '' => Yii::t('app', 'Any Time'),
+            'this-period' => Yii::t('app', 'Current Period'),
+            'last-period' => Yii::t('app', 'Previous Period'),
+            'last-2-periods' => Yii::t('app', 'Last {n} Periods', ['n' => 2]),
+            'last-3-periods' => Yii::t('app', 'Last {n} Periods', ['n' => 3]),
+            'last-4-periods' => Yii::t('app', 'Last {n} Periods', ['n' => 4]),
+            '24h' => Yii::t('app', 'Last 24 Hours'),
+            'today' => Yii::t('app', 'Today'),
+            'yesterday' => Yii::t('app', 'Yesterday'),
+            'this-month-utc' => Yii::t('app', 'This Month (UTC)'),
+            'last-month-utc' => Yii::t('app', 'Last Month (UTC)'),
+            'last-10-battles' => Yii::t('app', 'Last {n} Battles', ['n' => 10]),
+            'last-20-battles' => Yii::t('app', 'Last {n} Battles', ['n' => 20]),
+            'last-50-battles' => Yii::t('app', 'Last {n} Battles', ['n' => 50]),
+            'last-100-battles' => Yii::t('app', 'Last {n} Battles', ['n' => 100]),
+            'last-200-battles' => Yii::t('app', 'Last {n} Battles', ['n' => 200]),
+            'this-fest' => Yii::t('app', 'Current/Last Splatfest'),
+            'term' => Yii::t('app', 'Specify Period'),
         ];
 
         $versions = (function (): array {
             $result = [];
             $groups = SplatoonVersionGroup2::find()->with('versions')->asArray()->all();
-            usort($groups, function (array $a, array $b): int {
-                return version_compare($b['tag'], $a['tag']);
-            });
+            usort($groups, fn (array $a, array $b): int => version_compare($b['tag'], $a['tag']));
             foreach ($groups as $group) {
                 $n = count($group['versions']);
                 if ($n == 1) {
@@ -488,17 +488,15 @@ class Battle2FilterWidget extends Widget
                     $result['v' . $version['tag']] = Yii::t(
                         'app',
                         'Version {0}',
-                        Yii::t('app-version2', $version['name'])
+                        Yii::t('app-version2', $version['name']),
                     );
                 } elseif ($n > 1) {
                     $result['~v' . $group['tag']] = Yii::t(
                         'app',
                         'Version {0}',
-                        Yii::t('app-version2', $group['name'])
+                        Yii::t('app-version2', $group['name']),
                     );
-                    usort($group['versions'], function (array $a, array $b): int {
-                        return version_compare($b['tag'], $a['tag']);
-                    });
+                    usort($group['versions'], fn (array $a, array $b): int => version_compare($b['tag'], $a['tag']));
                     foreach ($group['versions'] as $i => $version) {
                         $isLast = ($i === $n - 1);
                         $result['v' . $version['tag']] = sprintf(
@@ -507,8 +505,8 @@ class Battle2FilterWidget extends Widget
                             Yii::t(
                                 'app',
                                 'Version {0}',
-                                Yii::t('app-version2', $version['name'])
-                            )
+                                Yii::t('app-version2', $version['name']),
+                            ),
                         );
                     }
                 }
@@ -526,18 +524,18 @@ class Battle2FilterWidget extends Widget
         BootstrapDateTimePickerAsset::register($this->view);
         $this->view->registerCss("#{$divId}{margin-left:5%}");
         $this->view->registerJs(implode('', [
-            "(function(\$){",
+            '(function($){',
                 "\$('#{$divId} input').datetimepicker({",
                     "format: 'YYYY-MM-DD HH:mm:ss'",
-                "});",
+                '});',
                 "\$('#filter-term').change(function(){",
                     "if($(this).val()==='term'){",
                         "\$('#{$divId}').show();",
-                    "}else{",
+                    '}else{',
                         "\$('#{$divId}').hide();",
-                    "}",
-                "}).change();",
-            "})(jQuery);",
+                    '}',
+                '}).change();',
+            '})(jQuery);',
         ]));
         return Html::tag(
             'div',
@@ -545,17 +543,17 @@ class Battle2FilterWidget extends Widget
                 $form->field($this->filter, 'term_from', [
                     'inputTemplate' => Yii::t(
                         'app',
-                        '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>'
+                        '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>',
                     ),
                 ])->input('text', ['placeholder' => 'YYYY-MM-DD hh:mm:ss'])->label(false),
                 $form->field($this->filter, 'term_to', [
                     'inputTemplate' => Yii::t(
                         'app',
-                        '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>'
+                        '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>',
                     ),
                 ])->input('text', ['placeholder' => 'YYYY-MM-DD hh:mm:ss'])->label(false),
             ]),
-            [ 'id' => $divId ]
+            ['id' => $divId],
         );
     }
 }
