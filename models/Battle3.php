@@ -112,6 +112,7 @@ use yii\db\ActiveRecord;
  * @property TricolorRole3 $thirdTeamRole
  * @property Splatfest3Theme $thirdTeamTheme
  * @property User $user
+ * @property UserExportJson3[] $userExportJson3s
  * @property AgentVariable3[] $variables
  * @property SplatoonVersion3 $version
  * @property Weapon3 $weapon
@@ -346,6 +347,11 @@ class Battle3 extends ActiveRecord
     public function getUser(): ActiveQuery
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
+
+    public function getUserExportJson3s(): ActiveQuery
+    {
+        return $this->hasMany(UserExportJson3::class, ['last_battle_id' => 'id']);
     }
 
     public function getVariables(): ActiveQuery
