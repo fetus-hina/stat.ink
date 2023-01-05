@@ -12,6 +12,7 @@ namespace app\components\widgets;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use Throwable;
 use Yii;
 use app\assets\TimezoneDialogAsset;
 use app\models\Country;
@@ -30,8 +31,8 @@ use function preg_match;
 use function preg_replace;
 use function sprintf;
 use function strtolower;
-use function time;
 use function trim;
+use function vsprintf;
 
 class TimezoneDialog extends Dialog
 {
@@ -73,6 +74,13 @@ class TimezoneDialog extends Dialog
 
     private function renderTimezone(Timezone $tz, bool $isCurrent, bool $renderGroup): string
     {
+        // https://github.com/php/php-src/issues/10218
+        try {
+            new DateTimeZone($tz->identifier);
+        } catch (Throwable $e) {
+            return '';
+        }
+
         if ($isCurrent) {
             return Html::tag(
                 'div',
@@ -203,7 +211,7 @@ class TimezoneDialog extends Dialog
     private function renderOffset(Timezone $tz): string
     {
         $time = (new DateTimeImmutable())
-            ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time())
+            ->setTimestamp($_SERVER['REQUEST_TIME'])
             ->setTimezone(new DateTimeZone($tz->identifier));
         $offset = $time->getOffset();
 
@@ -219,13 +227,14 @@ class TimezoneDialog extends Dialog
             $textOffset = "({$textOffset})";
         }
 
-        return trim(sprintf(
-            '%s%02d:%02d %s',
-            $isEast ? '+' : '-',
-            floor($offset / 3600),
-            floor(($offset % 3600) / 60),
-            $textOffset,
-        ));
+        return trim(
+            vsprintf('%s%02d:%02d %s', [
+                $isEast ? '+' : '-',
+                (int)floor($offset / 3600),
+                (int)floor(($offset % 3600) / 60),
+                $textOffset,
+            ]),
+        );
     }
 
     protected function renderFooter(): string
