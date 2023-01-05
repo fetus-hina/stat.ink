@@ -378,25 +378,24 @@
         },
         {
             "name": "egulias/email-validator",
-            "version": "3.2.2",
+            "version": "3.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/egulias/EmailValidator.git",
-                "reference": "1ac0be80b32ea829009257934ecfd5ab20f24ba5"
+                "reference": "b531a2311709443320c786feb4519cfaf94af796"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/1ac0be80b32ea829009257934ecfd5ab20f24ba5",
-                "reference": "1ac0be80b32ea829009257934ecfd5ab20f24ba5",
+                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/b531a2311709443320c786feb4519cfaf94af796",
+                "reference": "b531a2311709443320c786feb4519cfaf94af796",
                 "shasum": ""
             },
             "require": {
-                "doctrine/lexer": "^1.2",
+                "doctrine/lexer": "^1.2|^2",
                 "php": ">=7.2",
                 "symfony/polyfill-intl-idn": "^1.15"
             },
             "require-dev": {
-                "php-coveralls/php-coveralls": "^2.2",
                 "phpunit/phpunit": "^8.5.8|^9.3.3",
                 "vimeo/psalm": "^4"
             },
@@ -434,7 +433,7 @@
             ],
             "support": {
                 "issues": "https://github.com/egulias/EmailValidator/issues",
-                "source": "https://github.com/egulias/EmailValidator/tree/3.2.2"
+                "source": "https://github.com/egulias/EmailValidator/tree/3.2.5"
             },
             "funding": [
                 {
@@ -442,7 +441,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-12-29T21:07:24+00:00"
+            "time": "2023-01-02T17:26:14+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
