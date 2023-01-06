@@ -7,6 +7,7 @@ use app\components\widgets\v3\weaponIcon\SpecialIcon;
 use app\models\Ability3;
 use app\models\BattlePlayer3;
 use app\models\BattleTricolorPlayer3;
+use app\models\XMatchingGroup3;
 use yii\helpers\Html;
 use yii\web\View;
 
@@ -14,8 +15,10 @@ use yii\web\View;
  * @var BattlePlayer3|BattleTricolorPlayer3 $player
  * @var View $this
  * @var array<string, Ability3> $abilities
+ * @var array<string, XMatchingGroup3> $weaponMatchingGroup
  * @var bool $isFirst
  * @var bool $isTricolor
+ * @var bool $isXmatch
  * @var int $nPlayers
  * @var string|null $colorClass
  */
@@ -78,6 +81,12 @@ if ($player->is_crowned) {
       ['class' => 'h-100 d-flex flex-row flex-column'],
     ),
   ) . "\n" ?>
+<?php if ($isXmatch) { ?>
+  <?= $this->render('player/cell-x-matching-group', [
+    'group' => $weaponMatchingGroup[$player->weapon?->key ?? 'unknown'] ?? null,
+    'weapon' => $player->weapon,
+  ]) . "\n" ?>
+<?php } ?>
   <td class="text-right"><?= $f->asInteger($player->inked) ?></td>
   <td class="text-right"><?php
     if ($player->kill !== null) {

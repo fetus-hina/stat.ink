@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\components\helpers\Battle3Helper;
 use app\models\Ability3;
 use app\models\Battle3;
 use app\models\BattlePlayer3;
@@ -91,4 +92,5 @@ echo $this->render('//show-v3/battle/players/players', [
   'ourTeamPlayers' => $filterPlayers($allPlayers, true, 1),
   'theirTeamPlayers' => $filterPlayers($allPlayers, false, 2),
   'thirdTeamPlayers' => $filterPlayers($allPlayers, false, 3),
+  'weaponMatchingGroup' => Battle3Helper::getWeaponMatchingGroup($model),
 ]);

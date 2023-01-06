@@ -13,6 +13,7 @@ use app\components\widgets\v3\weaponIcon\WeaponIcon;
 use app\models\Language;
 use app\models\Weapon3;
 use app\models\Weapon3Alias;
+use app\models\XMatchingGroup3;
 use statink\yii2\sortableTable\SortableTableAsset;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -22,6 +23,7 @@ use yii\web\View;
  * @var Language[] $langs
  * @var View $this
  * @var Weapon3[] $weapons
+ * @var array<string, XMatchingGroup3> $matchingGroups
  */
 
 TableResponsiveForceAsset::register($this);
@@ -65,6 +67,7 @@ $salmonIcon = Html::img(
   <table class="table table-striped table-condensed table-sortable">
     <thead>
       <tr>
+        <th data-sort="int">X</th>
         <th></th>
         <th data-sort="int"><?= Html::encode(Yii::t('app', 'Category')) ?></th>
         <th data-sort="int"><?= $salmonIcon ?></th>
@@ -90,6 +93,10 @@ $salmonIcon = Html::img(
     <tbody>
 <?php foreach ($weapons as $weapon) { ?>
       <tr>
+        <?= $this->render('main/td-x-matching', [
+          'weapon' => $weapon,
+          'group' => $matchingGroups[$weapon->key] ?? null,
+        ]) . "\n" ?>
         <td><?= WeaponIcon::widget(['model' => $weapon]) ?></td>
         <?= Html::tag(
           'td',
@@ -185,3 +192,22 @@ $salmonIcon = Html::img(
     </tbody>
   </table>
 </div>
+<p class="text-right mt-2">
+  [<?= Html::encode(Yii::t('app-xmatch3', 'X: Match making group')) ?>]
+  <?= Yii::t(
+    'app',
+    'Source: {source}',
+    [
+      'source' => Html::a(
+        'Twitter @antariska_spl',
+        str_starts_with(Yii::$app->language, 'ja')
+          ? 'https://twitter.com/antariska_spl/status/1610201648378556418'
+          : 'https://twitter.com/antariska_spl/status/1610203442114629632',
+        [
+          'target' => '_blank',
+          'rel' => 'noopener noreferrer',
+        ],
+      ),
+    ],
+  ) . "\n" ?>
+</p>

@@ -7,6 +7,7 @@ use app\models\BattlePlayer3;
 use app\models\BattleTricolorPlayer3;
 use app\models\Splatfest3Theme;
 use app\models\TricolorRole3;
+use app\models\XMatchingGroup3;
 use yii\helpers\Html;
 use yii\web\View;
 
@@ -16,7 +17,9 @@ use yii\web\View;
  * @var View $this
  * @var array<BattlePlayer3|BattleTricolorPlayer3> $players
  * @var array<string, Ability3> $abilities
+ * @var array<string, XMatchingGroup3> $weaponMatchingGroup
  * @var bool $isTricolor
+ * @var bool $isXmatch
  * @var bool $ourTeam
  * @var string|null $color
  */
@@ -64,7 +67,7 @@ if ($colorClass) {
   <?= Html::tag(
     'th',
     $this->render('team-name', compact('ourTeam', 'role', 'theme')),
-    ['colspan' => '3'],
+    ['colspan' => $isXmatch ? '4' : '3'],
   ) . "\n"?>
   <td class="text-right"><?= $f->asInteger($total('inked')) ?></td>
   <td class="text-right"><?= $f->asInteger($totalK) ?></td>
@@ -92,7 +95,9 @@ foreach (array_values($players) as $i => $player) {
     'colorClass' => $colorClass,
     'isFirst' => $i === 0,
     'isTricolor' => $isTricolor,
+    'isXmatch' => $isXmatch,
     'nPlayers' => count($players),
     'player' => $player,
+    'weaponMatchingGroup' => $weaponMatchingGroup,
   ]) . "\n";
 }

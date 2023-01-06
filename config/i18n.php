@@ -73,6 +73,7 @@ return [
                 'app-weapon' => 'weapon.php',
                 'app-weapon2' => 'weapon2.php',
                 'app-weapon3' => 'weapon3.php',
+                'app-xmatch3' => 'xmatch3.php',
             ],
         ],
     ],

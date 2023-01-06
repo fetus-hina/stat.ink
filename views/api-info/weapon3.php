@@ -10,6 +10,7 @@ use app\models\SalmonWeapon3;
 use app\models\Special3;
 use app\models\Subweapon3;
 use app\models\Weapon3;
+use app\models\XMatchingGroup3;
 use yii\bootstrap\Html;
 use yii\web\View;
 
@@ -20,6 +21,7 @@ use yii\web\View;
  * @var Subweapon3[] $subs
  * @var View $this
  * @var Weapon3[] $weapons
+ * @var array<string, XMatchingGroup3> $matchingGroups
  */
 
 $this->context->layout = 'main';
@@ -36,7 +38,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
   <?= AdWidget::widget() . "\n" ?>
   <?= SnsWidget::widget() . "\n" ?>
 
-  <?= $this->render('weapon3/main', ['langs' => $langs, 'weapons' => $weapons]) . "\n" ?>
+  <?= $this->render('weapon3/main', compact('langs', 'weapons', 'matchingGroups')) . "\n" ?>
   <?= $this->render('weapon3/salmon', ['langs' => $langs, 'weapons' => $salmons]) . "\n" ?>
   <?= $this->render('weapon3/sub', ['langs' => $langs, 'subs' => $subs]) . "\n" ?>
   <?= $this->render('weapon3/special', ['langs' => $langs, 'specials' => $specials]) . "\n" ?>
