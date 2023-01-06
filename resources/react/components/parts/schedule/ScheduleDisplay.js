@@ -28,6 +28,12 @@ const data = [
     showOpen: false
   },
   {
+    id: 'splatfest3',
+    ref: 'splatoon3/splatfest_open'.split('/'),
+    label: 'Splatfest',
+    showOpen: false
+  },
+  {
     id: 'salmon3',
     ref: 'splatoon3/salmon'.split('/'),
     label: 'Salmon Run',

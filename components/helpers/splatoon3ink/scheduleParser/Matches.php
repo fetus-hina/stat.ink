@@ -58,10 +58,19 @@ trait Matches
         return self::process($nodes, 'leagueMatchSetting', null);
     }
 
+    protected static function splatfestMatch(array $nodes): array
+    {
+        return self::process($nodes, 'festMatchSetting', null);
+    }
+
     private static function process(array $nodes, string $structureKey, ?string $modeKey = null): array
     {
         $results = [];
         foreach ($nodes as $node) {
+            if (ArrayHelper::getValue($node, $structureKey) === null) {
+                continue;
+            }
+
             if ($modeKey === null) {
                 $results[] = self::processNode(
                     ArrayHelper::getValue($node, $structureKey),

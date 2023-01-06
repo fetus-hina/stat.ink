@@ -21,6 +21,7 @@ final class ScheduleParser
 
     public static function parseAll(array $json): array
     {
+        // keys are lobby3.key
         return [
             'regular' => self::regularMatch(
                 ArrayHelper::getValue($json, 'data.regularSchedules.nodes'),
@@ -36,6 +37,9 @@ final class ScheduleParser
             ),
             'league' => self::leagueMatch(
                 ArrayHelper::getValue($json, 'data.leagueSchedules.nodes'),
+            ),
+            'splatfest_open' => self::splatfestMatch(
+                ArrayHelper::getValue($json, 'data.festSchedules.nodes'),
             ),
             'salmon_regular' => self::salmon(
                 ArrayHelper::getValue($json, 'data.coopGroupingSchedule.regularSchedules.nodes'),
