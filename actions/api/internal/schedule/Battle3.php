@@ -47,7 +47,9 @@ trait Battle3
                 fn (Lobby3 $lobby): array => [
                     'key' => $lobby->key,
                     'game' => 'splatoon3',
-                    'name' => Yii::t('app-lobby3', $lobby->name),
+                    'name' => $lobby->key !== 'splatfest_open'
+                        ? Yii::t('app-lobby3', $lobby->name)
+                        : Yii::t('app-lobby3', 'Splatfest'),
                     'image' => $lobby->key !== 'regular'
                         ? $this->getIconUrlForLobby3($lobby)
                         : null,
