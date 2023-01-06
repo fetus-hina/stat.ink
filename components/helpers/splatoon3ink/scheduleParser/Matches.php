@@ -62,6 +62,10 @@ trait Matches
     {
         $results = [];
         foreach ($nodes as $node) {
+            if (ArrayHelper::getValue($node, $structureKey) === null) {
+                continue;
+            }
+
             if ($modeKey === null) {
                 $results[] = self::processNode(
                     ArrayHelper::getValue($node, $structureKey),
