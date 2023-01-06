@@ -20,6 +20,10 @@ function ScheduleTab (props) {
   const classes = useStyles();
   const mode = extractMode(schedule, item);
 
+  if (!mode || !mode.schedules || mode.schedules.length < 1) {
+    return null;
+  }
+
   return (
     <li
       className={isSelected ? 'active' : null}
