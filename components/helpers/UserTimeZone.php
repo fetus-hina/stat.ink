@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -24,7 +24,7 @@ use function trim;
 
 use const SORT_ASC;
 
-class UserTimeZone
+final class UserTimeZone
 {
     public const COOKIE_KEY = 'timezone';
 
@@ -80,7 +80,7 @@ class UserTimeZone
                 );
             }
 
-            return $tz;
+            return self::isUsable($tz) ? $tz : null;
         } finally {
             Yii::endProfile(__FUNCTION__, __METHOD__);
         }
@@ -93,19 +93,19 @@ class UserTimeZone
 
             $map = [
                 'de*' => 'Europe/Paris',
-                'en*' => 'America/Los_Angeles',
                 'en-GB' => 'Europe/London',
-                'es*' => 'Europe/Paris',
+                'en*' => 'America/Los_Angeles',
                 'es-MX' => 'America/Mexico_City',
-                'fr*' => 'Europe/Paris',
+                'es*' => 'Europe/Paris',
                 'fr-CA' => 'America/New_York',
+                'fr*' => 'Europe/Paris',
                 'it*' => 'Europe/Paris',
                 'ja*' => 'Asia/Tokyo',
                 'ko*' => 'Asia/Seoul',
                 'nl*' => 'Europe/Paris',
                 'ru*' => 'Europe/Moscow',
-                'zh*' => 'Asia/Shanghai',
                 'zh-TW' => 'Asia/Taipei',
+                'zh*' => 'Asia/Shanghai',
             ];
 
             $wildcardOptions = [
@@ -122,11 +122,12 @@ class UserTimeZone
                         ->orderBy(null)
                         ->limit(1)
                         ->one();
-                    if ($tz) {
+                    if ($tz && self::isUsable($tz)) {
                         Yii::info(
                             'Detected language by application language, ' . $tz->identifier,
                             __METHOD__,
                         );
+
                         return $tz;
                     }
                 }
@@ -165,11 +166,12 @@ class UserTimeZone
                 ->orderBy(null)
                 ->limit(1)
                 ->one();
-            if ($tz) {
+            if ($tz && self::isUsable($tz)) {
                 Yii::info(
                     'Detected timezone by geoip, ' . $tz->identifier,
                     __METHOD__,
                 );
+
                 return [$tz, $identifier];
             }
 
@@ -178,7 +180,7 @@ class UserTimeZone
                 __METHOD__,
             );
             $tz = self::guessTimezoneByIdentifier($identifier);
-            if ($tz) {
+            if ($tz && self::isUsable($tz)) {
                 Yii::info(
                     sprintf(
                         'Detected timezone by geoip %s, guessed our timezone %s',
@@ -187,9 +189,11 @@ class UserTimeZone
                     ),
                     __METHOD__,
                 );
+
+                return [$tz, $identifier];
             }
 
-            return [$tz, $identifier];
+            return null;
         } finally {
             Yii::endProfile(__FUNCTION__, __METHOD__);
         }
@@ -301,10 +305,23 @@ class UserTimeZone
         $offsetSec = (new DateTimeImmutable('now', $tz))->format('Z');
         $offsetHours = (int)floor($offsetSec / 3600);
         $tzName = sprintf('Etc/GMT%+d', -$offsetHours);
-        return Timezone::find()
+        $tz = Timezone::find()
             ->andWhere(['identifier' => $tzName])
             ->orderBy(null)
             ->limit(1)
             ->one();
+        return $tz && self::isUsable($tz) ? $tz : null;
+    }
+
+    private static function isUsable(Timezone $tz): bool
+    {
+        // https://github.com/php/php-src/issues/10218
+        try {
+            new DateTimeZone($tz->identifier);
+        } catch (Throwable $e) {
+            return false;
+        }
+
+        return true;
     }
 }

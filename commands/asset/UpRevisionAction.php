@@ -48,9 +48,7 @@ class UpRevisionAction extends Action
         $php[] = '// This config file is updated by `yii asset/up-revision`.';
         $php[] = '// DO NOT EDIT';
         $php[] = '';
-        $php[] = 'return (function (): int {';
-        $php[] = sprintf('    return %d;', $version);
-        $php[] = '})();';
+        $php[] = sprintf('return %d;', $version);
 
         file_put_contents($path, implode("\n", $php) . "\n");
         fprintf(STDERR, "Asset revision is updated to %d.\n", $version);

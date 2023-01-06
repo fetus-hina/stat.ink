@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -14,25 +14,41 @@ use Yii;
 use app\models\Language;
 use app\models\SalmonWeapon3;
 use app\models\Special3;
+use app\models\SplatoonVersion3;
 use app\models\Subweapon3;
 use app\models\Weapon3;
+use app\models\XMatchingGroup3;
+use app\models\XMatchingGroupVersion3;
+use app\models\XMatchingGroupWeapon3;
 use yii\base\Action;
+use yii\db\Transaction;
 use yii\helpers\ArrayHelper;
 
+use function date;
 use function strcmp;
 use function strnatcasecmp;
+use function version_compare;
+
+use const SORT_DESC;
 
 final class Weapon3Action extends Action
 {
     public function run()
     {
-        return $this->controller->render('weapon3', [
-            'langs' => $this->getLangs(),
-            'salmons' => $this->getSalmonWeapons(),
-            'specials' => $this->getSpecials(),
-            'subs' => $this->getSubweapons(),
-            'weapons' => $this->getWeapons(),
-        ]);
+        return $this->controller->render(
+            'weapon3',
+            Yii::$app->db->transaction(
+                fn (): array => [
+                    'langs' => $this->getLangs(),
+                    'matchingGroups' => $this->getMatchingGroups($this->getCurrentXMatchingGroupVersion()),
+                    'salmons' => $this->getSalmonWeapons(),
+                    'specials' => $this->getSpecials(),
+                    'subs' => $this->getSubweapons(),
+                    'weapons' => $this->getWeapons(),
+                ],
+                Transaction::REPEATABLE_READ,
+            ),
+        );
     }
 
     /**
@@ -120,5 +136,51 @@ final class Weapon3Action extends Action
                     ?: strcmp($a->name, $b->name);
             },
         );
+    }
+
+    /**
+     * @return array<string, XMatchingGroup3>
+     */
+    private function getMatchingGroups(?XMatchingGroupVersion3 $version): array
+    {
+        if (!$version) {
+            return [];
+        }
+
+        return ArrayHelper::map(
+            XMatchingGroupWeapon3::find()
+                ->with(['group', 'weapon'])
+                ->andWhere(['version_id' => $version->id])
+                ->all(),
+            'weapon.key',
+            'group',
+        );
+    }
+
+    private function getCurrentXMatchingGroupVersion(): ?XMatchingGroupVersion3
+    {
+        $currentGameVersion = SplatoonVersion3::find()
+            ->andWhere(['<=', 'release_at', date('Y-m-d\TH:i:sP', $_SERVER['REQUEST_TIME'])])
+            ->orderBy(['release_at' => SORT_DESC])
+            ->limit(1)
+            ->one();
+        if (!$currentGameVersion) {
+            return null;
+        }
+
+        $allGroups = ArrayHelper::sort(
+            XMatchingGroupVersion3::find()->all(),
+            fn (XMatchingGroupVersion3 $a, XMatchingGroupVersion3 $b): int => version_compare(
+                $b->minimum_version,
+                $a->minimum_version,
+            ),
+        );
+        foreach ($allGroups as $group) {
+            if (version_compare($group->minimum_version, $currentGameVersion->tag, '<=')) {
+                return $group;
+            }
+        }
+
+        return null;
     }
 }

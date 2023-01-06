@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 /*!
-stat.ink:  Copyright (C) 2015-2020 AIZAWA Hina | MIT License
+stat.ink:  Copyright (C) 2015-2023 AIZAWA Hina | MIT License
 Bootstrap: Copyright (c) 2011-2015 Twitter, Inc | MIT License
 */
 
@@ -10,6 +10,10 @@ Bootstrap: Copyright (c) 2011-2015 Twitter, Inc | MIT License
   -ms-overflow-style: -ms-autohiding-scrollbar;
   overflow-x: auto;
   overflow-y: hidden;
+
+  &:has(>.table-bordered) {
+    border: 1px solid #ddd;
+  }
 
   // Tighten up spacing
   > .table {
