@@ -13,6 +13,7 @@ return [
     'Anarchy Battle (Open)' => 'Стихийный бой (открытый)',
     'Anarchy Battle (Series)' => 'Стихийный бой (серия)',
     'Any Lobby' => '',
+    'Except Private' => '',
     'Private Battle' => 'Частный бой',
     'Regular Battle' => 'Бой салаг',
     'Splatfest' => '',

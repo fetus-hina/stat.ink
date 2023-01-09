@@ -13,6 +13,7 @@ return [
     'Anarchy Battle (Open)' => 'Combate caótico (informal)',
     'Anarchy Battle (Series)' => 'Combate caótico (formal)',
     'Any Lobby' => '',
+    'Except Private' => '',
     'Private Battle' => 'Combate privado',
     'Regular Battle' => 'Combate amistoso',
     'Splatfest' => '',

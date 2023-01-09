@@ -42,6 +42,7 @@ final class Icon
     // feed
     // fileCsv
     // fileJson
+    // filter
     // github
     // help
     // image
@@ -185,6 +186,11 @@ final class Icon
     public static function fileJson(): string
     {
         return self::bi('filetype-json');
+    }
+
+    public static function filter(): string
+    {
+        return self::bi('funnel-fill');
     }
 
     public static function github(): string

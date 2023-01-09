@@ -14,6 +14,7 @@ return [
     'Anarchy Battle (Open)' => '카오폴리스 매치 (오픈)',
     'Anarchy Battle (Series)' => '카오폴리스 매치 (챌린지)',
     'Any Lobby' => '모든 로비',
+    'Except Private' => '',
     'Private Battle' => '프라이빗 매치',
     'Regular Battle' => '레귤러 매치',
     'Splatfest' => '페스티벌 매치',

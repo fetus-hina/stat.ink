@@ -40,7 +40,7 @@ trait DropdownListTrait
      */
     public function getLobbyDropdown(): array
     {
-        return $this->getGroupDropdown(
+        [$list, $options] = $this->getGroupDropdown(
             Lobby3::find()
                 ->innerJoinWith(['group'], true)
                 ->orderBy([
@@ -53,6 +53,14 @@ trait DropdownListTrait
             Yii::t('app-lobby3', 'Any Lobby'),
             false,
         );
+
+        return [
+            array_merge(
+                [self::LOBBY_NOT_PRIVATE => Yii::t('app-lobby3', 'Except Private')],
+                $list,
+            ),
+            $options,
+        ];
     }
 
     /**

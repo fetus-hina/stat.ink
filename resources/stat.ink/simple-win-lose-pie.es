@@ -14,7 +14,7 @@
   const defBgColors = window.colorScheme._bg;
   const bgColors = [
     defBgColors.blue, // win
-    defBgColors.red, // lose
+    defBgColors.red // lose
   ];
 
   $.fn.simpleWinLosePie = function () {
@@ -33,14 +33,14 @@
             {
               data: [
                 values.win,
-                values.lose,
+                values.lose
               ],
               backgroundColor: bgColors
             }
           ],
           labels: [
             labels.win,
-            labels.lose,
+            labels.lose
           ]
         },
         options: {
