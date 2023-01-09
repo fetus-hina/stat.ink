@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -13,6 +13,7 @@ namespace app\controllers;
 use app\actions\show\v3\BattleAction;
 use app\actions\show\v3\DeleteBattleAction;
 use app\actions\show\v3\UserAction;
+use app\actions\show\v3\stats\MapRuleAction;
 use app\actions\show\v3\stats\WinRateAction;
 use app\components\web\Controller;
 use yii\filters\AccessControl;
@@ -54,6 +55,7 @@ final class ShowV3Controller extends Controller
         return [
             'battle' => BattleAction::class,
             'delete-battle' => DeleteBattleAction::class,
+            'stats-map-rule' => MapRuleAction::class,
             'stats-win-rate' => WinRateAction::class,
             'user' => UserAction::class,
         ];

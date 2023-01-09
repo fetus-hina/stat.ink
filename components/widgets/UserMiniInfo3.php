@@ -271,6 +271,7 @@ final class UserMiniInfo3 extends Widget
         $user = $this->user;
         $links = [
             Yii::t('app', 'Stats (Win %)') => ['show-v3/stats-win-rate', 'screen_name' => $user->screen_name],
+            Yii::t('app', 'Stats (by Mode and Stage)') => ['show-v3/stats-map-rule', 'screen_name' => $user->screen_name],
         ];
 
         return Html::tag(
