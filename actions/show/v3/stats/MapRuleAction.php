@@ -131,6 +131,7 @@ final class MapRuleAction extends Action
                 'death_stddev' => 'STDDEV_POP({{%battle3}}.[[death]])',
             ])
             ->from('{{%battle3}}')
+            ->innerJoin('{{%lobby3}}', '{{%battle3}}.[[lobby_id]] = {{%lobby3}}.[[id]]')
             ->innerJoin('{{%map3}}', '{{%battle3}}.[[map_id]] = {{%map3}}.[[id]]')
             ->innerJoin('{{%result3}}', '{{%battle3}}.[[result_id]] = {{%result3}}.[[id]]')
             ->innerJoin('{{%rule3}}', '{{%battle3}}.[[rule_id]] = {{%rule3}}.[[id]]')
@@ -145,7 +146,7 @@ final class MapRuleAction extends Action
                 ['not', ['{{%battle3}}.[[map_id]]' => null]],
                 ['not', ['{{%battle3}}.[[result_id]]' => null]],
                 ['not', ['{{%battle3}}.[[rule_id]]' => null]],
-                ['not', ['{{%rule3}}.[[key]]' => 'private']],
+                ['not', ['{{%lobby3}}.[[key]]' => 'private']],
             ])
             ->groupBy([
                 '{{%battle3}}.[[user_id]]',
@@ -178,6 +179,7 @@ final class MapRuleAction extends Action
                 'death_stddev' => 'STDDEV_POP({{%battle3}}.[[death]])',
             ])
             ->from('{{%battle3}}')
+            ->innerJoin('{{%lobby3}}', '{{%battle3}}.[[lobby_id]] = {{%lobby3}}.[[id]]')
             ->innerJoin('{{%map3}}', '{{%battle3}}.[[map_id]] = {{%map3}}.[[id]]')
             ->innerJoin('{{%result3}}', '{{%battle3}}.[[result_id]] = {{%result3}}.[[id]]')
             ->innerJoin('{{%rule3}}', '{{%battle3}}.[[rule_id]] = {{%rule3}}.[[id]]')
@@ -192,7 +194,7 @@ final class MapRuleAction extends Action
                 ['not', ['{{%battle3}}.[[map_id]]' => null]],
                 ['not', ['{{%battle3}}.[[result_id]]' => null]],
                 ['not', ['{{%battle3}}.[[rule_id]]' => null]],
-                ['not', ['{{%rule3}}.[[key]]' => 'private']],
+                ['not', ['{{%lobby3}}.[[key]]' => 'private']],
             ])
             ->groupBy([
                 '{{%battle3}}.[[user_id]]',
