@@ -13,12 +13,13 @@ namespace app\actions\show\v3\stats;
 use LogicException;
 use Yii;
 use app\components\helpers\DateTimeHelper;
+use app\models\Battle3;
+use app\models\Battle3FilterForm;
 use app\models\Map3;
 use app\models\Rule3;
 use app\models\User;
 use yii\base\Action;
 use yii\db\Connection;
-use yii\db\Query;
 use yii\db\Transaction;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
@@ -61,12 +62,18 @@ final class MapRuleAction extends Action
             throw new LogicException();
         }
 
+        $form = Yii::createObject(Battle3FilterForm::class);
+        if ($form->load($_GET)) {
+            $form->validate();
+        }
+
         $data = Yii::$app->db->transaction(
             fn (Connection $db): array => [
-                'mapStats' => $this->makeMapStats($db, $user),
+                'filter' => $form,
+                'mapStats' => $this->makeMapStats($db, $user, $form),
                 'maps' => $this->getMaps($db),
                 'rules' => $this->getRules($db),
-                'totalStats' => $this->makeTotalStats($db, $user),
+                'totalStats' => $this->makeTotalStats($db, $user, $form),
                 'user' => $user,
             ],
             Transaction::REPEATABLE_READ,
@@ -115,9 +122,28 @@ final class MapRuleAction extends Action
     /**
      * @return array<string, array<string, array>> `[mapKey => [ruleKey => data]]`
      */
-    private function makeMapStats(Connection $db, User $user): array
+    private function makeMapStats(Connection $db, User $user, Battle3FilterForm $form): array
     {
-        $q = (new Query())
+        $q = Battle3::find()
+            ->asArray()
+            ->innerJoinWith(['lobby', 'map', 'result', 'rule'], false)
+            ->andWhere(['and',
+                [
+                    '{{%battle3}}.[[has_disconnect]]' => false,
+                    '{{%battle3}}.[[is_deleted]]' => false,
+                    '{{%battle3}}.[[user_id]]' => $user->id,
+                    '{{%result3}}.[[aggregatable]]' => true,
+                ],
+                ['not', ['{{%battle3}}.[[lobby_id]]' => null]],
+                ['not', ['{{%battle3}}.[[map_id]]' => null]],
+                ['not', ['{{%battle3}}.[[result_id]]' => null]],
+                ['not', ['{{%battle3}}.[[rule_id]]' => null]],
+            ])
+            ->groupBy([
+                '{{%battle3}}.[[user_id]]',
+                '{{%battle3}}.[[rule_id]]',
+                '{{%battle3}}.[[map_id]]',
+            ])
             ->select([
                 'map_id' => '{{%battle3}}.[[map_id]]',
                 'map_key' => 'MAX({{%map3}}.[[key]])',
@@ -129,33 +155,11 @@ final class MapRuleAction extends Action
                 'kill_stddev' => 'STDDEV_POP({{%battle3}}.[[kill]])',
                 'deaths' => 'AVG({{%battle3}}.[[death]])',
                 'death_stddev' => 'STDDEV_POP({{%battle3}}.[[death]])',
-            ])
-            ->from('{{%battle3}}')
-            ->innerJoin('{{%lobby3}}', '{{%battle3}}.[[lobby_id]] = {{%lobby3}}.[[id]]')
-            ->innerJoin('{{%map3}}', '{{%battle3}}.[[map_id]] = {{%map3}}.[[id]]')
-            ->innerJoin('{{%result3}}', '{{%battle3}}.[[result_id]] = {{%result3}}.[[id]]')
-            ->innerJoin('{{%rule3}}', '{{%battle3}}.[[rule_id]] = {{%rule3}}.[[id]]')
-            ->andWhere(['and',
-                [
-                    '{{%battle3}}.[[has_disconnect]]' => false,
-                    '{{%battle3}}.[[is_deleted]]' => false,
-                    '{{%battle3}}.[[user_id]]' => $user->id,
-                    '{{%result3}}.[[aggregatable]]' => true,
-                ],
-                ['not', ['{{%battle3}}.[[lobby_id]]' => null]],
-                ['not', ['{{%battle3}}.[[map_id]]' => null]],
-                ['not', ['{{%battle3}}.[[result_id]]' => null]],
-                ['not', ['{{%battle3}}.[[rule_id]]' => null]],
-                ['not', ['{{%lobby3}}.[[key]]' => 'private']],
-            ])
-            ->groupBy([
-                '{{%battle3}}.[[user_id]]',
-                '{{%battle3}}.[[rule_id]]',
-                '{{%battle3}}.[[map_id]]',
             ]);
+        $form->decorateQuery($q);
 
         return ArrayHelper::map(
-            $q->createCommand($db)->queryAll(),
+            $q->all($db),
             'rule_key',
             fn (array $row): array => $row,
             'map_key',
@@ -165,24 +169,11 @@ final class MapRuleAction extends Action
     /**
      * @return array<string, array> `[ruleKey => data]`
      */
-    private function makeTotalStats(Connection $db, User $user): array
+    private function makeTotalStats(Connection $db, User $user, Battle3FilterForm $form): array
     {
-        $q = (new Query())
-            ->select([
-                'rule_id' => '{{%battle3}}.[[rule_id]]',
-                'rule_key' => 'MAX({{%rule3}}.[[key]])',
-                'battles' => 'COUNT(*)',
-                'wins' => 'SUM(CASE WHEN {{%result3}}.[[is_win]] THEN 1 ELSE 0 END)',
-                'kills' => 'AVG({{%battle3}}.[[kill]])',
-                'kill_stddev' => 'STDDEV_POP({{%battle3}}.[[kill]])',
-                'deaths' => 'AVG({{%battle3}}.[[death]])',
-                'death_stddev' => 'STDDEV_POP({{%battle3}}.[[death]])',
-            ])
-            ->from('{{%battle3}}')
-            ->innerJoin('{{%lobby3}}', '{{%battle3}}.[[lobby_id]] = {{%lobby3}}.[[id]]')
-            ->innerJoin('{{%map3}}', '{{%battle3}}.[[map_id]] = {{%map3}}.[[id]]')
-            ->innerJoin('{{%result3}}', '{{%battle3}}.[[result_id]] = {{%result3}}.[[id]]')
-            ->innerJoin('{{%rule3}}', '{{%battle3}}.[[rule_id]] = {{%rule3}}.[[id]]')
+        $q = Battle3::find()
+            ->asArray()
+            ->innerJoinWith(['lobby', 'map', 'result', 'rule'], false)
             ->andWhere(['and',
                 [
                     '{{%battle3}}.[[has_disconnect]]' => false,
@@ -194,15 +185,25 @@ final class MapRuleAction extends Action
                 ['not', ['{{%battle3}}.[[map_id]]' => null]],
                 ['not', ['{{%battle3}}.[[result_id]]' => null]],
                 ['not', ['{{%battle3}}.[[rule_id]]' => null]],
-                ['not', ['{{%lobby3}}.[[key]]' => 'private']],
             ])
             ->groupBy([
                 '{{%battle3}}.[[user_id]]',
                 '{{%battle3}}.[[rule_id]]',
+            ])
+            ->select([
+                'rule_id' => '{{%battle3}}.[[rule_id]]',
+                'rule_key' => 'MAX({{%rule3}}.[[key]])',
+                'battles' => 'COUNT(*)',
+                'wins' => 'SUM(CASE WHEN {{%result3}}.[[is_win]] THEN 1 ELSE 0 END)',
+                'kills' => 'AVG({{%battle3}}.[[kill]])',
+                'kill_stddev' => 'STDDEV_POP({{%battle3}}.[[kill]])',
+                'deaths' => 'AVG({{%battle3}}.[[death]])',
+                'death_stddev' => 'STDDEV_POP({{%battle3}}.[[death]])',
             ]);
+        $form->decorateQuery($q);
 
         return ArrayHelper::map(
-            $q->createCommand($db)->queryAll(),
+            $q->all($db),
             'rule_key',
             fn (array $row): array => $row,
         );

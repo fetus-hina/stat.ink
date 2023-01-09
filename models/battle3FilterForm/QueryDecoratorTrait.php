@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models\battle3FilterForm;
 
+use LogicException;
 use Yii;
 use app\models\Battle3FilterForm;
 use app\models\Lobby3;
@@ -47,15 +48,7 @@ trait QueryDecoratorTrait
             return;
         }
 
-        $this->decorateGroupFilter(
-            $query,
-            '{{%battle3}}.[[lobby_id]]',
-            $this->lobby,
-            Lobby3::class,
-            LobbyGroup3::class,
-            '{{%lobby3}}.[[group_id]]',
-        );
-
+        $this->decorateLobbyFilter($query, $this->lobby);
         $this->decorateGroupFilter(
             $query,
             '{{%battle3}}.[[rule_id]]',
@@ -64,12 +57,40 @@ trait QueryDecoratorTrait
             RuleGroup3::class,
             '{{%rule3}}.[[group_id]]',
         );
-
         $this->decorateSimpleFilter($query, '{{%battle3}}.[[map_id]]', $this->map, Map3::class);
         $this->decorateWeaponFilter($query, $this->weapon);
         $this->decorateResultFilter($query, $this->result);
         $this->decorateKnockoutFilter($query, $this->knockout);
         $this->decorateTermFilter($query, $this->term);
+    }
+
+    private function decorateLobbyFilter(ActiveQuery $query, ?string $key): void
+    {
+        $key = trim((string)$key);
+        switch ($key) {
+            case '':
+                return;
+
+            case self::LOBBY_NOT_PRIVATE:
+                if (!$private = Lobby3::find()->andWhere(['key' => 'private'])->limit(1)->one()) {
+                    throw new LogicException();
+                }
+
+                $query->andWhere(
+                    ['not', ['{{%battle3}}.[[lobby_id]]' => $private->id]],
+                );
+                break;
+
+            default:
+                $this->decorateGroupFilter(
+                    $query,
+                    '{{%battle3}}.[[lobby_id]]',
+                    $this->lobby,
+                    Lobby3::class,
+                    LobbyGroup3::class,
+                    '{{%lobby3}}.[[group_id]]',
+                );
+        }
     }
 
     private function decorateWeaponFilter(ActiveQuery $query, ?string $key): void

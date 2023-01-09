@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -36,10 +36,10 @@ final class Battle3FilterWidget extends Widget
     public bool $rule = true;
     public bool $map = true;
     public bool $weapon = true;
-    // public bool $rank = true;
+    public bool $rank = true; // not impl. yet
     public bool $result = true;
     public bool $knockout = true;
-    // public bool $connectivity = false;
+    public bool $connectivity = false; // not impl. yet
     public bool $term = true;
     // public bool $filterText = false;
     // public bool $withTeam = false;
@@ -199,7 +199,10 @@ final class Battle3FilterWidget extends Widget
         if ($action === 'summarize') {
             return Html::tag(
                 'button',
-                Html::encode(Yii::t('app', 'Summarize')),
+                implode(' ', [
+                    Icon::filter(),
+                    Html::encode(Yii::t('app', 'Summarize')),
+                ]),
                 [
                     'type' => 'submit',
                     'class' => [

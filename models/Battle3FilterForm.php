@@ -41,6 +41,8 @@ final class Battle3FilterForm extends Model
     public const RESULT_VIRTUAL_LOSE = '~lose';
     public const RESULT_WIN_OR_LOSE = '~win_lose';
 
+    public const LOBBY_NOT_PRIVATE = '!private';
+
     public ?string $lobby = null;
     public ?string $rule = null;
     public ?string $map = null;
@@ -69,6 +71,7 @@ final class Battle3FilterForm extends Model
                 'range' => array_merge(
                     self::getKeyList(Lobby3::class),
                     self::getKeyList(LobbyGroup3::class, '@'),
+                    [self::LOBBY_NOT_PRIVATE],
                 ),
             ],
             [['rule'], 'in',

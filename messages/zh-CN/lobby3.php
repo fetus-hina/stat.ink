@@ -15,6 +15,7 @@ return [
     'Anarchy Battle (Open)' => '蛮颓比赛 (开放)',
     'Anarchy Battle (Series)' => '蛮颓比赛 (挑战)',
     'Any Lobby' => '所有大厅',
+    'Except Private' => '',
     'Private Battle' => '私人比赛',
     'Regular Battle' => '一般比赛',
     'Splatfest' => '祭典比赛',

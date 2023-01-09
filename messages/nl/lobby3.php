@@ -13,6 +13,7 @@ return [
     'Anarchy Battle (Open)' => 'Chaosgevecht (open)',
     'Anarchy Battle (Series)' => 'Chaosgevecht (sessie)',
     'Any Lobby' => '',
+    'Except Private' => '',
     'Private Battle' => 'Privégevecht',
     'Regular Battle' => 'Standaardgevecht',
     'Splatfest' => '',

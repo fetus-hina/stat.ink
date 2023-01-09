@@ -13,6 +13,7 @@ return [
     'Anarchy Battle (Open)' => '',
     'Anarchy Battle (Series)' => '',
     'Any Lobby' => '',
+    'Except Private' => '',
     'Private Battle' => '',
     'Regular Battle' => '',
     'Splatfest' => '',
