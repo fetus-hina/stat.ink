@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -27,6 +27,7 @@ use app\actions\entire\WeaponsAction;
 use app\actions\entire\WeaponsUseAction;
 use app\actions\entire\salmon3\RandomLoanAction;
 use app\actions\entire\salmon3\TideAction;
+use app\actions\entire\v3\KDWin3Action;
 use app\actions\entire\v3\Knockout3Action;
 use app\actions\entire\v3\SpecialUse3Action;
 use app\actions\entire\v3\XPowerDistrib3Action;
@@ -63,6 +64,7 @@ final class EntireController extends Controller
             'festpower2' => Festpower2Action::class,
             'kd-win' => KDWinAction::class,
             'kd-win2' => KDWin2Action::class,
+            'kd-win3' => KDWin3Action::class,
             'knockout' => KnockoutAction::class,
             'knockout2' => Knockout2Action::class,
             'knockout3' => Knockout3Action::class,
