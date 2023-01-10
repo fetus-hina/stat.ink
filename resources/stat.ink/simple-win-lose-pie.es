@@ -44,6 +44,9 @@
           ]
         },
         options: {
+          animation: {
+            duration: 0
+          },
           aspectRatio: 1,
           legend: {
             onClick: () => {} // do nothing, to disable label-click
