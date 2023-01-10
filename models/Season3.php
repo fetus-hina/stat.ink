@@ -25,6 +25,7 @@ use yii\db\ActiveRecord;
  *
  * @property Knockout3[] $knockout3s
  * @property Rule3[] $rules
+ * @property StatKdWinRate3[] $statKdWinRate3s
  * @property StatSpecialUse3[] $statSpecialUse3s
  * @property StatXPowerDistrib3[] $statXPowerDistrib3s
  * @property StatXPowerDistribAbstract3[] $statXPowerDistribAbstract3s
@@ -68,6 +69,11 @@ class Season3 extends ActiveRecord
     public function getRules(): ActiveQuery
     {
         return $this->hasMany(Rule3::class, ['id' => 'rule_id'])->viaTable('stat_x_power_distrib_abstract3', ['season_id' => 'id']);
+    }
+
+    public function getStatKdWinRate3s(): ActiveQuery
+    {
+        return $this->hasMany(StatKdWinRate3::class, ['season_id' => 'id']);
     }
 
     public function getStatSpecialUse3s(): ActiveQuery
