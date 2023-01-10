@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace app\models\battle3FilterForm\dropdownList;
 
 use Yii;
+use app\components\helpers\DateTimeHelper;
 use app\models\Battle3FilterForm;
 use app\models\Season3;
 use yii\helpers\ArrayHelper;
@@ -34,7 +35,10 @@ trait TermDropdownListTrait
     private function getTermSeasonDropdown(): array
     {
         return ArrayHelper::map(
-            Season3::find()->orderBy(['start_at' => SORT_DESC])->all(),
+            Season3::find()
+                ->andWhere(['<=', 'start_at', DateTimeHelper::isoNow()])
+                ->orderBy(['start_at' => SORT_DESC])
+                ->all(),
             fn (Season3 $m): string => sprintf('%s%s', Battle3FilterForm::PREFIX_TERM_SEASON, $m->key),
             fn (Season3 $m): string => Yii::t('app-season3', $m->name),
         );
