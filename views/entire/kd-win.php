@@ -39,6 +39,10 @@ TableResponsiveForceAsset::register($this);
   <nav>
     <ul class="nav nav-tabs" style="margin-bottom:15px">
       <li><?= Html::a(
+        Html::encode('Splatoon 3'),
+        ['entire/kd-win3'],
+      ) ?></li>
+      <li><?= Html::a(
         Html::encode('Splatoon 2'),
         ['entire/kd-win2'],
       ) ?></li>
