@@ -19,6 +19,7 @@ use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 use function array_merge;
+use function is_array;
 use function sprintf;
 
 use const SORT_ASC;
@@ -106,7 +107,7 @@ final class Battle3FilterForm extends Model
                 'range' => ['yes', 'no'],
             ],
             [['term'], 'in',
-                'range' => self::getKeyList(Season3::class, self::PREFIX_TERM_SEASON),
+                'range' => self::getKeyListFromDropdown(...$this->getTermDropdown()),
             ],
         ];
     }
@@ -138,5 +139,22 @@ final class Battle3FilterForm extends Model
                 ? sprintf('%s%s', $prefix, $model->key)
                 : $model->key,
         );
+    }
+
+    /**
+     * @return string[]
+     */
+    private static function getKeyListFromDropdown(array $options, mixed $optionsUnused = null): array
+    {
+        $results = [];
+        foreach ($options as $key => $value) {
+            if (is_array($value)) {
+                // optgroup
+                $results = array_merge($results, self::getKeyListFromDropdown($value));
+            } else {
+                $results[] = $key;
+            }
+        }
+        return $results;
     }
 }

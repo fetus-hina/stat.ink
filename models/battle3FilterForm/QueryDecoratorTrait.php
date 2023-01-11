@@ -10,8 +10,10 @@ declare(strict_types=1);
 
 namespace app\models\battle3FilterForm;
 
+use DateTimeInterface;
 use LogicException;
 use Yii;
+use app\components\helpers\Battle as BattleHelper;
 use app\models\Battle3FilterForm;
 use app\models\Lobby3;
 use app\models\LobbyGroup3;
@@ -30,8 +32,11 @@ use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 use function array_filter;
+use function date;
 use function filter_var;
+use function gmdate;
 use function is_int;
+use function mktime;
 use function str_starts_with;
 use function substr;
 use function trim;
@@ -237,21 +242,61 @@ trait QueryDecoratorTrait
             return;
         }
 
-        switch (substr($key, 0, 1)) {
-            case Battle3FilterForm::PREFIX_TERM_SEASON:
-                $this->decorateSeasonFilter(
+        match ($key) {
+            '24h', 'today', 'yesterday' => $this->decorateDateFilter($query, $key),
+            'this-period', 'last-period' => $this->decoratePeriodFilter($query, $key),
+            default => match (substr($key, 0, 1)) {
+                Battle3FilterForm::PREFIX_TERM_SEASON => $this->decorateSeasonFilter(
                     $query,
                     Season3::find()
                         ->andWhere(['key' => substr($key, 1)])
                         ->limit(1)
                         ->one(),
-                );
-                return;
+                ),
+                default => $query->andWhere('1 <> 1'),
+            },
+        };
+    }
 
-            default:
-                $query->andWhere('1 <> 1');
-                return;
+    private function decorateDateFilter(ActiveQuery $query, string $key): void
+    {
+        $now = $_SERVER['REQUEST_TIME'];
+        $today = mktime(
+            year: (int)date('Y', $now),
+            month: (int)date('n', $now),
+            day: (int)date('j', $now),
+            hour: 0,
+            minute: 0,
+            second: 0,
+        );
+        if ($today === false) {
+            throw new LogicException();
         }
+
+        [$startT, $endT] = match ($key) {
+            '24h' => [$now - 86400, $now],
+            'today' => [$today, $today + 86400],
+            'yesterday' => [$today - 86400, $today],
+            default => throw new LogicException(),
+        };
+
+        $start = gmdate(DateTimeInterface::ATOM, $startT);
+        $end = gmdate(DateTimeInterface::ATOM, $endT);
+
+        $query->andWhere(['and',
+            ['>=', '{{%battle3}}.[[start_at]]', $start],
+            ['<', '{{%battle3}}.[[end_at]]', $end],
+        ]);
+    }
+
+    private function decoratePeriodFilter(ActiveQuery $query, string $key): void
+    {
+        $currentPeriod = BattleHelper::calcPeriod2($_SERVER['REQUEST_TIME']);
+        $period = match ($key) {
+            'this-period' => $currentPeriod,
+            'last-period' => $currentPeriod - 1,
+        };
+        $query->andWhere(['{{%battle3}}.[[period]]' => $period]);
     }
 
     private function decorateSeasonFilter(ActiveQuery $query, ?Season3 $season): void
