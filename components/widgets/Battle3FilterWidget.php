@@ -160,7 +160,24 @@ final class Battle3FilterWidget extends Widget
 
         return (string)self::disableClientValidation(
             $form
-                ->field($filter, 'result')
+                ->field($filter, 'result', [
+                    'inputTemplate' => Html::tag(
+                        'div',
+                        implode('', [
+                            '{input}',
+                            Html::a(
+                                Icon::help(),
+                                'https://github.com/fetus-hina/stat.ink/wiki/Splatoon-3-Result-Filter',
+                                [
+                                    'target' => '_blank',
+                                    'rel' => 'noopener',
+                                    'class' => 'input-group-addon',
+                                ],
+                            ),
+                        ]),
+                        ['class' => 'input-group'],
+                    ),
+                ])
                 ->dropDownList(...$filter->getResultDropdown())
                 ->label(false),
         );
