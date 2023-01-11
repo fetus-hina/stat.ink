@@ -71,7 +71,7 @@
     "twemoji-emojis": "^14.1.0",
     "uglify-js": "^3.17.4",
     "updates": "^13.2.7",
-    "uuidjs": "^4.2.12",
+    "uuidjs": "^4.2.13",
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.1",
     "yii2-pjax": "git+https://github.com/yiisoft/jquery-pjax.git",
