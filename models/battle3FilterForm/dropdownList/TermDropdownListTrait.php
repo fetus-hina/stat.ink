@@ -11,36 +11,53 @@ declare(strict_types=1);
 namespace app\models\battle3FilterForm\dropdownList;
 
 use Yii;
-use app\components\helpers\DateTimeHelper;
+use app\components\helpers\Season3Helper;
 use app\models\Battle3FilterForm;
 use app\models\Season3;
 use yii\helpers\ArrayHelper;
 
+use function array_merge;
 use function sprintf;
-
-use const SORT_DESC;
 
 trait TermDropdownListTrait
 {
     public function getTermDropdown(): array
     {
         return [
-            // \array_merge(
-            $this->getTermSeasonDropdown(),
-            // ),
+            array_merge(
+                $this->getPeriodDropdown(),
+                $this->getDateDropdown(),
+                $this->getTermSeasonDropdown(),
+            ),
             ['prompt' => Yii::t('app', 'Any Time')],
+        ];
+    }
+
+    private function getPeriodDropdown(): array
+    {
+        return [
+            'this-period' => Yii::t('app', 'Current Period'),
+            'last-period' => Yii::t('app', 'Previous Period'),
+        ];
+    }
+
+    private function getDateDropdown(): array
+    {
+        return [
+            '24h' => Yii::t('app', 'Last 24 Hours'),
+            'today' => Yii::t('app', 'Today'),
+            'yesterday' => Yii::t('app', 'Yesterday'),
         ];
     }
 
     private function getTermSeasonDropdown(): array
     {
-        return ArrayHelper::map(
-            Season3::find()
-                ->andWhere(['<=', 'start_at', DateTimeHelper::isoNow()])
-                ->orderBy(['start_at' => SORT_DESC])
-                ->all(),
-            fn (Season3 $m): string => sprintf('%s%s', Battle3FilterForm::PREFIX_TERM_SEASON, $m->key),
-            fn (Season3 $m): string => Yii::t('app-season3', $m->name),
-        );
+        return [
+            Yii::t('app', 'Season') => ArrayHelper::map(
+                Season3Helper::getSeasons(),
+                fn (Season3 $m): string => sprintf('%s%s', Battle3FilterForm::PREFIX_TERM_SEASON, $m->key),
+                fn (Season3 $m): string => Yii::t('app-season3', $m->name),
+            ),
+        ];
     }
 }
