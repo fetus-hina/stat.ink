@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -19,6 +19,7 @@ use app\commands\stat\Salmon2Trait;
 use app\commands\stat\Salmon3Trait;
 use app\commands\stat\Weapon2Trait;
 use app\commands\stat\Weapon3Trait;
+use app\commands\stat\actions\InkColor3Action;
 use app\commands\stat\actions\KDWinRate3Action;
 use app\commands\stat\actions\XPowerDistrib3Action;
 use app\components\helpers\Battle as BattleHelper;
@@ -80,6 +81,7 @@ final class StatController extends Controller
     public function actions()
     {
         return [
+            'update-ink-color3' => InkColor3Action::class,
             'update-k-d-win-rate3' => KDWinRate3Action::class,
             'update-xpower-distrib3' => XPowerDistrib3Action::class,
         ];

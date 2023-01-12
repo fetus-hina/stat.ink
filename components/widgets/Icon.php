@@ -29,6 +29,7 @@ final class Icon
     // back
     // blog
     // caretDown
+    // check
     // checkboxChecked
     // checkboxEmpty
     // close
@@ -113,6 +114,11 @@ final class Icon
     public static function caretDown(): string
     {
         return self::bi('caret-down-fill');
+    }
+
+    public static function check(): string
+    {
+        return self::bi('check-lg');
     }
 
     public static function checkboxChecked(): string

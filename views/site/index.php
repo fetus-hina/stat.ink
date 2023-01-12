@@ -94,6 +94,7 @@ $gameMode = GameModeIconsAsset::register($this);
         Html::a(Html::encode(Yii::t('app', 'Knockout Rate')), ['entire/knockout3']),
         Html::a(Html::encode(Yii::t('app', 'Special Uses')), ['entire/special-use3']),
         Html::a(Html::encode(Yii::t('app', 'X Power')), ['entire/xpower-distrib3']),
+        Html::a(Html::encode(Yii::t('app', 'Ink Color')), ['entire/ink-color3']),
       ],
       [
         vsprintf('%s %s', [

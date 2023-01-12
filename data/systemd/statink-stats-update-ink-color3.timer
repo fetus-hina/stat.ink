@@ -2,7 +2,7 @@
 Description=Run stat.ink updater (timer)
 
 [Timer]
-OnCalendar=0:03
+OnCalendar=12:00
 Persistent=true
 RandomizedDelaySec=2700
 
