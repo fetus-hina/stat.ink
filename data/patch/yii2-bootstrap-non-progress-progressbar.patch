@@ -1,0 +1,22 @@
+--- yii2-bootstrap/src/Progress.php
++++ yii2-bootstrap/src/Progress.php
+@@ -146,9 +146,6 @@
+     {
+         $defaultOptions = [
+             'role' => 'progressbar',
+-            'aria-valuenow' => $percent,
+-            'aria-valuemin' => 0,
+-            'aria-valuemax' => 100,
+             'style' => "width:{$percent}%",
+         ];
+         $options = array_merge($defaultOptions, $options);
+@@ -156,9 +153,6 @@
+ 
+         $out = Html::beginTag('div', $options);
+         $out .= $label;
+-        $out .= Html::tag('span', \Yii::t('yii', '{percent}% Complete', ['percent' => $percent]), [
+-            'class' => 'sr-only'
+-        ]);
+         $out .= Html::endTag('div');
+ 
+         return $out;
