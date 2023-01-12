@@ -21,20 +21,24 @@ $provider = Yii::createObject([
   'sort' => false,
 ]);
 
-echo GridView::widget([
-  'dataProvider' => $provider,
-  'emptyCell' => '',
-  'emptyText' => '',
-  'layout' => '{items}',
-  'tableOptions' => ['class' => 'table table-striped table-bordered mb-0'],
-  'columns' => [
-    require __DIR__ . '/table/color1.php',
-    require __DIR__ . '/table/color2.php',
-    require __DIR__ . '/table/significance.php',
-    require __DIR__ . '/table/winpct.php',
-    require __DIR__ . '/table/samples.php',
-  ],
-]) . "\n";
+echo Html::tag(
+  'div',
+  GridView::widget([
+    'dataProvider' => $provider,
+    'emptyCell' => '',
+    'emptyText' => '',
+    'layout' => '{items}',
+    'tableOptions' => ['class' => 'table table-striped table-bordered mb-0'],
+    'columns' => [
+      require __DIR__ . '/table/color1.php',
+      require __DIR__ . '/table/color2.php',
+      require __DIR__ . '/table/significance.php',
+      require __DIR__ . '/table/winpct.php',
+      require __DIR__ . '/table/samples.php',
+    ],
+  ]),
+  ['class' => 'table-responsive'],
+) . "\n";
 
 echo Html::tag(
   'p',

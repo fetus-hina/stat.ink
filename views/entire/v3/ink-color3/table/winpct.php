@@ -10,6 +10,9 @@ return [
   'headerOptions' => [
     'class' => 'text-center',
     'width' => '50%',
+    'style' => [
+      'min-width' => '200px',
+    ],
   ],
   'label' => Yii::t('app', 'Win %'),
   'value' => function (StatInkColor3 $model): string {
