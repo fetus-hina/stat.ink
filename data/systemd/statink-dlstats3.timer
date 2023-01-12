@@ -4,7 +4,7 @@ Description=Run stat.ink updater (timer)
 [Timer]
 OnCalendar=9:07
 Persistent=true
-RandomizedDelaySec=7200
+RandomizedDelaySec=2700
 
 [Install]
 WantedBy=timers.target
