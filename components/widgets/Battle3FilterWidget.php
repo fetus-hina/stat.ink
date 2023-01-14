@@ -13,6 +13,7 @@ namespace app\components\widgets;
 use Yii;
 use app\models\Battle3FilterForm;
 use app\models\User;
+use jp3cki\yii2\datetimepicker\BootstrapDateTimePickerAsset;
 use yii\base\Widget;
 use yii\bootstrap\ActiveField;
 use yii\bootstrap\ActiveForm;
@@ -23,6 +24,8 @@ use function implode;
 use function ob_end_clean;
 use function ob_get_contents;
 use function ob_start;
+use function sprintf;
+use function str_replace;
 use function vsprintf;
 
 final class Battle3FilterWidget extends Widget
@@ -83,6 +86,7 @@ final class Battle3FilterWidget extends Widget
     protected function drawFields(ActiveForm $form): string
     {
         $filter = $this->filter ?: Yii::createObject(Battle3FilterForm::class);
+        $filter->updateUnixtimeToString();
 
         return implode('', [
             $this->drawLobby($form, $filter),
@@ -203,11 +207,90 @@ final class Battle3FilterWidget extends Widget
             return '';
         }
 
+        return implode('', [
+            $this->drawTermDropdown($form, $filter),
+            $this->drawTermSpecify($form, $filter),
+        ]);
+    }
+
+    private function drawTermDropdown(ActiveForm $form, Battle3FilterForm $filter): string
+    {
         return (string)self::disableClientValidation(
             $form
                 ->field($filter, 'term')
                 ->dropDownList(...$filter->getTermDropdown())
                 ->label(false),
+        );
+    }
+
+    private function drawTermSpecify(ActiveForm $form, Battle3FilterForm $filter): string
+    {
+        $divId = sprintf('%s-term', (string)$this->getId());
+
+        BootstrapDateTimePickerAsset::register($this->view);
+
+        // (function ($) {
+        //   $('#{divId} input')
+        //     .datetimepicker({
+        //       format: 'YYYY-MM-DD HH:mm:ss'
+        //     });
+        //
+        //   $('#f-term')
+        //     .change(
+        //       function () {
+        //         if ($(this).val() === 'term') {
+        //           $('#{divId}').show();
+        //         } else {
+        //           $('#{divId}').hide();
+        //         }
+        //       }
+        //     )
+        //     .change();
+        // })(jQuery);
+
+        $this->view->registerJs(
+            str_replace(
+                '{divId}',
+                $divId,
+                '!function(i){i("#{divId} input").datetimepicker({format:"YYYY-MM-DD HH:mm:ss"}),i("#f-term").change(function(){"term"===i(this).val()?i("#{divId}").show():i("#{divId}").hide()}).change()}(jQuery);',
+            ),
+        );
+
+        return Html::tag(
+            'div',
+            implode(
+                '',
+                [
+                    (string)self::disableClientValidation(
+                        $form
+                            ->field(
+                                $filter,
+                                'term_from',
+                                [
+                                    'inputTemplate' => Yii::t('app', '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>'),
+                                ],
+                            )
+                            ->input('text', ['placeholder' => 'YYYY-MM-DD hh:mm:ss'])
+                            ->label(false),
+                    ),
+                    (string)self::disableClientValidation(
+                        $form
+                            ->field(
+                                $filter,
+                                'term_to',
+                                [
+                                    'inputTemplate' => Yii::t('app', '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>'),
+                                ],
+                            )
+                            ->input('text', ['placeholder' => 'YYYY-MM-DD hh:mm:ss'])
+                            ->label(false),
+                    ),
+                ],
+            ),
+            [
+                'id' => $divId,
+                'class' => 'ml-3',
+            ],
         );
     }
 

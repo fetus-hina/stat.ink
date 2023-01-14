@@ -10,6 +10,9 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use DateTimeImmutable;
+use DateTimeZone;
+use Throwable;
 use Yii;
 use app\models\battle3FilterForm\DropdownListTrait;
 use app\models\battle3FilterForm\PermalinkTrait;
@@ -19,9 +22,15 @@ use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 use function array_merge;
+use function filter_var;
 use function is_array;
+use function is_int;
+use function is_string;
+use function preg_match;
 use function sprintf;
+use function substr;
 
+use const FILTER_VALIDATE_INT;
 use const SORT_ASC;
 
 final class Battle3FilterForm extends Model
@@ -51,6 +60,8 @@ final class Battle3FilterForm extends Model
     public ?string $result = null;
     public ?string $knockout = null;
     public ?string $term = null;
+    public ?string $term_from = null;
+    public ?string $term_to = null;
 
     /**
      * @inheritdoc
@@ -66,7 +77,7 @@ final class Battle3FilterForm extends Model
     public function rules()
     {
         return [
-            [['lobby', 'rule', 'map', 'weapon', 'result', 'knockout', 'term'], 'string'],
+            [['lobby', 'rule', 'map', 'weapon', 'result', 'knockout', 'term', 'term_from', 'term_to'], 'string'],
 
             [['lobby'], 'in',
                 'range' => array_merge(
@@ -109,6 +120,18 @@ final class Battle3FilterForm extends Model
             [['term'], 'in',
                 'range' => self::getKeyListFromDropdown(...$this->getTermDropdown()),
             ],
+
+            [['term_from', 'term_to'], 'required',
+                'when' => fn (self $model): bool => $model->term === 'term',
+            ],
+            [['term_from', 'term_to'], 'datetime',
+                'format' => 'php:Y-m-d H:i:s',
+                'when' => fn (self $model, string $attribute): bool => substr((string)$model->$attribute, 0, 1) !== '@',
+            ],
+            [['term_from', 'term_to'], 'match',
+                'pattern' => '/^@\d+$/',
+                'when' => fn (self $model, string $attribute): bool => substr((string)$model->$attribute, 0, 1) === '@',
+            ],
         ];
     }
 
@@ -118,14 +141,47 @@ final class Battle3FilterForm extends Model
     public function attributeLabels()
     {
         return [
-            'lobby' => Yii::t('app', 'Lobby'),
-            'rule' => Yii::t('app', 'Mode'),
-            'map' => Yii::t('app', 'Stage'),
-            'weapon' => Yii::t('app', 'Weapon'),
-            'result' => Yii::t('app', 'Result'),
             'knockout' => Yii::t('app', 'Knockout'),
+            'lobby' => Yii::t('app', 'Lobby'),
+            'map' => Yii::t('app', 'Stage'),
+            'result' => Yii::t('app', 'Result'),
+            'rule' => Yii::t('app', 'Mode'),
             'term' => Yii::t('app', 'Term'),
+            'term_from' => Yii::t('app', 'Period From'),
+            'term_to' => Yii::t('app', 'Period To'),
+            'weapon' => Yii::t('app', 'Weapon'),
         ];
+    }
+
+    public function updateUnixtimeToString(): void
+    {
+        if ($this->term === 'term') {
+            $this->term_from = self::unixtimeToString($this->term_from);
+            $this->term_to = self::unixtimeToString($this->term_to);
+        }
+    }
+
+    private static function unixtimeToString(?string $value): ?string
+    {
+        if (
+            !is_string($value) ||
+            !preg_match('/^@(\d+)$/', $value, $match)
+        ) {
+            return $value;
+        }
+
+        $timestamp = filter_var($match[1], FILTER_VALIDATE_INT);
+        if (!is_int($timestamp)) {
+            return $value;
+        }
+
+        try {
+            return (new DateTimeImmutable('now', new DateTimeZone(Yii::$app->timeZone)))
+                ->setTimestamp($timestamp)
+                ->format('Y-m-d H:i:s');
+        } catch (Throwable $e) {
+        }
+        return $value;
     }
 
     /**

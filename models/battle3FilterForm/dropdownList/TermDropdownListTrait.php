@@ -28,6 +28,7 @@ trait TermDropdownListTrait
                 $this->getPeriodDropdown(),
                 $this->getDateDropdown(),
                 $this->getTermSeasonDropdown(),
+                $this->getSpecifyDropdown(),
             ),
             ['prompt' => Yii::t('app', 'Any Time')],
         ];
@@ -58,6 +59,13 @@ trait TermDropdownListTrait
                 fn (Season3 $m): string => sprintf('%s%s', Battle3FilterForm::PREFIX_TERM_SEASON, $m->key),
                 fn (Season3 $m): string => Yii::t('app-season3', $m->name),
             ),
+        ];
+    }
+
+    private function getSpecifyDropdown(): array
+    {
+        return [
+            'term' => Yii::t('app', 'Specify Period'),
         ];
     }
 }
