@@ -28,6 +28,7 @@ use function hexdec;
 use function pow;
 use function preg_match;
 use function sqrt;
+use function strcasecmp;
 use function substr;
 
 use const SORT_DESC;
@@ -102,8 +103,8 @@ final class InkColor3Action extends Action
             fn (StatInkColor3 $a, StatInkColor3 $b): int => $b->wins / $b->battles <=> $a->wins / $a->battles
                 ?: $b->battles <=> $a->battles
                 ?: $b->wins <=> $a->wins
-                ?: stricmp($b->color1, $a->color1)
-                ?: stricmp($b->color2, $a->color2),
+                ?: strcasecmp($b->color1, $a->color1)
+                ?: strcasecmp($b->color2, $a->color2),
         );
     }
 

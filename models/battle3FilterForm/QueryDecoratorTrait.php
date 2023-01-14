@@ -10,8 +10,11 @@ declare(strict_types=1);
 
 namespace app\models\battle3FilterForm;
 
+use DateTimeImmutable;
 use DateTimeInterface;
+use DateTimeZone;
 use LogicException;
+use Throwable;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
 use app\models\Battle3FilterForm;
@@ -36,6 +39,7 @@ use function date;
 use function filter_var;
 use function gmdate;
 use function is_int;
+use function is_string;
 use function mktime;
 use function str_starts_with;
 use function substr;
@@ -245,6 +249,7 @@ trait QueryDecoratorTrait
         match ($key) {
             '24h', 'today', 'yesterday' => $this->decorateDateFilter($query, $key),
             'this-period', 'last-period' => $this->decoratePeriodFilter($query, $key),
+            'term' => $this->decorateSpecifiedTerm($query),
             default => match (substr($key, 0, 1)) {
                 Battle3FilterForm::PREFIX_TERM_SEASON => $this->decorateSeasonFilter(
                     $query,
@@ -310,6 +315,38 @@ trait QueryDecoratorTrait
             ['>=', '{{%battle3}}.[[start_at]]', $season->start_at],
             ['<', '{{%battle3}}.[[start_at]]', $season->end_at],
         ]);
+    }
+
+    private function decorateSpecifiedTerm(ActiveQuery $query): void
+    {
+        $from = self::normalizeTermDatetime($this->term_from);
+        $to = self::normalizeTermDatetime($this->term_to);
+        if (!$from || !$to) {
+            $query->andWhere('1 <> 1');
+            return;
+        }
+
+        $query->andWhere(
+            ['between',
+                '{{%battle3}}.[[start_at]]',
+                $from->format(DateTimeInterface::ATOM),
+                $to->format(DateTimeInterface::ATOM),
+            ],
+        );
+    }
+
+    private function normalizeTermDatetime(mixed $value): ?DateTimeInterface
+    {
+        if (!is_string($value)) {
+            return null;
+        }
+
+        try {
+            $tz = new DateTimeZone(Yii::$app->timeZone);
+            return (new DateTimeImmutable($value, $tz))->setTimezone($tz);
+        } catch (Throwable $e) {
+            return null;
+        }
     }
 
     /**
