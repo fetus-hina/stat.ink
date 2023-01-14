@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use app\components\widgets\FA;
+use app\components\widgets\Icon;
 use app\models\Salmon3;
 use app\models\SalmonTitle3;
 use yii\helpers\Html;
@@ -16,7 +16,7 @@ return [
     }
 
     $f = fn (?SalmonTitle3 $title, ?int $exp): string => ($title === null)
-      ? (string)FA::fas('question')
+      ? Icon::unknown()
       : trim(
         implode(' ', [
           Html::encode(Yii::t('app-salmon-title3', $title->name)),
@@ -24,10 +24,10 @@ return [
         ]),
       );
 
-    return vsprintf('%1$s %3$s %2$s', [
+    return implode(' ', [
       $f($model->titleBefore, $model->title_exp_before),
+      Icon::arrowRight(),
       $f($model->titleAfter, $model->title_exp_after),
-      (string)FA::fas('arrow-right'),
     ]);
   },
 ];

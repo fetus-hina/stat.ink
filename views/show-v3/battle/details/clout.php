@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use app\components\i18n\Formatter;
 use app\components\widgets\Label;
-use app\components\widgets\FA;
+use app\components\widgets\Icon;
 use app\models\Battle3;
 use yii\helpers\Html;
 
@@ -28,7 +28,7 @@ return [
 
     $f = Yii::createObject([
       'class' => Formatter::class,
-      'nullDisplay' => (string)FA::fas('question')->fw(),
+      'nullDisplay' => Icon::unknown(),
     ]);
 
     $parts = [];
@@ -51,9 +51,9 @@ return [
         );
       } else {
         $parts[] = trim(
-          vsprintf('%s%s%s %s', [
+          implode(' ', [
             $f->asInteger($cloutBefore),
-            (string)FA::fas('arrow-right')->fw(),
+            Icon::arrowRight(),
             $f->asInteger($cloutAfter),
             $cloutChange === null ? '' : sprintf('(+%s)', $f->asInteger($cloutChange)),
           ]),

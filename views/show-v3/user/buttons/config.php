@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use app\components\widgets\FA;
+use app\components\widgets\Icon;
 use yii\helpers\Html;
 use yii\web\View;
 
@@ -13,7 +13,7 @@ use yii\web\View;
 ?>
 <?= Html::a(
   implode(' ', [
-    (string)FA::fas('cogs')->fw(),
+    Icon::listConfig(),
     Html::encode(Yii::t('app', 'View Settings')),
   ]),
   '#table-config',

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use app\assets\SimpleBattleListAsset;
 use app\components\i18n\Formatter;
-use app\components\widgets\FA;
+use app\components\widgets\Icon;
 use app\models\User;
 use yii\helpers\Html;
 use yii\web\View;
@@ -38,7 +38,7 @@ SimpleBattleListAsset::register($this);
 <p>
   <?= Html::a(
     implode(' ', [
-      (string)FA::fas('list'),
+      Icon::list(),
       Html::encode(Yii::t('app', 'Detailed List')),
     ]),
     array_merge(

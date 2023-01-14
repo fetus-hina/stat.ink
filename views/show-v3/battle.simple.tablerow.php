@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use app\components\widgets\FA;
+use app\components\widgets\Icon;
 use app\components\widgets\Label;
 use app\components\widgets\v3\weaponIcon\SpecialIcon;
 use app\components\widgets\v3\weaponIcon\SubweaponIcon;
@@ -141,7 +141,7 @@ use yii\web\View;
         ),
         Html::tag(
           'div',
-          $model->has_disconnect ? (string)FA::fas('tint-slash') : '',
+          $model->has_disconnect ? Icon::hasDisconnected() : '',
           ['class' => 'simple-battle-disconnected text-danger'],
         ),
       ]),

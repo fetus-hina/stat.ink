@@ -5,7 +5,6 @@ declare(strict_types=1);
 use app\assets\SimpleBattleListAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Battle3FilterWidget;
-use app\components\widgets\FA;
 use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\UserMiniInfo3;
@@ -96,7 +95,7 @@ SimpleBattleListAsset::register($this);
           ),
           Html::a(
             implode(' ', [
-              (string)FA::fas('list')->fw(),
+              Icon::list(),
               Html::encode(Yii::t('app', 'Detailed List')),
             ]),
             ['show-v3/user', 'screen_name' => $user->screen_name, 'v' => 'standard'],

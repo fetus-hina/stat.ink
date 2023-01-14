@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use app\components\widgets\FA;
+use app\components\widgets\Icon;
 use app\components\widgets\v3\weaponIcon\SpecialIcon;
 use app\models\Ability3;
 use app\models\BattlePlayer3;
@@ -32,34 +32,16 @@ if ($player->is_me) {
   $bgClass = 'bg-danger';
 }
 
-if ($player->is_crowned) {
-  $this->registerCss(
-    vsprintf('.player-crown{%s}', [
-      Html::cssStyleFromArray([
-        'color' => '#f41',
-        'text-shadow' => '1px 1px 0 #3336',
-      ]),
-    ]),
-  );
-}
-
 ?>
 <?= Html::beginTag('tr', ['class' => $bgClass]) . "\n" ?>
   <?= Html::tag(
     'td',
     implode('', [
       $player->is_crowned
-        ? Html::tag(
-          'div',
-          (string)FA::fas('crown')->fw(),
-          ['class' => 'player-crown'],
-        )
+        ? Html::tag('div', Icon::crown(), ['class' => 'player-crown'])
         : '',
       $player->is_me
-        ? Html::tag(
-          'div',
-          (string)FA::fas('level-up-alt')->fw()->rotate(90),
-        )
+        ? Html::tag('div', Icon::thisPlayer())
         : '',
     ]),
     [

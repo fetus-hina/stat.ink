@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use app\components\i18n\Formatter;
-use app\components\widgets\FA;
+use app\components\widgets\Icon;
 use app\models\Battle3;
 
 return [
@@ -16,12 +16,12 @@ return [
 
     $f = Yii::createObject([
       'class' => Formatter::class,
-      'nullDisplay' => (string)FA::fas('question')->fw(),
+      'nullDisplay' => Icon::unknown(),
     ]);
 
-    return implode('', [
+    return implode(' ', [
       $f->asInteger($model->cash_before),
-      (string)FA::fas('arrow-right')->fw(),
+      Icon::arrowRight(),
       $f->asInteger($model->cash_after),
     ]);
   },

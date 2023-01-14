@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use app\assets\Spl3AbilityAsset;
-use app\components\widgets\FA;
+use app\components\widgets\Icon;
 use app\models\Ability3;
 use app\models\BattlePlayer3;
 use app\models\BattleTricolorPlayer3;
@@ -186,7 +186,7 @@ $modalId = vsprintf('%s-%s', [
       <div class="modal-content">
         <div class="modal-header">
           <?= Html::button(
-            Html::tag('span', (string)FA::fas('times')->fw()),
+            Icon::close(),
             ['class' => 'close', 'data-dismiss' => 'modal'],
           ) . "\n" ?>
           <?= Html::tag(
@@ -240,7 +240,7 @@ $modalId = vsprintf('%s-%s', [
                 ) . "\n" ?>
                 <td class="omit"><?= Html::encode($power['name']) ?></td>
 <?php if ($power['mainOnly']) { ?>
-                <td class="text-center text-success"><?= (string)FA::fas('check')->fw() ?></td>
+                <td class="text-center text-success"><?= Icon::check() ?></td>
                 <td></td>
                 <td></td>
 <?php } else {?>
@@ -271,8 +271,8 @@ $modalId = vsprintf('%s-%s', [
         </div>
         <div class="modal-footer">
           <?= Html::button(
-            implode('', [
-              (string)FA::fas('times')->fw(),
+            implode(' ', [
+              Icon::close(),
               Html::encode(Yii::t('app', 'Close')),
             ]),
             [
