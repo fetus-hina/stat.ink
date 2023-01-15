@@ -34,5 +34,5 @@ return [
     'Track your login status' => 'Suivre votre statut de connexion',
     'Visit their {description} and/or {privacy} for more details' => 'Visitez leur {description} et/ou {privacy} pour plus de détails',
     'We use cookies to ensure you get the best experience on our website.' => 'Nous utilisons des cookies pour vous garantir la meilleure expérience sur notre site.',
-    'What to use' => 'Quoi utiliser ?',
+    'What to use' => 'Utilisation',
 ];
