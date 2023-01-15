@@ -63,7 +63,6 @@ $jsonUrl = str_starts_with($lang, 'en-') || str_starts_with($lang, 'ja-')
   ]) . "\n" ?>
   <div class="row">
     <div class="col-xs-12 col-sm-8 col-lg-9">
-      <?= $this->render('index/link-battles', compact('user')) . "\n" ?>
       <?= $this->render($spMode ? 'index/sp' : 'index/pc', compact('user', 'dataProvider')) . "\n" ?>
     </div>
     <div class="col-xs-12 col-sm-4 col-lg-3">

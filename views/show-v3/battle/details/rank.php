@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use app\components\widgets\FA;
+use app\components\widgets\Icon;
 use app\components\widgets\v3\Rank;
 use app\models\Battle3;
 use app\models\Rank3;
@@ -41,11 +41,11 @@ return [
       return $change ? Html::encode($change) : null;
     }
 
-    return implode('', [
+    return implode(' ', [
       $renderRank($rankBefore, $model->rank_before_s_plus, $model->rank_before_exp),
-      (string)FA::fas('arrow-right')->fw(),
+      Icon::arrowRight(),
       $renderRank($rankAfter, $model->rank_after_s_plus, $model->rank_after_exp),
-      $change ? Html::encode(" ({$change})") : '',
+      $change ? Html::encode("({$change})") : '',
     ]);
   },
 ];

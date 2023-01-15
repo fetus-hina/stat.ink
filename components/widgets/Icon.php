@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -26,6 +26,7 @@ final class Icon
     // apiJson
     // appLink
     // appUnlink
+    // arrowRight
     // back
     // blog
     // caretDown
@@ -35,6 +36,7 @@ final class Icon
     // close
     // colorScheme
     // config
+    // crown
     // delete
     // discord
     // download
@@ -45,6 +47,7 @@ final class Icon
     // fileJson
     // filter
     // github
+    // hasDisconnected
     // help
     // image
     // ios
@@ -54,11 +57,14 @@ final class Icon
     // languageLevelPartical
     // link
     // linux
+    // list
+    // listConfig
     // login
     // loginHistory
     // logout
     // macOs
     // nextPage
+    // no
     // ok
     // permalink
     // prevPage
@@ -68,6 +74,7 @@ final class Icon
     // slack
     // stats
     // subPage
+    // thisPlayer
     // timezone
     // twitter
     // unknown
@@ -75,6 +82,7 @@ final class Icon
     // userAdd
     // videoLink
     // windows
+    // yes
 
     public static function addSomething(): string
     {
@@ -99,6 +107,11 @@ final class Icon
     public static function appUnlink(): string
     {
         return self::fas('unlink');
+    }
+
+    public static function arrowRight(): string
+    {
+        return self::bi('arrow-right');
     }
 
     public static function back(): string
@@ -144,6 +157,11 @@ final class Icon
     public static function config(): string
     {
         return self::bi('person-fill-gear');
+    }
+
+    public static function crown(): string
+    {
+        return self::fas('crown');
     }
 
     public static function delete(): string
@@ -204,6 +222,11 @@ final class Icon
         return self::bi('github');
     }
 
+    public static function hasDisconnected(): string
+    {
+        return self::fas('tint-slash');
+    }
+
     public static function help(): string
     {
         return self::bi('question-circle-fill');
@@ -249,6 +272,16 @@ final class Icon
         return self::bi('ubuntu'); // FIXME
     }
 
+    public static function list(): string
+    {
+        return self::bi('list');
+    }
+
+    public static function listConfig(): string
+    {
+        return self::bi('gear');
+    }
+
     public static function login(): string
     {
         return self::bi('box-arrow-in-right');
@@ -272,6 +305,11 @@ final class Icon
     public static function nextPage(): string
     {
         return self::bi('chevron-double-right');
+    }
+
+    public static function no(): string
+    {
+        return self::bi('x-lg');
     }
 
     public static function ok(): string
@@ -324,6 +362,11 @@ final class Icon
         return self::bi('chevron-right');
     }
 
+    public static function thisPlayer(): string
+    {
+        return (string)FA::fas('level-up-alt')->fw()->rotate(90);
+    }
+
     public static function timezone(): string
     {
         return self::bi('clock');
@@ -368,6 +411,11 @@ final class Icon
     public static function windows(): string
     {
         return self::bi('windows');
+    }
+
+    public static function yes(): string
+    {
+        return self::bi('check-lg');
     }
 
     private static function bi(string $name, ?string $css = null): string

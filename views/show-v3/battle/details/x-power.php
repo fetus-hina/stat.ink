@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use app\components\i18n\Formatter;
-use app\components\widgets\FA;
 use app\components\widgets\Icon;
 use app\models\Battle3;
 
@@ -29,9 +28,9 @@ return [
         return $f->asDecimal($before, 1);
     }
 
-    return vsprintf('%s%s%s', [
+    return implode(' ', [
       $f->asDecimal($before, 1),
-      (string)FA::fas('arrow-right')->fw(),
+      Icon::arrowRight(),
       $f->asDecimal($after, 1),
     ]);
   },

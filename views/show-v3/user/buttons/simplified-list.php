@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use app\components\widgets\FA;
+use app\components\widgets\Icon;
 use app\models\User;
 use yii\helpers\Html;
 use yii\web\View;
@@ -15,7 +15,7 @@ use yii\web\View;
 ?>
 <?= Html::a(
   implode(' ', [
-    (string)FA::fas('list')->fw(),
+    Icon::list(),
     Html::encode(Yii::t('app', 'Simplified List')),
   ]),
   ['show-v3/user',

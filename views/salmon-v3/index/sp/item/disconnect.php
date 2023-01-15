@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use app\components\widgets\FA;
+use app\components\widgets\Icon;
 use app\models\Salmon3;
 use yii\helpers\Html;
 use yii\web\View;
@@ -14,7 +14,7 @@ use yii\web\View;
 
 echo Html::tag(
   'div',
-  $model->has_disconnect ? (string)FA::fas('tint-slash') : '',
+  $model->has_disconnect ? Icon::hasDisconnected() : '',
   [
     'class' => [
       'simple-battle-disconnected',
