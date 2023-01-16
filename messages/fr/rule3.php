@@ -9,13 +9,13 @@
 declare(strict_types=1);
 
 return [
-    'Any Mode' => '',
-    'Attackers' => '',
+    'Any Mode' => 'Tous modes',
+    'Attackers' => 'Attaque',
     'CB' => 'Pluie de palourdes',
     'Clam Blitz' => 'Pluie de palourdes',
-    'Defenders' => '',
+    'Defenders' => 'Défense',
     'Rainmaker' => 'Mission Bazookarpe',
-    'Ranked Modes' => '',
+    'Ranked Modes' => 'Modes classés',
     'RM' => 'Mission Bazookarpe',
     'Splat Zones' => 'Défense de zone',
     'SZ' => 'Défense de zone',

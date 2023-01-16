@@ -9,5 +9,5 @@
 declare(strict_types=1);
 
 return [
-    'Any Version' => '',
+    'Any Version' => 'Toutes versions',
 ];
