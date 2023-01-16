@@ -9,11 +9,11 @@
 declare(strict_types=1);
 
 return [
-    'lost' => '',
-    'Staaaay Fresh!' => '',
-    'unknown mode' => '',
-    'unknown stage' => '',
-    'won' => '',
-    '{name}: Just {winlose} {rule} at {stage}. <{url}|Detail>' => '',
-    '{name}: Just {winlose} {rule} at {stage}. {url}' => '',
+    'lost' => 'perdre',
+    'Staaaay Fresh!' => 'À plus tard, calamars !',
+    'unknown mode' => 'mode inconnu',
+    'unknown stage' => 'un stage inconnu',
+    'won' => 'gagner',
+    '{name}: Just {winlose} {rule} at {stage}. <{url}|Detail>' => '{}: Vient de {winlose} un match de {rule} sur {stage}. <{url}|Détails>',
+    '{name}: Just {winlose} {rule} at {stage}. {url}' => '{}: Vient de {winlose} un match de {rule} sur {stage}. {url}',
 ];

@@ -27,7 +27,7 @@ return [
     'Privacy Policy' => 'Politique de confidentialité',
     'SAKURA internet inc. is our sponsor.' => 'SAKURA internet inc. est notre sponsor.',
     'Server Location' => 'Emplacement du serveur',
-    'SNS' => '',
+    'SNS' => 'Réseaux sociaux',
     'The address of the web site that linked here ("referrer" or "referer")' => 'L\'adresse du site web qui a redirigé jusqu\'ici ("referrer" ou "referer")',
     'The parties hereby consent to and confer exclusive jurisdiction upon Osaka District Court or Hirakata Summary Court.' => 'Par la présente, les parties consentent et confèrent une compétence exclusive au tribunal de district d\'Osaka ou au tribunal sommaire de Hirakata.',
     'They never have access to your private data.' => 'Ils n\'auront jamais accès à vos données privées.',
