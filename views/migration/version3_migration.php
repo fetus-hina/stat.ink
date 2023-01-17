@@ -41,4 +41,16 @@ $latestVersion = SplatoonVersion3::find()
         '',
         'return true;',
     ]),
+    'extraCode' => implode("\n", [
+        '/**',
+        ' * @inheritdoc',
+        ' */',
+        'protected function vacuumTables(): array',
+        '{',
+        '    return [',
+        '        \'{{%splatoon_version3}}\',',
+        '        \'{{%splatoon_version_group3}}\',',
+        '    ];',
+        '}',
+    ]),
 ]) ?>

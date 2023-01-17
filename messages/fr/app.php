@@ -5,6 +5,7 @@
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author 7185 <7185@users.noreply.github.com>
  * @author AIZAWA Hina <hina@fetus.jp>
+ * @author codl <codl@codl.fr>
  * @author ultrasonicytb <ultrasonic2408@gmail.com>
  */
 

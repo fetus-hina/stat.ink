@@ -148,6 +148,8 @@ final class I18nController extends Controller
             $changed = true;
         }
 
+        // $changed |= str_contains($outPath, '/fr/');
+
         if (!$changed && count($current) > 0) {
             $this->stderr("  => SKIP\n");
             return true;
