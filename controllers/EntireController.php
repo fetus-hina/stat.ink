@@ -31,6 +31,7 @@ use app\actions\entire\v3\InkColor3Action;
 use app\actions\entire\v3\KDWin3Action;
 use app\actions\entire\v3\Knockout3Action;
 use app\actions\entire\v3\SpecialUse3Action;
+use app\actions\entire\v3\SpecialUse3PerSpecialAction;
 use app\actions\entire\v3\XPowerDistrib3Action;
 use app\components\web\Controller;
 use yii\filters\VerbFilter;
@@ -74,6 +75,7 @@ final class EntireController extends Controller
             'salmon3-random-loan' => RandomLoanAction::class,
             'salmon3-tide' => TideAction::class,
             'special-use3' => SpecialUse3Action::class,
+            'special-use3-per-special' => SpecialUse3PerSpecialAction::class,
             'users' => UsersAction::class,
             'weapon' => WeaponAction::class,
             'weapon2' => Weapon2Action::class,

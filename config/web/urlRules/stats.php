@@ -5,8 +5,9 @@ declare(strict_types=1);
 return [
     'downloads' => 'download-stats/index',
     'entire/salmon/<action:[\w-]+>' => 'entire/salmon-<action>',
-    'entire/salmon3/random-loan/<id:\d+>' => 'entire/salmon3-random-loan',
     'entire/salmon3/<action:[\w-]+>' => 'entire/salmon3-<action>',
+    'entire/salmon3/random-loan/<id:\d+>' => 'entire/salmon3-random-loan',
+    'entire/special-use3/<special:[\w-]+>' => 'entire/special-use3-per-special',
     'entire/users/<b32name:[A-Za-z2-7]+>' => 'entire/agent',
     'entire/users/combined-<b32name:[A-Za-z2-7]+>' => 'entire/combined-agent',
     'entire/weapons/<weapon:\w+>' => 'entire/weapon',

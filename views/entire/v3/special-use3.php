@@ -40,7 +40,9 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
   <?= AdWidget::widget() . "\n" ?>
   <?= SnsWidget::widget() . "\n" ?>
 
-  <?= $this->render('includes/season-selector', compact('season', 'seasons', 'seasonUrl')) . "\n" ?>
+  <div class="mb-3">
+    <?= $this->render('includes/season-selector', compact('season', 'seasons', 'seasonUrl')) . "\n" ?>
+  </div>
   <?= $this->render('includes/aggregate', compact('xMatch')) . "\n" ?>
   <?= $this->render('includes/rule-link', ['rules' => array_values($rules)]) . "\n" ?>
 
@@ -48,6 +50,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
     'data' => $data,
     'maxAvgUses' => $maxAvgUses,
     'rules' => $rules,
+    'season' => $season,
     'specials' => $specials,
     'total' => $total,
   ]) . "\n" ?>
@@ -56,6 +59,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
     'data' => $total,
     'maxAvgUses' => $maxAvgUses,
     'rule' => null,
+    'season' => $season,
     'specials' => $specials,
   ]) . "\n" ?>
 
@@ -64,6 +68,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
     'data' => $data[$ruleId] ?? [],
     'maxAvgUses' => $maxAvgUses,
     'rule' => $rule,
+    'season' => $season,
     'specials' => $specials,
   ]) . "\n" ?>
 

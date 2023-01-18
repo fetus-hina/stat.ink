@@ -72,7 +72,9 @@ $fmt = Yii::$app->formatter;
     ) . "\n" ?>
   </div>
 
-  <?= $this->render('includes/season-selector', compact('season', 'seasons', 'seasonUrl')) . "\n" ?>
+  <div class="mb-3">
+    <?= $this->render('includes/season-selector', compact('season', 'seasons', 'seasonUrl')) . "\n" ?>
+  </div>
   <?= $this->render('includes/rule-link', compact('rules')) . "\n" ?>
 
 <?php foreach ($rules as $ruleId => $rule) { ?>

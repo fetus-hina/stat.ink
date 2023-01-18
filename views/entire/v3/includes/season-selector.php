@@ -32,7 +32,7 @@ use yii\web\View;
     ),
   ),
   [
-    'class' => 'form-control mb-3',
+    'class' => 'form-control m-0',
     'onchange' => 'window.location.href = this.value',
   ],
 );

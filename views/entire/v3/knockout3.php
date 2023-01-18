@@ -49,7 +49,9 @@ EntireKnockoutAsset::register($this);
     </nav>
   </aside>
 
-  <?= $this->render('includes/season-selector', compact('season', 'seasons', 'seasonUrl')) . "\n" ?>
+  <div class="mb-3">
+    <?= $this->render('includes/season-selector', compact('season', 'seasons', 'seasonUrl')) . "\n" ?>
+  </div>
   <?= $this->render('includes/aggregate', compact('xMatch')) . "\n" ?>
   <?= $this->render('knockout3/table', compact('data', 'total', 'maps', 'rules')) . "\n" ?>
 </div>

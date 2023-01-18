@@ -6,6 +6,7 @@ use app\assets\GameModeIconsAsset;
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\v3\weaponIcon\SpecialIcon;
 use app\models\Rule3;
+use app\models\Season3;
 use app\models\Special3;
 use app\models\StatSpecialUse3;
 use yii\bootstrap\Progress;
@@ -14,6 +15,7 @@ use yii\helpers\Html;
 use yii\web\View;
 
 /**
+ * @var Season3 $season
  * @var StatSpecialUse3[] $total
  * @var array<int, Rule3> $rules
  * @var array<int, Special3> $specials
@@ -71,10 +73,19 @@ $total2 = ArrayHelper::index($total, 'special_id');
         <tbody>
 <?php foreach ($specials as $spId => $special) { ?>
           <tr>
-            <?= Html::tag('td', vsprintf('%s %s', [
-              SpecialIcon::widget(['model' => $special]),
-              Html::encode(Yii::t('app-special3', $special->name)),
-            ])) . "\n" ?>
+            <?= Html::tag(
+              'td',
+              Html::a(
+                vsprintf('%s %s', [
+                  SpecialIcon::widget(['model' => $special]),
+                  Html::encode(Yii::t('app-special3', $special->name)),
+                ]),
+                ['entire/special-use3-per-special',
+                  'season' => $season->id,
+                  'special' => $special->key,
+                ],
+              ),
+            ) . "\n" ?>
             <?= Html::tag(
               'td',
               $this->render('avg-uses', [

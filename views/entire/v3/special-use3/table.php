@@ -6,6 +6,7 @@ use app\assets\GameModeIconsAsset;
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\v3\weaponIcon\SpecialIcon;
 use app\models\Rule3;
+use app\models\Season3;
 use app\models\Special3;
 use app\models\StatSpecialUse3;
 use yii\data\ArrayDataProvider;
@@ -15,6 +16,7 @@ use yii\web\View;
 
 /**
  * @var Rule3|null $rule
+ * @var Season3 $season
  * @var StatSpecialUse3[] $data
  * @var View $this
  * @var array<int, Special3> $specials
@@ -27,29 +29,10 @@ $fmt = Yii::$app->formatter;
 
 ?>
 <div class="mb-3">
-<?php if ($rule) { ?>
-  <?= Html::tag(
-    'h2',
-    vsprintf('%s %s', [
-      Html::img(
-        Yii::$app->assetManager->getAssetUrl(
-          Yii::$app->assetManager->getBundle(GameModeIconsAsset::class),
-          sprintf('spl3/%s.png', $rule->key),
-        ),
-        [
-          'class' => 'basic-icon',
-          'style' => ['--icon-height' => '1em'],
-        ],
-      ),
-      Html::encode(Yii::t('app-rule3', $rule->name)),
-    ]),
-    [
-      'class' => 'm-0 mb-3',
-      'id' => $rule->key,
-    ],
-  ) . "\n" ?>
-
-<?php } ?>
+  <?= $this->render('../includes/rule-header', [
+    'rule' => $rule,
+    'id' => true,
+  ]) . "\n" ?>
   <div class="table-responsive table-responsive-force">
     <?= GridView::widget([
       'dataProvider' => Yii::createObject([
@@ -65,10 +48,17 @@ $fmt = Yii::$app->formatter;
         [
           'label' => Yii::t('app', 'Special'),
           'format' => 'raw',
-          'value' => fn (StatSpecialUse3 $model): string => vsprintf('%s %s', [
-            SpecialIcon::widget(['model' => $specials[$model->special_id] ?? null]),
-            Html::encode(Yii::t('app-special3', $specials[$model->special_id]?->name ?? '')),
-          ]),
+          'value' => fn (StatSpecialUse3 $model): string => Html::a(
+            vsprintf('%s %s', [
+              SpecialIcon::widget(['model' => $specials[$model->special_id] ?? null]),
+              Html::encode(Yii::t('app-special3', $specials[$model->special_id]?->name ?? '')),
+            ]),
+            ['entire/special-use3-per-special',
+              'season' => $season->id,
+              'special' => $specials[$model->special_id]?->key,
+              '#' => $rule?->key,
+            ],
+          ),
         ],
         [
           'format' => 'raw',
