@@ -40,7 +40,7 @@ final class SpecialUse3PerSpecialAction extends Action
         assert($controller instanceof Controller);
 
         $params = Yii::$app->db->transaction(
-            fn (Connection $db): array => $this->doRun($controller, $db, $special),
+            fn (Connection $db): Response|array => $this->doRun($controller, $db, $special),
             Transaction::REPEATABLE_READ,
         );
 
