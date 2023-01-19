@@ -12,14 +12,17 @@ namespace app\commands\stat;
 
 use app\commands\stat\weapon3\SpecialUseCountTrait;
 use app\commands\stat\weapon3\SpecialUseTrait;
+use app\commands\stat\weapon3\WeaponUsageTrait;
 
 trait Weapon3Trait
 {
     use SpecialUseCountTrait;
     use SpecialUseTrait;
+    use WeaponUsageTrait;
 
     protected function updateEntireWeapons3(): void
     {
+        $this->makeStatWeapon3Usage();
         $this->makeStatWeapon3SpecialUse();
         $this->makeStatWeapon3SpecialUseCount();
     }

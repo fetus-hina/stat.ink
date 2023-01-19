@@ -95,7 +95,7 @@ final class StatController extends Controller
     public function actionUpdateEntireWeapons()
     {
         $this->updateEntireWeapons3();
-        $this->updateEntireWeapons2();
+        // $this->updateEntireWeapons2();
         // $this->updateEntireWeapons1();
     }
 
