@@ -132,6 +132,7 @@ return [
     'Continue' => '계속',
     'Copied!' => '복사되었습니다',
     'Correlation Coefficient' => '상관계수',
+    'Correlation with Win %' => '',
     'Could not be updated.' => '갱신에 실패하였습니다',
     'Could not find specified battle.' => '배틀을 찾지 못했습니다.',
     'Could not get your twitter icon at this time.' => 'Twitter 아이콘을 얻어오지 못하였습니다.',

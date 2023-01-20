@@ -15,6 +15,8 @@ return [
     'data-sort' => 'float',
     'data-sort-default' => 'desc',
   ],
+  'filter' => (require __DIR__ . '/includes/correlation-filter.php')('avg_inked'),
+  'filterOptions' => ['class' => 'text-right'],
   'label' => Yii::t('app', 'Avg Inked'),
   'value' => fn (StatWeapon3Usage $model): string => Html::tag(
     'span',

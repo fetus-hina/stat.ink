@@ -18,6 +18,8 @@ return [
     'data-sort' => 'float',
     'data-sort-default' => 'desc',
   ],
+  'filter' => (require __DIR__ . '/includes/correlation-filter.php')($calc),
+  'filterOptions' => ['class' => 'text-right'],
   'label' => Yii::t('app', 'Assists/min'),
   'value' => fn (StatWeapon3Usage $model): ?float => $calc($model),
 ];

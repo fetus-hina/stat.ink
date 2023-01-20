@@ -134,6 +134,7 @@ return [
     'Continue' => 'Continuer',
     'Copied!' => 'Copié !',
     'Correlation Coefficient' => 'Coefficient de corrélation',
+    'Correlation with Win %' => '',
     'Could not be updated.' => 'N\'a pas pu être mis à jour.',
     'Could not find specified battle.' => 'N\'a pas pu trouver le match demandé.',
     'Could not get your twitter icon at this time.' => 'N\'a pas pu récupérer votre icône Twitter pour le moment.',

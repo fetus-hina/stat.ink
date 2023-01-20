@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 use app\models\StatWeapon3Usage;
+use yii\base\Model;
+use yii\grid\GridView;
 use yii\helpers\Html;
 
 return [
@@ -15,6 +17,8 @@ return [
     'data-sort' => 'float',
     'data-sort-default' => 'desc',
   ],
+  'filter' => (require __DIR__ . '/includes/correlation-filter.php')('avg_kill'),
+  'filterOptions' => ['class' => 'text-right'],
   'label' => Yii::t('app', 'Avg Kills'),
   'value' => fn (StatWeapon3Usage $model): string => Html::tag(
     'span',

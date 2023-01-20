@@ -1,0 +1,13 @@
+--- yii2/grid/DataColumn.php
++++ yii2/grid/DataColumn.php
+@@ -230,6 +230,10 @@
+             return Html::activeTextInput($model, $this->filterAttribute, $options) . $error;
+         }
+ 
++        if (\is_callable($this->filter)) {
++            return \call_user_func($this->filter, $model, $this, $this->grid);
++        }
++
+         return parent::renderFilterCellContent();
+     }
+ 

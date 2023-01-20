@@ -15,6 +15,8 @@ return [
     'data-sort' => 'float',
     'data-sort-default' => 'desc',
   ],
+  'filter' => (require __DIR__ . '/includes/correlation-filter.php')('avg_death'),
+  'filterOptions' => ['class' => 'text-right'],
   'label' => Yii::t('app', 'Avg Deaths'),
   'value' => fn (StatWeapon3Usage $model): string => Html::tag(
     'span',

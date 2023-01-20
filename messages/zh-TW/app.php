@@ -133,6 +133,7 @@ return [
     'Continue' => '繼續',
     'Copied!' => '已複製',
     'Correlation Coefficient' => '相關係數',
+    'Correlation with Win %' => '',
     'Could not be updated.' => '未能完成更新。',
     'Could not find specified battle.' => '未能發現指定對戰。',
     'Could not get your twitter icon at this time.' => '未能獲取twitter頭像。',

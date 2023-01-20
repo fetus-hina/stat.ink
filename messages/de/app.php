@@ -131,6 +131,7 @@ return [
     'Continue' => '',
     'Copied!' => '',
     'Correlation Coefficient' => '',
+    'Correlation with Win %' => '',
     'Could not be updated.' => '',
     'Could not find specified battle.' => '',
     'Could not get your twitter icon at this time.' => '',
