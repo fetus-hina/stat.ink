@@ -13,7 +13,7 @@ return [
     'class' => 'text-right',
     'data-sort-value' => $calc($model),
   ],
-  'format' => ['decimal', 1],
+  'format' => ['decimal', 2],
   'headerOptions' => [
     'data-sort' => 'float',
     'data-sort-default' => 'desc',

@@ -345,6 +345,7 @@ return [
     'Masked' => '',
     'max={max} min={min} average={avg} median={median} mode={mode}' => '',
     'max={max} min={min} median={median}' => '',
+    'max={max} min={min} median={median} stddev={stddev}' => '',
     'Maximum' => '',
     'Max Inked' => '',
     'Max Kill Combo' => '',

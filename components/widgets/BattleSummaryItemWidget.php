@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -90,22 +90,22 @@ class BattleSummaryItemWidget extends Widget
             Html::encode(Yii::$app->formatter->asDecimal($this->total / $this->battles, 2)),
             [
                 'class' => 'auto-tooltip',
-                'title' => isset($this->median)
-                    ? Yii::t('app', 'max={max} min={min} median={median}', [
-                        'max' => $this->max === null
-                            ? '?'
-                            : Yii::$app->formatter->asInteger($this->max),
-                        'min' => $this->min === null
-                            ? '?'
-                            : Yii::$app->formatter->asInteger($this->min),
-                        'median' => $this->median === null
-                            ? '?'
-                            : Yii::$app->formatter->asDecimal($this->median, 1),
-                    ])
-                    : Yii::t('app', $this->tooltipText, [
-                        'number' => $this->total,
+                'title' => Yii::t(
+                    'app',
+                    match (true) {
+                        isset($this->median) && isset($this->stddev) => 'max={max} min={min} median={median} stddev={stddev}',
+                        isset($this->median) => 'max={max} min={min} median={median}',
+                        default => $this->tooltipText,
+                    },
+                    [
                         'battle' => $this->battles,
-                    ]),
+                        'max' => $this->max === null ? '?' : Yii::$app->formatter->asInteger($this->max),
+                        'median' => $this->median === null ? '?' : Yii::$app->formatter->asDecimal($this->median, 1),
+                        'min' => $this->min === null ? '?' : Yii::$app->formatter->asInteger($this->min),
+                        'number' => $this->total,
+                        'stddev' => $this->stddev === null ? '?' : Yii::$app->formatter->asDecimal($this->stddev, 2),
+                    ],
+                ),
             ],
         );
     }
