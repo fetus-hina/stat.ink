@@ -345,6 +345,7 @@ return [
     'Masked' => '',
     'max={max} min={min} average={avg} median={median} mode={mode}' => '',
     'max={max} min={min} median={median}' => '',
+    'max={max} min={min} median={median} stddev={stddev}' => '',
     'Maximum' => '',
     'Max Inked' => '최대 칠한 면적',
     'Max Kill Combo' => '최대 킬 콤보',

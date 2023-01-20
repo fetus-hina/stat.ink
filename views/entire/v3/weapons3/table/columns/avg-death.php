@@ -2,7 +2,10 @@
 
 declare(strict_types=1);
 
+use app\components\widgets\BattleSummaryItemWidget;
 use app\models\StatWeapon3Usage;
+use yii\base\Model;
+use yii\grid\GridView;
 use yii\helpers\Html;
 
 return [
@@ -18,12 +21,21 @@ return [
   'filter' => (require __DIR__ . '/includes/correlation-filter.php')('avg_death'),
   'filterOptions' => ['class' => 'text-right'],
   'label' => Yii::t('app', 'Avg Deaths'),
-  'value' => fn (StatWeapon3Usage $model): string => Html::tag(
-    'span',
-    Html::encode(Yii::$app->formatter->asDecimal($model->avg_death, 2)),
-    [
-      'class' => 'auto-tooltip',
-      'title' => $model->sd_death === null ? '' : sprintf('σ=%.2f', (float)$model->sd_death),
-    ],
-  ),
+  'value' => fn (StatWeapon3Usage $model): string => BattleSummaryItemWidget::widget([
+    'battles' => $model->battles,
+    'max' => $model->max_death,
+    'median' => $model->p50_death,
+    'min' => $model->min_death,
+    'pct5' => $model->p05_death,
+    'pct95' => $model->p95_death,
+    'q1' => $model->p25_death,
+    'q3' => $model->p75_death,
+    'stddev' => $model->sd_death,
+    'summary' => vsprintf('%s - %s', [
+        Yii::t('app-weapon3', $model->weapon?->name ?? ''),
+        Yii::t('app', 'Avg Deaths'),
+    ]),
+    'tooltipText' => '',
+    'total' => $model->battles * $model->avg_death,
+  ]),
 ];

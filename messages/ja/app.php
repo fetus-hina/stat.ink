@@ -660,6 +660,7 @@ return [
     'less than {min} {name}' => '{min}{name}未満',
     'lost' => '負けました',
     'max={max} min={min} average={avg} median={median} mode={mode}' => '最大={max} 最小={min} 平均={avg} 中央値={median} 最頻値={mode}',
+    'max={max} min={min} median={median} stddev={stddev}' => '最大={max} 最小={min} 中央値={median} 標準偏差={stddev}',
     'max={max} min={min} median={median}' => '最大={max} 最小={min} 中央値={median}',
     'more than {max} {name}' => '{max}{name}をこえる',
     'more...' => '続きを見る...',

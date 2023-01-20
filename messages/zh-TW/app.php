@@ -346,6 +346,7 @@ return [
     'Masked' => '已隱藏',
     'max={max} min={min} average={avg} median={median} mode={mode}' => '最大值={max} 最小值={min} 平均值={avg} 中位值={median} 衆數={mode}',
     'max={max} min={min} median={median}' => '最大值={max} 最小值={min} 平均值={median}',
+    'max={max} min={min} median={median} stddev={stddev}' => '',
     'Maximum' => '最大值',
     'Max Inked' => '最大塗地面積',
     'Max Kill Combo' => '最多擊殺數',
