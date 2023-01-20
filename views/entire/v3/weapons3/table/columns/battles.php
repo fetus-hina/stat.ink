@@ -11,6 +11,10 @@ return [
     'data-sort-value' => $model->battles,
   ],
   'format' => 'integer',
-  'headerOptions' => ['data-sort' => 'int'],
+  'headerOptions' => [
+    'data-sort' => 'int',
+    'data-sort-default' => 'desc',
+    'data-sort-onload' => 'yes',
+  ],
   'label' => Yii::t('app', 'Players'),
 ];

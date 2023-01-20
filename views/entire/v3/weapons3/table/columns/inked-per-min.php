@@ -14,7 +14,10 @@ return [
     'data-sort-value' => $calc($model),
   ],
   'format' => ['decimal', 1],
-  'headerOptions' => ['data-sort' => 'float'],
+  'headerOptions' => [
+    'data-sort' => 'float',
+    'data-sort-default' => 'desc',
+  ],
   'label' => Yii::t('app', 'Inked/min'),
   'value' => fn (StatWeapon3Usage $model): ?float => $calc($model),
 ];

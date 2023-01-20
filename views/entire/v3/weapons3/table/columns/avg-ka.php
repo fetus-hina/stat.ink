@@ -11,7 +11,10 @@ return [
     'data-sort-value' => $model->avg_kill + $model->avg_assist,
   ],
   'format' => ['decimal', 2],
-  'headerOptions' => ['data-sort' => 'float'],
+  'headerOptions' => [
+    'data-sort' => 'float',
+    'data-sort-default' => 'desc',
+  ],
   'label' => Yii::t('app', 'Avg K+A'),
   'value' => fn (StatWeapon3Usage $model): float => $model->avg_kill + $model->avg_assist,
 ];

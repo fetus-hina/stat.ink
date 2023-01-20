@@ -11,7 +11,10 @@ return [
     'data-sort-value' => $model->avg_death,
   ],
   'format' => 'raw',
-  'headerOptions' => ['data-sort' => 'float'],
+  'headerOptions' => [
+    'data-sort' => 'float',
+    'data-sort-default' => 'desc',
+  ],
   'label' => Yii::t('app', 'Avg Deaths'),
   'value' => fn (StatWeapon3Usage $model): string => Html::tag(
     'span',

@@ -17,7 +17,10 @@ return [
     ];
   },
   'format' => 'raw',
-  'headerOptions' => ['data-sort' => 'float'],
+  'headerOptions' => [
+    'data-sort' => 'float',
+    'data-sort-default' => 'desc',
+  ],
   'label' => Yii::t('app', 'Kill Ratio'),
   'value' => function (StatWeapon3Usage $model) use ($ratio): string {
     $kr = $ratio($model);
