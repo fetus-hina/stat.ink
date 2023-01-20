@@ -41,6 +41,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
   <aside>
     <nav>
       <ul class="nav nav-tabs" aria-role="navigation">
+        <li><?= Html::a(Html::encode(Yii::t('app', 'Splatoon 3')), ['entire/weapons3']) ?></li>
         <li><?= Html::a(Html::encode(Yii::t('app', 'Splatoon 2')), ['entire/weapons2']) ?></li>
         <li class="active"><a><?= Html::encode(Yii::t('app', 'Splatoon')) ?></a></li>
       </ul>

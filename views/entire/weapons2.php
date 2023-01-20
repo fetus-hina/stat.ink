@@ -57,6 +57,10 @@ EntireWeaponsAsset::register($this);
     ],
     'items' => [
       [
+        'label' => 'Splatoon 3',
+        'url' => ['entire/weapons3'],
+      ],
+      [
         'label' => 'Splatoon 2',
         'url' => ['entire/weapons2'],
         'active' => true,

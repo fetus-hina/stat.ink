@@ -90,6 +90,7 @@ $gameMode = GameModeIconsAsset::register($this);
       ],
       [
         GameVersionIcon::widget(['version' => 3]),
+        Html::a(Html::encode(Yii::t('app', 'Weapons')), ['entire/weapons3']),
         Html::a(Html::encode(Yii::t('app', 'K/D vs Win %')), ['entire/kd-win3']),
         Html::a(Html::encode(Yii::t('app', 'Knockout Rate')), ['entire/knockout3']),
         Html::a(Html::encode(Yii::t('app', 'Special Uses')), ['entire/special-use3']),
@@ -113,7 +114,6 @@ $gameMode = GameModeIconsAsset::register($this);
       ],
       [
         Icon::stats(),
-        Html::a(Html::encode(Yii::t('app', 'Stats: Weapons')), ['entire/weapons2']),
         Html::a(Html::encode(Yii::t('app', 'Stats: FestPwr diff vs Win %')), ['entire/festpower2']),
         Html::a(Html::encode(Yii::t('app-salmon2', 'Stats: Salmon Clear %')), ['entire/salmon-clear']),
         Html::a(Html::encode(Yii::t('app', 'Stats: Stages') . ' (Splatoon 1)'), ['stage/index']),

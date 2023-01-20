@@ -172,6 +172,7 @@ trait WeaponUsageTrait
                     '{{%battle3}}.[[is_automated]]' => true,
                     '{{%battle3}}.[[is_deleted]]' => false,
                     '{{%battle3}}.[[lobby_id]]' => [
+                        $lobbies['bankara_challenge'],
                         $lobbies['regular'],
                         $lobbies['splatfest_challenge'],
                         $lobbies['xmatch'],
