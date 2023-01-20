@@ -7,7 +7,7 @@ use app\models\StatWeapon3Usage;
 
 return [
   'contentOptions' => fn (StatWeapon3Usage $model): array => [
-    'data-sort-value' => Yii::t('app-weapon3', $model->weapon?->special?->name ?? ''),
+    'data-sort-value' => Yii::t('app-special3', $model->weapon?->special?->name ?? ''),
   ],
   'format' => 'raw',
   'headerOptions' => ['data-sort' => 'string'],

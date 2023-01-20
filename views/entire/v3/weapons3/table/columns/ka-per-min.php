@@ -5,7 +5,7 @@ declare(strict_types=1);
 use app\models\StatWeapon3Usage;
 
 $calc = fn (StatWeapon3Usage $model): ?float => $model->seconds > 0 && $model->battles > 0
-  ? $model->avg_death / ($model->seconds / $model->battles) * 60.0
+  ? ($model->avg_kill + $model->avg_assist) / ($model->seconds / $model->battles) * 60.0
   : null;
 
 return [
@@ -20,6 +20,6 @@ return [
   ],
   'filter' => (require __DIR__ . '/includes/correlation-filter.php')($calc),
   'filterOptions' => ['class' => 'text-right'],
-  'label' => Yii::t('app', 'Deaths/min'),
+  'label' => Yii::t('app', 'K+A/min'),
   'value' => fn (StatWeapon3Usage $model): ?float => $calc($model),
 ];

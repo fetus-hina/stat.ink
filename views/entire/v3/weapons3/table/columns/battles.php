@@ -11,6 +11,12 @@ return [
     'data-sort-value' => $model->battles,
   ],
   'format' => 'integer',
-  'headerOptions' => ['data-sort' => 'int'],
+  'headerOptions' => [
+    'data-sort' => 'int',
+    'data-sort-default' => 'desc',
+    'data-sort-onload' => 'yes',
+  ],
+  'filter' => (require __DIR__ . '/includes/correlation-filter.php')('battles'),
+  'filterOptions' => ['class' => 'text-right'],
   'label' => Yii::t('app', 'Players'),
 ];

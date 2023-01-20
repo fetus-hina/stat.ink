@@ -14,7 +14,12 @@ return [
     'data-sort-value' => $calc($model),
   ],
   'format' => ['decimal', 3],
-  'headerOptions' => ['data-sort' => 'float'],
+  'headerOptions' => [
+    'data-sort' => 'float',
+    'data-sort-default' => 'desc',
+  ],
+  'filter' => (require __DIR__ . '/includes/correlation-filter.php')($calc),
+  'filterOptions' => ['class' => 'text-right'],
   'label' => Yii::t('app', 'Specials/min'),
   'value' => fn (StatWeapon3Usage $model): ?float => $calc($model),
 ];

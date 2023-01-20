@@ -16,7 +16,10 @@ return [
     'data-sort-value' => (string)(100.0 * $model->wins / $model->battles),
   ],
   'format' => 'raw',
-  'headerOptions' => ['data-sort' => 'float'],
+  'headerOptions' => [
+    'data-sort' => 'float',
+    'data-sort-default' => 'desc',
+  ],
   'label' => Yii::t('app', 'Win %'),
   'value' => function (StatWeapon3Usage $model) use ($maxWinRate): string {
     $fmt = Yii::$app->formatter;
