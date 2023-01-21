@@ -56,7 +56,13 @@ $this->registerCss(
 $fragmentId = hash_hmac(
   'sha256',
   Json::encode($data),
-  sprintf('%s?%s', __FILE__, http_build_query(['version' => 1])),
+  vsprintf('%s?%s', [
+    __FILE__,
+    http_build_query([
+      'language' => Yii::$app->language,
+      'version' => 2,
+    ]),
+  ]),
 );
 
 if ($this->beginCache($fragmentId, ['duration' => 6 * 3600])) {
