@@ -403,8 +403,6 @@ final class PostBattleForm extends Model
                     return null;
                 }
 
-                // TODO: more data
-
                 if (!$this->saveBattleImages($battle)) {
                     return null;
                 }
@@ -416,8 +414,9 @@ final class PostBattleForm extends Model
         } catch (Throwable $e) {
             $this->addError(
                 '_system',
-                vsprintf('Failed to store your battle (internal error), %s', [
+                vsprintf('Failed to store your battle (internal error), %s, %s', [
                     $e::class,
+                    $e->getMessage(),
                 ]),
             );
             return null;
@@ -522,7 +521,7 @@ final class PostBattleForm extends Model
         }
 
         // 設定された値から統計に使えそうか雑な判断をする
-        $model->use_for_entire = self::isUsableForEntireStats($model, self::intVal($this->start_at));
+        $model->use_for_entire = $this->isUsableForEntireStats($model, self::intVal($this->start_at));
 
         if (!$model->save()) {
             $this->addError('_system', vsprintf('Failed to store new battle, info=%s', [
@@ -903,7 +902,7 @@ final class PostBattleForm extends Model
         return time() - 300;
     }
 
-    private static function isUsableForEntireStats(Battle3 $model, ?int $startAt): bool
+    private function isUsableForEntireStats(Battle3 $model, ?int $startAt): bool
     {
         if (
             !$model->is_automated ||
@@ -927,7 +926,60 @@ final class PostBattleForm extends Model
         }
 
         return $lobby->key !== 'private' &&
-            $result->aggregatable;
+            $result->aggregatable &&
+            $this->isValidPlayersCount($model);
+    }
+
+    private function isValidPlayersCount(Battle3 $model): bool
+    {
+        $playerCount = 0;
+
+        if (is_array($this->our_team_players) && $this->our_team_players) {
+            $isMeCount = 0;
+            foreach ($this->our_team_players as $player) {
+                $model = Yii::createObject(PlayerForm::class);
+                $model->attributes = $player;
+
+                ++$playerCount;
+                if (self::boolVal($model->me)) {
+                    ++$isMeCount;
+                }
+            }
+
+            if ($isMeCount !== 1) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+
+        if (is_array($this->their_team_players) && $this->their_team_players) {
+            foreach ($this->their_team_players as $player) {
+                $model = Yii::createObject(PlayerForm::class);
+                $model->attributes = $player;
+
+                ++$playerCount;
+                if (self::boolVal($model->me)) {
+                    return false;
+                }
+            }
+        } else {
+            return false;
+        }
+
+        if (is_array($this->third_team_players) && $this->third_team_players) {
+            foreach ($this->third_team_players as $player) {
+                $model = Yii::createObject(PlayerForm::class);
+                $model->attributes = $player;
+
+                ++$playerCount;
+                if (self::boolVal($model->me)) {
+                    return false;
+                }
+            }
+        }
+
+        return $playerCount === 8;
     }
 
     private static function generateRandomFilename(string $ext): string
