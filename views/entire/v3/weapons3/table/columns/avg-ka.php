@@ -3,12 +3,13 @@
 declare(strict_types=1);
 
 use app\models\StatWeapon3Usage;
+use app\models\StatWeapon3UsagePerVersion;
 use yii\helpers\Html;
 
-$calc = fn (StatWeapon3Usage $model): float => $model->avg_kill + $model->avg_assist;
+$calc = fn (StatWeapon3Usage|StatWeapon3UsagePerVersion $model): float => $model->avg_kill + $model->avg_assist;
 
 return [
-  'contentOptions' => fn (StatWeapon3Usage $model): array => [
+  'contentOptions' => fn (StatWeapon3Usage|StatWeapon3UsagePerVersion $model): array => [
     'class' => 'text-right',
     'data-sort-value' => $calc($model),
   ],

@@ -10,4 +10,5 @@ declare(strict_types=1);
 
 return [
     'Any Version' => 'すべてのバージョン',
+    'Prerelease' => 'リリース前',
 ];

@@ -19,12 +19,15 @@ use Yii;
 use app\models\Lobby3;
 use app\models\Rule3;
 use app\models\Season3;
+use app\models\SplatoonVersion3;
 use app\models\StatWeapon3Usage;
+use app\models\StatWeapon3UsagePerVersion;
 use yii\db\Connection;
 use yii\db\Query;
 use yii\db\Transaction;
 use yii\helpers\ArrayHelper;
 
+use function array_filter;
 use function array_keys;
 use function array_map;
 use function array_merge;
@@ -46,27 +49,70 @@ trait WeaponUsageTrait
             return;
         }
 
-        fwrite(STDERR, "Updating stat_weapon3_usage...\n");
         $db->transaction(
             fn (Connection $db) => $this->makeStatWeapon3UsageImpl($db),
             Transaction::REPEATABLE_READ,
         );
 
-        fwrite(STDERR, "Vacuuming stat_weapon3_usage\n");
-        $db->createCommand('VACUUM ( ANALYZE ) {{%stat_weapon3_usage}}')->execute();
+        fwrite(STDERR, "Vacuuming stat_weapon3_usage, stat_weapon3_usage_per_version...\n");
+        $db
+            ->createCommand(
+                vsprintf('VACUUM ( ANALYZE ) %s', [
+                    implode(', ', array_map(
+                        fn (string $table): string => $db->quoteTableName($table),
+                        [
+                            StatWeapon3Usage::tableName(),
+                            StatWeapon3UsagePerVersion::tableName(),
+                        ],
+                    )),
+                ]),
+            )
+            ->execute();
         fwrite(STDERR, "Update done\n");
     }
 
     private function makeStatWeapon3UsageImpl(Connection $db): void
     {
+        $this->makeStatWeapon3UsagePerSeason($db);
+        $this->makeStatWeapon3UsagePerVersion($db);
+    }
+
+    private function makeStatWeapon3UsagePerSeason(Connection $db): void
+    {
+        fwrite(STDERR, "Updating stat_weapon3_usage...\n");
+
         $targetSeasons = $this->getStatWeapon3UsageTargetSeasons($db);
         StatWeapon3Usage::deleteAll([
             'season_id' => ArrayHelper::getColumn($targetSeasons, 'id'),
         ]);
 
-        $select = $this->buildSelectForWeapon3Usage($db, $targetSeasons);
+        $select = $this->buildSelectForWeapon3UsagePerSeason($db, $targetSeasons);
         $sql = vsprintf('INSERT INTO %s ( %s ) %s', [
-            $db->quoteTableName('{{%stat_weapon3_usage}}'),
+            $db->quoteTableName(StatWeapon3Usage::tableName()),
+            implode(
+                ', ',
+                array_map(
+                    fn (string $columnName): string => $db->quoteColumnName($columnName),
+                    array_keys($select->select),
+                ),
+            ),
+            $select->createCommand($db)->rawSql,
+        ]);
+        $db->createCommand($sql)->execute($db);
+    }
+
+    private function makeStatWeapon3UsagePerVersion(Connection $db): void
+    {
+        fwrite(STDERR, "Updating stat_weapon3_usage_per_version...\n");
+
+        $targetVersions = $this->getStatWeapon3UsageTargetVersions($db);
+        StatWeapon3UsagePerVersion::deleteAll([
+            'version_id' => ArrayHelper::getColumn($targetVersions, 'id'),
+        ]);
+
+        $select = $this->buildSelectForWeapon3UsagePerVersion($db, $targetVersions);
+        $sql = vsprintf('INSERT INTO %s ( %s ) %s', [
+            $db->quoteTableName(StatWeapon3UsagePerVersion::tableName()),
             implode(
                 ', ',
                 array_map(
@@ -106,37 +152,78 @@ trait WeaponUsageTrait
     }
 
     /**
+     * @return SplatoonVersion3[]
+     */
+    private function getStatWeapon3UsageTargetVersions(Connection $db): array
+    {
+        $date = (new DateTimeImmutable('now', new DateTimeZone('Etc/UTC')))
+            ->sub(new DateInterval('P30D'));
+
+        return SplatoonVersion3::find()
+            ->andWhere(['>=', 'release_at', $date->format(DateTimeInterface::ATOM)])
+            ->orderBy(['release_at' => SORT_ASC])
+            ->all($db);
+    }
+
+    /**
      * @param Season3[] $seasons
      */
-    private function buildSelectForWeapon3Usage(Connection $db, array $seasons): Query
+    private function buildSelectForWeapon3UsagePerSeason(Connection $db, array $seasons): Query
     {
+        return $this->buildSelectForWeapon3UsageImpl($db, seasons: $seasons);
+    }
+
+    /**
+     * @param SplatoonVersion3[] $versions
+     */
+    private function buildSelectForWeapon3UsagePerVersion(Connection $db, array $versions): Query
+    {
+        return $this->buildSelectForWeapon3UsageImpl($db, versions: $versions);
+    }
+
+    /**
+     * @param Season3[]|null $seasons
+     * @param SplatoonVersion3[]|null $versions
+     */
+    private function buildSelectForWeapon3UsageImpl(
+        Connection $db,
+        ?array $seasons = null,
+        ?array $versions = null,
+    ): Query {
         $lobbies = ArrayHelper::map(
             Lobby3::find()->all($db),
             'key',
             'id',
         );
 
-        $tricolor = Rule3::find()->andWhere(['key' => 'tricolor'])->limit(1)->one();
+        $tricolor = Rule3::find()
+            ->andWhere(['key' => 'tricolor'])
+            ->limit(1)
+            ->one();
         if (!$tricolor) {
             throw new Exception();
         }
 
-        $selectPkey = [
-            'season_id' => '{{%season3}}.[[id]]',
-            'lobby_id' => vsprintf('(CASE %s END)', [
-                implode(' ', [
-                    vsprintf('WHEN {{%%battle3}}.[[lobby_id]] = %d THEN %d', [
-                        $lobbies['splatfest_challenge'],
-                        $lobbies['regular'],
+        $selectPkey = array_filter(
+            [
+                'season_id' => $seasons !== null ? '{{%season3}}.[[id]]' : null,
+                'version_id' => $versions !== null ? '{{%battle3}}.[[version_id]]' : null,
+                'lobby_id' => vsprintf('(CASE %s END)', [
+                    implode(' ', [
+                        vsprintf('WHEN {{%%battle3}}.[[lobby_id]] = %d THEN %d', [
+                            $lobbies['splatfest_challenge'],
+                            $lobbies['regular'],
+                        ]),
+                        'ELSE {{%battle3}}.[[lobby_id]]',
                     ]),
-                    'ELSE {{%battle3}}.[[lobby_id]]',
                 ]),
-            ]),
-            'rule_id' => '{{%battle3}}.[[rule_id]]',
-            'weapon_id' => '{{%battle_player3}}.[[weapon_id]]',
-        ];
+                'rule_id' => '{{%battle3}}.[[rule_id]]',
+                'weapon_id' => '{{%battle_player3}}.[[weapon_id]]',
+            ],
+            fn (mixed $v): bool => $v !== null,
+        );
 
-        return (new Query())
+        $select = (new Query())
             ->select(array_merge(
                 $selectPkey,
                 [
@@ -163,7 +250,6 @@ trait WeaponUsageTrait
                 $this->buildSelectMetricsForWeapon3Usage('inked', '{{%battle_player3}}.[[inked]]', false),
             ))
             ->from('{{%battle3}}')
-            ->innerJoin('{{%season3}}', '{{%battle3}}.[[start_at]] <@ {{%season3}}.[[term]]')
             ->innerJoin('{{%result3}}', '{{%battle3}}.[[result_id]] = {{%result3}}.[[id]]')
             ->innerJoin('{{%battle_player3}}', '{{%battle3}}.[[id]] = {{%battle_player3}}.[[battle_id]]')
             ->andWhere(['and',
@@ -181,7 +267,6 @@ trait WeaponUsageTrait
                     '{{%battle_player3}}.[[is_disconnected]]' => false,
                     '{{%battle_player3}}.[[is_me]]' => false,
                     '{{%result3}}.[[aggregatable]]' => true,
-                    '{{%season3}}.[[id]]' => ArrayHelper::getColumn($seasons, 'id'),
                 ],
                 ['not', ['{{%battle3}}.[[end_at]]' => null]],
                 ['not', ['{{%battle3}}.[[rule_id]]' => $tricolor->id]],
@@ -195,6 +280,17 @@ trait WeaponUsageTrait
                 '{{%battle3}}.[[start_at]] < {{%battle3}}.[[end_at]]',
             ])
             ->groupBy(array_values($selectPkey));
+
+        if ($seasons !== null) {
+            $select->innerJoin('{{%season3}}', '{{%battle3}}.[[start_at]] <@ {{%season3}}.[[term]]');
+            $select->andWhere(['{{%season3}}.[[id]]' => ArrayHelper::getColumn($seasons, 'id')]);
+        }
+
+        if ($versions !== null) {
+            $select->andWhere(['{{%battle3}}.[[version_id]]' => ArrayHelper::getColumn($versions, 'id')]);
+        }
+
+        return $select;
     }
 
     private function buildSelectMetricsForWeapon3Usage(string $baseName, string $column, bool $mode = true): array

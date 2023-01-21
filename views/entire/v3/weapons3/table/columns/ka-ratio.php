@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 use app\components\widgets\KillRatioBadgeWidget;
 use app\models\StatWeapon3Usage;
+use app\models\StatWeapon3UsagePerVersion;
 use yii\helpers\Html;
 
-$ratio = fn (StatWeapon3Usage $model): ?float => $model->avg_death > 0
+$ratio = fn (StatWeapon3Usage|StatWeapon3UsagePerVersion $model): ?float => $model->avg_death > 0
   ? ($model->avg_kill + $model->avg_assist) / $model->avg_death
   : null;
 
 return [
-  'contentOptions' => function (StatWeapon3Usage $model) use ($ratio): array {
+  'contentOptions' => function (StatWeapon3Usage|StatWeapon3UsagePerVersion $model) use ($ratio): array {
     $kr = $ratio($model);
     return [
       'class' => 'text-right',

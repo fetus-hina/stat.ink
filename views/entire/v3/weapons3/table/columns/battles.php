@@ -3,10 +3,11 @@
 declare(strict_types=1);
 
 use app\models\StatWeapon3Usage;
+use app\models\StatWeapon3UsagePerVersion;
 
 return [
   'attribute' => 'battles',
-  'contentOptions' => fn (StatWeapon3Usage $model): array => [
+  'contentOptions' => fn (StatWeapon3Usage|StatWeapon3UsagePerVersion $model): array => [
     'class' => 'text-right',
     'data-sort-value' => $model->battles,
   ],

@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 use app\components\widgets\BattleSummaryItemWidget;
 use app\models\StatWeapon3Usage;
+use app\models\StatWeapon3UsagePerVersion;
 use yii\base\Model;
 use yii\grid\GridView;
 use yii\helpers\Html;
 
 return [
-  'contentOptions' => fn (StatWeapon3Usage $model): array => [
+  'contentOptions' => fn (StatWeapon3Usage|StatWeapon3UsagePerVersion $model): array => [
     'class' => 'text-right',
     'data-sort-value' => $model->avg_inked,
   ],
@@ -21,7 +22,7 @@ return [
   'filter' => (require __DIR__ . '/includes/correlation-filter.php')('avg_inked'),
   'filterOptions' => ['class' => 'text-right'],
   'label' => Yii::t('app', 'Avg Inked'),
-  'value' => fn (StatWeapon3Usage $model): string => BattleSummaryItemWidget::widget([
+  'value' => fn (StatWeapon3Usage|StatWeapon3UsagePerVersion $model): string => BattleSummaryItemWidget::widget([
     'battles' => $model->battles,
     'max' => $model->max_inked,
     'median' => $model->p50_inked,

@@ -32,6 +32,7 @@ use yii\db\ActiveRecord;
  * @property StatKdWinRate3[] $statKdWinRate3s
  * @property StatSpecialUse3[] $statSpecialUse3s
  * @property StatSpecialUseCount3[] $statSpecialUseCount3s
+ * @property StatWeapon3UsagePerVersion[] $statWeapon3UsagePerVersions
  * @property StatWeapon3Usage[] $statWeapon3Usages
  * @property StatXPowerDistrib3[] $statXPowerDistrib3s
  * @property StatXPowerDistribAbstract3[] $statXPowerDistribAbstract3s
@@ -112,6 +113,11 @@ class Rule3 extends ActiveRecord
     public function getStatSpecialUseCount3s(): ActiveQuery
     {
         return $this->hasMany(StatSpecialUseCount3::class, ['rule_id' => 'id']);
+    }
+
+    public function getStatWeapon3UsagePerVersions(): ActiveQuery
+    {
+        return $this->hasMany(StatWeapon3UsagePerVersion::class, ['rule_id' => 'id']);
     }
 
     public function getStatWeapon3Usages(): ActiveQuery

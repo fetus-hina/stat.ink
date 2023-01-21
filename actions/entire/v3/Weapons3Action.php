@@ -10,12 +10,18 @@ declare(strict_types=1);
 
 namespace app\actions\entire\v3;
 
+use DateInterval;
+use DateTimeImmutable;
+use DateTimeInterface;
+use DateTimeZone;
 use Yii;
 use app\components\helpers\Season3Helper;
 use app\models\Lobby3;
 use app\models\Rule3;
 use app\models\Season3;
+use app\models\SplatoonVersion3;
 use app\models\StatWeapon3Usage;
+use app\models\StatWeapon3UsagePerVersion;
 use yii\base\Action;
 use yii\db\Connection;
 use yii\db\Transaction;
@@ -55,78 +61,98 @@ final class Weapons3Action extends Action
         ?string $lobbyKey,
         ?string $ruleKey,
     ): Response|array {
-        $season = Season3Helper::getUrlTargetSeason(self::PARAM_SEASON_ID);
+        $version = $this->getVersion($db, (string)Yii::$app->request->get('version'));
+        $season = $version ? null : Season3Helper::getUrlTargetSeason(self::PARAM_SEASON_ID);
         $lobby = $this->getLobby($db, $lobbyKey);
         $rule = $this->getRule($db, $ruleKey);
-        if (!$season || !$lobby || !$rule) {
+        if (
+            !($season || $version) ||
+            !$lobby ||
+            !$rule
+        ) {
             $season = $season ?? Season3Helper::getCurrentSeason();
-            if (!$season) {
+            if (!$version && !$season) {
                 throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
             }
 
             return $controller->redirect(['entire/weapons3',
-                self::PARAM_SEASON_ID => $season->id,
-                'lobby' => $lobby?->key ?? ($season->key === 'season202209' ? 'bankara_challenge' : 'xmatch'),
+                'lobby' => $this->getDefaultLobbyKey($season, $version),
                 'rule' => $rule?->key ?? 'area',
+                'version' => $version?->tag,
+                self::PARAM_SEASON_ID => $season?->id,
             ]);
         }
 
         if ($rule->key === 'nawabari' && $lobby->key !== 'regular') {
             return $controller->redirect(['entire/weapons3',
-                self::PARAM_SEASON_ID => $season->id,
                 'lobby' => 'regular',
                 'rule' => 'nawabari',
+                'version' => $version?->tag,
+                self::PARAM_SEASON_ID => $season?->id,
             ]);
         }
 
         if ($rule->key !== 'nawabari' && $lobby->key === 'regular') {
             return $controller->redirect(['entire/weapons3',
-                self::PARAM_SEASON_ID => $season->id,
-                'lobby' => $season->key === 'season202209' ? 'bankara_challenge' : 'xmatch',
+                'lobby' => $this->getDefaultLobbyKey($season, $version),
                 'rule' => $rule->key,
+                'version' => $version?->tag,
+                self::PARAM_SEASON_ID => $season?->id,
             ]);
         }
 
         return [
-            'data' => $this->getData($db, $season, $lobby, $rule),
+            'data' => $this->getData($db, $season, $version, $lobby, $rule),
             'lobbies' => $this->getLobbies($db),
             'lobby' => $lobby,
             'rule' => $rule,
             'rules' => $this->getRules($db),
             'season' => $season,
             'seasons' => Season3Helper::getSeasons(),
+            'version' => $version,
+            'versions' => $this->getVersions($db),
 
             'seasonUrl' => fn (Season3 $season): string => Url::to(
                 ['entire/weapons3',
-                    self::PARAM_SEASON_ID => $season->id,
                     'lobby' => $lobby->key,
                     'rule' => $rule->key,
+                    self::PARAM_SEASON_ID => $season->id,
                 ],
             ),
 
             'ruleUrl' => fn (Rule3 $rule): string => Url::to(
                 ['entire/weapons3',
-                    self::PARAM_SEASON_ID => $season->id,
                     'lobby' => $rule->key === 'nawabari'
                         ? 'regular'
                         : (
                             $lobby->key === 'regular'
-                                ? ($season->key === 'season202209' ? 'bankara_challenge' : 'xmatch')
+                                ? $this->getDefaultLobbyKey($season, $version)
                                 : $lobby->key
                         ),
                     'rule' => $rule->key,
+                    'version' => $version?->tag,
+                    self::PARAM_SEASON_ID => $season?->id,
                 ],
             ),
 
             'lobbyUrl' => fn (Lobby3 $lobby): string => Url::to(
                 ['entire/weapons3',
-                    self::PARAM_SEASON_ID => $season->id,
                     'lobby' => $lobby->key,
                     'rule' => match (true) {
                         $lobby->key === 'regular' => 'nawabari',
                         $lobby->key !== 'regular' && $rule->key === 'nawabari' => 'area',
                         default => $rule->key,
                     },
+                    'version' => $version?->tag,
+                    self::PARAM_SEASON_ID => $season?->id,
+                ],
+            ),
+
+            'versionUrl' => fn (SplatoonVersion3 $version): string => Url::to(
+                ['entire/weapons3',
+                    'lobby' => $lobby->key,
+                    'rule' => $rule->key,
+                    'version' => $version->tag,
                 ],
             ),
         ];
@@ -156,28 +182,72 @@ final class Weapons3Action extends Action
             ->one($db);
     }
 
-    /**
-     * @return StatWeapon3Usage[]
-     */
-    private function getData(Connection $db, Season3 $season, Lobby3 $lobby, Rule3 $rule): array
+    private function getVersion(Connection $db, ?string $key): ?SplatoonVersion3
     {
-        return StatWeapon3Usage::find()
-            ->with([
-                'weapon',
-                'weapon.special',
-                'weapon.subweapon',
-            ])
-            ->andWhere([
-                'lobby_id' => $lobby->id,
-                'rule_id' => $rule->id,
-                'season_id' => $season->id,
-            ])
-            ->orderBy([
-                'battles' => SORT_DESC,
-                'wins' => SORT_DESC,
-                'weapon_id' => SORT_DESC,
-            ])
-            ->all($db);
+        if (!$key) {
+            return null;
+        }
+
+        return SplatoonVersion3::find()
+            ->andWhere(['tag' => $key])
+            ->limit(1)
+            ->one($db);
+    }
+
+    private function getDefaultLobbyKey(?Season3 $season, ?SplatoonVersion3 $version): string
+    {
+        if ($version) {
+            return version_compare($version->tag, '2.0.0', '>=') ? 'xmatch' : 'bankara_challenge';
+        }
+
+        if ($season) {
+            return $season->key === 'season202209' ? 'bankara_challenge' : 'xmatch';
+        }
+
+        return 'xmatch';
+    }
+
+    /**
+     * @return StatWeapon3Usage[]|StatWeapon3UsagePerVersion[]
+     */
+    private function getData(
+        Connection $db,
+        ?Season3 $season,
+        ?SplatoonVersion3 $version,
+        Lobby3 $lobby,
+        Rule3 $rule,
+    ): array {
+        if ($version) {
+            return StatWeapon3UsagePerVersion::find()
+                ->with([
+                    'weapon',
+                    'weapon.special',
+                    'weapon.subweapon',
+                ])
+                ->andWhere([
+                    'lobby_id' => $lobby->id,
+                    'rule_id' => $rule->id,
+                    'version_id' => $version->id,
+                ])
+                ->all($db);
+        }
+
+        if ($season) {
+            return StatWeapon3Usage::find()
+                ->with([
+                    'weapon',
+                    'weapon.special',
+                    'weapon.subweapon',
+                ])
+                ->andWhere([
+                    'lobby_id' => $lobby->id,
+                    'rule_id' => $rule->id,
+                    'season_id' => $season->id,
+                ])
+                ->all($db);
+        }
+
+        return null;
     }
 
     /**
@@ -214,5 +284,17 @@ final class Weapons3Action extends Action
             'id',
             fn (Rule3 $v): Rule3 => $v,
         );
+    }
+
+    private function getVersions(Connection $db): array
+    {
+        $ts = (new DateTimeImmutable('now', new DateTimeZone('Etc/UTC')))
+            ->setTime(0, 0, 0)
+            ->sub(new DateInterval('P1D'));
+
+        return SplatoonVersion3::find()
+            ->andWhere(['<=', 'release_at', $ts->format(DateTimeInterface::ATOM)])
+            ->orderBy(['release_at' => SORT_DESC])
+            ->all();
     }
 }

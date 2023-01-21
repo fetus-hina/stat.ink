@@ -5,6 +5,7 @@ declare(strict_types=1);
 use app\assets\BattleListGroupHeaderAsset;
 use app\assets\TableResponsiveForceAsset;
 use app\models\StatWeapon3Usage;
+use app\models\StatWeapon3UsagePerVersion;
 use statink\yii2\sortableTable\SortableTableAsset;
 use yii\base\Model;
 use yii\data\ArrayDataProvider;
@@ -13,7 +14,7 @@ use yii\helpers\Html;
 use yii\web\View;
 
 /**
- * @var StatWeapon3Usage[] $data
+ * @var StatWeapon3Usage[]|StatWeapon3UsagePerVersion[] $data
  * @var View $this
  */
 
@@ -28,21 +29,21 @@ TableResponsiveForceAsset::register($this);
 
 $totalBattles = array_sum(
   array_map(
-    fn (StatWeapon3Usage $row): int => $row->battles,
+    fn (StatWeapon3Usage|StatWeapon3UsagePerVersion $row): int => $row->battles,
     $data,
   ),
 );
 
 $maxBattles = max(
   array_map(
-    fn (StatWeapon3Usage $m): int => $m->battles,
+    fn (StatWeapon3Usage|StatWeapon3UsagePerVersion $m): int => $m->battles,
     $data,
   ),
 );
 
 $maxWinRate = max(
   array_map(
-    fn (StatWeapon3Usage $m): float => $m->wins / $m->battles,
+    fn (StatWeapon3Usage|StatWeapon3UsagePerVersion $m): float => $m->wins / $m->battles,
     $data,
   ),
 );
