@@ -15,6 +15,7 @@ use yii\bootstrap\ActiveForm;
 use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\Json;
 use yii\web\View;
 
 /**

@@ -17,7 +17,8 @@ echo Html::tag(
   'div',
   implode('', [
     $this->render('rule/heading', compact('rule')),
-    $this->render('rule/table', compact('data', 'lobbyKey', 'rule')),
+    $this->render('rule/summary', compact('data')),
+    $this->render('rule/table-wrapper', compact('data', 'lobbyKey', 'rule')),
   ]),
   ['class' => 'mb-3'],
 );
