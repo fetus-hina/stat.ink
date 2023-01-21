@@ -32,6 +32,7 @@ use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
 use function assert;
+use function version_compare;
 
 use const SORT_ASC;
 use const SORT_DESC;
