@@ -288,6 +288,7 @@ return [
     'Judge' => '裁判',
     'Just {result} {rule} at {stage}' => '在{stage}， 结果是{result} {rule}',
     'k' => '杀敌数',
+    'K+A/D' => '',
     'K+A/min' => '',
     'K/D vs Win %' => '杀死率与胜率',
     'K/min' => '杀敌数/分钟',

@@ -20,6 +20,7 @@ return [
   require __DIR__ . '/columns/assist-per-min.php',
   require __DIR__ . '/columns/avg-ka.php',
   require __DIR__ . '/columns/ka-per-min.php',
+  require __DIR__ . '/columns/ka-ratio.php',
   require __DIR__ . '/columns/avg-special.php',
   require __DIR__ . '/columns/special-per-min.php',
   require __DIR__ . '/columns/avg-inked.php',

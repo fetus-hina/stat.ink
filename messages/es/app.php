@@ -287,6 +287,7 @@ return [
     'Judge' => '',
     'Just {result} {rule} at {stage}' => 'Acaba de {result} {rule} en {stage}',
     'k' => 'k',
+    'K+A/D' => '',
     'K+A/min' => '',
     'K/D vs Win %' => 'K/D vs Ganar %',
     'K/min' => '',

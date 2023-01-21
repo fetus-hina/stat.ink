@@ -3,13 +3,14 @@
 declare(strict_types=1);
 
 use app\models\StatWeapon3Usage;
+use app\models\StatWeapon3UsagePerVersion;
 
-$calc = fn (StatWeapon3Usage $model): ?float => $model->seconds > 0 && $model->battles > 0
+$calc = fn (StatWeapon3Usage|StatWeapon3UsagePerVersion $model): ?float => $model->seconds > 0 && $model->battles > 0
   ? $model->avg_inked / ($model->seconds / $model->battles) * 60.0
   : null;
 
 return [
-  'contentOptions' => fn (StatWeapon3Usage $model): array => [
+  'contentOptions' => fn (StatWeapon3Usage|StatWeapon3UsagePerVersion $model): array => [
     'class' => 'text-right',
     'data-sort-value' => $calc($model),
   ],
@@ -21,5 +22,5 @@ return [
   'filter' => (require __DIR__ . '/includes/correlation-filter.php')($calc),
   'filterOptions' => ['class' => 'text-right'],
   'label' => Yii::t('app', 'Inked/min'),
-  'value' => fn (StatWeapon3Usage $model): ?float => $calc($model),
+  'value' => $calc,
 ];
