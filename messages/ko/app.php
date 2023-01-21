@@ -286,6 +286,7 @@ return [
     'Judge' => '심판',
     'Just {result} {rule} at {stage}' => '',
     'k' => '킬',
+    'K+A/D' => '',
     'K+A/min' => '',
     'K/D vs Win %' => 'K/D, 승률',
     'K/min' => '킬/분',
