@@ -26,9 +26,6 @@ use function vsprintf;
 class BattleSummaryDialogAsset extends AssetBundle
 {
     public $sourcePath = '@app/resources/.compiled/stat.ink';
-    public $css = [
-        'battle-summary-dialog.css',
-    ];
     public $js = [
         'battle-summary-dialog.js',
     ];
