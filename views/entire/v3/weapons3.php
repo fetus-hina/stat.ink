@@ -61,6 +61,7 @@ $cacheId = hash_hmac(
       'asset_revision' => (string)ArrayHelper::getValue(Yii::$app->params, 'assetRevision'),
       'cache_version' => 1,
       'dev_cache' => YII_ENV_DEV ? (string)@filemtime(__FILE__) : '',
+      'lang' => Yii::$app->language,
     ]),
   ]),
 );
