@@ -107,6 +107,7 @@ RESOURCE_TARGETS := \
 	resources/.compiled/stat.ink/salmon-work-list-hazard.js \
 	resources/.compiled/stat.ink/salmon-work-list.js \
 	resources/.compiled/stat.ink/salmon3-work-list-config.js \
+	resources/.compiled/stat.ink/shadow.css \
 	resources/.compiled/stat.ink/simple-win-lose-pie.js \
 	resources/.compiled/stat.ink/smooth-scroll.js \
 	resources/.compiled/stat.ink/stat-by-map-rule.js \
@@ -341,6 +342,7 @@ resources/.compiled/stat.ink/salmon-work-list-config.js: resources/stat.ink/salm
 resources/.compiled/stat.ink/salmon-work-list-hazard.js: resources/stat.ink/salmon-work-list-hazard.es node_modules
 resources/.compiled/stat.ink/salmon-work-list.js: resources/stat.ink/salmon-work-list.es node_modules
 resources/.compiled/stat.ink/salmon3-work-list-config.js: resources/stat.ink/salmon3-work-list-config.es node_modules
+resources/.compiled/stat.ink/shadow.css: resources/stat.ink/shadow.scss node_modules
 resources/.compiled/stat.ink/simple-win-lose-pie.js: resources/stat.ink/simple-win-lose-pie.es node_modules
 resources/.compiled/stat.ink/smooth-scroll.js: resources/stat.ink/smooth-scroll.es node_modules
 resources/.compiled/stat.ink/stat-by-map-rule.js: resources/stat.ink/stat-by-map-rule.es node_modules
