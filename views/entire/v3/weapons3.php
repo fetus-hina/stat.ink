@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use app\assets\BattleListGroupHeaderAsset;
+use app\assets\BattleSummaryDialogAsset;
 use app\assets\ChartJsAsset;
 use app\assets\ChartJsErrorBarsAsset;
 use app\assets\ColorSchemeAsset;
@@ -68,6 +69,7 @@ $cacheId = hash_hmac(
 
 // Register asset bundles to use fragment cache
 BattleListGroupHeaderAsset::register($this);
+BattleSummaryDialogAsset::register($this);
 ChartJsAsset::register($this);
 ChartJsErrorBarsAsset::register($this);
 ColorSchemeAsset::register($this);
