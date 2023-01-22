@@ -50,7 +50,7 @@ $this->registerMetaTag(['name' => 'twitter:title', 'content' => $title]);
 $this->registerMetaTag(['name' => 'twitter:description', 'content' => $title]);
 $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
 
-$disableCache = false;
+$disableCache = YII_ENV_DEV;
 $cacheId = hash_hmac(
   'sha256',
   Json::encode($data),
