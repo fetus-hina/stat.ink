@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use MathPHP\Statistics\Correlation;
 use MathPHP\Statistics\Regression\Linear as LinearRegression;
+use app\components\helpers\StandardError;
 use app\models\StatWeapon3Usage;
 use app\models\StatWeapon3UsagePerVersion;
 use yii\helpers\ArrayHelper;
@@ -58,6 +59,27 @@ $regression = abs($correlationCoefficient) >= 0.3
 $datasetPoints = [
   'type' => 'scatter',
   'label' => Yii::t('app', 'Win %'),
+  'labels' => array_map(
+    function (StatWeapon3Usage|StatWeapon3UsagePerVersion $model): string {
+      $weaponName = Yii::t('app-weapon3', $model->weapon?->name ?? '?');
+      $err = StandardError::winpct($model->wins, $model->battles);
+      $f = Yii::$app->formatter;
+      return $err
+        ? vsprintf('%s (%s: %s %s)', [
+          $weaponName,
+          $f->asPercent($model->wins / $model->battles, 2),
+          Yii::t('app', '{pct}% CI', [
+            'pct' => 99,
+          ]),
+          Yii::t('app', '{from} - {to}', [
+            'from' => $f->asPercent($err['min99ci'], 2),
+            'to' => $f->asPercent($err['max99ci'], 2),
+          ]),
+        ])
+        : $weaponName;
+    },
+    $data,
+  ),
   'data' => $xyPoints,
   'backgroundColor' => new JsExpression('window.colorScheme.graph2'),
 ];
@@ -107,11 +129,16 @@ $chart = [
       'legend' => [
         'display' => false,
       ],
+      'tooltip' => [
+        'callbacks' => [
+          'label' => new JsExpression('ctx => ctx.dataset.labels[ctx.dataIndex]'),
+        ],
+      ],
     ],
     'scales' => [
       'x' => [
         'title' => [
-          'display' => true,
+          'display' => false,
           'text' => $xLabel,
         ],
         'type' => 'linear',

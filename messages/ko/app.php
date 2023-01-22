@@ -288,6 +288,7 @@ return [
     'k' => '킬',
     'K+A/D' => '',
     'K+A/min' => '',
+    'K-D' => '',
     'K/D vs Win %' => 'K/D, 승률',
     'K/min' => '킬/분',
     'Kill or Assist' => '킬+어시스트',

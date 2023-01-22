@@ -282,6 +282,7 @@ return [
     'Just {result} {rule} at {stage}' => '{stage}での{rule}で{result}。',
     'K+A/D' => 'K+A/D',
     'K+A/min' => 'K+A/分',
+    'K-D' => 'K-D',
     'K/D vs Win %' => 'KDと勝率',
     'K/min' => '殺/分',
     'KNOCKOUT' => 'ノックアウト',

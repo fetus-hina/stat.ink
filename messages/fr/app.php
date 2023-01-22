@@ -290,6 +290,7 @@ return [
     'k' => '',
     'K+A/D' => '',
     'K+A/min' => '',
+    'K-D' => '',
     'K/D vs Win %' => 'K/D vs % Victoire',
     'K/min' => '',
     'Kill or Assist' => 'Kill ou assist',
