@@ -1,0 +1,23 @@
+/**
+ * Copyright (C) 2015-2023 AIZAWA Hina
+ * Copyright (C) 2011-2022 The Bootstrap Authors
+ * Licensed under MIT
+ */
+
+$black: #000;
+$box-shadow: 0 0.5rem 1rem rgba($black, 0.15);
+$box-shadow-sm: 0 0.125rem 0.25rem rgba($black, 0.075);
+$box-shadow-lg: 0 1rem 3rem rgba($black, 0.175);
+
+$config: (
+  'shadow': $box-shadow,
+  'shadow-sm': $box-shadow-sm,
+  'shadow-lg': $box-shadow-lg,
+  'shadow-none': none,
+);
+
+@each $className, $value in $config {
+  .#{$className} {
+    box-shadow: $value !important;
+  }
+}

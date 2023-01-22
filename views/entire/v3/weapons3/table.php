@@ -2,11 +2,8 @@
 
 declare(strict_types=1);
 
-use app\assets\BattleListGroupHeaderAsset;
-use app\assets\TableResponsiveForceAsset;
 use app\models\StatWeapon3Usage;
 use app\models\StatWeapon3UsagePerVersion;
-use statink\yii2\sortableTable\SortableTableAsset;
 use yii\base\Model;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
@@ -22,10 +19,6 @@ if (!$data) {
   echo Html::tag('p', Yii::t('app', 'No Data'));
   return;
 }
-
-BattleListGroupHeaderAsset::register($this);
-SortableTableAsset::register($this);
-TableResponsiveForceAsset::register($this);
 
 $totalBattles = array_sum(
   array_map(
