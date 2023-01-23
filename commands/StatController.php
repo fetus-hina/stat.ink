@@ -11,6 +11,7 @@ namespace app\commands;
 use DateInterval;
 use DateTime;
 use DateTimeImmutable;
+use DateTimeInterface;
 use DateTimeZone;
 use PDO;
 use Yii;
@@ -37,6 +38,7 @@ use app\models\SplatoonVersion2;
 use app\models\StatAgentUser;
 use app\models\StatAgentUser2;
 use app\models\StatEntireUser;
+use app\models\StatEntireUser3;
 use app\models\StatWeapon;
 use app\models\StatWeapon2UseCount;
 use app\models\StatWeapon2UseCountPerWeek;
@@ -47,8 +49,10 @@ use app\models\StatWeaponUseCount;
 use app\models\StatWeaponUseCountPerWeek;
 use app\models\StatWeaponVsWeapon;
 use yii\console\Controller;
+use yii\db\Connection;
 use yii\db\Expression;
 use yii\db\Query;
+use yii\db\Transaction;
 use yii\helpers\ArrayHelper;
 
 use function array_filter;
@@ -323,6 +327,7 @@ final class StatController extends Controller
     {
         $this->updateEntireUser1();
         $this->updateEntireUser2();
+        $this->updateEntireUser3();
     }
 
     private function updateEntireUser1()
@@ -394,6 +399,62 @@ final class StatController extends Controller
             ->bindValue(':today', $today->format(DateTime::ATOM), PDO::PARAM_STR);
         $cmd->execute();
         // }}}
+    }
+
+    private function updateEntireUser3(): void
+    {
+        fwrite(STDERR, "Updating stat_entire_user3...\n");
+        Yii::$app->db->transaction(
+            function (Connection $db): void {
+                $db->createCommand("SET LOCAL TIMEZONE TO 'Etc/UTC'")->execute();
+
+                $today = (new DateTimeImmutable('now', new DateTimeZone('Etc/UTC')))
+                    ->setTimestamp($_SERVER['REQUEST_TIME'])
+                    ->setTime(0, 0, 0);
+
+                $select = (new Query())
+                    ->select([
+                        'date' => '([[created_at]]::DATE)',
+                        'battles' => 'COUNT(*)',
+                        'users' => 'COUNT(DISTINCT [[user_id]])',
+                    ])
+                    ->from('{{%battle3}}')
+                    ->andWhere(['is_deleted' => false])
+                    ->andWhere(['<', 'created_at', $today->format(DateTimeInterface::ATOM)])
+                    ->groupBy(['([[created_at]]::DATE)']);
+
+                $sql = vsprintf('INSERT INTO %s ( %s ) %s ON CONFLICT ( %s ) DO UPDATE SET %s', [
+                    $db->quoteTableName(StatEntireUser3::tableName()),
+                    implode(
+                        ', ',
+                        array_map(
+                            fn (string $c): string => $db->quoteColumnName($c),
+                            array_keys($select->select),
+                        ),
+                    ),
+                    $select->createCommand($db)->rawSql,
+                    $db->quoteColumnName('date'),
+                    implode(
+                        ', ',
+                        array_filter(
+                            array_map(
+                                fn (string $c): ?string => $c !== 'date'
+                                    ? vsprintf('%1$s = %2$s.%1$s', [
+                                        $db->quoteColumnName($c),
+                                        $db->quoteTableName('excluded'),
+                                    ])
+                                    : null,
+                                array_keys($select->select),
+                            ),
+                            fn (?string $v): bool => $v !== null,
+                        ),
+                    ),
+                ]);
+
+                $db->createCommand($sql)->execute();
+            },
+            Transaction::REPEATABLE_READ,
+        );
     }
 
     /**
