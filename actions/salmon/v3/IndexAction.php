@@ -64,19 +64,19 @@ final class IndexAction extends Action
         }
 
         $query = Salmon3::find()
-            ->joinWith([
+            ->with([
                 'bigStage',
                 'failReason',
                 'kingSalmonid',
-                'schedule',
-                'stage',
-                'titleAfter',
-                'titleBefore',
                 'salmonPlayer3s' => function (ActiveQuery $query): void {
                     $query->onCondition(['{{%salmon_player3}}.[[is_me]]' => true]);
                 },
                 'salmonPlayer3s.salmonPlayerWeapon3s.weapon',
                 'salmonPlayer3s.special',
+                'schedule',
+                'stage',
+                'titleAfter',
+                'titleBefore',
             ])
             ->andWhere([
                 'is_deleted' => false,
