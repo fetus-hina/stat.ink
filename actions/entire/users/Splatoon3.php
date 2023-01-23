@@ -16,11 +16,15 @@ use Yii;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Resource;
 use app\models\Battle3;
+use app\models\StatEntireUser3;
 use yii\db\Connection;
 use yii\db\Query;
+use yii\db\Transaction;
+use yii\helpers\ArrayHelper;
 
 use function array_map;
 use function assert;
+use function count;
 use function sprintf;
 use function time;
 use function usort;
@@ -30,38 +34,63 @@ use const SORT_ASC;
 
 trait Splatoon3
 {
-    protected function getPostStats3()
+    protected function getPostStats3(): array
     {
-        $tz = $this->utc3();
-        try {
-            // TODO: cache
+        return Yii::$app->db->transaction(
+            function (Connection $db): array {
+                $db->createCommand("SET LOCAL TIMEZONE TO 'Etc/UTC'")->execute();
 
-            $query = (new Query())
-                ->select([
-                    'date' => '{{%battle3}}.[[created_at]]::date',
-                    'battle_count' => 'COUNT({{%battle3}}.*)',
-                    'user_count' => 'COUNT(DISTINCT {{%battle3}}.[[user_id]])',
-                ])
-                ->from('{{%battle3}}')
-                ->andWhere(['{{%battle3}}.[[is_deleted]]' => false])
-                ->groupBy('{{%battle3}}.[[created_at]]::date')
-                ->orderBy(['date' => SORT_ASC]);
+                $lastSummariedDate = null;
+                if ($stats = $this->getPostStatsSummarized3($db)) {
+                    $lastSummariedDate = $stats[count($stats) - 1]['date'];
+                } else {
+                    $stats = [];
+                }
 
-            foreach ($query->createCommand()->queryAll() as $row) {
-                $stats[] = $row;
-            }
+                $query = (new Query())
+                    ->select([
+                        'date' => '{{%battle3}}.[[created_at]]::date',
+                        'battles' => 'COUNT({{%battle3}}.*)',
+                        'users' => 'COUNT(DISTINCT {{%battle3}}.[[user_id]])',
+                    ])
+                    ->from('{{%battle3}}')
+                    ->andWhere(['{{%battle3}}.[[is_deleted]]' => false])
+                    ->groupBy('{{%battle3}}.[[created_at]]::date')
+                    ->orderBy(['date' => SORT_ASC]);
 
-            return array_map(
-                fn (array $a): array => [
-                        'date' => $a['date'],
-                        'battle' => (int)$a['battle_count'],
-                        'user' => (int)$a['user_count'],
+                if ($lastSummariedDate) {
+                    $query->andWhere([
+                        '>=',
+                        '{{%battle3}}.[[created_at]]',
+                        $lastSummariedDate . 'T00:00:00+00:00',
+                    ]);
+                }
+
+                foreach ($query->all($db) as $row) {
+                    $stats[] = $row;
+                }
+
+                return ArrayHelper::getColumn(
+                    $stats,
+                    fn (StatEntireUser3|array $model): array => [
+                        'date' => ArrayHelper::getValue($model, 'date'),
+                        'battle' => ArrayHelper::getValue($model, 'battles'),
+                        'user' => ArrayHelper::getValue($model, 'users'),
                     ],
-                $stats,
-            );
-        } finally {
-            unset($tz);
-        }
+                );
+            },
+            Transaction::REPEATABLE_READ,
+        );
+    }
+
+    /**
+     * @return StatEntireUser3[]
+     */
+    private function getPostStatsSummarized3(Connection $db): array
+    {
+        return StatEntireUser3::find()
+            ->orderBy(['date' => SORT_ASC])
+            ->all($db);
     }
 
     protected function getAgentStats3(): array
