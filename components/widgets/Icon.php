@@ -72,6 +72,7 @@ final class Icon
     // scrollTo
     // search
     // slack
+    // sortable
     // stats
     // subPage
     // thisPlayer
@@ -345,6 +346,11 @@ final class Icon
     public static function slack(): string
     {
         return self::bi('slack');
+    }
+
+    public static function sortable(): string
+    {
+        return self::bi('arrow-down-up');
     }
 
     public static function stats(): string
