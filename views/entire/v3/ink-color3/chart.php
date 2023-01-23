@@ -8,6 +8,7 @@ use app\assets\ChartJsAsset;
 use app\assets\ChartJsErrorBarsAsset;
 use app\assets\RatioAsset;
 use app\components\helpers\Color;
+use app\components\helpers\StandardError;
 use app\models\StatInkColor3;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -39,20 +40,20 @@ $pointData = array_filter(
       $c2 = $model->color2;
       $y1 = Color::getYUVFromRGB(hexdec(substr($c1, 0, 2)), hexdec(substr($c1, 2, 2)), hexdec(substr($c1, 4, 2)))[0];
       $y2 = Color::getYUVFromRGB(hexdec(substr($c2, 0, 2)), hexdec(substr($c2, 2, 2)), hexdec(substr($c2, 4, 2)))[0];
-  
-      $rate1 = $model->wins / $battles;
-      $rate2 = 1.0 - $rate1;
-  
-      // ref. http://lfics81.techblog.jp/archives/2982884.html
-      $stderr = sqrt($battles / ($battles - 1.5) * $rate1 * $rate2) / sqrt($battles);
-      // $err95ci = $stderr * 1.96;
-      $err99ci = $stderr * 2.58;
+
+      $err = StandardError::winpct($model->wins, $battles);
+      if (!$err) {
+        return [
+          'x' => $y2 - $y1,
+          'y' => 100 * $model->wins / $battles,
+        ];
+      }
 
       return [
         'x' => $y2 - $y1,
-        'y' => 100 * $rate1,
-        'yMin' => 100 * ($rate1 - $err99ci),
-        'yMax' => 100 * ($rate1 + $err99ci),
+        'y' => 100 * $model->wins / $battles,
+        'yMin' => [100 * $err['min95ci'], 100 * $err['min99ci']],
+        'yMax' => [100 * $err['max95ci'], 100 * $err['max99ci']],
       ];
     },
   ),
@@ -66,7 +67,7 @@ $correlationCoefficient = Correlation::r(
 );
 
 // 回帰直線
-$regression = abs($correlationCoefficient) >= 0.3
+$regression = abs($correlationCoefficient) >= 0.2
   ? new LinearRegression(
     ArrayHelper::getColumn(
       $pointData,
@@ -77,6 +78,9 @@ $regression = abs($correlationCoefficient) >= 0.3
     ),
   )
   : null;
+
+$minX = $regression ? min(ArrayHelper::getColumn($pointData, 'x')) : null;
+$maxX = $regression ? max(ArrayHelper::getColumn($pointData, 'x')) : null;
 
 $chartData = [
   'data' => [
@@ -96,10 +100,16 @@ $chartData = [
           'type' => 'scatterWithErrorBars',
           'label' => Yii::t('app', 'Win %'),
           'data' => $pointData,
-          'errorBarColor' => 'rgba(50, 50, 50, 0.75)',
-          'errorBarLineWidth' => 1,
-          'errorBarWhiskerLineWidth' => 1,
-          'errorBarWhiskerColor' => 'rgba(50, 50, 50, 0.75)',
+          'errorBarColor' => ArrayHelper::getColumn(
+            $models,
+            fn (StatInkColor3 $model): string => sprintf('#%s', substr($model->color1, 0, 6)),
+          ),
+          'errorBarLineWidth' => 2,
+          'errorBarWhiskerLineWidth' => 2,
+          'errorBarWhiskerColor' => ArrayHelper::getColumn(
+            $models,
+            fn (StatInkColor3 $model): string => sprintf('#%s', substr($model->color1, 0, 6)),
+          ),
         ],
         $regression
           ? [
@@ -108,15 +118,15 @@ $chartData = [
             'fill' => false,
             'borderColor' => '#f5a101',
             'borderWidth' => 1.5,
-            'borderDash' => [10, 5],
+            'pointRadius' => 0,
             'data' => [
               [
-                'x' => -0.1,
-                'y' => $regression->evaluate(-0.1),
+                'x' => $minX - 0.05,
+                'y' => $regression->evaluate($minX - 0.05),
               ],
               [
-                'x' => 1.1,
-                'y' => $regression->evaluate(1.1),
+                'x' => $maxX + 0.05,
+                'y' => $regression->evaluate($maxX + 0.05),
               ],
             ],
           ]
@@ -198,22 +208,31 @@ $this->registerJs('
     ],
   ]) . "\n" ?>
 </div>
-<?= Html::tag(
-  'p',
-  vsprintf('%s: %s', [
-    Html::encode(Yii::t('app', 'Correlation Coefficient')),
-    Html::encode(Yii::$app->formatter->asDecimal($correlationCoefficient, 3)),
-  ]),
-  ['class' => 'mb-2 small text-right'],
-) . "\n" ?>
-<?= $regression
-  ? Html::tag(
+<div class="mb-3">
+  <?= Html::tag(
+    'p',
+    Html::encode(
+      Yii::t('app', 'Error bars: 95% confidence interval (estimated) & 99% confidence interval (estimated)'),
+    ),
+    ['class' => 'mb-1 small text-right'],
+  ) . "\n" ?>
+  <?= Html::tag(
     'p',
     vsprintf('%s: %s', [
-      Html::encode(Yii::t('app', 'Regression Line')),
-      Html::encode($regression->getEquation()),
+      Html::encode(Yii::t('app', 'Correlation Coefficient')),
+      Html::encode(Yii::$app->formatter->asDecimal($correlationCoefficient, 3)),
     ]),
-    ['class' => 'mb-2 small text-right'],
-  ) . "\n"
-  : ''
-?>
+    ['class' => 'mb-1 small text-right'],
+  ) . "\n" ?>
+  <?= $regression
+    ? Html::tag(
+      'p',
+      vsprintf('%s: %s', [
+        Html::encode(Yii::t('app', 'Regression Line')),
+        Html::encode($regression->getEquation()),
+      ]),
+      ['class' => 'mb-1 small text-right'],
+    ) . "\n"
+    : ''
+  ?>
+</div>

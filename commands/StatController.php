@@ -62,6 +62,7 @@ use function array_merge;
 use function array_reverse;
 use function array_values;
 use function floor;
+use function fwrite;
 use function implode;
 use function sprintf;
 use function time;
@@ -70,6 +71,7 @@ use function vsprintf;
 
 use const SORT_ASC;
 use const SORT_DESC;
+use const STDERR;
 
 final class StatController extends Controller
 {

@@ -44,7 +44,7 @@ $correlationCoefficient = Correlation::r(
 );
 
 // 回帰直線
-$regression = abs($correlationCoefficient) >= 0.3
+$regression = abs($correlationCoefficient) >= 0.2
   ? new LinearRegression(
     ArrayHelper::getColumn(
       $xyPoints,
@@ -96,7 +96,6 @@ if ($regression) {
     'fill' => false,
     'borderColor' => new JsExpression('window.colorScheme.graph1'),
     'borderWidth' => 1.5,
-    'borderDash' => [10, 5],
     'pointRadius' => 0,
     'data' => [
       [
