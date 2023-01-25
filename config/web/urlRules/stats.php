@@ -14,6 +14,7 @@ return [
     'entire/weapons/<weapon:\w+>/<rule:\w+>' => 'entire/weapon',
     'entire/weapons2-tier/v<version:[0-9.]+>@<month:[0-9]{4}-[0-9]{2}>/<rule:[\w]+>' => 'entire/weapons2-tier',
     'entire/weapons2/<weapon:\w+>/<rule:\w+>' => 'entire/weapon2',
+    'entire/weapons3/<lobby:\w+>/<rule:\w+>/<weapon:\w+>' => 'entire/weapon3',
     'entire/weapons3/<lobby:\w+>/<rule:\w+>' => 'entire/weapons3',
     'fest/<region:\w+>/<order:\d+>' => 'fest/view',
     'stages' => 'stage/index',

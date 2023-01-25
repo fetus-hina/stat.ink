@@ -1,0 +1,1 @@
+../weapons3/rule-tabs.php

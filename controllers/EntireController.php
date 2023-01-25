@@ -32,6 +32,7 @@ use app\actions\entire\v3\KDWin3Action;
 use app\actions\entire\v3\Knockout3Action;
 use app\actions\entire\v3\SpecialUse3Action;
 use app\actions\entire\v3\SpecialUse3PerSpecialAction;
+use app\actions\entire\v3\Weapon3Action;
 use app\actions\entire\v3\Weapons3Action;
 use app\actions\entire\v3\XPowerDistrib3Action;
 use app\components\web\Controller;
@@ -80,6 +81,7 @@ final class EntireController extends Controller
             'users' => UsersAction::class,
             'weapon' => WeaponAction::class,
             'weapon2' => Weapon2Action::class,
+            'weapon3' => Weapon3Action::class,
             'weapons' => WeaponsAction::class,
             'weapons-use' => WeaponsUseAction::class,
             'weapons2' => Weapons2Action::class,

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author eli fessler <eliwf8@gmail.com>
@@ -191,6 +191,7 @@ return [
     'Enabled' => '有効',
     'Encounter Ratio' => '敵遭遇率',
     'Enemy Weapon' => '相手のブキ',
+    'Error bars' => 'エラーバー',
     'Error bars: 95% confidence interval (estimated) & 99% confidence interval (estimated)' => 'エラーバー: 95%信頼区間（推定）と99%信頼区間（推定）',
     'Error' => 'エラー',
     'Estimated X Power' => '概算Xパワー',
