@@ -9,6 +9,7 @@ use app\components\widgets\SnsWidget;
 use app\components\widgets\UserMiniInfo3;
 use app\models\User;
 use yii\data\BaseDataProvider;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
@@ -75,6 +76,15 @@ BattleListAsset::register($this);
         ])
       );
     })(),
+    'jsonUrl' => array_merge(
+      $filter->toPermLink(),
+      ['show-v3/user-json',
+        'full' => preg_match('/^(?:en|ja)-/', (string)Yii::$app->language) ? null : '1',
+        'page' => ArrayHelper::getValue(Yii::$app->request->get(), 'page'),
+        'per-page' => ArrayHelper::getValue(Yii::$app->request->get(), 'per-page'),
+        'screen_name' => $user->screen_name,
+      ],
+    ),
   ]) . "\n" ?>
   <div class="row">
     <div class="col-xs-12 col-sm-8 col-lg-9">

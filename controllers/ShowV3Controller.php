@@ -19,6 +19,7 @@ use app\actions\show\v3\stats\WinRateAction;
 use app\components\web\Controller;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\web\Response;
 
 final class ShowV3Controller extends Controller
 {
@@ -60,6 +61,10 @@ final class ShowV3Controller extends Controller
             'stats-weapons' => WeaponsAction::class,
             'stats-win-rate' => WinRateAction::class,
             'user' => UserAction::class,
+            'user-json' => [
+                'class' => UserAction::class,
+                'format' => Response::FORMAT_JSON,
+            ],
         ];
     }
 }
