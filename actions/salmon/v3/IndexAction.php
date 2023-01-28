@@ -12,6 +12,7 @@ namespace app\actions\salmon\v3;
 
 use Yii;
 use app\models\Salmon3;
+use app\models\Salmon3FilterForm;
 use app\models\User;
 use yii\base\Action;
 use yii\data\ActiveDataProvider;
@@ -22,6 +23,7 @@ use yii\web\Cookie;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
+use function array_merge;
 use function assert;
 use function preg_match;
 use function time;
@@ -87,20 +89,27 @@ final class IndexAction extends Action
                 'id' => SORT_DESC,
             ]);
 
+        $form = Yii::createObject(Salmon3FilterForm::class);
+        if ($form->load($_GET) && $form->validate()) {
+            $form->decorateQuery($query);
+        }
+
         return $controller->render('index', [
-            'user' => $user,
             'dataProvider' => Yii::createObject([
                 'class' => ActiveDataProvider::class,
                 'query' => $query,
                 'sort' => false,
             ]),
-            'spMode' => $this->getIndexViewMode() === 'simple',
+            'filter' => $form,
             'permLink' => Url::to(
-                ['salmon-v3/index',
-                    'screen_name' => $user->screen_name,
-                ],
+                array_merge(
+                    $form->toPermLink(),
+                    ['salmon-v3/index', 'screen_name' => $user->screen_name],
+                ),
                 true,
             ),
+            'spMode' => $this->getIndexViewMode() === 'simple',
+            'user' => $user,
         ]);
     }
 

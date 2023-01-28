@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
+use app\components\widgets\Icon;
 use app\models\Map3;
 use app\models\Salmon3;
 use app\models\SalmonMap3;
+use yii\helpers\Html;
 
 return [
   'label' => Yii::t('app', 'Stage'),
@@ -16,6 +18,17 @@ return [
       return null;
     }
 
-    return Yii::t('app-map3', $stage->name);
+    return implode(' ', [
+      Html::a(
+        Icon::search(),
+        ['salmon-v3/index',
+          'screen_name' => $model->user?->screen_name,
+          'f' => [
+            'map' => $stage->key,
+          ],
+        ],
+      ),
+      Html::encode(Yii::t('app-map3', $stage->name)),
+    ]);
   },
 ];

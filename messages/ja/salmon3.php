@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 return [
     'Appearances' => '出現数',
+    'Appeared' => '出現',
     'Big Run' => 'ビッグラン',
     'Boss Salmonid' => 'オオモノシャケ',
     'Clear Bonus' => 'クリアボーナス',
@@ -28,6 +29,7 @@ return [
     'Known Occurrence' => '特殊な状況',
     'MAX Hazard Level Cleared' => 'キケン度MAXをクリアした',
     'Max. Hazard Level (cleared)' => 'クリア時の最大キケン度',
+    'Normal Job' => 'いつものバイト',
     'Not Defeated' => '倒していない',
     'Occurrence %' => '発生率',
     'Pay Grade' => '評価レート',

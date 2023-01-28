@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 return [
     'Appearances' => '出现次数',
+    'Appeared' => '',
     'Big Run' => '大型跑',
     'Boss Salmonid' => '巨大鲑鱼',
     'Clear Bonus' => '通关奖励',
@@ -29,6 +30,7 @@ return [
     'Known Occurrence' => '特殊状况',
     'Max. Hazard Level (cleared)' => '最高危险程度(通关)',
     'MAX Hazard Level Cleared' => '已通关危险度MAX',
+    'Normal Job' => '',
     'Not Defeated' => '没有击倒',
     'Occurrence %' => '',
     'Pay Grade' => '评价倍率',

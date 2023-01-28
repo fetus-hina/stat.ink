@@ -98,6 +98,7 @@ return function (Salmon3 $model, int $key, int $index, GridView $widget): ?strin
         ->with(['random', 'weapon'])
         ->andWhere(['schedule_id' => $schedule->id])
         ->orderBy(['id' => SORT_ASC])
+        ->cache(3600)
         ->all(),
       fn (SalmonScheduleWeapon3 $weaponInfo): string => Html::tag(
         'span',

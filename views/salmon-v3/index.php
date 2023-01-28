@@ -3,15 +3,17 @@
 declare(strict_types=1);
 
 use app\components\widgets\AdWidget;
-use app\components\widgets\SalmonFilterWidget;
+use app\components\widgets\Salmon3FilterWidget;
 use app\components\widgets\SalmonUserInfo3;
 use app\components\widgets\SnsWidget;
+use app\models\Salmon3FilterForm;
 use app\models\User;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
 
 /**
+ * @var Salmon3FilterForm $filter
  * @var User $user
  * @var View $this
  * @var bool $spMode
@@ -66,12 +68,7 @@ $jsonUrl = str_starts_with($lang, 'en-') || str_starts_with($lang, 'ja-')
       <?= $this->render($spMode ? 'index/sp' : 'index/pc', compact('user', 'dataProvider')) . "\n" ?>
     </div>
     <div class="col-xs-12 col-sm-4 col-lg-3">
-<?php /* ?>
-      <?= SalmonFilterWidget::widget([
-        'user' => $user,
-        'filter' => $filter,
-      ]) . "\n" ?>
-<?php */ ?>
+      <?= Salmon3FilterWidget::widget(['filter' => $filter, 'user' => $user]) . "\n" ?>
       <?= SalmonUserInfo3::widget(['user' => $user]) . "\n" ?>
       <?= AdWidget::widget() . "\n" ?>
     </div>
