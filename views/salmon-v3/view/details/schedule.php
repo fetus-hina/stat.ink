@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use app\assets\GameModeIconsAsset;
 use app\assets\SalmonEggAsset;
+use app\components\widgets\Icon;
 use app\components\widgets\v3\BigrunPercentile;
 use app\components\widgets\v3\weaponIcon\WeaponIcon;
 use app\models\Salmon3;
@@ -36,6 +37,18 @@ return [
     }
 
     $parts = [];
+    $parts[] = Html::a(
+      Icon::search(),
+      ['salmon-v3/index',
+        'screen_name' => $model->user?->screen_name,
+        'f' => [
+          'term' => 'term',
+          'term_from' => sprintf('@%d', (int)strtotime($schedule->start_at)),
+          'term_to' => sprintf('@%d', (int)strtotime($schedule->end_at) - 1),
+        ],
+      ],
+    );
+
     if ($schedule->big_map_id) {
       $asset = GameModeIconsAsset::register(Yii::$app->view);
       $parts[] = Html::img(

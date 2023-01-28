@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 return [
     'Appearances' => '출현수',
+    'Appeared' => '',
     'Big Run' => '빅 런',
     'Boss Salmonid' => '거물연어',
     'Clear Bonus' => '클리어 보너스',
@@ -29,6 +30,7 @@ return [
     'Known Occurrence' => '특수 상황',
     'Max. Hazard Level (cleared)' => '클리어한 최대 위험도',
     'MAX Hazard Level Cleared' => '위험도 MAX를 클리어했다',
+    'Normal Job' => '',
     'Not Defeated' => '쓰러트리지 못한 거물연어',
     'Occurrence %' => '',
     'Pay Grade' => '평가 포인트',

@@ -195,6 +195,7 @@ return [
     'Encounter Ratio' => '적 조우률',
     'Enemy Weapon' => '상대 무기',
     'Error' => '에러',
+    'Error bars' => '',
     'Error bars: 95% confidence interval (estimated) & 99% confidence interval (estimated)' => '',
     'Estimated X Power' => '추정 X 파워',
     'Europe' => '유럽',

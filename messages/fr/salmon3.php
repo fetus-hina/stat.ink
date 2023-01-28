@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 return [
     'Appearances' => 'Apparus',
+    'Appeared' => '',
     'Big Run' => 'Big Run',
     'Boss Salmonid' => 'Salmonoboss',
     'Clear Bonus' => '',
@@ -29,6 +30,7 @@ return [
     'Known Occurrence' => '',
     'Max. Hazard Level (cleared)' => '',
     'MAX Hazard Level Cleared' => 'Niveau de danger max terminé',
+    'Normal Job' => '',
     'Not Defeated' => 'Survivants',
     'Occurrence %' => 'Cas',
     'Pay Grade' => '',

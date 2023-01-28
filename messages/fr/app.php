@@ -197,6 +197,7 @@ return [
     'Encounter Ratio' => 'Ratio de rencontre',
     'Enemy Weapon' => 'Arme Adverse',
     'Error' => 'Erreur',
+    'Error bars' => '',
     'Error bars: 95% confidence interval (estimated) & 99% confidence interval (estimated)' => '',
     'Estimated X Power' => 'X Power Estimé',
     'Europe' => '',

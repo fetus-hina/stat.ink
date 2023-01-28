@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 return [
     'Appearances' => '',
+    'Appeared' => '',
     'Big Run' => 'Big Run',
     'Boss Salmonid' => 'Salmonietenbaas',
     'Clear Bonus' => '',
@@ -28,6 +29,7 @@ return [
     'Known Occurrence' => '',
     'Max. Hazard Level (cleared)' => '',
     'MAX Hazard Level Cleared' => 'Gewonnen op het maximale risiconiveau!',
+    'Normal Job' => '',
     'Not Defeated' => '',
     'Occurrence %' => '',
     'Pay Grade' => '',
