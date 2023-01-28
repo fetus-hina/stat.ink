@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -12,6 +12,7 @@ namespace app\components\helpers;
 
 use DateInterval;
 use DateTimeImmutable;
+use DateTimeInterface;
 use DateTimeZone;
 use Yii;
 use app\models\Battle as BattleModel;
@@ -37,6 +38,9 @@ class Battle
         return (int)floor(($unixTime - 2 * 3600) / (4 * 3600));
     }
 
+    /**
+     * @return array{int, int}
+     */
     public static function periodToRange(int $period, int $offset = 0): array
     {
         $from = $period * (4 * 3600) + (2 * 3600) + $offset;
@@ -49,6 +53,9 @@ class Battle
         return (int)floor($unixTime / (2 * 3600));
     }
 
+    /**
+     * @return array{int, int}
+     */
     public static function periodToRange2(int $period, int $offset = 0): array
     {
         $from = $period * (2 * 3600) + $offset;
@@ -56,6 +63,9 @@ class Battle
         return [$from, $to];
     }
 
+    /**
+     * @return array{DateTimeInterface, DateTimeInterface}
+     */
     public static function periodToRange2DT(int $period, int $offset = 0): array
     {
         [$from, $to] = static::periodToRange2($period, $offset);
