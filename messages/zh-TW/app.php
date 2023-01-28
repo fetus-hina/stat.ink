@@ -196,6 +196,7 @@ return [
     'Encounter Ratio' => '遭遇比值',
     'Enemy Weapon' => '對方武器',
     'Error' => '錯誤',
+    'Error bars' => '',
     'Error bars: 95% confidence interval (estimated) & 99% confidence interval (estimated)' => '',
     'Estimated X Power' => '預估X戰力',
     'Europe' => '歐洲',

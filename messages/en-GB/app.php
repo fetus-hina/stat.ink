@@ -195,6 +195,7 @@ return [
     'Encounter Ratio' => '',
     'Enemy Weapon' => '',
     'Error' => '',
+    'Error bars' => '',
     'Error bars: 95% confidence interval (estimated) & 99% confidence interval (estimated)' => '',
     'Estimated X Power' => '',
     'Europe' => '',
