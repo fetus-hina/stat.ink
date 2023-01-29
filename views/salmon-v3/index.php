@@ -44,9 +44,13 @@ if ($user->twitter != '') {
 }
 
 $lang = Yii::$app->language;
-$jsonUrl = str_starts_with($lang, 'en-') || str_starts_with($lang, 'ja-')
-  ? ['api-v3/user-salmon', 'screen_name' => $user->screen_name]
-  : ['api-v3/user-salmon', 'screen_name' => $user->screen_name, 'full' => 1];
+$jsonUrl = array_merge(
+  $filter->toPermLink(),
+  ['api-v3/user-salmon',
+    'screen_name' => $user->screen_name,
+    'full' => str_starts_with($lang, 'en-') || str_starts_with($lang, 'ja-') ? null : '1',
+  ],
+);
 
 ?>
 <div class="container">
