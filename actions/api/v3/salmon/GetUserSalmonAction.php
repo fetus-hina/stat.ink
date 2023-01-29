@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -14,14 +14,18 @@ use Yii;
 use app\actions\api\v3\traits\ApiInitializerTrait;
 use app\components\formatters\api\v3\SalmonApiFormatter;
 use app\models\Salmon3;
+use app\models\Salmon3FilterForm;
 use app\models\User;
 use yii\base\Action;
+use yii\data\ActiveDataProvider;
 use yii\helpers\Json;
 use yii\web\JsExpression;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
 use function array_map;
+use function hash_hmac;
+use function http_build_query;
 
 use const JSON_THROW_ON_ERROR;
 use const JSON_UNESCAPED_SLASHES;
@@ -51,7 +55,7 @@ final class GetUserSalmonAction extends Action
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
         }
 
-        $models = Salmon3::find()
+        $query = Salmon3::find()
             ->with([
                 'agent',
                 'bigStage.map3Aliases',
@@ -82,9 +86,18 @@ final class GetUserSalmonAction extends Action
             ->orderBy([
                 'start_at' => SORT_DESC,
                 'id' => SORT_DESC,
-            ])
-            ->limit(100)
-            ->all();
+            ]);
+
+        $filter = Yii::createObject(Salmon3FilterForm::class);
+        $filter->load($_GET);
+        $filter->validate();
+        $filter->decorateQuery($query);
+
+        $dataProvider = Yii::createObject([
+            'class' => ActiveDataProvider::class,
+            'query' => $query,
+            'sort' => false,
+        ]);
 
         $isAuthenticated = Yii::$app->user->isGuest
             ? false
@@ -93,16 +106,28 @@ final class GetUserSalmonAction extends Action
         $resp = Yii::$app->response;
         $resp->data = array_map(
             fn (Salmon3 $model): JsExpression => new JsExpression(
-                Json::encode(
-                    SalmonApiFormatter::toJson(
-                        $model,
-                        $isAuthenticated,
-                        $full,
+                Yii::$app->cache->getOrSet(
+                    hash_hmac(
+                        'sha256',
+                        http_build_query([
+                            'full' => $full ? 'yes' : 'no',
+                            'id' => (string)$model->id,
+                            'isAuthenticated' => $isAuthenticated ? 'yes' : 'no',
+                        ]),
+                        __FILE__,
                     ),
-                    JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR,
+                    fn (): string => Json::encode(
+                        SalmonApiFormatter::toJson(
+                            $model,
+                            $isAuthenticated,
+                            $full,
+                        ),
+                        JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR,
+                    ),
+                    86400,
                 ),
             ),
-            $models,
+            $dataProvider->getModels(),
         );
 
         return $resp;
