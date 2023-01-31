@@ -29,7 +29,7 @@ trait DropdownListTrait
     {
         return [
             [
-                Salmon3FilterForm::LOBBY_NOT_PRIVATE => Yii::t('app-salmon2', 'Salmon Run'),
+                Salmon3FilterForm::LOBBY_NOT_PRIVATE => Yii::t('app-lobby3', 'Except Private'),
                 Salmon3FilterForm::LOBBY_NORMAL => Yii::t('app-salmon3', 'Normal Job'),
                 Salmon3FilterForm::LOBBY_BIG_RUN => Yii::t('app-salmon3', 'Big Run'),
                 Salmon3FilterForm::LOBBY_PRIVATE => Yii::t('app-salmon3', 'Private Job'),

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -21,40 +21,55 @@ use app\actions\api\internal\MyLatestBattlesAction;
 use app\actions\api\internal\PatchBattleAction;
 use app\actions\api\internal\SalmonStats2Action;
 use app\actions\api\internal\ScheduleAction;
+use app\actions\api\internal\v3\PatchBattle3UrlAction;
+use app\actions\api\internal\v3\PatchSalmon3UrlAction;
 use app\components\web\Controller;
 use yii\filters\VerbFilter;
 
-class ApiInternalController extends Controller
+final class ApiInternalController extends Controller
 {
+    /**
+     * @var bool
+     */
     public $enableCsrfValidation = false;
 
+    /**
+     * @inheritdoc
+     */
     public function behaviors()
     {
         return [
             'verbs' => [
                 'class' => VerbFilter::class,
                 'actions' => [
-                    'patch-battle' => [ 'patch' ],
-                    '*' => [ 'get' ],
+                    'patch-battle' => ['patch'],
+                    'patch-battle3-url' => ['patch'],
+                    'patch-salmon3-url' => ['patch'],
+                    '*' => ['get'],
                 ],
             ],
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
     public function actions()
     {
         return [
-            'activity' => [ 'class' => ActivityAction::class ],
-            'blog-entry' => [ 'class' => BlogEntryAction::class ],
-            'counter' => [ 'class' => CounterAction::class ],
-            'current-data' => [ 'class' => CurrentDataAction::class ],
-            'current-data2' => [ 'class' => CurrentData2Action::class ],
-            'guess-timezone' => [ 'class' => GuessTimezoneAction::class ],
-            'latest-battles' => [ 'class' => LatestBattlesAction::class ],
-            'my-latest-battles' => [ 'class' => MyLatestBattlesAction::class ],
-            'patch-battle' => [ 'class' => PatchBattleAction::class ],
-            'salmon-stats2' => [ 'class' => SalmonStats2Action::class ],
-            'schedule' => [ 'class' => ScheduleAction::class ],
+            'activity' => ActivityAction::class,
+            'blog-entry' => BlogEntryAction::class,
+            'counter' => CounterAction::class,
+            'current-data' => CurrentDataAction::class,
+            'current-data2' => CurrentData2Action::class,
+            'guess-timezone' => GuessTimezoneAction::class,
+            'latest-battles' => LatestBattlesAction::class,
+            'my-latest-battles' => MyLatestBattlesAction::class,
+            'patch-battle' => PatchBattleAction::class,
+            'patch-battle3-url' => PatchBattle3UrlAction::class,
+            'patch-salmon3-url' => PatchSalmon3UrlAction::class,
+            'salmon-stats2' => SalmonStats2Action::class,
+            'schedule' => ScheduleAction::class,
         ];
     }
 }
