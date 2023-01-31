@@ -88,6 +88,7 @@ use yii\db\ActiveRecord;
  * @property integer $third_team_inked
  * @property string $third_team_percent
  * @property integer $signal
+ * @property string $replay_code
  *
  * @property Agent $agent
  * @property BattleAgentVariable3[] $battleAgentVariable3s
@@ -135,6 +136,7 @@ class Battle3 extends ActiveRecord
             [['our_team_percent', 'their_team_percent', 'fest_power', 'x_power_before', 'x_power_after', 'third_team_percent'], 'number'],
             [['start_at', 'end_at', 'created_at', 'updated_at'], 'safe'],
             [['our_team_color', 'their_team_color', 'third_team_color'], 'string', 'max' => 8],
+            [['replay_code'], 'string', 'max' => 16],
             [['uuid'], 'unique'],
             [['agent_id'], 'exist', 'skipOnError' => true, 'targetClass' => Agent::class, 'targetAttribute' => ['agent_id' => 'id']],
             [['fest_dragon_id'], 'exist', 'skipOnError' => true, 'targetClass' => DragonMatch3::class, 'targetAttribute' => ['fest_dragon_id' => 'id']],
@@ -231,6 +233,7 @@ class Battle3 extends ActiveRecord
             'third_team_inked' => 'Third Team Inked',
             'third_team_percent' => 'Third Team Percent',
             'signal' => 'Signal',
+            'replay_code' => 'Replay Code',
         ];
     }
 

@@ -60,6 +60,7 @@ use yii\db\ActiveRecord;
  * @property string $updated_at
  * @property boolean $is_private
  * @property boolean $has_broken_data
+ * @property string $scenario_code
  *
  * @property Agent $agent
  * @property Map3 $bigStage
@@ -95,6 +96,7 @@ class Salmon3 extends ActiveRecord
             [['is_big_run', 'clear_extra', 'is_automated', 'has_disconnect', 'is_deleted', 'is_private', 'has_broken_data'], 'boolean'],
             [['danger_rate', 'job_rate'], 'number'],
             [['start_at', 'end_at', 'created_at', 'updated_at'], 'safe'],
+            [['scenario_code'], 'string', 'max' => 16],
             [['uuid'], 'unique'],
             [['agent_id'], 'exist', 'skipOnError' => true, 'targetClass' => Agent::class, 'targetAttribute' => ['agent_id' => 'id']],
             [['big_stage_id'], 'exist', 'skipOnError' => true, 'targetClass' => Map3::class, 'targetAttribute' => ['big_stage_id' => 'id']],
@@ -156,6 +158,7 @@ class Salmon3 extends ActiveRecord
             'updated_at' => 'Updated At',
             'is_private' => 'Is Private',
             'has_broken_data' => 'Has Broken Data',
+            'scenario_code' => 'Scenario Code',
         ];
     }
 
