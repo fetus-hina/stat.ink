@@ -10,10 +10,12 @@ declare(strict_types=1);
 
 namespace app\components\widgets\v3;
 
+use LogicException;
 use Yii;
 use app\assets\BattleEditAsset;
 use app\components\widgets\Icon;
 use app\models\Battle3;
+use app\models\Salmon3;
 use yii\base\Widget;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -24,7 +26,7 @@ use function trim;
 
 final class BattleEditableUrlWidget extends Widget
 {
-    public Battle3|null $model = null;
+    public Battle3|Salmon3|null $model = null;
 
     public function run(): ?string
     {
@@ -43,7 +45,7 @@ final class BattleEditableUrlWidget extends Widget
         ]);
     }
 
-    private function renderDisplay(Battle3 $model): ?string
+    private function renderDisplay(Battle3|Salmon3 $model): ?string
     {
         $currentValue = trim((string)$model->link_url);
         $isEditable = $this->isEditable($model);
@@ -85,18 +87,26 @@ final class BattleEditableUrlWidget extends Widget
             [
                 'id' => 'link-cell-display',
                 'data' => [
-                    'post' => Url::to(
-                        ['api-internal/patch-battle3-url',
-                            'id' => $model->uuid,
-                        ],
-                    ),
+                    'post' => match (true) {
+                        $model instanceof Battle3 => Url::to(
+                            ['api-internal/patch-battle3-url',
+                                'id' => $model->uuid,
+                            ],
+                        ),
+                        $model instanceof Salmon3 => Url::to(
+                            ['api-internal/patch-salmon3-url',
+                                'id' => $model->uuid,
+                            ],
+                        ),
+                        default => throw new LogicException(),
+                    },
                     'url' => $currentValue,
                 ],
             ],
         );
     }
 
-    private function renderInput(Battle3 $model): string
+    private function renderInput(Battle3|Salmon3 $model): string
     {
         return Html::tag(
             'div',
@@ -136,7 +146,7 @@ final class BattleEditableUrlWidget extends Widget
         );
     }
 
-    private function isEditable(Battle3 $model): bool
+    private function isEditable(Battle3|Salmon3 $model): bool
     {
         $loggedInUser = Yii::$app->user->identity;
         if (!$loggedInUser) {

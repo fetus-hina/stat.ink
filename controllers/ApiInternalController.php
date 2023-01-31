@@ -22,6 +22,7 @@ use app\actions\api\internal\PatchBattleAction;
 use app\actions\api\internal\SalmonStats2Action;
 use app\actions\api\internal\ScheduleAction;
 use app\actions\api\internal\v3\PatchBattle3UrlAction;
+use app\actions\api\internal\v3\PatchSalmon3UrlAction;
 use app\components\web\Controller;
 use yii\filters\VerbFilter;
 
@@ -43,7 +44,8 @@ final class ApiInternalController extends Controller
                 'actions' => [
                     'patch-battle' => ['patch'],
                     'patch-battle3-url' => ['patch'],
-                    '*' => [ 'get' ],
+                    'patch-salmon3-url' => ['patch'],
+                    '*' => ['get'],
                 ],
             ],
         ];
@@ -65,6 +67,7 @@ final class ApiInternalController extends Controller
             'my-latest-battles' => MyLatestBattlesAction::class,
             'patch-battle' => PatchBattleAction::class,
             'patch-battle3-url' => PatchBattle3UrlAction::class,
+            'patch-salmon3-url' => PatchSalmon3UrlAction::class,
             'salmon-stats2' => SalmonStats2Action::class,
             'schedule' => ScheduleAction::class,
         ];
