@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -18,9 +18,11 @@ use yii\db\ActiveRecord;
  *
  * @property integer $id
  * @property string $name
+ * @property integer $canonical_id
  *
  * @property BattleMedal3[] $battleMedal3s
  * @property Battle3[] $battles
+ * @property MedalCanonical3 $canonical
  */
 class Medal3 extends ActiveRecord
 {
@@ -33,8 +35,11 @@ class Medal3 extends ActiveRecord
     {
         return [
             [['name'], 'required'],
+            [['canonical_id'], 'default', 'value' => null],
+            [['canonical_id'], 'integer'],
             [['name'], 'string', 'max' => 64],
             [['name'], 'unique'],
+            [['canonical_id'], 'exist', 'skipOnError' => true, 'targetClass' => MedalCanonical3::class, 'targetAttribute' => ['canonical_id' => 'id']],
         ];
     }
 
@@ -43,6 +48,7 @@ class Medal3 extends ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
+            'canonical_id' => 'Canonical ID',
         ];
     }
 
@@ -54,5 +60,10 @@ class Medal3 extends ActiveRecord
     public function getBattles(): ActiveQuery
     {
         return $this->hasMany(Battle3::class, ['id' => 'battle_id'])->viaTable('battle_medal3', ['medal_id' => 'id']);
+    }
+
+    public function getCanonical(): ActiveQuery
+    {
+        return $this->hasOne(MedalCanonical3::class, ['id' => 'canonical_id']);
     }
 }
