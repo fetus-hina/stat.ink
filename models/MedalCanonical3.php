@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -19,6 +20,8 @@ use yii\db\ActiveRecord;
  * @property string $key
  * @property boolean $gold
  * @property string $name
+ *
+ * @property Medal3[] $medal3s
  */
 class MedalCanonical3 extends ActiveRecord
 {
@@ -46,5 +49,10 @@ class MedalCanonical3 extends ActiveRecord
             'gold' => 'Gold',
             'name' => 'Name',
         ];
+    }
+
+    public function getMedal3s(): ActiveQuery
+    {
+        return $this->hasMany(Medal3::class, ['canonical_id' => 'id']);
     }
 }
