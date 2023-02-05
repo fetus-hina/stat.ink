@@ -451,6 +451,7 @@ return [
     'Released' => 'Publié',
     'Remember me' => 'Se souvenir de moi',
     'Remote Follow' => '',
+    'Replay Code' => '',
     'Reset icon' => 'Réinitialiser l\'icône',
     'Reset to default icon' => 'Réinitialiser vers l\'icône par défaut',
     'Reskin of' => 'Reskin de',

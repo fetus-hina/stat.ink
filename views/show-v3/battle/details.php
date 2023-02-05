@@ -67,6 +67,7 @@ echo DetailView::widget([
     // cause-of-death
     require __DIR__ . '/details/cash.php',
     require __DIR__ . '/details/link-url.php',
+    require __DIR__ . '/details/replay-code.php',
     require __DIR__ . '/details/season.php',
     require __DIR__ . '/details/period.php',
     require __DIR__ . '/details/start-at.php',

@@ -436,6 +436,7 @@ return [
     'Released' => 'リリース',
     'Remember me' => '自動ログイン（共用PCではオフにしてください）',
     'Remote Follow' => 'リモートフォロー',
+    'Replay Code' => 'リプレイコード',
     'Reset icon' => 'アイコンを戻す',
     'Reset to default icon' => 'デフォルトアイコンに戻す',
     'Reskin of' => '同一性能',

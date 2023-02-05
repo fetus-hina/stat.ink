@@ -450,6 +450,7 @@ return [
     'Released' => '發佈於',
     'Remember me' => '記住我',
     'Remote Follow' => '遠程關注',
+    'Replay Code' => '',
     'Reset icon' => '重置頭像',
     'Reset to default icon' => '重置爲預設頭像',
     'Reskin of' => '貼牌',

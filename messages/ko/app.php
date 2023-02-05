@@ -449,6 +449,7 @@ return [
     'Released' => '릴리즈',
     'Remember me' => '로그인 유지',
     'Remote Follow' => '',
+    'Replay Code' => '',
     'Reset icon' => '아이콘 리셋',
     'Reset to default icon' => '디폴트 아이콘으로 리셋',
     'Reskin of' => '',

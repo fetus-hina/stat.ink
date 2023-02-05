@@ -451,6 +451,7 @@ return [
     'Released' => '发布于',
     'Remember me' => '记住我',
     'Remote Follow' => '远程关注',
+    'Replay Code' => '',
     'Reset icon' => '重置头像',
     'Reset to default icon' => '重置为默认头像',
     'Reskin of' => '贴牌',

@@ -21,6 +21,7 @@ return [
     'Fish Scales' => '',
     'High Score' => 'Topscore',
     'Job Points' => '',
+    'Job Scenario' => '',
     'Job Score' => '',
     'King' => '',
     'King Salmonid' => 'Salmonster',

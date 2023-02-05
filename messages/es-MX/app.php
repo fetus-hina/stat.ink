@@ -450,6 +450,7 @@ return [
     'Released' => '',
     'Remember me' => '',
     'Remote Follow' => '',
+    'Replay Code' => '',
     'Reset icon' => '',
     'Reset to default icon' => '',
     'Reskin of' => '',
