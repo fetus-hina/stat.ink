@@ -32,6 +32,7 @@ return [
   // sp/min
   require __DIR__ . '/columns/inked.php',
   // inked/min
+  require __DIR__ . '/columns/medals.php',
   require __DIR__ . '/columns/rank-in-team.php',
   require __DIR__ . '/columns/elapsed-mmss.php',
   require __DIR__ . '/columns/elapsed-sec.php',

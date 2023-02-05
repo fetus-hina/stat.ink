@@ -78,6 +78,8 @@ final class UserAction extends Action
                 'agent',
                 'lobby',
                 'map',
+                'medals',
+                'medals.canonical',
                 'rankAfter',
                 'rankBefore',
                 'rule',
