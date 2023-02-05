@@ -18,7 +18,6 @@ final class m230205_000149_medal3_canonical extends Migration
      */
     public function safeUp()
     {
-
         $this->addColumn(
             '{{%medal3}}',
             'canonical_id',
