@@ -35,7 +35,7 @@ return [
                 'app-map' => 'map.php',
                 'app-map2' => 'map2.php',
                 'app-map3' => 'map3.php',
-                'app-medal3' => 'medal3',
+                'app-medal3' => 'medal3.php',
                 'app-privacy' => 'privacy.php',
                 'app-rank' => 'rank.php',
                 'app-rank2' => 'rank2.php',
