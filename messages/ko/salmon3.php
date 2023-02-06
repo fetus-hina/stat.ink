@@ -22,6 +22,7 @@ return [
     'Fish Scales' => '비늘',
     'High Score' => '하이 스코어',
     'Job Points' => '획득 포인트',
+    'Job Scenario' => '',
     'Job Score' => '아르바이트 스코어',
     'King' => '두목',
     'King Salmonid' => '두목연어',

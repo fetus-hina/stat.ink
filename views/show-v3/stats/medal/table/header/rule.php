@@ -1,0 +1,1 @@
+../../../weapons/table/header/rule.php

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2017 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -14,10 +14,18 @@ use app\components\widgets\TimestampColumnWidget;
 use yii\helpers\Html;
 
 use function gmdate;
+use function http_build_query;
 use function implode;
 use function is_int;
+use function is_string;
 use function pow;
+use function preg_match;
+use function preg_replace;
 use function sprintf;
+use function str_starts_with;
+use function strtoupper;
+use function substr;
+use function vsprintf;
 
 class Formatter extends \yii\i18n\Formatter
 {
@@ -113,5 +121,47 @@ class Formatter extends \yii\i18n\Formatter
 
         $text = Yii::t($category, (string)$value, $options);
         return $escape ? $this->asText($text) : $text;
+    }
+
+    public function asReplayCode3($value, bool $link = true): string
+    {
+        if (!is_string($value)) {
+            return $this->nullDisplay;
+        }
+
+        $value = preg_replace('/[^0-9A-Z]+/', '', strtoupper($value));
+        if (!preg_match('/^[0-9A-Z]{16}$/', $value)) {
+            return $this->nullDisplay;
+        }
+
+        $value = implode('-', [
+            substr($value, 0, 4),
+            substr($value, 4, 4),
+            substr($value, 8, 4),
+            substr($value, 12, 4),
+        ]);
+
+        if (!$link || !str_starts_with($value, 'R')) {
+            return $this->asText($value);
+        }
+
+        $url = vsprintf('https://s.nintendo.com/av5ja-lp1/znca/game/4834290508791808?%s', [
+            http_build_query(
+                [
+                    'p' => vsprintf('/replay?%s', [
+                        http_build_query(['code' => $value]),
+                    ]),
+                ],
+            ),
+        ]);
+
+        return Html::a(
+            Html::encode($value),
+            $url,
+            [
+                'target' => '_blank',
+                'rel' => 'noopener noreferrer',
+            ],
+        );
     }
 }

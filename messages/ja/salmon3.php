@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -21,6 +21,7 @@ return [
     'Fish Scales' => 'ウロコ',
     'High Score' => 'ハイスコア',
     'Job Points' => '獲得ポイント',
+    'Job Scenario' => 'バイトシナリオ',
     'Job Score' => 'バイトスコア',
     'King Salmonid Appearances' => 'オカシラシャケ出現数',
     'King Salmonid Defeat Rate' => 'オカシラシャケ討伐率',

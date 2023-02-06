@@ -15,12 +15,14 @@ use yii\web\View;
  * @var View $this
  */
 
+$am = Yii::$app->assetManager;
+
 echo Html::tag(
   'th',
   implode(' ', [
     Html::img(
-      Yii::$app->assetManager->getAssetUrl(
-        GameModeIconsAsset::register($this),
+      $am->getAssetUrl(
+        $am->getBundle(GameModeIconsAsset::class),
         sprintf('spl3/%s.png', $rule->key),
       ),
       [

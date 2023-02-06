@@ -52,6 +52,7 @@ echo DetailView::widget([
     require __DIR__ . '/details/salmon-eggs.php',
     require __DIR__ . '/details/fish-scales.php',
     require __DIR__ . '/details/link-url.php',
+    require __DIR__ . '/details/scenario.php',
     require __DIR__ . '/details/start-at.php',
     require __DIR__ . '/details/end-at.php',
     require __DIR__ . '/details/created-at.php',

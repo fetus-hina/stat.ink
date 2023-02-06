@@ -22,6 +22,7 @@ return [
     'Fish Scales' => '鳞片',
     'High Score' => '最高分数',
     'Job Points' => '获得点数',
+    'Job Scenario' => '',
     'Job Score' => '打工分数',
     'King' => '头目',
     'King Salmonid' => '头目鲑鱼',
