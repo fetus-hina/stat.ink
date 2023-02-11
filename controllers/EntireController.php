@@ -32,6 +32,7 @@ use app\actions\entire\v3\KDWin3Action;
 use app\actions\entire\v3\Knockout3Action;
 use app\actions\entire\v3\SpecialUse3Action;
 use app\actions\entire\v3\SpecialUse3PerSpecialAction;
+use app\actions\entire\v3\Splatfest3Action;
 use app\actions\entire\v3\Weapon3Action;
 use app\actions\entire\v3\Weapons3Action;
 use app\actions\entire\v3\XPowerDistrib3Action;
@@ -78,6 +79,7 @@ final class EntireController extends Controller
             'salmon3-tide' => TideAction::class,
             'special-use3' => SpecialUse3Action::class,
             'special-use3-per-special' => SpecialUse3PerSpecialAction::class,
+            'splatfest3' => Splatfest3Action::class,
             'users' => UsersAction::class,
             'weapon' => WeaponAction::class,
             'weapon2' => Weapon2Action::class,

@@ -5019,27 +5019,27 @@
         },
         {
             "name": "codeception/module-yii2",
-            "version": "1.1.7",
+            "version": "1.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/module-yii2.git",
-                "reference": "338ab4dfa04b3f7312856915f2daebad73985911"
+                "reference": "75f2fdf7f1912c1b95885d56a5098ed10f586411"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/module-yii2/zipball/338ab4dfa04b3f7312856915f2daebad73985911",
-                "reference": "338ab4dfa04b3f7312856915f2daebad73985911",
+                "url": "https://api.github.com/repos/Codeception/module-yii2/zipball/75f2fdf7f1912c1b95885d56a5098ed10f586411",
+                "reference": "75f2fdf7f1912c1b95885d56a5098ed10f586411",
                 "shasum": ""
             },
             "require": {
-                "codeception/codeception": "^5.0.0-RC6",
-                "codeception/lib-innerbrowser": "^3.0",
+                "codeception/codeception": "^5.0.8",
+                "codeception/lib-innerbrowser": "^3.0 | ^4.0",
                 "php": "^8.0"
             },
             "require-dev": {
                 "codeception/module-asserts": "^3.0",
                 "codeception/module-filesystem": "^3.0",
-                "codeception/verify": "^2.2",
+                "codeception/verify": "^3.0",
                 "codemix/yii2-localeurls": "^1.7",
                 "yiisoft/yii2": "dev-master",
                 "yiisoft/yii2-app-advanced": "dev-master"
@@ -5066,16 +5066,16 @@
                 }
             ],
             "description": "Codeception module for Yii2 framework",
-            "homepage": "http://codeception.com/",
+            "homepage": "https://codeception.com/",
             "keywords": [
                 "codeception",
                 "yii2"
             ],
             "support": {
                 "issues": "https://github.com/Codeception/module-yii2/issues",
-                "source": "https://github.com/Codeception/module-yii2/tree/1.1.7"
+                "source": "https://github.com/Codeception/module-yii2/tree/1.1.8"
             },
-            "time": "2022-07-15T18:09:58+00:00"
+            "time": "2023-02-10T18:47:53+00:00"
         },
         {
             "name": "codeception/specify",
@@ -5166,22 +5166,22 @@
         },
         {
             "name": "codeception/verify",
-            "version": "2.2.0",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Verify.git",
-                "reference": "5fc4c9675c82e11e0f04801da00a99b2493d5408"
+                "reference": "25b84a96f0fe7dcf28e8021f02b57643b751a707"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Verify/zipball/5fc4c9675c82e11e0f04801da00a99b2493d5408",
-                "reference": "5fc4c9675c82e11e0f04801da00a99b2493d5408",
+                "url": "https://api.github.com/repos/Codeception/Verify/zipball/25b84a96f0fe7dcf28e8021f02b57643b751a707",
+                "reference": "25b84a96f0fe7dcf28e8021f02b57643b751a707",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
                 "php": "^7.4 || ^8.0",
-                "phpunit/phpunit": "^9.3"
+                "phpunit/phpunit": "^9.5 | ^10.0"
             },
             "type": "library",
             "autoload": {
@@ -5209,9 +5209,9 @@
             "description": "BDD assertion library for PHPUnit",
             "support": {
                 "issues": "https://github.com/Codeception/Verify/issues",
-                "source": "https://github.com/Codeception/Verify/tree/2.2.0"
+                "source": "https://github.com/Codeception/Verify/tree/3.0.0"
             },
-            "time": "2021-11-21T23:53:33+00:00"
+            "time": "2023-02-09T07:33:00+00:00"
         },
         {
             "name": "dealerdirect/phpcodesniffer-composer-installer",
