@@ -33,6 +33,7 @@ return [
     'API Info: Boss Salmonids (Splatoon 3)' => 'API情報: オオモノシャケ (Splatoon 3)',
     'API Info: Gears: {0}' => 'API情報: ギア: {0}',
     'API Info: Known Occurrences (Splatoon 3)' => 'API情報: 特殊な状況 (Splatoon 3)',
+    'API Info: Medals (Splatoon 3)' => 'API情報: 表彰 (Splatoon 3)',
     'API Info: Stages (Splatoon 2)' => 'API情報: ステージ (Splatoon 2)',
     'API Info: Stages (Splatoon 3)' => 'API情報: ステージ (Splatoon 3)',
     'API Info: Titles (Splatoon 3)' => 'API情報: 称号 (Splatoon 3)',

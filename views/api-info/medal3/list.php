@@ -25,7 +25,7 @@ assert($am instanceof AssetManager);
 
 ?>
 <div class="table-responsive table-responsive-force">
-  <table class="table table-striped table-condensed">
+  <table class="table table-striped table-condensed mb-0">
     <thead>
       <tr>
         <th></th>
