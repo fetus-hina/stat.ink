@@ -257,7 +257,11 @@ final class DlStats3Controller extends Controller
                         $battle->result->is_win ? 'alpha' : 'bravo',
                         $battle->is_knockout === null ? '' : ($battle->is_knockout ? 'TRUE' : 'FALSE'),
                         self::rank($battle->rankBefore, $battle->rank_before_s_plus),
-                        self::xPower($battle->x_power_before),
+                        match ($battle->lobby?->key) {
+                            'xmatch' => self::powerFormat($battle->x_power_before),
+                            'splatfest_challenge' => self::powerFormat($battle->fest_power),
+                            default => self::powerFormat(null),
+                        },
                         (string)$battle->our_team_inked,
                         (string)$battle->our_team_percent,
                         (string)$battle->our_team_count,
@@ -460,12 +464,10 @@ final class DlStats3Controller extends Controller
         };
     }
 
-    private static function xPower(int|float|string|null $xPower): string
+    private static function powerFormat(int|float|string|null $power): string
     {
-        $xPower = filter_var($xPower, FILTER_VALIDATE_FLOAT);
-        return is_float($xPower)
-            ? (string)(int)(floor($xPower / 10) * 10)
-            : '';
+        $power = filter_var($power, FILTER_VALIDATE_FLOAT);
+        return is_float($power) ? sprintf('%.1f', $power) : '';
     }
 
     private static function gearAbilities(BattlePlayer3 $player): string
