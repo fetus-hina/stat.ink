@@ -64,6 +64,8 @@ return [
     'Nautilus 47' => '노틸러스 47',
     'Nozzlenoses' => '릴건',
     'Octobrush' => '호쿠사이',
+    'Random' => '',
+    'Random (Rare)' => '',
     'Range Blaster' => '롱 블래스터',
     'Rapid Blaster' => '래피드 블래스터',
     'Rapid Blaster Pro' => 'R 블래스터 엘리트',

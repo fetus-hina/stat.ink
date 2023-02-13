@@ -65,6 +65,8 @@ return [
     'Nautilus 47' => '鹦鹉螺号47',
     'Nozzlenoses' => '卷管枪',
     'Octobrush' => '北斋',
+    'Random' => '',
+    'Random (Rare)' => '',
     'Range Blaster' => '远距爆破枪',
     'Rapid Blaster' => '快速爆破枪',
     'Rapid Blaster Pro' => '快速爆破枪 精英',

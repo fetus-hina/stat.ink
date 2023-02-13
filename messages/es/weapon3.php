@@ -63,6 +63,8 @@ return [
     'Nautilus 47' => 'Subtralladora 47',
     'Nozzlenoses' => '',
     'Octobrush' => 'Brocha',
+    'Random' => '',
+    'Random (Rare)' => '',
     'Range Blaster' => 'Teledevastador',
     'Rapid Blaster' => 'Devastador exprés',
     'Rapid Blaster Pro' => 'Superdevastador',
