@@ -64,6 +64,8 @@ return [
     'Nozzlenoses' => 'リールガン',
     'Octobrush' => 'ホクサイ',
     'REEF-LUX 450' => 'LACT-450',
+    'Random (Rare)' => 'ランダム (レアブキ)',
+    'Random' => 'ランダム',
     'Range Blaster' => 'ロングブラスター',
     'Rapid Blaster Pro' => 'Rブラスターエリート',
     'Rapid Blaster' => 'ラピッドブラスター',

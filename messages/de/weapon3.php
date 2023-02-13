@@ -63,6 +63,8 @@ return [
     'Nautilus 47' => 'Nautilus 47',
     'Nozzlenoses' => '',
     'Octobrush' => 'Kalligraf',
+    'Random' => '',
+    'Random (Rare)' => '',
     'Range Blaster' => 'Fern-Blaster',
     'Rapid Blaster' => 'Turbo-Blaster',
     'Rapid Blaster Pro' => 'Turbo-Blaster Plus',

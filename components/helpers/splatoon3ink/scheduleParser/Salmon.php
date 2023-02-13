@@ -85,9 +85,13 @@ trait Salmon
 
         $name = ArrayHelper::getValue($info, 'name');
         if ($name === 'Random') {
-            // TODO: rare random (use image url)
             return SalmonRandom3::find()
-                ->andWhere(['key' => 'random'])
+                ->andWhere([
+                    'key' => match (ArrayHelper::getValue($info, '__splatoon3ink_id')) {
+                        'edcfecb7e8acd1a7' => 'random_rare',
+                        default => 'random',
+                    },
+                ])
                 ->limit(1)
                 ->one();
         }
