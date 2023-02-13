@@ -77,6 +77,18 @@ trait TypeHelperTrait
         return is_float($value) ? $value : null;
     }
 
+    protected static function powerVal($value): ?float
+    {
+        $value = self::floatVal($value);
+        if ($value === null) {
+            return null;
+        }
+
+        // 0.1 未満の数字は切り捨てる
+        // https://github.com/fetus-hina/stat.ink/issues/1189
+        return floor($value * 10.0) / 10.0;
+    }
+
     protected static function strVal($value): ?string
     {
         if ($value === null || !is_scalar($value)) {

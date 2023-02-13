@@ -169,6 +169,8 @@ final class DlStats3Controller extends Controller
                     'battlePlayer3s.shoes.ability',
                     'battlePlayer3s.shoes.gearConfigurationSecondary3s.ability',
                     'battlePlayer3s.weapon',
+                    'medals',
+                    'medals.canonical',
                     'ourTeamTheme',
                     'rankBefore',
                     'theirTeamTheme',
@@ -218,17 +220,17 @@ final class DlStats3Controller extends Controller
                                         'win',
                                         'knockout',
                                         'rank',
-                                        'x-power',
-                                        'our-inked',
-                                        'our-ink-percent',
-                                        'our-count',
-                                        'our-color',
-                                        'our-theme',
-                                        'their-inked',
-                                        'their-ink-percent',
-                                        'their-count',
-                                        'their-color',
-                                        'their-theme',
+                                        'power',
+                                        'alpha-inked',
+                                        'alpha-ink-percent',
+                                        'alpha-count',
+                                        'alpha-color',
+                                        'alpha-theme',
+                                        'bravo-inked',
+                                        'bravo-ink-percent',
+                                        'bravo-count',
+                                        'bravo-color',
+                                        'bravo-theme',
                                     ],
                                     $playerColumns('A1'),
                                     $playerColumns('A2'),
@@ -238,6 +240,14 @@ final class DlStats3Controller extends Controller
                                     $playerColumns('B2'),
                                     $playerColumns('B3'),
                                     $playerColumns('B4'),
+                                    [
+                                        'medal1-grade',
+                                        'medal1-name',
+                                        'medal2-grade',
+                                        'medal2-name',
+                                        'medal3-grade',
+                                        'medal3-name',
+                                    ],
                                 ),
                             ) . "\x0d\x0a",
                         );
@@ -257,7 +267,11 @@ final class DlStats3Controller extends Controller
                         $battle->result->is_win ? 'alpha' : 'bravo',
                         $battle->is_knockout === null ? '' : ($battle->is_knockout ? 'TRUE' : 'FALSE'),
                         self::rank($battle->rankBefore, $battle->rank_before_s_plus),
-                        self::xPower($battle->x_power_before),
+                        match ($battle->lobby?->key) {
+                            'xmatch' => self::powerFormat($battle->x_power_before),
+                            'splatfest_challenge' => self::powerFormat($battle->fest_power),
+                            default => self::powerFormat(null),
+                        },
                         (string)$battle->our_team_inked,
                         (string)$battle->our_team_percent,
                         (string)$battle->our_team_count,
@@ -284,18 +298,45 @@ final class DlStats3Controller extends Controller
                             return $a->id <=> $b->id;
                         },
                     );
+                    if (count($players) !== 8) {
+                        $players = array_slice(
+                            array_merge($players, [null, null, null, null, null, null, null, null]),
+                            0,
+                            8,
+                        );
+                    }
                     foreach ($players as $player) {
                         $csvColumns = array_merge($csvColumns, [
-                            (string)$player->weapon?->key,
-                            (string)$player->kill_or_assist,
-                            (string)$player->kill,
-                            (string)$player->assist,
-                            (string)$player->death,
-                            (string)$player->special,
-                            (string)$player->inked,
+                            (string)$player?->weapon?->key,
+                            (string)$player?->kill_or_assist,
+                            (string)$player?->kill,
+                            (string)$player?->assist,
+                            (string)$player?->death,
+                            (string)$player?->special,
+                            (string)$player?->inked,
                             self::gearAbilities($player),
                         ]);
                     }
+
+                    $medals = [];
+                    foreach ($battle->medals as $medal) {
+                        $medals = array_merge($medals, [
+                            match ($medal?->canonical?->gold) {
+                                true => 'gold',
+                                false => 'silver',
+                                default => '',
+                            },
+                            $medal?->canonical?->name ?? $medal?->name ?? '',
+                        ]);
+                    }
+                    $csvColumns = array_merge(
+                        $csvColumns,
+                        array_slice(
+                            array_merge($medals, ['', '', '', '', '', '']),
+                            0,
+                            6,
+                        ),
+                    );
 
                     fwrite($fh, self::csvRow($csvColumns) . "\x0d\x0a");
                 }
@@ -460,16 +501,18 @@ final class DlStats3Controller extends Controller
         };
     }
 
-    private static function xPower(int|float|string|null $xPower): string
+    private static function powerFormat(int|float|string|null $power): string
     {
-        $xPower = filter_var($xPower, FILTER_VALIDATE_FLOAT);
-        return is_float($xPower)
-            ? (string)(int)(floor($xPower / 10) * 10)
-            : '';
+        $power = filter_var($power, FILTER_VALIDATE_FLOAT);
+        return is_float($power) ? sprintf('%.1f', $power) : '';
     }
 
-    private static function gearAbilities(BattlePlayer3 $player): string
+    private static function gearAbilities(?BattlePlayer3 $player): string
     {
+        if (!$player) {
+            return '';
+        }
+
         $gears = [
             $player->headgear,
             $player->clothing,
