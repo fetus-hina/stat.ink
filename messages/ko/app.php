@@ -50,6 +50,7 @@ return [
     'API Info: Boss Salmonids (Splatoon 3)' => 'API 정보: 거물연어 (Splatoon 3)',
     'API Info: Gears: {0}' => 'API 정보: 기어: {0}',
     'API Info: Known Occurrences (Splatoon 3)' => 'API 정보: 특수한 상황 (Splatoon 3)',
+    'API Info: Medals (Splatoon 3)' => '',
     'API Info: Stages (Splatoon 2)' => 'API 정보: 스테이지 (Splatoon 2)',
     'API Info: Stages (Splatoon 3)' => 'API 정보: 스테이지 (Splatoon 3)',
     'API Info: Titles (Splatoon 3)' => 'API 정보: 칭호 (Splatoon 3)',
