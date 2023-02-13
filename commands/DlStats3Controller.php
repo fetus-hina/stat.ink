@@ -30,6 +30,7 @@ use yii\helpers\Json;
 
 use function array_map;
 use function array_merge;
+use function array_slice;
 use function basename;
 use function copy;
 use function count;
@@ -37,7 +38,6 @@ use function dirname;
 use function fclose;
 use function file_exists;
 use function filter_var;
-use function floor;
 use function fopen;
 use function fprintf;
 use function fseek;
