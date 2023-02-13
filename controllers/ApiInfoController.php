@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -14,6 +14,7 @@ use app\actions\api\info\Ability3Action;
 use app\actions\api\info\BossSalmonid3Action;
 use app\actions\api\info\Gear2Action;
 use app\actions\api\info\GearAction;
+use app\actions\api\info\Medal3Action;
 use app\actions\api\info\SalmonEvent3Action;
 use app\actions\api\info\SalmonTitle3Action;
 use app\actions\api\info\Stage2Action;
@@ -27,6 +28,9 @@ final class ApiInfoController extends Controller
 {
     public $layout = 'main';
 
+    /**
+     * @inheritdoc
+     */
     public function actions()
     {
         return [
@@ -56,6 +60,7 @@ final class ApiInfoController extends Controller
                 'class' => Gear2Action::class,
                 'type' => 'shoes',
             ],
+            'medal3' => Medal3Action::class,
             'salmon-event3' => SalmonEvent3Action::class,
             'salmon-title3' => SalmonTitle3Action::class,
             'stage2' => Stage2Action::class,
