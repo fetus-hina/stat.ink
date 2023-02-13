@@ -11,6 +11,7 @@ namespace app\models\api\v3\postBattle;
 use yii\db\ActiveRecord;
 
 use function filter_var;
+use function floor;
 use function gmdate;
 use function is_bool;
 use function is_float;
