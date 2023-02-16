@@ -118,6 +118,7 @@ return [
     'Change Icon' => 'アイコンを変更',
     'Change Password' => 'パスワードの変更',
     'Channel' => 'チャンネル',
+    'Check with Setup Analyzer' => 'セットアップアナライザで確認',
     'Click to copy' => 'クリックしてURLをコピー',
     'Close' => '閉じる',
     'Clout (Normal)' => '貢献度(レギュラー)',

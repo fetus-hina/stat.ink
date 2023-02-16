@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use app\assets\Spl3AbilityAsset;
+use app\components\helpers\SendouInk;
 use app\components\widgets\Icon;
 use app\models\Ability3;
 use app\models\BattlePlayer3;
@@ -130,6 +131,8 @@ $modalId = vsprintf('%s-%s', [
   $className,
   substr(hash('sha1', uniqid('', true)), 0, 8),
 ]);
+
+$sendouInkUrl = SendouInk::getBuildUrl3($player->weapon, ...$gears);
 
 ?>
 <?= Html::beginTag('div', ['class' => ['mt-1', $className]]) . "\n" ?>
@@ -270,6 +273,21 @@ $modalId = vsprintf('%s-%s', [
           </table>
         </div>
         <div class="modal-footer">
+          <?= ($sendouInkUrl
+            ? Html::a(
+              implode(' ', [
+                Icon::popup(),
+                Html::encode(Yii::t('app', 'Check with Setup Analyzer')),
+              ]),
+              $sendouInkUrl,
+              [
+                'class' => 'btn btn-default',
+                'rel' => 'nofollow noreferrer',
+                'target' => '_blank',
+              ],
+            )
+            : ''
+          ) . "\n" ?>
           <?= Html::button(
             implode(' ', [
               Icon::close(),

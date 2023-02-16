@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -21,6 +21,7 @@ use yii\db\ActiveRecord;
  * @property string $name
  * @property integer $rank
  * @property boolean $primary_only
+ * @property string $sendouink
  *
  * @property GearConfiguration3[] $gearConfiguration3s
  * @property GearConfigurationSecondary3[] $gearConfigurationSecondary3s
@@ -35,13 +36,15 @@ class Ability3 extends ActiveRecord
     public function rules()
     {
         return [
-            [['key', 'name', 'rank', 'primary_only'], 'required'],
+            [['key', 'name', 'rank', 'primary_only', 'sendouink'], 'required'],
             [['rank'], 'default', 'value' => null],
             [['rank'], 'integer'],
             [['primary_only'], 'boolean'],
             [['key', 'name'], 'string', 'max' => 32],
+            [['sendouink'], 'string', 'max' => 3],
             [['key'], 'unique'],
             [['rank'], 'unique'],
+            [['sendouink'], 'unique'],
         ];
     }
 
@@ -53,6 +56,7 @@ class Ability3 extends ActiveRecord
             'name' => 'Name',
             'rank' => 'Rank',
             'primary_only' => 'Primary Only',
+            'sendouink' => 'Sendouink',
         ];
     }
 
