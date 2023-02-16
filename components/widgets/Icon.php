@@ -67,6 +67,7 @@ final class Icon
     // no
     // ok
     // permalink
+    // popup
     // prevPage
     // refresh
     // scrollTo
@@ -321,6 +322,11 @@ final class Icon
     public static function permalink(): string
     {
         return self::link();
+    }
+
+    public static function popup(): string
+    {
+        return self::bi('window-stack');
     }
 
     public static function prevPage(): string
