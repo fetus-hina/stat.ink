@@ -29,6 +29,8 @@ return [
     'Inkblot Art Academy' => '海女美術大學',
     'Mahi-Mahi Resort' => '鬼頭刀SPA度假區',
     'MakoMart' => '座頭購物中心',
+    'Manta' => '',
+    'Manta Maria' => '',
     'Market' => '市場',
     'Marooner\'s Bay' => '漂浮落難船',
     'Mart' => '購物中心',

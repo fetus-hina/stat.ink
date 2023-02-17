@@ -102,8 +102,15 @@ class Migration extends BaseMigration
         }
     }
 
-    public function key2id(string $tableName, string $key, string $keyColumn = 'key'): int
-    {
+    /**
+     * @return ($nullable is true ? int|null : int)
+     */
+    public function key2id(
+        string $tableName,
+        string $key,
+        string $keyColumn = 'key',
+        bool $nullable = false,
+    ): ?int {
         $value = filter_var(
             (new Query())
                 ->select(['id'])
@@ -113,9 +120,13 @@ class Migration extends BaseMigration
                 ->scalar(),
             FILTER_VALIDATE_INT,
         );
+
         if (!is_int($value)) {
-            throw new InvalidArgumentException("The key $key is not exists in $tableName");
+            return $nullable
+                ? null
+                : throw new InvalidArgumentException("The key $key is not exists in $tableName");
         }
+
         return $value;
     }
 

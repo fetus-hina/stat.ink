@@ -117,6 +117,7 @@ return [
     'Change Icon' => '更換頭像',
     'Change Password' => '更改密碼',
     'Channel' => '頻道',
+    'Check with Setup Analyzer' => '',
     'Click to copy' => '點擊複製',
     'Close' => '關閉',
     'Clout' => '影響力',

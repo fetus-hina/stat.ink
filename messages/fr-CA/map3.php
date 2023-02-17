@@ -27,6 +27,8 @@ return [
     'Inkblot Art Academy' => 'Institut Calm\'arts',
     'Mahi-Mahi Resort' => 'Spa C-ta-C',
     'MakoMart' => 'Supermarché Cétacé',
+    'Manta' => '',
+    'Manta Maria' => 'Manta Maria',
     'Market' => '',
     'Marooner\'s Bay' => 'Épave des braves',
     'Mart' => '',

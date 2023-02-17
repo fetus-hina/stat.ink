@@ -117,6 +117,7 @@ return [
     'Change Icon' => '',
     'Change Password' => 'Cambiar contraseña',
     'Channel' => '',
+    'Check with Setup Analyzer' => '',
     'Click to copy' => 'Haga clic en copiar URL',
     'Close' => '',
     'Clout' => '',

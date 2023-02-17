@@ -118,6 +118,7 @@ return [
     'Change Icon' => '改变头像',
     'Change Password' => '更改密码',
     'Channel' => '频道',
+    'Check with Setup Analyzer' => '',
     'Click to copy' => '点击复制',
     'Close' => '关闭',
     'Clout' => '影响力',

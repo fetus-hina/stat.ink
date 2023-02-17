@@ -116,6 +116,7 @@ return [
     'Change Icon' => '아이콘 변경',
     'Change Password' => '비밀번호 변경',
     'Channel' => '채널',
+    'Check with Setup Analyzer' => '',
     'Click to copy' => '클릭해서 복사',
     'Close' => '닫기',
     'Clout' => '공헌도',

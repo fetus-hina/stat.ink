@@ -23,7 +23,7 @@ use function in_array;
  * @phpstan-type sub3-string3 'sprinkler'|'tansanbomb'|'torpedo'|'trap'
  * @phsptan-type sp3-string1 'amefurashi'|'energystand'|'greatbarrier'|'hopsonar'|'jetpack'
  * @phpstan-type sp3-string2 'kanitank'|'kyuinki'|'megaphone'|'missile'|'nicedama'|'sameride'
- * @phpstan-type sp3-string3 'shokuwander'|'tripletornado'|'ultrahanko'|'ultrashot'
+ * @phpstan-type sp3-string3 'shokuwander'|'tripletornado'|'ultrahanko'|'ultrashot'|'teioika'|'decoy'
  *
  * @phpstan-type type3-string type3-string-1|type3-string-2
  * @phpstan-type sub3-string sub3-string1|sub3-string2|sub3-string3
@@ -41,6 +41,7 @@ trait Weapon3Migration
      * @phpstan-param sp3-string|null $special
      * @phpstan-param non-empty-string|null $main
      * @phpstan-param non-empty-string|null $canonical
+     * @phpstan-param 'A+'|'A-'|'B'|'C+'|'C-'|'D+'|'D-'|'E+'|'E-'|null $xGroup
      */
     protected function upWeapon3(
         string $key,
@@ -53,6 +54,7 @@ trait Weapon3Migration
         ?bool $salmon = null,
         array $aliases = [],
         bool $enableAutoKey = true,
+        ?string $xGroup = null,
     ): void {
         if ($salmon === null) {
             $salmon = $main === null;
@@ -100,6 +102,22 @@ trait Weapon3Migration
                     'key' => $alias,
                 ]);
             }
+        }
+
+        if ($xGroup) {
+            $this->insert('{{%x_matching_group_weapon3}}', [
+                'version_id' => $this->key2id(
+                    '{{%x_matching_group_version3}}',
+                    '2.0.0',
+                    keyColumn: 'minimum_version',
+                ),
+                'group_id' => $this->key2id(
+                    '{{%x_matching_group3}}',
+                    $xGroup,
+                    keyColumn: 'short_name',
+                ),
+                'weapon_id' => $weaponId,
+            ]);
         }
     }
 
@@ -156,17 +174,24 @@ trait Weapon3Migration
         }
 
         $weaponId = $this->key2id('{{%weapon3}}', $key);
+        $this->delete('{{%x_matching_group_weapon3}}', ['weapon_id' => $weaponId]);
         $this->delete('{{%weapon3_alias}}', ['weapon_id' => $weaponId]);
         $this->delete('{{%weapon3}}', ['id' => $weaponId]);
 
-        $mainWeaponId = $this->key2id('{{%mainweapon3}}', $key);
-        $isUsed = (new Query())
-            ->select('*')
-            ->from('{{%weapon3}}')
-            ->andWhere(['mainweapon_id' => $mainWeaponId])
-            ->exists();
-        if (!$isUsed) {
-            $this->delete('{{%mainweapon3}}', ['id' => $mainWeaponId]);
+        $mainWeaponId = $this->key2id(
+            '{{%mainweapon3}}',
+            $key,
+            nullable: true,
+        );
+        if ($mainWeaponId !== null) {
+            $isUsed = (new Query())
+                ->select('*')
+                ->from('{{%weapon3}}')
+                ->andWhere(['mainweapon_id' => $mainWeaponId])
+                ->exists();
+            if (!$isUsed) {
+                $this->delete('{{%mainweapon3}}', ['id' => $mainWeaponId]);
+            }
         }
     }
 }

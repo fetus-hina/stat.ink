@@ -66,6 +66,7 @@ $type = implode(
             "    // canonical: 'wakaba',",
             "    // salmon: false, // skip-salmon",
             "    // aliases: [],",
+            "    // xGroup: 'A+',",
             ");",
             "",
             "return true;",
