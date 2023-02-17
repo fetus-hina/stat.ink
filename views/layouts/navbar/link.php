@@ -306,7 +306,7 @@ $list = [
             'name' => implode(' ', [
               Icon::download(),
               Html::encode(Yii::t('app', 'IkaLog Download Page')),
-              '(' . Icon::Windows() . ' ' . Html::encode(Yii::t('app', 'Windows')) . ')',
+              '(' . Icon::windows() . ' ' . Html::encode(Yii::t('app', 'Windows')) . ')',
             ]),
           ],
         ],

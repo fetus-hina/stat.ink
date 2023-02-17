@@ -12,6 +12,7 @@ namespace app\components\widgets;
 
 use Yii;
 use app\assets\BootstrapIconsAsset;
+use yii\base\UnknownMethodException;
 use yii\helpers\Html;
 use yii\web\AssetBundle;
 use yii\web\View;
@@ -19,167 +20,150 @@ use yii\web\View;
 use function implode;
 use function mb_chr;
 
+/**
+ * @method static string addSomething()
+ * @method static string android()
+ * @method static string apiJson()
+ * @method static string appLink()
+ * @method static string appUnlink()
+ * @method static string arrowRight()
+ * @method static string back()
+ * @method static string blog()
+ * @method static string caretDown()
+ * @method static string check()
+ * @method static string checkboxChecked()
+ * @method static string checkboxEmpty()
+ * @method static string close()
+ * @method static string colorScheme()
+ * @method static string config()
+ * @method static string crown()
+ * @method static string delete()
+ * @method static string discord()
+ * @method static string download()
+ * @method static string dummy()
+ * @method static string edit()
+ * @method static string feed()
+ * @method static string fileCsv()
+ * @method static string fileJson()
+ * @method static string filter()
+ * @method static string github()
+ * @method static string hasDisconnected()
+ * @method static string help()
+ * @method static string image()
+ * @method static string ios()
+ * @method static string language()
+ * @method static string languageLevelFew()
+ * @method static string languageLevelMachine()
+ * @method static string languageLevelPartical()
+ * @method static string link()
+ * @method static string linux()
+ * @method static string list()
+ * @method static string listConfig()
+ * @method static string login()
+ * @method static string loginHistory()
+ * @method static string logout()
+ * @method static string macOs()
+ * @method static string nextPage()
+ * @method static string no()
+ * @method static string ok()
+ * @method static string permalink()
+ * @method static string popup()
+ * @method static string prevPage()
+ * @method static string refresh()
+ * @method static string scrollTo()
+ * @method static string search()
+ * @method static string slack()
+ * @method static string sortable()
+ * @method static string stats()
+ * @method static string subCategory()
+ * @method static string subPage()
+ * @method static string thisPlayer()
+ * @method static string timezone()
+ * @method static string twitter()
+ * @method static string unknown()
+ * @method static string user()
+ * @method static string userAdd()
+ * @method static string users()
+ * @method static string videoLink()
+ * @method static string windows()
+ * @method static string yes()
+ */
 final class Icon
 {
-    // addSomething
-    // android
-    // apiJson
-    // appLink
-    // appUnlink
-    // arrowRight
-    // back
-    // blog
-    // caretDown
-    // check
-    // checkboxChecked
-    // checkboxEmpty
-    // close
-    // colorScheme
-    // config
-    // crown
-    // delete
-    // discord
-    // download
-    // dummy
-    // edit
-    // feed
-    // fileCsv
-    // fileJson
-    // filter
-    // github
-    // hasDisconnected
-    // help
-    // image
-    // ios
-    // language
-    // languageLevelFew
-    // languageLevelMachine
-    // languageLevelPartical
-    // link
-    // linux
-    // list
-    // listConfig
-    // login
-    // loginHistory
-    // logout
-    // macOs
-    // nextPage
-    // no
-    // ok
-    // permalink
-    // popup
-    // prevPage
-    // refresh
-    // scrollTo
-    // search
-    // slack
-    // sortable
-    // stats
-    // subPage
-    // thisPlayer
-    // timezone
-    // twitter
-    // unknown
-    // user
-    // userAdd
-    // videoLink
-    // windows
-    // yes
+    /**
+     * @var array<string, string>
+     */
+    private static $biMap = [
+        'addSomething' => 'plus-circle',
+        'android' => 'android2',
+        'apiJson' => 'braces',
+        'arrowRight' => 'arrow-right',
+        'back' => 'chevron-left',
+        'blog' => 'wordpress',
+        'caretDown' => 'caret-down-fill',
+        'check' => 'check-lg',
+        'checkboxChecked' => 'check2-square',
+        'checkboxEmpty' => 'square',
+        'close' => 'x-lg',
+        'colorScheme' => 'palette-fill',
+        'config' => 'person-fill-gear',
+        'delete' => 'trash3',
+        'discord' => 'discord',
+        'download' => 'download',
+        'edit' => 'pencil-square',
+        'feed' => 'rss',
+        'fileCsv' => 'filetype-csv',
+        'fileJson' => 'filetype-json',
+        'filter' => 'funnel-fill',
+        'github' => 'github',
+        'help' => 'question-circle-fill',
+        'image' => 'image',
+        'ios' => 'apple',
+        'language' => 'translate',
+        'languageLevelFew' => 'exclamation-triangle-fill',
+        'languageLevelMachine' => 'robot',
+        'languageLevelPartical' => 'info-circle-fill',
+        'link' => 'link-45deg',
+        'linux' => 'ubuntu', // mmm...
+        'list' => 'list',
+        'listConfig' => 'gear',
+        'login' => 'box-arrow-in-right',
+        'loginHistory' => 'clock-history',
+        'logout' => 'box-arrow-right',
+        'macOs' => 'apple',
+        'nextPage' => 'chevron-double-right',
+        'no' => 'x-lg',
+        'ok' => 'check-lg',
+        'permalink' => 'link-45deg',
+        'popup' => 'window-stack',
+        'prevPage' => 'chevron-double-left',
+        'refresh' => 'arrow-repeat',
+        'scrollTo' => 'chevron-down',
+        'search' => 'search',
+        'slack' => 'slack',
+        'sortable' => 'arrow-down-up',
+        'stats' => 'pie-chart-fill',
+        'subCategory' => 'chevron-double-right',
+        'subPage' => 'chevron-right',
+        'timezone' => 'clock',
+        'unknown' => 'question',
+        'user' => 'person-fill',
+        'userAdd' => 'person-plus-fill',
+        'users' => 'people-fill',
+        'videoLink' => 'play-fill',
+        'windows' => 'windows',
+        'yes' => 'check-lg',
+    ];
 
-    public static function addSomething(): string
-    {
-        return self::bi('plus-circle');
-    }
-
-    public static function android(): string
-    {
-        return self::bi('android2');
-    }
-
-    public static function apiJson(): string
-    {
-        return self::bi('braces');
-    }
-
-    public static function appLink(): string
-    {
-        return self::fas('link');
-    }
-
-    public static function appUnlink(): string
-    {
-        return self::fas('unlink');
-    }
-
-    public static function arrowRight(): string
-    {
-        return self::bi('arrow-right');
-    }
-
-    public static function back(): string
-    {
-        return self::bi('chevron-left');
-    }
-
-    public static function blog(): string
-    {
-        return self::bi('wordpress');
-    }
-
-    public static function caretDown(): string
-    {
-        return self::bi('caret-down-fill');
-    }
-
-    public static function check(): string
-    {
-        return self::bi('check-lg');
-    }
-
-    public static function checkboxChecked(): string
-    {
-        return self::bi('check2-square');
-    }
-
-    public static function checkboxEmpty(): string
-    {
-        return self::bi('square');
-    }
-
-    public static function close(): string
-    {
-        return self::bi('x-lg');
-    }
-
-    public static function colorScheme(): string
-    {
-        return self::bi('palette-fill');
-    }
-
-    public static function config(): string
-    {
-        return self::bi('person-fill-gear');
-    }
-
-    public static function crown(): string
-    {
-        return self::fas('crown');
-    }
-
-    public static function delete(): string
-    {
-        return self::bi('trash3');
-    }
-
-    public static function discord(): string
-    {
-        return self::bi('discord');
-    }
-
-    public static function download(): string
-    {
-        return self::bi('download');
-    }
+    /**
+     * @var array<string, string>
+     */
+    private static $fasMap = [
+        'appLink' => 'link',
+        'appUnlink' => 'unlink',
+        'crown' => 'crown',
+        'hasDisconnected' => 'tint-slash',
+    ];
 
     public static function dummy(): string
     {
@@ -194,194 +178,12 @@ final class Icon
         return mb_chr(0x3000, 'UTF-8'); // Ideographic Space
     }
 
-    public static function edit(): string
-    {
-        return self::bi('pencil-square');
-    }
-
-    public static function feed(): string
-    {
-        return self::bi('rss');
-    }
-
-    public static function fileCsv(): string
-    {
-        return self::bi('filetype-csv');
-    }
-
-    public static function fileJson(): string
-    {
-        return self::bi('filetype-json');
-    }
-
-    public static function filter(): string
-    {
-        return self::bi('funnel-fill');
-    }
-
-    public static function github(): string
-    {
-        return self::bi('github');
-    }
-
-    public static function hasDisconnected(): string
-    {
-        return self::fas('tint-slash');
-    }
-
-    public static function help(): string
-    {
-        return self::bi('question-circle-fill');
-    }
-
-    public static function image(): string
-    {
-        return self::bi('image');
-    }
-
-    public static function ios(): string
-    {
-        return self::macOs();
-    }
-
-    public static function language(): string
-    {
-        return self::bi('translate');
-    }
-
-    public static function languageLevelFew(): string
-    {
-        return self::bi('exclamation-triangle-fill');
-    }
-
-    public static function languageLevelMachine(): string
-    {
-        return self::bi('robot');
-    }
-
-    public static function languageLevelPartical(): string
-    {
-        return self::bi('info-circle-fill');
-    }
-
-    public static function link(): string
-    {
-        return self::bi('link-45deg');
-    }
-
-    public static function linux(): string
-    {
-        return self::bi('ubuntu'); // FIXME
-    }
-
-    public static function list(): string
-    {
-        return self::bi('list');
-    }
-
-    public static function listConfig(): string
-    {
-        return self::bi('gear');
-    }
-
-    public static function login(): string
-    {
-        return self::bi('box-arrow-in-right');
-    }
-
-    public static function loginHistory(): string
-    {
-        return self::bi('clock-history');
-    }
-
-    public static function logout(): string
-    {
-        return self::bi('box-arrow-right');
-    }
-
-    public static function macOs(): string
-    {
-        return self::bi('apple');
-    }
-
-    public static function nextPage(): string
-    {
-        return self::bi('chevron-double-right');
-    }
-
-    public static function no(): string
-    {
-        return self::bi('x-lg');
-    }
-
-    public static function ok(): string
-    {
-        return self::bi('check-lg');
-    }
-
-    public static function permalink(): string
-    {
-        return self::link();
-    }
-
-    public static function popup(): string
-    {
-        return self::bi('window-stack');
-    }
-
-    public static function prevPage(): string
-    {
-        return self::bi('chevron-double-left');
-    }
-
-    public static function refresh(): string
-    {
-        return self::bi('arrow-repeat');
-    }
-
-    public static function scrollTo(): string
-    {
-        return self::bi('chevron-down');
-    }
-
-    public static function search(): string
-    {
-        return self::bi('search');
-    }
-
-    public static function slack(): string
-    {
-        return self::bi('slack');
-    }
-
-    public static function sortable(): string
-    {
-        return self::bi('arrow-down-up');
-    }
-
-    public static function stats(): string
-    {
-        return self::bi('pie-chart-fill');
-    }
-
-    public static function subCategory(): string
-    {
-        return self::bi('chevron-double-right');
-    }
-
-    public static function subPage(): string
-    {
-        return self::bi('chevron-right');
-    }
-
     public static function thisPlayer(): string
     {
-        return (string)FA::fas('level-up-alt')->fw()->rotate(90);
-    }
-
-    public static function timezone(): string
-    {
-        return self::bi('clock');
+        return self::fas(
+            'level-up-alt',
+            modifier: fn (FA $v): FA => $v->fw()->rotate(90),
+        );
     }
 
     public static function twitter(): string
@@ -395,39 +197,13 @@ final class Icon
         );
     }
 
-    public static function unknown(): string
+    public static function __callStatic(string $name, $args): string
     {
-        return self::bi('question');
-    }
-
-    public static function user(): string
-    {
-        return self::bi('person-fill');
-    }
-
-    public static function userAdd(): string
-    {
-        return self::bi('person-plus-fill');
-    }
-
-    public static function users(): string
-    {
-        return self::bi('people-fill');
-    }
-
-    public static function videoLink(): string
-    {
-        return self::bi('play-fill');
-    }
-
-    public static function windows(): string
-    {
-        return self::bi('windows');
-    }
-
-    public static function yes(): string
-    {
-        return self::bi('check-lg');
+        return match (true) {
+            isset(self::$biMap[$name]) => self::bi(self::$biMap[$name]),
+            isset(self::$fasMap[$name]) => self::fas(self::$fasMap[$name]),
+            default => throw new UnknownMethodException("Unknown icon {$name}"),
+        };
     }
 
     private static function bi(string $name, ?string $css = null): string
@@ -440,9 +216,13 @@ final class Icon
         ]);
     }
 
-    private static function fas(string $name): string
+    /**
+     * @param (callable(FA): FA)|null $modifier
+     */
+    private static function fas(string $name, ?callable $modifier = null): string
     {
-        return (string)FA::fas($name);
+        $o = FA::fas($name);
+        return (string)($modifier ? $modifier($o) : $o);
     }
 
     /**
