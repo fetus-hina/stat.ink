@@ -28,6 +28,8 @@ return [
     'Inkblot Art Academy' => 'Institut Calam\'arts',
     'Mahi-Mahi Resort' => 'Club Ca$halot',
     'MakoMart' => 'Supermarché Cétacé',
+    'Manta' => '',
+    'Manta Maria' => 'Manta Maria',
     'Market' => 'Marché Grefin',
     'Marooner\'s Bay' => 'Épave des braves',
     'Mart' => 'Supermarché Cétacé',

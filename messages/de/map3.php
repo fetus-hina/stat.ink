@@ -27,6 +27,8 @@ return [
     'Inkblot Art Academy' => 'Perlmutt-Akademie',
     'Mahi-Mahi Resort' => 'Mahi-Mahi-Resort',
     'MakoMart' => 'Cetacea-Markt',
+    'Manta' => 'Manta Maria',
+    'Manta Maria' => 'Manta Maria',
     'Market' => 'Schnapperchen-Basar',
     'Marooner\'s Bay' => 'Schiffswrack-Insel',
     'Mart' => 'Cetacea-Markt',

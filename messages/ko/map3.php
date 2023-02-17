@@ -28,6 +28,8 @@ return [
     'Inkblot Art Academy' => '해녀 미술 대학',
     'Mahi-Mahi Resort' => '만새기 리조트＆스파',
     'MakoMart' => '혹등 마켓',
+    'Manta' => '',
+    'Manta Maria' => '',
     'Market' => '대치 시장',
     'Marooner\'s Bay' => '난파선 돈 브라코',
     'Mart' => '혹등 마켓',

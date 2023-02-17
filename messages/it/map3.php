@@ -27,6 +27,8 @@ return [
     'Inkblot Art Academy' => 'Campus Hippocampus',
     'Mahi-Mahi Resort' => 'Villanguilla',
     'MakoMart' => 'Mercatotano',
+    'Manta' => 'Manta Maria',
+    'Manta Maria' => 'Manta Maria',
     'Market' => 'Mercato Fruttato',
     'Marooner\'s Bay' => 'Isoletta del relitto',
     'Mart' => 'Mercatotano',

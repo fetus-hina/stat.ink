@@ -27,6 +27,8 @@ return [
     'Inkblot Art Academy' => 'Koraalcampus',
     'Mahi-Mahi Resort' => 'El Dorade-resort',
     'MakoMart' => 'Bultrugbazaar',
+    'Manta' => 'Klipvisklipper',
+    'Manta Maria' => 'Klipvisklipper',
     'Market' => 'Boter-bij-de-vismarkt',
     'Marooner\'s Bay' => 'Wrak van de ms Grondel',
     'Mart' => 'Bultrugbazaar',

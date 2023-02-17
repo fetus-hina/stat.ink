@@ -27,6 +27,8 @@ return [
     'Inkblot Art Academy' => 'Inkblot Art Academy',
     'Mahi-Mahi Resort' => 'Mahi-Mahi Resort',
     'MakoMart' => 'MakoMart',
+    'Manta' => '',
+    'Manta Maria' => '',
     'Market' => '',
     'Marooner\'s Bay' => 'Marooner\'s Bay',
     'Mart' => '',

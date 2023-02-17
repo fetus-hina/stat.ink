@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -28,6 +28,8 @@ return [
     'Inkblot Art Academy' => '海女美術大学',
     'Mahi-Mahi Resort' => 'マヒマヒリゾート＆スパ',
     'MakoMart' => 'ザトウマーケット',
+    'Manta Maria' => 'マンタマリア号',
+    'Manta' => 'マンタ',
     'Market' => 'ヤガラ',
     'Marooner\'s Bay' => '難破船ドン・ブラコ',
     'Mart' => 'ザトウ',

@@ -27,6 +27,8 @@ return [
     'Inkblot Art Academy' => 'Instituto Coralino',
     'Mahi-Mahi Resort' => 'Spa Cala Bacalao',
     'MakoMart' => 'Ultramarinos Orca',
+    'Manta' => 'Corbeta Corvina',
+    'Manta Maria' => 'Corbeta Corvina',
     'Market' => 'Mercado Lenguado',
     'Marooner\'s Bay' => 'Bahía Deriva',
     'Mart' => 'Ultramarinos Orca',
