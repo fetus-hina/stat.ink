@@ -17,7 +17,7 @@ return [
     'Ink Storm' => 'Pluie d\'encre',
     'Ink Vac' => 'Aspirencre',
     'Killer Wail 5.1' => 'Haut-perceur 5.1',
-    'Kraken Royale' => '',
+    'Kraken Royale' => 'Kraken royal',
     'Reefslider' => 'Cavalsquale',
     'Super Chump' => 'Le Multi-leurres',
     'Tacticooler' => 'Districool',

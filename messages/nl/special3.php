@@ -17,7 +17,7 @@ return [
     'Ink Storm' => 'Spetterbui',
     'Ink Vac' => 'Inktdief',
     'Killer Wail 5.1' => 'Megalofoon 5.1',
-    'Kraken Royale' => '',
+    'Kraken Royale' => 'Monstermorfose',
     'Reefslider' => 'Opblaashaai',
     'Super Chump' => 'De Voorschutter',
     'Tacticooler' => 'Reddingsbar',

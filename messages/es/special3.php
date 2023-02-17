@@ -17,7 +17,7 @@ return [
     'Ink Storm' => 'Atormentador',
     'Ink Vac' => 'Aspiratinta',
     'Killer Wail 5.1' => 'Tintófono 5.1',
-    'Kraken Royale' => '',
+    'Kraken Royale' => 'Calamar imperial',
     'Reefslider' => 'Flotiburón',
     'Super Chump' => 'Los multiseñuelos',
     'Tacticooler' => 'Dispensabebidas',

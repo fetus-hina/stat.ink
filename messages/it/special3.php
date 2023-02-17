@@ -17,7 +17,7 @@ return [
     'Ink Storm' => 'Pioggia di colore',
     'Ink Vac' => 'Vampinchiostro',
     'Killer Wail 5.1' => 'Tintofono 5.1',
-    'Kraken Royale' => '',
+    'Kraken Royale' => 'Kraken reale',
     'Reefslider' => 'Motosqualo',
     'Super Chump' => 'Il diversivo esplosivo',
     'Tacticooler' => 'Rinfrigorente',

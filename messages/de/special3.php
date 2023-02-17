@@ -17,7 +17,7 @@ return [
     'Ink Storm' => 'Tintenschauer',
     'Ink Vac' => 'Tintegrator',
     'Killer Wail 5.1' => 'Heulboje 5.1',
-    'Kraken Royale' => '',
+    'Kraken Royale' => 'Tintentyrann',
     'Reefslider' => 'Haihammer',
     'Super Chump' => 'Bluff-Bomber',
     'Tacticooler' => 'Tranktank',
