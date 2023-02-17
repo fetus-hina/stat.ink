@@ -19,7 +19,7 @@ $allPlayers = match ($model->rule?->key) {
   'tricolor' => BattleTricolorPlayer3::find()
     ->with(
       ArrayHelper::toFlatten([
-        ['splashtagTitle', 'weapon', 'weapon.special', 'weapon.subweapon'],
+        ['splashtagTitle', 'weapon', 'weapon.special', 'weapon.subweapon', 'weapon.weapon3Aliases'],
         \array_map(
           fn (string $base): array => [
             "{$base}",
@@ -37,7 +37,7 @@ $allPlayers = match ($model->rule?->key) {
   default => BattlePlayer3::find()
     ->with(
       ArrayHelper::toFlatten([
-        ['splashtagTitle', 'weapon', 'weapon.special', 'weapon.subweapon'],
+        ['splashtagTitle', 'weapon', 'weapon.special', 'weapon.subweapon', 'weapon.weapon3Aliases'],
         \array_map(
           fn (string $base): array => [
             "{$base}",
