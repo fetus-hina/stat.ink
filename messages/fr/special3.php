@@ -19,6 +19,7 @@ return [
     'Killer Wail 5.1' => 'Haut-perceur 5.1',
     'Kraken Royale' => '',
     'Reefslider' => 'Cavalsquale',
+    'Super Chump' => 'Le Multi-leurres',
     'Tacticooler' => 'Districool',
     'Tenta Missiles' => 'Multi-missile',
     'Triple Inkstrike' => 'Trimissile tornade',

@@ -19,6 +19,7 @@ return [
     'Killer Wail 5.1' => 'Tintófono 5.1',
     'Kraken Royale' => '',
     'Reefslider' => 'Flotiburón',
+    'Super Chump' => 'Los multiseñuelos',
     'Tacticooler' => 'Dispensabebidas',
     'Tenta Missiles' => 'Lanzamisiles',
     'Triple Inkstrike' => 'Tornado triple',

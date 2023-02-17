@@ -19,6 +19,7 @@ return [
     'Killer Wail 5.1' => '喇叭镭射5.1ch',
     'Kraken Royale' => '',
     'Reefslider' => '鲨鱼坐骑',
+    'Super Chump' => '',
     'Tacticooler' => '能量站',
     'Tenta Missiles' => '多重导弹',
     'Triple Inkstrike' => '三重龙卷风',

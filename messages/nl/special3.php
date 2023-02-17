@@ -19,6 +19,7 @@ return [
     'Killer Wail 5.1' => 'Megalofoon 5.1',
     'Kraken Royale' => '',
     'Reefslider' => 'Opblaashaai',
+    'Super Chump' => 'De Voorschutter',
     'Tacticooler' => 'Reddingsbar',
     'Tenta Missiles' => 'Spetterraketten',
     'Triple Inkstrike' => 'Tri-tornado',
