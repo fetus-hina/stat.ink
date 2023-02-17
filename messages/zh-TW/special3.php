@@ -18,6 +18,7 @@ return [
     'Ink Storm' => '墨雨雲',
     'Ink Vac' => '吸墨機',
     'Killer Wail 5.1' => '喇叭雷射5.1ch',
+    'Kraken Royale' => '',
     'Reefslider' => '鯊魚坐騎',
     'Tacticooler' => '能量站',
     'Tenta Missiles' => '多重導彈',

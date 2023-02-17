@@ -17,6 +17,7 @@ return [
     'Ink Storm' => 'Pluie d\'encre',
     'Ink Vac' => 'Aspirencre',
     'Killer Wail 5.1' => 'Laser perçant 5.1',
+    'Kraken Royale' => '',
     'Reefslider' => 'Cavalsquale',
     'Tacticooler' => 'Districool',
     'Tenta Missiles' => 'Multi-missile',

@@ -17,6 +17,7 @@ return [
     'Ink Storm' => 'Туча краски',
     'Ink Vac' => 'Краскосос',
     'Killer Wail 5.1' => 'Мегалофон 5.1',
+    'Kraken Royale' => '',
     'Reefslider' => 'Мотокула',
     'Tacticooler' => 'Тоникулер',
     'Tenta Missiles' => 'Каракатница',

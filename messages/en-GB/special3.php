@@ -17,6 +17,7 @@ return [
     'Ink Storm' => 'Ink Storm',
     'Ink Vac' => 'Ink Vac',
     'Killer Wail 5.1' => 'Killer Wail 5.1',
+    'Kraken Royale' => '',
     'Reefslider' => 'Reefslider',
     'Tacticooler' => 'Tacticooler',
     'Tenta Missiles' => 'Tenta Missiles',

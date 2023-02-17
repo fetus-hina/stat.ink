@@ -18,6 +18,7 @@ return [
     'Ink Vac' => 'キューインキ',
     'Inkjet' => 'ジェットパック',
     'Killer Wail 5.1' => 'メガホンレーザー5.1ch',
+    'Kraken Royale' => 'テイオウイカ',
     'Reefslider' => 'サメライド',
     'Tacticooler' => 'エナジースタンド',
     'Tenta Missiles' => 'マルチミサイル',

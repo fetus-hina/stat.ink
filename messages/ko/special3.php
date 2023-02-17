@@ -17,6 +17,7 @@ return [
     'Ink Storm' => '먹구름',
     'Ink Vac' => '흡입기',
     'Killer Wail 5.1' => '메가폰 레이저 5.1ch',
+    'Kraken Royale' => '',
     'Reefslider' => '샤크 라이드',
     'Tacticooler' => '에너지 스탠드',
     'Tenta Missiles' => '멀티 미사일',
