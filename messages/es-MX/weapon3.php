@@ -11,6 +11,7 @@ declare(strict_types=1);
 return [
     '.52 Gal' => 'Salpicadora 2000',
     '.96 Gal' => 'Salpicadora 3000',
+    '.96 Gal Deco' => 'Salpicadora 3000 chic',
     'Aerospray MG' => 'Aerógrafo GP',
     'Aerospray RG' => 'Aerógrafo GN',
     'All of {0}' => '',
@@ -55,6 +56,7 @@ return [
     'Inkbrush' => 'Pincel',
     'Inkbrush Nouveau' => 'Pincel maestro',
     'Jet Squelcher' => 'Megasoplador',
+    'Krak-On Splat Roller' => 'Rodillo básico Meddux',
     'L-3 Nozzlenose' => 'Manguera ligera',
     'Luna Blaster' => 'Lanzamotas Nova',
     'Luna Blaster Neo' => 'Lanzamotas Nova neo',

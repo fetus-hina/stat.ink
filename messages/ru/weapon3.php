@@ -11,6 +11,7 @@ declare(strict_types=1);
 return [
     '.52 Gal' => 'Струевик .52',
     '.96 Gal' => 'Струевик .96',
+    '.96 Gal Deco' => 'Струевик .96 «Деко»',
     'Aerospray MG' => 'Аэроспрей',
     'Aerospray RG' => 'Аэроспрей ДЕЛЮКС',
     'All of {0}' => '',
@@ -55,6 +56,7 @@ return [
     'Inkbrush' => 'Кисть',
     'Inkbrush Nouveau' => 'Кисть «НуВо»',
     'Jet Squelcher' => 'Плескарь',
+    'Krak-On Splat Roller' => 'Сплат-валик «Кра-Кен»',
     'L-3 Nozzlenose' => 'Каплетрон-компакт',
     'Luna Blaster' => 'Лунобластер',
     'Luna Blaster Neo' => 'Лунобластер «Нео»',

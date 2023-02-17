@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 return [
     '.52 Gal' => '.52ガロン',
+    '.96 Gal Deco' => '.96ガロンデコ',
     '.96 Gal' => '.96ガロン',
     'Aerospray MG' => 'プロモデラーMG',
     'Aerospray RG' => 'プロモデラーRG',
@@ -55,6 +56,7 @@ return [
     'Inkbrush Nouveau' => 'パブロ・ヒュー',
     'Inkbrush' => 'パブロ',
     'Jet Squelcher' => 'ジェットスイーパー',
+    'Krak-On Splat Roller' => 'スプラローラーコラボ',
     'L-3 Nozzlenose' => 'L3リールガン',
     'Luna Blaster Neo' => 'ノヴァブラスターネオ',
     'Luna Blaster' => 'ノヴァブラスター',

@@ -11,6 +11,7 @@ declare(strict_types=1);
 return [
     '.52 Gal' => '.52 Kaliter',
     '.96 Gal' => '.96 Kaliter',
+    '.96 Gal Deco' => '.96 Kaliter Deco',
     'Aerospray MG' => 'Kladderwerper',
     'Aerospray RG' => 'Kladderwerper Pro',
     'All of {0}' => '',
@@ -55,6 +56,7 @@ return [
     'Inkbrush' => 'Inktkwast',
     'Inkbrush Nouveau' => 'Inktkwast Nouveau',
     'Jet Squelcher' => 'Straalplonzer',
+    'Krak-On Splat Roller' => 'Krak-On Klodderroller',
     'L-3 Nozzlenose' => 'L-3 Stompsnuit',
     'Luna Blaster' => 'Lunablaster',
     'Luna Blaster Neo' => 'Lunablaster Neo',

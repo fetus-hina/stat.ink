@@ -11,6 +11,7 @@ declare(strict_types=1);
 return [
     '.52 Gal' => 'Calibre 2000',
     '.96 Gal' => 'Calibre 3000',
+    '.96 Gal Deco' => 'Calibre 3000 chic',
     'Aerospray MG' => 'Aérogun',
     'Aerospray RG' => 'Aérogun premium',
     'All of {0}' => 'Tous les {0}',
@@ -55,6 +56,7 @@ return [
     'Inkbrush' => 'Épinceau',
     'Inkbrush Nouveau' => 'Épinceau nuancé',
     'Jet Squelcher' => 'Nettoyeur XL',
+    'Krak-On Splat Roller' => 'Rouleau griffé',
     'L-3 Nozzlenose' => 'Arroseur léger',
     'Luna Blaster' => 'Proxiblaster',
     'Luna Blaster Neo' => 'Proxiblaster Néo',

@@ -12,6 +12,7 @@ declare(strict_types=1);
 return [
     '.52 Gal' => '.52 갤런',
     '.96 Gal' => '.96 갤런',
+    '.96 Gal Deco' => '',
     'Aerospray MG' => '프로모델러 MG',
     'Aerospray RG' => '프로모델러 RG',
     'All of {0}' => '모든 {0}',
@@ -56,6 +57,7 @@ return [
     'Inkbrush' => '파블로',
     'Inkbrush Nouveau' => '파블로 휴',
     'Jet Squelcher' => '제트 스위퍼',
+    'Krak-On Splat Roller' => '',
     'L-3 Nozzlenose' => 'L3 릴 건',
     'Luna Blaster' => '노바 블래스터',
     'Luna Blaster Neo' => '네오 노바 블래스터',

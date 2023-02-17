@@ -13,6 +13,7 @@ declare(strict_types=1);
 return [
     '.52 Gal' => '.52加侖',
     '.96 Gal' => '.96加侖',
+    '.96 Gal Deco' => '',
     'Aerospray MG' => '專業模型槍MG',
     'Aerospray RG' => '專業模型槍RG',
     'All of {0}' => '所有的{0}',
@@ -57,6 +58,7 @@ return [
     'Inkbrush' => '巴勃羅',
     'Inkbrush Nouveau' => '巴勃羅‧新藝術',
     'Jet Squelcher' => '噴射清潔槍',
+    'Krak-On Splat Roller' => '',
     'L-3 Nozzlenose' => 'L3捲管槍',
     'Luna Blaster' => '新星爆破槍',
     'Luna Blaster Neo' => '新星爆破槍 新型',

@@ -11,6 +11,7 @@ declare(strict_types=1);
 return [
     '.52 Gal' => 'Calibro 2000',
     '.96 Gal' => 'Calibro 3000',
+    '.96 Gal Deco' => 'Calibro 3000 DX',
     'Aerospray MG' => 'Aerografo',
     'Aerospray RG' => 'Aerografo élite',
     'All of {0}' => '',
@@ -55,6 +56,7 @@ return [
     'Inkbrush' => 'Calamaravaggio',
     'Inkbrush Nouveau' => 'Calamaravaggio master',
     'Jet Squelcher' => 'Sweeper',
+    'Krak-On Splat Roller' => 'Rullo splat logo',
     'L-3 Nozzlenose' => 'Triplete compatto',
     'Luna Blaster' => 'Blaster lunar',
     'Luna Blaster Neo' => 'Blaster lunar Neo',

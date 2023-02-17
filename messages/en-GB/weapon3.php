@@ -11,6 +11,7 @@ declare(strict_types=1);
 return [
     '.52 Gal' => '.52 Gal',
     '.96 Gal' => '.96 Gal',
+    '.96 Gal Deco' => '',
     'Aerospray MG' => 'Aerospray MG',
     'Aerospray RG' => 'Aerospray RG',
     'All of {0}' => '',
@@ -55,6 +56,7 @@ return [
     'Inkbrush' => 'Inkbrush',
     'Inkbrush Nouveau' => 'Inkbrush Nouveau',
     'Jet Squelcher' => 'Jet Squelcher',
+    'Krak-On Splat Roller' => '',
     'L-3 Nozzlenose' => 'L-3 Nozzlenose',
     'Luna Blaster' => 'Luna Blaster',
     'Luna Blaster Neo' => 'Luna Blaster Neo',
