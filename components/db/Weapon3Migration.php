@@ -178,14 +178,20 @@ trait Weapon3Migration
         $this->delete('{{%weapon3_alias}}', ['weapon_id' => $weaponId]);
         $this->delete('{{%weapon3}}', ['id' => $weaponId]);
 
-        $mainWeaponId = $this->key2id('{{%mainweapon3}}', $key);
-        $isUsed = (new Query())
-            ->select('*')
-            ->from('{{%weapon3}}')
-            ->andWhere(['mainweapon_id' => $mainWeaponId])
-            ->exists();
-        if (!$isUsed) {
-            $this->delete('{{%mainweapon3}}', ['id' => $mainWeaponId]);
+        $mainWeaponId = $this->key2id(
+            '{{%mainweapon3}}',
+            $key,
+            nullable: true,
+        );
+        if ($mainWeaponId !== null) {
+            $isUsed = (new Query())
+                ->select('*')
+                ->from('{{%weapon3}}')
+                ->andWhere(['mainweapon_id' => $mainWeaponId])
+                ->exists();
+            if (!$isUsed) {
+                $this->delete('{{%mainweapon3}}', ['id' => $mainWeaponId]);
+            }
         }
     }
 }
