@@ -118,6 +118,7 @@ return [
     'Change Icon' => 'Changer d\'icône',
     'Change Password' => 'Changer de mot de passe',
     'Channel' => 'Chaîne',
+    'Check with Setup Analyzer' => '',
     'Click to copy' => 'Cliquez pour copier',
     'Close' => 'Fermer',
     'Clout' => '',
