@@ -103,5 +103,7 @@ return [
     'Tri-Slosher' => '물통',
     'Tri-Stringer' => '트라이 스트링거',
     'Undercover Brella' => '스파이 가젯',
+    'Z+F Splat Charger' => '스플랫 차저 컬래버',
+    'Z+F Splatterscope' => '스플랫 스코프 컬래버',
     'Zink Mini Splatling' => '스플랫 스피너 컬래버',
 ];

@@ -251,6 +251,8 @@ return [
     'Wannen-Schwapper Deko' => '',
     'Wasabi Splattershot' => '',
     'Wischer-Splatana' => '',
+    'Z+F Splat Charger' => '',
+    'Z+F Splatterscope' => '',
     'Ziel-E-liter 4K' => '',
     'Ziel-E-liter 4K SE' => '',
     'Ziel-Konzentrator' => '',

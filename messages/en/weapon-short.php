@@ -177,5 +177,7 @@ return [
     'Undercover Brella' => 'Undercover',
     'Undercover Sorella Brella' => 'Undercover Sorella',
     'Wasabi Splattershot' => 'Wasabi',
+    'Z+F Splat Charger' => 'Z+F Charger',
+    'Z+F Splatterscope' => 'Z+F Scope',
     'Zink Mini Splatling' => 'Zink Mini',
 ];

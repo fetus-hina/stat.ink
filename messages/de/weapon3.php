@@ -102,5 +102,7 @@ return [
     'Tri-Slosher' => '3R-Schwapper',
     'Tri-Stringer' => 'Tri-Stringer',
     'Undercover Brella' => 'UnderCover',
+    'Z+F Splat Charger' => '',
+    'Z+F Splatterscope' => '',
     'Zink Mini Splatling' => 'Sagitron-Klecks-Splatling',
 ];

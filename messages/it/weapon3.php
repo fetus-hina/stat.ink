@@ -102,5 +102,7 @@ return [
     'Tri-Slosher' => 'Secchiostro triplo',
     'Tri-Stringer' => 'Tri-calamarco',
     'Undercover Brella' => 'Bombrello',
+    'Z+F Splat Charger' => '',
+    'Z+F Splatterscope' => '',
     'Zink Mini Splatling' => 'Mini splatling logo',
 ];
