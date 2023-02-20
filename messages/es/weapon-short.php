@@ -181,4 +181,6 @@ return [
     'Ultradevastador' => '',
     'Ultradevastador elegante' => '',
     'Ultradevastador neo' => '',
+    'Z+F Splat Charger' => '',
+    'Z+F Splatterscope' => '',
 ];

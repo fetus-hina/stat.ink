@@ -183,4 +183,6 @@ return [
     'Turbolanzamotas Pro' => '',
     'Turbolanzamotas Pro chic' => '',
     'Turbolanzamotas Tonken' => '',
+    'Z+F Splat Charger' => '',
+    'Z+F Splatterscope' => '',
 ];

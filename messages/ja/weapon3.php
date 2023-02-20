@@ -27,8 +27,8 @@ return [
     'Carbon Roller Deco' => 'カーボンローラーデコ',
     'Carbon Roller' => 'カーボンローラー',
     'Chargers' => 'チャージャー',
-    'Clash Blaster' => 'クラッシュブラスター',
     'Clash Blaster Neo' => 'クラッシュブラスターネオ',
+    'Clash Blaster' => 'クラッシュブラスター',
     'Classic Squiffer' => 'スクイックリンα',
     'Custom Splattershot Jr.' => 'もみじシューター',
     'Dapple Dualies Nouveau' => 'スパッタリー・ヒュー',
@@ -102,5 +102,7 @@ return [
     'Tri-Slosher' => 'ヒッセン',
     'Tri-Stringer' => 'トライストリンガー',
     'Undercover Brella' => 'スパイガジェット',
+    'Z+F Splat Charger' => 'スプラチャージャーコラボ',
+    'Z+F Splatterscope' => 'スプラスコープコラボ',
     'Zink Mini Splatling' => 'スプラスピナーコラボ',
 ];

@@ -254,5 +254,7 @@ return [
     'Triplete compatto Nero Marlin' => '',
     'Triplete D' => '',
     'Wasabi Splattershot' => '',
+    'Z+F Splat Charger' => '',
+    'Z+F Splatterscope' => '',
     'Zink Mini Splatling' => '',
 ];

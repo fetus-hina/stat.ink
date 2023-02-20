@@ -167,6 +167,8 @@ return [
     'X-traceur modifié' => '',
     'X-traceur zoom' => '',
     'X-traceur zoom modifié' => '',
+    'Z+F Splat Charger' => '',
+    'Z+F Splatterscope' => '',
     'Éclablasteur' => '',
     'Éclablasteur LP' => '',
     'Éclablasteur LP modifié' => '',

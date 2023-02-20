@@ -102,5 +102,7 @@ return [
     'Tri-Slosher' => 'Dépoteur',
     'Tri-Stringer' => 'Trisperceur',
     'Undercover Brella' => 'Para-encre espion',
+    'Z+F Splat Charger' => '',
+    'Z+F Splatterscope' => '',
     'Zink Mini Splatling' => 'Badigeonneur XS griffé',
 ];

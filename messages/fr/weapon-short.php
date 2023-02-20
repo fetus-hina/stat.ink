@@ -162,6 +162,8 @@ return [
     'Turboblaster K' => '',
     'Turboblaster pro' => '',
     'Turboblaster pro chic' => '',
+    'Z+F Splat Charger' => '',
+    'Z+F Splatterscope' => '',
     'Éclablaste' => '',
     'Éclablaster' => '',
     'Éclablaster modifié' => '',

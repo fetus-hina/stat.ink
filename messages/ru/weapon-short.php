@@ -67,6 +67,8 @@ return [
     'Tempered Dynamo Roller' => '',
     'Tri-Slosher Nouveau' => '',
     'Wasabi Splattershot' => '',
+    'Z+F Splat Charger' => '',
+    'Z+F Splatterscope' => '',
     '«Понт-Горыныч»' => '',
     'Арт-кисть' => '',
     'Арт-кисть «НуВо»' => '',

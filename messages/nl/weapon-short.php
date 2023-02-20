@@ -251,6 +251,8 @@ return [
     'Triospanner' => '',
     'Wasabi Splattershot' => '',
     'Wisserbladzwieper' => '',
+    'Z+F Splat Charger' => '',
+    'Z+F Splatterscope' => '',
     'Zink Mini Splatling' => '',
     'Zink Mini-Spetling' => '',
 ];

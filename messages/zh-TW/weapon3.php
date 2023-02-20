@@ -104,5 +104,7 @@ return [
     'Tri-Slosher' => '洗筆桶',
     'Tri-Stringer' => '三發獵魚弓',
     'Undercover Brella' => '特務配件',
+    'Z+F Splat Charger' => '斯普拉蓄力狙擊槍 聯名',
+    'Z+F Splatterscope' => '斯普拉準星槍 聯名',
     'Zink Mini Splatling' => '斯普拉旋轉槍 聯名',
 ];

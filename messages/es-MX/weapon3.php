@@ -102,5 +102,7 @@ return [
     'Tri-Slosher' => 'Derramatic triple',
     'Tri-Stringer' => 'Arcromatizador triple',
     'Undercover Brella' => 'Paratintas discreto',
+    'Z+F Splat Charger' => '',
+    'Z+F Splatterscope' => '',
     'Zink Mini Splatling' => 'Garabateador Tintaz',
 ];
