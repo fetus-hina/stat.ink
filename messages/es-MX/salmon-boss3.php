@@ -18,6 +18,7 @@ return [
     'Flyfish' => 'Drónido',
     'Goldie' => 'Orónido',
     'Griller' => 'Brasaleta',
+    'Horrorboros' => '',
     'Maws' => 'Mandíburo',
     'Mothership' => 'Salmonodriza',
     'Mudmouth' => 'Bocalodo',

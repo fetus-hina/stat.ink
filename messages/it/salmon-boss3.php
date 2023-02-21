@@ -18,6 +18,7 @@ return [
     'Flyfish' => 'Salmodrone',
     'Goldie' => 'Pinne d\'oro',
     'Griller' => 'Grill',
+    'Horrorboros' => '',
     'Maws' => 'Boccalone',
     'Mothership' => 'Astronave madre',
     'Mudmouth' => 'Fangonoide',

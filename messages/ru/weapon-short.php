@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 return [
     '.52 Gal Deco' => '',
-    '.96 Gal Deco' => '',
     'Aerospray PG' => '',
     'Bamboozler 14 Mk II' => '',
     'Bamboozler 14 Mk III' => '',
@@ -44,10 +43,7 @@ return [
     'Hero Roller Replica' => '',
     'Kelp Splat Charger' => '',
     'Kelp Splatterscope' => '',
-    'Krak-On Splat Roller' => '',
-    'L-3 Nozzlenose D' => '',
     'N-ZAP \'83' => '',
-    'N-ZAP \'89' => '',
     'N-ZAP 83' => '',
     'N-ZAP 85' => '',
     'N-ZAP 89' => '',
@@ -58,7 +54,6 @@ return [
     'Octobrush Nouveau' => '',
     'Octoshot Replica' => '',
     'Permanent Inkbrush' => '',
-    'Rapid Blaster Deco' => '',
     'Rapid Blaster Pro Deco' => '',
     'Refurbished Mini Splatling' => '',
     'Sloshing Machine Neo' => '',
