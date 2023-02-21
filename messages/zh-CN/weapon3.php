@@ -66,7 +66,7 @@ return [
     'Luna Blaster Neo' => '新星爆破枪 新型',
     'Mini Splatling' => '斯普拉旋转枪',
     'N-ZAP \'85' => 'N-ZAP85',
-    'N-ZAP \'89' => 'N-ZAP85',
+    'N-ZAP \'89' => 'N-ZAP89',
     'Nautilus 47' => '鹦鹉螺号47',
     'Nozzlenoses' => '卷管枪',
     'Octobrush' => '北斋',
