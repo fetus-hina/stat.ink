@@ -18,6 +18,7 @@ return [
     'Flyfish' => 'Aéro Ben',
     'Goldie' => 'Dorax',
     'Griller' => 'Barbeurk',
+    'Horrorboros' => '',
     'Maws' => 'Gobb',
     'Mothership' => 'Vaisseau mère',
     'Mudmouth' => 'Salmonoïde de boue',
