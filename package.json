@@ -44,7 +44,7 @@
     "license-checker-rseidelsohn": "^3.3.0",
     "luxon": "^3.2.1",
     "moment": "^2.29.4",
-    "moment-timezone": "^0.5.40",
+    "moment-timezone": "^0.5.41",
     "optipng-bin": "^9.0.0",
     "patch-package": "^6.5.1",
     "patternomaly": "^1.3.2",
