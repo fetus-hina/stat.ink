@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -13,6 +13,7 @@ namespace app\controllers;
 use app\actions\salmon\v3\DeleteAction;
 use app\actions\salmon\v3\IndexAction;
 use app\actions\salmon\v3\ViewAction;
+use app\actions\salmon\v3\stats\BossesAction;
 use app\components\web\Controller;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -58,6 +59,7 @@ final class SalmonV3Controller extends Controller
         return [
             'delete' => DeleteAction::class,
             'index' => IndexAction::class,
+            'stats-bosses' => BossesAction::class,
             'view' => ViewAction::class,
         ];
     }

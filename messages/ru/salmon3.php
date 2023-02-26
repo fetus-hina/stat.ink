@@ -17,6 +17,7 @@ return [
     'Defeat %' => '',
     'Defeated' => '',
     'Defeated (others)' => '',
+    'Defeated by {user}' => '',
     'Eggs' => '',
     'Fish Scales' => '',
     'High Score' => 'Рекорд',
@@ -40,8 +41,10 @@ return [
     'Rescues' => '',
     'Salmometer' => '',
     'Salmon Run' => 'Salmon Run',
+    'Stats (Bosses)' => '',
     'Time is up' => '',
     'Title Reached' => '',
     'Wipe out' => '',
     'Xtrawave' => 'Волна +',
+    '{name}\'s Salmon Stats (Bosses)' => '',
 ];

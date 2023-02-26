@@ -16,6 +16,7 @@ return [
     'Clear Bonus' => 'クリアボーナス',
     'Defeat %' => '討伐率',
     'Defeated (others)' => '他のプレーヤーが倒した',
+    'Defeated by {user}' => '{user}が倒した',
     'Defeated' => '倒した',
     'Eggs' => 'イクラ',
     'Fish Scales' => 'ウロコ',
@@ -40,8 +41,10 @@ return [
     'Rescues' => '助けた数',
     'Salmometer' => 'オカシラゲージ',
     'Salmon Run' => 'SALMON RUN',
+    'Stats (Bosses)' => '統計（オオモノ）',
     'Time is up' => '時間切れ',
     'Title Reached' => '到達した称号',
     'Wipe out' => '全滅',
     'Xtrawave' => 'EX-WAVE',
+    '{name}\'s Salmon Stats (Bosses)' => '{name}さんのバイト統計（オオモノ）',
 ];
