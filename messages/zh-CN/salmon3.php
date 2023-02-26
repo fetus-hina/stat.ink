@@ -18,6 +18,7 @@ return [
     'Defeat %' => '击倒率',
     'Defeated' => '已击倒',
     'Defeated (others)' => '已击倒（队友）',
+    'Defeated by {user}' => '',
     'Eggs' => '鲑鱼卵数',
     'Fish Scales' => '鳞片',
     'High Score' => '最高分数',
@@ -41,8 +42,10 @@ return [
     'Rescues' => '救援次数',
     'Salmometer' => '头目槽',
     'Salmon Run' => 'SALMON RUN',
+    'Stats (Bosses)' => '',
     'Time is up' => '时间到',
     'Title Reached' => '达到的称号',
     'Wipe out' => '全员阵亡',
     'Xtrawave' => '',
+    '{name}\'s Salmon Stats (Bosses)' => '',
 ];

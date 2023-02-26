@@ -22,6 +22,15 @@ use const FILTER_VALIDATE_INT;
 
 final class TypeHelper
 {
+    public static function string(mixed $value): string
+    {
+        return match (true) {
+            is_string($value) => $value,
+            $value instanceof Stringable => (string)$value,
+            default => throw new \TypeError('The value is not a string'),
+        };
+    }
+
     public static function stringOrNull(mixed $value): ?string
     {
         return is_scalar($value) || $value instanceof Stringable ? (string)$value : null;

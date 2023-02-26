@@ -18,6 +18,7 @@ return [
     'Defeat %' => '토벌율',
     'Defeated' => '쓰러트린 거물연어',
     'Defeated (others)' => '다른 플레이어가 쓰러트린 거물연어',
+    'Defeated by {user}' => '',
     'Eggs' => '연어알',
     'Fish Scales' => '비늘',
     'High Score' => '하이 스코어',
@@ -41,8 +42,10 @@ return [
     'Rescues' => '도움을 준 수',
     'Salmometer' => '두목 게이지',
     'Salmon Run' => 'SALMON RUN',
+    'Stats (Bosses)' => '',
     'Time is up' => '타임 오버',
     'Title Reached' => '도달한 칭호',
     'Wipe out' => '전멸',
     'Xtrawave' => 'EX-WAVE',
+    '{name}\'s Salmon Stats (Bosses)' => '',
 ];

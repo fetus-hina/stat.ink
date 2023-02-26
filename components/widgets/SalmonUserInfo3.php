@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -244,9 +244,36 @@ final class SalmonUserInfo3 extends SalmonUserInfo
 
     protected function renderLinks(): string
     {
-        return MiniinfoUserLink::widget([
-            'user' => $this->user,
-        ]);
+        $user = $this->user;
+        $links = [
+            Yii::t('app-salmon3', 'Stats (Bosses)') => ['salmon-v3/stats-bosses', 'screen_name' => $user->screen_name],
+        ];
+
+        return Html::tag(
+            'ul',
+            implode('', array_map(
+                fn (string $text, array $link): string => Html::tag(
+                    'li',
+                    implode(' ', [
+                        Icon::stats(),
+                        Html::a(
+                            Html::encode($text),
+                            $link,
+                        ),
+                    ]),
+                    [
+                        'class' => 'm-0 p-0',
+                        'style' => 'list-style-type:none',
+                    ],
+                ),
+                array_keys($links),
+                array_values($links),
+            )),
+            [
+                 'class' => 'mt-3 mb-0 p-0',
+                 'style' => 'list-style-type:none',
+            ],
+        );
     }
 
     protected function getUserStats(): UserStatSalmon3

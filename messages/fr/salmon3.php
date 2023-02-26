@@ -18,6 +18,7 @@ return [
     'Defeat %' => '% d\'échecs',
     'Defeated' => 'Vaincus',
     'Defeated (others)' => 'Vaincus par d\'autres',
+    'Defeated by {user}' => '',
     'Eggs' => 'Œufs',
     'Fish Scales' => '',
     'High Score' => 'Record',
@@ -41,8 +42,10 @@ return [
     'Rescues' => 'Sauvetages effectués',
     'Salmometer' => '',
     'Salmon Run' => 'Salmon Run',
+    'Stats (Bosses)' => '',
     'Time is up' => '',
     'Title Reached' => 'Titre atteint',
     'Wipe out' => '',
     'Xtrawave' => 'Vague +',
+    '{name}\'s Salmon Stats (Bosses)' => '',
 ];
