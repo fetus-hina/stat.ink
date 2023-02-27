@@ -443,7 +443,6 @@ return [
     'Recent Battles' => '',
     'Recent Results' => '',
     'Recent Use %' => '',
-    'Recommended to Android users:' => '',
     'Regenerate your API token' => '',
     'Region (used for Splatfest)' => '',
     'Register' => '',

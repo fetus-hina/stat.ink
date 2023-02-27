@@ -443,7 +443,6 @@ return [
     'Recent Battles' => '최근 배틀',
     'Recent Results' => '최근 성적',
     'Recent Use %' => '최근 사용률',
-    'Recommended to Android users:' => '안드로이드 유저 추천',
     'Regenerate your API token' => 'API 키 재생성',
     'Region (used for Splatfest)' => '페스 지역',
     'Register' => '회원가입',

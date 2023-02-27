@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -65,34 +65,49 @@ final class LanguageDialog extends Dialog
 
     private function createLanguageList(): array
     {
-        return array_map(
-            function (Language $lang): string {
-                if ($lang->lang === Yii::$app->locale) {
-                    return Html::tag('div', $this->renderLanguageItem($lang), [
-                        'class' => [
-                            'list-group-item',
-                            'current',
+        LanguageDialogAsset::register($this->view);
+        FlexboxAsset::register($this->view);
+
+        return Yii::$app->cache->getOrSet(
+            [
+                __METHOD__,
+                Yii::$app->locale,
+                ArrayHelper::getValue(Yii::$app->params, 'assetRevision'),
+            ],
+            fn (): array => array_map(
+                fn (Language $lang): string => match ($lang->lang) {
+                    Yii::$app->locale => Html::tag(
+                        'div',
+                        $this->renderLanguageItem($lang),
+                        [
+                            'class' => [
+                                'list-group-item',
+                                'current',
+                            ],
                         ],
-                    ]);
-                } else {
-                    LanguageDialogAsset::register($this->view);
-                    return Html::a($this->renderLanguageItem($lang), null, [
-                        'class' => [
-                            'list-group-item',
-                            'language-change',
-                            'cursor-pointer',
+                    ),
+                    default => Html::a(
+                        $this->renderLanguageItem($lang),
+                        null,
+                        [
+                            'class' => [
+                                'list-group-item',
+                                'language-change',
+                                'cursor-pointer',
+                            ],
+                            'data' => [
+                                'lang' => $lang->lang,
+                            ],
+                            'hreflang' => $lang->lang,
                         ],
-                        'data' => [
-                            'lang' => $lang->lang,
-                        ],
-                        'hreflang' => $lang->lang,
-                    ]);
-                }
-            },
-            ArrayHelper::sort(
-                Language::find()->with('supportLevel')->all(),
-                fn (Language $a, Language $b): int => strcmp($a->name, $b->name)
+                    ),
+                },
+                ArrayHelper::sort(
+                    Language::find()->with('supportLevel')->all(),
+                    fn (Language $a, Language $b): int => strcmp($a->name, $b->name)
+                ),
             ),
+            86400,
         );
     }
 
@@ -116,7 +131,6 @@ final class LanguageDialog extends Dialog
             $levelIcon,
         ]));
 
-        FlexboxAsset::register($this->view);
         return Html::tag(
             'div',
             $left . $right,

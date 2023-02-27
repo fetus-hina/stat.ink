@@ -481,17 +481,6 @@ $_maps = Map2::getSortedMap();
           </div><!-- panel -->
         </div>
       </div>
-      <div class="modal-footer">
-        <p class="text-left">
-<?php $asset = AppLinkAsset::register($this) ?>
-          <?= Html::encode(Yii::t('app', 'Recommended to Android users:')) . "\n" ?>
-<?php if (Yii::$app->language === 'ja-JP'): ?>
-          <?= $asset->ikaRecJa ?><a href="https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec2" target="_blank">イカレコ 2</a>
-<?php else: ?>
-          <?= $asset->ikaRecEn ?><a href="https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec2" target="_blank">IkaRec 2</a>
-<?php endif ?>
-        </p>
-      </div>
     </div>
   </div>
 </div>

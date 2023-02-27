@@ -44,7 +44,7 @@ PaintballAsset::register($this);
           'itemprop' => 'name',
         ]) . "\n" ?>
         <span class="navbar-brand">
-          <?= IpBadgeWidget::widget(). "\n" ?>
+          <?= IpBadgeWidget::widget() . "\n" ?>
         </span>
       </div>
       <div itemscope itemtype="http://schema.org/SiteNavigationElement" class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

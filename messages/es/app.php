@@ -444,7 +444,6 @@ return [
     'Recent Battles' => 'Batallas recientes',
     'Recent Results' => 'Resultados recientes',
     'Recent Use %' => '',
-    'Recommended to Android users:' => 'Recomendado para los usuarios de Android:',
     'Regenerate your API token' => '',
     'Region (used for Splatfest)' => 'Región (utilizada para Splatfest)',
     'Register' => 'Registro',

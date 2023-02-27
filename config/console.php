@@ -1,6 +1,7 @@
 <?php
 
 use app\commands\AssetController;
+use app\commands\CacheController;
 use app\commands\MigrateController;
 use yii\db\Connection;
 use yii\gii\Module as GiiModule;
@@ -41,6 +42,7 @@ return [
     'controllerNamespace' => 'app\commands',
     'controllerMap' => [
         'asset' => AssetController::class,
+        'cache' => CacheController::class,
         'migrate' => MigrateController::class,
     ],
     'modules' => [

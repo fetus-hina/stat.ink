@@ -430,7 +430,6 @@ return [
     'Recent Battles' => '最近のバトル',
     'Recent Results' => '最近の成績',
     'Recent Use %' => '最近の利用率',
-    'Recommended to Android users:' => 'Androidユーザにはこちらがおすすめ:',
     'Regenerate your API token' => 'APIキーの再生成',
     'Region (used for Splatfest)' => 'フェスのリージョン（地域）',
     'Register' => 'ユーザ登録',
