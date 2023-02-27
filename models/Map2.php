@@ -71,10 +71,19 @@ class Map2 extends ActiveRecord
             if ($callback && is_callable($callback)) {
                 call_user_func($callback, $query);
             }
-            return ArrayHelper::map(
-                self::sort($query->all()),
-                'key',
-                fn (self $row): string => Yii::t('app-map2', $row->name),
+
+            return Yii::$app->cache->getOrSet(
+                [
+                    __METHOD__,
+                    Yii::$app->language,
+                    $query->createCommand()->rawSql,
+                ],
+                fn (): array => ArrayHelper::map(
+                    self::sort($query->all()),
+                    'key',
+                    fn (self $row): string => Yii::t('app-map2', $row->name),
+                ),
+                86400,
             );
         } finally {
             Yii::endProfile(__METHOD__, self::class);
