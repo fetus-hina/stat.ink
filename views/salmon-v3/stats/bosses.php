@@ -9,6 +9,8 @@ use app\components\widgets\SnsWidget;
 use app\models\Salmon3FilterForm;
 use app\models\SalmonBoss3;
 use app\models\User;
+use statink\yii2\sortableTable\SortableTableAsset;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
@@ -47,6 +49,8 @@ if ($user->twitter != '') {
   $this->registerMetaTag(['name' => 'twitter:creator', 'content' => sprintf('@%s', $user->twitter)]);
 }
 
+SortableTableAsset::register($this);
+
 ?>
 <div class="container">
   <span itemscope itemtype="http://schema.org/BreadcrumbList">
@@ -62,7 +66,15 @@ if ($user->twitter != '') {
   <div class="row">
     <div class="col-xs-12 col-sm-8 col-lg-9">
       <?= Yii::$app->cache->getOrSet(
-        [__FILE__, __LINE__, Yii::$app->language, $user->id, $stats],
+        [
+            2, // cache version
+            __FILE__,
+            __LINE__,
+            Yii::$app->language,
+            $user->id,
+            $stats,
+            ArrayHelper::getValue(Yii::$app->params, 'assetRevision'),
+        ],
         fn (): string => $this->render('bosses/table', [
           'bosses' => $bosses,
           'stats' => $stats,
