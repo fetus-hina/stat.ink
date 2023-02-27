@@ -18,7 +18,9 @@ use app\models\UserStatSalmon3;
 use yii\helpers\Html;
 use yii\web\View;
 
+use function array_keys;
 use function array_map;
+use function array_values;
 use function filter_var;
 use function implode;
 use function is_int;

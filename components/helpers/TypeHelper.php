@@ -11,11 +11,13 @@ declare(strict_types=1);
 namespace app\components\helpers;
 
 use Stringable;
+use TypeError;
 
 use function filter_var;
 use function is_float;
 use function is_int;
 use function is_scalar;
+use function is_string;
 
 use const FILTER_VALIDATE_FLOAT;
 use const FILTER_VALIDATE_INT;
@@ -27,7 +29,7 @@ final class TypeHelper
         return match (true) {
             is_string($value) => $value,
             $value instanceof Stringable => (string)$value,
-            default => throw new \TypeError('The value is not a string'),
+            default => throw new TypeError('The value is not a string'),
         };
     }
 
