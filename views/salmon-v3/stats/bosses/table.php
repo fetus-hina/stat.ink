@@ -7,7 +7,6 @@ use app\assets\Spl3SalmonidAsset;
 use app\components\helpers\TypeHelper;
 use app\models\SalmonBoss3;
 use app\models\User;
-use statink\yii2\sortableTable\SortableTableAsset;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
@@ -21,8 +20,6 @@ use yii\web\View;
  * @var array<string, SalmonBoss3> $bosses
  * @var array<string, array{boss_key: string, appearances: int, defeated: int, defeated_by_me: int}> $stats
  */
-
-SortableTableAsset::register($this);
 
 $am = Yii::$app->assetManager;
 assert($am instanceof AssetManager);
