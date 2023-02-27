@@ -1,0 +1,9 @@
+[Unit]
+Description=Run stat.ink cache gc (timer)
+
+[Timer]
+OnCalendar=hourly
+RandomizedDelaySec=180
+
+[Install]
+WantedBy=timers.target

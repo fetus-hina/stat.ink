@@ -1,0 +1,12 @@
+--- a/console/controllers/CacheController.php
++++ b/console/controllers/CacheController.php
+@@ -254,7 +254,7 @@
+      * @param array $cachesNames caches to be found
+      * @return array
+      */
+-    private function findCaches(array $cachesNames = [])
++    protected function findCaches(array $cachesNames = [])
+     {
+         $caches = [];
+         $components = Yii::$app->getComponents();
+

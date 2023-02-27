@@ -122,7 +122,9 @@
                 "make static S3::setEndpoint": "data/patch/tpyo-s3-setendpoint-static.patch"
             },
             "yiisoft/yii2": {
-                "enhance: callable filter column to GridView": "data/patch/yii2-gridview-callable-filter.patch"
+                "enhance: callable filter column to GridView": "data/patch/yii2-gridview-callable-filter.patch",
+                "enhance: make `protected` CacheController::findCaches()": "data/patch/yii2-cache-command.patch",
+                "enhance: use sha256 to caching key": "data/patch/yii2-cache-key.patch"
             },
             "yiisoft/yii2-bootstrap": {
                 "non-progress progressbar": "data/patch/yii2-bootstrap-non-progress-progressbar.patch"
