@@ -445,7 +445,6 @@ return [
     'Recent Battles' => '最近对战',
     'Recent Results' => '最近结果',
     'Recent Use %' => '最近使用 %',
-    'Recommended to Android users:' => '向安卓用户推荐：',
     'Regenerate your API token' => '重新生成你的API密钥',
     'Region (used for Splatfest)' => '地区（祭典时使用）',
     'Register' => '注册',
