@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -20,6 +20,7 @@ use app\models\Timezone;
 use app\models\TimezoneGroup;
 use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\web\View;
 
 use function abs;
 use function array_map;
@@ -34,11 +35,16 @@ use function strtolower;
 use function trim;
 use function vsprintf;
 
-class TimezoneDialog extends Dialog
+final class TimezoneDialog extends Dialog
 {
+    /**
+     * @inheritdoc
+     * @return void
+     */
     public function init()
     {
         parent::init();
+
         $this->title = implode(' ', [
             Icon::timezone(),
             Html::encode(Yii::t('app', 'Time Zone')),
@@ -47,19 +53,36 @@ class TimezoneDialog extends Dialog
         $this->hasClose = true;
         $this->body = $this->createBody();
         $this->wrapBody = false;
-        TimezoneDialogAsset::register($this->view);
     }
 
     private function createBody(): string
     {
-        $this->view->registerJs(sprintf(
-            '$(%s).timezoneDialog();',
-            Json::encode(sprintf('#%s', $this->id)),
-        ));
-        return Html::tag(
-            'div',
-            $this->currentTimezone() . $this->renderZoneGroups(),
-            ['class' => 'list-group-flush'],
+        $view = $this->view;
+        if ($view instanceof View) {
+            TimezoneDialogAsset::register($view);
+            $view->registerJs(
+                vsprintf('$(%s).timezoneDialog();', [
+                    Json::encode(
+                        vsprintf('#%s', [
+                            $this->id,
+                        ]),
+                    ),
+                ]),
+            );
+        }
+
+        return Yii::$app->cache->getOrSet(
+            [
+                __METHOD__,
+                Yii::$app->locale,
+                Yii::$app->timeZone,
+            ],
+            fn (): string => Html::tag(
+                'div',
+                $this->currentTimezone() . $this->renderZoneGroups(),
+                ['class' => 'list-group-flush'],
+            ),
+            86400,
         );
     }
 
