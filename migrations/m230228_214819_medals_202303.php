@@ -74,7 +74,7 @@ final class m230228_214819_medals_202303 extends Migration
     {
         foreach ($this->getData() as $canonicalName => $names) {
             $id = $this->key2id('{{%medal_canonical3}}', self::canonicalName2Key($canonicalName));
-    
+
             // should not delete from "medal3"
             $this->update(
                 '{{%medal3}}',
