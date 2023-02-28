@@ -47,7 +47,7 @@ return [
     'Springs' => 'Sources Sauret',
     'Station' => 'Bastion colimaçon',
     'Sturgeon Shipyard' => 'Chantier Narval',
-    'Um\'ami Ruins' => '',
+    'Um\'ami Ruins' => 'Ruines Uma\'mi',
     'Undertow Spillway' => 'Réservoir Rigadelle',
     'Wahoo World' => 'Parc Carapince',
     'World' => 'Parc Carapince',

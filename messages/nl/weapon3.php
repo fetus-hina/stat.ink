@@ -108,7 +108,7 @@ return [
     'Tri-Slosher Nouveau' => 'Triomorser Nouveau',
     'Tri-Stringer' => 'Triospanner',
     'Undercover Brella' => 'Paraplenzer',
-    'Z+F Splat Charger' => '',
-    'Z+F Splatterscope' => '',
+    'Z+F Splat Charger' => 'Zekkofin Bloplader',
+    'Z+F Splatterscope' => 'Zekkofin Schelpschutter',
     'Zink Mini Splatling' => 'Zink Mini-Spetling',
 ];

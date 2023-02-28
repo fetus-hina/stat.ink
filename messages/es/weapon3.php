@@ -108,7 +108,7 @@ return [
     'Tri-Slosher Nouveau' => 'Derramatic triple maestro',
     'Tri-Stringer' => 'Arcromatizador triple',
     'Undercover Brella' => 'Paratintas clásico',
-    'Z+F Splat Charger' => '',
-    'Z+F Splatterscope' => '',
+    'Z+F Splat Charger' => 'Cargatintas Ezkkor',
+    'Z+F Splatterscope' => 'Cargatintas con mira Ezkkor',
     'Zink Mini Splatling' => 'Tintralladora ligera B',
 ];

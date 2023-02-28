@@ -19,7 +19,7 @@ return [
     'Killer Wail 5.1' => 'Heulboje 5.1',
     'Kraken Royale' => 'Tintentyrann',
     'Reefslider' => 'Haihammer',
-    'Super Chump' => 'Bluff-Bomber',
+    'Super Chump' => 'Bluffbomber',
     'Tacticooler' => 'Tranktank',
     'Tenta Missiles' => 'Schwarmraketen',
     'Triple Inkstrike' => 'Tri-Tintferno',

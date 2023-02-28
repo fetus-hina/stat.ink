@@ -46,7 +46,7 @@ return [
     'Springs' => 'Fermenterme',
     'Station' => 'Fortezza Spiralsalmone',
     'Sturgeon Shipyard' => 'Cantiere Pinnenere',
-    'Um\'ami Ruins' => '',
+    'Um\'ami Ruins' => 'Rovine Salsadipesce',
     'Undertow Spillway' => 'Cisterna Cernia',
     'Wahoo World' => 'Soglioland',
     'World' => 'Soglioland',

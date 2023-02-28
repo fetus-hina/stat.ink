@@ -108,7 +108,7 @@ return [
     'Tri-Slosher Nouveau' => 'Secchiostro triplo master',
     'Tri-Stringer' => 'Tri-calamarco',
     'Undercover Brella' => 'Bombrello',
-    'Z+F Splat Charger' => '',
-    'Z+F Splatterscope' => '',
+    'Z+F Splat Charger' => 'Splatter a carica logo',
+    'Z+F Splatterscope' => 'Splatter con mirino logo',
     'Zink Mini Splatling' => 'Mini splatling logo',
 ];

@@ -18,7 +18,7 @@ return [
     'Flyfish' => '어깨 패드',
     'Goldie' => '황금연어',
     'Griller' => '그릴',
-    'Horrorboros' => '',
+    'Horrorboros' => '용',
     'Maws' => '두더지',
     'Mothership' => '운반함',
     'Mudmouth' => '진흙연어',

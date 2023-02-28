@@ -31,7 +31,7 @@ return [
     'Clash Blaster' => '크래시 블래스터',
     'Clash Blaster Neo' => '네오 크래시 블래스터',
     'Classic Squiffer' => '스퀵 클린 α',
-    'Custom Jet Squelcher' => '',
+    'Custom Jet Squelcher' => '커스텀 제트 스위퍼',
     'Custom Splattershot Jr.' => '단풍 슈터',
     'Dapple Dualies' => '스퍼터리',
     'Dapple Dualies Nouveau' => '스퍼터리 휴',

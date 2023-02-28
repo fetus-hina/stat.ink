@@ -46,7 +46,7 @@ return [
     'Springs' => 'Kusaya-Quellen',
     'Station' => 'Fort Nautilax',
     'Sturgeon Shipyard' => 'Störwerft',
-    'Um\'ami Ruins' => '',
+    'Um\'ami Ruins' => 'Um\'ami-Ruinen',
     'Undertow Spillway' => 'Schwertmuschel-Reservoir',
     'Wahoo World' => 'Flunder-Funpark',
     'World' => 'Flunder-Funpark',
