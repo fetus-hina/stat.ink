@@ -95,8 +95,6 @@ final class ActivityWidget extends CalHeatmapWidget
             // ],
             // 'displayLegend' => false,
         ];
-
-        $this->plugins = [];
     }
 
     private function renderDataConverterX(): JsExpression

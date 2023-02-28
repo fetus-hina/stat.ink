@@ -2456,16 +2456,16 @@
         },
         {
             "name": "statink/yii2-cal-heatmap",
-            "version": "v2.0.0",
+            "version": "v2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statink/yii2-cal-heatmap.git",
-                "reference": "41dab320815ceb1d03fe46ad9871b2bbc29e8c5b"
+                "reference": "0e46325360453fa7fb32f9f1adf199d54eefc63b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-cal-heatmap/zipball/41dab320815ceb1d03fe46ad9871b2bbc29e8c5b",
-                "reference": "41dab320815ceb1d03fe46ad9871b2bbc29e8c5b",
+                "url": "https://api.github.com/repos/statink/yii2-cal-heatmap/zipball/0e46325360453fa7fb32f9f1adf199d54eefc63b",
+                "reference": "0e46325360453fa7fb32f9f1adf199d54eefc63b",
                 "shasum": ""
             },
             "require": {
@@ -2493,10 +2493,10 @@
             ],
             "description": "cal-heatmap asset bundle for stat.ink",
             "support": {
-                "source": "https://github.com/statink/yii2-cal-heatmap/tree/v2.0.0",
+                "source": "https://github.com/statink/yii2-cal-heatmap/tree/v2.0.1",
                 "issues": "https://github.com/statink/yii2-cal-heatmap/issues"
             },
-            "time": "2023-02-28T12:44:57+00:00"
+            "time": "2023-02-28T12:58:59+00:00"
         },
         {
             "name": "statink/yii2-ip-badge",
