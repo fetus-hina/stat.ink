@@ -46,7 +46,7 @@ return [
     'Springs' => '',
     'Station' => '',
     'Sturgeon Shipyard' => 'Astillero Beluga',
-    'Um\'ami Ruins' => '',
+    'Um\'ami Ruins' => 'Ruinas Ceviche',
     'Undertow Spillway' => 'Desagüe Navajuela',
     'Wahoo World' => 'Pirañalandia',
     'World' => '',

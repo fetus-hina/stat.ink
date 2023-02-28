@@ -18,7 +18,7 @@ return [
     'Flyfish' => 'неркетчик',
     'Goldie' => 'Великий Сам О’Нид',
     'Griller' => 'жаровнер',
-    'Horrorboros' => '',
+    'Horrorboros' => 'скверноборос',
     'Maws' => 'Жуй-Горбуш',
     'Mothership' => 'Нерестилище',
     'Mudmouth' => 'илистый ревун',

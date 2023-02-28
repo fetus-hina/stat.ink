@@ -18,7 +18,7 @@ return [
     'Flyfish' => 'Dronoïde',
     'Goldie' => 'Dorax',
     'Griller' => 'Barbeurk',
-    'Horrorboros' => '',
+    'Horrorboros' => 'Salmophide',
     'Maws' => 'Gobb',
     'Mothership' => '',
     'Mudmouth' => 'Salmonoïde de boue',

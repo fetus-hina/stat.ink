@@ -32,7 +32,7 @@ return [
     'Clash Blaster' => '冲涂爆破枪',
     'Clash Blaster Neo' => '冲涂爆破枪 新型',
     'Classic Squiffer' => '鱿快洁α',
-    'Custom Jet Squelcher' => '',
+    'Custom Jet Squelcher' => '喷射清洁枪 改装',
     'Custom Splattershot Jr.' => '枫叶射击枪',
     'Dapple Dualies' => '溅镀枪',
     'Dapple Dualies Nouveau' => '溅镀枪·新艺术',

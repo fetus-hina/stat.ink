@@ -32,6 +32,7 @@ return [
     'Cargatintas Don Oso' => '',
     'Cargatintas Shachi' => '',
     'Cargatintas Tonken' => '',
+    'Cargatintas ZyS' => '',
     'Delineador' => '',
     'Delineador X' => '',
     'Delineador Y' => '',
@@ -167,6 +168,7 @@ return [
     'Telecargatintas bento' => '',
     'Telecargatintas Shachi' => '',
     'Telecargatintas Tonken' => '',
+    'Telecargatintas ZyS' => '',
     'Telelanzamotas' => '',
     'Telelanzamotas adaptado' => '',
     'Telelanzamotas funesto' => '',
@@ -183,6 +185,4 @@ return [
     'Turbolanzamotas Pro' => '',
     'Turbolanzamotas Pro chic' => '',
     'Turbolanzamotas Tonken' => '',
-    'Z+F Splat Charger' => '',
-    'Z+F Splatterscope' => '',
 ];

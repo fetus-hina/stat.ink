@@ -108,7 +108,7 @@ return [
     'Tri-Slosher Nouveau' => 'Seauceur nuancé',
     'Tri-Stringer' => 'Trisperceur',
     'Undercover Brella' => 'Para-encre espion',
-    'Z+F Splat Charger' => '',
-    'Z+F Splatterscope' => '',
+    'Z+F Splat Charger' => 'Concentraceur E+A',
+    'Z+F Splatterscope' => 'Concentraceur zoom E+A',
     'Zink Mini Splatling' => 'Badigeonneur XP Leviathus',
 ];

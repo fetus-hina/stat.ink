@@ -46,7 +46,7 @@ return [
     'Springs' => 'Balneario Aguasal',
     'Station' => 'Fuerte Espiral',
     'Sturgeon Shipyard' => 'Astillero Beluga',
-    'Um\'ami Ruins' => '',
+    'Um\'ami Ruins' => 'Ruinas Ceviche',
     'Undertow Spillway' => 'Cisterna Navajuela',
     'Wahoo World' => 'Pirañalandia',
     'World' => 'Pirañalandia',

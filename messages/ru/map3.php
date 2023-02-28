@@ -46,7 +46,7 @@ return [
     'Springs' => '',
     'Station' => 'Наутиплекс',
     'Sturgeon Shipyard' => 'Осетровые верфи',
-    'Um\'ami Ruins' => '',
+    'Um\'ami Ruins' => 'Рыбожирные руины',
     'Undertow Spillway' => 'Приливослив',
     'Wahoo World' => 'Луна-парк «Язь»',
     'World' => 'Луна-парк «Язь»',

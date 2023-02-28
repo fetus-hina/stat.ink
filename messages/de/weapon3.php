@@ -108,7 +108,7 @@ return [
     'Tri-Slosher Nouveau' => '3R-Schwapper Fresco',
     'Tri-Stringer' => 'Tri-Stringer',
     'Undercover Brella' => 'UnderCover',
-    'Z+F Splat Charger' => '',
-    'Z+F Splatterscope' => '',
+    'Z+F Splat Charger' => 'Zekkori-Klecks-Konzentrator',
+    'Z+F Splatterscope' => 'Zekkori-Ziel-Konzentrator',
     'Zink Mini Splatling' => 'Sagitron-Klecks-Splatling',
 ];

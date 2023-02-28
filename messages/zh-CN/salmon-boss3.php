@@ -18,7 +18,7 @@ return [
     'Flyfish' => '垫肩飞鱼',
     'Goldie' => '金鲑鱼',
     'Griller' => '烤架鱼',
-    'Horrorboros' => '',
+    'Horrorboros' => '辰龙',
     'Maws' => '鼹鼠鱼',
     'Mothership' => '走私鱼',
     'Mudmouth' => '泥鲑鱼',

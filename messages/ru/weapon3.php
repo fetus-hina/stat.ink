@@ -108,7 +108,7 @@ return [
     'Tri-Slosher Nouveau' => 'Ведроган 3 в 1 «НуВо»',
     'Tri-Stringer' => 'Тритиватор',
     'Undercover Brella' => 'Шпионский зонт',
-    'Z+F Splat Charger' => '',
-    'Z+F Splatterscope' => '',
+    'Z+F Splat Charger' => 'Сплатган «ЙожкоТюр»',
+    'Z+F Splatterscope' => 'Снайпокрас «ЙожкоТюр»',
     'Zink Mini Splatling' => 'Брызгомет-М «Шпротус»',
 ];

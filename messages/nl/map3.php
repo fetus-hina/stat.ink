@@ -46,7 +46,7 @@ return [
     'Springs' => 'Barbeelbaden',
     'Station' => 'Fort Ammoniet',
     'Sturgeon Shipyard' => 'Walruswerf',
-    'Um\'ami Ruins' => '',
+    'Um\'ami Ruins' => 'Ruisvoornruïnes',
     'Undertow Spillway' => 'Baarsreservoir',
     'Wahoo World' => 'Waterwonderland',
     'World' => 'Waterwonderland',
