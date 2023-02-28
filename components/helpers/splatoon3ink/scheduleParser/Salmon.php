@@ -59,21 +59,21 @@ trait Salmon
         return $obj->getTimestamp();
     }
 
-    private static function parseSalmonStage(string $stageName, bool $isBigRun): int
+    private static function parseSalmonStage(string $stageName, bool $isBigRun): ?int
     {
         if (!$isBigRun) {
             return SalmonMap3::find()
                 ->andWhere(['name' => $stageName])
                 ->limit(1)
                 ->one()
-                ->id;
+                ?->id;
         }
 
         return Map3::find()
             ->andWhere(['name' => $stageName])
             ->limit(1)
             ->one()
-            ->id;
+            ?->id;
     }
 
     /**

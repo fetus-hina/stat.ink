@@ -109,8 +109,8 @@ trait Battle3
                         function (ScheduleMap3 $model): array {
                             $map = $model->map;
                             return [
-                                'key' => $map->key,
-                                'name' => Yii::t('app-map3', $map->name),
+                                'key' => $map?->key,
+                                'name' => Yii::t('app-map3', $map?->name ?? '???'),
                                 'image' => $this->getImageUrlForMap3($map),
                             ];
                         },
@@ -142,12 +142,12 @@ trait Battle3
         );
     }
 
-    private function getImageUrlForMap3(Map3 $map): ?string
+    private function getImageUrlForMap3(?Map3 $map): ?string
     {
         return self::getAssetUrl3(
             Spl3StageAsset::class,
             vsprintf('color-normal/%s.jpg', [
-                $map->key,
+                $map?->key ?? 'unknown',
             ]),
         );
     }
