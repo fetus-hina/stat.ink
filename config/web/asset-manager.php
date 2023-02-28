@@ -26,8 +26,6 @@ use jp3cki\yii2\momentjs\MomentJsAsset;
 use jp3cki\yii2\momentjs\MomentJsLocaleAsset;
 use jp3cki\yii2\momentjs\MomentJsTimeZoneAsset;
 use jp3cki\yii2\zxcvbn\ZxcvbnAsset;
-use statink\yii2\calHeatmap\CalHeatmapAsset;
-use statink\yii2\calHeatmap\D3Asset;
 use statink\yii2\ipBadge\assets\Audiowide;
 use statink\yii2\jdenticon\JdenticonAsset;
 use statink\yii2\momentjs\MomentAsset;
@@ -113,12 +111,6 @@ return [
         ],
         ZxcvbnAsset::class => [
             'sourcePath' => '@node/zxcvbn/dist',
-        ],
-        CalHeatmapAsset::class => [
-            'sourcePath' => '@node/cal-heatmap',
-        ],
-        D3Asset::class => [
-            'sourcePath' => '@node/d3',
         ],
         Audiowide::class => [
             'css' => [

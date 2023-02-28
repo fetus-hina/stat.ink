@@ -49,7 +49,6 @@ RESOURCE_TARGETS := \
 	resources/.compiled/stat.ink/blackout-hint.js \
 	resources/.compiled/stat.ink/blog-entries.css \
 	resources/.compiled/stat.ink/browser-icon-widget.js \
-	resources/.compiled/stat.ink/cal-heatmap-halloween.css \
 	resources/.compiled/stat.ink/color-scheme.js \
 	resources/.compiled/stat.ink/cookiealert.css \
 	resources/.compiled/stat.ink/cookiealert.js \
@@ -286,7 +285,6 @@ resources/.compiled/stat.ink/blackout-hint.css: resources/stat.ink/blackout-hint
 resources/.compiled/stat.ink/blackout-hint.js: resources/stat.ink/blackout-hint.js node_modules
 resources/.compiled/stat.ink/blog-entries.css: resources/stat.ink/blog-entries.scss node_modules
 resources/.compiled/stat.ink/browser-icon-widget.js: resources/stat.ink/browser-icon-widget.es node_modules
-resources/.compiled/stat.ink/cal-heatmap-halloween.css: resources/stat.ink/cal-heatmap-halloween.scss node_modules
 resources/.compiled/stat.ink/color-scheme.js: resources/stat.ink/color-scheme.es node_modules
 resources/.compiled/stat.ink/cookiealert.css: resources/stat.ink/cookiealert.scss node_modules
 resources/.compiled/stat.ink/cookiealert.js: resources/stat.ink/cookiealert.es node_modules

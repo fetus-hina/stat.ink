@@ -75,7 +75,7 @@ trait UpdateSalmonSchedule
     private function registerSalmonSchedule(
         int $startAt,
         int $endAt,
-        int $mapId,
+        ?int $mapId,
         array $weapons,
         bool $isBigRun,
     ): bool {
@@ -111,7 +111,7 @@ trait UpdateSalmonSchedule
     private function isSalmonScheduleRegistered(
         int $startAt,
         int $endAt,
-        int $mapId,
+        ?int $mapId,
         array $weapons,
         bool $isBigRun,
     ): bool {
@@ -187,7 +187,7 @@ trait UpdateSalmonSchedule
     private function registerSalmonScheduleImpl(
         int $startAt,
         int $endAt,
-        int $mapId,
+        ?int $mapId,
         array $weapons,
         bool $isBigRun,
     ): bool {

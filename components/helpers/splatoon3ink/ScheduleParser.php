@@ -35,9 +35,9 @@ final class ScheduleParser
             'xmatch' => self::xMatch(
                 ArrayHelper::getValue($json, 'data.xSchedules.nodes'),
             ),
-            'league' => self::leagueMatch(
-                ArrayHelper::getValue($json, 'data.leagueSchedules.nodes'),
-            ),
+            // 'league' => self::leagueMatch(
+            //     ArrayHelper::getValue($json, 'data.leagueSchedules.nodes'),
+            // ),
             'splatfest_open' => self::splatfestMatch(
                 ArrayHelper::getValue($json, 'data.festSchedules.nodes'),
             ),
