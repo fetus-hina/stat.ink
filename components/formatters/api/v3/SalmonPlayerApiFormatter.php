@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -40,7 +40,7 @@ final class SalmonPlayerApiFormatter
             'name' => $model->name,
             'number' => $model->number,
             'splashtag_title' => SplashtagTitleApiFormatter::toJson($model->splashtagTitle),
-            'uniform' => null,
+            'uniform' => SalmonUniformApiFormatter::toJson($model->uniform, $fullTranslate),
             'special' => SpecialApiFormatter::toJson($model->special, $fullTranslate),
             'weapons' => array_map(
                 fn (?SalmonPlayerWeapon3 $model): ?array => SalmonWeaponApiFormatter::toJson(

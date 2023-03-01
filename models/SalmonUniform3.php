@@ -22,6 +22,7 @@ use yii\db\ActiveRecord;
  * @property integer $rank
  *
  * @property SalmonPlayer3[] $salmonPlayer3s
+ * @property SalmonUniform3Alias[] $salmonUniform3Aliases
  */
 class SalmonUniform3 extends ActiveRecord
 {
@@ -56,5 +57,10 @@ class SalmonUniform3 extends ActiveRecord
     public function getSalmonPlayer3s(): ActiveQuery
     {
         return $this->hasMany(SalmonPlayer3::class, ['uniform_id' => 'id']);
+    }
+
+    public function getSalmonUniform3Aliases(): ActiveQuery
+    {
+        return $this->hasMany(SalmonUniform3Alias::class, ['uniform_id' => 'id']);
     }
 }

@@ -54,6 +54,7 @@ final class GetSingleSalmonAction extends Action
                 'salmonPlayer3s.special',
                 'salmonPlayer3s.splashtagTitle',
                 'salmonPlayer3s.uniform',
+                'salmonPlayer3s.uniform.salmonUniform3Aliases',
                 'salmonWave3s.event.salmonEvent3Aliases',
                 'salmonWave3s.salmonSpecialUse3s.special',
                 'salmonWave3s.tide',

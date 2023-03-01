@@ -9,11 +9,15 @@
 declare(strict_types=1);
 
 return [
+    'Black Gloopsuit' => 'Zwart ploeterkloffie',
     'Black Slopsuit' => 'Zwart werkkloffie',
     'Blue Slopsuit' => 'Blauw werkkloffie',
+    'Brown Gloopsuit' => 'Bruin ploeterkloffie',
     'Green Slopsuit' => 'Groen werkkloffie',
+    'Orange Gloopsuit' => 'Oranje ploeterkloffie',
     'Orange Slopsuit' => 'Oranje werkkloffie',
     'Pink Slopsuit' => 'Roze werkkloffie',
     'White Slopsuit' => 'Wit werkkloffie',
+    'Yellow Gloopsuit' => 'Geel ploeterkloffie',
     'Yellow Slopsuit' => 'Geel werkkloffie',
 ];

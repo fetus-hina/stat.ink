@@ -17,6 +17,7 @@ use app\actions\api\info\GearAction;
 use app\actions\api\info\Medal3Action;
 use app\actions\api\info\SalmonEvent3Action;
 use app\actions\api\info\SalmonTitle3Action;
+use app\actions\api\info\SalmonUniform3Action;
 use app\actions\api\info\Stage2Action;
 use app\actions\api\info\Stage3Action;
 use app\actions\api\info\Weapon2Action;
@@ -63,6 +64,7 @@ final class ApiInfoController extends Controller
             'medal3' => Medal3Action::class,
             'salmon-event3' => SalmonEvent3Action::class,
             'salmon-title3' => SalmonTitle3Action::class,
+            'salmon-uniform3' => SalmonUniform3Action::class,
             'stage2' => Stage2Action::class,
             'stage3' => Stage3Action::class,
             'weapon' => WeaponAction::class,
