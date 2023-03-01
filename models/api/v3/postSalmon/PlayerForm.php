@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -16,6 +16,7 @@ use app\models\Salmon3;
 use app\models\SalmonPlayer3;
 use app\models\SalmonPlayerWeapon3;
 use app\models\SalmonUniform3;
+use app\models\SalmonUniform3Alias;
 use app\models\SalmonWeapon3;
 use app\models\SalmonWeapon3Alias;
 use app\models\Special3;
@@ -77,6 +78,7 @@ final class PlayerForm extends Model
 
             [['uniform'], KeyValidator::class,
                 'modelClass' => SalmonUniform3::class,
+                'aliasClass' => SalmonUniform3Alias::class,
             ],
             [['special'], KeyValidator::class,
                 'modelClass' => Special3::class,
@@ -102,7 +104,12 @@ final class PlayerForm extends Model
             'name' => self::strVal($this->name),
             'number' => self::hashNumberVal($this->number),
             'splashtag_title_id' => self::splashtagTitle($this->splashtag_title),
-            'uniform_id' => self::key2id($this->uniform, SalmonUniform3::class),
+            'uniform_id' => self::key2id(
+                $this->uniform,
+                SalmonUniform3::class,
+                SalmonUniform3Alias::class,
+                'uniform_id',
+            ),
             'special_id' => self::key2id(
                 $this->special,
                 Special3::class,
