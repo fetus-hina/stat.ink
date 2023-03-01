@@ -21,7 +21,9 @@ use yii\helpers\Url;
 use yii\web\JsExpression;
 
 use function array_filter;
+use function preg_replace;
 use function sprintf;
+use function strtolower;
 use function time;
 
 final class ActivityWidget extends CalHeatmapWidget
@@ -44,7 +46,7 @@ final class ActivityWidget extends CalHeatmapWidget
             throw new InvalidConfigException();
         }
 
-        // $view = $this->view;
+        $view = $this->view;
         // if ($view instanceof View) {
         //     CalHeatmapLegendAsset::register($view);
         //     CalHeatmapTooltipAsset::register($view);
@@ -67,6 +69,11 @@ final class ActivityWidget extends CalHeatmapWidget
             ],
             'date' => [
                 'start' => $this->renderStartTime(),
+                'locale' => preg_replace( // workaround for #1202
+                    '/^([a-z]+)-.+$/',
+                    '$1',
+                    self::getDayjsLocaleName(strtolower((string)Yii::$app->language)),
+                ),
             ],
             'range' => $this->months,
             'scale' => [
