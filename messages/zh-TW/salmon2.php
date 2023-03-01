@@ -64,7 +64,7 @@ return [
     'Rotation' => '排班',
     'Salmon Run' => 'SALMON RUN',
     'Soon' => '即將開放',
-    'Special Use' => '特殊武器使用',
+    'Special Use' => '特殊武器使用數',
     'Stats: Salmon Clear %' => '統計：打工完工率',
     'Team total Golden Eggs' => '隊伍金鮭魚卵總數',
     'Team total Golden Eggs per Wave' => '每階段隊伍金鮭魚卵總數',

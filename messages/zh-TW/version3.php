@@ -11,5 +11,5 @@ declare(strict_types=1);
 
 return [
     'Any Version' => '所有版本',
-    'Prerelease' => '',
+    'Prerelease' => '先行版本',
 ];
