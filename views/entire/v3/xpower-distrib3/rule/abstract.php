@@ -18,10 +18,8 @@ if (!$model) {
   return;
 }
 
-TableResponsiveForceAsset::register($this);
-
 ?>
-<div class="table table-responsive-force mb-3">
+<div class="mb-3">
   <?= GridView::widget([
     'dataProvider' => Yii::createObject([
       'class' => ArrayDataProvider::class,

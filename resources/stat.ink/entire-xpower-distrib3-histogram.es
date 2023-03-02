@@ -35,6 +35,10 @@ jQuery($ => {
             beginAtZero: true
           },
           x: {
+            grid: {
+              offset: false,
+            },
+            offset: true,
             type: 'linear',
             ticks: {
               stepSize: 200

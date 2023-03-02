@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-use app\assets\EntireXpowerDistrib3HistogramAsset;
-use app\assets\RatioAsset;
 use app\models\StatXPowerDistrib3;
 use yii\helpers\Html;
 use yii\helpers\Json;
@@ -18,9 +16,6 @@ use yii\web\View;
 if (!$data) {
   return;
 }
-
-EntireXpowerDistrib3HistogramAsset::register($this);
-RatioAsset::register($this);
 
 ?>
 <div class="row">
