@@ -14,15 +14,21 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
 use app\models\User;
+use statink\yii2\calHeatmap\CalHeatmapTooltipAsset;
 use statink\yii2\calHeatmap\CalHeatmapWidget;
 use yii\base\InvalidConfigException;
 use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\JsExpression;
+use yii\web\View;
 
 use function array_filter;
+use function array_keys;
+use function array_values;
+use function implode;
 use function preg_replace;
 use function sprintf;
+use function str_replace;
 use function strtolower;
 use function time;
 
@@ -39,18 +45,14 @@ final class ActivityWidget extends CalHeatmapWidget
         parent::init();
 
         $this->options = [
-            'style' => 'padding:5px 2px;',
+            'style' => [
+                'padding' => '5px 2px',
+            ],
         ];
 
         if (!$user = $this->user) {
             throw new InvalidConfigException();
         }
-
-        $view = $this->view;
-        // if ($view instanceof View) {
-        //     CalHeatmapLegendAsset::register($view);
-        //     CalHeatmapTooltipAsset::register($view);
-        // }
 
         $apiUrl = Url::to(
             array_filter(
@@ -87,21 +89,26 @@ final class ActivityWidget extends CalHeatmapWidget
                 'height' => $this->size,
                 'width' => $this->size,
             ],
-            // 'itemName' => [
-            //     Yii::t('app', '{n,plural,=1{battle} other{battles}}', ['n' => 1]),
-            //     Yii::t('app', '{n,plural,=1{battle} other{battles}}', ['n' => 42]),
-            // ],
             // 'legendTitleFormat' => [
             //     'lower' => Yii::t('app', 'less than {min} {name}'),
             //     'inner' => Yii::t('app', 'between {down} and {up} {name}'),
             //     'upper' => Yii::t('app', 'more than {max} {name}'),
             // ],
-            // 'subDomainTitleFormat' => [
-            //     'empty' => '{date}: ' . Yii::t('app', 'No battles'),
-            //     'filled' => '{date}: {count} {name}',
-            // ],
             // 'displayLegend' => false,
         ];
+
+        $view = $this->view;
+        if ($view instanceof View) {
+            $asset = CalHeatmapTooltipAsset::register($view);
+
+            $this->plugins[] = [
+                new JsExpression('window.Tooltip'),
+                [
+                    'enabled' => true,
+                    'text' => $this->renderTooltipFormatter(),
+                ],
+            ];
+        }
     }
 
     private function renderDataConverterX(): JsExpression
@@ -135,6 +142,38 @@ final class ActivityWidget extends CalHeatmapWidget
             'new Date(%s)',
             Json::encode($date->format('Y-m-d')),
         ));
+    }
+
+    private function renderTooltipFormatter(): JsExpression
+    {
+        // (timestamp, value, dayjsDate) => {
+        //   const singular = '{singular}'; // needs replace
+        //   const plural = '{plural}'; // needs replace
+        //   const noBattle = '{noBattle}'; // needs replace
+        //   const date = dayjsDate.format('L');
+        //
+        //   return (value === null || value < 1)
+        //     ? `${date}: ${noBattle}`
+        //     : `${date}: ${value} ${value !== 1 ? plural : singular}`;
+        // }
+
+        $varMap = [
+            '"{singular}"' => Json::encode(Yii::t('app', '{n,plural,=1{battle} other{battles}}', ['n' => 1])),
+            '"{plural}"' => Json::encode(Yii::t('app', '{n,plural,=1{battle} other{battles}}', ['n' => 42])),
+            '"{noBattle}"' => Json::encode(Yii::t('app', 'No battles')),
+        ];
+
+        return new JsExpression(
+            str_replace(
+                array_keys($varMap),
+                array_values($varMap),
+                implode('', [
+                    'function(t,o,c){c=c.format("L");return null===o||o<1?""',
+                    '.concat(c,": ").concat("{noBattle}"):"".concat(c,": ")',
+                    '.concat(o," ").concat(1!==o?"{plural}":"{singular}")}',
+                ]),
+            ),
+        );
     }
 
     private function isHalloweenTerm(): bool

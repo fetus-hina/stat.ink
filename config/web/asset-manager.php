@@ -26,6 +26,7 @@ use jp3cki\yii2\momentjs\MomentJsAsset;
 use jp3cki\yii2\momentjs\MomentJsLocaleAsset;
 use jp3cki\yii2\momentjs\MomentJsTimeZoneAsset;
 use jp3cki\yii2\zxcvbn\ZxcvbnAsset;
+use statink\yii2\calHeatmap\PopperAsset;
 use statink\yii2\ipBadge\assets\Audiowide;
 use statink\yii2\jdenticon\JdenticonAsset;
 use statink\yii2\momentjs\MomentAsset;
@@ -111,6 +112,9 @@ return [
         ],
         ZxcvbnAsset::class => [
             'sourcePath' => '@node/zxcvbn/dist',
+        ],
+        PopperAsset::class => [
+            'sourcePath' => '@node/@popperjs/core/dist/umd',
         ],
         Audiowide::class => [
             'css' => [
