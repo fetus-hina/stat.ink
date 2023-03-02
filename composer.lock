@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3bf1b7d91df95713d146b38fcd595fc8",
+    "content-hash": "eb7dbe92a07409af0d1f1883fbc43d9e",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -2456,20 +2456,21 @@
         },
         {
             "name": "statink/yii2-cal-heatmap",
-            "version": "v2.0.1",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statink/yii2-cal-heatmap.git",
-                "reference": "0e46325360453fa7fb32f9f1adf199d54eefc63b"
+                "reference": "c612adfec9e99bf25906a3ed27a5af1b67f2cb15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-cal-heatmap/zipball/0e46325360453fa7fb32f9f1adf199d54eefc63b",
-                "reference": "0e46325360453fa7fb32f9f1adf199d54eefc63b",
+                "url": "https://api.github.com/repos/statink/yii2-cal-heatmap/zipball/c612adfec9e99bf25906a3ed27a5af1b67f2cb15",
+                "reference": "c612adfec9e99bf25906a3ed27a5af1b67f2cb15",
                 "shasum": ""
             },
             "require": {
-                "npm-asset/cal-heatmap": "^4.0.0",
+                "npm-asset/cal-heatmap": "^4.0",
+                "npm-asset/popperjs--core": "^2.0",
                 "php": ">= 8.0",
                 "yiisoft/yii2": "2.0.*"
             },
@@ -2493,10 +2494,10 @@
             ],
             "description": "cal-heatmap asset bundle for stat.ink",
             "support": {
-                "source": "https://github.com/statink/yii2-cal-heatmap/tree/v2.0.1",
+                "source": "https://github.com/statink/yii2-cal-heatmap/tree/v2.1.0",
                 "issues": "https://github.com/statink/yii2-cal-heatmap/issues"
             },
-            "time": "2023-02-28T12:58:59+00:00"
+            "time": "2023-03-02T10:16:41+00:00"
         },
         {
             "name": "statink/yii2-ip-badge",
