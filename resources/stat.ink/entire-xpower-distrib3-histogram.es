@@ -36,7 +36,7 @@ jQuery($ => {
           },
           x: {
             grid: {
-              offset: false,
+              offset: false
             },
             offset: true,
             type: 'linear',

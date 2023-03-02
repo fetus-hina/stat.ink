@@ -12,7 +12,6 @@ use app\components\widgets\HappyNewYearWidget;
 use app\components\widgets\Icon;
 use app\components\widgets\IndexI18nButtons;
 use app\components\widgets\SnsWidget;
-use app\components\widgets\WashHandsWidget;
 use app\components\widgets\alerts\ImportFromSplatnet;
 use app\components\widgets\alerts\LanguageSupportLevelWarning;
 use app\components\widgets\alerts\MaintenanceInfo;
@@ -56,7 +55,6 @@ $gameMode = GameModeIconsAsset::register($this);
 <?php endif; ?>
     </div>
   </div>
-  <?= WashHandsWidget::widget() . "\n" ?>
   <?= HappyNewYearWidget::widget() . "\n" ?>
   <?= MaintenanceInfo::widget() . "\n" ?>
   <?= PleaseUseLatest::widget() . "\n" ?>
