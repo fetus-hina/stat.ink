@@ -46,7 +46,7 @@ $gameMode = GameModeIconsAsset::register($this);
         <?= Html::encode(Yii::$app->name) . "\n" ?>
       </h1>
       <p>
-        <?= Html::encode(Yii::t('app', 'Staaaay Fresh!')) . "\n" ?>
+        <?= Html::encode(Yii::t('app', 'Keep doing it.')) . "\n" ?>
       </p>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
