@@ -157,7 +157,7 @@ return [
     'D/min' => 'm/min',
     'Daily Report' => 'Rapport journalier',
     'Data Sent' => 'Données envoyées',
-    'Date Time' => 'Heure/Jour d\'envoi',
+    'Date Time' => 'Date et heure',
     'Dead' => 'Mort',
     'Deaths' => 'Morts',
     'Deaths (average):' => 'Morts (moyenne)',
