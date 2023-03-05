@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
+use app\components\helpers\XPowerNormalDistribution;
 use app\models\StatXPowerDistrib3;
+use app\models\StatXPowerDistribAbstract3;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\web\JqueryAsset;
@@ -10,12 +12,28 @@ use yii\web\View;
 
 /**
  * @var StatXPowerDistrib3[] $data
+ * @var StatXPowerDistribAbstract3|null $abstract
  * @var View $this
  */
 
 if (!$data) {
   return;
 }
+
+$xpList = array_map(
+  fn (StatXPowerDistrib3 $v): int => (int)$v->x_power,
+  $data,
+);
+sort($xpList);
+
+$normalDistribData = Yii::$app->cache->getOrSet(
+  [__FILE__, __LINE__, $abstract?->attributes, $xpList],
+  fn () => XPowerNormalDistribution::getDistributionFromStatXPowerDistribAbstract3(
+    abstract: $abstract,
+    xpList: $xpList,
+  ),
+  86400,
+);
 
 ?>
 <div class="row">
@@ -24,6 +42,7 @@ if (!$data) {
       'class' => 'ratio ratio-16x9 xpower-distrib-chart',
       'data' => [
         'translates' => Json::encode([
+            'Normal Distribution' => Yii::t('app', 'Normal Distribution'),
             'Users' => Yii::t('app', 'Users'),
         ]),
         'dataset' => Json::encode(
@@ -35,6 +54,7 @@ if (!$data) {
             $data,
           ),
         ),
+        'normal-distribution' => Json::encode($normalDistribData),
       ],
     ]) . "\n" ?>
   </div>

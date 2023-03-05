@@ -394,6 +394,7 @@ return [
     'No black out' => '不隐藏名字',
     'No Data' => '没有数据',
     'No one in control' => '无人控制',
+    'Normal Distribution' => '正态分布',
     'North America/Oceania' => '北美/大洋洲',
     'Not configured.' => '',
     'Not Draws' => '不是平局',

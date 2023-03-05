@@ -23,7 +23,7 @@ use yii\web\View;
 $assetRevision = ArrayHelper::getValue(Yii::$app->params, 'assetRevision');
 
 $histogramData = Yii::$app->cache->getOrSet(
-  [__FILE__, __LINE__, $season->id, $rule->id, $abstract->attributes],
+  [__FILE__, __LINE__, $season->id, $rule->id, $abstract?->attributes],
   fn (): array => StatXPowerDistrib3::find()
     ->andWhere([
       'season_id' => $season->id,
@@ -50,13 +50,19 @@ RatioAsset::register($this);
     86400,
   ) . "\n" ?>
   <?= Yii::$app->cache->getOrSet(
-    [__FILE__, __LINE__, Yii::$app->language, $abstract->attributes],
+    [__FILE__, __LINE__, Yii::$app->language, $abstract?->attributes],
     fn (): string => $this->render('rule/abstract', ['model' => $abstract]),
     86400,
   ) . "\n" ?>
   <?= Yii::$app->cache->getOrSet(
     [__FILE__, __LINE__, $assetRevision, Yii::$app->language, $histogramDataId],
-    fn (): string =>  $this->render('rule/histogram', ['data' => $histogramData]),
+    fn (): string =>  $this->render(
+      'rule/histogram',
+      [
+        'abstract' => $abstract,
+        'data' => $histogramData,
+      ],
+    ),
     86400,
   ) . "\n" ?>
 </div>

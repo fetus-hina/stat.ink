@@ -393,6 +393,7 @@ return [
     'No black out' => '',
     'No Data' => 'No hay Datos',
     'No one in control' => 'Nadie tiene el control',
+    'Normal Distribution' => '',
     'North America/Oceania' => '',
     'Not configured.' => '',
     'Not Draws' => '',
