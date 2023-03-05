@@ -123,17 +123,18 @@ final class BigrunAction extends Action
             return null;
         }
 
-        $step = 5;
+        $calcStep = 2;
+        $dataStep = 5;
         $min = 0;
         $max = max(
-            (int)ceil(($abstract->q3 + 1.5 * $iqr) / $step) * $step,
-            (int)floor($abstract->max / $step) * $step,
+            (int)ceil(($abstract->q3 + 1.5 * $iqr) / $dataStep) * $dataStep,
+            (int)floor($abstract->max / $dataStep) * $dataStep,
         );
         $nd = new NormalDistribution((float)$abstract->average, (float)$abstract->stddev);
 
         $results = [];
-        for ($x = $min; $x <= $max; $x += $step) {
-            $results[$x] = $abstract->users * $step * $nd->pdf($x);
+        for ($x = $min; $x <= $max; $x += $calcStep) {
+            $results[$x] = $abstract->users * $dataStep * $nd->pdf($x);
         }
 
         return $results;
