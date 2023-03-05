@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\assets\GameModeIconsAsset;
 use app\assets\NotoSansMathAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
@@ -35,7 +36,20 @@ $fmt = Yii::$app->formatter;
 ?>
 <div class="container">
   <h1>
-    <?= Html::encode($title) . "\n" ?>
+    <?= implode(' ', [
+      Html::img(
+        Yii::$app->assetManager->getAssetUrl(
+          Yii::$app->assetManager->getBundle(GameModeIconsAsset::class),
+          'spl3/salmon-bigrun.png',
+        ),
+        [
+          'class' => 'basic-icon',
+          'draggable' => 'false',
+          'style' => ['--icon-height' => '1em'],
+        ],
+      ),
+      Html::encode($title),
+    ]) . "\n" ?>
   </h1>
   <?= AdWidget::widget() . "\n" ?>
   <?= SnsWidget::widget() . "\n" ?>
@@ -94,15 +108,37 @@ $fmt = Yii::$app->formatter;
   <div class="mb-3">
     <?= Html::tag(
       'h2',
-      Html::encode(
-        vsprintf('%s (%s)', [
-          Yii::t('app-map3', $schedule->bigMap?->name ?? '?'),
-          $fmt->asDate($schedule->start_at, 'short'),
-        ]),
-      ),
+      implode(' ', [
+        Html::img(
+          Yii::$app->assetManager->getAssetUrl(
+            Yii::$app->assetManager->getBundle(GameModeIconsAsset::class),
+            'spl3/salmon-bigrun.png',
+          ),
+          [
+            'class' => 'basic-icon',
+            'draggable' => 'false',
+            'style' => ['--icon-height' => '1em'],
+          ],
+        ),
+        Html::encode(
+          vsprintf('%s (%s)', [
+            Yii::t('app-map3', $schedule->bigMap?->name ?? '?'),
+            $fmt->asDate($schedule->start_at, 'short'),
+          ]),
+        ),
+      ]),
       ['class' => 'mt-0 mb-3'],
     ) . "\n" ?>
-    <?= $this->render('bigrun/abstract', ['model' => $abstract]) . "\n" ?>
+    <p class="mb-3">
+      <?= Html::a(
+        Html::encode(Yii::t('app-salmon3', 'Water Level and Events')),
+        ['entire/salmon3-tide'],
+      ) . "\n" ?>
+    </p>
+    <?= $this->render('bigrun/abstract', [
+      'model' => $abstract,
+      'official' => $schedule->bigrunOfficialResult3,
+    ]) . "\n" ?>
     <?= $this->render('bigrun/histogram', [
       'abstract' => $abstract,
       'histogram' => $histogram,
