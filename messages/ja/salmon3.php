@@ -44,6 +44,7 @@ return [
     'Stats (Bosses)' => '統計（オオモノ）',
     'Time is up' => '時間切れ',
     'Title Reached' => '到達した称号',
+    'Water Level and Events' => '水位とイベント',
     'Wipe out' => '全滅',
     'Xtrawave' => 'EX-WAVE',
     '{name}\'s Salmon Stats (Bosses)' => '{name}さんのバイト統計（オオモノ）',
