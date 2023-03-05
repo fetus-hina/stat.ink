@@ -81,7 +81,7 @@ if ($normalDistrib) {
   <div class="col-xs-12 col-md-9 col-lg-7 mb-3">
     <?= Html::tag('div', '', [
       'id' => 'bigrun-histogram',
-      'class' => 'ratio ratio-16x9',
+      'class' => 'ratio ratio-4x3',
       'data' => [
         'chart' => [
           'data' => [
@@ -95,7 +95,7 @@ if ($normalDistrib) {
             ),
           ],
           'options' => [
-            'aspectRatio' => 16 / 9,
+            'aspectRatio' => 4 / 3, // 16 / 10,
             'plugins' => [
               'legend' => [
                 'display' => true,
