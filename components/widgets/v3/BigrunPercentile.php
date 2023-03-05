@@ -147,6 +147,7 @@ final class BigrunPercentile extends Widget
         return Html::tag(
             'div',
             implode('', [
+                $this->renderModalFooterDetails(),
                 $this->renderModalFooterClose(),
             ]),
             ['class' => 'modal-footer'],
@@ -166,6 +167,15 @@ final class BigrunPercentile extends Widget
                     'dismiss' => 'modal',
                 ],
             ],
+        );
+    }
+
+    private function renderModalFooterDetails(): string
+    {
+        return Html::a(
+            Html::encode(Yii::t('app', 'Details')),
+            ['entire/salmon3-bigrun', 'shift' => $this->schedule?->id],
+            ['class' => 'btn btn-default'],
         );
     }
 
