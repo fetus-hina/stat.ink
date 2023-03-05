@@ -392,6 +392,7 @@ return [
     'No black out' => '',
     'No Data' => '데이터가 없습니다',
     'No one in control' => '중립',
+    'Normal Distribution' => '정규 분포',
     'North America/Oceania' => '북미/오세아니아',
     'Not configured.' => '',
     'Not Draws' => '무승부가 아닌',

@@ -393,6 +393,7 @@ return [
     'No black out' => '不隱藏',
     'No Data' => '沒有資料',
     'No one in control' => '無人控制',
+    'Normal Distribution' => '常態分布/正態分佈',
     'North America/Oceania' => '北美/大洋洲',
     'Not configured.' => '無設定',
     'Not Draws' => '不是平手',

@@ -56,7 +56,13 @@ RatioAsset::register($this);
   ) . "\n" ?>
   <?= Yii::$app->cache->getOrSet(
     [__FILE__, __LINE__, $assetRevision, Yii::$app->language, $histogramDataId],
-    fn (): string =>  $this->render('rule/histogram', ['data' => $histogramData]),
+    fn (): string =>  $this->render(
+      'rule/histogram',
+      [
+        'abstract' => $abstract,
+        'data' => $histogramData,
+      ],
+    ),
     86400,
   ) . "\n" ?>
 </div>

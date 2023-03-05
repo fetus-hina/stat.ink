@@ -394,6 +394,7 @@ return [
     'No black out' => 'Pas d\'assombrissment/suppression',
     'No Data' => 'Pas de données',
     'No one in control' => 'Personne ne mène',
+    'Normal Distribution' => '',
     'North America/Oceania' => 'Amérique du Nord/Oceanie',
     'Not configured.' => '',
     'Not Draws' => 'Pas match nul',
