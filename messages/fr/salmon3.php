@@ -45,6 +45,7 @@ return [
     'Stats (Bosses)' => '',
     'Time is up' => '',
     'Title Reached' => 'Titre atteint',
+    'Water Level and Events' => '',
     'Wipe out' => '',
     'Xtrawave' => 'Vague +',
     '{name}\'s Salmon Stats (Bosses)' => '',

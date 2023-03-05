@@ -27,6 +27,8 @@ use yii\db\ActiveRecord;
  * @property SalmonMap3 $map
  * @property Salmon3[] $salmon3s
  * @property SalmonScheduleWeapon3[] $salmonScheduleWeapon3s
+ * @property StatBigrunDistrib3[] $statBigrunDistrib3s
+ * @property StatBigrunDistribAbstract3 $statBigrunDistribAbstract3
  * @property UserStatBigrun3[] $userStatBigrun3s
  * @property User[] $users
  */
@@ -84,6 +86,16 @@ class SalmonSchedule3 extends ActiveRecord
     public function getSalmonScheduleWeapon3s(): ActiveQuery
     {
         return $this->hasMany(SalmonScheduleWeapon3::class, ['schedule_id' => 'id']);
+    }
+
+    public function getStatBigrunDistrib3s(): ActiveQuery
+    {
+        return $this->hasMany(StatBigrunDistrib3::class, ['schedule_id' => 'id']);
+    }
+
+    public function getStatBigrunDistribAbstract3(): ActiveQuery
+    {
+        return $this->hasOne(StatBigrunDistribAbstract3::class, ['schedule_id' => 'id']);
     }
 
     public function getUserStatBigrun3s(): ActiveQuery

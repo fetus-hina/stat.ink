@@ -45,6 +45,7 @@ return [
     'Stats (Bosses)' => '',
     'Time is up' => '時間到',
     'Title Reached' => '最高獲得稱號',
+    'Water Level and Events' => '',
     'Wipe out' => '全員陣亡',
     'Xtrawave' => 'EX-WAVE',
     '{name}\'s Salmon Stats (Bosses)' => '',

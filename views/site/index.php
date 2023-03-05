@@ -109,7 +109,21 @@ $gameMode = GameModeIconsAsset::register($this);
           ),
         ]),
         Html::a(Html::encode(Yii::t('app-salmon3', 'Random Loan Rate')), ['entire/salmon3-random-loan']),
-        Html::a(Html::encode(Yii::t('app-salmon-tide2', 'Water Level')), ['entire/salmon3-tide']),
+        Html::a(Html::encode(Yii::t('app-salmon3', 'Water Level and Events')), ['entire/salmon3-tide']),
+        Html::a(
+          vsprintf('%s %s', [
+            Html::img(
+              Yii::$app->assetManager->getAssetUrl($gameMode, 'spl3/salmon-bigrun.png'),
+              [
+                'class' => 'basic-icon',
+                'draggable' => 'false',
+                'style' => ['--icon-height' => '1em'],
+              ],
+            ),
+            Html::encode(Yii::t('app-salmon3', 'Big Run')),
+          ]),
+          ['entire/salmon3-bigrun'],
+        ),
       ],
       [
         Icon::stats(),

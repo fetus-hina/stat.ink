@@ -24,7 +24,7 @@ $this->context->layout = 'main';
 
 $title = vsprintf('%s - %s', [
   Yii::t('app-salmon3', 'Salmon Run'),
-  Yii::t('app-salmon-tide2', 'Water Level'),
+  Yii::t('app-salmon3', 'Water Level and Events'),
 ]);
 $this->title = vsprintf('%s | %s', [
   $title,

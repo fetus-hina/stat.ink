@@ -45,6 +45,7 @@ return [
     'Stats (Bosses)' => '',
     'Time is up' => '时间到',
     'Title Reached' => '达到的称号',
+    'Water Level and Events' => '',
     'Wipe out' => '全员阵亡',
     'Xtrawave' => '',
     '{name}\'s Salmon Stats (Bosses)' => '',

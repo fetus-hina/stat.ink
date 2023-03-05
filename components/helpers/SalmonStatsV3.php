@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -13,6 +13,7 @@ namespace app\components\helpers;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
+use app\components\helpers\salmonStatsV3\BigrunHistogramTrait;
 use app\components\helpers\salmonStatsV3\BigrunTrait;
 use app\components\helpers\salmonStatsV3\StatsTrait;
 use app\models\User;
@@ -21,6 +22,7 @@ use yii\db\Transaction;
 
 final class SalmonStatsV3
 {
+    use BigrunHistogramTrait;
     use BigrunTrait;
     use StatsTrait;
 
@@ -36,6 +38,7 @@ final class SalmonStatsV3
     private static function createImpl(Connection $db, User $user, DateTimeImmutable $now): bool
     {
         return self::createUserStats($db, $user, $now) &&
-            self::createBigrunStats($db, $user, $now);
+            self::createBigrunStats($db, $user, $now) &&
+            self::createBigrunHistogramStats($db);
     }
 }
