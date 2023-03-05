@@ -92,6 +92,7 @@ final class Salmon3FilterForm extends Model
                     fn (): array => array_merge(
                         self::getKeyList(SalmonMap3::class),
                         [
+                            'amabi', // FIXME
                             'sumeshi', // FIXME
                         ],
                     ),
