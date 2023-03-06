@@ -96,11 +96,15 @@ final class BigrunAction extends Action
         );
 
         $normalDistrib = $this->normalDistrib($abstract, $histogram);
-        $estimatedDistrib = $this->estimatedDistrib(
-            $schedule->bigrunOfficialResult3,
-            (int)max(array_keys($normalDistrib)),
-            (float)max(array_values($normalDistrib)),
-        );
+        if ($normalDistrib) {
+            $estimatedDistrib = $this->estimatedDistrib(
+                $schedule->bigrunOfficialResult3,
+                (int)max(array_keys($normalDistrib)),
+                (float)max(array_values($normalDistrib)),
+            );
+        } else {
+            $estimatedDistrib = null;
+        }
 
         return [
             'abstract' => $abstract,
