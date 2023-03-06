@@ -88,7 +88,7 @@ $fmt = Yii::$app->formatter;
           Html::encode(
             vsprintf('%s (%s)', [
               Yii::t('app-map3', $model->bigMap?->name ?? '?'),
-              $fmt->asDate($model->start_at, 'short'),
+              $fmt->asDate($model->start_at, 'medium'),
             ]),
           ),
           [
@@ -124,7 +124,7 @@ $fmt = Yii::$app->formatter;
         Html::encode(
           vsprintf('%s (%s)', [
             Yii::t('app-map3', $schedule->bigMap?->name ?? '?'),
-            $fmt->asDate($schedule->start_at, 'short'),
+            $fmt->asDate($schedule->start_at, 'medium'),
           ]),
         ),
       ]),
