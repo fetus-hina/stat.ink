@@ -26,7 +26,6 @@ use yii\web\Response;
 
 use function array_keys;
 use function array_shift;
-use function array_values;
 use function assert;
 use function ceil;
 use function filter_var;
@@ -96,15 +95,15 @@ final class BigrunAction extends Action
         );
 
         $normalDistrib = $this->normalDistrib($abstract, $histogram);
-        if ($normalDistrib) {
-            $estimatedDistrib = $this->estimatedDistrib(
-                $schedule->bigrunOfficialResult3,
-                (int)max(array_keys($normalDistrib)),
-                (float)max(array_values($normalDistrib)),
-            );
-        } else {
-            $estimatedDistrib = null;
-        }
+        $estimatedDistrib = match (true) {
+            !empty($normalDistrib) => $this->estimatedDistrib(
+                official: $schedule->bigrunOfficialResult3,
+                min: 0,
+                max: (int)max(array_keys($normalDistrib)),
+                samples: (int)$abstract->users,
+            ),
+            default => null,
+        };
 
         return [
             'abstract' => $abstract,
@@ -162,8 +161,10 @@ final class BigrunAction extends Action
      */
     private function estimatedDistrib(
         ?BigrunOfficialResult3 $official,
+        int $min, // should be 0
         int $max,
-        float $scalePeakTo,
+        int $samples,
+        int $dataStep = 5,
     ): ?array {
         if (
             !$official ||
@@ -179,13 +180,8 @@ final class BigrunAction extends Action
         $calcStep = 2;
 
         $nd = new NormalDistribution($estimatedAverage, $estimatedSD);
-        $peakValue = $nd->pdf($estimatedAverage);
-        if ($peakValue < 0.0000001) {
-            return null;
-        }
-
-        for ($x = 0; $x <= $max; $x += $calcStep) {
-            $results[$x] = $nd->pdf($x) / $peakValue * $scalePeakTo;
+        for ($x = $min; $x <= $max; $x += $calcStep) {
+            $results[$x] = $samples * $dataStep * $nd->pdf($x);
         }
 
         return $results;
