@@ -18,6 +18,8 @@ use yii\web\View;
  * @var array<int, float> $estimatedDistrib
  * @var array<int, float> $normalDistrib
  * @var array<int, int> $histogram
+ * @var float|null $estimatedAverage
+ * @var float|null $estimatedStddev
  */
 
 if (!$histogram) {
@@ -167,5 +169,11 @@ if ($estimatedDistrib) {
       Html::encode(Yii::t('app', 'Just scaled for easy contrast, the Y-axis value does not directly indicate the number of people.')),
     ]),
   ]) . "\n" ?>
+<?php if ($estimatedAverage && $estimatedStddev) { ?>
+  <?= vsprintf('(μ=%.2f, σ=%.2f)', [
+    $estimatedAverage,
+    $estimatedStddev,
+  ]) . "\n" ?>
+<?php } ?>
 <p>
 <?php } ?>

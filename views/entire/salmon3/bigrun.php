@@ -21,6 +21,8 @@ use yii\web\View;
  * @var array<int, float>|null $estimatedDistrib
  * @var array<int, float>|null $normalDistrib
  * @var array<int, int> $histogram
+ * @var float|null $estimatedAverage
+ * @var float|null $estimatedStddev
  */
 
 $title = Yii::t('app-salmon3', 'Big Run');
@@ -140,11 +142,13 @@ $fmt = Yii::$app->formatter;
       'model' => $abstract,
       'official' => $schedule->bigrunOfficialResult3,
     ]) . "\n" ?>
-    <?= $this->render('bigrun/histogram', [
-      'abstract' => $abstract,
-      'estimatedDistrib' => $estimatedDistrib,
-      'histogram' => $histogram,
-      'normalDistrib' => $normalDistrib,
-    ]) . "\n" ?>
+    <?= $this->render('bigrun/histogram', compact(
+      'abstract',
+      'estimatedAverage',
+      'estimatedDistrib',
+      'estimatedStddev',
+      'histogram',
+      'normalDistrib',
+    )) . "\n" ?>
   </div>
 </div>
