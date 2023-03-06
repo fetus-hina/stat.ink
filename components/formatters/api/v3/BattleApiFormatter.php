@@ -51,6 +51,7 @@ final class BattleApiFormatter
                 'gear' => ImageApiFormatter::toJson($model->battleImageGear3),
             ],
             'user' => UserApiFormatter::toJson($model->user, $isAuthenticated, $fullTranslate),
+            'uuid' => $model->client_uuid,
             'lobby' => LobbyApiFormatter::toJson($model->lobby, $fullTranslate),
             'rule' => RuleApiFormatter::toJson($model->rule, $fullTranslate),
             'stage' => StageApiFormatter::toJson($model->map, $fullTranslate),
