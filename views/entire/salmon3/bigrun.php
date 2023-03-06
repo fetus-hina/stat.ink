@@ -18,7 +18,8 @@ use yii\web\View;
  * @var View $this
  * @var array<int, SalmonSchedule3> $schedules
  * @var array<int, StatBigrunDistribAbstract3>|null $abstract
- * @var array<int, float> $normalDistrib
+ * @var array<int, float>|null $estimatedDistrib
+ * @var array<int, float>|null $normalDistrib
  * @var array<int, int> $histogram
  */
 
@@ -141,6 +142,7 @@ $fmt = Yii::$app->formatter;
     ]) . "\n" ?>
     <?= $this->render('bigrun/histogram', [
       'abstract' => $abstract,
+      'estimatedDistrib' => $estimatedDistrib,
       'histogram' => $histogram,
       'normalDistrib' => $normalDistrib,
     ]) . "\n" ?>

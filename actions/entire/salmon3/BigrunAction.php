@@ -12,6 +12,7 @@ namespace app\actions\entire\salmon3;
 
 use MathPHP\Probability\Distribution\Continuous\Normal as NormalDistribution;
 use Yii;
+use app\models\BigrunOfficialResult3;
 use app\models\SalmonSchedule3;
 use app\models\StatBigrunDistrib3;
 use app\models\StatBigrunDistribAbstract3;
@@ -23,7 +24,9 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
+use function array_keys;
 use function array_shift;
+use function array_values;
 use function assert;
 use function ceil;
 use function filter_var;
@@ -76,6 +79,8 @@ final class BigrunAction extends Action
             );
         }
 
+        $schedule = $schedules[$scheduleId];
+
         $abstract = StatBigrunDistribAbstract3::find()
             ->andWhere(['schedule_id' => $scheduleId])
             ->limit(1)
@@ -90,11 +95,19 @@ final class BigrunAction extends Action
             'users',
         );
 
+        $normalDistrib = $this->normalDistrib($abstract, $histogram);
+        $estimatedDistrib = $this->estimatedDistrib(
+            $schedule->bigrunOfficialResult3,
+            (int)max(array_keys($normalDistrib)),
+            (float)max(array_values($normalDistrib)),
+        );
+
         return [
             'abstract' => $abstract,
+            'estimatedDistrib' => $estimatedDistrib,
             'histogram' => $histogram,
-            'normalDistrib' => $this->normalDistrib($abstract, $histogram),
-            'schedule' => $schedules[$scheduleId],
+            'normalDistrib' => $normalDistrib,
+            'schedule' => $schedule,
             'schedules' => $schedules,
         ];
     }
@@ -135,6 +148,40 @@ final class BigrunAction extends Action
         $results = [];
         for ($x = $min; $x <= $max; $x += $calcStep) {
             $results[$x] = $abstract->users * $dataStep * $nd->pdf($x);
+        }
+
+        return $results;
+    }
+
+    /**
+     * @return array<int, float>|null
+     */
+    private function estimatedDistrib(
+        ?BigrunOfficialResult3 $official,
+        int $max,
+        float $scalePeakTo,
+    ): ?array {
+        if (
+            !$official ||
+            $official->gold < 1 ||
+            $official->silver >= $official->gold ||
+            $official->bronze >= $official->silver
+        ) {
+            return null;
+        }
+
+        $estimatedAverage = (float)(int)$official->bronze; // 平均値の推定として50パーセンタイル値を使用する
+        $estimatedSD = ((float)(int)$official->gold - $estimatedAverage) / 1.64485;
+        $calcStep = 2;
+
+        $nd = new NormalDistribution($estimatedAverage, $estimatedSD);
+        $peakValue = $nd->pdf($estimatedAverage);
+        if ($peakValue < 0.0000001) {
+            return null;
+        }
+
+        for ($x = 0; $x <= $max; $x += $calcStep) {
+            $results[$x] = $nd->pdf($x) / $peakValue * $scalePeakTo;
         }
 
         return $results;

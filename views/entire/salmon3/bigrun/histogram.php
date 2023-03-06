@@ -15,6 +15,7 @@ use yii\web\View;
 /**
  * @var StatBigrunDistribAbstract3|null $abstract
  * @var View $this
+ * @var array<int, float> $estimatedDistrib
  * @var array<int, float> $normalDistrib
  * @var array<int, int> $histogram
  */
@@ -76,6 +77,25 @@ if ($normalDistrib) {
   ];
 }
 
+$datasetEstimatedDistrib = null;
+if ($estimatedDistrib) {
+  $datasetEstimatedDistrib = [
+    'backgroundColor' => [ new JsExpression('window.colorScheme.moving1') ],
+    'borderColor' => [ new JsExpression('window.colorScheme.moving1') ],
+    'borderWidth' => 2,
+    'data' => array_values(
+      array_map(
+        fn (int $x, float $y): array => compact('x', 'y'),
+        array_keys($estimatedDistrib),
+        array_values($estimatedDistrib),
+      ),
+    ),
+    'label' => Yii::t('app', 'Overall Estimates'),
+    'pointRadius' => 0,
+    'type' => 'line',
+  ];
+}
+
 ?>
 <div class="row">
   <div class="col-xs-12 col-md-9 col-lg-7 mb-3">
@@ -88,6 +108,7 @@ if ($normalDistrib) {
             'datasets' => array_values(
               array_filter(
                 [
+                  $datasetEstimatedDistrib,
                   $datasetNormalDistrib,
                   $datasetHistogram,
                 ],
@@ -137,3 +158,14 @@ if ($normalDistrib) {
     ]) . "\n" ?>
   </div>
 </div>
+<?php if ($datasetEstimatedDistrib) { ?>
+<p class="mt-0 mb-3 text-muted small">
+  <?= vsprintf('%s: %s', [
+    Html::encode(Yii::t('app', 'Overall Estimates')),
+    implode(' ', [
+      Html::encode(Yii::t('app', 'The estimated distribution of the overall game, as estimated from the official results.')),
+      Html::encode(Yii::t('app', 'Just scaled for easy contrast, the Y-axis value does not directly indicate the number of people.')),
+    ]),
+  ]) . "\n" ?>
+<p>
+<?php } ?>
