@@ -406,6 +406,13 @@ $positions: (
   width: auto !important;
 }
 
+
+.w-sm-auto {
+  @media (min-width: 768px) {
+    width: auto !important;
+  }
+}
+
 $step: 5;
 @for $index from 0 through math.div(100, $step) {
   $pct: $index * $step;
