@@ -107,7 +107,9 @@ final class BigrunAction extends Action
 
         return [
             'abstract' => $abstract,
-            'estimatedDistrib' => $estimatedDistrib,
+            'estimatedAverage' => $estimatedDistrib ? $estimatedDistrib['avg'] : null,
+            'estimatedDistrib' => $estimatedDistrib ? $estimatedDistrib['histogram'] : null,
+            'estimatedStddev' => $estimatedDistrib ? $estimatedDistrib['stddev'] : null,
             'histogram' => $histogram,
             'normalDistrib' => $normalDistrib,
             'schedule' => $schedule,
@@ -157,7 +159,7 @@ final class BigrunAction extends Action
     }
 
     /**
-     * @return array<int, float>|null
+     * @return array{avg: float, stddev: float, histogram: array<int, float>}|null
      */
     private function estimatedDistrib(
         ?BigrunOfficialResult3 $official,
@@ -175,8 +177,29 @@ final class BigrunAction extends Action
             return null;
         }
 
-        $estimatedAverage = (float)(int)$official->bronze; // 平均値の推定として50パーセンタイル値を使用する
-        $estimatedSD = ((float)(int)$official->gold - $estimatedAverage) / 1.64485;
+        // Ref. http://homepages.math.uic.edu/~bpower6/stat101/Confidence%20Intervals.pdf
+        $nd = new NormalDistribution(0.0, 1.0);
+        $z20 = $nd->inverse(0.60 + (1 - 0.60) / 2);
+        $z5 = $nd->inverse(0.90 + (1 - 0.90) / 2); // 1.64485
+        unset($nd);
+
+        // 綺麗な正規分布であることを想定した上で、
+        // 80パーセンタイル値と95パーセンタイル値から平均値を逆算する
+        //
+        //   SD = (n - avg) / z
+        //
+        // より
+        //
+        //   (n5 - avg) / z5 = (n20 - avg) / z20
+        //
+        // を avg について解いて
+        //
+        //   avg = (z5 * n20 - z20 * n5) / (z5 - z20)
+        //
+        // 実際はかたよりがあるので、おそらく50パーセンタイル値すら合わない
+
+        $estimatedAverage = ($z5 * $official->silver - $z20 * $official->gold) / ($z5 - $z20);
+        $estimatedSD = ((float)(int)$official->gold - $estimatedAverage) / $z5;
         $calcStep = 2;
 
         $nd = new NormalDistribution($estimatedAverage, $estimatedSD);
@@ -184,7 +207,11 @@ final class BigrunAction extends Action
             $results[$x] = $samples * $dataStep * $nd->pdf($x);
         }
 
-        return $results;
+        return [
+            'avg' => $estimatedAverage,
+            'stddev' => $estimatedSD,
+            'histogram' => $results,
+        ];
     }
 
     /**
