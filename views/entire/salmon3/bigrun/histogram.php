@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use MathPHP\Probability\Distribution\Continuous\Normal as NormalDistribution;
 use app\assets\ChartJsAsset;
 use app\assets\ColorSchemeAsset;
 use app\assets\RatioAsset;
@@ -13,13 +14,12 @@ use yii\web\JsExpression;
 use yii\web\View;
 
 /**
+ * @var NormalDistribution|null $estimatedDistrib
+ * @var NormalDistribution|null $normalDistrib
  * @var StatBigrunDistribAbstract3|null $abstract
  * @var View $this
- * @var array<int, float> $estimatedDistrib
- * @var array<int, float> $normalDistrib
  * @var array<int, int> $histogram
- * @var float|null $estimatedAverage
- * @var float|null $estimatedStddev
+ * @var int|null $chartMax
  */
 
 if (!$histogram) {
@@ -60,19 +60,30 @@ $datasetHistogram = [
   'type' => 'bar',
 ];
 
+$makeDistributionData = function (NormalDistribution $nd) use ($abstract, $chartMax): array {
+  assert($abstract);
+  assert($chartMax);
+
+  $results = [];
+  $dataStep = 5;
+  $makeStep = 2;
+  $chartMax = (int)(ceil($chartMax / $makeStep) * $makeStep);
+  for ($x = 0; $x <= $chartMax; $x += $makeStep) {
+    $results[] = [
+      'x' => $x,
+      'y' => $nd->pdf($x) * $dataStep * $abstract->users,
+    ];
+  }
+  return $results;
+};
+
 $datasetNormalDistrib = null;
-if ($normalDistrib) {
+if ($normalDistrib && $abstract && $chartMax > 0) {
   $datasetNormalDistrib = [
     'backgroundColor' => [ new JsExpression('window.colorScheme.graph1') ],
     'borderColor' => [ new JsExpression('window.colorScheme.graph1') ],
     'borderWidth' => 2,
-    'data' => array_values(
-      array_map(
-        fn (int $x, float $y): array => compact('x', 'y'),
-        array_keys($normalDistrib),
-        array_values($normalDistrib),
-      ),
-    ),
+    'data' => $makeDistributionData($normalDistrib),
     'label' => Yii::t('app', 'Normal Distribution'),
     'pointRadius' => 0,
     'type' => 'line',
@@ -80,18 +91,12 @@ if ($normalDistrib) {
 }
 
 $datasetEstimatedDistrib = null;
-if ($estimatedDistrib) {
+if ($estimatedDistrib && $abstract && $chartMax > 0) {
   $datasetEstimatedDistrib = [
     'backgroundColor' => [ new JsExpression('window.colorScheme.moving1') ],
     'borderColor' => [ new JsExpression('window.colorScheme.moving1') ],
     'borderWidth' => 2,
-    'data' => array_values(
-      array_map(
-        fn (int $x, float $y): array => compact('x', 'y'),
-        array_keys($estimatedDistrib),
-        array_values($estimatedDistrib),
-      ),
-    ),
+    'data' => $makeDistributionData($estimatedDistrib),
     'label' => Yii::t('app', 'Overall Estimates'),
     'pointRadius' => 0,
     'type' => 'line',
@@ -160,20 +165,15 @@ if ($estimatedDistrib) {
     ]) . "\n" ?>
   </div>
 </div>
-<?php if ($datasetEstimatedDistrib) { ?>
+<?php if ($estimatedDistrib && $datasetEstimatedDistrib) { ?>
 <p class="mt-0 mb-3 text-muted small">
-  <?= vsprintf('%s: %s', [
+  <?= vsprintf('%s: %s %s', [
     Html::encode(Yii::t('app', 'Overall Estimates')),
     implode(' ', [
       Html::encode(Yii::t('app', 'The estimated distribution of the overall game, as estimated from the official results.')),
       Html::encode(Yii::t('app', 'Just scaled for easy contrast, the Y-axis value does not directly indicate the number of people.')),
     ]),
+    sprintf('(μ=%.2f, σ=%.2f)', $estimatedDistrib->mean(), sqrt($estimatedDistrib->variance()))
   ]) . "\n" ?>
-<?php if ($estimatedAverage && $estimatedStddev) { ?>
-  <?= vsprintf('(μ=%.2f, σ=%.2f)', [
-    $estimatedAverage,
-    $estimatedStddev,
-  ]) . "\n" ?>
-<?php } ?>
-<p>
+</p>
 <?php } ?>

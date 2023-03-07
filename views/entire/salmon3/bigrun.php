@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use MathPHP\Probability\Distribution\Continuous\Normal as NormalDistribution;
 use app\assets\GameModeIconsAsset;
 use app\assets\NotoSansMathAsset;
 use app\components\widgets\AdWidget;
@@ -14,15 +15,14 @@ use yii\helpers\Url;
 use yii\web\View;
 
 /**
+ * @var NormalDistribution|null $estimatedDistrib
+ * @var NormalDistribution|null $normalDistrib
  * @var SalmonSchedule3 $schedule
  * @var View $this
  * @var array<int, SalmonSchedule3> $schedules
  * @var array<int, StatBigrunDistribAbstract3>|null $abstract
- * @var array<int, float>|null $estimatedDistrib
- * @var array<int, float>|null $normalDistrib
  * @var array<int, int> $histogram
- * @var float|null $estimatedAverage
- * @var float|null $estimatedStddev
+ * @var int|null $chartMax
  */
 
 $title = Yii::t('app-salmon3', 'Big Run');
@@ -75,7 +75,7 @@ $fmt = Yii::$app->formatter;
     ) . "\n" ?>
     <?= Html::tag(
       'span',
-      '(100 ≤ 𝑛 ≤ 104 → 100)',
+      '(100 ≤ 𝑛 &lt; 105 → 100)',
       ['style' => ['font-family' => 'Noto Sans Math']],
     ) . "\n" ?>
   </div>
@@ -144,9 +144,8 @@ $fmt = Yii::$app->formatter;
     ]) . "\n" ?>
     <?= $this->render('bigrun/histogram', compact(
       'abstract',
-      'estimatedAverage',
+      'chartMax',
       'estimatedDistrib',
-      'estimatedStddev',
       'histogram',
       'normalDistrib',
     )) . "\n" ?>
