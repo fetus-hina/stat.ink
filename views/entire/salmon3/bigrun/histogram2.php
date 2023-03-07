@@ -30,32 +30,31 @@ ChartJsAsset::register($this);
 ColorSchemeAsset::register($this);
 RatioAsset::register($this);
 
-$this->registerJs("
-  jQuery('.bigrun-histogram').each(
-    function () {
-      function looseJsonParse (obj) {
-        return Function('\"use strict\";return (' + obj + ')')();
-      }
+$totalUsers = array_sum(array_values($histogram));
+if ($totalUsers < 1) {
+  return;
+}
 
-      const elem = this;
-      const config = looseJsonParse(this.getAttribute('data-chart'));
-      const canvas = elem.appendChild(document.createElement('canvas'));
-      new window.Chart(canvas.getContext('2d'), config);
-    }
-  );
-");
+$keyMax = max(array_keys($histogram));
+$totalHistogram = [];
+for ($x = 0; $x <= $keyMax; $x += 5) {
+  $totalHistogram[] = [
+    'x' => $x,
+    'y' => array_sum(
+      array_filter(
+        $histogram,
+        fn (int $v): bool => $v <= $x,
+        ARRAY_FILTER_USE_KEY,
+      ),
+    ) / $totalUsers,
+  ];
+}
 
 $datasetHistogram = [
   'backgroundColor' => [ new JsExpression('window.colorScheme.graph2') ],
   'borderColor' => [ new JsExpression('window.colorScheme.graph2') ],
   'borderWidth' => 1,
-  'data' => array_values(
-    array_map(
-      fn (int $x, int $y): array => compact('x', 'y'),
-      array_keys($histogram),
-      array_values($histogram),
-    ),
-  ),
+  'data' => $totalHistogram,
   'label' => Yii::t('app', 'Users'),
   'type' => 'bar',
 ];
@@ -65,13 +64,12 @@ $makeDistributionData = function (NormalDistribution $nd) use ($abstract, $chart
   assert($chartMax);
 
   $results = [];
-  $dataStep = 5;
   $makeStep = 2;
   $chartMax = (int)(ceil($chartMax / $makeStep) * $makeStep);
   for ($x = 0; $x <= $chartMax; $x += $makeStep) {
     $results[] = [
       'x' => $x,
-      'y' => $nd->pdf($x) * $dataStep * $abstract->users,
+      'y' => $nd->cdf($x),
     ];
   }
   return $results;
@@ -103,6 +101,59 @@ if ($estimatedDistrib && $abstract && $chartMax > 0) {
   ];
 }
 
+$dataset95pct = null;
+$dataset80pct = null;
+$dataset50pct = null;
+if ($chartMax > 0) {
+  $dataset95pct = [
+    'animation' => [
+      'duration' => 0,
+    ],
+    'backgroundColor' => [ new JsExpression('window.colorScheme._accent.red') ],
+    'borderColor' => [ new JsExpression('window.colorScheme._accent.red') ],
+    'borderWidth' => 1,
+    'data' => [
+      ['x' => 0, 'y' => 0.95],
+      ['x' => $chartMax, 'y' => 0.95],
+    ],
+    'label' => Yii::t('app', 'Top {percentile}%', ['percentile' => 5]),
+    'pointRadius' => 0,
+    'type' => 'line',
+  ];
+
+  $dataset80pct = [
+    'animation' => [
+      'duration' => 0,
+    ],
+    'backgroundColor' => [ new JsExpression('window.colorScheme._accent.red') ],
+    'borderColor' => [ new JsExpression('window.colorScheme._accent.red') ],
+    'borderWidth' => 1,
+    'data' => [
+      ['x' => 0, 'y' => 0.8],
+      ['x' => $chartMax, 'y' => 0.8],
+    ],
+    'label' => Yii::t('app', 'Top {percentile}%', ['percentile' => 20]),
+    'pointRadius' => 0,
+    'type' => 'line',
+  ];
+
+  $dataset50pct = [
+    'animation' => [
+      'duration' => 0,
+    ],
+    'backgroundColor' => [ new JsExpression('window.colorScheme._accent.red') ],
+    'borderColor' => [ new JsExpression('window.colorScheme._accent.red') ],
+    'borderWidth' => 1,
+    'data' => [
+      ['x' => 0, 'y' => 0.5],
+      ['x' => $chartMax, 'y' => 0.5],
+    ],
+    'label' => Yii::t('app', 'Top {percentile}%', ['percentile' => 50]),
+    'pointRadius' => 0,
+    'type' => 'line',
+  ];
+}
+
 ?>
 <div class="row">
   <div class="col-xs-12 col-md-9 col-lg-7 mb-3">
@@ -114,6 +165,9 @@ if ($estimatedDistrib && $abstract && $chartMax > 0) {
             'datasets' => array_values(
               array_filter(
                 [
+                  $dataset50pct,
+                  $dataset80pct,
+                  $dataset95pct,
                   $datasetEstimatedDistrib,
                   $datasetNormalDistrib,
                   $datasetHistogram,
@@ -151,6 +205,12 @@ if ($estimatedDistrib && $abstract && $chartMax > 0) {
               ],
               'y' => [
                 'min' => 0,
+                'max' => 1.0,
+                'ticks' => [
+                  'format' => [
+                    'style' => 'percent',
+                  ],
+                ],
                 'title' => [
                   'display' => true,
                   'text' => Yii::t('app', 'Users'),
@@ -164,15 +224,3 @@ if ($estimatedDistrib && $abstract && $chartMax > 0) {
     ]) . "\n" ?>
   </div>
 </div>
-<?php if ($estimatedDistrib && $datasetEstimatedDistrib) { ?>
-<p class="mt-0 mb-3 text-muted small">
-  <?= vsprintf('%s: %s %s', [
-    Html::encode(Yii::t('app', 'Overall Estimates')),
-    implode(' ', [
-      Html::encode(Yii::t('app', 'The estimated distribution of the overall game, as estimated from the official results.')),
-      Html::encode(Yii::t('app', 'Just scaled for easy contrast, the Y-axis value does not directly indicate the number of people.')),
-    ]),
-    sprintf('(μ=%.2f, σ=%.2f)', $estimatedDistrib->mean(), sqrt($estimatedDistrib->variance()))
-  ]) . "\n" ?>
-</p>
-<?php } ?>

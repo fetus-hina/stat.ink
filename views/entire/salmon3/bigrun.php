@@ -149,5 +149,12 @@ $fmt = Yii::$app->formatter;
       'histogram',
       'normalDistrib',
     )) . "\n" ?>
+    <?= $this->render('bigrun/histogram2', compact(
+      'abstract',
+      'chartMax',
+      'estimatedDistrib',
+      'histogram',
+      'normalDistrib',
+    )) . "\n" ?>
   </div>
 </div>
