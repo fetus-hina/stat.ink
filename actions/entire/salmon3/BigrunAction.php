@@ -24,12 +24,11 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
+use function abs;
 use function array_keys;
 use function array_shift;
 use function assert;
-use function ceil;
 use function filter_var;
-use function floor;
 use function gmdate;
 use function is_int;
 use function max;
@@ -94,22 +93,31 @@ final class BigrunAction extends Action
             'users',
         );
 
-        $normalDistrib = $this->normalDistrib($abstract, $histogram);
-        $estimatedDistrib = match (true) {
-            !empty($normalDistrib) => $this->estimatedDistrib(
-                official: $schedule->bigrunOfficialResult3,
-                min: 0,
-                max: (int)max(array_keys($normalDistrib)),
-                samples: (int)$abstract->users,
-            ),
-            default => null,
-        };
+        $normalDistrib = null;
+        $estimatedDistrib = null;
+        $chartMax = null;
+        if (
+            $abstract &&
+            $histogram &&
+            $abstract->average >= 1 &&
+            $abstract->median !== null &&
+            $abstract->q1 !== null &&
+            $abstract->q3 !== null &&
+            $abstract->stddev !== null &&
+            $abstract->users >= 10
+        ) {
+            $normalDistrib = new NormalDistribution(
+                (float)$abstract->average,
+                (float)$abstract->stddev,
+            );
+            $estimatedDistrib = self::estimatedDistrib($schedule->bigrunOfficialResult3);
+            $chartMax = max(array_keys($histogram));
+        }
 
         return [
             'abstract' => $abstract,
-            'estimatedAverage' => $estimatedDistrib ? $estimatedDistrib['avg'] : null,
-            'estimatedDistrib' => $estimatedDistrib ? $estimatedDistrib['histogram'] : null,
-            'estimatedStddev' => $estimatedDistrib ? $estimatedDistrib['stddev'] : null,
+            'chartMax' => $chartMax,
+            'estimatedDistrib' => $estimatedDistrib,
             'histogram' => $histogram,
             'normalDistrib' => $normalDistrib,
             'schedule' => $schedule,
@@ -117,57 +125,8 @@ final class BigrunAction extends Action
         ];
     }
 
-    /**
-     * @param array<int, int> $histogram
-     * @return array<int, float>|null
-     */
-    private function normalDistrib(?StatBigrunDistribAbstract3 $abstract, array $histogram): ?array
+    private static function estimatedDistrib(?BigrunOfficialResult3 $official): ?NormalDistribution
     {
-        if (
-            !$abstract ||
-            !$histogram ||
-            $abstract->average < 1 ||
-            $abstract->median === null ||
-            $abstract->q1 === null ||
-            $abstract->q3 === null ||
-            $abstract->stddev === null ||
-            $abstract->users < 10
-        ) {
-            return null;
-        }
-
-        $iqr = $abstract->q3 - $abstract->q1;
-        if ($iqr < 1) {
-            return null;
-        }
-
-        $calcStep = 2;
-        $dataStep = 5;
-        $min = 0;
-        $max = max(
-            (int)ceil(($abstract->q3 + 1.5 * $iqr) / $dataStep) * $dataStep,
-            (int)floor($abstract->max / $dataStep) * $dataStep,
-        );
-        $nd = new NormalDistribution((float)$abstract->average, (float)$abstract->stddev);
-
-        $results = [];
-        for ($x = $min; $x <= $max; $x += $calcStep) {
-            $results[$x] = $abstract->users * $dataStep * $nd->pdf($x);
-        }
-
-        return $results;
-    }
-
-    /**
-     * @return array{avg: float, stddev: float, histogram: array<int, float>}|null
-     */
-    private function estimatedDistrib(
-        ?BigrunOfficialResult3 $official,
-        int $min, // should be 0
-        int $max,
-        int $samples,
-        int $dataStep = 5,
-    ): ?array {
         if (
             !$official ||
             $official->gold < 1 ||
@@ -182,6 +141,9 @@ final class BigrunAction extends Action
         $z20 = $nd->inverse(0.60 + (1 - 0.60) / 2);
         $z5 = $nd->inverse(0.90 + (1 - 0.90) / 2); // 1.64485
         unset($nd);
+
+        assert(abs($z5 - $z20) > 0.000001);
+        assert(abs($z5) > 0.000001);
 
         // 綺麗な正規分布であることを想定した上で、
         // 80パーセンタイル値と95パーセンタイル値から平均値を逆算する
@@ -199,28 +161,19 @@ final class BigrunAction extends Action
         // 実際はかたよりがあるので、おそらく50パーセンタイル値すら合わない
 
         $estimatedAverage = ($z5 * $official->silver - $z20 * $official->gold) / ($z5 - $z20);
-        $estimatedSD = ((float)(int)$official->gold - $estimatedAverage) / $z5;
-        $calcStep = 2;
 
-        $nd = new NormalDistribution($estimatedAverage, $estimatedSD);
-        for ($x = $min; $x <= $max; $x += $calcStep) {
-            $results[$x] = $samples * $dataStep * $nd->pdf($x);
-        }
-
-        return [
-            'avg' => $estimatedAverage,
-            'stddev' => $estimatedSD,
-            'histogram' => $results,
-        ];
+        return new NormalDistribution(
+            $estimatedAverage,
+            ((float)(int)$official->gold - $estimatedAverage) / $z5, // stddev
+        );
     }
 
     /**
      * @return array<int, SalmonSchedule3>
      */
-    private function getBigrunSchedules(Connection $db): array
+    private static function getBigrunSchedules(Connection $db): array
     {
-        $time = $_SERVER['REQUEST_TIME'];
-        $date = gmdate('Y-m-d', $time);
+        $date = gmdate('Y-m-d', $_SERVER['REQUEST_TIME']);
 
         return Yii::$app->cache->getOrSet(
             [__METHOD__, $date],
@@ -235,9 +188,9 @@ final class BigrunAction extends Action
                     ->orderBy(['start_at' => SORT_DESC])
                     ->all($db),
                 'id',
-                fn ($v) => $v,
+                fn (SalmonSchedule3 $v): SalmonSchedule3 => $v,
             ),
-            1,
+            YII_ENV_PROD ? 86400 : 10,
         );
     }
 }

@@ -35,15 +35,14 @@ foreach ($weapons as $weaponKey => $weapon) {
         implode(
           '',
           array_map(
-            fn (string $ruleKey, Rule3 $rule): string => $this->render(
-              'cell-data',
-              [
+            function (string $ruleKey, Rule3 $rule) use ($weaponStats, $user, $weapon): string {
+              return $this->render('cell-data', [
                 'rule' => $rule,
                 'stats' => ArrayHelper::getValue($weaponStats, $ruleKey),
                 'user' => $user,
                 'weapon' => $weapon,
-              ],
-            ),
+              ]);
+            },
             array_keys($rules),
             array_values($rules),
           ),
