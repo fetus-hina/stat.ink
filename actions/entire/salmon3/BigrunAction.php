@@ -95,6 +95,7 @@ final class BigrunAction extends Action
 
         $normalDistrib = null;
         $estimatedDistrib = null;
+        $ruleOfThumbDistrib = null;
         $chartMax = null;
         if (
             $abstract &&
@@ -111,6 +112,7 @@ final class BigrunAction extends Action
                 (float)$abstract->stddev,
             );
             $estimatedDistrib = self::estimatedDistrib($schedule->bigrunOfficialResult3);
+            $ruleOfThumbDistrib = self::ruleOfThumbDistrib($abstract);
             $chartMax = max(array_keys($histogram));
         }
 
@@ -120,6 +122,7 @@ final class BigrunAction extends Action
             'estimatedDistrib' => $estimatedDistrib,
             'histogram' => $histogram,
             'normalDistrib' => $normalDistrib,
+            'ruleOfThumbDistrib' => $ruleOfThumbDistrib,
             'schedule' => $schedule,
             'schedules' => $schedules,
         ];
@@ -165,6 +168,38 @@ final class BigrunAction extends Action
         return new NormalDistribution(
             $estimatedAverage,
             ((float)(int)$official->gold - $estimatedAverage) / $z5, // stddev
+        );
+    }
+
+    private static function ruleOfThumbDistrib(StatBigrunDistribAbstract3 $abstract): ?NormalDistribution
+    {
+        if (
+            $abstract->users < 50 ||
+            $abstract->top_5_pct === null ||
+            $abstract->top_20_pct === null ||
+            $abstract->median === null ||
+            $abstract->top_5_pct <= $abstract->top_20_pct &&
+            $abstract->top_20_pct <= $abstract->median
+        ) {
+            return null;
+        }
+
+        // Ref. http://homepages.math.uic.edu/~bpower6/stat101/Confidence%20Intervals.pdf
+        $nd = new NormalDistribution(0.0, 1.0);
+        $z20 = $nd->inverse(0.60 + (1 - 0.60) / 2);
+        $z5 = $nd->inverse(0.90 + (1 - 0.90) / 2); // 1.64485
+        unset($nd);
+
+        assert(abs($z5 - $z20) > 0.000001);
+        assert(abs($z5) > 0.000001);
+
+        $n5 = $abstract->top_20_pct;
+        $n20 = $abstract->median;
+        $estimatedAverage = ($z5 * $n20 - $z20 * $n5) / ($z5 - $z20);
+
+        return new NormalDistribution(
+            $estimatedAverage,
+            ($n5 - $estimatedAverage) / $z5,
         );
     }
 

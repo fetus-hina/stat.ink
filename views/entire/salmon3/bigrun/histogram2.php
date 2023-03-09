@@ -16,6 +16,7 @@ use yii\web\View;
 /**
  * @var NormalDistribution|null $estimatedDistrib
  * @var NormalDistribution|null $normalDistrib
+ * @var NormalDistribution|null $ruleOfThumbDistrib
  * @var StatBigrunDistribAbstract3|null $abstract
  * @var View $this
  * @var array<int, int> $histogram
@@ -101,6 +102,21 @@ if ($estimatedDistrib && $abstract && $chartMax > 0) {
   ];
 }
 
+$datasetRuleOfThumbDistrib = null;
+if (!$datasetEstimatedDistrib && $ruleOfThumbDistrib && $abstract && $chartMax > 0) {
+  $datasetRuleOfThumbDistrib = [
+    'backgroundColor' => [ new JsExpression('window.colorScheme.moving1') ],
+    'borderColor' => [ new JsExpression('window.colorScheme.moving1') ],
+    'borderWidth' => 2,
+    'borderDash' => [5, 5],
+    'data' => $makeDistributionData($ruleOfThumbDistrib),
+    'label' => Yii::t('app', 'Empirical Estimates'),
+    'pointRadius' => 0,
+    'type' => 'line',
+  ];
+}
+
+
 $dataset95pct = null;
 $dataset80pct = null;
 $dataset50pct = null;
@@ -168,6 +184,7 @@ if ($chartMax > 0) {
                   $dataset50pct,
                   $dataset80pct,
                   $dataset95pct,
+                  $datasetRuleOfThumbDistrib,
                   $datasetEstimatedDistrib,
                   $datasetNormalDistrib,
                   $datasetHistogram,
