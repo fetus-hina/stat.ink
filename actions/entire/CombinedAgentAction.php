@@ -1,24 +1,25 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 namespace app\actions\entire;
 
-use Base32\Base32;
 use DateInterval;
 use DateTime;
 use DateTimeZone;
+use ParagonIE\ConstantTime\Base32;
+use RangeException;
 use Yii;
 use app\models\AgentGroup;
 use app\models\StatAgentUser;
+use yii\base\Action;
 use yii\base\DynamicModel;
 use yii\db\Query;
 use yii\web\NotFoundHttpException;
-use yii\web\ViewAction as BaseAction;
 
 use function array_keys;
 use function array_map;
@@ -31,7 +32,7 @@ use function sprintf;
 
 use const SORT_ASC;
 
-class CombinedAgentAction extends BaseAction
+final class CombinedAgentAction extends Action
 {
     public $form;
     public $agentGroup;
@@ -49,20 +50,27 @@ class CombinedAgentAction extends BaseAction
         $form->addRule('b32name', 'required')
             ->addRule('b32name', 'match', ['pattern' => '/^[a-zA-Z2-7]+$/'])
             ->addRule('b32name', function ($attr, $conf) use ($action, $form) {
-                $decoded = Base32::decode($form->$attr);
-                if ($decoded === false || $decoded === '') {
+                try {
+                    $decoded = Base32::decode($form->$attr);
+                } catch (RangeException $e) {
+                    $decoded = '';
+                }
+                if ($decoded === '') {
                     $form->addError($attr, 'invalid name');
                     return;
                 }
+
                 if (!mb_check_encoding($decoded, 'UTF-8')) {
                     $form->addError($attr, 'broken encoding');
                     return;
                 }
+
                 $group = AgentGroup::findOne(['name' => $decoded]);
                 if (!$group) {
                     $form->addError($attr, 'not found');
                     return;
                 }
+
                 $action->agentGroup = $group;
             });
         if (!$form->validate()) {
@@ -73,9 +81,15 @@ class CombinedAgentAction extends BaseAction
 
     public function run()
     {
+        try {
+            $name = Base32::decode($this->form->b32name);
+        } catch (RangeException $e) {
+            $name = '';
+        }
+
         return $this->controller->render('combined-agent', [
-            'name' => Base32::decode($this->form->b32name),
             'group' => $this->agentGroup,
+            'name' => $name,
             'posts' => $this->postStats,
         ]);
     }

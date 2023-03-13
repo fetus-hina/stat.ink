@@ -19,7 +19,6 @@
         "ext-pdo_pgsql": "*",
         "ext-session": "*",
         "ext-zlib": "*",
-        "christian-riesen/base32": "^1.6",
         "cweagans/composer-patches": "^1.6",
         "geoip2/geoip2": "^2.0",
         "jaybizzle/crawler-detect": "^1.2",
@@ -57,7 +56,8 @@
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-httpclient": "*",
         "yiisoft/yii2-queue": "*",
-        "yiisoft/yii2-symfonymailer": "*"
+        "yiisoft/yii2-symfonymailer": "*",
+        "paragonie/constant_time_encoding": "^2.6"
     },
     "require-dev": {
         "codeception/codeception": "*",
@@ -106,7 +106,7 @@
     "config": {
         "process-timeout": 1800,
         "platform": {
-            "php": "8.0.26"
+            "php": "8.0.28"
         },
         "allow-plugins": {
             "cweagans/composer-patches": true,

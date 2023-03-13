@@ -1,8 +1,10 @@
 <?php
-use Base32\Base32;
+
+use ParagonIE\ConstantTime\Base32;
 use yii\data\ArrayDataProvider;
-use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Html;
+
 ?>
 <?= Html::tag(
   'div',
@@ -22,9 +24,7 @@ use yii\grid\GridView;
     function (string $name) : string {
       return Html::a(
         Html::encode(mb_strimwidth($name, 0, 20, '…', 'UTF-8')),
-        ['entire/combined-agent',
-          'b32name' => rtrim(strtolower(Base32::encode($name)), '='),
-        ]
+        ['entire/combined-agent', 'b32name' => Base32::encodeUnpadded($name)],
       );
     },
     $combineds
@@ -37,9 +37,7 @@ use yii\grid\GridView;
     function (string $name) : string {
       return Html::a(
         Html::encode(mb_strimwidth($name, 0, 20, '…', 'UTF-8')),
-        ['entire/agent',
-          'b32name' => rtrim(strtolower(Base32::encode($name)), '='),
-        ]
+        ['entire/agent', 'b32name' => Base32::encodeUnpadded($name)],
       );
     },
     $agentNames)) . "\n" ?>

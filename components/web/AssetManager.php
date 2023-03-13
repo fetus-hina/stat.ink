@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2021 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  *
@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace app\components\web;
 
-use Base32\Base32;
+use ParagonIE\ConstantTime\Base32;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
@@ -30,11 +30,10 @@ use function is_int;
 use function ltrim;
 use function strlen;
 use function strncmp;
-use function strtolower;
 use function substr;
 use function vsprintf;
 
-class AssetManager extends FWAssetManager
+final class AssetManager extends FWAssetManager
 {
     /**
      * @param string $path
@@ -61,11 +60,13 @@ class AssetManager extends FWAssetManager
         Yii::info("Asset path = {$path}", __METHOD__);
         $profile = "Calc hash ({$path})";
         Yii::beginProfile($profile, __METHOD__);
-        $hash = strtolower(substr(
-            Base32::encode(hash_hmac('sha256', $path, Json::encode($options), true)),
+        $hash = substr(
+            Base32::encodeUnpadded(
+                hash_hmac('sha256', $path, Json::encode($options), true),
+            ),
             0,
             16,
-        ));
+        );
         Yii::endProfile($profile, __METHOD__);
         Yii::info("Asset path hash = {$hash}", __METHOD__);
 
