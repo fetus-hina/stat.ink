@@ -4573,16 +4573,16 @@
         },
         {
             "name": "codeception/codeception",
-            "version": "5.0.9",
+            "version": "5.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "671c99535a206a2ebfcdc741b52a1deb700d5ce5"
+                "reference": "ed4af7fd4103cdd035916fbb8f35124edd2d018b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/671c99535a206a2ebfcdc741b52a1deb700d5ce5",
-                "reference": "671c99535a206a2ebfcdc741b52a1deb700d5ce5",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/ed4af7fd4103cdd035916fbb8f35124edd2d018b",
+                "reference": "ed4af7fd4103cdd035916fbb8f35124edd2d018b",
                 "shasum": ""
             },
             "require": {
@@ -4677,7 +4677,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Codeception/Codeception/issues",
-                "source": "https://github.com/Codeception/Codeception/tree/5.0.9"
+                "source": "https://github.com/Codeception/Codeception/tree/5.0.10"
             },
             "funding": [
                 {
@@ -4685,7 +4685,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2023-02-11T14:10:41+00:00"
+            "time": "2023-03-14T07:21:10+00:00"
         },
         {
             "name": "codeception/lib-asserts",
