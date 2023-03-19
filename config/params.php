@@ -20,7 +20,7 @@ return [
     'discordInviteCode' => 'DyWTsKRNvT',
     'gitRevision' => $tryLoad(__DIR__ . '/git-revision.php'),
     'lepton' => require __DIR__ . '/lepton.php',
-    'minimumPHP' => '8.1.0',
+    'minimumPHP' => '8.0.0',
     'notifyEmail' => 'noreply@stat.ink',
     'twitter' => require __DIR__ . '/twitter.php',
     'useImgStatInk' => $isOfficialStatink,
