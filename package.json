@@ -60,7 +60,7 @@
     "react-jss": "^10.10.0",
     "react-redux": "^8.0.5",
     "redux": "^4.2.1",
-    "redux-saga": "^1.2.2",
+    "redux-saga": "^1.2.3",
     "regenerator-runtime": "^0.13.11",
     "sass": "^1.59.3",
     "semistandard": "^16.0.1",
