@@ -1,8 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
+use app\assets\InlineListAsset;
 use app\components\Version;
 use app\components\widgets\Icon;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var View $this
+ */
+
+InlineListAsset::register($this);
 
 $params = Yii::$app->params;
 
@@ -10,10 +21,16 @@ $ver = Yii::$app->version;
 $revL = $params['gitRevision']['longHash'] ?? null;
 $revS = $params['gitRevision']['shortHash'] ?? null;
 if ($tmp = ($params['gitRevision']['lastCommitted'] ?? null)) {
-    $committed = (new DateTimeImmutable($tmp))->setTimeZone(new DateTimeZone(Yii::$app->timeZone));
+  $committed = (new DateTimeImmutable($tmp))->setTimeZone(new DateTimeZone(Yii::$app->timeZone));
 } else {
-    $committed = null;
+  $committed = null;
 }
+
+$discordInviteCode = ArrayHelper::getValue($params, 'discordInviteCode');
+if (!is_string($discordInviteCode)) {
+  $discordInviteCode = null;
+}
+
 ?>
 <footer class="footer">
   <div class="container text-muted">
@@ -74,24 +91,60 @@ if ($tmp = ($params['gitRevision']['lastCommitted'] ?? null)) {
       ]) . "\n" ?>
     </div>
     <div class="footer-nav">
-      <?= implode(' | ', [
-        Html::a(
-          Html::encode(Yii::t('app', 'API (Splatoon 2)')),
-          'https://github.com/fetus-hina/stat.ink/tree/master/doc/api-2'
+      <?= Html::tag(
+        'ul',
+        implode(
+          '',
+          array_map(
+            fn (?string $html): ?string => is_string($html) ? Html::tag('li', $html) : null,
+            array_filter(
+              [
+                Html::a(
+                  Html::encode(Yii::t('app', 'API (Splatoon 3)')),
+                  'https://github.com/fetus-hina/stat.ink/wiki/Spl3-API:-Battle-%EF%BC%8D-Post',
+                  ['target' => '_blank', 'rel' => 'noopener'],
+                ),
+                Html::a(
+                  Html::encode(Yii::t('app', 'API (Splatoon 2)')),
+                  'https://github.com/fetus-hina/stat.ink/tree/master/doc/api-2',
+                  ['target' => '_blank', 'rel' => 'noopener'],
+                ),
+                Html::a(
+                  Html::encode(Yii::t('app', 'API (Splatoon)')),
+                  ['/site/api'],
+                  ['target' => '_blank', 'rel' => 'noopener'],
+                ),
+                Html::a(
+                  Html::encode(Yii::t('app-privacy', 'Privacy Policy')),
+                  ['/site/privacy']
+                ),
+                Html::a(
+                  Html::encode(Yii::t('app', 'Open Source Licenses')),
+                  ['/site/license']
+                ),
+                $discordInviteCode
+                  ? Html::a(
+                    Html::img(
+                      'https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white',
+                      [
+                        'alt' => 'Discord',
+                        'class' => 'auto-tooltip',
+                        'height' => (string)round(28 * 0.5),
+                        'title' => Yii::t('app', '{siteName} Discord Community', ['siteName' => Yii::$app->name]),
+                        'width' => (string)round(104 * 0.5),
+                      ],
+                    ),
+                    sprintf('https://discord.gg/%s', rawurlencode($discordInviteCode)),
+                    ['target' => '_blank', 'rel' => 'nofollow noopener'],
+                  )
+                  : null,
+              ],
+              fn (?string $v): bool => $v !== null,
+            ),
+          ),
         ),
-        Html::a(
-          Html::encode(Yii::t('app', 'API (Splatoon)')),
-          ['/site/api']
-        ),
-        Html::a(
-          Html::encode(Yii::t('app-privacy', 'Privacy Policy')),
-          ['/site/privacy']
-        ),
-        Html::a(
-          Html::encode(Yii::t('app', 'Open Source Licenses')),
-          ['/site/license']
-        ),
-      ]) . "\n" ?>
+        ['class' => 'inline-list'],
+      ) . "\n" ?>
     </div>
     <div class="footer-notice">
       <?= implode('<br>', [

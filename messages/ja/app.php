@@ -730,6 +730,7 @@ return [
     '{sec} seconds ({pct} %)' => '{sec} 秒 ({pct} %)',
     '{sec} seconds' => '{sec} 秒',
     '{sec} seconds, {cnt} times' => '{sec} 秒, 最大 {cnt} 回',
+    '{siteName} Discord Community' => '{siteName} Discordコミュニティ',
     '{theme} Theme' => '{theme}テーマ',
     '{title} Official Website' => '{title} 公式サイト',
     '~{estPower}' => '約{estPower}',

@@ -16,6 +16,7 @@ use app\components\widgets\alerts\ImportFromSplatnet;
 use app\components\widgets\alerts\LanguageSupportLevelWarning;
 use app\components\widgets\alerts\MaintenanceInfo;
 use app\components\widgets\alerts\PleaseUseLatest;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\Controller;
 use yii\web\View;
@@ -30,6 +31,8 @@ $this->context->layout = 'main';
 PaintballAsset::register($this);
 
 $gameMode = GameModeIconsAsset::register($this);
+
+$discordInviteCode = ArrayHelper::getValue(Yii::$app->params, 'discordInviteCode');
 
 ?>
 <div class="container">
@@ -76,7 +79,7 @@ $gameMode = GameModeIconsAsset::register($this);
       );
     },
     [
-      [
+      array_filter([
         Yii::$app->user->isGuest
           ? Html::a(Html::encode(Yii::t('app', 'Join us')), ['user/register'])
           : Html::a(Html::encode(Yii::t('app', 'Your Battles')), ['show-user/profile',
@@ -84,8 +87,23 @@ $gameMode = GameModeIconsAsset::register($this);
           ]),
         Html::a(Html::encode(Yii::t('app', 'Getting Started')), ['site/start']),
         Html::a(Html::encode(Yii::t('app', 'FAQ')), ['site/faq']),
+        is_string($discordInviteCode) && $discordInviteCode
+          ? Html::a(
+            implode(' ', [
+              Icon::discord(),
+              Html::encode('Discord'),
+            ]),
+            sprintf('https://discord.gg/%s', rawurlencode($discordInviteCode)),
+            [
+              'class' => 'auto-tooltip',
+              'rel' => 'nofollow noopener',
+              'target' => '_blank',
+              'title' => Yii::t('app', '{siteName} Discord Community', ['siteName' => Yii::$app->name]),
+            ],
+          )
+          : null,
         Html::a(Html::encode(Yii::t('app', 'Stats: User Activity')), ['entire/users']),
-      ],
+      ]),
       [
         GameVersionIcon::widget(['version' => 3]),
         Html::a(Html::encode(Yii::t('app', 'Weapons')), ['entire/weapons3']),
