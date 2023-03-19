@@ -36,7 +36,7 @@
     "escape-html": "^1.0.3",
     "flag-icons": "^6.6.6",
     "flot": "~0.8.3",
-    "inputmask": "^5.0.7",
+    "inputmask": "^5.0.8",
     "jdenticon": "^3.2.0",
     "jquery": "^3.6.4",
     "jquery-color": "^2.2.0",
