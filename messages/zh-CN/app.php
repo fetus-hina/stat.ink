@@ -731,6 +731,7 @@ return [
     '{sec} seconds' => '{sec}秒',
     '{sec} seconds ({pct} %)' => '{sec} 秒 ({pct} %)',
     '{sec} seconds, {cnt} times' => '{sec} 秒, {cnt} 次',
+    '{siteName} Discord Community' => '',
     '{theme} Theme' => '{theme}主题',
     '{title} Official Website' => '{title}官方站点',
     '~{estPower}' => '',

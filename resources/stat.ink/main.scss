@@ -16,7 +16,7 @@ $color-lose: #ec6110;
 $color-ko: #68c8f2;
 $color-time: #f5a101;
 
-@function unit($dimensionless-number, $unit) {
+@function add-unit($dimensionless-number, $unit) {
   @return ($dimensionless-number * $unit);
 }
 
@@ -46,15 +46,15 @@ main {
 // フッター
 footer {
   background-color: #f5f5f5;
-  font-size: unit($golden-ratio - 1, 1em);
-  margin: unit($golden-ratio - 1, 1em) 0 0 0;
-  padding: unit($golden-ratio, 1em) 0;
+  font-size: add-unit($golden-ratio - 1, 1em);
+  margin: add-unit($golden-ratio - 1, 1em) 0 0 0;
+  padding: add-unit($golden-ratio, 1em) 0;
   width: 100%;
 
   .footer-nav,
   .footer-notice,
   .footer-powered {
-    margin-top: unit($golden-ratio - 1, 1em);
+    margin-top: add-unit($golden-ratio - 1, 1em);
   }
 }
 
@@ -418,7 +418,7 @@ $step: 5;
   $pct: $index * $step;
 
   .w-#{$pct} {
-    width: unit(math.div($pct, 100), 100%) !important;
+    width: math.percentage($pct * 0.01) !important;
   }
 }
 

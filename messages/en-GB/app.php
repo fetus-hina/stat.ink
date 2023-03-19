@@ -729,6 +729,7 @@ return [
     '{sec} seconds' => '',
     '{sec} seconds ({pct} %)' => '',
     '{sec} seconds, {cnt} times' => '',
+    '{siteName} Discord Community' => '',
     '{theme} Theme' => '',
     '{title} Official Website' => '',
     '~{estPower}' => '',
