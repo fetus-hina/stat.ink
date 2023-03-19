@@ -16,6 +16,7 @@ use yii\web\View;
 /**
  * @var NormalDistribution|null $estimatedDistrib
  * @var NormalDistribution|null $normalDistrib
+ * @var NormalDistribution|null $ruleOfThumbDistrib
  * @var StatBigrunDistribAbstract3|null $abstract
  * @var View $this
  * @var array<int, int> $histogram
@@ -103,6 +104,20 @@ if ($estimatedDistrib && $abstract && $chartMax > 0) {
   ];
 }
 
+$datasetRuleOfThumbDistrib = null;
+if (!$datasetEstimatedDistrib && $ruleOfThumbDistrib && $abstract && $chartMax > 0) {
+  $datasetRuleOfThumbDistrib = [
+    'backgroundColor' => [ new JsExpression('window.colorScheme.moving1') ],
+    'borderColor' => [ new JsExpression('window.colorScheme.moving1') ],
+    'borderWidth' => 2,
+    'borderDash' => [5, 5],
+    'data' => $makeDistributionData($ruleOfThumbDistrib),
+    'label' => Yii::t('app', 'Empirical Estimates'),
+    'pointRadius' => 0,
+    'type' => 'line',
+  ];
+}
+
 ?>
 <div class="row">
   <div class="col-xs-12 col-md-9 col-lg-7 mb-3">
@@ -114,6 +129,7 @@ if ($estimatedDistrib && $abstract && $chartMax > 0) {
             'datasets' => array_values(
               array_filter(
                 [
+                  $datasetRuleOfThumbDistrib,
                   $datasetEstimatedDistrib,
                   $datasetNormalDistrib,
                   $datasetHistogram,
@@ -173,6 +189,20 @@ if ($estimatedDistrib && $abstract && $chartMax > 0) {
       Html::encode(Yii::t('app', 'Just scaled for easy contrast, the Y-axis value does not directly indicate the number of people.')),
     ]),
     sprintf('(μ=%.2f, σ=%.2f)', $estimatedDistrib->mean(), sqrt($estimatedDistrib->variance()))
+  ]) . "\n" ?>
+</p>
+<?php } ?>
+<?php if ($ruleOfThumbDistrib && $datasetRuleOfThumbDistrib) { ?>
+<p class="mt-0 mb-3 text-muted small">
+  <?= vsprintf('%s: %s %s', [
+    Html::encode(Yii::t('app', 'Empirical Estimates')),
+    implode(' ', [
+      Html::encode(Yii::t('app', 'This is a wild guess based on past results and {siteName} posts.', ['siteName' => Yii::$app->name])),
+      Html::encode(Yii::t('app', 'Just scaled for easy contrast, the Y-axis value does not directly indicate the number of people.')),
+      Html::encode(Yii::t('app', 'The data contains a large error margins.')),
+      Html::tag('b', Html::encode(Yii::t('app', 'This data is basically not informative.'))),
+    ]),
+    sprintf('(μ=%.2f, σ=%.2f)', $ruleOfThumbDistrib->mean(), sqrt($ruleOfThumbDistrib->variance()))
   ]) . "\n" ?>
 </p>
 <?php } ?>

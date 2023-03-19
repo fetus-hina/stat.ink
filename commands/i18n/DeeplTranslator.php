@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2021 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\commands\i18n;
 
-use Base32\Base32;
 use DOMDocument;
 use DOMNode;
 use DOMXPath;
@@ -19,6 +18,7 @@ use DateTimeZone;
 use DirectoryIterator;
 use Exception;
 use Normalizer;
+use ParagonIE\ConstantTime\Base32;
 use Throwable;
 use Yii;
 use app\models\Language;

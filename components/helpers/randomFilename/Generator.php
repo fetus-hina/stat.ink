@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2021 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace app\components\helpers\randomFilename;
 
-use Base32\Base32;
+use ParagonIE\ConstantTime\Base32;
 
 use function chr;
 use function implode;
@@ -18,8 +18,6 @@ use function max;
 use function min;
 use function ord;
 use function random_bytes;
-use function rtrim;
-use function strtolower;
 use function substr;
 use function trim;
 use function vsprintf;
@@ -61,15 +59,9 @@ class Generator
     public static function formatFileNameFlat(string $binary, string $ext): string
     {
         $ext = trim((string)$ext);
-
-        $base32 = rtrim(Base32::encode($binary), '=');
-        $base32 = strtolower($base32);
-
         return vsprintf('%s%s', [
-            $base32,
-            $ext !== ''
-              ? '.' . $ext
-              : '',
+            Base32::encodeUnpadded($binary),
+            $ext !== '' ? '.' . $ext : '',
         ]);
     }
 }

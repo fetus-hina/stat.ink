@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace app\components\helpers;
 
-use Base32\Base32;
+use ParagonIE\ConstantTime\Base32;
 use Yii;
 use app\models\Language;
 use app\models\User;
@@ -19,7 +19,7 @@ use function random_bytes;
 use function strtolower;
 use function substr;
 
-class AddressUpdatedEmailSender
+final class AddressUpdatedEmailSender
 {
     public static function generateVerifyCode(): string
     {

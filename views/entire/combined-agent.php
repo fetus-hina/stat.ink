@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Base32\Base32;
+use ParagonIE\ConstantTime\Base32;
 use app\assets\EntireAgentAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Icon;
@@ -52,9 +52,7 @@ $this->registerCss('#graph{height:300px}');
     <li>
       <?= Html::a(
         Html::encode($_->agent_name),
-        ['entire/agent',
-          'b32name' => strtolower(rtrim(Base32::encode($_->agent_name), '=')),
-        ]
+        ['entire/agent', 'b32name' => Base32::encodeUnpadded($_->agent_name)],
       ) . "\n" ?>
     </li>
 <?php endforeach ?>

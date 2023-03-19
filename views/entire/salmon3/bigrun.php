@@ -17,6 +17,7 @@ use yii\web\View;
 /**
  * @var NormalDistribution|null $estimatedDistrib
  * @var NormalDistribution|null $normalDistrib
+ * @var NormalDistribution|null $ruleOfThumbDistrib
  * @var SalmonSchedule3 $schedule
  * @var View $this
  * @var array<int, SalmonSchedule3> $schedules
@@ -148,6 +149,7 @@ $fmt = Yii::$app->formatter;
       'estimatedDistrib',
       'histogram',
       'normalDistrib',
+      'ruleOfThumbDistrib',
     )) . "\n" ?>
     <?= $this->render('bigrun/histogram2', compact(
       'abstract',
@@ -155,6 +157,7 @@ $fmt = Yii::$app->formatter;
       'estimatedDistrib',
       'histogram',
       'normalDistrib',
+      'ruleOfThumbDistrib',
     )) . "\n" ?>
   </div>
 </div>

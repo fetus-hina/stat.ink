@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace app\models\openapi;
 
-use Base32\Base32;
+use ParagonIE\ConstantTime\Base32;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -23,7 +23,6 @@ use function hash;
 use function implode;
 use function is_callable;
 use function str_replace;
-use function strtolower;
 use function substr;
 use function trim;
 use function vsprintf;
@@ -48,7 +47,9 @@ trait Util
         $fqcn = static::class;
         $baseName = basename(str_replace('\\', DIRECTORY_SEPARATOR, $fqcn));
         $hash = substr(
-            strtolower(Base32::encode(hash('sha256', $fqcn, true))),
+            Base32::encodeUnpadded(
+                hash('sha256', $fqcn, true),
+            ),
             0,
             4,
         );

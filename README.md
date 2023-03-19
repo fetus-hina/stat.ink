@@ -5,6 +5,8 @@ stat.ink
 [![MIT License](https://img.shields.io/github/license/fetus-hina/stat.ink.svg)](https://github.com/fetus-hina/stat.ink/blob/master/LICENSE)
 [![Actions Status](https://github.com/fetus-hina/stat.ink/workflows/CI/badge.svg)](https://github.com/fetus-hina/stat.ink/actions)
 
+[![](https://discordapp.com/api/guilds/668761479691894785/widget.png?style=banner2)](https://discord.gg/DyWTsKRNvT)
+
 Source codes for https://stat.ink/
 
 SquidTracks, splatnet2statink, IkaLog, s3s 等の対応ソフトウェア、または自作のソフトウェアと連携することで Splatoon 1, 2, 3 の戦績を保存し、統計を取ります。
@@ -229,7 +231,7 @@ The maintenance process will be started at 23:00 UTC(\*) and will take 1.5 hours
 ```
 The MIT License (MIT)
 
-Copyright (c) 2015-2022 AIZAWA Hina <hina@fetus.jp>
+Copyright (c) 2015-2023 AIZAWA Hina <hina@fetus.jp>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

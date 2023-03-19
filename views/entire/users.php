@@ -1,6 +1,5 @@
 <?php
 
-use Base32\Base32;
 use app\components\widgets\AdWidget;
 use app\components\widgets\GameVersionIcon;
 use app\components\widgets\SnsWidget;

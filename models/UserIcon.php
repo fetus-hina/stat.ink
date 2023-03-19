@@ -1,15 +1,15 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2016-2021 AIZAWA Hina
+ * @copyright Copyright (C) 2016-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 namespace app\models;
 
-use Base32\Base32;
 use Exception;
+use ParagonIE\ConstantTime\Base32;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -31,9 +31,7 @@ use function imagesx;
 use function imagesy;
 use function min;
 use function random_bytes;
-use function rtrim;
 use function sprintf;
-use function strtolower;
 use function substr;
 use function unlink;
 
@@ -72,15 +70,17 @@ class UserIcon extends ActiveRecord
         return $obj;
     }
 
-    protected static function createNewFileName()
+    protected static function createNewFileName(): string
     {
-        retry:
-        $filename = strtolower(rtrim(Base32::encode(random_bytes(16)), '='));
-        $filepath = sprintf('%s/%s.png', substr($filename, 0, 2), $filename);
-        if (static::find()->where(['filename' => $filepath])->count() > 0) {
-            goto retry;
+        while (true) {
+            $fileName = Base32::encodeUnpadded(random_bytes(16));
+            $filePath = sprintf('%s/%s.png', substr($fileName, 0, 2), $fileName);
+
+            $count = static::find()->where(['filename' => $filePath])->count();
+            if ($count === 0) {
+                return $filePath;
+            }
         }
-        return $filepath;
     }
 
     protected static function resizeImage(string $binary)
