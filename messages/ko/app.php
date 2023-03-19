@@ -729,6 +729,7 @@ return [
     '{sec} seconds' => '{sec} 초',
     '{sec} seconds ({pct} %)' => '{sec} 초 ({pct} %)',
     '{sec} seconds, {cnt} times' => '{sec} 초, 최대 {cnt} 회',
+    '{siteName} Discord Community' => '',
     '{theme} Theme' => '{theme} 테마',
     '{title} Official Website' => '{title} 공식 사이트',
     '~{estPower}' => '약{estPower}',
