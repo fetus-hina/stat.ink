@@ -1,12 +1,13 @@
 @charset "UTF-8";
 
 @use 'sass:color';
+@use 'sass:math';
 
-/*! Copyright (C) 2015-2020 AIZAWA Hina */
+/*! Copyright (C) 2015-2023 AIZAWA Hina */
 
 // From node_modules/bootstrap/less/variables.less
 $font-size-base: 14px;
-$font-size-small: ceil(($font-size-base * 0.85)); // ~12px
+$font-size-small: math.ceil(($font-size-base * 0.85)); // ~12px
 $gray-base: #000;
 $gray-dark: color.adjust($gray-base, $lightness: 20%); // #333
 $body-bg: #fff;

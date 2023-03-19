@@ -1,11 +1,12 @@
 @charset "UTF-8";
+
 @use 'sass:math';
 
-/*! Copyright (C) 2015-2020 AIZAWA Hina | MIT License */
+/*! Copyright (C) 2015-2023 AIZAWA Hina | MIT License */
 
 // From node_modules/bootstrap/less/variables.less
 $font-size-base: 14px;
-$font-size-small: ceil(($font-size-base * 0.85)); // ~12px
+$font-size-small: math.ceil(($font-size-base * 0.85)); // ~12px
 
 .battle-row-group-header {
   background-color: #444;
