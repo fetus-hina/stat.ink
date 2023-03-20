@@ -49,20 +49,6 @@ class AppAsset extends AssetBundle
 
         $manager = $view->getAssetManager();
         $view->registerLinkTag([
-            'href' => $manager->getAssetUrl($this, 'favicon.svg'),
-            'rel' => 'icon',
-            'sizes' => 'any',
-            'type' => 'image/svg+xml',
-        ]);
-
-        $view->registerLinkTag([
-            'rel' => 'icon',
-            'sizes' => '16x16',
-            'type' => 'image/png',
-            'href' => $manager->getAssetUrl($this, 'favicon-16.png'),
-        ]);
-
-        $view->registerLinkTag([
             'rel' => 'icon',
             'type' => 'image/png',
             'href' => $manager->getAssetUrl($this, 'favicon.png'),
