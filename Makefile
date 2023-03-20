@@ -62,7 +62,9 @@ RESOURCE_TARGETS := \
 	resources/.compiled/stat.ink/entire-weapon-usepct.js \
 	resources/.compiled/stat.ink/entire-xpower-distrib3-histogram.js \
 	resources/.compiled/stat.ink/fallbackable-image.js \
+	resources/.compiled/stat.ink/favicon-16.png \
 	resources/.compiled/stat.ink/favicon.png \
+	resources/.compiled/stat.ink/favicon.svg \
 	resources/.compiled/stat.ink/fest-power-history.css \
 	resources/.compiled/stat.ink/fest-power-history.js \
 	resources/.compiled/stat.ink/festpower2-diff-winpct.js \
@@ -374,11 +376,22 @@ resources/.compiled/stat.ink/xpower-history.js: resources/stat.ink/xpower-histor
 %.js:
 	$(call es2js,$@,$<)
 
+resources/.compiled/stat.ink/favicon.svg: resources/stat.ink/favicon.svg node_modules
+	@mkdir -p $(dir $@)
+	npx svgo --output $@ -p 4 --multipass --eol lf --final-newline --quiet $<
+
 resources/.compiled/stat.ink/no-image.png: resources/stat.ink/no-image.png
 	$(call png,$@,$<)
 
-resources/.compiled/stat.ink/favicon.png: resources/stat.ink/favicon.png
-	$(call png,$@,$<)
+resources/.compiled/stat.ink/favicon.png: resources/stat.ink/favicon.svg node_modules
+	@mkdir -p $(dir $@)
+	@rm -f $@
+	npx svg2png $< --output=$@ --width=500 --height=500
+	npx optipng -quiet -strip all -o7 $@
+
+resources/.compiled/stat.ink/favicon-16.png: resources/.compiled/stat.ink/favicon.png
+	convert $< -resize 16x16 $@
+	npx optipng -quiet -strip all -o7 $@
 
 resources/.compiled/stat.ink/summary-legends.png: resources/stat.ink/summary-legends.png
 	$(call png,$@,$<)
