@@ -8,7 +8,7 @@ return (function (): array {
     return [
         '@bower' => '@app/node_modules',
         '@geoip' => '@app/data/GeoIP',
-        '@imageurl' => $p['useImgStatInk'] ?? false ? 'https://img.stat.ink' : '@web/images',
+        '@imageurl' => $p['useImgStatInk'] ?? false ? 'https://img.stat.ink' : '@app/web/images',
         '@jdenticon' => 'https://jdenticon.stat.ink',
         '@node' => '@app/node_modules',
         '@npm' => '@app/node_modules',
