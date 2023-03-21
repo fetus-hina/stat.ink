@@ -13,14 +13,11 @@ use yii\web\Application;
 // 「未定義のalias」を参照するため、上記PRで指摘されているエラーが発生する。
 // そこで、bootstrap としてこの登録を行うことで @web が登録されるまで遅延させる
 return function (Application $app): bool {
-    $params = $app->params;
     $useImgStatInk = ArrayHelper::getValue($app->params, 'useImgStatInk', false);
 
     Yii::setAlias(
         '@imageurl',
-        $useImgStatInk
-            ? 'https://img.stat.ink'
-            : '@web/images',
+        $useImgStatInk ? 'https://img.stat.ink' : '@web/images',
     );
 
     return false;
