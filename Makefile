@@ -62,7 +62,20 @@ RESOURCE_TARGETS := \
 	resources/.compiled/stat.ink/entire-weapon-usepct.js \
 	resources/.compiled/stat.ink/entire-xpower-distrib3-histogram.js \
 	resources/.compiled/stat.ink/fallbackable-image.js \
+	resources/.compiled/stat.ink/favicon-016.png \
+	resources/.compiled/stat.ink/favicon-032.png \
+	resources/.compiled/stat.ink/favicon-057.png \
+	resources/.compiled/stat.ink/favicon-076.png \
+	resources/.compiled/stat.ink/favicon-096.png \
+	resources/.compiled/stat.ink/favicon-120.png \
+	resources/.compiled/stat.ink/favicon-128.png \
+	resources/.compiled/stat.ink/favicon-144.png \
+	resources/.compiled/stat.ink/favicon-152.png \
+	resources/.compiled/stat.ink/favicon-167.png \
+	resources/.compiled/stat.ink/favicon-180.png \
+	resources/.compiled/stat.ink/favicon-192.png \
 	resources/.compiled/stat.ink/favicon.png \
+	resources/.compiled/stat.ink/favicon.svg \
 	resources/.compiled/stat.ink/fest-power-history.css \
 	resources/.compiled/stat.ink/fest-power-history.js \
 	resources/.compiled/stat.ink/festpower2-diff-winpct.js \
@@ -374,10 +387,60 @@ resources/.compiled/stat.ink/xpower-history.js: resources/stat.ink/xpower-histor
 %.js:
 	$(call es2js,$@,$<)
 
-resources/.compiled/stat.ink/no-image.png: resources/stat.ink/no-image.png
-	$(call png,$@,$<)
+resources/.compiled/stat.ink/favicon.svg: resources/stat.ink/favicon.svg node_modules
+	@mkdir -p $(dir $@)
+	npx svgo -o $@ -p 4 --multipass --quiet $<
 
-resources/.compiled/stat.ink/favicon.png: resources/stat.ink/favicon.png
+resources/.compiled/stat.ink/favicon.png: resources/.compiled/stat.ink/favicon.svg node_modules
+	@mkdir -p $(dir $@)
+	@rm -f $@
+	npx svg2png -o $@ $<
+	npx optipng -quiet -strip all -o7 $@
+
+define favicon
+	@mkdir -p $(dir $(1))
+	@rm -f $(1)
+	convert $(2) -background none -resize $(3)x$(3) -gravity center -extent $(3)x$(3) $(1)
+	npx optipng -quiet -strip all -o7 $(1)
+endef
+
+resources/.compiled/stat.ink/favicon-016.png: resources/.compiled/stat.ink/favicon.png
+	$(call favicon,$@,$<,16)
+
+resources/.compiled/stat.ink/favicon-032.png: resources/.compiled/stat.ink/favicon.png
+	$(call favicon,$@,$<,32)
+
+resources/.compiled/stat.ink/favicon-057.png: resources/.compiled/stat.ink/favicon.png
+	$(call favicon,$@,$<,57)
+
+resources/.compiled/stat.ink/favicon-076.png: resources/.compiled/stat.ink/favicon.png
+	$(call favicon,$@,$<,76)
+
+resources/.compiled/stat.ink/favicon-096.png: resources/.compiled/stat.ink/favicon.png
+	$(call favicon,$@,$<,96)
+
+resources/.compiled/stat.ink/favicon-120.png: resources/.compiled/stat.ink/favicon.png
+	$(call favicon,$@,$<,120)
+
+resources/.compiled/stat.ink/favicon-128.png: resources/.compiled/stat.ink/favicon.png
+	$(call favicon,$@,$<,128)
+
+resources/.compiled/stat.ink/favicon-144.png: resources/.compiled/stat.ink/favicon.png
+	$(call favicon,$@,$<,144)
+
+resources/.compiled/stat.ink/favicon-152.png: resources/.compiled/stat.ink/favicon.png
+	$(call favicon,$@,$<,152)
+
+resources/.compiled/stat.ink/favicon-167.png: resources/.compiled/stat.ink/favicon.png
+	$(call favicon,$@,$<,167)
+
+resources/.compiled/stat.ink/favicon-180.png: resources/.compiled/stat.ink/favicon.png
+	$(call favicon,$@,$<,180)
+
+resources/.compiled/stat.ink/favicon-192.png: resources/.compiled/stat.ink/favicon.png
+	$(call favicon,$@,$<,192)
+
+resources/.compiled/stat.ink/no-image.png: resources/stat.ink/no-image.png
 	$(call png,$@,$<)
 
 resources/.compiled/stat.ink/summary-legends.png: resources/stat.ink/summary-legends.png
