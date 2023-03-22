@@ -15,7 +15,11 @@ $config = [
     'language' => 'ja-JP',
     'timeZone' => 'Asia/Tokyo',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log', 'theme'],
+    'bootstrap' => [
+        'log',
+        'theme',
+        require __DIR__ . '/web/bootstrap/alias.php',
+    ],
     'aliases' => require(__DIR__ . '/web/alias.php'),
     'components' => [
         'assetManager' => require(__DIR__ . '/web/asset-manager.php'),
