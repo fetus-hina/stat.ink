@@ -15,6 +15,7 @@ return [
     'Big Run' => '빅 런',
     'Boss Salmonid' => '거물연어',
     'Clear Bonus' => '클리어 보너스',
+    'Contribution' => '',
     'Defeat %' => '토벌율',
     'Defeated' => '쓰러트린 거물연어',
     'Defeated (others)' => '다른 플레이어가 쓰러트린 거물연어',
