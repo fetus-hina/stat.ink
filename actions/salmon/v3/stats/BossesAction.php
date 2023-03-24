@@ -12,6 +12,7 @@ namespace app\actions\salmon\v3\stats;
 
 use LogicException;
 use Yii;
+use app\actions\salmon\v3\stats\bosses\BadgeStats;
 use app\models\Salmon3;
 use app\models\Salmon3FilterForm;
 use app\models\SalmonBoss3;
@@ -28,6 +29,8 @@ use function assert;
 
 final class BossesAction extends Action
 {
+    use BadgeStats;
+
     public ?User $user = null;
 
     /**
@@ -61,12 +64,27 @@ final class BossesAction extends Action
         $filter->validate();
 
         $data = Yii::$app->db->transaction(
-            fn (Connection $db): array => [
-                'bosses' => $this->getBosses($db),
-                'filter' => $filter,
-                'stats' => $this->makeStats($db, $user, $filter),
-                'user' => $user,
-            ],
+            function (Connection $db) use ($filter, $user): array {
+                $cacheCondition = (new Query())
+                    ->select([
+                        'max' => 'MAX([[id]])',
+                        'count' => 'COUNT(*)',
+                    ])
+                    ->from('{{%salmon3}}')
+                    ->andWhere([
+                        'user_id' => $user->id,
+                        'is_deleted' => false,
+                    ])
+                    ->one($db);
+
+                return [
+                    'badges' => $this->makeStatsForBadge($db, $user, $cacheCondition),
+                    'bosses' => $this->getBosses($db),
+                    'filter' => $filter,
+                    'stats' => $this->makeStats($db, $user, $filter, $cacheCondition),
+                    'user' => $user,
+                ];
+            },
             Transaction::REPEATABLE_READ,
         );
 
@@ -94,8 +112,12 @@ final class BossesAction extends Action
     /**
      * @return array<string, array{boss_key: string, appearances: int, defeated: int, defeated_by_me: int}>
      */
-    private function makeStats(Connection $db, User $user, Salmon3FilterForm $filter): array
-    {
+    private function makeStats(
+        Connection $db,
+        User $user,
+        Salmon3FilterForm $filter,
+        mixed $cacheCondition,
+    ): array {
         $query = Salmon3::find()
             ->innerJoinWith(
                 [
@@ -119,18 +141,6 @@ final class BossesAction extends Action
             ]);
 
         $filter->decorateQuery($query);
-
-        $cacheCondition = (new Query())
-            ->select([
-                'max' => 'MAX([[id]])',
-                'count' => 'COUNT(*)',
-            ])
-            ->from('{{%salmon3}}')
-            ->andWhere([
-                'user_id' => $user->id,
-                'is_deleted' => false,
-            ])
-            ->one($db);
 
         return Yii::$app->cache->getOrSet(
             [

@@ -14,6 +14,7 @@ return [
     'Big Run' => 'ビッグラン',
     'Boss Salmonid' => 'オオモノシャケ',
     'Clear Bonus' => 'クリアボーナス',
+    'Contribution' => '貢献度',
     'Defeat %' => '討伐率',
     'Defeated (others)' => '他のプレーヤーが倒した',
     'Defeated by {user}' => '{user}が倒した',

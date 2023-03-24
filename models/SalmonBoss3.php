@@ -19,6 +19,7 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property string $key
  * @property string $name
+ * @property boolean $has_badge
  *
  * @property Salmon3[] $salmon
  * @property SalmonBoss3Alias[] $salmonBoss3Aliases
@@ -34,7 +35,8 @@ class SalmonBoss3 extends ActiveRecord
     public function rules()
     {
         return [
-            [['key', 'name'], 'required'],
+            [['key', 'name', 'has_badge'], 'required'],
+            [['has_badge'], 'boolean'],
             [['key'], 'string', 'max' => 32],
             [['name'], 'string', 'max' => 64],
             [['key'], 'unique'],
@@ -47,6 +49,7 @@ class SalmonBoss3 extends ActiveRecord
             'id' => 'ID',
             'key' => 'Key',
             'name' => 'Name',
+            'has_badge' => 'Has Badge',
         ];
     }
 

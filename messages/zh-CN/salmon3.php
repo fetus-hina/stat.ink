@@ -15,6 +15,7 @@ return [
     'Big Run' => '大型跑',
     'Boss Salmonid' => '巨大鲑鱼',
     'Clear Bonus' => '通关奖励',
+    'Contribution' => '',
     'Defeat %' => '击倒率',
     'Defeated' => '已击倒',
     'Defeated (others)' => '已击倒（队友）',

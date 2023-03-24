@@ -15,6 +15,7 @@ return [
     'Big Run' => 'Big Run',
     'Boss Salmonid' => 'Salmonoboss',
     'Clear Bonus' => '',
+    'Contribution' => '',
     'Defeat %' => '% d\'échecs',
     'Defeated' => 'Vaincus',
     'Defeated (others)' => 'Vaincus par d\'autres',

@@ -21,6 +21,7 @@ use yii\web\View;
  * @var View $this
  * @var array<string, SalmonBoss3> $bosses
  * @var array<string, array{boss_key: string, appearances: int, defeated: int, defeated_by_me: int}> $stats
+ * @var array{type: string, key: string, name: string, defeated: int}[] $badges
  */
 
 $permLink = Url::to(
@@ -82,6 +83,9 @@ SortableTableAsset::register($this);
         ]),
         3600,
       ) . "\n" ?>
+      <?= $this->render('bosses/badge', [
+        'badges' => $badges,
+      ]) . "\n" ?>
     </div>
     <div class="col-xs-12 col-sm-4 col-lg-3">
       <?= Salmon3FilterWidget::widget(['filter' => $filter, 'user' => $user]) . "\n" ?>
