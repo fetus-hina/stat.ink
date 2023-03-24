@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2021 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Dog2puppy <Dog2puppy@users.noreply.github.com>
@@ -20,24 +20,32 @@ use function is_string;
 use function preg_match;
 use function preg_quote;
 use function sprintf;
-use function strpos;
+use function str_contains;
+use function strtolower;
 use function trim;
+use function vsprintf;
 
-class SlackAddForm extends Model
+final class SlackAddForm extends Model
 {
     /** @var string */
     public $webhook_url;
+
     /** @var string */
     public $username;
+
     /** @var string */
     public $icon;
+
     /** @var string */
     public $channel;
+
     /** @var int */
     public $language_id;
 
     public function rules()
     {
+        $discordError = Yii::t('app', 'Make empty this field when you are using Discord.');
+
         return [
             [['webhook_url', 'language_id'], 'required'],
             [['username', 'icon', 'channel'], 'filter',
@@ -45,27 +53,42 @@ class SlackAddForm extends Model
             ],
             [['webhook_url'], 'url'],
             [['webhook_url'], 'validateWebhookUrl'],
-            [['username'], 'match', 'pattern' => '/^[a-zA-Z0-9._-]{1,21}$/'],
+
+            // Disable these fields when a Discord Webhook URL is specified
+            //  cf. https://github.com/fetus-hina/stat.ink/issues/1212
+            [['username', 'icon', 'channel'], 'string',
+                'length' => 0,
+                'message' => $discordError,
+                'notEqual' => $discordError,
+                'tooLong' => $discordError,
+                'tooShort' => $discordError,
+                'when' => fn (self $model): bool => str_contains(strtolower((string)$model->webhook_url), '//discord'),
+                'whenClient' => '()=>$("#slackaddform-webhook_url").val().toLowerCase().includes("//discord")',
+            ],
+
+            [['username'], 'match',
+                'pattern' => '/^[a-zA-Z0-9._-]{1,21}$/',
+            ],
             [['icon'], 'match', 'pattern' => '/^:[a-zA-Z0-9+._-]+:$/',
-                'when' => fn ($model) => is_string($model->icon) && strpos($model->icon, '//') === false,
-                'whenClient' => 'function(){return $("#slackaddform-icon").val().indexOf("//")<0}',
+                'when' => fn (self $model): bool => is_string($model->icon) && !str_contains($model->icon, '//'),
+                'whenClient' => '()=>!$("#slackaddform-icon").val().includes("//")',
             ],
             [['icon'], 'url',
-                'when' => fn ($model) => !(is_string($model->icon) && strpos($model->icon, '//') === false),
-                'whenClient' => 'function(){return $("#slackaddform-icon").val().indexOf("//")>=0}',
+                'when' => fn (self $model): bool => is_string($model->icon) && str_contains($model->icon, '//'),
+                'whenClient' => '()=>$("#slackaddform-icon").val().includes("//")',
             ],
             [['channel'], 'match',
-                'pattern' => sprintf(
-                    '/^%s$/',
+                'pattern' => vsprintf('/^%s$/', [
                     implode('|', [
                         '(?:#[a-z0-9_-]{1,21})',
                         '(?:@[a-zA-Z0-9._-]{1,21})',
                     ]),
-                ),
+                ]),
             ],
             [['language_id'], 'exist',
                 'targetClass' => Language::class,
-                'targetAttribute' => 'id'],
+                'targetAttribute' => 'id',
+            ],
         ];
     }
 
@@ -93,7 +116,7 @@ class SlackAddForm extends Model
             return;
         }
 
-        $quote = fn (string $regex) => preg_quote($regex, '/');
+        $quote = fn (string $regex): string => preg_quote($regex, '/');
         $okUrls = [
             // Slack
             sprintf(
@@ -130,10 +153,9 @@ class SlackAddForm extends Model
         );
     }
 
-    /** @return bool */
-    public function save(User $user)
+    public function save(User $user): bool
     {
-        $model = new Slack();
+        $model = Yii::createObject(Slack::class);
         $model->attributes = $this->attributes;
         $model->user_id = $user->id;
         $model->suspended = false;
