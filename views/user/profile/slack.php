@@ -5,6 +5,7 @@ declare(strict_types=1);
 use app\assets\EmojifyResourceAsset;
 use app\assets\SlackAsset;
 use app\components\widgets\Icon;
+use app\models\Slack;
 use app\models\User;
 use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
@@ -60,8 +61,17 @@ echo GridView::widget([
       },
     ],
     [
+      'label' => '',
+      'format' => 'raw',
+      'value' => fn (Slack $model): string => match (true) {
+        str_contains($model->webhook_url, '//hooks.slack.com/') => Icon::slack(),
+        str_contains($model->webhook_url, '//discord') => Icon::discord(),
+        default => Icon::unknown(),
+      },
+    ],
+    [
       'label' => Yii::t('app', 'User Name'),
-      'value' => function ($model) : string {
+      'value' => function (Slack $model): string {
         $value = trim((string)$model->username);
 
         if ($value === '') {
@@ -74,7 +84,7 @@ echo GridView::widget([
     [
       'label' => Yii::t('app', 'Icon'),
       'format' => 'raw',
-      'value' => function ($model) : string {
+      'value' => function (Slack $model): string {
         $value = trim((string)$model->icon);
 
         if ($value === '') {
@@ -102,7 +112,7 @@ echo GridView::widget([
     ],
     [
       'label' => Yii::t('app', 'Channel'),
-      'value' => function ($model) : string {
+      'value' => function (Slack $model): string {
         $value = trim((string)$model->channel);
         if ($value === '') {
           return Yii::t('app', '(default)');
@@ -118,32 +128,30 @@ echo GridView::widget([
     [
       'label' => '',
       'format' => 'raw',
-      'value' => function ($model) : string {
-        return implode(' ', [
-          Html::tag(
-            'button',
-            Html::encode(Yii::t('app', 'Test')),
-            [
-              'class' => 'slack-test btn btn-info btn-sm',
-              'data' => [
-                'id' => $model->id,
-              ],
-              'disabled' => true,
-            ]
-          ),
-          Html::tag(
-            'button',
-            Html::encode(Yii::t('app', 'Delete')),
-            [
-              'class' => 'slack-del btn btn-danger btn-sm',
-              'data' => [
-                'id' => $model->id,
-              ],
-              'disabled ' => true,
-            ]
-          ),
-        ]);
-      },
+      'value' => fn (Slack $model): string => implode(' ', [
+        Html::tag(
+          'button',
+          Html::encode(Yii::t('app', 'Test')),
+          [
+            'class' => 'slack-test btn btn-info btn-sm',
+            'data' => [
+              'id' => $model->id,
+            ],
+            'disabled' => true,
+          ]
+        ),
+        Html::tag(
+          'button',
+          Html::encode(Yii::t('app', 'Delete')),
+          [
+            'class' => 'slack-del btn btn-danger btn-sm',
+            'data' => [
+              'id' => $model->id,
+            ],
+            'disabled ' => true,
+          ]
+        ),
+      ]),
     ],
   ],
 ]);

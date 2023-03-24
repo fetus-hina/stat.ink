@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
+use app\components\widgets\Icon;
 use app\models\SlackAddForm;
 use yii\bootstrap\ActiveForm;
+use yii\bootstrap\Tabs;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\View;
@@ -19,28 +21,50 @@ $this->title = implode(' | ', [
   Yii::$app->name,
   $title,
 ]);
+
+$this->registerCss(
+  vsprintf('#notice .tab-content>.panel-default{%s}', [
+    Html::cssStyleFromArray([
+      'border-top' => '0',
+      'border-top-left-radius' => '0',
+      'border-top-right-radius' => '0',
+    ]),
+  ]),
+);
+
 ?>
 <div class="container">
   <h1><?= Html::encode($title) ?></h1>
 
-  <p>
-    <?= Html::encode(Yii::t('app', 'To use Slack integration, you need to configure Slack\'s "Incoming Webhook" first.')) . "\n" ?>
-    <?= Html::encode(Yii::t('app', '(For advanced users)')) . "\n" ?>
-  </p>
-  <p>
-    <?= implode(', ', [
-      Html::a(
-        Html::encode(Yii::t('app', 'About Incoming Webhook')),
-        'https://api.slack.com/incoming-webhooks',
-        ['target' => '_blank']
-      ),
-      Html::a(
-        Html::encode(Yii::t('app', 'Create new webhook')),
-        'https://my.slack.com/services/new/incoming-webhook/',
-        ['target' => '_blank']
-      ),
+  <div class="mb-3" id="notice">
+    <?= Tabs::widget([
+      'encodeLabels' => false,
+      'itemOptions' => [
+        'class' => [
+          'p-3',
+          'pb-0',
+          'panel',
+          'panel-default',
+        ],
+      ],
+      'items' => [
+        [
+          'label' => implode(' ', [
+            Icon::slack(),
+            Html::encode(Yii::t('app', 'Slack')),
+          ]),
+          'content' => $this->render('slack-add/tabs/slack'),
+        ],
+        [
+          'label' => implode(' ', [
+            Icon::discord(),
+            Html::encode(Yii::t('app', 'Discord')),
+          ]),
+          'content' => $this->render('slack-add/tabs/discord'),
+        ],
+      ],
     ]) . "\n" ?>
-  </p>
+  </div>
 
   <?php $_ = ActiveForm::begin(['id' => 'add-form', 'action' => ['slack-add']]); echo "\n" ?>
     <?= $_->field($form, 'webhook_url')
