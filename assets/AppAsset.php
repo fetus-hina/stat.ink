@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\assets;
 
+use LogicException;
 use yii\bootstrap\BootstrapAsset;
 use yii\bootstrap\BootstrapPluginAsset;
 use yii\web\AssetBundle;
