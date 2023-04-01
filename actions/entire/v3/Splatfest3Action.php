@@ -10,10 +10,10 @@ declare(strict_types=1);
 
 namespace app\actions\entire\v3;
 
+use LogicException;
 use Yii;
 use app\models\Lobby3;
 use app\models\Rule3;
-use app\models\Splatfest3Theme;
 use yii\base\Action;
 use yii\db\Connection;
 use yii\db\Query;
@@ -24,12 +24,31 @@ use yii\web\Response;
 
 use function array_map;
 use function array_merge;
+use function array_unique;
+use function array_values;
 use function assert;
+use function hexdec;
 use function implode;
+use function preg_match;
+use function sort;
+use function substr;
 use function vsprintf;
+
+use const SORT_NUMERIC;
 
 final class Splatfest3Action extends Action
 {
+    private const START_AT = '2023-04-01T09:00:00+09:00';
+    private const END_AT = '2023-04-03T09:00:00+09:00';
+
+    private const TEAM_NAME_1 = 'Nessie / ネッシー / 尼斯湖水怪';
+    private const TEAM_NAME_2 = 'Aliens / 宇宙人 / 外星人';
+    private const TEAM_NAME_3 = 'Bigfoot / 雪男 / 雪怪';
+
+    private const TEAM_COLOR_1 = '1ecf6d';
+    private const TEAM_COLOR_2 = '9938f3';
+    private const TEAM_COLOR_3 = 'f08354';
+
     public function run(): Response|string
     {
         $controller = $this->controller;
@@ -40,6 +59,16 @@ final class Splatfest3Action extends Action
                 $themes = $this->getThemes($db);
                 return [
                     'votes' => ArrayHelper::map($this->getVotes($db, $themes), 'theme', 'count'),
+                    'names' => [
+                        'team1' => self::TEAM_NAME_1,
+                        'team2' => self::TEAM_NAME_2,
+                        'team3' => self::TEAM_NAME_3,
+                    ],
+                    'colors' => [
+                        'team1' => self::TEAM_COLOR_1,
+                        'team2' => self::TEAM_COLOR_2,
+                        'team3' => self::TEAM_COLOR_3,
+                    ],
                 ];
             },
             Transaction::REPEATABLE_READ,
@@ -53,58 +82,90 @@ final class Splatfest3Action extends Action
         return Yii::$app->cache->getOrSet(
             __METHOD__,
             fn (): array => [
-                'dark' => $this->getDarkIds($db),
-                'milk' => $this->getMilkIds($db),
-                'white' => $this->getWhiteIds($db),
+                'team1' => $this->getTeamIdsByColor($db, self::TEAM_COLOR_1),
+                'team2' => $this->getTeamIdsByColor($db, self::TEAM_COLOR_2),
+                'team3' => $this->getTeamIdsByColor($db, self::TEAM_COLOR_3),
             ],
             600,
         );
     }
 
-    private function getDarkIds(Connection $db): array
+    private function getTeamIdsByColor(Connection $db, string $hexColor): array
     {
-        return $this->getThemeIds($db, [
-            'Chocolat noir',
-            'Dark Chocolate',
-            'Puur',
-            'ビター',
-            '苦甜',
-            '苦甜巧克力',
-        ]);
+        if (!preg_match('/^[0-9a-f]{6,}$/', $hexColor)) {
+            throw new LogicException();
+        }
+
+        $colors = [];
+        $baseR = hexdec(substr($hexColor, 0, 2));
+        $baseG = hexdec(substr($hexColor, 2, 2));
+        $baseB = hexdec(substr($hexColor, 4, 2));
+        $offsets = [-1, 0, 1];
+        foreach ($offsets as $offB) {
+            $b = $baseB + $offB;
+            foreach ($offsets as $offG) {
+                $g = $baseG + $offG;
+                foreach ($offsets as $offR) {
+                    $r = $baseR + $offR;
+                    if (
+                        (0 <= $r && $r <= 255) &&
+                        (0 <= $g && $g <= 255) &&
+                        (0 <= $b && $b <= 255)
+                    ) {
+                        $colors[] = vsprintf('%02x%02x%02x%02x', [
+                            $r,
+                            $g,
+                            $b,
+                            255,
+                        ]);
+                    }
+                }
+            }
+        }
+
+        $ids = array_merge(
+            $this->getTeamIdsByColorImpl($db, $colors, 'our_team_color', 'our_team_theme_id'),
+            $this->getTeamIdsByColorImpl($db, $colors, 'their_team_color', 'their_team_theme_id'),
+        );
+
+        sort($ids, SORT_NUMERIC);
+        return array_values(array_unique($ids));
     }
 
-    private function getMilkIds(Connection $db): array
+    private function getTeamIdsByColorImpl(Connection $db, array $colors, string $attrColor, string $attrTheme): array
     {
-        return $this->getThemeIds($db, [
-            'Chocolat au lait',
-            'Melk',
-            'Milk Chocolate',
-            'ミルク',
-            '牛奶',
-            '牛奶巧克力',
-        ]);
-    }
-
-    private function getWhiteIds(Connection $db): array
-    {
-        return $this->getThemeIds($db, [
-            'Chocolat blanc',
-            'White Chocolate',
-            'Wit',
-            'ホワイト',
-            '白',
-            '白巧克力',
-        ]);
-    }
-
-    /**
-     * @return int[]
-     */
-    private function getThemeIds(Connection $db, array $texts): array
-    {
-        return ArrayHelper::getColumn(
-            Splatfest3Theme::find()->andWhere(['name' => $texts])->all($db),
-            'id',
+        $query = (new Query())
+            ->select([
+                'theme_id' => $attrTheme,
+            ])
+            ->from('{{%battle3}}')
+            ->innerJoin('{{%result3}}', '{{%battle3}}.[[result_id]] = {{%result3}}.[[id]]')
+            ->andWhere([
+                '{{%battle3}}.[[has_disconnect]]' => false,
+                '{{%battle3}}.[[is_automated]]' => true,
+                '{{%battle3}}.[[is_deleted]]' => false,
+                '{{%battle3}}.[[lobby_id]]' => $this->getLobbyIds($db),
+                '{{%battle3}}.[[rule_id]]' => $this->getRuleIds($db),
+                '{{%battle3}}.[[use_for_entire]]' => true,
+                '{{%result3}}.[[aggregatable]]' => true,
+            ])
+            ->andWhere(['and',
+                ['not', ['{{%battle3}}.[[end_at]]' => null]],
+                ['not', ['{{%battle3}}.[[our_team_color]]' => null]],
+                ['not', ['{{%battle3}}.[[our_team_theme_id]]' => null]],
+                ['not', ['{{%battle3}}.[[start_at]]' => null]],
+                ['not', ['{{%battle3}}.[[their_team_color]]' => null]],
+                ['not', ['{{%battle3}}.[[their_team_theme_id]]' => null]],
+                ['between', '{{%battle3}}.[[start_at]]', self::START_AT, self::END_AT],
+                '{{%battle3}}.[[start_at]] < {{%battle3}}.[[end_at]]',
+            ])
+            ->andWhere([
+                "{{%battle3}}.[[{$attrColor}]]" => $colors,
+            ])
+            ->groupBy([$attrTheme]);
+        return array_map(
+            fn (int|string $v): int => (int)$v,
+            $query->column($db),
         );
     }
 
@@ -139,7 +200,7 @@ final class Splatfest3Action extends Action
                         ['not', ['{{%battle3}}.[[start_at]]' => null]],
                         ['not', ['{{%battle3}}.[[their_team_color]]' => null]],
                         ['not', ['{{%battle3}}.[[their_team_theme_id]]' => null]],
-                        ['between', '{{%battle3}}.[[start_at]]', '2023-02-10T00:00:00+00:00', '2023-02-14T00:00:00+00:00'],
+                        ['between', '{{%battle3}}.[[start_at]]', self::START_AT, self::END_AT],
                         '{{%battle3}}.[[start_at]] < {{%battle3}}.[[end_at]]',
                     ])
                     ->groupBy([$themeSql]);

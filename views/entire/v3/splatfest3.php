@@ -12,6 +12,8 @@ use yii\web\View;
 /**
  * @var View $this
  * @var array<string, int> $votes
+ * @var array<string, string> $colors
+ * @var array<string, string> $names
  */
 
 $title = Yii::t('app', 'Splatfest Estimated Vote %');
@@ -23,9 +25,16 @@ $this->registerMetaTag(['name' => 'twitter:description', 'content' => $title]);
 $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
 
 $this->registerCss(
-    '.progress-bar-dark{background-color:#611eea}' .
-    '.progress-bar-milk{background-color:#995934}' .
-    '.progress-bar-white{background-color:#d6bf8e}'
+    implode(
+        '',
+        array_map(
+            fn (string $key): string => vsprintf('.progress-bar-%s{background-color:#%s}', [
+                $key,
+                $colors[$key],
+            ]),
+            ['team1', 'team2', 'team3'],
+        ),
+    ),
 );
 
 ?>
@@ -64,7 +73,7 @@ $this->registerCss(
                   'label' => Yii::$app->formatter->asPercent($count / array_sum($votes), 0),
                   'options' => [
                       'class' => "progress-bar-{$key} auto-tooltip",
-                      'title' => ucfirst($key),
+                      'title' => $names[$key],
                   ],
               ],
               array_keys($votes),
