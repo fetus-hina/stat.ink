@@ -23,5 +23,6 @@ echo Html::tag(
   'p',
   implode('', [
     $this->render('splatoon3/statink-json', compact('user')),
+    $this->render('splatoon3/salmon-json', compact('user')),
   ]),
 ) . "\n";

@@ -9,7 +9,9 @@
 namespace app\actions\user;
 
 use Yii;
+use app\components\helpers\SalmonExportJson3Helper;
 use app\components\helpers\UserExportJson3Helper;
+use app\models\SalmonExportJson3;
 use app\models\User;
 use app\models\UserExportJson3;
 use yii\base\Action;
@@ -29,6 +31,7 @@ final class Download3Action extends Action
         }
 
         return match (Yii::$app->request->get('type')) {
+            'salmon-json' => $this->runSalmonJson($user),
             'user-json' => $this->runUserJson($user),
             default => new BadRequestHttpException(
                 Yii::t(
@@ -38,6 +41,27 @@ final class Download3Action extends Action
                 ),
             ),
         };
+    }
+
+    private function runSalmonJson(User $user): Response
+    {
+        $isReady = SalmonExportJson3::find()
+            ->andWhere(['user_id' => $user->id])
+            ->exists();
+        if (!$isReady) {
+            throw new BadRequestHttpException(
+                Yii::t('yii', 'You are not allowed to perform this action.'),
+            );
+        }
+
+        return Yii::$app->response->sendFile(
+            SalmonExportJson3Helper::getPath($user),
+            sprintf('statink-salmon-%s.json.gz', $user->screen_name),
+            [
+                'mimeType' => 'application/octet-stream',
+                'inline' => false,
+            ],
+        );
     }
 
     private function runUserJson(User $user): Response

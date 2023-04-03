@@ -475,6 +475,7 @@ return [
     'Room info (Private)' => '房間資訊(是否私人比賽)',
     'S/min' => '特殊武器/分鐘',
     'Salmon Run CSV' => '鮭魚打工CSV',
+    'Salmon Run JSON (gzipped)' => '',
     'Samples' => '範例',
     'Save!' => '保存！',
     'Schedule' => '行程安排',

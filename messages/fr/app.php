@@ -476,6 +476,7 @@ return [
     'Room info (Private)' => 'Infos du salon (Privé)',
     'S/min' => '',
     'Salmon Run CSV' => '',
+    'Salmon Run JSON (gzipped)' => '',
     'Samples' => 'Échantillons',
     'Save!' => 'Sauvegarder !',
     'Schedule' => 'Planning',
