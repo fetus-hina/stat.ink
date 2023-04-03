@@ -86,6 +86,7 @@ final class GetSingleSalmonAction extends Action
             : (int)$user->id === (int)Yii::$app->user->id;
 
         $resp = Yii::$app->response;
+        $resp->headers->set('Access-Control-Allow-Origin', '*');
         $resp->data = SalmonApiFormatter::toJson(
             $model,
             $isAuthenticated,

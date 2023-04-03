@@ -105,6 +105,7 @@ final class GetUserSalmonAction extends Action
             : (int)$user->id === (int)Yii::$app->user->id;
 
         $resp = Yii::$app->response;
+        $resp->headers->set('Access-Control-Allow-Origin', '*');
         $resp->data = array_map(
             fn (Salmon3 $model): JsExpression => new JsExpression(
                 Yii::$app->cache->getOrSet(
