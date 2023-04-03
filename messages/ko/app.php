@@ -474,6 +474,7 @@ return [
     'Room info (Private)' => '방 정보 (프라이빗)',
     'S/min' => '스페셜/분',
     'Salmon Run CSV' => '새먼런 CSV',
+    'Salmon Run JSON (gzipped)' => '',
     'Samples' => '',
     'Save!' => '저장',
     'Schedule' => '스케줄',

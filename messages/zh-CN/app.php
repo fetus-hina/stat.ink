@@ -476,6 +476,7 @@ return [
     'Room info (Private)' => '房间信息（是否私房）',
     'S/min' => '大招/分钟',
     'Salmon Run CSV' => '鲑鱼打工CSV',
+    'Salmon Run JSON (gzipped)' => '',
     'Samples' => '',
     'Save!' => '保存！',
     'Schedule' => '日程安排',

@@ -461,6 +461,7 @@ return [
     'Room' => '部屋',
     'S/min' => 'スペ/分',
     'Salmon Run CSV' => 'サーモンランCSV',
+    'Salmon Run JSON (gzipped)' => 'サーモンランJSON (gzip圧縮)',
     'Samples' => 'サンプル数',
     'Save!' => '保存',
     'Schedule' => 'スケジュール',

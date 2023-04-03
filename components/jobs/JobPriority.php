@@ -18,6 +18,7 @@ trait JobPriority
         return match (static::class) {
             ImageS3Job::class => $defaultPriority + 2,
             OstatusJob::class => $defaultPriority - 2,
+            SalmonExportJson3Job::class => $defaultPriority + 1,
             SlackJob::class => $defaultPriority - 3,
             UserExportJson3Job::class => $defaultPriority + 1,
             UserStatsJob::class => $defaultPriority - 1,

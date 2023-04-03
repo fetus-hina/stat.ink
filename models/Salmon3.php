@@ -69,6 +69,7 @@ use yii\db\ActiveRecord;
  * @property SalmonKing3 $kingSalmonid
  * @property SalmonAgentVariable3[] $salmonAgentVariable3s
  * @property SalmonBossAppearance3[] $salmonBossAppearance3s
+ * @property SalmonExportJson3[] $salmonExportJson3s
  * @property SalmonPlayer3[] $salmonPlayer3s
  * @property SalmonWave3[] $salmonWave3s
  * @property SalmonSchedule3 $schedule
@@ -195,6 +196,11 @@ class Salmon3 extends ActiveRecord
     public function getSalmonBossAppearance3s(): ActiveQuery
     {
         return $this->hasMany(SalmonBossAppearance3::class, ['salmon_id' => 'id']);
+    }
+
+    public function getSalmonExportJson3s(): ActiveQuery
+    {
+        return $this->hasMany(SalmonExportJson3::class, ['last_battle_id' => 'id']);
     }
 
     public function getSalmonPlayer3s(): ActiveQuery
