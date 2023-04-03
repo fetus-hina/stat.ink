@@ -89,6 +89,7 @@ final class GetSingleBattleAction extends Action
             : (int)$user->id === (int)Yii::$app->user->id;
 
         $resp = Yii::$app->response;
+        $resp->headers->set('Access-Control-Allow-Origin', '*');
         $resp->data = BattleApiFormatter::toJson(
             $model,
             fullTranslate: $full,

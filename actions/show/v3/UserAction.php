@@ -186,6 +186,7 @@ final class UserAction extends Action
 
         $response = Yii::$app->response;
         $response->format = 'compact-json';
+        $response->headers->set('Access-Control-Allow-Origin', '*');
         $response->data = array_map(
             fn (Battle3 $model): ?array => $cache->getOrSet(
                 hash_hmac(
