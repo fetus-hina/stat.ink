@@ -13,6 +13,7 @@ namespace app\commands\splatoon3Ink;
 use DateTime;
 use LogicException;
 use Yii;
+use app\models\SalmonKing3;
 use app\models\SalmonRandom3;
 use app\models\SalmonSchedule3;
 use app\models\SalmonScheduleWeapon3;
@@ -41,11 +42,12 @@ trait UpdateSalmonSchedule
         foreach ($schedules['salmon_regular'] as $info) {
             if (
                 !$this->registerSalmonSchedule(
-                    $info['startAt'],
-                    $info['endAt'],
-                    $info['map_id'],
-                    $info['weapons'],
-                    false,
+                    startAt: $info['startAt'],
+                    endAt: $info['endAt'],
+                    mapId: $info['map_id'],
+                    king: $info['king'],
+                    weapons: $info['weapons'],
+                    isBigRun: false,
                 )
             ) {
                 $hasError = true;
@@ -55,11 +57,12 @@ trait UpdateSalmonSchedule
         foreach ($schedules['salmon_bigrun'] as $info) {
             if (
                 !$this->registerSalmonSchedule(
-                    $info['startAt'],
-                    $info['endAt'],
-                    $info['map_id'],
-                    $info['weapons'],
-                    true,
+                    startAt: $info['startAt'],
+                    endAt: $info['endAt'],
+                    mapId: $info['map_id'],
+                    king: $info['king'],
+                    weapons: $info['weapons'],
+                    isBigRun: true,
                 )
             ) {
                 $hasError = true;
@@ -76,19 +79,20 @@ trait UpdateSalmonSchedule
         int $startAt,
         int $endAt,
         ?int $mapId,
+        ?SalmonKing3 $king,
         array $weapons,
         bool $isBigRun,
     ): bool {
         return Yii::$app->db->transaction(
-            function (Connection $db) use ($startAt, $endAt, $mapId, $weapons, $isBigRun): bool {
+            function (Connection $db) use ($startAt, $endAt, $mapId, $king, $weapons, $isBigRun): bool {
                 // 既にデータが正しく保存されている
-                if ($this->isSalmonScheduleRegistered($startAt, $endAt, $mapId, $weapons, $isBigRun)) {
+                if ($this->isSalmonScheduleRegistered($startAt, $endAt, $mapId, $king, $weapons, $isBigRun)) {
                     return true;
                 }
 
                 if (
                     $this->cleanUpSalmonSchedule($startAt) &&
-                    $this->registerSalmonScheduleImpl($startAt, $endAt, $mapId, $weapons, $isBigRun)
+                    $this->registerSalmonScheduleImpl($startAt, $endAt, $mapId, $king, $weapons, $isBigRun)
                 ) {
                     vfprintf(STDERR, "Salmon run schedule registered, %s, period=%s - %s\n", [
                         $isBigRun ? 'bigrun' : 'standard',
@@ -112,6 +116,7 @@ trait UpdateSalmonSchedule
         int $startAt,
         int $endAt,
         ?int $mapId,
+        ?SalmonKing3 $king,
         array $weapons,
         bool $isBigRun,
     ): bool {
@@ -119,6 +124,7 @@ trait UpdateSalmonSchedule
             ->andWhere([
                 'end_at' => date(DateTime::ATOM, $endAt),
                 'start_at' => date(DateTime::ATOM, $startAt),
+                'king_id' => $king?->id ?? null,
             ])
             ->andWhere(
                 $isBigRun
@@ -188,6 +194,7 @@ trait UpdateSalmonSchedule
         int $startAt,
         int $endAt,
         ?int $mapId,
+        ?SalmonKing3 $king,
         array $weapons,
         bool $isBigRun,
     ): bool {
@@ -195,6 +202,7 @@ trait UpdateSalmonSchedule
             'class' => SalmonSchedule3::class,
             'big_map_id' => $isBigRun ? $mapId : null,
             'end_at' => date(DateTime::ATOM, $endAt),
+            'king_id' => $king?->id ?? null,
             'map_id' => $isBigRun ? null : $mapId,
             'start_at' => date(DateTime::ATOM, $startAt),
         ]);

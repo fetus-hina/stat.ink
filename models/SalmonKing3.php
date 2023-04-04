@@ -22,6 +22,7 @@ use yii\db\ActiveRecord;
  *
  * @property Salmon3[] $salmon3s
  * @property SalmonKing3Alias[] $salmonKing3Aliases
+ * @property SalmonSchedule3[] $salmonSchedule3s
  */
 class SalmonKing3 extends ActiveRecord
 {
@@ -57,5 +58,10 @@ class SalmonKing3 extends ActiveRecord
     public function getSalmonKing3Aliases(): ActiveQuery
     {
         return $this->hasMany(SalmonKing3Alias::class, ['salmonid_id' => 'id']);
+    }
+
+    public function getSalmonSchedule3s(): ActiveQuery
+    {
+        return $this->hasMany(SalmonSchedule3::class, ['king_id' => 'id']);
     }
 }

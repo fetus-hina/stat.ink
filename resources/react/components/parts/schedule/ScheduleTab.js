@@ -85,7 +85,7 @@ function label (classes, mode, props) {
           </>
           )
         : null}
-      {current && current.rule && current.rule.icon
+      {current?.rule?.icon
         ? (
           <>
             <img
@@ -98,7 +98,20 @@ function label (classes, mode, props) {
           </>
           )
         : null}
-      {current && current.weapons && item.showOpen
+      {current?.king?.image
+        ? (
+          <>
+            <img
+              alt={current.king.name}
+              className={classes.modeIcon}
+              src={current.king.image}
+              title={current.king.name}
+            />
+            {' '}
+          </>
+          )
+        : null}
+      {current?.weapons && item.showOpen
         ? (
           <>
             <span className='text-warning' title={translations ? translations.salmon_open : 'Open!'}>

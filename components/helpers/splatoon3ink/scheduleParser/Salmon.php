@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -13,6 +13,7 @@ namespace app\components\helpers\splatoon3ink\scheduleParser;
 use DateTimeImmutable;
 use DateTimeZone;
 use app\models\Map3;
+use app\models\SalmonKing3;
 use app\models\SalmonMap3;
 use app\models\SalmonRandom3;
 use app\models\SalmonWeapon3;
@@ -22,6 +23,7 @@ use yii\helpers\ArrayHelper;
 
 use function array_map;
 use function array_values;
+use function is_string;
 
 trait Salmon
 {
@@ -45,6 +47,9 @@ trait Salmon
             'map_id' => self::parseSalmonStage(
                 ArrayHelper::getValue($schedule, 'setting.coopStage.name'),
                 $isBigRun,
+            ),
+            'king' => self::parseSalmonKing(
+                ArrayHelper::getValue($schedule, '__splatoon3ink_king_salmonid_guess'),
             ),
             'weapons' => array_map(
                 fn (array $info): ?ActiveRecord => self::parseSalmonWeapon($info),
@@ -74,6 +79,18 @@ trait Salmon
             ->limit(1)
             ->one()
             ?->id;
+    }
+
+    private static function parseSalmonKing(mixed $kingName): ?SalmonKing3
+    {
+        if (!is_string($kingName)) {
+            return null;
+        }
+
+        return SalmonKing3::find()
+            ->andWhere(['name' => $kingName])
+            ->limit(1)
+            ->one();
     }
 
     /**

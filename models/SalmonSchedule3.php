@@ -21,9 +21,11 @@ use yii\db\ActiveRecord;
  * @property string $start_at
  * @property string $end_at
  * @property integer $big_map_id
+ * @property integer $king_id
  *
  * @property Map3 $bigMap
  * @property BigrunOfficialResult3 $bigrunOfficialResult3
+ * @property SalmonKing3 $king
  * @property SalmonMap3 $map
  * @property Salmon3[] $salmon3s
  * @property SalmonScheduleWeapon3[] $salmonScheduleWeapon3s
@@ -42,12 +44,13 @@ class SalmonSchedule3 extends ActiveRecord
     public function rules()
     {
         return [
-            [['map_id', 'big_map_id'], 'default', 'value' => null],
-            [['map_id', 'big_map_id'], 'integer'],
+            [['map_id', 'big_map_id', 'king_id'], 'default', 'value' => null],
+            [['map_id', 'big_map_id', 'king_id'], 'integer'],
             [['start_at', 'end_at'], 'required'],
             [['start_at', 'end_at'], 'safe'],
             [['start_at'], 'unique'],
             [['big_map_id'], 'exist', 'skipOnError' => true, 'targetClass' => Map3::class, 'targetAttribute' => ['big_map_id' => 'id']],
+            [['king_id'], 'exist', 'skipOnError' => true, 'targetClass' => SalmonKing3::class, 'targetAttribute' => ['king_id' => 'id']],
             [['map_id'], 'exist', 'skipOnError' => true, 'targetClass' => SalmonMap3::class, 'targetAttribute' => ['map_id' => 'id']],
         ];
     }
@@ -60,6 +63,7 @@ class SalmonSchedule3 extends ActiveRecord
             'start_at' => 'Start At',
             'end_at' => 'End At',
             'big_map_id' => 'Big Map ID',
+            'king_id' => 'King ID',
         ];
     }
 
@@ -71,6 +75,11 @@ class SalmonSchedule3 extends ActiveRecord
     public function getBigrunOfficialResult3(): ActiveQuery
     {
         return $this->hasOne(BigrunOfficialResult3::class, ['schedule_id' => 'id']);
+    }
+
+    public function getKing(): ActiveQuery
+    {
+        return $this->hasOne(SalmonKing3::class, ['id' => 'king_id']);
     }
 
     public function getMap(): ActiveQuery
