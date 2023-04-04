@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -13,9 +13,11 @@ namespace app\actions\api\internal\schedule;
 use DateTime;
 use Yii;
 use app\assets\GameModeIconsAsset;
+use app\assets\Spl3SalmonidAsset;
 use app\assets\Spl3StageAsset;
 use app\assets\Spl3WeaponAsset;
 use app\models\Map3;
+use app\models\SalmonKing3;
 use app\models\SalmonMap3;
 use app\models\SalmonSchedule3;
 use app\models\SalmonScheduleWeapon3;
@@ -49,6 +51,7 @@ trait Salmon3
                     SalmonSchedule3::find()
                         ->with([
                             'bigMap',
+                            'king',
                             'map',
                             'salmonScheduleWeapon3s',
                             'salmonScheduleWeapon3s.random',
@@ -68,6 +71,7 @@ trait Salmon3
                             'maps' => [
                                 $this->salmonMap3($sc->map ?? $sc->bigMap),
                             ],
+                            'king' => $this->salmonKing3($sc->king),
                             'weapons' => ArrayHelper::getColumn(
                                 ArrayHelper::sort(
                                     $sc->salmonScheduleWeapon3s,
@@ -109,6 +113,26 @@ trait Salmon3
                 $am->getAssetUrl(
                     $am->getBundle(Spl3StageAsset::class, true),
                     sprintf('color-normal/%s.jpg', $info->key),
+                ),
+                true,
+            ),
+        ];
+    }
+
+    private function salmonKing3(SalmonKing3|null $king): ?array
+    {
+        if (!$king) {
+            return null;
+        }
+
+        $am = Yii::$app->assetManager;
+        return [
+            'key' => $king->key,
+            'name' => Yii::t('app-salmon-boss3', $king->name),
+            'image' => Url::to(
+                $am->getAssetUrl(
+                    $am->getBundle(Spl3SalmonidAsset::class, true),
+                    sprintf('%s.png', $king->key),
                 ),
                 true,
             ),

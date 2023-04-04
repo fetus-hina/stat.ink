@@ -83,10 +83,9 @@ const useStyles = createUseStyles({
       }
     }
   },
-  bigRun: {
-    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+  leftTopInfo: {
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
     borderBottomRightRadius: '4px',
-    color: '#dd0',
     fontFamily: 'paintball,cursive',
     fontSize: '24px',
     fontStyle: 'normal',
@@ -96,7 +95,15 @@ const useStyles = createUseStyles({
     margin: '0',
     padding: '8px',
     position: 'absolute',
-    top: '0'
+    top: '0',
+
+    '& img': {
+      height: '24px',
+      width: 'auto'
+    }
+  },
+  bigRun: {
+    color: '#ad21f7'
   }
 });
 
@@ -138,10 +145,19 @@ export default function ScheduleCard (props) {
             </div>
             )
           : null}
-        {isSalmon && schedule && schedule.is_big_run
+        {isSalmon && (schedule?.is_big_run || schedule?.king?.image)
           ? (
-            <div className={classes.bigRun}>
-              Big Run
+            <div className={classes.leftTopInfo}>
+              {schedule?.king?.image
+                ? <img
+                    src={schedule?.king?.image}
+                    alt={schedule?.king?.name}
+                    title={schedule?.king?.name}
+                  />
+                : null}
+              {schedule?.is_big_run
+                ? <span className={classes.bigRun}> Big Run</span>
+                : null}
             </div>
             )
           : null}
