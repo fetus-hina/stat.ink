@@ -23,6 +23,8 @@ use yii\db\ActiveRecord;
  * @property Battle3[] $battle3s
  * @property Battle3[] $battle3s0
  * @property Battle3[] $battle3s1
+ * @property UserBadge3Tricolor[] $userBadge3Tricolors
+ * @property User[] $users
  */
 class TricolorRole3 extends ActiveRecord
 {
@@ -62,5 +64,15 @@ class TricolorRole3 extends ActiveRecord
     public function getBattle3s1(): ActiveQuery
     {
         return $this->hasMany(Battle3::class, ['third_team_role_id' => 'id']);
+    }
+
+    public function getUserBadge3Tricolors(): ActiveQuery
+    {
+        return $this->hasMany(UserBadge3Tricolor::class, ['role_id' => 'id']);
+    }
+
+    public function getUsers(): ActiveQuery
+    {
+        return $this->hasMany(User::class, ['id' => 'user_id'])->viaTable('user_badge3_tricolor', ['role_id' => 'id']);
     }
 }

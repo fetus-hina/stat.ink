@@ -21,7 +21,6 @@ use function array_keys;
 use function array_map;
 use function implode;
 use function sprintf;
-use function var_dump;
 use function vsprintf;
 
 trait BigrunHistogramTrait
@@ -32,8 +31,6 @@ trait BigrunHistogramTrait
             return self::bigrunHistogramDistrib($db) &&
                 self::bigrunHistogramAbstract($db);
         } catch (Throwable $e) {
-            var_dump($e);
-
             Yii::error(
                 vsprintf('Catch %s, message=%s', [
                     $e::class,

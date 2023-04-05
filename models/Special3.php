@@ -26,6 +26,8 @@ use yii\db\ActiveRecord;
  * @property Special3Alias[] $special3Aliases
  * @property StatSpecialUse3[] $statSpecialUse3s
  * @property StatSpecialUseCount3[] $statSpecialUseCount3s
+ * @property UserBadge3Special[] $userBadge3Specials
+ * @property User[] $users
  * @property SalmonWave3[] $waves
  * @property Weapon3[] $weapon3s
  */
@@ -83,6 +85,16 @@ class Special3 extends ActiveRecord
     public function getStatSpecialUseCount3s(): ActiveQuery
     {
         return $this->hasMany(StatSpecialUseCount3::class, ['special_id' => 'id']);
+    }
+
+    public function getUserBadge3Specials(): ActiveQuery
+    {
+        return $this->hasMany(UserBadge3Special::class, ['special_id' => 'id']);
+    }
+
+    public function getUsers(): ActiveQuery
+    {
+        return $this->hasMany(User::class, ['id' => 'user_id'])->viaTable('user_badge3_special', ['special_id' => 'id']);
     }
 
     public function getWaves(): ActiveQuery

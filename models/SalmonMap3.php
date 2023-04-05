@@ -25,6 +25,8 @@ use yii\db\ActiveRecord;
  * @property SalmonMap3Alias[] $salmonMap3Aliases
  * @property SalmonSchedule3[] $salmonSchedule3s
  * @property StatSalmon3TideEvent[] $statSalmon3TideEvents
+ * @property UserBadge3EggsecutiveReached[] $userBadge3EggsecutiveReacheds
+ * @property User[] $users
  */
 class SalmonMap3 extends ActiveRecord
 {
@@ -71,5 +73,15 @@ class SalmonMap3 extends ActiveRecord
     public function getStatSalmon3TideEvents(): ActiveQuery
     {
         return $this->hasMany(StatSalmon3TideEvent::class, ['stage_id' => 'id']);
+    }
+
+    public function getUserBadge3EggsecutiveReacheds(): ActiveQuery
+    {
+        return $this->hasMany(UserBadge3EggsecutiveReached::class, ['stage_id' => 'id']);
+    }
+
+    public function getUsers(): ActiveQuery
+    {
+        return $this->hasMany(User::class, ['id' => 'user_id'])->viaTable('user_badge3_eggsecutive_reached', ['stage_id' => 'id']);
     }
 }
