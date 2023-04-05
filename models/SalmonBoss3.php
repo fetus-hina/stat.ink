@@ -24,6 +24,8 @@ use yii\db\ActiveRecord;
  * @property Salmon3[] $salmon
  * @property SalmonBoss3Alias[] $salmonBoss3Aliases
  * @property SalmonBossAppearance3[] $salmonBossAppearance3s
+ * @property UserBadge3BossSalmonid[] $userBadge3BossSalmons
+ * @property User[] $users
  */
 class SalmonBoss3 extends ActiveRecord
 {
@@ -66,5 +68,15 @@ class SalmonBoss3 extends ActiveRecord
     public function getSalmonBossAppearance3s(): ActiveQuery
     {
         return $this->hasMany(SalmonBossAppearance3::class, ['boss_id' => 'id']);
+    }
+
+    public function getUserBadge3BossSalmons(): ActiveQuery
+    {
+        return $this->hasMany(UserBadge3BossSalmonid::class, ['boss_id' => 'id']);
+    }
+
+    public function getUsers(): ActiveQuery
+    {
+        return $this->hasMany(User::class, ['id' => 'user_id'])->viaTable('user_badge3_boss_salmonid', ['boss_id' => 'id']);
     }
 }

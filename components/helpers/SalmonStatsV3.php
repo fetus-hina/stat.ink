@@ -13,6 +13,7 @@ namespace app\components\helpers;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
+use app\components\helpers\salmonStatsV3\BadgeProgressTrait;
 use app\components\helpers\salmonStatsV3\BigrunHistogramTrait;
 use app\components\helpers\salmonStatsV3\BigrunTrait;
 use app\components\helpers\salmonStatsV3\StatsTrait;
@@ -22,6 +23,7 @@ use yii\db\Transaction;
 
 final class SalmonStatsV3
 {
+    use BadgeProgressTrait;
     use BigrunHistogramTrait;
     use BigrunTrait;
     use StatsTrait;
@@ -31,7 +33,7 @@ final class SalmonStatsV3
         $now = new DateTimeImmutable('now', new DateTimeZone('Etc/UTC'));
         return Yii::$app->db->transaction(
             fn (Connection $db): bool => self::createImpl($db, $user, $now),
-            Transaction::READ_COMMITTED,
+            Transaction::REPEATABLE_READ,
         );
     }
 
@@ -39,6 +41,7 @@ final class SalmonStatsV3
     {
         return self::createUserStats($db, $user, $now) &&
             self::createBigrunStats($db, $user, $now) &&
+            self::createBadgeProgress($db, $user, $now) &&
             self::createBigrunHistogramStats($db);
     }
 }

@@ -48,8 +48,10 @@ use yii\db\ActiveRecord;
  * @property StatWeapon3Usage[] $statWeapon3Usages
  * @property StatXPowerDistrib3[] $statXPowerDistrib3s
  * @property StatXPowerDistribAbstract3[] $statXPowerDistribAbstract3s
+ * @property UserBadge3Rule[] $userBadge3Rules
  * @property UserStat3XMatch[] $userStat3XMatches
  * @property User[] $users
+ * @property User[] $users0
  */
 class Rule3 extends ActiveRecord
 {
@@ -207,12 +209,22 @@ class Rule3 extends ActiveRecord
         return $this->hasMany(StatXPowerDistribAbstract3::class, ['rule_id' => 'id']);
     }
 
+    public function getUserBadge3Rules(): ActiveQuery
+    {
+        return $this->hasMany(UserBadge3Rule::class, ['rule_id' => 'id']);
+    }
+
     public function getUserStat3XMatches(): ActiveQuery
     {
         return $this->hasMany(UserStat3XMatch::class, ['rule_id' => 'id']);
     }
 
     public function getUsers(): ActiveQuery
+    {
+        return $this->hasMany(User::class, ['id' => 'user_id'])->viaTable('user_badge3_rule', ['rule_id' => 'id']);
+    }
+
+    public function getUsers0(): ActiveQuery
     {
         return $this->hasMany(User::class, ['id' => 'user_id'])->viaTable('user_stat3_x_match', ['rule_id' => 'id']);
     }

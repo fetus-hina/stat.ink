@@ -23,6 +23,8 @@ use yii\db\ActiveRecord;
  * @property Salmon3[] $salmon3s
  * @property SalmonKing3Alias[] $salmonKing3Aliases
  * @property SalmonSchedule3[] $salmonSchedule3s
+ * @property UserBadge3KingSalmonid[] $userBadge3KingSalmons
+ * @property User[] $users
  */
 class SalmonKing3 extends ActiveRecord
 {
@@ -63,5 +65,15 @@ class SalmonKing3 extends ActiveRecord
     public function getSalmonSchedule3s(): ActiveQuery
     {
         return $this->hasMany(SalmonSchedule3::class, ['king_id' => 'id']);
+    }
+
+    public function getUserBadge3KingSalmons(): ActiveQuery
+    {
+        return $this->hasMany(UserBadge3KingSalmonid::class, ['king_id' => 'id']);
+    }
+
+    public function getUsers(): ActiveQuery
+    {
+        return $this->hasMany(User::class, ['id' => 'user_id'])->viaTable('user_badge3_king_salmonid', ['king_id' => 'id']);
     }
 }
