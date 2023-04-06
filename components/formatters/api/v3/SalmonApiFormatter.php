@@ -43,6 +43,7 @@ final class SalmonApiFormatter
             'uuid' => $model->client_uuid,
             'private' => $model->is_private,
             'big_run' => $model->is_big_run,
+            'eggstra_work' => $model->is_eggstra_work,
             'stage' => SalmonStageApiFormatter::toJson(
                 $model->stage,
                 $model->bigStage,
