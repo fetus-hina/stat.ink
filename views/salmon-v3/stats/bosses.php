@@ -83,9 +83,13 @@ SortableTableAsset::register($this);
         ]),
         3600,
       ) . "\n" ?>
-      <?= $this->render('bosses/badge', [
-        'badges' => $badges,
-      ]) . "\n" ?>
+      <div class="text-right">
+        <?= Html::a(
+          Html::encode(Yii::t('app', 'Badge Progress')),
+          ['show-v3/stats-badge', 'screen_name' => $user->screen_name],
+          ['class' => 'btn btn-default'],
+        ) . "\n" ?>
+      </div>
     </div>
     <div class="col-xs-12 col-sm-4 col-lg-3">
       <?= Salmon3FilterWidget::widget(['filter' => $filter, 'user' => $user]) . "\n" ?>
