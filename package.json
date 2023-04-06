@@ -63,7 +63,7 @@
     "redux": "^4.2.1",
     "redux-saga": "^1.2.3",
     "regenerator-runtime": "^0.13.11",
-    "sass": "^1.60.0",
+    "sass": "^1.61.0",
     "semistandard": "^16.0.1",
     "semver": "^7.3.8",
     "stupid-table-plugin": "^1.1.3",
