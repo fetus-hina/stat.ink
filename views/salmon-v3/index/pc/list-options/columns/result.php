@@ -17,8 +17,10 @@ return [
       return null;
     }
 
-    if ($clearWaves >= 3) {
+    $expectWaves = $model->is_eggstra_work ? 5 : 3;
+    if ($clearWaves >= $expectWaves) {
       if (
+        $model->is_eggstra_work ||
         $model->clear_extra === null ||
         !$king = $model->kingSalmonid
       ) {
