@@ -99,8 +99,9 @@ final class SalmonItem3Widget extends Widget
             );
         }
 
-        if ($this->model->clear_waves >= 3) {
-            if (!$this->model->kingSalmonid) {
+        $expectWaves = $this->model->is_eggstra_work ? 5 : 3;
+        if ($this->model->clear_waves >= $expectWaves) {
+            if ($this->model->is_eggstra_work || !$this->model->kingSalmonid) {
                 return Html::tag(
                     'div',
                     Html::encode(Yii::t('app-salmon2', '✓')),

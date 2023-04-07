@@ -135,7 +135,7 @@ trait QueryDecoratorTrait
             case Salmon3FilterForm::RESULT_CLEARED_KING_APPEAR:
                 $query->andWhere(['and',
                     [
-                        '{{%salmon3}}.[[clear_waves]]' => 3,
+                        '{{%salmon3}}.[[clear_waves]]' => 3, // no-eggstra
                         '{{%salmon3}}.[[is_eggstra_work]]' => false,
                     ],
                     ['not', ['{{%salmon3}}.[[king_salmonid_id]]' => null]],
@@ -146,7 +146,7 @@ trait QueryDecoratorTrait
                 $query->andWhere(['and',
                     [
                         '{{%salmon3}}.[[clear_extra]]' => true,
-                        '{{%salmon3}}.[[clear_waves]]' => 3,
+                        '{{%salmon3}}.[[clear_waves]]' => 3, // no-eggstra
                         '{{%salmon3}}.[[is_eggstra_work]]' => false,
                     ],
                     ['not', ['{{%salmon3}}.[[king_salmonid_id]]' => null]],
@@ -157,7 +157,7 @@ trait QueryDecoratorTrait
                 $query->andWhere(['and',
                     [
                         '{{%salmon3}}.[[clear_extra]]' => false,
-                        '{{%salmon3}}.[[clear_waves]]' => 3,
+                        '{{%salmon3}}.[[clear_waves]]' => 3, // no-eggstra
                         '{{%salmon3}}.[[is_eggstra_work]]' => false,
                     ],
                     ['not', ['{{%salmon3}}.[[king_salmonid_id]]' => null]],
@@ -191,14 +191,14 @@ trait QueryDecoratorTrait
 
             case Salmon3FilterForm::RESULT_FAILED_W4:
                 $query->andWhere([
-                    '{{%salmon3}}.[[clear_waves]]' => 3,
+                    '{{%salmon3}}.[[clear_waves]]' => 3, // eggstra, failed in W4
                     '{{%salmon3}}.[[is_eggstra_work]]' => true,
                 ]);
                 break;
 
             case Salmon3FilterForm::RESULT_FAILED_W5:
                 $query->andWhere([
-                    '{{%salmon3}}.[[clear_waves]]' => 4,
+                    '{{%salmon3}}.[[clear_waves]]' => 4, // eggstra, failed in W5
                     '{{%salmon3}}.[[is_eggstra_work]]' => true,
                 ]);
                 break;
