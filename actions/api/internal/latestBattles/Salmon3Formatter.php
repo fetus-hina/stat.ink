@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -33,17 +33,23 @@ trait Salmon3Formatter
             'id' => $battle->uuid,
             'image' => null,
             'isWin' => $battle->clear_waves === null ? null : $battle->clear_waves >= 3,
-            'mode' => $battle->is_big_run
-                ? [
+            'mode' => match (true) {
+                $battle->is_big_run === true => [
                     'icon' => Url::to($am->getAssetUrl($modeAsset, 'spl3/salmon-bigrun-36x36.png'), true),
                     'key' => 'salmon',
                     'name' => Yii::t('app-salmon3', 'Big Run'),
-                ]
-                : [
+                ],
+                $battle->is_eggstra_work === true => [
+                    'icon' => Url::to($am->getAssetUrl($modeAsset, 'spl3/salmon-eggstra-36x36.png'), true),
+                    'key' => 'salmon',
+                    'name' => Yii::t('app-salmon3', 'Eggstra Work'),
+                ],
+                default => [
                     'icon' => Url::to($am->getAssetUrl($modeAsset, 'spl3/salmon36x36.png'), true),
                     'key' => 'salmon',
                     'name' => Yii::t('app-salmon2', 'Salmon Run'),
                 ],
+            },
             'stage' => $this->salmonStage3($battle),
             'summary' => (function () use ($battle): ?string {
                 $stage = $battle->stage ?? $battle->bigStage;
@@ -58,8 +64,13 @@ trait Salmon3Formatter
                 }
 
                 if ($battle->clear_waves !== null) {
-                    if ($battle->clear_waves >= 3) {
-                        if ($battle->kingSalmonid && $battle->clear_extra !== null) {
+                    $expectWaves = $battle->is_eggstra_work ? 5 : 3;
+                    if ($battle->clear_waves >= $expectWaves) {
+                        if (
+                            !$battle->is_eggstra_work &&
+                            $battle->kingSalmonid &&
+                            $battle->clear_extra !== null
+                        ) {
                             $result = vsprintf('%s:%s', [
                                 Yii::t('app-salmon-boss3', $battle->kingSalmonid->name),
                                 Yii::t('app-salmon2', $battle->clear_extra ? '✓' : '✗'),
@@ -79,6 +90,7 @@ trait Salmon3Formatter
             'summary2' => match (true) {
                 $battle->is_private === true => Yii::t('app-salmon3', 'Private Job'),
                 $battle->is_big_run === true => Yii::t('app-salmon3', 'Big Run'),
+                $battle->is_eggstra_work === true => Yii::t('app-salmon3', 'Eggstra Work'),
                 default => Yii::t('app-salmon3', 'Salmon Run'),
             },
             'time' => strtotime($battle->start_at ?: $battle->created_at),
