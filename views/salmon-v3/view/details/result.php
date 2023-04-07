@@ -13,15 +13,17 @@ return [
       return null;
     }
 
+    $expectWaves = $model->is_eggstra_work ? 5 : 3;
+
     $labels = [];
-    if ($model->clear_waves > 2) {
+    if ($model->clear_waves >= $expectWaves) {
       $labels[] = Label::widget([
         'color' => 'success',
         'content' => Yii::t('app-salmon2', 'Cleared'),
       ]);
 
-      if ($model->kingSalmonid) {
-        if (\is_bool($model->clear_extra)) {
+      if (!$model->is_eggstra_work && $model->kingSalmonid) {
+        if (is_bool($model->clear_extra)) {
           $labels[] = Label::widget([
             'color' => $model->clear_extra ? 'success' : 'danger',
             'content' => vsprintf('%s: %s', [
