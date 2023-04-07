@@ -22,6 +22,12 @@ return [
       );
     }
 
+    if ($model->is_eggstra_work) {
+      return Html::encode(
+        Yii::t('app-salmon3', 'Eggstra Work'),
+      );
+    }
+
     $schedule = $model->schedule;
     if (!$schedule) {
       return null;
