@@ -23,6 +23,12 @@ final class m230406_222827_salmon_contest extends Migration
             (string)$this->boolean()->notNull()->defaultValue(false),
         );
 
+        $this->addColumn(
+            '{{%salmon_wave3}}',
+            'danger_rate',
+            (string)$this->decimal(5, 1),
+        );
+
         return true;
     }
 
@@ -32,6 +38,7 @@ final class m230406_222827_salmon_contest extends Migration
     public function safeDown()
     {
         $this->dropColumn('{{%salmon3}}', 'is_eggstra_work');
+        $this->dropColumn('{{%salmon_wave3}}', 'danger_rate');
 
         return true;
     }
