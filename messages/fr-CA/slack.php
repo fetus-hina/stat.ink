@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 return [
     'lost' => '',
-    'Staaaay Fresh!' => '',
     'unknown mode' => '',
     'unknown stage' => '',
     'won' => '',

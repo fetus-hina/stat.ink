@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 $tryLoad = fn (string $path, $default = null) => @file_exists($path) && @is_file($path) && @is_readable($path) ? require $path : $default;
 
-$isOfficialStatink = str_contains($_SERVER['HTTP_HOST'] ?? '', 'stat.ink');
+$isOfficialStatink = ($_SERVER['HTTP_HOST'] ?? 'stat.ink') === 'stat.ink';
 $isProductionDB = false;
 if ($isOfficialStatink) {
     $db = require __DIR__ . '/db.php';
