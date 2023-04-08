@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2019 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,10 +10,12 @@ declare(strict_types=1);
 
 namespace app\components\jobs;
 
+use Generator;
 use Throwable;
 use Yii;
 use app\models\Battle;
 use app\models\Battle2;
+use app\models\Battle3;
 use app\models\Slack;
 use app\models\User;
 use yii\base\BaseObject;
@@ -25,9 +27,9 @@ class SlackJob extends BaseObject implements JobInterface
 {
     use JobPriority;
 
-    public $hostInfo;
-    public $version;
-    public $battle;
+    public string|null $hostInfo = null;
+    public int|null $version = null;
+    public int|null $battle = null;
 
     public function execute($queue)
     {
@@ -37,28 +39,46 @@ class SlackJob extends BaseObject implements JobInterface
             $urlManager->hostInfo = $this->hostInfo;
         }
 
-        switch ($this->version) {
-            case 1:
-                $battle = Battle::findOne(['id' => $this->battle]);
-                if ($battle) {
-                    $this->battle1($battle);
-                }
-                break;
+        match ($this->version) {
+            1 => self::notifyToSlack(
+                Battle::find()->andWhere(['id' => $this->battle])->limit(1)->one(),
+            ),
+            2 => self::notifyToSlack(
+                Battle2::find()->andWhere(['id' => $this->battle])->limit(1)->one(),
+            ),
+            3 => self::notifyToSlack(
+                Battle3::find()
+                    ->andWhere([
+                        'id' => $this->battle,
+                        'is_deleted' => false,
+                    ])
+                    ->limit(1)
+                    ->one(),
+            ),
+            default => Yii::error('Unsupported battle version ' . $this->version, __METHOD__),
+        };
+    }
 
-            case 2:
-                $battle = Battle2::findOne(['id' => $this->battle]);
-                if ($battle) {
-                    $this->battle2($battle);
-                }
-                break;
+    public static function notifyToSlack(Battle|Battle2|Battle3|null $battle): void
+    {
+        // make this method public for testing
 
-            default:
-                Yii::error('Unsupported battle version ' . $this->version, __METHOD__);
-                break;
+        if (!$battle) {
+            return;
+        }
+
+        foreach (self::querySlackTask($battle->user) as $slack) {
+            try {
+                $slack->send($battle);
+            } catch (Throwable $e) {
+            }
         }
     }
 
-    private function querySlackTask(User $user)
+    /**
+     * @return Generator<Slack>
+     */
+    private static function querySlackTask(User $user): Generator
     {
         $query = Slack::find()
             ->with('user')
@@ -69,26 +89,6 @@ class SlackJob extends BaseObject implements JobInterface
             ->orderBy(['id' => SORT_ASC]);
         foreach ($query->each() as $slack) {
             yield $slack;
-        }
-    }
-
-    public function battle1(Battle $battle): void
-    {
-        foreach ($this->querySlackTask($battle->user) as $slack) {
-            try {
-                $slack->send($battle);
-            } catch (Throwable $e) {
-            }
-        }
-    }
-
-    public function battle2(Battle2 $battle): void
-    {
-        foreach ($this->querySlackTask($battle->user) as $slack) {
-            try {
-                $slack->send($battle);
-            } catch (Throwable $e) {
-            }
         }
     }
 }

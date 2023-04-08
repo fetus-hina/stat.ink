@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 return [
     'lost' => '失利',
-    'Staaaay Fresh!' => '保持持持新鲜',
     'unknown mode' => '未知模式',
     'unknown stage' => '未知场地',
     'won' => '胜利',

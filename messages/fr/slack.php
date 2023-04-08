@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 return [
     'lost' => 'perdre',
-    'Staaaay Fresh!' => 'À plus tard, calamars !',
     'unknown mode' => 'mode inconnu',
     'unknown stage' => 'un stage inconnu',
     'won' => 'gagner',

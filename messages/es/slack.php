@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 return [
     'lost' => 'perder',
-    'Staaaay Fresh!' => '¡Nos vemos!',
     'unknown mode' => 'estilo desconocida',
     'unknown stage' => 'escenario desconocida',
     'won' => 'ganar',
