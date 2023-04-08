@@ -13,7 +13,7 @@ namespace app\actions\api\v3;
 use Yii;
 use app\actions\api\v3\traits\ApiInitializerTrait;
 use app\components\formatters\api\v3\BattleApiFormatter;
-use app\components\jobs\SlackJob
+use app\components\jobs\SlackJob;
 use app\models\Battle3;
 use app\models\api\v3\PostBattleForm;
 use yii\base\Action;
