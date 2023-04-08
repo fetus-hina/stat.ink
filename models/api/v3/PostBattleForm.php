@@ -173,6 +173,8 @@ final class PostBattleForm extends Model
 
     public $splatnet_json;
 
+    public ?bool $isCreated = null;
+
     public function behaviors()
     {
         return [
@@ -351,7 +353,17 @@ final class PostBattleForm extends Model
         }
 
         try {
-            return $this->getSameBattle() ?? $this->saveNewBattleRelation();
+            if ($model = $this->getSameBattle()) {
+                $this->isCreated = false;
+                return $model;
+            }
+
+            if ($model = $this->saveNewBattleRelation()) {
+                $this->isCreated = true;
+                return $model;
+            }
+
+            return null;
         } finally {
             unset($lock);
         }

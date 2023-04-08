@@ -87,12 +87,14 @@ final class PostBattleAction extends Action
 
         // バックグラウンドジョブの登録
         // (Slack への push のタスク登録など)
-        // $this->registerBackgroundJob($battle);
+        if ($form->isCreated) {
+            $this->registerBackgroundJob($battle);
+        }
 
-        return $this->created($battle);
+        return $this->created($battle, (bool)$form->isCreated);
     }
 
-    private function created(Battle3 $battle): Response
+    private function created(Battle3 $battle, bool $isCreated): Response
     {
         $resp = Yii::$app->response;
         $resp->statusCode = 201;
@@ -110,6 +112,7 @@ final class PostBattleAction extends Action
             ),
             'X-User-Screen-Name' => $battle->user->screen_name,
             'X-Battle-ID' => $battle->uuid,
+            'X-Found' => $isCreated ? '?0' : '?1',
         ]);
         $resp->data = BattleApiFormatter::toJson($battle, true, false);
         return $resp;
