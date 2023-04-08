@@ -359,7 +359,7 @@ final class PostSalmonForm extends Model
             'client_uuid' => $this->uuid ?: $uuid,
             'is_private' => self::boolVal($this->private),
             'is_big_run' => $isBigRun,
-            'is_eggstra_work' => self::boolVal($this->eggstra_work),
+            'is_eggstra_work' => self::boolVal($this->eggstra_work) === true,
             'stage_id' => $isBigRun
                 ? null
                 : self::key2id($this->stage, SalmonMap3::class, SalmonMap3Alias::class, 'map_id'),
@@ -405,6 +405,7 @@ final class PostSalmonForm extends Model
                 self::intVal($this->clear_waves),
             ),
             'schedule_id' => self::guessScheduleId(
+                self::boolVal($this->eggstra_work) === true,
                 self::intVal($this->start_at),
                 self::intVal($this->end_at),
                 self::intVal($this->clear_waves),
@@ -561,6 +562,7 @@ final class PostSalmonForm extends Model
     }
 
     private static function guessScheduleId(
+        bool $isEggstraWork,
         ?int $startAt,
         ?int $endAt,
         ?int $clearWaves = null,
@@ -568,6 +570,7 @@ final class PostSalmonForm extends Model
         $startAt = self::guessStartAt($startAt, $endAt, $clearWaves);
         $model = SalmonSchedule3::find()
             ->andWhere(['and',
+                ['is_eggstra_work' => $isEggstraWork],
                 ['<=', 'start_at', date('Y-m-d\TH:i:sP', $startAt)],
                 ['>', 'end_at', date('Y-m-d\TH:i:sP', $startAt)],
             ])

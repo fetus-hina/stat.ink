@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -48,6 +48,7 @@ trait UpdateSalmonSchedule
                     king: $info['king'],
                     weapons: $info['weapons'],
                     isBigRun: false,
+                    isEggstraWork: false,
                 )
             ) {
                 $hasError = true;
@@ -63,6 +64,7 @@ trait UpdateSalmonSchedule
                     king: $info['king'],
                     weapons: $info['weapons'],
                     isBigRun: true,
+                    isEggstraWork: false,
                 )
             ) {
                 $hasError = true;
@@ -82,19 +84,39 @@ trait UpdateSalmonSchedule
         ?SalmonKing3 $king,
         array $weapons,
         bool $isBigRun,
+        bool $isEggstraWork,
     ): bool {
         return Yii::$app->db->transaction(
-            function (Connection $db) use ($startAt, $endAt, $mapId, $king, $weapons, $isBigRun): bool {
+            function (Connection $db) use ($startAt, $endAt, $mapId, $king, $weapons, $isBigRun, $isEggstraWork): bool {
                 // 既にデータが正しく保存されている
-                if ($this->isSalmonScheduleRegistered($startAt, $endAt, $mapId, $king, $weapons, $isBigRun)) {
+                if (
+                    $this->isSalmonScheduleRegistered(
+                        $startAt,
+                        $endAt,
+                        $mapId,
+                        $king,
+                        $weapons,
+                        $isBigRun,
+                        $isEggstraWork,
+                    )
+                ) {
                     return true;
                 }
 
                 if (
-                    $this->cleanUpSalmonSchedule($startAt) &&
-                    $this->registerSalmonScheduleImpl($startAt, $endAt, $mapId, $king, $weapons, $isBigRun)
+                    $this->cleanUpSalmonSchedule($startAt, $isEggstraWork) &&
+                    $this->registerSalmonScheduleImpl(
+                        $startAt,
+                        $endAt,
+                        $mapId,
+                        $king,
+                        $weapons,
+                        $isBigRun,
+                        $isEggstraWork,
+                    )
                 ) {
-                    vfprintf(STDERR, "Salmon run schedule registered, %s, period=%s - %s\n", [
+                    vfprintf(STDERR, "Salmon run schedule registered, %s, %s, period=%s - %s\n", [
+                        $isEggstraWork ? 'eggstra' : 'standard',
                         $isBigRun ? 'bigrun' : 'standard',
                         date(DateTime::ATOM, $startAt),
                         date(DateTime::ATOM, $endAt),
@@ -119,12 +141,14 @@ trait UpdateSalmonSchedule
         ?SalmonKing3 $king,
         array $weapons,
         bool $isBigRun,
+        bool $isEggstraWork,
     ): bool {
         $schedule = SalmonSchedule3::find()
             ->andWhere([
                 'end_at' => date(DateTime::ATOM, $endAt),
-                'start_at' => date(DateTime::ATOM, $startAt),
+                'is_eggstra_work' => $isEggstraWork,
                 'king_id' => $king?->id ?? null,
+                'start_at' => date(DateTime::ATOM, $startAt),
             ])
             ->andWhere(
                 $isBigRun
@@ -171,10 +195,13 @@ trait UpdateSalmonSchedule
         return true;
     }
 
-    private function cleanUpSalmonSchedule(int $startAt): bool
+    private function cleanUpSalmonSchedule(int $startAt, bool $isEggstraWork): bool
     {
         $model = SalmonSchedule3::find()
-            ->andWhere(['start_at' => date(DateTime::ATOM, $startAt)])
+            ->andWhere([
+                'start_at' => date(DateTime::ATOM, $startAt),
+                'is_eggstra_work' => $isEggstraWork,
+            ])
             ->limit(1)
             ->one();
         if (!$model) {
@@ -197,11 +224,13 @@ trait UpdateSalmonSchedule
         ?SalmonKing3 $king,
         array $weapons,
         bool $isBigRun,
+        bool $isEggstraWork,
     ): bool {
         $schedule = Yii::createObject([
             'class' => SalmonSchedule3::class,
             'big_map_id' => $isBigRun ? $mapId : null,
             'end_at' => date(DateTime::ATOM, $endAt),
+            'is_eggstra_work' => $isEggstraWork,
             'king_id' => $king?->id ?? null,
             'map_id' => $isBigRun ? null : $mapId,
             'start_at' => date(DateTime::ATOM, $startAt),

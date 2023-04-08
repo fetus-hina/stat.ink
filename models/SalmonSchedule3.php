@@ -22,6 +22,7 @@ use yii\db\ActiveRecord;
  * @property string $end_at
  * @property integer $big_map_id
  * @property integer $king_id
+ * @property boolean $is_eggstra_work
  *
  * @property Map3 $bigMap
  * @property BigrunOfficialResult3 $bigrunOfficialResult3
@@ -48,7 +49,7 @@ class SalmonSchedule3 extends ActiveRecord
             [['map_id', 'big_map_id', 'king_id'], 'integer'],
             [['start_at', 'end_at'], 'required'],
             [['start_at', 'end_at'], 'safe'],
-            [['start_at'], 'unique'],
+            [['is_eggstra_work'], 'boolean'],
             [['big_map_id'], 'exist', 'skipOnError' => true, 'targetClass' => Map3::class, 'targetAttribute' => ['big_map_id' => 'id']],
             [['king_id'], 'exist', 'skipOnError' => true, 'targetClass' => SalmonKing3::class, 'targetAttribute' => ['king_id' => 'id']],
             [['map_id'], 'exist', 'skipOnError' => true, 'targetClass' => SalmonMap3::class, 'targetAttribute' => ['map_id' => 'id']],
@@ -64,6 +65,7 @@ class SalmonSchedule3 extends ActiveRecord
             'end_at' => 'End At',
             'big_map_id' => 'Big Map ID',
             'king_id' => 'King ID',
+            'is_eggstra_work' => 'Is Eggstra Work',
         ];
     }
 
