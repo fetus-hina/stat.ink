@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -13,6 +13,7 @@ namespace app\actions\api\v3;
 use Yii;
 use app\actions\api\v3\traits\ApiInitializerTrait;
 use app\components\formatters\api\v3\BattleApiFormatter;
+use app\components\jobs\SlackJob
 use app\models\Battle3;
 use app\models\api\v3\PostBattleForm;
 use yii\base\Action;
@@ -130,14 +131,14 @@ final class PostBattleAction extends Action
         }
 
         // Slack 投稿
-        // if ($user->isSlackIntegrated) {
-        //     Yii::$app->queue
-        //         ->priority(SlackJob::getJobPriority())
-        //         ->push(new SlackJob([
-        //             'hostInfo' => Yii::$app->getRequest()->getHostInfo(),
-        //             'version' => 3,
-        //             'battle' => $battle->id,
-        //         ]));
-        // }
+        if ($user->isSlackIntegrated) {
+            Yii::$app->queue
+                ->priority(SlackJob::getJobPriority())
+                ->push(new SlackJob([
+                    'hostInfo' => Yii::$app->getRequest()->getHostInfo(),
+                    'version' => 3,
+                    'battle' => $battle->id,
+                ]));
+        }
     }
 }
