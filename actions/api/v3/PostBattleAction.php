@@ -87,7 +87,7 @@ final class PostBattleAction extends Action
 
         // バックグラウンドジョブの登録
         // (Slack への push のタスク登録など)
-        $this->registerBackgroundJob($battle);
+        // $this->registerBackgroundJob($battle);
 
         return $this->created($battle);
     }
