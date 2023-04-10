@@ -57,7 +57,7 @@ trait Salmon3
                             'salmonScheduleWeapon3s.random',
                             'salmonScheduleWeapon3s.weapon',
                         ])
-                        ->andWhere(['is_eggstra_wave' => false])
+                        ->andWhere(['is_eggstra_work' => false])
                         ->andWhere(['>', 'end_at', $this->now->format(DateTime::ATOM)])
                         ->orderBy([
                             'end_at' => SORT_ASC,
