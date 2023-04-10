@@ -90,7 +90,7 @@ final class PlayerForm extends Model
                     'aliasClass' => SalmonWeapon3Alias::class,
                 ],
                 'min' => 1,
-                'max' => 4,
+                'max' => 5,
             ],
         ];
     }
