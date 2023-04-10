@@ -71,6 +71,22 @@ trait UpdateSalmonSchedule
             }
         }
 
+        foreach ($schedules['salmon_eggstra'] as $info) {
+            if (
+                !$this->registerSalmonSchedule(
+                    startAt: $info['startAt'],
+                    endAt: $info['endAt'],
+                    mapId: $info['map_id'],
+                    king: null, // $info['king'],
+                    weapons: $info['weapons'],
+                    isBigRun: false,
+                    isEggstraWork: true,
+                )
+            ) {
+                $hasError = true;
+            }
+        }
+
         return $hasError ? ExitCode::UNSPECIFIED_ERROR : ExitCode::OK;
     }
 
