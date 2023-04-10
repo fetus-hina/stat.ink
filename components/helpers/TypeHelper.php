@@ -16,6 +16,7 @@ use TypeError;
 use function filter_var;
 use function is_float;
 use function is_int;
+use function is_object;
 use function is_scalar;
 use function is_string;
 
@@ -56,5 +57,17 @@ final class TypeHelper
 
         $value = filter_var(self::stringOrNull($value), FILTER_VALIDATE_FLOAT);
         return is_float($value) ? $value : null;
+    }
+
+    /**
+     * @template T of object
+     * @param class-string<T> $class
+     * @return T
+     */
+    public static function instanceOf(mixed $value, string $class): object
+    {
+        return is_object($value) && $value instanceof $class
+            ? $value
+            : throw new TypeError('The value is unexpected object');
     }
 }
