@@ -22,6 +22,7 @@ use app\models\Salmon3;
 use app\models\SalmonSchedule3;
 use app\models\SalmonScheduleWeapon3;
 use app\models\UserStatBigrun3;
+use app\models\UserStatEggstraWork3;
 use yii\base\Widget;
 use yii\grid\GridView;
 use yii\helpers\Html;
@@ -174,7 +175,7 @@ final class SalmonIndexRowHeader extends Widget
     {
         return match (true) {
             $schedule->big_map_id !== null => $this->renderBigRunHighScore($model, $schedule),
-            // TODO: eggstra work
+            $schedule->is_eggstra_work => $this->renderEggstraWorkHighScore($model, $schedule),
             default => null,
         };
     }
@@ -188,10 +189,25 @@ final class SalmonIndexRowHeader extends Widget
             ])
             ->limit(1)
             ->one();
-        if (($stats?->golden_eggs ?? 0) < 1) {
-            return null;
-        }
+        $eggs = $stats?->golden_eggs ?? 0;
+        return $eggs < 1 ? null : $this->renderHighScoreImpl($eggs);
+    }
 
+    private function renderEggstraWorkHighScore(Salmon3 $model, SalmonSchedule3 $schedule): ?string
+    {
+        $stats = UserStatEggstraWork3::find()
+            ->andWhere([
+                'schedule_id' => $schedule->id,
+                'user_id' => $model->user_id,
+            ])
+            ->limit(1)
+            ->one();
+        $eggs = $stats?->golden_eggs ?? 0;
+        return $eggs < 1 ? null : $this->renderHighScoreImpl($eggs);
+    }
+
+    private function renderHighScoreImpl(int $eggs): string
+    {
         $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
         return Html::tag(
             'span',
@@ -200,7 +216,7 @@ final class SalmonIndexRowHeader extends Widget
                     $am->getAssetUrl($am->getBundle(SalmonEggAsset::class), 'golden-egg.png'),
                     ['class' => 'basic-icon'],
                 ),
-                Html::encode(Yii::$app->formatter->asInteger($stats->golden_eggs)),
+                Html::encode(Yii::$app->formatter->asInteger($eggs)),
             ]),
             [
                 'class' => 'auto-tooltip',

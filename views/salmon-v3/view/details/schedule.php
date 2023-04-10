@@ -11,6 +11,7 @@ use app\components\widgets\v3\weaponIcon\WeaponIcon;
 use app\models\Salmon3;
 use app\models\SalmonScheduleWeapon3;
 use app\models\UserStatBigrun3;
+use app\models\UserStatEggstraWork3;
 use yii\helpers\Html;
 use yii\web\AssetManager;
 
@@ -106,11 +107,38 @@ return [
       $weapons,
     ));
 
+    if ($schedule->is_eggstra_work) {
+      $eggstraStats = UserStatEggstraWork3::find()
+        ->andWhere([
+           'user_id' => $model->user_id,
+           'schedule_id' => $schedule->id,
+        ])
+        ->limit(1)
+        ->one();
+      if ($eggstraStats && $eggstraStats->golden_eggs > 0) {
+        $asset = SalmonEggAsset::register(Yii::$app->view);
+        $parts[] = vsprintf('%s %s', [
+          Html::img(
+            Yii::$app->assetManager->getAssetUrl($asset, 'golden-egg.png'),
+            [
+              'class' => 'auto-tooltip basic-icon',
+              'title' => Yii::t('app-salmon3', 'High Score'),
+            ],
+          ),
+          Yii::$app->formatter->asInteger($eggstraStats->golden_eggs),
+        ]);
+
+        $parts[] = BigrunPercentile::widget([
+          'schedule' => $schedule,
+        ]);
+      }
+    }
+
     if ($schedule->big_map_id) {
       $bigrunStats = UserStatBigrun3::find()
         ->andWhere([
-            'user_id' => $model->user_id,
-            'schedule_id' => $schedule->id,
+           'user_id' => $model->user_id,
+           'schedule_id' => $schedule->id,
         ])
         ->limit(1)
         ->one();

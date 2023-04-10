@@ -16,6 +16,8 @@ use Yii;
 use app\components\helpers\salmonStatsV3\BadgeProgressTrait;
 use app\components\helpers\salmonStatsV3\BigrunHistogramTrait;
 use app\components\helpers\salmonStatsV3\BigrunTrait;
+use app\components\helpers\salmonStatsV3\EggstraWorkHistogramTrait;
+use app\components\helpers\salmonStatsV3\EggstraWorkTrait;
 use app\components\helpers\salmonStatsV3\StatsTrait;
 use app\models\User;
 use yii\db\Connection;
@@ -26,6 +28,8 @@ final class SalmonStatsV3
     use BadgeProgressTrait;
     use BigrunHistogramTrait;
     use BigrunTrait;
+    use EggstraWorkHistogramTrait;
+    use EggstraWorkTrait;
     use StatsTrait;
 
     public static function create(User $user): bool
@@ -41,7 +45,9 @@ final class SalmonStatsV3
     {
         return self::createUserStats($db, $user, $now) &&
             self::createBigrunStats($db, $user, $now) &&
+            self::createEggstraWorkStats($db, $user, $now) &&
             self::createBadgeProgress($db, $user, $now) &&
-            self::createBigrunHistogramStats($db);
+            self::createBigrunHistogramStats($db) &&
+            self::createEggstraWorkHistogramStats($db);
     }
 }

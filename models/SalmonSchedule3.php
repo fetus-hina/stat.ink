@@ -26,14 +26,19 @@ use yii\db\ActiveRecord;
  *
  * @property Map3 $bigMap
  * @property BigrunOfficialResult3 $bigrunOfficialResult3
+ * @property EggstraWorkOfficialResult3 $eggstraWorkOfficialResult3
  * @property SalmonKing3 $king
  * @property SalmonMap3 $map
  * @property Salmon3[] $salmon3s
  * @property SalmonScheduleWeapon3[] $salmonScheduleWeapon3s
  * @property StatBigrunDistrib3[] $statBigrunDistrib3s
  * @property StatBigrunDistribAbstract3 $statBigrunDistribAbstract3
+ * @property StatEggstraWorkDistrib3[] $statEggstraWorkDistrib3s
+ * @property StatEggstraWorkDistribAbstract3 $statEggstraWorkDistribAbstract3
  * @property UserStatBigrun3[] $userStatBigrun3s
+ * @property UserStatEggstraWork3[] $userStatEggstraWork3s
  * @property User[] $users
+ * @property User[] $users0
  */
 class SalmonSchedule3 extends ActiveRecord
 {
@@ -79,6 +84,11 @@ class SalmonSchedule3 extends ActiveRecord
         return $this->hasOne(BigrunOfficialResult3::class, ['schedule_id' => 'id']);
     }
 
+    public function getEggstraWorkOfficialResult3(): ActiveQuery
+    {
+        return $this->hasOne(EggstraWorkOfficialResult3::class, ['schedule_id' => 'id']);
+    }
+
     public function getKing(): ActiveQuery
     {
         return $this->hasOne(SalmonKing3::class, ['id' => 'king_id']);
@@ -109,13 +119,33 @@ class SalmonSchedule3 extends ActiveRecord
         return $this->hasOne(StatBigrunDistribAbstract3::class, ['schedule_id' => 'id']);
     }
 
+    public function getStatEggstraWorkDistrib3s(): ActiveQuery
+    {
+        return $this->hasMany(StatEggstraWorkDistrib3::class, ['schedule_id' => 'id']);
+    }
+
+    public function getStatEggstraWorkDistribAbstract3(): ActiveQuery
+    {
+        return $this->hasOne(StatEggstraWorkDistribAbstract3::class, ['schedule_id' => 'id']);
+    }
+
     public function getUserStatBigrun3s(): ActiveQuery
     {
         return $this->hasMany(UserStatBigrun3::class, ['schedule_id' => 'id']);
     }
 
+    public function getUserStatEggstraWork3s(): ActiveQuery
+    {
+        return $this->hasMany(UserStatEggstraWork3::class, ['schedule_id' => 'id']);
+    }
+
     public function getUsers(): ActiveQuery
     {
         return $this->hasMany(User::class, ['id' => 'user_id'])->viaTable('user_stat_bigrun3', ['schedule_id' => 'id']);
+    }
+
+    public function getUsers0(): ActiveQuery
+    {
+        return $this->hasMany(User::class, ['id' => 'user_id'])->viaTable('user_stat_eggstra_work3', ['schedule_id' => 'id']);
     }
 }
