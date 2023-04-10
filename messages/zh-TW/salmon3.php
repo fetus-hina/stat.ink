@@ -21,6 +21,7 @@ return [
     'Defeated (others)' => '已擊倒 (隊友)',
     'Defeated by {user}' => '',
     'Eggs' => '鮭魚卵',
+    'Eggstra Work' => '團隊打工競賽',
     'Fish Scales' => '鱗片',
     'High Score' => '最高分數',
     'Job Points' => '獲得點數',

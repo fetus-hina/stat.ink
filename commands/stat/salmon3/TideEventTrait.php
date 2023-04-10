@@ -74,6 +74,7 @@ trait TideEventTrait
                 '{{%salmon3}}.[[has_disconnect]]' => false,
                 '{{%salmon3}}.[[is_automated]]' => true,
                 '{{%salmon3}}.[[is_deleted]]' => false,
+                '{{%salmon3}}.[[is_eggstra_work]]' => false,
                 '{{%salmon3}}.[[is_private]]' => false,
             ])
             ->andWhere(['not', ['{{%salmon_wave3}}.[[tide_id]]' => null]])

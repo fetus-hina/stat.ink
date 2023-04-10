@@ -40,10 +40,21 @@ $get = fn (array $list, int $wave): ?SalmonWave3 => array_reduce(
 
 ?>
 <?= Html::tag('h2', Html::encode(Yii::t('app-salmon2', 'Waves')), ['id' => 'waves']) . "\n" ?>
-<?= SalmonWaves::widget([
-  'job' => $model,
-  'wave1' => $get($waves, 1),
-  'wave2' => $get($waves, 2),
-  'wave3' => $get($waves, 3),
-  'extra' => $get($waves, 4),
-]) . "\n" ?>
+<?= SalmonWaves::widget(
+  $model->is_eggstra_work
+    ? [
+      'job' => $model,
+      'wave1' => $get($waves, 1),
+      'wave2' => $get($waves, 2),
+      'wave3' => $get($waves, 3),
+      'wave4' => $get($waves, 4),
+      'wave5' => $get($waves, 5),
+    ]
+    : [
+      'job' => $model,
+      'wave1' => $get($waves, 1),
+      'wave2' => $get($waves, 2),
+      'wave3' => $get($waves, 3),
+      'extra' => $get($waves, 4),
+    ]
+) . "\n" ?>

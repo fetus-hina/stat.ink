@@ -24,6 +24,7 @@ use yii\db\ActiveRecord;
  * @property integer $golden_quota
  * @property integer $golden_delivered
  * @property integer $golden_appearances
+ * @property string $danger_rate
  *
  * @property SalmonEvent3 $event
  * @property Salmon3 $salmon
@@ -44,6 +45,7 @@ class SalmonWave3 extends ActiveRecord
             [['salmon_id', 'wave'], 'required'],
             [['salmon_id', 'wave', 'tide_id', 'event_id', 'golden_quota', 'golden_delivered', 'golden_appearances'], 'default', 'value' => null],
             [['salmon_id', 'wave', 'tide_id', 'event_id', 'golden_quota', 'golden_delivered', 'golden_appearances'], 'integer'],
+            [['danger_rate'], 'number'],
             [['salmon_id', 'wave'], 'unique', 'targetAttribute' => ['salmon_id', 'wave']],
             [['salmon_id'], 'exist', 'skipOnError' => true, 'targetClass' => Salmon3::class, 'targetAttribute' => ['salmon_id' => 'id']],
             [['event_id'], 'exist', 'skipOnError' => true, 'targetClass' => SalmonEvent3::class, 'targetAttribute' => ['event_id' => 'id']],
@@ -62,6 +64,7 @@ class SalmonWave3 extends ActiveRecord
             'golden_quota' => 'Golden Quota',
             'golden_delivered' => 'Golden Delivered',
             'golden_appearances' => 'Golden Appearances',
+            'danger_rate' => 'Danger Rate',
         ];
     }
 

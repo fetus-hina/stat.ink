@@ -61,6 +61,7 @@ use yii\db\ActiveRecord;
  * @property boolean $is_private
  * @property boolean $has_broken_data
  * @property string $scenario_code
+ * @property boolean $is_eggstra_work
  *
  * @property Agent $agent
  * @property Map3 $bigStage
@@ -94,7 +95,7 @@ class Salmon3 extends ActiveRecord
             [['user_id', 'stage_id', 'big_stage_id', 'clear_waves', 'fail_reason_id', 'king_smell', 'king_salmonid_id', 'title_before_id', 'title_exp_before', 'title_after_id', 'title_exp_after', 'golden_eggs', 'power_eggs', 'gold_scale', 'silver_scale', 'bronze_scale', 'job_point', 'job_score', 'job_bonus', 'version_id', 'agent_id', 'period', 'schedule_id', 'remote_port'], 'default', 'value' => null],
             [['user_id', 'stage_id', 'big_stage_id', 'clear_waves', 'fail_reason_id', 'king_smell', 'king_salmonid_id', 'title_before_id', 'title_exp_before', 'title_after_id', 'title_exp_after', 'golden_eggs', 'power_eggs', 'gold_scale', 'silver_scale', 'bronze_scale', 'job_point', 'job_score', 'job_bonus', 'version_id', 'agent_id', 'period', 'schedule_id', 'remote_port'], 'integer'],
             [['uuid', 'client_uuid', 'note', 'private_note', 'link_url', 'remote_addr'], 'string'],
-            [['is_big_run', 'clear_extra', 'is_automated', 'has_disconnect', 'is_deleted', 'is_private', 'has_broken_data'], 'boolean'],
+            [['is_big_run', 'clear_extra', 'is_automated', 'has_disconnect', 'is_deleted', 'is_private', 'has_broken_data', 'is_eggstra_work'], 'boolean'],
             [['danger_rate', 'job_rate'], 'number'],
             [['start_at', 'end_at', 'created_at', 'updated_at'], 'safe'],
             [['scenario_code'], 'string', 'max' => 16],
@@ -160,6 +161,7 @@ class Salmon3 extends ActiveRecord
             'is_private' => 'Is Private',
             'has_broken_data' => 'Has Broken Data',
             'scenario_code' => 'Scenario Code',
+            'is_eggstra_work' => 'Is Eggstra Work',
         ];
     }
 

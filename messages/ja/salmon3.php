@@ -20,6 +20,7 @@ return [
     'Defeated by {user}' => '{user}が倒した',
     'Defeated' => '倒した',
     'Eggs' => 'イクラ',
+    'Eggstra Work' => 'バイトチームコンテスト',
     'Fish Scales' => 'ウロコ',
     'High Score' => 'ハイスコア',
     'Job Points' => '獲得ポイント',

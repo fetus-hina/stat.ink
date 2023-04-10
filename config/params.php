@@ -7,8 +7,9 @@ $tryLoad = fn (string $path, $default = null) => @file_exists($path) && @is_file
 $isOfficialStatink = ($_SERVER['HTTP_HOST'] ?? 'stat.ink') === 'stat.ink';
 $isProductionDB = false;
 if ($isOfficialStatink) {
-    $db = require __DIR__ . '/db.php';
-    $isProductionDB = str_ends_with($db['dsn'], 'dbname=statink');
+    if ($db = $tryLoad(__DIR__ . '/db.php')) {
+        $isProductionDB = str_ends_with($db['dsn'], 'dbname=statink');
+    }
 }
 
 return [
