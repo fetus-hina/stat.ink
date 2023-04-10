@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use app\assets\GameModeIconsAsset;
 use app\assets\SalmonEggAsset;
+use app\components\helpers\TypeHelper;
 use app\components\widgets\Icon;
 use app\components\widgets\v3\BigrunPercentile;
 use app\components\widgets\v3\weaponIcon\WeaponIcon;
@@ -11,6 +12,7 @@ use app\models\Salmon3;
 use app\models\SalmonScheduleWeapon3;
 use app\models\UserStatBigrun3;
 use yii\helpers\Html;
+use yii\web\AssetManager;
 
 return [
   'label' => Yii::t('app-salmon2', 'Rotation'),
@@ -19,12 +21,6 @@ return [
     if ($model->is_private) {
       return Html::encode(
         Yii::t('app-salmon3', 'Private Job'),
-      );
-    }
-
-    if ($model->is_eggstra_work) {
-      return Html::encode(
-        Yii::t('app-salmon3', 'Eggstra Work'),
       );
     }
 
@@ -48,6 +44,12 @@ return [
       ['salmon-v3/index',
         'screen_name' => $model->user?->screen_name,
         'f' => [
+          'lobby' => match (true) {
+            $model->is_private => 'private',
+            $model->is_eggstra_work => 'eggstra',
+            $model->is_big_run => 'bigrun',
+            default => 'normal',
+          },
           'term' => 'term',
           'term_from' => sprintf('@%d', (int)strtotime($schedule->start_at)),
           'term_to' => sprintf('@%d', (int)strtotime($schedule->end_at) - 1),
@@ -55,15 +57,28 @@ return [
       ],
     );
 
-    if ($schedule->big_map_id) {
-      $asset = GameModeIconsAsset::register(Yii::$app->view);
+    if ($model->is_eggstra_work) {
+      $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
       $parts[] = Html::img(
-        Yii::$app->assetManager->getAssetUrl($asset, 'spl3/salmon-bigrun.png'),
+        $am->getAssetUrl($am->getBundle(GameModeIconsAsset::class), 'spl3/salmon-eggstra.png'),
+        [
+          'title' => Yii::t('app-salmon3', 'Eggstra Work'),
+          'class' => 'auto-tooltip basic-icon',
+        ],
+      );
+      unset($am);
+    }
+
+    if ($schedule->big_map_id) {
+      $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
+      $parts[] = Html::img(
+        $am->getAssetUrl($am->getBundle(GameModeIconsAsset::class), 'spl3/salmon-bigrun.png'),
         [
           'title' => Yii::t('app-salmon3', 'Big Run'),
           'class' => 'auto-tooltip basic-icon',
         ],
       );
+      unset($am);
     }
 
     $parts[] = implode('', array_map(
