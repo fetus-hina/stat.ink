@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -49,6 +49,8 @@ final class SalmonWaves extends Widget
     public ?SalmonWave3 $wave1 = null;
     public ?SalmonWave3 $wave2 = null;
     public ?SalmonWave3 $wave3 = null;
+    public ?SalmonWave3 $wave4 = null;
+    public ?SalmonWave3 $wave5 = null;
     public ?SalmonWave3 $extra = null;
 
     public ?BaseFormatter $formatter = null;
@@ -77,13 +79,15 @@ final class SalmonWaves extends Widget
 
     public function run(): string
     {
+        $isEggstraWork = $this->job->is_eggstra_work;
+
         return Html::tag(
             'div',
             Html::tag(
                 'table',
                 implode('', [
-                    $this->renderHeader(),
-                    $this->renderBody(),
+                    $this->renderHeader($isEggstraWork),
+                    $this->renderBody($isEggstraWork),
                 ]),
                 [
                     'class' => [
@@ -100,7 +104,50 @@ final class SalmonWaves extends Widget
         );
     }
 
-    private function renderHeader(): string
+    private function renderHeader(bool $isEggstraWork): string
+    {
+        return $isEggstraWork ? $this->renderEggstraHeader() : $this->renderNormalHeader();
+    }
+
+    private function renderEggstraHeader(): string
+    {
+        return Html::tag(
+            'thead',
+            Html::tag(
+                'tr',
+                implode('', [
+                    Html::tag('th', ''),
+                    Html::tag(
+                        'th',
+                        Html::encode(Yii::t('app-salmon2', 'Wave {waveNumber}', ['waveNumber' => 1])),
+                        ['class' => 'text-center'],
+                    ),
+                    Html::tag(
+                        'th',
+                        Html::encode(Yii::t('app-salmon2', 'Wave {waveNumber}', ['waveNumber' => 2])),
+                        ['class' => 'text-center'],
+                    ),
+                    Html::tag(
+                        'th',
+                        Html::encode(Yii::t('app-salmon2', 'Wave {waveNumber}', ['waveNumber' => 3])),
+                        ['class' => 'text-center'],
+                    ),
+                    Html::tag(
+                        'th',
+                        Html::encode(Yii::t('app-salmon2', 'Wave {waveNumber}', ['waveNumber' => 4])),
+                        ['class' => 'text-center'],
+                    ),
+                    Html::tag(
+                        'th',
+                        Html::encode(Yii::t('app-salmon2', 'Wave {waveNumber}', ['waveNumber' => 5])),
+                        ['class' => 'text-center'],
+                    ),
+                ]),
+            ),
+        );
+    }
+
+    private function renderNormalHeader(): string
     {
         return Html::tag(
             'thead',
@@ -138,14 +185,22 @@ final class SalmonWaves extends Widget
         );
     }
 
-    private function renderBody(): string
+    private function renderBody(bool $isEggstraWork): string
     {
-        $waves = [
-            $this->makeData($this->wave1),
-            $this->makeData($this->wave2),
-            $this->makeData($this->wave3),
-            $this->makeData($this->extra),
-        ];
+        $waves = $isEggstraWork
+            ? [
+                $this->makeData($this->wave1),
+                $this->makeData($this->wave2),
+                $this->makeData($this->wave3),
+                $this->makeData($this->wave4),
+                $this->makeData($this->wave5),
+            ]
+            : [
+                $this->makeData($this->wave1),
+                $this->makeData($this->wave2),
+                $this->makeData($this->wave3),
+                $this->makeData($this->extra),
+            ];
 
         return Html::tag(
             'tbody',
@@ -153,12 +208,13 @@ final class SalmonWaves extends Widget
                 '',
                 array_filter(
                     [
-                        $this->renderResults($waves),
-                        $this->renderEvents($waves),
-                        $this->renderTides($waves),
-                        $this->renderGoldenEggs($waves),
-                        $this->renderGoldenAppearances($waves),
-                        $this->renderSpecialUses($waves),
+                        $this->renderResults($waves, $isEggstraWork),
+                        $this->renderDangerRate($waves, $isEggstraWork),
+                        $this->renderEvents($waves, $isEggstraWork),
+                        $this->renderTides($waves, $isEggstraWork),
+                        $this->renderGoldenEggs($waves, $isEggstraWork),
+                        $this->renderGoldenAppearances($waves, $isEggstraWork),
+                        $this->renderSpecialUses($waves, $isEggstraWork),
                     ],
                     fn (?string $html): bool => $html !== null,
                 ),
@@ -169,7 +225,7 @@ final class SalmonWaves extends Widget
     /**
      * @param array{result: ?bool}[] $waves
      */
-    private function renderResults(array $waves): string
+    private function renderResults(array $waves, bool $isEggstraWork): string
     {
         return Html::tag(
             'tr',
@@ -202,7 +258,36 @@ final class SalmonWaves extends Widget
                         ['class' => 'text-center'],
                     ),
                 )),
-                Html::tag('td', ''),
+                $isEggstraWork ? '' : Html::tag('td', ''),
+            ]),
+        );
+    }
+
+    /**
+     * @param array{danger: ?float}[] $waves
+     */
+    private function renderDangerRate(array $waves, bool $isEggstraWork): string
+    {
+        if (!$isEggstraWork) {
+            return '';
+        }
+
+        return Html::tag(
+            'tr',
+            implode('', [
+                Html::tag('th', Html::encode(Yii::t('app-salmon2', 'Hazard Level'))),
+                implode('', ArrayHelper::getColumn(
+                    $waves,
+                    fn (array $wave): string => Html::tag(
+                        'td',
+                        $wave['danger'] === null
+                            ? ''
+                            : Html::encode(
+                                Yii::$app->formatter->asPercent((int)$wave['danger'] / 100, 0),
+                            ),
+                        ['class' => 'text-center'],
+                    ),
+                )),
             ]),
         );
     }
@@ -210,7 +295,7 @@ final class SalmonWaves extends Widget
     /**
      * @param array{event: ?SalmonEvent3, king: ?SalmonKing3}[] $waves
      */
-    private function renderEvents(array $waves): string
+    private function renderEvents(array $waves, bool $isEggstraWork): string
     {
         return Html::tag(
             'tr',
@@ -238,7 +323,7 @@ final class SalmonWaves extends Widget
                         return Html::tag('td', Html::encode('-'), ['class' => 'text-center']);
                     },
                 )),
-                Html::tag('td', ''),
+                $isEggstraWork ? '' : Html::tag('td', ''),
             ]),
         );
     }
@@ -246,7 +331,7 @@ final class SalmonWaves extends Widget
     /**
      * @param array{tide: ?SalmonWaterLevel2}[] $waves
      */
-    private function renderTides(array $waves): string
+    private function renderTides(array $waves, bool $isEggstraWork): string
     {
         return Html::tag(
             'tr',
@@ -296,7 +381,7 @@ final class SalmonWaves extends Widget
                         ['class' => 'text-center'],
                     ),
                 )),
-                Html::tag('td', ''),
+                $isEggstraWork ? '' : Html::tag('td', ''),
             ]),
         );
     }
@@ -304,7 +389,7 @@ final class SalmonWaves extends Widget
     /**
      * @param array{quota: ?int, deliv: ?int}[] $waves
      */
-    private function renderGoldenEggs(array $waves): string
+    private function renderGoldenEggs(array $waves, bool $isEggstraWork): string
     {
         $asset = SalmonEggAsset::register($this->view);
 
@@ -354,25 +439,27 @@ final class SalmonWaves extends Widget
                         return Html::tag('td', Html::encode('-'), ['class' => 'text-center']);
                     },
                 )),
-                Html::tag(
-                    'td',
-                    implode(' ', [
-                        Html::img(
-                            Yii::$app->assetManager->getAssetUrl($asset, 'golden-egg.png'),
-                            ['class' => 'basic-icon'],
-                        ),
-                        Html::encode(
-                            $this->formatter->asInteger(
-                                array_reduce(
-                                    ArrayHelper::getColumn($waves, 'deliv'),
-                                    fn (int $carry, ?int $item): int => $carry + (int)$item,
-                                    0,
+                $isEggstraWork
+                    ? ''
+                    : Html::tag(
+                        'td',
+                        implode(' ', [
+                            Html::img(
+                                Yii::$app->assetManager->getAssetUrl($asset, 'golden-egg.png'),
+                                ['class' => 'basic-icon'],
+                            ),
+                            Html::encode(
+                                $this->formatter->asInteger(
+                                    array_reduce(
+                                        ArrayHelper::getColumn($waves, 'deliv'),
+                                        fn (int $carry, ?int $item): int => $carry + (int)$item,
+                                        0,
+                                    ),
                                 ),
                             ),
-                        ),
-                    ]),
-                    ['class' => 'text-center'],
-                ),
+                        ]),
+                        ['class' => 'text-center'],
+                    ),
             ]),
         );
     }
@@ -380,7 +467,7 @@ final class SalmonWaves extends Widget
     /**
      * @param array{apper: ?int}[] $waves
      */
-    private function renderGoldenAppearances(array $waves): string
+    private function renderGoldenAppearances(array $waves, bool $isEggstraWork): string
     {
         $asset = SalmonEggAsset::register($this->view);
 
@@ -400,7 +487,7 @@ final class SalmonWaves extends Widget
                 implode('', array_map(
                     fn (array $wave, int $waveNumber): string => Html::tag(
                         'td',
-                        $waveNumber < 4
+                        $isEggstraWork || $waveNumber < 4
                             ? $this->formatter->asInteger($wave['apper'])
                             : sprintf('(%s)', $this->formatter->asInteger($wave['apper'])),
                         ['class' => 'text-center'],
@@ -408,29 +495,31 @@ final class SalmonWaves extends Widget
                     $waves,
                     range(1, count($waves)),
                 )),
-                Html::tag(
-                    'td',
-                    implode(' ', [
-                        Html::img(
-                            Yii::$app->assetManager->getAssetUrl($asset, 'golden-egg.png'),
-                            ['class' => 'basic-icon'],
-                        ),
-                        Html::encode(
-                            $this->formatter->asInteger(
-                                array_reduce(
-                                    array_slice(
-                                        ArrayHelper::getColumn($waves, 'apper'),
+                $isEggstraWork
+                    ? ''
+                    : Html::tag(
+                        'td',
+                        implode(' ', [
+                            Html::img(
+                                Yii::$app->assetManager->getAssetUrl($asset, 'golden-egg.png'),
+                                ['class' => 'basic-icon'],
+                            ),
+                            Html::encode(
+                                $this->formatter->asInteger(
+                                    array_reduce(
+                                        array_slice(
+                                            ArrayHelper::getColumn($waves, 'apper'),
+                                            0,
+                                            3, // ignores xtrawave
+                                        ),
+                                        fn (int $carry, ?int $item): int => $carry + (int)$item,
                                         0,
-                                        3, // ignores xtrawave
                                     ),
-                                    fn (int $carry, ?int $item): int => $carry + (int)$item,
-                                    0,
                                 ),
                             ),
-                        ),
-                    ]),
-                    ['class' => 'text-center'],
-                ),
+                        ]),
+                        ['class' => 'text-center'],
+                    ),
             ]),
         );
     }
@@ -438,7 +527,7 @@ final class SalmonWaves extends Widget
     /**
      * @param array{result: ?bool, specials: SalmonSpecialUse3[]}[] $waves
      */
-    private function renderSpecialUses(array $waves): string
+    private function renderSpecialUses(array $waves, bool $isEggstraWork): string
     {
         return Html::tag(
             'tr',
@@ -466,17 +555,18 @@ final class SalmonWaves extends Widget
                         ['style' => 'line-height:1.75em'],
                     ),
                 )),
-                Html::tag('td', ''),
+                $isEggstraWork ? '' : Html::tag('td', ''),
             ]),
         );
     }
 
     private function makeData(?SalmonWave3 $wave): array
     {
+        $isEggstraWork = $this->job->is_eggstra_work;
         $clearWaves = $this->job->clear_waves;
         $result = null;
         if ($clearWaves !== null && $wave) {
-            if ($clearWaves >= 3 && $wave->wave === 4) {
+            if (!$isEggstraWork && $clearWaves >= 3 && $wave->wave === 4) {
                 // extra wave
                 $result = $this->job->clear_extra;
             } elseif ($clearWaves >= $wave->wave) {
@@ -488,12 +578,13 @@ final class SalmonWaves extends Widget
 
         return [
             'result' => $result,
-            'event' => $wave ? $wave->event : null,
-            'king' => $wave && $wave->wave === 4 ? $this->job->kingSalmonid : null,
-            'tide' => $wave ? $wave->tide : null,
-            'quota' => $wave && $wave->wave < 4 ? $wave->golden_quota : null,
-            'deliv' => $wave && $wave->wave < 4 ? $wave->golden_delivered : null,
-            'apper' => $wave ? $wave->golden_appearances : null,
+            'event' => $wave?->event,
+            'king' => !$isEggstraWork && $wave?->wave === 4 ? $this->job->kingSalmonid : null,
+            'tide' => $wave?->tide,
+            'quota' => $isEggstraWork || $wave?->wave < 4 ? $wave?->golden_quota : null,
+            'deliv' => $isEggstraWork || $wave?->wave < 4 ? $wave?->golden_delivered : null,
+            'apper' => $wave?->golden_appearances,
+            'danger' => $isEggstraWork ? $wave?->danger_rate : null,
             'specials' => $wave
                 ? ArrayHelper::sort(
                     $wave->salmonSpecialUse3s,

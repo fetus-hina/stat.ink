@@ -22,17 +22,23 @@ use yii\db\ActiveRecord;
  * @property string $end_at
  * @property integer $big_map_id
  * @property integer $king_id
+ * @property boolean $is_eggstra_work
  *
  * @property Map3 $bigMap
  * @property BigrunOfficialResult3 $bigrunOfficialResult3
+ * @property EggstraWorkOfficialResult3 $eggstraWorkOfficialResult3
  * @property SalmonKing3 $king
  * @property SalmonMap3 $map
  * @property Salmon3[] $salmon3s
  * @property SalmonScheduleWeapon3[] $salmonScheduleWeapon3s
  * @property StatBigrunDistrib3[] $statBigrunDistrib3s
  * @property StatBigrunDistribAbstract3 $statBigrunDistribAbstract3
+ * @property StatEggstraWorkDistrib3[] $statEggstraWorkDistrib3s
+ * @property StatEggstraWorkDistribAbstract3 $statEggstraWorkDistribAbstract3
  * @property UserStatBigrun3[] $userStatBigrun3s
+ * @property UserStatEggstraWork3[] $userStatEggstraWork3s
  * @property User[] $users
+ * @property User[] $users0
  */
 class SalmonSchedule3 extends ActiveRecord
 {
@@ -48,7 +54,7 @@ class SalmonSchedule3 extends ActiveRecord
             [['map_id', 'big_map_id', 'king_id'], 'integer'],
             [['start_at', 'end_at'], 'required'],
             [['start_at', 'end_at'], 'safe'],
-            [['start_at'], 'unique'],
+            [['is_eggstra_work'], 'boolean'],
             [['big_map_id'], 'exist', 'skipOnError' => true, 'targetClass' => Map3::class, 'targetAttribute' => ['big_map_id' => 'id']],
             [['king_id'], 'exist', 'skipOnError' => true, 'targetClass' => SalmonKing3::class, 'targetAttribute' => ['king_id' => 'id']],
             [['map_id'], 'exist', 'skipOnError' => true, 'targetClass' => SalmonMap3::class, 'targetAttribute' => ['map_id' => 'id']],
@@ -64,6 +70,7 @@ class SalmonSchedule3 extends ActiveRecord
             'end_at' => 'End At',
             'big_map_id' => 'Big Map ID',
             'king_id' => 'King ID',
+            'is_eggstra_work' => 'Is Eggstra Work',
         ];
     }
 
@@ -75,6 +82,11 @@ class SalmonSchedule3 extends ActiveRecord
     public function getBigrunOfficialResult3(): ActiveQuery
     {
         return $this->hasOne(BigrunOfficialResult3::class, ['schedule_id' => 'id']);
+    }
+
+    public function getEggstraWorkOfficialResult3(): ActiveQuery
+    {
+        return $this->hasOne(EggstraWorkOfficialResult3::class, ['schedule_id' => 'id']);
     }
 
     public function getKing(): ActiveQuery
@@ -107,13 +119,33 @@ class SalmonSchedule3 extends ActiveRecord
         return $this->hasOne(StatBigrunDistribAbstract3::class, ['schedule_id' => 'id']);
     }
 
+    public function getStatEggstraWorkDistrib3s(): ActiveQuery
+    {
+        return $this->hasMany(StatEggstraWorkDistrib3::class, ['schedule_id' => 'id']);
+    }
+
+    public function getStatEggstraWorkDistribAbstract3(): ActiveQuery
+    {
+        return $this->hasOne(StatEggstraWorkDistribAbstract3::class, ['schedule_id' => 'id']);
+    }
+
     public function getUserStatBigrun3s(): ActiveQuery
     {
         return $this->hasMany(UserStatBigrun3::class, ['schedule_id' => 'id']);
     }
 
+    public function getUserStatEggstraWork3s(): ActiveQuery
+    {
+        return $this->hasMany(UserStatEggstraWork3::class, ['schedule_id' => 'id']);
+    }
+
     public function getUsers(): ActiveQuery
     {
         return $this->hasMany(User::class, ['id' => 'user_id'])->viaTable('user_stat_bigrun3', ['schedule_id' => 'id']);
+    }
+
+    public function getUsers0(): ActiveQuery
+    {
+        return $this->hasMany(User::class, ['id' => 'user_id'])->viaTable('user_stat_eggstra_work3', ['schedule_id' => 'id']);
     }
 }

@@ -30,7 +30,8 @@ if ($model->clear_waves === null) {
 }
 
 // Failed
-if ($model->clear_waves < 3) {
+$expectWaves = $model->is_eggstra_work ? 5 : 3;
+if ($model->clear_waves < $expectWaves) {
   echo Html::tag(
     'div',
     implode('', [
@@ -67,7 +68,7 @@ if ($model->clear_waves < 3) {
 }
 
 // Cleared, King Salmonid appearances
-if ($model->kingSalmonid) {
+if (!$model->is_eggstra_work && $model->kingSalmonid) {
   echo Html::tag(
     'div',
     implode('<br>', [

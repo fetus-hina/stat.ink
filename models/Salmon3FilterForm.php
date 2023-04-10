@@ -41,6 +41,7 @@ final class Salmon3FilterForm extends Model
 
     public const LOBBY_ALL = '';
     public const LOBBY_BIG_RUN = 'bigrun';
+    public const LOBBY_EGGSTRA_WORK = 'eggstra';
     public const LOBBY_NORMAL = 'normal';
     public const LOBBY_NOT_PRIVATE = '!private';
     public const LOBBY_PRIVATE = 'private';
@@ -53,6 +54,8 @@ final class Salmon3FilterForm extends Model
     public const RESULT_FAILED_W1 = 'failed-w1';
     public const RESULT_FAILED_W2 = 'failed-w2';
     public const RESULT_FAILED_W3 = 'failed-w3';
+    public const RESULT_FAILED_W4 = 'failed-w4';
+    public const RESULT_FAILED_W5 = 'failed-w5';
 
     public string|null $lobby = null;
     public string|null $map = null;
@@ -81,6 +84,7 @@ final class Salmon3FilterForm extends Model
                 'range' => [
                     // self::LOBBY_ALL,
                     self::LOBBY_BIG_RUN,
+                    self::LOBBY_EGGSTRA_WORK,
                     self::LOBBY_NORMAL,
                     self::LOBBY_NOT_PRIVATE,
                     self::LOBBY_PRIVATE,
@@ -109,6 +113,8 @@ final class Salmon3FilterForm extends Model
                     self::RESULT_FAILED_W1,
                     self::RESULT_FAILED_W2,
                     self::RESULT_FAILED_W3,
+                    self::RESULT_FAILED_W4,
+                    self::RESULT_FAILED_W5,
                 ],
             ],
             [['term'], 'in',

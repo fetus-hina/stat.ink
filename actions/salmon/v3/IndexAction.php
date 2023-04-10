@@ -11,12 +11,15 @@ declare(strict_types=1);
 namespace app\actions\salmon\v3;
 
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\Salmon3;
 use app\models\Salmon3FilterForm;
 use app\models\User;
 use yii\base\Action;
 use yii\data\ActiveDataProvider;
 use yii\db\ActiveQuery;
+use yii\db\Connection;
+use yii\db\Expression;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\Cookie;
@@ -27,8 +30,7 @@ use function array_merge;
 use function assert;
 use function preg_match;
 use function time;
-
-use const SORT_DESC;
+use function vsprintf;
 
 final class IndexAction extends Action
 {
@@ -65,6 +67,7 @@ final class IndexAction extends Action
             return $controller->redirect(Url::to($next));
         }
 
+        $db = TypeHelper::instanceOf(Yii::$app->db, Connection::class);
         $query = Salmon3::find()
             ->with([
                 'bigStage',
@@ -85,8 +88,12 @@ final class IndexAction extends Action
                 'user_id' => $user->id,
             ])
             ->orderBy([
-                'start_at' => SORT_DESC,
-                'id' => SORT_DESC,
+                new Expression(
+                    vsprintf('%s DESC NULLS LAST, %s DESC', [
+                        $db->quoteColumnName('start_at'),
+                        $db->quoteColumnName('id'),
+                    ]),
+                ),
             ]);
 
         $form = Yii::createObject(Salmon3FilterForm::class);

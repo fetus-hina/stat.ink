@@ -43,11 +43,15 @@ final class ScheduleParser
             ),
             'salmon_regular' => self::salmon(
                 ArrayHelper::getValue($json, 'data.coopGroupingSchedule.regularSchedules.nodes'),
-                false,
+                isBigRun: false,
             ),
             'salmon_bigrun' => self::salmon(
                 ArrayHelper::getValue($json, 'data.coopGroupingSchedule.bigRunSchedules.nodes'),
-                true,
+                isBigRun: true,
+            ),
+            'salmon_eggstra' => self::salmon(
+                ArrayHelper::getValue($json, 'data.coopGroupingSchedule.teamContestSchedules.nodes'),
+                isBigRun: false,
             ),
         ];
     }

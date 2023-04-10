@@ -10,17 +10,14 @@ declare(strict_types=1);
 
 namespace app\components\formatters\api\v3;
 
+use app\components\formatters\api\v3\traits\FloatValTrait;
 use app\models\Salmon3;
 use yii\helpers\Url;
 
-use function filter_var;
-use function is_float;
-use function is_scalar;
-
-use const FILTER_VALIDATE_FLOAT;
-
 final class SalmonApiFormatter
 {
+    use FloatValTrait;
+
     public static function toJson(
         ?Salmon3 $model,
         bool $isAuthenticated = false,
@@ -43,6 +40,7 @@ final class SalmonApiFormatter
             'uuid' => $model->client_uuid,
             'private' => $model->is_private,
             'big_run' => $model->is_big_run,
+            'eggstra_work' => $model->is_eggstra_work,
             'stage' => SalmonStageApiFormatter::toJson(
                 $model->stage,
                 $model->bigStage,
@@ -89,13 +87,5 @@ final class SalmonApiFormatter
             'shift' => SalmonScheduleApiFormatter::toJson($model->schedule),
             'created_at' => DateTimeApiFormatter::toJson($model->created_at),
         ];
-    }
-
-    private static function floatVal($value): ?float
-    {
-        if (is_scalar($value)) {
-            $value = filter_var($value, FILTER_VALIDATE_FLOAT);
-        }
-        return is_float($value) ? $value : null;
     }
 }

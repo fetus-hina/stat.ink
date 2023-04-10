@@ -21,6 +21,7 @@ return [
     'Defeated (others)' => 'Vaincus par d\'autres',
     'Defeated by {user}' => '',
     'Eggs' => 'Œufs',
+    'Eggstra Work' => 'Défi œuf sup\'',
     'Fish Scales' => '',
     'High Score' => 'Record',
     'Job Points' => 'Points obtenus',

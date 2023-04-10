@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -139,9 +139,10 @@ trait StatsTrait
         // これらすべての条件がそろっているものを最低条件とみなす
         return implode(' AND ', [
             '{{%salmon3}}.[[clear_waves]] IS NOT NULL',
-            '{{%salmon3}}.[[danger_rate]] IS NOT NULL',
             '{{%salmon3}}.[[danger_rate]] > 0.0',
+            '{{%salmon3}}.[[danger_rate]] IS NOT NULL',
             '{{%salmon3}}.[[has_broken_data]] = FALSE',
+            '{{%salmon3}}.[[is_eggstra_work]] = FALSE',
             '{{%salmon3}}.[[is_private]] = FALSE',
             '{{%salmon3}}.[[title_after_id]] IS NOT NULL',
             '{{%salmon3}}.[[title_exp_after]] IS NOT NULL',

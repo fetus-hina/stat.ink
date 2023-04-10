@@ -24,6 +24,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
 use function implode;
+use function mb_chr;
 use function vsprintf;
 
 final class SalmonItem3Widget extends Widget
@@ -99,8 +100,9 @@ final class SalmonItem3Widget extends Widget
             );
         }
 
-        if ($this->model->clear_waves >= 3) {
-            if (!$this->model->kingSalmonid) {
+        $expectWaves = $this->model->is_eggstra_work ? 5 : 3;
+        if ($this->model->clear_waves >= $expectWaves) {
+            if ($this->model->is_eggstra_work || !$this->model->kingSalmonid) {
                 return Html::tag(
                     'div',
                     Html::encode(Yii::t('app-salmon2', '✓')),
@@ -144,6 +146,7 @@ final class SalmonItem3Widget extends Widget
 
     protected function renderDataHtml(): string
     {
+        $isEggstraWork = $this->model->is_eggstra_work;
         return Html::tag(
             'div',
             implode('', [
@@ -154,12 +157,16 @@ final class SalmonItem3Widget extends Widget
                 ),
                 Html::tag(
                     'div',
-                    Html::encode($this->getHazardLevel()),
+                    Html::encode(
+                        $isEggstraWork ? Yii::t('app-salmon3', 'Eggstra Work') : $this->getHazardLevel(),
+                    ),
                     ['class' => 'simple-battle-rule omit'],
                 ),
                 Html::tag(
                     'div',
-                    Html::encode($this->getTitle()),
+                    Html::encode(
+                        $isEggstraWork ? mb_chr(0xa0, 'UTF-8') : $this->getTitle(),
+                    ),
                     ['class' => 'simple-battle-weapon omit'],
                 ),
                 Html::tag(
@@ -174,19 +181,7 @@ final class SalmonItem3Widget extends Widget
 
     protected function getMapName(): string
     {
-        if (!$model = $this->model) {
-            return '?';
-        }
-
-        if ($model->stage) {
-            return Yii::t('app-map3', $model->stage->name);
-        }
-
-        if ($model->bigStage) {
-            return Yii::t('app-map3', $model->bigStage->name);
-        }
-
-        return '?';
+        return Yii::t('app-map3', $this->model->stage?->name ?? $this->model->bigStage?->name ?? '?');
     }
 
     protected function getHazardLevel(): string

@@ -54,6 +54,13 @@ trait QueryDecoratorTrait
                 ]);
                 return;
 
+            case Salmon3FilterForm::LOBBY_EGGSTRA_WORK:
+                $query->andWhere([
+                    '{{%salmon3}}.[[is_eggstra_work]]' => true,
+                    '{{%salmon3}}.[[is_private]]' => false,
+                ]);
+                return;
+
             case Salmon3FilterForm::LOBBY_NORMAL:
                 $query->andWhere([
                     '{{%salmon3}}.[[is_big_run]]' => false,
@@ -113,12 +120,24 @@ trait QueryDecoratorTrait
 
         switch ($key) {
             case Salmon3FilterForm::RESULT_CLEARED:
-                $query->andWhere(['{{%salmon3}}.[[clear_waves]]' => 3]);
+                $query->andWhere(['or',
+                    [
+                        '{{%salmon3}}.[[clear_waves]]' => 3, // no-eggstra
+                        '{{%salmon3}}.[[is_eggstra_work]]' => false,
+                    ],
+                    [
+                        '{{%salmon3}}.[[clear_waves]]' => 5,
+                        '{{%salmon3}}.[[is_eggstra_work]]' => true,
+                    ],
+                ]);
                 break;
 
             case Salmon3FilterForm::RESULT_CLEARED_KING_APPEAR:
                 $query->andWhere(['and',
-                    ['{{%salmon3}}.[[clear_waves]]' => 3],
+                    [
+                        '{{%salmon3}}.[[clear_waves]]' => 3, // no-eggstra
+                        '{{%salmon3}}.[[is_eggstra_work]]' => false,
+                    ],
                     ['not', ['{{%salmon3}}.[[king_salmonid_id]]' => null]],
                 ]);
                 break;
@@ -126,8 +145,9 @@ trait QueryDecoratorTrait
             case Salmon3FilterForm::RESULT_CLEARED_KING_DEFEAT:
                 $query->andWhere(['and',
                     [
-                        '{{%salmon3}}.[[clear_waves]]' => 3,
                         '{{%salmon3}}.[[clear_extra]]' => true,
+                        '{{%salmon3}}.[[clear_waves]]' => 3, // no-eggstra
+                        '{{%salmon3}}.[[is_eggstra_work]]' => false,
                     ],
                     ['not', ['{{%salmon3}}.[[king_salmonid_id]]' => null]],
                 ]);
@@ -136,15 +156,25 @@ trait QueryDecoratorTrait
             case Salmon3FilterForm::RESULT_CLEARED_KING_FAILED:
                 $query->andWhere(['and',
                     [
-                        '{{%salmon3}}.[[clear_waves]]' => 3,
                         '{{%salmon3}}.[[clear_extra]]' => false,
+                        '{{%salmon3}}.[[clear_waves]]' => 3, // no-eggstra
+                        '{{%salmon3}}.[[is_eggstra_work]]' => false,
                     ],
                     ['not', ['{{%salmon3}}.[[king_salmonid_id]]' => null]],
                 ]);
                 break;
 
             case Salmon3FilterForm::RESULT_FAILED:
-                $query->andWhere(['<', '{{%salmon3}}.[[clear_waves]]', 3]);
+                $query->andWhere(['or',
+                    ['and',
+                        ['{{%salmon3}}.[[is_eggstra_work]]' => false],
+                        ['<', '{{%salmon3}}.[[clear_waves]]', 3], // no eggstra
+                    ],
+                    ['and',
+                        ['{{%salmon3}}.[[is_eggstra_work]]' => true],
+                        ['<', '{{%salmon3}}.[[clear_waves]]', 5],
+                    ],
+                ]);
                 break;
 
             case Salmon3FilterForm::RESULT_FAILED_W1:
@@ -157,6 +187,20 @@ trait QueryDecoratorTrait
 
             case Salmon3FilterForm::RESULT_FAILED_W3:
                 $query->andWhere(['{{%salmon3}}.[[clear_waves]]' => 2]);
+                break;
+
+            case Salmon3FilterForm::RESULT_FAILED_W4:
+                $query->andWhere([
+                    '{{%salmon3}}.[[clear_waves]]' => 3, // eggstra, failed in W4
+                    '{{%salmon3}}.[[is_eggstra_work]]' => true,
+                ]);
+                break;
+
+            case Salmon3FilterForm::RESULT_FAILED_W5:
+                $query->andWhere([
+                    '{{%salmon3}}.[[clear_waves]]' => 4, // eggstra, failed in W5
+                    '{{%salmon3}}.[[is_eggstra_work]]' => true,
+                ]);
                 break;
 
             default:

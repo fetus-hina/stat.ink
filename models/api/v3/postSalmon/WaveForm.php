@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -40,6 +40,7 @@ final class WaveForm extends Model
     public $golden_delivered;
     public $golden_appearances;
     public $special_uses;
+    public $danger_rate;
 
     public function behaviors()
     {
@@ -57,6 +58,7 @@ final class WaveForm extends Model
             [['tide', 'event'], 'string'],
             [['golden_quota'], 'integer', 'min' => 1],
             [['golden_delivered', 'golden_appearances'], 'integer', 'min' => 0],
+            [['danger_rate'], 'number', 'min' => 0, 'max' => 350],
 
             [['tide'], KeyValidator::class,
                 'modelClass' => SalmonWaterLevel2::class,
@@ -87,6 +89,7 @@ final class WaveForm extends Model
             'golden_quota' => $this->golden_quota,
             'golden_delivered' => $this->golden_delivered,
             'golden_appearances' => $this->golden_appearances,
+            'danger_rate' => $this->danger_rate,
         ]);
 
         if (!$model->save()) {

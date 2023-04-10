@@ -20,6 +20,7 @@ return [
     'Defeated (others)' => '',
     'Defeated by {user}' => '',
     'Eggs' => '',
+    'Eggstra Work' => 'Alianza alevínica',
     'Fish Scales' => '',
     'High Score' => 'Récord',
     'Job Points' => '',

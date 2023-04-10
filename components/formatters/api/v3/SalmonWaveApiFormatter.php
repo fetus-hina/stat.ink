@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\components\formatters\api\v3;
 
+use app\components\formatters\api\v3\traits\FloatValTrait;
 use app\models\SalmonWave3;
 
 use function array_map;
@@ -17,6 +18,8 @@ use function array_values;
 
 final class SalmonWaveApiFormatter
 {
+    use FloatValTrait;
+
     /**
      * @param SalmonWave3[] $models
      */
@@ -40,6 +43,7 @@ final class SalmonWaveApiFormatter
             'golden_quota' => $model->golden_quota,
             'golden_delivered' => $model->golden_delivered,
             'golden_appearances' => $model->golden_appearances,
+            'danger_rate' => self::floatVal($model->danger_rate),
             'special_uses' => SalmonSpecialUseApiFormatter::allToJson(
                 $model->salmonSpecialUse3s,
                 $fullTranslate,

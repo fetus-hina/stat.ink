@@ -62,7 +62,6 @@ use function rtrim;
 use function strtotime;
 use function time;
 use function trim;
-use function version_compare;
 use function vsprintf;
 
 /**
@@ -81,6 +80,7 @@ final class PostSalmonForm extends Model
     public $uuid;
     public $private;
     public $big_run;
+    public $eggstra_work;
     public $stage;
     public $danger_rate;
     public $clear_waves;
@@ -129,6 +129,7 @@ final class PostSalmonForm extends Model
     public function rules()
     {
         return [
+            [['eggstra_work'], 'default', 'value' => 'no'],
             [['private', 'big_run'], 'required'],
 
             [['uuid', 'stage', 'fail_reason', 'king_salmonid', 'title_before'], 'string'],
@@ -136,13 +137,22 @@ final class PostSalmonForm extends Model
             [['agent'], 'string', 'max' => 64],
             [['agent_version'], 'string', 'max' => 255],
 
-            [['test', 'private', 'big_run', 'clear_extra', 'automated'], 'in',
+            [['test', 'private', 'big_run', 'eggstra_work', 'clear_extra', 'automated'], 'in',
                 'range' => ['yes', 'no', true, false],
                 'strict' => true,
             ],
 
             [['danger_rate'], 'number', 'min' => 0, 'max' => 350],
-            [['clear_waves'], 'integer', 'min' => 0, 'max' => 3],
+            [['clear_waves'], 'integer',
+                'min' => 0,
+                'max' => 3,
+                'when' => fn (self $model): bool => !self::boolVal($model->eggstra_work),
+            ],
+            [['clear_waves'], 'integer',
+                'min' => 0,
+                'max' => 5,
+                'when' => fn (self $model): bool => self::boolVal($model->eggstra_work),
+            ],
             [['king_smell'], 'integer', 'min' => 0, 'max' => 5],
             [['title_exp_before', 'title_exp_after'], 'integer', 'min' => 0, 'max' => 999],
             [['golden_eggs', 'power_eggs'], 'integer', 'min' => 0],
@@ -199,6 +209,13 @@ final class PostSalmonForm extends Model
                 'rule' => [SalmonWave3FormValidator::class, 'skipOnEmpty' => false],
                 'min' => 1,
                 'max' => 4,
+                'when' => fn (self $model): bool => !self::boolVal($model->eggstra_work),
+            ],
+            [['waves'], ArrayValidator::class,
+                'rule' => [SalmonWave3FormValidator::class, 'skipOnEmpty' => false],
+                'min' => 1,
+                'max' => 5,
+                'when' => fn (self $model): bool => self::boolVal($model->eggstra_work),
             ],
             [['bosses'], SalmonBoss3Validator::class],
         ];
@@ -342,6 +359,7 @@ final class PostSalmonForm extends Model
             'client_uuid' => $this->uuid ?: $uuid,
             'is_private' => self::boolVal($this->private),
             'is_big_run' => $isBigRun,
+            'is_eggstra_work' => self::boolVal($this->eggstra_work) === true,
             'stage_id' => $isBigRun
                 ? null
                 : self::key2id($this->stage, SalmonMap3::class, SalmonMap3Alias::class, 'map_id'),
@@ -387,6 +405,7 @@ final class PostSalmonForm extends Model
                 self::intVal($this->clear_waves),
             ),
             'schedule_id' => self::guessScheduleId(
+                self::boolVal($this->eggstra_work) === true,
                 self::intVal($this->start_at),
                 self::intVal($this->end_at),
                 self::intVal($this->clear_waves),
@@ -399,25 +418,6 @@ final class PostSalmonForm extends Model
             'created_at' => self::now(),
             'updated_at' => self::now(),
         ]);
-
-        // Fix total golden egg count (if needed & possible)
-        // See https://github.com/fetus-hina/stat.ink/issues/1167
-        if (
-            $model->golden_eggs === null || // おまけ
-            (
-                self::strVal($this->agent) === 's3s' &&
-                version_compare(self::strVal($this->agent_version), 'v0.2.6', '<')
-            ) ||
-            (
-                self::strVal($this->agent) === 's3si.ts' &&
-                version_compare(self::strVal($this->agent_version), '0.2.4', '<')
-            )
-        ) {
-            $goldenEggs = $this->getGoldenEggsFromWaves();
-            if ($goldenEggs !== null) {
-                $model->golden_eggs = $goldenEggs;
-            }
-        }
 
         if (!$model->save()) {
             $this->addError('_system', vsprintf('Failed to store new battle, info=%s', [
@@ -544,33 +544,6 @@ final class PostSalmonForm extends Model
         return true;
     }
 
-    private function getGoldenEggsFromWaves(): ?int
-    {
-        if (!is_array($this->waves) || !$this->waves) {
-            return null;
-        }
-
-        $total = 0;
-        foreach (array_values($this->waves) as $i => $data) {
-            if (!$data) {
-                return null;
-            }
-
-            // Xtrawave
-            if ($i >= 3) {
-                break;
-            }
-
-            $deliv = self::intVal(ArrayHelper::getValue($data, 'golden_delivered'));
-            if (!is_int($deliv) || $deliv < 0) {
-                return null;
-            }
-            $total += $deliv;
-        }
-
-        return $total;
-    }
-
     private static function now(): Now
     {
         return Yii::createObject(Now::class);
@@ -589,6 +562,7 @@ final class PostSalmonForm extends Model
     }
 
     private static function guessScheduleId(
+        bool $isEggstraWork,
         ?int $startAt,
         ?int $endAt,
         ?int $clearWaves = null,
@@ -596,6 +570,7 @@ final class PostSalmonForm extends Model
         $startAt = self::guessStartAt($startAt, $endAt, $clearWaves);
         $model = SalmonSchedule3::find()
             ->andWhere(['and',
+                ['is_eggstra_work' => $isEggstraWork],
                 ['<=', 'start_at', date('Y-m-d\TH:i:sP', $startAt)],
                 ['>', 'end_at', date('Y-m-d\TH:i:sP', $startAt)],
             ])
