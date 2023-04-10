@@ -9,7 +9,12 @@ const useStyles = createUseStyles({
   schedule: {
     flex: '1 1 100%',
     marginLeft: '15px',
-    marginRight: '15px'
+    marginRight: '15px',
+    maxWidth: '100%',
+
+    '@media (min-width: 992px)': {
+      maxWidth: 'calc(50% - 30px)'
+    }
   },
   cards: {
     display: 'flex',
@@ -25,7 +30,7 @@ const useStyles = createUseStyles({
 });
 
 function ScheduleContent (props) {
-  const { mode } = props;
+  const { mode, modeIcon } = props;
   const classes = useStyles();
   const schedules = getDisplayTargetSchedules(props);
 
@@ -38,6 +43,7 @@ function ScheduleContent (props) {
             <ScheduleCard
               map={mapInfo}
               mode={mode}
+              modeIcon={modeIcon}
               schedule={sc}
             />
           </div>
@@ -50,6 +56,7 @@ function ScheduleContent (props) {
 ScheduleContent.propTypes = {
   locale: PropTypes.object,
   mode: PropTypes.string.isRequired,
+  modeIcon: PropTypes.string,
   now: PropTypes.number.isRequired,
   schedules: PropTypes.array.isRequired
 };

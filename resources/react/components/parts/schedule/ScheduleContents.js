@@ -49,6 +49,7 @@ function ScheduleContents (props) {
               <div className={classes.tabContentRoot}>
                 <ScheduleContent
                   mode={modeData.key}
+                  modeIcon={modeData.image}
                   schedules={modeData.schedules}
                 />
               </div>
