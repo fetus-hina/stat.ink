@@ -6,7 +6,7 @@ import ScheduleContentHeadingTime from './ScheduleContentHeadingTime';
 
 export default function ScheduleContentHeading (props) {
   const { mode, schedule } = props;
-  const isSalmon = (mode === 'salmon');
+  const isSalmon = String(mode).startsWith('salmon');
 
   return (
     <h3>

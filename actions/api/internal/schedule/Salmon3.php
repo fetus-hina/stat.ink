@@ -16,6 +16,7 @@ use app\assets\GameModeIconsAsset;
 use app\assets\Spl3SalmonidAsset;
 use app\assets\Spl3StageAsset;
 use app\assets\Spl3WeaponAsset;
+use app\components\helpers\TypeHelper;
 use app\models\Map3;
 use app\models\SalmonKing3;
 use app\models\SalmonMap3;
@@ -23,7 +24,9 @@ use app\models\SalmonSchedule3;
 use app\models\SalmonScheduleWeapon3;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
+use yii\web\AssetManager;
 
+use function array_merge;
 use function sprintf;
 use function strtotime;
 
@@ -33,16 +36,27 @@ trait Salmon3
 {
     protected function getSalmon3(): array
     {
-        $am = Yii::$app->assetManager;
+        return array_merge(
+            $this->getSalmon3Impl(isEggstraWork: false),
+            $this->getSalmon3Impl(isEggstraWork: true),
+        );
+    }
+
+    private function getSalmon3Impl(bool $isEggstraWork): array
+    {
+        $key = $isEggstraWork ? 'salmon_eggstra' : 'salmon';
+        $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
         return [
-            'salmon' => [
-                'key' => 'salmon',
+            $key => [
+                'key' => $key,
                 'game' => 'splatoon3',
-                'name' => Yii::t('app-salmon3', 'Salmon Run'),
+                'name' => $isEggstraWork
+                    ? Yii::t('app-salmon3', 'Eggstra Work')
+                    : Yii::t('app-salmon3', 'Salmon Run'),
                 'image' => Url::to(
                     $am->getAssetUrl(
                         $am->getBundle(GameModeIconsAsset::class, true),
-                        'spl3/salmon36x36.png',
+                        $isEggstraWork ? 'spl3/salmon-eggstra-36x36.png' : 'spl3/salmon36x36.png',
                     ),
                     true,
                 ),
@@ -57,7 +71,7 @@ trait Salmon3
                             'salmonScheduleWeapon3s.random',
                             'salmonScheduleWeapon3s.weapon',
                         ])
-                        ->andWhere(['is_eggstra_work' => false])
+                        ->andWhere(['is_eggstra_work' => $isEggstraWork])
                         ->andWhere(['>', 'end_at', $this->now->format(DateTime::ATOM)])
                         ->orderBy([
                             'end_at' => SORT_ASC,
@@ -65,36 +79,36 @@ trait Salmon3
                         ->limit(10)
                         ->all(),
                     fn (SalmonSchedule3 $sc): array => [
-                            'time' => [
-                                strtotime($sc->start_at),
-                                strtotime($sc->end_at),
-                            ],
-                            'maps' => [
-                                $this->salmonMap3($sc->map ?? $sc->bigMap),
-                            ],
-                            'king' => $this->salmonKing3($sc->king),
-                            'weapons' => ArrayHelper::getColumn(
-                                ArrayHelper::sort(
-                                    $sc->salmonScheduleWeapon3s,
-                                    fn (SalmonScheduleWeapon3 $a, SalmonScheduleWeapon3 $b): int => $a->id <=> $b->id,
-                                ),
-                                function (SalmonScheduleWeapon3 $info) use ($am): array {
-                                    $w = $info->weapon ?: $info->random;
-                                    return [
-                                        'key' => $w->key,
-                                        'name' => Yii::t('app-weapon3', $w->name),
-                                        'icon' => Url::to(
-                                            $am->getAssetUrl(
-                                                $am->getBundle(Spl3WeaponAsset::class, true),
-                                                'main/' . $w->key . '.png',
-                                            ),
-                                            true,
-                                        ),
-                                    ];
-                                },
-                            ),
-                            'is_big_run' => $sc->map === null,
+                        'time' => [
+                            strtotime($sc->start_at),
+                            strtotime($sc->end_at),
                         ],
+                        'maps' => [
+                            $this->salmonMap3($sc->map ?? $sc->bigMap),
+                        ],
+                        'king' => $this->salmonKing3($sc->king),
+                        'weapons' => ArrayHelper::getColumn(
+                            ArrayHelper::sort(
+                                $sc->salmonScheduleWeapon3s,
+                                fn (SalmonScheduleWeapon3 $a, SalmonScheduleWeapon3 $b): int => $a->id <=> $b->id,
+                            ),
+                            function (SalmonScheduleWeapon3 $info) use ($am): array {
+                                $w = $info->weapon ?: $info->random;
+                                return [
+                                    'key' => $w->key,
+                                    'name' => Yii::t('app-weapon3', $w->name),
+                                    'icon' => Url::to(
+                                        $am->getAssetUrl(
+                                            $am->getBundle(Spl3WeaponAsset::class, true),
+                                            'main/' . $w->key . '.png',
+                                        ),
+                                        true,
+                                    ),
+                                ];
+                            },
+                        ),
+                        'is_big_run' => $sc->map === null,
+                    ],
                 ),
             ],
         ];
@@ -106,7 +120,7 @@ trait Salmon3
             return null;
         }
 
-        $am = Yii::$app->assetManager;
+        $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
         return [
             'key' => $info->key,
             'name' => Yii::t('app-map3', $info->name),
@@ -126,7 +140,7 @@ trait Salmon3
             return null;
         }
 
-        $am = Yii::$app->assetManager;
+        $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
         return [
             'key' => $king->key,
             'name' => Yii::t('app-salmon-boss3', $king->name),

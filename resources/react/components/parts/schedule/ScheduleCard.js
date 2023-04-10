@@ -108,8 +108,9 @@ const useStyles = createUseStyles({
 });
 
 export default function ScheduleCard (props) {
-  const { map, mode, schedule } = props;
-  const isSalmon = (mode === 'salmon');
+  const { map, mode, modeIcon, schedule } = props;
+  const isSalmon = String(mode).startsWith('salmon');
+  const isEggstra = mode === 'salmon_eggstra' && modeIcon;
   const classes = useStyles();
 
   return (
@@ -145,9 +146,16 @@ export default function ScheduleCard (props) {
             </div>
             )
           : null}
-        {isSalmon && (schedule?.is_big_run || schedule?.king?.image)
+        {isSalmon && (isEggstra || schedule?.is_big_run || schedule?.king?.image)
           ? (
             <div className={classes.leftTopInfo}>
+              {isEggstra
+                ? <img
+                    src={modeIcon}
+                    alt=''
+                    title=''
+                  />
+                : null}
               {schedule?.king?.image
                 ? <img
                     src={schedule?.king?.image}
@@ -172,5 +180,6 @@ export default function ScheduleCard (props) {
 ScheduleCard.propTypes = {
   map: PropTypes.object.isRequired,
   mode: PropTypes.string.isRequired,
+  modeIcon: PropTypes.string,
   schedule: PropTypes.object.isRequired
 };

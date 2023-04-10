@@ -48,6 +48,13 @@ const data = [
     priority: 6
   },
   {
+    id: 'eggstra3',
+    ref: 'splatoon3/salmon_eggstra'.split('/'),
+    label: 'Eggstra Work',
+    showOpen: true,
+    priority: 7
+  },
+  {
     id: 'regular2',
     ref: 'splatoon2/regular'.split('/'),
     label: 'Regular',
