@@ -24,7 +24,7 @@ $am = Yii::$app->assetManager;
 $bundle = Spl3BadgeAsset::register($this);
 
 $rawValue = (int)(is_scalar($value) ? filter_var($value ?? null, FILTER_VALIDATE_INT) : 0);
-$value = $isEditing ? $rawValue : ($rawValue + $adjust);
+$value = $isEditing ? $rawValue : max(0, $rawValue + $adjust);
 
 $step = [0, 1, 0, 0];
 foreach ($steps as $tmpStep) {
