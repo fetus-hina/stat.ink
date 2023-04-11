@@ -10,9 +10,12 @@ use yii\web\View;
 /**
  * @var View $this
  * @var array{int, ?int, int, int}[] $steps
+ * @var bool $isEditing
+ * @var int $adjust
  * @var mixed $value Current Value (count), ignored if not integer
  * @var string $badgePath badge asset relative path
  * @var string $icon Icon (most left) URL
+ * @var string $itemKey
  * @var string $label Icon (most left) label
  */
 
@@ -20,7 +23,8 @@ $fmt = Yii::$app->formatter;
 $am = Yii::$app->assetManager;
 $bundle = Spl3BadgeAsset::register($this);
 
-$value = (int)(is_scalar($value) ? filter_var($value ?? null, FILTER_VALIDATE_INT) : 0);
+$rawValue = (int)(is_scalar($value) ? filter_var($value ?? null, FILTER_VALIDATE_INT) : 0);
+$value = $isEditing ? $rawValue : ($rawValue + $adjust);
 
 $step = [0, 1, 0, 0];
 foreach ($steps as $tmpStep) {
@@ -44,10 +48,42 @@ foreach ($steps as $tmpStep) {
     ]),
     ['class' => 'text-center'],
   ) . "\n" ?>
+<?php if ($isEditing) { ?>
   <?= Html::tag(
     'td',
     Html::encode($fmt->asInteger($value)),
     ['class' => 'text-right'],
+  ) . "\n" ?>
+  <td>
+    <div class="form-group m-0">
+      <?= Html::input(
+        type: 'number',
+        name: $itemKey,
+        value: $adjust === 0 ? '' : (string)$adjust,
+        options: [
+        'class' => 'form-control',
+        'min' => -99999,
+        'max' => 99999,
+        'step' => 1,
+        ],
+      ) . "\n" ?>
+    </div>
+  </td>
+<?php } else { ?>
+  <?= Html::tag(
+    'td',
+    Html::encode($fmt->asInteger($value)),
+    [
+      'class' => 'auto-tooltip text-right',
+      'title' => $adjust === 0
+        ? false
+        : vsprintf('%s + (%s: %s%s)', [
+          $fmt->asInteger($rawValue),
+          Yii::t('app', 'Correction Value'),
+          $adjust >= 0 ? '+' : '-',
+          $fmt->asInteger(abs($adjust)),
+        ]),
+    ],
   ) . "\n" ?>
   <?= Html::tag(
     'td',
@@ -103,4 +139,5 @@ foreach ($steps as $tmpStep) {
       ['class' => 'align-items-center d-flex w-100'],
     ),
   ) . "\n" ?>
+<?php } ?>
 </tr>
