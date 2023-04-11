@@ -14,6 +14,7 @@ use app\actions\show\v3\BattleAction;
 use app\actions\show\v3\DeleteBattleAction;
 use app\actions\show\v3\UserAction;
 use app\actions\show\v3\stats\BadgeAction;
+use app\actions\show\v3\stats\CorrectionBadgeAction;
 use app\actions\show\v3\stats\MapRuleAction;
 use app\actions\show\v3\stats\MedalAction;
 use app\actions\show\v3\stats\WeaponsAction;
@@ -35,6 +36,7 @@ final class ShowV3Controller extends Controller
                 'class' => VerbFilter::class,
                 'actions' => [
                     'delete-battle' => ['post', 'delete'],
+                    'stats-correction-badge' => ['head', 'get', 'post'],
                     '*' => ['head', 'get'],
                 ],
             ],
@@ -42,10 +44,14 @@ final class ShowV3Controller extends Controller
                 'class' => AccessControl::class,
                 'only' => [
                     'delete-battle',
+                    'stats-correction-badge',
                 ],
                 'rules' => [
                     [
-                        'actions' => ['delete-battle'],
+                        'actions' => [
+                            'delete-battle',
+                            'stats-correction-badge',
+                        ],
                         'roles' => ['@'],
                         'allow' => true,
                     ],
@@ -60,6 +66,7 @@ final class ShowV3Controller extends Controller
             'battle' => BattleAction::class,
             'delete-battle' => DeleteBattleAction::class,
             'stats-badge' => BadgeAction::class,
+            'stats-correction-badge' => CorrectionBadgeAction::class,
             'stats-map-rule' => MapRuleAction::class,
             'stats-medal' => MedalAction::class,
             'stats-weapons' => WeaponsAction::class,

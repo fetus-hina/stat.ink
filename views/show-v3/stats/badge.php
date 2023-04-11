@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use app\components\widgets\AdWidget;
+use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\UserMiniInfo3;
 use app\models\Rule3;
@@ -29,6 +30,9 @@ use yii\web\View;
  * @var array<string, UserBadge3Rule> $badgeRules
  * @var array<string, UserBadge3Special> $badgeSpecials
  * @var array<string, UserBadge3Tricolor> $badgeTricolor
+ * @var array<string, int> $badgeAdjust
+ * @var bool $isEdiable
+ * @var bool $isEditing
  */
 
 $permLink = Url::to(['show-v3/stats-badge', 'screen_name' => $user->screen_name], true);
@@ -56,25 +60,128 @@ if ($user->twitter != '') {
   <div class="row">
     <div class="col-xs-12 col-sm-8 col-lg-9 mb-3">
       <p class="mb-3 text-muted small">
+<?php if ($isEditing) { ?>
+        <?= Html::encode(
+          Yii::t('app', 'You can register (estimated) unsent values here to correct the values displayed.'),
+        ) . "\n" ?>
+<?php } else { ?>
         <?= Html::encode(
           Yii::t('app', 'If there are any unsubmitted data, they have not been included in this tally.'),
         ) . "\n" ?>
+<?php } ?>
       </p>
-      <table class="mb-3 table table-bordered table-condensed table-striped">
+<?php if ($isEditing) { ?>
+      <p class="mb-2">
+        <?= Html::a(
+          implode(' ', [
+            Icon::back(),
+            Html::encode(Yii::t('app', 'Back')),
+          ]),
+          ['show-v3/stats-badge', 'screen_name' => $user->screen_name],
+          ['class' => 'btn btn-default'],
+        ) . "\n" ?>
+      </p>
+      <?= Html::beginForm(
+        ['show-v3/stats-correction-badge', 'screen_name' => $user->screen_name],
+        'POST',
+        ['class' => 'm-0 p-0'],
+      ) . "\n" ?>
+<?php } elseif ($isEditable) { ?>
+      <p class="mb-0 text-right">
+        <?= Html::a(
+          implode(' ', [
+            Icon::edit(),
+            Html::encode(Yii::t('app', 'Correction')),
+          ]),
+          ['show-v3/stats-correction-badge', 'screen_name' => $user->screen_name],
+          ['class' => 'btn btn-link'],
+        ) . "\n" ?>
+      </p>
+<?php } ?>
+      <?= Html::beginTag('table', [
+        'class' => [
+          $isEditable ? 'mb-0' : 'mb-3',
+          'table',
+          'table-bordered',
+          'table-condensed',
+          'table-striped',
+        ],
+      ]) . "\n" ?>
         <thead>
           <tr>
             <th class="text-center" style="width:30px"></th>
-            <th class="text-center omit" style="width:4em"></th>
+            <th class="text-center omit" style="width:4em"><?= $isEditing ? Yii::t('app', 'Progress') : '' ?></th>
+<?php if ($isEditing) { ?>
+            <th class="text-center omit"><?= Html::encode(Yii::t('app', 'Correction Value')) ?></th>
+<?php } else { ?>
             <th class="text-center omit"><?= Html::encode(Yii::t('app', 'Progress')) ?></th>
+<?php } ?>
           </tr>
         </thead>
         <tbody>
-          <?= $this->render('badge/table/rules', compact('badgeRules', 'badgeTricolor', 'roles', 'rules')) . "\n" ?>
-          <?= $this->render('badge/table/specials', compact('badgeSpecials', 'specials')) . "\n" ?>
-          <?= $this->render('badge/table/salmon-kings', compact('badgeKings', 'kings')) . "\n" ?>
-          <?= $this->render('badge/table/salmon-bosses', compact('badgeBosses', 'bosses')) . "\n" ?>
+          <?= $this->render('badge/table/rules', compact(
+            'badgeAdjust',
+            'badgeRules',
+            'badgeTricolor',
+            'isEditing',
+            'roles',
+            'rules',
+          )) . "\n" ?>
+          <?= $this->render('badge/table/specials', compact(
+            'badgeAdjust',
+            'badgeSpecials',
+            'isEditing',
+            'specials',
+          )) . "\n" ?>
+          <?= $this->render('badge/table/salmon-kings', compact(
+            'badgeAdjust',
+            'badgeKings',
+            'isEditing',
+            'kings',
+          )) . "\n" ?>
+          <?= $this->render('badge/table/salmon-bosses', compact(
+            'badgeAdjust',
+            'badgeBosses',
+            'bosses',
+            'isEditing',
+          )) . "\n" ?>
         </tbody>
       </table>
+<?php if ($isEditing) { ?>
+      <p class="mt-2 mb-3">
+        <?= Html::submitButton(
+          implode(' ', [
+            Icon::check(),
+            Yii::t('app', 'Correction'),
+          ]),
+          [
+            'class' => 'btn btn-primary btn-block',
+          ],
+        ) . "\n" ?>
+      </p>
+      </form>
+      <p class="mb-3">
+        <?= Html::a(
+          implode(' ', [
+            Icon::back(),
+            Html::encode(Yii::t('app', 'Back')),
+          ]),
+          ['show-v3/stats-badge', 'screen_name' => $user->screen_name],
+          ['class' => 'btn btn-default'],
+        ) . "\n" ?>
+      </p>
+<?php } elseif ($isEditable) { ?>
+      <p class="mb-3 text-right">
+        <?= Html::a(
+          implode(' ', [
+            Icon::edit(),
+            Html::encode(Yii::t('app', 'Correction')),
+          ]),
+          ['show-v3/stats-correction-badge', 'screen_name' => $user->screen_name],
+          ['class' => 'btn btn-link'],
+        ) . "\n" ?>
+      </p>
+<?php } ?>
     </div>
     <div class="col-xs-12 col-sm-4 col-lg-3">
       <?= UserMiniInfo3::widget(['user' => $user]) . "\n" ?>

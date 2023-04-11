@@ -12,6 +12,8 @@ use yii\web\View;
  * @var SalmonKing3[] $kings
  * @var View $this
  * @var array<string, UserBadge3KingSalmonid> $badgeKings
+ * @var array<string, int> $badgeAdjust
+ * @var bool $isEditing
  */
 
 $am = Yii::$app->assetManager;
@@ -19,10 +21,14 @@ $icon = Spl3SalmonidAsset::register($this);
 
 echo $this->render('includes/group-header', ['label' => Yii::t('app-salmon3', 'King Salmonid')]);
 foreach ($kings as $king) {
+  $key = 'salmon-king-' . $king->key;
   echo $this->render('includes/row', [
+    'isEditing' => $isEditing,
+    'itemKey' => $key,
     'icon' => $am->getAssetUrl($icon, sprintf('%s.png', $king->key)),
     'label' => Yii::t('app-salmon-boss3', $king->name),
     'value' => ArrayHelper::getValue($badgeKings, [$king->key, 'count']),
+    'adjust' => (int)ArrayHelper::getValue($badgeAdjust, $key, 0),
     'badgePath' => 'salmonids/' . $king->key,
     'steps' => [
       [   0,   10, 0, 1],
