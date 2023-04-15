@@ -32,7 +32,11 @@ trait Salmon3Formatter
         return [
             'id' => $battle->uuid,
             'image' => null,
-            'isWin' => $battle->clear_waves === null ? null : $battle->clear_waves >= 3,
+            'isWin' => match (true) {
+                $battle->is_eggstra_work === true && $battle->clear_waves !== null => $battle->clear_waves >= 5,
+                $battle->is_eggstra_work !== true && $battle->clear_waves !== null => $battle->clear_waves >= 3,
+                default => null,
+            },
             'mode' => match (true) {
                 $battle->is_big_run === true => [
                     'icon' => Url::to($am->getAssetUrl($modeAsset, 'spl3/salmon-bigrun-36x36.png'), true),
