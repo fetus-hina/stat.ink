@@ -8,6 +8,7 @@ use app\assets\ColorSchemeAsset;
 use app\assets\RatioAsset;
 use app\components\helpers\XPowerNormalDistribution;
 use app\models\StatBigrunDistribAbstract3;
+use app\models\StatEggstraWorkDistribAbstract3;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\web\JsExpression;
@@ -17,7 +18,7 @@ use yii\web\View;
  * @var NormalDistribution|null $estimatedDistrib
  * @var NormalDistribution|null $normalDistrib
  * @var NormalDistribution|null $ruleOfThumbDistrib
- * @var StatBigrunDistribAbstract3|null $abstract
+ * @var StatBigrunDistribAbstract3|StatEggstraWorkDistribAbstract3|null $abstract
  * @var View $this
  * @var array<int, int> $histogram
  * @var int|null $chartMax

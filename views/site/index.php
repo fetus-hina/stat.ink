@@ -142,6 +142,20 @@ $discordInviteCode = ArrayHelper::getValue(Yii::$app->params, 'discordInviteCode
           ]),
           ['entire/salmon3-bigrun'],
         ),
+        Html::a(
+          vsprintf('%s %s', [
+            Html::img(
+              Yii::$app->assetManager->getAssetUrl($gameMode, 'spl3/salmon-eggstra.png'),
+              [
+                'class' => 'basic-icon',
+                'draggable' => 'false',
+                'style' => ['--icon-height' => '1em'],
+              ],
+            ),
+            Html::encode(Yii::t('app-salmon3', 'Eggstra Work')),
+          ]),
+          ['entire/salmon3-eggstra-work'],
+        ),
       ],
       [
         Icon::stats(),

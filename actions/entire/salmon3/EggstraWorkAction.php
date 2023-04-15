@@ -12,10 +12,11 @@ namespace app\actions\entire\salmon3;
 
 use MathPHP\Probability\Distribution\Continuous\Normal as NormalDistribution;
 use Yii;
-use app\models\BigrunOfficialResult3;
+use app\components\helpers\TypeHelper;
+use app\models\EggstraWorkOfficialResult3;
 use app\models\SalmonSchedule3;
-use app\models\StatBigrunDistrib3;
-use app\models\StatBigrunDistribAbstract3;
+use app\models\StatEggstraWorkDistrib3;
+use app\models\StatEggstraWorkDistribAbstract3;
 use yii\base\Action;
 use yii\db\Connection;
 use yii\db\Transaction;
@@ -37,7 +38,7 @@ use const FILTER_VALIDATE_INT;
 use const SORT_ASC;
 use const SORT_DESC;
 
-final class BigrunAction extends Action
+final class EggstraWorkAction extends Action
 {
     public function run(): Response|string
     {
@@ -50,16 +51,15 @@ final class BigrunAction extends Action
             return $thing;
         }
 
-        $controller = $this->controller;
-        assert($controller instanceof Controller);
-        return $controller->render('salmon3/bigrun', $thing);
+        return TypeHelper::instanceOf($this->controller, Controller::class)
+            ->render('salmon3/eggstra-work', $thing);
     }
 
     private function doRun(Connection $db): Response|array
     {
         $scheduleId = filter_var(Yii::$app->request->get('shift'), FILTER_VALIDATE_INT);
 
-        $schedules = $this->getBigrunSchedules($db);
+        $schedules = $this->getSchedules($db);
         if (
             !is_int($scheduleId) ||
             !isset($schedules[$scheduleId])
@@ -68,24 +68,23 @@ final class BigrunAction extends Action
                 throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
             }
 
-            $controller = $this->controller;
-            assert($controller instanceof Controller);
-            return $controller->redirect(
-                ['entire/salmon3-bigrun',
-                    'shift' => array_shift($schedules)->id,
-                ],
-            );
+            return TypeHelper::instanceOf($this->controller, Controller::class)
+                ->redirect(
+                    ['entire/salmon3-eggstra-work',
+                        'shift' => array_shift($schedules)->id,
+                    ],
+                );
         }
 
         $schedule = $schedules[$scheduleId];
 
-        $abstract = StatBigrunDistribAbstract3::find()
+        $abstract = StatEggstraWorkDistribAbstract3::find()
             ->andWhere(['schedule_id' => $scheduleId])
             ->limit(1)
             ->one($db);
 
         $histogram = ArrayHelper::map(
-            StatBigrunDistrib3::find()
+            StatEggstraWorkDistrib3::find()
                 ->andWhere(['schedule_id' => $scheduleId])
                 ->orderBy(['golden_egg' => SORT_ASC])
                 ->all($db),
@@ -111,7 +110,7 @@ final class BigrunAction extends Action
                 (float)$abstract->average,
                 (float)$abstract->stddev,
             );
-            $estimatedDistrib = self::estimatedDistrib($schedule->bigrunOfficialResult3);
+            $estimatedDistrib = self::estimatedDistrib($schedule->eggstraWorkOfficialResult3);
             $ruleOfThumbDistrib = self::ruleOfThumbDistrib($abstract);
             $chartMax = max(array_keys($histogram));
         }
@@ -128,7 +127,7 @@ final class BigrunAction extends Action
         ];
     }
 
-    private static function estimatedDistrib(?BigrunOfficialResult3 $official): ?NormalDistribution
+    private static function estimatedDistrib(?EggstraWorkOfficialResult3 $official): ?NormalDistribution
     {
         if (
             !$official ||
@@ -171,7 +170,7 @@ final class BigrunAction extends Action
         );
     }
 
-    private static function ruleOfThumbDistrib(StatBigrunDistribAbstract3 $abstract): ?NormalDistribution
+    private static function ruleOfThumbDistrib(StatEggstraWorkDistribAbstract3 $abstract): ?NormalDistribution
     {
         if (
             $abstract->users < 50 ||
@@ -206,7 +205,7 @@ final class BigrunAction extends Action
     /**
      * @return array<int, SalmonSchedule3>
      */
-    private static function getBigrunSchedules(Connection $db): array
+    private static function getSchedules(Connection $db): array
     {
         $date = gmdate('Y-m-d', $_SERVER['REQUEST_TIME']);
 
@@ -215,10 +214,12 @@ final class BigrunAction extends Action
             fn (): array => ArrayHelper::map(
                 SalmonSchedule3::find()
                     ->with([
-                        'bigMap',
-                        'bigrunOfficialResult3',
+                        'eggstraWorkOfficialResult3',
+                        'map',
                     ])
-                    ->andWhere(['not', ['big_map_id' => null]])
+                    ->andWhere([
+                        'is_eggstra_work' => true,
+                    ])
                     ->andWhere(['<=', 'start_at', "{$date}T00:00:00+00:00"])
                     ->orderBy(['start_at' => SORT_DESC])
                     ->all($db),
