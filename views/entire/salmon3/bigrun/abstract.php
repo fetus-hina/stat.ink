@@ -72,6 +72,7 @@ $fmt = Yii::$app->formatter;
           'value' => fn (Model|null $model): string => match (true) {
             $model instanceof BigrunOfficialResult3 => '-',
             $model instanceof EggstraWorkOfficialResult3 => '-',
+            $model instanceof StatBigrunDistribAbstract3 => $fmt->asDecimal($model->average, 2),
             $model instanceof StatEggstraWorkDistribAbstract3 => $fmt->asDecimal($model->average, 2),
             default => throw new LogicException(),
           },
