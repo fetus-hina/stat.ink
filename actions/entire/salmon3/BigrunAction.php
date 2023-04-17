@@ -209,7 +209,7 @@ final class BigrunAction extends Action
     private static function getBigrunSchedules(Connection $db): array
     {
         $date = gmdate('Y-m-d', $_SERVER['REQUEST_TIME']);
-        $verison = 2;
+        $version = 2;
 
         return Yii::$app->cache->getOrSet(
             [__METHOD__, $date, $version],
