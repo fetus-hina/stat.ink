@@ -5,13 +5,15 @@ declare(strict_types=1);
 use MathPHP\Probability\Distribution\Continuous\Normal as NormalDistribution;
 use app\assets\GameModeIconsAsset;
 use app\assets\NotoSansMathAsset;
+use app\components\helpers\TypeHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
-use app\models\SalmonSchedule3;
 use app\models\SalmonEggstraDistribAbstract3;
+use app\models\SalmonSchedule3;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\AssetManager;
 use yii\web\View;
 
 /**
@@ -37,6 +39,8 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
 $expires = 1;
 $fmt = Yii::$app->formatter;
 
+$am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
+
 ?>
 <div class="container">
   <h1>
@@ -57,6 +61,42 @@ $fmt = Yii::$app->formatter;
   </h1>
   <?= AdWidget::widget() . "\n" ?>
   <?= SnsWidget::widget() . "\n" ?>
+
+  <aside class="mb-3">
+    <nav>
+      <ul class="nav nav-tabs">
+        <li role="presentation">
+          <?= Html::a(
+            implode(' ', [
+              Html::img(
+                $am->getAssetUrl($am->getBundle(GameModeIconsAsset::class), 'spl3/salmon-bigrun.png'),
+                [
+                  'class' => 'basic-icon',
+                  'draggable' => 'false',
+                  'style' => ['--icon-height' => '1em'],
+                ],
+              ),
+              Html::encode(Yii::t('app-salmon3', 'Big Run'))
+            ]),
+            ['entire/salmon3-bigrun'],
+          ) . "\n" ?>
+        </li>
+        <li role="presentation" class="active">
+          <a>
+            <?= Html::img(
+              $am->getAssetUrl($am->getBundle(GameModeIconsAsset::class), 'spl3/salmon-eggstra.png'),
+              [
+                'class' => 'basic-icon',
+                'draggable' => 'false',
+                'style' => ['--icon-height' => '1em'],
+              ],
+            ) . "\n" ?>
+            <?= Html::encode(Yii::t('app-salmon3', 'Eggstra Work')) . "\n" ?>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
 
   <div class="alert alert-danger mb-3">
     <?= Html::encode(
