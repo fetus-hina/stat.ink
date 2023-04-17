@@ -208,18 +208,14 @@ final class EggstraWorkAction extends Action
     private static function getSchedules(Connection $db): array
     {
         $date = gmdate('Y-m-d', $_SERVER['REQUEST_TIME']);
+        $version = 2;
 
         return Yii::$app->cache->getOrSet(
-            [__METHOD__, $date],
+            [__METHOD__, $date, $version],
             fn (): array => ArrayHelper::map(
                 SalmonSchedule3::find()
-                    ->with([
-                        'eggstraWorkOfficialResult3',
-                        'map',
-                    ])
-                    ->andWhere([
-                        'is_eggstra_work' => true,
-                    ])
+                    ->with(['map'])
+                    ->andWhere(['is_eggstra_work' => true])
                     ->andWhere(['<=', 'start_at', "{$date}T00:00:00+00:00"])
                     ->orderBy(['start_at' => SORT_DESC])
                     ->all($db),
