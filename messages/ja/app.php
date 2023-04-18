@@ -754,4 +754,5 @@ return [
     '{title} Official Website' => '{title} 公式サイト',
     '~{estPower}' => '約{estPower}',
     '~{point}p' => '約{point}p',
+    '×{times}' => '×{times}',
 ];

@@ -753,4 +753,5 @@ return [
     '{title} Official Website' => '{title} 공식 사이트',
     '~{estPower}' => '약{estPower}',
     '~{point}p' => '약{point}p',
+    '×{times}' => '',
 ];

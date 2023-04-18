@@ -7,6 +7,7 @@ use app\components\widgets\SalmonUserInfo3;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\v3\BattlePrevNext;
 use app\models\Salmon3;
+use app\models\SalmonWave3;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
@@ -75,6 +76,21 @@ $this->registerLinkTag([
   'href' => ['api-v3/single-salmon', 'uuid' => $model->uuid, 'full' => 1],
 ]);
 
+$waves = SalmonWave3::find()
+  ->with([
+    'event',
+    'salmonSpecialUse3s',
+    'salmonSpecialUse3s.special',
+    'tide',
+  ])
+  ->andWhere(['salmon_id' => $model->id])
+  ->orderBy([
+    'salmon_id' => SORT_ASC,
+    'wave' => SORT_ASC,
+  ])
+  ->cache(3600)
+  ->all();
+
 ?>
 <div class="container">
   <h1>
@@ -97,8 +113,8 @@ $this->registerLinkTag([
       ]) . "\n" ?>
       <?= $this->render('view/edit-button', ['model' => $model, 'user' => $user]) . "\n" ?>
       <?= $this->render('view/details', ['model' => $model]) . "\n" ?>
-      <?= $this->render('view/waves', ['model' => $model]) . "\n" ?>
-      <?= $this->render('view/players', ['model' => $model]) . "\n" ?>
+      <?= $this->render('view/waves', ['model' => $model, 'waves' => $waves]) . "\n" ?>
+      <?= $this->render('view/players', ['model' => $model, 'waves' => $waves]) . "\n" ?>
       <?= $this->render('view/bosses', ['model' => $model]) . "\n" ?>
       <?= $this->render('view/edit-button', ['model' => $model, 'user' => $user]) . "\n" ?>
     </div>

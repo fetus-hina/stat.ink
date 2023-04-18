@@ -5,11 +5,13 @@ declare(strict_types=1);
 use app\components\widgets\v3\SalmonPlayers;
 use app\models\Salmon3;
 use app\models\SalmonPlayer3;
+use app\models\SalmonWave3;
 use yii\helpers\Html;
 use yii\web\View;
 
 /**
  * @var Salmon3 $model
+ * @var SalmonWave3[] $waves
  * @var View $this
  */
 
@@ -42,4 +44,5 @@ if (!$players) {
 <?= SalmonPlayers::widget([
   'job' => $model,
   'players' => array_values($players),
+  'waves' => $waves,
 ]) . "\n" ?>

@@ -182,7 +182,11 @@ final class BigrunPercentile extends Widget
     private function renderModalFooterDetails(): string
     {
         return $this->isEggstraWork
-            ? ''
+            ? Html::a(
+                Html::encode(Yii::t('app', 'Details')),
+                ['entire/salmon3-eggstra-work', 'shift' => $this->schedule?->id],
+                ['class' => 'btn btn-default'],
+            )
             : Html::a(
                 Html::encode(Yii::t('app', 'Details')),
                 ['entire/salmon3-bigrun', 'shift' => $this->schedule?->id],
