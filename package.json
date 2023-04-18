@@ -74,7 +74,7 @@
     "twemoji": "^14.0.2",
     "twemoji-emojis": "^14.1.0",
     "uglify-js": "^3.17.4",
-    "updates": "^13.4.0",
+    "updates": "^14.0.1",
     "uuidjs": "^4.2.13",
     "webpack": "^5.79.0",
     "webpack-cli": "^5.0.1",
