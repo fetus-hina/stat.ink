@@ -10,22 +10,10 @@ use yii\web\View;
 
 /**
  * @var Salmon3 $model
+ * @var SalmonWave3[] $waves
  * @var View $this
  */
 
-$waves = SalmonWave3::find()
-  ->with([
-    'event',
-    'salmonSpecialUse3s',
-    'salmonSpecialUse3s.special',
-    'tide',
-  ])
-  ->andWhere(['salmon_id' => $model->id])
-  ->orderBy([
-    'salmon_id' => SORT_ASC,
-    'wave' => SORT_ASC,
-  ])
-  ->all();
 if (!$waves) {
   return;
 }
@@ -40,21 +28,19 @@ $get = fn (array $list, int $wave): ?SalmonWave3 => array_reduce(
 
 ?>
 <?= Html::tag('h2', Html::encode(Yii::t('app-salmon2', 'Waves')), ['id' => 'waves']) . "\n" ?>
-<?= SalmonWaves::widget(
+<?= SalmonWaves::widget(array_merge(
+  [
+    'job' => $model,
+    'wave1' => $get($waves, 1),
+    'wave2' => $get($waves, 2),
+    'wave3' => $get($waves, 3),
+  ],
   $model->is_eggstra_work
     ? [
-      'job' => $model,
-      'wave1' => $get($waves, 1),
-      'wave2' => $get($waves, 2),
-      'wave3' => $get($waves, 3),
       'wave4' => $get($waves, 4),
       'wave5' => $get($waves, 5),
     ]
     : [
-      'job' => $model,
-      'wave1' => $get($waves, 1),
-      'wave2' => $get($waves, 2),
-      'wave3' => $get($waves, 3),
       'extra' => $get($waves, 4),
-    ]
-) . "\n" ?>
+    ],
+)) . "\n" ?>

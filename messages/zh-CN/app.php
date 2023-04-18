@@ -755,4 +755,5 @@ return [
     '{title} Official Website' => '{title}官方站点',
     '~{estPower}' => '',
     '~{point}p' => '约{point}点',
+    '×{times}' => '',
 ];

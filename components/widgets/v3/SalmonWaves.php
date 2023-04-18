@@ -398,7 +398,7 @@ final class SalmonWaves extends Widget
             implode('', [
                 Html::tag(
                     'th',
-                    vsprintf('%s %s/%s', [
+                    vsprintf('%s %s/<wbr>%s', [
                         Html::img(
                             Yii::$app->assetManager->getAssetUrl($asset, 'golden-egg.png'),
                             ['class' => 'basic-icon'],
@@ -409,7 +409,7 @@ final class SalmonWaves extends Widget
                 ),
                 implode('', ArrayHelper::getColumn(
                     $waves,
-                    function (array $wave): string {
+                    function (array $wave) use ($isEggstraWork): string {
                         $quota = $wave['quota'];
                         $deliv = $wave['deliv'];
                         if ($quota !== null && $deliv !== null && $quota > 0 && $deliv >= 0) {
@@ -432,6 +432,29 @@ final class SalmonWaves extends Widget
                                         'options' => ['class' => 'm-0'],
                                         'percent' => min(100, 100 * $deliv / $quota),
                                     ]),
+                                    $isEggstraWork
+                                        ? Html::tag(
+                                            'div',
+                                            match (true) {
+                                                $deliv >= $quota * 2.0 => Label::widget([
+                                                    'content' => Yii::t('app', '×{times}', [
+                                                        'times' => $this->formatter->asDecimal(2.0, 1),
+                                                    ]),
+                                                    'color' => 'success',
+                                                    'formatter' => $this->formatter,
+                                                ]),
+                                                $deliv >= $quota * 1.5 => Label::widget([
+                                                    'content' => Yii::t('app', '×{times}', [
+                                                        'times' => $this->formatter->asDecimal(1.5, 1),
+                                                    ]),
+                                                    'color' => 'info',
+                                                    'formatter' => $this->formatter,
+                                                ]),
+                                                default => '',
+                                            },
+                                            ['class' => 'mt-1 text-center'],
+                                        )
+                                        : '',
                                 ]),
                             );
                         }

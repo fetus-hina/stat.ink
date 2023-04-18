@@ -752,4 +752,5 @@ return [
     '{title} Official Website' => '',
     '~{estPower}' => '',
     '~{point}p' => '',
+    '×{times}' => '',
 ];

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -15,12 +15,16 @@ use app\assets\SalmonEggAsset;
 use app\assets\SalmonPlayersAsset;
 use app\assets\Spl3SalmonUniformAsset;
 use app\assets\Spl3WeaponAsset;
+use app\components\helpers\TypeHelper;
 use app\components\i18n\Formatter;
 use app\components\widgets\FA;
 use app\models\Salmon3;
 use app\models\SalmonPlayer3;
 use app\models\SalmonPlayerWeapon3;
+use app\models\SalmonSpecialUse3;
+use app\models\SalmonWave3;
 use app\models\SalmonWeapon3;
+use app\models\Special3;
 use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
 use yii\helpers\ArrayHelper;
@@ -32,6 +36,7 @@ use function array_filter;
 use function array_map;
 use function array_merge;
 use function array_slice;
+use function array_sum;
 use function implode;
 use function sprintf;
 use function trim;
@@ -42,9 +47,14 @@ final class SalmonPlayers extends Widget
     public Salmon3 $job;
 
     /**
-     * @var SalmonPlayers[]
+     * @var SalmonPlayer3[]
      */
     public array $players = [];
+
+    /**
+     * @var SalmonWave3[]
+     */
+    public array $waves = [];
 
     public ?BaseFormatter $formatter = null;
 
@@ -194,6 +204,8 @@ final class SalmonPlayers extends Widget
      */
     private function renderWeapons(array $players): string
     {
+        $isEggstraWork = $this->job?->is_eggstra_work ?? false;
+
         return Html::tag(
             'tr',
             implode('', [
@@ -204,7 +216,7 @@ final class SalmonPlayers extends Widget
                         'td',
                         ArrayHelper::getValue(
                             $player,
-                            function (?SalmonPlayer3 $player): string {
+                            function (?SalmonPlayer3 $player) use ($isEggstraWork): string {
                                 if (!$player) {
                                     return Html::encode('-');
                                 }
@@ -220,6 +232,10 @@ final class SalmonPlayers extends Widget
                                 $am = null;
                                 if ($this->view instanceof View) {
                                     $am = Yii::$app->assetManager;
+                                }
+
+                                if ($isEggstraWork) {
+                                    $weapons = array_slice($weapons, 0, 1);
                                 }
 
                                 return implode('', array_map(
@@ -268,14 +284,22 @@ final class SalmonPlayers extends Widget
                                     return Html::encode('-');
                                 }
 
-                                return Html::img(
-                                    Yii::$app->assetManager->getBundle(Spl3WeaponAsset::class)
-                                        ->getIconUrl('special', $player->special->key),
-                                    [
-                                        'class' => 'auto-tooltip basic-icon mr-1',
-                                        'title' => Html::encode(Yii::t('app-special3', $player->special->name)),
-                                    ],
-                                );
+                                return vsprintf('%s (%s)', [
+                                    Html::img(
+                                        Yii::$app->assetManager->getBundle(Spl3WeaponAsset::class)
+                                            ->getIconUrl('special', $player->special->key),
+                                        [
+                                            'class' => 'auto-tooltip basic-icon',
+                                            'title' => Html::encode(Yii::t('app-special3', $player->special->name)),
+                                        ],
+                                    ),
+                                    Html::encode(
+                                        TypeHelper::instanceOf($this->formatter, BaseFormatter::class)
+                                            ->asInteger(
+                                                $this->getSpecialUses($player->special),
+                                            ),
+                                    ),
+                                ]);
                             },
                         ),
                         ['class' => 'text-center'],
@@ -481,6 +505,36 @@ final class SalmonPlayers extends Widget
                     ),
                 )),
             ]),
+        );
+    }
+
+    private function getSpecialUses(Special3 $special): ?int
+    {
+        if (!$this->waves) {
+            return null;
+        }
+
+        return array_sum(
+            array_map(
+                fn (SalmonWave3 $wave): int => $this->getSpecialUsesInWave($special, $wave),
+                array_slice(
+                    $this->waves,
+                    0,
+                    $this->job?->is_eggstra_work ? 5 : 3, // Exclude Xtrawave
+                ),
+            ),
+        );
+    }
+
+    private function getSpecialUsesInWave(Special3 $special, SalmonWave3 $wave): int
+    {
+        return array_sum(
+            array_map(
+                fn (SalmonSpecialUse3 $model): int => $model->special_id === $special->id
+                    ? $model->count
+                    : 0,
+                $wave->salmonSpecialUse3s,
+            ),
         );
     }
 }
