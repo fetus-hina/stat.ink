@@ -141,33 +141,14 @@ final class BigrunAction extends Action
 
         // Ref. http://homepages.math.uic.edu/~bpower6/stat101/Confidence%20Intervals.pdf
         $nd = new NormalDistribution(0.0, 1.0);
-        $z20 = $nd->inverse(0.60 + (1 - 0.60) / 2);
         $z5 = $nd->inverse(0.90 + (1 - 0.90) / 2); // 1.64485
         unset($nd);
 
-        assert(abs($z5 - $z20) > 0.000001);
-        assert(abs($z5) > 0.000001);
-
-        // 綺麗な正規分布であることを想定した上で、
-        // 80パーセンタイル値と95パーセンタイル値から平均値を逆算する
-        //
-        //   SD = (n - avg) / z
-        //
-        // より
-        //
-        //   (n5 - avg) / z5 = (n20 - avg) / z20
-        //
-        // を avg について解いて
-        //
-        //   avg = (z5 * n20 - z20 * n5) / (z5 - z20)
-        //
-        // 実際はかたよりがあるので、おそらく50パーセンタイル値すら合わない
-
-        $estimatedAverage = ($z5 * $official->silver - $z20 * $official->gold) / ($z5 - $z20);
+        $estimatedAverage = (float)$official->bronze + 0.5;
 
         return new NormalDistribution(
             $estimatedAverage,
-            ((float)(int)$official->gold - $estimatedAverage) / $z5, // stddev
+            ((float)$official->gold + 0.5 - $estimatedAverage) / $z5, // stddev
         );
     }
 
