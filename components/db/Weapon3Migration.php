@@ -55,6 +55,7 @@ trait Weapon3Migration
         array $aliases = [],
         bool $enableAutoKey = true,
         ?string $xGroup = null,
+        ?string $releaseAt = null,
     ): void {
         if ($salmon === null) {
             $salmon = $main === null;
@@ -69,6 +70,7 @@ trait Weapon3Migration
             mainWeaponId: $main === null
                 ? $this->upMainWeapon3($key, $type, $name)
                 : $this->key2id('{{%mainweapon3}}', $main),
+            releaseAt: $releaseAt ?? '2022-01-01T00:00:00+00:00',
         );
 
         if ($enableAutoKey) {
@@ -148,6 +150,7 @@ trait Weapon3Migration
         ?string $special,
         int $mainWeaponId,
         ?string $canonical,
+        string $releaseAt,
     ): int {
         $this->insert('{{%weapon3}}', [
             'key' => $key,
@@ -158,6 +161,7 @@ trait Weapon3Migration
                 ? new Expression("currval('weapon3_id_seq'::regclass)")
                 : $this->key2id('{{%weapon3}}', $canonical),
             'name' => $name,
+            'release_at' => $releaseAt,
         ]);
         return $this->key2id('{{%weapon3}}', $key);
     }

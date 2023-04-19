@@ -25,4 +25,17 @@ use yii\base\View;
         'echo "' . addslashes($className) . ' cannot be reverted.\n";',
         'return false;',
     ]),
+    'extraCode' => implode(
+        "\n",
+        [
+            "/**",
+            " * @inheritdoc",
+            " */",
+            "protected function vacuumTables(): array",
+            "{",
+            "    return [",
+            "    ];",
+            "}",
+        ],
+    ),
 ]) ?>
