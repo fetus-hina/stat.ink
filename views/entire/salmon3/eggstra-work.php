@@ -46,10 +46,7 @@ $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
   <h1>
     <?= implode(' ', [
       Html::img(
-        Yii::$app->assetManager->getAssetUrl(
-          Yii::$app->assetManager->getBundle(GameModeIconsAsset::class),
-          'spl3/salmon-eggstra.png',
-        ),
+        $am->getAssetUrl($am->getBundle(GameModeIconsAsset::class), 'spl3/salmon-eggstra.png'),
         [
           'class' => 'basic-icon',
           'draggable' => 'false',
@@ -176,6 +173,7 @@ $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
     <?= $this->render('bigrun/abstract', [
       'model' => $abstract,
       'official' => $schedule->eggstraWorkOfficialResult3,
+      'ruleOfThumbDistrib' => $ruleOfThumbDistrib,
     ]) . "\n" ?>
     <?= $this->render('bigrun/histogram', compact(
       'abstract',

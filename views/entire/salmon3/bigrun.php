@@ -179,6 +179,7 @@ $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
     <?= $this->render('bigrun/abstract', [
       'model' => $abstract,
       'official' => $schedule->bigrunOfficialResult3,
+      'ruleOfThumbDistrib' => null,
     ]) . "\n" ?>
     <?= $this->render('bigrun/histogram', compact(
       'abstract',

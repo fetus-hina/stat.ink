@@ -67,6 +67,7 @@ $type = implode(
             "    // salmon: false, // skip-salmon",
             "    // aliases: [],",
             "    // xGroup: 'A+',",
+            "    releaseAt: 'YYYY-MM-01T00:00:00+00:00',",
             ");",
             "",
             "return true;",
@@ -83,6 +84,9 @@ $type = implode(
     'extraCode' => implode(
         "\n",
         [
+            "/**",
+            " * @inheritdoc",
+            " */",
             "protected function vacuumTables(): array",
             "{",
             "    return [",

@@ -55,6 +55,7 @@ trait Weapon3Migration
         array $aliases = [],
         bool $enableAutoKey = true,
         ?string $xGroup = null,
+        ?string $releaseAt = null,
     ): void {
         if ($salmon === null) {
             $salmon = $main === null;
@@ -69,6 +70,7 @@ trait Weapon3Migration
             mainWeaponId: $main === null
                 ? $this->upMainWeapon3($key, $type, $name)
                 : $this->key2id('{{%mainweapon3}}', $main),
+            releaseAt: $releaseAt ?? '2022-01-01T00:00:00+00:00',
         );
 
         if ($enableAutoKey) {
@@ -148,8 +150,9 @@ trait Weapon3Migration
         ?string $special,
         int $mainWeaponId,
         ?string $canonical,
+        string $releaseAt,
     ): int {
-        $this->insert('{{%weapon3}}', [
+        $data = [
             'key' => $key,
             'mainweapon_id' => $mainWeaponId,
             'subweapon_id' => $sub === null ? null : $this->key2id('{{%subweapon3}}', $sub),
@@ -158,7 +161,12 @@ trait Weapon3Migration
                 ? new Expression("currval('weapon3_id_seq'::regclass)")
                 : $this->key2id('{{%weapon3}}', $canonical),
             'name' => $name,
-        ]);
+        ];
+        if ($this->hasWeapon3ReleaseAt()) {
+            $data['release_at'] = $releaseAt;
+        }
+
+        $this->insert('{{%weapon3}}', $data);
         return $this->key2id('{{%weapon3}}', $key);
     }
 
@@ -193,5 +201,17 @@ trait Weapon3Migration
                 $this->delete('{{%mainweapon3}}', ['id' => $mainWeaponId]);
             }
         }
+    }
+
+    private function hasWeapon3ReleaseAt(): bool
+    {
+        return (bool)(new Query())
+            ->select('*')
+            ->from('{{information_schema}}.{{columns}}')
+            ->andWhere([
+                'table_name' => 'weapon3',
+                'column_name' => 'release_at',
+            ])
+            ->one();
     }
 }

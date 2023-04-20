@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -23,18 +23,36 @@ use yii\db\ActiveRecord;
  * @property integer $special_id
  * @property integer $canonical_id
  * @property string $name
+ * @property string $release_at
  *
  * @property Battle3[] $battle3s
  * @property BattlePlayer3[] $battlePlayer3s
+ * @property BattleTricolorPlayer3[] $battleTricolorPlayer3s
  * @property Weapon3 $canonical
  * @property Mainweapon3 $mainweapon
  * @property SalmonWeapon3 $salmonWeapon3
  * @property Special3 $special
+ * @property StatWeapon3AssistPerVersion[] $statWeapon3AssistPerVersions
+ * @property StatWeapon3Assist[] $statWeapon3Assists
+ * @property StatWeapon3DeathPerVersion[] $statWeapon3DeathPerVersions
+ * @property StatWeapon3Death[] $statWeapon3Deaths
+ * @property StatWeapon3InkedPerVersion[] $statWeapon3InkedPerVersions
+ * @property StatWeapon3Inked[] $statWeapon3Inkeds
+ * @property StatWeapon3KillOrAssistPerVersion[] $statWeapon3KillOrAssistPerVersions
+ * @property StatWeapon3KillOrAssist[] $statWeapon3KillOrAssists
+ * @property StatWeapon3KillPerVersion[] $statWeapon3KillPerVersions
+ * @property StatWeapon3Kill[] $statWeapon3Kills
+ * @property StatWeapon3SpecialPerVersion[] $statWeapon3SpecialPerVersions
+ * @property StatWeapon3Special[] $statWeapon3Specials
+ * @property StatWeapon3UsagePerVersion[] $statWeapon3UsagePerVersions
+ * @property StatWeapon3Usage[] $statWeapon3Usages
  * @property Subweapon3 $subweapon
  * @property UserWeapon3[] $userWeapon3s
  * @property User[] $users
+ * @property XMatchingGroupVersion3[] $versions
  * @property Weapon3Alias[] $weapon3Aliases
  * @property Weapon3[] $weapon3s
+ * @property XMatchingGroupWeapon3[] $xMatchingGroupWeapon3s
  */
 class Weapon3 extends ActiveRecord
 {
@@ -49,6 +67,7 @@ class Weapon3 extends ActiveRecord
             [['key', 'mainweapon_id', 'name'], 'required'],
             [['mainweapon_id', 'subweapon_id', 'special_id', 'canonical_id'], 'default', 'value' => null],
             [['mainweapon_id', 'subweapon_id', 'special_id', 'canonical_id'], 'integer'],
+            [['release_at'], 'safe'],
             [['key'], 'string', 'max' => 32],
             [['name'], 'string', 'max' => 48],
             [['key'], 'unique'],
@@ -70,6 +89,7 @@ class Weapon3 extends ActiveRecord
             'special_id' => 'Special ID',
             'canonical_id' => 'Canonical ID',
             'name' => 'Name',
+            'release_at' => 'Release At',
         ];
     }
 
@@ -81,6 +101,11 @@ class Weapon3 extends ActiveRecord
     public function getBattlePlayer3s(): ActiveQuery
     {
         return $this->hasMany(BattlePlayer3::class, ['weapon_id' => 'id']);
+    }
+
+    public function getBattleTricolorPlayer3s(): ActiveQuery
+    {
+        return $this->hasMany(BattleTricolorPlayer3::class, ['weapon_id' => 'id']);
     }
 
     public function getCanonical(): ActiveQuery
@@ -103,6 +128,76 @@ class Weapon3 extends ActiveRecord
         return $this->hasOne(Special3::class, ['id' => 'special_id']);
     }
 
+    public function getStatWeapon3AssistPerVersions(): ActiveQuery
+    {
+        return $this->hasMany(StatWeapon3AssistPerVersion::class, ['weapon_id' => 'id']);
+    }
+
+    public function getStatWeapon3Assists(): ActiveQuery
+    {
+        return $this->hasMany(StatWeapon3Assist::class, ['weapon_id' => 'id']);
+    }
+
+    public function getStatWeapon3DeathPerVersions(): ActiveQuery
+    {
+        return $this->hasMany(StatWeapon3DeathPerVersion::class, ['weapon_id' => 'id']);
+    }
+
+    public function getStatWeapon3Deaths(): ActiveQuery
+    {
+        return $this->hasMany(StatWeapon3Death::class, ['weapon_id' => 'id']);
+    }
+
+    public function getStatWeapon3InkedPerVersions(): ActiveQuery
+    {
+        return $this->hasMany(StatWeapon3InkedPerVersion::class, ['weapon_id' => 'id']);
+    }
+
+    public function getStatWeapon3Inkeds(): ActiveQuery
+    {
+        return $this->hasMany(StatWeapon3Inked::class, ['weapon_id' => 'id']);
+    }
+
+    public function getStatWeapon3KillOrAssistPerVersions(): ActiveQuery
+    {
+        return $this->hasMany(StatWeapon3KillOrAssistPerVersion::class, ['weapon_id' => 'id']);
+    }
+
+    public function getStatWeapon3KillOrAssists(): ActiveQuery
+    {
+        return $this->hasMany(StatWeapon3KillOrAssist::class, ['weapon_id' => 'id']);
+    }
+
+    public function getStatWeapon3KillPerVersions(): ActiveQuery
+    {
+        return $this->hasMany(StatWeapon3KillPerVersion::class, ['weapon_id' => 'id']);
+    }
+
+    public function getStatWeapon3Kills(): ActiveQuery
+    {
+        return $this->hasMany(StatWeapon3Kill::class, ['weapon_id' => 'id']);
+    }
+
+    public function getStatWeapon3SpecialPerVersions(): ActiveQuery
+    {
+        return $this->hasMany(StatWeapon3SpecialPerVersion::class, ['weapon_id' => 'id']);
+    }
+
+    public function getStatWeapon3Specials(): ActiveQuery
+    {
+        return $this->hasMany(StatWeapon3Special::class, ['weapon_id' => 'id']);
+    }
+
+    public function getStatWeapon3UsagePerVersions(): ActiveQuery
+    {
+        return $this->hasMany(StatWeapon3UsagePerVersion::class, ['weapon_id' => 'id']);
+    }
+
+    public function getStatWeapon3Usages(): ActiveQuery
+    {
+        return $this->hasMany(StatWeapon3Usage::class, ['weapon_id' => 'id']);
+    }
+
     public function getSubweapon(): ActiveQuery
     {
         return $this->hasOne(Subweapon3::class, ['id' => 'subweapon_id']);
@@ -118,6 +213,11 @@ class Weapon3 extends ActiveRecord
         return $this->hasMany(User::class, ['id' => 'user_id'])->viaTable('user_weapon3', ['weapon_id' => 'id']);
     }
 
+    public function getVersions(): ActiveQuery
+    {
+        return $this->hasMany(XMatchingGroupVersion3::class, ['id' => 'version_id'])->viaTable('x_matching_group_weapon3', ['weapon_id' => 'id']);
+    }
+
     public function getWeapon3Aliases(): ActiveQuery
     {
         return $this->hasMany(Weapon3Alias::class, ['weapon_id' => 'id']);
@@ -126,5 +226,10 @@ class Weapon3 extends ActiveRecord
     public function getWeapon3s(): ActiveQuery
     {
         return $this->hasMany(Weapon3::class, ['canonical_id' => 'id']);
+    }
+
+    public function getXMatchingGroupWeapon3s(): ActiveQuery
+    {
+        return $this->hasMany(XMatchingGroupWeapon3::class, ['weapon_id' => 'id']);
     }
 }

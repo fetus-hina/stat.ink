@@ -19,6 +19,7 @@ use app\models\StatEggstraWorkDistrib3;
 use app\models\StatEggstraWorkDistribAbstract3;
 use yii\base\Action;
 use yii\db\Connection;
+use yii\db\Query;
 use yii\db\Transaction;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
@@ -29,10 +30,13 @@ use function abs;
 use function array_keys;
 use function array_shift;
 use function assert;
+use function ceil;
 use function filter_var;
+use function floor;
 use function gmdate;
 use function is_int;
 use function max;
+use function round;
 
 use const FILTER_VALIDATE_INT;
 use const SORT_ASC;
@@ -111,7 +115,7 @@ final class EggstraWorkAction extends Action
                 (float)$abstract->stddev,
             );
             $estimatedDistrib = self::estimatedDistrib($schedule->eggstraWorkOfficialResult3);
-            $ruleOfThumbDistrib = self::ruleOfThumbDistrib($abstract);
+            $ruleOfThumbDistrib = self::ruleOfThumbDistrib($schedule, $abstract);
             $chartMax = max(array_keys($histogram));
         }
 
@@ -146,22 +150,44 @@ final class EggstraWorkAction extends Action
         $estimatedAverage = (float)$official->bronze + 0.5;
         return new NormalDistribution(
             $estimatedAverage,
-            (((float)$official->gold + 0.5) - $estimatedAverage) / $z5, // stddev
+            ((float)$official->gold + 0.5 - $estimatedAverage) / $z5, // stddev
         );
     }
 
-    private static function ruleOfThumbDistrib(StatEggstraWorkDistribAbstract3 $abstract): ?NormalDistribution
-    {
+    private static function ruleOfThumbDistrib(
+        SalmonSchedule3 $schedule,
+        StatEggstraWorkDistribAbstract3 $abstract,
+    ): ?NormalDistribution {
         if (
             $abstract->users < 50 ||
             $abstract->top_5_pct === null ||
             $abstract->top_20_pct === null ||
             $abstract->median === null ||
+            $abstract->average === null ||
+            $abstract->stddev === null ||
             $abstract->top_5_pct <= $abstract->top_20_pct &&
             $abstract->top_20_pct <= $abstract->median
         ) {
             return null;
         }
+
+        // 外れ値を除いて再集計する
+        $lower = (int)ceil($abstract->average - 2 * $abstract->stddev);
+        $upper = (int)floor($abstract->average + 2 * $abstract->stddev);
+        $version = 1; // cache version
+        $stats = Yii::$app->cache->getOrSet(
+            [__METHOD__, $abstract->attributes, [$lower, $upper], $version],
+            fn (): array => (new Query())
+                ->select([
+                    'average' => 'AVG([[golden_eggs]])',
+                    'stddev' => 'STDDEV_SAMP([[golden_eggs]])',
+                ])
+                ->from('{{%user_stat_eggstra_work3}}')
+                ->andWhere(['schedule_id' => $schedule->id])
+                ->andWhere(['BETWEEN', 'golden_eggs', $lower, $upper])
+                ->one(),
+            3600,
+        );
 
         // Ref. http://homepages.math.uic.edu/~bpower6/stat101/Confidence%20Intervals.pdf
         $nd = new NormalDistribution(0.0, 1.0);
@@ -172,9 +198,20 @@ final class EggstraWorkAction extends Action
         assert(abs($z5 - $z20) > 0.000001);
         assert(abs($z5) > 0.000001);
 
-        $n5 = $abstract->top_20_pct;
-        $n20 = $abstract->median;
-        $estimatedAverage = ($z5 * $n20 - $z20 * $n5) / ($z5 - $z20);
+        $nd = new NormalDistribution((float)$stats['average'], (float)$stats['stddev']);
+
+        // 第一回はこの数字で正しくなるらしい
+        // var_dump(
+        //     $nd->inverse(0.7229326514298),
+        //     $nd->inverse(0.3574776158447),
+        //     $nd->inverse(0.0484890758537),
+        // );
+
+        $n5 = (int)round($nd->inverse(0.7229326514298));
+        $n20 = (int)round($nd->inverse(0.3574776158447));
+        $estimatedAverage1 = ($z5 * $n20 - $z20 * $n5) / ($z5 - $z20);
+        $estimatedAverage2 = $nd->inverse(0.0484890758537);
+        $estimatedAverage = ($estimatedAverage1 + $estimatedAverage2) / 2;
 
         return new NormalDistribution(
             $estimatedAverage,

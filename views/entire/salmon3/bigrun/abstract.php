@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
+use MathPHP\Probability\Distribution\Continuous\Normal as NormalDistribution;
 use app\models\BigrunOfficialResult3;
 use app\models\EggstraWorkOfficialResult3;
 use app\models\StatBigrunDistribAbstract3;
 use app\models\StatEggstraWorkDistribAbstract3;
-use yii\base\Model;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
@@ -14,6 +14,7 @@ use yii\web\View;
 
 /**
  * @var BigrunOfficialResult3|EggstraWorkOfficialResult3|null $official
+ * @var NormalDistribution|null $ruleOfThumbDistrib
  * @var StatBigrunDistribAbstract3|StatEggstraWorkDistribAbstract3|null $model
  * @var View $this
  */
@@ -33,7 +34,7 @@ $fmt = Yii::$app->formatter;
         'allModels' => array_values(
           array_filter([
             $model,
-            $official,
+            $official ?? $ruleOfThumbDistrib,
           ]),
         ),
         'pagination' => false,
@@ -45,11 +46,10 @@ $fmt = Yii::$app->formatter;
       'columns' => [
         [
           'label' => '',
-          'value' => fn (Model|null $model): string => match (true) {
-            $model instanceof BigrunOfficialResult3 => Yii::t('app', 'Official Results'),
-            $model instanceof EggstraWorkOfficialResult3 => Yii::t('app', 'Official Results'),
-            $model instanceof StatBigrunDistribAbstract3 => Yii::$app->name,
-            $model instanceof StatEggstraWorkDistribAbstract3 => Yii::$app->name,
+          'value' => fn (object $model): string => match ($model::class) {
+            BigrunOfficialResult3::class, EggstraWorkOfficialResult3::class => Yii::t('app', 'Official Results'),
+            StatBigrunDistribAbstract3::class, StatEggstraWorkDistribAbstract3::class => Yii::$app->name,
+            NormalDistribution::class => Yii::t('app', 'Empirical Estimates'),
             default => throw new LogicException(),
           },
         ],
@@ -57,11 +57,9 @@ $fmt = Yii::$app->formatter;
           'contentOptions' => ['class' => 'text-center'],
           'headerOptions' => ['class' => 'text-center'],
           'label' => Yii::t('app', 'Users'),
-          'value' => fn (Model|null $model): string => match (true) {
-            $model instanceof BigrunOfficialResult3 => '-',
-            $model instanceof EggstraWorkOfficialResult3 => '-',
-            $model instanceof StatBigrunDistribAbstract3 => $fmt->asInteger($model->users),
-            $model instanceof StatEggstraWorkDistribAbstract3 => $fmt->asInteger($model->users),
+          'value' => fn (object $model): string => match ($model::class) {
+            BigrunOfficialResult3::class, EggstraWorkOfficialResult3::class, NormalDistribution::class => '-',
+            StatBigrunDistribAbstract3::class, StatEggstraWorkDistribAbstract3::class => $fmt->asInteger($model->users),
             default => throw new LogicException(),
           },
         ],
@@ -69,11 +67,11 @@ $fmt = Yii::$app->formatter;
           'contentOptions' => ['class' => 'text-center'],
           'headerOptions' => ['class' => 'text-center'],
           'label' => Yii::t('app', 'Average'),
-          'value' => fn (Model|null $model): string => match (true) {
-            $model instanceof BigrunOfficialResult3 => '-',
-            $model instanceof EggstraWorkOfficialResult3 => '-',
-            $model instanceof StatBigrunDistribAbstract3 => $fmt->asDecimal($model->average, 2),
-            $model instanceof StatEggstraWorkDistribAbstract3 => $fmt->asDecimal($model->average, 2),
+          'value' => fn (object $model): string => match ($model::class) {
+            BigrunOfficialResult3::class, EggstraWorkOfficialResult3::class => '-',
+            NormalDistribution::class => '(' . $fmt->asDecimal($model->mean(), 2) . ')',
+            StatBigrunDistribAbstract3::class => $fmt->asDecimal($model->average, 2),
+            StatEggstraWorkDistribAbstract3::class => $fmt->asDecimal($model->average, 2),
             default => throw new LogicException(),
           },
         ],
@@ -81,11 +79,11 @@ $fmt = Yii::$app->formatter;
           'contentOptions' => ['class' => 'text-center'],
           'headerOptions' => ['class' => 'text-center'],
           'label' => Yii::t('app', 'Std Dev'),
-          'value' => fn (Model|null $model): string => match (true) {
-            $model instanceof BigrunOfficialResult3 => '-',
-            $model instanceof EggstraWorkOfficialResult3 => '-',
-            $model instanceof StatBigrunDistribAbstract3 => $fmt->asDecimal($model->stddev, 2),
-            $model instanceof StatEggstraWorkDistribAbstract3 => $fmt->asDecimal($model->stddev, 2),
+          'value' => fn (object $model): string => match ($model::class) {
+            BigrunOfficialResult3::class, EggstraWorkOfficialResult3::class => '-',
+            NormalDistribution::class => '(' . $fmt->asDecimal(sqrt($model->variance()), 2) . ')',
+            StatBigrunDistribAbstract3::class => $fmt->asDecimal($model->stddev, 2),
+            StatEggstraWorkDistribAbstract3::class => $fmt->asDecimal($model->stddev, 2),
             default => throw new LogicException(),
           },
         ],
@@ -93,11 +91,12 @@ $fmt = Yii::$app->formatter;
           'contentOptions' => ['class' => 'text-center'],
           'headerOptions' => ['class' => 'text-center'],
           'label' => Yii::t('app', 'Top {percentile}%', ['percentile' => 5]),
-          'value' => fn (Model|null $model): string => match (true) {
-            $model instanceof BigrunOfficialResult3 => $fmt->asInteger($model->gold),
-            $model instanceof EggstraWorkOfficialResult3 => $fmt->asInteger($model->gold),
-            $model instanceof StatBigrunDistribAbstract3 => $fmt->asInteger($model->top_5_pct),
-            $model instanceof StatEggstraWorkDistribAbstract3 => $fmt->asInteger($model->top_5_pct),
+          'value' => fn (object $model): string => match ($model::class) {
+            BigrunOfficialResult3::class => $fmt->asInteger($model->gold),
+            EggstraWorkOfficialResult3::class => $fmt->asInteger($model->gold),
+            NormalDistribution::class => '(' . $fmt->asInteger($model->inverse(0.95)) . ')',
+            StatBigrunDistribAbstract3::class => $fmt->asInteger($model->top_5_pct),
+            StatEggstraWorkDistribAbstract3::class => $fmt->asInteger($model->top_5_pct),
             default => throw new LogicException(),
           },
         ],
@@ -105,11 +104,12 @@ $fmt = Yii::$app->formatter;
           'contentOptions' => ['class' => 'text-center'],
           'headerOptions' => ['class' => 'text-center'],
           'label' => Yii::t('app', 'Top {percentile}%', ['percentile' => 20]),
-          'value' => fn (Model|null $model): string => match (true) {
-            $model instanceof BigrunOfficialResult3 => $fmt->asInteger($model->silver),
-            $model instanceof EggstraWorkOfficialResult3 => $fmt->asInteger($model->silver),
-            $model instanceof StatBigrunDistribAbstract3 => $fmt->asInteger($model->top_20_pct),
-            $model instanceof StatEggstraWorkDistribAbstract3 => $fmt->asInteger($model->top_20_pct),
+          'value' => fn (?object $model): string => match ($model::class) {
+            BigrunOfficialResult3::class => $fmt->asInteger($model->silver),
+            EggstraWorkOfficialResult3::class => $fmt->asInteger($model->silver),
+            NormalDistribution::class => '(' . $fmt->asInteger($model->inverse(0.80)) . ')',
+            StatBigrunDistribAbstract3::class => $fmt->asInteger($model->top_20_pct),
+            StatEggstraWorkDistribAbstract3::class => $fmt->asInteger($model->top_20_pct),
             default => throw new LogicException(),
           },
         ],
@@ -117,11 +117,12 @@ $fmt = Yii::$app->formatter;
           'contentOptions' => ['class' => 'text-center'],
           'headerOptions' => ['class' => 'text-center'],
           'label' => Yii::t('app', 'Top {percentile}%', ['percentile' => 50]),
-          'value' => fn (Model|null $model): string => match (true) {
-            $model instanceof BigrunOfficialResult3 => $fmt->asInteger($model->bronze),
-            $model instanceof EggstraWorkOfficialResult3 => $fmt->asInteger($model->bronze),
-            $model instanceof StatBigrunDistribAbstract3 => $fmt->asInteger($model->median),
-            $model instanceof StatEggstraWorkDistribAbstract3 => $fmt->asInteger($model->median),
+          'value' => fn (object $model): string => match ($model::class) {
+            BigrunOfficialResult3::class => $fmt->asInteger($model->bronze),
+            EggstraWorkOfficialResult3::class => $fmt->asInteger($model->bronze),
+            NormalDistribution::class => '(' . $fmt->asInteger($model->inverse(0.50)) . ')',
+            StatBigrunDistribAbstract3::class => $fmt->asInteger($model->median),
+            StatEggstraWorkDistribAbstract3::class => $fmt->asInteger($model->median),
             default => throw new LogicException(),
           },
         ],

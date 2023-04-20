@@ -14,6 +14,7 @@ use Yii;
 use app\assets\GameModeIconsAsset;
 use app\assets\Spl3StageAsset;
 use app\models\Salmon3;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
 use function sprintf;
@@ -31,7 +32,7 @@ trait Salmon3Formatter
 
         return [
             'id' => $battle->uuid,
-            'image' => null,
+            'image' => self::salmonImage3($battle),
             'isWin' => match (true) {
                 $battle->is_eggstra_work === true && $battle->clear_waves !== null => $battle->clear_waves >= 5,
                 $battle->is_eggstra_work !== true && $battle->clear_waves !== null => $battle->clear_waves >= 3,
@@ -109,6 +110,17 @@ trait Salmon3Formatter
             'user' => self::formatUser($battle->user),
             'variant' => 'salmon3',
         ];
+    }
+
+    private static function salmonImage3(Salmon3 $model): ?string
+    {
+        if (ArrayHelper::getValue(Yii::$app->params, 'useS3ImgGen')) {
+            return vsprintf('https://s3-img-gen.stats.ink/salmon/en-US/%s.jpg', [
+                rawurlencode($model->uuid),
+            ]);
+        }
+
+        return null;
     }
 
     private function salmonStage3(Salmon3 $battle): ?array
