@@ -15,12 +15,15 @@ use Yii;
 use app\components\helpers\UserLanguage;
 use app\components\helpers\UserTimeZone;
 use app\components\i18n\MachineTranslateHelper;
+use yii\helpers\IpHelper;
 use yii\i18n\MessageSource;
 use yii\i18n\MissingTranslationEvent;
 use yii\web\Application as Base;
 use yii\web\Cookie;
+use yii\web\ForbiddenHttpException;
 
 use function extension_loaded;
+use function file_exists;
 use function implode;
 use function is_array;
 use function is_string;
@@ -43,8 +46,10 @@ class Application extends Base
     public function init()
     {
         parent::init();
+
         $this->initLanguage();
         $this->initTimezone();
+        $this->restrictDevIP();
 
         if ($this->getIsEnabledMachineTranslation()) {
             $lang = substr(Yii::$app->language, 0, 2);
@@ -214,5 +219,28 @@ class Application extends Base
         }
 
         return $this->isEnabledMT;
+    }
+
+    private function restrictDevIP(): void
+    {
+        if (!YII_ENV_DEV) {
+            return;
+        }
+
+        $ipAddr = Yii::$app->request->userIP;
+        $confPath = Yii::getAlias('@app/config/debug-ips.php');
+        if (!$ipAddr || !$confPath || !file_exists($confPath)) {
+            return;
+        }
+
+        $debugIPs = require $confPath;
+        foreach ($debugIPs as $debugIP) {
+            if (IpHelper::inRange($ipAddr, $debugIP)) {
+                // OK
+                return;
+            }
+        }
+
+        throw new ForbiddenHttpException('Forbidden');
     }
 }
