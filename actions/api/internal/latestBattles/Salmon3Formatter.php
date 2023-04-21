@@ -17,6 +17,7 @@ use app\models\Salmon3;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
+use function rawurlencode;
 use function sprintf;
 use function strtotime;
 use function vsprintf;
