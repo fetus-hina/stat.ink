@@ -478,6 +478,7 @@ return [
     'S/min' => '',
     'Salmon Run CSV' => '',
     'Salmon Run JSON (gzipped)' => '',
+    'Salmon Run results (CSV)' => '',
     'Samples' => '',
     'Save!' => '',
     'Schedule' => '',

@@ -479,6 +479,7 @@ return [
     'S/min' => '스페셜/분',
     'Salmon Run CSV' => '새먼런 CSV',
     'Salmon Run JSON (gzipped)' => '',
+    'Salmon Run results (CSV)' => '',
     'Samples' => '',
     'Save!' => '저장',
     'Schedule' => '스케줄',

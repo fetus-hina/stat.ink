@@ -71,6 +71,23 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
         ],
       ) . "\n" ?>
     </li>
+    <li>
+      <?= Icon::fileCsv() . "\n" ?>
+      <?= Html::a(
+        Html::encode(Yii::t('app', 'Salmon Run results (CSV)')),
+        'https://dl-stats.stat.ink/splatoon-3/salmon-results-csv/',
+        ['target' => '_blank', 'rel' => 'noopener nofollow'],
+      ) . "\n" ?>
+      /
+      <?= Html::a(
+        Html::encode(Yii::t('app', 'Schema')),
+        'https://github.com/fetus-hina/stat.ink/wiki/Spl3-%EF%BC%8D-CSV-Schema-%EF%BC%8D-Salmon',
+        [
+          'target' => '_blank',
+          'rel' => 'noreferrer noopener nofollow',
+        ],
+      ) . "\n" ?>
+    </li>
   </ul>
 
   <h2><?= Html::encode(Yii::t('app', 'Splatoon 2')) ?></h2>
