@@ -481,6 +481,7 @@ return [
     'S/min' => '大招/分钟',
     'Salmon Run CSV' => '鲑鱼打工CSV',
     'Salmon Run JSON (gzipped)' => '',
+    'Salmon Run results (CSV)' => '',
     'Samples' => '',
     'Save!' => '保存！',
     'Schedule' => '日程安排',

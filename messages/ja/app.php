@@ -466,6 +466,7 @@ return [
     'S/min' => 'スペ/分',
     'Salmon Run CSV' => 'サーモンランCSV',
     'Salmon Run JSON (gzipped)' => 'サーモンランJSON (gzip圧縮)',
+    'Salmon Run results (CSV)' => 'サーモンランのリザルト情報 (CSV)',
     'Samples' => 'サンプル数',
     'Save!' => '保存',
     'Schedule' => 'スケジュール',

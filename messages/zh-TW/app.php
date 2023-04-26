@@ -480,6 +480,7 @@ return [
     'S/min' => '特殊武器/分鐘',
     'Salmon Run CSV' => '鮭魚打工CSV',
     'Salmon Run JSON (gzipped)' => '',
+    'Salmon Run results (CSV)' => '',
     'Samples' => '範例',
     'Save!' => '保存！',
     'Schedule' => '行程安排',
