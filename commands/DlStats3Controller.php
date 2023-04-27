@@ -14,6 +14,7 @@ use Yii;
 use app\commands\dlStats3\BattleTrait;
 use app\commands\dlStats3\SalmonTrait;
 use yii\console\Controller;
+use yii\console\ExitCode;
 
 final class DlStats3Controller extends Controller
 {
