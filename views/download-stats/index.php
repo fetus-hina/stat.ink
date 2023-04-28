@@ -58,7 +58,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
       <?= Icon::fileCsv() . "\n" ?>
       <?= Html::a(
         Html::encode(Yii::t('app', 'Battle results (CSV)')),
-        'https://dl-stats.stat.ink/splatoon-3/battle-results-csv/',
+        'https://dl-stats.stats.ink/splatoon-3/battle-results-csv/',
         ['target' => '_blank', 'rel' => 'noopener nofollow'],
       ) . "\n" ?>
       /
@@ -75,7 +75,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
       <?= Icon::fileCsv() . "\n" ?>
       <?= Html::a(
         Html::encode(Yii::t('app', 'Salmon Run results (CSV)')),
-        'https://dl-stats.stat.ink/splatoon-3/salmon-results-csv/',
+        'https://dl-stats.stats.ink/splatoon-3/salmon-results-csv/',
         ['target' => '_blank', 'rel' => 'noopener nofollow'],
       ) . "\n" ?>
       /
@@ -96,7 +96,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
       <?= Icon::fileCsv() . "\n" ?>
       <?= Html::a(
         Html::encode(Yii::t('app', 'Battle results (CSV)')),
-        'https://dl-stats.stat.ink/splatoon-2/battle-results-csv/',
+        'https://dl-stats.stats.ink/splatoon-2/battle-results-csv/',
         ['target' => '_blank', 'rel' => 'noopener nofollow'],
       ) . "\n" ?>
       /
