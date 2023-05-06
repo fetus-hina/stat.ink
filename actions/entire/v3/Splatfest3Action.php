@@ -38,16 +38,20 @@ use const SORT_NUMERIC;
 
 final class Splatfest3Action extends Action
 {
-    private const START_AT = '2023-04-01T09:00:00+09:00';
-    private const END_AT = '2023-04-03T09:00:00+09:00';
+    private const START_AT = '2023-05-06T00:00:00+00:00';
+    private const END_AT = '2023-05-08T00:00:00+00:00';
 
-    private const TEAM_NAME_1 = 'Nessie / ネッシー / 尼斯湖水怪';
-    private const TEAM_NAME_2 = 'Aliens / 宇宙人 / 外星人';
-    private const TEAM_NAME_3 = 'Bigfoot / 雪男 / 雪怪';
+    private const TEAM_NAME_1 = 'Power / 力 / 力量';
+    private const TEAM_NAME_2 = 'Wisdom / 知恵 / 智慧';
+    private const TEAM_NAME_3 = 'Courage / 勇気 / 勇氣 / 勇气';
 
-    private const TEAM_COLOR_1 = '1ecf6d';
-    private const TEAM_COLOR_2 = '9938f3';
-    private const TEAM_COLOR_3 = 'f08354';
+    private const TEAM_COLOR_1 = '9d1e50';
+    private const TEAM_COLOR_2 = '14699b';
+    private const TEAM_COLOR_3 = '017654';
+
+    private const TEAM_COLOR_PROGRESS_1 = 'e14586';
+    private const TEAM_COLOR_PROGRESS_2 = '019bd9';
+    private const TEAM_COLOR_PROGRESS_3 = '71cc97';
 
     public function run(): Response|string
     {
@@ -65,9 +69,9 @@ final class Splatfest3Action extends Action
                         'team3' => self::TEAM_NAME_3,
                     ],
                     'colors' => [
-                        'team1' => self::TEAM_COLOR_1,
-                        'team2' => self::TEAM_COLOR_2,
-                        'team3' => self::TEAM_COLOR_3,
+                        'team1' => self::TEAM_COLOR_PROGRESS_1,
+                        'team2' => self::TEAM_COLOR_PROGRESS_2,
+                        'team3' => self::TEAM_COLOR_PROGRESS_3,
                     ],
                 ];
             },
