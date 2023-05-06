@@ -418,7 +418,7 @@ return [
     'Official Twitter' => '官方Twitter',
     'Open Source Licenses' => '開源代碼授權',
     'Others' => '其它',
-    'Overall Estimates' => '官方分佈',
+    'Overall Estimates' => '實際分佈',
     'Password' => '密碼',
     'Password (again)' => '密碼(再輸入一次)',
     'PC' => 'PC',
