@@ -14,10 +14,12 @@ use app\components\helpers\TypeHelper;
 use app\models\BattlePlayer3;
 use app\models\Rank3;
 use app\models\User;
+use app\models\UserStat3XMatch;
 use app\models\UserStatSalmon3;
 use yii\base\Action;
 use yii\db\Query;
 use yii\db\Transaction;
+use yii\helpers\ArrayHelper;
 use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
@@ -68,6 +70,7 @@ final class OgpProfile3Action extends Action
                 'player' => $this->playerData($user),
                 'battles' => $this->battleData($user),
                 'salmon' => $this->salmonData($user),
+                'x_peak' => $this->xPeakData($user),
             ],
             Transaction::READ_COMMITTED,
         );
@@ -182,6 +185,27 @@ final class OgpProfile3Action extends Action
             'king' => (int)$model->king_defeated,
             'big_run' => $bigRun ? (int)$bigRun['golden_eggs'] : null,
             'eggstra_work' => $eggstra ? (int)$eggstra['golden_eggs'] : null,
+        ];
+    }
+
+    private function xPeakData(User $user): ?array
+    {
+        $models = UserStat3XMatch::find()
+            ->with(['rule'])
+            ->andWhere(['user_id' => $user->id])
+            ->cache(300)
+            ->all();
+        $data = ArrayHelper::map(
+            $models,
+            'rule.key',
+            'peak_x_power',
+        );
+
+        return [
+            'area' => TypeHelper::floatOrNull(ArrayHelper::getValue($data, 'area')),
+            'yagura' => TypeHelper::floatOrNull(ArrayHelper::getValue($data, 'yagura')),
+            'hoko' => TypeHelper::floatOrNull(ArrayHelper::getValue($data, 'hoko')),
+            'asari' => TypeHelper::floatOrNull(ArrayHelper::getValue($data, 'asari')),
         ];
     }
 }
