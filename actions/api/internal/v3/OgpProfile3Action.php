@@ -138,6 +138,8 @@ final class OgpProfile3Action extends Action
             if ($rank) {
                 if ($rank->key === 's+' && $data['peak_s_plus'] !== null) {
                     $peakRank = sprintf('%s %d', $rank->name, $data['peak_s_plus']);
+                } else {
+                    $peakRank = $rank->name;
                 }
             }
         }
@@ -183,8 +185,8 @@ final class OgpProfile3Action extends Action
             'cleared' => (int)$model->clear_jobs,
             'waves' => $model->agg_jobs > 0 ? $model->clear_waves / $model->agg_jobs : null,
             'king' => (int)$model->king_defeated,
-            'big_run' => $bigRun ? (int)$bigRun['golden_eggs'] : null,
-            'eggstra_work' => $eggstra ? (int)$eggstra['golden_eggs'] : null,
+            'big_run' => TypeHelper::intOrNull($bigRun['golden_eggs'] ?? null),
+            'eggstra_work' => TypeHelper::intOrNull($eggstra['golden_eggs'] ?? null),
         ];
     }
 
@@ -195,11 +197,10 @@ final class OgpProfile3Action extends Action
             ->andWhere(['user_id' => $user->id])
             ->cache(300)
             ->all();
-        $data = ArrayHelper::map(
-            $models,
-            'rule.key',
-            'peak_x_power',
-        );
+        $data = ArrayHelper::map($models, 'rule.key', 'peak_x_power');
+        if (!$data) {
+            return null;
+        }
 
         return [
             'area' => TypeHelper::floatOrNull(ArrayHelper::getValue($data, 'area')),
