@@ -14,6 +14,9 @@ use Yii;
 use app\models\User;
 use yii\web\View;
 
+use function rawurlencode;
+use function vsprintf;
+
 final class OgpHelper
 {
     public static function profileV3(View $view, User $user, string $url): void
