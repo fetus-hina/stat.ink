@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use app\assets\SimpleBattleListAsset;
+use app\components\helpers\OgpHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Battle3FilterWidget;
 use app\components\widgets\Icon;
@@ -29,24 +30,9 @@ use yii\widgets\Pjax;
 $title = Yii::t('app', "{name}'s Splat Log", ['name' => $user->name]);
 $this->title = sprintf('%s | %s', Yii::$app->name, $title);
 
-$this->registerLinkTag(['rel' => 'canonical', 'href' => $permLink]);
-$this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);
-$this->registerMetaTag(['name' => 'twitter:title', 'content' => $title]);
-$this->registerMetaTag(['name' => 'twitter:description', 'content' => $title]);
-$this->registerMetaTag(['name' => 'twitter:url', 'content' => $permLink]);
-$this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
-$this->registerMetaTag([
-  'name' => 'twitter:image',
-  'content' => $user->iconUrl,
-]);
-if ($user->twitter != '') {
-  $this->registerMetaTag([
-    'name' => 'twitter:creator',
-    'content' => sprintf('@%s', $user->twitter),
-  ]);
-}
-
 SimpleBattleListAsset::register($this);
+
+OgpHelper::profileV3($this, $user, $permLink);
 
 ?>
 <div class="container">

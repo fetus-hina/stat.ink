@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\components\helpers\OgpHelper;
 use app\models\User;
 use yii\web\View;
 
@@ -19,16 +20,7 @@ $title = Yii::t('app', "{name}'s Splat Log", ['name' => $user->name]);
 $this->context->layout = 'main';
 $this->title = sprintf('%s | %s', Yii::$app->name, $title);
 
-$this->registerLinkTag(['rel' => 'canonical', 'href' => $permLink]);
-$this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);
-$this->registerMetaTag(['name' => 'twitter:title', 'content' => $this->title]);
-$this->registerMetaTag(['name' => 'twitter:description', 'content' => $this->title]);
-$this->registerMetaTag(['name' => 'twitter:url', 'content' => $permLink]);
-$this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
-$this->registerMetaTag(['name' => 'twitter:image', 'content' => $user->userIcon->absUrl ?? $user->jdenticonPngUrl]);
-if ($user->twitter != '') {
-  $this->registerMetaTag(['name' => 'twitter:creator', 'content' => sprintf('@%s', $user->twitter)]);
-}
+OgpHelper::profileV3($this, $user, $permLink);
 
 ?>
 <div id="profile" class="container">
