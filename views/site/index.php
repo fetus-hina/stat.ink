@@ -112,7 +112,20 @@ $discordInviteCode = ArrayHelper::getValue(Yii::$app->params, 'discordInviteCode
         Html::a(Html::encode(Yii::t('app', 'Special Uses')), ['entire/special-use3']),
         Html::a(Html::encode(Yii::t('app', 'X Power')), ['entire/xpower-distrib3']),
         Html::a(Html::encode(Yii::t('app', 'Ink Color')), ['entire/ink-color3']),
-        Html::a(Html::encode('Estimated Vote %'), ['entire/splatfest3']),
+        Html::a(
+          vsprintf('%s %s', [
+            Html::img(
+              Yii::$app->assetManager->getAssetUrl($gameMode, 'spl3/splatfest.png'),
+              [
+                'class' => 'basic-icon',
+                'draggable' => 'false',
+                'style' => ['--icon-height' => '1em'],
+              ],
+            ),
+            Html::encode(Yii::t('app', 'Estimated Vote %')),
+          ]),
+          ['entire/splatfest3'],
+        ),
       ],
       [
         vsprintf('%s %s', [

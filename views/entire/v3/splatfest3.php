@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\assets\GameModeIconsAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
@@ -16,7 +17,7 @@ use yii\web\View;
  * @var array<string, string> $names
  */
 
-$title = Yii::t('app', 'Splatfest Estimated Vote %');
+$title = Yii::t('app', 'Estimated Vote %');
 $this->title = Yii::$app->name . ' | ' . $title;
 
 $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);
@@ -39,7 +40,23 @@ $this->registerCss(
 
 ?>
 <div class="container">
-  <?= Html::tag('h1', Html::encode($title)) . "\n" ?>
+  <?= Html::tag(
+    'h1',
+    implode(' ', [
+      Html::img(
+        Yii::$app->assetManager->getAssetUrl(
+          Yii::$app->assetManager->getBundle(GameModeIconsAsset::class),
+          'spl3/splatfest.png',
+        ),
+        [
+          'class' => 'basic-icon',
+          'draggable' => 'false',
+          'style' => ['--icon-height' => '1em'],
+        ],
+      ),
+      Html::encode(Yii::t('app', 'Estimated Vote %')),
+    ]),
+  ) . "\n" ?>
 
   <?= AdWidget::widget() . "\n" ?>
   <?= SnsWidget::widget() . "\n" ?>
@@ -80,6 +97,41 @@ $this->registerCss(
               array_values($votes),
           ),
       ]) . "\n" ?>
+    </div>
+    <div class="col-xs-12 mb-3">
+      <table class="table table-striped" style="width:auto">
+        <thead>
+          <tr>
+            <th></th>
+            <th><?= Html::encode(Yii::t('app', 'Team')) ?></th>
+            <th><?= Html::encode(Yii::t('app', 'Vote %')) ?></th>
+            <th><?= Html::encode(Yii::t('app', 'Samples')) ?></th>
+          </tr>
+        </thead>
+        <tbody>
+<?php foreach ($votes as $key => $count) { ?>
+          <tr>
+            <?= Html::tag('td', '', [
+              'style' => [
+                'width' => '1ex',
+                'background-color' => "#{$colors[$key]}",
+              ],
+            ]) . "\n" ?>
+            <td><?= Html::encode($names[$key]) ?></td>
+            <?= Html::tag(
+              'td',
+              Html::encode(Yii::$app->formatter->asPercent($count / array_sum($votes), 1)),
+              ['class' => 'text-right'],
+            ) . "\n" ?>
+            <?= Html::tag(
+              'td',
+              Html::encode(Yii::$app->formatter->asInteger($count)),
+              ['class' => 'text-right'],
+            ) . "\n" ?>
+          </tr>
+<?php } ?>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

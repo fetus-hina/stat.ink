@@ -21,6 +21,7 @@ use app\actions\api\internal\MyLatestBattlesAction;
 use app\actions\api\internal\PatchBattleAction;
 use app\actions\api\internal\SalmonStats2Action;
 use app\actions\api\internal\ScheduleAction;
+use app\actions\api\internal\v3\OgpProfile3Action;
 use app\actions\api\internal\v3\PatchBattle3UrlAction;
 use app\actions\api\internal\v3\PatchSalmon3UrlAction;
 use app\components\web\Controller;
@@ -65,6 +66,7 @@ final class ApiInternalController extends Controller
             'guess-timezone' => GuessTimezoneAction::class,
             'latest-battles' => LatestBattlesAction::class,
             'my-latest-battles' => MyLatestBattlesAction::class,
+            'ogp-profile3' => OgpProfile3Action::class,
             'patch-battle' => PatchBattleAction::class,
             'patch-battle3-url' => PatchBattle3UrlAction::class,
             'patch-salmon3-url' => PatchSalmon3UrlAction::class,

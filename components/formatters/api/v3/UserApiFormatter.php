@@ -34,6 +34,7 @@ final class UserApiFormatter
                 ],
                 true,
             ),
+            'icon' => Url::to($model->iconUrl, true),
         ];
     }
 }
