@@ -12,6 +12,7 @@ namespace app\components\helpers;
 
 use Yii;
 use app\models\User;
+use yii\helpers\Url;
 use yii\web\View;
 
 use function rawurlencode;
