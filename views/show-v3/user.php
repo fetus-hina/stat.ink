@@ -21,13 +21,15 @@ use yii\web\View;
  * @var User $user
  * @var View $this
  * @var array $summary
+ * @var string $permLink
  */
 
 $title = Yii::t('app', "{name}'s Splat Log", ['name' => $user->name]);
 $this->title = sprintf('%s | %s', Yii::$app->name, $title);
 
-BattleListAsset::register($this);
+$this->registerLinkTag(['rel' => 'canonical', 'href' => $permLink]);
 
+BattleListAsset::register($this);
 OgpHelper::profileV3($this, $user, $permLink);
 
 ?>
