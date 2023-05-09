@@ -20,6 +20,31 @@ use function vsprintf;
 
 final class OgpHelper
 {
+    public static function default(
+        View $view,
+        string $url,
+        string $title = 'stat.ink',
+        string $description = 'stat.ink',
+    ): void {
+        $data = [
+            'og:description' => $title,
+            'og:image' => 'https://s3-img-gen.stats.ink/ogp/default.jpg',
+            'og:site_name' => Yii::$app->name,
+            'og:title' => $title,
+            'og:type' => 'website',
+            'og:url' => $url,
+            'twitter:card' => 'summary_large_image',
+            'twitter:description' => $description,
+            'twitter:image' => 'https://s3-img-gen.stats.ink/ogp/default.jpg',
+            'twitter:title' => $title,
+            'twitter:url' => $url,
+        ];
+
+        foreach ($data as $k => $v) {
+            $view->registerMetaTag(['name' => $k, 'content' => $v]);
+        }
+    }
+
     public static function profileV3(View $view, User $user, string $url): void
     {
         if (Yii::$app->params['useS3ImgGen']) {
