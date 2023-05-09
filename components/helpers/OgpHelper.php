@@ -29,6 +29,7 @@ final class OgpHelper
         $data = [
             'og:description' => $title,
             'og:image' => 'https://s3-img-gen.stats.ink/ogp/default.jpg',
+            'og:image:alt' => 'stat.ink -- Go Deeper, Have More Fun.',
             'og:site_name' => Yii::$app->name,
             'og:title' => $title,
             'og:type' => 'website',
@@ -60,6 +61,7 @@ final class OgpHelper
         $data = [
             'og:description' => $title,
             'og:image' => Url::to($user->iconUrl, true),
+            'og:image:alt' => $title,
             'og:site_name' => Yii::$app->name,
             'og:title' => $title,
             'og:type' => 'website',
@@ -85,6 +87,7 @@ final class OgpHelper
             'og:image' => vsprintf('https://s3-img-gen.stats.ink/ogp/profile/en-US/%s.jpg', [
                 rawurlencode($user->screen_name),
             ]),
+            'og:image:alt' => $title,
             'og:site_name' => Yii::$app->name,
             'og:title' => $title,
             'og:url' => $url,
