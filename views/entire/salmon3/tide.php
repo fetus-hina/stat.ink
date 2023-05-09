@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\components\helpers\OgpHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\models\Map3;
@@ -30,6 +31,8 @@ $this->title = vsprintf('%s | %s', [
   $title,
   Yii::$app->name,
 ]);
+
+OgpHelper::default($this, description: $title);
 
 ?>
 <div class="container">

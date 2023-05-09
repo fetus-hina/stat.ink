@@ -11,6 +11,7 @@ use app\assets\RatioAsset;
 use app\assets\ShadowAsset;
 use app\assets\Spl3WeaponAsset;
 use app\assets\TableResponsiveForceAsset;
+use app\components\helpers\OgpHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\models\Lobby3;
@@ -45,10 +46,7 @@ use yii\web\View;
 $title = Yii::t('app', 'Weapons');
 $this->title = Yii::$app->name . ' | ' . $title;
 
-$this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);
-$this->registerMetaTag(['name' => 'twitter:title', 'content' => $title]);
-$this->registerMetaTag(['name' => 'twitter:description', 'content' => $title]);
-$this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
+OgpHelper::default($this, description: $title);
 
 $disableCache = YII_ENV_DEV;
 $cacheId = hash_hmac(

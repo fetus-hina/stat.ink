@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\components\helpers\OgpHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Salmon3FilterWidget;
 use app\components\widgets\SalmonUserInfo3;
@@ -26,22 +27,8 @@ $this->title = sprintf('%s | %s', Yii::$app->name, $title);
 // $humanReadableSummary = $dataProvider->query->getHumanReadableSummary($user);
 
 $this->registerLinkTag(['rel' => 'canonical', 'href' => $permLink]);
-$this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);
-$this->registerMetaTag(['name' => 'twitter:title', 'content' => $title]);
-// $this->registerMetaTag([
-//   'name' => 'twitter:description',
-//   'content' => $humanReadableSummary
-//     ? $humanReadableSummary
-//     : $title,
-// ]);
-$this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
-$this->registerMetaTag([
-  'name' => 'twitter:image',
-  'content' => $user->iconUrl,
-]);
-if ($user->twitter != '') {
-  $this->registerMetaTag(['name' => 'twitter:creator', 'content' => sprintf('@%s', $user->twitter)]);
-}
+
+OgpHelper::profileV3($this, $user, $permLink);
 
 $lang = Yii::$app->language;
 $jsonUrl = array_merge(

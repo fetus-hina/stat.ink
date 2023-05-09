@@ -1927,16 +1927,16 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "9.14.3",
+            "version": "9.14.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "5d87676a3a7f83dd33d65f3c8d97f36679305193"
+                "reference": "eb4d2213bbda85bfdb93a6e124e9dbb2d0ac6a88"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/5d87676a3a7f83dd33d65f3c8d97f36679305193",
-                "reference": "5d87676a3a7f83dd33d65f3c8d97f36679305193",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/eb4d2213bbda85bfdb93a6e124e9dbb2d0ac6a88",
+                "reference": "eb4d2213bbda85bfdb93a6e124e9dbb2d0ac6a88",
                 "shasum": ""
             },
             "require": {
@@ -1996,9 +1996,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-curl-class/php-curl-class/issues",
-                "source": "https://github.com/php-curl-class/php-curl-class/tree/9.14.3"
+                "source": "https://github.com/php-curl-class/php-curl-class/tree/9.14.4"
             },
-            "time": "2023-03-13T18:02:56+00:00"
+            "time": "2023-05-08T18:03:02+00:00"
         },
         {
             "name": "phpseclib/phpseclib",
@@ -5736,16 +5736,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.14",
+            "version": "1.10.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "d232901b09e67538e5c86a724be841bea5768a7c"
+                "reference": "762c4dac4da6f8756eebb80e528c3a47855da9bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/d232901b09e67538e5c86a724be841bea5768a7c",
-                "reference": "d232901b09e67538e5c86a724be841bea5768a7c",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/762c4dac4da6f8756eebb80e528c3a47855da9bd",
+                "reference": "762c4dac4da6f8756eebb80e528c3a47855da9bd",
                 "shasum": ""
             },
             "require": {
@@ -5794,7 +5794,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-04-19T13:47:27+00:00"
+            "time": "2023-05-09T15:28:01+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
