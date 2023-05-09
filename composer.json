@@ -34,7 +34,7 @@
         "laminas/laminas-http": "^2.14",
         "laminas/laminas-validator": "^2.14",
         "lusitanian/oauth": "^0.8.9",
-        "markrogoyski/math-php": "^2.7",
+        "markrogoyski/math-php": "^2.8",
         "omnilight/yii2-scheduling": "^1.1.6",
         "php-curl-class/php-curl-class": "^9.0",
         "phpseclib/phpseclib": "^3.0",

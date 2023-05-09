@@ -7,6 +7,7 @@ use app\assets\InlineListAsset;
 use app\assets\PaintballAsset;
 use app\assets\ReactCounterAppAsset;
 use app\assets\ReactIndexAppAsset;
+use app\components\helpers\OgpHelper;
 use app\components\widgets\GameVersionIcon;
 use app\components\widgets\HappyNewYearWidget;
 use app\components\widgets\Icon;
@@ -18,6 +19,7 @@ use app\components\widgets\alerts\MaintenanceInfo;
 use app\components\widgets\alerts\PleaseUseLatest;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\View;
 
@@ -33,6 +35,8 @@ PaintballAsset::register($this);
 $gameMode = GameModeIconsAsset::register($this);
 
 $discordInviteCode = ArrayHelper::getValue(Yii::$app->params, 'discordInviteCode');
+
+OgpHelper::default($this, Url::to(['site/index'], true));
 
 ?>
 <div class="container">
