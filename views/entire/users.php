@@ -1,5 +1,6 @@
 <?php
 
+use app\components\helpers\OgpHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\GameVersionIcon;
 use app\components\widgets\SnsWidget;
@@ -19,10 +20,7 @@ use yii\web\View;
 $title = Yii::t('app', 'Battles and Users');
 $this->title = sprintf('%s | %s', Yii::$app->name, $title);
 
-$this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);
-$this->registerMetaTag(['name' => 'twitter:title', 'content' => $title]);
-$this->registerMetaTag(['name' => 'twitter:description', 'content' => $title]);
-$this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
+OgpHelper::default($this, description: $title);
 
 $this->registerCss('#graph{height:300px;margin-bottom:10px}');
 

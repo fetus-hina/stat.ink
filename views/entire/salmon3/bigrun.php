@@ -5,6 +5,7 @@ declare(strict_types=1);
 use MathPHP\Probability\Distribution\Continuous\Normal as NormalDistribution;
 use app\assets\GameModeIconsAsset;
 use app\assets\NotoSansMathAsset;
+use app\components\helpers\OgpHelper;
 use app\components\helpers\TypeHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
@@ -31,12 +32,8 @@ use yii\web\View;
 $title = Yii::t('app-salmon3', 'Big Run');
 $this->title = Yii::$app->name . ' | ' . $title;
 
-$this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);
-$this->registerMetaTag(['name' => 'twitter:title', 'content' => $title]);
-$this->registerMetaTag(['name' => 'twitter:description', 'content' => $title]);
-$this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
+OgpHelper::default($this, description: $title);
 
-$expires = 1;
 $fmt = Yii::$app->formatter;
 
 $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);

@@ -3,13 +3,14 @@
 declare(strict_types=1);
 
 use app\assets\EntireKnockoutAsset;
+use app\components\helpers\OgpHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\models\Knockout3;
 use app\models\Lobby3;
+use app\models\Map3;
 use app\models\Rule3;
 use app\models\Season3;
-use app\models\Map3;
 use yii\helpers\Html;
 use yii\web\View;
 
@@ -28,10 +29,7 @@ use yii\web\View;
 $title = Yii::t('app', 'Knockout Rate');
 $this->title = Yii::$app->name . ' | ' . $title;
 
-$this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);
-$this->registerMetaTag(['name' => 'twitter:title', 'content' => $title]);
-$this->registerMetaTag(['name' => 'twitter:description', 'content' => $title]);
-$this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
+OgpHelper::default($this, description: $title);
 
 EntireKnockoutAsset::register($this);
 

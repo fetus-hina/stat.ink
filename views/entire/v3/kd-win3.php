@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use app\assets\TableResponsiveForceAsset;
+use app\components\helpers\OgpHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\kdWin\KDWinTable;
@@ -30,10 +31,7 @@ use yii\web\View;
 $title = Yii::t('app', 'Winning Percentage based on K/D');
 $this->title = Yii::$app->name . ' | ' . $title;
 
-$this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);
-$this->registerMetaTag(['name' => 'twitter:title', 'content' => $title]);
-$this->registerMetaTag(['name' => 'twitter:description', 'content' => $title]);
-$this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
+OgpHelper::default($this, description: $title);
 
 TableResponsiveForceAsset::register($this);
 

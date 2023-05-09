@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\components\helpers;
 
+use Throwable;
 use Yii;
 use app\models\User;
 use yii\helpers\Url;
@@ -22,10 +23,19 @@ final class OgpHelper
 {
     public static function default(
         View $view,
-        string $url,
+        ?string $url = null,
         string $title = 'stat.ink',
         string $description = 'stat.ink',
     ): void {
+        if ($url === null) {
+            try {
+                $url = Url::current();
+            } catch (Throwable $e) {
+                $url = Url::to(['site/index']);
+            }
+        }
+        $url = Url::to($url, true);
+
         $data = [
             'og:description' => $title,
             'og:image' => 'https://s3-img-gen.stats.ink/ogp/default.jpg',
@@ -46,8 +56,17 @@ final class OgpHelper
         }
     }
 
-    public static function profileV3(View $view, User $user, string $url): void
+    public static function profileV3(View $view, User $user, ?string $url): void
     {
+        if ($url === null) {
+            try {
+                $url = Url::current();
+            } catch (Throwable $e) {
+                $url = Url::to(['site/index']);
+            }
+        }
+        $url = Url::to($url, true);
+
         if (Yii::$app->params['useS3ImgGen']) {
             self::profileV3Image($view, $user, $url);
         } else {
