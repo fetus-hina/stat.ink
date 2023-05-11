@@ -728,6 +728,7 @@ return [
     '{name}\'s Favorite Weapon' => '{name}의 자주 사용하는 무기',
     '{name}\'s Monthly Report - {date}' => '{name}의 월간 리포트 - {date}',
     '{name}\'s Splat Log' => '{name}의 Splat Log',
+    '{name}\'s X Power' => '',
     '{nFormatted} remaining' => '',
     '{nFormatted} {n, plural, =1{battle} other{battles}}' => '{nFormatted}전',
     '{nFormatted} {n, plural, =1{time} other{times}}' => '{nFormatted}회',

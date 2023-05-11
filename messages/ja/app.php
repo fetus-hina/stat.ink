@@ -732,6 +732,7 @@ return [
     '{name}\'s Favorite Weapon' => '{name}のよく使うブキ',
     '{name}\'s Monthly Report - {date}' => '{name}さんの月間レポート - {date}',
     '{name}\'s Splat Log' => '{name}さんのイカログ',
+    '{name}\'s X Power' => '{name}さんのXパワー',
     '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number, plural, other{#回}} / {battle, plural, other{#戦}}',
     '{number, plural, =1{1 egg} other{# eggs}} in {battle, plural, =1{1 shift} other{# shifts}}' => '{number}個/{battle}回',
     '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number, plural, other{#回}} / {battle, plural, other{#戦}}',

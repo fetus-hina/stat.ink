@@ -730,6 +730,7 @@ return [
     '{name}\'s Favorite Weapon' => '{name}的最爱的武器',
     '{name}\'s Monthly Report - {date}' => '{name}的每月报告 - {date}',
     '{name}\'s Splat Log' => '{name}的涂地记录',
+    '{name}\'s X Power' => '',
     '{nFormatted} remaining' => '',
     '{nFormatted} {n, plural, =1{battle} other{battles}}' => '{nFormatted}次对战',
     '{nFormatted} {n, plural, =1{time} other{times}}' => '{nFormatted}次',

@@ -728,6 +728,7 @@ return [
     '{name}\'s Favorite Weapon' => '',
     '{name}\'s Monthly Report - {date}' => '',
     '{name}\'s Splat Log' => '',
+    '{name}\'s X Power' => '',
     '{nFormatted} remaining' => '',
     '{nFormatted} {n, plural, =1{battle} other{battles}}' => '',
     '{nFormatted} {n, plural, =1{time} other{times}}' => '',

@@ -56,8 +56,12 @@ final class OgpHelper
         }
     }
 
-    public static function profileV3(View $view, User $user, ?string $url): void
-    {
+    public static function profileV3(
+        View $view,
+        User $user,
+        ?string $url = null,
+        ?string $description = null,
+    ): void {
         if ($url === null) {
             try {
                 $url = Url::current();
@@ -67,18 +71,39 @@ final class OgpHelper
         }
         $url = Url::to($url, true);
 
+        $title = Yii::t('app', "{name}'s Splat Log", ['name' => $user->name]);
+        if ($description === null) {
+            $description = $title;
+        }
+
         if (Yii::$app->params['useS3ImgGen']) {
-            self::profileV3Image($view, $user, $url);
+            self::profileV3Image(
+                view: $view,
+                user: $user,
+                url: $url,
+                title: $title,
+                description: $description,
+            );
         } else {
-            self::profileV3Summary($view, $user, $url);
+            self::profileV3Summary(
+                view: $view,
+                user: $user,
+                url: $url,
+                title: $title,
+                description: $description,
+            );
         }
     }
 
-    private static function profileV3Summary(View $view, User $user, string $url): void
-    {
-        $title = Yii::t('app', "{name}'s Splat Log", ['name' => $user->name]);
+    private static function profileV3Summary(
+        View $view,
+        User $user,
+        string $url,
+        string $title,
+        string $description,
+    ): void {
         $data = [
-            'og:description' => $title,
+            'og:description' => $description,
             'og:image' => Url::to($user->iconUrl, true),
             'og:image:alt' => $title,
             'og:site_name' => Yii::$app->name,
@@ -86,7 +111,7 @@ final class OgpHelper
             'og:type' => 'website',
             'og:url' => $url,
             'twitter:card' => 'summary',
-            'twitter:description' => $title,
+            'twitter:description' => $description,
             'twitter:image' => Url::to($user->iconUrl, true),
             'twitter:title' => $title,
             'twitter:url' => $url,
@@ -97,24 +122,27 @@ final class OgpHelper
         }
     }
 
-    private static function profileV3Image(View $view, User $user, string $url): void
-    {
-        $title = Yii::t('app', "{name}'s Splat Log", ['name' => $user->name]);
+    private static function profileV3Image(
+        View $view,
+        User $user,
+        string $url,
+        string $title,
+        string $description,
+    ): void {
+        $imageUrl = vsprintf('https://s3-img-gen.stats.ink/ogp/profile/en-US/%s.jpg', [
+            rawurlencode($user->screen_name),
+        ]);
         $data = [
-            'og:type' => 'website',
-            'og:description' => $title,
-            'og:image' => vsprintf('https://s3-img-gen.stats.ink/ogp/profile/en-US/%s.jpg', [
-                rawurlencode($user->screen_name),
-            ]),
+            'og:description' => $description,
+            'og:image' => $imageUrl,
             'og:image:alt' => $title,
             'og:site_name' => Yii::$app->name,
             'og:title' => $title,
+            'og:type' => 'website',
             'og:url' => $url,
             'twitter:card' => 'summary_large_image',
-            'twitter:description' => $title,
-            'twitter:image' => vsprintf('https://s3-img-gen.stats.ink/ogp/profile/en-US/%s.jpg', [
-                rawurlencode($user->screen_name),
-            ]),
+            'twitter:description' => $description,
+            'twitter:image' => $imageUrl,
             'twitter:title' => $title,
             'twitter:url' => $url,
         ];

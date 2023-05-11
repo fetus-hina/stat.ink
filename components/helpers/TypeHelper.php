@@ -39,6 +39,15 @@ final class TypeHelper
         return is_scalar($value) || $value instanceof Stringable ? (string)$value : null;
     }
 
+    public static function int(mixed $value): int
+    {
+        $value = self::intOrNull($value);
+        return match (true) {
+            is_int($value) => $value,
+            default => throw new TypeError('The value is not a integer value'),
+        };
+    }
+
     public static function intOrNull(mixed $value): ?int
     {
         if (is_int($value) || $value === null) {
@@ -47,6 +56,15 @@ final class TypeHelper
 
         $value = filter_var(self::stringOrNull($value), FILTER_VALIDATE_INT);
         return is_int($value) ? $value : null;
+    }
+
+    public static function float(mixed $value): float
+    {
+        $value = self::floatOrNull($value);
+        return match (true) {
+            is_float($value) => $value,
+            default => throw new TypeError('The value is not a floating point value'),
+        };
     }
 
     public static function floatOrNull(mixed $value): ?float
