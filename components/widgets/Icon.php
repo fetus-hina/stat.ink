@@ -62,9 +62,11 @@ use function mb_chr;
  * @method static string login()
  * @method static string loginHistory()
  * @method static string logout()
+ * @method static string lowerBound()
  * @method static string macOs()
  * @method static string nextPage()
  * @method static string no()
+ * @method static string number();
  * @method static string ok()
  * @method static string permalink()
  * @method static string popup()
@@ -81,6 +83,7 @@ use function mb_chr;
  * @method static string timezone()
  * @method static string twitter()
  * @method static string unknown()
+ * @method static string upperBound()
  * @method static string user()
  * @method static string userAdd()
  * @method static string users()
@@ -130,9 +133,11 @@ final class Icon
         'login' => 'box-arrow-in-right',
         'loginHistory' => 'clock-history',
         'logout' => 'box-arrow-right',
+        'lowerBound' => 'arrow-down-short',
         'macOs' => 'apple',
         'nextPage' => 'chevron-double-right',
         'no' => 'x-lg',
+        'number' => 'hash',
         'ok' => 'check-lg',
         'permalink' => 'link-45deg',
         'popup' => 'window-stack',
@@ -147,6 +152,7 @@ final class Icon
         'subPage' => 'chevron-right',
         'timezone' => 'clock',
         'unknown' => 'question',
+        'upperBound' => 'arrow-up-short',
         'user' => 'person-fill',
         'userAdd' => 'person-plus-fill',
         'users' => 'people-fill',

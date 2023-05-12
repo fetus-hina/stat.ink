@@ -60,6 +60,14 @@ OgpHelper::profileV3($this, $user, $permLink, description: $title);
           ['class' => 'mt-0 mb-3'],
         ) . "\n" ?>
       </div>
+<?php if ($dailyData) { ?>
+      <div class="mb-3">
+        <p class="m-0 p-0 small text-muted">
+          <?= Html::encode(
+            Yii::t('app', 'Regardless of your time zone setting, it is grouped using UTC.'),
+          ) . "\n" ?>
+        </p>
+      </div>
       <div class="mb-3">
         <?= $this->render('season-x-power/daily-chart', [
           'dailyData' => $dailyData,
@@ -67,6 +75,19 @@ OgpHelper::profileV3($this, $user, $permLink, description: $title);
           'season' => $season,
         ]) . "\n" ?>
       </div>
+      <div class="mb-3">
+        <?= $this->render('season-x-power/daily-table', [
+          'dailyData' => $dailyData,
+          'rules' => $rules,
+          'season' => $season,
+          'user' => $user,
+        ]) . "\n" ?>
+      </div>
+<?php } else { ?>
+      <p class="mb-3">
+        <?= Html::encode(Yii::t('app', 'There are no data.')) . "\n" ?>
+      </p>
+<?php } ?>
     </div>
     <div class="col-xs-12 col-sm-4 col-lg-3">
       <?= UserMiniInfo3::widget(['user' => $user]) . "\n" ?>
