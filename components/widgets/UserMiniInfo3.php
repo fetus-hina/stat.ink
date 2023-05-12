@@ -273,6 +273,7 @@ final class UserMiniInfo3 extends Widget
             Yii::t('app', 'Stats (Win %)') => ['show-v3/stats-win-rate', 'screen_name' => $user->screen_name],
             Yii::t('app', 'Stats (by Mode and Stage)') => ['show-v3/stats-map-rule', 'screen_name' => $user->screen_name],
             Yii::t('app', 'Stats (by Weapon)') => ['show-v3/stats-weapons', 'screen_name' => $user->screen_name],
+            Yii::t('app', 'Stats (X Power)') => ['show-v3/stats-season-x-power', 'screen_name' => $user->screen_name],
             Yii::t('app', 'Stats (Medals)') => ['show-v3/stats-medal', 'screen_name' => $user->screen_name],
             Yii::t('app', 'Badge Progress') => ['show-v3/stats-badge', 'screen_name' => $user->screen_name],
         ];

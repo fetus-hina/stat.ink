@@ -17,6 +17,7 @@ use app\actions\show\v3\stats\BadgeAction;
 use app\actions\show\v3\stats\CorrectionBadgeAction;
 use app\actions\show\v3\stats\MapRuleAction;
 use app\actions\show\v3\stats\MedalAction;
+use app\actions\show\v3\stats\SeasonXPowerAction;
 use app\actions\show\v3\stats\WeaponsAction;
 use app\actions\show\v3\stats\WinRateAction;
 use app\components\web\Controller;
@@ -71,6 +72,7 @@ final class ShowV3Controller extends Controller
             'stats-medal' => MedalAction::class,
             'stats-weapons' => WeaponsAction::class,
             'stats-win-rate' => WinRateAction::class,
+            'stats-season-x-power' => SeasonXPowerAction::class,
             'user' => UserAction::class,
             'user-json' => [
                 'class' => UserAction::class,

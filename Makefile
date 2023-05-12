@@ -90,6 +90,7 @@ RESOURCE_TARGETS := \
 	resources/.compiled/stat.ink/ie-warning.css \
 	resources/.compiled/stat.ink/ie-warning.js \
 	resources/.compiled/stat.ink/inline-list.css \
+	resources/.compiled/stat.ink/jquery.easy-chartjs.js \
 	resources/.compiled/stat.ink/jquery.twemoji.css \
 	resources/.compiled/stat.ink/jquery.twemoji.js \
 	resources/.compiled/stat.ink/kd-win.css \
@@ -325,6 +326,7 @@ resources/.compiled/stat.ink/hsv2rgb.js: resources/stat.ink/hsv2rgb.es node_modu
 resources/.compiled/stat.ink/ie-warning.css: resources/stat.ink/ie-warning.scss node_modules
 resources/.compiled/stat.ink/ie-warning.js: resources/stat.ink/ie-warning.es node_modules
 resources/.compiled/stat.ink/inline-list.css: resources/stat.ink/inline-list.scss node_modules
+resources/.compiled/stat.ink/jquery.easy-chartjs.js: resources/stat.ink/jquery.easy-chartjs.es node_modules
 resources/.compiled/stat.ink/jquery.twemoji.css: resources/stat.ink/jquery.twemoji.scss node_modules
 resources/.compiled/stat.ink/jquery.twemoji.js: resources/stat.ink/jquery.twemoji.es node_modules
 resources/.compiled/stat.ink/kd-win.css: resources/stat.ink/kd-win.scss node_modules

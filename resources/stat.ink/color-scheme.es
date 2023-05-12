@@ -45,9 +45,10 @@
     ko: accentColors.sky,
     time: accentColors.orange,
 
-    area: colorLock ? accentColors.orange : '#edc240',
-    yagura: colorLock ? accentColors.blue : '#40a2ed',
-    hoko: colorLock ? accentColors.brown : '#ed4040',
+    area: accentColors.green,
+    yagura: accentColors.purple,
+    hoko: accentColors.orange,
+    asari: accentColors.sky,
 
     graph1: accentColors.orange,
     graph2: accentColors.blue,

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use app\assets\ChartJsAsset;
 use app\assets\ColorSchemeAsset;
+use app\assets\JqueryEasyChartjsAsset;
 use app\assets\RatioAsset;
 use app\components\helpers\TypeHelper;
 use app\models\Battle3;
@@ -87,6 +88,7 @@ return [
 
     ChartJsAsset::register($this);
     ColorSchemeAsset::register($this);
+    JqueryEasyChartjsAsset::register($this);
     RatioAsset::register($this);
 
     $configJson = Json::encode([
@@ -146,34 +148,35 @@ return [
       ],
     ]);
 
-    $this->registerJs("
-      jQuery('#{$id}').each(
-        function () {
-          function looseJsonParse (obj) {
-            return Function('\"use strict\";return (' + obj + ')')();
-          }
-
-          const elem = this;
-          const config = looseJsonParse(this.getAttribute('data-chart'));
-          const canvas = elem.appendChild(document.createElement('canvas'));
-          new window.Chart(canvas.getContext('2d'), config);
-        }
-      );
-    ");
+    $this->registerJs("$('#{$id}').easyChartJs();");
 
     return Html::tag(
       'div',
-      '',
-      [
-        'class' => 'm-0 p-0 w-100 ratio ratio-16x9',
-        'id' => $id,
-        'style' => [
-          'max-width' => '400px',
-        ],
-        'data' => [
-          'chart' => $configJson,
-        ],
-      ],
+      implode('', [
+        Html::tag(
+          'div',
+          '',
+          [
+            'class' => 'mb-2 p-0 w-100 ratio ratio-16x9',
+            'id' => $id,
+            'data' => [
+              'chart' => $configJson,
+            ],
+          ],
+        ),
+        Html::tag(
+          'p',
+          Html::a(
+            Html::encode(Yii::t('app', 'Season')),
+            ['show-v3/stats-season-x-power',
+              'screen_name' => $model->user->screen_name,
+              'season' => $season->id,
+            ],
+          ),
+          ['class' => 'small text-right m-0'],
+        ),
+      ]),
+      ['style' => ['max-width' => '400px']],
     );
   },
 ];
