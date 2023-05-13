@@ -15,10 +15,14 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Throwable;
 use Yii;
+use app\components\helpers\TypeHelper;
+use app\models\Season3;
 
 use function floor;
 use function is_string;
 use function sprintf;
+use function strtotime;
+use function substr;
 use function trim;
 
 trait PermalinkTrait
@@ -62,14 +66,17 @@ trait PermalinkTrait
                 $push('term_to', "@{$to}");
             };
 
-            match ($termValue) {
-                '24h' => $this->permaLink24H($pushTerm),
-                'last-period' => $this->permaLinkPeriod($pushTerm, -1),
-                'term' => $this->permaLinkTerm($pushTerm),
-                'this-period' => $this->permaLinkPeriod($pushTerm, 0),
-                'today' => $this->permaLinkDay($pushTerm, 0),
-                'yesterday' => $this->permaLinkDay($pushTerm, -1),
-                default => $push($key, $value),
+            match (substr($termValue, 0, 1)) {
+                '@' => $this->permaLinkSeason($pushTerm, substr($termValue, 1)),
+                default => match ($termValue) {
+                    '24h' => $this->permaLink24H($pushTerm),
+                    'last-period' => $this->permaLinkPeriod($pushTerm, -1),
+                    'term' => $this->permaLinkTerm($pushTerm),
+                    'this-period' => $this->permaLinkPeriod($pushTerm, 0),
+                    'today' => $this->permaLinkDay($pushTerm, 0),
+                    'yesterday' => $this->permaLinkDay($pushTerm, -1),
+                    default => $push($key, $value),
+                },
             };
         }
 
@@ -96,6 +103,23 @@ trait PermalinkTrait
             $targetPeriod * 7200,
             ($targetPeriod + 1) * 7200 - 1,
         );
+    }
+
+    /**
+     * @param callable(int, int): void $push
+     */
+    private function permaLinkSeason(callable $push, string $key): void
+    {
+        $season = Season3::find()
+            ->andWhere(['key' => $key])
+            ->limit(1)
+            ->one();
+        if ($season) {
+            $push(
+                TypeHelper::int(strtotime($season->start_at)),
+                TypeHelper::int(strtotime($season->end_at)) - 1,
+            );
+        }
     }
 
     /**
