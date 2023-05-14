@@ -161,6 +161,7 @@ return [
     'D/min' => '데스/분',
     'Daily Report' => '데일리 리포트',
     'Data Sent' => '데이터 등록 일시',
+    'Date' => '',
     'Date Time' => '일시',
     'Dead' => 'Death',
     'Deaths' => '데스 수',

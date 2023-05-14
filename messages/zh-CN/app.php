@@ -163,6 +163,7 @@ return [
     'D/min' => '死亡数/分钟',
     'Daily Report' => '日报',
     'Data Sent' => '数据上传于',
+    'Date' => '',
     'Date Time' => '日期时间',
     'Dead' => '死亡',
     'Deaths' => '死亡',

@@ -162,6 +162,7 @@ return [
     'D/min' => '死亡數/分鐘',
     'Daily Report' => '每日報告',
     'Data Sent' => '資料上傳於',
+    'Date' => '',
     'Date Time' => '日期時間',
     'Dead' => '死亡',
     'Deaths' => '死亡',

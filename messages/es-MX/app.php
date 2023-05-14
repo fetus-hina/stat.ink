@@ -162,6 +162,7 @@ return [
     'D/min' => '',
     'Daily Report' => 'Informe diario',
     'Data Sent' => 'Datos enviados',
+    'Date' => '',
     'Date Time' => 'Fecha hora',
     'Dead' => 'Death',
     'Deaths' => 'Muertes',
