@@ -79,6 +79,7 @@ return [
     'Rapid Blaster Pro' => 'Turboblasteur pro',
     'REEF-LUX 450' => 'Coralux 450',
     'Rollers' => '',
+    'S-BLAST \'92' => '',
     'Shooters' => '',
     'Slosher' => 'Seauceur',
     'Slosher Deco' => 'Seauceur chic',

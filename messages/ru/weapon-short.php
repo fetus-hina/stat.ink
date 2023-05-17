@@ -53,6 +53,7 @@ return [
     'Permanent Inkbrush' => '',
     'Rapid Blaster Pro Deco' => '',
     'Refurbished Mini Splatling' => '',
+    'S-BLAST \'92' => '',
     'Sloshing Machine Neo' => '',
     'Soda Slosher' => '',
     'Sploosh-o-matic 7' => '',

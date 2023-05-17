@@ -81,6 +81,7 @@ return [
     'Rapid Blaster Pro' => '快速爆破枪 精英',
     'REEF-LUX 450' => 'LACT-450',
     'Rollers' => '滚筒',
+    'S-BLAST \'92' => '',
     'Shooters' => '射击枪',
     'Slosher' => '飞溅泼桶',
     'Slosher Deco' => '飞溅泼桶 装饰',

@@ -144,6 +144,7 @@ return [
     'Rapid Blaster Pro Deco' => 'Rapid Pro Deco',
     'REEF-LUX 450' => '',
     'Refurbished Mini Splatling' => 'Refurb Mini',
+    'S-BLAST \'92' => '',
     'Slosher' => 'Slosher',
     'Slosher Deco' => 'Slosher Deco',
     'Sloshing Machine' => 'Sloshmo',

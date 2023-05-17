@@ -79,6 +79,7 @@ return [
     'Rapid Blaster Pro' => 'Rapid Blaster Pro',
     'REEF-LUX 450' => 'REEF-LUX 450',
     'Rollers' => '',
+    'S-BLAST \'92' => '',
     'Shooters' => '',
     'Slosher' => 'Slosher',
     'Slosher Deco' => 'Slosher Deco',

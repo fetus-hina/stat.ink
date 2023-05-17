@@ -79,6 +79,7 @@ return [
     'Rapid Blaster Pro' => 'Бластермат ПРО',
     'REEF-LUX 450' => 'КО-РАЛЛ 450',
     'Rollers' => '',
+    'S-BLAST \'92' => '',
     'Shooters' => '',
     'Slosher' => 'Ведроган',
     'Slosher Deco' => 'Ведроган «Деко»',

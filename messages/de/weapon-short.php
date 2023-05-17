@@ -198,6 +198,7 @@ return [
     'Refurbished Mini Splatling' => '',
     'Rilax-Klecks-Konzentrator' => '',
     'Rilax-Ziel-Konzentrator' => '',
+    'S-BLAST \'92' => '',
     'S3 Tintenwerfer' => '',
     'S3 Tintenwerfer D' => '',
     'S3 Tintenwerfer Kirsch' => '',

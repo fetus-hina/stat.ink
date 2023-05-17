@@ -154,6 +154,7 @@ return [
     'Rodillo Pro Tonken' => '',
     'Rodillo versátil' => '',
     'Rodillo versátil Foil' => '',
+    'S-BLAST \'92' => '',
     'Salpicadora 2000' => '',
     'Salpicadora 2000 chic' => '',
     'Salpicadora 2000 Tonken' => '',

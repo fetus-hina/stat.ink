@@ -144,6 +144,7 @@ return [
     'Rodillo mágnum' => '',
     'Rodillo versátil' => '',
     'Rodillo versátil B' => '',
+    'S-BLAST \'92' => '',
     'Salpicadora 2000' => '',
     'Salpicadora 2000 DX' => '',
     'Salpicadora 2000 elegante' => '',

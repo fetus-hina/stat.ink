@@ -79,6 +79,7 @@ return [
     'Rapid Blaster Pro' => 'Turbolanzamotas Pro',
     'REEF-LUX 450' => 'AR-CR0 450',
     'Rollers' => 'Rodillos',
+    'S-BLAST \'92' => '',
     'Shooters' => 'Rociadors',
     'Slosher' => 'Derramatic',
     'Slosher Deco' => 'Derramatic chic',
