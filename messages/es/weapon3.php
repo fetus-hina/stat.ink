@@ -79,7 +79,7 @@ return [
     'Rapid Blaster Pro' => 'Superdevastador',
     'REEF-LUX 450' => 'AR-CR0 450',
     'Rollers' => 'Rodillos',
-    'S-BLAST \'92' => '',
+    'S-BLAST \'92' => 'D-VAST 92',
     'Shooters' => 'Lanzatintas',
     'Slosher' => 'Derramatic',
     'Slosher Deco' => 'Derramatic DX',

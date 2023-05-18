@@ -146,7 +146,7 @@ return [
     'Rouleau Krakeurs' => '',
     'Rouleau large' => '',
     'Rouleau Thony K' => '',
-    'S-BLAST \'92' => '',
+    'S-Blaster \'92' => '',
     'Seau M. Ours SA' => '',
     'Seauceur' => '',
     'Seauceur chic' => '',

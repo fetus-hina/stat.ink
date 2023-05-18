@@ -104,7 +104,7 @@ return [
     'R-PEN/5H' => '',
     'Rapid Blaster Pro Deco' => '',
     'Refurbished Mini Splatling' => '',
-    'S-BLAST \'92' => '',
+    'S-BLAST92' => '',
     'Sloshing Machine Neo' => '',
     'Soda Slosher' => '',
     'Sorella Brella' => '',

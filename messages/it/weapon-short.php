@@ -166,7 +166,7 @@ return [
     'Rullo splat logo' => '',
     'Rullo splat Nero Marlin' => '',
     'Rullo élite replica' => '',
-    'S-BLAST \'92' => '',
+    'S-BLAST92' => '',
     'Secchiostro' => '',
     'Secchiostro centrifuga' => '',
     'Secchiostro centrifuga Neo' => '',

@@ -152,7 +152,7 @@ return [
     'Rouleau héroïque (réplique)' => '',
     'Rouleau K' => '',
     'Rouleau large' => '',
-    'S-BLAST \'92' => '',
+    'S-Blaster \'92' => '',
     'Seau M. Ours SA' => '',
     'Seauceur' => '',
     'Seauceur chic' => '',

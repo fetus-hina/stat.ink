@@ -80,7 +80,7 @@ return [
     'Rapid Blaster Pro' => 'R 블래스터 엘리트',
     'REEF-LUX 450' => 'LACT-450',
     'Rollers' => '롤러',
-    'S-BLAST \'92' => '',
+    'S-BLAST \'92' => 'S-BLAST92',
     'Shooters' => '슈터',
     'Slosher' => '버킷 슬로셔',
     'Slosher Deco' => '버킷 슬로셔 데코',

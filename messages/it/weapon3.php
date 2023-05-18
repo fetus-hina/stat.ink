@@ -79,7 +79,7 @@ return [
     'Rapid Blaster Pro' => 'Blaster élite',
     'REEF-LUX 450' => 'ARCO-RAL 450',
     'Rollers' => '',
-    'S-BLAST \'92' => '',
+    'S-BLAST \'92' => 'S-BLAST92',
     'Shooters' => '',
     'Slosher' => 'Secchiostro',
     'Slosher Deco' => 'Secchiostro DX',
