@@ -101,11 +101,15 @@ trait Salmon
         // the JSON does not contain ID value. Let's find by English name
 
         $name = ArrayHelper::getValue($info, 'name');
+        if (!is_string($name)) {
+            return null;
+        }
+
         if ($name === 'Random') {
             return SalmonRandom3::find()
                 ->andWhere([
                     'key' => match (ArrayHelper::getValue($info, '__splatoon3ink_id')) {
-                        'edcfecb7e8acd1a7' => 'random_rare',
+                        '6e17fbe20efecca9', 'edcfecb7e8acd1a7' => 'random_rare',
                         default => 'random',
                     },
                 ])
