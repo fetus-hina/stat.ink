@@ -152,6 +152,7 @@ return [
     'Rouleau héroïque (réplique)' => '',
     'Rouleau K' => '',
     'Rouleau large' => '',
+    'S-Blaster \'92' => '',
     'Seau M. Ours SA' => '',
     'Seauceur' => '',
     'Seauceur chic' => '',
@@ -180,4 +181,5 @@ return [
     'Épinceau K' => '',
     'Épinceau nuancé' => '',
     'Épinceau permanent' => '',
+    'Épinceau écaïe' => '',
 ];

@@ -146,6 +146,7 @@ return [
     'Rouleau Krakeurs' => '',
     'Rouleau large' => '',
     'Rouleau Thony K' => '',
+    'S-Blaster \'92' => '',
     'Seau M. Ours SA' => '',
     'Seauceur' => '',
     'Seauceur chic' => '',
@@ -184,4 +185,5 @@ return [
     'Épinceau nuancé' => '',
     'Épinceau permanent' => '',
     'Épinceau Thony K' => '',
+    'Épinceau écaïe' => '',
 ];

@@ -2,6 +2,7 @@
 
 use Codeception\Actor;
 use Codeception\Lib\Friend;
+use _generated\AcceptanceTesterActions;
 
 /**
  * Inherited Methods
@@ -20,7 +21,7 @@ use Codeception\Lib\Friend;
 */
 class AcceptanceTester extends Actor
 {
-    use _generated\AcceptanceTesterActions;
+    use AcceptanceTesterActions;
 
    /**
     * Define custom actions here

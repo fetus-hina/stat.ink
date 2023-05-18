@@ -6,6 +6,7 @@ use app\components\widgets\Icon;
 use app\models\Rule3;
 use app\models\Season3;
 use app\models\User;
+use yii\helpers\Html;
 use yii\web\View;
 
 /**
@@ -18,7 +19,7 @@ use yii\web\View;
 ?>
 <thead>
   <tr>
-    <th rowspan="2"></th>
+    <th colspan="2" rowspan="2" class="text-center"><?= Html::encode(Yii::t('app', 'Date')) ?></th>
 <?php foreach ($rules as $rule) { ?>
     <?= trim($this->render('thead/rule', compact('rule', 'season', 'user'))) . "\n" ?>
 <?php } ?>

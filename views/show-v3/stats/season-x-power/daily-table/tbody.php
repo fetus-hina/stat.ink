@@ -29,7 +29,7 @@ $tInterval = new DateInterval('P1D');
 $dateFormat = match (true) {
   // PHP 8.1
   class_exists('IntlDatePatternGenerator') => IntlDatePatternGenerator::create(Yii::$app->locale)
-    ?->getBestPattern('MMMd')
+    ?->getBestPattern('MMM d')
     ?? 'd MMM',
   // PHP 8.0 or lower
   default => match (Yii::$app->locale) {
@@ -58,6 +58,15 @@ $data = ArrayHelper::index($dailyData, 'rule_id', 'date');
         ),
         ['class' => 'text-center'],
       ),
+      Html::tag(
+        'td',
+        Html::tag(
+          'time',
+          Yii::$app->formatter->asDate($date, 'cccccc'),
+          ['datetime' => $date->format('Y-m-d')],
+        ),
+        ['class' => 'text-center'],
+      ),
       implode('', array_map(
         fn (Rule3 $rule): string => $this->render('tbody/rule', [
           'data' => ArrayHelper::getValue($data, [$date->format('Y-m-d'), $rule->id]),
@@ -69,6 +78,9 @@ $data = ArrayHelper::index($dailyData, 'rule_id', 'date');
         $rules,
       )),
     ]),
+    [
+      'class' => sprintf('bg-dow-%s', $date->format('N')),
+    ],
   ) . "\n" ?>
 <?php } ?>
 </tbody>

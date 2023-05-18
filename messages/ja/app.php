@@ -160,6 +160,7 @@ return [
     'Daily Report' => '日報',
     'Data Sent' => 'データ送信',
     'Date Time' => '日時',
+    'Date' => '日付',
     'Dead' => 'Death',
     'Deaths (average):' => 'デス数（平均）:',
     'Deaths (median):' => 'デス数（中央値）:',

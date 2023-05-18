@@ -161,6 +161,7 @@ return [
     'D/min' => '',
     'Daily Report' => '',
     'Data Sent' => '',
+    'Date' => '',
     'Date Time' => '',
     'Dead' => '',
     'Deaths' => '',
