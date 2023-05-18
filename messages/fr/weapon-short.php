@@ -181,4 +181,5 @@ return [
     'Épinceau K' => '',
     'Épinceau nuancé' => '',
     'Épinceau permanent' => '',
+    'Épinceau écaïe' => '',
 ];

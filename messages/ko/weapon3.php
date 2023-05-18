@@ -72,6 +72,7 @@ return [
     'Neo Sploosh-o-matic' => '네오 볼드 마커',
     'Nozzlenoses' => '릴건',
     'Octobrush' => '호쿠사이',
+    'Painbrush' => '빈센트',
     'Random' => '',
     'Random (Rare)' => '',
     'Range Blaster' => '롱 블래스터',

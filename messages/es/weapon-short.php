@@ -31,6 +31,7 @@ return [
     'Barredora dual' => '',
     'Barredora dual SP' => '',
     'Brocha' => '',
+    'Brocha abanico' => '',
     'Brocha de élite (réplica)' => '',
     'Brocha elegante' => '',
     'Brocha maestra' => '',

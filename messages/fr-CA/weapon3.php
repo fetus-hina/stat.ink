@@ -71,6 +71,7 @@ return [
     'Neo Sploosh-o-matic' => 'Marqueur lourd néo',
     'Nozzlenoses' => '',
     'Octobrush' => 'Épinceau brosse',
+    'Painbrush' => '',
     'Random' => '',
     'Random (Rare)' => '',
     'Range Blaster' => 'Éclablasteur LP',

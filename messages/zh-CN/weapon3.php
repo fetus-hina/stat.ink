@@ -73,6 +73,7 @@ return [
     'Neo Sploosh-o-matic' => '广域标记枪 新型',
     'Nozzlenoses' => '卷管枪',
     'Octobrush' => '北斋',
+    'Painbrush' => '文森',
     'Random' => '',
     'Random (Rare)' => '',
     'Range Blaster' => '远距爆破枪',

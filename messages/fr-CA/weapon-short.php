@@ -185,4 +185,5 @@ return [
     'Épinceau nuancé' => '',
     'Épinceau permanent' => '',
     'Épinceau Thony K' => '',
+    'Épinceau écaïe' => '',
 ];

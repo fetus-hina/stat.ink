@@ -144,6 +144,7 @@ return [
     'Knalblaster Neo' => '',
     'Krak-On Klodderroller' => '',
     'Krak-On Splat Roller' => '',
+    'Kwistkwast' => '',
     'L-3 Nozzlenose' => '',
     'L-3 Nozzlenose D' => '',
     'L-3 Stompsnuit' => '',

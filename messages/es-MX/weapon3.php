@@ -71,6 +71,7 @@ return [
     'Neo Sploosh-o-matic' => 'Marcador grueso neo',
     'Nozzlenoses' => '',
     'Octobrush' => 'Pincel caligrafía',
+    'Painbrush' => '',
     'Random' => '',
     'Random (Rare)' => '',
     'Range Blaster' => 'Telelanzamotas',

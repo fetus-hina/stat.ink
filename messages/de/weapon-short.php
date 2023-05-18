@@ -79,6 +79,7 @@ return [
     'Focus-Profi-Kleckser' => '',
     'Forge Splattershot Pro' => '',
     'Fresh Squiffer' => '',
+    'Fächerfärber' => '',
     'Gold Dynamo Roller' => '',
     'Grim Range Blaster' => '',
     'Grizzco Blaster' => '',

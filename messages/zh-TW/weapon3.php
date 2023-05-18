@@ -73,6 +73,7 @@ return [
     'Neo Sploosh-o-matic' => '廣域標記槍 新型',
     'Nozzlenoses' => '捲管槍',
     'Octobrush' => '北齋',
+    'Painbrush' => '文森',
     'Random' => '問號',
     'Random (Rare)' => '金問號',
     'Range Blaster' => '遠距爆破槍',

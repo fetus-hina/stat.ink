@@ -245,6 +245,7 @@ return [
     'Tinturicchio' => '',
     'Tinturicchio master' => '',
     'Tinturicchio Nero Marlin' => '',
+    'Tonnoretto' => '',
     'Tri-calamarco' => '',
     'Tri-Slosher' => '',
     'Tri-Slosher Nouveau' => '',

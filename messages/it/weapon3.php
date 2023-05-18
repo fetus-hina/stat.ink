@@ -71,6 +71,7 @@ return [
     'Neo Sploosh-o-matic' => 'Marker Neo',
     'Nozzlenoses' => '',
     'Octobrush' => 'Tinturicchio',
+    'Painbrush' => 'Tonnoretto',
     'Random' => '',
     'Random (Rare)' => '',
     'Range Blaster' => 'Blaster a distanza',

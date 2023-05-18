@@ -71,6 +71,7 @@ return [
     'Neo Sploosh-o-matic' => 'Disperser Neo',
     'Nozzlenoses' => '',
     'Octobrush' => 'Kalligraf',
+    'Painbrush' => 'Fächerfärber',
     'Random' => '',
     'Random (Rare)' => '',
     'Range Blaster' => 'Fern-Blaster',

@@ -71,6 +71,7 @@ return [
     'Neo Sploosh-o-matic' => 'ボールドマーカーネオ',
     'Nozzlenoses' => 'リールガン',
     'Octobrush' => 'ホクサイ',
+    'Painbrush' => 'フィンセント',
     'REEF-LUX 450' => 'LACT-450',
     'Random (Rare)' => 'ランダム (レアブキ)',
     'Random' => 'ランダム',

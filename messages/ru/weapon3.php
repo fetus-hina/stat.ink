@@ -71,6 +71,7 @@ return [
     'Neo Sploosh-o-matic' => 'Плюхотрон «Нео»',
     'Nozzlenoses' => '',
     'Octobrush' => 'Арт-кисть',
+    'Painbrush' => '',
     'Random' => '',
     'Random (Rare)' => '',
     'Range Blaster' => 'Дальнобластер',

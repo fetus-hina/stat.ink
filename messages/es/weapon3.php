@@ -71,6 +71,7 @@ return [
     'Neo Sploosh-o-matic' => 'Marcador neo',
     'Nozzlenoses' => '',
     'Octobrush' => 'Brocha',
+    'Painbrush' => 'Brocha abanico',
     'Random' => '',
     'Random (Rare)' => '',
     'Range Blaster' => 'Teledevastador',

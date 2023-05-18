@@ -24,6 +24,7 @@ return [
     'Bamzuka 14-I' => '',
     'Bamzuka 14-II' => '',
     'Bamzuka 14-III' => '',
+    'Brocha abanico' => '',
     'Cargaminas 5H' => '',
     'Cargatintas' => '',
     'Cargatintas Alga' => '',

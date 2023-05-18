@@ -50,6 +50,7 @@ return [
     'Octo Shot Replica' => '',
     'Octobrush Nouveau' => '',
     'Octoshot Replica' => '',
+    'Painbrush' => '',
     'Permanent Inkbrush' => '',
     'Rapid Blaster Pro Deco' => '',
     'Refurbished Mini Splatling' => '',

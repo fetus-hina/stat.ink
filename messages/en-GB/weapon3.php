@@ -71,6 +71,7 @@ return [
     'Neo Sploosh-o-matic' => 'Neo Sploosh-o-matic',
     'Nozzlenoses' => '',
     'Octobrush' => 'Octobrush',
+    'Painbrush' => '',
     'Random' => '',
     'Random (Rare)' => '',
     'Range Blaster' => 'Range Blaster',

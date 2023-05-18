@@ -71,6 +71,7 @@ return [
     'Neo Sploosh-o-matic' => 'Spettertuit Neo',
     'Nozzlenoses' => '',
     'Octobrush' => 'Octokwast',
+    'Painbrush' => 'Kwistkwast',
     'Random' => '',
     'Random (Rare)' => '',
     'Range Blaster' => 'Teleblaster',

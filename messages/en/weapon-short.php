@@ -136,6 +136,7 @@ return [
     'Octobrush' => 'Octo',
     'Octobrush Nouveau' => 'Octo Nouveau',
     'Octoshot Replica' => 'Octoshot',
+    'Painbrush' => '',
     'Permanent Inkbrush' => 'Permanent Inkbrush',
     'Range Blaster' => 'Range Blaster',
     'Rapid Blaster' => 'Rapid',
