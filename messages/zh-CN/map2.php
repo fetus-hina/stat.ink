@@ -10,7 +10,7 @@
 declare(strict_types=1);
 
 return [
-    'Academy' => '大学',
+    'Academy' => '海女',
     'Ancho-V Games' => '凤尾鱼游戏公司',
     'Any Stage' => '所有场地',
     'Arena' => '体育馆',
@@ -38,11 +38,11 @@ return [
     'Institute' => '海博馆',
     'Kelp Dome' => '海云种植园',
     'Mainstage' => '音乐台',
-    'MakoMart' => '座头鲸市场',
+    'MakoMart' => '座头购物中心',
     'Mall' => '商场',
     'Manta' => '蝙蝠号',
-    'Manta Maria' => '蝙蝠玛丽号',
-    'Mart' => '市场',
+    'Manta Maria' => '鬼蝠鲼玛利亚号',
+    'Mart' => '购物中心',
     'MC.Princess Diaries' => '主持人日记公主',
     'Moray Towers' => '带鱼停车场',
     'Musselforge Fitness' => '藤壶健身房',
@@ -99,7 +99,7 @@ return [
     'The Switches' => '开关大集合',
     'Towers' => '停车场',
     'Track' => '赛道',
-    'Wahoo World' => '醋饭游乐园',
+    'Wahoo World' => '醋饭海洋世界',
     'Walleye Warehouse' => '箱鲀仓库',
     'Warehouse' => '仓库',
     'Wayslide Cool' => '酷炫滑动地板',

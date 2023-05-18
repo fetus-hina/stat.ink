@@ -11,7 +11,7 @@
 declare(strict_types=1);
 
 return [
-    'Academy' => '大學',
+    'Academy' => '海女',
     'Ancho-V Games' => '鳳尾魚遊戲公司',
     'Any Stage' => '所有場地',
     'Arena' => '體育館',
@@ -41,9 +41,9 @@ return [
     'Mainstage' => '音樂臺',
     'MakoMart' => '座頭購物中心',
     'Mall' => '商場',
-    'Manta' => '蝙蝠號',
-    'Manta Maria' => '蝙蝠瑪麗號',
-    'Mart' => '市場',
+    'Manta' => '瑪利亞號',
+    'Manta Maria' => '鬼蝠魟瑪利亞號',
+    'Mart' => '購物中心',
     'MC.Princess Diaries' => '司儀公主的日記',
     'Moray Towers' => '帶魚停車場',
     'Musselforge Fitness' => '藤壺健身房',
