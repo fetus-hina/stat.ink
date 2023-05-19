@@ -238,26 +238,55 @@ class Migration extends BaseMigration
         }
     }
 
+    /**
+     * @param string[] $columns
+     */
     public function dropColumns(string $table, array $columns): void
     {
         $time = $this->beginCommand(sprintf(
             'drop columns %s from table %s',
-            implode(', ', array_keys($columns)),
+            implode(', ', array_values($columns)),
             $table,
         ));
 
         $db = $this->db;
-        $sql = 'ALTER TABLE ' . $db->quoteTableName($table) . ' ' . implode(', ', array_map(
-            fn (string $column): string => 'DROP COLUMN ' . $db->quoteColumnName($column),
-            $columns,
-        ));
+        $sql = vsprintf('ALTER TABLE %s %s', [
+            $db->quoteTableName($table),
+            implode(
+                ', ',
+                array_map(
+                    fn (string $column): string => vsprintf('DROP COLUMN %s', [
+                        $db->quoteColumnName($column),
+                    ]),
+                    $columns,
+                ),
+            ),
+        ]);
         $db->createCommand($sql)->execute();
         $this->endCommand($time);
     }
 
-    public function analyze($table): void
+    /**
+     * @param string|string[] $table
+     */
+    public function analyze(string|array $table): void
     {
-        $this->execute("VACUUM ANALYZE {{{$table}}}");
+        // PgSQL 11 以降(?) なら複数テーブルを指定できるはずだが、分岐がめんどくさいので
+        // とりあえずループで回す
+        if (is_array($table)) {
+            foreach ($table as $t) {
+                $this->analyze($t);
+            }
+
+            return;
+        }
+
+        $db = $this->db;
+        $this->execute(
+            vsprintf('VACUUM ( ANALYZE ) %s', [
+                $db->quoteTableName($table),
+            ]),
+        );
     }
 
     public function isTableExists(string $table, string $schema = 'public'): bool
