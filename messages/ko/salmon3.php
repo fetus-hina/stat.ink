@@ -40,6 +40,7 @@ return [
     'Pay Grade' => '평가 포인트',
     'Private Job' => '프라이빗 아르바이트',
     'Random Loan Rate' => '랜덤 지급 확률',
+    'Rare Only' => '',
     'Rescued' => '도움을 받은 수',
     'Rescues' => '도움을 준 수',
     'Salmometer' => '두목 게이지',

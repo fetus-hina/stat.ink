@@ -27,9 +27,9 @@ use yii\web\View;
  */
 
 $title = Yii::t('app', 'Knockout Rate');
-$this->title = Yii::$app->name . ' | ' . $title;
+$this->title = $title . ' | ' . Yii::$app->name;
 
-OgpHelper::default($this, description: $title);
+OgpHelper::default($this, title: $this->title);
 
 EntireKnockoutAsset::register($this);
 

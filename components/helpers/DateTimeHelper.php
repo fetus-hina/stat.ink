@@ -14,9 +14,12 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
 use Yii;
+use app\components\helpers\dateTimeHelper\FormatTrait;
 
 final class DateTimeHelper
 {
+    use FormatTrait;
+
     public static function now(): DateTimeImmutable
     {
         return (new DateTimeImmutable())

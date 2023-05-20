@@ -40,6 +40,7 @@ return [
     'Pay Grade' => '評價倍率',
     'Private Job' => '私人打工',
     'Random Loan Rate' => '武器配發比率',
+    'Rare Only' => '',
     'Rescued' => '被救援數',
     'Rescues' => '救援隊友數',
     'Salmometer' => '頭目槽',

@@ -7,6 +7,7 @@ use app\assets\InlineListAsset;
 use app\assets\PaintballAsset;
 use app\assets\ReactCounterAppAsset;
 use app\assets\ReactIndexAppAsset;
+use app\assets\Spl3WeaponAsset;
 use app\components\helpers\OgpHelper;
 use app\components\widgets\GameVersionIcon;
 use app\components\widgets\HappyNewYearWidget;
@@ -143,7 +144,23 @@ OgpHelper::default($this, Url::to(['site/index'], true));
             ],
           ),
         ]),
-        Html::a(Html::encode(Yii::t('app-salmon3', 'Random Loan Rate')), ['entire/salmon3-random-loan']),
+        Html::a(
+          vsprintf('%s %s', [
+            Html::img(
+              Yii::$app->assetManager->getAssetUrl(
+                Yii::$app->assetManager->getBundle(Spl3WeaponAsset::class),
+                'main/random.png',
+              ),
+              [
+                'class' => 'basic-icon',
+                'draggable' => 'false',
+                'style' => ['--icon-height' => '1em'],
+              ],
+            ),
+            Html::encode(Yii::t('app-salmon3', 'Random Loan Rate')),
+          ]),
+          ['entire/salmon3-random-loan'],
+        ),
         Html::a(Html::encode(Yii::t('app-salmon3', 'Water Level and Events')), ['entire/salmon3-tide']),
         Html::a(
           vsprintf('%s %s', [

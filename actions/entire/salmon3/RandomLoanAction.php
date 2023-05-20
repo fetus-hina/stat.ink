@@ -79,7 +79,7 @@ final class RandomLoanAction extends Action
                     ),
                 ]);
             },
-            Transaction::READ_COMMITTED,
+            Transaction::REPEATABLE_READ,
         );
     }
 
@@ -96,7 +96,12 @@ final class RandomLoanAction extends Action
             ->groupBy(['{{t}}.[[schedule_id]]']);
 
         return SalmonSchedule3::find()
-            ->with(['map'])
+            ->with([
+              'map',
+              'salmonScheduleWeapon3s',
+              'salmonScheduleWeapon3s.random',
+              'salmonScheduleWeapon3s.weapon',
+            ])
             ->andWhere(['id' => $subQueryGetIds])
             ->andWhere(['<=', 'start_at', $now->format(DateTimeInterface::ATOM)])
             ->orderBy(['start_at' => SORT_DESC])

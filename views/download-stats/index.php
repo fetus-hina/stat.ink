@@ -17,11 +17,11 @@ $this->context->layout = 'main';
 $title = Yii::t('app', 'Downloads');
 
 $this->title = implode(' | ', [
-  Yii::$app->name,
   $title,
+  Yii::$app->name,
 ]);
 
-OgpHelper::default($this, description: $title);
+OgpHelper::default($this, title: $this->title);
 
 ?>
 <div class="container">

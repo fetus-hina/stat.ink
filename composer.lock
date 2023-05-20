@@ -1565,16 +1565,16 @@
         },
         {
             "name": "markrogoyski/math-php",
-            "version": "v2.8.0",
+            "version": "v2.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/markrogoyski/math-php.git",
-                "reference": "70d0111a0930338a60eed9cad23cf587a4806380"
+                "reference": "ea4f212732c333c62123c6f733edfb735a4e3abd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/markrogoyski/math-php/zipball/70d0111a0930338a60eed9cad23cf587a4806380",
-                "reference": "70d0111a0930338a60eed9cad23cf587a4806380",
+                "url": "https://api.github.com/repos/markrogoyski/math-php/zipball/ea4f212732c333c62123c6f733edfb735a4e3abd",
+                "reference": "ea4f212732c333c62123c6f733edfb735a4e3abd",
                 "shasum": ""
             },
             "require": {
@@ -1586,7 +1586,7 @@
                 "php-parallel-lint/php-parallel-lint": "^1.2",
                 "phploc/phploc": "*",
                 "phpmd/phpmd": "^2.6",
-                "phpstan/phpstan": "*",
+                "phpstan/phpstan": "^1.10",
                 "phpunit/phpunit": "^8.5",
                 "squizlabs/php_codesniffer": "3.*"
             },
@@ -1634,9 +1634,9 @@
             ],
             "support": {
                 "issues": "https://github.com/markrogoyski/math-php/issues",
-                "source": "https://github.com/markrogoyski/math-php/tree/v2.8.0"
+                "source": "https://github.com/markrogoyski/math-php/tree/v2.8.1"
             },
-            "time": "2023-05-07T17:45:19+00:00"
+            "time": "2023-05-19T04:40:46+00:00"
         },
         {
             "name": "maxmind-db/reader",
@@ -5483,16 +5483,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v4.15.4",
+            "version": "v4.15.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "6bb5176bc4af8bcb7d926f88718db9b96a2d4290"
+                "reference": "11e2663a5bc9db5d714eedb4277ee300403b4a9e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/6bb5176bc4af8bcb7d926f88718db9b96a2d4290",
-                "reference": "6bb5176bc4af8bcb7d926f88718db9b96a2d4290",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/11e2663a5bc9db5d714eedb4277ee300403b4a9e",
+                "reference": "11e2663a5bc9db5d714eedb4277ee300403b4a9e",
                 "shasum": ""
             },
             "require": {
@@ -5533,9 +5533,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/v4.15.4"
+                "source": "https://github.com/nikic/PHP-Parser/tree/v4.15.5"
             },
-            "time": "2023-03-05T19:49:14+00:00"
+            "time": "2023-05-19T20:20:00+00:00"
         },
         {
             "name": "phar-io/manifest",

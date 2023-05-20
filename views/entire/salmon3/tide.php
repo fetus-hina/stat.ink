@@ -32,7 +32,7 @@ $this->title = vsprintf('%s | %s', [
   Yii::$app->name,
 ]);
 
-OgpHelper::default($this, description: $title);
+OgpHelper::default($this, title: $this->title);
 
 ?>
 <div class="container">

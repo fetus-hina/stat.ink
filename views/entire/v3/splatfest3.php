@@ -19,9 +19,9 @@ use yii\web\View;
  */
 
 $title = Yii::t('app', 'Estimated Vote %');
-$this->title = Yii::$app->name . ' | ' . $title;
+$this->title = $title . ' | ' . Yii::$app->name;
 
-OgpHelper::default($this, description: $title);
+OgpHelper::default($this, title: $this->title);
 
 $this->registerCss(
     implode(
