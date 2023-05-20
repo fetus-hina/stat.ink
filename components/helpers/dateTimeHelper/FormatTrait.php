@@ -92,7 +92,7 @@ trait FormatTrait
                 'zh-TW' => 'yyyy年M月d日 ah時',
                 default => 'MMM d, yyyy, h a'
             },
-            default => throw new UnexpectedValueExceptiona('Unexpected date time skeleton'),
+            default => throw new UnexpectedValueException('Unexpected date time skeleton'),
         };
     }
 }
