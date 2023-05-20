@@ -2,11 +2,14 @@
 
 declare(strict_types=1);
 
+use app\assets\Spl3WeaponAsset;
+use app\components\helpers\DateTimeHelper;
 use app\components\helpers\OgpHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\v3\WeaponName;
 use app\models\SalmonSchedule3;
+use app\models\SalmonScheduleWeapon3;
 use app\models\SalmonWeapon3;
 use yii\bootstrap\Progress;
 use yii\data\ArrayDataProvider;
@@ -53,6 +56,8 @@ $dataProvider = Yii::createObject([
   'sort' => false,
 ]);
 
+$dropdownDatePattern = DateTimeHelper::formatDH();
+
 ?>
 <div class="container">
   <h1><?= Html::encode($title) ?></h1>
@@ -65,20 +70,50 @@ $dataProvider = Yii::createObject([
     implode(
       '',
       array_map(
-        fn (SalmonSchedule3 $model): string => Html::tag(
-          'option',
-          Html::encode(vsprintf('%s - %s', [
-            Yii::$app->formatter->asDateTime($model->start_at, 'short', 'short'),
-            Yii::$app->formatter->asDateTime($model->end_at, 'short', 'short'),
-          ])),
-          [
-            'selected' => $model->id === $schedule->id,
-            'value' => Url::to(
-              ['entire/salmon3-random-loan', 'id' => $model->id],
-              true,
+        function (SalmonSchedule3 $model) use ($schedule): string {
+          $isRareOnly = array_sum(
+            array_map(
+              fn (SalmonScheduleWeapon3 $info): int => $info->random?->key === 'random_rare' ? 1 : 0,
+              $model->salmonScheduleWeapon3s,
             ),
-          ],
-        ),
+          ) === 4;
+
+          return Html::tag(
+            'option',
+            Html::encode(
+              trim(
+                implode(' ', [
+                  $model->is_eggstra_work
+                    ? sprintf('[%s]', Yii::t('app-salmon3', 'Eggstra Work'))
+                    : '',
+                  $model->big_map_id !== null
+                    ? sprintf('[%s]', Yii::t('app-salmon3', 'Big Run'))
+                    : '',
+                  $isRareOnly
+                    ? sprintf('[%s]', Yii::t('app-salmon3', 'Rare Only'))
+                    : '',
+                  Yii::t('app', '{from} - {to}', [
+                    'from' => Yii::$app->formatter->asDate(
+                      $model->start_at,
+                      DateTimeHelper::formatYMDH(),
+                    ),
+                    'to' => Yii::$app->formatter->asDate(
+                      $model->end_at,
+                      DateTimeHelper::formatYMDH(),
+                    ),
+                  ]),
+                ]),
+              ),
+            ),
+            [
+              'selected' => $model->id === $schedule->id,
+              'value' => Url::to(
+                ['entire/salmon3-random-loan', 'id' => $model->id],
+                true,
+              ),
+            ],
+          );
+        },
         $schedules,
       ),
     ),
@@ -90,14 +125,57 @@ $dataProvider = Yii::createObject([
 
   <?= Html::tag(
     'h2',
-    vsprintf('%s - %s', [
-      Yii::$app->formatter->asHtmlDateTime($schedule->start_at, 'short', 'short'),
-      Yii::$app->formatter->asHtmlDateTime($schedule->end_at, 'short', 'short'),
-    ])
+    Html::encode(
+      Yii::t('app', '{from} - {to}', [
+        'from' => Yii::$app->formatter->asDate(
+          $schedule->start_at,
+          DateTimeHelper::formatYMDH(),
+        ),
+        'to' => Yii::$app->formatter->asDate(
+          $schedule->end_at,
+          DateTimeHelper::formatYMDH(),
+        ),
+      ]),
+    )
   ) . "\n" ?>
-<?php if ($schedule->map) { ?>
-  <?= Html::tag('p', Html::encode(Yii::t('app-map3', $schedule->map->name))) . "\n" ?>
-<?php } ?>
+  <?= Html::tag(
+    'p',
+    implode(' ', [
+      Html::encode(
+        $schedule->big_map_id !== null
+          ? sprintf('[%s]', Yii::t('app-salmon3', 'Big Run'))
+          : '',
+      ),
+      Html::encode(
+        Yii::t(
+          'app-map3',
+          $schedule->map?->name ?? $schedule->bigMap?->name ?? '?',
+        ),
+      ),
+      implode(
+        ' ',
+        array_map(
+          fn (SalmonScheduleWeapon3 $info): string => Html::img(
+            Yii::$app->assetManager->getAssetUrl(
+              Yii::$app->assetManager->getBundle(Spl3WeaponAsset::class),
+              vsprintf('main/%s.png', [
+                rawurlencode(
+                  $info->weapon?->key ?? $info->random?->key ?? '',
+                ),
+              ]),
+            ),
+            [
+              'alt' => Yii::t('app-weapon3', $info->weapon?->name ?? $info->random?->name ?? ''),
+              'class' => 'basic-icon auto-tooltip',
+              'draggable' => 'false',
+              'title' => Yii::t('app-weapon3', $info->weapon?->name ?? $info->random?->name ?? ''),
+            ],
+          ),
+          $schedule->salmonScheduleWeapon3s,
+        ),
+      ),
+    ]),
+  ) . "\n" ?>
 
   <div class="table-responsive">
     <?= GridView::widget([

@@ -39,6 +39,7 @@ return [
     'Pay Grade' => '',
     'Private Job' => 'Lavoro privato',
     'Random Loan Rate' => '',
+    'Rare Only' => '',
     'Rescued' => '',
     'Rescues' => '',
     'Salmometer' => '',

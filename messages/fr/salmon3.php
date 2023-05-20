@@ -40,6 +40,7 @@ return [
     'Pay Grade' => '',
     'Private Job' => 'Mission privée',
     'Random Loan Rate' => '',
+    'Rare Only' => '',
     'Rescued' => 'Sauvetages necessités',
     'Rescues' => 'Sauvetages effectués',
     'Salmometer' => '',
