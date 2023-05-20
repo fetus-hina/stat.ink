@@ -18,9 +18,9 @@ use yii\web\View;
  */
 
 $title = Yii::t('app', 'Battles and Users');
-$this->title = sprintf('%s | %s', Yii::$app->name, $title);
+$this->title = sprintf('%s | %s', $title, Yii::$app->name);
 
-OgpHelper::default($this, description: $title);
+OgpHelper::default($this, title: $this->title);
 
 $this->registerCss('#graph{height:300px;margin-bottom:10px}');
 

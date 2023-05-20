@@ -26,9 +26,9 @@ use yii\web\View;
  */
 
 $title = Yii::t('app', 'Special Uses');
-$this->title = Yii::$app->name . ' | ' . $title;
+$this->title = $title . ' | ' . Yii::$app->name;
 
-OgpHelper::default($this, description: $title);
+OgpHelper::default($this, title: $this->title);
 
 ?>
 <div class="container">

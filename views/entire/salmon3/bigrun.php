@@ -30,9 +30,12 @@ use yii\web\View;
  */
 
 $title = Yii::t('app-salmon3', 'Big Run');
-$this->title = Yii::$app->name . ' | ' . $title;
+$this->title = implode(' | ', [
+  $title,
+  Yii::$app->name,
+]);
 
-OgpHelper::default($this, description: $title);
+OgpHelper::default($this, title: $this->title);
 
 $fmt = Yii::$app->formatter;
 

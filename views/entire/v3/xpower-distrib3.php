@@ -22,9 +22,9 @@ use yii\web\View;
  */
 
 $title = Yii::t('app', 'X Power');
-$this->title = Yii::$app->name . ' | ' . $title;
+$this->title = $title . ' | ' . Yii::$app->name;
 
-OgpHelper::default($this, description: $title);
+OgpHelper::default($this, title: $title);
 
 /**
  * @var array<int, StatXPowerDistribAbstract3> $abstracts

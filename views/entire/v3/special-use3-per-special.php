@@ -31,9 +31,9 @@ $title = vsprintf('%s - %s', [
   Yii::t('app', 'Special Uses'),
   Yii::t('app-special3', $special->name),
 ]);
-$this->title = Yii::$app->name . ' | ' . $title;
+$this->title = $title . ' | ' . Yii::$app->name;
 
-OgpHelper::default($this, description: $title);
+OgpHelper::default($this, title: $title);
 
 ?>
 <div class="container">

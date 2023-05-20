@@ -29,9 +29,9 @@ use yii\web\View;
  */
 
 $title = Yii::t('app', 'Winning Percentage based on K/D');
-$this->title = Yii::$app->name . ' | ' . $title;
+$this->title = $title . ' | ' . Yii::$app->name;
 
-OgpHelper::default($this, description: $title);
+OgpHelper::default($this, title: $this->title);
 
 TableResponsiveForceAsset::register($this);
 

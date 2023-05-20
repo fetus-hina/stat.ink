@@ -21,11 +21,14 @@ use function vsprintf;
 
 final class OgpHelper
 {
+    private const NAME_WITH_SLOGAN = 'stat.ink -- Go Deeper, Have More Fun.';
+    private const DEFAULT_DESCRIPTION = 'stat.ink saves and analyzes your Splatoon results.';
+
     public static function default(
         View $view,
         ?string $url = null,
-        string $title = 'stat.ink',
-        string $description = 'stat.ink',
+        string $title = self::NAME_WITH_SLOGAN,
+        ?string $description = null,
     ): void {
         if ($url === null) {
             try {
@@ -36,10 +39,16 @@ final class OgpHelper
         }
         $url = Url::to($url, true);
 
+        if ($description === null) {
+            $description = $title === self::NAME_WITH_SLOGAN
+                ? self::DEFAULT_DESCRIPTION
+                : self::NAME_WITH_SLOGAN;
+        }
+
         $data = [
-            'og:description' => $title,
+            'og:description' => $description,
             'og:image' => 'https://s3-img-gen.stats.ink/ogp/default.jpg',
-            'og:image:alt' => 'stat.ink -- Go Deeper, Have More Fun.',
+            'og:image:alt' => self::NAME_WITH_SLOGAN,
             'og:site_name' => Yii::$app->name,
             'og:title' => $title,
             'og:type' => 'website',
@@ -60,7 +69,7 @@ final class OgpHelper
         View $view,
         User $user,
         ?string $url = null,
-        ?string $description = null,
+        ?string $description = self::NAME_WITH_SLOGAN,
     ): void {
         if ($url === null) {
             try {
@@ -73,7 +82,7 @@ final class OgpHelper
 
         $title = Yii::t('app', "{name}'s Splat Log", ['name' => $user->name]);
         if ($description === null) {
-            $description = $title;
+            $description = self::NAME_WITH_SLOGAN;
         }
 
         if (Yii::$app->params['useS3ImgGen']) {
