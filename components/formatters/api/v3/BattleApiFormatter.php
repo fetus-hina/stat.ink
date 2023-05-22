@@ -89,6 +89,8 @@ final class BattleApiFormatter
             'challenge_lose' => $model->challenge_lose,
             'x_power_before' => self::formatPower($model->x_power_before),
             'x_power_after' => self::formatPower($model->x_power_after),
+            'bankara_power_before' => self::formatPower($model->bankara_power_before),
+            'bankara_power_after' => self::formatPower($model->bankara_power_after),
             'fest_power' => self::formatPower($model->fest_power),
             'fest_dragon' => DragonMatchApiFormatter::toJson($model->festDragon, $fullTranslate),
             'clout_before' => $model->clout_before,

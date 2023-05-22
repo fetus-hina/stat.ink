@@ -231,8 +231,9 @@ trait BattleTrait
                         $battle->is_knockout === null ? '' : ($battle->is_knockout ? 'TRUE' : 'FALSE'),
                         self::rank($battle->rankBefore, $battle->rank_before_s_plus),
                         match ($battle->lobby?->key) {
-                            'xmatch' => self::powerFormat($battle->x_power_before),
+                            'bankara_open' => self::powerFormat($battle->bankara_power_before),
                             'splatfest_challenge' => self::powerFormat($battle->fest_power),
+                            'xmatch' => self::powerFormat($battle->x_power_before),
                             default => self::powerFormat(null),
                         },
                         (string)$battle->our_team_inked,

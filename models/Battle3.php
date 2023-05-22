@@ -89,6 +89,8 @@ use yii\db\ActiveRecord;
  * @property string $third_team_percent
  * @property integer $signal
  * @property string $replay_code
+ * @property string $bankara_power_before
+ * @property string $bankara_power_after
  *
  * @property Agent $agent
  * @property BattleAgentVariable3[] $battleAgentVariable3s
@@ -133,7 +135,7 @@ class Battle3 extends ActiveRecord
             [['user_id', 'lobby_id', 'rule_id', 'map_id', 'weapon_id', 'result_id', 'rank_in_team', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'inked', 'our_team_inked', 'their_team_inked', 'our_team_count', 'their_team_count', 'level_before', 'level_after', 'rank_before_id', 'rank_before_s_plus', 'rank_before_exp', 'rank_after_id', 'rank_after_s_plus', 'rank_after_exp', 'cash_before', 'cash_after', 'version_id', 'agent_id', 'period', 'remote_port', 'challenge_win', 'challenge_lose', 'rank_exp_change', 'clout_before', 'clout_after', 'clout_change', 'fest_dragon_id', 'our_team_role_id', 'their_team_role_id', 'third_team_role_id', 'our_team_theme_id', 'their_team_theme_id', 'third_team_theme_id', 'third_team_inked', 'signal'], 'default', 'value' => null],
             [['user_id', 'lobby_id', 'rule_id', 'map_id', 'weapon_id', 'result_id', 'rank_in_team', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'inked', 'our_team_inked', 'their_team_inked', 'our_team_count', 'their_team_count', 'level_before', 'level_after', 'rank_before_id', 'rank_before_s_plus', 'rank_before_exp', 'rank_after_id', 'rank_after_s_plus', 'rank_after_exp', 'cash_before', 'cash_after', 'version_id', 'agent_id', 'period', 'remote_port', 'challenge_win', 'challenge_lose', 'rank_exp_change', 'clout_before', 'clout_after', 'clout_change', 'fest_dragon_id', 'our_team_role_id', 'their_team_role_id', 'third_team_role_id', 'our_team_theme_id', 'their_team_theme_id', 'third_team_theme_id', 'third_team_inked', 'signal'], 'integer'],
             [['is_knockout', 'is_automated', 'use_for_entire', 'is_deleted', 'is_rank_up_battle', 'has_disconnect'], 'boolean'],
-            [['our_team_percent', 'their_team_percent', 'fest_power', 'x_power_before', 'x_power_after', 'third_team_percent'], 'number'],
+            [['our_team_percent', 'their_team_percent', 'fest_power', 'x_power_before', 'x_power_after', 'third_team_percent', 'bankara_power_before', 'bankara_power_after'], 'number'],
             [['start_at', 'end_at', 'created_at', 'updated_at'], 'safe'],
             [['our_team_color', 'their_team_color', 'third_team_color'], 'string', 'max' => 8],
             [['replay_code'], 'string', 'max' => 16],
@@ -234,6 +236,8 @@ class Battle3 extends ActiveRecord
             'third_team_percent' => 'Third Team Percent',
             'signal' => 'Signal',
             'replay_code' => 'Replay Code',
+            'bankara_power_before' => 'Bankara Power Before',
+            'bankara_power_after' => 'Bankara Power After',
         ];
     }
 
