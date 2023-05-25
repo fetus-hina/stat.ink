@@ -10,6 +10,7 @@
 declare(strict_types=1);
 
 return [
+    'Annaki Splattershot Nova' => '',
     'Arroseur lourd' => '',
     'Arroseur lourd Cerise' => '',
     'Arroseur lourd Cétacé' => '',
@@ -104,6 +105,7 @@ return [
     'Lanceur héroïque (réplique)' => '',
     'Lanceur Octaling (réplique)' => '',
     'Lanceur spatial' => '',
+    'Light Tetra Dualies' => '',
     'Liquidateur' => '',
     'Liquidateur griffé' => '',
     'Liquidateur Jr.' => '',
@@ -158,6 +160,8 @@ return [
     'Seauceur chic' => '',
     'Seauceur Diabolo' => '',
     'Seauceur héroïque (réplique)' => '',
+    'Splatana Wiper Deco' => '',
+    'Tenta Sorella Brella' => '',
     'Transperceur M. Ours SA' => '',
     'Trisperceur' => '',
     'Turboblaster' => '',

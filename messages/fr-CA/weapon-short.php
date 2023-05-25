@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 return [
     '  Flexi-rouleau aluminium' => '',
+    'Annaki Splattershot Nova' => '',
     'Arroseur lourd' => '',
     'Arroseur lourd Cerise' => '',
     'Arroseur lourd cerise' => '',
@@ -89,6 +90,7 @@ return [
     'Fusil M. Ours Cie' => '',
     'Fusil M. Ours SA' => '',
     'Lanceur spatial' => '',
+    'Light Tetra Dualies' => '',
     'Lignizateur alpha' => '',
     'Lignizateur bêta' => '',
     'Lignizateur gamma' => '',
@@ -155,6 +157,8 @@ return [
     'Seauceur nuancé' => '',
     'Seauceur pétillant' => '',
     'Seauceur trio' => '',
+    'Splatana Wiper Deco' => '',
+    'Tenta Sorella Brella' => '',
     'Transperceur M. Ours Cie' => '',
     'Trisperceur' => '',
     'Turboblasteur' => '',
