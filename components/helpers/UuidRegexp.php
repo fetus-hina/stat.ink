@@ -31,7 +31,7 @@ final class UuidRegexp
         return implode('-', [
             '[0-9a-f]{8}',
             '[0-9a-f]{4}',
-            '[1345][0-9a-f]{3}', // version
+            '[13-8][0-9a-f]{3}', // version
             '[89ab][0-9a-f]{3}', // variant
             '[0-9a-f]{12}',
         ]);
