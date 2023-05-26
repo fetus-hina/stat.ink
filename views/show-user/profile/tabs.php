@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use app\components\widgets\GameVersionIcon;
 use app\models\User;
 use yii\bootstrap\Html;
 use yii\bootstrap\Tabs;
@@ -19,52 +18,19 @@ use yii\widgets\Pjax;
 $tabs = [
   [
     'id' => '',
-    'encode' => false,
-    'label' => implode('', [
-      Html::tag(
-        'span',
-        GameVersionIcon::widget(['version' => 3]),
-        [
-          'title' => Yii::t('app', 'Splatoon 3'),
-          'class' => 'auto-tooltip',
-        ]
-      ),
-      Html::tag('span', Yii::t('app', 'Splatoon 3'), ['class' => 'sr-only']),
-    ]),
+    'label' => Yii::t('app', 'Splatoon 3'),
     'active' => false,
     'content' => fn () => $this->render('//show-user/profile/tabs/splatoon3', ['user' => $user]),
   ],
   [
     'id' => '2',
-    'encode' => false,
-    'label' => implode('', [
-      Html::tag(
-        'span',
-        GameVersionIcon::widget(['version' => 2]),
-        [
-          'title' => Yii::t('app', 'Splatoon 2'),
-          'class' => 'auto-tooltip',
-        ]
-      ),
-      Html::tag('span', Yii::t('app', 'Splatoon 2'), ['class' => 'sr-only']),
-    ]),
+    'label' => Yii::t('app', 'Splatoon 2'),
     'active' => false,
     'content' => fn() => $this->render('//show-user/profile/tabs/splatoon2', ['user' => $user]),
   ],
   [
     'id' => '1',
-    'encode' => false,
-    'label' => implode('', [
-      Html::tag(
-        'span',
-        GameVersionIcon::widget(['version' => 1]),
-        [
-          'title' => Yii::t('app', 'Splatoon'),
-          'class' => 'auto-tooltip',
-        ]
-      ),
-      Html::tag('span', Yii::t('app', 'Splatoon'), ['class' => 'sr-only']),
-    ]),
+    'label' => Yii::t('app', 'Splatoon'),
     'active' => false,
     'content' => fn () => $this->render('//show-user/profile/tabs/splatoon', ['user' => $user]),
   ],

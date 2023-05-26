@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use app\assets\AppLinkAsset;
 use app\components\widgets\FlagIcon;
-use app\components\widgets\GameVersionIcon;
 use app\components\widgets\Icon;
 use yii\helpers\Html;
 use yii\web\View;
@@ -28,7 +27,6 @@ $list = [
   [
     // S3 official {{{
     'name' => implode(' ', [
-      GameVersionIcon::widget(['version' => 3]),
       Html::encode(Yii::t('app', '{title} Official Website', [
         'title' => Yii::t('app', 'Splatoon 3'),
       ])),
@@ -61,7 +59,6 @@ $list = [
   [
     // S2 official {{{
     'name' => implode(' ',[
-      GameVersionIcon::widget(['version' => 2]),
       Html::encode(Yii::t('app', '{title} Official Website', [
         'title' => Yii::t('app', 'Splatoon 2'),
       ])),
@@ -94,7 +91,6 @@ $list = [
   [
     // S1 official {{{
     'name' => implode(' ',[
-      GameVersionIcon::widget(['version' => 1]),
       Html::encode(Yii::t('app', '{title} Official Website', [
         'title' => Yii::t('app', 'Splatoon'),
       ])),
@@ -238,7 +234,6 @@ $list = [
   [],
   [
     'name' => implode(' ', [
-      GameVersionIcon::widget(['version' => 2]),
       Html::encode(Yii::t('app', 'Apps for {version}', ['version' => Yii::t('app', 'Splatoon 2')])),
     ]),
     'sub' => [
@@ -273,7 +268,6 @@ $list = [
   ],
   [
     'name' => implode(' ', [
-      GameVersionIcon::widget(['version' => 1]),
       Html::encode(Yii::t('app', 'Apps for {version}', ['version' => Yii::t('app', 'Splatoon 1')])),
     ]),
     'sub' => [

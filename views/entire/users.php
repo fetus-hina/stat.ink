@@ -2,7 +2,6 @@
 
 use app\components\helpers\OgpHelper;
 use app\components\widgets\AdWidget;
-use app\components\widgets\GameVersionIcon;
 use app\components\widgets\SnsWidget;
 use jp3cki\yii2\flot\FlotAsset;
 use jp3cki\yii2\flot\FlotTimeAsset;
@@ -54,7 +53,6 @@ FlotTimeAsset::register($this);
       [
         'encode' => false,
         'label' => implode(' ', [
-          GameVersionIcon::widget(['version' => 3]),
           Html::encode(Yii::t('app', 'Splatoon 3')),
         ]),
         'content' => $this->render('users/splatoon3', ['agents' => $agents3]),
@@ -63,7 +61,6 @@ FlotTimeAsset::register($this);
       [
         'encode' => false,
         'label' => implode(' ', [
-          GameVersionIcon::widget(['version' => 2]),
           Html::encode(Yii::t('app', 'Splatoon 2')),
         ]),
         'content' => $this->render('users/splatoon2', ['agents' => $agents2]),
@@ -72,7 +69,6 @@ FlotTimeAsset::register($this);
       [
         'encode' => false,
         'label' => implode(' ', [
-          GameVersionIcon::widget(['version' => 1]),
           Html::encode(Yii::t('app', 'Splatoon')),
         ]),
         'content' => $this->render('users/splatoon1', compact('combineds', 'agentNames', 'agents')),
