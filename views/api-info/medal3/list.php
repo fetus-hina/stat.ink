@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use app\assets\Medal3Asset;
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\ApiInfoName;
 use app\models\MedalCanonical3;
@@ -18,10 +17,6 @@ use yii\web\View;
  */
 
 TableResponsiveForceAsset::register($this);
-
-$asset = Medal3Asset::register($this);
-$am = Yii::$app->assetManager;
-assert($am instanceof AssetManager);
 
 ?>
 <div class="table-responsive table-responsive-force">
@@ -41,13 +36,7 @@ assert($am instanceof AssetManager);
 <?php foreach ($medals as $medal) { ?>
       <tr>
         <td>
-          <?= Html::img(
-            $am->getAssetUrl($asset, $medal->gold ? 'gold.png' : 'silver.png'),
-            [
-              'class' => 'basic-icon',
-              'draggable' => 'false',
-            ],
-          ) . "\n" ?>
+          <?= mb_chr($medal->gold ? 0x1F947 : 0x1F948) . "\n" ?>
         </td>
 <?php foreach ($langs as $i => $lang) { ?>
         <?= Html::tag(
