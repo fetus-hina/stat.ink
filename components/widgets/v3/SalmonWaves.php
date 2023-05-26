@@ -13,7 +13,6 @@ namespace app\components\widgets\v3;
 use Yii;
 use app\assets\SalmonEggAsset;
 use app\assets\SalmonWavesAsset;
-use app\assets\Spl3WeaponAsset;
 use app\components\i18n\Formatter;
 use app\components\widgets\Label;
 use app\models\Salmon3;
@@ -39,7 +38,6 @@ use function implode;
 use function min;
 use function range;
 use function sprintf;
-use function str_repeat;
 use function vsprintf;
 
 final class SalmonWaves extends Widget
@@ -398,11 +396,7 @@ final class SalmonWaves extends Widget
             implode('', [
                 Html::tag(
                     'th',
-                    vsprintf('%s %s/<wbr>%s', [
-                        Html::img(
-                            Yii::$app->assetManager->getAssetUrl($asset, 'golden-egg.png'),
-                            ['class' => 'basic-icon'],
-                        ),
+                    vsprintf('%s/<wbr>%s', [
                         Html::encode(Yii::t('app-salmon2', 'Delivers')),
                         Html::encode(Yii::t('app-salmon2', 'Quota')),
                     ]),
@@ -466,21 +460,15 @@ final class SalmonWaves extends Widget
                     ? ''
                     : Html::tag(
                         'td',
-                        implode(' ', [
-                            Html::img(
-                                Yii::$app->assetManager->getAssetUrl($asset, 'golden-egg.png'),
-                                ['class' => 'basic-icon'],
-                            ),
-                            Html::encode(
-                                $this->formatter->asInteger(
-                                    array_reduce(
-                                        ArrayHelper::getColumn($waves, 'deliv'),
-                                        fn (int $carry, ?int $item): int => $carry + (int)$item,
-                                        0,
-                                    ),
+                        Html::encode(
+                            $this->formatter->asInteger(
+                                array_reduce(
+                                    ArrayHelper::getColumn($waves, 'deliv'),
+                                    fn (int $carry, ?int $item): int => $carry + (int)$item,
+                                    0,
                                 ),
                             ),
-                        ]),
+                        ),
                         ['class' => 'text-center'],
                     ),
             ]),
@@ -499,13 +487,7 @@ final class SalmonWaves extends Widget
             implode('', [
                 Html::tag(
                     'th',
-                    vsprintf('%s %s', [
-                        Html::img(
-                            Yii::$app->assetManager->getAssetUrl($asset, 'golden-egg.png'),
-                            ['class' => 'basic-icon'],
-                        ),
-                        Html::encode(Yii::t('app-salmon2', 'Appearances')),
-                    ]),
+                    Html::encode(Yii::t('app-salmon2', 'Appearances')),
                 ),
                 implode('', array_map(
                     fn (array $wave, int $waveNumber): string => Html::tag(
@@ -522,25 +504,19 @@ final class SalmonWaves extends Widget
                     ? ''
                     : Html::tag(
                         'td',
-                        implode(' ', [
-                            Html::img(
-                                Yii::$app->assetManager->getAssetUrl($asset, 'golden-egg.png'),
-                                ['class' => 'basic-icon'],
-                            ),
-                            Html::encode(
-                                $this->formatter->asInteger(
-                                    array_reduce(
-                                        array_slice(
-                                            ArrayHelper::getColumn($waves, 'apper'),
-                                            0,
-                                            3, // ignores xtrawave
-                                        ),
-                                        fn (int $carry, ?int $item): int => $carry + (int)$item,
+                        Html::encode(
+                            $this->formatter->asInteger(
+                                array_reduce(
+                                    array_slice(
+                                        ArrayHelper::getColumn($waves, 'apper'),
                                         0,
+                                        3, // ignores xtrawave
                                     ),
+                                    fn (int $carry, ?int $item): int => $carry + (int)$item,
+                                    0,
                                 ),
                             ),
-                        ]),
+                        ),
                         ['class' => 'text-center'],
                     ),
             ]),
@@ -564,15 +540,16 @@ final class SalmonWaves extends Widget
                             $wave,
                             fn (array $wave): string => implode('', ArrayHelper::getColumn(
                                 $wave['specials'],
-                                function (SalmonSpecialUse3 $info): string {
-                                    $asset = Spl3WeaponAsset::register($this->view);
-                                    return str_repeat(
-                                        Html::img($asset->getIconUrl('special', $info->special->key), [
-                                            'class' => 'basic-icon mr-1',
+                                fn (SalmonSpecialUse3 $info): string => Html::tag(
+                                    'div',
+                                    Html::encode(
+                                        vsprintf('%d×%s', [
+                                            Yii::$app->formatter->asInteger($info->count),
+                                            Yii::t('app-special3', $info->special->name),
                                         ]),
-                                        $info->count,
-                                    );
-                                },
+                                    ),
+                                    ['class' => 'omit'],
+                                ),
                             )),
                         ),
                         ['style' => 'line-height:1.75em'],
