@@ -34,7 +34,7 @@ assert($am instanceof AssetManager);
       'th',
       Html::encode(Yii::t('app-rule3', $rule->name)),
       [
-        'class' => 'omit',
+        'class' => 'omit text-center',
         'style' => $cellStyle,
       ],
     ) . "\n" ?>

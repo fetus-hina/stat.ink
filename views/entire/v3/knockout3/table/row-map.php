@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use app\assets\Spl3StageAsset;
 use app\models\Knockout3;
 use app\models\Map3;
 use app\models\Rule3;
@@ -22,18 +21,9 @@ $am = Yii::$app->assetManager;
 <tr>
   <?= Html::tag(
     'th',
-    implode('<br>', [
-      Html::encode(Yii::t('app-map3', $map->name)),
-      Html::img(
-        $am->getAssetUrl(
-          $am->getBundle(Spl3StageAsset::class),
-          sprintf('color-normal/%s.jpg', $map->key),
-        ),
-        ['class' => 'map-image'],
-      ),
-    ]),
+    Html::encode(Yii::t('app-map3', $map->name)),
     [
-      'class' => 'text-center pb-3',
+      'class' => 'text-center align-middle pb-3',
       'scope' => 'row',
     ],
   ) . "\n" ?>

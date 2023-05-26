@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use app\assets\Spl3StageAsset;
 use app\models\Map3;
 use app\models\Rule3;
 use app\models\User;
@@ -23,25 +22,13 @@ echo Html::tag(
         'div',
         Html::tag(
           'span',
-          Html::encode(Yii::t('app-map3', $map->name)),
+          Html::encode(Yii::t('app-map3', $map->short_name)),
           [
             'class' => 'auto-tooltip',
             'title' => Yii::t('app-map3', $map->name),
           ],
         ),
         ['class' => 'omit'],
-      ),
-      Html::img(
-        Yii::$app->assetManager->getAssetUrl(
-          Spl3StageAsset::register($this),
-          sprintf('color-normal/%s.jpg', $map->key),
-        ),
-        [
-          'alt' => '',
-          'class' => 'auto-tooltip h-auto w-100',
-          'draggable' => 'false',
-          'title' => Yii::t('app-map3', $map->name),
-        ],
       ),
     ]),
     ['show-v3/user',
@@ -53,7 +40,7 @@ echo Html::tag(
     ],
   ),
   [
-    'class' => 'text-center',
+    'class' => 'text-center align-middle',
     'scope' => 'row',
   ],
 );

@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use app\assets\Spl3SalmonUniformAsset;
 use app\models\User;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -13,9 +12,6 @@ use yii\web\View;
  * @var User $user
  * @var View $this
  */
-
-$am = Yii::$app->assetManager;
-assert($am instanceof AssetManager);
 
 return [
   'contentOptions' => function (array $row): array {
@@ -36,19 +32,7 @@ return [
     ],
     'title' => Yii::t('app-salmon3', 'Defeated by {user}', ['user' => $user->name]),
   ],
-  'label' => implode(' ', [
-    Html::img(
-      $am->getAssetUrl(
-        $am->getBundle(Spl3SalmonUniformAsset::class),
-        'orange.png',
-      ),
-      [
-        'class' => 'basic-icon',
-        'draggable' => 'false',
-      ],
-    ),
-    Html::encode($user->name),
-  ]),
+  'label' => Html::encode($user->name),
   'value' => function (array $row): ?float {
     $appearances = (int)ArrayHelper::getValue($row, 'appearances');
     $defeated = (int)ArrayHelper::getValue($row, 'defeated_by_me');

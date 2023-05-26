@@ -6,7 +6,6 @@ use app\assets\InlineListAsset;
 use app\assets\PaintballAsset;
 use app\assets\ReactCounterAppAsset;
 use app\assets\ReactIndexAppAsset;
-use app\assets\Spl3WeaponAsset;
 use app\components\helpers\OgpHelper;
 use app\components\widgets\HappyNewYearWidget;
 use app\components\widgets\Icon;
