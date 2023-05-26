@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use MathPHP\Probability\Distribution\Continuous\Normal as NormalDistribution;
-use app\assets\GameModeIconsAsset;
 use app\assets\NotoSansMathAsset;
 use app\components\helpers\OgpHelper;
 use app\components\helpers\TypeHelper;
@@ -43,19 +42,7 @@ $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
 
 ?>
 <div class="container">
-  <h1>
-    <?= implode(' ', [
-      Html::img(
-        $am->getAssetUrl($am->getBundle(GameModeIconsAsset::class), 'spl3/salmon-bigrun.png'),
-        [
-          'class' => 'basic-icon',
-          'draggable' => 'false',
-          'style' => ['--icon-height' => '1em'],
-        ],
-      ),
-      Html::encode($title),
-    ]) . "\n" ?>
-  </h1>
+  <h1><?= Html::encode($title) ?></h1>
   <?= AdWidget::widget() . "\n" ?>
   <?= SnsWidget::widget() . "\n" ?>
 
@@ -64,30 +51,12 @@ $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
       <ul class="nav nav-tabs">
         <li role="presentation" class="active">
           <a>
-            <?= Html::img(
-              $am->getAssetUrl($am->getBundle(GameModeIconsAsset::class), 'spl3/salmon-bigrun.png'),
-              [
-                'class' => 'basic-icon',
-                'draggable' => 'false',
-                'style' => ['--icon-height' => '1em'],
-              ],
-            ) . "\n" ?>
             <?= Html::encode(Yii::t('app-salmon3', 'Big Run')) . "\n" ?>
           </a>
         </li>
         <li role="presentation">
           <?= Html::a(
-            implode(' ', [
-              Html::img(
-                $am->getAssetUrl($am->getBundle(GameModeIconsAsset::class), 'spl3/salmon-eggstra.png'),
-                [
-                  'class' => 'basic-icon',
-                  'draggable' => 'false',
-                  'style' => ['--icon-height' => '1em'],
-                ],
-              ),
-              Html::encode(Yii::t('app-salmon3', 'Eggstra Work'))
-            ]),
+            Html::encode(Yii::t('app-salmon3', 'Eggstra Work')),
             ['entire/salmon3-eggstra-work'],
           ) . "\n" ?>
         </li>
@@ -149,25 +118,12 @@ $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
   <div class="mb-3">
     <?= Html::tag(
       'h2',
-      implode(' ', [
-        Html::img(
-          Yii::$app->assetManager->getAssetUrl(
-            Yii::$app->assetManager->getBundle(GameModeIconsAsset::class),
-            'spl3/salmon-bigrun.png',
-          ),
-          [
-            'class' => 'basic-icon',
-            'draggable' => 'false',
-            'style' => ['--icon-height' => '1em'],
-          ],
-        ),
-        Html::encode(
-          vsprintf('%s (%s)', [
-            Yii::t('app-map3', $schedule->bigMap?->name ?? '?'),
-            $fmt->asDate($schedule->start_at, 'medium'),
-          ]),
-        ),
-      ]),
+      Html::encode(
+        vsprintf('%s (%s)', [
+          Yii::t('app-map3', $schedule->bigMap?->name ?? '?'),
+          $fmt->asDate($schedule->start_at, 'medium'),
+        ]),
+      ),
       ['class' => 'mt-0 mb-3'],
     ) . "\n" ?>
     <p class="mb-3">

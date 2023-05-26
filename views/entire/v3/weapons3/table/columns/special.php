@@ -13,7 +13,8 @@ return [
   'format' => 'raw',
   'headerOptions' => ['data-sort' => 'string'],
   'label' => '',
-  'value' => fn (StatWeapon3Usage|StatWeapon3UsagePerVersion $model): string => SpecialIcon::widget([
-    'model' => $model->weapon?->special,
-  ]),
+  'value' => fn (StatWeapon3Usage|StatWeapon3UsagePerVersion $model): string => Yii::t(
+    'app-special3',
+    $model->weapon?->special?->name ?? '',
+  ),
 ];

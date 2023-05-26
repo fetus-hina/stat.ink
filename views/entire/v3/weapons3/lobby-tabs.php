@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use app\assets\GameModeIconsAsset;
 use app\models\Lobby3;
 use yii\helpers\Html;
 use yii\web\View;
@@ -13,20 +12,6 @@ use yii\web\View;
  * @var array<int, Lobby3> $lobbies
  * @var callable(Lobby3): string $lobbyUrl
  */
-
-$icon = fn (Lobby3 $lobby): string => Html::img(
-  Yii::$app->assetManager->getAssetUrl(
-    GameModeIconsAsset::register($this),
-    sprintf('spl3/%s.png', $lobby->key),
-  ),
-  [
-    'class' => 'basic-icon',
-    'draggable' => 'false',
-    'style' => [
-      '--icon-height' => '1em',
-    ],
-  ],
-);
 
 ?>
 <nav class="mb-1">
@@ -39,16 +24,7 @@ $icon = fn (Lobby3 $lobby): string => Html::img(
           'li',
           Html::tag(
             'a',
-            implode(' ', [
-              $icon($item),
-              Html::tag(
-                'span',
-                Html::encode(Yii::t('app-lobby3', $item->name)),
-                $item->key === $lobby->key
-                  ? []
-                  : ['class' => 'd-none d-md-inline'],
-              ),
-            ]),
+            Html::encode(Yii::t('app-lobby3', $item->name)),
             $item->key !== $lobby->key
               ? ['href' => $lobbyUrl($item)]
               : [],

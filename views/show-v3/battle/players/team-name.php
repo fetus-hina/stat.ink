@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use app\assets\GameModeIconsAsset;
 use app\models\Splatfest3Theme;
 use app\models\TricolorRole3;
 use yii\helpers\Html;
@@ -22,17 +21,7 @@ if ($theme || $role) {
     array_filter(
       [
         $role
-          ? Html::img(
-            $am->getAssetUrl(
-              $am->getBundle(GameModeIconsAsset::class),
-              sprintf('spl3/tricolor-%s.png', $role->key),
-            ),
-            [
-              'class' => 'auto-tooltip basic-icon',
-              'draggable' => 'false',
-              'title' => Yii::t('app-rule3', $role->name),
-            ],
-          )
+          ? sprintf('[%s]', Yii::t('app-rule3', $role->name))
           : null,
         $theme
           ? Html::encode($theme->name)

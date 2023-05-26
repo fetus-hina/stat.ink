@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use app\assets\GameModeIconsAsset;
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\ApiInfoName;
 use app\models\SalmonMap3;
@@ -32,15 +31,6 @@ $fmt = Yii::$app->formatter;
 
 ?>
 <h2 id="salmon3">
-  <?= Html::img(
-    Yii::$app->assetManager->getAssetUrl(GameModeIconsAsset::register($this), 'spl3/salmon.png'),
-    [
-      'style' => [
-        'width' => 'auto',
-        'height' => '1em',
-      ],
-    ]
-  ) . "\n" ?>
   <?= Html::encode(Yii::t('app-salmon3', 'Salmon Run')) . "\n" ?>
 </h2>
 <div class="table-responsive table-responsive-force">

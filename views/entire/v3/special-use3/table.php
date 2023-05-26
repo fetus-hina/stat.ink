@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-use app\assets\GameModeIconsAsset;
 use app\assets\TableResponsiveForceAsset;
-use app\components\widgets\v3\weaponIcon\SpecialIcon;
 use app\models\Rule3;
 use app\models\Season3;
 use app\models\Special3;
@@ -49,10 +47,7 @@ $fmt = Yii::$app->formatter;
           'label' => Yii::t('app', 'Special'),
           'format' => 'raw',
           'value' => fn (StatSpecialUse3 $model): string => Html::a(
-            vsprintf('%s %s', [
-              SpecialIcon::widget(['model' => $specials[$model->special_id] ?? null]),
-              Html::encode(Yii::t('app-special3', $specials[$model->special_id]?->name ?? '')),
-            ]),
+            Html::encode(Yii::t('app-special3', $specials[$model->special_id]?->name ?? '')),
             ['entire/special-use3-per-special',
               'season' => $season->id,
               'special' => $specials[$model->special_id]?->key,

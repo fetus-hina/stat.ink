@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use app\assets\GameModeIconsAsset;
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\Icon;
 use app\models\Abilities3;
@@ -54,15 +53,16 @@ $isTricolor = $battle->rule?->key === 'tricolor';
         <th class="text-nowrap text-center col-kr"><?= Html::encode(Yii::t('app', 'KR')) ?></th>
         <th class="text-nowrap text-center col-special"><?= Html::encode(Yii::t('app', 'Sp')) ?></th>
 <?php if ($isTricolor) { ?>
-        <th class="text-nowrap text-center col-signal"><?=
-          Html::img(
-            Yii::$app->assetManager->getAssetUrl(GameModeIconsAsset::register($this), 'spl3/tricolor-attacker.png'),
+        <th class="text-nowrap text-center col-signal">
+          <?= Html::tag(
+            'span',
+            Html::encode(Yii::t('app', 'Sig')),
             [
-              'class' => 'auto-tooltip basic-icon',
+              'class' => 'auto-tooltip',
               'title' => Yii::t('app', 'Try to secure the Ultra Signal'),
             ],
-          )
-        ?></th>
+          ) . "\n" ?>
+        </th>
 <?php } ?>
       </tr>
     </thead>

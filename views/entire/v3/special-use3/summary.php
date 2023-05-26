@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use app\assets\GameModeIconsAsset;
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\v3\weaponIcon\SpecialIcon;
 use app\models\Rule3;
@@ -26,7 +25,6 @@ use yii\web\View;
 TableResponsiveForceAsset::register($this);
 
 $fmt = Yii::$app->formatter;
-$modeIconAsset = GameModeIconsAsset::register($this);
 
 /**
  * @var array<int, array<int, StatSpecialUse3>> $data2
@@ -55,16 +53,7 @@ $total2 = ArrayHelper::index($total, 'special_id');
 <?php foreach ($rules as $rule) { ?>
             <?= Html::tag(
               'th',
-              vsprintf('%s %s', [
-                Html::img(
-                  Yii::$app->assetManager->getAssetUrl($modeIconAsset, sprintf('spl3/%s.png', $rule->key)),
-                  [
-                    'class' => 'basic-icon',
-                    'draggable' => 'false',
-                  ],
-                ),
-                Html::encode(Yii::t('app-rule3', $rule->name)),
-              ]),
+              Html::encode(Yii::t('app-rule3', $rule->name)),
               ['width' => '14%'],
             ) . "\n" ?>
 <?php } ?>

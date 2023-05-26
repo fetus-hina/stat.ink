@@ -5,9 +5,7 @@ declare(strict_types=1);
 return [
   require __DIR__ . '/columns/buttons.php',
   require __DIR__ . '/columns/lobby.php',
-  require __DIR__ . '/columns/lobby-icon.php',
   require __DIR__ . '/columns/rule.php',
-  require __DIR__ . '/columns/rule-icon.php',
   require __DIR__ . '/columns/stage.php',
   require __DIR__ . '/columns/weapon.php',
   require __DIR__ . '/columns/weapon-icon.php',

@@ -11,7 +11,6 @@ use app\components\widgets\AdWidget;
 use app\components\widgets\Battle2FilterWidget;
 use app\components\widgets\EmbedVideo;
 use app\components\widgets\FA;
-use app\components\widgets\GameModeIcon;
 use app\components\widgets\Icon;
 use app\components\widgets\Label;
 use app\components\widgets\SnsWidget;
@@ -237,83 +236,6 @@ if ($user->twitter != '') {
             // }}}
           ],
           [
-            // lobby (icon) {{{
-            'label' => Html::tag(
-              'span',
-              Html::encode(Yii::t('app', 'Lobby')),
-              ['class' => 'sr-only']
-            ),
-            'encodeLabel' => false,
-            'headerOptions' => ['class' => 'cell-lobby-icon'],
-            'contentOptions' => ['class' => 'cell-lobby-icon'],
-            'format' => 'raw',
-            'value' => function (Battle2 $model): ?string {
-              $f = function (string $rule, string $icon): string {
-                return Html::tag(
-                  'span',
-                  GameModeIcon::spl2($icon, [
-                    'style' => [
-                      'height' => '1.2em',
-                    ],
-                  ]),
-                  [
-                    'class' => 'auto-tooltip',
-                    'title' => Yii::t('app-rule2', $rule),
-                  ]
-                );
-              };
-              switch ($model->mode->key ?? '') {
-                default:
-                  return null;
-
-                case 'regular':
-                  return $f($model->mode->name, 'nawabari');
-
-                case 'fest':
-                  switch ($model->lobby->key ?? '') {
-                    case 'standard':
-                      if ($model->version) {
-                        return $f(
-                          version_compare($model->version->tag, '4.0.0', '<')
-                            ? 'Splatfest (Solo)'
-                            : 'Splatfest (Pro)',
-                          'fest'
-                        );
-                      }
-                      return $f('Splatfest (Pro/Solo)', 'fest');
-
-                    case 'fest_normal':
-                      return $f('Splatfest (Normal)', 'fest');
-
-                    case 'squad_4':
-                      return $f('Splatfest (Team)', 'fest');
-                  
-                    default:
-                      return $f('Splatfest', 'fest');
-                  }
-
-                case 'gachi':
-                  switch ($model->lobby->key ?? '') {
-                    case 'standard':
-                      return $f('Ranked Battle (Solo)', 'gachi');
-
-                    case 'squad_2':
-                      return $f('League Battle (Twin)', 'league');
-
-                    case 'squad_4':
-                      return $f('League Battle (Quad)', 'league');
-
-                    default:
-                      return $f('Ranked Battle', 'gachi');
-                  }
-
-                case 'private':
-                  return $f('Private Battle', 'private');
-              }
-            },
-            // }}}
-          ],
-          [
             // lobby {{{
             'label' => Yii::t('app', 'Lobby'),
             'headerOptions' => ['class' => 'cell-lobby'],
@@ -438,37 +360,6 @@ if ($user->twitter != '') {
             // }}}
           ],
           [
-            // mode (icon) {{{
-            'label' => Html::tag(
-              'span',
-              Html::encode(Yii::t('app', 'Mode')),
-              ['class' => 'sr-only']
-            ),
-            'encodeLabel' => false,
-            'headerOptions' => ['class' => 'cell-rule-icon'],
-            'contentOptions' => ['class' => 'cell-rule-icon'],
-            'format' => 'raw',
-            'value' => function (Battle2 $model): ?string {
-              if (!$model->rule) {
-                return null;
-              }
-
-              return Html::tag(
-                'span',
-                GameModeIcon::spl2($model->rule->key, [
-                  'style' => [
-                    'height' => '1.2em',
-                  ],
-                ]),
-                [
-                  'class' => 'auto-tooltip',
-                  'title' => Yii::t('app-rule2', $model->rule->name),
-                ]
-              );
-            },
-            // }}}
-          ],
-          [
             // mode {{{
             'label' => Yii::t('app', 'Mode'),
             'attribute' => 'rule.name',
@@ -534,32 +425,6 @@ if ($user->twitter != '') {
                 [
                   'class' => 'auto-tooltip',
                   'title' => Yii::t('app-map2', $model->map->name ?? '?'),
-                ]
-              );
-            },
-            // }}}
-          ],
-          [
-            // weapon (icon) {{{
-            'label' => '', // Yii::t('app', 'Weapon'),
-            'headerOptions' => ['class' => 'cell-main-weapon-icon'],
-            'contentOptions' => ['class' => 'cell-main-weapon-icon'],
-            'format' => 'raw',
-            'value' => function ($model): ?string {
-              if (!$model->weapon) {
-                return null;
-              }
-
-              $icons = Spl2WeaponAsset::register($this);
-              return Html::img(
-                $icons->getIconUrl($model->weapon->key),
-                [
-                  'style' => [
-                    'height' => '1.5em',
-                    'width' => 'auto',
-                  ],
-                  'class' => 'auto-tooltip',
-                  'title' => Yii::t('app-weapon2', $model->weapon->name),
                 ]
               );
             },
@@ -656,74 +521,12 @@ if ($user->twitter != '') {
             // }}}
           ],
           [
-            // sub weapon (icon) {{{
-            'label' => Html::tag(
-              'span',
-              Html::encode(Yii::t('app', 'Sub Weapon')),
-              ['class' => 'sr-only']
-            ),
-            'encodeLabel' => false,
-            'headerOptions' => ['class' => 'cell-sub-weapon-icon'],
-            'contentOptions' => ['class' => 'cell-sub-weapon-icon'],
-            'format' => 'raw',
-            'value' => function (Battle2 $model): ?string {
-              if (!$model->weapon || !$model->weapon->subweapon) {
-                return null;
-              }
-
-              $icons = Spl2WeaponAsset::register($this);
-              return Html::img(
-                $icons->getIconUrl('sub/' . $model->weapon->subweapon->key),
-                [
-                  'style' => [
-                    'height' => '1.333em',
-                    'width' => 'auto',
-                  ],
-                  'class' => 'auto-tooltip',
-                  'title' => Yii::t('app-subweapon2', $model->weapon->subweapon->name),
-                ]
-              );
-            },
-            // }}} 
-          ],
-          [
             // sub weapon {{{
             'label' => Yii::t('app', 'Sub Weapon'),
             'attribute' => 'weapon.subweapon.name',
             'headerOptions' => ['class' => 'cell-sub-weapon'],
             'contentOptions' => ['class' => 'cell-sub-weapon'],
             'format' => ['translated', 'app-subweapon2'],
-            // }}} 
-          ],
-          [
-            // special weapon (icon) {{{
-            'label' => Html::tag(
-              'span',
-              Html::encode(Yii::t('app', 'Special Weapon')),
-              ['class' => 'sr-only']
-            ),
-            'encodeLabel' => false,
-            'headerOptions' => ['class' => 'cell-special-icon'],
-            'contentOptions' => ['class' => 'cell-special-icon'],
-            'format' => 'raw',
-            'value' => function (Battle2 $model): ?string {
-              if (!$model->weapon || !$model->weapon->special) {
-                return null;
-              }
-
-              $icons = Spl2WeaponAsset::register($this);
-              return Html::img(
-                $icons->getIconUrl('sp/' . $model->weapon->special->key),
-                [
-                  'style' => [
-                    'height' => '1.333em',
-                    'width' => 'auto',
-                  ],
-                  'class' => 'auto-tooltip',
-                  'title' => Yii::t('app-special2', $model->weapon->special->name),
-                ]
-              );
-            },
             // }}} 
           ],
           [
@@ -1237,22 +1040,17 @@ if ($user->twitter != '') {
       <div class="row"><?php
         $_list = [
           'cell-splatnet'             => Yii::t('app', 'SplatNet Battle #'),
-          'cell-lobby-icon'           => Yii::t('app', 'Lobby (Icon)'),
           'cell-lobby'                => Yii::t('app', 'Lobby'),
           'cell-room'                 => Yii::t('app', 'Room info (Private)'),
-          'cell-rule-icon'            => Yii::t('app', 'Mode (Icon)'),
           'cell-rule'                 => Yii::t('app', 'Mode'),
           'cell-rule-short'           => Yii::t('app', 'Mode (Short)'),
           'cell-special-battle'       => Yii::t('app', 'Special Battle (Fest)'),
           'cell-map'                  => Yii::t('app', 'Stage'),
           'cell-map-short'            => Yii::t('app', 'Stage (Short)'),
-          'cell-main-weapon-icon'     => Yii::t('app', 'Weapon (Icon)'),
           'cell-main-weapon'          => Yii::t('app', 'Weapon'),
           'cell-main-weapon-short'    => Yii::t('app', 'Weapon (Short)'),
           'cell-freshness'            => Yii::t('app', 'Freshness'),
-          'cell-sub-weapon-icon'      => Yii::t('app', 'Sub Weapon (Icon)'),
           'cell-sub-weapon'           => Yii::t('app', 'Sub Weapon'),
-          'cell-special-icon'         => Yii::t('app', 'Special (Icon)'),
           'cell-special'              => Yii::t('app', 'Special'),
           'cell-team-icon'            => Yii::t('app', 'Team Icon'),
           'cell-team-id'              => Yii::t('app', 'Team ID'),
