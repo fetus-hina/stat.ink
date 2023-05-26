@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use app\assets\Medal3Asset;
 use app\models\Battle3;
 use app\models\BattleMedal3;
 use app\models\MedalCanoical3;
@@ -23,9 +22,6 @@ return [
       return null;
     }
 
-    $am = Yii::$app->assetManager;
-    assert($am instanceof AssetManager);
-
     $items = [];
     foreach ($intermediates as $i => $intermediate) {
       /**
@@ -40,13 +36,7 @@ return [
         'div',
         implode(' ', [
           $canonical
-            ? Html::img(
-              $am->getAssetUrl(
-                $am->getBundle(Medal3Asset::class),
-                $canonical->gold ? 'gold.png' : 'silver.png',
-              ),
-              ['class' => 'basic-icon'],
-            )
+            ? mb_chr($canonical->gold ? 0x1F947 : 0x1F948)
             : '',
           Html::encode(
             $canonical

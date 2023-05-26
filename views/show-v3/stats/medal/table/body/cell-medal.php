@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use app\assets\Medal3Asset;
 use app\models\MedalCanonical3;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -14,22 +13,10 @@ use yii\web\View;
  * @var View $this
  */
 
-$am = Yii::$app->assetManager;
-assert($am instanceof AssetManager);
-
 echo Html::tag(
   'td',
   implode(' ', [
-    Html::img(
-      $am->getAssetUrl(
-        $am->getBundle(Medal3Asset::class),
-        $medal->gold ? 'gold.png' : 'silver.png',
-      ),
-      [
-        'class' => 'basic-icon',
-        'draggable' => 'false',
-      ],
-    ),
+    mb_chr($medal->gold ? 0x1F947 : 0x1F948),
     Html::encode(Yii::t('app-medal3', $medal->name)),
   ]),
   [

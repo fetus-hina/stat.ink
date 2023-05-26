@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use app\assets\Medal3Asset;
 use app\components\widgets\Icon;
 use app\models\Battle3;
 use app\models\Medal3;
@@ -47,13 +46,7 @@ return [
     foreach ($medals as $medal) {
       $canonical = $medal->canonical;
       if ($canonical) {
-        $items[] = Html::img(
-          $am->getAssetUrl($am->getBundle(Medal3Asset::class), $canonical->gold ? 'gold.png' : 'silver.png'),
-          [
-            'class' => 'auto-tooltip basic-icon',
-            'title' => Yii::t('app-medal3', $canonical->name),
-          ],
-        );
+        $items[] = mb_chr($canonical->gold ? 0x1F947 : 0x1F948);
       } else {
         $items[] = Html::tag(
           'span',
