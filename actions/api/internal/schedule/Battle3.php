@@ -124,47 +124,16 @@ trait Battle3
 
     private function getIconUrlForLobby3(Lobby3 $lobby): ?string
     {
-        return self::getAssetUrl3(
-            GameModeIconsAsset::class,
-            vsprintf('spl3/%s.png', [
-                $lobby->key,
-            ]),
-        );
+        return null;
     }
 
     private function getIconUrlForRule3(Rule3 $rule): ?string
     {
-        return self::getAssetUrl3(
-            GameModeIconsAsset::class,
-            vsprintf('spl3/%s.png', [
-                $rule->key,
-            ]),
-        );
+        return null;
     }
 
     private function getImageUrlForMap3(?Map3 $map): ?string
     {
-        return self::getAssetUrl3(
-            Spl3StageAsset::class,
-            vsprintf('color-normal/%s.jpg', [
-                $map?->key ?? 'unknown',
-            ]),
-        );
-    }
-
-    /**
-     * @param class-string<AssetBundle> $assetClass
-     */
-    private function getAssetUrl3(string $assetClass, string $path): ?string
-    {
-        if (!Yii::$app->view instanceof View) {
-            return null;
-        }
-
-        $am = Yii::$app->assetManager;
-        return Url::to(
-            $am->getAssetUrl($am->getBundle($assetClass, true), $path),
-            true,
-        );
+        return null;
     }
 }
