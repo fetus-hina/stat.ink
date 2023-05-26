@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use app\components\widgets\v3\weaponIcon\SpecialIcon;
 use app\models\Battle3;
 use yii\helpers\Html;
 
@@ -18,9 +17,8 @@ return [
     if ($weapon) {
       $special = $weapon->special;
       if ($special) {
-        return vsprintf('%s (%s %s)', [
+        return vsprintf('%s (%s)', [
           Html::encode(Yii::$app->formatter->asInteger($model->special)),
-          SpecialIcon::widget(['model' => $special, 'alt' => false]),
           Html::encode(Yii::t('app-special3', $special->name)),
         ]);
       }

@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use app\assets\TableResponsiveForceAsset;
-use app\components\widgets\v3\weaponIcon\SpecialIcon;
 use app\models\Rule3;
 use app\models\Season3;
 use app\models\Special3;
@@ -65,10 +64,7 @@ $total2 = ArrayHelper::index($total, 'special_id');
             <?= Html::tag(
               'td',
               Html::a(
-                vsprintf('%s %s', [
-                  SpecialIcon::widget(['model' => $special]),
-                  Html::encode(Yii::t('app-special3', $special->name)),
-                ]),
+                Html::encode(Yii::t('app-special3', $special->name)),
                 ['entire/special-use3-per-special',
                   'season' => $season->id,
                   'special' => $special->key,

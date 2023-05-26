@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use app\components\widgets\v3\weaponIcon\SpecialIcon;
 use app\models\StatWeapon3Usage;
 use app\models\StatWeapon3UsagePerVersion;
 

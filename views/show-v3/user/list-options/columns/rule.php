@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 return [
-  'attribute' => 'rule.name',
+  'attribute' => 'rule.short_name',
   'contentOptions' => ['class' => 'cell-rule'],
   'format' => ['translated', 'app-rule3'],
   'headerOptions' => ['class' => 'cell-rule'],

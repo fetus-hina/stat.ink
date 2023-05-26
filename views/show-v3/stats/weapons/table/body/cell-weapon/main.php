@@ -17,24 +17,18 @@ use yii\web\View;
 
 $am = Yii::$app->assetManager;
 echo Html::a(
-  Html::img(
-    $am->getAssetUrl(
-      $am->getBundle(Spl3WeaponAsset::class),
-      sprintf('main/%s.png', $model->key),
-    ),
-    [
-      'class' => 'auto-tooltip basic-icon',
-      'title' => Yii::t('app-weapon3', $model->name),
-      'style' => [
-        '--icon-height' => '2em',
-      ],
-    ],
-  ),
+  Yii::t('app-weapon3', $model->name),
   ['show-v3/user',
     'screen_name' => $user->screen_name,
     'f' => [
       'weapon' => $model->key,
       'result' => '~win_lose',
+    ],
+  ],
+  [
+    'style' => [
+      'max-width' => '4em',
+      'word-break' => 'break-all',
     ],
   ],
 );

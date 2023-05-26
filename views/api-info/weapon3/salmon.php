@@ -6,7 +6,6 @@ use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\ApiInfoName;
 use app\components\widgets\FA;
 use app\components\widgets\Icon;
-use app\components\widgets\v3\weaponIcon\WeaponIcon;
 use app\models\Language;
 use app\models\SalmonWeapon3;
 use app\models\SalmonWeapon3Alias;
@@ -57,7 +56,6 @@ SortableTableAsset::register($this);
     <thead>
       <tr>
         <th></th>
-        <th></th>
         <th data-sort="string"><code>key</code></th>
         <th data-sort="string"><?= Html::encode(Yii::t('app', 'Aliases')) ?></th>
 <?php foreach ($langs as $i => $lang) { ?>
@@ -74,7 +72,6 @@ SortableTableAsset::register($this);
     <tbody>
 <?php foreach ($weapons as $weapon) { ?>
       <tr>
-        <td><?= WeaponIcon::widget(['model' => $weapon]) ?></td>
         <td>SR</td>
         <?= Html::tag(
           'td',

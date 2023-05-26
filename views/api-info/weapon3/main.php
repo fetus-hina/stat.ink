@@ -6,9 +6,6 @@ use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\ApiInfoName;
 use app\components\widgets\FA;
 use app\components\widgets\Icon;
-use app\components\widgets\v3\weaponIcon\SpecialIcon;
-use app\components\widgets\v3\weaponIcon\SubweaponIcon;
-use app\components\widgets\v3\weaponIcon\WeaponIcon;
 use app\models\Language;
 use app\models\Weapon3;
 use app\models\Weapon3Alias;
@@ -58,7 +55,6 @@ $salmonIcon = 'SR';
     <thead>
       <tr>
         <th data-sort="int">X</th>
-        <th></th>
         <th data-sort="int"><?= Html::encode(Yii::t('app', 'Category')) ?></th>
         <?= Html::tag('th', Html::encode($salmonIcon), [
           'class' => 'auto-tooltip',
@@ -91,7 +87,6 @@ $salmonIcon = 'SR';
           'weapon' => $weapon,
           'group' => $matchingGroups[$weapon->key] ?? null,
         ]) . "\n" ?>
-        <td><?= WeaponIcon::widget(['model' => $weapon]) ?></td>
         <?= Html::tag(
           'td',
           Html::encode(Yii::t('app-weapon3', $weapon->mainweapon->type->name)),
@@ -149,10 +144,6 @@ $salmonIcon = 'SR';
         <?= Html::tag(
           'td',
           implode(' ', [
-            WeaponIcon::widget([
-              'model' => $weapon->mainweapon,
-              'alt' => false,
-            ]),
             $weapon->name === $weapon->mainweapon->name
               ? Html::tag(
                 'span',
@@ -165,19 +156,13 @@ $salmonIcon = 'SR';
         <?= Html::tag(
           'td',
           $weapon->subweapon
-            ? implode(' ', [
-              SubweaponIcon::widget(['model' => $weapon->subweapon, 'alt' => false]),
-              Html::encode(Yii::t('app-subweapon3', $weapon->subweapon->name, [], $lang->lang)),
-            ])
+            ? Html::encode(Yii::t('app-subweapon3', $weapon->subweapon->name, [], $lang->lang))
             : '',
         ) . "\n" ?>
         <?= Html::tag(
           'td',
           $weapon->special
-            ? implode(' ', [
-              SpecialIcon::widget(['model' => $weapon->special, 'alt' => false]),
-              Html::encode(Yii::t('app-special3', $weapon->special->name, [], $lang->lang)),
-            ])
+            ? Html::encode(Yii::t('app-special3', $weapon->special->name, [], $lang->lang))
             : '',
         ) . "\n" ?>
 <?php } ?>
