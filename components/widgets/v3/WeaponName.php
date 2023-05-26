@@ -16,7 +16,6 @@ use app\models\Weapon3;
 use yii\base\Widget;
 use yii\helpers\Html;
 
-use function implode;
 use function vsprintf;
 
 final class WeaponName extends Widget

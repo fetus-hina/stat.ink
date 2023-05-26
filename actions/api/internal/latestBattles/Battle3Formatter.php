@@ -11,16 +11,9 @@ declare(strict_types=1);
 namespace app\actions\api\internal\latestBattles;
 
 use Yii;
-use app\assets\GameModeIconsAsset;
-use app\assets\Spl3StageAsset;
 use app\models\Battle3;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
-use yii\web\AssetBundle;
-use yii\web\AssetManager;
 
-use function rawurlencode;
-use function sprintf;
 use function strtotime;
 use function vsprintf;
 

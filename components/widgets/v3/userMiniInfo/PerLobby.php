@@ -23,7 +23,6 @@ use yii\widgets\DetailView;
 
 use function array_map;
 use function implode;
-use function vsprintf;
 
 use const SORT_ASC;
 

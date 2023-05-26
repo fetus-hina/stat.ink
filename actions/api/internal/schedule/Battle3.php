@@ -11,8 +11,6 @@ declare(strict_types=1);
 namespace app\actions\api\internal\schedule;
 
 use Yii;
-use app\assets\GameModeIconsAsset;
-use app\assets\Spl3StageAsset;
 use app\components\helpers\Battle as BattleHelper;
 use app\models\Lobby3;
 use app\models\Map3;
@@ -20,13 +18,9 @@ use app\models\Rule3;
 use app\models\Schedule3;
 use app\models\ScheduleMap3;
 use yii\db\Query;
-use yii\helpers\Url;
-use yii\web\AssetBundle;
-use yii\web\View;
 
 use function array_combine;
 use function array_map;
-use function vsprintf;
 
 use const SORT_ASC;
 

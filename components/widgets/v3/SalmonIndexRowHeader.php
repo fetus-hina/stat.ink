@@ -13,28 +13,18 @@ namespace app\components\widgets\v3;
 use LogicException;
 use Yii;
 use app\assets\BattleListGroupHeaderAsset;
-use app\assets\SalmonEggAsset;
 use app\components\helpers\TypeHelper;
 use app\components\i18n\Formatter as FormatterEx;
-use app\components\widgets\v3\weaponIcon\WeaponIcon;
 use app\models\Salmon3;
 use app\models\SalmonSchedule3;
-use app\models\SalmonScheduleWeapon3;
-use app\models\UserStatBigrun3;
-use app\models\UserStatEggstraWork3;
 use yii\base\Widget;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\i18n\Formatter;
-use yii\web\AssetManager;
 
 use function array_filter;
-use function array_map;
 use function count;
 use function implode;
-use function vsprintf;
-
-use const SORT_ASC;
 
 final class SalmonIndexRowHeader extends Widget
 {
