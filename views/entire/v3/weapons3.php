@@ -9,7 +9,6 @@ use app\assets\ChartJsErrorBarsAsset;
 use app\assets\ColorSchemeAsset;
 use app\assets\RatioAsset;
 use app\assets\ShadowAsset;
-use app\assets\Spl3WeaponAsset;
 use app\assets\TableResponsiveForceAsset;
 use app\components\helpers\OgpHelper;
 use app\components\widgets\AdWidget;
@@ -74,7 +73,6 @@ ColorSchemeAsset::register($this);
 RatioAsset::register($this);
 ShadowAsset::register($this);
 SortableTableAsset::register($this);
-Spl3WeaponAsset::register($this);
 TableResponsiveForceAsset::register($this);
 
 $this->render('weapons3/charts/includes/chart-runner', []);

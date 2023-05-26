@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use app\assets\Spl3WeaponAsset;
 use app\components\helpers\DateTimeHelper;
 use app\components\helpers\OgpHelper;
 use app\components\widgets\AdWidget;
@@ -139,42 +138,31 @@ $dropdownDatePattern = DateTimeHelper::formatDH();
     )
   ) . "\n" ?>
   <?= Html::tag(
-    'p',
-    implode(' ', [
-      Html::encode(
-        $schedule->big_map_id !== null
-          ? sprintf('[%s]', Yii::t('app-salmon3', 'Big Run'))
-          : '',
-      ),
-      Html::encode(
-        Yii::t(
-          'app-map3',
-          $schedule->map?->name ?? $schedule->bigMap?->name ?? '?',
-        ),
-      ),
-      implode(
-        ' ',
-        array_map(
-          fn (SalmonScheduleWeapon3 $info): string => Html::img(
-            Yii::$app->assetManager->getAssetUrl(
-              Yii::$app->assetManager->getBundle(Spl3WeaponAsset::class),
-              vsprintf('main/%s.png', [
-                rawurlencode(
-                  $info->weapon?->key ?? $info->random?->key ?? '',
-                ),
-              ]),
-            ),
+    'ul',
+    implode(
+      '',
+      array_map(
+        fn (string $html): string => Html::tag('li', $html),
+        array_filter(
+          array_merge(
             [
-              'alt' => Yii::t('app-weapon3', $info->weapon?->name ?? $info->random?->name ?? ''),
-              'class' => 'basic-icon auto-tooltip',
-              'draggable' => 'false',
-              'title' => Yii::t('app-weapon3', $info->weapon?->name ?? $info->random?->name ?? ''),
+              $schedule->big_map_id !== null ? Html::encode(Yii::t('app-salmon3', 'Big Run')) : null,
+              Html::encode(Yii::t('app-map3', $schedule->map?->name ?? $schedule->bigMap?->name ?? '?')),
             ],
+            array_map(
+              fn (SalmonScheduleWeapon3 $info): string => Html::encode(
+                Yii::t(
+                  'app-weapon3',
+                  $info->weapon?->name ?? $info->random?->name ?? '?',
+                ),
+              ),
+              $schedule->salmonScheduleWeapon3s,
+            ),
           ),
-          $schedule->salmonScheduleWeapon3s,
         ),
       ),
-    ]),
+    ),
+    ['class' => 'mb-3'],
   ) . "\n" ?>
 
   <div class="table-responsive">

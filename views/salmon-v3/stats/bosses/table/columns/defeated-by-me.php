@@ -2,20 +2,15 @@
 
 declare(strict_types=1);
 
-use app\assets\Spl3SalmonUniformAsset;
 use app\models\User;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use yii\web\AssetManager;
 use yii\web\View;
 
 /**
  * @var User $user
  * @var View $this
  */
-
-$am = Yii::$app->assetManager;
-assert($am instanceof AssetManager);
 
 return [
   'attribute' => 'defeated_by_me',
@@ -34,17 +29,5 @@ return [
     ],
     'title' => Yii::t('app-salmon3', 'Defeated by {user}', ['user' => $user->name]),
   ],
-  'label' => implode(' ', [
-    Html::img(
-      $am->getAssetUrl(
-        $am->getBundle(Spl3SalmonUniformAsset::class),
-        'orange.png',
-      ),
-      [
-        'class' => 'basic-icon',
-        'draggable' => 'false',
-      ],
-    ),
-    Html::encode($user->name),
-  ]),
+  'label' => Html::encode($user->name),
 ];

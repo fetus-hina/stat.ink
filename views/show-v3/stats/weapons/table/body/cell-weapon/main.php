@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use app\assets\Spl3WeaponAsset;
 use app\models\Battle3FilterForm;
 use app\models\User;
 use app\models\Weapon3;
@@ -15,7 +14,6 @@ use yii\web\View;
  * @var Weapon3 $model
  */
 
-$am = Yii::$app->assetManager;
 echo Html::a(
   Yii::t('app-weapon3', $model->name),
   ['show-v3/user',

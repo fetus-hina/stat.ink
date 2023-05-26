@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use app\assets\Spl3SalmonUniformAsset;
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\ApiInfoName;
@@ -48,7 +47,6 @@ SortableTableAsset::register($this);
     <table class="table table-striped table-condensed table-sortable">
       <thead>
         <tr>
-          <th></th>
           <th data-sort="string"><code>key</code></th>
           <th data-sort="string"><?= Html::encode(Yii::t('app', 'Aliases')) ?></th>
 <?php foreach ($langs as $i => $lang) { ?>
@@ -65,19 +63,6 @@ SortableTableAsset::register($this);
       <tbody>
 <?php foreach ($uniforms as $uniform) { ?>
         <tr>
-          <?= Html::tag(
-            'td',
-            Html::img(
-              $am->getAssetUrl(
-                $am->getBundle(Spl3SalmonUniformAsset::class),
-                sprintf('%s.png', rawurlencode($uniform->key)),
-              ),
-              [
-                'class' => 'basic-icon',
-                'draggable' => 'false',
-              ],
-            ),
-          ) . "\n" ?>
           <?= Html::tag(
             'td',
             Html::tag('code', Html::encode($uniform->key)),

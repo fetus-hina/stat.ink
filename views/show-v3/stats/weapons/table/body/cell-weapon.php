@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use app\assets\Spl3WeaponAsset;
 use app\models\Battle3FilterForm;
 use app\models\Rule3;
 use app\models\User;
