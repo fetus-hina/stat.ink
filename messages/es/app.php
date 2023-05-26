@@ -43,6 +43,7 @@ return [
     'Aliases' => '',
     'All Players' => 'Todos los jugadores',
     'Always enable horizontal scroll' => 'Siempre activar desplazamiento horizontal',
+    'Anarchy Power' => '',
     'Anonymize, don\'t link from other user\'s results' => '',
     'Anonymized' => '',
     'Another account' => '',

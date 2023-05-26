@@ -43,6 +43,7 @@ return [
     'Aliases' => '別名',
     'All Players' => '所有玩家',
     'Always enable horizontal scroll' => '始終啟用水平滾動',
+    'Anarchy Power' => '',
     'Anonymize, don\'t link from other user\'s results' => '匿名化，不連結到其他用戶的結果',
     'Anonymized' => '匿名化',
     'Another account' => '另一個賬戶',

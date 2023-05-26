@@ -44,6 +44,7 @@ return [
     'Aliases' => '别名',
     'All Players' => '所有玩家',
     'Always enable horizontal scroll' => '始终启用水平滚动',
+    'Anarchy Power' => '',
     'Anonymize, don\'t link from other user\'s results' => '匿名化，不链接到其他用户的结果',
     'Anonymized' => '匿名化',
     'Another account' => '另一个账户',

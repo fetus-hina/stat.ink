@@ -42,6 +42,7 @@ return [
     'Aliases' => '',
     'All Players' => '',
     'Always enable horizontal scroll' => '',
+    'Anarchy Power' => '',
     'Anonymize, don\'t link from other user\'s results' => 'Anonymise, don\'t link from other user\'s results',
     'Anonymized' => 'Anonymised',
     'Another account' => '',

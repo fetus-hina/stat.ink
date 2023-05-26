@@ -56,6 +56,7 @@ return [
     'Aliases' => 'エイリアス',
     'All Players' => 'すべてのプレーヤー',
     'Always enable horizontal scroll' => '常にテーブルの横スクロールを有効にする',
+    'Anarchy Power' => 'バンカラパワー',
     'Anonymize, don\'t link from other user\'s results' => '匿名化し、他の利用者のページからはリンクしない',
     'Anonymized' => '匿名化されています',
     'Another account' => '別のアカウント',

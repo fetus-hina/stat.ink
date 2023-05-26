@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -130,6 +130,8 @@ final class PostBattleForm extends Model
     public $x_power_after;
     public $fest_power;
     public $fest_dragon;
+    public $bankara_power_before;
+    public $bankara_power_after;
     public $clout_before;
     public $clout_after;
     public $clout_change;
@@ -229,6 +231,7 @@ final class PostBattleForm extends Model
             [['rank_before_exp', 'rank_after_exp'], 'integer'],
             [['rank_exp_change'], 'integer'],
             [['fest_power', 'x_power_before', 'x_power_after'], 'number', 'min' => 0, 'max' => 99999.9],
+            [['bankara_power_before', 'bankara_power_after'], 'number', 'min' => 0, 'max' => 99999.9],
             [['clout_before', 'clout_after', 'clout_change'], 'integer', 'min' => 0],
             [['cash_before', 'cash_after'], 'integer', 'min' => 0, 'max' => 9999999],
             [['start_at', 'end_at'], 'integer',
@@ -521,6 +524,8 @@ final class PostBattleForm extends Model
             'our_team_theme_id' => $this->findOrCreateSplatfestTheme(self::strVal($this->our_team_theme))?->id,
             'their_team_theme_id' => $this->findOrCreateSplatfestTheme(self::strVal($this->their_team_theme))?->id,
             'third_team_theme_id' => $this->findOrCreateSplatfestTheme(self::strVal($this->third_team_theme))?->id,
+            'bankara_power_before' => self::powerVal($this->bankara_power_before),
+            'bankara_power_after' => self::powerVal($this->bankara_power_after),
         ]);
 
         // kill+assistが不明でkillとassistがわかっている

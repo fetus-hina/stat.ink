@@ -23,7 +23,7 @@
         "geoip2/geoip2": "^2.0",
         "jaybizzle/crawler-detect": "^1.2",
         "jp3cki/mb_str_replace": "^4.0",
-        "jp3cki/uuid": "^2.0",
+        "jp3cki/uuid": "^3.1",
         "jp3cki/yii2-bs-datetimepicker": "^1.0",
         "jp3cki/yii2-flot": "^1.0",
         "jp3cki/yii2-jquery-color": "^1.0",

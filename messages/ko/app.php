@@ -42,6 +42,7 @@ return [
     'Aliases' => '',
     'All Players' => '모든 플레이어',
     'Always enable horizontal scroll' => '횡스크롤을 항상 활성화합니다',
+    'Anarchy Power' => '',
     'Anonymize, don\'t link from other user\'s results' => '',
     'Anonymized' => '익명화되었습니다',
     'Another account' => '다른 어카운트',
