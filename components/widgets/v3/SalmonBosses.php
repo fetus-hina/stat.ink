@@ -12,7 +12,6 @@ namespace app\components\widgets\v3;
 
 use Yii;
 use app\assets\SalmonBossesAsset;
-use app\assets\Spl3SalmonidAsset;
 use app\components\i18n\Formatter;
 use app\components\widgets\Emoji;
 use app\models\Salmon3;
@@ -172,26 +171,10 @@ final class SalmonBosses extends Widget
 
     private function renderBossSalmonid(SalmonBossAppearance3 $model): string
     {
-        $am = null;
-        $asset = null;
-        $view = $this->view;
-        if ($view instanceof View) {
-            $am = Yii::$app->assetManager;
-            $asset = Spl3SalmonidAsset::register($view);
-        }
-
-        $iconHtml = $am && $asset
-            ? Html::img(
-                $am->getAssetUrl($asset, sprintf('%s.png', $model->boss->key)),
-                ['class' => 'basic-icon'],
-            )
-            : '';
-
         return Html::tag(
             'th',
             trim(
-                vsprintf('%s %s %s', [
-                    $iconHtml,
+                vsprintf('%s %s', [
                     Html::encode(Yii::t('app-salmon-boss3', $model->boss->name)),
                     $this->isAllDefeated($model) && !$this->isBrokenData($model)
                         ? Emoji::cp(Emoji::CP_PARTY_POPPER)

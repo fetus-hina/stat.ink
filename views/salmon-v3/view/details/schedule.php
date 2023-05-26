@@ -6,7 +6,6 @@ use app\assets\SalmonEggAsset;
 use app\components\helpers\TypeHelper;
 use app\components\widgets\Icon;
 use app\components\widgets\v3\BigrunPercentile;
-use app\components\widgets\v3\weaponIcon\WeaponIcon;
 use app\models\Salmon3;
 use app\models\SalmonScheduleWeapon3;
 use app\models\UserStatBigrun3;
@@ -65,30 +64,30 @@ return [
       $parts[] = Html::encode('(' . Yii::t('app-salmon3', 'Big Run') . ')');
     }
 
-    $parts[] = implode('', array_map(
-      function (SalmonScheduleWeapon3 $info): string {
-        if ($info->weapon || $info->random) {
-          Yii::$app->view->registerCss(vsprintf('.schedule-weapon-icon{%s}', [
-            Html::cssStyleFromArray([
-              'background' => '#333',
-              'border-radius' => '50%',
-              'display' => 'inline-block',
-              'margin' => '0 0.333em 0 0',
-              'padding' => '0.25em',
-            ]),
-          ]));
-        }
+    // $parts[] = implode('', array_map(
+    //   function (SalmonScheduleWeapon3 $info): string {
+    //     if ($info->weapon || $info->random) {
+    //       Yii::$app->view->registerCss(vsprintf('.schedule-weapon-icon{%s}', [
+    //         Html::cssStyleFromArray([
+    //           'background' => '#333',
+    //           'border-radius' => '50%',
+    //           'display' => 'inline-block',
+    //           'margin' => '0 0.333em 0 0',
+    //           'padding' => '0.25em',
+    //         ]),
+    //       ]));
+    //     }
 
-        return Html::tag(
-          'span',
-          WeaponIcon::widget([
-            'model' => $info->weapon ?? $info->random,
-          ]),
-          ['class' => 'schedule-weapon-icon'],
-        );
-      },
-      $weapons,
-    ));
+    //     return Html::tag(
+    //       'span',
+    //       WeaponIcon::widget([
+    //         'model' => $info->weapon ?? $info->random,
+    //       ]),
+    //       ['class' => 'schedule-weapon-icon'],
+    //     );
+    //   },
+    //   $weapons,
+    // ));
 
     if ($schedule->is_eggstra_work) {
       $eggstraStats = UserStatEggstraWork3::find()

@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use app\assets\SalmonEggAsset;
 use app\models\Salmon3;
 use yii\helpers\Html;
 use yii\web\View;
@@ -25,19 +24,25 @@ return [
       'power-egg' => $model->power_eggs,
     ];
     
-    $asset = SalmonEggAsset::register($v);
     return implode('', array_map(
-      function (string $key, ?int $count) use ($asset): string {
+      function (string $key, ?int $count): string {
         return Html::tag(
           'span',
           vsprintf('%s %s', [
-            Html::img(
-              Yii::$app->assetManager->getAssetUrl($asset, sprintf('%s.png', $key)),
-              ['class' => 'basic-icon'],
+            Html::tag(
+              'span',
+              '●',
+              ['class' => 'text-' . $key],
             ),
             Html::encode($count === null ? '-' : Yii::$app->formatter->asInteger($count)),
           ]),
-          ['class' => 'mr-2'],
+          [
+            'class' => 'auto-tooltip mr-2',
+            'title' => match ($key) {
+              'golden-egg' => Yii::t('app-salmon2', 'Golden Eggs'),
+              'power-egg' => Yii::t('app-salmon2', 'Power Eggs'),
+            },
+          ],
         );
       },
       array_keys($data),

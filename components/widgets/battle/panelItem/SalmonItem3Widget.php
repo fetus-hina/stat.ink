@@ -14,7 +14,6 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
-use app\assets\SalmonEggAsset;
 use app\assets\SimpleBattleListAsset;
 use app\models\Salmon3;
 use app\models\SalmonPlayer3;
@@ -226,21 +225,21 @@ final class SalmonItem3Widget extends Widget
             }
         }
 
-        $am = Yii::$app->assetManager;
-        $asset = SalmonEggAsset::register($this->view);
-        return vsprintf('%s %s %s %s', [
-            Html::img(
-                $am->getAssetUrl($asset, 'golden-egg.png'),
+        return vsprintf('%s %s / %s %s', [
+            Html::tag(
+                'span',
+                '●',
                 [
-                    'class' => 'auto-tooltip basic-icon',
+                    'class' => 'auto-tooltip text-golden-egg',
                     'title' => Yii::t('app-salmon2', 'Golden Eggs'),
                 ],
             ),
             $golden,
-            Html::img(
-                $am->getAssetUrl($asset, 'power-egg.png'),
+            Html::tag(
+                'span',
+                '●',
                 [
-                    'class' => 'auto-tooltip basic-icon',
+                    'class' => 'auto-tooltip text-power-egg',
                     'title' => Yii::t('app-salmon2', 'Power Eggs'),
                 ],
             ),

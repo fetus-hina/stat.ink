@@ -11,10 +11,7 @@ declare(strict_types=1);
 namespace app\components\widgets\v3;
 
 use Yii;
-use app\assets\SalmonEggAsset;
 use app\assets\SalmonPlayersAsset;
-use app\assets\Spl3SalmonUniformAsset;
-use app\assets\Spl3WeaponAsset;
 use app\components\helpers\TypeHelper;
 use app\components\i18n\Formatter;
 use app\components\widgets\FA;
@@ -129,19 +126,7 @@ final class SalmonPlayers extends Widget
                             'th',
                             $player
                                 ? trim(
-                                    vsprintf('%s %s %s', [
-                                        $am && $player->uniform
-                                            ? Html::img(
-                                                $am->getAssetUrl(
-                                                    $am->getBundle(Spl3SalmonUniformAsset::class),
-                                                    sprintf('%s.png', $player->uniform->key),
-                                                ),
-                                                [
-                                                    'class' => 'auto-tooltip basic-icon',
-                                                    'title' => Yii::t('app-salmon-uniform3', $player->uniform->name),
-                                                ],
-                                            )
-                                            : '',
+                                    vsprintf('%s %s', [
                                         $player->is_disconnected
                                             ? Html::tag('span', FA::fas('tint-slash'), ['class' => 'text-danger'])
                                             : '',
@@ -244,20 +229,17 @@ final class SalmonPlayers extends Widget
                                             return '';
                                         }
 
-                                        return Html::img(
-                                            $am->getBundle(Spl3WeaponAsset::class)
-                                                ->getIconUrl('main', $weapon ? $weapon->key : 'random'),
-                                            [
-                                                'class' => 'auto-tooltip basic-icon mr-1',
-                                                'title' => Yii::t('app-weapon3', $weapon ? $weapon->name : ''),
-                                            ],
+                                        return Html::tag(
+                                            'div',
+                                            Html::encode(Yii::t('app-weapon3', $weapon?->name ?? '?')),
+                                            ['class' => 'omit'],
                                         );
                                     },
                                     $weapons,
                                 ));
                             },
                         ),
-                        ['class' => 'text-center'],
+                        ['class' => 'text-left'],
                     ),
                 )),
             ]),
@@ -285,13 +267,8 @@ final class SalmonPlayers extends Widget
                                 }
 
                                 return vsprintf('%s (%s)', [
-                                    Html::img(
-                                        Yii::$app->assetManager->getBundle(Spl3WeaponAsset::class)
-                                            ->getIconUrl('special', $player->special->key),
-                                        [
-                                            'class' => 'auto-tooltip basic-icon',
-                                            'title' => Html::encode(Yii::t('app-special3', $player->special->name)),
-                                        ],
+                                    Html::encode(
+                                        Yii::t('app-special3', $player->special->name),
                                     ),
                                     Html::encode(
                                         TypeHelper::instanceOf($this->formatter, BaseFormatter::class)
@@ -319,16 +296,7 @@ final class SalmonPlayers extends Widget
             implode('', [
                 Html::tag(
                     'th',
-                    implode(' ', [
-                        Html::img(
-                            Yii::$app->assetManager->getAssetUrl(
-                                SalmonEggAsset::register($this->view),
-                                'golden-egg.png',
-                            ),
-                            ['class' => 'basic-icon'],
-                        ),
-                        Html::encode(Yii::t('app-salmon2', 'Delivers')),
-                    ]),
+                    Html::encode(Yii::t('app-salmon2', 'Delivers')),
                 ),
                 implode('', ArrayHelper::getColumn(
                     $players,
@@ -378,16 +346,7 @@ final class SalmonPlayers extends Widget
             implode('', [
                 Html::tag(
                     'th',
-                    implode(' ', [
-                        Html::img(
-                            Yii::$app->assetManager->getAssetUrl(
-                                SalmonEggAsset::register($this->view),
-                                'power-egg.png',
-                            ),
-                            ['class' => 'basic-icon'],
-                        ),
-                        Html::encode(Yii::t('app-salmon2', 'Power Eggs')),
-                    ]),
+                    Html::encode(Yii::t('app-salmon2', 'Power Eggs')),
                 ),
                 implode('', ArrayHelper::getColumn(
                     $players,

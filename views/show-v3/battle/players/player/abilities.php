@@ -31,15 +31,7 @@ if (count(array_filter($gears, fn ($gear) => (bool)$gear)) < 3) {
   return;
 }
 
-$am = Yii::$app->assetManager;
-$asset = Spl3AbilityAsset::register($this);
-
 $className = 'abilities-' . substr(hash('sha256', __FILE__), 0, 8);
-$this->registerCss(implode('', [
-  ".{$className} .gear-block{background:#333;border-radius:5px;line-height:1;padding:0 2px}",
-  ".{$className} .main-ability{height:1.5em;vertical-align:baseline;width:auto}",
-  ".{$className} .sub-ability{height:1em;vertical-align:baseline;width:auto}",
-]));
 
 $powers = ArrayHelper::map(
   $abilities,
@@ -136,50 +128,22 @@ $sendouInkUrl = SendouInk::getBuildUrl3($player->weapon, ...$gears);
 
 ?>
 <?= Html::beginTag('div', ['class' => ['mt-1', $className]]) . "\n" ?>
-  <?= Html::beginTag($powers ? 'span' : null, [
-    'data' => [
-      'toggle' => 'modal',
-      'target' => sprintf('#%s', $modalId),
-    ],
-    'style' => ['cursor' => 'pointer'],
-  ]) . "\n" ?>
-<?php foreach ($gears as $gear) { ?>
-    <span class="d-inline-block gear-block"><?= implode('', [
-      Html::img(
-        $am->getAssetUrl(
-          $asset,
-          vsprintf('%s.png', [
-              ArrayHelper::getValue($gear, 'ability.key', 'unknown'),
-          ]),
-        ),
-        [
-          'class' => 'auto-tooltip main-ability',
-          'title' => Yii::t('app-ability3', ArrayHelper::getValue($gear, 'ability.name', '(Unknown)')),
-        ],
-      ),
-      implode('', array_map(
-        fn (?GearConfigurationSecondary3 $secondary): string => Html::img(
-          $am->getAssetUrl(
-            $asset,
-            vsprintf('%s.png', [
-              ArrayHelper::getValue($secondary, 'ability.key', 'unknown'),
-            ]),
-          ),
-          [
-            'class' => 'auto-tooltip sub-ability',
-            'title' => Yii::t('app-ability3', ArrayHelper::getValue($secondary, 'ability.name', '(Unknown)')),
-          ],
-        ),
-        array_slice(
-          array_merge($gear->gearConfigurationSecondary3s, [null, null, null]),
-          0,
-          3,
-        ),
-      )),
-    ]) ?></span>
-<?php } ?>
-  <?= Html::endTag($powers ? 'span' : null) . "\n" ?>
 <?php if ($powers) { ?>
+  <div class="text-right">
+    <?= Html::button(
+      Icon::popup() . ' ' . Html::encode(Yii::t('app', 'Ability')),
+      [
+        'class' => 'btn btn-default btn-sm',
+        'data' => [
+          'toggle' => 'modal',
+          'target' => sprintf('#%s', $modalId),
+        ],
+        'style' => [
+          'cursor' => 'pointer',
+        ],
+      ],
+    ) . "\n" ?>
+  </div>
   <?= Html::beginTag('div', [
     'class' => 'fade modal',
     'id' => $modalId,
@@ -202,7 +166,6 @@ $sendouInkUrl = SendouInk::getBuildUrl3($player->weapon, ...$gears);
           <table class="table table-striped ability-table mb-0">
             <thead>
               <tr>
-                <th class="omit text-center ability-col-icon"></th>
                 <th class="omit text-center ability-col-name"></th>
                 <?= Html::tag(
                   'th',
@@ -233,14 +196,6 @@ $sendouInkUrl = SendouInk::getBuildUrl3($player->weapon, ...$gears);
             <tbody>
 <?php foreach ($powers as $power) { ?>
               <tr>
-                <?= Html::tag(
-                  'td',
-                  Html::img($am->getAssetUrl($asset, sprintf('%s.png', $power['key'])), [
-                    'class' => 'basic-icon',
-                    'draggable' => 'false',
-                  ]),
-                  ['class' => 'ability-col-icon'],
-                ) . "\n" ?>
                 <td class="omit"><?= Html::encode($power['name']) ?></td>
 <?php if ($power['mainOnly']) { ?>
                 <td class="text-center text-success"><?= Icon::check() ?></td>

@@ -17,13 +17,7 @@ use yii\web\View;
 echo Html::tag(
   'span',
   vsprintf('%s %s', [
-    Html::img($icon, [
-      'class' => [
-        'auto-tooltip',
-        'basic-icon',
-      ],
-      'title' => $label,
-    ]),
+    Html::encode(Html::encode($label)),
     $value === null
       ? Html::encode('-')
       : Html::encode(Yii::$app->formatter->asInteger($value)),
