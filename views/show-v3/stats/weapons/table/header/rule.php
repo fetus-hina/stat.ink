@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use app\assets\GameModeIconsAsset;
 use app\components\widgets\Icon;
 use app\models\Rule3;
 use app\models\User;
@@ -20,17 +19,6 @@ $am = Yii::$app->assetManager;
 echo Html::tag(
   'th',
   implode(' ', [
-    Html::img(
-      $am->getAssetUrl(
-        $am->getBundle(GameModeIconsAsset::class),
-        sprintf('spl3/%s.png', $rule->key),
-      ),
-      [
-        'class' => 'auto-tooltip basic-icon',
-        'dragable' => 'false',
-        'title' => Html::encode(Yii::t('app-rule3', $rule->name)),
-      ],
-    ),
     Html::a(
       Icon::search(),
       ['show-v3/user',
@@ -41,6 +29,7 @@ echo Html::tag(
         ],
       ],
     ),
+    Html::encode(Yii::t('app-rule3', $rule->short_name)),
   ]),
   [
     'class' => 'text-center',

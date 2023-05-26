@@ -23,7 +23,6 @@ use yii\widgets\DetailView;
 
 use function array_map;
 use function implode;
-use function vsprintf;
 
 use const SORT_ASC;
 
@@ -203,13 +202,7 @@ final class PerLobby extends Widget
                             // Rule header for X match
                             Html::tag(
                                 'p',
-                                vsprintf('%s%s', [
-                                    Html::img(
-                                        $am->getAssetUrl($asset, "spl3/{$model->rule->key}.png"),
-                                        ['class' => 'basic-icon mr-1'],
-                                    ),
-                                    Html::encode(Yii::t('app-rule3', $model->rule->name)),
-                                ]),
+                                Html::encode(Yii::t('app-rule3', $model->rule->name)),
                                 ['class' => 'label-user mb-1'],
                             ),
                             Html::tag(

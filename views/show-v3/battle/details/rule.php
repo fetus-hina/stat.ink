@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use app\assets\GameModeIconsAsset;
 use app\components\widgets\Icon;
 use app\models\Battle3;
 use yii\base\Model;
@@ -13,22 +12,7 @@ $render = function (?Model $model, string $catalog): string {
     return Html::encode('?');
   }
 
-  $am = Yii::$app->assetManager;
-  return vsprintf('%s %s', [
-    Html::img(
-      $am->getAssetUrl(
-        $am->getBundle(GameModeIconsAsset::class),
-        sprintf('spl3/%s.png', $model->key),
-      ),
-      [
-        'style' => [
-          'height' => '1.5em',
-          'width' => 'auto',
-        ],
-      ],
-    ),
-    Html::encode(Yii::t($catalog, $model->name)),
-  ]);
+  return Html::encode(Yii::t($catalog, $model->name));
 };
 
 return [

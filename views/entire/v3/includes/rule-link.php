@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use app\assets\GameModeIconsAsset;
 use app\assets\InlineListAsset;
 use app\models\Rule3;
 use yii\helpers\Html;
@@ -16,8 +15,6 @@ use yii\web\View;
 
 InlineListAsset::register($this);
 
-$modeIconAsset = GameModeIconsAsset::register($this);
-
 echo Html::tag(
   'ul',
   implode(
@@ -27,13 +24,7 @@ echo Html::tag(
         'li',
         Html::tag(
           'a',
-          vsprintf('%s %s', [
-            Html::img(
-              Yii::$app->assetManager->getAssetUrl($modeIconAsset, sprintf('spl3/%s.png', $rule->key)),
-              ['class' => 'basic-icon'],
-            ),
-            Html::encode(Yii::t('app-rule3', $rule->name)),
-          ]),
+          Html::encode(Yii::t('app-rule3', $rule->name)),
           ['href' => "#{$rule->key}"],
         ),
       ),

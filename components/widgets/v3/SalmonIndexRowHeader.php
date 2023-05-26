@@ -13,29 +13,18 @@ namespace app\components\widgets\v3;
 use LogicException;
 use Yii;
 use app\assets\BattleListGroupHeaderAsset;
-use app\assets\GameModeIconsAsset;
-use app\assets\SalmonEggAsset;
 use app\components\helpers\TypeHelper;
 use app\components\i18n\Formatter as FormatterEx;
-use app\components\widgets\v3\weaponIcon\WeaponIcon;
 use app\models\Salmon3;
 use app\models\SalmonSchedule3;
-use app\models\SalmonScheduleWeapon3;
-use app\models\UserStatBigrun3;
-use app\models\UserStatEggstraWork3;
 use yii\base\Widget;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\i18n\Formatter;
-use yii\web\AssetManager;
 
 use function array_filter;
-use function array_map;
 use function count;
 use function implode;
-use function vsprintf;
-
-use const SORT_ASC;
 
 final class SalmonIndexRowHeader extends Widget
 {
@@ -89,10 +78,10 @@ final class SalmonIndexRowHeader extends Widget
                 ' ',
                 array_filter(
                     [
-                        $this->renderModeIcon($schedule),
-                        $this->renderWeapons($schedule),
+                        $this->renderMode($schedule),
+                        // $this->renderWeapons($schedule),
                         $this->renderTerm($schedule, $widget->formatter),
-                        $this->renderHighScore($model, $schedule),
+                        // $this->renderHighScore($model, $schedule),
                     ],
                     fn (?string $html): bool => $html !== null,
                 ),
@@ -101,7 +90,7 @@ final class SalmonIndexRowHeader extends Widget
         );
     }
 
-    private function renderModeIcon(SalmonSchedule3 $schedule): ?string
+    private function renderMode(SalmonSchedule3 $schedule): ?string
     {
         if (
             !$schedule->is_eggstra_work &&
@@ -110,53 +99,39 @@ final class SalmonIndexRowHeader extends Widget
             return null;
         }
 
-        $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
-        return Html::img(
-            $am->getAssetUrl(
-                $am->getBundle(GameModeIconsAsset::class),
-                match (true) {
-                    $schedule->is_eggstra_work === true => 'spl3/salmon-eggstra.png',
-                    $schedule->big_map_id !== null => 'spl3/salmon-bigrun.png',
-                    default => throw new LogicException(),
-                },
-            ),
-            [
-                'class' => 'auto-tooltip basic-icon',
-                'title' => match (true) {
-                    $schedule->is_eggstra_work === true => Yii::t('app-salmon3', 'Eggstra Work'),
-                    $schedule->big_map_id !== null => Yii::t('app-salmon3', 'Big Run'),
-                    default => throw new LogicException(),
-                },
-            ],
-        );
+        return match (true) {
+            $schedule->is_eggstra_work === true => Yii::t('app-salmon3', 'Eggstra Work'),
+            $schedule->big_map_id !== null => Yii::t('app-salmon3', 'Big Run'),
+            default => throw new LogicException(),
+        };
     }
 
-    private function renderWeapons(SalmonSchedule3 $schedule): ?string
-    {
-        $models = SalmonScheduleWeapon3::find()
-            ->with(['random', 'weapon'])
-            ->andWhere(['schedule_id' => $schedule->id])
-            ->orderBy(['id' => SORT_ASC])
-            ->cache(3600)
-            ->all();
-        if (!$models) {
-            return null;
-        }
+    // private function renderWeapons(SalmonSchedule3 $schedule): ?string
+    // {
+    //     $models = SalmonScheduleWeapon3::find()
+    //         ->with(['random', 'weapon'])
+    //         ->andWhere(['schedule_id' => $schedule->id])
+    //         ->orderBy(['id' => SORT_ASC])
+    //         ->cache(3600)
+    //         ->all();
+    //     if (!$models) {
+    //         return null;
+    //     }
 
-        return implode(
-            '',
-            array_map(
-                fn (SalmonScheduleWeapon3 $weaponInfo): string => Html::tag(
-                    'span',
-                    WeaponIcon::widget([
-                        'model' => $weaponInfo->weapon ?? $weaponInfo->random ?? null,
-                    ]),
-                    ['class' => 'mr-1'],
-                ),
-                $models,
-            ),
-        );
-    }
+    //     return implode(
+    //         '',
+    //         array_map(
+    //             fn (SalmonScheduleWeapon3 $weaponInfo): string => Html::tag(
+    //                 'span',
+    //                 WeaponIcon::widget([
+    //                     'model' => $weaponInfo->weapon ?? $weaponInfo->random ?? null,
+    //                 ]),
+    //                 ['class' => 'mr-1'],
+    //             ),
+    //             $models,
+    //         ),
+    //     );
+    // }
 
     private function renderTerm(SalmonSchedule3 $schedule, Formatter $formatter): string
     {
@@ -171,59 +146,59 @@ final class SalmonIndexRowHeader extends Widget
         ]);
     }
 
-    private function renderHighScore(Salmon3 $model, SalmonSchedule3 $schedule): ?string
-    {
-        return match (true) {
-            $schedule->big_map_id !== null => $this->renderBigRunHighScore($model, $schedule),
-            $schedule->is_eggstra_work => $this->renderEggstraWorkHighScore($model, $schedule),
-            default => null,
-        };
-    }
+    // private function renderHighScore(Salmon3 $model, SalmonSchedule3 $schedule): ?string
+    // {
+    //     return match (true) {
+    //         $schedule->big_map_id !== null => $this->renderBigRunHighScore($model, $schedule),
+    //         $schedule->is_eggstra_work => $this->renderEggstraWorkHighScore($model, $schedule),
+    //         default => null,
+    //     };
+    // }
 
-    private function renderBigRunHighScore(Salmon3 $model, SalmonSchedule3 $schedule): ?string
-    {
-        $stats = UserStatBigrun3::find()
-            ->andWhere([
-                'schedule_id' => $schedule->id,
-                'user_id' => $model->user_id,
-            ])
-            ->limit(1)
-            ->one();
-        $eggs = $stats?->golden_eggs ?? 0;
-        return $eggs < 1 ? null : $this->renderHighScoreImpl($eggs);
-    }
+    // private function renderBigRunHighScore(Salmon3 $model, SalmonSchedule3 $schedule): ?string
+    // {
+    //     $stats = UserStatBigrun3::find()
+    //         ->andWhere([
+    //             'schedule_id' => $schedule->id,
+    //             'user_id' => $model->user_id,
+    //         ])
+    //         ->limit(1)
+    //         ->one();
+    //     $eggs = $stats?->golden_eggs ?? 0;
+    //     return $eggs < 1 ? null : $this->renderHighScoreImpl($eggs);
+    // }
 
-    private function renderEggstraWorkHighScore(Salmon3 $model, SalmonSchedule3 $schedule): ?string
-    {
-        $stats = UserStatEggstraWork3::find()
-            ->andWhere([
-                'schedule_id' => $schedule->id,
-                'user_id' => $model->user_id,
-            ])
-            ->limit(1)
-            ->one();
-        $eggs = $stats?->golden_eggs ?? 0;
-        return $eggs < 1 ? null : $this->renderHighScoreImpl($eggs);
-    }
+    // private function renderEggstraWorkHighScore(Salmon3 $model, SalmonSchedule3 $schedule): ?string
+    // {
+    //     $stats = UserStatEggstraWork3::find()
+    //         ->andWhere([
+    //             'schedule_id' => $schedule->id,
+    //             'user_id' => $model->user_id,
+    //         ])
+    //         ->limit(1)
+    //         ->one();
+    //     $eggs = $stats?->golden_eggs ?? 0;
+    //     return $eggs < 1 ? null : $this->renderHighScoreImpl($eggs);
+    // }
 
-    private function renderHighScoreImpl(int $eggs): string
-    {
-        $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
-        return Html::tag(
-            'span',
-            vsprintf('%s %s', [
-                Html::img(
-                    $am->getAssetUrl($am->getBundle(SalmonEggAsset::class), 'golden-egg.png'),
-                    ['class' => 'basic-icon'],
-                ),
-                Html::encode(Yii::$app->formatter->asInteger($eggs)),
-            ]),
-            [
-                'class' => 'auto-tooltip',
-                'title' => Yii::t('app-salmon3', 'High Score'),
-            ],
-        );
-    }
+    // private function renderHighScoreImpl(int $eggs): string
+    // {
+    //     $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
+    //     return Html::tag(
+    //         'span',
+    //         vsprintf('%s %s', [
+    //             Html::img(
+    //                 $am->getAssetUrl($am->getBundle(SalmonEggAsset::class), 'golden-egg.png'),
+    //                 ['class' => 'basic-icon'],
+    //             ),
+    //             Html::encode(Yii::$app->formatter->asInteger($eggs)),
+    //         ]),
+    //         [
+    //             'class' => 'auto-tooltip',
+    //             'title' => Yii::t('app-salmon3', 'High Score'),
+    //         ],
+    //     );
+    // }
 
     private function decorateRow(string $html, GridView $widget): string
     {

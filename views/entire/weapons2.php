@@ -8,7 +8,6 @@ use app\assets\Spl2WeaponAsset;
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\FA;
-use app\components\widgets\GameModeIcon;
 use app\components\widgets\KillRatioBadgeWidget;
 use app\components\widgets\SnsWidget;
 use app\models\Map2;
@@ -185,7 +184,6 @@ EntireWeaponsAsset::register($this);
   <?= Html::tag(
     'h4',
     implode(' ', [
-      GameModeIcon::spl2($rule->key),
       Html::encode($rule->name),
     ]),
     ['id' => 'weapon-' . $rule->key]

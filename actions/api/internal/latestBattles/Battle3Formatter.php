@@ -11,16 +11,9 @@ declare(strict_types=1);
 namespace app\actions\api\internal\latestBattles;
 
 use Yii;
-use app\assets\GameModeIconsAsset;
-use app\assets\Spl3StageAsset;
 use app\models\Battle3;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
-use yii\web\AssetBundle;
-use yii\web\AssetManager;
 
-use function rawurlencode;
-use function sprintf;
 use function strtotime;
 use function vsprintf;
 
@@ -30,20 +23,16 @@ trait Battle3Formatter
 
     protected function formatBattle3(Battle3 $battle): array
     {
-        $am = Yii::$app->assetManager;
-        $modeAsset = $am->getBundle(GameModeIconsAsset::class, true);
-        $stageAsset = $am->getBundle(Spl3StageAsset::class, true);
-
         return [
             'id' => $battle->id,
             'image' => self::image3($battle),
             'isWin' => self::isWin3($battle),
-            'mode' => self::mode3($battle, $am, $modeAsset),
-            'stage' => self::stage3($battle, $am, $stageAsset),
+            'mode' => self::mode3($battle),
+            'stage' => self::stage3($battle),
             'summary' => self::summary3a($battle),
             'summary2' => self::summary3b($battle),
             'time' => strtotime($battle->end_at ?: $battle->created_at),
-            'rule' => self::rule3($battle, $am, $modeAsset),
+            'rule' => self::rule3($battle),
             'url' => self::url3($battle),
             'user' => self::formatUser($battle->user),
             'variant' => 'splatoon3',
@@ -52,22 +41,6 @@ trait Battle3Formatter
 
     private static function image3(Battle3 $model): ?string
     {
-        if ($model->battleImageResult3) {
-            return Url::to(
-                Yii::getAlias('@imageurl') . '/' . $model->battleImageResult3->filename,
-                true,
-            );
-        }
-
-        if (ArrayHelper::getValue(Yii::$app->params, 'useS3ImgGen')) {
-            $rule = $model->rule;
-            if ($rule && $rule->key !== 'tricolor') {
-                return vsprintf('https://s3-img-gen.stats.ink/results/en-US/%s.jpg', [
-                    rawurlencode($model->uuid),
-                ]);
-            }
-        }
-
         return null;
     }
 
@@ -78,50 +51,22 @@ trait Battle3Formatter
             : null;
     }
 
-    private static function mode3(Battle3 $model, AssetManager $am, AssetBundle $asset): ?array
+    private static function mode3(Battle3 $model): ?array
     {
         if (!$lobby = $model->lobby) {
             return null;
         }
 
         return [
-            'icon' => $lobby->key === 'regular'
-                ? null
-                : Url::to(
-                    $am->getAssetUrl($asset, vsprintf('spl3/%s.png', [
-                        $lobby->key,
-                    ])),
-                    true,
-                ),
+            'icon' => null,
             'key' => $lobby->key,
             'name' => Yii::t('app-lobby3', $lobby->name),
         ];
     }
 
-    private static function stage3(Battle3 $model, AssetManager $am, AssetBundle $asset): ?array
+    private static function stage3(Battle3 $model): ?array
     {
-        if (!$map = $model->map) {
-            return null;
-        }
-
-        return [
-            'name' => Yii::t('app-map3', $map->name),
-            'key' => $map->key,
-            'image' => [
-                'lose' => Url::to(
-                    $am->getAssetUrl($asset, "gray-blur/{$map->key}.jpg"),
-                    true,
-                ),
-                'normal' => Url::to(
-                    $am->getAssetUrl($asset, "color-normal/{$map->key}.jpg"),
-                    true,
-                ),
-                'win' => Url::to(
-                    $am->getAssetUrl($asset, "color-blur/{$map->key}.jpg"),
-                    true,
-                ),
-            ],
-        ];
+        return null;
     }
 
     private static function summary3a(Battle3 $model): ?string
@@ -163,17 +108,14 @@ trait Battle3Formatter
         // ]);
     }
 
-    private static function rule3(Battle3 $model, AssetManager $am, AssetBundle $asset): ?array
+    private static function rule3(Battle3 $model): ?array
     {
         if (!$rule = $model->rule) {
             return null;
         }
 
         return [
-            'icon' => Url::to(
-                $am->getAssetUrl($asset, sprintf('spl3/%s.png', $rule->key)),
-                true,
-            ),
+            'icon' => null,
             'key' => $rule->key,
             'name' => Yii::t('app-rule3', $rule->name),
         ];

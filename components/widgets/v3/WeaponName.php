@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -11,15 +11,11 @@ declare(strict_types=1);
 namespace app\components\widgets\v3;
 
 use Yii;
-use app\components\widgets\v3\weaponIcon\SpecialIcon;
-use app\components\widgets\v3\weaponIcon\SubweaponIcon;
-use app\components\widgets\v3\weaponIcon\WeaponIcon;
 use app\models\SalmonWeapon3;
 use app\models\Weapon3;
 use yii\base\Widget;
 use yii\helpers\Html;
 
-use function implode;
 use function vsprintf;
 
 final class WeaponName extends Widget
@@ -45,14 +41,7 @@ final class WeaponName extends Widget
 
     private function renderMainWeapon(Weapon3|SalmonWeapon3 $model): string
     {
-        if ($this->showName) {
-            return implode(' ', [
-                WeaponIcon::widget(['model' => $model, 'alt' => false]),
-                Html::encode(Yii::t('app-weapon3', $model->name)),
-            ]);
-        }
-
-        return WeaponIcon::widget(['model' => $model]);
+        return Html::encode(Yii::t('app-weapon3', $model->name));
     }
 
     private function renderSubSp(Weapon3|SalmonWeapon3 $model): string
@@ -67,20 +56,9 @@ final class WeaponName extends Widget
             return '';
         }
 
-        return $this->showName
-            ? vsprintf('%s / %s', [
-                implode(' ', [
-                    SubweaponIcon::widget(['model' => $sub, 'alt' => false]),
-                    Html::encode(Yii::t('app-subweapon3', $sub->name)),
-                ]),
-                implode(' ', [
-                    SpecialIcon::widget(['model' => $sp, 'alt' => false]),
-                    Html::encode(Yii::t('app-special3', $sp->name)),
-                ]),
-            ])
-            : implode(' ', [
-                SubweaponIcon::widget(['model' => $sub]),
-                SpecialIcon::widget(['model' => $sp]),
-            ]);
+        return vsprintf('%s / %s', [
+            Html::encode(Yii::t('app-subweapon3', $sub->name)),
+            Html::encode(Yii::t('app-special3', $sp->name)),
+        ]);
     }
 }

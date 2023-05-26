@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use app\assets\GameModeIconsAsset;
 use app\components\helpers\OgpHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Icon;
@@ -40,20 +39,7 @@ $this->registerCss(
 <div class="container">
   <?= Html::tag(
     'h1',
-    implode(' ', [
-      Html::img(
-        Yii::$app->assetManager->getAssetUrl(
-          Yii::$app->assetManager->getBundle(GameModeIconsAsset::class),
-          'spl3/splatfest.png',
-        ),
-        [
-          'class' => 'basic-icon',
-          'draggable' => 'false',
-          'style' => ['--icon-height' => '1em'],
-        ],
-      ),
-      Html::encode(Yii::t('app', 'Estimated Vote %')),
-    ]),
+    Html::encode(Yii::t('app', 'Estimated Vote %')),
   ) . "\n" ?>
 
   <?= AdWidget::widget() . "\n" ?>

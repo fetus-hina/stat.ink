@@ -2,14 +2,12 @@
 
 declare(strict_types=1);
 
-use app\assets\GameModeIconsAsset;
 use app\assets\InlineListAsset;
 use app\assets\PaintballAsset;
 use app\assets\ReactCounterAppAsset;
 use app\assets\ReactIndexAppAsset;
 use app\assets\Spl3WeaponAsset;
 use app\components\helpers\OgpHelper;
-use app\components\widgets\GameVersionIcon;
 use app\components\widgets\HappyNewYearWidget;
 use app\components\widgets\Icon;
 use app\components\widgets\IndexI18nButtons;
@@ -32,8 +30,6 @@ assert($this->context instanceof Controller);
 $this->context->layout = 'main';
 
 PaintballAsset::register($this);
-
-$gameMode = GameModeIconsAsset::register($this);
 
 $discordInviteCode = ArrayHelper::getValue(Yii::$app->params, 'discordInviteCode');
 
@@ -110,7 +106,7 @@ OgpHelper::default($this, Url::to(['site/index'], true));
         Html::a(Html::encode(Yii::t('app', 'Stats: User Activity')), ['entire/users']),
       ]),
       [
-        GameVersionIcon::widget(['version' => 3]),
+        '3',
         Html::a(Html::encode(Yii::t('app', 'Weapons')), ['entire/weapons3']),
         Html::a(Html::encode(Yii::t('app', 'K/D vs Win %')), ['entire/kd-win3']),
         Html::a(Html::encode(Yii::t('app', 'Knockout Rate')), ['entire/knockout3']),
@@ -118,76 +114,23 @@ OgpHelper::default($this, Url::to(['site/index'], true));
         Html::a(Html::encode(Yii::t('app', 'X Power')), ['entire/xpower-distrib3']),
         Html::a(Html::encode(Yii::t('app', 'Ink Color')), ['entire/ink-color3']),
         Html::a(
-          vsprintf('%s %s', [
-            Html::img(
-              Yii::$app->assetManager->getAssetUrl($gameMode, 'spl3/splatfest.png'),
-              [
-                'class' => 'basic-icon',
-                'draggable' => 'false',
-                'style' => ['--icon-height' => '1em'],
-              ],
-            ),
-            Html::encode(Yii::t('app', 'Estimated Vote %')),
-          ]),
+          Html::encode(Yii::t('app', 'Estimated Vote %')),
           ['entire/splatfest3'],
         ),
       ],
       [
-        vsprintf('%s %s', [
-          GameVersionIcon::widget(['version' => 3]),
-          Html::img(
-            Yii::$app->assetManager->getAssetUrl($gameMode, 'spl3/salmon.png'),
-            [
-              'class' => 'basic-icon',
-              'draggable' => 'false',
-              'style' => ['--icon-height' => '1em'],
-            ],
-          ),
-        ]),
+       '3 SR',
         Html::a(
-          vsprintf('%s %s', [
-            Html::img(
-              Yii::$app->assetManager->getAssetUrl(
-                Yii::$app->assetManager->getBundle(Spl3WeaponAsset::class),
-                'main/random.png',
-              ),
-              [
-                'class' => 'basic-icon',
-                'draggable' => 'false',
-                'style' => ['--icon-height' => '1em'],
-              ],
-            ),
-            Html::encode(Yii::t('app-salmon3', 'Random Loan Rate')),
-          ]),
+          Html::encode(Yii::t('app-salmon3', 'Random Loan Rate')),
           ['entire/salmon3-random-loan'],
         ),
         Html::a(Html::encode(Yii::t('app-salmon3', 'Water Level and Events')), ['entire/salmon3-tide']),
         Html::a(
-          vsprintf('%s %s', [
-            Html::img(
-              Yii::$app->assetManager->getAssetUrl($gameMode, 'spl3/salmon-bigrun.png'),
-              [
-                'class' => 'basic-icon',
-                'draggable' => 'false',
-                'style' => ['--icon-height' => '1em'],
-              ],
-            ),
-            Html::encode(Yii::t('app-salmon3', 'Big Run')),
-          ]),
+          Html::encode(Yii::t('app-salmon3', 'Big Run')),
           ['entire/salmon3-bigrun'],
         ),
         Html::a(
-          vsprintf('%s %s', [
-            Html::img(
-              Yii::$app->assetManager->getAssetUrl($gameMode, 'spl3/salmon-eggstra.png'),
-              [
-                'class' => 'basic-icon',
-                'draggable' => 'false',
-                'style' => ['--icon-height' => '1em'],
-              ],
-            ),
-            Html::encode(Yii::t('app-salmon3', 'Eggstra Work')),
-          ]),
+          Html::encode(Yii::t('app-salmon3', 'Eggstra Work')),
           ['entire/salmon3-eggstra-work'],
         ),
       ],
@@ -199,10 +142,7 @@ OgpHelper::default($this, Url::to(['site/index'], true));
       ],
       [
         Icon::download(),
-        implode(' ', [
-          GameVersionIcon::widget(['version' => 3]),
-          Html::a(Html::encode(Yii::t('app', 'Download Stats')), ['download-stats/index']),
-        ]),
+        Html::a(Html::encode(Yii::t('app', 'Download Stats')), ['download-stats/index']),
       ],
       [
         Html::a(Html::encode(Yii::t('app', 'About support for color-blindness')), ['site/color']),

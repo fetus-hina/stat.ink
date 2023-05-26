@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use app\assets\EntireXpowerDistrib3HistogramAsset;
-use app\assets\GameModeIconsAsset;
 use app\assets\RatioAsset;
 use app\models\Rule3;
 use app\models\Season3;

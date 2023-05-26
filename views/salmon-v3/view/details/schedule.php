@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use app\assets\GameModeIconsAsset;
 use app\assets\SalmonEggAsset;
 use app\components\helpers\TypeHelper;
 use app\components\widgets\Icon;
@@ -59,27 +58,11 @@ return [
     );
 
     if ($model->is_eggstra_work) {
-      $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
-      $parts[] = Html::img(
-        $am->getAssetUrl($am->getBundle(GameModeIconsAsset::class), 'spl3/salmon-eggstra.png'),
-        [
-          'title' => Yii::t('app-salmon3', 'Eggstra Work'),
-          'class' => 'auto-tooltip basic-icon',
-        ],
-      );
-      unset($am);
+      $parts[] = Html::encode('(' . Yii::t('app-salmon3', 'Eggstra Work') . ')');
     }
 
     if ($schedule->big_map_id) {
-      $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
-      $parts[] = Html::img(
-        $am->getAssetUrl($am->getBundle(GameModeIconsAsset::class), 'spl3/salmon-bigrun.png'),
-        [
-          'title' => Yii::t('app-salmon3', 'Big Run'),
-          'class' => 'auto-tooltip basic-icon',
-        ],
-      );
-      unset($am);
+      $parts[] = Html::encode('(' . Yii::t('app-salmon3', 'Big Run') . ')');
     }
 
     $parts[] = implode('', array_map(

@@ -11,8 +11,6 @@ declare(strict_types=1);
 namespace app\actions\api\internal\schedule;
 
 use Yii;
-use app\assets\GameModeIconsAsset;
-use app\assets\Spl3StageAsset;
 use app\components\helpers\Battle as BattleHelper;
 use app\models\Lobby3;
 use app\models\Map3;
@@ -20,13 +18,9 @@ use app\models\Rule3;
 use app\models\Schedule3;
 use app\models\ScheduleMap3;
 use yii\db\Query;
-use yii\helpers\Url;
-use yii\web\AssetBundle;
-use yii\web\View;
 
 use function array_combine;
 use function array_map;
-use function vsprintf;
 
 use const SORT_ASC;
 
@@ -124,47 +118,16 @@ trait Battle3
 
     private function getIconUrlForLobby3(Lobby3 $lobby): ?string
     {
-        return self::getAssetUrl3(
-            GameModeIconsAsset::class,
-            vsprintf('spl3/%s.png', [
-                $lobby->key,
-            ]),
-        );
+        return null;
     }
 
     private function getIconUrlForRule3(Rule3 $rule): ?string
     {
-        return self::getAssetUrl3(
-            GameModeIconsAsset::class,
-            vsprintf('spl3/%s.png', [
-                $rule->key,
-            ]),
-        );
+        return null;
     }
 
     private function getImageUrlForMap3(?Map3 $map): ?string
     {
-        return self::getAssetUrl3(
-            Spl3StageAsset::class,
-            vsprintf('color-normal/%s.jpg', [
-                $map?->key ?? 'unknown',
-            ]),
-        );
-    }
-
-    /**
-     * @param class-string<AssetBundle> $assetClass
-     */
-    private function getAssetUrl3(string $assetClass, string $path): ?string
-    {
-        if (!Yii::$app->view instanceof View) {
-            return null;
-        }
-
-        $am = Yii::$app->assetManager;
-        return Url::to(
-            $am->getAssetUrl($am->getBundle($assetClass, true), $path),
-            true,
-        );
+        return null;
     }
 }

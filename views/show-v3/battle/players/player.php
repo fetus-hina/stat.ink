@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use app\components\widgets\Icon;
-use app\components\widgets\v3\weaponIcon\SpecialIcon;
 use app\models\Ability3;
 use app\models\BattlePlayer3;
 use app\models\BattleTricolorPlayer3;
@@ -104,10 +103,14 @@ if ($player->is_me) {
   ?></td>
   <td class="text-right"><?php
     if ($player->special !== null) {
-      if ($player->weapon) {
-        echo SpecialIcon::widget(['model' => $player->weapon->special]) . ' ';
-      }
-      echo $f->asInteger($player->special);
+      echo Html::tag(
+        'span',
+        $f->asInteger($player->special),
+        [
+          'class' => 'auto-tooltip',
+          'title' => Yii::t('app-special3', $player->weapon?->special?->name),
+        ],
+      );
     }
   ?></td>
 <?php if ($isTricolor) { ?>

@@ -12,12 +12,9 @@ namespace app\actions\api\internal\latestBattles;
 
 use Yii;
 use app\assets\GameModeIconsAsset;
-use app\assets\Spl3StageAsset;
 use app\models\Salmon3;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
-use function rawurlencode;
 use function sprintf;
 use function strtotime;
 use function vsprintf;
@@ -41,17 +38,17 @@ trait Salmon3Formatter
             },
             'mode' => match (true) {
                 $battle->is_big_run === true => [
-                    'icon' => Url::to($am->getAssetUrl($modeAsset, 'spl3/salmon-bigrun-36x36.png'), true),
+                    'icon' => null,
                     'key' => 'salmon',
                     'name' => Yii::t('app-salmon3', 'Big Run'),
                 ],
                 $battle->is_eggstra_work === true => [
-                    'icon' => Url::to($am->getAssetUrl($modeAsset, 'spl3/salmon-eggstra-36x36.png'), true),
+                    'icon' => null,
                     'key' => 'salmon',
                     'name' => Yii::t('app-salmon3', 'Eggstra Work'),
                 ],
                 default => [
-                    'icon' => Url::to($am->getAssetUrl($modeAsset, 'spl3/salmon36x36.png'), true),
+                    'icon' => null,
                     'key' => 'salmon',
                     'name' => Yii::t('app-salmon2', 'Salmon Run'),
                 ],
@@ -115,40 +112,11 @@ trait Salmon3Formatter
 
     private static function salmonImage3(Salmon3 $model): ?string
     {
-        if (ArrayHelper::getValue(Yii::$app->params, 'useS3ImgGen')) {
-            return vsprintf('https://s3-img-gen.stats.ink/salmon/en-US/%s.jpg', [
-                rawurlencode($model->uuid),
-            ]);
-        }
-
         return null;
     }
 
     private function salmonStage3(Salmon3 $battle): ?array
     {
-        if (!$stage = $battle->stage ?? $battle->bigStage) {
-            return null;
-        }
-
-        $am = Yii::$app->assetManager;
-        $stageAsset = $am->getBundle(Spl3StageAsset::class, true);
-        return [
-            'name' => Yii::t('app-map3', $stage->name),
-            'key' => $stage->key,
-            'image' => [
-                'lose' => Url::to(
-                    $am->getAssetUrl($stageAsset, "gray-blur/{$stage->key}.jpg"),
-                    true,
-                ),
-                'normal' => Url::to(
-                    $am->getAssetUrl($stageAsset, "color-normal/{$stage->key}.jpg"),
-                    true,
-                ),
-                'win' => Url::to(
-                    $am->getAssetUrl($stageAsset, "color-blur/{$stage->key}.jpg"),
-                    true,
-                ),
-            ],
-        ];
+        return null;
     }
 }

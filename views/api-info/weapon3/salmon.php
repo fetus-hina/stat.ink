@@ -2,12 +2,10 @@
 
 declare(strict_types=1);
 
-use app\assets\GameModeIconsAsset;
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\ApiInfoName;
 use app\components\widgets\FA;
 use app\components\widgets\Icon;
-use app\components\widgets\v3\weaponIcon\WeaponIcon;
 use app\models\Language;
 use app\models\SalmonWeapon3;
 use app\models\SalmonWeapon3Alias;
@@ -25,22 +23,10 @@ use yii\web\View;
 TableResponsiveForceAsset::register($this);
 SortableTableAsset::register($this);
 
-$salmonIcon = Html::img(
-  Yii::$app->assetManager->getAssetUrl(GameModeIconsAsset::register($this), 'spl3/salmon.png'),
-  [
-    'alt' => '🐟',
-    'style' => [
-      'height' => '1em',
-      'width' => 'auto',
-    ],
-  ],
-);
-
 ?>
 <?= Html::tag(
   'h2',
   implode(' ', [
-    $salmonIcon,
     Html::encode(Yii::t('app', 'Rare Weapon')),
   ]),
 ) . "\n" ?>
@@ -70,7 +56,6 @@ $salmonIcon = Html::img(
     <thead>
       <tr>
         <th></th>
-        <th></th>
         <th data-sort="string"><code>key</code></th>
         <th data-sort="string"><?= Html::encode(Yii::t('app', 'Aliases')) ?></th>
 <?php foreach ($langs as $i => $lang) { ?>
@@ -87,8 +72,7 @@ $salmonIcon = Html::img(
     <tbody>
 <?php foreach ($weapons as $weapon) { ?>
       <tr>
-        <td><?= WeaponIcon::widget(['model' => $weapon]) ?></td>
-        <td><?= $salmonIcon ?></td>
+        <td>SR</td>
         <?= Html::tag(
           'td',
           Html::tag('code', Html::encode($weapon->key)),

@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use app\components\widgets\v3\weaponIcon\SpecialIcon;
 use app\models\Special3;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -31,16 +30,7 @@ $maxSamples = max(ArrayHelper::getColumn($data, 'battles'));
 ) . "\n" ?>
   <thead>
     <tr>
-      <th class="text-center">
-        <?= Html::tag(
-          'span',
-          SpecialIcon::widget(['model' => $special]),
-          [
-            'class' => 'auto-tooltip',
-            'title' => Yii::t('app', 'Special Uses'),
-          ],
-        ) . "\n" ?>
-      </th>
+      <th class="text-center"><?= Html::encode(Yii::t('app', 'Times')) ?></th>
       <th class="text-center"><?= Html::encode(Yii::t('app', 'Win %')) ?></th>
       <th colspan="2" class="text-center"><?= Html::encode(Yii::t('app', 'Samples')) ?></th>
     </tr>

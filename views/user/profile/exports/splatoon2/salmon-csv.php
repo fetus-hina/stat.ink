@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use app\assets\FlexboxAsset;
-use app\assets\GameModeIconsAsset;
 use app\components\widgets\Icon;
 use yii\helpers\Html;
 use yii\web\AssetManager;
@@ -14,7 +13,6 @@ use yii\web\View;
  */
 
 FlexboxAsset::register($this);
-$gameMode = GameModeIconsAsset::register($this);
 
 $am = Yii::$app->assetManager;
 assert($am instanceof AssetManager);
@@ -25,13 +23,6 @@ echo Html::tag(
     Html::a(
       implode(' ', [
         Icon::fileCsv(),
-        Html::img(
-          $am->getAssetUrl($gameMode, 'spl2/salmon.png'),
-          [
-            'class' => 'basic-icon',
-            'draggable' => 'false',
-          ],
-        ),
         Html::encode(Yii::t('app', 'Salmon Run CSV')),
         Html::tag('small', Html::encode('(β)')),
       ]),
