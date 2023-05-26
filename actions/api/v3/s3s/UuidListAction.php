@@ -14,11 +14,15 @@ use Yii;
 use app\actions\api\v3\traits\ApiInitializerTrait;
 use app\models\Battle3;
 use app\models\Lobby3;
+use app\models\User;
 use yii\base\Action;
+use yii\db\Transaction;
 use yii\web\BadRequestHttpException;
 use yii\web\IdentityInterface;
 use yii\web\Response;
 use yii\web\UnauthorizedHttpException;
+
+use function array_merge;
 
 use const SORT_DESC;
 
@@ -42,6 +46,43 @@ final class UuidListAction extends Action
             throw new UnauthorizedHttpException();
         }
 
+        $resp = Yii::$app->response;
+        $resp->statusCode = 200;
+        $resp->content = null;
+        $resp->data = Yii::$app->db->transaction(
+            fn () => self::getList($user, $lobby),
+            Transaction::REPEATABLE_READ,
+        );
+
+        return $resp;
+    }
+
+    /**
+     * @param int<1, max> $limit
+     * @return string[]
+     */
+    private static function getList(User $user, ?string $lobby, int $limit = 500): array
+    {
+        if ($lobby === 'adaptive') {
+            $lobbies = [
+                'regular',
+                'bankara_challenge',
+                'bankara_open',
+                'splatfest_challenge',
+                'splatfest_open',
+                // TODO: event
+                'xmatch',
+                'private',
+            ];
+
+            $results = [];
+            foreach ($lobbies as $lobby) {
+                $results = array_merge($results, self::getList($user, $lobby, 50));
+            }
+
+            return $results;
+        }
+
         $query = Battle3::find()
             ->andWhere([
                 'user_id' => $user->id,
@@ -49,20 +90,18 @@ final class UuidListAction extends Action
             ])
             ->andWhere(['not', ['client_uuid' => null]])
             ->orderBy(['id' => SORT_DESC])
-            ->limit(500);
+            ->limit($limit);
 
         if ($lobby) {
             $query->andWhere(['lobby_id' => self::getLobbyIdByKey($lobby)]);
         }
 
-        $resp = Yii::$app->response;
-        $resp->statusCode = 200;
-        $resp->content = null;
-        $resp->data = [];
+        $results = [];
         foreach ($query->each() as $model) {
-            $resp->data[] = $model->client_uuid;
+            $results[] = $model->client_uuid;
         }
-        return $resp;
+
+        return $results;
     }
 
     /**
