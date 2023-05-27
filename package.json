@@ -16,7 +16,6 @@
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@popperjs/core": "^2.11.7",
-    "@statink/spl3-stages": "github:statink/spl3-stages#semver:^1.5.1",
     "autoprefixer": "^10.4.14",
     "axios": "^1.4.0",
     "babel-loader": "^9.1.2",

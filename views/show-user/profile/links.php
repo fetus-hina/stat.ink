@@ -43,36 +43,14 @@ if ($user->twitter) {
   ]);
 }
 
-if ($user->nnid) {
-  $links[] = implode('', [
-    Html::tag('span', $asset->nnid, ['class' => 'fa fa-fw']),
-    Html::encode($user->nnid),
-  ]);
-}
-
 if ($user->sw_friend_code) {
   $links[] = implode('', [
-    Html::tag('span', $asset->switch, ['class' => 'fa fa-fw']),
     Html::encode(implode('-', [
       'SW',
       substr($user->sw_friend_code, 0, 4),
       substr($user->sw_friend_code, 4, 4),
       substr($user->sw_friend_code, 8, 4),
     ])),
-  ]);
-}
-
-if ($user->ikanakama2) {
-  $links[] = implode('', [
-    Html::tag('span', $asset->ikanakama, ['class' => 'fa fa-fw']),
-    Html::a(
-      Yii::t('app', 'Ika-Nakama'),
-      sprintf('https://ikanakama.ink/users/%d', $user->ikanakama2),
-      [
-        'rel' => 'nofollow noopener',
-        'target' => '_blank',
-      ]
-    ),
   ]);
 }
 

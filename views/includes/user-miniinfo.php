@@ -362,31 +362,15 @@ $f = Yii::$app->formatter;
         ) . "\n" ?>
       </div>
 <?php endif ?>
-<?php if ($user->nnid): ?>
-      <div>
-        <span class="fa fa-fw"><?= $icons->nnid ?></span>
-        <?= Html::encode($user->nnid) . "\n" ?>
-      </div>
-<?php endif ?>
 <?php if ($user->sw_friend_code): ?>
       <div>
-        <span class="fa fa-fw"><?= $icons->switch ?></span>
+        <span class="fa fa-fw"></span>
         <span style="white-space:nowrap"><?= implode('-', [
           'SW',
           substr($user->sw_friend_code, 0, 4),
           substr($user->sw_friend_code, 4, 4),
           substr($user->sw_friend_code, 8, 4),
         ]) ?></span>
-      </div>
-<?php endif ?>
-<?php if ($user->ikanakama2): ?>
-      <div>
-        <span class="fa fa-fw"><?= $icons->ikanakama ?></span>
-        <?= Html::a(
-          Html::encode(Yii::t('app', 'Ika-Nakama')),
-          'https://ikanakama.ink/users/' . rawurlencode((string)$user->ikanakama2),
-          ['rel' => 'nofollow', 'target' => '_blank']
-        ) . "\n" ?>
       </div>
 <?php endif ?>
     </div>

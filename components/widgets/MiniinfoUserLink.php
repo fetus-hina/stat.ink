@@ -12,7 +12,6 @@ namespace app\components\widgets;
 
 use Yii;
 use app\assets\AppLinkAsset;
-use app\assets\FontAwesomeAsset;
 use statink\yii2\twitter\webintents\TwitterWebIntentsAsset;
 use yii\base\Widget;
 use yii\helpers\Html;
@@ -37,16 +36,11 @@ class MiniinfoUserLink extends Widget
 
     public function run(): string
     {
-        FontAwesomeAsset::register($this->view);
-
         $id = $this->id;
         return Html::tag(
             'div',
             implode('', [
                 $this->renderTwitter(),
-                $this->renderNnid(),
-                $this->renderSwitch(),
-                $this->renderIkanakama2(),
             ]),
             [
                 'id' => $id,
@@ -71,44 +65,6 @@ class MiniinfoUserLink extends Widget
                     'screen_name' => $this->user->twitter,
                 ], '', '&'),
             ),
-        );
-    }
-
-    private function renderNnid(): ?string
-    {
-        return $this->renderData(
-            $this->iconAsset->nnid,
-            $this->user->nnid,
-        );
-    }
-
-    private function renderSwitch(): ?string
-    {
-        if ($this->user->sw_friend_code == '') {
-            return null;
-        }
-
-        return $this->renderData(
-            $this->iconAsset->switch,
-            sprintf(
-                'SW-%s-%s-%s',
-                substr($this->user->sw_friend_code, 0, 4),
-                substr($this->user->sw_friend_code, 4, 4),
-                substr($this->user->sw_friend_code, 8, 4),
-            ),
-        );
-    }
-
-    private function renderIkanakama2(): ?string
-    {
-        if ($this->user->ikanakama2 == '') {
-            return null;
-        }
-
-        return $this->renderData(
-            $this->iconAsset->ikanakama,
-            Yii::t('app', 'Ika-Nakama'),
-            sprintf('https://ikanakama.ink/users/%d', $this->user->ikanakama2),
         );
     }
 

@@ -59,11 +59,6 @@ class AppLinkAsset extends AssetBundle
         return $this->image('squidtracks.png');
     }
 
-    public function getNnid(): string
-    {
-        return $this->image('nnid.min.svg');
-    }
-
     public function getSwitch(): string
     {
         return $this->image('switch.min.svg');
