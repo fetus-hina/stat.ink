@@ -12,7 +12,6 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
 
-use function implode;
 use function sprintf;
 use function vsprintf;
 

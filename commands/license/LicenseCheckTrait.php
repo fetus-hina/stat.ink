@@ -65,7 +65,6 @@ trait LicenseCheckTrait
 
     private array $skipPackages = [
         'composer::omnilight/yii2-scheduling',
-        'npm::spl3-stages',
     ];
 
     public function actionCheck(): int
