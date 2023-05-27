@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
-use Yii;
 use app\assets\AppLinkAsset;
 use statink\yii2\twitter\webintents\TwitterWebIntentsAsset;
 use yii\base\Widget;
@@ -19,7 +18,6 @@ use yii\helpers\Html;
 use function http_build_query;
 use function implode;
 use function sprintf;
-use function substr;
 use function trim;
 
 class MiniinfoUserLink extends Widget
