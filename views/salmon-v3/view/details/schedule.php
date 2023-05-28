@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use app\assets\SalmonEggAsset;
 use app\components\helpers\TypeHelper;
 use app\components\widgets\Icon;
 use app\components\widgets\v3\BigrunPercentile;
@@ -11,7 +10,6 @@ use app\models\SalmonScheduleWeapon3;
 use app\models\UserStatBigrun3;
 use app\models\UserStatEggstraWork3;
 use yii\helpers\Html;
-use yii\web\AssetManager;
 
 return [
   'label' => Yii::t('app-salmon2', 'Rotation'),
@@ -64,31 +62,6 @@ return [
       $parts[] = Html::encode('(' . Yii::t('app-salmon3', 'Big Run') . ')');
     }
 
-    // $parts[] = implode('', array_map(
-    //   function (SalmonScheduleWeapon3 $info): string {
-    //     if ($info->weapon || $info->random) {
-    //       Yii::$app->view->registerCss(vsprintf('.schedule-weapon-icon{%s}', [
-    //         Html::cssStyleFromArray([
-    //           'background' => '#333',
-    //           'border-radius' => '50%',
-    //           'display' => 'inline-block',
-    //           'margin' => '0 0.333em 0 0',
-    //           'padding' => '0.25em',
-    //         ]),
-    //       ]));
-    //     }
-
-    //     return Html::tag(
-    //       'span',
-    //       WeaponIcon::widget([
-    //         'model' => $info->weapon ?? $info->random,
-    //       ]),
-    //       ['class' => 'schedule-weapon-icon'],
-    //     );
-    //   },
-    //   $weapons,
-    // ));
-
     if ($schedule->is_eggstra_work) {
       $eggstraStats = UserStatEggstraWork3::find()
         ->andWhere([
@@ -98,15 +71,8 @@ return [
         ->limit(1)
         ->one();
       if ($eggstraStats && $eggstraStats->golden_eggs > 0) {
-        $asset = SalmonEggAsset::register(Yii::$app->view);
-        $parts[] = vsprintf('%s %s', [
-          Html::img(
-            Yii::$app->assetManager->getAssetUrl($asset, 'golden-egg.png'),
-            [
-              'class' => 'auto-tooltip basic-icon',
-              'title' => Yii::t('app-salmon3', 'High Score'),
-            ],
-          ),
+        $parts[] = vsprintf('%s: %s', [
+          Html::encode(Yii::t('app-salmon2', 'Golden Eggs')),
           Yii::$app->formatter->asInteger($eggstraStats->golden_eggs),
         ]);
 
@@ -125,15 +91,8 @@ return [
         ->limit(1)
         ->one();
       if ($bigrunStats && $bigrunStats->golden_eggs > 0) {
-        $asset = SalmonEggAsset::register(Yii::$app->view);
-        $parts[] = vsprintf('%s %s', [
-          Html::img(
-            Yii::$app->assetManager->getAssetUrl($asset, 'golden-egg.png'),
-            [
-              'class' => 'auto-tooltip basic-icon',
-              'title' => Yii::t('app-salmon3', 'High Score'),
-            ],
-          ),
+        $parts[] = vsprintf('%s: %s', [
+          Html::encode(Yii::t('app-salmon2', 'Golden Eggs')),
           Yii::$app->formatter->asInteger($bigrunStats->golden_eggs),
         ]);
 

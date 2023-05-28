@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use app\assets\SalmonEggAsset;
 use app\models\Salmon3;
 use yii\helpers\Html;
 use yii\web\View;

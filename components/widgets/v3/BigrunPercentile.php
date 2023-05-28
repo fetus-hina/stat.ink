@@ -11,8 +11,6 @@ declare(strict_types=1);
 namespace app\components\widgets\v3;
 
 use Yii;
-use app\assets\SalmonBadgeAsset;
-use app\assets\SalmonEggAsset;
 use app\components\helpers\TypeHelper;
 use app\components\widgets\Icon;
 use app\models\BigrunOfficialResult3;
@@ -27,7 +25,6 @@ use yii\db\Connection;
 use yii\db\Expression as DbExpression;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use yii\web\AssetManager;
 use yii\web\View;
 
 use function filter_var;
@@ -68,18 +65,7 @@ final class BigrunPercentile extends Widget
         $view = $this->view;
 
         return Html::button(
-            $view instanceof View
-                ? Html::img(
-                    Yii::$app->assetManager->getAssetUrl(
-                        SalmonBadgeAsset::register($view),
-                        $this->isEggstraWork ? 'eggstra-1.png' : 'top-1.png',
-                    ),
-                    [
-                        'class' => 'basic-icon',
-                        'draggable' => 'false',
-                    ],
-                )
-                : '',
+            Icon::info(),
             [
                 'class' => 'btn btn-default btn-xs p-1',
                 'data' => [
@@ -317,33 +303,13 @@ final class BigrunPercentile extends Widget
         ?int $userEggs,
         ?int $officialEggs,
     ): string {
-        $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
-        $egg = Html::img(
-            $am->getAssetUrl($am->getBundle(SalmonEggAsset::class), 'golden-egg.png'),
-            [
-                'class' => 'basic-icon',
-                'draggable' => 'false',
-            ],
-        );
-
         return Html::tag(
             'tr',
             implode('', [
                 Html::tag(
                     'th',
-                    trim(
-                        vsprintf('%s %s', [
-                            Html::img(
-                                $am->getAssetUrl($am->getBundle(SalmonBadgeAsset::class), $badgeIconPath),
-                                [
-                                    'class' => 'basic-icon',
-                                    'draggable' => 'false',
-                                ],
-                            ),
-                            Html::encode(
-                                Yii::t('app', 'Top {percentile}%', ['percentile' => $percentile]),
-                            ),
-                        ]),
+                    Html::encode(
+                        Yii::t('app', 'Top {percentile}%', ['percentile' => $percentile]),
                     ),
                     ['scope' => 'row'],
                 ),
@@ -352,10 +318,7 @@ final class BigrunPercentile extends Widget
                     trim(
                         $userEggs === null
                             ? '-'
-                            : vsprintf('%s %s', [
-                                $egg,
-                                Html::encode(Yii::$app->formatter->asInteger($userEggs)),
-                            ]),
+                            : Html::encode(Yii::$app->formatter->asInteger($userEggs)),
                     ),
                 ),
                 Html::tag(
@@ -363,10 +326,7 @@ final class BigrunPercentile extends Widget
                     trim(
                         $officialEggs === null
                             ? '-'
-                            : vsprintf('%s %s', [
-                                $egg,
-                                Html::encode(Yii::$app->formatter->asInteger($officialEggs)),
-                            ]),
+                            : Html::encode(Yii::$app->formatter->asInteger($officialEggs)),
                     ),
                 ),
             ]),
@@ -377,7 +337,6 @@ final class BigrunPercentile extends Widget
         StatBigrunDistribAbstract3|StatEggstraWorkDistribAbstract3|null $stats,
         BigrunOfficialResult3|EggstraWorkOfficialResult3|null $official,
     ): string {
-        $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
         return Html::tag(
             'tr',
             implode('', [
@@ -388,14 +347,7 @@ final class BigrunPercentile extends Widget
                 ),
                 Html::tag(
                     'td',
-                    vsprintf('%s %s (σ = %s)', [
-                        Html::img(
-                            $am->getAssetUrl($am->getBundle(SalmonEggAsset::class), 'golden-egg.png'),
-                            [
-                                'class' => 'basic-icon',
-                                'draggable' => 'false',
-                            ],
-                        ),
+                    vsprintf('%s (σ = %s)', [
                         Html::encode(
                             Yii::$app->formatter->asDecimal(
                                 ArrayHelper::getValue($stats, 'average'),

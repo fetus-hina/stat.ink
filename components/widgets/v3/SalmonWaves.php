@@ -11,7 +11,6 @@ declare(strict_types=1);
 namespace app\components\widgets\v3;
 
 use Yii;
-use app\assets\SalmonEggAsset;
 use app\assets\SalmonWavesAsset;
 use app\components\i18n\Formatter;
 use app\components\widgets\Label;
@@ -389,8 +388,6 @@ final class SalmonWaves extends Widget
      */
     private function renderGoldenEggs(array $waves, bool $isEggstraWork): string
     {
-        $asset = SalmonEggAsset::register($this->view);
-
         return Html::tag(
             'tr',
             implode('', [
@@ -480,8 +477,6 @@ final class SalmonWaves extends Widget
      */
     private function renderGoldenAppearances(array $waves, bool $isEggstraWork): string
     {
-        $asset = SalmonEggAsset::register($this->view);
-
         return Html::tag(
             'tr',
             implode('', [
