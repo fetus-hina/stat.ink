@@ -47,14 +47,8 @@ return [
   'value' => function (array $row) use ($bosses): string {
     $key = TypeHelper::string(ArrayHelper::getValue($row, 'boss_key'));
     $boss = ArrayHelper::getValue($bosses, $key);
-    if ($boss instanceof SalmonBoss3) {
-      return Html::tag(
-        'span',
-        Html::encode(Yii::t('app-salmon-boss3', $boss->name)),
-        ['class' => 'd-none d-md-inline'],
-      );
-    }
-
-    return '';
+    return $boss instanceof SalmonBoss3
+      ? Html::encode(Yii::t('app-salmon-boss3', $boss->name))
+      : "({$key})";
   },
 ];
