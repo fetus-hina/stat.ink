@@ -11,7 +11,6 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use Yii;
-use app\assets\SalmonEggAsset;
 use app\components\i18n\Formatter;
 use app\models\UserStatBigrun3;
 use app\models\UserStatSalmon3;
@@ -106,18 +105,14 @@ final class SalmonUserInfo3 extends SalmonUserInfo
                     if ($value > 332.95) {
                         $view = $this->view;
                         if ($view instanceof View) {
-                            $asset = SalmonEggAsset::register($view);
                             return Html::tag(
                                 'div',
-                                Html::img(
-                                    Yii::$app->assetManager->getAssetUrl($asset, 'spl3-hazard-level-max.png'),
+                                Html::tag(
+                                    'span',
+                                    Yii::t('app-salmon3', 'MAX'),
                                     [
                                         'title' => Yii::t('app-salmon3', 'MAX Hazard Level Cleared'),
-                                        'class' => 'auto-tooltip basic-icon',
-                                        'style' => [
-                                            '--icon-height' => '1.2em',
-                                            '--icon-valign' => 'baseline',
-                                        ],
+                                        'class' => 'auto-tooltip',
                                     ],
                                 ),
                                 ['class' => 'text-center'],

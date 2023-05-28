@@ -50,6 +50,7 @@ use function mb_chr;
  * @method static string hasDisconnected()
  * @method static string help()
  * @method static string image()
+ * @method static string info()
  * @method static string ios()
  * @method static string language()
  * @method static string languageLevelFew()
@@ -121,6 +122,7 @@ final class Icon
         'github' => 'github',
         'help' => 'question-circle-fill',
         'image' => 'image',
+        'info' => 'info-circle-fill',
         'ios' => 'apple',
         'language' => 'translate',
         'languageLevelFew' => 'exclamation-triangle-fill',
