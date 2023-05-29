@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\components\widgets\Icon;
 use app\models\MedalCanonical3;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -16,7 +17,7 @@ use yii\web\View;
 echo Html::tag(
   'td',
   implode(' ', [
-    mb_chr($medal->gold ? 0x1F947 : 0x1F948),
+    $medal->gold ? Icon::goldMedal() : Icon::silverMedal(),
     Html::encode(Yii::t('app-medal3', $medal->name)),
   ]),
   [
