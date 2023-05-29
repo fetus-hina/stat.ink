@@ -31,6 +31,7 @@ return [
     'Barredora Doble SP' => '',
     'Barredora dual' => '',
     'Barredora dual SP' => '',
+    'Big Swig Roller Express' => '',
     'Brocha' => '',
     'Brocha abanico' => '',
     'Brocha de élite (réplica)' => '',

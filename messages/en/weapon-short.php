@@ -27,6 +27,7 @@ return [
     'Bento Splatterscope' => 'Bento Scope',
     'Berry Splattershot Pro' => 'Berry Pro',
     'Big Swig Roller' => '',
+    'Big Swig Roller Express' => '',
     'Blaster' => 'Blaster',
     'Bloblobber' => 'Bloblobber',
     'Bloblobber Deco' => 'Bloblobber Deco',

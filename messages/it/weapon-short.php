@@ -28,6 +28,7 @@ return [
     'Bento Splat Charger' => '',
     'Bento Splatterscope' => '',
     'Berry Splattershot Pro' => '',
+    'Big Swig Roller Express' => '',
     'Bimbamboom 14-I' => '',
     'Bimbamboom 14-II' => '',
     'Bimbamboom 14-III' => '',

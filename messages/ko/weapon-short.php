@@ -23,6 +23,7 @@ return [
     'Bento Splat Charger' => '',
     'Bento Splatterscope' => '',
     'Berry Splattershot Pro' => '',
+    'Big Swig Roller Express' => '',
     'Bloblobber Deco' => '',
     'Cherry H-3 Nozzlenose' => '',
     'Clear Dapple Dualies' => '',

@@ -15,10 +15,8 @@ use DateTimeZone;
 use Yii;
 use app\actions\api\internal\schedule\Splatoon2;
 use app\actions\api\internal\schedule\Splatoon3;
-use app\assets\GameVersionIconAsset;
 use app\components\helpers\Battle as BattleHelper;
 use yii\base\Action;
-use yii\helpers\Url;
 
 use function time;
 
@@ -87,21 +85,18 @@ final class ScheduleAction extends Action
 
     private function getGames(): array
     {
-        $am = Yii::$app->assetManager;
-        $asset = $am ? $am->getBundle(GameVersionIconAsset::class) : null;
-
         return [
             'splatoon1' => [
                 'name' => Yii::t('app', 'Splatoon'),
-                'icon' => $asset ? Url::to($am->getAssetUrl($asset, 's1.png'), true) : null,
+                'icon' => null,
             ],
             'splatoon2' => [
                 'name' => Yii::t('app', 'Splatoon 2'),
-                'icon' => $asset ? Url::to($am->getAssetUrl($asset, 's2.png'), true) : null,
+                'icon' => null,
             ],
             'splatoon3' => [
                 'name' => Yii::t('app', 'Splatoon 3'),
-                'icon' => $asset ? Url::to($am->getAssetUrl($asset, 's3.png'), true) : null,
+                'icon' => null,
             ],
         ];
     }
