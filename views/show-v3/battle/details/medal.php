@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\components\widgets\Icon;
 use app\models\Battle3;
 use app\models\BattleMedal3;
 use app\models\MedalCanoical3;
@@ -36,7 +37,7 @@ return [
         'div',
         implode(' ', [
           $canonical
-            ? mb_chr($canonical->gold ? 0x1F947 : 0x1F948)
+            ? ($canonical->gold ? Icon::goldMedal() : Icon::silverMedal())
             : '',
           Html::encode(
             $canonical

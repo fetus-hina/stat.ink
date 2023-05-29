@@ -46,7 +46,7 @@ return [
     foreach ($medals as $medal) {
       $canonical = $medal->canonical;
       if ($canonical) {
-        $items[] = mb_chr($canonical->gold ? 0x1F947 : 0x1F948);
+        $items[] = $canonical->gold ? Icon::goldMedal() : Icon::silverMedal();
       } else {
         $items[] = Html::tag(
           'span',

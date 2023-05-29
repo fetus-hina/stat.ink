@@ -12,13 +12,17 @@ namespace app\components\widgets;
 
 use Yii;
 use app\assets\BootstrapIconsAsset;
+use app\assets\JqueryTwemojiAsset;
 use yii\base\UnknownMethodException;
 use yii\helpers\Html;
+use yii\helpers\Json;
 use yii\web\AssetBundle;
 use yii\web\View;
 
+use function hash;
 use function implode;
 use function mb_chr;
+use function sprintf;
 
 /**
  * @method static string addSomething()
@@ -29,6 +33,7 @@ use function mb_chr;
  * @method static string arrowRight()
  * @method static string back()
  * @method static string blog()
+ * @method static string bronzeMedal()
  * @method static string caretDown()
  * @method static string check()
  * @method static string checkboxChecked()
@@ -47,6 +52,7 @@ use function mb_chr;
  * @method static string fileJson()
  * @method static string filter()
  * @method static string github()
+ * @method static string goldMedal()
  * @method static string hasDisconnected()
  * @method static string help()
  * @method static string image()
@@ -75,6 +81,7 @@ use function mb_chr;
  * @method static string refresh()
  * @method static string scrollTo()
  * @method static string search()
+ * @method static string silverMedal()
  * @method static string slack()
  * @method static string sortable()
  * @method static string stats()
@@ -173,6 +180,15 @@ final class Icon
         'hasDisconnected' => 'tint-slash',
     ];
 
+    /**
+     * @var array<string, int>
+     */
+    private static $emojiMap = [
+        'bronzeMedal' => 0x1f949,
+        'goldMedal' => 0x1f947,
+        'silverMedal' => 0x1f948,
+    ];
+
     public static function dummy(): string
     {
         $view = Yii::$app->view;
@@ -210,6 +226,7 @@ final class Icon
         return match (true) {
             isset(self::$biMap[$name]) => self::bi(self::$biMap[$name]),
             isset(self::$fasMap[$name]) => self::fas(self::$fasMap[$name]),
+            isset(self::$emojiMap[$name]) => self::emoji(self::$emojiMap[$name]),
             default => throw new UnknownMethodException("Unknown icon {$name}"),
         };
     }
@@ -233,17 +250,43 @@ final class Icon
         return (string)($modifier ? $modifier($o) : $o);
     }
 
+    private static function emoji(int $codepoint): string
+    {
+        static $className = null;
+        if ($className === null) {
+            $className = sprintf('emoji-%s', hash('crc32b', __METHOD__));
+        }
+
+        self::prepareAsset(
+            JqueryTwemojiAsset::class,
+            js: sprintf('jQuery(%s).twemoji();', Json::encode(".{$className}")),
+        );
+
+        return Html::tag(
+            'span',
+            Html::encode(mb_chr($codepoint, 'UTF-8')),
+            ['class' => $className],
+        );
+    }
+
     /**
      * @phpstan-param class-string<AssetBundle> $fqcn
      */
-    private static function prepareAsset(string $fqcn, ?string $css = null): void
-    {
+    private static function prepareAsset(
+        string $fqcn,
+        ?string $css = null,
+        ?string $js = null,
+    ): void {
         $view = Yii::$app->view;
         if ($view && $view instanceof View) {
             $view->registerAssetBundle($fqcn);
 
             if ($css !== null) {
                 $view->registerCss($css);
+            }
+
+            if ($js !== null) {
+                $view->registerJs($js);
             }
         }
     }
