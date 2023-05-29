@@ -15,7 +15,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "@popperjs/core": "^2.11.7",
+    "@popperjs/core": "^2.11.8",
     "autoprefixer": "^10.4.14",
     "axios": "^1.4.0",
     "babel-loader": "^9.1.2",
