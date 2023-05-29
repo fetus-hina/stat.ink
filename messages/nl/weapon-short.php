@@ -36,6 +36,7 @@ return [
     'Bento Splat Charger' => '',
     'Bento Splatterscope' => '',
     'Berry Splattershot Pro' => '',
+    'Big Swig Roller Express' => '',
     'Blaster' => '',
     'Bloplader' => '',
     'Blusling' => '',
