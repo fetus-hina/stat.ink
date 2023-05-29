@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use app\assets\FishScaleAsset;
 use app\models\Salmon3;
 use yii\helpers\Html;
 use yii\web\View;
@@ -15,39 +14,40 @@ return [
       $model->is_private ||
       $model->gold_scale === null ||
       $model->silver_scale === null ||
-      $model->bronze_scale === null
+      $model->bronze_scale === null ||
+      $model->gold_scale + $model->silver_scale + $model->bronze_scale < 1
     ) {
       return null;
     }
 
-    $v = Yii::$app->view;
-    if (!$v instanceof View) {
-      return null;
-    }
+    $labels = [
+      'gold' => Yii::t('app-salmon-scale3', 'Gold'),
+      'silver' => Yii::t('app-salmon-scale3', 'Silver'),
+      'bronze' => Yii::t('app-salmon-scale3', 'Bronze'),
+    ];
 
-    $data = [
+    $counts = [
       'gold' => $model->gold_scale,
       'silver' => $model->silver_scale,
       'bronze' => $model->bronze_scale,
     ];
     
-    $asset = FishScaleAsset::register($v);
-    return implode('', array_map(
-      function (string $key, ?int $count) use ($asset): string {
-        return Html::tag(
-          'span',
-          vsprintf('%s %s', [
-            Html::img(
-              Yii::$app->assetManager->getAssetUrl($asset, sprintf('%s.png', $key)),
-              ['class' => 'basic-icon'],
+    return implode(
+      ' / ',
+      array_filter(
+        array_map(
+          fn (string $key): ?string => ($counts[$key] ?? 0) < 1
+            ? null
+            : Html::tag(
+              'span',
+              vsprintf('%s: %s', [
+                Html::encode($labels[$key] ?? ''),
+                Html::encode(Yii::$app->formatter->asInteger($counts[$key] ?? 0)),
+              ]),
             ),
-            Html::encode($count === null ? '-' : Yii::$app->formatter->asInteger($count)),
-          ]),
-          ['class' => 'mr-2'],
-        );
-      },
-      array_keys($data),
-      array_values($data),
-    ));
+          array_keys($counts),
+        ),
+      ),
+    );
   },
 ];
