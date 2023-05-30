@@ -11,7 +11,6 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use Yii;
-use app\assets\GameModeIconsAsset;
 use app\assets\UserMiniinfoAsset;
 use app\components\widgets\v3\userMiniInfo\PerLobby;
 use app\components\widgets\v3\userMiniInfo\Total;
@@ -21,7 +20,6 @@ use app\models\Rank3;
 use app\models\User;
 use app\models\UserStat3;
 use yii\base\Widget;
-use yii\bootstrap\Tabs;
 use yii\helpers\Html;
 use yii\web\View;
 
@@ -29,9 +27,8 @@ use function array_filter;
 use function array_keys;
 use function array_map;
 use function array_values;
+use function hash;
 use function implode;
-use function rawurlencode;
-use function sprintf;
 use function usort;
 use function vsprintf;
 
@@ -145,66 +142,110 @@ final class UserMiniInfo3 extends Widget
             return null;
         }
 
-        $view = $this->view;
-        if ($view instanceof View) {
-            $am = Yii::$app->assetManager;
-            $iconAsset = GameModeIconsAsset::register($view);
-
-            $view->registerCss(vsprintf('#%s .nav>li>a{%s}', [
-                $this->id,
-                'padding:5px 10px',
-            ]));
-        }
-
         $peakRankInfo = $this->makePeakRankInfo(
             $this->flattenStats($models),
         );
 
         $defaultTab = $this->decideDefaultLobbyTab($models);
-
-        return Tabs::widget([
-            'items' => array_filter(
-                array_map(
-                    fn (array $groupInfo): ?array => $groupInfo['group']
-                        ? [
-                            'active' => $defaultTab === $groupInfo['group']->key,
-                            'encode' => false,
-                            'label' => $am && $iconAsset
-                                ? Html::img(
-                                    $am->getAssetUrl(
-                                        $iconAsset,
-                                        sprintf('spl3/%s.png', rawurlencode($groupInfo['group']->key)),
-                                    ),
-                                    [
-                                        'class' => 'auto-tooltip basic-icon',
-                                        'title' => Yii::t('app-lobby3', $groupInfo['group']->name),
-                                    ],
-                                )
-                                : Html::encode($groupInfo['group']->name),
-                            'content' => implode('', array_map(
-                                fn (UserStat3 $stat): string => Html::tag(
-                                    'div',
-                                    PerLobby::widget([
-                                        'user' => $this->user,
-                                        'model' => $stat,
-                                        'peakRank' => $peakRankInfo,
-                                    ]),
-                                    ['class' => 'mt-2'],
-                                ),
-                                $groupInfo['stats'],
-                            )),
-                        ]
-                        : null,
-                    $models,
-                ),
-                fn (?array $conf): bool => $conf !== null,
+        $items = array_filter(
+            array_map(
+                fn (array $groupInfo): ?array => $groupInfo['group']
+                    ? [
+                        'active' => $defaultTab === $groupInfo['group']->key,
+                        'label' => Yii::t('app-lobby3', $groupInfo['group']->name),
+                        'content' => implode('', array_map(
+                            fn (UserStat3 $stat): string => Html::tag(
+                                'div',
+                                PerLobby::widget([
+                                    'user' => $this->user,
+                                    'model' => $stat,
+                                    'peakRank' => $peakRankInfo,
+                                ]),
+                                ['class' => 'mt-2'],
+                            ),
+                            $groupInfo['stats'],
+                        )),
+                    ]
+                    : null,
+                $models,
             ),
-        ]);
+            fn (?array $conf): bool => $conf !== null,
+        );
+
+        return $items
+            ? implode('', [
+                $this->renderStatsLobbiesDropdown($items),
+                $this->renderStatsLobbiesBody($items),
+            ])
+            : '';
+    }
+
+    /**
+     * @param array{active: bool, label: string}[] $items
+     */
+    private function renderStatsLobbiesDropdown(array $items): string
+    {
+        $convertedItems = [];
+        $selected = null;
+        foreach ($items as $item) {
+            if (!$selected && $item['active']) {
+                $selected = $item;
+            }
+
+            $convertedItems[$this->getLobbyId($item)] = $item['label'];
+        }
+
+        return Html::dropDownList(
+            name: '',
+            selection: $this->getLobbyId($selected),
+            items: $convertedItems,
+            options: [
+                'class' => 'form-control mb-2',
+                'onchange' => implode('', [
+                    // Hide all tabs
+                    '$(".miniinfo3-lobby").removeClass("d-block").addClass("d-none");',
+
+                    // Show selected tab
+                    '$("#" + $(this).val()).removeClass("d-none").addClass("d-block");',
+                ]),
+            ],
+        );
+    }
+
+    /**
+     * @param array{active: bool, label: string, content: string}[] $items
+     */
+    private function renderStatsLobbiesBody(array $items): string
+    {
+        return implode(
+            '',
+            array_map(
+                fn (array $item): string => Html::tag('div', $item['content'], [
+                    'id' => $this->getLobbyId($item),
+                    'class' => [
+                        'miniinfo3-lobby',
+                        $item['active'] ? 'd-block' : 'd-none',
+                    ],
+                ]),
+                $items,
+            ),
+        );
+    }
+
+    /**
+     * @param array{label: string} $item
+     */
+    private function getLobbyId(?array $item): ?string
+    {
+        return $item === null
+            ? null
+            : vsprintf('miniinfo3-lobby-%s', [
+                hash('crc32b', $item['label']),
+            ]);
     }
 
     private function renderLinkToSalmon(): string
     {
-        $am = Yii::$app->assetManager;
         return Html::tag(
             'div',
             Html::a(

@@ -11,7 +11,6 @@ declare(strict_types=1);
 namespace app\components\widgets\v3\userMiniInfo;
 
 use Yii;
-use app\assets\GameModeIconsAsset;
 use app\components\widgets\v3\Rank;
 use app\models\Rank3;
 use app\models\User;
@@ -187,9 +186,6 @@ final class PerLobby extends Widget
             ->andWhere(['user_id' => $user->id])
             ->orderBy(['{{%rule3}}.[[rank]]' => SORT_ASC])
             ->all();
-
-        $am = Yii::$app->assetManager;
-        $asset = GameModeIconsAsset::register($this->view);
 
         return implode(
             '',
