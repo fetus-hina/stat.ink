@@ -266,6 +266,8 @@ trait UpdateSalmonSchedule
                 $model->weapon_id = $weapon->id;
             } elseif ($weapon instanceof SalmonRandom3) {
                 $model->random_id = $weapon->id;
+            } elseif ($weapon === null) {
+                continue;
             } else {
                 throw new LogicException();
             }
