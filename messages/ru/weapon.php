@@ -50,7 +50,7 @@ return [
     'H-3 Nozzlenose' => 'Тяжелый каплетрон',
     'H-3 Nozzlenose D' => 'Тяжелый каплетрон 2.0',
     'Heavy Splatling' => 'Брызгомет XL',
-    'Heavy Splatling Deco' => '',
+    'Heavy Splatling Deco' => 'Брызгомет XL «Деко»',
     'Heavy Splatling Remix' => '',
     'Hero Charger Replica' => '',
     'Hero Roller Replica' => '',
