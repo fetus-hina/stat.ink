@@ -50,7 +50,7 @@ return [
     'H-3 Nozzlenose' => 'H3 릴 건',
     'H-3 Nozzlenose D' => 'H3 릴 건 D',
     'Heavy Splatling' => '배럴 스피너',
-    'Heavy Splatling Deco' => '',
+    'Heavy Splatling Deco' => '배럴 스피너 데코',
     'Heavy Splatling Remix' => '',
     'Hero Charger Replica' => '',
     'Hero Roller Replica' => '',
