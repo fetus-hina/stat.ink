@@ -25,5 +25,5 @@ return [
     'notifyEmail' => 'noreply@stat.ink',
     'twitter' => require __DIR__ . '/twitter.php',
     'useImgStatInk' => $isOfficialStatink,
-    'useS3ImgGen' => false, // $isOfficialStatink && $isProductionDB,
+    'useS3ImgGen' => $isOfficialStatink && $isProductionDB,
 ];

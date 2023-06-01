@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -12,6 +12,7 @@ namespace app\actions\api\internal\latestBattles;
 
 use Yii;
 use app\models\Battle3;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
 use function strtotime;
@@ -41,6 +42,22 @@ trait Battle3Formatter
 
     private static function image3(Battle3 $model): ?string
     {
+        if ($model->battleImageResult3) {
+            return Url::to(
+                Yii::getAlias('@imageurl') . '/' . $model->battleImageResult3->filename,
+                true,
+            );
+        }
+
+        if (ArrayHelper::getValue(Yii::$app->params, 'useS3ImgGen')) {
+            $rule = $model->rule;
+            if ($rule && $rule->key !== 'tricolor') {
+                return vsprintf('https://s3-img-gen.stats.ink/results/en-US/%s.jpg', [
+                    rawurlencode($model->uuid),
+                ]);
+            }
+        }
+
         return null;
     }
 
