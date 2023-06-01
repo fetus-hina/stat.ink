@@ -9,15 +9,16 @@
 declare(strict_types=1);
 
 return [
-    'Anarchy Battle' => '',
-    'Anarchy Battle (Open)' => '',
-    'Anarchy Battle (Series)' => '',
+    'Anarchy Battle' => 'Combate caótico',
+    'Anarchy Battle (Open)' => 'Combate caótico (informal)',
+    'Anarchy Battle (Series)' => 'Combate caótico (formal)',
     'Any Lobby' => '',
+    'Challenge' => 'Combate especial',
     'Except Private' => '',
-    'Private Battle' => '',
-    'Regular Battle' => '',
-    'Splatfest' => '',
-    'Splatfest (Open)' => '',
-    'Splatfest (Pro)' => '',
-    'X Battle' => '',
+    'Private Battle' => 'Combate privado',
+    'Regular Battle' => 'Combate amistoso',
+    'Splatfest' => 'Combate temático',
+    'Splatfest (Open)' => 'Combate temático (informal)',
+    'Splatfest (Pro)' => 'Combate temático (formal)',
+    'X Battle' => 'Combate X',
 ];
