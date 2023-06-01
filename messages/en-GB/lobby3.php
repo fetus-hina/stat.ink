@@ -10,14 +10,15 @@ declare(strict_types=1);
 
 return [
     'Anarchy Battle' => '',
-    'Anarchy Battle (Open)' => '',
-    'Anarchy Battle (Series)' => '',
+    'Anarchy Battle (Open)' => 'Anarchy Battle (Open)',
+    'Anarchy Battle (Series)' => 'Anarchy Battle (Series)',
     'Any Lobby' => '',
+    'Challenge' => 'Challenge',
     'Except Private' => '',
-    'Private Battle' => '',
-    'Regular Battle' => '',
+    'Private Battle' => 'Private Battle',
+    'Regular Battle' => 'Regular Battle',
     'Splatfest' => '',
-    'Splatfest (Open)' => '',
-    'Splatfest (Pro)' => '',
-    'X Battle' => '',
+    'Splatfest (Open)' => 'Splatfest (Open)',
+    'Splatfest (Pro)' => 'Splatfest (Pro)',
+    'X Battle' => 'X Battle',
 ];

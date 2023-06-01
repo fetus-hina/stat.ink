@@ -12,10 +12,11 @@ declare(strict_types=1);
 
 return [
     'Anarchy Battle' => '蛮颓比赛',
-    'Anarchy Battle (Open)' => '蛮颓比赛 (开放)',
-    'Anarchy Battle (Series)' => '蛮颓比赛 (挑战)',
+    'Anarchy Battle (Open)' => '蛮颓比赛（开放）',
+    'Anarchy Battle (Series)' => '蛮颓比赛（挑战）',
     'Any Lobby' => '所有大厅',
-    'Except Private' => '',
+    'Challenge' => '活动比赛',
+    'Except Private' => '排除私人比赛',
     'Private Battle' => '私人比赛',
     'Regular Battle' => '一般比赛',
     'Splatfest' => '祭典比赛',

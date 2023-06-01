@@ -90,7 +90,7 @@ $launch = new DateTimeImmutable('2022-09-09T00:00:00+00:00');
               'time',
               (new DateTimeImmutable($stage->release_at)) <= $launch
                 ? Html::encode(Yii::t('app', 'Launch'))
-                : Html::encode($fmt->asDateTime($stage->release_at)),
+                : Html::encode($fmt->asDate($stage->release_at, 'medium')),
               [
                 'datetime' => gmdate(DateTime::ATOM, strtotime($stage->release_at)),
               ],
