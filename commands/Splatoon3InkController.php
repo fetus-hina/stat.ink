@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -13,6 +13,7 @@ namespace app\commands;
 use Curl\Curl;
 use Exception;
 use Yii;
+use app\commands\splatoon3Ink\UpdateEventSchedule;
 use app\commands\splatoon3Ink\UpdateSalmonSchedule;
 use app\commands\splatoon3Ink\UpdateSchedule;
 use app\components\helpers\splatoon3ink\ScheduleParser;
@@ -20,12 +21,11 @@ use yii\console\Controller;
 use yii\console\ExitCode;
 use yii\helpers\Json;
 
-use function compact;
-use function hash_hmac;
 use function vsprintf;
 
 final class Splatoon3InkController extends Controller
 {
+    use UpdateEventSchedule;
     use UpdateSalmonSchedule;
     use UpdateSchedule;
 
@@ -39,6 +39,7 @@ final class Splatoon3InkController extends Controller
 
         $status = 0;
         $status |= $this->updateSchedule($schedules);
+        $status |= $this->updateEventSchedule($schedules);
         $status |= $this->updateSalmonSchedule($schedules);
         return $status === 0 ? ExitCode::OK : ExitCode::UNSPECIFIED_ERROR;
     }
@@ -46,6 +47,15 @@ final class Splatoon3InkController extends Controller
     public function actionUpdateSchedule(): int
     {
         return $this->updateSchedule(
+            ScheduleParser::parseAll(
+                $this->queryJson('https://splatoon3.ink/data/schedules.json'),
+            ),
+        );
+    }
+
+    public function actionEventSchedule(): int
+    {
+        return $this->updateEventSchedule(
             ScheduleParser::parseAll(
                 $this->queryJson('https://splatoon3.ink/data/schedules.json'),
             ),
@@ -64,7 +74,7 @@ final class Splatoon3InkController extends Controller
     private function queryJson(string $url, array $data = []): array
     {
         return Yii::$app->cache->getOrSet(
-            hash_hmac('sha256', Json::encode(compact('url', 'data')), __METHOD__),
+            [__METHOD__, $url, $data],
             function () use ($url, $data): array {
                 echo "Querying {$url} ...\n";
                 $curl = new Curl();

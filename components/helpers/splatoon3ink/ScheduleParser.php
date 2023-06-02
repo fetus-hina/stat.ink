@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,12 +10,14 @@ declare(strict_types=1);
 
 namespace app\components\helpers\splatoon3ink;
 
+use app\components\helpers\splatoon3ink\scheduleParser\Event;
 use app\components\helpers\splatoon3ink\scheduleParser\Matches;
 use app\components\helpers\splatoon3ink\scheduleParser\Salmon;
 use yii\helpers\ArrayHelper;
 
 final class ScheduleParser
 {
+    use Event;
     use Matches;
     use Salmon;
 
@@ -35,9 +37,9 @@ final class ScheduleParser
             'xmatch' => self::xMatch(
                 ArrayHelper::getValue($json, 'data.xSchedules.nodes'),
             ),
-            // 'league' => self::leagueMatch(
-            //     ArrayHelper::getValue($json, 'data.leagueSchedules.nodes'),
-            // ),
+            'event' => self::event(
+                ArrayHelper::getValue($json, 'data.eventSchedules.nodes'),
+            ),
             'splatfest_open' => self::splatfestMatch(
                 ArrayHelper::getValue($json, 'data.festSchedules.nodes'),
             ),
