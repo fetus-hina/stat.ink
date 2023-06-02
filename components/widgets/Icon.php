@@ -13,10 +13,13 @@ namespace app\components\widgets;
 use Yii;
 use app\assets\BootstrapIconsAsset;
 use app\assets\JqueryTwemojiAsset;
+use app\assets\SalmonEggAsset;
+use app\components\helpers\TypeHelper;
 use yii\base\UnknownMethodException;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\web\AssetBundle;
+use yii\web\AssetManager;
 use yii\web\View;
 
 use function hash;
@@ -53,6 +56,7 @@ use function sprintf;
  * @method static string filter()
  * @method static string github()
  * @method static string goldMedal()
+ * @method static string goldenEgg()
  * @method static string hasDisconnected()
  * @method static string help()
  * @method static string image()
@@ -77,6 +81,7 @@ use function sprintf;
  * @method static string ok()
  * @method static string permalink()
  * @method static string popup()
+ * @method static string powerEgg()
  * @method static string prevPage()
  * @method static string refresh()
  * @method static string scrollTo()
@@ -189,6 +194,14 @@ final class Icon
         'silverMedal' => 0x1f948,
     ];
 
+    /**
+     * @var array<string, array{class-string<AssetBundle>, string}>
+     */
+    private static $assetImageMap = [
+        'goldenEgg' => [SalmonEggAsset::class, 'golden-egg.png'],
+        'powerEgg' => [SalmonEggAsset::class, 'power-egg.png'],
+    ];
+
     public static function dummy(): string
     {
         $view = Yii::$app->view;
@@ -227,6 +240,7 @@ final class Icon
             isset(self::$biMap[$name]) => self::bi(self::$biMap[$name]),
             isset(self::$fasMap[$name]) => self::fas(self::$fasMap[$name]),
             isset(self::$emojiMap[$name]) => self::emoji(self::$emojiMap[$name]),
+            isset(self::$assetImageMap[$name]) => self::assetImage(...self::$assetImageMap[$name]),
             default => throw new UnknownMethodException("Unknown icon {$name}"),
         };
     }
@@ -267,6 +281,24 @@ final class Icon
             Html::encode(mb_chr($codepoint, 'UTF-8')),
             ['class' => $className],
         );
+    }
+
+    /**
+     * @param class-string<AssetBundle> $assetClass
+     */
+    private static function assetImage(string $assetClass, string $assetPath): string
+    {
+        // self::prepareAsset($assetClass);
+        $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
+
+        return Html::img($am->getAssetUrl($am->getBundle($assetClass), $assetPath), [
+            'class' => 'basic-icon',
+            'draggable' => 'false',
+            'style' => [
+                '--icon-height' => '1em',
+                '--icon-valign' => 'middle',
+            ],
+        ]);
     }
 
     /**

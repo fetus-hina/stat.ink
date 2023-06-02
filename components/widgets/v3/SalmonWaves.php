@@ -13,6 +13,7 @@ namespace app\components\widgets\v3;
 use Yii;
 use app\assets\SalmonWavesAsset;
 use app\components\i18n\Formatter;
+use app\components\widgets\Icon;
 use app\components\widgets\Label;
 use app\models\Salmon3;
 use app\models\SalmonEvent3;
@@ -393,7 +394,8 @@ final class SalmonWaves extends Widget
             implode('', [
                 Html::tag(
                     'th',
-                    vsprintf('%s/<wbr>%s', [
+                    vsprintf('%s %s/<wbr>%s', [
+                        Icon::goldenEgg(),
                         Html::encode(Yii::t('app-salmon2', 'Delivers')),
                         Html::encode(Yii::t('app-salmon2', 'Quota')),
                     ]),
@@ -482,7 +484,10 @@ final class SalmonWaves extends Widget
             implode('', [
                 Html::tag(
                     'th',
-                    Html::encode(Yii::t('app-salmon2', 'Appearances')),
+                    implode(' ', [
+                        Icon::goldenEgg(),
+                        Html::encode(Yii::t('app-salmon2', 'Appearances')),
+                    ]),
                 ),
                 implode('', array_map(
                     fn (array $wave, int $waveNumber): string => Html::tag(
