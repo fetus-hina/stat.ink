@@ -115,7 +115,7 @@
 
     const chart = new window.Chart(ctx, {
       type: 'line',
-      data: data,
+      data,
       options: {
         aspectRatio: 1.61803398875,
         layout: {

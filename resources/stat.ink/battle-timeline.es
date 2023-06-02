@@ -817,7 +817,7 @@ jQuery($ => {
           }
         },
         grid: {
-          markings: markings
+          markings
         }
       });
     });

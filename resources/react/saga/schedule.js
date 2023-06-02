@@ -22,7 +22,7 @@ function requestGetApi () {
     })
     .catch(error => {
       return {
-        error: error
+        error
       };
     });
 }
