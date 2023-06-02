@@ -14,7 +14,7 @@ use Yii;
 use app\assets\SalmonPlayersAsset;
 use app\components\helpers\TypeHelper;
 use app\components\i18n\Formatter;
-use app\components\widgets\FA;
+use app\components\widgets\Icon;
 use app\models\Salmon3;
 use app\models\SalmonPlayer3;
 use app\models\SalmonPlayerWeapon3;
@@ -128,7 +128,11 @@ final class SalmonPlayers extends Widget
                                 ? trim(
                                     vsprintf('%s %s', [
                                         $player->is_disconnected
-                                            ? Html::tag('span', FA::fas('tint-slash'), ['class' => 'text-danger'])
+                                            ? Html::tag(
+                                                'span',
+                                                Icon::hasDisconnected(),
+                                                ['class' => 'text-danger'],
+                                            )
                                             : '',
                                         Html::tag(
                                             'span',
@@ -296,7 +300,10 @@ final class SalmonPlayers extends Widget
             implode('', [
                 Html::tag(
                     'th',
-                    Html::encode(Yii::t('app-salmon2', 'Delivers')),
+                    implode(' ', [
+                        Icon::goldenEgg(),
+                        Html::encode(Yii::t('app-salmon2', 'Delivers')),
+                    ]),
                 ),
                 implode('', ArrayHelper::getColumn(
                     $players,
@@ -346,7 +353,10 @@ final class SalmonPlayers extends Widget
             implode('', [
                 Html::tag(
                     'th',
-                    Html::encode(Yii::t('app-salmon2', 'Power Eggs')),
+                    implode(' ', [
+                        Icon::powerEgg(),
+                        Html::encode(Yii::t('app-salmon2', 'Power Eggs')),
+                    ]),
                 ),
                 implode('', ArrayHelper::getColumn(
                     $players,

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\components\widgets\Icon;
 use app\models\Salmon3;
 use yii\helpers\Html;
 use yii\web\View;
@@ -29,11 +30,10 @@ return [
         return Html::tag(
           'span',
           vsprintf('%s %s', [
-            Html::tag(
-              'span',
-              '●',
-              ['class' => 'text-' . $key],
-            ),
+            match ($key) {
+              'golden-egg' => Icon::goldenEgg(),
+              'power-egg' => Icon::powerEgg(),
+            },
             Html::encode($count === null ? '-' : Yii::$app->formatter->asInteger($count)),
           ]),
           [
