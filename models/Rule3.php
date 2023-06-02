@@ -24,6 +24,7 @@ use yii\db\ActiveRecord;
  * @property integer $group_id
  *
  * @property Battle3[] $battle3s
+ * @property EventSchedule3[] $eventSchedule3s
  * @property RuleGroup3 $group
  * @property Knockout3[] $knockout3s
  * @property Rule3Alias[] $rule3Aliases
@@ -87,6 +88,11 @@ class Rule3 extends ActiveRecord
     public function getBattle3s(): ActiveQuery
     {
         return $this->hasMany(Battle3::class, ['rule_id' => 'id']);
+    }
+
+    public function getEventSchedule3s(): ActiveQuery
+    {
+        return $this->hasMany(EventSchedule3::class, ['rule_id' => 'id']);
     }
 
     public function getGroup(): ActiveQuery
