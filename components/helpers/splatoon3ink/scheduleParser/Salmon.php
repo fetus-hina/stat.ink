@@ -10,8 +10,6 @@ declare(strict_types=1);
 
 namespace app\components\helpers\splatoon3ink\scheduleParser;
 
-use DateTimeImmutable;
-use DateTimeZone;
 use app\models\Map3;
 use app\models\SalmonKing3;
 use app\models\SalmonMap3;
@@ -27,6 +25,7 @@ use function is_string;
 
 trait Salmon
 {
+    use Common;
     use TypeHelperTrait;
 
     protected static function salmon(array $nodes, bool $isBigRun): array
@@ -56,12 +55,6 @@ trait Salmon
                 ArrayHelper::getValue($schedule, 'setting.weapons'),
             ),
         ];
-    }
-
-    private static function parseTimestamp(string $ts): int
-    {
-        $obj = new DateTimeImmutable($ts, new DateTimeZone('Etc/UTC'));
-        return $obj->getTimestamp();
     }
 
     private static function parseSalmonStage(string $stageName, bool $isBigRun): ?int

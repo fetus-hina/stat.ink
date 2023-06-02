@@ -17,12 +17,14 @@ use app\models\Schedule3;
 use app\models\ScheduleMap3;
 use yii\console\ExitCode;
 use yii\db\Connection;
+use yii\db\Transaction;
 
 use function array_filter;
 use function array_map;
 use function array_values;
 use function fwrite;
 use function sort;
+use function str_starts_with;
 use function vfprintf;
 
 use const STDERR;
@@ -31,24 +33,29 @@ trait UpdateSchedule
 {
     protected function updateSchedule(array $schedules): int
     {
-        $db = Yii::$app->db;
-        if (!$db instanceof Connection) {
-            return ExitCode::UNSPECIFIED_ERROR;
-        }
+        return Yii::$app->db->transaction(
+            function (Connection $db) use ($schedules): int {
+                foreach ($schedules as $lobbyKey => $scheduleData) {
+                    if ($lobbyKey === 'event' || str_starts_with($lobbyKey, 'salmon_')) {
+                        continue;
+                    }
 
-        foreach ($schedules as $lobbyKey => $scheduleData) {
-            $lobby = Lobby3::find()
-                ->andWhere(['key' => $lobbyKey])
-                ->limit(1)
-                ->one();
-            if ($lobby) {
-                if (!$this->registerSchedules($lobby, $scheduleData)) {
-                    return ExitCode::UNSPECIFIED_ERROR;
+                    $lobby = Lobby3::find()
+                        ->andWhere(['key' => $lobbyKey])
+                        ->limit(1)
+                        ->one();
+                    if ($lobby) {
+                        if (!$this->registerSchedules($lobby, $scheduleData)) {
+                            $db->transaction->rollBack();
+                            return ExitCode::UNSPECIFIED_ERROR;
+                        }
+                    }
                 }
-            }
-        }
 
-        return ExitCode::OK;
+                return ExitCode::OK;
+            },
+            Transaction::REPEATABLE_READ,
+        );
     }
 
     private function registerSchedules(Lobby3 $lobby, array $schedules): bool
