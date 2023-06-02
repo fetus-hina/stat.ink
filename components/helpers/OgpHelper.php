@@ -85,7 +85,7 @@ final class OgpHelper
             $description = self::NAME_WITH_SLOGAN;
         }
 
-        if (Yii::$app->params['useS3ImgGen']) {
+        if (false && Yii::$app->params['useS3ImgGen']) {
             self::profileV3Image(
                 view: $view,
                 user: $user,
