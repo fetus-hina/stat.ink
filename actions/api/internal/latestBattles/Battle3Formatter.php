@@ -15,6 +15,7 @@ use app\models\Battle3;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
+use function rawurlencode;
 use function strtotime;
 use function vsprintf;
 

@@ -24,11 +24,13 @@ use yii\db\ActiveRecord;
  * @property string $release_at
  *
  * @property Battle3[] $battle3s
+ * @property EventMap3[] $eventMap3s
  * @property Knockout3[] $knockout3s
  * @property Map3Alias[] $map3Aliases
  * @property Salmon3[] $salmon3s
  * @property SalmonSchedule3[] $salmonSchedule3s
  * @property ScheduleMap3[] $scheduleMap3s
+ * @property EventSchedule3[] $schedules
  * @property StatSalmon3TideEvent[] $statSalmon3TideEvents
  */
 class Map3 extends ActiveRecord
@@ -71,6 +73,11 @@ class Map3 extends ActiveRecord
         return $this->hasMany(Battle3::class, ['map_id' => 'id']);
     }
 
+    public function getEventMap3s(): ActiveQuery
+    {
+        return $this->hasMany(EventMap3::class, ['map_id' => 'id']);
+    }
+
     public function getKnockout3s(): ActiveQuery
     {
         return $this->hasMany(Knockout3::class, ['map_id' => 'id']);
@@ -94,6 +101,11 @@ class Map3 extends ActiveRecord
     public function getScheduleMap3s(): ActiveQuery
     {
         return $this->hasMany(ScheduleMap3::class, ['map_id' => 'id']);
+    }
+
+    public function getSchedules(): ActiveQuery
+    {
+        return $this->hasMany(EventSchedule3::class, ['id' => 'schedule_id'])->viaTable('event_map3', ['map_id' => 'id']);
     }
 
     public function getStatSalmon3TideEvents(): ActiveQuery
