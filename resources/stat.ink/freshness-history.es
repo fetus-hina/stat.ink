@@ -31,14 +31,14 @@
     };
 
     const makeData = (list, color, lineWidth) => ({ // {{{
-      color: color,
+      color,
       data: list.map((value, index, list) => ([
         -1 * (list.length - 1) + index,
         value
       ])),
       lines: {
         show: true,
-        lineWidth: lineWidth
+        lineWidth
       },
       points: {
         show: true

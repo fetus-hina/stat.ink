@@ -79,7 +79,7 @@ function createRows (jsonData) {
     if (typeData.length > 0) {
       const [, info] = typeData[0];
       results.push({
-        type: type,
+        type,
         label: info.label,
         popup: typeData.length > 1
           ? typeData.map(([, v]) => String(v.count)).join(' + ') // TODO: number format

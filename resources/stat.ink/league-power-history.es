@@ -47,11 +47,11 @@
 
     const makeData = (legend, list, color, lineWidth) => ({
       label: legend,
-      color: color,
+      color,
       data: list,
       lines: {
         show: true,
-        lineWidth: lineWidth
+        lineWidth
       },
       points: {
         show: false
@@ -60,7 +60,7 @@
 
     const makeWinLose = (legend, list, onlyThisValue, color) => ({
       label: legend,
-      color: color,
+      color,
       data: list.map(value => [
         value.time,
         value.isWin === onlyThisValue
@@ -77,14 +77,14 @@
 
     const makePeak = (legend, value, color, lineWidth) => ({
       label: legend,
-      color: color,
+      color,
       data: [
         [periodBeginTime, value[0]],
         [periodEndTime, value[0]]
       ],
       lines: {
         show: true,
-        lineWidth: lineWidth
+        lineWidth
       },
       points: {
         show: false

@@ -48,7 +48,7 @@
             tickFormatter: v => v.toFixed(1) + '%'
           },
           series: {
-            stack: stack,
+            stack,
             points: {
               show: !stack
             },
@@ -148,11 +148,11 @@
         const intercept = calcAverage(arrayB) - (regressionCoefficient * calcAverage(arrayA)); // 切片
 
         return {
-          stdDevA: stdDevA,
-          stdDevB: stdDevB,
-          correlationCoefficient: correlationCoefficient,
-          regressionCoefficient: regressionCoefficient,
-          intercept: intercept
+          stdDevA,
+          stdDevB,
+          correlationCoefficient,
+          regressionCoefficient,
+          intercept
         };
       };
 

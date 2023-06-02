@@ -94,7 +94,7 @@
           }
         },
         series: {
-          stack: stack,
+          stack,
           points: {
             show: !stack
           },

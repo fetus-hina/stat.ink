@@ -112,7 +112,7 @@
         );
       });
     },
-    options: options,
+    options,
     name: 'icon',
     version: '0.1.0-dev'
   });

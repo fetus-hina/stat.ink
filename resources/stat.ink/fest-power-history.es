@@ -49,14 +49,14 @@
 
     const makeData = (legend, list, color, lineWidth) => ({ // {{{
       label: legend,
-      color: color,
+      color,
       data: list.map((value, index, list) => ([
         -1 * (list.length - 1) + index,
         value
       ])),
       lines: {
         show: true,
-        lineWidth: lineWidth
+        lineWidth
       },
       points: {
         show: false
@@ -65,7 +65,7 @@
 
     const makeWinLose = (legend, list, festPowers, onlyThisValue, color) => ({ // {{{
       label: legend,
-      color: color,
+      color,
       data: list.map((value, index, list) => ([
         -1 * (list.length - 1) + index,
         list[index] === onlyThisValue
