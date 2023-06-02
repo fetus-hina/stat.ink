@@ -13,6 +13,7 @@ namespace app\actions\api\internal\latestBattles;
 use Yii;
 use app\assets\GameModeIconsAsset;
 use app\models\Salmon3;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
 use function sprintf;
@@ -112,6 +113,12 @@ trait Salmon3Formatter
 
     private static function salmonImage3(Salmon3 $model): ?string
     {
+        if (ArrayHelper::getValue(Yii::$app->params, 'useS3ImgGen')) {
+            return vsprintf('https://s3-img-gen.stats.ink/salmon/en-US/%s.jpg', [
+                rawurlencode($model->uuid),
+            ]);
+        }
+
         return null;
     }
 
