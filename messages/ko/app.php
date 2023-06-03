@@ -118,6 +118,7 @@ return [
     'Cash' => '돈',
     'Category' => '카테고리',
     'Cause of Death' => '죽은 원인',
+    'Challenge Power' => '',
     'Change Icon' => '아이콘 변경',
     'Change Password' => '비밀번호 변경',
     'Channel' => '채널',

@@ -119,6 +119,7 @@ return [
     'Cash' => 'Dinero',
     'Category' => 'Categoría',
     'Cause of Death' => 'Causa de la Muerte',
+    'Challenge Power' => '',
     'Change Icon' => '',
     'Change Password' => 'Cambiar contraseña',
     'Channel' => 'Canal',

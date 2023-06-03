@@ -112,7 +112,7 @@ trait Battle3Formatter
         }
 
         return match (true) {
-            $lobby->key === 'event' && $model->event !== null => (string)$model->event?->name, // TODO: translation
+            $lobby->key === 'event' && $model->event !== null => Yii::t('db/event3', (string)$model->event?->name),
             $lobby->key === 'regular', $rule->key === 'nawabari' => Yii::t('app-rule3', (string)$rule->name),
             default => Yii::t('app-lobby3', $lobby->name),
         };

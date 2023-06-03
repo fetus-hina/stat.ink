@@ -119,6 +119,7 @@ return [
     'Cash' => '現金',
     'Category' => '類型',
     'Cause of Death' => '死因',
+    'Challenge Power' => '',
     'Change Icon' => '更換頭像',
     'Change Password' => '更改密碼',
     'Channel' => '頻道',

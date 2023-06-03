@@ -117,6 +117,7 @@ return [
     'Cash' => '',
     'Category' => '',
     'Cause of Death' => '',
+    'Challenge Power' => '',
     'Change Icon' => '',
     'Change Password' => '',
     'Channel' => '',
