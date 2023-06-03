@@ -132,6 +132,7 @@ trait BattleTrait
                     'battlePlayer3s.shoes.ability',
                     'battlePlayer3s.shoes.gearConfigurationSecondary3s.ability',
                     'battlePlayer3s.weapon',
+                    'event',
                     'medals',
                     'medals.canonical',
                     'ourTeamTheme',
@@ -210,6 +211,7 @@ trait BattleTrait
                                         'medal2-name',
                                         'medal3-grade',
                                         'medal3-name',
+                                        'event',
                                     ],
                                 ),
                             ) . "\x0d\x0a",
@@ -232,6 +234,7 @@ trait BattleTrait
                         self::rank($battle->rankBefore, $battle->rank_before_s_plus),
                         match ($battle->lobby?->key) {
                             'bankara_open' => self::powerFormat($battle->bankara_power_before),
+                            'event' => self::powerFormat($battle->event_power),
                             'splatfest_challenge' => self::powerFormat($battle->fest_power),
                             'xmatch' => self::powerFormat($battle->x_power_before),
                             default => self::powerFormat(null),
@@ -301,6 +304,7 @@ trait BattleTrait
                             6,
                         ),
                     );
+                    $csvColumns[] = (string)$battle->event?->name;
 
                     fwrite($fh, self::csvRow($csvColumns) . "\x0d\x0a");
                 }

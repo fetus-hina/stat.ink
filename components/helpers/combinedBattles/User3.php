@@ -27,6 +27,7 @@ return [
             ])
             ->with([
                 'battleImageResult3',
+                'event',
                 'lobby',
                 'map',
                 'result',

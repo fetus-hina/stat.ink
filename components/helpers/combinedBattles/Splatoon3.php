@@ -23,6 +23,7 @@ return [
         'query' => Battle3::find()
             ->with([
                 'battleImageResult3',
+                'event',
                 'lobby',
                 'map',
                 'result',
