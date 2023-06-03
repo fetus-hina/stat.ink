@@ -111,19 +111,11 @@ trait Battle3Formatter
             return null;
         }
 
-        if (
-            $lobby->key === 'regular' ||
-            $rule->key === 'nawabari'
-        ) {
-            return Yii::t('app-rule3', $rule->name);
-        }
-
-        // 長すぎるので断腸の思いでロビーだけに変更
-        return Yii::t('app-lobby3', $lobby->name);
-        // return \vsprintf('%s %s', [
-        //     Yii::t('app-lobby3', $lobby->name),
-        //     Yii::t('app-rule3', $rule->name),
-        // ]);
+        return match (true) {
+            $lobby->key === 'event' && $model->event !== null => (string)$model->event?->name, // TODO: translation
+            $lobby->key === 'regular', $rule->key === 'nawabari' => Yii::t('app-rule3', (string)$rule->name),
+            default => Yii::t('app-lobby3', $lobby->name),
+        };
     }
 
     private static function rule3(Battle3 $model): ?array
