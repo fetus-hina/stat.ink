@@ -18,6 +18,7 @@ use app\components\helpers\ImageConverter;
 use app\components\helpers\UuidRegexp;
 use app\components\helpers\db\Now;
 use app\components\validators\AgentVersionValidator;
+use app\components\validators\Base64Validator;
 use app\components\validators\BattleAgentVariable3Validator;
 use app\components\validators\BattleImageValidator;
 use app\components\validators\BattlePlayer3FormValidator;
@@ -135,6 +136,8 @@ final class PostBattleForm extends Model
     public $clout_before;
     public $clout_after;
     public $clout_change;
+    public $event;
+    public $event_power;
     public $cash_before;
     public $cash_after;
     public $our_team_color;
@@ -191,7 +194,7 @@ final class PostBattleForm extends Model
     {
         return [
             [['uuid', 'lobby', 'rule', 'stage', 'weapon', 'result', 'rank_before', 'rank_after', 'note'], 'string'],
-            [['private_note', 'link_url', 'agent', 'agent_version'], 'string'],
+            [['private_note', 'link_url', 'agent', 'agent_version', 'event'], 'string'],
             [['our_team_role', 'their_team_role', 'third_team_role'], 'string'],
             [['our_team_theme', 'their_team_theme', 'third_team_theme'], 'string'],
 
@@ -216,6 +219,8 @@ final class PostBattleForm extends Model
                 'gameVersion' => 'splatoon3',
                 'when' => fn () => trim((string)$this->agent) !== '' && trim((string)$this->agent_version) !== '',
             ],
+            [['event'], Base64Validator::class],
+
             [['test', 'knockout', 'automated', 'rank_up_battle'], 'in',
                 'range' => ['yes', 'no', true, false],
                 'strict' => true,
@@ -230,7 +235,7 @@ final class PostBattleForm extends Model
             [['rank_before_s_plus', 'rank_after_s_plus'], 'integer', 'min' => 0, 'max' => 50],
             [['rank_before_exp', 'rank_after_exp'], 'integer'],
             [['rank_exp_change'], 'integer'],
-            [['fest_power', 'x_power_before', 'x_power_after'], 'number', 'min' => 0, 'max' => 99999.9],
+            [['fest_power', 'event_power', 'x_power_before', 'x_power_after'], 'number', 'min' => 0, 'max' => 99999.9],
             [['bankara_power_before', 'bankara_power_after'], 'number', 'min' => 0, 'max' => 99999.9],
             [['clout_before', 'clout_after', 'clout_change'], 'integer', 'min' => 0],
             [['cash_before', 'cash_after'], 'integer', 'min' => 0, 'max' => 9999999],
@@ -526,6 +531,16 @@ final class PostBattleForm extends Model
             'third_team_theme_id' => $this->findOrCreateSplatfestTheme(self::strVal($this->third_team_theme))?->id,
             'bankara_power_before' => self::powerVal($this->bankara_power_before),
             'bankara_power_after' => self::powerVal($this->bankara_power_after),
+            'event_id' => $this->lobby === 'event'
+                ? self::eventIdVal(
+                    $this->event,
+                    self::guessStartAt(
+                        self::intVal($this->start_at),
+                        self::intVal($this->end_at),
+                    ),
+                )
+                : null,
+            'event_power' => self::powerVal($this->event_power),
         ]);
 
         // kill+assistが不明でkillとassistがわかっている

@@ -91,6 +91,8 @@ use yii\db\ActiveRecord;
  * @property string $replay_code
  * @property string $bankara_power_before
  * @property string $bankara_power_after
+ * @property integer $event_id
+ * @property string $event_power
  *
  * @property Agent $agent
  * @property BattleAgentVariable3[] $battleAgentVariable3s
@@ -100,6 +102,7 @@ use yii\db\ActiveRecord;
  * @property BattleMedal3[] $battleMedal3s
  * @property BattlePlayer3[] $battlePlayer3s
  * @property BattleTricolorPlayer3[] $battleTricolorPlayer3s
+ * @property Event3 $event
  * @property DragonMatch3 $festDragon
  * @property Lobby3 $lobby
  * @property Map3 $map
@@ -132,16 +135,17 @@ class Battle3 extends ActiveRecord
         return [
             [['uuid', 'client_uuid', 'user_id', 'remote_addr', 'remote_port', 'created_at', 'updated_at'], 'required'],
             [['uuid', 'client_uuid', 'note', 'private_note', 'link_url', 'remote_addr'], 'string'],
-            [['user_id', 'lobby_id', 'rule_id', 'map_id', 'weapon_id', 'result_id', 'rank_in_team', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'inked', 'our_team_inked', 'their_team_inked', 'our_team_count', 'their_team_count', 'level_before', 'level_after', 'rank_before_id', 'rank_before_s_plus', 'rank_before_exp', 'rank_after_id', 'rank_after_s_plus', 'rank_after_exp', 'cash_before', 'cash_after', 'version_id', 'agent_id', 'period', 'remote_port', 'challenge_win', 'challenge_lose', 'rank_exp_change', 'clout_before', 'clout_after', 'clout_change', 'fest_dragon_id', 'our_team_role_id', 'their_team_role_id', 'third_team_role_id', 'our_team_theme_id', 'their_team_theme_id', 'third_team_theme_id', 'third_team_inked', 'signal'], 'default', 'value' => null],
-            [['user_id', 'lobby_id', 'rule_id', 'map_id', 'weapon_id', 'result_id', 'rank_in_team', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'inked', 'our_team_inked', 'their_team_inked', 'our_team_count', 'their_team_count', 'level_before', 'level_after', 'rank_before_id', 'rank_before_s_plus', 'rank_before_exp', 'rank_after_id', 'rank_after_s_plus', 'rank_after_exp', 'cash_before', 'cash_after', 'version_id', 'agent_id', 'period', 'remote_port', 'challenge_win', 'challenge_lose', 'rank_exp_change', 'clout_before', 'clout_after', 'clout_change', 'fest_dragon_id', 'our_team_role_id', 'their_team_role_id', 'third_team_role_id', 'our_team_theme_id', 'their_team_theme_id', 'third_team_theme_id', 'third_team_inked', 'signal'], 'integer'],
+            [['user_id', 'lobby_id', 'rule_id', 'map_id', 'weapon_id', 'result_id', 'rank_in_team', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'inked', 'our_team_inked', 'their_team_inked', 'our_team_count', 'their_team_count', 'level_before', 'level_after', 'rank_before_id', 'rank_before_s_plus', 'rank_before_exp', 'rank_after_id', 'rank_after_s_plus', 'rank_after_exp', 'cash_before', 'cash_after', 'version_id', 'agent_id', 'period', 'remote_port', 'challenge_win', 'challenge_lose', 'rank_exp_change', 'clout_before', 'clout_after', 'clout_change', 'fest_dragon_id', 'our_team_role_id', 'their_team_role_id', 'third_team_role_id', 'our_team_theme_id', 'their_team_theme_id', 'third_team_theme_id', 'third_team_inked', 'signal', 'event_id'], 'default', 'value' => null],
+            [['user_id', 'lobby_id', 'rule_id', 'map_id', 'weapon_id', 'result_id', 'rank_in_team', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'inked', 'our_team_inked', 'their_team_inked', 'our_team_count', 'their_team_count', 'level_before', 'level_after', 'rank_before_id', 'rank_before_s_plus', 'rank_before_exp', 'rank_after_id', 'rank_after_s_plus', 'rank_after_exp', 'cash_before', 'cash_after', 'version_id', 'agent_id', 'period', 'remote_port', 'challenge_win', 'challenge_lose', 'rank_exp_change', 'clout_before', 'clout_after', 'clout_change', 'fest_dragon_id', 'our_team_role_id', 'their_team_role_id', 'third_team_role_id', 'our_team_theme_id', 'their_team_theme_id', 'third_team_theme_id', 'third_team_inked', 'signal', 'event_id'], 'integer'],
             [['is_knockout', 'is_automated', 'use_for_entire', 'is_deleted', 'is_rank_up_battle', 'has_disconnect'], 'boolean'],
-            [['our_team_percent', 'their_team_percent', 'fest_power', 'x_power_before', 'x_power_after', 'third_team_percent', 'bankara_power_before', 'bankara_power_after'], 'number'],
+            [['our_team_percent', 'their_team_percent', 'fest_power', 'x_power_before', 'x_power_after', 'third_team_percent', 'bankara_power_before', 'bankara_power_after', 'event_power'], 'number'],
             [['start_at', 'end_at', 'created_at', 'updated_at'], 'safe'],
             [['our_team_color', 'their_team_color', 'third_team_color'], 'string', 'max' => 8],
             [['replay_code'], 'string', 'max' => 16],
             [['uuid'], 'unique'],
             [['agent_id'], 'exist', 'skipOnError' => true, 'targetClass' => Agent::class, 'targetAttribute' => ['agent_id' => 'id']],
             [['fest_dragon_id'], 'exist', 'skipOnError' => true, 'targetClass' => DragonMatch3::class, 'targetAttribute' => ['fest_dragon_id' => 'id']],
+            [['event_id'], 'exist', 'skipOnError' => true, 'targetClass' => Event3::class, 'targetAttribute' => ['event_id' => 'id']],
             [['lobby_id'], 'exist', 'skipOnError' => true, 'targetClass' => Lobby3::class, 'targetAttribute' => ['lobby_id' => 'id']],
             [['map_id'], 'exist', 'skipOnError' => true, 'targetClass' => Map3::class, 'targetAttribute' => ['map_id' => 'id']],
             [['rank_before_id'], 'exist', 'skipOnError' => true, 'targetClass' => Rank3::class, 'targetAttribute' => ['rank_before_id' => 'id']],
@@ -238,6 +242,8 @@ class Battle3 extends ActiveRecord
             'replay_code' => 'Replay Code',
             'bankara_power_before' => 'Bankara Power Before',
             'bankara_power_after' => 'Bankara Power After',
+            'event_id' => 'Event ID',
+            'event_power' => 'Event Power',
         ];
     }
 
@@ -279,6 +285,11 @@ class Battle3 extends ActiveRecord
     public function getBattleTricolorPlayer3s(): ActiveQuery
     {
         return $this->hasMany(BattleTricolorPlayer3::class, ['battle_id' => 'id']);
+    }
+
+    public function getEvent(): ActiveQuery
+    {
+        return $this->hasOne(Event3::class, ['id' => 'event_id']);
     }
 
     public function getFestDragon(): ActiveQuery

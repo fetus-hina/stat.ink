@@ -44,6 +44,7 @@ echo DetailView::widget([
   },
   'attributes' => [
     require __DIR__ . '/details/rule.php',
+    require __DIR__ . '/details/event.php',
     require __DIR__ . '/details/map.php',
     require __DIR__ . '/details/weapon.php',
     // freshness

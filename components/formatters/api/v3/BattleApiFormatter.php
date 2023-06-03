@@ -96,6 +96,8 @@ final class BattleApiFormatter
             'clout_before' => $model->clout_before,
             'clout_after' => $model->clout_after,
             'clout_change' => $model->clout_change,
+            'event' => EventApiFormatter::toJson($model->event, $fullTranslate),
+            'event_power' => self::formatPower($model->event_power),
             'cash_before' => $model->cash_before,
             'cash_after' => $model->cash_after,
             'our_team_color' => TeamColorApiFormatter::toJson($model->our_team_color, $fullTranslate),
