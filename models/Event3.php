@@ -22,6 +22,7 @@ use yii\db\ActiveRecord;
  * @property string $desc
  * @property string $regulation
  *
+ * @property Battle3[] $battle3s
  * @property EventSchedule3[] $eventSchedule3s
  */
 class Event3 extends ActiveRecord
@@ -50,6 +51,11 @@ class Event3 extends ActiveRecord
             'desc' => 'Desc',
             'regulation' => 'Regulation',
         ];
+    }
+
+    public function getBattle3s(): ActiveQuery
+    {
+        return $this->hasMany(Battle3::class, ['event_id' => 'id']);
     }
 
     public function getEventSchedule3s(): ActiveQuery

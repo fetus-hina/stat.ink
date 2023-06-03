@@ -65,14 +65,14 @@ final class UuidListAction extends Action
     {
         if ($lobby === 'adaptive') {
             $lobbies = [
-                'regular',
                 'bankara_challenge',
                 'bankara_open',
+                'event',
+                'private',
+                'regular',
                 'splatfest_challenge',
                 'splatfest_open',
-                // TODO: event
                 'xmatch',
-                'private',
             ];
 
             $results = [];

@@ -8,6 +8,8 @@
 
 namespace app\models\api\v3\postBattle;
 
+use app\models\Event3;
+use app\models\EventPeriod3;
 use yii\db\ActiveRecord;
 
 use function filter_var;
@@ -17,6 +19,7 @@ use function is_bool;
 use function is_float;
 use function is_int;
 use function is_scalar;
+use function is_string;
 use function preg_match;
 use function strlen;
 use function strtolower;
@@ -139,5 +142,33 @@ trait TypeHelperTrait
         }
 
         return null;
+    }
+
+    protected static function eventIdVal(?string $idB64Str, ?int $startAt): ?int
+    {
+        if (is_string($idB64Str)) {
+            $model = Event3::find()
+                ->andWhere(['internal_id' => $idB64Str])
+                ->limit(1)
+                ->one();
+            if ($model) {
+                return (int)$model->id;
+            }
+        }
+
+        if ($startAt === null) {
+            return null;
+        }
+
+        $model = EventPeriod3::find()
+            ->with(['schedule'], true)
+            ->andWhere(['and',
+                ['<=', 'start_at', self::tsVal($startAt)],
+                ['>', 'end_at', self::tsVal($startAt)],
+            ])
+            ->limit(1)
+            ->one();
+
+        return self::intVal($model?->schedule?->event_id);
     }
 }
