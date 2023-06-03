@@ -22,7 +22,6 @@ return [
       return null;
     }
 
-    // TODO: translate
-    return $event->name;
+    return Yii::t('db/event3', $event->name);
   },
 ];

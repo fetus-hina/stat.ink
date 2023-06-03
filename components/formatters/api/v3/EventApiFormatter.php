@@ -21,9 +21,7 @@ final class EventApiFormatter
         }
 
         return [
-            'name' => [
-                'en_US' => $model->name,
-            ],
+            'name' => NameApiFormatter::toJson($model->name, 'db/event3', $fullTranslate),
         ];
     }
 }
