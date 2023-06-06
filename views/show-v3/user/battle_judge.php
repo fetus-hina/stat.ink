@@ -77,7 +77,25 @@ $draw = function (
 $fmt = Yii::$app->formatter;
 $isTricolor = $model->rule?->key === 'tricolor';
 
-if ($model->our_team_percent !== null && $model->their_team_percent !== null) {
+if ($model->our_team_count !== null && $model->their_team_count !== null) {
+  echo $draw(
+    (float)$model->our_team_count,
+    (float)$model->their_team_count,
+    null,
+    $model->our_team_count == 100
+      ? Yii::t('app', 'KNOCKOUT')
+      : (string)$model->our_team_count,
+    $model->their_team_count == 100
+      ? Yii::t('app', 'KNOCKOUT')
+      : (string)$model->their_team_count,
+    null,
+    null,
+    null,
+    $model->our_team_color,
+    $model->their_team_color,
+    null,
+  ) . "\n";
+} elseif ($model->our_team_percent !== null && $model->their_team_percent !== null) {
   $ourTitle = null;
   $theirTitle = null;
   $thirdTitle = null;
@@ -150,23 +168,5 @@ if ($model->our_team_percent !== null && $model->their_team_percent !== null) {
     $model->our_team_color,
     $model->their_team_color,
     $model->third_team_color,
-  ) . "\n";
-} elseif ($model->our_team_count !== null && $model->their_team_count !== null) {
-  echo $draw(
-    (float)$model->our_team_count,
-    (float)$model->their_team_count,
-    null,
-    $model->our_team_count == 100
-      ? Yii::t('app', 'KNOCKOUT')
-      : (string)$model->our_team_count,
-    $model->their_team_count == 100
-      ? Yii::t('app', 'KNOCKOUT')
-      : (string)$model->their_team_count,
-    null,
-    null,
-    null,
-    $model->our_team_color,
-    $model->their_team_color,
-    null,
   ) . "\n";
 }

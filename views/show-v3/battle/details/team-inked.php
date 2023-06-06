@@ -14,6 +14,10 @@ return [
   'label' => Yii::t('app', 'Team Inked'),
   'format' => 'raw',
   'value' => function (Battle3 $model): ?string {
+    if ($model->our_team_count !== null && $model->their_team_count !== null) {
+      return null;
+    }
+
     if ($model->our_team_percent !== null && $model->their_team_percent !== null) {
       $ourPct = (float)$model->our_team_percent;
       $theirPct = (float)$model->their_team_percent;
