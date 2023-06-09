@@ -23,6 +23,7 @@ return [
     'Eggstra Work' => 'バイトチームコンテスト',
     'Fish Scales' => 'ウロコ',
     'High Score' => 'ハイスコア',
+    'It would appear at {percent} if all four were {smell}.' => '4人とも{smell}であれば出現率は{percent}です。',
     'Job Points' => '獲得ポイント',
     'Job Scenario' => 'バイトシナリオ',
     'Job Score' => 'バイトスコア',

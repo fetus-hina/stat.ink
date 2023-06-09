@@ -14,23 +14,29 @@ return [
       return null;
     }
 
+    $f = Yii::$app->formatter;
     return Progress::widget([
-      'percent' => 100 * $model->king_smell / 5,
+      'percent' => 100 * (1 + $model->king_smell) / 6,
       'label' => vsprintf('%s / %s', [
-        Yii::$app->formatter->asInteger($model->king_smell),
-        Yii::$app->formatter->asInteger(5),
+        $f->asInteger($model->king_smell),
+        $f->asInteger(5),
       ]),
       'barOptions' => [
-        'class' => 'progress-bar-warning',
+        'class' => 'auto-tooltip progress-bar-warning',
+        'title' => Yii::t('app-salmon3', 'It would appear at {percent} if all four were {smell}.', [
+          'percent' => $f->asPercent(
+            match ($model->king_smell) {
+              0, 1 => 0.0,
+              2 => 0.1,
+              3 => 0.3,
+              4 => 0.6,
+              default => 1.0,
+            },
+            0,
+          ),
+          'smell' => $f->asInteger($model->king_smell),
+        ]),
       ],
-    ]);
-    return vsprintf('%s (%s / %s)', [
-      Html::img(
-        $asset->getIconUrl($model->king_smell, 'yokozuna'),
-        ['class' => 'basic-icon'],
-      ),
-      Yii::$app->formatter->asInteger($model->king_smell),
-      Yii::$app->formatter->asInteger(5),
     ]);
   },
 ];

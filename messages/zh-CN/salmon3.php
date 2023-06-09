@@ -24,6 +24,7 @@ return [
     'Eggstra Work' => '团队打工竞赛',
     'Fish Scales' => '鳞片',
     'High Score' => '最高分数',
+    'It would appear at {percent} if all four were {smell}.' => '',
     'Job Points' => '获得点数',
     'Job Scenario' => '',
     'Job Score' => '打工分数',
