@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -15,6 +15,7 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
 use app\assets\SimpleBattleListAsset;
+use app\components\widgets\Icon;
 use app\models\Salmon3;
 use app\models\SalmonPlayer3;
 use app\models\User;
@@ -228,18 +229,18 @@ final class SalmonItem3Widget extends Widget
         return vsprintf('%s %s / %s %s', [
             Html::tag(
                 'span',
-                '●',
+                Icon::goldenEgg(),
                 [
-                    'class' => 'auto-tooltip text-golden-egg',
+                    'class' => 'auto-tooltip',
                     'title' => Yii::t('app-salmon2', 'Golden Eggs'),
                 ],
             ),
             $golden,
             Html::tag(
                 'span',
-                '●',
+                Icon::powerEgg(),
                 [
-                    'class' => 'auto-tooltip text-power-egg',
+                    'class' => 'auto-tooltip',
                     'title' => Yii::t('app-salmon2', 'Power Eggs'),
                 ],
             ),
