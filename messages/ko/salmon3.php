@@ -24,6 +24,7 @@ return [
     'Eggstra Work' => '아르바이트 팀 콘테스트',
     'Fish Scales' => '비늘',
     'High Score' => '하이 스코어',
+    'It would appear at {percent} if all four were {smell}.' => '',
     'Job Points' => '획득 포인트',
     'Job Scenario' => '',
     'Job Score' => '아르바이트 스코어',

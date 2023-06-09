@@ -23,6 +23,7 @@ return [
     'Eggstra Work' => 'Défi œuf sup\'',
     'Fish Scales' => '',
     'High Score' => 'Record',
+    'It would appear at {percent} if all four were {smell}.' => '',
     'Job Points' => '',
     'Job Scenario' => '',
     'Job Score' => '',

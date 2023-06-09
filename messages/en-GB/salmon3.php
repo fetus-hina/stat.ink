@@ -23,6 +23,7 @@ return [
     'Eggstra Work' => 'Eggstra Work',
     'Fish Scales' => '',
     'High Score' => 'High Score',
+    'It would appear at {percent} if all four were {smell}.' => '',
     'Job Points' => '',
     'Job Scenario' => '',
     'Job Score' => '',
