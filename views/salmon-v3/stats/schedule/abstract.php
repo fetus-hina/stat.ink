@@ -49,7 +49,11 @@ echo DetailView::widget([
           ['salmon-v3/index',
             'screen_name' => $user->screen_name,
             'f' => [
-              'lobby' => $schedule->is_eggstra_work ? 'eggstra' : 'normal',
+              'lobby' => match (true) {
+                $schedule->big_map_id !== null => 'bigrun',
+                $schedule->is_eggstra_work => 'eggstra',
+                default => 'normal',
+              },
               'term' => 'term',
               'term_from' => sprintf('@%d', strtotime($schedule->start_at)),
               'term_to' => sprintf('@%d', strtotime($schedule->end_at)),
@@ -106,14 +110,14 @@ echo DetailView::widget([
       },
     ],
     [
-      'label' => Icon::goldenEgg() . ' ' . Html::encode(Yii::t('app', 'Maximum')),
-      'format' => 'integer',
-      'attribute' => 'max_golden',
-    ],
-    [
-      'label' => Icon::powerEgg() . ' ' . Html::encode(Yii::t('app', 'Maximum')),
-      'format' => 'integer',
-      'attribute' => 'max_power',
+      'label' => Yii::t('app', 'Maximum'),
+      'format' => 'raw',
+      'value' => vsprintf('%s %s / %s %s', [
+        Icon::goldenEgg(),
+        $fmt->asInteger(TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'max_golden'))),
+        Icon::powerEgg(),
+        $fmt->asInteger(TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'max_power'))),
+      ]),
     ],
     [
       'label' => Yii::t('app-salmon3', 'Max. Hazard Level (cleared)'),
