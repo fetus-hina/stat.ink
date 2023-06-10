@@ -102,6 +102,14 @@ return [
       }
     }
 
+    $parts[] = Html::a(
+      Icon::stats(),
+      ['salmon-v3/stats-schedule',
+        'screen_name' => $model->user?->screen_name,
+        'schedule' => $schedule->id,
+      ],
+    );
+
     return implode(' ', $parts);
   },
 ];

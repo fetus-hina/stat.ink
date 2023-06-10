@@ -52,4 +52,5 @@ return [
     'Wipe out' => '全滅',
     'Xtrawave' => 'EX-WAVE',
     '{name}\'s Salmon Stats (Bosses)' => '{name}さんのバイト統計（オオモノ）',
+    '{name}\'s Salmon Stats' => '{name}さんのバイト統計',
 ];

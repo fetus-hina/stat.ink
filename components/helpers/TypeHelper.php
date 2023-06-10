@@ -14,6 +14,7 @@ use Stringable;
 use TypeError;
 
 use function filter_var;
+use function is_array;
 use function is_float;
 use function is_int;
 use function is_object;
@@ -75,6 +76,14 @@ final class TypeHelper
 
         $value = filter_var(self::stringOrNull($value), FILTER_VALIDATE_FLOAT);
         return is_float($value) ? $value : null;
+    }
+
+    public static function array(mixed $value): array
+    {
+        return match (true) {
+            is_array($value) => $value,
+            default => throw new TypeHelper('The value is not an array'),
+        };
     }
 
     /**
