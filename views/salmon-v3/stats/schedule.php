@@ -9,6 +9,7 @@ use app\components\widgets\SalmonUserInfo3;
 use app\components\widgets\SnsWidget;
 use app\models\Map3;
 use app\models\Salmon3;
+use app\models\SalmonBoss3;
 use app\models\SalmonKing3;
 use app\models\SalmonMap3;
 use app\models\SalmonSchedule3;
@@ -25,6 +26,8 @@ use yii\web\View;
  * @var SalmonSchedule3 $schedule
  * @var User $user
  * @var View $this
+ * @var array<int, SalmonBoss3> $bosses
+ * @var array<int, array{boss_id: int, appearances: int, defeated: int, defeated_by_me: int}> $bossStats
  * @var array<string, scalar|null> $stats
  */
 
@@ -93,6 +96,7 @@ $played = TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'count'));
       </div>
 
       <?= $this->render('schedule/abstract', compact('king', 'map', 'schedule', 'stats', 'user')) . "\n" ?>
+      <?= $this->render('schedule/bosses', compact('bosses', 'bossStats', 'user')) . "\n" ?>
 <?php } else { ?>
       <p>
         <?= Html::encode(Yii::t('app', 'No Data')) . "\n" ?>
