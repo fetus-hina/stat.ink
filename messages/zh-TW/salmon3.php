@@ -52,5 +52,6 @@ return [
     'Water Level and Events' => '水位變化與特殊狀況',
     'Wipe out' => '全員陣亡',
     'Xtrawave' => 'EX-WAVE',
+    '{name}\'s Salmon Stats' => '',
     '{name}\'s Salmon Stats (Bosses)' => '{name}的打工數據 (巨大鮭魚)',
 ];

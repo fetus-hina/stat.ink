@@ -52,5 +52,6 @@ return [
     'Water Level and Events' => '',
     'Wipe out' => '전멸',
     'Xtrawave' => 'EX-WAVE',
+    '{name}\'s Salmon Stats' => '',
     '{name}\'s Salmon Stats (Bosses)' => '',
 ];
