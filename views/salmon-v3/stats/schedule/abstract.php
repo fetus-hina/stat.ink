@@ -26,6 +26,29 @@ use yii\widgets\DetailView;
 
 $fmt = Yii::$app->formatter;
 
+$totalAndAvg = fn (string $attrTotal, string $attrAvg): string => sprintf(
+  '%s (%s)',
+  Html::tag(
+    'span',
+    $fmt->asDecimal(
+      TypeHelper::floatOrNull(ArrayHelper::getValue($stats, $attrAvg)),
+      2,
+    ) ?: '-',
+    [
+      'class' => 'auto-tooltip',
+      'title' => Yii::t('app', 'Average'),
+    ],
+  ),
+  Html::tag(
+    'span',
+    $fmt->asInteger(TypeHelper::intOrNull(ArrayHelper::getValue($stats, $attrTotal))) ?: '-',
+    [
+      'class' => 'auto-tooltip',
+      'title' => Yii::t('app', 'Total'),
+    ],
+  ),
+);
+
 echo DetailView::widget([
   'model' => $stats,
   'options' => [
@@ -98,26 +121,15 @@ echo DetailView::widget([
       'label' => Yii::t('app-salmon3', 'King Salmonid Defeat Rate'),
       'value' => match ($v = TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'king_appears'))) {
         0, null => Yii::t('app', 'N/A'),
-        default => vsprintf('%s (%s / %s) [%s]', [
+        default => vsprintf('%s (%s / %s)', [
           $fmt->asPercent(
             TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'king_defeated')) / $v,
             1,
           ),
           $fmt->asInteger((int)TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'king_defeated'))),
           $fmt->asInteger($v),
-          $king ? Yii::t('app-salmon-boss3', $king->name) : '???',
         ]),
       },
-    ],
-    [
-      'label' => Yii::t('app', 'Maximum'),
-      'format' => 'raw',
-      'value' => vsprintf('%s %s / %s %s', [
-        Icon::goldenEgg(),
-        $fmt->asInteger(TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'max_golden'))),
-        Icon::powerEgg(),
-        $fmt->asInteger(TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'max_power'))),
-      ]),
     ],
     [
       'label' => Yii::t('app-salmon3', 'Max. Hazard Level (cleared)'),
@@ -127,19 +139,77 @@ echo DetailView::widget([
       },
     ],
     [
+      'label' => Yii::t('app', 'Maximum'),
+      'format' => 'raw',
+      'value' => implode('', [
+        Html::tag(
+          'span',
+          vsprintf('%s %s', [
+            Html::tag('span', Icon::goldenEgg(), [
+              'class' => 'auto-tooltip',
+              'title' => Yii::t('app-salmon2', 'Golden Eggs'),
+            ]),
+            $fmt->asInteger(TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'max_golden'))),
+          ]),
+          ['class' => 'mr-3'],
+        ),
+        Html::tag(
+          'span',
+          vsprintf('%s %s', [
+            Html::tag('span', Icon::powerEgg(), [
+              'class' => 'auto-tooltip',
+              'title' => Yii::t('app-salmon2', 'Power Eggs'),
+            ]),
+            $fmt->asInteger(TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'max_power'))),
+          ]),
+          ['class' => 'mr-3'],
+        ),
+      ]),
+    ],
+    [
+      'label' => Yii::t('app-salmon3', 'Fish Scales'),
+      'format' => 'raw',
+      'value' => implode('', [
+        Html::tag(
+          'span',
+          implode(' ', [
+            Icon::goldScale(),
+            $fmt->asInteger((int)TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'total_gold_scale'))),
+          ]),
+          ['class' => 'mr-3'],
+        ),
+        Html::tag(
+          'span',
+          implode(' ', [
+            Icon::silverScale(),
+            $fmt->asInteger((int)TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'total_silver_scale'))),
+          ]),
+          ['class' => 'mr-3'],
+        ),
+        Html::tag(
+          'span',
+          implode(' ', [
+            Icon::bronzeScale(),
+            $fmt->asInteger((int)TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'total_bronze_scale'))),
+          ]),
+          ['class' => 'mr-3'],
+        ),
+      ]),
+    ],
+    [
       'label' => Yii::t('app-salmon3', 'Rescues'),
-      'attribute' => 'avg_rescues',
-      'format' => ['decimal', 2],
+      'format' => 'raw',
+      'value' => $totalAndAvg('total_rescues', 'avg_rescues'),
     ],
     [
       'label' => Yii::t('app-salmon3', 'Rescued'),
-      'attribute' => 'avg_rescued',
-      'format' => ['decimal', 2],
+      'format' => 'raw',
+      'value' => $totalAndAvg('total_rescued', 'avg_rescued'),
     ],
     [
       'label' => Yii::t('app-salmon3', 'Boss Salmonid'),
-      'attribute' => 'avg_defeat_boss',
-      'format' => ['decimal', 2],
+      'format' => 'raw',
+      'value' => $totalAndAvg('total_defeat_boss', 'avg_defeat_boss'),
     ],
   ],
 ]);

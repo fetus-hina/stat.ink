@@ -46,7 +46,14 @@ return [
     foreach ($medals as $medal) {
       $canonical = $medal->canonical;
       if ($canonical) {
-        $items[] = $canonical->gold ? Icon::goldMedal() : Icon::silverMedal();
+        $items[] = Html::tag(
+          'span',
+          $canonical->gold ? Icon::goldMedal() : Icon::silverMedal(),
+          [
+            'class' => 'auto-tooltip text-muted',
+            'title' => Yii::t('app-medal3', $canonical->name),
+          ],
+        );
       } else {
         $items[] = Html::tag(
           'span',
@@ -59,6 +66,6 @@ return [
       }
     }
 
-    return implode('', $items);
+    return implode(' ', $items);
   },
 ];

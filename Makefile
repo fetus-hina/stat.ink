@@ -105,6 +105,7 @@ RESOURCE_TARGETS := \
 	resources/.compiled/stat.ink/link-external.js \
 	resources/.compiled/stat.ink/link-prevnext.js \
 	resources/.compiled/stat.ink/main.css \
+	resources/.compiled/stat.ink/medal.css \
 	resources/.compiled/stat.ink/no-image.png \
 	resources/.compiled/stat.ink/os-icon-widget.js \
 	resources/.compiled/stat.ink/paintball.css \
@@ -341,6 +342,7 @@ resources/.compiled/stat.ink/league-power-history.js: resources/stat.ink/league-
 resources/.compiled/stat.ink/link-external.js: resources/stat.ink/link-external.es node_modules
 resources/.compiled/stat.ink/link-prevnext.js: resources/stat.ink/link-prevnext.es node_modules
 resources/.compiled/stat.ink/main.css: resources/stat.ink/main.scss node_modules
+resources/.compiled/stat.ink/medal.css: resources/stat.ink/medal.scss node_modules
 resources/.compiled/stat.ink/os-icon-widget.js: resources/stat.ink/os-icon-widget.es node_modules
 resources/.compiled/stat.ink/paintball.css: resources/stat.ink/paintball.scss node_modules
 resources/.compiled/stat.ink/permalink-dialog.js: resources/stat.ink/permalink-dialog.es node_modules
