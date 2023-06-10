@@ -14,6 +14,7 @@ use LogicException;
 use Yii;
 use app\components\helpers\TypeHelper;
 use app\models\Salmon3;
+use app\models\SalmonBoss3;
 use app\models\SalmonKing3;
 use app\models\SalmonSchedule3;
 use app\models\User;
@@ -21,6 +22,7 @@ use yii\base\Action;
 use yii\db\Connection;
 use yii\db\Query;
 use yii\db\Transaction;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -32,6 +34,7 @@ use function sprintf;
 use function strtotime;
 
 use const SORT_ASC;
+use const SORT_DESC;
 
 final class ScheduleAction extends Action
 {
@@ -86,6 +89,8 @@ final class ScheduleAction extends Action
                     'cond' => $this->getCachingCondition($db, $user, $schedule),
                 ],
                 fn (): array => [
+                    'bossStats' => $this->getBossStats($db, $user, $schedule),
+                    'bosses' => $this->getBosses($db),
                     'king' => $this->getKing($db, $schedule),
                     'map' => $schedule->map ?? $schedule->bigMap ?? null,
                     'stats' => $this->getStats($db, $user, $schedule),
@@ -127,6 +132,52 @@ final class ScheduleAction extends Action
                 'user_id' => $user->id,
             ])
             ->one($db);
+    }
+
+    /**
+     * @return array<int, array{boss_id: int, appearances: int, defeated: int, defeated_by_me: int}>
+     */
+    private function getBossStats(Connection $db, User $user, SalmonSchedule3 $schedule): array
+    {
+        return ArrayHelper::index(
+            (new Query())
+                ->select([
+                    'boss_id' => '{{%salmon_boss_appearance3}}.[[boss_id]]',
+                    'appearances' => 'SUM({{%salmon_boss_appearance3}}.[[appearances]])',
+                    'defeated' => 'SUM({{%salmon_boss_appearance3}}.[[defeated]])',
+                    'defeated_by_me' => 'SUM({{%salmon_boss_appearance3}}.[[defeated_by_me]])',
+                ])
+                ->from('{{%salmon3}}')
+                ->innerJoin(
+                    '{{%salmon_boss_appearance3}}',
+                    '{{%salmon3}}.[[id]] = {{%salmon_boss_appearance3}}.[[salmon_id]]',
+                )
+                ->andWhere([
+                    '{{%salmon3}}.[[is_deleted]]' => false,
+                    '{{%salmon3}}.[[is_private]]' => false,
+                    '{{%salmon3}}.[[schedule_id]]' => $schedule->id,
+                    '{{%salmon3}}.[[user_id]]' => $user->id,
+                ])
+                ->groupBy([
+                    '{{%salmon_boss_appearance3}}.[[boss_id]]',
+                ])
+                ->orderBy([
+                    'appearances' => SORT_DESC,
+                ])
+                ->all($db),
+            'boss_id',
+        );
+    }
+
+    /**
+     * @return array<int, SalmonBoss3>
+     */
+    private function getBosses(Connection $db): array
+    {
+        return ArrayHelper::index(
+            SalmonBoss3::find()->orderBy(['id' => SORT_ASC])->all(),
+            'id',
+        );
     }
 
     private function getKing(Connection $db, SalmonSchedule3 $schedule): ?SalmonKing3

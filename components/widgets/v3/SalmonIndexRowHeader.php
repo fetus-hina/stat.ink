@@ -15,6 +15,7 @@ use Yii;
 use app\assets\BattleListGroupHeaderAsset;
 use app\components\helpers\TypeHelper;
 use app\components\i18n\Formatter as FormatterEx;
+use app\components\widgets\Icon;
 use app\models\Salmon3;
 use app\models\SalmonSchedule3;
 use yii\base\Widget;
@@ -82,6 +83,7 @@ final class SalmonIndexRowHeader extends Widget
                         // $this->renderWeapons($schedule),
                         $this->renderTerm($schedule, $widget->formatter),
                         // $this->renderHighScore($model, $schedule),
+                        $this->renderStats($schedule),
                     ],
                     fn (?string $html): bool => $html !== null,
                 ),
@@ -117,6 +119,22 @@ final class SalmonIndexRowHeader extends Widget
             'from' => $f($schedule->start_at),
             'to' => $f($schedule->end_at),
         ]);
+    }
+
+    private function renderStats(SalmonSchedule3 $schedule): string
+    {
+        $user = $this->model?->user;
+        if (!$user) {
+            return '';
+        }
+
+        return Html::a(
+            Icon::stats(),
+            ['salmon-v3/stats-schedule',
+                'screen_name' => $user->screen_name,
+                'schedule' => $schedule->id,
+            ],
+        );
     }
 
     private function decorateRow(string $html, GridView $widget): string
