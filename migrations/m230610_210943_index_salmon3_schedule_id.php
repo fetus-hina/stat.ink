@@ -9,6 +9,8 @@
 declare(strict_types=1);
 
 use app\components\db\Migration;
+use app\components\helpers\TypeHelper;
+use yii\db\Connection;
 
 final class m230610_210943_index_salmon3_schedule_id extends Migration
 {
@@ -17,7 +19,7 @@ final class m230610_210943_index_salmon3_schedule_id extends Migration
      */
     public function safeUp()
     {
-        $db = \app\components\helpers\TypeHelper::instanceOf($this->db, \yii\db\Connection::class);
+        $db = TypeHelper::instanceOf($this->db, Connection::class);
 
         $this->execute(
             vsprintf('CREATE UNIQUE INDEX %s ON %s (%s) WHERE ((%s))', [
