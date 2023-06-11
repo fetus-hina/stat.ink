@@ -30,6 +30,7 @@ return [
     'King Salmonid Appearances' => 'オカシラシャケ出現数',
     'King Salmonid Defeat Rate' => 'オカシラシャケ討伐率',
     'King Salmonid' => 'オカシラシャケ',
+    'King Salmonids' => 'オカシラシャケ',
     'King' => 'オカシラ',
     'Known Occurrence' => '特殊な状況',
     'MAX Hazard Level Cleared' => 'キケン度MAXをクリアした',

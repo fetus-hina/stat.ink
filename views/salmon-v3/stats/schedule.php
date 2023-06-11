@@ -22,12 +22,13 @@ use yii\web\View;
 /**
  * @var Map3|SalmonMap3|null $map
  * @var Salmon3[] $results
- * @var SalmonKing3|null $king
  * @var SalmonSchedule3 $schedule
  * @var User $user
  * @var View $this
  * @var array<int, SalmonBoss3> $bosses
+ * @var array<int, SalmonKing3> $kings
  * @var array<int, array{boss_id: int, appearances: int, defeated: int, defeated_by_me: int}> $bossStats
+ * @var array<int, array{king_id: int, appearances: int, defeated: int}> $kingStats
  * @var array<string, scalar|null> $stats
  */
 
@@ -95,7 +96,8 @@ $played = TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'count'));
         Under construction...
       </div>
 
-      <?= $this->render('schedule/abstract', compact('king', 'map', 'schedule', 'stats', 'user')) . "\n" ?>
+      <?= $this->render('schedule/abstract', compact('map', 'schedule', 'stats', 'user')) . "\n" ?>
+      <?= $this->render('schedule/kings', compact('kings', 'kingStats', 'user')) . "\n" ?>
       <?= $this->render('schedule/bosses', compact('bosses', 'bossStats', 'user')) . "\n" ?>
 <?php } else { ?>
       <p>

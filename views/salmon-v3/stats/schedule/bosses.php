@@ -29,7 +29,7 @@ $fmt = Yii::$app->formatter;
   <table class="table table-bordered table-condensed table-striped">
     <thead>
       <tr>
-        <th class="text-center" rowspan="2"><?= Html::encode(Yii::t('app-salmon2', 'Boss Salmonids')) ?></th>
+        <th class="text-center" rowspan="2"><?= Html::encode(Yii::t('app-salmon2', 'Boss Salmonid')) ?></th>
         <th class="text-center" rowspan="2"><?= Html::encode(Yii::t('app-salmon3', 'Appearances')) ?></th>
         <th class="text-center" colspan="2"><?= Html::encode(Yii::t('app-salmon3', 'Defeated')) ?></th>
         <th class="text-center" colspan="3">

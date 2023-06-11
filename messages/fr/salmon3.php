@@ -32,6 +32,7 @@ return [
     'King Salmonid' => 'Salmonarque',
     'King Salmonid Appearances' => '',
     'King Salmonid Defeat Rate' => '',
+    'King Salmonids' => '',
     'Known Occurrence' => '',
     'Max. Hazard Level (cleared)' => '',
     'MAX Hazard Level Cleared' => 'Niveau de danger max terminé',

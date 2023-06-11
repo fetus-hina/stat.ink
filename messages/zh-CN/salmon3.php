@@ -32,6 +32,7 @@ return [
     'King Salmonid' => '头目鲑鱼',
     'King Salmonid Appearances' => '头目鲑鱼出现次数',
     'King Salmonid Defeat Rate' => '头目鲑鱼击倒率',
+    'King Salmonids' => '头目鲑鱼',
     'Known Occurrence' => '特殊状况',
     'Max. Hazard Level (cleared)' => '最高危险程度(通关)',
     'MAX Hazard Level Cleared' => '已通关危险度MAX',
