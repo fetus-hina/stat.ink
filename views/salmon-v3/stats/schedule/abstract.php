@@ -6,8 +6,6 @@ use app\components\helpers\TypeHelper;
 use app\components\widgets\Icon;
 use app\models\Map3;
 use app\models\Salmon3;
-use app\models\SalmonKing3;
-use app\models\SalmonMap3;
 use app\models\SalmonSchedule3;
 use app\models\User;
 use yii\helpers\ArrayHelper;
@@ -17,7 +15,6 @@ use yii\widgets\DetailView;
 
 /**
  * @var Map3|SalmonMap3|null $map
- * @var SalmonKing3|null $king
  * @var SalmonSchedule3 $schedule
  * @var User $user
  * @var View $this
@@ -151,7 +148,7 @@ echo DetailView::widget([
             ]),
             $fmt->asInteger(TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'max_golden'))),
           ]),
-          ['class' => 'mr-3'],
+          ['class' => 'nobr mr-3'],
         ),
         Html::tag(
           'span',
@@ -162,7 +159,7 @@ echo DetailView::widget([
             ]),
             $fmt->asInteger(TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'max_power'))),
           ]),
-          ['class' => 'mr-3'],
+          ['class' => 'nobr mr-3'],
         ),
       ]),
     ],
@@ -176,7 +173,7 @@ echo DetailView::widget([
             Icon::goldScale(),
             $fmt->asInteger((int)TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'total_gold_scale'))),
           ]),
-          ['class' => 'mr-3'],
+          ['class' => 'nobr mr-3'],
         ),
         Html::tag(
           'span',
@@ -184,7 +181,7 @@ echo DetailView::widget([
             Icon::silverScale(),
             $fmt->asInteger((int)TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'total_silver_scale'))),
           ]),
-          ['class' => 'mr-3'],
+          ['class' => 'nobr mr-3'],
         ),
         Html::tag(
           'span',
@@ -192,7 +189,7 @@ echo DetailView::widget([
             Icon::bronzeScale(),
             $fmt->asInteger((int)TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'total_bronze_scale'))),
           ]),
-          ['class' => 'mr-3'],
+          ['class' => 'nobr mr-3'],
         ),
       ]),
     ],
@@ -207,7 +204,7 @@ echo DetailView::widget([
       'value' => $totalAndAvg('total_rescued', 'avg_rescued'),
     ],
     [
-      'label' => Yii::t('app-salmon3', 'Boss Salmonid'),
+      'label' => Yii::t('app-salmon2', 'Boss Salmonids'),
       'format' => 'raw',
       'value' => $totalAndAvg('total_defeat_boss', 'avg_defeat_boss'),
     ],

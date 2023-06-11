@@ -31,6 +31,7 @@ return [
     'King Salmonid' => 'Gran jefe salmónido',
     'King Salmonid Appearances' => '',
     'King Salmonid Defeat Rate' => '',
+    'King Salmonids' => '',
     'Known Occurrence' => '',
     'Max. Hazard Level (cleared)' => '',
     'MAX Hazard Level Cleared' => '¡Has superado el nivel de riesgo máximo!',
