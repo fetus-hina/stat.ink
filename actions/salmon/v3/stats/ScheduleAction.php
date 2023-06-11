@@ -182,7 +182,14 @@ final class ScheduleAction extends Action
     }
 
     /**
-     * @return array<int, array{king_id: int, appearances: int, defeated: int}>
+     * @return array<int, array{
+     *   king_id: int,
+     *   appearances: int,
+     *   defeated: int,
+     *   gold_scale: ?int,
+     *   silver_scale: ?int,
+     *   bronze_scale: ?int
+     * }>
      */
     private function getKingStats(Connection $db, User $user, SalmonSchedule3 $schedule): array
     {

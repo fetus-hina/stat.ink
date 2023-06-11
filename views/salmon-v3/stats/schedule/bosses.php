@@ -49,15 +49,15 @@ $fmt = Yii::$app->formatter;
 <?php foreach ($bossStats as $bossId => $row) { ?>
       <tr>
         <th scope="row"><?= Html::encode(Yii::t('app-salmon-boss3', $bosses[$bossId]?->name)) ?></th>
-        <td class="text-right"><?= $fmt->asInteger($row['appearances']) ?></td>
-        <td class="text-right"><?= $fmt->asInteger($row['defeated']) ?></td>
-        <td class="text-right"><?= $fmt->asPercent(
+        <td class="text-center"><?= $fmt->asInteger($row['appearances']) ?></td>
+        <td class="text-center"><?= $fmt->asInteger($row['defeated']) ?></td>
+        <td class="text-center"><?= $fmt->asPercent(
           $row['appearances'] > 0
             ? $row['defeated'] / $row['appearances']
             : null,
           1,
         ) ?></td>
-        <td class="text-right"><?= $fmt->asInteger($row['defeated_by_me']) ?></td>
+        <td class="text-center"><?= $fmt->asInteger($row['defeated_by_me']) ?></td>
         <td class="text-center"><?php
           $v = $row['defeated'] > 0 ? $row['defeated_by_me'] / $row['defeated'] : null;
           if ($v !== null) {
@@ -73,7 +73,7 @@ $fmt = Yii::$app->formatter;
             );
           }
         ?></td>
-        <td class="text-right"><?= $fmt->asPercent(
+        <td class="text-center"><?= $fmt->asPercent(
           $row['appearances'] > 0
             ? $row['defeated_by_me'] / $row['appearances']
             : null,
