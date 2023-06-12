@@ -64,7 +64,7 @@ $fmt = Yii::$app->formatter;
           'class' => 'auto-tooltip text-center',
           'title' => Yii::t('app-salmon3', 'Boss Salmonids'),
         ]) . "\n" ?>
-      </th>
+      </tr>
     </thead>
     <tbody>
 <?php foreach ($specials as $specialId => $special) { ?>

@@ -40,6 +40,7 @@ return [
     'MAX Hazard Level Cleared' => '危險度MAX過關',
     'Normal Job' => '一般打工',
     'Not Defeated' => '沒有擊倒',
+    'Occur %' => '事件%',
     'Occurrence %' => '事件百分比%',
     'Pay Grade' => '評價倍率',
     'Private Job' => '私人打工',

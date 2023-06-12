@@ -14,6 +14,7 @@ use LogicException;
 use Yii;
 use app\actions\salmon\v3\stats\schedule\AbstractTrait;
 use app\actions\salmon\v3\stats\schedule\BossSalmonidTrait;
+use app\actions\salmon\v3\stats\schedule\EventTrait;
 use app\actions\salmon\v3\stats\schedule\KingSalmonidTrait;
 use app\actions\salmon\v3\stats\schedule\SpecialTrait;
 use app\components\helpers\TypeHelper;
@@ -34,6 +35,7 @@ final class ScheduleAction extends Action
 {
     use AbstractTrait;
     use BossSalmonidTrait;
+    use EventTrait;
     use KingSalmonidTrait;
     use SpecialTrait;
 
@@ -82,7 +84,7 @@ final class ScheduleAction extends Action
             fn (Connection $db): array => Yii::$app->cache->getOrSet(
                 [
                     'id' => __METHOD__,
-                    'version' => 3,
+                    'version' => 4,
                     'user' => $user->id,
                     'schedule' => $schedule->id,
                     'cond' => $this->getCachingCondition($db, $user, $schedule),
@@ -90,12 +92,15 @@ final class ScheduleAction extends Action
                 fn (): array => [
                     'bossStats' => $this->getBossStats($db, $user, $schedule),
                     'bosses' => $this->getBosses($db),
+                    'eventStats' => $this->getEventStats($db, $user, $schedule),
+                    'events' => $this->getEvents($db),
                     'kingStats' => $this->getKingStats($db, $user, $schedule),
                     'kings' => $this->getKings($db),
                     'map' => $schedule->map ?? $schedule->bigMap ?? null,
                     'specialStats' => $this->getSpecialStats($db, $user, $schedule),
                     'specials' => $this->getSpecials($db),
                     'stats' => $this->getStats($db, $user, $schedule),
+                    'tides' => $this->getTides($db),
                 ],
                 duration: 7 * 24 * 60 * 60,
             ),

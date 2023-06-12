@@ -40,6 +40,7 @@ return [
     'MAX Hazard Level Cleared' => 'Niveau de danger max terminé',
     'Normal Job' => '',
     'Not Defeated' => 'Survivants',
+    'Occur %' => '',
     'Occurrence %' => 'Cas',
     'Pay Grade' => '',
     'Private Job' => 'Mission privée',
