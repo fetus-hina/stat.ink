@@ -12,10 +12,11 @@ namespace app\actions\salmon\v3\stats;
 
 use LogicException;
 use Yii;
+use app\actions\salmon\v3\stats\schedule\BossSalmonidTrait;
+use app\actions\salmon\v3\stats\schedule\KingSalmonidTrait;
+use app\actions\salmon\v3\stats\schedule\SpecialTrait;
 use app\components\helpers\TypeHelper;
 use app\models\Salmon3;
-use app\models\SalmonBoss3;
-use app\models\SalmonKing3;
 use app\models\SalmonSchedule3;
 use app\models\User;
 use yii\base\Action;
@@ -33,10 +34,13 @@ use function is_string;
 use function sprintf;
 
 use const SORT_ASC;
-use const SORT_DESC;
 
 final class ScheduleAction extends Action
 {
+    use KingSalmonidTrait;
+    use BossSalmonidTrait;
+    use SpecialTrait;
+
     public ?User $user = null;
     public ?SalmonSchedule3 $schedule = null;
 
@@ -82,7 +86,7 @@ final class ScheduleAction extends Action
             fn (Connection $db): array => Yii::$app->cache->getOrSet(
                 [
                     'id' => __METHOD__,
-                    'version' => 2,
+                    'version' => 3,
                     'user' => $user->id,
                     'schedule' => $schedule->id,
                     'cond' => $this->getCachingCondition($db, $user, $schedule),
@@ -93,6 +97,8 @@ final class ScheduleAction extends Action
                     'kingStats' => $this->getKingStats($db, $user, $schedule),
                     'kings' => $this->getKings($db),
                     'map' => $schedule->map ?? $schedule->bigMap ?? null,
+                    'specialStats' => $this->getSpecialStats($db, $user, $schedule),
+                    'specials' => $this->getSpecials($db),
                     'stats' => $this->getStats($db, $user, $schedule),
                     // 'results' => $this->getResults($db, $user, $schedule),
                 ],
@@ -132,109 +138,6 @@ final class ScheduleAction extends Action
                 'user_id' => $user->id,
             ])
             ->one($db);
-    }
-
-    /**
-     * @return array<int, array{boss_id: int, appearances: int, defeated: int, defeated_by_me: int}>
-     */
-    private function getBossStats(Connection $db, User $user, SalmonSchedule3 $schedule): array
-    {
-        return ArrayHelper::index(
-            (new Query())
-                ->select([
-                    'boss_id' => '{{%salmon_boss_appearance3}}.[[boss_id]]',
-                    'appearances' => 'SUM({{%salmon_boss_appearance3}}.[[appearances]])',
-                    'defeated' => 'SUM({{%salmon_boss_appearance3}}.[[defeated]])',
-                    'defeated_by_me' => 'SUM({{%salmon_boss_appearance3}}.[[defeated_by_me]])',
-                ])
-                ->from('{{%salmon3}}')
-                ->innerJoin(
-                    '{{%salmon_boss_appearance3}}',
-                    '{{%salmon3}}.[[id]] = {{%salmon_boss_appearance3}}.[[salmon_id]]',
-                )
-                ->andWhere([
-                    '{{%salmon3}}.[[is_deleted]]' => false,
-                    '{{%salmon3}}.[[is_private]]' => false,
-                    '{{%salmon3}}.[[schedule_id]]' => $schedule->id,
-                    '{{%salmon3}}.[[user_id]]' => $user->id,
-                ])
-                ->groupBy([
-                    '{{%salmon_boss_appearance3}}.[[boss_id]]',
-                ])
-                ->orderBy([
-                    'appearances' => SORT_DESC,
-                    'boss_id' => SORT_ASC,
-                ])
-                ->all($db),
-            'boss_id',
-        );
-    }
-
-    /**
-     * @return array<int, SalmonBoss3>
-     */
-    private function getBosses(Connection $db): array
-    {
-        return ArrayHelper::index(
-            SalmonBoss3::find()->orderBy(['id' => SORT_ASC])->all(),
-            'id',
-        );
-    }
-
-    /**
-     * @return array<int, array{
-     *   king_id: int,
-     *   appearances: int,
-     *   defeated: int,
-     *   gold_scale: ?int,
-     *   silver_scale: ?int,
-     *   bronze_scale: ?int
-     * }>
-     */
-    private function getKingStats(Connection $db, User $user, SalmonSchedule3 $schedule): array
-    {
-        return ArrayHelper::index(
-            (new Query())
-                ->select([
-                    'king_id' => '{{%salmon3}}.[[king_salmonid_id]]',
-                    'appearances' => 'COUNT(*)',
-                    'defeated' => 'SUM(CASE WHEN [[clear_extra]] = TRUE THEN 1 ELSE 0 END)',
-                    'gold_scale' => 'SUM({{%salmon3}}.[[gold_scale]])',
-                    'silver_scale' => 'SUM({{%salmon3}}.[[silver_scale]])',
-                    'bronze_scale' => 'SUM({{%salmon3}}.[[bronze_scale]])',
-                ])
-                ->from('{{%salmon3}}')
-                ->andWhere(['and',
-                    [
-                        '{{%salmon3}}.[[is_deleted]]' => false,
-                        '{{%salmon3}}.[[is_private]]' => false,
-                        '{{%salmon3}}.[[schedule_id]]' => $schedule->id,
-                        '{{%salmon3}}.[[user_id]]' => $user->id,
-                    ],
-                    ['not', ['{{%salmon3}}.[[king_salmonid_id]]' => null]],
-                    ['not', ['{{%salmon3}}.[[clear_extra]]' => null]],
-                ])
-                ->groupBy([
-                    '{{%salmon3}}.[[king_salmonid_id]]',
-                ])
-                ->orderBy([
-                    'appearances' => SORT_DESC,
-                    'king_id' => SORT_ASC,
-                ])
-                ->all($db),
-            'king_id',
-        );
-    }
-
-    /**
-     * @return array<int, SalmonKing3>
-     */
-    private function getKings(Connection $db): array
-    {
-        return ArrayHelper::index(
-            SalmonKing3::find()->orderBy(['id' => SORT_ASC])->all(),
-            'id',
-        );
     }
 
     private function getStats(Connection $db, User $user, SalmonSchedule3 $schedule): array
