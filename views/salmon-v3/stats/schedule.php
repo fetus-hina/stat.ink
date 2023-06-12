@@ -13,6 +13,7 @@ use app\models\SalmonBoss3;
 use app\models\SalmonKing3;
 use app\models\SalmonMap3;
 use app\models\SalmonSchedule3;
+use app\models\Special3;
 use app\models\User;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -27,6 +28,8 @@ use yii\web\View;
  * @var View $this
  * @var array<int, SalmonBoss3> $bosses
  * @var array<int, SalmonKing3> $kings
+ * @var array<int, Special3> $specials
+ * @var array<int, array> $specialStats
  * @var array<int, array{boss_id: int, appearances: int, defeated: int, defeated_by_me: int}> $bossStats
  * @var array<int, array{king_id: int, appearances: int, defeated: int}> $kingStats
  * @var array<string, scalar|null> $stats
@@ -99,6 +102,7 @@ $played = TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'count'));
       <?= $this->render('schedule/abstract', compact('map', 'schedule', 'stats', 'user')) . "\n" ?>
       <?= $this->render('schedule/kings', compact('kings', 'kingStats', 'user')) . "\n" ?>
       <?= $this->render('schedule/bosses', compact('bosses', 'bossStats', 'user')) . "\n" ?>
+      <?= $this->render('schedule/specials', compact('specials', 'specialStats', 'user')) . "\n" ?>
 <?php } else { ?>
       <p>
         <?= Html::encode(Yii::t('app', 'No Data')) . "\n" ?>
