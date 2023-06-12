@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\actions\salmon\v3\stats\schedule\EventTrait;
 use app\components\helpers\OgpHelper;
 use app\components\helpers\TypeHelper;
 use app\components\widgets\AdWidget;
@@ -10,9 +11,11 @@ use app\components\widgets\SnsWidget;
 use app\models\Map3;
 use app\models\Salmon3;
 use app\models\SalmonBoss3;
+use app\models\SalmonEvent3;
 use app\models\SalmonKing3;
 use app\models\SalmonMap3;
 use app\models\SalmonSchedule3;
+use app\models\SalmonWaterLevel2;
 use app\models\Special3;
 use app\models\User;
 use yii\helpers\ArrayHelper;
@@ -21,13 +24,18 @@ use yii\helpers\Url;
 use yii\web\View;
 
 /**
+ * @phpstan-import-type EventStats from EventTrait
+ *
+ * @var EventStats $eventStats
  * @var Map3|SalmonMap3|null $map
  * @var Salmon3[] $results
  * @var SalmonSchedule3 $schedule
  * @var User $user
  * @var View $this
  * @var array<int, SalmonBoss3> $bosses
+ * @var array<int, SalmonEvent3> $events
  * @var array<int, SalmonKing3> $kings
+ * @var array<int, SalmonWaterLevel2> $tides
  * @var array<int, Special3> $specials
  * @var array<int, array> $specialStats
  * @var array<int, array{boss_id: int, appearances: int, defeated: int, defeated_by_me: int}> $bossStats
@@ -103,6 +111,7 @@ $played = TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'count'));
       <?= $this->render('schedule/kings', compact('kings', 'kingStats', 'user')) . "\n" ?>
       <?= $this->render('schedule/bosses', compact('bosses', 'bossStats', 'user')) . "\n" ?>
       <?= $this->render('schedule/specials', compact('specials', 'specialStats', 'user')) . "\n" ?>
+      <?= $this->render('schedule/events', compact('eventStats', 'events', 'tides', 'user')) . "\n" ?>
 <?php } else { ?>
       <p>
         <?= Html::encode(Yii::t('app', 'No Data')) . "\n" ?>

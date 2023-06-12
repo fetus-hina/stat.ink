@@ -39,6 +39,7 @@ return [
     'MAX Hazard Level Cleared' => '¡Superaste el nivel de riesgo máximo!',
     'Normal Job' => '',
     'Not Defeated' => '',
+    'Occur %' => '',
     'Occurrence %' => '',
     'Pay Grade' => '',
     'Private Job' => 'Trabajo privado',

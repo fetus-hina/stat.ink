@@ -43,7 +43,7 @@ $fmt = Yii::$app->formatter;
         <th class="text-center"><?= Html::encode(Yii::t('app-salmon3', 'Defeated')) ?></th>
         <th class="text-center"><?= Html::encode(Yii::t('app-salmon3', 'Contribution')) ?></th>
         <th class="text-center"><?= Html::encode(Yii::t('app-salmon3', 'Defeat %')) ?></th>
-      </th>
+      </tr>
     </thead>
     <tbody>
 <?php foreach ($bossStats as $bossId => $row) { ?>

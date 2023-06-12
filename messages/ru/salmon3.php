@@ -39,6 +39,7 @@ return [
     'MAX Hazard Level Cleared' => 'Salmon Run пройден на максимальной сложности',
     'Normal Job' => '',
     'Not Defeated' => '',
+    'Occur %' => '',
     'Occurrence %' => '',
     'Pay Grade' => '',
     'Private Job' => 'Частная смена',

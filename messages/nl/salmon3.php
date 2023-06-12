@@ -39,6 +39,7 @@ return [
     'MAX Hazard Level Cleared' => 'Gewonnen op het maximale risiconiveau!',
     'Normal Job' => '',
     'Not Defeated' => '',
+    'Occur %' => '',
     'Occurrence %' => '',
     'Pay Grade' => '',
     'Private Job' => 'Privéklus',

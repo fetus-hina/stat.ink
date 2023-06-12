@@ -39,6 +39,7 @@ return [
     'Max. Hazard Level (cleared)' => 'クリア時の最大キケン度',
     'Normal Job' => 'いつものバイト',
     'Not Defeated' => '倒していない',
+    'Occur %' => '発生率',
     'Occurrence %' => '発生率',
     'Pay Grade' => '評価レート',
     'Private Job' => 'プライベートバイト',
