@@ -29,7 +29,7 @@ $fmt = Yii::$app->formatter;
 ?>
 <h3><?= Html::encode(Yii::t('app-salmon3', 'Water Level and Events')) ?></h3>
 <div class="table-responsive">
-  <table class="table table-bordered table-condensed table-striped">
+  <table class="table table-bordered table-condensed table-striped mb-0">
     <thead>
       <tr>
         <th class="text-center" rowspan="2"><?= Html::encode(Yii::t('app-salmon3', 'Known Occurrence')) ?></th>
@@ -61,3 +61,26 @@ $fmt = Yii::$app->formatter;
     </tbody>
   </table>
 </div>
+<?= Html::tag(
+  'p',
+  implode(' ', [
+    Yii::t(
+      'app-salmon3',
+      'Note that this data is too small data size to speak of occurrence rates.',
+    ),
+    Yii::t('app-salmon3', 'For a more accurate occurrence rate, see {link}.', [
+      'link' => Html::a(
+        Yii::t('app-salmon3', 'Water Level and Events'),
+        ['entire/salmon3-tide'],
+      ),
+    ]),
+  ]),
+  [
+    'class' => [
+      'mb-3',
+      'mt-1',
+      'small',
+      'text-muted',
+    ],
+  ],
+) . "\n" ?>
