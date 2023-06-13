@@ -12,7 +12,7 @@ namespace app\commands\splatoon3Ink;
 
 use DateTimeInterface;
 use Exception;
-use UnexpectedValue;
+use UnexpectedValueException;
 use Yii;
 use app\components\helpers\TypeHelper;
 use app\models\Event3;
@@ -76,7 +76,7 @@ trait UpdateEventSchedule
     {
         $internalId = ArrayHelper::getValue($eventData, 'id');
         if (!is_string($internalId)) {
-            throw new UnexpectedValue('Event id does not exist');
+            throw new UnexpectedValueException('Event id does not exist');
         }
 
         $model = Event3::find()
