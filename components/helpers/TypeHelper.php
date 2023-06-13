@@ -26,6 +26,10 @@ use const FILTER_VALIDATE_INT;
 
 final class TypeHelper
 {
+    private function __construct()
+    {
+    }
+
     public static function string(mixed $value): string
     {
         return match (true) {

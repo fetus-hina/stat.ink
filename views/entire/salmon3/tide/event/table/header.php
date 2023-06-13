@@ -28,7 +28,7 @@ use yii\web\View;
       Html::encode(Yii::t('app-salmon-tide2', $tide->name)),
       [
         'class' => 'text-center',
-        'colspan' => '2',
+        'colspan' => '3',
       ],
     ) . "\n" ?>
 <?php } ?>
@@ -39,6 +39,7 @@ use yii\web\View;
       'th',
       Html::encode(Yii::t('app-salmon3', 'Occurrence %')),
       [
+        'colspan' => '2',
         'class' => 'text-center',
       ],
     ) . "\n" ?>

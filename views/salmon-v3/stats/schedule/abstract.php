@@ -164,6 +164,34 @@ echo DetailView::widget([
       ]),
     ],
     [
+      'label' => Yii::t('app', 'Average'),
+      'format' => 'raw',
+      'value' => implode('', [
+        Html::tag(
+          'span',
+          vsprintf('%s %s', [
+            Html::tag('span', Icon::goldenEgg(), [
+              'class' => 'auto-tooltip',
+              'title' => Yii::t('app-salmon2', 'Golden Eggs'),
+            ]),
+            $fmt->asDecimal(TypeHelper::floatOrNull(ArrayHelper::getValue($stats, 'avg_golden')), 1),
+          ]),
+          ['class' => 'nobr mr-3'],
+        ),
+        Html::tag(
+          'span',
+          vsprintf('%s %s', [
+            Html::tag('span', Icon::powerEgg(), [
+              'class' => 'auto-tooltip',
+              'title' => Yii::t('app-salmon2', 'Power Eggs'),
+            ]),
+            $fmt->asDecimal(TypeHelper::floatOrNull(ArrayHelper::getValue($stats, 'avg_power')), 0),
+          ]),
+          ['class' => 'nobr mr-3'],
+        ),
+      ]),
+    ],
+    [
       'label' => Yii::t('app-salmon3', 'Fish Scales'),
       'format' => 'raw',
       'value' => implode('', [
