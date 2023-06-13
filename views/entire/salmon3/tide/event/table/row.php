@@ -9,15 +9,19 @@ use yii\helpers\Html;
 use yii\web\View;
 
 /**
- * @var SalmonEvent3|null $event
+ * @var SalmonEvent3|'*'|null $event
  * @var StatSalmon3TideEvent[] $stats
  * @var View $this
  * @var array<int, SalmonWaterLevel2> $tides
  */
 
-$eventStats = array_filter(
-  $stats,
-  fn (StatSalmon3TideEvent $model): bool => $model->event_id === $event?->id,
+$eventStats = array_values(
+  $event === '*'
+    ? $stats
+    : array_filter(
+      $stats,
+      fn (StatSalmon3TideEvent $model): bool => $model->event_id === $event?->id,
+    ),
 );
 
 if (!$eventStats) {
@@ -30,8 +34,19 @@ if (!$eventStats) {
   implode('', [
     Html::tag(
       'th',
-      Html::encode(Yii::t('app-salmon-event3', $event?->name ?? '(Normal)')),
-      ['scope' => 'row'],
+      Html::encode(
+        match (true) {
+          $event === '*' => sprintf('(%s)', Yii::t('app', 'Total')),
+          $event === null => Yii::t('app-salmon-event3', '(Normal)'),
+          $event instanceof SalmonEvent3 => Yii::t('app-salmon-event3', $event->name),
+        },
+      ),
+      [
+        'scope' => 'row',
+        'class' => $event instanceof SalmonEvent3
+          ? 'text-left text-start'
+          : 'text-center',
+      ],
     ),
     implode(
       '',
@@ -49,6 +64,12 @@ if (!$eventStats) {
                   $stats,
                   fn (StatSalmon3TideEvent $model): bool => $model->tide_id === $tide->id,
                 ),
+              ),
+            ),
+            'totalJobs' => array_sum(
+              array_map(
+                fn (StatSalmon3TideEvent $model): int => $model->jobs,
+                $stats,
               ),
             ),
           ],

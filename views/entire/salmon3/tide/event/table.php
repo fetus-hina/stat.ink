@@ -21,13 +21,16 @@ use yii\web\View;
 ]) . "\n" ?>
   <?= $this->render('table/header', compact('tides')) . "\n" ?>
   <tbody>
-    <?= $this->render(
-      'table/row',
-      array_merge(
-        compact('tides', 'stats'),
-        ['event' => null],
-      ),
-    ) . "\n" ?>
+    <?= $this->render('table/row', [
+      'tides' => $tides,
+      'stats' => $stats,
+      'event' => '*',
+    ]) . "\n" ?>
+    <?= $this->render('table/row', [
+      'tides' => $tides,
+      'stats' => $stats,
+      'event' => null,
+    ]) . "\n" ?>
 <?php foreach ($events as $event) { ?>
     <?= $this->render('table/row', compact('event', 'tides', 'stats')) . "\n" ?>
 <?php } ?>
