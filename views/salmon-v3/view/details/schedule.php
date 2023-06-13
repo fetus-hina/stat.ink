@@ -103,11 +103,15 @@ return [
     }
 
     $parts[] = Html::a(
-      Icon::stats(),
+      implode(' ', [
+        Icon::stats(),
+        Html::encode(Yii::t('app-salmon3', 'Per-Rotation Stats')),
+      ]),
       ['salmon-v3/stats-schedule',
         'screen_name' => $model->user?->screen_name,
         'schedule' => $schedule->id,
       ],
+      ['class' => 'btn btn-default btn-xs p-1'],
     );
 
     return implode(' ', $parts);

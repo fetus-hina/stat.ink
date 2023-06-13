@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 use app\actions\salmon\v3\stats\schedule\EventTrait;
 use app\components\widgets\Icon;
+use app\models\Map3;
 use app\models\SalmonEvent3;
+use app\models\SalmonMap3;
 use app\models\SalmonWaterLevel2;
 use app\models\User;
 use yii\helpers\Html;
@@ -14,6 +16,7 @@ use yii\web\View;
  * @phpstan-import-type EventStats from EventTrait
  *
  * @var EventStats $eventStats
+ * @var Map3|SalmonMap3|null $map
  * @var User $user
  * @var View $this
  * @var array<int, SalmonEvent3> $events
@@ -71,7 +74,11 @@ $fmt = Yii::$app->formatter;
     Yii::t('app-salmon3', 'For a more accurate occurrence rate, see {link}.', [
       'link' => Html::a(
         Yii::t('app-salmon3', 'Water Level and Events'),
-        ['entire/salmon3-tide'],
+        ['entire/salmon3-tide',
+          '#' => $map
+            ? sprintf('event-%s', $map->key)
+            : null,
+        ],
       ),
     ]),
   ]),

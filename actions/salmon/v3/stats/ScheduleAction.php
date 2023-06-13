@@ -17,6 +17,7 @@ use app\actions\salmon\v3\stats\schedule\BossSalmonidTrait;
 use app\actions\salmon\v3\stats\schedule\EventTrait;
 use app\actions\salmon\v3\stats\schedule\KingSalmonidTrait;
 use app\actions\salmon\v3\stats\schedule\SpecialTrait;
+use app\actions\salmon\v3\stats\schedule\WeaponTrait;
 use app\components\helpers\TypeHelper;
 use app\models\SalmonSchedule3;
 use app\models\User;
@@ -38,6 +39,7 @@ final class ScheduleAction extends Action
     use EventTrait;
     use KingSalmonidTrait;
     use SpecialTrait;
+    use WeaponTrait;
 
     public ?User $user = null;
     public ?SalmonSchedule3 $schedule = null;
@@ -84,7 +86,7 @@ final class ScheduleAction extends Action
             fn (Connection $db): array => Yii::$app->cache->getOrSet(
                 [
                     'id' => __METHOD__,
-                    'version' => 4,
+                    'version' => 5,
                     'user' => $user->id,
                     'schedule' => $schedule->id,
                     'cond' => $this->getCachingCondition($db, $user, $schedule),
@@ -101,6 +103,8 @@ final class ScheduleAction extends Action
                     'specials' => $this->getSpecials($db),
                     'stats' => $this->getStats($db, $user, $schedule),
                     'tides' => $this->getTides($db),
+                    'weaponStats' => $this->getWeaponStats($db, $user, $schedule),
+                    'weapons' => $this->getWeapons($db),
                 ],
                 duration: 7 * 24 * 60 * 60,
             ),
