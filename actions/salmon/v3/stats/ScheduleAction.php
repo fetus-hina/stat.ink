@@ -16,6 +16,7 @@ use app\actions\salmon\v3\stats\schedule\AbstractTrait;
 use app\actions\salmon\v3\stats\schedule\BossSalmonidTrait;
 use app\actions\salmon\v3\stats\schedule\EventTrait;
 use app\actions\salmon\v3\stats\schedule\KingSalmonidTrait;
+use app\actions\salmon\v3\stats\schedule\PlayerTrait;
 use app\actions\salmon\v3\stats\schedule\SpecialTrait;
 use app\actions\salmon\v3\stats\schedule\WeaponTrait;
 use app\components\helpers\TypeHelper;
@@ -38,6 +39,7 @@ final class ScheduleAction extends Action
     use BossSalmonidTrait;
     use EventTrait;
     use KingSalmonidTrait;
+    use PlayerTrait;
     use SpecialTrait;
     use WeaponTrait;
 
@@ -86,7 +88,7 @@ final class ScheduleAction extends Action
             fn (Connection $db): array => Yii::$app->cache->getOrSet(
                 [
                     'id' => __METHOD__,
-                    'version' => 5,
+                    'version' => 6,
                     'user' => $user->id,
                     'schedule' => $schedule->id,
                     'cond' => $this->getCachingCondition($db, $user, $schedule),
@@ -99,6 +101,7 @@ final class ScheduleAction extends Action
                     'kingStats' => $this->getKingStats($db, $user, $schedule),
                     'kings' => $this->getKings($db),
                     'map' => $schedule->map ?? $schedule->bigMap ?? null,
+                    'playerStats' => $this->getPlayerStats($db, $user, $schedule),
                     'specialStats' => $this->getSpecialStats($db, $user, $schedule),
                     'specials' => $this->getSpecials($db),
                     'stats' => $this->getStats($db, $user, $schedule),

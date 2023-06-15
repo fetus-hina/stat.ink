@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use app\actions\salmon\v3\stats\schedule\EventTrait;
+use app\actions\salmon\v3\stats\schedule\PlayerTrait;
 use app\actions\salmon\v3\stats\schedule\WeaponTrait;
 use app\components\helpers\OgpHelper;
 use app\components\helpers\TypeHelper;
@@ -27,10 +28,12 @@ use yii\web\View;
 
 /**
  * @phpstan-import-type EventStats from EventTrait
+ * @phpstan-import-type PlayerStats from PlayerTrait
  * @phpstan-import-type WeaponStats from WeaponTrait
  *
  * @var EventStats $eventStats
  * @var Map3|SalmonMap3|null $map
+ * @var PlayerStats[] $playerStats
  * @var Salmon3[] $results
  * @var SalmonSchedule3 $schedule
  * @var User $user
@@ -118,6 +121,7 @@ $played = TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'count'));
       <?= $this->render('schedule/specials', compact('specials', 'specialStats', 'user')) . "\n" ?>
       <?= $this->render('schedule/events', compact('eventStats', 'events', 'map', 'tides', 'user')) . "\n" ?>
       <?= $this->render('schedule/weapons', compact('schedule', 'weaponStats', 'weapons')) . "\n" ?>
+      <?= $this->render('schedule/players', compact('playerStats')) . "\n" ?>
 <?php } else { ?>
       <p>
         <?= Html::encode(Yii::t('app', 'No Data')) . "\n" ?>

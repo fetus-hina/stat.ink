@@ -368,6 +368,7 @@ return [
     'Make empty this field when you are using Discord.' => '',
     'Many' => 'Plusieurs',
     'Masked' => 'Masqué',
+    'Max.' => '',
     'max={max} min={min} average={avg} median={median} mode={mode}' => 'max={max} min={min} moyenne={avg} médiane={median} mode={mode}',
     'max={max} min={min} median={median}' => 'max={max} min={min} médiane={median}',
     'max={max} min={min} median={median} stddev={stddev}' => '',
