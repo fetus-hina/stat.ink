@@ -362,6 +362,7 @@ return [
     'Max Inked' => '最大塗った面積',
     'Max Kill Combo' => '最大キルコンボ',
     'Max Kill Streak' => '最大ストリーク',
+    'Max.' => '最大',
     'Maximum' => '最大',
     'Medal' => '表彰',
     'Medals' => '表彰',

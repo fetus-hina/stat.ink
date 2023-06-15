@@ -368,6 +368,7 @@ return [
     'Make empty this field when you are using Discord.' => '',
     'Many' => '许多',
     'Masked' => '已隐藏',
+    'Max.' => '最大',
     'max={max} min={min} average={avg} median={median} mode={mode}' => '最大值={max} 最小值={min} 平均值={avg} 中位值={median} 众数={mode}',
     'max={max} min={min} median={median}' => '最大值={max} 最小值={min} 平均值={median}',
     'max={max} min={min} median={median} stddev={stddev}' => '',
