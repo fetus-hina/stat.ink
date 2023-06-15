@@ -118,6 +118,13 @@ OgpHelper::default($this, Url::to(['site/index'], true));
         ),
       ],
       [
+        Html::encode('3 ' . Yii::t('app-lobby3', 'Challenge')),
+        Html::a(
+          Html::encode(Yii::t('db/event3', 'The Sheldon Sampler Challenge')),
+          ['entire/bukichi-cup3'],
+        ),
+      ],
+      [
        '3 SR',
         Html::a(
           Html::encode(Yii::t('app-salmon3', 'Random Loan Rate')),
