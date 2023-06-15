@@ -29,6 +29,7 @@ use app\actions\entire\salmon3\BigrunAction;
 use app\actions\entire\salmon3\EggstraWorkAction;
 use app\actions\entire\salmon3\RandomLoanAction;
 use app\actions\entire\salmon3\TideAction;
+use app\actions\entire\v3\BukichiCup3Action;
 use app\actions\entire\v3\InkColor3Action;
 use app\actions\entire\v3\KDWin3Action;
 use app\actions\entire\v3\Knockout3Action;
@@ -67,6 +68,7 @@ final class EntireController extends Controller
     {
         return [
             'agent' => AgentAction::class,
+            'bukichi-cup3' => BukichiCup3Action::class,
             'combined-agent' => CombinedAgentAction::class,
             'festpower2' => Festpower2Action::class,
             'ink-color3' => InkColor3Action::class,
