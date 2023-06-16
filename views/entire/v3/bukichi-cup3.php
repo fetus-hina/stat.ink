@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use app\components\helpers\OgpHelper;
+use app\components\helpers\StandardError;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\models\Event3;
@@ -17,7 +18,7 @@ use yii\web\View;
  * @var Event3 $event
  * @var View $this
  * @var array<int, Weapon3> $weapons
- * @var array<int, array{weapon_id: int, players: int}> $data
+ * @var array<int, array{weapon_id: int, players: int, player_for_winpct: int, wins: int}> $data
  */
 
 SortableTableAsset::register($this);
@@ -67,34 +68,45 @@ $max = max(ArrayHelper::getColumn($data, 'players'));
   </div>
   <div class="mb-3">
     <div class="table-responsive">
-      <table class="table table-striped table-sortable">
+      <table class="table table-striped table-sortable" style="table-layout:fixed">
         <thead>
           <tr>
+            <?= Html::tag('th', Html::encode('#'), [
+              'class' => 'text-center',
+              'data' => [
+                'sort' => 'int',
+                'data-sort-default' => 'asc',
+              ],
+              'style' => 'width:4em',
+            ]) . "\n" ?>
             <?= Html::tag('th', Html::encode(Yii::t('app', 'Weapon')), [
               'class' => 'text-center',
-              'data-sort' => 'int',
-              'data-sort-default' => 'asc',
-              'data-sort-onload' => 'yes',
-              'style' => 'width:18em',
+              'data' => [
+                'sort' => 'string',
+                'data-sort-default' => 'asc',
+              ],
+              'style' => 'width:15em',
             ]) . "\n" ?>
             <?= Html::tag('th', Html::encode(Yii::t('app', 'Times')), [
               'class' => 'text-center',
               'data-sort' => 'int',
               'data-sort-default' => 'desc',
+              'data-sort-onload' => 'yes',
               'style' => 'width:6em',
             ]) . "\n" ?>
             <?= Html::tag('th', Html::encode('%'), [
               'class' => 'text-center',
               'data-sort' => 'int',
               'data-sort-default' => 'desc',
-              'style' => 'width:6em',
+              'style' => 'width:216px',
             ]) . "\n" ?>
-            <?= Html::tag('th', Html::encode(''), [
+            <?= Html::tag('th', Html::encode(Yii::t('app', 'Win %')), [
               'class' => 'text-center',
-              'data-sort' => 'int',
+              'data-sort' => 'float',
               'data-sort-default' => 'desc',
-              'style' => 'min-width:200px',
+              'style' => 'width:216px',
             ]) . "\n" ?>
+            <th style="width:auto"></th>
           </tr>
         </thead>
         <tbody>
@@ -102,12 +114,23 @@ $max = max(ArrayHelper::getColumn($data, 'players'));
 <?php foreach ($weapons as $weaponId => $weapon) { ?>
 <?php ++$i ?>
 <?php $n = $data[$weaponId]['players'] ?? 0; ?>
+<?php $winPlusLose = $data[$weaponId]['player_for_winpct'] ?? 0; ?>
+<?php $win = $data[$weaponId]['wins'] ?? 0; ?>
           <tr>
+            <?= Html::tag(
+              'td',
+              Html::encode($fmt->asInteger($i)),
+              [
+                'class' => 'text-center text-muted',
+                'data-sort-value' => $i,
+              ],
+            ) . "\n" ?>
             <?= Html::tag(
               'td',
               Html::encode(Yii::t('app-weapon3', $weapon->name)),
               [
-                'data-sort-value' => $i,
+                'class' => 'nobr omit',
+                'data-sort-value' => Yii::t('app-weapon3', $weapon->name),
               ],
             ) . "\n" ?>
             <?= Html::tag(
@@ -120,24 +143,16 @@ $max = max(ArrayHelper::getColumn($data, 'players'));
             ) . "\n" ?>
             <?= Html::tag(
               'td',
-              Html::encode($fmt->asPercent($n / $total, 2)),
-              [
-                'class' => 'text-right',
-                'data-sort-value' => $n,
-              ],
-            ) . "\n" ?>
-            <?= Html::tag(
-              'td',
               Progress::widget([
                 'percent' => 100 * $n / $max,
+                'label' => $fmt->asPercent($n / $total, 2),
                 'barOptions' => [
                   'class' => 'progress-bar-info',
                 ],
                 'options' => [
                   'class' => ['progress-striped'],
                   'style' => [
-                    'min-width' => '200px',
-                    'max-width' => '500px',
+                    'width' => '200px',
                   ],
                 ],
               ]),
@@ -145,6 +160,41 @@ $max = max(ArrayHelper::getColumn($data, 'players'));
                 'data-sort-value' => $n,
               ],
             ) . "\n" ?>
+            <?= Html::tag(
+              'td',
+              $winPlusLose > 0
+                ? (function () use ($fmt, $win, $winPlusLose): string {
+                  $errInfo = StandardError::winpct($win, $winPlusLose);
+                  return Progress::widget([
+                    'percent' => 100 * $win / $winPlusLose,
+                    'label' =>  $fmt->asPercent($win / $winPlusLose, 1),
+                    'barOptions' => [
+                      'class' => 'auto-tooltip progress-bar-success',
+                      'title' => $errInfo
+                        ? Yii::t('app', '{from} - {to}', [
+                          'from' => $fmt->asPercent($errInfo['min95ci'], 1),
+                          'to' => $fmt->asPercent($errInfo['max95ci'], 1),
+                        ])
+                        : $fmt->asPercent($win / $winPlusLose, 1),
+                    ],
+                    'options' => [
+                      'class' => [
+                        'auto-tooltip progress-striped'
+                      ],
+                      'style' => [
+                        'width' => '200px',
+                      ],
+                    ],
+                  ]);
+                })()
+                : Html::tag('div', Html::encode(Yii::t('app', 'N/A')), [
+                  'class' => 'text-center text-muted',
+                ]),
+              [
+                'data-sort-value' => $winPlusLose > 0 ? $win / $winPlusLose : -1,
+              ],
+            ) . "\n" ?>
+            <td></td>
           </tr>
 <?php } ?>
         </tbody>
