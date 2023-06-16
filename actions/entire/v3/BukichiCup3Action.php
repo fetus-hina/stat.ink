@@ -24,6 +24,9 @@ use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
+use function implode;
+use function sprintf;
+
 use const SORT_ASC;
 
 final class BukichiCup3Action extends Action
@@ -70,11 +73,32 @@ final class BukichiCup3Action extends Action
                 ->select([
                     'weapon_id' => '{{%battle_player3}}.[[weapon_id]]',
                     'players' => 'COUNT(*)',
+                    'player_for_winpct' => sprintf(
+                        'SUM(CASE %s END)',
+                        implode(' ', [
+                            'WHEN {{%battle_player3}}.[[is_me]] = FALSE THEN 1',
+                            'WHEN {{%result3}}.[[aggregatable]] = FALSE THEN 0',
+                            'ELSE 0',
+                        ]),
+                    ),
+                    'wins' => sprintf(
+                        'SUM(CASE %s END)',
+                        implode(' ', [
+                            'WHEN {{%battle_player3}}.[[is_me]] <> FALSE THEN 0',
+                            'WHEN {{%result3}}.[[aggregatable]] = FALSE THEN 0',
+                            'WHEN {{%battle_player3}}.[[is_our_team]] = {{%result3}}.[[is_win]] THEN 1',
+                            'ELSE 0',
+                        ]),
+                    ),
                 ])
                 ->from('{{%battle3}}')
                 ->innerJoin(
                     '{{%battle_player3}}',
                     '{{%battle3}}.[[id]] = {{%battle_player3}}.[[battle_id]]',
+                )
+                ->innerJoin(
+                    '{{%result3}}',
+                    '{{%battle3}}.[[result_id]] = {{%result3}}.[[id]]',
                 )
                 ->andWhere(['and',
                     [
