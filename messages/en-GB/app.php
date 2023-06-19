@@ -418,7 +418,7 @@ return [
     'Note (private)' => '',
     'Note (public)' => '',
     'Not Winning' => '',
-    'Number of weapons confirmed' => '',
+    'Number of weapons seen' => '',
     'Octoling' => '',
     'Official Results' => '',
     'Official Twitter' => '',

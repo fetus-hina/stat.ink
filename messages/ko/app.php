@@ -418,7 +418,7 @@ return [
     'Note (private)' => '메모 (비공개)',
     'Note (public)' => '메모 (공개)',
     'Not Winning' => '승리가 아닌',
-    'Number of weapons confirmed' => '',
+    'Number of weapons seen' => '',
     'Octoling' => '문어',
     'Official Results' => '',
     'Official Twitter' => '공식 트위터',

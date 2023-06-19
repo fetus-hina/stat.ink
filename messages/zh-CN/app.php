@@ -420,7 +420,7 @@ return [
     'Note (private)' => '备注（私密）',
     'Note (public)' => '备注（公开）',
     'Not Winning' => '不是胜利',
-    'Number of weapons confirmed' => '',
+    'Number of weapons seen' => '',
     'Octoling' => '章鱼形态',
     'Official Results' => '',
     'Official Twitter' => '官方Twitter',

@@ -405,7 +405,7 @@ return [
     'Note (private)' => 'メモ（非公開）',
     'Note (public)' => 'メモ（公開）',
     'Note' => 'メモ',
-    'Number of weapons confirmed' => '確認されたブキの数',
+    'Number of weapons seen' => '確認されたブキの数',
     'Octoling' => 'タコ',
     'Official Results' => '公式の結果',
     'Official Twitter' => '公式ツイッター',

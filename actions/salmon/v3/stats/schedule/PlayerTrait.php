@@ -66,7 +66,7 @@ trait PlayerTrait
                     'SUM(CASE %s END)',
                     implode(' ', [
                         "WHEN {{%salmon3}}.[[clear_waves]] >= {$waves} THEN {$waves}",
-                        'ELSE {{%salmon3}}.[[clear_waves]] + 1',
+                        'ELSE {{%salmon3}}.[[clear_waves]]',
                     ]),
                 ),
                 'max_danger_rate' => 'MAX({{%salmon3}}.[[danger_rate]])',
