@@ -420,7 +420,7 @@ return [
     'Note (private)' => 'Note (privé)',
     'Note (public)' => 'Note (publique)',
     'Not Winning' => 'Pas victoire',
-    'Number of weapons confirmed' => '',
+    'Number of weapons seen' => '',
     'Octoling' => 'Octaling',
     'Official Results' => '',
     'Official Twitter' => 'Twitter officiel',

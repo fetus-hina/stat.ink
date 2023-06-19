@@ -419,7 +419,7 @@ return [
     'Note (private)' => '備註(私人)',
     'Note (public)' => '備註(公開)',
     'Not Winning' => '不是勝利',
-    'Number of weapons confirmed' => '',
+    'Number of weapons seen' => '',
     'Octoling' => '章魚形態',
     'Official Results' => '官方結果',
     'Official Twitter' => '官方Twitter',

@@ -58,7 +58,7 @@ $max = max(ArrayHelper::getColumn($data, 'players'));
       'p',
       Html::encode(
         vsprintf('%s: %s / %s', [
-          Yii::t('app', 'Number of weapons confirmed'),
+          Yii::t('app', 'Number of weapons seen'),
           $fmt->asInteger(count($data)),
           $fmt->asInteger(count($weapons)),
         ]),
