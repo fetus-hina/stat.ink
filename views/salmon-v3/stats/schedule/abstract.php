@@ -15,7 +15,7 @@ use yii\widgets\DetailView;
 
 /**
  * @var Map3|SalmonMap3|null $map
- * @var SalmonSchedule3 $schedule
+ * @var SalmonSchedule3|null $schedule
  * @var User $user
  * @var View $this
  * @var array<string, scalar|null> $stats
@@ -70,13 +70,13 @@ echo DetailView::widget([
             'screen_name' => $user->screen_name,
             'f' => [
               'lobby' => match (true) {
-                $schedule->big_map_id !== null => 'bigrun',
-                $schedule->is_eggstra_work => 'eggstra',
+                $schedule?->big_map_id !== null => 'bigrun',
+                $schedule?->is_eggstra_work => 'eggstra',
                 default => 'normal',
               },
-              'term' => 'term',
-              'term_from' => sprintf('@%d', strtotime($schedule->start_at)),
-              'term_to' => sprintf('@%d', strtotime($schedule->end_at)),
+              'term' => $schedule ? 'term' : null,
+              'term_from' => $schedule ? sprintf('@%d', strtotime($schedule->start_at)) : null,
+              'term_to' => $schedule ? sprintf('@%d', strtotime($schedule->end_at)) : null,
             ],
           ],
         ),

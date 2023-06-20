@@ -21,9 +21,9 @@ use function sprintf;
 
 trait AbstractTrait
 {
-    private function getStats(Connection $db, User $user, SalmonSchedule3 $schedule): array
+    private function getStats(Connection $db, User $user, ?SalmonSchedule3 $schedule): array
     {
-        $waves = $schedule->is_eggstra_work ? 5 : 3;
+        $waves = $schedule?->is_eggstra_work ? 5 : 3;
         return TypeHelper::array(
             (new Query())
                 ->select([
@@ -94,9 +94,13 @@ trait AbstractTrait
                 ->andWhere([
                     '{{%salmon3}}.[[is_deleted]]' => false,
                     '{{%salmon3}}.[[is_private]]' => false,
-                    '{{%salmon3}}.[[schedule_id]]' => $schedule->id,
                     '{{%salmon3}}.[[user_id]]' => $user->id,
                 ])
+                ->andWhere(
+                    $schedule
+                        ? ['{{%salmon3}}.[[schedule_id]]' => $schedule->id]
+                        : ['{{%salmon3}}.[[is_eggstra_work]]' => false],
+                )
                 ->one($db),
         );
     }

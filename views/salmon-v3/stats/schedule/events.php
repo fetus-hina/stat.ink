@@ -66,11 +66,13 @@ $fmt = Yii::$app->formatter;
 </div>
 <?= Html::tag(
   'p',
-  implode(' ', [
-    Yii::t(
-      'app-salmon3',
-      'Note that this data is too small data size to speak of occurrence rates.',
-    ),
+  implode(' ', array_filter([
+    $map
+      ? Yii::t(
+        'app-salmon3',
+        'Note that this data is too small data size to speak of occurrence rates.',
+      )
+      : null,
     Yii::t('app-salmon3', 'For a more accurate occurrence rate, see {link}.', [
       'link' => Html::a(
         Yii::t('app-salmon3', 'Water Level and Events'),
@@ -81,7 +83,7 @@ $fmt = Yii::$app->formatter;
         ],
       ),
     ]),
-  ]),
+  ])),
   [
     'class' => [
       'mb-3',

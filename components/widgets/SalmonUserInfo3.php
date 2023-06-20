@@ -243,6 +243,7 @@ final class SalmonUserInfo3 extends SalmonUserInfo
     {
         $user = $this->user;
         $links = [
+            Yii::t('app-salmon3', 'Stats') => ['salmon-v3/stats-stats', 'screen_name' => $user->screen_name],
             Yii::t('app-salmon3', 'Stats (Bosses)') => ['salmon-v3/stats-bosses', 'screen_name' => $user->screen_name],
             Yii::t('app', 'Badge Progress') => ['show-v3/stats-badge', 'screen_name' => $user->screen_name],
         ];
