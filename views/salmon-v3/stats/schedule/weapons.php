@@ -16,7 +16,7 @@ use yii\web\View;
 /**
  * @phpstan-import-type WeaponStats from WeaponTrait
  *
- * @var SalmonSchedule3 $schedule
+ * @var SalmonSchedule3|null $schedule
  * @var View $this
  * @var array<int, SalmonWeapon3> $weapons
  * @var array<int, WeaponStats> $weaponStats
@@ -32,12 +32,14 @@ if ($normalWaves < 1 || $xtraWaves < 0) {
   return;
 }
 
-$isRandomSchedule = array_sum(
-  array_map(
-    fn (SalmonScheduleWeapon3 $w): int => $w->random_id === null ? 0 : 1,
-    $schedule->salmonScheduleWeapon3s,
-  ),
-) > 0;
+$isRandomSchedule = $schedule
+  ? array_sum(
+    array_map(
+      fn (SalmonScheduleWeapon3 $w): int => $w->random_id === null ? 0 : 1,
+      $schedule->salmonScheduleWeapon3s,
+    ),
+  ) > 0
+  : false;
 
 $fmt = Yii::$app->formatter;
 
@@ -55,12 +57,25 @@ $fmt = Yii::$app->formatter;
   ]) . "\n" ?>
     <thead>
       <tr>
+<?php
+/*
+ * Note: When not specifying a schedule, i.e., using per-user statistics, the loan rate is not calculated.
+ * メモ: スケジュールを特定しない、つまり、ユーザー単位での統計を利用するときは、貸出率を計算しない。
+ */
+?>
         <th class="text-center" rowspan="2"><?= Html::encode(Yii::t('app', 'Weapon')) ?></th>
+<?php if ($schedule) { ?>
         <th class="text-center" colspan="2"><?= Html::encode(Yii::t('app', 'Total')) ?></th>
         <th class="text-center" colspan="3"><?= Html::encode(Yii::t('app-salmon3', 'Normal Waves')) ?></th>
         <th class="text-center" colspan="3"><?= Html::encode(Yii::t('app-salmon3', 'Xtrawave')) ?></th>
+<?php } else { ?>
+        <th class="text-center"><?= Html::encode(Yii::t('app', 'Total')) ?></th>
+        <th class="text-center" colspan="2"><?= Html::encode(Yii::t('app-salmon3', 'Normal Waves')) ?></th>
+        <th class="text-center" colspan="2"><?= Html::encode(Yii::t('app-salmon3', 'Xtrawave')) ?></th>
+<?php } ?>
       </tr>
       <tr>
+<?php if ($schedule) { ?>
         <th class="text-center"><?= Html::encode(Yii::t('app-salmon2', 'Waves')) ?></th>
         <th class="text-center"><?= Html::encode(Yii::t('app-salmon3', 'Loan %')) ?></th>
         <th class="text-center"><?= Html::encode(Yii::t('app-salmon2', 'Waves')) ?></th>
@@ -69,6 +84,13 @@ $fmt = Yii::$app->formatter;
         <th class="text-center"><?= Html::encode(Yii::t('app-salmon2', 'Waves')) ?></th>
         <th class="text-center"><?= Html::encode(Yii::t('app-salmon3', 'Loan %')) ?></th>
         <th class="text-center"><?= Html::encode(Yii::t('app-salmon3', 'Defeat %')) ?></th>
+<?php } else { ?>
+        <th class="text-center"><?= Html::encode(Yii::t('app-salmon2', 'Waves')) ?></th>
+        <th class="text-center"><?= Html::encode(Yii::t('app-salmon2', 'Waves')) ?></th>
+        <th class="text-center"><?= Html::encode(Yii::t('app-salmon2', 'Clear %')) ?></th>
+        <th class="text-center"><?= Html::encode(Yii::t('app-salmon2', 'Waves')) ?></th>
+        <th class="text-center"><?= Html::encode(Yii::t('app-salmon3', 'Defeat %')) ?></th>
+<?php } ?>
       </tr>
     </thead>
     <tbody>
@@ -86,13 +108,17 @@ $fmt = Yii::$app->formatter;
           Html::encode($fmt->asInteger($normalWaves + $xtraWaves)),
           ['class' => 'text-center'],
         ) . "\n" ?>
+<?php if ($schedule) { ?>
         <td class="text-center">-</td>
+<?php } ?>
         <?= Html::tag(
           'td',
           Html::encode($fmt->asInteger($normalWaves)),
           ['class' => 'text-center'],
         ) . "\n" ?>
+<?php if ($schedule) { ?>
         <td class="text-center">-</td>
+<?php } ?>
         <?= Html::tag(
           'td',
           Html::encode(
@@ -109,7 +135,9 @@ $fmt = Yii::$app->formatter;
           Html::encode($fmt->asInteger($xtraWaves)),
           ['class' => 'text-center'],
         ) . "\n" ?>
+<?php if ($schedule) { ?>
         <td class="text-center">-</td>
+<?php } ?>
         <?= Html::tag(
           'td',
           Html::encode(
@@ -138,6 +166,7 @@ $fmt = Yii::$app->formatter;
           Html::encode($fmt->asInteger($row['normal_waves'] + $row['xtra_waves'])),
           ['class' => 'text-center'],
         ) . "\n" ?>
+<?php if ($schedule) { ?>
         <?= Html::tag(
           'td',
           Html::encode(
@@ -148,17 +177,20 @@ $fmt = Yii::$app->formatter;
           ),
           ['class' => 'text-center'],
         ) . "\n" ?>
+<?php } ?>
 <?php if ($row['normal_waves'] > 0) { ?>
         <?= Html::tag(
           'td',
           Html::encode($fmt->asInteger($row['normal_waves'])),
           ['class' => 'text-center'],
         ) . "\n" ?>
+<?php if ($schedule) { ?>
         <?= Html::tag(
           'td',
           Html::encode($fmt->asPercent($row['normal_waves'] / $normalWaves, 2)),
           ['class' => 'text-center'],
         ) . "\n" ?>
+<?php } ?>
         <?= Html::tag(
           'td',
           Html::encode($fmt->asPercent($row['normal_cleared'] / $row['normal_waves'], 1)),
@@ -166,7 +198,9 @@ $fmt = Yii::$app->formatter;
         ) . "\n" ?>
 <?php } else { ?>
         <td></td>
+<?php if ($schedule) { ?>
         <td></td>
+<?php } ?>
         <td></td>
 <?php } ?>
 <?php if ($row['xtra_waves'] > 0) { ?>
@@ -175,11 +209,13 @@ $fmt = Yii::$app->formatter;
           Html::encode($fmt->asInteger($row['xtra_waves'])),
           ['class' => 'text-center'],
         ) . "\n" ?>
+<?php if ($schedule) { ?>
         <?= Html::tag(
           'td',
           Html::encode($fmt->asPercent($row['xtra_waves'] / $xtraWaves, 2)),
           ['class' => 'text-center'],
         ) . "\n" ?>
+<?php } ?>
         <?= Html::tag(
           'td',
           Html::encode($fmt->asPercent($row['xtra_cleared'] / $row['xtra_waves'], 1)),
@@ -187,7 +223,9 @@ $fmt = Yii::$app->formatter;
         ) . "\n" ?>
 <?php } else { ?>
         <td></td>
+<?php if ($schedule) { ?>
         <td></td>
+<?php } ?>
         <td></td>
 <?php } ?>
       </tr>
@@ -198,10 +236,12 @@ $fmt = Yii::$app->formatter;
 <?= Html::tag(
   'p',
   implode(' ', array_filter([
-    Yii::t(
-      'app-salmon3',
-      'Note that this data is too small data size to speak of weapon loan rates.',
-    ),
+    $schedule
+      ? Yii::t(
+        'app-salmon3',
+        'Note that this data is too small data size to speak of weapon loan rates.',
+      )
+      : null,
     $isRandomSchedule
       ? Yii::t('app-salmon3', 'For a more accurate weapon loan rate, see {link}.', [
         'link' => Html::a(

@@ -38,9 +38,9 @@ trait EventTrait
     /**
      * @phpstan-return EventStats
      */
-    private function getEventStats(Connection $db, User $user, SalmonSchedule3 $schedule): array
+    private function getEventStats(Connection $db, User $user, ?SalmonSchedule3 $schedule): array
     {
-        $waves = $schedule->is_eggstra_work ? 5 : 3;
+        $waves = $schedule?->is_eggstra_work ? 5 : 3;
 
         $data = (new Query())
             ->select([
@@ -65,9 +65,11 @@ trait EventTrait
                 [
                     '{{%salmon3}}.[[is_deleted]]' => false,
                     '{{%salmon3}}.[[is_private]]' => false,
-                    '{{%salmon3}}.[[schedule_id]]' => $schedule->id,
                     '{{%salmon3}}.[[user_id]]' => $user->id,
                 ],
+                $schedule
+                    ? ['{{%salmon3}}.[[schedule_id]]' => $schedule->id]
+                    : ['{{%salmon3}}.[[is_eggstra_work]]' => false],
                 ['between', '{{%salmon_wave3}}.[[wave]]', 1, $waves],
                 ['not', ['{{%salmon_wave3}}.[[tide_id]]' => null]],
                 ['not', ['{{%salmon_wave3}}.[[golden_quota]]' => null]],

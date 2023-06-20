@@ -15,6 +15,7 @@ use app\actions\salmon\v3\IndexAction;
 use app\actions\salmon\v3\ViewAction;
 use app\actions\salmon\v3\stats\BossesAction;
 use app\actions\salmon\v3\stats\ScheduleAction;
+use app\actions\salmon\v3\stats\StatsAction;
 use app\components\web\Controller;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -62,6 +63,7 @@ final class SalmonV3Controller extends Controller
             'index' => IndexAction::class,
             'stats-bosses' => BossesAction::class,
             'stats-schedule' => ScheduleAction::class,
+            'stats-stats' => StatsAction::class,
             'view' => ViewAction::class,
         ];
     }

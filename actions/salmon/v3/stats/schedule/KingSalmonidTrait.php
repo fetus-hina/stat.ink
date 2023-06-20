@@ -32,7 +32,7 @@ trait KingSalmonidTrait
      *   bronze_scale: ?int
      * }>
      */
-    private function getKingStats(Connection $db, User $user, SalmonSchedule3 $schedule): array
+    private function getKingStats(Connection $db, User $user, ?SalmonSchedule3 $schedule): array
     {
         return ArrayHelper::index(
             (new Query())
@@ -49,9 +49,11 @@ trait KingSalmonidTrait
                     [
                         '{{%salmon3}}.[[is_deleted]]' => false,
                         '{{%salmon3}}.[[is_private]]' => false,
-                        '{{%salmon3}}.[[schedule_id]]' => $schedule->id,
                         '{{%salmon3}}.[[user_id]]' => $user->id,
                     ],
+                    $schedule
+                        ? ['{{%salmon3}}.[[schedule_id]]' => $schedule->id]
+                        : ['{{%salmon3}}.[[is_eggstra_work]]' => false],
                     ['not', ['{{%salmon3}}.[[king_salmonid_id]]' => null]],
                     ['not', ['{{%salmon3}}.[[clear_extra]]' => null]],
                 ])

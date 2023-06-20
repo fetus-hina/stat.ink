@@ -25,7 +25,7 @@ trait BossSalmonidTrait
     /**
      * @return array<int, array{boss_id: int, appearances: int, defeated: int, defeated_by_me: int}>
      */
-    private function getBossStats(Connection $db, User $user, SalmonSchedule3 $schedule): array
+    private function getBossStats(Connection $db, User $user, ?SalmonSchedule3 $schedule): array
     {
         return ArrayHelper::index(
             (new Query())
@@ -40,11 +40,15 @@ trait BossSalmonidTrait
                     '{{%salmon_boss_appearance3}}',
                     '{{%salmon3}}.[[id]] = {{%salmon_boss_appearance3}}.[[salmon_id]]',
                 )
-                ->andWhere([
-                    '{{%salmon3}}.[[is_deleted]]' => false,
-                    '{{%salmon3}}.[[is_private]]' => false,
-                    '{{%salmon3}}.[[schedule_id]]' => $schedule->id,
-                    '{{%salmon3}}.[[user_id]]' => $user->id,
+                ->andWhere(['and',
+                    [
+                        '{{%salmon3}}.[[is_deleted]]' => false,
+                        '{{%salmon3}}.[[is_private]]' => false,
+                        '{{%salmon3}}.[[user_id]]' => $user->id,
+                    ],
+                    $schedule
+                        ? ['{{%salmon3}}.[[schedule_id]]' => $schedule->id]
+                        : ['{{%salmon3}}.[[is_eggstra_work]]' => false],
                 ])
                 ->groupBy([
                     '{{%salmon_boss_appearance3}}.[[boss_id]]',

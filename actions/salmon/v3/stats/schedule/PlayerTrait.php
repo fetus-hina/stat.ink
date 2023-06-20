@@ -47,9 +47,9 @@ trait PlayerTrait
     /**
      * @return PlayerStats[]
      */
-    private function getPlayerStats(Connection $db, User $user, SalmonSchedule3 $schedule): array
+    private function getPlayerStats(Connection $db, User $user, ?SalmonSchedule3 $schedule): array
     {
-        $waves = $schedule->is_eggstra_work ? 5 : 3;
+        $waves = $schedule?->is_eggstra_work ? 5 : 3;
         return (new Query())
             ->select([
                 'name' => '{{%salmon_player3}}.[[name]]',
@@ -100,9 +100,11 @@ trait PlayerTrait
                 [
                     '{{%salmon3}}.[[is_deleted]]' => false,
                     '{{%salmon3}}.[[is_private]]' => false,
-                    '{{%salmon3}}.[[schedule_id]]' => $schedule->id,
                     '{{%salmon3}}.[[user_id]]' => $user->id,
                 ],
+                $schedule
+                    ? ['{{%salmon3}}.[[schedule_id]]' => $schedule->id]
+                    : ['{{%salmon3}}.[[is_eggstra_work]]' => false],
                 ['not', ['{{%salmon_player3}}.[[name]]' => null]],
                 ['not', ['{{%salmon_player3}}.[[number]]' => null]],
             ])
