@@ -94,7 +94,7 @@ trait PlayedWithTrait
                 implode(
                     ', ',
                     array_map(
-                        fn (string $column): string => $db->quoteColumnName($column), // PHP 8.1
+                        $db->quoteColumnName(...),
                         array_keys($select->select),
                     ),
                 ),

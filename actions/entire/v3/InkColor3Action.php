@@ -143,7 +143,7 @@ final class InkColor3Action extends Action
         }
 
         return array_map(
-            fn (string $hex): int => hexdec($hex), // PHP 8.1: hexdec(...)
+            hexdec(...),
             array_slice($match, 1, 3),
         );
     }
