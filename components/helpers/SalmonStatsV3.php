@@ -18,10 +18,16 @@ use app\components\helpers\salmonStatsV3\BigrunHistogramTrait;
 use app\components\helpers\salmonStatsV3\BigrunTrait;
 use app\components\helpers\salmonStatsV3\EggstraWorkHistogramTrait;
 use app\components\helpers\salmonStatsV3\EggstraWorkTrait;
+use app\components\helpers\salmonStatsV3\PlayedWithTrait;
 use app\components\helpers\salmonStatsV3\StatsTrait;
 use app\models\User;
 use yii\db\Connection;
 use yii\db\Transaction;
+
+use function fwrite;
+
+use const PHP_SAPI;
+use const STDERR;
 
 final class SalmonStatsV3
 {
@@ -30,6 +36,7 @@ final class SalmonStatsV3
     use BigrunTrait;
     use EggstraWorkHistogramTrait;
     use EggstraWorkTrait;
+    use PlayedWithTrait;
     use StatsTrait;
 
     public static function create(User $user): bool
@@ -43,11 +50,26 @@ final class SalmonStatsV3
 
     private static function createImpl(Connection $db, User $user, DateTimeImmutable $now): bool
     {
-        return self::createUserStats($db, $user, $now) &&
-            self::createBigrunStats($db, $user, $now) &&
-            self::createEggstraWorkStats($db, $user, $now) &&
-            self::createBadgeProgress($db, $user, $now) &&
-            self::createBigrunHistogramStats($db) &&
-            self::createEggstraWorkHistogramStats($db);
+        $tasks = [
+            'createUserStats' => fn () => self::createUserStats($db, $user, $now),
+            'createBigrunStats' => fn () => self::createBigrunStats($db, $user, $now),
+            'createEggstraWorkStats' => fn () => self::createEggstraWorkStats($db, $user, $now),
+            'createBadgeProgress' => fn () => self::createBadgeProgress($db, $user, $now),
+            'createPlayedWithStats' => fn () => self::createPlayedWithStats($db, $user),
+            'createBigrunHistogramStats' => fn () => self::createBigrunHistogramStats($db),
+            'createEggstraWorkHistogramStats' => fn () => self::createEggstraWorkHistogramStats($db),
+        ];
+
+        foreach ($tasks as $label => $task) {
+            if (PHP_SAPI === 'cli') {
+                fwrite(STDERR, "$label...\n");
+            }
+
+            if (!$task()) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
