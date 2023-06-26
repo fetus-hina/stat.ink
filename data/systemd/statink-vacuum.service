@@ -4,7 +4,7 @@ After=paths.target multi-user.target network.target network-online.target Networ
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/scl enable php80 "./yii database/vacuum"
+ExecStart=/usr/bin/scl enable php81 "./yii database/vacuum"
 SyslogIdentifier=statink-vacuum
 WorkingDirectory=/home/statink/stat.ink
 User=statink

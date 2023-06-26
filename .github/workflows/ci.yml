@@ -24,6 +24,9 @@ jobs:
             experimental: false
           -
             version: '8.2'
+            experimental: false
+          -
+            version: '8.3'
             experimental: true
     runs-on: ubuntu-22.04
     needs:
@@ -65,10 +68,10 @@ jobs:
             ~/.cache/composer/files
           key: 'composer-${{ hashFiles(''composer.lock'') }}'
       -
-        name: 'Set PHP environment (PHP 8.0)'
+        name: 'Set PHP environment (PHP 8.1)'
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.0'
+          php-version: '8.1'
       -
         name: 'Run PHPCS'
         run: 'php vendor/bin/phpcs -p'
@@ -215,10 +218,10 @@ jobs:
           key: 'composer-${{ hashFiles(''composer.lock'') }}'
           restore-keys: composer-
       -
-        name: 'Set PHP environment (PHP 8.0)'
+        name: 'Set PHP environment (PHP 8.1)'
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.0'
+          php-version: '8.1'
       -
         name: 'Install composer packages'
         run: |
@@ -255,10 +258,10 @@ jobs:
             ~/.npm
           key: 'npm-2-${{ hashFiles(''package-lock.json'') }}'
       -
-        name: 'Set PHP environment (PHP 8.0)'
+        name: 'Set PHP environment (PHP 8.1)'
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.0'
+          php-version: '8.1'
       -
         name: 'Use node.js 16 LTS'
         uses: actions/setup-node@v3
@@ -290,6 +293,9 @@ jobs:
             experimental: false
           -
             version: '8.2'
+            experimental: false
+          -
+            version: '8.3'
             experimental: true
         pgsql:
           -

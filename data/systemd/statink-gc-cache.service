@@ -4,7 +4,7 @@ After=paths.target multi-user.target network.target network-online.target Networ
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/scl enable php80 "./yii cache/gc"
+ExecStart=/usr/bin/scl enable php81 "./yii cache/gc"
 SyslogIdentifier=statink-gc-cache
 WorkingDirectory=/home/statink/stat.ink
 User=statink
