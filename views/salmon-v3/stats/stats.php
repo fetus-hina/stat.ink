@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use app\actions\salmon\v3\stats\schedule\EventTrait;
-use app\actions\salmon\v3\stats\schedule\PlayerTrait;
 use app\actions\salmon\v3\stats\schedule\WeaponTrait;
 use app\components\helpers\OgpHelper;
 use app\components\helpers\TypeHelper;
@@ -11,6 +10,7 @@ use app\components\widgets\AdWidget;
 use app\components\widgets\SalmonUserInfo3;
 use app\components\widgets\SnsWidget;
 use app\models\Salmon3;
+use app\models\Salmon3StatsPlayedWith;
 use app\models\SalmonBoss3;
 use app\models\SalmonEvent3;
 use app\models\SalmonKing3;
@@ -26,11 +26,10 @@ use yii\web\View;
 
 /**
  * @phpstan-import-type EventStats from EventTrait
- * @phpstan-import-type PlayerStats from PlayerTrait
  * @phpstan-import-type WeaponStats from WeaponTrait
  *
  * @var EventStats $eventStats
- * @var PlayerStats[] $playerStats
+ * @var Salmon3StatsPlayedWith[] $playerStats
  * @var Salmon3[] $results
  * @var SalmonSchedule3 $schedule
  * @var User $user
@@ -137,7 +136,7 @@ $played = TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'count'));
         'weaponStats' => $weaponStats,
         'weapons' => $weapons,
       ]) . "\n" ?>
-      <?= $this->render('schedule/players', compact('playerStats')) . "\n" ?>
+      <?= $this->render('stats/players', compact('playerStats')) . "\n" ?>
 <?php } else { ?>
       <p>
         <?= Html::encode(Yii::t('app', 'No Data')) . "\n" ?>

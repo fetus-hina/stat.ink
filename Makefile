@@ -262,7 +262,7 @@ define es2js
 	@mkdir -p $(dir $(1))
 	cat $(2) | \
 		npx babel -s false -f jsfile | \
-		npx uglifyjs -c -m -b beautify=false,ascii_only=true --comments '/license|copyright/i' -o $(1)
+		npx terser -c -m -f 'ascii_only=true,beautify=false' --comments '/license|copyright/i' --output $(1)
 	@touch $(1)
 endef
 
