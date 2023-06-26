@@ -66,17 +66,17 @@ https://stat.ink/ works with:
   - [H2O](https://h2o.examp1e.net/) mainline
 - [Remi's RPM repository](http://rpms.famillecollet.com/)
   - `remi-safe` repository, it uses SCL mechanism
-      - PHP 8.0
-          - `php80-php-cli`
-          - `php80-php-fpm`
-          - `php80-php-gd`
-          - `php80-php-intl`
-          - `php80-php-mbstring`
-          - `php80-php-mcrypt`
-          - `php80-php-pdo`
-          - `php80-php-pecl-msgpack`
-          - `php80-php-pgsql`
-          - `php80-php-sodium`
+      - PHP 8.1
+          - `php81-php-cli`
+          - `php81-php-fpm`
+          - `php81-php-gd`
+          - `php81-php-intl`
+          - `php81-php-mbstring`
+          - `php81-php-mcrypt`
+          - `php81-php-pdo`
+          - `php81-php-pecl-msgpack`
+          - `php81-php-pgsql`
+          - `php81-php-sodium`
 * [Node.js Repository](https://nodejs.org/en/download/package-manager/#enterprise-linux-and-fedora)
     - [Node.js](https://nodejs.org/)
         - `nodejs`
