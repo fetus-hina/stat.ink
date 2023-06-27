@@ -20,6 +20,7 @@ use app\components\helpers\salmonStatsV3\EggstraWorkHistogramTrait;
 use app\components\helpers\salmonStatsV3\EggstraWorkTrait;
 use app\components\helpers\salmonStatsV3\PlayedWithTrait;
 use app\components\helpers\salmonStatsV3\StatsTrait;
+use app\components\helpers\salmonStatsV3\UserWeaponTrait;
 use app\models\User;
 use yii\db\Connection;
 use yii\db\Transaction;
@@ -38,6 +39,7 @@ final class SalmonStatsV3
     use EggstraWorkTrait;
     use PlayedWithTrait;
     use StatsTrait;
+    use UserWeaponTrait;
 
     public static function create(User $user): bool
     {
@@ -55,6 +57,7 @@ final class SalmonStatsV3
             'createBigrunStats' => fn () => self::createBigrunStats($db, $user, $now),
             'createEggstraWorkStats' => fn () => self::createEggstraWorkStats($db, $user, $now),
             'createBadgeProgress' => fn () => self::createBadgeProgress($db, $user, $now),
+            'createUserWeaponStats' => fn () => self::createUserWeaponStats($db, $user),
             'createPlayedWithStats' => fn () => self::createPlayedWithStats($db, $user),
             'createBigrunHistogramStats' => fn () => self::createBigrunHistogramStats($db),
             'createEggstraWorkHistogramStats' => fn () => self::createEggstraWorkHistogramStats($db),
