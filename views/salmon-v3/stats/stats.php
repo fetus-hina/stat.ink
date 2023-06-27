@@ -9,7 +9,7 @@ use app\components\widgets\AdWidget;
 use app\components\widgets\SalmonUserInfo3;
 use app\components\widgets\SnsWidget;
 use app\models\Salmon3;
-use app\models\Salmon3StatsPlayedWith;
+use app\models\Salmon3UserStatsPlayedWith;
 use app\models\Salmon3UserStatsWeapon;
 use app\models\SalmonBoss3;
 use app\models\SalmonEvent3;
@@ -28,7 +28,7 @@ use yii\web\View;
  * @phpstan-import-type EventStats from EventTrait
  *
  * @var EventStats $eventStats
- * @var Salmon3StatsPlayedWith[] $playerStats
+ * @var Salmon3UserStatsPlayedWith[] $playerStats
  * @var Salmon3[] $results
  * @var SalmonSchedule3 $schedule
  * @var User $user

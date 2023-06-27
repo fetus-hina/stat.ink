@@ -72,7 +72,7 @@ use yii\db\ActiveRecord;
  *
  * @property User $user
  */
-class Salmon3StatsPlayedWith extends ActiveRecord
+class Salmon3UserStatsPlayedWith extends ActiveRecord
 {
     public static function tableName()
     {

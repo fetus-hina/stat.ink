@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 use app\components\widgets\BattleSummaryItemWidget;
 use app\components\widgets\Icon;
-use app\models\Salmon3StatsPlayedWith;
+use app\models\Salmon3UserStatsPlayedWith;
 use yii\helpers\Html;
 use yii\web\View;
 
 /**
- * @var Salmon3StatsPlayedWith[] $playerStats
+ * @var Salmon3UserStatsPlayedWith[] $playerStats
  * @var View $this
  */
 
