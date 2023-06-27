@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace app\actions\salmon\v3\stats\stats;
 
-use app\models\Salmon3StatsPlayedWith;
+use app\models\Salmon3UserStatsPlayedWith;
 use app\models\User;
 use yii\db\Connection;
 
@@ -20,11 +20,11 @@ use const SORT_DESC;
 trait PlayerTrait
 {
     /**
-     * @return Salmon3StatsPlayedWith[]
+     * @return Salmon3UserStatsPlayedWith[]
      */
     private function getPlayerStats(Connection $db, User $user): array
     {
-        return Salmon3StatsPlayedWith::find()
+        return Salmon3UserStatsPlayedWith::find()
             ->andWhere([
                 'user_id' => $user->id,
             ])

@@ -42,13 +42,13 @@ Use a private channel if it is a security issue.
 REQUIREMENTS
 ------------
 
-- PHP 8.0
-  - PHP 7.4以下では動作しません。（8.0で追加された構文等を利用しています）  
-    Doesn't work with 7.4 or lower. (Uses statements and constants added in v8.0)
+- PHP 8.1
+  - PHP 8.0以下では動作しません。（8.1で追加された構文等を利用しています）  
+    Doesn't work with 8.0 or lower. (Uses statements and constants added in v8.1)
   - Argon2が有効化されたPHPが必要です。RemirepoのPHPを利用している場合、`php-sodium`をインストールしてください。（[詳細](https://github.com/remicollet/remirepo/issues/132#issuecomment-566513636)）  
     You should build/install with Argon2. [Install `php-sodium` if you use remirepo's PHP](https://github.com/remicollet/remirepo/issues/132#issuecomment-566513636).
-  - 現在のところ、PHP 8.1+での動作は確認していません。  
-    At this time, we have not tested it with PHP 8.1+.
+  - 現在のところ、PHP 8.2+での動作は確認していません。  
+    At this time, we have not tested it with PHP 8.2+.
 - PostgreSQL 9.5+ (Recommended: 11+)
   - PgSQL 9.4以下では動作しません（9.5で追加された機能を利用しています）  
     Doesn't work with 9.4 or lower. (Uses features added in v9.5) 
@@ -87,8 +87,8 @@ https://stat.ink/ works with:
 
 Notes:
 
-  - CentOS 7のデフォルトのPHPバージョンは5.4.16です。このバージョンでは動作しません。PHP 8.0までで追加された機能を利用しています。  
-    Default version of PHP on CentOS 7 is 5.4.16. This application doesn't work on it. We are using features and statements that were added up to PHP 8.0.
+  - CentOS 7のデフォルトのPHPバージョンは5.4.16です。このバージョンでは動作しません。PHP 8.1までで追加された機能を利用しています。  
+    Default version of PHP on CentOS 7 is 5.4.16. This application doesn't work on it. We are using features and statements that were added up to PHP 8.1.
 
   - CentOS 7のデフォルトのPostgreSQLバージョンは9.2.14です。このバージョンでは動作しません。PgSQL 9.5で追加された機能を利用しています（jsonb, UPSERT）。実際のシステムではPgSQL 11を利用していますが、9.5でも充分動作します。  
     Default version of PostgreSQL on CentOS 7 is 9.2.14. This application doesn't work with it. We are using features added in PostgreSQL 9.5 (e.g., jsonb, UPSERT). We use PostgreSQL 11 in our actual system, but 9.5 will work just fine.

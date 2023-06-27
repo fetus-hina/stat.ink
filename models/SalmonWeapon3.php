@@ -21,9 +21,11 @@ use yii\db\ActiveRecord;
  * @property string $name
  * @property integer $weapon_id
  *
+ * @property Salmon3UserStatsWeapon[] $salmon3UserStatsWeapons
  * @property SalmonPlayerWeapon3[] $salmonPlayerWeapon3s
  * @property SalmonScheduleWeapon3[] $salmonScheduleWeapon3s
  * @property SalmonWeapon3Alias[] $salmonWeapon3Aliases
+ * @property User[] $users
  * @property Weapon3 $weapon
  */
 class SalmonWeapon3 extends ActiveRecord
@@ -57,6 +59,11 @@ class SalmonWeapon3 extends ActiveRecord
         ];
     }
 
+    public function getSalmon3UserStatsWeapons(): ActiveQuery
+    {
+        return $this->hasMany(Salmon3UserStatsWeapon::class, ['weapon_id' => 'id']);
+    }
+
     public function getSalmonPlayerWeapon3s(): ActiveQuery
     {
         return $this->hasMany(SalmonPlayerWeapon3::class, ['weapon_id' => 'id']);
@@ -70,6 +77,11 @@ class SalmonWeapon3 extends ActiveRecord
     public function getSalmonWeapon3Aliases(): ActiveQuery
     {
         return $this->hasMany(SalmonWeapon3Alias::class, ['weapon_id' => 'id']);
+    }
+
+    public function getUsers(): ActiveQuery
+    {
+        return $this->hasMany(User::class, ['id' => 'user_id'])->viaTable('salmon3_user_stats_weapon', ['weapon_id' => 'id']);
     }
 
     public function getWeapon(): ActiveQuery

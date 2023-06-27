@@ -12,7 +12,7 @@ namespace app\components\helpers\salmonStatsV3;
 
 use Throwable;
 use Yii;
-use app\models\Salmon3StatsPlayedWith;
+use app\models\Salmon3UserStatsPlayedWith;
 use app\models\User;
 use yii\db\Connection;
 use yii\db\Query;
@@ -88,13 +88,13 @@ trait PlayedWithTrait
                     '{{%salmon_player3}}.[[number]]',
                 ]);
 
-            Salmon3StatsPlayedWith::deleteAll(['user_id' => $user->id]);
+            Salmon3UserStatsPlayedWith::deleteAll(['user_id' => $user->id]);
             $insertSql = vsprintf('INSERT INTO %s (%s) %s', [
-                $db->quoteTableName(Salmon3StatsPlayedWith::tableName()),
+                $db->quoteTableName(Salmon3UserStatsPlayedWith::tableName()),
                 implode(
                     ', ',
                     array_map(
-                        fn (string $column): string => $db->quoteColumnName($column), // PHP 8.1
+                        $db->quoteColumnName(...),
                         array_keys($select->select),
                     ),
                 ),

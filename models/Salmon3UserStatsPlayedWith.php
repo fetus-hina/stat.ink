@@ -72,7 +72,7 @@ use yii\db\ActiveRecord;
  *
  * @property User $user
  */
-class Salmon3StatsPlayedWith extends ActiveRecord
+class Salmon3UserStatsPlayedWith extends ActiveRecord
 {
     public static function tableName()
     {
@@ -87,6 +87,7 @@ class Salmon3StatsPlayedWith extends ActiveRecord
             [['user_id', 'jobs', 'clear_jobs', 'clear_waves', 'team_golden_egg_max', 'team_golden_egg_95', 'team_golden_egg_75', 'team_golden_egg_50', 'team_golden_egg_25', 'team_golden_egg_05', 'team_golden_egg_min', 'golden_egg_max', 'golden_egg_95', 'golden_egg_75', 'golden_egg_50', 'golden_egg_25', 'golden_egg_05', 'golden_egg_min', 'rescue_max', 'rescue_95', 'rescue_75', 'rescue_50', 'rescue_25', 'rescue_05', 'rescue_min', 'rescued_max', 'rescued_95', 'rescued_75', 'rescued_50', 'rescued_25', 'rescued_05', 'rescued_min', 'defeat_boss_max', 'defeat_boss_95', 'defeat_boss_75', 'defeat_boss_50', 'defeat_boss_25', 'defeat_boss_05', 'defeat_boss_min'], 'integer'],
             [['max_danger_rate_cleared', 'max_danger_rate_played', 'team_golden_egg_avg', 'team_golden_egg_sd', 'golden_egg_avg', 'golden_egg_sd', 'rescue_avg', 'rescue_sd', 'rescued_avg', 'rescued_sd', 'defeat_boss_avg', 'defeat_boss_sd'], 'number'],
             [['name', 'number'], 'string', 'max' => 10],
+            [['user_id', 'jobs', 'clear_jobs', 'clear_waves', 'max_danger_rate_cleared', 'max_danger_rate_played', 'name', 'number'], 'unique', 'targetAttribute' => ['user_id', 'jobs', 'clear_jobs', 'clear_waves', 'max_danger_rate_cleared', 'max_danger_rate_played', 'name', 'number']],
             [['user_id', 'name', 'number'], 'unique', 'targetAttribute' => ['user_id', 'name', 'number']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];

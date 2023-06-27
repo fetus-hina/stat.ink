@@ -26,20 +26,7 @@ $tEnd = (new DateTimeImmutable($season->end_at))->setTimezone($tz);
 $tInterval = new DateInterval('P1D');
 
 // format-pattern string for "month and day"
-$dateFormat = match (true) {
-  // PHP 8.1
-  class_exists('IntlDatePatternGenerator') => IntlDatePatternGenerator::create(Yii::$app->locale)
-    ?->getBestPattern('MMM d')
-    ?? 'd MMM',
-  // PHP 8.0 or lower
-  default => match (Yii::$app->locale) {
-    'de-DE' => 'd. MMM',
-    'en-US' => 'MMM d',
-    'ja-JP', 'ja-JP@calendar=japanese', 'zh-CN', 'zh-TW' => 'M月d日',
-    'ko-KR' => 'MMM d일',
-    default => 'd MMM',
-  },
-};
+$dateFormat = IntlDatePatternGenerator::create(Yii::$app->locale) ?->getBestPattern('MMM d') ?? 'd MMM';
 
 $data = ArrayHelper::index($dailyData, 'rule_id', 'date');
 

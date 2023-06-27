@@ -3,14 +3,14 @@
 declare(strict_types=1);
 
 use app\actions\salmon\v3\stats\schedule\EventTrait;
-use app\actions\salmon\v3\stats\schedule\WeaponTrait;
 use app\components\helpers\OgpHelper;
 use app\components\helpers\TypeHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SalmonUserInfo3;
 use app\components\widgets\SnsWidget;
 use app\models\Salmon3;
-use app\models\Salmon3StatsPlayedWith;
+use app\models\Salmon3UserStatsPlayedWith;
+use app\models\Salmon3UserStatsWeapon;
 use app\models\SalmonBoss3;
 use app\models\SalmonEvent3;
 use app\models\SalmonKing3;
@@ -26,21 +26,20 @@ use yii\web\View;
 
 /**
  * @phpstan-import-type EventStats from EventTrait
- * @phpstan-import-type WeaponStats from WeaponTrait
  *
  * @var EventStats $eventStats
- * @var Salmon3StatsPlayedWith[] $playerStats
+ * @var Salmon3UserStatsPlayedWith[] $playerStats
  * @var Salmon3[] $results
  * @var SalmonSchedule3 $schedule
  * @var User $user
  * @var View $this
+ * @var array<int, Salmon3UserStatsWeapon> $weaponStats
  * @var array<int, SalmonBoss3> $bosses
  * @var array<int, SalmonEvent3> $events
  * @var array<int, SalmonKing3> $kings
  * @var array<int, SalmonWaterLevel2> $tides
  * @var array<int, SalmonWeapon3> $weapons
  * @var array<int, Special3> $specials
- * @var array<int, WeaponStats> $weaponStats
  * @var array<int, array> $specialStats
  * @var array<int, array{boss_id: int, appearances: int, defeated: int, defeated_by_me: int}> $bossStats
  * @var array<int, array{king_id: int, appearances: int, defeated: int}> $kingStats
@@ -131,11 +130,7 @@ $played = TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'count'));
       <div class="alert alert-warning">
         ↑ Considering specifications for handling Big Run.
       </div>
-      <?= $this->render('schedule/weapons', [
-        'schedule' => null,
-        'weaponStats' => $weaponStats,
-        'weapons' => $weapons,
-      ]) . "\n" ?>
+      <?= $this->render('stats/weapons', compact('weaponStats', 'weapons')) . "\n" ?>
       <?= $this->render('stats/players', compact('playerStats')) . "\n" ?>
 <?php } else { ?>
       <p>
