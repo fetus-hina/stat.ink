@@ -55,7 +55,7 @@ $this->title = implode(' | ', [
           ['class' => 'btn btn-default']
         ) . "\n" ?>
       </div>
-<?php if (Yii::$app->params['twitter']['read_enabled'] ?? null) { ?>
+<?php if (false && Yii::$app->params['twitter']['read_enabled'] ?? null) { ?>
       <div class="panel panel-default">
         <div class="panel-heading">
           <?= Icon::twitter() . "\n" ?>

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -9,6 +9,7 @@
 namespace app\actions\user;
 
 use OAuth\Common\Consumer\Credentials as OAuthCredentials;
+use OAuth\Common\Http\Uri\Uri as OAuthUri;
 use OAuth\Common\Service\ServiceInterface as OAuthService;
 use OAuth\Common\Storage\Session as OAuthSessionStorage;
 use OAuth\Common\Storage\TokenStorageInterface as OAuthStorage;
@@ -16,12 +17,12 @@ use OAuth\ServiceFactory as OAuthFactory;
 use Throwable;
 use Yii;
 use app\models\LoginWithTwitter;
+use yii\base\Action;
 use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
-use yii\web\ViewAction as BaseAction;
 
-class LoginWithTwitterAction extends BaseAction
+final class LoginWithTwitterAction extends Action
 {
     public function init()
     {
@@ -49,14 +50,17 @@ class LoginWithTwitterAction extends BaseAction
                     $token->getRequestTokenSecret(),
                 );
                 $user = Json::decode(
-                    $twitter->request('account/verify_credentials.json'),
+                    $twitter->request('users/me'),
                 );
-
-                $info = LoginWithTwitter::findOne(['twitter_id' => $user['id_str']]);
-                if ($info && $info->login()) {
-                    return $this->controller->goBack(
-                        ['show-user/profile', 'screen_name' => Yii::$app->user->identity->screen_name],
-                    );
+                if (isset($user['data']['id'])) {
+                    $info = LoginWithTwitter::findOne(['twitter_id' => $user['data']['id']]);
+                    if ($info && $info->login()) {
+                        return $this->controller->goBack(
+                            ['show-user/profile',
+                                'screen_name' => Yii::$app->user->identity->screen_name,
+                            ],
+                        );
+                    }
                 }
 
                 Yii::$app->session->addFlash(
@@ -71,6 +75,7 @@ class LoginWithTwitterAction extends BaseAction
                 return $response->redirect((string)$url, 303);
             }
         } catch (Throwable $e) {
+            throw $e;
         }
         throw new BadRequestHttpException('Bad request.');
     }
@@ -88,6 +93,7 @@ class LoginWithTwitterAction extends BaseAction
             'twitter',
             $credential,
             $this->tokenStorage,
+            baseApiUri: new OAuthUri('https://api.twitter.com/2/'),
         );
     }
 
