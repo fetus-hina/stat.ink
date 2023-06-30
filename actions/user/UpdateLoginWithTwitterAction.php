@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2016 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,19 +10,23 @@ namespace app\actions\user;
 
 use Exception;
 use OAuth\Common\Consumer\Credentials as OAuthCredentials;
+use OAuth\Common\Http\Uri\Uri as OAuthUri;
 use OAuth\Common\Service\ServiceInterface as OAuthService;
 use OAuth\Common\Storage\Session as OAuthSessionStorage;
 use OAuth\Common\Storage\TokenStorageInterface as OAuthStorage;
 use OAuth\ServiceFactory as OAuthFactory;
+use RuntimeException;
 use Throwable;
 use Yii;
 use app\models\LoginWithTwitter;
+use yii\base\Action;
 use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
-use yii\web\ViewAction as BaseAction;
 
-class UpdateLoginWithTwitterAction extends BaseAction
+use function is_array;
+
+final class UpdateLoginWithTwitterAction extends Action
 {
     public function init()
     {
@@ -50,8 +54,11 @@ class UpdateLoginWithTwitterAction extends BaseAction
                     $token->getRequestTokenSecret(),
                 );
                 $twUser = Json::decode(
-                    $twitter->request('account/verify_credentials.json'),
+                    $twitter->request('users/me'),
                 );
+                if (!is_array($twUser) || !isset($twUser['data']['id'])) {
+                    throw new RuntimeException('Failed to fetch your information from Twitter');
+                }
                 $user = Yii::$app->user->identity;
 
                 $transaction = Yii::$app->db->beginTransaction();
@@ -65,7 +72,7 @@ class UpdateLoginWithTwitterAction extends BaseAction
                     }
 
                     // 同じ twitter id の子がいないか確認する
-                    $dupInfo = LoginWithTwitter::findOne(['twitter_id' => $twUser['id_str']]);
+                    $dupInfo = LoginWithTwitter::findOne(['twitter_id' => $twUser['data']['id']]);
                     if ($dupInfo) {
                         Yii::$app->session->addFlash(
                             'danger',
@@ -79,9 +86,9 @@ class UpdateLoginWithTwitterAction extends BaseAction
                     $info = Yii::createObject([
                         'class' => LoginWithTwitter::class,
                         'user_id' => $user->id,
-                        'twitter_id' => $twUser['id_str'],
-                        'screen_name' => $twUser['screen_name'],
-                        'name' => $twUser['name'],
+                        'twitter_id' => $twUser['data']['id'],
+                        'screen_name' => $twUser['data']['username'],
+                        'name' => $twUser['data']['name'],
                     ]);
                     if (!$info->save()) {
                         throw new Exception();
@@ -103,6 +110,7 @@ class UpdateLoginWithTwitterAction extends BaseAction
                 return $response->redirect((string)$url, 303);
             }
         } catch (Throwable $e) {
+            throw $e;
         }
         throw new BadRequestHttpException('Bad request.');
     }
@@ -120,6 +128,7 @@ class UpdateLoginWithTwitterAction extends BaseAction
             'twitter',
             $credential,
             $this->tokenStorage,
+            baseApiUri: new OAuthUri('https://api.twitter.com/2/'),
         );
     }
 

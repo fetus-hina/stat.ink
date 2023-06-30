@@ -29,9 +29,10 @@ class IconTwitterAction extends BaseAction
 {
     public function init()
     {
-        if (!Yii::$app->params['twitter']['read_enabled']) {
-            throw new BadRequestHttpException();
-        }
+        throw new BadRequestHttpException();
+        // if (!Yii::$app->params['twitter']['read_enabled']) {
+        //     throw new BadRequestHttpException();
+        // }
     }
 
     public function run()
