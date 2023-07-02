@@ -28,6 +28,5 @@ final class BattleInputAsset extends AssetBundle
         BowserAsset::class,
         DsegAsset::class,
         JqueryAsset::class,
-        UuidJsAsset::class,
     ];
 }

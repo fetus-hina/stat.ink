@@ -1,5 +1,5 @@
 /*! Copyright (C) 2015-2019 AIZAWA Hina | MIT License */
-(($, UUID) => {
+($ => {
   $(() => {
     let initialized = false;
     let nextStageArrives;
@@ -44,14 +44,15 @@
       window.setTimeout(updateStageTimer, 1);
       stageTimerId = window.setInterval(updateStageTimer, 500);
     };
+    const generateUuid = () => window.crypto.randomUUID();
     const updateUuidRegular = () => {
-      $('#battle-input2-form--regular--uuid').val(UUID.genV1().hexString);
+      $('#battle-input2-form--regular--uuid').val(generateUuid());
     };
     const updateUuidRanked = () => {
-      $('#battle-input2-form--ranked--uuid').val(UUID.genV1().hexString);
+      $('#battle-input2-form--ranked--uuid').val(generateUuid());
     };
     const updateUuidFest = () => {
-      $('#battle-input2-form--fest--uuid').val(UUID.genV1().hexString);
+      $('#battle-input2-form--fest--uuid').val(generateUuid());
     };
     const serializeForm = $form => {
       const ret = {};
@@ -619,4 +620,4 @@
         });
     }
   });
-})(jQuery, window.UUID);
+})(jQuery);
