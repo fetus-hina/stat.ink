@@ -21,6 +21,7 @@ use yii\db\ActiveRecord;
  * @property string $name
  * @property integer $rank
  *
+ * @property Salmon3UserStatsSpecial[] $salmon3UserStatsSpecials
  * @property SalmonPlayer3[] $salmonPlayer3s
  * @property SalmonSpecialUse3[] $salmonSpecialUse3s
  * @property Special3Alias[] $special3Aliases
@@ -28,6 +29,7 @@ use yii\db\ActiveRecord;
  * @property StatSpecialUseCount3[] $statSpecialUseCount3s
  * @property UserBadge3Special[] $userBadge3Specials
  * @property User[] $users
+ * @property User[] $users0
  * @property SalmonWave3[] $waves
  * @property Weapon3[] $weapon3s
  */
@@ -62,6 +64,11 @@ class Special3 extends ActiveRecord
         ];
     }
 
+    public function getSalmon3UserStatsSpecials(): ActiveQuery
+    {
+        return $this->hasMany(Salmon3UserStatsSpecial::class, ['special_id' => 'id']);
+    }
+
     public function getSalmonPlayer3s(): ActiveQuery
     {
         return $this->hasMany(SalmonPlayer3::class, ['special_id' => 'id']);
@@ -93,6 +100,11 @@ class Special3 extends ActiveRecord
     }
 
     public function getUsers(): ActiveQuery
+    {
+        return $this->hasMany(User::class, ['id' => 'user_id'])->viaTable('salmon3_user_stats_special', ['special_id' => 'id']);
+    }
+
+    public function getUsers0(): ActiveQuery
     {
         return $this->hasMany(User::class, ['id' => 'user_id'])->viaTable('user_badge3_special', ['special_id' => 'id']);
     }

@@ -10,6 +10,7 @@ use app\components\widgets\SalmonUserInfo3;
 use app\components\widgets\SnsWidget;
 use app\models\Salmon3;
 use app\models\Salmon3UserStatsPlayedWith;
+use app\models\Salmon3UserStatsSpecial;
 use app\models\Salmon3UserStatsWeapon;
 use app\models\SalmonBoss3;
 use app\models\SalmonEvent3;
@@ -33,6 +34,7 @@ use yii\web\View;
  * @var SalmonSchedule3 $schedule
  * @var User $user
  * @var View $this
+ * @var array<int, Salmon3UserStatsSpecial> $specialStats
  * @var array<int, Salmon3UserStatsWeapon> $weaponStats
  * @var array<int, SalmonBoss3> $bosses
  * @var array<int, SalmonEvent3> $events
@@ -40,7 +42,6 @@ use yii\web\View;
  * @var array<int, SalmonWaterLevel2> $tides
  * @var array<int, SalmonWeapon3> $weapons
  * @var array<int, Special3> $specials
- * @var array<int, array> $specialStats
  * @var array<int, array{boss_id: int, appearances: int, defeated: int, defeated_by_me: int}> $bossStats
  * @var array<int, array{king_id: int, appearances: int, defeated: int}> $kingStats
  * @var array<string, scalar|null> $stats
@@ -116,7 +117,7 @@ $played = TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'count'));
       ]) . "\n" ?>
       <?= $this->render('schedule/kings', compact('kings', 'kingStats', 'user')) . "\n" ?>
       <?= $this->render('schedule/bosses', compact('bosses', 'bossStats', 'user')) . "\n" ?>
-      <?= $this->render('schedule/specials', compact('specials', 'specialStats', 'user')) . "\n" ?>
+      <?= $this->render('stats/specials', compact('specials', 'specialStats', 'user')) . "\n" ?>
       <?= $this->render('schedule/events', [
         'eventStats' => $eventStats,
         'events' => $events,

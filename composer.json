@@ -100,8 +100,7 @@
         "npm-asset/photoswipe-simplify": "*",
         "npm-asset/popperjs--core": "*",
         "npm-asset/rpg-awesome": "*",
-        "npm-asset/stupid-table-plugin": "*",
-        "npm-asset/uuidjs": "*"
+        "npm-asset/stupid-table-plugin": "*"
     },
     "config": {
         "process-timeout": 1800,
