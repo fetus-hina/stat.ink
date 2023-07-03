@@ -24,9 +24,9 @@ use const SORT_ASC;
 
 trait SpecialTrait
 {
-    private function getSpecialStats(Connection $db, User $user, ?SalmonSchedule3 $schedule): array
+    private function getSpecialStats(Connection $db, User $user, SalmonSchedule3 $schedule): array
     {
-        $waves = $schedule?->is_eggstra_work ? 5 : 3;
+        $waves = $schedule->is_eggstra_work ? 5 : 3;
         return ArrayHelper::index(
             (new Query())
                 ->select([
@@ -65,11 +65,9 @@ trait SpecialTrait
                     [
                         '{{%salmon3}}.[[is_deleted]]' => false,
                         '{{%salmon3}}.[[is_private]]' => false,
+                        '{{%salmon3}}.[[schedule_id]]' => $schedule->id,
                         '{{%salmon3}}.[[user_id]]' => $user->id,
                     ],
-                    $schedule
-                        ? ['{{%salmon3}}.[[schedule_id]]' => $schedule->id]
-                        : ['{{%salmon3}}.[[is_eggstra_work]]' => false],
                     ['not', ['{{%salmon_player3}}.[[special_id]]' => null]],
                 ])
                 ->groupby([
