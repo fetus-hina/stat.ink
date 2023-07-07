@@ -51,6 +51,7 @@ trait LicenseCheckTrait
         'ISC',
         'MIT',
         'MIT*',
+        'MIT-0',
         'OFL-1.1',
         'Python-2.0',
         'Unlicense',
