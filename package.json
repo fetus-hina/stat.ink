@@ -6,10 +6,10 @@
     "email": "hina@fetus.jp"
   },
   "dependencies": {
-    "@babel/cli": "^7.22.5",
-    "@babel/core": "^7.22.5",
+    "@babel/cli": "^7.22.6",
+    "@babel/core": "^7.22.8",
     "@babel/polyfill": "^7.12.1",
-    "@babel/preset-env": "^7.22.5",
+    "@babel/preset-env": "^7.22.7",
     "@babel/preset-react": "^7.22.5",
     "@fortawesome/fontawesome-free": "^6.4.0",
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
@@ -74,7 +74,7 @@
     "terser": "^5.18.2",
     "twemoji": "^14.0.2",
     "twemoji-emojis": "^14.1.0",
-    "updates": "^14.3.0",
+    "updates": "^14.3.2",
     "webpack": "^5.88.1",
     "webpack-cli": "^5.1.4",
     "yii2-pjax": "git+https://github.com/yiisoft/jquery-pjax.git",
