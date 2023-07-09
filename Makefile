@@ -1,6 +1,7 @@
 STYLE_TARGETS := actions assets commands components controllers models
 
 RESOURCE_TARGETS := \
+	resources/.compiled/app-link-logos/bluesky.png \
 	resources/.compiled/app-link-logos/festink.png \
 	resources/.compiled/app-link-logos/ikadenwa.png \
 	resources/.compiled/app-link-logos/ikalog.png \
@@ -449,6 +450,11 @@ resources/.compiled/stat.ink/no-image.png: resources/stat.ink/no-image.png
 
 resources/.compiled/stat.ink/summary-legends.png: resources/stat.ink/summary-legends.png
 	$(call png,$@,$<)
+
+resources/.compiled/app-link-logos/bluesky.png: resources/app-link-logos/bluesky.png
+	@mkdir -p resources/.compiled/app-link-logos
+	convert $< -scale x28 $@
+	@touch -r $< $@
 
 resources/.compiled/app-link-logos/ikalog.png: resources/app-link-logos/ikalog.png
 	@mkdir -p resources/.compiled/app-link-logos
