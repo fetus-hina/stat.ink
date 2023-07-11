@@ -201,7 +201,7 @@ return [
     'South Asia' => '',
     'Southeast Asia' => '',
     'Southern Africa' => '',
-    'South Korea (ROK)' => '',
+    'South Korea (ROK)' => '대한민국',
     'South Sudan' => '',
     'Sri Lanka' => '',
     'Sudan' => '',

@@ -9,7 +9,7 @@
 declare(strict_types=1);
 
 return [
-    'Bronze' => '',
-    'Gold' => '',
-    'Silver' => '',
+    'Bronze' => '동',
+    'Gold' => '금',
+    'Silver' => '은',
 ];
