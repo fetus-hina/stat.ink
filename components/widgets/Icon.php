@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use Yii;
+use app\assets\AppLinkAsset;
 use app\assets\BootstrapIconsAsset;
 use app\assets\MedalAsset;
 use app\assets\SalmonEggAsset;
@@ -33,6 +34,7 @@ use function mb_chr;
  * @method static string arrowRight()
  * @method static string back()
  * @method static string blog()
+ * @method static string bluesky()
  * @method static string bronzeMedal()
  * @method static string bronzeScale()
  * @method static string caretDown()
@@ -74,6 +76,7 @@ use function mb_chr;
  * @method static string logout()
  * @method static string lowerBound()
  * @method static string macOs()
+ * @method static string mastodon()
  * @method static string nextPage()
  * @method static string no()
  * @method static string number();
@@ -149,6 +152,7 @@ final class Icon
         'logout' => 'box-arrow-right',
         'lowerBound' => 'arrow-down-short',
         'macOs' => 'apple',
+        'mastodon' => 'mastodon',
         'nextPage' => 'chevron-double-right',
         'no' => 'x-lg',
         'number' => 'hash',
@@ -189,6 +193,7 @@ final class Icon
      * @var array<string, array{class-string<AssetBundle>, string}>
      */
     private static $assetImageMap = [
+        'bluesky' => [AppLinkAsset::class, 'bluesky.png'],
         'goldenEgg' => [SalmonEggAsset::class, 'golden-egg.png'],
         'powerEgg' => [SalmonEggAsset::class, 'power-egg.png'],
     ];

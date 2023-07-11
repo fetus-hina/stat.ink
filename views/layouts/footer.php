@@ -73,6 +73,14 @@ if (!is_string($discordInviteCode)) {
           $committed ? $committed->format('Y') : 2017
         )),
         Html::a(
+          Icon::github(),
+          'https://github.com/fetus-hina',
+          [
+            'title' => 'GitHub: fetus-hina',
+            'class' => 'auto-tooltip',
+          ]
+        ),
+        Html::a(
           Icon::twitter(),
           'https://twitter.com/fetus_hina',
           [
@@ -81,12 +89,20 @@ if (!is_string($discordInviteCode)) {
           ]
         ),
         Html::a(
-          Icon::github(),
-          'https://github.com/fetus-hina',
+          Icon::mastodon(),
+          'https://don.fetus.jp/@fetus_hina',
           [
-            'title' => 'GitHub: fetus-hina',
+            'title' => 'Fediverse: @fetus_hina@don.fetus.jp',
             'class' => 'auto-tooltip',
           ]
+        ),
+        Html::a(
+          Icon::bluesky(),
+          'https://bsky.app/profile/fetus.jp',
+          [
+            'title' => 'Bluesky: @fetus.jp',
+            'class' => 'auto-tooltip',
+          ],
         ),
       ]) . "\n" ?>
     </div>
