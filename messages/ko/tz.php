@@ -4,6 +4,7 @@
  * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
+ * @author niLPotential <niLPotential@proton.me>
  */
 
 declare(strict_types=1);
@@ -201,7 +202,7 @@ return [
     'South Asia' => '',
     'Southeast Asia' => '',
     'Southern Africa' => '',
-    'South Korea (ROK)' => '',
+    'South Korea (ROK)' => '대한민국',
     'South Sudan' => '',
     'Sri Lanka' => '',
     'Sudan' => '',

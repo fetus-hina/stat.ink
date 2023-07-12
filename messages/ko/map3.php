@@ -5,6 +5,7 @@
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author cake monotone <cake.monotone@gmail.com>
+ * @author niLPotential <niLPotential@proton.me>
  */
 
 declare(strict_types=1);
@@ -33,7 +34,7 @@ return [
     'Junction' => '연어알젓 교차로 옛터',
     'Mahi-Mahi Resort' => '만새기 리조트＆스파',
     'MakoMart' => '혹등 마켓',
-    'Manta' => '',
+    'Manta' => '만타',
     'Manta Maria' => '만타 마리아호',
     'Market' => '대치 시장',
     'Marooner\'s Bay' => '난파선 돈 브라코',
@@ -43,7 +44,7 @@ return [
     'Museum' => '도미 미술관',
     'Museum d\'Alfonsino' => '도미 미술관',
     'Resort' => '만새기 리조트&스파',
-    'Ruins' => '',
+    'Ruins' => '유적',
     'Scorch Gorge' => '석순 대협곡',
     'Shipyard' => '철갑상어 조선소',
     'Sockeye Station' => '연어말이 요새',
