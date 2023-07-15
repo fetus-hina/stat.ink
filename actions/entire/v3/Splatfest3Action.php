@@ -38,20 +38,20 @@ use const SORT_NUMERIC;
 
 final class Splatfest3Action extends Action
 {
-    private const START_AT = '2023-05-06T00:00:00+00:00';
-    private const END_AT = '2023-05-08T00:00:00+00:00';
+    private const START_AT = '2023-07-15T00:00:00+00:00';
+    private const END_AT = '2023-07-17T00:00:00+00:00';
 
-    private const TEAM_NAME_1 = 'Power / 力 / 力量';
-    private const TEAM_NAME_2 = 'Wisdom / 知恵 / 智慧';
-    private const TEAM_NAME_3 = 'Courage / 勇気 / 勇氣 / 勇气';
+    private const TEAM_NAME_1 = 'Vanilla / バニラ / 香草';
+    private const TEAM_NAME_2 = 'Strawberry / ストロベリー / 草莓';
+    private const TEAM_NAME_3 = 'Mint Chip / チョコミント / 薄荷巧克力';
 
-    private const TEAM_COLOR_1 = '9d1e50';
-    private const TEAM_COLOR_2 = '14699b';
-    private const TEAM_COLOR_3 = '017654';
+    private const TEAM_COLOR_1 = 'cca770';
+    private const TEAM_COLOR_2 = 'bc6d74';
+    private const TEAM_COLOR_3 = '2ac29e';
 
-    private const TEAM_COLOR_PROGRESS_1 = 'e14586';
-    private const TEAM_COLOR_PROGRESS_2 = '019bd9';
-    private const TEAM_COLOR_PROGRESS_3 = '71cc97';
+    private const TEAM_COLOR_PROGRESS_1 = 'cca770';
+    private const TEAM_COLOR_PROGRESS_2 = 'bc6d74';
+    private const TEAM_COLOR_PROGRESS_3 = '2ac29e';
 
     public function run(): Response|string
     {
