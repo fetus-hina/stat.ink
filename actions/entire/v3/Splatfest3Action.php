@@ -84,7 +84,7 @@ final class Splatfest3Action extends Action
     private function getThemes(Connection $db): array
     {
         return Yii::$app->cache->getOrSet(
-            __METHOD__,
+            [__METHOD__, self::TEAM_COLOR_1, self::TEAM_COLOR_2, self::TEAM_COLOR_3],
             fn (): array => [
                 'team1' => $this->getTeamIdsByColor($db, self::TEAM_COLOR_1),
                 'team2' => $this->getTeamIdsByColor($db, self::TEAM_COLOR_2),
