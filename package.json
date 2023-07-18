@@ -71,11 +71,11 @@
     "stylelint-config-sass-guidelines": "^10.0.0",
     "svg2png": "^4.1.1",
     "svgo": "^3.0.2",
-    "terser": "^5.19.0",
+    "terser": "^5.19.1",
     "twemoji": "^14.0.2",
     "twemoji-emojis": "^14.1.0",
     "updates": "^14.3.3",
-    "webpack": "^5.88.1",
+    "webpack": "^5.88.2",
     "webpack-cli": "^5.1.4",
     "yii2-pjax": "git+https://github.com/yiisoft/jquery-pjax.git",
     "zxcvbn": "^4.4.2"

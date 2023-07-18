@@ -55,14 +55,7 @@ trait DropdownListTrait
                 ),
                 Yii::t('app-salmon3', 'Big Run') => ArrayHelper::asort(
                     ArrayHelper::map(
-                        Map3::find()
-                            ->andWhere([
-                                'key' => [
-                                    'amabi',
-                                    'sumeshi',
-                                ],
-                            ])
-                            ->all(),
+                        Map3::find()->andWhere(['bigrun' => true])->all(),
                         'key',
                         fn (Map3 $model): string => Yii::t('app-map3', $model->name),
                     ),
