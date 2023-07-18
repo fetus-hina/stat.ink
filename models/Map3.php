@@ -22,6 +22,7 @@ use yii\db\ActiveRecord;
  * @property string $short_name
  * @property integer $area
  * @property string $release_at
+ * @property boolean $bigrun
  *
  * @property Battle3[] $battle3s
  * @property EventMap3[] $eventMap3s
@@ -47,6 +48,7 @@ class Map3 extends ActiveRecord
             [['area'], 'default', 'value' => null],
             [['area'], 'integer'],
             [['release_at'], 'safe'],
+            [['bigrun'], 'boolean'],
             [['key'], 'string', 'max' => 32],
             [['name'], 'string', 'max' => 48],
             [['short_name'], 'string', 'max' => 16],
@@ -65,6 +67,7 @@ class Map3 extends ActiveRecord
             'short_name' => 'Short Name',
             'area' => 'Area',
             'release_at' => 'Release At',
+            'bigrun' => 'Bigrun',
         ];
     }
 
