@@ -14,7 +14,7 @@ use yii\web\AssetBundle;
 
 final class FlagIconCssAsset extends AssetBundle
 {
-    public $sourcePath = '@node/flag-icons';
+    public $sourcePath = '@vendor/lipis/flag-icons';
     public $css = [
         'css/flag-icons.min.css',
     ];

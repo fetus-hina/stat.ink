@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c4b090f6b77fcc3ed97b5d21a2bfd303",
+    "content-hash": "63dcbcce9cfa25a74ff37353afd5a6a6",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -1449,6 +1449,47 @@
                 }
             ],
             "time": "2023-07-10T07:32:01+00:00"
+        },
+        {
+            "name": "lipis/flag-icons",
+            "version": "v6.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lipis/flag-icons.git",
+                "reference": "f668ee66a235e464f53a8b7a2949ac388585c081"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lipis/flag-icons/zipball/f668ee66a235e464f53a8b7a2949ac388585c081",
+                "reference": "f668ee66a235e464f53a8b7a2949ac388585c081",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Panayiotis Lipiridis",
+                    "email": "lipiridis@gmail.com",
+                    "role": "Lead"
+                }
+            ],
+            "description": "A curated collection of all country flags in SVG — plus the CSS for easier integration.",
+            "homepage": "https://flagicons.lipis.dev",
+            "keywords": [
+                "country",
+                "country-flags",
+                "css",
+                "icon-css",
+                "svg"
+            ],
+            "support": {
+                "issues": "https://github.com/lipis/flag-icons/issues",
+                "source": "https://github.com/lipis/flag-icons/tree/v6.8.0"
+            },
+            "time": "2023-07-24T19:18:21+00:00"
         },
         {
             "name": "lusitanian/oauth",
