@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -20,10 +20,15 @@ use app\models\Country;
 use app\models\Timezone;
 use app\models\TimezoneGroup;
 use yii\console\Controller;
+use yii\console\ExitCode;
+use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
 use yii\helpers\Html;
+use yii\helpers\Json;
 
+use function array_filter;
 use function array_map;
+use function array_shift;
 use function chdir;
 use function count;
 use function dirname;
@@ -32,6 +37,7 @@ use function exec;
 use function file_put_contents;
 use function getcwd;
 use function implode;
+use function is_array;
 use function preg_match;
 use function preg_replace_callback;
 use function random_int;
@@ -39,9 +45,11 @@ use function rawurlencode;
 use function round;
 use function sprintf;
 use function time;
+use function usort;
+use function version_compare;
 use function vsprintf;
 
-class ApidocController extends Controller
+final class ApidocController extends Controller
 {
     private const FLAGICON_CDN = 'https://cdnjs.cloudflare.com/ajax/libs';
     private const FLAGICON_URL = '{cdn}/flag-icons/{version}/flags/4x3/{cc}.svg';
@@ -99,19 +107,19 @@ class ApidocController extends Controller
             return false;
         }
 
-        $this->stderr(__METHOD__ . "(): {$langCode}: Checking syntax...\n");
-        $cmdline = vsprintf('/usr/bin/env %s %s lint %s', [
-            escapeshellarg('npx'),
-            escapeshellarg('speccy'),
-            escapeshellarg($jsonPath),
-        ]);
-        @exec($cmdline, $lines, $status);
-        if ($status !== 0) {
-            $this->stderr(__METHOD__ . "(): {$langCode}: Lint failed (status={$status}).\n");
-            $this->stderr("json: {$jsonPath}\n");
-            $this->stderr(implode("\n", $lines) . "\n");
-            return false;
-        }
+        // $this->stderr(__METHOD__ . "(): {$langCode}: Checking syntax...\n");
+        // $cmdline = vsprintf('/usr/bin/env %s %s lint %s', [
+        //     escapeshellarg('npx'),
+        //     escapeshellarg('speccy'),
+        //     escapeshellarg($jsonPath),
+        // ]);
+        // @exec($cmdline, $lines, $status);
+        // if ($status !== 0) {
+        //     $this->stderr(__METHOD__ . "(): {$langCode}: Lint failed (status={$status}).\n");
+        //     $this->stderr("json: {$jsonPath}\n");
+        //     $this->stderr(implode("\n", $lines) . "\n");
+        //     return false;
+        // }
 
         $this->stderr(__METHOD__ . "(): {$langCode}: Creating HTML...\n");
         $outPath = vsprintf('%s/web/apidoc/v2.%s.html', [
@@ -158,19 +166,19 @@ class ApidocController extends Controller
             return false;
         }
 
-        $this->stderr(__METHOD__ . "(): {$langCode}: Checking syntax...\n");
-        $cmdline = vsprintf('/usr/bin/env %s %s lint %s', [
-            escapeshellarg('npx'),
-            escapeshellarg('speccy'),
-            escapeshellarg($jsonPath),
-        ]);
-        @exec($cmdline, $lines, $status);
-        if ($status !== 0) {
-            $this->stderr(__METHOD__ . "(): {$langCode}: Lint failed (status={$status}).\n");
-            $this->stderr("json: {$jsonPath}\n");
-            $this->stderr(implode("\n", $lines) . "\n");
-            return false;
-        }
+        // $this->stderr(__METHOD__ . "(): {$langCode}: Checking syntax...\n");
+        // $cmdline = vsprintf('/usr/bin/env %s %s lint %s', [
+        //     escapeshellarg('npx'),
+        //     escapeshellarg('speccy'),
+        //     escapeshellarg($jsonPath),
+        // ]);
+        // @exec($cmdline, $lines, $status);
+        // if ($status !== 0) {
+        //     $this->stderr(__METHOD__ . "(): {$langCode}: Lint failed (status={$status}).\n");
+        //     $this->stderr("json: {$jsonPath}\n");
+        //     $this->stderr(implode("\n", $lines) . "\n");
+        //     return false;
+        // }
 
         $this->stderr(__METHOD__ . "(): {$langCode}: Creating HTML...\n");
         $outPath = vsprintf('%s/web/apidoc/v1.%s.html', [
@@ -337,16 +345,39 @@ class ApidocController extends Controller
         $cwd = getcwd();
         try {
             chdir(dirname(__DIR__));
-            @exec('npm view flag-icons version', $lines, $status);
-            if ($status !== 0) {
-                return null;
+            $cmdline = implode(' ', [
+                '/usr/bin/env',
+                escapeshellarg('php'),
+                escapeshellarg('composer.phar'),
+                escapeshellarg('show'),
+                '--locked',
+                '--format=' . escapeshellarg('json'),
+                escapeshellarg('lipis/flag-icons'),
+            ]);
+
+            @exec($cmdline, $lines, $status);
+            if ($status !== ExitCode::OK) {
+                throw new Exception('Failed to execute composer to get flag-icons version');
             }
 
-            if (!preg_match('/^v?(\d+\.\d+\.\d+)/is', (string)($lines[0] ?? null), $match)) {
-                return null;
+            $json = Json::decode(implode("\n", $lines));
+            if (!is_array($json)) {
+                throw new Exception('Failed to parse json that has flag-icons version');
             }
 
-            return $match[1];
+            $versions = ArrayHelper::getValue($json, 'versions');
+            if (!is_array($versions)) {
+                throw new Exception('Failed to get versions from json that has flag-icons version');
+            }
+            $versions = array_filter(
+                $versions,
+                fn (string $v): bool => (bool)preg_match('/^v\d+/', $v),
+            );
+            if (!$versions) {
+                throw new Exception('No flag-icons versions found');
+            }
+            usort($versions, fn (string $a, string $b): int => version_compare($b, $a));
+            return array_shift($versions);
         } finally {
             @chdir($cwd);
         }

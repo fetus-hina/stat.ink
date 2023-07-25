@@ -37,7 +37,7 @@ $img = function (string $file, array $options = []) use ($aboutAsset): string {
   );
 };
 ?>
-<div class="container">
+<div id="faq-container" class="container">
   <h1>
     <?= Html::encode(Yii::t('app', 'FAQ')) . "\n" ?>
   </h1>
@@ -493,15 +493,14 @@ $img = function (string $file, array $options = []) use ($aboutAsset): string {
     （エラー系の情報や仕様の記述がいろいろ足りていません。すみません。）
   </p>
 </div>
-<?php $this->registerCss(<<<CSS
-.container img {
+<?php $this->registerCss(<<<'CSS'
+#faq-container img {
   width:100%;
   max-width:530px;
   height: auto;
 }
 
-.container img#ikarec-qr, .container img#ikakiroku-qr {
+#faq-container img#ikarec-qr, #faq-container img#ikakiroku-qr {
   width:171px;
 }
-CSS
-) ?>
+CSS) ?>
