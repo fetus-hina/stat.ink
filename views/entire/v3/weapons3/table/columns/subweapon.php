@@ -10,7 +10,7 @@ return [
     'data-sort-value' => Yii::t('app-subweapon3', $model->weapon?->subweapon?->name ?? ''),
   ],
   'headerOptions' => ['data-sort' => 'string'],
-  'label' => '',
+  'label' => Yii::t('app', 'Sub Weapon'),
   'value' => fn (StatWeapon3Usage|StatWeapon3UsagePerVersion $model): string => Yii::t(
     'app-subweapon3',
     $model->weapon?->subweapon?->name ?? '',
