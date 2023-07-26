@@ -31,7 +31,7 @@ $latestVersion = SplatoonVersion3::find()
         '    \'vNEW.VER.x\',',
         '    \'NEW.VER.SION\',',
         '    \'vNEW.VER.SION\',',
-        '    new DateTimeImmutable(\'YYYY-MM-DDT10:00:00+09:00\'),',
+        '    new DateTimeImmutable(\'YYYY-MM-DDT10:10:00+09:00\'),',
         ');',
         '',
         'return true;',

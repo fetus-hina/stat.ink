@@ -11,7 +11,7 @@ return [
   ],
   'format' => 'raw',
   'headerOptions' => ['data-sort' => 'string'],
-  'label' => '',
+  'label' => Yii::t('app', 'Special'),
   'value' => fn (StatWeapon3Usage|StatWeapon3UsagePerVersion $model): string => Yii::t(
     'app-special3',
     $model->weapon?->special?->name ?? '',
