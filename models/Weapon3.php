@@ -29,8 +29,10 @@ use yii\db\ActiveRecord;
  * @property BattlePlayer3[] $battlePlayer3s
  * @property BattleTricolorPlayer3[] $battleTricolorPlayer3s
  * @property Weapon3 $canonical
+ * @property Event3StatsWeapon[] $event3StatsWeapons
  * @property Mainweapon3 $mainweapon
  * @property SalmonWeapon3 $salmonWeapon3
+ * @property EventSchedule3[] $schedules
  * @property Special3 $special
  * @property StatWeapon3AssistPerVersion[] $statWeapon3AssistPerVersions
  * @property StatWeapon3Assist[] $statWeapon3Assists
@@ -113,6 +115,11 @@ class Weapon3 extends ActiveRecord
         return $this->hasOne(Weapon3::class, ['id' => 'canonical_id']);
     }
 
+    public function getEvent3StatsWeapons(): ActiveQuery
+    {
+        return $this->hasMany(Event3StatsWeapon::class, ['weapon_id' => 'id']);
+    }
+
     public function getMainweapon(): ActiveQuery
     {
         return $this->hasOne(Mainweapon3::class, ['id' => 'mainweapon_id']);
@@ -121,6 +128,11 @@ class Weapon3 extends ActiveRecord
     public function getSalmonWeapon3(): ActiveQuery
     {
         return $this->hasOne(SalmonWeapon3::class, ['weapon_id' => 'id']);
+    }
+
+    public function getSchedules(): ActiveQuery
+    {
+        return $this->hasMany(EventSchedule3::class, ['id' => 'schedule_id'])->viaTable('event3_stats_weapon', ['weapon_id' => 'id']);
     }
 
     public function getSpecial(): ActiveQuery

@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\commands\stat;
 
+use app\commands\stat\weapon3\Event3StatsUpdator;
 use app\commands\stat\weapon3\PerMetricsUpdator;
 use app\commands\stat\weapon3\SpecialUseCountTrait;
 use app\commands\stat\weapon3\SpecialUseTrait;
@@ -27,5 +28,6 @@ trait Weapon3Trait
         PerMetricsUpdator::update();
         $this->makeStatWeapon3SpecialUse();
         $this->makeStatWeapon3SpecialUseCount();
+        Event3StatsUpdator::update();
     }
 }
