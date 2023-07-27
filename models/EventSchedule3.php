@@ -23,10 +23,14 @@ use yii\db\ActiveRecord;
  * @property string $end_at
  *
  * @property Event3 $event
+ * @property Event3StatsSpecial[] $event3StatsSpecials
+ * @property Event3StatsWeapon[] $event3StatsWeapons
  * @property EventMap3[] $eventMap3s
  * @property EventPeriod3[] $eventPeriod3s
  * @property Map3[] $maps
  * @property Rule3 $rule
+ * @property Special3[] $specials
+ * @property Weapon3[] $weapons
  */
 class EventSchedule3 extends ActiveRecord
 {
@@ -63,6 +67,16 @@ class EventSchedule3 extends ActiveRecord
         return $this->hasOne(Event3::class, ['id' => 'event_id']);
     }
 
+    public function getEvent3StatsSpecials(): ActiveQuery
+    {
+        return $this->hasMany(Event3StatsSpecial::class, ['schedule_id' => 'id']);
+    }
+
+    public function getEvent3StatsWeapons(): ActiveQuery
+    {
+        return $this->hasMany(Event3StatsWeapon::class, ['schedule_id' => 'id']);
+    }
+
     public function getEventMap3s(): ActiveQuery
     {
         return $this->hasMany(EventMap3::class, ['schedule_id' => 'id']);
@@ -81,5 +95,15 @@ class EventSchedule3 extends ActiveRecord
     public function getRule(): ActiveQuery
     {
         return $this->hasOne(Rule3::class, ['id' => 'rule_id']);
+    }
+
+    public function getSpecials(): ActiveQuery
+    {
+        return $this->hasMany(Special3::class, ['id' => 'special_id'])->viaTable('event3_stats_special', ['schedule_id' => 'id']);
+    }
+
+    public function getWeapons(): ActiveQuery
+    {
+        return $this->hasMany(Weapon3::class, ['id' => 'weapon_id'])->viaTable('event3_stats_weapon', ['schedule_id' => 'id']);
     }
 }

@@ -21,9 +21,11 @@ use yii\db\ActiveRecord;
  * @property string $name
  * @property integer $rank
  *
+ * @property Event3StatsSpecial[] $event3StatsSpecials
  * @property Salmon3UserStatsSpecial[] $salmon3UserStatsSpecials
  * @property SalmonPlayer3[] $salmonPlayer3s
  * @property SalmonSpecialUse3[] $salmonSpecialUse3s
+ * @property EventSchedule3[] $schedules
  * @property Special3Alias[] $special3Aliases
  * @property StatSpecialUse3[] $statSpecialUse3s
  * @property StatSpecialUseCount3[] $statSpecialUseCount3s
@@ -64,6 +66,11 @@ class Special3 extends ActiveRecord
         ];
     }
 
+    public function getEvent3StatsSpecials(): ActiveQuery
+    {
+        return $this->hasMany(Event3StatsSpecial::class, ['special_id' => 'id']);
+    }
+
     public function getSalmon3UserStatsSpecials(): ActiveQuery
     {
         return $this->hasMany(Salmon3UserStatsSpecial::class, ['special_id' => 'id']);
@@ -77,6 +84,11 @@ class Special3 extends ActiveRecord
     public function getSalmonSpecialUse3s(): ActiveQuery
     {
         return $this->hasMany(SalmonSpecialUse3::class, ['special_id' => 'id']);
+    }
+
+    public function getSchedules(): ActiveQuery
+    {
+        return $this->hasMany(EventSchedule3::class, ['id' => 'schedule_id'])->viaTable('event3_stats_special', ['special_id' => 'id']);
     }
 
     public function getSpecial3Aliases(): ActiveQuery
