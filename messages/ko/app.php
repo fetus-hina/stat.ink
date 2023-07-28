@@ -681,6 +681,7 @@ return [
     'Weapon (Short)' => '무기 (Short)',
     'Weapon icons were created by {0}.' => '무기 아이콘은 {0}님이 만드신 것을 사용하고 있습니다.',
     'Weapons' => '무기',
+    'Weapon Stats' => '',
     'Weapon Trends' => '무기 트렌드',
     'Weapon | {weapon}' => '무기 | {weapon}',
     'Weapon | {weapon} | {rule}' => '무기 | {weapon} | {rule}',

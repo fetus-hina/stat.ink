@@ -13,30 +13,24 @@ use yii\web\View;
  * @var callable(Lobby3): string $lobbyUrl
  */
 
-?>
-<nav class="mb-1">
-  <?= Html::tag(
+echo Html::tag(
+  'nav',
+  Html::tag(
     'ul',
-    implode(
-      '',
-      array_map(
-        fn (Lobby3 $item): string => Html::tag(
-          'li',
-          Html::tag(
-            'a',
-            Html::encode(Yii::t('app-lobby3', $item->name)),
-            $item->key !== $lobby->key
-              ? ['href' => $lobbyUrl($item)]
-              : [],
+    implode('', [
+      $this->render('lobby-tabs/lobbies', compact('lobby', 'lobbies', 'lobbyUrl')),
+      Html::tag(
+        'li',
+        Html::a(
+          Html::encode(
+            Yii::t('app-lobby3', 'Challenge')
           ),
-          [
-            'role' => 'presentation',
-            'class' => $item->key === $lobby->key ? 'active': null,
-          ],
+          ['entire/event3'],
         ),
-        $lobbies,
+        ['role' => 'presentation'],
       ),
-    ),
+    ]),
     ['class' => 'nav nav-pills'],
-  ) . "\n" ?>
-</nav>
+  ),
+  ['class' => 'mb-1'],
+);

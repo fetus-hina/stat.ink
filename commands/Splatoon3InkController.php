@@ -140,7 +140,7 @@ final class Splatoon3InkController extends Controller
                 $updated = false;
                 foreach ($langs as $langCode => $jsonUrl) {
                     if (
-                        $this->updateEventLangMessage(
+                        $this->updateEventLangMessages(
                             $langCode,
                             $this->queryJson($jsonUrl),
                             $jsonEnUs,
@@ -153,6 +153,7 @@ final class Splatoon3InkController extends Controller
             },
             Transaction::READ_COMMITTED,
         );
+
         if ($updated) {
             fwrite(STDERR, "Updated message(s), flushing cache\n");
             $cache = Yii::$app->get('messageCache');
@@ -162,52 +163,102 @@ final class Splatoon3InkController extends Controller
             } else {
                 fwrite(STDERR, "Skip. Not configured\n");
             }
+
+            fwrite(STDERR, "VACUUMing message tables\n");
+            $tables = [
+                'translate_source_message',
+                'translate_message',
+            ];
+            foreach ($tables as $table) {
+                fwrite(STDERR, "  {$table} ...\n");
+                Yii::$app->db
+                    ->createCommand(
+                        vsprintf('VACUUM ( ANALYZE ) %s', [
+                            Yii::$app->db->quoteTableName($table),
+                        ]),
+                    )
+                    ->execute();
+            }
+            fwrite(STDERR, "Done.\n");
         }
 
         return ExitCode::OK;
     }
 
-    private function updateEventLangMessage(string $langCode, array $dstJson, array $srcJson): bool
+    private function updateEventLangMessages(string $langCode, array $dstJson, array $srcJson): bool
     {
+        $categoryMap = [
+            'name' => 'db/event3',
+            'desc' => 'db/event3/description',
+            'regulation' => 'db/event3/regulation',
+        ];
+
         $updated = false;
         $eventIds = array_keys(ArrayHelper::getValue($srcJson, 'events'));
         foreach ($eventIds as $eventId) {
-            $srcName = trim(TypeHelper::string(ArrayHelper::getValue($srcJson, ['events', $eventId, 'name'])));
-            $dstName = trim(TypeHelper::string(ArrayHelper::getValue($dstJson, ['events', $eventId, 'name'])));
-
-            if ($srcName === '' || $dstName === '') {
-                continue;
+            foreach ($categoryMap as $key => $category) {
+                if (
+                    $this->updateEventLangMessage(
+                        $langCode,
+                        $category,
+                        trim(
+                            TypeHelper::string(
+                                ArrayHelper::getValue($dstJson, ['events', $eventId, $key]),
+                            ),
+                        ),
+                        trim(
+                            TypeHelper::string(
+                                ArrayHelper::getValue($srcJson, ['events', $eventId, $key]),
+                            ),
+                        ),
+                    )
+                ) {
+                    $updated = true;
+                }
             }
-
-            $srcMessage = $this->getOrCreateSourceMessage('db/event3', $srcName);
-            $model = TranslateMessage::find()
-                ->andWhere([
-                    'id' => $srcMessage->id,
-                    'language' => $langCode,
-                ])
-                ->limit(1)
-                ->one();
-            if ($model && $model->translation === $dstName) {
-                continue; // Up to date
-            }
-
-            $model ??= Yii::createObject([
-                'class' => TranslateMessage::class,
-                'id' => $srcMessage->id,
-                'language' => $langCode,
-            ]);
-            $model->translation = $dstName;
-            if (!$model->save()) {
-                throw new Exception('Failed to update ' . implode(' / ', [
-                    $langCode,
-                    $srcName,
-                    $dstName,
-                ]));
-            }
-            $updated = true;
         }
 
         return $updated;
+    }
+
+    private function updateEventLangMessage(
+        string $langCode,
+        string $category,
+        string $dstText,
+        string $srcText,
+    ): bool {
+        if ($srcText === '' || $dstText === '') {
+            return false;
+        }
+
+        $srcMessage = $this->getOrCreateSourceMessage($category, $srcText);
+        $model = TranslateMessage::find()
+            ->andWhere([
+                'id' => $srcMessage->id,
+                'language' => $langCode,
+            ])
+            ->limit(1)
+            ->one();
+        if ($model && $model->translation === $dstText) {
+            return false;
+        }
+
+        $model ??= Yii::createObject([
+            'class' => TranslateMessage::class,
+            'id' => $srcMessage->id,
+            'language' => $langCode,
+        ]);
+        $model->translation = $dstText;
+        if ($model->save()) {
+            return true;
+        }
+
+        throw new Exception('Failed to update ' . implode(' / ', [
+            $langCode,
+            $category,
+            $srcText,
+            $dstText,
+        ]));
     }
 
     private function getOrCreateSourceMessage(string $category, string $message): TranslateSourceMessage

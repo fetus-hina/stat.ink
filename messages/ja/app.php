@@ -663,6 +663,7 @@ return [
     'We\'ll send an email when you log in to the website or change your password.' => 'ログイン時やパスワード変更時にメールを送信してお知らせします。',
     'Weapon (Icon)' => 'ブキ（アイコン）',
     'Weapon (Short)' => 'ブキ（短）',
+    'Weapon Stats' => 'ブキ統計',
     'Weapon Trends' => 'ブキトレンド',
     'Weapon icons were created by {0}.' => 'ブキアイコンは{0}様が作成されたものを使用しています。',
     'Weapon | {weapon} | {rule}' => 'ブキ | {weapon} | {rule}',

@@ -680,6 +680,7 @@ return [
     'Weapon (Short)' => '',
     'Weapon icons were created by {0}.' => '',
     'Weapons' => '',
+    'Weapon Stats' => '',
     'Weapon Trends' => '',
     'Weapon | {weapon}' => '',
     'Weapon | {weapon} | {rule}' => '',
