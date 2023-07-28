@@ -682,6 +682,7 @@ return [
     'Weapon (Short)' => 'Arme (court)',
     'Weapon icons were created by {0}.' => 'Les images d\'armes ont été créées par {0}.',
     'Weapons' => 'Armes',
+    'Weapon Stats' => '',
     'Weapon Trends' => 'Tendances d\'armes',
     'Weapon | {weapon}' => 'Arme | {weapon}',
     'Weapon | {weapon} | {rule}' => 'Arme | {weapon} | {rule}',

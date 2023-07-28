@@ -106,7 +106,7 @@ OgpHelper::default($this, Url::to(['site/index'], true));
       ]),
       [
         '3',
-        Html::a(Html::encode(Yii::t('app', 'Weapons')), ['entire/weapons3']),
+        Html::a(Html::encode(Yii::t('app', 'Weapon Stats')), ['entire/weapons3']),
         Html::a(Html::encode(Yii::t('app', 'K/D vs Win %')), ['entire/kd-win3']),
         Html::a(Html::encode(Yii::t('app', 'Knockout Rate')), ['entire/knockout3']),
         Html::a(Html::encode(Yii::t('app', 'Special Uses')), ['entire/special-use3']),
@@ -120,8 +120,8 @@ OgpHelper::default($this, Url::to(['site/index'], true));
       [
         Html::encode('3 ' . Yii::t('app-lobby3', 'Challenge')),
         Html::a(
-          Html::encode(Yii::t('db/event3', 'The Sheldon Sampler Challenge')),
-          ['entire/bukichi-cup3'],
+          Html::encode(Yii::t('app', 'Weapon Stats')),
+          ['entire/event3'],
         ),
       ],
       [

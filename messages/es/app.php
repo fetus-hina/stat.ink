@@ -681,6 +681,7 @@ return [
     'Weapon (Short)' => 'Arma (Corto)',
     'Weapon icons were created by {0}.' => '',
     'Weapons' => 'Armas',
+    'Weapon Stats' => '',
     'Weapon Trends' => '',
     'Weapon | {weapon}' => 'Arma | {weapon}',
     'Weapon | {weapon} | {rule}' => '',

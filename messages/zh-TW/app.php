@@ -681,6 +681,7 @@ return [
     'Weapon (Short)' => '武器(短名)',
     'Weapon icons were created by {0}.' => '武器圖示由{0}創建。',
     'Weapons' => '武器',
+    'Weapon Stats' => '',
     'Weapon Trends' => '武器趨勢',
     'Weapon | {weapon}' => '武器 | {weapon}',
     'Weapon | {weapon} | {rule}' => '武器 | {weapon} | {rule}',
