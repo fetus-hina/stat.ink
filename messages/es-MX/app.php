@@ -120,6 +120,7 @@ return [
     'Category' => 'Categoría',
     'Cause of Death' => 'Causa de la Muerte',
     'Challenge Power' => '',
+    'Challenge Power Distribution' => '',
     'Change Icon' => '',
     'Change Password' => 'Cambiar contraseña',
     'Channel' => '',

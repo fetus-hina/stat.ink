@@ -17,6 +17,8 @@ use DateTimeZone;
 use Yii;
 use app\components\helpers\TypeHelper;
 use app\models\Event3;
+use app\models\Event3StatsPower;
+use app\models\Event3StatsPowerHistogram;
 use app\models\Event3StatsSpecial;
 use app\models\Event3StatsWeapon;
 use app\models\EventSchedule3;
@@ -32,11 +34,14 @@ use yii\web\Request;
 use yii\web\Response;
 use yii\web\ServerErrorHttpException;
 
+use function array_filter;
+use function array_values;
 use function filter_var;
 use function is_int;
 use function strnatcasecmp;
 
 use const FILTER_VALIDATE_INT;
+use const SORT_ASC;
 use const SORT_DESC;
 
 final class Event3Action extends Action
@@ -68,8 +73,10 @@ final class Event3Action extends Action
                 }
 
                 return [
+                    'abstract' => self::getAbstract($db, $schedule),
                     'event' => $event,
                     'events' => self::getEvents($db),
+                    'histogram' => self::getHistogram($db, $schedule),
                     'schedule' => $schedule,
                     'schedules' => self::getSchedules($db, $event),
                     'specialProvider' => self::getSpecialProvider($db, $schedule),
@@ -134,10 +141,10 @@ final class Event3Action extends Action
         $request = TypeHelper::instanceOf(Yii::$app->request, Request::class);
         $id = $request->get('schedule');
         if ($id === null || $id === '') {
-            $model = EventSchedule3::find()
-                ->andWhere(['event_id' => $event->id])
-                ->andWhere(['<=', 'start_at', self::getBaseDate()->format(DateTimeInterface::ATOM)])
-                ->orderBy(['start_at' => SORT_DESC])
+            $model = Event3StatsWeapon::find()
+                ->innerJoinWith(['schedule'], true)
+                ->andWhere(['{{%event_schedule3}}.[[event_id]]' => $event->id])
+                ->orderBy(['{{%event3_stats_weapon}}.[[schedule_id]]' => SORT_DESC])
                 ->limit(1)
                 ->one($db);
 
@@ -145,7 +152,7 @@ final class Event3Action extends Action
                 throw new ServerErrorHttpException('No schedule found');
             }
 
-            return [true, $model];
+            return [true, $model->schedule];
         }
 
         $id = filter_var($id, FILTER_VALIDATE_INT);
@@ -199,13 +206,22 @@ final class Event3Action extends Action
      */
     private static function getSchedules(Connection $db, Event3 $event): array
     {
-        $date = self::getBaseDate();
-        return EventSchedule3::find()
+        $list = EventSchedule3::find()
             ->andWhere(['event_id' => $event->id])
-            ->andWhere(['<=', 'start_at', $date->format(DateTimeInterface::ATOM)])
             ->orderBy(['start_at' => SORT_DESC])
             ->cache(86400)
             ->all($db);
+        return array_values(
+            array_filter(
+                $list,
+                fn (EventSchedule3 $model): bool => Event3StatsWeapon::find()
+                    ->andWhere([
+                        'schedule_id' => $model->id,
+                    ])
+                    ->cache(300)
+                    ->exists(),
+            ),
+        );
     }
 
     private static function getSpecialProvider(
@@ -254,5 +270,24 @@ final class Event3Action extends Action
             'query' => $query,
             'sort' => false,
         ]);
+    }
+
+    private static function getAbstract(Connection $db, EventSchedule3 $schedule): ?Event3StatsPower
+    {
+        return Event3StatsPower::find()
+            ->andWhere(['schedule_id' => $schedule->id])
+            ->limit(1)
+            ->one($db);
+    }
+
+    /**
+     * @return Event3StatsPowerHistogram[]
+     */
+    private static function getHistogram(Connection $db, EventSchedule3 $schedule): array
+    {
+        return Event3StatsPowerHistogram::find()
+            ->andWhere(['schedule_id' => $schedule->id])
+            ->orderBy(['class_value' => SORT_ASC])
+            ->all($db);
     }
 }
