@@ -90,5 +90,32 @@ $periods = ArrayHelper::sort(
     'provider' => $specialProvider,
     'samples' => $samples,
   ]) . "\n" ?>
+<?php } elseif ($event->internal_id === 'TGVhZ3VlTWF0Y2hFdmVudC1QYWlyQ3Vw') { ?>
+<?php // 「最強ペア決定戦」は現在のところデータがないので、お詫びを表示する ?>
+<?php // See: https://twitter.com/fetus_hina/status/1685080696757583872 ?>
+  <div class="alert alert-danger mb-3">
+    <p class="mt-0 mb-3"><strong>Data has not been created</strong></p>
+    <p class="mt-0 mb-3">
+      <em>Short:</em> Due to the special conditions of this Challenge, we are unable to tally the
+      results at this time.
+    </p>
+    <p class="mt-0 mb-0">
+      <em>Long:</em><br>
+      <?= Html::encode(Yii::$app->name) ?> is designed to flag "available for aggregation" only when
+      certain conditions are met.<br>
+      Because this Challenge is run under the special 2 vs. 2 rule, one of the conditions,
+      "<?= Html::a(
+        'the match was played with 8 players',
+        'https://github.com/fetus-hina/stat.ink/blob/0a23148f6d56b098352bc53e0be431e1efaa2216/models/api/v3/PostBattleForm.php#L1014',
+        [
+          'class' => 'alert-link',
+          'rel' => 'noopener noreferrer',
+          'target' => '_blank',
+        ],
+      ) ?>," is always false.<br>
+      So now the aggregation program has determined that all matches are unusable for statistics,
+      which causes "no data".
+    </p>
+  </div>
 <?php } ?>
 </div>
