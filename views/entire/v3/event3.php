@@ -27,6 +27,10 @@ $title = vsprintf('%s - %s', [
   Yii::t('app', 'Weapons'),
   Yii::t('app-lobby3', 'Challenge'),
 ]);
+$this->title = vsprintf('%s | %s', [
+  $title,
+  Yii::$app->name,
+]);
 
 OgpHelper::default($this, title: $title);
 
