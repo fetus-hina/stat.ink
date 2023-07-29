@@ -23,6 +23,8 @@ use yii\db\ActiveRecord;
  * @property string $end_at
  *
  * @property Event3 $event
+ * @property Event3StatsPower $event3StatsPower
+ * @property Event3StatsPowerHistogram[] $event3StatsPowerHistograms
  * @property Event3StatsSpecial[] $event3StatsSpecials
  * @property Event3StatsWeapon[] $event3StatsWeapons
  * @property EventMap3[] $eventMap3s
@@ -65,6 +67,16 @@ class EventSchedule3 extends ActiveRecord
     public function getEvent(): ActiveQuery
     {
         return $this->hasOne(Event3::class, ['id' => 'event_id']);
+    }
+
+    public function getEvent3StatsPower(): ActiveQuery
+    {
+        return $this->hasOne(Event3StatsPower::class, ['schedule_id' => 'id']);
+    }
+
+    public function getEvent3StatsPowerHistograms(): ActiveQuery
+    {
+        return $this->hasMany(Event3StatsPowerHistogram::class, ['schedule_id' => 'id']);
     }
 
     public function getEvent3StatsSpecials(): ActiveQuery

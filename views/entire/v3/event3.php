@@ -6,6 +6,8 @@ use app\components\helpers\OgpHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\models\Event3;
+use app\models\Event3StatsPower;
+use app\models\Event3StatsPowerHistogram;
 use app\models\EventPeriod3;
 use app\models\EventSchedule3;
 use yii\data\ActiveDataProvider;
@@ -17,6 +19,8 @@ use yii\web\View;
  * @var ActiveDataProvider $specialProvider
  * @var ActiveDataProvider $weaponsProvider
  * @var Event3 $event
+ * @var Event3StatsPower $abstract
+ * @var Event3StatsPowerHistogram[] $histogram
  * @var Event3[] $events
  * @var EventSchedule3 $schedule
  * @var EventSchedule3[] $schedules
@@ -84,6 +88,60 @@ $periods = ArrayHelper::sort(
   <div class="mb-3">
     <?= $this->render('event3/stats-info', ['samples' => $samples]) . "\n" ?>
   </div>
+
+<?php if ($abstract) { ?>
+  <aside class="mb-3">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <?= Html::encode(
+          Yii::t('app', 'Challenge Power Distribution'),
+        ) . "\n" ?>
+      </div>
+      <div class="panel-body pb-0">
+        <div class="table-responsive mb-3">
+          <table class="table table-bordered table-striped table-condensed w-auto mb-0">
+            <thead>
+              <tr>
+                <th class="text-center"><?= Html::encode(Yii::t('app', 'Average')) ?></th>
+                <th class="text-center"><?= Html::encode(Yii::t('app', 'Std Dev')) ?></th>
+                <th class="text-center">
+                  <?= Html::encode(Yii::t('app', 'Top {percentile}%', ['percentile' => 75])) . "\n" ?>
+                </th>
+                <th class="text-center">
+                  <?= Html::encode(Yii::t('app', 'Top {percentile}%', ['percentile' => 50])) . "\n" ?>
+                </th>
+                <th class="text-center">
+                  <?= Html::encode(Yii::t('app', 'Top {percentile}%', ['percentile' => 25])) . "\n" ?>
+                </th>
+                <th class="text-center">
+                  <?= Html::encode(Yii::t('app', 'Top {percentile}%', ['percentile' => 5])) . "\n" ?>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-center"><?= Html::encode($fmt->asDecimal($abstract->average, 1)) ?></td>
+                <td class="text-center"><?= Html::encode($fmt->asDecimal($abstract->stddev, 1)) ?></td>
+                <td class="text-center"><?= Html::encode($fmt->asDecimal($abstract->p25, 1)) ?></td>
+                <td class="text-center"><?= Html::encode($fmt->asDecimal($abstract->p50, 1)) ?></td>
+                <td class="text-center"><?= Html::encode($fmt->asDecimal($abstract->p75, 1)) ?></td>
+                <td class="text-center"><?= Html::encode($fmt->asDecimal($abstract->p95, 1)) ?></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+<?php if ($abstract->histogram_width > 0 && $histogram) { ?>
+        <div class="mb-3">
+          <?= $this->render('event3/histogram', [
+            'abstract' => $abstract,
+            'histogram' => ArrayHelper::map($histogram, 'class_value', 'battles'),
+          ]) . "\n" ?>
+        </div>
+<?php } ?>
+      </div>
+    </div>
+  </aside>
+<?php } ?>
 
 <?php if ($samples > 0) { ?>
   <?= $this->render('event3/table', [

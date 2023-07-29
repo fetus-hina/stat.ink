@@ -121,6 +121,7 @@ return [
     'Category' => '类别',
     'Cause of Death' => '死因',
     'Challenge Power' => '',
+    'Challenge Power Distribution' => '',
     'Change Icon' => '改变头像',
     'Change Password' => '更改密码',
     'Channel' => '频道',

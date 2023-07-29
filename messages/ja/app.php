@@ -120,6 +120,7 @@ return [
     'Cash' => 'おカネ',
     'Category' => 'カテゴリー',
     'Cause of Death' => '死因',
+    'Challenge Power Distribution' => 'イベントパワー分布',
     'Challenge Power' => 'イベントパワー',
     'Change Icon' => 'アイコンを変更',
     'Change Password' => 'パスワードの変更',
