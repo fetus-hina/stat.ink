@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use app\assets\AppAsset;
+use app\assets\BootstrapNotifyAsset;
 use app\components\helpers\I18n;
 use app\components\widgets\ColorSchemeDialog;
 use app\components\widgets\CookieAlert;
@@ -20,22 +21,21 @@ use yii\web\View;
 AppAsset::register($this);
 Yii::$app->theme->registerAssets($this);
 
-$_flashes = Yii::$app->getSession()->getAllFlashes();
-if ($_flashes) {
-  $_hashKey = microtime(false);
-  foreach ($_flashes as $_key => $_messages) {
-    if (is_array($_messages)) {
+$flashes = Yii::$app->getSession()->getAllFlashes();
+if ($flashes) {
+  BootstrapNotifyAsset::register($this);
+  foreach ($flashes as $key => $messages) {
+    if (is_array($messages)) {
       $i = 0;
-      foreach ($_messages as $_message) {
+      foreach ($messages as $message) {
         $this->registerJs(
           sprintf(
             '(function($){$.notify(%s)})(jQuery);',
             Json::encode([
-              'message' => Html::encode($_message),
-              'type' => Html::encode($_key),
+              'message' => Html::encode($message),
+              'type' => Html::encode($key),
             ])
           ),
-          hash_hmac('md5', $_hashKey, (string)($i++))
         );
       }
     } else {
@@ -43,10 +43,10 @@ if ($_flashes) {
         sprintf(
           '(function($){$.notify(%s,%s)})(jQuery);',
           Json::encode([
-            'message' => Html::encode($_messages),
+            'message' => Html::encode($messages),
           ]),
           Json::encode([
-            'type' => Html::encode($_key),
+            'type' => Html::encode($key),
             'z_index' => 11031,
           ])
         )

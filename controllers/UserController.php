@@ -30,6 +30,7 @@ use app\actions\user\MachineTranslationAction;
 use app\actions\user\ProfileAction;
 use app\actions\user\RegenerateApikeyAction;
 use app\actions\user\RegisterAction;
+use app\actions\user\ResetPasswordApikeyAction;
 use app\actions\user\SlackAddAction;
 use app\actions\user\SlackDeleteAction;
 use app\actions\user\SlackSuspendAction;
@@ -40,7 +41,7 @@ use app\components\web\Controller;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 
-class UserController extends Controller
+final class UserController extends Controller
 {
     public $layout = 'main';
 
@@ -67,6 +68,7 @@ class UserController extends Controller
                     'profile',
                     'regenerate-apikey',
                     'register',
+                    'reset-password-apikey',
                     'slack-add',
                     'slack-delete',
                     'slack-suspend',
@@ -79,6 +81,7 @@ class UserController extends Controller
                             'login',
                             'login-with-twitter',
                             'register',
+                            'reset-password-apikey',
                         ],
                         'roles' => ['?'],
                         'allow' => true,
@@ -124,6 +127,7 @@ class UserController extends Controller
                     'machine-translation' => [ 'post' ],
                     'regenerate-apikey' => [ 'post' ],
                     'register' => [ 'get', 'post' ],
+                    'reset-password-apikey' => [ 'get', 'post' ],
                     'slack-add' => [ 'get', 'post' ],
                     'slack-delete' => [ 'post' ],
                     'slack-suspend' => [ 'post' ],
@@ -137,32 +141,33 @@ class UserController extends Controller
     public function actions()
     {
         return [
-            'clear-login-with-twitter' => [ 'class' => ClearLoginWithTwitterAction::class ],
-            'download' => [ 'class' => DownloadAction::class ],
-            'download-salmon' => [ 'class' => DownloadSalmon2Action::class ],
-            'download2' => [ 'class' => Download2Action::class ],
-            'download3' => [ 'class' => Download3Action::class ],
-            'edit-email' => [ 'class' => EditEmailAction::class ],
-            'edit-email-verify' => [ 'class' => EditEmailVerifyAction::class ],
-            'edit-icon' => [ 'class' => EditIconAction::class ],
-            'edit-password' => [ 'class' => EditPasswordAction::class ],
-            'edit-profile' => [ 'class' => EditProfileAction::class ],
-            'icon-twitter' => [ 'class' => IconTwitterAction::class ],
-            'language' => [ 'class' => LanguageAction::class ],
-            'login' => [ 'class' => LoginAction::class ],
-            'login-history' => [ 'class' => LoginHistoryAction::class ],
-            'login-with-twitter' => [ 'class' => LoginWithTwitterAction::class ],
-            'logout' => [ 'class' => LogoutAction::class ],
-            'machine-translation' => [ 'class' => MachineTranslationAction::class ],
-            'profile' => [ 'class' => ProfileAction::class ],
-            'regenerate-apikey' => [ 'class' => RegenerateApikeyAction::class ],
-            'register' => [ 'class' => RegisterAction::class ],
-            'slack-add' => [ 'class' => SlackAddAction::class ],
-            'slack-delete' => [ 'class' => SlackDeleteAction::class ],
-            'slack-suspend' => [ 'class' => SlackSuspendAction::class ],
-            'slack-test' => [ 'class' => SlackTestAction::class ],
-            'timezone' => [ 'class' => TimezoneAction::class ],
-            'update-login-with-twitter' => [ 'class' => UpdateLoginWithTwitterAction::class ],
+            'clear-login-with-twitter' => ClearLoginWithTwitterAction::class,
+            'download' => DownloadAction::class,
+            'download-salmon' => DownloadSalmon2Action::class,
+            'download2' => Download2Action::class,
+            'download3' => Download3Action::class,
+            'edit-email' => EditEmailAction::class,
+            'edit-email-verify' => EditEmailVerifyAction::class,
+            'edit-icon' => EditIconAction::class,
+            'edit-password' => EditPasswordAction::class,
+            'edit-profile' => EditProfileAction::class,
+            'icon-twitter' => IconTwitterAction::class,
+            'language' => LanguageAction::class,
+            'login' => LoginAction::class,
+            'login-history' => LoginHistoryAction::class,
+            'login-with-twitter' => LoginWithTwitterAction::class,
+            'logout' => LogoutAction::class,
+            'machine-translation' => MachineTranslationAction::class,
+            'profile' => ProfileAction::class,
+            'regenerate-apikey' => RegenerateApikeyAction::class,
+            'register' => RegisterAction::class,
+            'reset-password-apikey' => ResetPasswordApikeyAction::class,
+            'slack-add' => SlackAddAction::class,
+            'slack-delete' => SlackDeleteAction::class,
+            'slack-suspend' => SlackSuspendAction::class,
+            'slack-test' => SlackTestAction::class,
+            'timezone' => TimezoneAction::class,
+            'update-login-with-twitter' => UpdateLoginWithTwitterAction::class,
         ];
     }
 }

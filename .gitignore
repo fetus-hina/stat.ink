@@ -14,6 +14,7 @@
 /config/backup-s3.php
 /config/backup-secret.php
 /config/cloudflare/ip_ranges.php
+/config/cloudflare/turnstile.php
 /config/cookie-secret.php
 /config/db.php
 /config/debug-ips.php
