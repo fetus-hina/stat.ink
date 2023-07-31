@@ -75,6 +75,7 @@ $this->registerJsFile(
             <?= Html::tag('div', '', [
               'class' => 'cf-turnstile',
               'data' => [
+                'language' => Yii::$app->language,
                 'sitekey' => $cfToken,
               ],
             ]) . "\n" ?>
