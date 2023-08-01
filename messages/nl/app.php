@@ -280,6 +280,7 @@ return [
     'IkaRec' => '',
     'IkaRec 2' => '',
     'Image Sharing' => '',
+    'Includes battles with unknown event power' => '',
     'Incomplete Data' => '',
     'Ink Color' => '',
     'Inked' => '',

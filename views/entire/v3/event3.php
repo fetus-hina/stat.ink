@@ -102,6 +102,9 @@ $periods = ArrayHelper::sort(
           <table class="table table-bordered table-striped table-condensed w-auto mb-0">
             <thead>
               <tr>
+                <th></th>
+                <th class="text-center"><?= Html::encode(Yii::t('app', 'Users')) ?></th>
+                <th class="text-center"><?= Html::encode(Yii::t('app', 'Battles')) ?></th>
                 <th class="text-center"><?= Html::encode(Yii::t('app', 'Average')) ?></th>
                 <th class="text-center"><?= Html::encode(Yii::t('app', 'Std Dev')) ?></th>
                 <th class="text-center">
@@ -120,6 +123,21 @@ $periods = ArrayHelper::sort(
             </thead>
             <tbody>
               <tr>
+                <th scope="row"><?= Html::encode(Yii::$app->name) ?></th>
+                <td class="text-center"><?= Html::encode($fmt->asInteger($abstract->users)) ?></td>
+                <td class="text-center">
+                  <?= Html::encode($fmt->asInteger($abstract->agg_battles)) . "\n" ?>
+                  <?= Html::tag(
+                    'span',
+                    vsprintf('(%s)', [
+                      Html::encode($fmt->asInteger($abstract->battles)),
+                    ]),
+                    [
+                      'class' => 'auto-tooltip',
+                      'title' => Yii::t('app', 'Includes battles with unknown event power'),
+                    ],
+                  ) . "\n" ?>
+                </td>
                 <td class="text-center"><?= Html::encode($fmt->asDecimal($abstract->average, 1)) ?></td>
                 <td class="text-center"><?= Html::encode($fmt->asDecimal($abstract->stddev, 1)) ?></td>
                 <td class="text-center"><?= Html::encode($fmt->asDecimal($abstract->p25, 1)) ?></td>
