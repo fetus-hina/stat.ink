@@ -283,6 +283,7 @@ return [
     'IkaRec' => 'IkaRec',
     'IkaRec 2' => 'IkaRec 2',
     'Image Sharing' => '分享图片',
+    'Includes battles with unknown event power' => '',
     'Incomplete Data' => '不完整数据',
     'Ink Color' => '',
     'Inked' => '已涂地',
