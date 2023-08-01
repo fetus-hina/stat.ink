@@ -312,6 +312,7 @@ final class Event3StatsUpdator
                 ['not', ['{{%battle3}}.[[event_power]]' => null]],
                 ['not', ['{{%battle3}}.[[rule_id]]' => null]],
                 ['not', ['{{%event_schedule3}}.[[id]]' => null]],
+                ['>', '{{%event3_stats_power}}.[[histogram_width]]', 0],
             ])
             ->groupBy([
                 '{{%event_schedule3}}.[[id]]',
