@@ -75,7 +75,10 @@ $this->registerJsFile(
             <?= Html::tag('div', '', [
               'class' => 'cf-turnstile',
               'data' => [
+                'action' => 'reset-password-apikey',
+                'language' => Yii::$app->language,
                 'sitekey' => $cfToken,
+                'theme' => Yii::$app->theme->isDarkTheme ? 'dark' : 'light',
               ],
             ]) . "\n" ?>
             <hr>

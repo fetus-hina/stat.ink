@@ -67,8 +67,11 @@ if (
     $results = [];
     $dataStep = (int)$abstract->histogram_width;
     $makeStep = 2;
-    $chartMin = (int)(floor($abstract->minimum / $makeStep) * $makeStep);
-    $chartMax = (int)(ceil($abstract->maximum / $makeStep) * $makeStep);
+    $chartMin = max(
+      0,
+      (int)(floor($abstract->average - 3 * $abstract->stddev) / $makeStep) * $makeStep,
+    );
+    $chartMax = (int)(ceil($abstract->average + 3 * $abstract->stddev) / $makeStep) * $makeStep;
     for ($x = $chartMin; $x <= $chartMax; $x += $makeStep) {
       $results[] = [
         'x' => $x,
