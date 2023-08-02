@@ -30,4 +30,9 @@ trait Weapon3Trait
         $this->makeStatWeapon3SpecialUseCount();
         Event3StatsUpdator::update();
     }
+
+    protected function updateEntireEvent3(): void
+    {
+        Event3StatsUpdator::update();
+    }
 }
