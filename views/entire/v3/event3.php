@@ -110,11 +110,14 @@ $periods = ArrayHelper::sort(
                 <th class="text-center">
                   <?= Html::encode(Yii::t('app', 'Top {percentile}%', ['percentile' => 75])) . "\n" ?>
                 </th>
-                <th class="text-center">
+                <th class="text-center ">
                   <?= Html::encode(Yii::t('app', 'Top {percentile}%', ['percentile' => 50])) . "\n" ?>
                 </th>
                 <th class="text-center">
                   <?= Html::encode(Yii::t('app', 'Top {percentile}%', ['percentile' => 25])) . "\n" ?>
+                </th>
+                <th class="text-center">
+                  <?= Html::encode(Yii::t('app', 'Top {percentile}%', ['percentile' => 20])) . "\n" ?>
                 </th>
                 <th class="text-center">
                   <?= Html::encode(Yii::t('app', 'Top {percentile}%', ['percentile' => 5])) . "\n" ?>
@@ -138,12 +141,13 @@ $periods = ArrayHelper::sort(
                     ],
                   ) . "\n" ?>
                 </td>
-                <td class="text-center"><?= Html::encode($fmt->asDecimal($abstract->average, 1)) ?></td>
+                <td class="text-center fw-bold"><?= Html::encode($fmt->asDecimal($abstract->average, 1)) ?></td>
                 <td class="text-center"><?= Html::encode($fmt->asDecimal($abstract->stddev, 1)) ?></td>
                 <td class="text-center"><?= Html::encode($fmt->asDecimal($abstract->p25, 1)) ?></td>
-                <td class="text-center"><?= Html::encode($fmt->asDecimal($abstract->p50, 1)) ?></td>
+                <td class="text-center fw-bold"><?= Html::encode($fmt->asDecimal($abstract->p50, 1)) ?></td>
                 <td class="text-center"><?= Html::encode($fmt->asDecimal($abstract->p75, 1)) ?></td>
-                <td class="text-center"><?= Html::encode($fmt->asDecimal($abstract->p95, 1)) ?></td>
+                <td class="text-center fw-bold"><?= Html::encode($fmt->asDecimal($abstract->p80, 1)) ?></td>
+                <td class="text-center fw-bold"><?= Html::encode($fmt->asDecimal($abstract->p95, 1)) ?></td>
               </tr>
             </tbody>
           </table>

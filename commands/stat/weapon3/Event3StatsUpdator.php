@@ -209,6 +209,7 @@ final class Event3StatsUpdator
                 'p25' => $p(0.25),
                 'p50' => $p(0.50),
                 'p75' => $p(0.75),
+                'p80' => $p(0.80),
                 'p95' => $p(0.95),
                 'maximum' => 'MAX({{%battle3}}.[[event_power]])',
                 'histogram_width' => vsprintf('ROUND(%s / 2) * 2', [

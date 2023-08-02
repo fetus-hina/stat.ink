@@ -49,6 +49,7 @@ use app\models\StatWeaponUseCount;
 use app\models\StatWeaponUseCountPerWeek;
 use app\models\StatWeaponVsWeapon;
 use yii\console\Controller;
+use yii\console\ExitCode;
 use yii\db\Connection;
 use yii\db\Expression;
 use yii\db\Query;
@@ -103,6 +104,12 @@ final class StatController extends Controller
         $this->updateEntireWeapons3();
         // $this->updateEntireWeapons2();
         // $this->updateEntireWeapons1();
+    }
+
+    public function actionUpdateEntireEvent3(): int
+    {
+        $this->updateEntireEvent3();
+        return ExitCode::OK;
     }
 
     private function updateEntireWeapons1()

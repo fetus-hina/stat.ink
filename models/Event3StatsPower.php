@@ -30,6 +30,7 @@ use yii\db\ActiveRecord;
  * @property double $p95
  * @property double $maximum
  * @property integer $histogram_width
+ * @property double $p80
  *
  * @property EventSchedule3 $schedule
  */
@@ -46,7 +47,7 @@ class Event3StatsPower extends ActiveRecord
             [['schedule_id', 'users', 'battles', 'agg_battles', 'average'], 'required'],
             [['schedule_id', 'users', 'battles', 'agg_battles', 'histogram_width'], 'default', 'value' => null],
             [['schedule_id', 'users', 'battles', 'agg_battles', 'histogram_width'], 'integer'],
-            [['average', 'stddev', 'minimum', 'p05', 'p25', 'p50', 'p75', 'p95', 'maximum'], 'number'],
+            [['average', 'stddev', 'minimum', 'p05', 'p25', 'p50', 'p75', 'p95', 'maximum', 'p80'], 'number'],
             [['schedule_id'], 'unique'],
             [['schedule_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventSchedule3::class, 'targetAttribute' => ['schedule_id' => 'id']],
         ];
@@ -69,6 +70,7 @@ class Event3StatsPower extends ActiveRecord
             'p95' => 'P95',
             'maximum' => 'Maximum',
             'histogram_width' => 'Histogram Width',
+            'p80' => 'P80',
         ];
     }
 
