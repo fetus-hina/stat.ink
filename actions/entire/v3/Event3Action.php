@@ -211,6 +211,7 @@ final class Event3Action extends Action
     private static function getSchedules(Connection $db, Event3 $event): array
     {
         $list = EventSchedule3::find()
+            ->with(['rule'])
             ->andWhere(['event_id' => $event->id])
             ->orderBy(['start_at' => SORT_DESC])
             ->cache(86400)

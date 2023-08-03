@@ -27,7 +27,10 @@ $placeholder = '--id--';
     ArrayHelper::map(
       $schedules,
       fn (EventSchedule3 $schedule): string => (string)$schedule->id,
-      fn (EventSchedule3 $schedule): string => Yii::$app->formatter->asDate($schedule->start_at),
+      fn (EventSchedule3 $schedule): string => vsprintf('%s (%s)', [
+        Yii::$app->formatter->asDate($schedule->start_at),
+        Yii::t('app-rule3', $schedule->rule?->name ?? '?'),
+      ]),
     ),
     [
       'class' => 'form-control mb-0',
