@@ -96,7 +96,7 @@ if (
 
 ?>
 <?= Html::tag('div', '', [
-  'class' => 'event3-histogram ratio ratio-4x3 mb-1',
+  'class' => 'event3-histogram ratio ratio-4x3 mb-3',
   'style' => [
     'max-width' => '480px',
   ],
@@ -156,14 +156,3 @@ if (
     ],
   ],
 ]) . "\n" ?>
-<p class="small text-muted mb-3">
-  <?= Html::encode(
-    Yii::t(
-      'app',
-      'This data is based on {siteName} users and differs significantly from overall game statistics.',
-      [
-        'siteName' => Yii::$app->name,
-      ],
-    ),
-  ) . "\n" ?>
-</p>

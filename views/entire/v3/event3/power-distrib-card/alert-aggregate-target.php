@@ -1,0 +1,28 @@
+<?php
+
+declare(strict_types=1);
+
+use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var View $this
+ */
+
+echo Html::tag(
+  'div',
+  Html::tag(
+    'p',
+    Html::encode(
+      Yii::t(
+        'app',
+        'This data is based on {siteName} users and differs significantly from overall game statistics.',
+        [
+          'siteName' => Yii::$app->name,
+        ],
+      ),
+    ),
+    ['class' => 'small my-0'],
+  ),
+  ['class' => 'alert alert-danger mb-3'],
+) . "\n" ?>

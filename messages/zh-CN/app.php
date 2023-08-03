@@ -555,6 +555,7 @@ return [
     'Splatoon Official Website (UK)' => 'Splatoon官方站点（英国）',
     'Splatoon Official Website (US/Canada)' => 'Splatoon官方站点（美国/加拿大）',
     'Stack' => '叠加',
+    'Stacked' => '',
     'Stage' => '场地',
     'Stage (Short)' => '场地（短名）',
     'Stages' => '场地',

@@ -554,6 +554,7 @@ return [
     'Splatoon Official Website (UK)' => '스플래툰 공식 사이트 (영국)',
     'Splatoon Official Website (US/Canada)' => '스플래툰 공식 사이트 (북미)',
     'Stack' => '',
+    'Stacked' => '',
     'Stage' => '스테이지',
     'Stage (Short)' => '스테이지 (Short)',
     'Stages' => '스테이지',
