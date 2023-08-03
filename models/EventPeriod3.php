@@ -21,6 +21,8 @@ use yii\db\ActiveRecord;
  * @property string $start_at
  * @property string $end_at
  *
+ * @property Event3StatsPowerPeriod $event3StatsPowerPeriod
+ * @property Event3StatsPowerPeriodHistogram[] $event3StatsPowerPeriodHistograms
  * @property EventSchedule3 $schedule
  */
 class EventPeriod3 extends ActiveRecord
@@ -50,6 +52,16 @@ class EventPeriod3 extends ActiveRecord
             'start_at' => 'Start At',
             'end_at' => 'End At',
         ];
+    }
+
+    public function getEvent3StatsPowerPeriod(): ActiveQuery
+    {
+        return $this->hasOne(Event3StatsPowerPeriod::class, ['period_id' => 'id']);
+    }
+
+    public function getEvent3StatsPowerPeriodHistograms(): ActiveQuery
+    {
+        return $this->hasMany(Event3StatsPowerPeriodHistogram::class, ['period_id' => 'id']);
     }
 
     public function getSchedule(): ActiveQuery
