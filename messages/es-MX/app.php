@@ -554,6 +554,7 @@ return [
     'Splatoon Official Website (UK)' => 'Página Web oficial (UK)',
     'Splatoon Official Website (US/Canada)' => 'Página Web oficial (US/Canadá)',
     'Stack' => '',
+    'Stacked' => '',
     'Stage' => 'Escenario',
     'Stage (Short)' => '',
     'Stages' => '',

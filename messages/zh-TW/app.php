@@ -554,6 +554,7 @@ return [
     'Splatoon Official Website (UK)' => '斯普拉遁官方網站(英國)',
     'Splatoon Official Website (US/Canada)' => '斯普拉遁官方網站(美國/加拿大)',
     'Stack' => '疊加',
+    'Stacked' => '',
     'Stage' => '場地',
     'Stage (Short)' => '場地(簡寫)',
     'Stages' => '場地',

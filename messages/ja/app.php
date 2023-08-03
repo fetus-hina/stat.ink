@@ -540,6 +540,7 @@ return [
     'Splatoon Official Website (US/Canada)' => 'スプラトゥーン公式サイト（北米）',
     'Splatoon' => 'Splatoon',
     'Stack' => '積み重ねる',
+    'Stacked' => '積み重ね',
     'Stage (Short)' => 'ステージ（短）',
     'Stage' => 'ステージ',
     'Stages' => 'ステージ',

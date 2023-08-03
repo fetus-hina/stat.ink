@@ -552,6 +552,7 @@ return [
     'Splatoon Official Website (UK)' => '',
     'Splatoon Official Website (US/Canada)' => '',
     'Stack' => '',
+    'Stacked' => '',
     'Stage' => 'Carte',
     'Stage (Short)' => 'Carte (court)',
     'Stages' => 'Cartes',

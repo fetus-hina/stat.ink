@@ -553,6 +553,7 @@ return [
     'Splatoon Official Website (UK)' => '',
     'Splatoon Official Website (US/Canada)' => '',
     'Stack' => '',
+    'Stacked' => '',
     'Stage' => '',
     'Stage (Short)' => '',
     'Stages' => '',
