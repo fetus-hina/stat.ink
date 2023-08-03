@@ -251,7 +251,15 @@ final class Event3StatsUpdator
                 ['not', ['{{%battle3}}.[[rule_id]]' => null]],
                 ['not', ['{{%event_schedule3}}.[[id]]' => null]],
             ])
-            ->groupBy(['{{%event_schedule3}}.[[id]]']);
+            ->groupBy(['{{%event_schedule3}}.[[id]]'])
+            ->having(
+                vsprintf('SUM(CASE %s END) > 0', [
+                    implode(' ', [
+                        'WHEN {{%battle3}}.[[event_power]] IS NOT NULL THEN 1',
+                        'ELSE 0',
+                    ]),
+                ]),
+            );
 
         Event3StatsPower::deleteAll();
         $db->createCommand(
@@ -408,7 +416,15 @@ final class Event3StatsUpdator
                 ['not', ['{{%battle3}}.[[rule_id]]' => null]],
                 ['not', ['{{%event_schedule3}}.[[id]]' => null]],
             ])
-            ->groupBy(['{{%event_period3}}.[[id]]']);
+            ->groupBy(['{{%event_period3}}.[[id]]'])
+            ->having(
+                vsprintf('SUM(CASE %s END) > 0', [
+                    implode(' ', [
+                        'WHEN {{%battle3}}.[[event_power]] IS NOT NULL THEN 1',
+                        'ELSE 0',
+                    ]),
+                ]),
+            );
 
         Event3StatsPowerPeriod::deleteAll();
         $db->createCommand(
