@@ -19,6 +19,7 @@ use app\components\helpers\TypeHelper;
 use app\models\Event3;
 use app\models\Event3StatsPower;
 use app\models\Event3StatsPowerHistogram;
+use app\models\Event3StatsPowerPeriod;
 use app\models\Event3StatsSpecial;
 use app\models\Event3StatsWeapon;
 use app\models\EventSchedule3;
@@ -77,6 +78,7 @@ final class Event3Action extends Action
                     'event' => $event,
                     'events' => self::getEvents($db),
                     'histogram' => self::getHistogram($db, $schedule),
+                    'periodAbstracts' => self::getPeriodAbstracts($db, $schedule),
                     'schedule' => $schedule,
                     'schedules' => self::getSchedules($db, $event),
                     'specialProvider' => self::getSpecialProvider($db, $schedule),
@@ -289,5 +291,22 @@ final class Event3Action extends Action
             ->andWhere(['schedule_id' => $schedule->id])
             ->orderBy(['class_value' => SORT_ASC])
             ->all($db);
+    }
+
+    /**
+     * @return array<int, Event3StatsPowerPeriod>
+     */
+    private static function getPeriodAbstracts(Connection $db, EventSchedule3 $schedule): array
+    {
+        return ArrayHelper::index(
+            Event3StatsPowerPeriod::find()
+                ->innerJoinWith(['period'], false)
+                ->andWhere([
+                    '{{%event_period3}}.[[schedule_id]]' => $schedule->id,
+                ])
+                ->orderBy(['period_id' => SORT_ASC])
+                ->all($db),
+            'period_id',
+        );
     }
 }

@@ -25,6 +25,7 @@ use yii\web\View;
  * @var EventSchedule3 $schedule
  * @var EventSchedule3[] $schedules
  * @var View $this
+ * @var array<int, Event3StatsPowerPeriod> $periodAbstracts
  */
 
 $title = vsprintf('%s - %s', [
@@ -72,8 +73,9 @@ $periods = ArrayHelper::sort(
       <li>
         <?= Html::encode(Yii::t('app-rule3', $schedule->rule->name ?? '?')) . "\n" ?>
       </li>
-<?php foreach ($periods as $period) { ?>
+<?php foreach ($periods as $i => $period) { ?>
       <li>
+        <?= Html::encode(mb_chr(0x2460 + $i, 'UTF-8')) . "\n" ?>
         <?= Html::encode(
           Yii::t('app', '{from} - {to}', [
             'from' => $fmt->asDateTime($period->start_at, 'short'),
@@ -98,6 +100,19 @@ $periods = ArrayHelper::sort(
         ) . "\n" ?>
       </div>
       <div class="panel-body pb-0">
+        <div class="alert alert-danger mb-3">
+          <p class="small my-0">
+            <?= Html::encode(
+              Yii::t(
+                'app',
+                'This data is based on {siteName} users and differs significantly from overall game statistics.',
+                [
+                  'siteName' => Yii::$app->name,
+                ],
+              ),
+            ) . "\n" ?>
+          </p>
+        </div>
         <div class="table-responsive mb-3">
           <table class="table table-bordered table-striped table-condensed w-auto mb-0">
             <thead>
@@ -126,7 +141,7 @@ $periods = ArrayHelper::sort(
             </thead>
             <tbody>
               <tr>
-                <th scope="row"><?= Html::encode(Yii::$app->name) ?></th>
+                <th class="text-center" scope="row"><?= Html::encode(Yii::t('app', 'Total')) ?></th>
                 <td class="text-center"><?= Html::encode($fmt->asInteger($abstract->users)) ?></td>
                 <td class="text-center">
                   <?= Html::encode($fmt->asInteger($abstract->agg_battles)) . "\n" ?>
@@ -149,6 +164,38 @@ $periods = ArrayHelper::sort(
                 <td class="text-center fw-bold"><?= Html::encode($fmt->asDecimal($abstract->p80, 1)) ?></td>
                 <td class="text-center fw-bold"><?= Html::encode($fmt->asDecimal($abstract->p95, 1)) ?></td>
               </tr>
+<?php foreach ($periods as $i => $period) { ?>
+              <tr class="text-muted">
+                <th class="text-center" scope="row"><?= Html::encode(mb_chr(0x2460 + $i, 'UTF-8')) ?></th>
+<?php if ($row = $periodAbstracts[$period->id] ?? null) { ?>
+                <td class="text-center"><?= Html::encode($fmt->asInteger($row->users)) ?></td>
+                <td class="text-center">
+                  <?= Html::encode($fmt->asInteger($row->agg_battles)) . "\n" ?>
+                  <?= Html::tag(
+                    'span',
+                    vsprintf('(%s)', [
+                      Html::encode($fmt->asInteger($row->battles)),
+                    ]),
+                    [
+                      'class' => 'auto-tooltip',
+                      'title' => Yii::t('app', 'Includes battles with unknown event power'),
+                    ],
+                  ) . "\n" ?>
+                </td>
+                <td class="text-center"><?= Html::encode($fmt->asDecimal($row->average, 1)) ?></td>
+                <td class="text-center"><?= Html::encode($fmt->asDecimal($row->stddev, 1)) ?></td>
+                <td class="text-center"><?= Html::encode($fmt->asDecimal($row->p25, 1)) ?></td>
+                <td class="text-center"><?= Html::encode($fmt->asDecimal($row->p50, 1)) ?></td>
+                <td class="text-center"><?= Html::encode($fmt->asDecimal($row->p75, 1)) ?></td>
+                <td class="text-center"><?= Html::encode($fmt->asDecimal($row->p80, 1)) ?></td>
+                <td class="text-center"><?= Html::encode($fmt->asDecimal($row->p95, 1)) ?></td>
+<?php } else { ?>
+<?php for ($j = 0; $j < 9; ++$j) { ?>
+                <td class="text-center">-</td>
+<?php } ?>
+<?php } ?>
+              </tr>
+<?php } ?>
             </tbody>
           </table>
         </div>
