@@ -27,6 +27,7 @@ use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\db\Now;
 use app\models\Battle2;
 use app\models\BattlePlayer;
+use app\models\EventSchedule3;
 use app\models\Knockout;
 use app\models\Lobby;
 use app\models\Lobby2;
@@ -62,6 +63,7 @@ use function array_map;
 use function array_merge;
 use function array_reverse;
 use function array_values;
+use function date;
 use function floor;
 use function fwrite;
 use function implode;
@@ -70,6 +72,7 @@ use function time;
 use function version_compare;
 use function vsprintf;
 
+use const DATE_ATOM;
 use const SORT_ASC;
 use const SORT_DESC;
 use const STDERR;
@@ -106,8 +109,21 @@ final class StatController extends Controller
         // $this->updateEntireWeapons1();
     }
 
-    public function actionUpdateEntireEvent3(): int
+    public function actionUpdateEntireEvent3(int $force = 0): int
     {
+        if ($force === 0) {
+            $now = date(DATE_ATOM, $_SERVER['REQUEST_TIME']);
+            $query = EventSchedule3::find()
+                ->andWhere(['and',
+                    ['<=', 'start_at', $now],
+                    ['>', "(end_at + '2 hours'::interval)", $now],
+                ]);
+            if (!$query->exists()) {
+                $this->stderr(__METHOD__ . "(): No event is running.\n");
+                return ExitCode::OK;
+            }
+        }
+
         $this->updateEntireEvent3();
         return ExitCode::OK;
     }
