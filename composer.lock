@@ -1452,16 +1452,16 @@
         },
         {
             "name": "lipis/flag-icons",
-            "version": "v6.9.2",
+            "version": "v6.9.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lipis/flag-icons.git",
-                "reference": "762b8e7db336e895f8116e650240518ec72c1fed"
+                "reference": "62400998b943dd3a5ee22b180050cc9cbb27ee15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lipis/flag-icons/zipball/762b8e7db336e895f8116e650240518ec72c1fed",
-                "reference": "762b8e7db336e895f8116e650240518ec72c1fed",
+                "url": "https://api.github.com/repos/lipis/flag-icons/zipball/62400998b943dd3a5ee22b180050cc9cbb27ee15",
+                "reference": "62400998b943dd3a5ee22b180050cc9cbb27ee15",
                 "shasum": ""
             },
             "type": "library",
@@ -1487,9 +1487,9 @@
             ],
             "support": {
                 "issues": "https://github.com/lipis/flag-icons/issues",
-                "source": "https://github.com/lipis/flag-icons/tree/v6.9.2"
+                "source": "https://github.com/lipis/flag-icons/tree/v6.9.3"
             },
-            "time": "2023-07-26T17:52:26+00:00"
+            "time": "2023-08-03T20:23:30+00:00"
         },
         {
             "name": "lusitanian/oauth",
@@ -5809,16 +5809,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.26",
+            "version": "1.10.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "5d660cbb7e1b89253a47147ae44044f49832351f"
+                "reference": "a9f44dcea06f59d1363b100bb29f297b311fa640"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/5d660cbb7e1b89253a47147ae44044f49832351f",
-                "reference": "5d660cbb7e1b89253a47147ae44044f49832351f",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/a9f44dcea06f59d1363b100bb29f297b311fa640",
+                "reference": "a9f44dcea06f59d1363b100bb29f297b311fa640",
                 "shasum": ""
             },
             "require": {
@@ -5867,7 +5867,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-07-19T12:44:37+00:00"
+            "time": "2023-08-05T09:57:55+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -7024,16 +7024,16 @@
         },
         {
             "name": "sebastian/global-state",
-            "version": "5.0.5",
+            "version": "5.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/global-state.git",
-                "reference": "0ca8db5a5fc9c8646244e629625ac486fa286bf2"
+                "reference": "bde739e7565280bda77be70044ac1047bc007e34"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/global-state/zipball/0ca8db5a5fc9c8646244e629625ac486fa286bf2",
-                "reference": "0ca8db5a5fc9c8646244e629625ac486fa286bf2",
+                "url": "https://api.github.com/repos/sebastianbergmann/global-state/zipball/bde739e7565280bda77be70044ac1047bc007e34",
+                "reference": "bde739e7565280bda77be70044ac1047bc007e34",
                 "shasum": ""
             },
             "require": {
@@ -7076,7 +7076,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/global-state/issues",
-                "source": "https://github.com/sebastianbergmann/global-state/tree/5.0.5"
+                "source": "https://github.com/sebastianbergmann/global-state/tree/5.0.6"
             },
             "funding": [
                 {
@@ -7084,7 +7084,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-02-14T08:28:10+00:00"
+            "time": "2023-08-02T09:26:13+00:00"
         },
         {
             "name": "sebastian/lines-of-code",
