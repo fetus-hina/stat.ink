@@ -1368,16 +1368,16 @@
         },
         {
             "name": "laminas/laminas-validator",
-            "version": "2.36.0",
+            "version": "2.37.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-validator.git",
-                "reference": "e3051fbef200332d3df8df034d95f3abb127af6e"
+                "reference": "e57810c007891066fdc4e9fb2523bf32e218fd92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-validator/zipball/e3051fbef200332d3df8df034d95f3abb127af6e",
-                "reference": "e3051fbef200332d3df8df034d95f3abb127af6e",
+                "url": "https://api.github.com/repos/laminas/laminas-validator/zipball/e57810c007891066fdc4e9fb2523bf32e218fd92",
+                "reference": "e57810c007891066fdc4e9fb2523bf32e218fd92",
                 "shasum": ""
             },
             "require": {
@@ -1448,7 +1448,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2023-07-31T06:17:06+00:00"
+            "time": "2023-08-07T12:36:50+00:00"
         },
         {
             "name": "lipis/flag-icons",
