@@ -181,6 +181,7 @@ return [
     'Delete This Battle' => '',
     'Delete This Job' => '',
     'Detail' => '',
+    'Detailed' => '',
     'Detailed List' => '',
     'Details' => '',
     'Deviation' => '',

@@ -31,17 +31,20 @@ $maxUseRate = $samples > 0
   )
   : 0.0;
 
-$maxWinRate = max(
-  array_filter(
-    array_map(
-      function (Event3StatsSpecial|Event3StatsWeapon $model): ?float {
-        $wins = $model->wins;
-        $battles = $model->battles;
-        return $battles > 0 ? $wins / $battles : null;
-      },
-      $provider->getModels(),
+$maxWinRate = min(
+  0.75,
+  max(
+    array_filter(
+      array_map(
+        function (Event3StatsSpecial|Event3StatsWeapon $model): ?float {
+          $wins = $model->wins;
+          $battles = $model->battles;
+          return $battles > 0 ? $wins / $battles : null;
+        },
+        $provider->getModels(),
+      ),
+      fn (?float $v): bool => $v !== null,
     ),
-    fn (?float $v): bool => $v !== null,
   ),
 );
 

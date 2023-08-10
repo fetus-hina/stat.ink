@@ -183,6 +183,7 @@ return [
     'Delete This Battle' => 'Supprimer ce match',
     'Delete This Job' => '',
     'Detail' => '',
+    'Detailed' => '',
     'Detailed List' => 'Liste détaillée',
     'Details' => '',
     'Deviation' => 'Déviation',

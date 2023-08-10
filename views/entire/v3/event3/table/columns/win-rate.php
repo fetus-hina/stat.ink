@@ -27,7 +27,7 @@ return [
     $info = StandardError::winpct($wins, $battles);
     $rate = $info ? $info['rate'] : $wins / $battles;
     return Progress::widget([
-      'percent' => $rate / $maxWinRate * 100,
+      'percent' => min(1.0, $rate / $maxWinRate) * 100,
       'label' => trim(
         vsprintf('%s %s', [
           $fmt->asPercent($rate, 2),
