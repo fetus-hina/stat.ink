@@ -183,6 +183,7 @@ return [
     'Delete This Battle' => '',
     'Delete This Job' => '',
     'Detail' => '细节',
+    'Detailed' => '',
     'Detailed List' => '细节列表',
     'Details' => '细节',
     'Deviation' => '标准差',

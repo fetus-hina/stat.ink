@@ -180,6 +180,7 @@ return [
     'Delete' => '削除',
     'Detail' => '詳細',
     'Detailed List' => '詳細なリストで表示',
+    'Detailed' => '詳細',
     'Details' => '詳細',
     'Deviation' => '偏差値',
     'Disabled' => '無効',

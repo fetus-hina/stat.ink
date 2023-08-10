@@ -88,7 +88,12 @@ final class TimezoneDialog extends Dialog
 
     private function currentTimezone(): string
     {
-        if (!$tz = Timezone::findOne(['identifier' => Yii::$app->timeZone])) {
+        $tz = Timezone::find()
+            ->andWhere(['identifier' => Yii::$app->timeZone])
+            ->cache(86400)
+            ->limit(1)
+            ->one();
+        if (!$tz) {
             return '';
         }
 
@@ -176,7 +181,10 @@ final class TimezoneDialog extends Dialog
     {
         $ret = '';
         $currentTz = Yii::$app->timeZone;
-        $groups = TimezoneGroup::find()->with(['timezones', 'timezones.countries'])->all();
+        $groups = TimezoneGroup::find()
+            ->with(['timezones', 'timezones.countries'])
+            ->cache(86400)
+            ->all();
         foreach ($groups as $group) {
             if ($group->timezones) {
                 $ret .= $this->renderZoneGroupHeader($group);

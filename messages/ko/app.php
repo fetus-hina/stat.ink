@@ -182,6 +182,7 @@ return [
     'Delete This Battle' => '이 배틀 삭제',
     'Delete This Job' => '이 알바 삭제',
     'Detail' => '상세',
+    'Detailed' => '',
     'Detailed List' => '상세 리스트 표시',
     'Details' => '상세',
     'Deviation' => '편차',

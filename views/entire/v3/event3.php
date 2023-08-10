@@ -11,6 +11,7 @@ use app\models\Event3StatsPowerHistogram;
 use app\models\Event3StatsPowerPeriodHistogram;
 use app\models\EventPeriod3;
 use app\models\EventSchedule3;
+use yii\bootstrap\Tabs;
 use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -117,13 +118,43 @@ $periods = ArrayHelper::sort(
   </div>
 
 <?php if ($samples > 0) { ?>
-  <?= $this->render('event3/table', [
-    'provider' => $weaponsProvider,
-    'samples' => $samples,
+  <?= Tabs::widget([
+    'items' => [
+      [
+        'active' => true,
+        'label' => Yii::t('app', 'Detailed'),
+        'content' => $this->render('event3/table', [
+          'provider' => $weaponsProvider,
+          'samples' => $samples,
+        ]),
+      ],
+      // [
+      //   'label' => Yii::t('app', 'Win %'),
+      //   'content' => 'aaa',
+      // ],
+    ],
+    'tabContentOptions' => [
+      'class' => 'mt-3 tab-content'
+    ],
   ]) . "\n" ?>
-  <?= $this->render('event3/table', [
-    'provider' => $specialProvider,
-    'samples' => $samples,
+  <?= Tabs::widget([
+    'items' => [
+      [
+        'active' => true,
+        'label' => Yii::t('app', 'Detailed'),
+        'content' => $this->render('event3/table', [
+          'provider' => $specialProvider,
+          'samples' => $samples,
+        ]),
+      ],
+      // [
+      //   'label' => Yii::t('app', 'Win %'),
+      //   'content' => 'aaa',
+      // ],
+    ],
+    'tabContentOptions' => [
+      'class' => 'mt-3 tab-content'
+    ],
   ]) . "\n" ?>
 <?php } elseif ($event->internal_id === 'TGVhZ3VlTWF0Y2hFdmVudC1QYWlyQ3Vw') { ?>
 <?php // 「最強ペア決定戦」は現在のところデータがないので、お詫びを表示する ?>
