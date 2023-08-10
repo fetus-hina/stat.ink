@@ -54,7 +54,7 @@ final class Event3StatsUpdator
             $db,
             Event3StatsWeapon::tableName(),
             'weapon_id',
-            '{{%weapon3}}.[[id]]',
+            '{{%weapon3}}.[[canonical_id]]',
         );
 
         self::updateStats(
