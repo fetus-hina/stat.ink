@@ -103,7 +103,10 @@ final class LanguageDialog extends Dialog
                     ),
                 },
                 ArrayHelper::sort(
-                    Language::find()->with('supportLevel')->all(),
+                    Language::find()
+                        ->with('supportLevel')
+                        ->cache(86400)
+                        ->all(),
                     fn (Language $a, Language $b): int => strcmp($a->name, $b->name)
                 ),
             ),
