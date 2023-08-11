@@ -95,15 +95,6 @@ final class Event3Action extends Action
             : $controller->render('v3/event3', $dataOrResponse);
     }
 
-    private static function getBaseDate(): DateTimeInterface
-    {
-        return (new DateTimeImmutable())
-            ->setTimestamp($_SERVER['REQUEST_TIME'])
-            ->setTimezone(new DateTimeZone('Etc/UTC'))
-            ->sub(new DateInterval('P1D'))
-            ->setTime(0, 0, 0);
-    }
-
     /**
      * @return array{bool, Event3} bool: need redirect?
      */
@@ -182,15 +173,15 @@ final class Event3Action extends Action
      */
     private static function getEvents(Connection $db): array
     {
-        $date = self::getBaseDate();
         $eventIds = (new Query())
             ->select(['event_id' => '{{%event_schedule3}}.[[event_id]]'])
             ->distinct()
             ->from('{{%event_schedule3}}')
-            ->andWhere(['and',
-                ['<=', '{{%event_schedule3}}.[[start_at]]', $date->format(DateTimeInterface::ATOM)],
-            ])
-            ->cache(86400)
+            ->innerJoin(
+                '{{%event3_stats_power}}',
+                '{{%event3_stats_power}}.[[schedule_id]] = {{%event_schedule3}}.[[id]]',
+            )
+            ->cache(60)
             ->column($db);
 
         return ArrayHelper::sort(
