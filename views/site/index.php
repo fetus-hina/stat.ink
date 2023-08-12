@@ -112,16 +112,19 @@ OgpHelper::default($this, Url::to(['site/index'], true));
         Html::a(Html::encode(Yii::t('app', 'Special Uses')), ['entire/special-use3']),
         Html::a(Html::encode(Yii::t('app', 'X Power')), ['entire/xpower-distrib3']),
         Html::a(Html::encode(Yii::t('app', 'Ink Color')), ['entire/ink-color3']),
-        Html::a(
-          Html::encode(Yii::t('app', 'Estimated Vote %')),
-          ['entire/splatfest3'],
-        ),
       ],
       [
         Html::encode('3 ' . Yii::t('app-lobby3', 'Challenge')),
         Html::a(
           Html::encode(Yii::t('app', 'Weapon Stats')),
           ['entire/event3'],
+        ),
+      ],
+      [
+        Html::encode('3 ' . Yii::t('app-lobby3', 'Splatfest')),
+        Html::a(
+          Html::encode(Yii::t('app', 'Estimated Vote %')),
+          ['entire/splatfest3'],
         ),
       ],
       [
