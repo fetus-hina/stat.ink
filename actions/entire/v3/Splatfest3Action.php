@@ -38,20 +38,20 @@ use const SORT_NUMERIC;
 
 final class Splatfest3Action extends Action
 {
-    private const START_AT = '2023-07-15T00:00:00+00:00';
-    private const END_AT = '2023-07-17T00:00:00+00:00';
+    private const START_AT = '2023-08-12T00:00:00+00:00';
+    private const END_AT = '2023-08-14T00:00:00+00:00';
 
-    private const TEAM_NAME_1 = 'Vanilla / バニラ / 香草';
-    private const TEAM_NAME_2 = 'Strawberry / ストロベリー / 草莓';
-    private const TEAM_NAME_3 = 'Mint Chip / チョコミント / 薄荷巧克力';
+    private const TEAM_NAME_1 = 'Money / 富 / 财富 / 財富';
+    private const TEAM_NAME_2 = 'Fame / 名声 / 名聲';
+    private const TEAM_NAME_3 = 'Love / 愛 / 爱';
 
-    private const TEAM_COLOR_1 = 'cca770';
-    private const TEAM_COLOR_2 = 'bc6d74';
-    private const TEAM_COLOR_3 = '2ac29e';
+    private const TEAM_COLOR_1 = 'c7742d';
+    private const TEAM_COLOR_2 = '73bd48';
+    private const TEAM_COLOR_3 = 'b74879';
 
-    private const TEAM_COLOR_PROGRESS_1 = 'cca770';
-    private const TEAM_COLOR_PROGRESS_2 = 'bc6d74';
-    private const TEAM_COLOR_PROGRESS_3 = '2ac29e';
+    private const TEAM_COLOR_PROGRESS_1 = self::TEAM_COLOR_1;
+    private const TEAM_COLOR_PROGRESS_2 = self::TEAM_COLOR_2;
+    private const TEAM_COLOR_PROGRESS_3 = self::TEAM_COLOR_3;
 
     public function run(): Response|string
     {
