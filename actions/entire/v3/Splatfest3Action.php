@@ -11,67 +11,95 @@ declare(strict_types=1);
 namespace app\actions\entire\v3;
 
 use LogicException;
+use TypeError;
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\Lobby3;
 use app\models\Rule3;
+use app\models\Splatfest3;
+use app\models\SplatfestTeam3;
 use yii\base\Action;
 use yii\db\Connection;
+use yii\db\Expression;
 use yii\db\Query;
 use yii\db\Transaction;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
 use function array_map;
 use function array_merge;
 use function array_unique;
 use function array_values;
-use function assert;
+use function count;
+use function gmdate;
 use function hexdec;
 use function implode;
 use function preg_match;
 use function sort;
+use function sprintf;
 use function substr;
 use function vsprintf;
 
+use const DATE_ATOM;
+use const SORT_DESC;
 use const SORT_NUMERIC;
 
 final class Splatfest3Action extends Action
 {
-    private const START_AT = '2023-08-12T00:00:00+00:00';
-    private const END_AT = '2023-08-14T00:00:00+00:00';
-
-    private const TEAM_NAME_1 = 'Money / 富 / 财富 / 財富';
-    private const TEAM_NAME_2 = 'Fame / 名声 / 名聲';
-    private const TEAM_NAME_3 = 'Love / 愛 / 爱';
-
-    private const TEAM_COLOR_1 = 'c8752d';
-    private const TEAM_COLOR_2 = '73bd49';
-    private const TEAM_COLOR_3 = 'b84979';
-
-    private const TEAM_COLOR_PROGRESS_1 = self::TEAM_COLOR_1;
-    private const TEAM_COLOR_PROGRESS_2 = self::TEAM_COLOR_2;
-    private const TEAM_COLOR_PROGRESS_3 = self::TEAM_COLOR_3;
-
-    public function run(): Response|string
+    public function run(?string $id = null): Response|string
     {
-        $controller = $this->controller;
-        assert($controller instanceof Controller);
+        $controller = TypeHelper::instanceOf($this->controller, Controller::class);
+        if ($id === null) {
+            $model = Splatfest3::find()
+                ->andWhere(['<=', 'start_at', gmdate(DATE_ATOM, $_SERVER['REQUEST_TIME'])])
+                ->orderBy(['start_at' => SORT_DESC])
+                ->limit(1)
+                ->one();
+            return $model
+                ? $controller->redirect(['entire/splatfest3', 'id' => $model->id])
+                : throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
+        }
+
+        try {
+            $id = TypeHelper::int($id);
+        } catch (TypeError $e) {
+            throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
+        }
+
+        $model = Splatfest3::find()
+            ->andWhere(['id' => $id])
+            ->andWhere(['<=', 'start_at', gmdate(DATE_ATOM, $_SERVER['REQUEST_TIME'])])
+            ->orderBy(['start_at' => SORT_DESC])
+            ->limit(1)
+            ->one();
 
         $data = Yii::$app->db->transaction(
-            function (Connection $db): array {
-                $themes = $this->getThemes($db);
+            function (Connection $db) use ($model): array {
+                $teams = ArrayHelper::sort(
+                    $model->splatfestTeam3s,
+                    fn (SplatfestTeam3 $a, SplatfestTeam3 $b) => $a->camp_id <=> $b->camp_id,
+                );
+                if (count($teams) !== 3) {
+                    throw new LogicException();
+                }
+
+                $themes = $this->getThemesOnBattle3($db, $model, $teams);
+
                 return [
-                    'votes' => ArrayHelper::map($this->getVotes($db, $themes), 'theme', 'count'),
+                    'splatfest' => $model,
+                    'festList' => $this->getFestList($db),
+                    'votes' => ArrayHelper::map($this->getVotes($db, $model, $themes), 'theme', 'count'),
                     'names' => [
-                        'team1' => self::TEAM_NAME_1,
-                        'team2' => self::TEAM_NAME_2,
-                        'team3' => self::TEAM_NAME_3,
+                        'team1' => $teams[0]->name,
+                        'team2' => $teams[1]->name,
+                        'team3' => $teams[2]->name,
                     ],
                     'colors' => [
-                        'team1' => self::TEAM_COLOR_PROGRESS_1,
-                        'team2' => self::TEAM_COLOR_PROGRESS_2,
-                        'team3' => self::TEAM_COLOR_PROGRESS_3,
+                        'team1' => $teams[0]->color,
+                        'team2' => $teams[1]->color,
+                        'team3' => $teams[2]->color,
                     ],
                 ];
             },
@@ -81,20 +109,36 @@ final class Splatfest3Action extends Action
         return $controller->render('v3/splatfest3', $data);
     }
 
-    private function getThemes(Connection $db): array
+    private function getFestList(Connection $db): array
     {
+        return Splatfest3::find()
+            ->andWhere(['<=', 'start_at', gmdate(DATE_ATOM, $_SERVER['REQUEST_TIME'])])
+            ->orderBy(['start_at' => SORT_DESC])
+            ->all($db);
+    }
+
+    /**
+     * @param SplatfestTeam3[] $teams
+     */
+    private function getThemesOnBattle3(Connection $db, Splatfest3 $fest, array $teams): array
+    {
+        $colors = Arrayhelper::getColumn($teams, 'color');
+        if (count($colors) !== 3) {
+            throw new LogicException();
+        }
+
         return Yii::$app->cache->getOrSet(
-            [__METHOD__, self::TEAM_COLOR_1, self::TEAM_COLOR_2, self::TEAM_COLOR_3],
+            [__METHOD__, $colors],
             fn (): array => [
-                'team1' => $this->getTeamIdsByColor($db, self::TEAM_COLOR_1),
-                'team2' => $this->getTeamIdsByColor($db, self::TEAM_COLOR_2),
-                'team3' => $this->getTeamIdsByColor($db, self::TEAM_COLOR_3),
+                'team1' => $this->getTeamIdsByColor($db, $fest, $colors[0]),
+                'team2' => $this->getTeamIdsByColor($db, $fest, $colors[1]),
+                'team3' => $this->getTeamIdsByColor($db, $fest, $colors[2]),
             ],
             600,
         );
     }
 
-    private function getTeamIdsByColor(Connection $db, string $hexColor): array
+    private function getTeamIdsByColor(Connection $db, Splatfest3 $fest, string $hexColor): array
     {
         if (!preg_match('/^[0-9a-f]{6,}$/', $hexColor)) {
             throw new LogicException();
@@ -128,15 +172,15 @@ final class Splatfest3Action extends Action
         }
 
         $ids = array_merge(
-            $this->getTeamIdsByColorImpl($db, $colors, 'our_team_color', 'our_team_theme_id'),
-            $this->getTeamIdsByColorImpl($db, $colors, 'their_team_color', 'their_team_theme_id'),
+            $this->getTeamIdsByColorImpl($db, $fest, $colors, 'our_team_color', 'our_team_theme_id'),
+            $this->getTeamIdsByColorImpl($db, $fest, $colors, 'their_team_color', 'their_team_theme_id'),
         );
 
         sort($ids, SORT_NUMERIC);
         return array_values(array_unique($ids));
     }
 
-    private function getTeamIdsByColorImpl(Connection $db, array $colors, string $attrColor, string $attrTheme): array
+    private function getTeamIdsByColorImpl(Connection $db, Splatfest3 $fest, array $colors, string $attrColor, string $attrTheme): array
     {
         $query = (new Query())
             ->select([
@@ -160,7 +204,21 @@ final class Splatfest3Action extends Action
                 ['not', ['{{%battle3}}.[[start_at]]' => null]],
                 ['not', ['{{%battle3}}.[[their_team_color]]' => null]],
                 ['not', ['{{%battle3}}.[[their_team_theme_id]]' => null]],
-                ['between', '{{%battle3}}.[[start_at]]', self::START_AT, self::END_AT],
+                ['between',
+                    '{{%battle3}}.[[start_at]]',
+                    new Expression(
+                        vsprintf('%s::timestamptz - %s::interval', [
+                            $db->quoteValue($fest->start_at),
+                            $db->quoteValue('1 hour'),
+                        ]),
+                    ),
+                    new Expression(
+                        vsprintf('%s::timestamptz + %s::interval', [
+                            $db->quoteValue($fest->end_at),
+                            $db->quoteValue('10 minute'),
+                        ]),
+                    ),
+                ],
                 '{{%battle3}}.[[start_at]] < {{%battle3}}.[[end_at]]',
             ])
             ->andWhere([
@@ -173,12 +231,14 @@ final class Splatfest3Action extends Action
         );
     }
 
-    private function getVotes(Connection $db, array $themes)
+    private function getVotes(Connection $db, Splatfest3 $fest, array $themes): array
     {
         return Yii::$app->cache->getOrSet(
             [__METHOD__, $themes],
-            function () use ($db, $themes): array {
-                $themeSql = $this->buildThemeAggregator($db, $themes);
+            function () use ($db, $fest, $themes): array {
+                if (!$themeSql = $this->buildThemeAggregator($db, $themes)) {
+                    return [];
+                }
                 $query = (new Query())
                     ->select([
                         'theme' => $themeSql,
@@ -204,7 +264,21 @@ final class Splatfest3Action extends Action
                         ['not', ['{{%battle3}}.[[start_at]]' => null]],
                         ['not', ['{{%battle3}}.[[their_team_color]]' => null]],
                         ['not', ['{{%battle3}}.[[their_team_theme_id]]' => null]],
-                        ['between', '{{%battle3}}.[[start_at]]', self::START_AT, self::END_AT],
+                        ['between',
+                            '{{%battle3}}.[[start_at]]',
+                            new Expression(
+                                vsprintf('%s::timestamptz - %s::interval', [
+                                    $db->quoteValue($fest->start_at),
+                                    $db->quoteValue('1 hour'),
+                                ]),
+                            ),
+                            new Expression(
+                                vsprintf('%s::timestamptz + %s::interval', [
+                                    $db->quoteValue($fest->end_at),
+                                    $db->quoteValue('10 minute'),
+                                ]),
+                            ),
+                        ],
                         '{{%battle3}}.[[start_at]] < {{%battle3}}.[[end_at]]',
                     ])
                     ->groupBy([$themeSql]);
@@ -214,7 +288,7 @@ final class Splatfest3Action extends Action
         );
     }
 
-    private function buildThemeAggregator(Connection $db, array $themes): string
+    private function buildThemeAggregator(Connection $db, array $themes): ?string
     {
         $cases = [];
         foreach ($themes as $name => $ids) {
@@ -233,9 +307,10 @@ final class Splatfest3Action extends Action
                 ]);
             }
         }
-        return vsprintf('(CASE %s END)', [
-            implode(' ', $cases),
-        ]);
+
+        return $cases
+            ? sprintf('(CASE %s END)', implode(' ', $cases))
+            : null;
     }
 
     /**
