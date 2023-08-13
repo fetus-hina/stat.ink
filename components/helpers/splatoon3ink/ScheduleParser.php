@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace app\components\helpers\splatoon3ink;
 
 use app\components\helpers\splatoon3ink\scheduleParser\Event;
+use app\components\helpers\splatoon3ink\scheduleParser\Festivals;
 use app\components\helpers\splatoon3ink\scheduleParser\Matches;
 use app\components\helpers\splatoon3ink\scheduleParser\Salmon;
 use yii\helpers\ArrayHelper;
@@ -18,6 +19,7 @@ use yii\helpers\ArrayHelper;
 final class ScheduleParser
 {
     use Event;
+    use Festivals;
     use Matches;
     use Salmon;
 
@@ -56,5 +58,10 @@ final class ScheduleParser
                 isBigRun: false,
             ),
         ];
+    }
+
+    public static function parseFestivals(array $json): array
+    {
+        return self::festivals($json);
     }
 }

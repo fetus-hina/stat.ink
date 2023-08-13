@@ -6,11 +6,16 @@ use app\components\helpers\OgpHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
+use app\models\Splatfest3;
 use yii\bootstrap\Progress;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\web\View;
 
 /**
+ * @var Splatfest3 $splatfest
+ * @var Splatfest3[] $festList
  * @var View $this
  * @var array<string, int> $votes
  * @var array<string, string> $colors
@@ -44,6 +49,22 @@ $this->registerCss(
 
   <?= AdWidget::widget() . "\n" ?>
   <?= SnsWidget::widget() . "\n" ?>
+
+  <div class="mb-3">
+    <?= Html::dropDownList(
+        '',
+        Url::to(['entire/splatfest3', 'id' => $splatfest->id], true),
+        ArrayHelper::map(
+            $festList,
+            fn (Splatfest3 $fest): string => Url::to(['entire/splatfest3', 'id' => $fest->id], true),
+            fn (Splatfest3 $fest): string => Yii::t('db/splatfest3', (string)$fest->name),
+        ),
+        [
+            'class' => 'form-control mb-0',
+            'onchange' => 'window.location.href = this.value',
+        ],
+    ) . "\n" ?>
+  </div>
 
   <p class="mb-1 small text-muted">
     <?= Html::encode(
@@ -101,7 +122,7 @@ $this->registerCss(
                 'background-color' => "#{$colors[$key]}",
               ],
             ]) . "\n" ?>
-            <td><?= Html::encode($names[$key]) ?></td>
+            <td><?= Html::encode(Yii::t('db/splatfest3/team', $names[$key])) ?></td>
             <?= Html::tag(
               'td',
               Html::encode(Yii::$app->formatter->asPercent($count / array_sum($votes), 1)),
