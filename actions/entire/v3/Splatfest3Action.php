@@ -45,9 +45,9 @@ final class Splatfest3Action extends Action
     private const TEAM_NAME_2 = 'Fame / 名声 / 名聲';
     private const TEAM_NAME_3 = 'Love / 愛 / 爱';
 
-    private const TEAM_COLOR_1 = 'c7742d';
-    private const TEAM_COLOR_2 = '73bd48';
-    private const TEAM_COLOR_3 = 'b74879';
+    private const TEAM_COLOR_1 = 'c8752d';
+    private const TEAM_COLOR_2 = '73bd49';
+    private const TEAM_COLOR_3 = 'b84979';
 
     private const TEAM_COLOR_PROGRESS_1 = self::TEAM_COLOR_1;
     private const TEAM_COLOR_PROGRESS_2 = self::TEAM_COLOR_2;
