@@ -543,6 +543,7 @@ return [
     'Splatfest Power (Normal)' => '',
     'Splatfest Power (Pro)' => '',
     'Splatfest Region:' => '',
+    'Splatfest Stats' => '',
     'Splatfest Title' => 'Titre Splatfest',
     'Splatfest Title (After)' => 'Titre Splatfest (après)',
     'SplatNet' => '',

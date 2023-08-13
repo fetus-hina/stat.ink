@@ -542,6 +542,7 @@ return [
     'Splatfest Power (Normal)' => '祭典戰力 (一般)',
     'Splatfest Power (Pro)' => '祭典戰力 (挑戰)',
     'Splatfest Region:' => '祭典區域',
+    'Splatfest Stats' => '',
     'Splatfest Title' => '祭典稱號',
     'Splatfest Title (After)' => '祭典稱號(之後)',
     'SplatNet' => 'SplatNet',

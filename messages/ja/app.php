@@ -531,6 +531,7 @@ return [
     'Splatfest Power (Pro)' => 'フェスパワー(チャレンジ)',
     'Splatfest Power' => 'フェスパワー',
     'Splatfest Region:' => 'フェス地域：',
+    'Splatfest Stats' => 'フェス統計',
     'Splatfest Title (After)' => 'フェス称号（後）',
     'Splatfest Title' => 'フェス称号',
     'Splatfest' => 'フェス',

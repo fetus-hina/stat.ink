@@ -542,6 +542,7 @@ return [
     'Splatfest Power (Normal)' => '페스 파워 (오픈)',
     'Splatfest Power (Pro)' => '페스 파워 (챌린지)',
     'Splatfest Region:' => '페스 지역:',
+    'Splatfest Stats' => '',
     'Splatfest Title' => '페스 칭호',
     'Splatfest Title (After)' => '페스 칭호 (After)',
     'SplatNet' => '',
