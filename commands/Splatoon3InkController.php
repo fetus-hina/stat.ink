@@ -16,6 +16,7 @@ use Yii;
 use app\commands\splatoon3Ink\UpdateEventSchedule;
 use app\commands\splatoon3Ink\UpdateSalmonSchedule;
 use app\commands\splatoon3Ink\UpdateSchedule;
+use app\commands\splatoon3Ink\UpdateSplatfestSchedule;
 use app\components\helpers\TypeHelper;
 use app\components\helpers\splatoon3ink\ScheduleParser;
 use app\models\TranslateMessage;
@@ -41,6 +42,7 @@ final class Splatoon3InkController extends Controller
     use UpdateEventSchedule;
     use UpdateSalmonSchedule;
     use UpdateSchedule;
+    use UpdateSplatfestSchedule;
 
     public $defaultAction = 'update';
 
@@ -55,6 +57,7 @@ final class Splatoon3InkController extends Controller
         $status |= $this->updateEventSchedule($schedules);
         $status |= $this->updateSalmonSchedule($schedules);
         $status |= $this->updateEventMessages();
+        $status |= $this->actionUpdateSplatfestSchedule();
         return $status === 0 ? ExitCode::OK : ExitCode::UNSPECIFIED_ERROR;
     }
 
@@ -88,6 +91,15 @@ final class Splatoon3InkController extends Controller
     public function actionUpdateEventMessages(): int
     {
         return $this->updateEventMessages();
+    }
+
+    public function actionUpdateSplatfestSchedule(): int
+    {
+        return $this->updateSplafestSchedule(
+            ScheduleParser::parseFestivals(
+                $this->queryJson('https://splatoon3.ink/data/festivals.json'),
+            ),
+        );
     }
 
     private function queryJson(string $url, array $data = []): array
