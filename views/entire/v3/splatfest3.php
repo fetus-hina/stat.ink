@@ -18,6 +18,7 @@ use yii\web\View;
  * @var array<string, int> $votes
  * @var array<string, string> $colors
  * @var array<string, string> $names
+ * @var array[] $tricolorStats
  */
 
 $title = Yii::t('app', 'Splatfest Stats') . ' - ' . Yii::t('db/splatfest3', (string)$splatfest->name);
@@ -65,4 +66,5 @@ OgpHelper::default($this, title: $this->title);
   </h2>
 
   <?= $this->render('splatfest3/vote', compact('colors', 'names', 'votes')) . "\n" ?>
+  <?= $this->render('splatfest3/tricolor', compact('tricolorStats')) . "\n" ?>
 </div>
