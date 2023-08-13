@@ -18,6 +18,7 @@ use app\models\Lobby3;
 use app\models\Rule3;
 use app\models\Splatfest3;
 use app\models\SplatfestTeam3;
+use app\models\TricolorRole3;
 use yii\base\Action;
 use yii\db\Connection;
 use yii\db\Expression;
@@ -27,6 +28,7 @@ use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
+use yii\web\ServerErrorHttpException;
 
 use function array_map;
 use function array_merge;
@@ -101,6 +103,7 @@ final class Splatfest3Action extends Action
                         'team2' => $teams[1]->color,
                         'team3' => $teams[2]->color,
                     ],
+                    'tricolorStats' => $this->getTricolorStats($db, $model),
                 ];
             },
             Transaction::REPEATABLE_READ,
@@ -354,5 +357,85 @@ final class Splatfest3Action extends Action
             $results = array_merge($results, $ids);
         }
         return $results;
+    }
+
+    private function getTricolorStats(Connection $db, Splatfest3 $fest): array
+    {
+        $attackers = TricolorRole3::find()
+            ->andWhere(['key' => 'attacker'])
+            ->limit(1)
+            ->cache(86400)
+            ->one($db);
+
+        $lobby = Lobby3::find()
+            ->andWhere(['key' => 'splatfest_open'])
+            ->limit(1)
+            ->cache(86400)
+            ->one($db);
+
+        $tricolor = Rule3::find()
+            ->andWhere(['key' => 'tricolor'])
+            ->limit(1)
+            ->cache(86400)
+            ->one($db);
+
+        if (!$attackers || !$lobby || !$tricolor) {
+            throw new ServerErrorHttpException();
+        }
+
+        $isAttackerWins = new Expression(
+            vsprintf('(%s.%s = %s) = %s.%s', [
+                $db->quoteTableName('{{%battle3}}'),
+                $db->quoteColumnName('our_team_role_id'),
+                (string)$db->quoteValue($attackers->id),
+                $db->quoteTableName('{{%result3}}'),
+                $db->quoteColumnName('is_win'),
+            ]),
+        );
+
+        $query = (new Query())
+            ->select([
+                'is_attacker_wins' => $isAttackerWins,
+                'count' => 'COUNT(*)',
+            ])
+            ->from('{{%battle3}}')
+            ->innerJoin('{{%result3}}', '{{%battle3}}.[[result_id]] = {{%result3}}.[[id]]')
+            ->andWhere(['and',
+                [
+                    '{{%battle3}}.[[has_disconnect]]' => false,
+                    '{{%battle3}}.[[is_automated]]' => true,
+                    '{{%battle3}}.[[is_deleted]]' => false,
+                    '{{%battle3}}.[[lobby_id]]' => $lobby->id,
+                    '{{%battle3}}.[[rule_id]]' => $tricolor->id,
+                    '{{%battle3}}.[[use_for_entire]]' => true,
+                    '{{%result3}}.[[aggregatable]]' => true,
+                ],
+                ['not', ['our_team_role_id' => null]],
+                ['not', ['their_team_role_id' => null]],
+                ['not', ['third_team_role_id' => null]],
+                '{{%battle3}}.[[start_at]] < {{%battle3}}.[[end_at]]',
+                ['between',
+                    '{{%battle3}}.[[start_at]]',
+                    new Expression(
+                        vsprintf('%s::timestamptz - %s::interval', [
+                            $db->quoteValue($fest->start_at),
+                            $db->quoteValue('1 hour'),
+                        ]),
+                    ),
+                    new Expression(
+                        vsprintf('%s::timestamptz + %s::interval', [
+                            $db->quoteValue($fest->end_at),
+                            $db->quoteValue('10 minute'),
+                        ]),
+                    ),
+                ],
+            ])
+            ->groupBy([
+                $isAttackerWins,
+            ]);
+
+        return $query->createCommand($db)
+            ->cache(600)
+            ->queryAll();
     }
 }
