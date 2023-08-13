@@ -57,7 +57,7 @@ $this->registerCss(
         ArrayHelper::map(
             $festList,
             fn (Splatfest3 $fest): string => Url::to(['entire/splatfest3', 'id' => $fest->id], true),
-            'name',
+            fn (Splatfest3 $fest): string => Yii::t('db/splatfest3', (string)$fest->name),
         ),
         [
             'class' => 'form-control mb-0',
@@ -122,7 +122,7 @@ $this->registerCss(
                 'background-color' => "#{$colors[$key]}",
               ],
             ]) . "\n" ?>
-            <td><?= Html::encode($names[$key]) ?></td>
+            <td><?= Html::encode(Yii::t('db/splatfest3/team', $names[$key])) ?></td>
             <?= Html::tag(
               'td',
               Html::encode(Yii::$app->formatter->asPercent($count / array_sum($votes), 1)),
