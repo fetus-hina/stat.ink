@@ -123,7 +123,7 @@ OgpHelper::default($this, Url::to(['site/index'], true));
       [
         Html::encode('3 ' . Yii::t('app-lobby3', 'Splatfest')),
         Html::a(
-          Html::encode(Yii::t('app', 'Estimated Vote %')),
+          Html::encode(Yii::t('app', 'Splatfest Stats')),
           ['entire/splatfest3'],
         ),
       ],

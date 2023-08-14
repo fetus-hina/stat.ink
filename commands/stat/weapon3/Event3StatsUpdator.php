@@ -195,17 +195,19 @@ final class Event3StatsUpdator
             ],
         );
 
+        $aggBattles = vsprintf('SUM(CASE %s END)', [
+            implode(' ', [
+                'WHEN {{%battle3}}.[[event_power]] IS NOT NULL THEN 1',
+                'ELSE 0',
+            ]),
+        ]);
+
         $select = (new Query())
             ->select([
                 'schedule_id' => '{{%event_schedule3}}.[[id]]',
                 'users' => 'COUNT(DISTINCT {{%battle3}}.[[user_id]])',
                 'battles' => 'COUNT(*)',
-                'agg_battles' => vsprintf('SUM(CASE %s END)', [
-                    implode(' ', [
-                        'WHEN {{%battle3}}.[[event_power]] IS NOT NULL THEN 1',
-                        'ELSE 0',
-                    ]),
-                ]),
+                'agg_battles' => $aggBattles,
                 'average' => 'AVG({{%battle3}}.[[event_power]])',
                 'stddev' => 'STDDEV_SAMP({{%battle3}}.[[event_power]])',
                 'minimum' => 'MIN({{%battle3}}.[[event_power]])',
@@ -216,16 +218,9 @@ final class Event3StatsUpdator
                 'p80' => $p(0.80),
                 'p95' => $p(0.95),
                 'maximum' => 'MAX({{%battle3}}.[[event_power]])',
-                'histogram_width' => vsprintf('ROUND(%s / 2) * 2', [
-                    vsprintf('((3.5 * STDDEV_SAMP(%s)) / POWER(%s, 1.0 / 3.0))', [
-                        '{{%battle3}}.[[event_power]]',
-                        vsprintf('SUM(CASE %s END)', [
-                            implode(' ', [
-                                'WHEN {{%battle3}}.[[event_power]] IS NOT NULL THEN 1',
-                                'ELSE 0',
-                            ]),
-                        ]),
-                    ]),
+                'histogram_width' => vsprintf('HISTOGRAM_WIDTH(%s, %s)', [
+                    $aggBattles,
+                    'STDDEV_SAMP({{%battle3}}.[[event_power]])',
                 ]),
             ])
             ->from('{{%battle3}}')
@@ -285,7 +280,7 @@ final class Event3StatsUpdator
 
         $classValue = sprintf(
             // +0.5 は階級値は階級の幅の中央を表すための調整
-            '(FLOOR(%1$s.%3$s / %2$s.%4$s + 0.5) * %2$s.%4$s)::integer',
+            '((FLOOR(%1$s.%3$s / %2$s.%4$s) + 0.5) * %2$s.%4$s)::integer',
             $db->quoteTableName('{{%battle3}}'),
             $db->quoteTableName('{{%event3_stats_power}}'),
             $db->quoteColumnName('event_power'),
