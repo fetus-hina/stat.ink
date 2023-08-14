@@ -67,4 +67,5 @@ OgpHelper::default($this, title: $this->title);
 
   <?= $this->render('splatfest3/vote', compact('colors', 'names', 'votes')) . "\n" ?>
   <?= $this->render('splatfest3/tricolor', compact('tricolorStats')) . "\n" ?>
+  <?= $this->render('splatfest3/power', compact('splatfest')) . "\n" ?>
 </div>

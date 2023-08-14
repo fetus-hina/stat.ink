@@ -23,6 +23,8 @@ use yii\db\ActiveRecord;
  * @property string $end_at
  *
  * @property SplatfestCamp3[] $camps
+ * @property Splatfest3StatsPower $splatfest3StatsPower
+ * @property Splatfest3StatsPowerHistogram[] $splatfest3StatsPowerHistograms
  * @property SplatfestTeam3[] $splatfestTeam3s
  */
 class Splatfest3 extends ActiveRecord
@@ -57,6 +59,16 @@ class Splatfest3 extends ActiveRecord
     public function getCamps(): ActiveQuery
     {
         return $this->hasMany(SplatfestCamp3::class, ['id' => 'camp_id'])->viaTable('splatfest_team3', ['fest_id' => 'id']);
+    }
+
+    public function getSplatfest3StatsPower(): ActiveQuery
+    {
+        return $this->hasOne(Splatfest3StatsPower::class, ['splatfest_id' => 'id']);
+    }
+
+    public function getSplatfest3StatsPowerHistograms(): ActiveQuery
+    {
+        return $this->hasMany(Splatfest3StatsPowerHistogram::class, ['splatfest_id' => 'id']);
     }
 
     public function getSplatfestTeam3s(): ActiveQuery
