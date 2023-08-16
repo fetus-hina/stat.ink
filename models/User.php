@@ -63,6 +63,7 @@ use const SORT_DESC;
  * @property integer $region_id
  * @property integer $link_mode_id
  * @property string $email
+ * @property boolean $apikey_password_reset
  *
  * @property Battle[] $battles
  * @property Battle2[] $battle2s
@@ -158,6 +159,7 @@ class User extends ActiveRecord implements IdentityInterface
             [['screen_name', 'twitter'], 'match', 'pattern' => '/^[a-zA-Z0-9_]{1,15}$/'],
             [['blackout'], 'default', 'value' => static::BLACKOUT_NOT_BLACKOUT],
             [['blackout_list'], 'default', 'value' => static::BLACKOUT_NOT_FRIEND],
+            [['apikey_password_reset'], 'boolean'],
             [['blackout', 'blackout_list'], 'in',
                 'range' => [
                     static::BLACKOUT_NOT_BLACKOUT,
@@ -215,6 +217,7 @@ class User extends ActiveRecord implements IdentityInterface
             'link_mode_id' => Yii::t('app', 'Link from other user\'s results'),
             'email' => Yii::t('app', 'Email'),
             'email_lang_id' => Yii::t('app', 'Email Language'),
+            'apikey_password_reset' => 'Apikey Password Reset',
         ];
     }
 

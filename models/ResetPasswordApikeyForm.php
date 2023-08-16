@@ -136,6 +136,7 @@ final class ResetPasswordApikeyForm extends Model
 
         $user = $this->getUser();
         $user->password = Password::hash($this->password);
+        $user->apikey_password_reset = false;
         if (!$user->save()) {
             $this->addError('password', 'Could not update password.');
             return false;
@@ -152,6 +153,7 @@ final class ResetPasswordApikeyForm extends Model
             $this->user = User::find()
                 ->andWhere([
                     '{{user}}.[[screen_name]]' => (string)$this->screen_name,
+                    '{{user}}.[[apikey_password_reset]]' => true,
                 ])
                 ->limit(1)
                 ->one();

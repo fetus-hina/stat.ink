@@ -51,6 +51,12 @@ $this->registerJsFile(
       </p>
       <div class="panel panel-default">
         <div class="panel-body">
+          <div class="alert alert-danger mb-3">
+            <?= implode('<br>', [
+              Html::encode(Yii::t('app', 'This feature is disabled by default.')),
+              Html::encode(Yii::t('app', 'To change your password using this feature, contact the administrator first.')),
+            ]) . "\n" ?>
+          </div>
           <?php $_ = ActiveForm::begin(['id' => 'form']); echo "\n" ?>
             <?= $_->field($form, 'screen_name')
               ->textInput([
