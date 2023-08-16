@@ -59,11 +59,13 @@ use yii\web\UploadedFile;
 use function array_keys;
 use function asort;
 use function base64_encode;
+use function count;
 use function dirname;
 use function file_get_contents;
 use function file_put_contents;
 use function floor;
 use function hash_hmac;
+use function in_array;
 use function is_array;
 use function is_int;
 use function is_object;
@@ -952,18 +954,42 @@ final class PostBattleForm extends Model
 
         if (
             !($lobby = $model->lobby) ||
-            !($result = $model->result)
+            !($result = $model->result) ||
+            !($rule = $model->rule) ||
+            $lobby->key === 'private' ||
+            !$result->aggregatable
         ) {
             return false;
         }
 
-        return $lobby->key !== 'private' &&
-            $result->aggregatable &&
-            $this->isValidPlayersCount($model);
+        if ($lobby->key === 'event') {
+            if (!$event = $model->event) {
+                return false;
+            }
+
+            // デュオ決定戦は全体が4人、各チーム2人
+            if ($event->internal_id === 'TGVhZ3VlTWF0Y2hFdmVudC1QYWlyQ3Vw') {
+                return $this->isValidPlayersCount($model, 4, [2]);
+            }
+        }
+
+        return $this->isValidPlayersCount(
+            $model,
+            8,
+            $lobby->key === 'splatfest_open' && $rule->key === 'tricolor'
+                ? [2, 4]
+                : [4],
+        );
     }
 
-    private function isValidPlayersCount(Battle3 $model): bool
-    {
+    /**
+     * @param int[] $expectPerTeamCount
+     */
+    private function isValidPlayersCount(
+        Battle3 $model,
+        int $expectTotalCount = 8,
+        array $expectPerTeamCount = [4],
+    ): bool {
         $playerCount = 0;
 
         if (is_array($this->our_team_players) && $this->our_team_players) {
@@ -981,6 +1007,10 @@ final class PostBattleForm extends Model
             if ($isMeCount !== 1) {
                 return false;
             }
+
+            if (!in_array(count($this->our_team_players), $expectPerTeamCount, true)) {
+                return false;
+            }
         } else {
             return false;
         }
@@ -994,6 +1024,10 @@ final class PostBattleForm extends Model
                 if (self::boolVal($model->me)) {
                     return false;
                 }
+            }
+
+            if (!in_array(count($this->their_team_players), $expectPerTeamCount, true)) {
+                return false;
             }
         } else {
             return false;
@@ -1009,9 +1043,13 @@ final class PostBattleForm extends Model
                     return false;
                 }
             }
+
+            if (!in_array(count($this->third_team_players), $expectPerTeamCount, true)) {
+                return false;
+            }
         }
 
-        return $playerCount === 8;
+        return $playerCount === $expectTotalCount;
     }
 
     private static function generateRandomFilename(string $ext): string
