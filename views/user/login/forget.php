@@ -15,6 +15,12 @@ use yii\web\View;
     <?= Html::encode(Yii::t('app', 'Reset your password')) . "\n" ?>
   </div>
   <div class="panel-body pb-0">
+    <div class="alert alert-danger mb-3">
+      <?= implode('<br>', [
+        Html::encode(Yii::t('app', 'This feature is disabled by default.')),
+        Html::encode(Yii::t('app', 'To change your password using this feature, contact the administrator first.')),
+      ]) . "\n" ?>
+    </div>
     <?= Html::a(
       Html::encode(Yii::t('app', 'If you know our API Token')),
       ['/user/reset-password-apikey'],
