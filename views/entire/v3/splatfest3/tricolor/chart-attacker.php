@@ -5,6 +5,7 @@ declare(strict_types=1);
 use app\assets\ChartJsAsset;
 use app\assets\ChartJsErrorBarsAsset;
 use app\assets\ColorSchemeAsset;
+use app\assets\JqueryEasyChartjsAsset;
 use app\components\helpers\StandardError;
 use yii\helpers\Html;
 use yii\web\JsExpression;
@@ -24,21 +25,9 @@ if (!$data) {
 ChartJsAsset::register($this);
 ChartJsErrorBarsAsset::register($this);
 ColorSchemeAsset::register($this);
+JqueryEasyChartjsAsset::register($this);
 
-$this->registerJs("
-  jQuery('.splatfest3-chart-attacker').each(
-    function () {
-      function looseJsonParse (obj) {
-        return Function('\"use strict\";return (' + obj + ')')();
-      }
-
-      const elem = this;
-      const config = looseJsonParse(this.getAttribute('data-chart'));
-      const canvas = elem.appendChild(document.createElement('canvas'));
-      new window.Chart(canvas.getContext('2d'), config);
-    }
-  );
-");
+$this->registerJs('$(".splatfest3-chart-attacker").easyChartJs();');
 
 $valueData = [
   'backgroundColor' => new JsExpression('window.colorScheme.graph1'),

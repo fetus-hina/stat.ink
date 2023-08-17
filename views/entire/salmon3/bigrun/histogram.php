@@ -5,6 +5,7 @@ declare(strict_types=1);
 use MathPHP\Probability\Distribution\Continuous\Normal as NormalDistribution;
 use app\assets\ChartJsAsset;
 use app\assets\ColorSchemeAsset;
+use app\assets\JqueryEasyChartjsAsset;
 use app\assets\RatioAsset;
 use app\components\helpers\XPowerNormalDistribution;
 use app\models\StatBigrunDistribAbstract3;
@@ -30,22 +31,10 @@ if (!$histogram) {
 
 ChartJsAsset::register($this);
 ColorSchemeAsset::register($this);
+JqueryEasyChartjsAsset::register($this);
 RatioAsset::register($this);
 
-$this->registerJs("
-  jQuery('.bigrun-histogram').each(
-    function () {
-      function looseJsonParse (obj) {
-        return Function('\"use strict\";return (' + obj + ')')();
-      }
-
-      const elem = this;
-      const config = looseJsonParse(this.getAttribute('data-chart'));
-      const canvas = elem.appendChild(document.createElement('canvas'));
-      new window.Chart(canvas.getContext('2d'), config);
-    }
-  );
-");
+$this->registerJs('$(".bigrun-histogram").easyChartJs();');
 
 $datasetHistogram = [
   'backgroundColor' => [ new JsExpression('window.colorScheme.graph2') ],
