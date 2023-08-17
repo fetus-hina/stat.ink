@@ -29,6 +29,13 @@ JqueryEasyChartjsAsset::register($this);
 
 $this->registerJs('$(".splatfest3-chart-attacker").easyChartJs();');
 
+$chartRangeOneSide = max(
+    10,
+    (int)abs(50 - ceil($data['min99ci'] * 100)),
+    (int)abs(50 - ceil($data['max99ci'] * 100)),
+);
+$chartRangeOneSide = (int)ceil($chartRangeOneSide / 10) * 10;
+
 $valueData = [
   'backgroundColor' => new JsExpression('window.colorScheme.graph1'),
   'borderColor' => new JsExpression('window.colorScheme.graph1'),
@@ -82,8 +89,8 @@ $valueData = [
             'grid' => [
                'offset' => false,
             ],
-            'min' => 0,
-            'max' => 100,
+            'max' => min(100, 50 + $chartRangeOneSide),
+            'min' => max(0, 50 - $chartRangeOneSide),
             'offset' => false,
             'title' => [
               'display' => true,
