@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use app\components\helpers\StandardError;
 use app\components\widgets\Icon;
-use yii\bootstrap\Progress;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\View;
@@ -51,64 +50,15 @@ $errInfo = StandardError::winpct($wins, $total);
     <p class="mb-3">
       <?= Html::encode(
         vsprintf('%s: %s±%s%% (95%%CI)', [
-          Yii::t('app', 'Attacker Team Win Ratio'),
+          Yii::t('app', 'Attacker Team Win Rate'),
           $fmt->asDecimal($errInfo['rate'] * 100, 1),
           $fmt->asDecimal($errInfo['err95ci'] * 100, 1),
         ]),
       ) . "\n" ?>
     </p>
-    <?= Progress::widget([
-      'bars' => [
-        [
-          'percent' => $errInfo['min95ci'] * 100,
-          'label' => Yii::t('app', '{from} - {to}', [
-            'from' => $fmt->asPercent($errInfo['min95ci'], 1),
-            'to' => $fmt->asPercent($errInfo['max95ci'], 1),
-          ]),
-          'options' => [
-            'class' => 'progress-bar-primary',
-          ]
-        ],
-        [
-          'percent' => ($errInfo['max95ci'] - $errInfo['min95ci']) * 100,
-          'label' => '',
-          'options' => [
-            'class' => 'progress-bar-info',
-          ]
-        ],
-        [
-          'percent' => (1.0 - $errInfo['max95ci']) * 100,
-          'label' => '',
-          'options' => [
-            'class' => 'progress-bar-danger',
-          ]
-        ],
-      ],
-      'options' => [
-        'class' => 'mb-1',
-      ],
-    ]) . "\n" ?>
-    <?= Progress::widget([
-      'bars' => [
-        [
-          'percent' => 50,
-          'label' => Yii::t('app', '50% (reference)'),
-          'options' => [
-            'class' => 'progress-bar-success',
-          ],
-        ],
-        [
-          'percent' => 50,
-          'label' => Yii::t('app', '50% (reference)'),
-          'options' => [
-            'class' => 'progress-bar-danger',
-          ],
-        ],
-      ],
-      'options' => [
-        'class' => 'mb-3',
-        'style' => 'opacity:0.5',
-      ],
+    <?= $this->render('tricolor/chart-attacker', [
+      'battles' => $total,
+      'wins' => $wins,
     ]) . "\n" ?>
 <?php } ?>
   </div>

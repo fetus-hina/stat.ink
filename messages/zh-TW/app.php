@@ -71,7 +71,7 @@ return [
     'Assist' => '助攻',
     'Assists' => '助攻',
     'Assists/min' => '助攻/分鐘',
-    'Attacker Team Win Ratio' => '',
+    'Attacker Team Win Rate' => '',
     'Auto (cookie)' => '自動(cookie)',
     'Auto (Identicon)' => '自動(Identicon)',
     'Automated' => '自動統計資料',

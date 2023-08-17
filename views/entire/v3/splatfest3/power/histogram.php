@@ -5,6 +5,7 @@ declare(strict_types=1);
 use MathPHP\Probability\Distribution\Continuous\Normal as NormalDistribution;
 use app\assets\ChartJsAsset;
 use app\assets\ColorSchemeAsset;
+use app\assets\JqueryEasyChartJsAsset;
 use app\assets\RatioAsset;
 use app\models\Splatfest3;
 use yii\helpers\ArrayHelper;
@@ -31,22 +32,10 @@ if (!$abstract || !$histogram) {
 
 ChartJsAsset::register($this);
 ColorSchemeAsset::register($this);
+JqueryEasyChartJsAsset::register($this);
 RatioAsset::register($this);
 
-$this->registerJs("
-  jQuery('.histogram').each(
-    function () {
-      function looseJsonParse (obj) {
-        return Function('\"use strict\";return (' + obj + ')')();
-      }
-
-      const elem = this;
-      const config = looseJsonParse(this.getAttribute('data-chart'));
-      const canvas = elem.appendChild(document.createElement('canvas'));
-      new window.Chart(canvas.getContext('2d'), config);
-    }
-  );
-");
+$this->registerJs('$(".histogram").easyChartJs();');
 
 $datasetHistogram = [
   'backgroundColor' => [

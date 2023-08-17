@@ -5,6 +5,7 @@ declare(strict_types=1);
 use MathPHP\Probability\Distribution\Continuous\Normal as NormalDistribution;
 use app\assets\ChartJsAsset;
 use app\assets\ColorSchemeAsset;
+use app\assets\JqueryEasyChartjsAsset;
 use app\assets\RatioAsset;
 use app\models\Event3StatsPower;
 use yii\helpers\Html;
@@ -19,22 +20,10 @@ use yii\web\View;
 
 ChartJsAsset::register($this);
 ColorSchemeAsset::register($this);
+JqueryEasyChartjsAsset::register($this);
 RatioAsset::register($this);
 
-$this->registerJs("
-  jQuery('.event3-histogram').each(
-    function () {
-      function looseJsonParse (obj) {
-        return Function('\"use strict\";return (' + obj + ')')();
-      }
-
-      const elem = this;
-      const config = looseJsonParse(this.getAttribute('data-chart'));
-      const canvas = elem.appendChild(document.createElement('canvas'));
-      new window.Chart(canvas.getContext('2d'), config);
-    }
-  );
-");
+$this->registerJs('$(".event3-histogram").easyChartJs();');
 
 $datasetHistogram = [
   'backgroundColor' => [
