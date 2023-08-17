@@ -71,7 +71,7 @@ return [
     'Assist' => '어시스트',
     'Assists' => '어시스트',
     'Assists/min' => '분 당 어시스트',
-    'Attacker Team Win Ratio' => '',
+    'Attacker Team Win Rate' => '',
     'Auto (cookie)' => '자동 (cookie)',
     'Auto (Identicon)' => '자동 (Identicon)',
     'Automated' => '자동화',

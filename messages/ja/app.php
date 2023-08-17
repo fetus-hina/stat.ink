@@ -71,7 +71,7 @@ return [
     'Assist' => 'アシスト',
     'Assists' => 'アシスト',
     'Assists/min' => 'アシスト/分',
-    'Attacker Team Win Ratio' => '攻撃チームの勝率',
+    'Attacker Team Win Rate' => '攻撃チームの勝率',
     'Auto (Identicon)' => '自動 (Identicon)',
     'Auto (cookie)' => '自動 (クッキー)',
     'Automated' => '自動化',

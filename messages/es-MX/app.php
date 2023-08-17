@@ -71,7 +71,7 @@ return [
     'Assist' => '',
     'Assists' => '',
     'Assists/min' => '',
-    'Attacker Team Win Ratio' => '',
+    'Attacker Team Win Rate' => '',
     'Auto (cookie)' => '',
     'Auto (Identicon)' => '',
     'Automated' => '',
