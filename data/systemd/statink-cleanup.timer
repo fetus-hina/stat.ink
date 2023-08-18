@@ -1,0 +1,9 @@
+[Unit]
+Description=Run stat.ink cleanup (timer)
+
+[Timer]
+OnCalendar=daily
+RandomizedDelaySec=1h
+
+[Install]
+WantedBy=timers.target
