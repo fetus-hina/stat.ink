@@ -2,8 +2,7 @@
 Description=Run stat.ink updater (timer)
 
 [Timer]
-OnCalendar=0..2,4..14,16..23:01/10
-OnCalendar=3,15:31/10
+OnCalendar=*:12/15
 Persistent=false
 RandomizedDelaySec=15
 
