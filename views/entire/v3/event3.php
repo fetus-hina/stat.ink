@@ -128,10 +128,12 @@ $periods = ArrayHelper::sort(
           'samples' => $samples,
         ]),
       ],
-      // [
-      //   'label' => Yii::t('app', 'Win %'),
-      //   'content' => 'aaa',
-      // ],
+      [
+        'label' => Yii::t('app', 'Win %'),
+        'content' => $this->render('event3/win-rate', [
+          'models' => $weaponsProvider->getModels(),
+        ]),
+      ],
     ],
     'tabContentOptions' => [
       'class' => 'mt-3 tab-content'
@@ -147,10 +149,12 @@ $periods = ArrayHelper::sort(
           'samples' => $samples,
         ]),
       ],
-      // [
-      //   'label' => Yii::t('app', 'Win %'),
-      //   'content' => 'aaa',
-      // ],
+      [
+        'label' => Yii::t('app', 'Win %'),
+        'content' => $this->render('event3/win-rate', [
+          'models' => $specialProvider->getModels(),
+        ]),
+      ],
     ],
     'tabContentOptions' => [
       'class' => 'mt-3 tab-content'
