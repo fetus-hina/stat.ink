@@ -5,6 +5,7 @@ declare(strict_types=1);
 use app\models\StatWeapon3Usage;
 use app\models\StatWeapon3UsagePerVersion;
 use yii\base\Model;
+use yii\bootstrap\Tabs;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
@@ -50,21 +51,43 @@ $dataProvider = Yii::createObject([
 
 ?>
 <div class="mb-3">
-  <?= GridView::widget([
-    'columns' => require __DIR__ . '/table/columns.php',
-    'dataProvider' => $dataProvider,
-    'emptyCell' => '',
-    'emptyText' => '',
-    'filterModel' => Yii::createObject(Model::class), // dirty hack to use "filter row"
-    'filterRowOptions' => ['class' => 'battle-row-group-header'],
-    'layout' => '{items}',
-    'options' => ['class' => 'grid-view mb-2 table-responsive table-responsive-force'],
-    'tableOptions' => ['class' => 'mb-0 table table-condensed table-hover table-sortable table-striped'],
+  <?= Tabs::widget([
+    'items' => [
+      [
+        'active' => true,
+        'label' => Yii::t('app', 'Detailed'),
+        'content' => implode('', [
+          GridView::widget([
+            'columns' => require __DIR__ . '/table/columns.php',
+            'dataProvider' => $dataProvider,
+            'emptyCell' => '',
+            'emptyText' => '',
+            'filterModel' => Yii::createObject(Model::class), // dirty hack to use "filter row"
+            'filterRowOptions' => ['class' => 'battle-row-group-header'],
+            'layout' => '{items}',
+            'options' => ['class' => 'grid-view mb-2 table-responsive table-responsive-force'],
+            'tableOptions' => [
+              'class' => 'mb-0 table table-condensed table-hover table-sortable table-striped',
+            ],
+          ]),
+          Html::tag(
+            'p',
+            Html::encode('*: p < 0.05 / **: p < 0.01'),
+            [
+              'class' => ['mt-0', 'mb-3', 'small', 'text-muted', 'text-right'],
+            ],
+          ),
+        ]),
+      ],
+      [
+        'label' => Yii::t('app', 'Win %'),
+        'content' => $this->render('table/win-rate', [
+          'data' => $data,
+        ]),
+      ],
+    ],
+    'tabContentOptions' => [
+      'class' => 'my-3 tab-content',
+    ],
   ]) . "\n" ?>
-  <?= Html::tag(
-    'p',
-    Html::encode('*: p < 0.05 / **: p < 0.01'),
-    ['class' => ['mb-2', 'small', 'text-muted', 'text-right']],
-  ) . "\n" ?>
 </div>
-

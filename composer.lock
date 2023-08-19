@@ -1452,16 +1452,16 @@
         },
         {
             "name": "lipis/flag-icons",
-            "version": "v6.9.5",
+            "version": "v6.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lipis/flag-icons.git",
-                "reference": "cfe2adba805935298cc0fc7460ad93629dc91586"
+                "reference": "20abcf34eaecc2adac6cb290f8cecf52fa7ad8b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lipis/flag-icons/zipball/cfe2adba805935298cc0fc7460ad93629dc91586",
-                "reference": "cfe2adba805935298cc0fc7460ad93629dc91586",
+                "url": "https://api.github.com/repos/lipis/flag-icons/zipball/20abcf34eaecc2adac6cb290f8cecf52fa7ad8b7",
+                "reference": "20abcf34eaecc2adac6cb290f8cecf52fa7ad8b7",
                 "shasum": ""
             },
             "type": "library",
@@ -1487,9 +1487,9 @@
             ],
             "support": {
                 "issues": "https://github.com/lipis/flag-icons/issues",
-                "source": "https://github.com/lipis/flag-icons/tree/v6.9.5"
+                "source": "https://github.com/lipis/flag-icons/tree/v6.10.0"
             },
-            "time": "2023-08-13T09:15:18+00:00"
+            "time": "2023-08-17T08:00:52+00:00"
         },
         {
             "name": "lusitanian/oauth",
