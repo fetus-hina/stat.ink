@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\components\widgets\Icon;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\View;
@@ -11,7 +12,18 @@ use yii\web\View;
  * @var int $version
  */
 
-$label = fn (int $version, string $name): string => Html::encode(Yii::t('app', $name));
+$label = fn (int $version, string $name): string => trim(
+  implode(' ', [
+    match ($version) {
+      1 => Icon::splatoon1(),
+      2 => Icon::splatoon2(),
+      3 => Icon::splatoon3(),
+      default => '',
+    },
+    Html::encode(Yii::t('app', $name)),
+  ]),
+);
+
 $data = [
   [
     'version' => 3,

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\components\widgets\Icon;
 use app\models\Lobby3;
 use yii\helpers\Html;
 use yii\web\View;
@@ -22,9 +23,7 @@ echo Html::tag(
       Html::tag(
         'li',
         Html::a(
-          Html::encode(
-            Yii::t('app-lobby3', 'Challenge')
-          ),
+          Icon::s3LobbyEvent() . ' ' . Html::encode(Yii::t('app-lobby3', 'Challenge')),
           ['entire/event3'],
         ),
         ['role' => 'presentation'],

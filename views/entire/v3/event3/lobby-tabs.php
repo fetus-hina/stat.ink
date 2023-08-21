@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\components\widgets\Icon;
 use app\models\Lobby3;
 use yii\helpers\Html;
 use yii\web\View;
@@ -32,7 +33,17 @@ echo Html::tag(
           return Html::tag(
             'li',
             Html::a(
-              Html::encode(Yii::t('app-lobby3', $lobby->name)),
+              trim(
+                implode(' ', [
+                  match ($lobby->key) {
+                    'bankara_challenge' => Icon::s3LobbyBankara(),
+                    'regular' => Icon::s3LobbyRegular(),
+                    'xmatch' => Icon::s3LobbyX(),
+                    default => null,
+                  },
+                  Html::encode(Yii::t('app-lobby3', $lobby->name)),
+                ]),
+              ),
               ['entire/weapons3',
                 'lobby' => $lobby->key,
                 'rule' => $lobby->key === 'regular' ? 'nawabari' : 'area',
@@ -45,7 +56,13 @@ echo Html::tag(
       )),
       Html::tag(
         'li',
-        Html::tag('a', Html::encode(Yii::t('app-lobby3', 'Challenge'))),
+        Html::tag(
+          'a',
+          implode(' ', [
+            Icon::s3LobbyEvent(),
+            Html::encode(Yii::t('app-lobby3', 'Challenge')),
+          ]),
+        ),
         [
           'class' => 'active',
           'role' => 'presentation',

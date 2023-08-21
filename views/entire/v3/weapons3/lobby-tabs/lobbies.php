@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\components\widgets\Icon;
 use app\models\Lobby3;
 use yii\helpers\Html;
 use yii\web\View;
@@ -20,7 +21,17 @@ echo implode(
       'li',
       Html::tag(
         'a',
-        Html::encode(Yii::t('app-lobby3', $item->name)),
+        trim(
+          implode(' ', [
+            match ($item->key) {
+              'regular' => Icon::s3LobbyRegular(),
+              'bankara', 'bankara_challenge', 'bankara_open' => Icon::s3LobbyBankara(),
+              'xmatch' => Icon::s3LobbyX(),
+              default => '',
+            },
+            Html::encode(Yii::t('app-lobby3', $item->name)),
+          ]),
+        ),
         $item->key !== $lobby->key
           ? ['href' => $lobbyUrl($item)]
           : [],
