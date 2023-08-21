@@ -104,6 +104,7 @@ use function mb_chr;
  * @method static string s3RuleAsari()
  * @method static string s3RuleHoko()
  * @method static string s3RuleNawabari()
+ * @method static string s3RuleTricolor()
  * @method static string s3RuleYagura()
  * @method static string s3Salmon()
  * @method static string scrollTo()
@@ -231,6 +232,7 @@ final class Icon
         's3RuleAsari' => [RuleIconAsset::class, 'asari.png'],
         's3RuleHoko' => [RuleIconAsset::class, 'hoko.png'],
         's3RuleNawabari' => [RuleIconAsset::class, 'nawabari.png'],
+        's3RuleTricolor' => [RuleIconAsset::class, 'tricolor.png'],
         's3RuleYagura' => [RuleIconAsset::class, 'yagura.png'],
         's3Salmon' => [SalmonModeIconAsset::class, 'salmon.png'],
         'splatoon1' => [VersionIconAsset::class, 's1.png', '[1]'],
