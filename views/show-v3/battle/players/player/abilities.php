@@ -32,6 +32,11 @@ if (count(array_filter($gears, fn ($gear) => (bool)$gear)) < 3) {
 }
 
 $className = 'abilities-' . substr(hash('sha256', __FILE__), 0, 8);
+$this->registerCss(implode('', [
+  ".{$className} .gear-block{background:#333;border-radius:5px;line-height:1;padding:0 2px}",
+  ".{$className} .main-ability{font-size:2em;vertical-align:baseline;width:auto}",
+  ".{$className} .sub-ability{font-size:1.25em;vertical-align:baseline;width:auto}",
+]));
 
 $powers = ArrayHelper::map(
   $abilities,
@@ -97,7 +102,8 @@ if ($powers) {
       'table-layout' => 'fixed',
     ],
     '.ability-col-icon' => [
-      'width' => 'calc(1.5em + 8px * 2)',
+      'font-size' => '1.5em',
+      'width' => 'calc(1em + 8px * 2)',
     ],
     '.ability-col-main, .ability-col-sub, .ability-col-ap' => [
       'width' => '5em',
@@ -128,22 +134,38 @@ $sendouInkUrl = SendouInk::getBuildUrl3($player->weapon, ...$gears);
 
 ?>
 <?= Html::beginTag('div', ['class' => ['mt-1', $className]]) . "\n" ?>
+  <?= Html::beginTag($powers ? 'span' : null, [
+    'data' => [
+      'toggle' => 'modal',
+      'target' => sprintf('#%s', $modalId),
+    ],
+    'style' => ['cursor' => 'pointer'],
+  ]) . "\n" ?>
+<?php foreach ($gears as $gear) { ?>
+    <span class="d-inline-block gear-block"><?= implode('', [
+      Html::tag(
+        'span',
+        Icon::s3Ability(ArrayHelper::getValue($gear, 'ability.key', 'unknown')),
+        ['class' => 'main-ability'],
+      ),
+      Html::tag(
+        'span',
+        implode('', array_map(
+          fn (?GearConfigurationSecondary3 $secondary): string => (string)Icon::s3Ability(
+            ArrayHelper::getValue($secondary, 'ability.key', 'unknown'),
+          ),
+          array_slice(
+            array_merge($gear->gearConfigurationSecondary3s, [null, null, null]),
+            0,
+            3,
+          ),
+        )),
+        ['class' => 'sub-ability'],
+      ),
+    ]) ?></span>
+<?php } ?>
+  <?= Html::endTag($powers ? 'span' : null) . "\n" ?>
 <?php if ($powers) { ?>
-  <div class="text-right">
-    <?= Html::button(
-      Icon::popup() . ' ' . Html::encode(Yii::t('app', 'Ability')),
-      [
-        'class' => 'btn btn-default btn-sm',
-        'data' => [
-          'toggle' => 'modal',
-          'target' => sprintf('#%s', $modalId),
-        ],
-        'style' => [
-          'cursor' => 'pointer',
-        ],
-      ],
-    ) . "\n" ?>
-  </div>
   <?= Html::beginTag('div', [
     'class' => 'fade modal',
     'id' => $modalId,
@@ -166,6 +188,7 @@ $sendouInkUrl = SendouInk::getBuildUrl3($player->weapon, ...$gears);
           <table class="table table-striped ability-table mb-0">
             <thead>
               <tr>
+                <th class="omit text-center ability-col-icon"></th>
                 <th class="omit text-center ability-col-name"></th>
                 <?= Html::tag(
                   'th',
@@ -196,6 +219,11 @@ $sendouInkUrl = SendouInk::getBuildUrl3($player->weapon, ...$gears);
             <tbody>
 <?php foreach ($powers as $power) { ?>
               <tr>
+                <?= Html::tag(
+                  'td',
+                  Icon::s3Ability($power['key']),
+                  ['class' => 'ability-col-icon'],
+                ) . "\n" ?>
                 <td class="omit"><?= Html::encode($power['name']) ?></td>
 <?php if ($power['mainOnly']) { ?>
                 <td class="text-center text-success"><?= Icon::check() ?></td>
