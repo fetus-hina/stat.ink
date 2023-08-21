@@ -23,12 +23,7 @@ echo implode(
         'a',
         trim(
           implode(' ', [
-            match ($item->key) {
-              'regular' => Icon::s3LobbyRegular(),
-              'bankara', 'bankara_challenge', 'bankara_open' => Icon::s3LobbyBankara(),
-              'xmatch' => Icon::s3LobbyX(),
-              default => '',
-            },
+            Icon::s3Lobby($item),
             Html::tag(
               'span',
               Html::encode(Yii::t('app-lobby3', $item->name)),

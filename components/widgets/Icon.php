@@ -20,6 +20,8 @@ use app\assets\s3PixelIcons\RuleIconAsset;
 use app\assets\s3PixelIcons\SalmonModeIconAsset;
 use app\assets\s3PixelIcons\VersionIconAsset;
 use app\components\helpers\TypeHelper;
+use app\models\Lobby3;
+use app\models\Rule3;
 use yii\base\UnknownMethodException;
 use yii\helpers\Html;
 use yii\web\AssetBundle;
@@ -296,6 +298,31 @@ final class Icon
                 '.btn .bi-twitter{color:inherit}',
             ]),
         );
+    }
+
+    public static function s3Lobby(Lobby3|string|null $lobby): ?string
+    {
+        return match ($lobby instanceof Lobby3 ? $lobby->key : $lobby) {
+            'bankara_challenge', 'bankara_open' => self::s3LobbyBankara(),
+            'event' => self::s3LobbyEvent(),
+            'private' => self::s3LobbyPrivate(),
+            'regular' => self::s3LobbyRegular(),
+            'splatfest_challenge', 'splatfest_open' => self::s3LobbySplatfest(),
+            'xmatch' => self::s3LobbyX(),
+            default => null,
+        };
+    }
+
+    public static function s3Rule(Rule3|string|null $rule): ?string
+    {
+        return match ($rule instanceof Rule3 ? $rule->key : $rule) {
+            'area' => self::s3RuleArea(),
+            'asari' => self::s3RuleAsari(),
+            'hoko' => self::s3RuleHoko(),
+            'nawabari' => self::s3RuleNawabari(),
+            'yagura' => self::s3RuleYagura(),
+            default => null,
+        };
     }
 
     public static function __callStatic(string $name, $args): string

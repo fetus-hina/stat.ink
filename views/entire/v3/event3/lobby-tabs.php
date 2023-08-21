@@ -35,12 +35,7 @@ echo Html::tag(
             Html::a(
               trim(
                 implode(' ', [
-                  match ($lobby->key) {
-                    'bankara_challenge' => Icon::s3LobbyBankara(),
-                    'regular' => Icon::s3LobbyRegular(),
-                    'xmatch' => Icon::s3LobbyX(),
-                    default => null,
-                  },
+                  Icon::s3Lobby($lobby),
                   Html::tag(
                     'span',
                     Html::encode(Yii::t('app-lobby3', $lobby->name)),

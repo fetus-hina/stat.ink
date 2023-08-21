@@ -73,14 +73,7 @@ $periods = ArrayHelper::sort(
     <p class="mb-1">
       <?= vsprintf('%s: %s %s', [
         Html::encode(Yii::t('app', 'Mode')),
-        match ($schedule->rule->key ?? null) {
-          'area' => Icon::s3RuleArea(),
-          'asari' => Icon::s3RuleAsari(),
-          'hoko' => Icon::s3RuleHoko(),
-          'nawabari' => Icon::s3RuleNawabari(),
-          'yagura' => Icon::s3RuleYagura(),
-          default => '',
-        },
+        Icon::s3Rule($schedule->rule),
         Html::encode(Yii::t('app-rule3', $schedule->rule->name ?? '?')),
       ]) . "\n" ?>
     </p>
