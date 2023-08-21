@@ -105,7 +105,7 @@ OgpHelper::default($this, Url::to(['site/index'], true));
         Html::a(Html::encode(Yii::t('app', 'Stats: User Activity')), ['entire/users']),
       ]),
       [
-        '3',
+        Icon::splatoon3(),
         Html::a(Html::encode(Yii::t('app', 'Weapon Stats')), ['entire/weapons3']),
         Html::a(Html::encode(Yii::t('app', 'K/D vs Win %')), ['entire/kd-win3']),
         Html::a(Html::encode(Yii::t('app', 'Knockout Rate')), ['entire/knockout3']),
@@ -114,21 +114,21 @@ OgpHelper::default($this, Url::to(['site/index'], true));
         Html::a(Html::encode(Yii::t('app', 'Ink Color')), ['entire/ink-color3']),
       ],
       [
-        Html::encode('3 ' . Yii::t('app-lobby3', 'Challenge')),
+        Icon::splatoon3() . ' ' . Html::encode(Yii::t('app-lobby3', 'Challenge')),
         Html::a(
           Html::encode(Yii::t('app', 'Weapon Stats')),
           ['entire/event3'],
         ),
       ],
       [
-        Html::encode('3 ' . Yii::t('app-lobby3', 'Splatfest')),
+        Icon::splatoon3() . ' ' . Html::encode(Yii::t('app-lobby3', 'Splatfest')),
         Html::a(
           Html::encode(Yii::t('app', 'Splatfest Stats')),
           ['entire/splatfest3'],
         ),
       ],
       [
-       '3 SR',
+        Icon::splatoon3() . ' ' . Html::encode('SR'),
         Html::a(
           Html::encode(Yii::t('app-salmon3', 'Random Loan Rate')),
           ['entire/salmon3-random-loan'],
@@ -145,17 +145,38 @@ OgpHelper::default($this, Url::to(['site/index'], true));
       ],
       [
         Icon::stats(),
-        Html::a(Html::encode(Yii::t('app', 'Stats: FestPwr diff vs Win %')), ['entire/festpower2']),
-        Html::a(Html::encode(Yii::t('app-salmon2', 'Stats: Salmon Clear %')), ['entire/salmon-clear']),
-        Html::a(Html::encode(Yii::t('app', 'Stats: Stages') . ' (Splatoon 1)'), ['stage/index']),
+        Html::a(
+          Icon::splatoon2() . ' ' . Html::encode(Yii::t('app', 'Stats: FestPwr diff vs Win %')),
+          ['entire/festpower2'],
+        ),
+        Html::a(
+          Icon::splatoon2() . ' ' . Html::encode(Yii::t('app-salmon2', 'Stats: Salmon Clear %')),
+          ['entire/salmon-clear'],
+        ),
+        Html::a(
+          Icon::splatoon1() . ' ' . Html::encode(Yii::t('app', 'Stats: Stages')),
+          ['stage/index'],
+        ),
       ],
       [
         Icon::download(),
-        Html::a(Html::encode(Yii::t('app', 'Download Stats')), ['download-stats/index']),
+        Html::a(
+          implode('', [
+            Icon::splatoon3(),
+            Icon::splatoon2(),
+            Icon::splatoon1(),
+            ' ',
+            Html::encode(Yii::t('app', 'Download Stats')),
+          ]),
+          ['download-stats/index'],
+        ),
       ],
       [
         Html::a(Html::encode(Yii::t('app', 'About support for color-blindness')), ['site/color']),
-        Html::a(Html::encode(Yii::t('app-privacy', 'About image sharing with the IkaLog team')), ['site/privacy']),
+        Html::a(
+          Icon::splatoon1() . ' ' . Html::encode(Yii::t('app-privacy', 'About image sharing with the IkaLog team')),
+          ['site/privacy'],
+        ),
       ],
     ]
   )) ?></nav>

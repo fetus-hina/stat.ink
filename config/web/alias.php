@@ -10,4 +10,5 @@ return [
     '@jdenticon' => 'https://jdenticon.stat.ink',
     '@node' => '@app/node_modules',
     '@npm' => '@app/node_modules',
+    '@s3-pixel-icons' => '@app/resources/s3-pixel-icons',
 ];

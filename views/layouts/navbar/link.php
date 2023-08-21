@@ -27,6 +27,7 @@ $list = [
   [
     // S3 official {{{
     'name' => implode(' ', [
+      Icon::splatoon3(),
       Html::encode(Yii::t('app', '{title} Official Website', [
         'title' => Yii::t('app', 'Splatoon 3'),
       ])),
@@ -59,6 +60,7 @@ $list = [
   [
     // S2 official {{{
     'name' => implode(' ',[
+      Icon::splatoon2(),
       Html::encode(Yii::t('app', '{title} Official Website', [
         'title' => Yii::t('app', 'Splatoon 2'),
       ])),
@@ -91,6 +93,7 @@ $list = [
   [
     // S1 official {{{
     'name' => implode(' ',[
+      Icon::splatoon1(),
       Html::encode(Yii::t('app', '{title} Official Website', [
         'title' => Yii::t('app', 'Splatoon'),
       ])),
@@ -234,6 +237,7 @@ $list = [
   [],
   [
     'name' => implode(' ', [
+      Icon::splatoon2(),
       Html::encode(Yii::t('app', 'Apps for {version}', ['version' => Yii::t('app', 'Splatoon 2')])),
     ]),
     'sub' => [
@@ -268,6 +272,7 @@ $list = [
   ],
   [
     'name' => implode(' ', [
+      Icon::splatoon1(),
       Html::encode(Yii::t('app', 'Apps for {version}', ['version' => Yii::t('app', 'Splatoon 1')])),
     ]),
     'sub' => [
