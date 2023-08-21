@@ -21,6 +21,7 @@ use app\assets\s3PixelIcons\SalmonModeIconAsset;
 use app\assets\s3PixelIcons\VersionIconAsset;
 use app\components\helpers\TypeHelper;
 use app\models\Lobby3;
+use app\models\LobbyGroup3;
 use app\models\Rule3;
 use yii\base\UnknownMethodException;
 use yii\helpers\Html;
@@ -302,14 +303,20 @@ final class Icon
         );
     }
 
-    public static function s3Lobby(Lobby3|string|null $lobby): ?string
+    public static function s3Lobby(Lobby3|LobbyGroup3|string|null $lobby): ?string
     {
-        return match ($lobby instanceof Lobby3 ? $lobby->key : $lobby) {
-            'bankara_challenge', 'bankara_open' => self::s3LobbyBankara(),
+        $lobby = match (true) {
+            $lobby instanceof LobbyGroup3 => $lobby->key,
+            $lobby instanceof Lobby3 => $lobby->key,
+            default => $lobby,
+        };
+
+        return match ($lobby) {
+            'bankara', 'bankara_challenge', 'bankara_open' => self::s3LobbyBankara(),
             'event' => self::s3LobbyEvent(),
             'private' => self::s3LobbyPrivate(),
             'regular' => self::s3LobbyRegular(),
-            'splatfest_challenge', 'splatfest_open' => self::s3LobbySplatfest(),
+            'splatfest', 'splatfest_challenge', 'splatfest_open' => self::s3LobbySplatfest(),
             'xmatch' => self::s3LobbyX(),
             default => null,
         };
