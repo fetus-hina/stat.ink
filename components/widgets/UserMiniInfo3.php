@@ -20,6 +20,7 @@ use app\models\Rank3;
 use app\models\User;
 use app\models\UserStat3;
 use yii\base\Widget;
+use yii\bootstrap\Tabs;
 use yii\helpers\Html;
 use yii\web\View;
 
@@ -27,7 +28,6 @@ use function array_filter;
 use function array_keys;
 use function array_map;
 use function array_values;
-use function hash;
 use function implode;
 use function usort;
 use function vsprintf;
@@ -142,106 +142,47 @@ final class UserMiniInfo3 extends Widget
             return null;
         }
 
+        $view = $this->view;
+        if ($view instanceof View) {
+            $view->registerCss(vsprintf('#%s .nav>li>a{%s}', [
+                $this->id,
+                'padding:5px 10px',
+            ]));
+        }
+
         $peakRankInfo = $this->makePeakRankInfo(
             $this->flattenStats($models),
         );
 
         $defaultTab = $this->decideDefaultLobbyTab($models);
-        $items = array_filter(
-            array_map(
-                fn (array $groupInfo): ?array => $groupInfo['group']
-                    ? [
-                        'active' => $defaultTab === $groupInfo['group']->key,
-                        'label' => Yii::t('app-lobby3', $groupInfo['group']->name),
-                        'content' => implode('', array_map(
-                            fn (UserStat3 $stat): string => Html::tag(
-                                'div',
-                                PerLobby::widget([
-                                    'user' => $this->user,
-                                    'model' => $stat,
-                                    'peakRank' => $peakRankInfo,
-                                ]),
-                                ['class' => 'mt-2'],
-                            ),
-                            $groupInfo['stats'],
-                        )),
-                    ]
-                    : null,
-                $models,
+
+        return Tabs::widget([
+            'items' => array_filter(
+                array_map(
+                    fn (array $groupInfo): ?array => $groupInfo['group']
+                        ? [
+                            'active' => $defaultTab === $groupInfo['group']->key,
+                            'encode' => false,
+                            'label' => Icon::s3Lobby($groupInfo['group']),
+                            'content' => implode('', array_map(
+                                fn (UserStat3 $stat): string => Html::tag(
+                                    'div',
+                                    PerLobby::widget([
+                                        'user' => $this->user,
+                                        'model' => $stat,
+                                        'peakRank' => $peakRankInfo,
+                                    ]),
+                                    ['class' => 'mt-2'],
+                                ),
+                                $groupInfo['stats'],
+                            )),
+                        ]
+                        : null,
+                    $models,
+                ),
+                fn (?array $conf): bool => $conf !== null,
             ),
-            fn (?array $conf): bool => $conf !== null,
-        );
-
-        return $items
-            ? implode('', [
-                $this->renderStatsLobbiesDropdown($items),
-                $this->renderStatsLobbiesBody($items),
-            ])
-            : '';
-    }
-
-    /**
-     * @param array{active: bool, label: string}[] $items
-     */
-    private function renderStatsLobbiesDropdown(array $items): string
-    {
-        $convertedItems = [];
-        $selected = null;
-        foreach ($items as $item) {
-            if (!$selected && $item['active']) {
-                $selected = $item;
-            }
-
-            $convertedItems[$this->getLobbyId($item)] = $item['label'];
-        }
-
-        return Html::dropDownList(
-            name: '',
-            selection: $this->getLobbyId($selected),
-            items: $convertedItems,
-            options: [
-                'class' => 'form-control mb-2',
-                'onchange' => implode('', [
-                    // Hide all tabs
-                    '$(".miniinfo3-lobby").removeClass("d-block").addClass("d-none");',
-
-                    // Show selected tab
-                    '$("#" + $(this).val()).removeClass("d-none").addClass("d-block");',
-                ]),
-            ],
-        );
-    }
-
-    /**
-     * @param array{active: bool, label: string, content: string}[] $items
-     */
-    private function renderStatsLobbiesBody(array $items): string
-    {
-        return implode(
-            '',
-            array_map(
-                fn (array $item): string => Html::tag('div', $item['content'], [
-                    'id' => $this->getLobbyId($item),
-                    'class' => [
-                        'miniinfo3-lobby',
-                        $item['active'] ? 'd-block' : 'd-none',
-                    ],
-                ]),
-                $items,
-            ),
-        );
-    }
-
-    /**
-     * @param array{label: string} $item
-     */
-    private function getLobbyId(?array $item): ?string
-    {
-        return $item === null
-            ? null
-            : vsprintf('miniinfo3-lobby-%s', [
-                hash('crc32b', $item['label']),
-            ]);
+        ]);
     }
 
     private function renderLinkToSalmon(): string
@@ -250,6 +191,7 @@ final class UserMiniInfo3 extends Widget
             'div',
             Html::a(
                 implode(' ', [
+                    Icon::s3Salmon(),
                     Html::encode(Yii::t('app-salmon2', 'Salmon Run')),
                     Icon::subPage(),
                 ]),

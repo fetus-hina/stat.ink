@@ -27,14 +27,7 @@ use yii\web\View;
             'a',
             trim(
               implode(' ', [
-                match ($item->key) {
-                  'area' => Icon::s3RuleArea(),
-                  'asari' => Icon::s3RuleAsari(),
-                  'hoko' => Icon::s3RuleHoko(),
-                  'nawabari' => Icon::s3RuleNawabari(),
-                  'yagura' => Icon::s3RuleYagura(),
-                  default=> '',
-                },
+                Icon::s3Rule($item),
                 Html::tag(
                   'span',
                   Html::encode(Yii::t('app-rule3', $item->name)),

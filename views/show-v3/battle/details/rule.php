@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 use app\components\widgets\Icon;
 use app\models\Battle3;
+use app\models\Lobby3;
+use app\models\Rule3;
 use yii\base\Model;
 use yii\helpers\Html;
 
@@ -12,7 +14,16 @@ $render = function (?Model $model, string $catalog): string {
     return Html::encode('?');
   }
 
-  return Html::encode(Yii::t($catalog, $model->name));
+  return trim(
+    implode(' ', [
+      match ($model::class) {
+        Lobby3::class => Icon::s3Lobby($model),
+        Rule3::class => Icon::s3Rule($model),
+        default => '',
+      },
+      Html::encode(Yii::t($catalog, $model->name)),
+    ]),
+  );
 };
 
 return [
