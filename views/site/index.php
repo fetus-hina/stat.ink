@@ -128,18 +128,21 @@ OgpHelper::default($this, Url::to(['site/index'], true));
         ),
       ],
       [
-        Icon::splatoon3() . ' ' . Html::encode('SR'),
+        implode(' ', [
+          Icon::splatoon3(),
+          Icon::s3Salmon(),
+        ]),
         Html::a(
           Html::encode(Yii::t('app-salmon3', 'Random Loan Rate')),
           ['entire/salmon3-random-loan'],
         ),
         Html::a(Html::encode(Yii::t('app-salmon3', 'Water Level and Events')), ['entire/salmon3-tide']),
         Html::a(
-          Html::encode(Yii::t('app-salmon3', 'Big Run')),
+          Icon::s3BigRun() . ' ' . Html::encode(Yii::t('app-salmon3', 'Big Run')),
           ['entire/salmon3-bigrun'],
         ),
         Html::a(
-          Html::encode(Yii::t('app-salmon3', 'Eggstra Work')),
+          Icon::s3Eggstra() . ' ' . Html::encode(Yii::t('app-salmon3', 'Eggstra Work')),
           ['entire/salmon3-eggstra-work'],
         ),
       ],
