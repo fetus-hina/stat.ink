@@ -16,6 +16,7 @@ use app\assets\BootstrapIconsAsset;
 use app\assets\MedalAsset;
 use app\assets\SalmonEggAsset;
 use app\assets\s3PixelIcons\LobbyIconAsset;
+use app\assets\s3PixelIcons\RuleIconAsset;
 use app\assets\s3PixelIcons\SalmonModeIconAsset;
 use app\assets\s3PixelIcons\VersionIconAsset;
 use app\components\helpers\TypeHelper;
@@ -91,6 +92,17 @@ use function mb_chr;
  * @method static string refresh()
  * @method static string s3BigRun()
  * @method static string s3Eggstra()
+ * @method static string s3LobbyBankara()
+ * @method static string s3LobbyEvent()
+ * @method static string s3LobbyPrivate()
+ * @method static string s3LobbyRegular()
+ * @method static string s3LobbySplatfest()
+ * @method static string s3LobbyX()
+ * @method static string s3RuleArea()
+ * @method static string s3RuleAsari()
+ * @method static string s3RuleHoko()
+ * @method static string s3RuleNawabari()
+ * @method static string s3RuleYagura()
  * @method static string s3Salmon()
  * @method static string scrollTo()
  * @method static string search()
@@ -115,12 +127,6 @@ use function mb_chr;
  * @method static string videoLink()
  * @method static string windows()
  * @method static string yes()
- * @method static string s3LobbyBankara()
- * @method static string s3LobbyEvent()
- * @method static string s3LobbyPrivate()
- * @method static string s3LobbyRegular()
- * @method static string s3LobbySplatfest()
- * @method static string s3LobbyX()
  */
 final class Icon
 {
@@ -219,6 +225,11 @@ final class Icon
         's3LobbyRegular' => [LobbyIconAsset::class, 'regular.png'],
         's3LobbySplatfest' => [LobbyIconAsset::class, 'splatfest.png'],
         's3LobbyX' => [LobbyIconAsset::class, 'xmatch.png'],
+        's3RuleArea' => [RuleIconAsset::class, 'area.png'],
+        's3RuleAsari' => [RuleIconAsset::class, 'asari.png'],
+        's3RuleHoko' => [RuleIconAsset::class, 'hoko.png'],
+        's3RuleNawabari' => [RuleIconAsset::class, 'nawabari.png'],
+        's3RuleYagura' => [RuleIconAsset::class, 'yagura.png'],
         's3Salmon' => [SalmonModeIconAsset::class, 'salmon.png'],
         'splatoon1' => [VersionIconAsset::class, 's1.png', '[1]'],
         'splatoon2' => [VersionIconAsset::class, 's2.png', '[2]'],

@@ -23,7 +23,14 @@ echo Html::tag(
       Html::tag(
         'li',
         Html::a(
-          Icon::s3LobbyEvent() . ' ' . Html::encode(Yii::t('app-lobby3', 'Challenge')),
+          implode(' ', [
+            Icon::s3LobbyEvent(),
+            Html::tag(
+              'span',
+              Html::encode(Yii::t('app-lobby3', 'Challenge')),
+              ['class' => 'd-none d-sm-inline'],
+            ),
+          ]),
           ['entire/event3'],
         ),
         ['role' => 'presentation'],

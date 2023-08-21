@@ -41,7 +41,11 @@ echo Html::tag(
                     'xmatch' => Icon::s3LobbyX(),
                     default => null,
                   },
-                  Html::encode(Yii::t('app-lobby3', $lobby->name)),
+                  Html::tag(
+                    'span',
+                    Html::encode(Yii::t('app-lobby3', $lobby->name)),
+                    ['class' => 'd-none d-sm-inline'],
+                  ),
                 ]),
               ),
               ['entire/weapons3',
@@ -60,7 +64,11 @@ echo Html::tag(
           'a',
           implode(' ', [
             Icon::s3LobbyEvent(),
-            Html::encode(Yii::t('app-lobby3', 'Challenge')),
+            Html::tag(
+              'span',
+              Html::encode(Yii::t('app-lobby3', 'Challenge')),
+              ['class' => 'd-none d-sm-inline'],
+            ),
           ]),
         ),
         [

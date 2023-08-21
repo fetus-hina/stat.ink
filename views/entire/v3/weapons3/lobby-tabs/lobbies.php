@@ -29,7 +29,11 @@ echo implode(
               'xmatch' => Icon::s3LobbyX(),
               default => '',
             },
-            Html::encode(Yii::t('app-lobby3', $item->name)),
+            Html::tag(
+              'span',
+              Html::encode(Yii::t('app-lobby3', $item->name)),
+              ['class' => 'd-none d-sm-inline'],
+            ),
           ]),
         ),
         $item->key !== $lobby->key

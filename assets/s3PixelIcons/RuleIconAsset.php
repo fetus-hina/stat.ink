@@ -10,6 +10,6 @@ declare(strict_types=1);
 
 namespace app\assets\s3PixelIcons;
 
-final class LobbyIconAsset extends internal\LobbyRuleIconAsset
+final class RuleIconAsset extends internal\LobbyRuleIconAsset
 {
 }
