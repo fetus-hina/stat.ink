@@ -445,7 +445,7 @@ final class Event3StatsUpdator
 
         $classValue = sprintf(
             // +0.5 は階級値は階級の幅の中央を表すための調整
-            '(FLOOR(%1$s.%3$s / %2$s.%4$s + 0.5) * %2$s.%4$s)::integer',
+            '((FLOOR(%1$s.%3$s / %2$s.%4$s) + 0.5) * %2$s.%4$s)::integer',
             $db->quoteTableName('{{%battle3}}'),
             $db->quoteTableName('{{%event3_stats_power}}'),
             $db->quoteColumnName('event_power'),
