@@ -11,13 +11,16 @@ declare(strict_types=1);
 namespace app\assets\s3PixelIcons;
 
 use Throwable;
+use yii\base\InvalidConfigException;
 use yii\web\AssetBundle as BaseAssetBundle;
 use yii\web\ServerErrorHttpException;
 
 use function basename;
 use function chdir;
 use function dirname;
+use function file_exists;
 use function getcwd;
+use function is_array;
 use function is_link;
 use function is_string;
 use function symlink;
@@ -25,7 +28,7 @@ use function symlink;
 abstract class AssetBundle extends BaseAssetBundle
 {
     /**
-     * @var array<string, string>
+     * @var array<string, string|string[]>
      */
     public array $fileNameMap = [];
 
@@ -48,17 +51,32 @@ abstract class AssetBundle extends BaseAssetBundle
     protected function onAfterCopy(string $from, string $to): void
     {
         $name = basename($to);
-        $linkName = $this->fileNameMap[$name] ?? null;
+        $linkNames = $this->fileNameMap[$name] ?? null;
 
-        if (
-            is_string($linkName) &&
-            !file_exists(dirname($to) . '/' . $linkName)
-        ) {
-            $this->makeSymlink(
-                dirname($to),
-                $name,
-                $linkName,
+        if ($linkNames === null) {
+            return;
+        }
+
+        if (!is_string($linkNames) && !is_array($linkNames)) {
+            throw new InvalidConfigException(
+                'fileNameMap must be array<string, string|string[]>',
             );
+        }
+
+        foreach ((array)$linkNames as $linkName) {
+            if (!is_string($linkName)) {
+                throw new InvalidConfigException(
+                    'fileNameMap must be array<string, string|string[]>',
+                );
+            }
+
+            if (is_string($linkName) && !file_exists(dirname($to) . '/' . $linkName)) {
+                $this->makeSymlink(
+                    dirname($to),
+                    $name,
+                    $linkName,
+                );
+            }
         }
     }
 

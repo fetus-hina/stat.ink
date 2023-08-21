@@ -110,18 +110,21 @@ OgpHelper::default($this, Url::to(['site/index'], true));
         Html::a(Html::encode(Yii::t('app', 'K/D vs Win %')), ['entire/kd-win3']),
         Html::a(Html::encode(Yii::t('app', 'Knockout Rate')), ['entire/knockout3']),
         Html::a(Html::encode(Yii::t('app', 'Special Uses')), ['entire/special-use3']),
-        Html::a(Html::encode(Yii::t('app', 'X Power')), ['entire/xpower-distrib3']),
+        Html::a(
+          Icon::s3LobbyX() . ' ' . Html::encode(Yii::t('app', 'X Power')),
+          ['entire/xpower-distrib3'],
+        ),
         Html::a(Html::encode(Yii::t('app', 'Ink Color')), ['entire/ink-color3']),
       ],
       [
-        Icon::splatoon3() . ' ' . Html::encode(Yii::t('app-lobby3', 'Challenge')),
+        Icon::splatoon3() . ' ' . Icon::s3LobbyEvent(),
         Html::a(
           Html::encode(Yii::t('app', 'Weapon Stats')),
           ['entire/event3'],
         ),
       ],
       [
-        Icon::splatoon3() . ' ' . Html::encode(Yii::t('app-lobby3', 'Splatfest')),
+        Icon::splatoon3() . ' ' . Icon::s3LobbySplatfest(),
         Html::a(
           Html::encode(Yii::t('app', 'Splatfest Stats')),
           ['entire/splatfest3'],

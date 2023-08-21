@@ -15,6 +15,7 @@ use app\assets\AppLinkAsset;
 use app\assets\BootstrapIconsAsset;
 use app\assets\MedalAsset;
 use app\assets\SalmonEggAsset;
+use app\assets\s3PixelIcons\LobbyIconAsset;
 use app\assets\s3PixelIcons\SalmonModeIconAsset;
 use app\assets\s3PixelIcons\VersionIconAsset;
 use app\components\helpers\TypeHelper;
@@ -114,6 +115,12 @@ use function mb_chr;
  * @method static string videoLink()
  * @method static string windows()
  * @method static string yes()
+ * @method static string s3LobbyBankara()
+ * @method static string s3LobbyEvent()
+ * @method static string s3LobbyPrivate()
+ * @method static string s3LobbyRegular()
+ * @method static string s3LobbySplatfest()
+ * @method static string s3LobbyX()
  */
 final class Icon
 {
@@ -206,6 +213,12 @@ final class Icon
         'powerEgg' => [SalmonEggAsset::class, 'power-egg.png'],
         's3BigRun' => [SalmonModeIconAsset::class, 'bigrun.png'],
         's3Eggstra' => [SalmonModeIconAsset::class, 'eggstra.png'],
+        's3LobbyBankara' => [LobbyIconAsset::class, 'bankara.png'],
+        's3LobbyEvent' => [LobbyIconAsset::class, 'event.png'],
+        's3LobbyPrivate' => [LobbyIconAsset::class, 'private.png'],
+        's3LobbyRegular' => [LobbyIconAsset::class, 'regular.png'],
+        's3LobbySplatfest' => [LobbyIconAsset::class, 'splatfest.png'],
+        's3LobbyX' => [LobbyIconAsset::class, 'xmatch.png'],
         's3Salmon' => [SalmonModeIconAsset::class, 'salmon.png'],
         'splatoon1' => [VersionIconAsset::class, 's1.png', '[1]'],
         'splatoon2' => [VersionIconAsset::class, 's2.png', '[2]'],
