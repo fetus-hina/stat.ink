@@ -7,6 +7,7 @@ use app\assets\NotoSansMathAsset;
 use app\components\helpers\OgpHelper;
 use app\components\helpers\TypeHelper;
 use app\components\widgets\AdWidget;
+use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
 use app\models\SalmonEggstraDistribAbstract3;
 use app\models\SalmonSchedule3;
@@ -51,12 +52,13 @@ $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
       <ul class="nav nav-tabs">
         <li role="presentation">
           <?= Html::a(
-            Html::encode(Yii::t('app-salmon3', 'Big Run')),
+            Icon::s3BigRun() . ' ' . Html::encode(Yii::t('app-salmon3', 'Big Run')),
             ['entire/salmon3-bigrun'],
           ) . "\n" ?>
         </li>
         <li role="presentation" class="active">
           <a>
+            <?= Icon::s3Eggstra() . "\n" ?>
             <?= Html::encode(Yii::t('app-salmon3', 'Eggstra Work')) . "\n" ?>
           </a>
         </li>

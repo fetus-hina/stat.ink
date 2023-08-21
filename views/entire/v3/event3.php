@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use app\components\helpers\OgpHelper;
 use app\components\widgets\AdWidget;
+use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
 use app\models\Event3;
 use app\models\Event3StatsPower;
@@ -70,12 +71,18 @@ $periods = ArrayHelper::sort(
       <?= Html::encode(Yii::t('db/event3', $event->name)) . "\n" ?>
     </h2>
     <p class="mb-1">
-      <?= Html::encode(
-        vsprintf('%s: %s', [
-          Yii::t('app', 'Mode'),
-          Yii::t('app-rule3', $schedule->rule->name ?? '?'),
-        ]),
-      ) . "\n" ?>
+      <?= vsprintf('%s: %s %s', [
+        Html::encode(Yii::t('app', 'Mode')),
+        match ($schedule->rule->key ?? null) {
+          'area' => Icon::s3RuleArea(),
+          'asari' => Icon::s3RuleAsari(),
+          'hoko' => Icon::s3RuleHoko(),
+          'nawabari' => Icon::s3RuleNawabari(),
+          'yagura' => Icon::s3RuleYagura(),
+          default => '',
+        },
+        Html::encode(Yii::t('app-rule3', $schedule->rule->name ?? '?')),
+      ]) . "\n" ?>
     </p>
     <p class="mb-1 text-muted">
       <?= Html::encode(Yii::t('db/event3/description', $event->desc)) . "\n" ?>

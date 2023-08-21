@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\components\widgets\Icon;
 use yii\helpers\Html;
 use yii\web\View;
 
@@ -19,6 +20,7 @@ use yii\web\View;
         Html::tag(
           'a',
           implode(' ', [
+            Icon::splatoon3(),
             Html::encode(Yii::t('app', 'Splatoon 3')),
           ]),
         ),
@@ -28,6 +30,7 @@ use yii\web\View;
         'li',
         Html::a(
           implode(' ', [
+            Icon::splatoon2(),
             Html::encode(Yii::t('app', 'Splatoon 2')),
           ]),
           ['entire/kd-win2'],
@@ -37,6 +40,7 @@ use yii\web\View;
         'li',
         Html::a(
           implode(' ', [
+            Icon::splatoon1(),
             Html::encode(Yii::t('app', 'Splatoon')),
           ]),
           ['entire/kd-win'],

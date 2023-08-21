@@ -105,57 +105,84 @@ OgpHelper::default($this, Url::to(['site/index'], true));
         Html::a(Html::encode(Yii::t('app', 'Stats: User Activity')), ['entire/users']),
       ]),
       [
-        '3',
+        Icon::splatoon3(),
         Html::a(Html::encode(Yii::t('app', 'Weapon Stats')), ['entire/weapons3']),
         Html::a(Html::encode(Yii::t('app', 'K/D vs Win %')), ['entire/kd-win3']),
         Html::a(Html::encode(Yii::t('app', 'Knockout Rate')), ['entire/knockout3']),
         Html::a(Html::encode(Yii::t('app', 'Special Uses')), ['entire/special-use3']),
-        Html::a(Html::encode(Yii::t('app', 'X Power')), ['entire/xpower-distrib3']),
+        Html::a(
+          Icon::s3LobbyX() . ' ' . Html::encode(Yii::t('app', 'X Power')),
+          ['entire/xpower-distrib3'],
+        ),
         Html::a(Html::encode(Yii::t('app', 'Ink Color')), ['entire/ink-color3']),
       ],
       [
-        Html::encode('3 ' . Yii::t('app-lobby3', 'Challenge')),
+        Icon::splatoon3() . ' ' . Icon::s3LobbyEvent(),
         Html::a(
           Html::encode(Yii::t('app', 'Weapon Stats')),
           ['entire/event3'],
         ),
       ],
       [
-        Html::encode('3 ' . Yii::t('app-lobby3', 'Splatfest')),
+        Icon::splatoon3() . ' ' . Icon::s3LobbySplatfest(),
         Html::a(
           Html::encode(Yii::t('app', 'Splatfest Stats')),
           ['entire/splatfest3'],
         ),
       ],
       [
-       '3 SR',
+        implode(' ', [
+          Icon::splatoon3(),
+          Icon::s3Salmon(),
+        ]),
         Html::a(
           Html::encode(Yii::t('app-salmon3', 'Random Loan Rate')),
           ['entire/salmon3-random-loan'],
         ),
         Html::a(Html::encode(Yii::t('app-salmon3', 'Water Level and Events')), ['entire/salmon3-tide']),
         Html::a(
-          Html::encode(Yii::t('app-salmon3', 'Big Run')),
+          Icon::s3BigRun() . ' ' . Html::encode(Yii::t('app-salmon3', 'Big Run')),
           ['entire/salmon3-bigrun'],
         ),
         Html::a(
-          Html::encode(Yii::t('app-salmon3', 'Eggstra Work')),
+          Icon::s3Eggstra() . ' ' . Html::encode(Yii::t('app-salmon3', 'Eggstra Work')),
           ['entire/salmon3-eggstra-work'],
         ),
       ],
       [
         Icon::stats(),
-        Html::a(Html::encode(Yii::t('app', 'Stats: FestPwr diff vs Win %')), ['entire/festpower2']),
-        Html::a(Html::encode(Yii::t('app-salmon2', 'Stats: Salmon Clear %')), ['entire/salmon-clear']),
-        Html::a(Html::encode(Yii::t('app', 'Stats: Stages') . ' (Splatoon 1)'), ['stage/index']),
+        Html::a(
+          Icon::splatoon2() . ' ' . Html::encode(Yii::t('app', 'Stats: FestPwr diff vs Win %')),
+          ['entire/festpower2'],
+        ),
+        Html::a(
+          Icon::splatoon2() . ' ' . Html::encode(Yii::t('app-salmon2', 'Stats: Salmon Clear %')),
+          ['entire/salmon-clear'],
+        ),
+        Html::a(
+          Icon::splatoon1() . ' ' . Html::encode(Yii::t('app', 'Stats: Stages')),
+          ['stage/index'],
+        ),
       ],
       [
         Icon::download(),
-        Html::a(Html::encode(Yii::t('app', 'Download Stats')), ['download-stats/index']),
+        Html::a(
+          implode('', [
+            Icon::splatoon3(),
+            Icon::splatoon2(),
+            Icon::splatoon1(),
+            ' ',
+            Html::encode(Yii::t('app', 'Download Stats')),
+          ]),
+          ['download-stats/index'],
+        ),
       ],
       [
         Html::a(Html::encode(Yii::t('app', 'About support for color-blindness')), ['site/color']),
-        Html::a(Html::encode(Yii::t('app-privacy', 'About image sharing with the IkaLog team')), ['site/privacy']),
+        Html::a(
+          Icon::splatoon1() . ' ' . Html::encode(Yii::t('app-privacy', 'About image sharing with the IkaLog team')),
+          ['site/privacy'],
+        ),
       ],
     ]
   )) ?></nav>

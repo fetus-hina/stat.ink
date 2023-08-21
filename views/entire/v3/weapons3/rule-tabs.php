@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\components\widgets\Icon;
 use app\models\Rule3;
 use yii\helpers\Html;
 use yii\web\View;
@@ -24,7 +25,23 @@ use yii\web\View;
           'li',
           Html::tag(
             'a',
-            Html::encode(Yii::t('app-rule3', $item->name)),
+            trim(
+              implode(' ', [
+                match ($item->key) {
+                  'area' => Icon::s3RuleArea(),
+                  'asari' => Icon::s3RuleAsari(),
+                  'hoko' => Icon::s3RuleHoko(),
+                  'nawabari' => Icon::s3RuleNawabari(),
+                  'yagura' => Icon::s3RuleYagura(),
+                  default=> '',
+                },
+                Html::tag(
+                  'span',
+                  Html::encode(Yii::t('app-rule3', $item->name)),
+                  ['class' => 'd-none d-sm-inline'],
+                ),
+              ]),
+            ),
             $item->key !== $rule->key
               ? ['href' => $ruleUrl($item)]
               : [],
