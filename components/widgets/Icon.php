@@ -18,6 +18,7 @@ use app\assets\SalmonEggAsset;
 use app\assets\s3PixelIcons\AbilityIconAsset;
 use app\assets\s3PixelIcons\LobbyIconAsset;
 use app\assets\s3PixelIcons\RuleIconAsset;
+use app\assets\s3PixelIcons\SalmometerIconAsset;
 use app\assets\s3PixelIcons\SalmonModeIconAsset;
 use app\assets\s3PixelIcons\VersionIconAsset;
 use app\components\helpers\TypeHelper;
@@ -136,6 +137,12 @@ use function mb_chr;
  * @method static string s3RuleNawabari()
  * @method static string s3RuleTricolor()
  * @method static string s3RuleYagura()
+ * @method static string s3Salmometer0()
+ * @method static string s3Salmometer1()
+ * @method static string s3Salmometer2()
+ * @method static string s3Salmometer3()
+ * @method static string s3Salmometer4()
+ * @method static string s3Salmometer5()
  * @method static string s3Salmon()
  * @method static string scrollTo()
  * @method static string search()
@@ -291,6 +298,12 @@ final class Icon
         's3RuleNawabari' => [RuleIconAsset::class, 'nawabari.png'],
         's3RuleTricolor' => [RuleIconAsset::class, 'tricolor.png'],
         's3RuleYagura' => [RuleIconAsset::class, 'yagura.png'],
+        's3Salmometer0' => [SalmometerIconAsset::class, 'salmometer-0.png', '(0/5)'],
+        's3Salmometer1' => [SalmometerIconAsset::class, 'salmometer-1.png', '(1/5)'],
+        's3Salmometer2' => [SalmometerIconAsset::class, 'salmometer-2.png', '(2/5)'],
+        's3Salmometer3' => [SalmometerIconAsset::class, 'salmometer-3.png', '(3/5)'],
+        's3Salmometer4' => [SalmometerIconAsset::class, 'salmometer-4.png', '(4/5)'],
+        's3Salmometer5' => [SalmometerIconAsset::class, 'salmometer-5.png', '(5/5)'],
         's3Salmon' => [SalmonModeIconAsset::class, 'salmon.png'],
         'splatoon1' => [VersionIconAsset::class, 's1.png', '[1]'],
         'splatoon2' => [VersionIconAsset::class, 's2.png', '[2]'],
@@ -420,6 +433,19 @@ final class Icon
             'hoko' => self::s3RuleHoko(),
             'nawabari' => self::s3RuleNawabari(),
             'yagura' => self::s3RuleYagura(),
+            default => null,
+        };
+    }
+
+    public static function s3Salmometer(int $level): ?string
+    {
+        return match ($level) {
+            0 => self::s3Salmometer0(),
+            1 => self::s3Salmometer1(),
+            2 => self::s3Salmometer2(),
+            3 => self::s3Salmometer3(),
+            4 => self::s3Salmometer4(),
+            5 => self::s3Salmometer5(),
             default => null,
         };
     }

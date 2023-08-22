@@ -10,6 +10,6 @@ declare(strict_types=1);
 
 namespace app\assets\s3PixelIcons;
 
-final class SalmonModeIconAsset extends internal\SalmonIconAsset
+final class SalmometerIconAsset extends internal\SalmonIconAsset
 {
 }
