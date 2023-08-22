@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\components\widgets\Icon;
 use app\models\Salmon3;
 use yii\bootstrap\Progress;
 use yii\helpers\Html;
@@ -15,14 +16,17 @@ return [
     }
 
     $f = Yii::$app->formatter;
-    return Progress::widget([
-      'percent' => 100 * (1 + $model->king_smell) / 6,
-      'label' => vsprintf('%s / %s', [
-        $f->asInteger($model->king_smell),
-        $f->asInteger(5),
+    return Html::tag(
+      'span',
+      implode(' ', [
+        Html::tag('span', Icon::s3Salmometer($model->king_smell), ['style' => 'font-size: 2em']),
+        vsprintf('(%s / %s)', [
+          $f->asInteger($model->king_smell),
+          $f->asInteger(5),
+        ]),
       ]),
-      'barOptions' => [
-        'class' => 'auto-tooltip progress-bar-warning',
+      [
+        'class' => 'auto-tooltip',
         'title' => Yii::t('app-salmon3', 'It would appear at {percent} if all four were {smell}.', [
           'percent' => $f->asPercent(
             match ($model->king_smell) {
@@ -37,6 +41,6 @@ return [
           'smell' => $f->asInteger($model->king_smell),
         ]),
       ],
-    ]);
+    );
   },
 ];

@@ -11,10 +11,12 @@ declare(strict_types=1);
 namespace app\actions\api\internal\latestBattles;
 
 use Yii;
-use app\assets\GameModeIconsAsset;
+use app\assets\s3PixelIcons\SalmonModeIconAsset;
+use app\components\helpers\TypeHelper;
 use app\models\Salmon3;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
+use yii\web\AssetManager;
 
 use function rawurlencode;
 use function sprintf;
@@ -27,8 +29,7 @@ trait Salmon3Formatter
 
     protected function formatSalmon3(Salmon3 $battle): array
     {
-        $am = Yii::$app->assetManager;
-        $modeAsset = $am->getBundle(GameModeIconsAsset::class, true);
+        $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
 
         return [
             'id' => $battle->uuid,
@@ -40,17 +41,17 @@ trait Salmon3Formatter
             },
             'mode' => match (true) {
                 $battle->is_big_run === true => [
-                    'icon' => null,
+                    'icon' => $am->getAssetUrl($am->getBundle(SalmonModeIconAsset::class), 'bigrun.png'),
                     'key' => 'salmon',
                     'name' => Yii::t('app-salmon3', 'Big Run'),
                 ],
                 $battle->is_eggstra_work === true => [
-                    'icon' => null,
+                    'icon' => $am->getAssetUrl($am->getBundle(SalmonModeIconAsset::class), 'eggstra.png'),
                     'key' => 'salmon',
                     'name' => Yii::t('app-salmon3', 'Eggstra Work'),
                 ],
                 default => [
-                    'icon' => null,
+                    'icon' => $am->getAssetUrl($am->getBundle(SalmonModeIconAsset::class), 'salmon.png'),
                     'key' => 'salmon',
                     'name' => Yii::t('app-salmon2', 'Salmon Run'),
                 ],

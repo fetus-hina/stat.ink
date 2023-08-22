@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\components\widgets\Icon;
 use app\models\Salmon3;
 use yii\helpers\Html;
 
@@ -13,13 +14,8 @@ return [
   'label' => '',
   'value' => function (Salmon3 $model): ?string {
     $meter = $model->king_smell;
-    if ($meter === null) {
-      return null;
-    }
-
-    return vsprintf('%s / %s', [
-      Yii::$app->formatter->asInteger($meter),
-      Yii::$app->formatter->asInteger(5),
-    ]);
+    return is_int($meter) && 0 <= $meter && $meter <= 5
+      ? Icon::s3Salmometer($meter)
+      : null;
   },
 ];
