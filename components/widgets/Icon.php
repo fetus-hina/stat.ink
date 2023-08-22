@@ -121,6 +121,7 @@ use function mb_chr;
  * @method static string s3AbilitySwimSpeedUp
  * @method static string s3AbilityTenacity
  * @method static string s3AbilityThermalInk
+ * @method static string s3AbilityUnknown()
  * @method static string s3BigRun()
  * @method static string s3Eggstra()
  * @method static string s3LobbyBankara()
@@ -275,6 +276,7 @@ final class Icon
         's3AbilitySwimSpeedUp' => [AbilityIconAsset::class, 'swim_speed_up.png'],
         's3AbilityTenacity' => [AbilityIconAsset::class, 'tenacity.png'],
         's3AbilityThermalInk' => [AbilityIconAsset::class, 'thermal_ink.png'],
+        's3AbilityUnknown' => [AbilityIconAsset::class, 'unknown.png'],
         's3BigRun' => [SalmonModeIconAsset::class, 'bigrun.png'],
         's3Eggstra' => [SalmonModeIconAsset::class, 'eggstra.png'],
         's3LobbyBankara' => [LobbyIconAsset::class, 'bankara.png'],
@@ -359,7 +361,7 @@ final class Icon
 
     public static function s3Ability(Ability3|string|null $ability): ?string
     {
-        return match ($ability instanceof Ability ? $ability->key : $ability) {
+        return match ($ability instanceof Ability3 ? $ability->key : $ability) {
             'ability_doubler' => self::s3AbilityAbilityDoubler(),
             'comeback' => self::s3AbilityComeback(),
             'drop_roller' => self::s3AbilityDropRoller(),
@@ -386,6 +388,7 @@ final class Icon
             'swim_speed_up' => self::s3AbilitySwimSpeedUp(),
             'tenacity' => self::s3AbilityTenacity(),
             'thermal_ink' => self::s3AbilityThermalInk(),
+            'unknown' => self::s3AbilityUnknown(),
             default => null,
         };
     }
