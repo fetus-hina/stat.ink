@@ -11,9 +11,13 @@ declare(strict_types=1);
 namespace app\actions\api\internal\latestBattles;
 
 use Yii;
+use app\assets\s3PixelIcons\LobbyIconAsset;
+use app\assets\s3PixelIcons\RuleIconAsset;
+use app\components\helpers\TypeHelper;
 use app\models\Battle3;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
+use yii\web\AssetManager;
 
 use function rawurlencode;
 use function strtotime;
@@ -75,8 +79,17 @@ trait Battle3Formatter
             return null;
         }
 
+        $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
         return [
-            'icon' => null,
+            'icon' => match ($lobby->key) {
+                'regular' => null,
+                default => $am->getAssetUrl(
+                    $am->getBundle(LobbyIconAsset::class),
+                    vsprintf('%s.png', [
+                        $lobby->key,
+                    ]),
+                ),
+            },
             'key' => $lobby->key,
             'name' => Yii::t('app-lobby3', $lobby->name),
         ];
@@ -124,8 +137,14 @@ trait Battle3Formatter
             return null;
         }
 
+        $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
         return [
-            'icon' => null,
+            'icon' => $am->getAssetUrl(
+                $am->getBundle(RuleIconAsset::class),
+                vsprintf('%s.png', [
+                    $rule->key,
+                ]),
+            ),
             'key' => $rule->key,
             'name' => Yii::t('app-rule3', $rule->name),
         ];
