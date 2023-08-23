@@ -9,6 +9,9 @@
 declare(strict_types=1);
 
 use app\components\db\Migration;
+use app\components\helpers\TypeHelper;
+use yii\db\Connection;
+use yii\db\Expression;
 
 final class m230823_103138_season_202309 extends Migration
 {
@@ -20,13 +23,13 @@ final class m230823_103138_season_202309 extends Migration
         $startAt = '2023-09-01T00:00:00+00:00';
         $endAt = '2023-12-01T00:00:00+00:00';
 
-        $db = \app\components\helpers\TypeHelper::instanceOf($this->db, \yii\db\Connection::class);
+        $db = TypeHelper::instanceOf($this->db, Connection::class);
         $this->insert('{{%season3}}', [
             'key' => 'season202309',
             'name' => 'Drizzle Season 2023',
             'start_at' => $startAt,
             'end_at' => $endAt,
-            'term' => new \yii\db\Expression(
+            'term' => new Expression(
                 vsprintf('tstzrange(%s, %s, %s)', [
                     $db->quoteValue($startAt),
                     $db->quoteValue($endAt),
