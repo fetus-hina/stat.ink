@@ -94,6 +94,7 @@ return [
     'Grizzco Brella' => '',
     'Grizzco Charger' => '',
     'Grizzco Slosher' => '',
+    'Heavy Edit Splatling' => '',
     'Kalarrapid α' => '',
     'Kalarrapid β' => '',
     'Kalarrapid γ' => '',

@@ -101,6 +101,7 @@ return [
     'Flexi-rouleau' => '',
     'Flexi-rouleau alu' => '',
     'Fusil M. Ours SA' => '',
+    'Heavy Edit Splatling' => '',
     'Lanceur héroïque (réplique)' => '',
     'Lanceur Octaling (réplique)' => '',
     'Lanceur spatial' => '',

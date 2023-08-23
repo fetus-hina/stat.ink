@@ -106,6 +106,7 @@ return [
     'H-3 Langsnuit Kers' => '',
     'H-3 Nozzlenose' => '',
     'H-3 Nozzlenose D' => '',
+    'Heavy Edit Splatling' => '',
     'Heavy Splatling' => '',
     'Heavy Splatling Deco' => '',
     'Heavy Splatling Remix' => '',

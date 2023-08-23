@@ -88,6 +88,7 @@ return [
     'Flexi-rouleau' => '',
     'Fusil M. Ours Cie' => '',
     'Fusil M. Ours SA' => '',
+    'Heavy Edit Splatling' => '',
     'Lanceur spatial' => '',
     'Lanceur spatial Aroz' => '',
     'Lignizateur alpha' => '',

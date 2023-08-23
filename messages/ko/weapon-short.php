@@ -50,6 +50,7 @@ return [
     'Grim Range Blaster' => '',
     'H3 릴 건' => '',
     'H3 릴 건 D' => '',
+    'Heavy Edit Splatling' => '',
     'Heavy Splatling Remix' => '',
     'Hero Blaster Replica' => '',
     'Hero Brella Replica' => '',
