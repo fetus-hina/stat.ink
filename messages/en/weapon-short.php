@@ -84,6 +84,7 @@ return [
     'Grizzco Stringer' => '',
     'H-3 Nozzlenose' => 'H-3',
     'H-3 Nozzlenose D' => 'H-3D',
+    'Heavy Edit Splatling' => '',
     'Heavy Splatling' => 'Splatling',
     'Heavy Splatling Deco' => 'Splatling Deco',
     'Heavy Splatling Remix' => 'Splatling Remix',

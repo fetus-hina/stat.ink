@@ -82,6 +82,7 @@ return [
     'Grizzco Brella' => '',
     'Grizzco Charger' => '',
     'Grizzco Slosher' => '',
+    'Heavy Edit Splatling' => '',
     'Hiperlanzamotas' => '',
     'Hiperlanzamotas neo' => '',
     'L-MOT 92' => '',

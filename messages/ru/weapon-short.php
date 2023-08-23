@@ -36,6 +36,7 @@ return [
     'Grizzco Brella' => '',
     'Grizzco Charger' => '',
     'Grizzco Slosher' => '',
+    'Heavy Edit Splatling' => '',
     'Heavy Splatling Remix' => '',
     'Hero Charger Replica' => '',
     'Hero Roller Replica' => '',
