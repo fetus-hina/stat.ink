@@ -39,6 +39,7 @@ use yii\web\View;
 use function array_filter;
 use function array_values;
 use function implode;
+use function is_array;
 use function is_string;
 use function mb_chr;
 
@@ -258,7 +259,12 @@ final class Icon
     ];
 
     /**
-     * @var array<string, array{class-string<AssetBundle>, string, ?string}>
+     * @var array<string, array{
+     *   class-string<AssetBundle>,
+     *   string,
+     *   string|array{string, string, ?array},
+     *   bool|string|array{string, string, ?array}|null
+     * }>
      */
     private static $assetImageMap = [
         'bluesky' => [AppLinkAsset::class, 'bluesky.png'],
@@ -291,30 +297,30 @@ final class Icon
         's3AbilityTenacity' => [AbilityIconAsset::class, 'tenacity.png'],
         's3AbilityThermalInk' => [AbilityIconAsset::class, 'thermal_ink.png'],
         's3AbilityUnknown' => [AbilityIconAsset::class, 'unknown.png'],
-        's3BigRun' => [SalmonModeIconAsset::class, 'bigrun.png'],
-        's3Eggstra' => [SalmonModeIconAsset::class, 'eggstra.png'],
-        's3LobbyBankara' => [LobbyIconAsset::class, 'bankara.png'],
-        's3LobbyEvent' => [LobbyIconAsset::class, 'event.png'],
-        's3LobbyPrivate' => [LobbyIconAsset::class, 'private.png'],
-        's3LobbyRegular' => [LobbyIconAsset::class, 'regular.png'],
-        's3LobbySplatfest' => [LobbyIconAsset::class, 'splatfest.png'],
-        's3LobbyX' => [LobbyIconAsset::class, 'xmatch.png'],
-        's3RuleArea' => [RuleIconAsset::class, 'area.png'],
-        's3RuleAsari' => [RuleIconAsset::class, 'asari.png'],
-        's3RuleHoko' => [RuleIconAsset::class, 'hoko.png'],
-        's3RuleNawabari' => [RuleIconAsset::class, 'nawabari.png'],
-        's3RuleTricolor' => [RuleIconAsset::class, 'tricolor.png'],
-        's3RuleYagura' => [RuleIconAsset::class, 'yagura.png'],
-        's3Salmometer0' => [SalmometerIconAsset::class, 'salmometer-0.png', '(0/5)'],
-        's3Salmometer1' => [SalmometerIconAsset::class, 'salmometer-1.png', '(1/5)'],
-        's3Salmometer2' => [SalmometerIconAsset::class, 'salmometer-2.png', '(2/5)'],
-        's3Salmometer3' => [SalmometerIconAsset::class, 'salmometer-3.png', '(3/5)'],
-        's3Salmometer4' => [SalmometerIconAsset::class, 'salmometer-4.png', '(4/5)'],
-        's3Salmometer5' => [SalmometerIconAsset::class, 'salmometer-5.png', '(5/5)'],
-        's3Salmon' => [SalmonModeIconAsset::class, 'salmon.png'],
-        'splatoon1' => [VersionIconAsset::class, 's1.png', '[1]'],
-        'splatoon2' => [VersionIconAsset::class, 's2.png', '[2]'],
-        'splatoon3' => [VersionIconAsset::class, 's3.png', '[3]'],
+        's3BigRun' => [SalmonModeIconAsset::class, 'bigrun.png', ['app-salmon3', 'Big Run'], true],
+        's3Eggstra' => [SalmonModeIconAsset::class, 'eggstra.png', ['app-salmon3', 'Eggstra Work'], true],
+        's3LobbyBankara' => [LobbyIconAsset::class, 'bankara.png', ['app-lobby3', 'Anarchy Battle'], true],
+        's3LobbyEvent' => [LobbyIconAsset::class, 'event.png', ['app-lobby3', 'Challenge'], true],
+        's3LobbyPrivate' => [LobbyIconAsset::class, 'private.png', ['app-lobby3', 'Private Battle'], true],
+        's3LobbyRegular' => [LobbyIconAsset::class, 'regular.png', ['app-lobby3', 'Regular Battle'], true],
+        's3LobbySplatfest' => [LobbyIconAsset::class, 'splatfest.png', ['app-lobby3', 'Splatfest'], true],
+        's3LobbyX' => [LobbyIconAsset::class, 'xmatch.png', ['app-lobby3', 'X Battle'], true],
+        's3RuleArea' => [RuleIconAsset::class, 'area.png', ['app-rule3', 'Splat Zones'], true],
+        's3RuleAsari' => [RuleIconAsset::class, 'asari.png', ['app-rule3', 'Clam Blitz'], true],
+        's3RuleHoko' => [RuleIconAsset::class, 'hoko.png', ['app-rule3', 'Rainmaker'], true],
+        's3RuleNawabari' => [RuleIconAsset::class, 'nawabari.png', ['app-rule3', 'Turf War'], true],
+        's3RuleTricolor' => [RuleIconAsset::class, 'tricolor.png', ['app-rule3', 'Tricolor Turf War'], true],
+        's3RuleYagura' => [RuleIconAsset::class, 'yagura.png', ['app-rule3', 'Tower Control'], true],
+        's3Salmometer0' => [SalmometerIconAsset::class, 'salmometer-0.png', '(0/5)', '0 / 5'],
+        's3Salmometer1' => [SalmometerIconAsset::class, 'salmometer-1.png', '(1/5)', '1 / 5'],
+        's3Salmometer2' => [SalmometerIconAsset::class, 'salmometer-2.png', '(2/5)', '2 / 5'],
+        's3Salmometer3' => [SalmometerIconAsset::class, 'salmometer-3.png', '(3/5)', '3 / 5'],
+        's3Salmometer4' => [SalmometerIconAsset::class, 'salmometer-4.png', '(4/5)', '4 / 5'],
+        's3Salmometer5' => [SalmometerIconAsset::class, 'salmometer-5.png', '(5/5)', '5 / 5'],
+        's3Salmon' => [SalmonModeIconAsset::class, 'salmon.png', ['app-salmon2', 'Salmon Run'], true],
+        'splatoon1' => [VersionIconAsset::class, 's1.png', '[1]', ['app', 'Splatoon']],
+        'splatoon2' => [VersionIconAsset::class, 's2.png', '[2]', ['app', 'Splatoon 2']],
+        'splatoon3' => [VersionIconAsset::class, 's3.png', '[3]', ['app', 'Splatoon 3']],
     ];
 
     public static function bronzeMedal(): string
@@ -550,15 +556,36 @@ final class Icon
 
     /**
      * @param class-string<AssetBundle> $assetClass
+     * @param string|array{string, string, ?array}|null $alt
+     * @param string|array{string, string, ?array}|bool|null $alt
      */
     private static function assetImage(
         string $assetClass,
         string $assetPath,
-        ?string $alt = null,
-        string|bool|null $title = null,
+        array|string|null $alt = null,
+        array|bool|string|null $title = null,
     ): string {
         // self::prepareAsset($assetClass);
         $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
+
+        if (is_array($alt)) {
+            $alt = Yii::t(
+                TypeHelper::string($alt[0]),
+                TypeHelper::string($alt[1]),
+                $alt[2] ?? [],
+            );
+        }
+
+        $title = match (true) {
+            is_string($title) => $title,
+            is_array($title) => Yii::t(
+                TypeHelper::string($title[0]),
+                TypeHelper::string($title[1]),
+                $title[2] ?? [],
+            ),
+            $title === true && is_string($alt) => $alt,
+            default => false,
+        };
 
         $options = [
             'alt' => $alt ?? false,
@@ -567,7 +594,6 @@ final class Icon
                     'basic-icon',
                     match (true) {
                         is_string($title) => 'auto-tooltip',
-                        $title === true && is_string($alt) => 'auto-tooltip',
                         default => null,
                     },
                 ]),
@@ -577,11 +603,7 @@ final class Icon
                 '--icon-height' => '1em',
                 '--icon-valign' => 'middle',
             ],
-            'title' => match (true) {
-                is_string($title) => $title,
-                $title === true && is_string($alt) => $alt,
-                default => false,
-            },
+            'title' => $title,
         ];
 
         return Html::img($am->getAssetUrl($am->getBundle($assetClass), $assetPath), $options);
