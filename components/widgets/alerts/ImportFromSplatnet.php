@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -12,6 +12,7 @@ namespace app\components\widgets\alerts;
 
 use Yii;
 use app\components\widgets\Alert;
+use app\components\widgets\Icon;
 use yii\helpers\Html;
 
 use function implode;
@@ -46,7 +47,10 @@ final class ImportFromSplatnet extends Alert
             ),
             Html::tag('ul', implode('', [
                 Html::tag('li', implode('', [
-                    Html::encode(Yii::t('app', 'Splatoon 3')),
+                    implode(' ', [
+                        Icon::splatoon3(),
+                        Html::encode(Yii::t('app', 'Splatoon 3')),
+                    ]),
                     Html::tag('ul', implode('', [
                         Html::tag('li', implode('', [
                             Html::a(
@@ -85,7 +89,10 @@ final class ImportFromSplatnet extends Alert
                     ])),
                 ])),
                 Html::tag('li', implode('', [
-                    Html::encode(Yii::t('app', 'Splatoon 2')),
+                    implode(' ', [
+                        Icon::splatoon2(),
+                        Html::encode(Yii::t('app', 'Splatoon 2')),
+                    ]),
                     Html::tag('ul', implode('', [
                         Html::tag('li', Html::a(
                             Html::encode('splatnet2statink'),

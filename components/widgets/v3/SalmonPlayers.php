@@ -270,7 +270,8 @@ final class SalmonPlayers extends Widget
                                     return Html::encode('-');
                                 }
 
-                                return vsprintf('%s (%s)', [
+                                return vsprintf('%s %s (%s)', [
+                                    Icon::s3Special($player->special),
                                     Html::encode(
                                         Yii::t('app-special3', $player->special->name),
                                     ),

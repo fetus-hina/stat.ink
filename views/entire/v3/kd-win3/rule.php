@@ -16,7 +16,10 @@ use yii\web\View;
 echo Html::tag(
   'div',
   implode('', [
-    $this->render('rule/heading', compact('rule')),
+    $this->render('../includes/rule-header', [
+      'id' => $rule->key,
+      'rule' => $rule,
+    ]),
     $this->render('rule/summary', compact('data')),
     $this->render('rule/table-wrapper', compact('data', 'lobbyKey', 'rule')),
   ]),

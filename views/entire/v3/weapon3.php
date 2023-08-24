@@ -77,7 +77,19 @@ echo $this->render('weapon3/chart-runner');
 
 ?>
 <div class="container">
-  <?= Html::tag('h1', Html::encode($title)) . "\n" ?>
+  <?= Html::tag(
+    'h1',
+    implode(' ', [
+      Html::encode(Yii::t('app-weapon3', $weapon->name)),
+      Html::tag(
+        'small',
+        vsprintf('(%s %s)', [
+          Icon::s3Subweapon($weapon->subweapon) ?? Icon::unknown(),
+          Icon::s3Special($weapon->special) ?? Icon::unknown(),
+        ]),
+      ),
+    ]),
+  ) . "\n" ?>
 
   <?= AdWidget::widget() . "\n" ?>
   <?= SnsWidget::widget() . "\n" ?>

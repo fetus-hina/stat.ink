@@ -54,7 +54,10 @@ $fmt = Yii::$app->formatter;
 <?php $model = $specialStats[$specialId] ?? null; ?>
 <?php if ($model) { ?>
       <tr>
-        <th scope="row"><?= Html::encode(Yii::t('app-special3', $special->name)) ?></th>
+        <th scope="row">
+          <?= Icon::s3Special($special) . "\n" ?>
+          <?= Html::encode(Yii::t('app-special3', $special->name)) . "\n" ?>
+        </th>
         <td class="text-center"><?= $fmt->asInteger($model->jobs) ?></th>
         <td class="text-center"><?= $fmt->asPercent($model->jobs_cleared / $model->jobs, 1) ?></td>
         <td class="text-center"><?= $fmt->asDecimal($model->waves_cleared_avg, 2) ?></td>

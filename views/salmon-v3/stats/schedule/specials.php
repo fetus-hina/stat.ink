@@ -71,7 +71,10 @@ $fmt = Yii::$app->formatter;
 <?php $row = $specialStats[$specialId] ?? null; ?>
 <?php if ($row) { ?>
       <tr>
-        <th scope="row"><?= Html::encode(Yii::t('app-special3', $special->name)) ?></th>
+        <th scope="row">
+          <?= Icon::s3Special($special) . "\n" ?>
+          <?= Html::encode(Yii::t('app-special3', $special->name)) . "\n" ?>
+        </th>
         <td class="text-center"><?= $fmt->asInteger($row['count']) ?></th>
         <td class="text-center"><?= $fmt->asPercent($row['cleared'] / $row['count'], 1) ?></td>
         <td class="text-center"><?= $fmt->asDecimal($row['avg_waves'], 2) ?></td>

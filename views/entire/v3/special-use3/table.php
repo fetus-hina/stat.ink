@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use app\assets\TableResponsiveForceAsset;
+use app\components\widgets\Icon;
 use app\models\Rule3;
 use app\models\Season3;
 use app\models\Special3;
@@ -47,7 +48,10 @@ $fmt = Yii::$app->formatter;
           'label' => Yii::t('app', 'Special'),
           'format' => 'raw',
           'value' => fn (StatSpecialUse3 $model): string => Html::a(
-            Html::encode(Yii::t('app-special3', $specials[$model->special_id]?->name ?? '')),
+            implode(' ', [
+              Icon::s3Special($specials[$model->special_id] ?? null),
+              Html::encode(Yii::t('app-special3', $specials[$model->special_id]?->name ?? '')),
+            ]),
             ['entire/special-use3-per-special',
               'season' => $season->id,
               'special' => $specials[$model->special_id]?->key,
