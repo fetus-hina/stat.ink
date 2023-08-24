@@ -63,16 +63,23 @@ use yii\web\View;
                 ),
                 Html::tag(
                   'div',
-                  Html::encode(implode(' - ', [
-                    Yii::t('app-rule3', $model->rule->name ?? '?'),
-                    Yii::t('app-lobby3', $model->lobby->name ?? '?'),
-                  ])),
-                  ['class' => 'simple-battle-rule omit']
+                  implode(' ', [
+                    Icon::s3Rule($model->rule),
+                    Html::encode(Yii::t('app-rule3', $model->rule->name ?? '?')),
+                    Html::encode('-'),
+                    Icon::s3Lobby($model->lobby),
+                    Html::encode(Yii::t('app-lobby3', $model->lobby->name ?? '?')),
+                  ]),
+                  ['class' => 'simple-battle-rule omit'],
                 ),
                 Html::tag(
                   'div',
                   $model->weapon
-                    ? Html::encode(Yii::t('app-weapon3', $model->weapon->name))
+                    ? implode(' ', [
+                      Html::encode(Yii::t('app-weapon3', $model->weapon->name)),
+                      Icon::s3Subweapon($model->weapon->subweapon),
+                      Icon::s3Special($model->weapon->special),
+                    ])
                     : '?',
                   ['class' => 'simple-battle-weapon omit']
                 ),

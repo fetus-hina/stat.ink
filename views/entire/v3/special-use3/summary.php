@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use app\assets\TableResponsiveForceAsset;
+use app\components\widgets\Icon;
 use app\models\Rule3;
 use app\models\Season3;
 use app\models\Special3;
@@ -52,7 +53,10 @@ $total2 = ArrayHelper::index($total, 'special_id');
 <?php foreach ($rules as $rule) { ?>
             <?= Html::tag(
               'th',
-              Html::encode(Yii::t('app-rule3', $rule->name)),
+              implode(' ', [
+                Icon::s3Rule($rule),
+                Html::encode(Yii::t('app-rule3', $rule->name)),
+              ]),
               ['width' => '14%'],
             ) . "\n" ?>
 <?php } ?>
@@ -64,7 +68,10 @@ $total2 = ArrayHelper::index($total, 'special_id');
             <?= Html::tag(
               'td',
               Html::a(
-                Html::encode(Yii::t('app-special3', $special->name)),
+                implode(' ', [
+                  Icon::s3Special($special),
+                  Html::encode(Yii::t('app-special3', $special->name)),
+                ]),
                 ['entire/special-use3-per-special',
                   'season' => $season->id,
                   'special' => $special->key,

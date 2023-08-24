@@ -43,11 +43,10 @@ RatioAsset::register($this);
 
 ?>
 <div class="mb-3">
-  <?= Yii::$app->cache->getOrSet(
-    [__FILE__, __LINE__, $assetRevision, Yii::$app->language, $rule->id, $rule->name],
-    fn (): string => $this->render('rule/heading', ['rule' => $rule]),
-    86400,
-  ) . "\n" ?>
+  <?= $this->render('../includes/rule-header', [
+    'rule' => $rule,
+    'id' => $rule->key,
+  ]) . "\n" ?>
   <?= Yii::$app->cache->getOrSet(
     [__FILE__, __LINE__, Yii::$app->language, $abstract?->attributes],
     fn (): string => $this->render('rule/abstract', ['model' => $abstract]),

@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace app\components\widgets\v3;
 
 use Yii;
+use app\components\widgets\Icon;
 use app\models\SalmonWeapon3;
 use app\models\Weapon3;
 use yii\base\Widget;
@@ -56,9 +57,11 @@ final class WeaponName extends Widget
             return '';
         }
 
-        return vsprintf('%s / %s', [
+        return vsprintf('%3$s %1$s / %4$s %2$s', [
             Html::encode(Yii::t('app-subweapon3', $sub->name)),
             Html::encode(Yii::t('app-special3', $sp->name)),
+            Icon::s3Subweapon($sub),
+            Icon::s3Special($sp),
         ]);
     }
 }

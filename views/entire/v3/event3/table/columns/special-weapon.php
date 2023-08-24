@@ -11,7 +11,7 @@ return [
     'app-special3',
     match ($model::class) {
       Event3StatsSpecial::class => $model->special->name,
-      Event3StatsWeapon::class => $model->weapon->special->name,
+      Event3StatsWeapon::class => $model->weapon?->special?->name ?? null,
     },
   ),
 ];

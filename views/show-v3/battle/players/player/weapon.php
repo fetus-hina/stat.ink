@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\components\widgets\Icon;
 use app\models\Weapon3;
 use yii\helpers\Html;
 use yii\web\View;
@@ -14,16 +15,10 @@ use yii\web\View;
 ?>
 <div class="flex-grow-1">
 <?php if ($weapon) { ?>
-  <?= Html::tag(
-    'span',
+  <?= implode(' ', [
     Html::encode(Yii::t('app-weapon3', $weapon->name)),
-    [
-      'class' => 'auto-tooltip',
-      'title' => vsprintf('%s / %s', [
-        Yii::t('app-subweapon3', $weapon->subweapon?->name ?? '?'),
-        Yii::t('app-special3', $weapon->special?->name ?? '?'),
-      ]),
-    ],
-  ) . "\n" ?>
+    Icon::s3Subweapon($weapon->subweapon),
+    Icon::s3Special($weapon->special),
+  ]) . "\n" ?>
 <?php } ?>
 </div>

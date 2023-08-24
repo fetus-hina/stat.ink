@@ -38,6 +38,7 @@ use function implode;
 use function min;
 use function range;
 use function sprintf;
+use function str_repeat;
 use function vsprintf;
 
 final class SalmonWaves extends Widget
@@ -540,19 +541,15 @@ final class SalmonWaves extends Widget
                             $wave,
                             fn (array $wave): string => implode('', ArrayHelper::getColumn(
                                 $wave['specials'],
-                                fn (SalmonSpecialUse3 $info): string => Html::tag(
-                                    'div',
-                                    Html::encode(
-                                        vsprintf('%d×%s', [
-                                            Yii::$app->formatter->asInteger($info->count),
-                                            Yii::t('app-special3', $info->special->name),
-                                        ]),
+                                fn (SalmonSpecialUse3 $info): string => implode(' ', [
+                                    str_repeat(
+                                        Icon::s3Special($info->special) . ' ',
+                                        $info->count,
                                     ),
-                                    ['class' => 'omit'],
-                                ),
+                                ]),
                             )),
                         ),
-                        ['style' => 'line-height:1.75em'],
+                        ['class' => 'text-center'],
                     ),
                 )),
                 $isEggstraWork ? '' : Html::tag('td', ''),

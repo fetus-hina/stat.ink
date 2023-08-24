@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use app\components\helpers\TypeHelper;
+use app\components\widgets\Icon;
 use app\models\Rule3;
 use yii\helpers\Html;
 use yii\web\AssetManager;
@@ -18,8 +20,7 @@ $cellStyle = [
   'width' => $cellWidth,
 ];
 
-$am = Yii::$app->assetManager;
-assert($am instanceof AssetManager);
+$am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
 
 ?>
 <thead>
@@ -32,7 +33,10 @@ assert($am instanceof AssetManager);
 <?php foreach ($rules as $rule) { ?>
     <?= Html::tag(
       'th',
-      Html::encode(Yii::t('app-rule3', $rule->name)),
+      implode(' ', [
+        Icon::s3Rule($rule),
+        Html::encode(Yii::t('app-rule3', $rule->name)),
+      ]),
       [
         'class' => 'omit text-center',
         'style' => $cellStyle,

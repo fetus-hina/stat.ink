@@ -20,19 +20,26 @@ use app\assets\s3PixelIcons\LobbyIconAsset;
 use app\assets\s3PixelIcons\RuleIconAsset;
 use app\assets\s3PixelIcons\SalmometerIconAsset;
 use app\assets\s3PixelIcons\SalmonModeIconAsset;
+use app\assets\s3PixelIcons\SpecialIconAsset;
+use app\assets\s3PixelIcons\SubweaponIconAsset;
 use app\assets\s3PixelIcons\VersionIconAsset;
 use app\components\helpers\TypeHelper;
 use app\models\Ability3;
 use app\models\Lobby3;
 use app\models\LobbyGroup3;
 use app\models\Rule3;
+use app\models\Special3;
+use app\models\Subweapon3;
 use yii\base\UnknownMethodException;
 use yii\helpers\Html;
 use yii\web\AssetBundle;
 use yii\web\AssetManager;
 use yii\web\View;
 
+use function array_filter;
+use function array_values;
 use function implode;
+use function is_string;
 use function mb_chr;
 
 /**
@@ -450,6 +457,56 @@ final class Icon
         };
     }
 
+    public static function s3Subweapon(Subweapon3|string|null $model): ?string
+    {
+        if ($model === null) {
+            return null;
+        }
+
+        if (is_string($model)) {
+            $model = Subweapon3::find()
+                ->andWhere(['key' => $model])
+                ->limit(1)
+                ->cache(14 * 86400)
+                ->one();
+            if (!$model) {
+                return null;
+            }
+        }
+
+        return self::assetImage(
+            SubweaponIconAsset::class,
+            "{$model->key}.png",
+            Yii::t('app-subweapon3', $model->name),
+            true,
+        );
+    }
+
+    public static function s3Special(Special3|string|null $model): ?string
+    {
+        if ($model === null) {
+            return null;
+        }
+
+        if (is_string($model)) {
+            $model = Special3::find()
+                ->andWhere(['key' => $model])
+                ->limit(1)
+                ->cache(14 * 86400)
+                ->one();
+            if (!$model) {
+                return null;
+            }
+        }
+
+        return self::assetImage(
+            SpecialIconAsset::class,
+            "{$model->key}.png",
+            Yii::t('app-special3', $model->name),
+            true,
+        );
+    }
+
     public static function __callStatic(string $name, $args): string
     {
         return match (true) {
@@ -498,19 +555,36 @@ final class Icon
         string $assetClass,
         string $assetPath,
         ?string $alt = null,
+        string|bool|null $title = null,
     ): string {
         // self::prepareAsset($assetClass);
         $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
 
-        return Html::img($am->getAssetUrl($am->getBundle($assetClass), $assetPath), [
+        $options = [
             'alt' => $alt ?? false,
-            'class' => 'basic-icon',
+            'class' => array_values(
+                array_filter([
+                    'basic-icon',
+                    match (true) {
+                        is_string($title) => 'auto-tooltip',
+                        $title === true && is_string($alt) => 'auto-tooltip',
+                        default => null,
+                    },
+                ]),
+            ),
             'draggable' => 'false',
             'style' => [
                 '--icon-height' => '1em',
                 '--icon-valign' => 'middle',
             ],
-        ]);
+            'title' => match (true) {
+                is_string($title) => $title,
+                $title === true && is_string($alt) => $alt,
+                default => false,
+            },
+        ];
+
+        return Html::img($am->getAssetUrl($am->getBundle($assetClass), $assetPath), $options);
     }
 
     /**

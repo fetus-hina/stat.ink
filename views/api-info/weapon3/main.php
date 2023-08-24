@@ -25,7 +25,7 @@ use yii\web\View;
 TableResponsiveForceAsset::register($this);
 SortableTableAsset::register($this);
 
-$salmonIcon = 'SR';
+$salmonIcon = Icon::s3Salmon();
 
 ?>
 <h2><?= Html::encode(Yii::t('app', 'Main Weapon')) ?></h2>
@@ -56,7 +56,7 @@ $salmonIcon = 'SR';
       <tr>
         <th data-sort="int">X</th>
         <th data-sort="int"><?= Html::encode(Yii::t('app', 'Category')) ?></th>
-        <?= Html::tag('th', Html::encode($salmonIcon), [
+        <?= Html::tag('th', $salmonIcon, [
           'class' => 'auto-tooltip',
           'data-sort' => 'int',
           'title' => Yii::t('app-salmon2', 'Salmon Run'),
@@ -74,8 +74,8 @@ $salmonIcon = 'SR';
 <?php if ($i === 0) { ?>
         <th data-sort="string"><?= Html::encode(Yii::t('app', 'Weapon (Short)')) ?></th>
         <th data-sort="string"><?= Html::encode(Yii::t('app', 'Main Weapon')) ?></th>
-        <th data-sort="string"><?= Html::encode(Yii::t('app', 'Sub Weapon')) ?></th>
-        <th data-sort="string"><?= Html::encode(Yii::t('app', 'Special')) ?></th>
+        <th data-sort="string"></th>
+        <th data-sort="string"></th>
 <?php } ?>
 <?php } ?>
       </tr>
@@ -155,15 +155,11 @@ $salmonIcon = 'SR';
         ) . "\n" ?>
         <?= Html::tag(
           'td',
-          $weapon->subweapon
-            ? Html::encode(Yii::t('app-subweapon3', $weapon->subweapon->name, [], $lang->lang))
-            : '',
+          Icon::s3Subweapon($weapon->subweapon),
         ) . "\n" ?>
         <?= Html::tag(
           'td',
-          $weapon->special
-            ? Html::encode(Yii::t('app-special3', $weapon->special->name, [], $lang->lang))
-            : '',
+          Icon::s3Special($weapon->special),
         ) . "\n" ?>
 <?php } ?>
 <?php } ?>
