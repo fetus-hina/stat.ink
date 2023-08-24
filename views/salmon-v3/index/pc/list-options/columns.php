@@ -6,6 +6,7 @@ return [
   require __DIR__ . '/columns/button.php',
   require __DIR__ . '/columns/stage.php',
   require __DIR__ . '/columns/stage-short.php',
+  require __DIR__ . '/columns/special-icon.php',
   require __DIR__ . '/columns/special.php',
   require __DIR__ . '/columns/result.php',
   require __DIR__ . '/columns/king-smell.php',
