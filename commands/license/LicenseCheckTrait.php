@@ -60,7 +60,7 @@ trait LicenseCheckTrait
     ];
 
     private array $safeLicenseRegexes = [
-        '/^CC-BY-[0-9.]+$/',
+        '/^CC-BY-(?:NC-)?[0-9.]+$/',
         '/^CC0-[0-9.]+$/',
         '/^LGPL/',
     ];
