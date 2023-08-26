@@ -1452,16 +1452,16 @@
         },
         {
             "name": "lipis/flag-icons",
-            "version": "v6.10.0",
+            "version": "v6.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lipis/flag-icons.git",
-                "reference": "20abcf34eaecc2adac6cb290f8cecf52fa7ad8b7"
+                "reference": "a7b7c3c55560cb39d96e70324876e1bb5b1c625b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lipis/flag-icons/zipball/20abcf34eaecc2adac6cb290f8cecf52fa7ad8b7",
-                "reference": "20abcf34eaecc2adac6cb290f8cecf52fa7ad8b7",
+                "url": "https://api.github.com/repos/lipis/flag-icons/zipball/a7b7c3c55560cb39d96e70324876e1bb5b1c625b",
+                "reference": "a7b7c3c55560cb39d96e70324876e1bb5b1c625b",
                 "shasum": ""
             },
             "type": "library",
@@ -1487,9 +1487,9 @@
             ],
             "support": {
                 "issues": "https://github.com/lipis/flag-icons/issues",
-                "source": "https://github.com/lipis/flag-icons/tree/v6.10.0"
+                "source": "https://github.com/lipis/flag-icons/tree/v6.11.0"
             },
-            "time": "2023-08-17T08:00:52+00:00"
+            "time": "2023-08-22T17:05:32+00:00"
         },
         {
             "name": "lusitanian/oauth",
@@ -5809,16 +5809,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.31",
+            "version": "1.10.32",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "c0eb159b598e2b637cbd52840e3d08f28d25dd47"
+                "reference": "c47e47d3ab03137c0e121e77c4d2cb58672f6d44"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/c0eb159b598e2b637cbd52840e3d08f28d25dd47",
-                "reference": "c0eb159b598e2b637cbd52840e3d08f28d25dd47",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/c47e47d3ab03137c0e121e77c4d2cb58672f6d44",
+                "reference": "c47e47d3ab03137c0e121e77c4d2cb58672f6d44",
                 "shasum": ""
             },
             "require": {
@@ -5867,7 +5867,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-08-24T14:26:09+00:00"
+            "time": "2023-08-24T21:54:50+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",

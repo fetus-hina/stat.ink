@@ -445,6 +445,7 @@ final class Icon
             'asari' => self::s3RuleAsari(),
             'hoko' => self::s3RuleHoko(),
             'nawabari' => self::s3RuleNawabari(),
+            'tricolor' => self::s3RuleTricolor(),
             'yagura' => self::s3RuleYagura(),
             default => null,
         };
