@@ -14,7 +14,6 @@ use Yii;
 use app\assets\AppLinkAsset;
 use app\assets\BootstrapIconsAsset;
 use app\assets\MedalAsset;
-use app\assets\SalmonEggAsset;
 use app\assets\s3PixelIcons\AbilityIconAsset;
 use app\assets\s3PixelIcons\LobbyIconAsset;
 use app\assets\s3PixelIcons\RuleIconAsset;
@@ -22,6 +21,7 @@ use app\assets\s3PixelIcons\SalmometerIconAsset;
 use app\assets\s3PixelIcons\SalmonModeIconAsset;
 use app\assets\s3PixelIcons\SpecialIconAsset;
 use app\assets\s3PixelIcons\SubweaponIconAsset;
+use app\assets\s3PixelIcons\UiIconAsset;
 use app\assets\s3PixelIcons\VersionIconAsset;
 use app\assets\s3PixelIcons\WeaponIconAsset;
 use app\components\helpers\TypeHelper;
@@ -271,8 +271,8 @@ final class Icon
      */
     private static $assetImageMap = [
         'bluesky' => [AppLinkAsset::class, 'bluesky.png'],
-        'goldenEgg' => [SalmonEggAsset::class, 'golden-egg.png'],
-        'powerEgg' => [SalmonEggAsset::class, 'power-egg.png'],
+        'goldenEgg' => [UiIconAsset::class, 'golden_egg.png', ['app-salmon2', 'Golden Eggs'], true],
+        'powerEgg' => [UiIconAsset::class, 'power_egg.png', ['app-salmon2', 'Power Eggs'], true],
         's3AbilityAbilityDoubler' => [AbilityIconAsset::class, 'ability_doubler.png'],
         's3AbilityComeback' => [AbilityIconAsset::class, 'comeback.png'],
         's3AbilityDropRoller' => [AbilityIconAsset::class, 'drop_roller.png'],

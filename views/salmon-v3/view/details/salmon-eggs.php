@@ -34,15 +34,19 @@ return [
               'golden-egg' => Icon::goldenEgg(),
               'power-egg' => Icon::powerEgg(),
             },
-            Html::encode($count === null ? '-' : Yii::$app->formatter->asInteger($count)),
+            Html::tag(
+              'span',
+              Html::encode($count === null ? '-' : Yii::$app->formatter->asInteger($count)),
+              [
+                'class' => 'auto-tooltip',
+                'title' => match ($key) {
+                  'golden-egg' => Yii::t('app-salmon2', 'Golden Eggs'),
+                  'power-egg' => Yii::t('app-salmon2', 'Power Eggs'),
+                },
+              ],
+            ),
           ]),
-          [
-            'class' => 'auto-tooltip mr-2',
-            'title' => match ($key) {
-              'golden-egg' => Yii::t('app-salmon2', 'Golden Eggs'),
-              'power-egg' => Yii::t('app-salmon2', 'Power Eggs'),
-            },
-          ],
+          ['class' => 'mr-2'],
         );
       },
       array_keys($data),
