@@ -55,11 +55,11 @@ return [
     );
 
     if ($model->is_eggstra_work) {
-      $parts[] = Html::encode('(' . Yii::t('app-salmon3', 'Eggstra Work') . ')');
+      $parts[] = Icon::s3Eggstra();
     }
 
     if ($schedule->big_map_id) {
-      $parts[] = Html::encode('(' . Yii::t('app-salmon3', 'Big Run') . ')');
+      $parts[] = Icon::s3BigRun();
     }
 
     if ($schedule->is_eggstra_work) {
@@ -71,8 +71,8 @@ return [
         ->limit(1)
         ->one();
       if ($eggstraStats && $eggstraStats->golden_eggs > 0) {
-        $parts[] = vsprintf('%s: %s', [
-          Html::encode(Yii::t('app-salmon2', 'Golden Eggs')),
+        $parts[] = vsprintf('%s %s', [
+          Icon::goldenEgg(),
           Yii::$app->formatter->asInteger($eggstraStats->golden_eggs),
         ]);
 
@@ -91,8 +91,8 @@ return [
         ->limit(1)
         ->one();
       if ($bigrunStats && $bigrunStats->golden_eggs > 0) {
-        $parts[] = vsprintf('%s: %s', [
-          Html::encode(Yii::t('app-salmon2', 'Golden Eggs')),
+        $parts[] = implode(' ', [
+          Icon::goldenEgg(),
           Yii::$app->formatter->asInteger($bigrunStats->golden_eggs),
         ]);
 

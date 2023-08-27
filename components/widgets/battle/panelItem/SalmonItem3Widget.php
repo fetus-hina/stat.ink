@@ -152,13 +152,22 @@ final class SalmonItem3Widget extends Widget
             implode('', [
                 Html::tag(
                     'div',
-                    Html::encode($this->getMapName()),
+                    implode(' ', [
+                        match (true) {
+                            $isEggstraWork => Icon::s3Eggstra(),
+                            true, $this->model->is_big_run => Icon::s3BigRun(),
+                            default => '',
+                        },
+                        Html::encode($this->getMapName()),
+                    ]),
                     ['class' => 'simple-battle-map omit'],
                 ),
                 Html::tag(
                     'div',
                     Html::encode(
-                        $isEggstraWork ? Yii::t('app-salmon3', 'Eggstra Work') : $this->getHazardLevel(),
+                        $isEggstraWork
+                            ? Yii::t('app-salmon3', 'Eggstra Work')
+                            : $this->getHazardLevel(),
                     ),
                     ['class' => 'simple-battle-rule omit'],
                 ),
@@ -227,23 +236,9 @@ final class SalmonItem3Widget extends Widget
         }
 
         return vsprintf('%s %s / %s %s', [
-            Html::tag(
-                'span',
-                Icon::goldenEgg(),
-                [
-                    'class' => 'auto-tooltip',
-                    'title' => Yii::t('app-salmon2', 'Golden Eggs'),
-                ],
-            ),
+            Icon::goldenEgg(),
             $golden,
-            Html::tag(
-                'span',
-                Icon::powerEgg(),
-                [
-                    'class' => 'auto-tooltip',
-                    'title' => Yii::t('app-salmon2', 'Power Eggs'),
-                ],
-            ),
+            Icon::powerEgg(),
             $power,
         ]);
     }
@@ -261,9 +256,9 @@ final class SalmonItem3Widget extends Widget
             'time',
             Html::encode(Yii::$app->formatter->asRelativeTime($dateTime)),
             [
-              'datetime' => $dateTime->format(DateTime::ATOM),
-              'title' => Yii::$app->formatter->asDatetime($dateTime, 'medium'),
-              'class' => 'auto-tooltip',
+                'datetime' => $dateTime->format(DateTime::ATOM),
+                'title' => Yii::$app->formatter->asDatetime($dateTime, 'medium'),
+                'class' => 'auto-tooltip',
             ],
         );
     }

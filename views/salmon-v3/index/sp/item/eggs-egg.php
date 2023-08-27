@@ -9,14 +9,13 @@ use yii\web\View;
 /**
  * @var View $this
  * @var int|null $value
- * @var string $icon
  * @var string $label
  */
 
 echo Html::tag(
   'span',
   vsprintf('%s %s', [
-    Html::encode(Html::encode($label)),
+    $label,
     $value === null
       ? Html::encode('-')
       : Html::encode(Yii::$app->formatter->asInteger($value)),

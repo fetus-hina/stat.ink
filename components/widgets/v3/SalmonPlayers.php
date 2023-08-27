@@ -390,7 +390,13 @@ final class SalmonPlayers extends Widget
         return Html::tag(
             'tr',
             implode('', [
-                Html::tag('th', Html::encode(Yii::t('app-salmon3', 'Rescues'))),
+                Html::tag(
+                    'th',
+                    implode(' ', [
+                        // Icon::s3Rescues(),
+                        Html::encode(Yii::t('app-salmon3', 'Rescues')),
+                    ]),
+                ),
                 implode('', ArrayHelper::getColumn(
                     $players,
                     fn (?SalmonPlayer3 $player): string => Html::tag(
@@ -422,7 +428,13 @@ final class SalmonPlayers extends Widget
         return Html::tag(
             'tr',
             implode('', [
-                Html::tag('th', Html::encode(Yii::t('app-salmon3', 'Rescued'))),
+                Html::tag(
+                    'th',
+                    implode(' ', [
+                        // Icon::s3Rescued(),
+                        Html::encode(Yii::t('app-salmon3', 'Rescued')),
+                    ]),
+                ),
                 implode('', ArrayHelper::getColumn(
                     $players,
                     fn (?SalmonPlayer3 $player): string => Html::tag(

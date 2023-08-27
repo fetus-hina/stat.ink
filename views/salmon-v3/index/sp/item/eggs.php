@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\components\widgets\Icon;
 use app\models\Salmon3;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -16,11 +17,11 @@ echo Html::tag(
   'div',
   implode('', [
     $this->render('eggs-egg', [
-      'label' => Yii::t('app-salmon2', 'Golden Eggs'),
+      'label' => Icon::goldenEgg(),
       'value' => ArrayHelper::getValue($model, 'salmonPlayer3s.0.golden_eggs'),
     ]),
     $this->render('eggs-egg', [
-      'label' => Yii::t('app-salmon2', 'Power Eggs'),
+      'label' => Icon::powerEgg(),
       'value' => ArrayHelper::getValue($model, 'salmonPlayer3s.0.power_eggs'),
     ]),
   ]),
