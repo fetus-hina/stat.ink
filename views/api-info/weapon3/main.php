@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\ApiInfoName;
-use app\components\widgets\FA;
 use app\components\widgets\Icon;
 use app\models\Language;
 use app\models\Weapon3;
@@ -54,6 +53,7 @@ $salmonIcon = Icon::s3Salmon();
   <table class="table table-striped table-condensed table-sortable">
     <thead>
       <tr>
+        <th></th>
         <th data-sort="int">X</th>
         <th data-sort="int"><?= Html::encode(Yii::t('app', 'Category')) ?></th>
         <?= Html::tag('th', $salmonIcon, [
@@ -78,11 +78,13 @@ $salmonIcon = Icon::s3Salmon();
         <th data-sort="string"></th>
 <?php } ?>
 <?php } ?>
+        <th data-sort="int"><?= Html::encode(Yii::t('app', 'Released')) ?></th>
       </tr>
     </thead>
     <tbody>
 <?php foreach ($weapons as $weapon) { ?>
       <tr>
+        <td><?= Icon::s3Weapon($weapon) ?></td>
         <?= $this->render('main/td-x-matching', [
           'weapon' => $weapon,
           'group' => $matchingGroups[$weapon->key] ?? null,
@@ -163,6 +165,25 @@ $salmonIcon = Icon::s3Salmon();
         ) . "\n" ?>
 <?php } ?>
 <?php } ?>
+        <?= Html::tag(
+          'td',
+          ArrayHelper::getValue(
+            $weapon,
+            function (Weapon3 $weapon): string {
+              $dt = (new DateTimeImmutable($weapon->release_at))
+                ->setTimezone(new DateTimeZone('Etc/UTC'));
+              return $dt->getTimestamp() <= (int)strtotime('2022-09-01T00:00:00+00:00')
+                ? Html::encode(Yii::t('app', 'Launch'))
+                : Html::encode(Yii::$app->formatter->asDate($dt, 'medium'));
+            },
+          ),
+          [
+            'data' => [
+              'sort-value' => Yii::$app->formatter->asDate($weapon->release_at, 'yyyyMMdd'),
+            ],
+          ],
+        ) . "\n" ?>
+      </tr>
 <?php } ?>
     </tbody>
   </table>
