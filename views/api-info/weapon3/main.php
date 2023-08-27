@@ -78,6 +78,7 @@ $salmonIcon = Icon::s3Salmon();
         <th data-sort="string"></th>
 <?php } ?>
 <?php } ?>
+        <th data-sort="int"><?= Html::encode(Yii::t('app', 'Released')) ?></th>
       </tr>
     </thead>
     <tbody>
@@ -164,6 +165,25 @@ $salmonIcon = Icon::s3Salmon();
         ) . "\n" ?>
 <?php } ?>
 <?php } ?>
+        <?= Html::tag(
+          'td',
+          ArrayHelper::getValue(
+            $weapon,
+            function (Weapon3 $weapon): string {
+              $dt = (new DateTimeImmutable($weapon->release_at))
+                ->setTimezone(new DateTimeZone('Etc/UTC'));
+              return $dt->getTimestamp() <= (int)strtotime('2022-09-01T00:00:00+00:00')
+                ? Html::encode(Yii::t('app', 'Launch'))
+                : Html::encode(Yii::$app->formatter->asDate($dt, 'medium'));
+            },
+          ),
+          [
+            'data' => [
+              'sort-value' => Yii::$app->formatter->asDate($weapon->release_at, 'yyyyMMdd'),
+            ],
+          ],
+        ) . "\n" ?>
+      </tr>
 <?php } ?>
     </tbody>
   </table>
