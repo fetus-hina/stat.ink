@@ -32,6 +32,7 @@ final class AbilityIconAsset extends AssetBundle
         'Chunk - Intensify Action.png' => 'intensify_action.png',
         'Chunk - Last Ditch Effort.png' => 'last_ditch_effort.png',
         'Chunk - Main Saver.png' => 'ink_saver_main.png',
+        'Chunk - Main saver.png' => 'ink_saver_main.png',
         'Chunk - Ninja Squid.png' => 'ninja_squid.png',
         'Chunk - Object Shredder.png' => 'object_shredder.png',
         'Chunk - Opening Gambit.png' => 'opening_gambit.png',
