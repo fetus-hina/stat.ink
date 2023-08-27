@@ -142,6 +142,8 @@ use function mb_chr;
  * @method static string s3LobbyRegular()
  * @method static string s3LobbySplatfest()
  * @method static string s3LobbyX()
+ * @method static string s3Rescued()
+ * @method static string s3Rescues()
  * @method static string s3RuleArea()
  * @method static string s3RuleAsari()
  * @method static string s3RuleHoko()
@@ -308,6 +310,8 @@ final class Icon
         's3LobbyRegular' => [LobbyIconAsset::class, 'regular.png', ['app-lobby3', 'Regular Battle'], true],
         's3LobbySplatfest' => [LobbyIconAsset::class, 'splatfest.png', ['app-lobby3', 'Splatfest'], true],
         's3LobbyX' => [LobbyIconAsset::class, 'xmatch.png', ['app-lobby3', 'X Battle'], true],
+        's3Rescued' => [UiIconAsset::class, 'rescued.png', ['app-salmon3', 'Rescued'], true],
+        's3Rescues' => [UiIconAsset::class, 'rescues.png', ['app-salmon3', 'Rescues'], true],
         's3RuleArea' => [RuleIconAsset::class, 'area.png', ['app-rule3', 'Splat Zones'], true],
         's3RuleAsari' => [RuleIconAsset::class, 'asari.png', ['app-rule3', 'Clam Blitz'], true],
         's3RuleHoko' => [RuleIconAsset::class, 'hoko.png', ['app-rule3', 'Rainmaker'], true],

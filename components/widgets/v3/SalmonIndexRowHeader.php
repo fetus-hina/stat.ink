@@ -102,8 +102,8 @@ final class SalmonIndexRowHeader extends Widget
         }
 
         return match (true) {
-            $schedule->is_eggstra_work === true => Yii::t('app-salmon3', 'Eggstra Work'),
-            $schedule->big_map_id !== null => Yii::t('app-salmon3', 'Big Run'),
+            $schedule->is_eggstra_work === true => Icon::s3Eggstra(),
+            $schedule->big_map_id !== null => Icon::s3BigRun(),
             default => throw new LogicException(),
         };
     }
