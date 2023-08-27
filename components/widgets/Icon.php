@@ -546,6 +546,7 @@ final class Icon
                 'bamboo14mk1',
                 'liter4k',
                 'liter4k_scope',
+                'rpen_5h',
                 'soytuber',
                 'soytuber_custom',
                 'splatcharger',
