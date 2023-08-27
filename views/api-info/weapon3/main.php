@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\ApiInfoName;
-use app\components\widgets\FA;
 use app\components\widgets\Icon;
 use app\models\Language;
 use app\models\Weapon3;
@@ -54,6 +53,7 @@ $salmonIcon = Icon::s3Salmon();
   <table class="table table-striped table-condensed table-sortable">
     <thead>
       <tr>
+        <th></th>
         <th data-sort="int">X</th>
         <th data-sort="int"><?= Html::encode(Yii::t('app', 'Category')) ?></th>
         <?= Html::tag('th', $salmonIcon, [
@@ -83,6 +83,7 @@ $salmonIcon = Icon::s3Salmon();
     <tbody>
 <?php foreach ($weapons as $weapon) { ?>
       <tr>
+        <td><?= Icon::s3Weapon($weapon) ?></td>
         <?= $this->render('main/td-x-matching', [
           'weapon' => $weapon,
           'group' => $matchingGroups[$weapon->key] ?? null,

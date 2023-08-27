@@ -23,6 +23,7 @@ use app\assets\s3PixelIcons\SalmonModeIconAsset;
 use app\assets\s3PixelIcons\SpecialIconAsset;
 use app\assets\s3PixelIcons\SubweaponIconAsset;
 use app\assets\s3PixelIcons\VersionIconAsset;
+use app\assets\s3PixelIcons\WeaponIconAsset;
 use app\components\helpers\TypeHelper;
 use app\models\Ability3;
 use app\models\Lobby3;
@@ -30,6 +31,7 @@ use app\models\LobbyGroup3;
 use app\models\Rule3;
 use app\models\Special3;
 use app\models\Subweapon3;
+use app\models\Weapon3;
 use yii\base\UnknownMethodException;
 use yii\helpers\Html;
 use yii\web\AssetBundle;
@@ -39,6 +41,7 @@ use yii\web\View;
 use function array_filter;
 use function array_values;
 use function implode;
+use function in_array;
 use function is_array;
 use function is_string;
 use function mb_chr;
@@ -510,6 +513,120 @@ final class Icon
             SpecialIconAsset::class,
             "{$model->key}.png",
             Yii::t('app-special3', $model->name),
+            true,
+        );
+    }
+
+    public static function s3Weapon(Weapon3|string|null $weapon): ?string
+    {
+        $key = match (true) {
+            $weapon instanceof Weapon3 => $weapon->key,
+            default => $weapon,
+        };
+        if (!is_string($key)) {
+            return null;
+        }
+
+        $directory = match (true) {
+            in_array($key, [
+                'campingshelter',
+                'campingshelter_sorella',
+                'parashelter',
+                'parashelter_sorella',
+                'spygadget',
+            ], true) => 'Brellas',
+            in_array($key, [
+                'fincent',
+                'hokusai',
+                'hokusai_hue',
+                'pablo',
+                'pablo_hue',
+            ], true) => 'Brushes',
+            in_array($key, [
+                'bamboo14mk1',
+                'liter4k',
+                'liter4k_scope',
+                'soytuber',
+                'soytuber_custom',
+                'splatcharger',
+                'splatcharger_collabo',
+                'splatscope',
+                'splatscope_collabo',
+                'squiclean_a',
+            ], true) => 'Chargers',
+            in_array($key, [
+                'dualsweeper',
+                'dualsweeper_custom',
+                'kelvin525',
+                'maneuver',
+                'quadhopper_black',
+                'quadhopper_white',
+                'sputtery',
+                'sputtery_hue',
+            ], true) => 'Dualies',
+            in_array($key, [
+                'carbon',
+                'carbon_deco',
+                'dynamo',
+                'dynamo_tesla',
+                'splatroller',
+                'splatroller_collabo',
+                'variableroller',
+                'wideroller',
+                'wideroller_collabo',
+            ], true) => 'Rollers',
+            in_array($key, [
+                'bucketslosher',
+                'bucketslosher_deco',
+                'explosher',
+                'furo',
+                'furo_deco',
+                'hissen',
+                'hissen_hue',
+                'moprin',
+                'screwslosher',
+                'screwslosher_neo',
+            ], true) => 'Sloshers',
+            in_array($key, [
+                'drivewiper',
+                'drivewiper_deco',
+                'jimuwiper',
+            ], true) => 'Splatanas',
+            in_array($key, [
+                'barrelspinner',
+                'barrelspinner_deco',
+                'examiner',
+                'hydra',
+                'kugelschreiber',
+                'kugelschreiber_hue',
+                'nautilus47',
+                'splatspinner',
+                'splatspinner_collabo',
+            ], true) => 'Splatlings',
+            in_array($key, [
+                'lact450',
+                'tristringer',
+                'tristringer_collabo',
+            ], true) => 'Stringers',
+            default => null,
+        };
+
+        if (!is_string($directory)) {
+            return null;
+        }
+
+        if (!$weapon instanceof Weapon3) {
+            $weapon = Weapon3::find()
+                ->andWhere(['key' => $key])
+                ->limit(1)
+                ->cache(86400)
+                ->one();
+        }
+
+        return self::assetImage(
+            WeaponIconAsset::class,
+            "{$directory}/{$key}.png",
+            Yii::t('app-weapon3', (string)$weapon?->name),
             true,
         );
     }
