@@ -37,11 +37,11 @@ final class m230827_080337_stage extends Migration
 
         $this->batchInsert('{{%map3_alias}}', ['map_id', 'key'], [
             [
-                $this->key2id('{{%map3}}', 'takaashi'), 
+                $this->key2id('{{%map3}}', 'takaashi'),
                 self::name2key3('Crableg Capital'),
             ],
             [
-                $this->key2id('{{%map3}}', 'takaashi'), 
+                $this->key2id('{{%map3}}', 'takaashi'),
                 self::name2key3('Capital'),
             ],
             [
