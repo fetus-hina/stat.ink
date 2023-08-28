@@ -155,7 +155,7 @@ final class SalmonItem3Widget extends Widget
                     implode(' ', [
                         match (true) {
                             $isEggstraWork => Icon::s3Eggstra(),
-                            true, $this->model->is_big_run => Icon::s3BigRun(),
+                            $this->model->is_big_run => Icon::s3BigRun(),
                             default => '',
                         },
                         Html::encode($this->getMapName()),
