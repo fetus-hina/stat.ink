@@ -189,6 +189,13 @@ trait UpdateSalmonSchedule
             ->orderBy(['id' => SORT_ASC])
             ->all();
 
+        // 知らないブキを削除する
+        // 新シーズン切り替えで新ブキが追加された場合に null が入るので、
+        // これを無視しないと、無限に再設定を繰り返してしまう
+        $weapons = array_values(
+            array_filter($weapons, fn ($v) => $v !== null),
+        );
+
         if (count($dbWeapons) !== count($weapons)) {
             // 個数が一致しないはずがない
             return false;
