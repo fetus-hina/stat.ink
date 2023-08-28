@@ -533,6 +533,19 @@ final class Icon
 
         $directory = match (true) {
             in_array($key, [
+                'hotblaster',
+                'clashblaster_neo',
+                'clashblaster',
+                'nova_neo',
+                'nova',
+                'longblaster',
+                'rapid_deco',
+                'rapid_elite_deco',
+                'rapid_elite',
+                'rapid',
+                'sblast92',
+            ], true) => 'Blasters',
+            in_array($key, [
                 'campingshelter',
                 'campingshelter_sorella',
                 'parashelter',
