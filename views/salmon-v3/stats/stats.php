@@ -9,12 +9,16 @@ use app\components\widgets\AdWidget;
 use app\components\widgets\SalmonUserInfo3;
 use app\components\widgets\SnsWidget;
 use app\models\Salmon3;
+use app\models\Salmon3UserStatsGoldenEgg;
+use app\models\Salmon3UserStatsGoldenEggIndividualHistogram;
+use app\models\Salmon3UserStatsGoldenEggTeamHistogram;
 use app\models\Salmon3UserStatsPlayedWith;
 use app\models\Salmon3UserStatsSpecial;
 use app\models\Salmon3UserStatsWeapon;
 use app\models\SalmonBoss3;
 use app\models\SalmonEvent3;
 use app\models\SalmonKing3;
+use app\models\SalmonMap3;
 use app\models\SalmonSchedule3;
 use app\models\SalmonWaterLevel2;
 use app\models\SalmonWeapon3;
@@ -29,16 +33,20 @@ use yii\web\View;
  * @phpstan-import-type EventStats from EventTrait
  *
  * @var EventStats $eventStats
+ * @var Salmon3UserStatsGoldenEggIndividualHistogram[] $goldenEggIndividualHistogramData
+ * @var Salmon3UserStatsGoldenEggTeamHistogram[] $goldenEggTeamHistogramData
  * @var Salmon3UserStatsPlayedWith[] $playerStats
  * @var Salmon3[] $results
  * @var SalmonSchedule3 $schedule
  * @var User $user
  * @var View $this
+ * @var array<int, Salmon3UserStatsGoldenEgg> $goldenEggHistogramAbstracts
  * @var array<int, Salmon3UserStatsSpecial> $specialStats
  * @var array<int, Salmon3UserStatsWeapon> $weaponStats
  * @var array<int, SalmonBoss3> $bosses
  * @var array<int, SalmonEvent3> $events
  * @var array<int, SalmonKing3> $kings
+ * @var array<int, SalmonMap3> $maps
  * @var array<int, SalmonWaterLevel2> $tides
  * @var array<int, SalmonWeapon3> $weapons
  * @var array<int, Special3> $specials
@@ -115,6 +123,13 @@ $played = TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'count'));
         'stats' => $stats,
         'user' => $user,
       ]) . "\n" ?>
+      <?= $this->render('stats/golden-eggs', compact(
+        'goldenEggHistogramAbstracts',
+        'goldenEggIndividualHistogramData',
+        'goldenEggTeamHistogramData',
+        'maps',
+        'user',
+      )) . "\n" ?>
       <?= $this->render('schedule/kings', compact('kings', 'kingStats', 'user')) . "\n" ?>
       <?= $this->render('schedule/bosses', compact('bosses', 'bossStats', 'user')) . "\n" ?>
       <?= $this->render('stats/specials', compact('specials', 'specialStats', 'user')) . "\n" ?>
