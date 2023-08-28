@@ -16,6 +16,8 @@ use app\actions\salmon\v3\stats\schedule\AbstractTrait;
 use app\actions\salmon\v3\stats\schedule\BossSalmonidTrait;
 use app\actions\salmon\v3\stats\schedule\EventTrait;
 use app\actions\salmon\v3\stats\schedule\KingSalmonidTrait;
+use app\actions\salmon\v3\stats\stats\GoldenEggHistogramTrait;
+use app\actions\salmon\v3\stats\stats\MapTrait;
 use app\actions\salmon\v3\stats\stats\PlayerTrait;
 use app\actions\salmon\v3\stats\stats\SpecialTrait;
 use app\actions\salmon\v3\stats\stats\WeaponTrait;
@@ -36,7 +38,9 @@ final class StatsAction extends Action
     use AbstractTrait;
     use BossSalmonidTrait;
     use EventTrait;
+    use GoldenEggHistogramTrait;
     use KingSalmonidTrait;
+    use MapTrait;
     use PlayerTrait;
     use SpecialTrait;
     use WeaponTrait;
@@ -74,7 +78,7 @@ final class StatsAction extends Action
             fn (Connection $db): array => Yii::$app->cache->getOrSet(
                 [
                     'id' => __METHOD__,
-                    'version' => 4,
+                    'version' => 5,
                     'user' => $user->id,
                     'cond' => $this->getCachingCondition($db, $user),
                 ],
@@ -83,8 +87,12 @@ final class StatsAction extends Action
                     'bosses' => $this->getBosses($db),
                     'eventStats' => $this->getEventStats($db, $user, null),
                     'events' => $this->getEvents($db),
+                    'goldenEggHistogramAbstracts' => $this->getGoldenEggHistogramAbstracts($db, $user),
+                    'goldenEggIndividualHistogramData' => $this->getGoldenEggIndividualHistogram($db, $user),
+                    'goldenEggTeamHistogramData' => $this->getGoldenEggTeamHistogram($db, $user),
                     'kingStats' => $this->getKingStats($db, $user, null),
                     'kings' => $this->getKings($db),
+                    'maps' => $this->getMaps($db),
                     'playerStats' => $this->getPlayerStats($db, $user),
                     'specialStats' => $this->getSpecialStats($db, $user),
                     'specials' => $this->getSpecials($db),
