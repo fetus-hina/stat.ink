@@ -21,12 +21,16 @@ use yii\db\ActiveRecord;
  * @property string $name
  * @property string $short_name
  *
+ * @property Salmon3UserStatsGoldenEggIndividualHistogram[] $salmon3UserStatsGoldenEggIndividualHistograms
+ * @property Salmon3UserStatsGoldenEggTeamHistogram[] $salmon3UserStatsGoldenEggTeamHistograms
+ * @property Salmon3UserStatsGoldenEgg[] $salmon3UserStatsGoldenEggs
  * @property Salmon3[] $salmon3s
  * @property SalmonMap3Alias[] $salmonMap3Aliases
  * @property SalmonSchedule3[] $salmonSchedule3s
  * @property StatSalmon3TideEvent[] $statSalmon3TideEvents
  * @property UserBadge3EggsecutiveReached[] $userBadge3EggsecutiveReacheds
  * @property User[] $users
+ * @property User[] $users0
  */
 class SalmonMap3 extends ActiveRecord
 {
@@ -55,6 +59,21 @@ class SalmonMap3 extends ActiveRecord
         ];
     }
 
+    public function getSalmon3UserStatsGoldenEggIndividualHistograms(): ActiveQuery
+    {
+        return $this->hasMany(Salmon3UserStatsGoldenEggIndividualHistogram::class, ['map_id' => 'id']);
+    }
+
+    public function getSalmon3UserStatsGoldenEggTeamHistograms(): ActiveQuery
+    {
+        return $this->hasMany(Salmon3UserStatsGoldenEggTeamHistogram::class, ['map_id' => 'id']);
+    }
+
+    public function getSalmon3UserStatsGoldenEggs(): ActiveQuery
+    {
+        return $this->hasMany(Salmon3UserStatsGoldenEgg::class, ['map_id' => 'id']);
+    }
+
     public function getSalmon3s(): ActiveQuery
     {
         return $this->hasMany(Salmon3::class, ['stage_id' => 'id']);
@@ -81,6 +100,11 @@ class SalmonMap3 extends ActiveRecord
     }
 
     public function getUsers(): ActiveQuery
+    {
+        return $this->hasMany(User::class, ['id' => 'user_id'])->viaTable('salmon3_user_stats_golden_egg', ['map_id' => 'id']);
+    }
+
+    public function getUsers0(): ActiveQuery
     {
         return $this->hasMany(User::class, ['id' => 'user_id'])->viaTable('user_badge3_eggsecutive_reached', ['stage_id' => 'id']);
     }
