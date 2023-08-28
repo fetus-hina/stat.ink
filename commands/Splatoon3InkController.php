@@ -49,7 +49,11 @@ final class Splatoon3InkController extends Controller
         $status |= $this->updateEventSchedule($schedules);
         $status |= $this->updateSalmonSchedule($schedules);
         $status |= $this->updateEventMessages();
-        $status |= $this->updateSplatfestSchedule();
+        $status |= $this->updateSplatfestSchedule(
+            ScheduleParser::parseFestivals(
+                $this->queryJson('https://splatoon3.ink/data/festivals.json'),
+            ),
+        );
         $status |= $this->updateSplatfestMessages();
         return $status === 0 ? ExitCode::OK : ExitCode::UNSPECIFIED_ERROR;
     }
@@ -88,7 +92,7 @@ final class Splatoon3InkController extends Controller
 
     public function actionUpdateSplatfestSchedule(): int
     {
-        return $this->updateSplafestSchedule(
+        return $this->updateSplatfestSchedule(
             ScheduleParser::parseFestivals(
                 $this->queryJson('https://splatoon3.ink/data/festivals.json'),
             ),

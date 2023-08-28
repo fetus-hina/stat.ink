@@ -24,7 +24,7 @@ use function strtotime;
 
 trait UpdateSplatfestSchedule
 {
-    protected function updateSplafestSchedule(array $festivals): int
+    protected function updateSplatfestSchedule(array $festivals): int
     {
         return Yii::$app->db->transaction(
             function (Connection $db) use ($festivals): int {
