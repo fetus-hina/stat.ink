@@ -21,6 +21,7 @@ use app\models\SalmonWeapon3;
 use yii\console\ExitCode;
 use yii\db\Connection;
 
+use function array_filter;
 use function array_values;
 use function count;
 use function date;
