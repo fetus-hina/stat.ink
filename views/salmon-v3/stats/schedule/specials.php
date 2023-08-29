@@ -52,14 +52,8 @@ $fmt = Yii::$app->formatter;
         <th class="text-center"><?= Html::encode(Yii::t('app-salmon2', 'Avg. Waves')) ?></th>
         <th class="text-center"><?= Icon::goldenEgg() ?></th>
         <th class="text-center"><?= Icon::powerEgg() ?></th>
-        <?= Html::tag('th', Html::encode(Yii::t('app-salmon3', 'R')), [
-          'class' => 'auto-tooltip text-center',
-          'title' => Yii::t('app-salmon3', 'Rescues'),
-        ]) . "\n" ?>
-        <?= Html::tag('th', Html::encode(Yii::t('app-salmon3', 'S')), [
-          'class' => 'auto-tooltip text-center',
-          'title' => Yii::t('app-salmon3', 'Rescued'),
-        ]) . "\n" ?>
+        <th class="text-center"><?= Icon::s3Rescues() ?></th>
+        <th class="text-center"><?= Icon::s3Rescued() ?></th>
         <?= Html::tag('th', Html::encode(Yii::t('app-salmon3', 'Boss')), [
           'class' => 'auto-tooltip text-center',
           'title' => Yii::t('app-salmon3', 'Boss Salmonids'),

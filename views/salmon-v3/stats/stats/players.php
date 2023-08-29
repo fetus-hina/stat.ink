@@ -40,18 +40,8 @@ $jobsRequired = 5;
           <?= Icon::goldenEgg() . "\n" ?>
           <?= Html::encode(Yii::t('app-salmon3', 'Personal')) . "\n" ?>
         </th>
-        <th class="text-center" rowspan="2"><?=
-          Html::tag('span', Html::encode(Yii::t('app-salmon3', 'R')), [
-            'class' => 'auto-tooltip',
-            'title' => Yii::t('app-salmon3', 'Rescues'),
-          ])
-        ?></th>
-        <th class="text-center" rowspan="2"><?=
-          Html::tag('span', Html::encode(Yii::t('app-salmon3', 'S')), [
-            'class' => 'auto-tooltip',
-            'title' => Yii::t('app-salmon3', 'Rescued'),
-          ])
-        ?></th>
+        <th class="text-center" rowspan="2"><?= Icon::s3Rescues() ?></th>
+        <th class="text-center" rowspan="2"><?= Icon::s3Rescued() ?></th>
       </tr>
       <tr>
         <th class="text-center"><?= Html::encode(Yii::t('app-salmon2', 'Cleared')) ?></th>

@@ -8,7 +8,7 @@
 
 declare(strict_types=1);
 
-namespace app\commands\splatoon3ink;
+namespace app\commands\splatoon3Ink;
 
 use Exception;
 use Yii;

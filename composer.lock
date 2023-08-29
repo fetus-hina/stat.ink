@@ -1926,16 +1926,16 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "9.17.4",
+            "version": "9.18.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "d5542274acd2331f2562ce8c787315001685de60"
+                "reference": "e4e666485427b5d28ba0de11c09e5e00f58c1288"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/d5542274acd2331f2562ce8c787315001685de60",
-                "reference": "d5542274acd2331f2562ce8c787315001685de60",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/e4e666485427b5d28ba0de11c09e5e00f58c1288",
+                "reference": "e4e666485427b5d28ba0de11c09e5e00f58c1288",
                 "shasum": ""
             },
             "require": {
@@ -2000,9 +2000,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-curl-class/php-curl-class/issues",
-                "source": "https://github.com/php-curl-class/php-curl-class/tree/9.17.4"
+                "source": "https://github.com/php-curl-class/php-curl-class/tree/9.18.1"
             },
-            "time": "2023-07-10T18:03:00+00:00"
+            "time": "2023-08-29T18:02:47+00:00"
         },
         {
             "name": "phpseclib/phpseclib",
@@ -3952,21 +3952,21 @@
         },
         {
             "name": "yiisoft/yii2",
-            "version": "2.0.48.1",
+            "version": "2.0.49",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "de92f154eefe322fc1b1b2a52cce46677441ced4"
+                "reference": "98008bf02a6f6bae78d2ab37e19240b59f8a2957"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/de92f154eefe322fc1b1b2a52cce46677441ced4",
-                "reference": "de92f154eefe322fc1b1b2a52cce46677441ced4",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/98008bf02a6f6bae78d2ab37e19240b59f8a2957",
+                "reference": "98008bf02a6f6bae78d2ab37e19240b59f8a2957",
                 "shasum": ""
             },
             "require": {
                 "bower-asset/inputmask": "~3.2.2 | ~3.3.5",
-                "bower-asset/jquery": "3.6.*@stable | 3.5.*@stable | 3.4.*@stable | 3.3.*@stable | 3.2.*@stable | 3.1.*@stable | 2.2.*@stable | 2.1.*@stable | 1.11.*@stable | 1.12.*@stable",
+                "bower-asset/jquery": "3.7.*@stable | 3.6.*@stable | 3.5.*@stable | 3.4.*@stable | 3.3.*@stable | 3.2.*@stable | 3.1.*@stable | 2.2.*@stable | 2.1.*@stable | 1.11.*@stable | 1.12.*@stable",
                 "bower-asset/punycode": "1.3.*",
                 "bower-asset/yii2-pjax": "~2.0.1",
                 "cebe/markdown": "~1.0.0 | ~1.1.0 | ~1.2.0",
@@ -4070,7 +4070,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-05-24T19:04:02+00:00"
+            "time": "2023-08-29T13:36:17+00:00"
         },
         {
             "name": "yiisoft/yii2-bootstrap",

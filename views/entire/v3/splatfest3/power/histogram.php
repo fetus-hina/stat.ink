@@ -5,7 +5,7 @@ declare(strict_types=1);
 use MathPHP\Probability\Distribution\Continuous\Normal as NormalDistribution;
 use app\assets\ChartJsAsset;
 use app\assets\ColorSchemeAsset;
-use app\assets\JqueryEasyChartJsAsset;
+use app\assets\JqueryEasyChartjsAsset;
 use app\assets\RatioAsset;
 use app\models\Splatfest3;
 use yii\helpers\ArrayHelper;
@@ -32,7 +32,7 @@ if (!$abstract || !$histogram) {
 
 ChartJsAsset::register($this);
 ColorSchemeAsset::register($this);
-JqueryEasyChartJsAsset::register($this);
+JqueryEasyChartjsAsset::register($this);
 RatioAsset::register($this);
 
 $this->registerJs('$(".histogram").easyChartJs();');
