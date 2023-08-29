@@ -78,7 +78,7 @@ final class StatsAction extends Action
             fn (Connection $db): array => Yii::$app->cache->getOrSet(
                 [
                     'id' => __METHOD__,
-                    'version' => 5,
+                    'version' => 6,
                     'user' => $user->id,
                     'cond' => $this->getCachingCondition($db, $user),
                 ],
