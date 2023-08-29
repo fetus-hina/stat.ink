@@ -136,27 +136,24 @@ echo DetailView::widget([
       },
     ],
     [
-      'label' => Yii::t('app', 'Maximum'),
+      'label' => vsprintf('%s (%s)', [
+        Yii::t('app', 'Maximum'),
+        Yii::t('app-salmon3', 'Team Total'),
+      ]),
       'format' => 'raw',
       'value' => implode('', [
         Html::tag(
           'span',
-          vsprintf('%s %s', [
-            Html::tag('span', Icon::goldenEgg(), [
-              'class' => 'auto-tooltip',
-              'title' => Yii::t('app-salmon2', 'Golden Eggs'),
-            ]),
+          implode(' ', [
+            Icon::goldenEgg(),
             $fmt->asInteger(TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'max_golden'))),
           ]),
           ['class' => 'nobr mr-3'],
         ),
         Html::tag(
           'span',
-          vsprintf('%s %s', [
-            Html::tag('span', Icon::powerEgg(), [
-              'class' => 'auto-tooltip',
-              'title' => Yii::t('app-salmon2', 'Power Eggs'),
-            ]),
+          implode(' ', [
+            Icon::powerEgg(),
             $fmt->asInteger(TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'max_power'))),
           ]),
           ['class' => 'nobr mr-3'],
@@ -164,28 +161,75 @@ echo DetailView::widget([
       ]),
     ],
     [
-      'label' => Yii::t('app', 'Average'),
+      'label' => vsprintf('%s (%s)', [
+        Yii::t('app', 'Average'),
+        Yii::t('app-salmon3', 'Team Total'),
+      ]),
       'format' => 'raw',
       'value' => implode('', [
         Html::tag(
           'span',
-          vsprintf('%s %s', [
-            Html::tag('span', Icon::goldenEgg(), [
-              'class' => 'auto-tooltip',
-              'title' => Yii::t('app-salmon2', 'Golden Eggs'),
-            ]),
+          implode(' ', [
+            Icon::goldenEgg(),
             $fmt->asDecimal(TypeHelper::floatOrNull(ArrayHelper::getValue($stats, 'avg_golden')), 1),
           ]),
           ['class' => 'nobr mr-3'],
         ),
         Html::tag(
           'span',
-          vsprintf('%s %s', [
-            Html::tag('span', Icon::powerEgg(), [
-              'class' => 'auto-tooltip',
-              'title' => Yii::t('app-salmon2', 'Power Eggs'),
-            ]),
+          implode(' ', [
+            Icon::powerEgg(),
             $fmt->asDecimal(TypeHelper::floatOrNull(ArrayHelper::getValue($stats, 'avg_power')), 0),
+          ]),
+          ['class' => 'nobr mr-3'],
+        ),
+      ]),
+    ],
+    [
+      'label' => vsprintf('%s (%s)', [
+        Yii::t('app', 'Maximum'),
+        Yii::t('app-salmon3', 'Personal'),
+      ]),
+      'format' => 'raw',
+      'value' => implode('', [
+        Html::tag(
+          'span',
+          implode(' ', [
+            Icon::goldenEgg(),
+            $fmt->asInteger(TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'max_golden_individual'))),
+          ]),
+          ['class' => 'nobr mr-3'],
+        ),
+        Html::tag(
+          'span',
+          implode(' ', [
+            Icon::powerEgg(),
+            $fmt->asInteger(TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'max_power_individual'))),
+          ]),
+          ['class' => 'nobr mr-3'],
+        ),
+      ]),
+    ],
+    [
+      'label' => vsprintf('%s (%s)', [
+        Yii::t('app', 'Average'),
+        Yii::t('app-salmon3', 'Personal'),
+      ]),
+      'format' => 'raw',
+      'value' => implode('', [
+        Html::tag(
+          'span',
+          implode(' ', [
+            Icon::goldenEgg(),
+            $fmt->asDecimal(TypeHelper::floatOrNull(ArrayHelper::getValue($stats, 'avg_golden_individual')), 1),
+          ]),
+          ['class' => 'nobr mr-3'],
+        ),
+        Html::tag(
+          'span',
+          implode(' ', [
+            Icon::powerEgg(),
+            $fmt->asDecimal(TypeHelper::floatOrNull(ArrayHelper::getValue($stats, 'avg_power_individual')), 0),
           ]),
           ['class' => 'nobr mr-3'],
         ),
@@ -222,12 +266,12 @@ echo DetailView::widget([
       ]),
     ],
     [
-      'label' => Yii::t('app-salmon3', 'Rescues'),
+      'label' => Icon::s3Rescues() . ' ' . Yii::t('app-salmon3', 'Rescues'),
       'format' => 'raw',
       'value' => $totalAndAvg('total_rescues', 'avg_rescues'),
     ],
     [
-      'label' => Yii::t('app-salmon3', 'Rescued'),
+      'label' => Icon::s3Rescued() . ' ' . Yii::t('app-salmon3', 'Rescued'),
       'format' => 'raw',
       'value' => $totalAndAvg('total_rescued', 'avg_rescued'),
     ],
