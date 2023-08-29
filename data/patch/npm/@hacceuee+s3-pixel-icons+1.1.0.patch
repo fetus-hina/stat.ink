@@ -1,0 +1,108 @@
+diff --git a/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/52 Gal.PNG b/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/52 Gal.png
+similarity index 100%
+rename from node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/52 Gal.PNG
+rename to node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/52 Gal.png
+diff --git a/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/96 Gal Deco.PNG b/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/96 Gal Deco.png
+similarity index 100%
+rename from node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/96 Gal Deco.PNG
+rename to node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/96 Gal Deco.png
+diff --git a/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/96 Gal.PNG b/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/96 Gal.png
+similarity index 100%
+rename from node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/96 Gal.PNG
+rename to node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/96 Gal.png
+diff --git a/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Aerospray MG.PNG b/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Aerospray MG.png
+similarity index 100%
+rename from node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Aerospray MG.PNG
+rename to node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Aerospray MG.png
+diff --git a/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Aerospray RG.PNG b/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Aerospray RG.png
+similarity index 100%
+rename from node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Aerospray RG.PNG
+rename to node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Aerospray RG.png
+diff --git a/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Annaki Splattershot Nova.PNG b/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Annaki Splattershot Nova.png
+similarity index 100%
+rename from node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Annaki Splattershot Nova.PNG
+rename to node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Annaki Splattershot Nova.png
+diff --git a/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Custom Jet Squelcher.PNG b/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Custom Jet Squelcher.png
+similarity index 100%
+rename from node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Custom Jet Squelcher.PNG
+rename to node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Custom Jet Squelcher.png
+diff --git a/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Custom Splattershot Jr.PNG b/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Custom Splattershot Jr.png
+similarity index 100%
+rename from node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Custom Splattershot Jr.PNG
+rename to node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Custom Splattershot Jr.png
+diff --git a/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Forge Splattershot Pro.PNG b/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Forge Splattershot Pro.png
+similarity index 100%
+rename from node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Forge Splattershot Pro.PNG
+rename to node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Forge Splattershot Pro.png
+diff --git a/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/H-3 Nozzlenose D.PNG b/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/H-3 Nozzlenose D.png
+similarity index 100%
+rename from node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/H-3 Nozzlenose D.PNG
+rename to node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/H-3 Nozzlenose D.png
+diff --git a/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/H-3 Nozzlenose.PNG b/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/H-3 Nozzlenose.png
+similarity index 100%
+rename from node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/H-3 Nozzlenose.PNG
+rename to node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/H-3 Nozzlenose.png
+diff --git a/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Hero Shot Replica.PNG b/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Hero Shot Replica.png
+similarity index 100%
+rename from node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Hero Shot Replica.PNG
+rename to node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Hero Shot Replica.png
+diff --git a/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Jet Squelcher.PNG b/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Jet Squelcher.png
+similarity index 100%
+rename from node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Jet Squelcher.PNG
+rename to node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Jet Squelcher.png
+diff --git a/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/L-3 Nozzlenose D.PNG b/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/L-3 Nozzlenose D.png
+similarity index 100%
+rename from node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/L-3 Nozzlenose D.PNG
+rename to node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/L-3 Nozzlenose D.png
+diff --git a/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/L-3 Nozzlenose.PNG b/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/L-3 Nozzlenose.png
+similarity index 100%
+rename from node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/L-3 Nozzlenose.PNG
+rename to node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/L-3 Nozzlenose.png
+diff --git a/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/N-ZAP 85.PNG b/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/N-ZAP 85.png
+similarity index 100%
+rename from node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/N-ZAP 85.PNG
+rename to node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/N-ZAP 85.png
+diff --git a/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/N-ZAP 89.PNG b/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/N-ZAP 89.png
+similarity index 100%
+rename from node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/N-ZAP 89.PNG
+rename to node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/N-ZAP 89.png
+diff --git a/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Neo Splash-o-matic.PNG b/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Neo Splash-o-matic.png
+similarity index 100%
+rename from node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Neo Splash-o-matic.PNG
+rename to node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Neo Splash-o-matic.png
+diff --git a/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Neo Sploosh-o-matic.PNG b/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Neo Sploosh-o-matic.png
+similarity index 100%
+rename from node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Neo Sploosh-o-matic.PNG
+rename to node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Neo Sploosh-o-matic.png
+diff --git a/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Splash-o-matic.PNG b/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Splash-o-matic.png
+similarity index 100%
+rename from node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Splash-o-matic.PNG
+rename to node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Splash-o-matic.png
+diff --git a/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Splattershot Jr.PNG b/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Splattershot Jr.png
+similarity index 100%
+rename from node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Splattershot Jr.PNG
+rename to node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Splattershot Jr.png
+diff --git a/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Splattershot Nova.PNG b/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Splattershot Nova.png
+similarity index 100%
+rename from node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Splattershot Nova.PNG
+rename to node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Splattershot Nova.png
+diff --git a/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Splattershot Pro.PNG b/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Splattershot Pro.png
+similarity index 100%
+rename from node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Splattershot Pro.PNG
+rename to node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Splattershot Pro.png
+diff --git a/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Splattershot.PNG b/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Splattershot.png
+similarity index 100%
+rename from node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Splattershot.PNG
+rename to node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Splattershot.png
+diff --git a/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Sploosh-o-matic.PNG b/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Sploosh-o-matic.png
+similarity index 100%
+rename from node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Sploosh-o-matic.PNG
+rename to node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Sploosh-o-matic.png
+diff --git a/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Squeezer.PNG b/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Squeezer.png
+similarity index 100%
+rename from node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Squeezer.PNG
+rename to node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Squeezer.png
+diff --git a/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Tentatek Splattershot.PNG b/node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Tentatek Splattershot.png
+similarity index 100%
+rename from node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Tentatek Splattershot.PNG
+rename to node_modules/@hacceuee/s3-pixel-icons/Weapons/Shooters/Tentatek Splattershot.png
