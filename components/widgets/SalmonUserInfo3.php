@@ -12,7 +12,6 @@ namespace app\components\widgets;
 
 use Yii;
 use app\components\i18n\Formatter;
-use app\models\UserStatBigrun3;
 use app\models\UserStatSalmon3;
 use yii\helpers\Html;
 use yii\web\View;
@@ -20,12 +19,8 @@ use yii\web\View;
 use function array_keys;
 use function array_map;
 use function array_values;
-use function filter_var;
 use function implode;
-use function is_int;
 use function vsprintf;
-
-use const FILTER_VALIDATE_INT;
 
 final class SalmonUserInfo3 extends SalmonUserInfo
 {
