@@ -17,6 +17,7 @@ use yii\web\View;
  * @var string $icon Icon (most left) URL
  * @var string $itemKey
  * @var string $label Icon (most left) label
+ * @var string|null $iconFormat
  */
 
 $fmt = Yii::$app->formatter;
@@ -39,13 +40,15 @@ foreach ($steps as $tmpStep) {
 <tr>
   <?= Html::tag(
     'td',
-    Html::img($icon, [
-      'alt' => $label,
-      'class' => 'auto-tooltip basic-icon text-center',
-      'draggable' => 'false',
-      'style' => '--icon-height:2em',
-      'title' => $label,
-    ]),
+    ($iconFormat ?? null) === 'raw'
+      ? $icon
+      : Html::img($icon, [
+        'alt' => $label,
+        'class' => 'auto-tooltip basic-icon text-center',
+        'draggable' => 'false',
+        'style' => '--icon-height:2em',
+        'title' => $label,
+      ]),
     ['class' => 'text-center'],
   ) . "\n" ?>
 <?php if ($isEditing) { ?>

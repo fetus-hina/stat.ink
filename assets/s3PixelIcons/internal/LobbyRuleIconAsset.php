@@ -39,6 +39,8 @@ abstract class LobbyRuleIconAsset extends AssetBundle
             'splatfest_open.png',
         ],
         'Tower Control.png' => 'yagura.png',
+        'Tricolor Attacker.png' => 'tricolor-attacker.png',
+        'Tricolor Defender.png' => 'tricolor-defender.png',
         'Tricolor Turf War.png' => 'tricolor.png',
         'Turf War.png' => [
             'nawabari.png',

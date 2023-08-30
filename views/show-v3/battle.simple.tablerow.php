@@ -76,6 +76,7 @@ use yii\web\View;
                   'div',
                   $model->weapon
                     ? implode(' ', [
+                      Icon::s3Weapon($model->weapon),
                       Html::encode(Yii::t('app-weapon3', $model->weapon->name)),
                       Icon::s3Subweapon($model->weapon->subweapon),
                       Icon::s3Special($model->weapon->special),

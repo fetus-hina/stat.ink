@@ -16,6 +16,7 @@ use yii\web\View;
 <div class="flex-grow-1">
 <?php if ($weapon) { ?>
   <?= implode(' ', [
+    Icon::s3Weapon($weapon),
     Html::encode(Yii::t('app-weapon3', $weapon->name)),
     Icon::s3Subweapon($weapon->subweapon),
     Icon::s3Special($weapon->special),

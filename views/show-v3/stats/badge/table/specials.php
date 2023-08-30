@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use app\assets\Spl3WeaponAsset;
+use app\components\widgets\Icon;
 use app\models\Special3;
 use app\models\UserBadge3Special;
 use yii\helpers\ArrayHelper;
@@ -18,16 +18,14 @@ use yii\web\View;
  * @var bool $isEditing
  */
 
-$am = Yii::$app->assetManager;
-$icon = Spl3WeaponAsset::register($this);
-
 echo $this->render('includes/group-header', ['label' => Yii::t('app', 'Special')]);
 foreach ($specials as $special) {
   $key = 'special-' . $special->key;
   echo $this->render('includes/row', [
     'isEditing' => $isEditing,
     'itemKey' => $key,
-    'icon' => $am->getAssetUrl($icon, sprintf('special/%s.png', $special->key)),
+    'iconFormat' => 'raw',
+    'icon' => Icon::s3Special($special, '2em'),
     'label' => Yii::t('app-special3', $special->name),
     'value' => ArrayHelper::getValue($badgeSpecials, [$special->key, 'count']),
     'adjust' => (int)ArrayHelper::getValue($badgeAdjust, $key, 0),
