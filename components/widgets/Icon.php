@@ -46,6 +46,7 @@ use function in_array;
 use function is_array;
 use function is_string;
 use function mb_chr;
+use function str_starts_with;
 
 /**
  * @method static string addSomething()
