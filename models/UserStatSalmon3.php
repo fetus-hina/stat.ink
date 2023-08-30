@@ -31,6 +31,7 @@ use yii\db\ActiveRecord;
  * @property string $peak_danger_rate
  * @property integer $peak_title_id
  * @property integer $peak_title_exp
+ * @property integer $boss_defeated
  *
  * @property SalmonTitle3 $peakTitle
  * @property User $user
@@ -46,8 +47,8 @@ class UserStatSalmon3 extends ActiveRecord
     {
         return [
             [['user_id', 'jobs', 'agg_jobs', 'clear_jobs', 'total_waves', 'clear_waves', 'king_appearances', 'king_defeated', 'golden_eggs', 'power_eggs', 'rescues', 'rescued'], 'required'],
-            [['user_id', 'jobs', 'agg_jobs', 'clear_jobs', 'total_waves', 'clear_waves', 'king_appearances', 'king_defeated', 'golden_eggs', 'power_eggs', 'rescues', 'rescued', 'peak_title_id', 'peak_title_exp'], 'default', 'value' => null],
-            [['user_id', 'jobs', 'agg_jobs', 'clear_jobs', 'total_waves', 'clear_waves', 'king_appearances', 'king_defeated', 'golden_eggs', 'power_eggs', 'rescues', 'rescued', 'peak_title_id', 'peak_title_exp'], 'integer'],
+            [['user_id', 'jobs', 'agg_jobs', 'clear_jobs', 'total_waves', 'clear_waves', 'king_appearances', 'king_defeated', 'golden_eggs', 'power_eggs', 'rescues', 'rescued', 'peak_title_id', 'peak_title_exp', 'boss_defeated'], 'default', 'value' => null],
+            [['user_id', 'jobs', 'agg_jobs', 'clear_jobs', 'total_waves', 'clear_waves', 'king_appearances', 'king_defeated', 'golden_eggs', 'power_eggs', 'rescues', 'rescued', 'peak_title_id', 'peak_title_exp', 'boss_defeated'], 'integer'],
             [['peak_danger_rate'], 'number'],
             [['user_id'], 'unique'],
             [['peak_title_id'], 'exist', 'skipOnError' => true, 'targetClass' => SalmonTitle3::class, 'targetAttribute' => ['peak_title_id' => 'id']],
@@ -73,6 +74,7 @@ class UserStatSalmon3 extends ActiveRecord
             'peak_danger_rate' => 'Peak Danger Rate',
             'peak_title_id' => 'Peak Title ID',
             'peak_title_exp' => 'Peak Title Exp',
+            'boss_defeated' => 'Boss Defeated',
         ];
     }
 
