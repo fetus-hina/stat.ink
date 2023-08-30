@@ -20,6 +20,7 @@ use app\components\helpers\salmonStatsV3\EggstraWorkHistogramTrait;
 use app\components\helpers\salmonStatsV3\EggstraWorkTrait;
 use app\components\helpers\salmonStatsV3\PlayedWithTrait;
 use app\components\helpers\salmonStatsV3\StatsTrait;
+use app\components\helpers\salmonStatsV3\UserEventTrait;
 use app\components\helpers\salmonStatsV3\UserGoldenEggTrait;
 use app\components\helpers\salmonStatsV3\UserSpecialTrait;
 use app\components\helpers\salmonStatsV3\UserWeaponTrait;
@@ -41,6 +42,7 @@ final class SalmonStatsV3
     use EggstraWorkTrait;
     use PlayedWithTrait;
     use StatsTrait;
+    use UserEventTrait;
     use UserGoldenEggTrait;
     use UserSpecialTrait;
     use UserWeaponTrait;
@@ -62,6 +64,7 @@ final class SalmonStatsV3
             'createBigrunStats' => fn () => self::createBigrunStats($db, $user, $now),
             'createEggstraWorkStats' => fn () => self::createEggstraWorkStats($db, $user, $now),
             'createBadgeProgress' => fn () => self::createBadgeProgress($db, $user, $now),
+            'createUserEventStats' => fn () => self::createUserEventStats($db, $user),
             'createUserSpecialStats' => fn () => self::createUserSpecialStats($db, $user),
             'createUserWeaponStats' => fn () => self::createUserWeaponStats($db, $user),
             'createPlayedWithStats' => fn () => self::createPlayedWithStats($db, $user),

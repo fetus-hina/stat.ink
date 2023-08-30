@@ -21,6 +21,7 @@ use yii\db\ActiveRecord;
  * @property string $name
  * @property string $short_name
  *
+ * @property Salmon3UserStatsEvent[] $salmon3UserStatsEvents
  * @property Salmon3UserStatsGoldenEggIndividualHistogram[] $salmon3UserStatsGoldenEggIndividualHistograms
  * @property Salmon3UserStatsGoldenEggTeamHistogram[] $salmon3UserStatsGoldenEggTeamHistograms
  * @property Salmon3UserStatsGoldenEgg[] $salmon3UserStatsGoldenEggs
@@ -57,6 +58,11 @@ class SalmonMap3 extends ActiveRecord
             'name' => 'Name',
             'short_name' => 'Short Name',
         ];
+    }
+
+    public function getSalmon3UserStatsEvents(): ActiveQuery
+    {
+        return $this->hasMany(Salmon3UserStatsEvent::class, ['map_id' => 'id']);
     }
 
     public function getSalmon3UserStatsGoldenEggIndividualHistograms(): ActiveQuery
