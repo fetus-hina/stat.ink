@@ -88,6 +88,7 @@ return [
     'Grizzco Blaster' => '',
     'Grizzco Brella' => '',
     'Grizzco Charger' => '',
+    'Grizzco Dualies' => '',
     'Grizzco Slosher' => '',
     'H-3 Nozzlenose' => '',
     'H-3 Nozzlenose D' => '',

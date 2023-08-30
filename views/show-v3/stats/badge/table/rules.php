@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use app\assets\GameModeIconsAsset;
+use app\assets\s3PixelIcons\RuleIconAsset;
 use app\models\Rule3;
 use app\models\TricolorRole3;
 use app\models\UserBadge3Rule;
@@ -21,7 +21,7 @@ use yii\web\View;
  */
 
 $am = Yii::$app->assetManager;
-$icon = GameModeIconsAsset::register($this);
+$icon = RuleIconAsset::register($this);
 
 echo $this->render('includes/group-header', ['label' => Yii::t('app', 'Mode')]);
 foreach ($rules as $rule) {
@@ -29,7 +29,7 @@ foreach ($rules as $rule) {
   echo $this->render('includes/row', [
     'isEditing' => $isEditing,
     'itemKey' => $key,
-    'icon' => $am->getAssetUrl($icon, sprintf('spl3/%s.png', $rule->key)),
+    'icon' => $am->getAssetUrl($icon, "{$rule->key}.png"),
     'label' => Yii::t('app-rule3', $rule->name),
     'value' => ArrayHelper::getValue($badgeRules, [$rule->key, 'count']),
     'adjust' => (int)ArrayHelper::getValue($badgeAdjust, $key, 0),
@@ -54,7 +54,7 @@ foreach ($roles as $role) {
   echo $this->render('includes/row', [
     'isEditing' => $isEditing,
     'itemKey' => $key,
-    'icon' => $am->getAssetUrl($icon, sprintf('spl3/tricolor-%s.png', $role->key)),
+    'icon' => $am->getAssetUrl($icon, sprintf('tricolor-%s.png', $role->key)),
     'label' => vsprintf('%s - %s', [
       Yii::t('app-rule3', 'Tricolor Turf War'),
       Yii::t('app-rule3', $role->name),

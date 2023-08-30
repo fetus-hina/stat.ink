@@ -27,5 +27,6 @@ final class UiIconAsset extends AssetBundle
         'SR Rescues.png' => 'rescues.png',
         'Splats.png' => 'kill.png',
         'Splatted.png' => 'death.png',
+        'Ultra Signal Attempt.png' => 'signal.png',
     ];
 }

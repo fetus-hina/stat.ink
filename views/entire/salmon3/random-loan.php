@@ -150,12 +150,13 @@ $dropdownDatePattern = DateTimeHelper::formatDH();
               Html::encode(Yii::t('app-map3', $schedule->map?->name ?? $schedule->bigMap?->name ?? '?')),
             ],
             array_map(
-              fn (SalmonScheduleWeapon3 $info): string => Html::encode(
-                Yii::t(
-                  'app-weapon3',
-                  $info->weapon?->name ?? $info->random?->name ?? '?',
-                ),
-              ),
+              fn (SalmonScheduleWeapon3 $info): string => $info->weapon
+                ? WeaponName::widget([
+                  'model' => $info->weapon,
+                  'showName' => true,
+                  'subInfo' => false,
+                ])
+                : Html::encode(Yii::t('app-weapon3', $info->random?->name ?? '?')),
               $schedule->salmonScheduleWeapon3s,
             ),
           ),

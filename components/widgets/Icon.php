@@ -29,6 +29,7 @@ use app\models\Ability3;
 use app\models\Lobby3;
 use app\models\LobbyGroup3;
 use app\models\Rule3;
+use app\models\SalmonWeapon3;
 use app\models\Special3;
 use app\models\Subweapon3;
 use app\models\Weapon3;
@@ -135,7 +136,9 @@ use function mb_chr;
  * @method static string s3AbilityThermalInk
  * @method static string s3AbilityUnknown()
  * @method static string s3BigRun()
+ * @method static string s3Death()
  * @method static string s3Eggstra()
+ * @method static string s3Kill()
  * @method static string s3LobbyBankara()
  * @method static string s3LobbyEvent()
  * @method static string s3LobbyPrivate()
@@ -157,6 +160,9 @@ use function mb_chr;
  * @method static string s3Salmometer4()
  * @method static string s3Salmometer5()
  * @method static string s3Salmon()
+ * @method static string s3Signal()
+ * @method static string s3TricolorAttacker()
+ * @method static string s3TricolorDefender()
  * @method static string scrollTo()
  * @method static string search()
  * @method static string silverMedal()
@@ -303,7 +309,9 @@ final class Icon
         's3AbilityThermalInk' => [AbilityIconAsset::class, 'thermal_ink.png'],
         's3AbilityUnknown' => [AbilityIconAsset::class, 'unknown.png'],
         's3BigRun' => [SalmonModeIconAsset::class, 'bigrun.png', ['app-salmon3', 'Big Run'], true],
+        's3Death' => [UiIconAsset::class, 'death.png', ['app', 'Deaths'], true],
         's3Eggstra' => [SalmonModeIconAsset::class, 'eggstra.png', ['app-salmon3', 'Eggstra Work'], true],
+        's3Kill' => [UiIconAsset::class, 'kill.png', ['app', 'Kills'], true],
         's3LobbyBankara' => [LobbyIconAsset::class, 'bankara.png', ['app-lobby3', 'Anarchy Battle'], true],
         's3LobbyEvent' => [LobbyIconAsset::class, 'event.png', ['app-lobby3', 'Challenge'], true],
         's3LobbyPrivate' => [LobbyIconAsset::class, 'private.png', ['app-lobby3', 'Private Battle'], true],
@@ -325,6 +333,9 @@ final class Icon
         's3Salmometer4' => [SalmometerIconAsset::class, 'salmometer-4.png', '(4/5)', '4 / 5'],
         's3Salmometer5' => [SalmometerIconAsset::class, 'salmometer-5.png', '(5/5)', '5 / 5'],
         's3Salmon' => [SalmonModeIconAsset::class, 'salmon.png', ['app-salmon2', 'Salmon Run'], true],
+        's3Signal' => [UiIconAsset::class, 'signal.png', ['app', 'Ultra Signals'], ['app', 'Try to secure the Ultra Signal']],
+        's3TricolorAttacker' => [RuleIconAsset::class, 'tricolor-attacker.png', ['app-rule3', 'Attackers'], true],
+        's3TricolorDefender' => [RuleIconAsset::class, 'tricolor-defender.png', ['app-rule3', 'Defenders'], true],
         'splatoon1' => [VersionIconAsset::class, 's1.png', '[1]', ['app', 'Splatoon']],
         'splatoon2' => [VersionIconAsset::class, 's2.png', '[2]', ['app', 'Splatoon 2']],
         'splatoon3' => [VersionIconAsset::class, 's3.png', '[3]', ['app', 'Splatoon 3']],
@@ -471,7 +482,7 @@ final class Icon
         };
     }
 
-    public static function s3Subweapon(Subweapon3|string|null $model): ?string
+    public static function s3Subweapon(Subweapon3|string|null $model, ?string $size = null): ?string
     {
         if ($model === null) {
             return null;
@@ -493,10 +504,11 @@ final class Icon
             "{$model->key}.png",
             Yii::t('app-subweapon3', $model->name),
             true,
+            $size,
         );
     }
 
-    public static function s3Special(Special3|string|null $model): ?string
+    public static function s3Special(Special3|string|null $model, ?string $size = null): ?string
     {
         if ($model === null) {
             return null;
@@ -518,13 +530,16 @@ final class Icon
             "{$model->key}.png",
             Yii::t('app-special3', $model->name),
             true,
+            $size,
         );
     }
 
-    public static function s3Weapon(Weapon3|string|null $weapon): ?string
-    {
+    public static function s3Weapon(
+        Weapon3|SalmonWeapon3|string|null $weapon,
+        ?string $size = null,
+    ): ?string {
         $key = match (true) {
-            $weapon instanceof Weapon3 => $weapon->key,
+            $weapon instanceof Weapon3, $weapon instanceof SalmonWeapon3 => $weapon->key,
             default => $weapon,
         };
         if (!is_string($key)) {
@@ -662,12 +677,21 @@ final class Icon
             return null;
         }
 
-        if (!$weapon instanceof Weapon3) {
-            $weapon = Weapon3::find()
-                ->andWhere(['key' => $key])
-                ->limit(1)
-                ->cache(86400)
-                ->one();
+        if (
+            !$weapon instanceof Weapon3 &&
+            !$weapon instanceof SalmonWeapon3
+        ) {
+            $weapon = str_starts_with($key, 'kuma_')
+                ? SalmonWeapon3::find()
+                    ->andWhere(['key' => $key])
+                    ->limit(1)
+                    ->cache(86400)
+                    ->one()
+                : Weapon3::find()
+                    ->andWhere(['key' => $key])
+                    ->limit(1)
+                    ->cache(86400)
+                    ->one();
         }
 
         return self::assetImage(
@@ -675,6 +699,7 @@ final class Icon
             "{$directory}/{$key}.png",
             Yii::t('app-weapon3', (string)$weapon?->name),
             true,
+            $size,
         );
     }
 
@@ -729,6 +754,7 @@ final class Icon
         string $assetPath,
         array|string|null $alt = null,
         array|bool|string|null $title = null,
+        ?string $size = null,
     ): string {
         // self::prepareAsset($assetClass);
         $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
@@ -765,7 +791,7 @@ final class Icon
             ),
             'draggable' => 'false',
             'style' => [
-                '--icon-height' => '1em',
+                '--icon-height' => $size ?? '1em',
                 '--icon-valign' => 'middle',
             ],
             'title' => $title,

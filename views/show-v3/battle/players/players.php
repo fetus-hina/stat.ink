@@ -29,7 +29,7 @@ $isXmatch = $battle->lobby?->key === 'xmatch';
 $isTricolor = $battle->rule?->key === 'tricolor';
 
 ?>
-<div class="table-responsive table-responsive-force">
+<div class="table-responsive table-responsive-force mb-3">
   <table class="table table-bordered mb-0" id="players">
     <thead>
       <tr>
@@ -48,21 +48,18 @@ $isTricolor = $battle->rule?->key === 'tricolor';
           ) . "\n" ?>
 <?php } ?>
         <th class="text-nowrap text-center col-inked"><?= Html::encode(Yii::t('app', 'Inked')) ?></th>
-        <th class="text-nowrap text-center col-kill"><?= Html::encode(Yii::t('app', 'k')) ?></th>
-        <th class="text-nowrap text-center col-death"><?= Html::encode(Yii::t('app', 'd')) ?></th>
+        <th class="text-nowrap text-center col-kill"><?= implode(' ', [
+          Icon::s3Kill(),
+          Html::encode(Yii::t('app', 'k')),
+        ]) ?></th>
+        <th class="text-nowrap text-center col-death"><?= implode(' ' , [
+          Icon::s3Death(),
+          Html::encode(Yii::t('app', 'd')),
+        ]) ?></th>
         <th class="text-nowrap text-center col-kr"><?= Html::encode(Yii::t('app', 'KR')) ?></th>
         <th class="text-nowrap text-center col-special"><?= Html::encode(Yii::t('app', 'Sp')) ?></th>
 <?php if ($isTricolor) { ?>
-        <th class="text-nowrap text-center col-signal">
-          <?= Html::tag(
-            'span',
-            Html::encode(Yii::t('app', 'Sig')),
-            [
-              'class' => 'auto-tooltip',
-              'title' => Yii::t('app', 'Try to secure the Ultra Signal'),
-            ],
-          ) . "\n" ?>
-        </th>
+        <th class="text-nowrap text-center col-signal"><?= Icon::s3Signal() ?></th>
 <?php } ?>
       </tr>
     </thead>

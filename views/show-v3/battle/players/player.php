@@ -105,7 +105,10 @@ if ($player->is_me) {
     if ($player->special !== null) {
       echo Html::tag(
         'span',
-        $f->asInteger($player->special),
+        implode(' ', [
+          Icon::s3Special($player->weapon?->special),
+          $f->asInteger($player->special),
+        ]),
         [
           'class' => 'auto-tooltip',
           'title' => Yii::t('app-special3', $player->weapon?->special?->name),

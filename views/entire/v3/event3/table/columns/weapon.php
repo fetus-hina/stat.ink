@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
+use app\components\widgets\Icon;
 use app\models\Event3StatsWeapon;
+use yii\helpers\Html;
 
 return [
   'label' => Yii::t('app', 'Weapon'),
@@ -18,6 +20,13 @@ return [
       Yii::t('app', 'Special:'),
       Yii::t('app-special3', $model->weapon->special?->name ?? '?'),
     ]),
+    'data' => [
+      'sort-value' => Yii::t('app-weapon3', $model->weapon->name),
+    ],
   ],
-  'value' => fn (Event3StatsWeapon $model): string => Yii::t('app-weapon3', $model->weapon->name),
+  'format' => 'raw',
+  'value' => fn (Event3StatsWeapon $model): string => implode(' ', [
+    Icon::s3Weapon($model->weapon),
+    Html::encode(Yii::t('app-weapon3', $model->weapon->name)),
+  ]),
 ];

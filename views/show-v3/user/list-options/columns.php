@@ -9,6 +9,7 @@ return [
   require __DIR__ . '/columns/rule-icon.php',
   require __DIR__ . '/columns/rule.php',
   require __DIR__ . '/columns/stage.php',
+  require __DIR__ . '/columns/weapon-icon.php',
   require __DIR__ . '/columns/weapon.php',
   require __DIR__ . '/columns/subweapon-icon.php',
   require __DIR__ . '/columns/subweapon.php',

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\components\widgets\Icon;
 use app\models\Splatfest3Theme;
 use app\models\TricolorRole3;
 use yii\helpers\Html;
@@ -15,14 +16,15 @@ use yii\web\View;
  */
 
 if ($theme || $role) {
-  $am = $role ? Yii::$app->assetManager : null;
   echo implode(
     ' ',
     array_filter(
       [
-        $role
-          ? sprintf('[%s]', Yii::t('app-rule3', $role->name))
-          : null,
+        match ($role?->key) {
+          'attacker' => Icon::s3TricolorAttacker(),
+          'defender' => Icon::s3TricolorDefender(),
+          default => null,
+        },
         $theme
           ? Html::encode($theme->name)
           : null,

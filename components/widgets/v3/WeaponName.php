@@ -42,7 +42,10 @@ final class WeaponName extends Widget
 
     private function renderMainWeapon(Weapon3|SalmonWeapon3 $model): string
     {
-        return Html::encode(Yii::t('app-weapon3', $model->name));
+        return implode(' ', [
+            Icon::s3Weapon($model),
+            Html::encode(Yii::t('app-weapon3', $model->name)),
+        ]);
     }
 
     private function renderSubSp(Weapon3|SalmonWeapon3 $model): string

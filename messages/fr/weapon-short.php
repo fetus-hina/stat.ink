@@ -103,6 +103,7 @@ return [
     'Flexi-rouleau alu' => '',
     'Fusil M. Ours SA' => '',
     'Gold Dynamo Roller' => '',
+    'Grizzco Dualies' => '',
     'Heavy Edit Splatling' => '',
     'Inkline Tri-Stringer' => '',
     'Lanceur héroïque (réplique)' => '',

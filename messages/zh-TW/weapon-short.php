@@ -26,6 +26,7 @@ return [
     'Custom Goo Tuber' => '',
     'Dread Wringer' => '',
     'Gold Dynamo Roller' => '',
+    'Grizzco Dualies' => '',
     'H3捲管槍' => 'H3',
     'H3捲管槍D' => '',
     'Heavy Edit Splatling' => '',
