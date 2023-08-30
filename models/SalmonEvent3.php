@@ -20,6 +20,7 @@ use yii\db\ActiveRecord;
  * @property string $key
  * @property string $name
  *
+ * @property Salmon3UserStatsEvent[] $salmon3UserStatsEvents
  * @property SalmonEvent3Alias[] $salmonEvent3Aliases
  * @property SalmonWave3[] $salmonWave3s
  * @property StatSalmon3TideEvent[] $statSalmon3TideEvents
@@ -48,6 +49,11 @@ class SalmonEvent3 extends ActiveRecord
             'key' => 'Key',
             'name' => 'Name',
         ];
+    }
+
+    public function getSalmon3UserStatsEvents(): ActiveQuery
+    {
+        return $this->hasMany(Salmon3UserStatsEvent::class, ['event_id' => 'id']);
     }
 
     public function getSalmonEvent3Aliases(): ActiveQuery
