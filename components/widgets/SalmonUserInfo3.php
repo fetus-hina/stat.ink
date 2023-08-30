@@ -38,7 +38,7 @@ final class SalmonUserInfo3 extends SalmonUserInfo
 
         $stats = $this->getUserStats();
         $avg = fn ($value, int $decimal = 1): string => $fmt->asDecimal(
-            $stats->agg_jobs > 0 ? $value / $stats->agg_jobs : null,
+            $value !== null && $stats->agg_jobs > 0 ? $value / $stats->agg_jobs : null,
             $decimal,
         );
 
@@ -166,9 +166,9 @@ final class SalmonUserInfo3 extends SalmonUserInfo
                 'formatter' => $fmt,
             ],
             [
-                'label' => Yii::t('app-salmon3', 'Big Run'),
-                'labelTitle' => Yii::t('app-salmon3', 'High Score'),
-                'value' => $this->getBigRunHighScore(),
+                'label' => Yii::t('app-salmon3', 'Boss'),
+                'labelTitle' => Yii::t('app-salmon3', 'Average Defeated'),
+                'value' => $avg($stats->boss_defeated, 2),
                 'nullDisplay' => Html::tag('span', Html::encode('-'), ['class' => 'text-muted']),
                 'nullDisplayFormat' => 'raw',
                 'formatter' => $fmt,
@@ -279,16 +279,5 @@ final class SalmonUserInfo3 extends SalmonUserInfo
     {
         return UserStatSalmon3::find()->andWhere(['user_id' => $this->user->id])->limit(1)->one()
             ?? Yii::createObject(UserStatSalmon3::class);
-    }
-
-    protected function getBigRunHighScore(): ?int
-    {
-        $v = filter_var(
-            UserStatBigrun3::find()
-                ->andWhere(['user_id' => $this->user->id])
-                ->max('golden_eggs'),
-            FILTER_VALIDATE_INT,
-        );
-        return is_int($v) ? $v : null;
     }
 }

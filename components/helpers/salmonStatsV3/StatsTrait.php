@@ -91,6 +91,7 @@ trait StatsTrait
                     "WHEN {$condBasic} AND {{%salmon3}}.[[clear_waves]] >= 3 THEN {{%salmon3}}.[[danger_rate]]",
                     'ELSE NULL',
                 ]),
+                'boss_defeated' => $aggregate(null, '{{%salmon_player3}}.[[defeat_boss]]'),
             ])
             ->from('{{%salmon3}}')
             ->innerJoin('{{%salmon_player3}}', implode(' AND ', [
@@ -146,6 +147,7 @@ trait StatsTrait
             '{{%salmon3}}.[[is_private]] = FALSE',
             '{{%salmon3}}.[[title_after_id]] IS NOT NULL',
             '{{%salmon3}}.[[title_exp_after]] IS NOT NULL',
+            '{{%salmon_player3}}.[[defeat_boss]] IS NOT NULL',
             '{{%salmon_player3}}.[[golden_eggs]] IS NOT NULL',
             '{{%salmon_player3}}.[[is_disconnected]] = FALSE',
             '{{%salmon_player3}}.[[power_eggs]] IS NOT NULL',

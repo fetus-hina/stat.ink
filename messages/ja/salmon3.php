@@ -11,6 +11,7 @@ declare(strict_types=1);
 return [
     'Appearances' => '出現数',
     'Appeared' => '出現',
+    'Average Defeated' => '平均たおした数',
     'Big Run' => 'ビッグラン',
     'Boss Salmonid' => 'オオモノシャケ',
     'Boss Salmonids' => 'オオモノシャケ',

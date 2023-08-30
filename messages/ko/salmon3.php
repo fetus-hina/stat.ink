@@ -12,6 +12,7 @@ declare(strict_types=1);
 return [
     'Appearances' => '출현수',
     'Appeared' => '',
+    'Average Defeated' => '',
     'Big Run' => '빅 런',
     'Boss' => '',
     'Boss Salmonid' => '거물연어',

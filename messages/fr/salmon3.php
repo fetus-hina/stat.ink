@@ -12,6 +12,7 @@ declare(strict_types=1);
 return [
     'Appearances' => 'Apparus',
     'Appeared' => '',
+    'Average Defeated' => '',
     'Big Run' => 'Big Run',
     'Boss' => '',
     'Boss Salmonid' => 'Salmonoboss',
