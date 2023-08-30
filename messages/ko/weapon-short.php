@@ -49,6 +49,7 @@ return [
     'Glooga Dualies Deco' => '',
     'Gold Dynamo Roller' => '',
     'Grim Range Blaster' => '',
+    'Grizzco Dualies' => '',
     'H3 릴 건' => '',
     'H3 릴 건 D' => '',
     'Heavy Edit Splatling' => '',

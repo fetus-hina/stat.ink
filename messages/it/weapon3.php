@@ -56,6 +56,7 @@ return [
     'Grizzco Blaster' => 'Blaster Ursus',
     'Grizzco Brella' => 'Sparasole Ursus',
     'Grizzco Charger' => 'Splatter a carica Ursus',
+    'Grizzco Dualies' => '',
     'Grizzco Slosher' => 'Secchiostro Ursus',
     'Grizzco Splatana' => 'Lama Ursus',
     'Grizzco Stringer' => 'Calamarco Ursus',

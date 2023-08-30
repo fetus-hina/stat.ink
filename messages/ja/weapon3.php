@@ -56,6 +56,7 @@ return [
     'Grizzco Blaster' => 'クマサン印のブラスター',
     'Grizzco Brella' => 'クマサン印のシェルター',
     'Grizzco Charger' => 'クマサン印のチャージャー',
+    'Grizzco Dualies' => 'クマサン印のマニューバー',
     'Grizzco Slosher' => 'クマサン印のスロッシャー',
     'Grizzco Splatana' => 'クマサン印のワイパー',
     'Grizzco Stringer' => 'クマサン印のストリンガー',

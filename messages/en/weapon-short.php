@@ -80,6 +80,7 @@ return [
     'Grizzco Blaster' => '',
     'Grizzco Brella' => '',
     'Grizzco Charger' => '',
+    'Grizzco Dualies' => '',
     'Grizzco Slosher' => '',
     'Grizzco Splatana' => '',
     'Grizzco Stringer' => '',

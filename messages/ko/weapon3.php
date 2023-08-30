@@ -57,6 +57,7 @@ return [
     'Grizzco Blaster' => 'Mr. 베어표 블래스터',
     'Grizzco Brella' => 'Mr. 베어표 셸터',
     'Grizzco Charger' => 'Mr. 베어표 차저',
+    'Grizzco Dualies' => '',
     'Grizzco Slosher' => 'Mr. 베어표 슬로셔',
     'Grizzco Splatana' => 'Mr. 베어표 와이퍼',
     'Grizzco Stringer' => 'Mr. 베어표 스트링거',
