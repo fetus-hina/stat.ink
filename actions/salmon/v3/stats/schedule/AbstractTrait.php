@@ -97,10 +97,14 @@ trait AbstractTrait
                         '{{%salmon_player3}}.[[is_me]] = TRUE',
                     ]),
                 )
-                ->andWhere([
-                    '{{%salmon3}}.[[is_deleted]]' => false,
-                    '{{%salmon3}}.[[is_private]]' => false,
-                    '{{%salmon3}}.[[user_id]]' => $user->id,
+                ->andWhere(['and',
+                    [
+                        '{{%salmon3}}.[[is_deleted]]' => false,
+                        '{{%salmon3}}.[[is_private]]' => false,
+                        '{{%salmon3}}.[[user_id]]' => $user->id,
+                    ],
+                    ['not', ['{{%salmon3}}.[[clear_waves]]' => null]],
+                    ['not', ['{{%salmon3}}.[[danger_rate]]' => null]],
                 ])
                 ->andWhere(
                     $schedule
