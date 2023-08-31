@@ -85,7 +85,6 @@ trait UserEventTrait
 
             return true;
         } catch (Throwable $e) {
-            var_dump($e);
             Yii::error(
                 vsprintf('Catch %s, message=%s', [
                     $e::class,
