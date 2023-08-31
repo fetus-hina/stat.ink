@@ -10,14 +10,14 @@
 declare(strict_types=1);
 
 return [
-    'Bay' => '破船湾',
-    'Grounds' => '养殖场',
+    'Bay' => '落难船',
+    'Grounds' => '鲑坝',
     'Lost Outpost' => '废弃前哨站',
-    'Marooner\'s Bay' => '破船湾',
+    'Marooner\'s Bay' => '漂浮落难船',
     'Outpost' => '前哨站',
     'Polaris' => '北极星',
     'Ruins of Ark Polaris' => '北极星方舟废墟',
-    'Salmonid Smokeyard' => '三文鱼烟熏厂',
-    'Smokeyard' => '烟熏厂',
-    'Spawning Grounds' => '养殖场',
+    'Salmonid Smokeyard' => '时不知鲑烟熏工房',
+    'Smokeyard' => '烟熏工房',
+    'Spawning Grounds' => '鲑坝',
 ];

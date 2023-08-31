@@ -39,7 +39,7 @@ return [
     'Mainstage' => '',
     'MakoMart' => '혹등 마켓',
     'Mall' => '',
-    'Manta' => '',
+    'Manta' => '만타',
     'Manta Maria' => '만타 마리아호',
     'Mart' => '혹등 마켓',
     'MC.Princess Diaries' => '',

@@ -41,7 +41,7 @@ return [
     'Mall' => 'ТЦ «Аравана»',
     'Manta' => 'Манта Мария',
     'Manta Maria' => '«Манта-Мария»',
-    'Mart' => 'Горбуша-Маркет',
+    'Mart' => ' Горбуша-Маркет',
     'MC.Princess Diaries' => 'Жемчик-холл',
     'Moray Towers' => 'Муренские башни',
     'Musselforge Fitness' => 'Спортзал «Кревед!»',
