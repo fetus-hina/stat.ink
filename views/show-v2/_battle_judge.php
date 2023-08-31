@@ -104,10 +104,10 @@ if ($model->my_team_percent !== null && $model->his_team_percent !== null) {
         $model->my_team_count,
         $model->his_team_count,
         $model->my_team_count == 100
-          ? Yii::t('app', 'KNOCKOUT')
+          ? Yii::t('app', 'KNOCKOUT!')
           : $model->my_team_count,
         $model->his_team_count == 100
-          ? Yii::t('app', 'KNOCKOUT')
+          ? Yii::t('app', 'KNOCKOUT!')
           : $model->his_team_count
     );
     echo "$v\n";

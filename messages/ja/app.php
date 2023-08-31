@@ -311,7 +311,7 @@ return [
     'K-D' => 'K-D',
     'K/D vs Win %' => 'KDと勝率',
     'K/min' => '殺/分',
-    'KNOCKOUT' => 'ノックアウト',
+    'KNOCKOUT!' => 'ノックアウト!',
     'KR' => 'キルレ',
     'Keep doing it.' => 'バトルやバイトにはげむのだー',
     'Kill Rate' => 'キルレート',

@@ -114,7 +114,7 @@ final class SalmonWaves extends Widget
                             ]);
                         } elseif ($clearWaves + 1 === $waveNumber) {
                             return Label::widget([
-                                'content' => Yii::t('app-salmon2', '✗'),
+                                'content' => Yii::t('app-salmon2', '✘'),
                                 'color' => 'danger',
                                 'formatter' => $widget->formatter,
                             ]);

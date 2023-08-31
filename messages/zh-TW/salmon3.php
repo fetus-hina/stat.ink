@@ -71,7 +71,7 @@ return [
     'Time is up' => '時間到',
     'Title Reached' => '最高獲得稱號',
     'Water Level and Events' => '水位變化與特殊狀況',
-    'Wipe out' => '全員陣亡',
+    'Wipe out' => '全軍覆沒！',
     'Xtrawave' => 'EX-WAVE',
     '{name}\'s Salmon Stats' => '',
     '{name}\'s Salmon Stats (Bosses)' => '{name}的打工數據 (巨大鮭魚)',
