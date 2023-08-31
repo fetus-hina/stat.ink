@@ -40,7 +40,7 @@ return [
     'Mainstage' => '音乐台',
     'MakoMart' => '座头购物中心',
     'Mall' => '商场',
-    'Manta' => '蝙蝠号',
+    'Manta' => '玛利亚号',
     'Manta Maria' => '鬼蝠鲼玛利亚号',
     'Mart' => '购物中心',
     'MC.Princess Diaries' => '主持人日记公主',

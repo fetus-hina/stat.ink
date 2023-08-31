@@ -9,14 +9,14 @@
 declare(strict_types=1);
 
 return [
-    'Bay' => '',
-    'Grounds' => '',
+    'Bay' => '난파선',
+    'Grounds' => '셰케나 댐',
     'Lost Outpost' => '',
-    'Marooner\'s Bay' => '',
+    'Marooner\'s Bay' => '난파선 돈 브라코',
     'Outpost' => '',
     'Polaris' => '',
     'Ruins of Ark Polaris' => '',
-    'Salmonid Smokeyard' => '',
+    'Salmonid Smokeyard' => '사계절 훈제 공방',
     'Smokeyard' => '',
-    'Spawning Grounds' => '',
+    'Spawning Grounds' => '셰케나 댐',
 ];

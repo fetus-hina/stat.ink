@@ -9,14 +9,14 @@
 declare(strict_types=1);
 
 return [
-    'Bay' => '',
-    'Grounds' => '',
+    'Bay' => 'Корабль «Дон Брак»',
+    'Grounds' => 'Самонидская ГЭС',
     'Lost Outpost' => 'Воблов Отшиб',
     'Marooner\'s Bay' => 'Корабль «Дон Брак»',
     'Outpost' => '',
     'Polaris' => '',
     'Ruins of Ark Polaris' => 'Бульконурский остров',
-    'Salmonid Smokeyard' => 'Коптильня «Угаръ»',
+    'Salmonid Smokeyard' => 'Коптильня «УгарЪ»',
     'Smokeyard' => '',
     'Spawning Grounds' => 'Самонидская ГЭС',
 ];
