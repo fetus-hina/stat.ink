@@ -71,7 +71,7 @@ return [
     'Time is up' => '时间到',
     'Title Reached' => '达到的称号',
     'Water Level and Events' => '',
-    'Wipe out' => '全员阵亡',
+    'Wipe out' => '全军覆没！',
     'Xtrawave' => '',
     '{name}\'s Salmon Stats' => '',
     '{name}\'s Salmon Stats (Bosses)' => '',

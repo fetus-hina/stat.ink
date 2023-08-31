@@ -248,7 +248,7 @@ final class SalmonWaves extends Widget
                                         'formatter' => $this->formatter,
                                     ])
                                     : Label::widget([
-                                        'content' => Yii::t('app-salmon2', '✗'),
+                                        'content' => Yii::t('app-salmon2', '✘'),
                                         'color' => 'danger',
                                         'formatter' => $this->formatter,
                                     ]);

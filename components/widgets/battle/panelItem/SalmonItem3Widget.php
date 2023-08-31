@@ -139,7 +139,7 @@ final class SalmonItem3Widget extends Widget
 
         return Html::tag(
             'div',
-            Html::encode(Yii::t('app-salmon2', '✗')),
+            Html::encode(Yii::t('app-salmon2', '✘')),
             ['class' => 'simple-battle-result simple-battle-result-lost'],
         );
     }

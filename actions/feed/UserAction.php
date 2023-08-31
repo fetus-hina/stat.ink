@@ -296,7 +296,7 @@ final class UserAction extends Action
         if ($battle->is_win !== null) {
             $__('Result', $battle->is_win ? 'WON' : 'LOST', 'app');
             if ($battle->isGachi && $battle->is_knock_out !== null) {
-                $dl[] = '<dt>' . Yii::t('app', $battle->is_knock_out ? 'KNOCKOUT' : 'TIME IS UP', [], $lang) . '</dt>';
+                $dl[] = '<dt>' . Yii::t('app', $battle->is_knock_out ? 'KNOCKOUT!' : 'TIME IS UP', [], $lang) . '</dt>';
             }
         }
         if ($battle->kill !== null && $battle->death !== null) {

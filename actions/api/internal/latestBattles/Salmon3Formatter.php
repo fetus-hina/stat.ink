@@ -79,7 +79,7 @@ trait Salmon3Formatter
                         ) {
                             $result = vsprintf('%s:%s', [
                                 Yii::t('app-salmon-boss3', $battle->kingSalmonid->name),
-                                Yii::t('app-salmon2', $battle->clear_extra ? '✓' : '✗'),
+                                Yii::t('app-salmon2', $battle->clear_extra ? '✓' : '✘'),
                             ]);
                         } else {
                             $result = Yii::t('app-salmon2', 'Cleared');

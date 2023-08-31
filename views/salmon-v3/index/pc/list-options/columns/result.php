@@ -38,7 +38,7 @@ return [
         Label::widget([
           'color' => $model->clear_extra ? 'success' : 'danger',
           'content' => vsprintf('%s: %s', [
-            Yii::t('app-salmon2', $model->clear_extra ? '✓' : '✗'),
+            Yii::t('app-salmon2', $model->clear_extra ? '✓' : '✘'),
             Yii::t('app-salmon-boss3', $king->name),
           ]),
         ]),
