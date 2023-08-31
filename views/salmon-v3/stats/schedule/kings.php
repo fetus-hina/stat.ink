@@ -46,7 +46,7 @@ $renderScale = fn (string $icon, int $number): string => Html::tag(
         <th class="text-center" rowspan="2"><?= Html::encode(Yii::t('app-salmon3', 'King Salmonid')) ?></th>
         <th class="text-center" rowspan="2"><?= Html::encode(Yii::t('app-salmon3', 'Appearances')) ?></th>
         <th class="text-center" colspan="2"><?= Html::encode(Yii::t('app-salmon3', 'Defeated')) ?></th>
-        <th class="text-center" colspan="4"><?= Html::encode(Yii::t('app-salmon3', 'Fish Scales')) ?></th>
+        <th class="text-center" colspan="4"><?= Html::encode(Yii::t('app-salmon3', 'Scales')) ?></th>
       </tr>
       <tr>
         <th class="text-center"><?= Html::encode(Yii::t('app-salmon3', 'Defeated')) ?></th>

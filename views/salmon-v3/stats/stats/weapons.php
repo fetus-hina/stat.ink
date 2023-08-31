@@ -46,7 +46,7 @@ $fmt = Yii::$app->formatter;
         <th class="text-center" rowspan="2"><?= Html::encode(Yii::t('app', 'Weapon')) ?></th>
         <th class="text-center"><?= Html::encode(Yii::t('app', 'Total')) ?></th>
         <th class="text-center" colspan="2"><?= Html::encode(Yii::t('app-salmon3', 'Normal Waves')) ?></th>
-        <th class="text-center" colspan="2"><?= Html::encode(Yii::t('app-salmon3', 'Xtrawave')) ?></th>
+        <th class="text-center" colspan="2"><?= Html::encode(Yii::t('app-salmon3', 'XTRAWAVE')) ?></th>
       </tr>
       <tr>
         <th class="text-center"><?= Html::encode(Yii::t('app-salmon2', 'Waves')) ?></th>
