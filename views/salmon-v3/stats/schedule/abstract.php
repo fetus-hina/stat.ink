@@ -236,7 +236,7 @@ echo DetailView::widget([
       ]),
     ],
     [
-      'label' => Yii::t('app-salmon3', 'Fish Scales'),
+      'label' => Yii::t('app-salmon3', 'Scales'),
       'format' => 'raw',
       'value' => implode('', [
         Html::tag(

@@ -171,7 +171,7 @@ final class SalmonWaves extends Widget
                     ),
                     Html::tag(
                         'th',
-                        Html::encode(Yii::t('app-salmon3', 'Xtrawave')),
+                        Html::encode(Yii::t('app-salmon3', 'XTRAWAVE')),
                         ['class' => 'text-center'],
                     ),
                     Html::tag(

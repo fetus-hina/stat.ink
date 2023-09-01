@@ -8,7 +8,7 @@ use yii\helpers\Html;
 use yii\web\View;
 
 return [
-  'label' => Yii::t('app-salmon3', 'Fish Scales'),
+  'label' => Yii::t('app-salmon3', 'Scales'),
   'format' => 'raw',
   'value' => function (Salmon3 $model): ?string {
     if (
