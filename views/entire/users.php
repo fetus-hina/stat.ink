@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 use app\components\helpers\OgpHelper;
 use app\components\widgets\AdWidget;
+use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
 use jp3cki\yii2\flot\FlotAsset;
 use jp3cki\yii2\flot\FlotTimeAsset;
@@ -53,6 +56,7 @@ FlotTimeAsset::register($this);
       [
         'encode' => false,
         'label' => implode(' ', [
+          Icon::splatoon3(),
           Html::encode(Yii::t('app', 'Splatoon 3')),
         ]),
         'content' => $this->render('users/splatoon3', ['agents' => $agents3]),
@@ -61,6 +65,7 @@ FlotTimeAsset::register($this);
       [
         'encode' => false,
         'label' => implode(' ', [
+          Icon::splatoon2(),
           Html::encode(Yii::t('app', 'Splatoon 2')),
         ]),
         'content' => $this->render('users/splatoon2', ['agents' => $agents2]),
@@ -69,6 +74,7 @@ FlotTimeAsset::register($this);
       [
         'encode' => false,
         'label' => implode(' ', [
+          Icon::splatoon1(),
           Html::encode(Yii::t('app', 'Splatoon')),
         ]),
         'content' => $this->render('users/splatoon1', compact('combineds', 'agentNames', 'agents')),
