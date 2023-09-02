@@ -29,7 +29,7 @@ final class StandardError
         $rate1 = $wins / $battles;
         $rate2 = ($battles - $wins) / $battles; // 1.0 - $rate1;
         $stderr = sqrt($battles / ($battles - 1.5) * $rate1 * $rate2) / sqrt($battles);
-        if ($stderr < 0.001) {
+        if ($stderr < 0.000001) {
             return null;
         }
         $err95ci = $stderr * 1.96;

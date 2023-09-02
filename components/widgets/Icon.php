@@ -470,9 +470,15 @@ final class Icon
         };
     }
 
-    public static function s3Salmometer(int $level): ?string
+    public static function s3Salmometer(?int $level = null): ?string
     {
         return match ($level) {
+            null => self::assetImage(
+                SalmometerIconAsset::class,
+                'salmometer-5.png',
+                alt: null,
+                title: false,
+            ),
             0 => self::s3Salmometer0(),
             1 => self::s3Salmometer1(),
             2 => self::s3Salmometer2(),
