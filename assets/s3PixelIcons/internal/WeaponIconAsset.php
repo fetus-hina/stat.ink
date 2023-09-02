@@ -66,6 +66,7 @@ abstract class WeaponIconAsset extends AssetBundle
         'Grizzco Dualies.png' => 'kuma_maneuver.png',
         'Grizzco Slosher.png' => 'kuma_slosher.png',
         'Grizzco Splatana.png' => 'kuma_wiper.png',
+        'Grizzco Stringer.png' => 'kuma_stringer.png',
         'H-3 Nozzlenose D.png' => 'h3reelgun_d.png',
         'H-3 Nozzlenose.png' => 'h3reelgun.png',
         'Heavy Edit Splatling.png' => 'examiner.png',

@@ -686,6 +686,7 @@ final class Icon
                 'kuma_maneuver',
                 'kuma_shelter',
                 'kuma_slosher',
+                'kuma_stringer',
                 'kuma_wiper',
             ], true) => 'Grizzco',
             default => null,
