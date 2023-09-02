@@ -5,6 +5,7 @@ declare(strict_types=1);
 use app\components\helpers\DateTimeHelper;
 use app\components\helpers\OgpHelper;
 use app\components\widgets\AdWidget;
+use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\v3\WeaponName;
 use app\models\SalmonSchedule3;
@@ -59,7 +60,14 @@ $dropdownDatePattern = DateTimeHelper::formatDH();
 
 ?>
 <div class="container">
-  <h1><?= Html::encode($title) ?></h1>
+  <?= Html::tag(
+    'h1',
+    vsprintf('%s - %s %s', [
+      Html::encode(Yii::t('app-salmon3', 'Salmon Run')),
+      Icon::s3SalmonRandomRandom(),
+      Html::encode(Yii::t('app-salmon3', 'Random Loan Rate')),
+    ]),
+  ) . "\n" ?>
 
   <?= AdWidget::widget() . "\n" ?>
   <?= SnsWidget::widget() . "\n" ?>
@@ -91,16 +99,15 @@ $dropdownDatePattern = DateTimeHelper::formatDH();
                   $isRareOnly
                     ? sprintf('[%s]', Yii::t('app-salmon3', 'Rare Only'))
                     : '',
-                  Yii::t('app', '{from} - {to}', [
-                    'from' => Yii::$app->formatter->asDate(
-                      $model->start_at,
-                      DateTimeHelper::formatYMDH(),
-                    ),
-                    'to' => Yii::$app->formatter->asDate(
-                      $model->end_at,
-                      DateTimeHelper::formatYMDH(),
-                    ),
-                  ]),
+                  trim(
+                    Yii::t('app', '{from} - {to}', [
+                      'from' => Yii::$app->formatter->asDate(
+                        $model->start_at,
+                        'medium',
+                      ),
+                      'to' => '',
+                    ]),
+                  ),
                 ]),
               ),
             ),
@@ -146,7 +153,12 @@ $dropdownDatePattern = DateTimeHelper::formatDH();
         array_filter(
           array_merge(
             [
-              $schedule->big_map_id !== null ? Html::encode(Yii::t('app-salmon3', 'Big Run')) : null,
+              $schedule->big_map_id !== null
+                ? implode(' ', [
+                  Icon::s3BigRun(),
+                  Html::encode(Yii::t('app-salmon3', 'Big Run')),
+                ])
+                : null,
               Html::encode(Yii::t('app-map3', $schedule->map?->name ?? $schedule->bigMap?->name ?? '?')),
             ],
             array_map(
@@ -156,7 +168,10 @@ $dropdownDatePattern = DateTimeHelper::formatDH();
                   'showName' => true,
                   'subInfo' => false,
                 ])
-                : Html::encode(Yii::t('app-weapon3', $info->random?->name ?? '?')),
+                : implode(' ', [
+                  Icon::s3SalmonRandom($info->random),
+                  Html::encode(Yii::t('app-weapon3', $info->random?->name ?? '?')),
+                ]),
               $schedule->salmonScheduleWeapon3s,
             ),
           ),

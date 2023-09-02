@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
+use LogicException;
 use Yii;
 use app\assets\AppLinkAsset;
 use app\assets\BootstrapIconsAsset;
@@ -19,6 +20,7 @@ use app\assets\s3PixelIcons\LobbyIconAsset;
 use app\assets\s3PixelIcons\RuleIconAsset;
 use app\assets\s3PixelIcons\SalmometerIconAsset;
 use app\assets\s3PixelIcons\SalmonModeIconAsset;
+use app\assets\s3PixelIcons\SalmonRandomIconAsset;
 use app\assets\s3PixelIcons\SpecialIconAsset;
 use app\assets\s3PixelIcons\SubweaponIconAsset;
 use app\assets\s3PixelIcons\UiIconAsset;
@@ -29,6 +31,7 @@ use app\models\Ability3;
 use app\models\Lobby3;
 use app\models\LobbyGroup3;
 use app\models\Rule3;
+use app\models\SalmonRandom3;
 use app\models\SalmonWeapon3;
 use app\models\Special3;
 use app\models\Subweapon3;
@@ -716,6 +719,41 @@ final class Icon
             true,
             $size,
         );
+    }
+
+    public static function s3SalmonRandom(SalmonRandom3|string|null $random): ?string
+    {
+        $key = match (true) {
+            $random instanceof SalmonRandom3 => $random->key,
+            is_string($random) => $random,
+            default => null,
+        };
+
+        return match ($key) {
+            'random' => self::assetImage(
+                SalmonRandomIconAsset::class,
+                'Grizzco/random.png',
+                Yii::t('app-weapon3', 'Random'),
+                true,
+            ),
+            'random_rare' => self::assetImage(
+                SalmonRandomIconAsset::class,
+                'Grizzco/random_rare.png',
+                Yii::t('app-weapon3', 'Random (Rare)'),
+                true,
+            ),
+            default => null,
+        };
+    }
+
+    public static function s3SalmonRandomRandom(): string
+    {
+        return self::s3SalmonRandom('random') ?? throw new LogicException();
+    }
+
+    public static function s3SalmonRandomRare(): string
+    {
+        return self::s3SalmonRandom('random_rare') ?? throw new LogicException();
     }
 
     public static function __callStatic(string $name, $args): string

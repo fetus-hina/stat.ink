@@ -10,6 +10,6 @@ declare(strict_types=1);
 
 namespace app\assets\s3PixelIcons;
 
-final class WeaponIconAsset extends internal\WeaponIconAsset
+final class SalmonRandomIconAsset extends internal\WeaponIconAsset
 {
 }
