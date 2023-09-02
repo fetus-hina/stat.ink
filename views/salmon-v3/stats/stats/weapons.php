@@ -30,7 +30,7 @@ if ($normalWaves < 1 || $xtraWaves < 0) {
 $fmt = Yii::$app->formatter;
 
 ?>
-<h3><?= Html::encode(Yii::t('app-salmon3', 'Loaned Weapons')) ?></h3>
+<h3><?= Html::encode(Yii::t('app-salmon3', 'Supplied Weapons')) ?></h3>
 <div class="table-responsive">
   <?= Html::beginTag('table', [
     'class' => [
@@ -112,7 +112,10 @@ $fmt = Yii::$app->formatter;
       <tr>
         <?= Html::tag(
           'th',
-          Html::encode(Yii::t('app-weapon3', $weapons[$weaponId]?->name ?? '?')),
+          implode(' ', [
+            Icon::s3Weapon($weapons[$weaponId] ?? null),
+            Html::encode(Yii::t('app-weapon3', $weapons[$weaponId]?->name ?? '?')),
+          ]),
           ['scope' => 'row'],
         ) . "\n" ?>
         <?= Html::tag(

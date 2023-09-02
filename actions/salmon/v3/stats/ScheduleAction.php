@@ -66,6 +66,11 @@ final class ScheduleAction extends Action
         $this->schedule = is_int($scheduleId)
             ? SalmonSchedule3::find()
                 ->andWhere(['id' => $scheduleId])
+                ->with([
+                  'salmonScheduleWeapon3s',
+                  'salmonScheduleWeapon3s.random',
+                  'salmonScheduleWeapon3s.weapon',
+                ])
                 ->limit(1)
                 ->one()
             : null;
@@ -88,7 +93,7 @@ final class ScheduleAction extends Action
             fn (Connection $db): array => Yii::$app->cache->getOrSet(
                 [
                     'id' => __METHOD__,
-                    'version' => 7,
+                    'version' => 8,
                     'user' => $user->id,
                     'schedule' => $schedule->id,
                     'cond' => $this->getCachingCondition($db, $user, $schedule),

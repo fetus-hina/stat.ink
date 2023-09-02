@@ -136,7 +136,7 @@ OgpHelper::default($this, Url::to(['site/index'], true));
           Icon::s3Salmon(),
         ]),
         Html::a(
-          Html::encode(Yii::t('app-salmon3', 'Random Loan Rate')),
+          Icon::s3SalmonRandomRandom() . ' ' . Html::encode(Yii::t('app-salmon3', 'Random Loan Rate')),
           ['entire/salmon3-random-loan'],
         ),
         Html::a(

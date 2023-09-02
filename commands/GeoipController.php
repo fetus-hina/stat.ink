@@ -23,7 +23,6 @@ use function dirname;
 use function escapeshellarg;
 use function exec;
 use function file_exists;
-use function file_put_contents;
 use function filesize;
 use function fprintf;
 use function fwrite;
@@ -33,6 +32,7 @@ use function preg_replace_callback;
 use function rtrim;
 use function str_repeat;
 use function strlen;
+use function unlink;
 use function vfprintf;
 use function vsprintf;
 

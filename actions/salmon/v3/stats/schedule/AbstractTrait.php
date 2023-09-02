@@ -104,12 +104,16 @@ trait AbstractTrait
                         '{{%salmon3}}.[[user_id]]' => $user->id,
                     ],
                     ['not', ['{{%salmon3}}.[[clear_waves]]' => null]],
-                    ['not', ['{{%salmon3}}.[[danger_rate]]' => null]],
                 ])
                 ->andWhere(
                     $schedule
                         ? ['{{%salmon3}}.[[schedule_id]]' => $schedule->id]
                         : ['{{%salmon3}}.[[is_eggstra_work]]' => false],
+                )
+                ->andWhere(
+                    $schedule?->is_eggstra_work
+                        ? 'TRUE'
+                        : ['not', ['{{%salmon3}}.[[danger_rate]]' => null]],
                 )
                 ->one($db),
         );

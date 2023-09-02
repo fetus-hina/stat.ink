@@ -55,6 +55,7 @@ SortableTableAsset::register($this);
   <table class="table table-striped table-condensed table-sortable">
     <thead>
       <tr>
+        <th></th>
         <th><?= Icon::s3Salmon() ?></th>
         <th data-sort="string"><code>key</code></th>
         <th data-sort="string"><?= Html::encode(Yii::t('app', 'Aliases')) ?></th>
@@ -72,6 +73,7 @@ SortableTableAsset::register($this);
     <tbody>
 <?php foreach ($weapons as $weapon) { ?>
       <tr>
+        <td><?= Icon::s3Weapon($weapon) ?></td>
         <td><?= Icon::s3Salmon() ?></td>
         <?= Html::tag(
           'td',
