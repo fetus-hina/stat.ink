@@ -28,6 +28,7 @@ use app\actions\entire\WeaponsUseAction;
 use app\actions\entire\salmon3\BigrunAction;
 use app\actions\entire\salmon3\EggstraWorkAction;
 use app\actions\entire\salmon3\RandomLoanAction;
+use app\actions\entire\salmon3\SalmometerAction;
 use app\actions\entire\salmon3\TideAction;
 use app\actions\entire\v3\BukichiCup3Action;
 use app\actions\entire\v3\Event3Action;
@@ -84,6 +85,7 @@ final class EntireController extends Controller
             'salmon3-bigrun' => BigrunAction::class,
             'salmon3-eggstra-work' => EggstraWorkAction::class,
             'salmon3-random-loan' => RandomLoanAction::class,
+            'salmon3-salmometer' => SalmometerAction::class,
             'salmon3-tide' => TideAction::class,
             'special-use3' => SpecialUse3Action::class,
             'special-use3-per-special' => SpecialUse3PerSpecialAction::class,

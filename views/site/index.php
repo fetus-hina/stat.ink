@@ -139,7 +139,14 @@ OgpHelper::default($this, Url::to(['site/index'], true));
           Html::encode(Yii::t('app-salmon3', 'Random Loan Rate')),
           ['entire/salmon3-random-loan'],
         ),
-        Html::a(Html::encode(Yii::t('app-salmon3', 'Water Level and Events')), ['entire/salmon3-tide']),
+        Html::a(
+          Html::encode(Yii::t('app-salmon3', 'Water Level and Events')),
+          ['entire/salmon3-tide'],
+        ),
+        Html::a(
+          Icon::s3Salmometer() . ' ' . Html::encode(Yii::t('app-salmon3', 'Salmometer')),
+          ['entire/salmon3-salmometer'],
+        ),
         Html::a(
           Icon::s3BigRun() . ' ' . Html::encode(Yii::t('app-salmon3', 'Big Run')),
           ['entire/salmon3-bigrun'],
