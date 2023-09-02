@@ -120,6 +120,17 @@ class GeoipController extends Controller
                 }
             }
 
+            if (file_exists($savePath)) {
+                vfprintf(STDERR, "Removing old file %s\n", [
+                    basename($savePath),
+                ]);
+
+                if (!@unlink($savePath)) {
+                    fwrite(STDERR, "Failed to remove the old file.\n");
+                    return false;
+                }
+            }
+
             vfprintf(STDERR, "Downloading %s from %s\n", [
                 basename($savePath),
                 preg_replace_callback(
@@ -130,13 +141,11 @@ class GeoipController extends Controller
             ]);
 
             $curl = new Curl();
-            $curl->get($url);
-            if ($curl->error) {
+            if (!$curl->download($url, $savePath)) {
                 fwrite(STDERR, "Could not download from {$url}\n");
                 return false;
             }
 
-            file_put_contents($savePath, $curl->rawResponse);
             fwrite(STDERR, "Downloaded the file.\n");
             if (filesize($savePath) < $threshold) {
                 vfprintf(STDERR, "It's too small! (actual) %d < (needed) %d\n", [
@@ -145,6 +154,10 @@ class GeoipController extends Controller
                 ]);
                 return false;
             }
+
+            vfprintf(STDERR, "File size is %d\n", [
+                filesize($savePath),
+            ]);
 
             return true;
         } catch (Throwable $e) {
