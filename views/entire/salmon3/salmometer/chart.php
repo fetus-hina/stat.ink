@@ -48,7 +48,7 @@ $labels[] = Yii::t('app', 'Total');
 foreach (range(0, 5) as $i) {
   if ($tmp = $makeData($i + 1, (int)$data[$i]?->jobs, (int)$data[$i]?->cleared)) {
     $dataList[] = $tmp;
-    $labels[] = (string)$i;
+    $labels[] = sprintf('%d / %d', $i, 5);
   }
 }
 
@@ -113,7 +113,6 @@ echo Html::tag('div', '', [
               'stepSize' => 10,
             ],
             'position' => 'top',
-            'min' => 40,
           ],
           'y' => [
             'offset' => true,
