@@ -677,6 +677,14 @@ final class Icon
                 'tristringer',
                 'tristringer_collabo',
             ], true) => 'Stringers',
+            in_array($key, [
+                'kuma_blaster',
+                'kuma_charger',
+                'kuma_maneuver',
+                'kuma_shelter',
+                'kuma_slosher',
+                'kuma_wiper',
+            ], true) => 'Grizzco',
             default => null,
         };
 
