@@ -61,7 +61,6 @@ use function str_starts_with;
  * @method static string back()
  * @method static string blog()
  * @method static string bluesky()
- * @method static string bronzeMedal()
  * @method static string bronzeScale()
  * @method static string caretDown()
  * @method static string check()
@@ -81,7 +80,6 @@ use function str_starts_with;
  * @method static string fileJson()
  * @method static string filter()
  * @method static string github()
- * @method static string goldMedal()
  * @method static string goldScale()
  * @method static string goldenEgg()
  * @method static string hasDisconnected()
@@ -112,36 +110,37 @@ use function str_starts_with;
  * @method static string powerEgg()
  * @method static string prevPage()
  * @method static string refresh()
- * @method static string s3AbilityAbilityDoubler
- * @method static string s3AbilityComeback
- * @method static string s3AbilityDropRoller
- * @method static string s3AbilityHaunt
- * @method static string s3AbilityInkRecoveryUp
- * @method static string s3AbilityInkResistanceUp
- * @method static string s3AbilityInkSaverMain
- * @method static string s3AbilityInkSaverSub
- * @method static string s3AbilityIntensifyAction
- * @method static string s3AbilityLastDitchEffort
- * @method static string s3AbilityNinjaSquid
- * @method static string s3AbilityObjectShredder
- * @method static string s3AbilityOpeningGambit
- * @method static string s3AbilityQuickRespawn
- * @method static string s3AbilityQuickSuperJump
- * @method static string s3AbilityRespawnPunisher
- * @method static string s3AbilityRunSpeedUp
- * @method static string s3AbilitySpecialChargeUp
- * @method static string s3AbilitySpecialPowerUp
- * @method static string s3AbilitySpecialSaver
- * @method static string s3AbilityStealthJump
- * @method static string s3AbilitySubPowerUp
- * @method static string s3AbilitySubResistanceUp
- * @method static string s3AbilitySwimSpeedUp
- * @method static string s3AbilityTenacity
- * @method static string s3AbilityThermalInk
+ * @method static string s3AbilityAbilityDoubler()
+ * @method static string s3AbilityComeback()
+ * @method static string s3AbilityDropRoller()
+ * @method static string s3AbilityHaunt()
+ * @method static string s3AbilityInkRecoveryUp()
+ * @method static string s3AbilityInkResistanceUp()
+ * @method static string s3AbilityInkSaverMain()
+ * @method static string s3AbilityInkSaverSub()
+ * @method static string s3AbilityIntensifyAction()
+ * @method static string s3AbilityLastDitchEffort()
+ * @method static string s3AbilityNinjaSquid()
+ * @method static string s3AbilityObjectShredder()
+ * @method static string s3AbilityOpeningGambit()
+ * @method static string s3AbilityQuickRespawn()
+ * @method static string s3AbilityQuickSuperJump()
+ * @method static string s3AbilityRespawnPunisher()
+ * @method static string s3AbilityRunSpeedUp()
+ * @method static string s3AbilitySpecialChargeUp()
+ * @method static string s3AbilitySpecialPowerUp()
+ * @method static string s3AbilitySpecialSaver()
+ * @method static string s3AbilityStealthJump()
+ * @method static string s3AbilitySubPowerUp()
+ * @method static string s3AbilitySubResistanceUp()
+ * @method static string s3AbilitySwimSpeedUp()
+ * @method static string s3AbilityTenacity()
+ * @method static string s3AbilityThermalInk()
  * @method static string s3AbilityUnknown()
  * @method static string s3BigRun()
  * @method static string s3Death()
  * @method static string s3Eggstra()
+ * @method static string s3GoldMedal()
  * @method static string s3Kill()
  * @method static string s3LobbyBankara()
  * @method static string s3LobbyEvent()
@@ -165,11 +164,11 @@ use function str_starts_with;
  * @method static string s3Salmometer5()
  * @method static string s3Salmon()
  * @method static string s3Signal()
+ * @method static string s3SilverMedal()
  * @method static string s3TricolorAttacker()
  * @method static string s3TricolorDefender()
  * @method static string scrollTo()
  * @method static string search()
- * @method static string silverMedal()
  * @method static string silverScale()
  * @method static string slack()
  * @method static string sortable()
@@ -315,6 +314,7 @@ final class Icon
         's3BigRun' => [SalmonModeIconAsset::class, 'bigrun.png', ['app-salmon3', 'Big Run'], true],
         's3Death' => [UiIconAsset::class, 'death.png', ['app', 'Deaths'], true],
         's3Eggstra' => [SalmonModeIconAsset::class, 'eggstra.png', ['app-salmon3', 'Eggstra Work'], true],
+        's3GoldMedal' => [UiIconAsset::class, 'gold_medal.png'],
         's3Kill' => [UiIconAsset::class, 'kill.png', ['app', 'Kills'], true],
         's3LobbyBankara' => [LobbyIconAsset::class, 'bankara.png', ['app-lobby3', 'Anarchy Battle'], true],
         's3LobbyEvent' => [LobbyIconAsset::class, 'event.png', ['app-lobby3', 'Challenge'], true],
@@ -338,17 +338,13 @@ final class Icon
         's3Salmometer5' => [SalmometerIconAsset::class, 'salmometer-5.png', '(5/5)', '5 / 5'],
         's3Salmon' => [SalmonModeIconAsset::class, 'salmon.png', ['app-salmon2', 'Salmon Run'], true],
         's3Signal' => [UiIconAsset::class, 'signal.png', ['app', 'Ultra Signals'], ['app', 'Try to secure the Ultra Signal']],
+        's3SilverMedal' => [UiIconAsset::class, 'silver_medal.png'],
         's3TricolorAttacker' => [RuleIconAsset::class, 'tricolor-attacker.png', ['app-rule3', 'Attackers'], true],
         's3TricolorDefender' => [RuleIconAsset::class, 'tricolor-defender.png', ['app-rule3', 'Defenders'], true],
         'splatoon1' => [VersionIconAsset::class, 's1.png', '[1]', ['app', 'Splatoon']],
         'splatoon2' => [VersionIconAsset::class, 's2.png', '[2]', ['app', 'Splatoon 2']],
         'splatoon3' => [VersionIconAsset::class, 's3.png', '[3]', ['app', 'Splatoon 3']],
     ];
-
-    public static function bronzeMedal(): string
-    {
-        return self::medalHtml('bronze');
-    }
 
     public static function bronzeScale(): string
     {
@@ -368,19 +364,9 @@ final class Icon
         return mb_chr(0x3000, 'UTF-8'); // Ideographic Space
     }
 
-    public static function goldMedal(): string
-    {
-        return self::medalHtml('gold');
-    }
-
     public static function goldScale(): string
     {
         return self::medalHtml('gold');
-    }
-
-    public static function silverMedal(): string
-    {
-        return self::medalHtml('silver');
     }
 
     public static function silverScale(): string

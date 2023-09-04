@@ -48,7 +48,7 @@ return [
       if ($canonical) {
         $items[] = Html::tag(
           'span',
-          $canonical->gold ? Icon::goldMedal() : Icon::silverMedal(),
+          $canonical->gold ? Icon::s3GoldMedal() : Icon::s3SilverMedal(),
           [
             'class' => 'auto-tooltip text-muted',
             'title' => Yii::t('app-medal3', $canonical->name),

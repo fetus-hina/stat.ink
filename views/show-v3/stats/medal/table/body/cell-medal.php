@@ -17,7 +17,7 @@ use yii\web\View;
 echo Html::tag(
   'td',
   implode(' ', [
-    $medal->gold ? Icon::goldMedal() : Icon::silverMedal(),
+    $medal->gold ? Icon::s3GoldMedal() : Icon::s3SilverMedal(),
     Html::encode(Yii::t('app-medal3', $medal->name)),
   ]),
   [

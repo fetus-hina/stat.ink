@@ -37,7 +37,7 @@ TableResponsiveForceAsset::register($this);
 <?php foreach ($medals as $medal) { ?>
       <tr>
         <td>
-          <?= ($medal->gold ? Icon::goldMedal() : Icon::silverMedal()) . "\n" ?>
+          <?= ($medal->gold ? Icon::s3GoldMedal() : Icon::s3SilverMedal()) . "\n" ?>
         </td>
 <?php foreach ($langs as $i => $lang) { ?>
         <?= Html::tag(
