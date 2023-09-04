@@ -37,10 +37,30 @@ if (!$maps || !$goldenEggHistogramAbstracts) {
 <?= Tabs::widget([
   'items' => array_map(
     fn (Salmon3UserStatsGoldenEgg $abstract): array => [
-      'label' => Yii::t('app-map3', $maps[$abstract->map_id]?->short_name ?? '?'),
+      'encode' => false,
+      'label' => implode(' ', [
+        Icon::s3SalmonStage($abstract->map ?? null),
+        Html::tag(
+          'span',
+          Html::encode(Yii::t('app-map3', $maps[$abstract->map_id]?->short_name ?? '')) ?: Icon::unknown(),
+          ['class' => 'd-none d-sm-inline'],
+        ),
+      ]),
       'content' => Html::tag(
         'div',
         implode('', [
+          Html::tag(
+            'div',
+            Html::tag(
+              'h4',
+              implode(' ', [
+                Icon::s3SalmonStage($abstract->map ?? null) ?? Icon::unknown(),
+                Html::encode(Yii::t('app-map3', $maps[$abstract->map_id]?->name ?? '')),
+              ]),
+              ['class' => 'text-center m-0'],
+            ),
+            ['class' => 'col-12 col-xs-12 mb-3'],
+          ),
           $this->render('golden-eggs/histogram', [
             'title' => Icon::goldenEgg() . ' ' . Html::encode(Yii::t('app-salmon3', 'Team Total')),
             'abstract' => $abstract,

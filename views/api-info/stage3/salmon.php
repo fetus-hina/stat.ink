@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\ApiInfoName;
+use app\components\widgets\Icon;
 use app\models\SalmonMap3;
 use app\models\SalmonMap3Alias;
 use statink\yii2\sortableTable\SortableTableAsset;
@@ -37,6 +38,7 @@ $fmt = Yii::$app->formatter;
   <table class="table table-striped table-condensed table-sortable">
     <thead>
       <tr>
+        <th></th>
 <?php foreach ($langs as $i => $lang) { ?>
         <?= Html::tag('th', Html::encode($lang['name']), [
           'class' => $lang->htmlClasses,
@@ -53,6 +55,7 @@ $fmt = Yii::$app->formatter;
     <tbody>
 <?php foreach ($stages as $stage) { ?>
       <tr>
+        <?= Html::tag('td', Icon::s3SalmonStage($stage)) . "\n" ?>
 <?php foreach ($langs as $i => $lang) { ?>
         <?= Html::tag(
           'td',

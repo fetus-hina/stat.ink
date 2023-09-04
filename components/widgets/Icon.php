@@ -21,6 +21,7 @@ use app\assets\s3PixelIcons\RuleIconAsset;
 use app\assets\s3PixelIcons\SalmometerIconAsset;
 use app\assets\s3PixelIcons\SalmonModeIconAsset;
 use app\assets\s3PixelIcons\SalmonRandomIconAsset;
+use app\assets\s3PixelIcons\SalmonStageIconAsset;
 use app\assets\s3PixelIcons\SpecialIconAsset;
 use app\assets\s3PixelIcons\SubweaponIconAsset;
 use app\assets\s3PixelIcons\UiIconAsset;
@@ -31,6 +32,7 @@ use app\models\Ability3;
 use app\models\Lobby3;
 use app\models\LobbyGroup3;
 use app\models\Rule3;
+use app\models\SalmonMap3;
 use app\models\SalmonRandom3;
 use app\models\SalmonWeapon3;
 use app\models\Special3;
@@ -741,6 +743,28 @@ final class Icon
     public static function s3SalmonRandomRare(): string
     {
         return self::s3SalmonRandom('random_rare') ?? throw new LogicException();
+    }
+
+    public static function s3SalmonStage(string|SalmonMap3|null $stage): ?string
+    {
+        if (is_string($stage)) {
+            $stage = SalmonMap3::find()
+                ->andWhere(['key' => $stage])
+                ->limit(1)
+                ->cache(86400)
+                ->one();
+        }
+
+        if (!$stage instanceof SalmonMap3) {
+            return null;
+        }
+
+        return self::assetImage(
+            SalmonStageIconAsset::class,
+            "{$stage->key}.png",
+            Yii::t('app-map3', (string)$stage->name),
+            true,
+        );
     }
 
     public static function __callStatic(string $name, $args): string
