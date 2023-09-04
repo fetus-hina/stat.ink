@@ -31,6 +31,12 @@ abstract class SalmonIconAsset extends AssetBundle
         'Coho Meter 4.png' => 'salmometer-4.png',
         'Coho Meter 5.png' => 'salmometer-5.png',
         'Eggstra Work Icon.png' => 'eggstra.png',
+        'Gone Fission Hydroplant.png' => 'meuniere.png',
+        'Jammin\' Salmon Junction.png' => 'sujiko.png',
+        'Marooner\'s Bay.png' => 'donburako.png',
         'Salmon Run Menu.png' => 'salmon.png',
+        'Salmonid Smokeyard.png' => 'tokishirazu.png',
+        'Sockeye Station.png' => 'aramaki.png',
+        'Spawning Grounds.png' => 'dam.png',
     ];
 }

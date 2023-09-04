@@ -37,7 +37,7 @@ return [
         'div',
         implode(' ', [
           $canonical
-            ? ($canonical->gold ? Icon::goldMedal() : Icon::silverMedal())
+            ? ($canonical->gold ? Icon::s3GoldMedal() : Icon::s3SilverMedal())
             : '',
           Html::encode(
             $canonical
