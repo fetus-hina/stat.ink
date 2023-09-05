@@ -6,6 +6,7 @@ use MathPHP\Probability\Distribution\Continuous\Normal as NormalDistribution;
 use app\assets\ChartJsAsset;
 use app\assets\ColorSchemeAsset;
 use app\assets\RatioAsset;
+use app\modles\StatBigrunDistribUserAbstract3;
 use app\models\StatEggstraWorkDistribAbstract3;
 use yii\helpers\Html;
 use yii\helpers\Json;
@@ -16,7 +17,7 @@ use yii\web\View;
  * @var NormalDistribution|null $estimatedDistrib
  * @var NormalDistribution|null $normalDistrib
  * @var NormalDistribution|null $ruleOfThumbDistrib
- * @var StatEggstraWorkDistribAbstract3|null $abstract
+ * @var StatBigrunDistribUserAbstract3|StatEggstraWorkDistribAbstract3|null $abstract
  * @var View $this
  * @var array<int, int> $histogram
  * @var int|null $chartMax
@@ -37,7 +38,7 @@ if ($totalUsers < 1) {
 
 $keyMax = max(array_keys($histogram));
 $totalHistogram = [];
-for ($x = 0; $x <= $keyMax; $x += 5) {
+for ($x = $abstract->histogram_width / 2; $x <= $keyMax; $x += (int)$abstract->histogram_width) {
   $totalHistogram[] = [
     'x' => $x,
     'y' => array_sum(
@@ -52,8 +53,10 @@ for ($x = 0; $x <= $keyMax; $x += 5) {
 
 $datasetHistogram = [
   'backgroundColor' => [ new JsExpression('window.colorScheme.graph2') ],
+  'barPercentage' => 1.0,
   'borderColor' => [ new JsExpression('window.colorScheme.graph2') ],
   'borderWidth' => 1,
+  'categoryPercentage' => 1.0,
   'data' => $totalHistogram,
   'label' => Yii::t('app', 'Users'),
   'type' => 'bar',
@@ -121,9 +124,6 @@ $dataset80pct = null;
 $dataset50pct = null;
 if ($chartMax > 0) {
   $dataset95pct = [
-    'animation' => [
-      'duration' => 0,
-    ],
     'backgroundColor' => [ new JsExpression('window.colorScheme._accent.red') ],
     'borderColor' => [ new JsExpression('window.colorScheme._accent.red') ],
     'borderWidth' => 1,
@@ -137,9 +137,6 @@ if ($chartMax > 0) {
   ];
 
   $dataset80pct = [
-    'animation' => [
-      'duration' => 0,
-    ],
     'backgroundColor' => [ new JsExpression('window.colorScheme._accent.red') ],
     'borderColor' => [ new JsExpression('window.colorScheme._accent.red') ],
     'borderWidth' => 1,
@@ -153,9 +150,6 @@ if ($chartMax > 0) {
   ];
 
   $dataset50pct = [
-    'animation' => [
-      'duration' => 0,
-    ],
     'backgroundColor' => [ new JsExpression('window.colorScheme._accent.red') ],
     'borderColor' => [ new JsExpression('window.colorScheme._accent.red') ],
     'borderWidth' => 1,
@@ -170,73 +164,71 @@ if ($chartMax > 0) {
 }
 
 ?>
-<div class="row">
-  <div class="col-xs-12 col-md-9 col-lg-7 mb-3">
-    <?= Html::tag('div', '', [
-      'class' => 'bigrun-histogram ratio ratio-4x3',
+<?= Html::tag('div', '', [
+  'class' => 'bigrun-histogram ratio ratio-4x3',
+  'data' => [
+    'chart' => [
       'data' => [
-        'chart' => [
-          'data' => [
-            'datasets' => array_values(
-              array_filter(
-                [
-                  $dataset50pct,
-                  $dataset80pct,
-                  $dataset95pct,
-                  $datasetRuleOfThumbDistrib,
-                  $datasetEstimatedDistrib,
-                  $datasetNormalDistrib,
-                  $datasetHistogram,
-                ],
-              ),
-            ),
+        'datasets' => array_values(
+          array_filter(
+            [
+              $dataset50pct,
+              $dataset80pct,
+              $dataset95pct,
+              $datasetRuleOfThumbDistrib,
+              $datasetEstimatedDistrib,
+              $datasetNormalDistrib,
+              $datasetHistogram,
+            ],
+          ),
+        ),
+      ],
+      'options' => [
+        'animation' => ['duration' => 0],
+        'aspectRatio' => 4 / 3, // 16 / 10,
+        'plugins' => [
+          'legend' => [
+            'display' => true,
+            'reverse' => true,
           ],
-          'options' => [
-            'aspectRatio' => 4 / 3, // 16 / 10,
-            'plugins' => [
-              'legend' => [
-                'display' => true,
-                'reverse' => true,
-              ],
-              'tooltip' => [
-                'enabled' => false,
+          'tooltip' => [
+            'enabled' => false,
+          ],
+        ],
+        'scales' => [
+          'x' => [
+            'grid' => [
+               'offset' => false,
+            ],
+            'min' => 0,
+            'max' => $chartMax,
+            'offset' => false,
+            'title' => [
+              'display' => true,
+              'text' => Yii::t('app-salmon2', 'Golden Eggs'),
+            ],
+            'type' => 'linear',
+            'ticks' => [
+              'precision' => 0,
+              'stepSize' => 5,
+            ],
+          ],
+          'y' => [
+            'min' => 0,
+            'max' => 1.0,
+            'ticks' => [
+              'format' => [
+                'style' => 'percent',
               ],
             ],
-            'scales' => [
-              'x' => [
-                'grid' => [
-                   'offset' => false,
-                ],
-                'min' => 0,
-                'offset' => true,
-                'title' => [
-                  'display' => true,
-                  'text' => Yii::t('app-salmon2', 'Golden Eggs'),
-                ],
-                'type' => 'linear',
-                'ticks' => [
-                  'precision' => 0,
-                  'stepSize' => 5,
-                ],
-              ],
-              'y' => [
-                'min' => 0,
-                'max' => 1.0,
-                'ticks' => [
-                  'format' => [
-                    'style' => 'percent',
-                  ],
-                ],
-                'title' => [
-                  'display' => true,
-                  'text' => Yii::t('app', 'Users'),
-                ],
-                'type' => 'linear',
-              ],
+            'title' => [
+              'display' => true,
+              'text' => Yii::t('app', 'Users'),
             ],
+            'type' => 'linear',
           ],
         ],
       ],
-    ]) . "\n" ?>
-  </div>
-</div>
+    ],
+  ],
+]) . "\n" ?>

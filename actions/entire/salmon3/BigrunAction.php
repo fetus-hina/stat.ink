@@ -14,8 +14,10 @@ use MathPHP\Probability\Distribution\Continuous\Normal as NormalDistribution;
 use Yii;
 use app\models\BigrunOfficialResult3;
 use app\models\SalmonSchedule3;
-use app\models\StatBigrunDistrib3;
-use app\models\StatBigrunDistribAbstract3;
+use app\models\StatBigrunDistribJobAbstract3;
+use app\models\StatBigrunDistribJobHistogram3;
+use app\models\StatBigrunDistribUserAbstract3;
+use app\models\StatBigrunDistribUserHistogram3;
 use yii\base\Action;
 use yii\db\Connection;
 use yii\db\Transaction;
@@ -79,18 +81,32 @@ final class BigrunAction extends Action
 
         $schedule = $schedules[$scheduleId];
 
-        $abstract = StatBigrunDistribAbstract3::find()
+        $abstract = StatBigrunDistribUserAbstract3::find()
             ->andWhere(['schedule_id' => $scheduleId])
             ->limit(1)
             ->one($db);
 
         $histogram = ArrayHelper::map(
-            StatBigrunDistrib3::find()
+            StatBigrunDistribUserHistogram3::find()
                 ->andWhere(['schedule_id' => $scheduleId])
-                ->orderBy(['golden_egg' => SORT_ASC])
+                ->orderBy(['class_value' => SORT_ASC])
                 ->all($db),
-            'golden_egg',
-            'users',
+            'class_value',
+            'count',
+        );
+
+        $jobAbstract = StatBigrunDistribJobAbstract3::find()
+            ->andWhere(['schedule_id' => $scheduleId])
+            ->limit(1)
+            ->one($db);
+
+        $jobHistogram = ArrayHelper::map(
+            StatBigrunDistribJobHistogram3::find()
+                ->andWhere(['schedule_id' => $scheduleId])
+                ->orderBy(['class_value' => SORT_ASC])
+                ->all($db),
+            'class_value',
+            'count',
         );
 
         $normalDistrib = null;
@@ -101,9 +117,9 @@ final class BigrunAction extends Action
             $abstract &&
             $histogram &&
             $abstract->average >= 1 &&
-            $abstract->median !== null &&
-            $abstract->q1 !== null &&
-            $abstract->q3 !== null &&
+            $abstract->p50 !== null &&
+            $abstract->p25 !== null &&
+            $abstract->p75 !== null &&
             $abstract->stddev !== null &&
             $abstract->users >= 10
         ) {
@@ -121,6 +137,8 @@ final class BigrunAction extends Action
             'chartMax' => $chartMax,
             'estimatedDistrib' => $estimatedDistrib,
             'histogram' => $histogram,
+            'jobAbstract' => $jobAbstract,
+            'jobHistogram' => $jobHistogram,
             'normalDistrib' => $normalDistrib,
             'ruleOfThumbDistrib' => $ruleOfThumbDistrib,
             'schedule' => $schedule,
@@ -152,15 +170,18 @@ final class BigrunAction extends Action
         );
     }
 
-    private static function ruleOfThumbDistrib(StatBigrunDistribAbstract3 $abstract): ?NormalDistribution
-    {
+    private static function ruleOfThumbDistrib(
+        StatBigrunDistribUserAbstract3 $abstract,
+    ): ?NormalDistribution {
         if (
             $abstract->users < 50 ||
-            $abstract->top_5_pct === null ||
-            $abstract->top_20_pct === null ||
-            $abstract->median === null ||
-            $abstract->top_5_pct <= $abstract->top_20_pct &&
-            $abstract->top_20_pct <= $abstract->median
+            $abstract->average === null ||
+            $abstract->stddev === null ||
+            $abstract->p95 === null ||
+            $abstract->p80 === null ||
+            $abstract->p50 === null ||
+            $abstract->p95 <= $abstract->p80 &&
+            $abstract->p80 <= $abstract->p50
         ) {
             return null;
         }
@@ -174,8 +195,8 @@ final class BigrunAction extends Action
         assert(abs($z5 - $z20) > 0.000001);
         assert(abs($z5) > 0.000001);
 
-        $n5 = $abstract->top_20_pct;
-        $n20 = $abstract->median;
+        $n5 = $abstract->p80;
+        $n20 = $abstract->p50;
         $estimatedAverage = ($z5 * $n20 - $z20 * $n5) / ($z5 - $z20);
 
         return new NormalDistribution(

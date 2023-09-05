@@ -10,7 +10,8 @@ use app\components\widgets\AdWidget;
 use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
 use app\models\SalmonSchedule3;
-use app\models\StatBigrunDistribAbstract3;
+use app\models\StatBigrunDistribJobAbstract3;
+use app\models\StatBigrunDistribUserAbstract3;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -22,9 +23,10 @@ use yii\web\View;
  * @var NormalDistribution|null $normalDistrib
  * @var NormalDistribution|null $ruleOfThumbDistrib
  * @var SalmonSchedule3 $schedule
+ * @var StatBigrunDistribJobAbstract3|null $jobAbstract
+ * @var StatBigrunDistribUserAbstract3|null $abstract
  * @var View $this
  * @var array<int, SalmonSchedule3> $schedules
- * @var array<int, StatBigrunDistribAbstract3>|null $abstract
  * @var array<int, int> $histogram
  * @var int|null $chartMax
  */
@@ -71,21 +73,6 @@ $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
       Yii::t('app', 'This data is based on {siteName} users and differs significantly from overall game statistics.', [
         'siteName' => Yii::$app->name,
       ]),
-    ) . "\n" ?>
-  </div>
-
-  <div class="alert alert-info mb-3">
-    <?= Html::encode(
-      Yii::t('app', 'In the chart, "{representative}" means greater than or equal to {min} and less than {max}.', [
-        'representative' => $fmt->asInteger(100),
-        'min' => $fmt->asInteger(100),
-        'max' => $fmt->asInteger(105),
-      ]),
-    ) . "\n" ?>
-    <?= Html::tag(
-      'span',
-      '(100 ≤ 𝑛 &lt; 105 → 100)',
-      ['style' => ['font-family' => 'Noto Sans Math']],
     ) . "\n" ?>
   </div>
 
@@ -139,21 +126,37 @@ $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
       'official' => $schedule->bigrunOfficialResult3,
       'ruleOfThumbDistrib' => null,
     ]) . "\n" ?>
-    <?= $this->render('bigrun/histogram', compact(
-      'abstract',
-      'chartMax',
-      'estimatedDistrib',
-      'histogram',
-      'normalDistrib',
-      'ruleOfThumbDistrib',
-    )) . "\n" ?>
-    <?= $this->render('bigrun/histogram2', compact(
-      'abstract',
-      'chartMax',
-      'estimatedDistrib',
-      'histogram',
-      'normalDistrib',
-      'ruleOfThumbDistrib',
-    )) . "\n" ?>
+
+    <div class="row">
+      <div class="col-12 col-md-6 mb-3">
+        <?= $this->render('bigrun/user-histogram', compact(
+          'abstract',
+          'chartMax',
+          'estimatedDistrib',
+          'histogram',
+          'normalDistrib',
+          'ruleOfThumbDistrib',
+        )) . "\n" ?>
+      </div>
+      <div class="col-12 col-md-6 mb-3">
+        <?= $this->render('bigrun/job-histogram', [
+          'abstract' => $jobAbstract,
+          'histogram' => $jobHistogram,
+          'chartMax' => $chartMax,
+        ]) . "\n" ?>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-md-6 mb-3">
+        <?= $this->render('bigrun/user-histogram-cdf', compact(
+          'abstract',
+          'chartMax',
+          'estimatedDistrib',
+          'histogram',
+          'normalDistrib',
+          'ruleOfThumbDistrib',
+        )) . "\n" ?>
+      </div>
+    </div>
   </div>
 </div>

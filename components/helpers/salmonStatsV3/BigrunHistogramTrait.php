@@ -12,8 +12,11 @@ namespace app\components\helpers\salmonStatsV3;
 
 use Throwable;
 use Yii;
-use app\models\StatBigrunDistrib3;
-use app\models\StatBigrunDistribAbstract3;
+use app\components\helpers\CriticalSection;
+use app\models\StatBigrunDistribJobAbstract3;
+use app\models\StatBigrunDistribJobHistogram3;
+use app\models\StatBigrunDistribUserAbstract3;
+use app\models\StatBigrunDistribUserHistogram3;
 use yii\db\Connection;
 use yii\db\Query;
 
@@ -25,11 +28,26 @@ use function vsprintf;
 
 trait BigrunHistogramTrait
 {
-    protected static function createBigrunHistogramStats(Connection $db): bool
-    {
+    protected static function createBigrunHistogramStats(
+        Connection $db,
+        bool $updateJobStats = false,
+    ): bool {
+        $lock = null;
         try {
-            return self::bigrunHistogramDistrib($db) &&
-                self::bigrunHistogramAbstract($db);
+            try {
+                $lock = CriticalSection::lock(__METHOD__, 60, Yii::$app->pgMutex);
+            } catch (Throwable $e) {
+                return true;
+            }
+
+            self::bigrunHistogramUserAbstract($db);
+            self::bigrunHistogramUserDistrib($db);
+            if ($updateJobStats) {
+                self::bigrunHistogramJobAbstract($db);
+                self::bigrunHistogramJobDistrib($db);
+            }
+
+            return true;
         } catch (Throwable $e) {
             Yii::error(
                 vsprintf('Catch %s, message=%s', [
@@ -40,80 +58,261 @@ trait BigrunHistogramTrait
             );
             $db->transaction->rollBack();
             return false;
+        } finally {
+            if ($lock) {
+                unset($lock);
+            }
         }
     }
 
-    private static function bigrunHistogramDistrib(Connection $db): bool
+    private static function bigrunHistogramUserAbstract(Connection $db): void
     {
-        StatBigrunDistrib3::deleteAll('1 = 1');
+        StatBigrunDistribUserAbstract3::deleteAll();
 
-        $db->createCommand(
-            vsprintf('INSERT INTO %s ( %s ) %s', [
-                $db->quoteTableName('{{%stat_bigrun_distrib3}}'),
-                implode(', ', [
-                    $db->quoteColumnName('schedule_id'),
-                    $db->quoteColumnName('golden_egg'),
-                    $db->quoteColumnName('users'),
-                ]),
-                (new Query())
-                    ->select([
-                        'schedule_id',
-                        'golden_egg' => 'TRUNC([[golden_eggs]] / 5) * 5',
-                        'users' => 'COUNT(*)',
-                    ])
-                    ->from('{{%user_stat_bigrun3}}')
-                    ->groupBy([
-                        'schedule_id',
-                        'TRUNC([[golden_eggs]] / 5) * 5',
-                    ])
-                    ->createCommand($db)
-                    ->rawSql,
-            ]),
-        )->execute();
-
-        return true;
-    }
-
-    private static function bigrunHistogramAbstract(Connection $db): bool
-    {
-        StatBigrunDistribAbstract3::deleteAll('1 = 1');
-
-        $percentile = fn (float $pos): string => sprintf(
-            'PERCENTILE_DISC(%.2f) WITHIN GROUP (ORDER BY [[golden_eggs]] DESC)',
-            $pos,
+        $p = fn (float $pct): string => sprintf(
+            'PERCENTILE_DISC(%.02f) WITHIN GROUP (ORDER BY %s)',
+            $pct,
+            '{{%user_stat_bigrun3}}.[[golden_eggs]]',
         );
 
         $select = (new Query())
             ->select([
-                'schedule_id',
+                'schedule_id' => '{{%user_stat_bigrun3}}.[[schedule_id]]',
                 'users' => 'COUNT(*)',
-                'average' => 'AVG([[golden_eggs]])',
-                'stddev' => 'STDDEV_SAMP([[golden_eggs]])',
-                'min' => 'MIN([[golden_eggs]])',
-                'q1' => $percentile(1 - 0.25),
-                'median' => $percentile(1 - 0.5),
-                'q3' => $percentile(1 - 0.75),
-                'max' => 'MAX([[golden_eggs]])',
-                'top_5_pct' => $percentile(0.05),
-                'top_20_pct' => $percentile(0.20),
+                'average' => 'AVG({{%user_stat_bigrun3}}.[[golden_eggs]])',
+                'stddev' => 'STDDEV_SAMP({{%user_stat_bigrun3}}.[[golden_eggs]])',
+                'min' => 'MIN({{%user_stat_bigrun3}}.[[golden_eggs]])',
+                'p05' => $p(0.05),
+                'p25' => $p(0.25),
+                'p50' => $p(0.50),
+                'p75' => $p(0.75),
+                'p80' => $p(0.80),
+                'p95' => $p(0.95),
+                'max' => 'MAX({{%user_stat_bigrun3}}.[[golden_eggs]])',
+                'histogram_width' => vsprintf('HISTOGRAM_WIDTH(%s, %s)', [
+                    'COUNT(*)',
+                    'STDDEV_SAMP({{%user_stat_bigrun3}}.[[golden_eggs]])',
+                ]),
             ])
             ->from('{{%user_stat_bigrun3}}')
-            ->groupBy('schedule_id');
+            ->groupBy([
+                '{{%user_stat_bigrun3}}.[[schedule_id]]',
+            ]);
 
-        $db->createCommand(
-            vsprintf('INSERT INTO %s ( %s ) %s', [
-                $db->quoteTableName('{{%stat_bigrun_distrib_abstract3}}'),
-                implode(
-                    ', ',
-                    array_map(
-                        fn (string $columnName): string => $db->quoteColumnName($columnName),
-                        array_keys($select->select),
-                    ),
+        $sql = vsprintf('INSERT INTO %s (%s) %s', [
+            '{{%stat_bigrun_distrib_user_abstract3}}',
+            implode(
+                ', ',
+                array_map(
+                    $db->quoteColumnName(...),
+                    array_keys($select->select),
                 ),
-                $select->createCommand($db)->rawSql,
-            ]),
-        )->execute();
+            ),
+            $select->createCommand($db)->rawSql,
+        ]);
+        $db->createCommand($sql)->execute();
+    }
 
-        return true;
+    private static function bigrunHistogramUserDistrib(Connection $db): void
+    {
+        StatBigrunDistribUserHistogram3::deleteAll();
+
+        $classValue = sprintf(
+            // +0.5 は階級値は階級の幅の中央を表すための調整
+            '((FLOOR(%1$s.%3$s / %2$s.%4$s) + 0.5) * %2$s.%4$s)::integer',
+            $db->quoteTableName('{{%user_stat_bigrun3}}'),
+            $db->quoteTableName('{{%stat_bigrun_distrib_user_abstract3}}'),
+            $db->quoteColumnName('golden_eggs'),
+            $db->quoteColumnName('histogram_width'),
+        );
+
+        $select = (new Query())
+            ->select([
+                'schedule_id' => '{{%user_stat_bigrun3}}.[[schedule_id]]',
+                'class_value' => $classValue,
+                'count' => 'COUNT(*)',
+            ])
+            ->from('{{%user_stat_bigrun3}}')
+            ->innerJoin(
+                '{{%stat_bigrun_distrib_user_abstract3}}',
+                '{{%user_stat_bigrun3}}.[[schedule_id]] = {{%stat_bigrun_distrib_user_abstract3}}.[[schedule_id]]',
+            )
+            ->andWhere(['>', '{{%stat_bigrun_distrib_user_abstract3}}.[[histogram_width]]', 0])
+            ->groupBy([
+                '{{%user_stat_bigrun3}}.[[schedule_id]]',
+                $classValue,
+            ]);
+
+        $sql = vsprintf('INSERT INTO %s (%s) %s', [
+            '{{%stat_bigrun_distrib_user_histogram3}}',
+            implode(
+                ', ',
+                array_map(
+                    $db->quoteColumnName(...),
+                    array_keys($select->select),
+                ),
+            ),
+            $select->createCommand($db)->rawSql,
+        ]);
+        $db->createCommand($sql)->execute();
+    }
+
+    protected static function bigrunHistogramJobAbstract(Connection $db): void
+    {
+        StatBigrunDistribJobAbstract3::deleteAll();
+
+        $p = fn (float $pct): string => sprintf(
+            'PERCENTILE_DISC(%.02f) WITHIN GROUP (ORDER BY %s)',
+            $pct,
+            '{{%salmon3}}.[[golden_eggs]]',
+        );
+
+        $select = (new Query())
+            ->select([
+                'schedule_id' => '{{%salmon3}}.[[schedule_id]]',
+                'users' => 'COUNT(DISTINCT {{%salmon3}}.[[user_id]])',
+                'jobs' => 'COUNT(*)',
+                'average' => 'AVG({{%salmon3}}.[[golden_eggs]])',
+                'stddev' => 'STDDEV_SAMP({{%salmon3}}.[[golden_eggs]])',
+                'clear_jobs' => vsprintf('SUM(CASE %s END)', [
+                    implode(' ', [
+                        'WHEN {{%salmon3}}.[[clear_waves]] = 3 THEN 1',
+                        'ELSE 0',
+                    ]),
+                ]),
+                'clear_average' => vsprintf('AVG(CASE %s END)', [
+                    implode(' ', [
+                        'WHEN {{%salmon3}}.[[clear_waves]] = 3 THEN {{%salmon3}}.[[golden_eggs]]',
+                        'ELSE NULL',
+                    ]),
+                ]),
+                'clear_stddev' => vsprintf('STDDEV_SAMP(CASE %s END)', [
+                    implode(' ', [
+                        'WHEN {{%salmon3}}.[[clear_waves]] = 3 THEN {{%salmon3}}.[[golden_eggs]]',
+                        'ELSE NULL',
+                    ]),
+                ]),
+                'min' => 'MIN({{%salmon3}}.[[golden_eggs]])',
+                'p05' => $p(0.05),
+                'p25' => $p(0.25),
+                'p50' => $p(0.50),
+                'p75' => $p(0.75),
+                'p80' => $p(0.80),
+                'p95' => $p(0.95),
+                'max' => 'MAX({{%salmon3}}.[[golden_eggs]])',
+                'histogram_width' => vsprintf('HISTOGRAM_WIDTH(%s, %s)', [
+                    'COUNT(*)',
+                    'STDDEV_SAMP({{%salmon3}}.[[golden_eggs]])',
+                ]),
+            ])
+            ->from('{{%salmon3}}')
+            ->innerJoin(
+                '{{%salmon_schedule3}}',
+                vsprintf('((%s))', [
+                    implode(') AND (', [
+                        '{{%salmon3}}.[[schedule_id]] = {{%salmon_schedule3}}.[[id]]',
+                        '{{%salmon_schedule3}}.[[big_map_id]] IS NOT NULL',
+                        '{{%salmon_schedule3}}.[[is_eggstra_work]] = FALSE',
+                        '{{%salmon_schedule3}}.[[map_id]] IS NULL',
+                    ]),
+                ]),
+            )
+            ->andWhere(['and',
+                [
+                    '{{%salmon3}}.[[has_broken_data]]' => false,
+                    '{{%salmon3}}.[[has_disconnect]]' => false,
+                    '{{%salmon3}}.[[is_automated]]' => true,
+                    '{{%salmon3}}.[[is_big_run]]' => true,
+                    '{{%salmon3}}.[[is_deleted]]' => false,
+                    '{{%salmon3}}.[[is_eggstra_work]]' => false,
+                    '{{%salmon3}}.[[is_private]]' => false,
+                ],
+                ['not', ['{{%salmon3}}.[[golden_eggs]]' => null]],
+                ['between', '{{%salmon3}}.[[clear_waves]]', 0, 3],
+            ])
+            ->groupBy([
+                '{{%salmon3}}.[[schedule_id]]',
+            ]);
+
+        $sql = vsprintf('INSERT INTO %s (%s) %s', [
+            '{{%stat_bigrun_distrib_job_abstract3}}',
+            implode(
+                ', ',
+                array_map(
+                    $db->quoteColumnName(...),
+                    array_keys($select->select),
+                ),
+            ),
+            $select->createCommand($db)->rawSql,
+        ]);
+        $db->createCommand($sql)->execute();
+    }
+
+    protected static function bigrunHistogramJobDistrib(Connection $db): void
+    {
+        StatBigrunDistribJobHistogram3::deleteAll();
+
+        $classValue = sprintf(
+            // +0.5 は階級値は階級の幅の中央を表すための調整
+            '((FLOOR(%1$s.%3$s / %2$s.%4$s) + 0.5) * %2$s.%4$s)::integer',
+            $db->quoteTableName('{{%salmon3}}'),
+            $db->quoteTableName('{{%stat_bigrun_distrib_job_abstract3}}'),
+            $db->quoteColumnName('golden_eggs'),
+            $db->quoteColumnName('histogram_width'),
+        );
+
+        $select = (new Query())
+            ->select([
+                'schedule_id' => '{{%salmon3}}.[[schedule_id]]',
+                'class_value' => $classValue,
+                'count' => 'COUNT(*)',
+            ])
+            ->from('{{%salmon3}}')
+            ->innerJoin(
+                '{{%salmon_schedule3}}',
+                vsprintf('((%s))', [
+                    implode(') AND (', [
+                        '{{%salmon3}}.[[schedule_id]] = {{%salmon_schedule3}}.[[id]]',
+                        '{{%salmon_schedule3}}.[[big_map_id]] IS NOT NULL',
+                        '{{%salmon_schedule3}}.[[is_eggstra_work]] = FALSE',
+                        '{{%salmon_schedule3}}.[[map_id]] IS NULL',
+                    ]),
+                ]),
+            )
+            ->innerJoin(
+                '{{%stat_bigrun_distrib_job_abstract3}}',
+                '{{%salmon3}}.[[schedule_id]] = {{%stat_bigrun_distrib_job_abstract3}}.[[schedule_id]]',
+            )
+            ->andWhere(['and',
+                [
+                    '{{%salmon3}}.[[has_broken_data]]' => false,
+                    '{{%salmon3}}.[[has_disconnect]]' => false,
+                    '{{%salmon3}}.[[is_automated]]' => true,
+                    '{{%salmon3}}.[[is_big_run]]' => true,
+                    '{{%salmon3}}.[[is_deleted]]' => false,
+                    '{{%salmon3}}.[[is_eggstra_work]]' => false,
+                    '{{%salmon3}}.[[is_private]]' => false,
+                ],
+                ['not', ['{{%salmon3}}.[[golden_eggs]]' => null]],
+                ['between', '{{%salmon3}}.[[clear_waves]]', 0, 3],
+                ['>', '{{%stat_bigrun_distrib_job_abstract3}}.[[histogram_width]]', 0],
+            ])
+            ->groupBy([
+                '{{%salmon3}}.[[schedule_id]]',
+                $classValue,
+            ]);
+
+        $sql = vsprintf('INSERT INTO %s (%s) %s', [
+            '{{%stat_bigrun_distrib_job_histogram3}}',
+            implode(
+                ', ',
+                array_map(
+                    $db->quoteColumnName(...),
+                    array_keys($select->select),
+                ),
+            ),
+            $select->createCommand($db)->rawSql,
+        ]);
+        $db->createCommand($sql)->execute();
     }
 }
