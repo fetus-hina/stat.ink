@@ -31,8 +31,10 @@ use yii\db\ActiveRecord;
  * @property SalmonMap3 $map
  * @property Salmon3[] $salmon3s
  * @property SalmonScheduleWeapon3[] $salmonScheduleWeapon3s
- * @property StatBigrunDistrib3[] $statBigrunDistrib3s
- * @property StatBigrunDistribAbstract3 $statBigrunDistribAbstract3
+ * @property StatBigrunDistribJobAbstract3 $statBigrunDistribJobAbstract3
+ * @property StatBigrunDistribJobHistogram3[] $statBigrunDistribJobHistogram3s
+ * @property StatBigrunDistribUserAbstract3 $statBigrunDistribUserAbstract3
+ * @property StatBigrunDistribUserHistogram3[] $statBigrunDistribUserHistogram3s
  * @property StatEggstraWorkDistrib3[] $statEggstraWorkDistrib3s
  * @property StatEggstraWorkDistribAbstract3 $statEggstraWorkDistribAbstract3
  * @property UserStatBigrun3[] $userStatBigrun3s
@@ -109,14 +111,24 @@ class SalmonSchedule3 extends ActiveRecord
         return $this->hasMany(SalmonScheduleWeapon3::class, ['schedule_id' => 'id']);
     }
 
-    public function getStatBigrunDistrib3s(): ActiveQuery
+    public function getStatBigrunDistribJobAbstract3(): ActiveQuery
     {
-        return $this->hasMany(StatBigrunDistrib3::class, ['schedule_id' => 'id']);
+        return $this->hasOne(StatBigrunDistribJobAbstract3::class, ['schedule_id' => 'id']);
     }
 
-    public function getStatBigrunDistribAbstract3(): ActiveQuery
+    public function getStatBigrunDistribJobHistogram3s(): ActiveQuery
     {
-        return $this->hasOne(StatBigrunDistribAbstract3::class, ['schedule_id' => 'id']);
+        return $this->hasMany(StatBigrunDistribJobHistogram3::class, ['schedule_id' => 'id']);
+    }
+
+    public function getStatBigrunDistribUserAbstract3(): ActiveQuery
+    {
+        return $this->hasOne(StatBigrunDistribUserAbstract3::class, ['schedule_id' => 'id']);
+    }
+
+    public function getStatBigrunDistribUserHistogram3s(): ActiveQuery
+    {
+        return $this->hasMany(StatBigrunDistribUserHistogram3::class, ['schedule_id' => 'id']);
     }
 
     public function getStatEggstraWorkDistrib3s(): ActiveQuery

@@ -7,6 +7,8 @@ use app\assets\ChartJsAsset;
 use app\assets\ColorSchemeAsset;
 use app\assets\JqueryEasyChartjsAsset;
 use app\assets\RatioAsset;
+use app\components\helpers\XPowerNormalDistribution;
+use app\models\StatBigrunDistribUserAbstract3;
 use app\models\StatEggstraWorkDistribAbstract3;
 use yii\helpers\Html;
 use yii\helpers\Json;
@@ -17,7 +19,7 @@ use yii\web\View;
  * @var NormalDistribution|null $estimatedDistrib
  * @var NormalDistribution|null $normalDistrib
  * @var NormalDistribution|null $ruleOfThumbDistrib
- * @var StatEggstraWorkDistribAbstract3|null $abstract
+ * @var StatBigrunDistribUserAbstract3|StatEggstraWorkDistribAbstract3|null $abstract
  * @var View $this
  * @var array<int, int> $histogram
  * @var int|null $chartMax
@@ -36,8 +38,10 @@ $this->registerJs('$(".bigrun-histogram").easyChartJs();');
 
 $datasetHistogram = [
   'backgroundColor' => [ new JsExpression('window.colorScheme.graph2') ],
+  'barPercentage' => 1.0,
   'borderColor' => [ new JsExpression('window.colorScheme.graph2') ],
   'borderWidth' => 1,
+  'categoryPercentage' => 1.0,
   'data' => array_values(
     array_map(
       fn (int $x, int $y): array => compact('x', 'y'),
@@ -49,20 +53,24 @@ $datasetHistogram = [
   'type' => 'bar',
 ];
 
-$makeDistributionData = function (NormalDistribution $nd) use ($abstract, $chartMax): array {
+$makeDistributionData = function (NormalDistribution $nd) use ($abstract): array {
   assert($abstract);
-  assert($chartMax);
+
+  $average = $nd->mean();
+  $stddev = sqrt($nd->variance());
 
   $results = [];
-  $dataStep = 5;
+  $dataStep = (int)$abstract->histogram_width;
   $makeStep = 2;
-  $chartMax = (int)(ceil($chartMax / $makeStep) * $makeStep);
-  for ($x = 0; $x <= $chartMax; $x += $makeStep) {
+  $chartMin = max(0, (int)(floor(($average - $stddev * 3) / $makeStep)) * $makeStep);
+  $chartMax = (int)ceil(($average + $stddev * 3) / $makeStep) * $makeStep;
+  for ($x = $chartMin; $x <= $chartMax; $x += $makeStep) {
     $results[] = [
       'x' => $x,
       'y' => $nd->pdf($x) * $dataStep * $abstract->users,
     ];
   }
+
   return $results;
 };
 
@@ -124,6 +132,7 @@ if (!$datasetEstimatedDistrib && $ruleOfThumbDistrib && $abstract && $chartMax >
         ),
       ],
       'options' => [
+        'animation' => ['duration' => 0],
         'aspectRatio' => 4 / 3, // 16 / 10,
         'plugins' => [
           'legend' => [

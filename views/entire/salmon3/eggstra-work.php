@@ -133,14 +133,18 @@ $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
       'official' => $schedule->eggstraWorkOfficialResult3,
       'ruleOfThumbDistrib' => $ruleOfThumbDistrib,
     ]) . "\n" ?>
-    <?= $this->render('bigrun/histogram', compact(
-      'abstract',
-      'chartMax',
-      'estimatedDistrib',
-      'histogram',
-      'normalDistrib',
-      'ruleOfThumbDistrib',
-    )) . "\n" ?>
+    <div class="row">
+      <div class="col-xs-12 col-md-9 col-lg-7 mb-3">
+        <?= $this->render('bigrun/histogram', compact(
+          'abstract',
+          'chartMax',
+          'estimatedDistrib',
+          'histogram',
+          'normalDistrib',
+          'ruleOfThumbDistrib',
+        )) . "\n" ?>
+      </div>
+    </div>
     <?= $this->render('bigrun/histogram2', compact(
       'abstract',
       'chartMax',

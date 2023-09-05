@@ -14,28 +14,28 @@ use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "stat_bigrun_distrib3".
+ * This is the model class for table "stat_bigrun_distrib_job_histogram3".
  *
  * @property integer $schedule_id
- * @property integer $golden_egg
- * @property integer $users
+ * @property integer $class_value
+ * @property integer $count
  *
  * @property SalmonSchedule3 $schedule
  */
-class StatBigrunDistrib3 extends ActiveRecord
+class StatBigrunDistribJobHistogram3 extends ActiveRecord
 {
     public static function tableName()
     {
-        return 'stat_bigrun_distrib3';
+        return 'stat_bigrun_distrib_job_histogram3';
     }
 
     public function rules()
     {
         return [
-            [['schedule_id', 'golden_egg', 'users'], 'required'],
-            [['schedule_id', 'golden_egg', 'users'], 'default', 'value' => null],
-            [['schedule_id', 'golden_egg', 'users'], 'integer'],
-            [['schedule_id', 'golden_egg'], 'unique', 'targetAttribute' => ['schedule_id', 'golden_egg']],
+            [['schedule_id', 'class_value', 'count'], 'required'],
+            [['schedule_id', 'class_value', 'count'], 'default', 'value' => null],
+            [['schedule_id', 'class_value', 'count'], 'integer'],
+            [['schedule_id', 'class_value'], 'unique', 'targetAttribute' => ['schedule_id', 'class_value']],
             [['schedule_id'], 'exist', 'skipOnError' => true, 'targetClass' => SalmonSchedule3::class, 'targetAttribute' => ['schedule_id' => 'id']],
         ];
     }
@@ -44,8 +44,8 @@ class StatBigrunDistrib3 extends ActiveRecord
     {
         return [
             'schedule_id' => 'Schedule ID',
-            'golden_egg' => 'Golden Egg',
-            'users' => 'Users',
+            'class_value' => 'Class Value',
+            'count' => 'Count',
         ];
     }
 

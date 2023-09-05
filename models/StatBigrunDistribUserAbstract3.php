@@ -14,35 +14,37 @@ use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "stat_bigrun_distrib_abstract3".
+ * This is the model class for table "stat_bigrun_distrib_user_abstract3".
  *
  * @property integer $schedule_id
  * @property integer $users
  * @property double $average
  * @property double $stddev
  * @property integer $min
- * @property integer $q1
- * @property integer $median
- * @property integer $q3
+ * @property integer $p05
+ * @property integer $p25
+ * @property integer $p50
+ * @property integer $p75
+ * @property integer $p80
+ * @property integer $p95
  * @property integer $max
- * @property integer $top_5_pct
- * @property integer $top_20_pct
+ * @property integer $histogram_width
  *
  * @property SalmonSchedule3 $schedule
  */
-class StatBigrunDistribAbstract3 extends ActiveRecord
+class StatBigrunDistribUserAbstract3 extends ActiveRecord
 {
     public static function tableName()
     {
-        return 'stat_bigrun_distrib_abstract3';
+        return 'stat_bigrun_distrib_user_abstract3';
     }
 
     public function rules()
     {
         return [
             [['schedule_id', 'users', 'average'], 'required'],
-            [['schedule_id', 'users', 'min', 'q1', 'median', 'q3', 'max', 'top_5_pct', 'top_20_pct'], 'default', 'value' => null],
-            [['schedule_id', 'users', 'min', 'q1', 'median', 'q3', 'max', 'top_5_pct', 'top_20_pct'], 'integer'],
+            [['schedule_id', 'users', 'min', 'p05', 'p25', 'p50', 'p75', 'p80', 'p95', 'max', 'histogram_width'], 'default', 'value' => null],
+            [['schedule_id', 'users', 'min', 'p05', 'p25', 'p50', 'p75', 'p80', 'p95', 'max', 'histogram_width'], 'integer'],
             [['average', 'stddev'], 'number'],
             [['schedule_id'], 'unique'],
             [['schedule_id'], 'exist', 'skipOnError' => true, 'targetClass' => SalmonSchedule3::class, 'targetAttribute' => ['schedule_id' => 'id']],
@@ -57,12 +59,14 @@ class StatBigrunDistribAbstract3 extends ActiveRecord
             'average' => 'Average',
             'stddev' => 'Stddev',
             'min' => 'Min',
-            'q1' => 'Q1',
-            'median' => 'Median',
-            'q3' => 'Q3',
+            'p05' => 'P05',
+            'p25' => 'P25',
+            'p50' => 'P50',
+            'p75' => 'P75',
+            'p80' => 'P80',
+            'p95' => 'P95',
             'max' => 'Max',
-            'top_5_pct' => 'Top 5 Pct',
-            'top_20_pct' => 'Top 20 Pct',
+            'histogram_width' => 'Histogram Width',
         ];
     }
 

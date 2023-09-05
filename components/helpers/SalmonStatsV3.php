@@ -68,7 +68,7 @@ final class SalmonStatsV3
             'createUserSpecialStats' => fn () => self::createUserSpecialStats($db, $user),
             'createUserWeaponStats' => fn () => self::createUserWeaponStats($db, $user),
             'createPlayedWithStats' => fn () => self::createPlayedWithStats($db, $user),
-            'createBigrunHistogramStats' => fn () => self::createBigrunHistogramStats($db),
+            'createBigrunHistogramStats' => fn () => self::createBigrunHistogramStats($db, true),
             'createEggstraWorkHistogramStats' => fn () => self::createEggstraWorkHistogramStats($db),
         ];
 

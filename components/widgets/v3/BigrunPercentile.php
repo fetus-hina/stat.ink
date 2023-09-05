@@ -16,13 +16,12 @@ use app\components\widgets\Icon;
 use app\models\BigrunOfficialResult3;
 use app\models\EggstraWorkOfficialResult3;
 use app\models\SalmonSchedule3;
-use app\models\StatBigrunDistribAbstract3;
+use app\models\StatBigrunDistribUserAbstract3;
 use app\models\StatEggstraWorkDistribAbstract3;
 use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
 use yii\bootstrap\BootstrapPluginAsset;
 use yii\db\Connection;
-use yii\db\Expression as DbExpression;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\View;
@@ -30,6 +29,7 @@ use yii\web\View;
 use function filter_var;
 use function implode;
 use function is_int;
+use function is_object;
 use function trim;
 use function vsprintf;
 
@@ -78,7 +78,7 @@ final class BigrunPercentile extends Widget
 
     private function renderModal(
         string $id,
-        StatBigrunDistribAbstract3|StatEggstraWorkDistribAbstract3|null $stats,
+        StatBigrunDistribUserAbstract3|StatEggstraWorkDistribAbstract3|null $stats,
     ): string {
         return Html::tag(
             'div',
@@ -181,7 +181,7 @@ final class BigrunPercentile extends Widget
     }
 
     private function renderModalBody(
-        StatBigrunDistribAbstract3|StatEggstraWorkDistribAbstract3|null $stats,
+        StatBigrunDistribUserAbstract3|StatEggstraWorkDistribAbstract3|null $stats,
     ): string {
         return Html::tag(
             'div',
@@ -194,7 +194,7 @@ final class BigrunPercentile extends Widget
     }
 
     private function renderTable(
-        StatBigrunDistribAbstract3|StatEggstraWorkDistribAbstract3|null $stats,
+        StatBigrunDistribUserAbstract3|StatEggstraWorkDistribAbstract3|null $stats,
     ): string {
         return Html::tag(
             'div',
@@ -211,7 +211,7 @@ final class BigrunPercentile extends Widget
     }
 
     private function renderTableHeader(
-        StatBigrunDistribAbstract3|StatEggstraWorkDistribAbstract3|null $stats,
+        StatBigrunDistribUserAbstract3|StatEggstraWorkDistribAbstract3|null $stats,
     ): string {
         return Html::tag(
             'thead',
@@ -235,7 +235,7 @@ final class BigrunPercentile extends Widget
     }
 
     private function renderTableBody(
-        StatBigrunDistribAbstract3|StatEggstraWorkDistribAbstract3|null $stats,
+        StatBigrunDistribUserAbstract3|StatEggstraWorkDistribAbstract3|null $stats,
     ): string {
         $official = $this->isEggstraWork
             ? EggstraWorkOfficialResult3::find()
@@ -262,37 +262,55 @@ final class BigrunPercentile extends Widget
     }
 
     private function renderTableRowGold(
-        StatBigrunDistribAbstract3|StatEggstraWorkDistribAbstract3|null $stats,
+        StatBigrunDistribUserAbstract3|StatEggstraWorkDistribAbstract3|null $stats,
         BigrunOfficialResult3|EggstraWorkOfficialResult3|null $official,
     ): string {
         return $this->renderTableRowEggs(
             $this->isEggstraWork ? 'eggstra-1.png' : 'top-1.png',
             5,
-            self::intVal(ArrayHelper::getValue($stats, 'top_5_pct')),
+            self::intVal(
+                match (is_object($stats) ? $stats::class : null) {
+                    StatBigrunDistribUserAbstract3::class => ArrayHelper::getValue($stats, 'p95'),
+                    StatEggstraWorkDistribAbstract3::class => ArrayHelper::getValue($stats, 'top_5_pct'),
+                    default => null,
+                },
+            ),
             self::intVal(ArrayHelper::getValue($official, 'gold')),
         );
     }
 
     private function renderTableRowSilver(
-        StatBigrunDistribAbstract3|StatEggstraWorkDistribAbstract3|null $stats,
+        StatBigrunDistribUserAbstract3|StatEggstraWorkDistribAbstract3|null $stats,
         BigrunOfficialResult3|EggstraWorkOfficialResult3|null $official,
     ): string {
         return $this->renderTableRowEggs(
             $this->isEggstraWork ? 'eggstra-2.png' : 'top-2.png',
             20,
-            self::intVal(ArrayHelper::getValue($stats, 'top_20_pct')),
+            self::intVal(
+                match (is_object($stats) ? $stats::class : null) {
+                    StatBigrunDistribUserAbstract3::class => ArrayHelper::getValue($stats, 'p80'),
+                    StatEggstraWorkDistribAbstract3::class => ArrayHelper::getValue($stats, 'top_20_pct'),
+                    default => null,
+                },
+            ),
             self::intVal(ArrayHelper::getValue($official, 'silver')),
         );
     }
 
     private function renderTableRowBronze(
-        StatBigrunDistribAbstract3|StatEggstraWorkDistribAbstract3|null $stats,
+        StatBigrunDistribUserAbstract3|StatEggstraWorkDistribAbstract3|null $stats,
         BigrunOfficialResult3|EggstraWorkOfficialResult3|null $official,
     ): string {
         return $this->renderTableRowEggs(
             $this->isEggstraWork ? 'eggstra-3.png' : 'top-3.png',
             50,
-            self::intVal(ArrayHelper::getValue($stats, 'median')),
+            self::intVal(
+                match (is_object($stats) ? $stats::class : null) {
+                    StatBigrunDistribUserAbstract3::class => ArrayHelper::getValue($stats, 'p50'),
+                    StatEggstraWorkDistribAbstract3::class => ArrayHelper::getValue($stats, 'top_50_pct'),
+                    default => null,
+                },
+            ),
             self::intVal(ArrayHelper::getValue($official, 'bronze')),
         );
     }
@@ -308,9 +326,12 @@ final class BigrunPercentile extends Widget
             implode('', [
                 Html::tag(
                     'th',
-                    Html::encode(
-                        Yii::t('app', 'Top {percentile}%', ['percentile' => $percentile]),
-                    ),
+                    implode(' ', [
+                        Icon::goldenEgg(),
+                        Html::encode(
+                            Yii::t('app', 'Top {percentile}%', ['percentile' => $percentile]),
+                        ),
+                    ]),
                     ['scope' => 'row'],
                 ),
                 Html::tag(
@@ -318,7 +339,10 @@ final class BigrunPercentile extends Widget
                     trim(
                         $userEggs === null
                             ? '-'
-                            : Html::encode(Yii::$app->formatter->asInteger($userEggs)),
+                            : implode(' ', [
+                                Icon::goldenEgg(),
+                                Html::encode(Yii::$app->formatter->asInteger($userEggs)),
+                            ]),
                     ),
                 ),
                 Html::tag(
@@ -326,7 +350,10 @@ final class BigrunPercentile extends Widget
                     trim(
                         $officialEggs === null
                             ? '-'
-                            : Html::encode(Yii::$app->formatter->asInteger($officialEggs)),
+                            : implode(' ', [
+                                Icon::goldenEgg(),
+                                Html::encode(Yii::$app->formatter->asInteger($officialEggs)),
+                            ]),
                     ),
                 ),
             ]),
@@ -334,7 +361,7 @@ final class BigrunPercentile extends Widget
     }
 
     private function renderTableRowAverage(
-        StatBigrunDistribAbstract3|StatEggstraWorkDistribAbstract3|null $stats,
+        StatBigrunDistribUserAbstract3|StatEggstraWorkDistribAbstract3|null $stats,
         BigrunOfficialResult3|EggstraWorkOfficialResult3|null $official,
     ): string {
         return Html::tag(
@@ -347,7 +374,8 @@ final class BigrunPercentile extends Widget
                 ),
                 Html::tag(
                     'td',
-                    vsprintf('%s (σ = %s)', [
+                    vsprintf('%s %s (σ = %s)', [
+                        Icon::goldenEgg(),
                         Html::encode(
                             Yii::$app->formatter->asDecimal(
                                 ArrayHelper::getValue($stats, 'average'),
@@ -368,7 +396,7 @@ final class BigrunPercentile extends Widget
     }
 
     private function renderTableRowUsers(
-        StatBigrunDistribAbstract3|StatEggstraWorkDistribAbstract3|null $stats,
+        StatBigrunDistribUserAbstract3|StatEggstraWorkDistribAbstract3|null $stats,
         BigrunOfficialResult3|EggstraWorkOfficialResult3|null $official,
     ): string {
         return Html::tag(
@@ -409,26 +437,18 @@ final class BigrunPercentile extends Widget
         );
     }
 
-    private function getStats(): StatBigrunDistribAbstract3|StatEggstraWorkDistribAbstract3|null
+    private function getStats(): StatBigrunDistribUserAbstract3|StatEggstraWorkDistribAbstract3|null
     {
         $db = TypeHelper::instanceOf(Yii::$app->db, Connection::class);
-
-        $percentile = fn (int $pct): DbExpression => new DbExpression(
-            vsprintf('PERCENTILE_DISC(%.2f) WITHIN GROUP (ORDER BY %s DESC)', [
-                (float)$pct / 100.0,
-                $db->quoteColumnName('golden_eggs'),
-            ]),
-        );
-
         return $this->isEggstraWork
             ? StatEggstraWorkDistribAbstract3::find()
                 ->andWhere(['schedule_id' => $this->schedule?->id ?? -1])
                 ->limit(1)
-                ->one()
-            : StatBigrunDistribAbstract3::find()
+                ->one($db)
+            : StatBigrunDistribUserAbstract3::find()
                 ->andWhere(['schedule_id' => $this->schedule?->id ?? -1])
                 ->limit(1)
-                ->one();
+                ->one($db);
     }
 
     private static function intVal(mixed $value): ?int
