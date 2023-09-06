@@ -15,6 +15,7 @@ use TypeError;
 use Yii;
 use app\components\helpers\TypeHelper;
 use app\models\Lobby3;
+use app\models\Map3;
 use app\models\Rule3;
 use app\models\Splatfest3;
 use app\models\SplatfestTeam3;
@@ -45,6 +46,7 @@ use function substr;
 use function vsprintf;
 
 use const DATE_ATOM;
+use const SORT_ASC;
 use const SORT_DESC;
 use const SORT_NUMERIC;
 
@@ -88,22 +90,24 @@ final class Splatfest3Action extends Action
                 }
 
                 $themes = $this->getThemesOnBattle3($db, $model, $teams);
-
+                $names = [
+                    'team1' => $teams[0]->name,
+                    'team2' => $teams[1]->name,
+                    'team3' => $teams[2]->name,
+                ];
+                $colors = [
+                    'team1' => $teams[0]->color,
+                    'team2' => $teams[1]->color,
+                    'team3' => $teams[2]->color,
+                ];
                 return [
-                    'splatfest' => $model,
+                    'colors' => $colors,
                     'festList' => $this->getFestList($db),
-                    'votes' => ArrayHelper::map($this->getVotes($db, $model, $themes), 'theme', 'count'),
-                    'names' => [
-                        'team1' => $teams[0]->name,
-                        'team2' => $teams[1]->name,
-                        'team3' => $teams[2]->name,
-                    ],
-                    'colors' => [
-                        'team1' => $teams[0]->color,
-                        'team2' => $teams[1]->color,
-                        'team3' => $teams[2]->color,
-                    ],
+                    'names' => $names,
+                    'splatfest' => $model,
+                    'stages' => $this->getStages($db),
                     'tricolorStats' => $this->getTricolorStats($db, $model),
+                    'votes' => ArrayHelper::map($this->getVotes($db, $model, $themes), 'theme', 'count'),
                 ];
             },
             Transaction::REPEATABLE_READ,
@@ -359,6 +363,9 @@ final class Splatfest3Action extends Action
         return $results;
     }
 
+    /**
+     * @return array{map_id: int, battles: int, attacker_wins: int}[]
+     */
     private function getTricolorStats(Connection $db, Splatfest3 $fest): array
     {
         $attackers = TricolorRole3::find()
@@ -395,8 +402,11 @@ final class Splatfest3Action extends Action
 
         $query = (new Query())
             ->select([
-                'is_attacker_wins' => $isAttackerWins,
-                'count' => 'COUNT(*)',
+                'map_id' => '{{%battle3}}.[[map_id]]',
+                'battles' => 'COUNT(*)',
+                'attacker_wins' => vsprintf('SUM(CASE WHEN (%s) THEN 1 ELSE 0 END)', [
+                    (string)$isAttackerWins,
+                ]),
             ])
             ->from('{{%battle3}}')
             ->innerJoin('{{%result3}}', '{{%battle3}}.[[result_id]] = {{%result3}}.[[id]]')
@@ -410,9 +420,10 @@ final class Splatfest3Action extends Action
                     '{{%battle3}}.[[use_for_entire]]' => true,
                     '{{%result3}}.[[aggregatable]]' => true,
                 ],
-                ['not', ['our_team_role_id' => null]],
-                ['not', ['their_team_role_id' => null]],
-                ['not', ['third_team_role_id' => null]],
+                ['not', ['{{%battle3}}.[[map_id]]' => null]],
+                ['not', ['{{%battle3}}.[[our_team_role_id]]' => null]],
+                ['not', ['{{%battle3}}.[[their_team_role_id]]' => null]],
+                ['not', ['{{%battle3}}.[[third_team_role_id]]' => null]],
                 '{{%battle3}}.[[start_at]] < {{%battle3}}.[[end_at]]',
                 ['between',
                     '{{%battle3}}.[[start_at]]',
@@ -431,11 +442,30 @@ final class Splatfest3Action extends Action
                 ],
             ])
             ->groupBy([
-                $isAttackerWins,
+                '{{battle3}}.[[map_id]]',
+            ])
+            ->orderBy([
+                'battles' => SORT_DESC,
+                'attacker_wins' => SORT_DESC,
+                'map_id' => SORT_DESC,
             ]);
 
         return $query->createCommand($db)
-            ->cache(600)
+            ->cache(300)
             ->queryAll();
+    }
+
+    /**
+     * @return array<int, Map3>
+     */
+    private function getStages(Connection $db): array
+    {
+        return ArrayHelper::index(
+            Map3::find()
+                ->orderBy(['id' => SORT_ASC])
+                ->cache(3600)
+                ->all($db),
+            'id',
+        );
     }
 }
