@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\components\widgets\Icon;
 use app\models\Map3;
 use app\models\SalmonMap3;
 use yii\helpers\Html;
@@ -18,7 +19,14 @@ assert($am instanceof AssetManager);
 
 echo Html::tag(
   'h3',
-  Html::encode(Yii::t('app-map3', $map->name)),
+  implode(' ', [
+    match (true) {
+      $map instanceof SalmonMap3 => Icon::s3SalmonStage($map),
+      $map instanceof Map3 => Icon::s3BigRun(),
+      default => '',
+    },
+    Html::encode(Yii::t('app-map3', $map->name)),
+  ]),
   [
     'class' => 'my-2',
     'id' => sprintf('event-%s', $map->key),
