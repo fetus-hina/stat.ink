@@ -5,6 +5,7 @@ declare(strict_types=1);
 use app\components\helpers\OgpHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
+use app\models\Map3;
 use app\models\Splatfest3;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -15,10 +16,11 @@ use yii\web\View;
  * @var Splatfest3 $splatfest
  * @var Splatfest3[] $festList
  * @var View $this
+ * @var array<int, Map3> $stages
  * @var array<string, int> $votes
  * @var array<string, string> $colors
  * @var array<string, string> $names
- * @var array[] $tricolorStats
+ * @var array{map_id: int, battles: int, attacker_wins: int}[] $tricolorStats
  */
 
 $title = Yii::t('app', 'Splatfest Stats') . ' - ' . Yii::t('db/splatfest3', (string)$splatfest->name);
@@ -66,6 +68,6 @@ OgpHelper::default($this, title: $this->title);
   </h2>
 
   <?= $this->render('splatfest3/vote', compact('colors', 'names', 'votes')) . "\n" ?>
-  <?= $this->render('splatfest3/tricolor', compact('tricolorStats')) . "\n" ?>
+  <?= $this->render('splatfest3/tricolor', compact('stages', 'tricolorStats')) . "\n" ?>
   <?= $this->render('splatfest3/power', compact('splatfest')) . "\n" ?>
 </div>

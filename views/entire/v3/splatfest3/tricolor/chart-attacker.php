@@ -7,18 +7,54 @@ use app\assets\ChartJsErrorBarsAsset;
 use app\assets\ColorSchemeAsset;
 use app\assets\JqueryEasyChartjsAsset;
 use app\components\helpers\StandardError;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\JsExpression;
 use yii\web\View;
 
 /**
  * @var View $this
- * @var int $battles
- * @var int $wins
+ * @var array<int, Map3> $stages
+ * @var array{map_id: int, battles: int, attacker_wins: int}[] $tricolorStats
  */
 
-$data = StandardError::winpct($wins, $battles);
-if (!$data) {
+$fmt = Yii::$app->formatter;
+
+$labels = [];
+$dataSets = [];
+$rowId = 0;
+
+$make = fn (int $rowId, array $errInfo): array => [
+  'x' => $errInfo['rate'] * 100,
+  'xMax' => [$errInfo['max95ci'] * 100, $errInfo['max99ci'] * 100],
+  'xMin' => [$errInfo['min95ci'] * 100, $errInfo['min99ci'] * 100],
+  'y' => $rowId,
+];
+
+if (
+  count($tricolorStats) > 1 &&
+  $errInfo = StandardError::winpct(
+    (int)array_sum(ArrayHelper::getColumn($tricolorStats, 'attacker_wins')),
+    (int)array_sum(ArrayHelper::getColumn($tricolorStats, 'battles')),
+  )
+) {
+  $labels[] = Yii::t('app', 'Total');
+  $dataSets[] = $make($rowId++, $errInfo);
+}
+
+foreach ($tricolorStats as $row) {
+  if (!$errInfo = StandardError::winpct((int)$row['attacker_wins'], (int)$row['battles'])) {
+    continue;
+  }
+
+  $labels[] = vsprintf('%s (%s)', [
+    Yii::t('app-map3', $stages[$row['map_id']]?->short_name ?? '') ?: sprintf('#%d', $row['map_id']),
+    $fmt->asInteger($row['battles']),
+  ]);
+  $dataSets[] = $make($rowId++, $errInfo);
+}
+
+if (!$labels || !$dataSets) {
   return;
 }
 
@@ -29,46 +65,36 @@ JqueryEasyChartjsAsset::register($this);
 
 $this->registerJs('$(".splatfest3-chart-attacker").easyChartJs();');
 
+$min99ci = min(ArrayHelper::getColumn($dataSets, 'xMin.1'));
+$max99ci = max(ArrayHelper::getColumn($dataSets, 'xMax.1'));
+
 $chartRangeOneSide = max(
-    10,
-    (int)abs(50 - ceil($data['min99ci'] * 100)),
-    (int)abs(50 - ceil($data['max99ci'] * 100)),
+    20,
+    (int)abs(50 - ceil($min99ci)),
+    (int)abs(50 - ceil($max99ci)),
 );
 $chartRangeOneSide = (int)ceil($chartRangeOneSide / 10) * 10;
-
-$valueData = [
-  'backgroundColor' => new JsExpression('window.colorScheme.graph1'),
-  'borderColor' => new JsExpression('window.colorScheme.graph1'),
-  'data' => [
-    [
-      'x' => $data['rate'] * 100,
-      'xMax' => [$data['max95ci'] * 100, $data['max99ci'] * 100],
-      'xMin' => [$data['min95ci'] * 100, $data['min99ci'] * 100],
-      'y' => 0,
-    ],
-  ],
-  'fill' => true,
-  'label' => Yii::t('app', 'Win %'),
-  'errorBarWhiskerLineWidth' => [1, 1],
-  'errorBarLineWidth' => [1, 1],
-  'type' => 'barWithErrorBars',
-];
 
 ?>
 <?= Html::tag('div', '', [
   'class' => 'splatfest3-chart-attacker mb-1',
   'style' => [
-    'height' => '7em',
+    'height' => sprintf('%dem', count($labels) * 2.25 + 5),
   ],
   'data' => [
     'chart' => [
       'data' => [
-        'datasets' => [
-          $valueData,
-        ],
-        'labels' => [
-          Yii::t('app-rule3', 'Attackers'),
-        ],
+        'datasets' => [[
+          'backgroundColor' => new JsExpression('window.colorScheme.graph1'),
+          'borderColor' => new JsExpression('window.colorScheme.graph1'),
+          'data' => $dataSets,
+          'errorBarLineWidth' => [1, 1],
+          'errorBarWhiskerLineWidth' => [1, 1],
+          'fill' => true,
+          'label' => Yii::t('app', 'Win %'),
+          'type' => 'barWithErrorBars',
+        ]],
+        'labels' => $labels,
       ],
       'options' => [
         'animation' => [
@@ -87,20 +113,21 @@ $valueData = [
         'scales' => [
           'x' => [
             'grid' => [
-               'offset' => false,
+              'offset' => false,
             ],
             'max' => min(100, 50 + $chartRangeOneSide),
             'min' => max(0, 50 - $chartRangeOneSide),
             'offset' => false,
-            'title' => [
-              'display' => true,
-              'text' => Yii::t('app', 'Attacker Team Win Rate') . '(%)',
-            ],
-            'type' => 'linear',
+            'position' => 'top',
             'ticks' => [
               'precision' => 0,
               'stepSize' => 10,
             ],
+            'title' => [
+              'display' => true,
+              'text' => Yii::t('app', 'Attacker Team Win Rate') . ' (%)',
+            ],
+            'type' => 'linear',
           ],
           'y' => [
             'offset' => true,
