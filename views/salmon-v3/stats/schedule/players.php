@@ -42,6 +42,7 @@ $fmt = Yii::$app->formatter;
         </th>
         <th class="text-center" rowspan="2"><?= Icon::s3Rescues() ?></th>
         <th class="text-center" rowspan="2"><?= Icon::s3Rescued() ?></th>
+        <th class="text-center" rowspan="2"><?= Html::encode(Yii::t('app-salmon3', 'Boss')) ?></th>
       </tr>
       <tr>
         <th class="text-center"><?= Html::encode(Yii::t('app-salmon2', 'Cleared')) ?></th>
@@ -92,6 +93,7 @@ $fmt = Yii::$app->formatter;
         <td class="text-center"><?= Html::encode($fmt->asDecimal($row['avg_golden'], 1)) ?></td>
         <td class="text-center"><?= Html::encode($fmt->asDecimal($row['avg_rescue'], 1)) ?></td>
         <td class="text-center"><?= Html::encode($fmt->asDecimal($row['avg_rescued'], 1)) ?></td>
+        <td class="text-center"><?= Html::encode($fmt->asDecimal($row['avg_boss'], 1)) ?></td>
       </tr>
 <?php } ?>
     </tbody>

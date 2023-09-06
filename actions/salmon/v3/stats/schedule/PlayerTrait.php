@@ -40,6 +40,8 @@ use const SORT_DESC;
  *   avg_rescue: int|float|numeric-string|null
  *   total_rescued: int|null
  *   avg_rescued: int|float|numeric-string|null
+ *   total_boss: int|null
+ *   avg_boss: int|float|numeric-string|null
  * }
  */
 trait PlayerTrait
@@ -87,6 +89,8 @@ trait PlayerTrait
                 'avg_rescue' => 'AVG({{%salmon_player3}}.[[rescue]])',
                 'total_rescued' => 'SUM({{%salmon_player3}}.[[rescued]])',
                 'avg_rescued' => 'AVG({{%salmon_player3}}.[[rescued]])',
+                'total_boss' => 'SUM({{%salmon_player3}}.[[defeat_boss]])',
+                'avg_boss' => 'AVG({{%salmon_player3}}.[[defeat_boss]])',
             ])
             ->from('{{%salmon3}}')
             ->innerJoin(

@@ -42,6 +42,7 @@ $jobsRequired = 5;
         </th>
         <th class="text-center" rowspan="2"><?= Icon::s3Rescues() ?></th>
         <th class="text-center" rowspan="2"><?= Icon::s3Rescued() ?></th>
+        <th class="text-center" rowspan="2"><?= Html::encode(Yii::t('app-salmon3', 'Boss')) ?></th>
       </tr>
       <tr>
         <th class="text-center"><?= Html::encode(Yii::t('app-salmon2', 'Cleared')) ?></th>
@@ -170,6 +171,28 @@ $jobsRequired = 5;
               'decimalValue' => 0,
             ])
             : $fmt->asDecimal($model->rescued_avg, 1),
+          ['class' => 'text-center'],
+        ) . "\n" ?>
+        <?= Html::tag(
+          'td',
+          $model->defeat_boss_avg !== null && $model->jobs >= $jobsRequired
+            ? BattleSummaryItemWidget::widget([
+              'battles' => $model->jobs,
+              'total' => $model->jobs * $model->defeat_boss_avg,
+              'min' => $model->defeat_boss_min,
+              'max' => $model->defeat_boss_max,
+              'median' => $model->defeat_boss_50,
+              'q1' => $model->defeat_boss_25,
+              'q3' => $model->defeat_boss_75,
+              'pct5' => $model->defeat_boss_05,
+              'pct95' => $model->defeat_boss_95,
+              'stddev' => $model->defeat_boss_sd,
+              'tooltipText' => null,
+              'summary' => sprintf('%s - %s', Yii::t('app-salmon3', 'Boss Salmonids'), $model->name),
+              'decimalLabel' => 1,
+              'decimalValue' => 0,
+            ])
+            : $fmt->asDecimal($model->defeat_boss_avg, 1),
           ['class' => 'text-center'],
         ) . "\n" ?>
       </tr>
