@@ -27,6 +27,7 @@ use yii\base\Action;
 use yii\db\Connection;
 use yii\db\Query;
 use yii\db\Transaction;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -77,10 +78,11 @@ final class StatsAction extends Action
         $data = Yii::$app->db->transaction(
             fn (Connection $db): array => Yii::$app->cache->getOrSet(
                 [
-                    'id' => __METHOD__,
-                    'version' => 7,
-                    'user' => $user->id,
                     'cond' => $this->getCachingCondition($db, $user),
+                    'id' => __METHOD__,
+                    'revision' => ArrayHelper::getValue(Yii::$app->params, 'gitRevision.longHash'),
+                    'user' => $user->id,
+                    'version' => 8,
                 ],
                 fn (): array => [
                     'bossStats' => $this->getBossStats($db, $user, null),
