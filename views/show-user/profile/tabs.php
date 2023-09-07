@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\components\widgets\Icon;
 use app\models\User;
 use yii\bootstrap\Html;
 use yii\bootstrap\Tabs;
@@ -18,19 +19,32 @@ use yii\widgets\Pjax;
 $tabs = [
   [
     'id' => '',
-    'label' => Yii::t('app', 'Splatoon 3'),
+    'encode' => false,
+    'label' => implode(' ', [
+      Icon::splatoon3(),
+      Html::encode(Yii::t('app', 'Splatoon 3')),
+    ]),
     'active' => false,
     'content' => fn () => $this->render('//show-user/profile/tabs/splatoon3', ['user' => $user]),
   ],
   [
     'id' => '2',
-    'label' => Yii::t('app', 'Splatoon 2'),
+    'encode' => false,
+    'label' => implode(' ', [
+      Icon::splatoon2(),
+      Html::encode(Yii::t('app', 'Splatoon 2')),
+    ]),
     'active' => false,
     'content' => fn() => $this->render('//show-user/profile/tabs/splatoon2', ['user' => $user]),
   ],
   [
     'id' => '1',
-    'label' => Yii::t('app', 'Splatoon'),
+    'encode' => false,
+    'encode' => false,
+    'label' => implode(' ', [
+      Icon::splatoon1(),
+      Html::encode(Yii::t('app', 'Splatoon')),
+    ]),
     'active' => false,
     'content' => fn () => $this->render('//show-user/profile/tabs/splatoon', ['user' => $user]),
   ],
@@ -68,5 +82,8 @@ echo Tabs::widget([
     },
     $tabs,
   ),
+  'tabContentOptions' => [
+    'class' => ['mt-3'],
+  ],
 ]) . "\n";
 Pjax::end();
