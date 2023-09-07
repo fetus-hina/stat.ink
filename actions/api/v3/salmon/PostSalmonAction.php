@@ -55,6 +55,7 @@ final class PostSalmonAction extends Action
                 'salmonPlayer3s.salmonPlayerWeapon3s.weapon',
                 'salmonPlayer3s.salmonPlayerWeapon3s.weapon.salmonWeapon3Aliases',
                 'salmonPlayer3s.special',
+                'salmonPlayer3s.species',
                 'salmonPlayer3s.splashtagTitle',
                 'salmonPlayer3s.uniform',
                 'salmonPlayer3s.uniform.salmonUniform3Aliases',

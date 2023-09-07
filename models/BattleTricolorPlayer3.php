@@ -37,11 +37,13 @@ use yii\db\ActiveRecord;
  * @property integer $clothing_id
  * @property integer $shoes_id
  * @property boolean $is_crowned
+ * @property integer $species_id
  *
  * @property Battle3 $battle
  * @property GearConfiguration3 $clothing
  * @property GearConfiguration3 $headgear
  * @property GearConfiguration3 $shoes
+ * @property Species3 $species
  * @property SplashtagTitle3 $splashtagTitle
  * @property Weapon3 $weapon
  */
@@ -56,8 +58,8 @@ class BattleTricolorPlayer3 extends ActiveRecord
     {
         return [
             [['battle_id', 'team', 'is_me'], 'required'],
-            [['battle_id', 'team', 'rank_in_team', 'weapon_id', 'inked', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'signal', 'splashtag_title_id', 'headgear_id', 'clothing_id', 'shoes_id'], 'default', 'value' => null],
-            [['battle_id', 'team', 'rank_in_team', 'weapon_id', 'inked', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'signal', 'splashtag_title_id', 'headgear_id', 'clothing_id', 'shoes_id'], 'integer'],
+            [['battle_id', 'team', 'rank_in_team', 'weapon_id', 'inked', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'signal', 'splashtag_title_id', 'headgear_id', 'clothing_id', 'shoes_id', 'species_id'], 'default', 'value' => null],
+            [['battle_id', 'team', 'rank_in_team', 'weapon_id', 'inked', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'signal', 'splashtag_title_id', 'headgear_id', 'clothing_id', 'shoes_id', 'species_id'], 'integer'],
             [['is_me', 'is_disconnected', 'is_crowned'], 'boolean'],
             [['name'], 'string', 'max' => 10],
             [['number'], 'string', 'max' => 32],
@@ -65,6 +67,7 @@ class BattleTricolorPlayer3 extends ActiveRecord
             [['headgear_id'], 'exist', 'skipOnError' => true, 'targetClass' => GearConfiguration3::class, 'targetAttribute' => ['headgear_id' => 'id']],
             [['clothing_id'], 'exist', 'skipOnError' => true, 'targetClass' => GearConfiguration3::class, 'targetAttribute' => ['clothing_id' => 'id']],
             [['shoes_id'], 'exist', 'skipOnError' => true, 'targetClass' => GearConfiguration3::class, 'targetAttribute' => ['shoes_id' => 'id']],
+            [['species_id'], 'exist', 'skipOnError' => true, 'targetClass' => Species3::class, 'targetAttribute' => ['species_id' => 'id']],
             [['splashtag_title_id'], 'exist', 'skipOnError' => true, 'targetClass' => SplashtagTitle3::class, 'targetAttribute' => ['splashtag_title_id' => 'id']],
             [['weapon_id'], 'exist', 'skipOnError' => true, 'targetClass' => Weapon3::class, 'targetAttribute' => ['weapon_id' => 'id']],
         ];
@@ -94,6 +97,7 @@ class BattleTricolorPlayer3 extends ActiveRecord
             'clothing_id' => 'Clothing ID',
             'shoes_id' => 'Shoes ID',
             'is_crowned' => 'Is Crowned',
+            'species_id' => 'Species ID',
         ];
     }
 
@@ -115,6 +119,11 @@ class BattleTricolorPlayer3 extends ActiveRecord
     public function getShoes(): ActiveQuery
     {
         return $this->hasOne(GearConfiguration3::class, ['id' => 'shoes_id']);
+    }
+
+    public function getSpecies(): ActiveQuery
+    {
+        return $this->hasOne(Species3::class, ['id' => 'species_id']);
     }
 
     public function getSplashtagTitle(): ActiveQuery

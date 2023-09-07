@@ -293,7 +293,7 @@ return [
     'Inked/min' => 'Encré/min',
     'Inking Performance' => 'Performance d\'encrage',
     'Inking Performance vs Win %' => 'Performance d\'encrage vs % Victoire',
-    'Inkling' => '',
+    'Inkling' => 'Inkling',
     'Input new battle results' => 'Ajouter des nouveaux résultats de matchs',
     'In session' => 'En partie',
     'Integrate' => 'Intégrer',
