@@ -44,7 +44,7 @@
     "jquery-smooth-scroll": "^2.2.0",
     "jss": "^10.10.0",
     "license-checker-rseidelsohn": "^3.3.0",
-    "luxon": "^3.4.2",
+    "luxon": "^3.4.3",
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.43",
     "optipng-bin": "^9.0.0",
