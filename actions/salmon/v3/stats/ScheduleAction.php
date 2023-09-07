@@ -26,6 +26,7 @@ use yii\base\Action;
 use yii\db\Connection;
 use yii\db\Query;
 use yii\db\Transaction;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -92,11 +93,12 @@ final class ScheduleAction extends Action
         $data = Yii::$app->db->transaction(
             fn (Connection $db): array => Yii::$app->cache->getOrSet(
                 [
-                    'id' => __METHOD__,
-                    'version' => 8,
-                    'user' => $user->id,
-                    'schedule' => $schedule->id,
                     'cond' => $this->getCachingCondition($db, $user, $schedule),
+                    'id' => __METHOD__,
+                    'revision' => ArrayHelper::getValue(Yii::$app->params, 'gitRevision.longHash'),
+                    'schedule' => $schedule->id,
+                    'user' => $user->id,
+                    'version' => 9,
                 ],
                 fn (): array => [
                     'bossStats' => $this->getBossStats($db, $user, $schedule),
