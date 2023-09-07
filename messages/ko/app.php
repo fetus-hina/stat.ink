@@ -292,7 +292,7 @@ return [
     'Inked/min' => '칠한 면적/분',
     'Inking Performance' => '칠 성능',
     'Inking Performance vs Win %' => '칠 성능과 승률',
-    'Inkling' => '오징어',
+    'Inkling' => '잉클링',
     'Input new battle results' => '배틀 등록',
     'In session' => '개최중',
     'Integrate' => '연동',

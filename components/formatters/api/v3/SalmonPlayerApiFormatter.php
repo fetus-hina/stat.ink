@@ -55,6 +55,7 @@ final class SalmonPlayerApiFormatter
             'rescue' => $model->rescue,
             'rescued' => $model->rescued,
             'defeat_boss' => $model->defeat_boss,
+            'species' => SpeciesApiFormatter::toJson($model->species, $fullTranslate),
             'disconnected' => $model->is_disconnected,
         ];
     }

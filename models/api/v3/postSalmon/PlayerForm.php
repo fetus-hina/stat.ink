@@ -21,6 +21,7 @@ use app\models\SalmonWeapon3;
 use app\models\SalmonWeapon3Alias;
 use app\models\Special3;
 use app\models\Special3Alias;
+use app\models\Species3;
 use app\models\api\v3\postBattle\SplashtagTrait;
 use app\models\api\v3\postBattle\TypeHelperTrait;
 use yii\base\Model;
@@ -48,6 +49,7 @@ final class PlayerForm extends Model
     public $rescued;
     public $defeat_boss;
     public $disconnected;
+    public $species;
 
     public function behaviors()
     {
@@ -92,6 +94,10 @@ final class PlayerForm extends Model
                 'min' => 1,
                 'max' => 5,
             ],
+            [['species'], 'string'],
+            [['species'], KeyValidator::class,
+                'modelClass' => Species3::class,
+            ],
         ];
     }
 
@@ -123,6 +129,7 @@ final class PlayerForm extends Model
             'rescued' => self::intVal($this->rescued),
             'defeat_boss' => self::intVal($this->defeat_boss),
             'is_disconnected' => self::boolVal($this->disconnected),
+            'species_id' => self::key2id($this->species, Species3::class),
         ]);
 
         if (!$model->save()) {

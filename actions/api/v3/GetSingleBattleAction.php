@@ -48,6 +48,7 @@ final class GetSingleBattleAction extends Action
                 ArrayHelper::toFlatten([
                     [
                         'battlePlayer3s',
+                        'battlePlayer3s.species',
                         'battlePlayer3s.splashtagTitle',
                         'battlePlayer3s.weapon',
                         'battlePlayer3s.weapon.canonical',

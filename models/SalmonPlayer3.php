@@ -31,10 +31,12 @@ use yii\db\ActiveRecord;
  * @property integer $rescued
  * @property integer $defeat_boss
  * @property boolean $is_disconnected
+ * @property integer $species_id
  *
  * @property Salmon3 $salmon
  * @property SalmonPlayerWeapon3[] $salmonPlayerWeapon3s
  * @property Special3 $special
+ * @property Species3 $species
  * @property SplashtagTitle3 $splashtagTitle
  * @property SalmonUniform3 $uniform
  */
@@ -49,14 +51,15 @@ class SalmonPlayer3 extends ActiveRecord
     {
         return [
             [['salmon_id', 'is_me', 'is_disconnected'], 'required'],
-            [['salmon_id', 'splashtag_title_id', 'uniform_id', 'special_id', 'golden_eggs', 'golden_assist', 'power_eggs', 'rescue', 'rescued', 'defeat_boss'], 'default', 'value' => null],
-            [['salmon_id', 'splashtag_title_id', 'uniform_id', 'special_id', 'golden_eggs', 'golden_assist', 'power_eggs', 'rescue', 'rescued', 'defeat_boss'], 'integer'],
+            [['salmon_id', 'splashtag_title_id', 'uniform_id', 'special_id', 'golden_eggs', 'golden_assist', 'power_eggs', 'rescue', 'rescued', 'defeat_boss', 'species_id'], 'default', 'value' => null],
+            [['salmon_id', 'splashtag_title_id', 'uniform_id', 'special_id', 'golden_eggs', 'golden_assist', 'power_eggs', 'rescue', 'rescued', 'defeat_boss', 'species_id'], 'integer'],
             [['is_me', 'is_disconnected'], 'boolean'],
             [['name'], 'string', 'max' => 10],
             [['number'], 'string', 'max' => 32],
             [['salmon_id'], 'exist', 'skipOnError' => true, 'targetClass' => Salmon3::class, 'targetAttribute' => ['salmon_id' => 'id']],
             [['uniform_id'], 'exist', 'skipOnError' => true, 'targetClass' => SalmonUniform3::class, 'targetAttribute' => ['uniform_id' => 'id']],
             [['special_id'], 'exist', 'skipOnError' => true, 'targetClass' => Special3::class, 'targetAttribute' => ['special_id' => 'id']],
+            [['species_id'], 'exist', 'skipOnError' => true, 'targetClass' => Species3::class, 'targetAttribute' => ['species_id' => 'id']],
             [['splashtag_title_id'], 'exist', 'skipOnError' => true, 'targetClass' => SplashtagTitle3::class, 'targetAttribute' => ['splashtag_title_id' => 'id']],
         ];
     }
@@ -79,6 +82,7 @@ class SalmonPlayer3 extends ActiveRecord
             'rescued' => 'Rescued',
             'defeat_boss' => 'Defeat Boss',
             'is_disconnected' => 'Is Disconnected',
+            'species_id' => 'Species ID',
         ];
     }
 
@@ -95,6 +99,11 @@ class SalmonPlayer3 extends ActiveRecord
     public function getSpecial(): ActiveQuery
     {
         return $this->hasOne(Special3::class, ['id' => 'special_id']);
+    }
+
+    public function getSpecies(): ActiveQuery
+    {
+        return $this->hasOne(Species3::class, ['id' => 'species_id']);
     }
 
     public function getSplashtagTitle(): ActiveQuery

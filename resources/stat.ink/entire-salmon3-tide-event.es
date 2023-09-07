@@ -1,4 +1,4 @@
-// Copyright (C) 2015-2022 AIZAWA Hina | MIT License
+// Copyright (C) 2015-2023 AIZAWA Hina | MIT License
 (function () {
   // Const percentFormat = (value) => (new Intl.NumberFormat(
   //   document.documentElement.getAttribute('lang') || 'en-US',
@@ -65,6 +65,9 @@
         ]
       },
       options: {
+        animation: {
+          duration: 0
+        },
         aspectRatio: 1,
         legend: {
           onClick: (event, legendItem) => {

@@ -16,6 +16,7 @@ use app\models\Battle3;
 use app\models\BattlePlayer3;
 use app\models\BattleTricolorPlayer3;
 use app\models\Rule3;
+use app\models\Species3;
 use app\models\Weapon3;
 use app\models\Weapon3Alias;
 use yii\base\Model;
@@ -48,6 +49,7 @@ final class PlayerForm extends Model
     public $gears;
     public $disconnected;
     public $crown;
+    public $species;
 
     /**
      * @var GearsForm|null
@@ -89,6 +91,10 @@ final class PlayerForm extends Model
             [['kill', 'assist', 'kill_or_assist', 'death', 'special', 'signal'], 'integer',
                 'min' => 0,
                 'max' => 99,
+            ],
+            [['species'], 'string'],
+            [['species'], KeyValidator::class,
+                'modelClass' => Species3::class,
             ],
 
             [['gears'], 'validateGears'],
@@ -136,6 +142,7 @@ final class PlayerForm extends Model
                     'clothing_id' => $this->gearConfiguration($this->gearsForm ? $this->gearsForm->clothingForm : null),
                     'shoes_id' => $this->gearConfiguration($this->gearsForm ? $this->gearsForm->shoesForm : null),
                     'is_crowned' => self::boolVal($this->crown),
+                    'species_id' => self::key2id($this->species, Species3::class),
                 ],
                 $isTricolor
                     ? [

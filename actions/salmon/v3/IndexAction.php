@@ -78,6 +78,7 @@ final class IndexAction extends Action
                 },
                 'salmonPlayer3s.salmonPlayerWeapon3s.weapon',
                 'salmonPlayer3s.special',
+                'salmonPlayer3s.species',
                 'schedule',
                 'stage',
                 'titleAfter',

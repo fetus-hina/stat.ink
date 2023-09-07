@@ -22,6 +22,7 @@ if ($map) {
         Icon::scrollTo(),
         sprintf('#event-%s', rawurlencode($map->key)),
       ),
+      Icon::s3SalmonStage($map),
       Html::encode(Yii::t('app-map3', $map->name)),
     ]),
     [
@@ -40,6 +41,7 @@ if ($map) {
         Icon::scrollTo(),
         sprintf('#event-%s', rawurlencode($bigMap->key)),
       ),
+      Icon::s3BigRun(),
       Html::encode(Yii::t('app-map3', $bigMap->name)),
     ]),
     [
