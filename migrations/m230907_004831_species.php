@@ -23,7 +23,7 @@ final class m230907_004831_species extends Migration
             'name' => $this->string(64)->notNull(),
         ]);
 
-        $this->batchInsert('{{%species3}}', [ 'key', 'name' ], [
+        $this->batchInsert('{{%species3}}', ['key', 'name'], [
             [ 'inkling', 'Inkling' ],
             [ 'octoling', 'Octoling' ],
         ]);
