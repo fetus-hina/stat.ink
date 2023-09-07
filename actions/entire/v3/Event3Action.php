@@ -100,7 +100,9 @@ final class Event3Action extends Action
         $id = $request->get('event');
         if ($id === null || $id === '') {
             $model = Event3StatsWeapon::find()
-                ->orderBy(['schedule_id' => SORT_DESC])
+                ->innerJoinWith(['schedule'], true)
+                ->with(['schedule.event'])
+                ->orderBy(['{{%event_schedule3}}.[[start_at]]' => SORT_DESC])
                 ->limit(1)
                 ->one($db);
             $event = $model?->schedule?->event;
@@ -135,7 +137,7 @@ final class Event3Action extends Action
             $model = Event3StatsWeapon::find()
                 ->innerJoinWith(['schedule'], true)
                 ->andWhere(['{{%event_schedule3}}.[[event_id]]' => $event->id])
-                ->orderBy(['{{%event3_stats_weapon}}.[[schedule_id]]' => SORT_DESC])
+                ->orderBy(['{{%event_schedule3}}.[[start_at]]' => SORT_DESC])
                 ->limit(1)
                 ->one($db);
 
