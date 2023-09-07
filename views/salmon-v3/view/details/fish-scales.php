@@ -21,19 +21,10 @@ return [
       return null;
     }
 
-    $labels = [
-      'gold' => [
-        Icon::goldScale(),
-        Yii::t('app-salmon-scale3', 'Gold'),
-      ],
-      'silver' => [
-        Icon::silverScale(),
-        Yii::t('app-salmon-scale3', 'Silver'),
-      ],
-      'bronze' => [
-        Icon::bronzeScale(),
-        Yii::t('app-salmon-scale3', 'Bronze'),
-      ],
+    $icons = [
+      'gold' => Icon::goldScale(),
+      'silver' => Icon::silverScale(),
+      'bronze' => Icon::bronzeScale(),
     ];
 
     $counts = [
@@ -49,10 +40,7 @@ return [
           fn (string $key, int $count): string => Html::tag(
             'span',
             vsprintf('%s %s', [
-              Html::tag('span', $labels[$key][0] ?? '', [
-                'class' => 'auto-tooltip',
-                'title' => $labels[$key][1] ?? '',
-              ]),
+              $icons[$key] ?? throw new LogicException('Unknown key: ' . $key),
               Html::encode(Yii::$app->formatter->asInteger($counts[$key] ?? 0)),
             ]),
             ['class' => 'mr-2'],

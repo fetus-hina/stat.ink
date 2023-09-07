@@ -14,13 +14,13 @@ use LogicException;
 use Yii;
 use app\assets\AppLinkAsset;
 use app\assets\BootstrapIconsAsset;
-use app\assets\MedalAsset;
 use app\assets\s3PixelIcons\AbilityIconAsset;
 use app\assets\s3PixelIcons\LobbyIconAsset;
 use app\assets\s3PixelIcons\RuleIconAsset;
 use app\assets\s3PixelIcons\SalmometerIconAsset;
 use app\assets\s3PixelIcons\SalmonModeIconAsset;
 use app\assets\s3PixelIcons\SalmonRandomIconAsset;
+use app\assets\s3PixelIcons\SalmonScaleIconAsset;
 use app\assets\s3PixelIcons\SalmonStageIconAsset;
 use app\assets\s3PixelIcons\SpecialIconAsset;
 use app\assets\s3PixelIcons\SubweaponIconAsset;
@@ -284,6 +284,8 @@ final class Icon
      */
     private static $assetImageMap = [
         'bluesky' => [AppLinkAsset::class, 'bluesky.png'],
+        'bronzeScale' => [SalmonScaleIconAsset::class, 'scale_bronze.png', ['app-salmon-scale3', 'Bronze'], true],
+        'goldScale' => [SalmonScaleIconAsset::class, 'scale_gold.png', ['app-salmon-scale3', 'Gold'], true],
         'goldenEgg' => [UiIconAsset::class, 'golden_egg.png', ['app-salmon2', 'Golden Eggs'], true],
         'powerEgg' => [UiIconAsset::class, 'power_egg.png', ['app-salmon2', 'Power Eggs'], true],
         's3AbilityAbilityDoubler' => [AbilityIconAsset::class, 'ability_doubler.png'],
@@ -343,15 +345,11 @@ final class Icon
         's3SilverMedal' => [UiIconAsset::class, 'silver_medal.png'],
         's3TricolorAttacker' => [RuleIconAsset::class, 'tricolor-attacker.png', ['app-rule3', 'Attackers'], true],
         's3TricolorDefender' => [RuleIconAsset::class, 'tricolor-defender.png', ['app-rule3', 'Defenders'], true],
+        'silverScale' => [SalmonScaleIconAsset::class, 'scale_silver.png', ['app-salmon-scale3', 'Silver'], true],
         'splatoon1' => [VersionIconAsset::class, 's1.png', '[1]', ['app', 'Splatoon']],
         'splatoon2' => [VersionIconAsset::class, 's2.png', '[2]', ['app', 'Splatoon 2']],
         'splatoon3' => [VersionIconAsset::class, 's3.png', '[3]', ['app', 'Splatoon 3']],
     ];
-
-    public static function bronzeScale(): string
-    {
-        return self::medalHtml('bronze');
-    }
 
     public static function dummy(): string
     {
@@ -364,16 +362,6 @@ final class Icon
         }
 
         return mb_chr(0x3000, 'UTF-8'); // Ideographic Space
-    }
-
-    public static function goldScale(): string
-    {
-        return self::medalHtml('gold');
-    }
-
-    public static function silverScale(): string
-    {
-        return self::medalHtml('silver');
     }
 
     public static function thisPlayer(): string
@@ -794,18 +782,6 @@ final class Icon
     {
         $o = FA::fas($name);
         return (string)($modifier ? $modifier($o) : $o);
-    }
-
-    private static function medalHtml(string $color): string
-    {
-        self::prepareAsset(MedalAsset::class);
-
-        return Html::tag('span', '', [
-            'class' => [
-                'medal-icon',
-                'medal-icon-' . $color,
-            ],
-        ]);
     }
 
     /**
