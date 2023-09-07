@@ -24,6 +24,7 @@ abstract class SalmonIconAsset extends AssetBundle
      */
     public array $fileNameMap = [
         'Big Run.png' => 'bigrun.png',
+        'Bronze Scale.png' => 'scale_bronze.png',
         'Coho Meter 0.png' => 'salmometer-0.png',
         'Coho Meter 1.png' => 'salmometer-1.png',
         'Coho Meter 2.png' => 'salmometer-2.png',
@@ -31,11 +32,13 @@ abstract class SalmonIconAsset extends AssetBundle
         'Coho Meter 4.png' => 'salmometer-4.png',
         'Coho Meter 5.png' => 'salmometer-5.png',
         'Eggstra Work Icon.png' => 'eggstra.png',
+        'Gold Scale.png' => 'scale_gold.png',
         'Gone Fission Hydroplant.png' => 'meuniere.png',
         'Jammin\' Salmon Junction.png' => 'sujiko.png',
         'Marooner\'s Bay.png' => 'donburako.png',
         'Salmon Run Menu.png' => 'salmon.png',
         'Salmonid Smokeyard.png' => 'tokishirazu.png',
+        'Silver Scale.png' => 'scale_silver.png',
         'Sockeye Station.png' => 'aramaki.png',
         'Spawning Grounds.png' => 'dam.png',
     ];
