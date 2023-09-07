@@ -66,7 +66,7 @@
     };
     const changeCellVisibility = (klass, enable) => {
       if (enable) {
-        $('.' + klass).show();
+        $('.' + klass).css({ display: 'table-cell' });
       } else {
         $('.' + klass).hide();
       }
