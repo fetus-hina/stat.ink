@@ -23,6 +23,8 @@ final class UiIconAsset extends AssetBundle
     public array $fileNameMap = [
         'Gold Medal.png' => 'gold_medal.png',
         'Golden Eggs.png' => 'golden_egg.png',
+        'Inkling.png' => 'inkling.png',
+        'Octoling.png' => 'octoling.png',
         'Power Eggs.png' => 'power_egg.png',
         'SR Rescued.png' => 'rescued.png',
         'SR Rescues.png' => 'rescues.png',
