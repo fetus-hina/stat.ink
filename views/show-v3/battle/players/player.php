@@ -35,18 +35,12 @@ if ($player->is_me) {
 <?= Html::beginTag('tr', ['class' => $bgClass]) . "\n" ?>
   <?= Html::tag(
     'td',
-    implode('', [
-      $player->is_crowned
-        ? Html::tag('div', Icon::crown(), ['class' => 'player-crown'])
-        : '',
-      $player->is_me
-        ? Html::tag('div', Icon::thisPlayer())
-        : '',
-    ]),
+    $player->is_me
+      ? Html::tag('div', Icon::thisPlayer())
+      : '',
     [
       'class' => array_filter([
         'text-center',
-        // $colorClass, // crown が見えないケースがあるのでとりあえずやめ
       ]),
     ],
   ) . "\n" ?>

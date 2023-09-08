@@ -125,32 +125,33 @@ final class SalmonPlayers extends Widget
                         fn (?SalmonPlayer3 $player): string => Html::tag(
                             'th',
                             $player
-                                ? trim(
-                                    vsprintf('%s %s', [
-                                        $player->is_disconnected
-                                            ? Html::tag(
-                                                'span',
-                                                Icon::hasDisconnected(),
-                                                ['class' => 'text-danger'],
-                                            )
-                                            : '',
-                                        Html::tag(
+                                ? implode(' ', [
+                                    $player->is_disconnected
+                                        ? Html::tag(
                                             'span',
-                                            Html::encode($player->name),
-                                            [
-                                                'class' => 'auto-tooltip',
-                                                'title' => trim(
-                                                    vsprintf('%s %s', [
-                                                        $player->name,
-                                                        $player->number !== null
-                                                            ? sprintf('#%s', $player->number)
-                                                            : '',
-                                                    ]),
-                                                ),
-                                            ],
-                                        ),
-                                    ]),
-                                )
+                                            Icon::hasDisconnected(),
+                                            ['class' => 'text-danger'],
+                                        )
+                                        : '',
+                                    $player->species
+                                        ? Icon::s3Species($player->species)
+                                        : '',
+                                    Html::tag(
+                                        'span',
+                                        Html::encode($player->name),
+                                        [
+                                            'class' => 'auto-tooltip',
+                                            'title' => trim(
+                                                vsprintf('%s %s', [
+                                                    $player->name,
+                                                    $player->number !== null
+                                                        ? sprintf('#%s', $player->number)
+                                                        : '',
+                                                ]),
+                                            ),
+                                        ],
+                                    ),
+                                ])
                                 : '-',
                             ['class' => 'omit'],
                         ),
@@ -235,7 +236,10 @@ final class SalmonPlayers extends Widget
 
                                         return Html::tag(
                                             'div',
-                                            Html::encode(Yii::t('app-weapon3', $weapon?->name ?? '?')),
+                                            implode(' ', [
+                                                Icon::s3Weapon($weapon),
+                                                Html::encode(Yii::t('app-weapon3', $weapon?->name ?? '?')),
+                                            ]),
                                             ['class' => 'omit'],
                                         );
                                     },
