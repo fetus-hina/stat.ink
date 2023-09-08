@@ -15,6 +15,7 @@ use app\components\validators\KeyValidator;
 use app\models\Battle3;
 use app\models\BattlePlayer3;
 use app\models\BattleTricolorPlayer3;
+use app\models\Crown3;
 use app\models\Rule3;
 use app\models\Species3;
 use app\models\Weapon3;
@@ -49,6 +50,7 @@ final class PlayerForm extends Model
     public $gears;
     public $disconnected;
     public $crown;
+    public $crown_type;
     public $species;
 
     /**
@@ -96,6 +98,10 @@ final class PlayerForm extends Model
             [['species'], KeyValidator::class,
                 'modelClass' => Species3::class,
             ],
+            [['crown_type'], 'string'],
+            [['crown_type'], KeyValidator::class,
+                'modelClass' => Crown3::class,
+            ],
 
             [['gears'], 'validateGears'],
         ];
@@ -142,6 +148,7 @@ final class PlayerForm extends Model
                     'clothing_id' => $this->gearConfiguration($this->gearsForm ? $this->gearsForm->clothingForm : null),
                     'shoes_id' => $this->gearConfiguration($this->gearsForm ? $this->gearsForm->shoesForm : null),
                     'is_crowned' => self::boolVal($this->crown),
+                    'crown_id' => self::key2id($this->crown_type, Crown3::class),
                     'species_id' => self::key2id($this->species, Species3::class),
                 ],
                 $isTricolor
@@ -154,6 +161,16 @@ final class PlayerForm extends Model
                     ],
             ),
         );
+
+        // If only having a crown is specified, it is considered to be the crown of X
+        if ($model->is_crowned && !$model->crown_id) {
+            $model->crown_id = self::key2id('x', Crown3::class);
+        }
+
+        // If the crown is specified, it is crowned
+        if ($model->crown_id) {
+            $model->is_crowned = true;
+        }
 
         if (!$model->save()) {
             $this->addError('_system', vsprintf('Failed to store new player info, info=%s', [
