@@ -29,6 +29,7 @@ use app\assets\s3PixelIcons\VersionIconAsset;
 use app\assets\s3PixelIcons\WeaponIconAsset;
 use app\components\helpers\TypeHelper;
 use app\models\Ability3;
+use app\models\Crown3;
 use app\models\Lobby3;
 use app\models\LobbyGroup3;
 use app\models\Rule3;
@@ -72,7 +73,6 @@ use function str_starts_with;
  * @method static string close()
  * @method static string colorScheme()
  * @method static string config()
- * @method static string crown()
  * @method static string delete()
  * @method static string discord()
  * @method static string download()
@@ -143,6 +143,12 @@ use function str_starts_with;
  * @method static string s3AbilityThermalInk()
  * @method static string s3AbilityUnknown()
  * @method static string s3BigRun()
+ * @method static string s3Crown100x()
+ * @method static string s3Crown333x()
+ * @method static string s3CrownEmbellished100x()
+ * @method static string s3CrownEmbellished333x()
+ * @method static string s3CrownEmbellishedX()
+ * @method static string s3CrownX()
  * @method static string s3Death()
  * @method static string s3Eggstra()
  * @method static string s3GoldMedal()
@@ -273,7 +279,6 @@ final class Icon
     private static $fasMap = [
         'appLink' => 'link',
         'appUnlink' => 'unlink',
-        'crown' => 'crown',
         'hasDisconnected' => 'tint-slash',
     ];
 
@@ -321,6 +326,12 @@ final class Icon
         's3AbilityThermalInk' => [AbilityIconAsset::class, 'thermal_ink.png'],
         's3AbilityUnknown' => [AbilityIconAsset::class, 'unknown.png'],
         's3BigRun' => [SalmonModeIconAsset::class, 'bigrun.png', ['app-salmon3', 'Big Run'], true],
+        's3Crown100x' => [UiIconAsset::class, 'crown_100x.png'],
+        's3Crown333x' => [UiIconAsset::class, 'crown_333x.png'],
+        's3CrownEmbellished100x' => [UiIconAsset::class, 'crown_embellished_100x.png'],
+        's3CrownEmbellished333x' => [UiIconAsset::class, 'crown_embellished_333x.png'],
+        's3CrownEmbellishedX' => [UiIconAsset::class, 'crown_embellished_x.png'],
+        's3CrownX' => [UiIconAsset::class, 'crown_x.png'],
         's3Death' => [UiIconAsset::class, 'death.png', ['app', 'Deaths'], true],
         's3Eggstra' => [SalmonModeIconAsset::class, 'eggstra.png', ['app-salmon3', 'Eggstra Work'], true],
         's3GoldMedal' => [UiIconAsset::class, 'gold_medal.png'],
@@ -769,6 +780,20 @@ final class Icon
         return match ($species) {
             'inkling' => self::inkling(),
             'octoling' => self::octoling(),
+            default => null,
+        };
+    }
+
+    public static function s3Crown(string|Crown3|null $crown, bool $embellished = false): ?string
+    {
+        if ($crown instanceof Crown3) {
+            $crown = $crown->key;
+        }
+
+        return match ($crown) {
+            '100x' => $embellished ? self::s3CrownEmbellished100x() : self::s3Crown100x(),
+            '333x' => $embellished ? self::s3CrownEmbellished333x() : self::s3Crown333x(),
+            'x' => $embellished ? self::s3CrownEmbellishedX() : self::s3CrownX(),
             default => null,
         };
     }

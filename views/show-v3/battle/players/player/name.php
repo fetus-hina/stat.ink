@@ -15,6 +15,19 @@ use yii\web\View;
 
 $f = Yii::$app->formatter;
 
+if ($player->is_crowned || $player->crown) {
+  echo Html::tag(
+    'div',
+    Icon::s3Crown($player->crown ?? 'x'),
+    [
+      'class' => 'small',
+      'style' => [
+        'line-height' => '1',
+      ],
+    ],
+  );
+}
+
 // TODO: blackout / anonymize
 $title = $player->splashtagTitle;
 if ($title) {
