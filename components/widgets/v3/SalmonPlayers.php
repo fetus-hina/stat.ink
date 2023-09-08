@@ -236,7 +236,10 @@ final class SalmonPlayers extends Widget
 
                                         return Html::tag(
                                             'div',
-                                            Html::encode(Yii::t('app-weapon3', $weapon?->name ?? '?')),
+                                            implode(' ', [
+                                                Icon::s3Weapon($weapon),
+                                                Html::encode(Yii::t('app-weapon3', $weapon?->name ?? '?')),
+                                            ]),
                                             ['class' => 'omit'],
                                         );
                                     },
