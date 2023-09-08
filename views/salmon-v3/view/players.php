@@ -20,6 +20,7 @@ $players = SalmonPlayer3::find()
     'salmonPlayerWeapon3s',
     'salmonPlayerWeapon3s.weapon',
     'special',
+    'species',
     'uniform',
   ])
   ->andWhere(['salmon_id' => $model->id])
