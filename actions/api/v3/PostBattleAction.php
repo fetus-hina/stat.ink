@@ -61,6 +61,7 @@ final class PostBattleAction extends Action
                 ArrayHelper::toFlatten([
                     [
                         'battlePlayer3s',
+                        'battlePlayer3s.crown',
                         'battlePlayer3s.species',
                         'battlePlayer3s.splashtagTitle',
                         'battlePlayer3s.weapon',

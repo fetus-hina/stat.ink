@@ -139,6 +139,7 @@ final class UserAction extends Action
                     'battleImageJudge3',
                     'battleImageResult3',
                     'battlePlayer3s',
+                    'battlePlayer3s.crown',
                     'battlePlayer3s.species',
                     'battlePlayer3s.splashtagTitle',
                     'battlePlayer3s.weapon',
