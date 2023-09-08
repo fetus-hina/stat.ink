@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\components\widgets\Icon;
 use app\models\BattlePlayer3;
 use app\models\BattleTricolorPlayer3;
 use yii\helpers\Html;
@@ -27,7 +28,8 @@ if ($title) {
 echo Html::tag(
   'div',
   trim(
-    vsprintf('%s %s', [
+    vsprintf('%s %s %s', [
+      Icon::s3Species($player->species),
       Html::encode($player->name),
       $player->number !== null
         ? Html::tag(

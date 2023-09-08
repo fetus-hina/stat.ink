@@ -36,6 +36,7 @@ use app\models\SalmonMap3;
 use app\models\SalmonRandom3;
 use app\models\SalmonWeapon3;
 use app\models\Special3;
+use app\models\Species3;
 use app\models\Subweapon3;
 use app\models\Weapon3;
 use yii\base\UnknownMethodException;
@@ -88,6 +89,7 @@ use function str_starts_with;
  * @method static string help()
  * @method static string image()
  * @method static string info()
+ * @method static string inkling()
  * @method static string ios()
  * @method static string language()
  * @method static string languageLevelFew()
@@ -106,6 +108,7 @@ use function str_starts_with;
  * @method static string nextPage()
  * @method static string no()
  * @method static string number();
+ * @method static string octoling()
  * @method static string ok()
  * @method static string permalink()
  * @method static string popup()
@@ -287,6 +290,8 @@ final class Icon
         'bronzeScale' => [SalmonScaleIconAsset::class, 'scale_bronze.png', ['app-salmon-scale3', 'Bronze'], true],
         'goldScale' => [SalmonScaleIconAsset::class, 'scale_gold.png', ['app-salmon-scale3', 'Gold'], true],
         'goldenEgg' => [UiIconAsset::class, 'golden_egg.png', ['app-salmon2', 'Golden Eggs'], true],
+        'inkling' => [UiIconAsset::class, 'inkling.png', ['app', 'Inkling'], true],
+        'octoling' => [UiIconAsset::class, 'octoling.png', ['app', 'Octoling'], true],
         'powerEgg' => [UiIconAsset::class, 'power_egg.png', ['app-salmon2', 'Power Eggs'], true],
         's3AbilityAbilityDoubler' => [AbilityIconAsset::class, 'ability_doubler.png'],
         's3AbilityComeback' => [AbilityIconAsset::class, 'comeback.png'],
@@ -753,6 +758,19 @@ final class Icon
             Yii::t('app-map3', (string)$stage->name),
             true,
         );
+    }
+
+    public static function s3Species(string|Species3|null $species): ?string
+    {
+        if ($species instanceof Species3) {
+            $species = $species->key;
+        }
+
+        return match ($species) {
+            'inkling' => self::inkling(),
+            'octoling' => self::octoling(),
+            default => null,
+        };
     }
 
     public static function __callStatic(string $name, $args): string
