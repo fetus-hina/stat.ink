@@ -102,6 +102,7 @@ final class Splatfest3Action extends Action
                 ];
                 return [
                     'colors' => $colors,
+                    'dragonStats' => $this->getDragonStats($db, $model),
                     'festList' => $this->getFestList($db),
                     'names' => $names,
                     'splatfest' => $model,
@@ -467,5 +468,82 @@ final class Splatfest3Action extends Action
                 ->all($db),
             'id',
         );
+    }
+
+    /**
+     * @return array{lobby_id: int, fest_dragon_id: int, battles: int}[]
+     */
+    private function getDragonStats(Connection $db, Splatfest3 $fest): array
+    {
+        $lobbyIds = ArrayHelper::getColumn(
+            Lobby3::find()
+                ->andWhere([
+                    'key' => [
+                        'splatfest_open',
+                        'splatfest_challenge',
+                    ],
+                ])
+                ->cache(86400)
+                ->all($db),
+            'id',
+        );
+
+        $nawabari = Rule3::find()
+            ->andWhere(['key' => 'nawabari'])
+            ->limit(1)
+            ->cache(86400)
+            ->one($db);
+
+        if (count($lobbyIds) !== 2 || !$nawabari) {
+            throw new ServerErrorHttpException();
+        }
+
+        $query = (new Query())
+            ->select([
+                '{{%battle3}}.[[lobby_id]]',
+                '{{%battle3}}.[[fest_dragon_id]]',
+                'battles' => 'COUNT(*)',
+            ])
+            ->from('{{%battle3}}')
+            ->andWhere(['and',
+                [
+                    '{{%battle3}}.[[has_disconnect]]' => false,
+                    '{{%battle3}}.[[is_automated]]' => true,
+                    '{{%battle3}}.[[is_deleted]]' => false,
+                    '{{%battle3}}.[[lobby_id]]' => $lobbyIds,
+                    '{{%battle3}}.[[rule_id]]' => $nawabari->id,
+                    '{{%battle3}}.[[use_for_entire]]' => true,
+                ],
+                '{{%battle3}}.[[start_at]] < {{%battle3}}.[[end_at]]',
+                ['between',
+                    '{{%battle3}}.[[start_at]]',
+                    new Expression(
+                        vsprintf('%s::timestamptz - %s::interval', [
+                            $db->quoteValue($fest->start_at),
+                            $db->quoteValue('1 hour'),
+                        ]),
+                    ),
+                    new Expression(
+                        vsprintf('%s::timestamptz + %s::interval', [
+                            $db->quoteValue($fest->end_at),
+                            $db->quoteValue('10 minute'),
+                        ]),
+                    ),
+                ],
+                ['not', ['{{%battle3}}.[[our_team_theme_id]]' => null]],
+                ['not', ['{{%battle3}}.[[their_team_theme_id]]' => null]],
+                '{{%battle3}}.[[our_team_theme_id]] <> {{%battle3}}.[[their_team_theme_id]]',
+            ])
+            ->groupBy([
+                '{{%battle3}}.[[lobby_id]]',
+                '{{%battle3}}.[[fest_dragon_id]]',
+            ])
+            ->orderBy([
+                '{{%battle3}}.[[lobby_id]]' => SORT_ASC,
+                '{{%battle3}}.[[fest_dragon_id]]' => SORT_ASC,
+            ]);
+        return $query->createCommand($db)
+            ->cache(300)
+            ->queryAll();
     }
 }

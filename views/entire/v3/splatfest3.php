@@ -20,6 +20,7 @@ use yii\web\View;
  * @var array<string, int> $votes
  * @var array<string, string> $colors
  * @var array<string, string> $names
+ * @var array{lobby_id: int, fest_dragon_id: int|null, battles: int}[] $dragonStats
  * @var array{map_id: int, battles: int, attacker_wins: int}[] $tricolorStats
  */
 
@@ -70,4 +71,5 @@ OgpHelper::default($this, title: $this->title);
   <?= $this->render('splatfest3/vote', compact('colors', 'names', 'votes')) . "\n" ?>
   <?= $this->render('splatfest3/tricolor', compact('stages', 'tricolorStats')) . "\n" ?>
   <?= $this->render('splatfest3/power', compact('splatfest')) . "\n" ?>
+  <?= $this->render('splatfest3/dragon', compact('splatfest', 'dragonStats')) . "\n" ?>
 </div>
