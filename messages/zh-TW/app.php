@@ -18,6 +18,7 @@ return [
     '(incomplete)' => '(不完全)',
     '(unknown result)' => '(未知結果)',
     '* This exclusion is an attempt to minimize overcounting in weapon usage statistics.' => '* 這個排除是爲了儘量減少武器使用統計中的重複計數。',
+    '1x Battle' => '',
     '3+9 Format' => '3+9格式',
     '3, 9 Format' => '3，9格式',
     '7 players for each battle (excluded the battle uploader)' => '每場對戰的七名玩家 (不包含上傳者)',

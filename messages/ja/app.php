@@ -21,6 +21,7 @@ return [
     '100x Battle WINNER!' => '100倍マッチ WINNER!',
     '100x Battle' => '100倍マッチ',
     '10x Battle' => '10倍マッチ',
+    '1x Battle' => '通常マッチ',
     '24H Win %' => '24H勝率',
     '3+9 Format' => '3+9形式',
     '3, 9 Format' => '3, 9形式',

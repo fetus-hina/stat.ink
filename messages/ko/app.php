@@ -18,6 +18,7 @@ return [
     '(incomplete)' => '(미완성)',
     '(unknown result)' => '(알 수 없는 결과)',
     '* This exclusion is an attempt to minimize overcounting in weapon usage statistics.' => '* 무기 사용률 통계에서 실제 이상으로 집계되는 것을 최소화하기 위함입니다.',
+    '1x Battle' => '',
     '3+9 Format' => '3+9 포맷',
     '3, 9 Format' => '3, 9 포맷',
     '7 players for each battle (excluded the battle uploader)' => '매 매치마다 (업로더를 제외한) 7 플레이어',

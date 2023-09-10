@@ -16,6 +16,7 @@ return [
     '(incomplete)' => '',
     '(unknown result)' => '',
     '* This exclusion is an attempt to minimize overcounting in weapon usage statistics.' => '',
+    '1x Battle' => '',
     '3+9 Format' => '',
     '3, 9 Format' => '',
     '7 players for each battle (excluded the battle uploader)' => '',
