@@ -14,6 +14,7 @@ use yii\web\View;
  * @var int $battles
  * @var int $wins
  * @var string $label
+ * @var string|null $shortLabel
  */
 
 if ($battles < 1) {
@@ -26,7 +27,16 @@ $errInfo = StandardError::winpct($wins, $battles);
 ?>
 <tr>
   <th scope="row">
+<?php if ($shortLabel ?? null) { ?>
+    <div class="d-block d-md-none">
+      <?= Html::encode($shortLabel) . "\n" ?>
+    </div>
+    <div class="d-none d-md-block">
+      <?= Html::encode($label) . "\n" ?>
+    </div>
+<?php } else { ?>
     <?= Html::encode($label) . "\n" ?>
+<?php } ?>
   </th>
   <td class="text-right">
     <?= $fmt->asInteger($battles) . "\n" ?>

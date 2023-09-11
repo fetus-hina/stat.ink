@@ -56,23 +56,30 @@ if ($totalSamples) {
   </div>
   <div class="panel-body pb-0">
 <?php if ($totalSamples > 100) { ?>
-    <table class="table table-bordered table-striped table-condensed w-auto mb-3">
-      <thead>
-        <tr>
-          <th></th>
-          <th class="text-center"><?= Html::encode(Yii::t('app', 'Samples')) ?></th>
-          <th class="text-center"><?= Html::encode(Yii::t('app', '1x Battle')) ?></th>
-          <th class="text-center"><?= Html::encode(Yii::t('app', '10x Battle')) ?></th>
-          <th class="text-center"><?= Html::encode(Yii::t('app', '100x Battle')) ?></th>
-          <th class="text-center"><?= Html::encode(Yii::t('app', '333x Battle')) ?></th>
-        </tr>
-      </thead>
-      <tbody>
-<?php foreach ($lobbies as $lobby) { ?>
-        <?= $this->render('dragon/row', compact('lobby', 'dragonStats', 'dragons')) . "\n" ?>
-<?php } ?>
-      </tbody>
-    </table>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered table-striped table-condensed w-auto mb-0">
+        <thead>
+          <tr>
+            <th></th>
+            <th class="text-center"><?= Html::encode(Yii::t('app', 'Samples')) ?></th>
+            <th class="text-center"><?= Html::encode(Yii::t('app', '1x Battle')) ?></th>
+            <th class="text-center"><?= Html::encode(Yii::t('app', '10x Battle')) ?></th>
+            <th class="text-center"><?= Html::encode(Yii::t('app', '100x Battle')) ?></th>
+            <th class="text-center"><?= Html::encode(Yii::t('app', '333x Battle')) ?></th>
+          </tr>
+        </thead>
+        <tbody>
+          <?= implode('', array_map(
+            fn (Lobby3 $lobby) => $this->render('dragon/row', [
+              'lobby' => $lobby,
+              'dragonStats' => $dragonStats,
+              'dragons' => $dragons,
+            ]),
+            $lobbies,
+          )) . "\n" ?>
+        </tbody>
+      </table>
+    </div>
 <?php } else { ?>
     <p class="mb-3 text-muted">
       <?= Html::encode(Yii::t('app', 'Not enough data is available.')) . "\n" ?>
