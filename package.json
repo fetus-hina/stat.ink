@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "@babel/cli": "^7.22.15",
-    "@babel/core": "^7.22.15",
+    "@babel/core": "^7.22.17",
     "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.22.15",
     "@babel/preset-react": "^7.22.15",
