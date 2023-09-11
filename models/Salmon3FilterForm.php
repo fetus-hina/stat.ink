@@ -95,10 +95,7 @@ final class Salmon3FilterForm extends Model
                     hash_hmac('sha256', 'map', __FILE__),
                     fn (): array => array_merge(
                         self::getKeyList(SalmonMap3::class),
-                        [
-                            'amabi', // FIXME
-                            'sumeshi', // FIXME
-                        ],
+                        self::getBigRunKeys(),
                     ),
                     7200,
                 ),
@@ -212,5 +209,19 @@ final class Salmon3FilterForm extends Model
         }
 
         return $results;
+    }
+
+    /**
+     * @return string[]
+     */
+    private static function getBigRunKeys(): array
+    {
+        return ArrayHelper::getColumn(
+            Map3::find()
+                ->andWhere(['bigrun' => true])
+                ->orderBy(['key' => SORT_ASC])
+                ->all(),
+            'key',
+        );
     }
 }
