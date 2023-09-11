@@ -14,6 +14,7 @@ use Yii;
 use app\assets\SalmonBossesAsset;
 use app\components\i18n\Formatter;
 use app\components\widgets\Emoji;
+use app\components\widgets\Icon;
 use app\models\Salmon3;
 use app\models\SalmonBossAppearance3;
 use yii\base\Widget;
@@ -173,14 +174,13 @@ final class SalmonBosses extends Widget
     {
         return Html::tag(
             'th',
-            trim(
-                vsprintf('%s %s', [
-                    Html::encode(Yii::t('app-salmon-boss3', $model->boss->name)),
-                    $this->isAllDefeated($model) && !$this->isBrokenData($model)
-                        ? Emoji::cp(Emoji::CP_PARTY_POPPER)
-                        : '',
-                ]),
-            ),
+            implode(' ', [
+                Icon::s3BossSalmonid($model->boss),
+                Html::encode(Yii::t('app-salmon-boss3', $model->boss->name)),
+                $this->isAllDefeated($model) && !$this->isBrokenData($model)
+                    ? Emoji::cp(Emoji::CP_PARTY_POPPER)
+                    : '',
+            ]),
             ['scope' => 'row'],
         );
     }

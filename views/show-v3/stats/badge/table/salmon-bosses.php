@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use app\assets\Spl3SalmonidAsset;
+use app\components\widgets\Icon;
 use app\models\SalmonBoss3;
 use app\models\UserBadge3BossSalmonid;
 use yii\helpers\ArrayHelper;
@@ -16,16 +16,14 @@ use yii\web\View;
  * @var bool $isEditing
  */
 
-$am = Yii::$app->assetManager;
-$icon = Spl3SalmonidAsset::register($this);
-
 echo $this->render('includes/group-header', ['label' => Yii::t('app-salmon3', 'Boss Salmonid')]);
 foreach ($bosses as $boss) {
   $key = 'salmon-boss-' . $boss->key;
   echo $this->render('includes/row', [
     'isEditing' => $isEditing,
     'itemKey' => $key,
-    'icon' => $am->getAssetUrl($icon, sprintf('%s.png', $boss->key)),
+    'icon' => Icon::s3BossSalmonid($boss, '2em'),
+    'iconFormat' => 'raw',
     'label' => Yii::t('app-salmon-boss3', $boss->name),
     'value' => ArrayHelper::getValue($badgeBosses, [$boss->key, 'count']),
     'adjust' => (int)ArrayHelper::getValue($badgeAdjust, $key, 0),

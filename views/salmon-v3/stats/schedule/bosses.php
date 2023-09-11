@@ -48,7 +48,10 @@ $fmt = Yii::$app->formatter;
     <tbody>
 <?php foreach ($bossStats as $bossId => $row) { ?>
       <tr>
-        <th scope="row"><?= Html::encode(Yii::t('app-salmon-boss3', $bosses[$bossId]?->name)) ?></th>
+        <th scope="row">
+          <?= Icon::s3BossSalmonid($bosses[$bossId] ?? null) . "\n" ?>
+          <?= Html::encode(Yii::t('app-salmon-boss3', $bosses[$bossId]?->name)) . "\n" ?>
+        </th>
         <td class="text-center"><?= $fmt->asInteger($row['appearances']) ?></td>
         <td class="text-center"><?= $fmt->asInteger($row['defeated']) ?></td>
         <td class="text-center"><?= $fmt->asPercent(

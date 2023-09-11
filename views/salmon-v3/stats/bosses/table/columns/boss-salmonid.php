@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use app\components\helpers\TypeHelper;
+use app\components\widgets\Icon;
 use app\models\SalmonBoss3;
 use app\models\User;
 use yii\helpers\ArrayHelper;
@@ -48,7 +49,10 @@ return [
     $key = TypeHelper::string(ArrayHelper::getValue($row, 'boss_key'));
     $boss = ArrayHelper::getValue($bosses, $key);
     return $boss instanceof SalmonBoss3
-      ? Html::encode(Yii::t('app-salmon-boss3', $boss->name))
+      ? implode(' ', [
+        Icon::s3BossSalmonid($boss),
+        Html::encode(Yii::t('app-salmon-boss3', $boss->name))
+      ])
       : "({$key})";
   },
 ];
