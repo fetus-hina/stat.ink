@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\ApiInfoName;
+use app\components\widgets\Icon;
 use app\models\Language;
 use app\models\SalmonKing3;
 use app\models\SalmonKing3Alias;
@@ -27,6 +28,7 @@ SortableTableAsset::register($this);
   <table class="table table-striped table-condensed table-sortable">
     <thead>
       <tr>
+        <th></th>
         <th data-sort="string"><code>key</code></th>
         <th data-sort="string"><?= Html::encode(Yii::t('app', 'Aliases')) ?></th>
 <?php foreach ($langs as $i => $lang) { ?>
@@ -43,6 +45,7 @@ SortableTableAsset::register($this);
     <tbody>
 <?php foreach ($salmonids as $salmonid) { ?>
       <tr>
+        <?= Html::tag('td', Icon::s3BossSalmonid($salmonid), ['class' => 'text-center']) . "\n" ?>
         <?= Html::tag(
           'td',
           Html::tag('code', Html::encode($salmonid->key)),

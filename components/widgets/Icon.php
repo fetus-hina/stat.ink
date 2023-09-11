@@ -18,6 +18,7 @@ use app\assets\s3PixelIcons\AbilityIconAsset;
 use app\assets\s3PixelIcons\LobbyIconAsset;
 use app\assets\s3PixelIcons\RuleIconAsset;
 use app\assets\s3PixelIcons\SalmometerIconAsset;
+use app\assets\s3PixelIcons\SalmonBossIconAsset;
 use app\assets\s3PixelIcons\SalmonModeIconAsset;
 use app\assets\s3PixelIcons\SalmonRandomIconAsset;
 use app\assets\s3PixelIcons\SalmonScaleIconAsset;
@@ -33,6 +34,8 @@ use app\models\Crown3;
 use app\models\Lobby3;
 use app\models\LobbyGroup3;
 use app\models\Rule3;
+use app\models\SalmonBoss3;
+use app\models\SalmonKing3;
 use app\models\SalmonMap3;
 use app\models\SalmonRandom3;
 use app\models\SalmonWeapon3;
@@ -796,6 +799,43 @@ final class Icon
             'x' => $embellished ? self::s3CrownEmbellishedX() : self::s3CrownX(),
             default => null,
         };
+    }
+
+    public static function s3BossSalmonid(
+        string|SalmonBoss3|SalmonKing3|null $boss,
+        ?string $size = null,
+    ): ?string {
+        if (is_string($boss)) {
+            $boss = match ($boss) {
+                'yokozuna', 'tatsu' => SalmonKing3::find()
+                    ->andWhere(['key' => $boss])
+                    ->limit(1)
+                    ->cache(86400)
+                    ->one(),
+
+                default => SalmonBoss3::find()
+                    ->andWhere(['key' => $boss])
+                    ->limit(1)
+                    ->cache(86400)
+                    ->one(),
+            };
+        }
+
+        if (
+            $boss === null ||
+            $boss->key === 'hakobiya' ||
+            $boss->key === 'shake_copter'
+        ) {
+            return null;
+        }
+
+        return self::assetImage(
+            SalmonBossIconAsset::class,
+            "{$boss->key}.png",
+            Yii::t('app-salmon-boss3', (string)$boss->name),
+            true,
+            $size,
+        );
     }
 
     public static function __callStatic(string $name, $args): string

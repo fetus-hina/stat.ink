@@ -28,6 +28,7 @@ return [
           ],
         ],
       ),
+      $stage instanceof SalmonMap3 ? Icon::s3SalmonStage($stage) : null,
       Html::encode(Yii::t('app-map3', $stage->name)),
     ]);
   },
