@@ -118,10 +118,6 @@ class FA extends Widget
 
     protected function renderFA(): string
     {
-        if ($this->icon === 'twitter') {
-            $this->view->registerCss('.fa-twitter{color:#1da1f2}');
-        }
-
         return Html::tag(
             $this->tag,
             $this->content ?? '',

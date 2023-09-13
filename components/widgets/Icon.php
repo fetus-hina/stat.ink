@@ -266,6 +266,7 @@ final class Icon
         'subCategory' => 'chevron-double-right',
         'subPage' => 'chevron-right',
         'timezone' => 'clock',
+        'twitter' => 'twitter-x',
         'unknown' => 'question',
         'upperBound' => 'arrow-up-short',
         'user' => 'person-fill',
@@ -388,17 +389,6 @@ final class Icon
         return self::fas(
             'level-up-alt',
             modifier: fn (FA $v): FA => $v->fw()->rotate(90),
-        );
-    }
-
-    public static function twitter(): string
-    {
-        return self::bi(
-            'twitter',
-            css: implode('', [
-                '.bi-twitter{color:#1da1f2}',
-                '.btn .bi-twitter{color:inherit}',
-            ]),
         );
     }
 
