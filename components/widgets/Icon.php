@@ -51,7 +51,6 @@ use yii\web\View;
 
 use function array_filter;
 use function array_values;
-use function implode;
 use function in_array;
 use function is_array;
 use function is_string;
