@@ -36,6 +36,7 @@ trait Battle1Formatter
             'image' => $battle->battleImageResult
                 ? $battle->battleImageResult->url
                 : null,
+            'thumbnail' => null,
             'isWin' => $battle->is_win,
             'mode' => null,
             'stage' => $battle->map

@@ -39,6 +39,7 @@ trait Battle2Formatter
                     true,
                 )
                 : null,
+            'thumbnail' => null,
             'isWin' => $battle->is_win,
             'mode' => $battle->mode
                 ? [

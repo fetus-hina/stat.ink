@@ -30,8 +30,9 @@ trait Battle3Formatter
     protected function formatBattle3(Battle3 $battle): array
     {
         return [
-            'id' => $battle->id,
+            'id' => $battle->uuid,
             'image' => self::image3($battle),
+            'thumbnail' => self::thumb3($battle),
             'isWin' => self::isWin3($battle),
             'mode' => self::mode3($battle),
             'stage' => self::stage3($battle),
@@ -57,7 +58,27 @@ trait Battle3Formatter
         if (ArrayHelper::getValue(Yii::$app->params, 'useS3ImgGen')) {
             $rule = $model->rule;
             if ($rule && $rule->key !== 'tricolor') {
-                return vsprintf('https://s3-img-gen.stats.ink/results/en-US/%s.jpg', [
+                return vsprintf('https://s3-img-gen.stats.ink/results/%s/%s.jpg', [
+                    rawurlencode(Yii::$app->language),
+                    rawurlencode($model->uuid),
+                ]);
+            }
+        }
+
+        return null;
+    }
+
+    private static function thumb3(Battle3 $model): ?string
+    {
+        if ($model->battleImageResult3) {
+            return null;
+        }
+
+        if (ArrayHelper::getValue(Yii::$app->params, 'useS3ImgGen')) {
+            $rule = $model->rule;
+            if ($rule && $rule->key !== 'tricolor') {
+                return vsprintf('https://s3-img-gen.stats.ink/results/thumb-<w>x<h>/%s/%s.jpg', [
+                    rawurlencode(Yii::$app->language),
                     rawurlencode($model->uuid),
                 ]);
             }
