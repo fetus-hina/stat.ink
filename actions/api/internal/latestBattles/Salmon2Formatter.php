@@ -32,6 +32,7 @@ trait Salmon2Formatter
         return [
             'id' => $battle->id,
             'image' => null,
+            'thumbnail' => null,
             'isWin' => $battle->clear_waves === null ? null : $battle->clear_waves >= 3,
             'mode' => [
                 'icon' => Url::to($am->getAssetUrl($modeAsset, 'spl2/salmon.png'), true),

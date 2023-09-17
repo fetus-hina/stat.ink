@@ -50,8 +50,31 @@ const useStyles = createUseStyles({
       content: '""'
     }
   },
-  mediaSplatnet2: {
-    // scale: 1138 / 1024,
+  mediaHasThumbnail: {
+    '@media (min-width: 768px)': {
+      backgroundImage: [
+        'image-set(var(--thumbnail-sm-1) 1x, var(--thumbnail-sm-2) 2x)',
+        `var(--thumbnail-fallback)`,
+        'linear-gradient(to bottom, #ddd, #bbb)',
+        `url(data:image/png;base64,${EMPTY_IMAGE_16_BY_9})`,
+      ].join(', ') + ' !important'
+    },
+    '@media (min-width: 992px)': {
+      backgroundImage: [
+        'image-set(var(--thumbnail-md-1) 1x, var(--thumbnail-md-2) 2x)',
+        `var(--thumbnail-fallback)`,
+        'linear-gradient(to bottom, #ddd, #bbb)',
+        `url(data:image/png;base64,${EMPTY_IMAGE_16_BY_9})`,
+      ].join(', ') + ' !important'
+    },
+    '@media (min-width: 1200px)': {
+      backgroundImage: [
+        'image-set(var(--thumbnail-lg-1) 1x, var(--thumbnail-lg-2) 2x)',
+        `var(--thumbnail-fallback)`,
+        'linear-gradient(to bottom, #ddd, #bbb)',
+        `url(data:image/png;base64,${EMPTY_IMAGE_16_BY_9})`,
+      ].join(', ') + ' !important'
+    },
   },
   modeIcons: {
     backgroundColor: 'rgba(255, 255, 255, 0.8)',
@@ -98,12 +121,24 @@ const useStyles = createUseStyles({
   }
 });
 
+const useStyles2 = createUseStyles({
+  mediaBackground: ({ battle, fallbackImage }) => ({
+    backgroundImage: buildBackgroundImages(battle, fallbackImage),
+  }),
+});
+
 const nbsp = '\u{00a0}';
+
+function thumbnailUrl (template, width, height, x) {
+  return template
+    .replace('<w>', Math.floor(width * x))
+    .replace('<h>', Math.floor(height * x));
+}
 
 export default function BattleCard (props) {
   const { battle, fallbackImage, reltime } = props;
   const classes = useStyles();
-  const bgImages = buildImages(battle, fallbackImage);
+  const classes2 = useStyles2(props);
 
   return (
     <div className='col-xs-12 col-sm-6 col-md-4 col-lg-3 mb-2'>
@@ -114,12 +149,23 @@ export default function BattleCard (props) {
               [
                 classes.media,
                 classes.media16x9,
-                (battle.variant === 'splatoon2' && battle.image) ? classes.mediaSplatnet2 : null
-              ].join(' ')
+                classes2.mediaBackground,
+                battle.thumbnail ? classes.mediaHasThumbnail : null,
+              ].filter(v => v !== null).join(' ')
             }
-            style={{
-              backgroundImage: bgImages.join(', ')
-            }}
+            style={
+              battle.thumbnail
+                ? {
+                  '--thumbnail-sm-1': `url('${thumbnailUrl(battle.thumbnail, 343.00, 192.94, 1)}')`,
+                  '--thumbnail-sm-2': `url('${thumbnailUrl(battle.thumbnail, 343.00, 192.94, 2)}')`,
+                  '--thumbnail-md-1': `url('${thumbnailUrl(battle.thumbnail, 291.33, 163.86, 1)}')`,
+                  '--thumbnail-md-2': `url('${thumbnailUrl(battle.thumbnail, 291.33, 163.86, 2)}')`,
+                  '--thumbnail-lg-1': `url('${thumbnailUrl(battle.thumbnail, 260.50, 146.53, 1)}')`,
+                  '--thumbnail-lg-2': `url('${thumbnailUrl(battle.thumbnail, 260.50, 146.53, 2)}')`,
+                  '--thumbnail-fallback': `url('${fallbackImage}')`,
+                }
+                : {}
+            }
           >
             {((battle.mode && battle.mode.icon) || (battle.rule && battle.rule.icon))
               ? (
@@ -189,7 +235,7 @@ BattleCard.propTypes = {
   reltime: PropTypes.object.isRequired
 };
 
-function buildImages (battle, fallbackImage) {
+function buildBackgroundImages (battle, fallbackImage) {
   const results = [];
   if (battle.image) {
     results.push(`url(${battle.image})`);
@@ -207,5 +253,6 @@ function buildImages (battle, fallbackImage) {
     results.push(`url(${fallbackImage})`);
   }
   results.push(`url(data:image/png;base64,${EMPTY_IMAGE_16_BY_9})`);
-  return results;
+
+  return results.join(', ');
 }

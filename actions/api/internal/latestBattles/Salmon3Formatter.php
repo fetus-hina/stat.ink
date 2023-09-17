@@ -34,6 +34,7 @@ trait Salmon3Formatter
         return [
             'id' => $battle->uuid,
             'image' => self::salmonImage3($battle),
+            'thumbnail' => self::salmonThumb3($battle),
             'isWin' => match (true) {
                 $battle->is_eggstra_work === true && $battle->clear_waves !== null => $battle->clear_waves >= 5,
                 $battle->is_eggstra_work !== true && $battle->clear_waves !== null => $battle->clear_waves >= 3,
@@ -116,7 +117,20 @@ trait Salmon3Formatter
     private static function salmonImage3(Salmon3 $model): ?string
     {
         if (ArrayHelper::getValue(Yii::$app->params, 'useS3ImgGen')) {
-            return vsprintf('https://s3-img-gen.stats.ink/salmon/en-US/%s.jpg', [
+            return vsprintf('https://s3-img-gen.stats.ink/salmon/%s/%s.jpg', [
+                rawurlencode(Yii::$app->language),
+                rawurlencode($model->uuid),
+            ]);
+        }
+
+        return null;
+    }
+
+    private static function salmonThumb3(Salmon3 $model): ?string
+    {
+        if (ArrayHelper::getValue(Yii::$app->params, 'useS3ImgGen')) {
+            return vsprintf('https://s3-img-gen.stats.ink/salmon/thumb-<w>x<h>/%s/%s.jpg', [
+                rawurlencode(Yii::$app->language),
                 rawurlencode($model->uuid),
             ]);
         }
