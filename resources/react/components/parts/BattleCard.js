@@ -24,6 +24,11 @@ const useStyles = createUseStyles({
   outlined: {
     border: '1px solid #ddd'
   },
+  link: {
+    '&:hover $media': {
+      filter: 'brightness(110%)'
+    }
+  },
   media: {
     backgroundClip: 'padding-box',
     backgroundColor: 'transparent',
