@@ -40,28 +40,22 @@ OgpHelper::default($this, Url::to(['site/index'], true));
     <?= IndexI18nButtons::widget() . "\n" ?>
   </div>
 
-  <div id="counter-app"></div>
-<?php ReactCounterAppAsset::register($this); ?>
-
   <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-8 col-lg-9">
-      <h1 class="paintball" style="font-size:42px;margin-top:0">
+      <h1 class="paintball mb-3" style="font-size:42px;margin-top:0">
         <?= Html::encode(Yii::$app->name) . "\n" ?>
       </h1>
-      <p>
+      <p class="mb-3">
         <?= Html::encode(Yii::t('app', 'Keep doing it.')) . "\n" ?>
       </p>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-<?php if (file_exists(Yii::getAlias('@app/views/includes/sponsored.php'))): ?>
-        <?= $this->render('/includes/sponsored') . "\n" ?>
-<?php endif; ?>
+    <div class="col-12 col-xs-12 col-sm-6 col-md-4 col-lg-3">
+      <?php ReactCounterAppAsset::register($this); echo "\n" ?>
+      <div id="counter-app" class="mb-3"></div>
     </div>
   </div>
   <?= HappyNewYearWidget::widget() . "\n" ?>
   <?= MaintenanceInfo::widget() . "\n" ?>
-  <?= PleaseUseLatest::widget() . "\n" ?>
-  <?= ImportFromSplatnet::widget() . "\n" ?>
   <?= LanguageSupportLevelWarning::widget() . "\n" ?>
 
 <?php InlineListAsset::register($this) ?>
