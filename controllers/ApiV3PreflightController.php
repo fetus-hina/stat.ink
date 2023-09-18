@@ -44,9 +44,8 @@ final class ApiV3PreflightController extends Controller
     protected function verbs()
     {
         return [
-            'options' => [
-                'OPTIONS',
-            ],
+            'delete-options' => ['OPTIONS'],
+            'post-options' => ['OPTIONS'],
         ];
     }
 
@@ -57,7 +56,7 @@ final class ApiV3PreflightController extends Controller
 
     public function actionDeleteOptions(): Response
     {
-        return $this->doOptions(delete: true);
+        return $this->doOptions(post:true, delete: true);
     }
 
     private function doOptions(bool $post = false, bool $delete = false): Response
