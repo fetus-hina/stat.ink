@@ -41,7 +41,7 @@ OgpHelper::default($this, Url::to(['site/index'], true));
   </div>
 
   <div class="row">
-    <div class="col-xs-12 col-sm-6 col-md-8 col-lg-9">
+    <div class="col-xs-12 col-sm-6 col-md-8">
       <h1 class="paintball mb-3" style="font-size:42px;margin-top:0">
         <?= Html::encode(Yii::$app->name) . "\n" ?>
       </h1>
@@ -49,7 +49,7 @@ OgpHelper::default($this, Url::to(['site/index'], true));
         <?= Html::encode(Yii::t('app', 'Keep doing it.')) . "\n" ?>
       </p>
     </div>
-    <div class="col-12 col-xs-12 col-sm-6 col-md-4 col-lg-3">
+    <div class="col-12 col-xs-12 col-sm-6 col-md-4">
       <?php ReactCounterAppAsset::register($this); echo "\n" ?>
       <div id="counter-app" class="mb-3"></div>
     </div>
