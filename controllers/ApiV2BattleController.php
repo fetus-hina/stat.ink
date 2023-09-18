@@ -350,17 +350,25 @@ class ApiV2BattleController extends Controller
             return $res;
         }
 
-        $allowMethods = $postable
+        $allowedMethods = $postable
             ? ['GET', 'HEAD', 'POST', 'OPTIONS']
             : ['GET', 'HEAD', 'OPTIONS'];
 
-        $res->statusCode = 200;
+        $allowedHeaders = [
+            'Accept',
+            'Authorization',
+            'Content-Type',
+            'Origin',
+            'X-Requested-With',
+        ];
+
+        $res->statusCode = 204;
         $header = $res->getHeaders();
-        $header->set('Allow', implode(', ', $allowMethods));
+        $header->set('Access-Control-Allow-Headers', implode(', ', $allowedHeaders));
+        $header->set('Access-Control-Allow-Methods', implode(', ', $allowedMethods));
         $header->set('Access-Control-Allow-Origin', '*');
-        $header->set('Access-Control-Allow-Methods', implode(', ', $allowMethods));
-        $header->set('Access-Control-Allow-Headers', 'Content-Type, Authenticate');
         $header->set('Access-Control-Max-Age', '86400');
+        $header->set('Allow', implode(', ', $allowedMethods));
         return $res;
     }
 }

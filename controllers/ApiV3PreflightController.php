@@ -85,8 +85,16 @@ final class ApiV3PreflightController extends Controller
 
         sort($allowedMethods, SORT_NATURAL | SORT_FLAG_CASE);
 
+        $allowedHeaders = [
+            'Accept',
+            'Authorization',
+            'Content-Type',
+            'Origin',
+            'X-Requested-With',
+        ];
+
         $headers = [
-            'Access-Control-Allow-Headers' => 'Content-Type, Authenticate',
+            'Access-Control-Allow-Headers' => implode(', ', $allowedHeaders),
             'Access-Control-Allow-Methods' => implode(', ', $allowedMethods),
             'Access-Control-Allow-Origin' => '*',
             'Access-Control-Max-Age' => '86400',
