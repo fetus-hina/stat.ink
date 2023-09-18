@@ -88,8 +88,6 @@ RESOURCE_TARGETS := \
 	resources/.compiled/stat.ink/game-modes.css \
 	resources/.compiled/stat.ink/gear-ability-number-switcher.js \
 	resources/.compiled/stat.ink/hsv2rgb.js \
-	resources/.compiled/stat.ink/ie-warning.css \
-	resources/.compiled/stat.ink/ie-warning.js \
 	resources/.compiled/stat.ink/inline-list.css \
 	resources/.compiled/stat.ink/jquery.easy-chartjs.js \
 	resources/.compiled/stat.ink/jquery.twemoji.css \
@@ -324,8 +322,6 @@ resources/.compiled/stat.ink/freshness-history.js: resources/stat.ink/freshness-
 resources/.compiled/stat.ink/game-modes.css: resources/stat.ink/game-modes.scss node_modules
 resources/.compiled/stat.ink/gear-ability-number-switcher.js: resources/stat.ink/gear-ability-number-switcher.es node_modules
 resources/.compiled/stat.ink/hsv2rgb.js: resources/stat.ink/hsv2rgb.es node_modules
-resources/.compiled/stat.ink/ie-warning.css: resources/stat.ink/ie-warning.scss node_modules
-resources/.compiled/stat.ink/ie-warning.js: resources/stat.ink/ie-warning.es node_modules
 resources/.compiled/stat.ink/inline-list.css: resources/stat.ink/inline-list.scss node_modules
 resources/.compiled/stat.ink/jquery.easy-chartjs.js: resources/stat.ink/jquery.easy-chartjs.es node_modules
 resources/.compiled/stat.ink/jquery.twemoji.css: resources/stat.ink/jquery.twemoji.scss node_modules

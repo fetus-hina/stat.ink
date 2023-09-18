@@ -75,7 +75,6 @@ $isApple = str_contains($ua, 'iPad') || str_contains($ua, 'iPhone') || str_conta
     'prefix' => 'og: https://ogp.me/ns#',
   ]) . "\n" ?>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no,email=no,address=no">
@@ -102,7 +101,6 @@ $isApple = str_contains($ua, 'iPad') || str_contains($ua, 'iPhone') || str_conta
 <?php if (!$isPjax) { ?>
       <header>
         <?= $this->render('/layouts/testsite') . "\n" ?>
-        <?= $this->render('/layouts/ie') . "\n" ?>
         <?= $this->render('/layouts/navbar') . "\n" ?>
       </header>
 <?php } ?>
