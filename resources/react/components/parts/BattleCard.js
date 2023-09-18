@@ -54,27 +54,27 @@ const useStyles = createUseStyles({
     '@media (min-width: 768px)': {
       backgroundImage: [
         'image-set(var(--thumbnail-sm-1) 1x, var(--thumbnail-sm-2) 2x)',
-        `var(--thumbnail-fallback)`,
+        'var(--thumbnail-fallback)',
         'linear-gradient(to bottom, #ddd, #bbb)',
-        `url(data:image/png;base64,${EMPTY_IMAGE_16_BY_9})`,
+        `url(data:image/png;base64,${EMPTY_IMAGE_16_BY_9})`
       ].join(', ') + ' !important'
     },
     '@media (min-width: 992px)': {
       backgroundImage: [
         'image-set(var(--thumbnail-md-1) 1x, var(--thumbnail-md-2) 2x)',
-        `var(--thumbnail-fallback)`,
+        'var(--thumbnail-fallback)',
         'linear-gradient(to bottom, #ddd, #bbb)',
-        `url(data:image/png;base64,${EMPTY_IMAGE_16_BY_9})`,
+        `url(data:image/png;base64,${EMPTY_IMAGE_16_BY_9})`
       ].join(', ') + ' !important'
     },
     '@media (min-width: 1200px)': {
       backgroundImage: [
         'image-set(var(--thumbnail-lg-1) 1x, var(--thumbnail-lg-2) 2x)',
-        `var(--thumbnail-fallback)`,
+        'var(--thumbnail-fallback)',
         'linear-gradient(to bottom, #ddd, #bbb)',
-        `url(data:image/png;base64,${EMPTY_IMAGE_16_BY_9})`,
+        `url(data:image/png;base64,${EMPTY_IMAGE_16_BY_9})`
       ].join(', ') + ' !important'
-    },
+    }
   },
   modeIcons: {
     backgroundColor: 'rgba(255, 255, 255, 0.8)',
@@ -123,8 +123,8 @@ const useStyles = createUseStyles({
 
 const useStyles2 = createUseStyles({
   mediaBackground: ({ battle, fallbackImage }) => ({
-    backgroundImage: buildBackgroundImages(battle, fallbackImage),
-  }),
+    backgroundImage: buildBackgroundImages(battle, fallbackImage)
+  })
 });
 
 const nbsp = '\u{00a0}';
@@ -150,20 +150,20 @@ export default function BattleCard (props) {
                 classes.media,
                 classes.media16x9,
                 classes2.mediaBackground,
-                battle.thumbnail ? classes.mediaHasThumbnail : null,
+                battle.thumbnail ? classes.mediaHasThumbnail : null
               ].filter(v => v !== null).join(' ')
             }
             style={
               battle.thumbnail
                 ? {
-                  '--thumbnail-sm-1': `url('${thumbnailUrl(battle.thumbnail, 343.00, 192.94, 1)}')`,
-                  '--thumbnail-sm-2': `url('${thumbnailUrl(battle.thumbnail, 343.00, 192.94, 2)}')`,
-                  '--thumbnail-md-1': `url('${thumbnailUrl(battle.thumbnail, 291.33, 163.86, 1)}')`,
-                  '--thumbnail-md-2': `url('${thumbnailUrl(battle.thumbnail, 291.33, 163.86, 2)}')`,
-                  '--thumbnail-lg-1': `url('${thumbnailUrl(battle.thumbnail, 260.50, 146.53, 1)}')`,
-                  '--thumbnail-lg-2': `url('${thumbnailUrl(battle.thumbnail, 260.50, 146.53, 2)}')`,
-                  '--thumbnail-fallback': `url('${fallbackImage}')`,
-                }
+                    '--thumbnail-sm-1': `url('${thumbnailUrl(battle.thumbnail, 343.00, 192.94, 1)}')`,
+                    '--thumbnail-sm-2': `url('${thumbnailUrl(battle.thumbnail, 343.00, 192.94, 2)}')`,
+                    '--thumbnail-md-1': `url('${thumbnailUrl(battle.thumbnail, 291.33, 163.86, 1)}')`,
+                    '--thumbnail-md-2': `url('${thumbnailUrl(battle.thumbnail, 291.33, 163.86, 2)}')`,
+                    '--thumbnail-lg-1': `url('${thumbnailUrl(battle.thumbnail, 260.50, 146.53, 1)}')`,
+                    '--thumbnail-lg-2': `url('${thumbnailUrl(battle.thumbnail, 260.50, 146.53, 2)}')`,
+                    '--thumbnail-fallback': `url('${fallbackImage}')`
+                  }
                 : {}
             }
           >
