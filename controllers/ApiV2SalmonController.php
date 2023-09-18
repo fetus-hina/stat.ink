@@ -102,18 +102,26 @@ class ApiV2SalmonController extends Controller
             $res->statusCode = 405;
             return $res;
         }
-        $res->statusCode = 200;
+
+        $allowedMethods = $id === null
+            ? ['GET', 'HEAD', 'POST', 'OPTIONS']
+            : ['GET', 'HEAD', 'OPTIONS'];
+
+        $allowedHeaders = [
+            'Accept',
+            'Authorization',
+            'Content-Type',
+            'Origin',
+            'X-Requested-With',
+        ];
+
+        $res->statusCode = 204;
         $header = $res->getHeaders();
-        $header->set('Allow', implode(
-            ', ',
-            $id === null
-                ? ['GET', 'HEAD', 'POST', 'OPTIONS']
-                : ['GET', 'HEAD', /* 'PUT', 'PATCH', 'DELETE', */ 'OPTIONS'],
-        ));
+        $header->set('Access-Control-Allow-Headers', implode(', ', $allowedHeaders));
+        $header->set('Access-Control-Allow-Methods', implode(', ', $allowedMethods));
         $header->set('Access-Control-Allow-Origin', '*');
-        $header->set('Access-Control-Allow-Methods', $header->get('Allow'));
-        $header->set('Access-Control-Allow-Headers', 'Content-Type, Authenticate');
         $header->set('Access-Control-Max-Age', '86400');
+        $header->set('Allow', implode(', ', $allowedMethods));
         return $res;
     }
 }
