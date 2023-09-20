@@ -50,10 +50,11 @@ const useStyles = createUseStyles({
       content: '""'
     }
   },
+
   mediaHasThumbnail: {
     '@media (min-width: 768px)': {
       backgroundImage: [
-        'image-set(var(--thumbnail-sm-1) 1x, var(--thumbnail-sm-2) 2x)',
+        'image-set(var(--thumbnail-sm-1-avif) 1x type("image/avif"), var(--thumbnail-sm-2-avif) 2x type("image/avif"), var(--thumbnail-sm-1-webp) 1x type("image/webp"), var(--thumbnail-sm-2-webp) 2x type("image/webp"), var(--thumbnail-sm-1-jpg) 1x type("image/jpeg"), var(--thumbnail-sm-2-jpg) 2x type("image/jpeg"))',
         'var(--thumbnail-fallback)',
         'linear-gradient(to bottom, #ddd, #bbb)',
         `url(data:image/png;base64,${EMPTY_IMAGE_16_BY_9})`
@@ -61,7 +62,7 @@ const useStyles = createUseStyles({
     },
     '@media (min-width: 992px)': {
       backgroundImage: [
-        'image-set(var(--thumbnail-md-1) 1x, var(--thumbnail-md-2) 2x)',
+        'image-set(var(--thumbnail-md-1-avif) 1x type("image/avif"), var(--thumbnail-md-2-avif) 2x type("image/avif"), var(--thumbnail-md-1-webp) 1x type("image/webp"), var(--thumbnail-md-2-webp) 2x type("image/webp"), var(--thumbnail-md-1-jpg) 1x type("image/jpeg"), var(--thumbnail-md-2-jpg) 2x type("image/jpeg"))',
         'var(--thumbnail-fallback)',
         'linear-gradient(to bottom, #ddd, #bbb)',
         `url(data:image/png;base64,${EMPTY_IMAGE_16_BY_9})`
@@ -69,11 +70,40 @@ const useStyles = createUseStyles({
     },
     '@media (min-width: 1200px)': {
       backgroundImage: [
-        'image-set(var(--thumbnail-lg-1) 1x, var(--thumbnail-lg-2) 2x)',
+        'image-set(var(--thumbnail-lg-1-avif) 1x type("image/avif"), var(--thumbnail-lg-2-avif) 2x type("image/avif"), var(--thumbnail-lg-1-webp) 1x type("image/webp"), var(--thumbnail-lg-2-webp) 2x type("image/webp"), var(--thumbnail-lg-1-jpg) 1x type("image/jpeg"), var(--thumbnail-lg-2-jpg) 2x type("image/jpeg"))',
         'var(--thumbnail-fallback)',
         'linear-gradient(to bottom, #ddd, #bbb)',
         `url(data:image/png;base64,${EMPTY_IMAGE_16_BY_9})`
       ].join(', ') + ' !important'
+    },
+
+    // Safari doesn't support image-set type() syntax until v17
+    // https://caniuse.com/?search=image-set
+    '.apple &': {
+      '@media (min-width: 768px)': {
+        backgroundImage: [
+          'image-set(var(--thumbnail-sm-1-avif) 1x, var(--thumbnail-sm-2-avif) 2x)',
+          'var(--thumbnail-fallback)',
+          'linear-gradient(to bottom, #ddd, #bbb)',
+          `url(data:image/png;base64,${EMPTY_IMAGE_16_BY_9})`
+        ].join(', ') + ' !important'
+      },
+      '@media (min-width: 992px)': {
+        backgroundImage: [
+          'image-set(var(--thumbnail-md-1-avif) 1x, var(--thumbnail-md-2-avif) 2x)',
+          'var(--thumbnail-fallback)',
+          'linear-gradient(to bottom, #ddd, #bbb)',
+          `url(data:image/png;base64,${EMPTY_IMAGE_16_BY_9})`
+        ].join(', ') + ' !important'
+      },
+      '@media (min-width: 1200px)': {
+        backgroundImage: [
+          'image-set(var(--thumbnail-lg-1-avif) 1x, var(--thumbnail-lg-2-avif) 2x)',
+          'var(--thumbnail-fallback)',
+          'linear-gradient(to bottom, #ddd, #bbb)',
+          `url(data:image/png;base64,${EMPTY_IMAGE_16_BY_9})`
+        ].join(', ') + ' !important'
+      }
     }
   },
   modeIcons: {
@@ -129,10 +159,11 @@ const useStyles2 = createUseStyles({
 
 const nbsp = '\u{00a0}';
 
-function thumbnailUrl (template, width, height, x) {
+function thumbnailUrl (template, width, height, x, ext) {
   return template
     .replace('<w>', Math.floor(width * x))
-    .replace('<h>', Math.floor(height * x));
+    .replace('<h>', Math.floor(height * x))
+    .replace(/jpg$/, ext);
 }
 
 export default function BattleCard (props) {
@@ -156,12 +187,24 @@ export default function BattleCard (props) {
             style={
               battle.thumbnail
                 ? {
-                    '--thumbnail-sm-1': `url('${thumbnailUrl(battle.thumbnail, 343.00, 192.94, 1)}')`,
-                    '--thumbnail-sm-2': `url('${thumbnailUrl(battle.thumbnail, 343.00, 192.94, 2)}')`,
-                    '--thumbnail-md-1': `url('${thumbnailUrl(battle.thumbnail, 291.33, 163.86, 1)}')`,
-                    '--thumbnail-md-2': `url('${thumbnailUrl(battle.thumbnail, 291.33, 163.86, 2)}')`,
-                    '--thumbnail-lg-1': `url('${thumbnailUrl(battle.thumbnail, 260.50, 146.53, 1)}')`,
-                    '--thumbnail-lg-2': `url('${thumbnailUrl(battle.thumbnail, 260.50, 146.53, 2)}')`,
+                    '--thumbnail-lg-1-avif': `url('${thumbnailUrl(battle.thumbnail, 260.50, 146.53, 1, 'avif')}')`,
+                    '--thumbnail-lg-1-jpg': `url('${thumbnailUrl(battle.thumbnail, 260.50, 146.53, 1, 'jpg')}')`,
+                    '--thumbnail-lg-1-webp': `url('${thumbnailUrl(battle.thumbnail, 260.50, 146.53, 1, 'webp')}')`,
+                    '--thumbnail-lg-2-avif': `url('${thumbnailUrl(battle.thumbnail, 260.50, 146.53, 2, 'avif')}')`,
+                    '--thumbnail-lg-2-jpg': `url('${thumbnailUrl(battle.thumbnail, 260.50, 146.53, 2, 'jpg')}')`,
+                    '--thumbnail-lg-2-webp': `url('${thumbnailUrl(battle.thumbnail, 260.50, 146.53, 2, 'webp')}')`,
+                    '--thumbnail-md-1-avif': `url('${thumbnailUrl(battle.thumbnail, 291.33, 163.86, 1, 'avif')}')`,
+                    '--thumbnail-md-1-jpg': `url('${thumbnailUrl(battle.thumbnail, 291.33, 163.86, 1, 'jpg')}')`,
+                    '--thumbnail-md-1-webp': `url('${thumbnailUrl(battle.thumbnail, 291.33, 163.86, 1, 'webp')}')`,
+                    '--thumbnail-md-2-avif': `url('${thumbnailUrl(battle.thumbnail, 291.33, 163.86, 2, 'avif')}')`,
+                    '--thumbnail-md-2-jpg': `url('${thumbnailUrl(battle.thumbnail, 291.33, 163.86, 2, 'jpg')}')`,
+                    '--thumbnail-md-2-webp': `url('${thumbnailUrl(battle.thumbnail, 291.33, 163.86, 2, 'webp')}')`,
+                    '--thumbnail-sm-1-avif': `url('${thumbnailUrl(battle.thumbnail, 343.00, 192.94, 1, 'avif')}')`,
+                    '--thumbnail-sm-1-jpg': `url('${thumbnailUrl(battle.thumbnail, 343.00, 192.94, 1, 'jpg')}')`,
+                    '--thumbnail-sm-1-webp': `url('${thumbnailUrl(battle.thumbnail, 343.00, 192.94, 1, 'webp')}')`,
+                    '--thumbnail-sm-2-avif': `url('${thumbnailUrl(battle.thumbnail, 343.00, 192.94, 2, 'avif')}')`,
+                    '--thumbnail-sm-2-jpg': `url('${thumbnailUrl(battle.thumbnail, 343.00, 192.94, 2, 'jpg')}')`,
+                    '--thumbnail-sm-2-webp': `url('${thumbnailUrl(battle.thumbnail, 343.00, 192.94, 2, 'webp')}')`,
                     '--thumbnail-fallback': `url('${fallbackImage}')`
                   }
                 : {}
