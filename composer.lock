@@ -1452,16 +1452,16 @@
         },
         {
             "name": "lipis/flag-icons",
-            "version": "v6.11.0",
+            "version": "v6.11.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lipis/flag-icons.git",
-                "reference": "a7b7c3c55560cb39d96e70324876e1bb5b1c625b"
+                "reference": "6784329d3fa1466fb8ef184ac69b021a45691271"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lipis/flag-icons/zipball/a7b7c3c55560cb39d96e70324876e1bb5b1c625b",
-                "reference": "a7b7c3c55560cb39d96e70324876e1bb5b1c625b",
+                "url": "https://api.github.com/repos/lipis/flag-icons/zipball/6784329d3fa1466fb8ef184ac69b021a45691271",
+                "reference": "6784329d3fa1466fb8ef184ac69b021a45691271",
                 "shasum": ""
             },
             "type": "library",
@@ -1487,9 +1487,9 @@
             ],
             "support": {
                 "issues": "https://github.com/lipis/flag-icons/issues",
-                "source": "https://github.com/lipis/flag-icons/tree/v6.11.0"
+                "source": "https://github.com/lipis/flag-icons/tree/v6.11.1"
             },
-            "time": "2023-08-22T17:05:32+00:00"
+            "time": "2023-09-17T19:45:16+00:00"
         },
         {
             "name": "lusitanian/oauth",
@@ -8555,5 +8555,5 @@
     "platform-overrides": {
         "php": "8.1.20"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
