@@ -25,20 +25,30 @@ $this->title = implode(' | ', [
 ?>
 <div class="container">
   <h1><?= Html::encode($title) ?></h1>
+  <?= $this->render('profile/alert-versions') . "\n" ?>
 
   <?php $_ = ActiveForm::begin(['id' => 'update-form', 'action' => ['edit-profile']]); echo "\n" ?>
     <?= $_->field($form, 'name') . "\n" ?>
 
-    <?= $_->field($form, 'blackout')->dropDownList([
-      User::BLACKOUT_NOT_BLACKOUT => Yii::t('app', 'No black out'),
-      User::BLACKOUT_NOT_PRIVATE  => Yii::t('app', 'Black out except private battle'),
-      User::BLACKOUT_NOT_FRIEND   => Yii::t('app', 'Black out except private battle and teammate on squad battle (tri or quad)'),
-      User::BLACKOUT_ALWAYS       => Yii::t('app', 'Black out other players')
-    ]) . "\n" ?>
+    <?= $_->field($form, 'blackout')
+      ->label(
+        implode(' ', [
+          Icon::splatoon1(),
+          Icon::splatoon2(),
+          Html::encode(Yii::t('app', 'Black out other players from the result image')),
+        ]),
+      )
+      ->dropDownList([
+        User::BLACKOUT_NOT_BLACKOUT => Yii::t('app', 'No black out'),
+        User::BLACKOUT_NOT_PRIVATE  => Yii::t('app', 'Black out except private battle'),
+        User::BLACKOUT_NOT_FRIEND   => Yii::t('app', 'Black out except private battle and teammate on squad battle (tri or quad)'),
+        User::BLACKOUT_ALWAYS       => Yii::t('app', 'Black out other players')
+      ]) . "\n"
+    ?>
 
     <div class="row">
       <div class="col-xs-12 col-sm-11 col-sm-push-1">
-        <?= $this->render('_blackout-hint', ['id' => 'blackout-info']) . "\n" ?>
+        <?= $this->render('profile/profile/blackout/hint', ['id' => 'blackout-info']) . "\n" ?>
 <?php $this->registerJs(<<<'JS'
 (function($){
   "use strict";
@@ -51,16 +61,24 @@ JS
       </div>
     </div>
 
-    <?= $_->field($form, 'blackout_list')->dropDownList([
-      User::BLACKOUT_NOT_BLACKOUT => Yii::t('app', 'No black out'),
-      User::BLACKOUT_NOT_PRIVATE  => Yii::t('app', 'Black out except private battle'),
-      User::BLACKOUT_NOT_FRIEND   => Yii::t('app', 'Black out except private battle and teammate on league battle (4 players)'),
-      User::BLACKOUT_ALWAYS       => Yii::t('app', 'Black out other players')
-    ]) . "\n" ?>
+    <?= $_->field($form, 'blackout_list')
+      ->label(
+        implode(' ', [
+          Icon::splatoon2(),
+          Html::encode(Yii::t('app', 'Black out other players from the details list')),
+        ]),
+      )
+      ->dropDownList([
+        User::BLACKOUT_NOT_BLACKOUT => Yii::t('app', 'No black out'),
+        User::BLACKOUT_NOT_PRIVATE  => Yii::t('app', 'Black out except private battle'),
+        User::BLACKOUT_NOT_FRIEND   => Yii::t('app', 'Black out except private battle and teammate on league battle (4 players)'),
+        User::BLACKOUT_ALWAYS       => Yii::t('app', 'Black out other players')
+      ]) . "\n"
+    ?>
 
     <div class="row">
       <div class="col-xs-12 col-sm-11 col-sm-push-1">
-        <?= $this->render('_blackout-hint', [
+        <?= $this->render('profile/profile/blackout/hint.php', [
           'mode' => 'splatoon2',
           'id' => 'blackout-info2'
         ]) . "\n" ?>
@@ -76,11 +94,34 @@ JS
       </div>
     </div>
 
-    <?= $_->field($form, 'link_mode_id')->dropDownList($form->linkModes) . "\n" ?>
+    <?= $_->field($form, 'link_mode_id')
+      ->label(
+        implode(' ', [
+          Icon::splatoon2(),
+          Html::encode(Yii::t('app', 'Link from other user\'s results')),
+        ]),
+      )
+      ->dropDownList($form->linkModes) . "\n"
+    ?>
 
-    <?= $_->field($form, 'region_id')->dropDownList($regions) . "\n" ?>
+    <?= $_->field($form, 'region_id')
+      ->label(
+        implode(' ', [
+          Icon::splatoon1(),
+          Html::encode(Yii::t('app', 'Region (used for Splatfest)')),
+        ]),
+      )
+      ->dropDownList($regions) . "\n" ?>
 
-    <?= $_->field($form, 'default_language_id')->dropDownList($languages) . "\n" ?>
+    <?= $_->field($form, 'default_language_id')
+      ->label(
+        implode(' ', [
+          Icon::splatoon1(),
+          Html::encode(Yii::t('app', 'Language (used for OStatus)')),
+        ]),
+      )
+      ->dropDownList($languages) . "\n"
+    ?>
 
     <?= $_->field($form, 'nnid') . "\n" ?>
 
@@ -118,19 +159,29 @@ JS
       'inputTemplate' => '<div class="input-group"><span class="input-group-addon">https://ikanakama.ink/users/</span>{input}</div>'
     ]) . "\n" ?>
 
-    <?= $_->field($form, 'env')->textArea([
-      'style' => 'height:10em'
-    ])->hint(
-      Yii::t('app', 'Please tell us about your capture environment and communication between your Wii U and User Agent (e.g. IkaLog). This information will be public.')
-    ) . "\n" ?>
+    <?= $_->field($form, 'env')
+      ->label(
+        implode(' ', [
+          Icon::splatoon1(),
+          Html::encode(Yii::t('app', 'Capture Environment')),
+        ]),
+      )
+      ->textArea([
+        'style' => [
+          'height' => '10em',
+        ],
+      ])->hint(
+        Yii::t('app', 'Please tell us about your capture environment and communication between your Wii U and User Agent (e.g. IkaLog). This information will be public.')
+      ) . "\n"
+    ?>
 
     <?= Html::submitButton(
       Yii::t('app', 'Update'),
-      ['class' => 'btn btn-lg btn-primary btn-block']
+      ['class' => 'btn btn-lg btn-primary btn-block my-3']
     ) . "\n" ?>
   <?php ActiveForm::end(); echo "\n" ?>
 
-  <div style="margin-top:15px">
+  <div class="my-3">
     <?= Html::a(
       Yii::t('app', 'Back'),
       ['user/profile'],

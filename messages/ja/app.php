@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 return [
     '(For advanced users)' => '（上級者向け）',
-    '(For only Splatoon 1 at this time)' => '(現時点ではSplatoon1のみ)',
     '(combined)' => '(統合済み)',
     '(default)' => '(既定)',
     '(incomplete)' => '(不完全)',
@@ -299,6 +298,7 @@ return [
     'Interval' => '間隔',
     'Invalid {0} or {1}.' => '{0}または{1}が違います。',
     'It looks this data is corrupt.' => 'このデータは破損しています。',
+    'Items marked with these icons will only work with its corresponding version.' => 'これらのアイコンがついている項目は、対応するバージョンでのみ動作します。',
     'JSON (IkaLog compat.)' => 'JSON (IkaLog互換)',
     'JSON (stat.ink format, gzipped)' => 'JSON (stat.ink形式, gzip圧縮)',
     'JSON format (All langs)' => 'JSON形式 (全言語)',
