@@ -97,43 +97,56 @@ $f = Yii::$app->formatter;
     [
       'attribute' => 'api_key',
       'format' => 'raw',
-      'value' => $this->render('_profile_apikey', ['user' => $user]),
+      'value' => $this->render('profile/apikey', ['user' => $user]),
     ],
     [
       'attribute' => 'email',
       'format' => 'raw',
-      'value' => $this->render('_profile_email', ['user' => $user]),
+      'value' => $this->render('profile/email', ['user' => $user]),
     ],
     [
       'label' => implode(' ', [
+        Icon::splatoon1(),
+        Icon::splatoon2(),
         Yii::t('app', 'Black out other players (images)'),
-        Yii::t('app', '(For only Splatoon 1 at this time)'),
       ]),
       'format' => 'raw',
-      'value' => $this->render('_profile_blackout', [
+      'value' => $this->render('profile/blackout', [
         'conf' => $user->blackout,
         'id' => 'blackout-info',
       ]),
     ],
     [
-      'label' => Yii::t('app', 'Black out other players (details)'),
+      'label' => implode(' ', [
+        Icon::splatoon2(),
+        Yii::t('app', 'Black out other players (details)'),
+      ]),
       'format' => 'raw',
-      'value' => $this->render('_profile_blackout', [
+      'value' => $this->render('profile/blackout', [
         'conf' => $user->blackout_list,
         'id' => 'blackout-info2',
         'mode' => 'splatoon2',
       ]),
     ],
     [
-      'label' => Yii::t('app', "Link from other user's results"),
+      'label' => implode(' ', [
+        Icon::splatoon2(),
+        Yii::t('app', "Link from other user's results"),
+      ]),
       'value' => Yii::t('app', $user->linkMode->name),
     ],
     [
-      'label' => Yii::t('app', 'Region (used for Splatfest)'),
+      'label' => implode(' ', [
+        Icon::splatoon1(),
+        Yii::t('app', 'Region (used for Splatfest)'),
+      ]),
       'value' => Yii::t('app-region', $user->region->name),
     ],
     [
-      'label' => Yii::t('app', 'Language (used for OStatus)'),
+      'label' => implode(' ', [
+        Icon::splatoon1(),
+        Yii::t('app', 'Language (used for OStatus)'),
+      ]),
       'value' => Html::encode(implode(' / ', [
         $user->defaultLanguage->name,
         $user->defaultLanguage->name_en,
@@ -185,7 +198,10 @@ $f = Yii::$app->formatter;
       },
     ],
     [
-      'label' => Yii::t('app', 'Capture Environment'),
+      'label' => implode(' ', [
+        Icon::splatoon1(),
+        Yii::t('app', 'Capture Environment'),
+      ]),
       'attribute' => 'env.text',
       'format' => 'ntext',
     ],

@@ -35,7 +35,8 @@ $this->registerCss('.btn-block.text-left{text-align:left}');
           ['class' => 'btn btn-primary'],
         ) . "\n" ?>
       </h1>
-      <?= $this->render('_profile_profile', compact('user')) . "\n" ?>
+      <?= $this->render('profile/alert-versions') . "\n" ?>
+      <?= $this->render('profile/profile', compact('user')) . "\n" ?>
       <?= $this->render('profile/login-with', compact('user')) . "\n" ?>
       <?= $this->render('profile/slack', compact('user')) . "\n" ?>
     </div>

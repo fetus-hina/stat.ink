@@ -39,7 +39,7 @@ BlackoutHintAsset::register($this);
   ) . "\n" ?>
 </p>
 <div>
-  <?= $this->render('_blackout-hint', [
+  <?= $this->render('blackout/hint', [
     'id' => $id,
     'mode' => $mode ?? null,
   ]) . "\n" ?>
