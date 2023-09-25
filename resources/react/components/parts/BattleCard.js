@@ -8,6 +8,10 @@ const EMPTY_IMAGE_16_BY_9 =
   'QObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAApJREFUCB1jwA0AABsAAScKbaoAAAAASUVORK5C' +
   'YII=';
 
+const CONTENT_PADDING_X = '15px';
+const USER_ICON_SIZE = '48px';
+const USER_ICON_MARGIN_X = '10px';
+
 const useStyles = createUseStyles({
   root: {
     backgroundColor: '#fff',
@@ -128,21 +132,22 @@ const useStyles = createUseStyles({
     alignItems: 'flex-start',
     display: 'flex',
     overflowX: 'hidden',
-    padding: '10px 15px'
+    padding: `10px ${CONTENT_PADDING_X}`
   },
   userIcon: {
     backgroundColor: '#fff',
     border: '1px solid #ccc',
     borderRadius: '4px',
-    flex: '0 0 48px',
-    height: '48px',
-    marginRight: '10px',
-    width: '48px'
+    flex: `0 0 ${USER_ICON_SIZE}`,
+    height: USER_ICON_SIZE,
+    marginRight: USER_ICON_MARGIN_X,
+    width: USER_ICON_SIZE
   },
   contentData: {
     display: 'flex',
     flex: '1 1 100%',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    width: `calc(100% - (${CONTENT_PADDING_X} * 2 + ${USER_ICON_SIZE} + ${USER_ICON_MARGIN_X}))`
   },
   ellipsis: {
     overflow: 'hidden',

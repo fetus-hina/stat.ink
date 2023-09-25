@@ -45,5 +45,5 @@ CounterItem.propTypes = {
   icon: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   popup: PropTypes.string,
-  value: PropTypes.number.isRequired
+  value: PropTypes.number
 };

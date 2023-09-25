@@ -32,7 +32,7 @@ export default function CounterDisplay (props) {
   const { value, digit } = props;
   const classes = useStyles();
 
-  const strValue = String(value);
+  const strValue = value !== null ? String(value) : '-'.repeat(digit);
   const padding = (strValue.length < digit)
     ? (
       <span className={classes.padding} aria-hidden='true'>
@@ -55,5 +55,5 @@ export default function CounterDisplay (props) {
 
 CounterDisplay.propTypes = {
   digit: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired
+  value: PropTypes.number
 };
