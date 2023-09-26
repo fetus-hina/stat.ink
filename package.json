@@ -6,8 +6,8 @@
     "email": "hina@fetus.jp"
   },
   "dependencies": {
-    "@babel/cli": "^7.22.15",
-    "@babel/core": "^7.22.20",
+    "@babel/cli": "^7.23.0",
+    "@babel/core": "^7.23.0",
     "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.22.20",
     "@babel/preset-react": "^7.22.15",
