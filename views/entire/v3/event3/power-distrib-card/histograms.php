@@ -26,13 +26,19 @@ if (
   return;
 }
 
+$chartStep = max(
+  (int)ceil($abstract->histogram_width / 100) * 100,
+  100,
+);
+
 $items = [];
 
 $items[] = [
   'active' => true,
   'label' => Yii::t('app', 'Total'),
-    'content' => $this->render('histograms/total', [
+  'content' => $this->render('histograms/total', [
     'abstract' => $abstract,
+    'chartStep' => $chartStep,
     'histogram' => ArrayHelper::map($histogram, 'class_value', 'battles'),
   ]),
 ];
@@ -42,6 +48,7 @@ if (count($periods) > 1 && $periodHistogram) {
     'label' => Yii::t('app', 'Stacked'),
     'content' => $this->render('histograms/stacked', [
       'abstract' => $abstract,
+      'chartStep' => $chartStep,
       'histogram' => $periodHistogram,
       'periods' => $periods,
     ]),
@@ -56,8 +63,9 @@ if (count($periods) > 1 && $periodHistogram) {
       $items[] = [
         'label' => mb_chr(0x2460 + $i),
         'content' => $this->render('histograms/period', [
-          'label' => mb_chr(0x2460 + $i),
+          'chartStep' => $chartStep,
           'histogram' => ArrayHelper::map($thisHistogram, 'class_value', 'battles'),
+          'label' => mb_chr(0x2460 + $i),
         ]),
       ];
     }

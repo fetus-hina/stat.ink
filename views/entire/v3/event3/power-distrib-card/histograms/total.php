@@ -16,6 +16,7 @@ use yii\web\View;
  * @var Event3StatsPower $abstract
  * @var View $this
  * @var array<int, int> $histogram
+ * @var int $chartStep
  */
 
 ChartJsAsset::register($this);
@@ -129,7 +130,7 @@ if (
             'type' => 'linear',
             'ticks' => [
               'precision' => 0,
-              'stepSize' => 100,
+              'stepSize' => $chartStep,
             ],
           ],
           'y' => [
