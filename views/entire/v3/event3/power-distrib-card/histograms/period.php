@@ -9,6 +9,7 @@ use yii\web\View;
 /**
  * @var View $this
  * @var array<int, int> $histogram
+ * @var int $chartStep
  * @var string $label
  */
 
@@ -72,7 +73,7 @@ $datasetHistogram = [
             'type' => 'linear',
             'ticks' => [
               'precision' => 0,
-              'stepSize' => 100,
+              'stepSize' => $chartStep,
             ],
           ],
           'y' => [

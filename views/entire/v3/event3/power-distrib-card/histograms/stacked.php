@@ -14,6 +14,7 @@ use yii\web\View;
  * @var Event3StatsPowerPeriodHistogram[] $histogram
  * @var EventPeriod3[] $periods
  * @var View $this
+ * @var int $chartStep
  */
 
 $colors = [
@@ -98,7 +99,7 @@ if (!$datasets) {
             'type' => 'linear',
             'ticks' => [
               'precision' => 0,
-              'stepSize' => 100,
+              'stepSize' => $chartStep,
             ],
           ],
           'y' => [
