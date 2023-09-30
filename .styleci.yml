@@ -1,9 +1,0 @@
-preset: psr2
-risky: false
-finder:
-  exclude:
-    - "config"
-    - "tests"
-    - "views"
-  name:
-    - "*.php"
