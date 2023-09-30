@@ -136,14 +136,14 @@ final class SalmonBosses extends Widget
     private function renderBody(): string
     {
         $data = SalmonBossAppearance3::find()
-            ->with(['boss'])
-            ->andWhere(['salmon_id' => $this->job->id])
-            ->andWhere(['>', 'appearances', 0])
+            ->innerJoinWith(['boss'], true)
+            ->andWhere(['{{%salmon_boss_appearance3}}.[[salmon_id]]' => $this->job->id])
+            ->andWhere(['>', '{{%salmon_boss_appearance3}}.[[appearances]]', 0])
             ->orderBy([
-                'appearances' => SORT_DESC,
-                'defeated' => SORT_DESC,
-                'defeated_by_me' => SORT_DESC,
-                'boss_id' => SORT_ASC,
+                '{{%salmon_boss_appearance3}}.[[appearances]]' => SORT_DESC,
+                '{{%salmon_boss_appearance3}}.[[defeated]]' => SORT_DESC,
+                '{{%salmon_boss_appearance3}}.[[defeated_by_me]]' => SORT_DESC,
+                '{{%salmon_boss3}}.[[rank]]' => SORT_ASC,
             ])
             ->all();
 
