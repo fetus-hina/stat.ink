@@ -183,7 +183,7 @@ trait DataCreator
     {
         return SalmonBoss3::find()
             ->andWhere(['has_badge' => true])
-            ->orderBy(['name' => SORT_ASC])
+            ->orderBy(['rank' => SORT_ASC])
             ->all($db);
     }
 
