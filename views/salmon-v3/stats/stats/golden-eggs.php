@@ -81,6 +81,9 @@ if (!$maps || !$goldenEggHistogramAbstracts) {
               ),
             ),
           ]),
+          $this->render('golden-eggs/abstract', [
+            'abstract' => $abstract,
+          ]),
         ]),
         ['class' => 'row'],
       ),
