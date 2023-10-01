@@ -25,7 +25,11 @@ use function array_keys;
 use function array_map;
 use function implode;
 use function sprintf;
+use function vfprintf;
 use function vsprintf;
+
+use const PHP_SAPI;
+use const STDERR;
 
 trait UserGoldenEggTrait
 {
@@ -43,6 +47,13 @@ trait UserGoldenEggTrait
 
             return true;
         } catch (Throwable $e) {
+            if (PHP_SAPI === 'cli') {
+                vfprintf(STDERR, "Catch %s, message=%s\n", [
+                    $e::class,
+                    $e->getMessage(),
+                ]);
+            }
+
             Yii::error(
                 vsprintf('Catch %s, message=%s', [
                     $e::class,
@@ -60,6 +71,20 @@ trait UserGoldenEggTrait
         User $user,
         DateTimeImmutable $now,
     ): void {
+        $q = fn (float $pos, bool $isTeam): string => vsprintf(
+            'PERCENTILE_CONT(%.2f) WITHIN GROUP (ORDER BY %s.%s)',
+            [
+                $pos,
+                $db->quoteTableName($isTeam ? '{{%salmon3}}' : '{{%salmon_player3}}'),
+                $db->quoteColumnName('golden_eggs'),
+            ],
+        );
+
+        $mode = fn (bool $isTeam): string => vsprintf('MODE() WITHIN GROUP (ORDER BY %s.%s)', [
+            $db->quoteTableName($isTeam ? '{{%salmon3}}' : '{{%salmon_player3}}'),
+            $db->quoteColumnName('golden_eggs'),
+        ]);
+
         $query = (new Query())
             ->select([
                 'user_id' => '{{%salmon3}}.[[user_id]]',
@@ -69,14 +94,26 @@ trait UserGoldenEggTrait
                 'stddev_team' => 'STDDEV_POP({{%salmon3}}.[[golden_eggs]])',
                 'histogram_width_team' => vsprintf('HISTOGRAM_WIDTH(%s, %s)', [
                     'COUNT(*)',
-                    'STDDEV_POP({{%salmon3}}.[[golden_eggs]])',
+                    'STDDEV_SAMP({{%salmon3}}.[[golden_eggs]])',
                 ]),
                 'average_individual' => 'AVG({{%salmon_player3}}.[[golden_eggs]])',
                 'stddev_individual' => 'STDDEV_POP({{%salmon_player3}}.[[golden_eggs]])',
                 'histogram_width_individual' => vsprintf('HISTOGRAM_WIDTH(%s, %s)', [
                     'SUM(CASE WHEN {{%salmon_player3}}.[[id]] IS NOT NULL THEN 1 ELSE 0 END)',
-                    'STDDEV_POP({{%salmon_player3}}.[[golden_eggs]])',
+                    'STDDEV_SAMP({{%salmon_player3}}.[[golden_eggs]])',
                 ]),
+                'min_team' => 'MIN({{%salmon3}}.[[golden_eggs]])',
+                'q1_team' => $q(0.25, true),
+                'q2_team' => $q(0.50, true),
+                'q3_team' => $q(0.75, true),
+                'max_team' => 'MAX({{%salmon3}}.[[golden_eggs]])',
+                'mode_team' => $mode(true),
+                'min_individual' => 'MIN({{%salmon_player3}}.[[golden_eggs]])',
+                'q1_individual' => $q(0.25, false),
+                'q2_individual' => $q(0.50, false),
+                'q3_individual' => $q(0.75, false),
+                'max_individual' => 'MAX({{%salmon_player3}}.[[golden_eggs]])',
+                'mode_individual' => $mode(false),
             ])
             ->from('{{%salmon3}}')
             ->leftJoin(
@@ -204,6 +241,7 @@ trait UserGoldenEggTrait
                     '{{%salmon3}}.[[is_big_run]]' => false,
                     '{{%salmon3}}.[[user_id]]' => $user->id,
                 ],
+                ['not', [$widthColumn => null]],
                 ['not', ['{{%salmon3}}.[[stage_id]]' => null]],
                 ['<=', '{{%salmon3}}.[[created_at]]', $now->format(DateTimeImmutable::ATOM)],
             ])

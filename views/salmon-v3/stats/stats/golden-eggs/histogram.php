@@ -33,7 +33,7 @@ if ($abstract->shifts >= 10 && count($data) >= 5) {
 }
 
 ?>
-<div class="col-12 col-md-6 mb-3">
+<div class="col-12 col-xs-12 col-md-6 mb-3">
   <?= Html::tag('h4', $title, ['class' => 'mt-0 mb-3 text-center']) . "\n" ?>
 <?php if ($abstract->shifts < 10 || count($data) < 5) { ?>
   <?= Html::tag(

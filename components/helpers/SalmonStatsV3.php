@@ -78,6 +78,7 @@ final class SalmonStatsV3
             }
 
             if (!$task()) {
+                fwrite(STDERR, "$label: failed\n");
                 return false;
             }
         }
