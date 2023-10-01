@@ -25,6 +25,7 @@ class PasswordForm extends Model
             [['screen_name'], 'exist',
                 'targetClass' => User::class,
                 'targetAttribute' => 'screen_name'],
+            [['new_password'], 'string', 'min' => 10],
             [['new_password_repeat'], 'compare',
                 'compareAttribute' => 'new_password',
                 'operator' => '==='],

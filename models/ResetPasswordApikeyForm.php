@@ -50,6 +50,8 @@ final class ResetPasswordApikeyForm extends Model
             [['api_key'], 'string', 'length' => 43],
             [['api_key'], 'match', 'pattern' => '/^[a-zA-Z0-9_-]{43}$/'],
             [['api_key'], 'validateApiKey'],
+
+            [['password'], 'string', 'min' => 10],
             [['password_repeat'], 'compare', 'compareAttribute' => 'password'],
         ];
     }

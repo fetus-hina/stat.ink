@@ -28,8 +28,23 @@ ZxcvbnAsset::register($this);
       <h1><?= Html::encode($title) ?></h1>
       
       <?php $_ = ActiveForm::begin(['id' => 'update-form', 'action' => ['edit-password']]); echo "\n" ?>
-        <?= $_->field($form, 'password')->passwordInput() . "\n" ?>
-        <?= $_->field($form, 'new_password')->passwordInput() . "\n" ?>
+        <?= $_->field($form, 'password')
+          ->passwordInput([
+            'autocomplete' => 'current-password',
+          ]) . "\n"
+        ?>
+        <?= $_->field($form, 'new_password')
+          ->passwordInput([
+            'autocomplete' => 'new-password'
+          ])
+          ->hint(
+            Yii::t(
+              'app',
+              'This should be a random string of at least {n} characters and should not be the same as any other site',
+              ['n' => 10],
+            ),
+          ) . "\n"
+        ?>
         <?= $_->field($form, 'new_password_repeat')->passwordInput() . "\n" ?>
         <div id="password-strength"></div>
 
