@@ -44,8 +44,19 @@ ZxcvbnAsset::register($this);
       </p>
       <?php $_ = ActiveForm::begin(['id' => 'register-form']); echo "\n" ?>
         <?= $_->field($register, 'name') . "\n" ?>
-        <?= $_->field($register, 'screen_name') . "\n" ?>
-        <?= $_->field($register, 'password')->passwordInput() . "\n" ?>
+        <?= $_->field($register, 'screen_name')
+          ->hint(Yii::t('app', 'This will be made public as part of URL')) . "\n"
+        ?>
+        <?= $_->field($register, 'password')
+          ->passwordInput()
+          ->hint(
+            Yii::t(
+              'app',
+              'This should be a random string of at least {n} characters and should not be the same as any other site',
+              ['n' => 10],
+            )
+          ) . "\n"
+        ?>
         <?= $_->field($register, 'password_repeat')->passwordInput() . "\n" ?>
         <div id="password-strength"></div>
         <?= Html::submitButton(

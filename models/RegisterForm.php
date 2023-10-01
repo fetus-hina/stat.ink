@@ -35,6 +35,7 @@ class RegisterForm extends Model
                 'message' => Yii::t('app', 'This {attribute} is already in use.'),
             ],
             [['name'], 'string', 'max' => 15],
+            [['password'], 'string', 'min' => 10],
             [['password_repeat'], 'compare',
                 'compareAttribute' => 'password',
                 'operator' => '==='],

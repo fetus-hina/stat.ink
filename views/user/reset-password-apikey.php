@@ -73,7 +73,15 @@ $this->registerJsFile(
             <?= $_->field($form, 'password')
               ->passwordInput([
                 'autocomplete' => 'new-password',
-              ]) . "\n" ?>
+              ])
+              ->hint(
+                Yii::t(
+                  'app',
+                  'This should be a random string of at least {n} characters and should not be the same as any other site',
+                  ['n' => 10],
+                ),
+              ) . "\n"
+            ?>
             <?= $_->field($form, 'password_repeat')
               ->passwordInput() . "\n" ?>
             <div id="password-strength"></div>
