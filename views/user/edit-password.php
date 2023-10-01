@@ -28,7 +28,11 @@ ZxcvbnAsset::register($this);
       <h1><?= Html::encode($title) ?></h1>
       
       <?php $_ = ActiveForm::begin(['id' => 'update-form', 'action' => ['edit-password']]); echo "\n" ?>
-        <?= $_->field($form, 'password')->passwordInput() . "\n" ?>
+        <?= $_->field($form, 'password')
+          ->passwordInput([
+            'autocomplete' => 'current-password',
+          ]) . "\n"
+        ?>
         <?= $_->field($form, 'new_password')
           ->passwordInput([
             'autocomplete' => 'new-password'

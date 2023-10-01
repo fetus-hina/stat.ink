@@ -21,8 +21,16 @@ use yii\web\View;
   </div>
   <div class="panel-body pb-0">
     <?php $_ = ActiveForm::begin(['id' => 'login-form']); echo "\n" ?>
-      <?= $_->field($login, 'screen_name') . "\n" ?>
-      <?= $_->field($login, 'password')->passwordInput() . "\n" ?>
+      <?= $_->field($login, 'screen_name')
+        ->textInput([
+          'autocomplete' => 'username',
+        ]) . "\n"
+      ?>
+      <?= $_->field($login, 'password')
+        ->passwordInput([
+          'autocomplete' => 'current-password',
+        ]) . "\n"
+      ?>
       <?= $_->field($login, 'remember_me')
         ->checkbox() . "\n"
       ?>

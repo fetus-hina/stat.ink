@@ -43,12 +43,17 @@ ZxcvbnAsset::register($this);
         ) . "\n" ?>
       </p>
       <?php $_ = ActiveForm::begin(['id' => 'register-form']); echo "\n" ?>
-        <?= $_->field($register, 'name') . "\n" ?>
+        <?= $_->field($register, 'name')
+          ->textInput(['autocomplete' => 'nickname']) . "\n"
+        ?>
         <?= $_->field($register, 'screen_name')
+          ->textInput(['autocomplete' => 'username'])
           ->hint(Yii::t('app', 'This will be made public as part of URL')) . "\n"
         ?>
         <?= $_->field($register, 'password')
-          ->passwordInput()
+          ->passwordInput([
+            'autocomplete' => 'new-password'
+          ])
           ->hint(
             Yii::t(
               'app',
