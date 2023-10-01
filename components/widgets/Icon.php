@@ -189,6 +189,7 @@ use function str_starts_with;
  * @method static string splatoon2()
  * @method static string splatoon3()
  * @method static string stats()
+ * @method static string statsHistogram()
  * @method static string subCategory()
  * @method static string subPage()
  * @method static string thisPlayer()
@@ -262,6 +263,7 @@ final class Icon
         'slack' => 'slack',
         'sortable' => 'arrow-down-up',
         'stats' => 'pie-chart-fill',
+        'statsHistogram' => 'bar-chart-fill',
         'subCategory' => 'chevron-double-right',
         'subPage' => 'chevron-right',
         'timezone' => 'clock',
