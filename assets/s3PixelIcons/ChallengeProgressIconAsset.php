@@ -10,8 +10,8 @@ declare(strict_types=1);
 
 namespace app\assets\s3PixelIcons;
 
-use app\assets\s3PixelIcons\internal\UiIconAsset as BaseUiIconAsset;
+use app\assets\s3PixelIcons\internal\UiIconAsset;
 
-final class UiIconAsset extends BaseUiIconAsset
+final class ChallengeProgressIconAsset extends UiIconAsset
 {
 }
