@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace app\components\widgets\v3;
 
-use app\components\widgets\FA;
+use app\components\widgets\Icon;
 use yii\helpers\Html;
 
 use function str_repeat;
@@ -31,13 +31,9 @@ final class XProgress extends ChallengeProgress
     {
         return Html::tag(
             'div',
-            Html::tag(
-                'span',
-                str_repeat(
-                    (string)FA::fas('circle')->fw(),
-                    $win,
-                ),
-                ['class' => 'text-success'],
+            str_repeat(
+                Icon::s3ChallengeProgressWin(),
+                $win,
             ),
             ['class' => 'series-progress'],
         );
@@ -47,18 +43,9 @@ final class XProgress extends ChallengeProgress
     {
         return Html::tag(
             'div',
-            Html::tag(
-                'span',
-                str_repeat(
-                    (string)FA::fas('times')->fw(),
-                    $lose,
-                ),
-                [
-                    'class' => 'text-danger',
-                    'style' => [
-                        'opacity' => '0.5',
-                    ],
-                ],
+            str_repeat(
+                Icon::s3ChallengeProgressLose(),
+                $lose,
             ),
             ['class' => 'series-progress'],
         );
