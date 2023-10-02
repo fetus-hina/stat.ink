@@ -15,6 +15,7 @@ use Yii;
 use app\assets\AppLinkAsset;
 use app\assets\BootstrapIconsAsset;
 use app\assets\s3PixelIcons\AbilityIconAsset;
+use app\assets\s3PixelIcons\ChallengeProgressIconAsset;
 use app\assets\s3PixelIcons\LobbyIconAsset;
 use app\assets\s3PixelIcons\RuleIconAsset;
 use app\assets\s3PixelIcons\SalmometerIconAsset;
@@ -145,6 +146,10 @@ use function str_starts_with;
  * @method static string s3AbilityThermalInk()
  * @method static string s3AbilityUnknown()
  * @method static string s3BigRun()
+ * @method static string s3ChallengeProgressLose()
+ * @method static string s3ChallengeProgressLosePotential()
+ * @method static string s3ChallengeProgressWin()
+ * @method static string s3ChallengeProgressWinPotential()
  * @method static string s3Crown100x()
  * @method static string s3Crown333x()
  * @method static string s3CrownEmbellished100x()
@@ -331,6 +336,10 @@ final class Icon
         's3AbilityThermalInk' => [AbilityIconAsset::class, 'thermal_ink.png'],
         's3AbilityUnknown' => [AbilityIconAsset::class, 'unknown.png'],
         's3BigRun' => [SalmonModeIconAsset::class, 'bigrun.png', ['app-salmon3', 'Big Run'], true],
+        's3ChallengeProgressLose' => [ChallengeProgressIconAsset::class, 'challenge_progress_lose.png'],
+        's3ChallengeProgressLosePotential' => [ChallengeProgressIconAsset::class, 'challenge_progress_lose_potential.png'],
+        's3ChallengeProgressWin' => [ChallengeProgressIconAsset::class, 'challenge_progress_win.png'],
+        's3ChallengeProgressWinPotential' => [ChallengeProgressIconAsset::class, 'challenge_progress_win_potential.png'],
         's3Crown100x' => [UiIconAsset::class, 'crown_100x.png', ['app', '100x Battle WINNER!'], true],
         's3Crown333x' => [UiIconAsset::class, 'crown_333x.png', ['app', '333x Battle WINNER!'], true],
         's3CrownEmbellished100x' => [UiIconAsset::class, 'crown_embellished_100x.png', ['app', '100x Battle WINNER!'], true],

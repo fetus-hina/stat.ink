@@ -142,6 +142,7 @@ RESOURCE_TARGETS := \
 	resources/.compiled/stat.ink/user-stat-nawabari-wp.js \
 	resources/.compiled/stat.ink/user-stat-report.css \
 	resources/.compiled/stat.ink/user-stat-splatfest.js \
+	resources/.compiled/stat.ink/v3-challenge-progress-icon.css \
 	resources/.compiled/stat.ink/v3-user-stats-win-rate.js \
 	resources/.compiled/stat.ink/weapon2.js \
 	resources/.compiled/stat.ink/weapons-use.js \
@@ -374,6 +375,7 @@ resources/.compiled/stat.ink/user-stat-nawabari-inked.js: resources/stat.ink/use
 resources/.compiled/stat.ink/user-stat-nawabari-wp.js: resources/stat.ink/user-stat-nawabari-wp.es node_modules
 resources/.compiled/stat.ink/user-stat-report.css: resources/stat.ink/user-stat-report.scss node_modules
 resources/.compiled/stat.ink/user-stat-splatfest.js: resources/stat.ink/user-stat-splatfest.es node_modules
+resources/.compiled/stat.ink/v3-challenge-progress-icon.css: resources/stat.ink/v3-challenge-progress-icon.scss node_modules
 resources/.compiled/stat.ink/v3-user-stats-win-rate.js: resources/stat.ink/v3-user-stats-win-rate.es node_modules
 resources/.compiled/stat.ink/weapons-use.js: resources/stat.ink/weapons-use.js node_modules
 resources/.compiled/stat.ink/weapons.js: resources/stat.ink/weapons.js node_modules

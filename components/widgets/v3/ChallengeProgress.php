@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -11,7 +11,8 @@ declare(strict_types=1);
 namespace app\components\widgets\v3;
 
 use Yii;
-use app\components\widgets\FA;
+use app\assets\Spl3ChallengeProgressIconAsset;
+use app\components\widgets\Icon;
 use yii\base\Widget;
 use yii\helpers\Html;
 use yii\web\View;
@@ -31,6 +32,9 @@ class ChallengeProgress extends Widget
     public function run(): string
     {
         $view = $this->view;
+        if ($view instanceof View) {
+            Spl3ChallengeProgressIconAsset::register($view);
+        }
 
         $maxWin = $this->getMaxWin();
         $maxLose = $this->getMaxLose();
@@ -91,26 +95,13 @@ class ChallengeProgress extends Widget
         return Html::tag(
             'div',
             implode('', [
-                Html::tag(
-                    'span',
-                    str_repeat(
-                        (string)FA::fas('circle')->fw(),
-                        $win,
-                    ),
-                    ['class' => 'text-success'],
+                str_repeat(
+                    Icon::s3ChallengeProgressWin(),
+                    $win,
                 ),
-                Html::tag(
-                    'span',
-                    str_repeat(
-                        (string)FA::fas('circle')->fw(),
-                        $max - $win,
-                    ),
-                    [
-                        'class' => 'text-muted',
-                        'style' => [
-                            'opacity' => '0.2',
-                        ],
-                    ],
+                str_repeat(
+                    Icon::s3ChallengeProgressWinPotential(),
+                    $max - $win,
                 ),
             ]),
             ['class' => 'series-progress'],
@@ -122,26 +113,13 @@ class ChallengeProgress extends Widget
         return Html::tag(
             'div',
             implode('', [
-                Html::tag(
-                    'span',
-                    str_repeat(
-                        (string)FA::fas('square')->fw(),
-                        $max - $lose,
-                    ),
-                    ['class' => 'text-warning'],
+                str_repeat(
+                    Icon::s3ChallengeProgressLosePotential(),
+                    $max - $lose,
                 ),
-                Html::tag(
-                    'span',
-                    str_repeat(
-                        (string)FA::fas('times')->fw(),
-                        $lose,
-                    ),
-                    [
-                        'class' => 'text-danger',
-                        'style' => [
-                            'opacity' => '0.5',
-                        ],
-                    ],
+                str_repeat(
+                    Icon::s3ChallengeProgressLose(),
+                    $lose,
                 ),
             ]),
             ['class' => 'series-progress'],
