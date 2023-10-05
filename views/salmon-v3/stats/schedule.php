@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use app\actions\salmon\v3\stats\schedule\EventTrait;
+use app\actions\salmon\v3\stats\schedule\OverfishingTrait;
 use app\actions\salmon\v3\stats\schedule\PlayerTrait;
 use app\actions\salmon\v3\stats\schedule\WeaponTrait;
 use app\components\helpers\OgpHelper;
@@ -28,11 +29,13 @@ use yii\web\View;
 
 /**
  * @phpstan-import-type EventStats from EventTrait
+ * @phpstan-import-type OverfishingStats from OverfishingTrait
  * @phpstan-import-type PlayerStats from PlayerTrait
  * @phpstan-import-type WeaponStats from WeaponTrait
  *
  * @var EventStats $eventStats
  * @var Map3|SalmonMap3|null $map
+ * @var OverfishingStats|null $overfishing
  * @var PlayerStats[] $playerStats
  * @var Salmon3[] $results
  * @var SalmonSchedule3 $schedule
@@ -115,7 +118,13 @@ $played = TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'count'));
         Under construction...
       </div>
 
-      <?= $this->render('schedule/abstract', compact('map', 'schedule', 'stats', 'user')) . "\n" ?>
+      <?= $this->render('schedule/abstract', compact(
+        'map',
+        'overfishing',
+        'schedule',
+        'stats',
+        'user',
+      )) . "\n" ?>
       <?= $this->render('schedule/kings', compact('kings', 'kingStats', 'user')) . "\n" ?>
       <?= $this->render('schedule/bosses', compact('bosses', 'bossStats', 'user')) . "\n" ?>
       <?= $this->render('schedule/specials', compact('specials', 'specialStats', 'user')) . "\n" ?>

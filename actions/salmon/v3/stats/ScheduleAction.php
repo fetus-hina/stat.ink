@@ -16,6 +16,7 @@ use app\actions\salmon\v3\stats\schedule\AbstractTrait;
 use app\actions\salmon\v3\stats\schedule\BossSalmonidTrait;
 use app\actions\salmon\v3\stats\schedule\EventTrait;
 use app\actions\salmon\v3\stats\schedule\KingSalmonidTrait;
+use app\actions\salmon\v3\stats\schedule\OverfishingTrait;
 use app\actions\salmon\v3\stats\schedule\PlayerTrait;
 use app\actions\salmon\v3\stats\schedule\SpecialTrait;
 use app\actions\salmon\v3\stats\schedule\WeaponTrait;
@@ -40,6 +41,7 @@ final class ScheduleAction extends Action
     use BossSalmonidTrait;
     use EventTrait;
     use KingSalmonidTrait;
+    use OverfishingTrait;
     use PlayerTrait;
     use SpecialTrait;
     use WeaponTrait;
@@ -98,7 +100,7 @@ final class ScheduleAction extends Action
                     'revision' => ArrayHelper::getValue(Yii::$app->params, 'gitRevision.longHash'),
                     'schedule' => $schedule->id,
                     'user' => $user->id,
-                    'version' => 9,
+                    'version' => 10,
                 ],
                 fn (): array => [
                     'bossStats' => $this->getBossStats($db, $user, $schedule),
@@ -108,6 +110,7 @@ final class ScheduleAction extends Action
                     'kingStats' => $this->getKingStats($db, $user, $schedule),
                     'kings' => $this->getKings($db),
                     'map' => $schedule->map ?? $schedule->bigMap ?? null,
+                    'overfishing' => $this->getOverfishingStats($db, $user, $schedule),
                     'playerStats' => $this->getPlayerStats($db, $user, $schedule),
                     'specialStats' => $this->getSpecialStats($db, $user, $schedule),
                     'specials' => $this->getSpecials($db),
