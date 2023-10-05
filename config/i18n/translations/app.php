@@ -49,6 +49,7 @@ return [
         'app-salmon-event3' => 'salmon-event3.php',
         'app-salmon-history2' => 'salmon-history2.php',
         'app-salmon-map2' => 'salmon-map2.php',
+        'app-salmon-overfishing' => 'salmon-overfishing.php',
         'app-salmon-scale3' => 'salmon-scale3.php',
         'app-salmon-tide2' => 'salmon-tide2.php',
         'app-salmon-title2' => 'salmon-title2.php',

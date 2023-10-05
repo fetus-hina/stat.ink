@@ -119,6 +119,7 @@ $played = TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'count'));
 
       <?= $this->render('schedule/abstract', [
         'map' => null,
+        'overfishing' => null,
         'schedule' => null,
         'stats' => $stats,
         'user' => $user,

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\actions\salmon\v3\stats\schedule\OverfishingTrait;
 use app\components\helpers\TypeHelper;
 use app\components\widgets\Icon;
 use app\models\Map3;
@@ -15,7 +16,10 @@ use yii\web\View;
 use yii\widgets\DetailView;
 
 /**
+ * @phpstan-import-type OverfishingStats from OverfishingTrait
+ *
  * @var Map3|SalmonMap3|null $map
+ * @var OverfishingStats|null $overfishing
  * @var SalmonSchedule3|null $schedule
  * @var User $user
  * @var View $this
@@ -276,6 +280,31 @@ echo DetailView::widget([
           ),
         ]),
       ],
+      isset($overfishing) && $overfishing
+        ? [
+          'label' => Yii::t('app-salmon-overfishing', 'Overfishing'),
+          'format' => 'raw',
+          'value' => implode('', [
+            Html::button(
+              implode(' ', [
+                Icon::goldenEgg(),
+                Html::encode(Yii::t('app-salmon-overfishing', 'Overfishing Stats')),
+              ]),
+              [
+                'class' => 'btn btn-default btn-xs',
+                'data' => [
+                  'toggle' => 'modal',
+                  'target' => '#overfishing-stats',
+                ],
+              ],
+            ),
+            $this->render('overfishing', [
+              'modalId' => 'overfishing-stats',
+              'stats' => $overfishing,
+            ]),
+          ]),
+        ]
+        : null,
       [
         'label' => Yii::t('app-salmon3', 'Scales'),
         'format' => 'raw',
