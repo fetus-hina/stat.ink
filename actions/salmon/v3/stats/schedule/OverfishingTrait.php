@@ -14,6 +14,7 @@ use app\components\helpers\TypeHelper;
 use app\models\SalmonSchedule3;
 use app\models\User;
 use yii\db\Connection;
+use yii\db\Expression;
 use yii\db\Query;
 use yii\db\Transaction;
 
@@ -24,7 +25,8 @@ use const SORT_ASC;
 
 /**
  * @phpstan-type TotalEggs array{total_3_night: int, total_2_night: int, total_1_night: int, total_0_night: int}
- * @phpstan-type OverfishingStats array{total: TotalEggs}
+ * @phpstan-type WaveStats array{event_id: int, tide_id: int, golden_eggs: int}
+ * @phpstan-type OverfishingStats array{total: TotalEggs, waves: WaveStats[]}
  */
 trait OverfishingTrait
 {
@@ -43,7 +45,8 @@ trait OverfishingTrait
                 }
 
                 return [
-                    'total' => $this->getOverfishingStatsTotal($db, $user, $schedule),
+                    'total' => $this->getOverfishingTotalStats($db, $user, $schedule),
+                    'waves' => $this->getOverfishingWavesStats($db, $user, $schedule),
                 ];
             },
             Transaction::REPEATABLE_READ,
@@ -112,7 +115,7 @@ trait OverfishingTrait
     /**
      * @phpstan-return TotalEggs
      */
-    private function getOverfishingStatsTotal(
+    private function getOverfishingTotalStats(
         Connection $db,
         User $user,
         SalmonSchedule3 $schedule,
@@ -149,5 +152,51 @@ trait OverfishingTrait
                 '{{%salmon3}}.[[user_id]]' => (int)$user->id,
             ]);
         return TypeHelper::array($select->createCommand($db)->queryOne());
+    }
+
+    /**
+     * @phpstan-return WaveStats[]
+     */
+    private function getOverfishingWavesStats(
+        Connection $db,
+        User $user,
+        SalmonSchedule3 $schedule,
+    ): array {
+        $eventId = new Expression('COALESCE({{%salmon_wave3}}.[[event_id]], -1)');
+        $select = (new Query())
+            ->select([
+                'event_id' => $eventId,
+                'tide_id' => '{{%salmon_wave3}}.[[tide_id]]',
+                'golden_eggs' => 'MAX({{%salmon_wave3}}.[[golden_delivered]])',
+            ])
+            ->from('{{%salmon3}}')
+            ->innerJoin(
+                '{{%salmon_wave3}}',
+                vsprintf('((%s))', [
+                    implode(') AND (', [
+                        '{{%salmon3}}.[[id]] = {{%salmon_wave3}}.[[salmon_id]]',
+                        '{{%salmon_wave3}}.[[wave]] BETWEEN 1 AND 3',
+                    ]),
+                ]),
+            )
+            ->andWhere([
+                '{{%salmon3}}.[[clear_waves]]' => 3,
+                '{{%salmon3}}.[[is_deleted]]' => false,
+                '{{%salmon3}}.[[is_eggstra_work]]' => false,
+                '{{%salmon3}}.[[is_private]]' => false,
+                '{{%salmon3}}.[[schedule_id]]' => (int)$schedule->id,
+                '{{%salmon3}}.[[user_id]]' => (int)$user->id,
+            ])
+            ->andWhere('{{%salmon_wave3}}.[[golden_delivered]] IS NOT NULL')
+            ->groupBy([
+                $eventId,
+                '{{%salmon_wave3}}.[[tide_id]]',
+            ])
+            ->orderBy([
+                'event_id' => SORT_ASC,
+                'tide_id' => SORT_ASC,
+            ]);
+
+        return $select->createCommand($db)->queryAll();
     }
 }

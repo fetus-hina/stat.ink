@@ -118,10 +118,12 @@ $played = TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'count'));
       </div>
 
       <?= $this->render('schedule/abstract', [
+        'events' => $events,
         'map' => null,
         'overfishing' => null,
         'schedule' => null,
         'stats' => $stats,
+        'tides' => $tides,
         'user' => $user,
       ]) . "\n" ?>
       <?= $this->render('stats/golden-eggs', compact(

@@ -7,8 +7,10 @@ use app\components\helpers\TypeHelper;
 use app\components\widgets\Icon;
 use app\models\Map3;
 use app\models\Salmon3;
+use app\models\SalmonEvent3;
 use app\models\SalmonSchedule3;
 use app\models\SalmonScheduleWeapon3;
+use app\models\SalmonWaterLevel2;
 use app\models\User;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -23,6 +25,8 @@ use yii\widgets\DetailView;
  * @var SalmonSchedule3|null $schedule
  * @var User $user
  * @var View $this
+ * @var array<int, SalmonEvent3> $events
+ * @var array<int, SalmonWaterLevel2> $tides
  * @var array<string, scalar|null> $stats
  */
 
@@ -299,8 +303,10 @@ echo DetailView::widget([
               ],
             ),
             $this->render('overfishing', [
+              'events' => $events,
               'modalId' => 'overfishing-stats',
               'stats' => $overfishing,
+              'tides' => $tides,
             ]),
           ]),
         ]

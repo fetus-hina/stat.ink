@@ -13,6 +13,7 @@ return [
     '(~1 Night)' => '',
     '(~2 Night)' => '',
     'Category' => '',
+    'Day Waves' => '',
     'Overfishing' => '',
     'Overfishing Stats' => '',
     'Record' => '',
