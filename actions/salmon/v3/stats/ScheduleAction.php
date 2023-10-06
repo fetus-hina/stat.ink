@@ -100,7 +100,7 @@ final class ScheduleAction extends Action
                     'revision' => ArrayHelper::getValue(Yii::$app->params, 'gitRevision.longHash'),
                     'schedule' => $schedule->id,
                     'user' => $user->id,
-                    'version' => 10,
+                    'version' => 11,
                 ],
                 fn (): array => [
                     'bossStats' => $this->getBossStats($db, $user, $schedule),
