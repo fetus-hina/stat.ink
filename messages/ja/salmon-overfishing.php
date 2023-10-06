@@ -13,6 +13,7 @@ return [
     '(~1 Night)' => '（夜1）',
     '(~2 Night)' => '（夜2）',
     'Category' => 'カテゴリー',
+    'Day Waves' => '昼WAVE',
     'Overfishing Stats' => '乱獲統計',
     'Overfishing' => '乱獲',
     'Record' => '記録',

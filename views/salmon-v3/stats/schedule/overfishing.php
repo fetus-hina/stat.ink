@@ -5,6 +5,8 @@ declare(strict_types=1);
 use app\actions\salmon\v3\stats\schedule\OverfishingTrait;
 use app\components\helpers\TypeHelper;
 use app\components\widgets\Icon;
+use app\models\SalmonEvent3;
+use app\models\SalmonWaterLevel2;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\View;
@@ -14,6 +16,8 @@ use yii\web\View;
  *
  * @var OverfishingStats $stats
  * @var View $this
+ * @var array<int, SalmonEvent3> $events
+ * @var array<int, SalmonWaterLevel2> $tides
  * @var string $modalId
  */
 
@@ -122,6 +126,30 @@ $fmt->nullDisplay = '';
                 ) . "\n" ?>
               </td>
             </tr>
+            <?= $this->render('./overfishing/event', [
+              'event' => null,
+              'fmt' => $fmt,
+              'stats' => array_values(
+                array_filter(
+                  ArrayHelper::getValue($stats, 'waves', []),
+                  fn ($wave) => $wave['event_id'] === -1,
+                ),
+              ),
+              'tides' => $tides,
+            ]) . "\n" ?>
+<?php foreach ($events as $event) { ?>
+            <?= $this->render('./overfishing/event', [
+              'event' => $event,
+              'fmt' => $fmt,
+              'stats' => array_values(
+                array_filter(
+                  ArrayHelper::getValue($stats, 'waves', []),
+                  fn ($wave) => $wave['event_id'] === $event->id,
+                ),
+              ),
+              'tides' => $tides,
+            ]) . "\n" ?>
+<?php } ?>
           </tbody>
         </table>
       </div>
