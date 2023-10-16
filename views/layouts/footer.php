@@ -189,6 +189,17 @@ if (!is_string($discordInviteCode)) {
             'https://twitter.com/fetus_hina'
           ),
         ]),
+        implode(' ', [
+          Yii::t('app', 'Thanks to {user} for their contribution.', [
+            'user' => Html::a(Html::encode('@hacceuee'), 'https://github.com/hacceuee'),
+          ]),
+          Yii::t('app', '{package} is used for icons and other images.', [
+            'package' => Html::a(
+              Html::encode('s3-pixel-icons'),
+              'https://github.com/hacceuee/s3-pixel-icons',
+            ),
+          ]),
+        ]),
       ]) . "\n" ?>
     </div>
     <div class="footer-powered">
