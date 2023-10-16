@@ -30,7 +30,7 @@
         "jp3cki/yii2-momentjs": "^1.0.1",
         "jp3cki/yii2-twitter-widget": "^1.0",
         "jp3cki/yii2-zxcvbn": "^1.0",
-        "laminas/laminas-feed": "^2.21.0",
+        "laminas/laminas-feed": "^2.22.0",
         "laminas/laminas-http": "^2.18",
         "laminas/laminas-validator": "^2.39",
         "lipis/flag-icons": "^6.11.1",
