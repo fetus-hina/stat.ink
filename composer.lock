@@ -1433,22 +1433,22 @@
         },
         {
             "name": "laminas/laminas-uri",
-            "version": "2.10.0",
+            "version": "2.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-uri.git",
-                "reference": "663b050294945c7345cc3a61f3ca661d5f9e1f80"
+                "reference": "e662c685125061d3115906e5eb30f966842cc226"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-uri/zipball/663b050294945c7345cc3a61f3ca661d5f9e1f80",
-                "reference": "663b050294945c7345cc3a61f3ca661d5f9e1f80",
+                "url": "https://api.github.com/repos/laminas/laminas-uri/zipball/e662c685125061d3115906e5eb30f966842cc226",
+                "reference": "e662c685125061d3115906e5eb30f966842cc226",
                 "shasum": ""
             },
             "require": {
                 "laminas/laminas-escaper": "^2.9",
-                "laminas/laminas-validator": "^2.15",
-                "php": "~8.0.0 || ~8.1.0 || ~8.2.0"
+                "laminas/laminas-validator": "^2.39",
+                "php": "~8.1.0 || ~8.2.0 || ~8.3.0"
             },
             "conflict": {
                 "zendframework/zend-uri": "*"
@@ -1487,7 +1487,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2022-10-16T15:02:45+00:00"
+            "time": "2023-10-18T09:56:55+00:00"
         },
         {
             "name": "laminas/laminas-validator",
