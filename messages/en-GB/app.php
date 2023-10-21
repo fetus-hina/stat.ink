@@ -457,6 +457,7 @@ return [
     'PNG/JPEG file up to {0}' => '',
     'Points' => '',
     'Position' => '',
+    'Power' => '',
     'Powered by' => '',
     'Power Level' => '',
     'Prev.' => '',

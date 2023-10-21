@@ -458,6 +458,7 @@ return [
     'PNG/JPEG file up to {0}' => '{0}까지의 PNG/JPEG 파일',
     'Points' => '포인트',
     'Position' => '위치',
+    'Power' => '',
     'Powered by' => 'Powered by',
     'Power Level' => '',
     'Prev.' => '이전',

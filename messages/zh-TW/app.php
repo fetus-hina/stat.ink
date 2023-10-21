@@ -458,6 +458,7 @@ return [
     'PNG/JPEG file up to {0}' => '最多允許{0}的PNG/JPEG文件',
     'Points' => '點數',
     'Position' => '位置',
+    'Power' => '',
     'Powered by' => '本站使用以下技術運行',
     'Power Level' => '能力值',
     'Prev.' => '上一個',

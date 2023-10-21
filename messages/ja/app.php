@@ -445,6 +445,7 @@ return [
     'Points' => 'ポイント',
     'Position' => '位置',
     'Power Level' => 'ガチパワー',
+    'Power' => 'パワー',
     'Powered by' => 'Powered by',
     'Prev. Battle' => '前のバトル',
     'Prev. Month' => '前の月',
