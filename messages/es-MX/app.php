@@ -458,6 +458,7 @@ return [
     'PNG/JPEG file up to {0}' => '',
     'Points' => 'Puntos',
     'Position' => 'Posición',
+    'Power' => '',
     'Powered by' => 'Desarrollado por',
     'Power Level' => '',
     'Prev.' => '',

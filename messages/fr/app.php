@@ -459,6 +459,7 @@ return [
     'PNG/JPEG file up to {0}' => 'Fichier PNG/JPEG jusqu\'à {0}',
     'Points' => '',
     'Position' => '',
+    'Power' => '',
     'Powered by' => 'Propulsé par',
     'Power Level' => '',
     'Prev.' => 'Précédent',
