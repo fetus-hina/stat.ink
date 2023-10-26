@@ -64,7 +64,11 @@ foreach ($gears as $gear) {
   }
 
   $doubler = $mainKey === 'ability_doubler';
-  foreach ($gear->gearConfigurationSecondary3s as $sub) {
+  $subs = ArrayHelper::sort(
+    $gear->gearConfigurationSecondary3s,
+    fn (GearConfigurationSecondary3 $a, GearConfigurationSecondary3 $b): int => $a->id <=> $b->id,
+  );
+  foreach (array_slice($subs, 0, 3) as $sub) {
     $subKey = ArrayHelper::getValue($sub, 'ability.key');
     if (
       $subKey &&
@@ -155,7 +159,13 @@ $sendouInkUrl = SendouInk::getBuildUrl3($player->weapon, ...$gears);
             ArrayHelper::getValue($secondary, 'ability.key', 'unknown'),
           ),
           array_slice(
-            array_merge($gear->gearConfigurationSecondary3s, [null, null, null]),
+            array_merge(
+              ArrayHelper::sort(
+                $gear->gearConfigurationSecondary3s,
+                fn (GearConfigurationSecondary3 $a, GearConfigurationSecondary3 $b): int => $a->id <=> $b->id,
+              ),
+              [null, null, null],
+            ),
             0,
             3,
           ),
@@ -227,8 +237,8 @@ $sendouInkUrl = SendouInk::getBuildUrl3($player->weapon, ...$gears);
                 <td class="omit"><?= Html::encode($power['name']) ?></td>
 <?php if ($power['mainOnly']) { ?>
                 <td class="text-center text-success"><?= Icon::check() ?></td>
-                <td></td>
-                <td></td>
+                <td class="text-center">1</td>
+                <td class="text-center"></td>
 <?php } else {?>
                 <?= Html::tag(
                   'td',
