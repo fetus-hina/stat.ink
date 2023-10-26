@@ -12,6 +12,7 @@ namespace app\commands\dlStats3;
 
 use app\models\Battle3;
 use app\models\BattlePlayer3;
+use app\models\GearConfigurationSecondary3;
 use app\models\Rank3;
 use app\models\Salmon3;
 use app\models\Season3;
@@ -19,6 +20,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 
 use function array_map;
+use function array_slice;
 use function filter_var;
 use function gettype;
 use function is_bool;
@@ -100,7 +102,12 @@ trait ModelUtilTrait
                 : ($results[$key] ?? 0) + 10;
 
             // サブ
-            foreach ($gear->gearConfigurationSecondary3s as $sub) {
+            $subs = ArrayHelper::sort(
+                $gear->gearConfigurationSecondary3s,
+                fn (GearConfigurationSecondary3 $a, GearConfigurationSecondary3 $b): int => $a->id <=> $b->id,
+            );
+
+            foreach (array_slice($subs, 0, 3) as $sub) {
                 $key = $sub?->ability?->key;
                 if ($key) {
                     $results[$key] = ($results[$key] ?? 0) + ($double ? 6 : 3);
