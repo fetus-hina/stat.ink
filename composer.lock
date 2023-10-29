@@ -75,16 +75,16 @@
         },
         {
             "name": "arokettu/unsigned",
-            "version": "1.2.1",
+            "version": "1.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/arokettu/unsigned.git",
-                "reference": "db1995f4cdaec1a8ac1ae13ff1dfb1641b3b096d"
+                "reference": "88197c9ef0b00cf9c0804f75485be8509fc2cd15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/arokettu/unsigned/zipball/db1995f4cdaec1a8ac1ae13ff1dfb1641b3b096d",
-                "reference": "db1995f4cdaec1a8ac1ae13ff1dfb1641b3b096d",
+                "url": "https://api.github.com/repos/arokettu/unsigned/zipball/88197c9ef0b00cf9c0804f75485be8509fc2cd15",
+                "reference": "88197c9ef0b00cf9c0804f75485be8509fc2cd15",
                 "shasum": ""
             },
             "require": {
@@ -126,7 +126,7 @@
                 "issues": "https://gitlab.com/sandfox/unsigned/-/issues",
                 "source": "https://gitlab.com/sandfox/unsigned"
             },
-            "time": "2023-09-04T22:47:38+00:00"
+            "time": "2023-10-28T20:28:42+00:00"
         },
         {
             "name": "cebe/markdown",
