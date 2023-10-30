@@ -24,20 +24,20 @@ class Salmon2Query extends ActiveQuery
         if (!$this->summaryCache) {
             $stats = fn (
                 string $suffix, // 'golden' => 'avg_golden'
-                string $attribute // '{{salmon_player2}}.[[golden_egg_delivered]]
+                string $attribute, // '{{salmon_player2}}.[[golden_egg_delivered]]
             ): array => [
-                    "avail_$suffix" => "SUM(CASE WHEN $attribute IS NULL THEN 0 ELSE 1 END)",
-                    "total_$suffix" => "SUM($attribute)",
-                    "avg_$suffix" => "AVG($attribute)",
-                    "min_$suffix" => "MIN($attribute)",
-                    "pct5_$suffix" => "percentile_cont(0.05) WITHIN GROUP (ORDER BY $attribute)",
-                    "q1_4_$suffix" => "percentile_cont(1.0/4) WITHIN GROUP (ORDER BY $attribute)",
-                    "median_$suffix" => "percentile_cont(0.5) WITHIN GROUP (ORDER BY $attribute)",
-                    "q3_4_$suffix" => "percentile_cont(3.0/4) WITHIN GROUP (ORDER BY $attribute)",
-                    "pct95_$suffix" => "percentile_cont(0.95) WITHIN GROUP (ORDER BY $attribute)",
-                    "max_$suffix" => "MAX($attribute)",
-                    "stddev_$suffix" => "stddev_pop($attribute)",
-                ];
+                "avail_$suffix" => "SUM(CASE WHEN $attribute IS NULL THEN 0 ELSE 1 END)",
+                "total_$suffix" => "SUM($attribute)",
+                "avg_$suffix" => "AVG($attribute)",
+                "min_$suffix" => "MIN($attribute)",
+                "pct5_$suffix" => "percentile_cont(0.05) WITHIN GROUP (ORDER BY $attribute)",
+                "q1_4_$suffix" => "percentile_cont(1.0/4) WITHIN GROUP (ORDER BY $attribute)",
+                "median_$suffix" => "percentile_cont(0.5) WITHIN GROUP (ORDER BY $attribute)",
+                "q3_4_$suffix" => "percentile_cont(3.0/4) WITHIN GROUP (ORDER BY $attribute)",
+                "pct95_$suffix" => "percentile_cont(0.95) WITHIN GROUP (ORDER BY $attribute)",
+                "max_$suffix" => "MAX($attribute)",
+                "stddev_$suffix" => "stddev_pop($attribute)",
+            ];
             $query = Salmon2::find()
                 ->leftJoin('salmon_player2', '(' . implode(' AND ', [
                     'salmon_player2.work_id = salmon2.id',

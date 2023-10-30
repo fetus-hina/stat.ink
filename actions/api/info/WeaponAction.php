@@ -27,20 +27,20 @@ class WeaponAction extends BaseAction
     {
         $types = array_map(
             fn (array $type): array => [
-                    'key' => $type['key'],
-                    'name' => Yii::t('app-weapon', $type['name']),
-                    'weapons' => array_map(
-                        fn (array $weapon): array => [
-                                'key' => $weapon['key'],
-                                'names' => Translator::translateToAll('app-weapon', $weapon['name']),
-                            ],
-                        Weapon::find()
+                'key' => $type['key'],
+                'name' => Yii::t('app-weapon', $type['name']),
+                'weapons' => array_map(
+                    fn (array $weapon): array => [
+                        'key' => $weapon['key'],
+                        'names' => Translator::translateToAll('app-weapon', $weapon['name']),
+                    ],
+                    Weapon::find()
                             ->andWhere(['type_id' => $type['id']])
                             ->orderBy(['key' => SORT_ASC])
                             ->asArray()
                             ->all(),
-                    ),
-                ],
+                ),
+            ],
             WeaponType::find()->orderBy(['id' => SORT_ASC])->asArray()->all(),
         );
 

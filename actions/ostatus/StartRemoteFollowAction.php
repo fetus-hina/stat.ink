@@ -107,7 +107,7 @@ class StartRemoteFollowAction extends BaseAction
         string $url,
         string $thisName,
         string $accountName,
-        string $remoteHostName
+        string $remoteHostName,
     ): ?string {
         if (!$response = $this->get($url)) {
             return null;

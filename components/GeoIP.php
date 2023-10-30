@@ -27,7 +27,7 @@ class GeoIP extends Component
 
     public function city(
         string $ipAddress,
-        array $locales = ['en']
+        array $locales = ['en'],
     ): ?City {
         if (!$reader = $this->getReader($this->dbCity, $locales)) {
             return null;
@@ -38,7 +38,7 @@ class GeoIP extends Component
 
     public function country(
         string $ipAddress,
-        array $locales = ['en']
+        array $locales = ['en'],
     ): ?Country {
         if (!$reader = $this->getReader($this->dbCountry, $locales)) {
             return null;

@@ -149,19 +149,21 @@ class BattleSummaryDialog extends Widget
             'table',
             Html::tag('tbody', implode('', array_map(
                 fn (string $key, string $label): string => Html::tag('tr', implode('', [
-                        Html::tag('td', "{$label} :", ['class' => 'text-right w-50']),
-                        Html::tag('td', '', ['data-key' => $key]),
-                    ])),
+                    Html::tag('td', "{$label} :", ['class' => 'text-right w-50']),
+                    Html::tag('td', '', ['data-key' => $key]),
+                ])),
                 array_keys($data),
                 array_values($data),
             ))),
-            ['class' => [
-                'table',
-                'table-striped',
-                'table-hover',
-                'mx-auto',
-                'my-3',
-            ]],
+            [
+                'class' => [
+                    'table',
+                    'table-striped',
+                    'table-hover',
+                    'mx-auto',
+                    'my-3',
+                ],
+            ],
         );
     }
 
@@ -174,11 +176,13 @@ class BattleSummaryDialog extends Widget
                     Yii::$app->assetManager->getBundle(AppAsset::class),
                     'summary-legends.png',
                 ),
-                ['style' => [
-                    'width' => '100%',
-                    'max-width' => '226px',
-                    'height' => 'auto',
-                ]],
+                [
+                    'style' => [
+                        'width' => '100%',
+                        'max-width' => '226px',
+                        'height' => 'auto',
+                    ],
+                ],
             ),
         ]));
     }

@@ -28,8 +28,8 @@ class m170720_103120_weapon2 extends Migration
             'clashblaster',
             'soytuber',
         ];
-        $this->delete('death_reason2', ['key' => $key]);
-        $this->delete('weapon2', ['key' => $key]);
+        $this->delete('death_reason2', ['key' => $keys]);
+        $this->delete('weapon2', ['key' => $keys]);
     }
 
     private function upWeapon(
@@ -39,7 +39,7 @@ class m170720_103120_weapon2 extends Migration
         string $sub,
         string $special,
         ?string $main = null,
-        ?string $canonical = null
+        ?string $canonical = null,
     ) {
         $this->insert('weapon2', [
             'key' => $key,

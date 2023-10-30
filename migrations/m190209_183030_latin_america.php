@@ -26,7 +26,8 @@ class m190209_183030_latin_america extends Migration
         $this->delete('timezone_group', ['name' => [
             'Central America',
             'South America',
-        ]]);
+        ],
+        ]);
         $this->insert('timezone_group', [
             'order' => 60,
             'name' => 'Latin America',

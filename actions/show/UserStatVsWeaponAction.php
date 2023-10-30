@@ -51,44 +51,46 @@ class UserStatVsWeaponAction extends BaseAction
 
     public function run()
     {
-        $transaction = Yii::$app->db->beginTransaction();
-        $this->createTemporaryTables();
+        return Yii::$app->db->transaction(
+            function (): string {
+                $this->createTemporaryTables();
+                $data = array_map(
+                    function (array $data): array {
+                        $battles = $data['battles'] ?? null;
+                        $wins = $data['wins'] ?? null;
+                        $data['win_pct'] = is_int($battles) && is_int($wins) && $battles > 0
+                            ? 100 * $wins / $battles
+                            : null;
 
-        $data = array_map(
-            function (array $data): array {
-                $battles = $data['battles'] ?? null;
-                $wins = $data['wins'] ?? null;
-                $data['win_pct'] = is_int($battles) && is_int($wins) && $battles > 0
-                    ? 100 * $wins / $battles
-                    : null;
+                        $deaths = $data['deaths'] ?? null;
+                        $data['deaths_per_game'] = is_int($battles) && is_int($deaths) && $battles > 0
+                            ? $deaths / $battles
+                            : null;
+                        return $data;
+                    },
+                    ArrayHelper::merge($this->queryVersus(), $this->queryDeath()),
+                );
+                uasort($data, function (array $a, array $b): int {
+                    if ($a['win_pct'] === null) {
+                        if ($b['win_pct'] === null) {
+                            return strcasecmp($a['weapon_name'], $b['weapon_name']);
+                        }
+                        return 1;
+                    }
+                    if ($b['win_pct'] === null) {
+                        return -1;
+                    }
+                    return $b['win_pct'] <=> $a['win_pct']
+                        ?: strcasecmp($a['weapon_name'], $b['weapon_name']);
+                });
 
-                $deaths = $data['deaths'] ?? null;
-                $data['deaths_per_game'] = is_int($battles) && is_int($deaths) && $battles > 0
-                    ? $deaths / $battles
-                    : null;
-                return $data;
+                return $this->controller->render('user-stat-vs-weapon', [
+                    'user' => $this->user,
+                    'filter' => $this->filter,
+                    'data' => $data,
+                ]);
             },
-            ArrayHelper::merge($this->queryVersus(), $this->queryDeath()),
         );
-        uasort($data, function (array $a, array $b): int {
-            if ($a['win_pct'] === null) {
-                if ($b['win_pct'] === null) {
-                    return strcasecmp($a['weapon_name'], $b['weapon_name']);
-                }
-                return 1;
-            }
-            if ($b['win_pct'] === null) {
-                return -1;
-            }
-            return $b['win_pct'] <=> $a['win_pct']
-                ?: strcasecmp($a['weapon_name'], $b['weapon_name']);
-        });
-
-        return $this->controller->render('user-stat-vs-weapon', [
-            'user' => $this->user,
-            'filter' => $this->filter,
-            'data' => $data,
-        ]);
     }
 
     protected function createTemporaryTables()

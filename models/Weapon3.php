@@ -77,7 +77,7 @@ class Weapon3 extends ActiveRecord
             [['mainweapon_id'], 'exist', 'skipOnError' => true, 'targetClass' => Mainweapon3::class, 'targetAttribute' => ['mainweapon_id' => 'id']],
             [['special_id'], 'exist', 'skipOnError' => true, 'targetClass' => Special3::class, 'targetAttribute' => ['special_id' => 'id']],
             [['subweapon_id'], 'exist', 'skipOnError' => true, 'targetClass' => Subweapon3::class, 'targetAttribute' => ['subweapon_id' => 'id']],
-            [['canonical_id'], 'exist', 'skipOnError' => true, 'targetClass' => Weapon3::class, 'targetAttribute' => ['canonical_id' => 'id']],
+            [['canonical_id'], 'exist', 'skipOnError' => true, 'targetClass' => self::class, 'targetAttribute' => ['canonical_id' => 'id']],
         ];
     }
 
@@ -112,7 +112,7 @@ class Weapon3 extends ActiveRecord
 
     public function getCanonical(): ActiveQuery
     {
-        return $this->hasOne(Weapon3::class, ['id' => 'canonical_id']);
+        return $this->hasOne(self::class, ['id' => 'canonical_id']);
     }
 
     public function getEvent3StatsWeapons(): ActiveQuery
@@ -237,7 +237,7 @@ class Weapon3 extends ActiveRecord
 
     public function getWeapon3s(): ActiveQuery
     {
-        return $this->hasMany(Weapon3::class, ['canonical_id' => 'id']);
+        return $this->hasMany(self::class, ['canonical_id' => 'id']);
     }
 
     public function getXMatchingGroupWeapon3s(): ActiveQuery

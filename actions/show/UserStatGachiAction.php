@@ -80,17 +80,10 @@ class UserStatGachiAction extends BaseAction
                 ['{{battle}}.[[lobby_id]]' => null],
                 ['{{lobby}}.[[key]]' => 'standard'],
                 ['and',
-                    ['{{lobby}}.[[key]]' => [
-                        'squad_2',
-                        'squad_3',
-                        'squad_4',
-                    ]],
+                    ['{{lobby}}.[[key]]' => ['squad_2', 'squad_3', 'squad_4']],
                     ['or',
                         ['{{battle}}.[[rank_id]]' => null],
-                        ['not', ['{{rank_before}}.[[key]]' => [
-                            's',
-                            's+',
-                        ]]],
+                        ['not', ['{{rank_before}}.[[key]]' => ['s', 's+']]],
                     ],
                 ],
             ])
@@ -166,7 +159,7 @@ class UserStatGachiAction extends BaseAction
                 'movingWP50' => null,
             ];
         }
-        if (empty($battles)) {
+        if (!$battles) {
             return [];
         }
 
@@ -214,8 +207,6 @@ class UserStatGachiAction extends BaseAction
         $avgRank = null;
         $avgRankExp = null;
         if ($entire = $this->getEntireRankStat()) {
-            $exp = $this->calcGraphExp($battle->rankAfter->key, $battle->rank_exp_after);
-
             $ranks = ['C-', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+', 'S', 'S+'];
             $avgExp = (int)round($entire->average);
             $avgRank = Yii::t('app-rank', $ranks[floor($avgExp / 100)]);

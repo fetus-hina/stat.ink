@@ -20,9 +20,11 @@ class m170914_063339_map2 extends Migration
 
     public function safeDown()
     {
-        $this->delete('map2', ['key' => [
-            'mozuku',
-            'engawa',
-        ]]);
+        $this->delete('map2', [
+            'key' => [
+                'mozuku',
+                'engawa',
+            ],
+        ]);
     }
 }

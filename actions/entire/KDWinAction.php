@@ -75,7 +75,6 @@ class KDWinAction extends BaseAction
             $ret[] = $tmp;
         }
 
-        $maxBattle = 0;
         foreach ($this->query($rule, $filter) as $row) {
             $i = $row['kill'] > static::KD_LIMIT ? static::KD_LIMIT : (int)$row['kill'];
             $j = $row['death'] > static::KD_LIMIT ? static::KD_LIMIT : (int)$row['death'];

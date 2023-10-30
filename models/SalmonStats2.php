@@ -64,13 +64,15 @@ class SalmonStats2 extends ActiveRecord
     {
         return [
             [['user_id', 'as_of'], 'required'],
-            [['as_of'], 'filter', 'filter' => function ($value) {
-                if (filter_var($value, FILTER_VALIDATE_INT) !== false) {
-                    return gmdate(DateTime::ATOM, (int)$value);
-                }
+            [['as_of'], 'filter',
+                'filter' => function ($value) {
+                    if (filter_var($value, FILTER_VALIDATE_INT) !== false) {
+                        return gmdate(DateTime::ATOM, (int)$value);
+                    }
 
-                return $value;
-            }],
+                    return $value;
+                },
+            ],
             [['user_id'], 'integer'],
             [['work_count', 'total_golden_eggs', 'total_eggs'], 'integer', 'min' => 0],
             [['total_rescued', 'total_point'], 'integer', 'min' => 0],
@@ -139,23 +141,23 @@ class SalmonStats2 extends ActiveRecord
         $nullableBigint = fn (
             string $descriptionEn,
             ?int $minValue = null,
-            ?int $maxValue = null
+            ?int $maxValue = null,
         ): array => array_filter(
             [
-                    'type' => 'integer',
-                    'format' => 'int64',
-                    'minimum' => $minValue,
-                    'maximum' => $maxValue,
-                    'nullable' => true,
-                    'description' => Html::encode(Yii::t('app-apidoc2', $descriptionEn)),
-                ],
+                'type' => 'integer',
+                'format' => 'int64',
+                'minimum' => $minValue,
+                'maximum' => $maxValue,
+                'nullable' => true,
+                'description' => Html::encode(Yii::t('app-apidoc2', $descriptionEn)),
+            ],
             fn ($value): bool => $value !== null,
         );
 
         $timestamp = fn (string $descriptionEn, bool $nullable): array => array_merge(openapi\DateTime::openApiSchema(), [
-                'nullable' => $nullable,
-                'description' => Html::encode(Yii::t('app-apidoc2', $descriptionEn)),
-            ]);
+            'nullable' => $nullable,
+            'description' => Html::encode(Yii::t('app-apidoc2', $descriptionEn)),
+        ]);
 
         return [
             'type' => 'object',

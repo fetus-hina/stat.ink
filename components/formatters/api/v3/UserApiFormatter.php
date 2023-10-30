@@ -18,7 +18,7 @@ final class UserApiFormatter
     public static function toJson(
         ?User $model,
         bool $isAuthenticated = false,
-        bool $fullTranslate = false
+        bool $fullTranslate = false,
     ): ?array {
         if (!$model) {
             return null;

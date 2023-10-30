@@ -15,9 +15,9 @@ class m151009_100616_kill_ratio extends Migration
         $this->execute('ALTER TABLE {{battle}} ADD COLUMN [[kill_ratio]] NUMERIC(4,2)');
         $selectRatio = implode(' ', [
             'CASE',
-                'WHEN {{battle}}.[[kill]] = 0 AND {{battle}}.[[death]] = 0 THEN 1.00',
-                'WHEN {{battle}}.[[kill]] > 0 AND {{battle}}.[[death]] = 0 THEN 99.99',
-                'ELSE ({{battle}}.[[kill]]::float / {{battle}}.[[death]]::float)::numeric(4,2)',
+            'WHEN {{battle}}.[[kill]] = 0 AND {{battle}}.[[death]] = 0 THEN 1.00',
+            'WHEN {{battle}}.[[kill]] > 0 AND {{battle}}.[[death]] = 0 THEN 99.99',
+            'ELSE ({{battle}}.[[kill]]::float / {{battle}}.[[death]]::float)::numeric(4,2)',
             'END',
         ]);
         $select = "SELECT {{battle}}.[[id]], {$selectRatio} AS [[kill_ratio]] " .

@@ -359,7 +359,7 @@ trait QueryDecoratorTrait
         ?string $key,
         string $modelClass,
         string $groupClass,
-        string $groupAttr // group_id
+        string $groupAttr, // group_id
     ): void {
         $key = trim((string)$key);
         if ($key !== '') {
@@ -392,7 +392,7 @@ trait QueryDecoratorTrait
         ActiveQuery $query,
         string $column,
         ?string $key,
-        string $modelClass
+        string $modelClass,
     ): void {
         $key = trim((string)$key);
         if ($key !== '') {
@@ -408,7 +408,7 @@ trait QueryDecoratorTrait
     private static function findIdByKey(
         string $modelClass,
         string $key,
-        string $column = 'key'
+        string $column = 'key',
     ): ?int {
         $model = $modelClass::find()
             ->andWhere([$column => $key])
@@ -425,7 +425,7 @@ trait QueryDecoratorTrait
     private static function findIdsByKey(
         string $modelClass,
         array $key,
-        string $column = 'key'
+        string $column = 'key',
     ): array {
         return array_filter(
             ArrayHelper::getColumn(

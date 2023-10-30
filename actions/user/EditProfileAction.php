@@ -77,9 +77,9 @@ class EditProfileAction extends BaseAction
             'regions' => ArrayHelper::map(
                 array_map(
                     fn (array $row): array => [
-                            'id' => $row['id'],
-                            'name' => Yii::t('app-region', $row['name']),
-                        ],
+                        'id' => $row['id'],
+                        'name' => Yii::t('app-region', $row['name']),
+                    ],
                     Region::find()->orderBy('id')->asArray()->all(),
                 ),
                 'id',

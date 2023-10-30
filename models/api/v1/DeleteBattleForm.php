@@ -45,7 +45,8 @@ class DeleteBattleForm extends Model
             [['apikey', 'id'], 'required'],
             [['apikey'], 'exist',
                 'targetClass' => User::class,
-                'targetAttribute' => 'api_key'],
+                'targetAttribute' => 'api_key',
+            ],
             [['test'], 'in', 'range' => ['validate', 'dry_run']],
             [['id'], 'validateBattleId'],
         ];
@@ -91,7 +92,7 @@ class DeleteBattleForm extends Model
             }
         }
 
-        if (!empty($valueErrors)) {
+        if ($valueErrors) {
             $this->addError($attribute, vsprintf('%s has non-integer value(s): %s', [
                 $attribute,
                 implode(', ', $valueErrors),

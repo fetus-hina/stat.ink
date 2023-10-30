@@ -46,7 +46,7 @@ class WeaponAttack extends ActiveRecord
         usort($list, fn ($a, $b) => version_compare($b->version->tag, $a->version->tag));
 
         // 最初の要素が目的の代物
-        return empty($list) ? null : array_shift($list);
+        return $list ? array_shift($list) : null;
     }
 
     /**
@@ -68,13 +68,16 @@ class WeaponAttack extends ActiveRecord
             [['damage'], 'number'],
             [['main_weapon_id', 'version_id'], 'unique',
                 'targetAttribute' => ['main_weapon_id', 'version_id'],
-                'message' => 'The combination of Main Weapon ID and Version ID has already been taken.'],
+                'message' => 'The combination of Main Weapon ID and Version ID has already been taken.',
+            ],
             [['version_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => SplatoonVersion::class,
-                'targetAttribute' => ['version_id' => 'id']],
+                'targetAttribute' => ['version_id' => 'id'],
+            ],
             [['main_weapon_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Weapon::class,
-                'targetAttribute' => ['main_weapon_id' => 'id']],
+                'targetAttribute' => ['main_weapon_id' => 'id'],
+            ],
         ];
     }
 

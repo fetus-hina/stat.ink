@@ -46,7 +46,6 @@ class MaintenanceInfo extends Widget
 
     protected function renderWidget(MaintenanceSchedule $model): string
     {
-        $fmt = Yii::$app->formatter;
         return Alert::widget([
             'options' => [
                 'class' => 'alert-danger',

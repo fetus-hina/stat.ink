@@ -37,7 +37,8 @@ class PatchBattleForm extends Model
             [['apikey', 'id'], 'required'],
             [['apikey'], 'exist',
                 'targetClass' => User::class,
-                'targetAttribute' => 'api_key'],
+                'targetAttribute' => 'api_key',
+            ],
             [['test'], 'in', 'range' => ['validate', 'dry_run']],
             [['id'], 'exist',
                 'targetClass' => Battle::class,
@@ -62,7 +63,8 @@ class PatchBattleForm extends Model
                 $value = preg_replace('/(?:\x0d\x0a|\x0d|\x0a){3,}/', "\n\n", $value);
                 $value = trim($value);
                 return $value === '' ? null : $value;
-            }],
+            },
+            ],
         ];
     }
 

@@ -45,17 +45,20 @@ class TeamNickname2 extends ActiveRecord
                 'timeout' => 0,
                 'mutex' => Yii::$app->pgMutex,
             ])->enter();
+            try {
+                if ($model = static::findOne(['name' => $name])) {
+                    return $model;
+                }
 
-            if ($model = static::findOne(['name' => $name])) {
-                return $model;
-            }
-
-            $model = Yii::createObject([
-                'class' => static::class,
-                'name' => $name,
-            ]);
-            if ($model->save()) {
-                return $model;
+                $model = Yii::createObject([
+                    'class' => static::class,
+                    'name' => $name,
+                ]);
+                if ($model->save()) {
+                    return $model;
+                }
+            } finally {
+                unset($lock);
             }
         } catch (Throwable $e) {
         }

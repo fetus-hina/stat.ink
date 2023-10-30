@@ -64,7 +64,7 @@ class SalmonController extends Controller
                     'class' => AccessRule::class,
                     'matchCallback' => function ($rule, $action): bool {
                         $model = Salmon2::findOne([
-                          'id' => Yii::$app->getRequest()->get('id'),
+                            'id' => Yii::$app->getRequest()->get('id'),
                         ]);
                         if (!$model) {
                             static::error404();
@@ -240,8 +240,8 @@ class SalmonController extends Controller
         if ($model->user->screen_name !== $screen_name) {
             $this->redirect(
                 ['salmon/view',
-                  'id' => $model->id,
-                  'screen_name' => $model->user->screen_name,
+                    'id' => $model->id,
+                    'screen_name' => $model->user->screen_name,
                 ],
             );
             return null;

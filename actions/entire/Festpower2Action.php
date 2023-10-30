@@ -39,8 +39,8 @@ class Festpower2Action extends ViewAction
                 'festpower2',
                 array_merge(
                     [
-                            'data' => $this->getData(),
-                        ],
+                        'data' => $this->getData(),
+                    ],
                     $this->getTotalCounts(),
                 ),
             ),

@@ -166,7 +166,7 @@ class WeaponsAction extends ViewAction
                 ];
             }
             usort($tmp, fn (stdClass $a, stdClass $b): int => strnatcasecmp($a->name, $b->name));
-            while (!empty($tmp)) {
+            while ($tmp) {
                 $rules[] = array_shift($tmp);
             }
         }
@@ -281,10 +281,10 @@ class WeaponsAction extends ViewAction
 
         return array_map(
             fn (array $row): stdClass => (object)[
-                    'weapon_id' => $row['weapon_id'],
-                    'user_count' => $row['count'],
-                    'weapon' => $weapons[$row['weapon_id']] ?? null,
-                ],
+                'weapon_id' => $row['weapon_id'],
+                'user_count' => $row['count'],
+                'weapon' => $weapons[$row['weapon_id']] ?? null,
+            ],
             $list,
         );
     }

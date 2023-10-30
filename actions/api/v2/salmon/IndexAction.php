@@ -52,7 +52,7 @@ final class IndexAction extends Action
         }
 
         /**
-         * @var Salmon2[]
+         * @var Salmon2[] $models
          */
         $models = $query->all();
 

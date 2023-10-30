@@ -555,17 +555,17 @@ class Player extends Model
                         SalmonBoss2::find()->orderBy(['key' => SORT_ASC])->all(),
                         'key',
                         fn (SalmonBoss2 $boss): array => [
-                                'type' => 'integer',
-                                'format' => 'int32',
-                                'minimum' => 0,
-                                'description' => implode("\n", [
-                                    Html::encode(Yii::t(
-                                        'app-apidoc2',
-                                        'Number of times the player kills {boss}',
-                                        ['boss' => Yii::t('app-salmon-boss2', $boss->name)],
-                                    )),
-                                ]),
-                            ],
+                            'type' => 'integer',
+                            'format' => 'int32',
+                            'minimum' => 0,
+                            'description' => implode("\n", [
+                                Html::encode(Yii::t(
+                                    'app-apidoc2',
+                                    'Number of times the player kills {boss}',
+                                    ['boss' => Yii::t('app-salmon-boss2', $boss->name)],
+                                )),
+                            ]),
+                        ],
                     ),
                 ],
             ],

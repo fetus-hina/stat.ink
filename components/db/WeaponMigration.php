@@ -26,7 +26,7 @@ trait WeaponMigration
         string $special,
         ?string $main = null,
         ?string $canonical = null,
-        ?int $splatnet = null
+        ?int $splatnet = null,
     ): void {
         $this->db->transaction(function () use (
             $key,

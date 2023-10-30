@@ -127,7 +127,7 @@ class HttpClientHint extends ActiveRecord
                 return null;
             }
 
-            if (empty($list->items)) {
+            if (!$list->items) {
                 return null;
             }
 

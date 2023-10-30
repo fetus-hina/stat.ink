@@ -58,10 +58,15 @@ class m200827_205403_chinese extends Migration
         $this->delete('accept_language', ['language_id' => $chinese]);
         $this->delete('language_charset', ['language_id' => $chinese]);
         $this->delete('language', ['id' => $chinese]);
-        $this->delete('charset', ['id' => array_map(
-            fn (array $_): int => $_[0],
-            $this->getChineseCharsetIds(),
-        )]);
+        $this->delete(
+            'charset',
+            [
+                'id' => array_map(
+                    fn (array $_): int => $_[0],
+                    $this->getChineseCharsetIds(),
+                ),
+            ],
+        );
         $this->delete('support_level', ['id' => 5]);
     }
 

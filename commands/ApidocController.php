@@ -273,14 +273,14 @@ final class ApidocController extends Controller
                             'td',
                             implode('', array_map(
                                 fn (Country $country): string => vsprintf('<img src="%s" height="%d" width="%d" alt="%s">', [
-                                        $this->getFlagIconUrl($country->key),
-                                        16,
-                                        round(16 * 4 / 3),
-                                        implode('', array_map(
-                                            fn (int $codepoint): string => sprintf('&#x%x;', $codepoint),
-                                            $country->regionalIndicatorSymbols,
-                                        )),
-                                    ]),
+                                    $this->getFlagIconUrl($country->key),
+                                    16,
+                                    round(16 * 4 / 3),
+                                    implode('', array_map(
+                                        fn (int $codepoint): string => sprintf('&#x%x;', $codepoint),
+                                        $country->regionalIndicatorSymbols,
+                                    )),
+                                ]),
                                 $tz->countries,
                             )),
                             ['align' => 'center'],

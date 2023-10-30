@@ -63,7 +63,7 @@ final class Spl2YearMonthForm extends Model
         string $attribute,
         $params,
         InlineValidator $validator,
-        $current
+        $current,
     ): void {
         if ($this->hasErrors('year') || $this->hasErrors('month')) {
             return;

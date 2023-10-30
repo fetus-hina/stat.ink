@@ -11,7 +11,6 @@ declare(strict_types=1);
 namespace app\actions\api\internal\latestBattles;
 
 use Yii;
-use app\assets\GameModeIconsAsset;
 use app\models\Battle;
 use statink\yii2\stages\spl1\StagesAsset;
 use yii\helpers\Url;
@@ -28,7 +27,6 @@ trait Battle1Formatter
     protected function formatBattle1(Battle $battle): array
     {
         $am = Yii::$app->assetManager;
-        $modeAsset = $am->getBundle(GameModeIconsAsset::class, true);
         $stageAsset = $am->getBundle(StagesAsset::class, true);
 
         return [

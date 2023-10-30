@@ -41,13 +41,13 @@ class m190401_012905_spring_fest extends Migration
     {
         return array_map(
             fn (string $name): array => [
-                    static::name2key($name),
-                    $name,
-                    'headgear',
-                    'squidforce', // not verified
-                    null, // ability
-                    null, // splatnet
-                ],
+                static::name2key($name),
+                $name,
+                'headgear',
+                'squidforce', // not verified
+                null, // ability
+                null, // splatnet
+            ],
             [
                 'Orange Novelty Visor',
                 'Pink Novelty Visor',
@@ -61,13 +61,13 @@ class m190401_012905_spring_fest extends Migration
     {
         return array_map(
             fn (string $name): array => [
-                    static::name2key($name),
-                    $name,
-                    'shoes',
-                    'squidforce', // not verified
-                    null, // ability
-                    null, // splatnet
-                ],
+                static::name2key($name),
+                $name,
+                'shoes',
+                'squidforce', // not verified
+                null, // ability
+                null, // splatnet
+            ],
             [
                 'Pearl-Scout Lace-Ups',
                 'Pearlescent Squidkid IV',

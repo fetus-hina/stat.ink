@@ -54,11 +54,11 @@ class WeaponShortener extends Component
         // try to load "@app/messages/<lang>/weapon-short.php"
         $paths = array_map(
             fn (string $langCode): string => implode(DIRECTORY_SEPARATOR, [
-                    Yii::getAlias('@app'),
-                    'messages',
-                    $langCode,
-                    'weapon-short.php',
-                ]),
+                Yii::getAlias('@app'),
+                'messages',
+                $langCode,
+                'weapon-short.php',
+            ]),
             [
                 $match[1],
                 Yii::$app->language,

@@ -120,7 +120,8 @@ class Spl2GearAbilitiesSummaryWidget extends Widget
                                             $icons->getIconUrl('sp/' . $sp->key),
                                             ['style' => [
                                                 'height' => '1.333em',
-                                            ]],
+                                            ],
+                                            ],
                                         ),
                                         Html::encode(Yii::t('app-special2', $sp->name)),
                                     ]),
@@ -235,7 +236,7 @@ class Spl2GearAbilitiesSummaryWidget extends Widget
                             Ability2Info $model,
                             $key,
                             $index,
-                            Column $column
+                            Column $column,
                         ): string => (string)$model->coefficient,
                     ],
                 ],

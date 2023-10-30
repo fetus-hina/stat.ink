@@ -61,7 +61,7 @@ final class NameApiFormatter
      */
     private static function getAvailableLanguageCodes(): array
     {
-        /** @var string[]|null */
+        /** @var string[]|null $cache */
         static $cache = null;
         if ($cache === null) {
             $cache = array_map(

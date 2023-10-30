@@ -44,7 +44,7 @@ class Password
 
     public static function verify(
         string $password,
-        string $hash
+        string $hash,
     ): bool {
         return password_verify(
             self::preprocess($password, self::detectAlgorithm($hash)),

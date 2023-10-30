@@ -43,7 +43,7 @@ class RandomFilenameTest extends Unit
         string $vector,
         string $ext,
         int $unusedLevel,
-        string $expect
+        string $expect,
     ): void {
         $this->assertEquals(
             basename($expect), // make flat
@@ -61,7 +61,7 @@ class RandomFilenameTest extends Unit
         string $vector,
         string $ext,
         int $level,
-        string $expect
+        string $expect,
     ): void {
         $this->assertEquals(
             $expect,

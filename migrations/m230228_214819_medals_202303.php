@@ -72,7 +72,7 @@ final class m230228_214819_medals_202303 extends Migration
      */
     public function safeDown()
     {
-        foreach ($this->getData() as $canonicalName => $names) {
+        foreach (array_keys($this->getData()) as $canonicalName) {
             $id = $this->key2id('{{%medal_canonical3}}', self::canonicalName2Key($canonicalName));
 
             // should not delete from "medal3"

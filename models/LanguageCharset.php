@@ -49,10 +49,12 @@ class LanguageCharset extends ActiveRecord
             [['is_win_acp'], 'boolean'],
             [['charset_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Charset::class,
-                'targetAttribute' => ['charset_id' => 'id']],
+                'targetAttribute' => ['charset_id' => 'id'],
+            ],
             [['language_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Language::class,
-                'targetAttribute' => ['language_id' => 'id']],
+                'targetAttribute' => ['language_id' => 'id'],
+            ],
         ];
     }
 

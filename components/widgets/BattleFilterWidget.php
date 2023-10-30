@@ -63,18 +63,22 @@ final class BattleFilterWidget extends Widget
         $cleaner = new Resource(true, function () {
             ob_end_clean();
         });
-        $divId = $this->getId();
-        $this->view->registerCss("#{$divId}{border:1px solid #ccc;border-radius:5px;padding:15px;margin-bottom:15px}");
-        echo Html::beginTag('div', ['id' => $divId]);
-        $form = ActiveForm::begin([
-            'id' => $this->id,
-            'action' => [ $this->route, 'screen_name' => $this->screen_name ],
-            'method' => 'get',
-        ]);
-        echo $this->drawFields($form);
-        ActiveForm::end();
-        echo Html::endTag('div');
-        return ob_get_contents();
+        try {
+            $divId = $this->getId();
+            $this->view->registerCss("#{$divId}{border:1px solid #ccc;border-radius:5px;padding:15px;margin-bottom:15px}");
+            echo Html::beginTag('div', ['id' => $divId]);
+            $form = ActiveForm::begin([
+                'id' => $this->id,
+                'action' => [ $this->route, 'screen_name' => $this->screen_name ],
+                'method' => 'get',
+            ]);
+            echo $this->drawFields($form);
+            ActiveForm::end();
+            echo Html::endTag('div');
+            return ob_get_contents();
+        } finally {
+            unset($cleaner);
+        }
     }
 
     protected function drawFields(ActiveForm $form)
@@ -388,16 +392,16 @@ final class BattleFilterWidget extends Widget
         $this->view->registerCss("#{$divId}{margin-left:5%}");
         $this->view->registerJs(implode('', [
             '(function($){',
-                "\$('#{$divId} input').datetimepicker({",
-                    "format: 'YYYY-MM-DD HH:mm:ss'",
-                '});',
-                "\$('#filter-term').change(function(){",
-                    "if($(this).val()==='term'){",
-                        "\$('#{$divId}').show();",
-                    '}else{',
-                        "\$('#{$divId}').hide();",
-                    '}',
-                '}).change();',
+            "\$('#{$divId} input').datetimepicker({",
+            "format: 'YYYY-MM-DD HH:mm:ss'",
+            '});',
+            "\$('#filter-term').change(function(){",
+            "if($(this).val()==='term'){",
+            "\$('#{$divId}').show();",
+            '}else{',
+            "\$('#{$divId}').hide();",
+            '}',
+            '}).change();',
             '})(jQuery);',
         ]));
         return Html::tag(

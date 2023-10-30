@@ -9,8 +9,6 @@
 declare(strict_types=1);
 
 use app\components\db\Migration;
-use app\components\helpers\TypeHelper;
-use yii\db\Connection;
 
 final class m230814_072757_splatfest3_stats_power extends Migration
 {
@@ -48,7 +46,6 @@ final class m230814_072757_splatfest3_stats_power extends Migration
             'PRIMARY KEY ([[splatfest_id]], [[class_value]])',
         ]);
 
-        $db = TypeHelper::instanceOf($this->db, Connection::class);
         $this->execute(
             vsprintf('CREATE FUNCTION %s ( %s ) %s AS $$%s$$', [
                 'HISTOGRAM_WIDTH',

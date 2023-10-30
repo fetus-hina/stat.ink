@@ -60,13 +60,15 @@ class KDWinTable extends Widget
                 fn (int $k): string => Html::tag(
                     'th',
                     Html::encode(implode('', [
-                            $this->formatter->asInteger($k),
-                            $k === $this->limit ? '+' : '',
-                        ])),
-                    ['class' => [
+                        $this->formatter->asInteger($k),
+                        $k === $this->limit ? '+' : '',
+                    ])),
+                    [
+                        'class' => [
                             'text-center',
                             'kdcell',
-                        ]],
+                        ],
+                    ],
                 ),
                 range(0, $this->limit),
             )),
@@ -83,20 +85,22 @@ class KDWinTable extends Widget
                     Html::tag(
                         'th',
                         Html::encode(implode('', [
-                                $this->formatter->asInteger($d),
-                                $d === $this->limit ? '+' : '',
-                            ])),
-                        ['class' => [
+                            $this->formatter->asInteger($d),
+                            $d === $this->limit ? '+' : '',
+                        ])),
+                        [
+                            'class' => [
                                 'text-center',
                                 'kdcell',
-                            ]],
+                            ],
+                        ],
                     ),
                     implode('', array_map(
                         fn (int $k): string => KDWinCell::widget([
-                                'battles' => (int)($this->data[$k][$d]['battle'] ?? 0),
-                                'win' => (int)($this->data[$k][$d]['win'] ?? 0),
-                                'formatter' => $this->formatter,
-                            ]),
+                            'battles' => (int)($this->data[$k][$d]['battle'] ?? 0),
+                            'win' => (int)($this->data[$k][$d]['win'] ?? 0),
+                            'formatter' => $this->formatter,
+                        ]),
                         range(0, $this->limit),
                     )),
                 ),

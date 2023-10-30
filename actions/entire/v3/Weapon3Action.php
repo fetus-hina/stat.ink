@@ -265,8 +265,8 @@ final class Weapon3Action extends Action
         return Weapon3::find()
             ->innerJoinWith(['mainweapon.type'], false)
             ->orderBy([
-              '{{%weapon_type3}}.[[rank]]' => SORT_ASC,
-              '{{%weapon3}}.[[name]]' => SORT_ASC,
+                '{{%weapon_type3}}.[[rank]]' => SORT_ASC,
+                '{{%weapon3}}.[[name]]' => SORT_ASC,
             ])
             ->all();
     }

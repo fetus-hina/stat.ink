@@ -50,10 +50,10 @@ trait Splatoon2
             ScheduleMode2::find()->orderBy(['id' => SORT_ASC])->all(),
             'key',
             fn (ScheduleMode2 $mode): array => [
-                    'key' => $mode->key,
-                    'game' => 'splatoon2',
-                    'name' => Yii::t('app-rule2', $mode->name),
-                    'image' => $mode->key === 'regular'
+                'key' => $mode->key,
+                'game' => 'splatoon2',
+                'name' => Yii::t('app-rule2', $mode->name),
+                'image' => $mode->key === 'regular'
                         ? null
                         : Url::to(
                             $am->getAssetUrl(
@@ -62,9 +62,9 @@ trait Splatoon2
                             ),
                             true,
                         ),
-                    'source' => 's2ink',
-                    'schedules' => ArrayHelper::getColumn(
-                        Schedule2::find()
+                'source' => 's2ink',
+                'schedules' => ArrayHelper::getColumn(
+                    Schedule2::find()
                             ->andWhere(['mode_id' => $mode->id])
                             ->andWhere(['>=', '{{schedule2}}.[[period]]', $this->currentPeriod])
                             ->orderBy([
@@ -76,37 +76,37 @@ trait Splatoon2
                                 'rule',
                             ])
                             ->all(),
-                        fn (Schedule2 $sc): array => [
-                                'time' => BattleHelper::periodToRange2((int)$sc->period),
-                                'rule' => [
-                                    'key' => $sc->rule->key,
-                                    'name' => Yii::t('app-rule2', $sc->rule->name),
-                                    'short' => Yii::t('app-rule2', $sc->rule->short_name),
-                                    'icon' => Url::to(
-                                        $am->getAssetUrl(
-                                            $am->getBundle(GameModeIconsAsset::class, true),
-                                            sprintf('spl2/%s.png', $sc->rule->key),
-                                        ),
-                                        true,
+                    fn (Schedule2 $sc): array => [
+                        'time' => BattleHelper::periodToRange2((int)$sc->period),
+                        'rule' => [
+                            'key' => $sc->rule->key,
+                            'name' => Yii::t('app-rule2', $sc->rule->name),
+                            'short' => Yii::t('app-rule2', $sc->rule->short_name),
+                            'icon' => Url::to(
+                                $am->getAssetUrl(
+                                    $am->getBundle(GameModeIconsAsset::class, true),
+                                    sprintf('spl2/%s.png', $sc->rule->key),
+                                ),
+                                true,
+                            ),
+                        ],
+                        'maps' => ArrayHelper::getColumn(
+                            $sc->maps,
+                            fn (Map2 $map): array => [
+                                'key' => $map->key,
+                                'name' => Yii::t('app-map2', $map->name),
+                                'image' => Url::to(
+                                    $am->getAssetUrl(
+                                        $am->getBundle(Stages2Asset::class, true),
+                                        sprintf('daytime/%s.jpg', $map->key),
                                     ),
-                                ],
-                                'maps' => ArrayHelper::getColumn(
-                                    $sc->maps,
-                                    fn (Map2 $map): array => [
-                                            'key' => $map->key,
-                                            'name' => Yii::t('app-map2', $map->name),
-                                            'image' => Url::to(
-                                                $am->getAssetUrl(
-                                                    $am->getBundle(Stages2Asset::class, true),
-                                                    sprintf('daytime/%s.jpg', $map->key),
-                                                ),
-                                                true,
-                                            ),
-                                        ],
+                                    true,
                                 ),
                             ],
-                    ),
-                ],
+                        ),
+                    ],
+                ),
+            ],
         );
     }
 
@@ -142,41 +142,42 @@ trait Splatoon2
                     ])
                     ->all(),
                 fn (SalmonSchedule2 $sc): array => [
-                        'time' => [
-                            strtotime($sc->start_at),
-                            strtotime($sc->end_at),
-                        ],
-                        'maps' => [[
-                            'key' => $sc->map->key,
-                            'name' => Yii::t('app-salmon-map2', $sc->map->name),
-                            'image' => Url::to(
-                                $am->getAssetUrl(
-                                    $am->getBundle(Stages2Asset::class, true),
-                                    sprintf('daytime/%s.jpg', $sc->map->key),
-                                ),
-                                true,
+                    'time' => [
+                        strtotime($sc->start_at),
+                        strtotime($sc->end_at),
+                    ],
+                    'maps' => [[
+                        'key' => $sc->map->key,
+                        'name' => Yii::t('app-salmon-map2', $sc->map->name),
+                        'image' => Url::to(
+                            $am->getAssetUrl(
+                                $am->getBundle(Stages2Asset::class, true),
+                                sprintf('daytime/%s.jpg', $sc->map->key),
                             ),
-                        ]],
-                        'weapons' => $this->fillSalmon2Weapon(
-                            ArrayHelper::getColumn(
-                                $sc->weapons,
-                                function (SalmonWeapon2 $info) use ($am): array {
-                                    $w = $info->weapon;
-                                    return [
-                                        'key' => $w->key,
-                                        'name' => Yii::t('app-weapon2', $w->name),
-                                        'icon' => Url::to(
-                                            $am->getAssetUrl(
-                                                $am->getBundle(Spl2WeaponAsset::class, true),
-                                                $w->key . '.png',
-                                            ),
-                                            true,
-                                        ),
-                                    ];
-                                },
-                            ),
+                            true,
                         ),
                     ],
+                    ],
+                    'weapons' => $this->fillSalmon2Weapon(
+                        ArrayHelper::getColumn(
+                            $sc->weapons,
+                            function (SalmonWeapon2 $info) use ($am): array {
+                                $w = $info->weapon;
+                                return [
+                                    'key' => $w->key,
+                                    'name' => Yii::t('app-weapon2', $w->name),
+                                    'icon' => Url::to(
+                                        $am->getAssetUrl(
+                                            $am->getBundle(Spl2WeaponAsset::class, true),
+                                            $w->key . '.png',
+                                        ),
+                                        true,
+                                    ),
+                                ];
+                            },
+                        ),
+                    ),
+                ],
             ),
         ];
     }

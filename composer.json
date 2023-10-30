@@ -66,8 +66,8 @@
         "codeception/module-yii2": "*",
         "codeception/specify": "*",
         "codeception/verify": "*",
+        "jp3cki/coding-standard": "^0.1.4",
         "proget-hq/phpstan-yii2": "^0.8.0",
-        "slevomat/coding-standard": "^8.14.1",
         "squizlabs/php_codesniffer": "^3.7.2",
         "yiisoft/yii2-debug": "*",
         "yiisoft/yii2-gii": "*"

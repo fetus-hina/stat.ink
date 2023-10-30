@@ -306,7 +306,7 @@ class Splatoon2InkI18nController extends Controller
         string $locale, // "ja-JP"
         string $fileName, // "weapon2"
         string $jsonKey, // "weapons"
-        array $englishData // [0 => "Sploosh-o-matic"]
+        array $englishData, // [0 => "Sploosh-o-matic"]
     ): bool {
         // {{{
         if (!$shortLocale = $this->localeMap[$locale] ?? null) {

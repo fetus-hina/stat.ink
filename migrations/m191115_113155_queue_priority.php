@@ -24,11 +24,11 @@ class m191115_113155_queue_priority extends Migration
             vsprintf('(CASE %s ELSE 1024 END)', [
                 implode(' ', array_map(
                     fn (string $jobName, int $priority): string => vsprintf('WHEN %s THEN %d', [
-                            sprintf('[[job]] LIKE %s', Yii::$app->db->quoteValue(
-                                '%' . $jobName . '%', // 既知の値しか入らないのでエスケープ省略
-                            )),
-                            $priority,
-                        ]),
+                        sprintf('[[job]] LIKE %s', Yii::$app->db->quoteValue(
+                            '%' . $jobName . '%', // 既知の値しか入らないのでエスケープ省略
+                        )),
+                        $priority,
+                    ]),
                     array_keys($priorities),
                     array_values($priorities),
                 )),

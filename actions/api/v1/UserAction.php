@@ -30,9 +30,10 @@ class UserAction extends BaseAction
 
         $user = null;
         if ($screenName != '') {
-            if (is_scalar($screenName) && ($user = User::findOne(['screen_name' => $screenName]))) {
-                // ok
-            } else {
+            if (
+                !is_scalar($screenName) ||
+                !($user = User::findOne(['screen_name' => $screenName]))
+            ) {
                 return [
                     'error' => [
                         'screen_name' => ['not found'],

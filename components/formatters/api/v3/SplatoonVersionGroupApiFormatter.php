@@ -23,7 +23,7 @@ final class SplatoonVersionGroupApiFormatter
     public static function toJson(
         ?SplatoonVersionGroup3 $model,
         bool $fullTranslate = false,
-        bool $expandVersions = false
+        bool $expandVersions = false,
     ): ?array {
         if (!$model) {
             return null;

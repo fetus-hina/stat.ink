@@ -30,10 +30,12 @@ final class m221002_102833_fest3_lobby_only extends Migration
      */
     public function safeDown()
     {
-        $this->delete('{{%lobby3}}', ['key' => [
-            'splatfest_challenge',
-            'splatfest_open',
-        ]]);
+        $this->delete('{{%lobby3}}', [
+            'key' => [
+                'splatfest_challenge',
+                'splatfest_open',
+            ],
+        ]);
 
         return false;
     }

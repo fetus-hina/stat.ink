@@ -48,10 +48,10 @@ trait Splatoon1
 
         return array_map(
             fn ($a) => [
-                    'date' => $a->date,
-                    'battle' => $a->battle_count,
-                    'user' => $a->user_count,
-                ],
+                'date' => $a->date,
+                'battle' => $a->battle_count,
+                'user' => $a->user_count,
+            ],
             $stats,
         );
     }
@@ -104,7 +104,8 @@ trait Splatoon1
             ->innerJoin('agent', '{{battle}}.[[agent_id]] = {{agent}}.[[id]]')
             ->andWhere(['between', '{{battle}}.[[at]]',
                 gmdate('Y-m-d\TH:i:sP', $t1),
-                gmdate('Y-m-d\TH:i:sP', $t2)])
+                gmdate('Y-m-d\TH:i:sP', $t2),
+            ])
             ->groupBy('{{battle}}.[[agent_id]]')
             ->orderBy(implode(', ', [
                 '[[battle]] DESC',
