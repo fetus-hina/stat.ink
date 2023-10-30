@@ -8,17 +8,19 @@
   <arg value="s"/><!-- show sniff -->
     
   <file>.</file>
-  <exclude-pattern>*/bin/</exclude-pattern>
-  <exclude-pattern>*/data/</exclude-pattern>
-  <exclude-pattern>*/doc/</exclude-pattern>
-  <exclude-pattern>*/docker/</exclude-pattern>
-  <exclude-pattern>*/messages/*.php</exclude-pattern>
-  <exclude-pattern>*/node_modules/</exclude-pattern>
-  <exclude-pattern>*/resources/</exclude-pattern>
-  <exclude-pattern>*/runtime/</exclude-pattern>
-  <exclude-pattern>*/tests/_support/</exclude-pattern>
-  <exclude-pattern>*/vendor/</exclude-pattern>
-  <exclude-pattern>*/views/</exclude-pattern>
+  <exclude-pattern>./bin/</exclude-pattern>
+  <exclude-pattern>./data/</exclude-pattern>
+  <exclude-pattern>./doc/</exclude-pattern>
+  <exclude-pattern>./docker/</exclude-pattern>
+  <exclude-pattern>./messages/*.php</exclude-pattern>
+  <exclude-pattern>./node_modules/</exclude-pattern>
+  <exclude-pattern>./resources/</exclude-pattern>
+  <exclude-pattern>./runtime/</exclude-pattern>
+  <exclude-pattern>./salmon*.php</exclude-pattern>
+  <exclude-pattern>./test*.php</exclude-pattern>
+  <exclude-pattern>./tests/_support/</exclude-pattern>
+  <exclude-pattern>./vendor/</exclude-pattern>
+  <exclude-pattern>./views/</exclude-pattern>
 
   <!-- todo -->
   <exclude-pattern>*/schedule/</exclude-pattern>
@@ -35,7 +37,6 @@
     <exclude name="Universal.Operators.StrictComparisons.LooseNotEqual"/><!-- "!=" -> "!==" -->
 
     <!-- TODO -->
-    <exclude name="Generic.PHP.ForbiddenFunctions"/>
     <exclude name="Squiz.NamingConventions.ValidVariableName"/><!-- like $screen_name -->
   </rule>
 

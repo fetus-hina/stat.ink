@@ -92,7 +92,7 @@ class DeleteBattleForm extends Model
             }
         }
 
-        if (!empty($valueErrors)) {
+        if ($valueErrors) {
             $this->addError($attribute, vsprintf('%s has non-integer value(s): %s', [
                 $attribute,
                 implode(', ', $valueErrors),

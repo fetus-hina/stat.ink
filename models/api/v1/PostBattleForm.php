@@ -691,7 +691,7 @@ class PostBattleForm extends Model
 
     public function toPlayers(Battle $battle)
     {
-        if (is_array($this->players) && !empty($this->players)) {
+        if (is_array($this->players) && $this->players) {
             foreach ($this->players as $form) {
                 if (!$form instanceof PostBattlePlayerForm) {
                     throw new Exception('Logic error: assert: instanceof PostBattlePlayerForm');

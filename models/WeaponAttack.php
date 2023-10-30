@@ -46,7 +46,7 @@ class WeaponAttack extends ActiveRecord
         usort($list, fn ($a, $b) => version_compare($b->version->tag, $a->version->tag));
 
         // 最初の要素が目的の代物
-        return empty($list) ? null : array_shift($list);
+        return $list ? array_shift($list) : null;
     }
 
     /**
