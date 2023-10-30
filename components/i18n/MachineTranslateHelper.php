@@ -26,7 +26,7 @@ class MachineTranslateHelper
     public static function translate(
         string $category,
         string $message,
-        string $language
+        string $language,
     ): ?string {
         if (!$paths = static::getMessagePaths($category, $language)) {
             return null;

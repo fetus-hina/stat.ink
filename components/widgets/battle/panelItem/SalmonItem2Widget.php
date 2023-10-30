@@ -200,9 +200,9 @@ class SalmonItem2Widget extends Widget
             'time',
             Html::encode(Yii::$app->formatter->asRelativeTime($dateTime)),
             [
-              'datetime' => $dateTime->format(DateTime::ATOM),
-              'title' => Yii::$app->formatter->asDatetime($dateTime, 'medium'),
-              'class' => 'auto-tooltip',
+                'datetime' => $dateTime->format(DateTime::ATOM),
+                'title' => Yii::$app->formatter->asDatetime($dateTime, 'medium'),
+                'class' => 'auto-tooltip',
             ],
         );
     }

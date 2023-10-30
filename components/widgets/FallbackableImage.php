@@ -39,7 +39,7 @@ class FallbackableImage extends Widget
             ),
         );
 
-        if (empty($this->srcs)) {
+        if (!$this->srcs) {
             return '';
         }
 

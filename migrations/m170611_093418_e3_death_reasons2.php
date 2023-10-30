@@ -110,11 +110,11 @@ class m170611_093418_e3_death_reasons2 extends Migration
             ],
             array_map(
                 fn (array $row): array => [
-                        $row['key'],
-                        $typeId,
-                        $row['id'],
-                        $row['name'],
-                    ],
+                    $row['key'],
+                    $typeId,
+                    $row['id'],
+                    $row['name'],
+                ],
                 (new Query())
                     ->select(['key', 'id', 'name'])
                     ->from($table)

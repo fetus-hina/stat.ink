@@ -144,9 +144,12 @@ class CurrentDataAction extends ViewAction
             ->limit(10)
             ->asArray()
             ->all();
-        return array_map(fn (array $uw): array => [
+        return array_map(
+            fn (array $uw): array => [
                 'key' => $uw['weapon']['key'],
                 'name' => Yii::t('app-weapon', $uw['weapon']['name']),
-            ], $list);
+            ],
+            $list,
+        );
     }
 }

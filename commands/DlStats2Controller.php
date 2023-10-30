@@ -97,16 +97,16 @@ class DlStats2Controller extends Controller
         }
         try {
             $playerColumns = fn (string $prefix): array => [
-                    $prefix . '-weapon',
-                    $prefix . '-kill-assist',
-                    $prefix . '-kill',
-                    $prefix . '-assist',
-                    $prefix . '-death',
-                    $prefix . '-special',
-                    $prefix . '-inked',
-                    $prefix . '-rank',
-                    $prefix . '-level',
-                ];
+                $prefix . '-weapon',
+                $prefix . '-kill-assist',
+                $prefix . '-kill',
+                $prefix . '-assist',
+                $prefix . '-death',
+                $prefix . '-special',
+                $prefix . '-inked',
+                $prefix . '-rank',
+                $prefix . '-level',
+            ];
             $playerCsv = function (Battle2 $b, ?BattlePlayer2 $p): array {
                 if (!$p) {
                     return ['', '', '', '', '', '', '', '', ''];
@@ -269,8 +269,8 @@ class DlStats2Controller extends Controller
                     Yii::getAlias(static::BASE_BATTLE_RESULTS_CSV) . '/*/*/*.csv',
                     0,
                     [
-                    'add_path' => basename(Yii::getAlias(static::BASE_BATTLE_RESULTS_CSV)) . '/',
-                    'remove_all_path' => true,
+                        'add_path' => basename(Yii::getAlias(static::BASE_BATTLE_RESULTS_CSV)) . '/',
+                        'remove_all_path' => true,
                     ],
                 )
             ) {

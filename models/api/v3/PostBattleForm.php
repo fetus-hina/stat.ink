@@ -206,7 +206,8 @@ final class PostBattleForm extends Model
                 'exempted_lose',
                 'lose',
                 'win',
-            ]],
+            ],
+            ],
             [['link_url'], 'url',
                 'validSchemes' => ['http', 'https'],
                 'defaultScheme' => null,
@@ -787,7 +788,7 @@ final class PostBattleForm extends Model
         string $modelClass,
         string $attribute,
         string $fileName,
-        bool $isResultImage
+        bool $isResultImage,
     ): bool {
         if ($this->$attribute === null || $this->$attribute === '') {
             return true;

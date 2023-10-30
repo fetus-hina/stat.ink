@@ -21,10 +21,12 @@ class m170707_122145_special2 extends Migration
 
     public function safeDown()
     {
-        $this->delete('special2', ['key' => [
-            'sphere',
-            'pitcher',
-            'armor',
-        ]]);
+        $this->delete('special2', [
+            'key' => [
+                'sphere',
+                'pitcher',
+                'armor',
+            ],
+        ]);
     }
 }

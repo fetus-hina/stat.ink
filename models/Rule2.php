@@ -98,7 +98,7 @@ class Rule2 extends ActiveRecord
     public static function getSortedAll(
         ?string $mode,
         $queryCallback = null,
-        $valueCallback = null
+        $valueCallback = null,
     ): array {
         $query = static::find()->orderBy(['rule2.id' => SORT_ASC]);
         if ($mode) {

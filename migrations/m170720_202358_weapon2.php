@@ -92,7 +92,7 @@ class m170720_202358_weapon2 extends Migration
         string $sub,
         string $special,
         ?string $main = null,
-        ?string $canonical = null
+        ?string $canonical = null,
     ) {
         $this->insert('weapon2', [
             'key' => $key,

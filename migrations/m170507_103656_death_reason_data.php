@@ -46,11 +46,11 @@ class m170507_103656_death_reason_data extends Migration
             ['type_id', 'weapon_id', 'key', 'name'],
             array_map(
                 fn ($row) => [
-                        (int)$types['main'],
-                        (int)$row['id'],
-                        $row['key'],
-                        $row['name'],
-                    ],
+                    (int)$types['main'],
+                    (int)$row['id'],
+                    $row['key'],
+                    $row['name'],
+                ],
                 (new Query())
                     ->select(['id', 'key', 'name'])
                     ->from('weapon2')
@@ -64,11 +64,11 @@ class m170507_103656_death_reason_data extends Migration
             ['type_id', 'subweapon_id', 'key', 'name'],
             array_map(
                 fn ($row) => [
-                        (int)$types['sub'],
-                        (int)$row['id'],
-                        $row['key'],
-                        $row['name'],
-                    ],
+                    (int)$types['sub'],
+                    (int)$row['id'],
+                    $row['key'],
+                    $row['name'],
+                ],
                 (new Query())
                     ->select(['id', 'key', 'name'])
                     ->from('subweapon2')
@@ -82,11 +82,11 @@ class m170507_103656_death_reason_data extends Migration
             ['type_id', 'special_id', 'key', 'name'],
             array_map(
                 fn ($row) => [
-                        (int)$types['special'],
-                        (int)$row['id'],
-                        $row['key'],
-                        $row['name'],
-                    ],
+                    (int)$types['special'],
+                    (int)$row['id'],
+                    $row['key'],
+                    $row['name'],
+                ],
                 (new Query())
                     ->select(['id', 'key', 'name'])
                     ->from('special2')

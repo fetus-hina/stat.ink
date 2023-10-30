@@ -47,7 +47,7 @@ class ApiInputFormatter extends Component
         $value,
         string $class,
         string $keyColumn = 'key',
-        ?string $splatnetIdColumn = null
+        ?string $splatnetIdColumn = null,
     ): ?int {
         $value = $this->asString($value);
 

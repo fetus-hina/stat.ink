@@ -392,11 +392,14 @@ class PostBattleForm extends Model
             [['image_judge', 'image_result', 'image_gear'], 'safe'],
             [['image_judge', 'image_result', 'image_gear'], 'file',
                 'maxSize' => 3 * 1024 * 1024,
-                'when' => fn ($model, $attr) => !is_string($model->$attr)],
+                'when' => fn ($model, $attr) => !is_string($model->$attr),
+            ],
             [['image_judge', 'image_result', 'image_gear'], 'validateImageFile',
-                'when' => fn ($model, $attr) => !is_string($model->$attr)],
+                'when' => fn ($model, $attr) => !is_string($model->$attr),
+            ],
             [['image_judge', 'image_result', 'image_gear'], 'validateImageString',
-                'when' => fn ($model, $attr) => is_string($model->$attr)],
+                'when' => fn ($model, $attr) => is_string($model->$attr),
+            ],
             [['map'], 'safe'],
             [['splatnet_number'], 'integer', 'min' => 1],
             [['my_team_id', 'his_team_id'], 'string', 'max' => 16],
@@ -860,31 +863,35 @@ class PostBattleForm extends Model
         );
 
         $lock = CriticalSection::lock(__METHOD__, 60);
-        $config = GearConfiguration2::findOne(['finger_print' => $fingerPrint]);
-        if (!$config) {
-            $config = Yii::createObject([
-                'class' => GearConfiguration2::class,
-                'finger_print' => $fingerPrint,
-                'gear_id' => $gearModel ? $gearModel->id : null,
-                'primary_ability_id' => $primaryAbility ? $primaryAbility->id : null,
-            ]);
-            if (!$config->save()) {
-                throw new Exception('Could not save gear_counfiguration2');
-            }
-
-            foreach ($secondaryAbilityIdList as $aId) {
-                $sub = Yii::createObject([
-                    'class' => GearConfigurationSecondary2::class,
-                    'config_id' => $config->id,
-                    'ability_id' => $aId,
+        try {
+            $config = GearConfiguration2::findOne(['finger_print' => $fingerPrint]);
+            if (!$config) {
+                $config = Yii::createObject([
+                    'class' => GearConfiguration2::class,
+                    'finger_print' => $fingerPrint,
+                    'gear_id' => $gearModel ? $gearModel->id : null,
+                    'primary_ability_id' => $primaryAbility ? $primaryAbility->id : null,
                 ]);
-                if (!$sub->save()) {
-                    throw new Exception('Could not save gear_configuration_secondary2');
+                if (!$config->save()) {
+                    throw new Exception('Could not save gear_counfiguration2');
+                }
+
+                foreach ($secondaryAbilityIdList as $aId) {
+                    $sub = Yii::createObject([
+                        'class' => GearConfigurationSecondary2::class,
+                        'config_id' => $config->id,
+                        'ability_id' => $aId,
+                    ]);
+                    if (!$sub->save()) {
+                        throw new Exception('Could not save gear_configuration_secondary2');
+                    }
                 }
             }
-        }
 
-        return (int)$config->id;
+            return (int)$config->id;
+        } finally {
+            unset($lock);
+        }
     }
 
     public function getIsUsableForEntireStats()

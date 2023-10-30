@@ -67,13 +67,15 @@ class StatWeapon2KdWinRate extends ActiveRecord
                 }
 
                 if ($key === 'mystery') {
-                    $this->andWhere(['map_id' => ArrayHelper::getColumn(
-                        Map2::find()
-                            ->andWhere(['like', 'key', 'mystery%', false])
-                            ->asArray()
-                            ->all(),
-                        'id',
-                    )]);
+                    $this->andWhere([
+                        'map_id' => ArrayHelper::getColumn(
+                            Map2::find()
+                                ->andWhere(['like', 'key', 'mystery%', false])
+                                ->asArray()
+                                ->all(),
+                            'id',
+                        ),
+                    ]);
                 } else {
                     $model = Map2::findOne(['key' => $key]);
                     if (!$model) {

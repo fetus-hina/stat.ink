@@ -55,7 +55,8 @@ class m190209_184509_brazilian_timezones extends Migration
             'America/Cuiaba',
             'America/Manaus',
             'America/Eirunepe',
-        ]]);
+        ],
+        ]);
         $this->delete('country', ['id' => $countryId]);
     }
 

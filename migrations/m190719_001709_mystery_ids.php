@@ -20,9 +20,9 @@ class m190719_001709_mystery_ids extends Migration
             $db->quoteColumnName('key'),
             implode(' ', array_map(
                 fn (string $key, int $id): string => vsprintf('WHEN %s THEN %s', [
-                        $db->quoteValue($key),
-                        $db->quoteValue($id),
-                    ]),
+                    $db->quoteValue($key),
+                    $db->quoteValue($id),
+                ]),
                 array_keys($data),
                 array_values($data),
             )),

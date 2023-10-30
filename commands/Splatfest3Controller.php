@@ -180,7 +180,7 @@ final class Splatfest3Controller extends Controller
                         ),
                     ),
                     $query->createCommand($db)->rawSql,
-                    ]),
+                ]),
             )
             ->execute();
 

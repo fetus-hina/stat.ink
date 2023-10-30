@@ -33,8 +33,6 @@ class m180616_103147_octo_gears extends Migration
 
     public function safeDown()
     {
-        $abilities = $this->abilities();
-
         foreach ($this->updateList() as $name => $data) {
             $key = static::name2key($name);
             $update = [

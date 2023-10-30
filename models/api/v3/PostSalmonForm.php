@@ -446,7 +446,7 @@ final class PostSalmonForm extends Model
     private function hasBrokenData(): bool
     {
         if (is_array($this->bosses)) {
-            foreach ($this->bosses as $key => $data) {
+            foreach ($this->bosses as $data) {
                 if ($data === null) {
                     continue;
                 }

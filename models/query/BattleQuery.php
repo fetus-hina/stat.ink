@@ -174,82 +174,88 @@ class BattleQuery extends ActiveQuery
 
     public function filterByTerm(?string $value, array $options = []): self
     {
-        $now = (int)($_SERVER['REQUEST_TIME'] ?? time());
-        $currentPeriod = BattleHelper::calcPeriod($now);
+        $raii = null;
+        try {
+            $now = (int)($_SERVER['REQUEST_TIME'] ?? time());
+            $currentPeriod = BattleHelper::calcPeriod($now);
 
-        // 指定されたタイムゾーンで処理する
-        // この関数を抜けると元のタイムゾーンに戻る
-        $tzIdent = @$options['tz'] ?? Yii::$app->timeZone;
-        if (!is_scalar($tzIdent) || !$tzModel = Timezone::findOne(['identifier' => $tzIdent])) {
-            $tzModel = Timezone::findOne(['identifier' => Yii::$app->timeZone]);
+            // 指定されたタイムゾーンで処理する
+            // この関数を抜けると元のタイムゾーンに戻る
+            $tzIdent = @$options['tz'] ?? Yii::$app->timeZone;
+            if (!is_scalar($tzIdent) || !$tzModel = Timezone::findOne(['identifier' => $tzIdent])) {
+                $tzModel = Timezone::findOne(['identifier' => Yii::$app->timeZone]);
+            }
+            if ($tzModel) {
+                $oldTz = date_default_timezone_get();
+                $raii = new Resource(true, function () use ($oldTz): void {
+                    date_default_timezone_set($oldTz);
+                });
+                date_default_timezone_set($tzModel->identifier);
+            }
+
+            switch ($value) {
+                case 'this-period':
+                    $this->andWhere(['{{battle}}.[[period]]' => $currentPeriod]);
+                    break;
+
+                case 'last-period':
+                    $this->andWhere(['{{battle}}.[[period]]' => $currentPeriod - 1]);
+                    break;
+
+                case '24h':
+                    $this->andWhere(['>=', '{{battle}}.[[at]]', gmdate('Y-m-d\TH:i:sP', $now - 86400)]);
+                    break;
+
+                case 'today':
+                    $t = mktime(0, 0, 0, date('n', $now), date('j', $now), date('Y', $now));
+                    $this->andWhere(['>=', '{{battle}}.[[at]]', gmdate('Y-m-d\TH:i:sP', $t)]);
+                    break;
+
+                case 'yesterday':
+                    // 昨日の 00:00:00
+                    $t1 = mktime(0, 0, 0, date('n', $now), date('j', $now) - 1, date('Y', $now));
+                    // 今日の 00:00:00
+                    $t2 = mktime(0, 0, 0, date('n', $now), date('j', $now), date('Y', $now));
+                    $this->andWhere(['>=', '{{battle}}.[[at]]', gmdate('Y-m-d\TH:i:sP', $t1)]);
+                    $this->andWhere(['<', '{{battle}}.[[at]]', gmdate('Y-m-d\TH:i:sP', $t2)]);
+                    break;
+
+                case 'term':
+                    if (isset($options['from']) && $options['from'] != '') {
+                        if ($t = @strtotime($options['from'])) {
+                            $this->andWhere(['>=', '{{battle}}.[[at]]', gmdate('Y-m-d\TH:i:sP', $t)]);
+                        }
+                    }
+                    if (isset($options['to']) && $options['to'] != '') {
+                        if ($t = @strtotime($options['to'])) {
+                            $this->andWhere(['<=', '{{battle}}.[[at]]', gmdate('Y-m-d\TH:i:sP', $t)]);
+                        }
+                    }
+                    break;
+
+                default:
+                    if (isset($options['filter']) && preg_match('/^last-(\d+)-battles$/', $value, $match)) {
+                        $range = BattleHelper::getNBattlesRange($options['filter'], (int)$match[1]);
+                        if (!$range || $range['min_id'] < 1 || $range['max_id'] < 1) {
+                            $this->andWhere('1 <> 1'); // Always false
+                        } else {
+                            $this->andWhere(['between', '{{battle}}.[[id]]', $range['min_id'], $range['max_id']]);
+                        }
+                    } elseif (preg_match('/^v\d+/', $value)) {
+                        $version = SplatoonVersion::findOne(['tag' => substr($value, 1)]);
+                        if (!$version) {
+                            $this->andWhere('1 <> 1'); // Always false
+                        } else {
+                            $this->andWhere(['{{battle}}.[[version_id]]' => $version->id]);
+                        }
+                    }
+                    break;
+            }
+
+            return $this;
+        } finally {
+            unset($raii);
         }
-        if ($tzModel) {
-            $oldTz = date_default_timezone_get();
-            $raii = new Resource(true, function () use ($oldTz): void {
-                date_default_timezone_set($oldTz);
-            });
-            date_default_timezone_set($tzModel->identifier);
-        }
-
-        switch ($value) {
-            case 'this-period':
-                $this->andWhere(['{{battle}}.[[period]]' => $currentPeriod]);
-                break;
-
-            case 'last-period':
-                $this->andWhere(['{{battle}}.[[period]]' => $currentPeriod - 1]);
-                break;
-
-            case '24h':
-                $this->andWhere(['>=', '{{battle}}.[[at]]', gmdate('Y-m-d\TH:i:sP', $now - 86400)]);
-                break;
-
-            case 'today':
-                $t = mktime(0, 0, 0, date('n', $now), date('j', $now), date('Y', $now));
-                $this->andWhere(['>=', '{{battle}}.[[at]]', gmdate('Y-m-d\TH:i:sP', $t)]);
-                break;
-
-            case 'yesterday':
-                // 昨日の 00:00:00
-                $t1 = mktime(0, 0, 0, date('n', $now), date('j', $now) - 1, date('Y', $now));
-                // 今日の 00:00:00
-                $t2 = mktime(0, 0, 0, date('n', $now), date('j', $now), date('Y', $now));
-                $this->andWhere(['>=', '{{battle}}.[[at]]', gmdate('Y-m-d\TH:i:sP', $t1)]);
-                $this->andWhere(['<', '{{battle}}.[[at]]', gmdate('Y-m-d\TH:i:sP', $t2)]);
-                break;
-
-            case 'term':
-                if (isset($options['from']) && $options['from'] != '') {
-                    if ($t = @strtotime($options['from'])) {
-                        $this->andWhere(['>=', '{{battle}}.[[at]]', gmdate('Y-m-d\TH:i:sP', $t)]);
-                    }
-                }
-                if (isset($options['to']) && $options['to'] != '') {
-                    if ($t = @strtotime($options['to'])) {
-                        $this->andWhere(['<=', '{{battle}}.[[at]]', gmdate('Y-m-d\TH:i:sP', $t)]);
-                    }
-                }
-                break;
-
-            default:
-                if (isset($options['filter']) && preg_match('/^last-(\d+)-battles$/', $value, $match)) {
-                    $range = BattleHelper::getNBattlesRange($options['filter'], (int)$match[1]);
-                    if (!$range || $range['min_id'] < 1 || $range['max_id'] < 1) {
-                        $this->andWhere('1 <> 1'); // Always false
-                    } else {
-                        $this->andWhere(['between', '{{battle}}.[[id]]', $range['min_id'], $range['max_id']]);
-                    }
-                } elseif (preg_match('/^v\d+/', $value)) {
-                    $version = SplatoonVersion::findOne(['tag' => substr($value, 1)]);
-                    if (!$version) {
-                        $this->andWhere('1 <> 1'); // Always false
-                    } else {
-                        $this->andWhere(['{{battle}}.[[version_id]]' => $version->id]);
-                    }
-                }
-                break;
-        }
-        return $this;
     }
 
     public function filterByIdRange(?int $idFrom, ?int $idTo): self

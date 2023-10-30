@@ -56,10 +56,10 @@ trait Splatoon2
 
         return array_map(
             fn ($a) => [
-                    'date' => $a['date'],
-                    'battle' => $a['battle_count'],
-                    'user' => $a['user_count'],
-                ],
+                'date' => $a['date'],
+                'battle' => $a['battle_count'],
+                'user' => $a['user_count'],
+            ],
             $stats,
         );
     }
@@ -109,17 +109,17 @@ trait Splatoon2
             ],
             'agents' => array_map(
                 fn (array $row): array => [
-                        'name' => (string)$row['name'],
-                        'battles' => (int)$row['battles'],
-                        'users' => (int)$row['users'],
-                        'versions' => $this->getAgentVersion2(
-                            $row['name'],
-                            $startAt,
-                            $endAt,
-                            (int)$row['min_id'],
-                            (int)$row['max_id'],
-                        ),
-                    ],
+                    'name' => (string)$row['name'],
+                    'battles' => (int)$row['battles'],
+                    'users' => (int)$row['users'],
+                    'versions' => $this->getAgentVersion2(
+                        $row['name'],
+                        $startAt,
+                        $endAt,
+                        (int)$row['min_id'],
+                        (int)$row['max_id'],
+                    ),
+                ],
                 $list,
             ),
         ];
@@ -130,7 +130,7 @@ trait Splatoon2
         DateTimeImmutable $startAt,
         DateTimeImmutable $endAt,
         int $minId,
-        int $maxId
+        int $maxId,
     ): array {
         $versions = Battle2::find()
             ->innerJoinWith(['agent'], false)
@@ -151,10 +151,10 @@ trait Splatoon2
         usort($versions, fn (array $a, array $b): int => version_compare($b['version'], $a['version']));
         return array_map(
             fn (array $row): array => [
-                    'version' => (string)$row['version'],
-                    'battles' => (int)$row['battles'],
-                    'users' => (int)$row['users'],
-                ],
+                'version' => (string)$row['version'],
+                'battles' => (int)$row['battles'],
+                'users' => (int)$row['users'],
+            ],
             $versions,
         );
     }

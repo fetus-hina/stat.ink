@@ -296,7 +296,7 @@ class Salmon2 extends ActiveRecord
             return null;
         }
 
-        foreach ($this->players as $player) {
+        foreach ($list as $player) {
             if ($player->is_me) {
                 return $player;
             }
@@ -311,7 +311,7 @@ class Salmon2 extends ActiveRecord
             return null;
         }
 
-        return array_filter($this->players, fn (SalmonPlayer2 $player): bool => !$player->is_me);
+        return array_filter($list, fn (SalmonPlayer2 $player): bool => !$player->is_me);
     }
 
     private $sortedPlayersCache = false;
@@ -645,15 +645,15 @@ class Salmon2 extends ActiveRecord
                 'title_after',
             ],
             array_map(fn (int $wave): array => [
-                    "w{$wave}_event",
-                    "w{$wave}_event",
-                    "w{$wave}_water",
-                    "w{$wave}_water",
-                    "w{$wave}_quota",
-                    "w{$wave}_delivers",
-                    "w{$wave}_appearances",
-                    "w{$wave}_pwr_eggs",
-                ], range(1, 3)),
+                "w{$wave}_event",
+                "w{$wave}_event",
+                "w{$wave}_water",
+                "w{$wave}_water",
+                "w{$wave}_quota",
+                "w{$wave}_delivers",
+                "w{$wave}_appearances",
+                "w{$wave}_pwr_eggs",
+            ], range(1, 3)),
             array_map(function (int $i): array {
                 $prefix = $i === 0 ? 'player' : "mate{$i}";
                 return [
@@ -785,12 +785,12 @@ class Salmon2 extends ActiveRecord
                 ];
             }, range(0, 3)),
             array_map(fn (SalmonBoss2 $boss): array => [
-                    (int)ArrayHelper::getValue($bossAppearances, $boss->id, 0),
-                    $bossKillMap[0][$boss->id] ?? null,
-                    $bossKillMap[1][$boss->id] ?? null,
-                    $bossKillMap[2][$boss->id] ?? null,
-                    $bossKillMap[3][$boss->id] ?? null,
-                ], $bosses),
+                (int)ArrayHelper::getValue($bossAppearances, $boss->id, 0),
+                $bossKillMap[0][$boss->id] ?? null,
+                $bossKillMap[1][$boss->id] ?? null,
+                $bossKillMap[2][$boss->id] ?? null,
+                $bossKillMap[3][$boss->id] ?? null,
+            ], $bosses),
         ));
     }
 
@@ -977,10 +977,10 @@ class Salmon2 extends ActiveRecord
                     'maxItems' => 3,
                     'nullable' => true,
                     'items' => [
-                      'type' => 'integer',
-                      'format' => 'int32',
-                      'minimum' => 1,
-                      'maximum' => 25,
+                        'type' => 'integer',
+                        'format' => 'int32',
+                        'minimum' => 1,
+                        'maximum' => 25,
                     ],
                     'description' => Yii::t('app-apidoc2', 'Quotas calculated by Hazard Level'),
                 ],

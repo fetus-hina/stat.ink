@@ -46,12 +46,12 @@ final class GearAction extends Action
         $type = $this->getType();
         $gears = array_map(
             fn (array $gear): array => [
-                    'key' => $gear['key'],
-                    'name' => Yii::t('app-gear', $gear['name']),
-                    'names' => Translator::translateToAll('app-gear', $gear['name'], [], null),
-                    'brand' => Yii::t('app-brand', $gear['brand']['name'] ?? null),
-                    'ability' => Yii::t('app-ability', $gear['ability']['name'] ?? null),
-                ],
+                'key' => $gear['key'],
+                'name' => Yii::t('app-gear', $gear['name']),
+                'names' => Translator::translateToAll('app-gear', $gear['name'], [], null),
+                'brand' => Yii::t('app-brand', $gear['brand']['name'] ?? null),
+                'ability' => Yii::t('app-ability', $gear['ability']['name'] ?? null),
+            ],
             Gear::find()
                 ->with(['brand', 'ability'])
                 ->andWhere(['type_id' => $type->id])

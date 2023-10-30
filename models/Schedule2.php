@@ -122,9 +122,9 @@ class Schedule2 extends ActiveRecord
                         ->all(),
                 'mode.key',
                 fn (self $model) => (object)[
-                        'rule' => $model->rule,
-                        'maps' => $model->maps,
-                    ],
+                    'rule' => $model->rule,
+                    'maps' => $model->maps,
+                ],
             ),
         );
         return (object)[

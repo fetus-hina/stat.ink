@@ -35,9 +35,9 @@ class m200909_082721_shifty_names extends Migration
                     $db->quoteColumnName('key'),
                     implode(' ', array_map(
                         fn (string $key, string $name): string => vsprintf('WHEN %s THEN %s', [
-                                $db->quoteValue($key),
-                                $db->quoteValue($prefix . $name),
-                            ]),
+                            $db->quoteValue($key),
+                            $db->quoteValue($prefix . $name),
+                        ]),
                         array_keys($data),
                         array_values($data),
                     )),

@@ -54,7 +54,8 @@ class Agent extends ActiveRecord
             [['version'], 'string', 'max' => 255],
             [['name', 'version'], 'unique',
                 'targetAttribute' => ['name', 'version'],
-                'message' => 'The combination of Name and Version has already been taken.'],
+                'message' => 'The combination of Name and Version has already been taken.',
+            ],
         ];
     }
 

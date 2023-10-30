@@ -40,10 +40,12 @@ class m181119_120843_timezone extends Migration
     {
         $this->delete(
             'timezone_country',
-            ['timezone_id' => [
-                $this->timezone('Asia/Seoul'),
-                $this->timezone('Asia/Taipei'),
-            ]],
+            [
+                'timezone_id' => [
+                    $this->timezone('Asia/Seoul'),
+                    $this->timezone('Asia/Taipei'),
+                ],
+            ],
         );
         $this->delete('timezone', ['identifier' => ['Asia/Seoul', 'Asia/Taipei']]);
         foreach ($this->namesTable() as $ident => $upd) {
@@ -116,7 +118,7 @@ class m181119_120843_timezone extends Migration
         string $table,
         string $value,
         string $key = 'key',
-        string $id = 'id'
+        string $id = 'id',
     ): int {
         $ret = (new Query())
             ->select(['id' => $id])

@@ -122,7 +122,7 @@ trait TypeHelperTrait
         $value,
         string $modelClass,
         ?string $aliasClass = null,
-        ?string $aliasAttr = null
+        ?string $aliasAttr = null,
     ): ?int {
         $value = self::strVal($value);
         if ($value === null) {

@@ -133,17 +133,17 @@ trait Splatoon3
                 ],
                 'agents' => array_map(
                     fn (array $row): array => [
-                            'name' => (string)$row['name'],
-                            'battles' => (int)$row['battles'],
-                            'users' => (int)$row['users'],
-                            'versions' => $this->getAgentVersion3(
-                                $row['name'],
-                                $startAt,
-                                $endAt,
-                                (int)$row['min_id'],
-                                (int)$row['max_id'],
-                            ),
-                        ],
+                        'name' => (string)$row['name'],
+                        'battles' => (int)$row['battles'],
+                        'users' => (int)$row['users'],
+                        'versions' => $this->getAgentVersion3(
+                            $row['name'],
+                            $startAt,
+                            $endAt,
+                            (int)$row['min_id'],
+                            (int)$row['max_id'],
+                        ),
+                    ],
                     $list,
                 ),
             ];
@@ -157,7 +157,7 @@ trait Splatoon3
         DateTimeImmutable $startAt,
         DateTimeImmutable $endAt,
         int $minId,
-        int $maxId
+        int $maxId,
     ): array {
         $tz = $this->utc3();
         try {
@@ -165,8 +165,8 @@ trait Splatoon3
                 ->innerJoinWith(['agent'], false)
                 ->where(['and',
                     [
-                      '{{agent}}.[[name]]' => $name,
-                      '{{%battle3}}.[[is_deleted]]' => false,
+                        '{{agent}}.[[name]]' => $name,
+                        '{{%battle3}}.[[is_deleted]]' => false,
                     ],
                     ['between', '{{%battle3}}.[[id]]', $minId, $maxId],
                     ['>=', '{{%battle3}}.[[created_at]]', $startAt->format(DateTime::ATOM)],
@@ -183,10 +183,10 @@ trait Splatoon3
             usort($versions, fn (array $a, array $b): int => version_compare($b['version'], $a['version']));
             return array_map(
                 fn (array $row): array => [
-                        'version' => (string)$row['version'],
-                        'battles' => (int)$row['battles'],
-                        'users' => (int)$row['users'],
-                    ],
+                    'version' => (string)$row['version'],
+                    'battles' => (int)$row['battles'],
+                    'users' => (int)$row['users'],
+                ],
                 $versions,
             );
         } finally {

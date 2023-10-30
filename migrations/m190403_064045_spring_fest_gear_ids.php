@@ -20,9 +20,9 @@ class m190403_064045_spring_fest_gear_ids extends Migration
             $this->db->quoteColumnName('key'),
             implode(' ', array_map(
                 fn (string $key, int $id): string => vsprintf('WHEN %s THEN %d', [
-                        $this->db->quoteValue($key),
-                        $id,
-                    ]),
+                    $this->db->quoteValue($key),
+                    $id,
+                ]),
                 array_keys($data),
                 array_values($data),
             )),

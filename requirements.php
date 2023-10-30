@@ -31,45 +31,45 @@ $requirementsChecker = new YiiRequirementChecker();
 /**
  * Adjust requirements according to your application specifics.
  */
-$requirements = array(
-    array(
+$requirements = [
+    [
         'name' => 'PDO extension',
         'mandatory' => true,
         'condition' => extension_loaded('pdo'),
         'by' => 'All DB-related classes',
-    ),
-    array(
+    ],
+    [
         'name' => 'PDO SQLite extension',
         'mandatory' => true,
         'condition' => extension_loaded('pdo_sqlite'),
         'by' => 'All DB-related classes',
         'memo' => 'Required for SQLite database.',
-    ),
-    array(
+    ],
+    [
         'name' => 'Mcrypt extension',
         'mandatory' => true,
         'condition' => extension_loaded('mcrypt'),
         'by' => 'Favicon generator',
-    ),
-    array(
+    ],
+    [
         'name' => 'GD extension',
         'mandatory' => true,
         'condition' => extension_loaded('gd'),
         'by' => 'apple-touch-startup-image generator',
-    ),
-    'phpExposePhp' => array(
+    ],
+    'phpExposePhp' => [
         'name' => 'Expose PHP',
         'mandatory' => false,
         'condition' => $requirementsChecker->checkPhpIniOff('expose_php'),
         'by' => 'Security reasons',
         'memo' => '"expose_php" should be disabled at php.ini',
-    ),
-    'phpAllowUrlInclude' => array(
+    ],
+    'phpAllowUrlInclude' => [
         'name' => 'PHP allow url include',
         'mandatory' => false,
         'condition' => $requirementsChecker->checkPhpIniOff('allow_url_include'),
         'by' => 'Security reasons',
         'memo' => '"allow_url_include" should be disabled at php.ini',
-    ),
-);
+    ],
+];
 $requirementsChecker->checkYii()->check($requirements)->render();

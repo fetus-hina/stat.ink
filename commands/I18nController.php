@@ -135,7 +135,6 @@ final class I18nController extends Controller
         $changed = false;
         $inData = include $inPath;
         $current = file_exists($outPath) ? include($outPath) : [];
-        $new = !file_exists($outPath);
         foreach (array_keys($inData) as $enText) {
             if (!isset($current[$enText])) {
                 $current[$enText] = '';

@@ -264,8 +264,8 @@ final class SalmonUserInfo3 extends SalmonUserInfo
                 array_values($links),
             )),
             [
-                 'class' => 'mt-3 mb-0 p-0',
-                 'style' => 'list-style-type:none',
+                'class' => 'mt-3 mb-0 p-0',
+                'style' => 'list-style-type:none',
             ],
         );
     }

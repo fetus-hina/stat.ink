@@ -97,7 +97,7 @@ class SplapiController extends Controller
             fn ($item) => $item->period > $latestPeriod,
         );
 
-        if (empty($json)) {
+        if (!$json) {
             echo "no data updated.\n";
             return;
         }
@@ -156,7 +156,7 @@ class SplapiController extends Controller
             fn ($item) => $item->period > $latestPeriod,
         );
 
-        if (empty($json)) {
+        if (!$json) {
             echo "no data updated.\n";
             return;
         }

@@ -30,14 +30,15 @@ class UserStatByMapAction extends BaseAction
         $filter = new BattleFilterForm();
         $filter->load($_GET);
         $filter->screen_name = $user->screen_name;
-        if ($filter->validate()) {
-            //$battle->filter($filter);
-        }
+        $filter->validate();
+        // if ($filter->validate()) {
+        //     $battle->filter($filter);
+        // }
 
         return $this->controller->render('user-stat-by-map', [
-           'user' => $user,
-           'filter' => $filter,
-           'data' => $this->getData($user, $filter),
+            'user' => $user,
+            'filter' => $filter,
+            'data' => $this->getData($user, $filter),
         ]);
     }
 

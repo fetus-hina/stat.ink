@@ -12,7 +12,6 @@ use Yii;
 use app\components\helpers\Battle as BattleHelper;
 use app\models\Map2;
 use app\models\Mode2;
-use app\models\PeriodMap;
 use app\models\UserWeapon2;
 use app\models\Weapon2;
 use app\models\WeaponCategory2;
@@ -23,7 +22,6 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 
-use function array_map;
 use function max;
 use function microtime;
 use function sprintf;
@@ -58,28 +56,6 @@ final class CurrentData2Action extends Action
 
     public function getCurrentInfo()
     {
-        $info = function (array $periodMaps): array {
-            if (!$periodMaps) {
-                return [];
-            }
-            return [
-                'rule' => [
-                    'key' => $periodMaps[0]->rule->key,
-                    'name' => Yii::t('app-rule', $periodMaps[0]->rule->name),
-                ],
-                'maps' => array_map(
-                    fn (PeriodMap $pm): string => $pm->map->key,
-                    $periodMaps,
-                ),
-            ];
-        };
-        $info2 = fn (array $keys): array => [
-                'rule' => [
-                    'key' => 'nawabari',
-                    'name' => Yii::t('app-rule2', 'Turf War'),
-                ],
-                'maps' => $keys,
-            ];
         $now = microtime(true);
         $period = BattleHelper::calcPeriod2((int)$now);
         $range = BattleHelper::periodToRange2($period);
@@ -90,8 +66,8 @@ final class CurrentData2Action extends Action
                 'next' => max($range[1] - $now, 0), // in sec
             ],
             'fest' => $fest,
-            'regular' => false, // $info(PeriodMap::findCurrentRegular()->all()),
-            'gachi' => false, // $info(PeriodMap::findCurrentGachi()->all()),
+            'regular' => false,
+            'gachi' => false,
         ];
     }
 

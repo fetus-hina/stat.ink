@@ -23,12 +23,12 @@ class m171201_164553_gear_v2 extends Migration
         $abilities = $this->abilities;
         $insert = array_map(
             fn (array $row): array => [
-                    $row['key'],
-                    $types[$row['type']],
-                    $brands[$row['brand']],
-                    $row['name'],
-                    $abilities[$row['ability']],
-                ],
+                $row['key'],
+                $types[$row['type']],
+                $brands[$row['brand']],
+                $row['name'],
+                $abilities[$row['ability']],
+            ],
             $data,
         );
         $this->batchInsert(
@@ -43,10 +43,12 @@ class m171201_164553_gear_v2 extends Migration
         if (!$data = $this->getData()) {
             return false;
         }
-        $this->delete('gear2', ['key' => array_map(
-            fn (array $row): string => $row['key'],
-            $data,
-        )]);
+        $this->delete('gear2', [
+            'key' => array_map(
+                fn (array $row): string => $row['key'],
+                $data,
+            ),
+        ]);
     }
 
     public function getData(): ?array

@@ -63,10 +63,12 @@ class m171030_105641_asian_time extends Migration
 
     private function downChina(): void
     {
-        $this->delete('timezone_country', ['country_id' => [
-            $this->country('cn'),
-            $this->country('tw'),
-        ]]);
+        $this->delete('timezone_country', [
+            'country_id' => [
+                $this->country('cn'),
+                $this->country('tw'),
+            ],
+        ]);
         $this->delete('timezone', ['identifier' => ['Asia/Shanghai', 'Asia/Urumqi']]);
         $this->delete('country', ['key' => ['cn', 'tw']]);
     }
@@ -98,7 +100,7 @@ class m171030_105641_asian_time extends Migration
         string $table,
         string $value,
         string $key = 'key',
-        string $id = 'id'
+        string $id = 'id',
     ): int {
         $ret = (new Query())
             ->select(['id' => $id])

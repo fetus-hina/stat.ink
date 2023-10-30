@@ -25,7 +25,7 @@ final class CriticalSection extends Component
     public static function lock(
         string $name,
         int $timeout = 0,
-        ?Mutex $mutex = null
+        ?Mutex $mutex = null,
     ): Resource {
         return Yii::createObject([
             'class' => static::class,

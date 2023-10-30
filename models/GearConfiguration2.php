@@ -34,7 +34,7 @@ class GearConfiguration2 extends ActiveRecord
     public static function generateFingerPrint(
         ?int $gearId,
         ?int $primaryAbilityId,
-        array $secondaryAbitilyIdList
+        array $secondaryAbitilyIdList,
     ): string {
         $data = [
             'gear' => $gearId > 0 ? (int)$gearId : null,

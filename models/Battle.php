@@ -175,7 +175,7 @@ class Battle extends ActiveRecord
     public static function getTotalRoughCount()
     {
         $list = [
-            [Battle::class, 'getRoughCount'],
+            [self::class, 'getRoughCount'],
             [Battle2::class, 'getRoughCount'],
         ];
         $total = 0;
@@ -257,13 +257,15 @@ class Battle extends ActiveRecord
             [['agent_game_version_id'], 'integer'],
             [['agent_game_version_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => SplatoonVersion::class,
-                'targetAttribute' => ['agent_game_version_id' => 'id']],
+                'targetAttribute' => ['agent_game_version_id' => 'id'],
+            ],
             [['max_kill_combo', 'max_kill_streak'], 'integer', 'min' => 0],
             [['use_for_entire'], 'boolean'],
             [['bonus_id'], 'integer'],
             [['bonus_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => TurfwarWinBonus::class,
-                'targetAttribute' => ['bonus_id' => 'id']],
+                'targetAttribute' => ['bonus_id' => 'id'],
+            ],
         ];
     }
 
@@ -1069,16 +1071,6 @@ class Battle extends ActiveRecord
 
     public function getGearAbilities()
     {
-        $queryGear = function ($attr) {
-            if ($this->{"{$attr}_id"} === null) {
-                return null;
-            }
-            $q = "get{$attr}";
-            return $this->{$q}()
-                ->with(['primaryAbility', 'secondaries.ability'])
-                ->one();
-        };
-
         $gears = [
             $this->headgear,
             $this->clothing,
@@ -1086,12 +1078,12 @@ class Battle extends ActiveRecord
         ];
 
         $init = fn ($ability) => (object)[
-                'name' => Yii::t('app-ability', $ability->name),
-                'count' => (object)[
-                    'main' => 0,
-                    'sub' => 0,
-                ],
-            ];
+            'name' => Yii::t('app-ability', $ability->name),
+            'count' => (object)[
+                'main' => 0,
+                'sub' => 0,
+            ],
+        ];
 
         $ret = [];
         foreach ($gears as $gear) {

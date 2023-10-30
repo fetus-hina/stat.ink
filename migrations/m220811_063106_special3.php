@@ -69,9 +69,9 @@ final class m220811_063106_special3 extends Migration
         $this->batchInsert('{{%special3_alias}}', ['special_id', 'key'], array_values(
             array_map(
                 fn (string $key, string $name): array => [
-                        $this->key2id('{{%special3}}', $key),
-                        self::name2key3($name),
-                    ],
+                    $this->key2id('{{%special3}}', $key),
+                    self::name2key3($name),
+                ],
                 array_keys($data),
                 array_values($data),
             ),

@@ -99,10 +99,10 @@ class SalmonPlayers extends Widget
             'tr',
             Html::tag('th', '') . implode('', array_map(
                 fn (SalmonPlayer2 $player): string => Html::tag('th', PlayerName2Widget::widget([
-                        'player' => $player,
-                        'user' => $this->work->user,
-                        'nameOnly' => false,
-                    ])),
+                    'player' => $player,
+                    'user' => $this->work->user,
+                    'nameOnly' => false,
+                ])),
                 $this->players,
             )),
         ));

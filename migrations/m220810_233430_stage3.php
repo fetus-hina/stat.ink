@@ -30,11 +30,11 @@ final class m220810_233430_stage3 extends Migration
             ['key', 'name', 'short_name', 'release_at'],
             array_map(
                 fn (string $key, array $names): array => [
-                        $key,
-                        $names[0],
-                        $names[1],
-                        self::S3_LAUNCH,
-                    ],
+                    $key,
+                    $names[0],
+                    $names[1],
+                    self::S3_LAUNCH,
+                ],
                 array_keys($data),
                 array_values($data),
             ),

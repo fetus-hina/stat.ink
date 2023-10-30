@@ -127,7 +127,8 @@ abstract class BaseWidget extends Widget
             ['class' => [
                 'simple-battle-result',
                 $result ? 'simple-battle-result-won' : 'simple-battle-result-lost',
-            ]],
+            ],
+            ],
         );
     }
 
@@ -195,9 +196,9 @@ abstract class BaseWidget extends Widget
             'time',
             Html::encode(Yii::$app->formatter->asRelativeTime($datetime)),
             [
-              'datetime' => $datetime->format(DateTime::ATOM),
-              'title' => Yii::$app->formatter->asDatetime($datetime, 'medium'),
-              'class' => 'auto-tooltip',
+                'datetime' => $datetime->format(DateTime::ATOM),
+                'title' => Yii::$app->formatter->asDatetime($datetime, 'medium'),
+                'class' => 'auto-tooltip',
             ],
         );
     }

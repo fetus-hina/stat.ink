@@ -25,9 +25,9 @@ class m181206_132203_salmon_map_short extends Migration
                         $this->db->quoteColumnName('key'),
                         implode(' ', array_map(
                             fn (string $key, string $name): string => vsprintf('WHEN %s THEN %s', [
-                                    $this->db->quoteValue($key),
-                                    $this->db->quoteValue($name),
-                                ]),
+                                $this->db->quoteValue($key),
+                                $this->db->quoteValue($name),
+                            ]),
                             array_keys($names),
                             array_values($names),
                         )),

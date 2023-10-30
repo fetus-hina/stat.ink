@@ -35,11 +35,11 @@ class BattleAction extends BaseAction
             ])
             ->with(ArrayHelper::toFlatten(array_map(
                 fn (string $base): array => [
-                        "{$base}",
-                        "{$base}.primaryAbility",
-                        "{$base}.gear",
-                        "{$base}.secondaries.ability",
-                    ],
+                    "{$base}",
+                    "{$base}.primaryAbility",
+                    "{$base}.gear",
+                    "{$base}.secondaries.ability",
+                ],
                 [
                     'headgear',
                     'clothing',

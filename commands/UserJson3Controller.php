@@ -54,8 +54,8 @@ final class UserJson3Controller extends Controller
             if ($user) {
                 UserExportJson3Job::pushQueue($user);
                 vfprintf(STDERR, "%s(): push queue %d\n", [
-                __METHOD__,
-                $user->id,
+                    __METHOD__,
+                    $user->id,
                 ]);
             }
         }

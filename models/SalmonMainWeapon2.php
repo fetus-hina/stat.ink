@@ -160,10 +160,12 @@ class SalmonMainWeapon2 extends ActiveRecord
         return array_map(
             fn (self $model): array => $model->toJsonArray(),
             static::find()
-                ->andWhere(['key' => [
-                    'sshooter',
-                    'splatroller',
-                ]])
+                ->andWhere([
+                    'key' => [
+                        'sshooter',
+                        'splatroller',
+                    ],
+                ])
                 ->sorted()
                 ->orderBy(['splatnet' => SORT_ASC])
                 ->all(),

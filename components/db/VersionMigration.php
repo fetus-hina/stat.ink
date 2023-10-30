@@ -21,7 +21,7 @@ trait VersionMigration
         string $groupName,
         string $versionTag,
         string $versionName,
-        DateTimeInterface $releasedAt
+        DateTimeInterface $releasedAt,
     ): int {
         return $this->upVersion2Impl(
             '{{%battle3}}',
@@ -40,7 +40,7 @@ trait VersionMigration
         string $groupName,
         string $versionTag,
         string $versionName,
-        DateTimeInterface $releasedAt
+        DateTimeInterface $releasedAt,
     ): int {
         return $this->upVersion2Impl(
             'battle2',
@@ -107,7 +107,7 @@ trait VersionMigration
         string $tableVersion,
         string $tableGroup,
         string $versionTag,
-        string $oldVersionTag
+        string $oldVersionTag,
     ): void {
         // グループを消すかどうか決めるために最初に探しておく
         $groupId = (new Query())

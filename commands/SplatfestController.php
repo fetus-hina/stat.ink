@@ -105,8 +105,8 @@ class SplatfestController extends Controller
         } else {
             Yii::$app->db->createCommand()->batchInsert('tmp_summary_ts', ['timestamp'], array_map(
                 fn ($at) => [
-                        date('Y-m-d\TH:i:sP', $at),
-                    ],
+                    date('Y-m-d\TH:i:sP', $at),
+                ],
                 range($start_at, $end_at, 120),
             ))->execute();
         }

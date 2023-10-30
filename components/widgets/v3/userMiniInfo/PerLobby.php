@@ -63,7 +63,6 @@ final class PerLobby extends Widget
 
     private function renderContent(User $user, UserStat3 $model): string
     {
-        $fmt = Yii::$app->formatter;
         return Html::tag(
             'div',
             DetailView::widget([

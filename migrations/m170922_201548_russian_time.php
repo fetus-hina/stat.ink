@@ -39,25 +39,27 @@ class m170922_201548_russian_time extends Migration
             ['timezone_id', 'country_id'],
             array_map(
                 fn (array $row): array => [
-                        $row['id'],
-                        $russia,
-                    ],
+                    $row['id'],
+                    $russia,
+                ],
                 (new Query())
                     ->select(['id'])
                     ->from('timezone')
-                    ->where(['identifier' => [
-                        'Europe/Kaliningrad',
-                        'Europe/Moscow',
-                        'Europe/Samara',
-                        'Asia/Yekaterinburg',
-                        'Asia/Omsk',
-                        'Asia/Krasnoyarsk',
-                        'Asia/Irkutsk',
-                        'Asia/Yakutsk',
-                        'Asia/Vladivostok',
-                        'Asia/Magadan',
-                        'Asia/Kamchatka',
-                    ]])
+                    ->where([
+                        'identifier' => [
+                            'Europe/Kaliningrad',
+                            'Europe/Moscow',
+                            'Europe/Samara',
+                            'Asia/Yekaterinburg',
+                            'Asia/Omsk',
+                            'Asia/Krasnoyarsk',
+                            'Asia/Irkutsk',
+                            'Asia/Yakutsk',
+                            'Asia/Vladivostok',
+                            'Asia/Magadan',
+                            'Asia/Kamchatka',
+                        ],
+                    ])
                     ->orderBy(['id' => SORT_ASC])
                     ->all(),
             ),
@@ -68,19 +70,21 @@ class m170922_201548_russian_time extends Migration
     {
         $russia = $this->getRussiaId();
         $this->delete('timezone_country', ['country_id' => $russia]);
-        $this->delete('timezone', ['identifier' => [
-            'Europe/Kaliningrad',
-            'Europe/Moscow',
-            'Europe/Samara',
-            'Asia/Yekaterinburg',
-            'Asia/Omsk',
-            'Asia/Krasnoyarsk',
-            'Asia/Irkutsk',
-            'Asia/Yakutsk',
-            'Asia/Vladivostok',
-            'Asia/Magadan',
-            'Asia/Kamchatka',
-        ]]);
+        $this->delete('timezone', [
+            'identifier' => [
+                'Europe/Kaliningrad',
+                'Europe/Moscow',
+                'Europe/Samara',
+                'Asia/Yekaterinburg',
+                'Asia/Omsk',
+                'Asia/Krasnoyarsk',
+                'Asia/Irkutsk',
+                'Asia/Yakutsk',
+                'Asia/Vladivostok',
+                'Asia/Magadan',
+                'Asia/Kamchatka',
+            ],
+        ]);
         $this->delete('country', ['id' => $russia]);
     }
 

@@ -24,13 +24,15 @@ class PatchBattleForm extends Model
         return [
             [['link_url'], 'url'],
             [['note', 'private_note'], 'string'],
-            [['note', 'private_note'], 'filter', 'filter' => function ($value) {
-                $value = (string)$value;
-                $value = preg_replace('/\x0d\x0a|\x0d|\x0a/', "\n", $value);
-                $value = preg_replace('/(?:\x0d\x0a|\x0d|\x0a){3,}/', "\n\n", $value);
-                $value = trim($value);
-                return $value === '' ? null : $value;
-            }],
+            [['note', 'private_note'], 'filter',
+                'filter' => function ($value) {
+                    $value = (string)$value;
+                    $value = preg_replace('/\x0d\x0a|\x0d|\x0a/', "\n", $value);
+                    $value = preg_replace('/(?:\x0d\x0a|\x0d|\x0a){3,}/', "\n\n", $value);
+                    $value = trim($value);
+                    return $value === '' ? null : $value;
+                },
+            ],
         ];
     }
 

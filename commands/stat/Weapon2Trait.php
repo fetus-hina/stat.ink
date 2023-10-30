@@ -214,9 +214,9 @@ trait Weapon2Trait
             $db->quoteColumnName('stat_weapon2_kd_win_rate_pkey'),
             implode(', ', array_map(
                 fn (string $cName): string => vsprintf('%1$s = %2$s.%1$s', [
-                        $db->quoteColumnName($cName),
-                        $db->quoteTableName('excluded'),
-                    ]),
+                    $db->quoteColumnName($cName),
+                    $db->quoteTableName('excluded'),
+                ]),
                 ['battles', 'wins'],
             )),
         ]);

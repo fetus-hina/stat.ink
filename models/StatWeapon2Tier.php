@@ -238,14 +238,14 @@ class StatWeapon2Tier extends ActiveRecord
         return ArrayHelper::map(
             $list,
             fn (array $row): string => vsprintf('v%s@%s', [
-                    $row['vtag'],
-                    substr($row['month'], 0, 7),
-                ]),
+                $row['vtag'],
+                substr($row['month'], 0, 7),
+            ]),
             fn (array $row): array => [
-                    'month' => substr($row['month'], 0, 7),
-                    'vTag' => $row['vtag'],
-                    'vName' => $row['vname'],
-                ],
+                'month' => substr($row['month'], 0, 7),
+                'vTag' => $row['vtag'],
+                'vName' => $row['vname'],
+            ],
         );
     }
 }

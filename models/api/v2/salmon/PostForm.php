@@ -275,7 +275,7 @@ class PostForm extends Model
         $data, // array | stdclass
         string $attribute, // "players"
         string $attributeLabel, // "players[0]"
-        bool $isMe
+        bool $isMe,
     ): void {
         $model = $this->playerFormInstantiation($data, $isMe);
         if (!$model) {

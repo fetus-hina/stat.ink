@@ -25,7 +25,7 @@ final class ModalBody extends Widget
 
     public function run(): string
     {
-        if (!$model = $this->model) {
+        if (!$this->model) {
             throw new LogicException();
         }
 

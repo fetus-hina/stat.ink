@@ -51,13 +51,16 @@ final class m230105_114920_x_matching_group extends Migration
 
         /**
          * @var array<string, int> $groupIds
-         * @var array<string, int> $weaponIds
          */
         $groupIds = ArrayHelper::map(
             (new Query())->select('*')->from('{{%x_matching_group3}}')->all(),
             'short_name',
             'id',
         );
+
+        /**
+         * @var array<string, int> $weaponIds
+         */
         $weaponIds = ArrayHelper::map(
             (new Query())->select('*')->from('{{%weapon3}}')->all(),
             'key',

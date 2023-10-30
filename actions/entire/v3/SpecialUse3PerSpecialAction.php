@@ -52,7 +52,7 @@ final class SpecialUse3PerSpecialAction extends Action
     private function doRun(
         Controller $controller,
         Connection $db,
-        string $specialKey
+        string $specialKey,
     ): Response|array {
         $specialModel = $this->getTargetSpecial($db, $specialKey); // throw 404 if not valid
         $season = $this->getTargetSeason($db, $specialModel->key, $controller);

@@ -63,7 +63,7 @@ trait Util
     public static function oapiKey(
         ?string $additionalDescription = null,
         ?array $enumValues = null,
-        bool $replaceDescription = false
+        bool $replaceDescription = false,
     ): array {
         $result = [
             'type' => 'string',
@@ -95,7 +95,7 @@ trait Util
         /* ?string|callable */ $keyColumn = 'key',
         ?string $valueColumn = 'name',
         ?string $keyLabelHtml = null,
-        /* null|string|array */ $splatnetKeys = null
+        /* null|string|array */ $splatnetKeys = null,
     ): ?string {
         if (!$items) {
             return null;
@@ -147,7 +147,7 @@ trait Util
     private static function oapiKeyValueTableThead(
         string $keyLabelHtml,
         string $valueLabel,
-        array $splatnetKeys
+        array $splatnetKeys,
     ): string {
         return Html::tag('thead', Html::tag('tr', implode('', [
             Html::tag('th', $keyLabelHtml),
@@ -170,20 +170,20 @@ trait Util
     private static function oapiKeyValueTableTbody(
         array $keys,
         array $values,
-        array $splatnetValues
+        array $splatnetValues,
     ): string {
         return Html::tag('tbody', implode('', array_map(
             fn (string $key, string $value, array $splatnetValues): string => Html::tag('tr', implode('', [
-                    Html::tag('td', Html::tag('code', Html::encode($key))),
-                    Html::tag('td', Html::encode($value)),
-                    implode('', array_map(
-                        fn (string $value): string => Html::tag(
-                            'td',
-                            $value === '' ? '' : Html::tag('code', Html::encode($value)),
-                        ),
-                        $splatnetValues,
-                    )),
-                ])),
+                Html::tag('td', Html::tag('code', Html::encode($key))),
+                Html::tag('td', Html::encode($value)),
+                implode('', array_map(
+                    fn (string $value): string => Html::tag(
+                        'td',
+                        $value === '' ? '' : Html::tag('code', Html::encode($value)),
+                    ),
+                    $splatnetValues,
+                )),
+            ])),
             $keys,
             $values,
             $splatnetValues,

@@ -99,17 +99,17 @@ class UserStatReportAction extends BaseAction
             'list' => $this->query($from, $to),
             'next' => $next <= $upperBound
                 ? Url::to(['show-v2/user-stat-report',
-                        'screen_name' => $this->user->screen_name,
-                        'year' => $next->format('Y'),
-                        'month' => $next->format('n'),
-                    ], true)
+                    'screen_name' => $this->user->screen_name,
+                    'year' => $next->format('Y'),
+                    'month' => $next->format('n'),
+                ], true)
                 : null,
             'prev' => $prev >= $lowerBound
                 ? Url::to(['show-v2/user-stat-report',
-                        'screen_name' => $this->user->screen_name,
-                        'year' => $prev->format('Y'),
-                        'month' => $prev->format('n'),
-                    ], true)
+                    'screen_name' => $this->user->screen_name,
+                    'year' => $prev->format('Y'),
+                    'month' => $prev->format('n'),
+                ], true)
                 : null,
         ]);
     }

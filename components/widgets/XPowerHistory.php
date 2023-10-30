@@ -93,7 +93,8 @@ class XPowerHistory extends Widget
             ]),
             ['class' => [
                 'xpower-history-container',
-            ]],
+            ],
+            ],
         );
     }
 

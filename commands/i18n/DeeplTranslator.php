@@ -460,7 +460,7 @@ class DeeplTranslator extends Component
     private static function processTemplateXml(
         DOMDocument $doc,
         DOMNode $node,
-        bool $isRoot = true
+        bool $isRoot = true,
     ): ?string {
         if ($node->nodeType !== XML_ELEMENT_NODE) {
             return null;
