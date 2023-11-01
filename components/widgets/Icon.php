@@ -20,6 +20,7 @@ use app\assets\s3PixelIcons\LobbyIconAsset;
 use app\assets\s3PixelIcons\RuleIconAsset;
 use app\assets\s3PixelIcons\SalmometerIconAsset;
 use app\assets\s3PixelIcons\SalmonBossIconAsset;
+use app\assets\s3PixelIcons\SalmonHazardLevelIconAsset;
 use app\assets\s3PixelIcons\SalmonModeIconAsset;
 use app\assets\s3PixelIcons\SalmonRandomIconAsset;
 use app\assets\s3PixelIcons\SalmonScaleIconAsset;
@@ -159,6 +160,7 @@ use function str_starts_with;
  * @method static string s3Death()
  * @method static string s3Eggstra()
  * @method static string s3GoldMedal()
+ * @method static string s3HazardLevelMax()
  * @method static string s3Kill()
  * @method static string s3LobbyBankara()
  * @method static string s3LobbyEvent()
@@ -349,6 +351,7 @@ final class Icon
         's3Death' => [UiIconAsset::class, 'death.png', ['app', 'Deaths'], true],
         's3Eggstra' => [SalmonModeIconAsset::class, 'eggstra.png', ['app-salmon3', 'Eggstra Work'], true],
         's3GoldMedal' => [UiIconAsset::class, 'gold_medal.png'],
+        's3HazardLevelMax' => [SalmonHazardLevelIconAsset::class, 'hazard-level-max.png'],
         's3Kill' => [UiIconAsset::class, 'kill.png', ['app', 'Kills'], true],
         's3LobbyBankara' => [LobbyIconAsset::class, 'bankara.png', ['app-lobby3', 'Anarchy Battle'], true],
         's3LobbyEvent' => [LobbyIconAsset::class, 'event.png', ['app-lobby3', 'Challenge'], true],
