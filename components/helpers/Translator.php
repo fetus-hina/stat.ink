@@ -25,7 +25,7 @@ final class Translator
         string $category,
         string $message,
         array $params = [],
-        ?int $version = 2
+        ?int $version = 2,
     ): array {
         if (self::$langs === null) {
             self::$langs = Language::find()

@@ -29,7 +29,7 @@ class m170720_112422_fix_weapon2 extends Migration
     private function fix(
         string $weapon,
         ?string $sub = null,
-        ?string $special = null
+        ?string $special = null,
     ): void {
         $update = [
             'subweapon_id' => $this->findId('subweapon2', $sub),

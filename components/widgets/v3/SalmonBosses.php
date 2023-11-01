@@ -187,10 +187,6 @@ final class SalmonBosses extends Widget
 
     private function renderDefeated(SalmonBossAppearance3 $model): string
     {
-        $tada = $model->defeated !== null &&
-            $model->appearances !== null &&
-            $model->defeated >= $model->appearances;
-
         return Html::tag(
             'td',
             trim(

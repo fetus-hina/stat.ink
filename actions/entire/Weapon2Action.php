@@ -70,9 +70,9 @@ class Weapon2Action extends ViewAction
                 ->all(),
             'map',
             fn (array $row): array => [
-                    'win' => (int)$row['wins'],
-                    'lose' => (int)$row['battles'] - (int)$row['wins'],
-                ],
+                'win' => (int)$row['wins'],
+                'lose' => (int)$row['battles'] - (int)$row['wins'],
+            ],
             // }}}
         );
 
@@ -92,16 +92,16 @@ class Weapon2Action extends ViewAction
                     'battles' => 'SUM(stat_weapon2_result.battles)',
                 ])
                 ->orderBy([
-                  'map' => SORT_ASC,
-                  'kill' => SORT_ASC,
+                    'map' => SORT_ASC,
+                    'kill' => SORT_ASC,
                 ])
                 ->asArray()
                 ->all(),
             'kill',
             fn ($row) => [
-                    'times' => (int)$row['kill'],
-                    'battles' => (int)$row['battles'],
-                ],
+                'times' => (int)$row['kill'],
+                'battles' => (int)$row['battles'],
+            ],
             'map',
             // }}}
         );
@@ -122,16 +122,16 @@ class Weapon2Action extends ViewAction
                     'battles' => 'SUM(stat_weapon2_result.battles)',
                 ])
                 ->orderBy([
-                  'map' => SORT_ASC,
-                  'death' => SORT_ASC,
+                    'map' => SORT_ASC,
+                    'death' => SORT_ASC,
                 ])
                 ->asArray()
                 ->all(),
             'death',
             fn ($row) => [
-                    'times' => (int)$row['death'],
-                    'battles' => (int)$row['battles'],
-                ],
+                'times' => (int)$row['death'],
+                'battles' => (int)$row['battles'],
+            ],
             'map',
             // }}}
         );
@@ -152,16 +152,16 @@ class Weapon2Action extends ViewAction
                     'battles' => 'SUM(stat_weapon2_result.battles)',
                 ])
                 ->orderBy([
-                  'map' => SORT_ASC,
-                  'special' => SORT_ASC,
+                    'map' => SORT_ASC,
+                    'special' => SORT_ASC,
                 ])
                 ->asArray()
                 ->all(),
             'special',
             fn ($row) => [
-                    'times' => (int)$row['special'],
-                    'battles' => (int)$row['battles'],
-                ],
+                'times' => (int)$row['special'],
+                'battles' => (int)$row['battles'],
+            ],
             'map',
             // }}}
         );
@@ -182,16 +182,16 @@ class Weapon2Action extends ViewAction
                     'battles' => 'SUM(stat_weapon2_result.battles)',
                 ])
                 ->orderBy([
-                  'map' => SORT_ASC,
-                  'assist' => SORT_ASC,
+                    'map' => SORT_ASC,
+                    'assist' => SORT_ASC,
                 ])
                 ->asArray()
                 ->all(),
             'assist',
             fn ($row) => [
-                    'times' => (int)$row['assist'],
-                    'battles' => (int)$row['battles'],
-                ],
+                'times' => (int)$row['assist'],
+                'battles' => (int)$row['battles'],
+            ],
             'map',
             // }}}
         );

@@ -385,9 +385,9 @@ class User2Action extends BaseAction
                     : sprintf('%.2f', $battle->kill_ratio),
             );
         }
-        if (!empty($dl)) {
+        if ($dl) {
             $html .= Html::tag('dl', implode('', $dl));
         }
-        return empty($html) ? '<p>Splatlog</p>' : $html;
+        return $html ? $html : '<p>Splatlog</p>';
     }
 }

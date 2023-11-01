@@ -37,9 +37,10 @@ $fmt = Yii::$app->formatter;
       <tr>
         <th class="text-center" rowspan="2"><?= Html::encode(Yii::t('app-salmon3', 'Known Occurrence')) ?></th>
 <?php foreach ($tides as $tide) { ?>
-        <th class="text-center" colspan="4"><?=
-          Html::encode(Yii::t('app-salmon-tide2', $tide->name))
-        ?></th>
+        <th class="text-center" colspan="4">
+          <?= Icon::s3SalmonTide($tide) . "\n" ?>
+          <?= Html::encode(Yii::t('app-salmon-tide2', $tide->name)) . "\n" ?>
+        </th>
 <?php } ?>
       </tr>
       <tr>

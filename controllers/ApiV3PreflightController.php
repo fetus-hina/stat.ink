@@ -56,7 +56,7 @@ final class ApiV3PreflightController extends Controller
 
     public function actionDeleteOptions(): Response
     {
-        return $this->doOptions(post:true, delete: true);
+        return $this->doOptions(post: true, delete: true);
     }
 
     private function doOptions(bool $post = false, bool $delete = false): Response

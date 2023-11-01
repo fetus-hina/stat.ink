@@ -263,6 +263,7 @@ class Weapons2Action extends BaseAction
                     '{{map2}}.[[key]]' => $form->map,
                 ]);
             }
+            // phpcs:ignore Generic.CodeAnalysis.EmptyStatement
             if ($form->term == '') {
                 // nothing to do
             } elseif (preg_match('/^(\d{4})-(\d{2})$/', $form->term, $match)) {

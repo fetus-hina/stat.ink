@@ -534,7 +534,7 @@ class Ability2Info extends Model
         ?Weapon2 $weapon,
         ?WeaponAttack2 $attack,
         ?SplatoonVersion2 $version,
-        ?int $gp
+        ?int $gp,
     ): ?array {
         if (!$weapon || !$attack || !$version || !$gp) {
             return null;
@@ -556,7 +556,7 @@ class Ability2Info extends Model
             float $baseDamage,
             float $maxRate,
             float $mid = 0.5,
-            ?string $suffix = null
+            ?string $suffix = null,
         ) use (
             $gp,
             $getMaxDamage
@@ -744,7 +744,7 @@ class Ability2Info extends Model
             string $tag,
             float $base,
             float $maxExtends,
-            float $ratio = 0.5
+            float $ratio = 0.5,
         ) use ($gp): array {
             $c = static::calcCoefficient($gp, $base + $maxExtends, $base, $ratio);
             $tag = ucfirst($tag);
@@ -789,7 +789,6 @@ class Ability2Info extends Model
                     'inkRadius' => $inkC,
                     'inkRadiusRatio' => $inkC / 3.2,
                 ];
-                $results = $duration(450, 60);
                 if (version_compare($vTag, '1.3.0', '<')) {
                     return array_merge(
                         $duration(480, 120),
@@ -868,7 +867,7 @@ class Ability2Info extends Model
             float $min,
             float $maxDiff,
             float $mid = 0.5,
-            float $afterK = 1.0
+            float $afterK = 1.0,
         ) use ($gp): array {
             $c = static::calcCoefficient($gp, $min + $maxDiff, $min, $mid) * $afterK;
             return [
@@ -930,7 +929,7 @@ class Ability2Info extends Model
         int $gp,
         float $max,
         float $min = 0.0,
-        float $mid = 0.5
+        float $mid = 0.5,
     ): ?float {
         if ($gp < 1) {
             return null;

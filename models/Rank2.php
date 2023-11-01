@@ -99,7 +99,7 @@ class Rank2 extends ActiveRecord
     {
         $numberInRank = $rankNumber % 100;
         $rankNumber = $rankNumber - $numberInRank;
-        $model = Rank2::findOne(['int_base' => $rankNumber]);
+        $model = self::findOne(['int_base' => $rankNumber]);
         if (!$model) {
             return null;
         }

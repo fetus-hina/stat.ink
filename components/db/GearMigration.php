@@ -22,7 +22,7 @@ trait GearMigration
         string $type,
         string $brand,
         ?string $ability,
-        ?int $splatnet
+        ?int $splatnet,
     ): void {
         $this->insert('gear2', [
             'key' => $key,

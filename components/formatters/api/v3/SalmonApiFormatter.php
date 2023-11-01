@@ -21,7 +21,7 @@ final class SalmonApiFormatter
     public static function toJson(
         ?Salmon3 $model,
         bool $isAuthenticated = false,
-        bool $fullTranslate = false
+        bool $fullTranslate = false,
     ): ?array {
         if (!$model) {
             return null;

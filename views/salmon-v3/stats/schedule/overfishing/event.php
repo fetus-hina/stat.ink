@@ -46,12 +46,17 @@ if (!$stats) {
 <?php } ?>
   <?= Html::tag(
     'td',
-    Html::encode(
-      Yii::t(
-        'app-salmon-tide2',
-        TypeHelper::string(ArrayHelper::getValue($tides, [$stat['tide_id'], 'name'])),
+    implode(' ', [
+      Icon::s3SalmonTide(
+        TypeHelper::string(ArrayHelper::getValue($tides, [$stat['tide_id'], 'key'])),
       ),
-    ),
+      Html::encode(
+        Yii::t(
+          'app-salmon-tide2',
+          TypeHelper::string(ArrayHelper::getValue($tides, [$stat['tide_id'], 'name'])),
+        ),
+      ),
+    ]),
     ['class' => 'text-center'],
   ) . "\n" ?>
   <?= Html::tag(

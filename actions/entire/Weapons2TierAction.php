@@ -126,8 +126,8 @@ class Weapons2TierAction extends ViewAction
     private function getRules(SplatoonVersionGroup2 $version): array
     {
         return Rule2::getSortedAll('gachi', null, fn (Rule2 $rule): array => [
-                'name' => $rule->name,
-                'enabled' => StatWeapon2Tier::find()
+            'name' => $rule->name,
+            'enabled' => StatWeapon2Tier::find()
                     ->thresholded()
                     ->andWhere([
                         'version_group_id' => $version->id,
@@ -136,6 +136,6 @@ class Weapons2TierAction extends ViewAction
                     ])
                     ->limit(1)
                     ->exists(),
-            ]);
+        ]);
     }
 }

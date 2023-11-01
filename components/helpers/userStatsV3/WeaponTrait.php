@@ -27,7 +27,7 @@ trait WeaponTrait
     protected static function createWeaponStats(
         Connection $db,
         User $user,
-        DateTimeImmutable $now
+        DateTimeImmutable $now,
     ): bool {
         try {
             UserWeapon3::deleteAll(['user_id' => $user->id]);

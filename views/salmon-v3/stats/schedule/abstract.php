@@ -179,9 +179,15 @@ echo DetailView::widget([
       ],
       [
         'label' => Yii::t('app-salmon3', 'Max. Hazard Level (cleared)'),
+        'format' => 'raw',
         'value' => match ($v = TypeHelper::floatOrNull(ArrayHelper::getValue($stats, 'max_danger_rate'))) {
           null => '-',
-          default => $fmt->asPercent(((int)$v) / 100, 0),
+          default => $v >= 3.325
+            ? vsprintf('%s %s', [
+              Icon::s3HazardLevelMax(),
+              $fmt->asPercent(3.33, 0),
+            ])
+            : $fmt->asPercent(((int)$v) / 100, 0),
         },
       ],
       [

@@ -21,7 +21,7 @@ final class UserAgentApiFormatter
     public static function toJson(
         ?Agent $model,
         ?array $variables,
-        bool $fullTranslate = false
+        bool $fullTranslate = false,
     ): ?array {
         if (!$model && !$variables) {
             return null;

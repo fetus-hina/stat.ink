@@ -104,7 +104,7 @@ final class SalmonUserInfo3 extends SalmonUserInfo
                                 'div',
                                 Html::tag(
                                     'span',
-                                    Yii::t('app-salmon3', 'MAX'),
+                                    Icon::s3HazardLevelMax(),
                                     [
                                         'title' => Yii::t('app-salmon3', 'MAX Hazard Level Cleared'),
                                         'class' => 'auto-tooltip',
@@ -264,8 +264,8 @@ final class SalmonUserInfo3 extends SalmonUserInfo
                 array_values($links),
             )),
             [
-                 'class' => 'mt-3 mb-0 p-0',
-                 'style' => 'list-style-type:none',
+                'class' => 'mt-3 mb-0 p-0',
+                'style' => 'list-style-type:none',
             ],
         );
     }

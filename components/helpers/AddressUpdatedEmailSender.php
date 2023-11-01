@@ -31,7 +31,7 @@ final class AddressUpdatedEmailSender
         ?string $oldEmail,
         ?string $newEmail,
         User $user,
-        Language $language
+        Language $language,
     ): void {
         $mail = Yii::$app->mailer->compose(
             ['text' => '@app/views/email/update-email'],

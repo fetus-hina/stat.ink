@@ -27,7 +27,6 @@ use function array_values;
 use function implode;
 use function ksort;
 use function sprintf;
-use function time;
 
 use const SORT_ASC;
 use const SORT_STRING;
@@ -64,7 +63,6 @@ final class ActivityAction extends Action
     private function getInputPseudoForm(): DynamicModel
     {
         $req = Yii::$app->getRequest();
-        $time = time();
         return DynamicModel::validateData(
             [
                 'screen_name' => $req->get('screen_name'),
@@ -86,7 +84,7 @@ final class ActivityAction extends Action
         User $user,
         DateTimeImmutable $from,
         DateTimeImmutable $to,
-        ?string $only
+        ?string $only,
     ): array {
         return $this->reformatData($this->mergeData([
             $this->isShow('spl1', $only)
@@ -120,9 +118,9 @@ final class ActivityAction extends Action
     {
         return array_map(
             fn (string $date, int $count): array => [
-                    'date' => $date,
-                    'count' => $count,
-                ],
+                'date' => $date,
+                'count' => $count,
+            ],
             array_keys($inData),
             array_values($inData),
         );
@@ -143,7 +141,7 @@ final class ActivityAction extends Action
     private function makeDataSplatoon1Battle(
         User $user,
         DateTimeImmutable $from,
-        DateTimeImmutable $to
+        DateTimeImmutable $to,
     ): array {
         $date = sprintf('(CASE %s END)::date', implode(' ', [
             'WHEN {{battle}}.[[start_at]] IS NOT NULL THEN {{battle}}.[[start_at]]',
@@ -171,7 +169,7 @@ final class ActivityAction extends Action
     private function makeDataSplatoon2Battle(
         User $user,
         DateTimeImmutable $from,
-        DateTimeImmutable $to
+        DateTimeImmutable $to,
     ): array {
         $date = sprintf('(CASE %s END)::date', implode(' ', [
             'WHEN {{battle2}}.[[start_at]] IS NOT NULL THEN {{battle2}}.[[start_at]]',
@@ -199,7 +197,7 @@ final class ActivityAction extends Action
     private function makeDataSplatoon2Salmon(
         User $user,
         DateTimeImmutable $from,
-        DateTimeImmutable $to
+        DateTimeImmutable $to,
     ): array {
         $date = sprintf('(CASE %s END)::date', implode(' ', [
             'WHEN {{salmon2}}.[[start_at]] IS NOT NULL THEN {{salmon2}}.[[start_at]]',
@@ -226,7 +224,7 @@ final class ActivityAction extends Action
     private function makeDataSplatoon3Battle(
         User $user,
         DateTimeImmutable $from,
-        DateTimeImmutable $to
+        DateTimeImmutable $to,
     ): array {
         $date = sprintf('(CASE %s END)::date', implode(' ', [
             'WHEN {{%battle3}}.[[start_at]] IS NOT NULL THEN {{%battle3}}.[[start_at]]',

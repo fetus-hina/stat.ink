@@ -15,7 +15,6 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
-use app\models\Rule3;
 use yii\db\Query;
 
 use function implode;
@@ -27,7 +26,6 @@ trait Splatoon3
     public static function getSummary3(Query $oldQuery)
     {
         $db = Yii::$app->db;
-        $turfWarId = Rule3::findOne(['key' => 'nawabari'])->id;
         $now = (new DateTimeImmutable())
             ->setTimeZone(new DateTimeZone(Yii::$app->timeZone))
             ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time());

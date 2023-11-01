@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use app\assets\EntireSalmon3TideAsset;
 use app\assets\RatioAsset;
+use app\components\widgets\Icon;
 use app\models\Map3;
 use app\models\SalmonEvent3;
 use app\models\SalmonMap3;
@@ -49,7 +50,10 @@ $total = array_sum(array_values($values));
 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 mb-3">
   <?= Html::tag(
     'h4',
-    Html::encode(Yii::t('app-salmon-tide2', $tide->name)),
+    implode(' ', [
+      Icon::s3SalmonTide($tide),
+      Html::encode(Yii::t('app-salmon-tide2', $tide->name)),
+    ]),
     ['class' => 'mt-0 mb-2'],
   ) . "\n" ?>
   <div class="mb-1 ratio ratio-1x1">

@@ -104,12 +104,6 @@ final class SalmonPlayers extends Widget
 
     private function renderHeader(): string
     {
-        $am = null;
-        $view = $this->view;
-        if ($view instanceof View) {
-            $am = Yii::$app->assetManager;
-        }
-
         return Html::tag(
             'thead',
             Html::tag(

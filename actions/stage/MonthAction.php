@@ -96,38 +96,39 @@ class MonthAction extends BaseAction
 
     public function buildData(): array
     {
-        // {{{
         $raiiTimeZone = static::setTimeZoneToFavorable();
-
-        $rules = $this->getRules();
-        $maps = $this->getMaps();
-        $counts = $this->getCountData();
-        $data = [];
-        foreach ($rules as $rule) {
-            $data[] = (function () use ($rule, $maps, $counts) {
-                $ret = (object)[
-                    'rule' => $rule,
-                    'maps' => array_map(
-                        function ($map) use ($rule, $counts) {
-                            $counts_ = array_filter($counts, fn ($_) => $_['rule_id'] == $rule->id && $_['map_id'] == $map->id);
-                            return (object)[
-                                'map' => $map,
-                                'count' => $counts_ ? (int)array_shift($counts_)['count'] : 0,
-                            ];
-                        },
-                        $maps,
-                    ),
-                ];
-                usort($ret->maps, fn ($a, $b) => $b->count <=> $a->count
-                        ?: strnatcasecmp(
-                            Yii::t('app-map', $a->map->name),
-                            Yii::t('app-map', $b->map->name),
-                        ));
-                return $ret;
-            })();
+        try {
+            $rules = $this->getRules();
+            $maps = $this->getMaps();
+            $counts = $this->getCountData();
+            $data = [];
+            foreach ($rules as $rule) {
+                $data[] = (function () use ($rule, $maps, $counts) {
+                    $ret = (object)[
+                        'rule' => $rule,
+                        'maps' => array_map(
+                            function ($map) use ($rule, $counts) {
+                                $counts_ = array_filter($counts, fn ($_) => $_['rule_id'] == $rule->id && $_['map_id'] == $map->id);
+                                return (object)[
+                                    'map' => $map,
+                                    'count' => $counts_ ? (int)array_shift($counts_)['count'] : 0,
+                                ];
+                            },
+                            $maps,
+                        ),
+                    ];
+                    usort($ret->maps, fn ($a, $b) => $b->count <=> $a->count
+                            ?: strnatcasecmp(
+                                Yii::t('app-map', $a->map->name),
+                                Yii::t('app-map', $b->map->name),
+                            ));
+                    return $ret;
+                })();
+            }
+            return $data;
+        } finally {
+            unset($raiiTimeZone);
         }
-        return $data;
-        // }}}
     }
 
     public function getMaps(): array

@@ -43,10 +43,12 @@ class StatWeaponVsWeapon extends ActiveRecord
 
             private function weaponImpl(int $weaponId): ActiveQuery
             {
-                return $this->andWhere(['or', [
-                    '{{stat_weapon_vs_weapon}}.[[weapon_id_1]]' => $weaponId,
-                    '{{stat_weapon_vs_weapon}}.[[weapon_id_2]]' => $weaponId,
-                ]]);
+                return $this->andWhere(['or',
+                    [
+                        '{{stat_weapon_vs_weapon}}.[[weapon_id_1]]' => $weaponId,
+                        '{{stat_weapon_vs_weapon}}.[[weapon_id_2]]' => $weaponId,
+                    ],
+                ]);
             }
         };
     }
@@ -69,16 +71,20 @@ class StatWeaponVsWeapon extends ActiveRecord
             [['version_id', 'rule_id', 'weapon_id_1', 'weapon_id_2', 'battle_count', 'win_count'], 'integer'],
             [['version_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => SplatoonVersion::class,
-                'targetAttribute' => ['version_id' => 'id']],
+                'targetAttribute' => ['version_id' => 'id'],
+            ],
             [['rule_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Rule::class,
-                'targetAttribute' => ['version_id' => 'id']],
+                'targetAttribute' => ['version_id' => 'id'],
+            ],
             [['weapon_id_1'], 'exist', 'skipOnError' => true,
                 'targetClass' => Weapon::class,
-                'targetAttribute' => ['weapon_id_1' => 'id']],
+                'targetAttribute' => ['weapon_id_1' => 'id'],
+            ],
             [['weapon_id_2'], 'exist', 'skipOnError' => true,
                 'targetClass' => Weapon::class,
-                'targetAttribute' => ['weapon_id_2' => 'id']],
+                'targetAttribute' => ['weapon_id_2' => 'id'],
+            ],
         ];
     }
 

@@ -70,7 +70,7 @@ final class AssetManager extends FWAssetManager
         Yii::endProfile($profile, __METHOD__);
         Yii::info("Asset path hash = {$hash}", __METHOD__);
 
-        /** @var ?int */
+        /** @var ?int $commitTime */
         $commitTime = ArrayHelper::getValue(Yii::$app->params, 'gitRevision.lastCommittedT');
         if (!is_int($commitTime)) {
             Yii::info('Commit time is unknown. No timestamp used', __METHOD__);

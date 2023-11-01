@@ -113,9 +113,9 @@ final class m220820_015712_weapon3_copy extends Migration
             ]),
             implode(' ', array_map(
                 fn (string $s2key, string $s3key): string => vsprintf('WHEN %d THEN %d', [
-                        $this->key2id('{{%weapon_type2}}', $s2key),
-                        $this->key2id('{{%weapon_type3}}', $s3key),
-                    ]),
+                    $this->key2id('{{%weapon_type2}}', $s2key),
+                    $this->key2id('{{%weapon_type3}}', $s3key),
+                ]),
                 array_keys($versionMap),
                 array_values($versionMap),
             )),
@@ -167,12 +167,12 @@ final class m220820_015712_weapon3_copy extends Migration
             ->all();
 
         /**
-         * @var string[]
+         * @var string[] $existKeys
          */
         $existKeys = ArrayHelper::getColumn($weapons, 'key');
 
         /**
-         * @phpstan-var array{int, string}
+         * @phpstan-var array{int, string} $inserts
          */
         $inserts = [];
         foreach ($weapons as $w) {

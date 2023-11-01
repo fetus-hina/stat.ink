@@ -69,7 +69,7 @@ class MiniinfoUserLink extends Widget
     private function renderData(
         string $icon,
         $value,
-        $link = null
+        $link = null,
     ): ?string {
         $value = trim((string)$value);
         if ($value === '') {

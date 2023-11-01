@@ -345,8 +345,8 @@ class Salmon2FilterForm extends Model
             $this->versions,
             fn (SplatoonVersionGroup2 $v): string => 'v' . $v->tag,
             fn (SplatoonVersionGroup2 $v): string => Yii::t('app', 'Version {0}', [
-                    Yii::t('app-version2', $v->name),
-                ]),
+                Yii::t('app-version2', $v->name),
+            ]),
         );
     }
 

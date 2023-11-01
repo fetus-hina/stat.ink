@@ -227,10 +227,12 @@ class Map2 extends ActiveRecord
             fn (self $model): array => $model->toJsonArray(),
             static::sort(
                 static::find()
-                    ->andWhere(['key' => [
-                        'battera',
-                        'kombu',
-                    ]])
+                    ->andWhere([
+                        'key' => [
+                            'battera',
+                            'kombu',
+                        ],
+                    ])
                     ->all(),
             ),
         );

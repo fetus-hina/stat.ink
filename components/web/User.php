@@ -91,7 +91,7 @@ class User extends \yii\web\User
 
     private function createIdentityCookieValue(
         IdentityInterface $identity,
-        int $duration
+        int $duration,
     ): string {
         Yii::beginProfile('createIdentityCookieValue', __METHOD__);
 

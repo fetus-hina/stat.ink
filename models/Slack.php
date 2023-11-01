@@ -66,10 +66,12 @@ class Slack extends ActiveRecord
             [['channel'], 'string', 'max' => 22],
             [['language_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Language::class,
-                'targetAttribute' => ['language_id' => 'id']],
+                'targetAttribute' => ['language_id' => 'id'],
+            ],
             [['user_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => User::class,
-                'targetAttribute' => ['user_id' => 'id']],
+                'targetAttribute' => ['user_id' => 'id'],
+            ],
         ];
     }
 

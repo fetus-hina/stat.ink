@@ -41,7 +41,8 @@ class StatAgentUser extends ActiveRecord
             [['agent'], 'string', 'max' => 64],
             [['agent', 'date'], 'unique',
                 'targetAttribute' => ['agent', 'date'],
-                'message' => 'The combination of Agent and Date has already been taken.'],
+                'message' => 'The combination of Agent and Date has already been taken.',
+            ],
         ];
     }
 

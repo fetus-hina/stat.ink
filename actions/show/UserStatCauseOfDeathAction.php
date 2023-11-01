@@ -58,7 +58,7 @@ class UserStatCauseOfDeathAction extends BaseAction
     public function getList(
         User $user,
         BattleFilterForm $filter,
-        CauseOfDeathGroupForm $group
+        CauseOfDeathGroupForm $group,
     ): array {
         $query = (new Query())
             ->from('battle')
@@ -122,9 +122,9 @@ class UserStatCauseOfDeathAction extends BaseAction
 
         $ret = array_map(
             fn ($row) => (object)[
-                    'name' => $deathReasons[$row['reason_id']] ?? '?',
-                    'count' => (int)$row['count'],
-                ],
+                'name' => $deathReasons[$row['reason_id']] ?? '?',
+                'count' => (int)$row['count'],
+            ],
             $list,
         );
         usort($ret, fn ($a, $b) => $b->count <=> $a->count ?: strcasecmp($a->name, $b->name));
@@ -216,9 +216,9 @@ class UserStatCauseOfDeathAction extends BaseAction
 
         $ret = array_map(
             fn ($row) => (object)[
-                    'name' => Yii::t('app-death', $row['id'] === null ? 'Unknown' : $row['name']),
-                    'count' => (int)$row['count'],
-                ],
+                'name' => Yii::t('app-death', $row['id'] === null ? 'Unknown' : $row['name']),
+                'count' => (int)$row['count'],
+            ],
             $query->createCommand()->queryAll(),
         );
         usort($ret, fn ($a, $b) => $b->count <=> $a->count ?: strcasecmp($a->name, $b->name));

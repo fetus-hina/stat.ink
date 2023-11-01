@@ -37,7 +37,6 @@ use function is_array;
 use function is_string;
 use function json_encode;
 use function sprintf;
-use function time;
 
 use const JSON_UNESCAPED_SLASHES;
 use const JSON_UNESCAPED_UNICODE;
@@ -79,7 +78,8 @@ class BattleAction extends BaseAction
                 ],
                 [['screen_name'], 'exist',
                     'targetClass' => User::className(),
-                    'targetAttribute' => 'screen_name' ],
+                    'targetAttribute' => 'screen_name',
+                ],
                 [['newer_than', 'older_than'], 'integer'],
                 [['count'], 'default', 'value' => 10],
                 [['count'], 'integer', 'min' => 1, 'max' => 100],
@@ -155,7 +155,7 @@ class BattleAction extends BaseAction
 
         $list = $query->all();
         if ($model->id != '') {
-            return empty($list) ? null : $this->runGetImpl(array_shift($list));
+            return $list ? $this->runGetImpl(array_shift($list)) : null;
         }
 
         $resp = Yii::$app->getResponse();
@@ -348,7 +348,6 @@ class BattleAction extends BaseAction
             }
         }
         $imageOutputDir = Yii::getAlias('@webroot/images');
-        $time = time();
         if ($image = $form->toImageJudge($battle)) {
             $binary = is_string($form->image_judge)
                 ? $form->image_judge
@@ -558,14 +557,14 @@ class BattleAction extends BaseAction
         Battle $battle,
         array $deathReasons,
         ?array $players = null,
-        ?Agent $agent = null
+        ?Agent $agent = null,
     ) {
         $ret = $battle->toJsonArray();
         $ret['death_reasons'] = array_map(
             fn ($model): array => $model->toJsonArray(),
             $deathReasons,
         );
-        $ret['players'] = is_array($players) && !empty($players)
+        $ret['players'] = is_array($players) && $players
             ? array_map(
                 fn ($model): array => $model->toJsonArray(),
                 $players,

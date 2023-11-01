@@ -192,26 +192,9 @@ API
 stat.ink にデータを投稿する、または取得する API は次のページを参照してください。 
 See the pages below for APIs to post and retrieve data from stat.ink.
 
+- API for Splatoon 3: [See Wiki on GitHub](https://github.com/fetus-hina/stat.ink/wiki)
 - [API for Splatoon 2](https://github.com/fetus-hina/stat.ink/blob/master/doc/api-2/)
 - [API for Splatoon 1](https://github.com/fetus-hina/stat.ink/blob/master/API.md)
-
-### Needs test site?
-
-You can use staging environment for POST API test.  
-URL: `https://test.stat.ink/` instead of `https://stat.ink/`.
-
-The database of statging environment will reset daily.  
-The maintenance process will be started at 23:00 UTC(\*) and will take 1.5 hours.
-
-\*) 23:00 UTC is ...
-
-  | Place                  | Local Time                          |
-  |------------------------|-------------------------------------|
-  | Tokyo                  | 08:00 JST                           |
-  | Europe (Paris, Berlin) | 00:00 CET / 01:00 CEST              |
-  | London                 | 23:00 GMT / 00:00 BST               |
-  | New York               | 18:00 (6 pm) EST / 19:00 (7 pm) EDT |
-  | California             | 15:00 (3 pm) PST / 16:00 (4 pm) PDT |
 
 
 コーディング規約 CODING STANDARDS
@@ -219,10 +202,10 @@ The maintenance process will be started at 23:00 UTC(\*) and will take 1.5 hours
 
   | Language    | Coding Standards |
   |-------------|------------------|
-  | PHP         | [PSR-12](https://www.php-fig.org/psr/psr-12/) |
+  | PHP         | [PSR-12](https://www.php-fig.org/psr/psr-12/)-based, See phpcs.xml |
   | PHP (views) | Indent with 2 spaces |
   | JavaScript  | [semistandard](https://github.com/standard/semistandard#rules) |
-  | SCSS / CSS  | [Sass Guidelines](https://sass-guidelin.es/)-based, See [.stylelintrc](https://github.com/fetus-hina/stat.ink/blob/dev/.stylelintrc.json) |
+  | SCSS / CSS  | [Sass Guidelines](https://sass-guidelin.es/)-based, See .stylelintrc
 
 
 ライセンス LICENSE

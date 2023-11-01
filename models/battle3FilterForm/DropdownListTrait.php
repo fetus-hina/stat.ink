@@ -163,12 +163,12 @@ trait DropdownListTrait
         string $groupAttr,
         ?string $translateCatalog = 'app',
         ?string $promptText = null,
-        bool $sort = true
+        bool $sort = true,
     ): array {
         // 使いやすい形に加工する
 
         /**
-         * @var array<string, array{group: ActiveRecord, items: ActiveRecord[]}>
+         * @var array<string, array{group: ActiveRecord, items: ActiveRecord[]}> $groups
          */
         $groups = [];
         foreach ($models as $model) {
@@ -226,7 +226,7 @@ trait DropdownListTrait
         array $models,
         ?string $translateCatalog = 'app',
         ?string $promptText = null,
-        bool $sort = true
+        bool $sort = true,
     ): array {
         $list = ArrayHelper::map(
             $models,

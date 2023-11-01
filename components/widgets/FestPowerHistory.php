@@ -55,11 +55,11 @@ class FestPowerHistory extends Widget
             implode(', ', array_map([Json::class, 'encode'], [
                 sprintf('#%s-legends', $this->id),
                 [
-                   'estimateBad' => Yii::t('app', 'Their team\'s splatfest power'),
-                   'estimateGood' => Yii::t('app', 'My team\'s splatfest power'),
-                   'festPower' => Yii::t('app', 'Splatfest Power'),
-                   'lose' => Yii::t('app', 'Lose'),
-                   'win' => Yii::t('app', 'Win'),
+                    'estimateBad' => Yii::t('app', 'Their team\'s splatfest power'),
+                    'estimateGood' => Yii::t('app', 'My team\'s splatfest power'),
+                    'festPower' => Yii::t('app', 'Splatfest Power'),
+                    'lose' => Yii::t('app', 'Lose'),
+                    'win' => Yii::t('app', 'Win'),
                 ],
                 array_map(
                     fn (Battle2 $model): ?float => $model->fest_power < 1 ? null : (float)$model->fest_power,
@@ -102,9 +102,11 @@ class FestPowerHistory extends Widget
                     'id' => $this->id . '-legends',
                 ]),
             ]),
-            ['class' => [
-                'fest-power-history-container',
-            ]],
+            [
+                'class' => [
+                    'fest-power-history-container',
+                ],
+            ],
         );
     }
 
@@ -135,9 +137,9 @@ class FestPowerHistory extends Widget
             return null;
         }
         $festPowerFilter = fn (string $column): array => ['and',
-                ['not', ["{{battle2}}.[[{$column}]]" => null]],
-                ['>', "{{battle2}}.[[{$column}]]", 0],
-            ];
+            ['not', ["{{battle2}}.[[{$column}]]" => null]],
+            ['>', "{{battle2}}.[[{$column}]]", 0],
+        ];
         $history = Battle2::find()
             ->andWhere(['and',
                 [

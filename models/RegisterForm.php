@@ -38,7 +38,8 @@ class RegisterForm extends Model
             [['password'], 'string', 'min' => 10],
             [['password_repeat'], 'compare',
                 'compareAttribute' => 'password',
-                'operator' => '==='],
+                'operator' => '===',
+            ],
         ];
     }
 

@@ -96,8 +96,8 @@ final class ColorSchemeDialog extends Dialog
                 fn (string $key, string $name): string => $this->renderScheme(
                     $key,
                     Yii::t('app', '{theme} Theme', [
-                            'theme' => $name,
-                        ]),
+                        'theme' => $name,
+                    ]),
                 ),
                 array_keys($this->bootswatch),
                 array_values($this->bootswatch),

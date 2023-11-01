@@ -93,12 +93,14 @@ class Battle2Controller extends Controller
 
         $query = Battle2::find()
             ->innerJoinWith('rule', false)
-            ->with(['battlePlayers' => function ($query) {
-                $query->andWhere(['and',
-                    ['not', ['is_my_team' => null]],
-                    ['not', ['point' => null]],
-                ]);
-            }])
+            ->with([
+                'battlePlayers' => function ($query) {
+                    $query->andWhere(['and',
+                        ['not', ['is_my_team' => null]],
+                        ['not', ['point' => null]],
+                    ]);
+                },
+            ])
             ->andWhere(['and',
                 ['battle2.agent_id' => $agentIds],
                 ['not', ['battle2.is_win' => null]],

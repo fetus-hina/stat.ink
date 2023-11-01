@@ -126,8 +126,10 @@ class ImageS3Controller extends Controller
             }
         };
         foreach ($iterator as $entry) {
-            $status = $this->actionUpload($entry->getBasename(), true);
+            $this->actionUpload($entry->getBasename(), true);
         }
+
+        unset($lock);
 
         return 0;
     }

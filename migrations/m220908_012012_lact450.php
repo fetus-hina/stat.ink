@@ -55,7 +55,7 @@ final class m220908_012012_lact450 extends Migration
     private function upMainWeapon(): void
     {
         /**
-         * @var array<string, int|numeric-string>
+         * @var array<string, int|numeric-string> $types
          */
         $types = ArrayHelper::map(
             (new Query())->select(['id', 'key'])->from('{{%weapon_type3}}')->all(),
@@ -65,10 +65,10 @@ final class m220908_012012_lact450 extends Migration
 
         $this->batchInsert('{{%mainweapon3}}', ['key', 'type_id', 'name'], array_map(
             fn (array $item): array => [
-                    $item['key'],
-                    (int)$types[$item['type']],
-                    $item['name'],
-                ],
+                $item['key'],
+                (int)$types[$item['type']],
+                $item['name'],
+            ],
             $this->getWeaponData(),
         ));
     }
@@ -76,7 +76,7 @@ final class m220908_012012_lact450 extends Migration
     private function upWeapon(): void
     {
         /**
-         * @var array<string, int|numeric-string>
+         * @var array<string, int|numeric-string> $mains
          */
         $mains = ArrayHelper::map(
             (new Query())
@@ -92,10 +92,10 @@ final class m220908_012012_lact450 extends Migration
 
         $this->batchInsert('{{%weapon3}}', ['key', 'mainweapon_id', 'name'], array_map(
             fn (array $item): array => [
-                    $item['key'],
-                    $mains[$item['key']],
-                    $item['name'],
-                ],
+                $item['key'],
+                $mains[$item['key']],
+                $item['name'],
+            ],
             $this->getWeaponData(),
         ));
     }
@@ -103,7 +103,7 @@ final class m220908_012012_lact450 extends Migration
     private function upAlias(): void
     {
         /**
-         * @var array<string, int|numeric-string>
+         * @var array<string, int|numeric-string> $weapons
          */
         $weapons = ArrayHelper::map(
             (new Query())
@@ -119,9 +119,9 @@ final class m220908_012012_lact450 extends Migration
 
         $this->batchInsert('{{%weapon3_alias}}', ['weapon_id', 'key'], array_map(
             fn (array $item): array => [
-                    $weapons[$item['key']],
-                    self::name2key3($item['name']),
-                ],
+                $weapons[$item['key']],
+                self::name2key3($item['name']),
+            ],
             $this->getWeaponData(),
         ));
     }

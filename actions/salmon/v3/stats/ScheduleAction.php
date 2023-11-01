@@ -70,9 +70,9 @@ final class ScheduleAction extends Action
             ? SalmonSchedule3::find()
                 ->andWhere(['id' => $scheduleId])
                 ->with([
-                  'salmonScheduleWeapon3s',
-                  'salmonScheduleWeapon3s.random',
-                  'salmonScheduleWeapon3s.weapon',
+                    'salmonScheduleWeapon3s',
+                    'salmonScheduleWeapon3s.random',
+                    'salmonScheduleWeapon3s.weapon',
                 ])
                 ->limit(1)
                 ->one()

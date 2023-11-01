@@ -86,7 +86,8 @@ class Splapi2Controller extends Controller
                 ->andWhere(['in', 'map_id', array_map(
                     fn (stdClass $stage): int => $maps[$stage->key],
                     $info->stages,
-                )])
+                ),
+                ])
                 ->count();
             if ($exists == $matches) {
                 $this->stderr('Nothing changed. ' . Json::encode($schedule) . "\n");

@@ -33,7 +33,7 @@ class Connection extends \yii\db\Connection
     public function transactionEx(
         callable $callback,
         $rollBack = null,
-        $isolationLevel = null
+        $isolationLevel = null,
     ) {
         if ($rollBack === null) {
             $rollBack = [false, null];

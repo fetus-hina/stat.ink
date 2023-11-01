@@ -32,7 +32,7 @@ class Html extends BaseHtml
     public static function linkInkipedia(
         string $text,
         string $page,
-        array $options = []
+        array $options = [],
     ): string {
         return static::a(
             $text,

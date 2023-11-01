@@ -159,7 +159,7 @@ final class WinRateAction extends Action
     private static function getNawabariRuleIdList(): array
     {
         /**
-         * @var int[]|null
+         * @var int[]|null $ret
          */
         static $ret = null;
         if ($ret === null) {

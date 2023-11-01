@@ -40,13 +40,21 @@ class BattleAtom
     public static function createUserFeed(User $user, array $only = []): ?string
     {
         $raii = self::switchLanguage($user->defaultLanguage->lang);
-        return static::renderAtom($user, $only);
+        try {
+            return static::renderAtom($user, $only);
+        } finally {
+            unset($raii);
+        }
     }
 
     public static function createBattleFeed(User $user, Battle $battle): ?string
     {
         $raii = self::switchLanguage($user->defaultLanguage->lang);
-        return static::renderBattleAtom($user, $battle);
+        try {
+            return static::renderBattleAtom($user, $battle);
+        } finally {
+            unset($raii);
+        }
     }
 
     private static function switchLanguage(string $lang) // : object
@@ -163,7 +171,7 @@ class BattleAtom
     private static function createElement(
         DOMDocument $doc,
         string $name,
-        array $attributes = []
+        array $attributes = [],
     ): DOMElement {
         $e = $doc->createElement($name);
         foreach ($attributes as $k => $v) {
@@ -248,7 +256,7 @@ class BattleAtom
         DOMDocument $doc,
         User $user,
         Battle $battle,
-        bool $includeUser = true
+        bool $includeUser = true,
     ): DOMElement {
         $root = $doc->createElementNS('http://www.w3.org/2005/Atom', 'entry');
         $root->appendChild($doc->createElement(

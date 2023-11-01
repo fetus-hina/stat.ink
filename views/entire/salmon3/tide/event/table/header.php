@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\components\widgets\Icon;
 use app\models\SalmonWaterLevel2;
 use yii\helpers\Html;
 use yii\web\View;
@@ -25,7 +26,10 @@ use yii\web\View;
 <?php foreach ($tides as $tide) { ?>
     <?= Html::tag(
       'th',
-      Html::encode(Yii::t('app-salmon-tide2', $tide->name)),
+      implode(' ', [
+        Icon::s3SalmonTide($tide),
+        Html::encode(Yii::t('app-salmon-tide2', $tide->name)),
+      ]),
       [
         'class' => 'text-center',
         'colspan' => '3',

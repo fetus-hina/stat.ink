@@ -34,7 +34,8 @@ final class IndexI18nButtons extends Widget
             ['class' => [
                 'd-inline-block',
                 'mb-2',
-            ]],
+            ],
+            ],
         );
     }
 
@@ -103,7 +104,7 @@ final class IndexI18nButtons extends Widget
         string $icon,
         array $countries,
         string $html,
-        string $popup
+        string $popup,
     ): string {
         return Html::button(
             implode(' ', [

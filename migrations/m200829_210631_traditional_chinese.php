@@ -56,7 +56,8 @@ class m200829_210631_traditional_chinese extends Migration
         $this->delete('charset', ['id' => array_map(
             fn (array $_): int => $_[0],
             $this->getChineseCharsetIds(),
-        )]);
+        ),
+        ]);
     }
 
     public function getChineseLanguageId(): int

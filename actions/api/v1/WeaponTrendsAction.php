@@ -49,7 +49,6 @@ class WeaponTrendsAction extends BaseAction
                 'stat_weapon_map_trend.weapon_id',
             ]));
 
-        $transaction = Yii::$app->db->beginTransaction();
         $totalCount = (clone $query)->orderBy(null)->sum('stat_weapon_map_trend.battles');
         $json = [];
         $rank = 0;

@@ -25,13 +25,16 @@ class GearGetForm extends Model
         return [
             [['type'], 'exist',
                 'targetClass' => GearType::class,
-                'targetAttribute' => 'key'],
+                'targetAttribute' => 'key',
+            ],
             [['brand'], 'exist',
                 'targetClass' => Brand::class,
-                'targetAttribute' => 'key'],
+                'targetAttribute' => 'key',
+            ],
             [['ability'], 'exist',
                 'targetClass' => Ability::class,
-                'targetAttribute' => 'key'],
+                'targetAttribute' => 'key',
+            ],
         ];
     }
 

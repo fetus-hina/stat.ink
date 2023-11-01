@@ -311,9 +311,9 @@ final class UserAction extends Action
                     : sprintf('%.2f', $battle->kill_ratio),
             );
         }
-        if (!empty($dl)) {
+        if ($dl) {
             $html .= '<dl>' . implode('', $dl) . '</dl>';
         }
-        return empty($html) ? '<p>Splatlog</p>' : $html;
+        return $html ? $html : '<p>Splatlog</p>';
     }
 }

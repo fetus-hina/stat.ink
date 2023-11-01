@@ -99,7 +99,6 @@ class ImageConverter
                 $canvasW = static::OUT_WIDTH;
                 $canvasH = static::OUT_HEIGHT;
             } else {
-                $scale = 1.0;
                 $cpW = $inW;
                 $cpH = $inH;
                 $canvasW = max($inW, (int)round($inH * 16 / 9));

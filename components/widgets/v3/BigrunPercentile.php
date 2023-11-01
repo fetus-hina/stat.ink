@@ -62,8 +62,6 @@ final class BigrunPercentile extends Widget
 
     private function renderButton(string $id): string
     {
-        $view = $this->view;
-
         return Html::button(
             Icon::info(),
             [

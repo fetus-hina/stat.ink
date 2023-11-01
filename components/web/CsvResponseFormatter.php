@@ -67,6 +67,8 @@ class CsvResponseFormatter extends Component implements ResponseFormatterInterfa
         fseek($tmpfile, 0, SEEK_SET);
         $response->content = null;
         $response->stream = $tmpfile;
+
+        unset($substitute);
     }
 
     protected function formatRow(array $row)

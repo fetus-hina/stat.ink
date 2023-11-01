@@ -27,7 +27,7 @@ class IPHelper
 {
     public static function getLocationByIP(
         ?string $ipAddr = null,
-        ?string $language = null
+        ?string $language = null,
     ): ?string {
         $ipAddr = $ipAddr ?: static::getCurrentIP();
         $geoIP = Yii::$app->geoip;

@@ -62,9 +62,9 @@ class Formatter extends \yii\i18n\Formatter
             'time',
             Html::encode($this->asRelativeTime($timestamp)),
             [
-              'datetime' => gmdate(Datetime::ATOM, $timestamp),
-              'title' => $this->asDatetime($timestamp, 'medium'),
-              'class' => 'auto-tooltip',
+                'datetime' => gmdate(Datetime::ATOM, $timestamp),
+                'title' => $this->asDatetime($timestamp, 'medium'),
+                'class' => 'auto-tooltip',
             ],
         );
     }
@@ -113,7 +113,7 @@ class Formatter extends \yii\i18n\Formatter
         $value,
         string $category = 'app',
         array $options = [],
-        bool $escape = true
+        bool $escape = true,
     ): string {
         if ($value === null) {
             return $this->nullDisplay;

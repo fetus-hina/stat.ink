@@ -99,8 +99,7 @@ final class ActivityWidget extends CalHeatmapWidget
 
         $view = $this->view;
         if ($view instanceof View) {
-            $asset = CalHeatmapTooltipAsset::register($view);
-
+            CalHeatmapTooltipAsset::register($view);
             $this->plugins[] = [
                 new JsExpression('window.Tooltip'),
                 [

@@ -36,16 +36,20 @@ class BattleForm extends Model
             ],
             [['lobby_id'], 'exist',
                 'targetClass' => Lobby::class,
-                'targetAttribute' => 'id'],
+                'targetAttribute' => 'id',
+            ],
             [['rule_id'], 'exist',
                 'targetClass' => Rule::class,
-                'targetAttribute' => 'id'],
+                'targetAttribute' => 'id',
+            ],
             [['map_id'], 'exist',
                 'targetClass' => Map::class,
-                'targetAttribute' => 'id'],
+                'targetAttribute' => 'id',
+            ],
             [['weapon_id'], 'exist',
                 'targetClass' => Weapon::class,
-                'targetAttribute' => 'id'],
+                'targetAttribute' => 'id',
+            ],
             [['link_url'], 'url', 'enableIDN' => true],
             [['link_url'], IdnToPunycodeFilterValidator::class],
             [['note', 'private_note'], 'string'],
@@ -55,7 +59,8 @@ class BattleForm extends Model
                 $value = preg_replace('/(?:\x0d\x0a|\x0d|\x0a){3,}/', "\n\n", $value);
                 $value = trim($value);
                 return $value === '' ? null : $value;
-            }],
+            },
+            ],
         ];
     }
 

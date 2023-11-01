@@ -373,10 +373,10 @@ final class StatController extends Controller
                 ['date', 'battle_count', 'user_count'],
                 array_map(
                     fn ($row) => [
-                            $row['date'],
-                            $row['battle_count'],
-                            $row['user_count'],
-                        ],
+                        $row['date'],
+                        $row['battle_count'],
+                        $row['user_count'],
+                    ],
                     (new Query())
                         ->select([
                             'date' => '{{battle}}.[[at]]::date',
@@ -512,11 +512,11 @@ final class StatController extends Controller
 
         $insertList = array_map(
             fn ($row) => [
-                    $row['agent'],
-                    $row['date'],
-                    $row['battle_count'],
-                    $row['user_count'],
-                ],
+                $row['agent'],
+                $row['date'],
+                $row['battle_count'],
+                $row['user_count'],
+            ],
             (new Query())
                 ->select([
                     'agent' => '{{agent}}.[[name]]',
@@ -627,11 +627,11 @@ final class StatController extends Controller
                 ['map_id', 'rule_id', 'battles', 'knockouts'],
                 array_map(
                     fn ($row) => [
-                            $row['map_id'],
-                            $row['rule_id'],
-                            $row['battles'],
-                            $row['knockouts'],
-                        ],
+                        $row['map_id'],
+                        $row['rule_id'],
+                        $row['battles'],
+                        $row['knockouts'],
+                    ],
                     (new Query())
                         ->select([
                             'map_id' => '{{battle}}.[[map_id]]',
@@ -943,7 +943,6 @@ final class StatController extends Controller
     {
         // {{{
         $db = Yii::$app->db;
-        $maxCreatedPeriod = (int)StatWeaponUseCount::find()->max('period');
         $select = (new Query())
             ->select([
                 'period' => '{{battle}}.[[period]]',
@@ -983,7 +982,8 @@ final class StatController extends Controller
                         ['{{battle}}.[[lobby_id]]' => Lobby::find()
                                                             ->select('id')
                                                             ->where(['like', 'key', 'squad_%', false])
-                                                            ->column()],
+                                                            ->column(),
+                        ],
                         ['{{battle_player}}.[[is_my_team]]' => false],
                     ],
                 ],
@@ -1307,7 +1307,6 @@ final class StatController extends Controller
                 '{{battle2}}.[[map_id]]',
             ]))
             ->orderBy(null);
-        $sql = $select->createCommand()->rawSql;
 
         $insert = sprintf(
             'INSERT INTO {{%s}} ( %s ) %s',
@@ -1496,7 +1495,8 @@ final class StatController extends Controller
                         ['{{battle}}.[[lobby_id]]' => Lobby::find()
                                                             ->select('id')
                                                             ->where(['like', 'key', 'squad_%', false])
-                                                            ->column()],
+                                                            ->column(),
+                        ],
                         ['{{battle_player}}.[[is_my_team]]' => false],
                     ],
                 ],
@@ -1669,7 +1669,8 @@ final class StatController extends Controller
             $result[] = ['and', [
                 '{{battle2}}.[[rank_id]]' => $rankId,
                 '{{battle2}}.[[version_id]]' => $versionIds,
-            ]];
+            ],
+            ];
         }
         return $result;
         // }}}
@@ -1701,9 +1702,9 @@ final class StatController extends Controller
         $data = $this->getMonthlyPeriodRangeForSplatoon2();
         return sprintf('(CASE %s END)', implode(' ', array_map(
             fn (string $month, array $period): string => vsprintf('WHEN {{battle2}}.[[period]] >= %d THEN %s', [
-                    $period[0],
-                    Yii::$app->db->quoteValue($month),
-                ]),
+                $period[0],
+                Yii::$app->db->quoteValue($month),
+            ]),
             array_reverse(array_keys($data)),
             array_reverse(array_values($data)),
         )));

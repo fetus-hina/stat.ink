@@ -134,7 +134,7 @@ class CleanupAction extends Action
     private function procDirectory(
         SplFileInfo $dir,
         ?DateTimeImmutable $commitTime,
-        ?int $assetRevision
+        ?int $assetRevision,
     ): void {
         if (!$this->shouldBeDeleted($dir, $commitTime, $assetRevision)) {
             return;
@@ -156,7 +156,7 @@ class CleanupAction extends Action
     private function shouldBeDeleted(
         SplFileInfo $dir,
         ?DateTimeImmutable $commitTime,
-        ?int $assetRevision
+        ?int $assetRevision,
     ): bool {
         // 一時的に変更されたはずの名前が見つかった
         if (substr($dir->getBasename(), 0, 7) === 'DELETE-') {

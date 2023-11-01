@@ -97,10 +97,10 @@ final class RandomLoanAction extends Action
 
         return SalmonSchedule3::find()
             ->with([
-              'map',
-              'salmonScheduleWeapon3s',
-              'salmonScheduleWeapon3s.random',
-              'salmonScheduleWeapon3s.weapon',
+                'map',
+                'salmonScheduleWeapon3s',
+                'salmonScheduleWeapon3s.random',
+                'salmonScheduleWeapon3s.weapon',
             ])
             ->andWhere(['id' => $subQueryGetIds])
             ->andWhere(['<=', 'start_at', $now->format(DateTimeInterface::ATOM)])

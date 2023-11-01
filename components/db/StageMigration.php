@@ -26,9 +26,9 @@ trait StageMigration
             $db->quoteColumnName('key'),
             (fn (): string => implode(' ', array_map(
                 fn (string $key, ?int $area): string => vsprintf('WHEN %s THEN %s', [
-                        $db->quoteValue($key),
-                        $area === null ? 'NULL' : $db->quoteValue($area),
-                    ]),
+                    $db->quoteValue($key),
+                    $area === null ? 'NULL' : $db->quoteValue($area),
+                ]),
                 array_keys($list),
                 array_values($list),
             )))(),

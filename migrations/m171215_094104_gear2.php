@@ -53,7 +53,6 @@ class m171215_094104_gear2 extends Migration
         $json = Json::decode(
             file_get_contents(__FILE__, false, null, __COMPILER_HALT_OFFSET__),
         );
-        $upd = [];
         foreach ($json as $key => $id) {
             if ($gear = Gear2::findOne(['key' => $key])) {
                 if ((int)$id !== (int)$gear->splatnet) {

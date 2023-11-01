@@ -628,14 +628,14 @@ class UserMiniInfo2 extends Widget
                 },
                 'attributes' => array_map(
                     fn (array $info): array => [
-                            'attribute' => $info['attribute'],
-                            'label' => Html::img($info['icon'], [
-                                'alt' => $info['ruleName'],
-                                'class' => 'auto-tooltip',
-                                'title' => $info['label'],
-                            ]),
-                            'format' => 'raw',
-                            'value' => function (UserStat2 $model) use ($info): string {
+                        'attribute' => $info['attribute'],
+                        'label' => Html::img($info['icon'], [
+                            'alt' => $info['ruleName'],
+                            'class' => 'auto-tooltip',
+                            'title' => $info['label'],
+                        ]),
+                        'format' => 'raw',
+                        'value' => function (UserStat2 $model) use ($info): string {
                                 $value = $model->{$info['attribute']};
                                 if ($model->gachi_battles < 1 || $value === null) {
                                     return Html::encode(Yii::t('app', 'N/A'));
@@ -647,8 +647,8 @@ class UserMiniInfo2 extends Widget
                                 }
 
                                 return Html::tag('span', $html, ['class' => 'nobr']);
-                            },
-                        ],
+                        },
+                    ],
                     $rules,
                 ),
             ]),
@@ -753,14 +753,14 @@ class UserMiniInfo2 extends Widget
                 },
                 'attributes' => array_map(
                     fn (array $info): array => [
-                            'attribute' => $info['attribute'],
-                            'label' => Html::img($info['icon'], [
-                                'alt' => $info['ruleName'],
-                                'class' => 'auto-tooltip',
-                                'title' => $info['label'],
-                            ]),
-                            'format' => 'raw',
-                            'value' => function (UserStat2 $model) use ($info): string {
+                        'attribute' => $info['attribute'],
+                        'label' => Html::img($info['icon'], [
+                            'alt' => $info['ruleName'],
+                            'class' => 'auto-tooltip',
+                            'title' => $info['label'],
+                        ]),
+                        'format' => 'raw',
+                        'value' => function (UserStat2 $model) use ($info): string {
                                 $value = $model->{$info['attribute']};
                                 if ($model->gachi_battles < 1 || $value === null) {
                                     return Html::encode(Yii::t('app', 'N/A'));
@@ -772,8 +772,8 @@ class UserMiniInfo2 extends Widget
                                 }
 
                                 return Html::tag('span', $html, ['class' => 'nobr']);
-                            },
-                        ],
+                        },
+                    ],
                     $rules,
                 ),
             ]),
@@ -846,15 +846,15 @@ class UserMiniInfo2 extends Widget
                 array_map(
                     fn (Rule2 $rule): string => Html::a(
                         implode(' ', [
-                                Icon::stats(),
-                                Html::encode(Yii::t('app', 'Stats ({rule})', [
-                                    'rule' => Yii::t('app-rule2', $rule->name),
-                                ])),
-                            ]),
+                            Icon::stats(),
+                            Html::encode(Yii::t('app', 'Stats ({rule})', [
+                                'rule' => Yii::t('app-rule2', $rule->name),
+                            ])),
+                        ]),
                         ['show-v2/user-stat-gachi',
-                                'screen_name' => $this->user->screen_name,
-                                'rule' => $rule->key,
-                            ],
+                            'screen_name' => $this->user->screen_name,
+                            'rule' => $rule->key,
+                        ],
                     ),
                     Rule2::find()
                         ->where(['not', ['key' => 'nawabari']])

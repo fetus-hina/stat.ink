@@ -54,7 +54,8 @@ class Agent extends ActiveRecord
             [['version'], 'string', 'max' => 255],
             [['name', 'version'], 'unique',
                 'targetAttribute' => ['name', 'version'],
-                'message' => 'The combination of Name and Version has already been taken.'],
+                'message' => 'The combination of Name and Version has already been taken.',
+            ],
         ];
     }
 
@@ -164,7 +165,7 @@ class Agent extends ActiveRecord
             return false;
         }
 
-        if (empty($ikalog->winikalogVersions)) {
+        if (!$ikalog->winikalogVersions) {
             // なぜか WinIkaLog のリリースされてないリビジョンっぽい（たぶん新しすぎて認識できてない）
             return $this->getIsOldCliIkalogAsAtTheTimeImpl($ikalog, $t);
         }

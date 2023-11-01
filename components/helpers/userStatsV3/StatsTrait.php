@@ -69,7 +69,7 @@ trait StatsTrait
     private static function createStatsAggregateQuery(
         Connection $db,
         User $user,
-        DateTimeImmutable $now
+        DateTimeImmutable $now,
     ): Query {
         $null = new Expression('NULL');
 
@@ -135,7 +135,7 @@ trait StatsTrait
         Connection $db,
         User $user,
         DateTimeImmutable $now,
-        array $row
+        array $row,
     ): bool {
         $lobby = $row['lobby_id']
             ? Lobby3::find()
@@ -200,7 +200,7 @@ trait StatsTrait
         User $user,
         Lobby3 $lobby,
         Rank3 $rank,
-        ?int $sPlus
+        ?int $sPlus,
     ): ?string {
         $battle = Battle3::find()
             ->andWhere([

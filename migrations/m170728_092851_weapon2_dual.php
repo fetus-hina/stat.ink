@@ -30,7 +30,7 @@ class m170728_092851_weapon2_dual extends Migration
         string $sub,
         string $special,
         ?string $main = null,
-        ?string $canonical = null
+        ?string $canonical = null,
     ) {
         $this->insert('weapon2', [
             'key' => $key,
