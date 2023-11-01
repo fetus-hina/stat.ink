@@ -116,31 +116,11 @@ final class SalmonWaves extends Widget
                 'tr',
                 implode('', [
                     Html::tag('th', ''),
-                    Html::tag(
-                        'th',
-                        Html::encode(Yii::t('app-salmon2', 'Wave {waveNumber}', ['waveNumber' => 1])),
-                        ['class' => 'text-center'],
-                    ),
-                    Html::tag(
-                        'th',
-                        Html::encode(Yii::t('app-salmon2', 'Wave {waveNumber}', ['waveNumber' => 2])),
-                        ['class' => 'text-center'],
-                    ),
-                    Html::tag(
-                        'th',
-                        Html::encode(Yii::t('app-salmon2', 'Wave {waveNumber}', ['waveNumber' => 3])),
-                        ['class' => 'text-center'],
-                    ),
-                    Html::tag(
-                        'th',
-                        Html::encode(Yii::t('app-salmon2', 'Wave {waveNumber}', ['waveNumber' => 4])),
-                        ['class' => 'text-center'],
-                    ),
-                    Html::tag(
-                        'th',
-                        Html::encode(Yii::t('app-salmon2', 'Wave {waveNumber}', ['waveNumber' => 5])),
-                        ['class' => 'text-center'],
-                    ),
+                    $this->renderWaveTH(1, $this->wave1?->tide),
+                    $this->renderWaveTH(2, $this->wave2?->tide),
+                    $this->renderWaveTH(3, $this->wave3?->tide),
+                    $this->renderWaveTH(4, $this->wave4?->tide),
+                    $this->renderWaveTH(5, $this->wave5?->tide),
                 ]),
             ),
         );
@@ -154,26 +134,10 @@ final class SalmonWaves extends Widget
                 'tr',
                 implode('', [
                     Html::tag('th', ''),
-                    Html::tag(
-                        'th',
-                        Html::encode(Yii::t('app-salmon2', 'Wave {waveNumber}', ['waveNumber' => 1])),
-                        ['class' => 'text-center'],
-                    ),
-                    Html::tag(
-                        'th',
-                        Html::encode(Yii::t('app-salmon2', 'Wave {waveNumber}', ['waveNumber' => 2])),
-                        ['class' => 'text-center'],
-                    ),
-                    Html::tag(
-                        'th',
-                        Html::encode(Yii::t('app-salmon2', 'Wave {waveNumber}', ['waveNumber' => 3])),
-                        ['class' => 'text-center'],
-                    ),
-                    Html::tag(
-                        'th',
-                        Html::encode(Yii::t('app-salmon3', 'XTRAWAVE')),
-                        ['class' => 'text-center'],
-                    ),
+                    $this->renderWaveTH(1, $this->wave1?->tide),
+                    $this->renderWaveTH(2, $this->wave2?->tide),
+                    $this->renderWaveTH(3, $this->wave3?->tide),
+                    $this->renderWaveTH(0, $this->extra?->tide),
                     Html::tag(
                         'th',
                         Html::encode(Yii::t('app', 'Total')),
@@ -181,6 +145,28 @@ final class SalmonWaves extends Widget
                     ),
                 ]),
             ),
+        );
+    }
+
+    /**
+     * @param int<0, 5> $waveNumber 1-5, 0 for extra wave
+     */
+    private function renderWaveTH(int $waveNumber, ?SalmonWaterLevel2 $tide): string
+    {
+        return Html::tag(
+            'th',
+            implode('', [
+                Icon::s3SalmonTide($tide),
+                Html::encode(
+                    match ($waveNumber) {
+                        0 => Yii::t('app-salmon3', 'XTRAWAVE'),
+                        default => Yii::t('app-salmon2', 'Wave {waveNumber}', [
+                            'waveNumber' => $waveNumber,
+                        ]),
+                    },
+                ),
+            ]),
+            ['class' => 'text-center'],
         );
     }
 

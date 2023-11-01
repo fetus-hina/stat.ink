@@ -25,6 +25,7 @@ use app\assets\s3PixelIcons\SalmonModeIconAsset;
 use app\assets\s3PixelIcons\SalmonRandomIconAsset;
 use app\assets\s3PixelIcons\SalmonScaleIconAsset;
 use app\assets\s3PixelIcons\SalmonStageIconAsset;
+use app\assets\s3PixelIcons\SalmonWaterLevelIconAsset;
 use app\assets\s3PixelIcons\SpecialIconAsset;
 use app\assets\s3PixelIcons\SubweaponIconAsset;
 use app\assets\s3PixelIcons\UiIconAsset;
@@ -40,6 +41,7 @@ use app\models\SalmonBoss3;
 use app\models\SalmonKing3;
 use app\models\SalmonMap3;
 use app\models\SalmonRandom3;
+use app\models\SalmonWaterLevel2;
 use app\models\SalmonWeapon3;
 use app\models\Special3;
 use app\models\Species3;
@@ -161,6 +163,7 @@ use function str_starts_with;
  * @method static string s3Eggstra()
  * @method static string s3GoldMedal()
  * @method static string s3HazardLevelMax()
+ * @method static string s3HighTide()
  * @method static string s3Kill()
  * @method static string s3LobbyBankara()
  * @method static string s3LobbyEvent()
@@ -168,6 +171,8 @@ use function str_starts_with;
  * @method static string s3LobbyRegular()
  * @method static string s3LobbySplatfest()
  * @method static string s3LobbyX()
+ * @method static string s3LowTide()
+ * @method static string s3MidTide()
  * @method static string s3Rescued()
  * @method static string s3Rescues()
  * @method static string s3RuleArea()
@@ -352,6 +357,7 @@ final class Icon
         's3Eggstra' => [SalmonModeIconAsset::class, 'eggstra.png', ['app-salmon3', 'Eggstra Work'], true],
         's3GoldMedal' => [UiIconAsset::class, 'gold_medal.png'],
         's3HazardLevelMax' => [SalmonHazardLevelIconAsset::class, 'hazard-level-max.png'],
+        's3HighTide' => [SalmonWaterLevelIconAsset::class, 'tide-high.png', ['app-salmon-tide2', 'High Tide'], true],
         's3Kill' => [UiIconAsset::class, 'kill.png', ['app', 'Kills'], true],
         's3LobbyBankara' => [LobbyIconAsset::class, 'bankara.png', ['app-lobby3', 'Anarchy Battle'], true],
         's3LobbyEvent' => [LobbyIconAsset::class, 'event.png', ['app-lobby3', 'Challenge'], true],
@@ -359,6 +365,8 @@ final class Icon
         's3LobbyRegular' => [LobbyIconAsset::class, 'regular.png', ['app-lobby3', 'Regular Battle'], true],
         's3LobbySplatfest' => [LobbyIconAsset::class, 'splatfest.png', ['app-lobby3', 'Splatfest'], true],
         's3LobbyX' => [LobbyIconAsset::class, 'xmatch.png', ['app-lobby3', 'X Battle'], true],
+        's3LowTide' => [SalmonWaterLevelIconAsset::class, 'tide-low.png', ['app-salmon-tide2', 'Low Tide'], true],
+        's3MidTide' => [SalmonWaterLevelIconAsset::class, 'tide-mid.png', ['app-salmon-tide2', 'Normal Tide'], true],
         's3Rescued' => [UiIconAsset::class, 'rescued.png', ['app-salmon3', 'Rescued'], true],
         's3Rescues' => [UiIconAsset::class, 'rescues.png', ['app-salmon3', 'Rescues'], true],
         's3RuleArea' => [RuleIconAsset::class, 'area.png', ['app-rule3', 'Splat Zones'], true],
@@ -775,6 +783,16 @@ final class Icon
             Yii::t('app-map3', (string)$stage->name),
             true,
         );
+    }
+
+    public static function s3SalmonTide(string|SalmonWaterLevel2|null $tide): ?string
+    {
+        return match ($tide instanceof SalmonWaterLevel2 ? $tide->key : $tide) {
+            'high' => self::s3HighTide(),
+            'low' => self::s3LowTide(),
+            'normal' => self::s3MidTide(),
+            default => null,
+        };
     }
 
     public static function s3Species(string|Species3|null $species): ?string
