@@ -44,6 +44,6 @@ abstract class SalmonIconAsset extends AssetBundle
         'Spawning Grounds.png' => 'dam.png',
         'Tide - High.png' => 'tide-high.png',
         'Tide - Low.png' => 'tide-low.png',
-        'Tide - Medium.png' => 'tide-mid.png',
+        'Tide - Mid.png' => 'tide-mid.png',
     ];
 }
