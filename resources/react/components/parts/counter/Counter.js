@@ -45,7 +45,8 @@ function Counter (props) {
         <CounterItem
           key={v.type}
           digit={maxDigit}
-          icon={v.type}
+          category={v.type}
+          icon={v.icon}
           label={v.label}
           popup={v.popup}
           value={v.count}
@@ -80,18 +81,21 @@ function createRows (jsonData) {
   const results = [
     {
       type: 'user',
+      icon: null,
       label: 'Users',
       popup: null,
       count: null
     },
     {
       type: 'battle',
+      icon: null,
       label: 'Battles',
       popup: null,
       count: null
     },
     {
       type: 'salmon',
+      icon: null,
       label: 'Shifts',
       popup: null,
       count: null
@@ -103,6 +107,7 @@ function createRows (jsonData) {
       .filter(([, v]) => (v.type === currentRow.type))
       .sort(([a], [b]) => a.localeCompare(b));
     if (typeMatchedJsonItems.length > 0) {
+      currentRow.icon = typeMatchedJsonItems[0][1].icon;
       currentRow.label = typeMatchedJsonItems[0][1].label;
       currentRow.count = typeMatchedJsonItems
         .map(([, v]) => Number(v.count))

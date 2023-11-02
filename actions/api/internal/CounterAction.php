@@ -13,6 +13,9 @@ namespace app\actions\api\internal;
 use Exception;
 use Throwable;
 use Yii;
+use app\assets\s3PixelIcons\LobbyIconAsset;
+use app\assets\s3PixelIcons\SalmonModeIconAsset;
+use app\assets\s3PixelIcons\UiIconAsset;
 use app\models\Battle;
 use app\models\Battle2;
 use app\models\Salmon2;
@@ -21,7 +24,11 @@ use yii\base\Action;
 use yii\db\Connection;
 use yii\db\Query;
 use yii\db\Transaction;
+use yii\helpers\Url;
+use yii\web\AssetBundle;
+use yii\web\AssetManager;
 use yii\web\HttpException;
+use yii\web\View;
 
 use function array_merge;
 use function filter_var;
@@ -65,24 +72,95 @@ final class CounterAction extends Action
         );
 
         return array_merge(
-            self::format('battle1', 'battle', 'Battles', $data['battle1'] ?? null),
-            self::format('battle2', 'battle', 'Battles', $data['battle2'] ?? null),
-            self::format('battle3', 'battle', 'Battles', $data['battle3'] ?? null),
-            self::format('salmon2', 'salmon', 'Shifts', $data['salmon2'] ?? null),
-            self::format('salmon3', 'salmon', 'Shifts', $data['salmon3'] ?? null),
-            self::format('user', 'user', 'Users', $data['user'] ?? null),
+            self::format(
+                'battle1',
+                'battle',
+                'Battles',
+                $data['battle1'] ?? null,
+                LobbyIconAsset::class,
+                'regular.png',
+            ),
+            self::format(
+                'battle2',
+                'battle',
+                'Battles',
+                $data['battle2'] ?? null,
+                LobbyIconAsset::class,
+                'regular.png',
+            ),
+            self::format(
+                'battle3',
+                'battle',
+                'Battles',
+                $data['battle3'] ?? null,
+                LobbyIconAsset::class,
+                'regular.png',
+            ),
+            self::format(
+                'salmon2',
+                'salmon',
+                'Shifts',
+                $data['salmon2'] ?? null,
+                SalmonModeIconAsset::class,
+                'salmon.png',
+            ),
+            self::format(
+                'salmon3',
+                'salmon',
+                'Shifts',
+                $data['salmon3'] ?? null,
+                SalmonModeIconAsset::class,
+                'salmon.png',
+            ),
+            self::format(
+                'user',
+                'user',
+                'Users',
+                $data['user'] ?? null,
+                UiIconAsset::class,
+                'inkling.png',
+            ),
         );
     }
 
-    private static function format(string $key, string $type, string $labelEn, ?int $count): array
-    {
+    /**
+     * @param class-string<AssetBundle> $iconAsset
+     */
+    private static function format(
+        string $key,
+        string $type,
+        string $labelEn,
+        ?int $count,
+        ?string $iconAsset = null,
+        ?string $iconFile = null,
+    ): array {
         if ($count === null || $count < 0) {
             throw new Exception();
+        }
+
+        $iconUrl = null;
+        if ($iconAsset && $iconFile) {
+            $am = Yii::$app->assetManager;
+            $view = Yii::$app->view;
+            if (
+                $am instanceof AssetManager &&
+                $view instanceof View
+            ) {
+                $iconUrl = Url::to(
+                    $am->getAssetUrl(
+                        bundle: $am->getBundle($iconAsset),
+                        asset: $iconFile,
+                        appendTimestamp: false,
+                    ),
+                    true,
+                );
+            }
         }
 
         return [
             $key => [
                 'type' => $type,
+                'icon' => $iconUrl,
                 'label' => Yii::t('app-counter', $labelEn),
                 'count' => (int)$count,
             ],
