@@ -42,7 +42,7 @@ export default function CounterItem (props) {
 
 CounterItem.propTypes = {
   digit: PropTypes.number.isRequired,
-  icon: PropTypes.string.isRequired,
+  icon: PropTypes.string,
   label: PropTypes.string.isRequired,
   popup: PropTypes.string,
   value: PropTypes.number

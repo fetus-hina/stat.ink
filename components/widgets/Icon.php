@@ -366,7 +366,7 @@ final class Icon
         's3LobbySplatfest' => [LobbyIconAsset::class, 'splatfest.png', ['app-lobby3', 'Splatfest'], true],
         's3LobbyX' => [LobbyIconAsset::class, 'xmatch.png', ['app-lobby3', 'X Battle'], true],
         's3LowTide' => [SalmonWaterLevelIconAsset::class, 'tide-low.png', ['app-salmon-tide2', 'Low Tide'], true],
-        's3MidTide' => [SalmonWaterLevelIconAsset::class, 'tide-mid.png', ['app-salmon-tide2', 'Normal Tide'], true],
+        's3MidTide' => [SalmonWaterLevelIconAsset::class, 'tide-mid.png', ['app-salmon-tide2', 'Mid Tide'], true],
         's3Rescued' => [UiIconAsset::class, 'rescued.png', ['app-salmon3', 'Rescued'], true],
         's3Rescues' => [UiIconAsset::class, 'rescues.png', ['app-salmon3', 'Rescues'], true],
         's3RuleArea' => [RuleIconAsset::class, 'area.png', ['app-rule3', 'Splat Zones'], true],
