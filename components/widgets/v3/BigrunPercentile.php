@@ -407,8 +407,9 @@ final class BigrunPercentile extends Widget
                 ),
                 Html::tag(
                     'td',
-                    vsprintf('%s %s', [
-                        Icon::user(),
+                    vsprintf('%s%s %s', [
+                        Icon::inkling(),
+                        Icon::octoling(),
                         Html::encode(
                             Yii::$app->formatter->asInteger(
                                 ArrayHelper::getValue($stats, 'users'),
