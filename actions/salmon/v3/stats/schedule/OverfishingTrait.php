@@ -80,7 +80,6 @@ trait OverfishingTrait
                 '{{%salmon3}}.[[id]] = {{%salmon_wave3}}.[[salmon_id]]',
             )
             ->andWhere([
-                '{{%salmon3}}.[[clear_waves]]' => 3,
                 '{{%salmon3}}.[[is_deleted]]' => false,
                 '{{%salmon3}}.[[is_eggstra_work]]' => false,
                 '{{%salmon3}}.[[is_private]]' => false,
@@ -144,7 +143,6 @@ trait OverfishingTrait
                 '{{%salmon3}}.[[id]] = {{%tmp_salmon3_event_wave_count}}.[[salmon_id]]',
             )
             ->andWhere([
-                '{{%salmon3}}.[[clear_waves]]' => 3,
                 '{{%salmon3}}.[[is_deleted]]' => false,
                 '{{%salmon3}}.[[is_eggstra_work]]' => false,
                 '{{%salmon3}}.[[is_private]]' => false,
@@ -180,7 +178,6 @@ trait OverfishingTrait
                 ]),
             )
             ->andWhere([
-                '{{%salmon3}}.[[clear_waves]]' => 3,
                 '{{%salmon3}}.[[is_deleted]]' => false,
                 '{{%salmon3}}.[[is_eggstra_work]]' => false,
                 '{{%salmon3}}.[[is_private]]' => false,
