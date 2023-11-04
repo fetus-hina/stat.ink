@@ -305,7 +305,7 @@ final class BigrunPercentile extends Widget
             self::intVal(
                 match (is_object($stats) ? $stats::class : null) {
                     StatBigrunDistribUserAbstract3::class => ArrayHelper::getValue($stats, 'p50'),
-                    StatEggstraWorkDistribAbstract3::class => ArrayHelper::getValue($stats, 'top_50_pct'),
+                    StatEggstraWorkDistribAbstract3::class => ArrayHelper::getValue($stats, 'median'),
                     default => null,
                 },
             ),
@@ -407,8 +407,9 @@ final class BigrunPercentile extends Widget
                 ),
                 Html::tag(
                     'td',
-                    vsprintf('%s %s', [
-                        Icon::user(),
+                    vsprintf('%s%s %s', [
+                        Icon::inkling(),
+                        Icon::octoling(),
                         Html::encode(
                             Yii::$app->formatter->asInteger(
                                 ArrayHelper::getValue($stats, 'users'),
