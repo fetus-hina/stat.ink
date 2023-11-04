@@ -305,7 +305,7 @@ final class BigrunPercentile extends Widget
             self::intVal(
                 match (is_object($stats) ? $stats::class : null) {
                     StatBigrunDistribUserAbstract3::class => ArrayHelper::getValue($stats, 'p50'),
-                    StatEggstraWorkDistribAbstract3::class => ArrayHelper::getValue($stats, 'top_50_pct'),
+                    StatEggstraWorkDistribAbstract3::class => ArrayHelper::getValue($stats, 'median'),
                     default => null,
                 },
             ),
