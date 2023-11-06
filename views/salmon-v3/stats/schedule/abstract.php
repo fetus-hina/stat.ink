@@ -182,7 +182,7 @@ echo DetailView::widget([
         'format' => 'raw',
         'value' => match ($v = TypeHelper::floatOrNull(ArrayHelper::getValue($stats, 'max_danger_rate'))) {
           null => '-',
-          default => $v >= 3.325
+          default => $v >= 333
             ? vsprintf('%s %s', [
               Icon::s3HazardLevelMax(),
               $fmt->asPercent(3.33, 0),
