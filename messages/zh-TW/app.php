@@ -453,6 +453,7 @@ return [
     'Please do not use this feature to destroy evidence.' => '請不要使用該功能來摧毀證據。',
     'Please keep it secret.' => '請確保這個私密不被公開。',
     'Please log in with your new password.' => '',
+    'Please refer to the respective projects for any problems or questions regarding the operation of each application.' => '',
     'Please tell us about your capture environment and communication between your Wii U and User Agent (e.g. IkaLog). This information will be public.' => '請告訴我們你的擷取環境和Wii U與客戶端(比如IkaLog)的連線方式。這些內容會被公開。',
     'Please wait.' => '請等待。',
     'PNG/JPEG file up to {0}' => '最多允許{0}的PNG/JPEG文件',

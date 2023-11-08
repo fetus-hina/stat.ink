@@ -440,6 +440,7 @@ return [
     'Please do not use this feature to destroy evidence.' => '敗戦の記録を隠すために使用しないでください。',
     'Please keep it secret.' => 'このキーは公開しないよう注意してください。',
     'Please log in with your new password.' => '新しいパスワードでログインしてください。',
+    'Please refer to the respective projects for any problems or questions regarding the operation of each application.' => '各アプリケーションの動作に関する問題や疑問は、それぞれのプロジェクトを参照してください。',
     'Please tell us about your capture environment and communication between your Wii U and User Agent (e.g. IkaLog). This information will be public.' => '認識精度向上のため、WiiUとIkaLogの間の接続や設定をどのように行っているかについて教えてください。この情報は開発者以外も閲覧することができますので個人情報等は記載しないでください。',
     'Please wait.' => 'しばらくおまちください。',
     'Points' => 'ポイント',
