@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "819a0d676f92171cf22bdb5aea34fd90",
+    "content-hash": "deb8e66d7364443117481013851bc99d",
     "packages": [
         {
             "name": "arokettu/random-polyfill",
@@ -5482,21 +5482,21 @@
         },
         {
             "name": "jp3cki/coding-standard",
-            "version": "v0.1.4",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fetus-hina/php-coding-standard.git",
-                "reference": "9a6a38b4118e0d0f6bdccc9ea28a535785c7bdc3"
+                "reference": "63b437b80fd240ee582933554a2e7ee7b4ebda59"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fetus-hina/php-coding-standard/zipball/9a6a38b4118e0d0f6bdccc9ea28a535785c7bdc3",
-                "reference": "9a6a38b4118e0d0f6bdccc9ea28a535785c7bdc3",
+                "url": "https://api.github.com/repos/fetus-hina/php-coding-standard/zipball/63b437b80fd240ee582933554a2e7ee7b4ebda59",
+                "reference": "63b437b80fd240ee582933554a2e7ee7b4ebda59",
                 "shasum": ""
             },
             "require": {
-                "php": "^8.0",
-                "ramsey/coding-standard": "^2.1",
+                "php": "^8.1",
+                "ramsey/coding-standard": "^2.2",
                 "slevomat/coding-standard": "^8.14.1",
                 "squizlabs/php_codesniffer": "^3.7.2"
             },
@@ -5507,9 +5507,9 @@
             ],
             "support": {
                 "issues": "https://github.com/fetus-hina/php-coding-standard/issues",
-                "source": "https://github.com/fetus-hina/php-coding-standard/tree/v0.1.4"
+                "source": "https://github.com/fetus-hina/php-coding-standard/tree/v1.0.0"
             },
-            "time": "2023-10-08T11:09:00+00:00"
+            "time": "2023-11-08T08:43:27+00:00"
         },
         {
             "name": "masterminds/html5",
