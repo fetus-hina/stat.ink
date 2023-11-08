@@ -201,7 +201,7 @@ $iconAsset = AppLinkAsset::register($this);
       </div>
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-3">
         <h3>
-          <?= Html::encode(Yii::t('app-start', 'Manually')) . "\n" ?>
+          3. 手動登録
         </h3>
         <p>
           <a href="https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec&amp;hl=ja">イカレコ</a>などの対応ソフトを利用して手動で戦績を登録する方法です。（stat.ink のウェブからも登録できますが、あまりおすすめしません）

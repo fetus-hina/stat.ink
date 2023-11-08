@@ -150,7 +150,7 @@ $iconAsset = AppLinkAsset::register($this);
     </div>
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-3">
       <h3>
-        <?= Html::encode(Yii::t('app-start', 'Manually')) . "\n" ?>
+        3. Manually
       </h3>
       <p>
         This is a method of manually registering your results using compatible software, such as

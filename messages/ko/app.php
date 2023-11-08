@@ -453,6 +453,7 @@ return [
     'Please do not use this feature to destroy evidence.' => '패배 기록을 숨기기 위해 사용하지 마십시오.',
     'Please keep it secret.' => '이 키는 공개되지 않도록 주의해주십시오.',
     'Please log in with your new password.' => '',
+    'Please refer to the respective projects for any problems or questions regarding the operation of each application.' => '',
     'Please tell us about your capture environment and communication between your Wii U and User Agent (e.g. IkaLog). This information will be public.' => '',
     'Please wait.' => '잠시만 기다려주십시오.',
     'PNG/JPEG file up to {0}' => '{0}까지의 PNG/JPEG 파일',

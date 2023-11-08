@@ -451,6 +451,7 @@ return [
     'Please do not use this feature to destroy evidence.' => '',
     'Please keep it secret.' => '',
     'Please log in with your new password.' => '',
+    'Please refer to the respective projects for any problems or questions regarding the operation of each application.' => '',
     'Please tell us about your capture environment and communication between your Wii U and User Agent (e.g. IkaLog). This information will be public.' => '',
     'Please wait.' => '',
     'PNG/JPEG file up to {0}' => '',
