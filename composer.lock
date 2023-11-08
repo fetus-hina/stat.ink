@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ea1b9ecf908ce3aa357253333589119b",
+    "content-hash": "819a0d676f92171cf22bdb5aea34fd90",
     "packages": [
         {
             "name": "arokettu/random-polyfill",
@@ -1491,16 +1491,16 @@
         },
         {
             "name": "laminas/laminas-validator",
-            "version": "2.41.0",
+            "version": "2.42.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-validator.git",
-                "reference": "ca27df621e12cbd4c138dab7abf3e7e5692c582c"
+                "reference": "a5221732b2ff6df59908bbf2eb274ed3688665bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-validator/zipball/ca27df621e12cbd4c138dab7abf3e7e5692c582c",
-                "reference": "ca27df621e12cbd4c138dab7abf3e7e5692c582c",
+                "url": "https://api.github.com/repos/laminas/laminas-validator/zipball/a5221732b2ff6df59908bbf2eb274ed3688665bc",
+                "reference": "a5221732b2ff6df59908bbf2eb274ed3688665bc",
                 "shasum": ""
             },
             "require": {
@@ -1571,20 +1571,20 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2023-10-30T08:22:19+00:00"
+            "time": "2023-11-06T09:13:00+00:00"
         },
         {
             "name": "lipis/flag-icons",
-            "version": "v6.11.2",
+            "version": "v6.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lipis/flag-icons.git",
-                "reference": "1708ad86b8385c548dec10ae89ff83046b5ea11b"
+                "reference": "65b155999a5386443c390d5eec21e47e7fbce026"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lipis/flag-icons/zipball/1708ad86b8385c548dec10ae89ff83046b5ea11b",
-                "reference": "1708ad86b8385c548dec10ae89ff83046b5ea11b",
+                "url": "https://api.github.com/repos/lipis/flag-icons/zipball/65b155999a5386443c390d5eec21e47e7fbce026",
+                "reference": "65b155999a5386443c390d5eec21e47e7fbce026",
                 "shasum": ""
             },
             "type": "library",
@@ -1610,9 +1610,9 @@
             ],
             "support": {
                 "issues": "https://github.com/lipis/flag-icons/issues",
-                "source": "https://github.com/lipis/flag-icons/tree/v6.11.2"
+                "source": "https://github.com/lipis/flag-icons/tree/v6.12.0"
             },
-            "time": "2023-10-26T18:36:40+00:00"
+            "time": "2023-11-03T16:10:03+00:00"
         },
         {
             "name": "lusitanian/oauth",
@@ -6030,16 +6030,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.40",
+            "version": "1.10.41",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "93c84b5bf7669920d823631e39904d69b9c7dc5d"
+                "reference": "c6174523c2a69231df55bdc65b61655e72876d76"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/93c84b5bf7669920d823631e39904d69b9c7dc5d",
-                "reference": "93c84b5bf7669920d823631e39904d69b9c7dc5d",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/c6174523c2a69231df55bdc65b61655e72876d76",
+                "reference": "c6174523c2a69231df55bdc65b61655e72876d76",
                 "shasum": ""
             },
             "require": {
@@ -6088,7 +6088,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-10-30T14:48:31+00:00"
+            "time": "2023-11-05T12:57:57+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
