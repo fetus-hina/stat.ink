@@ -102,7 +102,7 @@ trait Salmon
             return SalmonRandom3::find()
                 ->andWhere([
                     'key' => match (ArrayHelper::getValue($info, '__splatoon3ink_id')) {
-                        '6e17fbe20efecca9', 'edcfecb7e8acd1a7' => 'random_rare',
+                        '6e17fbe20efecca9', '9d04354f179ebf6f', 'edcfecb7e8acd1a7' => 'random_rare',
                         default => 'random',
                     },
                 ])
