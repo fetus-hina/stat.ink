@@ -50,7 +50,7 @@
         "statink/yii2-spl1-stages": "^1.0",
         "statink/yii2-spl2-stages": "^1.0.1",
         "statink/yii2-twitter-webintents": "^1.0.2",
-        "symfony/yaml": "^6.3.7",
+        "symfony/yaml": "^6.3.8",
         "tpyo/amazon-s3-php-class": "^0.5.1",
         "twbs/bootstrap-icons": "^1.11.1",
         "yiisoft/yii2": "*",
