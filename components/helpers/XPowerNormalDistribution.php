@@ -13,9 +13,8 @@ namespace app\components\helpers;
 use MathPHP\Probability\Distribution\Continuous\Normal as NormalDistribution;
 use app\models\StatXPowerDistribAbstract3;
 
+use function ceil;
 use function floor;
-use function max;
-use function min;
 
 final class XPowerNormalDistribution
 {
@@ -32,7 +31,7 @@ final class XPowerNormalDistribution
         int $calcStep = 10,
     ): array {
         $minXP = (int)floor($minXP / $valueStep) * $valueStep;
-        $maxXP = (int)floor($maxXP / $valueStep) * $valueStep;
+        $maxXP = (int)ceil($maxXP / $valueStep) * $valueStep;
 
         $nd = new NormalDistribution($average, $stddev);
 
@@ -41,7 +40,7 @@ final class XPowerNormalDistribution
             $results[] = [
                 'x' => $xp,
                 // PDF: probability density function; 確率密度関数
-                'y' => $sampleNumber * $valueStep * $nd->pdf($xp),
+                'y' => (float)($sampleNumber * $valueStep * $nd->pdf($xp)),
             ];
         }
 
@@ -49,18 +48,16 @@ final class XPowerNormalDistribution
     }
 
     /**
-     * @param (int|float)[] $xpList
      * @return (array{x: int, y: float}[])|null
      */
     public static function getDistributionFromStatXPowerDistribAbstract3(
         ?StatXPowerDistribAbstract3 $abstract,
-        array $xpList,
         int $valueStep = 50,
         int $calcStep = 10,
+        ?int $sampleNumber = null,
     ): ?array {
         if (
             !$abstract ||
-            !$xpList ||
             $abstract->users < 10 ||
             $abstract->stddev === null ||
             $abstract->median === null
@@ -69,7 +66,7 @@ final class XPowerNormalDistribution
         }
 
         return self::getDistribution(
-            sampleNumber: (int)$abstract->users,
+            sampleNumber: $sampleNumber ?? (int)$abstract->users,
             average: (float)$abstract->average,
             stddev: (float)$abstract->stddev,
             minXP: (float)$abstract->average - 3 * (float)$abstract->stddev,

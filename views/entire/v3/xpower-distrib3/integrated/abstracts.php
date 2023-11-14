@@ -35,10 +35,13 @@ use yii\web\View;
         'label' => Yii::t('app', 'Mode'),
         'headerOptions' => ['class' => 'text-center'],
         'format' => 'raw',
-        'value' => fn (Rule3 $model): string => implode(' ', [
-          Icon::s3Rule($model),
-          Html::encode(Yii::t('app-rule3', $model->name)),
-        ]),
+        'value' => fn (Rule3 $model): string => Html::a(
+          implode(' ', [
+            Icon::s3Rule($model),
+            Html::encode(Yii::t('app-rule3', $model->name)),
+          ]),
+          '#' . rawurlencode($model->key),
+        ),
       ],
       [
         'encodeLabel' => false,

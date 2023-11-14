@@ -15,4 +15,5 @@ use yii\web\View;
 ?>
 <div class="mb-4">
   <?= $this->render('integrated/abstracts', compact('abstracts', 'rules')) . "\n" ?>
+  <?= $this->render('integrated/histogram', compact('abstracts', 'rules')) . "\n" ?>
 </div>
