@@ -42,7 +42,7 @@ EntireXpowerDistrib3HistogramAsset::register($this);
 RatioAsset::register($this);
 
 ?>
-<div class="mb-3">
+<div class="mb-4">
   <?= $this->render('../includes/rule-header', [
     'rule' => $rule,
     'id' => $rule->key,

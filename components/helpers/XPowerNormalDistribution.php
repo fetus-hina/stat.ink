@@ -72,8 +72,8 @@ final class XPowerNormalDistribution
             sampleNumber: (int)$abstract->users,
             average: (float)$abstract->average,
             stddev: (float)$abstract->stddev,
-            minXP: (float)min($xpList),
-            maxXP: (float)max($xpList),
+            minXP: (float)$abstract->average - 3 * (float)$abstract->stddev,
+            maxXP: (float)$abstract->average + 3 * (float)$abstract->stddev,
             valueStep: $valueStep,
             calcStep: $calcStep,
         );
