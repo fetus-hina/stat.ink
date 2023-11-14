@@ -20,17 +20,10 @@ if (!$data) {
   return;
 }
 
-$xpList = array_map(
-  fn (StatXPowerDistrib3 $v): int => (int)$v->x_power,
-  $data,
-);
-sort($xpList);
-
 $normalDistribData = Yii::$app->cache->getOrSet(
-  [__FILE__, __LINE__, $abstract?->attributes, $xpList],
+  [__FILE__, __LINE__, $abstract?->attributes],
   fn () => XPowerNormalDistribution::getDistributionFromStatXPowerDistribAbstract3(
     abstract: $abstract,
-    xpList: $xpList,
   ),
   86400,
 );

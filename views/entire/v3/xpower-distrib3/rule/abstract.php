@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use app\assets\TableResponsiveForceAsset;
+use app\components\widgets\Icon;
 use app\models\StatXPowerDistribAbstract3;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
@@ -37,7 +38,11 @@ if (!$model) {
         'contentOptions' => ['class' => 'text-right'],
         'format' => 'integer',
         'headerOptions' => ['class' => 'text-center'],
-        'label' => Yii::t('app', 'Users'),
+        'label' => implode(' ', [
+          Icon::inkling(),
+          Html::encode(Yii::t('app', 'Users')),
+        ]),
+        'encodeLabel' => false,
       ],
       [
         'attribute' => 'average',
