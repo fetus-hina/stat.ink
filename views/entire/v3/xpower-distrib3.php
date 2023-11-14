@@ -75,6 +75,11 @@ $fmt = Yii::$app->formatter;
   </div>
   <?= $this->render('includes/rule-link', compact('rules')) . "\n" ?>
 
+  <?= $this->render(
+    'xpower-distrib3/integrated',
+    compact('abstracts', 'rules'),
+  ) . "\n" ?>
+
 <?php foreach ($rules as $ruleId => $rule) { ?>
   <?= $this->render(
     'xpower-distrib3/rule',
