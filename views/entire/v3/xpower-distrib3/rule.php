@@ -48,12 +48,25 @@ RatioAsset::register($this);
     'id' => $rule->key,
   ]) . "\n" ?>
   <?= Yii::$app->cache->getOrSet(
-    [__FILE__, __LINE__, Yii::$app->language, $abstract?->attributes],
+    [
+      __FILE__,
+      __LINE__,
+      Yii::$app->language,
+      @hash_file('sha256', __DIR__ . '/rule/abstract.php'),
+      $abstract?->attributes,
+    ],
     fn (): string => $this->render('rule/abstract', ['model' => $abstract]),
     86400,
   ) . "\n" ?>
   <?= Yii::$app->cache->getOrSet(
-    [__FILE__, __LINE__, $assetRevision, Yii::$app->language, $histogramDataId],
+    [
+      __FILE__,
+      __LINE__,
+      $assetRevision,
+      Yii::$app->language,
+      @hash_file('sha256', __DIR__ . '/rule/histogram.php'),
+      $histogramDataId,
+    ],
     fn (): string =>  $this->render(
       'rule/histogram',
       [
