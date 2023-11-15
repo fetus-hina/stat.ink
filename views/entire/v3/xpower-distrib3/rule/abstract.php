@@ -31,6 +31,7 @@ if (!$model) {
     ]),
     'emptyCell' => '-',
     'layout' => '{items}',
+    'options' => ['class' => 'table-responsive'],
     'tableOptions' => ['class' => 'table table-bordered table-striped w-auto m-0'],
     'columns' => [
       [
@@ -46,7 +47,7 @@ if (!$model) {
       ],
       [
         'attribute' => 'average',
-        'contentOptions' => ['class' => 'text-right'],
+        'contentOptions' => ['class' => 'text-right fw-bold'],
         'format' => ['decimal', 1],
         'headerOptions' => ['class' => 'text-center'],
         'label' => Yii::t('app', 'Average'),
@@ -59,11 +60,39 @@ if (!$model) {
         'label' => Yii::t('app', 'Std Dev'),
       ],
       [
-        'attribute' => 'median',
+        'attribute' => 'pct95',
+        'contentOptions' => ['class' => 'text-right fw-bold'],
+        'format' => ['decimal', 1],
+        'headerOptions' => ['class' => 'text-center'],
+        'label' => Yii::t('app', 'Top {percentile}%', ['percentile' => 5]),
+      ],
+      [
+        'attribute' => 'pct80',
+        'contentOptions' => ['class' => 'text-right fw-bold'],
+        'format' => ['decimal', 1],
+        'headerOptions' => ['class' => 'text-center'],
+        'label' => Yii::t('app', 'Top {percentile}%', ['percentile' => 20]),
+      ],
+      [
+        'attribute' => 'pct75',
         'contentOptions' => ['class' => 'text-right'],
         'format' => ['decimal', 1],
         'headerOptions' => ['class' => 'text-center'],
-        'label' => Yii::t('app', 'Median'),
+        'label' => Yii::t('app', 'Top {percentile}%', ['percentile' => 25]),
+      ],
+      [
+        'attribute' => 'median',
+        'contentOptions' => ['class' => 'text-right fw-bold'],
+        'format' => ['decimal', 1],
+        'headerOptions' => ['class' => 'text-center'],
+        'label' => Yii::t('app', 'Top {percentile}%', ['percentile' => 50]),
+      ],
+      [
+        'attribute' => 'pct25',
+        'contentOptions' => ['class' => 'text-right'],
+        'format' => ['decimal', 1],
+        'headerOptions' => ['class' => 'text-center'],
+        'label' => Yii::t('app', 'Top {percentile}%', ['percentile' => 75]),
       ],
     ],
   ]) . "\n" ?>

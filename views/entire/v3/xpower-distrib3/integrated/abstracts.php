@@ -61,7 +61,7 @@ use yii\web\View;
         'value' => fn (Rule3 $model): ?float => TypeHelper::floatOrNull(
           $abstracts[$model->id]?->average,
         ),
-        'contentOptions' => ['class' => 'text-right'],
+        'contentOptions' => ['class' => 'text-right fw-bold'],
       ],
       [
         'label' => Yii::t('app', 'Std Dev'),
@@ -73,11 +73,47 @@ use yii\web\View;
         'contentOptions' => ['class' => 'text-right'],
       ],
       [
-        'label' => Yii::t('app', 'Median'),
+        'label' => Yii::t('app', 'Top {percentile}%', ['percentile' => 5]),
+        'headerOptions' => ['class' => 'text-center'],
+        'format' => ['decimal', 1],
+        'value' => fn (Rule3 $model): ?float => TypeHelper::floatOrNull(
+          $abstracts[$model->id]?->pct95,
+        ),
+        'contentOptions' => ['class' => 'text-right fw-bold'],
+      ],
+      [
+        'label' => Yii::t('app', 'Top {percentile}%', ['percentile' => 20]),
+        'headerOptions' => ['class' => 'text-center'],
+        'format' => ['decimal', 1],
+        'value' => fn (Rule3 $model): ?float => TypeHelper::floatOrNull(
+          $abstracts[$model->id]?->pct80,
+        ),
+        'contentOptions' => ['class' => 'text-right fw-bold'],
+      ],
+      [
+        'label' => Yii::t('app', 'Top {percentile}%', ['percentile' => 25]),
+        'headerOptions' => ['class' => 'text-center'],
+        'format' => ['decimal', 1],
+        'value' => fn (Rule3 $model): ?float => TypeHelper::floatOrNull(
+          $abstracts[$model->id]?->pct75,
+        ),
+        'contentOptions' => ['class' => 'text-right'],
+      ],
+      [
+        'label' => Yii::t('app', 'Top {percentile}%', ['percentile' => 50]),
         'headerOptions' => ['class' => 'text-center'],
         'format' => ['decimal', 1],
         'value' => fn (Rule3 $model): ?float => TypeHelper::floatOrNull(
           $abstracts[$model->id]?->median,
+        ),
+        'contentOptions' => ['class' => 'text-right fw-bold'],
+      ],
+      [
+        'label' => Yii::t('app', 'Top {percentile}%', ['percentile' => 75]),
+        'headerOptions' => ['class' => 'text-center'],
+        'format' => ['decimal', 1],
+        'value' => fn (Rule3 $model): ?float => TypeHelper::floatOrNull(
+          $abstracts[$model->id]?->pct25,
         ),
         'contentOptions' => ['class' => 'text-right'],
       ],

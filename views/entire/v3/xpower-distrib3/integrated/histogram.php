@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use app\assets\JqueryEasyChartjsAsset;
 use app\components\helpers\XPowerNormalDistribution;
+use app\components\widgets\Budoux;
 use app\models\Rule3;
 use app\models\StatXPowerDistribAbstract3;
 use yii\helpers\Html;
@@ -25,9 +26,19 @@ $this->registerJs(vsprintf('$(%s).easyChartJs();', [
 
 ?>
 <div class="row">
-  <div class="col-xs-12 col-md-9 col-lg-7 mb-3">
+  <div class="col-xs-12">
+    <div class="alert alert-warning mb-3">
+      <?php Budoux::begin() ?>
+        <?= implode('<br>', [
+          Yii::t('app', 'This chart assumes simple normal distribution of the Power to make it easier to compare each mode.'),
+          Yii::t('app', 'For the actual distribution, see the charts for each mode.'),
+        ]) . "\n" ?>
+      <?php Budoux::end() ?>
+    </div>
+  </div>
+  <div class="col-xs-12 col-md-9 col-lg-7">
     <?= Html::tag('div', '', [
-      'class' => 'ratio ratio-16x9 xpower-integrated-chart',
+      'class' => 'ratio ratio-16x9 xpower-integrated-chart mb-3',
       'data' => [
         'chart' => [
           'type' => 'line',
