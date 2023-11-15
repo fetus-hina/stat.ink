@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -197,6 +197,11 @@ final class XPowerDistrib3Action extends Action
 
     private function updateDistribAbstract(Connection $db): bool
     {
+        $percentile = fn (float $p): string => sprintf(
+            'PERCENTILE_CONT(%.2f) WITHIN GROUP (ORDER BY {{t}}.[[x_power]] ASC)',
+            $p,
+        );
+
         $select = (new Query())
             ->select([
                 'season_id' => '{{t}}.[[season_id]]',
@@ -204,7 +209,12 @@ final class XPowerDistrib3Action extends Action
                 'users' => 'COUNT(*)',
                 'average' => 'AVG({{t}}.[[x_power]])',
                 'stddev' => 'STDDEV_SAMP({{t}}.[[x_power]])',
-                'median' => 'PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY {{t}}.[[x_power]] ASC)',
+                'median' => $percentile(0.5),
+                'pct5' => $percentile(0.05),
+                'pct25' => $percentile(0.25),
+                'pct75' => $percentile(0.75),
+                'pct80' => $percentile(0.80),
+                'pct95' => $percentile(0.95),
             ])
             ->from(['t' => self::TMP_USER_XPOWER_TABLE_NAME])
             ->groupBy(['season_id', 'rule_id']);

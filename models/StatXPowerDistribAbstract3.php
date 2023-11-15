@@ -22,6 +22,11 @@ use yii\db\ActiveRecord;
  * @property double $average
  * @property double $stddev
  * @property string $median
+ * @property string $pct5
+ * @property string $pct25
+ * @property string $pct75
+ * @property string $pct80
+ * @property string $pct95
  *
  * @property Rule3 $rule
  * @property Season3 $season
@@ -39,7 +44,7 @@ class StatXPowerDistribAbstract3 extends ActiveRecord
             [['season_id', 'rule_id', 'users', 'average'], 'required'],
             [['season_id', 'rule_id', 'users'], 'default', 'value' => null],
             [['season_id', 'rule_id', 'users'], 'integer'],
-            [['average', 'stddev', 'median'], 'number'],
+            [['average', 'stddev', 'median', 'pct5', 'pct25', 'pct75', 'pct80', 'pct95'], 'number'],
             [['season_id', 'rule_id'], 'unique', 'targetAttribute' => ['season_id', 'rule_id']],
             [['rule_id'], 'exist', 'skipOnError' => true, 'targetClass' => Rule3::class, 'targetAttribute' => ['rule_id' => 'id']],
             [['season_id'], 'exist', 'skipOnError' => true, 'targetClass' => Season3::class, 'targetAttribute' => ['season_id' => 'id']],
@@ -55,6 +60,11 @@ class StatXPowerDistribAbstract3 extends ActiveRecord
             'average' => 'Average',
             'stddev' => 'Stddev',
             'median' => 'Median',
+            'pct5' => 'Pct5',
+            'pct25' => 'Pct25',
+            'pct75' => 'Pct75',
+            'pct80' => 'Pct80',
+            'pct95' => 'Pct95',
         ];
     }
 
