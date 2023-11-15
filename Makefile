@@ -61,7 +61,6 @@ RESOURCE_TARGETS := \
 	resources/.compiled/stat.ink/entire-weapon-kd-summary.js \
 	resources/.compiled/stat.ink/entire-weapon-stage.js \
 	resources/.compiled/stat.ink/entire-weapon-usepct.js \
-	resources/.compiled/stat.ink/entire-xpower-distrib3-histogram.js \
 	resources/.compiled/stat.ink/fallbackable-image.js \
 	resources/.compiled/stat.ink/favicon-016.png \
 	resources/.compiled/stat.ink/favicon-032.png \
@@ -310,7 +309,6 @@ resources/.compiled/stat.ink/entire-weapon-kd-stats.js: resources/stat.ink/entir
 resources/.compiled/stat.ink/entire-weapon-kd-summary.js: resources/stat.ink/entire-weapon-kd-summary.es node_modules
 resources/.compiled/stat.ink/entire-weapon-stage.js: resources/stat.ink/entire-weapon-stage.es node_modules
 resources/.compiled/stat.ink/entire-weapon-usepct.js: resources/stat.ink/entire-weapon-usepct.es node_modules
-resources/.compiled/stat.ink/entire-xpower-distrib3-histogram.js: resources/stat.ink/entire-xpower-distrib3-histogram.es node_modules
 resources/.compiled/stat.ink/fallbackable-image.js: resources/stat.ink/fallbackable-image.es node_modules
 resources/.compiled/stat.ink/fest-power-history.css: resources/stat.ink/fest-power-history.scss node_modules
 resources/.compiled/stat.ink/fest-power-history.js: resources/stat.ink/fest-power-history.es node_modules

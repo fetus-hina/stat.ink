@@ -57,16 +57,7 @@ $fmt = Yii::$app->formatter;
 
   <div class="alert alert-info mb-3">
     <?= Html::encode(
-      Yii::t('app', 'In the chart, "{representative}" means greater than or equal to {min} and less than {max}.', [
-        'representative' => $fmt->asInteger(2000),
-        'min' => $fmt->asInteger(2000),
-        'max' => $fmt->asInteger(2050),
-      ]),
-    ) . "\n" ?>
-    <?= Html::tag(
-      'span',
-      '(2000 ≤ 𝑝<sub>𝒙</sub> &lt; 2050)',
-      ['style' => ['font-family' => 'Noto Sans Math']],
+      Yii::t('app', 'The width of the histogram bins is automatically adjusted by Scott\'s rule-based algorithm.'),
     ) . "\n" ?>
   </div>
 

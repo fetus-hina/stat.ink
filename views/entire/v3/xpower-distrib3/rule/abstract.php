@@ -94,6 +94,17 @@ if (!$model) {
         'headerOptions' => ['class' => 'text-center'],
         'label' => Yii::t('app', 'Top {percentile}%', ['percentile' => 75]),
       ],
+      [
+        'attribute' => 'histogram_width',
+        'contentOptions' => ['class' => 'text-right text-muted'],
+        'format' => 'integer',
+        'headerOptions' => ['class' => 'text-center text-muted'],
+        'label' => implode(' ', [
+          Icon::statsHistogram(),
+          Html::encode(Yii::t('app', 'Bin Width')),
+        ]),
+        'encodeLabel' => false,
+      ],
     ],
   ]) . "\n" ?>
 </div>

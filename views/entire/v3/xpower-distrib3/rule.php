@@ -2,14 +2,15 @@
 
 declare(strict_types=1);
 
-use app\assets\EntireXpowerDistrib3HistogramAsset;
+use app\assets\JqueryEasyChartjsAsset;
 use app\assets\RatioAsset;
 use app\models\Rule3;
 use app\models\Season3;
-use app\models\StatXPowerDistrib3;
 use app\models\StatXPowerDistribAbstract3;
+use app\models\StatXPowerDistribHistogram3;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\Json;
 use yii\web\View;
 
 /**
@@ -22,24 +23,35 @@ use yii\web\View;
 $assetRevision = ArrayHelper::getValue(Yii::$app->params, 'assetRevision');
 
 $histogramData = Yii::$app->cache->getOrSet(
-  [__FILE__, __LINE__, $season->id, $rule->id, $abstract?->attributes],
-  fn (): array => StatXPowerDistrib3::find()
+  [
+    __FILE__,
+    __LINE__,
+    2, // version
+    $season->id,
+    $rule->id,
+    $abstract?->attributes,
+  ],
+  fn (): array => StatXPowerDistribHistogram3::find()
     ->andWhere([
       'season_id' => $season->id,
       'rule_id' => $rule->id,
     ])
-    ->orderBy(['x_power' => SORT_ASC])
+    ->orderBy(['class_value' => SORT_ASC])
     ->all(),
   7200,
 );
 
 $histogramDataId = array_map(
-  fn (StatXPowerDistrib3 $model): array => [$model->x_power, $model->users],
+  fn (StatXPowerDistribHistogram3 $model): array => [$model->class_value, $model->users],
   $histogramData,
 );
 
-EntireXpowerDistrib3HistogramAsset::register($this);
 RatioAsset::register($this);
+JqueryEasyChartjsAsset::register($this);
+
+$this->registerJs(vsprintf('$(%s).easyChartJs();', [
+  Json::encode('.xpower-distrib-chart'),
+]));
 
 ?>
 <div class="mb-4">

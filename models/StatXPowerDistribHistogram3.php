@@ -14,39 +14,30 @@ use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "stat_x_power_distrib_abstract3".
+ * This is the model class for table "stat_x_power_distrib_histogram3".
  *
  * @property integer $season_id
  * @property integer $rule_id
+ * @property integer $class_value
  * @property integer $users
- * @property double $average
- * @property double $stddev
- * @property string $median
- * @property string $pct5
- * @property string $pct25
- * @property string $pct75
- * @property string $pct80
- * @property string $pct95
- * @property integer $histogram_width
  *
  * @property Rule3 $rule
  * @property Season3 $season
  */
-class StatXPowerDistribAbstract3 extends ActiveRecord
+class StatXPowerDistribHistogram3 extends ActiveRecord
 {
     public static function tableName()
     {
-        return 'stat_x_power_distrib_abstract3';
+        return 'stat_x_power_distrib_histogram3';
     }
 
     public function rules()
     {
         return [
-            [['season_id', 'rule_id', 'users', 'average'], 'required'],
-            [['season_id', 'rule_id', 'users', 'histogram_width'], 'default', 'value' => null],
-            [['season_id', 'rule_id', 'users', 'histogram_width'], 'integer'],
-            [['average', 'stddev', 'median', 'pct5', 'pct25', 'pct75', 'pct80', 'pct95'], 'number'],
-            [['season_id', 'rule_id'], 'unique', 'targetAttribute' => ['season_id', 'rule_id']],
+            [['season_id', 'rule_id', 'class_value', 'users'], 'required'],
+            [['season_id', 'rule_id', 'class_value', 'users'], 'default', 'value' => null],
+            [['season_id', 'rule_id', 'class_value', 'users'], 'integer'],
+            [['season_id', 'rule_id', 'class_value'], 'unique', 'targetAttribute' => ['season_id', 'rule_id', 'class_value']],
             [['rule_id'], 'exist', 'skipOnError' => true, 'targetClass' => Rule3::class, 'targetAttribute' => ['rule_id' => 'id']],
             [['season_id'], 'exist', 'skipOnError' => true, 'targetClass' => Season3::class, 'targetAttribute' => ['season_id' => 'id']],
         ];
@@ -57,16 +48,8 @@ class StatXPowerDistribAbstract3 extends ActiveRecord
         return [
             'season_id' => 'Season ID',
             'rule_id' => 'Rule ID',
+            'class_value' => 'Class Value',
             'users' => 'Users',
-            'average' => 'Average',
-            'stddev' => 'Stddev',
-            'median' => 'Median',
-            'pct5' => 'Pct5',
-            'pct25' => 'Pct25',
-            'pct75' => 'Pct75',
-            'pct80' => 'Pct80',
-            'pct95' => 'Pct95',
-            'histogram_width' => 'Histogram Width',
         ];
     }
 
