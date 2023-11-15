@@ -65,7 +65,8 @@ final class XPowerDistrib3Action extends Action
         if (
             $this->createTmpUserXpowerTable($db) &&
             $this->updateDistrib($db) &&
-            $this->updateDistribAbstract($db)
+            $this->updateDistribAbstract($db) &&
+            $this->updateDistribHistogram($db)
         ) {
             return true;
         }
@@ -215,6 +216,7 @@ final class XPowerDistrib3Action extends Action
                 'pct75' => $percentile(0.75),
                 'pct80' => $percentile(0.80),
                 'pct95' => $percentile(0.95),
+                'histogram_width' => 'HISTOGRAM_WIDTH(COUNT(*), STDDEV_SAMP({{t}}.[[x_power]]))',
             ])
             ->from(['t' => self::TMP_USER_XPOWER_TABLE_NAME])
             ->groupBy(['season_id', 'rule_id']);
@@ -251,11 +253,76 @@ final class XPowerDistrib3Action extends Action
         }
     }
 
+    private function updateDistribHistogram(Connection $db): bool
+    {
+        $classValue = sprintf(
+            // +0.5 は階級値は階級の幅の中央を表すための調整
+            '((FLOOR(%1$s.%3$s / %2$s.%4$s) + 0.5) * %2$s.%4$s)::integer',
+            $db->quoteTableName('{{t}}'),
+            $db->quoteTableName('{{%stat_x_power_distrib_abstract3}}'),
+            $db->quoteColumnName('x_power'),
+            $db->quoteColumnName('histogram_width'),
+        );
+
+        $select = (new Query())
+            ->select([
+                'season_id' => '{{t}}.[[season_id]]',
+                'rule_id' => '{{t}}.[[rule_id]]',
+                'class_value' => $classValue,
+                'users' => 'COUNT(*)',
+            ])
+            ->from(['t' => self::TMP_USER_XPOWER_TABLE_NAME])
+            ->innerJoin(
+                '{{%stat_x_power_distrib_abstract3}}',
+                implode(' AND ', [
+                    '{{t}}.[[season_id]] = {{%stat_x_power_distrib_abstract3}}.[[season_id]]',
+                    '{{t}}.[[rule_id]] = {{%stat_x_power_distrib_abstract3}}.[[rule_id]]',
+                ]),
+            )
+            ->groupBy([
+                '{{t}}.[[season_id]]',
+                '{{t}}.[[rule_id]]',
+                $classValue,
+            ]);
+
+        $sql = vsprintf('INSERT INTO %s ( %s ) %s', [
+            $db->quoteTableName('{{%stat_x_power_distrib_histogram3}}'),
+            implode(
+                ', ',
+                array_map(
+                    fn (string $columnName): string => $db->quoteColumnName($columnName),
+                    array_keys($select->select),
+                ),
+            ),
+            $select->createCommand($db)->rawSql,
+        ]);
+
+        try {
+            fwrite(STDERR, "Cleanup stat_x_power_distrib_histogram3...\n");
+            $db->createCommand()->delete('{{%stat_x_power_distrib_histogram3}}')->execute();
+
+            fwrite(STDERR, "Inserting stat_x_power_distrib_histogram3...\n");
+            $db->createCommand($sql)->execute();
+            fwrite(STDERR, "OK.\n");
+
+            return true;
+        } catch (Throwable $e) {
+            vfprintf(STDERR, "Failed to update, exception=%s, message=%s, sql=%s\n", [
+                $e::class,
+                $e->getMessage(),
+                $sql,
+            ]);
+
+            return false;
+        }
+    }
+
     private function vacuumTables(Connection $db): void
     {
         $tables = [
             '{{%stat_x_power_distrib3}}',
             '{{%stat_x_power_distrib_abstract3}}',
+            '{{%stat_x_power_distrib_histogram3}}',
         ];
 
         foreach ($tables as $table) {

@@ -3,16 +3,15 @@
 declare(strict_types=1);
 
 use app\components\helpers\XPowerNormalDistribution;
-use app\models\StatXPowerDistrib3;
 use app\models\StatXPowerDistribAbstract3;
+use app\models\StatXPowerDistribHistogram3;
 use yii\helpers\Html;
-use yii\helpers\Json;
-use yii\web\JqueryAsset;
+use yii\web\JsExpression;
 use yii\web\View;
 
 /**
- * @var StatXPowerDistrib3[] $data
  * @var StatXPowerDistribAbstract3|null $abstract
+ * @var StatXPowerDistribHistogram3[] $data
  * @var View $this
  */
 
@@ -28,26 +27,74 @@ $normalDistribData = Yii::$app->cache->getOrSet(
   86400,
 );
 
+$datasetHistogram = [
+  'backgroundColor' => [new JsExpression('window.colorScheme.graph2')],
+  'barPercentage' => 1.0,
+  'borderColor' => [new JsExpression('window.colorScheme.graph2')],
+  'borderWidth' => 1,
+  'categoryPercentage' => 1.0,
+  'data' => array_map(
+    fn (StatXPowerDistribHistogram3 $v): array => [
+      'x' => (int)$v->class_value,
+      'y' => (int)$v->users,
+    ],
+    $data,
+  ),
+  'label' => Yii::t('app', 'Users'),
+];
+
+$datasetNormalDistrib = $normalDistribData
+  ? [
+    'backgroundColor' => [new JsExpression('window.colorScheme.graph1')],
+    'borderColor' => [new JsExpression('window.colorScheme.graph1')],
+    'borderWidth' =>  2,
+    'data' => $normalDistribData,
+    'label' => Yii::t('app', 'Normal Distribution'),
+    'pointRadius' => 0,
+    'type' => 'line'
+  ]
+  : null;
+
 ?>
 <div class="row">
   <div class="col-xs-12 col-md-9 col-lg-7 mb-3">
     <?= Html::tag('div', '', [
       'class' => 'ratio ratio-16x9 xpower-distrib-chart',
       'data' => [
-        'translates' => Json::encode([
-            'Normal Distribution' => Yii::t('app', 'Normal Distribution'),
-            'Users' => Yii::t('app', 'Users'),
-        ]),
-        'dataset' => Json::encode(
-          array_map(
-            fn (StatXPowerDistrib3 $v): array => [
-              'x' => (int)$v->x_power,
-              'y' => (int)$v->users,
+        'chart' => [
+          'type' => 'bar',
+          'data' => [
+            'datasets' => array_values(
+              array_filter([
+                $datasetNormalDistrib,
+                $datasetHistogram,
+              ]),
+            ),
+          ],
+          'options' => [
+            'aspectRatio' => new JsExpression('16/9'),
+            'layout' => ['padding' => 0],
+            'legend' => ['display' => false],
+            'plugins' => [
+              'legend' => [
+                'display' => true,
+                'reverse' => true,
+              ],
+              'tooltip' => ['enabled' => false],
             ],
-            $data,
-          ),
-        ),
-        'normal-distribution' => Json::encode($normalDistribData),
+            'scales' => [
+              'x' => [
+                'grid' => ['offset' => false],
+                'offset' =>  true,
+                'ticks' => ['stepSize' => 100],
+                'type' => 'linear',
+              ],
+              'y' => [
+                'beginAtZero' => true,
+              ],
+            ],
+          ],
+        ],
       ],
     ]) . "\n" ?>
   </div>

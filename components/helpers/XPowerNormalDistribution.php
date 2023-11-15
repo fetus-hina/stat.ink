@@ -52,26 +52,26 @@ final class XPowerNormalDistribution
      */
     public static function getDistributionFromStatXPowerDistribAbstract3(
         ?StatXPowerDistribAbstract3 $abstract,
-        int $valueStep = 50,
         int $calcStep = 10,
-        ?int $sampleNumber = null,
     ): ?array {
         if (
             !$abstract ||
             $abstract->users < 10 ||
             $abstract->stddev === null ||
-            $abstract->median === null
+            $abstract->median === null ||
+            $abstract->histogram_width === null ||
+            $abstract->histogram_width < 2
         ) {
             return null;
         }
 
         return self::getDistribution(
-            sampleNumber: $sampleNumber ?? (int)$abstract->users,
+            sampleNumber: (int)$abstract->users,
             average: (float)$abstract->average,
             stddev: (float)$abstract->stddev,
             minXP: (float)$abstract->average - 3 * (float)$abstract->stddev,
             maxXP: (float)$abstract->average + 3 * (float)$abstract->stddev,
-            valueStep: $valueStep,
+            valueStep: $abstract->histogram_width,
             calcStep: $calcStep,
         );
     }
