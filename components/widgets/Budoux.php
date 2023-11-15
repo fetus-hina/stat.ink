@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
+use Yii;
 use app\assets\budoux\BudouxWebComponentsJaAsset;
 use app\assets\budoux\BudouxWebComponentsZhHansAsset;
 use app\assets\budoux\BudouxWebComponentsZhHantAsset;
