@@ -688,6 +688,7 @@ return [
     'Victory' => '勝利',
     'View Settings' => '表示設定',
     'Vote %' => '投票率',
+    'We currently cannot successfully handle splatfest that are not globally scheduled.' => '現在、グローバルに開催されていないフェスのデータは正しく処理できません。',
     'We\'ll send an email when you log in to the website or change your password.' => 'ログイン時やパスワード変更時にメールを送信してお知らせします。',
     'Weapon (Icon)' => 'ブキ（アイコン）',
     'Weapon (Short)' => 'ブキ（短）',
