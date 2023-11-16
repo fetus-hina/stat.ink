@@ -64,7 +64,6 @@ final class XPowerDistrib3Action extends Action
         fwrite(STDERR, "Updating X Power Distribution stats\n");
         if (
             $this->createTmpUserXpowerTable($db) &&
-            $this->updateDistrib($db) &&
             $this->updateDistribAbstract($db) &&
             $this->updateDistribHistogram($db)
         ) {
@@ -139,54 +138,6 @@ final class XPowerDistrib3Action extends Action
             return true;
         } catch (Throwable $e) {
             vfprintf(STDERR, "Failed to create temporary table, exception=%s, message=%s, sql=%s\n", [
-                $e::class,
-                $e->getMessage(),
-                $sql,
-            ]);
-
-            return false;
-        }
-    }
-
-    private function updateDistrib(Connection $db): bool
-    {
-        $select = (new Query())
-            ->select([
-                'season_id' => '{{t}}.[[season_id]]',
-                'rule_id' => '{{t}}.[[rule_id]]',
-                'x_power' => 'FLOOR({{t}}.[[x_power]] / 50) * 50',
-                'users' => 'COUNT(*)',
-            ])
-            ->from(['t' => self::TMP_USER_XPOWER_TABLE_NAME])
-            ->groupBy([
-                'season_id',
-                'rule_id',
-                'FLOOR({{t}}.[[x_power]] / 50)',
-            ]);
-
-        $sql = vsprintf('INSERT INTO %s ( %s ) %s', [
-            $db->quoteTableName('{{stat_x_power_distrib3}}'),
-            implode(
-                ', ',
-                array_map(
-                    fn (string $columnName): string => $db->quoteColumnName($columnName),
-                    array_keys($select->select),
-                ),
-            ),
-            $select->createCommand($db)->rawSql,
-        ]);
-
-        try {
-            fwrite(STDERR, "Cleanup stat_x_power_distrib3...\n");
-            $db->createCommand()->delete('{{%stat_x_power_distrib3}}')->execute();
-
-            fwrite(STDERR, "Inserting stat_x_power_distrib3...\n");
-            $db->createCommand($sql)->execute();
-            fwrite(STDERR, "OK.\n");
-
-            return true;
-        } catch (Throwable $e) {
-            vfprintf(STDERR, "Failed to update, exception=%s, message=%s, sql=%s\n", [
                 $e::class,
                 $e->getMessage(),
                 $sql,
@@ -320,7 +271,6 @@ final class XPowerDistrib3Action extends Action
     private function vacuumTables(Connection $db): void
     {
         $tables = [
-            '{{%stat_x_power_distrib3}}',
             '{{%stat_x_power_distrib_abstract3}}',
             '{{%stat_x_power_distrib_histogram3}}',
         ];
