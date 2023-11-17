@@ -163,6 +163,7 @@ return [
     'Seauceur chic' => '',
     'Seauceur Diabolo' => '',
     'Seauceur héroïque (réplique)' => '',
+    'Snipewriter 5B' => '',
     'Transperceur M. Ours SA' => '',
     'Trisperceur' => '',
     'Trisperceur Abysma' => '',

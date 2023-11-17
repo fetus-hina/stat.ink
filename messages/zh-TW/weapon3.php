@@ -105,6 +105,7 @@ return [
     'Sloshers' => '潑桶',
     'Sloshing Machine' => '迴旋潑桶',
     'Sloshing Machine Neo' => '迴旋潑桶 新型',
+    'Snipewriter 5B' => '',
     'Snipewriter 5H' => 'R-PEN/5H',
     'Sorella Brella' => '遮陽防空傘 姐妹',
     'Splash-o-matic' => '窄域標記槍',

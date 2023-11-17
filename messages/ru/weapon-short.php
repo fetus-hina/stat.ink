@@ -50,6 +50,7 @@ return [
     'Permanent Inkbrush' => '',
     'Refurbished Mini Splatling' => '',
     'S-BLAST 92' => '',
+    'Snipewriter 5B' => '',
     'Soda Slosher' => '',
     'Sploosh-o-matic 7' => '',
     'Tempered Dynamo Roller' => '',

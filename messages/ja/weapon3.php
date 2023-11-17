@@ -103,6 +103,7 @@ return [
     'Sloshers' => 'スロッシャー',
     'Sloshing Machine Neo' => 'スクリュースロッシャーネオ',
     'Sloshing Machine' => 'スクリュースロッシャー',
+    'Snipewriter 5B' => 'R-PEN/5B',
     'Snipewriter 5H' => 'R-PEN/5H',
     'Sorella Brella' => 'パラシェルターソレーラ',
     'Splash-o-matic' => 'シャープマーカー',
