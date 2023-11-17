@@ -28,7 +28,7 @@ SortableTableAsset::register($this);
   <table class="table table-striped table-condensed table-sortable">
     <thead>
       <tr>
-        <th></th>
+        <th data-sort="int" data-sort-onload="yes"></th>
         <th data-sort="string"><code>key</code></th>
         <th data-sort="string"><?= Html::encode(Yii::t('app', 'Aliases')) ?></th>
 <?php foreach ($langs as $i => $lang) { ?>
@@ -48,6 +48,11 @@ SortableTableAsset::register($this);
         <?= Html::tag(
           'td',
           Icon::s3Special($sp),
+          [
+            'data' => [
+              'sort-value' => $sp->rank,
+            ],
+          ],
         ) . "\n" ?>
         <?= Html::tag(
           'td',
