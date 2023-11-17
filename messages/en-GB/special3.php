@@ -19,6 +19,7 @@ return [
     'Killer Wail 5.1' => 'Killer Wail 5.1',
     'Kraken Royale' => 'Kraken Royale',
     'Reefslider' => 'Reefslider',
+    'Splattercolor Screen' => '',
     'Super Chump' => 'Super Chump',
     'Tacticooler' => 'Tacticooler',
     'Tenta Missiles' => 'Tenta Missiles',

@@ -20,6 +20,7 @@ return [
     'Killer Wail 5.1' => 'メガホンレーザー5.1ch',
     'Kraken Royale' => 'テイオウイカ',
     'Reefslider' => 'サメライド',
+    'Splattercolor Screen' => 'スミナガシート',
     'Super Chump' => 'デコイチラシ',
     'Tacticooler' => 'エナジースタンド',
     'Tenta Missiles' => 'マルチミサイル',

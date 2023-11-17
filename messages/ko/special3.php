@@ -19,6 +19,7 @@ return [
     'Killer Wail 5.1' => '메가폰 레이저 5.1ch',
     'Kraken Royale' => '로열 크라켄',
     'Reefslider' => '샤크 라이드',
+    'Splattercolor Screen' => '',
     'Super Chump' => '디코이 캐넌',
     'Tacticooler' => '에너지 스탠드',
     'Tenta Missiles' => '멀티 미사일',

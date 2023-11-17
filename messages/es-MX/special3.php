@@ -19,6 +19,7 @@ return [
     'Killer Wail 5.1' => 'Berreón 5.1',
     'Kraken Royale' => 'Calamar imperial',
     'Reefslider' => 'Flotiburón',
+    'Splattercolor Screen' => '',
     'Super Chump' => 'Multiseñuelos',
     'Tacticooler' => 'Dispensabebidas',
     'Tenta Missiles' => 'Lanzamisiles',

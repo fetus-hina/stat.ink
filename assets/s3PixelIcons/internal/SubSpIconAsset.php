@@ -55,4 +55,11 @@ abstract class SubSpIconAsset extends AssetBundle
         'Sub - Torpedo.png' => 'torpedo.png',
         'Sub - Toxic Mist.png' => 'poisonmist.png',
     ];
+
+    /**
+     * @var string[]
+     */
+    public array $dummyFiles = [
+        'suminagasheet.png',
+    ];
 }

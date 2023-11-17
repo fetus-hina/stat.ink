@@ -20,6 +20,7 @@ return [
     'Killer Wail 5.1' => '喇叭雷射5.1ch',
     'Kraken Royale' => '帝王魷魚',
     'Reefslider' => '鯊魚坐騎',
+    'Splattercolor Screen' => '',
     'Super Chump' => '誘餌煙火',
     'Tacticooler' => '能量站',
     'Tenta Missiles' => '多重導彈',
