@@ -714,7 +714,6 @@ return [
     'Weapon | {weapon}' => '무기 | {weapon}',
     'Weapon | {weapon} | {rule}' => '무기 | {weapon} | {rule}',
     'Webhook URL' => 'Webhook URL',
-    'We currently cannot successfully handle splatfest that are not globally scheduled.' => '',
     'Win' => '승리',
     'Win %' => '승률',
     'Win % (Total)' => '승률 (전체)',

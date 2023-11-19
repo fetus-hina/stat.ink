@@ -713,7 +713,6 @@ return [
     'Weapon | {weapon}' => '',
     'Weapon | {weapon} | {rule}' => '',
     'Webhook URL' => '',
-    'We currently cannot successfully handle splatfest that are not globally scheduled.' => '',
     'Win' => '',
     'Win %' => '',
     'Win % (Total)' => '',

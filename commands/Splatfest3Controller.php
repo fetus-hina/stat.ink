@@ -12,6 +12,7 @@ namespace app\commands;
 
 use LogicException;
 use Yii;
+use app\models\Language;
 use app\models\Lobby3;
 use app\models\Rule3;
 use app\models\Splatfest3;
@@ -22,12 +23,18 @@ use yii\console\ExitCode;
 use yii\db\Connection;
 use yii\db\Query;
 use yii\db\Transaction;
+use yii\helpers\ArrayHelper;
 
 use function array_keys;
 use function array_map;
+use function array_merge;
+use function array_reduce;
+use function array_unique;
+use function array_values;
 use function gmdate;
 use function implode;
 use function sprintf;
+use function str_starts_with;
 use function vsprintf;
 
 use const DATE_ATOM;
@@ -88,26 +95,26 @@ final class Splatfest3Controller extends Controller
      */
     private function updatePowerStats(Connection $db, array $targetFests): bool
     {
-        return $this->updatePowerStatsAbstract($db, $targetFests) &&
-            $this->updatePowerStatsHistogram($db, $targetFests);
+        return array_reduce(
+            array: array_map(
+                function (Splatfest3 $fest) use ($db): bool {
+                    $isGlobalFest = str_starts_with($fest->key, 'JUEA-');
+                    return $this->updatePowerStatsAbstract($db, $fest, $isGlobalFest) &&
+                        $this->updatePowerStatsHistogram($db, $fest, $isGlobalFest);
+                },
+                $targetFests,
+            ),
+            callback: fn (bool $carry, bool $item): bool => $carry && $item,
+            initial: true,
+        );
     }
 
-    /**
-     * @param Splatfest3[] $targetFests
-     */
-    private function updatePowerStatsAbstract(Connection $db, array $targetFests): bool
-    {
-        if (!$targetFests) {
-            return true;
-        }
-
-        $this->stderr("Updating splatfest3_stats_power...\n");
-
-        $festIdList = array_map(
-            fn (Splatfest3 $fest): int => $fest->id,
-            $targetFests,
-        );
-
+    private function updatePowerStatsAbstract(
+        Connection $db,
+        Splatfest3 $targetFest,
+        bool $isGlobalFest,
+    ): bool {
+        $this->stderr('Updating splatfest3_stats_power for ' . $targetFest->name . "...\n");
         $lobby = Lobby3::find()
             ->andWhere(['key' => 'splatfest_challenge'])
             ->limit(1)
@@ -162,12 +169,30 @@ final class Splatfest3Controller extends Controller
                 '{{%battle3}}.[[lobby_id]]' => $lobby->id,
                 '{{%battle3}}.[[rule_id]]' => $rule->id,
                 '{{%battle3}}.[[use_for_entire]]' => true,
-                '{{%splatfest3}}.[[id]]' => $festIdList,
+                '{{%splatfest3}}.[[id]]' => $targetFest->id,
             ])
             ->andWhere('{{%battle3}}.[[start_at]] < {{%battle3}}.[[end_at]]')
             ->groupBy(['{{%splatfest3}}.[[id]]']);
 
-        Splatfest3StatsPower::deleteAll(['splatfest_id' => $festIdList]);
+        if (!$isGlobalFest) {
+            $teamNames = $this->getTeamNames($db, $targetFest);
+
+            $query
+                ->innerJoin(
+                    ['theme_a' => '{{%splatfest3_theme}}'],
+                    '{{%battle3}}.[[our_team_theme_id]] = {{theme_a}}.[[id]]',
+                )
+                ->innerJoin(
+                    ['theme_b' => '{{%splatfest3_theme}}'],
+                    '{{%battle3}}.[[their_team_theme_id]] = {{theme_b}}.[[id]]',
+                )
+                ->andWhere([
+                    '{{theme_a}}.[[name]]' => $teamNames,
+                    '{{theme_b}}.[[name]]' => $teamNames,
+                ]);
+        }
+
+        Splatfest3StatsPower::deleteAll(['splatfest_id' => $targetFest->id]);
         $db
             ->createCommand(
                 vsprintf('INSERT INTO %s ( %s ) %s', [
@@ -187,29 +212,20 @@ final class Splatfest3Controller extends Controller
         return true;
     }
 
-    /**
-     * @param Splatfest3[] $targetFests
-     */
-    private function updatePowerStatsHistogram(Connection $db, array $targetFests): bool
-    {
-        if (!$targetFests) {
-            return true;
-        }
-
+    private function updatePowerStatsHistogram(
+        Connection $db,
+        Splatfest3 $targetFest,
+        bool $isGlobalFest,
+    ): bool {
         $this->stderr("Updating splatfest3_stats_power_histogram...\n");
 
-         $classValue = sprintf(
+        $classValue = sprintf(
             // +0.5 は階級値は階級の幅の中央を表すための調整
-             '((FLOOR(%1$s.%3$s / %2$s.%4$s) + 0.5) * %2$s.%4$s)::integer',
-             $db->quoteTableName('{{%battle3}}'),
-             $db->quoteTableName('{{%splatfest3_stats_power}}'),
-             $db->quoteColumnName('fest_power'),
-             $db->quoteColumnName('histogram_width'),
-         );
-
-        $festIdList = array_map(
-            fn (Splatfest3 $fest): int => $fest->id,
-            $targetFests,
+            '((FLOOR(%1$s.%3$s / %2$s.%4$s) + 0.5) * %2$s.%4$s)::integer',
+            $db->quoteTableName('{{%battle3}}'),
+            $db->quoteTableName('{{%splatfest3_stats_power}}'),
+            $db->quoteColumnName('fest_power'),
+            $db->quoteColumnName('histogram_width'),
         );
 
         $lobby = Lobby3::find()
@@ -253,7 +269,7 @@ final class Splatfest3Controller extends Controller
                 '{{%battle3}}.[[lobby_id]]' => $lobby->id,
                 '{{%battle3}}.[[rule_id]]' => $rule->id,
                 '{{%battle3}}.[[use_for_entire]]' => true,
-                '{{%splatfest3}}.[[id]]' => $festIdList,
+                '{{%splatfest3}}.[[id]]' => $targetFest->id,
             ])
             ->andWhere('{{%battle3}}.[[start_at]] < {{%battle3}}.[[end_at]]')
             ->andWhere(['not', ['{{%battle3}}.[[fest_power]]' => null]])
@@ -262,7 +278,25 @@ final class Splatfest3Controller extends Controller
                 $classValue,
             ]);
 
-        Splatfest3StatsPowerHistogram::deleteAll(['splatfest_id' => $festIdList]);
+        if (!$isGlobalFest) {
+            $teamNames = $this->getTeamNames($db, $targetFest);
+
+            $query
+                ->innerJoin(
+                    ['theme_a' => '{{%splatfest3_theme}}'],
+                    '{{%battle3}}.[[our_team_theme_id]] = {{theme_a}}.[[id]]',
+                )
+                ->innerJoin(
+                    ['theme_b' => '{{%splatfest3_theme}}'],
+                    '{{%battle3}}.[[their_team_theme_id]] = {{theme_b}}.[[id]]',
+                )
+                ->andWhere([
+                    '{{theme_a}}.[[name]]' => $teamNames,
+                    '{{theme_b}}.[[name]]' => $teamNames,
+                ]);
+        }
+
+        Splatfest3StatsPowerHistogram::deleteAll(['splatfest_id' => $targetFest->id]);
         $db
             ->createCommand(
                 vsprintf('INSERT INTO %s ( %s ) %s', [
@@ -280,6 +314,27 @@ final class Splatfest3Controller extends Controller
             ->execute();
 
         return true;
+    }
+
+    /**
+     * @return string[]
+     */
+    private function getTeamNames(Connection $db, Splatfest3 $fest): array
+    {
+        $langs = ArrayHelper::getColumn(
+            Language::find()->standard()->cache(86400)->all(),
+            'lang',
+        );
+
+        $results = [];
+        foreach ($fest->splatfestTeam3s as $team) {
+            $results = array_merge($results, array_map(
+                fn (string $lang): string => Yii::t('db/splatfest3/team', $team->name, [], $lang),
+                $langs,
+            ));
+        }
+
+        return array_values(array_unique($results));
     }
 
     private function vacuumStatsTables(Connection $db): bool

@@ -715,7 +715,6 @@ return [
     'Weapon | {weapon}' => 'Arme | {weapon}',
     'Weapon | {weapon} | {rule}' => 'Arme | {weapon} | {rule}',
     'Webhook URL' => '',
-    'We currently cannot successfully handle splatfest that are not globally scheduled.' => '',
     'Win' => 'Victoire',
     'Win %' => '% Victoire',
     'Win % (Total)' => '% Victoire (Total)',

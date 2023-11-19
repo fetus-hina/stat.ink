@@ -25,4 +25,19 @@ echo Html::tag(
     ['class' => 'small my-0'],
   ),
   ['class' => 'alert alert-danger mb-3'],
-) . "\n" ?>
+) . "\n";
+
+echo Html::tag(
+  'div',
+  Html::tag(
+    'p',
+    Html::encode(
+      Yii::t(
+        'app',
+        'The width of the histogram bins is automatically adjusted by Scott\'s rule-based algorithm.',
+      ),
+    ),
+    ['class' => 'small my-0'],
+  ),
+  ['class' => 'alert alert-info mb-3'],
+) . "\n";
