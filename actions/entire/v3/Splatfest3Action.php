@@ -14,10 +14,12 @@ use LogicException;
 use TypeError;
 use Yii;
 use app\components\helpers\TypeHelper;
+use app\models\Language;
 use app\models\Lobby3;
 use app\models\Map3;
 use app\models\Rule3;
 use app\models\Splatfest3;
+use app\models\Splatfest3Theme;
 use app\models\SplatfestTeam3;
 use app\models\TricolorRole3;
 use yii\base\Action;
@@ -37,18 +39,13 @@ use function array_unique;
 use function array_values;
 use function count;
 use function gmdate;
-use function hexdec;
 use function implode;
-use function preg_match;
-use function sort;
 use function sprintf;
-use function substr;
 use function vsprintf;
 
 use const DATE_ATOM;
 use const SORT_ASC;
 use const SORT_DESC;
-use const SORT_NUMERIC;
 
 final class Splatfest3Action extends Action
 {
@@ -102,13 +99,25 @@ final class Splatfest3Action extends Action
                 ];
                 return [
                     'colors' => $colors,
-                    'dragonStats' => $this->getDragonStats($db, $model),
+                    'dragonStats' => $this->getDragonStats(
+                        $db,
+                        $model,
+                        $this->flattenThemeIds($themes),
+                    ),
                     'festList' => $this->getFestList($db),
                     'names' => $names,
                     'splatfest' => $model,
                     'stages' => $this->getStages($db),
-                    'tricolorStats' => $this->getTricolorStats($db, $model),
-                    'votes' => ArrayHelper::map($this->getVotes($db, $model, $themes), 'theme', 'count'),
+                    'tricolorStats' => $this->getTricolorStats(
+                        $db,
+                        $model,
+                        $this->flattenThemeIds($themes),
+                    ),
+                    'votes' => ArrayHelper::map(
+                        $this->getVotes($db, $model, $themes),
+                        'theme',
+                        'count',
+                    ),
                 ];
             },
             Transaction::REPEATABLE_READ,
@@ -121,7 +130,10 @@ final class Splatfest3Action extends Action
     {
         return Splatfest3::find()
             ->andWhere(['<=', 'start_at', gmdate(DATE_ATOM, $_SERVER['REQUEST_TIME'])])
-            ->orderBy(['start_at' => SORT_DESC])
+            ->orderBy([
+                'start_at' => SORT_DESC,
+                'id' => SORT_DESC,
+            ])
             ->all($db);
     }
 
@@ -130,112 +142,45 @@ final class Splatfest3Action extends Action
      */
     private function getThemesOnBattle3(Connection $db, Splatfest3 $fest, array $teams): array
     {
-        $colors = Arrayhelper::getColumn($teams, 'color');
-        if (count($colors) !== 3) {
-            throw new LogicException();
-        }
-
         return Yii::$app->cache->getOrSet(
-            [__METHOD__, $colors],
+            [
+                __METHOD__,
+                ArrayHelper::getColumn($teams, 'id'),
+            ],
             fn (): array => [
-                'team1' => $this->getTeamIdsByColor($db, $fest, $colors[0]),
-                'team2' => $this->getTeamIdsByColor($db, $fest, $colors[1]),
-                'team3' => $this->getTeamIdsByColor($db, $fest, $colors[2]),
+                'team1' => $this->getTeamIds($db, $fest, $teams[0]),
+                'team2' => $this->getTeamIds($db, $fest, $teams[1]),
+                'team3' => $this->getTeamIds($db, $fest, $teams[2]),
             ],
             600,
         );
     }
 
-    private function getTeamIdsByColor(Connection $db, Splatfest3 $fest, string $hexColor): array
+    /**
+     * @return int[]
+     */
+    private function getTeamIds(Connection $db, Splatfest3 $fest, SplatfestTeam3 $team): array
     {
-        if (!preg_match('/^[0-9a-f]{6,}$/', $hexColor)) {
-            throw new LogicException();
-        }
-
-        $colors = [];
-        $baseR = hexdec(substr($hexColor, 0, 2));
-        $baseG = hexdec(substr($hexColor, 2, 2));
-        $baseB = hexdec(substr($hexColor, 4, 2));
-        $offsets = [-1, 0, 1];
-        foreach ($offsets as $offB) {
-            $b = $baseB + $offB;
-            foreach ($offsets as $offG) {
-                $g = $baseG + $offG;
-                foreach ($offsets as $offR) {
-                    $r = $baseR + $offR;
-                    if (
-                        (0 <= $r && $r <= 255) &&
-                        (0 <= $g && $g <= 255) &&
-                        (0 <= $b && $b <= 255)
-                    ) {
-                        $colors[] = vsprintf('%02x%02x%02x%02x', [
-                            $r,
-                            $g,
-                            $b,
-                            255,
-                        ]);
-                    }
-                }
-            }
-        }
-
-        $ids = array_merge(
-            $this->getTeamIdsByColorImpl($db, $fest, $colors, 'our_team_color', 'our_team_theme_id'),
-            $this->getTeamIdsByColorImpl($db, $fest, $colors, 'their_team_color', 'their_team_theme_id'),
+        $langs = ArrayHelper::getColumn(
+            Language::find()->standard()->cache(86400)->all(),
+            'lang',
         );
 
-        sort($ids, SORT_NUMERIC);
-        return array_values(array_unique($ids));
-    }
+        $names = array_values(
+            array_unique(
+                array_map(
+                    fn (string $lang): string => Yii::t('db/splatfest3/team', $team->name, [], $lang),
+                    $langs,
+                ),
+            ),
+        );
 
-    private function getTeamIdsByColorImpl(Connection $db, Splatfest3 $fest, array $colors, string $attrColor, string $attrTheme): array
-    {
-        $query = (new Query())
-            ->select([
-                'theme_id' => $attrTheme,
-            ])
-            ->from('{{%battle3}}')
-            ->innerJoin('{{%result3}}', '{{%battle3}}.[[result_id]] = {{%result3}}.[[id]]')
-            ->andWhere([
-                '{{%battle3}}.[[has_disconnect]]' => false,
-                '{{%battle3}}.[[is_automated]]' => true,
-                '{{%battle3}}.[[is_deleted]]' => false,
-                '{{%battle3}}.[[lobby_id]]' => $this->getLobbyIds($db),
-                '{{%battle3}}.[[rule_id]]' => $this->getRuleIds($db),
-                '{{%battle3}}.[[use_for_entire]]' => true,
-                '{{%result3}}.[[aggregatable]]' => true,
-            ])
-            ->andWhere(['and',
-                ['not', ['{{%battle3}}.[[end_at]]' => null]],
-                ['not', ['{{%battle3}}.[[our_team_color]]' => null]],
-                ['not', ['{{%battle3}}.[[our_team_theme_id]]' => null]],
-                ['not', ['{{%battle3}}.[[start_at]]' => null]],
-                ['not', ['{{%battle3}}.[[their_team_color]]' => null]],
-                ['not', ['{{%battle3}}.[[their_team_theme_id]]' => null]],
-                ['between',
-                    '{{%battle3}}.[[start_at]]',
-                    new Expression(
-                        vsprintf('%s::timestamptz - %s::interval', [
-                            $db->quoteValue($fest->start_at),
-                            $db->quoteValue('1 hour'),
-                        ]),
-                    ),
-                    new Expression(
-                        vsprintf('%s::timestamptz + %s::interval', [
-                            $db->quoteValue($fest->end_at),
-                            $db->quoteValue('10 minute'),
-                        ]),
-                    ),
-                ],
-                '{{%battle3}}.[[start_at]] < {{%battle3}}.[[end_at]]',
-            ])
-            ->andWhere([
-                "{{%battle3}}.[[{$attrColor}]]" => $colors,
-            ])
-            ->groupBy([$attrTheme]);
-        return array_map(
-            fn (int|string $v): int => (int)$v,
-            $query->column($db),
+        return ArrayHelper::getColumn(
+            Splatfest3Theme::find()
+                ->andWhere(['name' => $names])
+                ->cache(86400)
+                ->all($db),
+            fn (Splatfest3Theme $theme): int => TypeHelper::int($theme->id),
         );
     }
 
@@ -365,9 +310,10 @@ final class Splatfest3Action extends Action
     }
 
     /**
+     * @param int[] $themeIds
      * @return array{map_id: int, battles: int, attacker_wins: int}[]
      */
-    private function getTricolorStats(Connection $db, Splatfest3 $fest): array
+    private function getTricolorStats(Connection $db, Splatfest3 $fest, array $themeIds): array
     {
         $attackers = TricolorRole3::find()
             ->andWhere(['key' => 'attacker'])
@@ -417,7 +363,10 @@ final class Splatfest3Action extends Action
                     '{{%battle3}}.[[is_automated]]' => true,
                     '{{%battle3}}.[[is_deleted]]' => false,
                     '{{%battle3}}.[[lobby_id]]' => $lobby->id,
+                    '{{%battle3}}.[[our_team_theme_id]]' => $themeIds,
                     '{{%battle3}}.[[rule_id]]' => $tricolor->id,
+                    '{{%battle3}}.[[their_team_theme_id]]' => $themeIds,
+                    '{{%battle3}}.[[third_team_theme_id]]' => $themeIds,
                     '{{%battle3}}.[[use_for_entire]]' => true,
                     '{{%result3}}.[[aggregatable]]' => true,
                 ],
@@ -471,9 +420,10 @@ final class Splatfest3Action extends Action
     }
 
     /**
+     * @param int[] $themeIds
      * @return array{lobby_id: int, fest_dragon_id: int, battles: int}[]
      */
-    private function getDragonStats(Connection $db, Splatfest3 $fest): array
+    private function getDragonStats(Connection $db, Splatfest3 $fest, array $themeIds): array
     {
         $lobbyIds = ArrayHelper::getColumn(
             Lobby3::find()
@@ -511,7 +461,9 @@ final class Splatfest3Action extends Action
                     '{{%battle3}}.[[is_automated]]' => true,
                     '{{%battle3}}.[[is_deleted]]' => false,
                     '{{%battle3}}.[[lobby_id]]' => $lobbyIds,
+                    '{{%battle3}}.[[our_team_theme_id]]' => $themeIds,
                     '{{%battle3}}.[[rule_id]]' => $nawabari->id,
+                    '{{%battle3}}.[[their_team_theme_id]]' => $themeIds,
                     '{{%battle3}}.[[use_for_entire]]' => true,
                 ],
                 '{{%battle3}}.[[start_at]] < {{%battle3}}.[[end_at]]',

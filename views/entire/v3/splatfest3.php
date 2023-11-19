@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use app\components\helpers\OgpHelper;
 use app\components\widgets\AdWidget;
-use app\components\widgets\Budoux;
 use app\components\widgets\SnsWidget;
 use app\models\Map3;
 use app\models\Splatfest3;
@@ -40,16 +39,6 @@ OgpHelper::default($this, title: $this->title);
 
   <?= AdWidget::widget() . "\n" ?>
   <?= SnsWidget::widget() . "\n" ?>
-
-  <div class="alert alert-danger mb-3">
-<?php Budoux::begin(); echo "\n" ?>
-    <p class="m-0">
-      <?= Html::encode(
-        Yii::t('app', 'We currently cannot successfully handle splatfest that are not globally scheduled.'),
-      ) . "\n" ?>
-    </p>
-<?php Budoux::end(); echo "\n" ?>
-  </div>
 
   <div class="mb-3">
     <?= Html::dropDownList(
