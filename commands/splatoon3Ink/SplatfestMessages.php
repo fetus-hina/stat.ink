@@ -119,12 +119,12 @@ trait SplatfestMessages
                         $langCode,
                         $category,
                         trim(
-                            TypeHelper::string(
+                            (string)TypeHelper::stringOrNull(
                                 ArrayHelper::getValue($dstJson, ['festivals', $splatfestId, $key]),
                             ),
                         ),
                         trim(
-                            TypeHelper::string(
+                            (string)TypeHelper::stringOrNull(
                                 ArrayHelper::getValue($srcJson, ['festivals', $splatfestId, $key]),
                             ),
                         ),
@@ -141,7 +141,7 @@ trait SplatfestMessages
                             $langCode,
                             $category,
                             trim(
-                                TypeHelper::string(
+                                (string)TypeHelper::stringOrNull(
                                     ArrayHelper::getValue(
                                         $dstJson,
                                         ['festivals', $splatfestId, 'teams', $teamIndex, $key],
@@ -149,7 +149,7 @@ trait SplatfestMessages
                                 ),
                             ),
                             trim(
-                                TypeHelper::string(
+                                (string)TypeHelper::stringOrNull(
                                     ArrayHelper::getValue(
                                         $srcJson,
                                         ['festivals', $splatfestId, 'teams', $teamIndex, $key],
