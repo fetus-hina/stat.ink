@@ -160,6 +160,7 @@ return [
     'Seauceur nuancé' => '',
     'Seauceur pétillant' => '',
     'Seauceur trio' => '',
+    'Snipewriter 5B' => '',
     'Transperceur M. Ours Cie' => '',
     'Trisperceur' => '',
     'Trisperceur Abysma' => '',

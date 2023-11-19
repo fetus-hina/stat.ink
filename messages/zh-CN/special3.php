@@ -19,6 +19,7 @@ return [
     'Killer Wail 5.1' => '喇叭镭射5.1ch',
     'Kraken Royale' => '帝王鱿鱼',
     'Reefslider' => '鲨鱼坐骑',
+    'Splattercolor Screen' => '',
     'Super Chump' => '诱饵烟花',
     'Tacticooler' => '能量站',
     'Tenta Missiles' => '多重导弹',

@@ -104,6 +104,7 @@ return [
     'Sloshers' => '슬로셔',
     'Sloshing Machine' => '스크루 슬로셔',
     'Sloshing Machine Neo' => '네오 스크루 슬로셔',
+    'Snipewriter 5B' => '',
     'Snipewriter 5H' => 'R-PEN/5H',
     'Sorella Brella' => '파라 셸터 소렐라',
     'Splash-o-matic' => '샤프 마커',

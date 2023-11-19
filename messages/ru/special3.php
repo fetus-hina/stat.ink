@@ -19,6 +19,7 @@ return [
     'Killer Wail 5.1' => 'Мегалофон 5.1',
     'Kraken Royale' => 'Тираннокракен',
     'Reefslider' => 'Мотокула',
+    'Splattercolor Screen' => '',
     'Super Chump' => 'Суперпрыжатор',
     'Tacticooler' => 'Тоникулер',
     'Tenta Missiles' => 'Каракатница',

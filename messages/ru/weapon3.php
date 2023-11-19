@@ -103,6 +103,7 @@ return [
     'Sloshers' => '',
     'Sloshing Machine' => 'Центрифугер',
     'Sloshing Machine Neo' => 'Центрифугер «Нео»',
+    'Snipewriter 5B' => '',
     'Snipewriter 5H' => 'Патрондаш 5Т',
     'Sorella Brella' => 'Зонтган «Родиччи»',
     'Splash-o-matic' => 'Плюхомет',

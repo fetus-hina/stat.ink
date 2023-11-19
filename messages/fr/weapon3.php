@@ -103,6 +103,7 @@ return [
     'Sloshers' => 'Seauceur',
     'Sloshing Machine' => 'Encrifugeur',
     'Sloshing Machine Neo' => 'Encrifugeur Néo',
+    'Snipewriter 5B' => '',
     'Snipewriter 5H' => 'Crayon X - 5H',
     'Sorella Brella' => 'Para-encre Sorella',
     'Splash-o-matic' => 'Marqueur léger',

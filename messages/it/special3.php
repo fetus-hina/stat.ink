@@ -19,6 +19,7 @@ return [
     'Killer Wail 5.1' => 'Tintofono 5.1',
     'Kraken Royale' => 'Kraken reale',
     'Reefslider' => 'Motosqualo',
+    'Splattercolor Screen' => '',
     'Super Chump' => 'Diversivo esplosivo',
     'Tacticooler' => 'Rinfrigorente',
     'Tenta Missiles' => 'Lanciarazzi',

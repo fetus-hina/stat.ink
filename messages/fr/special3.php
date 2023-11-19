@@ -19,6 +19,7 @@ return [
     'Killer Wail 5.1' => 'Haut-perceur 5.1',
     'Kraken Royale' => 'Kraken royal',
     'Reefslider' => 'Cavalsquale',
+    'Splattercolor Screen' => '',
     'Super Chump' => 'Multi-leurres',
     'Tacticooler' => 'Districool',
     'Tenta Missiles' => 'Multi-missile',

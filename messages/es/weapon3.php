@@ -103,6 +103,7 @@ return [
     'Sloshers' => 'Derramatics',
     'Sloshing Machine' => 'Derramatic centrífugo',
     'Sloshing Machine Neo' => 'Derramatic centrífugo neo',
+    'Snipewriter 5B' => '',
     'Snipewriter 5H' => 'Cargaminas 5H',
     'Sorella Brella' => 'Paratintas B',
     'Splash-o-matic' => 'Marcador fino',

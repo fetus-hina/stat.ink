@@ -11,6 +11,8 @@ declare(strict_types=1);
 namespace app\assets\s3PixelIcons;
 
 use Throwable;
+use Yii;
+use app\components\helpers\TypeHelper;
 use yii\base\InvalidConfigException;
 use yii\web\AssetBundle as BaseAssetBundle;
 use yii\web\ServerErrorHttpException;
@@ -33,6 +35,13 @@ abstract class AssetBundle extends BaseAssetBundle
     public array $fileNameMap = [];
 
     /**
+     * @var string[]
+     */
+    public array $dummyFiles = [];
+
+    private bool $isDummyFilesProcessed = false;
+
+    /**
      * @inheritdoc
      * @return void
      */
@@ -50,55 +59,108 @@ abstract class AssetBundle extends BaseAssetBundle
 
     protected function onAfterCopy(string $from, string $to): void
     {
-        $name = basename($to);
-        $linkNames = $this->fileNameMap[$name] ?? null;
+        Yii::beginProfile("onAfterCopy({$from}, {$to})", __METHOD__);
+        try {
+            $this->makeSymlinks($from, $to);
 
-        if ($linkNames === null) {
-            return;
+            if (!$this->isDummyFilesProcessed) {
+                $this->makeDummyFiles($from, $to);
+                $this->isDummyFilesProcessed = true;
+            }
+        } finally {
+            Yii::endProfile("onAfterCopy({$from}, {$to})", __METHOD__);
         }
+    }
 
-        if (!is_string($linkNames) && !is_array($linkNames)) {
-            throw new InvalidConfigException(
-                'fileNameMap must be array<string, string|string[]>',
-            );
-        }
+    protected function makeSymlinks(string $from, string $to): void
+    {
+        Yii::beginProfile("makeSymlinks({$from}, {$to})", __METHOD__);
+        try {
+            $name = basename($to);
+            $linkNames = $this->fileNameMap[$name] ?? null;
 
-        foreach ((array)$linkNames as $linkName) {
-            if (!is_string($linkName)) {
+            if ($linkNames === null) {
+                return;
+            }
+
+            if (!is_string($linkNames) && !is_array($linkNames)) {
                 throw new InvalidConfigException(
                     'fileNameMap must be array<string, string|string[]>',
                 );
             }
 
-            if (is_string($linkName) && !file_exists(dirname($to) . '/' . $linkName)) {
+            foreach ((array)$linkNames as $linkName) {
+                if (!is_string($linkName)) {
+                    throw new InvalidConfigException(
+                        'fileNameMap must be array<string, string|string[]>',
+                    );
+                }
+
+                if (is_string($linkName)) {
+                    $this->makeSymlink(
+                        dirname($to),
+                        $name,
+                        $linkName,
+                    );
+                }
+            }
+        } finally {
+            Yii::endProfile("makeSymlinks({$from}, {$to})", __METHOD__);
+        }
+    }
+
+    protected function makeDummyFiles(string $from, string $to): void
+    {
+        Yii::beginProfile("makeDummyFiles({$from}, {$to})", __METHOD__);
+        try {
+            if (!$this->dummyFiles) {
+                return;
+            }
+
+            $dummyLinkTo = TypeHelper::string(Yii::getAlias('@app/resources/stat.ink/1x1.png'));
+            foreach ($this->dummyFiles as $dummyFile) {
                 $this->makeSymlink(
                     dirname($to),
-                    $name,
-                    $linkName,
+                    $dummyLinkTo,
+                    $dummyFile,
                 );
             }
+        } finally {
+            Yii::endProfile("makeDummyFiles({$from}, {$to})", __METHOD__);
         }
     }
 
     protected function makeSymlink(string $directory, string $from, string $to): void
     {
-        $cwd = getcwd();
-        if (!@chdir($directory)) {
-            throw new ServerErrorHttpException(
-                "Could not chdir to {$directory}",
-            );
-        }
-
+        Yii::beginProfile("symlink({$from}, {$to})", __METHOD__);
         try {
-            // マルチスレッドで実行した際にはここが失敗するらしいので、
-            // 一旦例外を受け取ってから実際にリンクが張られているかどうかを確認する
-            symlink($from, $to);
-        } catch (Throwable $e) {
-            if (!is_link($to)) {
-                throw $e;
+            $cwd = getcwd();
+            if (!@chdir($directory)) {
+                throw new ServerErrorHttpException(
+                    "Could not chdir to {$directory}",
+                );
+            }
+
+            try {
+                if (file_exists($to)) {
+                    Yii::info("Skip create symlink: {$from} -> {$to} ({$directory})", __METHOD__);
+                    return;
+                }
+
+                // マルチスレッドで実行した際にはここが失敗するらしいので、
+                // 一旦例外を受け取ってから実際にリンクが張られているかどうかを確認する
+                symlink($from, $to);
+
+                Yii::info("Created symlink: {$from} -> {$to} ({$directory})", __METHOD__);
+            } catch (Throwable $e) {
+                if (!is_link($to)) {
+                    throw $e;
+                }
+            } finally {
+                @chdir($cwd);
             }
         } finally {
-            @chdir($cwd);
+            Yii::endProfile("symlink({$from}, {$to})", __METHOD__);
         }
     }
 }

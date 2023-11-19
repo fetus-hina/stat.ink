@@ -156,6 +156,7 @@ return [
     'Slosher Deco' => '',
     'Sloshing Machine' => '',
     'Sloshing Machine Neo' => '',
+    'Snipewriter 5B' => '',
     'Snipewriter 5H' => '',
     'Soda Slosher' => '',
     'Sorella Brella' => '',

@@ -103,6 +103,7 @@ return [
     'Sloshers' => '',
     'Sloshing Machine' => 'Secchiostro centrifuga',
     'Sloshing Machine Neo' => 'Secchiostro centrifuga Neo',
+    'Snipewriter 5B' => '',
     'Snipewriter 5H' => 'Lapis cecchino 5H',
     'Sorella Brella' => 'Sparasole Solerra',
     'Splash-o-matic' => 'Marker d\'assalto',

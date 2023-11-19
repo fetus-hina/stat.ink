@@ -103,6 +103,7 @@ return [
     'Sloshers' => '',
     'Sloshing Machine' => 'Klotstrommel',
     'Sloshing Machine Neo' => 'Klotstrommel Neo',
+    'Snipewriter 5B' => '',
     'Snipewriter 5H' => 'Schotlood 5H',
     'Sorella Brella' => 'Sorella Plenzer',
     'Splash-o-matic' => 'Spetterspuit',

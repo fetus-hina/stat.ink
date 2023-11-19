@@ -168,6 +168,7 @@ return [
     'Salpicadora 2000 Tonken' => '',
     'Salpicadora 3000' => '',
     'Salpicadora 3000 chic' => '',
+    'Snipewriter 5B' => '',
     'Soplador doble' => '',
     'Soplador doble adaptado' => '',
     'Soplador dual' => '',

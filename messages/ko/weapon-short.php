@@ -97,6 +97,7 @@ return [
     'R-PEN/5H' => '',
     'Refurbished Mini Splatling' => '',
     'S-BLAST92' => '',
+    'Snipewriter 5B' => '',
     'Soda Slosher' => '',
     'Sploosh-o-matic 7' => '',
     'Tempered Dynamo Roller' => '',

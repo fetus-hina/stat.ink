@@ -219,6 +219,7 @@ return [
     'Slosher Deco' => '',
     'Sloshing Machine' => '',
     'Sloshing Machine Neo' => '',
+    'Snipewriter 5B' => '',
     'Soda Slosher' => '',
     'Sorella-Camp-Pluviator' => '',
     'Sorella-Parapluviator' => '',

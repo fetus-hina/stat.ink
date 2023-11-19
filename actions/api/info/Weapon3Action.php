@@ -29,6 +29,7 @@ use function strcmp;
 use function strnatcasecmp;
 use function version_compare;
 
+use const SORT_ASC;
 use const SORT_DESC;
 
 final class Weapon3Action extends Action
@@ -67,17 +68,10 @@ final class Weapon3Action extends Action
 
     private function getSpecials(): array
     {
-        return ArrayHelper::sort(
-            Special3::find()->with(['special3Aliases'])->all(),
-            function (Special3 $a, Special3 $b): int {
-                $aN = Yii::t('app-special3', $a->name);
-                $bN = Yii::t('app-special3', $b->name);
-                return strnatcasecmp($aN, $bN)
-                    ?: strcmp($aN, $bN)
-                    ?: strnatcasecmp($a->name, $b->name)
-                    ?: strcmp($a->name, $b->name);
-            },
-        );
+        return Special3::find()
+            ->with(['special3Aliases'])
+            ->orderBy(['rank' => SORT_ASC])
+            ->all();
     }
 
     private function getSubweapons(): array

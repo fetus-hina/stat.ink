@@ -19,6 +19,7 @@ return [
     'Killer Wail 5.1' => 'Heulboje 5.1',
     'Kraken Royale' => 'Tintentyrann',
     'Reefslider' => 'Haihammer',
+    'Splattercolor Screen' => '',
     'Super Chump' => 'Bluffbomber',
     'Tacticooler' => 'Tranktank',
     'Tenta Missiles' => 'Schwarmraketen',
