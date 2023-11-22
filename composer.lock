@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "00499dc58c1dcbe01726f5df35b18241",
+    "content-hash": "97513174f39600d15c2e1f4fb59ac517",
     "packages": [
         {
             "name": "arokettu/random-polyfill",
@@ -1491,16 +1491,16 @@
         },
         {
             "name": "laminas/laminas-validator",
-            "version": "2.42.0",
+            "version": "2.43.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-validator.git",
-                "reference": "a5221732b2ff6df59908bbf2eb274ed3688665bc"
+                "reference": "8f6c2f5753dec64df924a86d18036113f3140f2b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-validator/zipball/a5221732b2ff6df59908bbf2eb274ed3688665bc",
-                "reference": "a5221732b2ff6df59908bbf2eb274ed3688665bc",
+                "url": "https://api.github.com/repos/laminas/laminas-validator/zipball/8f6c2f5753dec64df924a86d18036113f3140f2b",
+                "reference": "8f6c2f5753dec64df924a86d18036113f3140f2b",
                 "shasum": ""
             },
             "require": {
@@ -1571,20 +1571,20 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2023-11-06T09:13:00+00:00"
+            "time": "2023-11-20T01:23:15+00:00"
         },
         {
             "name": "lipis/flag-icons",
-            "version": "v6.12.0",
+            "version": "v7.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lipis/flag-icons.git",
-                "reference": "65b155999a5386443c390d5eec21e47e7fbce026"
+                "reference": "42093e73487f4bfcc57ab61de8b1f99eccf49243"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lipis/flag-icons/zipball/65b155999a5386443c390d5eec21e47e7fbce026",
-                "reference": "65b155999a5386443c390d5eec21e47e7fbce026",
+                "url": "https://api.github.com/repos/lipis/flag-icons/zipball/42093e73487f4bfcc57ab61de8b1f99eccf49243",
+                "reference": "42093e73487f4bfcc57ab61de8b1f99eccf49243",
                 "shasum": ""
             },
             "type": "library",
@@ -1610,9 +1610,9 @@
             ],
             "support": {
                 "issues": "https://github.com/lipis/flag-icons/issues",
-                "source": "https://github.com/lipis/flag-icons/tree/v6.12.0"
+                "source": "https://github.com/lipis/flag-icons/tree/v7.0.2"
             },
-            "time": "2023-11-03T16:10:03+00:00"
+            "time": "2023-11-18T09:24:51+00:00"
         },
         {
             "name": "lusitanian/oauth",
@@ -3956,16 +3956,16 @@
         },
         {
             "name": "twbs/bootstrap-icons",
-            "version": "v1.11.1",
+            "version": "v1.11.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/icons.git",
-                "reference": "8d7bc695fb407627378cb184976b348e6a128d59"
+                "reference": "108565f11f099f177b31929e3eafc2c8d497fcd1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/icons/zipball/8d7bc695fb407627378cb184976b348e6a128d59",
-                "reference": "8d7bc695fb407627378cb184976b348e6a128d59",
+                "url": "https://api.github.com/repos/twbs/icons/zipball/108565f11f099f177b31929e3eafc2c8d497fcd1",
+                "reference": "108565f11f099f177b31929e3eafc2c8d497fcd1",
                 "shasum": ""
             },
             "type": "library",
@@ -3989,9 +3989,9 @@
             ],
             "support": {
                 "issues": "https://github.com/twbs/icons/issues",
-                "source": "https://github.com/twbs/icons/tree/v1.11.1"
+                "source": "https://github.com/twbs/icons/tree/v1.11.2"
             },
-            "time": "2023-09-17T14:09:28+00:00"
+            "time": "2023-11-21T20:06:00+00:00"
         },
         {
             "name": "yiisoft/yii2",
@@ -6030,16 +6030,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.42",
+            "version": "1.10.44",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "fc2316508de5453140b5cb3d3f8683a33e92f26a"
+                "reference": "bf84367c53a23f759513985c54ffe0d0c249825b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/fc2316508de5453140b5cb3d3f8683a33e92f26a",
-                "reference": "fc2316508de5453140b5cb3d3f8683a33e92f26a",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/bf84367c53a23f759513985c54ffe0d0c249825b",
+                "reference": "bf84367c53a23f759513985c54ffe0d0c249825b",
                 "shasum": ""
             },
             "require": {
@@ -6088,7 +6088,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-11-17T15:26:57+00:00"
+            "time": "2023-11-21T16:30:46+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -8516,16 +8516,16 @@
         },
         {
             "name": "theseer/tokenizer",
-            "version": "1.2.1",
+            "version": "1.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/theseer/tokenizer.git",
-                "reference": "34a41e998c2183e22995f158c581e7b5e755ab9e"
+                "reference": "b2ad5003ca10d4ee50a12da31de12a5774ba6b96"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/theseer/tokenizer/zipball/34a41e998c2183e22995f158c581e7b5e755ab9e",
-                "reference": "34a41e998c2183e22995f158c581e7b5e755ab9e",
+                "url": "https://api.github.com/repos/theseer/tokenizer/zipball/b2ad5003ca10d4ee50a12da31de12a5774ba6b96",
+                "reference": "b2ad5003ca10d4ee50a12da31de12a5774ba6b96",
                 "shasum": ""
             },
             "require": {
@@ -8554,7 +8554,7 @@
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",
             "support": {
                 "issues": "https://github.com/theseer/tokenizer/issues",
-                "source": "https://github.com/theseer/tokenizer/tree/1.2.1"
+                "source": "https://github.com/theseer/tokenizer/tree/1.2.2"
             },
             "funding": [
                 {
@@ -8562,7 +8562,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-07-28T10:34:58+00:00"
+            "time": "2023-11-20T00:12:19+00:00"
         },
         {
             "name": "yiisoft/yii2-debug",
