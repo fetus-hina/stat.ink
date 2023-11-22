@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cf27890b392c836742942837b77ce009",
+    "content-hash": "94d4138a5d700a98f1ff701c6d279907",
     "packages": [
         {
             "name": "arokettu/random-polyfill",
@@ -1575,16 +1575,16 @@
         },
         {
             "name": "lipis/flag-icons",
-            "version": "v6.12.0",
+            "version": "v7.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lipis/flag-icons.git",
-                "reference": "65b155999a5386443c390d5eec21e47e7fbce026"
+                "reference": "42093e73487f4bfcc57ab61de8b1f99eccf49243"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lipis/flag-icons/zipball/65b155999a5386443c390d5eec21e47e7fbce026",
-                "reference": "65b155999a5386443c390d5eec21e47e7fbce026",
+                "url": "https://api.github.com/repos/lipis/flag-icons/zipball/42093e73487f4bfcc57ab61de8b1f99eccf49243",
+                "reference": "42093e73487f4bfcc57ab61de8b1f99eccf49243",
                 "shasum": ""
             },
             "type": "library",
@@ -1610,9 +1610,9 @@
             ],
             "support": {
                 "issues": "https://github.com/lipis/flag-icons/issues",
-                "source": "https://github.com/lipis/flag-icons/tree/v6.12.0"
+                "source": "https://github.com/lipis/flag-icons/tree/v7.0.2"
             },
-            "time": "2023-11-03T16:10:03+00:00"
+            "time": "2023-11-18T09:24:51+00:00"
         },
         {
             "name": "lusitanian/oauth",
