@@ -74,8 +74,8 @@ $salmonIcon = Icon::s3Salmon();
 <?php if ($i === 0) { ?>
         <th data-sort="string"><?= Html::encode(Yii::t('app', 'Weapon (Short)')) ?></th>
         <th data-sort="string"><?= Html::encode(Yii::t('app', 'Main Weapon')) ?></th>
-        <th data-sort="string"></th>
-        <th data-sort="string"></th>
+        <th data-sort="int"></th>
+        <th data-sort="int"></th>
 <?php } ?>
 <?php } ?>
         <th data-sort="int"><?= Html::encode(Yii::t('app', 'Released')) ?></th>
@@ -158,10 +158,20 @@ $salmonIcon = Icon::s3Salmon();
         <?= Html::tag(
           'td',
           Icon::s3Subweapon($weapon->subweapon),
+          [
+            'data' => [
+              'sort-value' => $weapon?->subweapon?->rank ?? -1,
+            ],
+          ],
         ) . "\n" ?>
         <?= Html::tag(
           'td',
           Icon::s3Special($weapon->special),
+          [
+            'data' => [
+              'sort-value' => $weapon?->special?->rank ?? -1,
+            ],
+          ],
         ) . "\n" ?>
 <?php } ?>
 <?php } ?>
