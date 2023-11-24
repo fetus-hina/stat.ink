@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -19,6 +19,7 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property string $key
  * @property string $name
+ * @property integer $rank
  *
  * @property Subweapon3Alias[] $subweapon3Aliases
  * @property Weapon3[] $weapon3s
@@ -33,11 +34,14 @@ class Subweapon3 extends ActiveRecord
     public function rules()
     {
         return [
-            [['key', 'name'], 'required'],
+            [['key', 'name', 'rank'], 'required'],
+            [['rank'], 'default', 'value' => null],
+            [['rank'], 'integer'],
             [['key'], 'string', 'max' => 32],
             [['name'], 'string', 'max' => 48],
             [['key'], 'unique'],
             [['name'], 'unique'],
+            [['rank'], 'unique'],
         ];
     }
 
@@ -47,6 +51,7 @@ class Subweapon3 extends ActiveRecord
             'id' => 'ID',
             'key' => 'Key',
             'name' => 'Name',
+            'rank' => 'Rank',
         ];
     }
 
