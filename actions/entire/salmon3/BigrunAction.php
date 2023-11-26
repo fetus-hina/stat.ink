@@ -128,7 +128,7 @@ final class BigrunAction extends Action
                 (float)$abstract->stddev,
             );
             $estimatedDistrib = self::estimatedDistrib($schedule->bigrunOfficialResult3);
-            $ruleOfThumbDistrib = self::ruleOfThumbDistrib($abstract);
+            $ruleOfThumbDistrib = self::ruleOfThumbDistrib($jobAbstract);
             $chartMax = max(array_keys($histogram));
         }
 
@@ -171,7 +171,7 @@ final class BigrunAction extends Action
     }
 
     private static function ruleOfThumbDistrib(
-        StatBigrunDistribUserAbstract3 $abstract,
+        StatBigrunDistribJobAbstract3 $abstract,
     ): ?NormalDistribution {
         if (
             $abstract->users < 50 ||
@@ -195,8 +195,8 @@ final class BigrunAction extends Action
         assert(abs($z5 - $z20) > 0.000001);
         assert(abs($z5) > 0.000001);
 
-        $n5 = $abstract->p80;
-        $n20 = $abstract->p50;
+        $n5 = $abstract->p95;
+        $n20 = $abstract->p80;
         $estimatedAverage = ($z5 * $n20 - $z20 * $n5) / ($z5 - $z20);
 
         return new NormalDistribution(
