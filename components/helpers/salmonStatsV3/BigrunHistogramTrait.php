@@ -167,6 +167,25 @@ trait BigrunHistogramTrait
             '{{%salmon3}}.[[golden_eggs]]',
         );
 
+        $columnJobs = fn (int $clearWaves): string => vsprintf('SUM(CASE %s END)', [
+            implode(' ', [
+                "WHEN {{%salmon3}}.[[clear_waves]] = {$clearWaves} THEN 1",
+                'ELSE 0',
+            ]),
+        ]);
+        $columnAvg = fn (int $clearWaves): string => vsprintf('AVG(CASE %s END)', [
+            implode(' ', [
+                "WHEN {{%salmon3}}.[[clear_waves]] = {$clearWaves} THEN {{%salmon3}}.[[golden_eggs]]",
+                'ELSE NULL',
+            ]),
+        ]);
+        $columnSD = fn (int $clearWaves): string => vsprintf('STDDEV_SAMP(CASE %s END)', [
+            implode(' ', [
+                "WHEN {{%salmon3}}.[[clear_waves]] = {$clearWaves} THEN {{%salmon3}}.[[golden_eggs]]",
+                'ELSE NULL',
+            ]),
+        ]);
+
         $select = (new Query())
             ->select([
                 'schedule_id' => '{{%salmon3}}.[[schedule_id]]',
@@ -174,24 +193,18 @@ trait BigrunHistogramTrait
                 'jobs' => 'COUNT(*)',
                 'average' => 'AVG({{%salmon3}}.[[golden_eggs]])',
                 'stddev' => 'STDDEV_SAMP({{%salmon3}}.[[golden_eggs]])',
-                'clear_jobs' => vsprintf('SUM(CASE %s END)', [
-                    implode(' ', [
-                        'WHEN {{%salmon3}}.[[clear_waves]] = 3 THEN 1',
-                        'ELSE 0',
-                    ]),
-                ]),
-                'clear_average' => vsprintf('AVG(CASE %s END)', [
-                    implode(' ', [
-                        'WHEN {{%salmon3}}.[[clear_waves]] = 3 THEN {{%salmon3}}.[[golden_eggs]]',
-                        'ELSE NULL',
-                    ]),
-                ]),
-                'clear_stddev' => vsprintf('STDDEV_SAMP(CASE %s END)', [
-                    implode(' ', [
-                        'WHEN {{%salmon3}}.[[clear_waves]] = 3 THEN {{%salmon3}}.[[golden_eggs]]',
-                        'ELSE NULL',
-                    ]),
-                ]),
+                'clear_jobs' => $columnJobs(3),
+                'clear_average' => $columnAvg(3),
+                'clear_stddev' => $columnSD(3),
+                'w1_failed_jobs' => $columnJobs(0),
+                'w1_failed_average' => $columnAvg(0),
+                'w1_failed_stddev' => $columnSD(0),
+                'w2_failed_jobs' => $columnJobs(1),
+                'w2_failed_average' => $columnAvg(1),
+                'w2_failed_stddev' => $columnSD(1),
+                'w3_failed_jobs' => $columnJobs(2),
+                'w3_failed_average' => $columnAvg(2),
+                'w3_failed_stddev' => $columnSD(2),
                 'min' => 'MIN({{%salmon3}}.[[golden_eggs]])',
                 'p05' => $p(0.05),
                 'p25' => $p(0.25),

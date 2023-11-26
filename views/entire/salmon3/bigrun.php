@@ -124,7 +124,7 @@ $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
     <?= $this->render('bigrun/abstract', [
       'model' => $abstract,
       'official' => $schedule->bigrunOfficialResult3,
-      'ruleOfThumbDistrib' => null,
+      'ruleOfThumbDistrib' => $ruleOfThumbDistrib,
     ]) . "\n" ?>
 
     <div class="row">
