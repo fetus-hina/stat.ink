@@ -20,6 +20,7 @@ return [
     'Griller' => 'жаровнер',
     'Horrorboros' => 'скверноборос',
     'Maws' => 'Жуй-Горбуш',
+    'Megalodontia' => '',
     'Mothership' => 'Нерестилище',
     'Mudmouth' => 'илистый ревун',
     'Scrapper' => 'кетанкист',

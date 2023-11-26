@@ -834,6 +834,8 @@ final class Icon
                     ->cache(86400)
                     ->one(),
 
+                'jaw' => null, // TODO: until Megalodontia is implemented
+
                 default => SalmonBoss3::find()
                     ->andWhere(['key' => $boss])
                     ->limit(1)
@@ -844,6 +846,7 @@ final class Icon
 
         if (
             $boss === null ||
+            $boss->key === 'jaw' || // TODO: until Megalodontia is implemented
             $boss->key === 'hakobiya' ||
             $boss->key === 'shake_copter'
         ) {

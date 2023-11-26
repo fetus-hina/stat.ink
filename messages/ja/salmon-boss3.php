@@ -20,6 +20,7 @@ return [
     'Griller' => 'グリル',
     'Horrorboros' => 'タツ',
     'Maws' => 'モグラ',
+    'Megalodontia' => 'ジョー',
     'Mothership' => 'ハコビヤ',
     'Mudmouth' => 'ドロシャケ',
     'Scrapper' => 'テッパン',
