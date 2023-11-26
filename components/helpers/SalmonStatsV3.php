@@ -85,4 +85,12 @@ final class SalmonStatsV3
 
         return true;
     }
+
+    public static function updateBigrunHistogram(): bool
+    {
+        return Yii::$app->db->transaction(
+            fn (Connection $db): bool => self::createBigrunHistogramStats($db, true),
+            Transaction::REPEATABLE_READ,
+        );
+    }
 }

@@ -69,46 +69,62 @@ $makeDistributionData = function (float $average, float $stddev, int $samples, i
   return $results;
 };
 
-$datasetNormalDistrib = [
-  'backgroundColor' => [ new JsExpression('window.colorScheme.graph1') ],
-  'borderColor' => [ new JsExpression('window.colorScheme.graph1') ],
-  'borderWidth' => 2,
-  'data' => $makeDistributionData(
-    average: $abstract->average,
-    stddev: $abstract->stddev,
-    samples: $abstract->jobs,
-    dataStep: $abstract->histogram_width,
-  ),
-  'label' => Yii::t('app', 'Normal Distribution'),
-  'pointRadius' => 0,
-  'type' => 'line',
-];
+$makeWaveDistributionData = function (
+  StatBigrunDistribJobAbstract3 $abstract,
+  int $failedWave,
+  string $prefix,
+) use ($makeDistributionData): ?array {
+  if (
+    $abstract->{$prefix . '_jobs'} >= 10 &&
+    $abstract->{$prefix . '_average'} !== null &&
+    $abstract->{$prefix . '_stddev'} !== null &&
+    $abstract->{$prefix . '_stddev'} > 0
+  ) {
+    $color = $failedWave > 3
+      ? new JsExpression('window.colorScheme.graph1')
+      : new JsExpression('window.colorScheme._gray.black');
+    return [
+      'backgroundColor' => [ $color ],
+      'borderColor' => [ $color ],
+      'borderWidth' => $failedWave > 3 ? 2 : 1,
+      'data' => $makeDistributionData(
+        average: $abstract->{$prefix . '_average'},
+        stddev: $abstract->{$prefix . '_stddev'},
+        samples: $abstract->{$prefix . '_jobs'},
+        dataStep: $abstract->histogram_width,
+      ),
+      'label' => $failedWave > 3
+        ? Yii::t('app-salmon2', 'Cleared')
+        : Yii::t('app-salmon2', 'Failed in wave {waveNumber}', [
+          'waveNumber' => $failedWave,
+        ]),
+      'pointRadius' => 0,
+      'type' => 'line',
+    ];
+  }
 
-$datasetClearedDistrib = null;
-if (
-    $abstract->clear_jobs >= 10 &&
-    $abstract->clear_average !== null &&
-    $abstract->clear_stddev !== null &&
-    $abstract->clear_stddev > 0
-) {
-  $datasetClearedDistrib = [
-    'backgroundColor' => [ new JsExpression('window.colorScheme._accent.sky') ],
-    'borderColor' => [ new JsExpression('window.colorScheme._accent.sky') ],
-    'borderWidth' => 2,
-    'data' => $makeDistributionData(
-      average: $abstract->clear_average,
-      stddev: $abstract->clear_stddev,
-      samples: $abstract->clear_jobs,
-      dataStep: $abstract->histogram_width,
-    ),
-    'label' => vsprintf('%s (%s)', [
-      Yii::t('app', 'Normal Distribution'),
-      Yii::t('app-salmon2', 'Cleared'),
-    ]),
-    'pointRadius' => 0,
-    'type' => 'line',
-  ];
-}
+  return null;
+};
+
+// $datasetNormalDistrib = [
+//   'backgroundColor' => [ new JsExpression('window.colorScheme.graph1') ],
+//   'borderColor' => [ new JsExpression('window.colorScheme.graph1') ],
+//   'borderWidth' => 2,
+//   'data' => $makeDistributionData(
+//     average: $abstract->average,
+//     stddev: $abstract->stddev,
+//     samples: $abstract->jobs,
+//     dataStep: $abstract->histogram_width,
+//   ),
+//   'label' => Yii::t('app', 'Normal Distribution'),
+//   'pointRadius' => 0,
+//   'type' => 'line',
+// ];
+
+$datasetW1FailedDistrib = $makeWaveDistributionData($abstract, 1, 'w1_failed');
+$datasetW2FailedDistrib = $makeWaveDistributionData($abstract, 2, 'w2_failed');
+$datasetW3FailedDistrib = $makeWaveDistributionData($abstract, 3, 'w3_failed');
+$datasetClearedDistrib = $makeWaveDistributionData($abstract, 4, 'clear');
 
 ?>
 <?= Html::tag('div', '', [
@@ -119,8 +135,11 @@ if (
         'datasets' => array_values(
           array_filter(
             [
+              $datasetW1FailedDistrib,
+              $datasetW2FailedDistrib,
+              $datasetW3FailedDistrib,
               $datasetClearedDistrib,
-              $datasetNormalDistrib,
+              // $datasetNormalDistrib,
               $datasetHistogram,
             ],
           ),

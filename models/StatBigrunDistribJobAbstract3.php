@@ -33,6 +33,15 @@ use yii\db\ActiveRecord;
  * @property integer $p95
  * @property integer $max
  * @property integer $histogram_width
+ * @property integer $w1_failed_jobs
+ * @property double $w1_failed_average
+ * @property double $w1_failed_stddev
+ * @property integer $w2_failed_jobs
+ * @property double $w2_failed_average
+ * @property double $w2_failed_stddev
+ * @property integer $w3_failed_jobs
+ * @property double $w3_failed_average
+ * @property double $w3_failed_stddev
  *
  * @property SalmonSchedule3 $schedule
  */
@@ -47,9 +56,9 @@ class StatBigrunDistribJobAbstract3 extends ActiveRecord
     {
         return [
             [['schedule_id', 'users', 'jobs', 'average', 'clear_jobs'], 'required'],
-            [['schedule_id', 'users', 'jobs', 'clear_jobs', 'min', 'p05', 'p25', 'p50', 'p75', 'p80', 'p95', 'max', 'histogram_width'], 'default', 'value' => null],
-            [['schedule_id', 'users', 'jobs', 'clear_jobs', 'min', 'p05', 'p25', 'p50', 'p75', 'p80', 'p95', 'max', 'histogram_width'], 'integer'],
-            [['average', 'stddev', 'clear_average', 'clear_stddev'], 'number'],
+            [['schedule_id', 'users', 'jobs', 'clear_jobs', 'min', 'p05', 'p25', 'p50', 'p75', 'p80', 'p95', 'max', 'histogram_width', 'w1_failed_jobs', 'w2_failed_jobs', 'w3_failed_jobs'], 'default', 'value' => null],
+            [['schedule_id', 'users', 'jobs', 'clear_jobs', 'min', 'p05', 'p25', 'p50', 'p75', 'p80', 'p95', 'max', 'histogram_width', 'w1_failed_jobs', 'w2_failed_jobs', 'w3_failed_jobs'], 'integer'],
+            [['average', 'stddev', 'clear_average', 'clear_stddev', 'w1_failed_average', 'w1_failed_stddev', 'w2_failed_average', 'w2_failed_stddev', 'w3_failed_average', 'w3_failed_stddev'], 'number'],
             [['schedule_id'], 'unique'],
             [['schedule_id'], 'exist', 'skipOnError' => true, 'targetClass' => SalmonSchedule3::class, 'targetAttribute' => ['schedule_id' => 'id']],
         ];
@@ -75,6 +84,15 @@ class StatBigrunDistribJobAbstract3 extends ActiveRecord
             'p95' => 'P95',
             'max' => 'Max',
             'histogram_width' => 'Histogram Width',
+            'w1_failed_jobs' => 'W1 Failed Jobs',
+            'w1_failed_average' => 'W1 Failed Average',
+            'w1_failed_stddev' => 'W1 Failed Stddev',
+            'w2_failed_jobs' => 'W2 Failed Jobs',
+            'w2_failed_average' => 'W2 Failed Average',
+            'w2_failed_stddev' => 'W2 Failed Stddev',
+            'w3_failed_jobs' => 'W3 Failed Jobs',
+            'w3_failed_average' => 'W3 Failed Average',
+            'w3_failed_stddev' => 'W3 Failed Stddev',
         ];
     }
 
