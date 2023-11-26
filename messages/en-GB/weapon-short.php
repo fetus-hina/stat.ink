@@ -153,6 +153,7 @@ return [
     'REEF-LUX 450' => '',
     'REEF-LUX 450 Deco' => '',
     'Refurbished Mini Splatling' => '',
+    'S-BLAST \'91' => '',
     'S-BLAST \'92' => '',
     'Slosher' => '',
     'Slosher Deco' => '',

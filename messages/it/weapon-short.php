@@ -170,6 +170,7 @@ return [
     'Rullo splat logo' => '',
     'Rullo splat Nero Marlin' => '',
     'Rullo élite replica' => '',
+    'S-BLAST91' => '',
     'S-BLAST92' => '',
     'Secchiapavimenti' => '',
     'Secchiostro' => '',

@@ -99,6 +99,7 @@ return [
     'Rapid Blaster Pro' => 'Rブラスターエリート',
     'Rapid Blaster' => 'ラピッドブラスター',
     'Rollers' => 'ローラー',
+    'S-BLAST \'91' => 'S-BLAST91',
     'S-BLAST \'92' => 'S-BLAST92',
     'Shooters' => 'シューター',
     'Slosher Deco' => 'バケットスロッシャーデコ',

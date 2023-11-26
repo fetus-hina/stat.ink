@@ -20,6 +20,7 @@ return [
     'Griller' => '그릴',
     'Horrorboros' => '용',
     'Maws' => '두더지',
+    'Megalodontia' => '',
     'Mothership' => '운반함',
     'Mudmouth' => '진흙연어',
     'Scrapper' => '철판',

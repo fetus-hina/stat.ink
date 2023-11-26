@@ -53,6 +53,7 @@ return [
     'Cargatintas Ezkkor' => '',
     'Cargatintas picnic' => '',
     'Corrigetintas' => '',
+    'D-VAST 91' => '',
     'D-VAST 92' => '',
     'Derramatic' => '',
     'Derramatic baño' => '',

@@ -158,6 +158,7 @@ return [
     'Rouleau K' => '',
     'Rouleau large' => '',
     'Rouleau large Xpress' => '',
+    'S-Blaster \'91' => '',
     'S-Blaster \'92' => '',
     'Seau M. Ours SA' => '',
     'Seau S-Horreur' => '',

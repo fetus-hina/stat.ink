@@ -20,6 +20,7 @@ return [
     'Griller' => 'Griller',
     'Horrorboros' => 'Horrorboros',
     'Maws' => 'Maws',
+    'Megalodontia' => '',
     'Mothership' => '',
     'Mudmouth' => 'Mudmouth',
     'Scrapper' => 'Scrapper',

@@ -88,6 +88,7 @@ return [
     'Grizzco Slosher' => '',
     'Hiperlanzamotas' => '',
     'Hiperlanzamotas neo' => '',
+    'L-MOT 91' => '',
     'L-MOT 92' => '',
     'Lanzamotas' => '',
     'Lanzamotas adaptado' => '',
