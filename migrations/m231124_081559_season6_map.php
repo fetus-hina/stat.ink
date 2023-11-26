@@ -8,8 +8,8 @@
 
 declare(strict_types=1);
 
-use app\components\db\Migration;
 use app\components\db\AutoKey;
+use app\components\db\Migration;
 
 final class m231124_081559_season6_map extends Migration
 {
