@@ -101,6 +101,7 @@ return [
     'REEF-LUX 450' => 'LACT-450',
     'REEF-LUX 450 Deco' => '',
     'Rollers' => '滚筒',
+    'S-BLAST \'91' => 'S-BLAST91',
     'S-BLAST \'92' => 'S-BLAST92',
     'Shooters' => '射击枪',
     'Slosher' => '飞溅泼桶',

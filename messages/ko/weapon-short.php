@@ -98,6 +98,7 @@ return [
     'R-PEN/5H' => '',
     'REEF-LUX 450 Deco' => '',
     'Refurbished Mini Splatling' => '',
+    'S-BLAST91' => '',
     'S-BLAST92' => '',
     'Snipewriter 5B' => '',
     'Soda Slosher' => '',

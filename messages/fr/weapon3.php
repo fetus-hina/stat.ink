@@ -99,6 +99,7 @@ return [
     'REEF-LUX 450' => 'Coralux 450',
     'REEF-LUX 450 Deco' => '',
     'Rollers' => 'Rouleau',
+    'S-BLAST \'91' => 'S-Blaster \'91',
     'S-BLAST \'92' => 'S-Blaster \'92',
     'Shooters' => 'Lanceur',
     'Slosher' => 'Seauceur',

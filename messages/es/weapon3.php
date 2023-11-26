@@ -99,6 +99,7 @@ return [
     'REEF-LUX 450' => 'AR-CR0 450',
     'REEF-LUX 450 Deco' => '',
     'Rollers' => 'Rodillos',
+    'S-BLAST \'91' => 'D-VAST 91',
     'S-BLAST \'92' => 'D-VAST 92',
     'Shooters' => 'Lanzatintas',
     'Slosher' => 'Derramatic',

@@ -34,6 +34,7 @@ return [
     'Painbrush Nouveau' => '',
     'R-PEN/5H' => '',
     'REEF-LUX 450 Deco' => '',
+    'S-BLAST91' => '',
     'S-BLAST92' => '',
     'Snipewriter 5B' => '',
     'Undercover Sorella Brella' => '',

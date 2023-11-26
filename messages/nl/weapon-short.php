@@ -193,6 +193,7 @@ return [
     'REEF-LUX 450 Deco' => '',
     'Refurbished Mini Splatling' => '',
     'RIF-LEX 450' => '',
+    'S-BLAST \'91' => '',
     'S-BLAST \'92' => '',
     'Schelpschutter' => '',
     'Schotlood 5H' => '',
