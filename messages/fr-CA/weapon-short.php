@@ -164,6 +164,7 @@ return [
     'Seauceur pétillant' => '',
     'Seauceur trio' => '',
     'Snipewriter 5B' => '',
+    'Splatana Stamper Nouveau' => '',
     'Transperceur M. Ours Cie' => '',
     'Trisperceur' => '',
     'Trisperceur Abysma' => '',

@@ -114,6 +114,7 @@ return [
     'Splash-o-matic' => '샤프 마커',
     'Splatanas' => '와이퍼',
     'Splatana Stamper' => '사무 와이퍼',
+    'Splatana Stamper Nouveau' => '',
     'Splatana Wiper' => '드라이브 와이퍼',
     'Splatana Wiper Deco' => '드라이브 와이퍼 데코',
     'Splat Brella' => '파라 셸터',

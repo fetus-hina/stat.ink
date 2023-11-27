@@ -113,6 +113,7 @@ return [
     'Splash-o-matic' => 'Spetterspuit',
     'Splatanas' => '',
     'Splatana Stamper' => 'Stempelzwieper',
+    'Splatana Stamper Nouveau' => '',
     'Splatana Wiper' => 'Wisserbladzwieper',
     'Splatana Wiper Deco' => 'Wisserbladzwieper Deco',
     'Splat Brella' => 'Plenzer',

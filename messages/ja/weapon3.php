@@ -115,6 +115,7 @@ return [
     'Splat Charger' => 'スプラチャージャー',
     'Splat Dualies' => 'スプラマニューバー',
     'Splat Roller' => 'スプラローラー',
+    'Splatana Stamper Nouveau' => 'ジムワイパー・ヒュー',
     'Splatana Stamper' => 'ジムワイパー',
     'Splatana Wiper Deco' => 'ドライブワイパーデコ',
     'Splatana Wiper' => 'ドライブワイパー',

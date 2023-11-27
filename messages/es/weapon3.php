@@ -113,6 +113,7 @@ return [
     'Splash-o-matic' => 'Marcador fino',
     'Splatanas' => '',
     'Splatana Stamper' => 'Azotintador pro',
+    'Splatana Stamper Nouveau' => '',
     'Splatana Wiper' => 'Azotintador brisa',
     'Splatana Wiper Deco' => 'Azotintador brisa DX',
     'Splat Brella' => 'Paratintas',

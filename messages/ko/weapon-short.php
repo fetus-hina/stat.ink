@@ -102,6 +102,7 @@ return [
     'S-BLAST92' => '',
     'Snipewriter 5B' => '',
     'Soda Slosher' => '',
+    'Splatana Stamper Nouveau' => '',
     'Sploosh-o-matic 7' => '',
     'Tempered Dynamo Roller' => '',
     'Tenta Camo Brella' => '',

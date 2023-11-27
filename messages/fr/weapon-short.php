@@ -167,6 +167,7 @@ return [
     'Seauceur Diabolo' => '',
     'Seauceur héroïque (réplique)' => '',
     'Snipewriter 5B' => '',
+    'Splatana Stamper Nouveau' => '',
     'Transperceur M. Ours SA' => '',
     'Trisperceur' => '',
     'Trisperceur Abysma' => '',

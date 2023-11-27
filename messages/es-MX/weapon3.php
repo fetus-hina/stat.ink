@@ -113,6 +113,7 @@ return [
     'Splash-o-matic' => 'Plumón',
     'Splatanas' => '',
     'Splatana Stamper' => 'Azotintador Pro',
+    'Splatana Stamper Nouveau' => '',
     'Splatana Wiper' => 'Azotintador brisa',
     'Splatana Wiper Deco' => 'Azotintador brisa chic',
     'Splat Brella' => 'Paratintas',

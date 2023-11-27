@@ -212,6 +212,7 @@ return [
     'Splasher élite Nero Marlin' => '',
     'Splat Charger' => '',
     'Splat Roller' => '',
+    'Splatana Stamper Nouveau' => '',
     'Splatling a pennarelli' => '',
     'Splatling a tanica' => '',
     'Splatling a tanica DX' => '',

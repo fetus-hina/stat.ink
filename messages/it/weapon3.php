@@ -113,6 +113,7 @@ return [
     'Splash-o-matic' => 'Marker d\'assalto',
     'Splatanas' => '',
     'Splatana Stamper' => 'Splattalama',
+    'Splatana Stamper Nouveau' => '',
     'Splatana Wiper' => 'Tergilama',
     'Splatana Wiper Deco' => 'Tergilama DX',
     'Splat Brella' => 'Sparasole',

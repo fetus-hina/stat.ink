@@ -113,6 +113,7 @@ return [
     'Splash-o-matic' => 'Плюхомет',
     'Splatanas' => '',
     'Splatana Stamper' => 'Сплат-печатель',
+    'Splatana Stamper Nouveau' => '',
     'Splatana Wiper' => 'Cплат-дворник',
     'Splatana Wiper Deco' => 'Cплат-дворник «Деко»',
     'Splat Brella' => 'Сплат-зонт',

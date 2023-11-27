@@ -230,6 +230,7 @@ return [
     'Splash-o-matic' => '',
     'Splat Charger' => '',
     'Splat Roller' => '',
+    'Splatana Stamper Nouveau' => '',
     'Splatling' => '',
     'Splatling Deko' => '',
     'Splatling Ultrabass' => '',

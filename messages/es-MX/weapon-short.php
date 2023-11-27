@@ -176,6 +176,7 @@ return [
     'Soplador doble adaptado' => '',
     'Soplador dual' => '',
     'Soplador dual adaptado' => '',
+    'Splatana Stamper Nouveau' => '',
     'Telecargatintas' => '',
     'Telecargatintas Alga' => '',
     'Telecargatintas bento' => '',
