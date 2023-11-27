@@ -32,6 +32,7 @@ abstract class SubSpIconAsset extends AssetBundle
         'Special - Killer Way 5-0.png' => 'megaphone51.png',
         'Special - Kraken.png' => 'teioika.png',
         'Special - Reefslider.png' => 'sameride.png',
+        'Special - Splattercolor Screen.png' => 'suminagasheet.png',
         'Special - Super Chump.png' => 'decoy.png',
         'Special - Tacticooler.png' => 'energystand.png',
         'Special - Tenta Missles.png' => 'missile.png',
@@ -60,6 +61,5 @@ abstract class SubSpIconAsset extends AssetBundle
      * @var string[]
      */
     public array $dummyFiles = [
-        'suminagasheet.png',
     ];
 }
