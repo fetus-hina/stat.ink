@@ -674,6 +674,7 @@ final class Icon
                 'drivewiper',
                 'drivewiper_deco',
                 'jimuwiper',
+                'jimuwiper_hue',
             ], true) => 'Splatanas',
             in_array($key, [
                 'barrelspinner',

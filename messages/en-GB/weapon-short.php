@@ -169,6 +169,7 @@ return [
     'Splat Dualies' => '',
     'Splat Roller' => '',
     'Splatana Stamper' => '',
+    'Splatana Stamper Nouveau' => '',
     'Splatana Wiper' => '',
     'Splatana Wiper Deco' => '',
     'Splatterscope' => '',

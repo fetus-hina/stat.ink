@@ -115,6 +115,7 @@ return [
     'Splash-o-matic' => '窄域标记枪',
     'Splatanas' => '刮水刀',
     'Splatana Stamper' => '工作刮水刀',
+    'Splatana Stamper Nouveau' => '',
     'Splatana Wiper' => '雨刷刮水刀',
     'Splatana Wiper Deco' => '雨刷刮水刀 装饰',
     'Splat Brella' => '遮阳防空伞',

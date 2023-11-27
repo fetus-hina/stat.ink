@@ -25,7 +25,6 @@ abstract class WeaponIconAsset extends AssetBundle
     public array $fileNameMap = [
         // 'Custom Blaster.png' => 'hotblaster_custom.png',
         // 'Enperry Splat Dualies.png' => 'maneuver_collabo.png',
-        // 'Splatana Stamper Nouveau.png' => '',
         '52 Gal.png' => '52gal.png',
         '96 Gal Deco.png' => '96gal.png',
         '96 Gal.png' => '96gal_deco.png',
@@ -120,6 +119,7 @@ abstract class WeaponIconAsset extends AssetBundle
         'Splat Charger.png' => 'splatcharger.png',
         'Splat Dualies.png' => 'maneuver.png',
         'Splat Roller.png' => 'splatroller.png',
+        'Splatana Stamper Nouveau.png' => 'jimuwiper_hue.png',
         'Splatana Stamper.png' => 'jimuwiper.png',
         'Splatana Wiper Deco.png' => 'drivewiper_deco.png',
         'Splatana Wiper.png' => 'drivewiper.png',

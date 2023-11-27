@@ -162,6 +162,7 @@ return [
     'Salpicadora 3000' => '',
     'Salpicadora 3000 DX' => '',
     'Snipewriter 5B' => '',
+    'Splatana Stamper Nouveau' => '',
     'Subtralladora 47' => '',
     'Subtralladora 79' => '',
     'Superdevastador' => '',

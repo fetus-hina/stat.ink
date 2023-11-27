@@ -37,6 +37,7 @@ return [
     'S-BLAST91' => '',
     'S-BLAST92' => '',
     'Snipewriter 5B' => '',
+    'Splatana Stamper Nouveau' => '',
     'Undercover Sorella Brella' => '',
     '三发猎鱼弓' => '',
     '三发猎鱼弓 联名' => '',

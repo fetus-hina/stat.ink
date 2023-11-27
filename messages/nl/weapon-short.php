@@ -220,6 +220,7 @@ return [
     'Splash-o-matic' => '',
     'Splat Charger' => '',
     'Splat Roller' => '',
+    'Splatana Stamper Nouveau' => '',
     'Splatterscope' => '',
     'Splattershot' => '',
     'Splattershot Jr.' => '',

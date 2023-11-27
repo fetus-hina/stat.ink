@@ -55,6 +55,7 @@ return [
     'S-BLAST 92' => '',
     'Snipewriter 5B' => '',
     'Soda Slosher' => '',
+    'Splatana Stamper Nouveau' => '',
     'Sploosh-o-matic 7' => '',
     'Tempered Dynamo Roller' => '',
     'Wasabi Splattershot' => '',

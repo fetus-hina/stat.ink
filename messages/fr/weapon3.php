@@ -113,6 +113,7 @@ return [
     'Splash-o-matic' => 'Marqueur léger',
     'Splatanas' => '',
     'Splatana Stamper' => 'Éclatana d\'estampe',
+    'Splatana Stamper Nouveau' => '',
     'Splatana Wiper' => 'Éclatana Doto',
     'Splatana Wiper Deco' => 'Éclatana Doto chic',
     'Splat Brella' => 'Para-encre',
