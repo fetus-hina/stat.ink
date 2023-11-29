@@ -21,6 +21,8 @@ return [
     '14式竹筒槍‧甲' => '竹狙·甲',
     '3K準星槍' => '3K鏡狙',
     '4K準星槍' => '4K鏡狙',
+    'Custom Blaster' => '',
+    'Enperry Splat Dualies' => '',
     'Foil Squeezer' => '',
     'H3捲管槍' => 'H3',
     'H3捲管槍D' => '',

@@ -25,6 +25,7 @@ return [
     'Tacticooler' => '能量站',
     'Tenta Missiles' => '多重導彈',
     'Triple Inkstrike' => '三重龍捲風',
+    'Triple Splashdown' => '',
     'Trizooka' => '終極發射',
     'Ultra Stamp' => '終極印章',
     'Wave Breaker' => '彈跳聲納',

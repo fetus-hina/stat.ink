@@ -23,8 +23,6 @@ abstract class WeaponIconAsset extends AssetBundle
      * @var array<string, string>
      */
     public array $fileNameMap = [
-        // 'Custom Blaster.png' => 'hotblaster_custom.png',
-        // 'Enperry Splat Dualies.png' => 'maneuver_collabo.png',
         '52 Gal.png' => '52gal.png',
         '96 Gal Deco.png' => '96gal.png',
         '96 Gal.png' => '96gal_deco.png',
@@ -44,6 +42,7 @@ abstract class WeaponIconAsset extends AssetBundle
         'Clash Blaster Neo.png' => 'clashblaster_neo.png',
         'Clash Blaster.png' => 'clashblaster.png',
         'Classic Squiffer.png' => 'squiclean_a.png',
+        'Custom Blaster.png' => 'hotblaster_custom.png',
         'Custom Goo Tuber.png' => 'soytuber_custom.png',
         'Custom Jet Squelcher.png' => 'jetsweeper_custom.png',
         'Custom Splattershot Jr.png' => 'momiji.png',
@@ -55,6 +54,7 @@ abstract class WeaponIconAsset extends AssetBundle
         'Dynamo Roller.png' => 'dynamo.png',
         'E-Liter 4k Scope.png' => 'liter4k_scope.png',
         'E-Liter 4k.png' => 'liter4k.png',
+        'Enperry Splat Dualies.png' => 'maneuver_collabo.png',
         'Explosher.png' => 'explosher.png',
         'Flingza Roller.png' => 'variableroller.png',
         'Foil Squeezer.png' => 'bottlegeyser_foil.png',

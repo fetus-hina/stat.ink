@@ -25,6 +25,7 @@ return [
     'Tacticooler' => 'エナジースタンド',
     'Tenta Missiles' => 'マルチミサイル',
     'Triple Inkstrike' => 'トリプルトルネード',
+    'Triple Splashdown' => 'ウルトラチャクチ',
     'Trizooka' => 'ウルトラショット',
     'Ultra Stamp' => 'ウルトラハンコ',
     'Wave Breaker' => 'ホップソナー',

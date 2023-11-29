@@ -20,6 +20,8 @@ return [
     '83版快枪' => '83',
     '85版快枪' => '85',
     '89版快枪' => '89',
+    'Custom Blaster' => '',
+    'Enperry Splat Dualies' => '',
     'Foil Squeezer' => '',
     'H3卷管枪' => '',
     'H3卷管枪D' => '',

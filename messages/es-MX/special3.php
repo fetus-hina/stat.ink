@@ -24,6 +24,7 @@ return [
     'Tacticooler' => 'Dispensabebidas',
     'Tenta Missiles' => 'Lanzamisiles',
     'Triple Inkstrike' => 'Tornado triple',
+    'Triple Splashdown' => '',
     'Trizooka' => 'Cañón triple',
     'Ultra Stamp' => 'Ultraselladora',
     'Wave Breaker' => 'Emiteondas',

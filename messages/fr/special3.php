@@ -24,6 +24,7 @@ return [
     'Tacticooler' => 'Districool',
     'Tenta Missiles' => 'Multi-missile',
     'Triple Inkstrike' => 'Trimissile tornade',
+    'Triple Splashdown' => '',
     'Trizooka' => 'Lance-rafales',
     'Ultra Stamp' => 'Ultra-tamponneur',
     'Wave Breaker' => 'Sonar paf',
