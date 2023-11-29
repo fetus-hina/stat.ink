@@ -22,6 +22,7 @@ use app\models\Season3;
 use app\models\SplatoonVersion3;
 use app\models\StatWeapon3Usage;
 use app\models\StatWeapon3UsagePerVersion;
+use app\models\StatWeapon3XUsage;
 use yii\db\Connection;
 use yii\db\Query;
 use yii\db\Transaction;
@@ -54,20 +55,18 @@ trait WeaponUsageTrait
             Transaction::REPEATABLE_READ,
         );
 
-        fwrite(STDERR, "Vacuuming stat_weapon3_usage, stat_weapon3_usage_per_version...\n");
-        $db
-            ->createCommand(
-                vsprintf('VACUUM ( ANALYZE ) %s', [
-                    implode(', ', array_map(
-                        fn (string $table): string => $db->quoteTableName($table),
-                        [
-                            StatWeapon3Usage::tableName(),
-                            StatWeapon3UsagePerVersion::tableName(),
-                        ],
-                    )),
-                ]),
-            )
-            ->execute();
+        $tables = [
+            StatWeapon3Usage::tableName(),
+            StatWeapon3UsagePerVersion::tableName(),
+            StatWeapon3XUsage::tableName(),
+        ];
+        foreach ($tables as $table) {
+            fwrite(STDERR, "Vacuuming {$table} ...\n");
+            $sql = vsprintf('VACUUM ( ANALYZE ) %s', [
+                $db->quoteTableName($table),
+            ]);
+            $db->createCommand($sql)->execute();
+        }
         fwrite(STDERR, "Update done\n");
     }
 
@@ -75,6 +74,7 @@ trait WeaponUsageTrait
     {
         $this->makeStatWeapon3UsagePerSeason($db);
         $this->makeStatWeapon3UsagePerVersion($db);
+        $this->makeStatWeapon3XUsagePerSeason($db);
     }
 
     private function makeStatWeapon3UsagePerSeason(Connection $db): void
@@ -113,6 +113,30 @@ trait WeaponUsageTrait
         $select = $this->buildSelectForWeapon3UsagePerVersion($db, $targetVersions);
         $sql = vsprintf('INSERT INTO %s ( %s ) %s', [
             $db->quoteTableName(StatWeapon3UsagePerVersion::tableName()),
+            implode(
+                ', ',
+                array_map(
+                    fn (string $columnName): string => $db->quoteColumnName($columnName),
+                    array_keys($select->select),
+                ),
+            ),
+            $select->createCommand($db)->rawSql,
+        ]);
+        $db->createCommand($sql)->execute($db);
+    }
+
+    private function makeStatWeapon3XUsagePerSeason(Connection $db): void
+    {
+        fwrite(STDERR, "Updating stat_weapon3_x_usage...\n");
+
+        $targetSeasons = $this->getStatWeapon3UsageTargetSeasons($db);
+        StatWeapon3XUsage::deleteAll([
+            'season_id' => ArrayHelper::getColumn($targetSeasons, 'id'),
+        ]);
+
+        $select = $this->buildSelectForWeapon3XUsagePerSeason($db, $targetSeasons);
+        $sql = vsprintf('INSERT INTO %s ( %s ) %s', [
+            $db->quoteTableName(StatWeapon3XUsage::tableName()),
             implode(
                 ', ',
                 array_map(
@@ -174,6 +198,14 @@ trait WeaponUsageTrait
     }
 
     /**
+     * @param Season3[] $seasons
+     */
+    private function buildSelectForWeapon3XUsagePerSeason(Connection $db, array $seasons): Query
+    {
+        return $this->buildSelectForWeapon3UsageImpl($db, seasons: $seasons, xUsage: true);
+    }
+
+    /**
      * @param SplatoonVersion3[] $versions
      */
     private function buildSelectForWeapon3UsagePerVersion(Connection $db, array $versions): Query
@@ -189,6 +221,7 @@ trait WeaponUsageTrait
         Connection $db,
         ?array $seasons = null,
         ?array $versions = null,
+        bool $xUsage = false,
     ): Query {
         $lobbies = ArrayHelper::map(
             Lobby3::find()->all($db),
@@ -208,16 +241,21 @@ trait WeaponUsageTrait
             [
                 'season_id' => $seasons !== null ? '{{%season3}}.[[id]]' : null,
                 'version_id' => $versions !== null ? '{{%battle3}}.[[version_id]]' : null,
-                'lobby_id' => vsprintf('(CASE %s END)', [
-                    implode(' ', [
-                        vsprintf('WHEN {{%%battle3}}.[[lobby_id]] = %d THEN %d', [
-                            $lobbies['splatfest_challenge'],
-                            $lobbies['regular'],
+                'lobby_id' => $xUsage
+                    ? null
+                    : vsprintf('(CASE %s END)', [
+                        implode(' ', [
+                            vsprintf('WHEN {{%%battle3}}.[[lobby_id]] = %d THEN %d', [
+                                $lobbies['splatfest_challenge'],
+                                $lobbies['regular'],
+                            ]),
+                            'ELSE {{%battle3}}.[[lobby_id]]',
                         ]),
-                        'ELSE {{%battle3}}.[[lobby_id]]',
                     ]),
-                ]),
                 'rule_id' => '{{%battle3}}.[[rule_id]]',
+                'range_id' => $xUsage
+                    ? '{{%stat_weapon3_x_usage_range}}.[[id]]'
+                    : null,
                 'weapon_id' => '{{%battle_player3}}.[[weapon_id]]',
             ],
             fn (mixed $v): bool => $v !== null,
@@ -257,12 +295,14 @@ trait WeaponUsageTrait
                     '{{%battle3}}.[[has_disconnect]]' => false,
                     '{{%battle3}}.[[is_automated]]' => true,
                     '{{%battle3}}.[[is_deleted]]' => false,
-                    '{{%battle3}}.[[lobby_id]]' => [
-                        $lobbies['bankara_challenge'],
-                        $lobbies['regular'],
-                        $lobbies['splatfest_challenge'],
-                        $lobbies['xmatch'],
-                    ],
+                    '{{%battle3}}.[[lobby_id]]' => $xUsage
+                        ? $lobbies['xmatch']
+                        : [
+                            $lobbies['bankara_challenge'],
+                            $lobbies['regular'],
+                            $lobbies['splatfest_challenge'],
+                            $lobbies['xmatch'],
+                        ],
                     '{{%battle3}}.[[use_for_entire]]' => true,
                     '{{%battle_player3}}.[[is_disconnected]]' => false,
                     '{{%battle_player3}}.[[is_me]]' => false,
@@ -288,6 +328,22 @@ trait WeaponUsageTrait
 
         if ($versions !== null) {
             $select->andWhere(['{{%battle3}}.[[version_id]]' => ArrayHelper::getColumn($versions, 'id')]);
+        }
+
+        if ($xUsage) {
+            $select
+                ->innerJoin(
+                    '{{%stat_weapon3_x_usage_term}}',
+                    '{{%battle3}}.[[start_at]] <@ {{%stat_weapon3_x_usage_term}}.[[term]]',
+                )
+                ->innerJoin(
+                    '{{%stat_weapon3_x_usage_range}}',
+                    implode(' AND ', [
+                        '{{%stat_weapon3_x_usage_term}}.[[id]] = {{%stat_weapon3_x_usage_range}}.[[term_id]]',
+                        '{{%battle3}}.[[x_power_before]] <@ {{%stat_weapon3_x_usage_range}}.[[x_power_range]]',
+                    ]),
+                )
+                ->andWhere(['not', ['{{%battle3}}.[[x_power_before]]' => null]]);
         }
 
         return $select;

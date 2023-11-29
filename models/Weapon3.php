@@ -48,6 +48,7 @@ use yii\db\ActiveRecord;
  * @property StatWeapon3Special[] $statWeapon3Specials
  * @property StatWeapon3UsagePerVersion[] $statWeapon3UsagePerVersions
  * @property StatWeapon3Usage[] $statWeapon3Usages
+ * @property StatWeapon3XUsage[] $statWeapon3XUsages
  * @property Subweapon3 $subweapon
  * @property UserWeapon3[] $userWeapon3s
  * @property User[] $users
@@ -208,6 +209,11 @@ class Weapon3 extends ActiveRecord
     public function getStatWeapon3Usages(): ActiveQuery
     {
         return $this->hasMany(StatWeapon3Usage::class, ['weapon_id' => 'id']);
+    }
+
+    public function getStatWeapon3XUsages(): ActiveQuery
+    {
+        return $this->hasMany(StatWeapon3XUsage::class, ['weapon_id' => 'id']);
     }
 
     public function getSubweapon(): ActiveQuery
