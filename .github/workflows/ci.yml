@@ -2,11 +2,13 @@ name: CI
 'on':
   - push
   - pull_request
+env:
+  UTILITY_PHP_VERSION: '8.2'
 jobs:
   ciDoesNotSkip:
     name: 'Tag Check: `[ci skip]`'
     runs-on: ubuntu-22.04
-    if: '!contains(github.event.head_commit.message, ''[ci skip]'')'
+    if: "!contains(github.event.head_commit.message, '[ci skip]')"
     steps:
       -
         run: |
@@ -35,7 +37,7 @@ jobs:
     runs-on: ubuntu-22.04
     needs:
       - ciDoesNotSkip
-    if: '!contains(github.event.head_commit.message, ''[no php]'')'
+    if: "!contains(github.event.head_commit.message, '[no php]')"
     steps:
       -
         uses: actions/checkout@v3
@@ -60,7 +62,7 @@ jobs:
       - ciDoesNotSkip
       - phpSyntaxCheck
       - setupComposer
-    if: '!contains(github.event.head_commit.message, ''[no php]'')'
+    if: "!contains(github.event.head_commit.message, '[no php]')"
     steps:
       -
         uses: actions/checkout@v3
@@ -70,12 +72,12 @@ jobs:
           path: |
             vendor
             ~/.cache/composer/files
-          key: 'composer-${{ hashFiles(''composer.lock'') }}'
+          key: "composer-${{ hashFiles('composer.lock') }}"
       -
-        name: 'Set PHP environment (PHP 8.1)'
+        name: 'Set PHP environment (PHP ${{ env.UTILITY_PHP_VERSION }})'
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'
+          php-version: '${{ env.UTILITY_PHP_VERSION }}'
       -
         name: 'Run PHPCS'
         run: 'php vendor/bin/phpcs -p'
@@ -84,7 +86,7 @@ jobs:
     runs-on: ubuntu-22.04
     needs:
       - ciDoesNotSkip
-    if: '!contains(github.event.head_commit.message, ''[no php]'') && !contains(github.event.head_commit.message, ''[no author]'')'
+    if: "!contains(github.event.head_commit.message, '[no php]') && !contains(github.event.head_commit.message, '[no author]')"
     steps:
       -
         uses: actions/checkout@v3
@@ -145,7 +147,7 @@ jobs:
           path: |
             node_modules
             ~/.npm
-          key: 'npm-2-${{ hashFiles(''package-lock.json'') }}'
+          key: "npm-2-${{ hashFiles('package-lock.json') }}"
           restore-keys: npm-2-
       -
         name: 'Use node.js 16 LTS'
@@ -170,7 +172,7 @@ jobs:
           path: |
             node_modules
             ~/.npm
-          key: 'npm-2-${{ hashFiles(''package-lock.json'') }}'
+          key: "npm-2-${{ hashFiles('package-lock.json') }}"
       -
         name: 'Use node.js 16 LTS'
         uses: actions/setup-node@v3
@@ -194,7 +196,7 @@ jobs:
           path: |
             node_modules
             ~/.npm
-          key: 'npm-2-${{ hashFiles(''package-lock.json'') }}'
+          key: "npm-2-${{ hashFiles('package-lock.json') }}"
       -
         name: 'Use node.js 16 LTS'
         uses: actions/setup-node@v3
@@ -209,7 +211,7 @@ jobs:
     needs:
       - ciDoesNotSkip
       - phpSyntaxCheck
-    if: '!contains(github.event.head_commit.message, ''[no php]'')'
+    if: "!contains(github.event.head_commit.message, '[no php]')"
     steps:
       -
         uses: actions/checkout@v3
@@ -219,13 +221,13 @@ jobs:
           path: |
             vendor
             ~/.cache/composer/files
-          key: 'composer-${{ hashFiles(''composer.lock'') }}'
+          key: "composer-${{ hashFiles('composer.lock') }}"
           restore-keys: composer-
       -
-        name: 'Set PHP environment (PHP 8.1)'
+        name: 'Set PHP environment (PHP ${{ env.UTILITY_PHP_VERSION }})'
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'
+          php-version: '${{ env.UTILITY_PHP_VERSION }}'
       -
         name: 'Install composer packages'
         run: |
@@ -253,19 +255,19 @@ jobs:
           path: |
             vendor
             ~/.cache/composer/files
-          key: 'composer-${{ hashFiles(''composer.lock'') }}'
+          key: "composer-${{ hashFiles('composer.lock') }}"
       -
         uses: actions/cache@v3
         with:
           path: |
             node_modules
             ~/.npm
-          key: 'npm-2-${{ hashFiles(''package-lock.json'') }}'
+          key: "npm-2-${{ hashFiles('package-lock.json') }}"
       -
-        name: 'Set PHP environment (PHP 8.1)'
+        name: 'Set PHP environment (PHP ${{ env.UTILITY_PHP_VERSION }})'
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'
+          php-version: '${{ env.UTILITY_PHP_VERSION }}'
       -
         name: 'Use node.js 16 LTS'
         uses: actions/setup-node@v3
@@ -284,7 +286,7 @@ jobs:
       - phpSyntaxCheck
       - setupComposer
       - setupNPM
-    if: '!contains(github.event.head_commit.message, ''[no php]'')'
+    if: "!contains(github.event.head_commit.message, '[no php]')"
     continue-on-error: '${{ matrix.php.experimental || matrix.pgsql.experimental }}'
     strategy:
       matrix:
@@ -342,14 +344,14 @@ jobs:
           path: |
             vendor
             ~/.cache/composer/files
-          key: 'composer-${{ hashFiles(''composer.lock'') }}'
+          key: "composer-${{ hashFiles('composer.lock') }}"
       -
         uses: actions/cache@v3
         with:
           path: |
             node_modules
             ~/.npm
-          key: 'npm-2-${{ hashFiles(''package-lock.json'') }}'
+          key: "npm-2-${{ hashFiles('package-lock.json') }}"
       -
         name: 'Set PHP environment (PHP ${{ matrix.php.version }})'
         uses: shivammathur/setup-php@v2
