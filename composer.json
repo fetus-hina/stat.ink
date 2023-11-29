@@ -39,7 +39,7 @@
         "omnilight/yii2-scheduling": "^1.1.6",
         "paragonie/constant_time_encoding": "^2.6.3",
         "php-curl-class/php-curl-class": "^9.18.2",
-        "phpseclib/phpseclib": "^3.0.33",
+        "phpseclib/phpseclib": "^3.0.34",
         "statink/yii2-anonymizer": "^1.0.4",
         "statink/yii2-bukiicons": "^1.0",
         "statink/yii2-cal-heatmap": "^2.1",
