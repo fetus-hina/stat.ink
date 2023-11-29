@@ -24,6 +24,7 @@ return [
     'Tacticooler' => 'Reddingsbar',
     'Tenta Missiles' => 'Spetterraketten',
     'Triple Inkstrike' => 'Tri-tornado',
+    'Triple Splashdown' => '',
     'Trizooka' => 'Trizooka',
     'Ultra Stamp' => 'Ultrastempel',
     'Wave Breaker' => 'Golfbeker',

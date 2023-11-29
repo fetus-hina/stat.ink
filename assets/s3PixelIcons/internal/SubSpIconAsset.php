@@ -37,6 +37,7 @@ abstract class SubSpIconAsset extends AssetBundle
         'Special - Tacticooler.png' => 'energystand.png',
         'Special - Tenta Missles.png' => 'missile.png',
         'Special - Triple Inkstrike.png' => 'tripletornado.png',
+        'Special - Triple Splashdown.png' => 'ultra_chakuchi.png',
         'Special - Trizooka.png' => 'ultrashot.png',
         'Special - Ultra Stamp.png' => 'ultrahanko.png',
         'Special - Wave Breaker.png' => 'hopsonar.png',

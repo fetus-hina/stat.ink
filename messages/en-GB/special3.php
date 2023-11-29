@@ -24,6 +24,7 @@ return [
     'Tacticooler' => 'Tacticooler',
     'Tenta Missiles' => 'Tenta Missiles',
     'Triple Inkstrike' => 'Triple Inkstrike',
+    'Triple Splashdown' => '',
     'Trizooka' => 'Trizooka',
     'Ultra Stamp' => 'Ultra Stamp',
     'Wave Breaker' => 'Wave Breaker',

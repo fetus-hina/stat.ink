@@ -24,6 +24,7 @@ return [
     'Tacticooler' => 'Тоникулер',
     'Tenta Missiles' => 'Каракатница',
     'Triple Inkstrike' => 'Тройной торнадо',
+    'Triple Splashdown' => '',
     'Trizooka' => 'Гранатомет «Трезубец»',
     'Ultra Stamp' => 'Припечать',
     'Wave Breaker' => 'Волноплюхер',

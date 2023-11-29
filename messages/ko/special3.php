@@ -24,6 +24,7 @@ return [
     'Tacticooler' => '에너지 스탠드',
     'Tenta Missiles' => '멀티 미사일',
     'Triple Inkstrike' => '트리플 토네이도',
+    'Triple Splashdown' => '',
     'Trizooka' => '울트라 샷',
     'Ultra Stamp' => '울트라 스탬프',
     'Wave Breaker' => '홉 소나',
