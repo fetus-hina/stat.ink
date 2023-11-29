@@ -35,6 +35,7 @@ use yii\db\ActiveRecord;
  * @property StatWeapon3Kill[] $statWeapon3Kills
  * @property StatWeapon3Special[] $statWeapon3Specials
  * @property StatWeapon3Usage[] $statWeapon3Usages
+ * @property StatWeapon3XUsage[] $statWeapon3XUsages
  * @property StatXPowerDistribAbstract3[] $statXPowerDistribAbstract3s
  * @property StatXPowerDistribHistogram3[] $statXPowerDistribHistogram3s
  */
@@ -127,6 +128,11 @@ class Season3 extends ActiveRecord
     public function getStatWeapon3Usages(): ActiveQuery
     {
         return $this->hasMany(StatWeapon3Usage::class, ['season_id' => 'id']);
+    }
+
+    public function getStatWeapon3XUsages(): ActiveQuery
+    {
+        return $this->hasMany(StatWeapon3XUsage::class, ['season_id' => 'id']);
     }
 
     public function getStatXPowerDistribAbstract3s(): ActiveQuery

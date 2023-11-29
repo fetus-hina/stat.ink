@@ -47,6 +47,7 @@ use yii\db\ActiveRecord;
  * @property StatWeapon3Special[] $statWeapon3Specials
  * @property StatWeapon3UsagePerVersion[] $statWeapon3UsagePerVersions
  * @property StatWeapon3Usage[] $statWeapon3Usages
+ * @property StatWeapon3XUsage[] $statWeapon3XUsages
  * @property StatXPowerDistribAbstract3[] $statXPowerDistribAbstract3s
  * @property StatXPowerDistribHistogram3[] $statXPowerDistribHistogram3s
  * @property UserBadge3Rule[] $userBadge3Rules
@@ -203,6 +204,11 @@ class Rule3 extends ActiveRecord
     public function getStatWeapon3Usages(): ActiveQuery
     {
         return $this->hasMany(StatWeapon3Usage::class, ['rule_id' => 'id']);
+    }
+
+    public function getStatWeapon3XUsages(): ActiveQuery
+    {
+        return $this->hasMany(StatWeapon3XUsage::class, ['rule_id' => 'id']);
     }
 
     public function getStatXPowerDistribAbstract3s(): ActiveQuery
