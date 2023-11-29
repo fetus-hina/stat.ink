@@ -4860,16 +4860,16 @@
         },
         {
             "name": "codeception/lib-web",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/lib-web.git",
-                "reference": "f488ff9bc08c8985d43796db28da0bd18813bcae"
+                "reference": "4c02cf57c5f2d14bbb9f57ea09b38ceacec15d91"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/lib-web/zipball/f488ff9bc08c8985d43796db28da0bd18813bcae",
-                "reference": "f488ff9bc08c8985d43796db28da0bd18813bcae",
+                "url": "https://api.github.com/repos/Codeception/lib-web/zipball/4c02cf57c5f2d14bbb9f57ea09b38ceacec15d91",
+                "reference": "4c02cf57c5f2d14bbb9f57ea09b38ceacec15d91",
                 "shasum": ""
             },
             "require": {
@@ -4907,9 +4907,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Codeception/lib-web/issues",
-                "source": "https://github.com/Codeception/lib-web/tree/1.0.2"
+                "source": "https://github.com/Codeception/lib-web/tree/1.0.3"
             },
-            "time": "2023-04-18T20:32:51+00:00"
+            "time": "2023-11-27T06:43:13+00:00"
         },
         {
             "name": "codeception/module-asserts",
