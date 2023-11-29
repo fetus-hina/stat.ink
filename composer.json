@@ -4,7 +4,7 @@
     "license": "MIT",
     "minimum-stability": "stable",
     "require": {
-        "php": "^8.1.0",
+        "php": "^8.2.0",
         "ext-PDO": "*",
         "ext-curl": "*",
         "ext-date": "*",
@@ -73,6 +73,7 @@
         "yiisoft/yii2-gii": "*"
     },
     "replace": {
+        "arokettu/random-polyfill": "*",
         "bower-asset/bootstrap": "^3.4.1",
         "bower-asset/eonasdan-bootstrap-datetimepicker": "*",
         "bower-asset/flot": "~0.8.3",
@@ -110,12 +111,13 @@
         "symfony/polyfill-php73": "*",
         "symfony/polyfill-php74": "*",
         "symfony/polyfill-php80": "*",
-        "symfony/polyfill-php81": "*"
+        "symfony/polyfill-php81": "*",
+        "symfony/polyfill-php82": "*"
     },
     "config": {
         "process-timeout": 1800,
         "platform": {
-            "php": "8.1.24"
+            "php": "8.2.13"
         },
         "allow-plugins": {
             "cweagans/composer-patches": true,

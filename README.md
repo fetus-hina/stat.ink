@@ -42,9 +42,9 @@ Use a private channel if it is a security issue.
 REQUIREMENTS
 ------------
 
-- PHP 8.1
-  - PHP 8.0以下では動作しません。（8.1で追加された構文等を利用しています）  
-    Doesn't work with 8.0 or lower. (Uses statements and constants added in v8.1)
+- PHP 8.2
+  - PHP 8.1以下では動作しません。（8.2で追加された構文等を利用しています）  
+    Doesn't work with 8.1 or lower. (Uses statements and constants added in v8.2)
   - Argon2が有効化されたPHPが必要です。RemirepoのPHPを利用している場合、`php-sodium`をインストールしてください。（[詳細](https://github.com/remicollet/remirepo/issues/132#issuecomment-566513636)）  
     You should build/install with Argon2. [Install `php-sodium` if you use remirepo's PHP](https://github.com/remicollet/remirepo/issues/132#issuecomment-566513636).
   - 現在のところ、PHP 8.2+での動作は確認していません。  
@@ -66,17 +66,17 @@ https://stat.ink/ works with:
   - [H2O](https://h2o.examp1e.net/) mainline
 - [Remi's RPM repository](http://rpms.famillecollet.com/)
   - `remi-safe` repository, it uses SCL mechanism
-      - PHP 8.1
-          - `php81-php-cli`
-          - `php81-php-fpm`
-          - `php81-php-gd`
-          - `php81-php-intl`
-          - `php81-php-mbstring`
-          - `php81-php-mcrypt`
-          - `php81-php-pdo`
-          - `php81-php-pecl-msgpack`
-          - `php81-php-pgsql`
-          - `php81-php-sodium`
+      - PHP 8.2
+          - `php82-php-cli`
+          - `php82-php-fpm`
+          - `php82-php-gd`
+          - `php82-php-intl`
+          - `php82-php-mbstring`
+          - `php82-php-mcrypt`
+          - `php82-php-pdo`
+          - `php82-php-pecl-msgpack`
+          - `php82-php-pgsql`
+          - `php82-php-sodium`
 * [Node.js Repository](https://nodejs.org/en/download/package-manager/#enterprise-linux-and-fedora)
     - [Node.js](https://nodejs.org/)
         - `nodejs`
@@ -87,8 +87,8 @@ https://stat.ink/ works with:
 
 Notes:
 
-  - CentOS 7のデフォルトのPHPバージョンは5.4.16です。このバージョンでは動作しません。PHP 8.1までで追加された機能を利用しています。  
-    Default version of PHP on CentOS 7 is 5.4.16. This application doesn't work on it. We are using features and statements that were added up to PHP 8.1.
+  - CentOS 7のデフォルトのPHPバージョンは5.4.16です。このバージョンでは動作しません。PHP 8.2までで追加された機能を利用しています。  
+    Default version of PHP on CentOS 7 is 5.4.16. This application doesn't work on it. We are using features and statements that were added up to PHP 8.2.
 
   - CentOS 7のデフォルトのPostgreSQLバージョンは9.2.14です。このバージョンでは動作しません。PgSQL 9.5で追加された機能を利用しています（jsonb, UPSERT）。実際のシステムではPgSQL 11を利用していますが、9.5でも充分動作します。  
     Default version of PostgreSQL on CentOS 7 is 9.2.14. This application doesn't work with it. We are using features added in PostgreSQL 9.5 (e.g., jsonb, UPSERT). We use PostgreSQL 11 in our actual system, but 9.5 will work just fine.
