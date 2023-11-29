@@ -19,10 +19,6 @@ jobs:
       matrix:
         php:
           -
-            version: '8.1'
-            multiple: false
-            experimental: false
-          -
             version: '8.2'
             multiple: false
             experimental: false
@@ -291,9 +287,6 @@ jobs:
     strategy:
       matrix:
         php:
-          -
-            version: '8.1'
-            experimental: false
           -
             version: '8.2'
             experimental: false

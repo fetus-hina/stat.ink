@@ -32,20 +32,20 @@ RUN rpm --import \
         make \
         nodejs \
         patch \
-        php81-php-cli \
-        php81-php-fpm \
-        php81-php-gd \
-        php81-php-intl \
-        php81-php-mbstring \
-        php81-php-mcrypt \
-        php81-php-opcache \
-        php81-php-pdo \
-        php81-php-pecl-msgpack \
-        php81-php-pecl-zip \
-        php81-php-pgsql \
-        php81-php-process \
-        php81-php-xml \
-        php81-runtime \
+        php82-php-cli \
+        php82-php-fpm \
+        php82-php-gd \
+        php82-php-intl \
+        php82-php-mbstring \
+        php82-php-mcrypt \
+        php82-php-opcache \
+        php82-php-pdo \
+        php82-php-pecl-msgpack \
+        php82-php-pecl-zip \
+        php82-php-pgsql \
+        php82-php-process \
+        php82-php-xml \
+        php82-runtime \
         rh-postgresql95-postgresql \
         rh-postgresql95-postgresql-server \
         supervisor \
@@ -70,7 +70,7 @@ USER postgres
 RUN scl enable rh-postgresql95 'initdb --pgdata=/var/opt/rh/rh-postgresql95/lib/pgsql/data --encoding=UNICODE --locale=en_US.UTF8'
 ADD docker/database/pg_hba.conf /var/opt/rh/rh-postgresql95/lib/pgsql/data/pg_hba.conf
 ADD docker/database/password.php /var/opt/rh/rh-postgresql95/lib/pgsql/
-RUN scl enable rh-postgresql95 php81 ' \
+RUN scl enable rh-postgresql95 php82 ' \
         /opt/rh/rh-postgresql95/root/usr/libexec/postgresql-ctl start -D /var/opt/rh/rh-postgresql95/lib/pgsql/data -s -w && \
         createuser -DRS statink && \
         createdb -E UNICODE -O statink -T template0 statink && \
@@ -86,7 +86,7 @@ RUN cd ~statink/stat.ink && \
         su postgres -c "/opt/rh/rh-postgresql95/root/usr/libexec/postgresql-ctl stop -D /var/opt/rh/rh-postgresql95/lib/pgsql/data -s -m fast"'
 
 ADD docker/php/php-config.diff /tmp/
-RUN patch -p1 -d /etc/opt/remi/php81 < /tmp/php-config.diff && rm /tmp/php-config.diff
+RUN patch -p1 -d /etc/opt/remi/php82 < /tmp/php-config.diff && rm /tmp/php-config.diff
 
 ADD docker/h2o/h2o.conf /etc/h2o/h2o.conf
 

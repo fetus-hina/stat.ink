@@ -38,4 +38,4 @@ else
 fi
 
 git push origin dev master $TAG
-ssh statink@app1.stat.ink 'pushd stat.ink && git fetch origin && git checkout composer.lock package-lock.json && touch -r composer.json composer.lock && touch -r package.json package-lock.json && git merge --ff-only origin/master && scl enable php81 make && scl enable php81 "./yii asset/up-revision" && scl enable php81 "./yii asset/cleanup" && sudo bin/restart-supervisord.sh'
+ssh statink@app1.stat.ink 'pushd stat.ink && git fetch origin && git checkout composer.lock package-lock.json && touch -r composer.json composer.lock && touch -r package.json package-lock.json && git merge --ff-only origin/master && scl enable php82 make && scl enable php82 "./yii asset/up-revision" && scl enable php82 "./yii asset/cleanup" && sudo bin/restart-supervisord.sh'
