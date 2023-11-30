@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 use app\models\StatWeapon3Usage;
 use app\models\StatWeapon3UsagePerVersion;
+use app\models\StatWeapon3XUsage;
 
-$calc = fn (StatWeapon3Usage|StatWeapon3UsagePerVersion $model): ?float => $model->seconds > 0 && $model->battles > 0
+$calc = fn (StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage $model): ?float => $model->seconds > 0 && $model->battles > 0
   ? $model->avg_kill / ($model->seconds / $model->battles) * 60.0
   : null;
 
 return [
-  'contentOptions' => fn (StatWeapon3Usage|StatWeapon3UsagePerVersion $model): array => [
+  'contentOptions' => fn (StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage $model): array => [
     'class' => 'text-right',
     'data-sort-value' => $calc($model),
   ],
@@ -22,5 +23,5 @@ return [
   'filter' => (require __DIR__ . '/includes/correlation-filter.php')($calc),
   'filterOptions' => ['class' => 'text-right'],
   'label' => Yii::t('app', 'Kills/min'),
-  'value' => fn (StatWeapon3Usage|StatWeapon3UsagePerVersion $model): ?float => $calc($model),
+  'value' => fn (StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage $model): ?float => $calc($model),
 ];

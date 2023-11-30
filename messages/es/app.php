@@ -45,6 +45,7 @@ return [
     'Advanced Options' => '',
     'Aggregated: {rules}' => '',
     'Aliases' => '',
+    'All' => '',
     'All Players' => 'Todos los jugadores',
     'Always enable horizontal scroll' => 'Siempre activar desplazamiento horizontal',
     'Anarchy Power' => '',

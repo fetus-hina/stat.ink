@@ -45,6 +45,7 @@ return [
     'Advanced Options' => '進階選項',
     'Aggregated: {rules}' => '合計: {rules}',
     'Aliases' => '別名',
+    'All' => '',
     'All Players' => '所有玩家',
     'Always enable horizontal scroll' => '始終啟用水平滾動',
     'Anarchy Power' => '',

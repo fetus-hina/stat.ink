@@ -43,6 +43,7 @@ return [
     'Advanced Options' => '',
     'Aggregated: {rules}' => '',
     'Aliases' => '',
+    'All' => '',
     'All Players' => '',
     'Always enable horizontal scroll' => '',
     'Anarchy Power' => '',

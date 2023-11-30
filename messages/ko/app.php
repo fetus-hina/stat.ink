@@ -45,6 +45,7 @@ return [
     'Advanced Options' => '고급 옵션',
     'Aggregated: {rules}' => '',
     'Aliases' => '',
+    'All' => '',
     'All Players' => '모든 플레이어',
     'Always enable horizontal scroll' => '횡스크롤을 항상 활성화합니다',
     'Anarchy Power' => '',
