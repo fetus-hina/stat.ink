@@ -59,6 +59,7 @@ return [
     'Aggregated: {rules}' => '集計対象: {rules}',
     'Aliases' => 'エイリアス',
     'All Players' => 'すべてのプレーヤー',
+    'All' => 'すべて',
     'Always enable horizontal scroll' => '常にテーブルの横スクロールを有効にする',
     'Anarchy Power' => 'バンカラパワー',
     'Anonymize, don\'t link from other user\'s results' => '匿名化し、他の利用者のページからはリンクしない',

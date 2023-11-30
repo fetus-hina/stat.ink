@@ -47,7 +47,7 @@ return [
     'Museum' => 'Pinakoithek',
     'Museum d\'Alfonsino' => 'Pinakoithek',
     'Resort' => 'Mahi-Mahi-Resort',
-    'Robo ROM-en' => '',
+    'Robo ROM-en' => 'ROM & RAMen',
     'ROM-en' => '',
     'Ruins' => '',
     'Salmonid Smokeyard' => 'Räucherwerk',

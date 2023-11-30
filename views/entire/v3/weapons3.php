@@ -19,6 +19,8 @@ use app\models\Season3;
 use app\models\SplatoonVersion3;
 use app\models\StatWeapon3Usage;
 use app\models\StatWeapon3UsagePerVersion;
+use app\models\StatWeapon3XUsage;
+use app\models\StatWeapon3XUsageRange;
 use statink\yii2\sortableTable\SortableTableAsset;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -31,7 +33,9 @@ use yii\web\View;
  * @var Season3|null $season
  * @var SplatoonVersion3[] $versions
  * @var SplatoonVersion3|null $version
- * @var StatWeapon3Usage[]|StatWeapon3UsagePerVersion[] $data
+ * @var StatWeapon3Usage[]|StatWeapon3UsagePerVersion[]|StatWeapon3XUsage[] $data
+ * @var StatWeapon3XUsageRange $xRange
+ * @var StatWeapon3XUsageRange[] $xRanges
  * @var View $this
  * @var array<int, Lobby3> $lobbies
  * @var array<int, Rule3> $rules
@@ -40,6 +44,7 @@ use yii\web\View;
  * @var callable(Rule3): string $ruleUrl
  * @var callable(Season3): string $seasonUrl
  * @var callable(SplatoonVersion3): string $versionUrl
+ * @var callable(StatWeapon3XUsageRange|null): string $xRangeUrl
  */
 
 $title = Yii::t('app', 'Weapons');
@@ -94,6 +99,7 @@ $this->render('weapons3/charts/includes/chart-runner', []);
     </div>
     <?= $this->render('weapons3/lobby-tabs', compact('lobby', 'lobbies', 'lobbyUrl')) . "\n" ?>
     <?= $this->render('weapons3/rule-tabs', compact('rule', 'rules', 'ruleUrl')) . "\n" ?>
+    <?= $this->render('weapons3/x-range-tabs', compact('xRange', 'xRanges', 'xRangeUrl')) . "\n" ?>
   </div>
 <?php
   if ($disableCache || $this->beginCache($cacheId, ['duration' => 48 * 3600])) {

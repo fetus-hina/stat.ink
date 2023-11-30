@@ -46,6 +46,7 @@ return [
     'Advanced Options' => '高级选项',
     'Aggregated: {rules}' => '',
     'Aliases' => '别名',
+    'All' => '',
     'All Players' => '所有玩家',
     'Always enable horizontal scroll' => '始终启用水平滚动',
     'Anarchy Power' => '',

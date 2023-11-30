@@ -5,15 +5,15 @@ declare(strict_types=1);
 use app\components\helpers\StandardError;
 use app\models\StatWeapon3Usage;
 use app\models\StatWeapon3UsagePerVersion;
+use app\models\StatWeapon3XUsage;
 use yii\bootstrap\Progress;
-
 
 /**
  * @var $maxWinRate float
  */
 
 return [
-  'contentOptions' => fn (StatWeapon3Usage|StatWeapon3UsagePerVersion $model): array => [
+  'contentOptions' => fn (StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage $model): array => [
     'data-sort-value' => (string)(100.0 * $model->wins / $model->battles),
   ],
   'format' => 'raw',
@@ -22,7 +22,7 @@ return [
     'data-sort-default' => 'desc',
   ],
   'label' => Yii::t('app', 'Win %'),
-  'value' => function (StatWeapon3Usage|StatWeapon3UsagePerVersion $model) use ($maxWinRate): string {
+  'value' => function (StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage $model) use ($maxWinRate): string {
     $fmt = Yii::$app->formatter;
     $stderr = StandardError::winpct($model->wins, $model->battles);
 

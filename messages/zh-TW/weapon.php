@@ -33,7 +33,7 @@ return [
     'Cherry H-3 Nozzlenose' => '櫻桃H3捲管槍',
     'Classic Squiffer' => '魷快潔α',
     'CoroCoro Splat Roller' => '可柔可柔聯名斯普拉滾筒',
-    'Custom Blaster' => '自製火熱爆破槍',
+    'Custom Blaster' => '火熱爆破槍 改裝',
     'Custom Dual Squelcher' => '自製清潔槍',
     'Custom E-liter 3K' => '自製公升3K',
     'Custom E-liter 3K Scope' => '自製3K準星槍',

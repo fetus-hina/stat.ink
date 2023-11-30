@@ -16,14 +16,18 @@ use DateTimeInterface;
 use DateTimeZone;
 use Yii;
 use app\components\helpers\Season3Helper;
+use app\components\helpers\TypeHelper;
 use app\models\Lobby3;
 use app\models\Rule3;
 use app\models\Season3;
 use app\models\SplatoonVersion3;
 use app\models\StatWeapon3Usage;
 use app\models\StatWeapon3UsagePerVersion;
+use app\models\StatWeapon3XUsage;
+use app\models\StatWeapon3XUsageRange;
 use yii\base\Action;
 use yii\db\Connection;
+use yii\db\Expression;
 use yii\db\Transaction;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
@@ -31,8 +35,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
-use function assert;
 use function version_compare;
+use function vsprintf;
 
 use const SORT_ASC;
 use const SORT_DESC;
@@ -41,13 +45,21 @@ final class Weapons3Action extends Action
 {
     private const PARAM_SEASON_ID = Season3Helper::DEFAULT_SEASON_PARAM_NAME;
 
-    public function run(?string $lobby = null, ?string $rule = null): Response|string
-    {
-        $controller = $this->controller;
-        assert($controller instanceof Controller);
+    public function run(
+        ?string $lobby = null,
+        ?string $rule = null,
+        ?string $xp = null,
+    ): Response|string {
+        $controller = TypeHelper::instanceOf($this->controller, Controller::class);
 
         $params = Yii::$app->db->transaction(
-            fn (Connection $db): Response|array => $this->doRun($controller, $db, $lobby, $rule),
+            fn (Connection $db): Response|array => $this->doRun(
+                $controller,
+                $db,
+                $lobby,
+                $rule,
+                $xp,
+            ),
             Transaction::REPEATABLE_READ,
         );
 
@@ -61,11 +73,13 @@ final class Weapons3Action extends Action
         Connection $db,
         ?string $lobbyKey,
         ?string $ruleKey,
+        ?string $xpFilter,
     ): Response|array {
         $version = $this->getVersion($db, (string)Yii::$app->request->get('version'));
         $season = $version ? null : Season3Helper::getUrlTargetSeason(self::PARAM_SEASON_ID);
         $lobby = $this->getLobby($db, $lobbyKey);
         $rule = $this->getRule($db, $ruleKey);
+        $xRange = $this->getXPowerRange($db, $season, $lobby, $xpFilter);
         if (
             !($season || $version) ||
             !$lobby ||
@@ -103,7 +117,7 @@ final class Weapons3Action extends Action
         }
 
         return [
-            'data' => $this->getData($db, $season, $version, $lobby, $rule),
+            'data' => $this->getData($db, $season, $version, $lobby, $rule, $xRange),
             'lobbies' => $this->getLobbies($db),
             'lobby' => $lobby,
             'rule' => $rule,
@@ -112,11 +126,14 @@ final class Weapons3Action extends Action
             'seasons' => Season3Helper::getSeasons(),
             'version' => $version,
             'versions' => $this->getVersions($db),
+            'xRange' => $xRange,
+            'xRanges' => $this->getXPowerRanges($db, $lobby, $season),
 
             'seasonUrl' => fn (Season3 $season): string => Url::to(
                 ['entire/weapons3',
                     'lobby' => $lobby->key,
                     'rule' => $rule->key,
+                    'xp' => $xRange?->id,
                     self::PARAM_SEASON_ID => $season->id,
                 ],
             ),
@@ -132,6 +149,7 @@ final class Weapons3Action extends Action
                         ),
                     'rule' => $rule->key,
                     'version' => $version?->tag,
+                    'xp' => $xRange?->id,
                     self::PARAM_SEASON_ID => $season?->id,
                 ],
             ),
@@ -145,6 +163,7 @@ final class Weapons3Action extends Action
                         default => $rule->key,
                     },
                     'version' => $version?->tag,
+                    'xp' => $lobby->key === 'xmatch' ? $xRange?->id : null,
                     self::PARAM_SEASON_ID => $season?->id,
                 ],
             ),
@@ -154,6 +173,17 @@ final class Weapons3Action extends Action
                     'lobby' => $lobby->key,
                     'rule' => $rule->key,
                     'version' => $version->tag,
+                    'xp' => null,
+                ],
+            ),
+
+            'xRangeUrl' => fn (?StatWeapon3XUsageRange $range): string => Url::to(
+                ['entire/weapons3',
+                    'lobby' => $lobby->key,
+                    'rule' => $rule->key,
+                    'version' => $version?->tag,
+                    'xp' => $range?->id,
+                    self::PARAM_SEASON_ID => $season?->id,
                 ],
             ),
         ];
@@ -209,7 +239,7 @@ final class Weapons3Action extends Action
     }
 
     /**
-     * @return StatWeapon3Usage[]|StatWeapon3UsagePerVersion[]
+     * @return StatWeapon3Usage[]|StatWeapon3UsagePerVersion[]|StatWeapon3XUsage[]
      */
     private function getData(
         Connection $db,
@@ -217,6 +247,7 @@ final class Weapons3Action extends Action
         ?SplatoonVersion3 $version,
         Lobby3 $lobby,
         Rule3 $rule,
+        ?StatWeapon3XUsageRange $xRange,
     ): array {
         if ($version) {
             return StatWeapon3UsagePerVersion::find()
@@ -229,6 +260,21 @@ final class Weapons3Action extends Action
                     'lobby_id' => $lobby->id,
                     'rule_id' => $rule->id,
                     'version_id' => $version->id,
+                ])
+                ->all($db);
+        }
+
+        if ($season && $xRange) {
+            return StatWeapon3XUsage::find()
+                ->with([
+                    'weapon',
+                    'weapon.special',
+                    'weapon.subweapon',
+                ])
+                ->andWhere([
+                    'range_id' => $xRange->id,
+                    'rule_id' => $rule->id,
+                    'season_id' => $season->id,
                 ])
                 ->all($db);
         }
@@ -297,5 +343,60 @@ final class Weapons3Action extends Action
             ->andWhere(['<=', 'release_at', $ts->format(DateTimeInterface::ATOM)])
             ->orderBy(['release_at' => SORT_DESC])
             ->all();
+    }
+
+    private function getXPowerRange(
+        Connection $db,
+        ?Season3 $season,
+        ?Lobby3 $lobby,
+        ?string $xpFilter,
+    ): ?StatWeapon3XUsageRange {
+        $xpFilter = TypeHelper::intOrNull($xpFilter);
+        if (!$season || $lobby?->key !== 'xmatch' || !$xpFilter) {
+            return null;
+        }
+
+        return StatWeapon3XUsageRange::find()
+            ->andWhere(['{{%stat_weapon3_x_usage_range}}.[[id]]' => $xpFilter])
+            ->innerJoinWith(['term'], false)
+            ->andWhere([
+                '@>',
+                '{{%stat_weapon3_x_usage_term}}.[[term]]',
+                new Expression(
+                    vsprintf('%s::TIMESTAMP(0) WITH TIME ZONE', [
+                        $db->quoteValue($season->start_at),
+                    ]),
+                ),
+            ])
+            ->limit(1)
+            ->cache(86400)
+            ->one($db);
+    }
+
+    /**
+     * @return StatWeapon3XUsageRange[]
+     */
+    private function getXPowerRanges(Connection $db, Lobby3 $lobby, ?Season3 $season): array
+    {
+        if ($lobby->key !== 'xmatch' || !$season) {
+            return [];
+        }
+
+        return StatWeapon3XUsageRange::find()
+            ->innerJoinWith(['term'], false)
+            ->andWhere([
+                '@>',
+                '{{%stat_weapon3_x_usage_term}}.[[term]]',
+                new Expression(
+                    vsprintf('%s::TIMESTAMP(0) WITH TIME ZONE', [
+                        $db->quoteValue($season->start_at),
+                    ]),
+                ),
+            ])
+            ->orderBy([
+                '{{%stat_weapon3_x_usage_range}}.[[x_power_range]]' => SORT_ASC,
+            ])
+            ->cache(86400)
+            ->all($db);
     }
 }

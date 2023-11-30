@@ -20,7 +20,7 @@ return [
     'Griller' => 'Barbeurk',
     'Horrorboros' => 'Salmophide',
     'Maws' => 'Gobb',
-    'Megalodontia' => '',
+    'Megalodontia' => 'Salmodon',
     'Mothership' => 'Vaisseau mère',
     'Mudmouth' => 'Salmonoïde de boue',
     'Scrapper' => 'Bricabrute',

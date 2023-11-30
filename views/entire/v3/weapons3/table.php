@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use app\models\StatWeapon3Usage;
 use app\models\StatWeapon3UsagePerVersion;
+use app\models\StatWeapon3XUsage;
 use yii\base\Model;
 use yii\bootstrap\Tabs;
 use yii\data\ArrayDataProvider;
@@ -12,7 +13,7 @@ use yii\helpers\Html;
 use yii\web\View;
 
 /**
- * @var StatWeapon3Usage[]|StatWeapon3UsagePerVersion[] $data
+ * @var StatWeapon3Usage[]|StatWeapon3UsagePerVersion[]|StatWeapon3XUsage[] $data
  * @var View $this
  */
 
@@ -23,21 +24,21 @@ if (!$data) {
 
 $totalBattles = array_sum(
   array_map(
-    fn (StatWeapon3Usage|StatWeapon3UsagePerVersion $row): int => $row->battles,
+    fn (StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage $row): int => $row->battles,
     $data,
   ),
 );
 
 $maxBattles = max(
   array_map(
-    fn (StatWeapon3Usage|StatWeapon3UsagePerVersion $m): int => $m->battles,
+    fn (StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage $m): int => $m->battles,
     $data,
   ),
 );
 
 $maxWinRate = max(
   array_map(
-    fn (StatWeapon3Usage|StatWeapon3UsagePerVersion $m): float => $m->wins / $m->battles,
+    fn (StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage $m): float => $m->wins / $m->battles,
     $data,
   ),
 );

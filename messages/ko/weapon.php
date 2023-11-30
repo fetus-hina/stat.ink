@@ -31,7 +31,7 @@ return [
     'Cherry H-3 Nozzlenose' => '',
     'Classic Squiffer' => '스퀵 클린 α',
     'CoroCoro Splat Roller' => '',
-    'Custom Blaster' => '',
+    'Custom Blaster' => '커스텀 핫 블래스터',
     'Custom Dual Squelcher' => '',
     'Custom E-liter 3K' => '',
     'Custom E-liter 3K Scope' => '',
