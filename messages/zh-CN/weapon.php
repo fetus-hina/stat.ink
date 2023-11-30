@@ -32,7 +32,7 @@ return [
     'Cherry H-3 Nozzlenose' => '樱桃H3水枪',
     'Classic Squiffer' => '鱿快洁α',
     'CoroCoro Splat Roller' => '可柔可柔贴牌滚筒',
-    'Custom Blaster' => '贴牌热泡枪',
+    'Custom Blaster' => '火热爆破枪 改装',
     'Custom Dual Squelcher' => '贴牌红管',
     'Custom E-liter 3K' => '贴牌精英3K狙击枪',
     'Custom E-liter 3K Scope' => '贴牌精英带镜3K狙击枪',

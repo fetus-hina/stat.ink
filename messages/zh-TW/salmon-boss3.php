@@ -20,7 +20,7 @@ return [
     'Griller' => '烤架魚',
     'Horrorboros' => '辰龍',
     'Maws' => '鼴鼠魚',
-    'Megalodontia' => '',
+    'Megalodontia' => '巨顎',
     'Mothership' => '走私魚',
     'Mudmouth' => '泥鮭魚',
     'Scrapper' => '鐵板魚',

@@ -47,7 +47,7 @@ return [
     'Museum' => 'Museo del Pargo',
     'Museum d\'Alfonsino' => 'Museo del Pargo',
     'Resort' => 'Spa Cala Bacalao',
-    'Robo ROM-en' => '',
+    'Robo ROM-en' => 'Factoría RAMen',
     'ROM-en' => '',
     'Ruins' => '',
     'Salmonid Smokeyard' => 'Ensenada Ahumada',

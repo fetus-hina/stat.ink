@@ -47,7 +47,7 @@ return [
     'Museum' => '',
     'Museum d\'Alfonsino' => 'Museo del Pargo',
     'Resort' => '',
-    'Robo ROM-en' => '',
+    'Robo ROM-en' => 'Factoría RAMen',
     'ROM-en' => '',
     'Ruins' => '',
     'Salmonid Smokeyard' => 'Ensenada Ahumada',
