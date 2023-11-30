@@ -32,6 +32,7 @@ final class SalmonBossIconAsset extends AssetBundle
         'Gusher.png' => 'doro_shake.png',
         'Horrorboros.png' => 'tatsu.png',
         'Maws.png' => 'mogura.png',
+        'Megalodontia.png' => 'jaw.png',
         'Scrapper.png' => 'teppan.png',
         'Slammin\' Lid.png' => 'nabebuta.png',
         'Steel Eel.png' => 'hebi.png',
