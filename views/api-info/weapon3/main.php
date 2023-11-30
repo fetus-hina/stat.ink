@@ -53,7 +53,7 @@ $salmonIcon = Icon::s3Salmon();
   <table class="table table-striped table-condensed table-sortable">
     <thead>
       <tr>
-        <th></th>
+        <th data-sort="int" data-sort-onload="yes"></th>
         <th data-sort="int">X</th>
         <th data-sort="int"><?= Html::encode(Yii::t('app', 'Category')) ?></th>
         <?= Html::tag('th', $salmonIcon, [
@@ -84,7 +84,20 @@ $salmonIcon = Icon::s3Salmon();
     <tbody>
 <?php foreach ($weapons as $weapon) { ?>
       <tr>
-        <td><?= Icon::s3Weapon($weapon) ?></td>
+        <?= Html::tag(
+          'td',
+          Icon::s3Weapon($weapon),
+          [
+            'data' => [
+              'sort-value' => (string)min(
+                array_filter(
+                  ArrayHelper::getColumn($weapon->weapon3Aliases, 'key'),
+                  fn (string $key): bool => (bool)preg_match('/^\d+$/', $key),
+                ),
+              ),
+            ],
+          ],
+        ) . "\n" ?>
         <?= $this->render('main/td-x-matching', [
           'weapon' => $weapon,
           'group' => $matchingGroups[$weapon->key] ?? null,
