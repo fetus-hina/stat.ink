@@ -837,13 +837,11 @@ final class Icon
     ): ?string {
         if (is_string($boss)) {
             $boss = match ($boss) {
-                'yokozuna', 'tatsu' => SalmonKing3::find()
+                'yokozuna', 'tatsu', 'jaw' => SalmonKing3::find()
                     ->andWhere(['key' => $boss])
                     ->limit(1)
                     ->cache(86400)
                     ->one(),
-
-                'jaw' => null, // TODO: until Megalodontia is implemented
 
                 default => SalmonBoss3::find()
                     ->andWhere(['key' => $boss])
@@ -855,7 +853,6 @@ final class Icon
 
         if (
             $boss === null ||
-            $boss->key === 'jaw' || // TODO: until Megalodontia is implemented
             $boss->key === 'hakobiya' ||
             $boss->key === 'shake_copter'
         ) {
