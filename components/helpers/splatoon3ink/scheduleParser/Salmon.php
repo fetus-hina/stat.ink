@@ -48,7 +48,7 @@ trait Salmon
                 $isBigRun,
             ),
             'king' => self::parseSalmonKing(
-                ArrayHelper::getValue($schedule, '__splatoon3ink_king_salmonid_guess'),
+                ArrayHelper::getValue($schedule, 'setting.boss.name'),
             ),
             'weapons' => array_map(
                 fn (array $info): ?ActiveRecord => self::parseSalmonWeapon($info),
