@@ -39,14 +39,18 @@ $xyPoints = array_map(
 );
 
 // 相関係数
-$correlationCoefficient = Correlation::r(
-  ArrayHelper::getColumn($xyPoints, 'x'),
-  ArrayHelper::getColumn($xyPoints, 'y'),
-);
+try {
+  $correlationCoefficient = Correlation::r(
+    ArrayHelper::getColumn($xyPoints, 'x'),
+    ArrayHelper::getColumn($xyPoints, 'y'),
+  );
+} catch (DivisionByZeroError $e) {
+  $correlationCoefficient = null;
+}
 
 // 回帰直線
 try {
-  $regression = abs($correlationCoefficient) >= 0.2
+  $regression = $correlationCoefficient !== null && abs($correlationCoefficient) >= 0.2
     ? new LinearRegression(
       ArrayHelper::getColumn(
         $xyPoints,
