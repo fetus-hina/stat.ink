@@ -107,7 +107,7 @@ final class SalmonSpecialUse3Validator extends Validator
 
             $special = self::getSpecialByKey($k);
             if (!$special) {
-                return ["{attribute} is invalid. unknown special {$k}"];
+                return ["{attribute} is invalid. unknown special \"{$k}\""];
             }
 
             if (in_array($special->key, $exists, true)) {
