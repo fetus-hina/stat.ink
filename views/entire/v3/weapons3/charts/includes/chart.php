@@ -45,17 +45,21 @@ $correlationCoefficient = Correlation::r(
 );
 
 // 回帰直線
-$regression = abs($correlationCoefficient) >= 0.2
-  ? new LinearRegression(
-    ArrayHelper::getColumn(
-      $xyPoints,
-      fn (array $v): array => [
-        ArrayHelper::getValue($v, 'x'),
-        ArrayHelper::getValue($v, 'y'),
-      ],
-    ),
-  )
-  : null;
+try {
+  $regression = abs($correlationCoefficient) >= 0.2
+    ? new LinearRegression(
+      ArrayHelper::getColumn(
+        $xyPoints,
+        fn (array $v): array => [
+          ArrayHelper::getValue($v, 'x'),
+          ArrayHelper::getValue($v, 'y'),
+        ],
+      ),
+    )
+    : null;
+} catch (\MathPHP\Exception\BadDataException $e) {
+  $regression = null;
+}
 
 $datasetPoints = [
   'type' => 'scatter',
