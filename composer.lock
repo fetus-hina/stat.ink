@@ -4654,23 +4654,23 @@
         },
         {
             "name": "codeception/lib-web",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/lib-web.git",
-                "reference": "4c02cf57c5f2d14bbb9f57ea09b38ceacec15d91"
+                "reference": "28cb2ed1169de18e720bec758015aadc37d8344c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/lib-web/zipball/4c02cf57c5f2d14bbb9f57ea09b38ceacec15d91",
-                "reference": "4c02cf57c5f2d14bbb9f57ea09b38ceacec15d91",
+                "url": "https://api.github.com/repos/Codeception/lib-web/zipball/28cb2ed1169de18e720bec758015aadc37d8344c",
+                "reference": "28cb2ed1169de18e720bec758015aadc37d8344c",
                 "shasum": ""
             },
             "require": {
                 "ext-mbstring": "*",
                 "guzzlehttp/psr7": "^2.0",
                 "php": "^8.0",
-                "symfony/css-selector": ">=4.4.24 <7.0"
+                "symfony/css-selector": ">=4.4.24 <8.0"
             },
             "conflict": {
                 "codeception/codeception": "<5.0.0-alpha3"
@@ -4701,9 +4701,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Codeception/lib-web/issues",
-                "source": "https://github.com/Codeception/lib-web/tree/1.0.3"
+                "source": "https://github.com/Codeception/lib-web/tree/1.0.4"
             },
-            "time": "2023-11-27T06:43:13+00:00"
+            "time": "2023-12-01T11:38:22+00:00"
         },
         {
             "name": "codeception/module-asserts",
