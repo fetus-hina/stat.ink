@@ -26,6 +26,7 @@ use yii\db\ActiveRecord;
  * @property boolean $is_eggstra_work
  *
  * @property Map3 $bigMap
+ * @property BigrunOfficialBorder3 $bigrunOfficialBorder3
  * @property BigrunOfficialResult3 $bigrunOfficialResult3
  * @property EggstraWorkOfficialResult3 $eggstraWorkOfficialResult3
  * @property SalmonKing3 $king
@@ -80,6 +81,11 @@ class SalmonSchedule3 extends ActiveRecord
     public function getBigMap(): ActiveQuery
     {
         return $this->hasOne(Map3::class, ['id' => 'big_map_id']);
+    }
+
+    public function getBigrunOfficialBorder3(): ActiveQuery
+    {
+        return $this->hasOne(BigrunOfficialBorder3::class, ['schedule_id' => 'id']);
     }
 
     public function getBigrunOfficialResult3(): ActiveQuery

@@ -48,6 +48,7 @@ return [
     'Note that this data is too small data size to speak of weapon loan rates.' => '',
     'Occur %' => '',
     'Occurrence %' => '',
+    'Official Thresholds' => '',
     'Pay Grade' => '평가 비율',
     'People You Played With' => '',
     'Per-Rotation Stats' => '',

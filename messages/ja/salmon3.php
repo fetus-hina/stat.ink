@@ -47,6 +47,7 @@ return [
     'Note that this data is too small data size to speak of weapon loan rates.' => '支給率を語るにはサンプル数が少なすぎることに注意してください。',
     'Occur %' => '発生率',
     'Occurrence %' => '発生率',
+    'Official Thresholds' => '公式ボーダー',
     'Pay Grade' => '評価レート',
     'People You Played With' => '一緒に遊んだ人',
     'Per-Rotation Stats' => 'スケジュールの統計',
