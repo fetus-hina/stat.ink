@@ -10,6 +10,8 @@ declare(strict_types=1);
 
 namespace app\actions\api\info;
 
+use DateTimeImmutable;
+use DateTimeInterface;
 use Yii;
 use app\models\Language;
 use app\models\SalmonWeapon3;
@@ -24,7 +26,6 @@ use yii\base\Action;
 use yii\db\Transaction;
 use yii\helpers\ArrayHelper;
 
-use function date;
 use function strcmp;
 use function strnatcasecmp;
 use function version_compare;
@@ -41,7 +42,16 @@ final class Weapon3Action extends Action
             Yii::$app->db->transaction(
                 fn (): array => [
                     'langs' => $this->getLangs(),
-                    'matchingGroups' => $this->getMatchingGroups($this->getCurrentXMatchingGroupVersion()),
+                    'matchingGroups2' => $this->getMatchingGroups(
+                        $this->getXMatchingGroupVersion(
+                            new DateTimeImmutable('2022-12-01T00:00:00+00:00'),
+                        ),
+                    ),
+                    'matchingGroups6' => $this->getMatchingGroups(
+                        $this->getXMatchingGroupVersion(
+                            new DateTimeImmutable('2023-12-01T00:00:00+00:00'),
+                        ),
+                    ),
                     'salmons' => $this->getSalmonWeapons(),
                     'specials' => $this->getSpecials(),
                     'subs' => $this->getSubweapons(),
@@ -151,10 +161,10 @@ final class Weapon3Action extends Action
         );
     }
 
-    private function getCurrentXMatchingGroupVersion(): ?XMatchingGroupVersion3
+    private function getXMatchingGroupVersion(DateTimeInterface $t): ?XMatchingGroupVersion3
     {
         $currentGameVersion = SplatoonVersion3::find()
-            ->andWhere(['<=', 'release_at', date('Y-m-d\TH:i:sP', $_SERVER['REQUEST_TIME'])])
+            ->andWhere(['<=', 'release_at', $t->format(DateTimeInterface::ATOM)])
             ->orderBy(['release_at' => SORT_DESC])
             ->limit(1)
             ->one();

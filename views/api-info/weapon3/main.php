@@ -18,7 +18,8 @@ use yii\web\View;
  * @var Language[] $langs
  * @var View $this
  * @var Weapon3[] $weapons
- * @var array<string, XMatchingGroup3> $matchingGroups
+ * @var array<string, XMatchingGroup3> $matchingGroups2
+ * @var array<string, XMatchingGroup3> $matchingGroups6
  */
 
 TableResponsiveForceAsset::register($this);
@@ -54,7 +55,8 @@ $salmonIcon = Icon::s3Salmon();
     <thead>
       <tr>
         <th data-sort="int" data-sort-onload="yes"></th>
-        <th data-sort="int">X</th>
+        <th data-sort="int">X(2)</th>
+        <th data-sort="int">X(6)</th>
         <th data-sort="int"><?= Html::encode(Yii::t('app', 'Category')) ?></th>
         <?= Html::tag('th', $salmonIcon, [
           'class' => 'auto-tooltip',
@@ -100,7 +102,11 @@ $salmonIcon = Icon::s3Salmon();
         ) . "\n" ?>
         <?= $this->render('main/td-x-matching', [
           'weapon' => $weapon,
-          'group' => $matchingGroups[$weapon->key] ?? null,
+          'group' => $matchingGroups2[$weapon->key] ?? null,
+        ]) . "\n" ?>
+        <?= $this->render('main/td-x-matching', [
+          'weapon' => $weapon,
+          'group' => $matchingGroups6[$weapon->key] ?? null,
         ]) . "\n" ?>
         <?= Html::tag(
           'td',
@@ -212,7 +218,7 @@ $salmonIcon = Icon::s3Salmon();
   </table>
 </div>
 <p class="text-right mt-2">
-  [<?= Html::encode(Yii::t('app-xmatch3', 'X: Match making group')) ?>]
+  [X(2): <?= Html::encode(Yii::t('app-xmatch3', 'X: Match making group')) ?>]
   <?= Yii::t(
     'app',
     'Source: {source}',
@@ -222,6 +228,21 @@ $salmonIcon = Icon::s3Salmon();
         str_starts_with(Yii::$app->language, 'ja')
           ? 'https://twitter.com/antariska_spl/status/1610201648378556418'
           : 'https://twitter.com/antariska_spl/status/1610203442114629632',
+        [
+          'target' => '_blank',
+          'rel' => 'noopener noreferrer',
+        ],
+      ),
+    ],
+  ) ?><br>
+  [X(6): <?= Html::encode(Yii::t('app-xmatch3', 'X: Match making group')) ?>]
+  <?= Yii::t(
+    'app',
+    'Source: {source}',
+    [
+      'source' => Html::a(
+        'Twitter @M_ClashBlaster',
+        'https://twitter.com/M_ClashBlaster/status/1730117977759224074',
         [
           'target' => '_blank',
           'rel' => 'noopener noreferrer',
