@@ -50,9 +50,10 @@ $fmtEggs = fn (int|float|null $value, bool $estimated = false): string => $value
         'class' => ArrayDataProvider::class,
         'allModels' => array_values(
           array_filter([
-            $model,
-            $official ?? $ruleOfThumbDistrib,
             $border,
+            $model,
+            $official,
+            $ruleOfThumbDistrib,
           ]),
         ),
         'pagination' => false,
@@ -66,7 +67,7 @@ $fmtEggs = fn (int|float|null $value, bool $estimated = false): string => $value
           'label' => '',
           'value' => fn (object $model): string => match ($model::class) {
             BigrunOfficialBorder3::class => Yii::t('app-salmon3', 'Official Thresholds'),
-            BigrunOfficialResult3::class => Yii::t('app-salmon3', 'Official Results'),
+            BigrunOfficialResult3::class => Yii::t('app', 'Official Results'),
             EggstraWorkOfficialResult3::class => Yii::t('app', 'Official Results'),
             NormalDistribution::class => Yii::t('app', 'Empirical Estimates'),
             StatBigrunDistribUserAbstract3::class => Yii::$app->name,
