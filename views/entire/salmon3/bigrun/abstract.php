@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use MathPHP\Probability\Distribution\Continuous\Normal as NormalDistribution;
+use app\components\widgets\Icon;
 use app\models\BigrunOfficialBorder3;
 use app\models\BigrunOfficialResult3;
 use app\models\EggstraWorkOfficialResult3;
@@ -26,6 +27,20 @@ if (!$model) {
 }
 
 $fmt = Yii::$app->formatter;
+
+$fmtEggs = fn (int|float|null $value, bool $estimated = false): string => $value === null
+  ? Html::encode('-')
+  : vsprintf('%3$s%1$s %2$s%4$s', [
+    Icon::goldenEgg(),
+    Html::encode(
+      match (true) {
+        is_float($value) => $fmt->asDecimal($value, 2),
+        is_int($value) => $fmt->asInteger($value),
+      },
+    ),
+    Html::encode($estimated ? '(' : ''),
+    Html::encode($estimated ? ')' : ''),
+  ]);
 
 ?>
 <div class="mb-3">
@@ -51,9 +66,11 @@ $fmt = Yii::$app->formatter;
           'label' => '',
           'value' => fn (object $model): string => match ($model::class) {
             BigrunOfficialBorder3::class => Yii::t('app-salmon3', 'Official Thresholds'),
-            BigrunOfficialResult3::class, EggstraWorkOfficialResult3::class => Yii::t('app', 'Official Results'),
+            BigrunOfficialResult3::class => Yii::t('app-salmon3', 'Official Results'),
+            EggstraWorkOfficialResult3::class => Yii::t('app', 'Official Results'),
             NormalDistribution::class => Yii::t('app', 'Empirical Estimates'),
-            StatBigrunDistribUserAbstract3::class, StatEggstraWorkDistribAbstract3::class => Yii::$app->name,
+            StatBigrunDistribUserAbstract3::class => Yii::$app->name,
+            StatEggstraWorkDistribAbstract3::class => Yii::$app->name,
             default => throw new LogicException(),
           },
         ],
@@ -61,9 +78,20 @@ $fmt = Yii::$app->formatter;
           'contentOptions' => ['class' => 'text-center'],
           'headerOptions' => ['class' => 'text-center'],
           'label' => Yii::t('app', 'Users'),
+          'format' => 'raw',
           'value' => fn (object $model): string => match ($model::class) {
-            BigrunOfficialBorder3::class, BigrunOfficialResult3::class, EggstraWorkOfficialResult3::class, NormalDistribution::class => '-',
-            StatBigrunDistribUserAbstract3::class, StatEggstraWorkDistribAbstract3::class => $fmt->asInteger($model->users),
+            BigrunOfficialBorder3::class => Html::encode('-'),
+            BigrunOfficialResult3::class => Html::encode('-'),
+            EggstraWorkOfficialResult3::class => Html::encode('-'),
+            NormalDistribution::class => Html::encode('-'),
+            StatBigrunDistribUserAbstract3::class => implode(' ', [
+              Icon::inkling(),
+              Html::encode($fmt->asInteger($model->users)),
+            ]),
+            StatEggstraWorkDistribAbstract3::class => implode(' ', [
+              Icon::inkling(),
+              Html::encode($fmt->asInteger($model->users)),
+            ]),
             default => throw new LogicException(),
           },
         ],
@@ -71,11 +99,14 @@ $fmt = Yii::$app->formatter;
           'contentOptions' => ['class' => 'text-center'],
           'headerOptions' => ['class' => 'text-center'],
           'label' => Yii::t('app', 'Average'),
+          'format' => 'raw',
           'value' => fn (object $model): string => match ($model::class) {
-            BigrunOfficialBorder3::class, BigrunOfficialResult3::class, EggstraWorkOfficialResult3::class => '-',
-            NormalDistribution::class => '(' . $fmt->asDecimal($model->mean(), 2) . ')',
-            StatBigrunDistribUserAbstract3::class => $fmt->asDecimal($model->average, 2),
-            StatEggstraWorkDistribAbstract3::class => $fmt->asDecimal($model->average, 2),
+            BigrunOfficialBorder3::class => $fmtEggs(null),
+            BigrunOfficialResult3::class => $fmtEggs(null),
+            EggstraWorkOfficialResult3::class => $fmtEggs(null),
+            NormalDistribution::class => $fmtEggs($model->mean()),
+            StatBigrunDistribUserAbstract3::class => $fmtEggs($model->average),
+            StatEggstraWorkDistribAbstract3::class => $fmtEggs($model->average),
             default => throw new LogicException(),
           },
         ],
@@ -99,12 +130,14 @@ $fmt = Yii::$app->formatter;
             Html::encode(Yii::t('app-salmon-scale3', 'Gold')), // FIXME: category
             Html::encode(Yii::t('app', 'Top {percentile}%', ['percentile' => 5])),
           ]),
+          'format' => 'raw',
           'value' => fn (object $model): string => match ($model::class) {
-            BigrunOfficialBorder3::class, BigrunOfficialResult3::class => $fmt->asInteger($model->gold),
-            EggstraWorkOfficialResult3::class => $fmt->asInteger($model->gold),
-            NormalDistribution::class => '(' . $fmt->asInteger($model->inverse(0.95)) . ')',
-            StatBigrunDistribUserAbstract3::class => $fmt->asInteger($model->p95),
-            StatEggstraWorkDistribAbstract3::class => $fmt->asInteger($model->top_5_pct),
+            BigrunOfficialBorder3::class => $fmtEggs($model->gold),
+            BigrunOfficialResult3::class => $fmtEggs($model->gold),
+            EggstraWorkOfficialResult3::class => $fmtEggs($model->gold),
+            NormalDistribution::class => $fmtEggs((int)$model->inverse(0.95), true),
+            StatBigrunDistribUserAbstract3::class => $fmtEggs($model->p95),
+            StatEggstraWorkDistribAbstract3::class => $fmtEggs($model->top_5_pct),
             default => throw new LogicException(),
           },
         ],
@@ -116,12 +149,14 @@ $fmt = Yii::$app->formatter;
             Html::encode(Yii::t('app-salmon-scale3', 'Silver')), // FIXME: category
             Html::encode(Yii::t('app', 'Top {percentile}%', ['percentile' => 20])),
           ]),
-          'value' => fn (?object $model): string => match ($model::class) {
-            BigrunOfficialBorder3::class, BigrunOfficialResult3::class => $fmt->asInteger($model->silver),
-            EggstraWorkOfficialResult3::class => $fmt->asInteger($model->silver),
-            NormalDistribution::class => '(' . $fmt->asInteger($model->inverse(0.80)) . ')',
-            StatBigrunDistribUserAbstract3::class => $fmt->asInteger($model->p80),
-            StatEggstraWorkDistribAbstract3::class => $fmt->asInteger($model->top_20_pct),
+          'format' => 'raw',
+          'value' => fn (object $model): string => match ($model::class) {
+            BigrunOfficialBorder3::class => $fmtEggs($model->silver),
+            BigrunOfficialResult3::class => $fmtEggs($model->silver),
+            EggstraWorkOfficialResult3::class => $fmtEggs($model->silver),
+            NormalDistribution::class => $fmtEggs((int)$model->inverse(0.80), true),
+            StatBigrunDistribUserAbstract3::class => $fmtEggs($model->p80),
+            StatEggstraWorkDistribAbstract3::class => $fmtEggs($model->top_20_pct),
             default => throw new LogicException(),
           },
         ],
@@ -133,12 +168,14 @@ $fmt = Yii::$app->formatter;
             Html::encode(Yii::t('app-salmon-scale3', 'Bronze')), // FIXME: category
             Html::encode(Yii::t('app', 'Top {percentile}%', ['percentile' => 50])),
           ]),
+          'format' => 'raw',
           'value' => fn (object $model): string => match ($model::class) {
-            BigrunOfficialBorder3::class, BigrunOfficialResult3::class => $fmt->asInteger($model->bronze),
-            EggstraWorkOfficialResult3::class => $fmt->asInteger($model->bronze),
-            NormalDistribution::class => '(' . $fmt->asInteger($model->inverse(0.50)) . ')',
-            StatBigrunDistribUserAbstract3::class => $fmt->asInteger($model->p50),
-            StatEggstraWorkDistribAbstract3::class => $fmt->asInteger($model->median),
+            BigrunOfficialBorder3::class => $fmtEggs($model->bronze),
+            BigrunOfficialResult3::class => $fmtEggs($model->bronze),
+            EggstraWorkOfficialResult3::class => $fmtEggs($model->bronze),
+            NormalDistribution::class => $fmtEggs((int)$model->inverse(0.50), true),
+            StatBigrunDistribUserAbstract3::class => $fmtEggs($model->p50),
+            StatEggstraWorkDistribAbstract3::class => $fmtEggs($model->median),
             default => throw new LogicException(),
           },
         ],
