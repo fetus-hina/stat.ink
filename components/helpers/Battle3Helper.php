@@ -103,7 +103,7 @@ final class Battle3Helper
         );
     }
 
-    private static function getWeaponMatchingGroupVersion(Battle3 $battle): ?XMatchingGroupVersion3
+    public static function getWeaponMatchingGroupVersion(Battle3 $battle): ?XMatchingGroupVersion3
     {
         if (!$gameVersion = $battle->version) {
             return null;

@@ -9,18 +9,20 @@ use app\models\Battle3;
 use app\models\BattlePlayer3;
 use app\models\BattleTricolorPlayer3;
 use app\models\XMatchingGroup3;
+use app\models\XMatchingGroupVersion3;
 use yii\helpers\Html;
 use yii\web\View;
 
 /**
  * @var Battle3 $battle
  * @var View $this
+ * @var XMatchingGroupVersion3|null $weaponMatchingGroupVersion
  * @var array<BattlePlayer3|BattleTricolorPlayer3> $ourTeamPlayers
  * @var array<BattlePlayer3|BattleTricolorPlayer3> $theirTeamPlayers
  * @var array<BattlePlayer3|BattleTricolorPlayer3> $thirdTeamPlayers
  * @var array<string, Ability3> $abilities
- * @var bool $ourTeamFirst
  * @var array<string, XMatchingGroup3> $weaponMatchingGroup
+ * @var bool $ourTeamFirst
  */
 
 TableResponsiveForceAsset::register($this);
@@ -140,9 +142,10 @@ $isTricolor = $battle->rule?->key === 'tricolor';
     </tbody>
   </table>
 </div>
-<?php if ($isXmatch) { ?>
+<?php if ($isXmatch && $weaponMatchingGroupVersion) { ?>
 <p class="mt-2 mb-3 text-right small">
   [<?= Html::encode(Yii::t('app-xmatch3', 'X: Match making group')) ?>]
+<?php if (version_compare($weaponMatchingGroupVersion->minimum_version, '6.0.0', '<')) { ?>
   <?= Yii::t('app', 'Source: {source}', [
     'source' => Html::a(
       vsprintf('%s %s', [
@@ -158,5 +161,20 @@ $isTricolor = $battle->rule?->key === 'tricolor';
       ],
     ),
   ]) . "\n" ?>
+<?php } else { ?>
+  <?= Yii::t('app', 'Source: {source}', [
+    'source' => Html::a(
+      vsprintf('%s %s', [
+        Icon::twitter(),
+        Html::encode('@M_ClashBlaster'),
+      ]),
+      'https://twitter.com/M_ClashBlaster/status/1730117977759224074',
+      [
+        'target' => '_blank',
+        'rel' => 'noopener',
+      ],
+    ),
+  ]) . "\n" ?>
+<?php } ?>
 </p>
 <?php } ?>

@@ -9,6 +9,9 @@
 declare(strict_types=1);
 
 return [
+    'X: Match making group' => 'Xマッチ マッチンググループ',
+
+    // v2.0.0
     'A+' =>'A+',
     'A-' =>'A-',
     'B' =>'B',
@@ -28,5 +31,14 @@ return [
     'E Long' => 'E-長射程',
     'E Short' => 'E-短射程',
 
-    'X: Match making group' => 'Xマッチ マッチンググループ',
+    // v6.0.0
+    'S' => '短',
+    'M' => '中',
+    'L' => '長',
+    'C' => 'ﾁｬ',
+
+    'Short' => '短射程',
+    'Middle' => '中射程',
+    'Long' => '長射程',
+    'Chargers' => 'チャージャー',
 ];

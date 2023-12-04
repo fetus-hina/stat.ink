@@ -107,4 +107,5 @@ echo $this->render('//show-v3/battle/players/players', [
   'theirTeamPlayers' => $filterPlayers($allPlayers, false, 2),
   'thirdTeamPlayers' => $filterPlayers($allPlayers, false, 3),
   'weaponMatchingGroup' => Battle3Helper::getWeaponMatchingGroup($model),
+  'weaponMatchingGroupVersion' => Battle3Helper::getWeaponMatchingGroupVersion($model),
 ]);

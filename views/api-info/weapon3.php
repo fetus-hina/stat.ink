@@ -21,7 +21,8 @@ use yii\web\View;
  * @var Subweapon3[] $subs
  * @var View $this
  * @var Weapon3[] $weapons
- * @var array<string, XMatchingGroup3> $matchingGroups
+ * @var array<string, XMatchingGroup3> $matchingGroups2
+ * @var array<string, XMatchingGroup3> $matchingGroups6
  */
 
 $this->context->layout = 'main';
@@ -38,7 +39,10 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
   <?= AdWidget::widget() . "\n" ?>
   <?= SnsWidget::widget() . "\n" ?>
 
-  <?= $this->render('weapon3/main', compact('langs', 'weapons', 'matchingGroups')) . "\n" ?>
+  <?= $this->render(
+    'weapon3/main',
+    compact('langs', 'weapons', 'matchingGroups2', 'matchingGroups6'),
+  ) . "\n" ?>
   <?= $this->render('weapon3/salmon', ['langs' => $langs, 'weapons' => $salmons]) . "\n" ?>
   <?= $this->render('weapon3/sub', ['langs' => $langs, 'subs' => $subs]) . "\n" ?>
   <?= $this->render('weapon3/special', ['langs' => $langs, 'specials' => $specials]) . "\n" ?>
