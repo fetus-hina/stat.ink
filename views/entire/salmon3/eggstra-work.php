@@ -129,6 +129,7 @@ $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
       ['class' => 'mt-0 mb-3'],
     ) . "\n" ?>
     <?= $this->render('bigrun/abstract', [
+      'border' => null,
       'model' => $abstract,
       'official' => $schedule->eggstraWorkOfficialResult3,
       'ruleOfThumbDistrib' => $ruleOfThumbDistrib,
