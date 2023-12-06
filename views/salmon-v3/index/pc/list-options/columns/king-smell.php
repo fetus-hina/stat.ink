@@ -15,7 +15,13 @@ return [
   'value' => function (Salmon3 $model): ?string {
     $meter = $model->king_smell;
     return is_int($meter) && 0 <= $meter && $meter <= 5
-      ? Icon::s3Salmometer($meter)
+      ? Icon::s3Salmometer(
+        $meter,
+        // オカシラゲージの個別表示は v6.0.0 から
+        version_compare($model->version?->tag ?? '0.0.0', '6.0.0', '>=')
+          ? $model->schedule?->king
+          : null,
+      )
       : null;
   },
 ];
