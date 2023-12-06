@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -20,7 +20,7 @@ use yii\base\Component;
 use function file_exists;
 use function substr;
 
-class GeoIP extends Component
+final class GeoIP extends Component
 {
     public $dbCity = '@geoip/GeoLite2-City.mmdb';
     public $dbCountry = '@geoip/GeoLite2-Country.mmdb';
@@ -29,35 +29,50 @@ class GeoIP extends Component
         string $ipAddress,
         array $locales = ['en'],
     ): ?City {
-        if (!$reader = $this->getReader($this->dbCity, $locales)) {
-            return null;
-        }
+        Yii::beginProfile(__METHOD__, __METHOD__);
+        try {
+            if (!$reader = $this->getReader($this->dbCity, $locales)) {
+                return null;
+            }
 
-        return $reader->city($ipAddress);
+            return $reader->city($ipAddress);
+        } finally {
+            Yii::endProfile(__METHOD__, __METHOD__);
+        }
     }
 
     public function country(
         string $ipAddress,
         array $locales = ['en'],
     ): ?Country {
-        if (!$reader = $this->getReader($this->dbCountry, $locales)) {
-            return null;
-        }
+        Yii::beginProfile(__METHOD__, __METHOD__);
+        try {
+            if (!$reader = $this->getReader($this->dbCountry, $locales)) {
+                return null;
+            }
 
-        return $reader->country($ipAddress);
+            return $reader->country($ipAddress);
+        } finally {
+            Yii::endProfile(__METHOD__, __METHOD__);
+        }
     }
 
     protected function getReader(string $dbPathAlias, array $locales): ?Reader
     {
-        $dbPath = Yii::getAlias($dbPathAlias);
-        if (!@file_exists($dbPath)) {
-            return null;
-        }
-
+        Yii::beginProfile(__METHOD__, __METHOD__);
         try {
-            return new Reader($dbPath, $locales);
-        } catch (Throwable $e) {
-            return null;
+            $dbPath = (string)Yii::getAlias($dbPathAlias);
+            if (!@file_exists($dbPath)) {
+                return null;
+            }
+
+            try {
+                return new Reader($dbPath, $locales);
+            } catch (Throwable $e) {
+                return null;
+            }
+        } finally {
+            Yii::endProfile(__METHOD__, __METHOD__);
         }
     }
 
@@ -66,25 +81,12 @@ class GeoIP extends Component
         if ($appLang === null) {
             $appLang = Yii::$app->language;
         }
-        switch (substr($appLang, 0, 2)) {
-            case 'de':
-            case 'en':
-            case 'es':
-            case 'fr':
-            case 'ja':
-            case 'ru':
-                return substr($appLang, 0, 2);
 
-            case 'zh':
-                return $appLang === 'zh-CN'
-                    ? 'zh-CN'
-                    : 'zh-TW';
-
-            case 'pt':
-                return 'pt-BR';
-
-            default:
-                return 'en';
-        }
+        return match (substr($appLang, 0, 2)) {
+            'de', 'en', 'es', 'fr', 'ja', 'ru' => substr($appLang, 0, 2),
+            'pt' => 'pt-BR',
+            'zh' => $appLang === 'zh-CN' ? 'zh-CN' : 'zh-TW',
+            default => 'en',
+        };
     }
 }
