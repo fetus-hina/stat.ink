@@ -21,6 +21,7 @@ use app\models\SalmonSchedule3;
 use app\models\SalmonWaterLevel2;
 use app\models\SalmonWeapon3;
 use app\models\Special3;
+use app\models\SplatoonVersion3;
 use app\models\User;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -39,6 +40,7 @@ use yii\web\View;
  * @var PlayerStats[] $playerStats
  * @var Salmon3[] $results
  * @var SalmonSchedule3 $schedule
+ * @var SplatoonVersion3|null $version
  * @var User $user
  * @var View $this
  * @var array<int, SalmonBoss3> $bosses
@@ -126,6 +128,7 @@ $played = TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'count'));
         'stats',
         'tides',
         'user',
+        'version',
       )) . "\n" ?>
       <?= $this->render('schedule/kings', compact('kings', 'kingStats', 'user')) . "\n" ?>
       <?= $this->render('schedule/bosses', compact('bosses', 'bossStats', 'user')) . "\n" ?>

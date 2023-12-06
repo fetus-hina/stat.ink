@@ -53,6 +53,7 @@ use yii\web\View;
  * @var array<int, array{boss_id: int, appearances: int, defeated: int, defeated_by_me: int}> $bossStats
  * @var array<int, array{king_id: int, appearances: int, defeated: int}> $kingStats
  * @var array<string, scalar|null> $stats
+ * @var null $version
  */
 
 $permLink = Url::to(
@@ -125,6 +126,7 @@ $played = TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'count'));
         'stats' => $stats,
         'tides' => $tides,
         'user' => $user,
+        'version' => $version ?? null,
       ]) . "\n" ?>
       <?= $this->render('stats/golden-eggs', compact(
         'goldenEggHistogramAbstracts',

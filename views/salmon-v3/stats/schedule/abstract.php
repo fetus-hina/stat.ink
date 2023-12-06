@@ -11,6 +11,7 @@ use app\models\SalmonEvent3;
 use app\models\SalmonSchedule3;
 use app\models\SalmonScheduleWeapon3;
 use app\models\SalmonWaterLevel2;
+use app\models\SplatoonVersion3;
 use app\models\User;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -23,6 +24,7 @@ use yii\widgets\DetailView;
  * @var Map3|SalmonMap3|null $map
  * @var OverfishingStats|null $overfishing
  * @var SalmonSchedule3|null $schedule
+ * @var SplatoonVersion3|null $version
  * @var User $user
  * @var View $this
  * @var array<int, SalmonEvent3> $events
@@ -165,17 +167,27 @@ echo DetailView::widget([
       ],
       [
         'label' => Yii::t('app-salmon3', 'King Salmonid Defeat Rate'),
-        'value' => match ($v = TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'king_appears'))) {
-          0, null => Yii::t('app', 'N/A'),
-          default => vsprintf('%s (%s / %s)', [
-            $fmt->asPercent(
-              TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'king_defeated')) / $v,
-              1,
+        'format' => 'raw',
+        'value' => trim(
+          implode(' ', [
+            version_compare($version?->tag ?? '0.0.0', '6.0.0', '>=') && $schedule?->king
+              ? Icon::s3BossSalmonid($schedule->king)
+              : '',
+            Html::encode(
+              match ($v = TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'king_appears'))) {
+                0, null => Yii::t('app', 'N/A'),
+                default => vsprintf('%s (%s / %s)', [
+                  $fmt->asPercent(
+                    TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'king_defeated')) / $v,
+                    1,
+                  ),
+                  $fmt->asInteger((int)TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'king_defeated'))),
+                  $fmt->asInteger($v),
+                ]),
+              },
             ),
-            $fmt->asInteger((int)TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'king_defeated'))),
-            $fmt->asInteger($v),
           ]),
-        },
+        ),
       ],
       [
         'label' => Yii::t('app-salmon3', 'Max. Hazard Level (cleared)'),
