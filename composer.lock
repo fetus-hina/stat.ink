@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "420bfb1ee7cd6aef3ba05083053916a3",
+    "content-hash": "ad1f59b17b14b628d45ee553463d59a4",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -1369,16 +1369,16 @@
         },
         {
             "name": "laminas/laminas-validator",
-            "version": "2.43.0",
+            "version": "2.44.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-validator.git",
-                "reference": "8f6c2f5753dec64df924a86d18036113f3140f2b"
+                "reference": "e9228cdf37434dc376cd7b820e8c80ed7b5d78e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-validator/zipball/8f6c2f5753dec64df924a86d18036113f3140f2b",
-                "reference": "8f6c2f5753dec64df924a86d18036113f3140f2b",
+                "url": "https://api.github.com/repos/laminas/laminas-validator/zipball/e9228cdf37434dc376cd7b820e8c80ed7b5d78e9",
+                "reference": "e9228cdf37434dc376cd7b820e8c80ed7b5d78e9",
                 "shasum": ""
             },
             "require": {
@@ -1393,15 +1393,15 @@
             "require-dev": {
                 "laminas/laminas-coding-standard": "^2.5",
                 "laminas/laminas-db": "^2.18",
-                "laminas/laminas-filter": "^2.32",
-                "laminas/laminas-i18n": "^2.23",
-                "laminas/laminas-session": "^2.16",
-                "laminas/laminas-uri": "^2.10.0",
-                "phpunit/phpunit": "^10.3.3",
+                "laminas/laminas-filter": "^2.33",
+                "laminas/laminas-i18n": "^2.24.1",
+                "laminas/laminas-session": "^2.17",
+                "laminas/laminas-uri": "^2.11.0",
+                "phpunit/phpunit": "^10.4.2",
                 "psalm/plugin-phpunit": "^0.18.4",
-                "psr/http-client": "^1.0.2",
+                "psr/http-client": "^1.0.3",
                 "psr/http-factory": "^1.0.2",
-                "vimeo/psalm": "^5.15"
+                "vimeo/psalm": "^5.16"
             },
             "suggest": {
                 "laminas/laminas-db": "Laminas\\Db component, required by the (No)RecordExists validator",
@@ -1449,7 +1449,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2023-11-20T01:23:15+00:00"
+            "time": "2023-12-06T11:43:53+00:00"
         },
         {
             "name": "lipis/flag-icons",
