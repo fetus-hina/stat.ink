@@ -80,9 +80,12 @@ final class IndexAction extends Action
                 'salmonPlayer3s.special',
                 'salmonPlayer3s.species',
                 'schedule',
+                'schedule.king',
                 'stage',
                 'titleAfter',
                 'titleBefore',
+                'user',
+                'version',
             ])
             ->andWhere([
                 'is_deleted' => false,

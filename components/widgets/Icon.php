@@ -59,6 +59,7 @@ use function in_array;
 use function is_array;
 use function is_string;
 use function mb_chr;
+use function sprintf;
 use function str_starts_with;
 
 /**
@@ -181,12 +182,6 @@ use function str_starts_with;
  * @method static string s3RuleNawabari()
  * @method static string s3RuleTricolor()
  * @method static string s3RuleYagura()
- * @method static string s3Salmometer0()
- * @method static string s3Salmometer1()
- * @method static string s3Salmometer2()
- * @method static string s3Salmometer3()
- * @method static string s3Salmometer4()
- * @method static string s3Salmometer5()
  * @method static string s3Salmon()
  * @method static string s3Signal()
  * @method static string s3SilverMedal()
@@ -375,12 +370,6 @@ final class Icon
         's3RuleNawabari' => [RuleIconAsset::class, 'nawabari.png', ['app-rule3', 'Turf War'], true],
         's3RuleTricolor' => [RuleIconAsset::class, 'tricolor.png', ['app-rule3', 'Tricolor Turf War'], true],
         's3RuleYagura' => [RuleIconAsset::class, 'yagura.png', ['app-rule3', 'Tower Control'], true],
-        's3Salmometer0' => [SalmometerIconAsset::class, 'salmometer-0.png', '(0/5)', '0 / 5'],
-        's3Salmometer1' => [SalmometerIconAsset::class, 'salmometer-1.png', '(1/5)', '1 / 5'],
-        's3Salmometer2' => [SalmometerIconAsset::class, 'salmometer-2.png', '(2/5)', '2 / 5'],
-        's3Salmometer3' => [SalmometerIconAsset::class, 'salmometer-3.png', '(3/5)', '3 / 5'],
-        's3Salmometer4' => [SalmometerIconAsset::class, 'salmometer-4.png', '(4/5)', '4 / 5'],
-        's3Salmometer5' => [SalmometerIconAsset::class, 'salmometer-5.png', '(5/5)', '5 / 5'],
         's3Salmon' => [SalmonModeIconAsset::class, 'salmon.png', ['app-salmon2', 'Salmon Run'], true],
         's3Signal' => [UiIconAsset::class, 'signal.png', ['app', 'Ultra Signals'], ['app', 'Try to secure the Ultra Signal']],
         's3SilverMedal' => [UiIconAsset::class, 'silver_medal.png'],
@@ -479,23 +468,16 @@ final class Icon
         };
     }
 
-    public static function s3Salmometer(?int $level = null): ?string
+    public static function s3Salmometer(?int $level = null, ?SalmonKing3 $king = null): ?string
     {
-        return match ($level) {
-            null => self::assetImage(
-                SalmometerIconAsset::class,
-                'salmometer-5.png',
-                alt: null,
-                title: false,
-            ),
-            0 => self::s3Salmometer0(),
-            1 => self::s3Salmometer1(),
-            2 => self::s3Salmometer2(),
-            3 => self::s3Salmometer3(),
-            4 => self::s3Salmometer4(),
-            5 => self::s3Salmometer5(),
-            default => null,
-        };
+        return self::assetImage(
+            SalmometerIconAsset::class,
+            $king
+                ? sprintf('salmometer-%s-%d.png', $king->key, $level ?? 5)
+                : sprintf('salmometer-%d.png', $level ?? 5),
+            alt: $level === null ? null : sprintf('(%d/5)', $level),
+            title: $level === null ? false : sprintf('%d / 5', $level),
+        );
     }
 
     public static function s3Subweapon(Subweapon3|string|null $model, ?string $size = null): ?string

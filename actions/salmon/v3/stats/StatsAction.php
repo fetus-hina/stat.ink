@@ -82,7 +82,7 @@ final class StatsAction extends Action
                     'id' => __METHOD__,
                     'revision' => ArrayHelper::getValue(Yii::$app->params, 'gitRevision.longHash'),
                     'user' => $user->id,
-                    'version' => 9,
+                    'version' => 10,
                 ],
                 fn (): array => [
                     'bossStats' => $this->getBossStats($db, $user, null),
@@ -100,6 +100,7 @@ final class StatsAction extends Action
                     'specials' => $this->getSpecials($db),
                     'stats' => $this->getStats($db, $user, null),
                     'tides' => $this->getTides($db),
+                    'version' => null,
                     'weaponStats' => $this->getWeaponStats($db, $user),
                     'weapons' => $this->getWeapons($db),
                 ],

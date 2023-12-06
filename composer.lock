@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "420bfb1ee7cd6aef3ba05083053916a3",
+    "content-hash": "d174731189b2636e6fa12cae5bc4fd10",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -448,28 +448,28 @@
         },
         {
             "name": "geoip2/geoip2",
-            "version": "v2.13.0",
+            "version": "v3.0.0",
             "source": {
                 "type": "git",
                 "url": "git@github.com:maxmind/GeoIP2-php.git",
-                "reference": "6a41d8fbd6b90052bc34dff3b4252d0f88067b23"
+                "reference": "1a802ce9356cdd1c6b681c030fd9563750e11e6a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maxmind/GeoIP2-php/zipball/6a41d8fbd6b90052bc34dff3b4252d0f88067b23",
-                "reference": "6a41d8fbd6b90052bc34dff3b4252d0f88067b23",
+                "url": "https://api.github.com/repos/maxmind/GeoIP2-php/zipball/1a802ce9356cdd1c6b681c030fd9563750e11e6a",
+                "reference": "1a802ce9356cdd1c6b681c030fd9563750e11e6a",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "maxmind-db/reader": "~1.8",
+                "maxmind-db/reader": "^1.11.1",
                 "maxmind/web-service-common": "~0.8",
-                "php": ">=7.2"
+                "php": ">=8.1"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "3.*",
                 "phpstan/phpstan": "*",
-                "phpunit/phpunit": "^8.0 || ^9.0",
+                "phpunit/phpunit": "^10.0",
                 "squizlabs/php_codesniffer": "3.*"
             },
             "type": "library",
@@ -498,7 +498,7 @@
                 "geolocation",
                 "maxmind"
             ],
-            "time": "2022-08-05T20:32:58+00:00"
+            "time": "2023-12-04T17:16:34+00:00"
         },
         {
             "name": "jaybizzle/crawler-detect",
@@ -1369,16 +1369,16 @@
         },
         {
             "name": "laminas/laminas-validator",
-            "version": "2.43.0",
+            "version": "2.44.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-validator.git",
-                "reference": "8f6c2f5753dec64df924a86d18036113f3140f2b"
+                "reference": "e9228cdf37434dc376cd7b820e8c80ed7b5d78e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-validator/zipball/8f6c2f5753dec64df924a86d18036113f3140f2b",
-                "reference": "8f6c2f5753dec64df924a86d18036113f3140f2b",
+                "url": "https://api.github.com/repos/laminas/laminas-validator/zipball/e9228cdf37434dc376cd7b820e8c80ed7b5d78e9",
+                "reference": "e9228cdf37434dc376cd7b820e8c80ed7b5d78e9",
                 "shasum": ""
             },
             "require": {
@@ -1393,15 +1393,15 @@
             "require-dev": {
                 "laminas/laminas-coding-standard": "^2.5",
                 "laminas/laminas-db": "^2.18",
-                "laminas/laminas-filter": "^2.32",
-                "laminas/laminas-i18n": "^2.23",
-                "laminas/laminas-session": "^2.16",
-                "laminas/laminas-uri": "^2.10.0",
-                "phpunit/phpunit": "^10.3.3",
+                "laminas/laminas-filter": "^2.33",
+                "laminas/laminas-i18n": "^2.24.1",
+                "laminas/laminas-session": "^2.17",
+                "laminas/laminas-uri": "^2.11.0",
+                "phpunit/phpunit": "^10.4.2",
                 "psalm/plugin-phpunit": "^0.18.4",
-                "psr/http-client": "^1.0.2",
+                "psr/http-client": "^1.0.3",
                 "psr/http-factory": "^1.0.2",
-                "vimeo/psalm": "^5.15"
+                "vimeo/psalm": "^5.16"
             },
             "suggest": {
                 "laminas/laminas-db": "Laminas\\Db component, required by the (No)RecordExists validator",
@@ -1449,20 +1449,20 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2023-11-20T01:23:15+00:00"
+            "time": "2023-12-06T11:43:53+00:00"
         },
         {
             "name": "lipis/flag-icons",
-            "version": "v7.0.2",
+            "version": "v7.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lipis/flag-icons.git",
-                "reference": "42093e73487f4bfcc57ab61de8b1f99eccf49243"
+                "reference": "3871c0de9fc6747e619015e2f0e80bf8e5940f23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lipis/flag-icons/zipball/42093e73487f4bfcc57ab61de8b1f99eccf49243",
-                "reference": "42093e73487f4bfcc57ab61de8b1f99eccf49243",
+                "url": "https://api.github.com/repos/lipis/flag-icons/zipball/3871c0de9fc6747e619015e2f0e80bf8e5940f23",
+                "reference": "3871c0de9fc6747e619015e2f0e80bf8e5940f23",
                 "shasum": ""
             },
             "type": "library",
@@ -1488,9 +1488,9 @@
             ],
             "support": {
                 "issues": "https://github.com/lipis/flag-icons/issues",
-                "source": "https://github.com/lipis/flag-icons/tree/v7.0.2"
+                "source": "https://github.com/lipis/flag-icons/tree/v7.0.3"
             },
-            "time": "2023-11-18T09:24:51+00:00"
+            "time": "2023-12-05T12:19:36+00:00"
         },
         {
             "name": "lusitanian/oauth",
@@ -5160,16 +5160,16 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "2.6.1",
+            "version": "2.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "be45764272e8873c72dbe3d2edcfdfcc3bc9f727"
+                "reference": "45b30f99ac27b5ca93cb4831afe16285f57b8221"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/be45764272e8873c72dbe3d2edcfdfcc3bc9f727",
-                "reference": "be45764272e8873c72dbe3d2edcfdfcc3bc9f727",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/45b30f99ac27b5ca93cb4831afe16285f57b8221",
+                "reference": "45b30f99ac27b5ca93cb4831afe16285f57b8221",
                 "shasum": ""
             },
             "require": {
@@ -5183,9 +5183,9 @@
                 "psr/http-message-implementation": "1.0"
             },
             "require-dev": {
-                "bamarni/composer-bin-plugin": "^1.8.1",
+                "bamarni/composer-bin-plugin": "^1.8.2",
                 "http-interop/http-factory-tests": "^0.9",
-                "phpunit/phpunit": "^8.5.29 || ^9.5.23"
+                "phpunit/phpunit": "^8.5.36 || ^9.6.15"
             },
             "suggest": {
                 "laminas/laminas-httphandlerrunner": "Emit PSR-7 responses"
@@ -5256,7 +5256,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
-                "source": "https://github.com/guzzle/psr7/tree/2.6.1"
+                "source": "https://github.com/guzzle/psr7/tree/2.6.2"
             },
             "funding": [
                 {
@@ -5272,7 +5272,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-08-27T10:13:57+00:00"
+            "time": "2023-12-03T20:05:35+00:00"
         },
         {
             "name": "jp3cki/coding-standard",
