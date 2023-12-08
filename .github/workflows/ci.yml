@@ -42,6 +42,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '${{ matrix.php.version }}'
+          extensions: :php-psr
       -
         name: 'Syntax Check'
         continue-on-error: '${{ matrix.php.experimental }}'
@@ -74,6 +75,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '${{ env.UTILITY_PHP_VERSION }}'
+          extensions: :php-psr
       -
         name: 'Run PHPCS'
         run: 'php vendor/bin/phpcs -p'
@@ -224,6 +226,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '${{ env.UTILITY_PHP_VERSION }}'
+          extensions: :php-psr
       -
         name: 'Install composer packages'
         run: |
@@ -264,6 +267,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '${{ env.UTILITY_PHP_VERSION }}'
+          extensions: :php-psr
       -
         name: 'Use node.js 16 LTS'
         uses: actions/setup-node@v3
@@ -350,6 +354,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '${{ matrix.php.version }}'
+          extensions: :php-psr
       -
         name: 'Use node.js 16 LTS'
         uses: actions/setup-node@v3
