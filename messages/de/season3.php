@@ -27,6 +27,7 @@ return [
     'Fresh Season 2025' => 'Blütensaison 2025',
     'Fresh Season 2026' => 'Blütensaison 2026',
     'Fresh Season 2027' => 'Blütensaison 2027',
+    'Season {seasonNumber} ({seasonName})' => '',
     'Sizzle Season 2022' => 'Sonnensaison 2022',
     'Sizzle Season 2023' => 'Sonnensaison 2023',
     'Sizzle Season 2024' => 'Sonnensaison 2024',

@@ -6,6 +6,7 @@ use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\ApiInfoName;
 use app\components\widgets\Icon;
 use app\models\Language;
+use app\models\Season3;
 use app\models\Weapon3;
 use app\models\Weapon3Alias;
 use app\models\XMatchingGroup3;
@@ -24,6 +25,21 @@ use yii\web\View;
 
 TableResponsiveForceAsset::register($this);
 SortableTableAsset::register($this);
+
+/**
+ * @var array<int, string> $seasons
+ */
+$seasons = (function (): array {
+  $ret = [];
+  foreach (Season3::find()->orderBy(['start_at' => SORT_ASC])->all() as $i => $season) {
+    $seasonNumber = $i + 1;
+    $ret[$seasonNumber] = Yii::t('app-season3', 'Season {seasonNumber} ({seasonName})', [
+        'seasonNumber' => $seasonNumber,
+        'seasonName' => Yii::t('app-season3', $season->name),
+    ]);
+  }
+  return $ret;
+})();
 
 $salmonIcon = Icon::s3Salmon();
 
@@ -55,8 +71,27 @@ $salmonIcon = Icon::s3Salmon();
     <thead>
       <tr>
         <th data-sort="int" data-sort-onload="yes"></th>
-        <th data-sort="int">X(2)</th>
-        <th data-sort="int">X(6)</th>
+        <th data-sort="int"><?= Html::tag(
+          'span',
+          Html::encode('X(2)'),
+          [
+            'class' => 'auto-tooltip',
+            'title' => Yii::t('app-xmatch3', 'Matchmaking Group for {fromSeason} through {toSeason}', [
+                'fromSeason' => $seasons[2] ?? '',
+                'toSeason' => $seasons[5] ?? '',
+            ]),
+          ],
+        ) ?></th>
+        <th data-sort="int"><?= Html::tag(
+          'span',
+          Html::encode('X(6)'),
+          [
+            'class' => 'auto-tooltip',
+            'title' => Yii::t('app-xmatch3', 'Matchmaking Group from {fromSeason}', [
+                'fromSeason' => $seasons[6] ?? '',
+            ]),
+          ],
+        ) ?></th>
         <th data-sort="int"><?= Html::encode(Yii::t('app', 'Category')) ?></th>
         <?= Html::tag('th', $salmonIcon, [
           'class' => 'auto-tooltip',

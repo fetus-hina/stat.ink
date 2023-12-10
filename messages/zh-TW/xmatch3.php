@@ -32,6 +32,8 @@ return [
     'L' => '',
     'Long' => '',
     'M' => '',
+    'Matchmaking Group for {fromSeason} through {toSeason}' => '',
+    'Matchmaking Group from {fromSeason}' => '',
     'Middle' => '',
     'S' => '',
     'Short' => '',
