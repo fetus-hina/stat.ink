@@ -9,7 +9,10 @@
 declare(strict_types=1);
 
 return [
-    'X: Match making group' => 'Xマッチ マッチンググループ',
+    'X: Match making group' => 'X: マッチンググループ',
+
+    'Matchmaking Group for {fromSeason} through {toSeason}' => '{fromSeason}から{toSeason}までのマッチンググループ',
+    'Matchmaking Group from {fromSeason}' => '{fromSeason}からのマッチンググループ',
 
     // v2.0.0
     'A+' =>'A+',

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -9,6 +9,8 @@
 declare(strict_types=1);
 
 return [
+    'Season {seasonNumber} ({seasonName})' => 'シーズン{seasonNumber} ({seasonName})',
+
     'Chill Season 2022' => '2022冬 Chill Season',
     'Chill Season 2023' => '2023冬 Chill Season',
     'Chill Season 2024' => '2024冬 Chill Season',

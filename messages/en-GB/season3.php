@@ -27,6 +27,7 @@ return [
     'Fresh Season 2025' => 'Fresh Season 2025',
     'Fresh Season 2026' => 'Fresh Season 2026',
     'Fresh Season 2027' => 'Fresh Season 2027',
+    'Season {seasonNumber} ({seasonName})' => '',
     'Sizzle Season 2022' => 'Sizzle Season 2022',
     'Sizzle Season 2023' => 'Sizzle Season 2023',
     'Sizzle Season 2024' => 'Sizzle Season 2024',

@@ -27,6 +27,7 @@ return [
     'Fresh Season 2025' => 'Stagione fresca 2025',
     'Fresh Season 2026' => 'Stagione fresca 2026',
     'Fresh Season 2027' => 'Stagione fresca 2027',
+    'Season {seasonNumber} ({seasonName})' => '',
     'Sizzle Season 2022' => 'Stagione ardente 2022',
     'Sizzle Season 2023' => 'Stagione ardente 2023',
     'Sizzle Season 2024' => 'Stagione ardente 2024',

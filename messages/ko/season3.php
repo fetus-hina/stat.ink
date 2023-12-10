@@ -27,6 +27,7 @@ return [
     'Fresh Season 2025' => '2025 봄 Fresh Season',
     'Fresh Season 2026' => '2026 봄 Fresh Season',
     'Fresh Season 2027' => '2027 봄 Fresh Season',
+    'Season {seasonNumber} ({seasonName})' => '',
     'Sizzle Season 2022' => '2022 여름 Sizzle Season',
     'Sizzle Season 2023' => '2023 여름 Sizzle Season',
     'Sizzle Season 2024' => '2024 여름 Sizzle Season',

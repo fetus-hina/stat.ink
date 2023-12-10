@@ -38,6 +38,7 @@ use yii\db\ActiveRecord;
  * @property StatWeapon3XUsage[] $statWeapon3XUsages
  * @property StatXPowerDistribAbstract3[] $statXPowerDistribAbstract3s
  * @property StatXPowerDistribHistogram3[] $statXPowerDistribHistogram3s
+ * @property XMatchingGroupVersion3[] $xMatchingGroupVersion3s
  */
 class Season3 extends ActiveRecord
 {
@@ -143,5 +144,10 @@ class Season3 extends ActiveRecord
     public function getStatXPowerDistribHistogram3s(): ActiveQuery
     {
         return $this->hasMany(StatXPowerDistribHistogram3::class, ['season_id' => 'id']);
+    }
+
+    public function getXMatchingGroupVersion3s(): ActiveQuery
+    {
+        return $this->hasMany(XMatchingGroupVersion3::class, ['minimum_season_id' => 'id']);
     }
 }
