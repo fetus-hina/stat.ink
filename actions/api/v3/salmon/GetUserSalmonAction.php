@@ -74,6 +74,8 @@ final class GetUserSalmonAction extends Action
                 'salmonWave3s.salmonSpecialUse3s.special',
                 'salmonWave3s.tide',
                 'schedule',
+                'schedule.king',
+                'schedule.king.salmonKing3Aliases',
                 'stage.salmonMap3Aliases',
                 'titleAfter.salmonTitle3Aliases',
                 'titleBefore.salmonTitle3Aliases',

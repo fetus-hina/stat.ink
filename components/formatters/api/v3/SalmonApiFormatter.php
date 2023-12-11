@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2023 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,8 +10,11 @@ declare(strict_types=1);
 
 namespace app\components\formatters\api\v3;
 
+use TypeError;
 use app\components\formatters\api\v3\traits\FloatValTrait;
+use app\components\helpers\TypeHelper;
 use app\models\Salmon3;
+use app\models\SalmonKing3;
 use yii\helpers\Url;
 
 final class SalmonApiFormatter
@@ -51,6 +54,10 @@ final class SalmonApiFormatter
             'fail_reason' => SalmonFailReasonApiFormatter::toJson($model->failReason, $fullTranslate),
             'king_smell' => $model->king_smell,
             'king_salmonid' => SalmonKingApiFormatter::toJson($model->kingSalmonid, $fullTranslate),
+            'guessed_king_salmonid' => SalmonKingApiFormatter::toJson(
+                self::guessKingSalmonid($model),
+                $fullTranslate,
+            ),
             'clear_extra' => $model->clear_extra,
             'title_before' => SalmonTitleApiFormatter::toJson($model->titleBefore, $fullTranslate),
             'title_exp_before' => $model->title_exp_before,
@@ -87,5 +94,28 @@ final class SalmonApiFormatter
             'shift' => SalmonScheduleApiFormatter::toJson($model->schedule),
             'created_at' => DateTimeApiFormatter::toJson($model->created_at),
         ];
+    }
+
+    private static function guessKingSalmonid(Salmon3 $model): ?SalmonKing3
+    {
+        try {
+            if (version_compare($model->version?->tag ?? '0.0.0', '6.0.0', '<')) {
+                return null;
+            }
+
+            $schedule = $model->schedule;
+            if (!$schedule) {
+                return null;
+            }
+
+            $startAt = TypeHelper::int(strtotime($schedule->start_at));
+            if ($startAt < TypeHelper::int(strtotime('2023-12-01T00:00:00+00:00'))) {
+                return null;
+            }
+
+            return $schedule->king;
+        } catch (TypeError) {
+            return null;
+        }
     }
 }
