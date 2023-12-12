@@ -11,7 +11,11 @@ return [
   'label' => Yii::t('app-salmon3', 'Salmometer'),
   'format' => 'raw',
   'value' => function (Salmon3 $model): ?string {
-    if ($model->king_smell === null) {
+    if (
+        $model->is_eggstra_work ||
+        $model->is_private ||
+        $model->king_smell === null
+    ) {
       return null;
     }
 
