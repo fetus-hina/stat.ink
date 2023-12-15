@@ -47,8 +47,8 @@ REQUIREMENTS
     Doesn't work with 8.1 or lower. (Uses statements and constants added in v8.2)
   - Argon2が有効化されたPHPが必要です。RemirepoのPHPを利用している場合、`php-sodium`をインストールしてください。（[詳細](https://github.com/remicollet/remirepo/issues/132#issuecomment-566513636)）  
     You should build/install with Argon2. [Install `php-sodium` if you use remirepo's PHP](https://github.com/remicollet/remirepo/issues/132#issuecomment-566513636).
-  - 現在のところ、PHP 8.2+での動作は確認していません。  
-    At this time, we have not tested it with PHP 8.2+.
+  - 現在のところ、PHP 8.3+での動作は確認していません。  
+    At this time, we have not tested it with PHP 8.3+.
 - PostgreSQL 9.5+ (Recommended: 11+)
   - PgSQL 9.4以下では動作しません（9.5で追加された機能を利用しています）  
     Doesn't work with 9.4 or lower. (Uses features added in v9.5) 
