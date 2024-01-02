@@ -241,7 +241,11 @@ clean-resource:
 		web/assets/*
 
 composer.phar:
-	curl -fsSL https://getcomposer.org/installer | php
+ifeq (, $(shell which composer 2>/dev/null))
+	curl -fsSL 'https://getcomposer.org/installer' | php -- --filename=$@ --stable
+else
+	ln -s `which composer` $@
+endif
 
 %.min.svg: %.svg node_modules
 	npx svgo --output $@ --input $< -q
