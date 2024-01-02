@@ -169,7 +169,6 @@ init: init-no-resource resource geoip
 
 init-no-resource: \
 	composer.phar \
-	composer-update \
 	vendor \
 	node_modules \
 	$(SIMPLE_CONFIG_TARGETS) \
@@ -190,9 +189,6 @@ resource: $(RESOURCE_TARGETS) react $(ADDITIONAL_LICENSES)
 .PHONY: react
 react: node_modules $(REACT_SOURCES)
 	npx webpack-cli
-
-composer-update: composer.phar
-	./composer.phar self-update --2
 
 vendor: composer.lock composer.phar
 	php composer.phar install --prefer-dist
@@ -393,7 +389,7 @@ resources/.compiled/stat.ink/favicon.svg: resources/stat.ink/favicon.svg node_mo
 resources/.compiled/stat.ink/favicon.png: resources/.compiled/stat.ink/favicon.svg node_modules
 	@mkdir -p $(dir $@)
 	@rm -f $@
-	npx svg2png -o $@ $<
+	env OPENSSL_CONF=/dev/null npx svg2png -o $@ $<
 	npx optipng -quiet -strip all -o7 $@
 
 define favicon
@@ -605,4 +601,4 @@ config/cloudflare/ip_ranges.php: vendor config/db.php
 geoip: init-no-resource
 	./yii geoip/update || true
 
-.PHONY: FORCE all check-style clean clean-resource composer-update fix-style init init-no-resource migrate-db resource geoip check-syntax check-style-php check-style-js license
+.PHONY: FORCE all check-style clean clean-resource fix-style init init-no-resource migrate-db resource geoip check-syntax check-style-php check-style-js license
