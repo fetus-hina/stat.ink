@@ -1,7 +1,0 @@
-linter:
-  code_sniffer:
-    dir: .
-    standard: phpcs.xml
-    extensions: php
-    encoding: utf-8
-    ignore: config,data,doc,docker,messages,migrations,resources,runtime,tests,views,web
