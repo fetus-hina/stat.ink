@@ -34,6 +34,7 @@ use function random_bytes;
 use function sprintf;
 use function substr;
 use function unlink;
+use function vsprintf;
 
 use const PNG_ALL_FILTERS;
 
