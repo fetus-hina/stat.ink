@@ -430,8 +430,6 @@ final class PostBattleForm extends Model
                     return null;
                 }
 
-                $this->saveSplatnetJson($battle);
-
                 return $battle;
             });
         } catch (Throwable $e) {
@@ -855,38 +853,6 @@ final class PostBattleForm extends Model
             return $model->save() ? $model : null;
         } finally {
             unset($lock);
-        }
-    }
-
-    private function saveSplatnetJson(Battle3 $model): void
-    {
-        try {
-            $json = null;
-            if (
-                is_string($this->splatnet_json) &&
-                self::isValidJson($this->splatnet_json)
-            ) {
-                $json = $this->splatnet_json;
-            } elseif (
-                is_array($this->splatnet_json) ||
-                is_object($this->splatnet_json)
-            ) {
-                $json = Json::encode($this->splatnet_json);
-            }
-
-            if ($json) {
-                $path = vsprintf('%s/%s/%s/%s.json.gz', [
-                    Yii::getAlias('@app/runtime/splatnet3-json'),
-                    substr($model->uuid, 0, 2),
-                    substr($model->uuid, 2, 2),
-                    $model->uuid,
-                ]);
-
-                FileHelper::createDirectory(dirname($path), 0755, true);
-
-                file_put_contents("compress.zlib://{$path}", $json);
-            }
-        } catch (Throwable $e) {
         }
     }
 

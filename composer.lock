@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9668d93d5264450c544a5fd1ce92a398",
+    "content-hash": "f997c416c701cc5075d4b57741876bdf",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -1369,16 +1369,16 @@
         },
         {
             "name": "laminas/laminas-validator",
-            "version": "2.45.0",
+            "version": "2.46.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-validator.git",
-                "reference": "2a60d288ffa1acb84321c85a066dcbf96da34a50"
+                "reference": "98330256f8d8a1357a93f6f7f1a987036aff6329"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-validator/zipball/2a60d288ffa1acb84321c85a066dcbf96da34a50",
-                "reference": "2a60d288ffa1acb84321c85a066dcbf96da34a50",
+                "url": "https://api.github.com/repos/laminas/laminas-validator/zipball/98330256f8d8a1357a93f6f7f1a987036aff6329",
+                "reference": "98330256f8d8a1357a93f6f7f1a987036aff6329",
                 "shasum": ""
             },
             "require": {
@@ -1449,7 +1449,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2023-12-18T01:12:24+00:00"
+            "time": "2024-01-03T12:43:04+00:00"
         },
         {
             "name": "lipis/flag-icons",
@@ -3749,16 +3749,16 @@
         },
         {
             "name": "twbs/bootstrap-icons",
-            "version": "v1.11.2",
+            "version": "v1.11.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/icons.git",
-                "reference": "108565f11f099f177b31929e3eafc2c8d497fcd1"
+                "reference": "8d88686c03c3768a2d82ba4f20c3c4e1b100fa29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/icons/zipball/108565f11f099f177b31929e3eafc2c8d497fcd1",
-                "reference": "108565f11f099f177b31929e3eafc2c8d497fcd1",
+                "url": "https://api.github.com/repos/twbs/icons/zipball/8d88686c03c3768a2d82ba4f20c3c4e1b100fa29",
+                "reference": "8d88686c03c3768a2d82ba4f20c3c4e1b100fa29",
                 "shasum": ""
             },
             "type": "library",
@@ -3782,9 +3782,9 @@
             ],
             "support": {
                 "issues": "https://github.com/twbs/icons/issues",
-                "source": "https://github.com/twbs/icons/tree/v1.11.2"
+                "source": "https://github.com/twbs/icons/tree/v1.11.3"
             },
-            "time": "2023-11-21T20:06:00+00:00"
+            "time": "2024-01-03T15:44:45+00:00"
         },
         {
             "name": "yiisoft/yii2",
