@@ -156,9 +156,14 @@ class UserIcon extends ActiveRecord
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
-    public function getUrl()
+    public function getUrl(): string
     {
-        return Yii::getAlias('@web/profile-images') . '/' . $this->filename;
+        return vsprintf('%s/%s', [
+            Yii::$app->params['useAvatarStatsInk'] ?? null
+                ? 'https://avatar.stats.ink'
+                : Yii::getAlias('@web/profile-images'),
+            $this->filename,
+        ]);
     }
 
     public function getAbsUrl()
