@@ -16,6 +16,8 @@ return [
             $_SERVER['HTTP_HOST'] ?? '',
         ),
     ],
+    'db' => 'db',
     'name' => YII_ENV_DEV ? 'SESSID_DEVENV' : 'PHPSESSID',
+    'sessionTable' => '{{%session}}',
     'timeout' => 86400,
 ];
