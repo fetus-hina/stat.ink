@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  *
@@ -22,12 +22,11 @@ use yii\web\AssetManager as FWAssetManager;
 
 use function call_user_func;
 use function dirname;
-use function gmdate;
 use function hash_hmac;
 use function is_callable;
 use function is_file;
-use function is_int;
 use function ltrim;
+use function str_replace;
 use function strlen;
 use function strncmp;
 use function substr;
@@ -46,7 +45,7 @@ final class AssetManager extends FWAssetManager
         }
 
         $options = [
-            'assetRevision' => (int)ArrayHelper::getValue(Yii::$app->params, 'assetRevision', -1),
+            'assetRevision' => (string)ArrayHelper::getValue(Yii::$app->params, 'assetRevision', -1),
             'linkAssets' => !!$this->linkAssets,
         ];
         Yii::info("Asset revision = {$options['assetRevision']}", __METHOD__);
@@ -65,25 +64,19 @@ final class AssetManager extends FWAssetManager
                 hash_hmac('sha256', $path, Json::encode($options), true),
             ),
             0,
-            16,
+            8,
         );
         Yii::endProfile($profile, __METHOD__);
         Yii::info("Asset path hash = {$hash}", __METHOD__);
 
-        /** @var ?int $commitTime */
-        $commitTime = ArrayHelper::getValue(Yii::$app->params, 'gitRevision.lastCommittedT');
-        if (!is_int($commitTime)) {
-            Yii::info('Commit time is unknown. No timestamp used', __METHOD__);
-            return $hash;
-        }
-
-        $result = vsprintf('%s-%s/%s', [
-            gmdate('Ymd', $commitTime),
-            $options['assetRevision'] >= 0
-                ? (string)$options['assetRevision']
-                : gmdate('His', $commitTime),
-            $hash,
-        ]);
+        $result = str_replace(
+            '//',
+            '/',
+            vsprintf('%s/%s', [
+                $options['assetRevision'],
+                $hash,
+            ]),
+        );
         Yii::info("Asset path = {$result}", __METHOD__);
         return $result;
     }

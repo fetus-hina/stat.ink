@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2021 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,18 +10,31 @@ declare(strict_types=1);
 
 namespace app\commands\asset;
 
+use ParagonIE\ConstantTime\Base32;
+use Random\Engine\Secure;
+use Random\Randomizer;
 use Yii;
+use app\components\helpers\TypeHelper;
 use yii\base\Action;
+use yii\console\ExitCode;
 
+use function escapeshellarg;
+use function exec;
 use function file_exists;
+use function file_get_contents;
 use function file_put_contents;
 use function fprintf;
+use function hex2bin;
 use function implode;
+use function is_readable;
+use function is_string;
+use function preg_match;
 use function sprintf;
+use function trim;
 
 use const STDERR;
 
-class UpRevisionAction extends Action
+final class UpRevisionAction extends Action
 {
     /**
      * Update revision number of assets
@@ -33,12 +46,8 @@ class UpRevisionAction extends Action
      */
     public function run()
     {
-        $version = 0;
-        $path = Yii::getAlias('@app/config/asset-revision.php');
-        if (file_exists($path)) {
-            $version = (int)require $path;
-        }
-        ++$version;
+        $path = (string)Yii::getAlias('@app/config/asset-revision.php');
+        $revision = $this->getRevision();
 
         $php = [];
         $php[] = '<?php';
@@ -48,11 +57,64 @@ class UpRevisionAction extends Action
         $php[] = '// This config file is updated by `yii asset/up-revision`.';
         $php[] = '// DO NOT EDIT';
         $php[] = '';
-        $php[] = sprintf('return %d;', $version);
+        $php[] = sprintf("return '%s';", $revision);
 
         file_put_contents($path, implode("\n", $php) . "\n");
-        fprintf(STDERR, "Asset revision is updated to %d.\n", $version);
+        fprintf(STDERR, "Asset revision is updated to %s.\n", $revision);
 
-        return 0;
+        return ExitCode::OK;
+    }
+
+    private function getRevision(): string
+    {
+        return $this->getRevisionByDeployerFile()
+            ?? $this->getRevisionByGit()
+            ?? $this->generateRandomRevision();
+    }
+
+    private function getRevisionByDeployerFile(): ?string
+    {
+        $path = (string)Yii::getAlias('@app/REVISION');
+        if (file_exists($path) && is_readable($path)) {
+            $revision = trim((string)file_get_contents($path));
+            if (preg_match('/^[0-9a-f]{40,}$/i', $revision)) {
+                return $this->makeGitShortRevision($revision);
+            }
+        }
+
+        return null;
+    }
+
+    private function getRevisionByGit(): ?string
+    {
+        $cmdline = implode(' ', [
+            '/usr/bin/env',
+            escapeshellarg('git'),
+            escapeshellarg('rev-parse'),
+            escapeshellarg('HEAD'),
+            '2>/dev/null',
+        ]);
+        $line = @exec($cmdline, $lines, $status);
+        if ($status === ExitCode::OK && is_string($line)) {
+            $revision = trim((string)$line);
+            if (preg_match('/^[0-9a-f]{40,}$/i', $revision)) {
+                return $this->makeGitShortRevision($revision);
+            }
+        }
+
+        return null;
+    }
+
+    private function generateRandomRevision(): string
+    {
+        $randomizer = new Randomizer(new Secure());
+        return $this->makeGitShortRevision($randomizer->getRandomBytes(20));
+    }
+
+    private function makeGitShortRevision(string $revision): string
+    {
+        return Base32::encodeUnpadded(
+            TypeHelper::string(hex2bin($revision)),
+        );
     }
 }
