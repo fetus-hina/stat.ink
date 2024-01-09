@@ -24,8 +24,8 @@ abstract class WeaponIconAsset extends AssetBundle
      */
     public array $fileNameMap = [
         '52 Gal.png' => '52gal.png',
-        '96 Gal Deco.png' => '96gal.png',
-        '96 Gal.png' => '96gal_deco.png',
+        '96 Gal Deco.png' => '96gal_deco.png',
+        '96 Gal.png' => '96gal.png',
         'Aerospray MG.png' => 'promodeler_mg.png',
         'Aerospray RG.png' => 'promodeler_rg.png',
         'Annaki Splattershot Nova.png' => 'spaceshooter_collabo.png',
