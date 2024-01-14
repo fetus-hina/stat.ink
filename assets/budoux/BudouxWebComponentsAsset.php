@@ -14,5 +14,4 @@ use yii\web\AssetBundle;
 
 abstract class BudouxWebComponentsAsset extends AssetBundle
 {
-    public $sourcePath = '@npm/budoux/bundle';
 }

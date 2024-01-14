@@ -13,6 +13,6 @@ namespace app\assets\budoux;
 final class BudouxWebComponentsJaAsset extends BudouxWebComponentsAsset
 {
     public $js = [
-        'budoux-ja.min.js',
+        'https://unpkg.com/budoux/bundle/budoux-ja.min.js',
     ];
 }
