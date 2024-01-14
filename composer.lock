@@ -3707,47 +3707,6 @@
             "time": "2023-11-06T11:00:25+00:00"
         },
         {
-            "name": "tpyo/amazon-s3-php-class",
-            "version": "v0.5.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/tpyo/amazon-s3-php-class.git",
-                "reference": "121318e65e857a994b22ffe0aa04a0c55e832bea"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/tpyo/amazon-s3-php-class/zipball/121318e65e857a994b22ffe0aa04a0c55e832bea",
-                "reference": "121318e65e857a994b22ffe0aa04a0c55e832bea",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2.0"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "S3.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-2-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Donovan Schönknecht",
-                    "email": "don@tpyo.net"
-                }
-            ],
-            "description": "A standalone Amazon S3 (REST) client for PHP 5.2.x using CURL that does not require PEAR.",
-            "homepage": "https://github.com/tpyo/amazon-s3-php-class",
-            "support": {
-                "issues": "https://github.com/tpyo/amazon-s3-php-class/issues",
-                "source": "https://github.com/tpyo/amazon-s3-php-class/tree/v0.5.1"
-            },
-            "time": "2015-04-27T06:12:39+00:00"
-        },
-        {
             "name": "twbs/bootstrap-icons",
             "version": "v1.11.3",
             "source": {
@@ -4815,16 +4774,16 @@
         },
         {
             "name": "codeception/module-yii2",
-            "version": "1.1.9",
+            "version": "1.1.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/module-yii2.git",
-                "reference": "70ad7544fc256363acd082b4ef9e7220a18017a0"
+                "reference": "2971f1fb44cd3088f7ecbe78bc51161c037a6551"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/module-yii2/zipball/70ad7544fc256363acd082b4ef9e7220a18017a0",
-                "reference": "70ad7544fc256363acd082b4ef9e7220a18017a0",
+                "url": "https://api.github.com/repos/Codeception/module-yii2/zipball/2971f1fb44cd3088f7ecbe78bc51161c037a6551",
+                "reference": "2971f1fb44cd3088f7ecbe78bc51161c037a6551",
                 "shasum": ""
             },
             "require": {
@@ -4869,9 +4828,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Codeception/module-yii2/issues",
-                "source": "https://github.com/Codeception/module-yii2/tree/1.1.9"
+                "source": "https://github.com/Codeception/module-yii2/tree/1.1.10"
             },
-            "time": "2023-06-16T03:48:50+00:00"
+            "time": "2023-12-04T09:18:47+00:00"
         },
         {
             "name": "codeception/specify",
