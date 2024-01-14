@@ -51,7 +51,6 @@
         "statink/yii2-spl2-stages": "^1.0.1",
         "statink/yii2-twitter-webintents": "^1.0.2",
         "symfony/yaml": "^6.4.0|^7.0.0",
-        "tpyo/amazon-s3-php-class": "^0.5.1",
         "twbs/bootstrap-icons": "^1.11.3",
         "yiisoft/yii2": "*",
         "yiisoft/yii2-bootstrap": "*",
@@ -129,9 +128,6 @@
         "patches": {
             "lusitanian/oauth": {
                 "array_walk interface for PHP 8": "data/patch/lusitanian-oauth-array_walk.patch"
-            },
-            "tpyo/amazon-s3-php-class": {
-                "make static S3::setEndpoint": "data/patch/tpyo-s3-setendpoint-static.patch"
             },
             "yiisoft/yii2": {
                 "enhance: callable filter column to GridView": "data/patch/yii2-gridview-callable-filter.patch",

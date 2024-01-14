@@ -9,7 +9,6 @@
 namespace app\commands;
 
 use DirectoryIterator;
-use S3;
 use Yii;
 use yii\console\Controller;
 use yii\helpers\Console;
@@ -91,63 +90,6 @@ class BackupController extends Controller
             return $this->actionCleanup();
         }
 
-        return 0;
-    }
-
-    public function actionUpload()
-    {
-        $this->stdout('Uploading dump files... ', Console::FG_YELLOW);
-        $config = include Yii::getAlias('@app/config/backup-s3.php');
-        if (!$config['endpoint'] || !$config['accessKey'] || !$config['secret'] || !$config['bucket']) {
-            $this->stdout("NOT CONFIGURED.\n", Console::FG_PURPLE);
-            return 0;
-        }
-        $files = [];
-        $it = new DirectoryIterator(Yii::getAlias('@app/runtime/backup'));
-        foreach ($it as $entry) {
-            if ($entry->isDot() || !$entry->isFile()) {
-                continue;
-            }
-            if (!preg_match('/^statink-\d+\.dump\.xz\.(?:aes|gpg)$/', $entry->getBasename())) {
-                continue;
-            }
-            $files[] = $entry->getPathname();
-        }
-        sort($files);
-        if (!$files) {
-            $this->stdout("NO FILE EXISTS\n", Console::FG_PURPLE);
-            return 0;
-        }
-        $this->stdout(count($files) . " file(s).\n", Console::FG_GREEN);
-        S3::setEndpoint($config['endpoint']);
-        S3::setAuth($config['accessKey'], $config['secret']);
-        S3::setSSL(true, strpos($config['endpoint'], 'amazonaws') !== false);
-        S3::setExceptions(true);
-        foreach ($files as $i => $path) {
-            if (preg_match('/^statink-(\d{4}\d{2})(\d{2})\d+\.dump\.xz\.(?:aes|gpg)$/', basename($path), $match)) {
-                $objName = sprintf('%1$s/%1$s%2$s/%3$s', $match[1], $match[2], basename($path));
-            } else {
-                $objName = basename($path);
-            }
-            $this->stdout(sprintf('  [%d / %d] ', $i + 1, count($files)));
-            $this->stdout(basename($path) . ' ', Console::FG_GREEN);
-            $this->stdout('(' . number_format(filesize($path)) . " bytes)\n      as ");
-            $this->stdout($objName, Console::FG_GREEN);
-            $this->stdout("...\n");
-
-            $file = S3::inputFile($path, true);
-            $t1 = microtime(true);
-            $ret = S3::putObject($file, $config['bucket'], $objName, S3::ACL_PRIVATE, [], [], S3::STORAGE_CLASS_RRS);
-            $t2 = microtime(true);
-            if (!$ret) {
-                $this->stdout("    ERROR\n", Console::FG_RED);
-                return 1;
-            }
-            $this->stdout('    SUCCESS ', Console::FG_GREEN);
-            $this->stdout(sprintf("in %.3fsec\n", $t2 - $t1));
-
-            unlink($path);
-        }
         return 0;
     }
 

@@ -29,7 +29,6 @@ $config = [
         'formatter' => require(__DIR__ . '/web/formatter.php'),
         'geoip' => require(__DIR__ . '/web/geoip.php'),
         'i18n' => require(__DIR__ . '/i18n.php'),
-        'imgS3' => require(__DIR__ . '/img-s3.php'),
         'log' => require(__DIR__ . '/web/log.php'),
         'mailer' => require(__DIR__ . '/web/mailer.php'),
         'messageCache' => require(__DIR__ . '/web/message-cache.php'),
