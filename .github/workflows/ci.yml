@@ -131,6 +131,33 @@ jobs:
             messages \
             migrations \
             models
+  phpComposerStyle:
+    name: 'Check composer.json normalized'
+    runs-on: ubuntu-22.04
+    needs:
+      - ciDoesNotSkip
+      - phpSyntaxCheck
+      - setupComposer
+    if: "!contains(github.event.head_commit.message, '[no php]')"
+    steps:
+      -
+        uses: actions/checkout@v3
+      -
+        uses: actions/cache@v3
+        with:
+          path: |
+            vendor
+            ~/.cache/composer/files
+          key: "composer-${{ hashFiles('composer.lock') }}"
+      -
+        name: 'Set PHP environment (PHP ${{ env.UTILITY_PHP_VERSION }})'
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '${{ env.UTILITY_PHP_VERSION }}'
+          extensions: :php-psr
+      -
+        name: 'Check composer.json normalized'
+        run: 'composer.phar normalize --dry-run'
   setupNPM:
     name: 'Setup NPM (install node_modules)'
     runs-on: ubuntu-22.04
