@@ -13,6 +13,6 @@ namespace app\assets\budoux;
 final class BudouxWebComponentsZhHantAsset extends BudouxWebComponentsAsset
 {
     public $js = [
-        'budoux-zh-hant.min.js',
+        'https://unpkg.com/budoux/bundle/budoux-zh-hant.min.js',
     ];
 }

@@ -15,7 +15,6 @@ if ($isOfficialStatink) {
 return [
     'adminEmail' => 'admin@example.com',
     'agentRequirements' => require __DIR__ . '/agent-requirements.php',
-    'amazonS3' => require __DIR__ . '/amazon-s3.php',
     'assetRevision' => $tryLoad(__DIR__ . '/asset-revision.php'),
     'cloudflareTurnstile' => $tryLoad(__DIR__ . '/cloudflare/turnstile.php'),
     'deepl' => null,

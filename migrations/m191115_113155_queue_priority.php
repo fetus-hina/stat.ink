@@ -64,7 +64,6 @@ class m191115_113155_queue_priority extends Migration
             'SlackJob' => $defautPriority - 3,
             'OstatusJob' => $defautPriority - 2,
             'UserStatsJob' => $defautPriority - 1,
-            'ImageS3Job' => $defautPriority + 1,
         ];
     }
 }

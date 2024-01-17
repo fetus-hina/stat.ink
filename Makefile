@@ -152,12 +152,9 @@ RESOURCE_TARGETS := \
 	web/static-assets/rect-danger.min.svg
 
 SIMPLE_CONFIG_TARGETS := \
-	config/amazon-s3.php \
 	config/backup-gpg.php \
-	config/backup-s3.php \
 	config/debug-ips.php \
 	config/deepl.php \
-	config/img-s3.php \
 	config/lepton.php \
 	config/twitter.php
 
@@ -530,36 +527,6 @@ config/authkey-secret.php: vendor $(SIMPLE_CONFIG_TARGETS)
 config/db.php: vendor $(SIMPLE_CONFIG_TARGETS)
 	test -f config/db.php || ./yii secret/db
 	@touch config/db.php
-
-config/amazon-s3.php:
-	@echo '<?php' > $@
-	@echo '' >> $@
-	@echo 'declare(strict_types=1);' >> $@
-	@echo '' >> $@
-	@echo 'return [' >> $@
-	@echo '    [' >> $@
-	@echo "        'name'      => 'Amazon S3'," >> $@
-	@echo "        'endpoint'  => 's3-ap-northeast-1.amazonaws.com'," >> $@
-	@echo "        'accessKey' => ''," >> $@
-	@echo "        'secret'    => ''," >> $@
-	@echo "        'bucket'    => ''," >> $@
-	@echo '    ],' >> $@
-	@echo '];' >> $@
-
-config/backup-s3.php:
-	@echo '<?php' > $@
-	@echo '' >> $@
-	@echo 'declare(strict_types=1);' >> $@
-	@echo '' >> $@
-	@echo 'return [' >> $@
-	@echo "    'endpoint'  => 's3-ap-northeast-1.amazonaws.com'," >> $@
-	@echo "    'accessKey' => ''," >> $@
-	@echo "    'secret'    => ''," >> $@
-	@echo "    'bucket'    => ''," >> $@
-	@echo '];' >> $@
-
-config/img-s3.php:
-	php config/_generator/img-s3.php > $@
 
 config/backup-gpg.php:
 	@echo '<?php' > $@

@@ -12,7 +12,6 @@ use Throwable;
 use Yii;
 use app\components\helpers\Blackout;
 use app\components\helpers\ImageConverter;
-use app\components\jobs\ImageS3Job;
 use app\components\jobs\OstatusJob;
 use app\components\jobs\SlackJob;
 use app\components\web\ServiceUnavailableHttpException;
@@ -600,17 +599,6 @@ class BattleAction extends BaseAction
                     'version' => 1,
                     'battle' => $battle->id,
                 ]));
-        }
-
-        // S3 への画像アップロード
-        if (Yii::$app->imgS3->enabled) {
-            foreach ($battle->battleImages as $image) {
-                Yii::$app->queue
-                    ->priority(ImageS3Job::getJobPriority())
-                    ->push(new ImageS3Job([
-                        'file' => $image->filename,
-                    ]));
-            }
         }
     }
 

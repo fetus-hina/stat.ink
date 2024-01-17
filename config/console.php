@@ -77,7 +77,6 @@ return [
         'cache' => require(__DIR__ . '/web/cache.php'),
         'db' => $db,
         'i18n' => require(__DIR__ . '/i18n.php'),
-        'imgS3' => require(__DIR__ . '/img-s3.php'),
         'messageCache' => require __DIR__ . '/web/message-cache.php',
         'pgMutex' => ['class' => PgsqlMutex::class],
         'queue' => require(__DIR__ . '/queue.php'),
