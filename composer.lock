@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "947e0053f88c5eab1079bd4f8bdac969",
+    "content-hash": "33206e62bb63740fbd1568f5462e8619",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -1923,16 +1923,16 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "9.18.2",
+            "version": "9.19.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "2b8a93b37d0525b4585820397ab8af7f4c317bcb"
+                "reference": "8e9cd0caff462a0d602d4724e76acf837d0b1a2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/2b8a93b37d0525b4585820397ab8af7f4c317bcb",
-                "reference": "2b8a93b37d0525b4585820397ab8af7f4c317bcb",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/8e9cd0caff462a0d602d4724e76acf837d0b1a2d",
+                "reference": "8e9cd0caff462a0d602d4724e76acf837d0b1a2d",
                 "shasum": ""
             },
             "require": {
@@ -1997,9 +1997,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-curl-class/php-curl-class/issues",
-                "source": "https://github.com/php-curl-class/php-curl-class/tree/9.18.2"
+                "source": "https://github.com/php-curl-class/php-curl-class/tree/9.19.0"
             },
-            "time": "2023-09-11T18:08:28+00:00"
+            "time": "2024-01-18T18:03:34+00:00"
         },
         {
             "name": "phpseclib/phpseclib",
