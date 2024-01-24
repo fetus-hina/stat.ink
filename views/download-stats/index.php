@@ -48,10 +48,6 @@ OgpHelper::default($this, title: $this->title);
   ) . "\n" ?>
 
   <h2><?= Html::encode(Yii::t('app', 'Splatoon 3')) ?></h2>
-  <div class="alert alert-warning ml-3">
-    <p>This is a beta feature.</p>
-    <p>Not adequately verified and the schema may be changed.</p>
-  </div>
   <ul>
     <li>
       <?= Icon::fileCsv() . "\n" ?>
