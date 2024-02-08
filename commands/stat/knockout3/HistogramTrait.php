@@ -28,6 +28,9 @@ trait HistogramTrait
 {
     private function updateKnockout3Histogram(Connection $db): void
     {
+        fwrite(STDERR, "Cleaning up knockout3_histogram...\n");
+        $db->createCommand('DELETE FROM {{%knockout3_histogram}}')->execute();
+
         fwrite(STDERR, "Updating knockout3_histogram (stages)...\n");
         $this->updateKnockout3HistogramStats(
             $db,
@@ -105,7 +108,7 @@ trait HistogramTrait
 
     private function updateKnockout3HistogramStats(Connection $db, Query $select): void
     {
-        $sql = vsprintf('INSERT INTO %s (%s) %s ON CONFLICT %s %s', [
+        $sql = vsprintf('INSERT INTO %s (%s) %s', [
             $db->quoteTableName('{{%knockout3_histogram}}'),
             implode(
                 ', ',
@@ -115,28 +118,6 @@ trait HistogramTrait
                 ),
             ),
             $select->createCommand($db)->rawSql,
-            // conflict_target
-            vsprintf('(%s)', [
-                implode(', ', [
-                    '[[season_id]]',
-                    '[[rule_id]]',
-                    'COALESCE([[map_id]], 0)',
-                    '[[class_value]]',
-                ]),
-            ]),
-            vsprintf('DO UPDATE SET %s', [
-                implode(
-                    ', ',
-                    array_map(
-                        fn (string $name): string => vsprintf('%1$s = {{excluded}}.%1$s', [
-                            $db->quoteColumnName($name),
-                        ]),
-                        [
-                            'count',
-                        ],
-                    ),
-                ),
-            ]),
         ]);
 
         $db->createCommand($sql)->execute();
