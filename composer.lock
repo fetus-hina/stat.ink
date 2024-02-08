@@ -4927,22 +4927,22 @@
         },
         {
             "name": "codeception/verify",
-            "version": "3.0.0",
+            "version": "3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Verify.git",
-                "reference": "25b84a96f0fe7dcf28e8021f02b57643b751a707"
+                "reference": "f19c34ef1cc3a20774220363475e0183b02e23c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Verify/zipball/25b84a96f0fe7dcf28e8021f02b57643b751a707",
-                "reference": "25b84a96f0fe7dcf28e8021f02b57643b751a707",
+                "url": "https://api.github.com/repos/Codeception/Verify/zipball/f19c34ef1cc3a20774220363475e0183b02e23c3",
+                "reference": "f19c34ef1cc3a20774220363475e0183b02e23c3",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
                 "php": "^7.4 || ^8.0",
-                "phpunit/phpunit": "^9.5 | ^10.0"
+                "phpunit/phpunit": "^9.6.11 || ^10.0"
             },
             "type": "library",
             "autoload": {
@@ -4970,9 +4970,9 @@
             "description": "BDD assertion library for PHPUnit",
             "support": {
                 "issues": "https://github.com/Codeception/Verify/issues",
-                "source": "https://github.com/Codeception/Verify/tree/3.0.0"
+                "source": "https://github.com/Codeception/Verify/tree/3.1.0"
             },
-            "time": "2023-02-09T07:33:00+00:00"
+            "time": "2024-02-04T12:45:28+00:00"
         },
         {
             "name": "dealerdirect/phpcodesniffer-composer-installer",
