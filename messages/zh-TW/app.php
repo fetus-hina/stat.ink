@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author ADe <loezone@gmail.com>
  * @author AIZAWA Hina <hina@fetus.jp>
@@ -522,6 +522,7 @@ return [
     'Search {from} - {to}' => '搜尋 從{from}到{to}',
     'Season' => '季',
     'Secondary Abilities' => '次要技能',
+    'Seconds' => '',
     'Sent an email to your email address. Please check your mailbox and get the verification code.' => '已發送驗證郵件到你的信箱。請檢查信箱取得驗證碼。',
     'Series Progress' => '系列進度',
     'Session History' => '登入資訊',

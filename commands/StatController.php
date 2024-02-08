@@ -611,8 +611,8 @@ final class StatController extends Controller
     public function actionUpdateKnockout()
     {
         $this->updateKnockout3();
-        $this->updateKnockout2();
-        $this->updateKnockout1();
+        // $this->updateKnockout2();
+        // $this->updateKnockout1();
     }
 
     private function updateKnockout1()

@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use app\models\Knockout3;
+use app\models\Knockout3Histogram;
 use app\models\Map3;
 use app\models\Rule3;
 use yii\helpers\Html;
@@ -15,8 +16,6 @@ use yii\web\View;
  * @var array<int, Rule3> $rules
  */
 
-$am = Yii::$app->assetManager;
-
 ?>
 <tr>
   <?= Html::tag(
@@ -28,6 +27,24 @@ $am = Yii::$app->assetManager;
     ],
   ) . "\n" ?>
 <?php foreach ($rules as $ruleId => $rule) { ?>
-  <?= $this->render('cell-pie', ['model' => $data[$ruleId] ?? null]) . "\n" ?>
+  <?= Html::tag(
+    'td',
+    implode("\n", [
+      $this->render('cell-pie', [
+        'model' => $data[$ruleId] ?? null,
+      ]),
+      $this->render('cell-histogram', [
+        'data' => Knockout3Histogram::find()
+          ->andWhere([
+            'season_id' => $season->id,
+            'rule_id' => $rule->id,
+            'map_id' => $map->id,
+          ])
+          ->orderBy(['class_value' => SORT_ASC])
+          ->all(),
+      ]),
+    ]),
+    ['class' => 'pb-3'],
+  ) . "\n" ?>
 <?php } ?>
 </tr>
