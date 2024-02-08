@@ -6,13 +6,14 @@ use app\assets\EntireKnockoutAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\models\Knockout3;
+use app\models\Knockout3Histogram;
 use app\models\Lobby3;
+use app\models\Map3;
 use app\models\Rule3;
 use app\models\Season3;
-use app\models\Map3;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\View;
-use yii\helpers\ArrayHelper;
 
 /**
  * @var Knockout3[] $data
@@ -39,8 +40,24 @@ $mappedTotal = ArrayHelper::map(
 <tr>
   <?= Html::tag('th', $this->render('../../../knockout/legends')) . "\n" ?>
 <?php foreach ($rules as $id => $rule) { ?>
-  <?= $this->render('cell-pie', [
-    'model' => $mappedTotal[$id] ?? null,
-  ]) . "\n" ?>
+  <?= Html::tag(
+    'td',
+    implode("\n", [
+      $this->render('cell-pie', [
+        'model' => $mappedTotal[$id] ?? null,
+      ]),
+      $this->render('cell-histogram', [
+        'data' => Knockout3Histogram::find()
+          ->andWhere([
+            'season_id' => $season->id,
+            'rule_id' => $rule->id,
+            'map_id' => null,
+          ])
+          ->orderBy(['class_value' => SORT_ASC])
+          ->all(),
+      ]),
+    ]),
+    ['class' => 'pb-3'],
+  ) . "\n" ?>
 <?php } ?>
 </tr>

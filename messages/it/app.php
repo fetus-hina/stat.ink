@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -520,6 +520,7 @@ return [
     'Search {from} - {to}' => '',
     'Season' => '',
     'Secondary Abilities' => '',
+    'Seconds' => '',
     'Sent an email to your email address. Please check your mailbox and get the verification code.' => '',
     'Series Progress' => '',
     'Session History' => '',

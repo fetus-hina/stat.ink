@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author eli fessler <eliwf8@gmail.com>
@@ -508,6 +508,7 @@ return [
     'Search' => '検索',
     'Season' => 'シーズン',
     'Secondary Abilities' => 'サブ',
+    'Seconds' => '秒',
     'Sent an email to your email address. Please check your mailbox and get the verification code.' => '指定されたメールアドレスにメールを送信しました。メールを確認して確認コードを取得してください。',
     'Series Progress' => 'チャレンジ状況',
     'Session History' => '開催履歴',

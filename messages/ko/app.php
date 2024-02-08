@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author cake monotone <cake.monotone@gmail.com>
@@ -522,6 +522,7 @@ return [
     'Search {from} - {to}' => '{from}부터 {to}까지 검색',
     'Season' => '시즌',
     'Secondary Abilities' => '서브',
+    'Seconds' => '',
     'Sent an email to your email address. Please check your mailbox and get the verification code.' => '당신의 이메일 주소로 메일을 전송했습니다. 메일의 인증코드를 확인해주십시오',
     'Series Progress' => '챌린지 상태',
     'Session History' => '개최이력',

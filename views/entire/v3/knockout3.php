@@ -50,6 +50,14 @@ EntireKnockoutAsset::register($this);
   <div class="mb-3">
     <?= $this->render('includes/season-selector', compact('season', 'seasons', 'seasonUrl')) . "\n" ?>
   </div>
+
   <?= $this->render('includes/aggregate', compact('xMatch')) . "\n" ?>
-  <?= $this->render('knockout3/table', compact('data', 'total', 'maps', 'rules')) . "\n" ?>
+
+  <div class="alert alert-info mb-3">
+    <?= Html::encode(
+      Yii::t('app', 'The width of the histogram bins is automatically adjusted by Scott\'s rule-based algorithm.'),
+    ) . "\n" ?>
+  </div>
+
+  <?= $this->render('knockout3/table', compact('data', 'maps', 'rules', 'season', 'total')) . "\n" ?>
 </div>
