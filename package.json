@@ -49,7 +49,7 @@
     "patternomaly": "^1.3.2",
     "photoswipe": "^4.1.3",
     "photoswipe-simplify": "0.0.3",
-    "postcss": "^8.4.33",
+    "postcss": "^8.4.35",
     "postcss-cli": "^10.1.0",
     "postcss-scss": "^4.0.9",
     "punycode": "^2.3.1",
