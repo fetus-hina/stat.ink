@@ -178,7 +178,6 @@ final class Splatfest3Action extends Action
         return ArrayHelper::getColumn(
             Splatfest3Theme::find()
                 ->andWhere(['name' => $names])
-                ->cache(86400)
                 ->all($db),
             fn (Splatfest3Theme $theme): int => TypeHelper::int($theme->id),
         );
