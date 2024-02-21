@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -9,6 +9,7 @@
 declare(strict_types=1);
 
 return [
+    '.52 Gal Deco' => '',
     'Aerógrafo GE' => '',
     'Aerógrafo GN' => '',
     'Aerógrafo GP' => '',
@@ -39,6 +40,9 @@ return [
     'Cargatintas Tonken' => '',
     'Cargatintas ZyS' => '',
     'Corrigetintas' => '',
+    'Custom E-liter 4K' => '',
+    'Custom E-liter 4K Scope' => '',
+    'Custom Explosher' => '',
     'Delineador' => '',
     'Delineador X' => '',
     'Delineador Y' => '',
@@ -63,12 +67,15 @@ return [
     'Difusor dual Don Oso' => '',
     'Difusor dual Emperi' => '',
     'Difusor dual Tonken' => '',
+    'Douser Dualies FF' => '',
+    'Dread Wringer D' => '',
     'Entintador 3K' => '',
     'Entintador 3K adaptado' => '',
     'Entintador 4K' => '',
     'Entintador 4K adaptado' => '',
     'Entintubo' => '',
     'Entintubo adaptado' => '',
+    'Foil Flingza Roller' => '',
     'Friegamatic' => '',
     'Fundidora 525 dual' => '',
     'Fundidora 525 dual chic' => '',
@@ -85,6 +92,7 @@ return [
     'Garabateador renovado' => '',
     'Garabateador Tintaz' => '',
     'Garabateador Tonken' => '',
+    'Glooga Dualies Deco' => '',
     'Grizzco Blaster' => '',
     'Grizzco Brella' => '',
     'Grizzco Charger' => '',
@@ -116,6 +124,8 @@ return [
     'N-ZAP 89' => '',
     'Nautilo 47' => '',
     'Nautilo 79' => '',
+    'Nautilus 79' => '',
+    'New Squiffer' => '',
     'Paratintas' => '',
     'Paratintas de élite réplica' => '',
     'Paratintas discreto' => '',
@@ -138,6 +148,7 @@ return [
     'Pistola octariana réplica' => '',
     'Plumón' => '',
     'Plumón neo' => '',
+    'Recycled Brella 24 Mk I' => '',
     'Rociador' => '',
     'Rociador básico' => '',
     'Rociador básico adaptado' => '',

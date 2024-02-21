@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author clovervidia <clovervidia@gmail.com>
@@ -55,7 +55,9 @@ return [
     'Dapple Dualies' => 'Dapples',
     'Dapple Dualies Nouveau' => 'Dapples Nouveau',
     'Dark Tetra Dualies' => 'Dark Tetras',
+    'Douser Dualies FF' => '',
     'Dread Wringer' => '',
+    'Dread Wringer D' => '',
     'Dual Squelcher' => 'Dual Squelcher',
     'Dualie Squelchers' => 'Squelchies',
     'Dynamo Roller' => 'Dynamo',
@@ -151,6 +153,7 @@ return [
     'Rapid Blaster Deco' => 'Rapid Deco',
     'Rapid Blaster Pro' => 'Rapid Pro',
     'Rapid Blaster Pro Deco' => 'Rapid Pro Deco',
+    'Recycled Brella 24 Mk I' => '',
     'REEF-LUX 450' => '',
     'REEF-LUX 450 Deco' => '',
     'Refurbished Mini Splatling' => 'Refurb Mini',

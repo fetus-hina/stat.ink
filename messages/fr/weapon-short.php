@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author ultrasonicytb <ultrasonic2408@gmail.com>
@@ -10,6 +10,7 @@
 declare(strict_types=1);
 
 return [
+    '.52 Gal Deco' => '',
     'Arme double M. Ours SA' => '',
     'Arroseur lourd' => '',
     'Arroseur lourd Cerise' => '',
@@ -62,6 +63,9 @@ return [
     'Correcteur' => '',
     'Crayon X - 5B' => '',
     'Crayon X - 5H' => '',
+    'Custom E-liter 4K' => '',
+    'Custom E-liter 4K Scope' => '',
+    'Custom Explosher' => '',
     'Double encreur' => '',
     'Double encreur griffé' => '',
     'Double encreur héroïque (réplique)' => '',
@@ -76,6 +80,8 @@ return [
     'Double nettoyeur modifié' => '',
     'Double voltigeur blanc' => '',
     'Double voltigeur noir' => '',
+    'Douser Dualies FF' => '',
+    'Dread Wringer D' => '',
     'Dynamo-rouleau' => '',
     'Dynamo-rouleau K' => '',
     'Dynamo-rouleau tesla' => '',
@@ -104,7 +110,9 @@ return [
     'Extraceur zoom modifié' => '',
     'Flexi-rouleau' => '',
     'Flexi-rouleau alu' => '',
+    'Foil Flingza Roller' => '',
     'Fusil M. Ours SA' => '',
+    'Glooga Dualies Deco' => '',
     'Lanceur héroïque (réplique)' => '',
     'Lanceur Octaling (réplique)' => '',
     'Lanceur spatial' => '',
@@ -134,6 +142,7 @@ return [
     'Nettoyeur duo modifié' => '',
     'Nettoyeur XL' => '',
     'Nettoyeur XL modifié' => '',
+    'New Squiffer' => '',
     'Para-encre' => '',
     'Para-encre espion' => '',
     'Para-encre espion K' => '',
@@ -149,6 +158,7 @@ return [
     'Proxiblaster Néo' => '',
     'Rafablaster' => '',
     'Rafablaster Néo' => '',
+    'Recycled Brella 24 Mk I' => '',
     'Rouleau' => '',
     'Rouleau carbone' => '',
     'Rouleau carbone chic' => '',

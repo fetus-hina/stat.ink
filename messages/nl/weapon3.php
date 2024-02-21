@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 return [
     '.52 Gal' => '.52 Kaliter',
+    '.52 Gal Deco' => '',
     '.96 Gal' => '.96 Kaliter',
     '.96 Gal Deco' => '.96 Kaliter Deco',
     'Aerospray MG' => 'Kladderwerper',
@@ -36,13 +37,18 @@ return [
     'Classic Squiffer' => 'Octopoets',
     'Custom Blaster' => 'Gemodde Klodderblaster',
     'Custom Dualie Squelchers' => 'Gemodde Dubbelplonzers',
+    'Custom E-liter 4K' => '',
+    'Custom E-liter 4K Scope' => '',
+    'Custom Explosher' => '',
     'Custom Goo Tuber' => 'Gemodde Spetbuizer',
     'Custom Jet Squelcher' => 'Gemodde Straalplonzer',
     'Custom Splattershot Jr.' => 'Gemodde Superspetter jr.',
     'Dapple Dualies' => 'Dubbelspatters',
     'Dapple Dualies Nouveau' => 'Dubbelspatters Nouveau',
     'Dark Tetra Dualies' => 'Quadhoppers Zwart',
+    'Douser Dualies FF' => '',
     'Dread Wringer' => 'Wringmorser',
+    'Dread Wringer D' => '',
     'Dualies' => '',
     'Dualie Squelchers' => 'Dubbelplonzers',
     'Dynamo Roller' => 'Dynamoroller',
@@ -51,9 +57,11 @@ return [
     'Enperry Splat Dualies' => 'Enperry Dubbelknallers',
     'Explosher' => 'Kliederkachel',
     'Flingza Roller' => 'Flexroller',
+    'Foil Flingza Roller' => '',
     'Foil Squeezer' => 'Foil Floeper',
     'Forge Splattershot Pro' => 'Forge Superspetter Pro',
     'Glooga Dualies' => 'Kelvin 525',
+    'Glooga Dualies Deco' => '',
     'Gold Dynamo Roller' => 'Gouden Dynamoroller',
     'Goo Tuber' => 'Spetbuizer',
     'Grizzco Blaster' => 'Beer & Co-blaster',
@@ -84,9 +92,11 @@ return [
     'N-ZAP \'85' => 'N-ZAP \'85',
     'N-ZAP \'89' => 'N-ZAP \'89',
     'Nautilus 47' => 'Nautilus 47',
+    'Nautilus 79' => '',
     'Neo Splash-o-matic' => 'Spetterspuit Neo',
     'Neo Splatana Stamper' => 'Stempelzwieper Neo',
     'Neo Sploosh-o-matic' => 'Spettertuit Neo',
+    'New Squiffer' => '',
     'Nozzlenoses' => '',
     'Octobrush' => 'Octokwast',
     'Octobrush Nouveau' => 'Octokwast Nouveau',
@@ -99,6 +109,7 @@ return [
     'Rapid Blaster Deco' => 'Flitsblaster Deco',
     'Rapid Blaster Pro' => 'Flitsblaster Pro',
     'Rapid Blaster Pro Deco' => 'Flitsblaster Pro Deco',
+    'Recycled Brella 24 Mk I' => '',
     'REEF-LUX 450' => 'RIF-LEX 450',
     'REEF-LUX 450 Deco' => 'RIF-LEX 450 Deco',
     'Rollers' => '',

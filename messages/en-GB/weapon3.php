@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 return [
     '.52 Gal' => '.52 Gal',
+    '.52 Gal Deco' => '',
     '.96 Gal' => '.96 Gal',
     '.96 Gal Deco' => '.96 Gal Deco',
     'Aerospray MG' => 'Aerospray MG',
@@ -36,13 +37,18 @@ return [
     'Classic Squiffer' => 'Classic Squiffer',
     'Custom Blaster' => 'Custom Blaster',
     'Custom Dualie Squelchers' => 'Custom Dualie Squelchers',
+    'Custom E-liter 4K' => '',
+    'Custom E-liter 4K Scope' => '',
+    'Custom Explosher' => '',
     'Custom Goo Tuber' => 'Custom Goo Tuber',
     'Custom Jet Squelcher' => 'Custom Jet Squelcher',
     'Custom Splattershot Jr.' => 'Custom Splattershot Jr.',
     'Dapple Dualies' => 'Dapple Dualies',
     'Dapple Dualies Nouveau' => 'Dapple Dualies Nouveau',
     'Dark Tetra Dualies' => 'Dark Tetra Dualies',
+    'Douser Dualies FF' => '',
     'Dread Wringer' => 'Dread Wringer',
+    'Dread Wringer D' => '',
     'Dualies' => '',
     'Dualie Squelchers' => 'Dualie Squelchers',
     'Dynamo Roller' => 'Dynamo Roller',
@@ -51,9 +57,11 @@ return [
     'Enperry Splat Dualies' => 'Enperry Splat Dualies',
     'Explosher' => 'Explosher',
     'Flingza Roller' => 'Flingza Roller',
+    'Foil Flingza Roller' => '',
     'Foil Squeezer' => 'Foil Squeezer',
     'Forge Splattershot Pro' => 'Forge Splattershot Pro',
     'Glooga Dualies' => 'Glooga Dualies',
+    'Glooga Dualies Deco' => '',
     'Gold Dynamo Roller' => 'Gold Dynamo Roller',
     'Goo Tuber' => 'Goo Tuber',
     'Grizzco Blaster' => 'Grizzco Blaster',
@@ -84,9 +92,11 @@ return [
     'N-ZAP \'85' => 'N-ZAP \'85',
     'N-ZAP \'89' => 'N-ZAP \'89',
     'Nautilus 47' => 'Nautilus 47',
+    'Nautilus 79' => '',
     'Neo Splash-o-matic' => 'Neo Splash-o-matic',
     'Neo Splatana Stamper' => 'Neo Splatana Stamper',
     'Neo Sploosh-o-matic' => 'Neo Sploosh-o-matic',
+    'New Squiffer' => '',
     'Nozzlenoses' => '',
     'Octobrush' => 'Octobrush',
     'Octobrush Nouveau' => 'Octobrush Nouveau',
@@ -99,6 +109,7 @@ return [
     'Rapid Blaster Deco' => 'Rapid Blaster Deco',
     'Rapid Blaster Pro' => 'Rapid Blaster Pro',
     'Rapid Blaster Pro Deco' => 'Rapid Blaster Pro Deco',
+    'Recycled Brella 24 Mk I' => '',
     'REEF-LUX 450' => 'REEF-LUX 450',
     'REEF-LUX 450 Deco' => 'REEF-LUX 450 Deco',
     'Rollers' => '',

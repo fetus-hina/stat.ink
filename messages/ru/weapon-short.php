@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -21,14 +21,21 @@ return [
     'Custom Dual Squelcher' => '',
     'Custom E-liter 3K' => '',
     'Custom E-liter 3K Scope' => '',
+    'Custom E-liter 4K' => '',
+    'Custom E-liter 4K Scope' => '',
+    'Custom Explosher' => '',
     'Custom Hydra Splatling' => '',
     'Custom Range Blaster' => '',
     'Cплат-дворник' => '',
     'Cплат-дворник «Деко»' => '',
+    'Douser Dualies FF' => '',
+    'Dread Wringer D' => '',
     'Dual Squelcher' => '',
     'E-liter 3K' => '',
     'E-liter 3K Scope' => '',
+    'Foil Flingza Roller' => '',
     'Fresh Squiffer' => '',
+    'Glooga Dualies Deco' => '',
     'Grim Range Blaster' => '',
     'Grizzco Blaster' => '',
     'Grizzco Brella' => '',
@@ -43,10 +50,12 @@ return [
     'N-ZAP 83' => '',
     'N-ZAP 85' => '',
     'N-ZAP 89' => '',
+    'Nautilus 79' => '',
     'New Squiffer' => '',
     'Octo Shot Replica' => '',
     'Octoshot Replica' => '',
     'Permanent Inkbrush' => '',
+    'Recycled Brella 24 Mk I' => '',
     'Refurbished Mini Splatling' => '',
     'S-BLAST 91' => '',
     'S-BLAST 92' => '',

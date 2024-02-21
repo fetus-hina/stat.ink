@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author ADe <loezone@gmail.com>
  * @author AIZAWA Hina <hina@fetus.jp>
@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 return [
     '.52 Gal' => '.52加侖',
+    '.52 Gal Deco' => '',
     '.96 Gal' => '.96加侖',
     '.96 Gal Deco' => '.96加侖 裝飾',
     'Aerospray MG' => '專業模型槍MG',
@@ -38,13 +39,18 @@ return [
     'Classic Squiffer' => '魷快潔α',
     'Custom Blaster' => '火熱爆破槍 改裝',
     'Custom Dualie Squelchers' => '雙重清潔槍 改裝',
+    'Custom E-liter 4K' => '',
+    'Custom E-liter 4K Scope' => '',
+    'Custom Explosher' => '',
     'Custom Goo Tuber' => '高壓油管槍 改裝',
     'Custom Jet Squelcher' => '噴射清潔槍 改裝',
     'Custom Splattershot Jr.' => '楓葉射擊槍',
     'Dapple Dualies' => '濺鍍槍',
     'Dapple Dualies Nouveau' => '濺鍍槍‧新藝術',
     'Dark Tetra Dualies' => '四重彈跳手槍 黑',
+    'Douser Dualies FF' => '',
     'Dread Wringer' => '墨瀑淋',
+    'Dread Wringer D' => '',
     'Dualies' => '機動槍',
     'Dualie Squelchers' => '雙重清潔槍',
     'Dynamo Roller' => '電動馬達滾筒',
@@ -53,9 +59,11 @@ return [
     'Enperry Splat Dualies' => '斯普拉機動槍 聯名',
     'Explosher' => '爆炸潑桶',
     'Flingza Roller' => '可變式滾筒',
+    'Foil Flingza Roller' => '',
     'Foil Squeezer' => '開瓶噴泉槍 金屬箔',
     'Forge Splattershot Pro' => '頂尖射擊槍 聯名',
     'Glooga Dualies' => '開爾文525',
+    'Glooga Dualies Deco' => '',
     'Gold Dynamo Roller' => '電動馬達滾筒 高磁波',
     'Goo Tuber' => '高壓油管槍',
     'Grizzco Blaster' => '熊先生印章爆破槍',
@@ -86,9 +94,11 @@ return [
     'N-ZAP \'85' => 'N-ZAP85',
     'N-ZAP \'89' => 'N-ZAP89',
     'Nautilus 47' => '鸚鵡螺號47',
+    'Nautilus 79' => '',
     'Neo Splash-o-matic' => '窄域標記槍 新型',
     'Neo Splatana Stamper' => '工作刮水刀‧新藝術',
     'Neo Sploosh-o-matic' => '廣域標記槍 新型',
+    'New Squiffer' => '',
     'Nozzlenoses' => '捲管槍',
     'Octobrush' => '北齋',
     'Octobrush Nouveau' => '北齋‧新藝術',
@@ -101,6 +111,7 @@ return [
     'Rapid Blaster Deco' => '快速爆破槍 裝飾',
     'Rapid Blaster Pro' => '快速爆破槍 精英',
     'Rapid Blaster Pro Deco' => '快速爆破槍 精英裝飾',
+    'Recycled Brella 24 Mk I' => '',
     'REEF-LUX 450' => 'LACT-450',
     'REEF-LUX 450 Deco' => 'LACT-450 裝飾',
     'Rollers' => '滾筒',

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 return [
     '.52 Gal' => 'Salpicadora 2000',
+    '.52 Gal Deco' => '',
     '.96 Gal' => 'Salpicadora 3000',
     '.96 Gal Deco' => 'Salpicadora 3000 DX',
     'Aerospray MG' => 'Aerógrafo pro',
@@ -36,13 +37,18 @@ return [
     'Classic Squiffer' => 'Kalarrapid α',
     'Custom Blaster' => 'Devastador SP',
     'Custom Dualie Squelchers' => 'Barredora dual SP',
+    'Custom E-liter 4K' => '',
+    'Custom E-liter 4K Scope' => '',
+    'Custom Explosher' => '',
     'Custom Goo Tuber' => 'Tubofusil SP',
     'Custom Jet Squelcher' => 'Megabarredora SP',
     'Custom Splattershot Jr.' => 'Lanzatintas novato B',
     'Dapple Dualies' => 'Atomizador dual',
     'Dapple Dualies Nouveau' => 'Atomizador dual maestro',
     'Dark Tetra Dualies' => 'Motatrónic dual negro',
+    'Douser Dualies FF' => '',
     'Dread Wringer' => 'Friegamatic',
+    'Dread Wringer D' => '',
     'Dualies' => '',
     'Dualie Squelchers' => 'Barredora dual',
     'Dynamo Roller' => 'Dinamorrodillo',
@@ -51,9 +57,11 @@ return [
     'Enperry Splat Dualies' => 'Difusor dual B',
     'Explosher' => 'Derramatic turbo',
     'Flingza Roller' => 'Rodillo versátil',
+    'Foil Flingza Roller' => '',
     'Foil Squeezer' => 'Tintopresor B',
     'Forge Splattershot Pro' => 'Lanzatintas plus B',
     'Glooga Dualies' => 'Fundidora 525 dual',
+    'Glooga Dualies Deco' => '',
     'Gold Dynamo Roller' => 'Dinamorrodillo T',
     'Goo Tuber' => 'Tubofusil',
     'Grizzco Blaster' => 'Devastador Don Oso',
@@ -84,9 +92,11 @@ return [
     'N-ZAP \'85' => 'N-ZAP 85',
     'N-ZAP \'89' => 'N-ZAP 89',
     'Nautilus 47' => 'Subtralladora 47',
+    'Nautilus 79' => '',
     'Neo Splash-o-matic' => 'Marcador fino neo',
     'Neo Splatana Stamper' => 'Azotintador pro maestro',
     'Neo Sploosh-o-matic' => 'Marcador neo',
+    'New Squiffer' => '',
     'Nozzlenoses' => '',
     'Octobrush' => 'Brocha',
     'Octobrush Nouveau' => 'Brocha maestra',
@@ -99,6 +109,7 @@ return [
     'Rapid Blaster Deco' => 'Devastador exprés DX',
     'Rapid Blaster Pro' => 'Superdevastador',
     'Rapid Blaster Pro Deco' => 'Superdevastador DX',
+    'Recycled Brella 24 Mk I' => '',
     'REEF-LUX 450' => 'AR-CR0 450',
     'REEF-LUX 450 Deco' => 'AR-CR0 450 DX',
     'Rollers' => 'Rodillos',

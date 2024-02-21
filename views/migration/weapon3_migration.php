@@ -66,7 +66,8 @@ $type = implode(
             "    // canonical: 'wakaba',",
             "    // salmon: false, // skip-salmon",
             "    // aliases: [],",
-            "    // xGroup: 'A+',",
+            "    // xGroup: null,",
+            "    // xGroup2: 'SMLC',",
             "    releaseAt: 'YYYY-MM-01T00:00:00+00:00',",
             ");",
             "",
@@ -76,7 +77,7 @@ $type = implode(
     'downCode' => implode(
         "\n",
         [
-            "\$this->downWeapon3('key', salmon: true);",
+            "\$this->downWeapon3('key', salmon: false);",
             "",
             "return true;",
         ],

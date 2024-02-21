@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author ADe <loezone@gmail.com>
  * @author AIZAWA Hina <hina@fetus.jp>
@@ -11,6 +11,7 @@
 declare(strict_types=1);
 
 return [
+    '.52 Gal Deco' => '',
     '.52加侖' => '52',
     '.52加侖 Deco' => '聯名.52',
     '.96加侖' => '96',
@@ -21,6 +22,13 @@ return [
     '14式竹筒槍‧甲' => '竹狙·甲',
     '3K準星槍' => '3K鏡狙',
     '4K準星槍' => '4K鏡狙',
+    'Custom E-liter 4K' => '',
+    'Custom E-liter 4K Scope' => '',
+    'Custom Explosher' => '',
+    'Douser Dualies FF' => '',
+    'Dread Wringer D' => '',
+    'Foil Flingza Roller' => '',
+    'Glooga Dualies Deco' => '',
     'H3捲管槍' => 'H3',
     'H3捲管槍D' => '',
     'L3捲管槍' => 'L3',
@@ -30,8 +38,11 @@ return [
     'N-ZAP83' => '83',
     'N-ZAP85' => '85',
     'N-ZAP89' => '89',
+    'Nautilus 79' => '',
+    'New Squiffer' => '',
     'R-PEN/5B' => '',
     'R-PEN/5H' => '鉛筆狙',
+    'Recycled Brella 24 Mk I' => '',
     'S-BLAST91' => '',
     'S-BLAST92' => '',
     '三發獵魚弓' => '獵魚弓',

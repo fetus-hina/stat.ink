@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 return [
     '.52 Gal' => 'Calibro 2000',
+    '.52 Gal Deco' => '',
     '.96 Gal' => 'Calibro 3000',
     '.96 Gal Deco' => 'Calibro 3000 DX',
     'Aerospray MG' => 'Aerografo',
@@ -36,13 +37,18 @@ return [
     'Classic Squiffer' => 'Kalamarapid α',
     'Custom Blaster' => 'Blaster CM',
     'Custom Dualie Squelchers' => 'Sweeper duplo CM',
+    'Custom E-liter 4K' => '',
+    'Custom E-liter 4K Scope' => '',
+    'Custom Explosher' => '',
     'Custom Goo Tuber' => 'Tintubator CM',
     'Custom Jet Squelcher' => 'Sweeper CM',
     'Custom Splattershot Jr.' => 'Sparacolore logo',
     'Dapple Dualies' => 'Ripolpella duplo',
     'Dapple Dualies Nouveau' => 'Ripolpella duplo master',
     'Dark Tetra Dualies' => 'Moscarpino duplo nero',
+    'Douser Dualies FF' => '',
     'Dread Wringer' => 'Secchiapavimenti',
+    'Dread Wringer D' => '',
     'Dualies' => 'Armi "duplo"',
     'Dualie Squelchers' => 'Sweeper duplo',
     'Dynamo Roller' => 'Rullo dinamo',
@@ -51,9 +57,11 @@ return [
     'Enperry Splat Dualies' => 'Repolper duplo logo',
     'Explosher' => 'Termosecchiostro',
     'Flingza Roller' => 'Flexi-rullo',
+    'Foil Flingza Roller' => '',
     'Foil Squeezer' => 'Strizzer B',
     'Forge Splattershot Pro' => 'Splasher élite logo',
     'Glooga Dualies' => 'Kelvin duplo 525',
+    'Glooga Dualies Deco' => '',
     'Gold Dynamo Roller' => 'Rullo dinamo dorato',
     'Goo Tuber' => 'Tintubator',
     'Grizzco Blaster' => 'Blaster Ursus',
@@ -84,9 +92,11 @@ return [
     'N-ZAP \'85' => 'N-ZAP85',
     'N-ZAP \'89' => 'N-ZAP89',
     'Nautilus 47' => 'Nautilus 47',
+    'Nautilus 79' => '',
     'Neo Splash-o-matic' => 'Marker d\'assalto Neo',
     'Neo Splatana Stamper' => 'Splattalama Neo',
     'Neo Sploosh-o-matic' => 'Marker Neo',
+    'New Squiffer' => '',
     'Nozzlenoses' => '',
     'Octobrush' => 'Tinturicchio',
     'Octobrush Nouveau' => 'Tinturicchio master',
@@ -99,6 +109,7 @@ return [
     'Rapid Blaster Deco' => 'Blaster rapido DX',
     'Rapid Blaster Pro' => 'Blaster élite',
     'Rapid Blaster Pro Deco' => 'Blaster élite DX',
+    'Recycled Brella 24 Mk I' => '',
     'REEF-LUX 450' => 'ARCO-RAL 450',
     'REEF-LUX 450 Deco' => 'ARCO-RAL 450 DX',
     'Rollers' => '',

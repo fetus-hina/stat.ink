@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Gosin <canling0@gmail.com>
@@ -10,6 +10,7 @@
 declare(strict_types=1);
 
 return [
+    '.52 Gal Deco' => '',
     '.52加仑' => '',
     '.96加仑' => '',
     '.96加仑 装饰' => '',
@@ -20,6 +21,13 @@ return [
     '83版快枪' => '83',
     '85版快枪' => '85',
     '89版快枪' => '89',
+    'Custom E-liter 4K' => '',
+    'Custom E-liter 4K Scope' => '',
+    'Custom Explosher' => '',
+    'Douser Dualies FF' => '',
+    'Dread Wringer D' => '',
+    'Foil Flingza Roller' => '',
+    'Glooga Dualies Deco' => '',
     'H3卷管枪' => '',
     'H3卷管枪D' => '',
     'H3水枪' => 'H3',
@@ -31,8 +39,11 @@ return [
     'N-ZAP83' => '83',
     'N-ZAP85' => '85',
     'N-ZAP89' => '89',
+    'Nautilus 79' => '',
+    'New Squiffer' => '',
     'R-PEN/5B' => '',
     'R-PEN/5H' => '',
+    'Recycled Brella 24 Mk I' => '',
     'S-BLAST91' => '',
     'S-BLAST92' => '',
     '三发猎鱼弓' => '',

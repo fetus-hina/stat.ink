@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 return [
     '.52 Gal' => '.52 Gallon',
+    '.52 Gal Deco' => '',
     '.96 Gal' => '.96 Gallon',
     '.96 Gal Deco' => '.96 Gallon Deko',
     'Aerospray MG' => 'Airbrush MG',
@@ -36,13 +37,18 @@ return [
     'Classic Squiffer' => 'Sepiator α',
     'Custom Blaster' => 'Blaster SE',
     'Custom Dualie Squelchers' => 'Dual-Platscher SE',
+    'Custom E-liter 4K' => '',
+    'Custom E-liter 4K Scope' => '',
+    'Custom Explosher' => '',
     'Custom Goo Tuber' => 'T-Tuber SE',
     'Custom Jet Squelcher' => 'Platscher SE',
     'Custom Splattershot Jr.' => 'Junior-Kleckser Plus',
     'Dapple Dualies' => 'Sprenkler',
     'Dapple Dualies Nouveau' => 'Sprenkler Fresco',
     'Dark Tetra Dualies' => 'Quadhopper Noir',
+    'Douser Dualies FF' => '',
     'Dread Wringer' => 'Schwappwascher',
+    'Dread Wringer D' => '',
     'Dualies' => '',
     'Dualie Squelchers' => 'Dual-Platscher',
     'Dynamo Roller' => 'Dynaroller',
@@ -51,9 +57,11 @@ return [
     'Enperry Splat Dualies' => 'Enperry-Klecks-Doppler',
     'Explosher' => 'Knall-Schwapper',
     'Flingza Roller' => 'Flex-Roller',
+    'Foil Flingza Roller' => '',
     'Foil Squeezer' => 'Quetscher Fol',
     'Forge Splattershot Pro' => 'Focus-Profi-Kleckser',
     'Glooga Dualies' => 'Kelvin 525',
+    'Glooga Dualies Deco' => '',
     'Gold Dynamo Roller' => 'Dynaroller Tesla',
     'Goo Tuber' => 'T-Tuber',
     'Grizzco Blaster' => 'Bär-Blaster',
@@ -84,9 +92,11 @@ return [
     'N-ZAP \'85' => 'N-ZAP85',
     'N-ZAP \'89' => 'N-ZAP89',
     'Nautilus 47' => 'Nautilus 47',
+    'Nautilus 79' => '',
     'Neo Splash-o-matic' => 'Fein-Disperser Neo',
     'Neo Splatana Stamper' => 'Stempel-Splatana Neo',
     'Neo Sploosh-o-matic' => 'Disperser Neo',
+    'New Squiffer' => '',
     'Nozzlenoses' => '',
     'Octobrush' => 'Kalligraf',
     'Octobrush Nouveau' => 'Kalligraf Fresco',
@@ -99,6 +109,7 @@ return [
     'Rapid Blaster Deco' => 'Turbo-Blaster Deko',
     'Rapid Blaster Pro' => 'Turbo-Blaster Plus',
     'Rapid Blaster Pro Deco' => 'Turbo-Blaster Plus Deko',
+    'Recycled Brella 24 Mk I' => '',
     'REEF-LUX 450' => 'LACT-450',
     'REEF-LUX 450 Deco' => 'LACT-450 Deko',
     'Rollers' => '',
