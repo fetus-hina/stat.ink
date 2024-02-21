@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -42,6 +42,7 @@ trait Weapon3Migration
      * @phpstan-param non-empty-string|null $main
      * @phpstan-param non-empty-string|null $canonical
      * @phpstan-param 'A+'|'A-'|'B'|'C+'|'C-'|'D+'|'D-'|'E+'|'E-'|null $xGroup
+     * @phpstan-param 'S'|'M'|'L'|'C'|null $xGroup2
      */
     protected function upWeapon3(
         string $key,
@@ -55,6 +56,7 @@ trait Weapon3Migration
         array $aliases = [],
         bool $enableAutoKey = true,
         ?string $xGroup = null,
+        ?string $xGroup2 = null,
         ?string $releaseAt = null,
     ): void {
         if ($salmon === null) {
@@ -116,6 +118,22 @@ trait Weapon3Migration
                 'group_id' => $this->key2id(
                     '{{%x_matching_group3}}',
                     $xGroup,
+                    keyColumn: 'short_name',
+                ),
+                'weapon_id' => $weaponId,
+            ]);
+        }
+
+        if ($xGroup2) {
+            $this->insert('{{%x_matching_group_weapon3}}', [
+                'version_id' => $this->key2id(
+                    '{{%x_matching_group_version3}}',
+                    '6.0.0',
+                    keyColumn: 'minimum_version',
+                ),
+                'group_id' => $this->key2id(
+                    '{{%x_matching_group3}}',
+                    $xGroup2,
                     keyColumn: 'short_name',
                 ),
                 'weapon_id' => $weaponId,

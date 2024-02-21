@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -54,10 +54,15 @@ return [
     'Custom Dual Squelcher' => '',
     'Custom E-liter 3K' => '',
     'Custom E-liter 3K Scope' => '',
+    'Custom E-liter 4K' => '',
+    'Custom E-liter 4K Scope' => '',
+    'Custom Explosher' => '',
     'Custom Hydra Splatling' => '',
     'Custom Jet Squelcher' => '',
     'Custom Range Blaster' => '',
     'Custom Splattershot Jr.' => '',
+    'Douser Dualies FF' => '',
+    'Dread Wringer D' => '',
     'Dual Squelcher' => '',
     'Dubbelknallers' => '',
     'Dubbelplonzers' => '',
@@ -82,6 +87,7 @@ return [
     'Flitsblaster Pro Deco' => '',
     'Floeper' => '',
     'Foil Flexroller' => '',
+    'Foil Flingza Roller' => '',
     'Foil Floeper' => '',
     'Forge Splattershot Pro' => '',
     'Forge Superspetter Pro' => '',
@@ -96,6 +102,7 @@ return [
     'Gemodde Straalplonzer' => '',
     'Gemodde Superspetter jr.' => '',
     'Gemodde Teleblaster' => '',
+    'Glooga Dualies Deco' => '',
     'Gold Dynamo Roller' => '',
     'Gouden Dynamoroller' => '',
     'Grim Range Blaster' => '',
@@ -190,6 +197,7 @@ return [
     'Rapid Blaster Deco' => '',
     'Rapid Blaster Pro' => '',
     'Rapid Blaster Pro Deco' => '',
+    'Recycled Brella 24 Mk I' => '',
     'Refurbished Mini Splatling' => '',
     'RIF-LEX 450' => '',
     'RIF-LEX 450 Deco' => '',

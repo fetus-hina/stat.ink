@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 return [
     '.52 Gal' => 'Calibre 2000',
+    '.52 Gal Deco' => '',
     '.96 Gal' => 'Calibre 3000',
     '.96 Gal Deco' => 'Calibre 3000 chic',
     'Aerospray MG' => 'Pouche-pouche',
@@ -36,13 +37,18 @@ return [
     'Classic Squiffer' => 'Lignizateur alpha',
     'Custom Blaster' => 'Éclablasteur modifié',
     'Custom Dualie Squelchers' => 'Double nettoyeur modifié',
+    'Custom E-liter 4K' => '',
+    'Custom E-liter 4K Scope' => '',
+    'Custom Explosher' => '',
     'Custom Goo Tuber' => 'Détubeur modifié',
     'Custom Jet Squelcher' => 'Méganettoyeur modifié',
     'Custom Splattershot Jr.' => 'Liquéficateur ultra modifié',
     'Dapple Dualies' => 'Double moucheteur',
     'Dapple Dualies Nouveau' => 'Double moucheteur nuancé',
     'Dark Tetra Dualies' => 'Double voltigeur noir',
+    'Douser Dualies FF' => '',
     'Dread Wringer' => 'Seau S-Horreur',
+    'Dread Wringer D' => '',
     'Dualies' => '',
     'Dualie Squelchers' => 'Double nettoyeur',
     'Dynamo Roller' => 'Dynamo-rouleau',
@@ -51,9 +57,11 @@ return [
     'Enperry Splat Dualies' => 'Double encreur DUX',
     'Explosher' => 'Détoneur',
     'Flingza Roller' => 'Flexi-rouleau',
+    'Foil Flingza Roller' => '',
     'Foil Squeezer' => 'Compresseur aluminium',
     'Forge Splattershot Pro' => 'Liquéficateur pro Fosia',
     'Glooga Dualies' => 'Double Kelvin 525',
+    'Glooga Dualies Deco' => '',
     'Gold Dynamo Roller' => 'Dynamo-rouleau pro',
     'Goo Tuber' => 'Détubeur',
     'Grizzco Blaster' => 'Blasteur M. Ours Cie',
@@ -84,9 +92,11 @@ return [
     'N-ZAP \'85' => 'N-ZAP 85',
     'N-ZAP \'89' => 'N-ZAP 89',
     'Nautilus 47' => 'Nautilus 47',
+    'Nautilus 79' => '',
     'Neo Splash-o-matic' => 'Marqueur léger néo',
     'Neo Splatana Stamper' => 'Éclatana d\'estampe néo',
     'Neo Sploosh-o-matic' => 'Marqueur lourd néo',
+    'New Squiffer' => '',
     'Nozzlenoses' => '',
     'Octobrush' => 'Épinceau brosse',
     'Octobrush Nouveau' => 'Épinceau brosse nuancé',
@@ -99,6 +109,7 @@ return [
     'Rapid Blaster Deco' => 'Turboblasteur chic',
     'Rapid Blaster Pro' => 'Turboblasteur pro',
     'Rapid Blaster Pro Deco' => 'Turboblasteur pro chic',
+    'Recycled Brella 24 Mk I' => '',
     'REEF-LUX 450' => 'Coralux 450',
     'REEF-LUX 450 Deco' => 'Coralux 450 chic',
     'Rollers' => '',

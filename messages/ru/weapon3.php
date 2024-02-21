@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 return [
     '.52 Gal' => 'Струевик .52',
+    '.52 Gal Deco' => '',
     '.96 Gal' => 'Струевик .96',
     '.96 Gal Deco' => 'Струевик .96 «Деко»',
     'Aerospray MG' => 'Аэроспрей',
@@ -36,13 +37,18 @@ return [
     'Classic Squiffer' => 'Стиратель',
     'Custom Blaster' => 'Бластер «Понт»',
     'Custom Dualie Squelchers' => 'Спурт-плескари «Понт»',
+    'Custom E-liter 4K' => '',
+    'Custom E-liter 4K Scope' => '',
+    'Custom Explosher' => '',
     'Custom Goo Tuber' => 'Трубастер «Понт»',
     'Custom Jet Squelcher' => 'Плескарь «Понт»',
     'Custom Splattershot Jr.' => 'Каплестрел-У 2.0',
     'Dapple Dualies' => 'Импрессиометы',
     'Dapple Dualies Nouveau' => 'Импрессиометы «НуВо»',
     'Dark Tetra Dualies' => 'Черные спуртокроссы',
+    'Douser Dualies FF' => '',
     'Dread Wringer' => 'Отжиматель',
+    'Dread Wringer D' => '',
     'Dualies' => '',
     'Dualie Squelchers' => 'Спурт-плескари',
     'Dynamo Roller' => 'Мотовалик',
@@ -51,9 +57,11 @@ return [
     'Enperry Splat Dualies' => 'Спуртометы «К.К.»',
     'Explosher' => 'Шпарган',
     'Flingza Roller' => 'Омнивалик',
+    'Foil Flingza Roller' => '',
     'Foil Squeezer' => 'Бутылятор «Блеск»',
     'Forge Splattershot Pro' => 'Каплестрел ПРО «Блиц»',
     'Glooga Dualies' => 'Термоплюхи 525',
+    'Glooga Dualies Deco' => '',
     'Gold Dynamo Roller' => 'Мотовалик VIP',
     'Goo Tuber' => 'Трубастер',
     'Grizzco Blaster' => 'Бластер «Потапыч Inc.»',
@@ -84,9 +92,11 @@ return [
     'N-ZAP \'85' => 'N-ZAP 85',
     'N-ZAP \'89' => 'N-ZAP 89',
     'Nautilus 47' => 'Наутилус-47',
+    'Nautilus 79' => '',
     'Neo Splash-o-matic' => 'Плюхомет «Нео»',
     'Neo Splatana Stamper' => 'Сплат-печатель «Нео»',
     'Neo Sploosh-o-matic' => 'Плюхотрон «Нео»',
+    'New Squiffer' => '',
     'Nozzlenoses' => '',
     'Octobrush' => 'Арт-кисть',
     'Octobrush Nouveau' => 'Арт-кисть «НуВо»',
@@ -99,6 +109,7 @@ return [
     'Rapid Blaster Deco' => 'Бластермат «Деко»',
     'Rapid Blaster Pro' => 'Бластермат ПРО',
     'Rapid Blaster Pro Deco' => 'Бластермат ПРО «Деко»',
+    'Recycled Brella 24 Mk I' => '',
     'REEF-LUX 450' => 'КО-РАЛЛ 450',
     'REEF-LUX 450 Deco' => 'КО-РАЛЛ 450 «Деко»',
     'Rollers' => '',

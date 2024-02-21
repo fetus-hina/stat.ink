@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -32,6 +32,8 @@ return [
     'Custom Explosher' => '',
     'Custom Hydra Splatling' => '',
     'Custom Range Blaster' => '',
+    'Douser Dualies FF' => '',
+    'Dread Wringer D' => '',
     'Dual Squelcher' => '',
     'E-liter 3K' => '',
     'E-liter 3K Scope' => '',
@@ -94,6 +96,7 @@ return [
     'R 블래스터 엘리트 데코' => '',
     'R-PEN/5B' => '',
     'R-PEN/5H' => '',
+    'Recycled Brella 24 Mk I' => '',
     'Refurbished Mini Splatling' => '',
     'S-BLAST91' => '',
     'S-BLAST92' => '',

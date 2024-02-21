@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -55,6 +55,9 @@ return [
     'Custom Dual Squelcher' => '',
     'Custom E-liter 3K' => '',
     'Custom E-liter 3K Scope' => '',
+    'Custom E-liter 4K' => '',
+    'Custom E-liter 4K Scope' => '',
+    'Custom Explosher' => '',
     'Custom Hydra Splatling' => '',
     'Custom Jet Squelcher' => '',
     'Custom Range Blaster' => '',
@@ -62,6 +65,8 @@ return [
     'Disperser' => '',
     'Disperser 7' => '',
     'Disperser Neo' => '',
+    'Douser Dualies FF' => '',
+    'Dread Wringer D' => '',
     'Dual Squelcher' => '',
     'Dual-Platscher' => '',
     'Dual-Platscher SE' => '',
@@ -81,10 +86,12 @@ return [
     'Flex-Roller' => '',
     'Flex-Roller Fol' => '',
     'Focus-Profi-Kleckser' => '',
+    'Foil Flingza Roller' => '',
     'Forge Splattershot Pro' => '',
     'Fresh Squiffer' => '',
     'Fächerfärber' => '',
     'Fächerfärber Fresco' => '',
+    'Glooga Dualies Deco' => '',
     'Gold Dynamo Roller' => '',
     'Grim Range Blaster' => '',
     'Grizzco Blaster' => '',
@@ -204,6 +211,7 @@ return [
     'Rapid Blaster Deco' => '',
     'Rapid Blaster Pro' => '',
     'Rapid Blaster Pro Deco' => '',
+    'Recycled Brella 24 Mk I' => '',
     'Refurbished Mini Splatling' => '',
     'Rilax-Klecks-Konzentrator' => '',
     'Rilax-Ziel-Konzentrator' => '',

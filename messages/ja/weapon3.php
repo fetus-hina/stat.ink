@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -9,6 +9,7 @@
 declare(strict_types=1);
 
 return [
+    '.52 Gal Deco' => '.52ガロンデコ',
     '.52 Gal' => '.52ガロン',
     '.96 Gal Deco' => '.96ガロンデコ',
     '.96 Gal' => '.96ガロン',
@@ -36,12 +37,17 @@ return [
     'Classic Squiffer' => 'スクイックリンα',
     'Custom Blaster' => 'ホットブラスターカスタム',
     'Custom Dualie Squelchers' => 'デュアルスイーパーカスタム',
+    'Custom E-liter 4K Scope' => '4Kスコープカスタム',
+    'Custom E-liter 4K' => 'リッター4Kカスタム',
+    'Custom Explosher' => 'エクスプロッシャーカスタム',
     'Custom Goo Tuber' => 'ソイチューバーカスタム',
     'Custom Jet Squelcher' => 'ジェットスイーパーカスタム',
     'Custom Splattershot Jr.' => 'もみじシューター',
     'Dapple Dualies Nouveau' => 'スパッタリー・ヒュー',
     'Dapple Dualies' => 'スパッタリー',
     'Dark Tetra Dualies' => 'クアッドホッパーブラック',
+    'Douser Dualies FF' => 'ガエンFF',
+    'Dread Wringer D' => 'モップリンD',
     'Dread Wringer' => 'モップリン',
     'Dualie Squelchers' => 'デュアルスイーパー',
     'Dualies' => 'マニューバー',
@@ -51,8 +57,10 @@ return [
     'Enperry Splat Dualies' => 'スプラマニューバーコラボ',
     'Explosher' => 'エクスプロッシャー',
     'Flingza Roller' => 'ヴァリアブルローラー',
+    'Foil Flingza Roller' => 'ヴァリアブルローラーフォイル',
     'Foil Squeezer' => 'ボトルガイザーフォイル',
     'Forge Splattershot Pro' => 'プライムシューターコラボ',
+    'Glooga Dualies Deco' => 'ケルビン525デコ',
     'Glooga Dualies' => 'ケルビン525',
     'Gold Dynamo Roller' => 'ダイナモローラーテスラ',
     'Goo Tuber' => 'ソイチューバー',
@@ -84,9 +92,11 @@ return [
     'N-ZAP \'85' => 'N-ZAP85',
     'N-ZAP \'89' => 'N-ZAP89',
     'Nautilus 47' => 'ノーチラス47',
+    'Nautilus 79' => 'ノーチラス79',
     'Neo Splash-o-matic' => 'シャープマーカーネオ',
     'Neo Splatana Stamper' => 'ジムワイパー・ヒュー',
     'Neo Sploosh-o-matic' => 'ボールドマーカーネオ',
+    'New Squiffer' => 'スクイックリンβ',
     'Nozzlenoses' => 'リールガン',
     'Octobrush Nouveau' => 'ホクサイ・ヒュー',
     'Octobrush' => 'ホクサイ',
@@ -101,6 +111,7 @@ return [
     'Rapid Blaster Pro Deco' => 'Rブラスターエリートデコ',
     'Rapid Blaster Pro' => 'Rブラスターエリート',
     'Rapid Blaster' => 'ラピッドブラスター',
+    'Recycled Brella 24 Mk I' => '24式張替傘・甲',
     'Rollers' => 'ローラー',
     'S-BLAST \'91' => 'S-BLAST91',
     'S-BLAST \'92' => 'S-BLAST92',
