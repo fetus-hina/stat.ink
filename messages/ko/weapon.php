@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 return [
     '.52 Gal' => '.52 갤런',
-    '.52 Gal Deco' => '',
+    '.52 Gal Deco' => '.52 갤런 데코',
     '.96 Gal' => '.96 갤런',
     '.96 Gal Deco' => '.96 갤런 데코',
     'Aerospray MG' => '프로모델러 MG',
@@ -72,7 +72,7 @@ return [
     'N-ZAP \'89' => 'N-ZAP89',
     'Neo Splash-o-matic' => '네오 샤프 마커',
     'Neo Sploosh-o-matic' => '네오 볼드 마커',
-    'New Squiffer' => '',
+    'New Squiffer' => '스퀵 클린 β',
     'Octobrush' => '호쿠사이',
     'Octobrush Nouveau' => '호쿠사이 휴',
     'Octoshot Replica' => '',

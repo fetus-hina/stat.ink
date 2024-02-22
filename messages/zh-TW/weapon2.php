@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author ADe <loezone@gmail.com>
  * @author AIZAWA Hina <hina@fetus.jp>
@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 return [
     '.52 Gal' => '.52加侖',
-    '.52 Gal Deco' => '德科聯名.52加侖',
+    '.52 Gal Deco' => '.52加侖 裝飾',
     '.96 Gal' => '.96加侖',
     '.96 Gal Deco' => '.96加侖 裝飾',
     'Aerospray MG' => '專業模型槍MG',
@@ -41,9 +41,9 @@ return [
     'Clear Dapple Dualies' => '白色濺鍍槍',
     'Custom Blaster' => '火熱爆破槍 改裝',
     'Custom Dualie Squelchers' => '雙重清潔槍 改裝',
-    'Custom E-liter 4K' => '自製公升4K',
-    'Custom E-liter 4K Scope' => '自製4K準星槍',
-    'Custom Explosher' => '自製爆炸潑桶',
+    'Custom E-liter 4K' => '公升4K 改裝',
+    'Custom E-liter 4K Scope' => '4K準星槍 改裝',
+    'Custom Explosher' => '爆炸潑桶 改裝',
     'Custom Goo Tuber' => '高壓油管槍 改裝',
     'Custom Hydra Splatling' => '自製消防栓旋轉槍',
     'Custom Jet Squelcher' => '噴射清潔槍 改裝',
@@ -62,12 +62,12 @@ return [
     'Firefin Splat Charger' => '暖流公升4K',
     'Firefin Splatterscope' => '暖流4K準星槍',
     'Flingza Roller' => '可變式滾筒',
-    'Foil Flingza Roller' => '金箔可變式滾筒',
+    'Foil Flingza Roller' => '可變式滾筒 金屬箔',
     'Foil Squeezer' => '開瓶噴泉槍 金屬箔',
     'Forge Splattershot Pro' => '頂尖射擊槍 聯名',
     'Fresh Squiffer' => '新鮮聯名魷快潔α',
     'Glooga Dualies' => '開爾文525',
-    'Glooga Dualies Deco' => '德科聯名開爾文525',
+    'Glooga Dualies Deco' => '開爾文525 裝飾',
     'Gold Dynamo Roller' => '電動馬達滾筒 高磁波',
     'Goo Tuber' => '高壓油管槍',
     'Grim Range Blaster' => '綠色遠距爆破槍',
@@ -124,7 +124,7 @@ return [
     'Nautilus 79' => '鸚鵡螺號79',
     'Neo Splash-o-matic' => '窄域標記槍 新型',
     'Neo Sploosh-o-matic' => '廣域標記槍 新型',
-    'New Squiffer' => '新式魷快潔α',
+    'New Squiffer' => '魷快潔β',
     'Nozzlenose' => '捲管槍',
     'Octobrush' => '北齋',
     'Octobrush Nouveau' => '北齋‧新藝術',
