@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 return [
     '.52 Gal' => 'Струевик .52',
-    '.52 Gal Deco' => '',
+    '.52 Gal Deco' => 'Струевик .52 «Деко»',
     '.96 Gal' => 'Струевик .96',
     '.96 Gal Deco' => 'Струевик .96 «Деко»',
     'Aerospray MG' => 'Аэроспрей',
@@ -72,7 +72,7 @@ return [
     'N-ZAP \'89' => 'N-ZAP 89',
     'Neo Splash-o-matic' => 'Плюхомет «Нео»',
     'Neo Sploosh-o-matic' => 'Плюхотрон «Нео»',
-    'New Squiffer' => '',
+    'New Squiffer' => 'Стиратель-II',
     'Octobrush' => 'Арт-кисть',
     'Octobrush Nouveau' => 'Арт-кисть «НуВо»',
     'Octoshot Replica' => '',

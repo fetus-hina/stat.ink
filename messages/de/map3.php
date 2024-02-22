@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,12 +10,15 @@ declare(strict_types=1);
 
 return [
     'Academy' => 'Perlmutt-Akademie',
+    'Airport' => '',
     'Alley' => 'Streifenaal-Straße',
     'Any Stage' => 'Jede Arena',
+    'Arena' => '',
     'B&D' => 'Talerfisch & Pock',
     'Barnacle & Dime' => 'Talerfisch & Pock',
     'Bay' => 'Schiffswrack-Insel',
     'Bluefin Depot' => 'Blauflossen-Depot',
+    'Bonerattle Arena' => 'Krawallhalla',
     'Bridge' => 'Makrelenbrücke',
     'Brinewater Springs' => 'Kusaya-Quellen',
     'Capital' => '',
@@ -40,6 +43,7 @@ return [
     'Manta' => 'Manta Maria',
     'Manta Maria' => 'Manta Maria',
     'Market' => 'Schnapperchen-Basar',
+    'Marlin Airport' => 'La Ola Airport',
     'Marooner\'s Bay' => 'Schiffswrack-Insel',
     'Mart' => 'Cetacea-Markt',
     'Metalworks' => 'Aalstahl-Metallwerk',

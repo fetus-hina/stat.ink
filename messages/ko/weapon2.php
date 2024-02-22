@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 return [
     '.52 Gal' => '.52 갤런',
-    '.52 Gal Deco' => '',
+    '.52 Gal Deco' => '.52 갤런 데코',
     '.96 Gal' => '.96 갤런',
     '.96 Gal Deco' => '.96 갤런 데코',
     'Aerospray MG' => '프로모델러 MG',
@@ -39,9 +39,9 @@ return [
     'Clear Dapple Dualies' => '',
     'Custom Blaster' => '커스텀 핫 블래스터',
     'Custom Dualie Squelchers' => '커스텀 듀얼 스위퍼',
-    'Custom E-liter 4K' => '',
-    'Custom E-liter 4K Scope' => '',
-    'Custom Explosher' => '',
+    'Custom E-liter 4K' => '커스텀 리터 4K',
+    'Custom E-liter 4K Scope' => '커스텀 4K 스코프',
+    'Custom Explosher' => '커스텀 익스플로셔',
     'Custom Goo Tuber' => '커스텀 소이 튜버',
     'Custom Hydra Splatling' => '',
     'Custom Jet Squelcher' => '커스텀 제트 스위퍼',
@@ -60,12 +60,12 @@ return [
     'Firefin Splat Charger' => '',
     'Firefin Splatterscope' => '',
     'Flingza Roller' => '베리어블 롤러',
-    'Foil Flingza Roller' => '',
+    'Foil Flingza Roller' => '포일 베리어블 롤러',
     'Foil Squeezer' => '포일 보틀 가이저',
     'Forge Splattershot Pro' => '프라임 슈터 컬래버',
     'Fresh Squiffer' => '',
     'Glooga Dualies' => '켈빈 525',
-    'Glooga Dualies Deco' => '',
+    'Glooga Dualies Deco' => '켈빈 525 데코',
     'Gold Dynamo Roller' => '골드 다이너모 롤러',
     'Goo Tuber' => '소이 튜버',
     'Grim Range Blaster' => '',
@@ -119,10 +119,10 @@ return [
     'N-ZAP \'85' => 'N-ZAP85',
     'N-ZAP \'89' => 'N-ZAP89',
     'Nautilus 47' => '노틸러스 47',
-    'Nautilus 79' => '',
+    'Nautilus 79' => '노틸러스 79',
     'Neo Splash-o-matic' => '네오 샤프 마커',
     'Neo Sploosh-o-matic' => '네오 볼드 마커',
-    'New Squiffer' => '',
+    'New Squiffer' => '스퀵 클린 β',
     'Nozzlenose' => '',
     'Octobrush' => '호쿠사이',
     'Octobrush Nouveau' => '호쿠사이 휴',

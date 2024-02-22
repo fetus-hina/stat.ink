@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -9,6 +9,7 @@
 declare(strict_types=1);
 
 return [
+    'Berry Gloopsuit' => 'Гидрокомплект «Ягода»',
     'Black Gloopsuit' => 'Гидрокомплект «Нуар»',
     'Black Slopsuit' => 'Черный комбинезон',
     'Blue Slopsuit' => 'Голубой комбинезон',
@@ -16,8 +17,10 @@ return [
     'Camo Slopsuit' => 'Камуфляжный комбинезон',
     'Green Slopsuit' => 'Зеленый комбинезон',
     'Koi Slopsuit' => 'Комбинезон с кои',
+    'Lime Gloopsuit' => 'Гидрокомплект «Лайм»',
     'Orange Gloopsuit' => 'Гидрокомплект «Оранж»',
     'Orange Slopsuit' => 'Оранжевый комбинезон',
+    'Peach Gloopsuit' => 'Гидрокомплект «Персик»',
     'Pink Slopsuit' => 'Розовый комбинезон',
     'Polka-Dot Slopsuit' => 'Комбинезон в горох',
     'White Slopsuit' => 'Белый комбинезон',

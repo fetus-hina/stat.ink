@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Gosin <canling0@gmail.com>
@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 return [
     '.52 Gal' => '.52加仑',
-    '.52 Gal Deco' => '德科贴牌点52口径重枪',
+    '.52 Gal Deco' => '.52加仑 装饰',
     '.96 Gal' => '.96加仑',
     '.96 Gal Deco' => '.96加仑 装饰',
     'Aerospray MG' => '专业模型枪MG',
@@ -73,7 +73,7 @@ return [
     'N-ZAP \'89' => 'N-ZAP89',
     'Neo Splash-o-matic' => '窄域标记枪 新型',
     'Neo Sploosh-o-matic' => '广域标记枪 新型',
-    'New Squiffer' => '新式洗洁精狙击枪',
+    'New Squiffer' => '鱿快洁β',
     'Octobrush' => '北斋',
     'Octobrush Nouveau' => '北斋·新艺术',
     'Octoshot Replica' => '复刻章鱼枪',

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Gosin <canling0@gmail.com>
@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 return [
     '.52 Gal' => '.52加仑',
-    '.52 Gal Deco' => '点52口径重枪 Deco',
+    '.52 Gal Deco' => '.52加仑 装饰',
     '.96 Gal' => '.96加仑',
     '.96 Gal Deco' => '.96加仑 装饰',
     'Aerospray MG' => '专业模型枪MG',
@@ -40,9 +40,9 @@ return [
     'Clear Dapple Dualies' => '白色牙刷双枪',
     'Custom Blaster' => '火热爆破枪 改装',
     'Custom Dualie Squelchers' => '双重清洁枪 改装',
-    'Custom E-liter 4K' => '自制精英4K狙击枪',
-    'Custom E-liter 4K Scope' => '自制精英4K带镜狙击枪',
-    'Custom Explosher' => '自制重桶',
+    'Custom E-liter 4K' => '公升4K 改装',
+    'Custom E-liter 4K Scope' => '4K准星枪 改装',
+    'Custom Explosher' => '爆炸泼桶 改装',
     'Custom Goo Tuber' => '高压油管枪 改装',
     'Custom Hydra Splatling' => '自制消防栓',
     'Custom Jet Squelcher' => '喷射清洁枪 改装',
@@ -61,12 +61,12 @@ return [
     'Firefin Splat Charger' => '火河豚绿色狙击枪',
     'Firefin Splatterscope' => '火河豚带镜狙击枪',
     'Flingza Roller' => '可变式滚筒',
-    'Foil Flingza Roller' => '金箔可变滚筒',
+    'Foil Flingza Roller' => '可变式滚筒 金属箔',
     'Foil Squeezer' => '开瓶喷泉枪 金属箔',
     'Forge Splattershot Pro' => '顶尖射击枪 联名',
     'Fresh Squiffer' => '新鲜贴牌洗洁精狙击枪',
     'Glooga Dualies' => '开尔文525',
-    'Glooga Dualies Deco' => '金色开尔文',
+    'Glooga Dualies Deco' => '开尔文525 装饰',
     'Gold Dynamo Roller' => '电动马达滚筒 高磁波',
     'Goo Tuber' => '高压油管枪',
     'Grim Range Blaster' => '绿色长热泡',
@@ -120,10 +120,10 @@ return [
     'N-ZAP \'85' => 'N-ZAP85',
     'N-ZAP \'89' => 'N-ZAP89',
     'Nautilus 47' => '鹦鹉螺号47',
-    'Nautilus 79' => '79式鹦鹉螺',
+    'Nautilus 79' => '鹦鹉螺号79',
     'Neo Splash-o-matic' => '窄域标记枪 新型',
     'Neo Sploosh-o-matic' => '广域标记枪 新型',
-    'New Squiffer' => '新式洗洁精狙击枪',
+    'New Squiffer' => '鱿快洁β',
     'Nozzlenose' => '水枪',
     'Octobrush' => '北斋',
     'Octobrush Nouveau' => '北斋·新艺术',

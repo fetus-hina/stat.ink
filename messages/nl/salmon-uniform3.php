@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -9,6 +9,7 @@
 declare(strict_types=1);
 
 return [
+    'Berry Gloopsuit' => 'Bessenploeterkloffie',
     'Black Gloopsuit' => 'Zwart ploeterkloffie',
     'Black Slopsuit' => 'Zwart werkkloffie',
     'Blue Slopsuit' => 'Blauw werkkloffie',
@@ -16,8 +17,10 @@ return [
     'Camo Slopsuit' => 'Camouflagewerkkloffie',
     'Green Slopsuit' => 'Groen werkkloffie',
     'Koi Slopsuit' => 'Koi-werkkloffie',
+    'Lime Gloopsuit' => 'Limoenploeterkloffie',
     'Orange Gloopsuit' => 'Oranje ploeterkloffie',
     'Orange Slopsuit' => 'Oranje werkkloffie',
+    'Peach Gloopsuit' => 'Perzikploeterkloffie',
     'Pink Slopsuit' => 'Roze werkkloffie',
     'Polka-Dot Slopsuit' => 'Stippelwerkkloffie',
     'White Slopsuit' => 'Wit werkkloffie',

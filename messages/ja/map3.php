@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -12,11 +12,14 @@ return [
     'Any Stage' => 'すべてのステージ',
 
     'Academy' => '海女美',
+    'Airport' => 'カジキ',
     'Alley' => 'ゴンズイ',
+    'Arena' => 'どんぴこ',
     'B&D' => 'タラポート',
     'Barnacle & Dime' => 'タラポートショッピングパーク',
     'Bay' => 'ドンブラコ',
     'Bluefin Depot' => 'ネギトロ炭鉱',
+    'Bonerattle Arena' => 'どんぴこ闘技場',
     'Bridge' => 'マサバ',
     'Brinewater Springs' => 'クサヤ温泉',
     'Capital' => 'タカアシ',
@@ -41,6 +44,7 @@ return [
     'Manta Maria' => 'マンタマリア号',
     'Manta' => 'マンタ',
     'Market' => 'ヤガラ',
+    'Marlin Airport' => 'カジキ空港',
     'Marooner\'s Bay' => '難破船ドン・ブラコ',
     'Mart' => 'ザトウ',
     'Metalworks' => 'ナメロウ',

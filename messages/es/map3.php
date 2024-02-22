@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,12 +10,15 @@ declare(strict_types=1);
 
 return [
     'Academy' => 'Instituto Coralino',
+    'Airport' => '',
     'Alley' => 'Callejones Crustáceo',
     'Any Stage' => '',
+    'Arena' => '',
     'B&D' => 'Centro Comercial Fletán',
     'Barnacle & Dime' => 'Centro Comercial Fletán',
     'Bay' => 'Bahía Deriva',
     'Bluefin Depot' => 'Mina costera',
+    'Bonerattle Arena' => 'Coliseo Óseo',
     'Bridge' => 'Puente Salmón',
     'Brinewater Springs' => 'Balneario Aguasal',
     'Capital' => '',
@@ -40,6 +43,7 @@ return [
     'Manta' => 'Corbeta Corvina',
     'Manta Maria' => 'Corbeta Corvina',
     'Market' => 'Mercado Lenguado',
+    'Marlin Airport' => 'Aeropuerto Marlín',
     'Marooner\'s Bay' => 'Bahía Deriva',
     'Mart' => 'Ultramarinos Orca',
     'Metalworks' => 'Desguace Mero',

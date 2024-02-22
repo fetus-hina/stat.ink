@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,12 +10,15 @@ declare(strict_types=1);
 
 return [
     'Academy' => 'Institut Calm\'arts',
+    'Airport' => '',
     'Alley' => '',
     'Any Stage' => '',
+    'Arena' => '',
     'B&D' => '',
     'Barnacle & Dime' => 'Halles de Port-merlu',
     'Bay' => '',
     'Bluefin Depot' => 'Mine marine',
+    'Bonerattle Arena' => 'Colisée enlisé',
     'Bridge' => 'Pont Esturgon',
     'Brinewater Springs' => 'Sources Sauret',
     'Capital' => '',
@@ -40,6 +43,7 @@ return [
     'Manta' => '',
     'Manta Maria' => 'Manta Maria',
     'Market' => '',
+    'Marlin Airport' => 'Terminal Rorqual',
     'Marooner\'s Bay' => 'Épave des braves',
     'Mart' => '',
     'Metalworks' => '',

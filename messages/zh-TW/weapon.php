@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author ADe <loezone@gmail.com>
  * @author AIZAWA Hina <hina@fetus.jp>
@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 return [
     '.52 Gal' => '.52加侖',
-    '.52 Gal Deco' => '德科聯名.52加侖',
+    '.52 Gal Deco' => '.52加侖 裝飾',
     '.96 Gal' => '.96加侖',
     '.96 Gal Deco' => '.96加侖 裝飾',
     'Aerospray MG' => '專業模型槍MG',
@@ -74,7 +74,7 @@ return [
     'N-ZAP \'89' => 'N-ZAP89',
     'Neo Splash-o-matic' => '窄域標記槍 新型',
     'Neo Sploosh-o-matic' => '廣域標記槍 新型',
-    'New Squiffer' => '新式魷快潔α',
+    'New Squiffer' => '魷快潔β',
     'Octobrush' => '北齋',
     'Octobrush Nouveau' => '北齋‧新藝術',
     'Octoshot Replica' => '章魚射擊槍 複製',

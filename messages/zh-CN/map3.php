@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author imspace <spacemeowx2@gmail.com>
@@ -12,12 +12,15 @@ declare(strict_types=1);
 
 return [
     'Academy' => '海女',
+    'Airport' => '',
     'Alley' => '鳗鲶区',
     'Any Stage' => '所有场地',
+    'Arena' => '',
     'B&D' => '购物公园',
     'Barnacle & Dime' => '塔拉波特购物公园',
     'Bay' => '落难船',
     'Bluefin Depot' => '葱鲔鱼煤矿场',
+    'Bonerattle Arena' => '鲑鱼心脏斗技场',
     'Bridge' => '大桥',
     'Brinewater Springs' => '臭鱼干温泉',
     'Capital' => '经济特区',
@@ -42,6 +45,7 @@ return [
     'Manta' => '玛利亚号',
     'Manta Maria' => '鬼蝠鲼玛利亚号',
     'Market' => '市场',
+    'Marlin Airport' => '旗鱼机场',
     'Marooner\'s Bay' => '漂浮落难船',
     'Mart' => '购物中心',
     'Metalworks' => '碎金属',

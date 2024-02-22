@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author cake monotone <cake.monotone@gmail.com>
@@ -12,12 +12,15 @@ declare(strict_types=1);
 
 return [
     'Academy' => '해녀 미술 대학',
+    'Airport' => '',
     'Alley' => '메기 지구',
     'Any Stage' => '모든 스테이지',
+    'Arena' => '',
     'B&D' => '대구 포트 쇼핑 파크',
     'Barnacle & Dime' => '대구 포트 쇼핑 파크',
     'Bay' => '난파선',
     'Bluefin Depot' => '참치 탄광',
+    'Bonerattle Arena' => '연어 심장 투기장',
     'Bridge' => '고등어 해협 대교',
     'Brinewater Springs' => '과메기 온천',
     'Capital' => '',
@@ -42,6 +45,7 @@ return [
     'Manta' => '만타',
     'Manta Maria' => '만타 마리아호',
     'Market' => '대치 시장',
+    'Marlin Airport' => '청새치 공항',
     'Marooner\'s Bay' => '난파선 돈 브라코',
     'Mart' => '혹등 마켓',
     'Metalworks' => '나메로우 금속',
