@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 return [
     'Academy' => 'Koraalcampus',
+    'Airport' => '',
     'Alley' => 'Forelviaduct',
     'Any Stage' => '',
     'B&D' => 'Winkelcentrum Poon & Zeehaan',
@@ -40,6 +41,7 @@ return [
     'Manta' => 'Klipvisklipper',
     'Manta Maria' => 'Klipvisklipper',
     'Market' => 'Boter-bij-de-vismarkt',
+    'Marlin Airport' => 'Trekvis Airport',
     'Marooner\'s Bay' => 'Wrak van de ms Grondel',
     'Mart' => 'Bultrugbazaar',
     'Metalworks' => 'Zilversmelt-hoogovens',

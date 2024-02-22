@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author imspace <spacemeowx2@gmail.com>
@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 return [
     'Academy' => '海女',
+    'Airport' => '',
     'Alley' => '鳗鲶区',
     'Any Stage' => '所有场地',
     'B&D' => '购物公园',
@@ -42,6 +43,7 @@ return [
     'Manta' => '玛利亚号',
     'Manta Maria' => '鬼蝠鲼玛利亚号',
     'Market' => '市场',
+    'Marlin Airport' => '旗鱼机场',
     'Marooner\'s Bay' => '漂浮落难船',
     'Mart' => '购物中心',
     'Metalworks' => '碎金属',

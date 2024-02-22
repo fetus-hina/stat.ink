@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 return [
     'Academy' => 'Академия «Лепота»',
+    'Airport' => '',
     'Alley' => 'Угрево-Скатово',
     'Any Stage' => '',
     'B&D' => '',
@@ -40,6 +41,7 @@ return [
     'Manta' => 'Манта Мария',
     'Manta Maria' => '«Манта-Мария»',
     'Market' => 'Рынок «Свисторыб»',
+    'Marlin Airport' => 'Аэропорт Пенково',
     'Marooner\'s Bay' => 'Корабль «Дон Брак»',
     'Mart' => ' Горбуша-Маркет',
     'Metalworks' => 'Цех «Тартар»',

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 return [
     'Academy' => 'Campus Hippocampus',
+    'Airport' => '',
     'Alley' => 'Sobborgo Siluriano',
     'Any Stage' => '',
     'B&D' => 'Empolporio',
@@ -40,6 +41,7 @@ return [
     'Manta' => 'Manta Maria',
     'Manta Maria' => 'Manta Maria',
     'Market' => 'Mercato Fruttato',
+    'Marlin Airport' => 'Aeroporto Ondabianca',
     'Marooner\'s Bay' => 'Isoletta del relitto',
     'Mart' => 'Mercatotano',
     'Metalworks' => 'Discarica Tritatutto',
