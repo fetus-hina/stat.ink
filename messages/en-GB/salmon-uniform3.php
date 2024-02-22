@@ -9,6 +9,7 @@
 declare(strict_types=1);
 
 return [
+    'Berry Gloopsuit' => 'Berry Gloopsuit',
     'Black Gloopsuit' => 'Black Gloopsuit',
     'Black Slopsuit' => 'Black Slopsuit',
     'Blue Slopsuit' => 'Blue Slopsuit',
@@ -16,8 +17,10 @@ return [
     'Camo Slopsuit' => 'Camo Slopsuit',
     'Green Slopsuit' => 'Green Slopsuit',
     'Koi Slopsuit' => 'Koi Slopsuit',
+    'Lime Gloopsuit' => 'Lime Gloopsuit',
     'Orange Gloopsuit' => 'Orange Gloopsuit',
     'Orange Slopsuit' => 'Orange Slopsuit',
+    'Peach Gloopsuit' => 'Peach Gloopsuit',
     'Pink Slopsuit' => 'Pink Slopsuit',
     'Polka-Dot Slopsuit' => 'Polka-Dot Slopsuit',
     'White Slopsuit' => 'White Slopsuit',

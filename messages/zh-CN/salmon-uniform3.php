@@ -10,6 +10,7 @@
 declare(strict_types=1);
 
 return [
+    'Berry Gloopsuit' => '打工防水衣 莓果红',
     'Black Gloopsuit' => '打工防水衣 黑色',
     'Black Slopsuit' => '打工连身工作服 黑色',
     'Blue Slopsuit' => '打工连身工作服 蓝色',
@@ -17,8 +18,10 @@ return [
     'Camo Slopsuit' => '打工连身工作服 迷彩',
     'Green Slopsuit' => '打工连身工作服 绿色',
     'Koi Slopsuit' => '打工连身工作服 锦鲤',
+    'Lime Gloopsuit' => '打工防水衣 莱姆绿',
     'Orange Gloopsuit' => '打工防水衣 橘色',
     'Orange Slopsuit' => '打工连身工作服 橘色',
+    'Peach Gloopsuit' => '打工防水衣 桃红',
     'Pink Slopsuit' => '打工连身工作服 粉红色',
     'Polka-Dot Slopsuit' => '打工连身工作服 点点',
     'White Slopsuit' => '打工连身工作服 白色',

@@ -9,6 +9,7 @@
 declare(strict_types=1);
 
 return [
+    'Berry Gloopsuit' => 'Vadeador bayas',
     'Black Gloopsuit' => 'Vadeador negro',
     'Black Slopsuit' => 'Mono de trabajo negro',
     'Blue Slopsuit' => 'Mono de trabajo azul',
@@ -16,8 +17,10 @@ return [
     'Camo Slopsuit' => 'Mono de trabajo camuflaje',
     'Green Slopsuit' => 'Mono de trabajo verde',
     'Koi Slopsuit' => 'Mono de trabajo carpas',
+    'Lime Gloopsuit' => 'Vadeador lima',
     'Orange Gloopsuit' => 'Vadeador naranja',
     'Orange Slopsuit' => 'Mono de trabajo naranja',
+    'Peach Gloopsuit' => 'Vadeador ciruela',
     'Pink Slopsuit' => 'Mono de trabajo rosa',
     'Polka-Dot Slopsuit' => 'Mono de trabajo lunares',
     'White Slopsuit' => 'Mono de trabajo blanco',

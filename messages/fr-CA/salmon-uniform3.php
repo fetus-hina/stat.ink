@@ -9,6 +9,7 @@
 declare(strict_types=1);
 
 return [
+    'Berry Gloopsuit' => 'Salopette baie rouge',
     'Black Gloopsuit' => 'Combi caoutchouc noire',
     'Black Slopsuit' => 'Salopette noire',
     'Blue Slopsuit' => 'Salopette bleue',
@@ -16,8 +17,10 @@ return [
     'Camo Slopsuit' => 'Salopette camouflage',
     'Green Slopsuit' => 'Salopette verte',
     'Koi Slopsuit' => 'Salopette carpe koï',
+    'Lime Gloopsuit' => 'Salopette limette',
     'Orange Gloopsuit' => 'Combi caoutchouc orange',
     'Orange Slopsuit' => 'Salopette orange',
+    'Peach Gloopsuit' => 'Salopette pêche',
     'Pink Slopsuit' => 'Salopette rose',
     'Polka-Dot Slopsuit' => 'Salopette à pois',
     'White Slopsuit' => 'Salopette blanche',
