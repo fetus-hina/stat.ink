@@ -58,4 +58,8 @@ abstract class SalmonIconAsset extends AssetBundle
         'Tide - Low.png' => 'tide-low.png',
         'Tide - Mid.png' => 'tide-mid.png',
     ];
+
+    public array $dummyFiles = [
+        'donpiko.png',
+    ];
 }
