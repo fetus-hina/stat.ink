@@ -23,7 +23,7 @@
     "bootswatch": "^3.4.1",
     "bowser": "^2.11.0",
     "cal-heatmap": "^4.2.4",
-    "caniuse-lite": "^1.0.30001588",
+    "caniuse-lite": "^1.0.30001589",
     "chart.js": "^3.9.1",
     "chartjs-adapter-luxon": "^1.3.1",
     "chartjs-chart-error-bars": "^3.10.0",
