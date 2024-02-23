@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -16,6 +16,7 @@ use app\components\formatters\api\v3\BattleApiFormatter;
 use app\components\jobs\SlackJob;
 use app\models\Battle3;
 use app\models\api\v3\PostBattleForm;
+use app\models\api\v3\postBattle\PlayerForm;
 use yii\base\Action;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
@@ -49,6 +50,32 @@ final class PostBattleAction extends Action
 
         $battle = $form->save();
         if (!$battle) {
+            if ($form->hasErrors('weapon')) {
+                Yii::warning(
+                    'Weapon Error: ' . json_encode($form->getErrors('weapon')) . ' ' .
+                        json_encode($form->weapon),
+                    __METHOD__,
+                );
+            }
+
+            $attrs = ['our_team_players', 'their_team_players', 'third_team_players'];
+            foreach ($attrs as $attr) {
+                if (is_array($form->$attr) && $form->$attr) {
+                    foreach ($form->$attr as $player) {
+                        $playerModel = Yii::createObject(PlayerForm::class);
+                        $playerModel->attributes = $player;
+                        if (!$playerModel->validate() && $playerModel->hasErrors('weapon')) {
+                            Yii::warning(
+                                'Player Weapon Error: ' .
+                                    json_encode($playerModel->getErrors('weapon')) . ' ' .
+                                    json_encode($playerModel->weapon),
+                                __METHOD__,
+                            );
+                        }
+                    }
+                }
+            }
+
             return $this->formatError($form->getFirstErrors(), 400);
         } elseif ($battle === true) {
             return $this->formatError(null, 200); // validation OK
