@@ -58,12 +58,12 @@
     "yiisoft/yii2-symfonymailer": "^4.0.0"
   },
   "require-dev": {
-    "codeception/codeception": "*",
-    "codeception/module-asserts": "*",
-    "codeception/module-filesystem": "*",
-    "codeception/module-yii2": "*",
-    "codeception/specify": "*",
-    "codeception/verify": "*",
+    "codeception/codeception": ">=5.1",
+    "codeception/module-asserts": ">=3",
+    "codeception/module-filesystem": ">=3.0.1",
+    "codeception/module-yii2": ">=1.1.10",
+    "codeception/specify": ">=2",
+    "codeception/verify": ">=3.1",
     "ergebnis/composer-normalize": "^2.42.0",
     "jp3cki/coding-standard": "^1.0.0",
     "proget-hq/phpstan-yii2": "^0.8.0",
