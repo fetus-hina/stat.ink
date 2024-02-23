@@ -12,7 +12,7 @@
     "@babel/preset-env": "^7.23.9",
     "@babel/preset-react": "^7.23.3",
     "@fortawesome/fontawesome-free": "^6.5.1",
-    "@hacceuee/s3-pixel-icons": "^2.3.3",
+    "@hacceuee/s3-pixel-icons": "^2.3.5",
     "@popperjs/core": "^2.11.8",
     "autoprefixer": "^10.4.17",
     "axios": "^1.6.7",
