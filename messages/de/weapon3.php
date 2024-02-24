@@ -100,6 +100,7 @@ return [
     'Nozzlenoses' => '',
     'Octobrush' => 'Kalligraf',
     'Octobrush Nouveau' => 'Kalligraf Fresco',
+    'Octo Shot Replica' => 'Okto-Kleckser Replik',
     'Order Blaster Replica' => 'Ordnung-Blaster Replik',
     'Order Brella Replica' => 'Ordnung-Pluviator Replik',
     'Orderbrush Replica' => 'Ordnung-Kalligraf Replik',

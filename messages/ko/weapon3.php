@@ -101,6 +101,7 @@ return [
     'Nozzlenoses' => '릴건',
     'Octobrush' => '호쿠사이',
     'Octobrush Nouveau' => '호쿠사이 휴',
+    'Octo Shot Replica' => '옥타 슈터 레플리카',
     'Order Blaster Replica' => '오더 블래스터 레플리카',
     'Order Brella Replica' => '오더 셸터 레플리카',
     'Orderbrush Replica' => '오더 브러시 레플리카',

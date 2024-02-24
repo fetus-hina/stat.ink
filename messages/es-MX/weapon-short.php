@@ -159,6 +159,7 @@ return [
     'Rociador espacial Annak' => '',
     'Rociador Forima' => '',
     'Rociador octariana réplica' => '',
+    'Rociador octariano réplica' => '',
     'Rociador orden réplica' => '',
     'Rociador Pro' => '',
     'Rociador Pro frambuesa' => '',

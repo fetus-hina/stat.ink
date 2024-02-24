@@ -99,6 +99,7 @@ return [
     'Fusil M. Ours Cie' => '',
     'Fusil M. Ours SA' => '',
     'Lanceur d\'Ordre (réplique)' => '',
+    'Lanceur octaling (réplique)' => '',
     'Lanceur spatial' => '',
     'Lanceur spatial Aroz' => '',
     'Lignizateur alpha' => '',

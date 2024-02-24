@@ -181,6 +181,7 @@ return [
     'Octopoets Gamma' => '',
     'Octopoets Ultra' => '',
     'Octoshot Replica' => '',
+    'Octospetter (replica)' => '',
     'Ordeblaster (replica)' => '',
     'Ordeknallers (replica)' => '',
     'Ordekwast (replica)' => '',

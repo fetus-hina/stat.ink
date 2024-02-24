@@ -100,6 +100,7 @@ return [
     'Nozzlenoses' => '',
     'Octobrush' => 'Арт-кисть',
     'Octobrush Nouveau' => 'Арт-кисть «НуВо»',
+    'Octo Shot Replica' => 'Осьмострел (клон)',
     'Order Blaster Replica' => 'Бластер Порядка (клон)',
     'Order Brella Replica' => 'Зонтган Порядка (клон)',
     'Orderbrush Replica' => 'Кисть Порядка (клон)',

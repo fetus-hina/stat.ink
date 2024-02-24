@@ -187,6 +187,7 @@ return [
     'Octobrush' => '',
     'Octobrush Nouveau' => '',
     'Octoshot Replica' => '',
+    'Okto-Kleckser Replik' => '',
     'Ordnung-Blaster Replik' => '',
     'Ordnung-Doppler Replik' => '',
     'Ordnung-Kalligraf Replik' => '',

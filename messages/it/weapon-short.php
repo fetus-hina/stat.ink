@@ -147,6 +147,7 @@ return [
     'Octobrush' => '',
     'Octobrush Nouveau' => '',
     'Octoshot Replica' => '',
+    'Octosplasher replica' => '',
     'Pennello Ordine replica' => '',
     'Pennello élite replica' => '',
     'Permanent Inkbrush' => '',

@@ -100,6 +100,7 @@ return [
     'Nozzlenoses' => '',
     'Octobrush' => 'Octobrush',
     'Octobrush Nouveau' => 'Octobrush Nouveau',
+    'Octo Shot Replica' => 'Octo Shot Replica',
     'Order Blaster Replica' => 'Order Blaster Replica',
     'Order Brella Replica' => 'Order Brella Replica',
     'Orderbrush Replica' => 'Orderbrush Replica',
