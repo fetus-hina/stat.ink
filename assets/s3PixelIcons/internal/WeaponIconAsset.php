@@ -108,6 +108,7 @@ abstract class WeaponIconAsset extends AssetBundle
         'Octobrush.png' => 'hokusai.png',
         'Order Blaster Replica.png' => 'order_blaster_replica.png',
         'Order Brella Replica.png' => 'order_shelter_replica.png',
+        'Order Brush Replica.png' => 'order_brush_replica.png',
         'Order Charger Replica.png' => 'order_charger_replica.png',
         'Order Dualie Replicas.png' => 'order_maneuver_replica.png',
         'Order Roller Replica.png' => 'order_roller_replica.png',

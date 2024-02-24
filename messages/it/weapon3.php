@@ -100,6 +100,7 @@ return [
     'Nozzlenoses' => '',
     'Octobrush' => 'Tinturicchio',
     'Octobrush Nouveau' => 'Tinturicchio master',
+    'Octo Shot Replica' => 'Octosplasher replica',
     'Order Blaster Replica' => 'Blaster Ordine replica',
     'Order Brella Replica' => 'Sparasole Ordine replica',
     'Orderbrush Replica' => 'Pennello Ordine replica',

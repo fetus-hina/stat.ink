@@ -24,6 +24,8 @@ use yii\web\Response;
 use yii\web\UploadedFile;
 
 use function array_map;
+use function is_array;
+use function json_encode;
 
 final class PostBattleAction extends Action
 {

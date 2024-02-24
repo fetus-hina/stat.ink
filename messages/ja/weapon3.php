@@ -98,6 +98,7 @@ return [
     'Neo Sploosh-o-matic' => 'ボールドマーカーネオ',
     'New Squiffer' => 'スクイックリンβ',
     'Nozzlenoses' => 'リールガン',
+    'Octo Shot Replica' => 'オクタシューター レプリカ',
     'Octobrush Nouveau' => 'ホクサイ・ヒュー',
     'Octobrush' => 'ホクサイ',
     'Order Blaster Replica' => 'オーダーブラスター レプリカ',

@@ -100,6 +100,7 @@ return [
     'Nozzlenoses' => '',
     'Octobrush' => 'Pincel caligrafía',
     'Octobrush Nouveau' => 'Pincel caligrafía maestro',
+    'Octo Shot Replica' => 'Rociador octariano réplica',
     'Order Blaster Replica' => 'Lanzamotas orden réplica',
     'Order Brella Replica' => 'Paratintas orden réplica',
     'Orderbrush Replica' => 'Pincel caligrafía orden réplica',

@@ -100,6 +100,7 @@ return [
     'Nozzlenoses' => '',
     'Octobrush' => 'Épinceau brosse',
     'Octobrush Nouveau' => 'Épinceau brosse nuancé',
+    'Octo Shot Replica' => 'Lanceur Octaling (réplique)',
     'Order Blaster Replica' => 'Blaster d\'Ordre (réplique)',
     'Order Brella Replica' => 'Para-encre d\'Ordre (réplique)',
     'Orderbrush Replica' => 'Pinceau d\'Ordre (réplique)',

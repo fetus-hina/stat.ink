@@ -102,6 +102,7 @@ return [
     'Nozzlenoses' => '捲管槍',
     'Octobrush' => '北齋',
     'Octobrush Nouveau' => '北齋‧新藝術',
+    'Octo Shot Replica' => '章魚射擊槍 複製',
     'Order Blaster Replica' => '秩序爆破槍 複製',
     'Order Brella Replica' => '秩序防空傘 複製',
     'Orderbrush Replica' => '秩序排刷 複製',
