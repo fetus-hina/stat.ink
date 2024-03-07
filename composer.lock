@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e6db5e83a7fce4adf5a0bc878be9bd06",
+    "content-hash": "45dbbb249c1495c2b7304ef9b4abf67e",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -1923,16 +1923,16 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "9.19.0",
+            "version": "9.19.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "8e9cd0caff462a0d602d4724e76acf837d0b1a2d"
+                "reference": "680afbcfd964f299fb320dba6c30f9930d1d478e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/8e9cd0caff462a0d602d4724e76acf837d0b1a2d",
-                "reference": "8e9cd0caff462a0d602d4724e76acf837d0b1a2d",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/680afbcfd964f299fb320dba6c30f9930d1d478e",
+                "reference": "680afbcfd964f299fb320dba6c30f9930d1d478e",
                 "shasum": ""
             },
             "require": {
@@ -1947,7 +1947,7 @@
                 "phpcsstandards/phpcsutils": "@alpha",
                 "phpunit/phpunit": "*",
                 "squizlabs/php_codesniffer": "*",
-                "vimeo/psalm": "*"
+                "vimeo/psalm": ">=0.3.63"
             },
             "suggest": {
                 "ext-mbstring": "*"
@@ -1997,9 +1997,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-curl-class/php-curl-class/issues",
-                "source": "https://github.com/php-curl-class/php-curl-class/tree/9.19.0"
+                "source": "https://github.com/php-curl-class/php-curl-class/tree/9.19.1"
             },
-            "time": "2024-01-18T18:03:34+00:00"
+            "time": "2024-02-27T18:03:38+00:00"
         },
         {
             "name": "phpseclib/phpseclib",
