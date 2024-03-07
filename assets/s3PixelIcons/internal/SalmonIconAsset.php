@@ -24,6 +24,7 @@ abstract class SalmonIconAsset extends AssetBundle
      */
     public array $fileNameMap = [
         'Big Run.png' => 'bigrun.png',
+        'Bonerattle Arena.png' => 'donpiko.png',
         'Bronze Scale.png' => 'scale_bronze.png',
         'Coho Meter 0.png' => ['salmometer-0.png', 'salmometer-yokozuna-0.png'],
         'Coho Meter 1.png' => ['salmometer-1.png', 'salmometer-yokozuna-1.png'],
@@ -57,9 +58,5 @@ abstract class SalmonIconAsset extends AssetBundle
         'Tide - High.png' => 'tide-high.png',
         'Tide - Low.png' => 'tide-low.png',
         'Tide - Mid.png' => 'tide-mid.png',
-    ];
-
-    public array $dummyFiles = [
-        'donpiko.png',
     ];
 }
