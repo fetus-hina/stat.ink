@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "80ad48e456b9c21f15b524d7fae16f58",
+    "content-hash": "e6db5e83a7fce4adf5a0bc878be9bd06",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -1565,16 +1565,16 @@
         },
         {
             "name": "markrogoyski/math-php",
-            "version": "v2.8.1",
+            "version": "v2.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/markrogoyski/math-php.git",
-                "reference": "ea4f212732c333c62123c6f733edfb735a4e3abd"
+                "reference": "4d4bfad5cd5f2d5dd851fc2c350438325776593c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/markrogoyski/math-php/zipball/ea4f212732c333c62123c6f733edfb735a4e3abd",
-                "reference": "ea4f212732c333c62123c6f733edfb735a4e3abd",
+                "url": "https://api.github.com/repos/markrogoyski/math-php/zipball/4d4bfad5cd5f2d5dd851fc2c350438325776593c",
+                "reference": "4d4bfad5cd5f2d5dd851fc2c350438325776593c",
                 "shasum": ""
             },
             "require": {
@@ -1634,9 +1634,9 @@
             ],
             "support": {
                 "issues": "https://github.com/markrogoyski/math-php/issues",
-                "source": "https://github.com/markrogoyski/math-php/tree/v2.8.1"
+                "source": "https://github.com/markrogoyski/math-php/tree/v2.9.0"
             },
-            "time": "2023-05-19T04:40:46+00:00"
+            "time": "2024-03-03T00:21:15+00:00"
         },
         {
             "name": "maxmind-db/reader",

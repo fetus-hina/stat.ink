@@ -34,7 +34,7 @@
     "laminas/laminas-validator": "^2.49.0",
     "lipis/flag-icons": "^7.2.0",
     "lusitanian/oauth": "^0.8.11",
-    "markrogoyski/math-php": "^2.8.1",
+    "markrogoyski/math-php": "^2.9.0",
     "omnilight/yii2-scheduling": "^1.1.6",
     "paragonie/constant_time_encoding": "^2.6.3",
     "php-curl-class/php-curl-class": "^9.19.0",
