@@ -644,6 +644,7 @@ final class Icon
                 'momiji',
                 'nzap85',
                 'nzap89',
+                'octoshooter_replica',
                 'order_shooter_replica',
                 'prime',
                 'prime_collabo',
