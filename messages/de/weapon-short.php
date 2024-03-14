@@ -259,7 +259,7 @@ return [
     'Sprenkler Fresco' => '',
     'Sprudel-Schwapper' => '',
     'Stempel-Splatana' => '',
-    'Stempel-Splatana Neo' => '',
+    'Stempel-Splatana Fresco' => '',
     'T-Tuber' => '',
     'T-Tuber SE' => '',
     'Tempered Dynamo Roller' => '',

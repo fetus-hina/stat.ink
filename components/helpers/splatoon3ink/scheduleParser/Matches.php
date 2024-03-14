@@ -91,7 +91,7 @@ trait Matches
 
         usort(
             $results,
-            fn (array $a, array $b): int => $a['period'] <=> $b['period']
+            fn (array $a, array $b): int => $a['period'] <=> $b['period'],
         );
 
         return array_values($results);

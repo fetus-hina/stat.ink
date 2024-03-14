@@ -107,7 +107,7 @@ final class LanguageDialog extends Dialog
                         ->with('supportLevel')
                         ->cache(86400)
                         ->all(),
-                    fn (Language $a, Language $b): int => strcmp($a->name, $b->name)
+                    fn (Language $a, Language $b): int => strcmp($a->name, $b->name),
                 ),
             ),
             86400,

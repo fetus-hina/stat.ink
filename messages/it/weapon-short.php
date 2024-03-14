@@ -231,7 +231,7 @@ return [
     'Splatling Ordine replica' => '',
     'Splatling élite replica' => '',
     'Splattalama' => '',
-    'Splattalama Neo' => '',
+    'Splattalama master' => '',
     'Splatter a carica' => '',
     'Splatter a carica logo' => '',
     'Splatter a carica Nero Marlin' => '',

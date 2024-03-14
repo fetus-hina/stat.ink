@@ -34,7 +34,7 @@ final class SplatoonVersionGroupApiFormatter
             $versions,
             fn (SplatoonVersion3 $a, SplatoonVersion3 $b): int => version_compare($b->tag, $a->tag)
                 ?: strcmp($b->tag, $a->tag)
-                ?: $b->id <=> $a->id
+                ?: $b->id <=> $a->id,
         );
 
         return [

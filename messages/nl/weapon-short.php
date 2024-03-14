@@ -241,7 +241,7 @@ return [
     'Sploosh-o-matic' => '',
     'Sploosh-o-matic 7' => '',
     'Stempelzwieper' => '',
-    'Stempelzwieper Neo' => '',
+    'Stempelzwieper Nouveau' => '',
     'Straalplonzer' => '',
     'Stylospetling' => '',
     'Stylospetling Nouveau' => '',

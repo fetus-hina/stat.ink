@@ -26,7 +26,7 @@ return [
     'Azotintador Don Oso' => '',
     'Azotintador orden réplica' => '',
     'Azotintador Pro' => '',
-    'Azotintador Pro neo' => '',
+    'Azotintador Pro maestro' => '',
     'Bamzuka 14-I' => '',
     'Bamzuka 14-II' => '',
     'Bamzuka 14-III' => '',
