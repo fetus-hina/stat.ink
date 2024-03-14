@@ -80,7 +80,7 @@ final class UsageAction extends Action
             $list,
             fn (array $a, array $b): int => strcmp($a['date'], $b['date'])
                 ?: version_compare($a['version'], $b['version'])
-                ?: strcmp($a['version'], $b['version'])
+                ?: strcmp($a['version'], $b['version']),
         );
 
         $results = [];

@@ -380,7 +380,7 @@ final class UserMiniInfo3 extends Widget
         usort(
             $list,
             fn (array $a, array $b): int => $b[0]->rank <=> $a[0]->rank
-                ?: (int)($b[1] ?? -1) <=> (int)($a[1] ?? -1)
+                ?: (int)($b[1] ?? -1) <=> (int)($a[1] ?? -1),
         );
 
         return $list[0];

@@ -47,7 +47,7 @@ final class VersionAction extends ViewAction
             $groups,
             fn (SplatoonVersionGroup3 $a, SplatoonVersionGroup3 $b): int => version_compare($b->tag, $a->tag)
                 ?: strcmp($b->tag, $a->tag)
-                ?: $b->id <=> $a->id
+                ?: $b->id <=> $a->id,
         );
 
         return array_map(

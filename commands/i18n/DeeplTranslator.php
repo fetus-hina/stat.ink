@@ -137,7 +137,7 @@ class DeeplTranslator extends Component
 
             $englishTexts = array_filter(
                 array_keys(include $japanesePath),
-                fn ($text) => is_array(static::tokenizePattern($text))
+                fn ($text) => is_array(static::tokenizePattern($text)),
             );
 
             // "Salmon Run" は翻訳対象から外す
