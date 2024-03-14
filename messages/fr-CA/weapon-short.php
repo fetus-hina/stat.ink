@@ -200,7 +200,7 @@ return [
     'Éclablasteur lugubre' => '',
     'Éclablasteur modifié' => '',
     'Éclatana d\'estampe' => '',
-    'Éclatana d\'estampe néo' => '',
+    'Éclatana d\'estampe nuancé' => '',
     'Éclatana d\'Ordre (réplique)' => '',
     'Éclatana Doto' => '',
     'Éclatana Doto chic' => '',

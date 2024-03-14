@@ -194,7 +194,7 @@ return [
     'Éclablaster XL' => '',
     'Éclablaster XL griffé' => '',
     'Éclatana d\'estampe' => '',
-    'Éclatana d\'estampe Néo' => '',
+    'Éclatana d\'estampe nuancé' => '',
     'Éclatana d\'Ordre (réplique)' => '',
     'Éclatana Doto' => '',
     'Éclatana Doto chic' => '',
