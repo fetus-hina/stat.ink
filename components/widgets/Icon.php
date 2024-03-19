@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -30,6 +30,7 @@ use app\assets\s3PixelIcons\SpecialIconAsset;
 use app\assets\s3PixelIcons\SubweaponIconAsset;
 use app\assets\s3PixelIcons\UiIconAsset;
 use app\assets\s3PixelIcons\VersionIconAsset;
+use app\assets\s3PixelIcons\WeaponCategoryIconAsset;
 use app\assets\s3PixelIcons\WeaponIconAsset;
 use app\components\helpers\TypeHelper;
 use app\models\Ability3;
@@ -47,6 +48,7 @@ use app\models\Special3;
 use app\models\Species3;
 use app\models\Subweapon3;
 use app\models\Weapon3;
+use app\models\WeaponType3;
 use yii\base\UnknownMethodException;
 use yii\helpers\Html;
 use yii\web\AssetBundle;
@@ -739,6 +741,28 @@ final class Icon
             Yii::t('app-weapon3', (string)$weapon?->name),
             true,
             $size,
+        );
+    }
+
+    public static function s3WeaponCategory(WeaponType3|string|null $category): ?string
+    {
+        if (is_string($category)) {
+            $category = WeaponType3::find()
+                ->andWhere(['key' => $category])
+                ->limit(1)
+                ->cache(86400)
+                ->one();
+        }
+
+        if (!$category) {
+            return null;
+        }
+
+        return self::assetImage(
+            WeaponCategoryIconAsset::class,
+            "{$category->key}.png",
+            Yii::t('app-weapon3', $category->name),
+            true,
         );
     }
 
