@@ -145,7 +145,12 @@ $salmonIcon = Icon::s3Salmon();
         ]) . "\n" ?>
         <?= Html::tag(
           'td',
-          Html::encode(Yii::t('app-weapon3', $weapon->mainweapon->type->name)),
+          implode(' ', [
+            Icon::s3WeaponCategory($weapon->mainweapon->type),
+            Html::encode(
+              Yii::t('app-weapon3', $weapon->mainweapon->type->name),
+            ),
+          ]),
           [
             'data' => [
               'sort-value' => $weapon->mainweapon->type->rank,
