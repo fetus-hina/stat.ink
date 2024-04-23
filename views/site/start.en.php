@@ -38,7 +38,7 @@ $iconAsset = AppLinkAsset::register($this);
     How to register your results
   </h2>
   <p>
-    Currently, there are 3 main ways to register data your data.
+    Currently, there are 3 main ways to register your data.
   </p>
 
   <div class="row">
