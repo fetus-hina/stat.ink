@@ -49,12 +49,12 @@
     "statink/yii2-spl1-stages": "^1.0",
     "statink/yii2-spl2-stages": "^1.0.1",
     "statink/yii2-twitter-webintents": "^1.0.2",
-    "symfony/yaml": "^6.4.3 || ^7.0.0",
+    "symfony/yaml": "^6.4.7 || ^7.0.0",
     "twbs/bootstrap-icons": "^1.11.3",
     "yiisoft/yii2": "~2.0.49.3",
     "yiisoft/yii2-bootstrap": "^2.0.11",
     "yiisoft/yii2-httpclient": "^2.0.15",
-    "yiisoft/yii2-queue": "^2.3.6",
+    "yiisoft/yii2-queue": "^2.3.7",
     "yiisoft/yii2-symfonymailer": "^4.0.0"
   },
   "require-dev": {

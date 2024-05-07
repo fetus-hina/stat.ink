@@ -1,0 +1,82 @@
+name: 'Dependencies Updator'
+'on':
+  schedule:
+    -
+      cron: '11 23 * * *'
+jobs:
+  update:
+    name: 'Update dependencies'
+    runs-on: ubuntu-22.04
+    steps:
+      -
+        name: 'Check out the source'
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      -
+        name: 'Set up PHP 8.2'
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+      -
+        name: 'Set up Node 16'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '16'
+      -
+        name: 'Install dependencies'
+        run: |
+          composer install --prefer-dist
+          npm clean-install
+      -
+        name: 'Set PHP version latest'
+        run: |
+          PHP_VERSION=`./yii php/latest-version`
+          composer config platform.php $PHP_VERSION
+      -
+        name: 'Update composer packages'
+        run: |
+          composer update
+          composer bump
+          composer normalize
+      -
+        name: 'Update package.json'
+        run: |
+          npx updates --update --minor
+      -
+        name: 'Check changed'
+        run: |
+          git add composer.json composer.lock package.json
+
+          git update-index -q --refresh
+          if [ -z "$(git diff-index --name-only HEAD --)" ]; then
+            echo "Nothing changed"
+            echo "changed=0" >> $GITHUB_ENV
+          else
+            echo "Something changed"
+            echo "changed=1" >> $GITHUB_ENV
+          fi
+      -
+        name: 'Full update JavaScript packages'
+        if: "${{ env.changed == '1' }}"
+        run: |
+          rm -rf node_modules package-lock.json
+          npm install
+          git add .
+      -
+        name: 'Create Pull Request'
+        if: "${{ env.changed == '1' }}"
+        uses: peter-evans/create-pull-request@v4
+        with:
+          assignees: fetus-hina
+          author: 'AIZAWA Hina <hina@fetus.jp>'
+          body: 'This is an automated pull-request'
+          branch-suffix: timestamp
+          branch: autoupdate-depends
+          commit-message: 'Update dependencies'
+          delete-branch: true
+          draft: false
+          labels: dependencies
+          reviewers: fetus-hina
+          signoff: false
+          title: 'Update dependencies'
