@@ -29,6 +29,9 @@ jobs:
           composer install --prefer-dist
           npm clean-install
       -
+        name: 'Basic setup the app'
+        run: 'make init'
+      -
         name: 'Set PHP version latest'
         run: |
           PHP_VERSION=`./yii php/latest-version`
