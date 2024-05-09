@@ -1,5 +1,6 @@
 name: 'Dependencies Updator'
 'on':
+  push:
   schedule:
     -
       cron: '11 23 * * *'
@@ -30,7 +31,9 @@ jobs:
           npm clean-install
       -
         name: 'Basic setup the app'
-        run: 'make init'
+        run: |
+          apt update && apt install -y libxml2-utils
+          make init-no-resource
       -
         name: 'Set PHP version latest'
         run: |
