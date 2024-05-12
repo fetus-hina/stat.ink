@@ -603,28 +603,29 @@
         },
         {
             "name": "jp3cki/uuid",
-            "version": "v4.0.0",
+            "version": "v4.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fetus-hina/uuid.git",
-                "reference": "bab893468c57e48e6a3619932160f0a7dda49dfc"
+                "reference": "6c1191064cbaec40d76eb3344328a01450dbd8df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fetus-hina/uuid/zipball/bab893468c57e48e6a3619932160f0a7dda49dfc",
-                "reference": "bab893468c57e48e6a3619932160f0a7dda49dfc",
+                "url": "https://api.github.com/repos/fetus-hina/uuid/zipball/6c1191064cbaec40d76eb3344328a01450dbd8df",
+                "reference": "6c1191064cbaec40d76eb3344328a01450dbd8df",
                 "shasum": ""
             },
             "require": {
-                "arokettu/random-polyfill": "^1.0",
+                "arokettu/random-polyfill": "^1.0.2",
                 "ext-hash": "*",
                 "ext-pcre": "*",
-                "paragonie/constant_time_encoding": "^2.6",
+                "paragonie/constant_time_encoding": "^2.7.0 || ^3.0.0",
                 "php": ">= 8.1",
                 "php-64bit": ">= 8.1",
-                "symfony/polyfill-php82": "^1.28"
+                "symfony/polyfill-php82": "^1.29.0"
             },
             "require-dev": {
+                "ergebnis/composer-normalize": "^2.42.0",
                 "jp3cki/coding-standard": "*",
                 "phpstan/phpstan": "*",
                 "phpunit/phpunit": "*",
@@ -649,9 +650,9 @@
             ],
             "support": {
                 "issues": "https://github.com/fetus-hina/uuid/issues",
-                "source": "https://github.com/fetus-hina/uuid/tree/v4.0.0"
+                "source": "https://github.com/fetus-hina/uuid/tree/v4.0.1"
             },
-            "time": "2023-12-24T13:55:24+00:00"
+            "time": "2024-05-12T20:47:20+00:00"
         },
         {
             "name": "jp3cki/yii2-bs-datetimepicker",
