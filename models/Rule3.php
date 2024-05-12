@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -26,6 +26,7 @@ use yii\db\ActiveRecord;
  * @property Battle3[] $battle3s
  * @property EventSchedule3[] $eventSchedule3s
  * @property RuleGroup3 $group
+ * @property Knockout3Histogram[] $knockout3Histograms
  * @property Knockout3[] $knockout3s
  * @property Rule3Alias[] $rule3Aliases
  * @property Schedule3[] $schedule3s
@@ -99,6 +100,11 @@ class Rule3 extends ActiveRecord
     public function getGroup(): ActiveQuery
     {
         return $this->hasOne(RuleGroup3::class, ['id' => 'group_id']);
+    }
+
+    public function getKnockout3Histograms(): ActiveQuery
+    {
+        return $this->hasMany(Knockout3Histogram::class, ['rule_id' => 'id']);
     }
 
     public function getKnockout3s(): ActiveQuery

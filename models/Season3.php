@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -23,11 +23,13 @@ use yii\db\ActiveRecord;
  * @property string $end_at
  * @property string $term
  *
+ * @property Knockout3Histogram[] $knockout3Histograms
  * @property Knockout3[] $knockout3s
  * @property Rule3[] $rules
  * @property StatKdWinRate3[] $statKdWinRate3s
  * @property StatSpecialUse3[] $statSpecialUse3s
  * @property StatSpecialUseCount3[] $statSpecialUseCount3s
+ * @property StatStealthJumpEquipment3[] $statStealthJumpEquipment3s
  * @property StatWeapon3Assist[] $statWeapon3Assists
  * @property StatWeapon3Death[] $statWeapon3Deaths
  * @property StatWeapon3Inked[] $statWeapon3Inkeds
@@ -71,6 +73,11 @@ class Season3 extends ActiveRecord
         ];
     }
 
+    public function getKnockout3Histograms(): ActiveQuery
+    {
+        return $this->hasMany(Knockout3Histogram::class, ['season_id' => 'id']);
+    }
+
     public function getKnockout3s(): ActiveQuery
     {
         return $this->hasMany(Knockout3::class, ['season_id' => 'id']);
@@ -94,6 +101,11 @@ class Season3 extends ActiveRecord
     public function getStatSpecialUseCount3s(): ActiveQuery
     {
         return $this->hasMany(StatSpecialUseCount3::class, ['season_id' => 'id']);
+    }
+
+    public function getStatStealthJumpEquipment3s(): ActiveQuery
+    {
+        return $this->hasMany(StatStealthJumpEquipment3::class, ['season_id' => 'id']);
     }
 
     public function getStatWeapon3Assists(): ActiveQuery

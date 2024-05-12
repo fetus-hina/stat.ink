@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -26,6 +26,7 @@ use yii\db\ActiveRecord;
  *
  * @property Battle3[] $battle3s
  * @property EventMap3[] $eventMap3s
+ * @property Knockout3Histogram[] $knockout3Histograms
  * @property Knockout3[] $knockout3s
  * @property Map3Alias[] $map3Aliases
  * @property Salmon3[] $salmon3s
@@ -79,6 +80,11 @@ class Map3 extends ActiveRecord
     public function getEventMap3s(): ActiveQuery
     {
         return $this->hasMany(EventMap3::class, ['map_id' => 'id']);
+    }
+
+    public function getKnockout3Histograms(): ActiveQuery
+    {
+        return $this->hasMany(Knockout3Histogram::class, ['map_id' => 'id']);
     }
 
     public function getKnockout3s(): ActiveQuery
