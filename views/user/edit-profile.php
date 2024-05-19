@@ -30,6 +30,19 @@ $this->title = implode(' | ', [
   <?php $_ = ActiveForm::begin(['id' => 'update-form', 'action' => ['edit-profile']]); echo "\n" ?>
     <?= $_->field($form, 'name') . "\n" ?>
 
+    <?= $_->field($form, 'hide_data_on_toppage')
+      ->dropDownList([
+        '0' => sprintf('%s (%s)', Yii::t('app', 'No'), Yii::t('app', 'Show your data on the top page')),
+        '1' => sprintf('%s (%s)', Yii::t('app', 'Yes'), Yii::t('app', 'Hide your data on the top page')),
+      ])
+      ->hint(
+        implode('<br>', [
+          Yii::t('app', 'Your data will no longer appear in the public list on the top page.'),
+          Yii::t('app', 'Your page will still be public, but it will be harder to access.'),
+        ]),
+      ) . "\n"
+    ?>
+
     <?= $_->field($form, 'blackout')
       ->label(
         implode(' ', [

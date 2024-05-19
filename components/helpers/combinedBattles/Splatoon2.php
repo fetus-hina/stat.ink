@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -21,14 +21,17 @@ use const SORT_DESC;
 return [
     [
         'query' => Battle2::find()
+            ->innerJoinWith('user', true)
             ->with([
                 'battleImageResult',
                 'lobby',
                 'map',
                 'mode',
                 'rule',
-                'user',
                 'user.userIcon',
+            ])
+            ->andWhere([
+                '{{user}}.[[hide_data_on_toppage]]' => false,
             ])
             ->limit($num ?? 100)
             ->orderBy(['battle2.id' => SORT_DESC]),
@@ -41,10 +44,13 @@ return [
     ],
     [
         'query' => Salmon2::find()
+            ->innerJoinWith('user', true)
             ->with([
                 'stage',
-                'user',
                 'user.userIcon',
+            ])
+            ->andWhere([
+                '{{user}}.[[hide_data_on_toppage]]' => false,
             ])
             ->limit($num ?? 100)
             ->orderBy(['salmon2.id' => SORT_DESC]),

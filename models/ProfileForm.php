@@ -30,6 +30,7 @@ class ProfileForm extends Model
     public $default_language_id;
     public $region_id;
     public $link_mode_id;
+    public $hide_data_on_toppage;
 
     public function rules()
     {
@@ -62,6 +63,7 @@ class ProfileForm extends Model
                     User::BLACKOUT_ALWAYS,
                 ],
             ],
+            [['hide_data_on_toppage'], 'boolean'],
             [['default_language_id'], 'integer'],
             [['default_language_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Language::class,
@@ -99,6 +101,7 @@ class ProfileForm extends Model
             'default_language_id' => Yii::t('app', 'Language (used for OStatus)'),
             'region_id' => Yii::t('app', 'Region (used for Splatfest)'),
             'link_mode_id' => Yii::t('app', 'Link from other user\'s results'),
+            'hide_data_on_toppage' => Yii::t('app', 'Hide your data on the top page'),
         ];
     }
 

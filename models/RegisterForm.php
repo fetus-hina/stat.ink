@@ -68,6 +68,7 @@ class RegisterForm extends Model
         $u->region_id = $this->getCurrentRegionId();
         $u->link_mode_id = $this->getDefaultLinkModeId();
         $u->join_at = new Now();
+        $u->hide_data_on_toppage = false;
         return $u;
     }
 
