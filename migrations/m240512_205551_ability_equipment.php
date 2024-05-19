@@ -24,16 +24,18 @@ final class m240512_205551_ability_equipment extends Migration
 
         $this->createTable('{{%stat_stealth_jump_equipment3}}', [
             'season_id' => $this->pkRef('{{%season3}}')->notNull(),
+            'rule_id' => $this->pkRef('{{%rule3}}')->notNull(),
             'x_power' => $this->decimal(6, 1)->notNull(),
             'players' => $this->bigInteger()->notNull(),
             'equipments' => $this->bigInteger()->notNull(),
 
-            'PRIMARY KEY ([[season_id]], [[x_power]])',
+            'PRIMARY KEY ([[season_id]], [[rule_id]], [[x_power]])',
         ]);
 
         $select = (new Query())
             ->select([
                 'season_id' => '{{%season3}}.[[id]]',
+                'rule_id' => '{{%rule3}}.[[id]]',
                 'x_power' => '(FLOOR({{%battle3}}.[[x_power_after]] / 50.0) * 50.0)',
                 'players' => 'COUNT(*)',
                 'equipments' => vsprintf('SUM(CASE %s END)', [
@@ -88,10 +90,12 @@ final class m240512_205551_ability_equipment extends Migration
             ])
             ->groupBy([
                 '{{%season3}}.[[id]]',
+                '{{%rule3}}.[[id]]',
                 'FLOOR({{%battle3}}.[[x_power_after]] / 50.0)',
             ])
             ->orderBy([
                 'season_id' => SORT_ASC,
+                'rule_id' => SORT_ASC,
                 'x_power' => SORT_ASC,
             ]);
 
