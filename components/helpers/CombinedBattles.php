@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -46,7 +46,6 @@ final class CombinedBattles
                 array_merge(
                     require __DIR__ . '/combinedBattles/Splatoon3.php',
                     require __DIR__ . '/combinedBattles/Splatoon2.php',
-                    require __DIR__ . '/combinedBattles/Splatoon1.php',
                 ),
                 $num,
             );
@@ -63,7 +62,6 @@ final class CombinedBattles
                 array_merge(
                     require __DIR__ . '/combinedBattles/User3.php',
                     require __DIR__ . '/combinedBattles/User2.php',
-                    require __DIR__ . '/combinedBattles/User1.php',
                 ),
                 $num,
             );
