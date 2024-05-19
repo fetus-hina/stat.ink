@@ -22,6 +22,7 @@ use app\commands\stat\Weapon2Trait;
 use app\commands\stat\Weapon3Trait;
 use app\commands\stat\actions\InkColor3Action;
 use app\commands\stat\actions\KDWinRate3Action;
+use app\commands\stat\actions\StealthJump3Action;
 use app\commands\stat\actions\XPowerDistrib3Action;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\db\Now;
@@ -93,6 +94,7 @@ final class StatController extends Controller
         return [
             'update-ink-color3' => InkColor3Action::class,
             'update-k-d-win-rate3' => KDWinRate3Action::class,
+            'update-stealth-jump3' => StealthJump3Action::class,
             'update-xpower-distrib3' => XPowerDistrib3Action::class,
         ];
     }
