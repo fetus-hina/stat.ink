@@ -108,6 +108,10 @@ OgpHelper::default($this, Url::to(['site/index'], true));
           Icon::s3LobbyX() . ' ' . Html::encode(Yii::t('app', 'X Power')),
           ['entire/xpower-distrib3'],
         ),
+        Html::a(
+          Icon::s3AbilityStealthJump() . ' ' . Html::encode(Yii::t('app', 'Stealth Jump Equipment Rate')),
+          ['entire/stealth-jump3'],
+        ),
         Html::a(Html::encode(Yii::t('app', 'Ink Color')), ['entire/ink-color3']),
       ],
       [

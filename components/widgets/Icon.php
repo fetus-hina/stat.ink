@@ -212,6 +212,7 @@ use function str_starts_with;
  * @method static string videoLink()
  * @method static string windows()
  * @method static string yes()
+ * @method static string youtube()
  */
 final class Icon
 {
@@ -285,6 +286,7 @@ final class Icon
         'videoLink' => 'play-fill',
         'windows' => 'windows',
         'yes' => 'check-lg',
+        'youtube' => 'youtube',
     ];
 
     /**

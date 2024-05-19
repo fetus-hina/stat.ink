@@ -14,36 +14,34 @@ use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "stat_special_use_count3".
+ * This is the model class for table "stat_stealth_jump_equipment3".
  *
  * @property integer $season_id
- * @property integer $special_id
  * @property integer $rule_id
- * @property integer $use_count
- * @property integer $sample_size
- * @property integer $win
+ * @property string $x_power
+ * @property integer $players
+ * @property integer $equipments
  *
  * @property Rule3 $rule
  * @property Season3 $season
- * @property Special3 $special
  */
-class StatSpecialUseCount3 extends ActiveRecord
+class StatStealthJumpEquipment3 extends ActiveRecord
 {
     public static function tableName()
     {
-        return 'stat_special_use_count3';
+        return 'stat_stealth_jump_equipment3';
     }
 
     public function rules()
     {
         return [
-            [['season_id', 'special_id', 'rule_id', 'use_count', 'sample_size', 'win'], 'required'],
-            [['season_id', 'special_id', 'rule_id', 'use_count', 'sample_size', 'win'], 'default', 'value' => null],
-            [['season_id', 'special_id', 'rule_id', 'use_count', 'sample_size', 'win'], 'integer'],
-            [['season_id', 'special_id', 'rule_id', 'use_count'], 'unique', 'targetAttribute' => ['season_id', 'special_id', 'rule_id', 'use_count']],
+            [['season_id', 'rule_id', 'x_power', 'players', 'equipments'], 'required'],
+            [['season_id', 'rule_id', 'players', 'equipments'], 'default', 'value' => null],
+            [['season_id', 'rule_id', 'players', 'equipments'], 'integer'],
+            [['x_power'], 'number'],
+            [['season_id', 'rule_id', 'x_power'], 'unique', 'targetAttribute' => ['season_id', 'rule_id', 'x_power']],
             [['rule_id'], 'exist', 'skipOnError' => true, 'targetClass' => Rule3::class, 'targetAttribute' => ['rule_id' => 'id']],
             [['season_id'], 'exist', 'skipOnError' => true, 'targetClass' => Season3::class, 'targetAttribute' => ['season_id' => 'id']],
-            [['special_id'], 'exist', 'skipOnError' => true, 'targetClass' => Special3::class, 'targetAttribute' => ['special_id' => 'id']],
         ];
     }
 
@@ -51,11 +49,10 @@ class StatSpecialUseCount3 extends ActiveRecord
     {
         return [
             'season_id' => 'Season ID',
-            'special_id' => 'Special ID',
             'rule_id' => 'Rule ID',
-            'use_count' => 'Use Count',
-            'sample_size' => 'Sample Size',
-            'win' => 'Win',
+            'x_power' => 'X Power',
+            'players' => 'Players',
+            'equipments' => 'Equipments',
         ];
     }
 
@@ -67,10 +64,5 @@ class StatSpecialUseCount3 extends ActiveRecord
     public function getSeason(): ActiveQuery
     {
         return $this->hasOne(Season3::class, ['id' => 'season_id']);
-    }
-
-    public function getSpecial(): ActiveQuery
-    {
-        return $this->hasOne(Special3::class, ['id' => 'special_id']);
     }
 }

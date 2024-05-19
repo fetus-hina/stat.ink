@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d6aec788a4def0da0d5d24b61e1a21e5",
+    "content-hash": "8e23bf5acf40d09af455a5b3b05cf184",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -603,28 +603,29 @@
         },
         {
             "name": "jp3cki/uuid",
-            "version": "v4.0.0",
+            "version": "v4.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fetus-hina/uuid.git",
-                "reference": "bab893468c57e48e6a3619932160f0a7dda49dfc"
+                "reference": "6c1191064cbaec40d76eb3344328a01450dbd8df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fetus-hina/uuid/zipball/bab893468c57e48e6a3619932160f0a7dda49dfc",
-                "reference": "bab893468c57e48e6a3619932160f0a7dda49dfc",
+                "url": "https://api.github.com/repos/fetus-hina/uuid/zipball/6c1191064cbaec40d76eb3344328a01450dbd8df",
+                "reference": "6c1191064cbaec40d76eb3344328a01450dbd8df",
                 "shasum": ""
             },
             "require": {
-                "arokettu/random-polyfill": "^1.0",
+                "arokettu/random-polyfill": "^1.0.2",
                 "ext-hash": "*",
                 "ext-pcre": "*",
-                "paragonie/constant_time_encoding": "^2.6",
+                "paragonie/constant_time_encoding": "^2.7.0 || ^3.0.0",
                 "php": ">= 8.1",
                 "php-64bit": ">= 8.1",
-                "symfony/polyfill-php82": "^1.28"
+                "symfony/polyfill-php82": "^1.29.0"
             },
             "require-dev": {
+                "ergebnis/composer-normalize": "^2.42.0",
                 "jp3cki/coding-standard": "*",
                 "phpstan/phpstan": "*",
                 "phpunit/phpunit": "*",
@@ -649,9 +650,9 @@
             ],
             "support": {
                 "issues": "https://github.com/fetus-hina/uuid/issues",
-                "source": "https://github.com/fetus-hina/uuid/tree/v4.0.0"
+                "source": "https://github.com/fetus-hina/uuid/tree/v4.0.1"
             },
-            "time": "2023-12-24T13:55:24+00:00"
+            "time": "2024-05-12T20:47:20+00:00"
         },
         {
             "name": "jp3cki/yii2-bs-datetimepicker",
@@ -1373,16 +1374,16 @@
         },
         {
             "name": "laminas/laminas-validator",
-            "version": "2.53.0",
+            "version": "2.54.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-validator.git",
-                "reference": "dbcfc19cb7f2e3eb3a27ba5d059c200e8404d72c"
+                "reference": "43b84efd642d55188dc0a8ffee4de187c1dc2314"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-validator/zipball/dbcfc19cb7f2e3eb3a27ba5d059c200e8404d72c",
-                "reference": "dbcfc19cb7f2e3eb3a27ba5d059c200e8404d72c",
+                "url": "https://api.github.com/repos/laminas/laminas-validator/zipball/43b84efd642d55188dc0a8ffee4de187c1dc2314",
+                "reference": "43b84efd642d55188dc0a8ffee4de187c1dc2314",
                 "shasum": ""
             },
             "require": {
@@ -1396,16 +1397,16 @@
             },
             "require-dev": {
                 "laminas/laminas-coding-standard": "^2.5",
-                "laminas/laminas-db": "^2.19",
-                "laminas/laminas-filter": "^2.34",
+                "laminas/laminas-db": "^2.20",
+                "laminas/laminas-filter": "^2.35.2",
                 "laminas/laminas-i18n": "^2.26.0",
                 "laminas/laminas-session": "^2.20",
                 "laminas/laminas-uri": "^2.11.0",
-                "phpunit/phpunit": "^10.5.15",
+                "phpunit/phpunit": "^10.5.20",
                 "psalm/plugin-phpunit": "^0.19.0",
                 "psr/http-client": "^1.0.3",
-                "psr/http-factory": "^1.0.2",
-                "vimeo/psalm": "^5.23.1"
+                "psr/http-factory": "^1.1.0",
+                "vimeo/psalm": "^5.24.0"
             },
             "suggest": {
                 "laminas/laminas-db": "Laminas\\Db component, required by the (No)RecordExists validator",
@@ -1453,7 +1454,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2024-04-01T09:26:32+00:00"
+            "time": "2024-05-16T12:03:20+00:00"
         },
         {
             "name": "lipis/flag-icons",
@@ -1814,16 +1815,16 @@
         },
         {
             "name": "paragonie/constant_time_encoding",
-            "version": "v2.6.3",
+            "version": "v2.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/constant_time_encoding.git",
-                "reference": "58c3f47f650c94ec05a151692652a868995d2938"
+                "reference": "52a0d99e69f56b9ec27ace92ba56897fe6993105"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/constant_time_encoding/zipball/58c3f47f650c94ec05a151692652a868995d2938",
-                "reference": "58c3f47f650c94ec05a151692652a868995d2938",
+                "url": "https://api.github.com/repos/paragonie/constant_time_encoding/zipball/52a0d99e69f56b9ec27ace92ba56897fe6993105",
+                "reference": "52a0d99e69f56b9ec27ace92ba56897fe6993105",
                 "shasum": ""
             },
             "require": {
@@ -1877,7 +1878,7 @@
                 "issues": "https://github.com/paragonie/constant_time_encoding/issues",
                 "source": "https://github.com/paragonie/constant_time_encoding"
             },
-            "time": "2022-06-14T06:56:20+00:00"
+            "time": "2024-05-08T12:18:48+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -6362,16 +6363,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.67",
+            "version": "1.11.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "16ddbe776f10da6a95ebd25de7c1dbed397dc493"
+                "reference": "e524358f930e41a2b4cca1320e3b04fc26b39e0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/16ddbe776f10da6a95ebd25de7c1dbed397dc493",
-                "reference": "16ddbe776f10da6a95ebd25de7c1dbed397dc493",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/e524358f930e41a2b4cca1320e3b04fc26b39e0b",
+                "reference": "e524358f930e41a2b4cca1320e3b04fc26b39e0b",
                 "shasum": ""
             },
             "require": {
@@ -6416,7 +6417,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-04-16T07:22:02+00:00"
+            "time": "2024-05-15T08:00:59+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -6894,20 +6895,20 @@
         },
         {
             "name": "psr/http-factory",
-            "version": "1.0.2",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-factory.git",
-                "reference": "e616d01114759c4c489f93b099585439f795fe35"
+                "reference": "2b4765fddfe3b508ac62f829e852b1501d3f6e8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/e616d01114759c4c489f93b099585439f795fe35",
-                "reference": "e616d01114759c4c489f93b099585439f795fe35",
+                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/2b4765fddfe3b508ac62f829e852b1501d3f6e8a",
+                "reference": "2b4765fddfe3b508ac62f829e852b1501d3f6e8a",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.0.0",
+                "php": ">=7.1",
                 "psr/http-message": "^1.0 || ^2.0"
             },
             "type": "library",
@@ -6931,7 +6932,7 @@
                     "homepage": "https://www.php-fig.org/"
                 }
             ],
-            "description": "Common interfaces for PSR-7 HTTP message factories",
+            "description": "PSR-17: Common interfaces for PSR-7 HTTP message factories",
             "keywords": [
                 "factory",
                 "http",
@@ -6943,9 +6944,9 @@
                 "response"
             ],
             "support": {
-                "source": "https://github.com/php-fig/http-factory/tree/1.0.2"
+                "source": "https://github.com/php-fig/http-factory"
             },
-            "time": "2023-04-10T20:10:41+00:00"
+            "time": "2024-04-15T12:06:14+00:00"
         },
         {
             "name": "psy/psysh",
@@ -9113,7 +9114,7 @@
     },
     "platform-dev": [],
     "platform-overrides": {
-        "php": "8.2.13"
+        "php": "8.2.19"
     },
     "plugin-api-version": "2.6.0"
 }
