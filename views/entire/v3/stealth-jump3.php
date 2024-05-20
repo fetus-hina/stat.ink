@@ -28,15 +28,15 @@ use yii\web\View;
  * @var array<int, Season3> $seasons
  * @var callable(Rule3): string $ruleUrl
  * @var callable(Season3): string $seasonUrl
+ * @var float $xpAvg
+ * @var float $xpStdDev
  */
 
 $title = Yii::t('app', 'Stealth Jump Equipment Rate');
 $this->title = $title . ' | ' . Yii::$app->name;
 
-$targetAvgXPower = 2030;
-$targetXPowerStddev = 290;
-$minXPower = (int)(floor(($targetAvgXPower - 2.5 * $targetXPowerStddev) / 50) * 50);
-$maxXPower = (int)(ceil(($targetAvgXPower + 2.5 * $targetXPowerStddev) / 50) * 50);
+$minXPower = (int)(floor(($xpAvg - 2.0 * $xpStdDev) / 50) * 50);
+$maxXPower = (int)(ceil(($xpAvg + 2.0 * $xpStdDev) / 50) * 50);
 
 OgpHelper::default($this, title: $title);
 

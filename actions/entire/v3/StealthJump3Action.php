@@ -16,6 +16,7 @@ use app\components\helpers\TypeHelper;
 use app\models\Rule3;
 use app\models\Season3;
 use app\models\StatStealthJumpEquipment3;
+use app\models\StatXPowerDistribAbstract3;
 use yii\base\Action;
 use yii\db\Connection;
 use yii\db\Transaction;
@@ -34,6 +35,9 @@ final class StealthJump3Action extends Action
 {
     private const PARAM_SEASON_ID = Season3Helper::DEFAULT_SEASON_PARAM_NAME;
     private const PARAM_RULE_ID = 'rule';
+
+    private const FALLBACK_XP_AVG = 2000.0;
+    private const FALLBACK_XP_STDDEV = 290.0;
 
     public function run(): Response|string
     {
@@ -74,12 +78,26 @@ final class StealthJump3Action extends Action
             ]);
         }
 
+        $xpDistrib = StatXPowerDistribAbstract3::find()
+            ->andWhere([
+                'rule_id' => $rule->id,
+                'season_id' => $season->id,
+            ])
+            ->limit(1)
+            ->one($db);
+
         return [
             'data' => $this->getData($db, $season, $rule),
             'rule' => $rule,
             'rules' => $this->getRules($db),
             'season' => $season,
             'seasons' => Season3Helper::getSeasons(),
+            'xpAvg' => $xpDistrib && $xpDistrib->users >= 50 && $xpDistrib->stddev
+                ? (float)$xpDistrib->average
+                : self::FALLBACK_XP_AVG ,
+            'xpStdDev' => $xpDistrib && $xpDistrib->users >= 50 && $xpDistrib->stddev
+                ? (float)$xpDistrib->stddev
+                : self::FALLBACK_XP_STDDEV,
             'ruleUrl' => fn (Rule3 $rule): string => Url::to(
                 ['entire/stealth-jump3',
                     self::PARAM_SEASON_ID => $season->id,
