@@ -51,7 +51,7 @@ $maxWinRate = min(
   ),
 );
 
-$cacheId = [__FILE__, $splatfest->id, $samples];
+$cacheId = [__FILE__, $splatfest->id, $samples, Yii::$app->language];
 
 BattleSummaryDialogAsset::register($this);
 SortableTableAsset::register($this);
