@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -19,6 +19,7 @@ use app\models\Lobby3;
 use app\models\Map3;
 use app\models\Rule3;
 use app\models\Splatfest3;
+use app\models\Splatfest3StatsWeapon;
 use app\models\Splatfest3Theme;
 use app\models\SplatfestTeam3;
 use app\models\TricolorRole3;
@@ -118,6 +119,8 @@ final class Splatfest3Action extends Action
                         'theme',
                         'count',
                     ),
+                    'weaponsChallenge' => $this->getWeaponsChallenge($db, $model),
+                    'weaponsOpen' => $this->getWeaponsOpen($db, $model),
                 ];
             },
             Transaction::REPEATABLE_READ,
@@ -496,5 +499,47 @@ final class Splatfest3Action extends Action
         return $query->createCommand($db)
             ->cache(300)
             ->queryAll();
+    }
+
+    /**
+     * @return Splatfest3StatsWeapon[]
+     */
+    private function getWeaponsChallenge(Connection $db, Splatfest3 $fest): array
+    {
+        return $this->getWeapons(
+            $db,
+            $fest,
+            TypeHelper::instanceOf(Lobby3::findOne(['key' => 'splatfest_challenge']), Lobby3::class),
+        );
+    }
+
+    /**
+     * @return Splatfest3StatsWeapon[]
+     */
+    private function getWeaponsOpen(Connection $db, Splatfest3 $fest): array
+    {
+        return $this->getWeapons(
+            $db,
+            $fest,
+            TypeHelper::instanceOf(Lobby3::findOne(['key' => 'splatfest_open']), Lobby3::class),
+        );
+    }
+
+    /**
+     * @return Splatfest3StatsWeapon[]
+     */
+    private function getWeapons(Connection $db, Splatfest3 $fest, Lobby3 $lobby): array
+    {
+        return Splatfest3StatsWeapon::find()
+            ->with([
+                'weapon',
+                'weapon.special',
+                'weapon.subweapon',
+            ])
+            ->andWhere([
+                'fest_id' => $fest->id,
+                'lobby_id' => $lobby->id,
+            ])
+            ->all($db);
     }
 }
