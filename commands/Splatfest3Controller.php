@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -18,6 +18,7 @@ use app\models\Rule3;
 use app\models\Splatfest3;
 use app\models\Splatfest3StatsPower;
 use app\models\Splatfest3StatsPowerHistogram;
+use app\models\Splatfest3StatsWeapon;
 use yii\console\Controller;
 use yii\console\ExitCode;
 use yii\db\Connection;
@@ -59,7 +60,7 @@ final class Splatfest3Controller extends Controller
                     return ExitCode::OK;
                 }
 
-                return $this->updatePowerStats($db, $fests)
+                return $this->updatePowerStats($db, $fests) && $this->updateWeaponStats($db, $fests)
                     ? ExitCode::OK
                     : ExitCode::UNSPECIFIED_ERROR;
             },
@@ -337,11 +338,126 @@ final class Splatfest3Controller extends Controller
         return array_values(array_unique($results));
     }
 
+    /**
+     * @param Splatfest3[] $targetFests
+     */
+    private function updateWeaponStats(Connection $db, array $targetFests): bool
+    {
+        $this->stderr("Updating splatfest3_stats_weapon...\n");
+
+        Splatfest3StatsWeapon::deleteAll([
+            'fest_id' => ArrayHelper::getColumn($targetFests, 'id'),
+        ]);
+
+        $stats = fn (string $key): array => [
+            "avg_{$key}" => "AVG({{%battle_player3}}.[[{$key}]])",
+            "sd_{$key}" => "STDDEV_SAMP({{%battle_player3}}.[[{$key}]])",
+            "min_{$key}" => "MIN({{%battle_player3}}.[[{$key}]])",
+            "p05_{$key}" => "PERCENTILE_CONT(0.05) WITHIN GROUP (ORDER BY {{%battle_player3}}.[[{$key}]])",
+            "p25_{$key}" => "PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY {{%battle_player3}}.[[{$key}]])",
+            "p50_{$key}" => "PERCENTILE_CONT(0.50) WITHIN GROUP (ORDER BY {{%battle_player3}}.[[{$key}]])",
+            "p75_{$key}" => "PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY {{%battle_player3}}.[[{$key}]])",
+            "p95_{$key}" => "PERCENTILE_CONT(0.95) WITHIN GROUP (ORDER BY {{%battle_player3}}.[[{$key}]])",
+            "max_{$key}" => "MAX({{%battle_player3}}.[[{$key}]])",
+            "mode_{$key}" => "MODE() WITHIN GROUP (ORDER BY {{%battle_player3}}.[[{$key}]])",
+        ];
+
+        $query = (new Query())
+            ->select(
+                array_merge(
+                    [
+                        'fest_id' => '{{%splatfest3}}.[[id]]',
+                        'lobby_id' => '{{%battle3}}.[[lobby_id]]',
+                        'weapon_id' => '{{%battle_player3}}.[[weapon_id]]',
+                        'battles' => 'COUNT(*)',
+                        'wins' => vsprintf('SUM(CASE %s END)', [
+                            implode(' ', [
+                                'WHEN {{%result3}}.[[is_win]] = {{%battle_player3}}.[[is_our_team]] THEN 1',
+                                'ELSE 0',
+                            ]),
+                        ]),
+                    ],
+                    $stats('kill'),
+                    $stats('assist'),
+                    $stats('death'),
+                    $stats('special'),
+                    $stats('inked'),
+                ),
+            )
+            ->from('{{%battle3}}')
+            ->innerJoin('{{%result3}}', '{{%battle3}}.[[result_id]] = {{%result3}}.[[id]]')
+            ->innerJoin(
+                '{{%splatfest3}}',
+                implode(' AND ', [
+                    '{{%battle3}}.[[start_at]] >= {{%splatfest3}}.[[start_at]]',
+                    '{{%battle3}}.[[start_at]] < {{%splatfest3}}.[[end_at]]',
+                ]),
+            )
+            ->innerJoin(
+                '{{%battle_player3}}',
+                '{{%battle3}}.[[id]] = {{%battle_player3}}.[[battle_id]]',
+            )
+            ->andWhere(['and',
+                [
+                    '{{%battle3}}.[[has_disconnect]]' => false,
+                    '{{%battle3}}.[[is_automated]]' => true,
+                    '{{%battle3}}.[[is_deleted]]' => false,
+                    '{{%battle3}}.[[lobby_id]]' => ArrayHelper::getColumn(
+                        Lobby3::find()
+                            ->andWhere(['key' => ['splatfest_challenge', 'splatfest_open']])
+                            ->all(),
+                        'id',
+                    ),
+                    '{{%battle3}}.[[rule_id]]' => ArrayHelper::getColumn(
+                        Rule3::find()
+                            ->andWhere(['key' => 'nawabari'])
+                            ->all(),
+                        'id',
+                    ),
+                    '{{%battle3}}.[[use_for_entire]]' => true,
+                    '{{%battle_player3}}.[[is_disconnected]]' => false,
+                    '{{%battle_player3}}.[[is_me]]' => false,
+                    '{{%result3}}.[[aggregatable]]' => true,
+                    '{{%splatfest3}}.[[id]]' => ArrayHelper::getColumn($targetFests, 'id'),
+                ],
+                ['not', ['{{%battle_player3}}.[[assist]]' => null]],
+                ['not', ['{{%battle_player3}}.[[death]]' => null]],
+                ['not', ['{{%battle_player3}}.[[inked]]' => null]],
+                ['not', ['{{%battle_player3}}.[[kill]]' => null]],
+                ['not', ['{{%battle_player3}}.[[special]]' => null]],
+                ['not', ['{{%battle_player3}}.[[weapon_id]]' => null]],
+            ])
+            ->groupBy([
+                '{{%splatfest3}}.[[id]]',
+                '{{%battle3}}.[[lobby_id]]',
+                '{{%battle_player3}}.[[weapon_id]]',
+            ]);
+
+        $db
+            ->createCommand(
+                vsprintf('INSERT INTO %s ( %s ) %s', [
+                    $db->quoteTableName('{{%splatfest3_stats_weapon}}'),
+                    implode(
+                        ', ',
+                        array_map(
+                            $db->quoteColumnName(...),
+                            array_keys($query->select),
+                        ),
+                    ),
+                    $query->createCommand($db)->rawSql,
+                ]),
+            )
+            ->execute();
+
+        return true;
+    }
+
     private function vacuumStatsTables(Connection $db): bool
     {
         $tables = [
             Splatfest3StatsPower::tableName(),
             Splatfest3StatsPowerHistogram::tableName(),
+            Splatfest3StatsWeapon::tableName(),
         ];
 
         foreach ($tables as $table) {

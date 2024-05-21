@@ -7,6 +7,7 @@ use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\models\Map3;
 use app\models\Splatfest3;
+use app\models\Splatfest3StatsWeapon;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -14,6 +15,8 @@ use yii\web\View;
 
 /**
  * @var Splatfest3 $splatfest
+ * @var Splatfest3StatsWeapon[] $weaponsChallenge
+ * @var Splatfest3StatsWeapon[] $weaponsOpen
  * @var Splatfest3[] $festList
  * @var View $this
  * @var array<int, Map3> $stages
@@ -72,4 +75,5 @@ OgpHelper::default($this, title: $this->title);
   <?= $this->render('splatfest3/tricolor', compact('stages', 'tricolorStats')) . "\n" ?>
   <?= $this->render('splatfest3/power', compact('splatfest')) . "\n" ?>
   <?= $this->render('splatfest3/dragon', compact('splatfest', 'dragonStats')) . "\n" ?>
+  <?= $this->render('splatfest3/weapons', compact('splatfest', 'weaponsChallenge', 'weaponsOpen')) . "\n" ?>
 </div>
