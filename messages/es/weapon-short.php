@@ -173,6 +173,7 @@ return [
     'Rodillo de carbono' => '',
     'Rodillo de carbono DX' => '',
     'Rodillo de élite (réplica)' => '',
+    'Rodillo Don Oso' => '',
     'Rodillo mágnum' => '',
     'Rodillo mágnum B' => '',
     'Rodillo orden (réplica)' => '',

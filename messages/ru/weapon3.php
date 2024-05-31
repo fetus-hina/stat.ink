@@ -74,6 +74,7 @@ return [
     'Grizzco Brella' => 'Зонтган «Потапыч Inc.»',
     'Grizzco Charger' => 'Сплатган «Потапыч Inc.»',
     'Grizzco Dualies' => 'Спуртометы «Потапыч Inc.»',
+    'Grizzco Roller' => 'Валик «Потапыч Inc.»',
     'Grizzco Slosher' => 'Ведроган «Потапыч Inc.»',
     'Grizzco Splatana' => 'Сплат-катана «Потапыч Inc.»',
     'Grizzco Stringer' => 'Тетиватор «Потапыч Inc.»',

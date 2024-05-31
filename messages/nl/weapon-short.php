@@ -32,6 +32,7 @@ return [
     'Beer & Co-lader' => '',
     'Beer & Co-morser' => '',
     'Beer & Co-plenzer' => '',
+    'Beer & Co-roller' => '',
     'Beer & Co-spanner' => '',
     'Beer & Co-zwieper' => '',
     'Bento Splat Charger' => '',

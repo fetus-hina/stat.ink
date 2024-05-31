@@ -181,6 +181,7 @@ return [
     'Rullo splat' => '',
     'Rullo splat logo' => '',
     'Rullo splat Nero Marlin' => '',
+    'Rullo Ursus' => '',
     'Rullo élite replica' => '',
     'S-BLAST91' => '',
     'S-BLAST92' => '',

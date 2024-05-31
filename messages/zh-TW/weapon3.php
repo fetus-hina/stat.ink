@@ -76,6 +76,7 @@ return [
     'Grizzco Brella' => '熊先生印章防空傘',
     'Grizzco Charger' => '熊先生印章狙擊槍',
     'Grizzco Dualies' => '熊先生印章機動槍',
+    'Grizzco Roller' => '熊先生印章滾筒',
     'Grizzco Slosher' => '熊先生印章潑桶',
     'Grizzco Splatana' => '熊先生印章刮水刀',
     'Grizzco Stringer' => '熊先生印章獵魚弓',

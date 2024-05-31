@@ -181,6 +181,7 @@ return [
     'Rodillo de carbono' => '',
     'Rodillo de carbono chic' => '',
     'Rodillo de élite réplica' => '',
+    'Rodillo Don Oso' => '',
     'Rodillo mágnum' => '',
     'Rodillo mágnum exprés' => '',
     'Rodillo orden réplica' => '',

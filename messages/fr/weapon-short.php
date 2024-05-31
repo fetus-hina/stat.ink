@@ -173,6 +173,7 @@ return [
     'Rouleau K' => '',
     'Rouleau large' => '',
     'Rouleau large Xpress' => '',
+    'Rouleau M. Ours SA' => '',
     'S-Blaster \'91' => '',
     'S-Blaster \'92' => '',
     'Sabrifrice charbon' => '',

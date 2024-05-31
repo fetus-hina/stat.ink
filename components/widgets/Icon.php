@@ -718,6 +718,7 @@ final class Icon
                 'kuma_blaster',
                 'kuma_charger',
                 'kuma_maneuver',
+                'kuma_roller',
                 'kuma_shelter',
                 'kuma_slosher',
                 'kuma_stringer',

@@ -74,6 +74,7 @@ return [
     'Grizzco Brella' => 'Beer & Co-plenzer',
     'Grizzco Charger' => 'Beer & Co-lader',
     'Grizzco Dualies' => 'Beer & Co-dubbelknallers',
+    'Grizzco Roller' => 'Beer & Co-roller',
     'Grizzco Slosher' => 'Beer & Co-morser',
     'Grizzco Splatana' => 'Beer & Co-zwieper',
     'Grizzco Stringer' => 'Beer & Co-spanner',

@@ -168,6 +168,7 @@ return [
     'Rouleau Krakeurs' => '',
     'Rouleau large' => '',
     'Rouleau large Xpress' => '',
+    'Rouleau M. Ours Cie' => '',
     'Rouleau Thony K' => '',
     'S-Blasteur \'91' => '',
     'S-Blasteur \'92' => '',

@@ -43,6 +43,7 @@ return [
     'Bär-Doppler' => '',
     'Bär-Konzentrator' => '',
     'Bär-Pluviator' => '',
+    'Bär-Roller' => '',
     'Bär-Schwapper' => '',
     'Bär-Splatana' => '',
     'Bär-Stringer' => '',

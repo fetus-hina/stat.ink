@@ -74,6 +74,7 @@ return [
     'Grizzco Brella' => 'Bär-Pluviator',
     'Grizzco Charger' => 'Bär-Konzentrator',
     'Grizzco Dualies' => 'Bär-Doppler',
+    'Grizzco Roller' => 'Bär-Roller',
     'Grizzco Slosher' => 'Bär-Schwapper',
     'Grizzco Splatana' => 'Bär-Splatana',
     'Grizzco Stringer' => 'Bär-Stringer',

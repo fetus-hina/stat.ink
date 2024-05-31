@@ -74,6 +74,7 @@ return [
     'Grizzco Brella' => 'Para-encre M. Ours Cie',
     'Grizzco Charger' => 'Fusil M. Ours Cie',
     'Grizzco Dualies' => 'Arme double M. Ours Cie',
+    'Grizzco Roller' => 'Rouleau M. Ours Cie',
     'Grizzco Slosher' => 'Seauceur M. Ours Cie',
     'Grizzco Splatana' => 'Éclatana M. Ours Cie',
     'Grizzco Stringer' => 'Transperceur M. Ours Cie',

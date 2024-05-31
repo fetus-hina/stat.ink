@@ -86,6 +86,7 @@ return [
     'Grizzco Brella' => '',
     'Grizzco Charger' => '',
     'Grizzco Dualies' => '',
+    'Grizzco Roller' => '',
     'Grizzco Slosher' => '',
     'Grizzco Splatana' => '',
     'Grizzco Stringer' => '',

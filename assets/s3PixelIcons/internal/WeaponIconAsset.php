@@ -81,6 +81,7 @@ abstract class WeaponIconAsset extends AssetBundle
         'Grizzco Brella.png' => 'kuma_shelter.png',
         'Grizzco Charger.png' => 'kuma_charger.png',
         'Grizzco Dualies.png' => 'kuma_maneuver.png',
+        'Grizzco Roller.png' => 'kuma_roller.png',
         'Grizzco Slosher.png' => 'kuma_slosher.png',
         'Grizzco Splatana.png' => 'kuma_wiper.png',
         'Grizzco Stringer.png' => 'kuma_stringer.png',
