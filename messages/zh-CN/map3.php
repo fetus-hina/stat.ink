@@ -41,7 +41,7 @@ return [
     'Inkblot Art Academy' => '海女美术大学',
     'Jammin\' Salmon Junction' => '生筋子系统交流道遗址',
     'Junction' => '交流道',
-    'Lemuria Hub' => '龍宮轉運站',
+    'Lemuria Hub' => '龙宫转运站',
     'Mahi-Mahi Resort' => '鬼头刀SPA度假区',
     'MakoMart' => '座头购物中心',
     'Manta' => '玛利亚号',

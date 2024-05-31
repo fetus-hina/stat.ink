@@ -39,7 +39,7 @@ return [
     'Inkblot Art Academy' => 'Inkblot Art Academy',
     'Jammin\' Salmon Junction' => 'Jammin\' Salmon Junction',
     'Junction' => '',
-    'Lemuria Hub' => '',
+    'Lemuria Hub' => 'Lemuria Hub',
     'Mahi-Mahi Resort' => 'Mahi-Mahi Resort',
     'MakoMart' => 'MakoMart',
     'Manta' => '',

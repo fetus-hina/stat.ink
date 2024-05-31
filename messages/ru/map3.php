@@ -39,7 +39,7 @@ return [
     'Inkblot Art Academy' => 'Академия «Лепота»',
     'Jammin\' Salmon Junction' => 'Развязка «Песнепляска»',
     'Junction' => '',
-    'Lemuria Hub' => '',
+    'Lemuria Hub' => 'Вокзал Лемурия',
     'Mahi-Mahi Resort' => 'Спа-курорт «Золотая рыбка»',
     'MakoMart' => '«Горбуша-Маркет»',
     'Manta' => 'Манта Мария',
