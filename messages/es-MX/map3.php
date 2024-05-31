@@ -39,7 +39,7 @@ return [
     'Inkblot Art Academy' => 'Instituto Coralino',
     'Jammin\' Salmon Junction' => 'Salmopista',
     'Junction' => '',
-    'Lemuria Hub' => '',
+    'Lemuria Hub' => 'Terminal Dragón',
     'Mahi-Mahi Resort' => 'Spa Cala Bacalao',
     'MakoMart' => 'Ultramarinos Orca',
     'Manta' => '',

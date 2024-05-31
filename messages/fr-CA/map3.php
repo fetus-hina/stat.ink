@@ -39,7 +39,7 @@ return [
     'Inkblot Art Academy' => 'Institut Calm\'arts',
     'Jammin\' Salmon Junction' => 'Rocade Rémora',
     'Junction' => '',
-    'Lemuria Hub' => '',
+    'Lemuria Hub' => 'Gare Aiguillat',
     'Mahi-Mahi Resort' => 'Spa C-ta-C',
     'MakoMart' => 'Supermarché Cétacé',
     'Manta' => '',

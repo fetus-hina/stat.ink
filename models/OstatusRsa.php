@@ -8,16 +8,9 @@
 
 namespace app\models;
 
-use Yii;
 use app\components\behaviors\TimestampBehavior;
-use phpseclib3\Crypt\RSA;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
-
-use function base64_encode;
-use function openssl_pkey_get_details;
-use function openssl_pkey_get_private;
-use function strtr;
 
 /**
  * This is the model class for table "ostatus_rsa".
@@ -35,28 +28,6 @@ use function strtr;
  */
 class OstatusRsa extends ActiveRecord
 {
-    // should call save() after return
-    public static function factory(int $user_id, int $bits = 2048): self
-    {
-        $b64 = fn ($binary) => strtr(base64_encode($binary), '+/', '-_');
-
-        $privateKey = RSA::createKey($bits);
-        $publicKey = $privateKey->getPublicKey();
-
-        $osslPrivateKey = openssl_pkey_get_private($privateKey->toString('PKCS1'));
-        $osslInfo = openssl_pkey_get_details($osslPrivateKey);
-
-        return Yii::createObject([
-            '__class' => static::class,
-            'user_id' => $user_id,
-            'bits' => $bits,
-            'privkey' => $privateKey->toString('PKCS1'),
-            'pubkey' => $publicKey->toString('PKCS1'),
-            'modulus' => $b64($osslInfo['rsa']['n']),
-            'exponent' => $b64($osslInfo['rsa']['e']),
-        ]);
-    }
-
     public function behaviors()
     {
         return [
