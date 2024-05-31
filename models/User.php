@@ -13,7 +13,6 @@ use Throwable;
 use Yii;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Password;
-use app\components\helpers\db\Now;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\Query;
@@ -267,15 +266,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function getIsOstatusIntegrated(): bool
     {
-        return OstatusPubsubhubbub::find()
-            ->andWhere(['and',
-                ['topic' => $this->id],
-                ['or',
-                    ['lease_until' => null],
-                    ['>=', 'lease_until', new Now()],
-                ],
-            ])
-            ->exists();
+        return false;
     }
 
     /**
@@ -510,7 +501,7 @@ class User extends ActiveRecord implements IdentityInterface
                         substr((string)$this->sw_friend_code, 8, 4),
                     ])
                     : null,
-                'twitter' => (string)$this->twitter != '' ? $this->twitter : null,
+                'twitter' => (string)$this->twitter !== '' ? $this->twitter : null,
                 'ikanakama' => null,
                 'ikanakama2' => (string)$this->ikanakama2
                     ? sprintf('https://ikanakama.ink/users/%d', $this->ikanakama2)

@@ -8,17 +8,10 @@
 
 namespace app\models;
 
-use Curl\Curl;
-use Yii;
 use app\components\behaviors\TimestampBehavior;
-use app\components\helpers\BattleAtom;
 use app\components\helpers\db\Now;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
-use yii\helpers\Url;
-
-use function hash_hmac;
-use function sprintf;
 
 /**
  * This is the model class for table "ostatus_pubsubhubbub".
@@ -109,29 +102,6 @@ class OstatusPubsubhubbub extends ActiveRecord
 
     public function notify(Battle $battle): ?string
     {
-        $atom = BattleAtom::createUserFeed($battle->user, [$battle->id]);
-        $hash = $this->secret != ''
-            ? hash_hmac('sha1', $atom, $this->secret, false)
-            : null;
-
-        $curl = new Curl();
-        $curl->setHeader('Content-Type', 'application/atom+xml');
-        $curl->setHeader('Link', sprintf(
-            '<%s>; rel=self',
-            Url::to(['/ostatus/feed', 'screen_name' => $battle->user->screen_name], true),
-        ));
-        if ($hash) {
-            $curl->setHeader('X-Hub-Signature', "sha1={$hash}");
-        }
-        $curl->post($this->callback, $atom);
-        if ($curl->error) {
-            Yii::error('app.ostatus', sprintf(
-                '%s(): post failed, %s',
-                __METHOD__,
-                $curl->errorMessage,
-            ));
-            return null;
-        }
-        return $atom;
+        return null;
     }
 }

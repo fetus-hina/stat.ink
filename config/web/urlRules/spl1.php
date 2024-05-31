@@ -3,8 +3,6 @@
 declare(strict_types=1);
 
 return [
-    'u/<screen_name:\w+>-ostatus.atom' => 'ostatus/feed',
-
     '@<screen_name:\w+>' => 'show-user/profile',
     '@<screen_name:\w+>/spl1/<battle:\d+>' => 'show/battle',
     '@<screen_name:\w+>/spl1/<battle:\d+>/edit' => 'show/edit-battle',

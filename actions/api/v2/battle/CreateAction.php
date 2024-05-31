@@ -11,7 +11,6 @@ namespace app\actions\api\v2\battle;
 use Throwable;
 use Yii;
 use app\components\helpers\ImageConverter;
-use app\components\jobs\OstatusJob;
 use app\components\jobs\SlackJob;
 use app\components\web\ServiceUnavailableHttpException;
 use app\models\Battle2;
@@ -93,7 +92,7 @@ class CreateAction extends BaseAction
         $battle->refresh();
 
         // バックグラウンドジョブの登録
-        // (Slack, Ostatus への push のタスク登録など)
+        // (Slack への push のタスク登録など)
         $this->registerBackgroundJob($battle);
 
         return $this->created($battle);
@@ -307,17 +306,6 @@ class CreateAction extends BaseAction
             Yii::$app->queue
                 ->priority(SlackJob::getJobPriority())
                 ->push(new SlackJob([
-                    'hostInfo' => Yii::$app->getRequest()->getHostInfo(),
-                    'version' => 2,
-                    'battle' => $battle->id,
-                ]));
-        }
-
-        // Ostatus 投稿
-        if ($user && $user->isOstatusIntegrated) {
-            Yii::$app->queue
-                ->priority(OstatusJob::getJobPriority())
-                ->push(new OstatusJob([
                     'hostInfo' => Yii::$app->getRequest()->getHostInfo(),
                     'version' => 2,
                     'battle' => $battle->id,
