@@ -28,4 +28,5 @@ return [
     'Steel Eel' => '뱀',
     'Steelhead' => '폭탄',
     'Stinger' => '타워',
+    'Triumvirate' => '두목 연합',
 ];

@@ -28,4 +28,5 @@ return [
     'Steel Eel' => 'громыхариус',
     'Steelhead' => 'Дядя Семг',
     'Stinger' => 'Котельный Сиг',
+    'Triumvirate' => 'триумвират',
 ];

@@ -28,4 +28,5 @@ return [
     'Steel Eel' => '蛇鱼',
     'Steelhead' => '炸弹鱼',
     'Stinger' => '高塔鱼',
+    'Triumvirate' => '头目联合',
 ];

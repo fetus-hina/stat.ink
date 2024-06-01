@@ -28,4 +28,5 @@ return [
     'Steel Eel' => 'Steel Eel',
     'Steelhead' => 'Steelhead',
     'Stinger' => 'Stinger',
+    'Triumvirate' => 'Triumvirate',
 ];

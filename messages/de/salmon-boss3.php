@@ -28,4 +28,5 @@ return [
     'Steel Eel' => 'Staal',
     'Steelhead' => 'Bäm',
     'Stinger' => 'Stapla',
+    'Triumvirate' => 'Trioffensive',
 ];
