@@ -28,4 +28,5 @@ return [
     'Steel Eel' => 'Carnacier',
     'Steelhead' => 'Tête-de-pneu',
     'Stinger' => 'Marmirador',
+    'Triumvirate' => 'Triumvirat',
 ];

@@ -28,4 +28,5 @@ return [
     'Steel Eel' => 'Raspoide',
     'Steelhead' => 'Ferroz',
     'Stinger' => 'Pilónido',
+    'Triumvirate' => 'Trialianza',
 ];

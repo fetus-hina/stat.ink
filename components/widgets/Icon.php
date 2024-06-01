@@ -476,7 +476,7 @@ final class Icon
     {
         return self::assetImage(
             SalmometerIconAsset::class,
-            $king
+            $king && $king->key !== 'rengo' // TODO: #1288
                 ? sprintf('salmometer-%s-%d.png', $king->key, $level ?? 5)
                 : sprintf('salmometer-%d.png', $level ?? 5),
             alt: $level === null ? null : sprintf('(%d/5)', $level),
@@ -879,7 +879,7 @@ final class Icon
     ): ?string {
         if (is_string($boss)) {
             $boss = match ($boss) {
-                'yokozuna', 'tatsu', 'jaw' => SalmonKing3::find()
+                'jaw', 'rengo', 'tatsu', 'yokozuna' => SalmonKing3::find()
                     ->andWhere(['key' => $boss])
                     ->limit(1)
                     ->cache(86400)
@@ -896,7 +896,8 @@ final class Icon
         if (
             $boss === null ||
             $boss->key === 'hakobiya' ||
-            $boss->key === 'shake_copter'
+            $boss->key === 'shake_copter' ||
+            $boss->key === 'rengo' // TODO: Issue #1288
         ) {
             return null;
         }
