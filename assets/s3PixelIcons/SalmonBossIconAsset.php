@@ -38,5 +38,6 @@ final class SalmonBossIconAsset extends AssetBundle
         'Steel Eel.png' => 'hebi.png',
         'Steelhead.png' => 'bakudan.png',
         'Stinger.png' => 'tower.png',
+        'Triumvirate.png' => 'rengo.png',
     ];
 }

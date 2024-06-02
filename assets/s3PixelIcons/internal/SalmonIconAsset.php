@@ -58,5 +58,11 @@ abstract class SalmonIconAsset extends AssetBundle
         'Tide - High.png' => 'tide-high.png',
         'Tide - Low.png' => 'tide-low.png',
         'Tide - Mid.png' => 'tide-mid.png',
+        'Triumvirate 0.png' => 'salmometer-rengo-0.png',
+        'Triumvirate 1.png' => 'salmometer-rengo-1.png',
+        'Triumvirate 2.png' => 'salmometer-rengo-2.png',
+        'Triumvirate 3.png' => 'salmometer-rengo-3.png',
+        'Triumvirate 4.png' => 'salmometer-rengo-4.png',
+        'Triumvirate 5.png' => 'salmometer-rengo-5.png',
     ];
 }
