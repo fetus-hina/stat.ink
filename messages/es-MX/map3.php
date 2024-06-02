@@ -50,6 +50,7 @@ return [
     'Mart' => '',
     'Metalworks' => '',
     'Mincemeat Metalworks' => 'Desguace Mero',
+    'Multiple Sites' => 'Ubicaciones múltiples',
     'Museum' => '',
     'Museum d\'Alfonsino' => 'Museo del Pargo',
     'Resort' => '',

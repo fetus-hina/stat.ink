@@ -12,6 +12,7 @@ return [
     'Appearances' => '',
     'Appeared' => '',
     'Average Defeated' => '',
+    'BIG Big Run' => '',
     'Big Run' => 'Big Run',
     'Boss' => '',
     'Boss Salmonid' => 'Gran Salmonoide',

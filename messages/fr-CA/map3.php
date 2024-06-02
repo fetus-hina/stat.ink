@@ -50,6 +50,7 @@ return [
     'Mart' => '',
     'Metalworks' => '',
     'Mincemeat Metalworks' => 'Casse Rascasse',
+    'Multiple Sites' => 'Plusieurs sites',
     'Museum' => '',
     'Museum d\'Alfonsino' => 'Galeries Guppy',
     'Resort' => 'Spa C-ta-C',

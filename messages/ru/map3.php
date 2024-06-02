@@ -50,6 +50,7 @@ return [
     'Mart' => ' Горбуша-Маркет',
     'Metalworks' => 'Цех «Тартар»',
     'Mincemeat Metalworks' => 'Цех «Тартар»',
+    'Multiple Sites' => 'Несколько арен',
     'Museum' => 'Галерея «Де Берикс»',
     'Museum d\'Alfonsino' => 'Галерея «Де Берикс»',
     'Resort' => 'Спа-курорт «Золотая рыбка»',

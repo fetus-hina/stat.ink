@@ -52,6 +52,7 @@ return [
     'Mart' => '혹등 마켓',
     'Metalworks' => '나메로우 금속',
     'Mincemeat Metalworks' => '나메로우 금속',
+    'Multiple Sites' => '각지 동시 발생',
     'Museum' => '도미 미술관',
     'Museum d\'Alfonsino' => '도미 미술관',
     'Resort' => '만새기 리조트&스파',

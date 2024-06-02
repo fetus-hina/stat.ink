@@ -13,6 +13,7 @@ return [
     'Appearances' => '출현수',
     'Appeared' => '',
     'Average Defeated' => '',
+    'BIG Big Run' => '',
     'Big Run' => '빅 런',
     'Boss' => '',
     'Boss Salmonid' => '거물연어',

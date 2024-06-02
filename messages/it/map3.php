@@ -50,6 +50,7 @@ return [
     'Mart' => 'Mercatotano',
     'Metalworks' => 'Discarica Tritatutto',
     'Mincemeat Metalworks' => 'Discarica Tritatutto',
+    'Multiple Sites' => 'Siti multipli',
     'Museum' => 'Museo di Cefalò',
     'Museum d\'Alfonsino' => 'Museo di Cefalò',
     'Resort' => 'Villanguilla',

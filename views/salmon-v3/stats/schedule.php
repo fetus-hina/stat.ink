@@ -104,9 +104,19 @@ $played = TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'count'));
   <?= SnsWidget::widget([]) . "\n" ?>
   <div class="row">
     <div class="col-xs-12 col-sm-8 col-lg-9 mb-3">
-      <h2>
-        <?= Html::encode(Yii::t('app-map3', $map?->name ?? '?')) . "\n" ?>
-      </h2>
+      <?= Html::tag(
+        'h2',
+        Html::encode(
+          match (true) {
+            $map === null && $schedule?->is_random_map_big_run => implode(' - ', [
+              Yii::t('app-salmon3', 'BIG Big Run'),
+              Yii::t('app-map3', 'Multiple Sites'),
+            ]),
+            $map === null => '?',
+            default => Yii::t('app-map3', $map->name),
+          },
+        ),
+      ) . "\n" ?>
       <p class="small text-muted">
         <?= Html::encode(
           Yii::t('app', '{from} - {to}', [

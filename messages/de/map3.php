@@ -50,6 +50,7 @@ return [
     'Mart' => 'Cetacea-Markt',
     'Metalworks' => 'Aalstahl-Metallwerk',
     'Mincemeat Metalworks' => 'Aalstahl-Metallwerk',
+    'Multiple Sites' => 'Mehrere Schauplätze',
     'Museum' => 'Pinakoithek',
     'Museum d\'Alfonsino' => 'Pinakoithek',
     'Resort' => 'Mahi-Mahi-Resort',

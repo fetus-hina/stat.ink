@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -32,6 +32,8 @@ use const STDERR;
 
 trait UpdateSalmonSchedule
 {
+    private const RANDOM_MAP = 'random';
+
     protected function updateSalmonSchedule(array $schedules): int
     {
         $db = Yii::$app->db;
@@ -45,7 +47,9 @@ trait UpdateSalmonSchedule
                 !$this->registerSalmonSchedule(
                     startAt: $info['startAt'],
                     endAt: $info['endAt'],
-                    mapId: $info['map_id'],
+                    mapId: $info['map_id'] === null && $info['is_random_map']
+                        ? self::RANDOM_MAP
+                        : $info['map_id'],
                     king: $info['king'],
                     weapons: $info['weapons'],
                     isBigRun: false,
@@ -61,7 +65,9 @@ trait UpdateSalmonSchedule
                 !$this->registerSalmonSchedule(
                     startAt: $info['startAt'],
                     endAt: $info['endAt'],
-                    mapId: $info['map_id'],
+                    mapId: $info['map_id'] === null && $info['is_random_map']
+                        ? self::RANDOM_MAP
+                        : $info['map_id'],
                     king: $info['king'],
                     weapons: $info['weapons'],
                     isBigRun: true,
@@ -77,7 +83,9 @@ trait UpdateSalmonSchedule
                 !$this->registerSalmonSchedule(
                     startAt: $info['startAt'],
                     endAt: $info['endAt'],
-                    mapId: $info['map_id'],
+                    mapId: $info['map_id'] === null && $info['is_random_map']
+                        ? self::RANDOM_MAP
+                        : $info['map_id'],
                     king: null, // $info['king'],
                     weapons: $info['weapons'],
                     isBigRun: false,
@@ -92,12 +100,13 @@ trait UpdateSalmonSchedule
     }
 
     /**
+     * @param int|self::RANDOM_MAP|null $mapId
      * @param array<SalmonWeapon3|SalmonRandom3|null> $weapons
      */
     private function registerSalmonSchedule(
         int $startAt,
         int $endAt,
-        ?int $mapId,
+        int|string|null $mapId,
         ?SalmonKing3 $king,
         array $weapons,
         bool $isBigRun,
@@ -149,12 +158,13 @@ trait UpdateSalmonSchedule
     }
 
     /**
+     * @param int|self::RANDOM_MAP|null $mapId
      * @param array<SalmonWeapon3|SalmonRandom3|null> $weapons
      */
     private function isSalmonScheduleRegistered(
         int $startAt,
         int $endAt,
-        ?int $mapId,
+        int|string|null $mapId,
         ?SalmonKing3 $king,
         array $weapons,
         bool $isBigRun,
@@ -168,15 +178,25 @@ trait UpdateSalmonSchedule
                 'start_at' => date(DateTime::ATOM, $startAt),
             ])
             ->andWhere(
-                $isBigRun
-                    ? [
-                        'big_map_id' => $mapId,
-                        'map_id' => null,
-                    ]
-                    : [
+                match ([$isBigRun, $mapId === self::RANDOM_MAP]) {
+                    // ランダムマップビッグラン
+                    [true, true] => [
                         'big_map_id' => null,
+                        'is_random_map_big_run' => true,
+                    ],
+                    // 通常マップビッグラン
+                    [true, false] => [
+                        'big_map_id' => $mapId,
+                        'is_random_map_big_run' => false,
+                    ],
+                    // 非ビッグラン
+                    // ランダムが実装された場合は、Big Runと同様の処理を行うように変更する必要がある
+                    default => [
+                        'big_map_id' => null,
+                        'is_random_map_big_run' => false,
                         'map_id' => $mapId,
                     ],
+                },
             )
             ->limit(1)
             ->one();
@@ -239,26 +259,49 @@ trait UpdateSalmonSchedule
     }
 
     /**
+     * @param int|self::RANDOM_KEY|null $mapId
      * @param array<SalmonWeapon3|SalmonRandom3|null> $weapons
      */
     private function registerSalmonScheduleImpl(
         int $startAt,
         int $endAt,
-        ?int $mapId,
+        int|string|null $mapId,
         ?SalmonKing3 $king,
         array $weapons,
         bool $isBigRun,
         bool $isEggstraWork,
     ): bool {
-        $schedule = Yii::createObject([
-            'class' => SalmonSchedule3::class,
-            'big_map_id' => $isBigRun ? $mapId : null,
+        $attributes = [
+            'big_map_id' => null,
             'end_at' => date(DateTime::ATOM, $endAt),
             'is_eggstra_work' => $isEggstraWork,
+            'is_random_map_big_run' => false,
             'king_id' => $king?->id ?? null,
-            'map_id' => $isBigRun ? null : $mapId,
+            'map_id' => null,
             'start_at' => date(DateTime::ATOM, $startAt),
-        ]);
+        ];
+
+        if ($isBigRun) {
+            if ($mapId === self::RANDOM_MAP) {
+                $attributes['is_random_map_big_run'] = true;
+                $attributes['big_map_id'] = null;
+            } else {
+                $attributes['big_map_id'] = $mapId;
+            }
+        } else {
+            // ランダムマップが実装された場合は、Big Runと同様の処理を行うように変更する必要がある
+            $attributes['map_id'] = match ($mapId) {
+                self::RANDOM_MAP => null,
+                default => $mapId,
+            };
+        }
+
+        $schedule = Yii::createObject(
+            array_merge(
+                ['class' => SalmonSchedule3::class],
+                $attributes,
+            ),
+        );
         if (!$schedule->save()) {
             return false;
         }

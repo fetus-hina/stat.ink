@@ -50,6 +50,7 @@ return [
     'Mart' => 'Ultramarinos Orca',
     'Metalworks' => 'Desguace Mero',
     'Mincemeat Metalworks' => 'Desguace Mero',
+    'Multiple Sites' => 'Ubicaciones múltiples',
     'Museum' => 'Museo del Pargo',
     'Museum d\'Alfonsino' => 'Museo del Pargo',
     'Resort' => 'Spa Cala Bacalao',
