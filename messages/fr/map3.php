@@ -51,6 +51,7 @@ return [
     'Mart' => 'Supermarché Cétacé',
     'Metalworks' => 'Casse Rascasse',
     'Mincemeat Metalworks' => 'Casse Rascasse',
+    'Multiple Sites' => 'Plusieurs sites',
     'Museum' => 'Galeries Guppy',
     'Museum d\'Alfonsino' => 'Galeries Guppy',
     'Resort' => 'Club Ca$halot',

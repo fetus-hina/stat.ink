@@ -51,6 +51,7 @@ return [
     'Mart' => 'ザトウ',
     'Metalworks' => 'ナメロウ',
     'Mincemeat Metalworks' => 'ナメロウ金属',
+    'Multiple Sites' => '各地で同時発生',
     'Museum d\'Alfonsino' => 'キンメダイ美術館',
     'Museum' => 'キンメダイ',
     'ROM-en' => 'バイガイ',

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -54,6 +54,7 @@ trait Salmon
                 fn (array $info): ?ActiveRecord => self::parseSalmonWeapon($info),
                 ArrayHelper::getValue($schedule, 'setting.weapons'),
             ),
+            'is_random_map' => ArrayHelper::getValue($schedule, 'setting.coopStage.name') === 'Multiple Sites',
         ];
     }
 

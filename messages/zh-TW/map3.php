@@ -52,6 +52,7 @@ return [
     'Mart' => '購物中心',
     'Metalworks' => '碎金屬',
     'Mincemeat Metalworks' => '魚肉碎金屬',
+    'Multiple Sites' => '各地同時發生',
     'Museum' => '美術館',
     'Museum d\'Alfonsino' => '金眼鯛美術館',
     'Resort' => '鬼頭刀',

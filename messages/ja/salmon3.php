@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -12,6 +12,7 @@ return [
     'Appearances' => '出現数',
     'Appeared' => '出現',
     'Average Defeated' => '平均たおした数',
+    'BIG Big Run' => 'ビッグビッグラン',
     'Big Run' => 'ビッグラン',
     'Boss Salmonid' => 'オオモノシャケ',
     'Boss Salmonids' => 'オオモノシャケ',

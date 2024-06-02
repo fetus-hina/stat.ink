@@ -50,6 +50,7 @@ return [
     'Mart' => 'Bultrugbazaar',
     'Metalworks' => 'Zilversmelt-hoogovens',
     'Mincemeat Metalworks' => 'Zilversmelt-hoogovens',
+    'Multiple Sites' => 'Meerdere locaties',
     'Museum' => 'Galerie Le Guppy',
     'Museum d\'Alfonsino' => 'Galerie Le Guppy',
     'Resort' => 'El Dorade-resort',

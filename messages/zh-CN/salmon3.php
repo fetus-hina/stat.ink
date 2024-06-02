@@ -13,6 +13,7 @@ return [
     'Appearances' => '出现次数',
     'Appeared' => '',
     'Average Defeated' => '',
+    'BIG Big Run' => '',
     'Big Run' => '大型跑',
     'Boss' => '',
     'Boss Salmonid' => '巨大鲑鱼',
