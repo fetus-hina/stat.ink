@@ -476,7 +476,7 @@ final class Icon
     {
         return self::assetImage(
             SalmometerIconAsset::class,
-            $king && $king->key !== 'rengo' // TODO: #1288
+            $king
                 ? sprintf('salmometer-%s-%d.png', $king->key, $level ?? 5)
                 : sprintf('salmometer-%d.png', $level ?? 5),
             alt: $level === null ? null : sprintf('(%d/5)', $level),
@@ -893,22 +893,16 @@ final class Icon
             };
         }
 
-        if (
-            $boss === null ||
-            $boss->key === 'hakobiya' ||
-            $boss->key === 'shake_copter' ||
-            $boss->key === 'rengo' // TODO: Issue #1288
-        ) {
-            return null;
-        }
-
-        return self::assetImage(
-            SalmonBossIconAsset::class,
-            "{$boss->key}.png",
-            Yii::t('app-salmon-boss3', (string)$boss->name),
-            true,
-            $size,
-        );
+        return match ($boss?->key) {
+            null, 'hakobiya', 'shake_copter' => null,
+            default => self::assetImage(
+                SalmonBossIconAsset::class,
+                "{$boss->key}.png",
+                Yii::t('app-salmon-boss3', (string)$boss->name),
+                true,
+                $size,
+            ),
+        };
     }
 
     public static function __callStatic(string $name, $args): string
