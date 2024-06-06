@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2a74d3a761177446f175dad43e2dafd1",
+    "content-hash": "8f4e04e0d655440fea98235aeddc7412",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -1458,16 +1458,16 @@
         },
         {
             "name": "lipis/flag-icons",
-            "version": "v7.2.2",
+            "version": "v7.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lipis/flag-icons.git",
-                "reference": "d26a32c317eaa9dca0fa777a9c3500e0e403da73"
+                "reference": "5667d75be0c0396f29fdc73e2b2e341d0e702843"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lipis/flag-icons/zipball/d26a32c317eaa9dca0fa777a9c3500e0e403da73",
-                "reference": "d26a32c317eaa9dca0fa777a9c3500e0e403da73",
+                "url": "https://api.github.com/repos/lipis/flag-icons/zipball/5667d75be0c0396f29fdc73e2b2e341d0e702843",
+                "reference": "5667d75be0c0396f29fdc73e2b2e341d0e702843",
                 "shasum": ""
             },
             "type": "library",
@@ -1493,9 +1493,9 @@
             ],
             "support": {
                 "issues": "https://github.com/lipis/flag-icons/issues",
-                "source": "https://github.com/lipis/flag-icons/tree/v7.2.2"
+                "source": "https://github.com/lipis/flag-icons/tree/v7.2.3"
             },
-            "time": "2024-05-21T20:55:41+00:00"
+            "time": "2024-05-29T11:01:19+00:00"
         },
         {
             "name": "lusitanian/oauth",
