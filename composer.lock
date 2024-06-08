@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "12efb57663ce79e0cd0b05191c5d0d0a",
+    "content-hash": "5babe413aedf9d5d126f5985aadbd8cb",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -506,16 +506,16 @@
         },
         {
             "name": "jaybizzle/crawler-detect",
-            "version": "v1.2.118",
+            "version": "v1.2.119",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JayBizzle/Crawler-Detect.git",
-                "reference": "9b8912ac5b78b780a0ead552b4c3dc9ddfdea4fd"
+                "reference": "275002e22b0333c15a7c6792fdae5d5deefc9ef0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/9b8912ac5b78b780a0ead552b4c3dc9ddfdea4fd",
-                "reference": "9b8912ac5b78b780a0ead552b4c3dc9ddfdea4fd",
+                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/275002e22b0333c15a7c6792fdae5d5deefc9ef0",
+                "reference": "275002e22b0333c15a7c6792fdae5d5deefc9ef0",
                 "shasum": ""
             },
             "require": {
@@ -552,9 +552,9 @@
             ],
             "support": {
                 "issues": "https://github.com/JayBizzle/Crawler-Detect/issues",
-                "source": "https://github.com/JayBizzle/Crawler-Detect/tree/v1.2.118"
+                "source": "https://github.com/JayBizzle/Crawler-Detect/tree/v1.2.119"
             },
-            "time": "2024-04-23T17:07:05+00:00"
+            "time": "2024-06-07T07:58:43+00:00"
         },
         {
             "name": "jp3cki/mb_str_replace",
@@ -1458,16 +1458,16 @@
         },
         {
             "name": "lipis/flag-icons",
-            "version": "v7.2.2",
+            "version": "v7.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lipis/flag-icons.git",
-                "reference": "d26a32c317eaa9dca0fa777a9c3500e0e403da73"
+                "reference": "5667d75be0c0396f29fdc73e2b2e341d0e702843"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lipis/flag-icons/zipball/d26a32c317eaa9dca0fa777a9c3500e0e403da73",
-                "reference": "d26a32c317eaa9dca0fa777a9c3500e0e403da73",
+                "url": "https://api.github.com/repos/lipis/flag-icons/zipball/5667d75be0c0396f29fdc73e2b2e341d0e702843",
+                "reference": "5667d75be0c0396f29fdc73e2b2e341d0e702843",
                 "shasum": ""
             },
             "type": "library",
@@ -1493,9 +1493,9 @@
             ],
             "support": {
                 "issues": "https://github.com/lipis/flag-icons/issues",
-                "source": "https://github.com/lipis/flag-icons/tree/v7.2.2"
+                "source": "https://github.com/lipis/flag-icons/tree/v7.2.3"
             },
-            "time": "2024-05-21T20:55:41+00:00"
+            "time": "2024-05-29T11:01:19+00:00"
         },
         {
             "name": "lusitanian/oauth",
@@ -2254,21 +2254,24 @@
         },
         {
             "name": "statink/yii2-bukiicons",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statink/yii2-bukiicons.git",
-                "reference": "9a5dfd286e3e179f658dd3e3dc15e17c1ef5eaf1"
+                "reference": "c76b87fb0170736da8deaa7d54f9df320d177a1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-bukiicons/zipball/9a5dfd286e3e179f658dd3e3dc15e17c1ef5eaf1",
-                "reference": "9a5dfd286e3e179f658dd3e3dc15e17c1ef5eaf1",
+                "url": "https://api.github.com/repos/statink/yii2-bukiicons/zipball/c76b87fb0170736da8deaa7d54f9df320d177a1a",
+                "reference": "c76b87fb0170736da8deaa7d54f9df320d177a1a",
                 "shasum": ""
             },
             "require": {
-                "php": ">= 7.1.0",
-                "yiisoft/yii2": "~2.0.15"
+                "php": ">= 8.2.0",
+                "yiisoft/yii2": "^2.0.50"
+            },
+            "require-dev": {
+                "ergebnis/composer-normalize": "^2.42"
             },
             "type": "yii2-extension",
             "autoload": {
@@ -2290,33 +2293,34 @@
             ],
             "description": "bukiicons asset bundle for stat.ink",
             "support": {
-                "source": "https://github.com/statink/yii2-bukiicons/tree/v1.0.0",
+                "source": "https://github.com/statink/yii2-bukiicons/tree/v1.0.1",
                 "issues": "https://github.com/statink/yii2-bukiicons/issues"
             },
-            "time": "2018-11-29T11:12:19+00:00"
+            "time": "2024-06-03T10:13:48+00:00"
         },
         {
             "name": "statink/yii2-cal-heatmap",
-            "version": "v2.1.0",
+            "version": "v2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statink/yii2-cal-heatmap.git",
-                "reference": "c612adfec9e99bf25906a3ed27a5af1b67f2cb15"
+                "reference": "ebbe5393f4c53bcb574cb945267712621de60945"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-cal-heatmap/zipball/c612adfec9e99bf25906a3ed27a5af1b67f2cb15",
-                "reference": "c612adfec9e99bf25906a3ed27a5af1b67f2cb15",
+                "url": "https://api.github.com/repos/statink/yii2-cal-heatmap/zipball/ebbe5393f4c53bcb574cb945267712621de60945",
+                "reference": "ebbe5393f4c53bcb574cb945267712621de60945",
                 "shasum": ""
             },
             "require": {
-                "npm-asset/cal-heatmap": "^4.0",
-                "npm-asset/popperjs--core": "^2.0",
-                "php": ">= 8.0",
-                "yiisoft/yii2": "2.0.*"
+                "npm-asset/cal-heatmap": "^4.2.4",
+                "npm-asset/popperjs--core": "^2.11.8",
+                "php": ">= 8.2",
+                "yiisoft/yii2": "^2.0.50"
             },
             "require-dev": {
-                "jp3cki/coding-standard": "^0.1.3"
+                "ergebnis/composer-normalize": "^2.42",
+                "jp3cki/coding-standard": "^1.0.0"
             },
             "type": "yii2-extension",
             "autoload": {
@@ -2335,10 +2339,10 @@
             ],
             "description": "cal-heatmap asset bundle for stat.ink",
             "support": {
-                "source": "https://github.com/statink/yii2-cal-heatmap/tree/v2.1.0",
+                "source": "https://github.com/statink/yii2-cal-heatmap/tree/v2.1.1",
                 "issues": "https://github.com/statink/yii2-cal-heatmap/issues"
             },
-            "time": "2023-03-02T10:16:41+00:00"
+            "time": "2024-06-03T10:21:42+00:00"
         },
         {
             "name": "statink/yii2-ip-badge",
@@ -2382,22 +2386,25 @@
         },
         {
             "name": "statink/yii2-jdenticon",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statink/yii2-jdenticon.git",
-                "reference": "206a57fb6226a40049936a63b3557515d410b9dc"
+                "reference": "d3bc6e09a2e3503ae9448f0ec8caad6ab89e53ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-jdenticon/zipball/206a57fb6226a40049936a63b3557515d410b9dc",
-                "reference": "206a57fb6226a40049936a63b3557515d410b9dc",
+                "url": "https://api.github.com/repos/statink/yii2-jdenticon/zipball/d3bc6e09a2e3503ae9448f0ec8caad6ab89e53ec",
+                "reference": "d3bc6e09a2e3503ae9448f0ec8caad6ab89e53ec",
                 "shasum": ""
             },
             "require": {
                 "npm-asset/jdenticon": "^2.1.0",
-                "php": ">= 7.1.0",
-                "yiisoft/yii2": "~2.0.15"
+                "php": ">= 8.2.0",
+                "yiisoft/yii2": "^2.0.15"
+            },
+            "require-dev": {
+                "ergebnis/composer-normalize": "^2.42"
             },
             "type": "yii2-extension",
             "autoload": {
@@ -2416,10 +2423,10 @@
             ],
             "description": "Jdenticon asset bundle for stat.ink",
             "support": {
-                "source": "https://github.com/statink/yii2-jdenticon/tree/v1.0.0",
+                "source": "https://github.com/statink/yii2-jdenticon/tree/v1.0.1",
                 "issues": "https://github.com/statink/yii2-jdenticon/issues"
             },
-            "time": "2018-11-15T12:12:21+00:00"
+            "time": "2024-06-03T10:28:40+00:00"
         },
         {
             "name": "statink/yii2-momentjs",
@@ -2549,21 +2556,24 @@
         },
         {
             "name": "statink/yii2-spl1-stages",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statink/yii2-spl1-stages.git",
-                "reference": "feab6b71851331936ce69d77274506fdcd225047"
+                "reference": "da26745d90bb7907241b41327d823f5b003e93f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-spl1-stages/zipball/feab6b71851331936ce69d77274506fdcd225047",
-                "reference": "feab6b71851331936ce69d77274506fdcd225047",
+                "url": "https://api.github.com/repos/statink/yii2-spl1-stages/zipball/da26745d90bb7907241b41327d823f5b003e93f8",
+                "reference": "da26745d90bb7907241b41327d823f5b003e93f8",
                 "shasum": ""
             },
             "require": {
-                "php": ">= 7.1.0",
-                "yiisoft/yii2": "~2.0.15"
+                "php": ">= 8.2",
+                "yiisoft/yii2": "^2.0.50"
+            },
+            "require-dev": {
+                "ergebnis/composer-normalize": "^2.42"
             },
             "type": "yii2-extension",
             "autoload": {
@@ -2582,28 +2592,31 @@
             ],
             "description": "stage images asset bundle for stat.ink",
             "support": {
-                "source": "https://github.com/statink/yii2-spl1-stages/tree/v1.0.0",
+                "source": "https://github.com/statink/yii2-spl1-stages/tree/v1.0.1",
                 "issues": "https://github.com/statink/yii2-spl1-stages/issues"
             },
-            "time": "2018-11-29T12:35:34+00:00"
+            "time": "2024-06-03T10:10:22+00:00"
         },
         {
             "name": "statink/yii2-spl2-stages",
-            "version": "v1.0.1",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statink/yii2-spl2-stages.git",
-                "reference": "53b24f3b2a4d9d5573acb6e05194a9b67c5c9f21"
+                "reference": "a7f23601a1fa7831ea8fdc7d7bbeb7f6dfd7c2f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-spl2-stages/zipball/53b24f3b2a4d9d5573acb6e05194a9b67c5c9f21",
-                "reference": "53b24f3b2a4d9d5573acb6e05194a9b67c5c9f21",
+                "url": "https://api.github.com/repos/statink/yii2-spl2-stages/zipball/a7f23601a1fa7831ea8fdc7d7bbeb7f6dfd7c2f9",
+                "reference": "a7f23601a1fa7831ea8fdc7d7bbeb7f6dfd7c2f9",
                 "shasum": ""
             },
             "require": {
-                "php": ">= 7.1.0",
-                "yiisoft/yii2": "~2.0.15"
+                "php": ">= 8.2",
+                "yiisoft/yii2": "^2.0.50"
+            },
+            "require-dev": {
+                "ergebnis/composer-normalize": "^2.42"
             },
             "type": "yii2-extension",
             "autoload": {
@@ -2622,10 +2635,10 @@
             ],
             "description": "stage images asset bundle for stat.ink",
             "support": {
-                "source": "https://github.com/statink/yii2-spl2-stages/tree/v1.0.1",
+                "source": "https://github.com/statink/yii2-spl2-stages/tree/v1.0.2",
                 "issues": "https://github.com/statink/yii2-spl2-stages/issues"
             },
-            "time": "2019-06-21T14:05:08+00:00"
+            "time": "2024-06-03T10:16:25+00:00"
         },
         {
             "name": "statink/yii2-twitter-webintents",
@@ -2736,16 +2749,16 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v7.1.0",
+            "version": "v7.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "522d2772d6c7bab843b0c52466dc7844622bacc2"
+                "reference": "9fa7f7a21beb22a39a8f3f28618b29e50d7a55a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/522d2772d6c7bab843b0c52466dc7844622bacc2",
-                "reference": "522d2772d6c7bab843b0c52466dc7844622bacc2",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/9fa7f7a21beb22a39a8f3f28618b29e50d7a55a7",
+                "reference": "9fa7f7a21beb22a39a8f3f28618b29e50d7a55a7",
                 "shasum": ""
             },
             "require": {
@@ -2796,7 +2809,7 @@
             "description": "Provides tools that allow your application components to communicate with each other by dispatching events and listening to them",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/event-dispatcher/tree/v7.1.0"
+                "source": "https://github.com/symfony/event-dispatcher/tree/v7.1.1"
             },
             "funding": [
                 {
@@ -2812,7 +2825,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-04-18T09:32:20+00:00"
+            "time": "2024-05-31T14:57:53+00:00"
         },
         {
             "name": "symfony/event-dispatcher-contracts",
@@ -2892,16 +2905,16 @@
         },
         {
             "name": "symfony/mailer",
-            "version": "v7.1.0",
+            "version": "v7.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/mailer.git",
-                "reference": "1528f3fb85d1cbed8bf68a19d5428de662c29d7e"
+                "reference": "2eaad2e167cae930f25a3d731fec8b2ded5e751e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/mailer/zipball/1528f3fb85d1cbed8bf68a19d5428de662c29d7e",
-                "reference": "1528f3fb85d1cbed8bf68a19d5428de662c29d7e",
+                "url": "https://api.github.com/repos/symfony/mailer/zipball/2eaad2e167cae930f25a3d731fec8b2ded5e751e",
+                "reference": "2eaad2e167cae930f25a3d731fec8b2ded5e751e",
                 "shasum": ""
             },
             "require": {
@@ -2952,7 +2965,7 @@
             "description": "Helps sending emails",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/mailer/tree/v7.1.0"
+                "source": "https://github.com/symfony/mailer/tree/v7.1.1"
             },
             "funding": [
                 {
@@ -2968,20 +2981,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-05-31T07:45:05+00:00"
+            "time": "2024-05-31T14:57:53+00:00"
         },
         {
             "name": "symfony/mime",
-            "version": "v7.1.0",
+            "version": "v7.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/mime.git",
-                "reference": "92d6b9b1217eebff2035577db505b7e1435ca78c"
+                "reference": "21027eaacc1a8a20f5e616c25c3580f5dd3a15df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/mime/zipball/92d6b9b1217eebff2035577db505b7e1435ca78c",
-                "reference": "92d6b9b1217eebff2035577db505b7e1435ca78c",
+                "url": "https://api.github.com/repos/symfony/mime/zipball/21027eaacc1a8a20f5e616c25c3580f5dd3a15df",
+                "reference": "21027eaacc1a8a20f5e616c25c3580f5dd3a15df",
                 "shasum": ""
             },
             "require": {
@@ -2994,7 +3007,7 @@
                 "phpdocumentor/reflection-docblock": "<3.2.2",
                 "phpdocumentor/type-resolver": "<1.4.0",
                 "symfony/mailer": "<6.4",
-                "symfony/serializer": "<6.4"
+                "symfony/serializer": "<6.4.3|>7.0,<7.0.3"
             },
             "require-dev": {
                 "egulias/email-validator": "^2.1.10|^3.1|^4",
@@ -3004,7 +3017,7 @@
                 "symfony/process": "^6.4|^7.0",
                 "symfony/property-access": "^6.4|^7.0",
                 "symfony/property-info": "^6.4|^7.0",
-                "symfony/serializer": "^6.4|^7.0"
+                "symfony/serializer": "^6.4.3|^7.0.3"
             },
             "type": "library",
             "autoload": {
@@ -3036,7 +3049,7 @@
                 "mime-type"
             ],
             "support": {
-                "source": "https://github.com/symfony/mime/tree/v7.1.0"
+                "source": "https://github.com/symfony/mime/tree/v7.1.1"
             },
             "funding": [
                 {
@@ -3052,7 +3065,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-05-29T15:16:11+00:00"
+            "time": "2024-06-04T06:40:14+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -3525,16 +3538,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v6.4.7",
+            "version": "v6.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "53e8b1ef30a65f78eac60fddc5ee7ebbbdb1dee0"
+                "reference": "52903de178d542850f6f341ba92995d3d63e60c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/53e8b1ef30a65f78eac60fddc5ee7ebbbdb1dee0",
-                "reference": "53e8b1ef30a65f78eac60fddc5ee7ebbbdb1dee0",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/52903de178d542850f6f341ba92995d3d63e60c9",
+                "reference": "52903de178d542850f6f341ba92995d3d63e60c9",
                 "shasum": ""
             },
             "require": {
@@ -3577,7 +3590,7 @@
             "description": "Loads and dumps YAML files",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/yaml/tree/v6.4.7"
+                "source": "https://github.com/symfony/yaml/tree/v6.4.8"
             },
             "funding": [
                 {
@@ -3593,7 +3606,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-04-28T10:28:08+00:00"
+            "time": "2024-05-31T14:49:08+00:00"
         },
         {
             "name": "twbs/bootstrap-icons",
@@ -6253,16 +6266,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.11.3",
+            "version": "1.11.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "e64220a05c1209fc856d58e789c3b7a32c0bb9a5"
+                "reference": "9100a76ce8015b9aa7125b9171ae3a76887b6c82"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/e64220a05c1209fc856d58e789c3b7a32c0bb9a5",
-                "reference": "e64220a05c1209fc856d58e789c3b7a32c0bb9a5",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/9100a76ce8015b9aa7125b9171ae3a76887b6c82",
+                "reference": "9100a76ce8015b9aa7125b9171ae3a76887b6c82",
                 "shasum": ""
             },
             "require": {
@@ -6307,7 +6320,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-05-31T13:53:37+00:00"
+            "time": "2024-06-06T12:19:22+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -8142,16 +8155,16 @@
         },
         {
             "name": "symfony/browser-kit",
-            "version": "v6.4.7",
+            "version": "v6.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/browser-kit.git",
-                "reference": "c276856598f70e96f75403fc04841cec1dc56e74"
+                "reference": "62ab90b92066ef6cce5e79365625b4b1432464c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/browser-kit/zipball/c276856598f70e96f75403fc04841cec1dc56e74",
-                "reference": "c276856598f70e96f75403fc04841cec1dc56e74",
+                "url": "https://api.github.com/repos/symfony/browser-kit/zipball/62ab90b92066ef6cce5e79365625b4b1432464c8",
+                "reference": "62ab90b92066ef6cce5e79365625b4b1432464c8",
                 "shasum": ""
             },
             "require": {
@@ -8190,7 +8203,7 @@
             "description": "Simulates the behavior of a web browser, allowing you to make requests, click on links and submit forms programmatically",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/browser-kit/tree/v6.4.7"
+                "source": "https://github.com/symfony/browser-kit/tree/v6.4.8"
             },
             "funding": [
                 {
@@ -8206,20 +8219,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-04-18T09:22:46+00:00"
+            "time": "2024-05-31T14:49:08+00:00"
         },
         {
             "name": "symfony/console",
-            "version": "v5.4.39",
+            "version": "v5.4.40",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "f3e591c48688a0cfa1a3296205926c05e84b22b1"
+                "reference": "aa73115c0c24220b523625bfcfa655d7d73662dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/f3e591c48688a0cfa1a3296205926c05e84b22b1",
-                "reference": "f3e591c48688a0cfa1a3296205926c05e84b22b1",
+                "url": "https://api.github.com/repos/symfony/console/zipball/aa73115c0c24220b523625bfcfa655d7d73662dd",
+                "reference": "aa73115c0c24220b523625bfcfa655d7d73662dd",
                 "shasum": ""
             },
             "require": {
@@ -8289,7 +8302,7 @@
                 "terminal"
             ],
             "support": {
-                "source": "https://github.com/symfony/console/tree/v5.4.39"
+                "source": "https://github.com/symfony/console/tree/v5.4.40"
             },
             "funding": [
                 {
@@ -8305,20 +8318,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-04-18T08:26:06+00:00"
+            "time": "2024-05-31T14:33:22+00:00"
         },
         {
             "name": "symfony/css-selector",
-            "version": "v7.1.0",
+            "version": "v7.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
-                "reference": "843f2f7ac5e4c5bf0ec77daef23ca6d4d8922adc"
+                "reference": "1c7cee86c6f812896af54434f8ce29c8d94f9ff4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/css-selector/zipball/843f2f7ac5e4c5bf0ec77daef23ca6d4d8922adc",
-                "reference": "843f2f7ac5e4c5bf0ec77daef23ca6d4d8922adc",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/1c7cee86c6f812896af54434f8ce29c8d94f9ff4",
+                "reference": "1c7cee86c6f812896af54434f8ce29c8d94f9ff4",
                 "shasum": ""
             },
             "require": {
@@ -8354,7 +8367,7 @@
             "description": "Converts CSS selectors to XPath expressions",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/css-selector/tree/v7.1.0"
+                "source": "https://github.com/symfony/css-selector/tree/v7.1.1"
             },
             "funding": [
                 {
@@ -8370,20 +8383,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-04-18T09:32:20+00:00"
+            "time": "2024-05-31T14:57:53+00:00"
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "v6.4.7",
+            "version": "v6.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
-                "reference": "2088c5da700b1e7a8689fffc10dda6c1f643deea"
+                "reference": "105b56a0305d219349edeb60a800082eca864e4b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/2088c5da700b1e7a8689fffc10dda6c1f643deea",
-                "reference": "2088c5da700b1e7a8689fffc10dda6c1f643deea",
+                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/105b56a0305d219349edeb60a800082eca864e4b",
+                "reference": "105b56a0305d219349edeb60a800082eca864e4b",
                 "shasum": ""
             },
             "require": {
@@ -8421,7 +8434,7 @@
             "description": "Eases DOM navigation for HTML and XML documents",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/dom-crawler/tree/v6.4.7"
+                "source": "https://github.com/symfony/dom-crawler/tree/v6.4.8"
             },
             "funding": [
                 {
@@ -8437,20 +8450,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-04-18T09:22:46+00:00"
+            "time": "2024-05-31T14:49:08+00:00"
         },
         {
             "name": "symfony/finder",
-            "version": "v7.1.0",
+            "version": "v7.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "fb6c2d65c3dbf7ad83201a4168d4510c8dddaac7"
+                "reference": "fbb0ba67688b780efbc886c1a0a0948dcf7205d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/fb6c2d65c3dbf7ad83201a4168d4510c8dddaac7",
-                "reference": "fb6c2d65c3dbf7ad83201a4168d4510c8dddaac7",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/fbb0ba67688b780efbc886c1a0a0948dcf7205d6",
+                "reference": "fbb0ba67688b780efbc886c1a0a0948dcf7205d6",
                 "shasum": ""
             },
             "require": {
@@ -8485,7 +8498,7 @@
             "description": "Finds files and directories via an intuitive fluent interface",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/finder/tree/v7.1.0"
+                "source": "https://github.com/symfony/finder/tree/v7.1.1"
             },
             "funding": [
                 {
@@ -8501,7 +8514,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-04-28T18:29:00+00:00"
+            "time": "2024-05-31T14:57:53+00:00"
         },
         {
             "name": "symfony/polyfill-intl-grapheme",
@@ -8583,16 +8596,16 @@
         },
         {
             "name": "symfony/string",
-            "version": "v6.4.7",
+            "version": "v6.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/string.git",
-                "reference": "ffeb9591c61f65a68d47f77d12b83fa530227a69"
+                "reference": "a147c0f826c4a1f3afb763ab8e009e37c877a44d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/string/zipball/ffeb9591c61f65a68d47f77d12b83fa530227a69",
-                "reference": "ffeb9591c61f65a68d47f77d12b83fa530227a69",
+                "url": "https://api.github.com/repos/symfony/string/zipball/a147c0f826c4a1f3afb763ab8e009e37c877a44d",
+                "reference": "a147c0f826c4a1f3afb763ab8e009e37c877a44d",
                 "shasum": ""
             },
             "require": {
@@ -8649,7 +8662,7 @@
                 "utf8"
             ],
             "support": {
-                "source": "https://github.com/symfony/string/tree/v6.4.7"
+                "source": "https://github.com/symfony/string/tree/v6.4.8"
             },
             "funding": [
                 {
@@ -8665,20 +8678,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-04-18T09:22:46+00:00"
+            "time": "2024-05-31T14:49:08+00:00"
         },
         {
             "name": "symfony/var-dumper",
-            "version": "v6.4.7",
+            "version": "v6.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "7a9cd977cd1c5fed3694bee52990866432af07d7"
+                "reference": "ad23ca4312395f0a8a8633c831ef4c4ee542ed25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/7a9cd977cd1c5fed3694bee52990866432af07d7",
-                "reference": "7a9cd977cd1c5fed3694bee52990866432af07d7",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/ad23ca4312395f0a8a8633c831ef4c4ee542ed25",
+                "reference": "ad23ca4312395f0a8a8633c831ef4c4ee542ed25",
                 "shasum": ""
             },
             "require": {
@@ -8734,7 +8747,7 @@
                 "dump"
             ],
             "support": {
-                "source": "https://github.com/symfony/var-dumper/tree/v6.4.7"
+                "source": "https://github.com/symfony/var-dumper/tree/v6.4.8"
             },
             "funding": [
                 {
@@ -8750,7 +8763,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-04-18T09:22:46+00:00"
+            "time": "2024-05-31T14:49:08+00:00"
         },
         {
             "name": "theseer/tokenizer",
@@ -9004,7 +9017,7 @@
     },
     "platform-dev": [],
     "platform-overrides": {
-        "php": "8.2.19"
+        "php": "8.2.20"
     },
     "plugin-api-version": "2.6.0"
 }
