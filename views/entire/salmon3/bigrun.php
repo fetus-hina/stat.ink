@@ -85,7 +85,14 @@ $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
           'option',
           Html::encode(
             vsprintf('%s (%s)', [
-              Yii::t('app-map3', $model->bigMap?->name ?? '?'),
+              Yii::t(
+                'app-map3',
+                match (true) {
+                  $model->is_random_map_big_run	=> 'Multiple Sites',
+                  $model->bigMap !== null => $model->bigMap->name,
+                  default=> '?',
+                },
+              ),
               $fmt->asDate($model->start_at, 'medium'),
             ]),
           ),
@@ -109,7 +116,14 @@ $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
       'h2',
       Html::encode(
         vsprintf('%s (%s)', [
-          Yii::t('app-map3', $schedule->bigMap?->name ?? '?'),
+          Yii::t(
+            'app-map3',
+            match (true) {
+              $schedule->is_random_map_big_run => 'Multiple Sites',
+              $schedule->bigMap !== null => $schedule->bigMap->name,
+              default=> '?',
+            },
+          ),
           $fmt->asDate($schedule->start_at, 'medium'),
         ]),
       ),

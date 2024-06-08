@@ -224,7 +224,10 @@ trait BigrunHistogramTrait
                 vsprintf('((%s))', [
                     implode(') AND (', [
                         '{{%salmon3}}.[[schedule_id]] = {{%salmon_schedule3}}.[[id]]',
-                        '{{%salmon_schedule3}}.[[big_map_id]] IS NOT NULL',
+                        vsprintf('((%s) OR (%s))', [
+                            '{{%salmon_schedule3}}.[[big_map_id]] IS NOT NULL',
+                            '{{%salmon_schedule3}}.[[is_random_map_big_run]] = FALSE',
+                        ]),
                         '{{%salmon_schedule3}}.[[is_eggstra_work]] = FALSE',
                         '{{%salmon_schedule3}}.[[map_id]] IS NULL',
                     ]),
