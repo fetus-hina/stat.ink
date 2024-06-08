@@ -211,14 +211,18 @@ final class BigrunAction extends Action
     private static function getBigrunSchedules(Connection $db): array
     {
         $date = gmdate('Y-m-d', $_SERVER['REQUEST_TIME']);
-        $version = 2;
+        $version = 3;
 
         return Yii::$app->cache->getOrSet(
             [__METHOD__, $date, $version],
             fn (): array => ArrayHelper::map(
                 SalmonSchedule3::find()
                     ->with(['bigMap'])
-                    ->andWhere(['not', ['big_map_id' => null]])
+                    ->andWhere([
+                        'or',
+                        ['not', ['big_map_id' => null]],
+                        ['is_random_map_big_run' => true],
+                    ])
                     ->andWhere(['<=', 'start_at', "{$date}T00:00:00+00:00"])
                     ->orderBy(['start_at' => SORT_DESC])
                     ->all($db),
