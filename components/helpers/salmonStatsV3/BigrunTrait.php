@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -80,7 +80,10 @@ trait BigrunTrait
                     '{{%salmon3}}.[[user_id]]' => $user->id,
                 ],
                 ['not', ['{{%salmon3}}.[[golden_eggs]]' => null]],
-                ['not', ['{{%salmon_schedule3}}.[[big_map_id]]' => null]], // only Big Run
+                ['or',
+                    ['not', ['{{%salmon_schedule3}}.[[big_map_id]]' => null]],
+                    ['{{%salmon_schedule3}}.[[is_random_map_big_run]]' => true],
+                ],
                 ['>=', '{{%salmon3}}.[[golden_eggs]]', 0],
             ])
             ->groupBy([
