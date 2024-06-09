@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -102,13 +102,14 @@ final class ScheduleAction extends Action
                     'revision' => ArrayHelper::getValue(Yii::$app->params, 'gitRevision.longHash'),
                     'schedule' => $schedule->id,
                     'user' => $user->id,
-                    'version' => 12,
+                    'version' => 13,
                 ],
                 fn (): array => [
                     'bossStats' => $this->getBossStats($db, $user, $schedule),
                     'bosses' => $this->getBosses($db),
                     'eventStats' => $this->getEventStats($db, $user, $schedule),
                     'events' => $this->getEvents($db),
+                    'isRandomWeapon' => $this->isRandomWeaponSchedule($db, $schedule),
                     'kingStats' => $this->getKingStats($db, $user, $schedule),
                     'kings' => $this->getKings($db),
                     'map' => $schedule->map ?? $schedule->bigMap ?? null,

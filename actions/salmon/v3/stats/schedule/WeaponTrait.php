@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace app\actions\salmon\v3\stats\schedule;
 
 use app\models\SalmonSchedule3;
+use app\models\SalmonScheduleWeapon3;
 use app\models\SalmonWeapon3;
 use app\models\User;
 use yii\db\Connection;
@@ -124,8 +125,20 @@ trait WeaponTrait
     private function getWeapons(Connection $db): array
     {
         return ArrayHelper::index(
-            SalmonWeapon3::find()->orderBy(['id' => SORT_ASC])->all(),
+            SalmonWeapon3::find()
+                ->andWhere(['not', ['key' => ['splatscope', 'liter4k_scope']]])
+                ->orderBy(['id' => SORT_ASC])
+                ->all(),
             'id',
+        );
+    }
+
+    private function isRandomWeaponSchedule(Connection $connection, SalmonSchedule3 $schedule): bool
+    {
+        return array_reduce(
+            $schedule->salmonScheduleWeapon3s,
+            fn (bool $carry, SalmonScheduleWeapon3 $weapon): bool => $carry || $weapon->random_id !== null,
+            false,
         );
     }
 }

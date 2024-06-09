@@ -54,6 +54,7 @@ use yii\web\View;
  * @var array<int, array{boss_id: int, appearances: int, defeated: int, defeated_by_me: int}> $bossStats
  * @var array<int, array{king_id: int, appearances: int, defeated: int}> $kingStats
  * @var array<string, scalar|null> $stats
+ * @var bool $isRandomWeaponSchedule
  */
 
 $permLink = Url::to(
@@ -126,10 +127,6 @@ $played = TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'count'));
         ) . "\n" ?>
       </p>
 <?php if (is_int($played) && $played > 0) { ?>
-      <div class="alert alert-warning">
-        Under construction...
-      </div>
-
       <?= $this->render('schedule/abstract', compact(
         'events',
         'map',
@@ -144,6 +141,9 @@ $played = TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'count'));
       <?= $this->render('schedule/bosses', compact('bosses', 'bossStats', 'user')) . "\n" ?>
       <?= $this->render('schedule/specials', compact('specials', 'specialStats', 'user')) . "\n" ?>
       <?= $this->render('schedule/events', compact('eventStats', 'events', 'map', 'tides', 'user')) . "\n" ?>
+<?php if ($isRandomWeapon) { ?>
+      <?= $this->render('schedule/random-weapon', compact('schedule', 'weaponStats', 'weapons')) . "\n" ?>
+<?php } ?>
       <?= $this->render('schedule/weapons', compact('schedule', 'weaponStats', 'weapons')) . "\n" ?>
       <?= $this->render('schedule/players', compact('playerStats')) . "\n" ?>
 <?php } else { ?>

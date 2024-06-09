@@ -114,10 +114,6 @@ $played = TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'count'));
         </ul>
       </div>
 <?php if (is_int($played) && $played > 0) { ?>
-      <div class="alert alert-warning">
-        Under construction...
-      </div>
-
       <?= $this->render('schedule/abstract', [
         'events' => $events,
         'map' => null,

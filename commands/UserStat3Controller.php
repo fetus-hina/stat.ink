@@ -81,6 +81,14 @@ final class UserStat3Controller extends Controller
 
     public function actionRegenAll(): int
     {
+        $this->actionBattleRegenAll();
+        $this->actionSalmonRegenAll();
+
+        return 0;
+    }
+
+    public function actionBattleRegenAll(): int
+    {
         $query = (new Query())
             ->select(['user_id'])
             ->from('{{%battle3}}')
@@ -95,6 +103,11 @@ final class UserStat3Controller extends Controller
             );
         }
 
+        return 0;
+    }
+
+    public function actionSalmonRegenAll(): int
+    {
         $query = (new Query())
             ->select(['user_id'])
             ->from('{{%salmon3}}')
