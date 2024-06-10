@@ -7,7 +7,7 @@ use app\assets\ChartJsAsset;
 use app\assets\ColorSchemeAsset;
 use app\assets\JqueryEasyChartjsAsset;
 use app\assets\RatioAsset;
-use app\models\StatEggstraWorkDistribAbstract3;
+use app\models\StatEggstraWorkDistribUserAbstract3;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\web\JsExpression;
@@ -17,7 +17,7 @@ use yii\web\View;
  * @var NormalDistribution|null $estimatedDistrib
  * @var NormalDistribution|null $normalDistrib
  * @var NormalDistribution|null $ruleOfThumbDistrib
- * @var StatEggstraWorkDistribAbstract3|null $abstract
+ * @var StatEggstraWorkDistribUserAbstract3|null $abstract
  * @var View $this
  * @var array<int, int> $histogram
  * @var int|null $chartMax
@@ -36,8 +36,10 @@ $this->registerJs('$(".bigrun-histogram").easyChartJs();');
 
 $datasetHistogram = [
   'backgroundColor' => [ new JsExpression('window.colorScheme.graph2') ],
+  'barPercentage' => 1.0,
   'borderColor' => [ new JsExpression('window.colorScheme.graph2') ],
   'borderWidth' => 1,
+  'categoryPercentage' => 1.0,
   'data' => array_values(
     array_map(
       fn (int $x, int $y): array => compact('x', 'y'),
@@ -54,7 +56,7 @@ $makeDistributionData = function (NormalDistribution $nd) use ($abstract, $chart
   assert($chartMax);
 
   $results = [];
-  $dataStep = 5;
+  $dataStep = $abstract->histogram_width ?? 5;
   $makeStep = 2;
   $chartMax = (int)(ceil($chartMax / $makeStep) * $makeStep);
   for ($x = 0; $x <= $chartMax; $x += $makeStep) {
@@ -148,7 +150,7 @@ if (!$datasetEstimatedDistrib && $ruleOfThumbDistrib && $abstract && $chartMax >
             'type' => 'linear',
             'ticks' => [
               'precision' => 0,
-              'stepSize' => 5,
+              'stepSize' => $abstract?->histogram_width ?? 5,
             ],
           ],
           'y' => [

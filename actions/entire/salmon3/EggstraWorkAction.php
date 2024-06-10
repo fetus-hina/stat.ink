@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -15,8 +15,8 @@ use Yii;
 use app\components\helpers\TypeHelper;
 use app\models\EggstraWorkOfficialResult3;
 use app\models\SalmonSchedule3;
-use app\models\StatEggstraWorkDistrib3;
-use app\models\StatEggstraWorkDistribAbstract3;
+use app\models\StatEggstraWorkDistribUserAbstract3;
+use app\models\StatEggstraWorkDistribUserHistogram3;
 use yii\base\Action;
 use yii\db\Connection;
 use yii\db\Query;
@@ -82,18 +82,18 @@ final class EggstraWorkAction extends Action
 
         $schedule = $schedules[$scheduleId];
 
-        $abstract = StatEggstraWorkDistribAbstract3::find()
+        $abstract = StatEggstraWorkDistribUserAbstract3::find()
             ->andWhere(['schedule_id' => $scheduleId])
             ->limit(1)
             ->one($db);
 
         $histogram = ArrayHelper::map(
-            StatEggstraWorkDistrib3::find()
+            StatEggstraWorkDistribUserHistogram3::find()
                 ->andWhere(['schedule_id' => $scheduleId])
-                ->orderBy(['golden_egg' => SORT_ASC])
+                ->orderBy(['class_value' => SORT_ASC])
                 ->all($db),
-            'golden_egg',
-            'users',
+            'class_value',
+            'count',
         );
 
         $normalDistrib = null;
@@ -104,11 +104,12 @@ final class EggstraWorkAction extends Action
             $abstract &&
             $histogram &&
             $abstract->average >= 1 &&
-            $abstract->median !== null &&
-            $abstract->q1 !== null &&
-            $abstract->q3 !== null &&
+            $abstract->p50 !== null &&
+            $abstract->p25 !== null &&
+            $abstract->p75 !== null &&
             $abstract->stddev !== null &&
-            $abstract->users >= 10
+            $abstract->users >= 10 &&
+            $abstract->histogram_width !== null
         ) {
             $normalDistrib = new NormalDistribution(
                 (float)$abstract->average,
@@ -116,7 +117,7 @@ final class EggstraWorkAction extends Action
             );
             $estimatedDistrib = self::estimatedDistrib($schedule->eggstraWorkOfficialResult3);
             $ruleOfThumbDistrib = self::ruleOfThumbDistrib($schedule, $abstract);
-            $chartMax = max(array_keys($histogram));
+            $chartMax = max(array_keys($histogram)) + $abstract->histogram_width / 2;
         }
 
         return [
@@ -156,17 +157,17 @@ final class EggstraWorkAction extends Action
 
     private static function ruleOfThumbDistrib(
         SalmonSchedule3 $schedule,
-        StatEggstraWorkDistribAbstract3 $abstract,
+        StatEggstraWorkDistribUserAbstract3 $abstract,
     ): ?NormalDistribution {
         if (
             $abstract->users < 50 ||
-            $abstract->top_5_pct === null ||
-            $abstract->top_20_pct === null ||
-            $abstract->median === null ||
+            $abstract->p95 === null ||
+            $abstract->p80 === null ||
+            $abstract->p50 === null ||
             $abstract->average === null ||
             $abstract->stddev === null ||
-            $abstract->top_5_pct <= $abstract->top_20_pct &&
-            $abstract->top_20_pct <= $abstract->median
+            $abstract->p95 <= $abstract->p80 ||
+            $abstract->p80 <= $abstract->p50
         ) {
             return null;
         }

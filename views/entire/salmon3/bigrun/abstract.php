@@ -8,7 +8,7 @@ use app\models\BigrunOfficialBorder3;
 use app\models\BigrunOfficialResult3;
 use app\models\EggstraWorkOfficialResult3;
 use app\models\StatBigrunDistribUserAbstract3;
-use app\models\StatEggstraWorkDistribAbstract3;
+use app\models\StatEggstraWorkDistribUserAbstract3;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
@@ -18,7 +18,7 @@ use yii\web\View;
  * @var BigrunOfficialBorder3|null $border
  * @var BigrunOfficialResult3|EggstraWorkOfficialResult3|null $official
  * @var NormalDistribution|null $ruleOfThumbDistrib
- * @var StatBigrunDistribUserAbstract3|StatEggstraWorkDistribAbstract3|null $model
+ * @var StatBigrunDistribUserAbstract3|StatEggstraWorkDistribUserAbstract3|null $model
  * @var View $this
  */
 
@@ -71,7 +71,7 @@ $fmtEggs = fn (int|float|null $value, bool $estimated = false): string => $value
             EggstraWorkOfficialResult3::class => Yii::t('app', 'Official Results'),
             NormalDistribution::class => Yii::t('app', 'Empirical Estimates'),
             StatBigrunDistribUserAbstract3::class => Yii::$app->name,
-            StatEggstraWorkDistribAbstract3::class => Yii::$app->name,
+            StatEggstraWorkDistribUserAbstract3::class => Yii::$app->name,
             default => throw new LogicException(),
           },
         ],
@@ -89,7 +89,7 @@ $fmtEggs = fn (int|float|null $value, bool $estimated = false): string => $value
               Icon::inkling(),
               Html::encode($fmt->asInteger($model->users)),
             ]),
-            StatEggstraWorkDistribAbstract3::class => implode(' ', [
+            StatEggstraWorkDistribUserAbstract3::class => implode(' ', [
               Icon::inkling(),
               Html::encode($fmt->asInteger($model->users)),
             ]),
@@ -107,7 +107,7 @@ $fmtEggs = fn (int|float|null $value, bool $estimated = false): string => $value
             EggstraWorkOfficialResult3::class => $fmtEggs(null),
             NormalDistribution::class => $fmtEggs($model->mean()),
             StatBigrunDistribUserAbstract3::class => $fmtEggs($model->average),
-            StatEggstraWorkDistribAbstract3::class => $fmtEggs($model->average),
+            StatEggstraWorkDistribUserAbstract3::class => $fmtEggs($model->average),
             default => throw new LogicException(),
           },
         ],
@@ -119,7 +119,7 @@ $fmtEggs = fn (int|float|null $value, bool $estimated = false): string => $value
             BigrunOfficialBorder3::class, BigrunOfficialResult3::class, EggstraWorkOfficialResult3::class => '-',
             NormalDistribution::class => '(' . $fmt->asDecimal(sqrt($model->variance()), 2) . ')',
             StatBigrunDistribUserAbstract3::class => $fmt->asDecimal($model->stddev, 2),
-            StatEggstraWorkDistribAbstract3::class => $fmt->asDecimal($model->stddev, 2),
+            StatEggstraWorkDistribUserAbstract3::class => $fmt->asDecimal($model->stddev, 2),
             default => throw new LogicException(),
           },
         ],
@@ -138,7 +138,7 @@ $fmtEggs = fn (int|float|null $value, bool $estimated = false): string => $value
             EggstraWorkOfficialResult3::class => $fmtEggs($model->gold),
             NormalDistribution::class => $fmtEggs((int)$model->inverse(0.95), true),
             StatBigrunDistribUserAbstract3::class => $fmtEggs($model->p95),
-            StatEggstraWorkDistribAbstract3::class => $fmtEggs($model->top_5_pct),
+            StatEggstraWorkDistribUserAbstract3::class => $fmtEggs($model->p95),
             default => throw new LogicException(),
           },
         ],
@@ -157,7 +157,7 @@ $fmtEggs = fn (int|float|null $value, bool $estimated = false): string => $value
             EggstraWorkOfficialResult3::class => $fmtEggs($model->silver),
             NormalDistribution::class => $fmtEggs((int)$model->inverse(0.80), true),
             StatBigrunDistribUserAbstract3::class => $fmtEggs($model->p80),
-            StatEggstraWorkDistribAbstract3::class => $fmtEggs($model->top_20_pct),
+            StatEggstraWorkDistribUserAbstract3::class => $fmtEggs($model->p80),
             default => throw new LogicException(),
           },
         ],
@@ -176,7 +176,7 @@ $fmtEggs = fn (int|float|null $value, bool $estimated = false): string => $value
             EggstraWorkOfficialResult3::class => $fmtEggs($model->bronze),
             NormalDistribution::class => $fmtEggs((int)$model->inverse(0.50), true),
             StatBigrunDistribUserAbstract3::class => $fmtEggs($model->p50),
-            StatEggstraWorkDistribAbstract3::class => $fmtEggs($model->median),
+            StatEggstraWorkDistribUserAbstract3::class => $fmtEggs($model->p50),
             default => throw new LogicException(),
           },
         ],

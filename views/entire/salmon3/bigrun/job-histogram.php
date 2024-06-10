@@ -171,7 +171,7 @@ $datasetClearedDistrib = $makeWaveDistributionData($abstract, 4, 'clear');
             'type' => 'linear',
             'ticks' => [
               'precision' => 0,
-              'stepSize' => 5,
+              'stepSize' => $abstract?->histogram_width ?? 5,
             ],
           ],
           'y' => [

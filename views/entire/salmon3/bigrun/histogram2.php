@@ -6,7 +6,7 @@ use MathPHP\Probability\Distribution\Continuous\Normal as NormalDistribution;
 use app\assets\ChartJsAsset;
 use app\assets\ColorSchemeAsset;
 use app\assets\RatioAsset;
-use app\models\StatEggstraWorkDistribAbstract3;
+use app\models\StatEggstraWorkDistribUserAbstract3;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\web\JsExpression;
@@ -16,7 +16,7 @@ use yii\web\View;
  * @var NormalDistribution|null $estimatedDistrib
  * @var NormalDistribution|null $normalDistrib
  * @var NormalDistribution|null $ruleOfThumbDistrib
- * @var StatEggstraWorkDistribAbstract3|null $abstract
+ * @var StatEggstraWorkDistribUserAbstract3|null $abstract
  * @var View $this
  * @var array<int, int> $histogram
  * @var int|null $chartMax
@@ -35,9 +35,10 @@ if ($totalUsers < 1) {
   return;
 }
 
+$binWidth = $abstract?->histogram_width ?? 10;
 $keyMax = max(array_keys($histogram));
 $totalHistogram = [];
-for ($x = 0; $x <= $keyMax; $x += 5) {
+for ($x = $binWidth / 2; $x <= $keyMax; $x += $binWidth) {
   $totalHistogram[] = [
     'x' => $x,
     'y' => array_sum(
@@ -52,8 +53,10 @@ for ($x = 0; $x <= $keyMax; $x += 5) {
 
 $datasetHistogram = [
   'backgroundColor' => [ new JsExpression('window.colorScheme.graph2') ],
+  'barPercentage' => 1.0,
   'borderColor' => [ new JsExpression('window.colorScheme.graph2') ],
   'borderWidth' => 1,
+  'categoryPercentage' => 1.0,
   'data' => $totalHistogram,
   'label' => Yii::t('app', 'Users'),
   'type' => 'bar',
@@ -216,7 +219,7 @@ if ($chartMax > 0) {
                 'type' => 'linear',
                 'ticks' => [
                   'precision' => 0,
-                  'stepSize' => 5,
+                  'stepSize' => $abstract?->histogram_width ?? 5,
                 ],
               ],
               'y' => [
