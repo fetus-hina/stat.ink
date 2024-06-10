@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -12,20 +12,29 @@ namespace app\components\jobs;
 
 trait JobPriority
 {
+    private const DEFAULT_JOB_PRIORITY = 1024;
+    private const PRIORITY_LOW = +1;
+    private const PRIORITY_HIGH = -1;
+
     public static function getJobPriority(): int
     {
-        $defaultPriority = static::defaultPriority();
         return match (static::class) {
-            SalmonExportJson3Job::class => $defaultPriority + 1,
-            SlackJob::class => $defaultPriority - 3,
-            UserExportJson3Job::class => $defaultPriority + 1,
-            UserStatsJob::class => $defaultPriority - 1,
-            default => $defaultPriority,
+            S3ImgGenPrefetchJob::class => self::lowerPriority(10),
+            SalmonExportJson3Job::class => self::lowerPriority(1),
+            SlackJob::class => self::higherPriority(3),
+            UserExportJson3Job::class => self::lowerPriority(1),
+            UserStatsJob::class => self::higherPriority(1),
+            default => self::DEFAULT_JOB_PRIORITY,
         };
     }
 
-    protected static function defaultPriority(): int
+    private static function lowerPriority(int $priority): int
     {
-        return 1024;
+        return self::DEFAULT_JOB_PRIORITY + self::PRIORITY_LOW * $priority;
+    }
+
+    private static function higherPriority(int $priority): int
+    {
+        return self::DEFAULT_JOB_PRIORITY + self::PRIORITY_HIGH * $priority;
     }
 }

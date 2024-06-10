@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -13,6 +13,7 @@ namespace app\actions\api\v3\salmon;
 use Yii;
 use app\actions\api\v3\traits\ApiInitializerTrait;
 use app\components\formatters\api\v3\SalmonApiFormatter;
+use app\components\jobs\S3ImgGenPrefetchJob;
 use app\models\Salmon3;
 use app\models\api\v3\PostSalmonForm;
 use yii\base\Action;
@@ -125,5 +126,20 @@ final class PostSalmonAction extends Action
         //             'battle' => $battle->id,
         //         ]));
         // }
+
+        // Prefetch s3-img-gen
+        if (
+            !$user->hide_data_on_toppage &&
+            ArrayHelper::getValue(Yii::$app->params, 'useS3ImgGen')
+        ) {
+            Yii::$app->queue
+                ->priority(S3ImgGenPrefetchJob::getJobPriority())
+                ->push(
+                    new S3ImgGenPrefetchJob([
+                        'type' => S3ImgGenPrefetchJob::TYPE_SALMON,
+                        'uuid' => $battle->uuid,
+                    ]),
+                );
+        }
     }
 }
