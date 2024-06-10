@@ -34,6 +34,7 @@ $data = ArrayHelper::map(
       'id' => $weapon->id,
       'key' => $weapon->key,
       'name' => Yii::t('app-weapon3', $weapon->name),
+      'rank' => $weapon->rank,
       'count' => array_sum([
         ArrayHelper::getValue($weaponStats, [$weapon->id, 'normal_waves'], 0),
         ArrayHelper::getValue($weaponStats, [$weapon->id, 'xtra_waves'], 0),
@@ -41,7 +42,13 @@ $data = ArrayHelper::map(
     ];
   },
 );
-usort($data, fn (array $a, array $b): int => $b['count'] <=> $a['count'] ?: $a['id'] <=> $b['id']);
+
+usort(
+    $data,
+    fn (array $a, array $b): int => $b['count'] <=> $a['count']
+        ?: $a['rank'] <=> $b['rank']
+        ?: $a['id'] <=> $b['id'],
+);
 
 $totalCount = array_sum(
   array_map(

@@ -21,6 +21,7 @@ use yii\db\ActiveRecord;
  * @property string $key
  * @property string $name
  * @property integer $weapon_id
+ * @property integer $rank
  *
  * @property Salmon3UserStatsWeapon[] $salmon3UserStatsWeapons
  * @property SalmonPlayerWeapon3[] $salmonPlayerWeapon3s
@@ -39,9 +40,9 @@ class SalmonWeapon3 extends ActiveRecord
     public function rules()
     {
         return [
-            [['key', 'name'], 'required'],
-            [['weapon_id'], 'default', 'value' => null],
-            [['weapon_id'], 'integer'],
+            [['key', 'name', 'rank'], 'required'],
+            [['weapon_id', 'rank'], 'default', 'value' => null],
+            [['weapon_id', 'rank'], 'integer'],
             [['key'], 'string', 'max' => 32],
             [['name'], 'string', 'max' => 63],
             [['key'], 'unique'],
@@ -57,6 +58,7 @@ class SalmonWeapon3 extends ActiveRecord
             'key' => 'Key',
             'name' => 'Name',
             'weapon_id' => 'Weapon ID',
+            'rank' => 'Rank',
         ];
     }
 
