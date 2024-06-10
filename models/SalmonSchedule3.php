@@ -40,6 +40,8 @@ use yii\db\ActiveRecord;
  * @property StatBigrunDistribUserHistogram3[] $statBigrunDistribUserHistogram3s
  * @property StatEggstraWorkDistrib3[] $statEggstraWorkDistrib3s
  * @property StatEggstraWorkDistribAbstract3 $statEggstraWorkDistribAbstract3
+ * @property StatEggstraWorkDistribUserAbstract3 $statEggstraWorkDistribUserAbstract3
+ * @property StatEggstraWorkDistribUserHistogram3[] $statEggstraWorkDistribUserHistogram3s
  * @property UserStatBigrun3[] $userStatBigrun3s
  * @property UserStatEggstraWork3[] $userStatEggstraWork3s
  * @property User[] $users
@@ -148,6 +150,16 @@ class SalmonSchedule3 extends ActiveRecord
     public function getStatEggstraWorkDistribAbstract3(): ActiveQuery
     {
         return $this->hasOne(StatEggstraWorkDistribAbstract3::class, ['schedule_id' => 'id']);
+    }
+
+    public function getStatEggstraWorkDistribUserAbstract3(): ActiveQuery
+    {
+        return $this->hasOne(StatEggstraWorkDistribUserAbstract3::class, ['schedule_id' => 'id']);
+    }
+
+    public function getStatEggstraWorkDistribUserHistogram3s(): ActiveQuery
+    {
+        return $this->hasMany(StatEggstraWorkDistribUserHistogram3::class, ['schedule_id' => 'id']);
     }
 
     public function getUserStatBigrun3s(): ActiveQuery

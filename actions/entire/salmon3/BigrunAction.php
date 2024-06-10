@@ -121,7 +121,8 @@ final class BigrunAction extends Action
             $abstract->p25 !== null &&
             $abstract->p75 !== null &&
             $abstract->stddev !== null &&
-            $abstract->users >= 10
+            $abstract->users >= 10 &&
+            $abstract->histogram_width !== null
         ) {
             $normalDistrib = new NormalDistribution(
                 (float)$abstract->average,
@@ -129,7 +130,7 @@ final class BigrunAction extends Action
             );
             $estimatedDistrib = self::estimatedDistrib($schedule->bigrunOfficialResult3);
             $ruleOfThumbDistrib = self::ruleOfThumbDistrib($jobAbstract);
-            $chartMax = max(array_keys($histogram));
+            $chartMax = max(array_keys($histogram)) + $abstract->histogram_width / 2;
         }
 
         return [

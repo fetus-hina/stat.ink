@@ -9,7 +9,7 @@ use app\assets\JqueryEasyChartjsAsset;
 use app\assets\RatioAsset;
 use app\components\helpers\XPowerNormalDistribution;
 use app\models\StatBigrunDistribUserAbstract3;
-use app\models\StatEggstraWorkDistribAbstract3;
+use app\models\StatEggstraWorkDistribUserAbstract3;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\web\JsExpression;
@@ -19,7 +19,7 @@ use yii\web\View;
  * @var NormalDistribution|null $estimatedDistrib
  * @var NormalDistribution|null $normalDistrib
  * @var NormalDistribution|null $ruleOfThumbDistrib
- * @var StatBigrunDistribUserAbstract3|StatEggstraWorkDistribAbstract3|null $abstract
+ * @var StatBigrunDistribUserAbstract3|StatEggstraWorkDistribUserAbstract3|null $abstract
  * @var View $this
  * @var array<int, int> $histogram
  * @var int|null $chartMax
@@ -157,7 +157,7 @@ if (!$datasetEstimatedDistrib && $ruleOfThumbDistrib && $abstract && $chartMax >
             'type' => 'linear',
             'ticks' => [
               'precision' => 0,
-              'stepSize' => 5,
+              'stepSize' => $abstract?->histogram_width ?? 5,
             ],
           ],
           'y' => [

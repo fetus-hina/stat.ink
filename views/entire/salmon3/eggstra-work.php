@@ -74,21 +74,6 @@ $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
     ) . "\n" ?>
   </div>
 
-  <div class="alert alert-info mb-3">
-    <?= Html::encode(
-      Yii::t('app', 'In the chart, "{representative}" means greater than or equal to {min} and less than {max}.', [
-        'representative' => $fmt->asInteger(100),
-        'min' => $fmt->asInteger(100),
-        'max' => $fmt->asInteger(105),
-      ]),
-    ) . "\n" ?>
-    <?= Html::tag(
-      'span',
-      '(100 ≤ 𝑛 &lt; 105 → 100)',
-      ['style' => ['font-family' => 'Noto Sans Math']],
-    ) . "\n" ?>
-  </div>
-
 <?php if ($schedules) { ?>
   <div class="mb-3">
     <?= Html::tag(
