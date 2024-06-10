@@ -13,7 +13,10 @@ namespace app\components\db;
 use yii\db\Expression;
 use yii\db\Query;
 
+use function array_reduce;
 use function in_array;
+use function intval;
+use function preg_match;
 
 /**
  * @phpstan-type type3_string1 'blaster'|'brella'|'brush'|'charger'|'maneuver'|'reelgun'|'roller'
@@ -85,11 +88,34 @@ trait Weapon3Migration
         // up salmon_weapon3 if needed
         $salmonWeaponId = null;
         if ($salmon) {
-            $this->insert('{{%salmon_weapon3}}', [
-                'key' => $key,
-                'name' => $name,
-                'weapon_id' => $weaponId,
-            ]);
+            if ($this->hasSalmonWeapon3Rank()) {
+                $this->insert('{{%salmon_weapon3}}', [
+                    'key' => $key,
+                    'name' => $name,
+                    'weapon_id' => $weaponId,
+                    'rank' => array_reduce(
+                        $aliases,
+                        function (?int $carry, string $alias): ?int {
+                            if ($carry !== null) {
+                                return $carry;
+                            }
+
+                            if (preg_match('/^\d+$/', $alias)) {
+                                return intval($alias, 10);
+                            }
+
+                            return null;
+                        },
+                        null,
+                    ),
+                ]);
+            } else {
+                $this->insert('{{%salmon_weapon3}}', [
+                    'key' => $key,
+                    'name' => $name,
+                    'weapon_id' => $weaponId,
+                ]);
+            }
             $salmonWeaponId = $this->key2id('{{%salmon_weapon3}}', $key);
         }
 
@@ -151,6 +177,7 @@ trait Weapon3Migration
             'type_id' => $this->key2id('{{%weapon_type3}}', $type),
             'name' => $name,
         ]);
+
         return $this->key2id('{{%mainweapon3}}', $key);
     }
 
@@ -223,12 +250,22 @@ trait Weapon3Migration
 
     private function hasWeapon3ReleaseAt(): bool
     {
+        return $this->hasColumn('weapon3', 'release_at');
+    }
+
+    private function hasSalmonWeapon3Rank(): bool
+    {
+        return $this->hasColumn('salmon_weapon3', 'rank');
+    }
+
+    private function hasColumn(string $table, string $column): bool
+    {
         return (bool)(new Query())
             ->select('*')
             ->from('{{information_schema}}.{{columns}}')
             ->andWhere([
-                'table_name' => 'weapon3',
-                'column_name' => 'release_at',
+                'table_name' => $table,
+                'column_name' => $column,
             ])
             ->one();
     }

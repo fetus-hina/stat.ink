@@ -93,7 +93,7 @@ $dropdownDatePattern = DateTimeHelper::formatDH();
                   $model->is_eggstra_work
                     ? sprintf('[%s]', Yii::t('app-salmon3', 'Eggstra Work'))
                     : '',
-                  $model->big_map_id !== null
+                  $model->big_map_id !== null || $model->is_random_map_big_run
                     ? sprintf('[%s]', Yii::t('app-salmon3', 'Big Run'))
                     : '',
                   $isRareOnly
@@ -153,13 +153,20 @@ $dropdownDatePattern = DateTimeHelper::formatDH();
         array_filter(
           array_merge(
             [
-              $schedule->big_map_id !== null
+              $schedule->big_map_id !== null || $schedule->is_random_map_big_run
                 ? implode(' ', [
                   Icon::s3BigRun(),
                   Html::encode(Yii::t('app-salmon3', 'Big Run')),
                 ])
                 : null,
-              Html::encode(Yii::t('app-map3', $schedule->map?->name ?? $schedule->bigMap?->name ?? '?')),
+              Html::encode(
+                Yii::t(
+                  'app-map3',
+                  $schedule->is_random_map_big_run
+                    ? 'Multiple Sites'
+                    : ($schedule->map?->name ?? $schedule->bigMap?->name ?? '?'),
+                ),
+              ),
             ],
             array_map(
               fn (SalmonScheduleWeapon3 $info): string => $info->weapon
