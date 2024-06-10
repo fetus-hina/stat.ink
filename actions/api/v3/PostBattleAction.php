@@ -13,6 +13,7 @@ namespace app\actions\api\v3;
 use Yii;
 use app\actions\api\v3\traits\ApiInitializerTrait;
 use app\components\formatters\api\v3\BattleApiFormatter;
+use app\components\jobs\S3ImgGenPrefetchJob;
 use app\components\jobs\SlackJob;
 use app\models\Battle3;
 use app\models\api\v3\PostBattleForm;
@@ -173,6 +174,21 @@ final class PostBattleAction extends Action
                     'version' => 3,
                     'battle' => $battle->id,
                 ]));
+        }
+
+        // Prefetch s3-img-gen
+        if (
+            !$user->hide_data_on_toppage &&
+            ArrayHelper::getValue(Yii::$app->params, 'useS3ImgGen')
+        ) {
+            Yii::$app->queue
+                ->priority(S3ImgGenPrefetchJob::getJobPriority())
+                ->push(
+                    new S3ImgGenPrefetchJob([
+                        'type' => S3ImgGenPrefetchJob::TYPE_BATTLE,
+                        'uuid' => $battle->uuid,
+                    ]),
+                );
         }
     }
 }
