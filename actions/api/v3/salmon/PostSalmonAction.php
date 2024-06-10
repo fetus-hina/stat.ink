@@ -17,6 +17,7 @@ use app\components\jobs\S3ImgGenPrefetchJob;
 use app\models\Salmon3;
 use app\models\api\v3\PostSalmonForm;
 use yii\base\Action;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\Response;
 
