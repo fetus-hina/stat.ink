@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5ba1bda04f13cf90c9ced1df48943e67",
+    "content-hash": "cc83ed38b6dbf74447ff525a0fa752ce",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -1374,16 +1374,16 @@
         },
         {
             "name": "laminas/laminas-validator",
-            "version": "2.55.0",
+            "version": "2.56.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-validator.git",
-                "reference": "dc3f2609d41b1e21bc24e3e147d7dd284e8a1556"
+                "reference": "715e1153abb8b57c1f25eb68276133d51a60b1ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-validator/zipball/dc3f2609d41b1e21bc24e3e147d7dd284e8a1556",
-                "reference": "dc3f2609d41b1e21bc24e3e147d7dd284e8a1556",
+                "url": "https://api.github.com/repos/laminas/laminas-validator/zipball/715e1153abb8b57c1f25eb68276133d51a60b1ac",
+                "reference": "715e1153abb8b57c1f25eb68276133d51a60b1ac",
                 "shasum": ""
             },
             "require": {
@@ -1454,7 +1454,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2024-06-12T15:00:19+00:00"
+            "time": "2024-06-13T09:06:50+00:00"
         },
         {
             "name": "lipis/flag-icons",
