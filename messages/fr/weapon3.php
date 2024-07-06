@@ -123,7 +123,7 @@ return [
     'Painbrush' => 'Épinceau écaïe',
     'Painbrush Nouveau' => 'Épinceau écaïe nuancé',
     'Random' => 'Aléatoire',
-    'Random (Rare)' => 'Aléatoire(Rare)',
+    'Random (Rare)' => 'Aléatoire (Rare)',
     'Range Blaster' => 'Éclablaster XL',
     'Rapid Blaster' => 'Turboblaster',
     'Rapid Blaster Deco' => 'Turboblaster chic',
