@@ -9,7 +9,7 @@
 declare(strict_types=1);
 
 return [
-    'amiibo' => '',
+    'amiibo' => 'amiibo',
     'Annaki' => 'Aroz',
     'Cuttlegear' => 'Macalamar',
     'Enperry' => 'DUX',
