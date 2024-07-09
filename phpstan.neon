@@ -8,6 +8,7 @@ parameters:
     - commands/
     - components/
     - controllers/
+    - deploy/
     - messages/
     - models/
     - views/

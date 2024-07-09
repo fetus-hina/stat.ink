@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Deployer;
 
+use function escapeshellarg;
+use function vsprintf;
+
 require 'recipe/yii.php';
 
 set('repository', 'git@github.com:fetus-hina/stat.ink.git');
