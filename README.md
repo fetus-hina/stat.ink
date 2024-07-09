@@ -44,13 +44,11 @@ Use a private channel if it is a security issue.
 REQUIREMENTS
 ------------
 
-- PHP 8.2
+- PHP 8.2 or PHP 8.3
   - PHP 8.1以下では動作しません。（8.2で追加された構文等を利用しています）  
     Doesn't work with 8.1 or lower. (Uses statements and constants added in v8.2)
-  - Argon2が有効化されたPHPが必要です。RemirepoのPHPを利用している場合、`php-sodium`をインストールしてください。（[詳細](https://github.com/remicollet/remirepo/issues/132#issuecomment-566513636)）  
-    You should build/install with Argon2. [Install `php-sodium` if you use remirepo's PHP](https://github.com/remicollet/remirepo/issues/132#issuecomment-566513636).
-  - 現在のところ、PHP 8.3+での動作は確認していません。  
-    At this time, we have not tested it with PHP 8.3+.
+  - Argon2が有効化されたPHPが必要です。RemirepoのPHPを利用している場合、`php-sodium`をインストールしてください。
+    You should build/install with Argon2. Install `php-sodium` if you use remirepo's PHP
 - PostgreSQL 9.5+ (Recommended: 11+)
   - PgSQL 9.4以下では動作しません（9.5で追加された機能を利用しています）  
     Doesn't work with 9.4 or lower. (Uses features added in v9.5) 
@@ -62,39 +60,31 @@ REQUIREMENTS
 
 https://stat.ink/ works with:
 
-- CentOS 7 (x86-64)
+- CentOS 9 (x86-64)
 - EPEL
 - [JP3CKI Repository](https://rpm.fetus.jp/)
   - [H2O](https://h2o.examp1e.net/) mainline
 - [Remi's RPM repository](http://rpms.famillecollet.com/)
-  - `remi-safe` repository, it uses SCL mechanism
-      - PHP 8.2
-          - `php82-php-cli`
-          - `php82-php-fpm`
-          - `php82-php-gd`
-          - `php82-php-intl`
-          - `php82-php-mbstring`
-          - `php82-php-mcrypt`
-          - `php82-php-pdo`
-          - `php82-php-pecl-msgpack`
-          - `php82-php-pgsql`
-          - `php82-php-sodium`
-* [Node.js Repository](https://nodejs.org/en/download/package-manager/#enterprise-linux-and-fedora)
+  - `remi-modular` repository, with `dnf enable php:remi-8.3`
+      - PHP 8.3
+          - `composer`
+          - `php-cli`
+          - `php-fpm`
+          - `php-gd`
+          - `php-intl`
+          - `php-mbstring`
+          - `php-pdo`
+          - `php-pecl-msgpack`
+          - `php-pgsql`
+          - `php-sodium`
+- Node.js with `dnf enable nodejs:20`
     - [Node.js](https://nodejs.org/)
         - `nodejs`
-* [PostgreSQL Official Repository](https://www.postgresql.org/download/linux/redhat/)
+        - `npm`
+- [PostgreSQL Official Repository](https://www.postgresql.org/download/linux/redhat/)
     - PostgreSQL 11.x
       - `postgresql11`
       - `postgresql11-server`
-
-Notes:
-
-  - CentOS 7のデフォルトのPHPバージョンは5.4.16です。このバージョンでは動作しません。PHP 8.2までで追加された機能を利用しています。  
-    Default version of PHP on CentOS 7 is 5.4.16. This application doesn't work on it. We are using features and statements that were added up to PHP 8.2.
-
-  - CentOS 7のデフォルトのPostgreSQLバージョンは9.2.14です。このバージョンでは動作しません。PgSQL 9.5で追加された機能を利用しています（jsonb, UPSERT）。実際のシステムではPgSQL 11を利用していますが、9.5でも充分動作します。  
-    Default version of PostgreSQL on CentOS 7 is 9.2.14. This application doesn't work with it. We are using features added in PostgreSQL 9.5 (e.g., jsonb, UPSERT). We use PostgreSQL 11 in our actual system, but 9.5 will work just fine.
-
 
 ### MaxMind's Account
 
@@ -169,6 +159,8 @@ If you think you're going to make a pull request, make the change from this bran
 
 使い方 HOW TO USE (DEVELOPER)
 -----------------------------
+
+**We are switching from CentOS 7 to RockyLinux 9 and cannot set up the system in the way shown here.**
 
 ### SETUP ###
 
