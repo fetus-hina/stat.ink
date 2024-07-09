@@ -4,8 +4,8 @@ After=paths.target multi-user.target network.target network-online.target Networ
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/scl enable php82 "./yii stat/update-xpower-distrib3"
+ExecStart=./yii stat/update-xpower-distrib3
 SyslogIdentifier=statink-stats-update-xpower-distrib3
-WorkingDirectory=/home/statink/stat.ink
-User=statink
-Group=statink
+WorkingDirectory=/var/www/sites/stat.ink/app.dep/current
+User=stat.ink
+Group=stat.ink
