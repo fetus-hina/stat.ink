@@ -1,0 +1,23 @@
+{
+    "name": "statink/deploy",
+    "license": "MIT",
+    "version": "1.0.0",
+    "type": "project",
+    "authors": [
+        {
+            "name": "AIZAWA Hina",
+            "email": "hina@fetus.jp"
+        }
+    ],
+    "require": {
+        "deployer/deployer": "^7.4"
+    },
+    "require-dev": {
+        "ergebnis/composer-normalize": "^2.43"
+    },
+    "config": {
+        "allow-plugins": {
+            "ergebnis/composer-normalize": true
+        }
+    }
+}
