@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Deployer;
 
+use function escapeshellarg;
+use function vsprintf;
+
 require 'recipe/yii.php';
 
 set('repository', 'git@github.com:fetus-hina/stat.ink.git');
@@ -62,6 +65,7 @@ task('deploy:link_storages', function (): void {
             'user-json3' => '/mnt/user-json3',
         ],
         'web' => [
+            'images' => '/mnt/images',
             'profile-images' => '/mnt/profile-images',
         ],
     ];
