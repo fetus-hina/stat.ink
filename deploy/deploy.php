@@ -65,6 +65,7 @@ task('deploy:link_storages', function (): void {
             'user-json3' => '/mnt/user-json3',
         ],
         'web' => [
+            'images' => '/mnt/images',
             'profile-images' => '/mnt/profile-images',
         ],
     ];
