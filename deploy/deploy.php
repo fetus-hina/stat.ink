@@ -23,7 +23,7 @@ add('shared_files', []);
 set('bin/make', fn (): string => which('make'));
 set('bin/npm', fn (): string => which('npm'));
 set('branch', 'master');
-set('composer_options', '--verbose --prefer-dist --no-progress --no-interaction --optimize-autoloader');
+set('composer_options', '--verbose --prefer-dist --no-progress --no-interaction');
 set('http_user', '{{remote_user}}');
 set('nproc', 2);
 set('update_code_strategy', 'clone');
