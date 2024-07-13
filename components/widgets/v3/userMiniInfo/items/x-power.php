@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -11,25 +11,14 @@ declare(strict_types=1);
 namespace app\components\widgets\v3\userMiniInfo\items;
 
 use Yii;
+use app\components\helpers\TypeHelper;
+use app\components\widgets\UserMiniInfoPowerValue;
 use app\models\UserStat3XMatch;
-use yii\helpers\Html;
-
-use function preg_replace;
 
 return [
     'label' => Yii::t('app', 'X Power'),
     'format' => 'raw',
-    'value' => function (UserStat3XMatch $model): string {
-        if ($model->peak_x_power > 0) {
-            $f = Yii::$app->formatter;
-            $text = $f->asDecimal((float)$model->peak_x_power, 1);
-            return preg_replace(
-                '/[.,]\d+$/',
-                Html::tag('small', '$0', ['class' => 'text-muted']),
-                $text,
-            );
-        }
-
-        return Yii::t('app', 'N/A');
-    },
+    'value' => fn (UserStat3XMatch $model): string => UserMiniInfoPowerValue::widget([
+        'value' => TypeHelper::floatOrNull($model->peak_x_power),
+    ]),
 ];
