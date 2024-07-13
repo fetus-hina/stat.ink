@@ -141,7 +141,7 @@ if (
             'type' => 'linear',
             'ticks' => [
               'precision' => 0,
-              'stepSize' => 100,
+              'stepSize' => (int)$abstract->histogram_width,
             ],
           ],
           'y' => [
