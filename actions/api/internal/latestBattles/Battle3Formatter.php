@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -12,6 +12,7 @@ namespace app\actions\api\internal\latestBattles;
 
 use Yii;
 use app\assets\s3PixelIcons\LobbyIconAsset;
+use app\assets\s3PixelIcons\ModeBackgroundAsset;
 use app\assets\s3PixelIcons\RuleIconAsset;
 use app\components\helpers\TypeHelper;
 use app\models\Battle3;
@@ -55,14 +56,25 @@ trait Battle3Formatter
             );
         }
 
-        if (ArrayHelper::getValue(Yii::$app->params, 'useS3ImgGen')) {
-            $rule = $model->rule;
-            if ($rule && $rule->key !== 'tricolor') {
-                return vsprintf('https://s3-img-gen.stats.ink/results/%s/%s.jpg', [
-                    rawurlencode(Yii::$app->language),
-                    rawurlencode($model->uuid),
-                ]);
-            }
+        $rule = $model->rule;
+        if (
+            $rule &&
+            $rule->key !== 'tricolor' &&
+            ArrayHelper::getValue(Yii::$app->params, 'useS3ImgGen')
+        ) {
+            return vsprintf('https://s3-img-gen.stats.ink/results/%s/%s.jpg', [
+                rawurlencode(Yii::$app->language),
+                rawurlencode($model->uuid),
+            ]);
+        }
+
+        $lobby = $model->lobby;
+        if ($lobby) {
+            $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
+            return $am->getAssetUrl(
+                $am->getBundle(ModeBackgroundAsset::class),
+                "{$lobby->key}.png",
+            );
         }
 
         return null;

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace app\actions\api\internal\latestBattles;
 
 use Yii;
+use app\assets\s3PixelIcons\ModeBackgroundAsset;
 use app\assets\s3PixelIcons\SalmonModeIconAsset;
 use app\components\helpers\TypeHelper;
 use app\models\Salmon3;
@@ -135,7 +136,11 @@ trait Salmon3Formatter
             ]);
         }
 
-        return null;
+        $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
+        return $am->getAssetUrl(
+            $am->getBundle(ModeBackgroundAsset::class),
+            "salmon.png",
+        );
     }
 
     private function salmonStage3(Salmon3 $battle): ?array
