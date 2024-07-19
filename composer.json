@@ -50,7 +50,7 @@
     "statink/yii2-twitter-webintents": "^1.0.2",
     "symfony/yaml": "^6.4.8 || ^7.0.0",
     "twbs/bootstrap-icons": "^1.11.3",
-    "yiisoft/yii2": "^2.0.50",
+    "yiisoft/yii2": "^2.0.51",
     "yiisoft/yii2-bootstrap": "^2.0.11",
     "yiisoft/yii2-httpclient": "^2.0.15",
     "yiisoft/yii2-queue": "^2.3.7",
