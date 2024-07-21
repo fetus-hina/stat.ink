@@ -16,12 +16,14 @@ return [
     $cloutBefore = $model->clout_before;
     $cloutAfter = $model->clout_after;
     $cloutChange = $model->clout_change;
+    $conchClash = $model->conchClash;
 
     if (
       $festDragon === null &&
       $cloutBefore === null &&
       $cloutAfter === null &&
-      $cloutChange === null
+      $cloutChange === null &&
+      $conchClash === null
     ) {
       return null;
     }
@@ -59,6 +61,17 @@ return [
           ]),
         );
       }
+    }
+
+    if ($conchClash) {
+      $parts[] = Label::widget([
+        'content' => Yii::t('app-conch-clash3', $conchClash->name),
+        'color' => match ($conchClash->key) {
+          '33x' => 'danger',
+          '10x' => 'warning',
+          default => 'default',
+        },
+      ]);
     }
 
     return implode(' ', $parts);

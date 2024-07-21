@@ -15,6 +15,7 @@ return [
         'app-apidoc2' => 'apidoc2.php',
         'app-brand' => 'brand.php',
         'app-brand2' => 'brand2.php',
+        'app-conch-clash3' => 'conch-clash3.php',
         'app-cookie' => 'cookie.php',
         'app-counter' => 'counter.php',
         'app-death' => 'death.php',
