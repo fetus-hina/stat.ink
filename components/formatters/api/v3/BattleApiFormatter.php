@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -93,6 +93,7 @@ final class BattleApiFormatter
             'bankara_power_after' => self::formatPower($model->bankara_power_after),
             'fest_power' => self::formatPower($model->fest_power),
             'fest_dragon' => DragonMatchApiFormatter::toJson($model->festDragon, $fullTranslate),
+            'conch_clash' => ConchClashApiFormatter::toJson($model->conchClash, $fullTranslate),
             'clout_before' => $model->clout_before,
             'clout_after' => $model->clout_after,
             'clout_change' => $model->clout_change,

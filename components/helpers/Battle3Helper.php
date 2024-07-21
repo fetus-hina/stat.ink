@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -31,6 +31,7 @@ final class Battle3Helper
                 'battleImageGear3',
                 'battleImageJudge3',
                 'battleImageResult3',
+                'conchClash',
                 'festDragon',
                 'lobby',
                 'map',

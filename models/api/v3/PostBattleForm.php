@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -29,6 +29,7 @@ use app\models\BattleImageGear3;
 use app\models\BattleImageJudge3;
 use app\models\BattleImageResult3;
 use app\models\BattleMedal3;
+use app\models\ConchClash3;
 use app\models\DragonMatch3;
 use app\models\DragonMatch3Alias;
 use app\models\Lobby3;
@@ -129,6 +130,7 @@ final class PostBattleForm extends Model
     public $x_power_after;
     public $fest_power;
     public $fest_dragon;
+    public $conch_clash;
     public $bankara_power_before;
     public $bankara_power_after;
     public $clout_before;
@@ -195,6 +197,7 @@ final class PostBattleForm extends Model
             [['private_note', 'link_url', 'agent', 'agent_version', 'event'], 'string'],
             [['our_team_role', 'their_team_role', 'third_team_role'], 'string'],
             [['our_team_theme', 'their_team_theme', 'third_team_theme'], 'string'],
+            [['fest_dragon', 'conch_clash'], 'string'],
 
             [['uuid'], 'match', 'pattern' => UuidRegexp::get(true)],
             [['result'], 'in', 'range' => [
@@ -278,6 +281,9 @@ final class PostBattleForm extends Model
             [['fest_dragon'], KeyValidator::class,
                 'modelClass' => DragonMatch3::class,
                 'aliasClass' => DragonMatch3Alias::class,
+            ],
+            [['conch_clash'], KeyValidator::class,
+                'modelClass' => ConchClash3::class,
             ],
             [['rank_before', 'rank_after'], KeyValidator::class, 'modelClass' => Rank3::class],
             [['our_team_role', 'their_team_role', 'third_team_role'], KeyValidator::class,
@@ -538,6 +544,7 @@ final class PostBattleForm extends Model
                 )
                 : null,
             'event_power' => self::powerVal($this->event_power),
+            'conch_clash_id' => self::key2id($this->conch_clash, ConchClash3::class),
         ]);
 
         // kill+assistが不明でkillとassistがわかっている
