@@ -22,11 +22,12 @@ final class m240726_124057_played_with extends Migration
                 'user_id' => $this->pkRef('user')->notNull(),
                 'name' => $this->string(10)->notNull(),
                 'number' => $this->string(32)->notNull(),
-                'ref_id' => $this->string(20)->notNull()->unique(),
+                'ref_id' => $this->char(32)->notNull(),
                 'count' => $this->bigInteger()->notNull(),
                 'disconnect' => $this->bigInteger()->notNull(),
 
                 'PRIMARY KEY ([[user_id]], [[name]], [[number]])',
+                'UNIQUE ([[user_id]], [[ref_id]])',
             ]);
         }
 

@@ -39,9 +39,8 @@ class Battle3PlayedWith extends ActiveRecord
             [['user_id', 'count', 'disconnect'], 'default', 'value' => null],
             [['user_id', 'count', 'disconnect'], 'integer'],
             [['name'], 'string', 'max' => 10],
-            [['number'], 'string', 'max' => 32],
-            [['ref_id'], 'string', 'max' => 20],
-            [['ref_id'], 'unique'],
+            [['number', 'ref_id'], 'string', 'max' => 32],
+            [['user_id', 'ref_id'], 'unique', 'targetAttribute' => ['user_id', 'ref_id']],
             [['user_id', 'name', 'number'], 'unique', 'targetAttribute' => ['user_id', 'name', 'number']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
