@@ -8,7 +8,6 @@
 
 namespace app\models\api\v3;
 
-use JsonException;
 use Throwable;
 use Yii;
 use app\components\behaviors\TrimAttributesBehavior;
@@ -67,7 +66,6 @@ use function in_array;
 use function is_array;
 use function is_int;
 use function is_string;
-use function json_decode;
 use function rtrim;
 use function strtolower;
 use function strtotime;
@@ -75,8 +73,6 @@ use function substr;
 use function time;
 use function trim;
 use function vsprintf;
-
-use const JSON_THROW_ON_ERROR;
 
 /**
  * @property-read Battle3|null $sameBattle
