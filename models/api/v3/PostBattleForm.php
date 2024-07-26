@@ -859,20 +859,6 @@ final class PostBattleForm extends Model
         }
     }
 
-    private static function isValidJson(string $maybeJson): bool
-    {
-        try {
-            @json_decode(
-                $maybeJson,
-                associative: true,
-                flags: JSON_THROW_ON_ERROR,
-            );
-            return true;
-        } catch (JsonException $e) {
-            return false;
-        }
-    }
-
     private static function now(): Now
     {
         return Yii::createObject(Now::class);
