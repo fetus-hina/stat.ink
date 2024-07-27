@@ -16,9 +16,12 @@ use app\models\Salmon3;
 use app\models\User;
 use yii\console\Controller;
 
+use function filter_var;
 use function fprintf;
 use function fwrite;
+use function is_int;
 
+use const FILTER_VALIDATE_INT;
 use const STDERR;
 
 final class UserPlayedWith3Controller extends Controller
