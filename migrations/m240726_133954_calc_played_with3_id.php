@@ -35,7 +35,7 @@ final class m240726_133954_calc_played_with3_id extends Migration
                 'PARALLEL SAFE',
             ]),
             $db->quoteValue(
-                "SELECT LEFT(ENCODE(SHA256(JSONB_BUILD_ARRAY(\$1, \$2)::text::bytea), 'hex'), 32)",
+                "SELECT LEFT(ENCODE(SHA256((\$1 || ' #' || \$2)::bytea), 'hex'), 32)",
             ),
         ]);
         $this->execute($sql);
