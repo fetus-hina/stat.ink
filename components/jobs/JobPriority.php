@@ -19,8 +19,10 @@ trait JobPriority
     public static function getJobPriority(): int
     {
         return match (static::class) {
+            BattlePlayedWith3Job::class => self::lowerPriority(100),
             S3ImgGenPrefetchJob::class => self::lowerPriority(10),
             SalmonExportJson3Job::class => self::lowerPriority(1),
+            SalmonPlayedWith3Job::class => self::lowerPriority(100),
             SlackJob::class => self::higherPriority(3),
             UserExportJson3Job::class => self::lowerPriority(1),
             UserStatsJob::class => self::higherPriority(1),

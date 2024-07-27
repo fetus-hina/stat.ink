@@ -6,6 +6,7 @@ use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\Icon;
 use app\models\Abilities3;
 use app\models\Battle3;
+use app\models\Battle3PlayedWith;
 use app\models\BattlePlayer3;
 use app\models\BattleTricolorPlayer3;
 use app\models\XMatchingGroup3;
@@ -22,6 +23,7 @@ use yii\web\View;
  * @var array<BattlePlayer3|BattleTricolorPlayer3> $thirdTeamPlayers
  * @var array<string, Ability3> $abilities
  * @var array<string, XMatchingGroup3> $weaponMatchingGroup
+ * @var array<string, array<int|string, Battle3PlayedWith>> $playedWith
  * @var bool $ourTeamFirst
  */
 
@@ -73,6 +75,7 @@ $isTricolor = $battle->rule?->key === 'tricolor';
         'isTricolor' => $isTricolor,
         'isXmatch' => $isXmatch,
         'ourTeam' => true,
+        'playedWith' => $playedWith,
         'players' => $ourTeamPlayers,
         'role' => $battle->ourTeamRole,
         'theme' => $battle->ourTeamTheme,
@@ -84,6 +87,7 @@ $isTricolor = $battle->rule?->key === 'tricolor';
         'isTricolor' => $isTricolor,
         'isXmatch' => $isXmatch,
         'ourTeam' => false,
+        'playedWith' => $playedWith,
         'players' => $theirTeamPlayers,
         'role' => $battle->theirTeamRole,
         'theme' => $battle->theirTeamTheme,
@@ -96,6 +100,7 @@ $isTricolor = $battle->rule?->key === 'tricolor';
         'isTricolor' => $isTricolor,
         'isXmatch' => $isXmatch,
         'ourTeam' => false,
+        'playedWith' => $playedWith,
         'players' => $thirdTeamPlayers,
         'role' => $battle->thirdTeamRole,
         'theme' => $battle->thirdTeamTheme,
@@ -110,6 +115,7 @@ $isTricolor = $battle->rule?->key === 'tricolor';
         'isTricolor' => $isTricolor,
         'isXmatch' => $isXmatch,
         'ourTeam' => true,
+        'playedWith' => $playedWith,
         'players' => $thirdTeamPlayers,
         'role' => $battle->thirdTeamRole,
         'theme' => $battle->thirdTeamTheme,
@@ -122,6 +128,7 @@ $isTricolor = $battle->rule?->key === 'tricolor';
         'isTricolor' => $isTricolor,
         'isXmatch' => $isXmatch,
         'ourTeam' => false,
+        'playedWith' => $playedWith,
         'players' => $theirTeamPlayers,
         'role' => $battle->theirTeamRole,
         'theme' => $battle->theirTeamTheme,
@@ -133,6 +140,7 @@ $isTricolor = $battle->rule?->key === 'tricolor';
         'isTricolor' => $isTricolor,
         'isXmatch' => $isXmatch,
         'ourTeam' => true,
+        'playedWith' => $playedWith,
         'players' => $ourTeamPlayers,
         'role' => $battle->ourTeamRole,
         'theme' => $battle->ourTeamTheme,

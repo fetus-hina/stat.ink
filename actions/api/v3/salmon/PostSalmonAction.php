@@ -14,6 +14,7 @@ use Yii;
 use app\actions\api\v3\traits\ApiInitializerTrait;
 use app\components\formatters\api\v3\SalmonApiFormatter;
 use app\components\jobs\S3ImgGenPrefetchJob;
+use app\components\jobs\SalmonPlayedWith3Job;
 use app\models\Salmon3;
 use app\models\api\v3\PostSalmonForm;
 use yii\base\Action;
@@ -116,6 +117,9 @@ final class PostSalmonAction extends Action
         if (!$user) {
             return;
         }
+
+        // 一緒に遊んだプレイヤー
+        SalmonPlayedWith3Job::pushQueue($user, $battle);
 
         // Slack 投稿
         // if ($user->isSlackIntegrated) {

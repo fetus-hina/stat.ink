@@ -5,6 +5,7 @@ declare(strict_types=1);
 use app\components\helpers\Battle3Helper;
 use app\models\Ability3;
 use app\models\Battle3;
+use app\models\Battle3PlayedWith;
 use app\models\BattlePlayer3;
 use app\models\BattleTricolorPlayer3;
 use yii\helpers\ArrayHelper;
@@ -20,6 +21,7 @@ $allPlayers = match ($model->rule?->key) {
     ->with(
       ArrayHelper::toFlatten([
         [
+            'crown',
             'species',
             'splashtagTitle',
             'weapon',
@@ -45,6 +47,7 @@ $allPlayers = match ($model->rule?->key) {
     ->with(
       ArrayHelper::toFlatten([
         [
+            'crown',
             'species',
             'splashtagTitle',
             'weapon',
@@ -98,12 +101,55 @@ $abilities = ArrayHelper::map(
   fn (Ability3 $v): Ability3 => $v,
 );
 
+$tmpCount = count(
+  array_filter(
+    $allPlayers,
+    fn (BattlePlayer3|BattleTricolorPlayer3 $p): bool => !$p->is_me &&
+      $p->name !== null &&
+      $p->number !== null,
+  ),
+);
+
+/**
+ * @var array<string, array<int|string, Battle3PlayedWith>> $playedWith
+ */
+$playedWith = [];
+if ($tmpCount > 0) {
+  $playedWith = ArrayHelper::index(
+    Battle3PlayedWith::find()
+      ->andWhere(['user_id' => $model->user_id])
+      ->andWhere(
+        array_merge(
+          ['or'],
+          array_map(
+            fn (BattlePlayer3|BattleTricolorPlayer3 $p): array => [
+              'name' => $p->name,
+              'number' => $p->number,
+            ],
+            array_filter(
+              $allPlayers,
+              fn (BattlePlayer3|BattleTricolorPlayer3 $p): bool => !$p->is_me &&
+                $p->name !== null &&
+                $p->number !== null,
+            ),
+          ),
+        ),
+      )
+      ->limit(7)
+      ->all(),
+    'number',
+    'name',
+  );
+}
+unset($tmpCount);
+
 $result = $model->result;
 echo $this->render('//show-v3/battle/players/players', [
   'abilities' => $abilities,
   'battle' => $model,
   'ourTeamFirst' => !$result || $result->is_win !== false,
   'ourTeamPlayers' => $filterPlayers($allPlayers, true, 1),
+  'playedWith' => $playedWith,
   'theirTeamPlayers' => $filterPlayers($allPlayers, false, 2),
   'thirdTeamPlayers' => $filterPlayers($allPlayers, false, 3),
   'weaponMatchingGroup' => Battle3Helper::getWeaponMatchingGroup($model),

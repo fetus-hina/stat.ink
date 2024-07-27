@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use app\models\Ability3;
+use app\models\Battle3PlayedWith;
 use app\models\BattlePlayer3;
 use app\models\BattleTricolorPlayer3;
 use app\models\Splatfest3Theme;
@@ -18,6 +19,7 @@ use yii\web\View;
  * @var array<BattlePlayer3|BattleTricolorPlayer3> $players
  * @var array<string, Ability3> $abilities
  * @var array<string, XMatchingGroup3> $weaponMatchingGroup
+ * @var array<string, array<int|string, Battle3PlayedWith>> $playedWith
  * @var bool $isTricolor
  * @var bool $isXmatch
  * @var bool $ourTeam
@@ -97,6 +99,7 @@ foreach (array_values($players) as $i => $player) {
     'isTricolor' => $isTricolor,
     'isXmatch' => $isXmatch,
     'nPlayers' => count($players),
+    'playedWith' => $playedWith,
     'player' => $player,
     'weaponMatchingGroup' => $weaponMatchingGroup,
   ]) . "\n";
