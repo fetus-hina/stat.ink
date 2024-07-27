@@ -13,6 +13,7 @@ namespace app\actions\api\v3;
 use Yii;
 use app\actions\api\v3\traits\ApiInitializerTrait;
 use app\components\formatters\api\v3\BattleApiFormatter;
+use app\components\jobs\BattlePlayedWith3Job;
 use app\components\jobs\S3ImgGenPrefetchJob;
 use app\components\jobs\SlackJob;
 use app\models\Battle3;
@@ -164,6 +165,9 @@ final class PostBattleAction extends Action
         if (!$user) {
             return;
         }
+
+        // 一緒に遊んだプレイヤー
+        BattlePlayedWith3Job::pushQueue($user, $battle);
 
         // Slack 投稿
         if ($user->isSlackIntegrated) {
