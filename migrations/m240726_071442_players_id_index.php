@@ -20,7 +20,7 @@ final class m240726_071442_players_id_index extends Migration
     public function up()
     {
         $db = TypeHelper::instanceOf($this->db, Connection::class);
-        foreach (['battle_player3', 'salmon_player3'] as $tableName) {
+        foreach (['battle_player3', 'battle_tricolor_player3', 'salmon_player3'] as $tableName) {
             $this->execute(
                 vsprintf('CREATE INDEX CONCURRENTLY %s ON %s (%s) WHERE ((%s))', [
                     $db->quoteColumnName("{$tableName}_name_number"),
@@ -50,6 +50,7 @@ final class m240726_071442_players_id_index extends Migration
     public function down()
     {
         $this->execute('DROP INDEX CONCURRENTLY [[battle_player3_name_number]]');
+        $this->execute('DROP INDEX CONCURRENTLY [[battle_tricolor_player3_name_number]]');
         $this->execute('DROP INDEX CONCURRENTLY [[salmon_player3_name_number]]');
 
         return true;
@@ -62,6 +63,7 @@ final class m240726_071442_players_id_index extends Migration
     {
         return [
             '{{%battle_player3}}',
+            '{{%battle_tricolor_player3}}',
             '{{%salmon_player3}}',
         ];
     }
