@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace app\components\helpers\userPlayedWith3;
 
 use app\models\Battle3;
+use app\models\Salmon3;
 use app\models\User;
 use yii\db\Connection;
 use yii\db\Query;
@@ -23,7 +24,8 @@ use function vsprintf;
 
 trait UpdateTrait
 {
-    private static function updateBattleImpl(Connection $db, User $user, ?Battle3 $battle): void
+    // TODO: tricolor
+    private static function updateBattleImpl(Connection $db, User $user, ?Battle3 $battle): true
     {
         $select = (new Query())
             ->select([
@@ -52,7 +54,25 @@ trait UpdateTrait
             ]);
 
         if ($battle) {
-            $select->andWhere(['{{%battle3}}.[[id]]' => $battle->id]);
+            $subQuery = (new Query())
+                ->select(['name', 'number'])
+                ->from('{{%battle_player3}}')
+                ->andWhere([
+                    '{{%battle_player3}}.[[battle_id]]' => $battle->id,
+                    '{{%battle_player3}}.[[is_me]]' => false,
+                ])
+                ->andWhere(['and',
+                    ['not', ['{{%battle_player3}}.[[name]]' => null]],
+                    ['not', ['{{%battle_player3}}.[[number]]' => null]],
+                ]);
+
+            $select->innerJoin(
+                ['tTargetPlayers' => $subQuery],
+                implode(' AND ', [
+                    '{{%battle_player3}}.[[name]] = {{tTargetPlayers}}.[[name]]',
+                    '{{%battle_player3}}.[[number]] = {{tTargetPlayers}}.[[number]]',
+                ]),
+            );
         }
 
         $sql = vsprintf('INSERT INTO %s (%s) %s ON CONFLICT ON CONSTRAINT %s DO UPDATE SET %s', [
@@ -76,9 +96,11 @@ trait UpdateTrait
         ]);
 
         $db->createCommand($sql)->execute();
+
+        return true;
     }
 
-    private static function updateSalmonImpl(Connection $db, User $user, ?Salmon3 $salmon): void
+    private static function updateSalmonImpl(Connection $db, User $user, ?Salmon3 $salmon): bool
     {
         $select = (new Query())
             ->select([
@@ -107,7 +129,25 @@ trait UpdateTrait
             ]);
 
         if ($salmon) {
-            $select->andWhere(['{{%salmon3}}.[[id]]' => $salmon->id]);
+            $subQuery = (new Query())
+                ->select(['name', 'number'])
+                ->from('{{%salmon_player3}}')
+                ->andWhere([
+                    '{{%salmon_player3}}.[[salmon_id]]' => $salmon->id,
+                    '{{%salmon_player3}}.[[is_me]]' => false,
+                ])
+                ->andWhere(['and',
+                    ['not', ['{{%salmon_player3}}.[[name]]' => null]],
+                    ['not', ['{{%salmon_player3}}.[[number]]' => null]],
+                ]);
+
+            $select->innerJoin(
+                ['tTargetPlayers' => $subQuery],
+                implode(' AND ', [
+                    '{{%salmon_player3}}.[[name]] = {{tTargetPlayers}}.[[name]]',
+                    '{{%salmon_player3}}.[[number]] = {{tTargetPlayers}}.[[number]]',
+                ]),
+            );
         }
 
         $sql = vsprintf('INSERT INTO %s (%s) %s ON CONFLICT ON CONSTRAINT %s DO UPDATE SET %s', [
@@ -131,5 +171,7 @@ trait UpdateTrait
         ]);
 
         $db->createCommand($sql)->execute();
+
+        return true;
     }
 }

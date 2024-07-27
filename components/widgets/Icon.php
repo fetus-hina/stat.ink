@@ -120,6 +120,7 @@ use function str_starts_with;
  * @method static string octoling()
  * @method static string ok()
  * @method static string permalink()
+ * @method static string playedWithHistory()
  * @method static string popup()
  * @method static string powerEgg()
  * @method static string prevPage()
@@ -296,6 +297,7 @@ final class Icon
         'appLink' => 'link',
         'appUnlink' => 'unlink',
         'hasDisconnected' => 'tint-slash',
+        'playedWithHistory' => 'history',
     ];
 
     /**

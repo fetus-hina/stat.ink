@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 use app\components\widgets\Icon;
 use app\models\Ability3;
+use app\models\Battle3PlayedWith;
 use app\models\BattlePlayer3;
 use app\models\BattleTricolorPlayer3;
 use app\models\XMatchingGroup3;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\View;
 
@@ -15,6 +17,7 @@ use yii\web\View;
  * @var View $this
  * @var array<string, Ability3> $abilities
  * @var array<string, XMatchingGroup3> $weaponMatchingGroup
+ * @var array<string, array<int|string, Battle3PlayedWith>> $playedWith
  * @var bool $isFirst
  * @var bool $isTricolor
  * @var bool $isXmatch
@@ -44,7 +47,12 @@ if ($player->is_me) {
       ]),
     ],
   ) . "\n" ?>
-  <td><?= $this->render('player/name', compact('player')) ?></td>
+  <td>
+    <?= $this->render('player/name', [
+      'player' => $player,
+      'history' => ArrayHelper::getValue($playedWith, [$player->name, $player->number], null),
+    ]) . "\n" ?>
+  </td>
   <?= Html::tag(
     'td',
     Html::tag(
