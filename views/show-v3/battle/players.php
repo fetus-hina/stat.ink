@@ -21,6 +21,7 @@ $allPlayers = match ($model->rule?->key) {
     ->with(
       ArrayHelper::toFlatten([
         [
+            'crown',
             'species',
             'splashtagTitle',
             'weapon',
@@ -46,6 +47,7 @@ $allPlayers = match ($model->rule?->key) {
     ->with(
       ArrayHelper::toFlatten([
         [
+            'crown',
             'species',
             'splashtagTitle',
             'weapon',
