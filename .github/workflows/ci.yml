@@ -323,15 +323,11 @@ jobs:
             experimental: false
           -
             version: '8.3'
-            experimental: true
+            experimental: false
           -
             version: '8.4'
             experimental: true
         pgsql:
-          -
-            version: '9.5'
-            experimental: false
-            image: 9.5-alpine
           -
             version: '11'
             experimental: false
