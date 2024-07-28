@@ -453,6 +453,7 @@ return [
     'Peak' => 'Record',
     'Period' => 'Période',
     'Permalink' => 'Permalien',
+    'Played With' => '',
     'Player Distribution' => '',
     'Players' => 'Joueurs',
     'Players:' => 'Joueurs :',

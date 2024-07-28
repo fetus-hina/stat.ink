@@ -452,6 +452,7 @@ return [
     'Peak' => '최고',
     'Period' => '기간',
     'Permalink' => '고유 링크',
+    'Played With' => '',
     'Player Distribution' => '',
     'Players' => '플레이어',
     'Players:' => '플레이어:',

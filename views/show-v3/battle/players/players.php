@@ -71,6 +71,7 @@ $isTricolor = $battle->rule?->key === 'tricolor';
 <?php if ($ourTeamFirst) { ?>
       <?= $this->render('//show-v3/battle/players/team', [
         'abilities' => $abilities,
+        'battle' => $battle,
         'color' => $battle->our_team_color,
         'isTricolor' => $isTricolor,
         'isXmatch' => $isXmatch,
@@ -83,6 +84,7 @@ $isTricolor = $battle->rule?->key === 'tricolor';
       ]) . "\n" ?>
       <?= $this->render('//show-v3/battle/players/team', [
         'abilities' => $abilities,
+        'battle' => $battle,
         'color' => $battle->their_team_color,
         'isTricolor' => $isTricolor,
         'isXmatch' => $isXmatch,
@@ -96,6 +98,7 @@ $isTricolor = $battle->rule?->key === 'tricolor';
 <?php if ($isTricolor) { ?>
       <?= $this->render('//show-v3/battle/players/team', [
         'abilities' => $abilities,
+        'battle' => $battle,
         'color' => $battle->third_team_color,
         'isTricolor' => $isTricolor,
         'isXmatch' => $isXmatch,
@@ -111,6 +114,7 @@ $isTricolor = $battle->rule?->key === 'tricolor';
 <?php if ($isTricolor) { ?>
       <?= $this->render('//show-v3/battle/players/team', [
         'abilities' => $abilities,
+        'battle' => $battle,
         'color' => $battle->third_team_color,
         'isTricolor' => $isTricolor,
         'isXmatch' => $isXmatch,
@@ -124,6 +128,7 @@ $isTricolor = $battle->rule?->key === 'tricolor';
 <?php } ?>
       <?= $this->render('//show-v3/battle/players/team', [
         'abilities' => $abilities,
+        'battle' => $battle,
         'color' => $battle->their_team_color,
         'isTricolor' => $isTricolor,
         'isXmatch' => $isXmatch,
@@ -136,6 +141,7 @@ $isTricolor = $battle->rule?->key === 'tricolor';
       ]) . "\n" ?>
       <?= $this->render('//show-v3/battle/players/team', [
         'abilities' => $abilities,
+        'battle' => $battle,
         'color' => $battle->our_team_color,
         'isTricolor' => $isTricolor,
         'isXmatch' => $isXmatch,

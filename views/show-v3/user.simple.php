@@ -135,7 +135,11 @@ OgpHelper::profileV3($this, $user, $permLink);
       <?php Pjax::end(); echo "\n" ?>
     </div>
     <div class="col-xs-12 col-sm-4 col-lg-3">
-      <?= Battle3FilterWidget::widget(['filter' => $filter, 'user' => $user]) . "\n" ?>
+      <?= Battle3FilterWidget::widget([
+        'filter' => $filter,
+        'playedWith' => true,
+        'user' => $user,
+      ]) . "\n" ?>
       <?= UserMiniInfo3::widget(['user' => $user]) . "\n" ?>
       <?= AdWidget::widget() . "\n" ?>
     </div>

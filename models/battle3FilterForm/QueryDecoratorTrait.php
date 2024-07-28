@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -18,6 +18,7 @@ use Throwable;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
 use app\models\Battle3FilterForm;
+use app\models\Battle3PlayedWith;
 use app\models\Lobby3;
 use app\models\LobbyGroup3;
 use app\models\Mainweapon3;
@@ -28,6 +29,7 @@ use app\models\RuleGroup3;
 use app\models\Season3;
 use app\models\Special3;
 use app\models\Subweapon3;
+use app\models\User;
 use app\models\Weapon3;
 use app\models\WeaponType3;
 use yii\db\ActiveQuery;
@@ -49,7 +51,7 @@ use const FILTER_VALIDATE_INT;
 
 trait QueryDecoratorTrait
 {
-    public function decorateQuery(ActiveQuery $query): void
+    public function decorateQuery(ActiveQuery $query, ?User $user = null): void
     {
         if ($this->hasErrors()) {
             Yii::warning('This form has errors', __METHOD__);
@@ -71,6 +73,7 @@ trait QueryDecoratorTrait
         $this->decorateResultFilter($query, $this->result);
         $this->decorateKnockoutFilter($query, $this->knockout);
         $this->decorateTermFilter($query, $this->term);
+        $this->decoratePlayedWithFilter($query, $this->played_with, $user);
     }
 
     private function decorateLobbyFilter(ActiveQuery $query, ?string $key): void
@@ -347,6 +350,54 @@ trait QueryDecoratorTrait
         } catch (Throwable $e) {
             return null;
         }
+    }
+
+    private function decoratePlayedWithFilter(ActiveQuery $query, ?string $value, ?User $user): void
+    {
+        if (!is_string($value) || $value === '' || !$user) {
+            return;
+        }
+
+        $model = Battle3PlayedWith::find()
+            ->andWhere([
+                'ref_id' => $value,
+                'user_id' => $user->id,
+            ])
+            ->limit(1)
+            ->one();
+
+        if (!$model) {
+            $query->andWhere('1 <> 1');
+            return;
+        }
+
+        $query->leftJoin(
+            ['with_players1' => '{{%battle_player3}}'],
+            ['and',
+                '{{%battle3}}.[[id]] = {{with_players1}}.[[battle_id]]',
+                [
+                    '{{with_players1}}.[[is_me]]' => false,
+                    '{{with_players1}}.[[name]]' => $model->name,
+                    '{{with_players1}}.[[number]]' => $model->number,
+                ],
+            ],
+        );
+        $query->leftJoin(
+            ['with_players2' => '{{%battle_tricolor_player3}}'],
+            ['and',
+                '{{%battle3}}.[[id]] = {{with_players2}}.[[battle_id]]',
+                [
+                    '{{with_players2}}.[[is_me]]' => false,
+                    '{{with_players2}}.[[name]]' => $model->name,
+                    '{{with_players2}}.[[number]]' => $model->number,
+                ],
+            ],
+        );
+        $query->andWhere([
+            'or',
+            ['not', ['{{with_players1}}.[[id]]' => null]],
+            ['not', ['{{with_players2}}.[[id]]' => null]],
+        ]);
     }
 
     /**

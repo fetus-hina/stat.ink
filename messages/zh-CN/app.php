@@ -453,6 +453,7 @@ return [
     'Peak' => '巅峰',
     'Period' => '期间',
     'Permalink' => '永久链接',
+    'Played With' => '',
     'Player Distribution' => '',
     'Players' => '玩家',
     'Players:' => '玩家：',

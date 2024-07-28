@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -12,6 +12,7 @@ namespace app\components\widgets;
 
 use Yii;
 use app\models\Battle3FilterForm;
+use app\models\Battle3PlayedWith;
 use app\models\User;
 use jp3cki\yii2\datetimepicker\BootstrapDateTimePickerAsset;
 use yii\base\Widget;
@@ -44,6 +45,7 @@ final class Battle3FilterWidget extends Widget
     public bool $knockout = true;
     public bool $connectivity = false; // not impl. yet
     public bool $term = true;
+    public bool $playedWith = false;
     // public bool $filterText = false;
     // public bool $withTeam = false;
     public string $action = 'search'; // search or summarize
@@ -96,6 +98,7 @@ final class Battle3FilterWidget extends Widget
             $this->drawResult($form, $filter),
             $this->drawKnockout($form, $filter),
             $this->drawTerm($form, $filter),
+            $this->drawPlayedWith($form, $filter),
             $this->drawActionButton($this->action),
         ]);
     }
@@ -291,6 +294,30 @@ final class Battle3FilterWidget extends Widget
                 'id' => $divId,
                 'class' => 'ml-3',
             ],
+        );
+    }
+
+    private function drawPlayedWith(ActiveForm $form, Battle3FilterForm $filter): string
+    {
+        if (!$this->playedWith) {
+            return '';
+        }
+
+        return (string)self::disableClientValidation(
+            $form
+                ->field($filter, 'played_with')
+                ->dropDownList(
+                    ...$filter->getPlayedWithDropdown(
+                        $this->user,
+                        $filter->played_with && !$filter->hasErrors('played_with')
+                            ? Battle3PlayedWith::findOne([
+                                'user_id' => $this->user->id,
+                                'ref_id' => $filter->played_with,
+                            ])
+                            : null,
+                    ),
+                )
+                ->label(false),
         );
     }
 
