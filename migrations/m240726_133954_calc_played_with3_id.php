@@ -20,7 +20,6 @@ final class m240726_133954_calc_played_with3_id extends Migration
     public function safeUp()
     {
         $db = TypeHelper::instanceOf($this->db, Connection::class);
-        $pgsqlVersion = $db->createCommand('SHOW SERVER_VERSION')->queryScalar();
 
         $sql = vsprintf('CREATE FUNCTION %s (%s) RETURNS CHAR(32) %s AS %s', [
             $db->quoteColumnName('calc_played_with3_id'),
@@ -28,19 +27,13 @@ final class m240726_133954_calc_played_with3_id extends Migration
                 'IN ' . $db->quoteColumnName('name') . ' TEXT',
                 'IN ' . $db->quoteColumnName('number') . ' TEXT',
             ]),
-            implode(
-                ' ',
-                array_filter(
-                    [
-                        'LANGUAGE SQL',
-                        'IMMUTABLE',
-                        'RETURNS NULL ON NULL INPUT',
-                        'SECURITY INVOKER',
-                        version_compare($pgsqlVersion, '9.6.0', '>=') ? 'PARALLEL SAFE' : null,
-                    ],
-                    fn (?string $v): bool => $v !== null,
-                ),
-            ),
+            implode(' ', [
+                'LANGUAGE SQL',
+                'IMMUTABLE',
+                'RETURNS NULL ON NULL INPUT',
+                'SECURITY INVOKER',
+                'PARALLEL SAFE',
+            ]),
             $db->quoteValue(
                 "SELECT LEFT(ENCODE(SHA256((\$1 || ' #' || \$2)::bytea), 'hex'), 32)",
             ),
