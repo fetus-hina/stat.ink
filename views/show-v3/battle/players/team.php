@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use app\models\Ability3;
+use app\models\Battle3;
 use app\models\Battle3PlayedWith;
 use app\models\BattlePlayer3;
 use app\models\BattleTricolorPlayer3;
@@ -13,6 +14,7 @@ use yii\helpers\Html;
 use yii\web\View;
 
 /**
+ * @var Battle3 $battle
  * @var Splatfest3Theme|null $theme
  * @var TricolorRole3|null $role
  * @var View $this
@@ -94,6 +96,7 @@ if ($colorClass) {
 foreach (array_values($players) as $i => $player) {
   echo $this->render('//show-v3/battle/players/player', [
     'abilities' => $abilities,
+    'battle' => $battle,
     'colorClass' => $colorClass,
     'isFirst' => $i === 0,
     'isTricolor' => $isTricolor,

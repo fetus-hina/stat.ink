@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use app\components\widgets\Icon;
 use app\models\Ability3;
+use app\models\Battle3;
 use app\models\Battle3PlayedWith;
 use app\models\BattlePlayer3;
 use app\models\BattleTricolorPlayer3;
@@ -13,6 +14,7 @@ use yii\helpers\Html;
 use yii\web\View;
 
 /**
+ * @var Battle3 $battle
  * @var BattlePlayer3|BattleTricolorPlayer3 $player
  * @var View $this
  * @var array<string, Ability3> $abilities
@@ -49,8 +51,9 @@ if ($player->is_me) {
   ) . "\n" ?>
   <td>
     <?= $this->render('player/name', [
-      'player' => $player,
+      'battle' => $battle,
       'history' => ArrayHelper::getValue($playedWith, [$player->name, $player->number], null),
+      'player' => $player,
     ]) . "\n" ?>
   </td>
   <?= Html::tag(

@@ -450,6 +450,7 @@ return [
     'Peak' => '',
     'Period' => '',
     'Permalink' => '',
+    'Played With' => '',
     'Player Distribution' => '',
     'Players' => '',
     'Players:' => '',

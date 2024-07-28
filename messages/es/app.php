@@ -452,6 +452,7 @@ return [
     'Peak' => '',
     'Period' => '',
     'Permalink' => 'Enlace permanente',
+    'Played With' => '',
     'Player Distribution' => '',
     'Players' => 'Jugadores',
     'Players:' => 'Jugadores:',

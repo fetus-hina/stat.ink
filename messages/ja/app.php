@@ -439,6 +439,7 @@ return [
     'Peak' => '最高',
     'Period' => '期間',
     'Permalink' => '固定リンク',
+    'Played With' => '一緒に遊んだ人',
     'Player Distribution' => 'プレーヤーの分布',
     'Players' => 'プレーヤー',
     'Players:' => 'プレーヤー:',

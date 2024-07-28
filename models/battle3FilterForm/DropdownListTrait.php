@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -16,6 +16,7 @@ use app\models\Lobby3;
 use app\models\Map3;
 use app\models\Result3;
 use app\models\Rule3;
+use app\models\battle3FilterForm\dropdownList\PlayedWithDropdownListTrait;
 use app\models\battle3FilterForm\dropdownList\TermDropdownListTrait;
 use app\models\battle3FilterForm\dropdownList\WeaponDropdownListTrait;
 use yii\db\ActiveRecord;
@@ -32,6 +33,7 @@ use const SORT_LOCALE_STRING;
 
 trait DropdownListTrait
 {
+    use PlayedWithDropdownListTrait;
     use TermDropdownListTrait;
     use WeaponDropdownListTrait;
 

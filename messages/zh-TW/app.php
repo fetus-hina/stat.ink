@@ -452,6 +452,7 @@ return [
     'Peak' => '最高牌位',
     'Period' => '期間',
     'Permalink' => '永久連結',
+    'Played With' => '',
     'Player Distribution' => '',
     'Players' => '玩家',
     'Players:' => '玩家：',

@@ -99,7 +99,7 @@ final class UserAction extends Action
 
         $form = Yii::createObject(Battle3FilterForm::class);
         if ($form->load($_GET) && $form->validate()) {
-            $form->decorateQuery($battle);
+            $form->decorateQuery($battle, $user);
         }
 
         $permLink = Url::to(

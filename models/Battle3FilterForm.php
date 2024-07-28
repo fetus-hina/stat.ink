@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -62,6 +62,7 @@ final class Battle3FilterForm extends Model
     public ?string $term = null;
     public ?string $term_from = null;
     public ?string $term_to = null;
+    public ?string $played_with = null;
 
     /**
      * @inheritdoc
@@ -77,7 +78,8 @@ final class Battle3FilterForm extends Model
     public function rules()
     {
         return [
-            [['lobby', 'rule', 'map', 'weapon', 'result', 'knockout', 'term', 'term_from', 'term_to'], 'string'],
+            [['lobby', 'rule', 'map', 'weapon', 'result', 'knockout', 'term'], 'string'],
+            [['term_from', 'term_to', 'played_with'], 'string'],
 
             [['lobby'], 'in',
                 'range' => array_merge(
@@ -132,6 +134,9 @@ final class Battle3FilterForm extends Model
                 'pattern' => '/^@\d+$/',
                 'when' => fn (self $model, string $attribute): bool => substr((string)$model->$attribute, 0, 1) === '@',
             ],
+            [['played_with'], 'match',
+                'pattern' => '/^[0-9a-f]{32}$/',
+            ],
         ];
     }
 
@@ -144,6 +149,7 @@ final class Battle3FilterForm extends Model
             'knockout' => Yii::t('app', 'Knockout'),
             'lobby' => Yii::t('app', 'Lobby'),
             'map' => Yii::t('app', 'Stage'),
+            'played_with' => Yii::t('app', 'Played With'),
             'result' => Yii::t('app', 'Result'),
             'rule' => Yii::t('app', 'Mode'),
             'term' => Yii::t('app', 'Term'),
