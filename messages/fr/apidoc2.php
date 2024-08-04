@@ -97,7 +97,7 @@ return [
     'If not kills the boss, you can send `0` or omit the boss.' => 'Si le boss n\'a pas été tué,vous envoyez `0`ou négligez le boss.',
     'If omitted, we will automatically generate a random UUID.' => 'Si négliger, nous générerons un UUID aléatoire.',
     'If the value is not correct as a UUID, we will use that value as a seed to generate a UUID.' => 'Si la valeur n\est pas correct pour un UUID, nous utiliserons la valeur pour une seed pour générer un UUID.',
-    'If you omitted the <code>id</code>, you will get a latest data.' => '',
+    'If you omitted the <code>id</code>, you will get a latest data.' => 'Si vous négligez le <code>id</code>, vous aurez les données les plus récentes',
     'If your client doesn\'t/cannot detect this data, omit this field or send just `null`.' => 'Si le client ne peut pas detécté cette données, négliger le champ ou juste envoyer `null`.',
     'If you specified other player\'s <code>id</code> value, you will get the 404 error.' => 'Si vous spécifiez la valeur <code>id<code> des autres joueurs, vous recevrez un code 404.',
     'IkaLog environment. This probably doesn\'t make sense in Splatoon 2' => 'Environnement Ikalog. Ce n\'a pas de logique sur Splatoon 2',
