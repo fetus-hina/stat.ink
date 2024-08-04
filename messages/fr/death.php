@@ -12,8 +12,8 @@ declare(strict_types=1);
 return [
     'Drowning' => 'Noyade',
     'Fall' => 'Chute',
-    'Gadget' => '',
-    'Ink from a propeller' => '',
+    'Gadget' => 'Gadget',
+    'Ink from a propeller' => 'Encre d\'une hélice',
     'Main Weapon' => 'Arme principale',
     'Out of Bounds' => 'Hors limites',
     'Rainmaker' => 'Bazookarpe',
