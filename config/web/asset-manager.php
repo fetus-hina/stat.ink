@@ -42,7 +42,6 @@ use yii\widgets\PjaxAsset;
 
 return [
     'class' => AssetManager::class,
-    'appendTimestamp' => true,
     'bundles' => [
         BootstrapDateTimePickerAsset::class => [
             'sourcePath' => '@node/eonasdan-bootstrap-datetimepicker/build',

@@ -47,7 +47,7 @@ main {
 footer {
   background-color: #f5f5f5;
   font-size: add-unit($golden-ratio - 1, 1em);
-  margin: add-unit($golden-ratio - 1, 1em) 0 0 0;
+  margin: add-unit($golden-ratio - 1, 1em) 0 0;
   padding: add-unit($golden-ratio, 1em) 0;
   width: 100%;
 
@@ -104,7 +104,7 @@ html[lang^='zh-'],
 }
 
 .scale-x {
-  --scale-x: 1.0;
+  --scale-x: 1;
 
   transform: scale(var(--scale-x), 1) !important;
   transform-origin: left center !important;

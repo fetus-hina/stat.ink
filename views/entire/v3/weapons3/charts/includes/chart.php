@@ -8,14 +8,15 @@ use app\components\helpers\StandardError;
 use app\models\StatWeapon3Usage;
 use app\models\StatWeapon3UsagePerVersion;
 use app\models\StatWeapon3XUsage;
+use app\models\StatWeapon3XUsagePerVersion;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\JsExpression;
 use yii\web\View;
 
 /**
- * @var StatWeapon3Usage[]|StatWeapon3UsagePerVersion[]|StatWeapon3XUsage[] $data
- * @var string|string[]|callable(StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage): int|float|null $getX
+ * @var StatWeapon3Usage[]|StatWeapon3UsagePerVersion[]|StatWeapon3XUsage[]|StatWeapon3XUsagePerVersion[] $data
+ * @var string|string[]|callable(StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage|StatWeapon3XUsagePerVersion): int|float|null $getX
  * @var string $xLabel
  * @var View $this
  */
@@ -23,7 +24,7 @@ use yii\web\View;
 $data = array_values(
   array_filter(
     $data,
-    fn (StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage $model): bool => $model->battles > 10 && $model->avg_death > 0,
+    fn (StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage|StatWeapon3XUsagePerVersion $model): bool => $model->battles > 10 && $model->avg_death > 0,
   ),
 );
 if (!$data) {
@@ -31,7 +32,7 @@ if (!$data) {
 }
 
 $xyPoints = array_map(
-  fn (StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage $model): array => [
+  fn (StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage|StatWeapon3XUsagePerVersion $model): array => [
     'x' => ArrayHelper::getValue($model, $getX),
     'y' => 100.0 * $model->wins / $model->battles,
   ],
@@ -69,7 +70,7 @@ $datasetPoints = [
   'type' => 'scatter',
   'label' => Yii::t('app', 'Win %'),
   'labels' => array_map(
-    function (StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage $model): string {
+    function (StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage|StatWeapon3XUsagePerVersion $model): string {
       $weaponName = Yii::t('app-weapon3', $model->weapon?->name ?? '?');
       $err = StandardError::winpct($model->wins, $model->battles);
       $f = Yii::$app->formatter;

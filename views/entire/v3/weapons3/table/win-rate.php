@@ -6,13 +6,14 @@ use app\components\helpers\StandardError;
 use app\models\StatWeapon3Usage;
 use app\models\StatWeapon3UsagePerVersion;
 use app\models\StatWeapon3XUsage;
+use app\models\StatWeapon3XUsagePerVersion;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\JsExpression;
 use yii\web\View;
 
 /**
- * @var StatWeapon3Usage[]|StatWeapon3UsagePerVersion[]|StatWeapon3XUsage[] $data
+ * @var StatWeapon3Usage[]|StatWeapon3UsagePerVersion[]|StatWeapon3XUsage[]|StatWeapon3XUsagePerVersion[] $data
  * @var View $this
  */
 
@@ -27,8 +28,10 @@ if (!$data) {
 
 $data = ArrayHelper::sort(
   $data,
-  fn (StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage $a, StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage $b): float =>
-    ($b->wins / $b->battles) <=> ($a->wins / $a->battles)
+  fn (
+    StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage|StatWeapon3XUsagePerVersion $a,
+    StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage|StatWeapon3XUsagePerVersion $b,
+  ): float => ($b->wins / $b->battles) <=> ($a->wins / $a->battles)
     ?: $a->battles <=> $b->battles,
 );
 
@@ -37,7 +40,7 @@ $valueData = [
   'borderColor' => new JsExpression('window.colorScheme.graph1'),
   'data' => array_values(
     array_map(
-      function (StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage $model, int $i): array {
+      function (StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage|StatWeapon3XUsagePerVersion $model, int $i): array {
         $data = StandardError::winpct($model->wins, $model->battles);
         return $data
           ? [
@@ -75,7 +78,7 @@ $valueData = [
           $valueData,
         ],
         'labels' => array_map(
-          fn (StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage $model): string => vsprintf('%s (%s)', [
+          fn (StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage|StatWeapon3XUsagePerVersion $model): string => vsprintf('%s (%s)', [
             Yii::t('app-weapon3', $model->weapon->name),
             Yii::$app->formatter->asInteger($model->battles),
           ]),
