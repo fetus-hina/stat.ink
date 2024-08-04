@@ -20,6 +20,7 @@ use app\models\SplatoonVersion3;
 use app\models\StatWeapon3Usage;
 use app\models\StatWeapon3UsagePerVersion;
 use app\models\StatWeapon3XUsage;
+use app\models\StatWeapon3XUsagePerVersion;
 use app\models\StatWeapon3XUsageRange;
 use statink\yii2\sortableTable\SortableTableAsset;
 use yii\helpers\ArrayHelper;
@@ -33,7 +34,7 @@ use yii\web\View;
  * @var Season3|null $season
  * @var SplatoonVersion3[] $versions
  * @var SplatoonVersion3|null $version
- * @var StatWeapon3Usage[]|StatWeapon3UsagePerVersion[]|StatWeapon3XUsage[] $data
+ * @var StatWeapon3Usage[]|StatWeapon3UsagePerVersion[]|StatWeapon3XUsage[]|StatWeapon3XUsagePerVersion[] $data
  * @var StatWeapon3XUsageRange $xRange
  * @var StatWeapon3XUsageRange[] $xRanges
  * @var View $this
@@ -101,6 +102,16 @@ $this->render('weapons3/charts/includes/chart-runner', []);
     <?= $this->render('weapons3/rule-tabs', compact('rule', 'rules', 'ruleUrl')) . "\n" ?>
     <?= $this->render('weapons3/x-range-tabs', compact('xRange', 'xRanges', 'xRangeUrl')) . "\n" ?>
   </div>
+<?php if ($xRange && $version) { ?>
+  <div class="mb-3">
+    <div class="alert alert-warning">
+      <?= Yii::t(
+        'app',
+        'The filter specifying XP and version, aggregates data for the overall <code>x.y</code>, ignoring the <code>z</code> in version <code>x.y.z</code>.',
+      ) . "\n" ?>
+    </div>
+  </div>
+<?php } ?>
 <?php
   if ($disableCache || $this->beginCache($cacheId, ['duration' => 48 * 3600])) {
     echo implode('', [

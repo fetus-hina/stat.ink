@@ -624,6 +624,7 @@ return [
     'The data is not something you will know immediately after downloading.' => '此資料非為下載完即可立即解讀',
     'The estimated distribution of the overall game, as estimated from the official results.' => '根據官方結果的整體遊戲的預估分佈',
     'The estimated location may be inaccurate.' => '預估的位置可能不準確',
+    'The filter specifying XP and version, aggregates data for the overall <code>x.y</code>, ignoring the <code>z</code> in version <code>x.y.z</code>.' => '',
     'The future of Twitter integration is completely uncertain, and as a {site} developer I can\'t recommend this feature at this time.' => '',
     'The icon will be:' => '該圖示會變成：',
     'Their team\'s league power' => '對方隊伍的聯盟戰力',

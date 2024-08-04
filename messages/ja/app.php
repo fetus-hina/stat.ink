@@ -611,6 +611,7 @@ return [
     'The data is not something you will know immediately after downloading.' => 'ダウンロード後、すぐに何かがわかるデータではありません。',
     'The estimated distribution of the overall game, as estimated from the official results.' => '公式の結果から推測した、ゲーム全体の推定分布です。',
     'The estimated location may be inaccurate.' => '場所の推定精度はあまりよくありません。',
+    'The filter specifying XP and version, aggregates data for the overall <code>x.y</code>, ignoring the <code>z</code> in version <code>x.y.z</code>.' => 'XPとバージョンを指定したフィルターは、バージョン <code>x.y.z</code> の <code>z</code> を無視して、<code>x.y</code> 全体のデータを集計しています。',
     'The future of Twitter integration is completely uncertain, and as a {site} developer I can\'t recommend this feature at this time.' => 'Twitter連携の将来の見通しは不透明であり、{site}の開発者としてはこの機能の利用はおすすめしません。',
     'The icon will be:' => 'アイコンは次のようになります:',
     'The password will be encrypted.' => 'パスワードは暗号化されて保存されます。',

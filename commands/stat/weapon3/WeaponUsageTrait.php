@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -20,9 +20,11 @@ use app\models\Lobby3;
 use app\models\Rule3;
 use app\models\Season3;
 use app\models\SplatoonVersion3;
+use app\models\SplatoonVersionGroup3;
 use app\models\StatWeapon3Usage;
 use app\models\StatWeapon3UsagePerVersion;
 use app\models\StatWeapon3XUsage;
+use app\models\StatWeapon3XUsagePerVersion;
 use yii\db\Connection;
 use yii\db\Query;
 use yii\db\Transaction;
@@ -33,6 +35,7 @@ use function array_keys;
 use function array_map;
 use function array_merge;
 use function array_values;
+use function count;
 use function fwrite;
 use function implode;
 use function sprintf;
@@ -59,6 +62,7 @@ trait WeaponUsageTrait
             StatWeapon3Usage::tableName(),
             StatWeapon3UsagePerVersion::tableName(),
             StatWeapon3XUsage::tableName(),
+            StatWeapon3XUsagePerVersion::tableName(),
         ];
         foreach ($tables as $table) {
             fwrite(STDERR, "Vacuuming {$table} ...\n");
@@ -75,6 +79,7 @@ trait WeaponUsageTrait
         $this->makeStatWeapon3UsagePerSeason($db);
         $this->makeStatWeapon3UsagePerVersion($db);
         $this->makeStatWeapon3XUsagePerSeason($db);
+        $this->makeStatWeapon3XUsagePerVersion($db);
     }
 
     private function makeStatWeapon3UsagePerSeason(Connection $db): void
@@ -149,6 +154,30 @@ trait WeaponUsageTrait
         $db->createCommand($sql)->execute($db);
     }
 
+    private function makeStatWeapon3XUsagePerVersion(Connection $db): void
+    {
+        fwrite(STDERR, "Updating stat_weapon3_x_usage_per_version...\n");
+
+        $targetVersions = $this->getStatWeapon3UsageTargetVersionGroups($db);
+        StatWeapon3XUsagePerVersion::deleteAll([
+            'version_group_id' => ArrayHelper::getColumn($targetVersions, 'id'),
+        ]);
+
+        $select = $this->buildSelectForWeapon3XUsagePerVersion($db, $targetVersions);
+        $sql = vsprintf('INSERT INTO %s ( %s ) %s', [
+            $db->quoteTableName(StatWeapon3XUsagePerVersion::tableName()),
+            implode(
+                ', ',
+                array_map(
+                    fn (string $columnName): string => $db->quoteColumnName($columnName),
+                    array_keys($select->select),
+                ),
+            ),
+            $select->createCommand($db)->rawSql,
+        ]);
+        $db->createCommand($sql)->execute($db);
+    }
+
     /**
      * @return Season3[]
      */
@@ -190,6 +219,18 @@ trait WeaponUsageTrait
     }
 
     /**
+     * @return SplatoonVersionGroup3[]
+     */
+    private function getStatWeapon3UsageTargetVersionGroups(Connection $db): array
+    {
+        $versions = $this->getStatWeapon3UsageTargetVersions($db);
+
+        return SplatoonVersionGroup3::find()
+            ->andWhere(['id' => ArrayHelper::getColumn($versions, 'group_id')])
+            ->all($db);
+    }
+
+    /**
      * @param Season3[] $seasons
      */
     private function buildSelectForWeapon3UsagePerSeason(Connection $db, array $seasons): Query
@@ -206,6 +247,14 @@ trait WeaponUsageTrait
     }
 
     /**
+     * @param SplatoonVersionGroup3[] $versions
+     */
+    private function buildSelectForWeapon3XUsagePerVersion(Connection $db, array $versions): Query
+    {
+        return $this->buildSelectForWeapon3UsageImpl($db, versions: $versions, xUsage: true);
+    }
+
+    /**
      * @param SplatoonVersion3[] $versions
      */
     private function buildSelectForWeapon3UsagePerVersion(Connection $db, array $versions): Query
@@ -215,7 +264,7 @@ trait WeaponUsageTrait
 
     /**
      * @param Season3[]|null $seasons
-     * @param SplatoonVersion3[]|null $versions
+     * @param SplatoonVersion3[]|SplatoonVersionGroup3[]|null $versions
      */
     private function buildSelectForWeapon3UsageImpl(
         Connection $db,
@@ -240,7 +289,12 @@ trait WeaponUsageTrait
         $selectPkey = array_filter(
             [
                 'season_id' => $seasons !== null ? '{{%season3}}.[[id]]' : null,
-                'version_id' => $versions !== null ? '{{%battle3}}.[[version_id]]' : null,
+                'version_id' => count($versions) > 0 && $versions[0] instanceof SplatoonVersion3
+                    ? '{{%battle3}}.[[version_id]]'
+                    : null,
+                'version_group_id' => count($versions) > 0 && $versions[0] instanceof SplatoonVersionGroup3
+                    ? '{{%splatoon_version3}}.[[group_id]]'
+                    : null,
                 'lobby_id' => $xUsage
                     ? null
                     : vsprintf('(CASE %s END)', [
@@ -327,7 +381,21 @@ trait WeaponUsageTrait
         }
 
         if ($versions !== null) {
-            $select->andWhere(['{{%battle3}}.[[version_id]]' => ArrayHelper::getColumn($versions, 'id')]);
+            if (!$versions) {
+                $select->andWhere('1 = 0');
+            } elseif ($versions[0] instanceof SplatoonVersionGroup3) {
+                $select->innerJoin(
+                    '{{%splatoon_version3}}',
+                    '{{%battle3}}.[[version_id]] = {{%splatoon_version3}}.[[id]]',
+                );
+                $select->andWhere([
+                    '{{%splatoon_version3}}.[[group_id]]' => ArrayHelper::getColumn($versions, 'id'),
+                ]);
+            } else {
+                $select->andWhere([
+                    '{{%battle3}}.[[version_id]]' => ArrayHelper::getColumn($versions, 'id'),
+                ]);
+            }
         }
 
         if ($xUsage) {

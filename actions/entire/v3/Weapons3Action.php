@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -24,6 +24,7 @@ use app\models\SplatoonVersion3;
 use app\models\StatWeapon3Usage;
 use app\models\StatWeapon3UsagePerVersion;
 use app\models\StatWeapon3XUsage;
+use app\models\StatWeapon3XUsagePerVersion;
 use app\models\StatWeapon3XUsageRange;
 use yii\base\Action;
 use yii\db\Connection;
@@ -79,7 +80,7 @@ final class Weapons3Action extends Action
         $season = $version ? null : Season3Helper::getUrlTargetSeason(self::PARAM_SEASON_ID);
         $lobby = $this->getLobby($db, $lobbyKey);
         $rule = $this->getRule($db, $ruleKey);
-        $xRange = $this->getXPowerRange($db, $season, $lobby, $xpFilter);
+        $xRange = $this->getXPowerRange($db, $season, $version, $lobby, $xpFilter);
         if (
             !($season || $version) ||
             !$lobby ||
@@ -127,7 +128,7 @@ final class Weapons3Action extends Action
             'version' => $version,
             'versions' => $this->getVersions($db),
             'xRange' => $xRange,
-            'xRanges' => $this->getXPowerRanges($db, $lobby, $season),
+            'xRanges' => $this->getXPowerRanges($db, $lobby, $season, $version),
 
             'seasonUrl' => fn (Season3 $season): string => Url::to(
                 ['entire/weapons3',
@@ -173,7 +174,7 @@ final class Weapons3Action extends Action
                     'lobby' => $lobby->key,
                     'rule' => $rule->key,
                     'version' => $version->tag,
-                    'xp' => null,
+                    'xp' => $lobby->key === 'xmatch' ? $xRange?->id : null,
                 ],
             ),
 
@@ -250,6 +251,21 @@ final class Weapons3Action extends Action
         ?StatWeapon3XUsageRange $xRange,
     ): array {
         if ($version) {
+            if ($xRange) {
+                return StatWeapon3XUsagePerVersion::find()
+                    ->with([
+                        'weapon',
+                        'weapon.special',
+                        'weapon.subweapon',
+                    ])
+                    ->andWhere([
+                        'range_id' => $xRange->id,
+                        'rule_id' => $rule->id,
+                        'version_group_id' => $version->group_id,
+                    ])
+                    ->all($db);
+            }
+
             return StatWeapon3UsagePerVersion::find()
                 ->with([
                     'weapon',
@@ -348,11 +364,16 @@ final class Weapons3Action extends Action
     private function getXPowerRange(
         Connection $db,
         ?Season3 $season,
+        ?SplatoonVersion3 $version,
         ?Lobby3 $lobby,
         ?string $xpFilter,
     ): ?StatWeapon3XUsageRange {
+        if (!$season && !$version) {
+            return null;
+        }
+
         $xpFilter = TypeHelper::intOrNull($xpFilter);
-        if (!$season || $lobby?->key !== 'xmatch' || !$xpFilter) {
+        if ($lobby?->key !== 'xmatch' || !$xpFilter) {
             return null;
         }
 
@@ -364,7 +385,18 @@ final class Weapons3Action extends Action
                 '{{%stat_weapon3_x_usage_term}}.[[term]]',
                 new Expression(
                     vsprintf('%s::TIMESTAMP(0) WITH TIME ZONE', [
-                        $db->quoteValue($season->start_at),
+                        $db->quoteValue(
+                            match (true) {
+                                $season !== null => $season->start_at,
+
+                                // 新バージョンは新シーズンの少し前にリリースされるので
+                                // その差を考慮して7日後を基準にする
+                                $version !== null => (new DateTimeImmutable($version->release_at))
+                                    ->setTimezone(new DateTimeZone('Etc/UTC'))
+                                    ->add(new DateInterval('P7D'))
+                                    ->format(DateTimeInterface::ATOM),
+                            },
+                        ),
                     ]),
                 ),
             ])
@@ -376,9 +408,17 @@ final class Weapons3Action extends Action
     /**
      * @return StatWeapon3XUsageRange[]
      */
-    private function getXPowerRanges(Connection $db, Lobby3 $lobby, ?Season3 $season): array
-    {
-        if ($lobby->key !== 'xmatch' || !$season) {
+    private function getXPowerRanges(
+        Connection $db,
+        Lobby3 $lobby,
+        ?Season3 $season,
+        ?SplatoonVersion3 $version,
+    ): array {
+        if (!$season && !$version) {
+            return [];
+        }
+
+        if ($lobby->key !== 'xmatch') {
             return [];
         }
 
@@ -389,7 +429,18 @@ final class Weapons3Action extends Action
                 '{{%stat_weapon3_x_usage_term}}.[[term]]',
                 new Expression(
                     vsprintf('%s::TIMESTAMP(0) WITH TIME ZONE', [
-                        $db->quoteValue($season->start_at),
+                        $db->quoteValue(
+                            match (true) {
+                                $season !== null => $season->start_at,
+
+                                // 新バージョンは新シーズンの少し前にリリースされるので
+                                // その差を考慮して7日後を基準にする
+                                $version !== null => (new DateTimeImmutable($version->release_at))
+                                    ->setTimezone(new DateTimeZone('Etc/UTC'))
+                                    ->add(new DateInterval('P7D'))
+                                    ->format(DateTimeInterface::ATOM),
+                            },
+                        ),
                     ]),
                 ),
             ])
