@@ -289,10 +289,10 @@ trait WeaponUsageTrait
         $selectPkey = array_filter(
             [
                 'season_id' => $seasons !== null ? '{{%season3}}.[[id]]' : null,
-                'version_id' => count($versions) > 0 && $versions[0] instanceof SplatoonVersion3
+                'version_id' => $versions && $versions[0] instanceof SplatoonVersion3
                     ? '{{%battle3}}.[[version_id]]'
                     : null,
-                'version_group_id' => count($versions) > 0 && $versions[0] instanceof SplatoonVersionGroup3
+                'version_group_id' => $versions && $versions[0] instanceof SplatoonVersionGroup3
                     ? '{{%splatoon_version3}}.[[group_id]]'
                     : null,
                 'lobby_id' => $xUsage
