@@ -109,7 +109,7 @@ jobs:
           mv composer.check-author.json composer.json
       -
         name: 'Install phpcq/author-validation'
-        uses: nick-invision/retry@v2
+        uses: nick-invision/retry@v3
         with:
           timeout_seconds: 300
           max_attempts: 3
