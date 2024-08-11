@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\components\widgets\Icon;
 use app\models\Event3StatsPower;
 use app\models\EventPeriod3;
 use app\models\EventSchedule3;
@@ -44,6 +45,10 @@ $fmt = Yii::$app->formatter;
         <th class="text-center">
           <?= Html::encode(Yii::t('app', 'Top {percentile}%', ['percentile' => 5])) . "\n" ?>
         </th>
+        <th class="text-center text-muted">
+          <?= Icon::statsHistogram() . "\n" ?>
+          <?= Html::encode(Yii::t('app', 'Bin Width')) . "\n" ?>
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -70,6 +75,9 @@ $fmt = Yii::$app->formatter;
         <td class="text-center"><?= Html::encode($fmt->asDecimal($abstract->p75, 1)) ?></td>
         <td class="text-center fw-bold"><?= Html::encode($fmt->asDecimal($abstract->p80, 1)) ?></td>
         <td class="text-center fw-bold"><?= Html::encode($fmt->asDecimal($abstract->p95, 1)) ?></td>
+        <td class="text-center text-muted">
+          <?= Html::encode($fmt->asInteger($abstract->histogram_width)) . "\n" ?>
+        </td>
       </tr>
 <?php foreach ($periods as $i => $period) { ?>
       <tr class="text-muted">
@@ -96,7 +104,9 @@ $fmt = Yii::$app->formatter;
         <td class="text-center"><?= Html::encode($fmt->asDecimal($row->p75, 1)) ?></td>
         <td class="text-center"><?= Html::encode($fmt->asDecimal($row->p80, 1)) ?></td>
         <td class="text-center"><?= Html::encode($fmt->asDecimal($row->p95, 1)) ?></td>
+        <td class="text-center">-</td>
 <?php } else { ?>
+        <td class="text-center">-</td>
         <td class="text-center">-</td>
         <td class="text-center">-</td>
         <td class="text-center">-</td>

@@ -26,10 +26,7 @@ if (
   return;
 }
 
-$chartStep = max(
-  (int)ceil($abstract->histogram_width / 100) * 100,
-  100,
-);
+$chartStep = $abstract->histogram_width ?? 100;
 
 $items = [];
 
