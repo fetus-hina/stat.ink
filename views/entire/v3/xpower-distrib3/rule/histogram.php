@@ -86,11 +86,21 @@ $datasetNormalDistrib = $normalDistribData
               'x' => [
                 'grid' => ['offset' => false],
                 'offset' =>  true,
-                'ticks' => ['stepSize' => 100],
+                'ticks' => [
+                  'stepSize' => $abstract?->histogram_width ?? 100,
+                ],
+                'title' => [
+                  'display' => true,
+                  'text' => Yii::t('app', 'X Power'),
+                ],
                 'type' => 'linear',
               ],
               'y' => [
                 'beginAtZero' => true,
+                'title' => [
+                  'display' => true,
+                  'text' => Yii::t('app', 'Users'),
+                ],
               ],
             ],
           ],
