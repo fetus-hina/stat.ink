@@ -9,7 +9,7 @@
 declare(strict_types=1);
 
 return [
-    'Battles' => '',
-    'Shifts' => '',
-    'Users' => '',
+    'Battles' => 'Partidas',
+    'Shifts' => 'Partidas de Salmon',
+    'Users' => 'Usuários',
 ];

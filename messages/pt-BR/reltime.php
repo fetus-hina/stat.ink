@@ -10,10 +10,10 @@ declare(strict_types=1);
 
 return [
     'now' => '',
-    '{delta} d' => '',
+    '{delta} dia' => '',
     '{delta} h' => '',
-    '{delta} m' => '',
-    '{delta} mo' => '',
-    '{delta} s' => '',
-    '{delta} yr' => '',
+    '{delta} min.' => '',
+    '{delta} mês/meses' => '',
+    '{delta} seg.' => '',
+    '{delta} ano(s)' => '',
 ];

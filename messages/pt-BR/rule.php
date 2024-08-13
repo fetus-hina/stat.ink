@@ -9,9 +9,9 @@
 declare(strict_types=1);
 
 return [
-    'All of {0}' => '',
-    'Any Lobby' => '',
-    'Any Mode' => '',
+    'All of {0}' => 'Tudo de {0}',
+    'Any Lobby' => 'Qualquer Lobby',
+    'Any Mode' => 'Qualquer Modo',
     'Private' => '',
     'Private Battle' => '',
     'Rainmaker' => '',
@@ -20,12 +20,12 @@ return [
     'Regular' => '',
     'Regular Battle' => '',
     'RM' => '',
-    'Solo Queue' => '',
+    'Solo Queue' => 'Partidas Solo',
     'Splatfest' => '',
     'Splat Zones' => '',
     'Squad Battle (Quad)' => '',
-    'Squad Battle (Tri)' => '',
-    'Squad Battle (Twin)' => '',
+    'Squad Battle (Tri)' => 'Squad Battle (Trio)',
+    'Squad Battle (Twin)' => 'Squad Battle (Dupla)',
     'SZ' => '',
     'TC' => '',
     'Tower Control' => '',

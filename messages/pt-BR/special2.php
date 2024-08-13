@@ -9,10 +9,10 @@
 declare(strict_types=1);
 
 return [
-    'Any Special' => '',
+    'Any Special' => 'Qualquer Especial',
     'Autobomb Launcher' => '',
     'Baller' => '',
-    'Baller Inksplosion' => '',
+    'Baller Inksplosion' => 'Explosão do Baller',
     'Bomb Launcher' => '',
     'Booyah Bomb' => '',
     'Bubble Blower' => '',
@@ -26,6 +26,6 @@ return [
     'Splat-Bomb Launcher' => '',
     'Sting Ray' => '',
     'Suction-Bomb Launcher' => '',
-    'Tenta Missiles' => '',
+    'Tenta Missiles' => 'Tenta Mísseis',
     'Ultra Stamp' => '',
 ];
