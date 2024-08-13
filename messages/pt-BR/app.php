@@ -652,7 +652,7 @@ return [
     'This should be a random string of at least {n} characters and should not be the same as any other site' => 'Isso deve ser uma série aleatória de pelo menos {n} caracteres e não deve ser a mesma de qualquer outro site',
     'This twitter account has already been integrated with another user.' => 'Essa conta do Twitter já foi integrada a outro usuário.',
     'This website doesn\'t support Internet Explorer. Please use a modern browser, for example Chrome or Firefox.' => 'Esse site não suporta o Internet Explorer. Por favor, use um navegador moderno, por exemplo Chrome ou Firefox.',
-    'This website has color-blind support. Please check "Color-Blind Support" in the "Username/Guest" menu of the navbar to enable it.' => '',
+    'This website has color-blind support. Please check "Color-Blind Support" in the "Username/Guest" menu of the navbar to enable it.' => 'Esse website possui suporte para pessoas daltônicas. Por favor procure o "Suporte para daltonismo" no menu "username/guest" para ativá-lo.',
     'This website is an open source project. It is under the MIT License. The source code is available on GitHub.' => '',
     'This website is an UNOFFICIAL SERVICE. It is not related to the Splatoon development team or Nintendo.' => '',
     'This will be made public as part of URL' => '',
