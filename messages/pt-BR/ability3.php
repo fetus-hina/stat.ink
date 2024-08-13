@@ -9,7 +9,7 @@
 declare(strict_types=1);
 
 return [
-    '(Unknown)' => '',
+    '(Unknown)' => '(Desconhecido)',
     'Ability Doubler' => '',
     'Comeback' => '',
     'Drop Roller' => '',
