@@ -12,7 +12,7 @@ return [
     'Any Title' => '',
     'Apprentice' => '',
     'Go-Getter' => '',
-    'Hazard Level MAX!!' => '',
+    'Hazard Level MAX!!' => 'Hazard Nível MÁX!!',
     'Intern' => '',
     'Overachiever' => '',
     'Part-Timer' => '',

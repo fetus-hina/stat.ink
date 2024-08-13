@@ -9,7 +9,7 @@
 declare(strict_types=1);
 
 return [
-    'Europe/Oceania' => '',
-    'Japan' => '',
-    'North America' => '',
+    'Europe/Oceania' => 'Europa/Oceania',
+    'Japan' => 'Japão',
+    'North America' => 'América do Norte',
 ];

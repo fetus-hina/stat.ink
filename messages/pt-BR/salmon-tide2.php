@@ -9,8 +9,8 @@
 declare(strict_types=1);
 
 return [
-    'High Tide' => '',
-    'Low Tide' => '',
-    'Mid Tide' => '',
-    'Water Level' => '',
+    'High Tide' => 'Maré alta',
+    'Low Tide' => 'Maré baixa',
+    'Mid Tide' => 'Maré média',
+    'Water Level' => 'Nível da água',
 ];

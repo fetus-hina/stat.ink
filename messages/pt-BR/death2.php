@@ -11,7 +11,7 @@ declare(strict_types=1);
 return [
     'Cannon' => 'Canhão',
     'Drowning' => 'Afogamento',
-    'Fall' => '',
+    'Fall' => 'Caiu',
     'Hyperbomb' => '',
     'Ink from a propeller' => 'Tinta de um ventilador',
     'Inkfurler' => '',
