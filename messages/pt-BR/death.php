@@ -17,7 +17,7 @@ return [
     'Out of Bounds' => '',
     'Rainmaker' => '',
     'Rainmaker Inksplosion' => '',
-    'Rainmaker Shield' => '',
+    'Rainmaker Shield' => 'Escudo do Rainmaker',
     'Rainmaker Shot' => '',
     'Special' => '',
     'Sub Weapon' => '',
