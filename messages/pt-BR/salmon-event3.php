@@ -10,12 +10,12 @@ declare(strict_types=1);
 
 return [
     '(Normal)' => '',
-    'Cohock Charge' => '',
+    'Cohock Charge' => 'Canhões',
     'Fog' => '',
-    'Giant Tornado' => '',
-    'Goldie Seeking' => '',
-    'Mudmouth Eruptions' => '',
-    'Rush' => '',
-    'The Griller' => '',
-    'The Mothership' => '',
+    'Giant Tornado' => 'Tornado',
+    'Goldie Seeking' => 'Goldie',
+    'Mudmouth Eruptions' => 'Mudmouth',
+    'Rush' => 'Glowflies',
+    'The Griller' => 'O Griller',
+    'The Mothership' => 'A Mothership',
 ];

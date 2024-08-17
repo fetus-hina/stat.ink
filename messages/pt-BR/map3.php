@@ -12,7 +12,7 @@ return [
     'Academy' => '',
     'Airport' => '',
     'Alley' => '',
-    'Any Stage' => '',
+    'Any Stage' => 'Qualquer Mapa',
     'Arena' => '',
     'B&D' => '',
     'Barnacle & Dime' => '',

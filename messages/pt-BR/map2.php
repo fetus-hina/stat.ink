@@ -11,7 +11,7 @@ declare(strict_types=1);
 return [
     'Academy' => '',
     'Ancho-V Games' => '',
-    'Any Stage' => '',
+    'Any Stage' => 'Qualquer Mapa',
     'Arena' => '',
     'Arowana Mall' => '',
     'A Swiftly Tilting Balance' => '',

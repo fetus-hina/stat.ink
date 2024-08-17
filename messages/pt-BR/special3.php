@@ -9,7 +9,7 @@
 declare(strict_types=1);
 
 return [
-    'Any Special' => '',
+    'Any Special' => 'Qualquer Especial',
     'Big Bubbler' => '',
     'Booyah Bomb' => '',
     'Crab Tank' => '',
@@ -22,7 +22,7 @@ return [
     'Splattercolor Screen' => '',
     'Super Chump' => '',
     'Tacticooler' => '',
-    'Tenta Missiles' => '',
+    'Tenta Missiles' => 'Tenta Mísseis',
     'Triple Inkstrike' => '',
     'Triple Splashdown' => '',
     'Trizooka' => '',

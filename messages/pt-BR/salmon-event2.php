@@ -9,12 +9,12 @@
 declare(strict_types=1);
 
 return [
-    'Cohock Charge' => '',
-    'Event' => '',
+    'Cohock Charge' => 'Canhões',
+    'Event' => 'Evento',
     'Fog' => '',
-    'Goldie Seeking' => '',
-    'Known Occurrence' => '',
-    'Rush' => '',
-    'The Griller' => '',
-    'The Mothership' => '',
+    'Goldie Seeking' => 'Goldie',
+    'Known Occurrence' => 'Ocorrência Conhecida',
+    'Rush' => 'Glowflies',
+    'The Griller' => 'O Griller',
+    'The Mothership' => 'A Mothership',
 ];

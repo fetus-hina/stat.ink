@@ -9,10 +9,10 @@
 declare(strict_types=1);
 
 return [
-    'Any Rank' => '',
-    'A zone' => '',
-    'B zone' => '',
-    'C zone' => '',
-    'S zone' => '',
-    'X zone' => '',
+    'Any Rank' => 'Qualquer Rank',
+    'A zone' => 'Zona A',
+    'B zone' => 'Zona B',
+    'C zone' => 'Zona C',
+    'S zone' => 'Zona S',
+    'X zone' => 'Zona X',
 ];

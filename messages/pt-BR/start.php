@@ -9,7 +9,7 @@
 declare(strict_types=1);
 
 return [
-    'Automatic (Recommended)' => '',
-    'Manually' => '',
-    'There are two ways. "Automatic" or "manually."' => '',
+    'Automatic (Recommended)' => 'Automático (Recomendado)',
+    'Manually' => 'Manual',
+    'There are two ways. "Automatic" or "manually."' => 'Há duas maneiras. "Automático" ou "Manual".',
 ];

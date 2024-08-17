@@ -11,7 +11,7 @@ declare(strict_types=1);
 return [
     'Ancho-V' => '',
     'Ancho-V Games' => '',
-    'Any Stage' => '',
+    'Any Stage' => 'Qualquer Mapa',
     'Arowana Mall' => '',
     'Blackbelly Skatepark' => '',
     'Bluefin Depot' => '',

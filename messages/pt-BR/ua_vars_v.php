@@ -9,9 +9,9 @@
 declare(strict_types=1);
 
 return [
-    'en' => '',
-    'en-EU' => '',
-    'en-NA' => '',
-    'ja' => '',
-    'unknown' => '',
+    'en' => 'ing',
+    'en-EU' => 'ing-EUR',
+    'en-NA' => 'ing-USA',
+    'ja' => 'jpn',
+    'unknown' => 'desconhecido',
 ];

@@ -9,7 +9,7 @@
 declare(strict_types=1);
 
 return [
-    '(Locked)' => '',
+    '(Locked)' => '(Trancado)',
     'Bomb Range Up' => '',
     'Bomb Sniffer' => '',
     'Cold-Blooded' => '',

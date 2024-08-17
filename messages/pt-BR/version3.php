@@ -9,6 +9,6 @@
 declare(strict_types=1);
 
 return [
-    'Any Version' => '',
-    'Prerelease' => '',
+    'Any Version' => 'Qualquer versão',
+    'Prerelease' => 'Pré-lançamento',
 ];
