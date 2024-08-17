@@ -55,6 +55,8 @@ final class S3ImgGenPrefetchJob extends BaseObject implements JobInterface
 
             'de-DE',
             'fr-FR',
+            'ko-KR',
+            'pt-BR',
             'zh-CN',
             'zh-TW',
         ];
