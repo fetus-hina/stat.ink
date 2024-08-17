@@ -97,7 +97,7 @@ return [
     'Sweet' => 'Doce',
     'Teleportation' => 'Teletransporte',
     'Time Travel' => 'Viagem no Tempo',
-    'Tortoise' => 'Jabuti',
+    'Tortoise' => 'Tartaruga',
     'Treat' => 'Gostosuras',
     'Trick' => 'Travessuras',
     'Tsubuan' => '',
