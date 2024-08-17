@@ -9,11 +9,11 @@
 declare(strict_types=1);
 
 return [
-    'now' => '',
-    '{delta} dia' => '',
-    '{delta} h' => '',
-    '{delta} min.' => '',
-    '{delta} mês/meses' => '',
-    '{delta} seg.' => '',
-    '{delta} ano(s)' => '',
+    'now' => 'agora',
+    '{delta} d' => '{delta} dia(s)',
+    '{delta} h' => '{delta} h',
+    '{delta} m' => '{delta} min(s)',
+    '{delta} mo' => '{delta} mês(es)',
+    '{delta} s' => '{delta} seg(s)',
+    '{delta} yr' => '{delta} ano(s)',
 ];
