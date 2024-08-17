@@ -4,6 +4,8 @@
  * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
+ * @author Ant <150183507+Ant-Spl@users.noreply.github.com>
+ * @author Gab <84043980+GabIsAwesome@users.noreply.github.com>
  */
 
 declare(strict_types=1);
@@ -94,7 +96,7 @@ return [
     'If it is a weapon that only looks different, like the Hero series, this points to the original weapon.' => 'Se for apenas uma arma que é apenas uma skin, tipo as armas Hero, isso direciona para a arma normal.',
     'If manual input.' => 'Se a entrada é manual.',
     'If not appearances the boss, you can send `0` or omit the boss.' => 'Se o boss não apareceu, você pode enviar `0` ou omitir o boss.',
-'If not kills the boss, you can send `0` or omit the boss.' => 'Se o boss não foi eliminado, você pode enviar `0` ou omiti o boss',
+    'If not kills the boss, you can send `0` or omit the boss.' => 'Se o boss não foi eliminado, você pode enviar `0` ou omiti o boss',
     'If omitted, we will automatically generate a random UUID.' => 'Se omitido, nós vamos gerar um UUID automaticamente.',
     'If the value is not correct as a UUID, we will use that value as a seed to generate a UUID.' => 'Se o valor não é um UUID, nós vamos usá-lo como uma seed para gerar um UUID.',
     'If you omitted the <code>id</code>, you will get a latest data.' => 'Se você omitiu o <code>id</code>, você vai receber os dados mais recentes.',
