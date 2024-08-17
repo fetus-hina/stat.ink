@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -26,7 +26,7 @@ use function strtolower;
 
 class LanguageSupportLevelWarning extends Widget
 {
-    private $language;
+    private ?Language $language = null;
 
     public function init()
     {
@@ -66,14 +66,20 @@ class LanguageSupportLevelWarning extends Widget
                     'p',
                     Html::encode('This language support is really limited at this time.'),
                 ),
-                Html::tag(
-                    'p',
-                    Html::encode(
-                        (int)$this->language->support_level_id === SupportLevel::MACHINE
-                            ? 'Almost every text is machine translated.'
-                            : 'Only proper nouns (e.g., weapons, stages) translated.',
+                in_array(
+                    (int)$this->language->support_level_id,
+                    [SupportLevel::ALMOST, SupportLevel::PARTIAL],
+                    true,
+                )
+                    ? ''
+                    : Html::tag(
+                        'p',
+                        Html::encode(
+                            (int)$this->language->support_level_id === SupportLevel::MACHINE
+                                ? 'Almost every text is machine translated.'
+                                : 'Only proper nouns (e.g., weapons, stages) translated.',
+                        ),
                     ),
-                ),
                 Html::tag(
                     'p',
                     Html::a(
@@ -124,6 +130,16 @@ class LanguageSupportLevelWarning extends Widget
     protected function renderMachineTranslate(): string
     {
         if (!$this->language) {
+            return '';
+        }
+
+        if (
+            in_array(
+                $this->language->lang,
+                ['ko-KR', 'pt-BR'], // Machine translation is not available
+                true,
+            )
+        ) {
             return '';
         }
 
