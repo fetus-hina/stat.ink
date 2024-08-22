@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -13,6 +13,7 @@ namespace app\components\widgets;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
+use app\assets\LuxonAsset;
 use app\models\User;
 use statink\yii2\calHeatmap\CalHeatmapTooltipAsset;
 use statink\yii2\calHeatmap\CalHeatmapWidget;
@@ -76,6 +77,7 @@ final class ActivityWidget extends CalHeatmapWidget
                     '$1',
                     self::getDayjsLocaleName(strtolower((string)Yii::$app->language)),
                 ),
+                'timezone' => 'Etc/UTC',
             ],
             'range' => $this->months,
             'scale' => [
@@ -99,6 +101,7 @@ final class ActivityWidget extends CalHeatmapWidget
 
         $view = $this->view;
         if ($view instanceof View) {
+            LuxonAsset::register($view);
             CalHeatmapTooltipAsset::register($view);
             $this->plugins[] = [
                 new JsExpression('window.Tooltip'),
@@ -113,7 +116,7 @@ final class ActivityWidget extends CalHeatmapWidget
     private function renderDataConverterX(): JsExpression
     {
         return new JsExpression(
-            'function(e){return new Date(e.date).getTime()}',
+            'function(e){return window.luxon.DateTime.fromISO(e.date,{zone:"Etc/UTC"}).toMillis()}',
         );
     }
 
