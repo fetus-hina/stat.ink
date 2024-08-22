@@ -65,7 +65,7 @@ return [
     'Salmon Run' => '',
     'Soon' => 'Em breve',
     'Special Use' => 'Uso do Especial',
-    'Stats: Salmon Clear %' => 'Estátisticas: % de Vitórias no Salmon',
+    'Stats: Salmon Clear %' => 'Estatísticas: % de Vitórias no Salmon',
     'Team total Golden Eggs' => 'Total de Golden Eggs da Equipe',
     'Team total Golden Eggs per Wave' => 'Total de Golden Eggs coletados pela Equipe por Wave',
     'Team total Power Eggs' => 'Total de Power Eggs da Equipe',

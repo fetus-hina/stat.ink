@@ -63,7 +63,7 @@ return [
     'Rescued' => 'Resgatado',
     'Rescues' => 'Resgatados',
     'S' => '',
-    'Salmometer' => '',
+    'Salmometer' => 'Barra do King (Salmômetro)',
     'Salmon Run' => '',
     'Scales' => 'Escamas',
     'Stats' => 'Estatísticas',
