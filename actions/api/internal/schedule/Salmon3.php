@@ -12,6 +12,7 @@ namespace app\actions\api\internal\schedule;
 
 use DateTime;
 use Yii;
+use app\models\BigrunMap3;
 use app\models\Map3;
 use app\models\SalmonKing3;
 use app\models\SalmonMap3;
@@ -93,7 +94,7 @@ trait Salmon3
         ];
     }
 
-    private function salmonMap3(SalmonMap3|Map3|null $info): ?array
+    private function salmonMap3(SalmonMap3|Map3|BigrunMap3|null $info): ?array
     {
         if (!$info) {
             return null;
