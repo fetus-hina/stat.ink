@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -24,9 +24,12 @@ use function is_string;
 
 final class BadgeAction extends Action
 {
+    public const ORDER_DEFAULT = '';
+    public const ORDER_NUMBER = 'number';
+
     use DataCreator;
 
-    public function run(): string
+    public function run(string $order = self::ORDER_DEFAULT): string
     {
         $screenName = TypeHelper::instanceOf(Yii::$app->request, Request::class)->get('screen_name');
         $user = User::find()
@@ -47,6 +50,10 @@ final class BadgeAction extends Action
                 array_merge($this->createData($user), [
                     'isEditable' => Yii::$app->user->identity?->id === $user->id,
                     'isEditing' => false,
+                    'order' => match ($order) {
+                        self::ORDER_NUMBER => self::ORDER_NUMBER,
+                        default => self::ORDER_DEFAULT,
+                    },
                 ]),
             );
     }
