@@ -12,5 +12,5 @@ return [
   'encodeLabel' => false,
   'format' => 'integer',
   'headerOptions' => ['class' => 'cell-power-total text-center'],
-  'label' => Icon::powerEgg(),
+  'label' => Icon::powerEgg(alt: Yii::t('app-salmon2', 'Team total Power Eggs')),
 ];

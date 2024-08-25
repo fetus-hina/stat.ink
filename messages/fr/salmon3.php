@@ -16,6 +16,7 @@ return [
     'BIG Big Run' => '',
     'Big Run' => 'Big Run',
     'Boss' => '',
+    'Bosses defeated' => '',
     'Boss Salmonid' => 'Salmonoboss',
     'Boss Salmonids' => '',
     'Clear Bonus' => 'Récompense',

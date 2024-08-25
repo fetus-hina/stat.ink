@@ -37,7 +37,7 @@
     "markrogoyski/math-php": "^2.10.0",
     "omnilight/yii2-scheduling": "^1.1.6",
     "paragonie/constant_time_encoding": "^3.0.0",
-    "php-curl-class/php-curl-class": "^9.19.2",
+    "php-curl-class/php-curl-class": "^11.0.0",
     "statink/yii2-anonymizer": "^1.0.4",
     "statink/yii2-bukiicons": "^1.0.1",
     "statink/yii2-cal-heatmap": "^2.1.1",

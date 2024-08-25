@@ -12,5 +12,5 @@ return [
   'encodeLabel' => false,
   'format' => 'integer',
   'headerOptions' => ['class' => 'cell-golden-total text-center'],
-  'label' => Icon::goldenEgg(),
+  'label' => Icon::goldenEgg(alt: Yii::t('app-salmon2', 'Team total Golden Eggs')),
 ];

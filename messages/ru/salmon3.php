@@ -15,6 +15,7 @@ return [
     'BIG Big Run' => '',
     'Big Run' => 'Big Run',
     'Boss' => '',
+    'Bosses defeated' => '',
     'Boss Salmonid' => 'Самонид-босс',
     'Boss Salmonids' => '',
     'Clear Bonus' => 'Награда',

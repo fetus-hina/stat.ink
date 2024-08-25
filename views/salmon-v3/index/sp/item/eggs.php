@@ -24,6 +24,7 @@ echo Html::tag(
       'label' => Icon::powerEgg(),
       'value' => ArrayHelper::getValue($model, 'salmonPlayer3s.0.power_eggs'),
     ]),
+    $this->render('boss', compact('model')),
   ]),
   [
     'class' => [
