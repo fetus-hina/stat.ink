@@ -217,8 +217,7 @@ final class Salmon3FilterForm extends Model
     private static function getBigRunKeys(): array
     {
         return ArrayHelper::getColumn(
-            Map3::find()
-                ->andWhere(['bigrun' => true])
+            BigrunMap3::find()
                 ->orderBy(['key' => SORT_ASC])
                 ->all(),
             'key',

@@ -3,13 +3,13 @@
 declare(strict_types=1);
 
 use app\components\widgets\Icon;
-use app\models\Map3;
+use app\models\BigrunMap3;
 use app\models\SalmonMap3;
 use yii\helpers\Html;
 use yii\web\View;
 
 /**
- * @var Map3|null $bigMap
+ * @var BigrunMap3|null $bigMap
  * @var SalmonMap3|null $map
  * @var View $this
  */

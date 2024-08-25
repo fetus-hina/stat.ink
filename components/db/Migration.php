@@ -96,12 +96,9 @@ class Migration extends BaseMigration
         $db = $this->db;
         assert($db instanceof Connection);
 
-        foreach ($tables as $table) {
-            $time = $this->beginCommand(sprintf('vacuum table %s', $table));
-            $sql = sprintf('VACUUM ( ANALYZE ) %s', $db->quoteTableName($table));
-            $this->db->createCommand($sql)->execute();
-            $this->endCommand($time);
-        }
+        $time = $this->beginCommand(sprintf('vacuum table %s', implode(', ', $tables)));
+        $this->analyze($tables);
+        $this->endCommand($time);
     }
 
     /**
@@ -273,20 +270,16 @@ class Migration extends BaseMigration
      */
     public function analyze(string|array $table): void
     {
-        // PgSQL 11 以降(?) なら複数テーブルを指定できるはずだが、分岐がめんどくさいので
-        // とりあえずループで回す
-        if (is_array($table)) {
-            foreach ($table as $t) {
-                $this->analyze($t);
-            }
-
-            return;
-        }
-
         $db = $this->db;
         $this->execute(
             vsprintf('VACUUM ( ANALYZE ) %s', [
-                $db->quoteTableName($table),
+                implode(
+                    ', ',
+                    array_map(
+                        $db->quoteTableName(...),
+                        (array)$table,
+                    ),
+                ),
             ]),
         );
     }
