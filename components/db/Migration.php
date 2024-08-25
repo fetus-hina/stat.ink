@@ -96,7 +96,7 @@ class Migration extends BaseMigration
         $db = $this->db;
         assert($db instanceof Connection);
 
-        $time = $this->beginCommand(sprintf('vacuum table %s', implode(', ', $table)));
+        $time = $this->beginCommand(sprintf('vacuum table %s', implode(', ', $tables)));
         $this->analyze($tables);
         $this->endCommand($time);
     }

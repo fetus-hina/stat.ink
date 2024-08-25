@@ -17,6 +17,9 @@ final class m240823_151231_bigrun_map3 extends Migration
      */
     public function safeUp()
     {
+        // fix forgotten migration
+        $this->update('{{%map3}}', ['bigrun' => true], ['key' => 'gonzui']);
+
         $this->createTable('{{%bigrun_map3}}', [
             'id' => $this->primaryKey(),
             'key' => $this->apiKey3()->notNull()->unique(),
@@ -45,6 +48,8 @@ final class m240823_151231_bigrun_map3 extends Migration
             'INNER JOIN {{%map3}} ON {{%map3}}.[[id]] = {{%map3_alias}}.[[map_id]] ' .
             'WHERE {{%map3}}.[[bigrun]] = TRUE',
         );
+
+        $this->update('{{%map3}}', ['bigrun' => false], ['key' => 'gonzui']);
 
         return true;
     }
