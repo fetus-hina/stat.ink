@@ -23,7 +23,7 @@ use yii\db\ActiveRecord;
  * @property integer $jobs
  * @property integer $cleared
  *
- * @property Map3 $bigStage
+ * @property BigrunMap3 $bigStage
  * @property SalmonEvent3 $event
  * @property SalmonMap3 $stage
  * @property SalmonWaterLevel2 $tide
@@ -41,7 +41,7 @@ class StatSalmon3TideEvent extends ActiveRecord
             [['stage_id', 'big_stage_id', 'tide_id', 'event_id', 'jobs', 'cleared'], 'default', 'value' => null],
             [['stage_id', 'big_stage_id', 'tide_id', 'event_id', 'jobs', 'cleared'], 'integer'],
             [['tide_id', 'jobs', 'cleared'], 'required'],
-            [['big_stage_id'], 'exist', 'skipOnError' => true, 'targetClass' => Map3::class, 'targetAttribute' => ['big_stage_id' => 'id']],
+            [['big_stage_id'], 'exist', 'skipOnError' => true, 'targetClass' => BigrunMap3::class, 'targetAttribute' => ['big_stage_id' => 'id']],
             [['event_id'], 'exist', 'skipOnError' => true, 'targetClass' => SalmonEvent3::class, 'targetAttribute' => ['event_id' => 'id']],
             [['stage_id'], 'exist', 'skipOnError' => true, 'targetClass' => SalmonMap3::class, 'targetAttribute' => ['stage_id' => 'id']],
             [['tide_id'], 'exist', 'skipOnError' => true, 'targetClass' => SalmonWaterLevel2::class, 'targetAttribute' => ['tide_id' => 'id']],
@@ -62,7 +62,7 @@ class StatSalmon3TideEvent extends ActiveRecord
 
     public function getBigStage(): ActiveQuery
     {
-        return $this->hasOne(Map3::class, ['id' => 'big_stage_id']);
+        return $this->hasOne(BigrunMap3::class, ['id' => 'big_stage_id']);
     }
 
     public function getEvent(): ActiveQuery

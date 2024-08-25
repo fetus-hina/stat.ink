@@ -13,17 +13,10 @@ use yii\helpers\ArrayHelper;
 use yii\web\View;
 
 /**
+ * @var SalmonMap3[] $stages
  * @var View $this
  * @var array[] $langs
  */
-
-$stages = ArrayHelper::sort(
-    SalmonMap3::find()->with(['salmonMap3Aliases'])->all(),
-    fn (SalmonMap3 $a, SalmonMap3 $b): int => strnatcasecmp(
-        Yii::t('app-map3', $a->name),
-        Yii::t('app-map3', $b->name)
-    )
-);
 
 TableResponsiveForceAsset::register($this);
 SortableTableAsset::register($this);
@@ -34,8 +27,8 @@ $fmt = Yii::$app->formatter;
 <h2 id="salmon3">
   <?= Html::encode(Yii::t('app-salmon3', 'Salmon Run')) . "\n" ?>
 </h2>
-<div class="table-responsive table-responsive-force">
-  <table class="table table-striped table-condensed table-sortable">
+<div class="table-responsive table-responsive-force mb-3">
+  <table class="table table-striped table-condensed table-sortable mb-0">
     <thead>
       <tr>
         <th></th>
@@ -77,8 +70,8 @@ $fmt = Yii::$app->formatter;
               return Html::tag('code', Html::encode($alias->key));
             },
             ArrayHelper::sort(
-                $stage->salmonMap3Aliases,
-                fn (SalmonMap3Alias $a, SalmonMap3Alias $b): int => strnatcasecmp($a->key, $b->key)
+              $stage->salmonMap3Aliases,
+              fn (SalmonMap3Alias $a, SalmonMap3Alias $b): int => strnatcasecmp($a->key, $b->key),
             )
           )) . "\n" ?>
         </td>

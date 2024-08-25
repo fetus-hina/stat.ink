@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -22,8 +22,8 @@ use app\components\validators\KeyValidator;
 use app\components\validators\SalmonBoss3Validator;
 use app\components\validators\SalmonPlayer3FormValidator;
 use app\components\validators\SalmonWave3FormValidator;
-use app\models\Map3;
-use app\models\Map3Alias;
+use app\models\BigrunMap3;
+use app\models\BigrunMap3Alias;
 use app\models\Salmon3;
 use app\models\SalmonAgentVariable3;
 use app\models\SalmonFailReason2;
@@ -183,8 +183,8 @@ final class PostSalmonForm extends Model
                 'when' => fn (self $model): bool => self::boolVal($model->big_run) !== true,
             ],
             [['stage'], KeyValidator::class,
-                'modelClass' => Map3::class,
-                'aliasClass' => Map3Alias::class,
+                'modelClass' => BigrunMap3::class,
+                'aliasClass' => BigrunMap3Alias::class,
                 'when' => fn (self $model): bool => self::boolVal($model->big_run) === true,
             ],
             [['fail_reason'], KeyValidator::class,
@@ -364,7 +364,7 @@ final class PostSalmonForm extends Model
                 ? null
                 : self::key2id($this->stage, SalmonMap3::class, SalmonMap3Alias::class, 'map_id'),
             'big_stage_id' => $isBigRun
-                ? self::key2id($this->stage, Map3::class, Map3Alias::class, 'map_id')
+                ? self::key2id($this->stage, BigrunMap3::class, BigrunMap3Alias::class, 'map_id')
                 : null,
             'danger_rate' => self::floatVal($this->danger_rate),
             'clear_waves' => self::intVal($this->clear_waves),

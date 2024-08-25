@@ -65,7 +65,7 @@ use yii\db\ActiveRecord;
  * @property boolean $is_eggstra_work
  *
  * @property Agent $agent
- * @property Map3 $bigStage
+ * @property BigrunMap3 $bigStage
  * @property SalmonBoss3[] $bosses
  * @property SalmonFailReason2 $failReason
  * @property SalmonKing3 $kingSalmonid
@@ -102,7 +102,7 @@ class Salmon3 extends ActiveRecord
             [['scenario_code'], 'string', 'max' => 16],
             [['uuid'], 'unique'],
             [['agent_id'], 'exist', 'skipOnError' => true, 'targetClass' => Agent::class, 'targetAttribute' => ['agent_id' => 'id']],
-            [['big_stage_id'], 'exist', 'skipOnError' => true, 'targetClass' => Map3::class, 'targetAttribute' => ['big_stage_id' => 'id']],
+            [['big_stage_id'], 'exist', 'skipOnError' => true, 'targetClass' => BigrunMap3::class, 'targetAttribute' => ['big_stage_id' => 'id']],
             [['fail_reason_id'], 'exist', 'skipOnError' => true, 'targetClass' => SalmonFailReason2::class, 'targetAttribute' => ['fail_reason_id' => 'id']],
             [['king_salmonid_id'], 'exist', 'skipOnError' => true, 'targetClass' => SalmonKing3::class, 'targetAttribute' => ['king_salmonid_id' => 'id']],
             [['stage_id'], 'exist', 'skipOnError' => true, 'targetClass' => SalmonMap3::class, 'targetAttribute' => ['stage_id' => 'id']],
@@ -173,7 +173,7 @@ class Salmon3 extends ActiveRecord
 
     public function getBigStage(): ActiveQuery
     {
-        return $this->hasOne(Map3::class, ['id' => 'big_stage_id']);
+        return $this->hasOne(BigrunMap3::class, ['id' => 'big_stage_id']);
     }
 
     public function getBosses(): ActiveQuery

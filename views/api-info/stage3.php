@@ -6,13 +6,17 @@ use app\components\widgets\AdWidget;
 use app\components\widgets\CcBy;
 use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
+use app\models\BigrunMap3;
 use app\models\Map3;
+use app\models\SalmonMap3;
 use yii\bootstrap\Html;
 use yii\web\View;
 
 /**
- * @var View $this
+ * @var BigrunMap3[] $bigrunStages
  * @var Map3[] $stages
+ * @var SalmonMap3[] $salmonStages
+ * @var View $this
  * @var array[] $langs
  */
 
@@ -52,7 +56,8 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
     ]) . "\n" ?>
   </p>
   <?= $this->render('stage3/list', ['langs' => $langs, 'stages' => $stages]) . "\n" ?>
-  <?= $this->render('stage3/salmon', ['langs' => $langs]) . "\n" ?>
+  <?= $this->render('stage3/salmon', ['langs' => $langs, 'stages' => $salmonStages]) . "\n" ?>
+  <?= $this->render('stage3/bigrun', ['langs' => $langs, 'stages' => $bigrunStages]) . "\n" ?>
   <hr>
   <?= CcBy::widget() . "\n" ?>
 </div>

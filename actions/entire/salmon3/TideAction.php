@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -11,7 +11,7 @@ declare(strict_types=1);
 namespace app\actions\entire\salmon3;
 
 use Yii;
-use app\models\Map3;
+use app\models\BigrunMap3;
 use app\models\SalmonEvent3;
 use app\models\SalmonMap3;
 use app\models\SalmonWaterLevel2;
@@ -45,9 +45,9 @@ final class TideAction extends Action
     private function getBigMaps(Connection $db): array
     {
         return ArrayHelper::map(
-            Map3::find()->orderBy(['name' => SORT_ASC])->all(),
+            BigrunMap3::find()->orderBy(['name' => SORT_ASC])->all(),
             'id',
-            fn (Map3 $v): Map3 => $v,
+            fn (BigrunMap3 $v): BigrunMap3 => $v,
         );
     }
 

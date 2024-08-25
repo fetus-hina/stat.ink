@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -44,7 +44,7 @@ final class GetSingleSalmonAction extends Action
         $model = Salmon3::find()
             ->with([
                 'agent',
-                'bigStage.map3Aliases',
+                'bigStage.bigrunMap3Aliases',
                 'bosses.salmonBoss3Aliases',
                 'failReason',
                 'kingSalmonid.salmonKing3Aliases',

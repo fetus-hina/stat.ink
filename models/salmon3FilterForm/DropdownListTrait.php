@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -11,7 +11,7 @@ declare(strict_types=1);
 namespace app\models\salmon3FilterForm;
 
 use Yii;
-use app\models\Map3;
+use app\models\BigrunMap3;
 use app\models\Salmon3FilterForm;
 use app\models\SalmonMap3;
 use app\models\salmon3FilterForm\dropdownList\TermDropdownListTrait;
@@ -55,9 +55,9 @@ trait DropdownListTrait
                 ),
                 Yii::t('app-salmon3', 'Big Run') => ArrayHelper::asort(
                     ArrayHelper::map(
-                        Map3::find()->andWhere(['bigrun' => true])->all(),
+                        BigrunMap3::find()->all(),
                         'key',
-                        fn (Map3 $model): string => Yii::t('app-map3', $model->name),
+                        fn (BigrunMap3 $model): string => Yii::t('app-map3', $model->name),
                     ),
                     SORT_NATURAL,
                 ),

@@ -26,7 +26,7 @@ use yii\db\ActiveRecord;
  * @property boolean $is_eggstra_work
  * @property boolean $is_random_map_big_run
  *
- * @property Map3 $bigMap
+ * @property BigrunMap3 $bigMap
  * @property BigrunOfficialBorder3 $bigrunOfficialBorder3
  * @property BigrunOfficialResult3 $bigrunOfficialResult3
  * @property EggstraWorkOfficialResult3 $eggstraWorkOfficialResult3
@@ -62,7 +62,7 @@ class SalmonSchedule3 extends ActiveRecord
             [['start_at', 'end_at'], 'required'],
             [['start_at', 'end_at'], 'safe'],
             [['is_eggstra_work', 'is_random_map_big_run'], 'boolean'],
-            [['big_map_id'], 'exist', 'skipOnError' => true, 'targetClass' => Map3::class, 'targetAttribute' => ['big_map_id' => 'id']],
+            [['big_map_id'], 'exist', 'skipOnError' => true, 'targetClass' => BigrunMap3::class, 'targetAttribute' => ['big_map_id' => 'id']],
             [['king_id'], 'exist', 'skipOnError' => true, 'targetClass' => SalmonKing3::class, 'targetAttribute' => ['king_id' => 'id']],
             [['map_id'], 'exist', 'skipOnError' => true, 'targetClass' => SalmonMap3::class, 'targetAttribute' => ['map_id' => 'id']],
         ];
@@ -84,7 +84,7 @@ class SalmonSchedule3 extends ActiveRecord
 
     public function getBigMap(): ActiveQuery
     {
-        return $this->hasOne(Map3::class, ['id' => 'big_map_id']);
+        return $this->hasOne(BigrunMap3::class, ['id' => 'big_map_id']);
     }
 
     public function getBigrunOfficialBorder3(): ActiveQuery
