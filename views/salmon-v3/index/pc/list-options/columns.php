@@ -16,6 +16,7 @@ return [
   require __DIR__ . '/columns/total-power-egg.php',
   // rescues
   // rescued
+  require __DIR__ . '/columns/boss.php',
   require __DIR__ . '/columns/hazard-level.php',
   require __DIR__ . '/columns/title-before.php',
   require __DIR__ . '/columns/title-after.php',

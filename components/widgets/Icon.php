@@ -878,6 +878,7 @@ final class Icon
     public static function s3BossSalmonid(
         string|SalmonBoss3|SalmonKing3|null $boss,
         ?string $size = null,
+        ?string $alt = null,
     ): ?string {
         if (is_string($boss)) {
             $boss = match ($boss) {
@@ -900,19 +901,22 @@ final class Icon
             default => self::assetImage(
                 SalmonBossIconAsset::class,
                 "{$boss->key}.png",
-                Yii::t('app-salmon-boss3', (string)$boss->name),
+                $alt ?? Yii::t('app-salmon-boss3', (string)$boss->name),
                 true,
                 $size,
             ),
         };
     }
 
-    public static function __callStatic(string $name, $args): string
+    public static function __callStatic(string $name, array $args): string
     {
         return match (true) {
             isset(self::$biMap[$name]) => self::bi(self::$biMap[$name]),
             isset(self::$fasMap[$name]) => self::fas(self::$fasMap[$name]),
-            isset(self::$assetImageMap[$name]) => self::assetImage(...self::$assetImageMap[$name]),
+            isset(self::$assetImageMap[$name]) => self::assetImage(
+                ...self::$assetImageMap[$name],
+                altOverwrite: $args['alt'] ?? null,
+            ),
             default => throw new UnknownMethodException("Unknown icon {$name}"),
         };
     }
@@ -947,11 +951,14 @@ final class Icon
         array|string|null $alt = null,
         array|bool|string|null $title = null,
         ?string $size = null,
+        ?string $altOverwrite = null,
     ): string {
         // self::prepareAsset($assetClass);
         $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
 
-        if (is_array($alt)) {
+        if ($altOverwrite !== null) {
+            $alt = $altOverwrite;
+        } elseif (is_array($alt)) {
             $alt = Yii::t(
                 TypeHelper::string($alt[0]),
                 TypeHelper::string($alt[1]),

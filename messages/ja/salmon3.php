@@ -17,6 +17,7 @@ return [
     'Boss Salmonid' => 'オオモノシャケ',
     'Boss Salmonids' => 'オオモノシャケ',
     'Boss' => 'オオモノ',
+    'Bosses defeated' => 'たおしたオオモノ',
     'Clear Bonus' => 'クリアボーナス',
     'Contribution' => '貢献度',
     'Defeat %' => '討伐率',

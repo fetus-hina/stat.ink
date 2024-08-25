@@ -16,6 +16,7 @@ return [
     'BIG Big Run' => '',
     'Big Run' => '大型跑',
     'Boss' => '',
+    'Bosses defeated' => '',
     'Boss Salmonid' => '巨大鲑鱼',
     'Boss Salmonids' => '',
     'Clear Bonus' => '通关奖励',

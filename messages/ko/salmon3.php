@@ -16,6 +16,7 @@ return [
     'BIG Big Run' => '',
     'Big Run' => '빅 런',
     'Boss' => '',
+    'Bosses defeated' => '',
     'Boss Salmonid' => '거물연어',
     'Boss Salmonids' => '',
     'Clear Bonus' => '클리어 보너스',
