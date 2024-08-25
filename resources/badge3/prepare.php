@@ -35,9 +35,7 @@ $list = [
     'salmonids/tatsu/2.png' => 'https://leanny.github.io/splat3/images/badge/Badge_CoopBossKillNum_SakeRope_Lv01.png',
     'salmonids/tatsu/3.png' => 'https://leanny.github.io/splat3/images/badge/Badge_CoopBossKillNum_SakeRope_Lv02.png',
     'salmonids/rengo/0.png' => null,
-    'salmonids/rengo/1.png' => null, // TODO
-    'salmonids/rengo/2.png' => null, // TODO
-    'salmonids/rengo/3.png' => null, // TODO
+    'salmonids/rengo/1.png' => 'https://leanny.github.io/splat3/images/badge/Badge_CoopKillTripleBoss_Lv00.png',
 ];
 
 $specials = [

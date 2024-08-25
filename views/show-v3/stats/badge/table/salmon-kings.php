@@ -49,11 +49,17 @@ foreach ($kings as $king) {
     'value' => ArrayHelper::getValue($badgeKings, [$king->key, 'count']),
     'adjust' => (int)ArrayHelper::getValue($badgeAdjust, $key, 0),
     'badgePath' => 'salmonids/' . $king->key,
-    'steps' => [
-      [   0,   10, 0, 1],
-      [  10,  100, 1, 2],
-      [ 100, 1000, 2, 3],
-      [1000, null, 3, 3],
-    ],
+    'steps' => match ($king->key) {
+      'rengo' => [
+        [0,    1, 0, 1],
+        [1, null, 1, 1],
+      ],
+      default => [
+        [   0,   10, 0, 1],
+        [  10,  100, 1, 2],
+        [ 100, 1000, 2, 3],
+        [1000, null, 3, 3],
+      ],
+    },
   ]);
 }
