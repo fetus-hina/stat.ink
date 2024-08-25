@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\actions\show\v3\stats\BadgeAction;
 use app\assets\s3PixelIcons\RuleIconAsset;
 use app\models\Rule3;
 use app\models\TricolorRole3;
@@ -11,6 +12,7 @@ use yii\helpers\ArrayHelper;
 use yii\web\View;
 
 /**
+ * @var BadgeAction::ORDER_* $order
  * @var Rule3[] $rules
  * @var TricolorRole3[] $roles
  * @var View $this
@@ -22,6 +24,41 @@ use yii\web\View;
 
 $am = Yii::$app->assetManager;
 $icon = RuleIconAsset::register($this);
+
+// reorder $rules for display
+if ($order === BadgeAction::ORDER_NUMBER) {
+  usort(
+    $rules,
+    function (Rule3 $a, Rule3 $b) use ($badgeAdjust, $badgeRules): int {
+      $aCount = array_sum([
+        (int)ArrayHelper::getValue($badgeRules, [$a->key, 'count'], 0),
+        (int)ArrayHelper::getValue($badgeAdjust, "rule-{$a->key}", 0),
+      ]);
+      $bCount = array_sum([
+        (int)ArrayHelper::getValue($badgeRules, [$b->key, 'count'], 0),
+        (int)ArrayHelper::getValue($badgeAdjust, "rule-{$b->key}", 0),
+      ]);
+
+      return $bCount <=> $aCount ?: $a->rank <=> $b->rank;
+    },
+  );
+
+  usort(
+    $roles,
+    function (TricolorRole3 $a, TricolorRole3 $b) use ($badgeAdjust, $badgeTricolor): int {
+      $aCount = array_sum([
+        (int)ArrayHelper::getValue($badgeTricolor, [$a->key, 'count'], 0),
+        (int)ArrayHelper::getValue($badgeAdjust, "rule-tricolor-{$a->key}", 0),
+      ]);
+      $bCount = array_sum([
+        (int)ArrayHelper::getValue($badgeTricolor, [$b->key, 'count'], 0),
+        (int)ArrayHelper::getValue($badgeAdjust, "rule-tricolor-{$b->key}", 0),
+      ]);
+
+      return $bCount <=> $aCount ?: $a->id <=> $b->id;
+    },
+  );
+}
 
 echo $this->render('includes/group-header', ['label' => Yii::t('app', 'Mode')]);
 foreach ($rules as $rule) {
@@ -49,6 +86,7 @@ foreach ($rules as $rule) {
     },
   ]);
 }
+
 foreach ($roles as $role) {
   $key = 'rule-tricolor-' . $role->key;
   echo $this->render('includes/row', [

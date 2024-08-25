@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use app\actions\show\v3\stats\BadgeAction;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
@@ -20,6 +21,7 @@ use yii\helpers\Url;
 use yii\web\View;
 
 /**
+ * @var BadgeAction::ORDER_* $order
  * @var Rule3[] $rules
  * @var SalmonKing3[] $kings
  * @var Special3[] $specials
@@ -68,10 +70,16 @@ if ($user->twitter != '') {
         <?= Html::encode(
           Yii::t('app', 'If there are any unsubmitted data, they have not been included in this tally.'),
         ) . "\n" ?>
+<?php if ($badgeAdjust) { ?>
+        <br>
+        <?= Html::encode(
+          Yii::t('app', 'The correction value specified by the user is applied.'),
+        ) . "\n" ?>
+<?php } ?>
 <?php } ?>
       </p>
 <?php if ($isEditing) { ?>
-      <p class="mb-2">
+      <p class="mb-3">
         <?= Html::a(
           implode(' ', [
             Icon::back(),
@@ -86,8 +94,9 @@ if ($user->twitter != '') {
         'POST',
         ['class' => 'm-0 p-0'],
       ) . "\n" ?>
-<?php } elseif ($isEditable) { ?>
-      <p class="mb-0 text-right">
+<?php } else { ?>
+<?php if ($isEditable) { ?>
+      <p class="mb-3 text-right">
         <?= Html::a(
           implode(' ', [
             Icon::edit(),
@@ -97,6 +106,29 @@ if ($user->twitter != '') {
           ['class' => 'btn btn-link'],
         ) . "\n" ?>
       </p>
+<?php } ?>
+      <nav class="mb-2">
+        <ul class="nav nav-pills mb-0">
+<?php foreach ([BadgeAction::ORDER_DEFAULT, BadgeAction::ORDER_NUMBER] as $itemOrder) { ?>
+          <?= Html::tag(
+            'li',
+            Html::a(
+              match ($itemOrder) {
+                BadgeAction::ORDER_DEFAULT => Yii::t('app', 'Default Order'),
+                BadgeAction::ORDER_NUMBER => Yii::t('app', 'Highest First'),
+              },
+              ['show-v3/stats-badge',
+                'screen_name' => $user->screen_name,
+                'order' => $itemOrder ?: null,
+              ],
+            ),
+            [
+              'class' => $order === $itemOrder ? 'active' : '',
+            ],
+          ) . "\n" ?>
+<?php } ?>
+        </ul>
+      </nav>
 <?php } ?>
       <?= Html::beginTag('table', [
         'class' => [
@@ -124,6 +156,7 @@ if ($user->twitter != '') {
             'badgeRules',
             'badgeTricolor',
             'isEditing',
+            'order',
             'roles',
             'rules',
           )) . "\n" ?>
@@ -131,6 +164,7 @@ if ($user->twitter != '') {
             'badgeAdjust',
             'badgeSpecials',
             'isEditing',
+            'order',
             'specials',
           )) . "\n" ?>
           <?= $this->render('badge/table/salmon-kings', compact(
@@ -138,12 +172,14 @@ if ($user->twitter != '') {
             'badgeKings',
             'isEditing',
             'kings',
+            'order',
           )) . "\n" ?>
           <?= $this->render('badge/table/salmon-bosses', compact(
             'badgeAdjust',
             'badgeBosses',
             'bosses',
             'isEditing',
+            'order',
           )) . "\n" ?>
         </tbody>
       </table>
