@@ -24,10 +24,10 @@ use function is_string;
 
 final class BadgeAction extends Action
 {
+    use DataCreator;
+
     public const ORDER_DEFAULT = '';
     public const ORDER_NUMBER = 'number';
-
-    use DataCreator;
 
     public function run(string $order = self::ORDER_DEFAULT): string
     {

@@ -24,7 +24,6 @@ use function array_values;
 use function assert;
 use function filter_var;
 use function implode;
-use function is_array;
 use function is_int;
 use function is_string;
 use function preg_split;
