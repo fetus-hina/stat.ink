@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -20,6 +20,7 @@ use app\actions\user\EditEmailVerifyAction;
 use app\actions\user\EditIconAction;
 use app\actions\user\EditPasswordAction;
 use app\actions\user\EditProfileAction;
+use app\actions\user\EditScreenNameAction;
 use app\actions\user\IconTwitterAction;
 use app\actions\user\LanguageAction;
 use app\actions\user\LoginAction;
@@ -60,6 +61,7 @@ final class UserController extends Controller
                     'edit-icon',
                     'edit-password',
                     'edit-profile',
+                    'edit-screen-name',
                     'icon-twitter',
                     'login',
                     'login-history',
@@ -97,6 +99,7 @@ final class UserController extends Controller
                             'edit-icon',
                             'edit-password',
                             'edit-profile',
+                            'edit-screen-name',
                             'icon-twitter',
                             'login-history',
                             'logout',
@@ -122,6 +125,7 @@ final class UserController extends Controller
                     'edit-icon' => [ 'get', 'post' ],
                     'edit-password' => [ 'get', 'post' ],
                     'edit-profile' => [ 'get', 'post' ],
+                    'edit-screen-name' => [ 'get', 'post' ],
                     'language' => [ 'post' ],
                     'login' => [ 'get', 'post' ],
                     'machine-translation' => [ 'post' ],
@@ -151,6 +155,7 @@ final class UserController extends Controller
             'edit-icon' => EditIconAction::class,
             'edit-password' => EditPasswordAction::class,
             'edit-profile' => EditProfileAction::class,
+            'edit-screen-name' => EditScreenNameAction::class,
             'icon-twitter' => IconTwitterAction::class,
             'language' => LanguageAction::class,
             'login' => LoginAction::class,
