@@ -117,8 +117,8 @@ $f = Yii::$app->formatter;
     [
       'attribute' => 'hide_data_on_toppage',
       'value' => match ((bool)$user->hide_data_on_toppage) {
-        false => sprintf('%s (%s)', Yii::t('app', 'No'), Yii::t('app', 'Show your data on the top page')),
-        true => sprintf('%s (%s)', Yii::t('app', 'Yes'), Yii::t('app', 'Hide your data on the top page')),
+        false => Yii::t('app', 'Show your data on the top page'),
+        true => Yii::t('app', 'Hide your data on the top page'),
       },
     ],
     [
