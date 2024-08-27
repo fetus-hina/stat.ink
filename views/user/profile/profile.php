@@ -75,12 +75,22 @@ $f = Yii::$app->formatter;
       'attribute' => 'screen_name',
       'label' => Yii::t('app', 'Screen Name'),
       'format' => 'raw',
-      'value' => Html::tag('code', Html::encode($user->screen_name)),
+      'value' => fn (): string => implode(' ', [
+        Html::tag('code', Html::encode($user->screen_name)),
+        Html::a(
+          implode('', [
+            Html::tag('span', '', ['class' => 'fas fa-fw fa-redo']),
+            Html::encode(Yii::t('app', 'Change Screen Name')),
+          ]),
+          ['edit-screen-name'],
+          ['class' => 'btn btn-default'],
+        ),
+      ]),
     ],
     [
       'attribute' => 'password',
       'format' => 'raw',
-      'value' => function () : string {
+      'value' => function (): string {
         return implode(' ', [
           Html::tag('code', Html::encode(str_repeat('*', 10))),
           Html::a(
@@ -107,8 +117,8 @@ $f = Yii::$app->formatter;
     [
       'attribute' => 'hide_data_on_toppage',
       'value' => match ((bool)$user->hide_data_on_toppage) {
-        false => sprintf('%s (%s)', Yii::t('app', 'No'), Yii::t('app', 'Show your data on the top page')),
-        true => sprintf('%s (%s)', Yii::t('app', 'Yes'), Yii::t('app', 'Hide your data on the top page')),
+        false => Yii::t('app', 'Show your data on the top page'),
+        true => Yii::t('app', 'Hide your data on the top page'),
       },
     ],
     [

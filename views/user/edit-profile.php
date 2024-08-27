@@ -32,8 +32,8 @@ $this->title = implode(' | ', [
 
     <?= $_->field($form, 'hide_data_on_toppage')
       ->dropDownList([
-        '0' => sprintf('%s (%s)', Yii::t('app', 'No'), Yii::t('app', 'Show your data on the top page')),
-        '1' => sprintf('%s (%s)', Yii::t('app', 'Yes'), Yii::t('app', 'Hide your data on the top page')),
+        '0' => Yii::t('app', 'Show your data on the top page'),
+        '1' => Yii::t('app', 'Hide your data on the top page'),
       ])
       ->hint(
         implode('<br>', [
