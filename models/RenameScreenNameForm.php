@@ -29,7 +29,9 @@ final class RenameScreenNameForm extends Model
             [['screen_name'], 'compare',
                 'compareValue' => Yii::$app->user->identity?->screen_name,
                 'operator' => '!==',
-                'message' => Yii::t('app', 'You cannot use the same {attribute} as your current one.'),
+                'message' => Yii::t('app', 'You cannot use the same {attribute} as your current one.', [
+                    'attribute' => Yii::t('app', 'Screen Name'),
+                ]),
             ],
             [['screen_name'], 'unique',
                 'skipOnError' => true,
