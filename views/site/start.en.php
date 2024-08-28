@@ -79,6 +79,20 @@ $iconAsset = AppLinkAsset::register($this);
       <p>
         TypeScript runtime environment (Deno) is required.
       </p>
+      <hr>
+      <?= Html::tag('iframe', '', [
+        'allow' => 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share',
+        'allowfullscreen' => true,
+        'frameborder' => '0',
+        'height' => '315',
+        'referrerpolicy' => 'strict-origin-when-cross-origin',
+        'src' => 'https://www.youtube.com/embed/CEzU06UcAGw',
+        'title' => 'YouTube video player',
+        'width' => '560',
+        'style' => [
+          'max-width' => '100%',
+        ],
+      ]) . "\n" ?>
     </div>
 
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-3">
