@@ -10,19 +10,19 @@
 declare(strict_types=1);
 
 return [
-    'Amiibo' => '',
+    'Amiibo' => 'Amiibo',
     'Cuttlegear' => 'Macalamar',
-    'Famitsu' => '',
+    'Famitsu' => 'Famitsu',
     'Firefin' => 'Friture',
     'Forge' => 'Focus',
     'Inkline' => 'Abysma',
-    'KOG' => '',
+    'KOG' => 'KOG',
     'Krak-On' => 'Krakers',
     'Rockenberg' => 'Iormungand',
     'Skalop' => 'Jack',
     'Splash Mob' => 'Gédéon',
     'Squidforce' => 'Kalamarus Rex',
-    'SQUID GIRL' => '',
+    'SQUID GIRL' => 'SQUID GIRL',
     'Takoroka' => 'Cubic',
     'Tentatek' => 'OculR',
     'Zekko' => 'Ezko',
