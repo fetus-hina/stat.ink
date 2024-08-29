@@ -13,7 +13,7 @@ return [
     'Event' => 'Évènement',
     'Fog' => 'Brouillard',
     'Goldie Seeking' => 'Chasse aux Dorax',
-    'Known Occurrence' => 'Événement connu',
+    'Known Occurrence' => 'Fréquence d\'événement connu',
     'Rush' => 'Ruées',
     'The Griller' => 'Barbeurks',
     'The Mothership' => 'Vaisseaux mères',
