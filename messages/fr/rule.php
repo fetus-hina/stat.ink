@@ -21,7 +21,7 @@ return [
     'Regular' => 'Classique',
     'Regular Battle' => 'Match classique',
     'RM' => 'Bazookarpe',
-    'Solo Queue' => '',
+    'Solo Queue' => 'Solo queue',
     'Splatfest' => 'Festival',
     'Splat Zones' => 'Défense de zone',
     'Squad Battle (Quad)' => 'Match en groupe (4)',
