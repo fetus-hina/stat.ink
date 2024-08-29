@@ -58,7 +58,7 @@ return [
     'API Info: Abilities (Splatoon 3)' => 'Info de l\'API : Bonus (Splatoon 3)',
     'API Info: Boss Salmonids (Splatoon 3)' => 'Info de l\'API : Salmonoboss (Splatoon 3)',
     'API Info: Gears: {0}' => 'Info de l\'API : Équipements : {0}',
-    'API Info: Known Occurrences (Splatoon 3)' => 'Info de l\'API : Occurrences connues (Splatoon 3)',
+    'API Info: Known Occurrences (Splatoon 3)' => 'Info de l\'API : Fréquence connu (Splatoon 3)',
     'API Info: Medals (Splatoon 3)' => 'Info de l\'API : Médailles (Splatoon 3)',
     'API Info: Stages (Splatoon 2)' => 'Info de l\'API : Stages (Splatoon 2)',
     'API Info: Stages (Splatoon 3)' => 'Info de l\'API : Stages (Splatoon 3)',
