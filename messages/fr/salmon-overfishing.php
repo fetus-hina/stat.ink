@@ -9,13 +9,13 @@
 declare(strict_types=1);
 
 return [
-    '(All Normal Waves)' => '',
-    '(~1 Night)' => '',
-    '(~2 Night)' => '',
-    'Category' => '',
-    'Day Waves' => '',
-    'Overfishing' => '',
-    'Overfishing Stats' => '',
-    'Record' => '',
-    'Total Golden Eggs' => '',
+    '(All Normal Waves)' => '(Tous des vagues normales)',
+    '(~1 Night)' => '(~1 nuit)',
+    '(~2 Night)' => '(~2 nuits)',
+    'Category' => 'Catégorie',
+    'Day Waves' => 'Vagues de jour',
+    'Overfishing' => 'Sur-pêche',
+    'Overfishing Stats' => 'statistiques Sur-pêche',
+    'Record' => 'Record',
+    'Total Golden Eggs' => 'Total d\'oeuf dorée',
 ];
