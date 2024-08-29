@@ -9,6 +9,6 @@
 declare(strict_types=1);
 
 return [
-    'https://github.com/hasegaw/IkaLog/wiki/en_Home' => '',
-    'https://play.google.com/store/apps/details?id=ink.pocketgopher.ikarec' => '',
+    'https://github.com/hasegaw/IkaLog/wiki/en_Home' => 'https://github.com/hasegaw/IkaLog/wiki/en_Home',
+    'https://play.google.com/store/apps/details?id=ink.pocketgopher.ikarec' => 'https://play.google.com/store/apps/details?id=ink.pocketgopher.ikarec',
 ];
