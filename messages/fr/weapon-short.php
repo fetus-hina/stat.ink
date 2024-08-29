@@ -10,7 +10,7 @@
 declare(strict_types=1);
 
 return [
-    'Arme double d\'Ordre (réplique)' => '',
+    'Arme double d\'Ordre (réplique)' => '', //they don't exist ,not in my knowledge
     'Arme double M. Ours SA' => '',
     'Arroseur lourd' => '',
     'Arroseur lourd Cerise' => '',
