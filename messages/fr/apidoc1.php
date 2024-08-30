@@ -1,9 +1,10 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
+ * @author Hitomi <119537233+Hitomi11212@users.noreply.github.com>
  */
 
 declare(strict_types=1);
@@ -12,16 +13,16 @@ return [
     'Ability' => 'Bonus',
     'Ability information' => 'Information de la bonus',
     'Action' => 'Action',
-    'API Token' => 'Jeton de l\'API', 
+    'API Token' => 'Jeton de l\'API',
     'Brand' => 'Marque',
     'Brand information' => 'Information de la marque',
     'Category' => 'catégorie',
     'Common ability' => 'Capacité commun',
     'Date and time expressed in ISO-8601 format' => 'Date et heure exprimé en format ISO-8601',
     'Date and time expressed in Unix Time' => 'Date et heure exprimé en temps Unix',
-    'Date and time when ready to play' => 'Date et heure quand ce sera prêt pour jouer ', //Date and time when it is going to be ready
+    'Date and time when ready to play' => 'Date et heure quand ce sera prêt pour jouer ',
     'Death Reason' => 'Cause de la mort',
-    'Death reason category information' => 'Type de la cause de la mort', //type of death raison
+    'Death reason category information' => 'Type de la cause de la mort',
     'Delete a battle' => 'Supprimer un match',
     'Deleted' => 'Supprimé',
     'Deleted ID' => 'Identifiant supprimé',
@@ -82,7 +83,7 @@ return [
     'Total area' => 'Superficie total',
     'Trend information' => 'Informations sur les tendances',
     'Uncommon ability' => 'Bonus peu commun',
-    'Use rate (%)' => 'Taux d\utilisation (%)',
+    'Use rate (%)' => 'Taux d\'utilisation (%)',
     'Validate only. Returns simple result.' => 'Validation des paramètres uniquement. Renvoie une réponse simple.',
     'Weapon' => 'Arme',
     'Weapon information' => 'Information sur l\'arme',

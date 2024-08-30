@@ -1,9 +1,10 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
+ * @author Hitomi <119537233+Hitomi11212@users.noreply.github.com>
  */
 
 declare(strict_types=1);
@@ -73,7 +74,7 @@ return [
     'Get Salmon Run stats (card data)' => 'Obtenir les stats Salmon Run (données de la carte)',
     'Get stages' => 'Obtenir les stages',
     'Get stages (obsoleted)' => 'Obtenir les stages (obsolètes)',
-    'Get the Salmon Run results' => 'Obtenir les résultats Salmon Run'
+    'Get the Salmon Run results' => 'Obtenir les résultats Salmon Run',
     'Get user\'s battle stats' => 'Obtenir les statistiques du match de l\'utilisateur',
     'Get weapons' => 'Obtenir les armes',
     'Get weapons in CSV format' => 'Obtenir les armes sous format CSV',
@@ -84,7 +85,7 @@ return [
     'Highest rank ever' => 'Le rang le plus élevé jamais atteint',
     'Highest X-power ever' => 'Plus grand X-power jamais atteint',
     'How many appearance' => 'Combien d\'apparition',
-    'How many bosses appearances' => 'Combien d\apparition de Salmonoboss',
+    'How many bosses appearances' => 'Combien d\'apparition de Salmonoboss',
     'How many cleared waves' => 'Combien de vagues réussi',
     'How many times special weapon used in each wave' => 'Combien de fois une arme spéciale a été utilisée dans chaque vague',
     'How many times the special weapon was used in each wave' => 'Combien de fois l\'arme spéciale a été utilisée dans chaque vague',
@@ -96,7 +97,7 @@ return [
     'If not appearances the boss, you can send `0` or omit the boss.' => 'Si il n\'y a pas d\'apparition du boss, vous envoyez `0`ou négligez le boss. ',
     'If not kills the boss, you can send `0` or omit the boss.' => 'Si le boss n\'a pas été tué,vous envoyez `0`ou négligez le boss.',
     'If omitted, we will automatically generate a random UUID.' => 'Si négliger, nous générerons un UUID aléatoire.',
-    'If the value is not correct as a UUID, we will use that value as a seed to generate a UUID.' => 'Si la valeur n\est pas correct pour un UUID, nous utiliserons la valeur pour une seed pour générer un UUID.',
+    'If the value is not correct as a UUID, we will use that value as a seed to generate a UUID.' => 'Si la valeur n\'est pas correct pour un UUID, nous utiliserons la valeur pour une seed pour générer un UUID.',
     'If you omitted the <code>id</code>, you will get a latest data.' => 'Si vous négligez le <code>id</code>, vous aurez les données les plus récentes',
     'If your client doesn\'t/cannot detect this data, omit this field or send just `null`.' => 'Si le client ne peut pas detécté cette données, négliger le champ ou juste envoyer `null`.',
     'If you specified other player\'s <code>id</code> value, you will get the 404 error.' => 'Si vous spécifiez la valeur <code>id<code> des autres joueurs, vous recevrez un code 404.',
@@ -105,7 +106,7 @@ return [
     'Is automated posting process?' => 'Est-ce que le procession de publication est automatique ?',
     'Is player cleared the shift?' => 'Est-ce que le joueur à réussi la mission',
     'Is the post with automated process?' => 'La publication est-elle soumise à un processus automatisé ?',
-    'It can be obtained from the [user settings page](https://stat.ink/profile).' => 'Il peut-être obtenu depuis [la page de paramètres de l\'utilisateur](https://stat.ink/profile).'
+    'It can be obtained from the [user settings page](https://stat.ink/profile).' => 'Il peut-être obtenu depuis [la page de paramètres de l\'utilisateur](https://stat.ink/profile).',
     'Kill ratio' => 'Ratio de kill',
     'Kills per battle' => 'Kills par matchs',
     'Kills per minute' => 'Kills par minute',
@@ -191,7 +192,7 @@ return [
     'Stat.ink user ID' => 'Stat.ink utilisateur ID',
     'Statistics for {rule}' => 'Statistique pour {rule}',
     'Sub weapon' => 'Arme secondaire',
-    'Sub weapon information' => 'Information de l\arme secondaire',
+    'Sub weapon information' => 'Information de l\'arme secondaire',
     'Successful' => 'Réussite',
     'Teammates\' play data' => 'Données de jeu des coéquipiers',
     'The API endpoint will return `302 Found` if job has same UUID posted in last 24 hours.' => 'Le point de terminaison de l\'API renverra « 302 Found » si le travail a le même UUID publié au cours des dernières 24 heures.',

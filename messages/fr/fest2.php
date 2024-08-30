@@ -1,9 +1,10 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
+ * @author Hitomi <119537233+Hitomi11212@users.noreply.github.com>
  */
 
 declare(strict_types=1);
@@ -14,7 +15,7 @@ return [
     'Back Roll' => 'Par-dessous',
     'Bamboo Shoot Village' => 'Bamboo Shoot Village',
     'Baseball' => 'Baseball',
-    'Boke' => 'Airhead',//don't have a translation,translated to english
+    'Boke' => 'Airhead',
     'Book' => 'Livre',
     'Ce League' => 'CE ligue',
     'Challenger' => 'challengeur',
@@ -56,7 +57,7 @@ return [
     'Lemon' => 'Citron',
     'Leo' => 'Leonardo',
     'Love' => 'Armour',
-    'Mayo' => 'Mayonnaise',//so good :)
+    'Mayo' => 'Mayonnaise',
     'McNuggets' => 'McNuggets',
     'Mikey' => 'Mikey',
     'Modern' => 'Moderne',
@@ -93,14 +94,14 @@ return [
     'Squid' => 'Calamars',
     'Super Mushroom' => 'Super Champignon',
     'Super Star' => 'Super Star',
-    'Sweater' => 'Chandails',//That's Candadien ,In france, we should say pulls (de noël) but we didn't have the splatfest as EU
+    'Sweater' => 'Chandails',
     'Sweet' => 'Sucré',
-    'Teleportation' => 'Espace',//It means space but why not
+    'Teleportation' => 'Espace',
     'Time Travel' => 'Temps',
     'Tortoise' => 'Torture',
     'Treat' => 'Bonbons',
     'Trick' => 'Tours',
-    'Tsubuan' => 'Wisecracker'//don't have a translation : translation to english
+    'Tsubuan' => 'Wisecracker',
     'Tsukkomi' => 'Samourai',
     'Unicorn' => 'Licorne',
     'Vampire' => 'Vampire',

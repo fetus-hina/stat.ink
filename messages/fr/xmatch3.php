@@ -1,9 +1,10 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
+ * @author Hitomi <119537233+Hitomi11212@users.noreply.github.com>
  */
 
 declare(strict_types=1);
@@ -33,7 +34,7 @@ return [
     'M' => 'M',
     'Matchmaking Group for {fromSeason} through {toSeason}' => 'Groupemment de création de Match de {fromSeason} jusqu\'a {toSeason}',
     'Matchmaking Group from {fromSeason}' => 'Groupe de création de match depuis {fromSeason}',
-    'Middle' => 'Mi-Distance',//For range's weapons , if you need it for something else ,use "Milieu"
+    'Middle' => 'Mi-Distance',
     'S' => 'S',
     'Short' => 'Courte Portée',
     'X: Match making group' => 'X: Groupe de création de match',

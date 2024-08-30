@@ -4,13 +4,14 @@
  * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
+ * @author Hitomi <119537233+Hitomi11212@users.noreply.github.com>
  * @author ultrasonicytb <ultrasonic2408@gmail.com>
  */
 
 declare(strict_types=1);
 
 return [
-    'Arme double d\'Ordre (réplique)' => '', //they don't exist ,not in my knowledge
+    'Arme double d\'Ordre (réplique)' => '',
     'Arme double M. Ours SA' => '',
     'Arroseur lourd' => '',
     'Arroseur lourd Cerise' => '',

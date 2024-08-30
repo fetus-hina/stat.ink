@@ -6,6 +6,7 @@
  * @author 7185 <7185@users.noreply.github.com>
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author codl <codl@codl.fr>
+ * @author Hitomi <119537233+Hitomi11212@users.noreply.github.com>
  * @author ultrasonicytb <ultrasonic2408@gmail.com>
  */
 
@@ -290,6 +291,8 @@ return [
     'If you already have an account, please click here.' => 'Si vous avez déjà un compte, Cliquez ici.',
     'If you change the screen name with this form, the change will take effect immediately.' => '',
     'If you delete this battle, it will be gone forever.' => 'Voulez-vous vraiment effacer ce match ? Cette action sera irreversible.',
+    'If you have pages that you are sharing with URLs, most of them will be broken links.' => '',
+    'If you have registered your login information in Password Manager, do not forget to update it.' => '',
     'If you know our API Token' => 'Si vous connaissez votre jeton API',
     'If you misuse this feature, you will be banned.' => 'Si vous abusez de cette fonctionnalité, vous serez banni.',
     'Ika-Nakama' => 'Ika-Nakama',
@@ -436,6 +439,7 @@ return [
     'No black out' => 'Pas d\'assombrissment/suppression',
     'No Data' => 'Pas de données',
     'No one in control' => 'Personne ne mène',
+    'No redirects from old URLs will be made.' => '',
     'Normal Distribution' => 'Normal distribution',
     'North America/Oceania' => 'Amérique du Nord/Oceanie',
     'Not configured.' => 'Pas configuré',
@@ -458,6 +462,7 @@ return [
     'Peak' => 'Record',
     'Period' => 'Période',
     'Permalink' => 'Permalien',
+    'Played With' => '',
     'Player Distribution' => 'Distribution du joueur',
     'Players' => 'Joueurs',
     'Players:' => 'Joueurs :',
@@ -500,7 +505,7 @@ return [
     'Recent Use %' => '% D\'utilisation récente',
     'Regardless of your time zone setting, it is grouped using UTC.' => 'Quel que soit votre paramètre de fuseau horaire, il est regroupé en UTC.',
     'Regenerate your API token' => 'Regénérer votre Jeton d\'API',
-    'Region (used for Splatfest)' => 'Région (utilisé pour les Splatfest)',//and X match
+    'Region (used for Splatfest)' => 'Région (utilisé pour les Splatfest)',
     'Register' => 'Créer un compte',
     'Regression Line' => 'Régression linéaire',
     'Relative Time' => 'Temps relatif',
@@ -624,11 +629,13 @@ return [
     'Team {theme}' => 'Équipe {theme}',
     'Test' => 'Test',
     'Thanks to {user} for their contribution.' => 'Merci à {user} pour sa participation',
+    'The correction value specified by the user is applied.' => '',
     'The data contains a large error margins.' => 'Les données contiennent de grandes marges d\'erreur.',
     'The data is intended to be analyzed using spreadsheet software (Excel, etc.) or programs to analyze.' => 'Les données sont destinées à être analysées à l\'aide de logiciels tableurs (Excel, etc.) ou de programmes à analyser.',
     'The data is not something you will know immediately after downloading.' => 'Les données ne sont pas quelque chose que vous connaîtrez immédiatement après le téléchargement.',
     'The estimated distribution of the overall game, as estimated from the official results.' => 'La répartition estimée de l\'ensemble du jeu, est estimée à partir des résultats officiels.',
     'The estimated location may be inaccurate.' => 'La localisation peut-être imprécise.',
+    'The filter specifying XP and version, aggregates data for the overall <code>x.y</code>, ignoring the <code>z</code> in version <code>x.y.z</code>.' => '',
     'The future of Twitter integration is completely uncertain, and as a {site} developer I can\'t recommend this feature at this time.' => 'L\'avenir de l\'intégration de Twitter est totalement incertain et, en tant que développeur de {site}, je ne peux pas recommander cette fonctionnalité pour le moment.',
     'The icon will be:' => 'L\'icône sera :',
     'Their team\'s league power' => 'Ligue Power de leur équipe',
@@ -751,6 +758,7 @@ return [
     'You' => 'Toi',
     'You can\'t use an IDN (Internationalized Domain Names) email address' => 'Vous ne pouvez pas utiliser une adresse email IDN (Nom de domaine internationalisé)',
     'You can delete this battle.' => 'Vous pouvez supprimer ce match.',
+    'You cannot use the same {attribute} as your current one.' => '',
     'You can register (estimated) unsent values here to correct the values displayed.' => 'Vous pouvez enregistrer ici les valeurs (estimées) non envoyées pour corriger les valeurs affichées.',
     'You can specify Discord\'s Slack compatible endpoint URL as well.' => 'Vous pouvez aussi spécifier l\'endpoint URL Slack compatible avec Discord.',
     'You must agree to the above to delete this battle.' => 'Vous devez accepter ci-dessus pour pouvoir supprimer ce match.',

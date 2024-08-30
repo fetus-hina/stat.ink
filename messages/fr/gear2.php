@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author 7185 <7185@users.noreply.github.com>
  * @author AIZAWA Hina <hina@fetus.jp>
