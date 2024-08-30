@@ -32,7 +32,7 @@ return [
     'Flounder Heights' => '넙치 언덕 단지',
     'Gone Fission Hydroplant' => '뫼니 엘 해양 발전소',
     'Gorge' => '석순 대협곡',
-    'Grand Splatlands Bowl' => '',
+    'Grand Splatlands Bowl' => '그랜드 카오폴리스 아레나',
     'Grounds' => '셰케나 댐',
     'Hagglefish Market' => '대치 시장',
     'Hammerhead Bridge' => '고등어 해협 대교',

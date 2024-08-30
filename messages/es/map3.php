@@ -30,7 +30,7 @@ return [
     'Flounder Heights' => 'Complejo Medusa',
     'Gone Fission Hydroplant' => 'Hidrocentral Pilpil',
     'Gorge' => 'Desfiladero Fumarola',
-    'Grand Splatlands Bowl' => '',
+    'Grand Splatlands Bowl' => 'Gran Escenario Tinteliano',
     'Grounds' => 'Presa Salmónida',
     'Hagglefish Market' => 'Mercado Lenguado',
     'Hammerhead Bridge' => 'Puente Salmón',

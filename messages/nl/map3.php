@@ -30,7 +30,7 @@ return [
     'Flounder Heights' => 'Baleinbuurt',
     'Gone Fission Hydroplant' => 'Kwikwi-krachtcentrale',
     'Gorge' => 'Roggentrog',
-    'Grand Splatlands Bowl' => '',
+    'Grand Splatlands Bowl' => 'Splatlands-Arena',
     'Grounds' => 'Salmonietendam',
     'Hagglefish Market' => 'Boter-bij-de-vismarkt',
     'Hammerhead Bridge' => 'Brandingbrug',

@@ -30,7 +30,7 @@ return [
     'Flounder Heights' => 'Schollensiedlung',
     'Gone Fission Hydroplant' => 'Wasserkraftwerk Stromschnell',
     'Gorge' => 'Sengkluft',
-    'Grand Splatlands Bowl' => '',
+    'Grand Splatlands Bowl' => 'Splatsville Grand Arena',
     'Grounds' => 'Salmoniden-Damm',
     'Hagglefish Market' => 'Schnapperchen-Basar',
     'Hammerhead Bridge' => 'Makrelenbrücke',

@@ -30,7 +30,7 @@ return [
     'Flounder Heights' => 'Appartements Filament',
     'Gone Fission Hydroplant' => 'Centrale Anguilla',
     'Gorge' => '',
-    'Grand Splatlands Bowl' => '',
+    'Grand Splatlands Bowl' => 'Clabousse Arena',
     'Grounds' => '',
     'Hagglefish Market' => 'Marché Grefin',
     'Hammerhead Bridge' => 'Pont Esturgeon',
