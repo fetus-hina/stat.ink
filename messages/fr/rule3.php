@@ -5,16 +5,17 @@
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author codl <codl@codl.fr>
+ * @author Hitomi <119537233+Hitomi11212@users.noreply.github.com>
  */
 
 declare(strict_types=1);
 
 return [
-    'Any Mode' => 'Tous modes',
-    'Attackers' => 'Attaque',
+    'Any Mode' => 'Tous les modes',
+    'Attackers' => 'Attaquants',
     'CB' => 'Pluie de palourdes',
     'Clam Blitz' => 'Pluie de palourdes',
-    'Defenders' => 'Défense',
+    'Defenders' => 'Défenseurs',
     'Rainmaker' => 'Mission Bazookarpe',
     'Ranked Modes' => 'Modes classés',
     'RM' => 'Mission Bazookarpe',
@@ -22,9 +23,9 @@ return [
     'SZ' => 'Défense de zone',
     'TC' => 'Expédition risquée',
     'Tower Control' => 'Expédition risquée',
-    'Tri' => '',
+    'Tri' => 'Match tricolore',
     'Tricolor Battle' => 'Match tricolore',
     'Tricolor Turf War' => 'Guerre tricolore',
     'Turf War' => 'Guerre de territoire',
-    'TW' => 'Guerre de territoire',
+    'TW' => '',
 ];

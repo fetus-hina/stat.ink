@@ -4,6 +4,7 @@
  * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
+ * @author Hitomi <119537233+Hitomi11212@users.noreply.github.com>
  */
 
 declare(strict_types=1);
@@ -33,7 +34,7 @@ return [
     'Carbon Roller' => 'Rouleau carbone',
     'Carbon Roller Deco' => 'Rouleau carbone chic',
     'Charcoal Decavitator' => 'Sabrifrice charbon',
-    'Chargers' => 'Fusil',
+    'Chargers' => 'Fusils',
     'Clash Blaster' => 'Rafablaster',
     'Clash Blaster Neo' => 'Rafablaster Néo',
     'Classic Squiffer' => 'Décap\'express Alpha',
@@ -55,7 +56,7 @@ return [
     'Douser Dualies FF' => 'Double ignifugeur',
     'Dread Wringer' => 'Seau S-Horreur',
     'Dread Wringer D' => 'Seau S-Horreur Cétacé',
-    'Dualies' => 'Double armes',
+    'Dualies' => 'Doubles armes',
     'Dualie Squelchers' => 'Double nettoyeur',
     'Dynamo Roller' => 'Dynamo-rouleau',
     'E-liter 4K' => 'Extraceur +',
@@ -105,7 +106,7 @@ return [
     'Neo Splash-o-matic' => 'Marqueur léger Néo',
     'Neo Sploosh-o-matic' => 'Marqueur lourd Néo',
     'New Squiffer' => 'Décap\'express Bêta',
-    'Nozzlenoses' => '',
+    'Nozzlenoses' => 'Arroseurs',
     'Octobrush' => 'Épinceau brosse',
     'Octobrush Nouveau' => 'Épinceau brosse nuancé',
     'Octo Shot Replica' => 'Lanceur Octaling (réplique)',
@@ -122,8 +123,8 @@ return [
     'Order Stringer Replica' => 'Transperceur d\'Ordre (réplique)',
     'Painbrush' => 'Épinceau écaïe',
     'Painbrush Nouveau' => 'Épinceau écaïe nuancé',
-    'Random' => '',
-    'Random (Rare)' => '',
+    'Random' => 'Aléatoire',
+    'Random (Rare)' => 'Aléatoire (Rare)',
     'Range Blaster' => 'Éclablaster XL',
     'Rapid Blaster' => 'Turboblaster',
     'Rapid Blaster Deco' => 'Turboblaster chic',
@@ -146,7 +147,7 @@ return [
     'Snipewriter 5H' => 'Crayon X - 5H',
     'Sorella Brella' => 'Para-encre Sorella',
     'Splash-o-matic' => 'Marqueur léger',
-    'Splatanas' => '',
+    'Splatanas' => 'Éclatanas',
     'Splatana Stamper' => 'Éclatana d\'estampe',
     'Splatana Stamper Nouveau' => 'Éclatana d\'estampe nuancé',
     'Splatana Wiper' => 'Éclatana Doto',
@@ -163,7 +164,7 @@ return [
     'Splattershot Pro' => 'Liquidateur pro',
     'Sploosh-o-matic' => 'Marqueur lourd',
     'Squeezer' => 'Compresseur',
-    'Stringers' => '',
+    'Stringers' => 'Arcs',
     'Tenta Brella' => 'Para-encre XL',
     'Tenta Sorella Brella' => 'Para-encre XL Sorella',
     'Tentatek Splattershot' => 'Liquidateur griffé',

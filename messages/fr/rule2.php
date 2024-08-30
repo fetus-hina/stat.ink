@@ -1,9 +1,10 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
+ * @author Hitomi <119537233+Hitomi11212@users.noreply.github.com>
  * @author ultrasonicytb <ultrasonic2408@gmail.com>
  */
 
@@ -44,11 +45,11 @@ return [
     'Regular' => 'Classique',
     'Regular Battle' => 'Match classique',
     'RM' => 'Bazookarpe',
-    'Solo Queue' => '',
+    'Solo Queue' => 'Solo Queue',
     'Splatfest' => 'Festival',
-    'Splatfest (Normal)' => '',
-    'Splatfest (Pro)' => '',
-    'Splatfest (Pro/Solo)' => '',
+    'Splatfest (Normal)' => 'Splatfest (Normal)',
+    'Splatfest (Pro)' => 'Splatfest (Pro)',
+    'Splatfest (Pro/Solo)' => 'Splatfest (Pro/solo)',
     'Splatfest (Solo)' => 'Festival (Solo)',
     'Splatfest (Team)' => 'Festival (Équipe)',
     'Splat Zones' => 'Défense de zone',
@@ -66,10 +67,10 @@ return [
     'Turf War' => 'Guerre de territoire',
     'Turf War - Private Battle' => 'Guerre de territoire - Match privé',
     'Turf War - Regular Battle' => 'Guerre de territoire - Match classique',
-    'Turf War - Splatfest (Normal)' => '',
-    'Turf War - Splatfest (Pro)' => '',
-    'Turf War - Splatfest (Pro/Solo)' => '',
+    'Turf War - Splatfest (Normal)' => 'Guerre de territoire - Festival (Normal)',
+    'Turf War - Splatfest (Pro)' => 'Guerre de territoire - Festival (Pro)',
+    'Turf War - Splatfest (Pro/Solo)' => 'Guerre de territoire - Festival (Pro/Solo)',
     'Turf War - Splatfest (Solo)' => 'Guerre de territoire - Festival (Solo)',
     'Turf War - Splatfest (Team)' => 'Guerre de territoire - Festival (Équipe)',
-    'TW' => 'Territoire',
+    'TW' => 'Guerre de Territoire',
 ];

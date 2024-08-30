@@ -4,12 +4,13 @@
  * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
+ * @author Hitomi <119537233+Hitomi11212@users.noreply.github.com>
  */
 
 declare(strict_types=1);
 
 return [
-    'Any Special' => 'Tout spécial',
+    'Any Special' => 'Tous les spéciales',
     'Big Bubbler' => 'Super bouclier',
     'Booyah Bomb' => 'Jolizator',
     'Crab Tank' => 'Crabe d\'assaut',

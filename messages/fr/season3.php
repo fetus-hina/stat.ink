@@ -4,6 +4,7 @@
  * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
+ * @author Hitomi <119537233+Hitomi11212@users.noreply.github.com>
  */
 
 declare(strict_types=1);
@@ -27,7 +28,7 @@ return [
     'Fresh Season 2025' => 'Saison des bourgeons 2025',
     'Fresh Season 2026' => 'Saison des bourgeons 2026',
     'Fresh Season 2027' => 'Saison des bourgeons 2027',
-    'Season {seasonNumber} ({seasonName})' => '',
+    'Season {seasonNumber} ({seasonName})' => 'Saison {seasonNumber} ({seasonName})',
     'Sizzle Season 2022' => 'Saison du soleil 2022',
     'Sizzle Season 2023' => 'Saison du soleil 2023',
     'Sizzle Season 2024' => 'Saison du soleil 2024',

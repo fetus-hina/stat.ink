@@ -1,10 +1,11 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author codl <codl@codl.fr>
+ * @author Hitomi <119537233+Hitomi11212@users.noreply.github.com>
  * @author ultrasonicytb <ultrasonic2408@gmail.com>
  */
 
@@ -12,18 +13,18 @@ declare(strict_types=1);
 
 return [
     '(3rd party defined)' => '(définis par un tiers)',
-    '(Session)' => '',
-    '(Twitter)' => '',
+    '(Session)' => '(Session)',
+    '(Twitter)' => '(Twitter)',
     'A token used for the auto login feature' => 'Un cookie utilisé pour la connexion auto',
     'A token used to avoid CSRF vulnerability' => 'Un cookie utilisé pour éviter la vulnérabilité CSRF',
     'Cookie ID (Name)' => 'ID Cookie (Nom)',
-    'Cookies' => '',
-    'descriptions' => '',
-    'Expires' => 'Expire',
+    'Cookies' => 'Cookies',
+    'descriptions' => 'Descriptions',
+    'Expires' => 'Expiré',
     'I agree' => 'J\'accepte',
     'Issued and used by CloudFlare' => 'Émit et utilisé par CloudFlare',
     'Issued and used by Twitter' => 'Émit et utilisé par Twitter',
-    'Keep your input data while verifying email address' => '',
+    'Keep your input data while verifying email address' => 'Gardez votre donnée que vous avez entrée pendant qu\'on vérifie l\'adresse email',
     'Origin' => 'Origine',
     'Privacy policy' => 'Politique de confidentialité',
     'privacy policy' => 'politique de confidentialité',

@@ -1,9 +1,10 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
+ * @author Hitomi <119537233+Hitomi11212@users.noreply.github.com>
  * @author ultrasonicytb <ultrasonic2408@gmail.com>
  */
 
@@ -30,7 +31,7 @@ return [
     'Duration: {pct} ({sec} sec., {frames} frames)' => 'Durée : {pct} ({sec} sec., {frames} frames)',
     'Duration: {sec} ({sec1}+{sec2}) sec' => 'Durée : {sec} ({sec1}+{sec2}) sec',
     'Haunt' => 'Revanche',
-    'Horizontal' => '',
+    'Horizontal' => 'Horizontal',
     'Increase brella canopy durability' => 'Augmente la durabilité de la toile du para-encre',
     'Increase bullet velocity' => 'Augmente la vitesse des balles',
     'Increase damage' => 'Augmente les dégats',
@@ -47,10 +48,10 @@ return [
     'Ink Saver (Main)' => 'Encrémenteur (pr.)',
     'Ink Saver (Sub)' => 'Encrémenteur (sec.)',
     'Last-Ditch Effort' => 'Ultime sursaut',
-    'Long' => '',
+    'Long' => 'Long',
     'Main Power Up' => 'Arme principale +',
     'Ninja Squid' => 'Ninjalamar',
-    'Normal: {value}' => '',
+    'Normal: {value}' => 'Valeur Normal: {value}',
     'Object Shredder' => 'Démolition',
     'Opening Gambit' => 'Chapeaux de roue',
     'Quick Respawn' => 'Sans temps mort',
@@ -65,12 +66,12 @@ return [
     'Special Power Up' => 'Arme spéciale +',
     'Special Saver' => 'Baisse spéciale -',
     'Speed up brella canopy regeneration' => 'Accélère la régénération de la toile du para-encre',
-    'Squish' => '',
+    'Squish' => 'Compresser',
     'Stealth Jump' => 'Réception réussie',
     'Sub Power Up' => 'Arme secondaire +',
     'Swim Speed Up' => 'Turbo-calamar',
     'Tenacity' => 'Justice',
     'Thermal Ink' => 'Encre thermique',
-    'Vertical' => '',
-    '{pct} ({dupf} DU/f)' => '',
+    'Vertical' => 'Verticale',
+    '{pct} ({dupf} DU/f)' => '{pct} ({dupf} DU/f',
 ];

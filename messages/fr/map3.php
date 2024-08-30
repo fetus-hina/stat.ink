@@ -4,6 +4,7 @@
  * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
+ * @author Hitomi <119537233+Hitomi11212@users.noreply.github.com>
  * @author ultrasonicytb <ultrasonic2408@gmail.com>
  */
 
@@ -11,10 +12,10 @@ declare(strict_types=1);
 
 return [
     'Academy' => 'Institut Calam\'arts',
-    'Airport' => '',
+    'Airport' => 'Terminal Rorqual',
     'Alley' => 'Banlieue Balibot',
-    'Any Stage' => 'Tout Stage',
-    'Arena' => '',
+    'Any Stage' => 'Tous les Stages',
+    'Arena' => 'Colisée enlisé',
     'B&D' => 'Halles de Port-merlu',
     'Barnacle & Dime' => 'Halles de Port-merlu',
     'Bay' => 'Épave des braves',
@@ -23,8 +24,8 @@ return [
     'Bowl' => '',
     'Bridge' => 'Pont Esturgeon',
     'Brinewater Springs' => 'Sources Sauret',
-    'Capital' => '',
-    'Cargo' => '',
+    'Capital' => 'Quartier Crabe-ciels',
+    'Cargo' => 'Chaland Flétan',
     'Crableg Capital' => 'Quartier Crabe-ciels',
     'Depot' => 'Mine Marine',
     'Eeltail Alley' => 'Banlieue Balibot',
@@ -36,7 +37,7 @@ return [
     'Hagglefish Market' => 'Marché Grefin',
     'Hammerhead Bridge' => 'Pont Esturgeon',
     'Heights' => 'Lotissement Filament',
-    'Hub' => '',
+    'Hub' => 'Gare Aiguillat',
     'Humpback Pump Track' => 'Piste Méroule',
     'Hydroplant' => 'Centrale Anguilla',
     'Inkblot Art Academy' => 'Institut Calam\'arts',
@@ -45,7 +46,7 @@ return [
     'Lemuria Hub' => 'Gare Aiguillat',
     'Mahi-Mahi Resort' => 'Club Ca$halot',
     'MakoMart' => 'Supermarché Cétacé',
-    'Manta' => '',
+    'Manta' => 'Manta Maria',
     'Manta Maria' => 'Manta Maria',
     'Market' => 'Marché Grefin',
     'Marlin Airport' => 'Terminal Rorqual',
@@ -58,13 +59,13 @@ return [
     'Museum d\'Alfonsino' => 'Galeries Guppy',
     'Resort' => 'Club Ca$halot',
     'Robo ROM-en' => 'Arène Méca-ramen',
-    'ROM-en' => '',
-    'Ruins' => '',
+    'ROM-en' => 'Arène Méca-ramen',
+    'Ruins' => 'Ruines Uma\'ni',
     'Salmonid Smokeyard' => 'Fumoir Sans-Espoir',
     'Scorch Gorge' => 'Canyon aux colonnes',
     'Shipshape Cargo Co.' => 'Chaland Flétan',
     'Shipyard' => 'Chantier Narval',
-    'Smokeyard' => '',
+    'Smokeyard' => 'Fumoir Sans-Espoir',
     'Sockeye Station' => 'Bastion colimaçon',
     'Spawning Grounds' => 'Barrage salmonoïde',
     'Spillway' => 'Réservoir Rigadelle',
