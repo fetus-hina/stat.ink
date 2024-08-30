@@ -11,6 +11,6 @@ declare(strict_types=1);
 
 return [
     'Battles' => 'Matchs',
-    'Shifts' => 'Jobs',
+    'Shifts' => 'Travails',
     'Users' => 'Utilisateurs',
 ];

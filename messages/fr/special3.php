@@ -9,7 +9,7 @@
 declare(strict_types=1);
 
 return [
-    'Any Special' => 'Tout spécial',
+    'Any Special' => 'Tous les spéciales',
     'Big Bubbler' => 'Super bouclier',
     'Booyah Bomb' => 'Jolizator',
     'Crab Tank' => 'Crabe d\'assaut',

@@ -13,7 +13,7 @@ return [
     'Anarchy Battle' => 'Match anarchie',
     'Anarchy Battle (Open)' => 'Match anarchie (ouvert)',
     'Anarchy Battle (Series)' => 'Match anarchie (série)',
-    'Any Lobby' => '',
+    'Any Lobby' => 'Tous les matchs',
     'Challenge' => 'Match Challenge',
     'Except Private' => 'Tout sauf privé',
     'Private Battle' => 'Match privé',
