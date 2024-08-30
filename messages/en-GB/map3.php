@@ -30,7 +30,7 @@ return [
     'Flounder Heights' => 'Flounder Heights',
     'Gone Fission Hydroplant' => 'Gone Fission Hydroplant',
     'Gorge' => '',
-    'Grand Splatlands Bowl' => '',
+    'Grand Splatlands Bowl' => 'Grand Splatlands Bowl',
     'Grounds' => '',
     'Hagglefish Market' => 'Hagglefish Market',
     'Hammerhead Bridge' => 'Hammerhead Bridge',

@@ -30,7 +30,7 @@ return [
     'Flounder Heights' => 'Cime Sogliolose',
     'Gone Fission Hydroplant' => 'Centrale Anguilla Elettrica',
     'Gorge' => 'Grank Canyon',
-    'Grand Splatlands Bowl' => '',
+    'Grand Splatlands Bowl' => 'Arena di Splattonia',
     'Grounds' => 'Diga salmonoide',
     'Hagglefish Market' => 'Mercato Fruttato',
     'Hammerhead Bridge' => 'Ponte Sgombro',

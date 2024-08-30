@@ -32,7 +32,7 @@ return [
     'Flounder Heights' => '比目鱼住宅区',
     'Gone Fission Hydroplant' => '麦年海洋发电所',
     'Gorge' => '大峡谷',
-    'Grand Splatlands Bowl' => '',
+    'Grand Splatlands Bowl' => '蛮颓大巨蛋',
     'Grounds' => '鲑坝',
     'Hagglefish Market' => '烟管鱼市场',
     'Hammerhead Bridge' => '真鲭跨海大桥',

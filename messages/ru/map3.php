@@ -30,7 +30,7 @@ return [
     'Flounder Heights' => 'Микрорайон «Камбалово»',
     'Gone Fission Hydroplant' => 'ГЭС-комплекс «Лом»',
     'Gorge' => 'Опаленное ущелье',
-    'Grand Splatlands Bowl' => '',
+    'Grand Splatlands Bowl' => 'Гранд-боул Плюхтонии',
     'Grounds' => 'Самонидская ГЭС',
     'Hagglefish Market' => 'Рынок «Свисторыб»',
     'Hammerhead Bridge' => 'Акулий мост',
