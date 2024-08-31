@@ -24,6 +24,7 @@ use yii\db\ActiveRecord;
  * @property Salmon3[] $salmon3s
  * @property SalmonKing3Alias[] $salmonKing3Aliases
  * @property SalmonSchedule3[] $salmonSchedule3s
+ * @property StatSalmon3MapKing[] $statSalmon3MapKings
  * @property UserBadge3KingSalmonid[] $userBadge3KingSalmons
  * @property User[] $users
  */
@@ -66,6 +67,11 @@ class SalmonKing3 extends ActiveRecord
     public function getSalmonSchedule3s(): ActiveQuery
     {
         return $this->hasMany(SalmonSchedule3::class, ['king_id' => 'id']);
+    }
+
+    public function getStatSalmon3MapKings(): ActiveQuery
+    {
+        return $this->hasMany(StatSalmon3MapKing::class, ['king_id' => 'id']);
     }
 
     public function getUserBadge3KingSalmons(): ActiveQuery
