@@ -31,6 +31,7 @@ use yii\db\ActiveRecord;
  * @property Map3Alias[] $map3Aliases
  * @property ScheduleMap3[] $scheduleMap3s
  * @property EventSchedule3[] $schedules
+ * @property StatSalmon3MapKing[] $statSalmon3MapKings
  */
 class Map3 extends ActiveRecord
 {
@@ -102,5 +103,10 @@ class Map3 extends ActiveRecord
     public function getSchedules(): ActiveQuery
     {
         return $this->hasMany(EventSchedule3::class, ['id' => 'schedule_id'])->viaTable('event_map3', ['map_id' => 'id']);
+    }
+
+    public function getStatSalmon3MapKings(): ActiveQuery
+    {
+        return $this->hasMany(StatSalmon3MapKing::class, ['map_id' => 'id']);
     }
 }
