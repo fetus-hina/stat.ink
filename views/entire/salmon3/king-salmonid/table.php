@@ -6,17 +6,21 @@ use app\components\widgets\Icon;
 use app\models\BigrunMap3;
 use app\models\SalmonKing3;
 use app\models\SalmonMap3;
+use app\models\SalmonWaterLevel2;
 use app\models\StatSalmon3MapKing;
+use app\models\StatSalmon3MapKingTide;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\View;
 
 /**
+ * @var StatSalmon3MapKingTide[] $dataWithTide
+ * @var StatSalmon3MapKing[] $data
  * @var View $this
  * @var array<int, BigrunMap3> $bigMaps
  * @var array<int, SalmonKing3> $kings
  * @var array<int, SalmonMap3> $maps
- * @var array<int, StatSalmon3MapKing> $data
+ * @var array<int, SalmonWaterLevel2> $tides
  */
 
 $this->registerCss(
@@ -39,6 +43,15 @@ $results = ArrayHelper::index(
   $data,
   'king_id',
   fn (StatSalmon3MapKing $model): int => $model->map_id ?? (0x100 + $model->big_map_id),
+);
+
+$resultsTide = ArrayHelper::index(
+  $dataWithTide,
+  'tide_id',
+  [
+    fn (StatSalmon3MapKingTide $model): int => $model->map_id ?? (0x100 + $model->big_map_id),
+    'king_id',
+  ],
 );
 
 ?>
@@ -117,11 +130,17 @@ $results = ArrayHelper::index(
   $map instanceof SalmonMap3 ? $map->id : ($map->id + 0x100),
   $king->id,
 ]) ?>
+<?php $tideModels = ArrayHelper::getValue($resultsTide, [
+  $map instanceof SalmonMap3 ? $map->id : ($map->id + 0x100),
+  $king->id,
+]); ?>
         <?= $this->render('./table/cell', [
-          'map' => $map,
-          'king' => $king,
           'cleared' => $model?->cleared ?? 0,
           'jobs' => $model?->jobs ?? 0,
+          'king' => $king,
+          'map' => $map,
+          'tideModels' => $tideModels ?? [],
+          'tides' => $tides,
         ]) . "\n" ?>
 <?php } ?>
       </tr>

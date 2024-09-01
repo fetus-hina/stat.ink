@@ -12,6 +12,7 @@ use yii\web\View;
 
 /**
  * @var View $this
+ * @var bool $labelText
  * @var int $cleared
  * @var int $jobs
  */
@@ -22,35 +23,63 @@ JqueryEasyChartjsAsset::register($this);
 RatioAsset::register($this);
 
 $this->registerJs('$(".chart-data").easyChartJs();');
-$this->registerJsVar(
-  'chartDataLabelsFormatter',
-  new JsExpression(<<<'JS'
-    function (value, ctx) {
-      const percentFormat = (value) => (new Intl.NumberFormat(
-        document.documentElement.getAttribute('lang') || 'en-US',
-        {
-          style: 'percent',
-          minimumFractionDigits: 1,
-          maximumFractionDigits: 1
+
+if ($labelText) {
+  $this->registerJsVar(
+    'chartDataLabelsFormatterWithLabel',
+    new JsExpression(<<<'JS'
+      function (value, ctx) {
+        const percentFormat = (value) => (new Intl.NumberFormat(
+          document.documentElement.getAttribute('lang') || 'en-US',
+          {
+            style: 'percent',
+            minimumFractionDigits: 1,
+            maximumFractionDigits: 1
+          }
+        )).format(value);
+        if (value === null || value === undefined) {
+          return '';
         }
-      )).format(value);
-
-      if (value === null || value === undefined) {
-        return '';
+        const sum = ctx.dataset.data.reduce(
+          (acc, cur) => typeof (cur) === 'number' ? Number(acc) + Number(cur) : Number(acc),
+          0
+        );
+        if (sum < 1) {
+          return '';
+        }
+        const label = ctx.chart.legend.legendItems[ctx.dataIndex].text;
+        return label + '\n' + percentFormat(value / sum);
       }
-      const sum = ctx.dataset.data.reduce(
-        (acc, cur) => typeof (cur) === 'number' ? Number(acc) + Number(cur) : Number(acc),
-        0
-      );
-      if (sum < 1) {
-        return '';
+    JS),
+  );
+} else {
+  $this->registerJsVar(
+    'chartDataLabelsFormatter',
+    new JsExpression(<<<'JS'
+      function (value, ctx) {
+        const percentFormat = (value) => (new Intl.NumberFormat(
+          document.documentElement.getAttribute('lang') || 'en-US',
+          {
+            style: 'percent',
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
+          }
+        )).format(value);
+        if (value === null || value === undefined) {
+          return '';
+        }
+        const sum = ctx.dataset.data.reduce(
+          (acc, cur) => typeof (cur) === 'number' ? Number(acc) + Number(cur) : Number(acc),
+          0
+        );
+        if (sum < 1) {
+          return '';
+        }
+        return percentFormat(value / sum);
       }
-
-      const label = ctx.chart.legend.legendItems[ctx.dataIndex].text;
-      return label + '\n' + percentFormat(value / sum);
-    }
-  JS),
-);
+    JS),
+  );
+}
 
 echo Html::tag(
   'div',
@@ -110,7 +139,11 @@ echo Html::tag(
                 'font' => [
                   'weight' => 'bold',
                 ],
-                'formatter' => new JsExpression('window.chartDataLabelsFormatter'),
+                'formatter' => new JsExpression(
+                  $labelText
+                    ? 'window.chartDataLabelsFormatterWithLabel'
+                    : 'window.chartDataLabelsFormatter',
+                ),
               ],
             ],
           ],

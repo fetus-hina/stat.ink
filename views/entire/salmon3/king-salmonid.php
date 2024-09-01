@@ -9,16 +9,20 @@ use app\models\BigrunMap3;
 use app\models\SalmonEvent3;
 use app\models\SalmonKing3;
 use app\models\SalmonMap3;
+use app\models\SalmonWaterLevel2;
 use app\models\StatSalmon3MapKing;
+use app\models\StatSalmon3MapKingTide;
 use yii\helpers\Html;
 use yii\web\View;
 
 /**
+ * @var StatSalmon3MapKingTide[] $dataWithTide
+ * @var StatSalmon3MapKing[] $data
  * @var View $this
  * @var array<int, BigrunMap3> $bigMaps
  * @var array<int, SalmonKing3> $kings
  * @var array<int, SalmonMap3> $maps
- * @var array<int, StatSalmon3MapKing> $data
+ * @var array<int, SalmonWaterLevel2> $tides
  */
 
 $this->context->layout = 'main';
@@ -41,5 +45,15 @@ OgpHelper::default($this, title: $this->title);
   <?= AdWidget::widget() . "\n" ?>
   <?= SnsWidget::widget() . "\n" ?>
 
-  <?= $this->render('king-salmonid/table', compact('bigMaps', 'kings', 'maps', 'data')) . "\n" ?>
+  <?= $this->render(
+    'king-salmonid/table',
+    compact(
+      'bigMaps',
+      'data',
+      'dataWithTide',
+      'kings',
+      'maps',
+      'tides',
+    ),
+  ) . "\n" ?>
 </div>

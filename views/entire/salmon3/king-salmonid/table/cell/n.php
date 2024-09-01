@@ -12,12 +12,12 @@ use yii\web\View;
 
 echo Html::tag(
   'div',
-  vsprintf('n = %s', [
+  vsprintf('%s = %s', [
+    Html::tag('span', 'n', ['class' => 'font-italic']),
     Yii::$app->formatter->asInteger($n),
   ]),
   [
     'class' => [
-      'font-italic',
       'mt-1',
       'small',
       'text-center',
