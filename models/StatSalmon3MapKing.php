@@ -24,7 +24,7 @@ use yii\db\ActiveRecord;
  *
  * @property BigrunMap3 $bigMap
  * @property SalmonKing3 $king
- * @property Map3 $map
+ * @property SalmonMap3 $map
  */
 class StatSalmon3MapKing extends ActiveRecord
 {
@@ -41,8 +41,8 @@ class StatSalmon3MapKing extends ActiveRecord
             [['king_id', 'jobs', 'cleared'], 'required'],
             [['map_id', 'big_map_id', 'king_id'], 'unique', 'targetAttribute' => ['map_id', 'big_map_id', 'king_id']],
             [['big_map_id'], 'exist', 'skipOnError' => true, 'targetClass' => BigrunMap3::class, 'targetAttribute' => ['big_map_id' => 'id']],
-            [['map_id'], 'exist', 'skipOnError' => true, 'targetClass' => Map3::class, 'targetAttribute' => ['map_id' => 'id']],
             [['king_id'], 'exist', 'skipOnError' => true, 'targetClass' => SalmonKing3::class, 'targetAttribute' => ['king_id' => 'id']],
+            [['map_id'], 'exist', 'skipOnError' => true, 'targetClass' => SalmonMap3::class, 'targetAttribute' => ['map_id' => 'id']],
         ];
     }
 
@@ -69,6 +69,6 @@ class StatSalmon3MapKing extends ActiveRecord
 
     public function getMap(): ActiveQuery
     {
-        return $this->hasOne(Map3::class, ['id' => 'map_id']);
+        return $this->hasOne(SalmonMap3::class, ['id' => 'map_id']);
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -27,6 +27,7 @@ use app\actions\entire\WeaponsAction;
 use app\actions\entire\WeaponsUseAction;
 use app\actions\entire\salmon3\BigrunAction;
 use app\actions\entire\salmon3\EggstraWorkAction;
+use app\actions\entire\salmon3\KingSalmonidAction;
 use app\actions\entire\salmon3\RandomLoanAction;
 use app\actions\entire\salmon3\SalmometerAction;
 use app\actions\entire\salmon3\TideAction;
@@ -85,6 +86,7 @@ final class EntireController extends Controller
             'salmon-clear' => SalmonClearAction::class,
             'salmon3-bigrun' => BigrunAction::class,
             'salmon3-eggstra-work' => EggstraWorkAction::class,
+            'salmon3-king-salmonid' => KingSalmonidAction::class,
             'salmon3-random-loan' => RandomLoanAction::class,
             'salmon3-salmometer' => SalmometerAction::class,
             'salmon3-tide' => TideAction::class,
