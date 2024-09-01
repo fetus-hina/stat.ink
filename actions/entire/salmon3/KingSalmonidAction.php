@@ -14,7 +14,9 @@ use Yii;
 use app\models\BigrunMap3;
 use app\models\SalmonKing3;
 use app\models\SalmonMap3;
+use app\models\SalmonWaterLevel2;
 use app\models\StatSalmon3MapKing;
+use app\models\StatSalmon3MapKingTide;
 use yii\base\Action;
 use yii\db\Connection;
 use yii\db\Query;
@@ -36,8 +38,10 @@ final class KingSalmonidAction extends Action
                 fn (Connection $db): array => [
                     'bigMaps' => $this->getBigMaps($db),
                     'data' => $this->getData($db),
+                    'dataWithTide' => $this->getDataWithTide($db),
                     'kings' => $this->getKings($db),
                     'maps' => $this->getMaps($db),
+                    'tides' => $this->getTides($db),
                 ],
                 Transaction::READ_COMMITTED,
             ),
@@ -76,6 +80,16 @@ final class KingSalmonidAction extends Action
         );
     }
 
+    private function getTides(Connection $db): array
+    {
+        return ArrayHelper::index(
+            SalmonWaterLevel2::find()
+                ->orderBy(['id' => SORT_ASC])
+                ->all($db),
+            'id',
+        );
+    }
+
     private function getData(Connection $db): array
     {
         return StatSalmon3MapKing::find()
@@ -83,6 +97,18 @@ final class KingSalmonidAction extends Action
                 'map_id' => SORT_ASC,
                 'big_map_id' => SORT_ASC,
                 'king_id' => SORT_ASC,
+            ])
+            ->all($db);
+    }
+
+    private function getDataWithTide(Connection $db): array
+    {
+        return StatSalmon3MapKingTide::find()
+            ->orderBy([
+                'map_id' => SORT_ASC,
+                'big_map_id' => SORT_ASC,
+                'king_id' => SORT_ASC,
+                'tide_id' => SORT_ASC,
             ])
             ->all($db);
     }

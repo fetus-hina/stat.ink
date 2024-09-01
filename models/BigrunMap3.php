@@ -27,6 +27,7 @@ use yii\db\ActiveRecord;
  * @property BigrunMap3Alias[] $bigrunMap3Aliases
  * @property Salmon3[] $salmon3s
  * @property SalmonSchedule3[] $salmonSchedule3s
+ * @property StatSalmon3MapKingTide[] $statSalmon3MapKingTides
  * @property StatSalmon3MapKing[] $statSalmon3MapKings
  * @property StatSalmon3TideEvent[] $statSalmon3TideEvents
  */
@@ -78,6 +79,11 @@ class BigrunMap3 extends ActiveRecord
     public function getSalmonSchedule3s(): ActiveQuery
     {
         return $this->hasMany(SalmonSchedule3::class, ['big_map_id' => 'id']);
+    }
+
+    public function getStatSalmon3MapKingTides(): ActiveQuery
+    {
+        return $this->hasMany(StatSalmon3MapKingTide::class, ['big_map_id' => 'id']);
     }
 
     public function getStatSalmon3MapKings(): ActiveQuery
