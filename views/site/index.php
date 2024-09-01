@@ -142,6 +142,13 @@ OgpHelper::default($this, Url::to(['site/index'], true));
           ['entire/salmon3-tide'],
         ),
         Html::a(
+          implode(' ', [
+            Icon::s3BossSalmonid('yokozuna', alt: Yii::t('app-salmon', 'King Salmonid')),
+            Html::encode(Yii::t('app-salmon3', 'King Salmonid Defeat Rate')),
+          ]),
+          ['entire/salmon3-king-salmonid'],
+        ),
+        Html::a(
           Icon::s3Salmometer() . ' ' . Html::encode(Yii::t('app-salmon3', 'Salmometer')),
           ['entire/salmon3-salmometer'],
         ),
