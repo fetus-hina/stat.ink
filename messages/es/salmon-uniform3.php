@@ -17,6 +17,7 @@ return [
     'Camo Slopsuit' => 'Mono de trabajo camuflaje',
     'Gold Slopsuit' => 'Mono de trabajo dorado',
     'Green Slopsuit' => 'Mono de trabajo verde',
+    'Heavy-Duty Slopsuit' => 'Mono de trabajo resistente',
     'Iridescent Slopsuit' => 'Mono de trabajo prisma',
     'Koi Slopsuit' => 'Mono de trabajo carpas',
     'Lime Gloopsuit' => 'Vadeador lima',

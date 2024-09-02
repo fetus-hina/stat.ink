@@ -17,6 +17,7 @@ return [
     'Camo Slopsuit' => 'Camo Slopsuit',
     'Gold Slopsuit' => 'Gold Slopsuit',
     'Green Slopsuit' => 'Green Slopsuit',
+    'Heavy-Duty Slopsuit' => 'Heavy-Duty Slopsuit',
     'Iridescent Slopsuit' => 'Iridescent Slopsuit',
     'Koi Slopsuit' => 'Koi Slopsuit',
     'Lime Gloopsuit' => 'Lime Gloopsuit',

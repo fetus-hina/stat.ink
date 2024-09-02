@@ -19,6 +19,7 @@ return [
     'Camo Slopsuit' => 'Slopsuit Camuflada',
     'Gold Slopsuit' => 'Slopsuit Dourada',
     'Green Slopsuit' => 'Slopsuit Verde',
+    'Heavy-Duty Slopsuit' => '',
     'Iridescent Slopsuit' => 'Slopsuit Iridescente',
     'Koi Slopsuit' => 'Gloopsuit de Carpa Koi',
     'Lime Gloopsuit' => 'Gloopsuit Verde-limão',

@@ -17,6 +17,7 @@ return [
     'Camo Slopsuit' => 'バイトツナギ カモ',
     'Gold Slopsuit' => 'バイトツナギ ゴールド',
     'Green Slopsuit' => 'バイトツナギ グリーン',
+    'Heavy-Duty Slopsuit' => 'バイトツナギ ブロッカー',
     'Iridescent Slopsuit' => 'バイトツナギ プリズム',
     'Koi Slopsuit' => 'バイトツナギ ニシキ',
     'Lime Gloopsuit' => 'バイトウェーダー ライム',

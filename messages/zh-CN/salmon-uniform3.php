@@ -18,6 +18,7 @@ return [
     'Camo Slopsuit' => '打工连身工作服 迷彩',
     'Gold Slopsuit' => '打工连身工作服 金色',
     'Green Slopsuit' => '打工连身工作服 绿色',
+    'Heavy-Duty Slopsuit' => '打工连身工作服 重装',
     'Iridescent Slopsuit' => '打工连身工作服 棱镜',
     'Koi Slopsuit' => '打工连身工作服 锦鲤',
     'Lime Gloopsuit' => '打工防水衣 莱姆绿',

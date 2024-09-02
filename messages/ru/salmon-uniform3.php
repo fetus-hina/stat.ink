@@ -17,6 +17,7 @@ return [
     'Camo Slopsuit' => 'Камуфляжный комбинезон',
     'Gold Slopsuit' => 'Золотой комбинезон',
     'Green Slopsuit' => 'Зеленый комбинезон',
+    'Heavy-Duty Slopsuit' => 'Ударный комбинезон',
     'Iridescent Slopsuit' => 'Радужный комбинезон',
     'Koi Slopsuit' => 'Комбинезон с кои',
     'Lime Gloopsuit' => 'Гидрокомплект «Лайм»',
