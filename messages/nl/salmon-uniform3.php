@@ -17,6 +17,7 @@ return [
     'Camo Slopsuit' => 'Camouflagewerkkloffie',
     'Gold Slopsuit' => 'Gouden werkkloffie',
     'Green Slopsuit' => 'Groen werkkloffie',
+    'Heavy-Duty Slopsuit' => 'Overwerkkloffie',
     'Iridescent Slopsuit' => 'Parelmoerwerkkloffie',
     'Koi Slopsuit' => 'Koi-werkkloffie',
     'Lime Gloopsuit' => 'Limoenploeterkloffie',

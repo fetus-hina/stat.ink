@@ -17,6 +17,7 @@ return [
     'Camo Slopsuit' => 'Salopette camouflage',
     'Gold Slopsuit' => 'Salopette or',
     'Green Slopsuit' => 'Salopette verte',
+    'Heavy-Duty Slopsuit' => 'Combinaison robuste',
     'Iridescent Slopsuit' => 'Salopette irisée',
     'Koi Slopsuit' => 'Salopette carpe koï',
     'Lime Gloopsuit' => 'Salopette limette',

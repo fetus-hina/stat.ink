@@ -17,6 +17,7 @@ return [
     'Camo Slopsuit' => 'Salopette mimetica',
     'Gold Slopsuit' => 'Salopette oro',
     'Green Slopsuit' => 'Salopette verde',
+    'Heavy-Duty Slopsuit' => 'Salopette robusta',
     'Iridescent Slopsuit' => 'Salopette iridescente',
     'Koi Slopsuit' => 'Salopette koi',
     'Lime Gloopsuit' => 'Tuta da pesca lime e gialla',

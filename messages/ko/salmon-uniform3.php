@@ -17,6 +17,7 @@ return [
     'Camo Slopsuit' => '카무 작업복',
     'Gold Slopsuit' => '골드 작업복',
     'Green Slopsuit' => '그린 작업복',
+    'Heavy-Duty Slopsuit' => '블로커 작업복',
     'Iridescent Slopsuit' => '프리즘 작업복',
     'Koi Slopsuit' => '비단잉어 작업복',
     'Lime Gloopsuit' => '라임 아르바이트 웨이더',

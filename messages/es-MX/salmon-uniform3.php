@@ -17,6 +17,7 @@ return [
     'Camo Slopsuit' => 'Uniforme de trabajo camufl.',
     'Gold Slopsuit' => 'Uniforme de trabajo dorado',
     'Green Slopsuit' => 'Uniforme de trabajo verde',
+    'Heavy-Duty Slopsuit' => 'Uniforme de trabajo resistente',
     'Iridescent Slopsuit' => 'Uniforme de trabajo prisma',
     'Koi Slopsuit' => 'Uniforme de trabajo kois',
     'Lime Gloopsuit' => 'Overol de trabajo cítrico',

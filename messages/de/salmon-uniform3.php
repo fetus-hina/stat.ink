@@ -17,6 +17,7 @@ return [
     'Camo Slopsuit' => 'Camo-Klamotten',
     'Gold Slopsuit' => 'Gold-Arbeitsklamotten',
     'Green Slopsuit' => 'Grüne Arbeitsklamotten',
+    'Heavy-Duty Slopsuit' => 'Schwerstarbeitsklamotten',
     'Iridescent Slopsuit' => 'Schiller-Arbeitsklamotten',
     'Koi Slopsuit' => 'Koi-Klamotten',
     'Lime Gloopsuit' => 'Limetten-Wattwater',
