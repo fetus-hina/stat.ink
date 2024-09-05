@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -231,7 +231,7 @@ final class UserMiniInfo3 extends Widget
                         'size' => 9,
                         'only' => 'spl3',
                     ]),
-                    ['class' => 'table-responsive bg-white'],
+                    ['class' => 'table-responsive bg-white text-body'],
                 ),
             ]),
             ['class' => 'miniinfo-databox'],

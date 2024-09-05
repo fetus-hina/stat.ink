@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -227,7 +227,7 @@ final class SalmonUserInfo3 extends SalmonUserInfo
                         'size' => 9,
                         'only' => 'salmon3',
                     ]),
-                    ['class' => 'table-responsive bg-white'],
+                    ['class' => 'table-responsive bg-white text-body'],
                 ),
             ]),
             ['class' => 'miniinfo-databox'],
