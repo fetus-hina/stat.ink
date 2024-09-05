@@ -19,7 +19,7 @@ if (Yii::$app->request->isPjax) {
   <div class="panel-heading">
     <?= Html::encode(Yii::t('app', 'Activity')) . "\n" ?>
   </div>
-  <div class="panel-body bg-white">
+  <div class="panel-body bg-white text-body">
     <div class="table-responsive">
       <?= ActivityWidget::widget(['user' => $user]) . "\n" ?>
     </div>

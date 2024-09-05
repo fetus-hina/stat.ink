@@ -2,7 +2,7 @@
 @use 'sass:color';
 @use 'sass:math';
 
-/*! Copyright (C) 2015-2021 AIZAWA Hina | MIT License */
+/*! Copyright (C) 2015-2024 AIZAWA Hina | MIT License */
 
 // From node_modules/bootstrap/less/variables.less
 $brand-primary: color.adjust(#428bca, $lightness: -6.5%);
@@ -474,6 +474,14 @@ $weights: (
 
 .bg-white {
   background-color: #fff;
+}
+
+.text-body {
+  color: #333;
+
+  .dark-theme & {
+    color: #fff;
+  }
 }
 
 img.basic-icon {
