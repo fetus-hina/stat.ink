@@ -11,7 +11,7 @@ use app\components\helpers\TypeHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SalmonUserInfo3;
 use app\components\widgets\SnsWidget;
-use app\models\Map3;
+use app\models\BigrunMap3;
 use app\models\Salmon3;
 use app\models\SalmonBoss3;
 use app\models\SalmonEvent3;
@@ -35,7 +35,7 @@ use yii\web\View;
  * @phpstan-import-type WeaponStats from WeaponTrait
  *
  * @var EventStats $eventStats
- * @var Map3|SalmonMap3|null $map
+ * @var BigrunMap3|SalmonMap3|null $map
  * @var OverfishingStats|null $overfishing
  * @var PlayerStats[] $playerStats
  * @var Salmon3[] $results

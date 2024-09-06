@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -15,7 +15,7 @@ use DateTimeInterface;
 use DateTimeZone;
 use Throwable;
 use Yii;
-use app\models\Map3;
+use app\models\BigrunMap3;
 use app\models\Salmon3FilterForm;
 use app\models\SalmonMap3;
 use yii\db\ActiveQuery;
@@ -98,7 +98,7 @@ trait QueryDecoratorTrait
             return;
         }
 
-        $map = Map3::find()
+        $map = BigrunMap3::find()
             ->andWhere(['key' => $key])
             ->cache(600)
             ->limit(1)
