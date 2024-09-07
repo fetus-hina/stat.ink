@@ -3,14 +3,14 @@
 declare(strict_types=1);
 
 use app\components\widgets\Icon;
-use app\models\Map3;
+use app\models\BigrunMap3;
 use app\models\SalmonMap3;
 use yii\helpers\Html;
 use yii\web\AssetManager;
 use yii\web\View;
 
 /**
- * @var Map3|SalmonMap3 $map
+ * @var BigrunMap3|SalmonMap3 $map
  * @var View $this
  */
 
@@ -22,7 +22,7 @@ echo Html::tag(
   implode(' ', [
     match (true) {
       $map instanceof SalmonMap3 => Icon::s3SalmonStage($map),
-      $map instanceof Map3 => Icon::s3BigRun(),
+      $map instanceof BigrunMap3 => Icon::s3BigRun(),
       default => '',
     },
     Html::encode(Yii::t('app-map3', $map->name)),

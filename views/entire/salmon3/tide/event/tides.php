@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use app\models\Map3;
+use app\models\BigrunMap3;
 use app\models\SalmonEvent3;
 use app\models\SalmonMap3;
 use app\models\SalmonWaterLevel2;
@@ -11,7 +11,7 @@ use yii\helpers\Html;
 use yii\web\View;
 
 /**
- * @var Map3|SalmonMap3 $map
+ * @var BigrunMap3|SalmonMap3 $map
  * @var View $this
  * @var array<int, SalmonEvent3> $events
  * @var array<int, SalmonWaterLevel2> $tides
@@ -20,7 +20,7 @@ use yii\web\View;
 $statsList = StatSalmon3TideEvent::find()
   ->andWhere([
     'stage_id' => $map instanceof SalmonMap3 ? $map->id : null,
-    'big_stage_id' => $map instanceof Map3 ? $map->id : null,
+    'big_stage_id' => $map instanceof BigrunMap3 ? $map->id : null,
   ])
   ->orderBy([
     'tide_id' => SORT_ASC,

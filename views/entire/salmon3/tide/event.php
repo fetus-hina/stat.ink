@@ -26,7 +26,7 @@ echo Html::tag(
 
 foreach ($mapTides as $row) {
   /**
-   * @var SalmonMap3|Map3|null $map
+   * @var SalmonMap3|BigrunMap3|null $map
    */
   $map = match (true) {
     $row['big_stage_id'] !== null => $bigMaps[$row['big_stage_id']] ?? null,
