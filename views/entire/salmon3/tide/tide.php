@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use app\assets\EntireSalmon3TideAsset;
-use app\models\Map3;
+use app\models\BigrunMap3;
 use app\models\SalmonMap3;
 use app\models\SalmonWaterLevel2;
 use yii\helpers\Html;
@@ -11,7 +11,7 @@ use yii\web\View;
 
 /**
  * @var View $this
- * @var array<int, Map3> $bigMaps
+ * @var array<int, BigrunMap3> $bigMaps
  * @var array<int, SalmonMap3> $maps
  * @var array<int, SalmonWaterLevel2> $tides
  * @var array[] $mapTides

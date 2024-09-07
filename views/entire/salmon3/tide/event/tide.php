@@ -5,7 +5,7 @@ declare(strict_types=1);
 use app\assets\EntireSalmon3TideAsset;
 use app\assets\RatioAsset;
 use app\components\widgets\Icon;
-use app\models\Map3;
+use app\models\BigrunMap3;
 use app\models\SalmonEvent3;
 use app\models\SalmonMap3;
 use app\models\SalmonWaterLevel2;
@@ -16,7 +16,7 @@ use yii\helpers\Json;
 use yii\web\View;
 
 /**
- * @var Map3|SalmonMap3 $map
+ * @var BigrunMap3|SalmonMap3 $map
  * @var SalmonWaterLevel2 $tide
  * @var StatSalmon3TideEvent[] $stats
  * @var View $this
