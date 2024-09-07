@@ -20,7 +20,7 @@ trait JobPriority
     {
         return match (static::class) {
             BattlePlayedWith3Job::class => self::lowerPriority(100),
-            S3ImgGenPrefetchJob::class => self::lowerPriority(10),
+            S3ImgGenPrefetchJob::class => self::lowerPriority(1000),
             SalmonExportJson3Job::class => self::lowerPriority(1),
             SalmonPlayedWith3Job::class => self::lowerPriority(100),
             SlackJob::class => self::higherPriority(3),
