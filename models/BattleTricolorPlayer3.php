@@ -40,7 +40,9 @@ use yii\db\ActiveRecord;
  * @property integer $species_id
  * @property integer $crown_id
  *
+ * @property Ability3[] $abilities
  * @property Battle3 $battle
+ * @property BattleTricolorPlayerGearPower3[] $battleTricolorPlayerGearPower3s
  * @property GearConfiguration3 $clothing
  * @property Crown3 $crown
  * @property GearConfiguration3 $headgear
@@ -105,9 +107,19 @@ class BattleTricolorPlayer3 extends ActiveRecord
         ];
     }
 
+    public function getAbilities(): ActiveQuery
+    {
+        return $this->hasMany(Ability3::class, ['id' => 'ability_id'])->viaTable('battle_tricolor_player_gear_power3', ['player_id' => 'id']);
+    }
+
     public function getBattle(): ActiveQuery
     {
         return $this->hasOne(Battle3::class, ['id' => 'battle_id']);
+    }
+
+    public function getBattleTricolorPlayerGearPower3s(): ActiveQuery
+    {
+        return $this->hasMany(BattleTricolorPlayerGearPower3::class, ['player_id' => 'id']);
     }
 
     public function getClothing(): ActiveQuery
