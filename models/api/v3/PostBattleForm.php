@@ -12,6 +12,7 @@ use Throwable;
 use Yii;
 use app\components\behaviors\TrimAttributesBehavior;
 use app\components\db\Connection;
+use app\components\helpers\Battle3Helper;
 use app\components\helpers\CriticalSection;
 use app\components\helpers\ImageConverter;
 use app\components\helpers\UuidRegexp;
@@ -22,12 +23,17 @@ use app\components\validators\BattleAgentVariable3Validator;
 use app\components\validators\BattleImageValidator;
 use app\components\validators\BattlePlayer3FormValidator;
 use app\components\validators\KeyValidator;
+use app\models\Ability3;
 use app\models\Battle3;
 use app\models\BattleAgentVariable3;
 use app\models\BattleImageGear3;
 use app\models\BattleImageJudge3;
 use app\models\BattleImageResult3;
 use app\models\BattleMedal3;
+use app\models\BattlePlayer3;
+use app\models\BattlePlayerGearPower3;
+use app\models\BattleTricolorPlayer3;
+use app\models\BattleTricolorPlayerGearPower3;
 use app\models\ConchClash3;
 use app\models\DragonMatch3;
 use app\models\DragonMatch3Alias;
@@ -52,6 +58,7 @@ use jp3cki\uuid\Uuid;
 use yii\base\InvalidConfigException;
 use yii\base\Model;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\web\UploadedFile;
 
@@ -602,31 +609,60 @@ final class PostBattleForm extends Model
 
     private function savePlayers(Battle3 $battle): bool
     {
-        if (is_array($this->our_team_players) && $this->our_team_players) {
-            foreach ($this->our_team_players as $player) {
-                $model = Yii::createObject(PlayerForm::class);
-                $model->attributes = $player;
-                if (!$model->save($battle, true, 1)) {
+        $list = [
+            [$this->our_team_players, true, 1],
+            [$this->their_team_players, false, 2],
+            [$this->third_team_players, false, 3],
+        ];
+        foreach ($list as [$players, $isOurTeam, $tricolorTeamNumber]) {
+            if (!is_array($players) || !$players) {
+                continue;
+            }
+
+            foreach ($players as $player) {
+                if (!$this->savePlayerImpl($battle, $player, $isOurTeam, $tricolorTeamNumber)) {
                     return false;
                 }
             }
         }
 
-        if (is_array($this->their_team_players) && $this->their_team_players) {
-            foreach ($this->their_team_players as $player) {
-                $model = Yii::createObject(PlayerForm::class);
-                $model->attributes = $player;
-                if (!$model->save($battle, false, 2)) {
-                    return false;
-                }
-            }
+        return true;
+    }
+
+    private function savePlayerImpl(
+        Battle3 $battle,
+        array $playerData,
+        bool $isOurTeam,
+        int $tricolorTeamNumber,
+    ): bool {
+        $form = Yii::createObject(PlayerForm::class);
+        $form->attributes = $playerData;
+        $model = $form->save($battle, $isOurTeam, $tricolorTeamNumber);
+        if (!$model) {
+            return false;
         }
 
-        if (is_array($this->third_team_players) && $this->third_team_players) {
-            foreach ($this->third_team_players as $player) {
-                $model = Yii::createObject(PlayerForm::class);
-                $model->attributes = $player;
-                if (!$model->save($battle, false, 3)) {
+        if ($gpData = Battle3Helper::calcGPs($model)) {
+            $abilities = ArrayHelper::map(
+                Ability3::find()
+                    ->andWhere(['key' => array_keys($gpData)])
+                    ->asArray()
+                    ->all(),
+                'key',
+                'id',
+            );
+
+            foreach ($gpData as $key => $gp) {
+                $gpModel = Yii::createObject([
+                    'class' => match ($model::class) {
+                        BattlePlayer3::class => BattlePlayerGearPower3::class,
+                        BattleTricolorPlayer3::class => BattleTricolorPlayerGearPower3::class,
+                    },
+                    'player_id' => $model->id,
+                    'ability_id' => $abilities[$key],
+                    'gear_power' => $gp,
+                ]);
+                if (!$gpModel->save()) {
                     return false;
                 }
             }

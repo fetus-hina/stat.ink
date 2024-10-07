@@ -12,6 +12,7 @@ namespace app\components\helpers;
 
 use app\models\Battle3;
 use app\models\BattlePlayer3;
+use app\models\BattleTricolorPlayer3;
 use app\models\GearConfiguration3;
 use app\models\XMatchingGroup3;
 use app\models\XMatchingGroupVersion3;
@@ -137,8 +138,14 @@ final class Battle3Helper
     /**
      * @return array{string, int}|null
      */
-    public static function calcGPs(BattlePlayer3 $player, bool $disableSecondary = false): ?array
-    {
+    public static function calcGPs(
+        BattlePlayer3|BattleTricolorPlayer3|null $player,
+        bool $disableSecondary = false,
+    ): ?array {
+        if (!$player) {
+            return null;
+        }
+
         $gps = [];
         foreach (['headgear', 'clothing', 'shoes'] as $gearType) {
             $tmp = self::calcGPsPerGear($player->$gearType, $disableSecondary);
