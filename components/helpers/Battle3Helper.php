@@ -11,11 +11,16 @@ declare(strict_types=1);
 namespace app\components\helpers;
 
 use app\models\Battle3;
+use app\models\BattlePlayer3;
+use app\models\BattleTricolorPlayer3;
+use app\models\GearConfiguration3;
 use app\models\XMatchingGroup3;
 use app\models\XMatchingGroupVersion3;
 use app\models\XMatchingGroupWeapon3;
 use yii\helpers\ArrayHelper;
 
+use function strcmp;
+use function uksort;
 use function version_compare;
 
 final class Battle3Helper
@@ -128,5 +133,63 @@ final class Battle3Helper
         }
 
         return null;
+    }
+
+    /**
+     * @return array{string, int}|null
+     */
+    public static function calcGPs(
+        BattlePlayer3|BattleTricolorPlayer3|null $player,
+        bool $disableSecondary = false,
+    ): ?array {
+        if (!$player) {
+            return null;
+        }
+
+        $gps = [];
+        foreach (['headgear', 'clothing', 'shoes'] as $gearType) {
+            $tmp = self::calcGPsPerGear($player->$gearType, $disableSecondary);
+            if ($tmp === null) {
+                return null;
+            }
+
+            foreach ($tmp as $key => $value) {
+                $gps[$key] = ($gps[$key] ?? 0) + $value;
+            }
+        }
+
+        uksort($gps, fn (string $a, string $b): int => $gps[$b] <=> $gps[$a] ?: strcmp($a, $b));
+
+        return $gps;
+    }
+
+    /**
+     * @return array{string, int}|null
+     */
+    private static function calcGPsPerGear(?GearConfiguration3 $gear, bool $disableSecondary): ?array
+    {
+        if (!$gear?->ability) {
+            return null;
+        }
+
+        $results = [
+            $gear->ability->key => 10,
+        ];
+        if (!$disableSecondary) {
+            $secondaryGP = match ($gear->ability->key) {
+                'ability_doubler' => 6,
+                default => 3,
+            };
+
+            foreach ($gear->gearConfigurationSecondary3s as $secondaryGear) {
+                if (!$ability = $secondaryGear->ability) {
+                    continue;
+                }
+
+                $results[$ability->key] = ($results[$ability->key] ?? 0) + $secondaryGP;
+            }
+        }
+
+        return $results;
     }
 }
