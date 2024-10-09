@@ -5,6 +5,7 @@
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Gosin <canling0@gmail.com>
+ * @author Yifan Liu <yifanliu00@gmail.com>
  */
 
 declare(strict_types=1);
@@ -20,7 +21,7 @@ return [
     'Rainmaker Inksplosion' => '鱼炮爆炸',
     'Rainmaker Shield' => '鱼炮护盾',
     'Rainmaker Shot' => '鱼炮射击',
-    'Special' => '大招',
+    'Special' => '特殊武器',
     'Sub Weapon' => '副武器',
     'Unknown' => '未知',
 ];

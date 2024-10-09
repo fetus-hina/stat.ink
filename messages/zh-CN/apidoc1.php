@@ -5,6 +5,7 @@
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Gosin <canling0@gmail.com>
+ * @author Yifan Liu <yifanliu00@gmail.com>
  */
 
 declare(strict_types=1);
@@ -34,7 +35,7 @@ return [
     'Filter by key-string of brand' => '品牌关键词过滤器',
     'Filter by key-string of death reason category' => '死亡原因类别过滤器',
     'Filter by key-string of gear type' => '装备类别过滤器',
-    'Filter by key-string of special weapon' => '大招过滤器',
+    'Filter by key-string of special weapon' => '特殊武器过滤器',
     'Filter by key-string of sub weapon' => '副武器过滤器',
     'Filter by key-string of the weapon' => '主武器过滤器',
     'Filter by key-string of weapon type' => '主武器类型过滤器',

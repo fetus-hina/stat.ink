@@ -5,16 +5,17 @@
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author imspace <spacemeowx2@gmail.com>
+ * @author Yifan Liu <yifanliu00@gmail.com>
  */
 
 declare(strict_types=1);
 
 return [
     'Any Mode' => '所有模式',
-    'Attackers' => '',
+    'Attackers' => '进攻队伍',
     'CB' => '蛤蜊',
     'Clam Blitz' => '真格蛤蜊',
-    'Defenders' => '',
+    'Defenders' => '防守队伍',
     'Rainmaker' => '真格鱼虎对战',
     'Ranked Modes' => '真格模式',
     'RM' => '鱼虎对战',
