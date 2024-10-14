@@ -35,6 +35,7 @@ use yii\db\ActiveRecord;
  * @property EventSchedule3[] $schedules
  * @property Special3 $special
  * @property Splatfest3StatsWeapon[] $splatfest3StatsWeapons
+ * @property StatAbility3XUsage[] $statAbility3XUsages
  * @property StatWeapon3AssistPerVersion[] $statWeapon3AssistPerVersions
  * @property StatWeapon3Assist[] $statWeapon3Assists
  * @property StatWeapon3DeathPerVersion[] $statWeapon3DeathPerVersions
@@ -146,6 +147,11 @@ class Weapon3 extends ActiveRecord
     public function getSplatfest3StatsWeapons(): ActiveQuery
     {
         return $this->hasMany(Splatfest3StatsWeapon::class, ['weapon_id' => 'id']);
+    }
+
+    public function getStatAbility3XUsages(): ActiveQuery
+    {
+        return $this->hasMany(StatAbility3XUsage::class, ['weapon_id' => 'id']);
     }
 
     public function getStatWeapon3AssistPerVersions(): ActiveQuery

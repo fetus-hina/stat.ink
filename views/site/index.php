@@ -101,6 +101,10 @@ OgpHelper::default($this, Url::to(['site/index'], true));
       [
         Icon::splatoon3(),
         Html::a(Html::encode(Yii::t('app', 'Weapon Stats')), ['entire/weapons3']),
+        Html::a(
+          Icon::s3AbilityInkSaverMain() . ' ' . Html::encode(Yii::t('app', 'Average Gear Abilities')),
+          ['entire/ability3'],
+        ),
         Html::a(Html::encode(Yii::t('app', 'K/D vs Win %')), ['entire/kd-win3']),
         Html::a(Html::encode(Yii::t('app', 'Knockout Rate')), ['entire/knockout3']),
         Html::a(Html::encode(Yii::t('app', 'Special Uses')), ['entire/special-use3']),

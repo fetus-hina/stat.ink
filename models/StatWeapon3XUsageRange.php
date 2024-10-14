@@ -20,6 +20,7 @@ use yii\db\ActiveRecord;
  * @property integer $term_id
  * @property string $x_power_range
  *
+ * @property StatAbility3XUsage[] $statAbility3XUsages
  * @property StatWeapon3XUsagePerVersion[] $statWeapon3XUsagePerVersions
  * @property StatWeapon3XUsage[] $statWeapon3XUsages
  * @property StatWeapon3XUsageTerm $term
@@ -49,6 +50,11 @@ class StatWeapon3XUsageRange extends ActiveRecord
             'term_id' => 'Term ID',
             'x_power_range' => 'X Power Range',
         ];
+    }
+
+    public function getStatAbility3XUsages(): ActiveQuery
+    {
+        return $this->hasMany(StatAbility3XUsage::class, ['range_id' => 'id']);
     }
 
     public function getStatWeapon3XUsagePerVersions(): ActiveQuery
