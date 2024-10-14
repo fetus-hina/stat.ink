@@ -31,6 +31,7 @@ use app\actions\entire\salmon3\KingSalmonidAction;
 use app\actions\entire\salmon3\RandomLoanAction;
 use app\actions\entire\salmon3\SalmometerAction;
 use app\actions\entire\salmon3\TideAction;
+use app\actions\entire\v3\Ability3Action;
 use app\actions\entire\v3\BukichiCup3Action;
 use app\actions\entire\v3\Event3Action;
 use app\actions\entire\v3\InkColor3Action;
@@ -71,6 +72,7 @@ final class EntireController extends Controller
     public function actions()
     {
         return [
+            'ability3' => Ability3Action::class,
             'agent' => AgentAction::class,
             'bukichi-cup3' => BukichiCup3Action::class,
             'combined-agent' => CombinedAgentAction::class,

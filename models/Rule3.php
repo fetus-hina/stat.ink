@@ -31,6 +31,7 @@ use yii\db\ActiveRecord;
  * @property Rule3Alias[] $rule3Aliases
  * @property Schedule3[] $schedule3s
  * @property Season3[] $seasons
+ * @property StatAbility3XUsage[] $statAbility3XUsages
  * @property StatKdWinRate3[] $statKdWinRate3s
  * @property StatSpecialUse3[] $statSpecialUse3s
  * @property StatSpecialUseCount3[] $statSpecialUseCount3s
@@ -127,6 +128,11 @@ class Rule3 extends ActiveRecord
     public function getSeasons(): ActiveQuery
     {
         return $this->hasMany(Season3::class, ['id' => 'season_id'])->viaTable('stat_x_power_distrib_abstract3', ['rule_id' => 'id']);
+    }
+
+    public function getStatAbility3XUsages(): ActiveQuery
+    {
+        return $this->hasMany(StatAbility3XUsage::class, ['rule_id' => 'id']);
     }
 
     public function getStatKdWinRate3s(): ActiveQuery
