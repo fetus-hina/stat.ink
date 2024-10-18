@@ -5,12 +5,13 @@
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author imspace <spacemeowx2@gmail.com>
+ * @author Yifan Liu <yifanliu00@gmail.com>
  */
 
 declare(strict_types=1);
 
 return [
-    '(Normal)' => '',
+    '(Normal)' => '（普通）',
     'Cohock Charge' => '大胖鱼大量出现',
     'Fog' => '雾',
     'Giant Tornado' => '巨型龙卷风',

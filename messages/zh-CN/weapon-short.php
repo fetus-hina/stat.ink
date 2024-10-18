@@ -5,6 +5,7 @@
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Gosin <canling0@gmail.com>
+ * @author Yifan Liu <yifanliu00@gmail.com>
  */
 
 declare(strict_types=1);
@@ -193,13 +194,12 @@ return [
     '点96口径重枪 Deco' => '贴牌点96',
     '热泡枪' => '泡枪',
     '熊先生印章刮水刀' => '熊刀',
-    '熊先生印章机动枪' => '',
+    '熊先生印章机动枪' => '熊双',
     '熊先生印章泼桶' => '熊桶',
-    '熊先生印章滚筒' => '',
-    '熊先生印章爆破枪' => '熊爆',
-    '熊先生印章狙击枪' => '',
+    '熊先生印章滚筒' => '熊刷',
+    '熊先生印章爆破枪' => '熊泡',
+    '熊先生印章狙击枪' => '熊狙',
     '熊先生印章猎鱼弓' => '熊弓',
-    '熊先生印章蓄力狙击枪' => '熊枪',
     '熊先生印章防空伞' => '熊伞',
     '熊老板伞枪' => '熊伞',
     '熊老板水桶' => '熊桶',
