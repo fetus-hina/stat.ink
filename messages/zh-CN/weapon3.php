@@ -6,6 +6,7 @@
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author imspace <spacemeowx2@gmail.com>
  * @author midmiako <mayomi@baka.wang>
+ * @author Yifan Liu <yifanliu00@gmail.com>
  */
 
 declare(strict_types=1);
@@ -124,8 +125,8 @@ return [
     'Order Stringer Replica' => '秩序猎鱼弓 复制',
     'Painbrush' => '文森',
     'Painbrush Nouveau' => '文森·新艺术',
-    'Random' => '',
-    'Random (Rare)' => '',
+    'Random' => '随机武器',
+    'Random (Rare)' => '随机武器（稀有）',
     'Range Blaster' => '远距爆破枪',
     'Rapid Blaster' => '快速爆破枪',
     'Rapid Blaster Deco' => '快速爆破枪 装饰',
