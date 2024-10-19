@@ -9,6 +9,9 @@ mapping:
   "imspace <spacemeowx2@gmail.com>":
     - "spacemeowx2 <spacemeowx2@gmail.com>"
 
+  "Yifan Liu <yifanliu00@gmail.com>":
+    - "Yifan <44556003+liuyifan-eric@users.noreply.github.com>"
+
 copy-left:
   "clovervidia <clovervidia@gmail.com>":
     - "messages/en-GB/weapon-short.php"
