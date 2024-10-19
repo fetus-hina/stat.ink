@@ -1,30 +1,31 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Gosin <canling0@gmail.com>
+ * @author Yifan Liu <yifanliu00@gmail.com>
  */
 
 declare(strict_types=1);
 
 return [
     'Amiibo' => 'Amiibo',
-    'Cuttlegear' => '乌贼牌',
+    'Cuttlegear' => '鱼干制造',
     'Famitsu' => '电玩通',
-    'Firefin' => '火河豚',
-    'Forge' => '锻造',
-    'Inkline' => '墨线',
+    'Firefin' => '暖流',
+    'Forge' => '锻品',
+    'Inkline' => '时雨',
     'KOG' => '游戏王',
-    'Krak-On' => '海蜇',
-    'Rockenberg' => '罗肯堡',
-    'Skalop' => '仙贝',
-    'Splash Mob' => '喷涂帮',
-    'Squidforce' => '乌贼力量',
+    'Krak-On' => '海月',
+    'Rockenberg' => '罗肯贝格',
+    'Skalop' => '帆立',
+    'Splash Mob' => '寺门',
+    'Squidforce' => '战斗鱿鱼',
     'SQUID GIRL' => '乌贼女孩',
-    'Takoroka' => '乌贼人',
-    'Tentatek' => '东海堂',
-    'Zekko' => '贼扣',
-    'Zink' => '真可',
+    'Takoroka' => '暇古',
+    'Tentatek' => '艾洛眼',
+    'Zekko' => '泽酷',
+    'Zink' => '钢铁先锋',
 ];

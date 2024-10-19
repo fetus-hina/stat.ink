@@ -1,11 +1,12 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Gosin <canling0@gmail.com>
  * @author imspace <spacemeowx2@gmail.com>
+ * @author Yifan Liu <yifanliu00@gmail.com>
  */
 
 declare(strict_types=1);
@@ -14,7 +15,7 @@ return [
     'Any Title' => '所有称号',
     'Apprentice' => '新手',
     'Go-Getter' => '独当一面',
-    'Hazard Level MAX!!' => '最大危险系数',
+    'Hazard Level MAX!!' => '最高危险度！',
     'Intern' => '实习生',
     'Overachiever' => '熟练',
     'Part-Timer' => '半吊子',

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2022 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -235,6 +235,7 @@ final class I18nController extends Controller
             'GitHub <noreply@github.com>' => null,
             'Lukas <github@muffl0n.de>' => 'Lukas Böttcher <github@muffl0n.de>',
             'Unknown <wkoichi@gmail.com>' => 'Koichi Watanabe <wkoichi@gmail.com>',
+            'Yifan <44556003+liuyifan-eric@users.noreply.github.com>' => 'Yifan Liu <yifanliu00@gmail.com>',
             'spacemeowx2 <spacemeowx2@gmail.com>' => 'imspace <spacemeowx2@gmail.com>',
         ];
         return array_values(

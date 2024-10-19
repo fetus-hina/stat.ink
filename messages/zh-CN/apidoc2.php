@@ -1,11 +1,12 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Gosin <canling0@gmail.com>
  * @author imspace <spacemeowx2@gmail.com>
+ * @author Yifan Liu <yifanliu00@gmail.com>
  */
 
 declare(strict_types=1);
@@ -21,7 +22,7 @@ return [
     'A play data of this post owner' => '该上传者的比赛数据',
     'As the number of supported languages changes, the position of items may change.' => '随着支持语言的增加，物品的位置可能会改变',
     'A unique ID to identify the results' => '一个唯一的ID用来区分结果',
-    'Average inked per battle' => '平均每场涂地面积',
+    'Average inked per battle' => '平均每场涂墨点数',
     'Battle results page URL' => '对战结果网址',
     'Be sure to check the header on the first line (or use JSON version) if you use this data for automatic processing.' => '如果使用该数据来进行自动处理，一定要检查第一行的header（或者使用JSON版本）',
     'Boss' => '关主',
@@ -88,7 +89,7 @@ return [
     'How many appearance' => '出现多少次',
     'How many bosses appearances' => '关主出现多少次',
     'How many cleared waves' => '打通几波',
-    'How many times special weapon used in each wave' => '每波用了多少次大招',
+    'How many times special weapon used in each wave' => '每波用了多少次特殊武器',
     'How many times the special weapon was used in each wave' => '',
     'How to create the UUID:' => '如何创建UUID',
     'HTML version' => 'HTML版本',
@@ -113,7 +114,7 @@ return [
     'Kills per minute' => '每分钟杀敌数',
     'Last updated at' => '最后一次更新于',
     'Main Power Up effects information' => '主能力加强信息',
-    'Maximum inked' => '最大涂地面积',
+    'Maximum inked' => '最大涂墨点数',
     'Max records to get' => '获取最大土地面积',
     'Mode' => '模式',
     'Mode information' => '模式信息',
@@ -247,7 +248,7 @@ return [
     'Weapon category information' => '武器类别信息',
     'Weapons loaned in each wave' => '每个阶段提供的武器',
     'We recommend posting by the following procedure:' => '我们推荐按照以下步骤发布。',
-    'What special weapon assigned' => '分配了何种大招',
+    'What special weapon assigned' => '分配了何种特殊武器',
     'When this data was acquired' => '数据获取时间',
     'When this data was acquired in Unix timestamp' => '数据获取时间（UNIX时间戳）',
     'When this data was sent' => '数据发送时间',

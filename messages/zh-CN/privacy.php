@@ -1,10 +1,11 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Gosin <canling0@gmail.com>
+ * @author Yifan Liu <yifanliu00@gmail.com>
  */
 
 declare(strict_types=1);
@@ -14,7 +15,7 @@ return [
     'About image sharing with the IkaLog team' => '关于共享图片给IkaLog团队',
     'Access time' => '访问时间',
     'Address' => '地址',
-    'AIZAWA Hina (相沢 陽菜)' => '相泽春菜',
+    'AIZAWA Hina (相沢 陽菜)' => '相泽阳菜',
     'Author' => '作者',
     'Handle Name' => '昵称',
     'If there is an investigation being conducted by the police or other authority, your information will be released.' => '如果有警察或当局机构进行调查，你的信息可能会被提供给他们。',
@@ -36,7 +37,7 @@ return [
     'This website ({0}) collects the following data:' => '本网站({0})收集以下数据：',
     'This website uses cookies to track your session or save your configuration (e.g., language / time zone settings).' => '本网站使用cookies跟踪你的登录状态或保存你的设置（比如语言，时区等）。',
     'We are governed by Japanese law.' => '我们受日本法律管辖。',
-    'We don\'t release your collected information, like your IP address. However, statistical information will be released.' => '我们不会公开收集到的个人信息，比如说IP地址。但是统计信息会被公开。',
-    'Your OS, browser name, and version that you are using ("user agent")' => '你的操作系统，浏览器和使用的版本信息（“用户代理”）。',
-    'Your uploaded data (battle stats, images, and modification history) will be shared with the IkaLog development team.' => '你上传的数据（对战统计，图片和修改历史）会共享给IkaLog开发团队。',
+    'We don\'t release your collected information, like your IP address. However, statistical information will be released.' => '我们不会公开收集到的个人信息，例如IP地址。但是统计信息会被公开。',
+    'Your OS, browser name, and version that you are using ("user agent")' => '你的操作系统、浏览器和使用的版本信息（“用户代理”）。',
+    'Your uploaded data (battle stats, images, and modification history) will be shared with the IkaLog development team.' => '你上传的数据（对战统计、图片和修改历史）会共享给IkaLog开发团队。',
 ];

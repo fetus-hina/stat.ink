@@ -1,16 +1,17 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Gosin <canling0@gmail.com>
+ * @author Yifan Liu <yifanliu00@gmail.com>
  */
 
 declare(strict_types=1);
 
 return [
-    'Any Special' => '所有大招',
+    'Any Special' => '所有特殊武器',
     'Autobomb Launcher' => '养鸡场',
     'Baller' => '仓鼠球',
     'Baller Inksplosion' => '',

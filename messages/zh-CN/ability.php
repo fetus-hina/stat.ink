@@ -1,10 +1,11 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Gosin <canling0@gmail.com>
+ * @author Yifan Liu <yifanliu00@gmail.com>
  */
 
 declare(strict_types=1);
@@ -29,9 +30,9 @@ return [
     'Quick Super Jump' => '快速大跳',
     'Recon' => '区域检查',
     'Run Speed Up' => '走速增加',
-    'Special Charge Up' => '大招加速',
-    'Special Duration Up' => '大招延长',
-    'Special Saver' => '大招损失减少',
+    'Special Charge Up' => '特殊武器加速',
+    'Special Duration Up' => '特殊武器延长',
+    'Special Saver' => '特殊武器损失减少',
     'Stealth Jump' => '隐跳',
     'Swim Speed Up' => '游速增加',
     'Tenacity' => '韧劲十足',

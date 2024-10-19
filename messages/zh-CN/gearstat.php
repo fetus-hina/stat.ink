@@ -1,10 +1,11 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Gosin <canling0@gmail.com>
+ * @author Yifan Liu <yifanliu00@gmail.com>
  */
 
 declare(strict_types=1);
@@ -24,9 +25,9 @@ return [
     'Prepare' => '准备',
     'Respawn' => '重生',
     'Run Speed' => '走速',
-    'Special Charge' => '大招充能',
-    'Special Duration' => '大招持续时间',
-    'Special Save' => '大招充能保存',
+    'Special Charge' => '特殊武器充能',
+    'Special Duration' => '特殊武器持续时间',
+    'Special Save' => '特殊武器充能保存',
     'Stiffen' => '硬直',
     'Swim Speed' => '游速',
 ];

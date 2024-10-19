@@ -1,10 +1,11 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Gosin <canling0@gmail.com>
+ * @author Yifan Liu <yifanliu00@gmail.com>
  */
 
 declare(strict_types=1);
@@ -15,7 +16,7 @@ return [
     'Ability Doubler' => '技能翻倍',
     'Bomb Defense Up' => '副武器伤害减少',
     'Bomb Defense Up DX' => '爆破伤害减少',
-    'Charging: {value}' => '大招充能：{value}',
+    'Charging: {value}' => '特殊武器充能：{value}',
     'Cold-Blooded' => '冷血',
     'Comeback' => '索命',
     'Damage: {damageCap} = {baseDamage}×{percent} ({damage}, capped)' => '伤害：{damageCap} = {baseDamage}×{percent} ({damage}, 封顶)',
@@ -61,9 +62,9 @@ return [
     'Run Speed Up' => '走速增加',
     'Shooting: {value}' => '射击：{value}',
     'Short' => '短距离',
-    'Special Charge Up' => '大招加速',
-    'Special Power Up' => '大招增强',
-    'Special Saver' => '大招损失减少',
+    'Special Charge Up' => '特殊武器加速',
+    'Special Power Up' => '特殊武器增强',
+    'Special Saver' => '特殊武器损失减少',
     'Speed up brella canopy regeneration' => '加速伞面生成',
     'Squish' => '接触',
     'Stealth Jump' => '隐跳',
