@@ -10,10 +10,10 @@
         }
     ],
     "require": {
-        "deployer/deployer": "^7.4"
+        "deployer/deployer": "^7.5.5"
     },
     "require-dev": {
-        "ergebnis/composer-normalize": "^2.43"
+        "ergebnis/composer-normalize": "^2.44"
     },
     "config": {
         "allow-plugins": {
