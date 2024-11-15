@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8f556bdc607039f096b88d015ce17972",
+    "content-hash": "404937912f7fc6e7eaa58bece0f2cef7",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -448,22 +448,22 @@
         },
         {
             "name": "geoip2/geoip2",
-            "version": "v3.0.0",
+            "version": "v3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maxmind/GeoIP2-php.git",
-                "reference": "1a802ce9356cdd1c6b681c030fd9563750e11e6a"
+                "reference": "c86fbeaa7e42279dd9e7af0b015384e721832b88"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maxmind/GeoIP2-php/zipball/1a802ce9356cdd1c6b681c030fd9563750e11e6a",
-                "reference": "1a802ce9356cdd1c6b681c030fd9563750e11e6a",
+                "url": "https://api.github.com/repos/maxmind/GeoIP2-php/zipball/c86fbeaa7e42279dd9e7af0b015384e721832b88",
+                "reference": "c86fbeaa7e42279dd9e7af0b015384e721832b88",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "maxmind-db/reader": "^1.11.1",
-                "maxmind/web-service-common": "~0.8",
+                "maxmind-db/reader": "^1.12.0",
+                "maxmind/web-service-common": "~0.10",
                 "php": ">=8.1"
             },
             "require-dev": {
@@ -500,9 +500,9 @@
             ],
             "support": {
                 "issues": "https://github.com/maxmind/GeoIP2-php/issues",
-                "source": "https://github.com/maxmind/GeoIP2-php/tree/v3.0.0"
+                "source": "https://github.com/maxmind/GeoIP2-php/tree/v3.1.0"
             },
-            "time": "2023-12-04T17:16:34+00:00"
+            "time": "2024-11-15T16:33:31+00:00"
         },
         {
             "name": "jaybizzle/crawler-detect",
