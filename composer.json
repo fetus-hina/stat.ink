@@ -20,7 +20,7 @@
     "ext-zlib": "*",
     "cweagans/composer-patches": "^1.7.3",
     "geoip2/geoip2": "^3.0.0",
-    "jaybizzle/crawler-detect": "^1.2.120",
+    "jaybizzle/crawler-detect": "^1.2.121",
     "jp3cki/mb_str_replace": "^4.0.2",
     "jp3cki/uuid": "^4.0.1",
     "jp3cki/yii2-bs-datetimepicker": "^1.0",
@@ -48,7 +48,7 @@
     "statink/yii2-spl1-stages": "^1.0.1",
     "statink/yii2-spl2-stages": "^1.0.2",
     "statink/yii2-twitter-webintents": "^1.0.2",
-    "symfony/yaml": "^6.4.12 || ^7.0.0",
+    "symfony/yaml": "^6.4.13 || ^7.0.0",
     "twbs/bootstrap-icons": "^1.11.3",
     "yiisoft/yii2": "^2.0.51",
     "yiisoft/yii2-bootstrap": "^2.0.11",
@@ -66,7 +66,7 @@
     "ergebnis/composer-normalize": "^2.44.0",
     "jp3cki/coding-standard": "^1.0.0",
     "proget-hq/phpstan-yii2": "^0.8.0",
-    "squizlabs/php_codesniffer": "^3.10.3",
+    "squizlabs/php_codesniffer": "^3.11.0",
     "yiisoft/yii2-debug": "^2.1.25",
     "yiisoft/yii2-gii": "^2.2.6"
   },
@@ -140,7 +140,7 @@
       "yiisoft/yii2-composer": true
     },
     "platform": {
-      "php": "8.2.24"
+      "php": "8.2.25"
     },
     "process-timeout": 1800
   },
