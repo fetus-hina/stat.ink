@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2023 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -21,8 +21,10 @@ use function is_object;
 use function is_scalar;
 use function is_string;
 
+use const FILTER_FLAG_PATH_REQUIRED;
 use const FILTER_VALIDATE_FLOAT;
 use const FILTER_VALIDATE_INT;
+use const FILTER_VALIDATE_URL;
 
 final class TypeHelper
 {
@@ -80,6 +82,19 @@ final class TypeHelper
 
         $value = filter_var(self::stringOrNull($value), FILTER_VALIDATE_FLOAT);
         return is_float($value) ? $value : null;
+    }
+
+    public static function url(mixed $value): string
+    {
+        $value = filter_var(
+            self::string($value);
+            FILTER_VALIDATE_URL,
+            FILTER_FLAG_SCHEME_REQUIRED | FILTER_FLAG_HOST_REQUIRED | FILTER_FLAG_PATH_REQUIRED,
+        );
+        return match (true) {
+            is_string($value) => $value,
+            default => throw new TypeError('The value is not a valid URL'),
+        };
     }
 
     public static function array(mixed $value): array
