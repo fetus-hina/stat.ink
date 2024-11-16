@@ -87,9 +87,9 @@ final class TypeHelper
     public static function url(mixed $value): string
     {
         $value = filter_var(
-            self::string($value);
+            self::string($value),
             FILTER_VALIDATE_URL,
-            FILTER_FLAG_SCHEME_REQUIRED | FILTER_FLAG_HOST_REQUIRED | FILTER_FLAG_PATH_REQUIRED,
+            FILTER_FLAG_PATH_REQUIRED,
         );
         return match (true) {
             is_string($value) => $value,

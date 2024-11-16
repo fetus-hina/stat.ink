@@ -11,6 +11,9 @@ declare(strict_types=1);
 namespace app\commands;
 
 use Exception;
+use GuzzleHttp\Client as GuzzleHttpClient;
+use Laminas\Feed\Reader\Http\ClientInterface as FeedReaderHttpClientInterface;
+use Laminas\Feed\Reader\Http\Psr7ResponseDecorator;
 use Laminas\Feed\Reader\Reader as FeedReader;
 use TypeError;
 use Yii;
@@ -20,6 +23,7 @@ use jp3cki\uuid\NS as UuidNS;
 use jp3cki\uuid\Uuid;
 use yii\console\Controller;
 
+use function count;
 use function preg_match;
 use function printf;
 use function usort;
@@ -39,6 +43,16 @@ final class BlogFeedController extends Controller
     private function fetchFeed()
     {
         echo "Fetching feed...\n";
+        FeedReader::setHttpClient(
+            new class () implements FeedReaderHttpClientInterface {
+                public function get($uri)
+                {
+                    return new Psr7ResponseDecorator(
+                        (new GuzzleHttpClient())->request('GET', $uri),
+                    );
+                }
+            },
+        );
         $feed = FeedReader::import('https://blog.fetus.jp/category/website/stat-ink/feed');
         echo "done.\n";
         $ret = [];
@@ -49,6 +63,8 @@ final class BlogFeedController extends Controller
             $ret[] = $entry;
         }
         usort($ret, fn ($a, $b) => $a->getDateCreated()->getTimestamp() <=> $b->getDateCreated()->getTimestamp());
+        printf("%d entries\n", count($ret));
+
         return $ret;
     }
 
