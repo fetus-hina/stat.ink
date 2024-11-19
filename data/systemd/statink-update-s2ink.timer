@@ -1,0 +1,8 @@
+[Unit]
+Description=Run stat.ink splatoon2-ink/update (timer)
+
+[Timer]
+OnCalendar=*:04
+
+[Install]
+WantedBy=timers.target
