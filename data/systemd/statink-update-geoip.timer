@@ -1,0 +1,8 @@
+[Unit]
+Description=Run stat.ink geoip/update (timer)
+
+[Timer]
+OnCalendar=Thu 03:31
+
+[Install]
+WantedBy=timers.target
