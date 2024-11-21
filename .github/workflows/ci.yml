@@ -30,6 +30,10 @@ jobs:
             version: '8.4'
             multiple: true
             experimental: false
+          -
+            version: '8.5'
+            multiple: true
+            experimental: true
     runs-on: ubuntu-24.04
     needs:
       - ciDoesNotSkip
@@ -327,6 +331,9 @@ jobs:
           -
             version: '8.4'
             experimental: false
+          -
+            version: '8.5'
+            experimental: true
         pgsql:
           -
             version: '11'
