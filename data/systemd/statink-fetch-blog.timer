@@ -1,0 +1,8 @@
+[Unit]
+Description=Run stat.ink blog-feed/crawl (timer)
+
+[Timer]
+OnCalendar=*:0,15,30,45
+
+[Install]
+WantedBy=timers.target

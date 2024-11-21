@@ -1,0 +1,8 @@
+[Unit]
+Description=Run stat.ink stat/update-entire-salmon3 (timer)
+
+[Timer]
+OnCalendar=*-*-* 03..21/6:47:00
+
+[Install]
+WantedBy=timers.target
