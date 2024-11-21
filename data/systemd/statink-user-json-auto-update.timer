@@ -1,0 +1,9 @@
+[Unit]
+Description=Run stat.ink user-json/auto-update (timer)
+
+[Timer]
+# every minutes
+OnCalendar=*-*-* *:*:30
+
+[Install]
+WantedBy=timers.target
