@@ -1,8 +1,0 @@
-[Unit]
-Description=Run stat.ink scheduling tasks (timer)
-
-[Timer]
-OnCalendar=*-*-* *:*:00
-
-[Install]
-WantedBy=timers.target
