@@ -6,7 +6,7 @@ name: 'Dependencies Updator'
 jobs:
   update:
     name: 'Update dependencies'
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       -
         name: 'Check out the source'
@@ -45,9 +45,11 @@ jobs:
           composer bump
           composer normalize
       -
-        name: 'Update package.json'
+        name: 'Update JavaScript packages'
         run: |
           npx updates --update --minor
+          rm -rf node_modules package-lock.json
+          npm install
       -
         name: 'Check changed'
         run: |
@@ -61,13 +63,6 @@ jobs:
             echo "Something changed"
             echo "changed=1" >> $GITHUB_ENV
           fi
-      -
-        name: 'Full update JavaScript packages'
-        if: "${{ env.changed == '1' }}"
-        run: |
-          rm -rf node_modules package-lock.json
-          npm install
-          git add .
       -
         name: 'Create Pull Request'
         if: "${{ env.changed == '1' }}"

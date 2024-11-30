@@ -21,7 +21,7 @@
     "cweagans/composer-patches": "^1.7.3",
     "geoip2/geoip2": "^3.1.0",
     "guzzlehttp/guzzle": "^7.9.2",
-    "jaybizzle/crawler-detect": "^1.2.121",
+    "jaybizzle/crawler-detect": "^1.3.0",
     "jp3cki/mb_str_replace": "^4.0.2",
     "jp3cki/uuid": "^4.0.1",
     "jp3cki/yii2-bs-datetimepicker": "^1.0",
@@ -46,7 +46,7 @@
     "statink/yii2-spl1-stages": "^1.0.1",
     "statink/yii2-spl2-stages": "^1.0.2",
     "statink/yii2-twitter-webintents": "^1.0.2",
-    "symfony/yaml": "^7.1.6",
+    "symfony/yaml": "^7.2.0",
     "twbs/bootstrap-icons": "^1.11.3",
     "yiisoft/yii2": "^2.0.51",
     "yiisoft/yii2-bootstrap": "^2.0.11",
@@ -138,7 +138,7 @@
       "yiisoft/yii2-composer": true
     },
     "platform": {
-      "php": "8.2.25"
+      "php": "8.2.26"
     },
     "process-timeout": 1800
   },
