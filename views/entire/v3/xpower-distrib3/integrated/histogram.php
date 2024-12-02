@@ -71,7 +71,7 @@ $this->registerJs(vsprintf('$(%s).easyChartJs();', [
                   ],
                   $rules,
                 ),
-                fn (array $v): bool => (bool)count($v['data']),
+                fn (array $v): bool => (bool)count($v['data'] ?? []),
               ),
             ),
           ],
