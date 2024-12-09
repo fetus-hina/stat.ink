@@ -58,7 +58,7 @@
     "codeception/codeception": ">=5.1.2",
     "codeception/module-asserts": ">=3",
     "codeception/module-filesystem": ">=3.0.1",
-    "codeception/module-yii2": ">=1.1.10",
+    "codeception/module-yii2": ">=1.1.12",
     "codeception/specify": ">=2",
     "codeception/verify": ">=3.2",
     "ergebnis/composer-normalize": "^2.45.0",
