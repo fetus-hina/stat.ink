@@ -64,7 +64,7 @@
     "ergebnis/composer-normalize": "^2.45.0",
     "jp3cki/coding-standard": "^1.0.1",
     "proget-hq/phpstan-yii2": "^0.8.0",
-    "squizlabs/php_codesniffer": "^3.11.1",
+    "squizlabs/php_codesniffer": "^3.11.2",
     "yiisoft/yii2-debug": "^2.1.25",
     "yiisoft/yii2-gii": "^2.2.6"
   },
