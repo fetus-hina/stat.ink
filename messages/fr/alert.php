@@ -11,11 +11,12 @@ declare(strict_types=1);
 
 return [
     'Due to: {reason}' => 'Raison : {reason}',
-    'Incorrect data will be registered if you do not use the latest version.' => 'Des données incorrectes seront enregistrées si vous n\'utilisez pas la dernière version',
-    'Please update your client software and use always latest version.' => 'Veuillez mettre à jour votre application et toujours utiliser la version la plus récente.',
+    'Due to updates to Nintendo Switch Online (NSO), third-party applications are currently being affected.' => '',
     'Sorry for inconvenience.' => 'Veuillez nous excuser de la gêne occasionnée.',
     'Term: {startDate} - {endDate}' => 'Maintenance : {startDate} - {endDate}',
+    'Under no circumstances should you contact Nintendo regarding this issue.' => '',
     'We\'ll perform maintenance on the schedule below:' => 'Nous ferons une maintenance selon le planning ci-dessous :',
+    'We have received reports that updating authentication credentials for s3s and s3si.ts is not possible, and these apps are currently unavailable.' => '',
     'We won\'t implement automatic importing to {appName} for security reasons.' => 'Nous n\'implémenterons pas d\'importation automatique sur {appName} pour des raisons de sécurité.',
     'You can import automatically from SplatNet, use these apps: (USE AT YOUR OWN RISK)' => 'Vous pouvez importer vos statistiques depuis SplatNet automatiquement grâce à ces applications : (À UTILISER À VOS RISQUES ET PÉRILS)',
 ];
