@@ -14,7 +14,7 @@ use app\components\widgets\SnsWidget;
 use app\components\widgets\alerts\ImportFromSplatnet;
 use app\components\widgets\alerts\LanguageSupportLevelWarning;
 use app\components\widgets\alerts\MaintenanceInfo;
-use app\components\widgets\alerts\PleaseUseLatest;
+use app\components\widgets\alerts\NSOIssue;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -54,6 +54,7 @@ OgpHelper::default($this, Url::to(['site/index'], true));
       <div id="counter-app" class="mb-3"></div>
     </div>
   </div>
+  <?= NSOIssue::widget() . "\n" ?>
   <?= HappyNewYearWidget::widget() . "\n" ?>
   <?= MaintenanceInfo::widget() . "\n" ?>
   <?= LanguageSupportLevelWarning::widget() . "\n" ?>
