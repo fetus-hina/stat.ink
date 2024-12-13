@@ -15,7 +15,10 @@ use Yii;
 use app\components\widgets\Alert;
 use yii\helpers\Html;
 
+use function array_keys;
 use function array_map;
+use function array_values;
+use function count;
 use function implode;
 
 final class NSOIssue extends Alert
@@ -42,7 +45,7 @@ final class NSOIssue extends Alert
         $messages = [
             'Due to updates to Nintendo Switch Online (NSO), third-party applications are currently being affected.',
             'We have received reports that updating authentication credentials for s3s and s3si.ts is not possible, and these apps are currently unavailable.',
-            'Under no circumstances should you contact Nintendo regarding this issue.',
+            'DO NOT contact Nintendo about this issue under any circumstances.'
         ];
         // phpcs:enable
 
