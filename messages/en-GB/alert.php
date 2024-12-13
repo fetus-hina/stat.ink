@@ -10,11 +10,11 @@
 declare(strict_types=1);
 
 return [
+    'DO NOT contact Nintendo about this issue under any circumstances.' => '',
     'Due to: {reason}' => '',
     'Due to updates to Nintendo Switch Online (NSO), third-party applications are currently being affected.' => '',
     'Sorry for inconvenience.' => '',
     'Term: {startDate} - {endDate}' => '',
-    'Under no circumstances should you contact Nintendo regarding this issue.' => '',
     'We\'ll perform maintenance on the schedule below:' => '',
     'We have received reports that updating authentication credentials for s3s and s3si.ts is not possible, and these apps are currently unavailable.' => '',
     'We won\'t implement automatic importing to {appName} for security reasons.' => '',
