@@ -39,11 +39,18 @@ jobs:
           PHP_VERSION=`./yii php/latest-version`
           composer config platform.php $PHP_VERSION
       -
-        name: 'Update composer packages'
+        name: 'Update composer packages (app)'
         run: |
           composer update
           composer bump
           composer normalize
+      -
+        name: 'Update composer packages (deploy)'
+        run: |
+          composer update
+          composer bump
+          composer normalize
+        working-directory: deploy
       -
         name: 'Update JavaScript packages'
         run: |
@@ -53,7 +60,12 @@ jobs:
       -
         name: 'Check changed'
         run: |
-          git add composer.json composer.lock package.json
+          git add \
+            ./composer.json \
+            ./composer.lock \
+            ./package.json \
+            deploy/composer.json \
+            deploy/composer.lock
 
           git update-index -q --refresh
           if [ -z "$(git diff-index --name-only HEAD --)" ]; then
