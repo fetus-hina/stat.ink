@@ -15,7 +15,10 @@ use Yii;
 use app\components\widgets\Alert;
 use yii\helpers\Html;
 
+use function array_keys;
 use function array_map;
+use function array_values;
+use function count;
 use function implode;
 
 final class NSOIssue extends Alert
