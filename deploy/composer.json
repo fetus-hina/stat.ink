@@ -1,8 +1,8 @@
 {
     "name": "statink/deploy",
     "license": "MIT",
-    "version": "1.0.0",
     "type": "project",
+    "version": "1.0.0",
     "authors": [
         {
             "name": "AIZAWA Hina",
@@ -10,10 +10,10 @@
         }
     ],
     "require": {
-        "deployer/deployer": "^7.5.5"
+        "deployer/deployer": "^7.5.8"
     },
     "require-dev": {
-        "ergebnis/composer-normalize": "^2.44"
+        "ergebnis/composer-normalize": "^2.45"
     },
     "config": {
         "allow-plugins": {
