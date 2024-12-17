@@ -43,7 +43,7 @@ final class NSOIssue extends Alert
     {
         // phpcs:disable
         $messages = [
-            'Due to updates to Nintendo Switch Online (NSO), third-party applications are currently being affected.',
+            'Due to updates to Nintendo Switch Online (NSO), issues have arisen causing third-party applications to be affected.',
             'We have received reports that updating authentication credentials for s3s and s3si.ts is not possible, and these apps are currently unavailable.',
             'DO NOT contact Nintendo about this issue under any circumstances.'
         ];
