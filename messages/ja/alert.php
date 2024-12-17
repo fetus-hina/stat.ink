@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 return [
     'DO NOT contact Nintendo about this issue under any circumstances.' => 'この問題について、任天堂には決して問い合わせをしないでください。',
-    'Due to updates to Nintendo Switch Online (NSO), third-party applications are currently being affected.' => 'Nintendo Switch Online (NSO) の更新により、サードパーティアプリケーションでの利用に影響が発生しています。',
+    'Due to updates to Nintendo Switch Online (NSO), issues have arisen causing third-party applications to be affected.' => 'Nintendo Switch Online (NSO) の更新により、サードパーティアプリケーションでの利用に影響が発生しています。',
     'Due to: {reason}' => '理由：{reason}',
     'Sorry for inconvenience.' => 'ご不便をおかけします。',
     'Term: {startDate} - {endDate}' => '期間：{startDate} - {endDate}',

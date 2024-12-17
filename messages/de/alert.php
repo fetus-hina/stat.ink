@@ -12,7 +12,7 @@ declare(strict_types=1);
 return [
     'DO NOT contact Nintendo about this issue under any circumstances.' => '',
     'Due to: {reason}' => 'Aufgrund von: {reason}',
-    'Due to updates to Nintendo Switch Online (NSO), third-party applications are currently being affected.' => '',
+    'Due to updates to Nintendo Switch Online (NSO), issues have arisen causing third-party applications to be affected.' => '',
     'Sorry for inconvenience.' => 'Entschuldigung für die Unannehmlichkeiten.',
     'Term: {startDate} - {endDate}' => 'Zeitraum: {startDate} - {endDate}',
     'We\'ll perform maintenance on the schedule below:' => 'Wir führen Wartungsarbeiten nach dem folgenden Zeitplan durch:',
