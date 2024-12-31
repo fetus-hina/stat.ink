@@ -60,7 +60,7 @@ REQUIREMENTS
 
 https://stat.ink/ works with:
 
-- CentOS 9 (x86-64)
+- RockyLinux 9 (x86-64)
 - EPEL
 - [JP3CKI Repository](https://rpm.fetus.jp/)
   - [H2O](https://h2o.examp1e.net/) mainline
