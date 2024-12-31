@@ -1,13 +1,15 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2024 AIZAWA Hina
+ * @copyright Copyright (C) 2017-2024 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 namespace app\commands;
 
+use DateTimeImmutable;
+use DateTimeZone;
 use DirectoryIterator;
 use Iterator;
 use Yii;
@@ -20,6 +22,7 @@ use function array_filter;
 use function array_key_exists;
 use function array_keys;
 use function array_map;
+use function array_reduce;
 use function array_unique;
 use function array_values;
 use function count;
@@ -28,8 +31,8 @@ use function escapeshellarg;
 use function exec;
 use function file_exists;
 use function file_put_contents;
-use function gmdate;
 use function implode;
+use function min;
 use function mkdir;
 use function passthru;
 use function preg_match;
@@ -44,6 +47,7 @@ use function substr;
 use function time;
 use function trim;
 use function uksort;
+use function vsprintf;
 
 use const LC_COLLATE;
 use const SORT_FLAG_CASE;
@@ -80,6 +84,8 @@ final class I18nController extends Controller
 
     public function actionMessage(string $locale): int
     {
+        Yii::$app->timeZone = 'Asia/Tokyo';
+
         if (!preg_match('/^[a-z]{2}-[A-Z]{2}$/', $locale)) {
             // Note: locale may have 3 characters part, but we currently unsupported yet
             // (They used for minor languages/regions)
@@ -159,11 +165,18 @@ final class I18nController extends Controller
 
         $esc = fn (string $text): string => str_replace(['\\', "'"], ['\\\\', "\\'"], $text);
 
+        $now = new DateTimeImmutable('now', new DateTimeZone(Yii::$app->timeZone));
+        $commitAt = $now->setTimestamp($this->getGitFirstCommitTime($outPath));
+
         $file = [];
         $file[] = '<?php';
         $file[] = '';
         $file[] = '/**';
-        $file[] = ' * @copyright Copyright (C) 2015-' . gmdate('Y', time() + 9 * 3600) . ' AIZAWA Hina';
+        $file[] = vsprintf(' * @copyright Copyright (C) %s AIZAWA Hina', [
+            $now->format('Y') === $commitAt->format('Y')
+                ? $now->format('Y')
+                : sprintf('%s-%s', $commitAt->format('Y'), $now->format('Y')),
+        ]);
         $file[] = ' * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT';
         foreach ($this->getGitContributors($outPath) as $contributor) {
             $file[] = ' * @author ' . $contributor;
@@ -198,6 +211,28 @@ final class I18nController extends Controller
         passthru($cmdline, $status2);
 
         return $status1 | $status2;
+    }
+
+    private function getGitFirstCommitTime(string $path): int
+    {
+        $cmdline = sprintf(
+            '/usr/bin/env git log --pretty=%s -- %s | sort | uniq',
+            escapeshellarg('%at%n%ct'),
+            escapeshellarg($path),
+        );
+        $status = null;
+        $lines = [];
+        @exec($cmdline, $lines, $status);
+        if ($status !== 0) {
+            $this->stderr("Could not get commits\n");
+            exit(1);
+        }
+
+        return array_reduce(
+            $lines,
+            fn (int $carry, string $line): int => min($carry, (int)$line),
+            time(),
+        );
     }
 
     private function getGitContributors(string $path): array

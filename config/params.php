@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @copyright Copyright (C) 2015-2024 AIZAWA Hina
+ * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ * @author AIZAWA Hina <hina@fetus.jp>
+ */
+
 declare(strict_types=1);
 
 $tryLoad = fn (string $path, $default = null) => @file_exists($path) && @is_file($path) && @is_readable($path) ? require $path : $default;
