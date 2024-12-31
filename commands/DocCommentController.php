@@ -94,7 +94,6 @@ final class DocCommentController extends Controller
                             'tests',
                             'utils.internal',
                             'vendor',
-                            'views', // 一旦 views は除外
                             'web',
                         ],
                         true,
@@ -248,6 +247,7 @@ final class DocCommentController extends Controller
             'StyleCI Bot <bot@styleci.io>' => null,
             'Unknown <wkoichi@gmail.com>' => 'Koichi Watanabe <wkoichi@gmail.com>',
             'Yifan <44556003+liuyifan-eric@users.noreply.github.com>' => 'Yifan Liu <yifanliu00@gmail.com>',
+            'li <170cm.kurekure@gmail.com>' => 'li <nvblstr@gmail.com>',
             'spacemeowx2 <spacemeowx2@gmail.com>' => 'imspace <spacemeowx2@gmail.com>',
         ];
 
