@@ -1,20 +1,27 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2017-2024 AIZAWA Hina
+ * @copyright Copyright (C) 2017-2025 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
-/* @var $this yii\web\View */
-/* @var $generator yii\gii\generators\model\Generator */
-/* @var $tableName string full table name */
-/* @var $className string class name */
-/* @var $queryClassName string query class name */
-/* @var $tableSchema yii\db\TableSchema */
-/* @var $labels string[] list of attribute labels (name => label) */
-/* @var $rules string[] list of validation rules */
-/* @var $relations array list of relations (name => relation declaration) */
+use app\components\helpers\GitAuthorHelper;
+use yii\db\TableSchema;
+use yii\gii\generators\model\Generator;
+use yii\web\View;
+
+/**
+ * @var Generator $generator
+ * @var TableSchema $tableSchema
+ * @var View $this
+ * @var array<string, array> $relations array list of relations (name => relation declaration)
+ * @var array<string, string> $labels list of attribute labels
+ * @var string $className class name
+ * @var string $queryClassName query class name
+ * @var string $tableName full table name
+ * @var string[] $rules list of validation rules
+ */
 
 $now = (new \DateTimeImmutable('now', new \DateTimeZone('Asia/Tokyo')))
     ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time());
@@ -23,9 +30,11 @@ echo "<?php\n";
 echo "\n";
 ?>
 /**
- * @copyright Copyright (C) 2015-<?= $now->format('Y') ?> AIZAWA Hina
+ * @copyright Copyright (C) <?= $now->format('Y') ?> AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@fetus.jp>
+<?php foreach (array_keys(GitAuthorHelper::getAuthors()) as $author): ?>
+ * @author <?= $author . "\n" ?>
+<?php endforeach; ?>
  */
 
 declare(strict_types=1);

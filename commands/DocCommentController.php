@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2024 AIZAWA Hina
+ * @copyright Copyright (C) 2024-2025 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -57,6 +57,13 @@ final class DocCommentController extends Controller
         return ExitCode::OK;
     }
 
+    public function actionRewriteModels(): int
+    {
+        $this->rewritePhpRecursive(dirname(__DIR__) . '/models', 'models');
+
+        return ExitCode::OK;
+    }
+
     private function rewritePhpRecursive(string $dir, string $relPath): void
     {
         $it = new DirectoryIterator($dir);
@@ -78,7 +85,6 @@ final class DocCommentController extends Controller
                             'docker',
                             'messages',
                             'migrations',
-                            'models', // 一旦 models は除外
                             'node_modules',
                             'resources',
                             'runtime',

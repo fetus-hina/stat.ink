@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2024 AIZAWA Hina
+ * @copyright Copyright (C) 2024-2025 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -15,8 +15,10 @@ use Exception;
 use Yii;
 use yii\console\ExitCode;
 use yii\helpers\StringHelper;
+use yii\i18n\Formatter;
 
 use function array_key_exists;
+use function array_reduce;
 use function escapeshellarg;
 use function exec;
 use function explode;
@@ -34,6 +36,30 @@ use const PHP_INT_MAX;
 
 final class GitAuthorHelper
 {
+    public static function getCopyrightYear(string $path): string
+    {
+        $authors = self::getAuthors($path);
+        $minCommitDate = array_reduce(
+            $authors,
+            fn (int $carry, array $item): int => min($carry, $item[0]),
+            time(),
+        );
+
+        $f = Yii::createObject([
+            'class' => Formatter::class,
+            'timeZone' => 'Asia/Tokyo',
+        ]);
+
+        if ($f->asDate($minCommitDate, 'yyyy') === $f->asDate(time(), 'yyyy')) {
+            return $f->asDate($minCommitDate, 'yyyy');
+        }
+
+        return vsprintf('%s-%s', [
+            $f->asDate($minCommitDate, 'yyyy'),
+            $f->asDate(time(), 'yyyy'),
+        ]);
+    }
+
     /**
      * @return array<string, array{int, int}>
      */
