@@ -1,8 +1,9 @@
 <?php
 
 /**
- * This view is used by console/controllers/MigrateController.php
- * The following variables are available in this view:
+ * @copyright Copyright (C) 2022-2025 AIZAWA Hina
+ * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 use app\components\db\Weapon3Migration;

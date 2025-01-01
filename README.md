@@ -60,7 +60,7 @@ REQUIREMENTS
 
 https://stat.ink/ works with:
 
-- CentOS 9 (x86-64)
+- RockyLinux 9 (x86-64)
 - EPEL
 - [JP3CKI Repository](https://rpm.fetus.jp/)
   - [H2O](https://h2o.examp1e.net/) mainline
@@ -208,7 +208,7 @@ See the pages below for APIs to post and retrieve data from stat.ink.
 ```
 The MIT License (MIT)
 
-Copyright (c) 2015-2024 AIZAWA Hina <hina@fetus.jp>
+Copyright (c) 2015-2025 AIZAWA Hina <hina@fetus.jp>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

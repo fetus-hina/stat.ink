@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2020 AIZAWA Hina
+ * @copyright Copyright (C) 2018-2025 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -10,6 +10,8 @@ declare(strict_types=1);
 
 namespace app\commands\i18n;
 
+use DateTimeImmutable;
+use DateTimeZone;
 use Yii;
 use app\models\Language;
 use app\models\SalmonMainWeapon2;
@@ -24,15 +26,14 @@ use function array_map;
 use function array_reduce;
 use function file_exists;
 use function file_put_contents;
-use function gmdate;
 use function implode;
 use function in_array;
 use function natcasesort;
+use function sprintf;
 use function str_replace;
 use function strcasecmp;
 use function strcmp;
 use function strpos;
-use function time;
 use function uksort;
 use function vsprintf;
 
@@ -204,11 +205,18 @@ trait WeaponShortNameTrait
 
         $esc = fn (string $text): string => str_replace(['\\', "'"], ['\\\\', "\\'"], $text);
 
+        $now = new DateTimeImmutable('now', new DateTimeZone(Yii::$app->timeZone));
+        $commitAt = $now->setTimestamp($this->getGitFirstCommitTime($path));
+
         $file = [];
         $file[] = '<?php';
         $file[] = '';
         $file[] = '/**';
-        $file[] = ' * @copyright Copyright (C) 2015-' . gmdate('Y', time() + 9 * 3600) . ' AIZAWA Hina';
+        $file[] = vsprintf(' * @copyright Copyright (C) %s AIZAWA Hina', [
+            $now->format('Y') === $commitAt->format('Y')
+                ? $now->format('Y')
+                : sprintf('%s-%s', $commitAt->format('Y'), $now->format('Y')),
+        ]);
         $file[] = ' * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT';
         foreach ($this->getContributors($path) as $contributor) {
             $file[] = ' * @author ' . $contributor;

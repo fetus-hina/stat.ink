@@ -1,10 +1,10 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2024 AIZAWA Hina
+ * @copyright Copyright (C) 2022-2025 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author ADe <loezone@gmail.com>
  * @author AIZAWA Hina <hina@fetus.jp>
+ * @author ADe <loezone@gmail.com>
  * @author midmiako <mayomi@baka.wang>
  */
 

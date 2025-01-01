@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @copyright Copyright (C) 2018-2025 AIZAWA Hina
+ * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ * @author AIZAWA Hina <hina@fetus.jp>
+ */
+
 use app\assets\KillRatioColumnAsset;
 use app\components\helpers\WeaponShortener;
 use app\components\widgets\EmbedVideo;

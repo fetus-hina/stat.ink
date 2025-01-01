@@ -1,13 +1,9 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2024 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2025 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
- *
- * @link http://www.yiiframework.com/
- * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
  */
 
 declare(strict_types=1);
