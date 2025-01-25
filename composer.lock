@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "40e8500167e235e19d5217bcaaa12263",
+    "content-hash": "70c9bb44ba92029b32233060d53abf5b",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -72,16 +72,16 @@
         },
         {
             "name": "composer/ca-bundle",
-            "version": "1.5.4",
+            "version": "1.5.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/ca-bundle.git",
-                "reference": "bc0593537a463e55cadf45fd938d23b75095b7e1"
+                "reference": "08c50d5ec4c6ced7d0271d2862dec8c1033283e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/ca-bundle/zipball/bc0593537a463e55cadf45fd938d23b75095b7e1",
-                "reference": "bc0593537a463e55cadf45fd938d23b75095b7e1",
+                "url": "https://api.github.com/repos/composer/ca-bundle/zipball/08c50d5ec4c6ced7d0271d2862dec8c1033283e6",
+                "reference": "08c50d5ec4c6ced7d0271d2862dec8c1033283e6",
                 "shasum": ""
             },
             "require": {
@@ -128,7 +128,7 @@
             "support": {
                 "irc": "irc://irc.freenode.org/composer",
                 "issues": "https://github.com/composer/ca-bundle/issues",
-                "source": "https://github.com/composer/ca-bundle/tree/1.5.4"
+                "source": "https://github.com/composer/ca-bundle/tree/1.5.5"
             },
             "funding": [
                 {
@@ -144,7 +144,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-11-27T15:35:25+00:00"
+            "time": "2025-01-08T16:17:16+00:00"
         },
         {
             "name": "cweagans/composer-patches",
@@ -784,16 +784,16 @@
         },
         {
             "name": "jaybizzle/crawler-detect",
-            "version": "v1.3.0",
+            "version": "v1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JayBizzle/Crawler-Detect.git",
-                "reference": "be155e11613fa618aa18aee438955588d1092a47"
+                "reference": "e5ebe17f5a30a7840d059206447adfe0db60d15f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/be155e11613fa618aa18aee438955588d1092a47",
-                "reference": "be155e11613fa618aa18aee438955588d1092a47",
+                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/e5ebe17f5a30a7840d059206447adfe0db60d15f",
+                "reference": "e5ebe17f5a30a7840d059206447adfe0db60d15f",
                 "shasum": ""
             },
             "require": {
@@ -830,9 +830,9 @@
             ],
             "support": {
                 "issues": "https://github.com/JayBizzle/Crawler-Detect/issues",
-                "source": "https://github.com/JayBizzle/Crawler-Detect/tree/v1.3.0"
+                "source": "https://github.com/JayBizzle/Crawler-Detect/tree/v1.3.1"
             },
-            "time": "2024-11-25T19:38:36+00:00"
+            "time": "2025-01-20T19:31:14+00:00"
         },
         {
             "name": "jp3cki/mb_str_replace",
@@ -1383,16 +1383,16 @@
         },
         {
             "name": "lipis/flag-icons",
-            "version": "v7.2.3",
+            "version": "v7.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lipis/flag-icons.git",
-                "reference": "5667d75be0c0396f29fdc73e2b2e341d0e702843"
+                "reference": "fe15c16e7463d0c66d6c5730e9d0e832438d98e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lipis/flag-icons/zipball/5667d75be0c0396f29fdc73e2b2e341d0e702843",
-                "reference": "5667d75be0c0396f29fdc73e2b2e341d0e702843",
+                "url": "https://api.github.com/repos/lipis/flag-icons/zipball/fe15c16e7463d0c66d6c5730e9d0e832438d98e1",
+                "reference": "fe15c16e7463d0c66d6c5730e9d0e832438d98e1",
                 "shasum": ""
             },
             "type": "library",
@@ -1418,9 +1418,9 @@
             ],
             "support": {
                 "issues": "https://github.com/lipis/flag-icons/issues",
-                "source": "https://github.com/lipis/flag-icons/tree/v7.2.3"
+                "source": "https://github.com/lipis/flag-icons/tree/v7.3.2"
             },
-            "time": "2024-05-29T11:01:19+00:00"
+            "time": "2025-01-17T14:03:50+00:00"
         },
         {
             "name": "lusitanian/oauth",
@@ -1801,16 +1801,16 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "11.0.0",
+            "version": "11.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "db6f650c474c9ee01675f7657b2390eba9520e1a"
+                "reference": "c8a7bc92f2337e634611eb127b5d269a243d2034"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/db6f650c474c9ee01675f7657b2390eba9520e1a",
-                "reference": "db6f650c474c9ee01675f7657b2390eba9520e1a",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/c8a7bc92f2337e634611eb127b5d269a243d2034",
+                "reference": "c8a7bc92f2337e634611eb127b5d269a243d2034",
                 "shasum": ""
             },
             "require": {
@@ -1823,9 +1823,9 @@
                 "friendsofphp/php-cs-fixer": "*",
                 "phpcompatibility/php-compatibility": "dev-develop",
                 "phpcsstandards/phpcsutils": "@alpha",
+                "phpstan/phpstan": "*",
                 "phpunit/phpunit": "*",
-                "squizlabs/php_codesniffer": "*",
-                "vimeo/psalm": ">=5.25.0"
+                "squizlabs/php_codesniffer": "*"
             },
             "suggest": {
                 "ext-mbstring": "*"
@@ -1875,9 +1875,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-curl-class/php-curl-class/issues",
-                "source": "https://github.com/php-curl-class/php-curl-class/tree/11.0.0"
+                "source": "https://github.com/php-curl-class/php-curl-class/tree/11.0.1"
             },
-            "time": "2024-08-22T18:03:48+00:00"
+            "time": "2025-01-13T18:04:13+00:00"
         },
         {
             "name": "psr/container",
@@ -6478,16 +6478,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.12.14",
+            "version": "1.12.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "e73868f809e68fff33be961ad4946e2e43ec9e38"
+                "reference": "e0bb5cb78545aae631220735aa706eac633a6be9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/e73868f809e68fff33be961ad4946e2e43ec9e38",
-                "reference": "e73868f809e68fff33be961ad4946e2e43ec9e38",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/e0bb5cb78545aae631220735aa706eac633a6be9",
+                "reference": "e0bb5cb78545aae631220735aa706eac633a6be9",
                 "shasum": ""
             },
             "require": {
@@ -6532,7 +6532,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-12-31T07:26:13+00:00"
+            "time": "2025-01-21T14:50:05+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -8188,16 +8188,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.11.2",
+            "version": "3.11.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "1368f4a58c3c52114b86b1abe8f4098869cb0079"
+                "reference": "ba05f990e79cbe69b9f35c8c1ac8dca7eecc3a10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/1368f4a58c3c52114b86b1abe8f4098869cb0079",
-                "reference": "1368f4a58c3c52114b86b1abe8f4098869cb0079",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/ba05f990e79cbe69b9f35c8c1ac8dca7eecc3a10",
+                "reference": "ba05f990e79cbe69b9f35c8c1ac8dca7eecc3a10",
                 "shasum": ""
             },
             "require": {
@@ -8262,9 +8262,13 @@
                 {
                     "url": "https://opencollective.com/php_codesniffer",
                     "type": "open_collective"
+                },
+                {
+                    "url": "https://thanks.dev/phpcsstandards",
+                    "type": "thanks_dev"
                 }
             ],
-            "time": "2024-12-11T16:04:26+00:00"
+            "time": "2025-01-23T17:04:15+00:00"
         },
         {
             "name": "symfony/browser-kit",
