@@ -7,9 +7,9 @@
   },
   "dependencies": {
     "@babel/cli": "^7.26.4",
-    "@babel/core": "^7.26.0",
+    "@babel/core": "^7.26.7",
     "@babel/polyfill": "^7.12.1",
-    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-env": "^7.26.7",
     "@babel/preset-react": "^7.26.3",
     "@fortawesome/fontawesome-free": "^6.7.2",
     "@hacceuee/s3-pixel-icons": "^2.4.1",
