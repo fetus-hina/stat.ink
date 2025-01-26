@@ -33,7 +33,7 @@
     "laminas/laminas-feed": "^2.23.0",
     "lipis/flag-icons": "^7.3.2",
     "lusitanian/oauth": "^0.8.11",
-    "markrogoyski/math-php": "^2.10.0",
+    "markrogoyski/math-php": "^2.11.0",
     "paragonie/constant_time_encoding": "^3.0.0",
     "php-curl-class/php-curl-class": "^11.0.1",
     "statink/yii2-anonymizer": "^1.0.4",
