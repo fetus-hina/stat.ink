@@ -38,10 +38,11 @@ use yii\widgets\DetailView;
  * @var array<string, scalar|null> $stats
  */
 
-$fmt = Yii::$app->formatter;
+$fmt = clone Yii::$app->formatter;
+$fmt->nullDisplay = '-';
 
-$totalAndAvg = fn (string $attrTotal, string $attrAvg): string => sprintf(
-  '%s (%s)',
+$totalAndAvg = fn (string $attrTotal, string $attrAvg, string $attrSD): string => sprintf(
+  '%s (σ=%s) / %s: %s',
   Html::tag(
     'span',
     $fmt->asDecimal(
@@ -55,12 +56,17 @@ $totalAndAvg = fn (string $attrTotal, string $attrAvg): string => sprintf(
   ),
   Html::tag(
     'span',
-    $fmt->asInteger(TypeHelper::intOrNull(ArrayHelper::getValue($stats, $attrTotal))) ?: '-',
+    $fmt->asDecimal(
+      TypeHelper::floatOrNull(ArrayHelper::getValue($stats, $attrSD)),
+      2,
+    ) ?: '-',
     [
       'class' => 'auto-tooltip',
-      'title' => Yii::t('app', 'Total'),
+      'title' => Yii::t('app', 'Standard Deviation'),
     ],
   ),
+  Yii::t('app', 'Total'),
+  $fmt->asInteger(TypeHelper::intOrNull(ArrayHelper::getValue($stats, $attrTotal))) ?: '-',
 );
 
 echo DetailView::widget([
@@ -245,6 +251,11 @@ echo DetailView::widget([
             implode(' ', [
               Icon::goldenEgg(),
               $fmt->asDecimal(TypeHelper::floatOrNull(ArrayHelper::getValue($stats, 'avg_golden')), 1),
+              Html::tag(
+                'small',
+                sprintf('(σ=%s)', $fmt->asDecimal(TypeHelper::floatOrNull(ArrayHelper::getValue($stats, 'sd_golden')), 1)),
+                ['class' => 'auto-tooltip text-muted', 'title' => Yii::t('app', 'Standard Deviation')],
+              ),
             ]),
             ['class' => 'nobr mr-3'],
           ),
@@ -253,6 +264,11 @@ echo DetailView::widget([
             implode(' ', [
               Icon::powerEgg(),
               $fmt->asDecimal(TypeHelper::floatOrNull(ArrayHelper::getValue($stats, 'avg_power')), 0),
+              Html::tag(
+                'small',
+                sprintf('(σ=%s)', $fmt->asDecimal(TypeHelper::floatOrNull(ArrayHelper::getValue($stats, 'sd_power')), 0)),
+                ['class' => 'auto-tooltip text-muted', 'title' => Yii::t('app', 'Standard Deviation')],
+              ),
             ]),
             ['class' => 'nobr mr-3'],
           ),
@@ -295,6 +311,11 @@ echo DetailView::widget([
             implode(' ', [
               Icon::goldenEgg(),
               $fmt->asDecimal(TypeHelper::floatOrNull(ArrayHelper::getValue($stats, 'avg_golden_individual')), 1),
+              Html::tag(
+                'small',
+                sprintf('(σ=%s)', $fmt->asDecimal(TypeHelper::floatOrNull(ArrayHelper::getValue($stats, 'sd_golden_individual')), 1)),
+                ['class' => 'auto-tooltip text-muted', 'title' => Yii::t('app', 'Standard Deviation')],
+              ),
             ]),
             ['class' => 'nobr mr-3'],
           ),
@@ -303,6 +324,11 @@ echo DetailView::widget([
             implode(' ', [
               Icon::powerEgg(),
               $fmt->asDecimal(TypeHelper::floatOrNull(ArrayHelper::getValue($stats, 'avg_power_individual')), 0),
+              Html::tag(
+                'small',
+                sprintf('(σ=%s)', $fmt->asDecimal(TypeHelper::floatOrNull(ArrayHelper::getValue($stats, 'sd_power_individual')), 0)),
+                ['class' => 'auto-tooltip text-muted', 'title' => Yii::t('app', 'Standard Deviation')],
+              ),
             ]),
             ['class' => 'nobr mr-3'],
           ),
@@ -368,17 +394,17 @@ echo DetailView::widget([
       [
         'label' => Icon::s3Rescues() . ' ' . Yii::t('app-salmon3', 'Rescues'),
         'format' => 'raw',
-        'value' => $totalAndAvg('total_rescues', 'avg_rescues'),
+        'value' => $totalAndAvg('total_rescues', 'avg_rescues', 'sd_rescues',),
       ],
       [
         'label' => Icon::s3Rescued() . ' ' . Yii::t('app-salmon3', 'Rescued'),
         'format' => 'raw',
-        'value' => $totalAndAvg('total_rescued', 'avg_rescued'),
+        'value' => $totalAndAvg('total_rescued', 'avg_rescued', 'sd_rescued'),
       ],
       [
         'label' => Yii::t('app-salmon2', 'Boss Salmonids'),
         'format' => 'raw',
-        'value' => $totalAndAvg('total_defeat_boss', 'avg_defeat_boss'),
+        'value' => $totalAndAvg('total_defeat_boss', 'avg_defeat_boss', 'sd_defeat_boss'),
       ],
     ],
     fn (?array $row): bool => $row !== null && $row['value'] !== null,
