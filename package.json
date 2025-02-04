@@ -63,7 +63,7 @@
     "regenerator-runtime": "^0.14.1",
     "sass": "^1.83.4",
     "semistandard": "^17.0.0",
-    "semver": "^7.7.0",
+    "semver": "^7.7.1",
     "stupid-table-plugin": "^1.1.3",
     "stylelint": "^16.14.1",
     "stylelint-config-sass-guidelines": "^12.1.0",
