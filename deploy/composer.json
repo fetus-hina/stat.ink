@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "deployer/deployer": "^7.5.8"
+        "deployer/deployer": "^7.5.11"
     },
     "require-dev": {
         "ergebnis/composer-normalize": "^2.45"
