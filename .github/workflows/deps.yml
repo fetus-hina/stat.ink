@@ -83,7 +83,6 @@ jobs:
           assignees: fetus-hina
           author: 'AIZAWA Hina <hina@fetus.jp>'
           body: 'This is an automated pull-request'
-          branch-suffix: timestamp
           branch: autoupdate-depends
           commit-message: 'Update dependencies'
           delete-branch: true
