@@ -49,9 +49,9 @@
     "symfony/polyfill-php83": "^1.31",
     "symfony/yaml": "^7.2.3",
     "twbs/bootstrap-icons": "^1.11.3",
-    "yiisoft/yii2": "^2.0.51",
+    "yiisoft/yii2": "^2.0.52",
     "yiisoft/yii2-bootstrap": "^2.0.11",
-    "yiisoft/yii2-httpclient": "^2.0.15",
+    "yiisoft/yii2-httpclient": "^2.0.16",
     "yiisoft/yii2-queue": "^2.3.7",
     "yiisoft/yii2-symfonymailer": "^4.0.0"
   },
@@ -68,8 +68,8 @@
     "proget-hq/phpstan-yii2": "^0.8.0",
     "sebastian/diff": "^4.0.6 || ^5.0.0 || ^6.0.0",
     "squizlabs/php_codesniffer": "^3.11.3",
-    "yiisoft/yii2-debug": "^2.1.25",
-    "yiisoft/yii2-gii": "^2.2.6"
+    "yiisoft/yii2-debug": "^2.1.26",
+    "yiisoft/yii2-gii": "^2.2.7"
   },
   "replace": {
     "arokettu/random-polyfill": "*",
