@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bbaffefe787c8e2ace70a5041889eeb9",
+    "content-hash": "fdaa2b51b446aa9ef8346563d76c8d5c",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -1800,16 +1800,16 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "11.0.1",
+            "version": "11.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "c8a7bc92f2337e634611eb127b5d269a243d2034"
+                "reference": "214cfe01db8439eadbf51ad795d2846e8cb3f718"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/c8a7bc92f2337e634611eb127b5d269a243d2034",
-                "reference": "c8a7bc92f2337e634611eb127b5d269a243d2034",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/214cfe01db8439eadbf51ad795d2846e8cb3f718",
+                "reference": "214cfe01db8439eadbf51ad795d2846e8cb3f718",
                 "shasum": ""
             },
             "require": {
@@ -1824,7 +1824,8 @@
                 "phpcsstandards/phpcsutils": "@alpha",
                 "phpstan/phpstan": "*",
                 "phpunit/phpunit": "*",
-                "squizlabs/php_codesniffer": "*"
+                "squizlabs/php_codesniffer": "*",
+                "vimeo/psalm": ">=5.26.1"
             },
             "suggest": {
                 "ext-mbstring": "*"
@@ -1874,9 +1875,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-curl-class/php-curl-class/issues",
-                "source": "https://github.com/php-curl-class/php-curl-class/tree/11.0.1"
+                "source": "https://github.com/php-curl-class/php-curl-class/tree/11.0.2"
             },
-            "time": "2025-01-13T18:04:13+00:00"
+            "time": "2025-02-18T18:03:57+00:00"
         },
         {
             "name": "psr/container",
