@@ -35,7 +35,7 @@
     "lusitanian/oauth": "^0.8.11",
     "markrogoyski/math-php": "^2.11.0",
     "paragonie/constant_time_encoding": "^3.0.0",
-    "php-curl-class/php-curl-class": "^11.0.3",
+    "php-curl-class/php-curl-class": "^11.0.4",
     "statink/yii2-anonymizer": "^1.0.4",
     "statink/yii2-bukiicons": "^1.0.1",
     "statink/yii2-cal-heatmap": "^2.1.1",
@@ -56,7 +56,7 @@
     "yiisoft/yii2-symfonymailer": "^4.0.0"
   },
   "require-dev": {
-    "codeception/codeception": ">=5.2.0",
+    "codeception/codeception": ">=5.2.1",
     "codeception/module-asserts": ">=3",
     "codeception/module-filesystem": ">=3.0.1",
     "codeception/module-yii2": ">=1.1.12",
