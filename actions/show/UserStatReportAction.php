@@ -105,7 +105,7 @@ class UserStatReportAction extends BaseAction
             ->setTimeZone($tz)
             ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time());
 
-        $lowerBound = (new DateTimeImmutable('2015-09-01T00:00:00', $tz));
+        $lowerBound = new DateTimeImmutable('2015-09-01T00:00:00', $tz);
 
         return $this->controller->render('user-stat-report-month', [
             'user' => $this->user,

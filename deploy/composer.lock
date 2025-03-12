@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c7f2078dd7461697efece6bb01590375",
+    "content-hash": "1913d8e02504aca5eaf1204ba856447b",
     "packages": [
         {
             "name": "deployer/deployer",
-            "version": "v7.5.11",
+            "version": "v7.5.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/deployphp/deployer.git",
-                "reference": "448761221383877d61bed6700805001f872c0ad3"
+                "reference": "efc71dac9ccc86b3f9946e75d50cb106b775aae2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/deployphp/deployer/zipball/448761221383877d61bed6700805001f872c0ad3",
-                "reference": "448761221383877d61bed6700805001f872c0ad3",
+                "url": "https://api.github.com/repos/deployphp/deployer/zipball/efc71dac9ccc86b3f9946e75d50cb106b775aae2",
+                "reference": "efc71dac9ccc86b3f9946e75d50cb106b775aae2",
                 "shasum": ""
             },
             "require": {
@@ -58,7 +58,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-02-10T14:27:00+00:00"
+            "time": "2025-02-19T16:45:27+00:00"
         }
     ],
     "packages-dev": [
@@ -626,16 +626,16 @@
         },
         {
             "name": "justinrainbow/json-schema",
-            "version": "6.1.0",
+            "version": "6.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jsonrainbow/json-schema.git",
-                "reference": "f7d78c345d5f8954f32cef5381fb6f8748b60690"
+                "reference": "dff04e3c7c11451a6b4e30709e17c44526ebff73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jsonrainbow/json-schema/zipball/f7d78c345d5f8954f32cef5381fb6f8748b60690",
-                "reference": "f7d78c345d5f8954f32cef5381fb6f8748b60690",
+                "url": "https://api.github.com/repos/jsonrainbow/json-schema/zipball/dff04e3c7c11451a6b4e30709e17c44526ebff73",
+                "reference": "dff04e3c7c11451a6b4e30709e17c44526ebff73",
                 "shasum": ""
             },
             "require": {
@@ -645,7 +645,7 @@
                 "php": "^7.2 || ^8.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "~2.2.20 || ~2.19.0",
+                "friendsofphp/php-cs-fixer": "3.3.0",
                 "json-schema/json-schema-test-suite": "1.2.0",
                 "marc-mabe/php-enum-phpstan": "^2.0",
                 "phpspec/prophecy": "^1.19",
@@ -696,9 +696,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jsonrainbow/json-schema/issues",
-                "source": "https://github.com/jsonrainbow/json-schema/tree/6.1.0"
+                "source": "https://github.com/jsonrainbow/json-schema/tree/6.2.1"
             },
-            "time": "2025-02-04T11:13:26+00:00"
+            "time": "2025-03-06T21:27:10+00:00"
         },
         {
             "name": "localheinz/diff",
