@@ -31,7 +31,7 @@
     "jp3cki/yii2-twitter-widget": "^1.0",
     "jp3cki/yii2-zxcvbn": "^1.0",
     "laminas/laminas-feed": "^2.23.1",
-    "lipis/flag-icons": "^7.3.2",
+    "lipis/flag-icons": "^7.5.0",
     "lusitanian/oauth": "^0.8.11",
     "markrogoyski/math-php": "^2.11.0",
     "paragonie/constant_time_encoding": "^3.0.0",
