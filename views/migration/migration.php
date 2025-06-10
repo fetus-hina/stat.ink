@@ -42,6 +42,7 @@ $codeFmt = fn (?string $code, int $indent): string => ($code === null || $code =
 
 $uses = [
     Migration::class,
+    Override::class,
 ];
 if (isset($traits)) {
     $traits = array_unique((array)$traits);
@@ -87,6 +88,7 @@ final class <?= $className ?> extends Migration
     /**
      * @inheritdoc
      */
+    #[Override]
     public function <?= $upFuncName ?>()
     {
 <?= $codeFmt($upCode ?? null, 8) ?>
@@ -95,6 +97,7 @@ final class <?= $className ?> extends Migration
     /**
      * @inheritdoc
      */
+    #[Override]
     public function <?= $downFuncName ?>()
     {
 <?= $codeFmt($downCode ?? null, 8) ?>
