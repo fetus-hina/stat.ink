@@ -72,7 +72,9 @@ return [
     'Sturgeon Shipyard' => 'Chantier Narval',
     'Track' => '',
     'Um\'ami Ruins' => 'Ruines Uma\'mi',
+    'Underpass' => '',
     'Undertow Spillway' => 'Réservoir Rigadelle',
+    'Urchin Underpass' => '',
     'Wahoo World' => 'Parc Carapince',
     'World' => '',
 ];

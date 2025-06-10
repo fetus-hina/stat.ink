@@ -72,7 +72,9 @@ return [
     'Sturgeon Shipyard' => 'Störwerft',
     'Track' => 'Buckelwal-Piste',
     'Um\'ami Ruins' => 'Um\'ami-Ruinen',
+    'Underpass' => 'Bahnstation',
     'Undertow Spillway' => 'Schwertmuschel-Reservoir',
+    'Urchin Underpass' => 'Dekabahnstation',
     'Wahoo World' => 'Flunder-Funpark',
     'World' => 'Flunder-Funpark',
 ];

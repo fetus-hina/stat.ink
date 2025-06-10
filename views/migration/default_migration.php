@@ -37,6 +37,7 @@ use yii\base\View;
             "/**",
             " * @inheritdoc",
             " */",
+            "#[Override]",
             "protected function vacuumTables(): array",
             "{",
             "    return [",

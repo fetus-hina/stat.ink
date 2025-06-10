@@ -44,9 +44,9 @@ Use a private channel if it is a security issue.
 REQUIREMENTS
 ------------
 
-- PHP 8.2 or PHP 8.3
-  - PHP 8.1以下では動作しません。（8.2で追加された構文等を利用しています）  
-    Doesn't work with 8.1 or lower. (Uses statements and constants added in v8.2)
+- PHP 8.3 or PHP 8.4
+  - PHP 8.2以下では動作しません。（8.3で追加された構文等を利用しています）  
+    Doesn't work with 8.2 or lower. (Uses statements and constants added in v8.3)
   - Argon2が有効化されたPHPが必要です。RemirepoのPHPを利用している場合、`php-sodium`をインストールしてください。
     You should build/install with Argon2. Install `php-sodium` if you use remirepo's PHP
 - PostgreSQL 11

@@ -73,7 +73,9 @@ return [
     'Sturgeon Shipyard' => '',
     'Track' => '',
     'Um\'ami Ruins' => '',
+    'Underpass' => '',
     'Undertow Spillway' => '',
+    'Urchin Underpass' => 'Periferia Urbana',
     'Wahoo World' => '',
     'World' => '',
 ];

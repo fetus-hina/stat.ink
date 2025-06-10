@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "208a8480499d52fa4bd1be011ab7f2eb",
+    "content-hash": "fc7fcd93ec6767eae27ac3a5545156b4",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -3416,82 +3416,6 @@
             "time": "2024-12-23T08:48:59+00:00"
         },
         {
-            "name": "symfony/polyfill-php83",
-            "version": "v1.32.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/polyfill-php83.git",
-                "reference": "2fb86d65e2d424369ad2905e83b236a8805ba491"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php83/zipball/2fb86d65e2d424369ad2905e83b236a8805ba491",
-                "reference": "2fb86d65e2d424369ad2905e83b236a8805ba491",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2"
-            },
-            "type": "library",
-            "extra": {
-                "thanks": {
-                    "url": "https://github.com/symfony/polyfill",
-                    "name": "symfony/polyfill"
-                }
-            },
-            "autoload": {
-                "files": [
-                    "bootstrap.php"
-                ],
-                "psr-4": {
-                    "Symfony\\Polyfill\\Php83\\": ""
-                },
-                "classmap": [
-                    "Resources/stubs"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony polyfill backporting some PHP 8.3+ features to lower PHP versions",
-            "homepage": "https://symfony.com",
-            "keywords": [
-                "compatibility",
-                "polyfill",
-                "portable",
-                "shim"
-            ],
-            "support": {
-                "source": "https://github.com/symfony/polyfill-php83/tree/v1.32.0"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2024-09-09T11:45:10+00:00"
-        },
-        {
             "name": "symfony/process",
             "version": "v7.3.0",
             "source": {
@@ -4797,29 +4721,29 @@
         },
         {
             "name": "codeception/module-yii2",
-            "version": "1.1.12",
+            "version": "v2.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/module-yii2.git",
-                "reference": "1ebe6bc2a7f307a6c246026a905612a40ef64859"
+                "reference": "1188aa19b1eaee3514b6d4cbbd9c58261d1aaaa2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/module-yii2/zipball/1ebe6bc2a7f307a6c246026a905612a40ef64859",
-                "reference": "1ebe6bc2a7f307a6c246026a905612a40ef64859",
+                "url": "https://api.github.com/repos/Codeception/module-yii2/zipball/1188aa19b1eaee3514b6d4cbbd9c58261d1aaaa2",
+                "reference": "1188aa19b1eaee3514b6d4cbbd9c58261d1aaaa2",
                 "shasum": ""
             },
             "require": {
                 "codeception/codeception": "^5.0.8",
                 "codeception/lib-innerbrowser": "^3.0 | ^4.0",
-                "php": "^8.0"
+                "php": "^8.3"
             },
             "require-dev": {
                 "codeception/module-asserts": ">= 3.0",
                 "codeception/module-filesystem": "> 3.0",
                 "codeception/verify": "^3.0",
-                "codemix/yii2-localeurls": "^1.7",
-                "phpstan/phpstan": "^1.10",
+                "phpstan/phpstan": "^2",
+                "symplify/easy-coding-standard": "^12.5",
                 "yiisoft/yii2": "dev-master",
                 "yiisoft/yii2-app-advanced": "dev-master"
             },
@@ -4852,9 +4776,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Codeception/module-yii2/issues",
-                "source": "https://github.com/Codeception/module-yii2/tree/1.1.12"
+                "source": "https://github.com/Codeception/module-yii2/tree/v2.0.4"
             },
-            "time": "2024-12-09T14:34:26+00:00"
+            "time": "2025-05-31T06:52:24+00:00"
         },
         {
             "name": "codeception/specify",
@@ -9029,7 +8953,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.2.0",
+        "php": "^8.3.0",
         "ext-curl": "*",
         "ext-date": "*",
         "ext-filter": "*",
@@ -9047,7 +8971,7 @@
     },
     "platform-dev": {},
     "platform-overrides": {
-        "php": "8.2.28"
+        "php": "8.3.22"
     },
     "plugin-api-version": "2.6.0"
 }

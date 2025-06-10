@@ -74,7 +74,9 @@ return [
     'Sturgeon Shipyard' => 'Chantier Narval',
     'Track' => 'Piste Méroule',
     'Um\'ami Ruins' => 'Ruines Uma\'mi',
+    'Underpass' => 'Passage Turbot',
     'Undertow Spillway' => 'Réservoir Rigadelle',
+    'Urchin Underpass' => 'Passage Turbot',
     'Wahoo World' => 'Parc Carapince',
     'World' => 'Parc Carapince',
 ];

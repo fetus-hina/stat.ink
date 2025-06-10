@@ -72,7 +72,9 @@ return [
     'Sturgeon Shipyard' => 'Astillero Beluga',
     'Track' => 'Tiburódromo',
     'Um\'ami Ruins' => 'Ruinas Ceviche',
+    'Underpass' => '',
     'Undertow Spillway' => 'Cisterna Navajuela',
+    'Urchin Underpass' => 'Parque Viaducto',
     'Wahoo World' => 'Pirañalandia',
     'World' => 'Pirañalandia',
 ];

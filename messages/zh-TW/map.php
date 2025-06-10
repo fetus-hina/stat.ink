@@ -40,8 +40,8 @@ return [
     'Saltspray Rig' => '東雲油田',
     'Skatepark' => '滑板公園',
     'Towers' => '停車場',
-    'Underpass' => '地下通道',
-    'Urchin Underpass' => '海膽地下通道',
+    'Underpass' => '高架下',
+    'Urchin Underpass' => '海星高架下',
     'Walleye Warehouse' => '箱魨倉庫',
     'Warehouse' => '倉庫',
 ];
