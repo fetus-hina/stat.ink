@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -30,6 +31,7 @@ class UserBadge3BossSalmonid extends ActiveRecord
         return 'user_badge3_boss_salmonid';
     }
 
+    #[Override]
     public function rules()
     {
         return [
@@ -42,6 +44,7 @@ class UserBadge3BossSalmonid extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

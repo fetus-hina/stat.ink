@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -52,9 +53,11 @@ class UserStat3 extends ActiveRecord
         return 'user_stat3';
     }
 
+    #[Override]
     public function rules()
     {
         return [
+            [['lobby_id', 'peak_rank_id', 'peak_s_plus', 'peak_x_power', 'peak_fest_power', 'peak_season', 'current_rank_id', 'current_s_plus', 'current_x_power', 'current_season'], 'default', 'value' => null],
             [['id', 'user_id', 'battles', 'agg_battles', 'agg_seconds', 'wins', 'kills', 'assists', 'deaths', 'specials', 'inked', 'max_inked', 'updated_at'], 'required'],
             [['id', 'user_id', 'lobby_id', 'battles', 'agg_battles', 'agg_seconds', 'wins', 'kills', 'assists', 'deaths', 'specials', 'inked', 'max_inked', 'peak_rank_id', 'peak_s_plus', 'current_rank_id', 'current_s_plus'], 'default', 'value' => null],
             [['id', 'user_id', 'lobby_id', 'battles', 'agg_battles', 'agg_seconds', 'wins', 'kills', 'assists', 'deaths', 'specials', 'inked', 'max_inked', 'peak_rank_id', 'peak_s_plus', 'current_rank_id', 'current_s_plus'], 'integer'],
@@ -69,6 +72,7 @@ class UserStat3 extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

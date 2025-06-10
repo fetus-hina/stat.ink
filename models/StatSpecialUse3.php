@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -42,9 +43,11 @@ class StatSpecialUse3 extends ActiveRecord
         return 'stat_special_use3';
     }
 
+    #[Override]
     public function rules()
     {
         return [
+            [['rule_id', 'stddev', 'percentile_5', 'percentile_25', 'percentile_50', 'percentile_75', 'percentile_95', 'percentile_100'], 'default', 'value' => null],
             [['season_id', 'special_id', 'sample_size', 'win', 'avg_uses'], 'required'],
             [['season_id', 'rule_id', 'special_id', 'sample_size', 'win', 'percentile_5', 'percentile_25', 'percentile_50', 'percentile_75', 'percentile_95', 'percentile_100'], 'default', 'value' => null],
             [['season_id', 'rule_id', 'special_id', 'sample_size', 'win', 'percentile_5', 'percentile_25', 'percentile_50', 'percentile_75', 'percentile_95', 'percentile_100'], 'integer'],
@@ -56,6 +59,7 @@ class StatSpecialUse3 extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

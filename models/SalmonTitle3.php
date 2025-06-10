@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -34,9 +35,11 @@ class SalmonTitle3 extends ActiveRecord
         return 'salmon_title3';
     }
 
+    #[Override]
     public function rules()
     {
         return [
+            [['rank'], 'default', 'value' => null],
             [['key', 'name'], 'required'],
             [['rank'], 'default', 'value' => null],
             [['rank'], 'integer'],
@@ -47,6 +50,7 @@ class SalmonTitle3 extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

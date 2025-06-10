@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -33,6 +34,7 @@ class SalmonBossAppearance3 extends ActiveRecord
         return 'salmon_boss_appearance3';
     }
 
+    #[Override]
     public function rules()
     {
         return [
@@ -45,6 +47,7 @@ class SalmonBossAppearance3 extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -39,9 +40,11 @@ class StatEggstraWorkDistribUserAbstract3 extends ActiveRecord
         return 'stat_eggstra_work_distrib_user_abstract3';
     }
 
+    #[Override]
     public function rules()
     {
         return [
+            [['average', 'stddev', 'min', 'p05', 'p25', 'p50', 'p75', 'p80', 'p95', 'max', 'histogram_width'], 'default', 'value' => null],
             [['schedule_id', 'users'], 'required'],
             [['schedule_id', 'users', 'min', 'p05', 'p25', 'p50', 'p75', 'p80', 'p95', 'max', 'histogram_width'], 'default', 'value' => null],
             [['schedule_id', 'users', 'min', 'p05', 'p25', 'p50', 'p75', 'p80', 'p95', 'max', 'histogram_width'], 'integer'],
@@ -51,6 +54,7 @@ class StatEggstraWorkDistribUserAbstract3 extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

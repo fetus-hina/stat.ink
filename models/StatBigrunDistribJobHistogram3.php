@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -29,6 +30,7 @@ class StatBigrunDistribJobHistogram3 extends ActiveRecord
         return 'stat_bigrun_distrib_job_histogram3';
     }
 
+    #[Override]
     public function rules()
     {
         return [
@@ -40,6 +42,7 @@ class StatBigrunDistribJobHistogram3 extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

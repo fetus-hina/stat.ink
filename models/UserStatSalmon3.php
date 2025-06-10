@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -43,9 +44,11 @@ class UserStatSalmon3 extends ActiveRecord
         return 'user_stat_salmon3';
     }
 
+    #[Override]
     public function rules()
     {
         return [
+            [['peak_danger_rate', 'peak_title_id', 'peak_title_exp', 'boss_defeated'], 'default', 'value' => null],
             [['user_id', 'jobs', 'agg_jobs', 'clear_jobs', 'total_waves', 'clear_waves', 'king_appearances', 'king_defeated', 'golden_eggs', 'power_eggs', 'rescues', 'rescued'], 'required'],
             [['user_id', 'jobs', 'agg_jobs', 'clear_jobs', 'total_waves', 'clear_waves', 'king_appearances', 'king_defeated', 'golden_eggs', 'power_eggs', 'rescues', 'rescued', 'peak_title_id', 'peak_title_exp', 'boss_defeated'], 'default', 'value' => null],
             [['user_id', 'jobs', 'agg_jobs', 'clear_jobs', 'total_waves', 'clear_waves', 'king_appearances', 'king_defeated', 'golden_eggs', 'power_eggs', 'rescues', 'rescued', 'peak_title_id', 'peak_title_exp', 'boss_defeated'], 'integer'],
@@ -56,6 +59,7 @@ class UserStatSalmon3 extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

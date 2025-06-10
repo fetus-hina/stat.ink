@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveRecord;
 
 /**
@@ -26,6 +27,7 @@ class StatEntireUser3 extends ActiveRecord
         return 'stat_entire_user3';
     }
 
+    #[Override]
     public function rules()
     {
         return [
@@ -37,6 +39,7 @@ class StatEntireUser3 extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

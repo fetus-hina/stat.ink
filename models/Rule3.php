@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -35,7 +36,6 @@ use yii\db\ActiveRecord;
  * @property StatKdWinRate3[] $statKdWinRate3s
  * @property StatSpecialUse3[] $statSpecialUse3s
  * @property StatSpecialUseCount3[] $statSpecialUseCount3s
- * @property StatStealthJumpEquipment3[] $statStealthJumpEquipment3s
  * @property StatWeapon3AssistPerVersion[] $statWeapon3AssistPerVersions
  * @property StatWeapon3Assist[] $statWeapon3Assists
  * @property StatWeapon3DeathPerVersion[] $statWeapon3DeathPerVersions
@@ -66,6 +66,7 @@ class Rule3 extends ActiveRecord
         return 'rule3';
     }
 
+    #[Override]
     public function rules()
     {
         return [
@@ -78,6 +79,7 @@ class Rule3 extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [
@@ -148,11 +150,6 @@ class Rule3 extends ActiveRecord
     public function getStatSpecialUseCount3s(): ActiveQuery
     {
         return $this->hasMany(StatSpecialUseCount3::class, ['rule_id' => 'id']);
-    }
-
-    public function getStatStealthJumpEquipment3s(): ActiveQuery
-    {
-        return $this->hasMany(StatStealthJumpEquipment3::class, ['rule_id' => 'id']);
     }
 
     public function getStatWeapon3AssistPerVersions(): ActiveQuery

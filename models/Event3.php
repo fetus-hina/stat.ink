@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -32,9 +33,11 @@ class Event3 extends ActiveRecord
         return 'event3';
     }
 
+    #[Override]
     public function rules()
     {
         return [
+            [['desc', 'regulation'], 'default', 'value' => null],
             [['internal_id', 'name'], 'required'],
             [['name', 'desc', 'regulation'], 'string'],
             [['internal_id'], 'string', 'max' => 128],
@@ -42,6 +45,7 @@ class Event3 extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

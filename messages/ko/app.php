@@ -541,6 +541,7 @@ return [
     'Seconds' => '',
     'Sent an email to your email address. Please check your mailbox and get the verification code.' => '당신의 이메일 주소로 메일을 전송했습니다. 메일의 인증코드를 확인해주십시오',
     'Series Progress' => '챌린지 상태',
+    'Series Weapon Power' => '',
     'Session History' => '개최이력',
     'Set the name, icon, and channel in the settings within Discord.' => '',
     'Settings' => '설정',

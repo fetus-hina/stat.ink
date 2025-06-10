@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -35,9 +36,11 @@ class StatSalmon3TideEvent extends ActiveRecord
         return 'stat_salmon3_tide_event';
     }
 
+    #[Override]
     public function rules()
     {
         return [
+            [['stage_id', 'big_stage_id', 'event_id'], 'default', 'value' => null],
             [['stage_id', 'big_stage_id', 'tide_id', 'event_id', 'jobs', 'cleared'], 'default', 'value' => null],
             [['stage_id', 'big_stage_id', 'tide_id', 'event_id', 'jobs', 'cleared'], 'integer'],
             [['tide_id', 'jobs', 'cleared'], 'required'],
@@ -48,6 +51,7 @@ class StatSalmon3TideEvent extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [
