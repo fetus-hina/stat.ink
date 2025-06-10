@@ -33,6 +33,7 @@ final class m250610_134615_add_urchin_underpass extends Migration
         $id = $this->key2id('{{%map3}}', 'decaline');
         $this->batchInsert('{{%map3_alias}}', ['map_id', 'key'], [
             [$id, 'dekaline'], // Splatoon 1 compat.
+            [$id, self::name2key3('Urchin Underpass')],
             [$id, self::name2key3('Underpass')],
             [$id, '26'], // guess
         ]);
