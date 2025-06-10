@@ -539,6 +539,7 @@ return [
     'Seconds' => '',
     'Sent an email to your email address. Please check your mailbox and get the verification code.' => '',
     'Series Progress' => '',
+    'Series Weapon Power' => '',
     'Session History' => '',
     'Set the name, icon, and channel in the settings within Discord.' => '',
     'Settings' => '',

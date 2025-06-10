@@ -136,6 +136,8 @@ final class PostBattleForm extends Model
     public $conch_clash;
     public $bankara_power_before;
     public $bankara_power_after;
+    public $series_weapon_power_before;
+    public $series_weapon_power_after;
     public $clout_before;
     public $clout_after;
     public $clout_change;
@@ -242,6 +244,7 @@ final class PostBattleForm extends Model
             [['rank_exp_change'], 'integer'],
             [['fest_power', 'event_power', 'x_power_before', 'x_power_after'], 'number', 'min' => 0, 'max' => 99999.9],
             [['bankara_power_before', 'bankara_power_after'], 'number', 'min' => 0, 'max' => 99999.9],
+            [['series_weapon_power_before', 'series_weapon_power_after'], 'number', 'min' => 0, 'max' => 99999.9],
             [['clout_before', 'clout_after', 'clout_change'], 'integer', 'min' => 0],
             [['cash_before', 'cash_after'], 'integer', 'min' => 0, 'max' => 9999999],
             [['start_at', 'end_at'], 'integer',
@@ -537,6 +540,8 @@ final class PostBattleForm extends Model
             'third_team_theme_id' => $this->findOrCreateSplatfestTheme(self::strVal($this->third_team_theme))?->id,
             'bankara_power_before' => self::powerVal($this->bankara_power_before),
             'bankara_power_after' => self::powerVal($this->bankara_power_after),
+            'series_weapon_power_before' => self::powerVal($this->series_weapon_power_before),
+            'series_weapon_power_after' => self::powerVal($this->series_weapon_power_after),
             'event_id' => $this->lobby === 'event'
                 ? self::eventIdVal(
                     $this->event,

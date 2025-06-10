@@ -95,6 +95,8 @@ use yii\db\ActiveRecord;
  * @property integer $event_id
  * @property string $event_power
  * @property integer $conch_clash_id
+ * @property string $series_weapon_power_before
+ * @property string $series_weapon_power_after
  *
  * @property Agent $agent
  * @property BattleAgentVariable3[] $battleAgentVariable3s
@@ -137,14 +139,14 @@ class Battle3 extends ActiveRecord
     public function rules()
     {
         return [
-            [['lobby_id', 'rule_id', 'map_id', 'weapon_id', 'result_id', 'is_knockout', 'rank_in_team', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'inked', 'our_team_inked', 'their_team_inked', 'our_team_percent', 'their_team_percent', 'our_team_count', 'their_team_count', 'level_before', 'level_after', 'rank_before_id', 'rank_before_s_plus', 'rank_before_exp', 'rank_after_id', 'rank_after_s_plus', 'rank_after_exp', 'cash_before', 'cash_after', 'note', 'private_note', 'link_url', 'version_id', 'agent_id', 'start_at', 'end_at', 'period', 'challenge_win', 'challenge_lose', 'rank_exp_change', 'is_rank_up_battle', 'clout_before', 'clout_after', 'clout_change', 'fest_dragon_id', 'fest_power', 'x_power_before', 'x_power_after', 'our_team_role_id', 'their_team_role_id', 'third_team_role_id', 'our_team_color', 'their_team_color', 'third_team_color', 'our_team_theme_id', 'their_team_theme_id', 'third_team_theme_id', 'third_team_inked', 'third_team_percent', 'signal', 'replay_code', 'bankara_power_before', 'bankara_power_after', 'event_id', 'event_power', 'conch_clash_id'], 'default', 'value' => null],
+            [['lobby_id', 'rule_id', 'map_id', 'weapon_id', 'result_id', 'is_knockout', 'rank_in_team', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'inked', 'our_team_inked', 'their_team_inked', 'our_team_percent', 'their_team_percent', 'our_team_count', 'their_team_count', 'level_before', 'level_after', 'rank_before_id', 'rank_before_s_plus', 'rank_before_exp', 'rank_after_id', 'rank_after_s_plus', 'rank_after_exp', 'cash_before', 'cash_after', 'note', 'private_note', 'link_url', 'version_id', 'agent_id', 'start_at', 'end_at', 'period', 'challenge_win', 'challenge_lose', 'rank_exp_change', 'is_rank_up_battle', 'clout_before', 'clout_after', 'clout_change', 'fest_dragon_id', 'fest_power', 'x_power_before', 'x_power_after', 'our_team_role_id', 'their_team_role_id', 'third_team_role_id', 'our_team_color', 'their_team_color', 'third_team_color', 'our_team_theme_id', 'their_team_theme_id', 'third_team_theme_id', 'third_team_inked', 'third_team_percent', 'signal', 'replay_code', 'bankara_power_before', 'bankara_power_after', 'event_id', 'event_power', 'conch_clash_id', 'series_weapon_power_before', 'series_weapon_power_after'], 'default', 'value' => null],
             [['has_disconnect'], 'default', 'value' => 0],
             [['uuid', 'client_uuid', 'user_id', 'remote_addr', 'remote_port', 'created_at', 'updated_at'], 'required'],
             [['uuid', 'client_uuid', 'note', 'private_note', 'link_url', 'remote_addr'], 'string'],
             [['user_id', 'lobby_id', 'rule_id', 'map_id', 'weapon_id', 'result_id', 'rank_in_team', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'inked', 'our_team_inked', 'their_team_inked', 'our_team_count', 'their_team_count', 'level_before', 'level_after', 'rank_before_id', 'rank_before_s_plus', 'rank_before_exp', 'rank_after_id', 'rank_after_s_plus', 'rank_after_exp', 'cash_before', 'cash_after', 'version_id', 'agent_id', 'period', 'remote_port', 'challenge_win', 'challenge_lose', 'rank_exp_change', 'clout_before', 'clout_after', 'clout_change', 'fest_dragon_id', 'our_team_role_id', 'their_team_role_id', 'third_team_role_id', 'our_team_theme_id', 'their_team_theme_id', 'third_team_theme_id', 'third_team_inked', 'signal', 'event_id', 'conch_clash_id'], 'default', 'value' => null],
             [['user_id', 'lobby_id', 'rule_id', 'map_id', 'weapon_id', 'result_id', 'rank_in_team', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'inked', 'our_team_inked', 'their_team_inked', 'our_team_count', 'their_team_count', 'level_before', 'level_after', 'rank_before_id', 'rank_before_s_plus', 'rank_before_exp', 'rank_after_id', 'rank_after_s_plus', 'rank_after_exp', 'cash_before', 'cash_after', 'version_id', 'agent_id', 'period', 'remote_port', 'challenge_win', 'challenge_lose', 'rank_exp_change', 'clout_before', 'clout_after', 'clout_change', 'fest_dragon_id', 'our_team_role_id', 'their_team_role_id', 'third_team_role_id', 'our_team_theme_id', 'their_team_theme_id', 'third_team_theme_id', 'third_team_inked', 'signal', 'event_id', 'conch_clash_id'], 'integer'],
             [['is_knockout', 'is_automated', 'use_for_entire', 'is_deleted', 'is_rank_up_battle', 'has_disconnect'], 'boolean'],
-            [['our_team_percent', 'their_team_percent', 'fest_power', 'x_power_before', 'x_power_after', 'third_team_percent', 'bankara_power_before', 'bankara_power_after', 'event_power'], 'number'],
+            [['our_team_percent', 'their_team_percent', 'fest_power', 'x_power_before', 'x_power_after', 'third_team_percent', 'bankara_power_before', 'bankara_power_after', 'event_power', 'series_weapon_power_before', 'series_weapon_power_after'], 'number'],
             [['start_at', 'end_at', 'created_at', 'updated_at'], 'safe'],
             [['our_team_color', 'their_team_color', 'third_team_color'], 'string', 'max' => 8],
             [['replay_code'], 'string', 'max' => 16],
@@ -253,6 +255,8 @@ class Battle3 extends ActiveRecord
             'event_id' => 'Event ID',
             'event_power' => 'Event Power',
             'conch_clash_id' => 'Conch Clash ID',
+            'series_weapon_power_before' => 'Series Weapon Power Before',
+            'series_weapon_power_after' => 'Series Weapon Power After',
         ];
     }
 

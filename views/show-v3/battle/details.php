@@ -63,6 +63,7 @@ echo DetailView::widget([
     require __DIR__ . '/details/x-power.php',
     require __DIR__ . '/details/x-power-chart.php',
     require __DIR__ . '/details/bankara-power.php',
+    require __DIR__ . '/details/series-weapon-power.php',
     require __DIR__ . '/details/clout.php',
     require __DIR__ . '/details/fest-power.php',
     require __DIR__ . '/details/event-power.php',

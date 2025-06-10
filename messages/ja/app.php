@@ -527,6 +527,7 @@ return [
     'Seconds' => '秒',
     'Sent an email to your email address. Please check your mailbox and get the verification code.' => '指定されたメールアドレスにメールを送信しました。メールを確認して確認コードを取得してください。',
     'Series Progress' => 'チャレンジ状況',
+    'Series Weapon Power' => 'ブキチャレパワー',
     'Session History' => '開催履歴',
     'Set the name, icon, and channel in the settings within Discord.' => 'ユーザ名・アイコン・チャンネルは Discord 内の設定で行ってください。',
     'Settings' => '設定',
