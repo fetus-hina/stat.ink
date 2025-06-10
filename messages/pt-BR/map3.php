@@ -75,7 +75,7 @@ return [
     'Um\'ami Ruins' => '',
     'Underpass' => '',
     'Undertow Spillway' => '',
-    'Urchin Underpass' => '',
+    'Urchin Underpass' => 'Periferia Urbana',
     'Wahoo World' => '',
     'World' => '',
 ];

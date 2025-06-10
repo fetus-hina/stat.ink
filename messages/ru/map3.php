@@ -74,7 +74,7 @@ return [
     'Um\'ami Ruins' => 'Рыбожирные руины',
     'Underpass' => '',
     'Undertow Spillway' => 'Приливослив',
-    'Urchin Underpass' => '',
+    'Urchin Underpass' => 'Район Дека',
     'Wahoo World' => 'Луна-парк «Язь»',
     'World' => 'Луна-парк «Язь»',
 ];

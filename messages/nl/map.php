@@ -39,7 +39,7 @@ return [
     'Skatepark' => '',
     'Towers' => '',
     'Underpass' => '',
-    'Urchin Underpass' => '',
+    'Urchin Underpass' => 'Knooppunt Kabeljauw',
     'Walleye Warehouse' => '',
     'Warehouse' => '',
 ];

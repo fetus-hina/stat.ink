@@ -74,7 +74,7 @@ return [
     'Um\'ami Ruins' => 'Rovine Salsadipesce',
     'Underpass' => '',
     'Undertow Spillway' => 'Cisterna Cernia',
-    'Urchin Underpass' => '',
+    'Urchin Underpass' => 'Periferia urbana',
     'Wahoo World' => 'Soglioland',
     'World' => 'Soglioland',
 ];

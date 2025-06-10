@@ -74,7 +74,7 @@ return [
     'Um\'ami Ruins' => 'Ruisvoornruïnes',
     'Underpass' => '',
     'Undertow Spillway' => 'Baarsreservoir',
-    'Urchin Underpass' => '',
+    'Urchin Underpass' => 'Knooppunt Kabeljauw',
     'Wahoo World' => 'Waterwonderland',
     'World' => 'Waterwonderland',
 ];
