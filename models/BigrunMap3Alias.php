@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -29,6 +30,7 @@ class BigrunMap3Alias extends ActiveRecord
         return 'bigrun_map3_alias';
     }
 
+    #[Override]
     public function rules()
     {
         return [
@@ -41,6 +43,7 @@ class BigrunMap3Alias extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

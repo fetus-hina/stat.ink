@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -36,6 +37,7 @@ class SalmonKing3 extends ActiveRecord
         return 'salmon_king3';
     }
 
+    #[Override]
     public function rules()
     {
         return [
@@ -46,6 +48,7 @@ class SalmonKing3 extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

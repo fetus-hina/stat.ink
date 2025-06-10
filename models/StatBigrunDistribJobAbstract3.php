@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -52,9 +53,11 @@ class StatBigrunDistribJobAbstract3 extends ActiveRecord
         return 'stat_bigrun_distrib_job_abstract3';
     }
 
+    #[Override]
     public function rules()
     {
         return [
+            [['stddev', 'clear_average', 'clear_stddev', 'min', 'p05', 'p25', 'p50', 'p75', 'p80', 'p95', 'max', 'histogram_width', 'w1_failed_jobs', 'w1_failed_average', 'w1_failed_stddev', 'w2_failed_jobs', 'w2_failed_average', 'w2_failed_stddev', 'w3_failed_jobs', 'w3_failed_average', 'w3_failed_stddev'], 'default', 'value' => null],
             [['schedule_id', 'users', 'jobs', 'average', 'clear_jobs'], 'required'],
             [['schedule_id', 'users', 'jobs', 'clear_jobs', 'min', 'p05', 'p25', 'p50', 'p75', 'p80', 'p95', 'max', 'histogram_width', 'w1_failed_jobs', 'w2_failed_jobs', 'w3_failed_jobs'], 'default', 'value' => null],
             [['schedule_id', 'users', 'jobs', 'clear_jobs', 'min', 'p05', 'p25', 'p50', 'p75', 'p80', 'p95', 'max', 'histogram_width', 'w1_failed_jobs', 'w2_failed_jobs', 'w3_failed_jobs'], 'integer'],
@@ -64,6 +67,7 @@ class StatBigrunDistribJobAbstract3 extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

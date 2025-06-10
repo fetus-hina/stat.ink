@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -35,9 +36,11 @@ class Salmon3UserStatsWeapon extends ActiveRecord
         return 'salmon3_user_stats_weapon';
     }
 
+    #[Override]
     public function rules()
     {
         return [
+            [['xtra_waves_cleared'], 'default', 'value' => 0],
             [['user_id', 'weapon_id'], 'required'],
             [['user_id', 'weapon_id', 'total_waves', 'normal_waves', 'normal_waves_cleared', 'xtra_waves', 'xtra_waves_cleared'], 'default', 'value' => null],
             [['user_id', 'weapon_id', 'total_waves', 'normal_waves', 'normal_waves_cleared', 'xtra_waves', 'xtra_waves_cleared'], 'integer'],
@@ -48,6 +51,7 @@ class Salmon3UserStatsWeapon extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

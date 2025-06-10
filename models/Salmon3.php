@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -89,9 +90,12 @@ class Salmon3 extends ActiveRecord
         return 'salmon3';
     }
 
+    #[Override]
     public function rules()
     {
         return [
+            [['stage_id', 'big_stage_id', 'danger_rate', 'clear_waves', 'fail_reason_id', 'king_smell', 'king_salmonid_id', 'clear_extra', 'title_before_id', 'title_exp_before', 'title_after_id', 'title_exp_after', 'golden_eggs', 'power_eggs', 'gold_scale', 'silver_scale', 'bronze_scale', 'job_point', 'job_score', 'job_rate', 'job_bonus', 'note', 'private_note', 'link_url', 'version_id', 'agent_id', 'start_at', 'end_at', 'schedule_id', 'scenario_code'], 'default', 'value' => null],
+            [['is_eggstra_work'], 'default', 'value' => 0],
             [['user_id', 'uuid', 'client_uuid', 'is_big_run', 'is_automated', 'period', 'remote_addr', 'remote_port', 'created_at', 'updated_at'], 'required'],
             [['user_id', 'stage_id', 'big_stage_id', 'clear_waves', 'fail_reason_id', 'king_smell', 'king_salmonid_id', 'title_before_id', 'title_exp_before', 'title_after_id', 'title_exp_after', 'golden_eggs', 'power_eggs', 'gold_scale', 'silver_scale', 'bronze_scale', 'job_point', 'job_score', 'job_bonus', 'version_id', 'agent_id', 'period', 'schedule_id', 'remote_port'], 'default', 'value' => null],
             [['user_id', 'stage_id', 'big_stage_id', 'clear_waves', 'fail_reason_id', 'king_smell', 'king_salmonid_id', 'title_before_id', 'title_exp_before', 'title_after_id', 'title_exp_after', 'golden_eggs', 'power_eggs', 'gold_scale', 'silver_scale', 'bronze_scale', 'job_point', 'job_score', 'job_bonus', 'version_id', 'agent_id', 'period', 'schedule_id', 'remote_port'], 'integer'],
@@ -114,6 +118,7 @@ class Salmon3 extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

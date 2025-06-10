@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -33,9 +34,11 @@ class SalmonScheduleWeapon3 extends ActiveRecord
         return 'salmon_schedule_weapon3';
     }
 
+    #[Override]
     public function rules()
     {
         return [
+            [['weapon_id', 'random_id'], 'default', 'value' => null],
             [['schedule_id'], 'required'],
             [['schedule_id', 'weapon_id', 'random_id'], 'default', 'value' => null],
             [['schedule_id', 'weapon_id', 'random_id'], 'integer'],
@@ -45,6 +48,7 @@ class SalmonScheduleWeapon3 extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

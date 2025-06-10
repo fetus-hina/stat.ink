@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -29,6 +30,7 @@ class ConchClash3 extends ActiveRecord
         return 'conch_clash3';
     }
 
+    #[Override]
     public function rules()
     {
         return [
@@ -38,6 +40,7 @@ class ConchClash3 extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

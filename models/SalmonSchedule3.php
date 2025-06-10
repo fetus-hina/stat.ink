@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -54,9 +55,12 @@ class SalmonSchedule3 extends ActiveRecord
         return 'salmon_schedule3';
     }
 
+    #[Override]
     public function rules()
     {
         return [
+            [['map_id', 'big_map_id', 'king_id'], 'default', 'value' => null],
+            [['is_random_map_big_run'], 'default', 'value' => 0],
             [['map_id', 'big_map_id', 'king_id'], 'default', 'value' => null],
             [['map_id', 'big_map_id', 'king_id'], 'integer'],
             [['start_at', 'end_at'], 'required'],
@@ -68,6 +72,7 @@ class SalmonSchedule3 extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

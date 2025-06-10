@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -33,6 +34,7 @@ class TricolorRole3 extends ActiveRecord
         return 'tricolor_role3';
     }
 
+    #[Override]
     public function rules()
     {
         return [
@@ -42,6 +44,7 @@ class TricolorRole3 extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

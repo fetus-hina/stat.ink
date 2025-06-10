@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -39,9 +40,11 @@ class Knockout3 extends ActiveRecord
         return 'knockout3';
     }
 
+    #[Override]
     public function rules()
     {
         return [
+            [['map_id', 'avg_battle_time', 'stddev_battle_time', 'avg_knockout_time', 'stddev_knockout_time', 'histogram_width'], 'default', 'value' => null],
             [['season_id', 'rule_id', 'battles', 'knockout'], 'required'],
             [['season_id', 'rule_id', 'map_id', 'battles', 'knockout', 'histogram_width'], 'default', 'value' => null],
             [['season_id', 'rule_id', 'map_id', 'battles', 'knockout', 'histogram_width'], 'integer'],
@@ -53,6 +56,7 @@ class Knockout3 extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

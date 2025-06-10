@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -86,9 +87,11 @@ class Salmon3UserStatsSpecial extends ActiveRecord
         return 'salmon3_user_stats_special';
     }
 
+    #[Override]
     public function rules()
     {
         return [
+            [['waves_cleared_avg', 'waves_cleared_sd', 'waves_cleared_max', 'waves_cleared_95', 'waves_cleared_75', 'waves_cleared_50', 'waves_cleared_25', 'waves_cleared_05', 'waves_cleared_min', 'golden_egg_avg', 'golden_egg_sd', 'golden_egg_max', 'golden_egg_95', 'golden_egg_75', 'golden_egg_50', 'golden_egg_25', 'golden_egg_05', 'golden_egg_min', 'power_egg_avg', 'power_egg_sd', 'power_egg_max', 'power_egg_95', 'power_egg_75', 'power_egg_50', 'power_egg_25', 'power_egg_05', 'power_egg_min', 'rescue_avg', 'rescue_sd', 'rescue_max', 'rescue_95', 'rescue_75', 'rescue_50', 'rescue_25', 'rescue_05', 'rescue_min', 'rescued_avg', 'rescued_sd', 'rescued_max', 'rescued_95', 'rescued_75', 'rescued_50', 'rescued_25', 'rescued_05', 'rescued_min', 'defeat_boss_avg', 'defeat_boss_sd', 'defeat_boss_max', 'defeat_boss_95', 'defeat_boss_75', 'defeat_boss_50', 'defeat_boss_25', 'defeat_boss_05', 'defeat_boss_min'], 'default', 'value' => null],
             [['user_id', 'special_id', 'jobs', 'jobs_cleared'], 'required'],
             [['user_id', 'special_id', 'jobs', 'jobs_cleared', 'waves_cleared_max', 'waves_cleared_95', 'waves_cleared_75', 'waves_cleared_50', 'waves_cleared_25', 'waves_cleared_05', 'waves_cleared_min', 'golden_egg_max', 'golden_egg_95', 'golden_egg_75', 'golden_egg_50', 'golden_egg_25', 'golden_egg_05', 'golden_egg_min', 'power_egg_max', 'power_egg_95', 'power_egg_75', 'power_egg_50', 'power_egg_25', 'power_egg_05', 'power_egg_min', 'rescue_max', 'rescue_95', 'rescue_75', 'rescue_50', 'rescue_25', 'rescue_05', 'rescue_min', 'rescued_max', 'rescued_95', 'rescued_75', 'rescued_50', 'rescued_25', 'rescued_05', 'rescued_min', 'defeat_boss_max', 'defeat_boss_95', 'defeat_boss_75', 'defeat_boss_50', 'defeat_boss_25', 'defeat_boss_05', 'defeat_boss_min'], 'default', 'value' => null],
             [['user_id', 'special_id', 'jobs', 'jobs_cleared', 'waves_cleared_max', 'waves_cleared_95', 'waves_cleared_75', 'waves_cleared_50', 'waves_cleared_25', 'waves_cleared_05', 'waves_cleared_min', 'golden_egg_max', 'golden_egg_95', 'golden_egg_75', 'golden_egg_50', 'golden_egg_25', 'golden_egg_05', 'golden_egg_min', 'power_egg_max', 'power_egg_95', 'power_egg_75', 'power_egg_50', 'power_egg_25', 'power_egg_05', 'power_egg_min', 'rescue_max', 'rescue_95', 'rescue_75', 'rescue_50', 'rescue_25', 'rescue_05', 'rescue_min', 'rescued_max', 'rescued_95', 'rescued_75', 'rescued_50', 'rescued_25', 'rescued_05', 'rescued_min', 'defeat_boss_max', 'defeat_boss_95', 'defeat_boss_75', 'defeat_boss_50', 'defeat_boss_25', 'defeat_boss_05', 'defeat_boss_min'], 'integer'],
@@ -99,6 +102,7 @@ class Salmon3UserStatsSpecial extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -35,7 +36,6 @@ use yii\db\ActiveRecord;
  * @property EventSchedule3[] $schedules
  * @property Special3 $special
  * @property Splatfest3StatsWeapon[] $splatfest3StatsWeapons
- * @property StatAbility3XUsage[] $statAbility3XUsages
  * @property StatWeapon3AssistPerVersion[] $statWeapon3AssistPerVersions
  * @property StatWeapon3Assist[] $statWeapon3Assists
  * @property StatWeapon3DeathPerVersion[] $statWeapon3DeathPerVersions
@@ -67,9 +67,13 @@ class Weapon3 extends ActiveRecord
         return 'weapon3';
     }
 
+    #[Override]
     public function rules()
     {
         return [
+            [['subweapon_id', 'special_id'], 'default', 'value' => null],
+            [['canonical_id'], 'default', 'value' => 0],
+            [['release_at'], 'default', 'value' => '2022-01-01 09:00:00+09'],
             [['key', 'mainweapon_id', 'name'], 'required'],
             [['mainweapon_id', 'subweapon_id', 'special_id', 'canonical_id'], 'default', 'value' => null],
             [['mainweapon_id', 'subweapon_id', 'special_id', 'canonical_id'], 'integer'],
@@ -85,6 +89,7 @@ class Weapon3 extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [
@@ -147,11 +152,6 @@ class Weapon3 extends ActiveRecord
     public function getSplatfest3StatsWeapons(): ActiveQuery
     {
         return $this->hasMany(Splatfest3StatsWeapon::class, ['weapon_id' => 'id']);
-    }
-
-    public function getStatAbility3XUsages(): ActiveQuery
-    {
-        return $this->hasMany(StatAbility3XUsage::class, ['weapon_id' => 'id']);
     }
 
     public function getStatWeapon3AssistPerVersions(): ActiveQuery

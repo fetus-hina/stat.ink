@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -31,6 +32,7 @@ class XMatchingGroupWeapon3 extends ActiveRecord
         return 'x_matching_group_weapon3';
     }
 
+    #[Override]
     public function rules()
     {
         return [
@@ -44,6 +46,7 @@ class XMatchingGroupWeapon3 extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

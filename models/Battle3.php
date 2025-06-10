@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -132,9 +133,12 @@ class Battle3 extends ActiveRecord
         return 'battle3';
     }
 
+    #[Override]
     public function rules()
     {
         return [
+            [['lobby_id', 'rule_id', 'map_id', 'weapon_id', 'result_id', 'is_knockout', 'rank_in_team', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'inked', 'our_team_inked', 'their_team_inked', 'our_team_percent', 'their_team_percent', 'our_team_count', 'their_team_count', 'level_before', 'level_after', 'rank_before_id', 'rank_before_s_plus', 'rank_before_exp', 'rank_after_id', 'rank_after_s_plus', 'rank_after_exp', 'cash_before', 'cash_after', 'note', 'private_note', 'link_url', 'version_id', 'agent_id', 'start_at', 'end_at', 'period', 'challenge_win', 'challenge_lose', 'rank_exp_change', 'is_rank_up_battle', 'clout_before', 'clout_after', 'clout_change', 'fest_dragon_id', 'fest_power', 'x_power_before', 'x_power_after', 'our_team_role_id', 'their_team_role_id', 'third_team_role_id', 'our_team_color', 'their_team_color', 'third_team_color', 'our_team_theme_id', 'their_team_theme_id', 'third_team_theme_id', 'third_team_inked', 'third_team_percent', 'signal', 'replay_code', 'bankara_power_before', 'bankara_power_after', 'event_id', 'event_power', 'conch_clash_id'], 'default', 'value' => null],
+            [['has_disconnect'], 'default', 'value' => 0],
             [['uuid', 'client_uuid', 'user_id', 'remote_addr', 'remote_port', 'created_at', 'updated_at'], 'required'],
             [['uuid', 'client_uuid', 'note', 'private_note', 'link_url', 'remote_addr'], 'string'],
             [['user_id', 'lobby_id', 'rule_id', 'map_id', 'weapon_id', 'result_id', 'rank_in_team', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'inked', 'our_team_inked', 'their_team_inked', 'our_team_count', 'their_team_count', 'level_before', 'level_after', 'rank_before_id', 'rank_before_s_plus', 'rank_before_exp', 'rank_after_id', 'rank_after_s_plus', 'rank_after_exp', 'cash_before', 'cash_after', 'version_id', 'agent_id', 'period', 'remote_port', 'challenge_win', 'challenge_lose', 'rank_exp_change', 'clout_before', 'clout_after', 'clout_change', 'fest_dragon_id', 'our_team_role_id', 'their_team_role_id', 'third_team_role_id', 'our_team_theme_id', 'their_team_theme_id', 'third_team_theme_id', 'third_team_inked', 'signal', 'event_id', 'conch_clash_id'], 'default', 'value' => null],
@@ -167,6 +171,7 @@ class Battle3 extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

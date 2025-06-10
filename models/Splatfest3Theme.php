@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -30,6 +31,7 @@ class Splatfest3Theme extends ActiveRecord
         return 'splatfest3_theme';
     }
 
+    #[Override]
     public function rules()
     {
         return [
@@ -39,6 +41,7 @@ class Splatfest3Theme extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

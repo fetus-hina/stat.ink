@@ -23,16 +23,15 @@ use yii\web\View;
  * @var string[] $rules list of validation rules
  */
 
-$now = (new \DateTimeImmutable('now', new \DateTimeZone('Asia/Tokyo')))
-    ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time());
+$path = Yii::getAlias('@app/models/' . $className . '.php');
 
 echo "<?php\n";
 echo "\n";
 ?>
 /**
- * @copyright Copyright (C) <?= $now->format('Y') ?> AIZAWA Hina
+ * @copyright Copyright (C) <?= GitAuthorHelper::getCopyrightYear($path) ?> AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
-<?php foreach (array_keys(GitAuthorHelper::getAuthors()) as $author): ?>
+<?php foreach (array_keys(GitAuthorHelper::getAuthors($path)) as $author): ?>
  * @author <?= $author . "\n" ?>
 <?php endforeach; ?>
  */
@@ -41,6 +40,7 @@ declare(strict_types=1);
 
 namespace <?= $generator->ns ?>;
 
+use Override;
 use Yii;
 use yii\db\ActiveQuery;
 use <?= ltrim($generator->baseClass, '\\') ?>;
@@ -72,11 +72,13 @@ class <?= $className ?> extends <?= preg_replace('!^.+\x5c([^\x5c]+)!', '$1', $g
     }
 <?php endif; ?>
 
+    #[Override]
     public function rules()
     {
         return [<?= "\n            " . preg_replace('/::className\(\)/', '::class', implode(",\n            ", $rules)) . ",\n        " ?>];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [
