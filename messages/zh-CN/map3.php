@@ -75,7 +75,9 @@ return [
     'Sturgeon Shipyard' => '鲟鱼造船厂',
     'Track' => '昆布赛道',
     'Um\'ami Ruins' => '鱼露遗迹',
+    'Underpass' => '地下通道',
     'Undertow Spillway' => '竹蛏疏洪道',
+    'Urchin Underpass' => '海胆地下通道',
     'Wahoo World' => '醋饭海洋世界',
     'World' => '游乐园',
 ];

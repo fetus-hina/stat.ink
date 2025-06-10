@@ -72,7 +72,9 @@ return [
     'Sturgeon Shipyard' => 'Walruswerf',
     'Track' => 'Lekkerbektrack',
     'Um\'ami Ruins' => 'Ruisvoornruïnes',
+    'Underpass' => '',
     'Undertow Spillway' => 'Baarsreservoir',
+    'Urchin Underpass' => '',
     'Wahoo World' => 'Waterwonderland',
     'World' => 'Waterwonderland',
 ];

@@ -72,7 +72,9 @@ return [
     'Sturgeon Shipyard' => 'Осетровые верфи',
     'Track' => 'Велозал «9-й вал»',
     'Um\'ami Ruins' => 'Рыбожирные руины',
+    'Underpass' => '',
     'Undertow Spillway' => 'Приливослив',
+    'Urchin Underpass' => '',
     'Wahoo World' => 'Луна-парк «Язь»',
     'World' => 'Луна-парк «Язь»',
 ];

@@ -72,7 +72,9 @@ return [
     'Sturgeon Shipyard' => 'Cantiere Pinnenere',
     'Track' => 'Tintodromo Montecarpa',
     'Um\'ami Ruins' => 'Rovine Salsadipesce',
+    'Underpass' => '',
     'Undertow Spillway' => 'Cisterna Cernia',
+    'Urchin Underpass' => '',
     'Wahoo World' => 'Soglioland',
     'World' => 'Soglioland',
 ];

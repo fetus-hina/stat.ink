@@ -74,7 +74,9 @@ return [
     'Sturgeon Shipyard' => '철갑상어 조선소',
     'Track' => '다시마 트랙',
     'Um\'ami Ruins' => '남플라 유적',
+    'Underpass' => '',
     'Undertow Spillway' => '맛조개 방수로',
+    'Urchin Underpass' => '',
     'Wahoo World' => '초밥 월드',
     'World' => '초밥 월드',
 ];
