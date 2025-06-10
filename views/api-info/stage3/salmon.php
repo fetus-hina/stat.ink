@@ -41,7 +41,10 @@ $fmt = Yii::$app->formatter;
 <?php foreach ($langs as $i => $lang) { ?>
         <?= Html::tag('th', Html::encode($lang['name']), [
           'class' => $lang->htmlClasses,
-          'data-sort' => 'string',
+          'data' => [
+            'sort' => 'string',
+            'sort-onload' => $i === 0 ? 'yes' : '',
+          ],
           'lang' => $lang->lang,
         ]) . "\n" ?>
 <?php if ($i === 0) { ?>
