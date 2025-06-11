@@ -89,6 +89,7 @@ $type = implode(
             "/**",
             " * @inheritdoc",
             " */",
+            "#[Override]",
             "protected function vacuumTables(): array",
             "{",
             "    return [",
