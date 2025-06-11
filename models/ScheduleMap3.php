@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -30,9 +31,11 @@ class ScheduleMap3 extends ActiveRecord
         return 'schedule_map3';
     }
 
+    #[Override]
     public function rules()
     {
         return [
+            [['map_id'], 'default', 'value' => null],
             [['schedule_id'], 'required'],
             [['schedule_id', 'map_id'], 'default', 'value' => null],
             [['schedule_id', 'map_id'], 'integer'],
@@ -41,6 +44,7 @@ class ScheduleMap3 extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -39,9 +40,12 @@ class Map3 extends ActiveRecord
         return 'map3';
     }
 
+    #[Override]
     public function rules()
     {
         return [
+            [['area', 'release_at'], 'default', 'value' => null],
+            [['bigrun'], 'default', 'value' => 0],
             [['key', 'name', 'short_name'], 'required'],
             [['area'], 'default', 'value' => null],
             [['area'], 'integer'],
@@ -56,6 +60,7 @@ class Map3 extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

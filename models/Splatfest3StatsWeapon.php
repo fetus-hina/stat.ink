@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -83,9 +84,11 @@ class Splatfest3StatsWeapon extends ActiveRecord
         return 'splatfest3_stats_weapon';
     }
 
+    #[Override]
     public function rules()
     {
         return [
+            [['avg_kill', 'sd_kill', 'p05_kill', 'p25_kill', 'p50_kill', 'p75_kill', 'p95_kill', 'mode_kill', 'avg_assist', 'sd_assist', 'p05_assist', 'p25_assist', 'p50_assist', 'p75_assist', 'p95_assist', 'mode_assist', 'avg_death', 'sd_death', 'p05_death', 'p25_death', 'p50_death', 'p75_death', 'p95_death', 'mode_death', 'avg_special', 'sd_special', 'p05_special', 'p25_special', 'p50_special', 'p75_special', 'p95_special', 'mode_special', 'avg_inked', 'sd_inked', 'p05_inked', 'p25_inked', 'p50_inked', 'p75_inked', 'p95_inked', 'mode_inked'], 'default', 'value' => null],
             [['fest_id', 'lobby_id', 'weapon_id', 'battles', 'wins', 'min_kill', 'max_kill', 'min_assist', 'max_assist', 'min_death', 'max_death', 'min_special', 'max_special', 'min_inked', 'max_inked'], 'required'],
             [['fest_id', 'lobby_id', 'weapon_id', 'battles', 'wins', 'min_kill', 'p05_kill', 'p25_kill', 'p50_kill', 'p75_kill', 'p95_kill', 'max_kill', 'mode_kill', 'min_assist', 'p05_assist', 'p25_assist', 'p50_assist', 'p75_assist', 'p95_assist', 'max_assist', 'mode_assist', 'min_death', 'p05_death', 'p25_death', 'p50_death', 'p75_death', 'p95_death', 'max_death', 'mode_death', 'min_special', 'p05_special', 'p25_special', 'p50_special', 'p75_special', 'p95_special', 'max_special', 'mode_special', 'min_inked', 'p05_inked', 'p25_inked', 'p50_inked', 'p75_inked', 'p95_inked', 'max_inked', 'mode_inked'], 'default', 'value' => null],
             [['fest_id', 'lobby_id', 'weapon_id', 'battles', 'wins', 'min_kill', 'p05_kill', 'p25_kill', 'p50_kill', 'p75_kill', 'p95_kill', 'max_kill', 'mode_kill', 'min_assist', 'p05_assist', 'p25_assist', 'p50_assist', 'p75_assist', 'p95_assist', 'max_assist', 'mode_assist', 'min_death', 'p05_death', 'p25_death', 'p50_death', 'p75_death', 'p95_death', 'max_death', 'mode_death', 'min_special', 'p05_special', 'p25_special', 'p50_special', 'p75_special', 'p95_special', 'max_special', 'mode_special', 'min_inked', 'p05_inked', 'p25_inked', 'p50_inked', 'p75_inked', 'p95_inked', 'max_inked', 'mode_inked'], 'integer'],
@@ -97,6 +100,7 @@ class Splatfest3StatsWeapon extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

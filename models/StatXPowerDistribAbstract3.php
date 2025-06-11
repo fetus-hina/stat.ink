@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -39,9 +40,11 @@ class StatXPowerDistribAbstract3 extends ActiveRecord
         return 'stat_x_power_distrib_abstract3';
     }
 
+    #[Override]
     public function rules()
     {
         return [
+            [['stddev', 'median', 'pct5', 'pct25', 'pct75', 'pct80', 'pct95', 'histogram_width'], 'default', 'value' => null],
             [['season_id', 'rule_id', 'users', 'average'], 'required'],
             [['season_id', 'rule_id', 'users', 'histogram_width'], 'default', 'value' => null],
             [['season_id', 'rule_id', 'users', 'histogram_width'], 'integer'],
@@ -52,6 +55,7 @@ class StatXPowerDistribAbstract3 extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

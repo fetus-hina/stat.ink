@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -48,9 +49,11 @@ class SalmonPlayer3 extends ActiveRecord
         return 'salmon_player3';
     }
 
+    #[Override]
     public function rules()
     {
         return [
+            [['name', 'number', 'splashtag_title_id', 'uniform_id', 'special_id', 'golden_eggs', 'golden_assist', 'power_eggs', 'rescue', 'rescued', 'defeat_boss', 'species_id'], 'default', 'value' => null],
             [['salmon_id', 'is_me', 'is_disconnected'], 'required'],
             [['salmon_id', 'splashtag_title_id', 'uniform_id', 'special_id', 'golden_eggs', 'golden_assist', 'power_eggs', 'rescue', 'rescued', 'defeat_boss', 'species_id'], 'default', 'value' => null],
             [['salmon_id', 'splashtag_title_id', 'uniform_id', 'special_id', 'golden_eggs', 'golden_assist', 'power_eggs', 'rescue', 'rescued', 'defeat_boss', 'species_id'], 'integer'],
@@ -65,6 +68,7 @@ class SalmonPlayer3 extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

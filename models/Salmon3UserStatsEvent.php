@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -38,9 +39,11 @@ class Salmon3UserStatsEvent extends ActiveRecord
         return 'salmon3_user_stats_event';
     }
 
+    #[Override]
     public function rules()
     {
         return [
+            [['event_id'], 'default', 'value' => null],
             [['user_id', 'map_id', 'tide_id', 'waves', 'cleared', 'total_quota', 'total_delivered'], 'required'],
             [['user_id', 'map_id', 'tide_id', 'event_id', 'waves', 'cleared', 'total_quota', 'total_delivered'], 'default', 'value' => null],
             [['user_id', 'map_id', 'tide_id', 'event_id', 'waves', 'cleared', 'total_quota', 'total_delivered'], 'integer'],
@@ -53,6 +56,7 @@ class Salmon3UserStatsEvent extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

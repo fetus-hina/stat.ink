@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -42,9 +43,11 @@ class Splatfest3StatsPower extends ActiveRecord
         return 'splatfest3_stats_power';
     }
 
+    #[Override]
     public function rules()
     {
         return [
+            [['average', 'stddev', 'minimum', 'p05', 'p25', 'p50', 'p75', 'p80', 'p95', 'maximum', 'histogram_width'], 'default', 'value' => null],
             [['splatfest_id', 'users', 'battles', 'agg_battles', 'last_posted_at'], 'required'],
             [['splatfest_id', 'users', 'battles', 'agg_battles', 'histogram_width'], 'default', 'value' => null],
             [['splatfest_id', 'users', 'battles', 'agg_battles', 'histogram_width'], 'integer'],
@@ -55,6 +58,7 @@ class Splatfest3StatsPower extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

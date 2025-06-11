@@ -543,6 +543,7 @@ return [
     'Seconds' => '秒',
     'Sent an email to your email address. Please check your mailbox and get the verification code.' => '已发送验证邮件到你的邮箱。请检查邮箱获取验证码。',
     'Series Progress' => '挑战进度',
+    'Series Weapon Power' => '',
     'Session History' => '登录信息',
     'Set the name, icon, and channel in the settings within Discord.' => '请在Discord的设置中设定名字、头像和频道。',
     'Settings' => '设置',

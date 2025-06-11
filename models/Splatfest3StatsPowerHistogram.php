@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -29,6 +30,7 @@ class Splatfest3StatsPowerHistogram extends ActiveRecord
         return 'splatfest3_stats_power_histogram';
     }
 
+    #[Override]
     public function rules()
     {
         return [
@@ -40,6 +42,7 @@ class Splatfest3StatsPowerHistogram extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

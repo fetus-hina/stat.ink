@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -86,9 +87,11 @@ class StatWeapon3XUsagePerVersion extends ActiveRecord
         return 'stat_weapon3_x_usage_per_version';
     }
 
+    #[Override]
     public function rules()
     {
         return [
+            [['sd_kill', 'p05_kill', 'p25_kill', 'p50_kill', 'p75_kill', 'p95_kill', 'mode_kill', 'sd_assist', 'p05_assist', 'p25_assist', 'p50_assist', 'p75_assist', 'p95_assist', 'mode_assist', 'sd_death', 'p05_death', 'p25_death', 'p50_death', 'p75_death', 'p95_death', 'mode_death', 'sd_special', 'p05_special', 'p25_special', 'p50_special', 'p75_special', 'p95_special', 'mode_special', 'sd_inked', 'p05_inked', 'p25_inked', 'p50_inked', 'p75_inked', 'p95_inked', 'mode_inked'], 'default', 'value' => null],
             [['version_group_id', 'rule_id', 'range_id', 'weapon_id', 'battles', 'wins', 'seconds', 'avg_kill', 'min_kill', 'max_kill', 'avg_assist', 'min_assist', 'max_assist', 'avg_death', 'min_death', 'max_death', 'avg_special', 'min_special', 'max_special', 'avg_inked', 'min_inked', 'max_inked'], 'required'],
             [['version_group_id', 'rule_id', 'range_id', 'weapon_id', 'battles', 'wins', 'seconds', 'min_kill', 'max_kill', 'mode_kill', 'min_assist', 'max_assist', 'mode_assist', 'min_death', 'max_death', 'mode_death', 'min_special', 'max_special', 'mode_special', 'min_inked', 'max_inked', 'mode_inked'], 'default', 'value' => null],
             [['version_group_id', 'rule_id', 'range_id', 'weapon_id', 'battles', 'wins', 'seconds', 'min_kill', 'max_kill', 'mode_kill', 'min_assist', 'max_assist', 'mode_assist', 'min_death', 'max_death', 'mode_death', 'min_special', 'max_special', 'mode_special', 'min_inked', 'max_inked', 'mode_inked'], 'integer'],
@@ -101,6 +104,7 @@ class StatWeapon3XUsagePerVersion extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

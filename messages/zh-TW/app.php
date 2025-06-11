@@ -541,6 +541,7 @@ return [
     'Seconds' => '',
     'Sent an email to your email address. Please check your mailbox and get the verification code.' => '已發送驗證郵件到你的信箱。請檢查信箱取得驗證碼。',
     'Series Progress' => '系列進度',
+    'Series Weapon Power' => '',
     'Session History' => '登入資訊',
     'Set the name, icon, and channel in the settings within Discord.' => '在 Discord 的設定內建立名稱、圖像、頻道',
     'Settings' => '設定',

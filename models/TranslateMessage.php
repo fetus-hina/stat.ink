@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -29,6 +30,7 @@ class TranslateMessage extends ActiveRecord
         return 'translate_message';
     }
 
+    #[Override]
     public function rules()
     {
         return [
@@ -43,6 +45,7 @@ class TranslateMessage extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

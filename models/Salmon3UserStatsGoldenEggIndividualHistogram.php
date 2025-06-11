@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -32,6 +33,7 @@ class Salmon3UserStatsGoldenEggIndividualHistogram extends ActiveRecord
         return 'salmon3_user_stats_golden_egg_individual_histogram';
     }
 
+    #[Override]
     public function rules()
     {
         return [
@@ -44,6 +46,7 @@ class Salmon3UserStatsGoldenEggIndividualHistogram extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

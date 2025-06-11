@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -35,9 +36,11 @@ class StatSalmon3MapKingTide extends ActiveRecord
         return 'stat_salmon3_map_king_tide';
     }
 
+    #[Override]
     public function rules()
     {
         return [
+            [['map_id', 'big_map_id'], 'default', 'value' => null],
             [['map_id', 'big_map_id', 'king_id', 'tide_id', 'jobs', 'cleared'], 'default', 'value' => null],
             [['map_id', 'big_map_id', 'king_id', 'tide_id', 'jobs', 'cleared'], 'integer'],
             [['king_id', 'tide_id', 'jobs', 'cleared'], 'required'],
@@ -49,6 +52,7 @@ class StatSalmon3MapKingTide extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

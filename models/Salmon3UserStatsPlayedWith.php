@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -80,9 +81,11 @@ class Salmon3UserStatsPlayedWith extends ActiveRecord
         return 'salmon3_user_stats_played_with';
     }
 
+    #[Override]
     public function rules()
     {
         return [
+            [['max_danger_rate_cleared', 'max_danger_rate_played', 'team_golden_egg_avg', 'team_golden_egg_sd', 'team_golden_egg_max', 'team_golden_egg_95', 'team_golden_egg_75', 'team_golden_egg_50', 'team_golden_egg_25', 'team_golden_egg_05', 'team_golden_egg_min', 'golden_egg_avg', 'golden_egg_sd', 'golden_egg_max', 'golden_egg_95', 'golden_egg_75', 'golden_egg_50', 'golden_egg_25', 'golden_egg_05', 'golden_egg_min', 'rescue_avg', 'rescue_sd', 'rescue_max', 'rescue_95', 'rescue_75', 'rescue_50', 'rescue_25', 'rescue_05', 'rescue_min', 'rescued_avg', 'rescued_sd', 'rescued_max', 'rescued_95', 'rescued_75', 'rescued_50', 'rescued_25', 'rescued_05', 'rescued_min', 'defeat_boss_avg', 'defeat_boss_sd', 'defeat_boss_max', 'defeat_boss_95', 'defeat_boss_75', 'defeat_boss_50', 'defeat_boss_25', 'defeat_boss_05', 'defeat_boss_min'], 'default', 'value' => null],
             [['user_id', 'name', 'number', 'jobs', 'clear_jobs', 'clear_waves'], 'required'],
             [['user_id', 'jobs', 'clear_jobs', 'clear_waves', 'team_golden_egg_max', 'team_golden_egg_95', 'team_golden_egg_75', 'team_golden_egg_50', 'team_golden_egg_25', 'team_golden_egg_05', 'team_golden_egg_min', 'golden_egg_max', 'golden_egg_95', 'golden_egg_75', 'golden_egg_50', 'golden_egg_25', 'golden_egg_05', 'golden_egg_min', 'rescue_max', 'rescue_95', 'rescue_75', 'rescue_50', 'rescue_25', 'rescue_05', 'rescue_min', 'rescued_max', 'rescued_95', 'rescued_75', 'rescued_50', 'rescued_25', 'rescued_05', 'rescued_min', 'defeat_boss_max', 'defeat_boss_95', 'defeat_boss_75', 'defeat_boss_50', 'defeat_boss_25', 'defeat_boss_05', 'defeat_boss_min'], 'default', 'value' => null],
             [['user_id', 'jobs', 'clear_jobs', 'clear_waves', 'team_golden_egg_max', 'team_golden_egg_95', 'team_golden_egg_75', 'team_golden_egg_50', 'team_golden_egg_25', 'team_golden_egg_05', 'team_golden_egg_min', 'golden_egg_max', 'golden_egg_95', 'golden_egg_75', 'golden_egg_50', 'golden_egg_25', 'golden_egg_05', 'golden_egg_min', 'rescue_max', 'rescue_95', 'rescue_75', 'rescue_50', 'rescue_25', 'rescue_05', 'rescue_min', 'rescued_max', 'rescued_95', 'rescued_75', 'rescued_50', 'rescued_25', 'rescued_05', 'rescued_min', 'defeat_boss_max', 'defeat_boss_95', 'defeat_boss_75', 'defeat_boss_50', 'defeat_boss_25', 'defeat_boss_05', 'defeat_boss_min'], 'integer'],
@@ -94,6 +97,7 @@ class Salmon3UserStatsPlayedWith extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

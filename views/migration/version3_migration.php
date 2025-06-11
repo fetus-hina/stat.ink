@@ -46,6 +46,7 @@ $latestVersion = SplatoonVersion3::find()
         '/**',
         ' * @inheritdoc',
         ' */',
+        '#[Override]',
         'protected function vacuumTables(): array',
         '{',
         '    return [',

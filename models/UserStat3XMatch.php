@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -44,9 +45,11 @@ class UserStat3XMatch extends ActiveRecord
         return 'user_stat3_x_match';
     }
 
+    #[Override]
     public function rules()
     {
         return [
+            [['peak_x_power', 'peak_season', 'current_x_power', 'current_season'], 'default', 'value' => null],
             [['user_id', 'rule_id', 'battles', 'agg_battles', 'agg_seconds', 'wins', 'kills', 'assists', 'deaths', 'specials', 'inked', 'max_inked', 'updated_at'], 'required'],
             [['user_id', 'rule_id', 'battles', 'agg_battles', 'agg_seconds', 'wins', 'kills', 'assists', 'deaths', 'specials', 'inked', 'max_inked'], 'default', 'value' => null],
             [['user_id', 'rule_id', 'battles', 'agg_battles', 'agg_seconds', 'wins', 'kills', 'assists', 'deaths', 'specials', 'inked', 'max_inked'], 'integer'],
@@ -58,6 +61,7 @@ class UserStat3XMatch extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

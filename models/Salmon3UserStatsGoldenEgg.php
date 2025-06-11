@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -49,9 +50,11 @@ class Salmon3UserStatsGoldenEgg extends ActiveRecord
         return 'salmon3_user_stats_golden_egg';
     }
 
+    #[Override]
     public function rules()
     {
         return [
+            [['average_team', 'stddev_team', 'histogram_width_team', 'average_individual', 'stddev_individual', 'histogram_width_individual', 'min_team', 'q1_team', 'q2_team', 'q3_team', 'max_team', 'mode_team', 'min_individual', 'q1_individual', 'q2_individual', 'q3_individual', 'max_individual', 'mode_individual'], 'default', 'value' => null],
             [['user_id', 'map_id', 'shifts'], 'required'],
             [['user_id', 'map_id', 'shifts', 'histogram_width_team', 'histogram_width_individual', 'min_team', 'max_team', 'mode_team', 'min_individual', 'max_individual', 'mode_individual'], 'default', 'value' => null],
             [['user_id', 'map_id', 'shifts', 'histogram_width_team', 'histogram_width_individual', 'min_team', 'max_team', 'mode_team', 'min_individual', 'max_individual', 'mode_individual'], 'integer'],
@@ -62,6 +65,7 @@ class Salmon3UserStatsGoldenEgg extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

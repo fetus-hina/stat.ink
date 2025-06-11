@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -34,9 +35,11 @@ class Knockout3Histogram extends ActiveRecord
         return 'knockout3_histogram';
     }
 
+    #[Override]
     public function rules()
     {
         return [
+            [['map_id'], 'default', 'value' => null],
             [['season_id', 'rule_id', 'class_value', 'count'], 'required'],
             [['season_id', 'rule_id', 'map_id', 'class_value', 'count'], 'default', 'value' => null],
             [['season_id', 'rule_id', 'map_id', 'class_value', 'count'], 'integer'],
@@ -47,6 +50,7 @@ class Knockout3Histogram extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

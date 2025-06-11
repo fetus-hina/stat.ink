@@ -91,6 +91,8 @@ final class BattleApiFormatter
             'x_power_after' => self::formatPower($model->x_power_after),
             'bankara_power_before' => self::formatPower($model->bankara_power_before),
             'bankara_power_after' => self::formatPower($model->bankara_power_after),
+            'series_weapon_power_before' => self::formatPower($model->series_weapon_power_before),
+            'series_weapon_power_after' => self::formatPower($model->series_weapon_power_after),
             'fest_power' => self::formatPower($model->fest_power),
             'fest_dragon' => DragonMatchApiFormatter::toJson($model->festDragon, $fullTranslate),
             'conch_clash' => ConchClashApiFormatter::toJson($model->conchClash, $fullTranslate),

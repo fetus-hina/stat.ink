@@ -73,7 +73,9 @@ return [
     'Sturgeon Shipyard' => 'チョウザメ造船',
     'Track' => 'コンブ',
     'Um\'ami Ruins' => 'ナンプラー遺跡',
+    'Underpass' => 'デカライン',
     'Undertow Spillway' => 'マテガイ放水路',
+    'Urchin Underpass' => 'デカライン高架下',
     'Wahoo World' => 'スメーシーワールド',
     'World' => 'スメーシー',
 ];

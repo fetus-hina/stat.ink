@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -30,6 +31,7 @@ class EggstraWorkOfficialResult3 extends ActiveRecord
         return 'eggstra_work_official_result3';
     }
 
+    #[Override]
     public function rules()
     {
         return [
@@ -41,6 +43,7 @@ class EggstraWorkOfficialResult3 extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

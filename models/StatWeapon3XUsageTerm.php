@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -29,6 +30,7 @@ class StatWeapon3XUsageTerm extends ActiveRecord
         return 'stat_weapon3_x_usage_term';
     }
 
+    #[Override]
     public function rules()
     {
         return [
@@ -39,6 +41,7 @@ class StatWeapon3XUsageTerm extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

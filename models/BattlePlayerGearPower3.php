@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -31,6 +32,7 @@ class BattlePlayerGearPower3 extends ActiveRecord
         return 'battle_player_gear_power3';
     }
 
+    #[Override]
     public function rules()
     {
         return [
@@ -43,6 +45,7 @@ class BattlePlayerGearPower3 extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -31,9 +32,11 @@ class SalmonPlayerWeapon3 extends ActiveRecord
         return 'salmon_player_weapon3';
     }
 
+    #[Override]
     public function rules()
     {
         return [
+            [['weapon_id'], 'default', 'value' => null],
             [['player_id', 'wave'], 'required'],
             [['player_id', 'wave', 'weapon_id'], 'default', 'value' => null],
             [['player_id', 'wave', 'weapon_id'], 'integer'],
@@ -43,6 +46,7 @@ class SalmonPlayerWeapon3 extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

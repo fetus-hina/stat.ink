@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -41,9 +42,11 @@ class Event3StatsPower extends ActiveRecord
         return 'event3_stats_power';
     }
 
+    #[Override]
     public function rules()
     {
         return [
+            [['stddev', 'minimum', 'p05', 'p25', 'p50', 'p75', 'p95', 'maximum', 'histogram_width', 'p80'], 'default', 'value' => null],
             [['schedule_id', 'users', 'battles', 'agg_battles', 'average'], 'required'],
             [['schedule_id', 'users', 'battles', 'agg_battles', 'histogram_width'], 'default', 'value' => null],
             [['schedule_id', 'users', 'battles', 'agg_battles', 'histogram_width'], 'integer'],
@@ -53,6 +56,7 @@ class Event3StatsPower extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

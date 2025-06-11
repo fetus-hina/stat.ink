@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -31,9 +32,11 @@ class Medal3 extends ActiveRecord
         return 'medal3';
     }
 
+    #[Override]
     public function rules()
     {
         return [
+            [['canonical_id'], 'default', 'value' => null],
             [['name'], 'required'],
             [['canonical_id'], 'default', 'value' => null],
             [['canonical_id'], 'integer'],
@@ -43,6 +46,7 @@ class Medal3 extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

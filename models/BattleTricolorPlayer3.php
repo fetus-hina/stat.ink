@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -58,9 +59,11 @@ class BattleTricolorPlayer3 extends ActiveRecord
         return 'battle_tricolor_player3';
     }
 
+    #[Override]
     public function rules()
     {
         return [
+            [['rank_in_team', 'name', 'weapon_id', 'inked', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'signal', 'is_disconnected', 'splashtag_title_id', 'number', 'headgear_id', 'clothing_id', 'shoes_id', 'is_crowned', 'species_id', 'crown_id'], 'default', 'value' => null],
             [['battle_id', 'team', 'is_me'], 'required'],
             [['battle_id', 'team', 'rank_in_team', 'weapon_id', 'inked', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'signal', 'splashtag_title_id', 'headgear_id', 'clothing_id', 'shoes_id', 'species_id', 'crown_id'], 'default', 'value' => null],
             [['battle_id', 'team', 'rank_in_team', 'weapon_id', 'inked', 'kill', 'assist', 'kill_or_assist', 'death', 'special', 'signal', 'splashtag_title_id', 'headgear_id', 'clothing_id', 'shoes_id', 'species_id', 'crown_id'], 'integer'],
@@ -78,6 +81,7 @@ class BattleTricolorPlayer3 extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [

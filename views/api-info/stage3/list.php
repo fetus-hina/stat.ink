@@ -40,7 +40,10 @@ $launch = new DateTimeImmutable('2022-09-09T00:00:00+00:00');
 <?php foreach ($langs as $i => $lang) { ?>
         <?= Html::tag('th', Html::encode($lang['name']), [
           'class' => $lang->htmlClasses,
-          'data-sort' => 'string',
+          'data' => [
+            'sort' => 'string',
+            'sort-onload' => $i === 0 ? 'yes' : '',
+          ],
           'lang' => $lang->lang,
         ]) . "\n" ?>
 <?php if ($i === 0) { ?>

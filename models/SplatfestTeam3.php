@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -32,6 +33,7 @@ class SplatfestTeam3 extends ActiveRecord
         return 'splatfest_team3';
     }
 
+    #[Override]
     public function rules()
     {
         return [
@@ -46,6 +48,7 @@ class SplatfestTeam3 extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [
