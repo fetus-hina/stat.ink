@@ -74,7 +74,7 @@ return [
     'Um\'ami Ruins' => 'Um\'ami Ruins',
     'Underpass' => '',
     'Undertow Spillway' => 'Undertow Spillway',
-    'Urchin Underpass' => '',
+    'Urchin Underpass' => 'Urchin Underpass',
     'Wahoo World' => 'Wahoo World',
     'World' => '',
 ];

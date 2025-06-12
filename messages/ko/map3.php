@@ -76,7 +76,7 @@ return [
     'Um\'ami Ruins' => '남플라 유적',
     'Underpass' => '',
     'Undertow Spillway' => '맛조개 방수로',
-    'Urchin Underpass' => '',
+    'Urchin Underpass' => '데카 라인 고가 밑',
     'Wahoo World' => '초밥 월드',
     'World' => '초밥 월드',
 ];
