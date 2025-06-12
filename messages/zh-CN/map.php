@@ -40,7 +40,7 @@ return [
     'Skatepark' => '滑板公园',
     'Towers' => '停车场',
     'Underpass' => '高架下',
-    'Urchin Underpass' => '海星高架下',
+    'Urchin Underpass' => '十路通高架桥下',
     'Walleye Warehouse' => '箱鲀仓库',
     'Warehouse' => '仓库',
 ];

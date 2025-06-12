@@ -77,7 +77,7 @@ return [
     'Um\'ami Ruins' => '鱼露遗迹',
     'Underpass' => '高架下',
     'Undertow Spillway' => '竹蛏疏洪道',
-    'Urchin Underpass' => '海星高架下',
+    'Urchin Underpass' => '十路通高架桥下',
     'Wahoo World' => '醋饭海洋世界',
     'World' => '游乐园',
 ];

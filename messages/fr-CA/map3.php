@@ -74,7 +74,7 @@ return [
     'Um\'ami Ruins' => 'Ruines Uma\'mi',
     'Underpass' => '',
     'Undertow Spillway' => 'Réservoir Rigadelle',
-    'Urchin Underpass' => '',
+    'Urchin Underpass' => 'Passage Turbot',
     'Wahoo World' => 'Parc Carapince',
     'World' => '',
 ];
