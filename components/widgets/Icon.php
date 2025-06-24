@@ -541,6 +541,7 @@ final class Icon
     public static function s3Weapon(
         Weapon3|SalmonWeapon3|string|null $weapon,
         ?string $size = null,
+        ?string $alt = null,
     ): ?string {
         $key = match (true) {
             $weapon instanceof Weapon3, $weapon instanceof SalmonWeapon3 => $weapon->key,
@@ -783,7 +784,7 @@ final class Icon
         return self::assetImage(
             WeaponIconAsset::class,
             "{$directory}/{$key}.png",
-            Yii::t('app-weapon3', (string)$weapon?->name),
+            $alt ?? Yii::t('app-weapon3', (string)$weapon?->name),
             true,
             $size,
         );
