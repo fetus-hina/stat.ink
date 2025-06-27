@@ -94,7 +94,7 @@ return [
             'borderColor' => [ new JsExpression('window.colorScheme.graph1') ],
             'borderWidth' => 2,
             'fill' => false,
-            'label' => Yii::t('app', 'X Power'),
+            'label' => Yii::t('app', 'Series Weapon Power'),
             'pointRadius' => 0,
             'type' => 'line',
             'data' => array_map(
