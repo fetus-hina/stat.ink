@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "@babel/cli": "^7.27.2",
-    "@babel/core": "^7.27.4",
+    "@babel/core": "^7.27.7",
     "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.27.2",
     "@babel/preset-react": "^7.27.1",
@@ -24,7 +24,7 @@
     "bootswatch": "^3.4.1",
     "bowser": "^2.11.0",
     "cal-heatmap": "^4.2.4",
-    "caniuse-lite": "^1.0.30001724",
+    "caniuse-lite": "^1.0.30001726",
     "chart.js": "^3.9.1",
     "chartjs-adapter-luxon": "^1.3.1",
     "chartjs-chart-error-bars": "^3.10.0",
