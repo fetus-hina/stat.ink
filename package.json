@@ -72,7 +72,7 @@
     "terser": "^5.43.1",
     "twemoji": "^14.0.2",
     "twemoji-emojis": "^14.1.0",
-    "updates": "^16.4.2",
+    "updates": "^16.4.4",
     "webpack": "^5.100.2",
     "webpack-cli": "^5.1.4",
     "yii2-pjax": "git+https://github.com/yiisoft/jquery-pjax.git",
