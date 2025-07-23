@@ -35,7 +35,7 @@
     "lusitanian/oauth": "^0.8.11",
     "markrogoyski/math-php": "^2.11.0",
     "paragonie/constant_time_encoding": "^3.0.0",
-    "php-curl-class/php-curl-class": "^11.1.0",
+    "php-curl-class/php-curl-class": "^12.0.0",
     "statink/yii2-anonymizer": "^1.0.4",
     "statink/yii2-bukiicons": "^1.0.1",
     "statink/yii2-cal-heatmap": "^2.1.1",
@@ -47,9 +47,9 @@
     "statink/yii2-spl2-stages": "^1.0.2",
     "statink/yii2-twitter-webintents": "^1.0.2",
     "symfony/polyfill-php83": "^1.32",
-    "symfony/yaml": "^7.3.0",
+    "symfony/yaml": "^7.3.1",
     "twbs/bootstrap-icons": "^1.13.1",
-    "yiisoft/yii2": "^2.0.52",
+    "yiisoft/yii2": "^2.0.53",
     "yiisoft/yii2-bootstrap": "^2.0.11",
     "yiisoft/yii2-httpclient": "^2.0.16",
     "yiisoft/yii2-queue": "^2.3.7",
@@ -64,9 +64,9 @@
     "codeception/verify": ">=3.3",
     "ergebnis/composer-normalize": "^2.47.0",
     "jp3cki/coding-standard": "^1.0.3",
-    "nikic/php-parser": "^4.19.4 || ^5.4.0",
+    "nikic/php-parser": "^4.19.4 || ^5.5.0",
     "proget-hq/phpstan-yii2": "^0.8.0",
-    "sebastian/diff": "^4.0.6 || ^5.0.0 || ^6.0.0",
+    "sebastian/diff": "^4.0.6 || ^5.0.0 || ^6.0.0 || ^7.0.0",
     "squizlabs/php_codesniffer": "^3.13.2",
     "yiisoft/yii2-debug": "^2.1.27",
     "yiisoft/yii2-gii": "^2.2.7"
@@ -142,7 +142,7 @@
       "yiisoft/yii2-composer": true
     },
     "platform": {
-      "php": "8.3.22"
+      "php": "8.3.23"
     },
     "process-timeout": 1800
   },
