@@ -68,7 +68,7 @@
     "stylelint": "^16.22.0",
     "stylelint-config-sass-guidelines": "^12.1.0",
     "svg2png": "^4.1.1",
-    "svgo": "^3.3.2",
+    "svgo": "^4.0.0",
     "terser": "^5.43.1",
     "twemoji": "^14.0.2",
     "twemoji-emojis": "^14.1.0",
