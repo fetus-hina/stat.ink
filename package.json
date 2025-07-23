@@ -16,7 +16,7 @@
     "@popperjs/core": "^2.11.8",
     "@types/react": "^18.3.23",
     "autoprefixer": "^10.4.21",
-    "axios": "^1.10.0",
+    "axios": "^1.11.0",
     "babel-loader": "^9.2.1",
     "bootstrap": "^3.4.1",
     "bootstrap-notify": "^3.1.3",

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "10691836af27f6287f896ea96319e7b3",
+    "content-hash": "f2792ee4ea88cef3b3c81e6a9fa81553",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -1801,21 +1801,21 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "11.1.0",
+            "version": "12.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "062f58613524947451efdb3dd7d7217719670a9f"
+                "reference": "7a8f05efb18bb865dbce864b8fd34d4f5d920c74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/062f58613524947451efdb3dd7d7217719670a9f",
-                "reference": "062f58613524947451efdb3dd7d7217719670a9f",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/7a8f05efb18bb865dbce864b8fd34d4f5d920c74",
+                "reference": "7a8f05efb18bb865dbce864b8fd34d4f5d920c74",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
-                "php": ">=7.4"
+                "php": ">=8.0"
             },
             "require-dev": {
                 "dealerdirect/phpcodesniffer-composer-installer": "*",
@@ -1875,9 +1875,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-curl-class/php-curl-class/issues",
-                "source": "https://github.com/php-curl-class/php-curl-class/tree/11.1.0"
+                "source": "https://github.com/php-curl-class/php-curl-class/tree/12.0.0"
             },
-            "time": "2025-03-24T18:04:25+00:00"
+            "time": "2025-03-25T18:04:16+00:00"
         },
         {
             "name": "psr/container",
