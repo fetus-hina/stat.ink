@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9e5075de6da72eea9b6bc3df7205e581",
+    "content-hash": "e21269e07ef5892ff1b57c6de4b9e717",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -1243,16 +1243,16 @@
         },
         {
             "name": "laminas/laminas-feed",
-            "version": "2.24.0",
+            "version": "2.25.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-feed.git",
-                "reference": "3df6dfe39ce1f53df64eb12f9fcf9bb29074cd50"
+                "reference": "6299e8e2502ddedd0f39722f64079f2b709b86fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-feed/zipball/3df6dfe39ce1f53df64eb12f9fcf9bb29074cd50",
-                "reference": "3df6dfe39ce1f53df64eb12f9fcf9bb29074cd50",
+                "url": "https://api.github.com/repos/laminas/laminas-feed/zipball/6299e8e2502ddedd0f39722f64079f2b709b86fa",
+                "reference": "6299e8e2502ddedd0f39722f64079f2b709b86fa",
                 "shasum": ""
             },
             "require": {
@@ -1320,7 +1320,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2025-06-25T12:37:12+00:00"
+            "time": "2025-08-04T22:21:52+00:00"
         },
         {
             "name": "laminas/laminas-stdlib",
@@ -6886,16 +6886,16 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.12.9",
+            "version": "v0.12.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "1b801844becfe648985372cb4b12ad6840245ace"
+                "reference": "6e80abe6f2257121f1eb9a4c55bf29d921025b22"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/1b801844becfe648985372cb4b12ad6840245ace",
-                "reference": "1b801844becfe648985372cb4b12ad6840245ace",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/6e80abe6f2257121f1eb9a4c55bf29d921025b22",
+                "reference": "6e80abe6f2257121f1eb9a4c55bf29d921025b22",
                 "shasum": ""
             },
             "require": {
@@ -6945,12 +6945,11 @@
             "authors": [
                 {
                     "name": "Justin Hileman",
-                    "email": "justin@justinhileman.info",
-                    "homepage": "http://justinhileman.com"
+                    "email": "justin@justinhileman.info"
                 }
             ],
             "description": "An interactive shell for modern PHP.",
-            "homepage": "http://psysh.org",
+            "homepage": "https://psysh.org",
             "keywords": [
                 "REPL",
                 "console",
@@ -6959,9 +6958,9 @@
             ],
             "support": {
                 "issues": "https://github.com/bobthecow/psysh/issues",
-                "source": "https://github.com/bobthecow/psysh/tree/v0.12.9"
+                "source": "https://github.com/bobthecow/psysh/tree/v0.12.10"
             },
-            "time": "2025-06-23T02:35:06+00:00"
+            "time": "2025-08-04T12:39:37+00:00"
         },
         {
             "name": "ramsey/coding-standard",
