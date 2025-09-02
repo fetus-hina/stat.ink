@@ -62,7 +62,7 @@
     "codeception/module-yii2": ">=2.0.4",
     "codeception/specify": ">=2",
     "codeception/verify": ">=3.3",
-    "ergebnis/composer-normalize": "^2.48.0",
+    "ergebnis/composer-normalize": "^2.48.1",
     "jp3cki/coding-standard": "^1.0.3",
     "nikic/php-parser": "^4.19.4 || ^5.5.0",
     "proget-hq/phpstan-yii2": "^0.8.0",
