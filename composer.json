@@ -57,7 +57,7 @@
   },
   "require-dev": {
     "codeception/codeception": ">=5.3.2",
-    "codeception/module-asserts": ">=3.2",
+    "codeception/module-asserts": ">=3.2.1",
     "codeception/module-filesystem": ">=3.0.1",
     "codeception/module-yii2": ">=2.0.4",
     "codeception/specify": ">=2",
