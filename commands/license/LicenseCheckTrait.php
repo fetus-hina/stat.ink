@@ -48,6 +48,7 @@ trait LicenseCheckTrait
         'BSD*',
         'BSD-2-Clause',
         'BSD-3-Clause',
+        'BlueOak-1.0.0',
         'ISC',
         'MIT',
         'MIT*',
