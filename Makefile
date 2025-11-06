@@ -175,7 +175,7 @@ init-no-resource: \
 	config/cloudflare/ip_ranges.php \
 
 test: init-no-resource
-	php -d register_argc_argv=On ./composer.phar exec codecept run -v
+	./composer.phar exec codecept run -v
 
 license: init-no-resource
 	./yii license
