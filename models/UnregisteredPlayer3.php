@@ -129,16 +129,11 @@ final class UnregisteredPlayer3
      */
     private function loadAggregatedStats(): void
     {
-        $battleStats = (new Query())
+        $battleStatsSubquery = (new Query())
             ->select([
-                'battles' => 'COUNT(*)',
-                'wins' => vsprintf('SUM(CASE %s END)', [
-                    implode(' ', [
-                        'WHEN {{%result3}}.[[is_win]] = {{%battle_player3}}.[[is_our_team]]',
-                        'THEN 1 ELSE 0',
-                    ]),
-                ]),
-                'disconnects' => 'SUM(CASE WHEN {{%battle_player3}}.[[is_disconnected]] THEN 1 ELSE 0 END)',
+                'client_uuid' => '{{%battle3}}.[[client_uuid]]',
+                'is_win' => 'MAX(CASE WHEN {{%result3}}.[[is_win]] = {{%battle_player3}}.[[is_our_team]] THEN 1 ELSE 0 END)',
+                'is_disconnect' => 'MAX(CASE WHEN {{%battle_player3}}.[[is_disconnected]] THEN 1 ELSE 0 END)',
             ])
             ->from('{{%battle_player3}}')
             ->innerJoin('{{%battle3}}', '{{%battle_player3}}.[[battle_id]] = {{%battle3}}.[[id]]')
@@ -150,6 +145,15 @@ final class UnregisteredPlayer3
                 '{{%battle3}}.[[is_deleted]]' => false,
             ])
             ->andWhere(['not', ['{{%lobby3}}.[[key]]' => 'private']])
+            ->groupBy('{{%battle3}}.[[client_uuid]]');
+
+        $battleStats = (new Query())
+            ->select([
+                'battles' => 'COUNT(*)',
+                'wins' => 'SUM(is_win)',
+                'disconnects' => 'SUM(is_disconnect)',
+            ])
+            ->from(['dedupe' => $battleStatsSubquery])
             ->one();
 
         $this->total_battles = (int)($battleStats['battles'] ?? 0);
@@ -166,23 +170,18 @@ final class UnregisteredPlayer3
      */
     private function loadWeaponStats(): void
     {
-        $weaponQuery = (new Query())
+        $battlesSubquery = (new Query())
             ->select([
-                'weapon_id' => '{{%battle_player3}}.[[weapon_id]]',
-                'weapon_name' => '{{%weapon3}}.[[name]]',
-                'weapon_key' => '{{%weapon3}}.[[key]]',
-                'battles' => 'COUNT(*)',
-                'wins' => vsprintf('SUM(CASE %s END)', [
-                    implode(' ', [
-                        'WHEN {{%result3}}.[[is_win]] = {{%battle_player3}}.[[is_our_team]]',
-                        'THEN 1 ELSE 0',
-                    ]),
-                ]),
-                'avg_kill' => 'AVG({{%battle_player3}}.[[kill]])',
-                'avg_death' => 'AVG({{%battle_player3}}.[[death]])',
-                'avg_assist' => 'AVG({{%battle_player3}}.[[assist]])',
-                'avg_special' => 'AVG({{%battle_player3}}.[[special]])',
-                'avg_inked' => 'AVG({{%battle_player3}}.[[inked]])',
+                'client_uuid' => '{{%battle3}}.[[client_uuid]]',
+                'weapon_id' => 'MAX({{%battle_player3}}.[[weapon_id]])',
+                'weapon_name' => 'MAX({{%weapon3}}.[[name]])',
+                'weapon_key' => 'MAX({{%weapon3}}.[[key]])',
+                'is_win' => 'MAX(CASE WHEN {{%result3}}.[[is_win]] = {{%battle_player3}}.[[is_our_team]] THEN 1 ELSE 0 END)',
+                'kill_count' => 'MAX({{%battle_player3}}.[[kill]])',
+                'death_count' => 'MAX({{%battle_player3}}.[[death]])',
+                'assist_count' => 'MAX({{%battle_player3}}.[[assist]])',
+                'special_count' => 'MAX({{%battle_player3}}.[[special]])',
+                'inked_count' => 'MAX({{%battle_player3}}.[[inked]])',
             ])
             ->from('{{%battle_player3}}')
             ->innerJoin('{{%battle3}}', '{{%battle_player3}}.[[battle_id]] = {{%battle3}}.[[id]]')
@@ -196,11 +195,23 @@ final class UnregisteredPlayer3
             ])
             ->andWhere(['not', ['{{%lobby3}}.[[key]]' => 'private']])
             ->andWhere(['not', ['{{%battle_player3}}.[[weapon_id]]' => null]])
-            ->groupBy([
-                '{{%battle_player3}}.[[weapon_id]]',
-                '{{%weapon3}}.[[name]]',
-                '{{%weapon3}}.[[key]]'
+            ->groupBy('{{%battle3}}.[[client_uuid]]');
+
+        $weaponQuery = (new Query())
+            ->select([
+                'weapon_id',
+                'weapon_name',
+                'weapon_key',
+                'battles' => 'COUNT(*)',
+                'wins' => 'SUM(is_win)',
+                'avg_kill' => 'AVG(kill_count)',
+                'avg_death' => 'AVG(death_count)',
+                'avg_assist' => 'AVG(assist_count)',
+                'avg_special' => 'AVG(special_count)',
+                'avg_inked' => 'AVG(inked_count)',
             ])
+            ->from(['dedupe' => $battlesSubquery])
+            ->groupBy(['weapon_id', 'weapon_name', 'weapon_key'])
             ->orderBy(['battles' => SORT_DESC])
             ->all();
 
@@ -212,17 +223,14 @@ final class UnregisteredPlayer3
      */
     private function loadPerformanceStats(): void
     {
-        $performanceQuery = (new Query())
+        $battlesSubquery = (new Query())
             ->select([
-                'avg_kill' => 'AVG({{%battle_player3}}.[[kill]])',
-                'avg_death' => 'AVG({{%battle_player3}}.[[death]])',
-                'avg_assist' => 'AVG({{%battle_player3}}.[[assist]])',
-                'avg_special' => 'AVG({{%battle_player3}}.[[special]])',
-                'avg_inked' => 'AVG({{%battle_player3}}.[[inked]])',
-                'max_kill' => 'MAX({{%battle_player3}}.[[kill]])',
-                'max_assist' => 'MAX({{%battle_player3}}.[[assist]])',
-                'max_special' => 'MAX({{%battle_player3}}.[[special]])',
-                'max_inked' => 'MAX({{%battle_player3}}.[[inked]])',
+                'client_uuid' => '{{%battle3}}.[[client_uuid]]',
+                'kill_count' => 'MAX({{%battle_player3}}.[[kill]])',
+                'death_count' => 'MAX({{%battle_player3}}.[[death]])',
+                'assist_count' => 'MAX({{%battle_player3}}.[[assist]])',
+                'special_count' => 'MAX({{%battle_player3}}.[[special]])',
+                'inked_count' => 'MAX({{%battle_player3}}.[[inked]])',
             ])
             ->from('{{%battle_player3}}')
             ->innerJoin('{{%battle3}}', '{{%battle_player3}}.[[battle_id]] = {{%battle3}}.[[id]]')
@@ -234,6 +242,21 @@ final class UnregisteredPlayer3
             ])
             ->andWhere(['not', ['{{%lobby3}}.[[key]]' => 'private']])
             ->andWhere(['not', ['{{%battle_player3}}.[[kill]]' => null]])
+            ->groupBy('{{%battle3}}.[[client_uuid]]');
+
+        $performanceQuery = (new Query())
+            ->select([
+                'avg_kill' => 'AVG(kill_count)',
+                'avg_death' => 'AVG(death_count)',
+                'avg_assist' => 'AVG(assist_count)',
+                'avg_special' => 'AVG(special_count)',
+                'avg_inked' => 'AVG(inked_count)',
+                'max_kill' => 'MAX(kill_count)',
+                'max_assist' => 'MAX(assist_count)',
+                'max_special' => 'MAX(special_count)',
+                'max_inked' => 'MAX(inked_count)',
+            ])
+            ->from(['dedupe' => $battlesSubquery])
             ->one();
 
         $this->performance_stats = $performanceQuery ?: [];
@@ -244,17 +267,13 @@ final class UnregisteredPlayer3
      */
     private function loadLobbyStats(): void
     {
-        $lobbyQuery = (new Query())
+        $battlesSubquery = (new Query())
             ->select([
-                'lobby_key' => '{{%lobby3}}.[[key]]',
-                'lobby_name' => '{{%lobby3}}.[[name]]',
-                'battles' => 'COUNT(*)',
-                'wins' => vsprintf('SUM(CASE %s END)', [
-                    implode(' ', [
-                        'WHEN {{%result3}}.[[is_win]] = {{%battle_player3}}.[[is_our_team]]',
-                        'THEN 1 ELSE 0',
-                    ]),
-                ]),
+                'client_uuid' => '{{%battle3}}.[[client_uuid]]',
+                'lobby_id' => 'MAX({{%lobby3}}.[[id]])',
+                'lobby_key' => 'MAX({{%lobby3}}.[[key]])',
+                'lobby_name' => 'MAX({{%lobby3}}.[[name]])',
+                'is_win' => 'MAX(CASE WHEN {{%result3}}.[[is_win]] = {{%battle_player3}}.[[is_our_team]] THEN 1 ELSE 0 END)',
             ])
             ->from('{{%battle_player3}}')
             ->innerJoin('{{%battle3}}', '{{%battle_player3}}.[[battle_id]] = {{%battle3}}.[[id]]')
@@ -266,11 +285,17 @@ final class UnregisteredPlayer3
                 '{{%battle3}}.[[is_deleted]]' => false,
             ])
             ->andWhere(['not', ['{{%lobby3}}.[[key]]' => 'private']])
-            ->groupBy([
-                '{{%lobby3}}.[[id]]',
-                '{{%lobby3}}.[[key]]',
-                '{{%lobby3}}.[[name]]'
+            ->groupBy('{{%battle3}}.[[client_uuid]]');
+
+        $lobbyQuery = (new Query())
+            ->select([
+                'lobby_key',
+                'lobby_name',
+                'battles' => 'COUNT(*)',
+                'wins' => 'SUM(is_win)',
             ])
+            ->from(['dedupe' => $battlesSubquery])
+            ->groupBy(['lobby_id', 'lobby_key', 'lobby_name'])
             ->orderBy(['battles' => SORT_DESC])
             ->all();
 
