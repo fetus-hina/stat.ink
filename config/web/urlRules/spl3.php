@@ -18,6 +18,8 @@ return [
 
     '@<screen_name:\w+>/spl3/index.json' => 'show-v3/user-json',
     '@<screen_name:\w+>/spl3/stats/<subaction:[\w-]+>' => 'show-v3/stats-<subaction>',
+    'unregistered-player-v3/search' => 'show-v3/unregistered-player-search',
+    'unregistered-player-v3/by-splashtag/<splashtag:[^/]+>' => 'show-v3/unregistered-player',
     "@<screen_name:\w+>/spl3/<battle:{$uuid}>" => 'show-v3/battle',
     '@<screen_name:\w+>/spl3/' => 'show-v3/user',
 

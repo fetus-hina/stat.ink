@@ -13,6 +13,7 @@ use app\models\Battle3;
 use app\models\Battle3PlayedWith;
 use app\models\BattlePlayer3;
 use app\models\BattleTricolorPlayer3;
+use app\models\UnregisteredPlayer3;
 use yii\helpers\Html;
 use yii\web\View;
 
@@ -48,22 +49,39 @@ if ($title) {
   );
 }
 
-echo Html::tag(
-  'div',
-  trim(
-    vsprintf('%s %s %s', [
-      Icon::s3Species($player->species),
-      Html::encode($player->name),
-      $player->number !== null
-        ? Html::tag(
-          'span',
-          sprintf('#%s', $player->number),
-          ['class' => 'text-muted small'],
-        )
-        : '',
-    ]),
-  ),
+// Create player name with optional link to stats
+$playerNameContent = trim(
+  vsprintf('%s %s %s', [
+    Icon::s3Species($player->species),
+    Html::encode($player->name),
+    $player->number !== null
+      ? Html::tag(
+        'span',
+        sprintf('#%s', $player->number),
+        ['class' => 'text-muted small'],
+      )
+      : '',
+  ]),
 );
+
+// Add link to unregistered player stats if possible
+if (!$player->is_me && $player->name && $player->number) {
+  $splashtag = $player->name . '#' . $player->number;
+  $unregisteredPlayer = UnregisteredPlayer3::findBySplashtagString($splashtag);
+
+  if ($unregisteredPlayer && $unregisteredPlayer->hasSignificantData()) {
+    $playerNameContent = Html::a(
+      $playerNameContent,
+      ['unregistered-player-v3/by-splashtag/' . urlencode($splashtag)],
+      [
+        'title' => Yii::t('app', 'View stats for {name}', ['name' => $player->name]),
+        'class' => 'text-decoration-none',
+      ]
+    );
+  }
+}
+
+echo Html::tag('div', $playerNameContent);
 
 if ($history?->count > 1) {
   echo Html::tag(

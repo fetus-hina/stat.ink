@@ -12,6 +12,8 @@ namespace app\controllers;
 
 use app\actions\show\v3\BattleAction;
 use app\actions\show\v3\DeleteBattleAction;
+use app\actions\show\v3\UnregisteredPlayerAction;
+use app\actions\show\v3\UnregisteredPlayerSearchAction;
 use app\actions\show\v3\UserAction;
 use app\actions\show\v3\stats\BadgeAction;
 use app\actions\show\v3\stats\CorrectionBadgeAction;
@@ -73,6 +75,8 @@ final class ShowV3Controller extends Controller
             'stats-weapons' => WeaponsAction::class,
             'stats-win-rate' => WinRateAction::class,
             'stats-season-x-power' => SeasonXPowerAction::class,
+            'unregistered-player' => UnregisteredPlayerAction::class,
+            'unregistered-player-search' => UnregisteredPlayerSearchAction::class,
             'user' => UserAction::class,
             'user-json' => [
                 'class' => UserAction::class,
