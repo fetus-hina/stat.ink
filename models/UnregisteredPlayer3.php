@@ -37,6 +37,7 @@ final class UnregisteredPlayer3
     public array $weapon_stats = [];
     public array $performance_stats = [];
     public array $lobby_stats = [];
+    public array $teammate_stats = [];
 
     /**
      * Check if a player with given splashtag is actually registered and get their username
@@ -163,6 +164,7 @@ final class UnregisteredPlayer3
         $this->loadWeaponStats();
         $this->loadPerformanceStats();
         $this->loadLobbyStats();
+        $this->loadTeammateStats();
     }
 
     /**
@@ -303,6 +305,62 @@ final class UnregisteredPlayer3
     }
 
     /**
+     * Load teammate statistics - find players who frequently played with this unregistered player
+     */
+    private function loadTeammateStats(): void
+    {
+        $battleIdsSubquery = (new Query())
+            ->select(['battle_id' => 'DISTINCT({{%battle3}}.[[id]])'])
+            ->from('{{%battle_player3}}')
+            ->innerJoin('{{%battle3}}', '{{%battle_player3}}.[[battle_id]] = {{%battle3}}.[[id]]')
+            ->innerJoin('{{%lobby3}}', '{{%battle3}}.[[lobby_id]] = {{%lobby3}}.[[id]]')
+            ->andWhere([
+                '{{%battle_player3}}.[[name]]' => $this->name,
+                '{{%battle_player3}}.[[number]]' => $this->number,
+                '{{%battle3}}.[[is_deleted]]' => false,
+            ])
+            ->andWhere(['not', ['{{%lobby3}}.[[key]]' => 'private']]);
+
+        $teammateQuery = (new Query())
+            ->select([
+                'teammate_name' => '{{%battle_player3}}.[[name]]',
+                'teammate_number' => '{{%battle_player3}}.[[number]]',
+                'battles_together' => 'COUNT(DISTINCT {{%battle3}}.[[client_uuid]])',
+                'wins_together' => 'SUM(CASE WHEN {{%result3}}.[[is_win]] = {{%battle_player3}}.[[is_our_team]] THEN 1 ELSE 0 END)',
+            ])
+            ->from('{{%battle_player3}}')
+            ->innerJoin('{{%battle3}}', '{{%battle_player3}}.[[battle_id]] = {{%battle3}}.[[id]]')
+            ->innerJoin('{{%result3}}', '{{%battle3}}.[[result_id]] = {{%result3}}.[[id]]')
+            ->innerJoin('{{%lobby3}}', '{{%battle3}}.[[lobby_id]] = {{%lobby3}}.[[id]]')
+            ->innerJoin(['target_battles' => $battleIdsSubquery], '{{%battle3}}.[[id]] = target_battles.battle_id')
+            ->innerJoin(['target_team' => '{{%battle_player3}}'], [
+                'and',
+                'target_team.battle_id = {{%battle3}}.[[id]]',
+                ['target_team.name' => $this->name],
+                ['target_team.number' => $this->number],
+                '{{%battle_player3}}.[[is_our_team]] = target_team.[[is_our_team]]'
+            ])
+            ->andWhere([
+                '{{%battle3}}.[[is_deleted]]' => false,
+            ])
+            ->andWhere(['not', ['{{%lobby3}}.[[key]]' => 'private']])
+            ->andWhere([
+                'or',
+                ['!=', '{{%battle_player3}}.[[name]]', $this->name],
+                ['!=', '{{%battle_player3}}.[[number]]', $this->number]
+            ])
+            ->andWhere(['not', ['{{%battle_player3}}.[[name]]' => null]])
+            ->andWhere(['not', ['{{%battle_player3}}.[[number]]' => null]])
+            ->groupBy(['{{%battle_player3}}.[[name]]', '{{%battle_player3}}.[[number]]'])
+            ->having(['>=', 'COUNT(DISTINCT {{%battle3}}.[[client_uuid]])', 3])
+            ->orderBy(['COUNT(DISTINCT {{%battle3}}.[[client_uuid]])' => SORT_DESC])
+            ->limit(20)
+            ->all();
+
+        $this->teammate_stats = $teammateQuery;
+    }
+
+    /**
      * Get win rate as percentage
      */
     public function getWinRate(): float
@@ -361,6 +419,48 @@ final class UnregisteredPlayer3
     public function getMostUsedWeapon(): ?array
     {
         return $this->weapon_stats[0] ?? null;
+    }
+
+    /**
+     * Get most frequent teammate
+     */
+    public function getMostFrequentTeammate(): ?array
+    {
+        return $this->teammate_stats[0] ?? null;
+    }
+
+    /**
+     * Get teammate with highest win rate (minimum 10 battles together)
+     */
+    public function getBestTeammate(): ?array
+    {
+        $bestTeammate = null;
+        $highestWinRate = 0.0;
+
+        foreach ($this->teammate_stats as $teammate) {
+            if ((int)$teammate['battles_together'] < 10) {
+                continue;
+            }
+
+            $winRate = (int)$teammate['battles_together'] > 0 
+                ? ((int)$teammate['wins_together'] / (int)$teammate['battles_together']) * 100 
+                : 0.0;
+
+            if ($winRate > $highestWinRate) {
+                $highestWinRate = $winRate;
+                $bestTeammate = array_merge($teammate, ['win_rate' => $winRate]);
+            }
+        }
+
+        return $bestTeammate;
+    }
+
+    /**
+     * Get number of unique teammates
+     */
+    public function getUniqueTeammateCount(): int
+    {
+        return count($this->teammate_stats);
     }
 
     /**

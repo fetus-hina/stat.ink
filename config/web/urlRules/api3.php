@@ -30,6 +30,8 @@ return [
     'api/v3/salmon/<action:[\w-]+>' => 'api-v3/salmon-<action>',
     '@<screen_name:\w+>/salmon3.json' => 'api-v3/user-salmon',
 
+    'api/v3/unregistered-player/<splashtag:[\w\s\#]+>' => 'api-v3/unregistered-player',
+
     'api/v3/s3s/<action:[\w-]+>' => 'api-v3/s3s-<action>',
 
     'api/v3/<action:[\w-]+>.<format:[\w]+>' => 'api-v3/<action>',

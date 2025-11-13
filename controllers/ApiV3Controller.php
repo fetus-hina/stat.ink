@@ -21,6 +21,7 @@ use app\actions\api\v3\RuleAction;
 use app\actions\api\v3\StageAction;
 use app\actions\api\v3\VersionAction;
 use app\actions\api\v3\WeaponAction;
+use app\actions\api\v3\UnregisteredPlayerAction;
 use app\actions\api\v3\s3s\UsageAction;
 use app\actions\api\v3\s3s\UuidListAction;
 use app\actions\api\v3\salmon\DeleteSalmonAction;
@@ -98,6 +99,7 @@ final class ApiV3Controller extends Controller
             'single-battle' => GetSingleBattleAction::class,
             'single-salmon' => GetSingleSalmonAction::class,
             'stage' => StageAction::class,
+            'unregistered-player' => UnregisteredPlayerAction::class,
             'user-salmon' => GetUserSalmonAction::class,
             'version' => VersionAction::class,
             'weapon' => WeaponAction::class,
