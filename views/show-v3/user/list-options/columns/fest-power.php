@@ -23,13 +23,13 @@ return [
       Icon::s3LobbySplatfest(),
       $f->asDecimal((float)$model->fest_power, 1),
     ]),
-    $model->bankara_power_before !== null && $model->bankara_power_before >= 0.1 => vsprintf('%s %s', [
-      Icon::s3LobbyBankara(),
-      $f->asDecimal((float)$model->bankara_power_before, 1),
-    ]),
     $model->bankara_power_after !== null && $model->bankara_power_after >= 0.1 => vsprintf('%s %s', [
       Icon::s3LobbyBankara(),
       $f->asDecimal((float)$model->bankara_power_after, 1),
+    ]),
+    $model->bankara_power_before !== null && $model->bankara_power_before >= 0.1 => vsprintf('%s %s', [
+      Icon::s3LobbyBankara(),
+      $f->asDecimal((float)$model->bankara_power_before, 1),
     ]),
     $model->series_weapon_power_before !== null && $model->series_weapon_power_before >= 0.1 => vsprintf('%s %s', [
       Icon::s3Weapon($model?->weapon, alt: Yii::t('app', 'Series Weapon Power')),
