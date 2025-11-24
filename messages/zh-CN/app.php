@@ -479,6 +479,7 @@ return [
     'Points' => '点数',
     'Position' => '位置',
     'Power' => '战力',
+    'Power (After)' => '',
     'Powered by' => 'Powered by',
     'Power Level' => '真格战力',
     'Prev.' => '上一个',

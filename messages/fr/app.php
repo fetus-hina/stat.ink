@@ -479,6 +479,7 @@ return [
     'Points' => 'Points',
     'Position' => 'Position',
     'Power' => 'Power',
+    'Power (After)' => '',
     'Powered by' => 'Propulsé par',
     'Power Level' => 'Niveau du Power',
     'Prev.' => 'Précédent',
