@@ -477,6 +477,7 @@ return [
     'Points' => '點數',
     'Position' => '位置',
     'Power' => '',
+    'Power (After)' => '',
     'Powered by' => '本站使用以下技術運行',
     'Power Level' => '能力值',
     'Prev.' => '上一個',

@@ -477,6 +477,7 @@ return [
     'Points' => '포인트',
     'Position' => '위치',
     'Power' => '',
+    'Power (After)' => '',
     'Powered by' => 'Powered by',
     'Power Level' => '',
     'Prev.' => '이전',

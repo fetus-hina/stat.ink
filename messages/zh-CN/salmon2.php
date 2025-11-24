@@ -63,7 +63,7 @@ return [
     'Rescues' => '救援',
     'Results of {userName}\'s job' => '{userName}的打工结果',
     'Rotation' => '打工日程排班',
-    'Salmon Run' => '鲑鱼跑',
+    'Salmon Run' => 'SALMON RUN',
     'Soon' => '即将开放',
     'Special Use' => '特殊武器使用',
     'Stats: Salmon Clear %' => '统计：打工通关率',

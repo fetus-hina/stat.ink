@@ -475,6 +475,7 @@ return [
     'Points' => '',
     'Position' => '',
     'Power' => '',
+    'Power (After)' => '',
     'Powered by' => '',
     'Power Level' => '',
     'Prev.' => '',

@@ -462,6 +462,7 @@ return [
     'Please wait.' => 'しばらくおまちください。',
     'Points' => 'ポイント',
     'Position' => '位置',
+    'Power (After)' => 'パワー(後)',
     'Power Level' => 'ガチパワー',
     'Power' => 'パワー',
     'Powered by' => 'Powered by',
