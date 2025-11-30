@@ -101,7 +101,7 @@ final class TypeHelper
     {
         return match (true) {
             is_array($value) => $value,
-            default => throw new TypeHelper('The value is not an array'),
+            default => throw new TypeError('The value is not an array'),
         };
     }
 

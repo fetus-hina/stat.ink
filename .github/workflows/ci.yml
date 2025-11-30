@@ -175,10 +175,10 @@ jobs:
           key: "npm-2-${{ hashFiles('package-lock.json') }}"
           restore-keys: npm-2-
       -
-        name: 'Use node.js 20 LTS'
+        name: 'Use node.js 24 LTS'
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
       -
         name: 'Install NPM packages'
         run: 'npm clean-install'
@@ -199,10 +199,10 @@ jobs:
             ~/.npm
           key: "npm-2-${{ hashFiles('package-lock.json') }}"
       -
-        name: 'Use node.js 20 LTS'
+        name: 'Use node.js 24 LTS'
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
       -
         name: 'Run `semistandard`'
         run: 'npx semistandard "resources/**/*[ej]s"'
@@ -223,10 +223,10 @@ jobs:
             ~/.npm
           key: "npm-2-${{ hashFiles('package-lock.json') }}"
       -
-        name: 'Use node.js 20 LTS'
+        name: 'Use node.js 24 LTS'
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
       -
         name: 'Run StyleLint'
         run: 'npx stylelint "resources/**/*.scss" "resources/**/*.css"'
@@ -296,16 +296,62 @@ jobs:
           php-version: '${{ env.UTILITY_PHP_VERSION }}'
           extensions: :php-psr
       -
-        name: 'Use node.js 20 LTS'
+        name: 'Use node.js 24 LTS'
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
       -
         name: 'Basic setup the app'
         run: 'make init-no-resource'
       -
         name: 'Check licenses'
         run: './yii license'
+  auditPackages:
+    name: 'Audit Packages'
+    needs:
+      - ciDoesNotSkip
+      - setupComposer
+      - setupNPM
+    runs-on: ubuntu-24.04
+    steps:
+      -
+        name: 'Install packages'
+        run: |
+          sudo apt update -y
+          sudo apt install -y jpegoptim libxml2-utils
+      -
+        uses: actions/checkout@v4
+      -
+        uses: actions/cache@v4
+        with:
+          path: |
+            vendor
+            ~/.cache/composer/files
+          key: "composer-${{ hashFiles('composer.lock') }}"
+      -
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            ~/.npm
+          key: "npm-2-${{ hashFiles('package-lock.json') }}"
+      -
+        name: 'Set PHP environment (PHP ${{ env.UTILITY_PHP_VERSION }})'
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '${{ env.UTILITY_PHP_VERSION }}'
+          extensions: :php-psr
+      -
+        name: 'Use node.js'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      -
+        name: 'Basic setup the app'
+        run: 'make init-no-resource'
+      -
+        name: 'Check packages'
+        run: './yii audit/audit'
   phpUnit:
     name: 'Build & Test (PHP ${{ matrix.php.version }}, PgSQL ${{ matrix.pgsql.version }})'
     needs:
@@ -379,10 +425,10 @@ jobs:
           php-version: '${{ matrix.php.version }}'
           extensions: :php-psr
       -
-        name: 'Use node.js 20 LTS'
+        name: 'Use node.js 24 LTS'
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
       -
         name: 'Basic setup the app'
         run: 'make init'
