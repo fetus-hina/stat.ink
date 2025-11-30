@@ -23,6 +23,7 @@ return [
   require __DIR__ . '/columns/special.php',
   require __DIR__ . '/columns/rank-before.php',
   require __DIR__ . '/columns/rank-after.php',
+  require __DIR__ . '/columns/fest-power-before.php',
   require __DIR__ . '/columns/fest-power.php',
   require __DIR__ . '/columns/level-before.php',
   require __DIR__ . '/columns/level-after.php',

@@ -65,7 +65,7 @@ return [
     'Rescues' => '救援次数',
     'S' => '被救援',
     'Salmometer' => '头目槽',
-    'Salmon Run' => '鲑鱼跑',
+    'Salmon Run' => 'SALMON RUN',
     'Scales' => '鳞片',
     'Stats' => '统计',
     'Stats (Bosses)' => '统计（巨大鲑鱼）',

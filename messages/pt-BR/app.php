@@ -477,6 +477,7 @@ return [
     'Points' => 'Pontos',
     'Position' => 'Posição',
     'Power' => '',
+    'Power (After)' => '',
     'Powered by' => 'Distribuído por',
     'Power Level' => 'Nível de Power',
     'Prev.' => 'Ant.',
