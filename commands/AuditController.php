@@ -49,7 +49,9 @@ final class AuditController extends Controller
         $ok = true;
 
         foreach ($this->getAuditFiles() as $path) {
-            $ok &= $this->doAudit($path);
+            if (!$this->doAudit($path)) {
+                $ok = false;
+            }
         }
 
         return $ok ? ExitCode::OK : ExitCode::UNSPECIFIED_ERROR;
