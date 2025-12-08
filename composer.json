@@ -47,7 +47,7 @@
     "statink/yii2-spl2-stages": "^1.0.2",
     "statink/yii2-twitter-webintents": "^1.0.2",
     "symfony/polyfill-php83": "^1.32",
-    "symfony/yaml": "^7.4.0",
+    "symfony/yaml": "^7.4.1",
     "twbs/bootstrap-icons": "^1.13.1",
     "yiisoft/yii2": "^2.0.53",
     "yiisoft/yii2-bootstrap": "^2.0.11",
@@ -58,7 +58,7 @@
   "require-dev": {
     "codeception/codeception": ">=5.3.2",
     "codeception/module-asserts": ">=3.2.1",
-    "codeception/module-filesystem": ">=3.0.1",
+    "codeception/module-filesystem": ">=3.0.2",
     "codeception/module-yii2": ">=2.0.4",
     "codeception/specify": ">=2",
     "codeception/verify": ">=3.3",
