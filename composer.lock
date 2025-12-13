@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f5b8eeb81641a555c859796410f05f5c",
+    "content-hash": "23883fc98d5c4f9845d7ad26dc57c39a",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -1798,16 +1798,16 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "12.0.3",
+            "version": "12.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "f910932317aa002c535894ed198d7827cfa1de56"
+                "reference": "430cdfd91dd6f14483d831df97cff5c776814782"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/f910932317aa002c535894ed198d7827cfa1de56",
-                "reference": "f910932317aa002c535894ed198d7827cfa1de56",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/430cdfd91dd6f14483d831df97cff5c776814782",
+                "reference": "430cdfd91dd6f14483d831df97cff5c776814782",
                 "shasum": ""
             },
             "require": {
@@ -1872,9 +1872,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-curl-class/php-curl-class/issues",
-                "source": "https://github.com/php-curl-class/php-curl-class/tree/12.0.3"
+                "source": "https://github.com/php-curl-class/php-curl-class/tree/12.0.4"
             },
-            "time": "2025-11-24T19:36:44+00:00"
+            "time": "2025-12-11T18:04:38+00:00"
         },
         {
             "name": "psr/container",
