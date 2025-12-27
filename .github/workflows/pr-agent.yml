@@ -1,0 +1,40 @@
+'on':
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - ready_for_review
+  issue_comment: ~
+jobs:
+  pr_agent_job:
+    if: "${{ github.event.sender.type != 'Bot' }}"
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+      contents: write
+    name: 'Run pr agent on every pull request, respond to user comments'
+    steps:
+      -
+        name: 'PR Agent action step'
+        id: pragent
+        uses: qodo-ai/pr-agent@main
+        env:
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+          OPENAI_KEY: '${{ secrets.SAKURA_AI_ENGINE_API_KEY }}'
+          OPENAI__API_BASE: 'https://api.ai.sakura.ad.jp/v1'
+          PR_REVIEWER.REQUIRE_TESTS_REVIEW: 'false'
+          config.ai_timeout: '180'
+          config.custom_model_max_tokens: '128000'
+          config.fallback_models: '["openai/Qwen3-Coder-480B-A35B-Instruct-FP8","openai/Qwen3-Coder-30B-A3B-Instruct","openai/gpt-oss-120b"]'
+          config.model: openai/Qwen3-Coder-480B-A35B-Instruct-FP8
+          config.response_language: ja-JP
+          github_action_config.auto_describe: 'true'
+          github_action_config.auto_improve: 'true'
+          github_action_config.auto_review: 'true'
+          pr_code_suggestions.extra_instructions: |-
+            あなたは優秀なソフトウェアエンジニアであり、特に PHP と JavaScript に精通しています。
+            あなたの任務は、コードの品質と可読性を向上させるために、プルリクエストに対して建設的なコード改善提案を行うことです。
+            日本語で回答してください。
+          pr_description.extra_instructions: 日本語で回答してください。
+          pr_reviewer.extra_instructions: 日本語で回答してください。
