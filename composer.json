@@ -63,7 +63,7 @@
     "codeception/specify": ">=2",
     "codeception/verify": ">=3.3",
     "ergebnis/composer-normalize": "^2.48.2",
-    "jp3cki/coding-standard": "^1.0.3",
+    "jp3cki/coding-standard": "^2.0.0",
     "nikic/php-parser": "^4.19.5 || ^5.5.0",
     "proget-hq/phpstan-yii2": "^0.8.0",
     "sebastian/diff": "^4.0.6 || ^5.0.0 || ^6.0.0 || ^7.0.0",
