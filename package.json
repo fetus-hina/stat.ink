@@ -6,10 +6,10 @@
     "email": "hina@fetus.jp"
   },
   "dependencies": {
-    "@babel/cli": "^7.28.3",
-    "@babel/core": "^7.28.5",
+    "@babel/cli": "^7.28.6",
+    "@babel/core": "^7.28.6",
     "@babel/polyfill": "^7.12.1",
-    "@babel/preset-env": "^7.28.5",
+    "@babel/preset-env": "^7.28.6",
     "@babel/preset-react": "^7.28.5",
     "@fortawesome/fontawesome-free": "^6.7.2",
     "@hacceuee/s3-pixel-icons": "^3.1.2",
@@ -24,7 +24,7 @@
     "bootswatch": "^3.4.1",
     "bowser": "^2.13.1",
     "cal-heatmap": "^4.2.4",
-    "caniuse-lite": "^1.0.30001763",
+    "caniuse-lite": "^1.0.30001764",
     "chart.js": "^3.9.1",
     "chartjs-adapter-luxon": "^1.3.1",
     "chartjs-chart-error-bars": "^3.10.0",

@@ -49,7 +49,7 @@
     "symfony/polyfill-php83": "^1.32",
     "symfony/yaml": "^7.4.1",
     "twbs/bootstrap-icons": "^1.13.1",
-    "yiisoft/yii2": "^2.0.53",
+    "yiisoft/yii2": "^2.0.54",
     "yiisoft/yii2-bootstrap": "^2.0.11",
     "yiisoft/yii2-httpclient": "^2.0.16",
     "yiisoft/yii2-queue": "^2.3.8",
