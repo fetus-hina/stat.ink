@@ -135,7 +135,8 @@ final class PostSalmonAction extends Action
         // Prefetch s3-img-gen
         if (
             !$user->hide_data_on_toppage &&
-            ArrayHelper::getValue(Yii::$app->params, 'useS3ImgGen')
+            ArrayHelper::getValue(Yii::$app->params, 'useS3ImgGen') &&
+            false // disable for now
         ) {
             Yii::$app->queue
                 ->priority(S3ImgGenPrefetchJob::getJobPriority())
