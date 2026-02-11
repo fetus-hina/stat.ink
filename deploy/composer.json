@@ -13,7 +13,7 @@
         "deployer/deployer": "^7.5.12"
     },
     "require-dev": {
-        "ergebnis/composer-normalize": "^2.49.0"
+        "ergebnis/composer-normalize": "^2.50.0"
     },
     "config": {
         "allow-plugins": {
