@@ -56,7 +56,7 @@
     "yiisoft/yii2-symfonymailer": "^4.0.0"
   },
   "require-dev": {
-    "codeception/codeception": ">=5.3.4",
+    "codeception/codeception": ">=5.3.5",
     "codeception/module-asserts": ">=3.2.1",
     "codeception/module-filesystem": ">=3.0.2",
     "codeception/module-yii2": ">=2.0.5",
