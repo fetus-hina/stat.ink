@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6b48952ff9051e2386e495f32a5a6e21",
+    "content-hash": "56df814ba418a095cf2140126147d948",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -4923,22 +4923,22 @@
         },
         {
             "name": "codeception/verify",
-            "version": "3.3.0",
+            "version": "3.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Verify.git",
-                "reference": "2591031f88a38b3b679315eac2b95ddda025afde"
+                "reference": "3d5df69a6d56685ca88fbbf7a1218f03b08324e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Verify/zipball/2591031f88a38b3b679315eac2b95ddda025afde",
-                "reference": "2591031f88a38b3b679315eac2b95ddda025afde",
+                "url": "https://api.github.com/repos/Codeception/Verify/zipball/3d5df69a6d56685ca88fbbf7a1218f03b08324e5",
+                "reference": "3d5df69a6d56685ca88fbbf7a1218f03b08324e5",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
                 "php": "^7.4 || ^8.0",
-                "phpunit/phpunit": "^9.6.11 || ^10.0 || ^11.0 || ^12.0"
+                "phpunit/phpunit": "^9.6.11 || ^10.0 || ^11.0 || ^12.0 || ^13.0"
             },
             "type": "library",
             "autoload": {
@@ -4966,9 +4966,9 @@
             "description": "BDD assertion library for PHPUnit",
             "support": {
                 "issues": "https://github.com/Codeception/Verify/issues",
-                "source": "https://github.com/Codeception/Verify/tree/3.3.0"
+                "source": "https://github.com/Codeception/Verify/tree/3.4.0"
             },
-            "time": "2025-04-16T07:12:02+00:00"
+            "time": "2026-02-22T22:13:25+00:00"
         },
         {
             "name": "dealerdirect/phpcodesniffer-composer-installer",
