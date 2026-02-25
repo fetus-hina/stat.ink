@@ -61,7 +61,7 @@
     "codeception/module-filesystem": ">=3.0.2",
     "codeception/module-yii2": ">=2.0.5",
     "codeception/specify": ">=2",
-    "codeception/verify": ">=3.3",
+    "codeception/verify": ">=3.4",
     "ergebnis/composer-normalize": "^2.50.0",
     "jp3cki/coding-standard": "^2.0.0",
     "nikic/php-parser": "^4.19.5 || ^5.5.0",
