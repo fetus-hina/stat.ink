@@ -26,9 +26,9 @@ jobs:
           OPENAI__API_BASE: 'https://api.ai.sakura.ad.jp/v1'
           PR_REVIEWER.REQUIRE_TESTS_REVIEW: 'false'
           config.ai_timeout: '180'
-          config.custom_model_max_tokens: '128000'
+          config.custom_model_max_tokens: '512000'
           config.fallback_models: '["openai/Qwen3-Coder-480B-A35B-Instruct-FP8","openai/Qwen3-Coder-30B-A3B-Instruct","openai/gpt-oss-120b"]'
-          config.model: openai/Qwen3-Coder-480B-A35B-Instruct-FP8
+          config.model: openai/preview/Kimi-K2.5
           config.response_language: ja-JP
           github_action_config.auto_describe: 'true'
           github_action_config.auto_improve: 'true'
