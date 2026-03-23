@@ -36,7 +36,15 @@ use yii\web\View;
 TableResponsiveForceAsset::register($this);
 
 $isXmatch = $battle->lobby?->key === 'xmatch';
+$isXMR = false;
 $isTricolor = $battle->rule?->key === 'tricolor';
+
+if (
+  $isXmatch &&
+  version_compare($battle->version?->tag ?? '0.0.0', '11.1.0', '>=')
+) {
+  $isXMR = true;
+}
 
 ?>
 <div class="table-responsive table-responsive-force mb-3">
@@ -48,6 +56,16 @@ $isTricolor = $battle->rule?->key === 'tricolor';
         <th class="text-nowrap text-center col-weapon"><?= Html::encode(Yii::t('app', 'Weapon')) ?></th>
 <?php if ($isXmatch) { ?>
         <th class="text-nowrap text-center col-x">
+<?php if ($isXMR) { ?>
+          <?= Html::tag(
+            'span',
+            Icon::s3LobbyX() . Html::encode(' MR'),
+            [
+              'class' => 'auto-tooltip',
+              'title' => Yii::t('app-xmatch3', 'Matching Range'),
+            ],
+          ) . "\n" ?>
+<?php } else { ?>
           <?= Html::tag(
             'span',
             Html::encode('X'),
@@ -56,6 +74,7 @@ $isTricolor = $battle->rule?->key === 'tricolor';
               'title' => Yii::t('app-xmatch3', 'X: Match making group'),
             ],
           ) . "\n" ?>
+<?php } ?>
 <?php } ?>
         <th class="text-nowrap text-center col-inked"><?= Html::encode(Yii::t('app', 'Inked')) ?></th>
         <th class="text-nowrap text-center col-kill"><?= implode(' ', [
@@ -86,6 +105,7 @@ $isTricolor = $battle->rule?->key === 'tricolor';
         'players' => $ourTeamPlayers,
         'role' => $battle->ourTeamRole,
         'theme' => $battle->ourTeamTheme,
+        'useXMatchingRange' => $isXMR,
         'weaponMatchingGroup' => $weaponMatchingGroup,
       ]) . "\n" ?>
       <?= $this->render('//show-v3/battle/players/team', [
@@ -99,6 +119,7 @@ $isTricolor = $battle->rule?->key === 'tricolor';
         'players' => $theirTeamPlayers,
         'role' => $battle->theirTeamRole,
         'theme' => $battle->theirTeamTheme,
+        'useXMatchingRange' => $isXMR,
         'weaponMatchingGroup' => $weaponMatchingGroup,
       ]) . "\n" ?>
 <?php if ($isTricolor) { ?>
@@ -113,6 +134,7 @@ $isTricolor = $battle->rule?->key === 'tricolor';
         'players' => $thirdTeamPlayers,
         'role' => $battle->thirdTeamRole,
         'theme' => $battle->thirdTeamTheme,
+        'useXMatchingRange' => $isXMR,
         'weaponMatchingGroup' => $weaponMatchingGroup,
       ]) . "\n" ?>
 <?php } ?>
@@ -129,6 +151,7 @@ $isTricolor = $battle->rule?->key === 'tricolor';
         'players' => $thirdTeamPlayers,
         'role' => $battle->thirdTeamRole,
         'theme' => $battle->thirdTeamTheme,
+        'useXMatchingRange' => $isXMR,
         'weaponMatchingGroup' => $weaponMatchingGroup,
       ]) . "\n" ?>
 <?php } ?>
@@ -143,6 +166,7 @@ $isTricolor = $battle->rule?->key === 'tricolor';
         'players' => $theirTeamPlayers,
         'role' => $battle->theirTeamRole,
         'theme' => $battle->theirTeamTheme,
+        'useXMatchingRange' => $isXMR,
         'weaponMatchingGroup' => $weaponMatchingGroup,
       ]) . "\n" ?>
       <?= $this->render('//show-v3/battle/players/team', [
@@ -156,13 +180,14 @@ $isTricolor = $battle->rule?->key === 'tricolor';
         'players' => $ourTeamPlayers,
         'role' => $battle->ourTeamRole,
         'theme' => $battle->ourTeamTheme,
+        'useXMatchingRange' => $isXMR,
         'weaponMatchingGroup' => $weaponMatchingGroup,
       ]) . "\n" ?>
 <?php } ?>
     </tbody>
   </table>
 </div>
-<?php if ($isXmatch && $weaponMatchingGroupVersion) { ?>
+<?php if ($isXmatch && !$isXMR && $weaponMatchingGroupVersion) { ?>
 <p class="mt-2 mb-3 text-right small">
   [<?= Html::encode(Yii::t('app-xmatch3', 'X: Match making group')) ?>]
 <?php if (version_compare($weaponMatchingGroupVersion->minimum_version, '6.0.0', '<')) { ?>
