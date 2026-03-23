@@ -115,6 +115,11 @@ final class Battle3Helper
             return null;
         }
 
+        // v11.1.0 以降はこのシステムが廃止された
+        if (version_compare($gameVersion->tag, '11.1.0', '>=')) {
+            return null;
+        }
+
         // (どうせ大した量にはならないので)全バージョンデータを取ってきて、
         // 開始バージョンが大きい順に並べる
         $versions = ArrayHelper::sort(

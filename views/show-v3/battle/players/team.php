@@ -31,6 +31,7 @@ use yii\web\View;
  * @var bool $isTricolor
  * @var bool $isXmatch
  * @var bool $ourTeam
+ * @var bool $useXMatchingRange
  * @var string|null $color
  */
 
@@ -55,6 +56,27 @@ $total = function (string $attrName) use ($players): ?int {
 $totalK = $total('kill');
 $totalD = $total('death');
 
+$avgMR = null;
+if ($isXmatch && $useXMatchingRange && count($players) > 0) {
+  $tmpTotal = array_reduce(
+    array_map(
+      fn (BattlePlayer3|BattleTricolorPlayer3 $model): ?float => filter_var(
+        $model->weapon?->mainweapon?->matching_range,
+        FILTER_VALIDATE_FLOAT,
+      ),
+      $players
+    ),
+    fn (?float $carry, ?float $item): ?float => ($carry !== null && $item !== null)
+      ? $carry + $item
+      : null,
+    0.0,
+  );
+
+  if ($tmpTotal !== null && count($players) > 0) {
+    $avgMR = $tmpTotal / count($players);
+  }
+}
+
 $colorClass = $color ? "bg-{$color}" : null;
 if ($colorClass) {
   $this->registerCss(vsprintf('.%s{%s}', [
@@ -77,8 +99,11 @@ if ($colorClass) {
   <?= Html::tag(
     'th',
     $this->render('team-name', compact('ourTeam', 'role', 'theme')),
-    ['colspan' => $isXmatch ? '4' : '3'],
+    ['colspan' => $isXmatch && !$useXMatchingRange ? '4' : '3'],
   ) . "\n"?>
+<?php if ($isXmatch && $useXMatchingRange) { ?>
+  <td class="text-right"><?= $f->asDecimal($avgMR, 2) ?></td>
+<?php } ?>
   <td class="text-right"><?= $f->asInteger($total('inked')) ?></td>
   <td class="text-right"><?= $f->asInteger($totalK) ?></td>
   <td class="text-right"><?= $f->asInteger($totalD) ?></td>
@@ -110,6 +135,7 @@ foreach (array_values($players) as $i => $player) {
     'nPlayers' => count($players),
     'playedWith' => $playedWith,
     'player' => $player,
+    'useXMatchingRange' => $useXMatchingRange,
     'weaponMatchingGroup' => $weaponMatchingGroup,
   ]) . "\n";
 }

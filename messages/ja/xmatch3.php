@@ -9,6 +9,7 @@
 declare(strict_types=1);
 
 return [
+    'Matching Range' => 'マッチング射程',
     'X: Match making group' => 'X: マッチンググループ',
 
     'Matchmaking Group for {fromSeason} through {toSeason}' => '{fromSeason}から{toSeason}までのマッチンググループ',

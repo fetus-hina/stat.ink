@@ -29,6 +29,7 @@ use yii\web\View;
  * @var bool $isFirst
  * @var bool $isTricolor
  * @var bool $isXmatch
+ * @var bool $useXMatchingRange
  * @var int $nPlayers
  * @var string|null $colorClass
  */
@@ -74,10 +75,16 @@ if ($player->is_me) {
     ),
   ) . "\n" ?>
 <?php if ($isXmatch) { ?>
+<?php if ($useXMatchingRange) { ?>
+  <td class="text-right"><?=
+    $f->asDecimal($player->weapon?->mainweapon?->matching_range, 1)
+  ?></td>
+<?php } else { ?>
   <?= $this->render('player/cell-x-matching-group', [
     'group' => $weaponMatchingGroup[$player->weapon?->key ?? 'unknown'] ?? null,
     'weapon' => $player->weapon,
   ]) . "\n" ?>
+<?php } ?>
 <?php } ?>
   <td class="text-right"><?= $f->asInteger($player->inked) ?></td>
   <td class="text-right"><?php

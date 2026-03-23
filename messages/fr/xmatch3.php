@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2023-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2023-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Hitomi <119537233+Hitomi11212@users.noreply.github.com>
@@ -32,6 +32,7 @@ return [
     'L' => 'L',
     'Long' => 'Longue Portée',
     'M' => 'M',
+    'Matching Range' => '',
     'Matchmaking Group for {fromSeason} through {toSeason}' => 'Groupemment de création de Match de {fromSeason} jusqu\'a {toSeason}',
     'Matchmaking Group from {fromSeason}' => 'Groupe de création de match depuis {fromSeason}',
     'Middle' => 'Mi-Distance',
