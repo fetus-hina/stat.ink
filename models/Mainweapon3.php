@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -20,6 +21,7 @@ use yii\db\ActiveRecord;
  * @property string $key
  * @property integer $type_id
  * @property string $name
+ * @property string $matching_range
  *
  * @property WeaponType3 $type
  * @property Weapon3[] $weapon3s
@@ -31,12 +33,15 @@ class Mainweapon3 extends ActiveRecord
         return 'mainweapon3';
     }
 
+    #[Override]
     public function rules()
     {
         return [
+            [['matching_range'], 'default', 'value' => null],
             [['key', 'type_id', 'name'], 'required'],
             [['type_id'], 'default', 'value' => null],
             [['type_id'], 'integer'],
+            [['matching_range'], 'number'],
             [['key'], 'string', 'max' => 32],
             [['name'], 'string', 'max' => 48],
             [['key'], 'unique'],
@@ -45,6 +50,7 @@ class Mainweapon3 extends ActiveRecord
         ];
     }
 
+    #[Override]
     public function attributeLabels()
     {
         return [
@@ -52,6 +58,7 @@ class Mainweapon3 extends ActiveRecord
             'key' => 'Key',
             'type_id' => 'Type ID',
             'name' => 'Name',
+            'matching_range' => 'Matching Range',
         ];
     }
 

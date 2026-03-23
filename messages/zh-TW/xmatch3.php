@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2023-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2023-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author ADe <loezone@gmail.com>
@@ -32,6 +32,7 @@ return [
     'L' => '',
     'Long' => '',
     'M' => '',
+    'Matching Range' => '',
     'Matchmaking Group for {fromSeason} through {toSeason}' => '',
     'Matchmaking Group from {fromSeason}' => '',
     'Middle' => '',

@@ -40,8 +40,8 @@ final class WeaponAction extends ViewAction
         return array_map(
             fn (Weapon3 $model): array => WeaponApiFormatter::toJson($model, $full),
             Weapon3::find()
-                ->joinWith(['mainweapon.type'], true)
-                ->with(['canonical', 'mainweapon', 'subweapon', 'weapon3Aliases'])
+                ->joinWith(['mainweapon', 'mainweapon.type'], true)
+                ->with(['canonical', 'subweapon', 'weapon3Aliases'])
                 ->orderBy([
                     '{{%weapon_type3}}.[[rank]]' => SORT_ASC,
                     '{{%weapon3}}.[[key]]' => SORT_ASC,

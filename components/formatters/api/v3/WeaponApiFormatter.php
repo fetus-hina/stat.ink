@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\components\formatters\api\v3;
 
+use app\components\helpers\TypeHelper;
 use app\models\Weapon3;
 use app\models\WeaponType3;
 
@@ -26,6 +27,7 @@ final class WeaponApiFormatter
             'aliases' => AliasApiFormatter::allToJson($model->weapon3Aliases, $fullTranslate),
             'type' => WeaponTypeApiFormatter::toJson(self::getWeaponType($model), $fullTranslate),
             'name' => NameApiFormatter::toJson($model->name, 'app-weapon3', $fullTranslate),
+            'matching_range' => TypeHelper::floatOrNull($model->mainweapon?->matching_range),
             'main' => self::getMainWeaponKey($model),
             'sub' => SubweaponApiFormatter::toJson($model->subweapon, $fullTranslate),
             'special' => SpecialApiFormatter::toJson($model->special, $fullTranslate),
