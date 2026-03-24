@@ -73,13 +73,13 @@ $salmonIcon = Icon::s3Salmon();
   ]),
 ) . "\n" ?>
 <div class="table-responsive table-responsive-force">
-  <table class="table table-striped table-condensed table-sortable">
+  <table class="table table-striped table-condensed table-sortable mb-0">
     <thead>
       <tr>
         <th data-sort="int" data-sort-onload="yes"></th>
         <th data-sort="int"><?= Html::tag(
           'span',
-          Html::encode('X(2)'),
+          Icon::s3LobbyX() . '(S2-)',
           [
             'class' => 'auto-tooltip',
             'title' => Yii::t('app-xmatch3', 'Matchmaking Group for {fromSeason} through {toSeason}', [
@@ -90,12 +90,20 @@ $salmonIcon = Icon::s3Salmon();
         ) ?></th>
         <th data-sort="int"><?= Html::tag(
           'span',
-          Html::encode('X(6)'),
+          Icon::s3LobbyX() . '(S6-)',
           [
             'class' => 'auto-tooltip',
             'title' => Yii::t('app-xmatch3', 'Matchmaking Group from {fromSeason}', [
                 'fromSeason' => $seasons[6] ?? '',
             ]),
+          ],
+        ) ?></th>
+        <th data-sort="int"><?= Html::tag(
+          'span',
+          Icon::s3LobbyX() . '(MR)',
+          [
+            'class' => 'auto-tooltip',
+            'title' => Yii::t('app-xmatch3', 'Matching Range'),
           ],
         ) ?></th>
         <th data-sort="int"><?= Html::encode(Yii::t('app', 'Category')) ?></th>
@@ -149,6 +157,18 @@ $salmonIcon = Icon::s3Salmon();
           'weapon' => $weapon,
           'group' => $matchingGroups6[$weapon->key] ?? null,
         ]) . "\n" ?>
+        <?= Html::tag(
+          'td',
+          $weapon->mainweapon?->matching_range === null
+            ? ''
+            : Yii::$app->formatter->asDecimal($weapon->mainweapon?->matching_range, 1),
+          [
+            'class' => 'text-center',
+            'data' => [
+              'sort-value' => (int)(($weapon->mainweapon?->matching_range ?? 0.0) * 10.0),
+            ],
+          ],
+        ) . "\n" ?>
         <?= Html::tag(
           'td',
           implode(' ', [
