@@ -8,6 +8,7 @@
 
 declare(strict_types=1);
 
+use app\assets\ApiInfoWeapon3MatchingRangeAsset;
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\ApiInfoName;
 use app\components\widgets\Icon;
@@ -48,6 +49,9 @@ $seasons = (function (): array {
 })();
 
 $salmonIcon = Icon::s3Salmon();
+
+ApiInfoWeapon3MatchingRangeAsset::register($this);
+$this->registerJs('$(".mr-value").matchingRange();');
 
 ?>
 <h2><?= Html::encode(Yii::t('app', 'Main Weapon')) ?></h2>
@@ -163,7 +167,7 @@ $salmonIcon = Icon::s3Salmon();
             ? ''
             : Yii::$app->formatter->asDecimal($weapon->mainweapon?->matching_range, 1),
           [
-            'class' => 'text-center',
+            'class' => 'text-center mr-value',
             'data' => [
               'sort-value' => (int)(($weapon->mainweapon?->matching_range ?? 0.0) * 10.0),
             ],

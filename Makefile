@@ -32,6 +32,7 @@ RESOURCE_TARGETS := \
 	resources/.compiled/slack/slack.js \
 	resources/.compiled/stat.ink/active-reltime.js \
 	resources/.compiled/stat.ink/agent.js \
+	resources/.compiled/stat.ink/api-info-weapon3-matching-range.js \
 	resources/.compiled/stat.ink/auto-tooltip.js \
 	resources/.compiled/stat.ink/battle-detail.css \
 	resources/.compiled/stat.ink/battle-edit.js \
@@ -276,6 +277,7 @@ resources/.compiled/gears/calc.js: resources/gears/calc.js node_modules
 resources/.compiled/slack/slack.js: resources/slack/slack.js node_modules
 resources/.compiled/stat.ink/active-reltime.js: resources/stat.ink/active-reltime.js node_modules
 resources/.compiled/stat.ink/agent.js: resources/stat.ink/agent.es node_modules
+resources/.compiled/stat.ink/api-info-weapon3-matching-range.js: resources/stat.ink/api-info-weapon3-matching-range.es node_modules
 resources/.compiled/stat.ink/auto-tooltip.js: resources/stat.ink/auto-tooltip.es node_modules
 resources/.compiled/stat.ink/battle-detail.css: resources/stat.ink/battle-detail.scss node_modules
 resources/.compiled/stat.ink/battle-edit.js: resources/stat.ink/battle-edit.js node_modules
