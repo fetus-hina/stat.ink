@@ -264,7 +264,7 @@ endef
 define png
 	@mkdir -p $(dir $(1))
 	@rm -f $(1)
-	npx optipng --quiet -strip all -o7 -out $(1) $(2)
+	optipng --quiet -strip all -o7 -out $(1) $(2)
 endef
 
 WEAPON2_JS := $(wildcard resources/stat.ink/weapon2.js/*.js)
@@ -392,13 +392,13 @@ resources/.compiled/stat.ink/favicon.png: resources/.compiled/stat.ink/favicon.s
 	@mkdir -p $(dir $@)
 	@rm -f $@
 	node bin/svg2png.js -o $@ $<
-	npx optipng --quiet -strip all -o7 $@
+	optipng --quiet -strip all -o7 $@
 
 define favicon
 	@mkdir -p $(dir $(1))
 	@rm -f $(1)
 	convert $(2) -background none -resize $(3)x$(3) -gravity center -extent $(3)x$(3) $(1)
-	npx optipng --quiet -strip all -o7 $(1)
+	optipng --quiet -strip all -o7 $(1)
 endef
 
 resources/.compiled/stat.ink/favicon-016.png: resources/.compiled/stat.ink/favicon.png
