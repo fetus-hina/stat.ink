@@ -74,7 +74,6 @@
     "terser": "^5.46.1",
     "ts-loader": "^9.5.4",
     "twemoji": "^14.0.2",
-    "twemoji-emojis": "^14.1.0",
     "typescript": "^6.0.2",
     "updates": "^17.11.2",
     "webpack": "^5.105.4",
