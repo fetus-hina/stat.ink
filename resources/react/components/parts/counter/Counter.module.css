@@ -1,0 +1,10 @@
+.root {
+  font-size: 16px;
+  line-height: 1.3;
+  margin: 0;
+  text-align: right;
+}
+
+.initializing {
+  min-height: 104px;
+}

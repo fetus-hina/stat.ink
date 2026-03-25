@@ -46,7 +46,7 @@ class ImageOptimizeJob extends BaseObject implements JobInterface
             return;
         }
 
-        $cmdline = vsprintf('/usr/bin/env %s -quiet -strip all -o7 -out %s %s', [
+        $cmdline = vsprintf('/usr/bin/env %s --quiet -strip all -o7 -out %s %s', [
             escapeshellarg(Yii::getAlias('@app/node_modules/.bin/optipng')),
             escapeshellarg($this->outPath),
             escapeshellarg($this->inPath),

@@ -20,28 +20,48 @@ const forceAnalyze = false;
 module.exports = {
   mode: mode,
   entry: {
-    'counter-app.js': './resources/react/counter-app',
-    'index-app.js': './resources/react/index-app',
+    'counter-app.js': './resources/react/counter-app.tsx',
+    'index-app.js': './resources/react/index-app.tsx',
   },
   output: {
     path: path.resolve(__dirname, 'resources', '.compiled', 'react'),
     filename: '[name]',
   },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js'],
+  },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.tsx?$/,
+        use: {
+          loader: 'ts-loader',
+          options: {
+            configFile: path.resolve(__dirname, 'tsconfig.react.json'),
+          },
+        },
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.module\.css$/,
         use: [
           {
-            loader: 'babel-loader',
+            loader: 'style-loader',
             options: {
-              presets: [
-                ['@babel/env', {
-                  useBuiltIns: 'entry',
-                  corejs: 3,
-                }],
-                '@babel/react',
-              ],
+              esModule: false,
+            },
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              esModule: false,
+              modules: {
+                namedExport: false,
+                exportLocalsConvention: 'as-is',
+                localIdentName: mode === 'production'
+                  ? '[hash:base64:8]'
+                  : '[name]__[local]--[hash:base64:5]',
+              },
             },
           },
         ],

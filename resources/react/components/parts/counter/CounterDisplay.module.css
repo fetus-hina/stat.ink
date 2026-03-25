@@ -1,0 +1,25 @@
+.root {
+  display: inline-block;
+  font-family: DSEG7-Classic, fantasy;
+  font-size: 1.618em;
+  font-style: italic;
+  font-weight: 400;
+  position: relative;
+}
+
+.padding {
+  color: transparent;
+}
+
+.bgNumber {
+  color: rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  left: 0;
+  position: absolute;
+  top: 0;
+  z-index: -1;
+}
+
+:global(body.theme-dark) .bgNumber {
+  color: rgba(255, 255, 255, 0.05);
+}

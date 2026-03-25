@@ -18,6 +18,7 @@ use app\components\helpers\TypeHelper;
 use yii\base\Action;
 use yii\console\ExitCode;
 
+use function bin2hex;
 use function escapeshellarg;
 use function exec;
 use function file_exists;
@@ -67,9 +68,13 @@ final class UpRevisionAction extends Action
 
     private function getRevision(): string
     {
-        return $this->getRevisionByDeployerFile()
-            ?? $this->getRevisionByGit()
-            ?? $this->generateRandomRevision();
+        return YII_ENV_DEV
+            ? $this->generateRandomRevision()
+            : (
+                $this->getRevisionByDeployerFile()
+                    ?? $this->getRevisionByGit()
+                    ?? $this->generateRandomRevision()
+            );
     }
 
     private function getRevisionByDeployerFile(): ?string
@@ -108,7 +113,7 @@ final class UpRevisionAction extends Action
     private function generateRandomRevision(): string
     {
         $randomizer = new Randomizer(new Secure());
-        return $this->makeGitShortRevision($randomizer->getRandomBytes(20));
+        return $this->makeGitShortRevision(bin2hex($randomizer->getBytes(20)));
     }
 
     private function makeGitShortRevision(string $revision): string
