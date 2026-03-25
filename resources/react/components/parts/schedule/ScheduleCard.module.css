@@ -32,13 +32,13 @@
 .media16x9::before {
   display: block;
   padding-top: calc(9 / 16 * 100%);
-  content: "";
+  content: '';
 }
 
 .media32x9::before {
   display: block;
   padding-top: calc(9 / 32 * 100%);
-  content: "";
+  content: '';
 }
 
 .content {

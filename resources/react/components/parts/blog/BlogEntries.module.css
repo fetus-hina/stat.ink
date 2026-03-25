@@ -16,7 +16,7 @@
 
 .li::after {
   display: inline;
-  content: "|";
+  content: '|';
   margin-left: 1em;
 }
 
