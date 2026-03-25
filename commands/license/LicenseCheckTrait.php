@@ -44,6 +44,7 @@ trait LicenseCheckTrait
         '0BSD',
         'AFLv2.1',
         'Apache-2.0',
+        'Apache-2.0*',
         'BSD',
         'BSD*',
         'BSD-2-Clause',
