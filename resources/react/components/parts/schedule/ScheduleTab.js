@@ -1,4 +1,3 @@
-import React from 'react';
 import classes from './ScheduleTab.module.css';
 import { useSelector } from 'react-redux';
 

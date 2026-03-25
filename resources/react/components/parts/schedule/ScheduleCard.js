@@ -1,4 +1,3 @@
-import React from 'react';
 import classes from './ScheduleCard.module.css';
 
 export default function ScheduleCard (props) {

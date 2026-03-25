@@ -1,4 +1,3 @@
-import React from 'react';
 import ScheduleContent from './ScheduleContent';
 import classes from './ScheduleContents.module.css';
 import esc from 'escape-html';

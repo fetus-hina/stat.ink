@@ -1,4 +1,3 @@
-import React from 'react';
 import ScheduleCard from './ScheduleCard';
 import ScheduleContentHeading from './ScheduleContentHeading';
 import classes from './ScheduleContent.module.css';

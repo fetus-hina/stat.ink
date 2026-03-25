@@ -1,4 +1,3 @@
-import React from 'react';
 
 export default function ScheduleContentHeadingIcon (props) {
   const { schedule } = props;

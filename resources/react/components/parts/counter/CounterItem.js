@@ -1,6 +1,5 @@
 import CounterIcon from './CounterIcon';
 import CounterDisplay from './CounterDisplay';
-import React from 'react';
 import classes from './CounterItem.module.css';
 
 export default function CounterItem (props) {

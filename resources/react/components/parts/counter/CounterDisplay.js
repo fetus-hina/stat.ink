@@ -1,4 +1,3 @@
-import React from 'react';
 import classes from './CounterDisplay.module.css';
 
 export default function CounterDisplay (props) {

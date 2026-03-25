@@ -1,5 +1,5 @@
 import Impl from './counter/Counter';
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCounter } from '../../actions/counter';
 

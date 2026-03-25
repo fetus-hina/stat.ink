@@ -1,5 +1,4 @@
 import BattleCard from './BattleCard';
-import React from 'react';
 
 export default function BattleCardList (props) {
   const { battles, fallbackImage, reltime } = props;

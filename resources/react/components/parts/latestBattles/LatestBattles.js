@@ -1,6 +1,5 @@
 import BattleCardList from '../BattleCardList';
 import Heading from './Heading';
-import React from 'react';
 import { useSelector } from 'react-redux';
 
 export default function LatestBattles () {

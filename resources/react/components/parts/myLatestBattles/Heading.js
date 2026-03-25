@@ -1,4 +1,3 @@
-import React from 'react';
 import esc from 'escape-html';
 import { useSelector } from 'react-redux';
 

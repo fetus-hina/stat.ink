@@ -1,5 +1,5 @@
 import Impl from './schedule/Schedule';
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchSchedule, scheduleTickTime } from '../../actions/schedule';
 

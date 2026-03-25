@@ -1,4 +1,3 @@
-import React from 'react';
 import RelTime from './RelTime';
 import classes from './BattleCard.module.css';
 

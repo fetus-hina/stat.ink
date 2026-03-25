@@ -1,5 +1,5 @@
 import Impl from './latestBattles/LatestBattles';
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchLatestBattles } from '../../actions/latestBattles';
 

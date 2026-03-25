@@ -1,5 +1,4 @@
 import CounterItem from './CounterItem';
-import React from 'react';
 import classes from './Counter.module.css';
 import { STATUS_OK } from '../../../constants';
 import { useSelector } from 'react-redux';

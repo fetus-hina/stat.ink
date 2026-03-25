@@ -1,5 +1,4 @@
 import Heading from './Heading';
-import React from 'react';
 import ScheduleDisplay from './ScheduleDisplay';
 
 export default function Schedule () {

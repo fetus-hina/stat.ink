@@ -1,4 +1,3 @@
-import React from 'react';
 import classes from './BlogEntries.module.css';
 import { STATUS_FAILED, STATUS_LOADING } from '../../../constants';
 import { useSelector } from 'react-redux';

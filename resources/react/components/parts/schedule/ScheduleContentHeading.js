@@ -1,4 +1,3 @@
-import React from 'react';
 import ScheduleContentHeadingIcon from './ScheduleContentHeadingIcon';
 import ScheduleContentHeadingText from './ScheduleContentHeadingText';
 import ScheduleContentHeadingTime from './ScheduleContentHeadingTime';

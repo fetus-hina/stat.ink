@@ -1,4 +1,3 @@
-import React from 'react';
 import { STATUS_LOADING } from '../../../constants';
 import { useSelector } from 'react-redux';
 

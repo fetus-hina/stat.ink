@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import ScheduleContents from './ScheduleContents';
 import ScheduleTabs from './ScheduleTabs';
 import { useSelector } from 'react-redux';

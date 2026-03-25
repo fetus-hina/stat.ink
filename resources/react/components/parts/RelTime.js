@@ -1,4 +1,3 @@
-import React from 'react';
 
 export default function RelTime (props) {
   const { now, time, translations } = props;
