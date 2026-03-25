@@ -2,36 +2,11 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import ScheduleCard from './ScheduleCard';
 import ScheduleContentHeading from './ScheduleContentHeading';
+import classes from './ScheduleContent.module.css';
 import { connect } from 'react-redux';
-import { createUseStyles } from 'react-jss';
-
-const useStyles = createUseStyles({
-  schedule: {
-    flex: '1 1 100%',
-    marginLeft: '15px',
-    marginRight: '15px',
-    maxWidth: '100%',
-
-    '@media (min-width: 992px)': {
-      maxWidth: 'calc(50% - 30px)'
-    }
-  },
-  cards: {
-    display: 'flex',
-    flexWrap: 'nowrap',
-    marginLeft: '-15px',
-    marginRight: '-15px'
-  },
-  card: {
-    flex: '1 1 50%',
-    marginLeft: '15px',
-    marginRight: '15px'
-  }
-});
 
 function ScheduleContent (props) {
   const { mode, modeIcon } = props;
-  const classes = useStyles();
   const schedules = getDisplayTargetSchedules(props);
 
   return schedules.map((sc, i) => (

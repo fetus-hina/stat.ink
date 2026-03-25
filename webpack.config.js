@@ -46,6 +46,30 @@ module.exports = {
           },
         ],
       },
+      {
+        test: /\.module\.css$/,
+        use: [
+          {
+            loader: 'style-loader',
+            options: {
+              esModule: false,
+            },
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              esModule: false,
+              modules: {
+                namedExport: false,
+                exportLocalsConvention: 'as-is',
+                localIdentName: mode === 'production'
+                  ? '[hash:base64:8]'
+                  : '[name]__[local]--[hash:base64:5]',
+              },
+            },
+          },
+        ],
+      },
     ],
   },
   plugins: [],

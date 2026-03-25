@@ -1,0 +1,12 @@
+.tabContentRoot {
+  display: flex;
+  flex-wrap: nowrap;
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+@media (max-width: 991px) {
+  .tabContentRoot {
+    flex-wrap: wrap;
+  }
+}

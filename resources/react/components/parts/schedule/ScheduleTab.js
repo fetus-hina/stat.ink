@@ -1,23 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import classes from './ScheduleTab.module.css';
 import { connect } from 'react-redux';
-import { createUseStyles } from 'react-jss';
-
-const useStyles = createUseStyles({
-  pointer: {
-    cursor: 'pointer'
-  },
-  modeIcon: {
-    height: '1.1em',
-    maxWidth: 'none',
-    verticalAlign: 'baseline',
-    width: 'auto'
-  }
-});
 
 function ScheduleTab (props) {
   const { isSelected, item, onChanged, schedule } = props;
-  const classes = useStyles();
   const mode = extractMode(schedule, item);
 
   if (!mode || !mode.schedules || mode.schedules.length < 1) {
@@ -32,7 +19,7 @@ function ScheduleTab (props) {
       aria-selected={isSelected}
     >
       <a className={classes.pointer} onClick={() => { onChanged(item.id); }}>
-        {label(classes, mode, props)}
+        {label(mode, props)}
       </a>
     </li>
   );
@@ -48,7 +35,7 @@ ScheduleTab.propTypes = {
   translations: PropTypes.object
 };
 
-function label (classes, mode, props) {
+function label (mode, props) {
   const { gameIcons, isSelected, item, now, translations } = props;
 
   if (!mode) {

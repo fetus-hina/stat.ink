@@ -1,0 +1,25 @@
+.schedule {
+  flex: 1 1 100%;
+  margin-left: 15px;
+  margin-right: 15px;
+  max-width: 100%;
+}
+
+@media (min-width: 992px) {
+  .schedule {
+    max-width: calc(50% - 30px);
+  }
+}
+
+.cards {
+  display: flex;
+  flex-wrap: nowrap;
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+.card {
+  flex: 1 1 50%;
+  margin-left: 15px;
+  margin-right: 15px;
+}

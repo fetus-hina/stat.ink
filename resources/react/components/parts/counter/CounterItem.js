@@ -2,24 +2,9 @@ import CounterIcon from './CounterIcon';
 import CounterDisplay from './CounterDisplay';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { createUseStyles } from 'react-jss';
-
-const useStyles = createUseStyles({
-  item: {
-  },
-  icon: {
-    marginRight: '0.618ex'
-  },
-  label: {
-    marginRight: '0.618ex'
-  },
-  value: {
-    whiteSpace: 'nowrap'
-  }
-});
+import classes from './CounterItem.module.css';
 
 export default function CounterItem (props) {
-  const classes = useStyles();
   const { digit, icon, label, popup, value } = props;
 
   return (

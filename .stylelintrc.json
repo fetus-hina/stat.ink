@@ -7,6 +7,16 @@
     "selector-max-id": null,
     "selector-no-qualifying-type": null
   },
+  "overrides": [
+    {
+      "files": ["**/*.module.css"],
+      "customSyntax": null,
+      "rules": {
+        "selector-class-pattern": null,
+        "block-no-empty": null
+      }
+    }
+  ],
   "ignoreFiles": [
     "**/*.min.css"
   ]
