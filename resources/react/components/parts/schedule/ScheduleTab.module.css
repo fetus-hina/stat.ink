@@ -1,0 +1,10 @@
+.pointer {
+  cursor: pointer;
+}
+
+.modeIcon {
+  height: 1.1em;
+  max-width: none;
+  vertical-align: baseline;
+  width: auto;
+}

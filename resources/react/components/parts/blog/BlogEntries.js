@@ -1,38 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import classes from './BlogEntries.module.css';
 import { STATUS_FAILED, STATUS_LOADING } from '../../../constants';
 import { connect } from 'react-redux';
-import { createUseStyles } from 'react-jss';
-
-const useStyles = createUseStyles({
-  ul: {
-    listStyleType: 'none',
-    listStyleImage: 'none',
-    margin: '0',
-    padding: '0',
-    display: 'block'
-  },
-  li: {
-    listStyleType: 'none',
-    listStyleImage: 'none',
-    margin: '0 1em 0 0',
-    padding: '0',
-    display: 'inline-block',
-
-    '&::after': {
-      display: 'inline',
-      content: '"|"',
-      marginLeft: '1em'
-    },
-
-    '&:last-child::after': {
-      display: 'none'
-    }
-  },
-  alertLink: {
-    fontWeight: 'normal !important'
-  }
-});
 
 function BlogEntries (props) {
   return (
@@ -44,7 +14,6 @@ function BlogEntries (props) {
 
 function renderAlert (props) {
   const { status, data } = props;
-  const classes = useStyles();
 
   if (status === STATUS_FAILED && !data.length) {
     return (
@@ -57,8 +26,8 @@ function renderAlert (props) {
       <div className='alert alert-success blog-entries' role='alert'>
         <nav>
           <ul className={classes.ul}>
-            {renderStatus(props, classes)}
-            {renderEntries(props, classes)}
+            {renderStatus(props)}
+            {renderEntries(props)}
           </ul>
         </nav>
       </div>
@@ -66,7 +35,7 @@ function renderAlert (props) {
   }
 }
 
-function renderStatus (props, classes) {
+function renderStatus (props) {
   const { status } = props;
 
   switch (status) {
@@ -79,7 +48,7 @@ function renderStatus (props, classes) {
   }
 }
 
-function renderEntries (props, classes) {
+function renderEntries (props) {
   const { data } = props;
   return (
     <>

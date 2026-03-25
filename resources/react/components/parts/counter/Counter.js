@@ -1,28 +1,15 @@
 import CounterItem from './CounterItem';
 import PropTypes from 'prop-types';
 import React from 'react';
+import classes from './Counter.module.css';
 import { STATUS_OK } from '../../../constants';
 import { connect } from 'react-redux';
-import { createUseStyles } from 'react-jss';
 
 const DEFAULT_DIGITS = 8;
-
-const useStyles = createUseStyles({
-  root: {
-    fontSize: '16px',
-    lineHeight: '1.3',
-    margin: '0',
-    textAlign: 'right'
-  },
-  initializing: {
-    minHeight: '104px'
-  }
-});
 
 const isEmptyObject = (obj) => Object.keys(obj).length === 0;
 
 function Counter (props) {
-  const classes = useStyles();
   const { data, status } = props;
 
   const rows = createRows(data);

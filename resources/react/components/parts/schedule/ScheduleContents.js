@@ -1,26 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import ScheduleContent from './ScheduleContent';
+import classes from './ScheduleContents.module.css';
 import esc from 'escape-html';
 import { connect } from 'react-redux';
-import { createUseStyles } from 'react-jss';
-
-const useStyles = createUseStyles({
-  tabContentRoot: {
-    display: 'flex',
-    flexWrap: 'nowrap',
-    marginLeft: '-15px',
-    marginRight: '-15px',
-
-    '@media (max-width: 991px)': {
-      flexWrap: 'wrap'
-    }
-  }
-});
 
 function ScheduleContents (props) {
   const { data, schedule, selected, translations } = props;
-  const classes = useStyles();
 
   const mode = (() => {
     const list = data.filter(mode => mode.id === selected);
