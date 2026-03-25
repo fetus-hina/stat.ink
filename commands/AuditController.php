@@ -165,6 +165,7 @@ final class AuditController extends Controller
                     ArrayHelper::getValue(
                         TypeHelper::array($info),
                         'version',
+                        'unknown',
                     ),
                 ),
             ]);

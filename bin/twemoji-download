@@ -1,0 +1,30 @@
+#!/bin/bash
+
+set -ue
+
+if [ $# -ne 1 ]; then
+  echo "Usage: $0 <output-directory>" >&2
+  exit 1
+fi
+
+OUTDIR="$1"
+
+TMPDIR="$(mktemp -d)"
+trap 'rm -rf "$TMPDIR"' EXIT
+
+ZIP="$TMPDIR/twemoji.zip"
+
+echo "Downloading twemoji..." >&2
+curl -fsSL -o "$ZIP" https://github.com/twitter/twemoji/archive/refs/heads/master.zip
+echo "Downloaded." >&2
+
+mkdir -p "$OUTDIR"
+
+# Find the top-level directory name inside the zip (determined by GitHub, not assumed)
+# Then extract only the assets/ subtree, stripping the top-level dir and "assets/" prefix
+TOPDIR="$(unzip -Z1 "$ZIP" | head -1 | cut -d/ -f1)"
+
+echo "Extracting assets from ${TOPDIR}/assets/ ..." >&2
+unzip -o -q "$ZIP" "${TOPDIR}/assets/*" -d "$TMPDIR"
+cp -a "$TMPDIR/${TOPDIR}/assets/." "$OUTDIR/"
+echo "Done. Assets extracted to ${OUTDIR}" >&2
