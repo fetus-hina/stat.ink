@@ -1,12 +1,8 @@
+import axios from 'axios';
+
 export const FETCH_LATEST_BATTLES = 'FETCH_LATEST_BATTLES';
 export const FETCH_LATEST_BATTLES_FAILED = 'FETCH_LATEST_BATTLES_FAILED';
 export const FETCH_LATEST_BATTLES_SUCCESS = 'FETCH_LATEST_BATTLES_SUCCESS';
-
-export function fetchLatestBattles () {
-  return {
-    type: FETCH_LATEST_BATTLES
-  };
-}
 
 export function fetchLatestBattlesFailed (error) {
   return {
@@ -19,5 +15,19 @@ export function fetchLatestBattlesSuccess (data) {
   return {
     type: FETCH_LATEST_BATTLES_SUCCESS,
     value: data
+  };
+}
+
+export function fetchLatestBattles () {
+  return (dispatch) => {
+    dispatch({ type: FETCH_LATEST_BATTLES });
+    return axios
+      .get('/api/internal/latest-battles')
+      .then(response => {
+        dispatch(fetchLatestBattlesSuccess(response.data));
+      })
+      .catch(error => {
+        dispatch(fetchLatestBattlesFailed(error));
+      });
   };
 }
