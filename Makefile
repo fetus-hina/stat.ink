@@ -391,7 +391,7 @@ resources/.compiled/stat.ink/favicon.svg: resources/stat.ink/favicon.svg node_mo
 resources/.compiled/stat.ink/favicon.png: resources/.compiled/stat.ink/favicon.svg node_modules
 	@mkdir -p $(dir $@)
 	@rm -f $@
-	env OPENSSL_CONF=/dev/null npx svg2png -o $@ $<
+	node bin/svg2png.js -o $@ $<
 	npx optipng --quiet -strip all -o7 $@
 
 define favicon
