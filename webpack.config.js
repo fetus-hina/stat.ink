@@ -20,31 +20,27 @@ const forceAnalyze = false;
 module.exports = {
   mode: mode,
   entry: {
-    'counter-app.js': './resources/react/counter-app',
-    'index-app.js': './resources/react/index-app',
+    'counter-app.js': './resources/react/counter-app.tsx',
+    'index-app.js': './resources/react/index-app.tsx',
   },
   output: {
     path: path.resolve(__dirname, 'resources', '.compiled', 'react'),
     filename: '[name]',
   },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js'],
+  },
   module: {
     rules: [
       {
-        test: /\.js$/,
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              presets: [
-                ['@babel/env', {
-                  useBuiltIns: 'entry',
-                  corejs: 3,
-                }],
-                '@babel/react',
-              ],
-            },
+        test: /\.tsx?$/,
+        use: {
+          loader: 'ts-loader',
+          options: {
+            configFile: path.resolve(__dirname, 'tsconfig.react.json'),
           },
-        ],
+        },
+        exclude: /node_modules/,
       },
       {
         test: /\.module\.css$/,
