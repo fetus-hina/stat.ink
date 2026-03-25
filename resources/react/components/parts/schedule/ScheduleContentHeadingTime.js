@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import { DateTime } from 'luxon';
 import { connect } from 'react-redux';
@@ -13,12 +12,6 @@ function ScheduleContentHeadingTime (props) {
     ? salmonFormat(dtBegin, dtEnd)
     : normalFormat(dtBegin, dtEnd);
 }
-
-ScheduleContentHeadingTime.propTypes = {
-  isSalmon: PropTypes.bool.isRequired,
-  locale: PropTypes.object,
-  schedule: PropTypes.object.isRequired
-};
 
 function normalFormat (dtBegin, dtEnd) {
   return (

@@ -1,5 +1,4 @@
 import BattleCard from './BattleCard';
-import PropTypes from 'prop-types';
 import React from 'react';
 
 export default function BattleCardList (props) {
@@ -18,9 +17,3 @@ export default function BattleCardList (props) {
     </div>
   );
 }
-
-BattleCardList.propTypes = {
-  battles: PropTypes.array.isRequired,
-  fallbackImage: PropTypes.string,
-  reltime: PropTypes.object.isRequired
-};

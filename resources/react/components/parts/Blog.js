@@ -1,5 +1,4 @@
 import Impl from './blog/BlogEntries';
-import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchBlogEntry } from '../../actions/blog';
@@ -24,13 +23,6 @@ class Blog extends Component {
     return <Impl />;
   }
 }
-
-Blog.propTypes = {
-  expires: PropTypes.number.isRequired,
-  onMount: PropTypes.func.isRequired,
-  onTickTimer: PropTypes.func.isRequired,
-  onUnmount: PropTypes.func.isRequired
-};
 
 function mapStateToProps (state) {
   return {

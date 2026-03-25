@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 
 export default function RelTime (props) {
@@ -11,12 +10,6 @@ export default function RelTime (props) {
     </time>
   );
 }
-
-RelTime.propTypes = {
-  now: PropTypes.object.isRequired,
-  time: PropTypes.object.isRequired,
-  translations: PropTypes.object.isRequired
-};
 
 const unitMap = [
   [31536000, 'year'],

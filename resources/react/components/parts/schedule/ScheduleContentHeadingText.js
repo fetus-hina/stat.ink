@@ -1,5 +1,4 @@
 // import React from 'react';
-import PropTypes from 'prop-types';
 
 export default function ScheduleContentHeadingText (props) {
   const { schedule } = props;
@@ -10,7 +9,3 @@ export default function ScheduleContentHeadingText (props) {
 
   return schedule.rule.name;
 }
-
-ScheduleContentHeadingText.propTypes = {
-  schedule: PropTypes.object.isRequired
-};

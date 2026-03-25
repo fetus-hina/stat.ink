@@ -1,5 +1,4 @@
 import Impl from './latestBattles/LatestBattles';
-import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchLatestBattles } from '../../actions/latestBattles';
@@ -28,14 +27,6 @@ class LatestBattles extends Component {
     return <Impl />;
   }
 }
-
-LatestBattles.propTypes = {
-  expires: PropTypes.number.isRequired,
-  isAvail: PropTypes.bool.isRequired,
-  onMount: PropTypes.func.isRequired,
-  onTickTimer: PropTypes.func.isRequired,
-  onUnmount: PropTypes.func.isRequired
-};
 
 function mapStateToProps (state) {
   return {

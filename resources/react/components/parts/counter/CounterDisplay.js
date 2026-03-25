@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import classes from './CounterDisplay.module.css';
 
@@ -25,8 +24,3 @@ export default function CounterDisplay (props) {
     </span>
   );
 }
-
-CounterDisplay.propTypes = {
-  digit: PropTypes.number.isRequired,
-  value: PropTypes.number
-};

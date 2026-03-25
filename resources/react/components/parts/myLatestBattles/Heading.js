@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import esc from 'escape-html';
 import { connect } from 'react-redux';
@@ -16,11 +15,6 @@ function Heading (props) {
     />
   );
 }
-
-Heading.propTypes = {
-  template: PropTypes.string.isRequired,
-  user: PropTypes.object.isRequired
-};
 
 function mapStateToProps (state) {
   const data = state.myLatestBattles.data;

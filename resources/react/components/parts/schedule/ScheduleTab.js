@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import classes from './ScheduleTab.module.css';
 import { connect } from 'react-redux';
@@ -24,16 +23,6 @@ function ScheduleTab (props) {
     </li>
   );
 }
-
-ScheduleTab.propTypes = {
-  gameIcons: PropTypes.object,
-  isSelected: PropTypes.bool.isRequired,
-  item: PropTypes.object.isRequired,
-  now: PropTypes.number.isRequired,
-  onChanged: PropTypes.func.isRequired,
-  schedule: PropTypes.object,
-  translations: PropTypes.object
-};
 
 function label (mode, props) {
   const { gameIcons, isSelected, item, now, translations } = props;

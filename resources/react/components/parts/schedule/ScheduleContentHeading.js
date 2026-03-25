@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import ScheduleContentHeadingIcon from './ScheduleContentHeadingIcon';
 import ScheduleContentHeadingText from './ScheduleContentHeadingText';
@@ -16,8 +15,3 @@ export default function ScheduleContentHeading (props) {
     </h3>
   );
 }
-
-ScheduleContentHeading.propTypes = {
-  mode: PropTypes.string.isRequired,
-  schedule: PropTypes.object.isRequired
-};

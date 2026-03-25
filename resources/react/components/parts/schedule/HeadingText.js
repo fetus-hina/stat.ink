@@ -1,15 +1,10 @@
 // import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 function HeadingText (props) {
   const { translations } = props;
   return translations ? translations.heading : 'Schedule';
 }
-
-HeadingText.propTypes = {
-  translations: PropTypes.object
-};
 
 function mapStateToProps (state) {
   return {

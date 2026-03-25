@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import { STATUS_LOADING } from '../../../constants';
 import { connect } from 'react-redux';
@@ -14,10 +13,6 @@ function Loading (props) {
     <span className='fas fa-spinner fa-pulse' />
   );
 }
-
-Loading.propTypes = {
-  isLoading: PropTypes.bool.isRequired
-};
 
 function mapStateToProps (state) {
   return {

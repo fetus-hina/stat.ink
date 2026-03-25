@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import classes from './BlogEntries.module.css';
 import { STATUS_FAILED, STATUS_LOADING } from '../../../constants';
@@ -75,11 +74,6 @@ function renderTime (at) {
     </time>
   );
 }
-
-BlogEntries.propTypes = {
-  data: PropTypes.array.isRequired,
-  status: PropTypes.string.isRequired
-};
 
 function mapStateToProps (state) {
   return {

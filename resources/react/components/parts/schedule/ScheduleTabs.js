@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import ScheduleTab from './ScheduleTab';
 
@@ -20,9 +19,3 @@ export default function ScheduleTabs (props) {
     </nav>
   );
 }
-
-ScheduleTabs.propTypes = {
-  data: PropTypes.array.isRequired,
-  onChanged: PropTypes.func.isRequired,
-  selected: PropTypes.string.isRequired
-};

@@ -1,6 +1,5 @@
 import CounterIcon from './CounterIcon';
 import CounterDisplay from './CounterDisplay';
-import PropTypes from 'prop-types';
 import React from 'react';
 import classes from './CounterItem.module.css';
 
@@ -24,11 +23,3 @@ export default function CounterItem (props) {
     </div>
   );
 }
-
-CounterItem.propTypes = {
-  digit: PropTypes.number.isRequired,
-  icon: PropTypes.string,
-  label: PropTypes.string.isRequired,
-  popup: PropTypes.string,
-  value: PropTypes.number
-};

@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import ScheduleCard from './ScheduleCard';
 import ScheduleContentHeading from './ScheduleContentHeading';
@@ -27,14 +26,6 @@ function ScheduleContent (props) {
     </div>
   ));
 }
-
-ScheduleContent.propTypes = {
-  locale: PropTypes.object,
-  mode: PropTypes.string.isRequired,
-  modeIcon: PropTypes.string,
-  now: PropTypes.number.isRequired,
-  schedules: PropTypes.array.isRequired
-};
 
 function getDisplayTargetSchedules (props) {
   const { now, schedules } = props;
