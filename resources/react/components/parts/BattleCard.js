@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import RelTime from './RelTime';
 import classes from './BattleCard.module.css';
@@ -120,12 +119,6 @@ export default function BattleCard (props) {
     </div>
   );
 }
-
-BattleCard.propTypes = {
-  battle: PropTypes.object.isRequired,
-  fallbackImage: PropTypes.string,
-  reltime: PropTypes.object.isRequired
-};
 
 function buildBackgroundImages (battle, fallbackImage) {
   const results = [];

@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import classes from './ScheduleCard.module.css';
 
@@ -70,10 +69,3 @@ export default function ScheduleCard (props) {
     </div>
   );
 }
-
-ScheduleCard.propTypes = {
-  map: PropTypes.object.isRequired,
-  mode: PropTypes.string.isRequired,
-  modeIcon: PropTypes.string,
-  schedule: PropTypes.object.isRequired
-};

@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import ScheduleContents from './ScheduleContents';
 import ScheduleTabs from './ScheduleTabs';
@@ -121,10 +120,6 @@ function ScheduleDisplay (props) {
     </>
   );
 }
-
-ScheduleDisplay.propTypes = {
-  schedule: PropTypes.object
-};
 
 function extractMode (schedule, tabItem) {
   const ref = tabItem.ref.slice(); // ["splatoon2", "regular"]

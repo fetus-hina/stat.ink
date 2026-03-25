@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import ScheduleContent from './ScheduleContent';
 import classes from './ScheduleContents.module.css';
@@ -52,13 +51,6 @@ function ScheduleContents (props) {
     </div>
   );
 }
-
-ScheduleContents.propTypes = {
-  data: PropTypes.array.isRequired,
-  schedule: PropTypes.object,
-  selected: PropTypes.string.isRequired,
-  translations: PropTypes.object
-};
 
 function extractMode (schedule, mode) {
   if (schedule === null) {

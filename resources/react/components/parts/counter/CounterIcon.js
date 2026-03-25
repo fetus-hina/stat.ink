@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 
 export default function CounterIcon (props) {
@@ -18,7 +17,3 @@ export default function CounterIcon (props) {
       />
     : null;
 }
-
-CounterIcon.propTypes = {
-  icon: PropTypes.string
-};

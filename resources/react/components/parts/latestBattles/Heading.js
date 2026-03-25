@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -9,10 +8,6 @@ function Heading (props) {
     <h2>{str}</h2>
   );
 }
-
-Heading.propTypes = {
-  str: PropTypes.string.isRequired
-};
 
 function mapStateToProps (state) {
   const data = state.latestBattles.data;

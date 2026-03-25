@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import { DateTime } from 'luxon';
 import { connect } from 'react-redux';
@@ -25,11 +24,6 @@ function CurrentTime (props) {
     </span>
   );
 }
-
-CurrentTime.propTypes = {
-  now: PropTypes.object.isRequired,
-  translations: PropTypes.object
-};
 
 function mapStateToProps (state) {
   const locale = (state.schedule.data && state.schedule.data.locale)

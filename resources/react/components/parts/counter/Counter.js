@@ -1,5 +1,4 @@
 import CounterItem from './CounterItem';
-import PropTypes from 'prop-types';
 import React from 'react';
 import classes from './Counter.module.css';
 import { STATUS_OK } from '../../../constants';
@@ -42,11 +41,6 @@ function Counter (props) {
     </aside>
   );
 }
-
-Counter.propTypes = {
-  data: PropTypes.object.isRequired,
-  status: PropTypes.string.isRequired
-};
 
 function mapStateToProps (state) {
   return {

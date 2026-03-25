@@ -1,5 +1,4 @@
 import Impl from './counter/Counter';
-import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchCounter } from '../../actions/counter';
@@ -24,13 +23,6 @@ class Counter extends Component {
     return <Impl />;
   }
 }
-
-Counter.propTypes = {
-  expires: PropTypes.number.isRequired,
-  onMount: PropTypes.func.isRequired,
-  onTickTimer: PropTypes.func.isRequired,
-  onUnmount: PropTypes.func.isRequired
-};
 
 function mapStateToProps (state) {
   return {
