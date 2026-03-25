@@ -1,9 +1,12 @@
 import BattleCardList from '../BattleCardList';
 import Heading from './Heading';
 import { useSelector } from 'react-redux';
+import type { IndexRootState } from '../../../store/indexApp';
 
 export default function LatestBattles () {
-  const data = useSelector((state: any) => state.latestBattles.data);
+  const data = useSelector((state: IndexRootState) => state.latestBattles.data);
+
+  if (!data) return null;
 
   return (
     <div className='mb-3'>

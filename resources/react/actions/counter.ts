@@ -1,18 +1,19 @@
 import { Dispatch } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { CounterData } from '../types';
 
 export const FETCH_COUNTER = 'FETCH_COUNTER';
 export const FETCH_COUNTER_FAILED = 'FETCH_COUNTER_FAILED';
 export const FETCH_COUNTER_SUCCESS = 'FETCH_COUNTER_SUCCESS';
 
-export function fetchCounterFailed (error: any) {
+export function fetchCounterFailed (error: unknown) {
   return {
     type: FETCH_COUNTER_FAILED,
     value: error
   };
 }
 
-export function fetchCounterSuccess (data: any) {
+export function fetchCounterSuccess (data: CounterData) {
   return {
     type: FETCH_COUNTER_SUCCESS,
     value: data

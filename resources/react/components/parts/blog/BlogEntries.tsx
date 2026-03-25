@@ -1,10 +1,12 @@
 import classes from './BlogEntries.module.css';
 import { STATUS_FAILED, STATUS_LOADING } from '../../../constants';
 import { useSelector } from 'react-redux';
+import type { IndexRootState } from '../../../store/indexApp';
+import type { BlogEntry, BlogEntryTime } from '../../../types';
 
 export default function BlogEntries () {
-  const data = useSelector((state: any) => state.blog.data);
-  const status = useSelector((state: any) => state.blog.status);
+  const data = useSelector((state: IndexRootState) => state.blog.data);
+  const status = useSelector((state: IndexRootState) => state.blog.status);
 
   return (
     <aside>
@@ -13,7 +15,7 @@ export default function BlogEntries () {
   );
 }
 
-function renderAlert (props: { status: string; data: any[] }) {
+function renderAlert (props: { status: string; data: BlogEntry[] }) {
   const { status, data } = props;
 
   if (status === STATUS_FAILED && !data.length) {
@@ -36,7 +38,7 @@ function renderAlert (props: { status: string; data: any[] }) {
   }
 }
 
-function renderStatus (props: { status: string; data: any[] }) {
+function renderStatus (props: { status: string; data: BlogEntry[] }) {
   const { status } = props;
 
   switch (status) {
@@ -49,7 +51,7 @@ function renderStatus (props: { status: string; data: any[] }) {
   }
 }
 
-function renderEntries (props: { status: string; data: any[] }) {
+function renderEntries (props: { status: string; data: BlogEntry[] }) {
   const { data } = props;
   return (
     <>
@@ -69,7 +71,7 @@ function renderEntries (props: { status: string; data: any[] }) {
   );
 }
 
-function renderTime (at: any) {
+function renderTime (at: BlogEntryTime) {
   return (
     <time title={at.natural} dateTime={at.iso8601}>
       {at.relative}

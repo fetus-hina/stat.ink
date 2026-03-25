@@ -2,13 +2,14 @@ import Impl from './latestBattles/LatestBattles';
 import { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchLatestBattles } from '../../actions/latestBattles';
+import type { IndexRootState, IndexAppDispatch } from '../../store/indexApp';
 
 export default function LatestBattles () {
-  const dispatch: any = useDispatch();
-  const expires = useSelector((state: any) => state.latestBattles.expires);
+  const dispatch = useDispatch<IndexAppDispatch>();
+  const expires = useSelector((state: IndexRootState) => state.latestBattles.expires);
   const expiresRef = useRef(expires);
   expiresRef.current = expires;
-  const isAvail = useSelector((state: any) => Boolean(
+  const isAvail = useSelector((state: IndexRootState) => Boolean(
     state.latestBattles.data &&
     state.latestBattles.data.battles &&
     state.latestBattles.data.battles.length > 0

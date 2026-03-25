@@ -13,13 +13,10 @@ import {
   STATUS_OK
 } from '../../constants';
 
-interface Action {
-  type: string;
-  value?: any;
-}
+import { BlogEntry } from '../../types';
 
 const initialState = {
-  data: [] as any[],
+  data: [] as BlogEntry[],
   expires: EXPIRED_TIMESTAMP,
   status: STATUS_EXPIRED as string
 };
@@ -38,15 +35,15 @@ function reduceFetchFailed (oldState: typeof initialState) {
   return state;
 }
 
-function reduceFetchSuccess (oldState: typeof initialState, action: Action) {
+function reduceFetchSuccess (oldState: typeof initialState, action: { type: string; value?: BlogEntry[] }) {
   const state = Object.assign({}, oldState); // copy
   state.status = STATUS_OK;
-  state.data = action.value;
+  state.data = action.value!;
   state.expires = (new Date()).getTime() + BLOG_ENTRIES_LIFETIME;
   return state;
 }
 
-export default function reduce (state = initialState, action: Action = { type: '' }) {
+export default function reduce (state = initialState, action: { type: string; value?: BlogEntry[] } = { type: '' }) {
   switch (action.type) {
     case FETCH_BLOG_ENTRY: return reduceFetch(state);
     case FETCH_BLOG_ENTRY_FAILED: return reduceFetchFailed(state);

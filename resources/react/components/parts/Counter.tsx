@@ -2,10 +2,11 @@ import Impl from './counter/Counter';
 import { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCounter } from '../../actions/counter';
+import type { CounterRootState, CounterAppDispatch } from '../../store/counterApp';
 
 export default function Counter () {
-  const dispatch: any = useDispatch();
-  const expires = useSelector((state: any) => state.counter.expires);
+  const dispatch = useDispatch<CounterAppDispatch>();
+  const expires = useSelector((state: CounterRootState) => state.counter.expires);
   const expiresRef = useRef(expires);
   expiresRef.current = expires;
 

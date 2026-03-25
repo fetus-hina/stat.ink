@@ -13,13 +13,10 @@ import {
   STATUS_OK
 } from '../../constants';
 
-interface Action {
-  type: string;
-  value?: any;
-}
+import { LatestBattlesData } from '../../types';
 
 const initialState = {
-  data: [] as any[],
+  data: null as LatestBattlesData | null,
   expires: EXPIRED_TIMESTAMP,
   status: STATUS_EXPIRED as string
 };
@@ -33,21 +30,21 @@ function reduceFetch (oldState: typeof initialState) {
 
 function reduceFetchFailed (oldState: typeof initialState) {
   const state = Object.assign({}, oldState); // copy
-  state.data = [];
+  state.data = null;
   state.expires = (new Date()).getTime() + LATEST_BATTLES_LIFETIME;
   state.status = STATUS_FAILED;
   return state;
 }
 
-function reduceFetchSuccess (oldState: typeof initialState, action: Action) {
+function reduceFetchSuccess (oldState: typeof initialState, action: { type: string; value?: LatestBattlesData }) {
   const state = Object.assign({}, oldState); // copy
-  state.data = action.value;
+  state.data = action.value!;
   state.expires = (new Date()).getTime() + LATEST_BATTLES_LIFETIME;
   state.status = STATUS_OK;
   return state;
 }
 
-export default function reduce (state = initialState, action: Action = { type: '' }) {
+export default function reduce (state = initialState, action: { type: string; value?: LatestBattlesData } = { type: '' }) {
   switch (action.type) {
     case FETCH_LATEST_BATTLES: return reduceFetch(state);
     case FETCH_LATEST_BATTLES_FAILED: return reduceFetchFailed(state);

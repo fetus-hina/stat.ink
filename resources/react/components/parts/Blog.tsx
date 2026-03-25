@@ -2,10 +2,11 @@ import Impl from './blog/BlogEntries';
 import { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchBlogEntry } from '../../actions/blog';
+import type { IndexRootState, IndexAppDispatch } from '../../store/indexApp';
 
 export default function Blog () {
-  const dispatch: any = useDispatch();
-  const expires = useSelector((state: any) => state.blog.expires);
+  const dispatch = useDispatch<IndexAppDispatch>();
+  const expires = useSelector((state: IndexRootState) => state.blog.expires);
   const expiresRef = useRef(expires);
   expiresRef.current = expires;
 

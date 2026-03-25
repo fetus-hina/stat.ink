@@ -1,24 +1,25 @@
 import { DateTime } from 'luxon';
 import { useSelector } from 'react-redux';
+import type { IndexRootState } from '../../../store/indexApp';
 
 export default function CurrentTime () {
-  const locale = useSelector((state: any) =>
+  const locale = useSelector((state: IndexRootState) =>
     (state.schedule.data && state.schedule.data.locale)
       ? state.schedule.data.locale
       : null
   );
-  const translations = useSelector((state: any) =>
+  const translations = useSelector((state: IndexRootState) =>
     (state.schedule.data && state.schedule.data.translations)
       ? state.schedule.data.translations
       : null
   );
-  const currentTime = useSelector((state: any) => state.schedule.currentTime);
+  const currentTime = useSelector((state: IndexRootState) => state.schedule.currentTime);
 
   if (!translations) {
     return null;
   }
 
-  const localeOpts: any = {};
+  const localeOpts: { zone?: string; locale?: string; outputCalendar?: string } = {};
   if (locale) {
     localeOpts.zone = locale.timezone;
     localeOpts.locale = locale.locale;

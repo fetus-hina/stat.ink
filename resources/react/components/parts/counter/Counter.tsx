@@ -2,14 +2,16 @@ import CounterItem from './CounterItem';
 import classes from './Counter.module.css';
 import { STATUS_OK } from '../../../constants';
 import { useSelector } from 'react-redux';
+import type { CounterRootState } from '../../../store/counterApp';
+import type { CounterData, CounterEntry } from '../../../types';
 
 const DEFAULT_DIGITS = 8;
 
-const isEmptyObject = (obj: any) => Object.keys(obj).length === 0;
+const isEmptyObject = (obj: CounterData) => Object.keys(obj).length === 0;
 
 export default function Counter () {
-  const data = useSelector((state: any) => state.counter.data);
-  const status = useSelector((state: any) => state.counter.status);
+  const data = useSelector((state: CounterRootState) => state.counter.data);
+  const status = useSelector((state: CounterRootState) => state.counter.status);
 
   const rows = createRows(data);
   const maxDigit = rows
@@ -41,7 +43,7 @@ export default function Counter () {
   );
 }
 
-const numberFormat = (number: any) => Number(number)
+const numberFormat = (number: number) => Number(number)
   .toLocaleString(window?.document?.documentElement?.lang ?? 'en-US');
 
 interface CounterRow {
@@ -52,7 +54,7 @@ interface CounterRow {
   count: number | null;
 }
 
-function createRows (jsonData: any) {
+function createRows (jsonData: CounterData) {
   const results: CounterRow[] = [
     {
       type: 'user',
@@ -78,8 +80,8 @@ function createRows (jsonData: any) {
   ];
 
   results.forEach(currentRow => {
-    const typeMatchedJsonItems: [string, any][] = Object.entries(jsonData)
-      .filter(([, v]) => ((v as any).type === currentRow.type))
+    const typeMatchedJsonItems: [string, CounterEntry][] = Object.entries(jsonData)
+      .filter(([, v]) => (v.type === currentRow.type))
       .sort(([a], [b]) => a.localeCompare(b));
     if (typeMatchedJsonItems.length > 0) {
       currentRow.icon = typeMatchedJsonItems[0][1].icon;

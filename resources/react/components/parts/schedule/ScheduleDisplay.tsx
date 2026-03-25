@@ -2,6 +2,8 @@ import { useState } from 'react';
 import ScheduleContents from './ScheduleContents';
 import ScheduleTabs from './ScheduleTabs';
 import { useSelector } from 'react-redux';
+import type { IndexRootState } from '../../../store/indexApp';
+import type { ScheduleData, ScheduleMode, TabItem } from '../../../types';
 
 const data = [
   {
@@ -84,7 +86,7 @@ const data = [
 ];
 
 export default function ScheduleDisplay () {
-  const schedule = useSelector((state: any) => state.schedule.data);
+  const schedule = useSelector((state: IndexRootState) => state.schedule.data);
   let [selected, setSelected] = useState('AUTO');
 
   if (selected === 'AUTO' && data && schedule) {
@@ -118,15 +120,19 @@ export default function ScheduleDisplay () {
   );
 }
 
-function extractMode (schedule: any, tabItem: any) {
+function extractMode (schedule: ScheduleData | null, tabItem: TabItem): ScheduleMode | null {
+  if (!schedule) {
+    return null;
+  }
+
   const ref = tabItem.ref.slice();
-  let current: any = Object.assign({}, schedule);
+  let current: Record<string, unknown> = Object.assign({}, schedule);
   while (current && ref.length > 0) {
-    const curRef = ref.shift();
+    const curRef = ref.shift()!;
     if (!current[curRef]) {
       return null;
     }
-    current = current[curRef];
+    current = current[curRef] as Record<string, unknown>;
   }
-  return current;
+  return current as unknown as ScheduleMode;
 }

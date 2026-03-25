@@ -1,10 +1,11 @@
 import classes from './ScheduleCard.module.css';
+import type { ScheduleEntry, ScheduleMap, ScheduleWeapon } from '../../../types';
 
 interface ScheduleCardProps {
-  map: any;
+  map: ScheduleMap;
   mode: string;
   modeIcon: string | null;
-  schedule: any;
+  schedule: ScheduleEntry;
 }
 
 export default function ScheduleCard (props: ScheduleCardProps) {
@@ -27,7 +28,7 @@ export default function ScheduleCard (props: ScheduleCardProps) {
           ? (
             <div className={classes.weapons}>
               <ul>
-                {schedule.weapons.map((weapon: any, i: number) => (
+                {schedule.weapons.map((weapon: ScheduleWeapon, i: number) => (
                   <li key={weapon.key + '-' + i}>
                     {(weapon.key === 'random' && !weapon.icon)
                       ? <span
@@ -36,7 +37,7 @@ export default function ScheduleCard (props: ScheduleCardProps) {
                         />
                       : <img
                           alt={weapon.name}
-                          src={weapon.icon}
+                          src={weapon.icon ?? undefined}
                           title={weapon.name}
                         />}
                   </li>
@@ -50,7 +51,7 @@ export default function ScheduleCard (props: ScheduleCardProps) {
             <div className={classes.leftTopInfo}>
               {isEggstra
                 ? <img
-                    src={modeIcon}
+                    src={modeIcon ?? undefined}
                     alt=''
                     title=''
                   />

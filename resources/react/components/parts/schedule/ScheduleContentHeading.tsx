@@ -1,10 +1,11 @@
 import ScheduleContentHeadingIcon from './ScheduleContentHeadingIcon';
 import ScheduleContentHeadingText from './ScheduleContentHeadingText';
 import ScheduleContentHeadingTime from './ScheduleContentHeadingTime';
+import type { ScheduleEntry } from '../../../types';
 
 interface ScheduleContentHeadingProps {
   mode: string;
-  schedule: any;
+  schedule: ScheduleEntry;
 }
 
 export default function ScheduleContentHeading (props: ScheduleContentHeadingProps) {

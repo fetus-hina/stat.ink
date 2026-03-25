@@ -1,3 +1,4 @@
+import type { Battle, RelTimeTranslations } from '../../types';
 import type { CSSProperties } from 'react';
 import RelTime from './RelTime';
 import classes from './BattleCard.module.css';
@@ -17,9 +18,9 @@ function thumbnailUrl (template: string, width: number, height: number, x: numbe
 }
 
 interface BattleCardProps {
-  battle: any;
+  battle: Battle;
   fallbackImage: string;
-  reltime: any;
+  reltime: RelTimeTranslations;
 }
 
 export default function BattleCard (props: BattleCardProps) {
@@ -126,7 +127,7 @@ export default function BattleCard (props: BattleCardProps) {
   );
 }
 
-function buildBackgroundImages (battle: any, fallbackImage: string) {
+function buildBackgroundImages (battle: Battle, fallbackImage: string) {
   const results = [];
   if (battle.image) {
     results.push(`url(${battle.image})`);

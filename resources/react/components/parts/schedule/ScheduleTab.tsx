@@ -1,18 +1,20 @@
 import classes from './ScheduleTab.module.css';
 import { useSelector } from 'react-redux';
+import type { IndexRootState } from '../../../store/indexApp';
+import type { ScheduleData, ScheduleEntry, ScheduleGameIcon, ScheduleMode, ScheduleTranslations, TabItem } from '../../../types';
 
 interface ScheduleTabProps {
   isSelected: boolean;
-  item: any;
+  item: TabItem;
   onChanged: (id: string) => void;
 }
 
 export default function ScheduleTab (props: ScheduleTabProps) {
   const { isSelected, item, onChanged } = props;
-  const gameIcons = useSelector((state: any) => state.schedule.data ? state.schedule.data.games : null);
-  const now = useSelector((state: any) => Math.floor(state.schedule.currentTime / 1000));
-  const schedule = useSelector((state: any) => state.schedule.data);
-  const translations = useSelector((state: any) => state.schedule.data ? state.schedule.data.translations : null);
+  const gameIcons = useSelector((state: IndexRootState) => state.schedule.data ? state.schedule.data.games : null);
+  const now = useSelector((state: IndexRootState) => Math.floor(state.schedule.currentTime / 1000));
+  const schedule = useSelector((state: IndexRootState) => state.schedule.data);
+  const translations = useSelector((state: IndexRootState) => state.schedule.data ? state.schedule.data.translations : null);
 
   const mode = extractMode(schedule, item);
 
@@ -34,7 +36,15 @@ export default function ScheduleTab (props: ScheduleTabProps) {
   );
 }
 
-function label (mode: any, props: any) {
+interface LabelProps {
+  gameIcons: Record<string, ScheduleGameIcon> | null;
+  isSelected: boolean;
+  item: TabItem;
+  now: number;
+  translations: ScheduleTranslations | null;
+}
+
+function label (mode: ScheduleMode, props: LabelProps) {
   const { gameIcons, isSelected, item, now, translations } = props;
 
   if (!mode) {
@@ -45,13 +55,13 @@ function label (mode: any, props: any) {
 
   return (
     <>
-      {mode.game && gameIcons[mode.game] && gameIcons[mode.game].icon
+      {mode.game && gameIcons && gameIcons[mode.game] && gameIcons[mode.game].icon
         ? (
           <>
             <img
               alt={gameIcons[mode.game].name}
               className={classes.modeIcon}
-              src={gameIcons[mode.game].icon}
+              src={gameIcons[mode.game].icon ?? undefined}
               title={gameIcons[mode.game].name}
             />
             {' '}
@@ -112,25 +122,29 @@ function label (mode: any, props: any) {
   );
 }
 
-function extractMode (schedule: any, tabItem: any) {
+function extractMode (schedule: ScheduleData | null, tabItem: TabItem): ScheduleMode | null {
+  if (!schedule) {
+    return null;
+  }
+
   const ref = tabItem.ref.slice();
-  let current: any = Object.assign({}, schedule);
+  let current: Record<string, unknown> = Object.assign({}, schedule);
   while (current && ref.length > 0) {
-    const curRef = ref.shift();
+    const curRef = ref.shift()!;
     if (!current[curRef]) {
       return null;
     }
-    current = current[curRef];
+    current = current[curRef] as Record<string, unknown>;
   }
-  return current;
+  return current as unknown as ScheduleMode;
 }
 
-function extractCurrent (mode: any, now: number) {
+function extractCurrent (mode: ScheduleMode, now: number): ScheduleEntry | null {
   if (!mode || !mode.schedules) {
     return null;
   }
 
-  const matches = mode.schedules.filter((item: any) => {
+  const matches = mode.schedules.filter((item: ScheduleEntry) => {
     return item.time[0] <= now && now < item.time[1];
   });
   if (matches.length !== 1) {
@@ -138,5 +152,5 @@ function extractCurrent (mode: any, now: number) {
   }
 
   const current = matches.shift();
-  return current;
+  return current ?? null;
 }

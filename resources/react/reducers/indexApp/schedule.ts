@@ -14,14 +14,11 @@ import {
   STATUS_OK
 } from '../../constants';
 
-interface Action {
-  type: string;
-  value?: any;
-}
+import { ScheduleData } from '../../types';
 
 const initialState = {
   currentTime: (new Date()).getTime(),
-  data: null as any,
+  data: null as ScheduleData | null,
   expires: EXPIRED_TIMESTAMP,
   status: STATUS_EXPIRED as string
 };
@@ -40,10 +37,10 @@ function reduceFetchFailed (oldState: typeof initialState) {
   return state;
 }
 
-function reduceFetchSuccess (oldState: typeof initialState, action: Action) {
+function reduceFetchSuccess (oldState: typeof initialState, action: { type: string; value?: ScheduleData }) {
   const state = Object.assign({}, oldState); // copy
-  state.currentTime = action.value.time * 1000;
-  state.data = action.value;
+  state.currentTime = action.value!.time * 1000;
+  state.data = action.value!;
   state.expires = (new Date()).getTime() + SCHEDULE_MAX_LIFETIME;
   state.status = STATUS_OK;
   return state;
@@ -55,7 +52,7 @@ function reduceTick (oldState: typeof initialState) {
   return state;
 }
 
-export default function reduce (state = initialState, action: Action = { type: '' }) {
+export default function reduce (state = initialState, action: { type: string; value?: ScheduleData } = { type: '' }) {
   switch (action.type) {
     case FETCH_SCHEDULE: return reduceFetch(state);
     case FETCH_SCHEDULE_FAILED: return reduceFetchFailed(state);

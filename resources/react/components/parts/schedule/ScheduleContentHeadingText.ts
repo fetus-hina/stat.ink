@@ -1,5 +1,7 @@
+import type { ScheduleEntry } from '../../../types';
+
 interface ScheduleContentHeadingTextProps {
-  schedule: any;
+  schedule: ScheduleEntry;
   isSalmon?: boolean;
 }
 

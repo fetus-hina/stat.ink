@@ -1,19 +1,20 @@
 import { Dispatch } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { ScheduleData } from '../types';
 
 export const FETCH_SCHEDULE = 'FETCH_SCHEDULE';
 export const FETCH_SCHEDULE_FAILED = 'FETCH_SCHEDULE_FAILED';
 export const FETCH_SCHEDULE_SUCCESS = 'FETCH_SCHEDULE_SUCCESS';
 export const SCHEDULE_TICK_TIME = 'SCHEDULE_TICK_TIME';
 
-export function fetchScheduleFailed (error: any) {
+export function fetchScheduleFailed (error: unknown) {
   return {
     type: FETCH_SCHEDULE_FAILED,
     value: error
   };
 }
 
-export function fetchScheduleSuccess (data: any) {
+export function fetchScheduleSuccess (data: ScheduleData) {
   return {
     type: FETCH_SCHEDULE_SUCCESS,
     value: data

@@ -2,16 +2,18 @@ import ScheduleCard from './ScheduleCard';
 import ScheduleContentHeading from './ScheduleContentHeading';
 import classes from './ScheduleContent.module.css';
 import { useSelector } from 'react-redux';
+import type { IndexRootState } from '../../../store/indexApp';
+import type { ScheduleEntry, ScheduleMap } from '../../../types';
 
 interface ScheduleContentProps {
   mode: string;
   modeIcon: string | null;
-  schedules: any[];
+  schedules: ScheduleEntry[];
 }
 
 export default function ScheduleContent (props: ScheduleContentProps) {
   const { mode, modeIcon, schedules } = props;
-  const now = useSelector((state: any) => Math.floor(state.schedule.currentTime / 1000));
+  const now = useSelector((state: IndexRootState) => Math.floor(state.schedule.currentTime / 1000));
 
   const displaySchedules = getDisplayTargetSchedules(schedules, now);
 
@@ -19,7 +21,7 @@ export default function ScheduleContent (props: ScheduleContentProps) {
     <div key={i} className={[classes.schedule, 'mb-3'].join(' ')}>
       <ScheduleContentHeading schedule={sc} mode={mode} />
       <div className={classes.cards}>
-        {sc.maps.map((mapInfo: any) => (
+        {sc.maps.map((mapInfo: ScheduleMap) => (
           <div className={classes.card} key={mapInfo.key}>
             <ScheduleCard
               map={mapInfo}
@@ -34,7 +36,7 @@ export default function ScheduleContent (props: ScheduleContentProps) {
   ));
 }
 
-function getDisplayTargetSchedules (schedules: any[], now: number) {
+function getDisplayTargetSchedules (schedules: ScheduleEntry[], now: number) {
   const tmpList = schedules.filter(item => item.time[1] > now);
   tmpList.sort((a, b) => a.time[1] - b.time[1]);
   return tmpList.slice(0, 2);

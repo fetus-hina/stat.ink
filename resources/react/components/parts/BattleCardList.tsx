@@ -1,9 +1,10 @@
+import type { Battle, RelTimeTranslations } from '../../types';
 import BattleCard from './BattleCard';
 
 interface BattleCardListProps {
-  battles: any[];
+  battles: Battle[];
   fallbackImage: string;
-  reltime: any;
+  reltime: RelTimeTranslations;
 }
 
 export default function BattleCardList (props: BattleCardListProps) {

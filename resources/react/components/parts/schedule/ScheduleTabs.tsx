@@ -1,7 +1,8 @@
 import ScheduleTab from './ScheduleTab';
+import type { TabItem } from '../../../types';
 
 interface ScheduleTabsProps {
-  data: any[];
+  data: TabItem[];
   onChanged: (id: string) => void;
   selected: string;
 }

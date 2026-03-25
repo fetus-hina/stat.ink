@@ -1,6 +1,7 @@
+import type { RelTimeTranslations } from '../../types';
 
 interface RelTimeProps {
-  translations: any;
+  translations: RelTimeTranslations;
   now: Date;
   time: Date;
 }
@@ -16,7 +17,9 @@ export default function RelTime (props: RelTimeProps) {
   );
 }
 
-const unitMap: [number, string][] = [
+type RelTimeUnit = 'year' | 'month' | 'day' | 'hour' | 'minute' | 'second';
+
+const unitMap: [number, RelTimeUnit][] = [
   [31536000, 'year'],
   [2592000, 'month'],
   [86400, 'day'],
@@ -25,7 +28,7 @@ const unitMap: [number, string][] = [
   [1, 'second']
 ];
 
-function text (diffSec: number, translations: any) {
+function text (diffSec: number, translations: RelTimeTranslations) {
   if (diffSec < 5) {
     return translations.now;
   }
@@ -35,7 +38,7 @@ function text (diffSec: number, translations: any) {
     if (diffSec >= t) {
       const v = Math.floor(diffSec / t);
       const format = translations[key][v === 1 ? 'one' : 'many'];
-      return format.replace('{delta}', v);
+      return format.replace('{delta}', String(v));
     }
   }
 }

@@ -1,14 +1,16 @@
 import { DateTime } from 'luxon';
 import { useSelector } from 'react-redux';
+import type { IndexRootState } from '../../../store/indexApp';
+import type { ScheduleEntry, ScheduleLocale } from '../../../types';
 
 interface ScheduleContentHeadingTimeProps {
   isSalmon: boolean;
-  schedule: any;
+  schedule: ScheduleEntry;
 }
 
 export default function ScheduleContentHeadingTime (props: ScheduleContentHeadingTimeProps) {
   const { isSalmon, schedule } = props;
-  const locale = useSelector((state: any) => state.schedule.data ? state.schedule.data.locale : null);
+  const locale = useSelector((state: IndexRootState) => state.schedule.data ? state.schedule.data.locale : null);
 
   const dtBegin = makeTimeStamp(locale, schedule.time[0] * 1000);
   const dtEnd = makeTimeStamp(locale, schedule.time[1] * 1000);
@@ -18,7 +20,7 @@ export default function ScheduleContentHeadingTime (props: ScheduleContentHeadin
     : normalFormat(dtBegin, dtEnd);
 }
 
-function normalFormat (dtBegin: any, dtEnd: any) {
+function normalFormat (dtBegin: DateTime, dtEnd: DateTime) {
   return (
     <span className='mr-1'>
       [{timeFormat(dtBegin, DateTime.TIME_SIMPLE)}-{timeFormat(dtEnd, DateTime.TIME_SIMPLE)}]
@@ -26,7 +28,7 @@ function normalFormat (dtBegin: any, dtEnd: any) {
   );
 }
 
-function salmonFormat (dtBegin: any, dtEnd: any) {
+function salmonFormat (dtBegin: DateTime, dtEnd: DateTime) {
   return (
     <span className='mr-1'>
       [{timeFormat(dtBegin, DateTime.DATETIME_SHORT)}-{timeFormat(dtEnd, DateTime.DATETIME_SHORT)}]
@@ -34,16 +36,16 @@ function salmonFormat (dtBegin: any, dtEnd: any) {
   );
 }
 
-function timeFormat (datetime: any, format: any) {
+function timeFormat (datetime: DateTime, format: Intl.DateTimeFormatOptions) {
   return (
-    <time dateTime={datetime.toISO()} title={datetime.toLocaleString(DateTime.DATETIME_MED)}>
+    <time dateTime={datetime.toISO() ?? undefined} title={datetime.toLocaleString(DateTime.DATETIME_MED)}>
       {datetime.toLocaleString(format)}
     </time>
   );
 }
 
-function makeTimeStamp (locale: any, timestamp: number) {
-  const localeOpts: any = {};
+function makeTimeStamp (locale: ScheduleLocale | null, timestamp: number) {
+  const localeOpts: { zone?: string; locale?: string; outputCalendar?: string } = {};
   if (locale) {
     localeOpts.zone = locale.timezone;
     localeOpts.locale = locale.locale;
