@@ -7,8 +7,6 @@
  * Licended under the MIT License
  */
 
-import 'core-js/stable';
-import 'regenerator-runtime/runtime';
 import CounterApp from './components/CounterApp';
 import React from 'react';
 import store from './store/counterApp';

@@ -2,10 +2,12 @@ import React from 'react';
 import ScheduleContent from './ScheduleContent';
 import classes from './ScheduleContents.module.css';
 import esc from 'escape-html';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-function ScheduleContents (props) {
-  const { data, schedule, selected, translations } = props;
+export default function ScheduleContents (props) {
+  const { data, selected } = props;
+  const schedule = useSelector(state => state.schedule.data);
+  const translations = useSelector(state => state.schedule.data ? state.schedule.data.translations : null);
 
   const mode = (() => {
     const list = data.filter(mode => mode.id === selected);
@@ -57,7 +59,7 @@ function extractMode (schedule, mode) {
     return null;
   }
 
-  const ref = mode.ref.slice(); // ["splatoon2", "regular"]
+  const ref = mode.ref.slice();
   let current = Object.assign({}, schedule);
   while (current && ref.length > 0) {
     const curRef = ref.shift();
@@ -89,19 +91,3 @@ function getDataSourceHTML (schedule, mode, translations) {
 
   return esc(template).replace('{source}', sourceHTML);
 }
-
-function mapStateToProps (state) {
-  return {
-    now: Math.floor(state.schedule.currentTime / 1000),
-    schedule: state.schedule.data,
-    translations: state.schedule.data
-      ? state.schedule.data.translations
-      : null
-  };
-}
-
-function mapDispatchToProps (/* dispatch */) {
-  return {};
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ScheduleContents);

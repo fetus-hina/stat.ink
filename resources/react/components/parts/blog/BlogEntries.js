@@ -1,12 +1,15 @@
 import React from 'react';
 import classes from './BlogEntries.module.css';
 import { STATUS_FAILED, STATUS_LOADING } from '../../../constants';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-function BlogEntries (props) {
+export default function BlogEntries () {
+  const data = useSelector(state => state.blog.data);
+  const status = useSelector(state => state.blog.status);
+
   return (
     <aside>
-      {renderAlert(props)}
+      {renderAlert({ data, status })}
     </aside>
   );
 }
@@ -74,16 +77,3 @@ function renderTime (at) {
     </time>
   );
 }
-
-function mapStateToProps (state) {
-  return {
-    data: state.blog.data,
-    status: state.blog.status
-  };
-}
-
-function mapDispatchToProps (/* dispatch */) {
-  return {};
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(BlogEntries);

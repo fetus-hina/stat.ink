@@ -1,12 +1,13 @@
 import React from 'react';
 import { DateTime } from 'luxon';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-function ScheduleContentHeadingTime (props) {
+export default function ScheduleContentHeadingTime (props) {
   const { isSalmon, schedule } = props;
+  const locale = useSelector(state => state.schedule.data ? state.schedule.data.locale : null);
 
-  const dtBegin = makeTimeStamp(props, schedule.time[0] * 1000);
-  const dtEnd = makeTimeStamp(props, schedule.time[1] * 1000);
+  const dtBegin = makeTimeStamp(locale, schedule.time[0] * 1000);
+  const dtEnd = makeTimeStamp(locale, schedule.time[1] * 1000);
 
   return isSalmon
     ? salmonFormat(dtBegin, dtEnd)
@@ -37,8 +38,7 @@ function timeFormat (datetime, format) {
   );
 }
 
-function makeTimeStamp (props, timestamp) {
-  const { locale } = props;
+function makeTimeStamp (locale, timestamp) {
   const localeOpts = {};
   if (locale) {
     localeOpts.zone = locale.timezone;
@@ -49,15 +49,3 @@ function makeTimeStamp (props, timestamp) {
   }
   return DateTime.fromMillis(timestamp, localeOpts);
 }
-
-function mapStateToProps (state) {
-  return {
-    locale: state.schedule.data ? state.schedule.data.locale : null
-  };
-}
-
-function mapDispatchToProps (/* dispatch */) {
-  return {};
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ScheduleContentHeadingTime);

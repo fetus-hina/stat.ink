@@ -1,13 +1,34 @@
 import React from 'react';
 import { DateTime } from 'luxon';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-function CurrentTime (props) {
-  const { now, translations } = props;
+export default function CurrentTime () {
+  const locale = useSelector(state =>
+    (state.schedule.data && state.schedule.data.locale)
+      ? state.schedule.data.locale
+      : null
+  );
+  const translations = useSelector(state =>
+    (state.schedule.data && state.schedule.data.translations)
+      ? state.schedule.data.translations
+      : null
+  );
+  const currentTime = useSelector(state => state.schedule.currentTime);
 
   if (!translations) {
     return null;
   }
+
+  const localeOpts = {};
+  if (locale) {
+    localeOpts.zone = locale.timezone;
+    localeOpts.locale = locale.locale;
+    if (locale.calendar) {
+      localeOpts.outputCalendar = locale.calendar;
+    }
+  }
+
+  const now = DateTime.fromMillis(currentTime, localeOpts);
 
   const time = (
     <time dateTime={now.toISO()}>
@@ -24,31 +45,3 @@ function CurrentTime (props) {
     </span>
   );
 }
-
-function mapStateToProps (state) {
-  const locale = (state.schedule.data && state.schedule.data.locale)
-    ? state.schedule.data.locale
-    : null;
-
-  const localeOpts = {};
-  if (locale) {
-    localeOpts.zone = locale.timezone;
-    localeOpts.locale = locale.locale;
-    if (locale.calendar) {
-      localeOpts.outputCalendar = locale.calendar;
-    }
-  }
-
-  return {
-    now: DateTime.fromMillis(state.schedule.currentTime, localeOpts),
-    translations: (state.schedule.data && state.schedule.data.translations)
-      ? state.schedule.data.translations
-      : null
-  };
-}
-
-function mapDispatchToProps (/* dispatch */) {
-  return {};
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(CurrentTime);

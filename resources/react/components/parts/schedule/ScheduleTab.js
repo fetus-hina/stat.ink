@@ -1,9 +1,14 @@
 import React from 'react';
 import classes from './ScheduleTab.module.css';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-function ScheduleTab (props) {
-  const { isSelected, item, onChanged, schedule } = props;
+export default function ScheduleTab (props) {
+  const { isSelected, item, onChanged } = props;
+  const gameIcons = useSelector(state => state.schedule.data ? state.schedule.data.games : null);
+  const now = useSelector(state => Math.floor(state.schedule.currentTime / 1000));
+  const schedule = useSelector(state => state.schedule.data);
+  const translations = useSelector(state => state.schedule.data ? state.schedule.data.translations : null);
+
   const mode = extractMode(schedule, item);
 
   if (!mode || !mode.schedules || mode.schedules.length < 1) {
@@ -18,7 +23,7 @@ function ScheduleTab (props) {
       aria-selected={isSelected}
     >
       <a className={classes.pointer} onClick={() => { onChanged(item.id); }}>
-        {label(mode, props)}
+        {label(mode, { gameIcons, isSelected, item, now, translations })}
       </a>
     </li>
   );
@@ -103,7 +108,7 @@ function label (mode, props) {
 }
 
 function extractMode (schedule, tabItem) {
-  const ref = tabItem.ref.slice(); // ["splatoon2", "regular"]
+  const ref = tabItem.ref.slice();
   let current = Object.assign({}, schedule);
   while (current && ref.length > 0) {
     const curRef = ref.shift();
@@ -130,18 +135,3 @@ function extractCurrent (mode, now) {
   const current = matches.shift();
   return current;
 }
-
-function mapStateToProps (state) {
-  return {
-    gameIcons: state.schedule.data ? state.schedule.data.games : null,
-    now: Math.floor(state.schedule.currentTime / 1000),
-    schedule: state.schedule.data,
-    translations: state.schedule.data ? state.schedule.data.translations : null
-  };
-}
-
-function mapDispatchToProps (/* dispatch */) {
-  return {};
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ScheduleTab);

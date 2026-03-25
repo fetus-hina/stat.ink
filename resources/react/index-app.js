@@ -7,8 +7,6 @@
  * Licended under the MIT License
  */
 
-import 'core-js/stable';
-import 'regenerator-runtime/runtime';
 import IndexApp from './components/IndexApp';
 import React from 'react';
 import store from './store/indexApp';

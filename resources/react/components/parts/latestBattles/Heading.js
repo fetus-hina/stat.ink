@@ -1,23 +1,11 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-function Heading (props) {
-  const { str } = props;
+export default function Heading () {
+  const data = useSelector(state => state.latestBattles.data);
+  const str = data && data.translations ? data.translations.heading : 'Recent Battles';
 
   return (
     <h2>{str}</h2>
   );
 }
-
-function mapStateToProps (state) {
-  const data = state.latestBattles.data;
-  return {
-    str: data && data.translations ? data.translations.heading : 'Recent Battles'
-  };
-}
-
-function mapDispatchToProps (/* dispatch */) {
-  return {};
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Heading);

@@ -1,67 +1,24 @@
 import Impl from './blog/BlogEntries';
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { fetchBlogEntry } from '../../actions/blog';
 
-class Blog extends Component {
-  constructor (...args) {
-    super(...args);
-    this.state = {
-      timer: null
-    };
-  }
+export default function Blog () {
+  const dispatch = useDispatch();
+  const expires = useSelector(state => state.blog.expires);
+  const expiresRef = useRef(expires);
+  expiresRef.current = expires;
 
-  componentDidMount () {
-    this.props.onMount(this);
-  }
-
-  componentWillUnmount () {
-    this.props.onUnmount(this);
-  }
-
-  render () {
-    return <Impl />;
-  }
-}
-
-function mapStateToProps (state) {
-  return {
-    expires: state.blog.expires
-  };
-}
-
-function mapDispatchToProps (dispatch) {
-  return {
-    onMount: (self) => {
-      const timerFunc = self.props.onTickTimer.bind(self);
-      self.setState({
-        timer: window.setInterval(
-          () => {
-            timerFunc(self);
-          },
-          500
-        )
-      });
-      dispatch(fetchBlogEntry());
-    },
-    onUnmount: (self) => {
-      if (self.state.timer) {
-        window.clearInterval(self.state.timer);
-      }
-      self.setState({
-        timer: null
-      });
-    },
-    onTickTimer: (self) => {
-      const { expires } = self.props;
-
-      if (expires > (new Date()).getTime()) {
+  useEffect(() => {
+    dispatch(fetchBlogEntry());
+    const timer = window.setInterval(() => {
+      if (expiresRef.current > (new Date()).getTime()) {
         return;
       }
-
       dispatch(fetchBlogEntry());
-    }
-  };
-}
+    }, 500);
+    return () => { window.clearInterval(timer); };
+  }, [dispatch]);
 
-export default connect(mapStateToProps, mapDispatchToProps)(Blog);
+  return <Impl />;
+}

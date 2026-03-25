@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ScheduleContents from './ScheduleContents';
 import ScheduleTabs from './ScheduleTabs';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const data = [
   {
@@ -83,13 +83,10 @@ const data = [
   }
 ];
 
-function ScheduleDisplay (props) {
-  const { schedule } = props;
+export default function ScheduleDisplay () {
+  const schedule = useSelector(state => state.schedule.data);
   let [selected, setSelected] = useState('AUTO');
 
-  // ユーザーによるスケジュールタブ選択がされていないとき、
-  // 可能であれば存在するデータのうち priority が最も小さいものを
-  // 選択したものとみなして表示する
   if (selected === 'AUTO' && data && schedule) {
     let currentPriority = 0x7fffffff;
     data.forEach(tab => {
@@ -122,7 +119,7 @@ function ScheduleDisplay (props) {
 }
 
 function extractMode (schedule, tabItem) {
-  const ref = tabItem.ref.slice(); // ["splatoon2", "regular"]
+  const ref = tabItem.ref.slice();
   let current = Object.assign({}, schedule);
   while (current && ref.length > 0) {
     const curRef = ref.shift();
@@ -133,15 +130,3 @@ function extractMode (schedule, tabItem) {
   }
   return current;
 }
-
-function mapStateToProps (state) {
-  return {
-    schedule: state.schedule.data
-  };
-}
-
-function mapDispatchToProps (/* dispatch */) {
-  return {};
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ScheduleDisplay);

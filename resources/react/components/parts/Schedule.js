@@ -1,69 +1,25 @@
 import Impl from './schedule/Schedule';
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { fetchSchedule, scheduleTickTime } from '../../actions/schedule';
 
-class Schedule extends Component {
-  constructor (...args) {
-    super(...args);
-    this.state = {
-      timer: null
-    };
-  }
+export default function Schedule () {
+  const dispatch = useDispatch();
+  const expires = useSelector(state => state.schedule.expires);
+  const expiresRef = useRef(expires);
+  expiresRef.current = expires;
 
-  componentDidMount () {
-    this.props.onMount(this);
-  }
-
-  componentWillUnmount () {
-    this.props.onUnmount(this);
-  }
-
-  render () {
-    return <Impl />;
-  }
-}
-
-function mapStateToProps (state) {
-  return {
-    expires: state.schedule.expires
-  };
-}
-
-function mapDispatchToProps (dispatch) {
-  return {
-    onMount: (self) => {
-      const timerFunc = self.props.onTickTimer.bind(self);
-      self.setState({
-        timer: window.setInterval(
-          () => {
-            timerFunc(self);
-          },
-          1000 // every second
-        )
-      });
-      dispatch(fetchSchedule());
-    },
-    onUnmount: (self) => {
-      if (self.state.timer) {
-        window.clearInterval(self.state.timer);
-      }
-      self.setState({
-        timer: null
-      });
-    },
-    onTickTimer: (self) => {
-      const { expires } = self.props;
-
+  useEffect(() => {
+    dispatch(fetchSchedule());
+    const timer = window.setInterval(() => {
       dispatch(scheduleTickTime());
-
-      if (expires > (new Date()).getTime()) {
+      if (expiresRef.current > (new Date()).getTime()) {
         return;
       }
-
       dispatch(fetchSchedule());
-    }
-  };
-}
+    }, 1000);
+    return () => { window.clearInterval(timer); };
+  }, [dispatch]);
 
-export default connect(mapStateToProps, mapDispatchToProps)(Schedule);
+  return <Impl />;
+}

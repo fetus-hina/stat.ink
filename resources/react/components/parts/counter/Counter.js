@@ -2,14 +2,15 @@ import CounterItem from './CounterItem';
 import React from 'react';
 import classes from './Counter.module.css';
 import { STATUS_OK } from '../../../constants';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const DEFAULT_DIGITS = 8;
 
 const isEmptyObject = (obj) => Object.keys(obj).length === 0;
 
-function Counter (props) {
-  const { data, status } = props;
+export default function Counter () {
+  const data = useSelector(state => state.counter.data);
+  const status = useSelector(state => state.counter.status);
 
   const rows = createRows(data);
   const maxDigit = rows
@@ -41,19 +42,6 @@ function Counter (props) {
     </aside>
   );
 }
-
-function mapStateToProps (state) {
-  return {
-    data: state.counter.data,
-    status: state.counter.status
-  };
-}
-
-function mapDispatchToProps (/* dispatch */) {
-  return {};
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Counter);
 
 const numberFormat = (number) => Number(number)
   .toLocaleString(window?.document?.documentElement?.lang ?? 'en-US');

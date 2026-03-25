@@ -1,9 +1,11 @@
 import React from 'react';
 import esc from 'escape-html';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-function Heading (props) {
-  const { template, user } = props;
+export default function Heading () {
+  const data = useSelector(state => state.myLatestBattles.data);
+  const template = data && data.translations ? data.translations.heading : '{name}\'s Battles';
+  const user = data.user;
 
   const linkHTML = `<a href="${esc(user.url)}">${esc(user.name)}</a>`;
   const html = esc(template).replace('{name}', linkHTML);
@@ -15,17 +17,3 @@ function Heading (props) {
     />
   );
 }
-
-function mapStateToProps (state) {
-  const data = state.myLatestBattles.data;
-  return {
-    template: data && data.translations ? data.translations.heading : '{name}\'s Battles',
-    user: data.user
-  };
-}
-
-function mapDispatchToProps (/* dispatch */) {
-  return {};
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Heading);

@@ -1,76 +1,33 @@
 import Impl from './myLatestBattles/MyLatestBattles';
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { fetchMyLatestBattles } from '../../actions/myLatestBattles';
 
-class MyLatestBattles extends Component {
-  constructor (...args) {
-    super(...args);
-    this.state = {
-      timer: null
-    };
-  }
+export default function MyLatestBattles () {
+  const dispatch = useDispatch();
+  const expires = useSelector(state => state.myLatestBattles.expires);
+  const expiresRef = useRef(expires);
+  expiresRef.current = expires;
+  const isAvail = useSelector(state => Boolean(
+    state.myLatestBattles.data &&
+    state.myLatestBattles.data.user &&
+    state.myLatestBattles.data.battles.length > 0
+  ));
 
-  componentDidMount () {
-    this.props.onMount(this);
-  }
-
-  componentWillUnmount () {
-    this.props.onUnmount(this);
-  }
-
-  render () {
-    if (!this.props.isAvail) {
-      return null;
-    }
-
-    return <Impl />;
-  }
-}
-
-function mapStateToProps (state) {
-  return {
-    expires: state.myLatestBattles.expires,
-    isAvail: Boolean(
-      state.myLatestBattles.data &&
-      state.myLatestBattles.data.user &&
-      state.myLatestBattles.data.battles.length > 0
-    )
-  };
-}
-
-function mapDispatchToProps (dispatch) {
-  return {
-    onMount: (self) => {
-      const timerFunc = self.props.onTickTimer.bind(self);
-      self.setState({
-        timer: window.setInterval(
-          () => {
-            timerFunc(self);
-          },
-          60 * 1000 // every minute
-        )
-      });
-      dispatch(fetchMyLatestBattles());
-    },
-    onUnmount: (self) => {
-      if (self.state.timer) {
-        window.clearInterval(self.state.timer);
-      }
-      self.setState({
-        timer: null
-      });
-    },
-    onTickTimer: (self) => {
-      const { expires } = self.props;
-
-      if (expires > (new Date()).getTime()) {
+  useEffect(() => {
+    dispatch(fetchMyLatestBattles());
+    const timer = window.setInterval(() => {
+      if (expiresRef.current > (new Date()).getTime()) {
         return;
       }
-
       dispatch(fetchMyLatestBattles());
-    }
-  };
-}
+    }, 60 * 1000);
+    return () => { window.clearInterval(timer); };
+  }, [dispatch]);
 
-export default connect(mapStateToProps, mapDispatchToProps)(MyLatestBattles);
+  if (!isAvail) {
+    return null;
+  }
+
+  return <Impl />;
+}

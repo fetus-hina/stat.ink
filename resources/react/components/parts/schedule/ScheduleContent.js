@@ -2,13 +2,15 @@ import React from 'react';
 import ScheduleCard from './ScheduleCard';
 import ScheduleContentHeading from './ScheduleContentHeading';
 import classes from './ScheduleContent.module.css';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-function ScheduleContent (props) {
-  const { mode, modeIcon } = props;
-  const schedules = getDisplayTargetSchedules(props);
+export default function ScheduleContent (props) {
+  const { mode, modeIcon, schedules } = props;
+  const now = useSelector(state => Math.floor(state.schedule.currentTime / 1000));
 
-  return schedules.map((sc, i) => (
+  const displaySchedules = getDisplayTargetSchedules(schedules, now);
+
+  return displaySchedules.map((sc, i) => (
     <div key={i} className={[classes.schedule, 'mb-3'].join(' ')}>
       <ScheduleContentHeading schedule={sc} mode={mode} />
       <div className={classes.cards}>
@@ -27,22 +29,8 @@ function ScheduleContent (props) {
   ));
 }
 
-function getDisplayTargetSchedules (props) {
-  const { now, schedules } = props;
+function getDisplayTargetSchedules (schedules, now) {
   const tmpList = schedules.filter(item => item.time[1] > now);
   tmpList.sort((a, b) => a.time[1] - b.time[1]);
   return tmpList.slice(0, 2);
 }
-
-function mapStateToProps (state) {
-  return {
-    locale: state.schedule.data ? state.schedule.data.locale : null,
-    now: Math.floor(state.schedule.currentTime / 1000)
-  };
-}
-
-function mapDispatchToProps (/* dispatch */) {
-  return {};
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ScheduleContent);
