@@ -272,7 +272,7 @@ jobs:
         name: 'Install packages'
         run: |
           sudo apt update -y
-          sudo apt install -y jpegoptim libxml2-utils
+          sudo apt install -y jpegoptim libxml2-utils optipng
       -
         uses: actions/checkout@v4
       -
@@ -318,7 +318,7 @@ jobs:
         name: 'Install packages'
         run: |
           sudo apt update -y
-          sudo apt install -y jpegoptim libxml2-utils
+          sudo apt install -y jpegoptim libxml2-utils optipng
       -
         uses: actions/checkout@v4
       -
@@ -401,7 +401,7 @@ jobs:
         name: 'Install packages'
         run: |
           sudo apt update -y
-          sudo apt install -y imagemagick jpegoptim libxml2-utils
+          sudo apt install -y imagemagick jpegoptim libxml2-utils optipng
       -
         uses: actions/checkout@v4
       -

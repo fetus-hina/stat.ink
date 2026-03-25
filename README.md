@@ -77,7 +77,7 @@ https://stat.ink/ works with:
           - `php-pecl-msgpack`
           - `php-pgsql`
           - `php-sodium`
-- Node.js with `dnf enable nodejs:20`
+- Node.js with `dnf enable nodejs:24`
     - [Node.js](https://nodejs.org/)
         - `nodejs`
         - `npm`
@@ -85,6 +85,7 @@ https://stat.ink/ works with:
     - PostgreSQL 11.x
       - `postgresql11`
       - `postgresql11-server`
+- `optipng`
 
 ### MaxMind's Account
 
