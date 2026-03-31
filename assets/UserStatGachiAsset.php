@@ -21,7 +21,6 @@ class UserStatGachiAsset extends AssetBundle
         'user-stat-gachi-winpct.js',
     ];
     public $depends = [
-        BabelPolyfillAsset::class,
         ColorSchemeAsset::class,
         FlotAsset::class,
         FlotResizeAsset::class,

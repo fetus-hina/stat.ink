@@ -255,9 +255,7 @@ endef
 
 define es2js
 	@mkdir -p $(dir $(1))
-	cat $(2) | \
-		npx babel -s false -f jsfile | \
-		npx terser -c -m -f 'ascii_only=true,beautify=false' --comments '/license|copyright/i' --output $(1)
+	npx terser $(2) -c -m -f 'ascii_only=true,beautify=false' --comments '/license|copyright/i' --output $(1)
 	@touch $(1)
 endef
 
