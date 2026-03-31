@@ -213,7 +213,7 @@ phpstan1: vendor
 
 check-style-js: node_modules
 	npx updates --minor bootstrap,bootswatch
-	npx semistandard 'resources/**/*[ej]s'
+	npx eslint 'resources/**/*.[ej]s'
 
 check-style-css: node_modules
 	npx stylelint "resources/**/*.scss" "resources/**/*.css"
@@ -221,7 +221,7 @@ check-style-css: node_modules
 fix-style: vendor node_modules
 	npx updates -u --minor bootstrap,bootswatch
 	vendor/bin/phpcbf -p
-	npx semistandard --fix 'resources/**/*[ej]s'
+	npx eslint --fix 'resources/**/*.[ej]s'
 
 clean: clean-resource
 	rm -rf \

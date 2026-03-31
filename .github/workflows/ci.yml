@@ -204,8 +204,8 @@ jobs:
         with:
           node-version: '24'
       -
-        name: 'Run `semistandard`'
-        run: 'npx semistandard "resources/**/*[ej]s"'
+        name: 'Run `eslint` (neostandard)'
+        run: 'npx eslint "resources/**/*.[ej]s"'
   cssStyleCheck:
     name: 'CSS Coding Style'
     runs-on: ubuntu-24.04
