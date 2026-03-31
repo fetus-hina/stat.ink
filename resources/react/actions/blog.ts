@@ -1,5 +1,4 @@
 import { Dispatch } from '@reduxjs/toolkit';
-import axios from 'axios';
 import { BlogEntry } from '../types';
 
 export const FETCH_BLOG_ENTRY = 'FETCH_BLOG_ENTRY';
@@ -23,10 +22,10 @@ export function fetchBlogEntrySuccess (data: BlogEntry[]) {
 export function fetchBlogEntry () {
   return (dispatch: Dispatch) => {
     dispatch({ type: FETCH_BLOG_ENTRY });
-    return axios
-      .get('/api/internal/blog-entry')
-      .then(response => {
-        dispatch(fetchBlogEntrySuccess(response.data));
+    return fetch('/api/internal/blog-entry')
+      .then(response => response.json())
+      .then(data => {
+        dispatch(fetchBlogEntrySuccess(data));
       })
       .catch(error => {
         dispatch(fetchBlogEntryFailed(error));

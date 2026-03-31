@@ -1,5 +1,4 @@
 import { Dispatch } from '@reduxjs/toolkit';
-import axios from 'axios';
 import { ScheduleData } from '../types';
 
 export const FETCH_SCHEDULE = 'FETCH_SCHEDULE';
@@ -30,10 +29,10 @@ export function scheduleTickTime () {
 export function fetchSchedule () {
   return (dispatch: Dispatch) => {
     dispatch({ type: FETCH_SCHEDULE });
-    return axios
-      .get('/api/internal/schedule')
-      .then(response => {
-        dispatch(fetchScheduleSuccess(response.data));
+    return fetch('/api/internal/schedule')
+      .then(response => response.json())
+      .then(data => {
+        dispatch(fetchScheduleSuccess(data));
       })
       .catch(error => {
         dispatch(fetchScheduleFailed(error));

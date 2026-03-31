@@ -1,5 +1,4 @@
 import { Dispatch } from '@reduxjs/toolkit';
-import axios from 'axios';
 import { CounterData } from '../types';
 
 export const FETCH_COUNTER = 'FETCH_COUNTER';
@@ -23,10 +22,10 @@ export function fetchCounterSuccess (data: CounterData) {
 export function fetchCounter () {
   return (dispatch: Dispatch) => {
     dispatch({ type: FETCH_COUNTER });
-    return axios
-      .get('/api/internal/counter')
-      .then(response => {
-        dispatch(fetchCounterSuccess(response.data));
+    return fetch('/api/internal/counter')
+      .then(response => response.json())
+      .then(data => {
+        dispatch(fetchCounterSuccess(data));
       })
       .catch(error => {
         dispatch(fetchCounterFailed(error));
