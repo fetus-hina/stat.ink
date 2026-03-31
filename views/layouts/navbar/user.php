@@ -61,37 +61,37 @@ $user = Yii::$app->user->identity ?? null;
       )),
       Html::tag('li', Html::a(
         implode('', [
-          Html::tag('span', '┣', ['class' => 'fa fa-fw']),
+          Html::tag('span', '┣', ['class' => 'fa']),
           Html::encode(Yii::t('app', 'Splatoon 3')),
         ]),
         ['/show-v3/user', 'screen_name' => $user->screen_name]
       )),
       Html::tag('li', Html::a(
         implode('', [
-          Html::tag('span', '┃', ['class' => 'fa fa-fw']),
-          Html::tag('span', '┗', ['class' => 'fa fa-fw']),
+          Html::tag('span', '┃', ['class' => 'fa']),
+          Html::tag('span', '┗', ['class' => 'fa']),
           Html::encode(Yii::t('app-salmon2', 'Salmon Run')),
         ]),
         ['salmon-v3/index', 'screen_name' => $user->screen_name],
       )),
       Html::tag('li', Html::a(
         implode('', [
-          Html::tag('span', '┣', ['class' => 'fa fa-fw']),
+          Html::tag('span', '┣', ['class' => 'fa']),
           Html::encode(Yii::t('app', 'Splatoon 2')),
         ]),
         ['/show-v2/user', 'screen_name' => $user->screen_name]
       )),
       Html::tag('li', Html::a(
         implode('', [
-          Html::tag('span', '┃', ['class' => 'fa fa-fw']),
-          Html::tag('span', '┗', ['class' => 'fa fa-fw']),
+          Html::tag('span', '┃', ['class' => 'fa']),
+          Html::tag('span', '┗', ['class' => 'fa']),
           Html::encode(Yii::t('app-salmon2', 'Salmon Run')),
         ]),
         ['salmon/index', 'screen_name' => $user->screen_name]
       )),
       Html::tag('li', Html::a(
         implode('', [
-          Html::tag('span', '┗', ['class' => 'fa fa-fw']),
+          Html::tag('span', '┗', ['class' => 'fa']),
           Html::encode(Yii::t('app', 'Splatoon')),
         ]),
         ['/show/user', 'screen_name' => $user->screen_name]
@@ -130,7 +130,7 @@ $user = Yii::$app->user->identity ?? null;
       (Yii::$app->params['twitter']['read_enabled'] ?? false)
         ? Html::tag('li', Html::a(
           implode('', [
-            Html::tag('span', '┗', ['class' => 'fa fa-fw']),
+            Html::tag('span', '┗', ['class' => 'fa']),
             Icon::twitter(),
             ' ',
             Html::encode(Yii::t('app', 'Log in with Twitter')),
@@ -163,7 +163,7 @@ $user = Yii::$app->user->identity ?? null;
     ]), ['class' => 'dropdown-submenu']),
     Html::tag('li', Html::a(
       implode('', [
-        Html::tag('span', '', ['class' => 'far fa-fw']),
+        Html::tag('span', '', ['class' => 'far']),
         Html::encode(Yii::t('app', 'Use full width of the screen')),
       ]),
       '#',

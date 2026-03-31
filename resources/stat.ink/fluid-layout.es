@@ -6,7 +6,7 @@
 
   $(() => {
     const $elem = $('#toggle-use-fluid');
-    const $icon = $('.fa-fw', $elem);
+    const $icon = $('.far', $elem);
     const update = () => {
       const $container = $([
         'body>main>.container',

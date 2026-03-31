@@ -35,7 +35,7 @@ $f = Yii::$app->formatter;
     <?= Html::a(
       Html::tag('span', '', ['class' => [
         'fas',
-        'fa-fw',
+        '',
         EmbedVideo::isSupported($model->link_url) ? 'fa-video' : 'fa-link',
       ]]),
       $model->link_url,

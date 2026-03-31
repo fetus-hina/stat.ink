@@ -106,7 +106,7 @@ foreach ($teams as $team) {
   <table class="table table-bordered" id="players">
     <thead>
       <tr>
-        <th class="text-nowrap" style="width:38px"><span class="fa fa-fw"></span></th>
+        <th class="text-nowrap" style="width:38px"><span class="fa"></span></th>
         <th class="text-nowrap col-name"><?= Html::encode(Yii::t('app', 'Name')) ?></th>
         <th class="text-nowrap col-weapon"><?= Html::encode(Yii::t('app', 'Weapon')) ?></th>
         <th class="text-nowrap col-level"><?= Html::encode(Yii::t('app', 'Level')) ?></th>

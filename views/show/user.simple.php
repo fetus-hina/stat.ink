@@ -168,7 +168,7 @@ if ($battle &&
         ) . "\n" ?>
         <?= Html::a(
           implode(' ', [
-            '<span class="fas fa-fw fa-list"></span>',
+            '<span class="fas fa-list"></span>',
             Html::encode(Yii::t('app', 'Detailed List')),
           ]),
           array_merge($filter->toQueryParams(), ['show/user', 'v' => 'standard']),

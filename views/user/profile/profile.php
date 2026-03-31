@@ -62,7 +62,7 @@ $f = Yii::$app->formatter;
             Html::tag('span', Html::encode((string)$text), ['class' => 'profile-icon-text']),
             Html::a(
               implode('', [
-                Html::tag('span', '', ['class' => 'far fa-fw fa-image']),
+                Html::tag('span', '', ['class' => 'far fa-image']),
                 Html::encode(Yii::t('app', 'Change Icon')),
               ]),
               ['edit-icon'],
@@ -85,7 +85,7 @@ $f = Yii::$app->formatter;
         Html::tag('code', Html::encode($user->screen_name)),
         Html::a(
           implode('', [
-            Html::tag('span', '', ['class' => 'fas fa-fw fa-redo']),
+            Html::tag('span', '', ['class' => 'fas fa-redo']),
             Html::encode(Yii::t('app', 'Change Screen Name')),
           ]),
           ['edit-screen-name'],
@@ -101,7 +101,7 @@ $f = Yii::$app->formatter;
           Html::tag('code', Html::encode(str_repeat('*', 10))),
           Html::a(
             implode('', [
-              Html::tag('span', '', ['class' => 'fas fa-fw fa-redo']),
+              Html::tag('span', '', ['class' => 'fas fa-redo']),
               Html::encode(Yii::t('app', 'Change Password')),
             ]),
             ['edit-password'],

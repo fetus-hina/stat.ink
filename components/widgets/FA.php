@@ -126,7 +126,7 @@ class FA extends Widget
                     'id' => $this->id,
                     'class' => array_filter([
                         $this->type,
-                        $this->isFW ? 'fa-fw' : null,
+                        $this->isFW ? null : 'fa-width-auto',
                         $this->icon ? 'fa-' . $this->icon : null,
                         $this->size ? 'fa-' . $this->size : null,
                         $this->rotate ? sprintf('fa-rotate-%d', $this->rotate) : null,

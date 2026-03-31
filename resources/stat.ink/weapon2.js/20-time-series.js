@@ -8,8 +8,8 @@
     opacity: '0.9',
     fontSize: '12px'
   }).appendTo('body');
-  const axis1 = '<span class="fas fa-fw fa-arrow-left"></span>';
-  const axis2 = '<span class="fas fa-fw fa-arrow-right"></span>';
+  const axis1 = '<span class="fas fa-arrow-left"></span>';
+  const axis2 = '<span class="fas fa-arrow-right"></span>';
   const update = () => {
     const formatDate = date => { // {{{
       const zeroPad = number => {

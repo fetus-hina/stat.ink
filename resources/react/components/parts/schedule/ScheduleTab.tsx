@@ -111,7 +111,7 @@ function label (mode: ScheduleMode, props: LabelProps) {
         ? (
           <>
             <span className='text-warning' title={translations ? translations.salmon_open : 'Open!'}>
-              <span className='fas fa-fw fa-certificate' />
+              <span className='fas fa-certificate' />
             </span>
             {' '}
           </>

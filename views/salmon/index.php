@@ -73,7 +73,7 @@ if ($user->twitter != '') {
           implode(' ', [
             '<span class="fas fa-paint-roller"></span>',
             Yii::t('app', 'Battles'),
-            '<span class="fas fa-fw fa-angle-right"></span>',
+            '<span class="fas fa-angle-right"></span>',
           ]),
           ['show-v2/user', 'screen_name' => $user->screen_name],
           ['class' => 'btn btn-default btn-xs']

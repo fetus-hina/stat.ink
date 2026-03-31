@@ -100,7 +100,7 @@ $widget = Yii::createObject([
         return vsprintf('%1$s %3$s %2$s', [
           Html::encode($fmt($model->titleBefore, $model->title_before_exp)),
           Html::encode($fmt($model->titleAfter, $model->title_after_exp)),
-          Html::tag('span', '', ['class' => 'fas fa-fw fa-arrow-right']),
+          Html::tag('span', '', ['class' => 'fas fa-arrow-right']),
         ]);
       },
     ],

@@ -32,7 +32,7 @@ export default function ScheduleCard (props: ScheduleCardProps) {
                   <li key={weapon.key + '-' + i}>
                     {(weapon.key === 'random' && !weapon.icon)
                       ? <span
-                          className='fas fa-question fa-fw'
+                          className='fas fa-question'
                           title={weapon.name}
                         />
                       : <img

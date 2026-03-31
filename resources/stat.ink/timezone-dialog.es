@@ -45,7 +45,7 @@
       $labels.each(function () {
         const $label = $(this);
         $label.empty()
-          .append($('<span class="fas fa-fw fa-spinner fa-spin">'))
+          .append($('<span class="fas fa-spinner fa-spin">'))
           .append(' ')
           .append(htmlEncode($label.attr('data-loading')));
       });

@@ -67,7 +67,7 @@ BlackoutHintAsset::register($this);
               function ($category, $name) use ($_mode) : string {
                 return implode('', [
                   Html::tag('span', '', [
-                    'class' => 'blackout-info-icon far fa-fw fa-square',
+                    'class' => 'blackout-info-icon far fa-square',
                     'data' => [
                       'mode' => $_mode,
                       'category' => $category,
@@ -87,8 +87,8 @@ BlackoutHintAsset::register($this);
   </table>
   <p class="blackout-info-legends">
     <?= Html::encode(Yii::t('app', 'Legends')) ?>:
-    <span class="far fa-fw fa-square"></span><?= Html::encode(Yii::t('app', 'No black out')) . "\n" ?>
+    <span class="far fa-square"></span><?= Html::encode(Yii::t('app', 'No black out')) . "\n" ?>
     /
-    <span class="far fa-fw fa-check-square"></span><?= Html::encode(Yii::t('app', 'Black out')) . "\n" ?>
+    <span class="far fa-check-square"></span><?= Html::encode(Yii::t('app', 'Black out')) . "\n" ?>
   </p>
 </div>

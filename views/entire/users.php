@@ -112,7 +112,7 @@ $this->registerJs(<<<'EoJS'
     var json = JSON.parse($('#' + $graph.attr('data-ref')).text());
     var data = [
       {
-        label: '<span class="fa fa-fw fa-arrow-left"></span>' + $graph.attr('data-label-battle'),
+        label: '<span class="fa fa-arrow-left"></span>' + $graph.attr('data-label-battle'),
         data:json.map(function(v){return[dateToUnixTime(v.date),v.battle]}),
         bars:{
           show:true,
@@ -123,7 +123,7 @@ $this->registerJs(<<<'EoJS'
         color:window.colorScheme.graph1
       },
       {
-        label: '<span class="fa fa-fw fa-arrow-right"></span>' + $graph.attr('data-label-user'),
+        label: '<span class="fa fa-arrow-right"></span>' + $graph.attr('data-label-user'),
         data:json.map(function(v){return[dateToUnixTime(v.date),v.user]}),
         yaxis:2,
         color:window.colorScheme.graph2

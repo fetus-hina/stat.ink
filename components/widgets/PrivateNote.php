@@ -55,7 +55,7 @@ class PrivateNote extends Widget
         $this->view->registerJs("jQuery('#{$this->buttonId}').privateNote();");
 
         return Html::button(
-            Html::tag('span', '', ['class' => 'fas fa-lock fa-fw']),
+            Html::tag('span', '', ['class' => 'fas fa-lock']),
             [
                 'class' => 'btn btn-default',
                 'id' => $this->buttonId,
