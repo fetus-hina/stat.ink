@@ -54,9 +54,9 @@ jobs:
       -
         name: 'Update JavaScript packages'
         run: |
-          npx updates --update --minor
+          npx updates --update --minor --cooldown 10d
           rm -rf node_modules package-lock.json
-          npm install
+          npm install --min-release-age=10
       -
         name: 'Check changed'
         run: |
