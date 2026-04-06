@@ -68,7 +68,7 @@ trait LicenseCheckTrait
     ];
 
     private array $skipPackages = [
-        'composer::omnilight/yii2-scheduling',
+        'composer::cotonet/soak-time',
     ];
 
     public function actionCheck(): int
