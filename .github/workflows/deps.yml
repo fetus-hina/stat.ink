@@ -3,6 +3,7 @@ name: 'Dependencies Updator'
   schedule:
     -
       cron: '11 23 * * *'
+  workflow_dispatch:
 jobs:
   update:
     name: 'Update dependencies'
@@ -54,7 +55,7 @@ jobs:
       -
         name: 'Update JavaScript packages'
         run: |
-          npx updates --update --minor --cooldown=10d
+          npx updates --update --cooldown 10d --minor
           rm -rf node_modules package-lock.json
           npm install --min-release-age=10
       -
