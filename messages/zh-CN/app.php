@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2020-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2020-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Gosin <canling0@gmail.com>
@@ -457,6 +457,7 @@ return [
     'Open Source Licenses' => '开源代码许可证',
     'Others' => '其它',
     'Overall Estimates' => '整体估计',
+    'Passkey' => '通行密钥',
     'Password' => '密码',
     'Password (again)' => '确认密码',
     'PC' => 'PC',
