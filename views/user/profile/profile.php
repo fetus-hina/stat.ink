@@ -111,6 +111,34 @@ $f = Yii::$app->formatter;
       },
     ],
     [
+      'label' => Yii::t('app-passkey', 'Passkeys'),
+      'format' => 'raw',
+      'value' => function () use ($user): string {
+        $count = (int)$user->getUserPasskeys()->count();
+        $parts = [];
+        $parts[] = Html::encode(
+          Yii::t(
+            'app-passkey',
+            '{n, plural, =0{No passkeys registered} one{# passkey registered} other{# passkeys registered}}',
+            ['n' => $count],
+          ),
+        );
+        $parts[] = Html::a(
+          implode('', [
+            Html::tag('span', '', ['class' => 'fas fa-fingerprint']),
+            Html::encode(
+              $count > 0
+                ? Yii::t('app-passkey', 'Manage')
+                : Yii::t('app-passkey', 'Register'),
+            ),
+          ]),
+          ['user/passkey'],
+          ['class' => 'btn btn-default'],
+        );
+        return implode(' ', $parts);
+      },
+    ],
+    [
       'attribute' => 'api_key',
       'format' => 'raw',
       'value' => $this->render('profile/apikey', ['user' => $user]),

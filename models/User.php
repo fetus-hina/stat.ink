@@ -401,7 +401,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function getUserPasskeys(): ActiveQuery
     {
-        return $this->hasMany(UserPasskey::class, ['user_id' => 'id'])
+        return $this->hasMany(UserPasskey::class, ['user_id' => 'user_id'])
             ->via('userPasskeyUser');
     }
 

@@ -29,4 +29,5 @@ return [
     'Your browser does not support passkeys.' => 'お使いのブラウザはパスキーに対応していません。',
     'e.g., "iPhone Face ID"' => '例: "iPhone Face ID"',
     '{n, plural, =0{No passkeys registered.} one{# passkey registered.} other{# passkeys registered.}}' => '{n, plural, =0{パスキーは登録されていません。} other{# 個のパスキーが登録されています。}}',
+    '{n, plural, =0{No passkeys registered} one{# passkey registered} other{# passkeys registered}}' => '{n, plural, =0{パスキー未登録} other{パスキー # 個登録済み}}',
 ];
