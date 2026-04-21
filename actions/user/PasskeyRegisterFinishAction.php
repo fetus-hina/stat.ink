@@ -16,6 +16,7 @@ use app\components\helpers\WebAuthnHelper;
 use app\models\UserPasskey;
 use app\models\UserPasskeyUser;
 use lbuchs\WebAuthn\WebAuthnException;
+use yii\base\DynamicModel;
 use yii\db\ArrayExpression;
 use yii\web\BadRequestHttpException;
 use yii\web\ViewAction as BaseAction;
@@ -26,12 +27,19 @@ use function date;
 use function in_array;
 use function is_array;
 use function is_string;
-use function mb_strlen;
 use function trim;
 
 final class PasskeyRegisterFinishAction extends BaseAction
 {
     private const ALLOWED_TRANSPORTS = ['usb', 'nfc', 'ble', 'internal', 'hybrid', 'smart-card'];
+
+    // Rough upper bounds for the base64url-encoded payload:
+    //   - clientDataJSON is a tiny JSON object (a few hundred bytes)
+    //   - attestationObject depends on the attestation format; even packed/tpm rarely exceeds a few KB
+    private const MAX_CLIENT_DATA_LEN = 4096;
+    private const MAX_ATTESTATION_OBJECT_LEN = 16384;
+
+    private const BASE64URL_PATTERN = '/\A[A-Za-z0-9_-]+\z/';
 
     public function run()
     {
@@ -44,18 +52,27 @@ final class PasskeyRegisterFinishAction extends BaseAction
         $resp->format = 'json';
 
         $req = Yii::$app->request;
-        $clientDataJsonB64 = (string)$req->post('client_data_json', '');
-        $attestationObjectB64 = (string)$req->post('attestation_object', '');
-        $nickname = trim((string)$req->post('nickname', ''));
-        $transports = $this->normalizeTransports($req->post('transports'));
-
-        if ($clientDataJsonB64 === '' || $attestationObjectB64 === '' || $nickname === '') {
+        $form = DynamicModel::validateData(
+            [
+                'client_data_json' => (string)$req->post('client_data_json', ''),
+                'attestation_object' => (string)$req->post('attestation_object', ''),
+                'nickname' => trim((string)$req->post('nickname', '')),
+            ],
+            [
+                [['client_data_json', 'attestation_object', 'nickname'], 'required'],
+                [['nickname'], 'string', 'max' => 64],
+                [['client_data_json'], 'string', 'max' => self::MAX_CLIENT_DATA_LEN],
+                [['attestation_object'], 'string', 'max' => self::MAX_ATTESTATION_OBJECT_LEN],
+                [['client_data_json', 'attestation_object'], 'match',
+                    'pattern' => self::BASE64URL_PATTERN,
+                ],
+            ],
+        );
+        if ($form->hasErrors()) {
             throw new BadRequestHttpException('Invalid parameters');
         }
 
-        if (mb_strlen($nickname) > 64) {
-            throw new BadRequestHttpException('Nickname too long');
-        }
+        $transports = $this->normalizeTransports($req->post('transports'));
 
         $challengeB64 = Yii::$app->session->get(WebAuthnHelper::SESSION_KEY_CHALLENGE);
         if (!is_string($challengeB64) || $challengeB64 === '') {
@@ -70,8 +87,8 @@ final class PasskeyRegisterFinishAction extends BaseAction
         try {
             $webAuthn = WebAuthnHelper::create();
             $data = $webAuthn->processCreate(
-                clientDataJSON: WebAuthnHelper::base64UrlDecode($clientDataJsonB64),
-                attestationObject: WebAuthnHelper::base64UrlDecode($attestationObjectB64),
+                clientDataJSON: WebAuthnHelper::base64UrlDecode($form->client_data_json),
+                attestationObject: WebAuthnHelper::base64UrlDecode($form->attestation_object),
                 challenge: WebAuthnHelper::base64UrlDecode($challengeB64),
                 requireUserVerification: false,
                 requireUserPresent: true,
@@ -102,7 +119,7 @@ final class PasskeyRegisterFinishAction extends BaseAction
                 'transports' => new ArrayExpression($transports, 'text', 1),
                 'backup_eligible' => (bool)($data->isBackupEligible ?? false),
                 'backup_state' => (bool)($data->isBackedUp ?? false),
-                'nickname' => $nickname,
+                'nickname' => $form->nickname,
                 'created_at' => $now,
                 'updated_at' => $now,
             ]);
