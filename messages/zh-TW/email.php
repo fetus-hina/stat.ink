@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2020-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2020-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author ADe <loezone@gmail.com>
@@ -17,10 +17,10 @@ return [
     'Auto (cookie)' => '自動(cookie)',
     'Estimated location:' => '估計位置：',
     'Here is your email verification code.' => '以下是您的信件驗證碼。',
-    'IP Address:' => 'IP地址',
-    'Login method:' => '登錄方法',
-    'New:' => '新',
-    'Old:' => '舊',
+    'IP Address:' => 'IP地址：',
+    'Login method:' => '登錄方法：',
+    'New:' => '新：',
+    'Old:' => '舊：',
     'Password' => '密碼',
     'Please enter this code into the browser. The code will expire in {mins} minutes.' => '請在瀏覽器中輸入以下驗證碼。該驗證碼將於{mins}分鐘後失效。',
     'Rev. lookup:' => '反向查找：',

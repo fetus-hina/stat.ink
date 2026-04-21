@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2019-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2019-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author Lukas Böttcher <github@muffl0n.de>
@@ -13,7 +13,7 @@ return [
     '(Empty)' => '(Leer)',
     '(Failed)' => '(Fehlgeschlagen)',
     '(Unknown)' => '(Unbekannt)',
-    'Auto (cookie)' => '',
+    'Auto (cookie)' => 'Automatisch (Cookie)',
     'Estimated location:' => 'Geschätzter Standort:',
     'Here is your email verification code.' => 'Hier ist dein Verifizierungscode.',
     'IP Address:' => 'IP-Adresse:',
@@ -22,10 +22,10 @@ return [
     'Old:' => 'Alt:',
     'Password' => 'Passwort',
     'Please enter this code into the browser. The code will expire in {mins} minutes.' => 'Bitte gib diesen Code in deinem Browser ein. Der Code läuft in {mins} Minuten ab.',
-    'Rev. lookup:' => '',
+    'Rev. lookup:' => 'Reverse DNS:',
     'Terminal:' => 'Browser:',
     'There was a new login on {site}.' => 'Es gab einen neuen Login auf {site}.',
-    'Twitter' => '',
+    'Twitter' => 'Twitter',
     'Verification Code:' => 'Verifizierungscode:',
     'Your email address has been changed.' => 'Deine E-Mail-Adresse wurde geändert.',
     'Your password has been changed.' => 'Dein Passwort wurde geändert.',
