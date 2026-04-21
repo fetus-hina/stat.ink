@@ -13,6 +13,7 @@ namespace app\actions\user;
 use Throwable;
 use Yii;
 use app\components\helpers\WebAuthnHelper;
+use app\models\User;
 use app\models\UserPasskey;
 use app\models\UserPasskeyUser;
 use lbuchs\WebAuthn\WebAuthnException;
@@ -142,10 +143,42 @@ final class PasskeyRegisterFinishAction extends BaseAction
             ];
         }
 
+        $this->sendEmail($ident, $model);
+
         return [
             'result' => true,
             'id' => $model->id,
         ];
+    }
+
+    private function sendEmail(User $user, UserPasskey $passkey): void
+    {
+        if (!$user->email) {
+            return;
+        }
+
+        try {
+            Yii::$app->mailer
+                ->compose(
+                    ['text' => '@app/views/email/register-passkey'],
+                    ['user' => $user, 'nickname' => $passkey->nickname],
+                )
+                ->setFrom(Yii::$app->params['notifyEmail'])
+                ->setTo([$user->email => $user->name])
+                ->setSubject(Yii::t(
+                    'app-email',
+                    '[{site}] {name} (@{screen_name}): Passkey registered',
+                    [
+                        'name' => $user->name,
+                        'screen_name' => $user->screen_name,
+                        'site' => Yii::$app->name,
+                    ],
+                    $user->emailLang->lang ?? 'en-US',
+                ))
+                ->send();
+        } catch (Throwable $e) {
+            Yii::error($e, __METHOD__);
+        }
     }
 
     /**

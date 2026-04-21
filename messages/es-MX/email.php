@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2019-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2019-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
@@ -12,12 +12,15 @@ return [
     '(Empty)' => '',
     '(Failed)' => '',
     '(Unknown)' => '',
+    'A new passkey has been registered.' => '',
+    'A passkey has been deleted.' => '',
     'Auto (cookie)' => '',
     'Estimated location:' => '',
     'Here is your email verification code.' => '',
     'IP Address:' => '',
     'Login method:' => '',
     'New:' => '',
+    'Nickname:' => '',
     'Old:' => '',
     'Password' => '',
     'Please enter this code into the browser. The code will expire in {mins} minutes.' => '',
@@ -30,6 +33,8 @@ return [
     'Your password has been changed.' => '',
     '[{site}] {name} (@{screen_name}): Changed your password' => '',
     '[{site}] {name} (@{screen_name}): Logged in' => '',
+    '[{site}] {name} (@{screen_name}): Passkey deleted' => '',
+    '[{site}] {name} (@{screen_name}): Passkey registered' => '',
     '[{site}] {name} (@{screen_name}): Verification code' => '',
     '[{site}] {name} (@{screen_name}): Your email address has been updated' => '',
 ];
