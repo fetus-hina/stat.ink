@@ -20,6 +20,7 @@ use app\models\UserLoginHistory;
 use app\models\UserPasskey;
 use app\models\UserPasskeyUser;
 use lbuchs\WebAuthn\WebAuthnException;
+use yii\base\DynamicModel;
 use yii\web\BadRequestHttpException;
 use yii\web\ViewAction as BaseAction;
 
@@ -32,6 +33,20 @@ use const FILTER_VALIDATE_BOOLEAN;
 
 final class PasskeyLoginFinishAction extends BaseAction
 {
+    // Upper bounds for the base64url-encoded payloads (~= ceil(n * 4 / 3)):
+    //   - credential id: at most 1023 raw bytes (WebAuthn spec)
+    //   - user handle: we generate 64 raw bytes
+    //   - client data: tiny JSON object
+    //   - authenticator data: at most a few hundred bytes
+    //   - signature: ECDSA/RSA/EdDSA, at most ~1 KB
+    private const MAX_CREDENTIAL_ID_LEN = 1400;
+    private const MAX_USER_HANDLE_LEN = 128;
+    private const MAX_CLIENT_DATA_LEN = 4096;
+    private const MAX_AUTHENTICATOR_DATA_LEN = 2048;
+    private const MAX_SIGNATURE_LEN = 2048;
+
+    private const BASE64URL_PATTERN = '/\A[A-Za-z0-9_-]+\z/';
+
     public function run()
     {
         if (!Yii::$app->user->getIsGuest()) {
@@ -42,25 +57,39 @@ final class PasskeyLoginFinishAction extends BaseAction
         $resp->format = 'json';
 
         $req = Yii::$app->request;
-        $credentialIdB64 = (string)$req->post('credential_id', '');
-        $clientDataJsonB64 = (string)$req->post('client_data_json', '');
-        $authenticatorDataB64 = (string)$req->post('authenticator_data', '');
-        $signatureB64 = (string)$req->post('signature', '');
-        $userHandleB64 = (string)$req->post('user_handle', '');
+        $form = DynamicModel::validateData(
+            [
+                'credential_id' => (string)$req->post('credential_id', ''),
+                'client_data_json' => (string)$req->post('client_data_json', ''),
+                'authenticator_data' => (string)$req->post('authenticator_data', ''),
+                'signature' => (string)$req->post('signature', ''),
+                'user_handle' => (string)$req->post('user_handle', ''),
+            ],
+            [
+                [
+                    ['credential_id', 'client_data_json', 'authenticator_data', 'signature', 'user_handle'],
+                    'required',
+                ],
+                [['credential_id'], 'string', 'max' => self::MAX_CREDENTIAL_ID_LEN],
+                [['user_handle'], 'string', 'max' => self::MAX_USER_HANDLE_LEN],
+                [['client_data_json'], 'string', 'max' => self::MAX_CLIENT_DATA_LEN],
+                [['authenticator_data'], 'string', 'max' => self::MAX_AUTHENTICATOR_DATA_LEN],
+                [['signature'], 'string', 'max' => self::MAX_SIGNATURE_LEN],
+                [
+                    ['credential_id', 'client_data_json', 'authenticator_data', 'signature', 'user_handle'],
+                    'match',
+                    'pattern' => self::BASE64URL_PATTERN,
+                ],
+            ],
+        );
+        if ($form->hasErrors()) {
+            return $this->failure('invalid_params');
+        }
+
         $rememberMe = (bool)filter_var(
             $req->post('remember_me'),
             FILTER_VALIDATE_BOOLEAN,
         );
-
-        if (
-            $credentialIdB64 === ''
-            || $clientDataJsonB64 === ''
-            || $authenticatorDataB64 === ''
-            || $signatureB64 === ''
-            || $userHandleB64 === ''
-        ) {
-            return $this->failure('invalid_params');
-        }
 
         $challengeB64 = Yii::$app->session->get(WebAuthnHelper::SESSION_KEY_LOGIN_CHALLENGE);
         if (!is_string($challengeB64) || $challengeB64 === '') {
@@ -68,13 +97,13 @@ final class PasskeyLoginFinishAction extends BaseAction
         }
         Yii::$app->session->remove(WebAuthnHelper::SESSION_KEY_LOGIN_CHALLENGE);
 
-        $passkeyUser = UserPasskeyUser::findOne(['user_handle' => $userHandleB64]);
+        $passkeyUser = UserPasskeyUser::findOne(['user_handle' => $form->user_handle]);
         if (!$passkeyUser) {
             return $this->failure('unknown_user_handle');
         }
 
         $passkey = UserPasskey::findOne([
-            'credential_id' => $credentialIdB64,
+            'credential_id' => $form->credential_id,
             'user_id' => $passkeyUser->user_id,
         ]);
         if (!$passkey) {
@@ -89,9 +118,9 @@ final class PasskeyLoginFinishAction extends BaseAction
         try {
             $webAuthn = WebAuthnHelper::create();
             $webAuthn->processGet(
-                clientDataJSON: WebAuthnHelper::base64UrlDecode($clientDataJsonB64),
-                authenticatorData: WebAuthnHelper::base64UrlDecode($authenticatorDataB64),
-                signature: WebAuthnHelper::base64UrlDecode($signatureB64),
+                clientDataJSON: WebAuthnHelper::base64UrlDecode($form->client_data_json),
+                authenticatorData: WebAuthnHelper::base64UrlDecode($form->authenticator_data),
+                signature: WebAuthnHelper::base64UrlDecode($form->signature),
                 credentialPublicKey: $passkey->public_key,
                 challenge: WebAuthnHelper::base64UrlDecode($challengeB64),
                 prevSignatureCnt: (int)$passkey->sign_count,
