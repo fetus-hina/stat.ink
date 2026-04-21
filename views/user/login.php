@@ -25,6 +25,7 @@ $this->title = implode(' | ', [
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-6 mb-3">
+      <?= $this->render('login/passkey') . "\n" ?>
       <?= $this->render('login/form', compact('login')) . "\n" ?>
     </div>
     <div class="col-xs-12 col-sm-6 mb-3">

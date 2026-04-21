@@ -20,6 +20,7 @@ use function random_bytes;
 final class WebAuthnHelper
 {
     public const SESSION_KEY_CHALLENGE = 'passkey.register.challenge';
+    public const SESSION_KEY_LOGIN_CHALLENGE = 'passkey.login.challenge';
 
     public static function create(): WebAuthn
     {

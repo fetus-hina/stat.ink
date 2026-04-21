@@ -30,6 +30,8 @@ use app\actions\user\LogoutAction;
 use app\actions\user\MachineTranslationAction;
 use app\actions\user\PasskeyAction;
 use app\actions\user\PasskeyDeleteAction;
+use app\actions\user\PasskeyLoginFinishAction;
+use app\actions\user\PasskeyLoginStartAction;
 use app\actions\user\PasskeyRegisterFinishAction;
 use app\actions\user\PasskeyRegisterStartAction;
 use app\actions\user\ProfileAction;
@@ -73,6 +75,8 @@ final class UserController extends Controller
                     'logout',
                     'passkey',
                     'passkey-delete',
+                    'passkey-login-finish',
+                    'passkey-login-start',
                     'passkey-register-finish',
                     'passkey-register-start',
                     'profile',
@@ -90,6 +94,8 @@ final class UserController extends Controller
                         'actions' => [
                             'login',
                             'login-with-twitter',
+                            'passkey-login-finish',
+                            'passkey-login-start',
                             'register',
                             'reset-password-apikey',
                         ],
@@ -142,6 +148,8 @@ final class UserController extends Controller
                     'login' => [ 'get', 'post' ],
                     'machine-translation' => [ 'post' ],
                     'passkey-delete' => [ 'post' ],
+                    'passkey-login-finish' => [ 'post' ],
+                    'passkey-login-start' => [ 'post' ],
                     'passkey-register-finish' => [ 'post' ],
                     'passkey-register-start' => [ 'post' ],
                     'regenerate-apikey' => [ 'post' ],
@@ -180,6 +188,8 @@ final class UserController extends Controller
             'machine-translation' => MachineTranslationAction::class,
             'passkey' => PasskeyAction::class,
             'passkey-delete' => PasskeyDeleteAction::class,
+            'passkey-login-finish' => PasskeyLoginFinishAction::class,
+            'passkey-login-start' => PasskeyLoginStartAction::class,
             'passkey-register-finish' => PasskeyRegisterFinishAction::class,
             'passkey-register-start' => PasskeyRegisterStartAction::class,
             'profile' => ProfileAction::class,
