@@ -107,6 +107,8 @@ RESOURCE_TARGETS := \
 	resources/.compiled/stat.ink/no-image.png \
 	resources/.compiled/stat.ink/os-icon-widget.js \
 	resources/.compiled/stat.ink/paintball.css \
+	resources/.compiled/stat.ink/passkey-login.js \
+	resources/.compiled/stat.ink/passkey.js \
 	resources/.compiled/stat.ink/permalink-dialog.js \
 	resources/.compiled/stat.ink/private-note.js \
 	resources/.compiled/stat.ink/ratio.css \
@@ -213,7 +215,7 @@ phpstan1: vendor
 
 check-style-js: node_modules
 	npx updates --minor bootstrap,bootswatch
-	npx semistandard 'resources/**/*[ej]s'
+	npx eslint 'resources/**/*.[ej]s'
 
 check-style-css: node_modules
 	npx stylelint "resources/**/*.scss" "resources/**/*.css"
@@ -221,7 +223,7 @@ check-style-css: node_modules
 fix-style: vendor node_modules
 	npx updates -u --minor bootstrap,bootswatch
 	vendor/bin/phpcbf -p
-	npx semistandard --fix 'resources/**/*[ej]s'
+	npx eslint --fix 'resources/**/*.[ej]s'
 
 clean: clean-resource
 	rm -rf \
@@ -255,9 +257,7 @@ endef
 
 define es2js
 	@mkdir -p $(dir $(1))
-	cat $(2) | \
-		npx babel -s false -f jsfile | \
-		npx terser -c -m -f 'ascii_only=true,beautify=false' --comments '/license|copyright/i' --output $(1)
+	npx terser $(2) -c -m -f 'ascii_only=true,beautify=false' --comments '/license|copyright/i' --output $(1)
 	@touch $(1)
 endef
 
@@ -337,6 +337,8 @@ resources/.compiled/stat.ink/link-prevnext.js: resources/stat.ink/link-prevnext.
 resources/.compiled/stat.ink/main.css: resources/stat.ink/main.scss node_modules
 resources/.compiled/stat.ink/os-icon-widget.js: resources/stat.ink/os-icon-widget.es node_modules
 resources/.compiled/stat.ink/paintball.css: resources/stat.ink/paintball.scss node_modules
+resources/.compiled/stat.ink/passkey-login.js: resources/stat.ink/passkey-login.es node_modules
+resources/.compiled/stat.ink/passkey.js: resources/stat.ink/passkey.es node_modules
 resources/.compiled/stat.ink/permalink-dialog.js: resources/stat.ink/permalink-dialog.es node_modules
 resources/.compiled/stat.ink/private-note.js: resources/stat.ink/private-note.es node_modules
 resources/.compiled/stat.ink/ratio.css: resources/stat.ink/ratio.scss node_modules

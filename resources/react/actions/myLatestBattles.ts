@@ -1,5 +1,4 @@
 import { Dispatch } from '@reduxjs/toolkit';
-import axios from 'axios';
 import { LatestBattlesData } from '../types';
 
 export const FETCH_MY_LATEST_BATTLES = 'FETCH_MY_LATEST_BATTLES';
@@ -23,10 +22,10 @@ export function fetchMyLatestBattlesSuccess (data: LatestBattlesData) {
 export function fetchMyLatestBattles () {
   return (dispatch: Dispatch) => {
     dispatch({ type: FETCH_MY_LATEST_BATTLES });
-    return axios
-      .get('/api/internal/my-latest-battles')
-      .then(response => {
-        dispatch(fetchMyLatestBattlesSuccess(response.data));
+    return fetch('/api/internal/my-latest-battles')
+      .then(response => response.json())
+      .then(data => {
+        dispatch(fetchMyLatestBattlesSuccess(data));
       })
       .catch(error => {
         dispatch(fetchMyLatestBattlesFailed(error));

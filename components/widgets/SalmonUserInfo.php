@@ -251,7 +251,7 @@ class SalmonUserInfo extends Widget
                 implode('', [
                     '<span class="fas ra-fw fa-paint-roller"></span>',
                     Html::tag('span', Html::encode(Yii::t('app', 'Battles'))),
-                    '<span class="fas fa-fw fa-angle-right"></span>',
+                    '<span class="fas fa-angle-right"></span>',
                 ]),
                 ['show-v2/user', 'screen_name' => $this->user->screen_name],
                 [

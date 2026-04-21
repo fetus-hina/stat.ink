@@ -443,6 +443,7 @@ return [
     'Overall Estimates' => '全体の推定',
     'PC' => 'PC',
     'PNG/JPEG file up to {0}' => '{0} までのPNGまたはJPEGファイル',
+    'Passkey' => 'パスキー',
     'Password (again)' => 'パスワード（確認用）',
     'Password' => 'パスワード',
     'Peak' => '最高',

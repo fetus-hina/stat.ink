@@ -369,7 +369,7 @@ $f = Yii::$app->formatter;
 <?php endif ?>
 <?php if ($user->sw_friend_code): ?>
       <div>
-        <span class="fa fa-fw"></span>
+        <span class="fa"></span>
         <span style="white-space:nowrap"><?= implode('-', [
           'SW',
           substr($user->sw_friend_code, 0, 4),

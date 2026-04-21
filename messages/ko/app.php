@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2022-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2022-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  * @author cake monotone <cake.monotone@gmail.com>
@@ -455,6 +455,7 @@ return [
     'Open Source Licenses' => '오픈 소스 라이선스',
     'Others' => '그 외',
     'Overall Estimates' => '',
+    'Passkey' => '패스키',
     'Password' => '비밀번호',
     'Password (again)' => '비밀번호 (확인)',
     'PC' => 'PC',

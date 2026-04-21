@@ -32,7 +32,7 @@ $this->title = sprintf('%s | %s', Yii::$app->name, $title);
   <p>
     <?= Html::a(
       implode(' ', [
-        '<span class="fas fa-fw fa-angle-left"></span>',
+        '<span class="fas fa-angle-left"></span>',
         Html::encode(Yii::t('app', 'Back')),
       ]),
       ['salmon/view',

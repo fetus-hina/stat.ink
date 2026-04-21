@@ -75,6 +75,8 @@ use const SORT_DESC;
  * @property LinkMode $linkMode
  * @property Slack[] $slacks
  * @property UserIcon $userIcon
+ * @property UserPasskey[] $userPasskeys
+ * @property UserPasskeyUser|null $userPasskeyUser
  * @property UserStat $userStat
  * @property UserStat2 $userStat2
  * @property UserWeapon[] $userWeapons
@@ -390,6 +392,17 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->hasMany(UserLoginHistory::class, ['user_id' => 'id'])
             ->orderBy(['id' => SORT_DESC]);
+    }
+
+    public function getUserPasskeyUser(): ActiveQuery
+    {
+        return $this->hasOne(UserPasskeyUser::class, ['user_id' => 'id']);
+    }
+
+    public function getUserPasskeys(): ActiveQuery
+    {
+        return $this->hasMany(UserPasskey::class, ['user_id' => 'user_id'])
+            ->via('userPasskeyUser');
     }
 
     public function getEmailLang(): ActiveQuery

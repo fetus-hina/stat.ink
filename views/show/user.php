@@ -167,14 +167,14 @@ if ($battle &&
         ) . "\n" ?>
         <?= Html::a(
           implode(' ', [
-            '<span class="fas fa-fw fa-cogs"></span>',
+            '<span class="fas fa-cogs"></span>',
             Html::encode(Yii::t('app', 'View Settings')),
           ]),
           '#table-config',
           ['class' => 'btn btn-default'],
         ) . "\n" ?>
         <?= Html::a(
-          '<span class="fa fa-fw fa-list"></span>' . Html::encode(Yii::t('app', 'Simplified List')),
+          '<span class="fa fa-list"></span>' . Html::encode(Yii::t('app', 'Simplified List')),
           array_merge($filter->toQueryParams(), ['show/user', 'v' => 'simple']),
           ['class' => 'btn btn-default', 'rel' => 'nofollow']
         ) . "\n" ?>

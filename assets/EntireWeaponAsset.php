@@ -28,7 +28,6 @@ class EntireWeaponAsset extends AssetBundle
         'entire-weapon-usepct.js',
     ];
     public $depends = [
-        BabelPolyfillAsset::class,
         ColorSchemeAsset::class,
         FlotAsset::class,
         FlotPieAsset::class,

@@ -23,7 +23,7 @@ use yii\web\View;
   <?= Html::encode(Yii::t('app', 'Please keep it secret.')) . "\n" ?>
 </p>
 <button class="btn btn-default auto-tooltip" id="apikey-button">
-  <span class="fas fa-fw fa-eye"></span>
+  <span class="fas fa-eye"></span>
   <?= Html::encode(Yii::t('app', 'Show your API Token')) . "\n" ?>
 </button>
 <div id="apikey" style="display:none">

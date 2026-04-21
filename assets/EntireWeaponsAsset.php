@@ -24,7 +24,6 @@ class EntireWeaponsAsset extends AssetBundle
         'weapons.js',
     ];
     public $depends = [
-        BabelPolyfillAsset::class,
         ColorSchemeAsset::class,
         FlotAsset::class,
         FlotStackAsset::class,

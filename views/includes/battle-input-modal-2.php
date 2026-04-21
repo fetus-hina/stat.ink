@@ -51,7 +51,7 @@ $_maps = Map2::getSortedMap();
       <div class="modal-header">
         <?= Html::tag(
           'button',
-          '<span aria-hidden="true" class="fas fa-fw fa-times"></span>',
+          '<span aria-hidden="true" class="fas fa-times"></span>',
           [
             'type' => 'button',
             'class' => 'close',
@@ -196,7 +196,7 @@ $_maps = Map2::getSortedMap();
                 <?= Html::tag(
                   'button',
                   implode('', [
-                    Html::tag('span', '', ['class' => 'far fa-fw fa-save']),
+                    Html::tag('span', '', ['class' => 'far fa-save']),
                     Html::encode(Yii::t('app', 'Save!')),
                   ]),
                   [
@@ -315,7 +315,7 @@ $_maps = Map2::getSortedMap();
                       ) . "\n" ?>
 <?php endforeach ?>
                     </select>
-                    <span class="fas fa-fw fa-arrow-right"></span>
+                    <span class="fas fa-arrow-right"></span>
                     <select name="rank_after" id="battle-input2-form--ranked--rank-after" class="form-control">
 <?php foreach ($ranks as $rank): ?>
                       <?= Html::tag(
@@ -356,7 +356,7 @@ $_maps = Map2::getSortedMap();
                 <?= Html::tag(
                   'button',
                   implode('', [
-                    Html::tag('span', '', ['class' => 'far fa-fw fa-save']),
+                    Html::tag('span', '', ['class' => 'far fa-save']),
                     Html::encode(Yii::t('app', 'Save!')),
                   ]),
                   [
@@ -471,7 +471,7 @@ $_maps = Map2::getSortedMap();
                 <?= Html::tag(
                   'button',
                   implode('', [
-                    Html::tag('span', '', ['class' => 'far fa-fw fa-save']),
+                    Html::tag('span', '', ['class' => 'far fa-save']),
                     Html::encode(Yii::t('app', 'Save!')),
                   ]),
                   [

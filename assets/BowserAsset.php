@@ -24,7 +24,6 @@ class BowserAsset extends AssetBundle
         'es5.js',
     ];
     public $depends = [
-        BabelPolyfillAsset::class,
     ];
 
     public function init()

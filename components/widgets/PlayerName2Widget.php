@@ -102,7 +102,7 @@ class PlayerName2Widget extends Widget
         }
 
         return Html::tag('span', '', [
-            'class' => 'fas fa-fw fa-chess-queen',
+            'class' => 'fas fa-chess-queen',
         ]);
     }
 

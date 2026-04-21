@@ -74,7 +74,7 @@ PaintballAsset::register($this);
             <?= Html::tag(
               'button',
               implode('', [
-                Html::tag('span', '', ['class' => 'fas fa-fw fa-edit']),
+                Html::tag('span', '', ['class' => 'fas fa-edit']),
                 Html::encode(Yii::t('app', 'Splatoon 2')),
               ]),
               [

@@ -28,6 +28,12 @@ use app\actions\user\LoginHistoryAction;
 use app\actions\user\LoginWithTwitterAction;
 use app\actions\user\LogoutAction;
 use app\actions\user\MachineTranslationAction;
+use app\actions\user\PasskeyAction;
+use app\actions\user\PasskeyDeleteAction;
+use app\actions\user\PasskeyLoginFinishAction;
+use app\actions\user\PasskeyLoginStartAction;
+use app\actions\user\PasskeyRegisterFinishAction;
+use app\actions\user\PasskeyRegisterStartAction;
 use app\actions\user\ProfileAction;
 use app\actions\user\RegenerateApikeyAction;
 use app\actions\user\RegisterAction;
@@ -67,6 +73,12 @@ final class UserController extends Controller
                     'login-history',
                     'login-with-twitter',
                     'logout',
+                    'passkey',
+                    'passkey-delete',
+                    'passkey-login-finish',
+                    'passkey-login-start',
+                    'passkey-register-finish',
+                    'passkey-register-start',
                     'profile',
                     'regenerate-apikey',
                     'register',
@@ -82,6 +94,8 @@ final class UserController extends Controller
                         'actions' => [
                             'login',
                             'login-with-twitter',
+                            'passkey-login-finish',
+                            'passkey-login-start',
                             'register',
                             'reset-password-apikey',
                         ],
@@ -103,6 +117,10 @@ final class UserController extends Controller
                             'icon-twitter',
                             'login-history',
                             'logout',
+                            'passkey',
+                            'passkey-delete',
+                            'passkey-register-finish',
+                            'passkey-register-start',
                             'profile',
                             'regenerate-apikey',
                             'slack-add',
@@ -129,6 +147,11 @@ final class UserController extends Controller
                     'language' => [ 'post' ],
                     'login' => [ 'get', 'post' ],
                     'machine-translation' => [ 'post' ],
+                    'passkey-delete' => [ 'post' ],
+                    'passkey-login-finish' => [ 'post' ],
+                    'passkey-login-start' => [ 'post' ],
+                    'passkey-register-finish' => [ 'post' ],
+                    'passkey-register-start' => [ 'post' ],
                     'regenerate-apikey' => [ 'post' ],
                     'register' => [ 'get', 'post' ],
                     'reset-password-apikey' => [ 'get', 'post' ],
@@ -163,6 +186,12 @@ final class UserController extends Controller
             'login-with-twitter' => LoginWithTwitterAction::class,
             'logout' => LogoutAction::class,
             'machine-translation' => MachineTranslationAction::class,
+            'passkey' => PasskeyAction::class,
+            'passkey-delete' => PasskeyDeleteAction::class,
+            'passkey-login-finish' => PasskeyLoginFinishAction::class,
+            'passkey-login-start' => PasskeyLoginStartAction::class,
+            'passkey-register-finish' => PasskeyRegisterFinishAction::class,
+            'passkey-register-start' => PasskeyRegisterStartAction::class,
             'profile' => ProfileAction::class,
             'regenerate-apikey' => RegenerateApikeyAction::class,
             'register' => RegisterAction::class,

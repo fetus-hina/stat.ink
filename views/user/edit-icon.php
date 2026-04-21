@@ -105,7 +105,7 @@ $this->title = implode(' | ', [
             </div>
             <?= Html::submitButton(
               implode('', [
-                Html::tag('span', '', ['class' => 'fa fa-fw fa-upload']),
+                Html::tag('span', '', ['class' => 'fa fa-upload']),
                 Html::encode(Yii::t('app', 'Upload icon')),
               ]),
               ['class' => 'btn btn-info btn-block']
@@ -137,7 +137,7 @@ $this->title = implode(' | ', [
             <p>
               <?= Html::submitButton(
                 implode('', [
-                  Html::tag('span', '', ['class' => 'fa fa-fw fa-undo']),
+                  Html::tag('span', '', ['class' => 'fa fa-undo']),
                   Html::encode(Yii::t('app', 'Reset icon')),
                 ]),
                 ['class' => 'btn btn-danger btn-block']

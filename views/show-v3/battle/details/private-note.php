@@ -42,7 +42,7 @@ return [
 
     return implode('', [
       Html::button(
-        Html::tag('span', '', ['class' => 'fa fa-lock fa-fw']),
+        Html::tag('span', '', ['class' => 'fa fa-lock']),
         ['class' => 'btn btn-default', 'id' => 'private-note-show']
       ),
       Html::tag(

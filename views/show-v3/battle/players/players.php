@@ -51,7 +51,7 @@ if (
   <table class="table table-bordered mb-0" id="players">
     <thead>
       <tr>
-        <th class="text-nowrap text-center" style="width:38px"><span class="fa fa-fw"></span></th>
+        <th class="text-nowrap text-center" style="width:38px"><span class="fa"></span></th>
         <th class="text-nowrap text-center col-name"><?= Html::encode(Yii::t('app', 'Name')) ?></th>
         <th class="text-nowrap text-center col-weapon"><?= Html::encode(Yii::t('app', 'Weapon')) ?></th>
 <?php if ($isXmatch) { ?>

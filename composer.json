@@ -21,7 +21,7 @@
     "cweagans/composer-patches": "^1.7.3",
     "geoip2/geoip2": "^3.3.0",
     "guzzlehttp/guzzle": "^7.10.0",
-    "jaybizzle/crawler-detect": "^1.3.7",
+    "jaybizzle/crawler-detect": "^1.3.8",
     "jp3cki/mb_str_replace": "^4.0.2",
     "jp3cki/uuid": "^5.0.0",
     "jp3cki/yii2-bs-datetimepicker": "^1.0",
@@ -31,6 +31,7 @@
     "jp3cki/yii2-twitter-widget": "^1.0",
     "jp3cki/yii2-zxcvbn": "^1.0",
     "laminas/laminas-feed": "^2.26.1",
+    "lbuchs/webauthn": "^2.2",
     "lipis/flag-icons": "^7.5.0",
     "lusitanian/oauth": "^0.8.11",
     "markrogoyski/math-php": "^2.13.0",
@@ -47,7 +48,7 @@
     "statink/yii2-spl2-stages": "^1.0.2",
     "statink/yii2-twitter-webintents": "^1.0.2",
     "symfony/polyfill-php83": "^1.32",
-    "symfony/yaml": "^7.4.6",
+    "symfony/yaml": "^7.4.8",
     "twbs/bootstrap-icons": "^1.13.1",
     "yiisoft/yii2": "^2.0.54",
     "yiisoft/yii2-bootstrap": "^2.0.11",
@@ -62,6 +63,7 @@
     "codeception/module-yii2": ">=2.0.5",
     "codeception/specify": ">=2",
     "codeception/verify": ">=3.4",
+    "cotonet/soak-time": "1.0.2",
     "ergebnis/composer-normalize": "^2.50.0",
     "jp3cki/coding-standard": "^2.0.0",
     "nikic/php-parser": "^4.19.5 || ^5.5.0",
@@ -136,6 +138,7 @@
   },
   "config": {
     "allow-plugins": {
+      "cotonet/soak-time": true,
       "cweagans/composer-patches": true,
       "dealerdirect/phpcodesniffer-composer-installer": true,
       "ergebnis/composer-normalize": true,
@@ -163,7 +166,8 @@
       "yiisoft/yii2-bootstrap": {
         "non-progress progressbar": "data/patch/yii2-bootstrap-non-progress-progressbar.patch"
       }
-    }
+    },
+    "soak-time-hours": 240
   },
   "scripts": {
     "post-install-cmd": [
