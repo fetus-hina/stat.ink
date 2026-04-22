@@ -8,9 +8,12 @@
 
 declare(strict_types=1);
 
+use app\assets\PasskeyLoginNavbarAsset;
 use app\components\widgets\Icon;
 use app\components\widgets\UserIcon;
 use yii\helpers\Html;
+use yii\helpers\Json;
+use yii\helpers\Url;
 use yii\web\View;
 
 /**
@@ -18,6 +21,26 @@ use yii\web\View;
  */
 
 $user = Yii::$app->user->identity ?? null;
+
+if (!$user) {
+    PasskeyLoginNavbarAsset::register($this);
+    $this->registerJs(
+        sprintf(
+            'window.__navbarPasskeyLoginConfig = %s;',
+            Json::encode([
+                'urls' => [
+                    'start' => Url::to(['user/passkey-login-start']),
+                    'finish' => Url::to(['user/passkey-login-finish']),
+                    'redirect' => Url::to(['user/profile']),
+                    'login' => Url::to(['user/login']),
+                ],
+                'csrfParam' => Yii::$app->request->csrfParam,
+                'csrfToken' => Yii::$app->request->csrfToken,
+            ]),
+        ),
+        View::POS_HEAD,
+    );
+}
 
 ?>
 <?= Html::a(
@@ -126,6 +149,20 @@ $user = Yii::$app->user->identity ?? null;
           Html::encode(Yii::t('app', 'Login')),
         ]),
         ['/user/login']
+      )),
+      Html::tag('li', Html::a(
+        implode('', [
+          Html::tag(
+            'span',
+            (Yii::$app->params['twitter']['read_enabled'] ?? false) ? '┣' : '┗',
+            ['class' => 'fa'],
+          ),
+          Icon::passkey(),
+          ' ',
+          Html::encode(Yii::t('app-passkey', 'Log in with Passkey')),
+        ]),
+        '#',
+        ['id' => 'navbar-passkey-login'],
       )),
       (Yii::$app->params['twitter']['read_enabled'] ?? false)
         ? Html::tag('li', Html::a(
