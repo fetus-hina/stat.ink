@@ -124,8 +124,8 @@ $f = Yii::$app->formatter;
           ),
         );
         $parts[] = Html::a(
-          implode('', [
-            Html::tag('span', '', ['class' => 'fas fa-fingerprint']),
+          implode(' ', [
+            Icon::passkey(),
             Html::encode(
               $count > 0
                 ? Yii::t('app-passkey', 'Manage')

@@ -119,6 +119,7 @@ use function str_starts_with;
  * @method static string number();
  * @method static string octoling()
  * @method static string ok()
+ * @method static string passkey()
  * @method static string permalink()
  * @method static string playedWithHistory()
  * @method static string popup()
@@ -297,6 +298,7 @@ final class Icon
         'appLink' => 'link',
         'appUnlink' => 'unlink',
         'hasDisconnected' => 'tint-slash',
+        'passkey' => 'fingerprint',
         'playedWithHistory' => 'history',
     ];
 
