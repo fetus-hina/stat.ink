@@ -8,9 +8,9 @@
 
 namespace app\models;
 
+use RuntimeException;
 use Throwable;
 use Yii;
-use app\components\helpers\Password;
 use app\components\helpers\TypeHelper;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
@@ -137,14 +137,19 @@ final class ResetPasswordApikeyForm extends Model
         }
 
         $user = $this->getUser();
-        $user->password = Password::hash($this->password);
-        $user->apikey_password_reset = false;
-        if (!$user->save()) {
+        try {
+            Yii::$app->db->transaction(function () use ($user): void {
+                $user->apikey_password_reset = false;
+                if (!$user->changePassword($this->password)) {
+                    throw new RuntimeException('Failed to change password');
+                }
+            });
+            return true;
+        } catch (Throwable $e) {
+            Yii::error($e, __METHOD__);
             $this->addError('password', 'Could not update password.');
             return false;
         }
-
-        return true;
     }
 
     private User|false|null $user = false;
