@@ -124,7 +124,7 @@ final class PasskeyLoginFinishAction extends BaseAction
                 credentialPublicKey: $passkey->public_key,
                 challenge: WebAuthnHelper::base64UrlDecode($challengeB64),
                 prevSignatureCnt: (int)$passkey->sign_count,
-                requireUserVerification: false,
+                requireUserVerification: true,
                 requireUserPresent: true,
             );
         } catch (WebAuthnException $e) {
