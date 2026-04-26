@@ -49,8 +49,8 @@ final class PasskeyRegisterStartAction extends BaseAction
             userName: $ident->screen_name,
             userDisplayName: $ident->name,
             timeout: 60,
-            requireResidentKey: 'preferred',
-            requireUserVerification: 'preferred',
+            requireResidentKey: 'required',
+            requireUserVerification: 'required',
             excludeCredentialIds: $excludeCredentialIds,
         );
 

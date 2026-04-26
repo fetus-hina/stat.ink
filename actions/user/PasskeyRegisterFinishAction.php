@@ -91,7 +91,7 @@ final class PasskeyRegisterFinishAction extends BaseAction
                 clientDataJSON: WebAuthnHelper::base64UrlDecode($form->client_data_json),
                 attestationObject: WebAuthnHelper::base64UrlDecode($form->attestation_object),
                 challenge: WebAuthnHelper::base64UrlDecode($challengeB64),
-                requireUserVerification: false,
+                requireUserVerification: true,
                 requireUserPresent: true,
                 failIfRootMismatch: false,
             );
