@@ -49,6 +49,7 @@ return [
     'Aliases' => '别名',
     'All' => '全部',
     'All Players' => '全部玩家',
+    'All recovery keys have been revoked because the password was changed.' => '由于密码已更改，所有恢复密钥均已撤销。',
     'Always enable horizontal scroll' => '始终启用水平滚动',
     'Anarchy Power' => '蛮颓战力',
     'Anonymize, don\'t link from other user\'s results' => '匿名化，不链接到其他用户的结果',

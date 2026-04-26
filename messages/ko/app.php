@@ -47,6 +47,7 @@ return [
     'Aliases' => '',
     'All' => '',
     'All Players' => '모든 플레이어',
+    'All recovery keys have been revoked because the password was changed.' => '비밀번호가 변경되어 모든 복구 키가 무효화되었습니다.',
     'Always enable horizontal scroll' => '횡스크롤을 항상 활성화합니다',
     'Anarchy Power' => '',
     'Anonymize, don\'t link from other user\'s results' => '',

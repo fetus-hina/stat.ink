@@ -1,29 +1,42 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2023-2026 AIZAWA Hina
+ * @copyright Copyright (C) 2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  * @author AIZAWA Hina <hina@fetus.jp>
  */
 
+declare(strict_types=1);
+
 namespace app\models;
 
+use DateTime;
 use RuntimeException;
 use Throwable;
 use Yii;
+use app\components\helpers\Password;
 use app\components\helpers\TypeHelper;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
 use yii\httpclient\Client;
 use yii\httpclient\CurlTransport;
 
-final class ResetPasswordApikeyForm extends Model
+use function date;
+use function preg_match;
+use function strtolower;
+
+final class ResetPasswordRecoveryKeyForm extends Model
 {
+    public const RECOVERY_KEY_PATTERN =
+        '/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})\.([A-Za-z0-9_-]{43})$/';
+
     public string|null $screen_name = null;
-    public string|null $api_key = null;
+    public string|null $recovery_key = null;
     public string|null $password = null;
     public string|null $password_repeat = null;
     public string|null $cf_turnstile_response = null;
+
+    private UserPasswordRecoveryKey|false|null $foundKey = false;
 
     /**
      * @inheritdoc
@@ -31,7 +44,7 @@ final class ResetPasswordApikeyForm extends Model
     public function rules()
     {
         return [
-            [['screen_name', 'api_key', 'password', 'password_repeat'], 'required'],
+            [['screen_name', 'recovery_key', 'password', 'password_repeat'], 'required'],
             [['cf_turnstile_response'], 'required',
                 'enableClientValidation' => false,
             ],
@@ -47,9 +60,9 @@ final class ResetPasswordApikeyForm extends Model
             [['cf_turnstile_response'], 'string'],
             [['cf_turnstile_response'], 'validateTurnstile'],
 
-            [['api_key'], 'string', 'length' => 43],
-            [['api_key'], 'match', 'pattern' => '/^[a-zA-Z0-9_-]{43}$/'],
-            [['api_key'], 'validateApiKey'],
+            [['recovery_key'], 'string'],
+            [['recovery_key'], 'match', 'pattern' => self::RECOVERY_KEY_PATTERN],
+            [['recovery_key'], 'validateRecoveryKey'],
 
             [['password'], 'string', 'min' => 10],
             [['password_repeat'], 'compare', 'compareAttribute' => 'password'],
@@ -63,31 +76,49 @@ final class ResetPasswordApikeyForm extends Model
     {
         return [
             'screen_name' => Yii::t('app', 'Screen Name (Login Name)'),
-            'api_key' => Yii::t('app', 'API Token'),
+            'recovery_key' => Yii::t('app-recovery-key', 'Recovery Key'),
             'password' => Yii::t('app', 'New Password'),
             'password_repeat' => Yii::t('app', 'New Password (again)'),
         ];
     }
 
-    public function validateApiKey(string $attribute, mixed $params): void
+    public function validateRecoveryKey(string $attribute, mixed $params): void
     {
-        if ($this->hasErrors()) {
+        if ($this->hasErrors($attribute)) {
             return;
         }
 
-        $user = $this->getUser();
-        if (
-            !$user ||
-            $user->api_key !== $this->api_key
-        ) {
-            $this->addError(
-                $attribute,
-                Yii::t('app', 'Invalid {0} or {1}.', [
-                    $this->getAttributeLabel('screen_name'),
-                    $this->getAttributeLabel('api_key'),
-                ]),
-            );
+        if (!preg_match(self::RECOVERY_KEY_PATTERN, (string)$this->recovery_key, $m)) {
+            $this->addInvalidError($attribute);
+            return;
         }
+
+        $publicId = strtolower($m[1]);
+        $secret = $m[2];
+
+        $key = UserPasswordRecoveryKey::find()
+            ->andWhere([
+                'public_id' => $publicId,
+                'used_at' => null,
+                'revoked_at' => null,
+            ])
+            ->limit(1)
+            ->one();
+
+        $isValid = false;
+        if ($key && $key->user && $key->user->screen_name === (string)$this->screen_name) {
+            $isValid = Password::verify($secret, $key->secret_hash);
+        } else {
+            // Mitigate timing attacks by always running the slow verify
+            Password::verify($secret, self::dummyHash());
+        }
+
+        if (!$isValid) {
+            $this->addInvalidError($attribute);
+            return;
+        }
+
+        $this->foundKey = $key;
     }
 
     public function validateTurnstile(string $attribute, mixed $params): void
@@ -132,67 +163,57 @@ final class ResetPasswordApikeyForm extends Model
 
     public function updatePassword(): bool
     {
-        if ($this->hasErrors()) {
+        if ($this->hasErrors() || !$this->foundKey) {
             return false;
         }
 
-        $user = $this->getUser();
+        $key = $this->foundKey;
+        $user = $key->user;
+        if (!$user) {
+            return false;
+        }
+
         try {
-            Yii::$app->db->transaction(function () use ($user): void {
-                $user->apikey_password_reset = false;
-                if (!$user->changePassword($this->password)) {
+            Yii::$app->db->transaction(function () use ($key, $user): void {
+                $req = Yii::$app->request;
+                $now = date(
+                    DateTime::ATOM,
+                    TypeHelper::int($_SERVER['REQUEST_TIME']),
+                );
+
+                $key->used_at = $now;
+                $key->used_ip = $req->userIP;
+                if (!$key->save()) {
+                    throw new RuntimeException('Failed to mark recovery key as used');
+                }
+
+                if (!$user->changePassword((string)$this->password)) {
                     throw new RuntimeException('Failed to change password');
                 }
             });
-            return true;
         } catch (Throwable $e) {
             Yii::error($e, __METHOD__);
             $this->addError('password', 'Could not update password.');
             return false;
         }
+
+        return true;
     }
 
-    private User|false|null $user = false;
-
-    private function getUser(): ?User
+    private function addInvalidError(string $attribute): void
     {
-        if ($this->user === false) {
-            $this->user = User::find()
-                ->andWhere([
-                    '{{user}}.[[screen_name]]' => (string)$this->screen_name,
-                    '{{user}}.[[apikey_password_reset]]' => true,
-                ])
-                ->limit(1)
-                ->one();
-        }
-
-        return $this->user;
+        $this->addError(
+            $attribute,
+            Yii::t('app', 'Invalid {0} or {1}.', [
+                $this->getAttributeLabel('screen_name'),
+                $this->getAttributeLabel('recovery_key'),
+            ]),
+        );
     }
 
-    public function sendEmail(): void
+    private static function dummyHash(): string
     {
-        $user = $this->getUser();
-        if (!$user || !$user->email) {
-            return;
-        }
-
-        Yii::$app->mailer
-            ->compose(
-                ['text' => '@app/views/email/change-password'],
-                ['user' => $user],
-            )
-            ->setFrom(Yii::$app->params['notifyEmail'])
-            ->setTo([$user->email => $user->name])
-            ->setSubject(Yii::t(
-                'app-email',
-                '[{site}] {name} (@{screen_name}): Changed your password',
-                [
-                    'name' => $user->name,
-                    'screen_name' => $user->screen_name,
-                    'site' => Yii::$app->name,
-                ],
-                $user->emailLang->lang ?? 'en-US',
-            ))
-            ->send();
+        static $hash = null;
+        return $hash ??= Password::hash('dummy-recovery-key-for-timing-equalization');
     }
 }

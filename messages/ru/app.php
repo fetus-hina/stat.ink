@@ -45,6 +45,7 @@ return [
     'Aliases' => '',
     'All' => '',
     'All Players' => '',
+    'All recovery keys have been revoked because the password was changed.' => 'Все ключи восстановления были отозваны, поскольку пароль был изменён.',
     'Always enable horizontal scroll' => '',
     'Anarchy Power' => '',
     'Anonymize, don\'t link from other user\'s results' => '',

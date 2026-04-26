@@ -58,7 +58,9 @@ ZxcvbnAsset::register($this);
         ?>
         <?= $_->field($register, 'password')
           ->passwordInput([
-            'autocomplete' => 'new-password'
+            'autocomplete' => 'new-password',
+            'minlength' => 10,
+            'passwordrules' => 'minlength: 10;',
           ])
           ->hint(
             Yii::t(
@@ -68,7 +70,9 @@ ZxcvbnAsset::register($this);
             )
           ) . "\n"
         ?>
-        <?= $_->field($register, 'password_repeat')->passwordInput() . "\n" ?>
+        <?= $_->field($register, 'password_repeat')->passwordInput([
+          'minlength' => 10,
+        ]) . "\n" ?>
         <div id="password-strength"></div>
         <?= Html::submitButton(
           Html::encode(Yii::t('app', 'Register')),
