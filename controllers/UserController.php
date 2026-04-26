@@ -41,6 +41,7 @@ use app\actions\user\RecoveryKeyDeleteAction;
 use app\actions\user\RegenerateApikeyAction;
 use app\actions\user\RegisterAction;
 use app\actions\user\ResetPasswordApikeyAction;
+use app\actions\user\ResetPasswordRecoveryKeyAction;
 use app\actions\user\SlackAddAction;
 use app\actions\user\SlackDeleteAction;
 use app\actions\user\SlackSuspendAction;
@@ -89,6 +90,7 @@ final class UserController extends Controller
                     'regenerate-apikey',
                     'register',
                     'reset-password-apikey',
+                    'reset-password-recovery-key',
                     'slack-add',
                     'slack-delete',
                     'slack-suspend',
@@ -104,6 +106,7 @@ final class UserController extends Controller
                             'passkey-login-start',
                             'register',
                             'reset-password-apikey',
+                            'reset-password-recovery-key',
                         ],
                         'roles' => ['?'],
                         'allow' => true,
@@ -166,6 +169,7 @@ final class UserController extends Controller
                     'regenerate-apikey' => [ 'post' ],
                     'register' => [ 'get', 'post' ],
                     'reset-password-apikey' => [ 'get', 'post' ],
+                    'reset-password-recovery-key' => [ 'get', 'post' ],
                     'slack-add' => [ 'get', 'post' ],
                     'slack-delete' => [ 'post' ],
                     'slack-suspend' => [ 'post' ],
@@ -210,6 +214,7 @@ final class UserController extends Controller
             'regenerate-apikey' => RegenerateApikeyAction::class,
             'register' => RegisterAction::class,
             'reset-password-apikey' => ResetPasswordApikeyAction::class,
+            'reset-password-recovery-key' => ResetPasswordRecoveryKeyAction::class,
             'slack-add' => SlackAddAction::class,
             'slack-delete' => SlackDeleteAction::class,
             'slack-suspend' => SlackSuspendAction::class,
