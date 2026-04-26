@@ -47,6 +47,7 @@ return [
     'Aliases' => '別名',
     'All' => '',
     'All Players' => '所有玩家',
+    'All recovery keys have been revoked because the password was changed.' => '由於密碼已變更，所有復原金鑰均已撤銷。',
     'Always enable horizontal scroll' => '始終啟用水平滾動',
     'Anarchy Power' => '',
     'Anonymize, don\'t link from other user\'s results' => '匿名化，不連結到其他用戶的結果',

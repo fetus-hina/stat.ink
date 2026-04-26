@@ -36,7 +36,10 @@ class EditPasswordAction extends BaseAction
                         }
                     });
                     $this->sendEmail($ident);
-                    $this->controller->redirect(['user/profile']);
+                    $this->controller->redirect([
+                        'user/profile',
+                        'recovery_keys_revoked' => 1,
+                    ]);
                     return;
                 } catch (Throwable $e) {
                 }

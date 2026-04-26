@@ -42,6 +42,7 @@ $this->registerCss('.btn-block.text-left{text-align:left}');
         ) . "\n" ?>
       </h1>
       <?= $this->render('profile/alert-versions') . "\n" ?>
+      <?= $this->render('profile/alert-recovery-keys-revoked') . "\n" ?>
       <?= $this->render('profile/profile', compact('user')) . "\n" ?>
       <?= $this->render('profile/login-with', compact('user')) . "\n" ?>
       <?= $this->render('profile/passkey', compact('user')) . "\n" ?>
