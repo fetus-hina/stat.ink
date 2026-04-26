@@ -77,6 +77,7 @@ use const SORT_DESC;
  * @property UserIcon $userIcon
  * @property UserPasskey[] $userPasskeys
  * @property UserPasskeyUser|null $userPasskeyUser
+ * @property UserPasswordRecoveryKey[] $userPasswordRecoveryKeys
  * @property UserStat $userStat
  * @property UserStat2 $userStat2
  * @property UserWeapon[] $userWeapons
@@ -403,6 +404,11 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->hasMany(UserPasskey::class, ['user_id' => 'user_id'])
             ->via('userPasskeyUser');
+    }
+
+    public function getUserPasswordRecoveryKeys(): ActiveQuery
+    {
+        return $this->hasMany(UserPasswordRecoveryKey::class, ['user_id' => 'id']);
     }
 
     public function getEmailLang(): ActiveQuery
