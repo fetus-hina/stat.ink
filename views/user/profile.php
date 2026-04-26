@@ -49,6 +49,7 @@ $this->registerCss('.btn-block.text-left{text-align:left}');
       <?= $this->render('profile/slack', compact('user')) . "\n" ?>
     </div>
     <div class="col-xs-12 col-sm-3">
+      <?= $this->render('profile/recovery-key') . "\n" ?>
       <?= $this->render('profile/login-history') . "\n" ?>
       <?= $this->render('profile/exports', compact('user')) . "\n" ?>
     </div>
