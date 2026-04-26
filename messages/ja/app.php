@@ -59,6 +59,7 @@ return [
     'Aggregated: {rules}' => '集計対象: {rules}',
     'Aliases' => 'エイリアス',
     'All Players' => 'すべてのプレーヤー',
+    'All recovery keys have been revoked because the password was changed.' => 'パスワードが変更されたため、すべてのリカバリキーは無効化されました。',
     'All' => 'すべて',
     'Always enable horizontal scroll' => '常にテーブルの横スクロールを有効にする',
     'Anarchy Power' => 'バンカラパワー',

@@ -10,9 +10,9 @@ declare(strict_types=1);
 
 namespace app\actions\user;
 
+use RuntimeException;
 use Throwable;
 use Yii;
-use app\components\helpers\Password;
 use app\models\PasswordForm;
 use app\models\User;
 use yii\web\ViewAction as BaseAction;
@@ -29,18 +29,20 @@ class EditPasswordAction extends BaseAction
             $form->load($request->bodyParams);
             $form->screen_name = $ident->screen_name;
             if ($form->validate()) {
-                $transaction = Yii::$app->db->beginTransaction();
                 try {
-                    $ident->password = Password::hash($form->new_password);
-                    if ($ident->save()) {
-                        $transaction->commit();
-                        $this->sendEmail($ident);
-                        $this->controller->redirect(['user/profile']);
-                        return;
-                    }
+                    Yii::$app->db->transaction(function () use ($ident, $form): void {
+                        if (!$ident->changePassword($form->new_password)) {
+                            throw new RuntimeException('Failed to change password');
+                        }
+                    });
+                    $this->sendEmail($ident);
+                    $this->controller->redirect([
+                        'user/profile',
+                        'recovery_keys_revoked' => 1,
+                    ]);
+                    return;
                 } catch (Throwable $e) {
                 }
-                $transaction->rollback();
             }
         }
 

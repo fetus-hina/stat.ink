@@ -35,9 +35,13 @@ use app\actions\user\PasskeyLoginStartAction;
 use app\actions\user\PasskeyRegisterFinishAction;
 use app\actions\user\PasskeyRegisterStartAction;
 use app\actions\user\ProfileAction;
+use app\actions\user\RecoveryKeyAction;
+use app\actions\user\RecoveryKeyCreateAction;
+use app\actions\user\RecoveryKeyDeleteAction;
 use app\actions\user\RegenerateApikeyAction;
 use app\actions\user\RegisterAction;
 use app\actions\user\ResetPasswordApikeyAction;
+use app\actions\user\ResetPasswordRecoveryKeyAction;
 use app\actions\user\SlackAddAction;
 use app\actions\user\SlackDeleteAction;
 use app\actions\user\SlackSuspendAction;
@@ -80,9 +84,13 @@ final class UserController extends Controller
                     'passkey-register-finish',
                     'passkey-register-start',
                     'profile',
+                    'recovery-key',
+                    'recovery-key-create',
+                    'recovery-key-delete',
                     'regenerate-apikey',
                     'register',
                     'reset-password-apikey',
+                    'reset-password-recovery-key',
                     'slack-add',
                     'slack-delete',
                     'slack-suspend',
@@ -98,6 +106,7 @@ final class UserController extends Controller
                             'passkey-login-start',
                             'register',
                             'reset-password-apikey',
+                            'reset-password-recovery-key',
                         ],
                         'roles' => ['?'],
                         'allow' => true,
@@ -122,6 +131,9 @@ final class UserController extends Controller
                             'passkey-register-finish',
                             'passkey-register-start',
                             'profile',
+                            'recovery-key',
+                            'recovery-key-create',
+                            'recovery-key-delete',
                             'regenerate-apikey',
                             'slack-add',
                             'slack-delete',
@@ -152,9 +164,12 @@ final class UserController extends Controller
                     'passkey-login-start' => [ 'post' ],
                     'passkey-register-finish' => [ 'post' ],
                     'passkey-register-start' => [ 'post' ],
+                    'recovery-key-create' => [ 'post' ],
+                    'recovery-key-delete' => [ 'post' ],
                     'regenerate-apikey' => [ 'post' ],
                     'register' => [ 'get', 'post' ],
                     'reset-password-apikey' => [ 'get', 'post' ],
+                    'reset-password-recovery-key' => [ 'get', 'post' ],
                     'slack-add' => [ 'get', 'post' ],
                     'slack-delete' => [ 'post' ],
                     'slack-suspend' => [ 'post' ],
@@ -193,9 +208,13 @@ final class UserController extends Controller
             'passkey-register-finish' => PasskeyRegisterFinishAction::class,
             'passkey-register-start' => PasskeyRegisterStartAction::class,
             'profile' => ProfileAction::class,
+            'recovery-key' => RecoveryKeyAction::class,
+            'recovery-key-create' => RecoveryKeyCreateAction::class,
+            'recovery-key-delete' => RecoveryKeyDeleteAction::class,
             'regenerate-apikey' => RegenerateApikeyAction::class,
             'register' => RegisterAction::class,
             'reset-password-apikey' => ResetPasswordApikeyAction::class,
+            'reset-password-recovery-key' => ResetPasswordRecoveryKeyAction::class,
             'slack-add' => SlackAddAction::class,
             'slack-delete' => SlackDeleteAction::class,
             'slack-suspend' => SlackSuspendAction::class,

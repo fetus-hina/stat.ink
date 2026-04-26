@@ -8,11 +8,13 @@
 
 namespace app\models;
 
+use DateTime;
 use DateTimeZone;
 use Throwable;
 use Yii;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Password;
+use app\components\helpers\TypeHelper;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\Query;
@@ -20,6 +22,7 @@ use yii\helpers\Url;
 use yii\web\IdentityInterface;
 
 use function base64_encode;
+use function date;
 use function file_exists;
 use function filemtime;
 use function filesize;
@@ -77,6 +80,7 @@ use const SORT_DESC;
  * @property UserIcon $userIcon
  * @property UserPasskey[] $userPasskeys
  * @property UserPasskeyUser|null $userPasskeyUser
+ * @property UserPasswordRecoveryKey[] $userPasswordRecoveryKeys
  * @property UserStat $userStat
  * @property UserStat2 $userStat2
  * @property UserWeapon[] $userWeapons
@@ -405,6 +409,11 @@ class User extends ActiveRecord implements IdentityInterface
             ->via('userPasskeyUser');
     }
 
+    public function getUserPasswordRecoveryKeys(): ActiveQuery
+    {
+        return $this->hasMany(UserPasswordRecoveryKey::class, ['user_id' => 'id']);
+    }
+
     public function getEmailLang(): ActiveQuery
     {
         return $this->hasOne(Language::class, ['id' => 'email_lang_id']);
@@ -490,6 +499,32 @@ class User extends ActiveRecord implements IdentityInterface
             return false;
         }
         $this->password = Password::hash($password);
+        return true;
+    }
+
+    public function changePassword(string $newPassword): bool
+    {
+        $this->password = Password::hash($newPassword);
+        if (!$this->save()) {
+            return false;
+        }
+
+        UserPasswordRecoveryKey::updateAll(
+            [
+                'revoked_at' => date(
+                    DateTime::ATOM,
+                    TypeHelper::int($_SERVER['REQUEST_TIME']),
+                ),
+                'revoked_reason' => UserPasswordRecoveryKeyRevokeReason::REASON_PASSWORD_CHANGED,
+            ],
+            [
+                'and',
+                ['user_id' => $this->id],
+                ['used_at' => null],
+                ['revoked_at' => null],
+            ],
+        );
+
         return true;
     }
 
