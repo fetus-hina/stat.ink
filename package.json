@@ -65,7 +65,7 @@
     "terser": "^5.46.1",
     "ts-loader": "^9.5.7",
     "twemoji": "^14.0.2",
-    "typescript": "^6.0.2",
+    "typescript": "^6.0.3",
     "updates": "^17.13.2",
     "webpack": "^5.106.2",
     "webpack-cli": "^7.0.2",
