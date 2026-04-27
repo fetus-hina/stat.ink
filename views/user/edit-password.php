@@ -54,6 +54,7 @@ ZxcvbnAsset::register($this);
           ) . "\n"
         ?>
         <?= $_->field($form, 'new_password_repeat')->passwordInput([
+          'autocomplete' => 'new-password',
           'minlength' => 10,
         ]) . "\n" ?>
         <div id="password-strength"></div>

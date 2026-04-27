@@ -86,6 +86,7 @@ $this->registerJsFile(
             ?>
             <?= $_->field($form, 'password_repeat')
               ->passwordInput([
+                'autocomplete' => 'new-password',
                 'minlength' => 10,
               ]) . "\n" ?>
             <div id="password-strength"></div>

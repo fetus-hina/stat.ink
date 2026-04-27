@@ -89,7 +89,9 @@ $this->registerJsFile(
               ) . "\n"
             ?>
             <?= $_->field($form, 'password_repeat')
-              ->passwordInput() . "\n" ?>
+              ->passwordInput([
+                'autocomplete' => 'new-password',
+              ]) . "\n" ?>
             <div id="password-strength"></div>
             <hr>
             <?= Html::tag('div', '', [
