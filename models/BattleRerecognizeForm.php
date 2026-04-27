@@ -10,6 +10,7 @@ namespace app\models;
 
 use yii\base\Model;
 
+use function array_find;
 use function array_keys;
 use function array_merge;
 use function count;
@@ -77,12 +78,10 @@ class BattleRerecognizeForm extends Model
 
     public function getMyData()
     {
-        foreach ($this->players as $p) {
-            if ($p['is_me'] === 'yes' && $p['team'] === 'my') {
-                return $p;
-            }
-        }
-        return null;
+        return array_find(
+            $this->players,
+            fn (array $p): bool => $p['is_me'] === 'yes' && $p['team'] === 'my',
+        );
     }
 
     public function getBattle()

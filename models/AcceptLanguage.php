@@ -14,6 +14,7 @@ use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\StringHelper;
 
+use function array_find;
 use function chr;
 use function preg_match;
 use function str_replace;
@@ -50,13 +51,10 @@ class AcceptLanguage extends ActiveRecord
 
     public static function findMatched(string $test): ?self
     {
-        foreach (static::find()->all() as $self) {
-            if ($self->isMatch($test)) {
-                return $self;
-            }
-        }
-
-        return null;
+        return array_find(
+            static::find()->all(),
+            fn (self $self): bool => $self->isMatch($test),
+        );
     }
 
     public static function tableName()

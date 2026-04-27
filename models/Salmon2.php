@@ -296,13 +296,7 @@ class Salmon2 extends ActiveRecord
             return null;
         }
 
-        foreach ($list as $player) {
-            if ($player->is_me) {
-                return $player;
-            }
-        }
-
-        return null;
+        return array_find($list, fn (SalmonPlayer2 $player): bool => (bool)$player->is_me);
     }
 
     public function getTeamMates(): ?array
