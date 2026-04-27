@@ -115,9 +115,6 @@ $isApple = str_contains($ua, 'iPad') || str_contains($ua, 'iPhone') || str_conta
       </main>
 <?php if (!$isPjax) { ?>
       <?= $this->render('/layouts/footer') ?><?= "\n" ?>
-<?php if (!Yii::$app->user->isGuest) { ?>
-        <?= $this->render('/includes/battle-input-modal-2') . "\n" ?>
-<?php } ?>
 <?php } ?>
       <span id="event"></span>
 <?php if (!$isPjax) { ?>

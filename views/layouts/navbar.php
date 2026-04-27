@@ -68,25 +68,6 @@ PaintballAsset::register($this);
             <?= $this->render('/layouts/navbar/link') . "\n" ?>
           </li>
         </ul>
-<?php if (!Yii::$app->user->isGuest) { ?>
-        <ul class="nav navbar-nav navbar-right">
-          <li style="margin-right:1ex">
-            <?= Html::tag(
-              'button',
-              implode('', [
-                Html::tag('span', '', ['class' => 'fas fa-edit']),
-                Html::encode(Yii::t('app', 'Splatoon 2')),
-              ]),
-              [
-                'id' => 'battle-input2-btn',
-                'class' => 'btn btn-primary navbar-btn',
-                'title' => Yii::t('app', 'New battle'),
-                'disabled' => true,
-              ]
-            ) . "\n" ?>
-          </li>
-        </ul>
-<?php } ?>
       </div>
     </div>
   </div>

@@ -36,8 +36,6 @@ RESOURCE_TARGETS := \
 	resources/.compiled/stat.ink/auto-tooltip.js \
 	resources/.compiled/stat.ink/battle-detail.css \
 	resources/.compiled/stat.ink/battle-edit.js \
-	resources/.compiled/stat.ink/battle-input-2.js \
-	resources/.compiled/stat.ink/battle-input.css \
 	resources/.compiled/stat.ink/battle-list-config.js \
 	resources/.compiled/stat.ink/battle-list-group-header.css \
 	resources/.compiled/stat.ink/battle-list.js \
@@ -282,8 +280,6 @@ resources/.compiled/stat.ink/api-info-weapon3-matching-range.js: resources/stat.
 resources/.compiled/stat.ink/auto-tooltip.js: resources/stat.ink/auto-tooltip.es node_modules
 resources/.compiled/stat.ink/battle-detail.css: resources/stat.ink/battle-detail.scss node_modules
 resources/.compiled/stat.ink/battle-edit.js: resources/stat.ink/battle-edit.js node_modules
-resources/.compiled/stat.ink/battle-input-2.js: resources/stat.ink/battle-input-2.es node_modules
-resources/.compiled/stat.ink/battle-input.css: resources/stat.ink/battle-input.scss node_modules
 resources/.compiled/stat.ink/battle-list-config.js: resources/stat.ink/battle-list-config.es node_modules
 resources/.compiled/stat.ink/battle-list-group-header.css: resources/stat.ink/battle-list-group-header.scss node_modules
 resources/.compiled/stat.ink/battle-list.js: resources/stat.ink/battle-list.es node_modules
