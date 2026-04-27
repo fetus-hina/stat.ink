@@ -18,8 +18,8 @@ use function file_put_contents;
 use function gmdate;
 use function implode;
 use function mkdir;
-use function preg_match;
 use function sprintf;
+use function str_starts_with;
 use function tempnam;
 use function time;
 use function unlink;
@@ -47,9 +47,9 @@ class Differ
 
         if (
             isset($lines[0])
-            && preg_match('/^-{3} /', $lines[0])
+            && str_starts_with($lines[0], '--- ')
             && isset($lines[1])
-            && preg_match('/^\+{3} /', $lines[1])
+            && str_starts_with($lines[1], '+++ ')
         ) {
             $time = gmdate('Y-m-d H:i:s', $_SERVER['REQUEST_TIME'] ?? time()) . '.000000000 +0000';
             $lines[0] = "--- $nameBefore\t$time";

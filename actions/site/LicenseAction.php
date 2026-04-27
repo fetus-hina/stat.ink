@@ -23,6 +23,8 @@ use function file_get_contents;
 use function ltrim;
 use function preg_match;
 use function preg_replace;
+use function str_ends_with;
+use function str_starts_with;
 use function strcmp;
 use function strlen;
 use function strnatcasecmp;
@@ -98,12 +100,12 @@ class LicenseAction extends SimpleAction
             }
 
             $pathname = $entry->getPathname();
-            if (substr($pathname, 0, strlen($basedir)) !== $basedir) {
+            if (!str_starts_with($pathname, $basedir)) {
                 continue;
             }
             $basename = substr($pathname, strlen($basedir));
 
-            if (strtolower(substr($basename, -3)) === '.md') {
+            if (str_ends_with(strtolower($basename), '.md')) {
                 $ret[] = (object)[
                     'category' => static::CATEGORY_MANUAL,
                     'name' => substr($basename, 0, strlen($basename) - 3),
@@ -133,10 +135,10 @@ class LicenseAction extends SimpleAction
             }
 
             $pathname = $entry->getPathname();
-            if (substr($pathname, 0, strlen($basedir)) !== $basedir) {
+            if (!str_starts_with($pathname, $basedir)) {
                 continue;
             }
-            if (substr($pathname, -12) !== '-LICENSE.txt') {
+            if (!str_ends_with($pathname, '-LICENSE.txt')) {
                 continue;
             }
 
@@ -170,10 +172,10 @@ class LicenseAction extends SimpleAction
             }
 
             $pathname = $entry->getPathname();
-            if (substr($pathname, 0, strlen($basedir)) !== $basedir) {
+            if (!str_starts_with($pathname, $basedir)) {
                 continue;
             }
-            if (substr($pathname, -12) !== '-LICENSE.txt') {
+            if (!str_ends_with($pathname, '-LICENSE.txt')) {
                 continue;
             }
 

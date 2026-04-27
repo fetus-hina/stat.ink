@@ -15,10 +15,9 @@ use app\models\Language;
 use app\models\Map2;
 use yii\web\ViewAction;
 
+use function str_starts_with;
 use function strcmp;
-use function strlen;
 use function strnatcasecmp;
-use function substr;
 use function usort;
 
 final class Stage2Action extends ViewAction
@@ -41,13 +40,13 @@ final class Stage2Action extends ViewAction
 
         usort($stages, function (Map2 $a, Map2 $b): int {
             if (
-                substr($a->key, 0, strlen('mystery')) === 'mystery' &&
-                substr($b->key, 0, strlen('mystery')) !== 'mystery'
+                str_starts_with($a->key, 'mystery') &&
+                !str_starts_with($b->key, 'mystery')
             ) {
                 return 1;
             } elseif (
-                substr($a->key, 0, strlen('mystery')) !== 'mystery' &&
-                substr($b->key, 0, strlen('mystery')) === 'mystery'
+                !str_starts_with($a->key, 'mystery') &&
+                str_starts_with($b->key, 'mystery')
             ) {
                 return -1;
             } else {

@@ -21,7 +21,7 @@ use function password_hash;
 use function password_needs_rehash;
 use function password_verify;
 use function rtrim;
-use function strlen;
+use function str_starts_with;
 use function substr;
 use function version_compare;
 
@@ -71,7 +71,7 @@ class Password
     {
         foreach (static::algoList() as $algoInfo) {
             foreach ($algoInfo['prefixes'] as $prefix) {
-                if (substr($hash, 0, strlen($prefix)) === $prefix) {
+                if (str_starts_with($hash, $prefix)) {
                     return $algoInfo['algo'];
                 }
             }

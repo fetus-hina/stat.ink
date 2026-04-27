@@ -30,7 +30,7 @@ use function fwrite;
 use function is_dir;
 use function is_readable;
 use function sprintf;
-use function strlen;
+use function str_starts_with;
 use function substr;
 use function uasort;
 
@@ -132,7 +132,7 @@ final class CleanupAction extends Action
         $baseDir = (string)Yii::getAlias('@app/web/assets') . '/';
 
         // safety check
-        if (substr($directory, 0, strlen($baseDir)) !== $baseDir) {
+        if (!str_starts_with($directory, $baseDir)) {
             fwrite(STDERR, "Invalid directory: {$directory}\n");
             return;
         }
