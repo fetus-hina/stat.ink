@@ -43,6 +43,28 @@ OgpHelper::default($this, Url::to(['site/index'], true));
 ?>
 <div class="container">
   <div class="text-right">
+<?php if (Yii::$app->user->isGuest) { ?>
+    <div class="mb-1">
+      <div class="btn-group" role="group">
+        <?= Html::a(
+          implode(' ', [
+            Icon::userAdd(),
+            Html::encode(Yii::t('app', 'Join us')),
+          ]),
+          ['user/register'],
+          ['class' => ['btn', 'btn-primary', 'btn-sm']],
+        ) . "\n" ?>
+        <?= Html::a(
+          implode(' ', [
+            Icon::login(),
+            Html::encode(Yii::t('app', 'Login')),
+          ]),
+          ['user/login'],
+          ['class' => ['btn', 'btn-default', 'btn-sm']],
+        ) . "\n" ?>
+      </div>
+    </div>
+<?php } ?>
     <?= IndexI18nButtons::widget() . "\n" ?>
   </div>
 
