@@ -35,6 +35,7 @@ use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\JsExpression;
 
+use function array_any;
 use function array_filter;
 use function array_map;
 use function array_unique;
@@ -1201,16 +1202,13 @@ class Battle2 extends ActiveRecord
 
     public function getIsMeaningful(): bool
     {
-        $props = [
-            'rule_id', 'map_id', 'weapon_id', 'is_win', 'rank_in_team',
-            'kill', 'death', 'kill_or_assist', 'special',
-        ];
-        foreach ($props as $prop) {
-            if ($this->$prop !== null && $this->$prop !== '') {
-                return true;
-            }
-        }
-        return false;
+        return array_any(
+            [
+                'rule_id', 'map_id', 'weapon_id', 'is_win', 'rank_in_team',
+                'kill', 'death', 'kill_or_assist', 'special',
+            ],
+            fn (string $prop): bool => $this->$prop !== null && $this->$prop !== '',
+        );
     }
 
     public function getPreviousBattle(): ActiveQuery

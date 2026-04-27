@@ -20,11 +20,11 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
+use function array_any;
 use function array_filter;
 use function array_map;
 use function array_merge;
 use function chr;
-use function count;
 use function implode;
 use function mb_convert_encoding;
 use function pow;
@@ -654,8 +654,7 @@ class UserMiniInfo2 extends Widget
             ]),
         ];
 
-        $xPowerAvailable = count(array_filter($rules, fn (array $rule): bool => $model->{$rule['attributeX']} > 0));
-        if ($xPowerAvailable > 0) {
+        if (array_any($rules, fn (array $rule): bool => $model->{$rule['attributeX']} > 0)) {
             $rows[] = implode('', array_map(
                 fn (array $rule): string => Html::tag(
                     'div',
@@ -779,8 +778,7 @@ class UserMiniInfo2 extends Widget
             ]),
         ];
 
-        $xPowerAvailable = count(array_filter($rules, fn (array $rule): bool => $model->{$rule['attributeX']} > 0));
-        if ($xPowerAvailable > 0) {
+        if (array_any($rules, fn (array $rule): bool => $model->{$rule['attributeX']} > 0)) {
             $rows[] = implode('', array_map(
                 fn (array $rule): string => Html::tag(
                     'div',

@@ -29,7 +29,7 @@ use function implode;
 use function is_float;
 use function microtime;
 use function sprintf;
-use function strpos;
+use function str_contains;
 use function strtotime;
 use function usleep;
 use function vsprintf;
@@ -612,7 +612,7 @@ class UserStat2 extends ActiveRecord
             }
         } else {
             foreach ($row as $k => $v) {
-                if (strpos($k, 'x_power') !== false) {
+                if (str_contains($k, 'x_power')) {
                     $this->$k = (float)$v;
                 } else {
                     $this->$k = (int)$v;

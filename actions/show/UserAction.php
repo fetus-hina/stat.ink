@@ -19,7 +19,7 @@ use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
 use function array_merge;
-use function strpos;
+use function str_contains;
 use function time;
 
 class UserAction extends BaseAction
@@ -111,10 +111,10 @@ class UserAction extends BaseAction
 
         $ua = $request->userAgent;
         if (
-            strpos($ua, 'iPhone') !== false ||
-            strpos($ua, 'Android') !== false ||
-            strpos($ua, 'Windows Phone') !== false ||
-            strpos($ua, 'iPod') !== false
+            str_contains($ua, 'iPhone') ||
+            str_contains($ua, 'Android') ||
+            str_contains($ua, 'Windows Phone') ||
+            str_contains($ua, 'iPod')
         ) {
             return 'simple';
         }

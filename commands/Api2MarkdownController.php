@@ -45,9 +45,8 @@ use function preg_split;
 use function rtrim;
 use function sprintf;
 use function str_repeat;
-use function strlen;
+use function str_starts_with;
 use function strnatcasecmp;
-use function substr;
 use function usort;
 
 use const GRAPHEME_EXTR_MAXCHARS;
@@ -244,13 +243,13 @@ class Api2MarkdownController extends Controller
             if ($a->key === $b->key) {
                 return 0;
             } elseif (
-                substr($a->key, 0, strlen('mystery')) === 'mystery' &&
-                substr($b->key, 0, strlen('mystery')) !== 'mystery'
+                str_starts_with($a->key, 'mystery') &&
+                !str_starts_with($b->key, 'mystery')
             ) {
                 return 1;
             } elseif (
-                substr($a->key, 0, strlen('mystery')) !== 'mystery' &&
-                substr($b->key, 0, strlen('mystery')) === 'mystery'
+                !str_starts_with($a->key, 'mystery') &&
+                str_starts_with($b->key, 'mystery')
             ) {
                 return -1;
             } else {

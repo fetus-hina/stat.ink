@@ -20,8 +20,8 @@ use function in_array;
 use function rawurlencode;
 use function rtrim;
 use function sprintf;
+use function str_contains;
 use function str_replace;
-use function strpos;
 use function trim;
 
 class Html extends BaseHtml
@@ -55,7 +55,7 @@ class Html extends BaseHtml
             if ($resp && !$resp->isSent) {
                 $headers = $resp->getHeaders();
                 $href = Url::to($url);
-                if (strpos($href, '//') === false && !in_array($href, static::$pushed, true)) {
+                if (!str_contains($href, '//') && !in_array($href, static::$pushed, true)) {
                     static::$pushed[] = $href;
                     if ($headers->has('Link')) {
                         $headers->add('Link', sprintf(
@@ -81,7 +81,7 @@ class Html extends BaseHtml
             if ($resp && !$resp->isSent) {
                 $headers = $resp->getHeaders();
                 $href = Url::to($url);
-                if (strpos($href, '//') === false && !in_array($href, static::$pushed, true)) {
+                if (!str_contains($href, '//') && !in_array($href, static::$pushed, true)) {
                     static::$pushed[] = $href;
                     if ($headers->has('Link')) {
                         $headers->add('Link', sprintf(

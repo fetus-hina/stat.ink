@@ -30,10 +30,10 @@ use function implode;
 use function in_array;
 use function natcasesort;
 use function sprintf;
+use function str_contains;
 use function str_replace;
 use function strcasecmp;
 use function strcmp;
-use function strpos;
 use function uksort;
 use function vsprintf;
 
@@ -255,7 +255,7 @@ trait WeaponShortNameTrait
 
         $list = $this->getGitContributors($path);
         foreach ($map as $locale => $authors) {
-            if (strpos($path, $locale) !== false) {
+            if (str_contains($path, $locale)) {
                 foreach ($authors as $author) {
                     if (!in_array($author, $list, true)) {
                         $list[] = $author;

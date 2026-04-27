@@ -13,8 +13,6 @@ namespace app\controllers;
 use app\actions\api\internal\ActivityAction;
 use app\actions\api\internal\BlogEntryAction;
 use app\actions\api\internal\CounterAction;
-use app\actions\api\internal\CurrentData2Action;
-use app\actions\api\internal\CurrentDataAction;
 use app\actions\api\internal\GuessTimezoneAction;
 use app\actions\api\internal\LatestBattlesAction;
 use app\actions\api\internal\MyLatestBattlesAction;
@@ -61,8 +59,6 @@ final class ApiInternalController extends Controller
             'activity' => ActivityAction::class,
             'blog-entry' => BlogEntryAction::class,
             'counter' => CounterAction::class,
-            'current-data' => CurrentDataAction::class,
-            'current-data2' => CurrentData2Action::class,
             'guess-timezone' => GuessTimezoneAction::class,
             'latest-battles' => LatestBattlesAction::class,
             'my-latest-battles' => MyLatestBattlesAction::class,

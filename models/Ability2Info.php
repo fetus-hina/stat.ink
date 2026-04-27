@@ -22,7 +22,7 @@ use function max;
 use function min;
 use function pow;
 use function round;
-use function strpos;
+use function str_contains;
 use function trim;
 use function ucfirst;
 use function version_compare;
@@ -111,7 +111,7 @@ class Ability2Info extends Model
                 }
 
                 foreach ($rows as $row) {
-                    if (strpos($row, 'DoT') !== false) {
+                    if (str_contains($row, 'DoT')) {
                         $rows[] = Yii::t('app', '"DoT": "Damage over time"');
                         break;
                     }

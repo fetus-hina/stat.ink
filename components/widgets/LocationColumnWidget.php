@@ -21,7 +21,7 @@ use function array_filter;
 use function array_map;
 use function hash;
 use function implode;
-use function strpos;
+use function str_contains;
 use function strtolower;
 
 class LocationColumnWidget extends Widget
@@ -163,7 +163,7 @@ class LocationColumnWidget extends Widget
             );
         }
 
-        if (strpos($this->remoteAddr, ':') !== false && $this->remoteAddrMasked) {
+        if (str_contains($this->remoteAddr, ':') && $this->remoteAddrMasked) {
             return Html::tag(
                 'span',
                 Html::encode(strtolower($this->remoteAddrMasked)),

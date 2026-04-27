@@ -184,15 +184,15 @@ class SalmonController extends Controller
         }
 
         $ua = (string)$request->userAgent;
-        if (strpos($ua, 'iPod') !== false || strpos($ua, 'iPhone') !== false) {
+        if (str_contains($ua, 'iPod') || str_contains($ua, 'iPhone')) {
             return 'simple';
         }
 
-        if (strpos($ua, 'Android') !== false) {
+        if (str_contains($ua, 'Android')) {
             return 'simple';
         }
 
-        if (strpos($ua, 'Windows Phone') !== false) {
+        if (str_contains($ua, 'Windows Phone')) {
             return 'simple';
         }
 

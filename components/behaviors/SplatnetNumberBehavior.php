@@ -15,6 +15,7 @@ use yii\db\Query;
 use function call_user_func;
 use function filter_var;
 use function is_callable;
+use function str_starts_with;
 use function strlen;
 use function substr;
 use function trim;
@@ -50,7 +51,7 @@ class SplatnetNumberBehavior extends Behavior
             return;
         }
 
-        if (substr($value, 0, strlen($this->prefix)) !== $this->prefix) {
+        if (!str_starts_with($value, $this->prefix)) {
             return;
         }
 

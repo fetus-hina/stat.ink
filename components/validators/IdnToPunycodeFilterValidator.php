@@ -12,7 +12,7 @@ use yii\validators\FilterValidator;
 
 use function idn_to_ascii;
 use function preg_replace_callback;
-use function strpos;
+use function str_contains;
 use function strtolower;
 
 class IdnToPunycodeFilterValidator extends FilterValidator
@@ -20,10 +20,10 @@ class IdnToPunycodeFilterValidator extends FilterValidator
     public function init()
     {
         $this->filter = function ($value) {
-            if (strpos($value, '/') === false) {
+            if (!str_contains($value, '/')) {
                 return strtolower(idn_to_ascii($value));
             }
-            if (strpos($value, '//') !== false) {
+            if (str_contains($value, '//')) {
                 return preg_replace_callback(
                     '!(?<=//)([^/:]+)!',
                     fn ($match) => strtolower(idn_to_ascii($match[1])),

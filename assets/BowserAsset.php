@@ -14,6 +14,7 @@ use Yii;
 use yii\web\AssetBundle;
 
 use function preg_match;
+use function str_starts_with;
 use function strlen;
 use function substr;
 
@@ -35,7 +36,7 @@ class BowserAsset extends AssetBundle
     public function filterIsUsableAssets(string $path): bool
     {
         $prefix = Yii::getAlias($this->sourcePath);
-        if (substr($path, 0, strlen($prefix)) !== $prefix) {
+        if (!str_starts_with($path, $prefix)) {
             return false;
         }
 

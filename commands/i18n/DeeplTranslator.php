@@ -56,7 +56,6 @@ use function mb_strlen;
 use function mb_strpos;
 use function mb_substr;
 use function natcasesort;
-use function preg_match;
 use function preg_replace;
 use function preg_replace_callback;
 use function rawurlencode;
@@ -64,6 +63,7 @@ use function setlocale;
 use function sprintf;
 use function str_contains;
 use function str_replace;
+use function str_starts_with;
 use function strcmp;
 use function strnatcasecmp;
 use function strpos;
@@ -268,16 +268,16 @@ class DeeplTranslator extends Component
             $basename = $entry->getFilename();
             if (
                 $basename === 'fest.php' ||
-                preg_match('/^ability/', $basename) ||
-                preg_match('/^apidoc/', $basename) ||
-                preg_match('/^brand/', $basename) ||
-                preg_match('/^freshness/', $basename) ||
-                ($basename !== 'gearstat.php' && preg_match('/^gear/', $basename)) ||
-                preg_match('/^map/', $basename) ||
-                preg_match('/^rank/', $basename) ||
-                preg_match('/^rule/', $basename) ||
+                str_starts_with($basename, 'ability') ||
+                str_starts_with($basename, 'apidoc') ||
+                str_starts_with($basename, 'brand') ||
+                str_starts_with($basename, 'freshness') ||
+                ($basename !== 'gearstat.php' && str_starts_with($basename, 'gear')) ||
+                str_starts_with($basename, 'map') ||
+                str_starts_with($basename, 'rank') ||
+                str_starts_with($basename, 'rule') ||
                 (
-                    preg_match('/^salmon/', $basename) &&
+                    str_starts_with($basename, 'salmon') &&
                     (
                         $basename === 'salmon-boss2.php' ||
                         $basename === 'salmon-event2.php' ||
@@ -285,11 +285,11 @@ class DeeplTranslator extends Component
                         $basename === 'salmon-title2.php'
                     )
                 ) ||
-                preg_match('/^slack/', $basename) ||
-                preg_match('/^special/', $basename) ||
-                preg_match('/^subweapon/', $basename) ||
-                preg_match('/^ua_vars/', $basename) ||
-                preg_match('/^weapon/', $basename)
+                str_starts_with($basename, 'slack') ||
+                str_starts_with($basename, 'special') ||
+                str_starts_with($basename, 'subweapon') ||
+                str_starts_with($basename, 'ua_vars') ||
+                str_starts_with($basename, 'weapon')
             ) {
                 continue;
             }

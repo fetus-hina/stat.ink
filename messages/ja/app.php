@@ -320,7 +320,7 @@ return [
     'JSON format' => 'JSON形式',
     'Japan Time' => '日本時間',
     'Japan' => '日本',
-    'Join us' => '利用してみる',
+    'Join us' => '新規登録',
     'Judge' => 'ジャッジ',
     'Just scaled for easy contrast, the Y-axis value does not directly indicate the number of people.' => '対比しやすいようにスケールしているだけで、Y軸の値は直接人数を示しません。',
     'Just {result} {rule} at {stage}' => '{stage}での{rule}で{result}。',

@@ -35,9 +35,9 @@ use function fwrite;
 use function gmdate;
 use function implode;
 use function printf;
+use function str_contains;
 use function str_replace;
 use function stream_copy_to_stream;
-use function strpos;
 use function strtotime;
 use function tempnam;
 use function time;
@@ -314,9 +314,9 @@ class DlStats2Controller extends Controller
         return implode(',', array_map(
             function (string $col): string {
                 if (
-                    strpos($col, ',') === false &&
-                    strpos($col, "\n") === false &&
-                    strpos($col, '"') === false
+                    !str_contains($col, ',') &&
+                    !str_contains($col, "\n") &&
+                    !str_contains($col, '"')
                 ) {
                     return $col;
                 } else {
