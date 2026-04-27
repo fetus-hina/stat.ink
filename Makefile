@@ -199,7 +199,7 @@ node_modules: package-lock.json
 	@touch $@
 
 check-syntax:
-	find . \( -type d \( -name '.git' -or -name 'vendor' -or -name 'node_modules' -or -name 'runtime' \) -prune \) -or \( -type f -name '*.php' -print \) | xargs -n 1 php -l
+	find . \( -type d \( -name '.git' -or -name 'vendor' -or -name 'node_modules' -or -name 'runtime' \) -prune \) -or \( -type f -name '*.php' -print \) | xargs php -l
 
 check-style: check-style-js check-style-css check-style-php
 
