@@ -71,7 +71,7 @@
     "proget-hq/phpstan-yii2": "^0.8.0",
     "sebastian/diff": "^4.0.6 || ^5.0.0 || ^6.0.0 || ^7.0.0",
     "squizlabs/php_codesniffer": "^3.13.5",
-    "yiisoft/yii2-debug": "^2.1.27",
+    "yiisoft/yii2-debug": "^2.1.28",
     "yiisoft/yii2-gii": "^2.2.7"
   },
   "replace": {
