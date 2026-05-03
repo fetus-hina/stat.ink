@@ -22,6 +22,7 @@ use yii\web\View;
  * @var User $user
  * @var UserPasskey[] $passkeys
  * @var View $this
+ * @var array<string, array{name: string, mime_type: ?string, base64_data: ?string}> $aaguidInfo
  */
 
 $title = Yii::t('app-passkey', 'Passkeys');
@@ -83,6 +84,7 @@ $transportsOf = function (UserPasskey $p): array {
       <table class="table table-striped">
         <thead>
           <tr>
+            <th></th>
             <th><?= Html::encode(Yii::t('app-passkey', 'Nickname')) ?></th>
             <th><?= Html::encode(Yii::t('app-passkey', 'Transports')) ?></th>
             <th><?= Html::encode(Yii::t('app-passkey', 'Created At')) ?></th>
@@ -93,8 +95,23 @@ $transportsOf = function (UserPasskey $p): array {
         <tbody>
           <?php
           $fmt = Yii::$app->formatter;
-          foreach ($passkeys as $passkey) : ?>
+          foreach ($passkeys as $passkey) :
+            $info = $aaguidInfo[$passkey->aaguid] ?? null;
+          ?>
             <tr>
+              <td>
+                <?php if ($info !== null && $info['mime_type'] !== null && $info['base64_data'] !== null) : ?>
+                  <?= Html::img(
+                    sprintf('data:%s;base64,%s', $info['mime_type'], $info['base64_data']),
+                    [
+                      'class' => 'auto-tooltip',
+                      'title' => $info['name'],
+                      'alt' => '',
+                      'style' => 'height:2em;width:auto',
+                    ],
+                  ) . "\n" ?>
+                <?php endif ?>
+              </td>
               <td><?= Html::encode($passkey->nickname) ?></td>
               <td><?= Html::encode(implode(', ', $transportsOf($passkey))) ?></td>
               <td><?= Html::encode($fmt->asDatetime($passkey->created_at, 'medium')) ?></td>
