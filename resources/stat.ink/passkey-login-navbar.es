@@ -23,6 +23,24 @@
     return window.btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
   };
 
+  const showOverlay = function () {
+    if ($('#passkey-login-overlay').length === 0) {
+      $('<div>')
+        .attr('id', 'passkey-login-overlay')
+        .addClass('passkey-login-overlay')
+        .append($('<i>').addClass('fas fa-spinner fa-spin passkey-login-overlay__icon'))
+        .appendTo('body');
+    }
+  };
+
+  const setOverlayLoading = function () {
+    $('#passkey-login-overlay').addClass('passkey-login-overlay--loading');
+  };
+
+  const hideOverlay = function () {
+    $('#passkey-login-overlay').remove();
+  };
+
   const postJson = function (config, url, payload) {
     const data = Object.assign({}, payload);
     if (config.csrfParam && config.csrfToken) {
@@ -49,6 +67,8 @@
   };
 
   const signIn = async function (config) {
+    showOverlay();
+
     let options;
     try {
       options = await postJson(config, config.urls.start, {});
@@ -61,12 +81,16 @@
     try {
       assertion = await navigator.credentials.get(convertGetOptions(options));
     } catch (e) {
+      hideOverlay();
       return;
     }
 
     if (!assertion || !assertion.response || !assertion.response.userHandle) {
+      hideOverlay();
       return;
     }
+
+    setOverlayLoading();
 
     try {
       const result = await postJson(config, config.urls.finish, {
