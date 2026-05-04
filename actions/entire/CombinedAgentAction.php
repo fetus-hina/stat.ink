@@ -96,7 +96,7 @@ final class CombinedAgentAction extends Action
 
     public function getPostStats()
     {
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'date' => '{{t}}.[[date]]',
                 'battle_count' => 'SUM({{t}}.[[battle_count]])',

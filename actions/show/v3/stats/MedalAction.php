@@ -149,7 +149,7 @@ final class MedalAction extends Action
             Json::encode(
                 array_merge(
                     ['sql' => $query->createCommand($db)->rawSql],
-                    (new Query())
+                    new Query()
                         ->select([
                             'max' => 'MAX([[id]])',
                             'count' => 'COUNT(*)',

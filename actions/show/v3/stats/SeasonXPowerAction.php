@@ -171,7 +171,7 @@ final class SeasonXPowerAction extends Action
         );
 
         $xPower = 'COALESCE({{%battle3}}.[[x_power_after]], {{%battle3}}.[[x_power_before]])';
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'rule_id' => '{{%battle3}}.[[rule_id]]',
                 'date' => '({{%battle3}}.[[start_at]])::date',
@@ -222,7 +222,7 @@ final class SeasonXPowerAction extends Action
      */
     private function getXPowerOfBattles(Connection $db, User $user, array $idList): array
     {
-        $command = (new Query())
+        $command = new Query()
             ->select([
                 'id' => '{{%battle3}}.[[id]]',
                 'xp' => 'COALESCE({{%battle3}}.[[x_power_after]], {{%battle3}}.[[x_power_before]])',

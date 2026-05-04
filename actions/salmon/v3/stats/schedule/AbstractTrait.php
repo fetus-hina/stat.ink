@@ -25,7 +25,7 @@ trait AbstractTrait
     {
         $waves = $schedule?->is_eggstra_work ? 5 : 3;
         return TypeHelper::array(
-            (new Query())
+            new Query()
                 ->select([
                     'count' => 'COUNT(*)',
                     'cleared' => sprintf(

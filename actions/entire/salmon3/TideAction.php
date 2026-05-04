@@ -53,7 +53,7 @@ final class TideAction extends Action
 
     private function getMapTides(Connection $db): array
     {
-        $data = (new Query())
+        $data = new Query()
             ->select([
                 'stage_id' => '{{%stat_salmon3_tide_event}}.[[stage_id]]',
                 'big_stage_id' => '{{%stat_salmon3_tide_event}}.[[big_stage_id]]',

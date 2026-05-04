@@ -55,7 +55,7 @@ class Btl2SplatnetJsonAction extends Action
             ->execute();
         echo "Created\n";
 
-        $countQuery = (new Query())
+        $countQuery = new Query()
             ->select(['count' => 'COUNT(*)'])
             ->from('battle2_splatnet')
             ->andWhere(['JSONB_TYPEOF([[json]])' => 'string']);
@@ -67,7 +67,7 @@ class Btl2SplatnetJsonAction extends Action
             echo date(DATE_ATOM, time()) . " {$count} rows remains ... ";
 
             $status = $db->transaction(function ($db): int {
-                $idList = (new Query())
+                $idList = new Query()
                     ->select(['id'])
                     ->from('battle2_splatnet')
                     ->andWhere(['JSONB_TYPEOF([[json]])' => 'string'])

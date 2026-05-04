@@ -110,7 +110,7 @@ trait VersionMigration
         string $oldVersionTag,
     ): void {
         // グループを消すかどうか決めるために最初に探しておく
-        $groupId = (new Query())
+        $groupId = new Query()
             ->select('group_id')
             ->from($tableVersion)
             ->where(['tag' => $versionTag])
@@ -129,7 +129,7 @@ trait VersionMigration
         $this->delete($tableVersion, ['tag' => $versionTag]);
 
         // グループに所属する数を数えて存在しなければ消す
-        $count = (new Query())
+        $count = new Query()
             ->select('COUNT(*)')
             ->from($tableVersion)
             ->where(['group_id' => $groupId])
@@ -175,7 +175,7 @@ trait VersionMigration
 
     private function findId(string $table, string $tag): ?int
     {
-        $id = (new Query())
+        $id = new Query()
             ->select('id')
             ->from($table)
             ->where(['tag' => $tag])

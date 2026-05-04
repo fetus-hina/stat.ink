@@ -2,6 +2,8 @@ includes:
   - vendor/proget-hq/phpstan-yii2/extension.neon
 
 parameters:
+  phpVersion: 80400
+
   paths:
     - actions/
     - assets/

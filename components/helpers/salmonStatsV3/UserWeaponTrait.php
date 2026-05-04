@@ -27,7 +27,7 @@ trait UserWeaponTrait
     protected static function createUserWeaponStats(Connection $db, User $user): bool
     {
         try {
-            $select = (new Query())
+            $select = new Query()
                 ->select([
                     'user_id' => '{{%salmon3}}.[[user_id]]',
                     'weapon_id' => '{{%salmon_player_weapon3}}.[[weapon_id]]',

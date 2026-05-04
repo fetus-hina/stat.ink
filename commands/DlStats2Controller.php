@@ -295,7 +295,7 @@ class DlStats2Controller extends Controller
 
     private static function startDay(): DateTimeImmutable
     {
-        return (new DateTimeImmutable())
+        return new DateTimeImmutable()
             ->setTimeZone(new DateTimeZone('Asia/Tokyo'))
             ->setDate(2017, 8, 10)
             ->setTime(0, 0, 0);
@@ -303,7 +303,7 @@ class DlStats2Controller extends Controller
 
     private static function today(): DateTimeImmutable
     {
-        return (new DateTimeImmutable())
+        return new DateTimeImmutable()
             ->setTimeZone(new DateTimeZone('Asia/Tokyo'))
             ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time())
             ->setTime(0, 0, 0);

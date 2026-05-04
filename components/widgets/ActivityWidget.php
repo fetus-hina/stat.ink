@@ -129,7 +129,7 @@ final class ActivityWidget extends CalHeatmapWidget
 
     protected function renderStartTime(): JsExpression
     {
-        $today = (new DateTimeImmutable())
+        $today = new DateTimeImmutable()
             ->setTimezone(new DateTimeZone('Etc/UTC'))
             ->setTimestamp((int)($_SERVER['REQUEST_TIME'] ?? time()))
             ->setTime(0, 0, 0);
@@ -180,7 +180,7 @@ final class ActivityWidget extends CalHeatmapWidget
 
     private function isHalloweenTerm(): bool
     {
-        $now = (new DateTimeImmutable())
+        $now = new DateTimeImmutable()
             ->setTimestamp((int)($_SERVER['REQUEST_TIME'] ?? time()))
             ->setTimezone(new DateTimeZone(Yii::$app->timeZone));
         $month = (int)$now->format('n');

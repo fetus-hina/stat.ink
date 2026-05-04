@@ -87,7 +87,7 @@ trait XStatsTrait
             throw new LogicException();
         }
 
-        return (new Query())
+        return new Query()
             ->from(['b' => '{{%battle3}}'])
             ->leftJoin(['r' => '{{%result3}}'], '{{b}}.[[result_id]] = {{r}}.[[id]]')
             ->andWhere([

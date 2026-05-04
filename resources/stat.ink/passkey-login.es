@@ -37,6 +37,24 @@
     $('#passkey-login-message').hide().text('');
   };
 
+  const showOverlay = function () {
+    if ($('#passkey-login-overlay').length === 0) {
+      $('<div>')
+        .attr('id', 'passkey-login-overlay')
+        .addClass('passkey-login-overlay')
+        .append($('<i>').addClass('fas fa-spinner fa-spin passkey-login-overlay__icon'))
+        .appendTo('body');
+    }
+  };
+
+  const setOverlayLoading = function () {
+    $('#passkey-login-overlay').addClass('passkey-login-overlay--loading');
+  };
+
+  const hideOverlay = function () {
+    $('#passkey-login-overlay').remove();
+  };
+
   const isSupported = function () {
     return !!(
       window.PublicKeyCredential &&
@@ -75,7 +93,9 @@
 
     const $button = $('#passkey-login-button');
     $button.prop('disabled', true);
+    showOverlay();
 
+    let success = false;
     try {
       const options = await postJson(config.urls.start, {});
       const credentialOptions = convertGetOptions(options);
@@ -93,6 +113,8 @@
         return;
       }
 
+      setOverlayLoading();
+
       const rememberMe = $('#passkey-login-remember').is(':checked') ? '1' : '0';
       const result = await postJson(config.urls.finish, {
         credential_id: arrayBufferToBase64Url(assertion.rawId),
@@ -104,14 +126,18 @@
       });
 
       if (result && result.result) {
+        success = true;
         window.location.href = config.urls.redirect;
-      } else {
-        showError((result && result.message) || config.messages.loginFailed);
+        return;
       }
+      showError((result && result.message) || config.messages.loginFailed);
     } catch (e) {
       showError((e && e.message) || config.messages.loginFailed);
     } finally {
-      $button.prop('disabled', false);
+      if (!success) {
+        $button.prop('disabled', false);
+        hideOverlay();
+      }
     }
   };
 

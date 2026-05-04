@@ -242,7 +242,7 @@ $normalizedSeconds = ($rule->key == 'nawabari' ? 3 : 5) * 60;
     Json::encode(array_map(
       function (array $row) use ($normalizedSeconds): array {
         return [
-          'date' => (new DateTimeImmutable())
+          'date' => new DateTimeImmutable()
             ->setTimeZone(new DateTimeZone(Yii::$app->timeZone))
             ->setISODate($row['isoyear'], $row['isoweek'])
             ->format('Y-m-d'),

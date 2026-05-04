@@ -56,7 +56,7 @@ trait EggstraWorkHistogramTrait
             $db->quoteColumnName('histogram_width'),
         );
 
-        $select = (new Query())
+        $select = new Query()
             ->select([
                 'schedule_id' => '{{%user_stat_eggstra_work3}}.[[schedule_id]]',
                 'class_value' => $classValue,
@@ -98,7 +98,7 @@ trait EggstraWorkHistogramTrait
             $pos,
         );
 
-        $select = (new Query())
+        $select = new Query()
             ->select([
                 'schedule_id',
                 'users' => 'COUNT(*)',

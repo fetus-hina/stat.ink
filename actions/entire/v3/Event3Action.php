@@ -171,7 +171,7 @@ final class Event3Action extends Action
      */
     private static function getEvents(Connection $db): array
     {
-        $eventIds = (new Query())
+        $eventIds = new Query()
             ->select(['event_id' => '{{%event_schedule3}}.[[event_id]]'])
             ->distinct()
             ->from('{{%event_schedule3}}')

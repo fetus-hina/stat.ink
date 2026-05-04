@@ -84,7 +84,7 @@ class FeedAction extends Action
             return ['error' => 'something happend'];
         }
 
-        $now = (new DateTimeImmutable())
+        $now = new DateTimeImmutable()
             ->setTimeZone(new DateTimeZone('Etc/UTC'))
             ->setTimestamp((int)($_SERVER['REQUEST_TIME'] ?? time()));
 

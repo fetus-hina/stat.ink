@@ -64,7 +64,6 @@ use function gmdate;
 use function hash_hmac;
 use function http_build_query;
 use function imagecreatefromstring;
-use function imagedestroy;
 use function in_array;
 use function intval;
 use function is_array;
@@ -481,8 +480,8 @@ class PostBattleForm extends Model
         $time = $this->start_at
             ? new DateTimeImmutable('@' . ((int)$this->start_at))
             : ($this->end_at
-                ? (new DateTimeImmutable('@' . ((int)$this->end_at)))->sub(new DateInterval('PT3M'))
-                : (new DateTimeImmutable())->sub(new DateInterval('PT3M15S'))
+                ? new DateTimeImmutable('@' . ((int)$this->end_at))->sub(new DateInterval('PT3M'))
+                : new DateTimeImmutable()->sub(new DateInterval('PT3M15S'))
             );
         $mapping = ShiftyMap2::find()
             ->andWhere(vsprintf('(%s @> %d::integer)', [
@@ -1121,11 +1120,10 @@ class PostBattleForm extends Model
         if ($this->hasErrors($attribute)) {
             return;
         }
-        if (!$gd = @imagecreatefromstring($binary)) {
+        if (!@imagecreatefromstring($binary)) {
             $this->addError($attribute, 'Could not decode binary that contained an image data.');
             return;
         }
-        imagedestroy($gd);
     }
 
     public function validateJson($attr, $params)

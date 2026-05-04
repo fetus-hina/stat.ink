@@ -237,7 +237,7 @@ trait Weapon3Migration
             nullable: true,
         );
         if ($mainWeaponId !== null) {
-            $isUsed = (new Query())
+            $isUsed = new Query()
                 ->select('*')
                 ->from('{{%weapon3}}')
                 ->andWhere(['mainweapon_id' => $mainWeaponId])
@@ -260,7 +260,7 @@ trait Weapon3Migration
 
     private function hasColumn(string $table, string $column): bool
     {
-        return (bool)(new Query())
+        return (bool)new Query()
             ->select('*')
             ->from('{{information_schema}}.{{columns}}')
             ->andWhere([

@@ -94,7 +94,7 @@ class MaintenanceInfo extends Widget
             return Html::encode(Yii::t('app', 'Unknown'));
         }
 
-        $dt = (new DateTimeImmutable())
+        $dt = new DateTimeImmutable()
             ->setTimestamp($timestamp)
             ->setTimezone(new DateTimeZone(Yii::$app->timeZone));
 

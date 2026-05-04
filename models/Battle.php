@@ -24,7 +24,6 @@ use yii\helpers\Url;
 
 use function array_keys;
 use function array_map;
-use function call_user_func;
 use function count;
 use function date;
 use function filter_var;
@@ -157,7 +156,7 @@ class Battle extends ActiveRecord
     {
         try {
             $count = filter_var(
-                (new Query())
+                new Query()
                     ->select('[[last_value]]')
                     ->from('{{battle_id_seq}}')
                     ->scalar(),
@@ -175,12 +174,12 @@ class Battle extends ActiveRecord
     public static function getTotalRoughCount()
     {
         $list = [
-            [self::class, 'getRoughCount'],
-            [Battle2::class, 'getRoughCount'],
+            self::getRoughCount(...),
+            Battle2::getRoughCount(...),
         ];
         $total = 0;
         foreach ($list as $callback) {
-            $tmp = call_user_func($callback);
+            $tmp = $callback();
             if ($tmp === false || $tmp === null) {
                 return false;
             }
@@ -211,23 +210,23 @@ class Battle extends ActiveRecord
     public function init()
     {
         parent::init();
-        $this->on(ActiveRecord::EVENT_BEFORE_INSERT, [$this, 'setKillRatio']);
-        $this->on(ActiveRecord::EVENT_BEFORE_UPDATE, [$this, 'setKillRatio']);
+        $this->on(ActiveRecord::EVENT_BEFORE_INSERT, $this->setKillRatio(...));
+        $this->on(ActiveRecord::EVENT_BEFORE_UPDATE, $this->setKillRatio(...));
 
-        $this->on(ActiveRecord::EVENT_BEFORE_VALIDATE, [$this, 'setPeriod']);
-        $this->on(ActiveRecord::EVENT_BEFORE_VALIDATE, [$this, 'setBonus']);
+        $this->on(ActiveRecord::EVENT_BEFORE_VALIDATE, $this->setPeriod(...));
+        $this->on(ActiveRecord::EVENT_BEFORE_VALIDATE, $this->setBonus(...));
 
-        $this->on(ActiveRecord::EVENT_BEFORE_INSERT, [$this, 'setSplatoonVersion']);
+        $this->on(ActiveRecord::EVENT_BEFORE_INSERT, $this->setSplatoonVersion(...));
 
-        $this->on(ActiveRecord::EVENT_BEFORE_INSERT, [$this, 'updateUserWeapon']);
-        $this->on(ActiveRecord::EVENT_BEFORE_UPDATE, [$this, 'updateUserWeapon']);
+        $this->on(ActiveRecord::EVENT_BEFORE_INSERT, $this->updateUserWeapon(...));
+        $this->on(ActiveRecord::EVENT_BEFORE_UPDATE, $this->updateUserWeapon(...));
 
-        $this->on(ActiveRecord::EVENT_AFTER_INSERT, [$this, 'updateUserStat']);
-        $this->on(ActiveRecord::EVENT_AFTER_UPDATE, [$this, 'updateUserStat']);
-        $this->on(ActiveRecord::EVENT_AFTER_DELETE, [$this, 'updateUserStat']);
+        $this->on(ActiveRecord::EVENT_AFTER_INSERT, $this->updateUserStat(...));
+        $this->on(ActiveRecord::EVENT_AFTER_UPDATE, $this->updateUserStat(...));
+        $this->on(ActiveRecord::EVENT_AFTER_DELETE, $this->updateUserStat(...));
 
-        $this->on(ActiveRecord::EVENT_BEFORE_UPDATE, [$this, 'saveEditHistory']);
-        $this->on(ActiveRecord::EVENT_BEFORE_DELETE, [$this, 'saveDeleteHistory']);
+        $this->on(ActiveRecord::EVENT_BEFORE_UPDATE, $this->saveEditHistory(...));
+        $this->on(ActiveRecord::EVENT_BEFORE_DELETE, $this->saveDeleteHistory(...));
     }
 
     /**

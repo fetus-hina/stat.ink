@@ -103,7 +103,7 @@ class Version
 
             self::$revision = $revisions[0];
             self::$shortRevision = $revisions[1];
-            self::$lastCommited = (new DateTimeImmutable())
+            self::$lastCommited = new DateTimeImmutable()
                 ->setTimeZone(new DateTimeZone(Yii::$app->timeZone))
                 ->setTimestamp((int)$revisions[2]);
         } catch (Throwable $e) {

@@ -69,7 +69,7 @@ $playerIds = ArrayHelper::getColumn(
 );
 
 $historyCount = ArrayHelper::map(
-  (new Query())
+  new Query()
     ->select([
       '{{battle_player2}}.[[splatnet_id]]',
       'count' => 'COUNT(*)',

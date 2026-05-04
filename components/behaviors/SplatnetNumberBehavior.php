@@ -38,7 +38,7 @@ class SplatnetNumberBehavior extends Behavior
     public function events()
     {
         return [
-            $this->trigger => [$this, 'doExec'],
+            $this->trigger => $this->doExec(...),
         ];
     }
 
@@ -61,7 +61,7 @@ class SplatnetNumberBehavior extends Behavior
             return;
         }
 
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'key' => "{$this->tableName}.{$this->keyAttribute}",
             ])

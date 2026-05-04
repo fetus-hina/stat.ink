@@ -49,7 +49,7 @@ final class PasskeyAction extends BaseAction
 
         $theme = Yii::$app->theme->isDarkTheme ? 'dark' : 'light';
 
-        $rows = (new Query())
+        $rows = new Query()
             ->select([
                 'aaguid' => '{{pa}}.[[aaguid]]',
                 'name' => '{{pa}}.[[name]]',

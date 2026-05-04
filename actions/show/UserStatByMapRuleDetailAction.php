@@ -53,7 +53,7 @@ class UserStatByMapRuleDetailAction extends BaseAction
     private function getData(User $user, BattleFilterForm $filter)
     {
         $nawabari = Rule::findOne(['key' => 'nawabari'])->id;
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'map_key' => 'MAX({{map}}.[[key]])',
                 'rule_key' => 'MAX({{rule}}.[[key]])',

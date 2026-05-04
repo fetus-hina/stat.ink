@@ -28,7 +28,7 @@ trait Splatoon2
     {
         $db = Yii::$app->db;
         $turfWarId = Rule2::findOne(['key' => 'nawabari'])->id;
-        $now = (new DateTimeImmutable())
+        $now = new DateTimeImmutable()
             ->setTimeZone(new DateTimeZone(Yii::$app->timeZone))
             ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time());
         $cond24Hours = sprintf(

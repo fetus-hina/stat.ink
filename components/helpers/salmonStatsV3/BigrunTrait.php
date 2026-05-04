@@ -60,7 +60,7 @@ trait BigrunTrait
         User $user,
         DateTimeImmutable $now,
     ): array {
-        return (new Query())
+        return new Query()
             ->select([
                 'user_id' => '{{%salmon3}}.[[user_id]]',
                 'schedule_id' => '{{%salmon3}}.[[schedule_id]]',

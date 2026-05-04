@@ -148,7 +148,7 @@ final class ActivityAction extends Action
             "WHEN {{battle}}.[[end_at]] IS NOT NULL THEN {{battle}}.[[end_at]] - '3 minutes'::interval",
             "ELSE {{battle}}.[[at]] - '4 minutes'::interval",
         ]));
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'date' => $date,
                 'count' => 'COUNT(*)',
@@ -176,7 +176,7 @@ final class ActivityAction extends Action
             "WHEN {{battle2}}.[[end_at]] IS NOT NULL THEN {{battle2}}.[[end_at]] - '3 minutes'::interval",
             "ELSE {{battle2}}.[[created_at]] - '4 minutes'::interval",
         ]));
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'date' => $date,
                 'count' => 'COUNT(*)',
@@ -203,7 +203,7 @@ final class ActivityAction extends Action
             'WHEN {{salmon2}}.[[start_at]] IS NOT NULL THEN {{salmon2}}.[[start_at]]',
             "ELSE {{salmon2}}.[[created_at]] - '5 minutes'::interval",
         ]));
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'date' => $date,
                 'count' => 'COUNT(*)',
@@ -231,7 +231,7 @@ final class ActivityAction extends Action
             "WHEN {{%battle3}}.[[end_at]] IS NOT NULL THEN {{%battle3}}.[[end_at]] - '3 minutes'::interval",
             "ELSE {{%battle3}}.[[created_at]] - '4 minutes'::interval",
         ]));
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'date' => $date,
                 'count' => 'COUNT(*)',
@@ -261,7 +261,7 @@ final class ActivityAction extends Action
             'WHEN {{%salmon3}}.[[start_at]] IS NOT NULL THEN {{%salmon3}}.[[start_at]]',
             'ELSE {{%salmon3}}.[[created_at]]',
         ]));
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'date' => $date,
                 'count' => 'COUNT(*)',

@@ -23,7 +23,6 @@ use function imagealphablending;
 use function imagecopyresampled;
 use function imagecreatefromstring;
 use function imagecreatetruecolor;
-use function imagedestroy;
 use function imagefill;
 use function imagepng;
 use function imagesavealpha;
@@ -67,7 +66,7 @@ class UserIcon extends ActiveRecord
         ]);
         $obj->mode = 'new';
         $obj->imageResource = $gd;
-        static::getDb()->on(Connection::EVENT_COMMIT_TRANSACTION, [$obj, 'onCommit']);
+        static::getDb()->on(Connection::EVENT_COMMIT_TRANSACTION, $obj->onCommit(...));
         return $obj;
     }
 
@@ -108,7 +107,6 @@ class UserIcon extends ActiveRecord
             $inSize,
             $inSize,
         );
-        imagedestroy($in);
         return $out;
         // }}}
     }
@@ -175,7 +173,7 @@ class UserIcon extends ActiveRecord
     public function afterDelete()
     {
         $this->mode = 'delete';
-        static::getDb()->on(Connection::EVENT_COMMIT_TRANSACTION, [$this, 'onCommit']);
+        static::getDb()->on(Connection::EVENT_COMMIT_TRANSACTION, $this->onCommit(...));
         parent::afterDelete();
     }
 
@@ -188,7 +186,6 @@ class UserIcon extends ActiveRecord
                     $realPath = Yii::getAlias('@app/web/profile-images') . '/' . $this->filename;
                     FileHelper::createDirectory(dirname($realPath));
                     imagepng($this->imageResource, $realPath, 9, PNG_ALL_FILTERS);
-                    imagedestroy($this->imageResource);
                     $this->imageResource = null;
                 }
                 break;

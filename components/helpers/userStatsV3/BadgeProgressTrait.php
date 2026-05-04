@@ -54,7 +54,7 @@ trait BadgeProgressTrait
         UserBadge3Rule::deleteAll(['user_id' => $user->id]);
         $sql = vsprintf('INSERT INTO %s ([[user_id]], [[rule_id]], [[count]]) %s', [
             $db->quoteTableName(UserBadge3Rule::tableName()),
-            (new Query())
+            new Query()
                 ->select([
                     'user_id' => '{{%battle3}}.[[user_id]]',
                     'rule_id' => '{{%battle3}}.[[rule_id]]',
@@ -93,7 +93,7 @@ trait BadgeProgressTrait
         UserBadge3Special::deleteAll(['user_id' => $user->id]);
         $sql = vsprintf('INSERT INTO %s ([[user_id]], [[special_id]], [[count]]) %s', [
             $db->quoteTableName(UserBadge3Special::tableName()),
-            (new Query())
+            new Query()
                 ->select([
                     'user_id' => '{{%battle3}}.[[user_id]]',
                     'special_id' => '{{%weapon3}}.[[special_id]]',
@@ -133,7 +133,7 @@ trait BadgeProgressTrait
         UserBadge3Tricolor::deleteAll(['user_id' => $user->id]);
         $sql = vsprintf('INSERT INTO %s ([[user_id]], [[role_id]], [[count]]) %s', [
             $db->quoteTableName(UserBadge3Tricolor::tableName()),
-            (new Query())
+            new Query()
                 ->select([
                     'user_id' => '{{%battle3}}.[[user_id]]',
                     'role_id' => '{{%battle3}}.[[our_team_role_id]]',

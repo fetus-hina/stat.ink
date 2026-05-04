@@ -43,7 +43,7 @@ class UserAction extends BaseAction
         }
 
         $now = @$_SERVER['REQUEST_TIME'] ?: time();
-        $subQuery = (new Query())
+        $subQuery = new Query()
             ->select(['id' => 'MAX({{battle}}.[[id]])'])
             ->from('battle')
             ->andWhere(['>=', '{{battle}}.[[at]]', gmdate('Y-m-d H:i:sO', $now - 60 * 86400)])

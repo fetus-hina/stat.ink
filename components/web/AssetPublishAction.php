@@ -59,11 +59,11 @@ class AssetPublishAction extends Action
     {
         $list = array_reduce(
             array_map(
-                [$this, 'enumerateDirectoryClasses'],
+                $this->enumerateDirectoryClasses(...),
                 array_keys($this->directories),
                 array_values($this->directories),
             ),
-            'array_merge',
+            array_merge(...),
             $this->classes,
         );
         natsort($list);

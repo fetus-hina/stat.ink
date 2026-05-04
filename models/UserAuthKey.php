@@ -69,7 +69,7 @@ class UserAuthKey extends ActiveRecord
                 'attributes' => [
                     static::EVENT_BEFORE_VALIDATE => 'expires_at',
                 ],
-                'value' => fn ($event): string => (new DateTimeImmutable())
+                'value' => fn ($event): string => new DateTimeImmutable()
                         ->setTimezone(new DateTimeZone(Yii::$app->timeZone))
                         ->setTimestamp(time() + static::VALID_PERIOD)
                         ->format(DateTime::ATOM),

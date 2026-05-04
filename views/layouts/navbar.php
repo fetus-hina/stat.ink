@@ -9,6 +9,7 @@
 declare(strict_types=1);
 
 use app\assets\PaintballAsset;
+use app\components\widgets\Icon;
 use statink\yii2\ipBadge\IpBadgeWidget;
 use yii\helpers\Html;
 use yii\web\View;
@@ -68,6 +69,29 @@ PaintballAsset::register($this);
             <?= $this->render('/layouts/navbar/link') . "\n" ?>
           </li>
         </ul>
+<?php if (!Yii::$app->user->isGuest) { ?>
+        <ul class="nav navbar-nav navbar-right">
+          <li style="margin-right:1ex">
+            <?= Html::tag(
+              'button',
+              implode('', [
+                Icon::edit(),
+                ' ',
+                Html::encode(Yii::t('app', 'Splatoon 3')),
+              ]),
+              [
+                'type' => 'button',
+                'class' => 'btn btn-primary navbar-btn',
+                'title' => Yii::t('app', 'Register a Battle Manually (Splatoon 3)'),
+                'data' => [
+                  'toggle' => 'modal',
+                  'target' => '#create-battle3-modal',
+                ],
+              ]
+            ) . "\n" ?>
+          </li>
+        </ul>
+<?php } ?>
       </div>
     </div>
   </div>

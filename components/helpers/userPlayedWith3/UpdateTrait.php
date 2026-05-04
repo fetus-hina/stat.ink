@@ -47,7 +47,7 @@ trait UpdateTrait
             '{{p1}}.[[number]]',
         ]);
 
-        $select = (new Query())
+        $select = new Query()
             ->select([
                 'user_id' => '{{%battle3}}.[[user_id]]',
                 'name' => $name,
@@ -113,7 +113,7 @@ trait UpdateTrait
                 default => ['{{%battle_player3}}', '{{p1}}'],
             };
 
-            $subQuery = (new Query())
+            $subQuery = new Query()
                 ->select(['name', 'number'])
                 ->from($playerTable)
                 ->andWhere([
@@ -161,7 +161,7 @@ trait UpdateTrait
 
     private static function updateSalmonImpl(Connection $db, User $user, ?Salmon3 $salmon): bool
     {
-        $select = (new Query())
+        $select = new Query()
             ->select([
                 'user_id' => '{{%salmon3}}.[[user_id]]',
                 'name' => '{{%salmon_player3}}.[[name]]',
@@ -188,7 +188,7 @@ trait UpdateTrait
             ]);
 
         if ($salmon) {
-            $subQuery = (new Query())
+            $subQuery = new Query()
                 ->select(['name', 'number'])
                 ->from('{{%salmon_player3}}')
                 ->andWhere([

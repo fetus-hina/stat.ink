@@ -182,7 +182,7 @@ final class Battle3FilterForm extends Model
         }
 
         try {
-            return (new DateTimeImmutable('now', new DateTimeZone(Yii::$app->timeZone)))
+            return new DateTimeImmutable('now', new DateTimeZone(Yii::$app->timeZone))
                 ->setTimestamp($timestamp)
                 ->format('Y-m-d H:i:s');
         } catch (Throwable $e) {

@@ -182,7 +182,7 @@ trait WeaponUsageTrait
      */
     private function getStatWeapon3UsageTargetSeasons(Connection $db): array
     {
-        $date = (new DateTimeImmutable('now', new DateTimeZone('Etc/UTC')))
+        $date = new DateTimeImmutable('now', new DateTimeZone('Etc/UTC'))
             ->sub(new DateInterval('P30D'));
 
         $minModel = Season3::find()
@@ -208,7 +208,7 @@ trait WeaponUsageTrait
      */
     private function getStatWeapon3UsageTargetVersions(Connection $db): array
     {
-        $date = (new DateTimeImmutable('now', new DateTimeZone('Etc/UTC')))
+        $date = new DateTimeImmutable('now', new DateTimeZone('Etc/UTC'))
             ->sub(new DateInterval('P30D'));
 
         return SplatoonVersion3::find()
@@ -314,7 +314,7 @@ trait WeaponUsageTrait
             fn (mixed $v): bool => $v !== null,
         );
 
-        $select = (new Query())
+        $select = new Query()
             ->select(array_merge(
                 $selectPkey,
                 [

@@ -55,7 +55,7 @@ trait HistogramTrait
             '[[histogram_width]]',
         );
 
-        return (new Query())
+        return new Query()
             ->select([
                 'season_id' => '{{%season3}}.[[id]]',
                 'rule_id' => '{{%battle3}}.[[rule_id]]',

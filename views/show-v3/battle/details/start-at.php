@@ -19,7 +19,7 @@ return [
       return null;
     }
 
-    $dayFrom = (new DateTimeImmutable($model->start_at, new DateTimeZone(Yii::$app->timeZone)))
+    $dayFrom = new DateTimeImmutable($model->start_at, new DateTimeZone(Yii::$app->timeZone))
       ->setTime(0, 0, 0); // set to 00:00:00 (midnight)
     $dayTo = $dayFrom
       ->add(new DateInterval('P1D')) // move to next day's 00:00:00

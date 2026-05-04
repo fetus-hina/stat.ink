@@ -63,14 +63,14 @@ class MonthAction extends BaseAction
         }
 
         $this->periodS = BattleHelper::calcPeriod(
-            (new DateTimeImmutable())
+            new DateTimeImmutable()
                 ->setTimezone(new DateTimeZone('Etc/GMT-6'))
                 ->setTime(0, 0, 0)
                 ->setDate($this->year, $this->month, 1)
                 ->getTimestamp(),
         );
         $this->periodE = BattleHelper::calcPeriod(
-            (new DateTimeImmutable())
+            new DateTimeImmutable()
                 ->setTimezone(new DateTimeZone('Etc/GMT-6'))
                 ->setTime(0, 0, 0)
                 ->setDate($this->year, $this->month, 1)
@@ -87,7 +87,7 @@ class MonthAction extends BaseAction
             'rules' => $this->buildData(),
             'prevUrl' => $this->prevMonthUrl,
             'nextUrl' => $this->nextMonthUrl,
-            'month' => (new DateTimeImmutable())
+            'month' => new DateTimeImmutable()
                             ->setTimezone(new DateTimeZone(Yii::$app->timeZone))
                             ->setDate($this->year, $this->month, 1)
                             ->setTime(0, 0, 0),
@@ -169,7 +169,7 @@ class MonthAction extends BaseAction
     public function getCountData(): array
     {
         // {{{
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'rule_id' => '{{period_map}}.[[rule_id]]',
                 'map_id' => '{{period_map}}.[[map_id]]',

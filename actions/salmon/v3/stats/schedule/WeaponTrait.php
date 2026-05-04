@@ -44,7 +44,7 @@ trait WeaponTrait
         $waves = $schedule->is_eggstra_work ? 5 : 3;
         $maxWaves = $schedule->is_eggstra_work ? 5 : 4;
         return ArrayHelper::index(
-            (new Query())
+            new Query()
                 ->select([
                     'weapon_id' => '{{%salmon_player_weapon3}}.[[weapon_id]]',
                     'normal_waves' => sprintf(

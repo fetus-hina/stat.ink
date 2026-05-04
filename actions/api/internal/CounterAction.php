@@ -171,7 +171,7 @@ final class CounterAction extends Action
     {
         try {
             $count = filter_var(
-                (new Query())
+                new Query()
                     ->select('[[last_value]]')
                     ->from('{{%battle3_id_seq}}')
                     ->limit(1)
@@ -189,7 +189,7 @@ final class CounterAction extends Action
     {
         try {
             $count = filter_var(
-                (new Query())
+                new Query()
                     ->select('[[last_value]]')
                     ->from('{{%salmon3_id_seq}}')
                     ->limit(1)

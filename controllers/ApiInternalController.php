@@ -19,6 +19,7 @@ use app\actions\api\internal\MyLatestBattlesAction;
 use app\actions\api\internal\PatchBattleAction;
 use app\actions\api\internal\SalmonStats2Action;
 use app\actions\api\internal\ScheduleAction;
+use app\actions\api\internal\v3\CurrentSchedule3Action;
 use app\actions\api\internal\v3\OgpProfile3Action;
 use app\actions\api\internal\v3\PatchBattle3UrlAction;
 use app\actions\api\internal\v3\PatchSalmon3UrlAction;
@@ -59,6 +60,7 @@ final class ApiInternalController extends Controller
             'activity' => ActivityAction::class,
             'blog-entry' => BlogEntryAction::class,
             'counter' => CounterAction::class,
+            'current-schedule3' => CurrentSchedule3Action::class,
             'guess-timezone' => GuessTimezoneAction::class,
             'latest-battles' => LatestBattlesAction::class,
             'my-latest-battles' => MyLatestBattlesAction::class,

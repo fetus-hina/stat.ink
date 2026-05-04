@@ -58,7 +58,7 @@ abstract class BaseLatestBattlesAction extends ViewAction
         parent::init();
 
         $t = (int)($_SERVER['REQUEST_TIME'] ?? time());
-        $this->now = (new DateTimeImmutable())
+        $this->now = new DateTimeImmutable()
             ->setTimestamp($t)
             ->setTimezone(new DateTimeZone('Etc/UTC'));
     }

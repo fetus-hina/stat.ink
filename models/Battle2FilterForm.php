@@ -463,10 +463,10 @@ class Battle2FilterForm extends Model
                 break;
 
             case 'this-month-utc':
-                $utcNow = (new DateTimeImmutable())
+                $utcNow = new DateTimeImmutable()
                     ->setTimezone(new DateTimeZone('Etc/UTC'))
                     ->setTimestamp($now);
-                $thisMonth = (new DateTimeImmutable())
+                $thisMonth = new DateTimeImmutable()
                     ->setTimezone(new DateTimeZone('Etc/UTC'))
                     ->setDate($utcNow->format('Y'), $utcNow->format('n'), 1)
                     ->setTime(0, 0, 0);
@@ -477,12 +477,12 @@ class Battle2FilterForm extends Model
                 break;
 
             case 'last-month-utc':
-                $utcNow = (new DateTimeImmutable())
+                $utcNow = new DateTimeImmutable()
                     ->setTimezone(new DateTimeZone('Etc/UTC'))
                     ->setTimestamp($now);
 
                 $lastMonthPeriod = BattleHelper::calcPeriod2(
-                    (new DateTimeImmutable())
+                    new DateTimeImmutable()
                         ->setTimezone(new DateTimeZone('Etc/UTC'))
                         ->setDate((int)$utcNow->format('Y'), (int)$utcNow->format('n') - 1, 1)
                         ->setTime(0, 0, 0)
@@ -490,7 +490,7 @@ class Battle2FilterForm extends Model
                 );
 
                 $thisMonthPeriod = BattleHelper::calcPeriod2(
-                    (new DateTimeImmutable())
+                    new DateTimeImmutable()
                         ->setTimezone(new DateTimeZone('Etc/UTC'))
                         ->setDate($utcNow->format('Y'), $utcNow->format('n'), 1)
                         ->setTime(0, 0, 0)

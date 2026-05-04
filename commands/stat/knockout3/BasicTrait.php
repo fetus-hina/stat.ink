@@ -39,7 +39,7 @@ trait BasicTrait
     {
         $time = '(EXTRACT(EPOCH FROM {{%battle3}}.[[end_at]]) - EXTRACT(EPOCH FROM {{%battle3}}.[[start_at]]))';
         $koTime = "(CASE WHEN {{%battle3}}.[[is_knockout]] THEN {$time} ELSE NULL END)";
-        return (new Query())
+        return new Query()
             ->select([
                 'season_id' => '{{%season3}}.[[id]]',
                 'rule_id' => '{{%battle3}}.[[rule_id]]',

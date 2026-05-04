@@ -85,7 +85,7 @@ trait UserGoldenEggTrait
             $db->quoteColumnName('golden_eggs'),
         ]);
 
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'user_id' => '{{%salmon3}}.[[user_id]]',
                 'map_id' => '{{%salmon3}}.[[stage_id]]',
@@ -208,7 +208,7 @@ trait UserGoldenEggTrait
             $widthColumn,
         );
 
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'user_id' => '{{%salmon3}}.[[user_id]]',
                 'map_id' => '{{%salmon3}}.[[stage_id]]',

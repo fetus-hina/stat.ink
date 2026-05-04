@@ -27,7 +27,7 @@ trait UserEventTrait
     protected static function createUserEventStats(Connection $db, User $user): bool
     {
         try {
-            $select = (new Query())
+            $select = new Query()
                 ->select([
                     'user_id' => '{{%salmon3}}.[[user_id]]',
                     'map_id' => '{{%salmon3}}.[[stage_id]]',

@@ -63,7 +63,7 @@ ColorSchemeAsset::register($this);
 JqueryEasyChartjsAsset::register($this);
 RatioAsset::register($this);
 
-$date = fn (string $at, string $offset = 'P0D'): string => (new DateTimeImmutable($at))
+$date = fn (string $at, string $offset = 'P0D'): string => new DateTimeImmutable($at)
   ->setTimezone(new DateTimeZone('Etc/UTC'))
   ->sub(new DateInterval($offset))
   ->format('Y-m-d');

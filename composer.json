@@ -3,7 +3,7 @@
   "license": "MIT",
   "type": "project",
   "require": {
-    "php": "^8.3.0",
+    "php": "^8.4.0",
     "ext-curl": "*",
     "ext-date": "*",
     "ext-filter": "*",
@@ -47,8 +47,6 @@
     "statink/yii2-spl1-stages": "^1.0.1",
     "statink/yii2-spl2-stages": "^1.0.2",
     "statink/yii2-twitter-webintents": "^1.0.2",
-    "symfony/polyfill-php83": "^1.32",
-    "symfony/polyfill-php84": "^1.37",
     "symfony/yaml": "^7.4.8",
     "twbs/bootstrap-icons": "^1.13.1",
     "yiisoft/yii2": "^2.0.54",
@@ -115,7 +113,8 @@
     "symfony/polyfill-php80": "*",
     "symfony/polyfill-php81": "*",
     "symfony/polyfill-php82": "*",
-    "symfony/polyfill-php83": "*"
+    "symfony/polyfill-php83": "*",
+    "symfony/polyfill-php84": "*"
   },
   "repositories": {
     "private": {
@@ -146,7 +145,7 @@
       "yiisoft/yii2-composer": true
     },
     "platform": {
-      "php": "8.3.30"
+      "php": "8.4.20"
     },
     "process-timeout": 1800
   },

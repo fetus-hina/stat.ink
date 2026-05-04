@@ -35,7 +35,7 @@ trait KingSalmonidTrait
     private function getKingStats(Connection $db, User $user, ?SalmonSchedule3 $schedule): array
     {
         return ArrayHelper::index(
-            (new Query())
+            new Query()
                 ->select([
                     'king_id' => '{{%salmon3}}.[[king_salmonid_id]]',
                     'appearances' => 'COUNT(*)',

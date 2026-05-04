@@ -3,6 +3,7 @@
   <description>A custom coding standard</description>
 
   <ini name="memory_limit" value="-1"/>
+  <config name="php_version" value="80400"/>
   <arg name="extensions" value="php"/>
   <arg value="p"/><!-- progress -->
   <arg value="s"/><!-- show sniff -->

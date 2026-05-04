@@ -20,7 +20,7 @@ class ApiDocAction extends SimpleAction
     public function run()
     {
         $markdown = file_get_contents(Yii::getAlias('@app/API.md'));
-        $this->params['content'] = (new Markdown())->parse($markdown);
+        $this->params['content'] = new Markdown()->parse($markdown);
 
         return parent::run();
     }

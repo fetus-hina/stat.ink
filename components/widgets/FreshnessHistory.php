@@ -49,7 +49,7 @@ class FreshnessHistory extends Widget
         FreshnessHistoryAsset::register($this->view);
         $this->view->registerJs(vsprintf('$(%s).freshnessHistory(%s);', [
             Json::encode('#' . $this->id),
-            implode(', ', array_map([Json::class, 'encode'], [
+            implode(', ', array_map(Json::encode(...), [
                 array_map(
                     fn (Battle2 $model): ?float => $model->freshness === null ? null : (float)$model->freshness,
                     $history,

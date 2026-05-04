@@ -52,7 +52,7 @@ class FestPowerHistory extends Widget
         FestPowerHistoryAsset::register($this->view);
         $this->view->registerJs(vsprintf('$(%s).festPowerHistory(%s);', [
             Json::encode('#' . $this->id),
-            implode(', ', array_map([Json::class, 'encode'], [
+            implode(', ', array_map(Json::encode(...), [
                 sprintf('#%s-legends', $this->id),
                 [
                     'estimateBad' => Yii::t('app', 'Their team\'s splatfest power'),

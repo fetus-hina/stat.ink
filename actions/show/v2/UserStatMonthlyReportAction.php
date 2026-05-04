@@ -92,7 +92,7 @@ final class UserStatMonthlyReportAction extends BaseAction
         $tz = new DateTimeZone('Etc/UTC');
 
         // 指定月初
-        $from = (new DateTimeImmutable())
+        $from = new DateTimeImmutable()
             ->setTimezone($tz)
             ->setTime(0, 0, 0)
             ->setDate((int)$form->year, (int)$form->month, 1);
@@ -106,12 +106,12 @@ final class UserStatMonthlyReportAction extends BaseAction
         $prev = $from->sub(new DateInterval('P1M'));
 
         // クエリ可能な最大日時
-        $upperBound = (new DateTimeImmutable())
+        $upperBound = new DateTimeImmutable()
             ->setTimezone($tz)
             ->setTimestamp((int)($_SERVER['REQUEST_TIME'] ?? time()));
 
         // クエリ可能な最小日時
-        $lowerBound = (new DateTimeImmutable())
+        $lowerBound = new DateTimeImmutable()
             ->setTimezone($tz)
             ->setTime(0, 0, 0)
             ->setDate(2017, 7, 1);

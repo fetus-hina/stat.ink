@@ -20,7 +20,6 @@ use app\models\Salmon2;
 use app\models\Salmon3;
 use yii\base\Widget;
 
-use function call_user_func;
 use function get_class;
 
 final class PanelListItemWidget extends Widget
@@ -53,9 +52,6 @@ final class PanelListItemWidget extends Widget
     public function run()
     {
         $implClass = $this->itemClasses[get_class($this->model)];
-        return call_user_func(
-            [$implClass, 'widget'],
-            ['model' => $this->model],
-        );
+        return $implClass::widget(['model' => $this->model]);
     }
 }

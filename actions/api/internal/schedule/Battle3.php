@@ -58,7 +58,7 @@ trait Battle3
     // 直近に開催されるロビーの一覧を取得
     private function getLobbies3(int $period): array
     {
-        $availableLobbyIds = (new Query())
+        $availableLobbyIds = new Query()
             ->select('lobby_id')
             ->from('{{%schedule3}}')
             ->where(['between', 'period', $period, $period + 3])

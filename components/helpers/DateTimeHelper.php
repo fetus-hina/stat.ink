@@ -22,7 +22,7 @@ final class DateTimeHelper
 
     public static function now(): DateTimeImmutable
     {
-        return (new DateTimeImmutable())
+        return new DateTimeImmutable()
             ->setTimezone(new DateTimeZone(Yii::$app->timeZone))
             ->setTimestamp($_SERVER['REQUEST_TIME']);
     }
