@@ -1,0 +1,26 @@
+/*! Copyright (C) 2026 AIZAWA Hina | MIT License */
+
+.passkey-login-overlay {
+  align-items: center;
+  background: rgba(0, 0, 0, 0.4);
+  cursor: wait;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
+
+  &__icon {
+    color: #fff;
+    display: none;
+    filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.5));
+    font-size: 8rem;
+  }
+
+  &--loading &__icon {
+    display: block;
+  }
+}

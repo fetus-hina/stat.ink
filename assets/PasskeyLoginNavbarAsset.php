@@ -17,10 +17,14 @@ use yii\web\YiiAsset;
 class PasskeyLoginNavbarAsset extends AssetBundle
 {
     public $sourcePath = '@app/resources/.compiled/stat.ink';
+    public $css = [
+        'passkey-login.css',
+    ];
     public $js = [
         'passkey-login-navbar.js',
     ];
     public $depends = [
+        FontAwesomeAsset::class,
         JqueryAsset::class,
         YiiAsset::class,
     ];
