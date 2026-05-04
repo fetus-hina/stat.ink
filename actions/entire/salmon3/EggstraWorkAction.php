@@ -178,7 +178,7 @@ final class EggstraWorkAction extends Action
         $version = 1; // cache version
         $stats = Yii::$app->cache->getOrSet(
             [__METHOD__, $abstract->attributes, [$lower, $upper], $version],
-            fn (): array => (new Query())
+            fn (): array => new Query()
                 ->select([
                     'average' => 'AVG([[golden_eggs]])',
                     'stddev' => 'STDDEV_SAMP([[golden_eggs]])',

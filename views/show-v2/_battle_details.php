@@ -792,15 +792,15 @@ use yii\widgets\DetailView;
         }
 
         list($intFrom, $intTo) = BattleHelper::periodToRange2($model->period);
-        $periodFrom = (new DateTimeImmutable())
+        $periodFrom = new DateTimeImmutable()
             ->setTimezone(new DateTimeZone(Yii::$app->timeZone))
             ->setTimestamp($intFrom);
         $periodTo = $periodFrom->setTimestamp($intTo);
 
-        $dayFrom = (new DateTimeImmutable(
+        $dayFrom = new DateTimeImmutable(
                 $model->start_at,
                 new DateTimeZone(Yii::$app->timeZone)
-            ))
+            )
             ->setTime(0, 0, 0); // set to 00:00:00 (midnight)
 
         $dayTo = $dayFrom

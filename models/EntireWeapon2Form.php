@@ -129,11 +129,11 @@ class EntireWeapon2Form extends Model
     private function getMonthList(): array
     {
         $interval = new DateInterval('P1M');
-        $date = (new DateTimeImmutable())
+        $date = new DateTimeImmutable()
             ->setTimeZone(new DateTimeZone('Etc/UTC'))
             ->setDate(2017, 7, 1)
             ->setTime(0, 0, 0);
-        $limit = (new DateTimeImmutable())
+        $limit = new DateTimeImmutable()
             ->setTimeZone(new DateTimeZone('Etc/UTC'))
             ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time());
         $formatter = Yii::$app->formatter;

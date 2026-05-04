@@ -82,7 +82,7 @@ class User2Action extends BaseAction
             return ['error' => 'something happend'];
         }
 
-        $now = (new DateTimeImmutable())
+        $now = new DateTimeImmutable()
             ->setTimeZone(new DateTimeZone('Etc/UTC'))
             ->setTimestamp((int)($_SERVER['REQUEST_TIME'] ?? time()));
 

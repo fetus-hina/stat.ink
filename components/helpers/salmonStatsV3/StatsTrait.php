@@ -74,7 +74,7 @@ trait StatsTrait
             ],
         );
 
-        return (new Query())
+        return new Query()
             ->select([
                 'jobs' => 'COUNT(*)',
                 'agg_jobs' => $aggregate(),
@@ -107,7 +107,7 @@ trait StatsTrait
 
     private static function makeTitleStats(Connection $db, User $user, DateTimeImmutable $now): array
     {
-        return (new Query())
+        return new Query()
             ->select([
                 'peak_title_id' => '{{%salmon3}}.[[title_after_id]]',
                 'peak_title_exp' => 'MAX({{%salmon3}}.[[title_exp_after]])',

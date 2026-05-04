@@ -102,7 +102,7 @@ final class Spl2YearMonthForm extends Model
                 $this->timeZone = new DateTimeZone(Yii::$app->timeZone);
             }
 
-            $this->now = (new DateTimeImmutable())
+            $this->now = new DateTimeImmutable()
                 ->setTimestamp((int)($_SERVER['REQUEST_TIME'] ?? time()))
                 ->setTimezone($this->timeZone);
         }

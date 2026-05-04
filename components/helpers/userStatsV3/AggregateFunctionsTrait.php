@@ -144,7 +144,7 @@ trait AggregateFunctionsTrait
 
     protected static function periodToSeason(int $period): ?string
     {
-        $date = (new DateTimeImmutable('now', new DateTimeZone('Etc/UTC')))
+        $date = new DateTimeImmutable('now', new DateTimeZone('Etc/UTC'))
             ->setTimestamp($period * 7200);
         switch ((int)$date->format('n')) {
             case 1:

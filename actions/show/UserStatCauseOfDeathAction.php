@@ -60,7 +60,7 @@ class UserStatCauseOfDeathAction extends BaseAction
         BattleFilterForm $filter,
         CauseOfDeathGroupForm $group,
     ): array {
-        $query = (new Query())
+        $query = new Query()
             ->from('battle')
             ->innerJoin(
                 'battle_death_reason',

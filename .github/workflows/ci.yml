@@ -3,7 +3,7 @@ name: CI
   - push
   - pull_request
 env:
-  UTILITY_PHP_VERSION: '8.3'
+  UTILITY_PHP_VERSION: '8.4'
 jobs:
   ciDoesNotSkip:
     name: 'Tag Check: `[ci skip]`'
@@ -19,15 +19,15 @@ jobs:
       matrix:
         php:
           -
-            version: '8.3'
-            multiple: true
-            experimental: false
-          -
             version: '8.4'
             multiple: true
             experimental: false
           -
             version: '8.5'
+            multiple: true
+            experimental: false
+          -
+            version: '8.6'
             multiple: true
             experimental: true
     runs-on: ubuntu-24.04
@@ -365,13 +365,13 @@ jobs:
       matrix:
         php:
           -
-            version: '8.3'
-            experimental: false
-          -
             version: '8.4'
             experimental: false
           -
             version: '8.5'
+            experimental: false
+          -
+            version: '8.6'
             experimental: true
         pgsql:
           -

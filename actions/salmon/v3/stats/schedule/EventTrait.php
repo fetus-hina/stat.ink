@@ -42,7 +42,7 @@ trait EventTrait
     {
         $waves = $schedule?->is_eggstra_work ? 5 : 3;
 
-        $data = (new Query())
+        $data = new Query()
             ->select([
                 'tide_id' => '{{%salmon_wave3}}.[[tide_id]]',
                 'event_id' => 'COALESCE({{%salmon_wave3}}.[[event_id]], 0)',

@@ -241,7 +241,7 @@ final class TimezoneDialog extends Dialog
 
     private function renderOffset(Timezone $tz): string
     {
-        $time = (new DateTimeImmutable())
+        $time = new DateTimeImmutable()
             ->setTimestamp($_SERVER['REQUEST_TIME'])
             ->setTimezone(new DateTimeZone($tz->identifier));
         $offset = $time->getOffset();

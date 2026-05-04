@@ -40,7 +40,7 @@ final class UserJson3Controller extends Controller
 
     public function actionAutoUpdate(): int
     {
-        $select = (new Query())
+        $select = new Query()
           ->select(['user_id'])
           ->from('{{%battle3}}')
           ->groupBy(['user_id'])

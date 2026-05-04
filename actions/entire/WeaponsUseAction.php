@@ -291,7 +291,7 @@ final class WeaponsUseAction extends Action
     protected function queryData(WeaponCompareForm $form): array
     {
         $db = Yii::$app->db;
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'isoyear' => '{{stat}}.[[isoyear]]',
                 'isoweek' => '{{stat}}.[[isoweek]]',

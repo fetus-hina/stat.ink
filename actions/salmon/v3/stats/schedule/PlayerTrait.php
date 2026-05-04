@@ -52,7 +52,7 @@ trait PlayerTrait
     private function getPlayerStats(Connection $db, User $user, ?SalmonSchedule3 $schedule): array
     {
         $waves = $schedule?->is_eggstra_work ? 5 : 3;
-        return (new Query())
+        return new Query()
             ->select([
                 'name' => '{{%salmon_player3}}.[[name]]',
                 'number' => '{{%salmon_player3}}.[[number]]',

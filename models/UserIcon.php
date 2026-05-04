@@ -67,7 +67,7 @@ class UserIcon extends ActiveRecord
         ]);
         $obj->mode = 'new';
         $obj->imageResource = $gd;
-        static::getDb()->on(Connection::EVENT_COMMIT_TRANSACTION, [$obj, 'onCommit']);
+        static::getDb()->on(Connection::EVENT_COMMIT_TRANSACTION, $obj->onCommit(...));
         return $obj;
     }
 
@@ -175,7 +175,7 @@ class UserIcon extends ActiveRecord
     public function afterDelete()
     {
         $this->mode = 'delete';
-        static::getDb()->on(Connection::EVENT_COMMIT_TRANSACTION, [$this, 'onCommit']);
+        static::getDb()->on(Connection::EVENT_COMMIT_TRANSACTION, $this->onCommit(...));
         parent::afterDelete();
     }
 

@@ -49,7 +49,7 @@ final class UsageAction extends Action
         $conn->createCommand("SET TIMEZONE TO 'Etc/UTC'")->execute();
 
         $today = gmdate('Y-m-d', $_SERVER['REQUEST_TIME'] ?? time());
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'date' => '{{%battle3}}.[[created_at]]::date',
                 'version' => 'MAX({{%agent}}.[[version]])',

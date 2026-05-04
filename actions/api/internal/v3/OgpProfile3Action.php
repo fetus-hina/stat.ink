@@ -110,7 +110,7 @@ final class OgpProfile3Action extends Action
 
     private function battleData(User $user): ?array
     {
-        $data = (new Query())
+        $data = new Query()
             ->select([
                 'battles' => 'SUM([[battles]])',
                 'wins' => 'SUM([[wins]])',
@@ -164,7 +164,7 @@ final class OgpProfile3Action extends Action
             return null;
         }
 
-        $bigRun = (new Query())
+        $bigRun = new Query()
             ->select(['golden_eggs' => 'MAX([[golden_eggs]])'])
             ->from('{{%user_stat_bigrun3}}')
             ->andWhere(['user_id' => $user->id])
@@ -172,7 +172,7 @@ final class OgpProfile3Action extends Action
             ->cache(300)
             ->one();
 
-        $eggstra = (new Query())
+        $eggstra = new Query()
             ->select(['golden_eggs' => 'MAX([[golden_eggs]])'])
             ->from('{{%user_stat_eggstra_work3}}')
             ->andWhere(['user_id' => $user->id])

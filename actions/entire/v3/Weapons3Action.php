@@ -351,7 +351,7 @@ final class Weapons3Action extends Action
 
     private function getVersions(Connection $db): array
     {
-        $ts = (new DateTimeImmutable('now', new DateTimeZone('Etc/UTC')))
+        $ts = new DateTimeImmutable('now', new DateTimeZone('Etc/UTC'))
             ->setTime(0, 0, 0)
             ->sub(new DateInterval('P1D'));
 
@@ -391,7 +391,7 @@ final class Weapons3Action extends Action
 
                                 // 新バージョンは新シーズンの少し前にリリースされるので
                                 // その差を考慮して7日後を基準にする
-                                $version !== null => (new DateTimeImmutable($version->release_at))
+                                $version !== null => new DateTimeImmutable($version->release_at)
                                     ->setTimezone(new DateTimeZone('Etc/UTC'))
                                     ->add(new DateInterval('P7D'))
                                     ->format(DateTimeInterface::ATOM),
@@ -435,7 +435,7 @@ final class Weapons3Action extends Action
 
                                 // 新バージョンは新シーズンの少し前にリリースされるので
                                 // その差を考慮して7日後を基準にする
-                                $version !== null => (new DateTimeImmutable($version->release_at))
+                                $version !== null => new DateTimeImmutable($version->release_at)
                                     ->setTimezone(new DateTimeZone('Etc/UTC'))
                                     ->add(new DateInterval('P7D'))
                                     ->format(DateTimeInterface::ATOM),

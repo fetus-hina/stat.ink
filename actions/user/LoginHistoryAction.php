@@ -24,10 +24,10 @@ class LoginHistoryAction extends ViewAction
     {
         $user = Yii::$app->getUser()->getIdentity();
 
-        $time = (new DateTimeImmutable(
+        $time = new DateTimeImmutable(
             'now',
             new DateTimeZone(Yii::$app->timeZone),
-        ))
+        )
             ->sub(new DateInterval('P30D'));
 
         return $this->controller->render('login-history', [

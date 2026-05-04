@@ -69,7 +69,7 @@ trait SpecialUseCountTrait
             '{{%lobby3}}.[[key]]' => 'xmatch',
         ];
 
-        return (new Query())
+        return new Query()
             ->select([
                 'season_id' => '{{%season3}}.[[id]]',
                 'special_id' => '{{%weapon3}}.[[special_id]]',

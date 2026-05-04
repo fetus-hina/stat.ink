@@ -67,7 +67,7 @@ class SfList extends Model
         }
 
         if ($sort) {
-            usort($items, [SfItem::class, 'compare']);
+            usort($items, SfItem::compare(...));
         }
 
         $this->items = array_values($items);

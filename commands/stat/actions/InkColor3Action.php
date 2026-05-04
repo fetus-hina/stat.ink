@@ -64,7 +64,7 @@ final class InkColor3Action extends Action
 
         $color1 = 'LEAST({{%battle3}}.[[our_team_color]], {{%battle3}}.[[their_team_color]])';
         $color2 = 'GREATEST({{%battle3}}.[[our_team_color]], {{%battle3}}.[[their_team_color]])';
-        $select = (new Query())
+        $select = new Query()
             ->select([
                 'color1' => $color1,
                 'color2' => $color2,

@@ -65,7 +65,7 @@ final class BossesAction extends Action
 
         $data = Yii::$app->db->transaction(
             function (Connection $db) use ($filter, $user): array {
-                $cacheCondition = (new Query())
+                $cacheCondition = new Query()
                     ->select([
                         'max' => 'MAX([[id]])',
                         'count' => 'COUNT(*)',

@@ -32,7 +32,6 @@ use function array_filter;
 use function array_map;
 use function array_reduce;
 use function array_values;
-use function call_user_func;
 use function file_get_contents;
 use function file_put_contents;
 use function grapheme_extract;
@@ -128,13 +127,13 @@ class Api2MarkdownController extends Controller
         $path = Yii::getAlias('@app/doc/api-2/post-salmon.md');
 
         $actionMap = [
-            'boss' => [$this, 'actionSalmonBoss'],
-            'event' => [$this, 'actionSalmonEvent'],
-            'special' => [$this, 'actionSalmonSpecial'],
-            'stage' => [$this, 'actionSalmonStage'],
-            'title' => [$this, 'actionSalmonTitle'],
-            'water-level' => [$this, 'actionSalmonWaterLevel'],
-            'weapon' => [$this, 'actionSalmonWeapon'],
+            'boss' => $this->actionSalmonBoss(...),
+            'event' => $this->actionSalmonEvent(...),
+            'special' => $this->actionSalmonSpecial(...),
+            'stage' => $this->actionSalmonStage(...),
+            'title' => $this->actionSalmonTitle(...),
+            'water-level' => $this->actionSalmonWaterLevel(...),
+            'weapon' => $this->actionSalmonWeapon(...),
         ];
 
         $markdown = preg_replace_callback(
@@ -147,7 +146,7 @@ class Api2MarkdownController extends Controller
                 }
 
                 ob_start();
-                $status = call_user_func($actionMap[$kind]);
+                $status = $actionMap[$kind]();
                 $repl = ob_get_clean();
                 if ($status !== 0) {
                     exit($status);

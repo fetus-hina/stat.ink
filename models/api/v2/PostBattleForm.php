@@ -481,8 +481,8 @@ class PostBattleForm extends Model
         $time = $this->start_at
             ? new DateTimeImmutable('@' . ((int)$this->start_at))
             : ($this->end_at
-                ? (new DateTimeImmutable('@' . ((int)$this->end_at)))->sub(new DateInterval('PT3M'))
-                : (new DateTimeImmutable())->sub(new DateInterval('PT3M15S'))
+                ? new DateTimeImmutable('@' . ((int)$this->end_at))->sub(new DateInterval('PT3M'))
+                : new DateTimeImmutable()->sub(new DateInterval('PT3M15S'))
             );
         $mapping = ShiftyMap2::find()
             ->andWhere(vsprintf('(%s @> %d::integer)', [

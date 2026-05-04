@@ -64,7 +64,7 @@ trait OverfishingTrait
         User $user,
         SalmonSchedule3 $schedule,
     ): int {
-        $select = (new Query())
+        $select = new Query()
             ->select([
                 'salmon_id' => '{{%salmon3}}.[[id]]',
                 'event_waves' => vsprintf('SUM(CASE %s END)', [
@@ -130,7 +130,7 @@ trait OverfishingTrait
             ],
         );
 
-        $select = (new Query())
+        $select = new Query()
             ->select([
                 'total_3_night' => $totalNight(3),
                 'total_2_night' => $totalNight(2),
@@ -161,7 +161,7 @@ trait OverfishingTrait
         SalmonSchedule3 $schedule,
     ): array {
         $eventId = new Expression('COALESCE({{%salmon_wave3}}.[[event_id]], -1)');
-        $select = (new Query())
+        $select = new Query()
             ->select([
                 'event_id' => $eventId,
                 'tide_id' => '{{%salmon_wave3}}.[[tide_id]]',

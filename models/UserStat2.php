@@ -352,7 +352,7 @@ class UserStat2 extends ActiveRecord
             )));
             // }}}
         };
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 // 総合 {{{
                 'battles' => 'COUNT(*)',
@@ -630,7 +630,7 @@ class UserStat2 extends ActiveRecord
 
     private function getLastBattle(string $ruleKey): array
     {
-        $query = (new Query())
+        $query = new Query()
             ->from('battle2')
             ->innerJoin('lobby2', '{{battle2}}.[[lobby_id]] = {{lobby2}}.[[id]]')
             ->innerJoin('mode2', '{{battle2}}.[[mode_id]] = {{mode2}}.[[id]]')

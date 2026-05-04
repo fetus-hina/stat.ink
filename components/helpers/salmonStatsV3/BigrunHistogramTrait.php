@@ -75,7 +75,7 @@ trait BigrunHistogramTrait
             '{{%user_stat_bigrun3}}.[[golden_eggs]]',
         );
 
-        $select = (new Query())
+        $select = new Query()
             ->select([
                 'schedule_id' => '{{%user_stat_bigrun3}}.[[schedule_id]]',
                 'users' => 'COUNT(*)',
@@ -126,7 +126,7 @@ trait BigrunHistogramTrait
             $db->quoteColumnName('histogram_width'),
         );
 
-        $select = (new Query())
+        $select = new Query()
             ->select([
                 'schedule_id' => '{{%user_stat_bigrun3}}.[[schedule_id]]',
                 'class_value' => $classValue,
@@ -186,7 +186,7 @@ trait BigrunHistogramTrait
             ]),
         ]);
 
-        $select = (new Query())
+        $select = new Query()
             ->select([
                 'schedule_id' => '{{%salmon3}}.[[schedule_id]]',
                 'users' => 'COUNT(DISTINCT {{%salmon3}}.[[user_id]])',
@@ -277,7 +277,7 @@ trait BigrunHistogramTrait
             $db->quoteColumnName('histogram_width'),
         );
 
-        $select = (new Query())
+        $select = new Query()
             ->select([
                 'schedule_id' => '{{%salmon3}}.[[schedule_id]]',
                 'class_value' => $classValue,

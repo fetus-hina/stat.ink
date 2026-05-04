@@ -157,7 +157,7 @@ final class WeaponAction extends Action
     {
         $table = StatWeaponKDWinRate::tableName();
         $map = Map::tableName();
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'map' => "MAX({{{$map}}}.[[key]])",
                 'battle' => "SUM({{{$table}}}.[[battle_count]])",
@@ -185,7 +185,7 @@ final class WeaponAction extends Action
     public function getUseCount()
     {
         $weaponId = (int)$this->weapon->id;
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'isoyear' => 'isoyear',
                 'isoweek' => 'isoweek',

@@ -123,7 +123,7 @@ final class StatsAction extends Action
 
     private function getCachingCondition(Connection $db, User $user): array
     {
-        return (new Query())
+        return new Query()
             ->select([
                 'max' => 'MAX([[id]])',
                 'count' => 'COUNT(*)',

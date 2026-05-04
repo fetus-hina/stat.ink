@@ -96,7 +96,7 @@ final class KDWin3Action extends Action
             ? Lobby3::find()->andWhere(['key' => $filter->lobby])->limit(1)->one($db)
             : null;
 
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'rule_id' => '{{%stat_kd_win_rate3}}.[[rule_id]]',
                 'kills' => '{{%stat_kd_win_rate3}}.[[kills]]',

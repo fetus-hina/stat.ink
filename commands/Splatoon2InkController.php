@@ -342,7 +342,7 @@ class Splatoon2InkController extends Controller
 
     private function dateTimeFromTimestamp(int $timestamp): DateTimeImmutable
     {
-        return (new DateTimeImmutable())
+        return new DateTimeImmutable()
             ->setTimestamp($timestamp)
             ->setTimeZone(new DateTimeZone(Yii::$app->timeZone));
     }

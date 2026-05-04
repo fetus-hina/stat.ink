@@ -29,7 +29,7 @@ class FixAttributesBehavior extends Behavior
     public function events()
     {
         return [
-            $this->trigger => [$this, 'doFix'],
+            $this->trigger => $this->doFix(...),
         ];
     }
 

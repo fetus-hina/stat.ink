@@ -221,7 +221,7 @@ class Battle2 extends ActiveRecord
     {
         try {
             $count = filter_var(
-                (new Query())
+                new Query()
                     ->select('[[last_value]]')
                     ->from('{{battle2_id_seq}}')
                     ->scalar(),
@@ -420,7 +420,7 @@ class Battle2 extends ActiveRecord
                 })($options['timeZone'] ?? null);
 
                 // DateTimeImmutable
-                $now = (new DateTimeImmutable())
+                $now = new DateTimeImmutable()
                     ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time())
                     ->setTimezone($tz);
                 $currentPeriod = BattleHelper::calcPeriod2($now->getTimestamp());
@@ -466,10 +466,10 @@ class Battle2 extends ActiveRecord
                         break;
 
                     case 'this-month-utc':
-                        $utcNow = (new DateTimeImmutable())
+                        $utcNow = new DateTimeImmutable()
                             ->setTimezone(new DateTimeZone('Etc/UTC'))
                             ->setTimestamp($now->getTimestamp());
-                        $thisMonth = (new DateTimeImmutable())
+                        $thisMonth = new DateTimeImmutable()
                             ->setTimezone(new DateTimeZone('Etc/UTC'))
                             ->setDate($utcNow->format('Y'), $utcNow->format('n'), 1)
                             ->setTime(0, 0, 0);
@@ -482,12 +482,12 @@ class Battle2 extends ActiveRecord
                         break;
 
                     case 'last-month-utc':
-                        $utcNow = (new DateTimeImmutable())
+                        $utcNow = new DateTimeImmutable()
                             ->setTimezone(new DateTimeZone('Etc/UTC'))
                             ->setTimestamp($now->getTimestamp());
 
                         $lastMonthPeriod = BattleHelper::calcPeriod2(
-                            (new DateTimeImmutable())
+                            new DateTimeImmutable()
                                 ->setTimezone(new DateTimeZone('Etc/UTC'))
                                 ->setDate($utcNow->format('Y'), $utcNow->format('n') - 1, 1)
                                 ->setTime(0, 0, 0)
@@ -495,7 +495,7 @@ class Battle2 extends ActiveRecord
                         );
 
                         $thisMonthPeriod = BattleHelper::calcPeriod2(
-                            (new DateTimeImmutable())
+                            new DateTimeImmutable()
                                 ->setTimezone(new DateTimeZone('Etc/UTC'))
                                 ->setDate($utcNow->format('Y'), $utcNow->format('n'), 1)
                                 ->setTime(0, 0, 0)
@@ -531,10 +531,10 @@ class Battle2 extends ActiveRecord
                     case 'term':
                         try {
                             $from = ($options['from'] ?? '') != ''
-                                ? (new DateTimeImmutable($options['from']))->setTimezone($tz)
+                                ? new DateTimeImmutable($options['from'])->setTimezone($tz)
                                 : null;
                             $to = ($options['to'] ?? '') != ''
-                                ? (new DateTimeImmutable($options['to']))->setTimezone($tz)
+                                ? new DateTimeImmutable($options['to'])->setTimezone($tz)
                                 : null;
                             if ($from) {
                                 $this->andWhere(
@@ -1310,10 +1310,10 @@ class Battle2 extends ActiveRecord
             return new DateTimeImmutable($this->start_at);
         }
         if ($this->end_at) {
-            return (new DateTimeImmutable($this->end_at))
+            return new DateTimeImmutable($this->end_at)
                 ->sub(new DateInterval('PT3M'));
         }
-        return (new DateTimeImmutable($this->created_at))
+        return new DateTimeImmutable($this->created_at)
             ->sub(new DateInterval('PT3M15S'));
     }
 
@@ -1877,7 +1877,7 @@ class Battle2 extends ActiveRecord
             return;
         }
         // $list: [weapon_id => attrs, ...] {{{
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'weapon_id',
                 'battles' => 'COUNT(*)',

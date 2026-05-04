@@ -247,7 +247,7 @@ trait QueryDecoratorTrait
 
         try {
             $tz = new DateTimeZone(Yii::$app->timeZone);
-            return (new DateTimeImmutable($value, $tz))->setTimezone($tz);
+            return new DateTimeImmutable($value, $tz)->setTimezone($tz);
         } catch (Throwable $e) {
             return null;
         }

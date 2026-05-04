@@ -53,7 +53,7 @@ trait GearMigration
 
     private function findId(string $table, string $tag): ?int
     {
-        $id = (new Query())
+        $id = new Query()
             ->select('id')
             ->from($table)
             ->where(['key' => $tag])

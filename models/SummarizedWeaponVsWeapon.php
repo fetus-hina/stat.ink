@@ -32,7 +32,7 @@ class SummarizedWeaponVsWeapon extends Model
         $rule_id = null,
         $version_id = null,
     ): array {
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'wid1' => 'weapon_id_1',
                 'wid2' => 'weapon_id_2',

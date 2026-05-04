@@ -48,7 +48,7 @@ class UserStatReportAction extends BaseAction
 
     public function run()
     {
-        $now = (new DateTimeImmutable())
+        $now = new DateTimeImmutable()
             ->setTimeZone(new DateTimeZone(Yii::$app->timeZone))
             ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time());
 
@@ -87,12 +87,12 @@ class UserStatReportAction extends BaseAction
     {
         $tz = new DateTimeZone(Yii::$app->timeZone);
 
-        $from = (new DateTimeImmutable())
+        $from = new DateTimeImmutable()
             ->setTimeZone($tz)
             ->setDate((int)$form->year, (int)$form->month, 1)
             ->setTime(0, 0, 0);
 
-        $next = (new DateTimeImmutable())
+        $next = new DateTimeImmutable()
             ->setTimeZone($tz)
             ->setDate((int)$form->year, (int)$form->month + 1, 1)
             ->setTime(0, 0, 0);
@@ -101,7 +101,7 @@ class UserStatReportAction extends BaseAction
 
         $prev = $from->sub(new DateInterval('P1M'));
 
-        $upperBound = (new DateTimeImmutable())
+        $upperBound = new DateTimeImmutable()
             ->setTimeZone($tz)
             ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time());
 
@@ -138,7 +138,7 @@ class UserStatReportAction extends BaseAction
 
     private function query($from, $to, $date)
     {
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'date' => $date,
                 'lobby_id' => '{{battle}}.[[lobby_id]]',

@@ -89,7 +89,7 @@ final class UserStat3Controller extends Controller
 
     public function actionBattleRegenAll(): int
     {
-        $query = (new Query())
+        $query = new Query()
             ->select(['user_id'])
             ->from('{{%battle3}}')
             ->andWhere(['is_deleted' => false])
@@ -108,7 +108,7 @@ final class UserStat3Controller extends Controller
 
     public function actionSalmonRegenAll(): int
     {
-        $query = (new Query())
+        $query = new Query()
             ->select(['user_id'])
             ->from('{{%salmon3}}')
             ->andWhere(['is_deleted' => false])

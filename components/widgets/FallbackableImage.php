@@ -56,7 +56,7 @@ class FallbackableImage extends Widget
         FallbackableImageAsset::register($this->view);
         $this->view->registerJs(vsprintf('jQuery(%s).fallbackableImage(%s);', [
             Json::encode('#' . $this->id),
-            Json::encode(array_map([Yii::class, 'getAlias'], $srcs)),
+            Json::encode(array_map(Yii::getAlias(...), $srcs)),
         ]));
 
         return Html::img(

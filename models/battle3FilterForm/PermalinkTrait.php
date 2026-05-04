@@ -145,7 +145,7 @@ trait PermalinkTrait
      */
     private function permaLinkDay(callable $push, int $offset): void
     {
-        $now = (new DateTimeImmutable('now', new DateTimeZone(Yii::$app->timeZone)))
+        $now = new DateTimeImmutable('now', new DateTimeZone(Yii::$app->timeZone))
             ->setTimestamp($_SERVER['REQUEST_TIME']);
         $today = $now->setTime(0, 0, 0);
         $target = match (true) {

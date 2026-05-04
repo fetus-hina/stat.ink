@@ -12,7 +12,6 @@ namespace app\components\helpers;
 
 use yii\base\Component;
 
-use function call_user_func;
 use function filter_var;
 use function preg_match;
 use function substr;
@@ -52,9 +51,9 @@ class ApiInputFormatter extends Component
         $value = $this->asString($value);
 
         if ($splatnetIdColumn !== null && substr($value, 0, 1) === '#' && preg_match('/^#\d+$/', $value)) {
-            $model = call_user_func([$class, 'findOne'], [$splatnetIdColumn => substr($value, 1)]);
+            $model = $class::findOne([$splatnetIdColumn => substr($value, 1)]);
         } else {
-            $model = call_user_func([$class, 'findOne'], [$keyColumn => $value]);
+            $model = $class::findOne([$keyColumn => $value]);
         }
         return $model ? $model->id : null;
     }

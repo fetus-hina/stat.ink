@@ -94,7 +94,7 @@ trait WeaponMigration
             return $splatnet;
         }
 
-        $parentId = (new Query())
+        $parentId = new Query()
             ->select('splatnet')
             ->from('weapon2')
             ->where(['key' => $main])
@@ -108,7 +108,7 @@ trait WeaponMigration
 
     private function findId(string $table, string $key): int
     {
-        $id = (new Query())
+        $id = new Query()
             ->select('id')
             ->from($table)
             ->where(['key' => $key])

@@ -90,7 +90,7 @@ final class CleanupAction extends Action
                 $entry->isDir() &&
                 substr($entry->getBasename(), 0, 1) !== '.'
             ) {
-                $results[$entry->getPathname()] = (new DateTimeImmutable())
+                $results[$entry->getPathname()] = new DateTimeImmutable()
                     ->setTimezone(new DateTimeZOne('Etc/UTC'))
                     ->setTimestamp(TypeHelper::int($entry->getMTime()));
             }
@@ -110,7 +110,7 @@ final class CleanupAction extends Action
      */
     private function getCleanupTargets(array $directories): array
     {
-        $threshold = (new DateTimeImmutable())
+        $threshold = new DateTimeImmutable()
             ->setTimezone(new DateTimeZone('Etc/UTC'))
             ->setTimestamp($_SERVER['REQUEST_TIME'])
             ->modify(sprintf('-%d second', self::ASSET_PRESERVE_SECONDS));

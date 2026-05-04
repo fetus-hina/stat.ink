@@ -17,7 +17,7 @@ trait Common
 {
     private static function parseTimestamp(string $ts): int
     {
-        return (new DateTimeImmutable($ts, new DateTimeZone('Etc/UTC')))
+        return new DateTimeImmutable($ts, new DateTimeZone('Etc/UTC'))
             ->getTimestamp();
     }
 }

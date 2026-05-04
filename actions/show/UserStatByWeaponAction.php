@@ -47,7 +47,7 @@ class UserStatByWeaponAction extends BaseAction
 
     public function getList(User $user, BattleFilterForm $filter): array
     {
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'weapon_key' => 'MAX({{weapon}}.[[key]])',
                 'weapon_name' => 'MAX({{weapon}}.[[name]])',

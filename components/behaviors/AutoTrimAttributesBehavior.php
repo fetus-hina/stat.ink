@@ -22,7 +22,7 @@ class AutoTrimAttributesBehavior extends TrimAttributesBehavior
     public function events()
     {
         return [
-            Model::EVENT_BEFORE_VALIDATE => [$this, 'trim'],
+            Model::EVENT_BEFORE_VALIDATE => $this->trim(...),
         ];
     }
 

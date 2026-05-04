@@ -36,7 +36,7 @@ if ($number < 1) {
   return;
 }
 
-$startAt = (new DateTimeImmutable())
+$startAt = new DateTimeImmutable()
     ->setTimezone(new DateTimeZone('Etc/UTC'))
     ->setTimestamp($date->getTimestamp())
     ->setTime(0, 0, 0);

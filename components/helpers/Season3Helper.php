@@ -87,7 +87,7 @@ final class Season3Helper
 
     private static function timestamp(?string $offset = null): DateTimeInterface
     {
-        $timestamp = (new DateTimeImmutable())->setTimestamp($_SERVER['REQUEST_TIME']);
+        $timestamp = new DateTimeImmutable()->setTimestamp($_SERVER['REQUEST_TIME']);
         return $offset !== null
             ? $timestamp->sub(new DateInterval($offset))
             : $timestamp;

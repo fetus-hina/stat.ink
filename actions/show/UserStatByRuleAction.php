@@ -41,7 +41,7 @@ class UserStatByRuleAction extends BaseAction
 
     private function getData(User $user, BattleFilterForm $filter)
     {
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'rule_key' => 'MAX({{rule}}.[[key]])',
                 'rule_name' => 'MAX({{rule}}.[[name]])',

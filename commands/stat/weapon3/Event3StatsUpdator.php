@@ -80,7 +80,7 @@ final class Event3StatsUpdator
 
         $lobby = TypeHelper::instanceOf(Lobby3::findOne(['key' => 'event']), Lobby3::class);
 
-        $select = (new Query())
+        $select = new Query()
             ->select(
                 array_merge(
                     [
@@ -202,7 +202,7 @@ final class Event3StatsUpdator
             ]),
         ]);
 
-        $select = (new Query())
+        $select = new Query()
             ->select([
                 'schedule_id' => '{{%event_schedule3}}.[[id]]',
                 'users' => 'COUNT(DISTINCT {{%battle3}}.[[user_id]])',
@@ -287,7 +287,7 @@ final class Event3StatsUpdator
             $db->quoteColumnName('histogram_width'),
         );
 
-        $select = (new Query())
+        $select = new Query()
             ->select([
                 'schedule_id' => '{{%event_schedule3}}.[[id]]',
                 'class_value' => $classValue,
@@ -358,7 +358,7 @@ final class Event3StatsUpdator
             ],
         );
 
-        $select = (new Query())
+        $select = new Query()
             ->select([
                 'period_id' => '{{%event_period3}}.[[id]]',
                 'users' => 'COUNT(DISTINCT {{%battle3}}.[[user_id]])',
@@ -452,7 +452,7 @@ final class Event3StatsUpdator
             $db->quoteColumnName('histogram_width'),
         );
 
-        $select = (new Query())
+        $select = new Query()
             ->select([
                 'period_id' => '{{%event_period3}}.[[id]]',
                 'class_value' => $classValue,

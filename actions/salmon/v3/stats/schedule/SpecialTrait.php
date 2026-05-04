@@ -28,7 +28,7 @@ trait SpecialTrait
     {
         $waves = $schedule->is_eggstra_work ? 5 : 3;
         return ArrayHelper::index(
-            (new Query())
+            new Query()
                 ->select([
                     'special_id' => '{{%salmon_player3}}.[[special_id]]',
                     'count' => 'COUNT(*)',

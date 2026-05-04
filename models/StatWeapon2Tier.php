@@ -215,7 +215,7 @@ class StatWeapon2Tier extends ActiveRecord
 
     public static function getDateVersionPatterns(Rule2 $rule): array
     {
-        $list = (new Query())
+        $list = new Query()
             ->select([
                 'vtag' => 'MAX({{v}}.[[tag]])',
                 'vname' => 'MAX({{v}}.[[name]])',

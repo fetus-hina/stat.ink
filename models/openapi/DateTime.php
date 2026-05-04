@@ -54,11 +54,11 @@ class DateTime extends Component
     {
         if (!$value instanceof DateTimeInterface) {
             if (filter_var($value, FILTER_VALIDATE_INT)) {
-                $value = (new DateTimeImmutable())
+                $value = new DateTimeImmutable()
                     ->setTimezone(new DateTimeZone(Yii::$app->timeZone))
                     ->setTimestamp((int)$value);
             } else {
-                $value = (new DateTimeImmutable($value))
+                $value = new DateTimeImmutable($value)
                     ->setTimezone(new DateTimeZone(Yii::$app->timeZone));
             }
         }

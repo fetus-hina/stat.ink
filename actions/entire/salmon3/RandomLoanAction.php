@@ -39,7 +39,7 @@ final class RandomLoanAction extends Action
     {
         return Yii::$app->db->transaction(
             function (Connection $db) use ($id): string|Response {
-                $now = (new DateTimeImmutable())->setTimestamp($_SERVER['REQUEST_TIME']);
+                $now = new DateTimeImmutable()->setTimestamp($_SERVER['REQUEST_TIME']);
 
                 $schedules = $this->getRandomSchedules($now);
                 if (!$schedules) {
@@ -88,7 +88,7 @@ final class RandomLoanAction extends Action
      */
     private function getRandomSchedules(DateTimeInterface $now): array
     {
-        $subQueryGetIds = (new Query())
+        $subQueryGetIds = new Query()
             ->select(['schedule_id' => '{{t}}.[[schedule_id]]'])
             ->from(['t' => SalmonScheduleWeapon3::tableName()])
             ->andWhere(['{{t}}.[[weapon_id]]' => null])
@@ -127,7 +127,7 @@ final class RandomLoanAction extends Action
      */
     private function getLoanCount(SalmonSchedule3 $schedule): array
     {
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'key' => '{{%salmon_weapon3}}.[[key]]',
                 'count' => 'COUNT(*)',

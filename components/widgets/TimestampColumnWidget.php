@@ -52,7 +52,7 @@ class TimestampColumnWidget extends Widget
             $this->showTZ
                 ? Html::a(
                     Html::encode(
-                        (new DateTimeImmutable())
+                        new DateTimeImmutable()
                             ->setTimestamp((int)$f->asTimestamp($this->value))
                             ->setTimezone(new DateTimeZone(Yii::$app->timeZone))
                             ->format('T'),

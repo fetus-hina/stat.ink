@@ -203,7 +203,7 @@ class SalmonFilterWidget extends Widget
     private function getMonths(): array
     {
         $utc = new DateTimeZone('Etc/UTC');
-        $now = (new DateTimeImmutable())
+        $now = new DateTimeImmutable()
             ->setTimezone($utc)
             ->setTimestamp((int)($_SERVER['REQUEST_TIME'] ?? time()));
         $firstCreatedAt = Salmon2::find()->min('created_at') ?: $now->format(DateTime::ATOM);
@@ -211,7 +211,7 @@ class SalmonFilterWidget extends Widget
         $minDate = $minDate
             ->setTime(0, 0, 0)
             ->setDate((int)$minDate->format('Y'), (int)$minDate->format('n'), 1);
-        $maxDate = (new DateTimeImmutable())
+        $maxDate = new DateTimeImmutable()
             ->setTimezone($utc)
             ->setTime(0, 0, 0)
             ->setDate((int)$now->format('Y'), (int)$now->format('n'), 1);

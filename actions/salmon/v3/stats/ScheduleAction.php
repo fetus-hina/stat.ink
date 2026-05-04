@@ -146,7 +146,7 @@ final class ScheduleAction extends Action
         User $user,
         SalmonSchedule3 $schedule,
     ): array {
-        return (new Query())
+        return new Query()
             ->select([
                 'max' => 'MAX([[id]])',
                 'count' => 'COUNT(*)',

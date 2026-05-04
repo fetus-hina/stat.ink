@@ -87,7 +87,7 @@ final class Battle3Controller extends Controller
 
     public function actionCreateMissingGearPowersData(): int
     {
-        $exclude1 = (new Query())
+        $exclude1 = new Query()
             ->select('player_id')
             ->from('{{%battle_player_gear_power3}}')
             ->groupBy('player_id');

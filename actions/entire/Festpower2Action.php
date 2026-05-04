@@ -55,7 +55,7 @@ class Festpower2Action extends ViewAction
         $mistakeBegin = (int)floor(strtotime(static::MISTAKE_BEGIN) / 7200);
         $mistakeEnd = (int)ceil(strtotime(static::MISTAKE_END) / 7200);
         $diff = sprintf('ABS(%s - %s)', $my, $his);
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'diff' => $diff,
                 'battles' => 'COUNT(*)',
@@ -129,7 +129,7 @@ class Festpower2Action extends ViewAction
             ]),
             'ELSE NULL',
         ]));
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'totalBattles' => 'COUNT(*)',
                 'totalMistakeBattles' => sprintf('SUM(CASE %s END)', implode(' ', [

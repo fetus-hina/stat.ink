@@ -47,7 +47,7 @@ trait Splatoon3
                     $stats = [];
                 }
 
-                $query = (new Query())
+                $query = new Query()
                     ->select([
                         'date' => '{{%battle3}}.[[created_at]]::date',
                         'battles' => 'COUNT({{%battle3}}.*)',
@@ -97,7 +97,7 @@ trait Splatoon3
     {
         $tz = $this->utc3();
         try {
-            $endAt = (new DateTimeImmutable())
+            $endAt = new DateTimeImmutable()
                 ->setTimeZone(new DateTimeZone('Etc/UTC'))
                 ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time());
             $startAt = $endAt->sub(new DateInterval('PT24H'));

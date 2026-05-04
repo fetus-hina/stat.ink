@@ -37,7 +37,7 @@ $clout = fn($lobby) => sprintf('(CASE %s END)', implode(' ', [
   'ELSE battle2.total_clout_after',
 ]));
 
-$query = (new Query())
+$query = new Query()
   ->select([
     'fest_id' => 'splatfest2.id',
     'count' => 'COUNT(*)',
