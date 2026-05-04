@@ -148,7 +148,7 @@ class Theme extends Component
             return $this;
         }
 
-        $expires = (new DateTimeImmutable())
+        $expires = new DateTimeImmutable()
             ->setTimezone(new DateTimeZone('Etc/UTC'))
             ->setTimestamp(time())
             ->add(new DateInterval('P1Y1D'))

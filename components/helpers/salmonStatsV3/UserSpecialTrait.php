@@ -28,7 +28,7 @@ trait UserSpecialTrait
     protected static function createUserSpecialStats(Connection $db, User $user): bool
     {
         try {
-            $select = (new Query())
+            $select = new Query()
                 ->select(
                     array_merge(
                         [

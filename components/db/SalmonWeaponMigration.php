@@ -28,7 +28,7 @@ trait SalmonWeaponMigration
             }
 
             // copy weapons
-            $select = (new Query())
+            $select = new Query()
                 ->select([
                     'key',
                     'name',

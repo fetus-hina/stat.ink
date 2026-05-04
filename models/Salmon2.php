@@ -93,7 +93,7 @@ class Salmon2 extends ActiveRecord
     {
         try {
             $count = filter_var(
-                (new Query())
+                new Query()
                     ->select('[[last_value]]')
                     ->from('{{salmon2_id_seq}}')
                     ->scalar(),
@@ -362,7 +362,7 @@ class Salmon2 extends ActiveRecord
 
     public function getPreviousBySplatNetNumber(): ?self
     {
-        $subQuery = (new Query())
+        $subQuery = new Query()
             ->select([
                 'id' => 'salmon_old.id',
             ])
@@ -848,7 +848,7 @@ class Salmon2 extends ActiveRecord
 
     public function getCreatedAt(): int
     {
-        return (new DateTimeImmutable($this->created_at))->getTimestamp();
+        return new DateTimeImmutable($this->created_at)->getTimestamp();
     }
 
     public function delete()

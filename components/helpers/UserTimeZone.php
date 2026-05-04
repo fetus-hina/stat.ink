@@ -302,7 +302,7 @@ final class UserTimeZone
 
     private static function createUTCOffsetTimezone(DateTimeZone $tz): ?Timezone
     {
-        $offsetSec = (new DateTimeImmutable('now', $tz))->format('Z');
+        $offsetSec = new DateTimeImmutable('now', $tz)->format('Z');
         $offsetHours = (int)floor($offsetSec / 3600);
         $tzName = sprintf('Etc/GMT%+d', -$offsetHours);
         $tz = Timezone::find()

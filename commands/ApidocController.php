@@ -263,9 +263,9 @@ final class ApidocController extends Controller
             implode('', array_map(
                 function (Timezone $tz): string {
                     $tz_ = new DateTimeZone($tz->identifier);
-                    $offsetJan = (new DateTimeImmutable('2020-01-08T00:00:00', $tz_))
+                    $offsetJan = new DateTimeImmutable('2020-01-08T00:00:00', $tz_)
                         ->format('P');
-                    $offsetJul = (new DateTimeImmutable('2020-07-08T00:00:00', $tz_))
+                    $offsetJul = new DateTimeImmutable('2020-07-08T00:00:00', $tz_)
                         ->format('P');
 
                     return Html::tag('tr', implode('', [

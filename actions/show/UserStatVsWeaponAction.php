@@ -112,7 +112,7 @@ class UserStatVsWeaponAction extends BaseAction
 
         $db->createCommand(sprintf(
             'INSERT INTO tmp_death_data (battle_id, death) %s',
-            (new Query())
+            new Query()
                 ->select([
                     'battle_id' => 'battle.id',
                     'death' => 'SUM(battle_death_reason.count)',
@@ -136,7 +136,7 @@ class UserStatVsWeaponAction extends BaseAction
             ]),
         ))->execute();
 
-        $query = (new Query())
+        $query = new Query()
             ->distinct()
             ->select([
                 'battle_id' => '{{battle}}.[[id]]',
@@ -180,7 +180,7 @@ class UserStatVsWeaponAction extends BaseAction
     {
         $db = Yii::$app->db;
         $ret = [];
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'weapon_key' => 'MAX({{weapon}}.[[key]])',
                 'weapon_name' => 'MAX({{weapon}}.[[name]])',
@@ -242,7 +242,7 @@ class UserStatVsWeaponAction extends BaseAction
 
         $db = Yii::$app->db;
         $ret = [];
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'weapon_key' => 'MAX({{death_reason}}.[[key]])',
                 'deaths' => 'SUM({{battle_death_reason}}.[[count]])',

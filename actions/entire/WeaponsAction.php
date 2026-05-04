@@ -51,7 +51,7 @@ class WeaponsAction extends ViewAction
     public function getWeaponUses(): array
     {
         $threshold = (function (): array {
-            $date = (new DateTime('@' . $_SERVER['REQUEST_TIME']))
+            $date = new DateTime('@' . $_SERVER['REQUEST_TIME'])
                 ->setTimezone(new DateTimeZone('Asia/Tokyo'))
                 ->sub(new DateInterval('P1W'));
             return [
@@ -61,7 +61,7 @@ class WeaponsAction extends ViewAction
         })();
 
         // 最近よく使われているブキを抽出
-        $qTrend = (new Query())
+        $qTrend = new Query()
             ->select([
                 'weapon_id',
                 'battles' => 'SUM(battles)',
@@ -80,7 +80,7 @@ class WeaponsAction extends ViewAction
         if (!$trends = $qTrend->all()) {
             return [];
         }
-        $query = (new Query())
+        $query = new Query()
             ->select(array_merge(
                 ['isoyear', 'isoweek', 'battles' => 'SUM([[battles]])'],
                 (function () use ($trends): array {
@@ -250,19 +250,19 @@ class WeaponsAction extends ViewAction
 
     public function getUserWeapons(): array
     {
-        $favWeaponQuery = (new Query())
+        $favWeaponQuery = new Query()
             ->select('*')
             ->from('{{user_weapon}} AS {{m}}')
             ->andWhere([
                 'not exists',
-                (new Query())
+                new Query()
                     ->select('(1)')
                     ->from('{{user_weapon}} AS {{s}}')
                     ->andWhere('{{m}}.[[user_id]] = {{s}}.[[user_id]]')
                     ->andWhere('{{m}}.[[count]] < {{s}}.[[count]]'),
             ]);
 
-        $query = (new Query())
+        $query = new Query()
             ->select(['weapon_id', 'count' => 'COUNT(*)'])
             ->from(sprintf(
                 '(%s) AS {{tmp}}',

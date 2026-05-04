@@ -65,7 +65,7 @@ final class WinRateAction extends Action
 
     private function makeStats(User $user): array
     {
-        $list = (new Query())
+        $list = new Query()
             ->select([
                 'lobby_id' => '{{%battle3}}.[[lobby_id]]',
                 'lobby_group_id' => 'MAX({{%lobby3}}.[[group_id]])',

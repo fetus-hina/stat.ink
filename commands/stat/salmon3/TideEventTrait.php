@@ -53,7 +53,7 @@ trait TideEventTrait
 
     private function getSelectForStatSalmon3TideEvent(Connection $db): string
     {
-        return (new Query())
+        return new Query()
             ->select([
                 'stage_id' => '{{%salmon3}}.[[stage_id]]',
                 'big_stage_id' => '{{%salmon3}}.[[big_stage_id]]',

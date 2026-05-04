@@ -61,7 +61,7 @@ class UsersAction extends Action
 
     protected function getAgentNames()
     {
-        $query = (new Query())
+        $query = new Query()
             ->select(['agent'])
             ->from(StatAgentUser::tableName())
             ->groupBy('agent');

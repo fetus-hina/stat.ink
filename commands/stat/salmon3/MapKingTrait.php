@@ -53,7 +53,7 @@ trait MapKingTrait
         StatSalmon3MapKing::deleteAll();
 
         fwrite(STDERR, "Update stat_salmon3_map_king...\n");
-        $select = (new Query())
+        $select = new Query()
             ->select([
                 'map_id' => '{{%salmon3}}.[[stage_id]]',
                 'big_map_id' => '{{%salmon3}}.[[big_stage_id]]',
@@ -111,7 +111,7 @@ trait MapKingTrait
         StatSalmon3MapKingTide::deleteAll();
 
         fwrite(STDERR, "Update stat_salmon3_map_king_tide...\n");
-        $select = (new Query())
+        $select = new Query()
             ->select([
                 'map_id' => '{{%salmon3}}.[[stage_id]]',
                 'big_map_id' => '{{%salmon3}}.[[big_stage_id]]',

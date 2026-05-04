@@ -88,7 +88,7 @@ final class KDWinRate3Action extends Action
             throw new LogicException();
         }
 
-        $select = (new Query())
+        $select = new Query()
             ->select([
                 'season_id' => '{{%season3}}.[[id]]',
                 'lobby_id' => '{{%battle3}}.[[lobby_id]]',

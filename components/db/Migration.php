@@ -110,7 +110,7 @@ class Migration extends BaseMigration
         bool $nullable = false,
     ): ?int {
         $value = filter_var(
-            (new Query())
+            new Query()
                 ->select(['id'])
                 ->from($tableName)
                 ->where([$keyColumn => $key])

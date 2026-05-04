@@ -269,7 +269,7 @@ $this->registerJs('$(".mr-value").matchingRange();');
           ArrayHelper::getValue(
             $weapon,
             function (Weapon3 $weapon): string {
-              $dt = (new DateTimeImmutable($weapon->release_at))
+              $dt = new DateTimeImmutable($weapon->release_at)
                 ->setTimezone(new DateTimeZone('Etc/UTC'));
               return $dt->getTimestamp() <= (int)strtotime('2022-09-01T00:00:00+00:00')
                 ? Html::encode(Yii::t('app', 'Launch'))

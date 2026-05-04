@@ -190,7 +190,7 @@ class UserStatGachiAction extends BaseAction
 
     public function getUserRankStat()
     {
-        $subQuery = (new Query())
+        $subQuery = new Query()
             ->select(['id' => 'MAX({{battle}}.[[id]])'])
             ->from('battle')
             ->andWhere(['and',
@@ -265,7 +265,7 @@ class UserStatGachiAction extends BaseAction
 
     private function getEntireRankStat(): stdClass
     {
-        $subQuery = (new Query())
+        $subQuery = new Query()
             ->select(['id' => 'MAX({{battle}}.[[id]])'])
             ->from('battle')
             ->andWhere(['and',
@@ -274,7 +274,7 @@ class UserStatGachiAction extends BaseAction
             ])
             ->groupBy('{{battle}}.[[user_id]]');
 
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'rank_key' => '{{rank}}.[[key]]',
                 'rank_exp' => '{{battle}}.[[rank_exp_after]]',

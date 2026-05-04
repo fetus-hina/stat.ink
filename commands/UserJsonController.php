@@ -122,7 +122,7 @@ class UserJsonController extends Controller
         }
         $lastExec = (int)fgets($lock);
 
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'user_id',
                 'last_updated' => 'MAX({{battle}}.[[at]])',

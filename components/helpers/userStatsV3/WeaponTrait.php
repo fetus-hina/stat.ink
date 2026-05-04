@@ -32,7 +32,7 @@ trait WeaponTrait
         try {
             UserWeapon3::deleteAll(['user_id' => $user->id]);
 
-            $query = (new Query())
+            $query = new Query()
                 ->select([
                     'user_id',
                     'weapon_id',

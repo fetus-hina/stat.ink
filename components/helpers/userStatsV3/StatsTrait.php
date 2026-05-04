@@ -73,7 +73,7 @@ trait StatsTrait
     ): Query {
         $null = new Expression('NULL');
 
-        return (new Query())
+        return new Query()
             ->from(['b' => '{{%battle3}}'])
             ->leftJoin(['r' => '{{%result3}}'], '{{b}}.[[result_id]] = {{r}}.[[id]]')
             ->leftJoin(['rank_before' => '{{%rank3}}'], '{{b}}.[[rank_before_id]] = {{rank_before}}.[[id]]')

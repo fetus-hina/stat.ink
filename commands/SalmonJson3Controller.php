@@ -40,7 +40,7 @@ final class SalmonJson3Controller extends Controller
 
     public function actionAutoUpdate(): int
     {
-        $select = (new Query())
+        $select = new Query()
           ->select(['user_id'])
           ->from('{{%salmon3}}')
           ->groupBy(['user_id'])

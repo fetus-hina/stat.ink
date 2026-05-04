@@ -44,7 +44,7 @@ class WeaponRuleMapAction extends BaseAction
 
     public function generateData()
     {
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'weapon' => 'MAX({{weapon}}.[[key]])',
                 'rule' => 'MAX({{rule}}.[[key]])',

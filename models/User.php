@@ -108,7 +108,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         try {
             $count = filter_var(
-                (new Query())
+                new Query()
                     ->select('[[last_value]]')
                     ->from('{{user_id_seq}}')
                     ->scalar(),
@@ -666,7 +666,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function getGuessedSplatfest2Region(): Region2
     {
-        $regionID = (new Query())
+        $regionID = new Query()
             ->select([
                 'id' => '{{region2}}.[[id]]',
             ])

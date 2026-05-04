@@ -571,7 +571,7 @@ final class Weapon3Action extends Action
 
     private function getVersions(Connection $db): array
     {
-        $ts = (new DateTimeImmutable('now', new DateTimeZone('Etc/UTC')))
+        $ts = new DateTimeImmutable('now', new DateTimeZone('Etc/UTC'))
             ->setTime(0, 0, 0)
             ->sub(new DateInterval('P1D'));
 

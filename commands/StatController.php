@@ -308,7 +308,7 @@ final class StatController extends Controller
 
     private function createSelectQueryForUpdateEntireWeaponsKillDeath()
     {
-        return (new Query())
+        return new Query()
             ->select([
                 'weapon_id' => '{{p}}.[[weapon_id]]',
                 'rule_id' => '{{b}}.[[rule_id]]',
@@ -361,7 +361,7 @@ final class StatController extends Controller
     {
         // {{{
         // 集計対象期間を計算する
-        $today = (new DateTime(sprintf('@%d', @$_SERVER['REQUEST_TIME'] ?: time()), null))
+        $today = new DateTime(sprintf('@%d', @$_SERVER['REQUEST_TIME'] ?: time()), null)
             ->setTimeZone(new DateTimeZone('Etc/GMT-6'))
             ->setTime(0, 0, 0); // 今日の 00:00:00+06 に設定する
 
@@ -379,7 +379,7 @@ final class StatController extends Controller
                         $row['battle_count'],
                         $row['user_count'],
                     ],
-                    (new Query())
+                    new Query()
                         ->select([
                             'date' => '{{battle}}.[[at]]::date',
                             'battle_count' => 'COUNT({{battle}}.*)',
@@ -401,7 +401,7 @@ final class StatController extends Controller
     {
         // {{{
         // 集計対象期間を計算する
-        $today = (new DateTimeImmutable())
+        $today = new DateTimeImmutable()
             ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time())
             ->setTimeZone(new DateTimeZone('Etc/GMT-6'))
             ->setTime(0, 0, 0); // 今日の 00:00:00+06 に設定する
@@ -435,11 +435,11 @@ final class StatController extends Controller
             function (Connection $db): void {
                 $db->createCommand("SET LOCAL TIMEZONE TO 'Etc/UTC'")->execute();
 
-                $today = (new DateTimeImmutable('now', new DateTimeZone('Etc/UTC')))
+                $today = new DateTimeImmutable('now', new DateTimeZone('Etc/UTC'))
                     ->setTimestamp($_SERVER['REQUEST_TIME'])
                     ->setTime(0, 0, 0);
 
-                $select = (new Query())
+                $select = new Query()
                     ->select([
                         'date' => '([[created_at]]::DATE)',
                         'battles' => 'COUNT(*)',
@@ -497,7 +497,7 @@ final class StatController extends Controller
     {
         // {{{
         // 集計対象期間を計算する
-        $today = (new DateTime(sprintf('@%d', @$_SERVER['REQUEST_TIME'] ?: time()), null))
+        $today = new DateTime(sprintf('@%d', @$_SERVER['REQUEST_TIME'] ?: time()), null)
             ->setTimeZone(new DateTimeZone('Etc/GMT-6'))
             ->setTime(0, 0, 0); // 今日の 00:00:00+06 に設定する
         // これで $today より前を抽出すれば前日までのサマリにできる
@@ -505,10 +505,10 @@ final class StatController extends Controller
         $db = Yii::$app->db;
         $db->createCommand("SET timezone TO 'UTC-6'")->execute();
         $transaction = $db->beginTransaction();
-        $startDate = (new DateTime(
+        $startDate = new DateTime(
             StatAgentUser::find()->max('date') ?? '2015-01-01',
             new DateTimeZone('Etc/GMT-6'),
-        ))
+        )
             ->setTime(0, 0, 0)
             ->add(new DateInterval('P1D')); // +1 day
 
@@ -519,7 +519,7 @@ final class StatController extends Controller
                 $row['battle_count'],
                 $row['user_count'],
             ],
-            (new Query())
+            new Query()
                 ->select([
                     'agent' => '{{agent}}.[[name]]',
                     'date' => '{{battle}}.[[at]]::date',
@@ -554,7 +554,7 @@ final class StatController extends Controller
     {
         // {{{
         // 集計対象期間を計算する
-        $today = (new DateTimeImmutable())
+        $today = new DateTimeImmutable()
             ->setTimeZone(new DateTimeZone('Etc/GMT-6'))
             ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time())
             ->setTime(0, 0, 0); // 今日の 00:00:00+06 に設定する
@@ -563,10 +563,10 @@ final class StatController extends Controller
         $db->createCommand("SET timezone TO 'UTC-6'")->execute();
         $transaction = $db->beginTransaction();
         $storedMaxDate = StatAgentUser2::find()->max('date') ?? '2017-01-01';
-        $startDate = (new DateTimeImmutable($storedMaxDate, new DateTimeZone('Etc/GMT-6')))
+        $startDate = new DateTimeImmutable($storedMaxDate, new DateTimeZone('Etc/GMT-6'))
             ->setTime(0, 0, 0)
             ->add(new DateInterval('P1D')); // +1 day
-        $select = (new Query())
+        $select = new Query()
             ->select([
                 'agent' => sprintf('(CASE %s END)', implode(' ', [
                     'WHEN {{agent}}.[[name]] IS NULL THEN :unknown_agent',
@@ -634,7 +634,7 @@ final class StatController extends Controller
                         $row['battles'],
                         $row['knockouts'],
                     ],
-                    (new Query())
+                    new Query()
                         ->select([
                             'map_id' => '{{battle}}.[[map_id]]',
                             'rule_id' => '{{battle}}.[[rule_id]]',
@@ -753,7 +753,7 @@ final class StatController extends Controller
 
         StatWeaponKDWinRate::deleteAll();
 
-        $select = (new Query())
+        $select = new Query()
             ->select([
                 'rule_id' => '{{b}}.[[rule_id]]',
                 'map_id' => '{{b}}.[[map_id]]',
@@ -858,7 +858,7 @@ final class StatController extends Controller
     {
         $db = Yii::$app->db;
         $constraintName = (function () use ($db): string {
-            $select = (new Query())
+            $select = new Query()
                 ->select(['constraint_name'])
                 ->from('{{information_schema}}.{{table_constraints}}')
                 ->andWhere([
@@ -868,7 +868,7 @@ final class StatController extends Controller
             return $select->scalar($db);
         })();
 
-        $select = (new Query())
+        $select = new Query()
             ->select([
                 'version_id' => '{{battle}}.[[version_id]]',
                 'rule_id' => '{{battle}}.[[rule_id]]',
@@ -945,7 +945,7 @@ final class StatController extends Controller
     {
         // {{{
         $db = Yii::$app->db;
-        $select = (new Query())
+        $select = new Query()
             ->select([
                 'period' => '{{battle}}.[[period]]',
                 'rule_id' => '{{battle}}.[[rule_id]]',
@@ -1016,7 +1016,7 @@ final class StatController extends Controller
                 'isoweek' => 1,
             ];
         }
-        $selectWeek = (new Query())
+        $selectWeek = new Query()
             ->select([
                 'isoyear' => $isoYear,
                 'isoweek' => $isoWeek,
@@ -1040,7 +1040,7 @@ final class StatController extends Controller
                 ],
             ]);
         $constraintName = (function () use ($db): string {
-            $select = (new Query())
+            $select = new Query()
                 ->select(['constraint_name'])
                 ->from('{{information_schema}}.{{table_constraints}}')
                 ->andWhere([
@@ -1395,7 +1395,7 @@ final class StatController extends Controller
             'knockout_loses',
             'timeup_loses',
         ];
-        $selectWeek = (new Query())
+        $selectWeek = new Query()
             ->select(array_merge(
                 [
                     'isoyear' => $isoYear,
@@ -1463,7 +1463,7 @@ final class StatController extends Controller
     public function actionUpdateWeaponUseTrend()
     {
         $db = Yii::$app->db;
-        $select = (new Query())
+        $select = new Query()
             ->select([
                 'rule_id' => '{{battle}}.[[rule_id]]',
                 'map_id' => '{{battle}}.[[map_id]]',

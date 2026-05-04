@@ -67,7 +67,7 @@ trait SalmometerTrait
             SalmonTitle3::class,
         );
 
-        $select = (new Query())
+        $select = new Query()
             ->select([
                 'king_smell' => '{{%salmon3}}.[[king_smell]]',
                 'jobs' => 'COUNT(*)',

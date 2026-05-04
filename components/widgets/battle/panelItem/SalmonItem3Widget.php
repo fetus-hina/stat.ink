@@ -249,7 +249,7 @@ final class SalmonItem3Widget extends Widget
             return '';
         }
 
-        $dateTime = (new DateTimeImmutable($this->model->start_at))
+        $dateTime = new DateTimeImmutable($this->model->start_at)
             ->setTimezone(new DateTimeZone(Yii::$app->timeZone));
 
         return Html::tag(

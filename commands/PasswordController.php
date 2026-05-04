@@ -8,19 +8,14 @@
 
 namespace app\commands;
 
+use Random\Randomizer;
 use app\components\helpers\Password;
 use yii\console\Controller;
 
-use function ceil;
 use function fprintf;
 use function implode;
 use function preg_match;
-use function preg_quote;
-use function preg_replace;
 use function printf;
-use function random_bytes;
-use function strlen;
-use function substr;
 
 use const STDERR;
 
@@ -58,20 +53,10 @@ class PasswordController extends Controller
             'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
             'abcdefghijklmnopqrstuvwxyz',
         ]);
-        $passwordCharsCount = strlen($passwordChars);
-        $filterRegex = '/[^' . preg_quote($passwordChars, '/') . ']+/';
+        $randomizer = new Randomizer();
 
         while (true) {
-            $password = '';
-            $generateLength = static::PASSWORD_LENGTH;
-            do {
-                $randomLength = (int)ceil($generateLength * 256 / $passwordCharsCount * 1.1);
-                // printf("残り %d 文字、 %d バイト取得\n", $generateLength, $randomLength);
-                $password .= preg_replace($filterRegex, '', random_bytes($randomLength));
-                $generateLength = static::PASSWORD_LENGTH - strlen($password);
-            } while ($generateLength > 0);
-
-            $password = substr($password, 0, static::PASSWORD_LENGTH);
+            $password = $randomizer->getBytesFromString($passwordChars, static::PASSWORD_LENGTH);
 
             if (
                 preg_match('/[0-9]/', $password) &&

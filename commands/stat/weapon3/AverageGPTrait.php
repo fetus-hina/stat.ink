@@ -40,11 +40,11 @@ trait AverageGPTrait
 {
     protected function makeStatAverageGPs(): void
     {
-        $yesterday = (new DateTimeImmutable('now', new DateTimeZone('Etc/UTC')))
+        $yesterday = new DateTimeImmutable('now', new DateTimeZone('Etc/UTC'))
             ->setTime(0, 0, 0) // now, 00:00:00 UTC of today
             ->sub(new DateInterval('PT1S')); // final second of yesterday
 
-        $threshold = (new DateTimeImmutable('now', new DateTimeZone('Etc/UTC')))
+        $threshold = new DateTimeImmutable('now', new DateTimeZone('Etc/UTC'))
             ->setTime(0, 0, 0) // now, 00:00:00 UTC of today
             ->sub(new DateInterval('P3D')) // 3 days ago
             ->sub(new DateInterval('PT1S')); // final second of 3 days ago
@@ -100,7 +100,7 @@ trait AverageGPTrait
             'players' => 'COUNT(*)',
         ];
 
-        $select = (new Query())
+        $select = new Query()
             ->from('{{%battle3}}')
             ->innerJoin('{{%season3}}', '{{%battle3}}.[[start_at]] <@ {{%season3}}.[[term]]')
             ->innerJoin(

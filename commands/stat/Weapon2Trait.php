@@ -178,7 +178,7 @@ trait Weapon2Trait
 
     private function makeStatWeapon2KDWinRate(): void
     {
-        $select = (new Query())
+        $select = new Query()
             ->select([
                 'rule_id' => '{{src}}.[[rule_id]]',
                 'map_id' => '{{src}}.[[map_id]]',

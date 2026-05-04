@@ -165,7 +165,7 @@ final class PerMetricsUpdator
             fn (mixed $v): bool => $v !== null,
         );
 
-        return (new Query())
+        return new Query()
             ->select(
                 array_merge(
                     $selectPkey,

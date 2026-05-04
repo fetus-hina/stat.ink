@@ -27,8 +27,8 @@ use yii\web\View;
  */
 
 $tz = new DateTimeZone('Etc/UTC');
-$tStart = (new DateTimeImmutable($season->start_at))->setTimezone($tz);
-$tEnd = (new DateTimeImmutable($season->end_at))->setTimezone($tz);
+$tStart = new DateTimeImmutable($season->start_at)->setTimezone($tz);
+$tEnd = new DateTimeImmutable($season->end_at)->setTimezone($tz);
 $tInterval = new DateInterval('P1D');
 
 // format-pattern string for "month and day"

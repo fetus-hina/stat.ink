@@ -46,7 +46,7 @@ final class CleanupController extends Controller
 
     public function actionLoginHistory(): int
     {
-        $time = (new DateTimeImmutable())
+        $time = new DateTimeImmutable()
             ->setTimestamp($_SERVER['REQUEST_TIME'])
             ->sub(new DateInterval('P30D'));
 
@@ -64,7 +64,7 @@ final class CleanupController extends Controller
 
     public function actionUserAuthKey(): int
     {
-        $time = (new DateTimeImmutable())
+        $time = new DateTimeImmutable()
             ->setTimestamp($_SERVER['REQUEST_TIME'])
             ->sub(new DateInterval('P1D'));
 

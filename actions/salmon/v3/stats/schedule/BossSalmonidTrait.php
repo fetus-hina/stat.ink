@@ -28,7 +28,7 @@ trait BossSalmonidTrait
     private function getBossStats(Connection $db, User $user, ?SalmonSchedule3 $schedule): array
     {
         return ArrayHelper::index(
-            (new Query())
+            new Query()
                 ->select([
                     'boss_id' => '{{%salmon_boss_appearance3}}.[[boss_id]]',
                     'appearances' => 'SUM({{%salmon_boss_appearance3}}.[[appearances]])',

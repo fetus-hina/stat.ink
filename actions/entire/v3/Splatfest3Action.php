@@ -194,7 +194,7 @@ final class Splatfest3Action extends Action
                 if (!$themeSql = $this->buildThemeAggregator($db, $themes)) {
                     return [];
                 }
-                $query = (new Query())
+                $query = new Query()
                     ->select([
                         'theme' => $themeSql,
                         'count' => 'COUNT(*)',
@@ -349,7 +349,7 @@ final class Splatfest3Action extends Action
             ]),
         );
 
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'map_id' => '{{%battle3}}.[[map_id]]',
                 'battles' => 'COUNT(*)',
@@ -450,7 +450,7 @@ final class Splatfest3Action extends Action
             throw new ServerErrorHttpException();
         }
 
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 '{{%battle3}}.[[lobby_id]]',
                 '{{%battle3}}.[[fest_dragon_id]]',

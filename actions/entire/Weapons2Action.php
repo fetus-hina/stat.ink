@@ -63,7 +63,7 @@ class Weapons2Action extends BaseAction
     public function getWeaponUses()
     {
         $threshold = (function () {
-            $date = (new DateTime('@' . $_SERVER['REQUEST_TIME']))
+            $date = new DateTime('@' . $_SERVER['REQUEST_TIME'])
                 ->setTimezone(new DateTimeZone('Asia/Tokyo'))
                 ->sub(new DateInterval('P1W'));
             return [
@@ -73,7 +73,7 @@ class Weapons2Action extends BaseAction
         })();
 
         // 最近よく使われているブキを抽出
-        $qTrend = (new Query())
+        $qTrend = new Query()
             ->select([
                 'weapon_id',
                 'battles' => 'SUM([[battles]])',
@@ -94,7 +94,7 @@ class Weapons2Action extends BaseAction
         if (!$trends = $qTrend->all()) {
             return [];
         }
-        $query = (new Query())
+        $query = new Query()
             ->select(array_merge(
                 ['isoyear', 'isoweek', 'battles' => 'SUM([[battles]])'],
                 (function () use ($trends) {
@@ -268,7 +268,7 @@ class Weapons2Action extends BaseAction
                 // nothing to do
             } elseif (preg_match('/^(\d{4})-(\d{2})$/', $form->term, $match)) {
                 // [$start, $end)
-                $start = (new DateTimeImmutable())
+                $start = new DateTimeImmutable()
                     ->setTimeZone(new DateTimeZone('Etc/UTC'))
                     ->setDate(intval($match[1], 10), intval($match[2], 10), 1)
                     ->setTime(0, 0, 0);

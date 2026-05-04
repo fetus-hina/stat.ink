@@ -260,7 +260,7 @@ final class BattleFilterWidget extends Widget
         return [
             Yii::t('app', 'Main Weapon') => (function () use ($weaponIdList) {
                 $ret = [];
-                $subQuery = (new Query())
+                $subQuery = new Query()
                     ->select(['id' => '{{weapon}}.[[main_group_id]]'])
                     ->from('weapon')
                     ->andWhere(['in', '{{weapon}}.[[id]]', $weaponIdList]);

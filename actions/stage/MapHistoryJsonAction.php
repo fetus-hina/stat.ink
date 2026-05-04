@@ -38,7 +38,7 @@ class MapHistoryJsonAction extends BaseAction
 
     public function run()
     {
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'date' => 'CAST(period_to_timestamp([[period]]) as DATE)',
                 'count' => 'COUNT(*)',

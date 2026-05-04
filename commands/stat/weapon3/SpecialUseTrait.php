@@ -87,7 +87,7 @@ trait SpecialUseTrait
             $pct / 100,
         );
 
-        return (new Query())
+        return new Query()
             ->select([
                 'season_id' => '{{%season3}}.[[id]]',
                 'rule_id' => $aggRule ? '{{%battle3}}.[[rule_id]]' : '(NULL)',

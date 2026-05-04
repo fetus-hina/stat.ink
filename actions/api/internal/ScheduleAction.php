@@ -33,7 +33,7 @@ final class ScheduleAction extends Action
         parent::init();
 
         $t = (int)($_SERVER['REQUEST_TIME'] ?? time());
-        $this->now = (new DateTimeImmutable())
+        $this->now = new DateTimeImmutable()
             ->setTimestamp($t)
             ->setTimezone(new DateTimeZone('Etc/UTC'));
         $this->currentPeriod = BattleHelper::calcPeriod2($t);

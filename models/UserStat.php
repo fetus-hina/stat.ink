@@ -412,7 +412,7 @@ class UserStat extends ActiveRecord
             ),
         );
 
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'battle_count' => $column_battle_count,
                 'wp' => $column_wp,

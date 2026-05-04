@@ -29,7 +29,7 @@ trait Splatoon1
             $stats = [];
         }
 
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'date' => '{{battle}}.[[at]]::date',
                 'battle_count' => 'COUNT({{battle}}.*)',
@@ -94,7 +94,7 @@ trait Splatoon1
             gmdate('j', $t2) - 1,
             gmdate('Y', $t2),
         );
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'agent_id',
                 'battle' => 'COUNT(*)',

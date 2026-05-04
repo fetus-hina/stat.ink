@@ -344,7 +344,7 @@ class PostForm extends Model
 
     private function findByUuid(): ?Salmon2
     {
-        $findThreshold = (new DateTimeImmutable())
+        $findThreshold = new DateTimeImmutable()
             ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time())
             ->setTimezone(new DateTimeZone('Etc/UTC'))
             ->sub(new DateInterval('P1D')); // 24 hours, No DST because timezone is now UTC.

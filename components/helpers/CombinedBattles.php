@@ -86,7 +86,7 @@ final class CombinedBattles
                     $merged = array_merge($merged, $list);
                     usort($merged, fn ($a, $b): int => self::getCreatedAt($b) <=> self::getCreatedAt($a));
                     if (count($merged) >= $num) {
-                        $threshold = (new DateTimeImmutable())
+                        $threshold = new DateTimeImmutable()
                             ->setTimestamp(self::getCreatedAt($merged[$num - 1]));
                     }
                     if (count($merged) > ceil($num * 1.2)) {

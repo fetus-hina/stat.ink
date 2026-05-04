@@ -34,7 +34,7 @@ class BlogEntryAction extends ViewAction
         return ArrayHelper::getColumn(
             BlogEntry::find()->latest()->limit(3)->all(),
             function (BlogEntry $entry) use ($f, $now, $tz): array {
-                $at = (new DateTimeImmutable($entry->at))->setTimezone($tz);
+                $at = new DateTimeImmutable($entry->at)->setTimezone($tz);
 
                 return [
                     'id' => $entry->uuid,

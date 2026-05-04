@@ -27,7 +27,7 @@ $ver = Yii::$app->version;
 $revL = $params['gitRevision']['longHash'] ?? null;
 $revS = $params['gitRevision']['shortHash'] ?? null;
 if ($tmp = ($params['gitRevision']['lastCommitted'] ?? null)) {
-  $committed = (new DateTimeImmutable($tmp))->setTimeZone(new DateTimeZone(Yii::$app->timeZone));
+  $committed = new DateTimeImmutable($tmp)->setTimeZone(new DateTimeZone(Yii::$app->timeZone));
 } else {
   $committed = null;
 }

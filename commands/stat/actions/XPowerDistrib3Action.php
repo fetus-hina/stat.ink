@@ -77,7 +77,7 @@ final class XPowerDistrib3Action extends Action
 
     private function createTmpUserXpowerTable(Connection $db): bool
     {
-        $select = (new Query())
+        $select = new Query()
             ->select([
                 'user_id' => '{{%battle3}}.[[user_id]]',
                 'season_id' => '{{%season3}}.[[id]]',
@@ -154,7 +154,7 @@ final class XPowerDistrib3Action extends Action
             $p,
         );
 
-        $select = (new Query())
+        $select = new Query()
             ->select([
                 'season_id' => '{{t}}.[[season_id]]',
                 'rule_id' => '{{t}}.[[rule_id]]',
@@ -215,7 +215,7 @@ final class XPowerDistrib3Action extends Action
             $db->quoteColumnName('histogram_width'),
         );
 
-        $select = (new Query())
+        $select = new Query()
             ->select([
                 'season_id' => '{{t}}.[[season_id]]',
                 'rule_id' => '{{t}}.[[rule_id]]',

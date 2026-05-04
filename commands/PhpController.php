@@ -10,11 +10,7 @@ declare(strict_types=1);
 
 namespace app\commands;
 
-use DOMElement;
-use DOMNodeList;
-use DOMXPath;
-use Masterminds\HTML5;
-use Symfony\Component\CssSelector\CssSelectorConverter;
+use Dom\HTMLDocument;
 use Yii;
 use yii\console\Controller;
 use yii\console\ExitCode;
@@ -24,7 +20,6 @@ use yii\httpclient\Client as HttpClient;
 use yii\httpclient\CurlTransport;
 
 use function array_filter;
-use function array_map;
 use function array_reverse;
 use function array_shift;
 use function array_values;
@@ -34,7 +29,6 @@ use function implode;
 use function intval;
 use function is_array;
 use function is_string;
-use function iterator_to_array;
 use function number_format;
 use function preg_match;
 use function preg_quote;
@@ -48,6 +42,7 @@ use function version_compare;
 use function vfprintf;
 use function vsprintf;
 
+use const LIBXML_NOERROR;
 use const STDERR;
 
 final class PhpController extends Controller
@@ -139,26 +134,15 @@ final class PhpController extends Controller
      */
     private function detectReleasedVersionsFromChangeLog(string $html): array
     {
-        $document = (new HTML5(['disable_html_ns' => true]))->loadHtml($html);
-        $xpath = new DOMXPath($document);
-        $nodes = $xpath->query(
-            (new CssSelectorConverter())->toXPath('section.version[id] > h3'),
-        );
-        $versions = array_filter(
-            array_map(
-                fn (DOMElement $element): ?string => preg_match(
-                    '/^Version\s+([0-9.]+)$/',
-                    trim($element->textContent),
-                    $match,
-                )
-                    ? $match[1]
-                    : null,
-                self::extractDOMElements($nodes),
-            ),
-            fn ($v) => $v !== null,
-        );
+        $document = HTMLDocument::createFromString($html, LIBXML_NOERROR);
+        $versions = [];
+        foreach ($document->querySelectorAll('section.version[id] > h3') as $element) {
+            if (preg_match('/^Version\s+([0-9.]+)$/', trim($element->textContent), $match)) {
+                $versions[] = $match[1];
+            }
+        }
         usort($versions, fn ($a, $b) => version_compare($b, $a));
-        return array_values($versions);
+        return $versions;
     }
 
     private function detectRequiredPhpSeries(): ?string
@@ -180,20 +164,5 @@ final class PhpController extends Controller
         }
 
         return (string)$match[1];
-    }
-
-    /**
-     * @return DOMElement[]
-     */
-    private static function extractDOMElements(DOMNodeList|false $nodeList): array
-    {
-        return array_values(
-            $nodeList === false
-                ? []
-                : array_filter(
-                    iterator_to_array($nodeList),
-                    fn (mixed $node): bool => $node instanceof DOMElement,
-                ),
-        );
     }
 }

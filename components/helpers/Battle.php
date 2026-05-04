@@ -88,7 +88,7 @@ class Battle
             ->offset(0)
             ->limit($num);
 
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'min_id' => 'MIN({{t}}.[[id]])',
                 'max_id' => 'MAX({{t}}.[[id]])',
@@ -118,7 +118,7 @@ class Battle
             ->offset(0)
             ->limit($num);
 
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'min_id' => 'MIN({{t}}.[[id]])',
                 'max_id' => 'MAX({{t}}.[[id]])',
@@ -135,14 +135,14 @@ class Battle
 
     public static function getActivityDisplayRange(): array
     {
-        $today = (new DateTimeImmutable())
+        $today = new DateTimeImmutable()
             ->setTimeZone(new DateTimeZone('Etc/UTC'))
             ->setTimestamp(time())
             ->setTime(23, 59, 59);
 
         $aYearAgo = $today->sub(new DateInterval('P1Y'));
         return [
-            (new DateTimeImmutable())
+            new DateTimeImmutable()
                 ->setTimezone(new DateTimeZone('Etc/UTC'))
                 ->setDate(
                     (int)$aYearAgo->format('Y'),
@@ -150,7 +150,7 @@ class Battle
                     1,
                 )
                 ->setTime(0, 0, 0),
-            (new DateTimeImmutable())
+            new DateTimeImmutable()
                 ->setTimezone(new DateTimeZone('Etc/UTC'))
                 ->setDate(
                     (int)$today->format('Y'),
@@ -217,7 +217,7 @@ class Battle
 
     private static function timestamp2datetime(int $timestamp): DateTimeImmutable
     {
-        return (new DateTimeImmutable())
+        return new DateTimeImmutable()
             ->setTimezone(new DateTimeZone(Yii::$app->timeZone))
             ->setTimestamp($timestamp);
     }

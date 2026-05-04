@@ -133,7 +133,7 @@ final class Splatfest3Controller extends Controller
         }
 
         $aggBattles = 'SUM(CASE WHEN {{%battle3}}.[[fest_power]] IS NOT NULL THEN 1 ELSE 0 END)';
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'splatfest_id' => '{{%splatfest3}}.[[id]]',
                 'users' => 'COUNT(DISTINCT {{%battle3}}.[[user_id]])',
@@ -245,7 +245,7 @@ final class Splatfest3Controller extends Controller
             throw new LogicException('Lobby or Rule not found');
         }
 
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'splatfest_id' => '{{%splatfest3}}.[[id]]',
                 'class_value' => $classValue,
@@ -362,7 +362,7 @@ final class Splatfest3Controller extends Controller
             "mode_{$key}" => "MODE() WITHIN GROUP (ORDER BY {{%battle_player3}}.[[{$key}]])",
         ];
 
-        $query = (new Query())
+        $query = new Query()
             ->select(
                 array_merge(
                     [

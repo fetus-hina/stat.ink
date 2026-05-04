@@ -48,7 +48,7 @@ final class BlogFeedController extends Controller
                 public function get($uri)
                 {
                     return new Psr7ResponseDecorator(
-                        (new GuzzleHttpClient())->request('GET', $uri),
+                        new GuzzleHttpClient()->request('GET', $uri),
                     );
                 }
             },

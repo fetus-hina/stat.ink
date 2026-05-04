@@ -19,7 +19,7 @@ class BattleItem1Widget extends BaseWidget
         if (!$endAt = $this->model->end_at) {
             return null;
         }
-        return (new DateTimeImmutable($endAt))
+        return new DateTimeImmutable($endAt)
             ->setTimezone(new DateTimeZone(Yii::$app->timeZone));
     }
 

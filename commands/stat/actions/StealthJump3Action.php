@@ -70,7 +70,7 @@ final class StealthJump3Action extends Action
                 'season_id' => ArrayHelper::getColumn($seasons, 'id'),
             ]);
 
-            $query = (new Query())
+            $query = new Query()
                 ->select([
                     'season_id' => '{{%season3}}.[[id]]',
                     'rule_id' => '{{%rule3}}.[[id]]',
@@ -163,12 +163,12 @@ final class StealthJump3Action extends Action
      */
     private function getTargetSeasons(Connection $db): array
     {
-        $startDay = (new DateTimeImmutable())
+        $startDay = new DateTimeImmutable()
             ->setTimezone(new DateTimeZone('Etc/UTC'))
             ->modify('midnight')
             ->modify('3 days ago');
 
-        $endDay = (new DateTimeImmutable())
+        $endDay = new DateTimeImmutable()
             ->setTimezone(new DateTimeZone('Etc/UTC'))
             ->modify('today');
 

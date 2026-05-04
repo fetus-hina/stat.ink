@@ -61,7 +61,7 @@ class SplatnetNumberBehavior extends Behavior
             return;
         }
 
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'key' => "{$this->tableName}.{$this->keyAttribute}",
             ])

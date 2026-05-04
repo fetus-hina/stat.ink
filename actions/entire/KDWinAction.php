@@ -88,7 +88,7 @@ class KDWinAction extends BaseAction
     private function query(Rule $rule, BattleFilterForm $filter): array
     {
         $t = StatWeaponKDWinRate::tableName();
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'kill' => "{{{$t}}}.[[kill]]",
                 'death' => "{{{$t}}}.[[death]]",

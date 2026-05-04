@@ -157,7 +157,7 @@ class Battle extends ActiveRecord
     {
         try {
             $count = filter_var(
-                (new Query())
+                new Query()
                     ->select('[[last_value]]')
                     ->from('{{battle_id_seq}}')
                     ->scalar(),

@@ -54,7 +54,7 @@ trait BadgeProgressTrait
         UserBadge3KingSalmonid::deleteAll(['user_id' => $user->id]);
         $sql = vsprintf('INSERT INTO %s ([[user_id]], [[king_id]], [[count]]) %s', [
             $db->quoteTableName(UserBadge3KingSalmonid::tableName()),
-            (new Query())
+            new Query()
                 ->select([
                     'user_id' => '{{%salmon3}}.[[user_id]]',
                     'king_id' => '{{%salmon3}}.[[king_salmonid_id]]',
@@ -91,7 +91,7 @@ trait BadgeProgressTrait
         UserBadge3BossSalmonid::deleteAll(['user_id' => $user->id]);
         $sql = vsprintf('INSERT INTO %s ([[user_id]], [[boss_id]], [[count]]) %s', [
             $db->quoteTableName(UserBadge3BossSalmonid::tableName()),
-            (new Query())
+            new Query()
                 ->select([
                     'user_id' => '{{%salmon3}}.[[user_id]]',
                     'boss_id' => '{{%salmon_boss_appearance3}}.[[boss_id]]',
@@ -132,7 +132,7 @@ trait BadgeProgressTrait
         UserBadge3EggsecutiveReached::deleteAll(['user_id' => $user->id]);
         $sql = vsprintf('INSERT INTO %s ([[user_id]], [[stage_id]], [[reached]]) %s', [
             $db->quoteTableName(UserBadge3EggsecutiveReached::tableName()),
-            (new Query())
+            new Query()
                 ->select([
                     'user_id' => '{{%salmon3}}.[[user_id]]',
                     'stage_id' => '{{%salmon3}}.[[stage_id]]',

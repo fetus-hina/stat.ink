@@ -247,7 +247,7 @@ class Salmon2FilterForm extends Model
                     $query->andWhere('0 = 1');
                 }
             } elseif (preg_match('/^(\d{4})-(\d{2})$/', $this->term, $match)) {
-                $now = (new DateTimeImmutable())
+                $now = new DateTimeImmutable()
                     ->setTimezone(new DateTimeZone('Etc/UTC'))
                     ->setTimestamp((int)($_SERVER['REQUEST_TIME'] ?? time()));
                 $year = (int)$match[1];
@@ -262,7 +262,7 @@ class Salmon2FilterForm extends Model
                     )
                 ) {
                     // 開始日時基準で検索する
-                    $lowerLimit = (new DateTimeImmutable())
+                    $lowerLimit = new DateTimeImmutable()
                         ->setTimezone(new DateTimeZone('Etc/UTC'))
                         ->setTime(0, 0, 0)
                         ->setDate($year, $month, 1);

@@ -37,7 +37,7 @@ trait Splatoon2
             $stats = [];
         }
 
-        $query = (new Query())
+        $query = new Query()
             ->select([
                 'date' => '{{battle2}}.[[created_at]]::date',
                 'battle_count' => 'COUNT({{battle2}}.*)',
@@ -74,7 +74,7 @@ trait Splatoon2
 
     protected function getAgentStats2(): array
     {
-        $endAt = (new DateTimeImmutable())
+        $endAt = new DateTimeImmutable()
             ->setTimeZone(new DateTimeZone(Yii::$app->timeZone))
             ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time());
         $startAt = $endAt->sub(new DateInterval('PT24H'));

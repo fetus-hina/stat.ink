@@ -443,7 +443,7 @@ class DeeplTranslator extends Component
             if ($doc->loadXML($wrapped, LIBXML_COMPACT | LIBXML_NOCDATA | LIBXML_NONET)) {
                 $replaced = static::processTemplateXml(
                     $doc,
-                    (new DOMXPath($doc))
+                    new DOMXPath($doc)
                         ->query('/div[@id="wrap"]', $doc)
                         ->item(0),
                 );

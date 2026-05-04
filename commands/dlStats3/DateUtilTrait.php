@@ -19,7 +19,7 @@ trait DateUtilTrait
 {
     private static function startDay(): DateTimeImmutable
     {
-        return (new DateTimeImmutable())
+        return new DateTimeImmutable()
             ->setTimeZone(new DateTimeZone(self::TIMEZONE))
             ->setDate(2022, 9, 9)
             ->setTime(0, 0, 0);
@@ -27,7 +27,7 @@ trait DateUtilTrait
 
     private static function today(): DateTimeImmutable
     {
-        return (new DateTimeImmutable())
+        return new DateTimeImmutable()
             ->setTimeZone(new DateTimeZone(self::TIMEZONE))
             ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time())
             ->setTime(0, 0, 0);
