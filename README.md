@@ -44,9 +44,9 @@ Use a private channel if it is a security issue.
 REQUIREMENTS
 ------------
 
-- PHP 8.3 or PHP 8.4
-  - PHP 8.2以下では動作しません。（8.3で追加された構文等を利用しています）  
-    Doesn't work with 8.2 or lower. (Uses statements and constants added in v8.3)
+- PHP 8.4
+  - PHP 8.3以下では動作しません。（8.4で追加された構文等を利用しています）  
+    Doesn't work with 8.3 or lower. (Uses statements and constants added in v8.4)
   - Argon2が有効化されたPHPが必要です。RemirepoのPHPを利用している場合、`php-sodium`をインストールしてください。
     You should build/install with Argon2. Install `php-sodium` if you use remirepo's PHP
 - PostgreSQL 11
@@ -65,8 +65,8 @@ https://stat.ink/ works with:
 - [JP3CKI Repository](https://rpm.fetus.jp/)
   - [H2O](https://h2o.examp1e.net/) mainline
 - [Remi's RPM repository](http://rpms.famillecollet.com/)
-  - `remi-modular` repository, with `dnf enable php:remi-8.3`
-      - PHP 8.3
+  - `remi-modular` repository, with `dnf enable php:remi-8.4`
+      - PHP 8.4
           - `composer`
           - `php-cli`
           - `php-fpm`
