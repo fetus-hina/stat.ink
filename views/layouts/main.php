@@ -15,6 +15,7 @@ use app\components\widgets\ColorSchemeDialog;
 use app\components\widgets\CookieAlert;
 use app\components\widgets\LanguageDialog;
 use app\components\widgets\TimezoneDialog;
+use app\components\widgets\v3\CreateBattleWidget;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\web\View;
@@ -128,6 +129,11 @@ $isApple = str_contains($ua, 'iPad') || str_contains($ua, 'iPhone') || str_conta
         'id' => 'timezone-dialog',
       ]) . "\n" ?>
       <?= CookieAlert::widget() . "\n" ?>
+<?php if (Yii::$app->user->identity) { ?>
+      <?= CreateBattleWidget::widget([
+        'id' => 'create-battle3-modal',
+      ]) . "\n" ?>
+<?php } ?>
 <?php } ?>
     <?php $this->endBody() ?><?= "\n" ?>
   </body>

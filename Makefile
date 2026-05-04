@@ -52,6 +52,7 @@ RESOURCE_TARGETS := \
 	resources/.compiled/stat.ink/color-scheme.js \
 	resources/.compiled/stat.ink/cookiealert.css \
 	resources/.compiled/stat.ink/cookiealert.js \
+	resources/.compiled/stat.ink/create-battle3.js \
 	resources/.compiled/stat.ink/downloads.css \
 	resources/.compiled/stat.ink/entire-salmon3-tide-event.js \
 	resources/.compiled/stat.ink/entire-salmon3-tide-tide.js \
@@ -297,6 +298,7 @@ resources/.compiled/stat.ink/browser-icon-widget.js: resources/stat.ink/browser-
 resources/.compiled/stat.ink/color-scheme.js: resources/stat.ink/color-scheme.es node_modules
 resources/.compiled/stat.ink/cookiealert.css: resources/stat.ink/cookiealert.scss node_modules
 resources/.compiled/stat.ink/cookiealert.js: resources/stat.ink/cookiealert.es node_modules
+resources/.compiled/stat.ink/create-battle3.js: resources/stat.ink/create-battle3.es node_modules
 resources/.compiled/stat.ink/downloads.css: resources/stat.ink/downloads.scss node_modules
 resources/.compiled/stat.ink/entire-salmon3-tide-event.js: resources/stat.ink/entire-salmon3-tide-event.es node_modules
 resources/.compiled/stat.ink/entire-salmon3-tide-tide.js: resources/stat.ink/entire-salmon3-tide-tide.es node_modules
