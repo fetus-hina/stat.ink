@@ -23,7 +23,6 @@ use function imagealphablending;
 use function imagecopyresampled;
 use function imagecreatefromstring;
 use function imagecreatetruecolor;
-use function imagedestroy;
 use function imagefill;
 use function imagepng;
 use function imagesavealpha;
@@ -108,7 +107,6 @@ class UserIcon extends ActiveRecord
             $inSize,
             $inSize,
         );
-        imagedestroy($in);
         return $out;
         // }}}
     }
@@ -188,7 +186,6 @@ class UserIcon extends ActiveRecord
                     $realPath = Yii::getAlias('@app/web/profile-images') . '/' . $this->filename;
                     FileHelper::createDirectory(dirname($realPath));
                     imagepng($this->imageResource, $realPath, 9, PNG_ALL_FILTERS);
-                    imagedestroy($this->imageResource);
                     $this->imageResource = null;
                 }
                 break;

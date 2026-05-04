@@ -45,7 +45,6 @@ use function filter_var;
 use function gmdate;
 use function hash_hmac;
 use function imagecreatefromstring;
-use function imagedestroy;
 use function implode;
 use function is_array;
 use function is_bool;
@@ -432,11 +431,10 @@ class PostBattleForm extends Model
         if ($this->hasErrors($attribute)) {
             return;
         }
-        if (!$gd = @imagecreatefromstring($binary)) {
+        if (!@imagecreatefromstring($binary)) {
             $this->addError($attribute, 'Could not decode binary that contained an image data.');
             return;
         }
-        imagedestroy($gd);
     }
 
     public function validateStrictUTF8($attribute, $params)

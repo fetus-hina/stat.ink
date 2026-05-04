@@ -14,7 +14,6 @@ use yii\web\UploadedFile;
 
 use function file_get_contents;
 use function imagecreatefromstring;
-use function imagedestroy;
 use function imagesx;
 use function imagesy;
 use function is_file;
@@ -91,13 +90,9 @@ final class BattleImageValidator extends Validator
         if (!$gd = @imagecreatefromstring($value)) {
             return false;
         }
-        try {
-            return imagesx($gd) > 100 &&
-                imagesy($gd) > 100 &&
-                imagesx($gd) <= 3840 &&
-                imagesy($gd) <= 2160;
-        } finally {
-            @imagedestroy($gd);
-        }
+        return imagesx($gd) > 100 &&
+            imagesy($gd) > 100 &&
+            imagesx($gd) <= 3840 &&
+            imagesy($gd) <= 2160;
     }
 }

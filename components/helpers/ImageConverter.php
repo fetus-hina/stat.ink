@@ -70,10 +70,10 @@ class ImageConverter
             }
         }
         if ($outPathArchivePng !== null) {
-            $in = new Resource(@imagecreatefromstring($binary), 'imagedestroy');
-            if ($in->get()) {
+            $in = @imagecreatefromstring($binary);
+            if ($in) {
                 self::mkdir(dirname($outPathArchivePng));
-                imagepng($in->get(), $outPathArchivePng, 3, PNG_NO_FILTER);
+                imagepng($in, $outPathArchivePng, 3, PNG_NO_FILTER);
             }
         }
         return true;
@@ -82,12 +82,12 @@ class ImageConverter
     protected static function convertImpl($binary, array $blackoutPosList)
     {
         try {
-            $in = new Resource(@imagecreatefromstring($binary), 'imagedestroy');
-            if (!$in->get()) {
+            $in = @imagecreatefromstring($binary);
+            if (!$in) {
                 throw new Exception();
             }
-            $inW = imagesx($in->get());
-            $inH = imagesy($in->get());
+            $inW = imagesx($in);
+            $inH = imagesy($in);
             if ($inW < 100 || $inH < 100) {
                 throw new Exception();
             }
@@ -106,16 +106,16 @@ class ImageConverter
             }
             $cpX = (int)round($canvasW / 2 - $cpW / 2);
             $cpY = (int)round($canvasH / 2 - $cpH / 2);
-            $out = new Resource(imagecreatetruecolor($canvasW, $canvasH), 'imagedestroy');
-            if (!$out->get()) {
+            $out = imagecreatetruecolor($canvasW, $canvasH);
+            if (!$out) {
                 throw new Exception();
             }
-            imagealphablending($out->get(), false);
-            imagefill($out->get(), 0, 0, 0xffffff);
-            imagealphablending($out->get(), true);
+            imagealphablending($out, false);
+            imagefill($out, 0, 0, 0xffffff);
+            imagealphablending($out, true);
             imagecopyresampled(
-                $out->get(),
-                $in->get(),
+                $out,
+                $in,
                 $cpX,
                 $cpY,
                 0,
@@ -125,6 +125,7 @@ class ImageConverter
                 $inW,
                 $inH,
             );
+            unset($in);
             if ($blackoutPosList) {
                 for ($i = 0; $i < 8; ++$i) {
                     if (!in_array($i + 1, $blackoutPosList)) {
@@ -133,7 +134,7 @@ class ImageConverter
 
                     $y = ($i < 4 ? 100 : 430) + (($i % 4) * 66);
                     imagefilledrectangle(
-                        $out->get(),
+                        $out,
                         812, //x1
                         $y,
                         812 + 172,
@@ -143,7 +144,7 @@ class ImageConverter
                 }
             }
             $tmpName = new Resource(tempnam(sys_get_temp_dir(), 'statink-'), 'unlink');
-            imagepng($out->get(), $tmpName->get(), 9, PNG_ALL_FILTERS);
+            imagepng($out, $tmpName->get(), 9, PNG_ALL_FILTERS);
             return $tmpName;
         } catch (Throwable $e) {
         }
