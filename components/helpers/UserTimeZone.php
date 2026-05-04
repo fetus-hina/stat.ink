@@ -17,7 +17,6 @@ use Yii;
 use app\models\Timezone;
 use yii\helpers\StringHelper;
 
-use function call_user_func;
 use function floor;
 use function sprintf;
 use function trim;
@@ -33,13 +32,13 @@ final class UserTimeZone
         try {
             Yii::beginProfile(__FUNCTION__, __METHOD__);
             $methods = [
-                [self::class, 'guessByCookie'],
-                [self::class, 'guessByGeoIP'],
-                [self::class, 'guessByAppLanguage'],
+                self::guessByCookie(...),
+                self::guessByGeoIP(...),
+                self::guessByAppLanguage(...),
             ];
 
             foreach ($methods as $method) {
-                if ($ret = call_user_func($method)) {
+                if ($ret = $method()) {
                     return $ret;
                 }
             }

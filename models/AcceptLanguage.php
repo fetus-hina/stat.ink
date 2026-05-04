@@ -41,7 +41,7 @@ class AcceptLanguage extends ActiveRecord
             {
                 if ($list = parent::all($db)) {
                     if ($list[0] instanceof AcceptLanguage) {
-                        usort($list, [AcceptLanguage::class, 'compare']);
+                        usort($list, AcceptLanguage::compare(...));
                     }
                 }
                 return $list;

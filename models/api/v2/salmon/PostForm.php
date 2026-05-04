@@ -585,7 +585,7 @@ class PostForm extends Model
             return null;
         }
 
-        if (!$model = call_user_func([$class, 'findOne'], ['key' => $key])) {
+        if (!$model = $class::findOne(['key' => $key])) {
             return null;
         }
 

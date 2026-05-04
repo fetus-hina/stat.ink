@@ -234,7 +234,7 @@ final class ApidocController extends Controller
                 Html::tag(
                     'tbody',
                     implode('', array_map(
-                        [$this, 'renderTimezoneTableGroup'],
+                        $this->renderTimezoneTableGroup(...),
                         $groups,
                     )),
                 ),

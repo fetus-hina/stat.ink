@@ -29,9 +29,9 @@ class BattleEvents extends ActiveRecord
 {
     public function init()
     {
-        $this->on(static::EVENT_AFTER_FIND, [$this, 'decodeEvents']);
-        $this->on(static::EVENT_BEFORE_INSERT, [$this, 'encodeEvents']);
-        $this->on(static::EVENT_BEFORE_UPDATE, [$this, 'encodeEvents']);
+        $this->on(static::EVENT_AFTER_FIND, $this->decodeEvents(...));
+        $this->on(static::EVENT_BEFORE_INSERT, $this->encodeEvents(...));
+        $this->on(static::EVENT_BEFORE_UPDATE, $this->encodeEvents(...));
     }
 
     /**

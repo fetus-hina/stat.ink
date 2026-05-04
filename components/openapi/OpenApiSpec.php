@@ -16,7 +16,6 @@ use yii\helpers\Json;
 use yii\helpers\Url;
 
 use function array_filter;
-use function call_user_func;
 use function in_array;
 use function ksort;
 use function rtrim;
@@ -98,8 +97,8 @@ class OpenApiSpec extends Component
     {
         $result = [];
         foreach ($this->securitySchemes as $className) {
-            $refName = call_user_func([$className, 'oapiSecName']);
-            $result[$refName] = call_user_func([$className, 'oapiSecurity']);
+            $refName = $className::oapiSecName();
+            $result[$refName] = $className::oapiSecurity();
         }
         return $result;
     }
@@ -115,15 +114,15 @@ class OpenApiSpec extends Component
     {
         $result = [];
         foreach ($this->schemas as $className) {
-            $refName = call_user_func([$className, 'oapiRefName']);
-            $result[$refName] = call_user_func([$className, 'openApiSchema']);
+            $refName = $className::oapiRefName();
+            $result[$refName] = $className::openApiSchema();
         }
         return $result;
     }
 
     public function registerSchema(string $className): void
     {
-        $depends = call_user_func([$className, 'openApiDepends']);
+        $depends = $className::openApiDepends();
         foreach ($depends as $depClass) {
             $this->registerSchema($depClass);
         }

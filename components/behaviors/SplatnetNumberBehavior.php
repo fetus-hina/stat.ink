@@ -38,7 +38,7 @@ class SplatnetNumberBehavior extends Behavior
     public function events()
     {
         return [
-            $this->trigger => [$this, 'doExec'],
+            $this->trigger => $this->doExec(...),
         ];
     }
 

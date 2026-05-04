@@ -15,7 +15,6 @@ use Yii;
 use app\models\AcceptLanguage;
 use app\models\Language;
 
-use function call_user_func;
 use function is_scalar;
 use function sprintf;
 use function trim;
@@ -30,13 +29,13 @@ class UserLanguage
         try {
             Yii::beginProfile('Detect language', __METHOD__);
             $methods = [
-                [self::class, 'guessByParam'],
-                [self::class, 'guessByCookie'],
-                [self::class, 'guessByAcceptLanguage'],
+                self::guessByParam(...),
+                self::guessByCookie(...),
+                self::guessByAcceptLanguage(...),
             ];
 
             foreach ($methods as $method) {
-                if ($ret = call_user_func($method)) {
+                if ($ret = $method()) {
                     return $ret;
                 }
             }
