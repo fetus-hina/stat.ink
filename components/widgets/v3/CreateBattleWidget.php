@@ -54,6 +54,7 @@ final class CreateBattleWidget extends Dialog
                 Json::encode([
                     'apiKey' => (string)Yii::$app->user->identity?->api_key,
                     'apiUrl' => Url::to('@web/api/v3/battle', true),
+                    'scheduleUrl' => Url::to('@web/api/internal/current-schedule3', true),
                     'agent' => sprintf('%s web client', (string)Yii::$app->name),
                     'agentVersion' => sprintf('v%s', (string)Yii::$app->version),
                     'i18n' => [
@@ -73,10 +74,8 @@ final class CreateBattleWidget extends Dialog
                     $this->renderSelect('lobby', Yii::t('app', 'Lobby'), $this->makeLobbies()),
                     $this->renderSelect('rule', Yii::t('app', 'Mode'), $this->makeRules()),
                 ),
-                $this->renderTwoColumns(
-                    $this->renderSelect('stage', Yii::t('app', 'Stage'), $this->makeMaps()),
-                    $this->renderSelect('weapon', Yii::t('app', 'Weapon'), $this->makeWeapons()),
-                ),
+                $this->renderStageField(),
+                $this->renderSelect('weapon', Yii::t('app', 'Weapon'), $this->makeWeapons()),
                 $this->renderResultButtonGroup(),
                 $this->renderTwoColumns(
                     $this->renderNumberInput('kill_or_assist', Yii::t('app', 'Kill or Assist')),
@@ -129,6 +128,30 @@ final class CreateBattleWidget extends Dialog
                 Html::tag('div', $right, ['class' => 'col-sm-6']),
             ]),
             ['class' => 'row'],
+        );
+    }
+
+    private function renderStageField(): string
+    {
+        $id = 'create-battle3-stage';
+        return Html::tag(
+            'div',
+            implode('', [
+                Html::label(
+                    Html::encode(Yii::t('app', 'Stage')),
+                    $id,
+                    ['class' => 'control-label'],
+                ),
+                Html::tag(
+                    'div',
+                    Html::dropDownList('stage', null, $this->makeMaps(), [
+                        'class' => 'form-control',
+                        'id' => $id,
+                    ]),
+                    ['id' => 'create-battle3-stage-control'],
+                ),
+            ]),
+            ['class' => 'form-group'],
         );
     }
 

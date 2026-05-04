@@ -11,6 +11,22 @@
 
     const $alert = $('#create-battle3-alert')
     const $submit = $('#create-battle3-submit')
+    const $stageControl = $('#create-battle3-stage-control')
+    const stageDropdownHtml = $stageControl.html()
+    const $ruleSelect = $('#create-battle3-rule')
+    const ruleOptions = $ruleSelect.find('option').map(function () {
+      return { value: this.value, text: $(this).text() }
+    }).get()
+    const baseRulesByLobby = {
+      regular: ['nawabari'],
+      splatfest_challenge: ['nawabari'],
+      splatfest_open: ['nawabari', 'tricolor'],
+      bankara_challenge: ['area', 'yagura', 'hoko', 'asari'],
+      bankara_open: ['area', 'yagura', 'hoko', 'asari'],
+      xmatch: ['area', 'yagura', 'hoko', 'asari']
+    }
+    let scheduleData = null
+    let scheduleFetchPromise = null
 
     const fieldsToClearOnSuccess = [
       'kill_or_assist',
@@ -49,19 +65,19 @@
       $alert.hide()
     }
 
-    const stringValueOf = name => {
-      const $el = $('#create-battle3-' + name)
-      return ($el.val() || '').toString().trim()
+    const fieldValueOf = name => {
+      const $checked = $form.find('input[type="radio"][name="' + name + '"]:checked')
+      if ($checked.length) {
+        return ($checked.val() || '').toString().trim()
+      }
+      const $el = $form.find('[name="' + name + '"]:not([type="radio"])').first()
+      return $el.length ? ($el.val() || '').toString().trim() : ''
     }
     const intValueOf = name => {
-      const v = stringValueOf(name)
+      const v = fieldValueOf(name)
       if (v === '') return null
       const n = parseInt(v, 10)
       return Number.isFinite(n) ? n : null
-    }
-    const checkedRadioValueOf = name => {
-      const $el = $form.find('input[type="radio"][name="' + name + '"]:checked')
-      return $el.length ? ($el.val() || '').toString() : ''
     }
 
     const buildPayload = () => {
@@ -72,14 +88,11 @@
         automated: 'no'
       }
 
-      const selectFields = ['lobby', 'rule', 'stage', 'weapon']
-      selectFields.forEach(name => {
-        const v = stringValueOf(name)
+      const stringFields = ['lobby', 'rule', 'stage', 'weapon', 'result']
+      stringFields.forEach(name => {
+        const v = fieldValueOf(name)
         if (v !== '') data[name] = v
       })
-
-      const result = checkedRadioValueOf('result')
-      if (result !== '') data.result = result
 
       const koa = intValueOf('kill_or_assist')
       const assist = intValueOf('assist')
@@ -110,8 +123,8 @@
       }
     }
 
-    const updateResultButtonStyles = () => {
-      const $radios = $form.find('input[type="radio"][name="result"]')
+    const updateRadioButtonStyles = name => {
+      const $radios = $form.find('input[type="radio"][name="' + name + '"]')
       $radios.each(function () {
         const $label = $(this).closest('label')
         if (this.checked) {
@@ -122,23 +135,152 @@
       })
     }
 
-    const resetResultButtonGroup = () => {
-      const $radios = $form.find('input[type="radio"][name="result"]')
+    const resetRadioButtonGroup = name => {
+      const $radios = $form.find('input[type="radio"][name="' + name + '"]')
+      if (!$radios.length) {
+        return
+      }
       $radios.prop('checked', false)
       $radios.closest('label').removeClass('active')
       const $defaultRadio = $radios.filter('[value=""]')
-      $defaultRadio.prop('checked', true)
-      $defaultRadio.closest('label').addClass('active')
-      updateResultButtonStyles()
+      if ($defaultRadio.length) {
+        $defaultRadio.prop('checked', true)
+        $defaultRadio.closest('label').addClass('active')
+      }
+      updateRadioButtonStyles(name)
     }
 
-    $form.on('change', 'input[type="radio"][name="result"]', updateResultButtonStyles)
+    $form.on('change', 'input[type="radio"]', function () {
+      updateRadioButtonStyles(this.name)
+    })
+
+    const buildRadioButton = (value, label, isDefault) => {
+      const $input = $('<input>', {
+        type: 'radio',
+        name: 'stage',
+        value,
+        autocomplete: 'off'
+      })
+      if (isDefault) {
+        $input.prop('checked', true)
+      }
+      const $label = $('<label>', {
+        class: 'btn ' + (isDefault ? 'btn-primary active' : 'btn-default')
+      })
+      $label.append($input).append(document.createTextNode(label))
+      return $label
+    }
+
+    const renderStageRadios = stages => {
+      const $group = $('<div>', {
+        class: 'btn-group btn-group-justified',
+        role: 'group'
+      }).attr('data-toggle', 'buttons')
+      stages.forEach(stage => {
+        if (stage && stage.key) {
+          $group.append(buildRadioButton(stage.key, stage.name || stage.key, false))
+        }
+      })
+      $stageControl.empty().append($group)
+    }
+
+    const renderStageDropdown = () => {
+      $stageControl.html(stageDropdownHtml)
+    }
+
+    const applyScheduleToStage = () => {
+      const lobbyKey = fieldValueOf('lobby')
+      const stages = scheduleData
+        && scheduleData.current
+        && scheduleData.current.lobbies
+        && scheduleData.current.lobbies[lobbyKey]
+        && scheduleData.current.lobbies[lobbyKey].stages
+      if (Array.isArray(stages) && stages.length > 0) {
+        renderStageRadios(stages)
+      } else {
+        renderStageDropdown()
+      }
+    }
+
+    const applyLobbyToRule = () => {
+      const lobbyKey = fieldValueOf('lobby')
+      const scheduleRuleKey = scheduleData
+        && scheduleData.current
+        && scheduleData.current.lobbies
+        && scheduleData.current.lobbies[lobbyKey]
+        && scheduleData.current.lobbies[lobbyKey].rule
+        && scheduleData.current.lobbies[lobbyKey].rule.key
+      const allowedKeys = scheduleRuleKey
+        ? [scheduleRuleKey]
+        : (Object.prototype.hasOwnProperty.call(baseRulesByLobby, lobbyKey)
+          ? baseRulesByLobby[lobbyKey]
+          : null)
+
+      const previousValue = $ruleSelect.val()
+      $ruleSelect.empty()
+      ruleOptions.forEach(opt => {
+        if (
+          opt.value === '' ||
+          allowedKeys === null ||
+          allowedKeys.indexOf(opt.value) !== -1
+        ) {
+          $ruleSelect.append($('<option>', { value: opt.value, text: opt.text }))
+        }
+      })
+
+      if (scheduleRuleKey) {
+        $ruleSelect.val(scheduleRuleKey)
+      } else if (
+        previousValue !== '' &&
+        allowedKeys !== null &&
+        allowedKeys.indexOf(previousValue) === -1
+      ) {
+        $ruleSelect.val('')
+      } else {
+        $ruleSelect.val(previousValue)
+      }
+    }
+
+    const fetchSchedule = () => {
+      if (scheduleData !== null) {
+        return Promise.resolve(scheduleData)
+      }
+      if (scheduleFetchPromise) {
+        return scheduleFetchPromise
+      }
+      if (!config.scheduleUrl) {
+        return Promise.resolve(null)
+      }
+      scheduleFetchPromise = window.fetch(config.scheduleUrl, {
+        credentials: 'same-origin',
+        headers: { Accept: 'application/json' }
+      })
+        .then(response => response.ok ? response.json() : null)
+        .catch(() => null)
+        .then(data => {
+          scheduleData = data || false
+          return scheduleData
+        })
+      return scheduleFetchPromise
+    }
+
+    const applyLobbySpecificFields = () => {
+      applyLobbyToRule()
+      applyScheduleToStage()
+    }
+
+    $form.on('change', '[name="lobby"]', applyLobbySpecificFields)
+
+    $('#create-battle3-modal').on('show.bs.modal', () => {
+      fetchSchedule().then(applyLobbySpecificFields)
+    })
 
     const clearForNextEntry = () => {
       fieldsToClearOnSuccess.forEach(name => {
         $('#create-battle3-' + name).val('')
       })
-      resetResultButtonGroup()
+      resetRadioButtonGroup('result')
+      applyLobbySpecificFields()
       $('#create-battle3-kill_or_assist').trigger('focus')
     }
 
