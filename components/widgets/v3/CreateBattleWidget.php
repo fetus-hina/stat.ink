@@ -13,6 +13,7 @@ namespace app\components\widgets\v3;
 use Yii;
 use app\assets\CreateBattle3Asset;
 use app\components\widgets\Dialog;
+use app\components\widgets\Icon;
 use app\models\Lobby3;
 use app\models\Map3;
 use app\models\Rule3;
@@ -70,6 +71,7 @@ final class CreateBattleWidget extends Dialog
             'form',
             implode('', [
                 $this->renderAlertBox(),
+                $this->renderRefreshScheduleButton(),
                 $this->renderTwoColumns(
                     $this->renderSelect('lobby', Yii::t('app', 'Lobby'), $this->makeLobbies()),
                     $this->renderSelect('rule', Yii::t('app', 'Mode'), $this->makeRules()),
@@ -115,6 +117,30 @@ final class CreateBattleWidget extends Dialog
                 'class' => ['alert'],
                 'role' => 'alert',
                 'style' => 'display:none',
+            ],
+        );
+    }
+
+    private function renderRefreshScheduleButton(): string
+    {
+        return Html::tag(
+            'div',
+            Html::tag(
+                'button',
+                implode('', [
+                    Icon::refresh(),
+                    ' ',
+                    Html::encode(Yii::t('app', 'Refresh Schedule')),
+                ]),
+                [
+                    'type' => 'button',
+                    'class' => 'btn btn-default btn-sm',
+                    'id' => 'create-battle3-refresh-schedule',
+                ],
+            ),
+            [
+                'class' => 'text-right',
+                'style' => 'margin-bottom:10px',
             ],
         );
     }

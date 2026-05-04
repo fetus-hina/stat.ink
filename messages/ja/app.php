@@ -493,6 +493,7 @@ return [
     'Recent Battles' => '最近のバトル',
     'Recent Results' => '最近の成績',
     'Recent Use %' => '最近の利用率',
+    'Refresh Schedule' => 'スケジュール更新',
     'Regardless of your time zone setting, it is grouped using UTC.' => 'タイムゾーン設定に関わらず、UTC(協定世界時)で集計されています。',
     'Regenerate your API token' => 'APIキーの再生成',
     'Region (used for Splatfest)' => 'フェスのリージョン（地域）',

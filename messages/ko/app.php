@@ -507,6 +507,7 @@ return [
     'Recent Battles' => '최근 배틀',
     'Recent Results' => '최근 성적',
     'Recent Use %' => '최근 사용률',
+    'Refresh Schedule' => '스케줄 새로고침',
     'Regardless of your time zone setting, it is grouped using UTC.' => '당신의 시간대 설정과 무관하게, UTC로 분류됩니다.',
     'Regenerate your API token' => 'API 키 재생성',
     'Region (used for Splatfest)' => '페스 지역',

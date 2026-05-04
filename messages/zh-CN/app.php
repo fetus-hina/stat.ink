@@ -509,6 +509,7 @@ return [
     'Recent Battles' => '最近对战',
     'Recent Results' => '最近结果',
     'Recent Use %' => '最近使用率',
+    'Refresh Schedule' => '刷新日程安排',
     'Regardless of your time zone setting, it is grouped using UTC.' => '以UTC时间计算，与你的时区设置无关。',
     'Regenerate your API token' => '重新生成你的API密钥',
     'Region (used for Splatfest)' => '地区（祭典时使用）',

@@ -507,6 +507,7 @@ return [
     'Recent Battles' => 'Batallas recientes',
     'Recent Results' => 'Resultados recientes',
     'Recent Use %' => '',
+    'Refresh Schedule' => 'Actualizar horario',
     'Regardless of your time zone setting, it is grouped using UTC.' => '',
     'Regenerate your API token' => '',
     'Region (used for Splatfest)' => 'Región (utilizada para Splatfest)',
