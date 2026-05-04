@@ -79,7 +79,7 @@ trait Matches
             } else {
                 // バンカラマッチは $structureKey で示される構造がさらに配列になっている
                 foreach (ArrayHelper::getValue($node, $structureKey) as $settingNode) {
-                    if (ArrayHelper::getValue($settingNode, 'mode') === $modeKey) {
+                    if (ArrayHelper::getValue($settingNode, 'bankaraMode') === $modeKey) {
                         $results[] = self::processNode(
                             $settingNode,
                             ArrayHelper::getValue($node, 'startTime'),
