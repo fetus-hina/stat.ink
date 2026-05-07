@@ -145,7 +145,7 @@
       "yiisoft/yii2-composer": true
     },
     "platform": {
-      "php": "8.4.20"
+      "php": "8.4.21"
     },
     "process-timeout": 1800
   },
