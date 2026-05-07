@@ -5,6 +5,8 @@ name: 'Dependencies Updator'
       cron: '11 23 * * *'
   workflow_dispatch:
 env:
+  PHP_VERSION: '8.4'
+  NODE_VERSION: '24'
   LLM_API_KEY: ${{ secrets.SAKURA_AI_ENGINE_API_KEY }}
   LLM_API_ENDPOINT: 'https://api.ai.sakura.ad.jp/v1/chat/completions'
   LLM_MODEL: 'Qwen3-Coder-480B-A35B-Instruct-FP8'
@@ -20,15 +22,15 @@ jobs:
         with:
           fetch-depth: 0
       -
-        name: 'Set up PHP 8.4'
+        name: 'Set up PHP'
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.4'
+          php-version: ${{ env.PHP_VERSION }}
       -
-        name: 'Set up Node 24'
+        name: 'Set up Node'
         uses: actions/setup-node@v6
         with:
-          node-version: '24'
+          node-version: ${{ env.NODE_VERSION }}
       -
         name: 'Install dependencies'
         run: |
