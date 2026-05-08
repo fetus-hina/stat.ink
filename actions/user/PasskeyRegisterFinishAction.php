@@ -10,9 +10,12 @@ declare(strict_types=1);
 
 namespace app\actions\user;
 
+use DateTimeImmutable;
 use Throwable;
 use Yii;
+use app\components\helpers\PasskeyNickname;
 use app\components\helpers\WebAuthnHelper;
+use app\models\PasskeyAaguid;
 use app\models\User;
 use app\models\UserPasskey;
 use app\models\UserPasskeyUser;
@@ -24,7 +27,6 @@ use yii\web\ViewAction as BaseAction;
 
 use function array_filter;
 use function array_values;
-use function date;
 use function in_array;
 use function is_array;
 use function is_string;
@@ -60,8 +62,8 @@ final class PasskeyRegisterFinishAction extends BaseAction
                 'nickname' => trim((string)$req->post('nickname', '')),
             ],
             [
-                [['client_data_json', 'attestation_object', 'nickname'], 'required'],
-                [['nickname'], 'string', 'max' => 64],
+                [['client_data_json', 'attestation_object'], 'required'],
+                [['nickname'], 'string', 'max' => PasskeyNickname::MAX_NICKNAME_LENGTH],
                 [['client_data_json'], 'string', 'max' => self::MAX_CLIENT_DATA_LEN],
                 [['attestation_object'], 'string', 'max' => self::MAX_ATTESTATION_OBJECT_LEN],
                 [['client_data_json', 'attestation_object'], 'match',
@@ -106,21 +108,27 @@ final class PasskeyRegisterFinishAction extends BaseAction
 
         Yii::$app->session->remove(WebAuthnHelper::SESSION_KEY_CHALLENGE);
 
+        $aaguid = WebAuthnHelper::binaryToUuidString($data->AAGUID);
+        $nowDate = new DateTimeImmutable();
+        $now = $nowDate->format('Y-m-d\TH:i:sP');
+        $nickname = $form->nickname !== ''
+            ? $form->nickname
+            : $this->buildDefaultNickname($aaguid, $nowDate);
+
         $transaction = Yii::$app->db->beginTransaction();
         try {
-            $now = date('Y-m-d\TH:i:sP');
             $model = Yii::createObject([
                 'class' => UserPasskey::class,
                 'user_id' => $ident->id,
                 'credential_id' => WebAuthnHelper::base64UrlEncode($data->credentialId),
                 'public_key' => (string)$data->credentialPublicKey,
                 'sign_count' => (int)$data->signatureCounter,
-                'aaguid' => WebAuthnHelper::binaryToUuidString($data->AAGUID),
+                'aaguid' => $aaguid,
                 'attestation_format' => (string)$data->attestationFormat,
                 'transports' => new ArrayExpression($transports, 'text', 1),
                 'backup_eligible' => (bool)($data->isBackupEligible ?? false),
                 'backup_state' => (bool)($data->isBackedUp ?? false),
-                'nickname' => $form->nickname,
+                'nickname' => $nickname,
                 'created_at' => $now,
                 'updated_at' => $now,
             ]);
@@ -179,6 +187,27 @@ final class PasskeyRegisterFinishAction extends BaseAction
         } catch (Throwable $e) {
             Yii::error($e, __METHOD__);
         }
+    }
+
+    private function buildDefaultNickname(string $aaguid, DateTimeImmutable $now): string
+    {
+        $aaguidName = null;
+        if (PasskeyNickname::isKnownAaguid($aaguid)) {
+            $row = PasskeyAaguid::find()
+                ->select(['name'])
+                ->where(['aaguid' => $aaguid])
+                ->scalar();
+            if (is_string($row)) {
+                $aaguidName = $row;
+            }
+        }
+
+        return PasskeyNickname::buildDefault(
+            $aaguid,
+            $aaguidName,
+            $now,
+            Yii::t('app-passkey', 'Passkey ({date})'),
+        );
     }
 
     /**
