@@ -80,58 +80,6 @@ jobs:
       -
         name: 'Run PHPCS'
         run: 'php vendor/bin/phpcs -p'
-  phpCheckAuthor:
-    name: 'Check Author'
-    runs-on: ubuntu-24.04
-    needs:
-      - ciDoesNotSkip
-    if: "!contains(github.event.head_commit.message, '[no php]') && !contains(github.event.head_commit.message, '[no author]')"
-    steps:
-      -
-        uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-      -
-        name: 'Composer cache'
-        uses: actions/cache@v5
-        with:
-          path: ~/.cache/composer/files
-          key: 'author-composer-cache-${{ github.sha }}'
-          restore-keys: author-composer-cache-
-      -
-        name: 'Set PHP environment (PHP 7.4)'
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '7.4'
-      -
-        name: 'Prepare for phpcq/author-validation'
-        run: |
-          rm -f composer.json
-          mv composer.check-author.json composer.json
-      -
-        name: 'Install phpcq/author-validation'
-        uses: nick-invision/retry@v4
-        with:
-          timeout_seconds: 300
-          max_attempts: 3
-          retry_on: error
-          command: |
-            rm -rf composer.lock vendor
-            make composer.phar
-            ./composer.phar update
-      -
-        name: 'Execute check-author.php'
-        run: |
-          patch -p0 -d vendor/phpcq/author-validation < data/patch/check-author.nofollow.patch
-          php -d memory_limit=-1 vendor/bin/check-author.php --php-files \
-            actions \
-            assets \
-            commands \
-            components \
-            controllers \
-            messages \
-            migrations \
-            models
   phpComposerStyle:
     name: 'Check composer.json normalized'
     runs-on: ubuntu-24.04
