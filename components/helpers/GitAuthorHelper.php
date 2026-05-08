@@ -40,7 +40,7 @@ final class GitAuthorHelper
             : vsprintf('%s-%s', [$startYear, $currentYear]);
     }
 
-    private static function getEarliestCommitTimestamp(string $path): int
+    public static function getEarliestCommitTimestamp(string $path): int
     {
         $cmdline = vsprintf('/usr/bin/env git log --pretty=%s -- %s', [
             escapeshellarg('%at%n%ct'),
