@@ -3,8 +3,6 @@
 /**
  * @copyright Copyright (C) 2016-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@fetus.jp>
- * @author YDKK <YDKK@users.noreply.github.com>
  */
 
 namespace app\models;
