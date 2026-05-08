@@ -20,20 +20,17 @@ use yii\console\ExitCode;
 use yii\helpers\Console;
 
 use function array_map;
-use function array_reduce;
 use function dirname;
 use function file_get_contents;
 use function file_put_contents;
 use function implode;
 use function in_array;
 use function ltrim;
-use function min;
 use function preg_quote;
 use function preg_replace_callback;
 use function rtrim;
 use function str_starts_with;
 use function substr;
-use function time;
 use function vsprintf;
 
 final class DocCommentController extends Controller
@@ -146,25 +143,12 @@ final class DocCommentController extends Controller
 
     private function makeDocComment(string $path): ?string
     {
-        $f = Yii::$app->formatter;
-
-        $authors = GitAuthorHelper::getAuthors($path);
-        $minCommitDate = array_reduce(
-            $authors,
-            fn (int $carry, array $item): int => min($carry, $item[0]),
-            time(),
-        );
-
-        $lines = [];
-        $lines[] = vsprintf('@copyright Copyright (C) %s AIZAWA Hina', [
-            $f->asDate($minCommitDate, 'yyyy') === $f->asDate(time(), 'yyyy')
-                ? $f->asDate($minCommitDate, 'yyyy')
-                : vsprintf('%s-%s', [
-                    $f->asDate($minCommitDate, 'yyyy'),
-                    $f->asDate(time(), 'yyyy'),
-                ]),
-        ]);
-        $lines[] = '@license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT';
+        $lines = [
+            vsprintf('@copyright Copyright (C) %s AIZAWA Hina', [
+                GitAuthorHelper::getCopyrightYear($path),
+            ]),
+            '@license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT',
+        ];
 
         return "/**\n" .
             implode("\n", array_map(fn (string $line): string => " * {$line}", $lines)) .
