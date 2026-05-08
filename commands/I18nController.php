@@ -13,7 +13,6 @@ use DateTimeZone;
 use DirectoryIterator;
 use Iterator;
 use Yii;
-use app\components\helpers\GitAuthorHelper;
 use app\models\Language;
 use yii\console\Controller;
 
@@ -166,9 +165,6 @@ final class I18nController extends Controller
                 : vsprintf('%s-%s', [$commitAt->format('Y'), $now->format('Y')]),
         ]);
         $file[] = ' * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT';
-        foreach ($this->getGitContributors($outPath) as $contributor) {
-            $file[] = ' * @author ' . $contributor;
-        }
         $file[] = ' */';
         $file[] = '';
         $file[] = 'declare(strict_types=1);';
@@ -220,16 +216,6 @@ final class I18nController extends Controller
             $lines,
             fn (int $carry, string $line): int => min($carry, (int)$line),
             time(),
-        );
-    }
-
-    /**
-     * @return string[]
-     */
-    private function getGitContributors(string $path): array
-    {
-        return array_keys(
-            GitAuthorHelper::getAuthors($path),
         );
     }
 

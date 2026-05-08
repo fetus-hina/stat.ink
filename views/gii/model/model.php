@@ -31,9 +31,6 @@ echo "\n";
 /**
  * @copyright Copyright (C) <?= GitAuthorHelper::getCopyrightYear($path) ?> AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
-<?php foreach (array_keys(GitAuthorHelper::getAuthors($path)) as $author): ?>
- * @author <?= $author . "\n" ?>
-<?php endforeach; ?>
  */
 
 declare(strict_types=1);

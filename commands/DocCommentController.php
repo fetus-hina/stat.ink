@@ -20,7 +20,6 @@ use yii\console\Controller;
 use yii\console\ExitCode;
 use yii\helpers\Console;
 
-use function array_keys;
 use function array_map;
 use function array_reduce;
 use function dirname;
@@ -167,11 +166,6 @@ final class DocCommentController extends Controller
                 ]),
         ]);
         $lines[] = '@license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT';
-        foreach (array_keys($authors) as $author) {
-            $lines[] = vsprintf('@author %s', [
-                $author,
-            ]);
-        }
 
         return "/**\n" .
             implode("\n", array_map(fn (string $line): string => " * {$line}", $lines)) .

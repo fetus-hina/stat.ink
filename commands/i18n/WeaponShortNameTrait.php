@@ -27,10 +27,7 @@ use function array_reduce;
 use function file_exists;
 use function file_put_contents;
 use function implode;
-use function in_array;
-use function natcasesort;
 use function sprintf;
-use function str_contains;
 use function str_replace;
 use function strcasecmp;
 use function strcmp;
@@ -218,9 +215,6 @@ trait WeaponShortNameTrait
                 : sprintf('%s-%s', $commitAt->format('Y'), $now->format('Y')),
         ]);
         $file[] = ' * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT';
-        foreach ($this->getContributors($path) as $contributor) {
-            $file[] = ' * @author ' . $contributor;
-        }
         $file[] = ' */';
         $file[] = '';
         $file[] = 'declare(strict_types=1);';
@@ -240,30 +234,5 @@ trait WeaponShortNameTrait
         );
 
         return true;
-    }
-
-    protected function getContributors(string $path): array
-    {
-        $map = [
-            '/en/' => [
-                'clovervidia <clovervidia@gmail.com>',
-            ],
-            '/en-GB/' => [
-                'clovervidia <clovervidia@gmail.com>',
-            ],
-        ];
-
-        $list = $this->getGitContributors($path);
-        foreach ($map as $locale => $authors) {
-            if (str_contains($path, $locale)) {
-                foreach ($authors as $author) {
-                    if (!in_array($author, $list, true)) {
-                        $list[] = $author;
-                    }
-                }
-            }
-        }
-        natcasesort($list);
-        return $list;
     }
 }
