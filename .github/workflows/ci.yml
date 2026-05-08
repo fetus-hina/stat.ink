@@ -4,6 +4,7 @@ name: CI
   - pull_request
 env:
   UTILITY_PHP_VERSION: '8.4'
+  NODE_VERSION: '24'
 jobs:
   ciDoesNotSkip:
     name: 'Tag Check: `[ci skip]`'
@@ -175,10 +176,10 @@ jobs:
           key: "npm-2-${{ hashFiles('package-lock.json') }}"
           restore-keys: npm-2-
       -
-        name: 'Use node.js 24 LTS'
+        name: 'Use node.js ${{ env.NODE_VERSION }}'
         uses: actions/setup-node@v6
         with:
-          node-version: '24'
+          node-version: '${{ env.NODE_VERSION }}'
       -
         name: 'Install NPM packages'
         run: 'npm clean-install'
@@ -199,10 +200,10 @@ jobs:
             ~/.npm
           key: "npm-2-${{ hashFiles('package-lock.json') }}"
       -
-        name: 'Use node.js 24 LTS'
+        name: 'Use node.js ${{ env.NODE_VERSION }}'
         uses: actions/setup-node@v6
         with:
-          node-version: '24'
+          node-version: '${{ env.NODE_VERSION }}'
       -
         name: 'Run `eslint` (neostandard)'
         run: 'npx eslint "resources/**/*.[ej]s"'
@@ -223,10 +224,10 @@ jobs:
             ~/.npm
           key: "npm-2-${{ hashFiles('package-lock.json') }}"
       -
-        name: 'Use node.js 24 LTS'
+        name: 'Use node.js ${{ env.NODE_VERSION }}'
         uses: actions/setup-node@v6
         with:
-          node-version: '24'
+          node-version: '${{ env.NODE_VERSION }}'
       -
         name: 'Run StyleLint'
         run: 'npx stylelint "resources/**/*.scss" "resources/**/*.css"'
@@ -296,10 +297,10 @@ jobs:
           php-version: '${{ env.UTILITY_PHP_VERSION }}'
           extensions: :php-psr
       -
-        name: 'Use node.js 24 LTS'
+        name: 'Use node.js ${{ env.NODE_VERSION }}'
         uses: actions/setup-node@v6
         with:
-          node-version: '24'
+          node-version: '${{ env.NODE_VERSION }}'
       -
         name: 'Basic setup the app'
         run: 'make init-no-resource'
@@ -342,10 +343,10 @@ jobs:
           php-version: '${{ env.UTILITY_PHP_VERSION }}'
           extensions: :php-psr
       -
-        name: 'Use node.js'
+        name: 'Use node.js ${{ env.NODE_VERSION }}'
         uses: actions/setup-node@v6
         with:
-          node-version: '24'
+          node-version: '${{ env.NODE_VERSION }}'
       -
         name: 'Basic setup the app'
         run: 'make init-no-resource'
@@ -425,10 +426,10 @@ jobs:
           php-version: '${{ matrix.php.version }}'
           extensions: :php-psr
       -
-        name: 'Use node.js 24 LTS'
+        name: 'Use node.js ${{ env.NODE_VERSION }}'
         uses: actions/setup-node@v6
         with:
-          node-version: '24'
+          node-version: '${{ env.NODE_VERSION }}'
       -
         name: 'Basic setup the app'
         run: 'make init'
