@@ -17,6 +17,7 @@ use app\components\widgets\Icon;
 use app\models\Lobby3;
 use app\models\Map3;
 use app\models\Rule3;
+use app\models\UserWeapon3;
 use app\models\Weapon3;
 use app\models\WeaponType3;
 use yii\helpers\ArrayHelper;
@@ -30,6 +31,7 @@ use function implode;
 use function sprintf;
 
 use const SORT_ASC;
+use const SORT_DESC;
 use const SORT_LOCALE_STRING;
 use const SORT_NATURAL;
 
@@ -288,6 +290,12 @@ final class CreateBattleWidget extends Dialog
         );
 
         $result = ['' => Yii::t('app', 'Unknown')];
+
+        $favorites = $this->makeFavoriteWeapons();
+        if ($favorites !== []) {
+            $result[Yii::t('app', 'Favorite Weapons')] = $favorites;
+        }
+
         foreach (WeaponType3::find()->orderBy(['rank' => SORT_ASC])->all() as $type) {
             $typeWeapons = ArrayHelper::asort(
                 ArrayHelper::getValue($weapons, $type->id, []),
@@ -299,6 +307,37 @@ final class CreateBattleWidget extends Dialog
         }
 
         return $result;
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    private function makeFavoriteWeapons(): array
+    {
+        $user = Yii::$app->user->identity;
+        if (!$user) {
+            return [];
+        }
+
+        $list = UserWeapon3::find()
+            ->with(['weapon'])
+            ->andWhere(['{{%user_weapon3}}.[[user_id]]' => $user->id])
+            ->orderBy([
+                'battles' => SORT_DESC,
+                'last_used_at' => SORT_DESC,
+                'weapon_id' => SORT_DESC,
+            ])
+            ->limit(10)
+            ->all();
+        if (!$list) {
+            return [];
+        }
+
+        return ArrayHelper::map(
+            $list,
+            'weapon.key',
+            fn (UserWeapon3 $model): string => Yii::t('app-weapon3', $model->weapon->name),
+        );
     }
 
     private function renderResultButtonGroup(): string
