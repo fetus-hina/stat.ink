@@ -12,7 +12,7 @@ namespace app\commands\i18n;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
-use app\components\helpers\GitAuthorHelper;
+use app\components\helpers\GitHelper;
 use app\models\Language;
 use app\models\SalmonMainWeapon2;
 use app\models\SalmonWeapon3;
@@ -203,7 +203,7 @@ trait WeaponShortNameTrait
         $esc = fn (string $text): string => str_replace(['\\', "'"], ['\\\\', "\\'"], $text);
 
         $now = new DateTimeImmutable('now', new DateTimeZone(Yii::$app->timeZone));
-        $commitAt = GitAuthorHelper::getEarliestCommitTimestamp($path)->setTimezone($now->getTimezone());
+        $commitAt = GitHelper::getEarliestCommitTimestamp($path)->setTimezone($now->getTimezone());
 
         $file = [];
         $file[] = '<?php';

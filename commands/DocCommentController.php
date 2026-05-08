@@ -13,7 +13,7 @@ use DirectoryIterator;
 use SebastianBergmann\Diff\Differ;
 use SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
 use Yii;
-use app\components\helpers\GitAuthorHelper;
+use app\components\helpers\GitHelper;
 use app\components\helpers\TypeHelper;
 use yii\console\Controller;
 use yii\console\ExitCode;
@@ -145,7 +145,7 @@ final class DocCommentController extends Controller
     {
         $lines = [
             vsprintf('@copyright Copyright (C) %s AIZAWA Hina', [
-                GitAuthorHelper::getCopyrightYear($path),
+                GitHelper::getCopyrightYear($path),
             ]),
             '@license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT',
         ];

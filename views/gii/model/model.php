@@ -5,7 +5,7 @@
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
-use app\components\helpers\GitAuthorHelper;
+use app\components\helpers\GitHelper;
 use yii\db\TableSchema;
 use yii\gii\generators\model\Generator;
 use yii\web\View;
@@ -28,7 +28,7 @@ echo "<?php\n";
 echo "\n";
 ?>
 /**
- * @copyright Copyright (C) <?= GitAuthorHelper::getCopyrightYear($path) ?> AIZAWA Hina
+ * @copyright Copyright (C) <?= GitHelper::getCopyrightYear($path) ?> AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 

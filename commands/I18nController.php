@@ -12,7 +12,7 @@ use DateTimeZone;
 use DirectoryIterator;
 use Iterator;
 use Yii;
-use app\components\helpers\GitAuthorHelper;
+use app\components\helpers\GitHelper;
 use app\models\Language;
 use yii\console\Controller;
 
@@ -148,7 +148,7 @@ final class I18nController extends Controller
         $esc = fn (string $text): string => str_replace(['\\', "'"], ['\\\\', "\\'"], $text);
 
         $now = new DateTimeImmutable('now', new DateTimeZone(Yii::$app->timeZone));
-        $commitAt = GitAuthorHelper::getEarliestCommitTimestamp($outPath)->setTimezone($now->getTimezone());
+        $commitAt = GitHelper::getEarliestCommitTimestamp($outPath)->setTimezone($now->getTimezone());
 
         $file = [];
         $file[] = '<?php';

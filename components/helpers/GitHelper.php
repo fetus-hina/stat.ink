@@ -22,7 +22,7 @@ use function time;
 use function trim;
 use function vsprintf;
 
-final class GitAuthorHelper
+final class GitHelper
 {
     public static function getCopyrightYear(string $path): string
     {
