@@ -20,6 +20,7 @@ use yii\web\Controller;
 
 use function array_map;
 use function assert;
+use function strnatcasecmp;
 use function usort;
 
 class UsersAction extends Action
@@ -68,7 +69,7 @@ class UsersAction extends Action
             fn ($a) => $a['agent'],
             $query->createCommand()->queryAll(),
         );
-        usort($list, 'strnatcasecmp');
+        usort($list, strnatcasecmp(...));
         return $list;
     }
 
@@ -78,7 +79,7 @@ class UsersAction extends Action
             fn (array $a): string => $a['name'] ?? '',
             AgentGroup::find()->asArray()->all(),
         );
-        usort($list, 'strnatcasecmp');
+        usort($list, strnatcasecmp(...));
         return $list;
     }
 }

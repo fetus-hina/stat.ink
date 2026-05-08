@@ -15,7 +15,7 @@ class m180713_193549_off_the_hook_gear extends Migration
     public function safeUp()
     {
         foreach ($this->getGears() as $gearData) {
-            call_user_func_array([$this, 'upGear2'], $gearData);
+            $this->upGear2(...$gearData);
         }
     }
 

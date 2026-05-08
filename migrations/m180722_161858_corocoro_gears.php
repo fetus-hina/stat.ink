@@ -15,7 +15,7 @@ class m180722_161858_corocoro_gears extends Migration
     public function safeUp()
     {
         foreach ($this->getGears() as $gearData) {
-            call_user_func_array([$this, 'upGear2'], $gearData);
+            $this->upGear2(...$gearData);
         }
     }
 

@@ -15,7 +15,7 @@ class m180731_071341_weapon_201808 extends Migration
     public function safeUp()
     {
         foreach ($this->getWeapons() as $weaponData) {
-            call_user_func_array([$this, 'upWeapon'], $weaponData);
+            $this->upWeapon(...$weaponData);
         }
     }
 
