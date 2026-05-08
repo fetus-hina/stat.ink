@@ -47,7 +47,6 @@ $this->registerJs(sprintf(
             'unsupported' => Yii::t('app-passkey', 'Your browser does not support passkeys.'),
             'registerFailed' => Yii::t('app-passkey', 'Failed to register passkey.'),
             'confirmDelete' => Yii::t('app-passkey', 'Are you sure you want to delete this passkey?'),
-            'nicknameRequired' => Yii::t('app-passkey', 'Please enter a nickname.'),
         ],
     ]),
 ), View::POS_HEAD);
@@ -142,13 +141,22 @@ $transportsOf = function (UserPasskey $p): array {
   <hr>
   <h2><?= Html::encode(Yii::t('app-passkey', 'Register New Passkey')) ?></h2>
   <div class="form-group">
-    <label for="passkey-nickname"><?= Html::encode(Yii::t('app-passkey', 'Nickname')) ?></label>
+    <label for="passkey-nickname">
+      <?= Html::encode(Yii::t('app-passkey', 'Nickname')) ?>
+      <small class="text-muted">(<?= Html::encode(Yii::t('app-passkey', 'optional')) ?>)</small>
+    </label>
     <?= Html::textInput('nickname', '', [
       'id' => 'passkey-nickname',
       'class' => 'form-control',
       'maxlength' => 64,
       'placeholder' => Yii::t('app-passkey', 'e.g., "iPhone Face ID"'),
     ]) . "\n" ?>
+    <p class="help-block">
+      <?= Html::encode(Yii::t(
+        'app-passkey',
+        'If left blank, a default name will be set automatically.',
+      )) . "\n" ?>
+    </p>
   </div>
   <?= Html::tag(
     'button',

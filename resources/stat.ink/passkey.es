@@ -68,10 +68,6 @@
 
   const register = async function () {
     const nickname = ($('#passkey-nickname').val() || '').trim();
-    if (nickname === '') {
-      showMessage('error', config.messages.nicknameRequired);
-      return;
-    }
 
     const $button = $('#passkey-register-button');
     $button.prop('disabled', true);

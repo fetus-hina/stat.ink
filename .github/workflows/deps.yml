@@ -4,6 +4,13 @@ name: 'Dependencies Updator'
     -
       cron: '11 23 * * *'
   workflow_dispatch:
+env:
+  PHP_VERSION: '8.4'
+  NODE_VERSION: '24'
+  LLM_API_KEY: ${{ secrets.SAKURA_AI_ENGINE_API_KEY }}
+  LLM_API_ENDPOINT: 'https://api.ai.sakura.ad.jp/v1/chat/completions'
+  LLM_MODEL: 'Qwen3-Coder-480B-A35B-Instruct-FP8'
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 jobs:
   update:
     name: 'Update dependencies'
@@ -15,15 +22,15 @@ jobs:
         with:
           fetch-depth: 0
       -
-        name: 'Set up PHP 8.4'
+        name: 'Set up PHP'
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.4'
+          php-version: ${{ env.PHP_VERSION }}
       -
-        name: 'Set up Node 24'
+        name: 'Set up Node'
         uses: actions/setup-node@v6
         with:
-          node-version: '24'
+          node-version: ${{ env.NODE_VERSION }}
       -
         name: 'Install dependencies'
         run: |
@@ -77,13 +84,27 @@ jobs:
             echo "changed=1" >> $GITHUB_ENV
           fi
       -
+        name: 'Generate PR body'
+        if: "${{ env.changed == '1' }}"
+        run: |
+          set +e
+          body="$(./yii deps/summarize-changes)"
+          rc=$?
+          set -e
+          if [ "$rc" -ne 0 ] || [ -z "$body" ]; then
+            echo "[warn] summarize-changes failed (rc=$rc) or returned empty; using fallback body"
+            body='This is an automated pull-request'
+          fi
+          printf '%s\n' "$body" > "$RUNNER_TEMP/pr_body.md"
+          echo "PR_BODY_PATH=$RUNNER_TEMP/pr_body.md" >> "$GITHUB_ENV"
+      -
         name: 'Create Pull Request'
         if: "${{ env.changed == '1' }}"
         uses: peter-evans/create-pull-request@v8
         with:
           assignees: fetus-hina
           author: 'AIZAWA Hina <hina@fetus.jp>'
-          body: 'This is an automated pull-request'
+          body-path: ${{ env.PR_BODY_PATH }}
           branch: autoupdate-depends
           commit-message: 'Update dependencies'
           delete-branch: true
