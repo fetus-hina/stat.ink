@@ -203,7 +203,7 @@ trait WeaponShortNameTrait
         $esc = fn (string $text): string => str_replace(['\\', "'"], ['\\\\', "\\'"], $text);
 
         $now = new DateTimeImmutable('now', new DateTimeZone(Yii::$app->timeZone));
-        $commitAt = $now->setTimestamp(GitAuthorHelper::getEarliestCommitTimestamp($path));
+        $commitAt = GitAuthorHelper::getEarliestCommitTimestamp($path)->setTimezone($now->getTimezone());
 
         $file = [];
         $file[] = '<?php';

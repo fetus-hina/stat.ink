@@ -148,7 +148,7 @@ final class I18nController extends Controller
         $esc = fn (string $text): string => str_replace(['\\', "'"], ['\\\\', "\\'"], $text);
 
         $now = new DateTimeImmutable('now', new DateTimeZone(Yii::$app->timeZone));
-        $commitAt = $now->setTimestamp(GitAuthorHelper::getEarliestCommitTimestamp($outPath));
+        $commitAt = GitAuthorHelper::getEarliestCommitTimestamp($outPath)->setTimezone($now->getTimezone());
 
         $file = [];
         $file[] = '<?php';

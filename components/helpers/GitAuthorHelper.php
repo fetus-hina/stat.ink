@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\components\helpers;
 
+use DateTimeImmutable;
 use Exception;
 use Yii;
 use yii\console\ExitCode;
@@ -25,14 +26,14 @@ final class GitAuthorHelper
 {
     public static function getCopyrightYear(string $path): string
     {
-        $minCommitDate = self::getEarliestCommitTimestamp($path);
+        $earliestCommit = self::getEarliestCommitTimestamp($path);
 
         $f = Yii::createObject([
             'class' => Formatter::class,
             'timeZone' => 'Asia/Tokyo',
         ]);
 
-        $startYear = $f->asDate($minCommitDate, 'yyyy');
+        $startYear = $f->asDate($earliestCommit, 'yyyy');
         $currentYear = $f->asDate(time(), 'yyyy');
 
         return $startYear === $currentYear
@@ -40,7 +41,7 @@ final class GitAuthorHelper
             : vsprintf('%s-%s', [$startYear, $currentYear]);
     }
 
-    public static function getEarliestCommitTimestamp(string $path): int
+    public static function getEarliestCommitTimestamp(string $path): DateTimeImmutable
     {
         $cmdline = vsprintf('/usr/bin/env git log --pretty=%s -- %s', [
             escapeshellarg('%at%n%ct'),
@@ -60,6 +61,6 @@ final class GitAuthorHelper
             }
             $earliest = min($earliest, (int)$line);
         }
-        return $earliest;
+        return new DateTimeImmutable('@' . $earliest);
     }
 }
