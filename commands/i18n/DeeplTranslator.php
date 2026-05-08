@@ -173,7 +173,6 @@ class DeeplTranslator extends Component
             vfprintf($fh, " * @license %s MIT\n", [
                 'https://github.com/fetus-hina/stat.ink/blob/master/LICENSE',
             ]);
-            fwrite($fh, " * @author AIZAWA Hina <hina@fetus.jp>\n");
             fwrite($fh, " */\n\n");
             fwrite($fh, "declare(strict_types=1);\n\n");
             fwrite($fh, "return [\n");
