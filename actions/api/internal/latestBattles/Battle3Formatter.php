@@ -56,12 +56,7 @@ trait Battle3Formatter
             );
         }
 
-        $rule = $model->rule;
-        if (
-            $rule &&
-            $rule->key !== 'tricolor' &&
-            ArrayHelper::getValue(Yii::$app->params, 'useS3ImgGen')
-        ) {
+        if (ArrayHelper::getValue(Yii::$app->params, 'useS3ImgGen')) {
             return vsprintf('https://s3-img-gen.stats.ink/results/%s/%s.jpg', [
                 rawurlencode(Yii::$app->language),
                 rawurlencode($model->uuid),
@@ -87,13 +82,10 @@ trait Battle3Formatter
         }
 
         if (ArrayHelper::getValue(Yii::$app->params, 'useS3ImgGen')) {
-            $rule = $model->rule;
-            if ($rule && $rule->key !== 'tricolor') {
-                return vsprintf('https://s3-img-gen.stats.ink/results/thumb-<w>x<h>/%s/%s.jpg', [
-                    rawurlencode(Yii::$app->language),
-                    rawurlencode($model->uuid),
-                ]);
-            }
+            return vsprintf('https://s3-img-gen.stats.ink/results/thumb-<w>x<h>/%s/%s.jpg', [
+                rawurlencode(Yii::$app->language),
+                rawurlencode($model->uuid),
+            ]);
         }
 
         return null;
