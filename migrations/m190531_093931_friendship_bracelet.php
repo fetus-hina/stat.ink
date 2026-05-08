@@ -17,7 +17,7 @@ class m190531_093931_friendship_bracelet extends Migration
     public function safeUp()
     {
         foreach ($this->getGears() as $gearData) {
-            call_user_func_array([$this, 'upGear2'], $gearData);
+            $this->upGear2(...$gearData);
         }
     }
 

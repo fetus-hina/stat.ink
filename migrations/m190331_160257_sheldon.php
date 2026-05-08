@@ -17,7 +17,7 @@ class m190331_160257_sheldon extends Migration
     public function safeUp()
     {
         foreach ($this->getWeapons() as $weaponData) {
-            call_user_func_array([$this, 'upWeapon'], $weaponData);
+            $this->upWeapon(...$weaponData);
         }
     }
 

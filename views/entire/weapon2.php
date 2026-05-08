@@ -116,7 +116,7 @@ $this->registerCss(implode('', [
                   return Yii::t('app-weapon2', $weapon->name);
                 }
               );
-              uasort($weapons, 'strnatcasecmp');
+              uasort($weapons, strnatcasecmp(...));
               return $weapons;
             })($type->weapons);
           }

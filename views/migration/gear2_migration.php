@@ -38,7 +38,7 @@ $brand = implode(', ', array_map(
     ],
     'upCode' => implode("\n", [
         "foreach (\$this->getGears() as \$gearData) {",
-        "    call_user_func_array([\$this, 'upGear2'], \$gearData);",
+        "    \$this->upGear2(...\$gearData);",
         "}",
     ]),
     'downCode' => implode("\n", [

@@ -64,7 +64,7 @@ class MapAction extends BaseAction
         foreach (Map::find()->asArray()->all() as $_) {
             $maps[$_['key']] = Yii::t('app-map', $_['name']);
         }
-        uasort($maps, 'strnatcasecmp');
+        uasort($maps, strnatcasecmp(...));
 
         return $this->controller->render('map', [
             'map' => $this->map,

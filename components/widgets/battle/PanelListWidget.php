@@ -12,7 +12,6 @@ use app\components\widgets\Icon;
 use yii\base\Widget;
 use yii\bootstrap\Html;
 
-use function call_user_func;
 use function implode;
 use function preg_replace_callback;
 
@@ -74,7 +73,7 @@ class PanelListWidget extends Widget
     {
         $ret = [];
         foreach ($this->models as $model) {
-            $tmp = call_user_func([$this->itemClass, 'widget'], ['model' => $model]);
+            $tmp = $this->itemClass::widget(['model' => $model]);
             if ($tmp != '') {
                 $ret[] = $tmp;
             }

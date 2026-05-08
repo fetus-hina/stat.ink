@@ -17,11 +17,11 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 use function array_merge;
-use function call_user_func_array;
 use function implode;
 use function setlocale;
 use function sprintf;
 use function str_replace;
+use function strnatcasecmp;
 use function uksort;
 
 use const LC_COLLATE;
@@ -64,7 +64,7 @@ class I18n
     public static function createTranslateTableCode(string $filePath, array $data): string
     {
         $localeHandler = static::switchSystemLocale(LC_COLLATE, 'C');
-        uksort($data, 'strnatcasecmp');
+        uksort($data, strnatcasecmp(...));
         unset($localeHandler);
 
         // The author lives in Japan!
@@ -103,7 +103,7 @@ class I18n
         return new Resource(
             [$category, $oldLocale],
             function (array $oldData): void {
-                call_user_func_array('setlocale', $oldData);
+                setlocale(...$oldData);
             },
         );
     }

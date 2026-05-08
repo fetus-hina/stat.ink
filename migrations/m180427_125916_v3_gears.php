@@ -18,7 +18,7 @@ class m180427_125916_v3_gears extends Migration
     public function safeUp()
     {
         foreach ($this->upEach() as $item) {
-            call_user_func_array([$this, 'upGear2'], $item);
+            $this->upGear2(...$item);
         }
     }
 

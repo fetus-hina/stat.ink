@@ -19,6 +19,7 @@ use yii\web\ViewAction as BaseAction;
 
 use function array_map;
 use function array_reverse;
+use function strnatcasecmp;
 use function uasort;
 
 class MapDetailAction extends BaseAction
@@ -62,7 +63,7 @@ class MapDetailAction extends BaseAction
         foreach (Map::find()->asArray()->all() as $_) {
             $ret[$_['key']] = Yii::t('app-map', $_['name']);
         }
-        uasort($ret, 'strnatcasecmp');
+        uasort($ret, strnatcasecmp(...));
         return $ret;
     }
 

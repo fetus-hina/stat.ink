@@ -16,7 +16,6 @@ use yii\helpers\Html;
 
 use function array_map;
 use function basename;
-use function call_user_func;
 use function count;
 use function hash;
 use function implode;
@@ -36,7 +35,7 @@ trait Util
         $className = $className ?? static::class;
         return [
             '$ref' => vsprintf('#/components/schemas/%s', [
-                call_user_func([$className, 'oapiRefName']),
+                $className::oapiRefName(),
             ]),
         ];
     }
