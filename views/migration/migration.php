@@ -3,7 +3,6 @@
 /**
  * @copyright Copyright (C) 2017-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 declare(strict_types=1);
@@ -62,7 +61,6 @@ echo "\n";
 echo "/**\n";
 echo " * @copyright Copyright (C) 2015-" . gmdate('Y', time() + 9 * 3600) . " AIZAWA Hina\n";
 echo " * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT\n";
-echo " * @author AIZAWA Hina <hina@fetus.jp>\n";
 echo " */\n";
 echo "\n";
 echo "declare(strict_types=1);\n";

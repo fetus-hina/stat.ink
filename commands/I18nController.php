@@ -3,7 +3,6 @@
 /**
  * @copyright Copyright (C) 2017-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 namespace app\commands;
@@ -13,21 +12,17 @@ use DateTimeZone;
 use DirectoryIterator;
 use Iterator;
 use Yii;
-use app\components\helpers\GitAuthorHelper;
+use app\components\helpers\GitHelper;
 use app\models\Language;
 use yii\console\Controller;
 
 use function array_diff;
 use function array_keys;
-use function array_reduce;
 use function count;
 use function dirname;
-use function escapeshellarg;
-use function exec;
 use function file_exists;
 use function file_put_contents;
 use function implode;
-use function min;
 use function mkdir;
 use function passthru;
 use function preg_match;
@@ -36,7 +31,6 @@ use function str_replace;
 use function strcmp;
 use function strnatcasecmp;
 use function strtolower;
-use function time;
 use function uksort;
 use function vsprintf;
 
@@ -154,7 +148,7 @@ final class I18nController extends Controller
         $esc = fn (string $text): string => str_replace(['\\', "'"], ['\\\\', "\\'"], $text);
 
         $now = new DateTimeImmutable('now', new DateTimeZone(Yii::$app->timeZone));
-        $commitAt = $now->setTimestamp($this->getGitFirstCommitTime($outPath));
+        $commitAt = GitHelper::getEarliestCommitTimestamp($outPath)->setTimezone($now->getTimezone());
 
         $file = [];
         $file[] = '<?php';
@@ -166,9 +160,6 @@ final class I18nController extends Controller
                 : vsprintf('%s-%s', [$commitAt->format('Y'), $now->format('Y')]),
         ]);
         $file[] = ' * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT';
-        foreach ($this->getGitContributors($outPath) as $contributor) {
-            $file[] = ' * @author ' . $contributor;
-        }
         $file[] = ' */';
         $file[] = '';
         $file[] = 'declare(strict_types=1);';
@@ -200,37 +191,6 @@ final class I18nController extends Controller
         passthru($cmdline, $status2);
 
         return $status1 | $status2;
-    }
-
-    private function getGitFirstCommitTime(string $path): int
-    {
-        $cmdline = vsprintf('/usr/bin/env git log --pretty=%s -- %s', [
-            escapeshellarg('%at%n%ct'),
-            escapeshellarg($path),
-        ]);
-        $status = null;
-        $lines = [];
-        @exec($cmdline, $lines, $status);
-        if ($status !== 0) {
-            $this->stderr("Could not get commits\n");
-            exit(1);
-        }
-
-        return array_reduce(
-            $lines,
-            fn (int $carry, string $line): int => min($carry, (int)$line),
-            time(),
-        );
-    }
-
-    /**
-     * @return string[]
-     */
-    private function getGitContributors(string $path): array
-    {
-        return array_keys(
-            GitAuthorHelper::getAuthors($path),
-        );
     }
 
     public function actionMachineTranslation(): int

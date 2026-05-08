@@ -3,9 +3,6 @@
 /**
  * @copyright Copyright (C) 2019-2025 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@fetus.jp>
- * @author codl <codl@codl.fr>
- * @author ultrasonicytb <ultrasonic2408@gmail.com>
  */
 
 declare(strict_types=1);

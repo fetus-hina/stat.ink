@@ -3,7 +3,6 @@
 /**
  * @copyright Copyright (C) 2018-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 declare(strict_types=1);
@@ -13,6 +12,7 @@ namespace app\commands\i18n;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
+use app\components\helpers\GitHelper;
 use app\models\Language;
 use app\models\SalmonMainWeapon2;
 use app\models\SalmonWeapon3;
@@ -27,10 +27,7 @@ use function array_reduce;
 use function file_exists;
 use function file_put_contents;
 use function implode;
-use function in_array;
-use function natcasesort;
 use function sprintf;
-use function str_contains;
 use function str_replace;
 use function strcasecmp;
 use function strcmp;
@@ -206,7 +203,7 @@ trait WeaponShortNameTrait
         $esc = fn (string $text): string => str_replace(['\\', "'"], ['\\\\', "\\'"], $text);
 
         $now = new DateTimeImmutable('now', new DateTimeZone(Yii::$app->timeZone));
-        $commitAt = $now->setTimestamp($this->getGitFirstCommitTime($path));
+        $commitAt = GitHelper::getEarliestCommitTimestamp($path)->setTimezone($now->getTimezone());
 
         $file = [];
         $file[] = '<?php';
@@ -218,9 +215,6 @@ trait WeaponShortNameTrait
                 : sprintf('%s-%s', $commitAt->format('Y'), $now->format('Y')),
         ]);
         $file[] = ' * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT';
-        foreach ($this->getContributors($path) as $contributor) {
-            $file[] = ' * @author ' . $contributor;
-        }
         $file[] = ' */';
         $file[] = '';
         $file[] = 'declare(strict_types=1);';
@@ -240,30 +234,5 @@ trait WeaponShortNameTrait
         );
 
         return true;
-    }
-
-    protected function getContributors(string $path): array
-    {
-        $map = [
-            '/en/' => [
-                'clovervidia <clovervidia@gmail.com>',
-            ],
-            '/en-GB/' => [
-                'clovervidia <clovervidia@gmail.com>',
-            ],
-        ];
-
-        $list = $this->getGitContributors($path);
-        foreach ($map as $locale => $authors) {
-            if (str_contains($path, $locale)) {
-                foreach ($authors as $author) {
-                    if (!in_array($author, $list, true)) {
-                        $list[] = $author;
-                    }
-                }
-            }
-        }
-        natcasesort($list);
-        return $list;
     }
 }

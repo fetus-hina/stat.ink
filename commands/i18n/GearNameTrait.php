@@ -3,7 +3,6 @@
 /**
  * @copyright Copyright (C) 2018-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 namespace app\commands\i18n;
@@ -69,9 +68,6 @@ trait GearNameTrait
         $file[] = '/**';
         $file[] = ' * @copyright Copyright (C) 2015-' . gmdate('Y', time() + 9 * 3600) . ' AIZAWA Hina';
         $file[] = ' * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT';
-        foreach ($this->getContributors($path) as $contributor) {
-            $file[] = ' * @author ' . $contributor;
-        }
         $file[] = ' */';
         $file[] = '';
         $file[] = 'declare(strict_types=1);';
