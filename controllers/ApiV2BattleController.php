@@ -8,6 +8,7 @@
 namespace app\controllers;
 
 use Yii;
+use app\actions\api\v2\battle\CreateAction;
 use app\components\filters\auth\RequestBodyAuth;
 use app\models\Battle2;
 use app\models\User;
@@ -81,10 +82,9 @@ class ApiV2BattleController extends Controller
 
     public function actions()
     {
-        $prefix = 'app\actions\api\v2\battle';
         return [
             'create' => [
-                'class' => $prefix . '\CreateAction',
+                'class' => CreateAction::class,
             ],
         ];
     }

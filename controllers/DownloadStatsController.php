@@ -7,6 +7,8 @@
 
 namespace app\controllers;
 
+use app\actions\downloadStats\IndexAction;
+use app\actions\downloadStats\WeaponRuleMapAction;
 use app\components\web\Controller;
 use yii\filters\VerbFilter;
 
@@ -28,10 +30,9 @@ class DownloadStatsController extends Controller
 
     public function actions()
     {
-        $prefix = 'app\actions\downloadStats';
         return [
-            'index' => [ 'class' => $prefix . '\IndexAction' ],
-            'weapon-rule-map' => [ 'class' => $prefix . '\WeaponRuleMapAction' ],
+            'index' => [ 'class' => IndexAction::class ],
+            'weapon-rule-map' => [ 'class' => WeaponRuleMapAction::class ],
         ];
     }
 }

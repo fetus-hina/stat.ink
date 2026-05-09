@@ -7,6 +7,7 @@
 
 namespace app\controllers;
 
+use app\actions\showUser\ProfileAction;
 use app\components\web\Controller;
 use yii\filters\VerbFilter;
 
@@ -28,9 +29,8 @@ class ShowUserController extends Controller
 
     public function actions()
     {
-        $prefix = 'app\actions\showUser';
         return [
-            'profile' => ['class' => $prefix . '\ProfileAction'],
+            'profile' => ['class' => ProfileAction::class],
         ];
     }
 }
