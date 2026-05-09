@@ -8,6 +8,14 @@
 namespace app\controllers;
 
 use Yii;
+use app\actions\api\v1\BattleAction;
+use app\actions\api\v1\DeathReasonAction;
+use app\actions\api\v1\GearAction;
+use app\actions\api\v1\MapAction;
+use app\actions\api\v1\RuleAction;
+use app\actions\api\v1\UserAction;
+use app\actions\api\v1\WeaponAction;
+use app\actions\api\v1\WeaponTrendsAction;
 use app\components\web\Controller;
 use yii\filters\VerbFilter;
 
@@ -42,16 +50,15 @@ class ApiV1Controller extends Controller
 
     public function actions()
     {
-        $prefix = 'app\actions\api\v1';
         return [
-            'battle' => [ 'class' => $prefix . '\BattleAction' ],
-            'death-reason' => [ 'class' => $prefix . '\DeathReasonAction' ],
-            'gear' => [ 'class' => $prefix . '\GearAction' ],
-            'map' => [ 'class' => $prefix . '\MapAction' ],
-            'rule' => [ 'class' => $prefix . '\RuleAction' ],
-            'user' => [ 'class' => $prefix . '\UserAction' ],
-            'weapon' => [ 'class' => $prefix . '\WeaponAction' ],
-            'weapon-trends' => [ 'class' => $prefix . '\WeaponTrendsAction' ],
+            'battle' => [ 'class' => BattleAction::class ],
+            'death-reason' => [ 'class' => DeathReasonAction::class ],
+            'gear' => [ 'class' => GearAction::class ],
+            'map' => [ 'class' => MapAction::class ],
+            'rule' => [ 'class' => RuleAction::class ],
+            'user' => [ 'class' => UserAction::class ],
+            'weapon' => [ 'class' => WeaponAction::class ],
+            'weapon-trends' => [ 'class' => WeaponTrendsAction::class ],
         ];
     }
 }

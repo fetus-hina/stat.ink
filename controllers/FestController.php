@@ -7,6 +7,7 @@
 
 namespace app\controllers;
 
+use app\actions\fest\ViewAction;
 use app\components\web\Controller;
 use yii\filters\VerbFilter;
 
@@ -28,9 +29,8 @@ class FestController extends Controller
 
     public function actions()
     {
-        $prefix = 'app\actions\fest';
         return [
-            'view' => [ 'class' => $prefix . '\ViewAction' ],
+            'view' => [ 'class' => ViewAction::class ],
         ];
     }
 }

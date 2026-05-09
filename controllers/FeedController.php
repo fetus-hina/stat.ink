@@ -7,6 +7,8 @@
 
 namespace app\controllers;
 
+use app\actions\feed\User2Action;
+use app\actions\feed\UserAction;
 use app\components\web\Controller;
 
 class FeedController extends Controller
@@ -26,10 +28,9 @@ class FeedController extends Controller
 
     public function actions()
     {
-        $prefix = 'app\actions\feed';
         return [
-            'user' => [ 'class' => $prefix . '\UserAction' ],
-            'user-v2' => [ 'class' => $prefix . '\User2Action' ],
+            'user' => [ 'class' => UserAction::class ],
+            'user-v2' => [ 'class' => User2Action::class ],
         ];
     }
 }
