@@ -14,8 +14,23 @@ use app\actions\site\SimpleAction;
 use app\actions\site\StartAction;
 use app\components\web\AssetPublishAction;
 use app\components\web\Controller;
+use jp3cki\yii2\datetimepicker\BootstrapDateTimePickerAsset;
+use jp3cki\yii2\flot\FlotAsset;
+use jp3cki\yii2\flot\FlotPieAsset;
+use jp3cki\yii2\flot\FlotResizeAsset;
+use jp3cki\yii2\flot\FlotStackAsset;
+use jp3cki\yii2\flot\FlotSymbolAsset;
+use jp3cki\yii2\flot\FlotTimeAsset;
+use jp3cki\yii2\zxcvbn\ZxcvbnAsset;
+use statink\yii2\anonymizer\AnonymizerAsset;
+use statink\yii2\sortableTable\SortableTableAsset;
+use statink\yii2\twitter\webintents\TwitterWebIntentsAsset;
+use yii\bootstrap\BootstrapAsset;
+use yii\bootstrap\BootstrapPluginAsset;
 use yii\filters\AccessControl;
 use yii\web\ErrorAction;
+use yii\web\JqueryAsset;
+use yii\web\YiiAsset;
 
 use function defined;
 use function implode;
@@ -47,23 +62,22 @@ class SiteController extends Controller
             ],
             'asset-publish' => [
                 'class' => AssetPublishAction::class,
-                //FIXME!!!!!!!!!!!!!!!!
                 'classes' => [
-                    'jp3cki\yii2\datetimepicker\BootstrapDateTimePickerAsset',
-                    'jp3cki\yii2\flot\FlotAsset',
-                    'jp3cki\yii2\flot\FlotPieAsset',
-                    'jp3cki\yii2\flot\FlotResizeAsset',
-                    'jp3cki\yii2\flot\FlotStackAsset',
-                    'jp3cki\yii2\flot\FlotSymbolAsset',
-                    'jp3cki\yii2\flot\FlotTimeAsset',
-                    'jp3cki\yii2\zxcvbn\ZxcvbnAsset',
-                    'statink\yii2\anonymizer\AnonymizerAsset',
-                    'statink\yii2\sortableTable\SortableTableAsset',
-                    'statink\yii2\twitter\webintents\TwitterWebIntentsAsset',
-                    'yii\bootstrap\BootstrapAsset',
-                    'yii\bootstrap\BootstrapPluginAsset',
-                    'yii\web\JqueryAsset',
-                    'yii\web\YiiAsset',
+                    AnonymizerAsset::class,
+                    BootstrapAsset::class,
+                    BootstrapDateTimePickerAsset::class,
+                    BootstrapPluginAsset::class,
+                    FlotAsset::class,
+                    FlotPieAsset::class,
+                    FlotResizeAsset::class,
+                    FlotStackAsset::class,
+                    FlotSymbolAsset::class,
+                    FlotTimeAsset::class,
+                    JqueryAsset::class,
+                    SortableTableAsset::class,
+                    TwitterWebIntentsAsset::class,
+                    YiiAsset::class,
+                    ZxcvbnAsset::class,
                 ],
             ],
             'index' => [
