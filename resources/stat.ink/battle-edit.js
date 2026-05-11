@@ -45,7 +45,7 @@
           if (!val.match(urlRegex) && val !== '') {
             return;
           }
-          $this.prop('diabled', true);
+          $this.prop('disabled', true);
           window.statinkFetch($displayGroup.attr('data-post'), {
             method: 'POST',
             responseType: 'json',
