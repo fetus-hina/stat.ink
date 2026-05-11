@@ -16,12 +16,23 @@ use yii\bootstrap\BootstrapPluginAsset;
 use yii\web\AssetBundle;
 use yii\web\JqueryAsset;
 
-class SalmonStatsHistoryAsset extends AssetBundle
+final class SalmonStatsHistoryAsset extends AssetBundle
 {
+    /**
+     * @var string
+     */
     public $sourcePath = '@app/resources/.compiled/stat.ink';
+
+    /**
+     * @var list<string>
+     */
     public $js = [
         'salmon-stats-history.js',
     ];
+
+    /**
+     * @var list<class-string<AssetBundle>>
+     */
     public $depends = [
         ApiFetchAsset::class,
         BootstrapAsset::class,

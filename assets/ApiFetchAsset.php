@@ -13,8 +13,14 @@ use yii\web\AssetBundle;
 
 final class ApiFetchAsset extends AssetBundle
 {
+    /**
+     * @var string
+     */
     public $sourcePath = '@app/resources/.compiled/stat.ink';
 
+    /**
+     * @var list<string>
+     */
     public $js = [
         'api-fetch.js',
     ];

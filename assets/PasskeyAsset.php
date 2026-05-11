@@ -13,12 +13,23 @@ use yii\web\AssetBundle;
 use yii\web\JqueryAsset;
 use yii\web\YiiAsset;
 
-class PasskeyAsset extends AssetBundle
+final class PasskeyAsset extends AssetBundle
 {
+    /**
+     * @var string
+     */
     public $sourcePath = '@app/resources/.compiled/stat.ink';
+
+    /**
+     * @var list<string>
+     */
     public $js = [
         'passkey.js',
     ];
+
+    /**
+     * @var list<class-string<AssetBundle>>
+     */
     public $depends = [
         ApiFetchAsset::class,
         JqueryAsset::class,
