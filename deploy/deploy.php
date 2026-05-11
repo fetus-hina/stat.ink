@@ -112,10 +112,17 @@ task('deploy:build', function (): void {
 });
 
 after('deploy:symlink', 'deploy:restart-queue-runner');
+after('deploy:symlink', 'deploy:reload-php-fpm');
 
 task('deploy:restart-queue-runner', function (): void {
     within('{{current_path}}/bin', function (): void {
         run('sudo ./restart-queue-runner.sh');
+    });
+});
+
+task('deploy:reload-php-fpm', function (): void {
+    within('{{release_or_current_path}}', function (): void {
+        run('sudo /usr/bin/systemctl reload php-fpm.service');
     });
 });
 
