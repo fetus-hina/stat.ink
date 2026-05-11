@@ -57,6 +57,11 @@ $jsonUrl = array_merge(
   </h1>
   <?= SnsWidget::widget([
     // 'tweetText' => $humanReadableSummary,
+    'feedUrl' => ['salmon-v3/feed',
+      'screen_name' => $user->screen_name,
+      'lang' => preg_replace('/@.+$/', '', (string)$lang),
+      'type' => 'rss',
+    ],
     'jsonUrl' => $jsonUrl,
   ]) . "\n" ?>
   <div class="row">

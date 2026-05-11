@@ -7,7 +7,9 @@
 
 namespace app\controllers;
 
+use Override;
 use app\actions\feed\User2Action;
+use app\actions\feed\User3Action;
 use app\actions\feed\UserAction;
 use app\components\web\Controller;
 
@@ -26,11 +28,13 @@ class FeedController extends Controller
         );
     }
 
+    #[Override]
     public function actions()
     {
         return [
             'user' => [ 'class' => UserAction::class ],
             'user-v2' => [ 'class' => User2Action::class ],
+            'user-v3' => [ 'class' => User3Action::class ],
         ];
     }
 }
