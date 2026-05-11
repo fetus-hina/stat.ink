@@ -23,6 +23,7 @@ class PasskeyLoginAsset extends AssetBundle
         'passkey-login.js',
     ];
     public $depends = [
+        ApiFetchAsset::class,
         FontAwesomeAsset::class,
         JqueryAsset::class,
         YiiAsset::class,

@@ -12,7 +12,6 @@ namespace app\assets;
 use yii\bootstrap\BootstrapAsset;
 use yii\web\AssetBundle;
 use yii\web\JqueryAsset;
-use yii\web\YiiAsset;
 
 class TimezoneDialogAsset extends AssetBundle
 {
@@ -21,9 +20,9 @@ class TimezoneDialogAsset extends AssetBundle
         'timezone-dialog.js',
     ];
     public $depends = [
+        ApiFetchAsset::class,
         BootstrapAsset::class,
         FontAwesomeAsset::class,
-        JqueryAsset::class, // ajax
-        YiiAsset::class, // csrf injection
+        JqueryAsset::class,
     ];
 }

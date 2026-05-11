@@ -8,6 +8,7 @@
 namespace app\assets;
 
 use yii\web\AssetBundle;
+use yii\web\JqueryAsset;
 
 class SlackAsset extends AssetBundle
 {
@@ -16,7 +17,8 @@ class SlackAsset extends AssetBundle
         'slack.js',
     ];
     public $depends = [
-        'yii\web\YiiAsset',
+        ApiFetchAsset::class,
         BootstrapToggleAsset::class,
+        JqueryAsset::class,
     ];
 }

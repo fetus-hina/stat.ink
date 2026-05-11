@@ -18,6 +18,7 @@ class ThemeAsset extends AssetBundle
         'theme.js',
     ];
     public $depends = [
+        ApiFetchAsset::class,
         AppAsset::class,
         BootstrapAsset::class,
         JqueryAsset::class,

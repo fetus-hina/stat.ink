@@ -23,6 +23,7 @@ class PasskeyLoginNavbarAsset extends AssetBundle
         'passkey-login-navbar.js',
     ];
     public $depends = [
+        ApiFetchAsset::class,
         FontAwesomeAsset::class,
         JqueryAsset::class,
         YiiAsset::class,

@@ -29,6 +29,7 @@ final class BattleEditAsset extends AssetBundle
      * @phpstan-var class-string<AssetBundle>[]
      */
     public $depends = [
+        ApiFetchAsset::class,
         YiiAsset::class,
     ];
 }

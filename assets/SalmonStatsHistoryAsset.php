@@ -23,6 +23,7 @@ class SalmonStatsHistoryAsset extends AssetBundle
         'salmon-stats-history.js',
     ];
     public $depends = [
+        ApiFetchAsset::class,
         BootstrapAsset::class,
         BootstrapPluginAsset::class,
         ColorSchemeAsset::class,

@@ -12,7 +12,6 @@ namespace app\assets;
 use yii\bootstrap\BootstrapAsset;
 use yii\web\AssetBundle;
 use yii\web\JqueryAsset;
-use yii\web\YiiAsset;
 
 class LanguageDialogAsset extends AssetBundle
 {
@@ -24,8 +23,8 @@ class LanguageDialogAsset extends AssetBundle
         'language-dialog.css',
     ];
     public $depends = [
+        ApiFetchAsset::class,
         BootstrapAsset::class,
-        JqueryAsset::class, // ajax
-        YiiAsset::class, // csrf injection
+        JqueryAsset::class,
     ];
 }

@@ -43,9 +43,9 @@
     if (config.csrfParam && config.csrfToken) {
       data[config.csrfParam] = config.csrfToken;
     }
-    return $.ajax(url, {
-      type: 'POST',
-      dataType: 'json',
+    return window.statinkFetch(url, {
+      method: 'POST',
+      responseType: 'json',
       data
     });
   };
@@ -118,9 +118,11 @@
       return;
     }
     $btn.prop('disabled', true);
-    postJson(config.urls.delete, { id }).always(function () {
-      window.location.reload();
-    });
+    postJson(config.urls.delete, { id })
+      .catch(function () {})
+      .finally(function () {
+        window.location.reload();
+      });
   };
 
   $(function () {

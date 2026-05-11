@@ -68,9 +68,9 @@
     if (config.csrfParam && config.csrfToken) {
       data[config.csrfParam] = config.csrfToken;
     }
-    return $.ajax(url, {
-      type: 'POST',
-      dataType: 'json',
+    return window.statinkFetch(url, {
+      method: 'POST',
+      responseType: 'json',
       data
     });
   };

@@ -3,30 +3,28 @@
 jQuery($ => {
   $('a.language-change').click(function () {
     const $this = $(this);
-    const ajaxParams = {
+    window.statinkFetch('/user/language', {
       method: 'POST',
-      url: '/user/language',
       data: {
         language: $this.attr('data-lang')
       }
-    };
-    $.ajax(ajaxParams)
-      .always(() => {
+    })
+      .catch(() => {})
+      .finally(() => {
         window.location.reload();
       });
   });
 
   $('a.language-change-machine-translation').click(function () {
     const $this = $(this);
-    const ajaxParams = {
+    window.statinkFetch('/user/machine-translation', {
       method: 'POST',
-      url: '/user/machine-translation',
       data: {
         direction: $this.attr('data-direction')
       }
-    };
-    $.ajax(ajaxParams)
-      .always(() => {
+    })
+      .catch(() => {})
+      .finally(() => {
         window.location.reload();
       });
   });
