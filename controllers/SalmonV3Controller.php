@@ -3,14 +3,15 @@
 /**
  * @copyright Copyright (C) 2022-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 declare(strict_types=1);
 
 namespace app\controllers;
 
+use Override;
 use app\actions\salmon\v3\DeleteAction;
+use app\actions\salmon\v3\FeedAction;
 use app\actions\salmon\v3\IndexAction;
 use app\actions\salmon\v3\ViewAction;
 use app\actions\salmon\v3\stats\BossesAction;
@@ -27,6 +28,7 @@ final class SalmonV3Controller extends Controller
     /**
      * @inheritdoc
      */
+    #[Override]
     public function behaviors()
     {
         return [
@@ -56,10 +58,12 @@ final class SalmonV3Controller extends Controller
     /**
      * @inheritdoc
      */
+    #[Override]
     public function actions()
     {
         return [
             'delete' => DeleteAction::class,
+            'feed' => FeedAction::class,
             'index' => IndexAction::class,
             'stats-bosses' => BossesAction::class,
             'stats-schedule' => ScheduleAction::class,

@@ -3,7 +3,6 @@
 /**
  * @copyright Copyright (C) 2019-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 declare(strict_types=1);
@@ -17,7 +16,6 @@ use yii\helpers\Html;
 
 use function array_map;
 use function basename;
-use function call_user_func;
 use function count;
 use function hash;
 use function implode;
@@ -37,7 +35,7 @@ trait Util
         $className = $className ?? static::class;
         return [
             '$ref' => vsprintf('#/components/schemas/%s', [
-                call_user_func([$className, 'oapiRefName']),
+                $className::oapiRefName(),
             ]),
         ];
     }

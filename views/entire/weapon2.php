@@ -3,7 +3,6 @@
 /**
  * @copyright Copyright (C) 2017-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 declare(strict_types=1);
@@ -117,7 +116,7 @@ $this->registerCss(implode('', [
                   return Yii::t('app-weapon2', $weapon->name);
                 }
               );
-              uasort($weapons, 'strnatcasecmp');
+              uasort($weapons, strnatcasecmp(...));
               return $weapons;
             })($type->weapons);
           }

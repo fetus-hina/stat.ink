@@ -3,7 +3,6 @@
 /**
  * @copyright Copyright (C) 2020-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 declare(strict_types=1);
@@ -173,7 +172,6 @@ class DeeplTranslator extends Component
             vfprintf($fh, " * @license %s MIT\n", [
                 'https://github.com/fetus-hina/stat.ink/blob/master/LICENSE',
             ]);
-            fwrite($fh, " * @author AIZAWA Hina <hina@fetus.jp>\n");
             fwrite($fh, " */\n\n");
             fwrite($fh, "declare(strict_types=1);\n\n");
             fwrite($fh, "return [\n");

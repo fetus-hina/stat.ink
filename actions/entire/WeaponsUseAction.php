@@ -3,7 +3,6 @@
 /**
  * @copyright Copyright (C) 2016-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 declare(strict_types=1);
@@ -31,6 +30,7 @@ use function date;
 use function implode;
 use function range;
 use function sprintf;
+use function strnatcasecmp;
 use function strtotime;
 use function substr;
 use function uasort;
@@ -88,7 +88,7 @@ final class WeaponsUseAction extends Action
                     foreach ($type->weapons as $weapon) {
                         $ret[$weapon->key] = Yii::t('app-weapon', $weapon->name);
                     }
-                    uasort($ret, 'strnatcasecmp');
+                    uasort($ret, strnatcasecmp(...));
                     return $ret;
                 })($type),
             );

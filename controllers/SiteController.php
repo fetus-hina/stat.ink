@@ -3,7 +3,6 @@
 /**
  * @copyright Copyright (C) 2015-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 namespace app\controllers;
@@ -15,8 +14,23 @@ use app\actions\site\SimpleAction;
 use app\actions\site\StartAction;
 use app\components\web\AssetPublishAction;
 use app\components\web\Controller;
+use jp3cki\yii2\datetimepicker\BootstrapDateTimePickerAsset;
+use jp3cki\yii2\flot\FlotAsset;
+use jp3cki\yii2\flot\FlotPieAsset;
+use jp3cki\yii2\flot\FlotResizeAsset;
+use jp3cki\yii2\flot\FlotStackAsset;
+use jp3cki\yii2\flot\FlotSymbolAsset;
+use jp3cki\yii2\flot\FlotTimeAsset;
+use jp3cki\yii2\zxcvbn\ZxcvbnAsset;
+use statink\yii2\anonymizer\AnonymizerAsset;
+use statink\yii2\sortableTable\SortableTableAsset;
+use statink\yii2\twitter\webintents\TwitterWebIntentsAsset;
+use yii\bootstrap\BootstrapAsset;
+use yii\bootstrap\BootstrapPluginAsset;
 use yii\filters\AccessControl;
 use yii\web\ErrorAction;
+use yii\web\JqueryAsset;
+use yii\web\YiiAsset;
 
 use function defined;
 use function implode;
@@ -48,23 +62,22 @@ class SiteController extends Controller
             ],
             'asset-publish' => [
                 'class' => AssetPublishAction::class,
-                //FIXME!!!!!!!!!!!!!!!!
                 'classes' => [
-                    'jp3cki\yii2\datetimepicker\BootstrapDateTimePickerAsset',
-                    'jp3cki\yii2\flot\FlotAsset',
-                    'jp3cki\yii2\flot\FlotPieAsset',
-                    'jp3cki\yii2\flot\FlotResizeAsset',
-                    'jp3cki\yii2\flot\FlotStackAsset',
-                    'jp3cki\yii2\flot\FlotSymbolAsset',
-                    'jp3cki\yii2\flot\FlotTimeAsset',
-                    'jp3cki\yii2\zxcvbn\ZxcvbnAsset',
-                    'statink\yii2\anonymizer\AnonymizerAsset',
-                    'statink\yii2\sortableTable\SortableTableAsset',
-                    'statink\yii2\twitter\webintents\TwitterWebIntentsAsset',
-                    'yii\bootstrap\BootstrapAsset',
-                    'yii\bootstrap\BootstrapPluginAsset',
-                    'yii\web\JqueryAsset',
-                    'yii\web\YiiAsset',
+                    AnonymizerAsset::class,
+                    BootstrapAsset::class,
+                    BootstrapDateTimePickerAsset::class,
+                    BootstrapPluginAsset::class,
+                    FlotAsset::class,
+                    FlotPieAsset::class,
+                    FlotResizeAsset::class,
+                    FlotStackAsset::class,
+                    FlotSymbolAsset::class,
+                    FlotTimeAsset::class,
+                    JqueryAsset::class,
+                    SortableTableAsset::class,
+                    TwitterWebIntentsAsset::class,
+                    YiiAsset::class,
+                    ZxcvbnAsset::class,
                 ],
             ],
             'index' => [
@@ -111,9 +124,55 @@ class SiteController extends Controller
         $resp->headers->set('Content-Type', 'text/plain; charset=UTF-8');
         switch (defined('YII_ENV') ? YII_ENV : '') {
             case 'prod':
+                $disallow = [
+                    'Disallow: /api/internal/',
+                    'Disallow: /login',
+                    'Disallow: /logout',
+                    'Disallow: /register',
+                    'Disallow: /user/',
+                    'Disallow: /*?filter',
+                    'Disallow: /*?f%5B',
+                ];
                 $resp->content = implode("\n", [
                     'User-agent: *',
-                    'Disallow:',
+                    ...$disallow,
+                    '',
+                    'User-agent: Googlebot',
+                    'User-agent: Bingbot',
+                    'User-agent: DuckDuckBot',
+                    'User-agent: YandexBot',
+                    'User-agent: Slurp',
+                    'User-agent: Applebot',
+                    ...$disallow,
+                    'Crawl-delay: 20',
+                    '',
+                    'User-agent: GPTBot',
+                    'User-agent: ChatGPT-User',
+                    'User-agent: OAI-SearchBot',
+                    'User-agent: ClaudeBot',
+                    'User-agent: Claude-User',
+                    'User-agent: Claude-SearchBot',
+                    'User-agent: anthropic-ai',
+                    'User-agent: Google-Extended',
+                    'User-agent: Applebot-Extended',
+                    'User-agent: Meta-ExternalAgent',
+                    'User-agent: Meta-ExternalFetcher',
+                    'User-agent: PerplexityBot',
+                    'User-agent: Perplexity-User',
+                    'User-agent: Bytespider',
+                    'User-agent: CCBot',
+                    'User-agent: Amazonbot',
+                    'User-agent: cohere-ai',
+                    'User-agent: DuckAssistBot',
+                    ...$disallow,
+                    'Crawl-delay: 60',
+                    '',
+                    'User-agent: AhrefsBot',
+                    'User-agent: SemrushBot',
+                    'User-agent: MJ12bot',
+                    'User-agent: DotBot',
+                    'User-agent: PetalBot',
+                    'Disallow: /',
                     '',
                     'User-agent: Baiduspider',
                     'Disallow: /',

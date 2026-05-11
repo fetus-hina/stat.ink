@@ -3,7 +3,6 @@
 /**
  * @copyright Copyright (C) 2016-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 namespace app\actions\stage;
@@ -65,7 +64,7 @@ class MapAction extends BaseAction
         foreach (Map::find()->asArray()->all() as $_) {
             $maps[$_['key']] = Yii::t('app-map', $_['name']);
         }
-        uasort($maps, 'strnatcasecmp');
+        uasort($maps, strnatcasecmp(...));
 
         return $this->controller->render('map', [
             'map' => $this->map,

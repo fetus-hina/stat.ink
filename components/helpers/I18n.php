@@ -3,7 +3,6 @@
 /**
  * @copyright Copyright (C) 2016-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 declare(strict_types=1);
@@ -12,24 +11,17 @@ namespace app\components\helpers;
 
 use DateTimeImmutable;
 use DateTimeZone;
-use Exception;
 use Yii;
 use app\models\Language;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-use function array_map;
 use function array_merge;
-use function array_unique;
-use function call_user_func_array;
-use function escapeshellarg;
-use function exec;
 use function implode;
-use function natcasesort;
 use function setlocale;
 use function sprintf;
 use function str_replace;
-use function trim;
+use function strnatcasecmp;
 use function uksort;
 
 use const LC_COLLATE;
@@ -72,7 +64,7 @@ class I18n
     public static function createTranslateTableCode(string $filePath, array $data): string
     {
         $localeHandler = static::switchSystemLocale(LC_COLLATE, 'C');
-        uksort($data, 'strnatcasecmp');
+        uksort($data, strnatcasecmp(...));
         unset($localeHandler);
 
         // The author lives in Japan!
@@ -87,9 +79,6 @@ class I18n
             ' * @copyright Copyright (C) 2015-' . $now->format('Y') . ' AIZAWA Hina',
             ' * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT',
         ];
-        foreach (static::getGitContributors($filePath) as $author) {
-            $php[] = ' * @author ' . $author;
-        }
         $php[] = ' */';
         $php[] = '';
         $php[] = 'declare(strict_types=1);';
@@ -114,7 +103,7 @@ class I18n
         return new Resource(
             [$category, $oldLocale],
             function (array $oldData): void {
-                call_user_func_array('setlocale', $oldData);
+                setlocale(...$oldData);
             },
         );
     }
@@ -126,38 +115,5 @@ class I18n
             ['\\\\', "\\'"],
             $string,
         );
-    }
-
-    private static function getGitContributors(string $path): array
-    {
-        $cmdline = sprintf(
-            '/usr/bin/env git log --pretty=%s -- %s | sort | uniq',
-            escapeshellarg('%an <%ae>%n%cn <%ce>'),
-            escapeshellarg($path),
-        );
-        $status = null;
-        $lines = [];
-        @exec($cmdline, $lines, $status);
-        if ($status !== 0) {
-            throw new Exception('Could not get contributors');
-        }
-        $lines[] = 'AIZAWA Hina <hina@fetus.jp>';
-
-        $authorMap = [
-            'AIZAWA Hina <hina@bouhime.com>' => 'AIZAWA Hina <hina@fetus.jp>',
-            'AIZAWA, Hina <hina@bouhime.com>' => 'AIZAWA Hina <hina@fetus.jp>',
-            'Unknown <wkoichi@gmail.com>' => 'Koichi Watanabe <wkoichi@gmail.com>',
-        ];
-        $list = array_unique(
-            array_map(
-                function (string $name) use ($authorMap): string {
-                    $name = trim($name);
-                    return $authorMap[$name] ?? $name;
-                },
-                $lines,
-            ),
-        );
-        natcasesort($list);
-        return $list;
     }
 }

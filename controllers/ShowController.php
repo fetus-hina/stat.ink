@@ -3,11 +3,24 @@
 /**
  * @copyright Copyright (C) 2015-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 namespace app\controllers;
 
+use app\actions\show\BattleAction;
+use app\actions\show\EditBattleAction;
+use app\actions\show\UserAction;
+use app\actions\show\UserStatByMapAction;
+use app\actions\show\UserStatByMapRuleAction;
+use app\actions\show\UserStatByMapRuleDetailAction;
+use app\actions\show\UserStatByRuleAction;
+use app\actions\show\UserStatByWeaponAction;
+use app\actions\show\UserStatCauseOfDeathAction;
+use app\actions\show\UserStatGachiAction;
+use app\actions\show\UserStatNawabariAction;
+use app\actions\show\UserStatReportAction;
+use app\actions\show\UserStatVsWeaponAction;
+use app\actions\show\UserStatWeaponAction;
 use app\components\web\Controller;
 use yii\filters\AccessControl;
 use yii\filters\AccessRule;
@@ -47,22 +60,21 @@ class ShowController extends Controller
 
     public function actions()
     {
-        $prefix = 'app\actions\show';
         return [
-            'battle' => [ 'class' => $prefix . '\BattleAction' ],
-            'edit-battle' => [ 'class' => $prefix . '\EditBattleAction' ],
-            'user' => [ 'class' => $prefix . '\UserAction' ],
-            'user-stat-by-map' => [ 'class' => $prefix . '\UserStatByMapAction' ],
-            'user-stat-by-map-rule' => [ 'class' => $prefix . '\UserStatByMapRuleAction' ],
-            'user-stat-by-map-rule-detail' => [ 'class' => $prefix . '\UserStatByMapRuleDetailAction' ],
-            'user-stat-by-rule' => [ 'class' => $prefix . '\UserStatByRuleAction' ],
-            'user-stat-by-weapon' => [ 'class' => $prefix . '\UserStatByWeaponAction' ],
-            'user-stat-cause-of-death' => [ 'class' => $prefix . '\UserStatCauseOfDeathAction' ],
-            'user-stat-gachi' => [ 'class' => $prefix . '\UserStatGachiAction' ],
-            'user-stat-nawabari' => [ 'class' => $prefix . '\UserStatNawabariAction' ],
-            'user-stat-report' => [ 'class' => $prefix . '\UserStatReportAction' ],
-            'user-stat-vs-weapon' => [ 'class' => $prefix . '\UserStatVsWeaponAction' ],
-            'user-stat-weapon' => [ 'class' => $prefix . '\UserStatWeaponAction' ],
+            'battle' => [ 'class' => BattleAction::class ],
+            'edit-battle' => [ 'class' => EditBattleAction::class ],
+            'user' => [ 'class' => UserAction::class ],
+            'user-stat-by-map' => [ 'class' => UserStatByMapAction::class ],
+            'user-stat-by-map-rule' => [ 'class' => UserStatByMapRuleAction::class ],
+            'user-stat-by-map-rule-detail' => [ 'class' => UserStatByMapRuleDetailAction::class ],
+            'user-stat-by-rule' => [ 'class' => UserStatByRuleAction::class ],
+            'user-stat-by-weapon' => [ 'class' => UserStatByWeaponAction::class ],
+            'user-stat-cause-of-death' => [ 'class' => UserStatCauseOfDeathAction::class ],
+            'user-stat-gachi' => [ 'class' => UserStatGachiAction::class ],
+            'user-stat-nawabari' => [ 'class' => UserStatNawabariAction::class ],
+            'user-stat-report' => [ 'class' => UserStatReportAction::class ],
+            'user-stat-vs-weapon' => [ 'class' => UserStatVsWeaponAction::class ],
+            'user-stat-weapon' => [ 'class' => UserStatWeaponAction::class ],
         ];
     }
 }

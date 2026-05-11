@@ -3,7 +3,6 @@
 /**
  * @copyright Copyright (C) 2018-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 use app\models\Ability2;
@@ -39,7 +38,7 @@ $brand = implode(', ', array_map(
     ],
     'upCode' => implode("\n", [
         "foreach (\$this->getGears() as \$gearData) {",
-        "    call_user_func_array([\$this, 'upGear2'], \$gearData);",
+        "    \$this->upGear2(...\$gearData);",
         "}",
     ]),
     'downCode' => implode("\n", [

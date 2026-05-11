@@ -3,7 +3,6 @@
 /**
  * @copyright Copyright (C) 2016-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 namespace app\actions\user;
@@ -15,6 +14,7 @@ use app\models\SlackAddForm;
 use yii\web\ViewAction as BaseAction;
 
 use function sprintf;
+use function strnatcasecmp;
 use function uasort;
 
 class SlackAddAction extends BaseAction
@@ -51,7 +51,7 @@ class SlackAddAction extends BaseAction
                 $row['name_en'],
             );
         }
-        uasort($langs, 'strnatcasecmp');
+        uasort($langs, strnatcasecmp(...));
 
         return $this->controller->render('slack-add', [
             'form' => $form,

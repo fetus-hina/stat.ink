@@ -3,7 +3,6 @@
 /**
  * @copyright Copyright (C) 2015-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 declare(strict_types=1);
@@ -28,6 +27,7 @@ use function array_sum;
 use function count;
 use function floor;
 use function round;
+use function strnatcasecmp;
 use function uasort;
 
 use const SORT_DESC;
@@ -305,7 +305,7 @@ class UserStatGachiAction extends BaseAction
             'key',
             fn (Map $map): string => Yii::t('app-map', $map->name),
         );
-        uasort($list, 'strnatcasecmp');
+        uasort($list, strnatcasecmp(...));
         return $list;
     }
 }

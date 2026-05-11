@@ -3,7 +3,6 @@
 /**
  * @copyright Copyright (C) 2018-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 /* @var $className string the new migration class name without namespace */
@@ -48,7 +47,7 @@ $type = implode(', ', array_map(
     ],
     'upCode' => implode("\n", [
         "foreach (\$this->getWeapons() as \$weaponData) {",
-        "    call_user_func_array([\$this, 'upWeapon'], \$weaponData);",
+        "    \$this->upWeapon(...\$weaponData);",
         "}",
     ]),
     'downCode' => implode("\n", [

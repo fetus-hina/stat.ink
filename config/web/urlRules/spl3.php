@@ -3,7 +3,6 @@
 /**
  * @copyright Copyright (C) 2022-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 declare(strict_types=1);
@@ -20,8 +19,10 @@ return [
     '@<screen_name:\w+>/spl3/stats/<subaction:[\w-]+>' => 'show-v3/stats-<subaction>',
     "@<screen_name:\w+>/spl3/<battle:{$uuid}>" => 'show-v3/battle',
     '@<screen_name:\w+>/spl3/' => 'show-v3/user',
+    '@<screen_name:\w+>.3.<lang:[\w-]+>.<type:rss|atom>' => 'feed/user-v3',
 
     '@<screen_name:\w+>/salmon3/stats/<subaction:[\w-]+>' => 'salmon-v3/stats-<subaction>',
     "@<screen_name:\w+>/salmon3/<battle:{$uuid}>" => 'salmon-v3/view',
+    '@<screen_name:\w+>/salmon3/index.<lang:[\w-]+>.<type:rss|atom>' => 'salmon-v3/feed',
     '@<screen_name:\w+>/salmon3/' => 'salmon-v3/index',
 ];

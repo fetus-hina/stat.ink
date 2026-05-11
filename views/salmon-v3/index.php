@@ -3,7 +3,6 @@
 /**
  * @copyright Copyright (C) 2022-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 declare(strict_types=1);
@@ -58,6 +57,11 @@ $jsonUrl = array_merge(
   </h1>
   <?= SnsWidget::widget([
     // 'tweetText' => $humanReadableSummary,
+    'feedUrl' => ['salmon-v3/feed',
+      'screen_name' => $user->screen_name,
+      'lang' => preg_replace('/@.+$/', '', (string)$lang),
+      'type' => 'rss',
+    ],
     'jsonUrl' => $jsonUrl,
   ]) . "\n" ?>
   <div class="row">

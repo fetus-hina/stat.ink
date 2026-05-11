@@ -3,7 +3,6 @@
 /**
  * @copyright Copyright (C) 2022-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 declare(strict_types=1);
@@ -67,6 +66,11 @@ OgpHelper::profileV3($this, $user, $permLink);
         ])
       );
     })(),
+    'feedUrl' => ['feed/user-v3',
+      'screen_name' => $user->screen_name,
+      'lang' => preg_replace('/@.+$/', '', (string)Yii::$app->language),
+      'type' => 'rss',
+    ],
     'jsonUrl' => array_merge(
       $filter->toPermLink(),
       ['show-v3/user-json',

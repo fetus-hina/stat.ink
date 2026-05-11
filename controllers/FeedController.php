@@ -3,11 +3,14 @@
 /**
  * @copyright Copyright (C) 2016-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 namespace app\controllers;
 
+use Override;
+use app\actions\feed\User2Action;
+use app\actions\feed\User3Action;
+use app\actions\feed\UserAction;
 use app\components\web\Controller;
 
 class FeedController extends Controller
@@ -25,12 +28,13 @@ class FeedController extends Controller
         );
     }
 
+    #[Override]
     public function actions()
     {
-        $prefix = 'app\actions\feed';
         return [
-            'user' => [ 'class' => $prefix . '\UserAction' ],
-            'user-v2' => [ 'class' => $prefix . '\User2Action' ],
+            'user' => [ 'class' => UserAction::class ],
+            'user-v2' => [ 'class' => User2Action::class ],
+            'user-v3' => [ 'class' => User3Action::class ],
         ];
     }
 }

@@ -3,8 +3,6 @@
 /**
  * @copyright Copyright (C) 2017-2025 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@fetus.jp>
- * @author 7185 <7185@users.noreply.github.com>
  */
 
 declare(strict_types=1);

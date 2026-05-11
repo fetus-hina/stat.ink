@@ -3,7 +3,6 @@
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 declare(strict_types=1);
@@ -18,7 +17,7 @@ class m190331_160257_sheldon extends Migration
     public function safeUp()
     {
         foreach ($this->getWeapons() as $weaponData) {
-            call_user_func_array([$this, 'upWeapon'], $weaponData);
+            $this->upWeapon(...$weaponData);
         }
     }
 

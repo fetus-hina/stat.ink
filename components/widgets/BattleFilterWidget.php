@@ -3,7 +3,6 @@
 /**
  * @copyright Copyright (C) 2016-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 namespace app\components\widgets;
@@ -37,6 +36,7 @@ use function ob_end_clean;
 use function ob_get_contents;
 use function ob_start;
 use function sprintf;
+use function strnatcasecmp;
 use function uasort;
 use function usort;
 use function version_compare;
@@ -184,7 +184,7 @@ final class BattleFilterWidget extends Widget
                     foreach (Map::find()->asArray()->all() as $map) {
                         $ret[$map['key']] = Yii::t('app-map', $map['name']);
                     }
-                    uasort($ret, 'strnatcasecmp');
+                    uasort($ret, strnatcasecmp(...));
                     return $ret;
             })(),
         ))();
@@ -240,7 +240,7 @@ final class BattleFilterWidget extends Widget
                 $tmp[$weapon['key']] = Yii::t('app-weapon', $weapon['name']);
             }
             if (count($tmp) > 1) {
-                uasort($tmp, 'strnatcasecmp');
+                uasort($tmp, strnatcasecmp(...));
                 $ret[$typeName] = array_merge(
                     ['@' . $type['key'] => Yii::t('app-weapon', 'All of {0}', $typeName)],
                     $tmp,
@@ -271,7 +271,7 @@ final class BattleFilterWidget extends Widget
                 foreach ($list as $item) {
                     $ret['~' . $item['key']] = Yii::t('app', '{0} etc.', Yii::t('app-weapon', $item['name']));
                 }
-                uasort($ret, 'strnatcasecmp');
+                uasort($ret, strnatcasecmp(...));
                 return $ret;
             })(),
         ];
@@ -290,7 +290,7 @@ final class BattleFilterWidget extends Widget
                 foreach ($list as $item) {
                     $ret['+' . $item['key']] = Yii::t('app-subweapon', $item['name']);
                 }
-                uasort($ret, 'strnatcasecmp');
+                uasort($ret, strnatcasecmp(...));
                 return $ret;
             })(),
         ];
@@ -309,7 +309,7 @@ final class BattleFilterWidget extends Widget
                 foreach ($list as $item) {
                     $ret['*' . $item['key']] = Yii::t('app-special', $item['name']);
                 }
-                uasort($ret, 'strnatcasecmp');
+                uasort($ret, strnatcasecmp(...));
                 return $ret;
             })(),
         ];

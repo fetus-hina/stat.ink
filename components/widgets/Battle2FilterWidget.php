@@ -3,7 +3,6 @@
 /**
  * @copyright Copyright (C) 2017-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 declare(strict_types=1);
@@ -35,6 +34,7 @@ use function ob_end_clean;
 use function ob_get_contents;
 use function ob_start;
 use function sprintf;
+use function strnatcasecmp;
 use function uasort;
 use function usort;
 use function version_compare;
@@ -302,7 +302,7 @@ class Battle2FilterWidget extends Widget
                     fn (Weapon2 $weapon): string => Yii::t('app-weapon2', $weapon->name),
                 );
                 if ($weapons) {
-                    uasort($weapons, 'strnatcasecmp');
+                    uasort($weapons, strnatcasecmp(...));
                     $ret[$groupLabel] = count($weapons) > 1
                         ? array_merge(
                             ['@' . $type->key => Yii::t('app-weapon2', 'All of {0}', $typeName)],
@@ -336,7 +336,7 @@ class Battle2FilterWidget extends Widget
                         Yii::t('app-weapon2', $item['name']),
                     ]);
                 }
-                uasort($ret, 'strnatcasecmp');
+                uasort($ret, strnatcasecmp(...));
                 return $ret;
             })(),
         ];
@@ -355,7 +355,7 @@ class Battle2FilterWidget extends Widget
                 foreach ($list as $item) {
                     $ret['+' . $item['key']] = Yii::t('app-subweapon2', $item['name']);
                 }
-                uasort($ret, 'strnatcasecmp');
+                uasort($ret, strnatcasecmp(...));
                 return $ret;
             })(),
         ];
@@ -374,7 +374,7 @@ class Battle2FilterWidget extends Widget
                 foreach ($list as $item) {
                     $ret['*' . $item['key']] = Yii::t('app-special2', $item['name']);
                 }
-                uasort($ret, 'strnatcasecmp');
+                uasort($ret, strnatcasecmp(...));
                 return $ret;
             })(),
         ];

@@ -3,7 +3,6 @@
 /**
  * @copyright Copyright (C) 2015-2018 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 use app\components\db\GearMigration;
@@ -19,7 +18,7 @@ class m180427_125916_v3_gears extends Migration
     public function safeUp()
     {
         foreach ($this->upEach() as $item) {
-            call_user_func_array([$this, 'upGear2'], $item);
+            $this->upGear2(...$item);
         }
     }
 

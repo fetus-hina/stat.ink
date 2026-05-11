@@ -7,6 +7,7 @@ name: 'Dependencies Updator'
 env:
   PHP_VERSION: '8.4'
   NODE_VERSION: '24'
+  PACKAGE_COOLDOWN_DAYS: '3'
   LLM_API_KEY: ${{ secrets.SAKURA_AI_ENGINE_API_KEY }}
   LLM_API_ENDPOINT: 'https://api.ai.sakura.ad.jp/v1/chat/completions'
   LLM_MODEL: 'Qwen3-Coder-480B-A35B-Instruct-FP8'
@@ -62,9 +63,9 @@ jobs:
       -
         name: 'Update JavaScript packages'
         run: |
-          npx updates --update --cooldown 10d --minor
+          npx updates --update --cooldown ${{ env.PACKAGE_COOLDOWN_DAYS }}d --minor
           rm -rf node_modules package-lock.json
-          npm install --min-release-age=10
+          npm install --min-release-age=${{ env.PACKAGE_COOLDOWN_DAYS }}
       -
         name: 'Check changed'
         run: |
@@ -72,6 +73,7 @@ jobs:
             ./composer.json \
             ./composer.lock \
             ./package.json \
+            ./package-lock.json \
             deploy/composer.json \
             deploy/composer.lock
 

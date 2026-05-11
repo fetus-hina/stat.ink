@@ -3,7 +3,6 @@
 /**
  * @copyright Copyright (C) 2015-2019 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 declare(strict_types=1);
@@ -18,7 +17,7 @@ class m190205_101752_gears extends Migration
     public function safeUp()
     {
         foreach ($this->getGears() as $gearData) {
-            call_user_func_array([$this, 'upGear2'], $gearData);
+            $this->upGear2(...$gearData);
         }
     }
 

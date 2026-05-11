@@ -3,7 +3,6 @@
 /**
  * @copyright Copyright (C) 2017-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 namespace app\components\widgets\battle;
@@ -13,7 +12,6 @@ use app\components\widgets\Icon;
 use yii\base\Widget;
 use yii\bootstrap\Html;
 
-use function call_user_func;
 use function implode;
 use function preg_replace_callback;
 
@@ -25,6 +23,7 @@ class PanelListWidget extends Widget
     public $title;
     public $titleLink;
     public $titleLinkText;
+    public $feedLink;
     public $emptyText;
     public $itemClass;
 
@@ -35,7 +34,7 @@ class PanelListWidget extends Widget
             $this->template = Html::tag(
                 'div',
                 implode('', [
-                    Html::tag('div', '{title}{titleLink}', ['class' => 'panel-heading']),
+                    Html::tag('div', '{title}{titleLink}{feedLink}', ['class' => 'panel-heading']),
                     '{list}',
                 ]),
                 ['class' => '{panelClass}'],
@@ -61,6 +60,7 @@ class PanelListWidget extends Widget
         $replace = [
             '{title}' => Html::encode($this->title),
             '{titleLink}' => $this->renderTitleLink(),
+            '{feedLink}' => $this->renderFeedLink(),
             '{panelClass}' => $this->panelClass,
             '{list}' => $this->renderList(),
         ];
@@ -75,7 +75,7 @@ class PanelListWidget extends Widget
     {
         $ret = [];
         foreach ($this->models as $model) {
-            $tmp = call_user_func([$this->itemClass, 'widget'], ['model' => $model]);
+            $tmp = $this->itemClass::widget(['model' => $model]);
             if ($tmp != '') {
                 $ret[] = $tmp;
             }
@@ -106,6 +106,29 @@ class PanelListWidget extends Widget
                 'data' => [
                     'pjax' => '0',
                 ],
+            ],
+        );
+    }
+
+    protected function renderFeedLink(): string
+    {
+        if (!$this->feedLink) {
+            return '';
+        }
+        return Html::a(
+            Icon::feedFilled(),
+            $this->feedLink,
+            [
+                'class' => 'pull-right btn btn-default btn-xs auto-tooltip',
+                'data' => [
+                    'pjax' => '0',
+                ],
+                'rel' => 'nofollow',
+                'style' => [
+                    'margin-right' => '4px',
+                ],
+                'title' => 'RSS',
+                'type' => 'application/rss+xml',
             ],
         );
     }

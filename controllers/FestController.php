@@ -3,11 +3,11 @@
 /**
  * @copyright Copyright (C) 2015-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
- * @author AIZAWA Hina <hina@fetus.jp>
  */
 
 namespace app\controllers;
 
+use app\actions\fest\ViewAction;
 use app\components\web\Controller;
 use yii\filters\VerbFilter;
 
@@ -29,9 +29,8 @@ class FestController extends Controller
 
     public function actions()
     {
-        $prefix = 'app\actions\fest';
         return [
-            'view' => [ 'class' => $prefix . '\ViewAction' ],
+            'view' => [ 'class' => ViewAction::class ],
         ];
     }
 }
