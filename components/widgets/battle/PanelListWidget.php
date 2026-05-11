@@ -23,6 +23,7 @@ class PanelListWidget extends Widget
     public $title;
     public $titleLink;
     public $titleLinkText;
+    public $feedLink;
     public $emptyText;
     public $itemClass;
 
@@ -33,7 +34,7 @@ class PanelListWidget extends Widget
             $this->template = Html::tag(
                 'div',
                 implode('', [
-                    Html::tag('div', '{title}{titleLink}', ['class' => 'panel-heading']),
+                    Html::tag('div', '{title}{titleLink}{feedLink}', ['class' => 'panel-heading']),
                     '{list}',
                 ]),
                 ['class' => '{panelClass}'],
@@ -59,6 +60,7 @@ class PanelListWidget extends Widget
         $replace = [
             '{title}' => Html::encode($this->title),
             '{titleLink}' => $this->renderTitleLink(),
+            '{feedLink}' => $this->renderFeedLink(),
             '{panelClass}' => $this->panelClass,
             '{list}' => $this->renderList(),
         ];
@@ -104,6 +106,29 @@ class PanelListWidget extends Widget
                 'data' => [
                     'pjax' => '0',
                 ],
+            ],
+        );
+    }
+
+    protected function renderFeedLink(): string
+    {
+        if (!$this->feedLink) {
+            return '';
+        }
+        return Html::a(
+            Icon::feedFilled(),
+            $this->feedLink,
+            [
+                'class' => 'pull-right btn btn-default btn-xs auto-tooltip',
+                'data' => [
+                    'pjax' => '0',
+                ],
+                'rel' => 'nofollow',
+                'style' => [
+                    'margin-right' => '4px',
+                ],
+                'title' => 'RSS',
+                'type' => 'application/rss+xml',
             ],
         );
     }

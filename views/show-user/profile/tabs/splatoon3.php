@@ -43,6 +43,11 @@ use yii\web\View;
         'screen_name' => $user->screen_name,
       ],
       'titleLinkText' => Yii::t('app', 'List'),
+      'feedLink' => ['/feed/user-v3',
+        'screen_name' => $user->screen_name,
+        'lang' => preg_replace('/@.+$/', '', (string)Yii::$app->language),
+        'type' => 'rss',
+      ],
       'models' => Battle3::find()
         ->andWhere([
           'is_deleted' => false,
@@ -73,6 +78,11 @@ use yii\web\View;
         'screen_name' => $user->screen_name,
       ],
       'titleLinkText' => Yii::t('app', 'List'),
+      'feedLink' => ['/salmon-v3/feed',
+        'screen_name' => $user->screen_name,
+        'lang' => preg_replace('/@.+$/', '', (string)Yii::$app->language),
+        'type' => 'rss',
+      ],
       'models' => Salmon3::find()
         ->with([
           'bigStage',

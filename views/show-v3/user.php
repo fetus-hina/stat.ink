@@ -72,6 +72,11 @@ OgpHelper::profileV3($this, $user, $permLink);
         ])
       );
     })(),
+    'feedUrl' => ['feed/user-v3',
+      'screen_name' => $user->screen_name,
+      'lang' => preg_replace('/@.+$/', '', (string)Yii::$app->language),
+      'type' => 'rss',
+    ],
     'jsonUrl' => array_merge(
       $filter->toPermLink(),
       ['show-v3/user-json',

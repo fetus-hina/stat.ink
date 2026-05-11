@@ -87,6 +87,7 @@ use function str_starts_with;
  * @method static string dummy()
  * @method static string edit()
  * @method static string feed()
+ * @method static string feedFilled()
  * @method static string fileCsv()
  * @method static string fileJson()
  * @method static string filter()
@@ -239,6 +240,7 @@ final class Icon
         'download' => 'download',
         'edit' => 'pencil-square',
         'feed' => 'rss',
+        'feedFilled' => 'rss-fill',
         'fileCsv' => 'filetype-csv',
         'fileJson' => 'filetype-json',
         'filter' => 'funnel-fill',
