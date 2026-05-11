@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-use app\assets\PhotoSwipeSimplifyAsset;
+use app\assets\PhotoSwipeAsset;
 use app\models\BattleImageGear3;
 use app\models\BattleImageJudge3;
 use app\models\BattleImageResult3;
@@ -46,7 +46,7 @@ $htmlImgs = array_values(
 );
 
 if ($htmlImgs) {
-  PhotoSwipeSimplifyAsset::register($this);
+  PhotoSwipeAsset::register($this);
 
   echo Html::tag(
     'div',

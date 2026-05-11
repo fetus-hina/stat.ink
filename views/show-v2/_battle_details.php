@@ -7,7 +7,7 @@
 
 use app\assets\BattleEditAsset;
 use app\assets\FontAwesomeAsset;
-use app\assets\PhotoSwipeSimplifyAsset;
+use app\assets\PhotoSwipeAsset;
 use app\assets\Spl2WeaponAsset;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\widgets\BattleDeathReasonsTable;
@@ -721,7 +721,7 @@ use yii\widgets\DetailView;
             Html::encode(Yii::t('app', 'Gear')),
             $battle->battleImageGear
               ? (function () use ($battle): ?string {
-                PhotoSwipeSimplifyAsset::register($this);
+                PhotoSwipeAsset::register($this);
                 FontAwesomeAsset::register($this);
                 $id = 'img-gear-' . hash('crc32b', __FILE__ . ':' . __LINE__);
                 $this->registerCss(Html::renderCss([

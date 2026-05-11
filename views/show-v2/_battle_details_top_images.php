@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-use app\assets\PhotoSwipeSimplifyAsset;
+use app\assets\PhotoSwipeAsset;
 use yii\bootstrap\Html;
 use yii\helpers\Url;
 use yii\web\View;
@@ -45,7 +45,7 @@ $parts = array_filter(
 );
 
 if ($parts) {
-  PhotoSwipeSimplifyAsset::register($this);
+  PhotoSwipeAsset::register($this);
   echo Html::tag(
     'div',
     implode('', array_slice($parts, 0, 2)),
