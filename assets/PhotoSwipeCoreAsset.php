@@ -11,24 +11,25 @@ namespace app\assets;
 
 use yii\web\AssetBundle;
 
-final class PhotoSwipeAsset extends AssetBundle
+final class PhotoSwipeCoreAsset extends AssetBundle
 {
     /**
      * @var string
      */
-    public $sourcePath = '@app/resources/.compiled/stat.ink';
+    public $sourcePath = '@node/photoswipe/dist';
 
     /**
      * @var list<string>
      */
     public $js = [
-        'photoswipe-init.js',
+        'umd/photoswipe.umd.min.js',
+        'umd/photoswipe-lightbox.umd.min.js',
     ];
 
     /**
-     * @var list<class-string<AssetBundle>>
+     * @var list<string>
      */
-    public $depends = [
-        PhotoSwipeCoreAsset::class,
+    public $css = [
+        'photoswipe.css',
     ];
 }

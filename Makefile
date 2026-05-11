@@ -111,6 +111,7 @@ RESOURCE_TARGETS := \
 	resources/.compiled/stat.ink/passkey-login.js \
 	resources/.compiled/stat.ink/passkey.js \
 	resources/.compiled/stat.ink/permalink-dialog.js \
+	resources/.compiled/stat.ink/photoswipe-init.js \
 	resources/.compiled/stat.ink/private-note.js \
 	resources/.compiled/stat.ink/ratio.css \
 	resources/.compiled/stat.ink/rewrite-link-for-ios-app.js \
@@ -342,6 +343,7 @@ resources/.compiled/stat.ink/passkey-login.css: resources/stat.ink/passkey-login
 resources/.compiled/stat.ink/passkey-login.js: resources/stat.ink/passkey-login.es node_modules
 resources/.compiled/stat.ink/passkey.js: resources/stat.ink/passkey.es node_modules
 resources/.compiled/stat.ink/permalink-dialog.js: resources/stat.ink/permalink-dialog.es node_modules
+resources/.compiled/stat.ink/photoswipe-init.js: resources/stat.ink/photoswipe-init.es node_modules
 resources/.compiled/stat.ink/private-note.js: resources/stat.ink/private-note.es node_modules
 resources/.compiled/stat.ink/ratio.css: resources/stat.ink/ratio.scss node_modules
 resources/.compiled/stat.ink/rewrite-link-for-ios-app.js: resources/stat.ink/rewrite-link-for-ios-app.es node_modules
