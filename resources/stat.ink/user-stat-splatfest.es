@@ -1,4 +1,4 @@
-/*! Copyright (C) 2015-2021 AIZAWA Hina | MIT License */
+/*! Copyright (C) 2015-2026 AIZAWA Hina | MIT License */
 (function (document, $) {
   const html = document.documentElement;
   const luxon = window.luxon;
@@ -53,7 +53,7 @@
           fill: false,
           label: dataLabels.win,
           showLine: false,
-          lineTension: 0,
+          tension: 0,
           pointRadius: 4,
           pointBorderWidth: 3,
           pointBackgroundColor: 'rgba(255, 255, 255, 0.8)'
@@ -72,7 +72,7 @@
           ),
           fill: false,
           label: dataLabels.lose,
-          lineTension: 0,
+          tension: 0,
           showLine: false,
           pointRadius: 4,
           pointBackgroundColor: 'rgba(255, 255, 255, 0.8)',
@@ -85,7 +85,7 @@
           data: dataValues.map(battle => (typeof battle.my === 'number' && battle.my >= 1) ? battle.my : null),
           fill: true,
           label: dataLabels.festPower,
-          lineTension: 0,
+          tension: 0,
           pointRadius: 0
         },
         // Estimated Good Guys Power
@@ -96,7 +96,7 @@
           data: dataValues.map(battle => battle.good),
           fill: false,
           label: dataLabels.estimateGood,
-          lineTension: 0,
+          tension: 0,
           pointRadius: 0
         },
         // Estimated Bad Guys Power
@@ -107,7 +107,7 @@
           data: dataValues.map(battle => battle.bad),
           fill: false,
           label: dataLabels.estimateBad,
-          lineTension: 0,
+          tension: 0,
           pointRadius: 0
         }
       ]
@@ -124,24 +124,20 @@
           }
         },
         scales: {
-          xAxes: [
-            {
-              display: false
+          x: {
+            display: false
+          },
+          y: {
+            ticks: {
+              callback: (value) => powerFmt(value)
             }
-          ],
-          yAxes: [
-            {
-              ticks: {
-                callback: (value) => powerFmt(value)
-              }
-            }
-          ]
+          }
         }
       }
     });
 
     canvas.addEventListener('click', (ev) => {
-      const elements = chart.getElementsAtEvent(ev);
+      const elements = chart.getElementsAtEventForMode(ev, 'nearest', { intersect: true }, false);
       if (!elements.length) {
         return;
       }
@@ -151,7 +147,7 @@
         return;
       }
 
-      const dataValue = dataValues[element._index];
+      const dataValue = dataValues[element.index];
       if (!dataValue) {
         return;
       }
