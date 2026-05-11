@@ -15,6 +15,6 @@ class ChartJsAsset extends AssetBundle
 {
     public $sourcePath = '@npm/chart.js/dist';
     public $js = [
-        'chart.min.js',
+        'chart.umd.min.js',
     ];
 }
