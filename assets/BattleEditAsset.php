@@ -5,6 +5,8 @@
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
+declare(strict_types=1);
+
 namespace app\assets;
 
 use yii\web\AssetBundle;
@@ -18,17 +20,17 @@ final class BattleEditAsset extends AssetBundle
     public $sourcePath = '@app/resources/.compiled/stat.ink';
 
     /**
-     * @var string[]
+     * @var list<string>
      */
     public $js = [
         'battle-edit.js',
     ];
 
     /**
-     * @var string[]
-     * @phpstan-var class-string<AssetBundle>[]
+     * @var list<class-string<AssetBundle>>
      */
     public $depends = [
+        ApiFetchAsset::class,
         YiiAsset::class,
     ];
 }

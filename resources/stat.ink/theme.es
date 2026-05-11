@@ -2,17 +2,16 @@
   $(() => {
     $('a.theme-switcher').click(function () {
       const $this = $(this);
-      $.post({
-        url: '/api/internal/theme',
+      window.statinkFetch('/api/internal/theme', {
+        method: 'POST',
         data: {
           theme: $this.data('theme')
-        },
-        dataType: 'json'
+        }
       })
-        .done(() => {
+        .then(() => {
           window.location.reload();
         })
-        .fail(() => {
+        .catch(() => {
           window.alert('Failed to switch theme.\nPlease retry later.');
         });
     });
