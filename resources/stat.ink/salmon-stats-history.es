@@ -72,13 +72,14 @@
 
       $this.on('show.bs.modal', function () {
         if (data === null) {
-          $.getJSON(apiURL)
-            .done(json => {
+          window.statinkFetch(apiURL, { responseType: 'json' })
+            .then(json => {
               data = json;
               setTimeout(() => {
                 $this.resize();
               }, 1);
-            });
+            })
+            .catch(() => {});
         }
       });
 

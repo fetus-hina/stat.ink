@@ -10,10 +10,8 @@ declare(strict_types=1);
 namespace app\assets;
 
 use yii\web\AssetBundle;
-use yii\web\JqueryAsset;
-use yii\web\YiiAsset;
 
-final class PasskeyAsset extends AssetBundle
+final class ApiFetchAsset extends AssetBundle
 {
     /**
      * @var string
@@ -24,15 +22,6 @@ final class PasskeyAsset extends AssetBundle
      * @var list<string>
      */
     public $js = [
-        'passkey.js',
-    ];
-
-    /**
-     * @var list<class-string<AssetBundle>>
-     */
-    public $depends = [
-        ApiFetchAsset::class,
-        JqueryAsset::class,
-        YiiAsset::class,
+        'api-fetch.js',
     ];
 }

@@ -177,6 +177,18 @@ export interface LatestBattlesData {
   user?: BattleUser | null;
 }
 
+export interface LatestBattlesBootstrap {
+  heading: string;
+}
+
+export interface MyLatestBattlesBootstrap {
+  heading: string;
+  user: {
+    name: string;
+    url: string;
+  };
+}
+
 // ============================================================
 // Tab item (for ScheduleDisplay/ScheduleTabs/ScheduleTab)
 // ============================================================

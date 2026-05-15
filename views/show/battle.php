@@ -13,7 +13,7 @@ use app\assets\BattlePrivateNoteAsset;
 use app\assets\BattleTimelineAsset;
 use app\assets\GearCalcAsset;
 use app\assets\GraphIconAsset;
-use app\assets\PhotoSwipeSimplifyAsset;
+use app\assets\PhotoSwipeAsset;
 use app\components\helpers\IkalogVersion;
 use app\components\widgets\AdWidget;
 use app\components\widgets\EmbedVideo;
@@ -152,7 +152,7 @@ $specials = Special::find()->asArray()->all();
   <?= SnsWidget::widget() . "\n" ?>
 
 <?php if ($battle->battleImageJudge || $battle->battleImageResult) { ?>
-<?php PhotoSwipeSimplifyAsset::register($this) ?>
+<?php PhotoSwipeAsset::register($this) ?>
     <div class="row mb-3" data-pswp="">
 <?php if ($battle->battleImageJudge) { ?>
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 image-container">

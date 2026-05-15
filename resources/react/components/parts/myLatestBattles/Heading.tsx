@@ -4,13 +4,22 @@ import type { IndexRootState } from '../../../store/indexApp';
 
 export default function Heading () {
   const data = useSelector((state: IndexRootState) => state.myLatestBattles.data);
+  const bootstrap = useSelector((state: IndexRootState) => state.myLatestBattles.bootstrap);
 
-  if (!data || !data.translations || !data.user) {
-    return <h2>{'Battles'}</h2>;
+  let template: string | null = null;
+  let user: { name: string; url: string } | null = null;
+
+  if (data && data.translations && data.user) {
+    template = data.translations.heading;
+    user = data.user;
+  } else if (bootstrap) {
+    template = bootstrap.heading;
+    user = bootstrap.user;
   }
 
-  const template = data.translations.heading;
-  const user = data.user;
+  if (!template || !user) {
+    return <h2>{'Battles'}</h2>;
+  }
 
   const linkHTML = `<a href="${esc(user.url)}">${esc(user.name)}</a>`;
   const html = esc(template).replace('{name}', linkHTML);

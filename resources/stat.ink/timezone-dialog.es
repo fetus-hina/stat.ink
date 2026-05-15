@@ -17,15 +17,14 @@
   $(() => {
     $(document).on('click', 'a.timezone-change', function () {
       const $this = $(this);
-      const ajaxOptions = {
+      window.statinkFetch('/user/timezone', {
         method: 'POST',
-        url: '/user/timezone',
         data: {
           timezone: $this.attr('data-tz')
         }
-      };
-      $.ajax(ajaxOptions)
-        .always(() => {
+      })
+        .catch(() => {})
+        .finally(() => {
           window.location.reload();
         });
     });
@@ -34,11 +33,6 @@
   $.fn.timezoneDialog = function () {
     this.on('show.bs.modal', function () {
       const $this = $(this);
-      const ajaxOptions = {
-        method: 'GET',
-        dataType: 'json',
-        url: '/api/internal/guess-timezone'
-      };
 
       const $labels = $('.guessed-timezone', $this);
       // Change label face to "Loading..."
@@ -51,8 +45,8 @@
       });
 
       // Let's request
-      $.ajax(ajaxOptions)
-        .done(data => {
+      window.statinkFetch('/api/internal/guess-timezone', { responseType: 'json' })
+        .then(data => {
           $labels.each(function () {
             const $label = $(this);
             if (!data.guessed) {
@@ -72,7 +66,7 @@
             }
           });
         })
-        .fail(() => {
+        .catch(() => {
           $labels.each(function () {
             const $label = $(this);
             $label.empty().append(htmlEncode($label.attr('data-error')));
