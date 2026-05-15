@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a74da2300be56393ee06ceb65ee243e3",
+    "content-hash": "4620091e7815b4a0e67031b8a5eebbad",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -5026,16 +5026,16 @@
         },
         {
             "name": "cotonet/soak-time",
-            "version": "v1.0.2",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cotonet-resiliencia-digital/composer-soak-time.git",
-                "reference": "38b602177d1b8668bef0565145725bfd9e673ed7"
+                "reference": "dce36212d79eddae52a26367b4480b6849d36e15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cotonet-resiliencia-digital/composer-soak-time/zipball/38b602177d1b8668bef0565145725bfd9e673ed7",
-                "reference": "38b602177d1b8668bef0565145725bfd9e673ed7",
+                "url": "https://api.github.com/repos/cotonet-resiliencia-digital/composer-soak-time/zipball/dce36212d79eddae52a26367b4480b6849d36e15",
+                "reference": "dce36212d79eddae52a26367b4480b6849d36e15",
                 "shasum": ""
             },
             "require": {
@@ -5055,9 +5055,9 @@
             "description": "Protects against supply chain attacks by filtering recently published packages.",
             "support": {
                 "issues": "https://github.com/cotonet-resiliencia-digital/composer-soak-time/issues",
-                "source": "https://github.com/cotonet-resiliencia-digital/composer-soak-time/tree/v1.0.2"
+                "source": "https://github.com/cotonet-resiliencia-digital/composer-soak-time/tree/v1.1.0"
             },
-            "time": "2026-03-31T15:15:56+00:00"
+            "time": "2026-04-07T20:54:22+00:00"
         },
         {
             "name": "dealerdirect/phpcodesniffer-composer-installer",
