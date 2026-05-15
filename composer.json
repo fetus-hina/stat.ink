@@ -21,7 +21,7 @@
     "cweagans/composer-patches": "^1.7.3",
     "geoip2/geoip2": "^3.3.0",
     "guzzlehttp/guzzle": "^7.10.0",
-    "jaybizzle/crawler-detect": "^1.3.9",
+    "jaybizzle/crawler-detect": "^1.3.11",
     "jp3cki/mb_str_replace": "^4.0.2",
     "jp3cki/uuid": "^5.0.0",
     "jp3cki/yii2-bs-datetimepicker": "^1.0",
@@ -43,13 +43,13 @@
     "statink/yii2-ip-badge": "^1.0.4",
     "statink/yii2-jdenticon": "^1.0.1",
     "statink/yii2-momentjs": "^1.0",
-    "statink/yii2-sortable-table": "^1.0.2",
+    "statink/yii2-sortable-table": "^1.0.3",
     "statink/yii2-spl1-stages": "^1.0.1",
     "statink/yii2-spl2-stages": "^1.0.2",
-    "statink/yii2-twitter-webintents": "^1.0.2",
-    "symfony/yaml": "^7.4.8",
+    "statink/yii2-twitter-webintents": "^1.0.3",
+    "symfony/yaml": "^7.4.10",
     "twbs/bootstrap-icons": "^1.13.1",
-    "yiisoft/yii2": "^2.0.54",
+    "yiisoft/yii2": "^2.0.55",
     "yiisoft/yii2-bootstrap": "^2.0.11",
     "yiisoft/yii2-httpclient": "^2.0.16",
     "yiisoft/yii2-queue": "^2.3.8",
@@ -166,7 +166,7 @@
         "non-progress progressbar": "data/patch/yii2-bootstrap-non-progress-progressbar.patch"
       }
     },
-    "soak-time-hours": 240
+    "soak-time-hours": 72
   },
   "scripts": {
     "post-install-cmd": [
