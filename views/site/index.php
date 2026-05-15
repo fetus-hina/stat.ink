@@ -233,5 +233,23 @@ OgpHelper::default($this, Url::to(['site/index'], true));
   <?= SnsWidget::widget() . "\n" ?>
 
   <?php ReactIndexAppAsset::register($this); ?>
-  <div id="index-app"></div>
+<?php
+$indexAppData = [
+  'logged-in' => Yii::$app->user->isGuest ? '0' : '1',
+  'latest-heading' => Yii::t('app', 'Recent Battles'),
+];
+if (!Yii::$app->user->isGuest) {
+  $identity = Yii::$app->user->identity;
+  $indexAppData['my-latest-heading'] = Yii::t('app', '{name}\'s Battles');
+  $indexAppData['user-name'] = $identity->name;
+  $indexAppData['user-url'] = Url::to(
+    ['show-user/profile', 'screen_name' => $identity->screen_name],
+    true,
+  );
+}
+echo Html::tag('div', '', [
+  'id' => 'index-app',
+  'data' => $indexAppData,
+]);
+?>
 </div>

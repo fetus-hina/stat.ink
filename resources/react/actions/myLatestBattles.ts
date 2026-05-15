@@ -1,9 +1,17 @@
 import { Dispatch } from '@reduxjs/toolkit';
-import { LatestBattlesData } from '../types';
+import { LatestBattlesData, MyLatestBattlesBootstrap } from '../types';
 
+export const BOOTSTRAP_MY_LATEST_BATTLES = 'BOOTSTRAP_MY_LATEST_BATTLES';
 export const FETCH_MY_LATEST_BATTLES = 'FETCH_MY_LATEST_BATTLES';
 export const FETCH_MY_LATEST_BATTLES_FAILED = 'FETCH_MY_LATEST_BATTLES_FAILED';
 export const FETCH_MY_LATEST_BATTLES_SUCCESS = 'FETCH_MY_LATEST_BATTLES_SUCCESS';
+
+export function bootstrapMyLatestBattles (data: MyLatestBattlesBootstrap) {
+  return {
+    type: BOOTSTRAP_MY_LATEST_BATTLES,
+    value: data
+  };
+}
 
 export function fetchMyLatestBattlesFailed (error: unknown) {
   return {

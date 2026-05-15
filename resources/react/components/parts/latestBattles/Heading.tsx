@@ -2,13 +2,12 @@ import { useSelector } from 'react-redux';
 import type { IndexRootState } from '../../../store/indexApp';
 
 export default function Heading () {
-  const data = useSelector((state: IndexRootState) => state.latestBattles.data);
+  const apiHeading = useSelector((state: IndexRootState) => state.latestBattles.data?.translations?.heading);
+  const bootstrapHeading = useSelector((state: IndexRootState) => state.latestBattles.bootstrap?.heading);
 
-  if (!data || !data.translations) return <h2>Recent Battles</h2>;
-
-  const str = data.translations.heading;
+  const heading = apiHeading ?? bootstrapHeading ?? 'Recent Battles';
 
   return (
-    <h2>{str}</h2>
+    <h2>{heading}</h2>
   );
 }

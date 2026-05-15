@@ -1,0 +1,136 @@
+.root {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow:
+    0 2px 1px -1px rgb(0 0 0 / 20%),
+    0 1px 1px 0 rgb(0 0 0 / 14%),
+    0 1px 3px 0 rgb(0 0 0 / 12%);
+  overflow: hidden;
+}
+
+.media {
+  background-color: transparent;
+  display: block;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+  width: 100%;
+}
+
+.media::before {
+  display: block;
+  padding-top: calc(9 / 16 * 100%);
+  content: '';
+}
+
+.mediaInner {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.modeIcons {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-bottom-right-radius: 4px;
+  height: 28px;
+  left: 0;
+  padding: 4px;
+  position: absolute;
+  top: 0;
+  width: 56px;
+}
+
+.modeIconsInner {
+  height: 100%;
+  width: 100%;
+}
+
+.time {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-bottom-left-radius: 4px;
+  height: 18px;
+  padding: 4px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 48px;
+}
+
+.timeInner {
+  height: 100%;
+  width: 100%;
+}
+
+.content {
+  align-items: flex-start;
+  display: flex;
+  overflow-x: hidden;
+  padding: 10px 15px;
+}
+
+.userIcon {
+  border-radius: 4px;
+  flex: 0 0 48px;
+  height: 48px;
+  margin-right: 10px;
+  width: 48px;
+}
+
+.contentData {
+  display: flex;
+  flex: 1 1 100%;
+  flex-direction: column;
+  gap: 6px;
+  width: calc(100% - (15px * 2 + 48px + 10px));
+}
+
+.line {
+  border-radius: 2px;
+  height: 12px;
+}
+
+.lineWide {
+  width: 80%;
+}
+
+.lineMedium {
+  width: 60%;
+}
+
+.lineNarrow {
+  width: 40%;
+}
+
+.shimmer {
+  background: #eaeaea;
+  background-image: linear-gradient(
+    90deg,
+    #eaeaea 0%,
+    #f5f5f5 40%,
+    #f5f5f5 60%,
+    #eaeaea 100%
+  );
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
+  animation: shimmer 1.4s linear infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shimmer {
+    animation: none;
+  }
+}

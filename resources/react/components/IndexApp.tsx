@@ -3,12 +3,16 @@ import LatestBattles from './parts/LatestBattles';
 import MyLatestBattles from './parts/MyLatestBattles';
 // import Schedule from './parts/Schedule';
 
-export default function App () {
+interface AppProps {
+  loggedIn: boolean;
+}
+
+export default function App ({ loggedIn }: AppProps) {
   return (
     <>
       <Blog />
       {/* <Schedule /> */}
-      <MyLatestBattles />
+      {loggedIn ? <MyLatestBattles /> : null}
       <LatestBattles />
     </>
   );
