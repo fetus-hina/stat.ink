@@ -77,7 +77,17 @@ Invoke `deploy.sh` with the bump confirmed in Step 0. Use a long timeout (e.g. 6
 ### Step 7: Report result
 
 - **On success**: report concisely that the release tag was created, pushed, and deployed. Include the new tag name from the output.
-- **On failure**: report the failing step (composer install / git tag / git push / dep deploy) and the relevant error excerpt. Do **not** attempt to roll back or retry automatically. Leave recovery decisions to the user.
+- **On failure**: report the failing step (composer install / git tag / git push / dep deploy) and the relevant error excerpt. Do **not** attempt to roll back or retry automatically. Leave recovery decisions to the user. **Skip Step 8** — leave the user on `master` so the failed state can be inspected.
+
+### Step 8: Switch back to dev (success only)
+
+After a successful deploy, switch the working branch back to `dev` so the user is ready to keep developing.
+
+```bash
+git switch dev
+```
+
+If this fails for some reason, report it but do not block — the deploy itself already succeeded.
 
 ## Notes
 
