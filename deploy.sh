@@ -42,7 +42,7 @@ pushd $(cd $(dirname $0);pwd)
   fi
 
   if [[ $TAG =~ ^v[0-9]+\.[0-9]+\.[0-9]+ ]]; then
-    git tag -s $TAG -m $TAG
+    git tag -a $TAG -m $TAG
   else
     echo "Invalid version tag $1. Should be like v1.2.3, 'minor' or 'patch'"
     exit 1
