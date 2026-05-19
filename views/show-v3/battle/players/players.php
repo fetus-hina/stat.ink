@@ -45,6 +45,55 @@ if (
   $isXMR = true;
 }
 
+$ourSet = [
+  'color' => $battle->our_team_color,
+  'role' => $battle->ourTeamRole,
+  'theme' => $battle->ourTeamTheme,
+  'players' => $ourTeamPlayers,
+  'ourTeam' => true,
+];
+$theirSet = [
+  'color' => $battle->their_team_color,
+  'role' => $battle->theirTeamRole,
+  'theme' => $battle->theirTeamTheme,
+  'players' => $theirTeamPlayers,
+  'ourTeam' => false,
+];
+$thirdSet = [
+  'color' => $battle->third_team_color,
+  'role' => $battle->thirdTeamRole,
+  'theme' => $battle->thirdTeamTheme,
+  'players' => $thirdTeamPlayers,
+  'ourTeam' => false,
+];
+
+// Build the display order. For tricolor battles, if there is another team
+// on the same side (attacker/defender) as ours, group it next to our team
+// so that "our group" stays together and our team is always first within it.
+// When no same-side other team exists (i.e. we are the lone defender), keep
+// the legacy ordering. Non-tricolor battles are also unaffected.
+if ($isTricolor) {
+  $ourRoleKey = $battle->ourTeamRole?->key;
+  $theirSame = $ourRoleKey !== null && $battle->theirTeamRole?->key === $ourRoleKey;
+  $thirdSame = $ourRoleKey !== null && $battle->thirdTeamRole?->key === $ourRoleKey;
+
+  if ($theirSame || $thirdSame) {
+    $sameSet = $theirSame ? $theirSet : $thirdSet;
+    $oppositeSet = $theirSame ? $thirdSet : $theirSet;
+    $displayOrder = $ourTeamFirst
+      ? [$ourSet, $sameSet, $oppositeSet]
+      : [$oppositeSet, $ourSet, $sameSet];
+  } else {
+    $displayOrder = $ourTeamFirst
+      ? [$ourSet, $theirSet, $thirdSet]
+      : [$thirdSet, $theirSet, $ourSet];
+  }
+} else {
+  $displayOrder = $ourTeamFirst
+    ? [$ourSet, $theirSet]
+    : [$theirSet, $ourSet];
+}
+
 ?>
 <div class="table-responsive table-responsive-force mb-3">
   <table class="table table-bordered mb-0" id="players">
@@ -92,93 +141,18 @@ if (
       </tr>
     </thead>
     <tbody>
-<?php if ($ourTeamFirst) { ?>
+<?php foreach ($displayOrder as $set) { ?>
       <?= $this->render('//show-v3/battle/players/team', [
         'abilities' => $abilities,
         'battle' => $battle,
-        'color' => $battle->our_team_color,
+        'color' => $set['color'],
         'isTricolor' => $isTricolor,
         'isXmatch' => $isXmatch,
-        'ourTeam' => true,
+        'ourTeam' => $set['ourTeam'],
         'playedWith' => $playedWith,
-        'players' => $ourTeamPlayers,
-        'role' => $battle->ourTeamRole,
-        'theme' => $battle->ourTeamTheme,
-        'useXMatchingRange' => $isXMR,
-        'weaponMatchingGroup' => $weaponMatchingGroup,
-      ]) . "\n" ?>
-      <?= $this->render('//show-v3/battle/players/team', [
-        'abilities' => $abilities,
-        'battle' => $battle,
-        'color' => $battle->their_team_color,
-        'isTricolor' => $isTricolor,
-        'isXmatch' => $isXmatch,
-        'ourTeam' => false,
-        'playedWith' => $playedWith,
-        'players' => $theirTeamPlayers,
-        'role' => $battle->theirTeamRole,
-        'theme' => $battle->theirTeamTheme,
-        'useXMatchingRange' => $isXMR,
-        'weaponMatchingGroup' => $weaponMatchingGroup,
-      ]) . "\n" ?>
-<?php if ($isTricolor) { ?>
-      <?= $this->render('//show-v3/battle/players/team', [
-        'abilities' => $abilities,
-        'battle' => $battle,
-        'color' => $battle->third_team_color,
-        'isTricolor' => $isTricolor,
-        'isXmatch' => $isXmatch,
-        'ourTeam' => false,
-        'playedWith' => $playedWith,
-        'players' => $thirdTeamPlayers,
-        'role' => $battle->thirdTeamRole,
-        'theme' => $battle->thirdTeamTheme,
-        'useXMatchingRange' => $isXMR,
-        'weaponMatchingGroup' => $weaponMatchingGroup,
-      ]) . "\n" ?>
-<?php } ?>
-<?php } else { ?>
-<?php if ($isTricolor) { ?>
-      <?= $this->render('//show-v3/battle/players/team', [
-        'abilities' => $abilities,
-        'battle' => $battle,
-        'color' => $battle->third_team_color,
-        'isTricolor' => $isTricolor,
-        'isXmatch' => $isXmatch,
-        'ourTeam' => true,
-        'playedWith' => $playedWith,
-        'players' => $thirdTeamPlayers,
-        'role' => $battle->thirdTeamRole,
-        'theme' => $battle->thirdTeamTheme,
-        'useXMatchingRange' => $isXMR,
-        'weaponMatchingGroup' => $weaponMatchingGroup,
-      ]) . "\n" ?>
-<?php } ?>
-      <?= $this->render('//show-v3/battle/players/team', [
-        'abilities' => $abilities,
-        'battle' => $battle,
-        'color' => $battle->their_team_color,
-        'isTricolor' => $isTricolor,
-        'isXmatch' => $isXmatch,
-        'ourTeam' => false,
-        'playedWith' => $playedWith,
-        'players' => $theirTeamPlayers,
-        'role' => $battle->theirTeamRole,
-        'theme' => $battle->theirTeamTheme,
-        'useXMatchingRange' => $isXMR,
-        'weaponMatchingGroup' => $weaponMatchingGroup,
-      ]) . "\n" ?>
-      <?= $this->render('//show-v3/battle/players/team', [
-        'abilities' => $abilities,
-        'battle' => $battle,
-        'color' => $battle->our_team_color,
-        'isTricolor' => $isTricolor,
-        'isXmatch' => $isXmatch,
-        'ourTeam' => true,
-        'playedWith' => $playedWith,
-        'players' => $ourTeamPlayers,
-        'role' => $battle->ourTeamRole,
-        'theme' => $battle->ourTeamTheme,
+        'players' => $set['players'],
+        'role' => $set['role'],
+        'theme' => $set['theme'],
         'useXMatchingRange' => $isXMR,
         'weaponMatchingGroup' => $weaponMatchingGroup,
       ]) . "\n" ?>
