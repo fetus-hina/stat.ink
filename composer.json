@@ -47,7 +47,7 @@
     "statink/yii2-spl1-stages": "^1.0.1",
     "statink/yii2-spl2-stages": "^1.0.2",
     "statink/yii2-twitter-webintents": "^1.0.3",
-    "symfony/yaml": "^8.0.11",
+    "symfony/yaml": "^8.0.12",
     "twbs/bootstrap-icons": "^1.13.1",
     "yiisoft/yii2": "^2.0.55",
     "yiisoft/yii2-bootstrap": "^2.0.11",
@@ -168,10 +168,10 @@
     },
     "soak-time-hours": 72,
     "soak-time-whitelist": [
-       "symfony/dom-crawler",
-       "symfony/mailer",
-       "symfony/mime",
-       "symfony/yaml"
+      "symfony/dom-crawler",
+      "symfony/mailer",
+      "symfony/mime",
+      "symfony/yaml"
     ]
   },
   "scripts": {
