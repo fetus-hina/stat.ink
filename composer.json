@@ -167,6 +167,10 @@
       }
     },
     "soak-time-hours": 72
+    "soak-time-whitelist": [
+       "symfony/dom-crawler",
+       "symfony/yaml"
+    ],
   },
   "scripts": {
     "post-install-cmd": [
