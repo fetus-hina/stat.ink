@@ -170,6 +170,7 @@
     "soak-time-whitelist": [
        "symfony/dom-crawler",
        "symfony/mailer",
+       "symfony/mime",
        "symfony/yaml"
     ]
   },
