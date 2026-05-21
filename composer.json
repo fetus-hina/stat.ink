@@ -166,7 +166,7 @@
         "non-progress progressbar": "data/patch/yii2-bootstrap-non-progress-progressbar.patch"
       }
     },
-    "soak-time-hours": 72
+    "soak-time-hours": 72,
     "soak-time-whitelist": [
        "symfony/dom-crawler",
        "symfony/yaml"
