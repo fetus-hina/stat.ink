@@ -649,6 +649,7 @@ return [
     'There is no user associated with the specified Google account.' => '指定された Google アカウントに関連づけられたユーザが見つかりません。',
     'There is no user associated with the specified twitter account.' => '指定されたTwitterアカウントに関連づけられたユーザが見つかりません。',
     'These battles were recorded with an outdated version of IkaLog. Please upgrade to the latest version.' => '古いIkaLogで記録されました。情報が正しく解析されないため、最新のIkaLogへアップデートしてください。',
+    'These login methods require linking your external account from the Profile page in advance.' => 'これらのログイン方法を使用するには、事前にプロフィールページから外部アカウントの連携が必要です。',
     'This Discord account has already been integrated with another user.' => 'この Discord アカウントはすでに別のユーザーに関連づけられています。',
     'This Google account has already been integrated with another user.' => 'この Google アカウントはすでに別のユーザーに関連づけられています。',
     'This Month (UTC)' => '今月（ガチマ集計期間）',

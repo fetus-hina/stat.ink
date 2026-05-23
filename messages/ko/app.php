@@ -661,6 +661,7 @@ return [
     'There is no user associated with the specified Google account.' => '해당 Google 계정으로 등록된 유저가 없습니다.',
     'There is no user associated with the specified twitter account.' => '해당 트위터 계정으로 등록된 유저가 없습니다.',
     'These battles were recorded with an outdated version of IkaLog. Please upgrade to the latest version.' => '해당 배틀들은 구버전 IkaLog로 기록됐습니다. 최신 버전으로 업데이트 바랍니다.',
+    'These login methods require linking your external account from the Profile page in advance.' => '이 로그인 방법들은 사전에 프로필 페이지에서 외부 계정을 연결해야 사용할 수 있습니다.',
     'The width of the histogram bins is automatically adjusted by Scott\'s rule-based algorithm.' => '',
     'This battle was recorded with an outdated version of IkaLog. Please upgrade to the latest version.' => '해당 배틀은 구버전 IkaLog로 기록됐습니다. 최신 버전으로 업데이트 바랍니다.',
     'This chart assumes simple normal distribution of the Power to make it easier to compare each mode.' => '',

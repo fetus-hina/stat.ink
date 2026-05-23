@@ -661,6 +661,7 @@ return [
     'There is no user associated with the specified Google account.' => 'Нет пользователя, связанного с указанным аккаунтом Google.',
     'There is no user associated with the specified twitter account.' => 'Нет пользователя, связанного с указанным аккаунтом Twitter.',
     'These battles were recorded with an outdated version of IkaLog. Please upgrade to the latest version.' => '',
+    'These login methods require linking your external account from the Profile page in advance.' => 'Эти способы входа требуют предварительной привязки внешнего аккаунта на странице профиля.',
     'The width of the histogram bins is automatically adjusted by Scott\'s rule-based algorithm.' => '',
     'This battle was recorded with an outdated version of IkaLog. Please upgrade to the latest version.' => '',
     'This chart assumes simple normal distribution of the Power to make it easier to compare each mode.' => '',

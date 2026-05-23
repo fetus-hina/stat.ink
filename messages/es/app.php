@@ -661,6 +661,7 @@ return [
     'There is no user associated with the specified Google account.' => 'No hay ningún usuario asociado a la cuenta de Google especificada.',
     'There is no user associated with the specified twitter account.' => 'No hay ningún usuario asociado a la cuenta de Twitter especificada.',
     'These battles were recorded with an outdated version of IkaLog. Please upgrade to the latest version.' => 'Estas batallas fueron registradas con una versión de IkaLog. Actualice a la versión más reciente.',
+    'These login methods require linking your external account from the Profile page in advance.' => 'Estos métodos de inicio de sesión requieren vincular previamente la cuenta externa desde la página de Perfil.',
     'The width of the histogram bins is automatically adjusted by Scott\'s rule-based algorithm.' => '',
     'This battle was recorded with an outdated version of IkaLog. Please upgrade to the latest version.' => 'Esta batalla fue grabada con una versión de IkaLog. Actualice a la versión más reciente.',
     'This chart assumes simple normal distribution of the Power to make it easier to compare each mode.' => '',

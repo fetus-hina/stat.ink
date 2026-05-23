@@ -28,6 +28,16 @@ $provided = $enableDiscord || $enableGoogle || $enableTwitter;
     </h2>
   </div>
   <div class="panel-body pb-0">
+<?php if ($provided) { ?>
+    <div class="alert alert-info">
+      <?= Html::encode(
+        Yii::t(
+          'app',
+          'These login methods require linking your external account from the Profile page in advance.',
+        )
+      ) . "\n" ?>
+    </div>
+<?php } ?>
     <div class="form-group mb-3">
 <?php if ($enableDiscord) { ?>
       <?= Html::a(

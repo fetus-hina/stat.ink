@@ -661,6 +661,7 @@ return [
     'There is no user associated with the specified Google account.' => '没有用户绑定该Google帐号。',
     'There is no user associated with the specified twitter account.' => '没有用户绑定该Twitter帐号。',
     'These battles were recorded with an outdated version of IkaLog. Please upgrade to the latest version.' => '这些对战是由旧版的IkaLog记录。 请更新到最新版本。',
+    'These login methods require linking your external account from the Profile page in advance.' => '这些登录方式需要事先在用户设置页面绑定外部账号。',
     'The width of the histogram bins is automatically adjusted by Scott\'s rule-based algorithm.' => '直方图的宽度由基于Scott\'s rule的算法自动进行调整。',
     'This battle was recorded with an outdated version of IkaLog. Please upgrade to the latest version.' => '该对战是由旧版的IkaLog记录。请更新到最新版本。',
     'This chart assumes simple normal distribution of the Power to make it easier to compare each mode.' => '为了方便比较每个模式，此表格假设战力是简单正态分布的。',
