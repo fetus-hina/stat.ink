@@ -26,6 +26,8 @@ class LoginMethod extends ActiveRecord
     public const METHOD_COOKIE = 2;
     public const METHOD_TWITTER = 3;
     public const METHOD_PASSKEY = 4;
+    public const METHOD_GOOGLE = 5;
+    public const METHOD_DISCORD = 6;
 
     public static function tableName()
     {

@@ -94,6 +94,7 @@ use function str_starts_with;
  * @method static string github()
  * @method static string goldScale()
  * @method static string goldenEgg()
+ * @method static string google()
  * @method static string hasDisconnected()
  * @method static string help()
  * @method static string image()
@@ -245,6 +246,7 @@ final class Icon
         'fileJson' => 'filetype-json',
         'filter' => 'funnel-fill',
         'github' => 'github',
+        'google' => 'google',
         'help' => 'question-circle-fill',
         'image' => 'image',
         'info' => 'info-circle-fill',

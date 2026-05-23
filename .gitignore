@@ -19,10 +19,12 @@
 /config/db.php
 /config/debug-ips.php
 /config/deepl.php
+/config/discord.php
 /config/git-revision.php
 /config/google-adsense.php
 /config/google-analytics.php
 /config/google-recaptcha.php
+/config/google.php
 /config/img-s3.php
 /config/lepton.php
 /config/twitter.php

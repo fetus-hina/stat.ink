@@ -15,8 +15,10 @@ use yii\web\View;
  * @var View $this
  */
 
+$enableDiscord = Yii::$app->params['discord']['read_enabled'] ?? false;
+$enableGoogle = Yii::$app->params['google']['read_enabled'] ?? false;
 $enableTwitter = Yii::$app->params['twitter']['read_enabled'] ?? false;
-$provided = $enableTwitter;
+$provided = $enableDiscord || $enableGoogle || $enableTwitter;
 
 ?>
 <div class="panel panel-default mb-3">
@@ -26,7 +28,43 @@ $provided = $enableTwitter;
     </h2>
   </div>
   <div class="panel-body pb-0">
+<?php if ($provided) { ?>
+    <div class="alert alert-info">
+      <?= Html::encode(
+        Yii::t(
+          'app',
+          'These login methods require linking your external account from the Profile page in advance.',
+        )
+      ) . "\n" ?>
+    </div>
+<?php } ?>
     <div class="form-group mb-3">
+<?php if ($enableDiscord) { ?>
+      <?= Html::a(
+        implode(' ', [
+          Icon::discord(),
+          Html::encode(Yii::t('app', 'Log in with Discord')),
+        ]),
+        ['/user/login-with-discord'],
+        [
+          'class' => 'btn btn-primary btn-block mb-2',
+          'rel' => 'nofollow',
+        ]
+      ) . "\n" ?>
+<?php } ?>
+<?php if ($enableGoogle) { ?>
+      <?= Html::a(
+        implode(' ', [
+          Icon::google(),
+          Html::encode(Yii::t('app', 'Log in with Google')),
+        ]),
+        ['/user/login-with-google'],
+        [
+          'class' => 'btn btn-danger btn-block mb-2',
+          'rel' => 'nofollow',
+        ]
+      ) . "\n" ?>
+<?php } ?>
 <?php if ($enableTwitter) { ?>
       <?= Html::a(
         implode(' ', [
