@@ -160,6 +160,8 @@ SIMPLE_CONFIG_TARGETS := \
 	config/backup-gpg.php \
 	config/debug-ips.php \
 	config/deepl.php \
+	config/discord.php \
+	config/google.php \
 	config/lepton.php \
 	config/twitter.php
 
@@ -563,6 +565,12 @@ config/deepl.php:
 	@echo 'declare(strict_types=1);' >> $@
 	@echo '' >> $@
 	@echo "return '';" >> $@
+
+config/discord.php:
+	cp config/discord.sample.php $@
+
+config/google.php:
+	cp config/google.sample.php $@
 
 config/lepton.php:
 	cp config/lepton.sample.php $@
