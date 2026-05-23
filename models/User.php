@@ -71,6 +71,7 @@ use const SORT_DESC;
  * @property Battle2[] $battle2s
  * @property Language $defaultLanguage
  * @property Environment $env
+ * @property LoginWithGoogle|null $loginWithGoogle
  * @property LoginWithTwitter $loginWithTwitter
  * @property OstatusRsa $ostatusRsa
  * @property Region $region
@@ -241,6 +242,14 @@ class User extends ActiveRecord implements IdentityInterface
     public function getBattle2s()
     {
         return $this->hasMany(Battle2::class, ['user_id' => 'id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getLoginWithGoogle()
+    {
+        return $this->hasOne(LoginWithGoogle::class, ['user_id' => 'id']);
     }
 
     /**

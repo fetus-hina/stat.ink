@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\controllers;
 
+use app\actions\user\ClearLoginWithGoogleAction;
 use app\actions\user\ClearLoginWithTwitterAction;
 use app\actions\user\Download2Action;
 use app\actions\user\Download3Action;
@@ -24,6 +25,7 @@ use app\actions\user\IconTwitterAction;
 use app\actions\user\LanguageAction;
 use app\actions\user\LoginAction;
 use app\actions\user\LoginHistoryAction;
+use app\actions\user\LoginWithGoogleAction;
 use app\actions\user\LoginWithTwitterAction;
 use app\actions\user\LogoutAction;
 use app\actions\user\MachineTranslationAction;
@@ -46,6 +48,7 @@ use app\actions\user\SlackDeleteAction;
 use app\actions\user\SlackSuspendAction;
 use app\actions\user\SlackTestAction;
 use app\actions\user\TimezoneAction;
+use app\actions\user\UpdateLoginWithGoogleAction;
 use app\actions\user\UpdateLoginWithTwitterAction;
 use app\components\web\Controller;
 use yii\filters\AccessControl;
@@ -61,6 +64,7 @@ final class UserController extends Controller
             'access' => [
                 'class' => AccessControl::class,
                 'only' => [
+                    'clear-login-with-google',
                     'clear-login-with-twitter',
                     'download',
                     'download2',
@@ -74,6 +78,7 @@ final class UserController extends Controller
                     'icon-twitter',
                     'login',
                     'login-history',
+                    'login-with-google',
                     'login-with-twitter',
                     'logout',
                     'passkey',
@@ -94,12 +99,14 @@ final class UserController extends Controller
                     'slack-delete',
                     'slack-suspend',
                     'slack-test',
+                    'update-login-with-google',
                     'update-login-with-twitter',
                 ],
                 'rules' => [
                     [
                         'actions' => [
                             'login',
+                            'login-with-google',
                             'login-with-twitter',
                             'passkey-login-finish',
                             'passkey-login-start',
@@ -112,6 +119,7 @@ final class UserController extends Controller
                     ],
                     [
                         'actions' => [
+                            'clear-login-with-google',
                             'clear-login-with-twitter',
                             'download',
                             'download2',
@@ -138,6 +146,7 @@ final class UserController extends Controller
                             'slack-delete',
                             'slack-suspend',
                             'slack-test',
+                            'update-login-with-google',
                             'update-login-with-twitter',
                         ],
                         'roles' => ['@'],
@@ -182,6 +191,7 @@ final class UserController extends Controller
     public function actions()
     {
         return [
+            'clear-login-with-google' => ClearLoginWithGoogleAction::class,
             'clear-login-with-twitter' => ClearLoginWithTwitterAction::class,
             'download' => DownloadAction::class,
             'download-salmon' => DownloadSalmon2Action::class,
@@ -197,6 +207,7 @@ final class UserController extends Controller
             'language' => LanguageAction::class,
             'login' => LoginAction::class,
             'login-history' => LoginHistoryAction::class,
+            'login-with-google' => LoginWithGoogleAction::class,
             'login-with-twitter' => LoginWithTwitterAction::class,
             'logout' => LogoutAction::class,
             'machine-translation' => MachineTranslationAction::class,
@@ -219,6 +230,7 @@ final class UserController extends Controller
             'slack-suspend' => SlackSuspendAction::class,
             'slack-test' => SlackTestAction::class,
             'timezone' => TimezoneAction::class,
+            'update-login-with-google' => UpdateLoginWithGoogleAction::class,
             'update-login-with-twitter' => UpdateLoginWithTwitterAction::class,
         ];
     }

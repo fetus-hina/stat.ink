@@ -20,6 +20,8 @@ use yii\web\View;
  */
 
 $user = Yii::$app->user->identity ?? null;
+$googleEnabled = (bool)(Yii::$app->params['google']['read_enabled'] ?? false);
+$twitterEnabled = (bool)(Yii::$app->params['twitter']['read_enabled'] ?? false);
 
 if (!$user) {
     PasskeyLoginNavbarAsset::register($this);
@@ -153,7 +155,7 @@ if (!$user) {
         implode('', [
           Html::tag(
             'span',
-            (Yii::$app->params['twitter']['read_enabled'] ?? false) ? '┣' : '┗',
+            ($googleEnabled || $twitterEnabled) ? '┣' : '┗',
             ['class' => 'fa'],
           ),
           Icon::passkey(),
@@ -163,7 +165,18 @@ if (!$user) {
         '#',
         ['id' => 'navbar-passkey-login'],
       )),
-      (Yii::$app->params['twitter']['read_enabled'] ?? false)
+      $googleEnabled
+        ? Html::tag('li', Html::a(
+          implode('', [
+            Html::tag('span', $twitterEnabled ? '┣' : '┗', ['class' => 'fa']),
+            Icon::google(),
+            ' ',
+            Html::encode(Yii::t('app', 'Log in with Google')),
+          ]),
+          ['/user/login-with-google']
+        ))
+        : '',
+      $twitterEnabled
         ? Html::tag('li', Html::a(
           implode('', [
             Html::tag('span', '┗', ['class' => 'fa']),

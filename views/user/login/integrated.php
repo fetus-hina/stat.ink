@@ -15,8 +15,9 @@ use yii\web\View;
  * @var View $this
  */
 
+$enableGoogle = Yii::$app->params['google']['read_enabled'] ?? false;
 $enableTwitter = Yii::$app->params['twitter']['read_enabled'] ?? false;
-$provided = $enableTwitter;
+$provided = $enableGoogle || $enableTwitter;
 
 ?>
 <div class="panel panel-default mb-3">
@@ -27,6 +28,19 @@ $provided = $enableTwitter;
   </div>
   <div class="panel-body pb-0">
     <div class="form-group mb-3">
+<?php if ($enableGoogle) { ?>
+      <?= Html::a(
+        implode(' ', [
+          Icon::google(),
+          Html::encode(Yii::t('app', 'Log in with Google')),
+        ]),
+        ['/user/login-with-google'],
+        [
+          'class' => 'btn btn-danger btn-block mb-2',
+          'rel' => 'nofollow',
+        ]
+      ) . "\n" ?>
+<?php } ?>
 <?php if ($enableTwitter) { ?>
       <?= Html::a(
         implode(' ', [

@@ -25,6 +25,7 @@ return [
     'deepl' => null,
     'discordInviteCode' => 'DyWTsKRNvT',
     'gitRevision' => $tryLoad(__DIR__ . '/git-revision.php'),
+    'google' => require __DIR__ . '/google.php',
     'lepton' => require __DIR__ . '/lepton.php',
     'minimumPHP' => '8.4.0',
     'notifyEmail' => 'noreply@stat.ink',
