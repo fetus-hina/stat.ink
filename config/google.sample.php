@@ -5,7 +5,7 @@
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
-declare(strict_type=1);
+declare(strict_types=1);
 
 return [
     'read_enabled' => false,
