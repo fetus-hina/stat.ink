@@ -23,6 +23,7 @@ return [
     'assetRevision' => $tryLoad(__DIR__ . '/asset-revision.php'),
     'cloudflareTurnstile' => $tryLoad(__DIR__ . '/cloudflare/turnstile.php'),
     'deepl' => null,
+    'discord' => require __DIR__ . '/discord.php',
     'discordInviteCode' => 'DyWTsKRNvT',
     'gitRevision' => $tryLoad(__DIR__ . '/git-revision.php'),
     'google' => require __DIR__ . '/google.php',

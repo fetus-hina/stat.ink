@@ -41,6 +41,7 @@ use yii\web\View;
 </div>
 <table class="table table-striped">
   <tbody>
+    <?= $this->render('login-with/discord', compact('user')) . "\n" ?>
     <?= $this->render('login-with/google', compact('user')) . "\n" ?>
     <?= $this->render('login-with/twitter', compact('user')) . "\n" ?>
   </tbody>

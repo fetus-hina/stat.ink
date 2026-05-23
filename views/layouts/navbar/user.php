@@ -20,6 +20,7 @@ use yii\web\View;
  */
 
 $user = Yii::$app->user->identity ?? null;
+$discordEnabled = (bool)(Yii::$app->params['discord']['read_enabled'] ?? false);
 $googleEnabled = (bool)(Yii::$app->params['google']['read_enabled'] ?? false);
 $twitterEnabled = (bool)(Yii::$app->params['twitter']['read_enabled'] ?? false);
 
@@ -155,7 +156,7 @@ if (!$user) {
         implode('', [
           Html::tag(
             'span',
-            ($googleEnabled || $twitterEnabled) ? '┣' : '┗',
+            ($discordEnabled || $googleEnabled || $twitterEnabled) ? '┣' : '┗',
             ['class' => 'fa'],
           ),
           Icon::passkey(),
@@ -165,6 +166,17 @@ if (!$user) {
         '#',
         ['id' => 'navbar-passkey-login'],
       )),
+      $discordEnabled
+        ? Html::tag('li', Html::a(
+          implode('', [
+            Html::tag('span', ($googleEnabled || $twitterEnabled) ? '┣' : '┗', ['class' => 'fa']),
+            Icon::discord(),
+            ' ',
+            Html::encode(Yii::t('app', 'Log in with Discord')),
+          ]),
+          ['/user/login-with-discord']
+        ))
+        : '',
       $googleEnabled
         ? Html::tag('li', Html::a(
           implode('', [

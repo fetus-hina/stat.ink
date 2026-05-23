@@ -15,9 +15,10 @@ use yii\web\View;
  * @var View $this
  */
 
+$enableDiscord = Yii::$app->params['discord']['read_enabled'] ?? false;
 $enableGoogle = Yii::$app->params['google']['read_enabled'] ?? false;
 $enableTwitter = Yii::$app->params['twitter']['read_enabled'] ?? false;
-$provided = $enableGoogle || $enableTwitter;
+$provided = $enableDiscord || $enableGoogle || $enableTwitter;
 
 ?>
 <div class="panel panel-default mb-3">
@@ -28,6 +29,19 @@ $provided = $enableGoogle || $enableTwitter;
   </div>
   <div class="panel-body pb-0">
     <div class="form-group mb-3">
+<?php if ($enableDiscord) { ?>
+      <?= Html::a(
+        implode(' ', [
+          Icon::discord(),
+          Html::encode(Yii::t('app', 'Log in with Discord')),
+        ]),
+        ['/user/login-with-discord'],
+        [
+          'class' => 'btn btn-primary btn-block mb-2',
+          'rel' => 'nofollow',
+        ]
+      ) . "\n" ?>
+<?php } ?>
 <?php if ($enableGoogle) { ?>
       <?= Html::a(
         implode(' ', [
