@@ -42,6 +42,7 @@ use app\models\StatEntireUser;
 use app\models\StatEntireUser3;
 use app\models\StatWeapon;
 use app\models\StatWeapon2UseCount;
+use app\models\StatWeapon2UseCountPerMonth;
 use app\models\StatWeapon2UseCountPerWeek;
 use app\models\StatWeaponBattleCount;
 use app\models\StatWeaponKDWinRate;
@@ -1434,6 +1435,44 @@ final class StatController extends Controller
         );
         // }}}
 
+        // {{{
+        $yearMonth = "TO_CHAR(PERIOD2_TO_TIMESTAMP({{t}}.[[period]]) AT TIME ZONE 'UTC', 'YYYYMM')::integer";
+        $maxMonth = (int)StatWeapon2UseCountPerMonth::find()->max('[[year_month]]');
+        if ($maxMonth <= 0) {
+            $maxMonth = 201708;
+        }
+        $selectMonth = new Query()
+            ->select(array_merge(
+                [
+                    'year_month' => $yearMonth,
+                    'rule_id' => '{{t}}.[[rule_id]]',
+                    'weapon_id' => '{{t}}.[[weapon_id]]',
+                    'map_id' => '{{t}}.[[map_id]]',
+                ],
+                ArrayHelper::map(
+                    $columns,
+                    fn (string $colName): string => $colName,
+                    fn (string $colName): string => "SUM({{t}}.[[{$colName}]])",
+                ),
+            ))
+            ->from(sprintf('{{%s}} {{t}}', StatWeapon2UseCount::tableName()))
+            ->groupBy([
+                $yearMonth,
+                '{{t}}.[[rule_id]]',
+                '{{t}}.[[weapon_id]]',
+                '{{t}}.[[map_id]]',
+            ])
+            ->having(['>=', $yearMonth, $maxMonth]);
+        $upsertMonth = sprintf(
+            'INSERT INTO {{%s}} ( %s ) %s ON CONFLICT ( %s ) DO UPDATE SET %s',
+            StatWeapon2UseCountPerMonth::tableName(),
+            implode(', ', array_map(fn (string $a): string => "[[{$a}]]", array_keys($selectMonth->select))),
+            $selectMonth->createCommand()->rawSql,
+            implode(', ', array_map(fn (string $a): string => "[[{$a}]]", ['year_month', 'rule_id', 'weapon_id', 'map_id'])),
+            implode(', ', array_map(fn (string $a): string => sprintf('[[%1$s]] = {{excluded}}.[[%1$s]]', $a), $columns)),
+        );
+        // }}}
+
         $transaction = $db->beginTransaction();
         $db->createCommand("SET timezone TO 'Asia/Tokyo'")->execute();
 
@@ -1445,12 +1484,17 @@ final class StatController extends Controller
         $db->createCommand($upsertWeek)->execute();
         echo "\n";
 
+        echo "Executing {$upsertMonth} ...\n";
+        $db->createCommand($upsertMonth)->execute();
+        echo "\n";
+
         echo "Commiting...\n";
         $transaction->commit();
 
         echo "Vacuum...\n";
         $db->createCommand('VACUUM ANALYZE {{stat_weapon2_use_count}}')->execute();
         $db->createCommand('VACUUM ANALYZE {{stat_weapon2_use_count_per_week}}')->execute();
+        $db->createCommand('VACUUM ANALYZE {{stat_weapon2_use_count_per_month}}')->execute();
         // }}}
     }
 

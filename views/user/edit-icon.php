@@ -60,26 +60,6 @@ $this->title = implode(' | ', [
           ['class' => 'btn btn-default']
         ) . "\n" ?>
       </div>
-<?php if (false && Yii::$app->params['twitter']['read_enabled'] ?? null) { ?>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <?= Icon::twitter() . "\n" ?>
-          <?= Html::encode(Yii::t('app', 'Use profile icon of your twitter account')) . "\n" ?>
-        </div>
-        <div class="panel-body">
-          <p class="text-right">
-            <?= Html::a(
-              implode(' ', [
-                Icon::twitter(),
-                Html::encode(Yii::t('app', 'Use your profile icon')),
-              ]),
-              ['icon-twitter'],
-              ['class' => 'btn btn-info btn-block']
-            ) . "\n" ?>
-          </p>
-        </div>
-      </div>
-<?php } ?>
       <div class="panel panel-default">
         <div class="panel-heading">
           <?= Html::encode(Yii::t('app', 'Upload new image')) . "\n" ?>

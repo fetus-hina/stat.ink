@@ -22,12 +22,9 @@ use app\actions\user\EditIconAction;
 use app\actions\user\EditPasswordAction;
 use app\actions\user\EditProfileAction;
 use app\actions\user\EditScreenNameAction;
-use app\actions\user\IconTwitterAction;
 use app\actions\user\LanguageAction;
 use app\actions\user\LoginAction;
 use app\actions\user\LoginHistoryAction;
-use app\actions\user\LoginWithDiscordAction;
-use app\actions\user\LoginWithGoogleAction;
 use app\actions\user\LoginWithTwitterAction;
 use app\actions\user\LogoutAction;
 use app\actions\user\MachineTranslationAction;
@@ -50,9 +47,11 @@ use app\actions\user\SlackDeleteAction;
 use app\actions\user\SlackSuspendAction;
 use app\actions\user\SlackTestAction;
 use app\actions\user\TimezoneAction;
-use app\actions\user\UpdateLoginWithDiscordAction;
-use app\actions\user\UpdateLoginWithGoogleAction;
 use app\actions\user\UpdateLoginWithTwitterAction;
+use app\actions\user\oauth2\LoginWithDiscordAction;
+use app\actions\user\oauth2\LoginWithGoogleAction;
+use app\actions\user\oauth2\UpdateLoginWithDiscordAction;
+use app\actions\user\oauth2\UpdateLoginWithGoogleAction;
 use app\components\web\Controller;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -79,7 +78,6 @@ final class UserController extends Controller
                     'edit-password',
                     'edit-profile',
                     'edit-screen-name',
-                    'icon-twitter',
                     'login',
                     'login-history',
                     'login-with-discord',
@@ -138,7 +136,6 @@ final class UserController extends Controller
                             'edit-password',
                             'edit-profile',
                             'edit-screen-name',
-                            'icon-twitter',
                             'login-history',
                             'logout',
                             'passkey',
@@ -213,7 +210,6 @@ final class UserController extends Controller
             'edit-password' => EditPasswordAction::class,
             'edit-profile' => EditProfileAction::class,
             'edit-screen-name' => EditScreenNameAction::class,
-            'icon-twitter' => IconTwitterAction::class,
             'language' => LanguageAction::class,
             'login' => LoginAction::class,
             'login-history' => LoginHistoryAction::class,
