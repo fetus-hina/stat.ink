@@ -8,12 +8,10 @@
 namespace app\actions\user;
 
 use Exception;
-use OAuth\Common\Consumer\Credentials as OAuthCredentials;
-use OAuth\Common\Http\Uri\Uri as OAuthUri;
-use OAuth\Common\Service\ServiceInterface as OAuthService;
-use OAuth\Common\Storage\Session as OAuthSessionStorage;
-use OAuth\Common\Storage\TokenStorageInterface as OAuthStorage;
-use OAuth\ServiceFactory as OAuthFactory;
+use GuzzleHttp\Client as GuzzleClient;
+use League\OAuth1\Client\Credentials\TemporaryCredentials;
+use League\OAuth1\Client\Server\Twitter as TwitterServer;
+use Override;
 use RuntimeException;
 use Throwable;
 use Yii;
@@ -27,6 +25,10 @@ use function is_array;
 
 final class UpdateLoginWithTwitterAction extends Action
 {
+    private const SESSION_KEY_TEMP_CREDS = 'oauth1tempcreds.twitter.update';
+    private const TWITTER_V2_USERS_ME = 'https://api.twitter.com/2/users/me';
+
+    #[Override]
     public function init()
     {
         if (!Yii::$app->params['twitter']['read_enabled']) {
@@ -38,23 +40,27 @@ final class UpdateLoginWithTwitterAction extends Action
     {
         $request = Yii::$app->request;
         $response = Yii::$app->response;
-        $twitter = $this->twitterService;
+        $session = Yii::$app->session;
+        $twitter = $this->createServer();
 
         try {
             if ($request->get('denied')) {
-                // キャンセルしてきた
+                $session->remove(self::SESSION_KEY_TEMP_CREDS);
                 return $response->redirect(Url::to(['user/profile'], true), 303);
             } elseif ($request->get('oauth_token')) {
-                // 帰ってきた
-                $token = $this->tokenStorage->retrieveAccessToken('Twitter');
-                $twitter->requestAccessToken(
+                $tempCreds = $this->restoreTemporaryCredentials($session->get(self::SESSION_KEY_TEMP_CREDS));
+                $session->remove(self::SESSION_KEY_TEMP_CREDS);
+                if (!$tempCreds) {
+                    throw new BadRequestHttpException('Missing OAuth temporary credentials.');
+                }
+
+                $tokenCredentials = $twitter->getTokenCredentials(
+                    $tempCreds,
                     (string)$request->get('oauth_token'),
                     (string)$request->get('oauth_verifier'),
-                    $token->getRequestTokenSecret(),
                 );
-                $twUser = Json::decode(
-                    $twitter->request('users/me'),
-                );
+
+                $twUser = $this->fetchTwitterV2User($twitter, $tokenCredentials);
                 if (!is_array($twUser) || !isset($twUser['data']['id'])) {
                     throw new RuntimeException('Failed to fetch your information from Twitter');
                 }
@@ -62,7 +68,6 @@ final class UpdateLoginWithTwitterAction extends Action
 
                 $transaction = Yii::$app->db->beginTransaction();
                 try {
-                    // 古い情報を探して古い情報があれば消す
                     $info = $user->loginWithTwitter;
                     if ($info) {
                         if (!$info->delete()) {
@@ -70,7 +75,6 @@ final class UpdateLoginWithTwitterAction extends Action
                         }
                     }
 
-                    // 同じ twitter id の子がいないか確認する
                     $dupInfo = LoginWithTwitter::findOne(['twitter_id' => $twUser['data']['id']]);
                     if ($dupInfo) {
                         Yii::$app->session->addFlash(
@@ -81,7 +85,6 @@ final class UpdateLoginWithTwitterAction extends Action
                         return $response->redirect(Url::to(['user/profile'], true), 303);
                     }
 
-                    // 新しい情報を登録する
                     $info = Yii::createObject([
                         'class' => LoginWithTwitter::class,
                         'user_id' => $user->id,
@@ -103,36 +106,45 @@ final class UpdateLoginWithTwitterAction extends Action
                     return $response->redirect(Url::to(['user/profile'], true), 303);
                 }
             } else {
-                // 認証手続き
-                $token = $twitter->requestRequestToken();
-                $url = $twitter->getAuthorizationUri(['oauth_token' => $token->getRequestToken()]);
-                return $response->redirect((string)$url, 303);
+                $tempCreds = $twitter->getTemporaryCredentials();
+                $session->set(self::SESSION_KEY_TEMP_CREDS, [
+                    'identifier' => $tempCreds->getIdentifier(),
+                    'secret' => $tempCreds->getSecret(),
+                ]);
+                $url = $twitter->getAuthorizationUrl($tempCreds);
+                return $response->redirect($url, 303);
             }
         } catch (Throwable $e) {
             throw $e;
         }
-        throw new BadRequestHttpException('Bad request.');
     }
 
-    public function getTwitterService(): OAuthService
+    private function createServer(): TwitterServer
     {
-        $credential = new OAuthCredentials(
-            Yii::$app->params['twitter']['consumer_key'],
-            Yii::$app->params['twitter']['consumer_secret'],
-            Url::to(['user/update-login-with-twitter'], true),
-        );
-
-        $factory = new OAuthFactory();
-        return $factory->createService(
-            'twitter',
-            $credential,
-            $this->tokenStorage,
-            baseApiUri: new OAuthUri('https://api.twitter.com/2/'),
-        );
+        return new TwitterServer([
+            'identifier' => Yii::$app->params['twitter']['consumer_key'],
+            'secret' => Yii::$app->params['twitter']['consumer_secret'],
+            'callback_uri' => Url::to(['user/update-login-with-twitter'], true),
+        ]);
     }
 
-    public function getTokenStorage(): OAuthStorage
+    private function restoreTemporaryCredentials(mixed $stored): ?TemporaryCredentials
     {
-        return new OAuthSessionStorage();
+        if (!is_array($stored) || !isset($stored['identifier'], $stored['secret'])) {
+            return null;
+        }
+        $tempCreds = new TemporaryCredentials();
+        $tempCreds->setIdentifier((string)$stored['identifier']);
+        $tempCreds->setSecret((string)$stored['secret']);
+        return $tempCreds;
+    }
+
+    private function fetchTwitterV2User(TwitterServer $twitter, $tokenCredentials): array
+    {
+        $url = self::TWITTER_V2_USERS_ME;
+        $headers = $twitter->getHeaders($tokenCredentials, 'GET', $url);
+        $client = new GuzzleClient();
+        $response = $client->get($url, ['headers' => $headers]);
+        return (array)Json::decode((string)$response->getBody());
     }
 }
