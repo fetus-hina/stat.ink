@@ -1,5 +1,6 @@
 import type { Battle, RelTimeTranslations } from '../../types';
 import type { CSSProperties } from 'react';
+import { useState } from 'react';
 import RelTime from './RelTime';
 import classes from './BattleCard.module.css';
 
@@ -10,11 +11,24 @@ const EMPTY_IMAGE_16_BY_9 =
 
 const nbsp = '\u{00a0}';
 
+const THUMBNAIL_SIZES = '(min-width: 1200px) 260.5px, (min-width: 992px) 291.33px, 343px';
+
 function thumbnailUrl (template: string, width: number, height: number, x: number, ext: string) {
   return template
     .replace('<w>', String(Math.floor(width * x)))
     .replace('<h>', String(Math.floor(height * x)))
     .replace(/jpg$/, ext);
+}
+
+function buildThumbnailSrcSet (template: string, ext: string) {
+  return [
+    `${thumbnailUrl(template, 260.50, 146.53, 1, ext)} 260w`,
+    `${thumbnailUrl(template, 260.50, 146.53, 2, ext)} 521w`,
+    `${thumbnailUrl(template, 291.33, 163.86, 1, ext)} 291w`,
+    `${thumbnailUrl(template, 291.33, 163.86, 2, ext)} 582w`,
+    `${thumbnailUrl(template, 343.00, 192.94, 1, ext)} 343w`,
+    `${thumbnailUrl(template, 343.00, 192.94, 2, ext)} 686w`
+  ].join(', ');
 }
 
 interface BattleCardProps {
@@ -25,46 +39,46 @@ interface BattleCardProps {
 
 export default function BattleCard (props: BattleCardProps) {
   const { battle, fallbackImage, reltime } = props;
+  const [thumbnailLoaded, setThumbnailLoaded] = useState(false);
 
   return (
     <div className='col-xs-12 col-sm-6 col-md-4 col-lg-3 mb-2'>
       <div className={[classes.root, classes.outlined].join(' ')}>
         <a href={battle.url} className={classes.link}>
           <div
-            className={
-              [
-                classes.media,
-                classes.media16x9,
-                battle.thumbnail ? classes.mediaHasThumbnail : null
-              ].filter(v => v !== null).join(' ')
-            }
-            style={Object.assign(
-              { backgroundImage: buildBackgroundImages(battle, fallbackImage) },
-              battle.thumbnail
-                ? {
-                    '--thumbnail-lg-1-avif': `url('${thumbnailUrl(battle.thumbnail, 260.50, 146.53, 1, 'avif')}')`,
-                    '--thumbnail-lg-1-jpg': `url('${thumbnailUrl(battle.thumbnail, 260.50, 146.53, 1, 'jpg')}')`,
-                    '--thumbnail-lg-1-webp': `url('${thumbnailUrl(battle.thumbnail, 260.50, 146.53, 1, 'webp')}')`,
-                    '--thumbnail-lg-2-avif': `url('${thumbnailUrl(battle.thumbnail, 260.50, 146.53, 2, 'avif')}')`,
-                    '--thumbnail-lg-2-jpg': `url('${thumbnailUrl(battle.thumbnail, 260.50, 146.53, 2, 'jpg')}')`,
-                    '--thumbnail-lg-2-webp': `url('${thumbnailUrl(battle.thumbnail, 260.50, 146.53, 2, 'webp')}')`,
-                    '--thumbnail-md-1-avif': `url('${thumbnailUrl(battle.thumbnail, 291.33, 163.86, 1, 'avif')}')`,
-                    '--thumbnail-md-1-jpg': `url('${thumbnailUrl(battle.thumbnail, 291.33, 163.86, 1, 'jpg')}')`,
-                    '--thumbnail-md-1-webp': `url('${thumbnailUrl(battle.thumbnail, 291.33, 163.86, 1, 'webp')}')`,
-                    '--thumbnail-md-2-avif': `url('${thumbnailUrl(battle.thumbnail, 291.33, 163.86, 2, 'avif')}')`,
-                    '--thumbnail-md-2-jpg': `url('${thumbnailUrl(battle.thumbnail, 291.33, 163.86, 2, 'jpg')}')`,
-                    '--thumbnail-md-2-webp': `url('${thumbnailUrl(battle.thumbnail, 291.33, 163.86, 2, 'webp')}')`,
-                    '--thumbnail-sm-1-avif': `url('${thumbnailUrl(battle.thumbnail, 343.00, 192.94, 1, 'avif')}')`,
-                    '--thumbnail-sm-1-jpg': `url('${thumbnailUrl(battle.thumbnail, 343.00, 192.94, 1, 'jpg')}')`,
-                    '--thumbnail-sm-1-webp': `url('${thumbnailUrl(battle.thumbnail, 343.00, 192.94, 1, 'webp')}')`,
-                    '--thumbnail-sm-2-avif': `url('${thumbnailUrl(battle.thumbnail, 343.00, 192.94, 2, 'avif')}')`,
-                    '--thumbnail-sm-2-jpg': `url('${thumbnailUrl(battle.thumbnail, 343.00, 192.94, 2, 'jpg')}')`,
-                    '--thumbnail-sm-2-webp': `url('${thumbnailUrl(battle.thumbnail, 343.00, 192.94, 2, 'webp')}')`,
-                    '--thumbnail-fallback': `url('${fallbackImage}')`
-                  }
-                : {}
-            ) as CSSProperties}
+            className={[classes.media, classes.media16x9].join(' ')}
+            style={{
+              backgroundImage: buildBackgroundImages(battle, fallbackImage)
+            } as CSSProperties}
           >
+            {battle.thumbnail
+              ? (
+                <picture
+                  className={[
+                    classes.thumbnail,
+                    thumbnailLoaded ? classes.thumbnailLoaded : null
+                  ].filter(v => v !== null).join(' ')}
+                >
+                  <source
+                    type='image/avif'
+                    sizes={THUMBNAIL_SIZES}
+                    srcSet={buildThumbnailSrcSet(battle.thumbnail, 'avif')}
+                  />
+                  <source
+                    type='image/webp'
+                    sizes={THUMBNAIL_SIZES}
+                    srcSet={buildThumbnailSrcSet(battle.thumbnail, 'webp')}
+                  />
+                  <img
+                    alt=''
+                    decoding='async'
+                    sizes={THUMBNAIL_SIZES}
+                    srcSet={buildThumbnailSrcSet(battle.thumbnail, 'jpg')}
+                    onLoad={() => setThumbnailLoaded(true)}
+                  />
+                </picture>
+                )
+              : null}
             {((battle.mode && battle.mode.icon) || (battle.rule && battle.rule.icon))
               ? (
                 <div className={classes.modeIcons}>
@@ -129,7 +143,7 @@ export default function BattleCard (props: BattleCardProps) {
 
 function buildBackgroundImages (battle: Battle, fallbackImage: string) {
   const results = [];
-  if (battle.image) {
+  if (battle.image && !battle.thumbnail) {
     results.push(`url(${battle.image})`);
   }
   if (battle.stage) {
