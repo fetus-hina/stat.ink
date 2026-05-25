@@ -11,18 +11,17 @@ namespace app\actions\entire;
 
 use DateInterval;
 use DateTime;
-use DateTimeImmutable;
 use DateTimeZone;
 use Exception;
 use Throwable;
 use Yii;
-use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\YearMonth;
 use app\models\EntireWeapon2Form;
 use app\models\Rule2;
 use app\models\Special2;
 use app\models\SplatoonVersion2;
 use app\models\SplatoonVersionGroup2;
-use app\models\StatWeapon2UseCount;
+use app\models\StatWeapon2UseCountPerMonth;
 use app\models\Subweapon2;
 use app\models\Weapon2;
 use stdClass;
@@ -189,59 +188,59 @@ class Weapons2Action extends BaseAction
             'type_name' => 'MAX({{weapon_type2}}.[[name]])',
             'category_key' => 'MAX({{weapon_category2}}.[[key]])',
             'category_name' => 'MAX({{weapon_category2}}.[[name]])',
-            'count' => 'SUM({{stat_weapon2_use_count}}.[[battles]])',
+            'count' => 'SUM({{stat_weapon2_use_count_per_month}}.[[battles]])',
             'avg_kill' => sprintf(
                 '(%s / NULLIF(%s, 0))',
-                'SUM({{stat_weapon2_use_count}}.[[kills]])',
-                'SUM({{stat_weapon2_use_count}}.[[kd_available]])',
+                'SUM({{stat_weapon2_use_count_per_month}}.[[kills]])',
+                'SUM({{stat_weapon2_use_count_per_month}}.[[kd_available]])',
             ),
-            'sum_kill' => 'SUM({{stat_weapon2_use_count}}.[[kills]])',
+            'sum_kill' => 'SUM({{stat_weapon2_use_count_per_month}}.[[kills]])',
             'kill_per_min' => sprintf(
                 '(%s * 60.0 / NULLIF(%s, 0))',
-                'SUM({{stat_weapon2_use_count}}.[[kills_with_time]])',
-                'SUM({{stat_weapon2_use_count}}.[[kd_time_seconds]])',
+                'SUM({{stat_weapon2_use_count_per_month}}.[[kills_with_time]])',
+                'SUM({{stat_weapon2_use_count_per_month}}.[[kd_time_seconds]])',
             ),
             'avg_death' => sprintf(
                 '(%s / NULLIF(%s, 0))',
-                'SUM({{stat_weapon2_use_count}}.[[deaths]])',
-                'SUM({{stat_weapon2_use_count}}.[[kd_available]])',
+                'SUM({{stat_weapon2_use_count_per_month}}.[[deaths]])',
+                'SUM({{stat_weapon2_use_count_per_month}}.[[kd_available]])',
             ),
-            'sum_death' => 'SUM({{stat_weapon2_use_count}}.[[deaths]])',
+            'sum_death' => 'SUM({{stat_weapon2_use_count_per_month}}.[[deaths]])',
             'death_per_min' => sprintf(
                 '(%s * 60.0 / NULLIF(%s, 0))',
-                'SUM({{stat_weapon2_use_count}}.[[deaths_with_time]])',
-                'SUM({{stat_weapon2_use_count}}.[[kd_time_seconds]])',
+                'SUM({{stat_weapon2_use_count_per_month}}.[[deaths_with_time]])',
+                'SUM({{stat_weapon2_use_count_per_month}}.[[kd_time_seconds]])',
             ),
             'avg_special' => sprintf(
                 '(%s / NULLIF(%s, 0))',
-                'SUM({{stat_weapon2_use_count}}.[[specials]])',
-                'SUM({{stat_weapon2_use_count}}.[[specials_available]])',
+                'SUM({{stat_weapon2_use_count_per_month}}.[[specials]])',
+                'SUM({{stat_weapon2_use_count_per_month}}.[[specials_available]])',
             ),
-            'sum_special' => 'SUM({{stat_weapon2_use_count}}.[[specials]])',
+            'sum_special' => 'SUM({{stat_weapon2_use_count_per_month}}.[[specials]])',
             'special_per_min' => sprintf(
                 '(%s * 60.0 / NULLIF(%s, 0))',
-                'SUM({{stat_weapon2_use_count}}.[[specials_with_time]])',
-                'SUM({{stat_weapon2_use_count}}.[[specials_time_seconds]])',
+                'SUM({{stat_weapon2_use_count_per_month}}.[[specials_with_time]])',
+                'SUM({{stat_weapon2_use_count_per_month}}.[[specials_time_seconds]])',
             ),
             'avg_inked' => sprintf(
                 '(%s / NULLIF(%s, 0))',
-                'SUM({{stat_weapon2_use_count}}.[[inked]])',
-                'SUM({{stat_weapon2_use_count}}.[[inked_available]])',
+                'SUM({{stat_weapon2_use_count_per_month}}.[[inked]])',
+                'SUM({{stat_weapon2_use_count_per_month}}.[[inked_available]])',
             ),
-            'sum_inked' => 'SUM({{stat_weapon2_use_count}}.[[inked]])',
+            'sum_inked' => 'SUM({{stat_weapon2_use_count_per_month}}.[[inked]])',
             'inked_per_min' => sprintf(
                 '(%s * 60.0 / NULLIF(%s, 0))',
-                'SUM({{stat_weapon2_use_count}}.[[inked_with_time]])',
-                'SUM({{stat_weapon2_use_count}}.[[inked_time_seconds]])',
+                'SUM({{stat_weapon2_use_count_per_month}}.[[inked_with_time]])',
+                'SUM({{stat_weapon2_use_count_per_month}}.[[inked_time_seconds]])',
             ),
             'wp' => sprintf(
                 '(%s * 100.0 / NULLIF(%s, 0))',
-                'SUM({{stat_weapon2_use_count}}.[[wins]])',
-                'SUM({{stat_weapon2_use_count}}.[[battles]])',
+                'SUM({{stat_weapon2_use_count_per_month}}.[[wins]])',
+                'SUM({{stat_weapon2_use_count_per_month}}.[[battles]])',
             ),
-            'win_count' => 'SUM({{stat_weapon2_use_count}}.[[wins]])',
+            'win_count' => 'SUM({{stat_weapon2_use_count_per_month}}.[[wins]])',
         ];
-        $query = StatWeapon2UseCount::find()
+        $query = StatWeapon2UseCountPerMonth::find()
             ->select($columns)
             ->innerJoinWith([
                 'weapon',
@@ -250,8 +249,8 @@ class Weapons2Action extends BaseAction
                 'weapon.type',
                 'weapon.type.category',
             ])
-            ->andWhere(['{{stat_weapon2_use_count}}.[[rule_id]]' => $rule->id])
-            ->groupBy('{{stat_weapon2_use_count}}.[[weapon_id]]');
+            ->andWhere(['{{stat_weapon2_use_count_per_month}}.[[rule_id]]' => $rule->id])
+            ->groupBy('{{stat_weapon2_use_count_per_month}}.[[weapon_id]]');
         try {
             if ($form->hasErrors()) {
                 throw new Exception();
@@ -266,17 +265,9 @@ class Weapons2Action extends BaseAction
             if ($form->term == '') {
                 // nothing to do
             } elseif (preg_match('/^(\d{4})-(\d{2})$/', $form->term, $match)) {
-                // [$start, $end)
-                $start = new DateTimeImmutable()
-                    ->setTimeZone(new DateTimeZone('Etc/UTC'))
-                    ->setDate(intval($match[1], 10), intval($match[2], 10), 1)
-                    ->setTime(0, 0, 0);
-                $end = $start->add(new DateInterval('P1M'));
-                $startPeriod = BattleHelper::calcPeriod2($start->getTimestamp());
-                $endPeriod = BattleHelper::calcPeriod2($end->getTimestamp());
-                $query->andWhere(['and',
-                    ['>=', '{{stat_weapon2_use_count}}.[[period]]', $startPeriod],
-                    ['<', '{{stat_weapon2_use_count}}.[[period]]', $endPeriod],
+                $query->andWhere([
+                    '{{stat_weapon2_use_count_per_month}}.[[year_month]]' =>
+                        intval($match[1], 10) * 100 + intval($match[2], 10),
                 ]);
             } elseif (substr($form->term, 0, 1) === 'v') {
                 if (!$v1 = SplatoonVersion2::findOne(['tag' => substr($form->term, 1)])) {
@@ -289,14 +280,14 @@ class Weapons2Action extends BaseAction
                     ->one();
                 $query->andWhere([
                     '>=',
-                    '{{stat_weapon2_use_count}}.[[period]]',
-                    BattleHelper::calcPeriod2(strtotime($v1->released_at)),
+                    '{{stat_weapon2_use_count_per_month}}.[[year_month]]',
+                    YearMonth::fromDateString($v1->released_at),
                 ]);
                 if ($v2) {
                     $query->andWhere([
                         '<',
-                        '{{stat_weapon2_use_count}}.[[period]]',
-                        BattleHelper::calcPeriod2(strtotime($v2->released_at)),
+                        '{{stat_weapon2_use_count_per_month}}.[[year_month]]',
+                        YearMonth::fromDateString($v2->released_at),
                     ]);
                 }
             } elseif (substr($form->term, 0, 2) === '~v') {
@@ -320,14 +311,14 @@ class Weapons2Action extends BaseAction
                     ->one();
                 $query->andWhere([
                     '>=',
-                    '{{stat_weapon2_use_count}}.[[period]]',
-                    BattleHelper::calcPeriod2(strtotime($v1->released_at)),
+                    '{{stat_weapon2_use_count_per_month}}.[[year_month]]',
+                    YearMonth::fromDateString($v1->released_at),
                 ]);
                 if ($v3) {
                     $query->andWhere([
                         '<',
-                        '{{stat_weapon2_use_count}}.[[period]]',
-                        BattleHelper::calcPeriod2(strtotime($v3->released_at)),
+                        '{{stat_weapon2_use_count_per_month}}.[[year_month]]',
+                        YearMonth::fromDateString($v3->released_at),
                     ]);
                 }
             } else {

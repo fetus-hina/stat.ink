@@ -23,10 +23,27 @@ use function time;
 use function usort;
 use function version_compare;
 
+use const SORT_DESC;
+
 class EntireWeapon2Form extends Model
 {
     public $term;
     public $map;
+
+    public function init()
+    {
+        parent::init();
+        $this->term = $this->getDefaultTerm();
+    }
+
+    private function getDefaultTerm(): string
+    {
+        $latest = SplatoonVersion2::find()
+            ->orderBy(['released_at' => SORT_DESC])
+            ->limit(1)
+            ->one();
+        return $latest !== null ? 'v' . $latest->tag : '';
+    }
 
     public function formName()
     {
@@ -135,7 +152,11 @@ class EntireWeapon2Form extends Model
         $limit = new DateTimeImmutable()
             ->setTimeZone(new DateTimeZone('Etc/UTC'))
             ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time());
-        $formatter = Yii::$app->formatter;
+        // The keys are UTC year-months (matching stat_weapon2_use_count_per_month.year_month),
+        // so the display labels must be rendered in UTC too — otherwise a user-local timezone
+        // west of UTC would shift midnight back into the previous month.
+        $formatter = clone Yii::$app->formatter;
+        $formatter->timeZone = 'Etc/UTC';
         $result = [];
         for (; $date <= $limit; $date = $date->add($interval)) {
             $result[$date->format('Y-m')] = $formatter->asDate($date, Yii::t('app', 'MMMM y'));
