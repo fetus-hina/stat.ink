@@ -54,7 +54,7 @@
     "wohali/oauth2-discord-new": "^1.2.1",
     "yiisoft/yii2": "^2.0.55",
     "yiisoft/yii2-bootstrap": "^2.0.11",
-    "yiisoft/yii2-httpclient": "^2.0.16",
+    "yiisoft/yii2-httpclient": "^2.0.17",
     "yiisoft/yii2-queue": "^2.3.8",
     "yiisoft/yii2-symfonymailer": "^4.0.0"
   },
