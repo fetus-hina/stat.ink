@@ -67,7 +67,7 @@
     "typescript": "^6.0.3",
     "updates": "^17.17.2",
     "webpack": "^5.107.2",
-    "webpack-cli": "^7.0.2",
+    "webpack-cli": "^7.0.3",
     "yii2-pjax": "git+https://github.com/yiisoft/jquery-pjax.git#semver:^2.0.9",
     "zxcvbn": "^4.4.2"
   },
