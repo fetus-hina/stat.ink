@@ -65,7 +65,7 @@
     "ts-loader": "^9.5.7",
     "twemoji": "^14.0.2",
     "typescript": "^6.0.3",
-    "updates": "^17.17.2",
+    "updates": "^17.17.3",
     "webpack": "^5.107.2",
     "webpack-cli": "^7.0.3",
     "yii2-pjax": "git+https://github.com/yiisoft/jquery-pjax.git#semver:^2.0.9",
