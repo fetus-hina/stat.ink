@@ -7,55 +7,59 @@
 
 declare(strict_types=1);
 
-namespace app\components\jobs;
+namespace app\components\helpers;
 
+use Throwable;
 use Yii;
-use app\components\helpers\CriticalSection;
-use app\components\helpers\SalmonExportJson3Helper;
 use app\components\helpers\db\Now;
 use app\models\QueueSalmonExportJson3;
 use app\models\User;
 use jp3cki\uuid\Uuid;
-use yii\base\BaseObject;
 use yii\db\Connection;
-use yii\queue\RetryableJobInterface;
 
 use function assert;
 
-final class SalmonExportJson3Job extends BaseObject implements RetryableJobInterface
+final class SalmonExportJson3QueueService
 {
-    use JobPriority;
+    private const LOCK_TIMEOUT_SEC = 1;
 
-    private const LOCK_TIMEOUT_SEC = 180;
-
-    public int $user;
-
-    /**
-     * @inheritdoc
-     */
-    public function execute($queue)
+    public static function execute(QueueSalmonExportJson3 $queue): bool
     {
         $userModel = User::find()
-            ->andWhere(['id' => $this->user])
+            ->andWhere(['id' => $queue->user_id])
             ->limit(1)
             ->one();
         if (!$userModel) {
-            return;
+            return true;
         }
 
-        $lock = CriticalSection::lock(
-            SalmonExportJson3Helper::lockName($userModel),
-            self::LOCK_TIMEOUT_SEC,
-            Yii::$app->pgMutex,
-        );
+        $lock = null;
         try {
+            $lock = CriticalSection::lock(
+                SalmonExportJson3Helper::lockName($userModel),
+                self::LOCK_TIMEOUT_SEC,
+                Yii::$app->pgMutex,
+            );
+
             SalmonExportJson3Helper::update($userModel);
+
+            return true;
+        } catch (Throwable $e) {
+            Yii::warning(
+                vsprintf('Failed to execute SalmonExportJson3QueueService: %s, user_id: %d', [
+                    $e->getMessage(),
+                    $userModel->id,
+                ]),
+                __METHOD__,
+            );
         } finally {
             unset($lock);
         }
+
+        return false;
     }
 
-    public static function pushQueue(User $user): void
+    public static function enqueue(User $user): void
     {
         $db = Yii::$app->db;
         assert($db instanceof Connection);
@@ -86,21 +90,5 @@ final class SalmonExportJson3Job extends BaseObject implements RetryableJobInter
         ]);
 
         $db->createCommand($sql, $params)->execute();
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getTtr()
-    {
-        return 365 * 86400;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function canRetry($attempt, $error)
-    {
-        return $attempt < 10;
     }
 }

@@ -1,0 +1,9 @@
+[Unit]
+Description=Run stat.ink salmon-json3/process-queue (timer)
+
+[Timer]
+# every minutes
+OnCalendar=*-*-* *:*:15
+
+[Install]
+WantedBy=timers.target
