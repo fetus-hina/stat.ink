@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-use app\components\helpers\SalmonExportJson3QueueService;
+use app\components\jobs\SalmonExportJson3Job;
 use app\components\jobs\SalmonStatsJob;
 use app\components\jobs\UserExportJson3Job;
 use app\components\jobs\UserStatsJob;
@@ -46,7 +46,7 @@ Yii::$container->set(Salmon3::class, [
         $model = $ev->sender;
         if ($model instanceof Salmon3 && $model->user) {
             SalmonStatsJob::pushQueue3($model->user);
-            SalmonExportJson3QueueService::enqueue($model->user);
+            SalmonExportJson3Job::pushQueue($model->user);
         }
     },
 ]);
