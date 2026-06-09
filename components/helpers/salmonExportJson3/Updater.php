@@ -104,7 +104,7 @@ trait Updater
         return Salmon3::find()
             ->with([
                 'agent',
-                'bigStage.map3Aliases',
+                'bigStage.bigrunMap3Aliases',
                 'bosses.salmonBoss3Aliases',
                 'failReason',
                 'kingSalmonid.salmonKing3Aliases',
