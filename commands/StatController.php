@@ -459,6 +459,7 @@ final class StatController extends Controller
             function (Connection $db) use ($tableName, $sourceTable, $countColumn): void {
                 $db->createCommand("SET LOCAL TIMEZONE TO 'Etc/UTC'")->execute();
 
+                // 今日の 00:00:00 UTC。これより前 (= 昨日まで) を集計対象とする。
                 $today = new DateTimeImmutable('now', new DateTimeZone('Etc/UTC'))
                     ->setTimestamp($_SERVER['REQUEST_TIME'])
                     ->setTime(0, 0, 0);
@@ -473,6 +474,19 @@ final class StatController extends Controller
                     ->andWhere(['is_deleted' => false])
                     ->andWhere(['<', 'created_at', $today->format(DateTimeInterface::ATOM)])
                     ->groupBy(['([[created_at]]::DATE)']);
+
+                // 集計済みの最終日から再集計する (部分更新)。最終日も含めて再集計するため、
+                // 通常は最終日と昨日の 2 日分が更新される。集計済みデータが無い (初回実行)
+                // 場合は下限を設けず、昨日までの全期間を集計する。
+                // 注意: 最終日より古い日のデータが後から削除されても再集計しない。
+                $lastDate = new Query()
+                    ->from($tableName)
+                    ->max('[[date]]', $db);
+                if ($lastDate !== null && $lastDate !== false) {
+                    $from = new DateTimeImmutable($lastDate, new DateTimeZone('Etc/UTC'))
+                        ->setTime(0, 0, 0);
+                    $select->andWhere(['>=', 'created_at', $from->format(DateTimeInterface::ATOM)]);
+                }
 
                 $sql = vsprintf('INSERT INTO %s ( %s ) %s ON CONFLICT ( %s ) DO UPDATE SET %s', [
                     $db->quoteTableName($tableName),
