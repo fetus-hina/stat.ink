@@ -26,6 +26,7 @@ use app\commands\stat\actions\XPowerDistrib3Action;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\db\Now;
 use app\models\Battle2;
+use app\models\Battle3;
 use app\models\BattlePlayer;
 use app\models\EventSchedule3;
 use app\models\Knockout;
@@ -35,9 +36,11 @@ use app\models\Mode2;
 use app\models\Rank2;
 use app\models\Rule;
 use app\models\Rule2;
+use app\models\Salmon3;
 use app\models\SplatoonVersion2;
 use app\models\StatAgentUser;
 use app\models\StatAgentUser2;
+use app\models\StatEntireSalmon3;
 use app\models\StatEntireUser;
 use app\models\StatEntireUser3;
 use app\models\StatWeapon;
@@ -355,6 +358,7 @@ final class StatController extends Controller
         $this->updateEntireUser1();
         $this->updateEntireUser2();
         $this->updateEntireUser3();
+        $this->updateEntireSalmonUser3();
     }
 
     private function updateEntireUser1()
@@ -431,10 +435,31 @@ final class StatController extends Controller
     private function updateEntireUser3(): void
     {
         fwrite(STDERR, "Updating stat_entire_user3...\n");
+        $this->upsertEntireUsage3(StatEntireUser3::tableName(), Battle3::tableName(), 'battles');
+    }
+
+    private function updateEntireSalmonUser3(): void
+    {
+        fwrite(STDERR, "Updating stat_entire_salmon3...\n");
+        $this->upsertEntireUsage3(StatEntireSalmon3::tableName(), Salmon3::tableName(), 'jobs');
+    }
+
+    /**
+     * 日別の利用統計 (件数・利用者数) を集計元テーブルから UPSERT する。
+     *
+     * stat_entire_user3 (battle3) と stat_entire_salmon3 (salmon3) で共通の処理。
+     *
+     * @param string $tableName 集計先テーブル (StatEntireUser3::tableName() 等)
+     * @param string $sourceTable 集計元テーブル (Battle3::tableName() 等)
+     * @param string $countColumn 件数を格納するカラム名 (battles / jobs)
+     */
+    private function upsertEntireUsage3(string $tableName, string $sourceTable, string $countColumn): void
+    {
         Yii::$app->db->transaction(
-            function (Connection $db): void {
+            function (Connection $db) use ($tableName, $sourceTable, $countColumn): void {
                 $db->createCommand("SET LOCAL TIMEZONE TO 'Etc/UTC'")->execute();
 
+                // 今日の 00:00:00 UTC。これより前 (= 昨日まで) を集計対象とする。
                 $today = new DateTimeImmutable('now', new DateTimeZone('Etc/UTC'))
                     ->setTimestamp($_SERVER['REQUEST_TIME'])
                     ->setTime(0, 0, 0);
@@ -442,16 +467,29 @@ final class StatController extends Controller
                 $select = new Query()
                     ->select([
                         'date' => '([[created_at]]::DATE)',
-                        'battles' => 'COUNT(*)',
+                        $countColumn => 'COUNT(*)',
                         'users' => 'COUNT(DISTINCT [[user_id]])',
                     ])
-                    ->from('{{%battle3}}')
+                    ->from($sourceTable)
                     ->andWhere(['is_deleted' => false])
                     ->andWhere(['<', 'created_at', $today->format(DateTimeInterface::ATOM)])
                     ->groupBy(['([[created_at]]::DATE)']);
 
+                // 集計済みの最終日から再集計する (部分更新)。最終日も含めて再集計するため、
+                // 通常は最終日と昨日の 2 日分が更新される。集計済みデータが無い (初回実行)
+                // 場合は下限を設けず、昨日までの全期間を集計する。
+                // 注意: 最終日より古い日のデータが後から削除されても再集計しない。
+                $lastDate = new Query()
+                    ->from($tableName)
+                    ->max('[[date]]', $db);
+                if ($lastDate !== null && $lastDate !== false) {
+                    $from = new DateTimeImmutable($lastDate, new DateTimeZone('Etc/UTC'))
+                        ->setTime(0, 0, 0);
+                    $select->andWhere(['>=', 'created_at', $from->format(DateTimeInterface::ATOM)]);
+                }
+
                 $sql = vsprintf('INSERT INTO %s ( %s ) %s ON CONFLICT ( %s ) DO UPDATE SET %s', [
-                    $db->quoteTableName(StatEntireUser3::tableName()),
+                    $db->quoteTableName($tableName),
                     implode(
                         ', ',
                         array_map(
