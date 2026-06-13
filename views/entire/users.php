@@ -56,6 +56,11 @@ FlotTimeAsset::register($this);
     Json::encode($posts3, 0),
     ['id' => 'posts3', 'type' => 'application/json']
   ) . "\n" ?>
+  <?= Html::tag(
+    'script',
+    Json::encode($postsSalmon3, 0),
+    ['id' => 'postsSalmon3', 'type' => 'application/json']
+  ) . "\n" ?>
   <?= Tabs::widget([
     'items' => [
       [
@@ -66,6 +71,15 @@ FlotTimeAsset::register($this);
         ]),
         'content' => $this->render('users/splatoon3', ['agents' => $agents3]),
         'active' => true,
+      ],
+      [
+        'encode' => false,
+        'label' => implode(' ', [
+          Icon::splatoon3(),
+          Html::encode(Yii::t('app-salmon2', 'Salmon Run')),
+        ]),
+        'content' => $this->render('users/salmon3'),
+        'active' => false,
       ],
       [
         'encode' => false,
@@ -109,10 +123,11 @@ $this->registerJs(<<<'EoJS'
     }
 
     var json = JSON.parse($('#' + $graph.attr('data-ref')).text());
+    var countKey = $graph.attr('data-count-key') || 'battle';
     var data = [
       {
         label: '<span class="fa fa-arrow-left"></span>' + $graph.attr('data-label-battle'),
-        data:json.map(function(v){return[dateToUnixTime(v.date),v.battle]}),
+        data:json.map(function(v){return[dateToUnixTime(v.date),v[countKey]]}),
         bars:{
           show:true,
           align: "center",

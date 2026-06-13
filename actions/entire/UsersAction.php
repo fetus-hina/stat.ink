@@ -8,6 +8,7 @@
 namespace app\actions\entire;
 
 use Yii;
+use app\actions\entire\users\Salmon3;
 use app\actions\entire\users\Splatoon1;
 use app\actions\entire\users\Splatoon2;
 use app\actions\entire\users\Splatoon3;
@@ -25,6 +26,7 @@ use function usort;
 
 class UsersAction extends Action
 {
+    use Salmon3;
     use Splatoon1;
     use Splatoon2;
     use Splatoon3;
@@ -47,6 +49,7 @@ class UsersAction extends Action
             'posts' => $this->getPostStats(),
             'posts2' => $this->getPostStats2(),
             'posts3' => $this->getPostStats3(),
+            'postsSalmon3' => $this->getPostStatsSalmon3(),
         ]);
     }
 
