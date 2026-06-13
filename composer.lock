@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dd416dfbdff7068c563c313a58d83c2b",
+    "content-hash": "e8a562a8def0205c915d05bf4544f534",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -883,16 +883,16 @@
         },
         {
             "name": "jp3cki/uuid",
-            "version": "v5.0.0",
+            "version": "v6.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fetus-hina/uuid.git",
-                "reference": "0af4149e796cbd7045be3128cd65f06f73fd6b80"
+                "reference": "d2b680fb4edd48fb56f1b8398299114c804e607b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fetus-hina/uuid/zipball/0af4149e796cbd7045be3128cd65f06f73fd6b80",
-                "reference": "0af4149e796cbd7045be3128cd65f06f73fd6b80",
+                "url": "https://api.github.com/repos/fetus-hina/uuid/zipball/d2b680fb4edd48fb56f1b8398299114c804e607b",
+                "reference": "d2b680fb4edd48fb56f1b8398299114c804e607b",
                 "shasum": ""
             },
             "require": {
@@ -903,10 +903,10 @@
                 "php-64bit": ">= 8.2"
             },
             "require-dev": {
-                "ergebnis/composer-normalize": "^2.48.2",
-                "jp3cki/coding-standard": "^1.0.3",
-                "phpstan/phpstan": "^2.1.32",
-                "phpunit/phpunit": "^11.5.45",
+                "ergebnis/composer-normalize": "^2.52.0",
+                "jp3cki/coding-standard": "^2.0.0",
+                "phpstan/phpstan": "^2.1.56",
+                "phpunit/phpunit": "^11.5.55",
                 "squizlabs/php_codesniffer": "^3.13.5"
             },
             "type": "library",
@@ -928,9 +928,9 @@
             ],
             "support": {
                 "issues": "https://github.com/fetus-hina/uuid/issues",
-                "source": "https://github.com/fetus-hina/uuid/tree/v5.0.0"
+                "source": "https://github.com/fetus-hina/uuid/tree/v6.0.0"
             },
-            "time": "2025-12-02T07:35:09+00:00"
+            "time": "2026-05-28T06:52:37+00:00"
         },
         {
             "name": "jp3cki/yii2-bs-datetimepicker",
