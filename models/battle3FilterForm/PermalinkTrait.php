@@ -49,6 +49,8 @@ trait PermalinkTrait
             'weapon',
             'result',
             'knockout',
+            'played_with',
+            'played_with_side',
         ];
         foreach ($copyKeys as $key) {
             $value = trim((string)$this->$key);
