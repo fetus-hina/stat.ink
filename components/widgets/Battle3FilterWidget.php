@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use Yii;
+use app\assets\AutoTooltipAsset;
 use app\models\Battle3FilterForm;
 use app\models\Battle3PlayedWith;
 use app\models\User;
@@ -302,25 +303,73 @@ final class Battle3FilterWidget extends Widget
             return '';
         }
 
-        return implode('', [
-            (string)self::disableClientValidation(
-                $form
-                    ->field($filter, 'played_with')
-                    ->dropDownList(
-                        ...$filter->getPlayedWithDropdown(
-                            $this->user,
-                            $filter->played_with && !$filter->hasErrors('played_with')
-                                ? Battle3PlayedWith::findOne([
-                                    'user_id' => $this->user->id,
-                                    'ref_id' => $filter->played_with,
-                                ])
-                                : null,
-                        ),
-                    )
-                    ->label(false),
-            ),
-            Html::activeHiddenInput($filter, 'played_with_side'),
-        ]);
+        // The "side" selector is attached to the played-with dropdown as an
+        // input group addon. To keep it compact, the long selected label is not
+        // shown: a transparent native <select> is overlaid on a caret-only
+        // addon, so the closed control shows just the caret and clicking it
+        // opens the native option list. A tooltip explains what it does.
+        // (Bootstrap 3 does not support two .form-control elements in a single
+        // input group, so the addon wrapper is required anyway.)
+        // The transparent <select> covers the whole addon (including its
+        // padding), and the caret has pointer-events disabled, so the select
+        // always receives the hover. The tooltip therefore only needs to live
+        // on the select; a second one on the addon would never fire.
+        $sideSelect = Html::tag(
+            'span',
+            implode('', [
+                Html::activeDropDownList(
+                    $filter,
+                    'played_with_side',
+                    [
+                        Battle3FilterForm::PLAYED_WITH_SIDE_GOOD_GUYS => Yii::t('app', 'As an ally'),
+                        Battle3FilterForm::PLAYED_WITH_SIDE_BAD_GUYS => Yii::t('app', 'As an enemy'),
+                    ],
+                    [
+                        'prompt' => Yii::t('app', 'Ally / Enemy'),
+                        'class' => 'filter-played-with-side auto-tooltip',
+                        'title' => Yii::t('app', 'Filter by ally or enemy'),
+                    ],
+                ),
+                Html::tag('span', '', ['class' => 'caret', 'aria-hidden' => 'true']),
+            ]),
+            ['class' => 'input-group-addon filter-played-with-side-addon'],
+        );
+
+        AutoTooltipAsset::register($this->view);
+
+        $view = $this->view;
+        if ($view instanceof View) {
+            $view->registerCss(
+                implode('', [
+                    '.filter-played-with-side-addon{position:relative;padding:0 .9em}',
+                    '.filter-played-with-side-addon>select{position:absolute;top:0;left:0;width:100%;height:100%;',
+                    'margin:0;padding:0;border:0;background:transparent;opacity:0;cursor:pointer}',
+                    '.filter-played-with-side-addon>.caret{position:absolute;top:50%;left:50%;',
+                    'margin:-2px 0 0 -2px;pointer-events:none}',
+                ]),
+                [],
+                'filter-played-with-side',
+            );
+        }
+
+        return (string)self::disableClientValidation(
+            $form
+                ->field($filter, 'played_with', [
+                    'inputTemplate' => '<div class="input-group">{input}' . $sideSelect . '</div>',
+                ])
+                ->dropDownList(
+                    ...$filter->getPlayedWithDropdown(
+                        $this->user,
+                        $filter->played_with && !$filter->hasErrors('played_with')
+                            ? Battle3PlayedWith::findOne([
+                                'user_id' => $this->user->id,
+                                'ref_id' => $filter->played_with,
+                            ])
+                            : null,
+                    ),
+                )
+                ->label(false),
+        );
     }
 
     private function drawActionButton(string $action): string
