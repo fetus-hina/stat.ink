@@ -52,6 +52,9 @@ final class Battle3FilterForm extends Model
 
     public const LOBBY_NOT_PRIVATE = '!private';
 
+    public const PLAYED_WITH_SIDE_GOOD_GUYS = 'good_guys';
+    public const PLAYED_WITH_SIDE_BAD_GUYS = 'bad_guys';
+
     public ?string $lobby = null;
     public ?string $rule = null;
     public ?string $map = null;
@@ -62,6 +65,7 @@ final class Battle3FilterForm extends Model
     public ?string $term_from = null;
     public ?string $term_to = null;
     public ?string $played_with = null;
+    public ?string $played_with_side = null;
 
     /**
      * @inheritdoc
@@ -78,7 +82,7 @@ final class Battle3FilterForm extends Model
     {
         return [
             [['lobby', 'rule', 'map', 'weapon', 'result', 'knockout', 'term'], 'string'],
-            [['term_from', 'term_to', 'played_with'], 'string'],
+            [['term_from', 'term_to', 'played_with', 'played_with_side'], 'string'],
 
             [['lobby'], 'in',
                 'range' => array_merge(
@@ -136,6 +140,12 @@ final class Battle3FilterForm extends Model
             [['played_with'], 'match',
                 'pattern' => '/^[0-9a-f]{32}$/',
             ],
+            [['played_with_side'], 'in',
+                'range' => [
+                    self::PLAYED_WITH_SIDE_GOOD_GUYS,
+                    self::PLAYED_WITH_SIDE_BAD_GUYS,
+                ],
+            ],
         ];
     }
 
@@ -149,6 +159,7 @@ final class Battle3FilterForm extends Model
             'lobby' => Yii::t('app', 'Lobby'),
             'map' => Yii::t('app', 'Stage'),
             'played_with' => Yii::t('app', 'Played With'),
+            'played_with_side' => Yii::t('app', 'Played With (Side)'),
             'result' => Yii::t('app', 'Result'),
             'rule' => Yii::t('app', 'Mode'),
             'term' => Yii::t('app', 'Term'),

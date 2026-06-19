@@ -464,6 +464,7 @@ return [
     'Period' => 'Período',
     'Permalink' => 'Link permanente',
     'Played With' => 'Jogou com',
+    'Played With (Side)' => 'Jogou com (Lado)',
     'Player Distribution' => 'Distribuição de jogadores',
     'Players' => 'Jogadores',
     'Players:' => 'Jogadores:',

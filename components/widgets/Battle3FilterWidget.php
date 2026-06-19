@@ -302,22 +302,25 @@ final class Battle3FilterWidget extends Widget
             return '';
         }
 
-        return (string)self::disableClientValidation(
-            $form
-                ->field($filter, 'played_with')
-                ->dropDownList(
-                    ...$filter->getPlayedWithDropdown(
-                        $this->user,
-                        $filter->played_with && !$filter->hasErrors('played_with')
-                            ? Battle3PlayedWith::findOne([
-                                'user_id' => $this->user->id,
-                                'ref_id' => $filter->played_with,
-                            ])
-                            : null,
-                    ),
-                )
-                ->label(false),
-        );
+        return implode('', [
+            (string)self::disableClientValidation(
+                $form
+                    ->field($filter, 'played_with')
+                    ->dropDownList(
+                        ...$filter->getPlayedWithDropdown(
+                            $this->user,
+                            $filter->played_with && !$filter->hasErrors('played_with')
+                                ? Battle3PlayedWith::findOne([
+                                    'user_id' => $this->user->id,
+                                    'ref_id' => $filter->played_with,
+                                ])
+                                : null,
+                        ),
+                    )
+                    ->label(false),
+            ),
+            Html::activeHiddenInput($filter, 'played_with_side'),
+        ]);
     }
 
     private function drawActionButton(string $action): string

@@ -464,6 +464,7 @@ return [
     'Period' => '期间',
     'Permalink' => '永久链接',
     'Played With' => '一起游玩的玩家',
+    'Played With (Side)' => '一起游玩的玩家（阵营）',
     'Player Distribution' => '玩家分布',
     'Players' => '玩家',
     'Players:' => '玩家：',

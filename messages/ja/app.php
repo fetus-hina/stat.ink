@@ -451,6 +451,7 @@ return [
     'Period' => '期間',
     'Permalink' => '固定リンク',
     'Played With' => '一緒に遊んだ人',
+    'Played With (Side)' => '一緒に遊んだ人 (サイド)',
     'Player Distribution' => 'プレーヤーの分布',
     'Players' => 'プレーヤー',
     'Players:' => 'プレーヤー:',
