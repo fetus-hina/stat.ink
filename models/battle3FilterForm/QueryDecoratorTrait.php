@@ -45,6 +45,7 @@ use function mktime;
 use function str_starts_with;
 use function substr;
 use function trim;
+use function vsprintf;
 
 use const FILTER_VALIDATE_INT;
 
@@ -72,7 +73,7 @@ trait QueryDecoratorTrait
         $this->decorateResultFilter($query, $this->result);
         $this->decorateKnockoutFilter($query, $this->knockout);
         $this->decorateTermFilter($query, $this->term);
-        $this->decoratePlayedWithFilter($query, $this->played_with, $user);
+        $this->decoratePlayedWithFilter($query, $this->played_with, $this->played_with_side, $user);
     }
 
     private function decorateLobbyFilter(ActiveQuery $query, ?string $key): void
@@ -351,8 +352,12 @@ trait QueryDecoratorTrait
         }
     }
 
-    private function decoratePlayedWithFilter(ActiveQuery $query, ?string $value, ?User $user): void
-    {
+    private function decoratePlayedWithFilter(
+        ActiveQuery $query,
+        ?string $value,
+        ?string $side,
+        ?User $user,
+    ): void {
         if (!is_string($value) || $value === '' || !$user) {
             return;
         }
@@ -370,6 +375,7 @@ trait QueryDecoratorTrait
             return;
         }
 
+        // Normal (non-tricolor) battles record every player in battle_player3.
         $query->leftJoin(
             ['with_players1' => '{{%battle_player3}}'],
             ['and',
@@ -381,6 +387,8 @@ trait QueryDecoratorTrait
                 ],
             ],
         );
+        // Tricolor battles record every player (including our own team) in
+        // battle_tricolor_player3 instead, with team = 1 (ours) / 2 / 3.
         $query->leftJoin(
             ['with_players2' => '{{%battle_tricolor_player3}}'],
             ['and',
@@ -392,11 +400,36 @@ trait QueryDecoratorTrait
                 ],
             ],
         );
-        $query->andWhere([
-            'or',
-            ['not', ['{{with_players1}}.[[id]]' => null]],
-            ['not', ['{{with_players2}}.[[id]]' => null]],
+
+        $matched1 = ['not', ['{{with_players1}}.[[id]]' => null]];
+        $matched2 = ['not', ['{{with_players2}}.[[id]]' => null]];
+
+        // In a tricolor battle, the role (attacker / defender) of the team the
+        // played-with player belongs to. Our own team is always team 1, so its
+        // role is our_team_role_id.
+        $tricolorTeamRole = vsprintf('CASE %s WHEN 1 THEN %s WHEN 2 THEN %s WHEN 3 THEN %s END', [
+            '{{with_players2}}.[[team]]',
+            '{{%battle3}}.[[our_team_role_id]]',
+            '{{%battle3}}.[[their_team_role_id]]',
+            '{{%battle3}}.[[third_team_role_id]]',
         ]);
+        // Allies share our team's role. This intentionally treats the other
+        // attacking team as an ally when we are on the attacking side, even
+        // though it is a different camp.
+        $tricolorAlly = vsprintf('(%s) = %s', [$tricolorTeamRole, '{{%battle3}}.[[our_team_role_id]]']);
+        $tricolorEnemy = vsprintf('(%s) <> %s', [$tricolorTeamRole, '{{%battle3}}.[[our_team_role_id]]']);
+
+        $query->andWhere(match ($side) {
+            Battle3FilterForm::PLAYED_WITH_SIDE_GOOD_GUYS => ['or',
+                ['and', $matched1, ['{{with_players1}}.[[is_our_team]]' => true]],
+                ['and', $matched2, $tricolorAlly],
+            ],
+            Battle3FilterForm::PLAYED_WITH_SIDE_BAD_GUYS => ['or',
+                ['and', $matched1, ['{{with_players1}}.[[is_our_team]]' => false]],
+                ['and', $matched2, $tricolorEnemy],
+            ],
+            default => ['or', $matched1, $matched2],
+        });
     }
 
     /**
