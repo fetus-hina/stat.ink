@@ -66,10 +66,19 @@ trait PlayedWithDropdownListTrait
 
     private static function formatPlayedWithName(Battle3PlayedWith $model): string
     {
+        $formatter = Yii::$app->formatter;
+        $count = $formatter->asInteger($model->count);
+        if ($model->count_teammate !== null && $model->count_opponent !== null) {
+            $count .= vsprintf(' [%s + %s]', [
+                $formatter->asInteger($model->count_teammate),
+                $formatter->asInteger($model->count_opponent),
+            ]);
+        }
+
         return vsprintf('%s #%s (×%s)', [
             $model->name,
             $model->number,
-            Yii::$app->formatter->asInteger($model->count),
+            $count,
         ]);
     }
 }
