@@ -22,6 +22,8 @@ use yii\db\ActiveRecord;
  * @property string $ref_id
  * @property integer $count
  * @property integer $disconnect
+ * @property integer|null $count_teammate
+ * @property integer|null $count_opponent
  *
  * @property User $user
  */
@@ -38,7 +40,7 @@ class Battle3PlayedWith extends ActiveRecord
         return [
             [['user_id', 'name', 'number', 'ref_id', 'count', 'disconnect'], 'required'],
             [['user_id', 'count', 'disconnect'], 'default', 'value' => null],
-            [['user_id', 'count', 'disconnect'], 'integer'],
+            [['user_id', 'count', 'disconnect', 'count_teammate', 'count_opponent'], 'integer'],
             [['name'], 'string', 'max' => 10],
             [['number', 'ref_id'], 'string', 'max' => 32],
             [['user_id', 'ref_id'], 'unique', 'targetAttribute' => ['user_id', 'ref_id']],
@@ -57,6 +59,8 @@ class Battle3PlayedWith extends ActiveRecord
             'ref_id' => 'Ref ID',
             'count' => 'Count',
             'disconnect' => 'Disconnect',
+            'count_teammate' => 'Count Teammate',
+            'count_opponent' => 'Count Opponent',
         ];
     }
 
