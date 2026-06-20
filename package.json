@@ -62,7 +62,7 @@
     "stylelint-config-sass-guidelines": "^13.0.0",
     "svgo": "^4.0.1",
     "terser": "^5.48.0",
-    "ts-loader": "^9.6.0",
+    "ts-loader": "^9.6.1",
     "twemoji": "^14.0.2",
     "typescript": "^6.0.3",
     "updates": "^17.18.0",
