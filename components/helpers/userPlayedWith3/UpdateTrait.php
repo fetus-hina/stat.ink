@@ -46,6 +46,35 @@ trait UpdateTrait
             '{{p1}}.[[number]]',
         ]);
 
+        // In a tricolor battle, the role (attacker / defender) of the team the
+        // played-with player belongs to. Our own team is always team 1, so its
+        // role is our_team_role_id. Kept in sync with the played_with_side
+        // filter in battle3FilterForm/QueryDecoratorTrait.
+        $tricolorTeamRole = vsprintf('CASE %s WHEN 1 THEN %s WHEN 2 THEN %s WHEN 3 THEN %s END', [
+            '{{p2}}.[[team]]',
+            '{{%battle3}}.[[our_team_role_id]]',
+            '{{%battle3}}.[[their_team_role_id]]',
+            '{{%battle3}}.[[third_team_role_id]]',
+        ]);
+
+        // Allies share our team's role. This intentionally treats the other
+        // attacking team as an ally when we are on the attacking side, even
+        // though it is a different camp.
+        $isTeammate = vsprintf('(%s) OR (%s)', [
+            '{{p1}}.[[id]] IS NOT NULL AND {{p1}}.[[is_our_team]] = TRUE',
+            vsprintf('{{p2}}.[[id]] IS NOT NULL AND (%s) = %s', [
+                $tricolorTeamRole,
+                '{{%battle3}}.[[our_team_role_id]]',
+            ]),
+        ]);
+        $isOpponent = vsprintf('(%s) OR (%s)', [
+            '{{p1}}.[[id]] IS NOT NULL AND {{p1}}.[[is_our_team]] = FALSE',
+            vsprintf('{{p2}}.[[id]] IS NOT NULL AND (%s) <> %s', [
+                $tricolorTeamRole,
+                '{{%battle3}}.[[our_team_role_id]]',
+            ]),
+        ]);
+
         $select = new Query()
             ->select([
                 'user_id' => '{{%battle3}}.[[user_id]]',
@@ -64,6 +93,8 @@ trait UpdateTrait
                         '({{p1}}.[[id]] IS NOT NULL AND {{p2}}.[[is_disconnected]])',
                     ]),
                 ]),
+                'count_teammate' => vsprintf('SUM(CASE WHEN %s THEN 1 ELSE 0 END)', [$isTeammate]),
+                'count_opponent' => vsprintf('SUM(CASE WHEN %s THEN 1 ELSE 0 END)', [$isOpponent]),
             ])
             ->from('{{%battle3}}')
             ->leftJoin(
@@ -148,7 +179,7 @@ trait UpdateTrait
                 ', ',
                 array_map(
                     fn (string $name): string => sprintf('%1$s = EXCLUDED.%1$s', $db->quoteColumnName($name)),
-                    ['count', 'disconnect'],
+                    ['count', 'disconnect', 'count_teammate', 'count_opponent'],
                 ),
             ),
         ]);
