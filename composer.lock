@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6bb3a677968cf4244c5364f6243cce8e",
+    "content-hash": "57e096872cb0e00b3b5d9b34436297b4",
     "packages": [
         {
             "name": "cebe/markdown",

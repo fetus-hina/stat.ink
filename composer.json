@@ -175,10 +175,8 @@
     },
     "soak-time-hours": 72,
     "soak-time-whitelist": [
-      "symfony/dom-crawler",
-      "symfony/mailer",
-      "symfony/mime",
-      "symfony/yaml"
+      "guzzlehttp/guzzle",
+      "guzzlehttp/psr7"
     ]
   },
   "scripts": {
