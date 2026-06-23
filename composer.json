@@ -174,10 +174,7 @@
       }
     },
     "soak-time-hours": 72,
-    "soak-time-whitelist": [
-      "guzzlehttp/guzzle",
-      "guzzlehttp/psr7"
-    ]
+    "soak-time-whitelist": []
   },
   "scripts": {
     "post-install-cmd": [
