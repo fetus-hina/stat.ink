@@ -50,7 +50,7 @@
     "statink/yii2-spl1-stages": "^1.0.1",
     "statink/yii2-spl2-stages": "^1.0.2",
     "statink/yii2-twitter-webintents": "^1.0.3",
-    "symfony/yaml": "^8.1.0",
+    "symfony/yaml": "^8.1.1",
     "twbs/bootstrap-icons": "^1.13.1",
     "wohali/oauth2-discord-new": "^1.2.1",
     "yiisoft/yii2": "^2.0.55",
