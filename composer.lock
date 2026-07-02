@@ -8440,16 +8440,16 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v8.1.0",
+            "version": "v8.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "58d2e767a66052c1487356f953445634a8194c64"
+                "reference": "e2989e762c70f9490fa3a00a0ac0fae5aa97a531"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/58d2e767a66052c1487356f953445634a8194c64",
-                "reference": "58d2e767a66052c1487356f953445634a8194c64",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/e2989e762c70f9490fa3a00a0ac0fae5aa97a531",
+                "reference": "e2989e762c70f9490fa3a00a0ac0fae5aa97a531",
                 "shasum": ""
             },
             "require": {
@@ -8484,7 +8484,7 @@
             "description": "Finds files and directories via an intuitive fluent interface",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/finder/tree/v8.1.0"
+                "source": "https://github.com/symfony/finder/tree/v8.1.1"
             },
             "funding": [
                 {
@@ -8504,7 +8504,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-29T05:06:50+00:00"
+            "time": "2026-06-27T09:05:56+00:00"
         },
         {
             "name": "symfony/polyfill-php85",
