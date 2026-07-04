@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace app\actions\entire;
 
 use Yii;
+use app\components\web\HttpErrorTrait;
 use app\models\Rule2;
 use app\models\SplatoonVersionGroup2;
 use app\models\StatWeapon2Tier;
@@ -23,6 +24,8 @@ use const SORT_DESC;
 
 class Weapons2TierAction extends ViewAction
 {
+    use HttpErrorTrait;
+
     public $input;
 
     public function init()
@@ -57,8 +60,7 @@ class Weapons2TierAction extends ViewAction
                 ->limit(1)
                 ->one();
             if (!$latest) {
-                $this->controller->error404();
-                return;
+                self::error404();
             }
 
             $this->controller->redirect(['entire/weapons2-tier',
@@ -70,8 +72,7 @@ class Weapons2TierAction extends ViewAction
         }
 
         if (!preg_match('/^\d{4}-\d{2}$/', $this->input['month'])) {
-            $this->controller->error404();
-            return;
+            self::error404();
         }
 
         $rule = Rule2::find()
@@ -80,8 +81,7 @@ class Weapons2TierAction extends ViewAction
             ->limit(1)
             ->one();
         if (!$rule) {
-            $this->controller->error404();
-            return;
+            self::error404();
         }
 
         $vGroup = SplatoonVersionGroup2::find()
@@ -89,8 +89,7 @@ class Weapons2TierAction extends ViewAction
             ->limit(1)
             ->one();
         if (!$vGroup) {
-            $this->controller->error404();
-            return;
+            self::error404();
         }
 
         $data = StatWeapon2Tier::find()
@@ -108,8 +107,7 @@ class Weapons2TierAction extends ViewAction
             ])
             ->all();
         if (!$data) {
-            $this->controller->error404();
-            return;
+            self::error404();
         }
 
         return $this->controller->render('weapons2-tier', [

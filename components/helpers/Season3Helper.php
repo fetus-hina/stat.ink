@@ -40,7 +40,13 @@ final class Season3Helper
 
         $id = filter_var($request->get($paramName), FILTER_VALIDATE_INT);
         return is_int($id)
-            ? Season3::find()->andWhere(['id' => $id])->limit(1)->one()
+            ? Season3::find()
+                ->andWhere(['and',
+                    ['id' => $id],
+                    ['<=', '[[start_at]]', self::timestamp()->format(DateTimeInterface::ATOM)],
+                ])
+                ->limit(1)
+                ->one()
             : null;
     }
 

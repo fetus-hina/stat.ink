@@ -67,7 +67,6 @@ class SalmonController extends Controller
                         ]);
                         if (!$model) {
                             static::error404();
-                            return false;
                         }
                         return $model->isEditable;
                     },
@@ -88,7 +87,6 @@ class SalmonController extends Controller
         $user = User::findOne(['screen_name' => $screen_name]);
         if (!$user) {
             static::error404();
-            return null;
         }
 
         // リスト表示モード切替
@@ -154,7 +152,6 @@ class SalmonController extends Controller
         $model = Salmon2::findOne(['id' => $id]);
         if (!$model || !$model->user) {
             static::error404();
-            return null;
         }
 
         if ($model->user->screen_name !== $screen_name) {
@@ -205,7 +202,6 @@ class SalmonController extends Controller
         ]);
         if (!$model || !$model->user) {
             static::error404();
-            return null;
         }
         if ($model->user->screen_name !== $screen_name) {
             $this->redirect(
@@ -218,7 +214,6 @@ class SalmonController extends Controller
         }
         if (!$model->isEditable) {
             static::error403();
-            return null;
         }
 
         return $this->render('edit', [
@@ -234,7 +229,6 @@ class SalmonController extends Controller
         ]);
         if (!$model || !$model->user) {
             static::error404();
-            return null;
         }
         if ($model->user->screen_name !== $screen_name) {
             $this->redirect(
@@ -247,7 +241,6 @@ class SalmonController extends Controller
         }
         if (!$model->isEditable) {
             static::error403();
-            return null;
         }
 
         $form = Yii::createObject(Salmon2DeleteForm::class);

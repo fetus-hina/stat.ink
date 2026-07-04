@@ -15,14 +15,14 @@ use yii\web\NotFoundHttpException;
 
 trait HttpErrorTrait
 {
-    public static function error403(): void
+    public static function error403(): never
     {
         throw new ForbiddenHttpException(
             Yii::t('yii', 'You are not allowed to perform this action.'),
         );
     }
 
-    public static function error404(): void
+    public static function error404(): never
     {
         throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
     }
