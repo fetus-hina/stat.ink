@@ -13,6 +13,7 @@ use LogicException;
 use TypeError;
 use Yii;
 use app\components\helpers\TypeHelper;
+use app\components\web\Controller;
 use app\models\Language;
 use app\models\Lobby3;
 use app\models\Map3;
@@ -28,8 +29,6 @@ use yii\db\Expression;
 use yii\db\Query;
 use yii\db\Transaction;
 use yii\helpers\ArrayHelper;
-use yii\web\Controller;
-use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\web\ServerErrorHttpException;
 
@@ -58,15 +57,16 @@ final class Splatfest3Action extends Action
                 ->orderBy(['start_at' => SORT_DESC])
                 ->limit(1)
                 ->one();
-            return $model
-                ? $controller->redirect(['entire/splatfest3', 'id' => $model->id])
-                : throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
+            if (!$model) {
+                $controller->error404();
+            }
+            return $controller->redirect(['entire/splatfest3', 'id' => $model->id]);
         }
 
         try {
             $id = TypeHelper::int($id);
         } catch (TypeError $e) {
-            throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
+            $controller->error404();
         }
 
         $model = Splatfest3::find()
@@ -75,6 +75,9 @@ final class Splatfest3Action extends Action
             ->orderBy(['start_at' => SORT_DESC])
             ->limit(1)
             ->one();
+        if (!$model) {
+            $controller->error404();
+        }
 
         $data = Yii::$app->db->transaction(
             function (Connection $db) use ($model): array {
