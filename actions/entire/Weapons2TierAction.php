@@ -58,7 +58,6 @@ class Weapons2TierAction extends ViewAction
                 ->one();
             if (!$latest) {
                 $this->controller->error404();
-                return;
             }
 
             $this->controller->redirect(['entire/weapons2-tier',
@@ -71,7 +70,6 @@ class Weapons2TierAction extends ViewAction
 
         if (!preg_match('/^\d{4}-\d{2}$/', $this->input['month'])) {
             $this->controller->error404();
-            return;
         }
 
         $rule = Rule2::find()
@@ -81,7 +79,6 @@ class Weapons2TierAction extends ViewAction
             ->one();
         if (!$rule) {
             $this->controller->error404();
-            return;
         }
 
         $vGroup = SplatoonVersionGroup2::find()
@@ -90,7 +87,6 @@ class Weapons2TierAction extends ViewAction
             ->one();
         if (!$vGroup) {
             $this->controller->error404();
-            return;
         }
 
         $data = StatWeapon2Tier::find()
@@ -109,7 +105,6 @@ class Weapons2TierAction extends ViewAction
             ->all();
         if (!$data) {
             $this->controller->error404();
-            return;
         }
 
         return $this->controller->render('weapons2-tier', [
