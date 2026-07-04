@@ -13,7 +13,7 @@ use LogicException;
 use TypeError;
 use Yii;
 use app\components\helpers\TypeHelper;
-use app\components\web\Controller;
+use app\components\web\HttpErrorTrait;
 use app\models\Language;
 use app\models\Lobby3;
 use app\models\Map3;
@@ -29,6 +29,7 @@ use yii\db\Expression;
 use yii\db\Query;
 use yii\db\Transaction;
 use yii\helpers\ArrayHelper;
+use yii\web\Controller;
 use yii\web\Response;
 use yii\web\ServerErrorHttpException;
 
@@ -48,6 +49,8 @@ use const SORT_DESC;
 
 final class Splatfest3Action extends Action
 {
+    use HttpErrorTrait;
+
     public function run(?string $id = null): Response|string
     {
         $controller = TypeHelper::instanceOf($this->controller, Controller::class);
@@ -58,7 +61,7 @@ final class Splatfest3Action extends Action
                 ->limit(1)
                 ->one();
             if (!$model) {
-                $controller->error404();
+                self::error404();
             }
             return $controller->redirect(['entire/splatfest3', 'id' => $model->id]);
         }
@@ -66,7 +69,7 @@ final class Splatfest3Action extends Action
         try {
             $id = TypeHelper::int($id);
         } catch (TypeError $e) {
-            $controller->error404();
+            self::error404();
         }
 
         $model = Splatfest3::find()
@@ -76,7 +79,7 @@ final class Splatfest3Action extends Action
             ->limit(1)
             ->one();
         if (!$model) {
-            $controller->error404();
+            self::error404();
         }
 
         $data = Yii::$app->db->transaction(
