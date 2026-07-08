@@ -66,8 +66,8 @@
     "twemoji": "^14.0.2",
     "typescript": "^6.0.3",
     "updates": "^17.18.2",
-    "webpack": "^5.108.3",
-    "webpack-cli": "^7.1.0",
+    "webpack": "^5.108.4",
+    "webpack-cli": "^7.2.1",
     "yii2-pjax": "git+https://github.com/yiisoft/jquery-pjax.git#semver:^2.0.9",
     "zxcvbn": "^4.4.2"
   },
