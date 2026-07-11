@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bcaf5c1ff3f58bce3a72c2e7da3a2a64",
+    "content-hash": "9db3553238a1bceb136cbb54ad7886af",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -2704,24 +2704,25 @@
         },
         {
             "name": "statink/yii2-spl1-stages",
-            "version": "v1.0.1",
+            "version": "v1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statink/yii2-spl1-stages.git",
-                "reference": "da26745d90bb7907241b41327d823f5b003e93f8"
+                "reference": "799b8c66b9c245d9ad33fbfb1976040ce5710f0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statink/yii2-spl1-stages/zipball/da26745d90bb7907241b41327d823f5b003e93f8",
-                "reference": "da26745d90bb7907241b41327d823f5b003e93f8",
+                "url": "https://api.github.com/repos/statink/yii2-spl1-stages/zipball/799b8c66b9c245d9ad33fbfb1976040ce5710f0b",
+                "reference": "799b8c66b9c245d9ad33fbfb1976040ce5710f0b",
                 "shasum": ""
             },
             "require": {
                 "php": ">= 8.2",
-                "yiisoft/yii2": "^2.0.50"
+                "yiisoft/yii2": "~2.0.55"
             },
             "require-dev": {
-                "ergebnis/composer-normalize": "^2.42"
+                "ergebnis/composer-normalize": "^2.52",
+                "jp3cki/coding-standard": "^2.0.0"
             },
             "type": "yii2-extension",
             "autoload": {
@@ -2740,10 +2741,10 @@
             ],
             "description": "stage images asset bundle for stat.ink",
             "support": {
-                "source": "https://github.com/statink/yii2-spl1-stages/tree/v1.0.1",
+                "source": "https://github.com/statink/yii2-spl1-stages/tree/v1.0.3",
                 "issues": "https://github.com/statink/yii2-spl1-stages/issues"
             },
-            "time": "2024-06-03T10:10:22+00:00"
+            "time": "2026-07-07T09:52:08+00:00"
         },
         {
             "name": "statink/yii2-spl2-stages",
