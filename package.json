@@ -31,7 +31,7 @@
     "emojify.js": "^1.1.0",
     "eonasdan-bootstrap-datetimepicker": "^4.17.49",
     "escape-html": "^1.0.3",
-    "eslint": "^9.39.4",
+    "eslint": "^9.39.5",
     "flot": "~0.8.3",
     "inputmask": "^5.0.9",
     "jdenticon": "^3.3.0",
