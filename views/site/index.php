@@ -175,7 +175,7 @@ OgpHelper::default($this, Url::to(['site/index'], true));
         ),
         Html::a(
           implode(' ', [
-            Icon::s3BossSalmonid('yokozuna', alt: Yii::t('app-salmon', 'King Salmonid')),
+            Icon::s3BossSalmonid('yokozuna', alt: Yii::t('app-salmon3', 'King Salmonid')),
             Html::encode(Yii::t('app-salmon3', 'King Salmonid Defeat Rate')),
           ]),
           ['entire/salmon3-king-salmonid'],
