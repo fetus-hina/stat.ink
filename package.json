@@ -6,7 +6,7 @@
     "email": "hina@fetus.jp"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^7.3.0",
+    "@fortawesome/fontawesome-free": "^7.3.1",
     "@hacceuee/s3-pixel-icons": "^3.1.2",
     "@popperjs/core": "^2.11.8",
     "@reduxjs/toolkit": "^2.12.0",
