@@ -75,7 +75,7 @@ class Wave extends Model
             'golden_egg_quota' => Yii::t('app-salmon2', 'Golden Egg quota'),
             'golden_egg_appearances' => Yii::t('app-salmon2', 'Golden Egg appearances'),
             'golden_egg_delivered' => Yii::t('app-salmon2', 'Golden Egg delivered'),
-            'power_egg_collected ' => Yii::t('app-salmon2', 'Power Egg collected'),
+            'power_egg_collected' => Yii::t('app-salmon2', 'Power Egg collected'),
         ];
     }
 
