@@ -16,6 +16,7 @@ use app\components\widgets\HappyNewYearWidget;
 use app\components\widgets\Icon;
 use app\components\widgets\IndexI18nButtons;
 use app\components\widgets\SnsWidget;
+use app\components\widgets\alerts\AccessRestriction;
 use app\components\widgets\alerts\ImportFromSplatnet;
 use app\components\widgets\alerts\LanguageSupportLevelWarning;
 use app\components\widgets\alerts\MaintenanceInfo;
@@ -81,6 +82,7 @@ OgpHelper::default($this, Url::to(['site/index'], true));
       <div id="counter-app" class="mb-3"></div>
     </div>
   </div>
+  <?= AccessRestriction::widget() . "\n" ?>
   <?= NSOIssue::widget() . "\n" ?>
   <?= HappyNewYearWidget::widget() . "\n" ?>
   <?= MaintenanceInfo::widget() . "\n" ?>
