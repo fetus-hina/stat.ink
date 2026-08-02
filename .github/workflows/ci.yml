@@ -342,8 +342,6 @@ jobs:
           POSTGRES_DB: statink
           POSTGRES_INITDB_ARGS: '-E UTF-8 --locale=en_US.UTF8 -k'
         options: '--health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5'
-    env:
-      GEOIP_LICENSE_KEY: '${{ secrets.GEOIP_LICENSE_KEY }}'
     runs-on: ubuntu-24.04
     steps:
       -

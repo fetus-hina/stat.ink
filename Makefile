@@ -169,7 +169,10 @@ REACT_SOURCES := $(shell find resources/react -type f)
 
 all: init migrate-db
 
-init: init-no-resource resource geoip
+# Note: The "geoip" target is intentionally excluded here.
+# MaxMind limits the number of downloads, so it should be run manually
+# (or by cron) when needed.
+init: init-no-resource resource
 
 init-no-resource: \
 	composer.phar \

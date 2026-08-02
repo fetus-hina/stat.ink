@@ -121,6 +121,12 @@ export GEOIP_LICENSE_KEY=ABCDEFGHIJKLMNOP
 
 After editing `.bashrc`, reopen the shell or remember `source ~/.bashrc`.
 
+GeoIPデータベースはダウンロード回数に制限があるため、`make init` ではダウンロードされません。
+必要なときに `make geoip` を実行してください。
+
+The GeoIP database is not downloaded by `make init` because MaxMind limits the number of
+downloads. Run `make geoip` when you need it.
+
 
 Branches
 --------
