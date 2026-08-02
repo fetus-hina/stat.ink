@@ -10,7 +10,7 @@ env:
   PACKAGE_COOLDOWN_DAYS: '3'
   LLM_API_KEY: ${{ secrets.SAKURA_AI_ENGINE_API_KEY }}
   LLM_API_ENDPOINT: 'https://api.ai.sakura.ad.jp/v1/chat/completions'
-  LLM_MODEL: 'preview/Kimi-K2.6'
+  LLM_MODEL: 'preview/Kimi-K2.7-Code'
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 jobs:
   update:
