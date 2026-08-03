@@ -33,7 +33,7 @@
     "escape-html": "^1.0.3",
     "eslint": "^9.39.5",
     "flot": "~0.8.3",
-    "inputmask": "^5.0.9",
+    "inputmask": "^5.0.10",
     "jdenticon": "^3.3.0",
     "jquery": "^3.7.1",
     "jquery-color": "^3.0.0",
