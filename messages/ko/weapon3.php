@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2022-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2022-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -138,6 +138,7 @@ return [
     'Painbrush Nouveau' => '빈센트 휴',
     'Patternz Undercover Brella' => '패턴 스파이 가젯',
     'Planetz Big Swig Roller' => '플래닛 와이드 롤러',
+    'Plastic-Bottle Shot Replica' => 'PET 슈터 레플리카',
     'Random' => '',
     'Random (Rare)' => '',
     'Range Blaster' => '롱 블래스터',

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2018-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2018-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -228,6 +228,7 @@ return [
     'Penta-Pumper' => '',
     'Penta-Pumper SE' => '',
     'Permanent Inkbrush' => '',
+    'PET-Kleckser Replik' => '',
     'Platscher' => '',
     'Platscher KB-RA' => '',
     'Platscher SE' => '',
