@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2018-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2018-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -188,6 +188,7 @@ return [
     'Pistola octariana (réplica)' => '',
     'Prototintas 24-I' => '',
     'Prototintas 24-II' => '',
+    'Rociador PET replica' => '',
     'Rodillo básico' => '',
     'Rodillo básico B' => '',
     'Rodillo básico CoroCoro' => '',

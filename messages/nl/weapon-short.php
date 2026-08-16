@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2018-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2018-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -276,6 +276,7 @@ return [
     'Straalplonzer COB-R' => '',
     'Stylospetling' => '',
     'Stylospetling Nouveau' => '',
+    'SupersPETer-replica' => '',
     'Superspetter' => '',
     'Superspetter Glänz' => '',
     'Superspetter jr.' => '',

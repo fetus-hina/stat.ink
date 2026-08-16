@@ -138,6 +138,7 @@ return [
     'Painbrush' => 'フィンセント',
     'Patternz Undercover Brella' => 'スパイガジェット繚',
     'Planetz Big Swig Roller' => 'ワイドローラー惑',
+    'Plastic-Bottle Shot Replica' => 'PETシューター レプリカ',
     'REEF-LUX 450 Deco' => 'LACT-450デコ',
     'REEF-LUX 450 MIL-K' => 'LACT-450MILK',
     'REEF-LUX 450' => 'LACT-450',

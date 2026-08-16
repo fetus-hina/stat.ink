@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2022-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2022-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -138,6 +138,7 @@ return [
     'Painbrush Nouveau' => '文森·新艺术',
     'Patternz Undercover Brella' => '特工配件 缭',
     'Planetz Big Swig Roller' => '宽滚筒 惑',
+    'Plastic-Bottle Shot Replica' => '',
     'Random' => '随机武器',
     'Random (Rare)' => '随机武器（稀有）',
     'Range Blaster' => '远距爆破枪',
