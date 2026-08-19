@@ -33,7 +33,7 @@ final class m260816_031744_pet_shooter extends Migration
                 '48',
                 self::name2key3('Plastic-Bottle Shot Replica'),
             ],
-            releaseAt: '2026-08-27T10:00:00+09:00',
+            releaseAt: '2026-08-20T10:00:00+09:00',
         );
 
         return true;
