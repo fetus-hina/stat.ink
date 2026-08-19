@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2022-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2022-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -84,6 +84,7 @@ return [
     'N-ZAP89' => '',
     'Octoshot Replica' => '',
     'Permanent Inkbrush' => '',
+    'PET 슈터 레플리카' => '',
     'R 블래스터 엘리트' => '',
     'R 블래스터 엘리트 WNTR' => '',
     'R 블래스터 엘리트 데코' => '',

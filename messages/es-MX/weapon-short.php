@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2018-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2018-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -189,6 +189,7 @@ return [
     'Rociador octariana réplica' => '',
     'Rociador octariano réplica' => '',
     'Rociador orden réplica' => '',
+    'Rociador PET replica' => '',
     'Rociador Pro' => '',
     'Rociador Pro frambuesa' => '',
     'Rociador Pro GLD' => '',

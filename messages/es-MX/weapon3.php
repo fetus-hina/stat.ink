@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2022-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2022-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -138,6 +138,7 @@ return [
     'Painbrush Nouveau' => 'Pincel abanico maestro',
     'Patternz Undercover Brella' => 'Paratintas discreto PTX',
     'Planetz Big Swig Roller' => 'Rodillo mágnum PLX',
+    'Plastic-Bottle Shot Replica' => '',
     'Random' => '',
     'Random (Rare)' => '',
     'Range Blaster' => 'Telelanzamotas',

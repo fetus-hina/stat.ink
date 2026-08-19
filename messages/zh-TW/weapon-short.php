@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2020-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2020-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -35,6 +35,7 @@ return [
     'N-ZAP83' => '83',
     'N-ZAP85' => '85',
     'N-ZAP89' => '89',
+    'Plastic-Bottle Shot Replica' => '',
     'R-PEN/5B' => '',
     'R-PEN/5H' => '鉛筆狙',
     'S-BLAST91' => '',

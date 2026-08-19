@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2018-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2018-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -41,6 +41,7 @@ return [
     'Octo Shot Replica' => '',
     'Octoshot Replica' => '',
     'Permanent Inkbrush' => '',
+    'Plastic-Bottle Shot Replica' => '',
     'Refurbished Mini Splatling' => '',
     'S-BLAST 91' => '',
     'S-BLAST 92' => '',
