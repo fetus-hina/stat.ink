@@ -144,6 +144,7 @@ abstract class WeaponIconAsset extends AssetBundle
         'Painbrush.png' => 'fincent.png',
         'Patternz Undercover Brella.png' => 'spygadget_ryo.png',
         'Planetz Big Swig Roller.png' => 'wideroller_waku.png',
+        'Plastic-Bottle Shot Replica.png' => 'petshooter_replica.png',
         'REEF-LUX 450 Deco.png' => 'lact450_deco.png',
         'REEF-LUX 450 MIL-K.png' => 'lact450_milk.png',
         'REEF-LUX 450.png' => 'lact450.png',
