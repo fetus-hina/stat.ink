@@ -138,7 +138,7 @@ return [
     'Painbrush Nouveau' => 'Pincel abanico maestro',
     'Patternz Undercover Brella' => 'Paratintas discreto PTX',
     'Planetz Big Swig Roller' => 'Rodillo mágnum PLX',
-    'Plastic-Bottle Shot Replica' => '',
+    'Plastic-Bottle Shot Replica' => 'Rociador PET réplica',
     'Random' => '',
     'Random (Rare)' => '',
     'Range Blaster' => 'Telelanzamotas',

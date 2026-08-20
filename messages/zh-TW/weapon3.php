@@ -138,7 +138,7 @@ return [
     'Painbrush Nouveau' => '文森‧新藝術',
     'Patternz Undercover Brella' => '特務配件 繚',
     'Planetz Big Swig Roller' => '寬滾筒 惑',
-    'Plastic-Bottle Shot Replica' => '',
+    'Plastic-Bottle Shot Replica' => '寶特瓶射擊槍 複製',
     'Random' => '問號',
     'Random (Rare)' => '金問號',
     'Range Blaster' => '遠距爆破槍',

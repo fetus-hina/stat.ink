@@ -138,7 +138,7 @@ return [
     'Painbrush Nouveau' => 'Painbrush Nouveau',
     'Patternz Undercover Brella' => 'Patternz Undercover Brella',
     'Planetz Big Swig Roller' => 'Planetz Big Swig Roller',
-    'Plastic-Bottle Shot Replica' => '',
+    'Plastic-Bottle Shot Replica' => 'Plastic-Bottle Shot Replica',
     'Random' => '',
     'Random (Rare)' => '',
     'Range Blaster' => 'Range Blaster',
