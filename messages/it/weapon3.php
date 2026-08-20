@@ -138,7 +138,7 @@ return [
     'Painbrush Nouveau' => 'Tonnoretto master',
     'Patternz Undercover Brella' => 'Bombrello sgargia-bon',
     'Planetz Big Swig Roller' => 'Ampiorullo astra-bon',
-    'Plastic-Bottle Shot Replica' => '',
+    'Plastic-Bottle Shot Replica' => 'Splasher frizzante replica',
     'Random' => '',
     'Random (Rare)' => '',
     'Range Blaster' => 'Blaster a distanza',

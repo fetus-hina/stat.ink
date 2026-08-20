@@ -138,7 +138,7 @@ return [
     'Painbrush Nouveau' => 'Kwistkwast Nouveau',
     'Patternz Undercover Brella' => 'Paraplenzer Fräppant',
     'Planetz Big Swig Roller' => 'Breedroller Fütür',
-    'Plastic-Bottle Shot Replica' => 'SupersPETer-replica',
+    'Plastic-Bottle Shot Replica' => 'SupersPETter (replica)',
     'Random' => '',
     'Random (Rare)' => '',
     'Range Blaster' => 'Teleblaster',

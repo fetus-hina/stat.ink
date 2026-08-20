@@ -138,7 +138,7 @@ return [
     'Painbrush Nouveau' => 'Brocha abanico maestra',
     'Patternz Undercover Brella' => 'Paratintas clásico MIX',
     'Planetz Big Swig Roller' => 'Rodillo mágnum SAT',
-    'Plastic-Bottle Shot Replica' => 'Rociador PET replica',
+    'Plastic-Bottle Shot Replica' => 'Lanzatintas de plástico (réplica)',
     'Random' => '',
     'Random (Rare)' => '',
     'Range Blaster' => 'Teledevastador',

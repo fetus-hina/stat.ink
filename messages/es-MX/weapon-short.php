@@ -189,7 +189,7 @@ return [
     'Rociador octariana réplica' => '',
     'Rociador octariano réplica' => '',
     'Rociador orden réplica' => '',
-    'Rociador PET replica' => '',
+    'Rociador PET réplica' => '',
     'Rociador Pro' => '',
     'Rociador Pro frambuesa' => '',
     'Rociador Pro GLD' => '',

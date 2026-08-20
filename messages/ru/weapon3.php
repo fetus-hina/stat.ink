@@ -138,7 +138,7 @@ return [
     'Painbrush Nouveau' => 'Веерокисть «НуВо»',
     'Patternz Undercover Brella' => 'Шпионский зонт «Коллаж»',
     'Planetz Big Swig Roller' => 'Макси-валик «Планета»',
-    'Plastic-Bottle Shot Replica' => '',
+    'Plastic-Bottle Shot Replica' => 'Ботлострел (клон)',
     'Random' => '',
     'Random (Rare)' => '',
     'Range Blaster' => 'Дальнобластер',

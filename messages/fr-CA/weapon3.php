@@ -138,7 +138,7 @@ return [
     'Painbrush Nouveau' => 'Épinceau écaïe nuancé',
     'Patternz Undercover Brella' => 'Para-encre espion mélangius',
     'Planetz Big Swig Roller' => 'Rouleau large astralius',
-    'Plastic-Bottle Shot Replica' => '',
+    'Plastic-Bottle Shot Replica' => 'Liquéficateur liqueur (réplique)',
     'Random' => '',
     'Random (Rare)' => '',
     'Range Blaster' => 'Éclablasteur LP',
