@@ -680,6 +680,7 @@ final class Icon
                 'nzap89',
                 'octoshooter_replica',
                 'order_shooter_replica',
+                'petshooter_replica',
                 'prime',
                 'prime_collabo',
                 'prime_frzn',
