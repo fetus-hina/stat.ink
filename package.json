@@ -53,7 +53,7 @@
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-redux": "^9.3.0",
-    "sass": "^1.102.0",
+    "sass": "^1.103.1",
     "semver": "^7.8.5",
     "sharp": "^0.35.3",
     "stupid-table-plugin": "^1.1.3",
