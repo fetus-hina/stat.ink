@@ -13,7 +13,7 @@
     "@types/luxon": "^3.7.5",
     "@types/node": "^25.9.5",
     "@types/react": "^19.2.18",
-    "@types/react-dom": "^19.2.4",
+    "@types/react-dom": "^19.2.5",
     "autoprefixer": "^10.5.4",
     "bootstrap": "^3.4.1",
     "bootstrap-notify": "^3.1.3",
