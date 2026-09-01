@@ -3152,7 +3152,7 @@
         },
         {
             "name": "symfony/mime",
-            "version": "v7.4.17",
+            "version": "v7.4.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/mime.git",
@@ -3217,7 +3217,7 @@
                 "mime-type"
             ],
             "support": {
-                "source": "https://github.com/symfony/mime/tree/v7.4.17"
+                "source": "https://github.com/symfony/mime/tree/v7.4.18"
             },
             "funding": [
                 {
@@ -3241,7 +3241,7 @@
         },
         {
             "name": "symfony/process",
-            "version": "v7.4.17",
+            "version": "v7.4.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
@@ -3282,7 +3282,7 @@
             "description": "Executes commands in sub-processes",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/process/tree/v7.4.17"
+                "source": "https://github.com/symfony/process/tree/v7.4.18"
             },
             "funding": [
                 {
@@ -3306,16 +3306,16 @@
         },
         {
             "name": "symfony/service-contracts",
-            "version": "v3.7.1",
+            "version": "v3.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/service-contracts.git",
-                "reference": "c0a284bab1ed8aa0417e3d69250ab437739563a0"
+                "reference": "15e6a07ec2a2c75ceb1b21dd98105ee8456d2257"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/service-contracts/zipball/c0a284bab1ed8aa0417e3d69250ab437739563a0",
-                "reference": "c0a284bab1ed8aa0417e3d69250ab437739563a0",
+                "url": "https://api.github.com/repos/symfony/service-contracts/zipball/15e6a07ec2a2c75ceb1b21dd98105ee8456d2257",
+                "reference": "15e6a07ec2a2c75ceb1b21dd98105ee8456d2257",
                 "shasum": ""
             },
             "require": {
@@ -3369,7 +3369,7 @@
                 "standards"
             ],
             "support": {
-                "source": "https://github.com/symfony/service-contracts/tree/v3.7.1"
+                "source": "https://github.com/symfony/service-contracts/tree/v3.7.3"
             },
             "funding": [
                 {
@@ -3389,7 +3389,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-06-16T09:55:08+00:00"
+            "time": "2026-07-27T15:39:01+00:00"
         },
         {
             "name": "symfony/yaml",
@@ -8175,16 +8175,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v8.1.5",
+            "version": "v8.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "d07c06839e33047e2c894a6793248f3fb66c8129"
+                "reference": "eb7d9957d66739649e931ce7a9d05dab69f8abac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/d07c06839e33047e2c894a6793248f3fb66c8129",
-                "reference": "d07c06839e33047e2c894a6793248f3fb66c8129",
+                "url": "https://api.github.com/repos/symfony/console/zipball/eb7d9957d66739649e931ce7a9d05dab69f8abac",
+                "reference": "eb7d9957d66739649e931ce7a9d05dab69f8abac",
                 "shasum": ""
             },
             "require": {
@@ -8251,7 +8251,7 @@
                 "terminal"
             ],
             "support": {
-                "source": "https://github.com/symfony/console/tree/v8.1.5"
+                "source": "https://github.com/symfony/console/tree/v8.1.6"
             },
             "funding": [
                 {
@@ -8271,20 +8271,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-08-21T14:29:57+00:00"
+            "time": "2026-08-25T14:18:42+00:00"
         },
         {
             "name": "symfony/css-selector",
-            "version": "v7.4.17",
+            "version": "v7.4.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
-                "reference": "e3822e1cb7013a0a99b3c578130458927ec4eb89"
+                "reference": "fecf40067fc8d8880ea87b8ac227600b9aadd1d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/css-selector/zipball/e3822e1cb7013a0a99b3c578130458927ec4eb89",
-                "reference": "e3822e1cb7013a0a99b3c578130458927ec4eb89",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/fecf40067fc8d8880ea87b8ac227600b9aadd1d0",
+                "reference": "fecf40067fc8d8880ea87b8ac227600b9aadd1d0",
                 "shasum": ""
             },
             "require": {
@@ -8320,7 +8320,7 @@
             "description": "Converts CSS selectors to XPath expressions",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/css-selector/tree/v7.4.17"
+                "source": "https://github.com/symfony/css-selector/tree/v7.4.18"
             },
             "funding": [
                 {
@@ -8340,7 +8340,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-08-21T17:40:08+00:00"
+            "time": "2026-08-23T10:03:40+00:00"
         },
         {
             "name": "symfony/dom-crawler",
