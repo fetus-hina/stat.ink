@@ -34,7 +34,7 @@
     "laminas/laminas-feed": "^2.26.2",
     "lbuchs/webauthn": "^2.2",
     "league/oauth1-client": "^1.11",
-    "league/oauth2-client": "^2.9",
+    "league/oauth2-client": "^2.9.1",
     "league/oauth2-google": "^5.0",
     "lipis/flag-icons": "^7.5.0",
     "markrogoyski/math-php": "^2.13.0",
