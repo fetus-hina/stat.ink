@@ -33,7 +33,7 @@
     "jp3cki/yii2-zxcvbn": "^1.0",
     "laminas/laminas-feed": "^2.26.2",
     "lbuchs/webauthn": "^2.2",
-    "league/oauth1-client": "^1.11",
+    "league/oauth1-client": "^1.12",
     "league/oauth2-client": "^2.9.1",
     "league/oauth2-google": "^5.0",
     "lipis/flag-icons": "^7.5.0",
