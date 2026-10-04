@@ -167,7 +167,8 @@
       "yiisoft/yii2": {
         "enhance: callable filter column to GridView": "data/patch/yii2-gridview-callable-filter.patch",
         "enhance: make `protected` CacheController::findCaches()": "data/patch/yii2-cache-command.patch",
-        "enhance: use sha256 to caching key": "data/patch/yii2-cache-key.patch"
+        "enhance: use sha256 to caching key": "data/patch/yii2-cache-key.patch",
+        "fix: avoid unserialize() on cache miss in Cache::multiGet()": "data/patch/yii2-cache-multiget-miss.patch"
       },
       "yiisoft/yii2-bootstrap": {
         "non-progress progressbar": "data/patch/yii2-bootstrap-non-progress-progressbar.patch"
