@@ -12,29 +12,41 @@ namespace app\commands;
 use RuntimeException;
 use Throwable;
 use Yii;
+use app\components\helpers\DepsAuditReport;
 use app\components\helpers\DepsLockfileDiff;
 use yii\console\Controller;
 use yii\console\ExitCode;
+use yii\helpers\FileHelper;
 use yii\helpers\Json;
 use yii\httpclient\Client as HttpClient;
 use yii\httpclient\CurlTransport;
 
+use function basename;
+use function bin2hex;
 use function count;
 use function escapeshellarg;
 use function explode;
+use function fclose;
 use function file_exists;
 use function file_get_contents;
+use function file_put_contents;
 use function fwrite;
 use function getenv;
 use function implode;
 use function is_array;
+use function is_resource;
 use function is_string;
+use function proc_close;
+use function proc_open;
+use function random_bytes;
 use function rawurlencode;
 use function shell_exec;
 use function sleep;
 use function sprintf;
+use function stream_get_contents;
 use function strlen;
 use function substr;
+use function sys_get_temp_dir;
 use function trim;
 use function vfprintf;
 
@@ -67,9 +79,11 @@ final class DepsController extends Controller
         $deployComposer = $this->collectComposerChanges('deploy/composer.lock');
         $npm = $this->collectNpmChanges('package-lock.json');
 
+        $auditSection = $this->buildAuditSection();
+
         if (!$appComposer && !$deployComposer && !$npm) {
             fwrite(STDERR, "[info] No package version changes detected\n");
-            echo self::FALLBACK_BODY . "\n";
+            echo $this->assembleBody(null, $auditSection);
             return ExitCode::OK;
         }
 
@@ -94,16 +108,172 @@ final class DepsController extends Controller
             $appComposerDiff,
             $deployComposerDiff,
             $npmDiff,
+            $auditSection,
         );
 
         $body = $this->callLlm($endpoint, $apiKey, $model, $userPrompt);
         if ($body === null) {
+            // The audit section is still worth publishing without the LLM summary
             fwrite(STDERR, "[error] LLM call failed after retries\n");
-            return ExitCode::UNAVAILABLE;
         }
 
-        echo trim($body) . "\n\n---\n\n" . self::FALLBACK_BODY . "\n";
+        echo $this->assembleBody($body, $auditSection);
         return ExitCode::OK;
+    }
+
+    private function assembleBody(?string $summary, string $auditSection): string
+    {
+        $parts = [];
+        if (is_string($summary) && trim($summary) !== '') {
+            $parts[] = trim($summary);
+        }
+        $parts[] = trim($auditSection);
+        $parts[] = '---';
+        $parts[] = self::FALLBACK_BODY;
+
+        return implode("\n\n", $parts) . "\n";
+    }
+
+    private function buildAuditSection(): string
+    {
+        $sections = [
+            '## Security audit / セキュリティ監査',
+            '',
+            'Results of `composer audit` / `npm audit --omit=dev`, compared with the lock files before this update.',
+            '',
+        ];
+
+        foreach (['' => '.', 'deploy/' => 'deploy'] as $prefix => $dir) {
+            if (!file_exists($prefix . 'composer.lock')) {
+                continue;
+            }
+            $new = $this->runComposerAudit($dir);
+            $old = $this->withHeadFiles(
+                [$prefix . 'composer.json', $prefix . 'composer.lock'],
+                fn (string $tmpDir): ?array => $this->runComposerAudit($tmpDir),
+            );
+            $sections[] = DepsAuditReport::renderSection(
+                sprintf('PHP (%scomposer.lock)', $prefix),
+                $old === null ? null : DepsAuditReport::parseComposerAudit($old),
+                $new === null ? null : DepsAuditReport::parseComposerAudit($new),
+                $new === null ? [] : DepsAuditReport::parseComposerAbandoned($new),
+            );
+        }
+
+        if (file_exists('package-lock.json')) {
+            $new = $this->runNpmAudit('.');
+            $old = $this->withHeadFiles(
+                ['package.json', 'package-lock.json'],
+                fn (string $tmpDir): ?array => $this->runNpmAudit($tmpDir),
+            );
+            $sections[] = DepsAuditReport::renderSection(
+                'JavaScript (package-lock.json)',
+                $old === null ? null : DepsAuditReport::parseNpmAudit($old),
+                $new === null ? null : DepsAuditReport::parseNpmAudit($new),
+            );
+        }
+
+        return implode("\n", $sections);
+    }
+
+    /**
+     * @return array<string, mixed>|null
+     */
+    private function runComposerAudit(string $dir): ?array
+    {
+        return $this->runAuditCommand(
+            [
+                (string)Yii::getAlias('@app/composer.phar'),
+                'audit',
+                '--locked',
+                '--format=json',
+                '--no-plugins',
+                '--no-interaction',
+            ],
+            $dir,
+        );
+    }
+
+    /**
+     * @return array<string, mixed>|null
+     */
+    private function runNpmAudit(string $dir): ?array
+    {
+        return $this->runAuditCommand(
+            ['npm', 'audit', '--package-lock-only', '--omit=dev', '--json'],
+            $dir,
+        );
+    }
+
+    /**
+     * Audit commands exit non-zero when vulnerabilities are found, so success is judged
+     * by whether stdout is a JSON object.
+     *
+     * @param list<string> $command
+     * @return array<string, mixed>|null
+     */
+    private function runAuditCommand(array $command, string $cwd): ?array
+    {
+        $proc = proc_open(
+            $command,
+            [
+                0 => ['file', '/dev/null', 'r'],
+                1 => ['pipe', 'w'],
+                2 => ['file', '/dev/null', 'w'],
+            ],
+            $pipes,
+            $cwd,
+        );
+        if (!is_resource($proc)) {
+            vfprintf(STDERR, "[warn] Failed to run %s\n", [implode(' ', $command)]);
+            return null;
+        }
+        $stdout = (string)stream_get_contents($pipes[1]);
+        fclose($pipes[1]);
+        $status = proc_close($proc);
+
+        try {
+            $data = Json::decode($stdout);
+            if (is_array($data)) {
+                return $data;
+            }
+        } catch (Throwable) {
+        }
+
+        vfprintf(STDERR, "[warn] %s in %s failed (exit %d)\n", [
+            implode(' ', $command),
+            $cwd,
+            $status,
+        ]);
+        return null;
+    }
+
+    /**
+     * Materialize the HEAD versions of the given files into a temporary directory
+     * (flattened by basename) and run the callback there.
+     *
+     * @template T
+     * @param list<string> $paths
+     * @param callable(string): T $callback
+     * @return T|null
+     */
+    private function withHeadFiles(array $paths, callable $callback): mixed
+    {
+        $tmpDir = sys_get_temp_dir() . '/statink-deps-audit-' . bin2hex(random_bytes(8));
+        FileHelper::createDirectory($tmpDir);
+        try {
+            foreach ($paths as $path) {
+                $content = $this->gitFileAtHead($path);
+                if ($content === null) {
+                    vfprintf(STDERR, "[warn] %s does not exist at HEAD\n", [$path]);
+                    return null;
+                }
+                file_put_contents($tmpDir . '/' . basename($path), $content);
+            }
+            return $callback($tmpDir);
+        } finally {
+            FileHelper::removeDirectory($tmpDir);
+        }
     }
 
     /**
@@ -338,6 +508,7 @@ final class DepsController extends Controller
      * @param list<array{name: string, oldVersion: ?string, newVersion: ?string, repo: ?string, releaseNotes: ?string}> $appComposer
      * @param list<array{name: string, oldVersion: ?string, newVersion: ?string, repo: ?string, releaseNotes: ?string}> $deployComposer
      * @param list<array{name: string, oldVersion: ?string, newVersion: ?string, repo: ?string, releaseNotes: ?string}> $npm
+     * @param string $auditSection Markdown produced by DepsAuditReport
      */
     private function buildUserPrompt(
         array $appComposer,
@@ -346,6 +517,7 @@ final class DepsController extends Controller
         string $appComposerDiff,
         string $deployComposerDiff,
         string $npmDiff,
+        string $auditSection,
     ): string {
         $sections = [
             '# Dependency update summary input',
@@ -364,6 +536,9 @@ final class DepsController extends Controller
 
         $sections[] = '## Changed packages (JavaScript / package-lock.json)';
         $sections[] = $this->renderChangeList($npm);
+
+        $sections[] = '## Security audit results (appended to the PR body verbatim)';
+        $sections[] = $auditSection;
 
         if ($appComposerDiff !== '') {
             $sections[] = '## Raw lock-file diff (composer.lock)';
@@ -452,6 +627,8 @@ Rules:
 - If a package was added or removed (no old or new version), say so explicitly.
 - Patch updates with no notable release notes may be grouped at the end of the section as "- and N other patch updates / その他 N 件のパッチ更新".
 - Do not include a trailing footer like "This is an automated pull-request" — that line is appended separately.
+- The security audit results are appended to the PR body separately; do not reproduce them as a section or table.
+  However, if the update fixed or introduced any advisory, mention it in Highlights (fixed ones first).
 PROMPT;
     }
 
