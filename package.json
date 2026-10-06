@@ -27,7 +27,7 @@
     "chartjs-chart-error-bars": "^4.4.5",
     "chartjs-plugin-datalabels": "^2.2.0",
     "css-loader": "^7.1.5",
-    "cssnano": "^7.1.9",
+    "cssnano": "^9.2.0",
     "emojify.js": "^1.1.0",
     "eonasdan-bootstrap-datetimepicker": "^4.17.49",
     "escape-html": "^1.0.3",
