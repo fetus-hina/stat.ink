@@ -33,6 +33,7 @@ class AppAsset extends AssetBundle
     public $depends = [
         AutoTooltipAsset::class,
         BootstrapAsset::class,
+        BootstrapButtonPatchAsset::class,
         BootstrapPluginAsset::class,
         ColorSchemeAsset::class,
         FluidLayoutAsset::class,

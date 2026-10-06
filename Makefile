@@ -49,6 +49,7 @@ RESOURCE_TARGETS := \
 	resources/.compiled/stat.ink/blackout-hint.css \
 	resources/.compiled/stat.ink/blackout-hint.js \
 	resources/.compiled/stat.ink/blog-entries.css \
+	resources/.compiled/stat.ink/bootstrap-button-patch.js \
 	resources/.compiled/stat.ink/browser-icon-widget.js \
 	resources/.compiled/stat.ink/color-scheme.js \
 	resources/.compiled/stat.ink/cookiealert.css \
@@ -302,6 +303,7 @@ resources/.compiled/stat.ink/battles-simple.css: resources/stat.ink/battles-simp
 resources/.compiled/stat.ink/blackout-hint.css: resources/stat.ink/blackout-hint.scss node_modules
 resources/.compiled/stat.ink/blackout-hint.js: resources/stat.ink/blackout-hint.js node_modules
 resources/.compiled/stat.ink/blog-entries.css: resources/stat.ink/blog-entries.scss node_modules
+resources/.compiled/stat.ink/bootstrap-button-patch.js: resources/stat.ink/bootstrap-button-patch.es node_modules
 resources/.compiled/stat.ink/browser-icon-widget.js: resources/stat.ink/browser-icon-widget.es node_modules
 resources/.compiled/stat.ink/color-scheme.js: resources/stat.ink/color-scheme.es node_modules
 resources/.compiled/stat.ink/cookiealert.css: resources/stat.ink/cookiealert.scss node_modules
