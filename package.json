@@ -71,6 +71,11 @@
     "yii2-pjax": "git+https://github.com/yiisoft/jquery-pjax.git#semver:^2.0.9",
     "zxcvbn": "^4.4.2"
   },
+  "overrides": {
+    "eonasdan-bootstrap-datetimepicker": {
+      "moment-timezone": "$moment-timezone"
+    }
+  },
   "scripts": {
     "postinstall": "bin/npm-postinstall.sh"
   }
