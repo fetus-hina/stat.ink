@@ -212,6 +212,66 @@ final class DepsAuditReportTest extends Unit
         $this->assertStringContainsString('`c/dead`', $md);
     }
 
+    public function testFilterIgnoredMatchesAdvisoryIdCveOrLinkedGhsa(): void
+    {
+        $byId = $this->advisory('bootstrap', 'GHSA-aaaa-aaaa-aaaa', 'moderate');
+        $byCve = ['cve' => 'CVE-2026-0001'] + $this->advisory('a/a', 'PKSA-xxxx-xxxx-xxxx', 'high');
+        $byLink = ['link' => 'https://github.com/advisories/GHSA-bbbb-bbbb-bbbb']
+            + $this->advisory('b/b', 'PKSA-yyyy-yyyy-yyyy', 'low');
+        $kept = $this->advisory('c/c', 'GHSA-cccc-cccc-cccc', 'high');
+
+        $result = DepsAuditReport::filterIgnored(
+            [$byId, $byCve, $byLink, $kept],
+            [
+                ['id' => 'ghsa-aaaa-aaaa-aaaa'],
+                ['id' => 'CVE-2026-0001'],
+                ['id' => 'GHSA-bbbb-bbbb-bbbb'],
+            ],
+        );
+
+        $this->assertSame([$kept], $result['kept']);
+        $this->assertSame([$byId, $byCve, $byLink], $result['ignored']);
+    }
+
+    public function testFilterIgnoredRespectsPackageRestriction(): void
+    {
+        $bootstrap = $this->advisory('bootstrap', 'GHSA-aaaa-aaaa-aaaa', 'moderate');
+        $other = $this->advisory('other', 'GHSA-aaaa-aaaa-aaaa', 'moderate');
+
+        $result = DepsAuditReport::filterIgnored(
+            [$bootstrap, $other],
+            [['id' => 'GHSA-aaaa-aaaa-aaaa', 'package' => 'bootstrap']],
+        );
+
+        $this->assertSame([$other], $result['kept']);
+        $this->assertSame([$bootstrap], $result['ignored']);
+    }
+
+    public function testRenderSectionExcludesIgnoredAdvisories(): void
+    {
+        $ignored = $this->advisory('bootstrap', 'GHSA-aaaa-aaaa-aaaa', 'moderate');
+        $rules = [['id' => 'GHSA-aaaa-aaaa-aaaa']];
+
+        $md = DepsAuditReport::renderSection('JavaScript (package-lock.json)', [$ignored], [$ignored], [], $rules);
+
+        $this->assertStringContainsString('No known vulnerabilities', $md);
+        $this->assertStringNotContainsString('Remaining', $md);
+        $this->assertStringContainsString('Ignored / 除外 (1)', $md);
+    }
+
+    public function testRenderSectionDoesNotReportIgnoredAdvisoryAsFixed(): void
+    {
+        $ignored = $this->advisory('bootstrap', 'GHSA-aaaa-aaaa-aaaa', 'moderate');
+        $remaining = $this->advisory('b/b', 'ID-2', 'medium');
+        $rules = [['id' => 'GHSA-aaaa-aaaa-aaaa']];
+
+        $md = DepsAuditReport::renderSection('PHP (composer.lock)', [$ignored, $remaining], [$remaining], [], $rules);
+
+        $this->assertStringContainsString('Fixed / 解消: 0', $md);
+        $this->assertStringContainsString('Remaining / 残存: 1', $md);
+        $this->assertStringNotContainsString('Ignored', $md);
+    }
+
     /**
      * @return array{package: string, id: string, title: string, severity: string, cve: ?string, link: ?string, affected: ?string, fix: ?string}
      */
