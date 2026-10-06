@@ -21,4 +21,9 @@ return [
         'id' => 'GHSA-vxmc-5x29-h64v',
         'package' => 'bootstrap',
     ],
+    // CVE-2025-1647: mitigated by data/patch/npm/bootstrap+3.4.1.patch
+    [
+        'id' => 'GHSA-q58r-hwc8-rm9j',
+        'package' => 'bootstrap',
+    ],
 ];
