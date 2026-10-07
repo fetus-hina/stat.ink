@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "391197df901bc964c17bc7ed42b35803",
+    "content-hash": "f1aedbf7172b86d9a103d968d2ca14e2",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -1241,16 +1241,16 @@
         },
         {
             "name": "laminas/laminas-feed",
-            "version": "2.26.2",
+            "version": "2.26.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-feed.git",
-                "reference": "ff46114defd883d6f783acd39effc0dcd2a08055"
+                "reference": "86ce3b1ea7c5010413cb24c8d58530b084e8f901"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-feed/zipball/ff46114defd883d6f783acd39effc0dcd2a08055",
-                "reference": "ff46114defd883d6f783acd39effc0dcd2a08055",
+                "url": "https://api.github.com/repos/laminas/laminas-feed/zipball/86ce3b1ea7c5010413cb24c8d58530b084e8f901",
+                "reference": "86ce3b1ea7c5010413cb24c8d58530b084e8f901",
                 "shasum": ""
             },
             "require": {
@@ -1318,7 +1318,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2026-09-14T21:00:46+00:00"
+            "time": "2026-10-03T12:45:16+00:00"
         },
         {
             "name": "laminas/laminas-stdlib",
@@ -4229,16 +4229,16 @@
         },
         {
             "name": "codeception/codeception",
-            "version": "5.3.6",
+            "version": "5.3.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "2aea436366936e4457e4d66cacc460393022a985"
+                "reference": "5740d838bce16d04b2e48cb68aaf9e40e5c57f2a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/2aea436366936e4457e4d66cacc460393022a985",
-                "reference": "2aea436366936e4457e4d66cacc460393022a985",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/5740d838bce16d04b2e48cb68aaf9e40e5c57f2a",
+                "reference": "5740d838bce16d04b2e48cb68aaf9e40e5c57f2a",
                 "shasum": ""
             },
             "require": {
@@ -4344,7 +4344,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Codeception/Codeception/issues",
-                "source": "https://github.com/Codeception/Codeception/tree/5.3.6"
+                "source": "https://github.com/Codeception/Codeception/tree/5.3.7"
             },
             "funding": [
                 {
@@ -4352,7 +4352,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2026-09-25T12:33:07+00:00"
+            "time": "2026-10-03T17:55:12+00:00"
         },
         {
             "name": "codeception/lib-asserts",
