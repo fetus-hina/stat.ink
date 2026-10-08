@@ -107,8 +107,8 @@ final class SalmonApiFormatter
                 return null;
             }
 
-            $startAt = TypeHelper::int(strtotime($schedule->start_at));
-            if ($startAt < TypeHelper::int(strtotime('2023-12-01T00:00:00+00:00'))) {
+            $startAt = $schedule->start_at |> strtotime(...) |> TypeHelper::int(...);
+            if ($startAt < ('2023-12-01T00:00:00+00:00' |> strtotime(...) |> TypeHelper::int(...))) {
                 return null;
             }
 

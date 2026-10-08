@@ -120,7 +120,7 @@ class SalmonSchedule2 extends ActiveRecord
 
     public function getPeriod(): int
     {
-        return BattleHelper::calcPeriod2(strtotime($this->start_at));
+        return $this->start_at |> strtotime(...) |> BattleHelper::calcPeriod2(...);
     }
 
     public function delete()

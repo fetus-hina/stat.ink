@@ -21,14 +21,12 @@ use yii\web\View;
 echo Html::tag(
   'div',
   $model->titleAfter
-    ? Html::encode(
-      trim(
-        vsprintf('%s %s', [
-          Yii::t('app-salmon-title3', $model->titleAfter->name),
-          Yii::$app->formatter->asInteger($model->title_exp_after),
-        ]),
-      ),
-    )
+    ? vsprintf('%s %s', [
+      Yii::t('app-salmon-title3', $model->titleAfter->name),
+      Yii::$app->formatter->asInteger($model->title_exp_after),
+    ])
+      |> trim(...)
+      |> Html::encode(...)
     : Html::encode(mb_chr(0xa0, 'UTF-8')),
   ['class' => 'omit simple-battle-weapon'],
 );

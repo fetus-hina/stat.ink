@@ -84,7 +84,7 @@ $f = Yii::$app->formatter;
     $model->weapon
       ? Html::tag(
         'span',
-        Html::encode(WeaponShortener::makeShorter(Yii::t('app-weapon', $model->weapon->name))),
+        Yii::t('app-weapon', $model->weapon->name) |> WeaponShortener::makeShorter(...) |> Html::encode(...),
         [
           'class' => 'auto-tooltip',
           'title' => implode(' / ', [

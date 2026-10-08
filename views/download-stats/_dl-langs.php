@@ -31,7 +31,7 @@ $langs = Language::find()
     <?= Html::tag(
       'span',
       implode(' ', [
-        (string)FlagIcon::fg(strtolower(substr($lang['lang'], 3, 2))),
+        (string)(substr($lang['lang'], 3, 2) |> strtolower(...) |> FlagIcon::fg(...)),
         Html::encode($lang['name']),
       ]),
       ['class' => 'lang']

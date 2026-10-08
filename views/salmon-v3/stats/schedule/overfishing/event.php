@@ -52,9 +52,9 @@ if (!$stats) {
   <?= Html::tag(
     'td',
     implode(' ', [
-      Icon::s3SalmonTide(
-        TypeHelper::string(ArrayHelper::getValue($tides, [$stat['tide_id'], 'key'])),
-      ),
+      ArrayHelper::getValue($tides, [$stat['tide_id'], 'key'])
+        |> TypeHelper::string(...)
+        |> Icon::s3SalmonTide(...),
       Html::encode(
         Yii::t(
           'app-salmon-tide2',

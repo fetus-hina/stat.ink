@@ -568,7 +568,7 @@ final class PostBattleForm extends Model
 
         if (!$model->save()) {
             $this->addError('_system', vsprintf('Failed to store new battle, info=%s', [
-                base64_encode(Json::encode($model->getFirstErrors())),
+                $model->getFirstErrors() |> Json::encode(...) |> base64_encode(...),
             ]));
             return null;
         }

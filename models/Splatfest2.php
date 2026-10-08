@@ -124,8 +124,8 @@ class Splatfest2 extends ActiveRecord
     {
         return vsprintf('fest-%s-%s-%s', [
             $this->beginTime->setTimezone(new DateTimeZone('Etc/UTC'))->format('Y.m.d'),
-            substr(preg_replace('/[^\w]+/', '_', trim(strtolower($this->name_a))), 0, 15),
-            substr(preg_replace('/[^\w]+/', '_', trim(strtolower($this->name_b))), 0, 15),
+            substr(preg_replace('/[^\w]+/', '_', $this->name_a |> strtolower(...) |> trim(...)), 0, 15),
+            substr(preg_replace('/[^\w]+/', '_', $this->name_b |> strtolower(...) |> trim(...)), 0, 15),
         ]);
     }
 

@@ -369,7 +369,7 @@ final class DepsAuditReport
             if (isset($rule['package']) && $rule['package'] !== $advisory['package']) {
                 continue;
             }
-            if (in_array(strtoupper(trim($rule['id'])), $identifiers, true)) {
+            if (in_array($rule['id'] |> trim(...) |> strtoupper(...), $identifiers, true)) {
                 return true;
             }
         }

@@ -62,11 +62,9 @@ trait Event
                 ),
                 'rule_id' => TypeHelper::int(
                     self::key2id(
-                        strtolower(
-                            TypeHelper::string(
-                                ArrayHelper::getValue($schedule, 'leagueMatchSetting.vsRule.rule'),
-                            ),
-                        ),
+                        ArrayHelper::getValue($schedule, 'leagueMatchSetting.vsRule.rule')
+                            |> TypeHelper::string(...)
+                            |> strtolower(...),
                         Rule3::class,
                         Rule3Alias::class,
                         'rule_id',

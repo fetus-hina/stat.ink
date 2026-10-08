@@ -99,7 +99,7 @@ final class PhpController extends Controller
 
         $content = $response->content;
         vfprintf(STDERR, "[info] Downloaded %s bytes.\n", [
-            number_format(strlen($content)),
+            $content |> strlen(...) |> number_format(...),
         ]);
 
         return $content;

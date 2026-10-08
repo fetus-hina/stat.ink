@@ -20,19 +20,19 @@ class IdnToPunycodeFilterValidator extends FilterValidator
     {
         $this->filter = function ($value) {
             if (!str_contains($value, '/')) {
-                return strtolower(idn_to_ascii($value));
+                return $value |> idn_to_ascii(...) |> strtolower(...);
             }
             if (str_contains($value, '//')) {
                 return preg_replace_callback(
                     '!(?<=//)([^/:]+)!',
-                    fn ($match) => strtolower(idn_to_ascii($match[1])),
+                    fn ($match) => $match[1] |> idn_to_ascii(...) |> strtolower(...),
                     $value,
                     1,
                 );
             }
             return preg_replace_callback(
                 '!^([^/:]+)!',
-                fn ($match) => strtolower(idn_to_ascii($match[1])),
+                fn ($match) => $match[1] |> idn_to_ascii(...) |> strtolower(...),
                 $value,
                 1,
             );

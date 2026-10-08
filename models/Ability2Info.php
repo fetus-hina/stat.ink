@@ -563,7 +563,7 @@ class Ability2Info extends Model
             $maxDamage = $getMaxDamage($baseDamage);
             $c = static::calcCoefficient($gp, $maxRate, 1.0);
             $damage = floor($baseDamage * $c * 10.0) / 10.0;
-            $suffix = ucfirst(trim((string)$suffix));
+            $suffix = ((string)$suffix) |> trim(...) |> ucfirst(...);
             return [
                 'baseDamage' . $suffix => $baseDamage,
                 'damageRate' . $suffix => $c,

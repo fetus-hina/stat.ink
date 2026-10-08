@@ -49,7 +49,7 @@ final class PasskeyNickname
 
     public static function isKnownAaguid(string $aaguid): bool
     {
-        return strtolower(trim($aaguid)) !== self::ZERO_AAGUID;
+        return ($aaguid |> trim(...) |> strtolower(...)) !== self::ZERO_AAGUID;
     }
 
     private static function truncate(string $value): string

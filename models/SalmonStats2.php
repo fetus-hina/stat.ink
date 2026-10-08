@@ -182,7 +182,7 @@ class SalmonStats2 extends ActiveRecord
 
     public static function openapiExample(): array
     {
-        $ts = fn (string $timestamp): array => DateTimeFormatter::unixTimeToJsonArray(strtotime($timestamp));
+        $ts = fn (string $timestamp): array => $timestamp |> strtotime(...) |> DateTimeFormatter::unixTimeToJsonArray(...);
 
         return [
             'work_count' => 388,
