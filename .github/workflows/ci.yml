@@ -3,7 +3,7 @@ name: CI
   - push
   - pull_request
 env:
-  UTILITY_PHP_VERSION: '8.4'
+  UTILITY_PHP_VERSION: '8.5'
   NODE_VERSION: '24'
 jobs:
   ciDoesNotSkip:
@@ -19,10 +19,6 @@ jobs:
     strategy:
       matrix:
         php:
-          -
-            version: '8.4'
-            multiple: true
-            experimental: false
           -
             version: '8.5'
             multiple: true
@@ -313,9 +309,6 @@ jobs:
     strategy:
       matrix:
         php:
-          -
-            version: '8.4'
-            experimental: false
           -
             version: '8.5'
             experimental: false
