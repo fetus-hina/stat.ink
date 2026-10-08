@@ -10,8 +10,8 @@ namespace app\actions\entire\users;
 use app\models\StatEntireUser;
 use yii\db\Query;
 
+use function array_last;
 use function array_map;
-use function count;
 use function gmdate;
 use function gmmktime;
 use function implode;
@@ -23,7 +23,7 @@ trait Splatoon1
     {
         $lastSummariedDate = null;
         if ($stats = $this->getPostStatsSummarized()) {
-            $lastSummariedDate = $stats[count($stats) - 1]->date;
+            $lastSummariedDate = array_last($stats)->date;
         } else {
             $stats = [];
         }

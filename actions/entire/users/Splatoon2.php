@@ -17,8 +17,8 @@ use app\models\Battle2;
 use app\models\StatEntireUser2;
 use yii\db\Query;
 
+use function array_last;
 use function array_map;
-use function count;
 use function time;
 use function usort;
 use function version_compare;
@@ -31,7 +31,7 @@ trait Splatoon2
     {
         $lastSummariedDate = null;
         if ($stats = $this->getPostStatsSummarized2()) {
-            $lastSummariedDate = $stats[count($stats) - 1]['date'];
+            $lastSummariedDate = array_last($stats)['date'];
         } else {
             $stats = [];
         }
