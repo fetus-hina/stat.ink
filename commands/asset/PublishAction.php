@@ -9,17 +9,15 @@ declare(strict_types=1);
 
 namespace app\commands\asset;
 
+use Uri\WhatWg\Url as WhatWgUrl;
 use yii\base\Action;
 use yii\helpers\Url;
 
 use function escapeshellarg;
 use function fwrite;
 use function implode;
-use function is_array;
-use function parse_url;
 use function passthru;
 use function sprintf;
-use function strtolower;
 
 use const STDERR;
 
@@ -51,18 +49,14 @@ class PublishAction extends Action
 
     private function getHostAndPortFromURL(string $url): array
     {
-        $urlInfo = @parse_url($url);
+        $parsedUrl = WhatWgUrl::parse($url);
         if (
-            is_array($urlInfo) &&
-            isset($urlInfo['scheme']) &&
-            isset($urlInfo['host']) &&
-            ($urlInfo['scheme'] === 'http' || $urlInfo['scheme'] === 'https')
+            $parsedUrl &&
+            ($parsedUrl->getScheme() === 'http' || $parsedUrl->getScheme() === 'https')
         ) {
             return [
-                strtolower($urlInfo['host']),
-                isset($urlInfo['port'])
-                    ? (int)$urlInfo['port']
-                    : ($urlInfo['scheme'] === 'http' ? 80 : 443),
+                $parsedUrl->getAsciiHost(),
+                $parsedUrl->getPort() ?? ($parsedUrl->getScheme() === 'http' ? 80 : 443),
             ];
         }
         return [null, null];
