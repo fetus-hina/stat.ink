@@ -141,7 +141,7 @@ class PlayerName2Widget extends Widget
                 ],
             );
         } else {
-            return Html::encode(trim($this->player->name));
+            return $this->player->name |> trim(...) |> Html::encode(...);
         }
         // }}}
     }

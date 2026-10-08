@@ -117,8 +117,8 @@ trait PermalinkTrait
             ->one();
         if ($season) {
             $push(
-                TypeHelper::int(strtotime($season->start_at)),
-                TypeHelper::int(strtotime($season->end_at)) - 1,
+                $season->start_at |> strtotime(...) |> TypeHelper::int(...),
+                ($season->end_at |> strtotime(...) |> TypeHelper::int(...)) - 1,
             );
         }
     }

@@ -28,9 +28,10 @@ use stdClass;
 use yii\db\Query;
 use yii\web\ViewAction as BaseAction;
 
+use function array_first;
+use function array_last;
 use function array_map;
 use function array_merge;
-use function count;
 use function date;
 use function intval;
 use function pow;
@@ -302,8 +303,8 @@ class Weapons2Action extends BaseAction
                 if (!$versions) {
                     throw new Exception();
                 }
-                $v1 = $versions[0];
-                $v2 = $versions[count($versions) - 1];
+                $v1 = array_first($versions);
+                $v2 = array_last($versions);
                 $v3 = SplatoonVersion2::find()
                     ->andWhere(['>', 'released_at', $v2->released_at])
                     ->orderBy(['released_at' => SORT_ASC])

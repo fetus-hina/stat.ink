@@ -117,8 +117,9 @@ final class UpRevisionAction extends Action
 
     private function makeGitShortRevision(string $revision): string
     {
-        return Base32::encodeUnpadded(
-            TypeHelper::string(hex2bin($revision)),
-        );
+        return $revision
+            |> hex2bin(...)
+            |> TypeHelper::string(...)
+            |> Base32::encodeUnpadded(...);
     }
 }

@@ -14,7 +14,7 @@ use yii\db\Query;
 use yii\db\Transaction;
 use yii\helpers\ArrayHelper;
 
-use function count;
+use function array_last;
 
 use const SORT_ASC;
 
@@ -28,7 +28,7 @@ trait Salmon3
 
                 $lastSummariedDate = null;
                 if ($stats = $this->getPostStatsSummarizedSalmon3($db)) {
-                    $lastSummariedDate = $stats[count($stats) - 1]['date'];
+                    $lastSummariedDate = array_last($stats)['date'];
                 } else {
                     $stats = [];
                 }

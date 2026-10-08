@@ -212,7 +212,7 @@ class DeeplTranslator extends Component
                 }
             }
         }
-        return array_values(array_unique($results));
+        return $results |> array_unique(...) |> array_values(...);
     }
 
     private function getDeeplSupportedLanguages(): array

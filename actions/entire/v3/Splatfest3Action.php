@@ -174,14 +174,12 @@ final class Splatfest3Action extends Action
             'lang',
         );
 
-        $names = array_values(
-            array_unique(
-                array_map(
-                    fn (string $lang): string => Yii::t('db/splatfest3/team', $team->name, [], $lang),
-                    $langs,
-                ),
-            ),
-        );
+        $names = array_map(
+            fn (string $lang): string => Yii::t('db/splatfest3/team', $team->name, [], $lang),
+            $langs,
+        )
+            |> array_unique(...)
+            |> array_values(...);
 
         return ArrayHelper::getColumn(
             Splatfest3Theme::find()

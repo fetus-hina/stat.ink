@@ -584,7 +584,7 @@ if ($user->twitter != '') {
               return trim((string)$model->my_team_id) === ''
                 ? null
                 : Html::a(
-                  Html::tag('code', Html::encode(trim((string)$model->my_team_id))),
+                  Html::tag('code', ((string)$model->my_team_id) |> trim(...) |> Html::encode(...)),
                   ['show-v2/user',
                     'screen_name' => $model->user->screen_name,
                     'filter' => [

@@ -91,13 +91,15 @@ class SalmonHazardHistory extends Widget
         // cleared
         $series2 = [
             'color' => '#3169b3',
-            'data' => array_values(array_filter(array_map(
+            'data' => array_map(
                 fn (Salmon2 $model, int $index): ?array => $model->clear_waves >= 3
                         ? [$index, (float)$model->danger_rate]
                         : null,
                 array_reverse($history), // 古い順に取得
                 range(-1 * (count($history) - 1), 0), // 最新が 0 になるように
-            ))),
+            )
+                |> array_filter(...)
+                |> array_values(...),
             'lines' => [
                 'show' => false,
             ],
@@ -110,13 +112,15 @@ class SalmonHazardHistory extends Widget
         // failed
         $series3 = [
             'color' => '#ec6110',
-            'data' => array_values(array_filter(array_map(
+            'data' => array_map(
                 fn (Salmon2 $model, int $index): ?array => $model->clear_waves < 3
                         ? [$index, (float)$model->danger_rate]
                         : null,
                 array_reverse($history), // 古い順に取得
                 range(-1 * (count($history) - 1), 0), // 最新が 0 になるように
-            ))),
+            )
+                |> array_filter(...)
+                |> array_values(...),
             'lines' => [
                 'show' => false,
             ],

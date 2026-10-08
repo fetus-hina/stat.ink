@@ -101,7 +101,7 @@ $namePartInner = trim(implode(' ', [
       }
     }
     if (!$anonymize && trim((string)$player->name) !== '') {
-      return Html::encode(trim((string)$player->name));
+      return ((string)$player->name) |> trim(...) |> Html::encode(...);
     } else {
       AnonymizerAsset::register($this);
       return Html::tag(

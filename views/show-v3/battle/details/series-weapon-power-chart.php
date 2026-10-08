@@ -73,7 +73,7 @@ return [
     }
 
     // 古い順に並べかえる
-    $powerList = array_values(array_reverse($powerList));
+    $powerList = $powerList |> array_reverse(...) |> array_values(...);
 
     $id = 'series-power-chart';
 

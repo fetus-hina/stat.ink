@@ -28,7 +28,7 @@ foreach ($medals as $medalKey => $medal) {
     continue;
   }
 
-  $total = array_sum(array_values($medalStats));
+  $total = $medalStats |> array_values(...) |> array_sum(...);
   if ($total < 1) {
     continue;
   }

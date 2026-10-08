@@ -121,8 +121,8 @@ final class CombinedAgentAction extends Action
         }
 
         // 歯抜けデータの処理
-        $minDate = $ret ? min(array_keys($ret)) : '1970-01-01';
-        $maxDate = $ret ? max(array_keys($ret)) : '1970-01-01';
+        $minDate = $ret ? ($ret |> array_keys(...) |> min(...)) : '1970-01-01';
+        $maxDate = $ret ? ($ret |> array_keys(...) |> max(...)) : '1970-01-01';
         if ($minDate !== $maxDate) {
             $min = new DateTime($minDate, new DateTimeZone('Etc/GMT-6'));
             $max = new DateTime($maxDate, new DateTimeZone('Etc/GMT-6'));

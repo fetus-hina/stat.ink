@@ -102,7 +102,7 @@ class CloudflareController extends Controller
                 ?: strcmp($a, $b);
         });
 
-        return $list ? array_values(array_unique($list)) : null;
+        return $list ? ($list |> array_unique(...) |> array_values(...)) : null;
     }
 
     private function downloadIpRangesFile(string $url, int $filterFlag): ?array

@@ -767,7 +767,7 @@ $specials = Special::find()->asArray()->all();
 <?php if ($battle->note != '') { ?>
           <tr>
             <th><?= Html::encode(Yii::t('app', 'Note')) ?></th>
-            <td><?= nl2br(Html::encode($battle->note)) ?></td>
+            <td><?= $battle->note |> Html::encode(...) |> nl2br(...) ?></td>
           </tr>
 <?php } ?>
 <?php if (
@@ -783,7 +783,7 @@ $specials = Special::find()->asArray()->all();
                 <?= (string)FA::fas('lock')->fw() . "\n" ?>
               </button>
               <div id="private-note" class="d-none">
-                <?= nl2br(Html::encode($battle->private_note)) . "\n" ?>
+                <?= ($battle->private_note |> Html::encode(...) |> nl2br(...)) . "\n" ?>
               </div>
             </td>
           </tr>

@@ -1555,12 +1555,12 @@ class Battle2 extends ActiveRecord
                 ? 1000
                 : null,
             'start_at' => $this->start_at != ''
-                ? DateTimeFormatter::unixTimeToJsonArray(strtotime($this->start_at))
+                ? ($this->start_at |> strtotime(...) |> DateTimeFormatter::unixTimeToJsonArray(...))
                 : null,
             'end_at' => $this->end_at != ''
-                ? DateTimeFormatter::unixTimeToJsonArray(strtotime($this->end_at))
+                ? ($this->end_at |> strtotime(...) |> DateTimeFormatter::unixTimeToJsonArray(...))
                 : null,
-            'register_at' => DateTimeFormatter::unixTimeToJsonArray(strtotime($this->created_at)),
+            'register_at' => $this->created_at |> strtotime(...) |> DateTimeFormatter::unixTimeToJsonArray(...),
         ];
     }
 

@@ -35,13 +35,13 @@ ChartJsAsset::register($this);
 ColorSchemeAsset::register($this);
 RatioAsset::register($this);
 
-$totalUsers = array_sum(array_values($histogram));
+$totalUsers = $histogram |> array_values(...) |> array_sum(...);
 if ($totalUsers < 1) {
   return;
 }
 
 $binWidth = $abstract?->histogram_width ?? 10;
-$keyMax = max(array_keys($histogram));
+$keyMax = $histogram |> array_keys(...) |> max(...);
 $totalHistogram = [];
 for ($x = $binWidth / 2; $x <= $keyMax; $x += $binWidth) {
   $totalHistogram[] = [
@@ -185,19 +185,17 @@ if ($chartMax > 0) {
       'data' => [
         'chart' => [
           'data' => [
-            'datasets' => array_values(
-              array_filter(
-                [
-                  $dataset50pct,
-                  $dataset80pct,
-                  $dataset95pct,
-                  $datasetRuleOfThumbDistrib,
-                  $datasetEstimatedDistrib,
-                  $datasetNormalDistrib,
-                  $datasetHistogram,
-                ],
-              ),
-            ),
+            'datasets' => [
+              $dataset50pct,
+              $dataset80pct,
+              $dataset95pct,
+              $datasetRuleOfThumbDistrib,
+              $datasetEstimatedDistrib,
+              $datasetNormalDistrib,
+              $datasetHistogram,
+            ]
+              |> array_filter(...)
+              |> array_values(...),
           ],
           'options' => [
             'aspectRatio' => 4 / 3, // 16 / 10,

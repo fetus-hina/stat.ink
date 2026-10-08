@@ -19,7 +19,7 @@ use yii\web\View;
  */
 
 $fmt = Yii::$app->formatter;
-$maxUses = max(array_keys($data));
+$maxUses = $data |> array_keys(...) |> max(...);
 $maxSamples = max(ArrayHelper::getColumn($data, 'battles'));
 
 ?>

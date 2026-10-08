@@ -21,9 +21,9 @@ use yii\db\Query;
 use yii\db\Transaction;
 use yii\helpers\ArrayHelper;
 
+use function array_last;
 use function array_map;
 use function assert;
-use function count;
 use function sprintf;
 use function time;
 use function usort;
@@ -41,7 +41,7 @@ trait Splatoon3
 
                 $lastSummariedDate = null;
                 if ($stats = $this->getPostStatsSummarized3($db)) {
-                    $lastSummariedDate = $stats[count($stats) - 1]['date'];
+                    $lastSummariedDate = array_last($stats)['date'];
                 } else {
                     $stats = [];
                 }

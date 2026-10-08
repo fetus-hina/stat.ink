@@ -53,14 +53,14 @@ $fmtEggs = fn (int|float|null $value, bool $estimated = false): string => $value
     <?= GridView::widget([
       'dataProvider' => Yii::createObject([
         'class' => ArrayDataProvider::class,
-        'allModels' => array_values(
-          array_filter([
-            $border,
-            $model,
-            $official,
-            $ruleOfThumbDistrib,
-          ]),
-        ),
+        'allModels' => [
+          $border,
+          $model,
+          $official,
+          $ruleOfThumbDistrib,
+        ]
+          |> array_filter(...)
+          |> array_values(...),
         'pagination' => false,
         'sort' => false,
       ]),

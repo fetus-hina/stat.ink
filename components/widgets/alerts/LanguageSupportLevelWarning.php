@@ -101,7 +101,7 @@ class LanguageSupportLevelWarning extends Widget
         return Html::tag('p', implode(' ', [
             Html::tag('strong', implode('', [
                 Html::encode('Language: '),
-                (string)FlagIcon::fg(strtolower($this->language->countryCode)),
+                (string)($this->language->countryCode |> strtolower(...) |> FlagIcon::fg(...)),
                 ' ',
                 Html::encode($this->language->name),
             ])),
