@@ -334,7 +334,7 @@ final class Splatfest3Controller extends Controller
             ));
         }
 
-        return array_values(array_unique($results));
+        return $results |> array_unique(...) |> array_values(...);
     }
 
     /**

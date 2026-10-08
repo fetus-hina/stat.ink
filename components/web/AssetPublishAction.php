@@ -66,7 +66,7 @@ class AssetPublishAction extends Action
             $this->classes,
         );
         natsort($list);
-        return array_values(array_unique($list));
+        return $list |> array_unique(...) |> array_values(...);
     }
 
     protected function enumerateDirectoryClasses(string $directory, string $namespace): array

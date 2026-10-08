@@ -57,24 +57,22 @@ $datasetWinPct = [
 ];
 
 $datasetWinPctErrors = [
-  'data' => array_values(
-    array_filter(
-      ArrayHelper::getColumn(
-        $data,
-        function (Model $model) use ($xGet): ?array {
-          if (!$err = StandardError::winpct($model->wins, $model->battles)) {
-            return null;
-          }
+  'data' => ArrayHelper::getColumn(
+    $data,
+    function (Model $model) use ($xGet): ?array {
+      if (!$err = StandardError::winpct($model->wins, $model->battles)) {
+        return null;
+      }
 
-          return [
-            'x' => (int)ArrayHelper::getValue($model, $xGet),
-            'yMin' => [100 * $err['min95ci'], 100 * $err['min99ci']],
-            'yMax' => [100 * $err['max95ci'], 100 * $err['max99ci']],
-          ];
-        },
-      ),
-    ),
-  ),
+      return [
+        'x' => (int)ArrayHelper::getValue($model, $xGet),
+        'yMin' => [100 * $err['min95ci'], 100 * $err['min99ci']],
+        'yMax' => [100 * $err['max95ci'], 100 * $err['max99ci']],
+      ];
+    },
+  )
+    |> array_filter(...)
+    |> array_values(...),
   'errorBarColor' => 'rgba(50, 50, 50, 0.75)',
   'errorBarLineWidth' => 1,
   'errorBarWhiskerColor' => 'rgba(50, 50, 50, 0.75)',

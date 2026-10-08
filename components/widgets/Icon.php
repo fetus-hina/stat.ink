@@ -1016,15 +1016,15 @@ final class Icon
 
         $options = [
             'alt' => $alt ?? false,
-            'class' => array_values(
-                array_filter([
-                    'basic-icon',
-                    match (true) {
-                        is_string($title) => 'auto-tooltip',
-                        default => null,
-                    },
-                ]),
-            ),
+            'class' => [
+                'basic-icon',
+                match (true) {
+                    is_string($title) => 'auto-tooltip',
+                    default => null,
+                },
+            ]
+                |> array_filter(...)
+                |> array_values(...),
             'draggable' => 'false',
             'style' => [
                 '--icon-height' => $size ?? '1em',

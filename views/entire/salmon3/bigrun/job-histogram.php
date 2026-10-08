@@ -137,18 +137,16 @@ $datasetClearedDistrib = $makeWaveDistributionData($abstract, 4, 'clear');
   'data' => [
     'chart' => [
       'data' => [
-        'datasets' => array_values(
-          array_filter(
-            [
-              $datasetW1FailedDistrib,
-              $datasetW2FailedDistrib,
-              $datasetW3FailedDistrib,
-              $datasetClearedDistrib,
-              // $datasetNormalDistrib,
-              $datasetHistogram,
-            ],
-          ),
-        ),
+        'datasets' => [
+          $datasetW1FailedDistrib,
+          $datasetW2FailedDistrib,
+          $datasetW3FailedDistrib,
+          $datasetClearedDistrib,
+          // $datasetNormalDistrib,
+          $datasetHistogram,
+        ]
+          |> array_filter(...)
+          |> array_values(...),
       ],
       'options' => [
         'animation' => ['duration' => 0],

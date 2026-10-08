@@ -125,16 +125,14 @@ if (!$datasetEstimatedDistrib && $ruleOfThumbDistrib && $abstract && $chartMax >
   'data' => [
     'chart' => [
       'data' => [
-        'datasets' => array_values(
-          array_filter(
-            [
-              $datasetRuleOfThumbDistrib,
-              $datasetEstimatedDistrib,
-              $datasetNormalDistrib,
-              $datasetHistogram,
-            ],
-          ),
-        ),
+        'datasets' => [
+          $datasetRuleOfThumbDistrib,
+          $datasetEstimatedDistrib,
+          $datasetNormalDistrib,
+          $datasetHistogram,
+        ]
+          |> array_filter(...)
+          |> array_values(...),
       ],
       'options' => [
         'animation' => ['duration' => 0],

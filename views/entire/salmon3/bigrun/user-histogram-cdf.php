@@ -36,12 +36,12 @@ ChartJsAsset::register($this);
 ColorSchemeAsset::register($this);
 RatioAsset::register($this);
 
-$totalUsers = array_sum(array_values($histogram));
+$totalUsers = $histogram |> array_values(...) |> array_sum(...);
 if ($totalUsers < 1) {
   return;
 }
 
-$keyMax = max(array_keys($histogram));
+$keyMax = $histogram |> array_keys(...) |> max(...);
 $totalHistogram = [];
 for ($x = $abstract->histogram_width / 2; $x <= $keyMax; $x += (int)$abstract->histogram_width) {
   $totalHistogram[] = [
@@ -174,19 +174,17 @@ if ($chartMax > 0) {
   'data' => [
     'chart' => [
       'data' => [
-        'datasets' => array_values(
-          array_filter(
-            [
-              $dataset50pct,
-              $dataset80pct,
-              $dataset95pct,
-              $datasetRuleOfThumbDistrib,
-              $datasetEstimatedDistrib,
-              $datasetNormalDistrib,
-              $datasetHistogram,
-            ],
-          ),
-        ),
+        'datasets' => [
+          $dataset50pct,
+          $dataset80pct,
+          $dataset95pct,
+          $datasetRuleOfThumbDistrib,
+          $datasetEstimatedDistrib,
+          $datasetNormalDistrib,
+          $datasetHistogram,
+        ]
+          |> array_filter(...)
+          |> array_values(...),
       ],
       'options' => [
         'animation' => ['duration' => 0],

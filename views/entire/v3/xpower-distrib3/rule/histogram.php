@@ -69,12 +69,12 @@ $datasetNormalDistrib = $normalDistribData
         'chart' => [
           'type' => 'bar',
           'data' => [
-            'datasets' => array_values(
-              array_filter([
-                $datasetNormalDistrib,
-                $datasetHistogram,
-              ]),
-            ),
+            'datasets' => [
+              $datasetNormalDistrib,
+              $datasetHistogram,
+            ]
+              |> array_filter(...)
+              |> array_values(...),
           ],
           'options' => [
             'aspectRatio' => new JsExpression('16/9'),

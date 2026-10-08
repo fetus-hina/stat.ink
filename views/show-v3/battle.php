@@ -59,18 +59,18 @@ foreach (Language::find()->standard()->all() as $lang) {
 $this->registerMetaTag(['name' => 'twitter:title', 'content' => $title]);
 $this->registerMetaTag(['name' => 'twitter:url', 'content' => $canonicalUrl]);
 $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
-$twitterCardImageCandidates = array_values(
-  array_filter([
-    $model->battleImageResult3,
-    $model->battleImageJudge3,
-    $isS3ImgGenAvailable
-      ? vsprintf('https://s3-img-gen.stats.ink/results/%s/%s.jpg', [
-        rawurlencode(Yii::$app->language),
-        rawurlencode($model->uuid),
-      ])
-      : null,
-  ]),
-);
+$twitterCardImageCandidates = [
+  $model->battleImageResult3,
+  $model->battleImageJudge3,
+  $isS3ImgGenAvailable
+    ? vsprintf('https://s3-img-gen.stats.ink/results/%s/%s.jpg', [
+      rawurlencode(Yii::$app->language),
+      rawurlencode($model->uuid),
+    ])
+    : null,
+]
+  |> array_filter(...)
+  |> array_values(...);
 if ($twitterCardImageCandidates) {
   $twitterCardImage = array_shift($twitterCardImageCandidates);
   $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary_large_image']);
