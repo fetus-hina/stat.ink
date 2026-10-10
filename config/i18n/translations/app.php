@@ -79,6 +79,7 @@ return [
         'app-special' => 'special.php',
         'app-special2' => 'special2.php',
         'app-special3' => 'special3.php',
+        'app-stage' => 'stage.php',
         'app-start' => 'start.php',
         'app-subweapon' => 'subweapon.php',
         'app-subweapon2' => 'subweapon2.php',

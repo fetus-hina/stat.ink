@@ -104,14 +104,14 @@ JS
   <div class="row">
     <div class="col-xs-12 col-md-6">
       <h2 id="weapons">
-        <?= Html::encode(Yii::t('app', 'Weapon Trends')) . "\n" ?>
+        <?= Html::encode(Yii::t('app-stage', 'Weapon Trends')) . "\n" ?>
       </h2>
       <div class="table-responsive">
         <table class="table table-striped">
           <thead>
             <tr>
               <th><?= Html::encode(Yii::t('app', 'Weapon')) ?></th>
-              <th><?= Html::encode(Yii::t('app', 'Recent Use %')) ?></th>
+              <th><?= Html::encode(Yii::t('app-stage', 'Recent Use %')) ?></th>
             </tr>
           </thead>
           <tbody>
@@ -153,7 +153,7 @@ JS
     </div>
     <div class="col-xs-12 col-md-6">
       <h2 id="history">
-        <?= Html::encode(Yii::t('app', 'Session History')) . "\n" ?>
+        <?= Html::encode(Yii::t('app-stage', 'Session History')) . "\n" ?>
       </h2>
       <div class="table-responsive">
         <table class="table table-striped">
@@ -161,7 +161,7 @@ JS
             <tr>
               <th></th>
               <th colspan="3" class="text-center"><?= Html::encode(Yii::t('app', 'Period')) ?></th>
-              <th class="text-center"><?= Html::encode(Yii::t('app', 'Interval')) ?></th>
+              <th class="text-center"><?= Html::encode(Yii::t('app-stage', 'Interval')) ?></th>
             </tr>
           </thead>
           <tbody>
@@ -170,9 +170,9 @@ JS
               <?= Html::tag('td', Html::encode(
                 (function (int $start, int $end) use ($now, $formatter) : string {
                   if ($start > $now) {
-                    return Yii::t('app', 'Scheduled');
+                    return Yii::t('app-stage', 'Scheduled');
                   } elseif ($end > $now) {
-                    return Yii::t('app', 'In session');
+                    return Yii::t('app-stage', 'In session');
                   } else {
                     return $formatter->asRelativeTime($end, $now);
                   }
