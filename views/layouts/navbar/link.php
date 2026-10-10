@@ -42,21 +42,21 @@ $list = [
         'url' => 'https://www.nintendo.co.jp/switch/av5ja/',
         'name' => implode(' ', [
           $jp(),
-          Html::encode(Yii::t('app', 'Japan')),
+          Html::encode(Yii::t('app-layouts', 'Japan')),
         ]),
       ],
       [
         'url' => 'https://splatoon.nintendo.com/',
         'name' => implode(' ', [
           $us(),
-          Html::encode(Yii::t('app', 'North America')),
+          Html::encode(Yii::t('app-layouts', 'North America')),
         ]),
       ],
       [
         'url' => 'https://www.nintendo.co.uk/Games/Nintendo-Switch-games/Splatoon-3-1924751.html',
         'name' => implode(' ', [
           $eu(),
-          Html::encode(Yii::t('app', 'Europe')),
+          Html::encode(Yii::t('app-layouts', 'Europe')),
         ]),
       ],
     ],
@@ -75,21 +75,21 @@ $list = [
         'url' => 'https://www.nintendo.co.jp/switch/aab6a/',
         'name' => implode(' ', [
           $jp(),
-          Html::encode(Yii::t('app', 'Japan')),
+          Html::encode(Yii::t('app-layouts', 'Japan')),
         ]),
       ],
       [
         'url' => 'https://splatoon.nintendo.com/',
         'name' => implode(' ', [
           $us(),
-          Html::tag('del', Html::encode(Yii::t('app', 'North America'))),
+          Html::tag('del', Html::encode(Yii::t('app-layouts', 'North America'))),
         ]),
       ],
       [
         'url' => 'https://www.nintendo.co.uk/Games/Nintendo-Switch-games/Splatoon-2-1173295.html',
         'name' => implode(' ', [
           $eu(),
-          Html::encode(Yii::t('app', 'Europe')),
+          Html::encode(Yii::t('app-layouts', 'Europe')),
         ]),
       ],
     ],
@@ -108,21 +108,21 @@ $list = [
         'url' => 'https://www.nintendo.co.jp/wiiu/agmj/',
         'name' => implode(' ', [
           $jp(),
-          Html::encode(Yii::t('app', 'Japan')),
+          Html::encode(Yii::t('app-layouts', 'Japan')),
         ]),
       ],
       [
         'url' => 'http://splatoon.nintendo.com/splatoon/',
         'name' => implode(' ', [
           $us(),
-          Html::tag('del', Html::encode(Yii::t('app', 'North America'))),
+          Html::tag('del', Html::encode(Yii::t('app-layouts', 'North America'))),
         ]),
       ],
       [
         'url' => 'https://www.nintendo.co.uk/Games/Wii-U-games/Splatoon-892510.html',
         'name' => implode(' ', [
           $eu(),
-          Html::encode(Yii::t('app', 'Europe')),
+          Html::encode(Yii::t('app-layouts', 'Europe')),
         ]),
       ],
     ],
@@ -139,21 +139,21 @@ $list = [
         'url' => 'https://twitter.com/SplatoonJP',
         'name' => implode(' ', [
           $jp(),
-          Html::encode(Yii::t('app', 'Japan')),
+          Html::encode(Yii::t('app-layouts', 'Japan')),
         ]),
       ],
       [
         'url' => 'https://twitter.com/SplatoonNA',
         'name' => implode(' ', [
           $us(),
-          Html::encode(Yii::t('app', 'North America')),
+          Html::encode(Yii::t('app-layouts', 'North America')),
         ]),
       ],
       [
         'url' => 'https://twitter.com/NintendoAmerica',
         'name' => implode(' ', [
           $us(),
-          Html::encode(Yii::t('app', 'North America')),
+          Html::encode(Yii::t('app-layouts', 'North America')),
           Html::encode('(Nintendo)'),
         ]),
       ],
@@ -161,7 +161,7 @@ $list = [
         'url' => 'https://twitter.com/NintendoVS',
         'name' => implode(' ', [
           $us(),
-          Html::encode(Yii::t('app', 'North America')),
+          Html::encode(Yii::t('app-layouts', 'North America')),
           Html::encode('(Nintendo VS)'),
         ]),
       ],
@@ -169,7 +169,7 @@ $list = [
         'url' => 'https://twitter.com/NintendoEurope',
         'name' => implode(' ', [
           $eu(),
-          Html::encode(Yii::t('app', 'Europe')),
+          Html::encode(Yii::t('app-layouts', 'Europe')),
           Html::encode('(Nintendo)'),
         ]),
       ],
@@ -184,14 +184,14 @@ $list = [
         'url' => 'https://www.nintendo.co.jp/character/splatoon/',
         'name' => implode(' ', [
           $jp(),
-          Html::encode(Yii::t('app', 'Japanese')),
+          Html::encode(Yii::t('app-layouts', 'Japanese')),
         ]),
       ],
       [
         'url' => 'https://www.nintendo.co.jp/character/splatoon/en/',
         'name' => implode(' ', [
           $us(),
-          Html::encode(Yii::t('app', 'English')),
+          Html::encode(Yii::t('app-layouts', 'English')),
         ]),
       ],
     ],
