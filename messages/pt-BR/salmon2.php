@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2024-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2024-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -32,6 +32,9 @@ return [
     'From {shiftStart} to {shiftEnd}' => 'De {shiftStart} até {shiftEnd}',
     'Future' => 'Futuro',
     'Golden' => 'Dourado',
+    'Golden Egg delivered' => 'Golden Eggs entregues',
+    'Golden Egg appearances' => 'Aparições de Golden Eggs',
+    'Golden Egg quota' => 'Cota de Golden Eggs',
     'Golden/W' => '',
     'Golden Eggs' => '',
     'Golden Eggs per Wave' => 'Golden Eggs por onda',
@@ -43,9 +46,11 @@ return [
     'Jobs' => 'Partidas',
     'Jobs: {jobCount} / Clear %: {clearPct} / Golden Eggs: {avgGoldenEggs} / Power Eggs: {avgPowerEggs} / Deaths: {avgDeaths} / Rescues: {avgRescues}' => 'Partidas: {jobCount} / % de Vitória: {clearPct} / Golden Eggs: {avgGoldenEggs} / Power Eggs: {avgPowerEggs} / Mortes: {avgDeaths} / Resgates: {avgRescues}',
     'Job Started' => 'Partida Começou',
+    'Known Occurrence' => 'Ocorrência Conhecida',
     'Next' => 'Próximo',
     'Next Job' => 'Próxima partida',
     'Open!' => 'Aberto!',
+    'Power Egg collected' => 'Power Eggs coletados',
     'Power Eggs' => '',
     'Power Eggs per Wave' => 'Power Eggs por Wave',
     'Prev. Job' => 'Partida Anterior',
@@ -83,7 +88,9 @@ return [
     'Ttl. Pwr. E.' => '',
     'Ttl. Pwr. E. (Wave)' => '',
     'Ttl. Rescued' => '',
+    'URL related to this job' => 'URL relacionado a esse trabalho',
     'URL related to this work' => 'URL relacionado a esta partida',
+    'Water Level' => 'Nível da água',
     'Waves' => '',
     'Wave {waveNumber}' => '',
     'Wiped' => '',

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2018-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2018-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -32,6 +32,9 @@ return [
     'From {shiftStart} to {shiftEnd}' => 'De {shiftStart} à {shiftEnd}',
     'Future' => 'Prochains',
     'Golden' => 'Doré',
+    'Golden Egg delivered' => 'Oeufs dorés livrés',
+    'Golden Egg appearances' => 'Apparitions d\'oeufs dorés',
+    'Golden Egg quota' => 'Quota d\'oeufs dorés',
     'Golden/W' => 'Doré/vagues',
     'Golden Eggs' => 'Oeufs dorés',
     'Golden Eggs per Wave' => 'Oeufs dorés par vague',
@@ -43,9 +46,11 @@ return [
     'Jobs' => 'Travail',
     'Jobs: {jobCount} / Clear %: {clearPct} / Golden Eggs: {avgGoldenEggs} / Power Eggs: {avgPowerEggs} / Deaths: {avgDeaths} / Rescues: {avgRescues}' => 'Travail: {jobCount} / Réussite % : {clearPct} / Oeufs dorés : {avgGoldenEggs} / Oeufs de poisson : {avgPowerEggs} / Morts : {avgDeaths} / Sauvetages : {avgRescues}',
     'Job Started' => 'Travail Commencés',
+    'Known Occurrence' => 'Fréquence d\'événement connu',
     'Next' => 'Suivants',
     'Next Job' => 'Jobs Suivants',
     'Open!' => 'Ouvert!',
+    'Power Egg collected' => 'Oeufs de poisson collectés',
     'Power Eggs' => 'Oeufs de poisson',
     'Power Eggs per Wave' => 'Oeufs de poisson par vague',
     'Prev. Job' => 'Job Précédent',
@@ -83,7 +88,9 @@ return [
     'Ttl. Pwr. E.' => 'Tot. Pwr. E.',
     'Ttl. Pwr. E. (Wave)' => 'Tot. Pwr. E. (',
     'Ttl. Rescued' => 'Tot. Sauvetages',
+    'URL related to this job' => 'URL lié à ce job',
     'URL related to this work' => 'URL lié à ce job',
+    'Water Level' => 'Niveau de marée',
     'Waves' => 'Vagues',
     'Wave {waveNumber}' => 'Vague {waveNumber}',
     'Wiped' => 'K.-O',

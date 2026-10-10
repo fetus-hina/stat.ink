@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2020-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2020-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -32,6 +32,9 @@ return [
     'From {shiftStart} to {shiftEnd}' => '自{shiftStart}開始到{shiftEnd}結束',
     'Future' => '未來',
     'Golden' => '金鮭魚卵',
+    'Golden Egg delivered' => '金鮭魚卵送回數量',
+    'Golden Egg appearances' => '金鮭魚卵出現次數',
+    'Golden Egg quota' => '金鮭魚卵目標數',
     'Golden/W' => '金鮭魚卵數/階段',
     'Golden Eggs' => '金鮭魚卵',
     'Golden Eggs per Wave' => '每階段金鮭魚卵數',
@@ -43,9 +46,11 @@ return [
     'Jobs' => '打工次數',
     'Jobs: {jobCount} / Clear %: {clearPct} / Golden Eggs: {avgGoldenEggs} / Power Eggs: {avgPowerEggs} / Deaths: {avgDeaths} / Rescues: {avgRescues}' => '打工數: {jobCount} / 完工率 %: {clearPct} / 金鮭魚卵數: {avgGoldenEggs} / 鮭魚卵數: {avgPowerEggs} / 死亡次數: {avgDeaths} / 救援次數: {avgRescues}',
     'Job Started' => '打工開始於',
+    'Known Occurrence' => '特殊狀況',
     'Next' => '下一個',
     'Next Job' => '下一次打工',
     'Open!' => '開放!',
+    'Power Egg collected' => '收集的鮭魚卵數',
     'Power Eggs' => '鮭魚卵',
     'Power Eggs per Wave' => '每階段鮭魚卵數',
     'Prev. Job' => '上一次打工',
@@ -83,7 +88,9 @@ return [
     'Ttl. Pwr. E.' => '總鮭魚卵數',
     'Ttl. Pwr. E. (Wave)' => '總鮭魚卵數(階段)',
     'Ttl. Rescued' => '總救援數',
+    'URL related to this job' => '這場打工的網址',
     'URL related to this work' => '本次打工的網址',
+    'Water Level' => '水位變化',
     'Waves' => 'WAVE',
     'Wave {waveNumber}' => 'WAVE {waveNumber}',
     'Wiped' => '全軍覆沒！',

@@ -20,6 +20,7 @@ return [
     'Greater Win % (normal)' => '強い側の勝率（通常）',
     'Median' => '中央値',
     'Mistaken' => 'ミス',
+    'N/A' => 'N/A',
     'Normal' => '通常',
     'Power Diff' => 'パワー差',
     'Q1/4' => '第1四分位数',

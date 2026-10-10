@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2020-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2020-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -32,6 +32,9 @@ return [
     'From {shiftStart} to {shiftEnd}' => '自{shiftStart}开始到{shiftEnd}结束',
     'Future' => '未来',
     'Golden' => '金鲑鱼卵数',
+    'Golden Egg delivered' => '金鲑鱼卵送回数量',
+    'Golden Egg appearances' => '金鲑鱼卵出现次数',
+    'Golden Egg quota' => '金鲑鱼卵目标配额',
     'Golden/W' => '金鲑鱼卵数/WAVE',
     'Golden Eggs' => '金鲑鱼卵数',
     'Golden Eggs per Wave' => '每WAVE金鲑鱼卵数',
@@ -43,9 +46,11 @@ return [
     'Jobs' => '打工数',
     'Jobs: {jobCount} / Clear %: {clearPct} / Golden Eggs: {avgGoldenEggs} / Power Eggs: {avgPowerEggs} / Deaths: {avgDeaths} / Rescues: {avgRescues}' => '打工数: {jobCount} / 完工率 %: {clearPct} / 金鲑鱼卵数: {avgGoldenEggs} / 鲑鱼卵数: {avgPowerEggs} / 死亡数: {avgDeaths} / 救援数: {avgRescues}',
     'Job Started' => '打工开始于',
+    'Known Occurrence' => '特殊情况',
     'Next' => '下一个',
     'Next Job' => '下一个打工',
     'Open!' => '已经开放',
+    'Power Egg collected' => '收集的鲑鱼卵数',
     'Power Eggs' => '鲑鱼卵数',
     'Power Eggs per Wave' => '每WAVE鲑鱼卵数',
     'Prev. Job' => '上一个打工',
@@ -83,7 +88,9 @@ return [
     'Ttl. Pwr. E.' => '总鲑鱼卵数',
     'Ttl. Pwr. E. (Wave)' => '总鲑鱼卵数（WAVE）',
     'Ttl. Rescued' => '总救援数',
+    'URL related to this job' => '这场打工的网址',
     'URL related to this work' => '本次打工的网址',
+    'Water Level' => '水位线',
     'Waves' => 'WAVE',
     'Wave {waveNumber}' => 'WAVE {waveNumber}',
     'Wiped' => '全军覆没！',

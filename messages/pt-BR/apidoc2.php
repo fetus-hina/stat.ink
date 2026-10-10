@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2024-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2024-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -59,6 +59,7 @@ return [
     'Filter unposted shifts and post to us.' => 'Filtrar partidas de salmon não postadas e postar para nós.',
     'Found same data' => 'Foram encontrados dados iguais',
     'Gear category' => 'Categoria de gear',
+    'Gear information' => 'Informação da gear',
     'Gender' => 'Gênero',
     'Gender information' => 'Informação de gênero',
     'Generate a UUID version 3 or 5 on your side with your own namespace' => 'Gerar uma versão UUID 3 ou 5 no seu lado com o seu próprio namespace',
@@ -77,6 +78,7 @@ return [
     'Get weapons' => 'Obter armas',
     'Get weapons in CSV format' => 'Obter armas no formato CSV',
     'Golden Egg appearances' => 'Aparições de Golden Eggs',
+    'Golden Egg delivered' => 'Golden Eggs entregues',
     'Golden Eggs collected' => 'Golden Eggs coletados',
     'Golden Eggs delivered' => 'Golden Eggs entregues',
     'Hazard Level, 200.0 = "Hazard Level MAX!!"' => 'Hazard Level 200.0 = "Hazard Level MAX!!"',
@@ -138,9 +140,11 @@ return [
     'Player\'s in-game name' => 'Nome no jogo do jogador(a)',
     'Player name' => 'Nome do jogador(a)',
     'Player results' => 'Resultados do jogador(a)',
+    'Post the Salmon Run results' => 'Postar resultados do Salmon Run',
     'Posted time' => 'Hora da postagem',
     'Post Salmon Run results' => 'Postar resultados do Salmon Run',
     'Post Salmon Run stats (card data)' => 'Postar estatísticas do Salmon Run (dados do card)',
+    'Power Egg collected' => 'Power Eggs coletados',
     'Power Eggs collected' => 'Power Eggs coletados',
     'Primary ability' => 'Habilidade primária',
     'Profile page URL' => 'URL do perfil',
@@ -165,8 +169,10 @@ return [
     'Returns specified user\'s stats (e.g., how many kills)' => 'Devolve estatísticas específicas de um usuário (ex.: quantas eliminações foram feitas)',
     'Returns the Salmon Run results.' => 'Devolve resultados de partidas do Salmon Run',
     'Salmon Run fail reason' => 'Motivo de derrota do Salmon Run',
+    'Salmon Run results' => 'Resultados do Salmon Run',
     'Salmon Run results page URL' => 'URL da página de partidas do Salmon Run',
     'Salmon Run stats' => 'Estatísticas do Salmon Run',
+    'Salmon Run stats (Grizzco Point Card)' => 'Estatísticas do Salmon Run (Cartão de Pontos da Grizzco)',
     'Salmon Run title (consider gender)' => 'Título do Salmon Run (considerar gênero)',
     'Salmon Run title (doesn\'t consider gender)' => 'Título do Salmon Run (não considerar gênero)',
     'Salmon Run title information' => 'Informações Título do Salmon Run',
@@ -186,6 +192,10 @@ return [
     'Stage information' => 'Informação do Stage',
     'Standalone Application (e.g., user\'s input or screen capture)' => '',
     'Start time of this shift' => 'Tempo onde essa partida começou',
+    'Weapon information' => 'Informação de arma',
+    'Wave information' => 'Informação da Wave',
+    'Unauthorized' => 'Não autorizado',
+    'User stats' => 'Estatísticas do usuário',
     'stat.ink API for Splatoon 2' => 'API do stat.ink para o Splatoon 2',
     'Stat.ink user ID' => 'ID de usuário do stat.ink',
     'Statistics for {rule}' => 'Estatísticas para {rule}',

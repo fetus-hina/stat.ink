@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2022-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2022-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -32,6 +32,9 @@ return [
     'From {shiftStart} to {shiftEnd}' => '',
     'Future' => '',
     'Golden' => '',
+    'Golden Egg delivered' => '납품한 황금알 수',
+    'Golden Egg appearances' => '황금알 출현 수',
+    'Golden Egg quota' => '황금알 할당량',
     'Golden/W' => '',
     'Golden Eggs' => '',
     'Golden Eggs per Wave' => '',
@@ -43,9 +46,11 @@ return [
     'Jobs' => '',
     'Jobs: {jobCount} / Clear %: {clearPct} / Golden Eggs: {avgGoldenEggs} / Power Eggs: {avgPowerEggs} / Deaths: {avgDeaths} / Rescues: {avgRescues}' => '',
     'Job Started' => '아르바이트 시작',
+    'Known Occurrence' => '과거에 관측된 특수한 상황',
     'Next' => '',
     'Next Job' => '다음 아르바이트',
     'Open!' => '',
+    'Power Egg collected' => '모은 연어알 수',
     'Power Eggs' => '연어알',
     'Power Eggs per Wave' => '',
     'Prev. Job' => '이전 아르바이트',
@@ -83,7 +88,9 @@ return [
     'Ttl. Pwr. E.' => '',
     'Ttl. Pwr. E. (Wave)' => '',
     'Ttl. Rescued' => '',
+    'URL related to this job' => '이 아르바이트와 관련된 URL',
     'URL related to this work' => '',
+    'Water Level' => '수위',
     'Waves' => '',
     'Wave {waveNumber}' => 'WAVE {waveNumber}',
     'Wiped' => '전멸!',

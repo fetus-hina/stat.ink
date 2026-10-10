@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2018-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2018-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -32,6 +32,9 @@ return [
     'From {shiftStart} to {shiftEnd}' => '',
     'Future' => 'Скоро',
     'Golden' => '',
+    'Golden Egg delivered' => 'Сдано золотой икры',
+    'Golden Egg appearances' => 'Появилось золотой икры',
+    'Golden Egg quota' => 'Норма золотой икры',
     'Golden/W' => '',
     'Golden Eggs' => '',
     'Golden Eggs per Wave' => '',
@@ -43,9 +46,11 @@ return [
     'Jobs' => '',
     'Jobs: {jobCount} / Clear %: {clearPct} / Golden Eggs: {avgGoldenEggs} / Power Eggs: {avgPowerEggs} / Deaths: {avgDeaths} / Rescues: {avgRescues}' => '',
     'Job Started' => '',
+    'Known Occurrence' => 'Известное событие',
     'Next' => 'Далее',
     'Next Job' => '',
     'Open!' => 'Сейчас',
+    'Power Egg collected' => 'Собрано икры',
     'Power Eggs' => '',
     'Power Eggs per Wave' => '',
     'Prev. Job' => '',
@@ -83,7 +88,9 @@ return [
     'Ttl. Pwr. E.' => '',
     'Ttl. Pwr. E. (Wave)' => '',
     'Ttl. Rescued' => '',
+    'URL related to this job' => 'URL, связанный с этой сменой',
     'URL related to this work' => '',
+    'Water Level' => 'Уровень воды',
     'Waves' => '',
     'Wave {waveNumber}' => 'Волна {waveNumber}',
     'Wiped' => 'Провал',

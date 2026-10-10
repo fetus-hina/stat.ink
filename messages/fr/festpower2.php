@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2019-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2019-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -20,6 +20,7 @@ return [
     'Greater Win % (normal)' => 'Plus grand % de victoire',
     'Median' => 'Médiane',
     'Mistaken' => 'Erroné',
+    'N/A' => 'N/D',
     'Normal' => 'Normal',
     'Power Diff' => 'Différence de power',
     'Q1/4' => '1er quartil',

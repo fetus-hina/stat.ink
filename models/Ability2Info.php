@@ -111,7 +111,7 @@ class Ability2Info extends Model
 
                 foreach ($rows as $row) {
                     if (str_contains($row, 'DoT')) {
-                        $rows[] = Yii::t('app', '"DoT": "Damage over time"');
+                        $rows[] = Yii::t('app-ability2', '"DoT": "Damage over time"');
                         break;
                     }
                 }

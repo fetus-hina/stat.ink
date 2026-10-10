@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2024-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2024-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -16,12 +16,15 @@ return [
     'Brand information' => 'Informação da Marca',
     'Category' => 'Categoria',
     'Common ability' => 'Habilidade comum',
+    'Date and time' => 'Data e hora',
     'Date and time expressed in ISO-8601 format' => 'Hora e data expressada no formato ISO-8601',
     'Date and time expressed in Unix Time' => 'Hora e data expressada no Unix Time',
     'Date and time when ready to play' => 'Hora e data quando pronto para jogar',
     'Death Reason' => 'Causa da Morte',
     'Death reason category information' => 'Categoria da informação da causa da morte',
+    'Death reason information' => 'Informações da causa da morte',
     'Delete a battle' => 'Apagar uma partida',
+    'Delete information' => 'Informações de exclusão',
     'Deleted' => 'Apaga',
     'Deleted ID' => 'ID Apagado',
     'Do more action but not to be deleted.' => 'Fez mais ação mas não para ser deletado. (Que??)',
@@ -55,6 +58,7 @@ return [
     'Internationalized short name' => 'Nome internacionalizado curto',
     'Japanese name' => 'Nome em japonês',
     'Lobby' => '',
+    'Lobby Name' => 'Nome do lobby',
     'Lobby information' => 'Informação do lobby',
     'Mode' => 'Modo',
     'Mode information' => 'Informação do modo',

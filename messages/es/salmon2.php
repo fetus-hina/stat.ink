@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2018-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2018-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -32,6 +32,9 @@ return [
     'From {shiftStart} to {shiftEnd}' => '',
     'Future' => 'Posteriores',
     'Golden' => '',
+    'Golden Egg delivered' => 'Huevos dorados entregados',
+    'Golden Egg appearances' => 'Huevos dorados aparecidos',
+    'Golden Egg quota' => 'Cuota de huevos dorados',
     'Golden/W' => '',
     'Golden Eggs' => '',
     'Golden Eggs per Wave' => '',
@@ -43,9 +46,11 @@ return [
     'Jobs' => '',
     'Jobs: {jobCount} / Clear %: {clearPct} / Golden Eggs: {avgGoldenEggs} / Power Eggs: {avgPowerEggs} / Deaths: {avgDeaths} / Rescues: {avgRescues}' => '',
     'Job Started' => '',
+    'Known Occurrence' => 'Evento conocido',
     'Next' => 'Próximos',
     'Next Job' => '',
     'Open!' => 'Actual',
+    'Power Egg collected' => 'Huevos de poder recogidos',
     'Power Eggs' => '',
     'Power Eggs per Wave' => '',
     'Prev. Job' => '',
@@ -83,7 +88,9 @@ return [
     'Ttl. Pwr. E.' => '',
     'Ttl. Pwr. E. (Wave)' => '',
     'Ttl. Rescued' => '',
+    'URL related to this job' => 'URL relacionada con este trabajo',
     'URL related to this work' => '',
+    'Water Level' => 'Nivel del agua',
     'Waves' => '',
     'Wave {waveNumber}' => 'Ofensiva {waveNumber}',
     'Wiped' => 'Palizón...',

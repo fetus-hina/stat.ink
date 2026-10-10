@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2020-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2020-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -59,6 +59,7 @@ return [
     'Filter unposted shifts and post to us.' => '根据未上传的打工过滤并上传',
     'Found same data' => '发现相同数据',
     'Gear category' => '装备类别',
+    'Gear information' => '装备信息',
     'Gender' => '性别',
     'Gender information' => '性别信息',
     'Generate a UUID version 3 or 5 on your side with your own namespace' => '使用你自己的命名空间来自行生成UUID 第三版或第五版',
@@ -77,6 +78,7 @@ return [
     'Get weapons' => '获得武器',
     'Get weapons in CSV format' => '获得武器（CSV格式）',
     'Golden Egg appearances' => '金鲑鱼卵出现次数',
+    'Golden Egg delivered' => '金鲑鱼卵送回数量',
     'Golden Eggs collected' => '金鲑鱼卵收集数量',
     'Golden Eggs delivered' => '金鲑鱼卵送回数量',
     'Hazard Level, 200.0 = "Hazard Level MAX!!"' => '危险系数，200.0 = 最危险！',
@@ -138,9 +140,11 @@ return [
     'Player\'s in-game name' => '玩家的游戏昵称',
     'Player name' => '玩家名字',
     'Player results' => '游戏结果',
+    'Post the Salmon Run results' => '发布鲑鱼打工结果',
     'Posted time' => '发布时间',
     'Post Salmon Run results' => '发布鲑鱼打工结果',
     'Post Salmon Run stats (card data)' => '发布鲑鱼打工统计（卡片数据）',
+    'Power Egg collected' => '收集的鲑鱼卵数',
     'Power Eggs collected' => '收集的鲑鱼卵数',
     'Primary ability' => '主要技能',
     'Profile page URL' => '个人主页',
@@ -165,8 +169,10 @@ return [
     'Returns specified user\'s stats (e.g., how many kills)' => '返回指定的玩家统计（比如杀敌数）。',
     'Returns the Salmon Run results.' => '返回鲑鱼打工结果',
     'Salmon Run fail reason' => '鲑鱼打工失败原因',
+    'Salmon Run results' => '鲑鱼打工结果',
     'Salmon Run results page URL' => '鲑鱼打工结果网址',
     'Salmon Run stats' => '鲑鱼打工统计',
+    'Salmon Run stats (Grizzco Point Card)' => '鲑鱼打工统计（熊先生商会积分卡）',
     'Salmon Run title (consider gender)' => '鲑鱼打工称号（考虑性别）',
     'Salmon Run title (doesn\'t consider gender)' => '鲑鱼打工称号（不考虑性别）',
     'Salmon Run title information' => '鲑鱼打工称号信息',
@@ -186,6 +192,10 @@ return [
     'Stage information' => '场地信息',
     'Standalone Application (e.g., user\'s input or screen capture)' => '独立应用（比如用户的输入或录屏）',
     'Start time of this shift' => '打工开始时间',
+    'Weapon information' => '武器信息',
+    'Wave information' => '阶段信息',
+    'Unauthorized' => '未授权',
+    'User stats' => '用户统计',
     'stat.ink API for Splatoon 2' => '针对Splatoon 2的stat.ink API',
     'Stat.ink user ID' => 'Stat.ink用户ID',
     'Statistics for {rule}' => '针对{rule}的统计',

@@ -100,10 +100,10 @@ class FeedAction extends Action
             Url::home(true),
         );
         $feed->setTitle(
-            Yii::t('app', '{name}\'s Salmon Log', ['name' => $user->name], $input->lang),
+            Yii::t('app-salmon2', '{name}\'s Salmon Log', ['name' => $user->name], $input->lang),
         );
         $feed->setDescription(
-            Yii::t('app', '{name}\'s Salmon Log', ['name' => $user->name], $input->lang),
+            Yii::t('app-salmon2', '{name}\'s Salmon Log', ['name' => $user->name], $input->lang),
         );
         $feed->setId(
             Uuid::v5(
