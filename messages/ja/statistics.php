@@ -13,6 +13,9 @@ return [
     'Avg.' => '平均',
     'Bin Width' => '階級の幅',
     'IQR' => '四分位範囲',
+    'max={max} min={min} average={avg} median={median} mode={mode}' => '最大={max} 最小={min} 平均={avg} 中央値={median} 最頻値={mode}',
+    'max={max} min={min} median={median}' => '最大={max} 最小={min} 中央値={median}',
+    'max={max} min={min} median={median} stddev={stddev}' => '最大={max} 最小={min} 中央値={median} 標準偏差={stddev}',
     'Maximum' => '最大',
     'Median' => '中央値',
     'Minimum' => '最小',
@@ -25,8 +28,5 @@ return [
     'Std Dev' => '標準偏差',
     'The width of the histogram bins is automatically adjusted by Scott\'s rule-based algorithm.' => 'ヒストグラムの階級幅は、「スコットの選択」をベースにしたアルゴリズムによって自動的に調整されています。',
     'Top {percentile}%' => '上位{percentile}%',
-    'max={max} min={min} average={avg} median={median} mode={mode}' => '最大={max} 最小={min} 平均={avg} 中央値={median} 最頻値={mode}',
-    'max={max} min={min} median={median} stddev={stddev}' => '最大={max} 最小={min} 中央値={median} 標準偏差={stddev}',
-    'max={max} min={min} median={median}' => '最大={max} 最小={min} 中央値={median}',
     '{percentile} Percentile' => '{percentile}パーセンタイル',
 ];
