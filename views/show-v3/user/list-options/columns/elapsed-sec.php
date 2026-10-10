@@ -10,11 +10,11 @@ declare(strict_types=1);
 use app\models\Battle3;
 
 return [
-  '-label' => Yii::t('app', 'Elapsed Time (seconds)'),
+  '-label' => Yii::t('app-battle', 'Elapsed Time (seconds)'),
   'contentOptions' => ['class' => 'cell-elapsed-sec text-right'],
   'format' => 'integer',
   'headerOptions' => ['class' => 'cell-elapsed-sec'],
-  'label' => Yii::t('app', 'Elapsed'),
+  'label' => Yii::t('app-battle', 'Elapsed'),
   'value' => function (Battle3 $model): ?int {
     if ($model->start_at === null || $model->end_at === null) {
       return null;

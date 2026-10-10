@@ -48,7 +48,7 @@ $f = Yii::$app->formatter;
           implode('<br>', array_filter([
             Html::encode($model->is_win ? Yii::t('app', 'Won') : Yii::t('app', 'Lost')),
             ($model->isGachi && $model->is_knock_out !== null)
-              ? Html::encode($model->is_knock_out ? Yii::t('app', 'K.O.') : Yii::t('app', 'Time'))
+              ? Html::encode($model->is_knock_out ? Yii::t('app-battle', 'K.O.') : Yii::t('app', 'Time'))
               : null,
           ])),
           ['class' => [

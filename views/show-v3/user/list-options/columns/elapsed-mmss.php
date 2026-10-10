@@ -20,10 +20,10 @@ $t = function (?string $start, ?string $end): ?int {
 };
 
 return [
-  '-label' => Yii::t('app', 'Elapsed Time'),
+  '-label' => Yii::t('app-battle', 'Elapsed Time'),
   'contentOptions' => ['class' => 'cell-elapsed text-right'],
   'headerOptions' => ['class' => 'cell-elapsed'],
-  'label' => Yii::t('app', 'Elapsed'),
+  'label' => Yii::t('app-battle', 'Elapsed'),
   'value' => function (Battle3 $model) use ($t): ?string {
     $value = $t($model->start_at, $model->end_at);
     return $value

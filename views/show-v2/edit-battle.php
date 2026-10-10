@@ -15,7 +15,7 @@ use yii\web\View;
  * @var View $this
  */
 
-$title = Yii::t('app', 'Edit Your Battle: #{0}', [$battle->id]);
+$title = Yii::t('app-battle', 'Edit Your Battle: #{0}', [$battle->id]);
 $this->title = sprintf('%s | %s', Yii::$app->name, $title);
 
 $this->registerCss(implode('', [
@@ -133,7 +133,7 @@ $this->registerCss(implode('', [
       ])
       ->hint(
         Html::encode(
-          Yii::t('app', 'e.g. YouTube video, like "{0}"', [
+          Yii::t('app-battle', 'e.g. YouTube video, like "{0}"', [
             'https://www.youtube.com/watch?v=TjLbFFPF904'
           ])
         )
@@ -163,20 +163,20 @@ $this->registerCss(implode('', [
       <?= Html::encode(Yii::t('app', 'Danger Zone')) . "\n" ?>
     </h2>
     <p>
-      <?= Html::encode(Yii::t('app', 'You can delete this battle.')) . "\n" ?>
+      <?= Html::encode(Yii::t('app-battle', 'You can delete this battle.')) . "\n" ?>
     </p>
     <ul>
       <li>
-        <?= Html::encode(Yii::t('app', 'If you delete this battle, it will be gone forever.')) . "\n" ?>
+        <?= Html::encode(Yii::t('app-battle', 'If you delete this battle, it will be gone forever.')) . "\n" ?>
       </li>
       <li>
         <strong style="color:#c9302c">
-          <?= Html::encode(Yii::t('app', 'Please do not use this feature to destroy evidence.')) . "\n" ?>
+          <?= Html::encode(Yii::t('app-battle', 'Please do not use this feature to destroy evidence.')) . "\n" ?>
         </strong>
-        <?= Html::encode(Yii::t('app', 'This option is provided for deleting an incorrectly-reported battle.')) . "\n" ?>
+        <?= Html::encode(Yii::t('app-battle', 'This option is provided for deleting an incorrectly-reported battle.')) . "\n" ?>
       </li>
       <li>
-        <?= Html::encode(Yii::t('app', 'If you misuse this feature, you will be banned.')) . "\n" ?>
+        <?= Html::encode(Yii::t('app-battle', 'If you misuse this feature, you will be banned.')) . "\n" ?>
       </li>
     </ul>
     <?php $_ = ActiveForm::begin([
@@ -185,7 +185,7 @@ $this->registerCss(implode('', [
     ]); echo "\n"; ?>
       <?= Html::hiddenInput('_action', 'delete') . "\n" ?>
       <?= $_->field($delete, 'agree')
-        ->label(Yii::t('app', 'I agree. Delete this battle.'))
+        ->label(Yii::t('app-battle', 'I agree. Delete this battle.'))
         ->checkbox(['uncheck' => null]) . "\n"
       ?>
       <?= Html::submitButton(

@@ -19,6 +19,7 @@ return [
         'app-api-info' => 'api-info.php',
         'app-apidoc1' => 'apidoc1.php',
         'app-apidoc2' => 'apidoc2.php',
+        'app-battle' => 'battle.php',
         'app-brand' => 'brand.php',
         'app-brand2' => 'brand2.php',
         'app-conch-clash3' => 'conch-clash3.php',

@@ -226,7 +226,7 @@ $sendouInkUrl = SendouInk::getBuildUrl3($player->weapon, ...$gears);
                   Html::encode(Yii::t('app-show-v3', 'Subs')),
                   [
                     'class' => ['ability-col-sub', 'auto-tooltip', 'omit', 'text-center'],
-                    'title' => Yii::t('app', 'Secondary Abilities'),
+                    'title' => Yii::t('app-battle', 'Secondary Abilities'),
                   ],
                 ) . "\n" ?>
               </tr>

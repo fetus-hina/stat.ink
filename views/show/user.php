@@ -110,7 +110,7 @@ if ($battle &&
       '%s [ %s ]',
       $title,
       Yii::t(
-        'app',
+        'app-battle',
         'Battles:{0} / Win %:{1} / Avg Kills:{2} / Avg Deaths:{3} / Kill Ratio:{4}',
         [
           $f->asInteger($summary->battle_count),
@@ -200,7 +200,7 @@ if ($battle &&
               <th class="cell-kill-ratio auto-tooltip" title="<?= Html::encode(Yii::t('app', 'Kill Ratio')) ?>"><?= Html::encode(Yii::t('app', 'Ratio')) ?></th>
               <th class="cell-kill-rate auto-tooltip" title="<?= Html::encode(Yii::t('app', 'Kill Rate')) ?>"><?= Html::encode(Yii::t('app', 'Rate')) ?></th>
               <th class="cell-point"><?= Html::encode(Yii::t('app', 'Inked')) ?></th>
-              <th class="cell-rank-in-team"><?= Html::encode(Yii::t('app', 'Rank in Team')) ?></th>
+              <th class="cell-rank-in-team"><?= Html::encode(Yii::t('app-battle', 'Rank in Team')) ?></th>
               <th class="cell-datetime"><?= Html::encode(Yii::t('app', 'Date Time')) ?></th>
               <th class="cell-reltime"><?= Html::encode(Yii::t('app', 'Relative Time')) ?></th>
             </tr>
@@ -252,7 +252,7 @@ if ($battle &&
   ],
   [
     'class' => 'cell-rule-short',
-    'text' => Yii::t('app', 'Mode (Short)'),
+    'text' => Yii::t('app-battle', 'Mode (Short)'),
   ],
   [
     'class' => 'cell-map',
@@ -312,7 +312,7 @@ if ($battle &&
   ],
   [
     'class' => 'cell-rank-in-team',
-    'text' => Yii::t('app', 'Rank in Team'),
+    'text' => Yii::t('app-battle', 'Rank in Team'),
   ],
   [
     'class' => 'cell-datetime',

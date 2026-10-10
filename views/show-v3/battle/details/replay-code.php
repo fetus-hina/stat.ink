@@ -14,7 +14,7 @@ return [
     'class' => 'omit',
     'id' => 'replay-cell',
   ],
-  'label' => Yii::t('app', 'Replay Code'),
+  'label' => Yii::t('app-battle', 'Replay Code'),
   'format' => 'replayCode3',
   'attribute' => 'replay_code',
 ];

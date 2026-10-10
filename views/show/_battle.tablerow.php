@@ -130,7 +130,7 @@ $f = Yii::$app->formatter;
     (!$model->isGachi || $model->is_knock_out === null)
       ? null
       : ($model->is_knock_out
-        ? Html::tag('span', Html::encode(Yii::t('app', 'K.O.')), ['class' => 'label label-info auto-tooltip', 'title' => Yii::t('app', 'Knockout')])
+        ? Html::tag('span', Html::encode(Yii::t('app-battle', 'K.O.')), ['class' => 'label label-info auto-tooltip', 'title' => Yii::t('app', 'Knockout')])
         : Html::tag('span', Html::encode(Yii::t('app', 'Time')), ['class' => 'label label-warning auto-tooltip', 'title' => Yii::t('app', 'Time is up')])
       ),
   ])) ?></td>

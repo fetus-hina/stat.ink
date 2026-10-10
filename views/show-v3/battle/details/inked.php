@@ -16,7 +16,7 @@ return [
       return null;
     }
 
-    return Yii::t('app', '{point}p', [
+    return Yii::t('app-battle', '{point}p', [
       'point' => Yii::$app->formatter->asInteger($model->inked),
     ]);
   },

@@ -89,7 +89,7 @@ UserStatGachiAsset::register($this);
         ]));
       ?></div>
       <hr>
-      <h2 id="wp"><?= Html::encode(Yii::t('app', 'Winning Percentage')) ?></h2>
+      <h2 id="wp"><?= Html::encode(Yii::t('app-battle', 'Winning Percentage')) ?></h2>
       <p><?= Html::encode(Yii::t('app', 'Excluded: Private Battles')) ?></p>
       <aside>
         <nav>
@@ -117,7 +117,7 @@ UserStatGachiAsset::register($this);
       <?= Html::tag(
         'h3',
         implode('', [
-          Html::tag('span', Html::encode(Yii::t('app', 'Winning Percentage') . ' - '), [
+          Html::tag('span', Html::encode(Yii::t('app-battle', 'Winning Percentage') . ' - '), [
             'clas' => 'hidden-xs',
           ]),
           Html::a(
@@ -148,11 +148,11 @@ UserStatGachiAsset::register($this);
   Json::encode('#stat-wp-legend'),
   Json::encode($recentWP),
   Json::encode([
-    'area' => sprintf('%s (%s)', Yii::t('app', 'Winning Percentage'), Yii::t('app-rule', 'Splat Zones')),
-    'yagura' => sprintf('%s (%s)', Yii::t('app', 'Winning Percentage'), Yii::t('app-rule', 'Tower Control')),
-    'hoko' => sprintf('%s (%s)', Yii::t('app', 'Winning Percentage'), Yii::t('app-rule', 'Rainmaker')),
-    'moving20' => Yii::t('app', 'Win % ({0} Battles)', [20]),
-    'moving50' => Yii::t('app', 'Win % ({0} Battles)', [50]),
+    'area' => sprintf('%s (%s)', Yii::t('app-battle', 'Winning Percentage'), Yii::t('app-rule', 'Splat Zones')),
+    'yagura' => sprintf('%s (%s)', Yii::t('app-battle', 'Winning Percentage'), Yii::t('app-rule', 'Tower Control')),
+    'hoko' => sprintf('%s (%s)', Yii::t('app-battle', 'Winning Percentage'), Yii::t('app-rule', 'Rainmaker')),
+    'moving20' => Yii::t('app-battle', 'Win % ({0} Battles)', [20]),
+    'moving50' => Yii::t('app-battle', 'Win % ({0} Battles)', [50]),
   ]),
 ])) ?>
     </div>

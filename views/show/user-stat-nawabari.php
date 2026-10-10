@@ -21,7 +21,7 @@ use yii\web\View;
  * @var View $this
  */
 
-$title = Yii::t('app', '{name}\'s Battle Stats (Turf War)', ['name' => $user->name]);
+$title = Yii::t('app-battle', '{name}\'s Battle Stats (Turf War)', ['name' => $user->name]);
 $this->title = implode(' | ', [
   Yii::$app->name,
   $title,
@@ -117,7 +117,7 @@ UserStatNawabariAsset::register($this);
 ])) ?>
 <?php } ?>
       <hr>
-      <h2 id="wp"><?= Html::encode(Yii::t('app', 'Winning Percentage')) ?></h2>
+      <h2 id="wp"><?= Html::encode(Yii::t('app-battle', 'Winning Percentage')) ?></h2>
       <p><?= Html::encode(Yii::t('app', 'Excluded: Private Battles')) ?></p>
       <div id="stat-wp-legend"></div>
       <div class="graph stat-wp"></div>
@@ -127,9 +127,9 @@ UserStatNawabariAsset::register($this);
   Json::encode('#stat-wp-legend'),
   Json::encode($wp),
   Json::encode([
-    'wp'    => Yii::t('app', 'Winning Percentage'),
-    'wp20'  => Yii::t('app', 'Win % ({0} Battles)', [20]),
-    'wp50'  => Yii::t('app', 'Win % ({0} Battles)', [50]),
+    'wp'    => Yii::t('app-battle', 'Winning Percentage'),
+    'wp20'  => Yii::t('app-battle', 'Win % ({0} Battles)', [20]),
+    'wp50'  => Yii::t('app-battle', 'Win % ({0} Battles)', [50]),
   ]),
 ])) ?>
     </div>

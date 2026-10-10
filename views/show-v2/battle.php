@@ -26,7 +26,7 @@ use yii\web\View;
 $user = $battle->user;
 
 // head-related {{{
-$title = Yii::t('app', 'Results of {name}\'s Battle', ['name' => $user->name]);
+$title = Yii::t('app-battle', 'Results of {name}\'s Battle', ['name' => $user->name]);
 $canonicalUrl = Url::to(
   ['show-v2/battle', 'screen_name' => $user->screen_name, 'battle' => $battle->id],
   true
@@ -84,7 +84,7 @@ BattleDetailAsset::register($this);
 ?>
 <div class="container">
   <h1>
-    <?= Yii::t('app', 'Results of {name}\'s Battle', [
+    <?= Yii::t('app-battle', 'Results of {name}\'s Battle', [
       'name' => Html::a(
         Html::encode($user->name),
         ['show-v2/user', 'screen_name' => $user->screen_name]
@@ -116,7 +116,7 @@ BattleDetailAsset::register($this);
           <?= Html::a(
             implode(' ', [
               Icon::prevPage(),
-              Html::encode(Yii::t('app', 'Prev. Battle')),
+              Html::encode(Yii::t('app-battle', 'Prev. Battle')),
             ]),
             ['/show-v2/battle', 'screen_name' => $user->screen_name, 'battle' => $battle->previousBattle->id],
             ['class' => 'btn btn-default']
@@ -127,7 +127,7 @@ BattleDetailAsset::register($this);
         <div class="col-xs-6 pull-right text-right">
           <?= Html::a(
             implode(' ', [
-              Html::encode(Yii::t('app', 'Next Battle')),
+              Html::encode(Yii::t('app-battle', 'Next Battle')),
               Icon::nextPage(),
             ]),
             ['/show-v2/battle', 'screen_name' => $user->screen_name, 'battle' => $battle->nextBattle->id],
@@ -182,7 +182,7 @@ BattleDetailAsset::register($this);
           <?= Html::a(
             implode(' ', [
               Icon::prevPage(),
-              Html::encode(Yii::t('app', 'Prev. Battle')),
+              Html::encode(Yii::t('app-battle', 'Prev. Battle')),
             ]),
             ['/show-v2/battle', 'screen_name' => $user->screen_name, 'battle' => $battle->previousBattle->id],
             ['class' => 'btn btn-default']
@@ -193,7 +193,7 @@ BattleDetailAsset::register($this);
         <div class="col-xs-6 pull-right text-right">
           <?= Html::a(
             implode('', [
-              Html::encode(Yii::t('app', 'Next Battle')),
+              Html::encode(Yii::t('app-battle', 'Next Battle')),
               Icon::nextPage(),
             ]),
             ['/show-v2/battle', 'screen_name' => $user->screen_name, 'battle' => $battle->nextBattle->id],

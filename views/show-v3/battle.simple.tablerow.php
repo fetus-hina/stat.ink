@@ -43,7 +43,7 @@ use yii\web\View;
                 implode('<br>', array_filter([
                   Html::encode(Yii::t('app', $result->name)),
                   $result->key !== 'draw' && $model->is_knockout !== null
-                    ? Html::encode($model->is_knockout ? Yii::t('app', 'K.O.') : Yii::t('app', 'Time'))
+                    ? Html::encode($model->is_knockout ? Yii::t('app-battle', 'K.O.') : Yii::t('app', 'Time'))
                     : '',
                 ])),
                 [

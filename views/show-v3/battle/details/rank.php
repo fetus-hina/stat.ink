@@ -27,7 +27,7 @@ $renderPointChange = function (?int $pts): ?string {
     return null;
   }
 
-  return Yii::t('app', '{point}p', [
+  return Yii::t('app-battle', '{point}p', [
     'point' => vsprintf('%s%s', [
       $pts < 0 ? '-' : '+',
       Yii::$app->formatter->asInteger((int)abs($pts)),
