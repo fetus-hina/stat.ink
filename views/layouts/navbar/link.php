@@ -205,7 +205,7 @@ $list = [
         'url' => 'https://play.google.com/store/apps/details?id=com.nintendo.znca',
         'name' => implode('', [
           Icon::android(),
-          Html::encode(Yii::t('app', 'Android')),
+          Html::encode(Yii::t('app-layouts', 'Android')),
         ]),
       ],
       [
@@ -310,7 +310,7 @@ $list = [
             'name' => implode(' ', [
               Icon::download(),
               Html::encode(Yii::t('app-layouts', 'IkaLog Download Page')),
-              '(' . Icon::windows() . ' ' . Html::encode(Yii::t('app', 'Windows')) . ')',
+              '(' . Icon::windows() . ' ' . Html::encode(Yii::t('app-layouts', 'Windows')) . ')',
             ]),
           ],
         ],

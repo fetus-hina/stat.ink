@@ -104,7 +104,7 @@ $fmtEggs = fn (int|float|null $value, bool $estimated = false): string => $value
         [
           'contentOptions' => ['class' => 'text-center'],
           'headerOptions' => ['class' => 'text-center'],
-          'label' => Yii::t('app', 'Average'),
+          'label' => Yii::t('app-statistics', 'Average'),
           'format' => 'raw',
           'value' => fn (object $model): string => match ($model::class) {
             BigrunOfficialBorder3::class => $fmtEggs(null),
@@ -119,7 +119,7 @@ $fmtEggs = fn (int|float|null $value, bool $estimated = false): string => $value
         [
           'contentOptions' => ['class' => 'text-center'],
           'headerOptions' => ['class' => 'text-center'],
-          'label' => Yii::t('app', 'Std Dev'),
+          'label' => Yii::t('app-statistics', 'Std Dev'),
           'value' => fn (object $model): string => match ($model::class) {
             BigrunOfficialBorder3::class, BigrunOfficialResult3::class, EggstraWorkOfficialResult3::class => '-',
             NormalDistribution::class => '(' . $fmt->asDecimal(sqrt($model->variance()), 2) . ')',
@@ -134,7 +134,7 @@ $fmtEggs = fn (int|float|null $value, bool $estimated = false): string => $value
           'encodeLabel' => false,
           'label' => implode('<br>', [
             Html::encode(Yii::t('app-salmon-scale3', 'Gold')), // FIXME: category
-            Html::encode(Yii::t('app', 'Top {percentile}%', ['percentile' => 5])),
+            Html::encode(Yii::t('app-statistics', 'Top {percentile}%', ['percentile' => 5])),
           ]),
           'format' => 'raw',
           'value' => fn (object $model): string => match ($model::class) {
@@ -153,7 +153,7 @@ $fmtEggs = fn (int|float|null $value, bool $estimated = false): string => $value
           'encodeLabel' => false,
           'label' => implode('<br>', [
             Html::encode(Yii::t('app-salmon-scale3', 'Silver')), // FIXME: category
-            Html::encode(Yii::t('app', 'Top {percentile}%', ['percentile' => 20])),
+            Html::encode(Yii::t('app-statistics', 'Top {percentile}%', ['percentile' => 20])),
           ]),
           'format' => 'raw',
           'value' => fn (object $model): string => match ($model::class) {
@@ -172,7 +172,7 @@ $fmtEggs = fn (int|float|null $value, bool $estimated = false): string => $value
           'encodeLabel' => false,
           'label' => implode('<br>', [
             Html::encode(Yii::t('app-salmon-scale3', 'Bronze')), // FIXME: category
-            Html::encode(Yii::t('app', 'Top {percentile}%', ['percentile' => 50])),
+            Html::encode(Yii::t('app-statistics', 'Top {percentile}%', ['percentile' => 50])),
           ]),
           'format' => 'raw',
           'value' => fn (object $model): string => match ($model::class) {

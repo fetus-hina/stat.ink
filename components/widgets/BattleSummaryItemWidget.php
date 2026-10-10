@@ -123,11 +123,11 @@ class BattleSummaryItemWidget extends Widget
                 'class' => 'auto-tooltip',
                 'title' => match (true) {
                     isset($this->median) && isset($this->stddev) => Yii::t(
-                        'app',
+                        'app-statistics',
                         'max={max} min={min} median={median} stddev={stddev}',
                         $params,
                     ),
-                    isset($this->median) => Yii::t('app', 'max={max} min={min} median={median}', $params),
+                    isset($this->median) => Yii::t('app-statistics', 'max={max} min={min} median={median}', $params),
                     default => Yii::t($this->tooltipCategory, (string)$this->tooltipText, $params),
                 },
             ],

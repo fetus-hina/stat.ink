@@ -17,7 +17,6 @@ return [
     'Guessed:' => 'J\'ai deviné :',
     'Guess the region' => 'Devinez la région',
     'K/min' => 'K/min',
-    'max={max} min={min} average={avg} median={median} mode={mode}' => 'max= {max} min= {min} average= {avg} median= {median} mode= {mode}',
     'Room' => 'Salle',
     'Room info (Private)' => 'Informations sur la chambre (Privé)',
     'S/min' => 'S/min',

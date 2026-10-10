@@ -77,25 +77,25 @@ $fmt = Yii::$app->formatter;
           'attribute' => 'stddev',
           'contentOptions' => ['class' => 'text-right'],
           'format' => ['decimal', 2],
-          'label' => Yii::t('app', 'Std Dev'),
+          'label' => Yii::t('app-statistics', 'Std Dev'),
         ],
         [
           'attribute' => 'percentile_50',
           'contentOptions' => ['class' => 'text-right'],
           'format' => 'integer',
-          'label' => Yii::t('app', 'Median'),
+          'label' => Yii::t('app-statistics', 'Median'),
         ],
         [
           'attribute' => 'percentile_25',
           'contentOptions' => ['class' => 'text-right'],
           'format' => 'integer',
-          'label' => Yii::t('app', '{percentile} Percentile', ['percentile' => 25]),
+          'label' => Yii::t('app-statistics', '{percentile} Percentile', ['percentile' => 25]),
         ],
         [
           'attribute' => 'percentile_75',
           'contentOptions' => ['class' => 'text-right'],
           'format' => 'integer',
-          'label' => Yii::t('app', '{percentile} Percentile', ['percentile' => 75]),
+          'label' => Yii::t('app-statistics', '{percentile} Percentile', ['percentile' => 75]),
         ],
         [
           'contentOptions' => ['class' => 'text-center'],
@@ -109,7 +109,7 @@ $fmt = Yii::$app->formatter;
           'attribute' => 'sample_size',
           'contentOptions' => ['class' => 'text-right'],
           'format' => 'integer',
-          'label' => Yii::t('app-entire', 'Samples'),
+          'label' => Yii::t('app-statistics', 'Samples'),
         ],
       ],
     ]) . "\n" ?>

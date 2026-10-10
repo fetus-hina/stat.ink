@@ -8,6 +8,7 @@
 declare(strict_types=1);
 
 return [
+    'Android' => 'Android',
     'API (Splatoon)' => 'API (Splatoon)',
     'API (Splatoon 2)' => 'API (Splatoon 2)',
     'API (Splatoon 3)' => 'API (Splatoon 3)',
@@ -38,6 +39,7 @@ return [
     'This website is an open source project. It is under the MIT License. The source code is available on GitHub.' => 'Diese Website ist ein Open-Source-Projekt unter der MIT-Lizenz. Der Quellcode ist auf GitHub verfügbar.',
     'This website is an UNOFFICIAL SERVICE. It is not related to the Splatoon development team or Nintendo.' => 'Diese Website ist ein INOFFIZIELLER DIENST. Sie steht in keiner Verbindung zum Splatoon-Entwicklerteam oder zu Nintendo.',
     'Use full width of the screen' => 'Volle Bildschirmbreite nutzen',
+    'Windows' => 'Windows',
     '{package} is used for icons and other images.' => 'Für Symbole und andere Bilder wird {package} verwendet.',
     '{title} Official Website' => 'Offizielle Website von {title}',
 ];

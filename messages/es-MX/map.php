@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2016-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2016-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -9,36 +9,36 @@ declare(strict_types=1);
 
 return [
     'Ancho-V' => '',
-    'Ancho-V Games' => 'Estudios Esturión',
-    'Any Stage' => 'Cualquier Escenarios',
-    'Arowana Mall' => 'Plazuela del Calamar',
-    'Blackbelly Skatepark' => 'Parque Lubina',
-    'Bluefin Depot' => 'Mina costera',
+    'Ancho-V Games' => '',
+    'Any Stage' => '',
+    'Arowana Mall' => '',
+    'Blackbelly Skatepark' => '',
+    'Bluefin Depot' => '',
     'Bridge' => '',
     'Camp' => '',
-    'Camp Triggerfish' => 'Campamento Arowana',
+    'Camp Triggerfish' => '',
     'Depot' => '',
     'Dome' => '',
-    'Flounder Heights' => 'Complejo Medusa',
-    'Hammerhead Bridge' => 'Puente Salmón',
+    'Flounder Heights' => '',
+    'Hammerhead Bridge' => '',
     'Heights' => '',
-    'Kelp Dome' => 'Jardín botánico',
+    'Kelp Dome' => '',
     'Mahi-Mahi' => '',
-    'Mahi-Mahi Resort' => 'Spa Cala Bacalao',
+    'Mahi-Mahi Resort' => '',
     'Mall' => '',
-    'Moray Towers' => 'Torres Merluza',
+    'Moray Towers' => '',
     'Museum' => '',
-    'Museum d\'Alfonsino' => 'Museo del Pargo',
-    'Piranha Pit' => 'Cantera Tintorera',
+    'Museum d\'Alfonsino' => '',
+    'Piranha Pit' => '',
     'Pit' => '',
     'Port' => '',
-    'Port Mackerel' => 'Puerto Jurel',
+    'Port Mackerel' => '',
     'Rig' => '',
-    'Saltspray Rig' => 'Plataforma Gaviota',
+    'Saltspray Rig' => '',
     'Skatepark' => '',
     'Towers' => '',
     'Underpass' => '',
-    'Urchin Underpass' => 'Parque Viaducto',
-    'Walleye Warehouse' => 'Almacén Rodaballo',
+    'Urchin Underpass' => '',
+    'Walleye Warehouse' => '',
     'Warehouse' => '',
 ];

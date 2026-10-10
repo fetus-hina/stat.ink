@@ -44,7 +44,6 @@ return [
     'Max.' => 'Макс.',
     'Max. Hazard Level (cleared)' => 'Макс. сложность (пройдено)',
     'MAX Hazard Level Cleared' => 'Salmon Run пройден на максимальной сложности',
-    'Mode{translate_hint_stats}' => 'Мода{translate_hint_stats}',
     'Normal Job' => 'Обычная смена',
     'Normal Waves' => 'Обычные волны',
     'Not Defeated' => 'Не побеждено',

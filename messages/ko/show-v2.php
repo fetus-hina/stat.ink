@@ -18,7 +18,6 @@ return [
     'Guess the region' => '지역 추정',
     'k+a/sp' => 'k+a/sp',
     'K/min' => '킬/분',
-    'max={max} min={min} average={avg} median={median} mode={mode}' => '최대={max} 최소={min} 평균={avg} 중앙값={median} 최빈값={mode}',
     'Room' => '방',
     'Room info (Private)' => '방 정보 (프라이빗)',
     'S/min' => '스페셜/분',

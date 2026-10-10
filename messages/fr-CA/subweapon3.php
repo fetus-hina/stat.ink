@@ -1,25 +1,25 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2022-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2022-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
 declare(strict_types=1);
 
 return [
-    'Angle Shooter' => 'Ricocheur',
-    'Autobomb' => 'Bombe robot',
-    'Burst Bomb' => 'Bombe ballon',
-    'Curling Bomb' => 'Bombe curling',
-    'Fizzy Bomb' => 'Bombe soda',
+    'Angle Shooter' => '',
+    'Autobomb' => '',
+    'Burst Bomb' => '',
+    'Curling Bomb' => '',
+    'Fizzy Bomb' => '',
     'Ink Mine' => 'Mine d\'encre',
-    'Point Sensor' => 'Détecteur',
-    'Splash Wall' => 'Mur d\'encre',
-    'Splat Bomb' => 'Bombe splash',
+    'Point Sensor' => '',
+    'Splash Wall' => '',
+    'Splat Bomb' => '',
     'Sprinkler' => 'Gicleur',
-    'Squid Beakon' => 'Balise de saut',
-    'Suction Bomb' => 'Bombe gluante',
-    'Torpedo' => 'Bentorpille',
-    'Toxic Mist' => 'Brume toxique',
+    'Squid Beakon' => '',
+    'Suction Bomb' => '',
+    'Torpedo' => '',
+    'Toxic Mist' => '',
 ];

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2022-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2022-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -14,24 +14,24 @@ return [
     'Drop Roller' => 'Aterrizaje rodante',
     'Haunt' => 'Resentimiento',
     'Ink Recovery Up' => 'Mejor recarga tinta',
-    'Ink Resistance Up' => 'Impermeabilidad',
+    'Ink Resistance Up' => '',
     'Ink Saver (Main)' => 'Ahorro tinta (ppal.)',
     'Ink Saver (Sub)' => 'Ahorro tinta (sec.)',
-    'Intensify Action' => 'Agilidad extra',
+    'Intensify Action' => '',
     'Last-Ditch Effort' => 'Último recurso',
-    'Ninja Squid' => 'Ninjalamar',
-    'Object Shredder' => 'Demolición',
-    'Opening Gambit' => 'Acelerón de salida',
+    'Ninja Squid' => '',
+    'Object Shredder' => '',
+    'Opening Gambit' => '',
     'Quick Respawn' => 'Regeneración rápida',
-    'Quick Super Jump' => 'Supersalto rápido',
-    'Respawn Punisher' => 'Castigo póstumo',
+    'Quick Super Jump' => '',
+    'Respawn Punisher' => '',
     'Run Speed Up' => 'Carrera acelerada',
-    'Special Charge Up' => 'Recarga especial',
+    'Special Charge Up' => '',
     'Special Power Up' => 'Mejora especial',
     'Special Saver' => 'Ahorro especial',
-    'Stealth Jump' => 'Supersalto invisible',
+    'Stealth Jump' => '',
     'Sub Power Up' => 'Mejora secundaria',
-    'Sub Resistance Up' => 'Resistencia secundaria',
+    'Sub Resistance Up' => '',
     'Swim Speed Up' => 'Nado acelerado',
     'Tenacity' => 'Tenacidad',
     'Thermal Ink' => 'Tinta rastreadora',

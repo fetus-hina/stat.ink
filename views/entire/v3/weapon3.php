@@ -138,7 +138,7 @@ echo $this->render('weapon3/chart-runner');
     <p class="mb-1">
       <?= Html::encode(
         vsprintf('%s: %s', [
-          Yii::t('app-entire', 'Samples'),
+          Yii::t('app-statistics', 'Samples'),
           Yii::$app->formatter->asInteger(
             array_sum(
               array_map(

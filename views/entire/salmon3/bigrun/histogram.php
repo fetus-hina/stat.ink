@@ -80,7 +80,7 @@ if ($normalDistrib && $abstract && $chartMax > 0) {
     'borderColor' => [ new JsExpression('window.colorScheme.graph1') ],
     'borderWidth' => 2,
     'data' => $makeDistributionData($normalDistrib),
-    'label' => Yii::t('app', 'Normal Distribution'),
+    'label' => Yii::t('app-statistics', 'Normal Distribution'),
     'pointRadius' => 0,
     'type' => 'line',
   ];

@@ -54,7 +54,7 @@ $datasetNormalDistrib = $normalDistribData
     'borderColor' => [new JsExpression('window.colorScheme.graph1')],
     'borderWidth' =>  2,
     'data' => $normalDistribData,
-    'label' => Yii::t('app', 'Normal Distribution'),
+    'label' => Yii::t('app-statistics', 'Normal Distribution'),
     'pointRadius' => 0,
     'type' => 'line'
   ]

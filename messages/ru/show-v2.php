@@ -18,7 +18,6 @@ return [
     'Guess the region' => 'Определить регион',
     'k+a/sp' => 'k+a/sp',
     'K/min' => 'У/мин',
-    'max={max} min={min} average={avg} median={median} mode={mode}' => 'макс.={max} мин.={min} среднее={avg} медиана={median} мода={mode}',
     'Room' => 'Комната',
     'Room info (Private)' => 'Информация о комнате (частный бой)',
     'S/min' => 'Особ./мин',

@@ -53,9 +53,9 @@ $jobsRequired = 5;
         <th class="text-center"><?= Html::encode(Yii::t('app-salmon2', 'Cleared')) ?></th>
         <th class="text-center"><?= Html::encode(Yii::t('app-salmon3', 'Played')) ?></th>
         <th class="text-center"><?= Html::encode(Yii::t('app-salmon3', 'Max.')) ?></th>
-        <th class="text-center"><?= Html::encode(Yii::t('app', 'Avg.')) ?></th>
+        <th class="text-center"><?= Html::encode(Yii::t('app-statistics', 'Avg.')) ?></th>
         <th class="text-center"><?= Html::encode(Yii::t('app-salmon3', 'Max.')) ?></th>
-        <th class="text-center"><?= Html::encode(Yii::t('app', 'Avg.')) ?></th>
+        <th class="text-center"><?= Html::encode(Yii::t('app-statistics', 'Avg.')) ?></th>
       </tr>
     </thead>
     <tbody>

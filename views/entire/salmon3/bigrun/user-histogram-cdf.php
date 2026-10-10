@@ -90,7 +90,7 @@ if ($normalDistrib && $abstract && $chartMax > 0) {
     'borderColor' => [ new JsExpression('window.colorScheme.graph1') ],
     'borderWidth' => 2,
     'data' => $makeDistributionData($normalDistrib),
-    'label' => Yii::t('app', 'Normal Distribution'),
+    'label' => Yii::t('app-statistics', 'Normal Distribution'),
     'pointRadius' => 0,
     'type' => 'line',
   ];
@@ -136,7 +136,7 @@ if ($chartMax > 0) {
       ['x' => 0, 'y' => 0.95],
       ['x' => $chartMax, 'y' => 0.95],
     ],
-    'label' => Yii::t('app', 'Top {percentile}%', ['percentile' => 5]),
+    'label' => Yii::t('app-statistics', 'Top {percentile}%', ['percentile' => 5]),
     'pointRadius' => 0,
     'type' => 'line',
   ];
@@ -149,7 +149,7 @@ if ($chartMax > 0) {
       ['x' => 0, 'y' => 0.8],
       ['x' => $chartMax, 'y' => 0.8],
     ],
-    'label' => Yii::t('app', 'Top {percentile}%', ['percentile' => 20]),
+    'label' => Yii::t('app-statistics', 'Top {percentile}%', ['percentile' => 20]),
     'pointRadius' => 0,
     'type' => 'line',
   ];
@@ -162,7 +162,7 @@ if ($chartMax > 0) {
       ['x' => 0, 'y' => 0.5],
       ['x' => $chartMax, 'y' => 0.5],
     ],
-    'label' => Yii::t('app', 'Top {percentile}%', ['percentile' => 50]),
+    'label' => Yii::t('app-statistics', 'Top {percentile}%', ['percentile' => 50]),
     'pointRadius' => 0,
     'type' => 'line',
   ];

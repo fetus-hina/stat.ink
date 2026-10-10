@@ -35,6 +35,6 @@ echo implode("\n", [
   ]),
   vsprintf('%s %s', [
     $t('Terminal:'),
-    UserAgentHelper::summary($req->userAgent) ?: $t('(Unknown)'),
+    UserAgentHelper::summary($req->userAgent, null, $lang) ?: $t('(Unknown)'),
   ]),
 ]) . "\n";

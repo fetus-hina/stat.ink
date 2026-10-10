@@ -44,7 +44,6 @@ return [
     'Max.' => 'Max.',
     'Max. Hazard Level (cleared)' => 'Max. Gefahrenstufe (geschafft)',
     'MAX Hazard Level Cleared' => 'Maximale Gefahrenstufe bewältigt!',
-    'Mode{translate_hint_stats}' => 'Modalwert{translate_hint_stats}',
     'Normal Job' => 'Normale Schicht',
     'Normal Waves' => 'Normale Wellen',
     'Not Defeated' => 'Nicht besiegt',

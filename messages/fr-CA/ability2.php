@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2017-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2017-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -51,7 +51,7 @@ return [
     'Normal: {value}' => '',
     'Object Shredder' => '',
     'Opening Gambit' => 'Départ toute allure',
-    'Quick Respawn' => 'Sans temps mort',
+    'Quick Respawn' => '',
     'Quick Super Jump' => '',
     'Respawn Punisher' => '',
     'Revised by {ability}' => '',

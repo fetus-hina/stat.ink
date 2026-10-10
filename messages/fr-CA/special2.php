@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2017-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2017-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -9,22 +9,22 @@ declare(strict_types=1);
 
 return [
     'Any Special' => '',
-    'Autobomb Launcher' => 'Lance-bombes robots',
-    'Baller' => 'Chromo-sphère',
+    'Autobomb Launcher' => '',
+    'Baller' => '',
     'Baller Inksplosion' => '',
     'Bomb Launcher' => 'Lance-bombes',
     'Booyah Bomb' => '',
-    'Bubble Blower' => 'Lance-bulles',
-    'Burst-Bomb Launcher' => 'Lance-bombes ballons',
-    'Curling-Bomb Launcher' => 'Lance-bombes curling',
-    'Ink Armor' => 'Armure d\'encre',
-    'Inkjet' => 'Chromo-jet',
+    'Bubble Blower' => '',
+    'Burst-Bomb Launcher' => '',
+    'Curling-Bomb Launcher' => '',
+    'Ink Armor' => '',
+    'Inkjet' => '',
     'Inkjet Exhaust' => '',
-    'Ink Storm' => 'Pluie d\'encre',
-    'Splashdown' => 'Choc chromatique',
-    'Splat-Bomb Launcher' => 'Lance-bombes splash',
-    'Sting Ray' => 'Pigmalance',
-    'Suction-Bomb Launcher' => 'Lance-bombes gluantes',
-    'Tenta Missiles' => 'Multi-missile',
+    'Ink Storm' => '',
+    'Splashdown' => '',
+    'Splat-Bomb Launcher' => '',
+    'Sting Ray' => '',
+    'Suction-Bomb Launcher' => '',
+    'Tenta Missiles' => '',
     'Ultra Stamp' => '',
 ];

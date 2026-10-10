@@ -128,20 +128,20 @@ class BattleSummaryDialog extends Widget
     private function renderDataArea(): string
     {
         $data = [
-            'max' => Html::encode(Yii::t('app', 'Maximum')),
-            'pct95' => Html::encode(Yii::t('app', '{percentile} Percentile', [
+            'max' => Html::encode(Yii::t('app-statistics', 'Maximum')),
+            'pct95' => Html::encode(Yii::t('app-statistics', '{percentile} Percentile', [
                 'percentile' => '95',
             ])),
-            'q3' => Yii::t('app', 'Q<sub>3/4</sub>'),
-            'q2' => Html::encode(Yii::t('app', 'Median')),
-            'q1' => Yii::t('app', 'Q<sub>1/4</sub>'),
-            'pct5' => Html::encode(Yii::t('app', '{percentile} Percentile', [
+            'q3' => Yii::t('app-statistics', 'Q<sub>3/4</sub>'),
+            'q2' => Html::encode(Yii::t('app-statistics', 'Median')),
+            'q1' => Yii::t('app-statistics', 'Q<sub>1/4</sub>'),
+            'pct5' => Html::encode(Yii::t('app-statistics', '{percentile} Percentile', [
                 'percentile' => '5',
             ])),
-            'min' => Html::encode(Yii::t('app', 'Minimum')),
-            'iqr' => Html::encode(Yii::t('app', 'IQR')),
-            'avg' => Html::encode(Yii::t('app', 'Average')),
-            'stddev' => Html::encode(Yii::t('app', 'Std Dev')),
+            'min' => Html::encode(Yii::t('app-statistics', 'Minimum')),
+            'iqr' => Html::encode(Yii::t('app-statistics', 'IQR')),
+            'avg' => Html::encode(Yii::t('app-statistics', 'Average')),
+            'stddev' => Html::encode(Yii::t('app-statistics', 'Std Dev')),
         ];
 
         return Html::tag(

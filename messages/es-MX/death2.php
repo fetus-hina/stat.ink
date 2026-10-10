@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2017-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2017-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -12,14 +12,14 @@ return [
     'Drowning' => '',
     'Fall' => '',
     'Hyperbomb' => '',
-    'Ink from a propeller' => 'Tinta de un propulsor',
+    'Ink from a propeller' => '',
     'Inkfurler' => '',
     'Main Weapon' => '',
     'Out of Bounds' => '',
     'Princess Cannon' => '',
-    'Rainmaker Inksplosion' => 'Burbuja del Pez dorado',
-    'Rainmaker Shield' => 'Burbuja del Pez dorado',
-    'Rainmaker Shot' => 'Pez dorado',
+    'Rainmaker Inksplosion' => '',
+    'Rainmaker Shield' => '',
+    'Rainmaker Shot' => '',
     'Rolonium' => '',
     'Special Weapon' => '',
     'Sub Weapon' => '',

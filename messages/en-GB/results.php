@@ -37,7 +37,7 @@ return [
     'Kills / Deaths' => '',
     'Kills/min' => '',
     'Knockout' => '',
-    'KNOCKOUT!' => 'KNOCKOUT!',
+    'KNOCKOUT!' => '',
     'KO' => '',
     'KR' => '',
     'Lose' => '',

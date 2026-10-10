@@ -68,7 +68,6 @@ return [
     'Primary ability is counted as {value_1_0} and secondary is counted as {value_0_3}.' => '基本装备能力按{value_1_0}计算，追加装备能力按{value_0_3}计算。',
     'Regression Line' => '回归线',
     'Salmon Run results (CSV)' => '鲑鱼跑结果（CSV）',
-    'Samples' => '样本数',
     'Schema' => '字段说明',
     'Significant?' => '是否显著？',
     'Special Uses' => '特殊武器使用',

@@ -12,5 +12,5 @@ return [
   'format' => 'integer',
   'headerOptions' => ['class' => 'text-center'],
   'contentOptions' => ['class' => 'text-right'],
-  'label' => Yii::t('app-entire', 'Samples'),
+  'label' => Yii::t('app-statistics', 'Samples'),
 ];

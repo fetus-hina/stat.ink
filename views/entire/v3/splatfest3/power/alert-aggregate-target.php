@@ -38,7 +38,7 @@ echo Html::tag(
     'p',
     Html::encode(
       Yii::t(
-        'app',
+        'app-statistics',
         'The width of the histogram bins is automatically adjusted by Scott\'s rule-based algorithm.',
       ),
     ),

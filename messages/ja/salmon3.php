@@ -44,7 +44,6 @@ return [
     'MAX Hazard Level Cleared' => 'キケン度MAXをクリアした',
     'Max.' => '最大',
     'Max. Hazard Level (cleared)' => 'クリア時の最大キケン度',
-    'Mode{translate_hint_stats}' => '最頻値',
     'Normal Job' => 'いつものバイト',
     'Normal Waves' => '通常WAVE',
     'Not Defeated' => '倒していない',

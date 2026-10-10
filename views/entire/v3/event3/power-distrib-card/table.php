@@ -33,26 +33,26 @@ $fmt = Yii::$app->formatter;
         <th></th>
         <th class="text-center"><?= Html::encode(Yii::t('app', 'Users')) ?></th>
         <th class="text-center"><?= Html::encode(Yii::t('app', 'Battles')) ?></th>
-        <th class="text-center"><?= Html::encode(Yii::t('app', 'Average')) ?></th>
-        <th class="text-center"><?= Html::encode(Yii::t('app', 'Std Dev')) ?></th>
+        <th class="text-center"><?= Html::encode(Yii::t('app-statistics', 'Average')) ?></th>
+        <th class="text-center"><?= Html::encode(Yii::t('app-statistics', 'Std Dev')) ?></th>
         <th class="text-center">
-          <?= Html::encode(Yii::t('app', 'Top {percentile}%', ['percentile' => 75])) . "\n" ?>
+          <?= Html::encode(Yii::t('app-statistics', 'Top {percentile}%', ['percentile' => 75])) . "\n" ?>
         </th>
         <th class="text-center ">
-          <?= Html::encode(Yii::t('app', 'Top {percentile}%', ['percentile' => 50])) . "\n" ?>
+          <?= Html::encode(Yii::t('app-statistics', 'Top {percentile}%', ['percentile' => 50])) . "\n" ?>
         </th>
         <th class="text-center">
-          <?= Html::encode(Yii::t('app', 'Top {percentile}%', ['percentile' => 25])) . "\n" ?>
+          <?= Html::encode(Yii::t('app-statistics', 'Top {percentile}%', ['percentile' => 25])) . "\n" ?>
         </th>
         <th class="text-center">
-          <?= Html::encode(Yii::t('app', 'Top {percentile}%', ['percentile' => 20])) . "\n" ?>
+          <?= Html::encode(Yii::t('app-statistics', 'Top {percentile}%', ['percentile' => 20])) . "\n" ?>
         </th>
         <th class="text-center">
-          <?= Html::encode(Yii::t('app', 'Top {percentile}%', ['percentile' => 5])) . "\n" ?>
+          <?= Html::encode(Yii::t('app-statistics', 'Top {percentile}%', ['percentile' => 5])) . "\n" ?>
         </th>
         <th class="text-center text-muted">
           <?= Icon::statsHistogram() . "\n" ?>
-          <?= Html::encode(Yii::t('app', 'Bin Width')) . "\n" ?>
+          <?= Html::encode(Yii::t('app-statistics', 'Bin Width')) . "\n" ?>
         </th>
       </tr>
     </thead>

@@ -122,7 +122,7 @@ class UserDetailedStatsCell extends Widget
             ]),
             $this->data->battles_kd > 0
                 ? vsprintf('(%s: %s)', [
-                    Html::encode(Yii::t('app', 'Avg.')),
+                    Html::encode(Yii::t('app-statistics', 'Avg.')),
                     Html::tag(
                         'span',
                         Html::encode($this->f->asDecimal(
@@ -144,7 +144,7 @@ class UserDetailedStatsCell extends Widget
             ]),
             $this->data->battles_kd > 0
                 ? vsprintf('(%s: %s)', [
-                    Html::encode(Yii::t('app', 'Avg.')),
+                    Html::encode(Yii::t('app-statistics', 'Avg.')),
                     Html::tag(
                         'span',
                         Html::encode($this->f->asDecimal(
@@ -199,7 +199,7 @@ class UserDetailedStatsCell extends Widget
             ]),
             $this->data->battles_pt > 0
                 ? vsprintf('(%s: %s)', [
-                    Html::encode(Yii::t('app', 'Avg.')),
+                    Html::encode(Yii::t('app-statistics', 'Avg.')),
                     Html::encode($this->f->asDecimal(
                         $this->data->point_sum / $this->data->battles_pt,
                         1,

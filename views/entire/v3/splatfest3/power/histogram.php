@@ -94,7 +94,7 @@ if (
     'data' => $makeDistributionData(
       new NormalDistribution($abstract->average, $abstract->stddev),
     ),
-    'label' => Yii::t('app', 'Normal Distribution'),
+    'label' => Yii::t('app-statistics', 'Normal Distribution'),
     'pointRadius' => 0,
     'type' => 'line',
   ];

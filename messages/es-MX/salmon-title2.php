@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2018-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2018-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -9,24 +9,24 @@ declare(strict_types=1);
 
 return [
     'Any Title' => '',
-    'Apprentice' => 'Aprendiz',
+    'Apprentice' => '',
     'Go-Getter' => 'Supervisor',
     'Hazard Level MAX!!' => '',
-    'Intern' => 'Becario/Becaria',
-    'Overachiever' => 'Gerente',
-    'Part-Timer' => 'Subordinado/Subordinada',
-    'Profreshional' => 'Jefe/Jefa',
+    'Intern' => '',
+    'Overachiever' => '',
+    'Part-Timer' => '',
+    'Profreshional' => '',
     'Profreshional (Avg. {from}-{to})' => '',
-    '{boy}Apprentice' => 'Aprendiz',
+    '{boy}Apprentice' => '',
     '{boy}Go-Getter' => 'Supervisor',
-    '{boy}Intern' => 'Becario',
-    '{boy}Overachiever' => 'Gerente',
-    '{boy}Part-Timer' => 'Subordinado',
-    '{boy}Profreshional' => 'Jefe',
-    '{girl}Apprentice' => 'Aprendiz',
+    '{boy}Intern' => '',
+    '{boy}Overachiever' => '',
+    '{boy}Part-Timer' => '',
+    '{boy}Profreshional' => '',
+    '{girl}Apprentice' => '',
     '{girl}Go-Getter' => 'Supervisor',
-    '{girl}Intern' => 'Becaria',
-    '{girl}Overachiever' => 'Gerente',
-    '{girl}Part-Timer' => 'Subordinada',
-    '{girl}Profreshional' => 'Jefa',
+    '{girl}Intern' => '',
+    '{girl}Overachiever' => '',
+    '{girl}Part-Timer' => '',
+    '{girl}Profreshional' => '',
 ];

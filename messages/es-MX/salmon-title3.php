@@ -1,20 +1,20 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2022-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2022-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
 declare(strict_types=1);
 
 return [
-    'Apprentice' => 'Aprendiz',
-    'Eggsecutive VP' => 'Director',
+    'Apprentice' => '',
+    'Eggsecutive VP' => '',
     'Go-Getter' => 'Supervisor',
-    'Overachiever' => 'Gerente',
-    'Part-Timer' => 'Subordinado',
-    'Profreshional' => 'Jefe',
-    'Profreshional +1' => 'Jefe +1',
-    'Profreshional +2' => 'Jefe +2',
-    'Profreshional +3' => 'Jefe +3',
+    'Overachiever' => '',
+    'Part-Timer' => '',
+    'Profreshional' => '',
+    'Profreshional +1' => '',
+    'Profreshional +2' => '',
+    'Profreshional +3' => '',
 ];

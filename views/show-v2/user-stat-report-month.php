@@ -236,7 +236,7 @@ $_fmt = function (string $key, string $item) use ($row) : string {
               [
                 'class' => 'auto-tooltip',
                 'title' => Yii::t(
-                  'app-show-v2',
+                  'app-statistics',
                   'max={max} min={min} average={avg} median={median} mode={mode}',
                   [
                     'max'    => $_fmt($_key, 'max'),

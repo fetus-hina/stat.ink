@@ -18,7 +18,6 @@ return [
     'Guess the region' => 'Adivinhe a região',
     'k+a/sp' => 'k+a/esp',
     'K/min' => 'K/min',
-    'max={max} min={min} average={avg} median={median} mode={mode}' => 'máx={max} min={min} média (avg)={avg} média={median} modo={mode}',
     'Room' => 'Sala',
     'Room info (Private)' => 'Info da sala (privada)',
     'S/min' => 'Esp/min',

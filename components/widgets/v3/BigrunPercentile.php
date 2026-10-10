@@ -307,7 +307,7 @@ final class BigrunPercentile extends Widget
                     implode(' ', [
                         Icon::goldenEgg(),
                         Html::encode(
-                            Yii::t('app', 'Top {percentile}%', ['percentile' => $percentile]),
+                            Yii::t('app-statistics', 'Top {percentile}%', ['percentile' => $percentile]),
                         ),
                     ]),
                     ['scope' => 'row'],
@@ -347,7 +347,7 @@ final class BigrunPercentile extends Widget
             implode('', [
                 Html::tag(
                     'th',
-                    Html::encode(Yii::t('app', 'Average')),
+                    Html::encode(Yii::t('app-statistics', 'Average')),
                     ['scope' => 'row'],
                 ),
                 Html::tag(

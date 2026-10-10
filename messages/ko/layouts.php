@@ -8,6 +8,7 @@
 declare(strict_types=1);
 
 return [
+    'Android' => 'Android',
     'API (Splatoon)' => 'API (스플래툰)',
     'API (Splatoon 2)' => 'API (스플래툰 2)',
     'API (Splatoon 3)' => 'API (스플래툰 3)',
@@ -38,6 +39,7 @@ return [
     'This website is an open source project. It is under the MIT License. The source code is available on GitHub.' => '이 사이트는 오픈 소스 프로젝트입니다. 소스 코드는 깃허브에 있습니다.',
     'This website is an UNOFFICIAL SERVICE. It is not related to the Splatoon development team or Nintendo.' => '이 사이트는 비공식 서비스입니다. 스플래툰 개발팀 또는 닌텐도와 무관합니다.',
     'Use full width of the screen' => '화면의 전체 너비 사용',
+    'Windows' => 'Windows',
     '{package} is used for icons and other images.' => '아이콘 및 기타 이미지에는 {package}를 사용하고 있습니다.',
     '{title} Official Website' => '{title} 공식 사이트',
 ];

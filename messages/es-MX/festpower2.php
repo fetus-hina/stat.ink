@@ -10,7 +10,6 @@ declare(strict_types=1);
 return [
     '"Mistaken": On {date}, <a href="{url}" class="alert-link">Nintendo misconfigured the matching server and ran the fest.</a>' => '',
     'All' => '',
-    'Average' => '',
     'Battles' => '',
     'Battles (all)' => '',
     'Battles (mistaken)' => '',
@@ -18,13 +17,9 @@ return [
     'Greater Win % (all)' => '',
     'Greater Win % (mistaken)' => '',
     'Greater Win % (normal)' => '',
-    'Median' => '',
     'Mistaken' => '',
     'N/A' => '',
     'Normal' => '',
     'Power Diff' => '',
-    'Q1/4' => '',
-    'Q3/4' => '',
     'Splatfest Power vs Win %' => '',
-    'Std. Dev.' => '',
 ];

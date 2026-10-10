@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 return [
     'Ability Effect' => '裝備能力效果',
-    'Average:' => '平均：',
     'Bad guys are in control' => '對方控制中',
     'Bad guys winning' => '對方領先',
     'combos' => '組合',
