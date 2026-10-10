@@ -278,19 +278,19 @@ $f = Yii::$app->formatter;
 <?php $list = [
   [
     'url' => ['show/user-stat-nawabari', 'screen_name' => $user->screen_name],
-    'text' => Yii::t('app', 'Stats (Turf War)'),
+    'text' => Yii::t('app-user-mini-info', 'Stats (Turf War)'),
   ],
   [
     'url' => ['show/user-stat-gachi', 'screen_name' => $user->screen_name],
-    'text' => Yii::t('app', 'Stats (Ranked Battle)'),
+    'text' => Yii::t('app-user-mini-info', 'Stats (Ranked Battle)'),
   ],
   [
     'url' => ['show/user-stat-by-rule', 'screen_name' => $user->screen_name],
-    'text' => Yii::t('app', 'Stats (by Mode)'),
+    'text' => Yii::t('app-user-mini-info', 'Stats (by Mode)'),
   ],
   [
     'url' => ['show/user-stat-by-map', 'screen_name' => $user->screen_name],
-    'text' => Yii::t('app', 'Stats (by Stage)'),
+    'text' => Yii::t('app-user-mini-info', 'Stats (by Stage)'),
   ],
   [
     'url' => ['show/user-stat-by-map-rule', 'screen_name' => $user->screen_name],
@@ -311,11 +311,11 @@ $f = Yii::$app->formatter;
   ],
   [
     'url' => ['show/user-stat-vs-weapon', 'screen_name' => $user->screen_name],
-    'text' => Yii::t('app', 'Stats (vs. Weapon)'),
+    'text' => Yii::t('app-user-mini-info', 'Stats (vs. Weapon)'),
   ],
   [
     'url' => ['show/user-stat-cause-of-death', 'screen_name' => $user->screen_name],
-    'text' => Yii::t('app', 'Stats (Cause of Death)'),
+    'text' => Yii::t('app-user-mini-info', 'Stats (Cause of Death)'),
   ],
   [
     'url' => ['show/user-stat-report', 'screen_name' => $user->screen_name],
