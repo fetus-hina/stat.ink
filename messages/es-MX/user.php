@@ -111,7 +111,7 @@ return [
     'Salmon Run CSV' => '',
     'Salmon Run JSON (gzipped)' => '',
     'Schema information' => '',
-    'Screen Name (Login Name)' => 'Nombre de la Pantalla',
+    'Screen Name (Login Name)' => '',
     'Sent an email to your email address. Please check your mailbox and get the verification code.' => '',
     'Set Password' => '',
     'Set the name, icon, and channel in the settings within Discord.' => '',

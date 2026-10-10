@@ -13,7 +13,7 @@ return [
     'FAQ' => '',
     'Getting Started' => 'Empezando',
     'Join us' => 'Únete a nosotros',
-    'K/D vs Win %' => 'K/D vs Ganar %',
+    'K/D vs Win %' => '',
     'Open Source Licenses' => 'Licencias de código abierto',
     'Please refer to the respective projects for any problems or questions regarding the operation of each application.' => '',
     'Stats: FestPwr diff vs Win %' => '',

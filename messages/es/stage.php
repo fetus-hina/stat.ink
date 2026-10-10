@@ -8,12 +8,12 @@
 declare(strict_types=1);
 
 return [
-    'In session' => '',
-    'Interval' => '',
-    'more...' => '',
-    'Recent Use %' => '',
-    'Scheduled' => '',
-    'Session History' => '',
+    'In session' => 'En curso',
+    'Interval' => 'Intervalo',
+    'more...' => 'más...',
+    'Recent Use %' => '% de uso reciente',
+    'Scheduled' => 'Programado',
+    'Session History' => 'Historial de sesiones',
     'Weapons\' icon were created by {0}.' => 'Los iconos de las armas fueron creados por {0}.',
-    'Weapon Trends' => '',
+    'Weapon Trends' => 'Tendencias de armas',
 ];
