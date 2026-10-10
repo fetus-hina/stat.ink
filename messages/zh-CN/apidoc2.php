@@ -193,7 +193,7 @@ return [
     'Standalone Application (e.g., user\'s input or screen capture)' => '独立应用（比如用户的输入或录屏）',
     'Start time of this shift' => '打工开始时间',
     'Weapon information' => '武器信息',
-    'Wave information' => '阶段信息',
+    'Wave information' => 'WAVE信息',
     'Unauthorized' => '未授权',
     'User stats' => '用户统计',
     'stat.ink API for Splatoon 2' => '针对Splatoon 2的stat.ink API',

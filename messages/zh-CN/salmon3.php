@@ -11,7 +11,7 @@ return [
     'Appearances' => '出现次数',
     'Appeared' => '出现',
     'Average Defeated' => '平均击倒数',
-    'BIG Big Run' => '大大型跑',
+    'BIG Big Run' => '超级大型跑',
     'Big Run' => '大型跑',
     'Boss' => '巨大鲑鱼',
     'Bosses defeated' => '已击倒的巨大鲑鱼',

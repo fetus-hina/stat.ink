@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 return [
     'Aliases' => '别名',
-    'API Info: Abilities (Splatoon 3)' => 'API信息：技能(Splatoon 3)',
+    'API Info: Abilities (Splatoon 3)' => 'API信息：装备能力(Splatoon 3)',
     'API Info: Boss Salmonids (Splatoon 3)' => 'API信息：巨大鲑鱼(Splatoon 3)',
     'API Info: Gears: {0}' => 'API信息：装备：{0}',
     'API Info: Known Occurrences (Splatoon 3)' => 'API信息：特殊状况(Splatoon 3)',
@@ -28,7 +28,7 @@ return [
     'Rare Weapon' => '稀有武器',
     'Released' => '发布于',
     'Reskin of' => '贴牌',
-    'SplatNet' => 'SplatNet',
-    'SplatNet 2' => 'SplatNet 2',
+    'SplatNet' => '鱿鱼圈',
+    'SplatNet 2' => '鱿鱼圈 2',
     'Uniform' => '工作服',
 ];
