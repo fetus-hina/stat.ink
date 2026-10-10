@@ -16,7 +16,7 @@ return [
     'C' => 'C',
     'C+' => 'C+',
     'C-' => 'C-',
-    'Chargers' => '',
+    'Chargers' => 'Armas de Carga',
     'C Long' => 'C Longo',
     'C Short' => 'C Curto',
     'D+' => 'D+',

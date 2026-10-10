@@ -16,7 +16,7 @@ return [
     'K/D vs Win %' => 'K/D vs % de Vitória',
     'Open Source Licenses' => 'Licenças de Código Aberto',
     'Please refer to the respective projects for any problems or questions regarding the operation of each application.' => 'Por favor, procure os respectivos projetos para qualquer problema ou perguntas sobre a operação de cada aplicação.',
-    'Stats: FestPwr diff vs Win %' => 'Estatísticas: Diferença de Power da Fest vs % de Vitórias',
+    'Stats: FestPwr diff vs Win %' => 'Estatísticas: Diferença de Poder de Splatfest vs % de Vitórias',
     'Stats: Stages' => 'Estatísticas: Mapas',
     'Stats: User Activity' => 'Estatísticas: Atividade de Usuário',
     'Your Battles' => 'Suas partidas',

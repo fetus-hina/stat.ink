@@ -8,13 +8,13 @@
 declare(strict_types=1);
 
 return [
-    '(All Normal Waves)' => '(Todas as Waves Normais)',
+    '(All Normal Waves)' => '(Todas as Ondas Normais)',
     '(~1 Night)' => '(~1 Noite)',
     '(~2 Night)' => '(~2 Noite)',
     'Category' => 'Categoria',
-    'Day Waves' => 'Waves de Dia',
-    'Overfishing' => 'Overfishing',
-    'Overfishing Stats' => 'Estatísticas de Overfishing',
+    'Day Waves' => 'Ondas Diurnas',
+    'Overfishing' => 'Sobrepesca',
+    'Overfishing Stats' => 'Estatísticas de Sobrepesca',
     'Record' => 'Recorde',
     'Total Golden Eggs' => 'Total de Ovos de Ouro',
 ];

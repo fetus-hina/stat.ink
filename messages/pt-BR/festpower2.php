@@ -8,7 +8,7 @@
 declare(strict_types=1);
 
 return [
-    '"Mistaken": On {date}, <a href="{url}" class="alert-link">Nintendo misconfigured the matching server and ran the fest.</a>' => '"Equivocado": Em {date}, <a href="{url}" class="alert-link">Nintendo configurou errado o servidor de matchmaking e ativou a Splatfest.',
+    '"Mistaken": On {date}, <a href="{url}" class="alert-link">Nintendo misconfigured the matching server and ran the fest.</a>' => '"Equivocado": Em {date}, <a href="{url}" class="alert-link">a Nintendo configurou errado o servidor de matchmaking e realizou a Splatfest.</a>',
     'All' => 'Tudo',
     'Average' => 'Média',
     'Battles' => 'Partidas',
@@ -22,9 +22,9 @@ return [
     'Mistaken' => 'Equívoco',
     'N/A' => 'N/D',
     'Normal' => 'Normal',
-    'Power Diff' => 'Diferença de Power',
+    'Power Diff' => 'Diferença de Poder',
     'Q1/4' => 'Q1/4',
     'Q3/4' => 'Q3/4',
-    'Splatfest Power vs Win %' => 'Power da Splatfest vs % de vitórias',
+    'Splatfest Power vs Win %' => 'Poder de Splatfest vs % de vitórias',
     'Std. Dev.' => 'Desvio Padrão',
 ];
