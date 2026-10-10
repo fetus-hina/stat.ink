@@ -50,7 +50,7 @@ $totalAndAvg = fn (string $attrTotal, string $attrAvg, string $attrSD): string =
     ) ?: '-',
     [
       'class' => 'auto-tooltip',
-      'title' => Yii::t('app', 'Average'),
+      'title' => Yii::t('app-statistics', 'Average'),
     ],
   ),
   Html::tag(
@@ -61,7 +61,7 @@ $totalAndAvg = fn (string $attrTotal, string $attrAvg, string $attrSD): string =
     ) ?: '-',
     [
       'class' => 'auto-tooltip',
-      'title' => Yii::t('app', 'Standard Deviation'),
+      'title' => Yii::t('app-statistics', 'Standard Deviation'),
     ],
   ),
   Yii::t('app', 'Total'),
@@ -215,7 +215,7 @@ echo DetailView::widget([
       ],
       [
         'label' => vsprintf('%s (%s)', [
-          Yii::t('app', 'Maximum'),
+          Yii::t('app-statistics', 'Maximum'),
           Yii::t('app-salmon3', 'Team Total'),
         ]),
         'format' => 'raw',
@@ -240,7 +240,7 @@ echo DetailView::widget([
       ],
       [
         'label' => vsprintf('%s (%s)', [
-          Yii::t('app', 'Average'),
+          Yii::t('app-statistics', 'Average'),
           Yii::t('app-salmon3', 'Team Total'),
         ]),
         'format' => 'raw',
@@ -253,7 +253,7 @@ echo DetailView::widget([
               Html::tag(
                 'small',
                 sprintf('(σ=%s)', $fmt->asDecimal(TypeHelper::floatOrNull(ArrayHelper::getValue($stats, 'sd_golden')), 1)),
-                ['class' => 'auto-tooltip text-muted', 'title' => Yii::t('app', 'Standard Deviation')],
+                ['class' => 'auto-tooltip text-muted', 'title' => Yii::t('app-statistics', 'Standard Deviation')],
               ),
             ]),
             ['class' => 'nobr mr-3'],
@@ -266,7 +266,7 @@ echo DetailView::widget([
               Html::tag(
                 'small',
                 sprintf('(σ=%s)', $fmt->asDecimal(TypeHelper::floatOrNull(ArrayHelper::getValue($stats, 'sd_power')), 0)),
-                ['class' => 'auto-tooltip text-muted', 'title' => Yii::t('app', 'Standard Deviation')],
+                ['class' => 'auto-tooltip text-muted', 'title' => Yii::t('app-statistics', 'Standard Deviation')],
               ),
             ]),
             ['class' => 'nobr mr-3'],
@@ -275,7 +275,7 @@ echo DetailView::widget([
       ],
       [
         'label' => vsprintf('%s (%s)', [
-          Yii::t('app', 'Maximum'),
+          Yii::t('app-statistics', 'Maximum'),
           Yii::t('app-salmon3', 'Personal'),
         ]),
         'format' => 'raw',
@@ -300,7 +300,7 @@ echo DetailView::widget([
       ],
       [
         'label' => vsprintf('%s (%s)', [
-          Yii::t('app', 'Average'),
+          Yii::t('app-statistics', 'Average'),
           Yii::t('app-salmon3', 'Personal'),
         ]),
         'format' => 'raw',
@@ -313,7 +313,7 @@ echo DetailView::widget([
               Html::tag(
                 'small',
                 sprintf('(σ=%s)', $fmt->asDecimal(TypeHelper::floatOrNull(ArrayHelper::getValue($stats, 'sd_golden_individual')), 1)),
-                ['class' => 'auto-tooltip text-muted', 'title' => Yii::t('app', 'Standard Deviation')],
+                ['class' => 'auto-tooltip text-muted', 'title' => Yii::t('app-statistics', 'Standard Deviation')],
               ),
             ]),
             ['class' => 'nobr mr-3'],
@@ -326,7 +326,7 @@ echo DetailView::widget([
               Html::tag(
                 'small',
                 sprintf('(σ=%s)', $fmt->asDecimal(TypeHelper::floatOrNull(ArrayHelper::getValue($stats, 'sd_power_individual')), 0)),
-                ['class' => 'auto-tooltip text-muted', 'title' => Yii::t('app', 'Standard Deviation')],
+                ['class' => 'auto-tooltip text-muted', 'title' => Yii::t('app-statistics', 'Standard Deviation')],
               ),
             ]),
             ['class' => 'nobr mr-3'],

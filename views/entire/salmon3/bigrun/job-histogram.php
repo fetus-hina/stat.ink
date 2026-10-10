@@ -121,7 +121,7 @@ $makeWaveDistributionData = function (
 //     samples: $abstract->jobs,
 //     dataStep: $abstract->histogram_width,
 //   ),
-//   'label' => Yii::t('app', 'Normal Distribution'),
+//   'label' => Yii::t('app-statistics', 'Normal Distribution'),
 //   'pointRadius' => 0,
 //   'type' => 'line',
 // ];

@@ -319,7 +319,7 @@ $wLabels = [
           </thead>
           <tbody>
             <tr>
-              <th scope="row"><?= Html::encode(Yii::t('app', 'Average')) ?></th>
+              <th scope="row"><?= Html::encode(Yii::t('app-statistics', 'Average')) ?></th>
               <td><?= $fmt->asDecimal($model->avg_clear_waves, 4) ?></td>
               <td><?= $fmt->asDecimal($model->avg_golden_eggs, 3) ?></td>
               <td><?= $fmt->asDecimal($model->avg_power_eggs, 3) ?></td>
@@ -327,7 +327,7 @@ $wLabels = [
             </tr>
             <tr>
               <th scope="row"><?= Html::tag('span', Html::encode('σ'), [
-                'title' => Yii::t('app', 'Standard Deviation'),
+                'title' => Yii::t('app-statistics', 'Standard Deviation'),
               ]) ?></th>
               <td><?= $fmt->asDecimal($model->sd_clear_waves, 4) ?></td>
               <td><?= $fmt->asDecimal($model->sd_golden_eggs, 3) ?></td>

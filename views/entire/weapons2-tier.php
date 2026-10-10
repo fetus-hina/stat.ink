@@ -45,7 +45,7 @@ $kdCell = function (StatWeapon2Tier $model, string $column): ?string {
   return implode('<br>', [
     vsprintf('%s=%s±%s', [
       Html::tag('span', Html::encode('μ'), [
-        'title' => Yii::t('app', 'Average'),
+        'title' => Yii::t('app-statistics', 'Average'),
         'class' => 'auto-tooltip',
       ]),
       Yii::$app->formatter->asDecimal($model->{"avg_{$column}"}, 2),
@@ -53,14 +53,14 @@ $kdCell = function (StatWeapon2Tier $model, string $column): ?string {
     ]),
     vsprintf('%s=%s', [
       Html::tag('span', Html::encode('Med'), [
-        'title' => Yii::t('app', 'Median'),
+        'title' => Yii::t('app-statistics', 'Median'),
         'class' => 'auto-tooltip',
       ]),
       Yii::$app->formatter->asDecimal($model->{"med_{$column}"}, 1),
     ]),
     vsprintf('%s=%s', [
       Html::tag('span', Html::encode('σ'), [
-        'title' => Yii::t('app', 'Standard Deviation'),
+        'title' => Yii::t('app-statistics', 'Standard Deviation'),
         'class' => 'auto-tooltip',
       ]),
       Yii::$app->formatter->asDecimal($model->{"stddev_{$column}"}, 3),

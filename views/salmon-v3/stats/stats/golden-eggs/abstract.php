@@ -56,8 +56,8 @@ $fmt->nullDisplay = '-';
       <tr>
         <th scope="row">
           <?= Icon::goldenEgg() . "\n" ?>
-          <?= Html::encode(Yii::t('app', 'Average')) . "\n" ?>
-          (<?= Html::encode(Yii::t('app', 'Std Dev')) ?>)
+          <?= Html::encode(Yii::t('app-statistics', 'Average')) . "\n" ?>
+          (<?= Html::encode(Yii::t('app-statistics', 'Std Dev')) ?>)
         </th>
         <td class="text-center">
           <?= Icon::goldenEgg() . "\n" ?>
@@ -71,7 +71,7 @@ $fmt->nullDisplay = '-';
         </td>
       </tr>
       <tr>
-        <th scope="row"><?= Icon::goldenEgg() ?> <?= Html::encode(Yii::t('app', 'Minimum')) ?></th>
+        <th scope="row"><?= Icon::goldenEgg() ?> <?= Html::encode(Yii::t('app-statistics', 'Minimum')) ?></th>
         <td class="text-center">
           <?= Icon::goldenEgg() . "\n" ?>
           <?= Html::encode($fmt->asInteger($abstract->min_team)) . "\n" ?>
@@ -82,7 +82,7 @@ $fmt->nullDisplay = '-';
         </td>
       </tr>
       <tr>
-        <th scope="row"><?= Icon::goldenEgg() ?> <?= Yii::t('app', 'Q<sub>1/4</sub>') ?></th>
+        <th scope="row"><?= Icon::goldenEgg() ?> <?= Yii::t('app-statistics', 'Q<sub>1/4</sub>') ?></th>
         <td class="text-center">
           <?= Icon::goldenEgg() . "\n" ?>
           <?= Html::encode($fmt->asDecimal($abstract->q1_team, 1)) . "\n" ?>
@@ -93,7 +93,7 @@ $fmt->nullDisplay = '-';
         </td>
       </tr>
       <tr>
-        <th scope="row"><?= Icon::goldenEgg() ?> <?= Html::encode(Yii::t('app', 'Median')) ?></th>
+        <th scope="row"><?= Icon::goldenEgg() ?> <?= Html::encode(Yii::t('app-statistics', 'Median')) ?></th>
         <td class="text-center">
           <?= Icon::goldenEgg() . "\n" ?>
           <?= Html::encode($fmt->asDecimal($abstract->q2_team, 1)) . "\n" ?>
@@ -104,7 +104,7 @@ $fmt->nullDisplay = '-';
         </td>
       </tr>
       <tr>
-        <th scope="row"><?= Icon::goldenEgg() ?> <?= Yii::t('app', 'Q<sub>3/4</sub>') ?></th>
+        <th scope="row"><?= Icon::goldenEgg() ?> <?= Yii::t('app-statistics', 'Q<sub>3/4</sub>') ?></th>
         <td class="text-center">
           <?= Icon::goldenEgg() . "\n" ?>
           <?= Html::encode($fmt->asDecimal($abstract->q3_team, 1)) . "\n" ?>
@@ -115,7 +115,7 @@ $fmt->nullDisplay = '-';
         </td>
       </tr>
       <tr>
-        <th scope="row"><?= Icon::goldenEgg() ?> <?= Html::encode(Yii::t('app', 'Maximum')) ?></th>
+        <th scope="row"><?= Icon::goldenEgg() ?> <?= Html::encode(Yii::t('app-statistics', 'Maximum')) ?></th>
         <td class="text-center">
           <?= Icon::goldenEgg() . "\n" ?>
           <?= Html::encode($fmt->asInteger($abstract->max_team)) . "\n" ?>
@@ -146,14 +146,14 @@ $fmt->nullDisplay = '-';
       <tr>
         <th scope="row">
           <?= Icon::statsHistogram() . "\n" ?>
-          <?= Html::encode(Yii::t('app', 'Bin Width')) . "\n" ?>
+          <?= Html::encode(Yii::t('app-statistics', 'Bin Width')) . "\n" ?>
           <?= Html::tag(
             'span',
             Icon::help(),
             [
               'class' => 'auto-tooltip',
               'title' => Yii::t(
-                'app',
+                'app-statistics',
                 'The width of the histogram bins is automatically adjusted by Scott\'s rule-based algorithm.',
               ),
               'style' => [

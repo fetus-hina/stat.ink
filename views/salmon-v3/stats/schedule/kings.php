@@ -59,7 +59,7 @@ $renderScale = fn (string $icon, int $number): string => Html::tag(
         <th class="text-center"><?= Icon::goldScale() ?></th>
         <th class="text-center"><?= Icon::silverScale() ?></th>
         <th class="text-center"><?= Icon::bronzeScale() ?></th>
-        <th class="text-center"><?= Html::encode(Yii::t('app', 'Avg.')) ?></th>
+        <th class="text-center"><?= Html::encode(Yii::t('app-statistics', 'Avg.')) ?></th>
       </tr>
     </thead>
     <tbody>

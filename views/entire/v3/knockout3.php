@@ -60,7 +60,7 @@ EntireKnockoutAsset::register($this);
 
   <div class="alert alert-info mb-3">
     <?= Html::encode(
-      Yii::t('app', 'The width of the histogram bins is automatically adjusted by Scott\'s rule-based algorithm.'),
+      Yii::t('app-statistics', 'The width of the histogram bins is automatically adjusted by Scott\'s rule-based algorithm.'),
     ) . "\n" ?>
   </div>
 

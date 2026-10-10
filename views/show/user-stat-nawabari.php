@@ -108,7 +108,7 @@ UserStatNawabariAsset::register($this);
   Json::encode($map->area),
   Json::encode([
     'turfInked' => Yii::t('app-results', 'Turf Inked'),
-    'average' => Yii::t('app', 'Average'),
+    'average' => Yii::t('app-statistics', 'Average'),
     'percentile' => Yii::t('app-show', '{lower}-{upper} percentile', [
         'lower' => 5,
         'upper' => 95,

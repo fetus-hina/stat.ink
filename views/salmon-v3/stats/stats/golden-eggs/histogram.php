@@ -101,7 +101,7 @@ if ($abstract->shifts >= 10 && count($data) >= 5) {
                   Salmon3UserStatsGoldenEggIndividualHistogram::class => $abstract->histogram_width_individual,
                 },
               ),
-              'label' => Yii::t('app', 'Normal Distribution'),
+              'label' => Yii::t('app-statistics', 'Normal Distribution'),
               'pointRadius' => 0,
               'type' => 'line',
             ],

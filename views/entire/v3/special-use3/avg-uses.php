@@ -30,7 +30,7 @@ $labelHtml = Html::tag(
   [
     'class' => 'auto-tooltip',
     'title' => vsprintf('%s: %s', [
-      Yii::t('app', 'Standard Deviation'),
+      Yii::t('app-statistics', 'Standard Deviation'),
       $fmt->asDecimal($model->stddev, 2),
     ]),
   ],

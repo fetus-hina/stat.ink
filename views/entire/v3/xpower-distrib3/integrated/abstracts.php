@@ -60,7 +60,7 @@ use yii\web\View;
         'contentOptions' => ['class' => 'text-right'],
       ],
       [
-        'label' => Yii::t('app', 'Average'),
+        'label' => Yii::t('app-statistics', 'Average'),
         'headerOptions' => ['class' => 'text-center'],
         'format' => ['decimal', 1],
         'value' => fn (Rule3 $model): ?float => TypeHelper::floatOrNull(
@@ -69,7 +69,7 @@ use yii\web\View;
         'contentOptions' => ['class' => 'text-right fw-bold'],
       ],
       [
-        'label' => Yii::t('app', 'Std Dev'),
+        'label' => Yii::t('app-statistics', 'Std Dev'),
         'headerOptions' => ['class' => 'text-center'],
         'format' => ['decimal', 1],
         'value' => fn (Rule3 $model): ?float => TypeHelper::floatOrNull(
@@ -78,7 +78,7 @@ use yii\web\View;
         'contentOptions' => ['class' => 'text-right'],
       ],
       [
-        'label' => Yii::t('app', 'Top {percentile}%', ['percentile' => 5]),
+        'label' => Yii::t('app-statistics', 'Top {percentile}%', ['percentile' => 5]),
         'headerOptions' => ['class' => 'text-center'],
         'format' => ['decimal', 1],
         'value' => fn (Rule3 $model): ?float => TypeHelper::floatOrNull(
@@ -87,7 +87,7 @@ use yii\web\View;
         'contentOptions' => ['class' => 'text-right fw-bold'],
       ],
       [
-        'label' => Yii::t('app', 'Top {percentile}%', ['percentile' => 20]),
+        'label' => Yii::t('app-statistics', 'Top {percentile}%', ['percentile' => 20]),
         'headerOptions' => ['class' => 'text-center'],
         'format' => ['decimal', 1],
         'value' => fn (Rule3 $model): ?float => TypeHelper::floatOrNull(
@@ -96,7 +96,7 @@ use yii\web\View;
         'contentOptions' => ['class' => 'text-right fw-bold'],
       ],
       [
-        'label' => Yii::t('app', 'Top {percentile}%', ['percentile' => 25]),
+        'label' => Yii::t('app-statistics', 'Top {percentile}%', ['percentile' => 25]),
         'headerOptions' => ['class' => 'text-center'],
         'format' => ['decimal', 1],
         'value' => fn (Rule3 $model): ?float => TypeHelper::floatOrNull(
@@ -105,7 +105,7 @@ use yii\web\View;
         'contentOptions' => ['class' => 'text-right'],
       ],
       [
-        'label' => Yii::t('app', 'Top {percentile}%', ['percentile' => 50]),
+        'label' => Yii::t('app-statistics', 'Top {percentile}%', ['percentile' => 50]),
         'headerOptions' => ['class' => 'text-center'],
         'format' => ['decimal', 1],
         'value' => fn (Rule3 $model): ?float => TypeHelper::floatOrNull(
@@ -114,7 +114,7 @@ use yii\web\View;
         'contentOptions' => ['class' => 'text-right fw-bold'],
       ],
       [
-        'label' => Yii::t('app', 'Top {percentile}%', ['percentile' => 75]),
+        'label' => Yii::t('app-statistics', 'Top {percentile}%', ['percentile' => 75]),
         'headerOptions' => ['class' => 'text-center'],
         'format' => ['decimal', 1],
         'value' => fn (Rule3 $model): ?float => TypeHelper::floatOrNull(
