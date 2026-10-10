@@ -8,6 +8,7 @@
 declare(strict_types=1);
 
 return [
+    '(Disabled. Sign in with your passkey.)' => '(Отключён. Входите с помощью ключа доступа.)',
     '(combined)' => '',
     '(default)' => '',
     '(For advanced users)' => '',
@@ -109,6 +110,15 @@ return [
     'Battles:{0} / Win %:{1} / Avg Kills:{2} / Avg Deaths:{3} / Kill Ratio:{4}' => '',
     'Battles and Users' => '',
     'Battle Start' => '',
+    'Could not disable your password.' => 'Не удалось отключить пароль.',
+    'Disable Password' => 'Отключить пароль',
+    'If you disable your password, you will sign in with your passkey only. Your password will be erased from the server.' => 'Если вы отключите пароль, вы сможете входить только с помощью ключа доступа. Пароль будет удалён с сервера.',
+    'If you lose all your passkeys, you can set a new password with a recovery key. We recommend creating recovery keys in advance.' => 'Если вы потеряете все ключи доступа, вы сможете задать новый пароль с помощью ключа восстановления. Рекомендуем создать ключи восстановления заранее.',
+    'Set Password' => 'Задать пароль',
+    'Set Your Password' => 'Задать пароль',
+    'Verify with your passkey and disable password' => 'Подтвердить ключом доступа и отключить пароль',
+    'You can set a password again from your profile page after verifying with your passkey.' => 'После подтверждения ключом доступа вы сможете снова задать пароль на странице профиля.',
+    'Your password is currently disabled. You can set a new password after verifying with your passkey.' => 'Сейчас ваш пароль отключён. После подтверждения ключом доступа вы можете задать новый пароль.',
     'between {down} and {up} {name}' => '',
     'Bin Width' => '',
     'Black out' => '',

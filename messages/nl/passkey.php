@@ -13,6 +13,8 @@ return [
     'Back' => 'Terug',
     'Created At' => 'Aangemaakt op',
     'Delete' => 'Verwijderen',
+    'Failed to verify with your passkey.' => 'Verificatie met je toegangssleutel is mislukt.',
+    'You cannot delete your last passkey while your password is disabled.' => 'Je kunt je laatste toegangssleutel niet verwijderen zolang je wachtwoord is uitgeschakeld.',
     'e.g., "iPhone Face ID"' => 'bijv. "iPhone Face ID"',
     'Failed to log in with passkey.' => 'Inloggen met toegangssleutel is mislukt.',
     'Failed to register passkey.' => 'Registratie van toegangssleutel is mislukt.',

@@ -8,6 +8,7 @@
 declare(strict_types=1);
 
 return [
+    '(Disabled. Sign in with your passkey.)' => '（已停用。請使用通行金鑰登入。）',
     '(combined)' => '(組合)',
     '(default)' => '(預設)',
     '(For advanced users)' => '提供給進階使用者',
@@ -109,6 +110,15 @@ return [
     'Battles:{0} / Win %:{1} / Avg Kills:{2} / Avg Deaths:{3} / Kill Ratio:{4}' => '對戰：{0} / 勝率%：{1} / 平均擊殺數：{2} / 平均死亡數：{3} / 殺死比：{4}',
     'Battles and Users' => '對戰與用戶',
     'Battle Start' => '對戰開始於',
+    'Could not disable your password.' => '無法停用密碼。',
+    'Disable Password' => '停用密碼',
+    'If you disable your password, you will sign in with your passkey only. Your password will be erased from the server.' => '停用密碼後，你將只能使用通行金鑰登入。你的密碼將從伺服器上清除。',
+    'If you lose all your passkeys, you can set a new password with a recovery key. We recommend creating recovery keys in advance.' => '如果遺失了所有通行金鑰，你可以使用復原金鑰設定新密碼。建議事先建立復原金鑰。',
+    'Set Password' => '設定密碼',
+    'Set Your Password' => '設定密碼',
+    'Verify with your passkey and disable password' => '使用通行金鑰驗證並停用密碼',
+    'You can set a password again from your profile page after verifying with your passkey.' => '使用通行金鑰驗證後，你可以在個人資料頁面重新設定密碼。',
+    'Your password is currently disabled. You can set a new password after verifying with your passkey.' => '你的密碼目前已停用。使用通行金鑰驗證後即可設定新密碼。',
     'between {down} and {up} {name}' => '在{down}和{up}之間 {name}',
     'Bin Width' => '',
     'Black out' => '隱藏名字',

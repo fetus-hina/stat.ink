@@ -8,6 +8,7 @@
 declare(strict_types=1);
 
 return [
+    '(Disabled. Sign in with your passkey.)' => '(비활성화됨. 패스키로 로그인하세요.)',
     '(combined)' => '(결합된)',
     '(default)' => '(기본)',
     '(For advanced users)' => '(고급 유저용)',
@@ -109,6 +110,15 @@ return [
     'Battles:{0} / Win %:{1} / Avg Kills:{2} / Avg Deaths:{3} / Kill Ratio:{4}' => '배틀 수:{0} / 승률 %:{1} / 평균 킬:{2} / 평균 데스:{3} / 킬데스비율:{4}',
     'Battles and Users' => '배틀과 유저',
     'Battle Start' => '배틀 시작',
+    'Could not disable your password.' => '비밀번호를 비활성화할 수 없습니다.',
+    'Disable Password' => '비밀번호 비활성화',
+    'If you disable your password, you will sign in with your passkey only. Your password will be erased from the server.' => '비밀번호를 비활성화하면 패스키로만 로그인할 수 있습니다. 비밀번호는 서버에서 삭제됩니다.',
+    'If you lose all your passkeys, you can set a new password with a recovery key. We recommend creating recovery keys in advance.' => '모든 패스키를 잃어버린 경우 복구 키로 새 비밀번호를 설정할 수 있습니다. 미리 복구 키를 만들어 두는 것을 권장합니다.',
+    'Set Password' => '비밀번호 설정',
+    'Set Your Password' => '비밀번호 설정',
+    'Verify with your passkey and disable password' => '패스키로 인증하고 비밀번호 비활성화',
+    'You can set a password again from your profile page after verifying with your passkey.' => '패스키로 인증하면 프로필 페이지에서 다시 비밀번호를 설정할 수 있습니다.',
+    'Your password is currently disabled. You can set a new password after verifying with your passkey.' => '현재 비밀번호가 비활성화되어 있습니다. 패스키로 인증하면 새 비밀번호를 설정할 수 있습니다.',
     'between {down} and {up} {name}' => '{down} {name}부터 {up} {name}',
     'Bin Width' => '',
     'Black out' => '',

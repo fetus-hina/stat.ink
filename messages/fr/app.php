@@ -8,6 +8,7 @@
 declare(strict_types=1);
 
 return [
+    '(Disabled. Sign in with your passkey.)' => '(Désactivé. Connectez-vous avec votre clé d\'accès.)',
     '(combined)' => '(combiné)',
     '(default)' => '(par défaut)',
     '(For advanced users)' => '(Pour des utilisateurs avancés)',
@@ -109,6 +110,15 @@ return [
     'Battles:{0} / Win %:{1} / Avg Kills:{2} / Avg Deaths:{3} / Kill Ratio:{4}' => 'Matchs : {0} / % Victoire : {1} / Moy Kills : {2} / Moy Morts : {3} / Kill Ratio : {4}',
     'Battles and Users' => 'Matchs et utilisateurs',
     'Battle Start' => 'Début du match',
+    'Could not disable your password.' => 'Impossible de désactiver votre mot de passe.',
+    'Disable Password' => 'Désactiver le mot de passe',
+    'If you disable your password, you will sign in with your passkey only. Your password will be erased from the server.' => 'Si vous désactivez votre mot de passe, vous vous connecterez uniquement avec votre clé d\'accès. Votre mot de passe sera effacé du serveur.',
+    'If you lose all your passkeys, you can set a new password with a recovery key. We recommend creating recovery keys in advance.' => 'Si vous perdez toutes vos clés d\'accès, vous pourrez définir un nouveau mot de passe avec une clé de récupération. Nous vous recommandons de créer des clés de récupération à l\'avance.',
+    'Set Password' => 'Définir un mot de passe',
+    'Set Your Password' => 'Définir votre mot de passe',
+    'Verify with your passkey and disable password' => 'Vérifier avec votre clé d\'accès et désactiver le mot de passe',
+    'You can set a password again from your profile page after verifying with your passkey.' => 'Vous pourrez de nouveau définir un mot de passe depuis votre page de profil après vérification avec votre clé d\'accès.',
+    'Your password is currently disabled. You can set a new password after verifying with your passkey.' => 'Votre mot de passe est actuellement désactivé. Vous pouvez définir un nouveau mot de passe après vérification avec votre clé d\'accès.',
     'between {down} and {up} {name}' => 'entre {down} et {up} {name}',
     'Bin Width' => 'Largeur du bac',
     'Black out' => 'Assombrir/retirer',
