@@ -109,7 +109,7 @@ final class ResetPasswordRecoveryKeyForm extends Model
             $isValid = Password::verify($secret, $key->secret_hash);
         } else {
             // Mitigate timing attacks by always running the slow verify
-            Password::verify($secret, self::dummyHash());
+            Password::verify($secret, Password::dummyHash());
         }
 
         if (!$isValid) {
@@ -208,11 +208,5 @@ final class ResetPasswordRecoveryKeyForm extends Model
                 $this->getAttributeLabel('recovery_key'),
             ]),
         );
-    }
-
-    private static function dummyHash(): string
-    {
-        static $hash = null;
-        return $hash ??= Password::hash('dummy-recovery-key-for-timing-equalization');
     }
 }
