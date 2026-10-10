@@ -99,7 +99,7 @@ if ($estimatedDistrib && $abstract && $chartMax > 0) {
     'borderColor' => [ new JsExpression('window.colorScheme.moving1') ],
     'borderWidth' => 2,
     'data' => $makeDistributionData($estimatedDistrib),
-    'label' => Yii::t('app', 'Overall Estimates'),
+    'label' => Yii::t('app-entire', 'Overall Estimates'),
     'pointRadius' => 0,
     'type' => 'line',
   ];
@@ -113,7 +113,7 @@ if (!$datasetEstimatedDistrib && $ruleOfThumbDistrib && $abstract && $chartMax >
     'borderWidth' => 2,
     'borderDash' => [5, 5],
     'data' => $makeDistributionData($ruleOfThumbDistrib),
-    'label' => Yii::t('app', 'Empirical Estimates'),
+    'label' => Yii::t('app-entire', 'Empirical Estimates'),
     'pointRadius' => 0,
     'type' => 'line',
   ];
@@ -125,16 +125,14 @@ if (!$datasetEstimatedDistrib && $ruleOfThumbDistrib && $abstract && $chartMax >
   'data' => [
     'chart' => [
       'data' => [
-        'datasets' => array_values(
-          array_filter(
-            [
-              $datasetRuleOfThumbDistrib,
-              $datasetEstimatedDistrib,
-              $datasetNormalDistrib,
-              $datasetHistogram,
-            ],
-          ),
-        ),
+        'datasets' => [
+          $datasetRuleOfThumbDistrib,
+          $datasetEstimatedDistrib,
+          $datasetNormalDistrib,
+          $datasetHistogram,
+        ]
+          |> array_filter(...)
+          |> array_values(...),
       ],
       'options' => [
         'animation' => ['duration' => 0],
@@ -181,10 +179,10 @@ if (!$datasetEstimatedDistrib && $ruleOfThumbDistrib && $abstract && $chartMax >
 <?php if ($estimatedDistrib && $datasetEstimatedDistrib) { ?>
 <p class="mt-0 mb-3 text-muted small">
   <?= vsprintf('%s: %s %s', [
-    Html::encode(Yii::t('app', 'Overall Estimates')),
+    Html::encode(Yii::t('app-entire', 'Overall Estimates')),
     implode(' ', [
-      Html::encode(Yii::t('app', 'The estimated distribution of the overall game, as estimated from the official results.')),
-      Html::encode(Yii::t('app', 'Just scaled for easy contrast, the Y-axis value does not directly indicate the number of people.')),
+      Html::encode(Yii::t('app-entire', 'The estimated distribution of the overall game, as estimated from the official results.')),
+      Html::encode(Yii::t('app-entire', 'Just scaled for easy contrast, the Y-axis value does not directly indicate the number of people.')),
     ]),
     sprintf('(μ=%.2f, σ=%.2f)', $estimatedDistrib->mean(), sqrt($estimatedDistrib->variance()))
   ]) . "\n" ?>
@@ -193,12 +191,12 @@ if (!$datasetEstimatedDistrib && $ruleOfThumbDistrib && $abstract && $chartMax >
 <?php if ($ruleOfThumbDistrib && $datasetRuleOfThumbDistrib) { ?>
 <p class="mt-0 mb-3 text-muted small">
   <?= vsprintf('%s: %s %s', [
-    Html::encode(Yii::t('app', 'Empirical Estimates')),
+    Html::encode(Yii::t('app-entire', 'Empirical Estimates')),
     implode(' ', [
-      Html::encode(Yii::t('app', 'This is a wild guess based on past results and {siteName} posts.', ['siteName' => Yii::$app->name])),
-      Html::encode(Yii::t('app', 'Just scaled for easy contrast, the Y-axis value does not directly indicate the number of people.')),
-      Html::encode(Yii::t('app', 'The data contains a large error margins.')),
-      Html::tag('b', Html::encode(Yii::t('app', 'This data is basically not informative.'))),
+      Html::encode(Yii::t('app-entire', 'This is a wild guess based on past results and {siteName} posts.', ['siteName' => Yii::$app->name])),
+      Html::encode(Yii::t('app-entire', 'Just scaled for easy contrast, the Y-axis value does not directly indicate the number of people.')),
+      Html::encode(Yii::t('app-entire', 'The data contains a large error margins.')),
+      Html::tag('b', Html::encode(Yii::t('app-entire', 'This data is basically not informative.'))),
     ]),
     sprintf('(μ=%.2f, σ=%.2f)', $ruleOfThumbDistrib->mean(), sqrt($ruleOfThumbDistrib->variance()))
   ]) . "\n" ?>

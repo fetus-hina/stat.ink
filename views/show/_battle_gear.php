@@ -32,7 +32,7 @@ $gears = [$headgear, $clothing, $shoes];
   <tbody>
 <?php if ($headgear->gear_id || $clothing->gear_id || $shoes->gear_id): ?>
     <tr>
-      <th><?= Html::encode(Yii::t('app', 'Gear')) ?></th>
+      <th><?= Html::encode(Yii::t('app-battle', 'Gear')) ?></th>
 <?php foreach ($gears as $gear): ?>
       <td><?= Html::encode($gear->gear_id ? Yii::t('app-gear', $gear->gear->name) : '?') ?></td>
 <?php endforeach ?>
@@ -47,7 +47,7 @@ $gears = [$headgear, $clothing, $shoes];
 <?php foreach (range(0, 2) as $i): ?>
     <tr>
 <?php if ($i === 0): ?>
-      <th rowspan="3"><?= Html::encode(Yii::t('app', 'Secondary Abilities')) ?></th>
+      <th rowspan="3"><?= Html::encode(Yii::t('app-battle', 'Secondary Abilities')) ?></th>
 <?php endif ?>
 <?php foreach ($gears as $gear): ?>
       <td><?=
@@ -64,5 +64,5 @@ $gears = [$headgear, $clothing, $shoes];
   </tbody>
 </table>
 <p class="text-right">
-  <a href="#effect"><?= Html::encode(Yii::t('app', 'Ability Effect')) ?></a>
+  <a href="#effect"><?= Html::encode(Yii::t('app-show', 'Ability Effect')) ?></a>
 </p>

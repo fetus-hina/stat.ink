@@ -13,11 +13,11 @@ use app\models\Battle3;
 $f = Yii::$app->formatter;
 
 return [
-  '-label' => Yii::t('app', 'Power (After)'),
+  '-label' => Yii::t('app-show-v3', 'Power (After)'),
   'contentOptions' => ['class' => 'cell-fest-power text-right nobr'],
   'format' => 'raw',
   'headerOptions' => ['class' => 'cell-fest-power'],
-  'label' => Yii::t('app', 'Power'),
+  'label' => Yii::t('app-show-v3', 'Power'),
   'value' => fn (Battle3 $model): ?string => match (true) {
     $model->fest_power !== null && $model->fest_power >= 0.1 => vsprintf('%s %s', [
       Icon::s3LobbySplatfest(),
@@ -28,7 +28,7 @@ return [
       $f->asDecimal((float)$model->bankara_power_after, 1),
     ]),
     $model->series_weapon_power_after !== null && $model->series_weapon_power_after >= 0.1 => vsprintf('%s %s', [
-      Icon::s3Weapon($model?->weapon, alt: Yii::t('app', 'Series Weapon Power')),
+      Icon::s3Weapon($model?->weapon, alt: Yii::t('app-show-v3', 'Series Weapon Power')),
       $f->asDecimal((float)$model->series_weapon_power_after, 1),
     ]),
     $model->event_power !== null && $model->event_power >= 0.1 => vsprintf('%s %s', [

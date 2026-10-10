@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2024-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2024-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -11,6 +11,6 @@ return [
     'Any Version' => 'Qualquer versão',
     'Initial Release' => 'Versão inicial',
     'Prerelease' => 'Pré-lançamento',
-    'Splatfest World Premiere' => '',
-    'Testfire' => '',
+    'Splatfest World Premiere' => 'Pré-estreia Mundial da Splatfest',
+    'Testfire' => 'Teste de Tiro',
 ];

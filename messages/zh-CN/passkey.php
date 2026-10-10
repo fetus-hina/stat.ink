@@ -13,6 +13,8 @@ return [
     'Back' => '返回',
     'Created At' => '注册时间',
     'Delete' => '删除',
+    'Failed to verify with your passkey.' => '通行密钥验证失败。',
+    'You cannot delete your last passkey while your password is disabled.' => '密码禁用期间，无法删除最后一个通行密钥。',
     'e.g., "iPhone Face ID"' => '例如:"iPhone Face ID"',
     'Failed to log in with passkey.' => '使用通行密钥登录失败。',
     'Failed to register passkey.' => '通行密钥注册失败。',

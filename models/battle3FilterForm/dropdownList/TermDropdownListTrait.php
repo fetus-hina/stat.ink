@@ -36,17 +36,17 @@ trait TermDropdownListTrait
     private function getPeriodDropdown(): array
     {
         return [
-            'this-period' => Yii::t('app', 'Current Period'),
-            'last-period' => Yii::t('app', 'Previous Period'),
+            'this-period' => Yii::t('app-filter', 'Current Period'),
+            'last-period' => Yii::t('app-filter', 'Previous Period'),
         ];
     }
 
     private function getDateDropdown(): array
     {
         return [
-            '24h' => Yii::t('app', 'Last 24 Hours'),
-            'today' => Yii::t('app', 'Today'),
-            'yesterday' => Yii::t('app', 'Yesterday'),
+            '24h' => Yii::t('app-filter', 'Last 24 Hours'),
+            'today' => Yii::t('app-filter', 'Today'),
+            'yesterday' => Yii::t('app-filter', 'Yesterday'),
         ];
     }
 
@@ -64,7 +64,7 @@ trait TermDropdownListTrait
     private function getSpecifyDropdown(): array
     {
         return [
-            'term' => Yii::t('app', 'Specify Period'),
+            'term' => Yii::t('app-filter', 'Specify Period'),
         ];
     }
 }

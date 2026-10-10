@@ -23,12 +23,12 @@ final class RenameScreenNameForm extends Model
             [['screen_name'], 'string', 'max' => 15],
             [['screen_name'], 'match',
                 'pattern' => '/^[a-zA-Z0-9_]{1,15}$/',
-                'message' => Yii::t('app', '{attribute} must be at most 15 alphanumeric or underscore characters.'),
+                'message' => Yii::t('app-user', '{attribute} must be at most 15 alphanumeric or underscore characters.'),
             ],
             [['screen_name'], 'compare',
                 'compareValue' => Yii::$app->user->identity?->screen_name,
                 'operator' => '!==',
-                'message' => Yii::t('app', 'You cannot use the same {attribute} as your current one.', [
+                'message' => Yii::t('app-user', 'You cannot use the same {attribute} as your current one.', [
                     'attribute' => Yii::t('app', 'Screen Name'),
                 ]),
             ],
@@ -36,7 +36,7 @@ final class RenameScreenNameForm extends Model
                 'skipOnError' => true,
                 'targetClass' => User::class,
                 'targetAttribute' => ['screen_name'],
-                'message' => Yii::t('app', 'This {attribute} is already in use.'),
+                'message' => Yii::t('app-user', 'This {attribute} is already in use.'),
             ],
         ];
     }
@@ -47,7 +47,7 @@ final class RenameScreenNameForm extends Model
     public function attributeLabels()
     {
         return [
-            'screen_name' => Yii::t('app', 'New Screen Name (Login Name)'),
+            'screen_name' => Yii::t('app-user', 'New Screen Name (Login Name)'),
         ];
     }
 }

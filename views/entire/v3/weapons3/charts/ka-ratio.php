@@ -25,5 +25,5 @@ echo $this->render('includes/chart', [
       ? ($model->avg_kill + $model->avg_assist) / $model->avg_death
       : null;
   },
-  'xLabel' => Yii::t('app', 'K+A/D'),
+  'xLabel' => Yii::t('app-entire', 'K+A/D'),
 ]);

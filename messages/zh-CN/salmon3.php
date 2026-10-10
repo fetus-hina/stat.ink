@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2022-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2022-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -11,7 +11,7 @@ return [
     'Appearances' => '出现次数',
     'Appeared' => '出现',
     'Average Defeated' => '平均击倒数',
-    'BIG Big Run' => '大大型跑',
+    'BIG Big Run' => '超级大型跑',
     'Big Run' => '大型跑',
     'Boss' => '巨大鲑鱼',
     'Bosses defeated' => '已击倒的巨大鲑鱼',
@@ -23,11 +23,13 @@ return [
     'Defeated' => '击倒',
     'Defeated (others)' => '队友击倒',
     'Defeated by {user}' => '{user}击倒',
+    'Delete This Job' => '删除这场打工',
     'Eggs' => '鲑鱼卵数',
     'Eggstra Work' => '团队打工竞赛',
     'For a more accurate occurrence rate, see {link}.' => '更准确的发生率请参见{link}',
     'For a more accurate weapon loan rate, see {link}.' => '更准确的武器发放率请参见{link}',
     'High Score' => '最高分数',
+    'It looks this data is corrupt.' => '数据似乎已损坏。',
     'It would appear at {percent} if all four were {smell}.' => '四人都是{smell}时出现率为{percent}',
     'Job Points' => '获得点数',
     'Job Scenario' => '打工剧本',
@@ -39,8 +41,10 @@ return [
     'King Salmonids' => '头目鲑鱼',
     'Known Occurrence' => '特殊状况',
     'Loan %' => '发放率',
+    'Max.' => '最大',
     'Max. Hazard Level (cleared)' => '通关的最高危险度',
     'MAX Hazard Level Cleared' => '已通关危险度MAX',
+    'Mode{translate_hint_stats}' => '众数{translate_hint_stats}',
     'Normal Job' => '平时的打工',
     'Normal Waves' => '普通WAVE',
     'Not Defeated' => '没有击倒',
@@ -76,4 +80,5 @@ return [
     'XTRAWAVE' => 'EX-WAVE',
     '{name}\'s Salmon Stats' => '{name}的打工统计',
     '{name}\'s Salmon Stats (Bosses)' => '{name}的打工统计（巨大鲑鱼）',
+    '×{times}' => '×{times}',
 ];

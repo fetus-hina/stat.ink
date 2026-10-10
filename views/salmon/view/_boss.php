@@ -45,14 +45,14 @@ $playerKillCount = function (SalmonPlayer2 $player, SalmonBossAppearance2 $bossI
     if ($bossKill->boss_id == $bossInfo->boss_id) {
       return $format
         ? Html::encode(
-          Yii::t('app', '{number, plural, =1{1 kill} other{# kills}}', ['number' => $bossKill->count])
+          Yii::t('app-salmon2', '{number, plural, =1{1 kill} other{# kills}}', ['number' => $bossKill->count])
         )
         : (string)(int)$bossKill->count;
     }
   }
   return $format
     ? Html::encode(
-      Yii::t('app', '{number, plural, =1{1 kill} other{# kills}}', ['number' => 0])
+      Yii::t('app-salmon2', '{number, plural, =1{1 kill} other{# kills}}', ['number' => 0])
     )
     : '0';
 };

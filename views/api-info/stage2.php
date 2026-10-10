@@ -23,7 +23,7 @@ use yii\web\View;
 TableResponsiveForceAsset::register($this);
 
 $this->context->layout = 'main';
-$this->title = Yii::t('app', 'API Info: Stages (Splatoon 2)');
+$this->title = Yii::t('app-api-info', 'API Info: Stages (Splatoon 2)');
 
 $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);
 $this->registerMetaTag(['name' => 'twitter:title', 'content' => $this->title]);
@@ -44,7 +44,7 @@ $fmt = Yii::$app->formatter;
     <?= Html::a(
       implode(' ', [
         Icon::apiJson(),
-        Html::encode(Yii::t('app', 'JSON format')),
+        Html::encode(Yii::t('app-api-info', 'JSON format')),
       ]),
       ['api-v2/stage'],
       ['class' => 'label label-default']
@@ -61,9 +61,9 @@ $fmt = Yii::$app->formatter;
           ]) . "\n" ?>
 <?php if ($i === 0): ?>
           <th data-sort="string"><code>key</code></th>
-          <th data-sort="int"><?= Html::encode(Yii::t('app', 'SplatNet 2')) ?></th>
+          <th data-sort="int"><?= Html::encode(Yii::t('app-api-info', 'SplatNet 2')) ?></th>
           <th data-sort="int"><?= Html::encode(Yii::t('app', 'Area')) ?></th>
-          <th data-sort="int"><?= Html::encode(Yii::t('app', 'Released')) ?></th>
+          <th data-sort="int"><?= Html::encode(Yii::t('app-api-info', 'Released')) ?></th>
 <?php endif ?>
 <?php endforeach ?>
         </tr>

@@ -105,7 +105,7 @@ final class BattlePrevNext extends Widget
     {
         switch ($model::class) {
             case Battle3::class:
-                return Html::encode(Yii::t('app', 'Next Battle'));
+                return Html::encode(Yii::t('app-battle', 'Next Battle'));
 
             case Salmon3::class:
                 return Html::encode(Yii::t('app-salmon2', 'Next Job'));
@@ -122,7 +122,7 @@ final class BattlePrevNext extends Widget
     {
         switch ($model::class) {
             case Battle3::class:
-                return Html::encode(Yii::t('app', 'Prev. Battle'));
+                return Html::encode(Yii::t('app-battle', 'Prev. Battle'));
 
             case Salmon3::class:
                 return Html::encode(Yii::t('app-salmon2', 'Prev. Job'));

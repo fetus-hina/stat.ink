@@ -42,7 +42,7 @@ final class SlackAddForm extends Model
 
     public function rules()
     {
-        $discordError = Yii::t('app', 'Make empty this field when you are using Discord.');
+        $discordError = Yii::t('app-user', 'Make empty this field when you are using Discord.');
 
         return [
             [['webhook_url', 'language_id'], 'required'],
@@ -96,8 +96,8 @@ final class SlackAddForm extends Model
     public function attributeLabels()
     {
         return [
-            'webhook_url' => Yii::t('app', 'Webhook URL'),
-            'username' => Yii::t('app', 'User Name'),
+            'webhook_url' => Yii::t('app-user', 'Webhook URL'),
+            'username' => Yii::t('app-user', 'User Name'),
             'icon' => Yii::t('app', 'Icon'),
             'channel' => Yii::t('app', 'Channel'),
             'language_id' => Yii::t('app', 'Language'),

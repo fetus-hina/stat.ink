@@ -41,6 +41,13 @@ final class I18nController extends Controller
     use i18n\GearNameTrait;
     use i18n\WeaponShortNameTrait;
 
+    public function actions()
+    {
+        return [
+            'check-keys' => i18n\CheckKeysAction::class,
+        ];
+    }
+
     public function init()
     {
         parent::init();

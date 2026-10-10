@@ -82,9 +82,9 @@ class SplapiController extends Controller
         $json = array_filter(
             array_map(
                 function ($item) {
-                    $item->period = Battle::calcPeriod(
-                        strtotime($item->start),
-                    );
+                    $item->period = $item->start
+                        |> strtotime(...)
+                        |> Battle::calcPeriod(...);
                     return $item;
                 },
                 $this->queryJson(
@@ -141,9 +141,9 @@ class SplapiController extends Controller
         $json = array_filter(
             array_map(
                 function ($item) {
-                    $item->period = Battle::calcPeriod(
-                        strtotime($item->start),
-                    );
+                    $item->period = $item->start
+                        |> strtotime(...)
+                        |> Battle::calcPeriod(...);
                     return $item;
                 },
                 $this->queryJson(

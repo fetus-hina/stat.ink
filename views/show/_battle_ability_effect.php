@@ -30,7 +30,7 @@ $percent = function ($value, $number = 1) use ($f) : string {
   return $f->asPercent($value, 1);
 };
 ?>
-<h2 id="effect"><?= Html::encode(Yii::t('app', 'Ability Effect')) ?></h2>
+<h2 id="effect"><?= Html::encode(Yii::t('app-show', 'Ability Effect')) ?></h2>
 <?= DetailView::widget([
   'model' => $effects,
   'template' => function ($attribute, $index, $widget) : string {
@@ -74,7 +74,7 @@ $percent = function ($value, $number = 1) use ($f) : string {
         if ($sec === null) {
           return '';
         }
-        return Yii::t('app', '{sec} seconds ({pct} %)', [
+        return Yii::t('app-show', '{sec} seconds ({pct} %)', [
           'sec' => $f->asDecimal($sec, 2),
           'pct' => $f->asDecimal(300 / $sec, 1),
         ]);
@@ -126,10 +126,10 @@ $percent = function ($value, $number = 1) use ($f) : string {
         $weapon = $battle->weapon;
         return implode(' ', array_filter([
           ($value2 === null)
-            ? Yii::t('app', '{sec} seconds', [
+            ? Yii::t('app-show', '{sec} seconds', [
               'sec' => $f->asDecimal($value, 2),
             ])
-            : Yii::t('app', '{sec} seconds, {cnt} times', [
+            : Yii::t('app-show', '{sec} seconds, {cnt} times', [
               'sec' => $f->asDecimal($value, 2),
               'cnt' => $f->asInteger($value2),
             ]),
@@ -149,7 +149,7 @@ $percent = function ($value, $number = 1) use ($f) : string {
 
         $weapon = $battle->weapon;
         return implode(' ', array_filter([
-          Yii::t('app', '{pct} % loss', [
+          Yii::t('app-show', '{pct} % loss', [
             'pct' => $f->asDecimal($value * 100, 1),
           ]),
           $weapon
@@ -161,7 +161,7 @@ $percent = function ($value, $number = 1) use ($f) : string {
     [
       'label' => Yii::t('app-gearstat', 'Respawn'),
       'value' => $effects->respawnSec !== null
-        ? Yii::t('app', '{sec} seconds', ['sec' => $f->asDecimal($effects->respawnSec, 2)])
+        ? Yii::t('app-show', '{sec} seconds', ['sec' => $f->asDecimal($effects->respawnSec, 2)])
         : '',
     ],
     [
@@ -176,7 +176,7 @@ $percent = function ($value, $number = 1) use ($f) : string {
         $_ = function (float $sec, ?string $label) use ($f) : string {
           return Html::tag(
             'span',
-            Html::encode(Yii::t('app', '{sec} seconds', ['sec' => $f->asDecimal($sec, 2)])),
+            Html::encode(Yii::t('app-show', '{sec} seconds', ['sec' => $f->asDecimal($sec, 2)])),
             $label !== null
               ? ['class' => 'auto-tooltip', 'title' => $label]
               : []

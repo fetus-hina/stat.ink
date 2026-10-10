@@ -53,14 +53,14 @@ $fmtEggs = fn (int|float|null $value, bool $estimated = false): string => $value
     <?= GridView::widget([
       'dataProvider' => Yii::createObject([
         'class' => ArrayDataProvider::class,
-        'allModels' => array_values(
-          array_filter([
-            $border,
-            $model,
-            $official,
-            $ruleOfThumbDistrib,
-          ]),
-        ),
+        'allModels' => [
+          $border,
+          $model,
+          $official,
+          $ruleOfThumbDistrib,
+        ]
+          |> array_filter(...)
+          |> array_values(...),
         'pagination' => false,
         'sort' => false,
       ]),
@@ -74,7 +74,7 @@ $fmtEggs = fn (int|float|null $value, bool $estimated = false): string => $value
             BigrunOfficialBorder3::class => Yii::t('app-salmon3', 'Official Thresholds'),
             BigrunOfficialResult3::class => Yii::t('app', 'Official Results'),
             EggstraWorkOfficialResult3::class => Yii::t('app', 'Official Results'),
-            NormalDistribution::class => Yii::t('app', 'Empirical Estimates'),
+            NormalDistribution::class => Yii::t('app-entire', 'Empirical Estimates'),
             StatBigrunDistribUserAbstract3::class => Yii::$app->name,
             StatEggstraWorkDistribUserAbstract3::class => Yii::$app->name,
             default => throw new LogicException(),

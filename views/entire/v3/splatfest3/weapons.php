@@ -27,14 +27,14 @@ if (!$weaponsChallenge && !$weaponsOpen) {
 ?>
 <div class="panel panel-default mb-3">
   <div class="panel-heading">
-    <?= Html::encode(Yii::t('app', 'Weapon Stats')) . "\n" ?>
+    <?= Html::encode(Yii::t('app-entire', 'Weapon Stats')) . "\n" ?>
   </div>
   <div class="panel-body pb-0">
     <div class="mb-3">
       <p class="mb-1">
         <?= Html::encode(
-          Yii::t('app', 'Aggregated: {rules}', [
-            'rules' => Yii::t('app', '7 players for each battle (excluded the battle uploader)'),
+          Yii::t('app-entire', 'Aggregated: {rules}', [
+            'rules' => Yii::t('app-entire', '7 players for each battle (excluded the battle uploader)'),
           ]),
         ) . "\n" ?>
       </p>
@@ -47,7 +47,7 @@ if (!$weaponsChallenge && !$weaponsOpen) {
               'active' => true,
               'label' => implode(' - ', [
                 Yii::t('app-lobby3', 'Splatfest (Pro)'),
-                Yii::t('app', 'Detailed'),
+                Yii::t('app-entire', 'Detailed'),
               ]),
               'content' => $weaponsChallenge
                 ? $this->render('weapons/table', [
@@ -69,7 +69,7 @@ if (!$weaponsChallenge && !$weaponsOpen) {
               'active' => !$weaponsChallenge,
               'label' => implode(' - ', [
                 Yii::t('app-lobby3', 'Splatfest (Open)'),
-                Yii::t('app', 'Detailed'),
+                Yii::t('app-entire', 'Detailed'),
               ]),
               'content' => $weaponsOpen
                 ? $this->render('weapons/table', [

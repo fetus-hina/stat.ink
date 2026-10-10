@@ -52,8 +52,29 @@ final class PasskeyDeleteAction extends BaseAction
             return ['result' => false];
         }
 
+        if (
+            !$ident->hasPassword() &&
+            (int)$ident->getUserPasskeys()->count() <= 1
+        ) {
+            return [
+                'result' => false,
+                'error' => 'last_passkey',
+                'message' => Yii::t(
+                    'app-passkey',
+                    'You cannot delete your last passkey while your password is disabled.',
+                ),
+            ];
+        }
+
         $nickname = (string)$model->nickname;
-        $deleted = (bool)$model->delete();
+        try {
+            $deleted = (bool)$model->delete();
+        } catch (Throwable $e) {
+            // The database rejects deleting the last passkey of a user who has
+            // no password (e.g., concurrent deletion)
+            Yii::error($e, __METHOD__);
+            return ['result' => false];
+        }
         if ($deleted) {
             $this->sendEmail($ident, $nickname);
         }

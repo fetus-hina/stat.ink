@@ -90,7 +90,7 @@ if ($battle &&
   <p class="old-ikalog">
     <?= Html::encode(
       Yii::t(
-        'app',
+        'app-show',
         'These battles were recorded with an outdated version of IkaLog. Please upgrade to the latest version.'
       )
     ) . "\n" ?>
@@ -110,7 +110,7 @@ if ($battle &&
       '%s [ %s ]',
       $title,
       Yii::t(
-        'app',
+        'app-battle',
         'Battles:{0} / Win %:{1} / Avg Kills:{2} / Avg Deaths:{3} / Kill Ratio:{4}',
         [
           $f->asInteger($summary->battle_count),

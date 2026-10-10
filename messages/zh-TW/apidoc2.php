@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2020-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2020-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -59,6 +59,7 @@ return [
     'Filter unposted shifts and post to us.' => '根據未上傳的打工過濾並上傳',
     'Found same data' => '發現相同資料',
     'Gear category' => '裝備類別',
+    'Gear information' => '裝備資訊',
     'Gender' => '性別',
     'Gender information' => '性別資訊',
     'Generate a UUID version 3 or 5 on your side with your own namespace' => '使用你自己的命名空間來自行生成UUID 第三版或第五版',
@@ -77,6 +78,7 @@ return [
     'Get weapons' => '獲得武器',
     'Get weapons in CSV format' => '獲得武器(CSV格式)',
     'Golden Egg appearances' => '金鮭魚卵出現次數',
+    'Golden Egg delivered' => '金鮭魚卵送回數量',
     'Golden Eggs collected' => '金鮭魚卵收集數量',
     'Golden Eggs delivered' => '金鮭魚卵送回數量',
     'Hazard Level, 200.0 = "Hazard Level MAX!!"' => '危險係數，200.0 = 最危險！',
@@ -138,9 +140,11 @@ return [
     'Player\'s in-game name' => '玩家的遊戲暱稱',
     'Player name' => '玩家名字',
     'Player results' => '遊戲結果',
+    'Post the Salmon Run results' => '發佈Salmon Run結果',
     'Posted time' => '發佈時間',
     'Post Salmon Run results' => '發佈Salmon Run結果',
     'Post Salmon Run stats (card data)' => '發佈Salmon Run統計(卡片資料)',
+    'Power Egg collected' => '收集的鮭魚卵數',
     'Power Eggs collected' => '收集的鮭魚卵數',
     'Primary ability' => '主要技能',
     'Profile page URL' => '個人主頁',
@@ -165,8 +169,10 @@ return [
     'Returns specified user\'s stats (e.g., how many kills)' => '返回指定的玩家統計(比如擊殺數)。',
     'Returns the Salmon Run results.' => '返回Salmon Run結果',
     'Salmon Run fail reason' => 'Salmon Run失敗原因',
+    'Salmon Run results' => 'Salmon Run結果',
     'Salmon Run results page URL' => 'Salmon Run結果網址',
     'Salmon Run stats' => 'Salmon Run統計',
+    'Salmon Run stats (Grizzco Point Card)' => '鮭魚跑統計（熊先生商會積分卡）',
     'Salmon Run title (consider gender)' => 'Salmon Run稱號(考慮性別)',
     'Salmon Run title (doesn\'t consider gender)' => 'Salmon Run稱號(不考慮性別)',
     'Salmon Run title information' => 'Salmon Run稱號資訊',
@@ -186,6 +192,10 @@ return [
     'Stage information' => '場地資訊',
     'Standalone Application (e.g., user\'s input or screen capture)' => '獨立應用(比如使用者的輸入或螢幕擷取)',
     'Start time of this shift' => '打工開始時間',
+    'Weapon information' => '武器資訊',
+    'Wave information' => 'WAVE資訊',
+    'Unauthorized' => '未授權',
+    'User stats' => '用戶統計',
     'stat.ink API for Splatoon 2' => '針對Splatoon 2的stat.ink API',
     'Stat.ink user ID' => 'Stat.ink使用者ID',
     'Statistics for {rule}' => '針對{rule}的統計',

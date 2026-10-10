@@ -25,7 +25,7 @@ use yii\web\View;
 $this->context->layout = 'main';
 
 $title = Yii::t('app', 'Weapons');
-$subTitle = Yii::t('app', 'Compare Number Of Uses');
+$subTitle = Yii::t('app-entire', 'Compare Number Of Uses');
 $this->title = vsprintf('%s | %s - %s', [
     Yii::$app->name,
     $subTitle,
@@ -48,7 +48,7 @@ EntireWeaponsUseAsset::register($this);
   <?= AdWidget::widget() . "\n" ?>
   <?= SnsWidget::widget() . "\n" ?>
 
-  <h2><?= Html::encode(Yii::t('app', 'Compare Number Of Uses')) ?></h2>
+  <h2><?= Html::encode(Yii::t('app-entire', 'Compare Number Of Uses')) ?></h2>
   <div id="graph-trends-legends"></div>
   <?= Html::tag('div', '', [
     'id' => 'graph-trends',
@@ -64,7 +64,7 @@ EntireWeaponsUseAsset::register($this);
   ]) . "\n" ?>
   <p class="text-right"><?= Html::tag('label', implode(' ', [
     Html::checkbox('stack-trends', false, ['value' => '1', 'id' => 'stack-trends']),
-    Html::encode(Yii::t('app', 'Stack')),
+    Html::encode(Yii::t('app-entire', 'Stack')),
   ])) ?></p>
   <?php $_form = ActiveForm::begin(['method' => 'GET', 'id' => 'compare-form']); echo "\n" ?>
     <div class="form-group"><?= Html::submitButton(

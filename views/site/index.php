@@ -49,7 +49,7 @@ OgpHelper::default($this, Url::to(['site/index'], true));
         <?= Html::a(
           implode(' ', [
             Icon::userAdd(),
-            Html::encode(Yii::t('app', 'Join us')),
+            Html::encode(Yii::t('app-site', 'Join us')),
           ]),
           ['user/register'],
           ['class' => ['btn', 'btn-primary', 'btn-sm']],
@@ -105,12 +105,12 @@ OgpHelper::default($this, Url::to(['site/index'], true));
     [
       array_filter([
         Yii::$app->user->isGuest
-          ? Html::a(Html::encode(Yii::t('app', 'Join us')), ['user/register'])
-          : Html::a(Html::encode(Yii::t('app', 'Your Battles')), ['show-user/profile',
+          ? Html::a(Html::encode(Yii::t('app-site', 'Join us')), ['user/register'])
+          : Html::a(Html::encode(Yii::t('app-site', 'Your Battles')), ['show-user/profile',
             'screen_name' => Yii::$app->user->identity->screen_name,
           ]),
-        Html::a(Html::encode(Yii::t('app', 'Getting Started')), ['site/start']),
-        Html::a(Html::encode(Yii::t('app', 'FAQ')), ['site/faq']),
+        Html::a(Html::encode(Yii::t('app-site', 'Getting Started')), ['site/start']),
+        Html::a(Html::encode(Yii::t('app-site', 'FAQ')), ['site/faq']),
         is_string($discordInviteCode) && $discordInviteCode
           ? Html::a(
             implode(' ', [
@@ -122,43 +122,43 @@ OgpHelper::default($this, Url::to(['site/index'], true));
               'class' => 'auto-tooltip',
               'rel' => 'nofollow noopener',
               'target' => '_blank',
-              'title' => Yii::t('app', '{siteName} Discord Community', ['siteName' => Yii::$app->name]),
+              'title' => Yii::t('app-site', '{siteName} Discord Community', ['siteName' => Yii::$app->name]),
             ],
           )
           : null,
-        Html::a(Html::encode(Yii::t('app', 'Stats: User Activity')), ['entire/users']),
+        Html::a(Html::encode(Yii::t('app-site', 'Stats: User Activity')), ['entire/users']),
       ]),
       [
         Icon::splatoon3(),
-        Html::a(Html::encode(Yii::t('app', 'Weapon Stats')), ['entire/weapons3']),
+        Html::a(Html::encode(Yii::t('app-entire', 'Weapon Stats')), ['entire/weapons3']),
         Html::a(
-          Icon::s3AbilityInkSaverMain() . ' ' . Html::encode(Yii::t('app', 'Average Gear Abilities')),
+          Icon::s3AbilityInkSaverMain() . ' ' . Html::encode(Yii::t('app-entire', 'Average Gear Abilities')),
           ['entire/ability3'],
         ),
-        Html::a(Html::encode(Yii::t('app', 'K/D vs Win %')), ['entire/kd-win3']),
-        Html::a(Html::encode(Yii::t('app', 'Knockout Rate')), ['entire/knockout3']),
-        Html::a(Html::encode(Yii::t('app', 'Special Uses')), ['entire/special-use3']),
+        Html::a(Html::encode(Yii::t('app-site', 'K/D vs Win %')), ['entire/kd-win3']),
+        Html::a(Html::encode(Yii::t('app-entire', 'Knockout Rate')), ['entire/knockout3']),
+        Html::a(Html::encode(Yii::t('app-entire', 'Special Uses')), ['entire/special-use3']),
         Html::a(
           Icon::s3LobbyX() . ' ' . Html::encode(Yii::t('app', 'X Power')),
           ['entire/xpower-distrib3'],
         ),
         Html::a(
-          Icon::s3AbilityStealthJump() . ' ' . Html::encode(Yii::t('app', 'Stealth Jump Equipment Rate')),
+          Icon::s3AbilityStealthJump() . ' ' . Html::encode(Yii::t('app-entire', 'Stealth Jump Equipment Rate')),
           ['entire/stealth-jump3'],
         ),
-        Html::a(Html::encode(Yii::t('app', 'Ink Color')), ['entire/ink-color3']),
+        Html::a(Html::encode(Yii::t('app-entire', 'Ink Color')), ['entire/ink-color3']),
       ],
       [
         Icon::splatoon3() . ' ' . Icon::s3LobbyEvent(),
         Html::a(
-          Html::encode(Yii::t('app', 'Weapon Stats')),
+          Html::encode(Yii::t('app-entire', 'Weapon Stats')),
           ['entire/event3'],
         ),
       ],
       [
         Icon::splatoon3() . ' ' . Icon::s3LobbySplatfest(),
         Html::a(
-          Html::encode(Yii::t('app', 'Splatfest Stats')),
+          Html::encode(Yii::t('app-entire', 'Splatfest Stats')),
           ['entire/splatfest3'],
         ),
       ],
@@ -198,7 +198,7 @@ OgpHelper::default($this, Url::to(['site/index'], true));
       [
         Icon::stats(),
         Html::a(
-          Icon::splatoon2() . ' ' . Html::encode(Yii::t('app', 'Stats: FestPwr diff vs Win %')),
+          Icon::splatoon2() . ' ' . Html::encode(Yii::t('app-site', 'Stats: FestPwr diff vs Win %')),
           ['entire/festpower2'],
         ),
         Html::a(
@@ -206,7 +206,7 @@ OgpHelper::default($this, Url::to(['site/index'], true));
           ['entire/salmon-clear'],
         ),
         Html::a(
-          Icon::splatoon1() . ' ' . Html::encode(Yii::t('app', 'Stats: Stages')),
+          Icon::splatoon1() . ' ' . Html::encode(Yii::t('app-site', 'Stats: Stages')),
           ['stage/index'],
         ),
       ],
@@ -218,13 +218,13 @@ OgpHelper::default($this, Url::to(['site/index'], true));
             Icon::splatoon2(),
             Icon::splatoon1(),
             ' ',
-            Html::encode(Yii::t('app', 'Download Stats')),
+            Html::encode(Yii::t('app-site', 'Download Stats')),
           ]),
           ['download-stats/index'],
         ),
       ],
       [
-        Html::a(Html::encode(Yii::t('app', 'About support for color-blindness')), ['site/color']),
+        Html::a(Html::encode(Yii::t('app-site', 'About support for color-blindness')), ['site/color']),
         Html::a(
           Icon::splatoon1() . ' ' . Html::encode(Yii::t('app-privacy', 'About image sharing with the IkaLog team')),
           ['site/privacy'],

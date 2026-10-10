@@ -92,30 +92,28 @@ $dropdownDatePattern = DateTimeHelper::formatDH();
 
           return Html::tag(
             'option',
-            Html::encode(
+            implode(' ', [
+              $model->is_eggstra_work
+                ? sprintf('[%s]', Yii::t('app-salmon3', 'Eggstra Work'))
+                : '',
+              $model->big_map_id !== null || $model->is_random_map_big_run
+                ? sprintf('[%s]', Yii::t('app-salmon3', 'Big Run'))
+                : '',
+              $isRareOnly
+                ? sprintf('[%s]', Yii::t('app-salmon3', 'Rare Only'))
+                : '',
               trim(
-                implode(' ', [
-                  $model->is_eggstra_work
-                    ? sprintf('[%s]', Yii::t('app-salmon3', 'Eggstra Work'))
-                    : '',
-                  $model->big_map_id !== null || $model->is_random_map_big_run
-                    ? sprintf('[%s]', Yii::t('app-salmon3', 'Big Run'))
-                    : '',
-                  $isRareOnly
-                    ? sprintf('[%s]', Yii::t('app-salmon3', 'Rare Only'))
-                    : '',
-                  trim(
-                    Yii::t('app', '{from} - {to}', [
-                      'from' => Yii::$app->formatter->asDate(
-                        $model->start_at,
-                        'medium',
-                      ),
-                      'to' => '',
-                    ]),
+                Yii::t('app', '{from} - {to}', [
+                  'from' => Yii::$app->formatter->asDate(
+                    $model->start_at,
+                    'medium',
                   ),
+                  'to' => '',
                 ]),
               ),
-            ),
+            ])
+              |> trim(...)
+              |> Html::encode(...),
             [
               'selected' => $model->id === $schedule->id,
               'value' => Url::to(

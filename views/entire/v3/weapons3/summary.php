@@ -50,7 +50,7 @@ $error = ($winRate - 0.5) * 100;
       ? Html::tag(
         'p',
         Html::encode(
-          Yii::t('app', 'Aggregated: {rules}', [
+          Yii::t('app-entire', 'Aggregated: {rules}', [
             'rules' => implode(', ', [
               Yii::t('app-lobby3', 'Regular Battle'),
               Yii::t('app-lobby3', 'Splatfest (Pro)'),
@@ -63,8 +63,8 @@ $error = ($winRate - 0.5) * 100;
     Html::tag(
       'p',
       Html::encode(
-        Yii::t('app', 'Aggregated: {rules}', [
-          'rules' => Yii::t('app', '7 players for each battle (excluded the battle uploader)'),
+        Yii::t('app-entire', 'Aggregated: {rules}', [
+          'rules' => Yii::t('app-entire', '7 players for each battle (excluded the battle uploader)'),
         ]),
       ),
       ['class' => 'mb-1'],
@@ -74,15 +74,15 @@ $error = ($winRate - 0.5) * 100;
 <div class="mb-3">
   <p class="mb-1"><?=
     vsprintf('%s: %s', [
-      Html::encode(Yii::t('app', 'Samples')),
+      Html::encode(Yii::t('app-entire', 'Samples')),
       Html::encode($fmt->asInteger($totalSamples)),
     ])
   ?></p>
   <p class="mb-1"><?=
     vsprintf('%s %s', [
-      Html::encode(Yii::t('app', 'Systematic error of win %') . ':'),
+      Html::encode(Yii::t('app-entire', 'Systematic error of win %') . ':'),
       Html::encode(
-        Yii::t('app', '{pct_point} percentage point', [
+        Yii::t('app-entire', '{pct_point} percentage point', [
           'pct_point' => $fmt->asDecimal(
             $error,
             2,

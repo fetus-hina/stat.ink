@@ -33,14 +33,12 @@ trait Event
 
     protected static function event(array $nodes): array
     {
-        return array_values(
-            array_filter(
-                array_map(
-                    fn (array $schedule): ?array => self::processEventSchedule($schedule),
-                    $nodes,
-                ),
-            ),
-        );
+        return array_map(
+            fn (array $schedule): ?array => self::processEventSchedule($schedule),
+            $nodes,
+        )
+            |> array_filter(...)
+            |> array_values(...);
     }
 
     private static function processEventSchedule(array $schedule): ?array
@@ -64,11 +62,9 @@ trait Event
                 ),
                 'rule_id' => TypeHelper::int(
                     self::key2id(
-                        strtolower(
-                            TypeHelper::string(
-                                ArrayHelper::getValue($schedule, 'leagueMatchSetting.vsRule.rule'),
-                            ),
-                        ),
+                        ArrayHelper::getValue($schedule, 'leagueMatchSetting.vsRule.rule')
+                            |> TypeHelper::string(...)
+                            |> strtolower(...),
                         Rule3::class,
                         Rule3Alias::class,
                         'rule_id',

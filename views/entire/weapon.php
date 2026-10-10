@@ -22,7 +22,7 @@ use yii\helpers\Json;
 use yii\helpers\Url;
 
 $this->context->layout = 'main';
-$title = Yii::t('app', 'Weapon | {weapon} | {rule}', [
+$title = Yii::t('app-entire', 'Weapon | {weapon} | {rule}', [
   'weapon' => Yii::t('app-weapon', $weapon->name),
   'rule' => Yii::t('app-rule', $rule->name),
 ]);
@@ -99,7 +99,7 @@ EOF
     Html::encode(Yii::t('app-rule', $rule->name)),
     ['id' => $rule->key]
   ) . "\n" ?>
-  <h3><?= Html::encode(Yii::t('app', 'Use %')) ?></h3>
+  <h3><?= Html::encode(Yii::t('app-entire', 'Use %')) ?></h3>
   <p>
 <?php $_form = [
   'weapon1' => $weapon->key,
@@ -116,7 +116,7 @@ EOF
     <?= Html::a(
       implode(' ', [
         (string)FA::fas('exchange-alt')->fw(),
-        Html::encode(Yii::t('app', 'Compare number of uses')),
+        Html::encode(Yii::t('app-entire', 'Compare number of uses')),
       ]),
       ['entire/weapons-use', 'cmp' => $_form],
       ['class' => 'btn btn-default']
@@ -125,14 +125,14 @@ EOF
   <div class="graph stat-use-pct">
   </div>
 
-  <h3><?= Html::encode(Yii::t('app', 'Kills and Deaths')) ?></h3>
+  <h3><?= Html::encode(Yii::t('app-entire', 'Kills and Deaths')) ?></h3>
   <p><?= implode('<br>', [
     vsprintf('%s %s', [
-      Html::encode(Yii::t('app', 'Kills (average):')),
+      Html::encode(Yii::t('app-entire', 'Kills (average):')),
       Html::tag('span', '', ['class' => 'kd-summary', 'data-type' => 'kill-avg']),
     ]),
     vsprintf('%s %s', [
-      Html::encode(Yii::t('app', 'Deaths (average):')),
+      Html::encode(Yii::t('app-entire', 'Deaths (average):')),
       Html::tag('span', '', ['class' => 'kd-summary', 'data-type' => 'death-avg']),
     ]),
   ]) ?></p>
@@ -150,7 +150,7 @@ EOF
     ],
   ]) . "\n" ?>
 
-  <h3><?= Html::encode(Yii::t('app', 'Based on kills')) ?></h3>
+  <h3><?= Html::encode(Yii::t('app-entire', 'Based on kills')) ?></h3>
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-6 col-xl-6">
       <?= Html::tag('div', '', [
@@ -183,7 +183,7 @@ EOF
       ]) . "\n" ?>
     </div>
   </div>
-  <h3><?= Html::encode(Yii::t('app', 'Based on deaths')) ?></h3>
+  <h3><?= Html::encode(Yii::t('app-entire', 'Based on deaths')) ?></h3>
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-6 col-xl-6">
       <?= Html::tag('div', '', [
@@ -217,10 +217,10 @@ EOF
     </div>
   </div>
 
-  <h3><?= Html::encode(Yii::t('app', 'Winning Percentage based on K/D')) ?></h3>
+  <h3><?= Html::encode(Yii::t('app-entire', 'Winning Percentage based on K/D')) ?></h3>
   <p>
     <?= Html::a(
-      Html::encode(Yii::t('app', 'Winning Percentage based on K/D')),
+      Html::encode(Yii::t('app-entire', 'Winning Percentage based on K/D')),
       ['entire/kd-win',
         'filter' => ['weapon' => $weapon->key],
         '#' => $rule->key

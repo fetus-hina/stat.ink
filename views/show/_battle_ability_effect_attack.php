@@ -35,7 +35,7 @@ $f = Yii::$app->formatter;
   <thead>
     <tr>
       <th colspan="2" rowspan="2"><?= Html::encode(Yii::t('app-ability', 'Defense Up')) ?></th>
-      <th colspan="10"><?= Html::encode(Yii::t('app', 'Secondary Abilities')) ?></th>
+      <th colspan="10"><?= Html::encode(Yii::t('app-battle', 'Secondary Abilities')) ?></th>
     </tr>
     <tr>
       <th class="text-center">0</th>
@@ -95,7 +95,7 @@ $f = Yii::$app->formatter;
 <?php foreach (range(0, 9) as $defSub): ?>
     <tr>
 <?php if ($defSub === 0): ?>
-      <th scope="row" rowspan="10"><?= Html::encode(Yii::t('app', 'Secondary Abilities')) ?></th>
+      <th scope="row" rowspan="10"><?= Html::encode(Yii::t('app-battle', 'Secondary Abilities')) ?></th>
 <?php endif ?>
       <th scope="row" class="text-center"><?= Html::encode($f->asInteger($defSub)) ?></th>
 <?php foreach (range(0, 3) as $defMain): ?>

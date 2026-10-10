@@ -26,7 +26,7 @@ echo Html::tag(
   'p',
   Html::encode(
     vsprintf('%s: %s', [
-      Yii::t('app', 'Samples'),
+      Yii::t('app-entire', 'Samples'),
       Yii::$app->formatter->asInteger($totalBattles),
     ]),
   ),

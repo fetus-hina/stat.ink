@@ -26,7 +26,7 @@ use yii\web\View;
  */
 
 return [
-  'label' => Yii::t('app', 'Series Weapon Power'),
+  'label' => Yii::t('app-show-v3', 'Series Weapon Power'),
   'format' => 'raw',
   'value' => function (Battle3 $model): ?string {
     if ($model->series_weapon_power_before === null && $model->series_weapon_power_after === null) {
@@ -73,7 +73,7 @@ return [
     }
 
     // 古い順に並べかえる
-    $powerList = array_values(array_reverse($powerList));
+    $powerList = $powerList |> array_reverse(...) |> array_values(...);
 
     $id = 'series-power-chart';
 
@@ -85,7 +85,7 @@ return [
     $configJson = Json::encode([
       'data' => [
         'labels' => [
-          Yii::t('app', 'Series Weapon Power'),
+          Yii::t('app-show-v3', 'Series Weapon Power'),
         ],
         'datasets' => [
           [
@@ -93,7 +93,7 @@ return [
             'borderColor' => [ new JsExpression('window.colorScheme.graph1') ],
             'borderWidth' => 2,
             'fill' => false,
-            'label' => Yii::t('app', 'Series Weapon Power'),
+            'label' => Yii::t('app-show-v3', 'Series Weapon Power'),
             'pointRadius' => 0,
             'type' => 'line',
             'data' => array_map(

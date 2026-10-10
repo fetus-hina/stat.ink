@@ -13,6 +13,8 @@ return [
     'Back' => 'Zurück',
     'Created At' => 'Erstellt am',
     'Delete' => 'Löschen',
+    'Failed to verify with your passkey.' => 'Bestätigung mit deinem Passkey fehlgeschlagen.',
+    'You cannot delete your last passkey while your password is disabled.' => 'Du kannst deinen letzten Passkey nicht löschen, solange dein Passwort deaktiviert ist.',
     'e.g., "iPhone Face ID"' => 'z. B. „iPhone Face ID"',
     'Failed to log in with passkey.' => 'Anmeldung mit Passkey fehlgeschlagen.',
     'Failed to register passkey.' => 'Registrierung des Passkeys fehlgeschlagen.',

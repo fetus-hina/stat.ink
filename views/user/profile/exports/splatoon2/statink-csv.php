@@ -18,7 +18,7 @@ use yii\web\View;
 echo Html::a(
   implode(' ', [
     Icon::fileCsv(),
-    Html::encode(Yii::t('app', 'CSV')),
+    Html::encode(Yii::t('app-user', 'CSV')),
   ]),
   ['download2', 'type' => 'csv'],
   ['class' => 'btn btn-default btn-block text-left'],

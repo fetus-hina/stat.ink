@@ -8,7 +8,8 @@ use Codeception\Test\Unit;
 use app\components\helpers\XPowerNormalDistribution;
 
 use function array_column;
-use function count;
+use function array_first;
+use function array_last;
 use function max;
 
 class XPowerNormalDistributionTest extends Unit
@@ -28,8 +29,8 @@ class XPowerNormalDistributionTest extends Unit
         $this->assertNotEmpty($points);
 
         $xs = array_column($points, 'x');
-        $this->assertSame(1700, $xs[0]);
-        $this->assertSame(2400, $xs[count($xs) - 1]);
+        $this->assertSame(1700, array_first($xs));
+        $this->assertSame(2400, array_last($xs));
 
         // Step should be calcStep.
         $this->assertSame(10, $xs[1] - $xs[0]);

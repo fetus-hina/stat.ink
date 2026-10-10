@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2020-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2020-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -16,12 +16,15 @@ return [
     'Brand information' => '品牌資訊',
     'Category' => '類型',
     'Common ability' => '常見技能',
+    'Date and time' => '日期和時間',
     'Date and time expressed in ISO-8601 format' => '用ISO-8601格式表示的日期時間',
     'Date and time expressed in Unix Time' => '用Unix時間格式表示的日期時間',
     'Date and time when ready to play' => '開始玩的日期時間',
     'Death Reason' => '死亡原因',
     'Death reason category information' => '死亡原因類型',
+    'Death reason information' => '死因資訊',
     'Delete a battle' => '刪除對戰',
+    'Delete information' => '刪除資訊',
     'Deleted' => '已經刪除',
     'Deleted ID' => '已經刪除的ID',
     'Do more action but not to be deleted.' => '進行除刪除以外的更多操作',
@@ -55,6 +58,7 @@ return [
     'Internationalized short name' => '國際化的短名',
     'Japanese name' => '日本名字',
     'Lobby' => '大廳',
+    'Lobby Name' => '大廳名稱',
     'Lobby information' => '大廳資訊',
     'Mode' => '模式',
     'Mode information' => '模式資訊',

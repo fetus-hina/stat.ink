@@ -49,7 +49,7 @@ use const SORT_DESC;
  * @property integer $id
  * @property string $name
  * @property string $screen_name
- * @property string $password
+ * @property string|null $password
  * @property string $api_key
  * @property string $join_at
  * @property string $nnid
@@ -140,7 +140,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['name', 'screen_name', 'password', 'api_key', 'join_at'], 'required'],
+            [['name', 'screen_name', 'api_key', 'join_at'], 'required'],
             [['default_language_id', 'region_id', 'link_mode_id'], 'required'],
             [['join_at'], 'safe'],
             [['ikanakama', 'ikanakama2', 'env_id', 'default_language_id'], 'integer'],
@@ -206,26 +206,26 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             'id' => Yii::t('app', 'Internal ID'),
-            'name' => Yii::t('app', 'User Name'),
-            'screen_name' => Yii::t('app', 'Login Name'),
+            'name' => Yii::t('app-user', 'User Name'),
+            'screen_name' => Yii::t('app-user', 'Login Name'),
             'password' => Yii::t('app', 'Password'),
             'api_key' => Yii::t('app', 'API Token'),
-            'join_at' => Yii::t('app', 'Join At'),
+            'join_at' => Yii::t('app-user', 'Join At'),
             'nnid' => Yii::t('app', 'Nintendo Network ID'),
-            'sw_friend_code' => Yii::t('app', 'Friend Code (Switch)'),
-            'twitter' => Yii::t('app', 'Twitter @name'),
-            'ikanakama' => Yii::t('app', 'Ika-Nakama User ID'),
-            'ikanakama2' => Yii::t('app', 'Ika-Nakama User ID'),
-            'env_id' => Yii::t('app', 'Capture Environment'),
-            'blackout' => Yii::t('app', 'Black out other players from the result image'),
-            'blackout_list' => Yii::t('app', 'Black out other players on details view'),
-            'default_language_id' => Yii::t('app', 'Language (used for OStatus)'),
-            'region_id' => Yii::t('app', 'Region (used for Splatfest)'),
-            'link_mode_id' => Yii::t('app', 'Link from other user\'s results'),
+            'sw_friend_code' => Yii::t('app-user', 'Friend Code (Switch)'),
+            'twitter' => Yii::t('app-user', 'Twitter @name'),
+            'ikanakama' => Yii::t('app-user', 'Ika-Nakama User ID'),
+            'ikanakama2' => Yii::t('app-user', 'Ika-Nakama User ID'),
+            'env_id' => Yii::t('app-user', 'Capture Environment'),
+            'blackout' => Yii::t('app-user', 'Black out other players from the result image'),
+            'blackout_list' => Yii::t('app-user', 'Black out other players on details view'),
+            'default_language_id' => Yii::t('app-user', 'Language (used for OStatus)'),
+            'region_id' => Yii::t('app-user', 'Region (used for Splatfest)'),
+            'link_mode_id' => Yii::t('app-user', 'Link from other user\'s results'),
             'email' => Yii::t('app', 'Email'),
-            'email_lang_id' => Yii::t('app', 'Email Language'),
+            'email_lang_id' => Yii::t('app-user', 'Email Language'),
             'apikey_password_reset' => 'Apikey Password Reset',
-            'hide_data_on_toppage' => Yii::t('app', 'Hide your data on the top page'),
+            'hide_data_on_toppage' => Yii::t('app-user', 'Hide your data on the top page'),
         ];
     }
 
@@ -505,14 +505,26 @@ class User extends ActiveRecord implements IdentityInterface
         return $result;
     }
 
+    public function hasPassword(): bool
+    {
+        return $this->password !== null;
+    }
+
     public function validatePassword($password)
     {
-        return Password::verify($password, $this->password);
+        if ($this->password === null) {
+            // Spend the same time as a real verification, so as not to reveal
+            // that this user has no password
+            Password::verify((string)$password, Password::dummyHash());
+            return false;
+        }
+
+        return Password::verify((string)$password, $this->password);
     }
 
     public function rehashPasswordIfNeeded($password)
     {
-        if (!Password::needsRehash($this->password)) {
+        if ($this->password === null || !Password::needsRehash($this->password)) {
             return false;
         }
         $this->password = Password::hash($password);
@@ -543,6 +555,22 @@ class User extends ActiveRecord implements IdentityInterface
         );
 
         return true;
+    }
+
+    /**
+     * Forgets the password so that the user can sign in with passkeys only
+     *
+     * The database also enforces that the user still has at least one passkey
+     * when the transaction is committed.
+     */
+    public function disablePassword(): bool
+    {
+        if (!$this->getUserPasskeys()->exists()) {
+            return false;
+        }
+
+        $this->password = null;
+        return $this->save(false, ['password']);
     }
 
     public function toJsonArray()

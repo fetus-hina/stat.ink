@@ -12,6 +12,7 @@ namespace app\controllers;
 use app\actions\user\ClearLoginWithDiscordAction;
 use app\actions\user\ClearLoginWithGoogleAction;
 use app\actions\user\ClearLoginWithTwitterAction;
+use app\actions\user\DisablePasswordAction;
 use app\actions\user\Download2Action;
 use app\actions\user\Download3Action;
 use app\actions\user\DownloadAction;
@@ -32,6 +33,8 @@ use app\actions\user\PasskeyAction;
 use app\actions\user\PasskeyDeleteAction;
 use app\actions\user\PasskeyLoginFinishAction;
 use app\actions\user\PasskeyLoginStartAction;
+use app\actions\user\PasskeyReauthFinishAction;
+use app\actions\user\PasskeyReauthStartAction;
 use app\actions\user\PasskeyRegisterFinishAction;
 use app\actions\user\PasskeyRegisterStartAction;
 use app\actions\user\ProfileAction;
@@ -69,6 +72,7 @@ final class UserController extends Controller
                     'clear-login-with-discord',
                     'clear-login-with-google',
                     'clear-login-with-twitter',
+                    'disable-password',
                     'download',
                     'download2',
                     'download3',
@@ -86,6 +90,8 @@ final class UserController extends Controller
                     'logout',
                     'passkey',
                     'passkey-delete',
+                    'passkey-reauth-finish',
+                    'passkey-reauth-start',
                     'passkey-login-finish',
                     'passkey-login-start',
                     'passkey-register-finish',
@@ -127,6 +133,7 @@ final class UserController extends Controller
                             'clear-login-with-discord',
                             'clear-login-with-google',
                             'clear-login-with-twitter',
+                            'disable-password',
                             'download',
                             'download2',
                             'download3',
@@ -140,6 +147,8 @@ final class UserController extends Controller
                             'logout',
                             'passkey',
                             'passkey-delete',
+                            'passkey-reauth-finish',
+                            'passkey-reauth-start',
                             'passkey-register-finish',
                             'passkey-register-start',
                             'profile',
@@ -164,6 +173,7 @@ final class UserController extends Controller
                 'class' => VerbFilter::class,
                 'actions' => [
                     '*' => [ 'get' ],
+                    'disable-password' => [ 'get', 'post' ],
                     'edit-email' => [ 'get', 'post' ],
                     'edit-email-verify' => [ 'post' ],
                     'edit-icon' => [ 'get', 'post' ],
@@ -176,6 +186,8 @@ final class UserController extends Controller
                     'passkey-delete' => [ 'post' ],
                     'passkey-login-finish' => [ 'post' ],
                     'passkey-login-start' => [ 'post' ],
+                    'passkey-reauth-finish' => [ 'post' ],
+                    'passkey-reauth-start' => [ 'post' ],
                     'passkey-register-finish' => [ 'post' ],
                     'passkey-register-start' => [ 'post' ],
                     'recovery-key-create' => [ 'post' ],
@@ -200,6 +212,7 @@ final class UserController extends Controller
             'clear-login-with-discord' => ClearLoginWithDiscordAction::class,
             'clear-login-with-google' => ClearLoginWithGoogleAction::class,
             'clear-login-with-twitter' => ClearLoginWithTwitterAction::class,
+            'disable-password' => DisablePasswordAction::class,
             'download' => DownloadAction::class,
             'download-salmon' => DownloadSalmon2Action::class,
             'download2' => Download2Action::class,
@@ -222,6 +235,8 @@ final class UserController extends Controller
             'passkey-delete' => PasskeyDeleteAction::class,
             'passkey-login-finish' => PasskeyLoginFinishAction::class,
             'passkey-login-start' => PasskeyLoginStartAction::class,
+            'passkey-reauth-finish' => PasskeyReauthFinishAction::class,
+            'passkey-reauth-start' => PasskeyReauthStartAction::class,
             'passkey-register-finish' => PasskeyRegisterFinishAction::class,
             'passkey-register-start' => PasskeyRegisterStartAction::class,
             'profile' => ProfileAction::class,

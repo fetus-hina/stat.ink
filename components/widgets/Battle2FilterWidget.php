@@ -408,7 +408,7 @@ class Battle2FilterWidget extends Widget
     protected function drawResult(ActiveForm $form): string
     {
         $list = [
-            '' => Yii::t('app', 'Won / Lost'),
+            '' => Yii::t('app-filter', 'Won / Lost'),
             'win' => Yii::t('app', 'Won'),
             'lose' => Yii::t('app', 'Lost'),
         ];
@@ -418,9 +418,9 @@ class Battle2FilterWidget extends Widget
     protected function drawConnectivity(ActiveForm $form): string
     {
         $list = [
-            '' => Yii::t('app', 'Connectivity'),
-            'yes' => Yii::t('app', 'Has disconnected player'),
-            'no' => Yii::t('app', 'Hasn\'t disconnected player'),
+            '' => Yii::t('app-filter', 'Connectivity'),
+            'yes' => Yii::t('app-filter', 'Has disconnected player'),
+            'no' => Yii::t('app-filter', 'Hasn\'t disconnected player'),
         ];
         return (string)$form->field($this->filter, 'has_disconnect')
             ->dropDownList($list)
@@ -431,7 +431,7 @@ class Battle2FilterWidget extends Widget
     {
         return (string)$form->field($this->filter, 'filter')
             ->textInput([
-                'placeholder' => Yii::t('app', 'Filter Query'),
+                'placeholder' => Yii::t('app-filter', 'Filter Query'),
             ])
             ->label(false);
     }
@@ -444,7 +444,7 @@ class Battle2FilterWidget extends Widget
                     'good' => Yii::t('app', 'Good Guys'),
                     'bad' => Yii::t('app', 'Bad Guys'),
                 ],
-                ['prompt' => Yii::t('app', 'Target Player\'s Team')],
+                ['prompt' => Yii::t('app-filter', 'Target Player\'s Team')],
             )
             ->label(false);
     }
@@ -458,23 +458,23 @@ class Battle2FilterWidget extends Widget
     {
         $list = [
             '' => Yii::t('app', 'Any Time'),
-            'this-period' => Yii::t('app', 'Current Period'),
-            'last-period' => Yii::t('app', 'Previous Period'),
-            'last-2-periods' => Yii::t('app', 'Last {n} Periods', ['n' => 2]),
-            'last-3-periods' => Yii::t('app', 'Last {n} Periods', ['n' => 3]),
-            'last-4-periods' => Yii::t('app', 'Last {n} Periods', ['n' => 4]),
-            '24h' => Yii::t('app', 'Last 24 Hours'),
-            'today' => Yii::t('app', 'Today'),
-            'yesterday' => Yii::t('app', 'Yesterday'),
-            'this-month-utc' => Yii::t('app', 'This Month (UTC)'),
-            'last-month-utc' => Yii::t('app', 'Last Month (UTC)'),
+            'this-period' => Yii::t('app-filter', 'Current Period'),
+            'last-period' => Yii::t('app-filter', 'Previous Period'),
+            'last-2-periods' => Yii::t('app-filter', 'Last {n} Periods', ['n' => 2]),
+            'last-3-periods' => Yii::t('app-filter', 'Last {n} Periods', ['n' => 3]),
+            'last-4-periods' => Yii::t('app-filter', 'Last {n} Periods', ['n' => 4]),
+            '24h' => Yii::t('app-filter', 'Last 24 Hours'),
+            'today' => Yii::t('app-filter', 'Today'),
+            'yesterday' => Yii::t('app-filter', 'Yesterday'),
+            'this-month-utc' => Yii::t('app-filter', 'This Month (UTC)'),
+            'last-month-utc' => Yii::t('app-filter', 'Last Month (UTC)'),
             'last-10-battles' => Yii::t('app', 'Last {n} Battles', ['n' => 10]),
             'last-20-battles' => Yii::t('app', 'Last {n} Battles', ['n' => 20]),
             'last-50-battles' => Yii::t('app', 'Last {n} Battles', ['n' => 50]),
             'last-100-battles' => Yii::t('app', 'Last {n} Battles', ['n' => 100]),
             'last-200-battles' => Yii::t('app', 'Last {n} Battles', ['n' => 200]),
-            'this-fest' => Yii::t('app', 'Current/Last Splatfest'),
-            'term' => Yii::t('app', 'Specify Period'),
+            'this-fest' => Yii::t('app-filter', 'Current/Last Splatfest'),
+            'term' => Yii::t('app-filter', 'Specify Period'),
         ];
 
         $versions = (function (): array {
@@ -542,13 +542,13 @@ class Battle2FilterWidget extends Widget
             implode('', [
                 $form->field($this->filter, 'term_from', [
                     'inputTemplate' => Yii::t(
-                        'app',
+                        'app-filter',
                         '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>',
                     ),
                 ])->input('text', ['placeholder' => 'YYYY-MM-DD hh:mm:ss'])->label(false),
                 $form->field($this->filter, 'term_to', [
                     'inputTemplate' => Yii::t(
-                        'app',
+                        'app-filter',
                         '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>',
                     ),
                 ])->input('text', ['placeholder' => 'YYYY-MM-DD hh:mm:ss'])->label(false),

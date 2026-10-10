@@ -43,7 +43,7 @@ use yii\web\View;
  */
 
 $permLink = Url::to(['show-v3/stats-badge', 'screen_name' => $user->screen_name], true);
-$title = Yii::t('app', "{name}'s Badge Progress", [
+$title = Yii::t('app-show-v3', "{name}'s Badge Progress", [
   'name' => $user->name,
 ]);
 
@@ -69,7 +69,7 @@ if ($user->twitter != '') {
       <p class="mb-3 text-muted small">
 <?php if ($isEditing) { ?>
         <?= Html::encode(
-          Yii::t('app', 'You can register (estimated) unsent values here to correct the values displayed.'),
+          Yii::t('app-show-v3', 'You can register (estimated) unsent values here to correct the values displayed.'),
         ) . "\n" ?>
 <?php } else { ?>
         <?= Html::encode(
@@ -78,7 +78,7 @@ if ($user->twitter != '') {
 <?php if ($badgeAdjust) { ?>
         <br>
         <?= Html::encode(
-          Yii::t('app', 'The correction value specified by the user is applied.'),
+          Yii::t('app-show-v3', 'The correction value specified by the user is applied.'),
         ) . "\n" ?>
 <?php } ?>
 <?php } ?>
@@ -105,7 +105,7 @@ if ($user->twitter != '') {
         <?= Html::a(
           implode(' ', [
             Icon::edit(),
-            Html::encode(Yii::t('app', 'Correction')),
+            Html::encode(Yii::t('app-show-v3', 'Correction')),
           ]),
           ['show-v3/stats-correction-badge', 'screen_name' => $user->screen_name],
           ['class' => 'btn btn-link'],
@@ -119,8 +119,8 @@ if ($user->twitter != '') {
             'li',
             Html::a(
               match ($itemOrder) {
-                BadgeAction::ORDER_DEFAULT => Yii::t('app', 'Default Order'),
-                BadgeAction::ORDER_NUMBER => Yii::t('app', 'Highest First'),
+                BadgeAction::ORDER_DEFAULT => Yii::t('app-show-v3', 'Default Order'),
+                BadgeAction::ORDER_NUMBER => Yii::t('app-show-v3', 'Highest First'),
               },
               ['show-v3/stats-badge',
                 'screen_name' => $user->screen_name,
@@ -147,11 +147,11 @@ if ($user->twitter != '') {
         <thead>
           <tr>
             <th class="text-center" style="width:30px"></th>
-            <th class="text-center omit" style="width:4em"><?= $isEditing ? Yii::t('app', 'Progress') : '' ?></th>
+            <th class="text-center omit" style="width:4em"><?= $isEditing ? Yii::t('app-show-v3', 'Progress') : '' ?></th>
 <?php if ($isEditing) { ?>
-            <th class="text-center omit"><?= Html::encode(Yii::t('app', 'Correction Value')) ?></th>
+            <th class="text-center omit"><?= Html::encode(Yii::t('app-show-v3', 'Correction Value')) ?></th>
 <?php } else { ?>
-            <th class="text-center omit"><?= Html::encode(Yii::t('app', 'Progress')) ?></th>
+            <th class="text-center omit"><?= Html::encode(Yii::t('app-show-v3', 'Progress')) ?></th>
 <?php } ?>
           </tr>
         </thead>
@@ -193,7 +193,7 @@ if ($user->twitter != '') {
         <?= Html::submitButton(
           implode(' ', [
             Icon::check(),
-            Yii::t('app', 'Correction'),
+            Yii::t('app-show-v3', 'Correction'),
           ]),
           [
             'class' => 'btn btn-primary btn-block',
@@ -216,7 +216,7 @@ if ($user->twitter != '') {
         <?= Html::a(
           implode(' ', [
             Icon::edit(),
-            Html::encode(Yii::t('app', 'Correction')),
+            Html::encode(Yii::t('app-show-v3', 'Correction')),
           ]),
           ['show-v3/stats-correction-badge', 'screen_name' => $user->screen_name],
           ['class' => 'btn btn-link'],

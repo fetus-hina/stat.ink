@@ -14,7 +14,7 @@ use app\models\WeaponType2;
 
 $sortUnique = function (array $values): array {
     sort($values);
-    return array_values(array_unique($values));
+    return $values |> array_unique(...) |> array_values(...);
 };
 
 $sub = implode(', ', array_map(

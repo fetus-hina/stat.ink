@@ -129,7 +129,7 @@ final class BigrunAction extends Action
             );
             $estimatedDistrib = self::estimatedDistrib($schedule->bigrunOfficialResult3);
             $ruleOfThumbDistrib = self::ruleOfThumbDistrib($jobAbstract);
-            $chartMax = max(array_keys($histogram)) + $abstract->histogram_width / 2;
+            $chartMax = ($histogram |> array_keys(...) |> max(...)) + $abstract->histogram_width / 2;
         }
 
         return [

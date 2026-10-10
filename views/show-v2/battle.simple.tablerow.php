@@ -39,7 +39,7 @@ use yii\web\View;
                 implode('', [
                   Html::encode($model->is_win ? Yii::t('app', 'Won') : Yii::t('app', 'Lost')),
                   ($model->isGachi && $model->is_knockout !== null)
-                    ? ('<br>' . Html::encode($model->is_knockout ? Yii::t('app', 'K.O.') : Yii::t('app', 'Time')))
+                    ? ('<br>' . Html::encode($model->is_knockout ? Yii::t('app-battle', 'K.O.') : Yii::t('app', 'Time')))
                     : '',
                 ]),
                 ['class' => [

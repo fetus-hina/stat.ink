@@ -26,7 +26,7 @@ echo Html::tag(
     implode('', [
       Html::tag(
         'th',
-        Html::encode(Yii::t('app', 'Medal')),
+        Html::encode(Yii::t('app-show-v3', 'Medal')),
         [
           'class' => 'text-center',
           'data' => [

@@ -18,7 +18,7 @@ use yii\web\View;
 echo Html::a(
   implode(' ', [
     Icon::fileJson(),
-    Html::encode(Yii::t('app', 'JSON (IkaLog compat.)')),
+    Html::encode(Yii::t('app-user', 'JSON (IkaLog compat.)')),
   ]),
   ['download', 'type' => 'ikalog-json'],
   ['class' => 'btn btn-default btn-block text-left'],

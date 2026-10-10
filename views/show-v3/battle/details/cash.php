@@ -12,7 +12,7 @@ use app\components\widgets\Icon;
 use app\models\Battle3;
 
 return [
-  'label' => Yii::t('app', 'Cash'),
+  'label' => Yii::t('app-battle', 'Cash'),
   'format' => 'raw',
   'value' => function (Battle3 $model): ?string {
     if ($model->cash_before === null && $model->cash_after === null) {

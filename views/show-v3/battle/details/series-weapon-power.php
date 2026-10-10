@@ -12,7 +12,7 @@ use app\components\widgets\Icon;
 use app\models\Battle3;
 
 return [
-  'label' => Yii::t('app', 'Series Weapon Power'),
+  'label' => Yii::t('app-show-v3', 'Series Weapon Power'),
   'format' => 'raw',
   'value' => function (Battle3 $model): ?string {
     $before = $model->series_weapon_power_before;

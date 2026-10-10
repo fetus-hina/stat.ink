@@ -125,18 +125,18 @@ trait DropdownListTrait
                 : strcmp($a, $b);
         });
 
-        $list[Yii::t('app', 'Advanced Options')] = [
-            Battle3FilterForm::RESULT_NOT_WIN => Yii::t('app', 'Not Winning'),
-            Battle3FilterForm::RESULT_WIN_OR_LOSE => Yii::t('app', 'Victory or Defeat'),
-            Battle3FilterForm::RESULT_VIRTUAL_LOSE => Yii::t('app', 'Consider to be Defeated'),
-            Battle3FilterForm::RESULT_NOT_DRAW => Yii::t('app', 'Not Draws'),
+        $list[Yii::t('app-filter', 'Advanced Options')] = [
+            Battle3FilterForm::RESULT_NOT_WIN => Yii::t('app-filter', 'Not Winning'),
+            Battle3FilterForm::RESULT_WIN_OR_LOSE => Yii::t('app-filter', 'Victory or Defeat'),
+            Battle3FilterForm::RESULT_VIRTUAL_LOSE => Yii::t('app-filter', 'Consider to be Defeated'),
+            Battle3FilterForm::RESULT_NOT_DRAW => Yii::t('app-filter', 'Not Draws'),
         ];
 
-        $list[Battle3FilterForm::RESULT_UNKNOWN] = Yii::t('app', 'Unknown Result');
+        $list[Battle3FilterForm::RESULT_UNKNOWN] = Yii::t('app-filter', 'Unknown Result');
 
         return [
             $list,
-            ['prompt' => Yii::t('app', 'Any Result')],
+            ['prompt' => Yii::t('app-filter', 'Any Result')],
         ];
     }
 

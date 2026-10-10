@@ -134,7 +134,7 @@ $valueData = [
 <?= Html::tag(
   'p',
   Html::encode(
-    Yii::t('app', 'Error bars: 95% confidence interval (estimated) & 99% confidence interval (estimated)'),
+    Yii::t('app-entire', 'Error bars: 95% confidence interval (estimated) & 99% confidence interval (estimated)'),
   ),
   [
     'class' => [

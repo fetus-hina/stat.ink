@@ -72,7 +72,7 @@ final class LoginWithTwitterAction extends Action
 
                 Yii::$app->session->addFlash(
                     'danger',
-                    Yii::t('app', 'There is no user associated with the specified twitter account.'),
+                    Yii::t('app-user', 'There is no user associated with the specified twitter account.'),
                 );
                 return $response->redirect(Url::to(['user/login'], true), 303);
             } else {

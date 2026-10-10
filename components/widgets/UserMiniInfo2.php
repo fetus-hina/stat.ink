@@ -339,7 +339,7 @@ class UserMiniInfo2 extends Widget
                             },
                         ],
                         [
-                            'label' => Yii::t('app', 'Total Inked'),
+                            'label' => Yii::t('app-user-mini-info', 'Total Inked'),
                             'format' => 'raw',
                             'value' => function (UserStat2 $model): string {
                                 if ($model->turf_have_inked < 1) {
@@ -351,7 +351,7 @@ class UserMiniInfo2 extends Widget
                                     $this->formatShortNumber($model->turf_total_inked),
                                     [
                                         'class' => 'auto-tooltip',
-                                        'title' => Yii::t('app', '{point, plural, other{#p}}', [
+                                        'title' => Yii::t('app-user-mini-info', '{point, plural, other{#p}}', [
                                             'point' => $model->turf_total_inked,
                                         ]),
                                     ],
@@ -558,28 +558,28 @@ class UserMiniInfo2 extends Widget
                 'attribute' => 'area_current_rank',
                 'attributeX' => 'area_current_x_power',
                 'icon' => $am->getAssetUrl($asset, 'spl2/area.png'),
-                'label' => Yii::t('app', '{rule}: Current', ['rule' => Yii::t('app-rule2', 'SZ')]),
+                'label' => Yii::t('app-user-mini-info', '{rule}: Current', ['rule' => Yii::t('app-rule2', 'SZ')]),
                 'ruleName' => Yii::t('app-rule2', 'SZ'),
             ],
             [
                 'attribute' => 'yagura_current_rank',
                 'attributeX' => 'yagura_current_x_power',
                 'icon' => $am->getAssetUrl($asset, 'spl2/yagura.png'),
-                'label' => Yii::t('app', '{rule}: Current', ['rule' => Yii::t('app-rule2', 'TC')]),
+                'label' => Yii::t('app-user-mini-info', '{rule}: Current', ['rule' => Yii::t('app-rule2', 'TC')]),
                 'ruleName' => Yii::t('app-rule2', 'TC'),
             ],
             [
                 'attribute' => 'hoko_current_rank',
                 'attributeX' => 'hoko_current_x_power',
                 'icon' => $am->getAssetUrl($asset, 'spl2/hoko.png'),
-                'label' => Yii::t('app', '{rule}: Current', ['rule' => Yii::t('app-rule2', 'RM')]),
+                'label' => Yii::t('app-user-mini-info', '{rule}: Current', ['rule' => Yii::t('app-rule2', 'RM')]),
                 'ruleName' => Yii::t('app-rule2', 'RM'),
             ],
             [
                 'attribute' => 'asari_current_rank',
                 'attributeX' => 'asari_current_x_power',
                 'icon' => $am->getAssetUrl($asset, 'spl2/asari.png'),
-                'label' => Yii::t('app', '{rule}: Current', ['rule' => Yii::t('app-rule2', 'CB')]),
+                'label' => Yii::t('app-user-mini-info', '{rule}: Current', ['rule' => Yii::t('app-rule2', 'CB')]),
                 'ruleName' => Yii::t('app-rule2', 'CB'),
             ],
         ];
@@ -588,7 +588,7 @@ class UserMiniInfo2 extends Widget
                 'div',
                 Html::tag(
                     'div',
-                    Html::encode(Yii::t('app', 'Rank: Current')),
+                    Html::encode(Yii::t('app-user-mini-info', 'Rank: Current')),
                     ['class' => 'user-label'],
                 ),
                 ['class' => 'col-12 col-xs-12'],
@@ -682,28 +682,28 @@ class UserMiniInfo2 extends Widget
                 'attribute' => 'area_rank_peak',
                 'attributeX' => 'area_x_power_peak',
                 'icon' => $am->getAssetUrl($asset, 'spl2/area.png'),
-                'label' => Yii::t('app', '{rule}: Peak', ['rule' => Yii::t('app-rule2', 'SZ')]),
+                'label' => Yii::t('app-user-mini-info', '{rule}: Peak', ['rule' => Yii::t('app-rule2', 'SZ')]),
                 'ruleName' => Yii::t('app-rule2', 'SZ'),
             ],
             [
                 'attribute' => 'yagura_rank_peak',
                 'attributeX' => 'yagura_x_power_peak',
                 'icon' => $am->getAssetUrl($asset, 'spl2/yagura.png'),
-                'label' => Yii::t('app', '{rule}: Peak', ['rule' => Yii::t('app-rule2', 'TC')]),
+                'label' => Yii::t('app-user-mini-info', '{rule}: Peak', ['rule' => Yii::t('app-rule2', 'TC')]),
                 'ruleName' => Yii::t('app-rule2', 'TC'),
             ],
             [
                 'attribute' => 'hoko_rank_peak',
                 'attributeX' => 'hoko_x_power_peak',
                 'icon' => $am->getAssetUrl($asset, 'spl2/hoko.png'),
-                'label' => Yii::t('app', '{rule}: Peak', ['rule' => Yii::t('app-rule2', 'RM')]),
+                'label' => Yii::t('app-user-mini-info', '{rule}: Peak', ['rule' => Yii::t('app-rule2', 'RM')]),
                 'ruleName' => Yii::t('app-rule2', 'RM'),
             ],
             [
                 'attribute' => 'asari_rank_peak',
                 'attributeX' => 'asari_x_power_peak',
                 'icon' => $am->getAssetUrl($asset, 'spl2/asari.png'),
-                'label' => Yii::t('app', '{rule}: Peak', ['rule' => Yii::t('app-rule2', 'CB')]),
+                'label' => Yii::t('app-user-mini-info', '{rule}: Peak', ['rule' => Yii::t('app-rule2', 'CB')]),
                 'ruleName' => Yii::t('app-rule2', 'CB'),
             ],
         ];
@@ -712,7 +712,7 @@ class UserMiniInfo2 extends Widget
                 'div',
                 Html::tag(
                     'div',
-                    Html::encode(Yii::t('app', 'Rank: Peak')),
+                    Html::encode(Yii::t('app-user-mini-info', 'Rank: Peak')),
                     ['class' => 'user-label'],
                 ),
                 ['class' => 'col-12 col-xs-12'],
@@ -831,7 +831,7 @@ class UserMiniInfo2 extends Widget
                     Html::a(
                         implode(' ', [
                             Icon::stats(),
-                            Html::encode(Yii::t('app', 'Stats ({rule})', [
+                            Html::encode(Yii::t('app-user-mini-info', 'Stats ({rule})', [
                                 'rule' => Yii::t('app-rule2', 'Turf War'),
                             ])),
                         ]),
@@ -844,7 +844,7 @@ class UserMiniInfo2 extends Widget
                     fn (Rule2 $rule): string => Html::a(
                         implode(' ', [
                             Icon::stats(),
-                            Html::encode(Yii::t('app', 'Stats ({rule})', [
+                            Html::encode(Yii::t('app-user-mini-info', 'Stats ({rule})', [
                                 'rule' => Yii::t('app-rule2', $rule->name),
                             ])),
                         ]),
@@ -862,35 +862,35 @@ class UserMiniInfo2 extends Widget
                     Html::a(
                         implode(' ', [
                             Icon::stats(),
-                            Html::encode(Yii::t('app', 'Stats (Splatfest)')),
+                            Html::encode(Yii::t('app-user-mini-info', 'Stats (Splatfest)')),
                         ]),
                         ['show-v2/user-stat-splatfest', 'screen_name' => $this->user->screen_name],
                     ),
                     Html::a(
                         implode(' ', [
                             Icon::stats(),
-                            Html::encode(Yii::t('app', 'Stats (by Mode and Stage)')),
+                            Html::encode(Yii::t('app-user-mini-info', 'Stats (by Mode and Stage)')),
                         ]),
                         ['show-v2/user-stat-by-map-rule', 'screen_name' => $this->user->screen_name],
                     ),
                     Html::a(
                         implode(' ', [
                             Icon::stats(),
-                            Html::encode(Yii::t('app', 'Stats (by Weapon)')),
+                            Html::encode(Yii::t('app-user-mini-info', 'Stats (by Weapon)')),
                         ]),
                         ['show-v2/user-stat-by-weapon', 'screen_name' => $this->user->screen_name],
                     ),
                     Html::a(
                         implode(' ', [
                             Icon::stats(),
-                            Html::encode(Yii::t('app', 'Daily Report')),
+                            Html::encode(Yii::t('app-user-mini-info', 'Daily Report')),
                         ]),
                         ['show-v2/user-stat-report', 'screen_name' => $this->user->screen_name],
                     ),
                     Html::a(
                         implode(' ', [
                             Icon::stats(),
-                            Html::encode(Yii::t('app', 'Monthly Report')),
+                            Html::encode(Yii::t('app-user-mini-info', 'Monthly Report')),
                         ]),
                         ['show-v2/user-stat-monthly-report', 'screen_name' => $this->user->screen_name],
                     ),

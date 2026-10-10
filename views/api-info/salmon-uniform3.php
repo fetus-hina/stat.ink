@@ -28,7 +28,7 @@ use yii\web\View;
  */
 
 $this->context->layout = 'main';
-$this->title = Yii::t('app', 'API Info: Uniforms (Splatoon 3)');
+$this->title = Yii::t('app-api-info', 'API Info: Uniforms (Splatoon 3)');
 
 $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);
 $this->registerMetaTag(['name' => 'twitter:title', 'content' => $this->title]);
@@ -47,13 +47,13 @@ SortableTableAsset::register($this);
   <?= AdWidget::widget() . "\n" ?>
   <?= SnsWidget::widget() . "\n" ?>
 
-  <h2><?= Html::encode(Yii::t('app', 'Uniform')) ?></h2>
+  <h2><?= Html::encode(Yii::t('app-api-info', 'Uniform')) ?></h2>
   <div class="table-responsive table-responsive-force">
     <table class="table table-striped table-condensed table-sortable">
       <thead>
         <tr>
           <th data-sort="string"><code>key</code></th>
-          <th data-sort="string"><?= Html::encode(Yii::t('app', 'Aliases')) ?></th>
+          <th data-sort="string"><?= Html::encode(Yii::t('app-api-info', 'Aliases')) ?></th>
 <?php foreach ($langs as $i => $lang) { ?>
           <?= Html::tag('th', Html::encode($lang->name), [
             'class' => $lang->htmlClasses,

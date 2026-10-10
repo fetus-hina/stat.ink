@@ -18,7 +18,7 @@ use yii\helpers\ArrayHelper;
  */
 
 return [
-  'label' => Yii::t('app', 'Use %'),
+  'label' => Yii::t('app-entire', 'Use %'),
   'attribute' => 'battles',
   'format' => 'raw',
   'headerOptions' => [

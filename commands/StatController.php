@@ -1788,8 +1788,8 @@ final class StatController extends Controller
                 $period[0],
                 Yii::$app->db->quoteValue($month),
             ]),
-            array_reverse(array_keys($data)),
-            array_reverse(array_values($data)),
+            $data |> array_keys(...) |> array_reverse(...),
+            $data |> array_values(...) |> array_reverse(...),
         )));
     }
 

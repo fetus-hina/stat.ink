@@ -64,7 +64,7 @@ use yii\widgets\DetailView;
   },
   'attributes' => [
     [
-      'label' => Yii::t('app', 'SplatNet Battle #'),
+      'label' => Yii::t('app-show-v2', 'SplatNet Battle #'),
       'value' => function ($model) : ?string {
         $value = trim((string)$model->splatnet_number);
         if ($value === '') {
@@ -81,7 +81,7 @@ use yii\widgets\DetailView;
         }
         return sprintf(
           '%s %s',
-          Yii::t('app', '(incomplete)'),
+          Yii::t('app-show-v2', '(incomplete)'),
           implode(' / ', [
             Yii::t('app-rule2', $model->lobby->name ?? '?'),
             Yii::t('app-rule2', $model->mode->name ?? '?'),
@@ -268,7 +268,7 @@ use yii\widgets\DetailView;
           $synergy = Label::widget([
             'content' => sprintf(
               '%s: ×%.1f',
-              Yii::t('app', 'Synergy Bonus'),
+              Yii::t('app-battle', 'Synergy Bonus'),
               (float)$model->synergy_bonus
             ),
             'color' => 'warning',
@@ -528,7 +528,7 @@ use yii\widgets\DetailView;
       // }}}
     ],
     [
-      'label' => Yii::t('app', 'Team Inked'), // {{{
+      'label' => Yii::t('app-battle', 'Team Inked'), // {{{
       'format' => 'raw',
       'value' => function ($model) {
         if ($model->my_team_percent !== null && $model->his_team_percent !== null) {
@@ -539,13 +539,13 @@ use yii\widgets\DetailView;
             $myPoint = null;
             $hisPoint = null;
             if ($model->my_team_point !== null && $model->his_team_point !== null) {
-              $myPoint = Yii::t('app', '{point}p', ['point' => $model->my_team_point]);
-              $hisPoint = Yii::t('app', '{point}p', ['point' => $model->his_team_point]);
+              $myPoint = Yii::t('app-battle', '{point}p', ['point' => $model->my_team_point]);
+              $hisPoint = Yii::t('app-battle', '{point}p', ['point' => $model->his_team_point]);
             } elseif ($model->map && $model->map->area !== null) {
-              $myPoint = Yii::t('app', '~{point}p', [
+              $myPoint = Yii::t('app-battle', '~{point}p', [
                 'point' => Yii::$app->formatter->asInteger(round($model->map->area * $myPct / 100)),
               ]);
-              $hisPoint = Yii::t('app', '~{point}p', [
+              $hisPoint = Yii::t('app-battle', '~{point}p', [
                 'point' => Yii::$app->formatter->asInteger(round($model->map->area * $hisPct / 100)),
               ]);
             }
@@ -586,7 +586,7 @@ use yii\widgets\DetailView;
               implode('', [
                 Html::tag(
                   'div',
-                  Html::encode(Yii::t('app', '{point}p', ['point' => $myPoint])),
+                  Html::encode(Yii::t('app-battle', '{point}p', ['point' => $myPoint])),
                   [
                     'class' => ['progress-bar', 'progress-bar-info'],
                     'style' => ['width' => sprintf('%.2f%%', $myDrawPct)],
@@ -594,7 +594,7 @@ use yii\widgets\DetailView;
                 ),
                 Html::tag(
                   'div',
-                  Html::encode(Yii::t('app', '{point}p', ['point' => $hisPoint])),
+                  Html::encode(Yii::t('app-battle', '{point}p', ['point' => $hisPoint])),
                   [
                     'class' => ['progress-bar', 'progress-bar-danger', 'text-right'],
                     'style' => ['width' => sprintf('%.2f%%', 100 - $myDrawPct)],
@@ -611,7 +611,7 @@ use yii\widgets\DetailView;
       // }}}
     ],
     [
-      'label' => Yii::t('app', 'Final Count'), // {{{
+      'label' => Yii::t('app-battle', 'Final Count'), // {{{
       'format' => 'raw',
       'value' => function ($model) {
         if ($model->my_team_count !== null && $model->his_team_count !== null) {
@@ -665,14 +665,14 @@ use yii\widgets\DetailView;
     'max_kill_combo:integer',
     'max_kill_streak:integer',
     [
-      'label' => Yii::t('app', 'Cause of Death'),
+      'label' => Yii::t('app-battle', 'Cause of Death'),
       'format' => 'raw',
       'value' => fn (Battle2 $model): ?string => ($reasons = $model->battleDeathReasons)
         ? BattleDeathReasonsTable::widget(['reasons' => $reasons])
         : null,
     ],
     [
-      'label' => Yii::t('app', 'Turf Inked + Bonus'), // (Nawabari) {{{
+      'label' => Yii::t('app-battle', 'Turf Inked + Bonus'), // (Nawabari) {{{
       'value' => function ($model) {
         if (!$model->isNawabari) {
           return null;
@@ -718,7 +718,7 @@ use yii\widgets\DetailView;
         ' ',
         array_filter(
           [
-            Html::encode(Yii::t('app', 'Gear')),
+            Html::encode(Yii::t('app-battle', 'Gear')),
             $battle->battleImageGear
               ? (function () use ($battle): ?string {
                 PhotoSwipeAsset::register($this);
@@ -842,7 +842,7 @@ use yii\widgets\DetailView;
             ],
             [
               'class' => 'auto-tooltip',
-              'title' => Yii::t('app', 'Search {date}', [
+              'title' => Yii::t('app-show-v2', 'Search {date}', [
                 'date' => Yii::$app->formatter->asDate($dayFrom, 'medium'),
               ]),
             ]
@@ -863,7 +863,7 @@ use yii\widgets\DetailView;
       // }}}
     ],
     [
-      'label' => Yii::t('app', 'Elapsed Time'), // {{{
+      'label' => Yii::t('app-battle', 'Elapsed Time'), // {{{
       'value' => function ($model): ?string {
         if (!$value = $model->elapsedTime) {
           return null;
@@ -872,7 +872,7 @@ use yii\widgets\DetailView;
         return vsprintf('%d:%02d (%s)', [
           (int)floor($value / 60),
           $value % 60,
-          Yii::t('app', '{sec,plural,=1{# second} other{# seconds}}', ['sec' => $value]),
+          Yii::t('app-battle', '{sec,plural,=1{# second} other{# seconds}}', ['sec' => $value]),
         ]);
       },
       // }}}
@@ -991,7 +991,7 @@ use yii\widgets\DetailView;
         if (!$lobby || !$mode || !$model->weapon || !$model->map) {
           return implode('', [
             Html::tag('span', (string)FA::fas('times')->fw(), ['class' => 'text-danger']),
-            Html::encode(Yii::t('app', 'Incomplete Data')),
+            Html::encode(Yii::t('app-battle', 'Incomplete Data')),
           ]);
         }
 
@@ -1012,8 +1012,8 @@ use yii\widgets\DetailView;
           ]);
         };
         return implode('<br>', [
-          $f(Yii::t('app', 'Automated'), $model->is_automated),
-          $f(Yii::t('app', 'Used in global stats'), $model->is_automated && $model->use_for_entire),
+          $f(Yii::t('app-battle', 'Automated'), $model->is_automated),
+          $f(Yii::t('app-battle', 'Used in global stats'), $model->is_automated && $model->use_for_entire),
         ]);
       },
       // }}}

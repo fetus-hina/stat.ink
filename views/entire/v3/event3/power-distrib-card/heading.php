@@ -16,6 +16,6 @@ use yii\web\View;
 
 echo Html::tag(
   'div',
-  Html::encode(Yii::t('app', 'Challenge Power Distribution')),
+  Html::encode(Yii::t('app-entire', 'Challenge Power Distribution')),
   ['class' => 'panel-heading'],
 );

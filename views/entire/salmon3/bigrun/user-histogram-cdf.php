@@ -36,12 +36,12 @@ ChartJsAsset::register($this);
 ColorSchemeAsset::register($this);
 RatioAsset::register($this);
 
-$totalUsers = array_sum(array_values($histogram));
+$totalUsers = $histogram |> array_values(...) |> array_sum(...);
 if ($totalUsers < 1) {
   return;
 }
 
-$keyMax = max(array_keys($histogram));
+$keyMax = $histogram |> array_keys(...) |> max(...);
 $totalHistogram = [];
 for ($x = $abstract->histogram_width / 2; $x <= $keyMax; $x += (int)$abstract->histogram_width) {
   $totalHistogram[] = [
@@ -103,7 +103,7 @@ if ($estimatedDistrib && $abstract && $chartMax > 0) {
     'borderColor' => [ new JsExpression('window.colorScheme.moving1') ],
     'borderWidth' => 2,
     'data' => $makeDistributionData($estimatedDistrib),
-    'label' => Yii::t('app', 'Overall Estimates'),
+    'label' => Yii::t('app-entire', 'Overall Estimates'),
     'pointRadius' => 0,
     'type' => 'line',
   ];
@@ -117,7 +117,7 @@ if (!$datasetEstimatedDistrib && $ruleOfThumbDistrib && $abstract && $chartMax >
     'borderWidth' => 2,
     'borderDash' => [5, 5],
     'data' => $makeDistributionData($ruleOfThumbDistrib),
-    'label' => Yii::t('app', 'Empirical Estimates'),
+    'label' => Yii::t('app-entire', 'Empirical Estimates'),
     'pointRadius' => 0,
     'type' => 'line',
   ];
@@ -174,19 +174,17 @@ if ($chartMax > 0) {
   'data' => [
     'chart' => [
       'data' => [
-        'datasets' => array_values(
-          array_filter(
-            [
-              $dataset50pct,
-              $dataset80pct,
-              $dataset95pct,
-              $datasetRuleOfThumbDistrib,
-              $datasetEstimatedDistrib,
-              $datasetNormalDistrib,
-              $datasetHistogram,
-            ],
-          ),
-        ),
+        'datasets' => [
+          $dataset50pct,
+          $dataset80pct,
+          $dataset95pct,
+          $datasetRuleOfThumbDistrib,
+          $datasetEstimatedDistrib,
+          $datasetNormalDistrib,
+          $datasetHistogram,
+        ]
+          |> array_filter(...)
+          |> array_values(...),
       ],
       'options' => [
         'animation' => ['duration' => 0],

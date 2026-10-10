@@ -34,7 +34,7 @@ $errInfo = StandardError::winpct($totalWins, $totalBattles);
       Html::encode(Yii::t('app-rule3', 'Tricolor Battle')),
       '-',
       Icon::s3TricolorAttacker(),
-      Html::encode(Yii::t('app', 'Attacker Team Win Rate')),
+      Html::encode(Yii::t('app-entire', 'Attacker Team Win Rate')),
     ]) . "\n" ?>
   </div>
   <div class="panel-body pb-0">

@@ -95,7 +95,7 @@ trait DropdownListTrait
                 self::RESULT_FAILED_W5 => Yii::t('app-salmon2', 'Failed in wave {waveNumber}', ['waveNumber' => 5]),
             ],
             [
-                'prompt' => Yii::t('app', 'Any Result'),
+                'prompt' => Yii::t('app-filter', 'Any Result'),
             ],
         ];
     }

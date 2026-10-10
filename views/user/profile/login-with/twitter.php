@@ -31,7 +31,7 @@ if (!$configured) {
       ),
       Html::tag(
         'td',
-        Html::encode(Yii::t('app', 'Not configured.')),
+        Html::encode(Yii::t('app-user', 'Not configured.')),
       ),
     ]),
   );

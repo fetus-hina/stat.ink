@@ -10,7 +10,7 @@ declare(strict_types=1);
 use app\models\Battle3;
 
 return [
-  'label' => Yii::t('app', 'Elapsed Time'),
+  'label' => Yii::t('app-battle', 'Elapsed Time'),
   'value' => function (Battle3 $model): ?string {
     if ($model->start_at === null || $model->end_at === null) {
       return null;
@@ -30,7 +30,7 @@ return [
     return vsprintf('%d:%02d (%s)', [
       (int)floor($value / 60),
       $value % 60,
-      Yii::t('app', '{sec,plural,=1{# second} other{# seconds}}', ['sec' => $value]),
+      Yii::t('app-battle', '{sec,plural,=1{# second} other{# seconds}}', ['sec' => $value]),
     ]);
   },
 ];

@@ -22,7 +22,7 @@ use yii\web\View;
 
 $this->context->layout = 'main';
 
-$title = Yii::t('app', 'Knockout Rate');
+$title = Yii::t('app-entire', 'Knockout Rate');
 $this->title = implode(' | ', [
   Yii::$app->name,
   $title,

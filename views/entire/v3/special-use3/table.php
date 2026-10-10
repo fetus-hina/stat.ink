@@ -67,7 +67,7 @@ $fmt = Yii::$app->formatter;
         [
           'format' => 'raw',
           'headerOptions' => ['width' => '12%'],
-          'label' => Yii::t('app', 'Avg. Uses'),
+          'label' => Yii::t('app-entire', 'Avg. Uses'),
           'value' => fn (StatSpecialUse3 $model): string => $this->render('avg-uses', [
             'model' => $model,
             'maxAvgUses' => $maxAvgUses,
@@ -109,7 +109,7 @@ $fmt = Yii::$app->formatter;
           'attribute' => 'sample_size',
           'contentOptions' => ['class' => 'text-right'],
           'format' => 'integer',
-          'label' => Yii::t('app', 'Samples'),
+          'label' => Yii::t('app-entire', 'Samples'),
         ],
       ],
     ]) . "\n" ?>

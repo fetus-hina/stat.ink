@@ -119,6 +119,11 @@
     }
     $btn.prop('disabled', true);
     postJson(config.urls.delete, { id })
+      .then(function (result) {
+        if (result && !result.result && result.message) {
+          window.alert(result.message);
+        }
+      })
       .catch(function () {})
       .finally(function () {
         window.location.reload();

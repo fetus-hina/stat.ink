@@ -87,7 +87,7 @@ return [
     }
 
     // 古い順に並べかえる
-    $xPowerList = array_values(array_reverse($xPowerList));
+    $xPowerList = $xPowerList |> array_reverse(...) |> array_values(...);
 
     $id = 'x-power-chart';
 

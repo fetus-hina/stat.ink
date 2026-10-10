@@ -32,7 +32,7 @@ use yii\web\View;
 /** @var User $user */
 $user = $model->user;
 
-$title = Yii::t('app', 'Results of {name}\'s Battle', ['name' => $user->name]);
+$title = Yii::t('app-battle', 'Results of {name}\'s Battle', ['name' => $user->name]);
 $canonicalUrl = Url::to(
   ['show-v3/battle',
     'screen_name' => $user->screen_name,
@@ -59,18 +59,18 @@ foreach (Language::find()->standard()->all() as $lang) {
 $this->registerMetaTag(['name' => 'twitter:title', 'content' => $title]);
 $this->registerMetaTag(['name' => 'twitter:url', 'content' => $canonicalUrl]);
 $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
-$twitterCardImageCandidates = array_values(
-  array_filter([
-    $model->battleImageResult3,
-    $model->battleImageJudge3,
-    $isS3ImgGenAvailable
-      ? vsprintf('https://s3-img-gen.stats.ink/results/%s/%s.jpg', [
-        rawurlencode(Yii::$app->language),
-        rawurlencode($model->uuid),
-      ])
-      : null,
-  ]),
-);
+$twitterCardImageCandidates = [
+  $model->battleImageResult3,
+  $model->battleImageJudge3,
+  $isS3ImgGenAvailable
+    ? vsprintf('https://s3-img-gen.stats.ink/results/%s/%s.jpg', [
+      rawurlencode(Yii::$app->language),
+      rawurlencode($model->uuid),
+    ])
+    : null,
+]
+  |> array_filter(...)
+  |> array_values(...);
 if ($twitterCardImageCandidates) {
   $twitterCardImage = array_shift($twitterCardImageCandidates);
   $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary_large_image']);
@@ -136,7 +136,7 @@ BattleDetailAsset::register($this);
 ?>
 <div class="container">
   <h1>
-    <?= Yii::t('app', 'Results of {name}\'s Battle', [
+    <?= Yii::t('app-battle', 'Results of {name}\'s Battle', [
       'name' => Html::a(
         Html::encode($user->name),
         ['show-v3/user', 'screen_name' => $user->screen_name]

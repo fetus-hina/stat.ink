@@ -115,7 +115,7 @@ $periods = ArrayHelper::sort(
   <hr>
   <h3 class="mb-3">
     <?= Html::encode(
-      Yii::t('app', 'Weapon Stats'),
+      Yii::t('app-entire', 'Weapon Stats'),
     ) . "\n" ?>
   </h3>
   <div class="mb-3">
@@ -127,7 +127,7 @@ $periods = ArrayHelper::sort(
     'items' => [
       [
         'active' => true,
-        'label' => Yii::t('app', 'Detailed'),
+        'label' => Yii::t('app-entire', 'Detailed'),
         'content' => $this->render('event3/table', [
           'provider' => $weaponsProvider,
           'samples' => $samples,
@@ -148,7 +148,7 @@ $periods = ArrayHelper::sort(
     'items' => [
       [
         'active' => true,
-        'label' => Yii::t('app', 'Detailed'),
+        'label' => Yii::t('app-entire', 'Detailed'),
         'content' => $this->render('event3/table', [
           'provider' => $specialProvider,
           'samples' => $samples,

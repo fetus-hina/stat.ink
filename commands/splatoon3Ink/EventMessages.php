@@ -114,16 +114,12 @@ trait EventMessages
                     $this->updateEventLangMessage(
                         $langCode,
                         $category,
-                        trim(
-                            TypeHelper::string(
-                                ArrayHelper::getValue($dstJson, ['events', $eventId, $key]),
-                            ),
-                        ),
-                        trim(
-                            TypeHelper::string(
-                                ArrayHelper::getValue($srcJson, ['events', $eventId, $key]),
-                            ),
-                        ),
+                        ArrayHelper::getValue($dstJson, ['events', $eventId, $key])
+                            |> TypeHelper::string(...)
+                            |> trim(...),
+                        ArrayHelper::getValue($srcJson, ['events', $eventId, $key])
+                            |> TypeHelper::string(...)
+                            |> trim(...),
                     )
                 ) {
                     $updated = true;

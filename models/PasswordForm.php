@@ -12,6 +12,12 @@ use yii\base\Model;
 
 class PasswordForm extends Model
 {
+    /**
+     * Sets a new password for a user who has disabled their password.
+     * The current password is not asked (they re-authenticate with a passkey).
+     */
+    public const SCENARIO_SET = 'set';
+
     public $screen_name;
     public $password;
     public $new_password;
@@ -20,7 +26,8 @@ class PasswordForm extends Model
     public function rules()
     {
         return [
-            [['screen_name', 'password', 'new_password', 'new_password_repeat'], 'required'],
+            [['screen_name', 'new_password', 'new_password_repeat'], 'required'],
+            [['password'], 'required', 'except' => self::SCENARIO_SET],
             [['screen_name'], 'exist',
                 'targetClass' => User::class,
                 'targetAttribute' => 'screen_name',
@@ -30,7 +37,7 @@ class PasswordForm extends Model
                 'compareAttribute' => 'new_password',
                 'operator' => '===',
             ],
-            [['password'], 'validateOldPassword'],
+            [['password'], 'validateOldPassword', 'except' => self::SCENARIO_SET],
         ];
     }
 
@@ -40,10 +47,10 @@ class PasswordForm extends Model
     public function attributeLabels()
     {
         return [
-            'screen_name' => Yii::t('app', 'Screen Name (Login Name)'),
-            'password' => Yii::t('app', 'Current Password'),
-            'new_password' => Yii::t('app', 'New Password'),
-            'new_password_repeat' => Yii::t('app', 'New Password (again)'),
+            'screen_name' => Yii::t('app-user', 'Screen Name (Login Name)'),
+            'password' => Yii::t('app-user', 'Current Password'),
+            'new_password' => Yii::t('app-user', 'New Password'),
+            'new_password_repeat' => Yii::t('app-user', 'New Password (again)'),
         ];
     }
 

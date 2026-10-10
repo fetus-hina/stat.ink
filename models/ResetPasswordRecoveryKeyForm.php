@@ -51,7 +51,7 @@ final class ResetPasswordRecoveryKeyForm extends Model
             [['screen_name'], 'match',
                 'pattern' => '/^[a-zA-Z0-9_]{1,15}$/',
                 'message' => Yii::t(
-                    'app',
+                    'app-user',
                     '{attribute} must be at most 15 alphanumeric or underscore characters.',
                 ),
             ],
@@ -74,10 +74,10 @@ final class ResetPasswordRecoveryKeyForm extends Model
     public function attributeLabels()
     {
         return [
-            'screen_name' => Yii::t('app', 'Screen Name (Login Name)'),
+            'screen_name' => Yii::t('app-user', 'Screen Name (Login Name)'),
             'recovery_key' => Yii::t('app-recovery-key', 'Recovery Key'),
-            'password' => Yii::t('app', 'New Password'),
-            'password_repeat' => Yii::t('app', 'New Password (again)'),
+            'password' => Yii::t('app-user', 'New Password'),
+            'password_repeat' => Yii::t('app-user', 'New Password (again)'),
         ];
     }
 
@@ -109,7 +109,7 @@ final class ResetPasswordRecoveryKeyForm extends Model
             $isValid = Password::verify($secret, $key->secret_hash);
         } else {
             // Mitigate timing attacks by always running the slow verify
-            Password::verify($secret, self::dummyHash());
+            Password::verify($secret, Password::dummyHash());
         }
 
         if (!$isValid) {
@@ -156,7 +156,7 @@ final class ResetPasswordRecoveryKeyForm extends Model
 
         $this->addError(
             $attribute,
-            Yii::t('app', 'Failed to validate CAPTCHA.'),
+            Yii::t('app-user', 'Failed to validate CAPTCHA.'),
         );
     }
 
@@ -203,16 +203,10 @@ final class ResetPasswordRecoveryKeyForm extends Model
     {
         $this->addError(
             $attribute,
-            Yii::t('app', 'Invalid {0} or {1}.', [
+            Yii::t('app-user', 'Invalid {0} or {1}.', [
                 $this->getAttributeLabel('screen_name'),
                 $this->getAttributeLabel('recovery_key'),
             ]),
         );
-    }
-
-    private static function dummyHash(): string
-    {
-        static $hash = null;
-        return $hash ??= Password::hash('dummy-recovery-key-for-timing-equalization');
     }
 }

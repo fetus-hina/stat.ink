@@ -17,7 +17,7 @@ use yii\web\View;
  * @var View $this
  */
 
-$title = Yii::t('app', 'Edit Your Battle: #{0}', [
+$title = Yii::t('app-battle', 'Edit Your Battle: #{0}', [
   $battle->id,
 ]);
 
@@ -68,7 +68,7 @@ $this->title = implode(' | ', [
           <td><?= $_->field($form, 'link_url')
             ->label(false)
             ->input('url', ['placeholder' => 'https://example.com/'])
-            ->hint(Yii::t('app', 'e.g. YouTube video, like "{0}"', ['https://www.youtube.com/watch?v=TjLbFFPF904']))
+            ->hint(Yii::t('app-battle', 'e.g. YouTube video, like "{0}"', ['https://www.youtube.com/watch?v=TjLbFFPF904']))
           ?></td>
         </tr>
         <tr>
@@ -104,23 +104,23 @@ $this->title = implode(' | ', [
 
   <div style="margin-top:7.5em;border:1px solid #ccc;border-radius:5px;padding:15px">
     <h2 style="color:#c9302c"><?= Html::encode(Yii::t('app', 'Danger Zone')) ?></h2>
-    <p><?= Html::encode(Yii::t('app', 'You can delete this battle.')) ?></p>
+    <p><?= Html::encode(Yii::t('app-battle', 'You can delete this battle.')) ?></p>
     <ul>
       <li>
-        <?= Html::encode(Yii::t('app', 'If you delete this battle, it will be gone forever.')) . "\n" ?>
+        <?= Html::encode(Yii::t('app-battle', 'If you delete this battle, it will be gone forever.')) . "\n" ?>
       </li>
       <li>
-        <strong style="color:#c9302c"><?= Html::encode(Yii::t('app', 'Please do not use this feature to destroy evidence.')) ?></strong>
-        <?= Html::encode(Yii::t('app', 'This option is provided for deleting an incorrectly-reported battle.')) . "\n" ?>
+        <strong style="color:#c9302c"><?= Html::encode(Yii::t('app-battle', 'Please do not use this feature to destroy evidence.')) ?></strong>
+        <?= Html::encode(Yii::t('app-battle', 'This option is provided for deleting an incorrectly-reported battle.')) . "\n" ?>
       </li>
       <li>
-        <?= Html::encode(Yii::t('app', 'If you misuse this feature, you will be banned.')) ?>
+        <?= Html::encode(Yii::t('app-battle', 'If you misuse this feature, you will be banned.')) ?>
       </li>
     </ul>
     <?php $_ = ActiveForm::begin(['id' => "delete-form", 'action' => ['show/edit-battle', 'screen_name' => $user->screen_name, 'battle' => $battle->id]]); echo "\n" ?>
       <?= Html::hiddenInput('_action', 'delete') . "\n" ?>
       <?= $_->field($delete, 'agree')
-        ->label(Yii::t('app', 'I agree. Delete this battle.'))
+        ->label(Yii::t('app-battle', 'I agree. Delete this battle.'))
         ->checkbox(['value' => 'yes', 'uncheck' => null]) . "\n" ?>
       <?= Html::submitButton(
         Html::encode(Yii::t('app', 'Delete')),

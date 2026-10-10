@@ -15,6 +15,6 @@ if (!Yii::$app->request->get('recovery_keys_revoked')) {
 ?>
 <div class="alert alert-danger mb-3">
   <?= Html::encode(
-    Yii::t('app', 'All recovery keys have been revoked because the password was changed.'),
+    Yii::t('app-user', 'All recovery keys have been revoked because the password was changed.'),
   ) . "\n" ?>
 </div>

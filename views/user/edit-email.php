@@ -18,7 +18,7 @@ use yii\web\View;
  * @var View $this
  */
 
-$title = Yii::t('app', 'Update Your Email Address');
+$title = Yii::t('app-user', 'Update Your Email Address');
 $this->title = implode(' | ', [
     Yii::$app->name,
     $title,
@@ -31,7 +31,7 @@ $this->title = implode(' | ', [
       
       <?php $_ = ActiveForm::begin(['id' => 'update-form', 'action' => ['edit-email']]); echo "\n" ?>
         <?= $_->field($form, 'email')
-          ->hint(Yii::t('app', 'You can\'t use an IDN (Internationalized Domain Names) email address'))
+          ->hint(Yii::t('app-user', 'You can\'t use an IDN (Internationalized Domain Names) email address'))
           ->textInput(['type' => 'email']) . "\n" ?>
 
         <?= Html::submitButton(

@@ -21,8 +21,8 @@ InlineListAsset::register($this);
 <?= Html::tag(
   'p',
   implode(' ', [
-    Html::encode(Yii::t('app', 'To use Slack integration, you need to configure Slack\'s "Incoming Webhook" first.')),
-    Html::encode(Yii::t('app', '(For advanced users)')),
+    Html::encode(Yii::t('app-user', 'To use Slack integration, you need to configure Slack\'s "Incoming Webhook" first.')),
+    Html::encode(Yii::t('app-user', '(For advanced users)')),
   ]),
 ) . "\n" ?>
 <?= Html::tag(
@@ -31,7 +31,7 @@ InlineListAsset::register($this);
     Html::tag(
       'li',
       Html::a(
-        Html::encode(Yii::t('app', 'About Incoming Webhook')),
+        Html::encode(Yii::t('app-user', 'About Incoming Webhook')),
         'https://api.slack.com/incoming-webhooks',
         [
           'target' => '_blank',
@@ -42,7 +42,7 @@ InlineListAsset::register($this);
     Html::tag(
       'li',
       Html::a(
-        Html::encode(Yii::t('app', 'Create new webhook')),
+        Html::encode(Yii::t('app-user', 'Create new webhook')),
         'https://my.slack.com/services/new/incoming-webhook/',
         [
           'target' => '_blank',

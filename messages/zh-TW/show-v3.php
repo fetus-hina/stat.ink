@@ -1,0 +1,42 @@
+<?php
+
+/**
+ * @copyright Copyright (C) 2026 AIZAWA Hina
+ * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ */
+
+declare(strict_types=1);
+
+return [
+    'Anarchy Power' => '蠻頹戰力',
+    'Check with Setup Analyzer' => '使用設定分析器來檢查',
+    'Completed!' => '完成!',
+    'Correction' => '更正',
+    'Correction Value' => '更正內容',
+    'Default Order' => '預設順序',
+    'Highest First' => '由多到少',
+    'Level (After)' => '等級(對戰結束後)',
+    'Lobby (Icon)' => '大廳(圖示)',
+    'Mains' => '主要',
+    'Medal' => '表揚',
+    'Medals' => '獲得的表揚',
+    'Mode (Icon)' => '規則(圖示)',
+    'Power' => '戰力',
+    'Power (After)' => '戰力(之後)',
+    'Progress' => '進度',
+    'Rank-up Battle' => '晉級戰',
+    'Regardless of your time zone setting, it is grouped using UTC.' => '無論你的時區設定為何，皆以 UTC 時間統計。',
+    'Series Progress' => '挑戰進度',
+    'Series Weapon Power' => '武器挑戰力',
+    'Sp' => '特武',
+    'Subs' => '次要武器',
+    'Sub Weapon (Icon)' => '次要武器(圖示)',
+    'The correction value specified by the user is applied.' => '已套用使用者指定的修正值。',
+    'Weapon (Icon)' => '武器(圖示)',
+    'You can register (estimated) unsent values here to correct the values displayed.' => '你可在填寫未上傳的資料來修改顯示的資料',
+    '{name}\'s Badge Progress' => '{name}的徽章進度',
+    '{name}\'s Battle Stats (Medals)' => '{name}的對戰統計 (表揚)',
+    '{name}\'s Battle Stats (Winning Rate)' => '{name}的對戰統計 (勝率)',
+    '{name}\'s X Power' => '{name}的X戰力',
+    '{nFormatted} remaining' => '{nFormatted}剩餘場次',
+];

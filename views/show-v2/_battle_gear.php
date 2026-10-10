@@ -38,7 +38,7 @@ $gears = [
     <tbody>
 <?php if ($battle->headgear->gear || $battle->clothing->gear || $battle->shoes->gear) { ?>
       <tr>
-        <th scope="row"><?= Html::encode(Yii::t('app', 'Gear')) ?></th>
+        <th scope="row"><?= Html::encode(Yii::t('app-battle', 'Gear')) ?></th>
         <?= implode('', array_map(
           function (?GearConfiguration2 $gear): string {
             return Html::tag('td', Html::encode(Yii::t('app-gear2', $gear->gear->name ?? '?')));
@@ -64,7 +64,7 @@ $gears = [
       </tr>
       <tr>
         <th scope="row">
-          <?= Html::encode(Yii::t('app', 'Secondary Abilities')) . "\n" ?>
+          <?= Html::encode(Yii::t('app-battle', 'Secondary Abilities')) . "\n" ?>
         </th>
         <?= implode('', array_map(
           function (?GearConfiguration2 $gear): string {

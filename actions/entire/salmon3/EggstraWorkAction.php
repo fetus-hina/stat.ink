@@ -116,7 +116,7 @@ final class EggstraWorkAction extends Action
             );
             $estimatedDistrib = self::estimatedDistrib($schedule->eggstraWorkOfficialResult3);
             $ruleOfThumbDistrib = self::ruleOfThumbDistrib($schedule, $abstract);
-            $chartMax = max(array_keys($histogram)) + $abstract->histogram_width / 2;
+            $chartMax = ($histogram |> array_keys(...) |> max(...)) + $abstract->histogram_width / 2;
         }
 
         return [

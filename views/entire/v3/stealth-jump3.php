@@ -37,7 +37,7 @@ use yii\web\View;
  * @var float $xpStdDev
  */
 
-$title = Yii::t('app', 'Stealth Jump Equipment Rate');
+$title = Yii::t('app-entire', 'Stealth Jump Equipment Rate');
 $this->title = $title . ' | ' . Yii::$app->name;
 
 $minXPower = (int)(floor(($xpAvg - 2.0 * $xpStdDev) / 50) * 50);
@@ -90,7 +90,7 @@ $datasetEquipment = [
     ],
     $data,
   ),
-  'label' => Yii::t('app', 'Equip %'),
+  'label' => Yii::t('app-entire', 'Equip %'),
 ];
 
 $datasetEquipError = [
@@ -118,7 +118,7 @@ $datasetEquipError = [
   'errorBarLineWidth' => 2,
   'errorBarWhiskerColor' => 'rgba(50, 50, 50, 0.75)',
   'errorBarWhiskerLineWidth' => 2,
-  'label' => Yii::t('app', 'Estimated Error') . ' (95% CI)',
+  'label' => Yii::t('app-entire', 'Estimated Error') . ' (95% CI)',
 ];
 
 ?>
@@ -145,10 +145,10 @@ $datasetEquipError = [
   </div>
 
   <p class="mb-3">
-    <?= Yii::t('app', 'Aggregated: {rules}', [
+    <?= Yii::t('app-entire', 'Aggregated: {rules}', [
       'rules' => implode(', ', [
         Icon::s3LobbyX() . ' ' . Html::encode(Yii::t('app-lobby3', 'X Battle')),
-        Html::encode(Yii::t('app', '7 players for each battle (excluded the battle uploader)')),
+        Html::encode(Yii::t('app-entire', '7 players for each battle (excluded the battle uploader)')),
       ]),
     ]) . "\n" ?>
   </p>
@@ -156,7 +156,7 @@ $datasetEquipError = [
   <div class="alert alert-danger">
     <?= Html::encode(
       vsprintf('%s: %s', [
-        Yii::t('app', 'Player Distribution'),
+        Yii::t('app-entire', 'Player Distribution'),
         Yii::t('app', 'This data is based on {siteName} users and differs significantly from overall game statistics.', [
           'siteName' => Yii::$app->name,
         ]),
@@ -220,7 +220,7 @@ $datasetEquipError = [
               'ticks' => ['stepSize' => 10],
               'title' => [
                 'display' => true,
-                'text' => Yii::t('app', 'Equip %'),
+                'text' => Yii::t('app-entire', 'Equip %'),
               ],
             ],
             'y2' => [
@@ -244,10 +244,10 @@ $datasetEquipError = [
   ]) . "\n" ?>
   <div class="text-end text-right mb-3">
     <p class="small">
-      <?= Html::encode(Yii::t('app', 'Error bars: 95% confidence interval (estimated)'). "\n") ?>
+      <?= Html::encode(Yii::t('app-entire', 'Error bars: 95% confidence interval (estimated)'). "\n") ?>
     </p>
     <p class="small">
-      <?= Yii::t('app', 'Idea: {source}', [
+      <?= Yii::t('app-entire', 'Idea: {source}', [
         'source' => implode(', ', [
           Html::a(
             Icon::youtube() . ' わたる / wataru ch',

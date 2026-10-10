@@ -120,34 +120,32 @@ abstract class BaseLatestBattlesAction extends ViewAction
 
     private function getBattles(): array
     {
-        return array_values(
-            array_filter(
-                ArrayHelper::getColumn(
-                    $this->fetchBattles(),
-                    function ($battle): ?array {
-                        switch ($battle::class) {
-                            case Battle::class:
-                                return $this->formatBattle1($battle);
+        return ArrayHelper::getColumn(
+            $this->fetchBattles(),
+            function ($battle): ?array {
+                switch ($battle::class) {
+                    case Battle::class:
+                        return $this->formatBattle1($battle);
 
-                            case Battle2::class:
-                                return $this->formatBattle2($battle);
+                    case Battle2::class:
+                        return $this->formatBattle2($battle);
 
-                            case Battle3::class:
-                                return $this->formatBattle3($battle);
+                    case Battle3::class:
+                        return $this->formatBattle3($battle);
 
-                            case Salmon2::class:
-                                return $this->formatSalmon2($battle);
+                    case Salmon2::class:
+                        return $this->formatSalmon2($battle);
 
-                            case Salmon3::class:
-                                return $this->formatSalmon3($battle);
+                    case Salmon3::class:
+                        return $this->formatSalmon3($battle);
 
-                            default:
-                                return null;
-                        }
-                    },
-                ),
-            ),
-        );
+                    default:
+                        return null;
+                }
+            },
+        )
+            |> array_filter(...)
+            |> array_values(...);
     }
 
     private function getImages(): array

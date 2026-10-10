@@ -20,14 +20,14 @@ trait UserFormatter
     protected function formatUser(User $model): array
     {
         return [
-            'icon' => array_values(
-                array_filter([
-                    $model->userIcon
-                        ? Url::to($model->userIcon->url, true)
-                        : null,
-                    Url::to($model->jdenticonUrl, true),
-                ]),
-            ),
+            'icon' => [
+                $model->userIcon
+                    ? Url::to($model->userIcon->url, true)
+                    : null,
+                Url::to($model->jdenticonUrl, true),
+            ]
+                |> array_filter(...)
+                |> array_values(...),
             'name' => $model->name,
             'url' => Url::to(
                 ['show-user/profile',

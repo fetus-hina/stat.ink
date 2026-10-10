@@ -16,7 +16,7 @@ use yii\web\View;
 use yii\widgets\DetailView;
 
 return [
-  'label' => Yii::t('app', 'Final Count'),
+  'label' => Yii::t('app-battle', 'Final Count'),
   'format' => 'raw',
   'value' => function (Battle3 $model): ?string {
     if ($model->our_team_count !== null && $model->their_team_count !== null) {

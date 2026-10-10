@@ -44,8 +44,8 @@ final class ResetPasswordRecoveryKeyAction extends Action
                     Yii::$app->session->addFlash(
                         'success',
                         implode("\n", [
-                            Yii::t('app', 'Your password has been changed successfully.'),
-                            Yii::t('app', 'Please log in with your new password.'),
+                            Yii::t('app-user', 'Your password has been changed successfully.'),
+                            Yii::t('app-user', 'Please log in with your new password.'),
                         ]),
                     );
 

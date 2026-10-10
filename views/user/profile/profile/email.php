@@ -18,7 +18,7 @@ use yii\web\View;
  */
 
 echo Html::encode(Yii::t(
-  'app',
+  'app-user',
   'We\'ll send an email when you log in to the website or change your password.'
 )) . '<br>';
 

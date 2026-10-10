@@ -22,7 +22,7 @@ use yii\web\View;
 
 $title = implode(' | ', [
     Yii::$app->name,
-    Yii::t('app', 'Getting Started'),
+    Yii::t('app-site', 'Getting Started'),
 ]);
 $this->context->layout = 'main';
 

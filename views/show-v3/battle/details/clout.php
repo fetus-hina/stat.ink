@@ -14,7 +14,7 @@ use app\models\Battle3;
 use yii\helpers\Html;
 
 return [
-  'label' => Yii::t('app', 'Clout'),
+  'label' => Yii::t('app-battle', 'Clout'),
   'format' => 'raw',
   'value' => function (Battle3 $model): ?string {
     $festDragon = $model->festDragon;

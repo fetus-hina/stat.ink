@@ -121,17 +121,17 @@ if (!is_string($discordInviteCode)) {
             array_filter(
               [
                 Html::a(
-                  Html::encode(Yii::t('app', 'API (Splatoon 3)')),
+                  Html::encode(Yii::t('app-layouts', 'API (Splatoon 3)')),
                   'https://github.com/fetus-hina/stat.ink/wiki/Spl3-API:-Battle-%EF%BC%8D-Post',
                   ['target' => '_blank', 'rel' => 'noopener'],
                 ),
                 Html::a(
-                  Html::encode(Yii::t('app', 'API (Splatoon 2)')),
+                  Html::encode(Yii::t('app-layouts', 'API (Splatoon 2)')),
                   'https://github.com/fetus-hina/stat.ink/tree/master/doc/api-2',
                   ['target' => '_blank', 'rel' => 'noopener'],
                 ),
                 Html::a(
-                  Html::encode(Yii::t('app', 'API (Splatoon)')),
+                  Html::encode(Yii::t('app-layouts', 'API (Splatoon)')),
                   ['/site/api'],
                   ['target' => '_blank', 'rel' => 'noopener'],
                 ),
@@ -140,7 +140,7 @@ if (!is_string($discordInviteCode)) {
                   ['/site/privacy']
                 ),
                 Html::a(
-                  Html::encode(Yii::t('app', 'Open Source Licenses')),
+                  Html::encode(Yii::t('app-site', 'Open Source Licenses')),
                   ['/site/license']
                 ),
                 $discordInviteCode
@@ -151,7 +151,7 @@ if (!is_string($discordInviteCode)) {
                         'alt' => 'Discord',
                         'class' => 'auto-tooltip',
                         'height' => (string)round(28 * 0.5),
-                        'title' => Yii::t('app', '{siteName} Discord Community', ['siteName' => Yii::$app->name]),
+                        'title' => Yii::t('app-site', '{siteName} Discord Community', ['siteName' => Yii::$app->name]),
                         'width' => (string)round(104 * 0.5),
                       ],
                     ),
@@ -170,11 +170,11 @@ if (!is_string($discordInviteCode)) {
     <div class="footer-notice">
       <?= implode('<br>', [
         Html::encode(
-          Yii::t('app', 'This website is an UNOFFICIAL SERVICE. It is not related to the Splatoon development team or Nintendo.')
+          Yii::t('app-layouts', 'This website is an UNOFFICIAL SERVICE. It is not related to the Splatoon development team or Nintendo.')
         ),
         implode(' ', [
           Html::encode(
-            Yii::t('app', 'This website is an open source project. It is under the MIT License. The source code is available on GitHub.')
+            Yii::t('app-layouts', 'This website is an open source project. It is under the MIT License. The source code is available on GitHub.')
           ),
           Html::a(
             Icon::github(),
@@ -183,7 +183,7 @@ if (!is_string($discordInviteCode)) {
         ]),
         implode(' ', [
           Html::encode(
-            Yii::t('app', 'Feedback or suggestions are welcome. Please contact me via GitHub or Twitter.')
+            Yii::t('app-layouts', 'Feedback or suggestions are welcome. Please contact me via GitHub or Twitter.')
           ),
           Html::a(
             Icon::github(),
@@ -195,10 +195,10 @@ if (!is_string($discordInviteCode)) {
           ),
         ]),
         implode(' ', [
-          Yii::t('app', 'Thanks to {user} for their contribution.', [
+          Yii::t('app-layouts', 'Thanks to {user} for their contribution.', [
             'user' => Html::a(Html::encode('@hacceuee'), 'https://github.com/hacceuee'),
           ]),
-          Yii::t('app', '{package} is used for icons and other images.', [
+          Yii::t('app-layouts', '{package} is used for icons and other images.', [
             'package' => Html::a(
               Html::encode('s3-pixel-icons'),
               'https://github.com/hacceuee/s3-pixel-icons',
@@ -210,7 +210,7 @@ if (!is_string($discordInviteCode)) {
     <div class="footer-powered">
       <?= sprintf(
         '%s %s, %s<br>',
-        Html::encode(Yii::t('app', 'Powered by')),
+        Html::encode(Yii::t('app-layouts', 'Powered by')),
         Html::a(
           Html::encode('Yii Framework ' . Yii::getVersion()),
           'http://www.yiiframework.com/'
@@ -222,7 +222,7 @@ if (!is_string($discordInviteCode)) {
       ) . "\n" ?>
       <?= sprintf(
         '%s %s.',
-        Html::encode(Yii::t('app', 'Served by')),
+        Html::encode(Yii::t('app-layouts', 'Served by')),
         Html::encode(php_uname('n'))
       ) . "\n" ?>
     </div>

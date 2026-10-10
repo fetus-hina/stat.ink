@@ -25,7 +25,7 @@ use yii\web\View;
  * @var View $this
  */
 
-$title = Yii::t('app', "{name}'s Battle Stats (by Weapon)", ['name' => $user->name]);
+$title = Yii::t('app-battle', "{name}'s Battle Stats (by Weapon)", ['name' => $user->name]);
 $this->title = Yii::$app->name . ' | ' . $title;
 
 $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);

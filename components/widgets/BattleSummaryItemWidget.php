@@ -28,6 +28,11 @@ class BattleSummaryItemWidget extends Widget
     public $pct95;
     public $stddev;
     public $tooltipText;
+
+    /**
+     * Translation category of $tooltipText
+     */
+    public string $tooltipCategory = 'app';
     public $summary;
 
     public int $decimalLabel = 2;
@@ -90,6 +95,22 @@ class BattleSummaryItemWidget extends Widget
 
     private function renderContent(): string
     {
+        $params = [
+            'battle' => $this->battles,
+            'max' => $this->max === null ? '?' : Yii::$app->formatter->asInteger($this->max),
+            'median' => $this->median === null
+                ? '?'
+                : Yii::$app->formatter->asDecimal(
+                    $this->median,
+                    $this->decimalValue > 0 ? $this->decimalValue - 1 : 0,
+                ),
+            'min' => $this->min === null ? '?' : Yii::$app->formatter->asInteger($this->min),
+            'number' => $this->total,
+            'stddev' => $this->stddev === null
+                ? '?'
+                : Yii::$app->formatter->asDecimal($this->stddev, $this->decimalValue + 1),
+        ];
+
         return Html::tag(
             'span',
             Html::encode(
@@ -100,29 +121,15 @@ class BattleSummaryItemWidget extends Widget
             ),
             [
                 'class' => 'auto-tooltip',
-                'title' => Yii::t(
-                    'app',
-                    match (true) {
-                        isset($this->median) && isset($this->stddev) => 'max={max} min={min} median={median} stddev={stddev}',
-                        isset($this->median) => 'max={max} min={min} median={median}',
-                        default => $this->tooltipText,
-                    },
-                    [
-                        'battle' => $this->battles,
-                        'max' => $this->max === null ? '?' : Yii::$app->formatter->asInteger($this->max),
-                        'median' => $this->median === null
-                            ? '?'
-                            : Yii::$app->formatter->asDecimal(
-                                $this->median,
-                                $this->decimalValue > 0 ? $this->decimalValue - 1 : 0,
-                            ),
-                        'min' => $this->min === null ? '?' : Yii::$app->formatter->asInteger($this->min),
-                        'number' => $this->total,
-                        'stddev' => $this->stddev === null
-                            ? '?'
-                            : Yii::$app->formatter->asDecimal($this->stddev, $this->decimalValue + 1),
-                    ],
-                ),
+                'title' => match (true) {
+                    isset($this->median) && isset($this->stddev) => Yii::t(
+                        'app',
+                        'max={max} min={min} median={median} stddev={stddev}',
+                        $params,
+                    ),
+                    isset($this->median) => Yii::t('app', 'max={max} min={min} median={median}', $params),
+                    default => Yii::t($this->tooltipCategory, (string)$this->tooltipText, $params),
+                },
             ],
         );
     }

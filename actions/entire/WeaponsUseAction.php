@@ -23,6 +23,8 @@ use yii\base\Action;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
 
+use function array_first;
+use function array_last;
 use function array_map;
 use function array_merge;
 use function count;
@@ -190,7 +192,7 @@ final class WeaponsUseAction extends Action
         $list = $this->queryData($form);
         $ret = [
             'data' => [],
-            'events' => count($list) ? $this->getEventData($list[0], $list[count($list) - 1]) : [],
+            'events' => count($list) ? $this->getEventData(array_first($list), array_last($list)) : [],
         ];
         foreach (range(1, WeaponCompareForm::NUMBER) as $i) {
             $columnKey = "w{$i}";

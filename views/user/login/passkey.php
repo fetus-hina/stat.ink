@@ -46,7 +46,7 @@ $this->registerJs(sprintf(
       <div class="checkbox">
         <label>
           <?= Html::checkbox('remember_me', true, ['id' => 'passkey-login-remember']) ?>
-          <?= Html::encode(Yii::t('app', 'Remember me')) . "\n" ?>
+          <?= Html::encode(Yii::t('app-user', 'Remember me')) . "\n" ?>
         </label>
       </div>
     </div>
@@ -61,6 +61,6 @@ $this->registerJs(sprintf(
         ],
       ) . "\n" ?>
     </div>
-    <div id="passkey-login-message" class="mb-3" style="display:none"></div>
+    <div id="passkey-login-message" class="mb-3" role="alert" style="display:none"></div>
   </div>
 </div>

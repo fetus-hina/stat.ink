@@ -80,7 +80,7 @@ final class Rank extends Widget
             'small',
             vsprintf('(%s)', [
                 Html::encode(
-                    Yii::t('app', '{point}p', [
+                    Yii::t('app-battle', '{point}p', [
                         'point' => (string)(int)$this->pts,
                     ]),
                 ),

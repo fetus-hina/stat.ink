@@ -17,9 +17,9 @@ use yii\helpers\Json;
 use yii\helpers\Url;
 
 use function array_filter;
+use function array_first;
 use function array_map;
 use function array_merge;
-use function array_values;
 use function count;
 use function vsprintf;
 
@@ -44,7 +44,7 @@ class FallbackableImage extends Widget
 
         if (count($srcs) === 1) {
             return Html::img(
-                array_values($srcs)[0],
+                array_first($srcs),
                 array_merge(
                     $this->options,
                     ['id' => $this->id],

@@ -49,7 +49,7 @@ $labels = array_map(
 );
 $labels['0'] = Yii::t('app-salmon-event3', '(Normal)');
 
-$total = array_sum(array_values($values));
+$total = $values |> array_values(...) |> array_sum(...);
 
 ?>
 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 mb-3">

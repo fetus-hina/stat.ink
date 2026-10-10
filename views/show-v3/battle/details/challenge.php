@@ -11,7 +11,7 @@ use app\components\widgets\v3\ChallengeProgress;
 use app\models\Battle3;
 
 return [
-  'label' => Yii::t('app', 'Series Progress'),
+  'label' => Yii::t('app-show-v3', 'Series Progress'),
   'format' => 'raw',
   'value' => function (Battle3 $model): ?string {
     if (

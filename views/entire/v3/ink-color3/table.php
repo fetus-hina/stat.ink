@@ -53,7 +53,7 @@ echo Html::tag(
 
 echo Html::tag(
   'p',
-  Yii::t('app', 'Idea: {source}', [
+  Yii::t('app-entire', 'Idea: {source}', [
     'source' => Html::a(
       vsprintf('%s %s', [
         Icon::twitter(),

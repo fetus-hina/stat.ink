@@ -24,7 +24,7 @@ use yii\web\View;
  * @var View $this
  */
 
-$title = Yii::t('app', 'Battles and Users');
+$title = Yii::t('app-entire', 'Battles and Users');
 $this->title = sprintf('%s | %s', $title, Yii::$app->name);
 
 OgpHelper::default($this, title: $this->title);

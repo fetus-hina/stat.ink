@@ -80,7 +80,7 @@ echo Html::tag(
       trim(implode(' ', [
         Html::encode(
           ($battle->my_team_fest_theme_id !== null && $battle->his_team_fest_theme_id !== null)
-            ? Yii::t('app', 'Team {theme}', [
+            ? Yii::t('app-show-v2', 'Team {theme}', [
               'theme' => ($teamKey === 'my')
                 ? $battle->myTeamFestTheme->name
                 : $battle->hisTeamFestTheme->name,
@@ -135,7 +135,7 @@ echo Html::tag(
         $streak === null
           ? ''
           : Label::widget([
-            'content' => Yii::t('app', 'Win Streak: {count}', [
+            'content' => Yii::t('app-show-v2', 'Win Streak: {count}', [
               'count' => $fmt->asInteger($streak),
             ]),
             'color' => 'danger',

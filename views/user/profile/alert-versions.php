@@ -19,7 +19,7 @@ use yii\helpers\Html;
       Icon::splatoon3(),
     ]) . ':' . "\n" ?>
     <?= Html::encode(
-      Yii::t('app', 'Items marked with these icons will only work with its corresponding version.'),
+      Yii::t('app-user', 'Items marked with these icons will only work with its corresponding version.'),
     ) . "\n" ?>
   </p>
 </div>

@@ -145,7 +145,7 @@ class LocationColumnWidget extends Widget
             return null;
         }
 
-        return (string)FlagIcon::fg(strtolower($country->isoCode));
+        return (string)($country->isoCode |> strtolower(...) |> FlagIcon::fg(...));
     }
 
     protected function renderIpAddress(): ?string
@@ -157,7 +157,7 @@ class LocationColumnWidget extends Widget
         if ($this->remoteHost) {
             return Html::tag(
                 'span',
-                Html::encode(strtolower($this->remoteHost)),
+                $this->remoteHost |> strtolower(...) |> Html::encode(...),
                 ['title' => $this->remoteAddr, 'class' => 'auto-tooltip'],
             );
         }
@@ -165,7 +165,7 @@ class LocationColumnWidget extends Widget
         if (str_contains($this->remoteAddr, ':') && $this->remoteAddrMasked) {
             return Html::tag(
                 'span',
-                Html::encode(strtolower($this->remoteAddrMasked)),
+                $this->remoteAddrMasked |> strtolower(...) |> Html::encode(...),
                 ['title' => $this->remoteAddr, 'class' => 'auto-tooltip'],
             );
         }

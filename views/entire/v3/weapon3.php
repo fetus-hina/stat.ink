@@ -130,15 +130,15 @@ echo $this->render('weapon3/chart-runner');
   <div class="mb-3">
     <p class="mb-1">
       <?= Html::encode(
-        Yii::t('app', 'Aggregated: {rules}', [
-          'rules' => Yii::t('app', '7 players for each battle (excluded the battle uploader)'),
+        Yii::t('app-entire', 'Aggregated: {rules}', [
+          'rules' => Yii::t('app-entire', '7 players for each battle (excluded the battle uploader)'),
         ]),
       ) . "\n" ?>
     </p>
     <p class="mb-1">
       <?= Html::encode(
         vsprintf('%s: %s', [
-          Yii::t('app', 'Samples'),
+          Yii::t('app-entire', 'Samples'),
           Yii::$app->formatter->asInteger(
             array_sum(
               array_map(
@@ -170,7 +170,7 @@ echo $this->render('weapon3/chart-runner');
       implode('', [
         Html::tag(
           'p',
-          Yii::t('app', 'Error bars: 95% confidence interval (estimated) & 99% confidence interval (estimated)'),
+          Yii::t('app-entire', 'Error bars: 95% confidence interval (estimated) & 99% confidence interval (estimated)'),
           ['class' => 'text-right small mb-1'],
         ),
       ]),

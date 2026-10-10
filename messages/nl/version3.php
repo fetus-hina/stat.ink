@@ -1,13 +1,13 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2022-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2022-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
 declare(strict_types=1);
 
 return [
-    'Any Version' => '',
-    'Prerelease' => '',
+    'Any Version' => 'Alle versies',
+    'Prerelease' => 'Vóór de release',
 ];

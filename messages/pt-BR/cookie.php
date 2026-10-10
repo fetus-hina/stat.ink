@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2024-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2024-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -14,7 +14,7 @@ return [
     'A token used for the auto login feature' => 'Um token usado para a função de login automático',
     'A token used to avoid CSRF vulnerability' => 'Um token usado para evitar a vulnerabilidade de CSRF',
     'Cookie ID (Name)' => 'ID do Cookie (Nome)',
-    'Cookies' => '',
+    'Cookies' => 'Cookies',
     'descriptions' => 'descrições',
     'Expires' => 'Expira',
     'I agree' => 'Eu concordo',

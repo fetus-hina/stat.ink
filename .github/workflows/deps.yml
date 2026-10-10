@@ -5,7 +5,7 @@ name: 'Dependencies Updator'
       cron: '11 23 * * *'
   workflow_dispatch:
 env:
-  PHP_VERSION: '8.4'
+  PHP_VERSION: '8.5'
   NODE_VERSION: '24'
   PACKAGE_COOLDOWN_DAYS: '3'
   LLM_API_KEY: ${{ secrets.SAKURA_AI_ENGINE_API_KEY }}

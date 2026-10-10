@@ -87,7 +87,7 @@ foreach ($steps as $tmpStep) {
         ? false
         : vsprintf('%s + (%s: %s%s)', [
           $fmt->asInteger($rawValue),
-          Yii::t('app', 'Correction Value'),
+          Yii::t('app-show-v3', 'Correction Value'),
           $adjust >= 0 ? '+' : '-',
           $fmt->asInteger(abs($adjust)),
         ]),
@@ -114,7 +114,7 @@ foreach ($steps as $tmpStep) {
                   ? 100
                   : 100 * ($value - $step[0]) / ($step[1] - $step[0]),
                 'label' => $step[1] === null
-                  ? Yii::t('app', 'Completed!')
+                  ? Yii::t('app-show-v3', 'Completed!')
                   : $fmt->asPercent($value / $step[1], 1),
                 'options' => $step[1] === null
                   ? ['class' => 'progress-bar-success']
@@ -126,7 +126,7 @@ foreach ($steps as $tmpStep) {
                   : 100 * (1 - ($value - $step[0]) / ($step[1] - $step[0])),
                 'label' => $step[1] === null
                   ? ''
-                  : Yii::t('app', '{nFormatted} remaining', [
+                  : Yii::t('app-show-v3', '{nFormatted} remaining', [
                     'n' => $step[1] - $value,
                     'nFormatted' => Yii::$app->formatter->asInteger($step[1] - $value),
                   ]),

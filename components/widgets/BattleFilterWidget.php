@@ -343,7 +343,7 @@ final class BattleFilterWidget extends Widget
     protected function drawResult(ActiveForm $form)
     {
         $list = [
-            '' => Yii::t('app', 'Won / Lost'),
+            '' => Yii::t('app-filter', 'Won / Lost'),
             'win' => Yii::t('app', 'Won'),
             'lose' => Yii::t('app', 'Lost'),
         ];
@@ -359,11 +359,11 @@ final class BattleFilterWidget extends Widget
     {
         $list = [
             '' => Yii::t('app', 'Any Time'),
-            'this-period' => Yii::t('app', 'Current Period'),
-            'last-period' => Yii::t('app', 'Previous Period'),
-            '24h' => Yii::t('app', 'Last 24 Hours'),
-            'today' => Yii::t('app', 'Today'),
-            'yesterday' => Yii::t('app', 'Yesterday'),
+            'this-period' => Yii::t('app-filter', 'Current Period'),
+            'last-period' => Yii::t('app-filter', 'Previous Period'),
+            '24h' => Yii::t('app-filter', 'Last 24 Hours'),
+            'today' => Yii::t('app-filter', 'Today'),
+            'yesterday' => Yii::t('app-filter', 'Yesterday'),
             'last-10-battles' => Yii::t('app', 'Last {n} Battles', ['n' => 10]),
             'last-20-battles' => Yii::t('app', 'Last {n} Battles', ['n' => 20]),
             'last-50-battles' => Yii::t('app', 'Last {n} Battles', ['n' => 50]),
@@ -380,7 +380,7 @@ final class BattleFilterWidget extends Widget
             $list['v' . $version['tag']] = Yii::t('app', 'Version {0}', $version['name']);
         }
 
-        $list['term'] = Yii::t('app', 'Specify Period');
+        $list['term'] = Yii::t('app-filter', 'Specify Period');
 
         return $form->field($this->filter, 'term')->dropDownList($list)->label(false);
     }
@@ -409,13 +409,13 @@ final class BattleFilterWidget extends Widget
             implode('', [
                 $form->field($this->filter, 'term_from', [
                     'inputTemplate' => Yii::t(
-                        'app',
+                        'app-filter',
                         '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>',
                     ),
                 ])->input('text', ['placeholder' => 'YYYY-MM-DD hh:mm:ss'])->label(false),
                 $form->field($this->filter, 'term_to', [
                     'inputTemplate' => Yii::t(
-                        'app',
+                        'app-filter',
                         '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>',
                     ),
                 ])->input('text', ['placeholder' => 'YYYY-MM-DD hh:mm:ss'])->label(false),

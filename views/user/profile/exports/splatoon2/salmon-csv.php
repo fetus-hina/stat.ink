@@ -28,7 +28,7 @@ echo Html::tag(
     Html::a(
       implode(' ', [
         Icon::fileCsv(),
-        Html::encode(Yii::t('app', 'Salmon Run CSV')),
+        Html::encode(Yii::t('app-user', 'Salmon Run CSV')),
         Html::tag('small', Html::encode('(β)')),
       ]),
       ['download-salmon', 'type' => 'csv'],
@@ -41,7 +41,7 @@ echo Html::tag(
         'class' => 'btn btn-default auto-tooltip',
         'rel' => 'external noopener',
         'target' => '_blank',
-        'title' => Yii::t('app', 'Schema information'),
+        'title' => Yii::t('app-user', 'Schema information'),
       ],
     ),
   ]),

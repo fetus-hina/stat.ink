@@ -38,7 +38,7 @@ final class ResetPasswordApikeyForm extends Model
             [['screen_name'], 'match',
                 'pattern' => '/^[a-zA-Z0-9_]{1,15}$/',
                 'message' => Yii::t(
-                    'app',
+                    'app-user',
                     '{attribute} must be at most 15 alphanumeric or underscore characters.',
                 ),
             ],
@@ -61,10 +61,10 @@ final class ResetPasswordApikeyForm extends Model
     public function attributeLabels()
     {
         return [
-            'screen_name' => Yii::t('app', 'Screen Name (Login Name)'),
+            'screen_name' => Yii::t('app-user', 'Screen Name (Login Name)'),
             'api_key' => Yii::t('app', 'API Token'),
-            'password' => Yii::t('app', 'New Password'),
-            'password_repeat' => Yii::t('app', 'New Password (again)'),
+            'password' => Yii::t('app-user', 'New Password'),
+            'password_repeat' => Yii::t('app-user', 'New Password (again)'),
         ];
     }
 
@@ -81,7 +81,7 @@ final class ResetPasswordApikeyForm extends Model
         ) {
             $this->addError(
                 $attribute,
-                Yii::t('app', 'Invalid {0} or {1}.', [
+                Yii::t('app-user', 'Invalid {0} or {1}.', [
                     $this->getAttributeLabel('screen_name'),
                     $this->getAttributeLabel('api_key'),
                 ]),
@@ -125,7 +125,7 @@ final class ResetPasswordApikeyForm extends Model
 
         $this->addError(
             $attribute,
-            Yii::t('app', 'Failed to validate CAPTCHA.'),
+            Yii::t('app-user', 'Failed to validate CAPTCHA.'),
         );
     }
 
@@ -156,11 +156,15 @@ final class ResetPasswordApikeyForm extends Model
     private function getUser(): ?User
     {
         if ($this->user === false) {
+            // Users who have disabled their password can only recover it with
+            // a recovery key. API keys are often stored in plain text by
+            // clients, so they are not trusted enough to re-enable a password.
             $this->user = User::find()
                 ->andWhere([
                     '{{user}}.[[screen_name]]' => (string)$this->screen_name,
                     '{{user}}.[[apikey_password_reset]]' => true,
                 ])
+                ->andWhere(['not', ['{{user}}.[[password]]' => null]])
                 ->limit(1)
                 ->one();
         }

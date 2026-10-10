@@ -32,7 +32,7 @@ SortableTableAsset::register($this);
 <?= Html::tag(
   'h2',
   implode(' ', [
-    Html::encode(Yii::t('app', 'Rare Weapon')),
+    Html::encode(Yii::t('app-api-info', 'Rare Weapon')),
   ]),
 ) . "\n" ?>
 <?= Html::tag(
@@ -41,7 +41,7 @@ SortableTableAsset::register($this);
     Html::a(
       implode(' ', [
         Icon::apiJson(),
-        Html::encode(Yii::t('app', 'JSON format')),
+        Html::encode(Yii::t('app-api-info', 'JSON format')),
       ]),
       ['api-v3/salmon-weapon'],
       ['class' => 'label label-default'],
@@ -49,7 +49,7 @@ SortableTableAsset::register($this);
     Html::a(
       implode(' ', [
         Icon::apiJson(),
-        Html::encode(Yii::t('app', 'JSON format (All langs)')),
+        Html::encode(Yii::t('app-api-info', 'JSON format (All langs)')),
       ]),
       ['api-v3/salmon-weapon', 'full' => 1],
       ['class' => 'label label-default'],
@@ -63,7 +63,7 @@ SortableTableAsset::register($this);
         <th></th>
         <th><?= Icon::s3Salmon() ?></th>
         <th data-sort="string"><code>key</code></th>
-        <th data-sort="string"><?= Html::encode(Yii::t('app', 'Aliases')) ?></th>
+        <th data-sort="string"><?= Html::encode(Yii::t('app-api-info', 'Aliases')) ?></th>
 <?php foreach ($langs as $i => $lang) { ?>
         <?= Html::tag('th', Html::encode($lang->name), [
           'class' => $lang->htmlClasses,

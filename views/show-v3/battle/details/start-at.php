@@ -11,7 +11,7 @@ use app\components\widgets\TimestampColumnWidget;
 use app\models\Battle3;
 
 return [
-  'label' => Yii::t('app', 'Battle Start'),
+  'label' => Yii::t('app-battle', 'Battle Start'),
   'format' => 'raw',
   'value' => function (Battle3 $model): ?string {
     if ($model->start_at === null) {

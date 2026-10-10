@@ -915,12 +915,12 @@ class Battle extends ActiveRecord
                 ? (int)$this->bonus->bonus
                 : null,
             'start_at' => $this->start_at != ''
-                ? DateTimeFormatter::unixTimeToJsonArray(strtotime($this->start_at))
+                ? ($this->start_at |> strtotime(...) |> DateTimeFormatter::unixTimeToJsonArray(...))
                 : null,
             'end_at' => $this->end_at != ''
-                ? DateTimeFormatter::unixTimeToJsonArray(strtotime($this->end_at))
+                ? ($this->end_at |> strtotime(...) |> DateTimeFormatter::unixTimeToJsonArray(...))
                 : null,
-            'register_at' => DateTimeFormatter::unixTimeToJsonArray(strtotime($this->at)),
+            'register_at' => $this->at |> strtotime(...) |> DateTimeFormatter::unixTimeToJsonArray(...),
         ];
     }
 

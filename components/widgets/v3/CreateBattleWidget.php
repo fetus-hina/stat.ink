@@ -60,8 +60,8 @@ final class CreateBattleWidget extends Dialog
                     'agent' => sprintf('%s web client', (string)Yii::$app->name),
                     'agentVersion' => sprintf('v%s', (string)Yii::$app->version),
                     'i18n' => [
-                        'success' => Yii::t('app', 'Registered.'),
-                        'error' => Yii::t('app', 'Could not register the battle.'),
+                        'success' => Yii::t('app-battle', 'Registered.'),
+                        'error' => Yii::t('app-battle', 'Could not register the battle.'),
                     ],
                 ]),
             ),
@@ -94,7 +94,7 @@ final class CreateBattleWidget extends Dialog
                     null,
                 ),
                 Html::submitButton(
-                    Html::encode(Yii::t('app', 'Submit Battle')),
+                    Html::encode(Yii::t('app-battle', 'Submit Battle')),
                     [
                         'class' => 'btn btn-primary btn-block',
                         'id' => 'create-battle3-submit',
@@ -131,7 +131,7 @@ final class CreateBattleWidget extends Dialog
                 implode('', [
                     Icon::refresh(),
                     ' ',
-                    Html::encode(Yii::t('app', 'Refresh Schedule')),
+                    Html::encode(Yii::t('app-battle', 'Refresh Schedule')),
                 ]),
                 [
                     'type' => 'button',
@@ -345,7 +345,7 @@ final class CreateBattleWidget extends Dialog
             ['', Yii::t('app', 'Unknown')],
             ['win', Yii::t('app', 'Won')],
             ['lose', Yii::t('app', 'Lost')],
-            ['exempted_lose', Yii::t('app', 'Disconnected')],
+            ['exempted_lose', Yii::t('app-battle', 'Disconnected')],
         ];
 
         $buttons = [];

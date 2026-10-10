@@ -13,6 +13,8 @@ return [
     'Back' => 'Назад',
     'Created At' => 'Создан',
     'Delete' => 'Удалить',
+    'Failed to verify with your passkey.' => 'Не удалось выполнить подтверждение ключом доступа.',
+    'You cannot delete your last passkey while your password is disabled.' => 'Нельзя удалить последний ключ доступа, пока пароль отключён.',
     'e.g., "iPhone Face ID"' => 'например, «iPhone Face ID»',
     'Failed to log in with passkey.' => 'Не удалось войти с помощью ключа доступа.',
     'Failed to register passkey.' => 'Не удалось зарегистрировать ключ доступа.',

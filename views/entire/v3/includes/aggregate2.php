@@ -19,7 +19,7 @@ use yii\web\View;
 echo Html::tag(
   'p',
   Html::encode(
-    Yii::t('app', 'Aggregated: {rules}', [
+    Yii::t('app-entire', 'Aggregated: {rules}', [
       'rules' => implode(', ', [
         Yii::t('app-lobby3', $lobbies['xmatch']?->name ?? ''),
         Yii::t('app-lobby3', $lobbies['regular']?->name ?? ''),

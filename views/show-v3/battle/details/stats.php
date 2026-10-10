@@ -22,7 +22,7 @@ return [
     if (!$lobby || !$weapon || !$map || !$result) {
       return implode('', [
         Html::tag('span', Icon::no(), ['class' => 'text-danger']),
-        Html::encode(Yii::t('app', 'Incomplete Data')),
+        Html::encode(Yii::t('app-battle', 'Incomplete Data')),
       ]);
     }
 
@@ -43,7 +43,7 @@ return [
     if ($model->has_disconnect) {
       return implode('', [
         Html::tag('span', Icon::no(), ['class' => 'text-danger']),
-        Html::encode(Yii::t('app', 'Disconnected')),
+        Html::encode(Yii::t('app-battle', 'Disconnected')),
       ]);
     }
 
@@ -57,8 +57,8 @@ return [
       ]);
     };
     return implode('<br>', [
-      $f(Yii::t('app', 'Automated'), $model->is_automated),
-      $f(Yii::t('app', 'Used in global stats'), $model->is_automated && $model->use_for_entire),
+      $f(Yii::t('app-battle', 'Automated'), $model->is_automated),
+      $f(Yii::t('app-battle', 'Used in global stats'), $model->is_automated && $model->use_for_entire),
     ]);
   },
 ];

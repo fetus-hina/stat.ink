@@ -54,6 +54,6 @@ final class LoginWithGoogleAction extends AbstractOAuth2LoginAction
     #[Override]
     protected function getNoUserFoundMessage(): string
     {
-        return Yii::t('app', 'There is no user associated with the specified Google account.');
+        return Yii::t('app-user', 'There is no user associated with the specified Google account.');
     }
 }

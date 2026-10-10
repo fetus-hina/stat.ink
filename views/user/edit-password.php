@@ -17,9 +17,12 @@ use yii\web\View;
 /**
  * @var PasswordForm $form
  * @var View $this
+ * @var bool $hasPassword
  */
 
-$title = Yii::t('app', 'Update Your Password');
+$title = $hasPassword
+  ? Yii::t('app-user', 'Update Your Password')
+  : Yii::t('app-user', 'Set Your Password');
 $this->title = implode(' | ', [
     Yii::$app->name,
     $title,
@@ -32,12 +35,29 @@ ZxcvbnAsset::register($this);
     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="padding:0 5%">
       <h1><?= Html::encode($title) ?></h1>
       
-      <?php $_ = ActiveForm::begin(['id' => 'update-form', 'action' => ['edit-password']]); echo "\n" ?>
-        <?= $_->field($form, 'password')
-          ->passwordInput([
-            'autocomplete' => 'current-password',
-          ]) . "\n"
-        ?>
+      <?php if (!$hasPassword) { ?>
+        <p>
+          <?= Html::encode(
+            Yii::t(
+              'app-user',
+              'Your password is currently disabled. You can set a new password after verifying with your passkey.',
+            ),
+          ) . "\n" ?>
+        </p>
+        <?= $this->render('passkey-reauth/config') . "\n" ?>
+      <?php } ?>
+      <?php $_ = ActiveForm::begin([
+        'id' => 'update-form',
+        'action' => ['edit-password'],
+        'options' => $hasPassword ? [] : ['data-passkey-reauth' => 'active-form'],
+      ]); echo "\n" ?>
+        <?php if ($hasPassword) { ?>
+          <?= $_->field($form, 'password')
+            ->passwordInput([
+              'autocomplete' => 'current-password',
+            ]) . "\n"
+          ?>
+        <?php } ?>
         <?= $_->field($form, 'new_password')
           ->passwordInput([
             'autocomplete' => 'new-password',
@@ -46,7 +66,7 @@ ZxcvbnAsset::register($this);
           ])
           ->hint(
             Yii::t(
-              'app',
+              'app-user',
               'This should be a random string of at least {n} characters and should not be the same as any other site',
               ['n' => 10],
             ),

@@ -677,7 +677,7 @@ class UserStat2 extends ActiveRecord
     public function toJsonArray(): array
     {
         return [
-            'updated_at' => DateTimeFormatter::unixTimeToJsonArray(strtotime($this->updated_at)),
+            'updated_at' => $this->updated_at |> strtotime(...) |> DateTimeFormatter::unixTimeToJsonArray(...),
             'entire' => [
                 'battles' => $this->battles,
                 'win_pct' => $this->have_win_lose > 0

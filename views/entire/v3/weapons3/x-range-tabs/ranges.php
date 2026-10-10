@@ -38,16 +38,14 @@ foreach ($xRanges as $model) {
       trim(
         implode(' ', [
           Icon::s3LobbyX(),
-          Html::encode(Yii::t('app', 'XP')),
+          Html::encode(Yii::t('app-entire', 'XP')),
           $range
-            ? Html::encode(
-              trim(
-                Yii::t('app', '{from} - {to}', [
-                  'from' => $range[0] ? Yii::$app->formatter->asDecimal($range[0], 0) : '',
-                  'to' => $range[1] ? Yii::$app->formatter->asDecimal($range[1], 0) : '',
-                ]),
-              ),
-            )
+            ? Yii::t('app', '{from} - {to}', [
+              'from' => $range[0] ? Yii::$app->formatter->asDecimal($range[0], 0) : '',
+              'to' => $range[1] ? Yii::$app->formatter->asDecimal($range[1], 0) : '',
+            ])
+              |> trim(...)
+              |> Html::encode(...)
             : Html::encode($model->x_power_range),
         ]),
       ),

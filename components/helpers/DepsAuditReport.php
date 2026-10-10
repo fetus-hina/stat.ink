@@ -9,10 +9,12 @@ declare(strict_types=1);
 
 namespace app\components\helpers;
 
+use function array_filter;
 use function array_values;
 use function basename;
 use function count;
 use function implode;
+use function in_array;
 use function is_array;
 use function is_int;
 use function is_string;
@@ -22,6 +24,7 @@ use function sprintf;
 use function str_replace;
 use function strcmp;
 use function strtolower;
+use function strtoupper;
 use function trim;
 use function usort;
 
@@ -41,6 +44,7 @@ use const PHP_URL_PATH;
  *   affected: ?string,
  *   fix: ?string
  * }
+ * @phpstan-type IgnoreRule array{id: string, package?: string}
  */
 final class DepsAuditReport
 {
@@ -163,6 +167,31 @@ final class DepsAuditReport
     }
 
     /**
+     * Split advisories by the ignore list (e.g. locally patched or not applicable ones).
+     *
+     * A rule matches when its `id` equals (case-insensitively) the advisory ID, its CVE,
+     * or the ID at the end of its link (GHSA), and, if given, `package` equals the package name.
+     *
+     * @param list<Advisory> $advisories
+     * @param list<IgnoreRule> $rules
+     * @return array{kept: list<Advisory>, ignored: list<Advisory>}
+     */
+    public static function filterIgnored(array $advisories, array $rules): array
+    {
+        $kept = [];
+        $ignored = [];
+        foreach ($advisories as $advisory) {
+            if (self::isIgnored($advisory, $rules)) {
+                $ignored[] = $advisory;
+            } else {
+                $kept[] = $advisory;
+            }
+        }
+
+        return ['kept' => $kept, 'ignored' => $ignored];
+    }
+
+    /**
      * @param list<Advisory> $old advisories before the update
      * @param list<Advisory> $new advisories after the update
      * @return array{fixed: list<Advisory>, introduced: list<Advisory>, remaining: list<Advisory>}
@@ -199,9 +228,27 @@ final class DepsAuditReport
      * @param list<Advisory>|null $old advisories before the update; null if that audit failed
      * @param list<Advisory>|null $new advisories after the update; null if that audit failed
      * @param array<string, ?string> $abandoned
+     * @param list<IgnoreRule> $ignoreRules
      */
-    public static function renderSection(string $heading, ?array $old, ?array $new, array $abandoned = []): string
-    {
+    public static function renderSection(
+        string $heading,
+        ?array $old,
+        ?array $new,
+        array $abandoned = [],
+        array $ignoreRules = [],
+    ): string {
+        // Ignored advisories are excluded from the comparison entirely so that they are
+        // reported neither as remaining nor as "fixed" when they disappear
+        $ignored = [];
+        if ($old !== null) {
+            $old = self::filterIgnored($old, $ignoreRules)['kept'];
+        }
+        if ($new !== null) {
+            $filtered = self::filterIgnored($new, $ignoreRules);
+            $new = $filtered['kept'];
+            $ignored = $filtered['ignored'];
+        }
+
         $lines = ['### ' . $heading, ''];
 
         if ($new === null) {
@@ -249,6 +296,15 @@ final class DepsAuditReport
             }
         }
 
+        if ($ignored) {
+            $lines[] = '';
+            $lines[] = sprintf('<details><summary>Ignored / 除外 (%d)</summary>', count($ignored));
+            $lines[] = '';
+            $lines[] = self::renderTable(self::sort($ignored));
+            $lines[] = '';
+            $lines[] = '</details>';
+        }
+
         if ($abandoned) {
             $lines[] = '';
             $lines[] = 'Abandoned packages / 放棄されたパッケージ:';
@@ -290,6 +346,45 @@ final class DepsAuditReport
             );
         }
         return implode("\n", $lines);
+    }
+
+    /**
+     * @param Advisory $advisory
+     * @param list<IgnoreRule> $rules
+     */
+    private static function isIgnored(array $advisory, array $rules): bool
+    {
+        $identifiers = array_values(
+            array_filter(
+                [
+                    strtoupper($advisory['id']),
+                    $advisory['cve'] !== null ? strtoupper($advisory['cve']) : null,
+                    self::extractLinkedId($advisory['link']),
+                ],
+                fn (?string $v): bool => $v !== null,
+            ),
+        );
+
+        foreach ($rules as $rule) {
+            if (isset($rule['package']) && $rule['package'] !== $advisory['package']) {
+                continue;
+            }
+            if (in_array($rule['id'] |> trim(...) |> strtoupper(...), $identifiers, true)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static function extractLinkedId(?string $url): ?string
+    {
+        if ($url === null) {
+            return null;
+        }
+        $path = parse_url($url, PHP_URL_PATH);
+        return is_string($path) && $path !== '' && $path !== '/'
+            ? strtoupper(basename($path))
+            : null;
     }
 
     private static function escapeCell(string $text): string

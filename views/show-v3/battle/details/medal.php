@@ -15,7 +15,7 @@ use yii\helpers\Html;
 use yii\web\AssetManager;
 
 return [
-  'label' => Yii::t('app', 'Medals'),
+  'label' => Yii::t('app-show-v3', 'Medals'),
   'format' => 'raw',
   'value' => function (Battle3 $model): ?string {
     $intermediates = BattleMedal3::find()

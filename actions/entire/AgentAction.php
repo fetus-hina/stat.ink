@@ -106,8 +106,8 @@ final class AgentAction extends Action
         }
 
         // 歯抜けデータの処理
-        $minDate = min(array_keys($ret));
-        $maxDate = max(array_keys($ret));
+        $minDate = $ret |> array_keys(...) |> min(...);
+        $maxDate = $ret |> array_keys(...) |> max(...);
         if ($minDate !== $maxDate) {
             $min = new DateTime($minDate, new DateTimeZone('Etc/GMT-6'));
             $max = new DateTime($maxDate, new DateTimeZone('Etc/GMT-6'));

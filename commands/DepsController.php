@@ -143,6 +143,8 @@ final class DepsController extends Controller
             '',
         ];
 
+        $ignoreRules = $this->loadAuditIgnoreRules();
+
         foreach (['' => '.', 'deploy/' => 'deploy'] as $prefix => $dir) {
             if (!file_exists($prefix . 'composer.lock')) {
                 continue;
@@ -157,6 +159,7 @@ final class DepsController extends Controller
                 $old === null ? null : DepsAuditReport::parseComposerAudit($old),
                 $new === null ? null : DepsAuditReport::parseComposerAudit($new),
                 $new === null ? [] : DepsAuditReport::parseComposerAbandoned($new),
+                $ignoreRules,
             );
         }
 
@@ -170,10 +173,50 @@ final class DepsController extends Controller
                 'JavaScript (package-lock.json)',
                 $old === null ? null : DepsAuditReport::parseNpmAudit($old),
                 $new === null ? null : DepsAuditReport::parseNpmAudit($new),
+                [],
+                $ignoreRules,
             );
         }
 
         return implode("\n", $sections);
+    }
+
+    /**
+     * @return list<array{id: string, package?: string}>
+     */
+    private function loadAuditIgnoreRules(): array
+    {
+        $path = (string)Yii::getAlias('@app/config/deps-audit-ignore.php');
+        if (!file_exists($path)) {
+            return [];
+        }
+
+        $config = require $path;
+        if (!is_array($config)) {
+            vfprintf(STDERR, "[warn] %s does not return an array\n", [$path]);
+            return [];
+        }
+
+        $rules = [];
+        foreach ($config as $i => $entry) {
+            $id = $entry['id'] ?? null;
+            $package = $entry['package'] ?? null;
+            if (
+                !is_string($id) ||
+                trim($id) === '' ||
+                ($package !== null && !is_string($package))
+            ) {
+                vfprintf(STDERR, "[warn] Invalid audit ignore rule #%s in %s; skipped\n", [$i, $path]);
+                continue;
+            }
+
+            $rule = ['id' => trim($id)];
+            if ($package !== null) {
+                $rule['package'] = $package;
+            }
+            $rules[] = $rule;
+        }
+        return $rules;
     }
 
     /**

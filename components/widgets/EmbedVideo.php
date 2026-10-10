@@ -10,14 +10,12 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use Throwable;
+use Uri\WhatWg\Url as WhatWgUrl;
 use Yii;
 use yii\base\Widget;
 
-use function is_array;
 use function parse_str;
-use function parse_url;
 use function preg_match;
-use function strtolower;
 use function substr;
 use function trim;
 
@@ -43,20 +41,17 @@ class EmbedVideo extends Widget
         }
 
         try {
-            $urlInfo = @parse_url((string)$url);
+            $parsedUrl = WhatWgUrl::parse($url);
             if (
-                !is_array($urlInfo) ||
-                !isset($urlInfo['scheme']) ||
-                !isset($urlInfo['host']) ||
-                !isset($urlInfo['path']) ||
-                ($urlInfo['scheme'] !== 'http' && $urlInfo['scheme'] !== 'https')
+                !$parsedUrl ||
+                ($parsedUrl->getScheme() !== 'http' && $parsedUrl->getScheme() !== 'https')
             ) {
                 return null;
             }
-            $host = strtolower($urlInfo['host']);
-            $path = $urlInfo['path'];
+            $host = (string)$parsedUrl->getAsciiHost();
+            $path = $parsedUrl->getPath();
             $query = [];
-            $queryStr = trim((string)($urlInfo['query'] ?? ''));
+            $queryStr = trim((string)$parsedUrl->getQuery());
             if ($queryStr !== '') {
                 parse_str($queryStr, $query);
             }

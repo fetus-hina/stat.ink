@@ -1,14 +1,14 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2024-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2024-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
 declare(strict_types=1);
 
 return [
-    '"Mistaken": On {date}, <a href="{url}" class="alert-link">Nintendo misconfigured the matching server and ran the fest.</a>' => '"Equivocado": Em {date}, <a href="{url}" class="alert-link">Nintendo configurou errado o servidor de matchmaking e ativou a Splatfest.',
+    '"Mistaken": On {date}, <a href="{url}" class="alert-link">Nintendo misconfigured the matching server and ran the fest.</a>' => '"Equivocado": Em {date}, <a href="{url}" class="alert-link">a Nintendo configurou errado o servidor de matchmaking e realizou a Splatfest.</a>',
     'All' => 'Tudo',
     'Average' => 'Média',
     'Battles' => 'Partidas',
@@ -20,10 +20,11 @@ return [
     'Greater Win % (normal)' => 'Maior % de vitórias (normal)',
     'Median' => 'Mediana',
     'Mistaken' => 'Equívoco',
+    'N/A' => 'N/D',
     'Normal' => 'Normal',
-    'Power Diff' => 'Diferença de Power',
-    'Q1/4' => '',
-    'Q3/4' => '',
-    'Splatfest Power vs Win %' => 'Power da Splatfest vs % de vitórias',
+    'Power Diff' => 'Diferença de Poder',
+    'Q1/4' => 'Q1/4',
+    'Q3/4' => 'Q3/4',
+    'Splatfest Power vs Win %' => 'Poder de Splatfest vs % de vitórias',
     'Std. Dev.' => 'Desvio Padrão',
 ];

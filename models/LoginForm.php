@@ -28,7 +28,7 @@ final class LoginForm extends Model
             [['screen_name'], 'match',
                 'pattern' => '/^[a-zA-Z0-9_]{1,15}$/',
                 'message' => Yii::t(
-                    'app',
+                    'app-user',
                     '{attribute} must be at most 15 alphanumeric or underscore characters.',
                 ),
             ],
@@ -43,9 +43,9 @@ final class LoginForm extends Model
     public function attributeLabels()
     {
         return [
-            'screen_name' => Yii::t('app', 'Screen Name (Login Name)'),
+            'screen_name' => Yii::t('app-user', 'Screen Name (Login Name)'),
             'password' => Yii::t('app', 'Password'),
-            'remember_me' => Yii::t('app', 'Remember me'),
+            'remember_me' => Yii::t('app-user', 'Remember me'),
         ];
     }
 
@@ -59,7 +59,7 @@ final class LoginForm extends Model
         if (!$user || !$user->validatePassword($this->password)) {
             $this->addError(
                 $attribute,
-                Yii::t('app', 'Invalid {0} or {1}.', [
+                Yii::t('app-user', 'Invalid {0} or {1}.', [
                     $this->getAttributeLabel('screen_name'),
                     $this->getAttributeLabel('password'),
                 ]),

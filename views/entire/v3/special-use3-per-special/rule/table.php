@@ -19,7 +19,7 @@ use yii\web\View;
  */
 
 $fmt = Yii::$app->formatter;
-$maxUses = max(array_keys($data));
+$maxUses = $data |> array_keys(...) |> max(...);
 $maxSamples = max(ArrayHelper::getColumn($data, 'battles'));
 
 ?>
@@ -37,7 +37,7 @@ $maxSamples = max(ArrayHelper::getColumn($data, 'battles'));
     <tr>
       <th class="text-center"><?= Html::encode(Yii::t('app', 'Times')) ?></th>
       <th class="text-center"><?= Html::encode(Yii::t('app', 'Win %')) ?></th>
-      <th colspan="2" class="text-center"><?= Html::encode(Yii::t('app', 'Samples')) ?></th>
+      <th colspan="2" class="text-center"><?= Html::encode(Yii::t('app-entire', 'Samples')) ?></th>
     </tr>
   </thead>
   <tbody>

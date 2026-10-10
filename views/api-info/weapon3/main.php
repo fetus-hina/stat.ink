@@ -60,7 +60,7 @@ $this->registerJs('$(".mr-value").matchingRange();');
     Html::a(
       implode(' ', [
         Icon::apiJson(),
-        Html::encode(Yii::t('app', 'JSON format')),
+        Html::encode(Yii::t('app-api-info', 'JSON format')),
       ]),
       ['api-v3/weapon'],
       ['class' => 'label label-default'],
@@ -68,7 +68,7 @@ $this->registerJs('$(".mr-value").matchingRange();');
     Html::a(
       implode(' ', [
         Icon::apiJson(),
-        Html::encode(Yii::t('app', 'JSON format (All langs)')),
+        Html::encode(Yii::t('app-api-info', 'JSON format (All langs)')),
       ]),
       ['api-v3/weapon', 'full' => 1],
       ['class' => 'label label-default'],
@@ -116,7 +116,7 @@ $this->registerJs('$(".mr-value").matchingRange();');
           'title' => Yii::t('app-salmon2', 'Salmon Run'),
         ]) . "\n" ?>
         <th data-sort="string"><code>key</code></th>
-        <th data-sort="string"><?= Html::encode(Yii::t('app', 'Aliases')) ?></th>
+        <th data-sort="string"><?= Html::encode(Yii::t('app-api-info', 'Aliases')) ?></th>
 <?php foreach ($langs as $i => $lang) { ?>
         <?= Html::tag('th', Html::encode($lang->name), [
           'class' => $lang->htmlClasses,
@@ -132,7 +132,7 @@ $this->registerJs('$(".mr-value").matchingRange();');
         <th data-sort="int"></th>
 <?php } ?>
 <?php } ?>
-        <th data-sort="int"><?= Html::encode(Yii::t('app', 'Released')) ?></th>
+        <th data-sort="int"><?= Html::encode(Yii::t('app-api-info', 'Released')) ?></th>
       </tr>
     </thead>
     <tbody>
@@ -271,7 +271,7 @@ $this->registerJs('$(".mr-value").matchingRange();');
               $dt = new DateTimeImmutable($weapon->release_at)
                 ->setTimezone(new DateTimeZone('Etc/UTC'));
               return $dt->getTimestamp() <= (int)strtotime('2022-09-01T00:00:00+00:00')
-                ? Html::encode(Yii::t('app', 'Launch'))
+                ? Html::encode(Yii::t('app-api-info', 'Launch'))
                 : Html::encode(Yii::$app->formatter->asDate($dt, 'medium'));
             },
           ),

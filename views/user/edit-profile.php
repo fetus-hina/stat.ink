@@ -21,7 +21,7 @@ use yii\web\View;
  * @var array<int, string> $regions
  */
 
-$title = Yii::t('app', 'Update Your Profile');
+$title = Yii::t('app-user', 'Update Your Profile');
 $this->title = implode(' | ', [
   Yii::$app->name,
   $title,
@@ -37,13 +37,13 @@ $this->title = implode(' | ', [
 
     <?= $_->field($form, 'hide_data_on_toppage')
       ->dropDownList([
-        '0' => Yii::t('app', 'Show your data on the top page'),
-        '1' => Yii::t('app', 'Hide your data on the top page'),
+        '0' => Yii::t('app-user', 'Show your data on the top page'),
+        '1' => Yii::t('app-user', 'Hide your data on the top page'),
       ])
       ->hint(
         implode('<br>', [
-          Yii::t('app', 'Your data will no longer appear in the public list on the top page.'),
-          Yii::t('app', 'Your page will still be public, but it will be harder to access.'),
+          Yii::t('app-user', 'Your data will no longer appear in the public list on the top page.'),
+          Yii::t('app-user', 'Your page will still be public, but it will be harder to access.'),
         ]),
       ) . "\n"
     ?>
@@ -53,14 +53,14 @@ $this->title = implode(' | ', [
         implode(' ', [
           Icon::splatoon1(),
           Icon::splatoon2(),
-          Html::encode(Yii::t('app', 'Black out other players from the result image')),
+          Html::encode(Yii::t('app-user', 'Black out other players from the result image')),
         ]),
       )
       ->dropDownList([
-        User::BLACKOUT_NOT_BLACKOUT => Yii::t('app', 'No black out'),
-        User::BLACKOUT_NOT_PRIVATE  => Yii::t('app', 'Black out except private battle'),
-        User::BLACKOUT_NOT_FRIEND   => Yii::t('app', 'Black out except private battle and teammate on squad battle (tri or quad)'),
-        User::BLACKOUT_ALWAYS       => Yii::t('app', 'Black out other players')
+        User::BLACKOUT_NOT_BLACKOUT => Yii::t('app-user', 'No black out'),
+        User::BLACKOUT_NOT_PRIVATE  => Yii::t('app-user', 'Black out except private battle'),
+        User::BLACKOUT_NOT_FRIEND   => Yii::t('app-user', 'Black out except private battle and teammate on squad battle (tri or quad)'),
+        User::BLACKOUT_ALWAYS       => Yii::t('app-user', 'Black out other players')
       ]) . "\n"
     ?>
 
@@ -83,14 +83,14 @@ JS
       ->label(
         implode(' ', [
           Icon::splatoon2(),
-          Html::encode(Yii::t('app', 'Black out other players from the details list')),
+          Html::encode(Yii::t('app-user', 'Black out other players from the details list')),
         ]),
       )
       ->dropDownList([
-        User::BLACKOUT_NOT_BLACKOUT => Yii::t('app', 'No black out'),
-        User::BLACKOUT_NOT_PRIVATE  => Yii::t('app', 'Black out except private battle'),
-        User::BLACKOUT_NOT_FRIEND   => Yii::t('app', 'Black out except private battle and teammate on league battle (4 players)'),
-        User::BLACKOUT_ALWAYS       => Yii::t('app', 'Black out other players')
+        User::BLACKOUT_NOT_BLACKOUT => Yii::t('app-user', 'No black out'),
+        User::BLACKOUT_NOT_PRIVATE  => Yii::t('app-user', 'Black out except private battle'),
+        User::BLACKOUT_NOT_FRIEND   => Yii::t('app-user', 'Black out except private battle and teammate on league battle (4 players)'),
+        User::BLACKOUT_ALWAYS       => Yii::t('app-user', 'Black out other players')
       ]) . "\n"
     ?>
 
@@ -116,7 +116,7 @@ JS
       ->label(
         implode(' ', [
           Icon::splatoon2(),
-          Html::encode(Yii::t('app', 'Link from other user\'s results')),
+          Html::encode(Yii::t('app-user', 'Link from other user\'s results')),
         ]),
       )
       ->dropDownList($form->linkModes) . "\n"
@@ -126,7 +126,7 @@ JS
       ->label(
         implode(' ', [
           Icon::splatoon1(),
-          Html::encode(Yii::t('app', 'Region (used for Splatfest)')),
+          Html::encode(Yii::t('app-user', 'Region (used for Splatfest)')),
         ]),
       )
       ->dropDownList($regions) . "\n" ?>
@@ -135,7 +135,7 @@ JS
       ->label(
         implode(' ', [
           Icon::splatoon1(),
-          Html::encode(Yii::t('app', 'Language (used for OStatus)')),
+          Html::encode(Yii::t('app-user', 'Language (used for OStatus)')),
         ]),
       )
       ->dropDownList($languages) . "\n"
@@ -169,7 +169,7 @@ JS
         ],
       )
       ->hint(
-        Yii::t('app', 'This information will be public. Integration for "log in with twitter" can be done from the profile page.')
+        Yii::t('app-user', 'This information will be public. Integration for "log in with twitter" can be done from the profile page.')
       ) . "\n"
     ?>
 
@@ -181,7 +181,7 @@ JS
       ->label(
         implode(' ', [
           Icon::splatoon1(),
-          Html::encode(Yii::t('app', 'Capture Environment')),
+          Html::encode(Yii::t('app-user', 'Capture Environment')),
         ]),
       )
       ->textArea([
@@ -189,7 +189,7 @@ JS
           'height' => '10em',
         ],
       ])->hint(
-        Yii::t('app', 'Please tell us about your capture environment and communication between your Wii U and User Agent (e.g. IkaLog). This information will be public.')
+        Yii::t('app-user', 'Please tell us about your capture environment and communication between your Wii U and User Agent (e.g. IkaLog). This information will be public.')
       ) . "\n"
     ?>
 

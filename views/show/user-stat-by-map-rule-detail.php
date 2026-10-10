@@ -23,7 +23,7 @@ use yii\web\View;
  */
 
 $this->context->layout = 'main';
-$title = Yii::t('app', '{name}\'s Battle Stats (by Mode and Stage)', [
+$title = Yii::t('app-battle', '{name}\'s Battle Stats (by Mode and Stage)', [
   'name' => $user->name,
 ]);
 $this->title = implode(' | ', [

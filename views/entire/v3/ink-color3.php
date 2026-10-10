@@ -19,7 +19,7 @@ use yii\web\View;
  * @var View $this
  */
 
-$title = Yii::t('app', 'Ink Color');
+$title = Yii::t('app-entire', 'Ink Color');
 $this->title = $title . ' | ' . Yii::$app->name;
 
 OgpHelper::default($this, title: $this->title);

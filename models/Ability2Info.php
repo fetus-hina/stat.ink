@@ -111,7 +111,7 @@ class Ability2Info extends Model
 
                 foreach ($rows as $row) {
                     if (str_contains($row, 'DoT')) {
-                        $rows[] = Yii::t('app', '"DoT": "Damage over time"');
+                        $rows[] = Yii::t('app-ability2', '"DoT": "Damage over time"');
                         break;
                     }
                 }
@@ -563,7 +563,7 @@ class Ability2Info extends Model
             $maxDamage = $getMaxDamage($baseDamage);
             $c = static::calcCoefficient($gp, $maxRate, 1.0);
             $damage = floor($baseDamage * $c * 10.0) / 10.0;
-            $suffix = ucfirst(trim((string)$suffix));
+            $suffix = ((string)$suffix) |> trim(...) |> ucfirst(...);
             return [
                 'baseDamage' . $suffix => $baseDamage,
                 'damageRate' . $suffix => $c,
