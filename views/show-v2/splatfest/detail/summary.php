@@ -46,6 +46,7 @@ $label = fn($text) => Html::tag(
         'pct95' => $summary->pct95_kill ?? null,
         'stddev' => $summary->stddev_kill ?? null,
         'tooltipText' => '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}',
+        'tooltipCategory' => 'app-results',
         'summary' => Yii::t('app-results', 'Kills'),
       ]) . "\n" ?>
     </div>
@@ -65,6 +66,7 @@ $label = fn($text) => Html::tag(
         'pct95' => $summary->pct95_death ?? null,
         'stddev' => $summary->stddev_death ?? null,
         'tooltipText' => '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}',
+        'tooltipCategory' => 'app-results',
         'summary' => Yii::t('app-results', 'Deaths'),
       ]) . "\n" ?>
     </div>
