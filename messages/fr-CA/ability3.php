@@ -1,38 +1,38 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2022-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2022-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
 declare(strict_types=1);
 
 return [
-    '(Unknown)' => '(Inconnu)',
+    '(Unknown)' => '',
     'Ability Doubler' => '',
     'Comeback' => 'Retour',
-    'Drop Roller' => 'Super roulade',
+    'Drop Roller' => '',
     'Haunt' => 'Vengeance',
-    'Ink Recovery Up' => 'Levée d\'encre',
+    'Ink Recovery Up' => '',
     'Ink Resistance Up' => 'Imperméabilité',
-    'Ink Saver (Main)' => 'Encrémenteur (pr.)',
-    'Ink Saver (Sub)' => 'Encrémenteur (sec.)',
-    'Intensify Action' => 'Feu de l\'action',
+    'Ink Saver (Main)' => '',
+    'Ink Saver (Sub)' => '',
+    'Intensify Action' => '',
     'Last-Ditch Effort' => '',
     'Ninja Squid' => 'Ninjalmar',
-    'Object Shredder' => 'Démolition',
+    'Object Shredder' => '',
     'Opening Gambit' => 'Départ toute allure',
     'Quick Respawn' => 'Sans temps mort',
-    'Quick Super Jump' => 'Aérodynamisme',
-    'Respawn Punisher' => 'Retour perdant',
-    'Run Speed Up' => 'Course à pied',
-    'Special Charge Up' => 'Jauge spéciale +',
-    'Special Power Up' => 'Arme spéciale +',
-    'Special Saver' => 'Baisse spéciale -',
+    'Quick Super Jump' => '',
+    'Respawn Punisher' => '',
+    'Run Speed Up' => '',
+    'Special Charge Up' => '',
+    'Special Power Up' => '',
+    'Special Saver' => '',
     'Stealth Jump' => 'Super saut invisible',
-    'Sub Power Up' => 'Arme secondaire +',
-    'Sub Resistance Up' => 'Filtre à secondaires',
+    'Sub Power Up' => '',
+    'Sub Resistance Up' => '',
     'Swim Speed Up' => 'Turbo-calmar',
     'Tenacity' => 'Ténacité',
-    'Thermal Ink' => 'Encre thermique',
+    'Thermal Ink' => '',
 ];

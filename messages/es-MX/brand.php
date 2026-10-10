@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2016-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2016-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -12,17 +12,17 @@ return [
     'Cuttlegear' => 'Sepichón',
     'Famitsu' => '',
     'Firefin' => 'Shachi',
-    'Forge' => 'Forima',
-    'Inkline' => 'Moluskia',
+    'Forge' => '',
+    'Inkline' => '',
     'KOG' => '',
-    'Krak-On' => 'Meddux',
+    'Krak-On' => '',
     'Rockenberg' => '',
     'Skalop' => '',
     'Splash Mob' => 'Tinta comunal',
-    'Squidforce' => 'Kalamas',
+    'Squidforce' => '',
     'SQUID GIRL' => '',
     'Takoroka' => 'Pulpicka',
     'Tentatek' => 'Tentáctica',
     'Zekko' => '',
-    'Zink' => 'Tintaz',
+    'Zink' => '',
 ];

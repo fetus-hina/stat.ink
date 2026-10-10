@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2022-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2022-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -9,23 +9,23 @@ declare(strict_types=1);
 
 return [
     'Any Special' => '',
-    'Big Bubbler' => 'Megaburbuja',
-    'Booyah Bomb' => 'Bola genializante',
-    'Crab Tank' => 'Cangrejobot',
-    'Inkjet' => 'Propulsor',
-    'Ink Storm' => 'Atormentador',
-    'Ink Vac' => 'Aspiratinta',
+    'Big Bubbler' => '',
+    'Booyah Bomb' => '',
+    'Crab Tank' => '',
+    'Inkjet' => '',
+    'Ink Storm' => '',
+    'Ink Vac' => '',
     'Killer Wail 5.1' => 'Berreón 5.1',
-    'Kraken Royale' => 'Calamar imperial',
-    'Reefslider' => 'Flotiburón',
+    'Kraken Royale' => '',
+    'Reefslider' => '',
     'Splattercolor Screen' => 'Muro marmoleado',
-    'Super Chump' => 'Multiseñuelos',
-    'Tacticooler' => 'Dispensabebidas',
-    'Tenta Missiles' => 'Lanzamisiles',
-    'Triple Inkstrike' => 'Tornado triple',
+    'Super Chump' => '',
+    'Tacticooler' => '',
+    'Tenta Missiles' => '',
+    'Triple Inkstrike' => '',
     'Triple Splashdown' => 'Clavado triple',
     'Trizooka' => 'Cañón triple',
-    'Ultra Stamp' => 'Ultraselladora',
-    'Wave Breaker' => 'Emiteondas',
-    'Zipcaster' => 'Gancho tentacular',
+    'Ultra Stamp' => '',
+    'Wave Breaker' => '',
+    'Zipcaster' => '',
 ];

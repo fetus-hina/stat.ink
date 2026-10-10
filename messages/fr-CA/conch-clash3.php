@@ -1,14 +1,14 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2024-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2024-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
 declare(strict_types=1);
 
 return [
-    '10x Conch Clash' => 'Conquétition ×10',
-    '33x Conch Clash' => 'Conquétition ×33',
-    'Conch Clash' => 'Conquétition',
+    '10x Conch Clash' => '',
+    '33x Conch Clash' => '',
+    'Conch Clash' => '',
 ];

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2022-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2022-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -11,18 +11,18 @@ return [
     'Any Mode' => '',
     'Attackers' => '',
     'CB' => '',
-    'Clam Blitz' => 'Asalto almeja',
+    'Clam Blitz' => '',
     'Defenders' => '',
-    'Rainmaker' => 'Pez dorado',
+    'Rainmaker' => '',
     'Ranked Modes' => '',
     'RM' => '',
-    'Splat Zones' => 'Pintazonas',
+    'Splat Zones' => '',
     'SZ' => '',
     'TC' => 'Torreón',
     'Tower Control' => 'Torreón',
     'Tri' => '',
     'Tricolor Battle' => 'Combate tricolor',
     'Tricolor Turf War' => 'Territorial tricolor',
-    'Turf War' => 'Territorial',
+    'Turf War' => '',
     'TW' => 'Combate territorial',
 ];

@@ -1,23 +1,23 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2022-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2022-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
 declare(strict_types=1);
 
 return [
-    'Anarchy Battle' => 'Match anarchie',
-    'Anarchy Battle (Open)' => 'Match anarchie (ouvert)',
-    'Anarchy Battle (Series)' => 'Match anarchie (série)',
+    'Anarchy Battle' => '',
+    'Anarchy Battle (Open)' => '',
+    'Anarchy Battle (Series)' => '',
     'Any Lobby' => '',
     'Challenge' => 'Match épreuve',
     'Except Private' => '',
-    'Private Battle' => 'Match privé',
-    'Regular Battle' => 'Match classique',
-    'Splatfest' => 'Festimatch',
-    'Splatfest (Open)' => 'Festimatch (ouvert)',
-    'Splatfest (Pro)' => 'Festimatch (défi)',
-    'X Battle' => 'Match X',
+    'Private Battle' => '',
+    'Regular Battle' => '',
+    'Splatfest' => '',
+    'Splatfest (Open)' => '',
+    'Splatfest (Pro)' => '',
+    'X Battle' => '',
 ];

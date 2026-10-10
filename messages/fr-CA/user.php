@@ -91,7 +91,7 @@ return [
     'No redirects from old URLs will be made.' => '',
     'No service configured by the system administrator.' => '',
     'Not configured.' => '',
-    'Passkey' => 'Clé d\'accès',
+    'Passkey' => '',
     'Password' => '',
     'Password (again)' => '',
     'Please copy an API key below and paste to IkaLog, IkaRec or other apps that are compatible with {0}.' => '',

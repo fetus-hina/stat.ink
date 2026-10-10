@@ -1,17 +1,17 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2016-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2016-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
 declare(strict_types=1);
 
 return [
-    'Bomb Rush' => 'Repetidor',
-    'Bubbler' => 'Burbuja',
+    'Bomb Rush' => '',
+    'Bubbler' => '',
     'Echolocator' => 'Ecolocalizador',
-    'Inkstrike' => 'Tornado',
+    'Inkstrike' => '',
     'Inkzooka' => 'Cañón ciclón',
     'Killer Wail' => 'Berreón',
     'Kraken' => 'Kraken',

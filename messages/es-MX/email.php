@@ -23,7 +23,7 @@ return [
     'New:' => '',
     'Nickname:' => '',
     'Old:' => '',
-    'Passkey' => 'Llave de acceso',
+    'Passkey' => '',
     'Password' => '',
     'Please enter this code into the browser. The code will expire in {mins} minutes.' => '',
     'Rev. lookup:' => '',

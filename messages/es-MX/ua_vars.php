@@ -1,15 +1,15 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2016-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2016-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
 declare(strict_types=1);
 
 return [
-    'Input Class' => 'Entrada de la clase',
-    'Primary Language' => 'Idioma primario',
+    'Input Class' => '',
+    'Primary Language' => '',
     'Rerecognized Agent' => '',
     'Rerecognized At' => '',
 ];

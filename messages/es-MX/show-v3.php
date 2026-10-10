@@ -15,7 +15,7 @@ return [
     'Correction Value' => '',
     'Default Order' => '',
     'Highest First' => '',
-    'Level (After)' => 'Nivel (Después)',
+    'Level (After)' => '',
     'Lobby (Icon)' => '',
     'Mains' => '',
     'Medal' => '',

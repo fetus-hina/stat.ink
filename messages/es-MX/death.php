@@ -1,24 +1,24 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2016-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2016-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
 declare(strict_types=1);
 
 return [
-    'Drowning' => 'Ahogamiento',
-    'Fall' => 'Caída',
-    'Gadget' => 'Gadget',
-    'Ink from a propeller' => 'Tinta de un propulsor',
-    'Main Weapon' => 'Arma principal',
-    'Out of Bounds' => 'Fuera de los Límites',
-    'Rainmaker' => 'Pez dorado',
-    'Rainmaker Inksplosion' => 'Burbuja del Pez dorado',
-    'Rainmaker Shield' => 'Burbuja del Pez dorado',
-    'Rainmaker Shot' => 'Pez dorado',
-    'Special' => 'Arma especial',
-    'Sub Weapon' => 'Arma secundaria',
-    'Unknown' => 'Desconocido',
+    'Drowning' => '',
+    'Fall' => '',
+    'Gadget' => '',
+    'Ink from a propeller' => '',
+    'Main Weapon' => '',
+    'Out of Bounds' => '',
+    'Rainmaker' => '',
+    'Rainmaker Inksplosion' => '',
+    'Rainmaker Shield' => '',
+    'Rainmaker Shot' => '',
+    'Special' => '',
+    'Sub Weapon' => '',
+    'Unknown' => '',
 ];

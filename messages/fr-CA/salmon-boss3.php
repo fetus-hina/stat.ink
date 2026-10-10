@@ -1,31 +1,31 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2022-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2022-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
 declare(strict_types=1);
 
 return [
-    'Big Shot' => 'Gros boulet',
-    'Chinook' => 'Salmocoptère',
-    'Cohozuna' => 'Salmotori',
-    'Drizzler' => 'Crachin',
-    'Fish Stick' => 'Pylônoïde',
-    'Flipper-Flopper' => 'Ploufion',
+    'Big Shot' => '',
+    'Chinook' => '',
+    'Cohozuna' => '',
+    'Drizzler' => '',
+    'Fish Stick' => '',
+    'Flipper-Flopper' => '',
     'Flyfish' => 'Dronoïde',
-    'Goldie' => 'Dorax',
-    'Griller' => 'Barbeurk',
-    'Horrorboros' => 'Salmophide',
-    'Maws' => 'Gobb',
-    'Megalodontia' => 'Salmodon',
+    'Goldie' => '',
+    'Griller' => '',
+    'Horrorboros' => '',
+    'Maws' => '',
+    'Megalodontia' => '',
     'Mothership' => '',
-    'Mudmouth' => 'Salmonoïde de boue',
-    'Scrapper' => 'Bricabrute',
-    'Slammin\' Lid' => 'Couverclard',
-    'Steel Eel' => 'Carnacier',
-    'Steelhead' => 'Tête-de-pneu',
-    'Stinger' => 'Marmirador',
-    'Triumvirate' => 'Triumvirat',
+    'Mudmouth' => '',
+    'Scrapper' => '',
+    'Slammin\' Lid' => '',
+    'Steel Eel' => '',
+    'Steelhead' => '',
+    'Stinger' => '',
+    'Triumvirate' => '',
 ];

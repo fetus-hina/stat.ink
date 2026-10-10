@@ -1,31 +1,31 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2022-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2022-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
 declare(strict_types=1);
 
 return [
-    'Big Shot' => 'Artilleroide',
-    'Chinook' => 'Salmocóptero',
-    'Cohozuna' => 'Salmonote',
+    'Big Shot' => '',
+    'Chinook' => '',
+    'Cohozuna' => '',
     'Drizzler' => 'Paragüista',
-    'Fish Stick' => 'Viga',
-    'Flipper-Flopper' => 'Chapotero',
-    'Flyfish' => 'Drónido',
+    'Fish Stick' => '',
+    'Flipper-Flopper' => '',
+    'Flyfish' => '',
     'Goldie' => 'Orónido',
     'Griller' => 'Brasaleta',
-    'Horrorboros' => 'Dragón',
+    'Horrorboros' => '',
     'Maws' => 'Mandíburo',
-    'Megalodontia' => 'Megalodoncio',
+    'Megalodontia' => '',
     'Mothership' => 'Salmonodriza',
     'Mudmouth' => 'Bocalodo',
     'Scrapper' => 'Parrillero',
-    'Slammin\' Lid' => 'Tapaollas',
+    'Slammin\' Lid' => '',
     'Steel Eel' => 'Anguiladera',
-    'Steelhead' => 'Ferroz',
+    'Steelhead' => '',
     'Stinger' => 'Fregatorre',
-    'Triumvirate' => 'Trialianza',
+    'Triumvirate' => '',
 ];

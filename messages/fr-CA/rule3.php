@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2022-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2022-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -11,18 +11,18 @@ return [
     'Any Mode' => '',
     'Attackers' => '',
     'CB' => '',
-    'Clam Blitz' => 'Pluie de palourdes',
+    'Clam Blitz' => '',
     'Defenders' => '',
-    'Rainmaker' => 'Mission Bazookarpe',
+    'Rainmaker' => '',
     'Ranked Modes' => '',
     'RM' => '',
-    'Splat Zones' => 'Défense de zone',
+    'Splat Zones' => '',
     'SZ' => '',
     'TC' => '',
-    'Tower Control' => 'Expédition risquée',
+    'Tower Control' => '',
     'Tri' => '',
-    'Tricolor Battle' => 'Match tricolore',
-    'Tricolor Turf War' => 'Guerre tricolore',
-    'Turf War' => 'Guerre de territoire',
+    'Tricolor Battle' => '',
+    'Tricolor Turf War' => '',
+    'Turf War' => '',
     'TW' => '',
 ];
