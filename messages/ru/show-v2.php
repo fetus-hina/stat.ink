@@ -9,8 +9,8 @@ declare(strict_types=1);
 
 return [
     '(incomplete)' => '(неполные)',
-    'Clout (Normal)' => '',
-    'Clout (Pro)' => '',
+    'Clout (Normal)' => 'Вклад (обычный)',
+    'Clout (Pro)' => 'Вклад (профи)',
     'D/min' => 'С/мин',
     'Fest Power (Normal)' => '',
     'Fest Power (Pro)' => '',
@@ -27,7 +27,7 @@ return [
     'Splatfest Power (Normal)' => '',
     'Splatfest Power (Pro)' => '',
     'Splatfest Region:' => 'Регион Сплатфеста:',
-    'Splatfest Title (After)' => '',
+    'Splatfest Title (After)' => 'Сплатфест-титул (после)',
     'SplatNet Battle #' => '№ боя в SplatNet',
     'Team Icon' => 'Значок команды',
     'Team {theme}' => 'Команда {theme}',

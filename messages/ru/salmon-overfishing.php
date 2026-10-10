@@ -16,5 +16,5 @@ return [
     'Overfishing' => 'Перелов',
     'Overfishing Stats' => 'Статистика перелова',
     'Record' => 'Рекорд',
-    'Total Golden Eggs' => 'Всего золотой икры',
+    'Total Golden Eggs' => 'Всего золотых икринок',
 ];

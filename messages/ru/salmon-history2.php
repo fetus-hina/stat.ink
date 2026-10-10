@@ -11,7 +11,7 @@ return [
     'Average' => 'Среднее',
     'Golden E.' => 'Зол. икра',
     'Points' => 'Очки',
-    'Power E.' => 'Икра',
+    'Power E.' => 'Икринки',
     'Rescued' => 'Спасено',
     'Shifts' => 'Смены',
     'Total' => 'Всего',

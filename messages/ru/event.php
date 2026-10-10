@@ -10,7 +10,7 @@ declare(strict_types=1);
 return [
     'Bamboozler 14 Mk II' => 'Бамбух 14-II',
     'Custom Hydra Splatling' => '«Понт-Горыныч»',
-    'Final Splatfest' => '',
+    'Final Splatfest' => 'Последний Сплатфест',
     'Hydra Splatling' => 'Брызгомет «Горыныч»',
     'Neo Sploosh-o-matic' => 'Плюхотрон «Нео»',
     'Octobrush Nouveau' => 'Арт-кисть «НуВо»',
