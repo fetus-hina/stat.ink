@@ -32,6 +32,6 @@ echo implode("\n", [
   sprintf('%s %s', $t('Login method:'), $method ? $t($method->name) : $t('(Unknown)')),
   vsprintf('%s %s', [
     $t('Terminal:'),
-    UserAgentHelper::summary($req->userAgent) ?: $t('(Unknown)'),
+    UserAgentHelper::summary($req->userAgent, null, $lang) ?: $t('(Unknown)'),
   ]),
 ]) . "\n";

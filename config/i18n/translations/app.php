@@ -28,6 +28,7 @@ return [
         'app-counter' => 'counter.php',
         'app-death' => 'death.php',
         'app-death2' => 'death2.php',
+        'app-device' => 'device.php',
         'app-email' => 'email.php',
         'app-entire' => 'entire.php',
         'app-event' => 'event.php',

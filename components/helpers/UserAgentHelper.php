@@ -29,8 +29,11 @@ use function vsprintf;
 
 class UserAgentHelper
 {
-    public static function summary(?string $userAgent, ?string $defaultValue = null): ?string
-    {
+    public static function summary(
+        ?string $userAgent,
+        ?string $defaultValue = null,
+        ?string $language = null,
+    ): ?string {
         if (!$bowser = static::bowser($userAgent)) {
             return $defaultValue;
         }
@@ -38,7 +41,7 @@ class UserAgentHelper
         $result = array_filter([
             static::browserSummary($bowser),
             static::osSummary($bowser),
-            static::platformSummary($bowser),
+            static::platformSummary($bowser, $language),
         ]);
 
         return $result ? implode(' / ', $result) : $defaultValue;
@@ -85,23 +88,23 @@ class UserAgentHelper
         }
     }
 
-    protected static function platformSummary(array $data): ?string
+    protected static function platformSummary(array $data, ?string $language): ?string
     {
         switch (ArrayHelper::getValue($data, 'platform.type')) {
             case 'desktop':
-                $type = Yii::t('app', 'PC');
+                $type = Yii::t('app-device', 'PC', [], $language);
                 break;
 
             case 'mobile':
-                $type = Yii::t('app', 'Mobile');
+                $type = Yii::t('app-device', 'Mobile', [], $language);
                 break;
 
             case 'tablet':
-                $type = Yii::t('app', 'Tablet');
+                $type = Yii::t('app-device', 'Tablet', [], $language);
                 break;
 
             case 'tv':
-                $type = Yii::t('app', 'TV');
+                $type = Yii::t('app-device', 'TV', [], $language);
                 break;
 
             default:
