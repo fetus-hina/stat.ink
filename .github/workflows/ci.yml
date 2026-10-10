@@ -252,7 +252,7 @@ jobs:
         name: 'Check licenses'
         run: './yii license'
   translationKeyCheck:
-    name: 'Check translation keys'
+    name: 'Check translation catalogs'
     needs:
       - ciDoesNotSkip
       - setupComposer
@@ -295,7 +295,7 @@ jobs:
         name: 'Basic setup the app'
         run: 'make init-no-resource'
       -
-        name: 'Check translation keys'
+        name: 'Check translation catalogs'
         run: './yii i18n/check-keys'
   auditPackages:
     name: 'Audit Packages'

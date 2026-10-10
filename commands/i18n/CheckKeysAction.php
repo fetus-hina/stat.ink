@@ -15,6 +15,7 @@ use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use SplFileInfo;
 use Yii;
+use app\components\i18n\IcuMessageChecker;
 use app\components\i18n\TranslationCallExtractor;
 use app\components\i18n\TranslationKeyChecker;
 use yii\base\Action;
@@ -24,13 +25,19 @@ use yii\i18n\PhpMessageSource;
 
 use function array_map;
 use function array_unique;
+use function basename;
 use function count;
+use function dirname;
 use function file_exists;
 use function file_get_contents;
 use function fprintf;
+use function glob;
 use function in_array;
 use function is_array;
+use function is_string;
+use function str_contains;
 use function str_replace;
+use function str_starts_with;
 use function strlen;
 use function substr;
 use function usort;
@@ -39,11 +46,15 @@ use const STDERR;
 use const STDOUT;
 
 /**
- * Checks that every `Yii::t('app*', '...')` message exists in the Japanese catalog
+ * Checks the translation catalogs
  *
- * The Japanese catalogs are the master: `./yii i18n/messages` copies their keys
- * to the other languages. A missing key does not raise any error at runtime;
- * Yii just shows the source (English) text, so it is easily overlooked.
+ * 1. Every `Yii::t('app*', '...')` message exists in the Japanese catalog.
+ *    The Japanese catalogs are the master: `./yii i18n/messages` copies their
+ *    keys to the other languages. A missing key does not raise any error at
+ *    runtime; Yii just shows the source (English) text, so it is easily
+ *    overlooked.
+ * 2. Every translation is a valid ICU message and keeps the placeholders of its
+ *    source message. Machine translations (`messages/_deepl`) are not checked.
  */
 final class CheckKeysAction extends Action
 {
@@ -57,6 +68,25 @@ final class CheckKeysAction extends Action
         'tests',
         'vendor',
         'web',
+    ];
+
+    /**
+     * Translations that intentionally drop a placeholder
+     */
+    private const ICU_CHECK_EXCEPTIONS = [
+        // Splatoon 1 Splatfest titles; the French titles do not include the team name
+        'fr/fest.php' => [
+            '{0} Champion',
+            '{0} Defender',
+            '{0} Fanboy',
+            '{0} Fiend',
+            '{0} King',
+            '{1} Champion',
+            '{1} Defender',
+            '{1} Fangirl',
+            '{1} Fiend',
+            '{1} Queen',
+        ],
     ];
 
     public function run(): int
@@ -101,7 +131,64 @@ final class CheckKeysAction extends Action
             $dynamicCount,
         );
 
-        return $missing ? ExitCode::DATAERR : ExitCode::OK;
+        $icuIssueCount = $this->checkIcuMessages($root);
+
+        return $missing || $icuIssueCount > 0 ? ExitCode::DATAERR : ExitCode::OK;
+    }
+
+    private function checkIcuMessages(string $root): int
+    {
+        $messageCount = 0;
+        $issueCount = 0;
+        foreach ((array)glob($root . '/messages/*/*.php') as $path) {
+            $language = basename(dirname((string)$path));
+            if (str_starts_with($language, '_')) {
+                continue;
+            }
+
+            $catalog = require $path;
+            if (!is_array($catalog)) {
+                continue;
+            }
+
+            $relPath = substr((string)$path, strlen($root) + 1);
+            $exceptions = self::ICU_CHECK_EXCEPTIONS[$language . '/' . basename((string)$path)] ?? [];
+            $locale = str_replace('-', '_', $language);
+            foreach ($catalog as $source => $translation) {
+                $source = (string)$source;
+                if (
+                    !is_string($translation) ||
+                    $translation === '' ||
+                    (!str_contains($source, '{') && !str_contains($translation, '{')) ||
+                    in_array($source, $exceptions, true)
+                ) {
+                    continue;
+                }
+
+                ++$messageCount;
+                foreach (IcuMessageChecker::check($source, $translation, $locale) as $issue) {
+                    ++$issueCount;
+                    fprintf(
+                        STDOUT,
+                        "%s: [%s] %s => %s (%s)\n",
+                        $relPath,
+                        $issue['type'],
+                        $source,
+                        $translation,
+                        $issue['detail'],
+                    );
+                }
+            }
+        }
+
+        fprintf(
+            STDERR,
+            "Checked %d translations with placeholders, %d issues.\n",
+            $messageCount,
+            $issueCount,
+        );
+
+        return $issueCount;
     }
 
     /**

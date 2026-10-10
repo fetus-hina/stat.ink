@@ -94,7 +94,7 @@ return [
     'Passkey' => 'パスキー',
     'Password' => 'パスワード',
     'Password (again)' => 'パスワード（確認用）',
-    'Please copy an API key below and paste to IkaLog, IkaRec or other apps that are compatible with {0}.' => 'IkaLog、イカレコ、その他の対応アプリと連携するには、このAPIキーをコピーしてアプリに登録してください。',
+    'Please copy an API key below and paste to IkaLog, IkaRec or other apps that are compatible with {0}.' => 'IkaLog、イカレコなど、{0} に対応したアプリと連携するには、このAPIキーをコピーしてアプリに登録してください。',
     'Please keep it secret.' => 'このキーは公開しないよう注意してください。',
     'Please log in with your new password.' => '新しいパスワードでログインしてください。',
     'Please tell us about your capture environment and communication between your Wii U and User Agent (e.g. IkaLog). This information will be public.' => '認識精度向上のため、WiiUとIkaLogの間の接続や設定をどのように行っているかについて教えてください。この情報は開発者以外も閲覧することができますので個人情報等は記載しないでください。',
