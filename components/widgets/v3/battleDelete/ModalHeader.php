@@ -58,7 +58,7 @@ final class ModalHeader extends Widget
             Html::encode(
                 match (true) {
                     $model instanceof Battle3 => Yii::t('app-battle', 'Delete This Battle'),
-                    $model instanceof Salmon3 => Yii::t('app', 'Delete This Job'),
+                    $model instanceof Salmon3 => Yii::t('app-salmon3', 'Delete This Job'),
                     default => throw new LogicException(),
                 },
             ),

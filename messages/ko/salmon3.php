@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2022-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2022-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -23,11 +23,13 @@ return [
     'Defeated' => '쓰러트린 거물연어',
     'Defeated (others)' => '다른 플레이어가 쓰러트린 거물연어',
     'Defeated by {user}' => '',
+    'Delete This Job' => '이 알바 삭제',
     'Eggs' => '연어알',
     'Eggstra Work' => '아르바이트 팀 콘테스트',
     'For a more accurate occurrence rate, see {link}.' => '',
     'For a more accurate weapon loan rate, see {link}.' => '',
     'High Score' => '하이 스코어',
+    'It looks this data is corrupt.' => '',
     'It would appear at {percent} if all four were {smell}.' => '',
     'Job Points' => '획득 포인트',
     'Job Scenario' => '아르바이트 시나리오',
@@ -39,8 +41,10 @@ return [
     'King Salmonids' => '두목연어',
     'Known Occurrence' => '특수 상황',
     'Loan %' => '',
+    'Max.' => '최대',
     'Max. Hazard Level (cleared)' => '클리어한 최대 위험도',
     'MAX Hazard Level Cleared' => '위험도 MAX를 클리어했다',
+    'Mode{translate_hint_stats}' => '',
     'Normal Job' => '',
     'Normal Waves' => '',
     'Not Defeated' => '쓰러트리지 못한 거물연어',
@@ -76,4 +80,5 @@ return [
     'XTRAWAVE' => 'EX-WAVE',
     '{name}\'s Salmon Stats' => '',
     '{name}\'s Salmon Stats (Bosses)' => '',
+    '×{times}' => '{times}배',
 ];

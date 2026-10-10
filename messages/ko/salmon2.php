@@ -98,6 +98,7 @@ return [
     'You can delete this job.' => '',
     'You must agree to the above to delete this job.' => '',
     '{name}\'s Salmon Log' => '',
+    '{number, plural, =1{1 kill} other{# kills}}' => '',
     '{weapon}' => '',
     '✓' => 'GJ!',
     '✘' => 'NG',

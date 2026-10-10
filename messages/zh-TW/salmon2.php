@@ -98,6 +98,7 @@ return [
     'You can delete this job.' => '你可以刪除該打工',
     'You must agree to the above to delete this job.' => '你必須同意以上內容方可刪除該打工。',
     '{name}\'s Salmon Log' => '{name}的打工記錄',
+    '{number, plural, =1{1 kill} other{# kills}}' => '{number}次擊殺',
     '{weapon}' => '{weapon}',
     '✓' => 'GJ！',
     '✘' => 'NG',

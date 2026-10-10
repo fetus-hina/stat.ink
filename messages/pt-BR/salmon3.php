@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2024-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2024-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -23,11 +23,13 @@ return [
     'Defeated' => 'Derrotado',
     'Defeated (others)' => 'Derrotado (outros)',
     'Defeated by {user}' => 'Derrotado por {user}',
+    'Delete This Job' => 'Apagar Essa Partida',
     'Eggs' => 'Ovos',
     'Eggstra Work' => '',
     'For a more accurate occurrence rate, see {link}.' => '',
     'For a more accurate weapon loan rate, see {link}.' => '',
     'High Score' => 'Pontuação recorde',
+    'It looks this data is corrupt.' => 'Parece que estes dados estão corrompidos.',
     'It would appear at {percent} if all four were {smell}.' => 'Iria aparecer em {percent} se todos os quarto tivessem {smell}.',
     'Job Points' => 'Pontos da Partida',
     'Job Scenario' => 'Cenário da Partida',
@@ -39,8 +41,10 @@ return [
     'King Salmonids' => 'Reis Salmonid',
     'Known Occurrence' => 'Ocorrência Comum',
     'Loan %' => '',
+    'Max.' => 'Máx.',
     'Max. Hazard Level (cleared)' => 'Nível de Hazard Máx. (completo)',
     'MAX Hazard Level Cleared' => 'Nível de Hazard MÁX completo',
+    'Mode{translate_hint_stats}' => 'Modo{translate_hint_stats}',
     'Normal Job' => 'Partida Normal',
     'Normal Waves' => 'Waves Normais',
     'Not Defeated' => 'Não Derrotado',
@@ -76,4 +80,5 @@ return [
     'XTRAWAVE' => '',
     '{name}\'s Salmon Stats' => 'Estatísticas no Salmon Run de {name}',
     '{name}\'s Salmon Stats (Bosses)' => 'Estatísticas no Salmon Run de {name} (Bosses)',
+    '×{times}' => '',
 ];

@@ -98,6 +98,7 @@ return [
     'You can delete this job.' => 'このバイトを削除することができます。',
     'You must agree to the above to delete this job.' => 'このバイトを削除するには同意が必要です。',
     '{name}\'s Salmon Log' => '{name}さんのバイト',
+    '{number, plural, =1{1 kill} other{# kills}}' => '{number, plural, other{# キル}}',
     '{weapon}' => 'バイト専用 {weapon}',
     '✓' => 'GJ!',
     '✘' => 'NG',

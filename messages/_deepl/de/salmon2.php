@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2021 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -90,6 +90,7 @@ return [
     'You can delete this job.' => 'Sie können diesen Auftrag löschen.',
     'You must agree to the above to delete this job.' => 'Sie müssen dem oben genannten zustimmen, um diesen Auftrag zu löschen.',
     '{name}\'s Salmon Log' => '{name} \'s Salmon Log',
+    '{number, plural, =1{1 kill} other{# kills}}' => '{number, plural, =1{1 kill} other{# kills}}',
     '{weapon}' => '{weapon}',
     '✓' => '✓',
     '✗' => '✗',

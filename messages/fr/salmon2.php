@@ -98,6 +98,7 @@ return [
     'You can delete this job.' => 'Tu peut effacer ce travail',
     'You must agree to the above to delete this job.' => 'Tu dois accepter ci-dessus pour effacer ce travail',
     '{name}\'s Salmon Log' => 'Historique de Travail de {name}',
+    '{number, plural, =1{1 kill} other{# kills}}' => '{number, plural, =1{1 kill} other{# kills}}',
     '{weapon}' => '{weapon}',
     '✓' => '✓',
     '✘' => '✘',

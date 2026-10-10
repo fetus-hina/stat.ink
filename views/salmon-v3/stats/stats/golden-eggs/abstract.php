@@ -129,7 +129,7 @@ $fmt->nullDisplay = '-';
         <th scope="row">
           <?= Icon::goldenEgg() . "\n" ?>
           <?= Html::encode(
-            Yii::t('app', 'Mode{translate_hint_stats}', [
+            Yii::t('app-salmon3', 'Mode{translate_hint_stats}', [
               'translate_hint_stats' => '',
             ])
           ) . "\n" ?>

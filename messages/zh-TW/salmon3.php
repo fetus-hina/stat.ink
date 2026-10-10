@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2022-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2022-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -23,11 +23,13 @@ return [
     'Defeated' => '已擊倒',
     'Defeated (others)' => '已擊倒 (隊友)',
     'Defeated by {user}' => '被 {user} 擊倒',
+    'Delete This Job' => '刪除此打工',
     'Eggs' => '鮭魚卵',
     'Eggstra Work' => '團隊打工競賽',
     'For a more accurate occurrence rate, see {link}.' => '',
     'For a more accurate weapon loan rate, see {link}.' => '',
     'High Score' => '最高分數',
+    'It looks this data is corrupt.' => '檔案疑似損毀',
     'It would appear at {percent} if all four were {smell}.' => '',
     'Job Points' => '獲得點數',
     'Job Scenario' => '打工劇本',
@@ -39,8 +41,10 @@ return [
     'King Salmonids' => '頭目鮭魚',
     'Known Occurrence' => '特殊狀況',
     'Loan %' => '',
+    'Max.' => '最大',
     'Max. Hazard Level (cleared)' => '危險度MAX (完成)',
     'MAX Hazard Level Cleared' => '危險度MAX過關',
+    'Mode{translate_hint_stats}' => '',
     'Normal Job' => '一般打工',
     'Normal Waves' => '',
     'Not Defeated' => '沒有擊倒',
@@ -76,4 +80,5 @@ return [
     'XTRAWAVE' => 'EX-WAVE',
     '{name}\'s Salmon Stats' => '',
     '{name}\'s Salmon Stats (Bosses)' => '{name}的打工數據 (巨大鮭魚)',
+    '×{times}' => '',
 ];

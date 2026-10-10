@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2022-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2022-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -23,11 +23,13 @@ return [
     'Defeated' => '',
     'Defeated (others)' => '',
     'Defeated by {user}' => '',
+    'Delete This Job' => '',
     'Eggs' => '',
     'Eggstra Work' => 'Recolección extra',
     'For a more accurate occurrence rate, see {link}.' => '',
     'For a more accurate weapon loan rate, see {link}.' => '',
     'High Score' => 'Récord',
+    'It looks this data is corrupt.' => '',
     'It would appear at {percent} if all four were {smell}.' => '',
     'Job Points' => '',
     'Job Scenario' => 'Modelo tarea',
@@ -39,8 +41,10 @@ return [
     'King Salmonids' => '',
     'Known Occurrence' => '',
     'Loan %' => '',
+    'Max.' => '',
     'Max. Hazard Level (cleared)' => '',
     'MAX Hazard Level Cleared' => '¡Superaste el nivel de riesgo máximo!',
+    'Mode{translate_hint_stats}' => '',
     'Normal Job' => '',
     'Normal Waves' => '',
     'Not Defeated' => '',
@@ -76,4 +80,5 @@ return [
     'XTRAWAVE' => 'Oleada extra',
     '{name}\'s Salmon Stats' => '',
     '{name}\'s Salmon Stats (Bosses)' => '',
+    '×{times}' => '',
 ];

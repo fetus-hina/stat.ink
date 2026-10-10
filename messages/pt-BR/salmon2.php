@@ -98,6 +98,7 @@ return [
     'You can delete this job.' => 'Você pode deletar essa partida.',
     'You must agree to the above to delete this job.' => 'Você tem que concordar com o que está acima para deletar essa partida.',
     '{name}\'s Salmon Log' => 'Log de partidas de {name}',
+    '{number, plural, =1{1 kill} other{# kills}}' => '',
     '{weapon}' => '',
     '✓' => '',
     '✘' => '',
