@@ -11,7 +11,7 @@ return [
     'Appearances' => 'Verschijningen',
     'Appeared' => 'Verschenen',
     'Average Defeated' => 'Gemiddeld aantal verslagen',
-    'BIG Big Run' => '',
+    'BIG Big Run' => 'Mega-Big Run',
     'Big Run' => 'Big Run',
     'Boss' => 'Baas',
     'Bosses defeated' => 'Verslagen bazen',

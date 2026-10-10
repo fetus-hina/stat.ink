@@ -25,6 +25,6 @@ return [
     'Power Diff' => 'Krachtverschil',
     'Q1/4' => 'Eerste kwartiel',
     'Q3/4' => 'Derde kwartiel',
-    'Splatfest Power vs Win %' => '',
+    'Splatfest Power vs Win %' => 'Splatfest-kracht vs. win%',
     'Std. Dev.' => 'Std.afw.',
 ];

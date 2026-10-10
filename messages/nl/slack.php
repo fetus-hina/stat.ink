@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 return [
     'lost' => 'verloren',
-    'unknown mode' => 'onbekende spelstand',
+    'unknown mode' => 'onbekende vechtstijl',
     'unknown stage' => 'onbekend level',
     'won' => 'gewonnen',
     '{name}: Just {winlose} {rule} at {stage}. <{url}|Detail>' => '{name}: Heeft zojuist {rule} in {stage} {winlose}. <{url}|Details>',

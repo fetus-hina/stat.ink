@@ -14,7 +14,7 @@ return [
     'Defense' => 'Verdediging',
     'Descent' => 'Dalen',
     'Echolocator' => 'Echolokalisator',
-    'Gear Abilities' => 'Uitrustingseffecten',
+    'Gear Abilities' => 'Effecten',
     'Ink Recovery' => 'Inktherstel',
     'Ink Usage(Main)' => 'Inktverbruik (hoofd)',
     'Ink Usage(Sub)' => 'Inktverbruik (sub)',

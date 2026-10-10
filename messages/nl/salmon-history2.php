@@ -11,7 +11,7 @@ return [
     'Average' => 'Gemiddeld',
     'Golden E.' => 'Gouden ei.',
     'Points' => 'Punten',
-    'Power E.' => 'Powerei.',
+    'Power E.' => 'Vissenei.',
     'Rescued' => 'Gered',
     'Shifts' => 'Klussen',
     'Total' => 'Totaal',
