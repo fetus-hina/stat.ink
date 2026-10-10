@@ -11,7 +11,7 @@ return [
     'Average' => 'Promedio',
     'Golden E.' => 'H. dorados',
     'Points' => 'Puntos',
-    'Power E.' => 'H. de poder',
+    'Power E.' => 'C. rojo',
     'Rescued' => 'Rescates',
     'Shifts' => 'Turnos',
     'Total' => 'Total',

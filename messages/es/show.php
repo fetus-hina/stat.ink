@@ -8,7 +8,7 @@
 declare(strict_types=1);
 
 return [
-    'Ability Effect' => 'Efecto de la potenciad',
+    'Ability Effect' => 'Efecto del potenciador',
     'Average:' => 'Promedio:',
     'Bad guys are in control' => 'Equipo rival están en control',
     'Bad guys winning' => 'Equipo rival ganadores',
@@ -23,7 +23,7 @@ return [
     'Enable noise reduction (count)' => 'Activar la reducción de ruido (recuento)',
     'Enable noise reduction (position of the objective)' => 'Activar la reducción de ruido (posición del objetivo)',
     'Enemy Weapon' => 'Arma enemigo',
-    'Excluded: Private Battles and Squad Battles (when Rank S or S+)' => 'Excluidos: Combate privado y Combate en equipo (cuando la fila S o S+)',
+    'Excluded: Private Battles and Squad Battles (when Rank S or S+)' => 'Excluidos: Combate privado y Combate en equipo (con rango S o S+)',
     'Good guys are in control' => 'Tu equipo están en control',
     'Good guys winning' => 'Tu equipo ganadores',
     'Group by main weapon' => 'Agrupar por arma principal',
