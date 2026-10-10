@@ -215,7 +215,7 @@ $sendouInkUrl = SendouInk::getBuildUrl3($player->weapon, ...$gears);
                 ) . "\n" ?>
                 <?= Html::tag(
                   'th',
-                  Html::encode(Yii::t('app', 'Mains')),
+                  Html::encode(Yii::t('app-show-v3', 'Mains')),
                   [
                     'class' => ['ability-col-main', 'auto-tooltip', 'omit', 'text-center'],
                     'title' => Yii::t('app', 'Primary Ability'),
@@ -223,10 +223,10 @@ $sendouInkUrl = SendouInk::getBuildUrl3($player->weapon, ...$gears);
                 ) . "\n" ?>
                 <?= Html::tag(
                   'th',
-                  Html::encode(Yii::t('app', 'Subs')),
+                  Html::encode(Yii::t('app-show-v3', 'Subs')),
                   [
                     'class' => ['ability-col-sub', 'auto-tooltip', 'omit', 'text-center'],
-                    'title' => Yii::t('app', 'Secondary Abilities'),
+                    'title' => Yii::t('app-battle', 'Secondary Abilities'),
                   ],
                 ) . "\n" ?>
               </tr>
@@ -275,7 +275,7 @@ $sendouInkUrl = SendouInk::getBuildUrl3($player->weapon, ...$gears);
             ? Html::a(
               implode(' ', [
                 Icon::popup(),
-                Html::encode(Yii::t('app', 'Check with Setup Analyzer')),
+                Html::encode(Yii::t('app-show-v3', 'Check with Setup Analyzer')),
               ]),
               $sendouInkUrl,
               [

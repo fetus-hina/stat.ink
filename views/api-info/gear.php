@@ -13,7 +13,7 @@ use yii\helpers\Html;
 
 TableResponsiveForceAsset::register($this);
 
-$title = Yii::t('app', 'API Info: Gears: {0}', [
+$title = Yii::t('app-api-info', 'API Info: Gears: {0}', [
   Yii::t('app-gear', $type->name),
 ]);
 $this->title = implode(' | ', [

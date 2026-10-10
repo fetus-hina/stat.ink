@@ -211,14 +211,14 @@ class Battle2FilterForm extends Model
             'weapon' => Yii::t('app', 'Weapon'),
             'rank' => Yii::t('app', 'Rank'),
             'result' => Yii::t('app', 'Result'),
-            'has_disconnect' => Yii::t('app', 'Connectivity'),
+            'has_disconnect' => Yii::t('app-filter', 'Connectivity'),
             'term' => Yii::t('app', 'Term'),
-            'term_from' => Yii::t('app', 'Period From'),
-            'term_to' => Yii::t('app', 'Period To'),
-            'id_from' => Yii::t('app', 'ID From'),
-            'id_to' => Yii::t('app', 'ID To'),
+            'term_from' => Yii::t('app-filter', 'Period From'),
+            'term_to' => Yii::t('app-filter', 'Period To'),
+            'id_from' => Yii::t('app-filter', 'ID From'),
+            'id_to' => Yii::t('app-filter', 'ID To'),
             'filter' => Yii::t('app', 'Filter'),
-            'with_team' => Yii::t('app', 'Target Player\'s Team'),
+            'with_team' => Yii::t('app-filter', 'Target Player\'s Team'),
         ];
     }
 

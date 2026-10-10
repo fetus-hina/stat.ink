@@ -23,7 +23,7 @@ use yii\web\View;
  * @var View $this
  */
 
-$title = Yii::t('app', "{name}'s Battle Stats (Turf War)", ['name' => $user->name]);
+$title = Yii::t('app-battle', "{name}'s Battle Stats (Turf War)", ['name' => $user->name]);
 $this->title = implode(' | ', [
     Yii::$app->name,
     $title,
@@ -70,7 +70,7 @@ UserStat2NawabariAsset::register($this);
         <?= Html::tag('a', Html::tag('span', '', ['class' => 'fas fa-link']), [
           'href' => '#wp',
         ]) . "\n" ?>
-        <?= Html::encode(Yii::t('app', 'Winning Percentage')) . "\n" ?>
+        <?= Html::encode(Yii::t('app-battle', 'Winning Percentage')) . "\n" ?>
       </h2>
       <p>
         <?= Html::encode(Yii::t('app', 'Excluded: Private Battles')) . "\n" ?>
@@ -126,9 +126,9 @@ UserStat2NawabariAsset::register($this);
   <script type="application/json" id="json-strings">
     <?= Json::encode([
       'wp' => [
-        'entire' => Yii::t('app', 'Winning Percentage'),
-        'last20' => Yii::t('app', 'Win % ({0} Battles)', [20]),
-        'last50' => Yii::t('app', 'Win % ({0} Battles)', [50]),
+        'entire' => Yii::t('app-battle', 'Winning Percentage'),
+        'last20' => Yii::t('app-battle', 'Win % ({0} Battles)', [20]),
+        'last50' => Yii::t('app-battle', 'Win % ({0} Battles)', [50]),
       ],
       'stats' => [
         'killRatio' => Yii::t('app', 'Kill Ratio'),

@@ -108,27 +108,27 @@ if ($model->our_team_count !== null && $model->their_team_count !== null) {
     $model->our_team_inked !== null &&
     $model->their_team_inked !== null
   ) {
-    $ourTitle = Yii::t('app', '{point}p', [
+    $ourTitle = Yii::t('app-battle', '{point}p', [
       'point' => $fmt->asInteger((int)$model->our_team_inked),
     ]);
-    $theirTitle = Yii::t('app', '{point}p', [
+    $theirTitle = Yii::t('app-battle', '{point}p', [
       'point' => $fmt->asInteger((int)$model->their_team_inked),
     ]);
-    $thirdTitle = Yii::t('app', '{point}p', [
+    $thirdTitle = Yii::t('app-battle', '{point}p', [
       'point' => $fmt->asInteger((int)$model->third_team_inked),
     ]);
   } elseif ($model->map && $model->map->area !== null) {
-    $ourTitle = Yii::t('app', '~{point}p', [
+    $ourTitle = Yii::t('app-battle', '~{point}p', [
       'point' => $fmt->asInteger(round(
         $model->our_team_percent * $model->map->area / 100
       )),
     ]);
-    $theirTitle = Yii::t('app', '~{point}p', [
+    $theirTitle = Yii::t('app-battle', '~{point}p', [
       'point' => $fmt->asInteger(round(
         $model->their_team_percent * $model->map->area / 100
       )),
     ]);
-    $thirdTitle = Yii::t('app', '~{point}p', [
+    $thirdTitle = Yii::t('app-battle', '~{point}p', [
       'point' => $fmt->asInteger(round(
         $model->third_team_percent * $model->map->area / 100
       )),
@@ -156,14 +156,14 @@ if ($model->our_team_count !== null && $model->their_team_count !== null) {
     (float)$model->our_team_inked,
     (float)$model->their_team_inked,
     $isTricolor ? (float)$model->third_team_inked : null,
-    Yii::t('app', '{point}p', [
+    Yii::t('app-battle', '{point}p', [
       'point' => $fmt->asInteger((int)$model->our_team_inked),
     ]),
-    Yii::t('app', '{point}p', [
+    Yii::t('app-battle', '{point}p', [
       'point' => $fmt->asInteger((int)$model->their_team_inked),
     ]),
     $isTricolor
-      ? Yii::t('app', '{point}p', [
+      ? Yii::t('app-battle', '{point}p', [
         'point' => $fmt->asInteger((int)$model->third_team_inked),
       ])
       : null,

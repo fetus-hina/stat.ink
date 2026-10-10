@@ -22,7 +22,7 @@ use yii\web\View;
 
 $title = implode(' | ', [
     Yii::$app->name,
-    Yii::t('app', 'FAQ'),
+    Yii::t('app-site', 'FAQ'),
 ]);
 
 $this->title = $title;
@@ -31,7 +31,7 @@ TypeHelper::instanceOf($this->context, Controller::class)->layout = 'main'
 ?>
 <div id="faq-container" class="container">
   <h1>
-    <?= Html::encode(Yii::t('app', 'FAQ')) . "\n" ?>
+    <?= Html::encode(Yii::t('app-site', 'FAQ')) . "\n" ?>
   </h1>
 
   <?= AdWidget::widget() . "\n" ?>
@@ -39,7 +39,7 @@ TypeHelper::instanceOf($this->context, Controller::class)->layout = 'main'
 
   <div class="alert alert-warning mb-3">
     <p>
-      <?= Yii::t('app', 'Please refer to the respective projects for any problems or questions regarding the operation of each application.') . "\n" ?>
+      <?= Yii::t('app-site', 'Please refer to the respective projects for any problems or questions regarding the operation of each application.') . "\n" ?>
     </p>
     <ul>
       <li>

@@ -33,7 +33,7 @@ use yii\web\View;
  */
 
 $title = vsprintf('%s - %s', [
-  Yii::t('app', 'Special Uses'),
+  Yii::t('app-entire', 'Special Uses'),
   Yii::t('app-special3', $special->name),
 ]);
 $this->title = $title . ' | ' . Yii::$app->name;

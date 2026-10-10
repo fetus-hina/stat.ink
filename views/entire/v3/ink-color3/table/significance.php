@@ -18,13 +18,13 @@ return [
   ],
   'headerOptions' => [
     'class' => 'auto-tooltip text-center omit',
-    'title' => Yii::t('app', '{pct}% Significant?', ['pct' => 99]),
+    'title' => Yii::t('app-entire', '{pct}% Significant?', ['pct' => 99]),
     'style' => [
       'max-width' => '5em',
       'width' => '5em',
     ],
   ],
-  'label' => Yii::t('app', 'Significant?'),
+  'label' => Yii::t('app-entire', 'Significant?'),
   'value' => function (StatInkColor3 $model): string {
     $f = Yii::$app->formatter;
     $battles = $model->battles;

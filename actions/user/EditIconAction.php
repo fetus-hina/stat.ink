@@ -40,7 +40,7 @@ class EditIconAction extends BaseAction
                         }
                         Yii::$app->session->addFlash(
                             'success',
-                            Yii::t('app', 'Your profile icon has been updated.'),
+                            Yii::t('app-user', 'Your profile icon has been updated.'),
                         );
                         return $this->controller->redirect(['user/profile'], 303);
 
@@ -80,7 +80,7 @@ class EditIconAction extends BaseAction
                             $transaction->commit();
                             Yii::$app->session->addFlash(
                                 'success',
-                                Yii::t('app', 'Your profile icon has been updated.'),
+                                Yii::t('app-user', 'Your profile icon has been updated.'),
                             );
                             return $this->controller->redirect(['user/profile'], 303);
                         } catch (Throwable $e) {
@@ -93,7 +93,7 @@ class EditIconAction extends BaseAction
             }
             Yii::$app->session->addFlash(
                 'danger',
-                $message ?: Yii::t('app', 'Could not update your icon. Please try again.'),
+                $message ?: Yii::t('app-user', 'Could not update your icon. Please try again.'),
             );
         }
         return $this->controller->render('edit-icon', [

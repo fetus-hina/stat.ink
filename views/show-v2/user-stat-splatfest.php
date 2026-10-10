@@ -19,7 +19,7 @@ use yii\web\View;
  * @var View $this
  */
 
-$title = Yii::t('app', "{name}'s Battle Stats (Splatfest)", ['name' => $user->name]);
+$title = Yii::t('app-show-v2', "{name}'s Battle Stats (Splatfest)", ['name' => $user->name]);
 $this->title = implode(' | ', [
     Yii::$app->name,
     $title,

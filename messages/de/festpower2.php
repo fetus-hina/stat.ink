@@ -1,29 +1,30 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2019-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2019-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
 declare(strict_types=1);
 
 return [
-    '"Mistaken": On {date}, <a href="{url}" class="alert-link">Nintendo misconfigured the matching server and ran the fest.</a>' => '',
-    'All' => '',
-    'Average' => '',
-    'Battles' => '',
-    'Battles (all)' => '',
-    'Battles (mistaken)' => '',
-    'Battles (normal)' => '',
-    'Greater Win % (all)' => '',
-    'Greater Win % (mistaken)' => '',
-    'Greater Win % (normal)' => '',
-    'Median' => '',
-    'Mistaken' => '',
-    'Normal' => '',
-    'Power Diff' => '',
-    'Q1/4' => '',
-    'Q3/4' => '',
-    'Splatfest Power vs Win %' => '',
-    'Std. Dev.' => '',
+    '"Mistaken": On {date}, <a href="{url}" class="alert-link">Nintendo misconfigured the matching server and ran the fest.</a>' => '„Fehlerhaft“: Am {date} <a href="{url}" class="alert-link">hat Nintendo das Splatfest mit falsch konfiguriertem Matchmaking-Server durchgeführt.</a>',
+    'All' => 'Gesamt',
+    'Average' => 'Durchschnitt',
+    'Battles' => 'Kämpfe',
+    'Battles (all)' => 'Kämpfe (gesamt)',
+    'Battles (mistaken)' => 'Kämpfe (fehlerhaft)',
+    'Battles (normal)' => 'Kämpfe (normal)',
+    'Greater Win % (all)' => 'Siegquote des Stärkeren (gesamt)',
+    'Greater Win % (mistaken)' => 'Siegquote des Stärkeren (fehlerhaft)',
+    'Greater Win % (normal)' => 'Siegquote des Stärkeren (normal)',
+    'Median' => 'Median',
+    'Mistaken' => 'Fehlerhaft',
+    'N/A' => 'k. A.',
+    'Normal' => 'Normal',
+    'Power Diff' => 'Power-Differenz',
+    'Q1/4' => '1. Quartil',
+    'Q3/4' => '3. Quartil',
+    'Splatfest Power vs Win %' => 'Splatfest-Power vs. Siegquote',
+    'Std. Dev.' => 'Std.-Abw.',
 ];

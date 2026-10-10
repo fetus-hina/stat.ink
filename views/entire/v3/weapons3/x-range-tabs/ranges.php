@@ -38,7 +38,7 @@ foreach ($xRanges as $model) {
       trim(
         implode(' ', [
           Icon::s3LobbyX(),
-          Html::encode(Yii::t('app', 'XP')),
+          Html::encode(Yii::t('app-entire', 'XP')),
           $range
             ? Yii::t('app', '{from} - {to}', [
               'from' => $range[0] ? Yii::$app->formatter->asDecimal($range[0], 0) : '',

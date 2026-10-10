@@ -24,7 +24,7 @@ use yii\web\View;
  * @var int $year
  */
 
-$title = Yii::t('app', "{name}'s Monthly Report - {date}", [
+$title = Yii::t('app-show-v2', "{name}'s Monthly Report - {date}", [
   'name' => $user->name,
   'date' => Yii::$app->formatter->asDate(
     sprintf('%d-%02d', $year, $month),
@@ -76,7 +76,7 @@ $modes = [
 <div class="container">
   <?= Html::tag(
     'h1',
-    Yii::t('app', "{name}'s Monthly Report - {date}", [
+    Yii::t('app-show-v2', "{name}'s Monthly Report - {date}", [
       'name' => Html::a(
         Html::encode($user->name),
         ['show-v2/user', 'screen_name' => $user->screen_name]

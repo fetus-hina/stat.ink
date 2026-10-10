@@ -26,14 +26,14 @@ use yii\web\View;
 
 TableResponsiveForceAsset::register($this);
 
-$title = Yii::t('app', 'Login History');
+$title = Yii::t('app-user', 'Login History');
 $this->title = implode(' | ', [
   Yii::$app->name,
   $title,
 ]);
 ?>
 <div class="container">
-  <h1><?= Html::encode(Yii::t('app', 'Login History')) ?></h1>
+  <h1><?= Html::encode(Yii::t('app-user', 'Login History')) ?></h1>
   <p>
     <?= Html::a(
       implode(' ', [
@@ -45,10 +45,10 @@ $this->title = implode(' | ', [
     ) . "\n" ?>
   </p>
   <p>
-    <small><?= Html::encode(Yii::t('app', 'The estimated location may be inaccurate.')) ?></small>
+    <small><?= Html::encode(Yii::t('app-user', 'The estimated location may be inaccurate.')) ?></small>
   </p>
   <p>
-    <small><?= Html::encode(Yii::t('app', 'Login history will be deleted in {term}.', [
+    <small><?= Html::encode(Yii::t('app-user', 'Login history will be deleted in {term}.', [
       'term' => Yii::$app->formatter->format('P30D', 'duration'),
     ])) ?></small>
   </p>
@@ -63,8 +63,8 @@ $this->title = implode(' | ', [
         ],
         [
           'attribute' => 'method.name',
-          'format' => ['translated', 'app'],
-          'label' => Yii::t('app', 'Login Method'),
+          'format' => ['translated', 'app-user'],
+          'label' => Yii::t('app-user', 'Login Method'),
         ],
         [
           'label' => Yii::t('app', 'Location'),

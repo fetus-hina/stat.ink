@@ -38,7 +38,7 @@ $permLink = Url::to(
   true,
 );
 
-$title = Yii::t('app', "{name}'s Battle Stats (Medals)", [
+$title = Yii::t('app-show-v3', "{name}'s Battle Stats (Medals)", [
   'name' => $user->name,
 ]);
 

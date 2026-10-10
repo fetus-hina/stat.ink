@@ -24,15 +24,15 @@ use yii\web\View;
 
 $this->title = implode(' | ', [
   Yii::$app->name,
-  Yii::t('app', 'Update Your Icon'),
+  Yii::t('app-user', 'Update Your Icon'),
 ]);
 ?>
 <div class="container">
   <h1>
-    <?= Html::encode(Yii::t('app', 'Update Your Icon')) . "\n" ?>
+    <?= Html::encode(Yii::t('app-user', 'Update Your Icon')) . "\n" ?>
   </h1>
   <p>
-    <?= Html::encode(Yii::t('app', 'Your current icon:')) . "\n" ?>
+    <?= Html::encode(Yii::t('app-user', 'Your current icon:')) . "\n" ?>
     <span class="profile-icon">
 <?php if ($user->userIcon) { ?>
       <?= Html::img($user->userIcon->url, [
@@ -62,7 +62,7 @@ $this->title = implode(' | ', [
       </div>
       <div class="panel panel-default">
         <div class="panel-heading">
-          <?= Html::encode(Yii::t('app', 'Upload new image')) . "\n" ?>
+          <?= Html::encode(Yii::t('app-user', 'Upload new image')) . "\n" ?>
         </div>
         <div class="panel-body">
           <?= Html::beginForm(['edit-icon'], 'post', ['enctype' => 'multipart/form-data']) . "\n" ?>
@@ -70,12 +70,12 @@ $this->title = implode(' | ', [
             <ul>
               <li>
                 <?= Html::encode(
-                  Yii::t('app', 'PNG/JPEG file up to {0}', ['2 MiB'])
+                  Yii::t('app-user', 'PNG/JPEG file up to {0}', ['2 MiB'])
                 ) . "\n" ?>
               </li>
               <li>
                 <?= Html::encode(
-                  Yii::t('app', '{0}×{1} or less resolution', [2000, 2000])
+                  Yii::t('app-user', '{0}×{1} or less resolution', [2000, 2000])
                 ) . "\n" ?>
               </li>
             </ul>
@@ -85,7 +85,7 @@ $this->title = implode(' | ', [
             <?= Html::submitButton(
               implode('', [
                 Html::tag('span', '', ['class' => 'fa fa-upload']),
-                Html::encode(Yii::t('app', 'Upload icon')),
+                Html::encode(Yii::t('app-user', 'Upload icon')),
               ]),
               ['class' => 'btn btn-info btn-block']
             ) . "\n" ?>
@@ -95,18 +95,18 @@ $this->title = implode(' | ', [
 <?php if ($current) { ?>
       <div class="panel panel-default">
         <div class="panel-heading">
-          <?= Html::encode(Yii::t('app', 'Reset to default icon')) . "\n" ?>
+          <?= Html::encode(Yii::t('app-user', 'Reset to default icon')) . "\n" ?>
         </div>
         <div class="panel-body">
           <?= Html::beginForm(['edit-icon'], 'post') . "\n" ?>
             <input type="hidden" name="action" value="delete">
             <p>
               <?= Html::encode(
-                Yii::t('app', 'Your current image will be deleted and reset to auto-generated image.')
+                Yii::t('app-user', 'Your current image will be deleted and reset to auto-generated image.')
               ) . "\n" ?>
             </p>
             <p>
-              <?= Html::encode(Yii::t('app', 'The icon will be:')) . "\n" ?>
+              <?= Html::encode(Yii::t('app-user', 'The icon will be:')) . "\n" ?>
               <?= Jdenticon::widget([
                 'hash' => $user->identiconHash,
                 'class' => 'identicon',
@@ -117,7 +117,7 @@ $this->title = implode(' | ', [
               <?= Html::submitButton(
                 implode('', [
                   Html::tag('span', '', ['class' => 'fa fa-undo']),
-                  Html::encode(Yii::t('app', 'Reset icon')),
+                  Html::encode(Yii::t('app-user', 'Reset icon')),
                 ]),
                 ['class' => 'btn btn-danger btn-block']
               ) . "\n" ?>

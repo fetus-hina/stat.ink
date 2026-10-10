@@ -68,7 +68,7 @@ $this->registerJs("
               'offset' => true,
               'title' => [
                 'display' => true,
-                'text' => Yii::t('app', 'Special Uses'),
+                'text' => Yii::t('app-entire', 'Special Uses'),
               ],
               'type' => 'linear',
               'ticks' => [

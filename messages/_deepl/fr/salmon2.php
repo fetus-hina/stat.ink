@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2015-2021 AIZAWA Hina
+ * @copyright Copyright (C) 2015-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -90,6 +90,9 @@ return [
     'You can delete this job.' => 'Vous pouvez supprimer ce poste.',
     'You must agree to the above to delete this job.' => 'Vous devez accepter ce qui précède pour supprimer ce poste.',
     '{name}\'s Salmon Log' => '{name} \'s Salmon Log',
+    '{number, plural, =1{1 egg} other{# eggs}} in {battle, plural, =1{1 shift} other{# shifts}}' => '{number, plural, =1{1 egg} other{# eggs}} en {battle, plural, =1{1 shift} other{# shifts}}',
+    '{number, plural, =1{1 kill} other{# kills}}' => '{number, plural, =1{1 kill} other{# kills}}',
+    '{number, plural, =1{1 time} other{# times}} in {battle, plural, =1{1 shift} other{# shifts}}' => '{number, plural, =1{1 time} other{# times}} en {battle, plural, =1{1 shift} other{# shifts}}',
     '{weapon}' => '{weapon}',
     '✓' => '✓',
     '✗' => '✗',

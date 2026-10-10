@@ -28,6 +28,6 @@ return [
   ],
   'filter' => (require __DIR__ . '/includes/correlation-filter.php')($calc),
   'filterOptions' => ['class' => 'text-right'],
-  'label' => Yii::t('app', 'Assists/min'),
+  'label' => Yii::t('app-entire', 'Assists/min'),
   'value' => $calc,
 ];

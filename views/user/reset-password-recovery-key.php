@@ -23,7 +23,7 @@ use yii\web\View;
 
 $this->title = implode(' | ', [
   Yii::$app->name,
-  Yii::t('app', 'Reset your password'),
+  Yii::t('app-user', 'Reset your password'),
 ]);
 
 ZxcvbnAsset::register($this);
@@ -42,7 +42,7 @@ $this->registerJsFile(
   <div class="row">
     <div class="col-xs-12 col-sm-6 mb-3">
       <h1 class="mb-3">
-        <?= Html::encode(Yii::t('app', 'Reset your password')) . "\n" ?>
+        <?= Html::encode(Yii::t('app-user', 'Reset your password')) . "\n" ?>
       </h1>
       <p class="mb-3">
         <?= Html::a(
@@ -61,7 +61,7 @@ $this->registerJsFile(
               ->textInput([
                 'autocomplete' => 'username',
               ])
-              ->hint(Yii::t('app', '<code>@id</code> (without <code>@</code>), case sensitive.'))
+              ->hint(Yii::t('app-user', '<code>@id</code> (without <code>@</code>), case sensitive.'))
               . "\n"
             ?>
             <?= $_->field($form, 'recovery_key')
@@ -77,7 +77,7 @@ $this->registerJsFile(
               ])
               ->hint(
                 Yii::t(
-                  'app',
+                  'app-user',
                   'This should be a random string of at least {n} characters and should not be the same as any other site',
                   ['n' => 10],
                 ),
@@ -101,7 +101,7 @@ $this->registerJsFile(
             ]) . "\n" ?>
             <hr>
             <?= Html::submitButton(
-              Html::encode(Yii::t('app', 'Change Password')),
+              Html::encode(Yii::t('app-user', 'Change Password')),
               ['class' => 'btn btn-primary btn-block']
             ) . "\n" ?>
           <?php ActiveForm::end(); echo "\n" ?>

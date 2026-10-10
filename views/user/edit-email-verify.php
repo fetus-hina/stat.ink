@@ -18,7 +18,7 @@ use yii\web\View;
  * @var View $this
  */
 
-$title = Yii::t('app', 'Update Your Email Address');
+$title = Yii::t('app-user', 'Update Your Email Address');
 $this->title = implode(' | ', [
     Yii::$app->name,
     $title,
@@ -32,8 +32,8 @@ $this->title = implode(' | ', [
       'class' => 'alert-info',
     ],
     'body' => implode('<br>', [
-      Html::encode(Yii::t('app', 'Sent an email to your email address. Please check your mailbox and get the verification code.')),
-      Html::encode(Yii::t('app', 'Do not close this window.')),
+      Html::encode(Yii::t('app-user', 'Sent an email to your email address. Please check your mailbox and get the verification code.')),
+      Html::encode(Yii::t('app-user', 'Do not close this window.')),
     ]),
   ]) . "\n" ?>
 
@@ -51,7 +51,7 @@ $this->title = implode(' | ', [
           ]) . "\n" ?>
 
         <?= Html::submitButton(
-          Html::encode(Yii::t('app', 'Verify')),
+          Html::encode(Yii::t('app-user', 'Verify')),
           ['class' => 'btn btn-lg btn-primary btn-block']
         ) . "\n" ?>
       <?php ActiveForm::end(); echo "\n" ?>

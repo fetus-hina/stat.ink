@@ -32,7 +32,7 @@ use yii\web\View;
  * @var array{map_id: int, battles: int, attacker_wins: int}[] $tricolorStats
  */
 
-$title = Yii::t('app', 'Splatfest Stats') . ' - ' . Yii::t('db/splatfest3', (string)$splatfest->name);
+$title = Yii::t('app-entire', 'Splatfest Stats') . ' - ' . Yii::t('db/splatfest3', (string)$splatfest->name);
 $this->title = $title . ' | ' . Yii::$app->name;
 
 OgpHelper::default($this, title: $this->title);
@@ -41,7 +41,7 @@ OgpHelper::default($this, title: $this->title);
 <div class="container">
   <?= Html::tag(
     'h1',
-    Html::encode(Yii::t('app', 'Splatfest Stats')),
+    Html::encode(Yii::t('app-entire', 'Splatfest Stats')),
     ['class' => 'mt-0 mb-3'],
   ) . "\n" ?>
 

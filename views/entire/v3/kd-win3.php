@@ -33,7 +33,7 @@ use yii\web\View;
  * @var array<string, Season3> $seasons
  */
 
-$title = Yii::t('app', 'Winning Percentage based on K/D');
+$title = Yii::t('app-entire', 'Winning Percentage based on K/D');
 $this->title = $title . ' | ' . Yii::$app->name;
 
 OgpHelper::default($this, title: $this->title);
@@ -45,7 +45,7 @@ TableResponsiveForceAsset::register($this);
   <?= Html::tag('h1', Html::encode($title)) . "\n" ?>
   <p>
     <?= Html::encode(Yii::t(
-      'app',
+      'app-entire',
       'This website has color-blind support. Please check "Color-Blind Support" in the "Username/Guest" menu of the navbar to enable it.'
     )) . "\n" ?>
   </p>

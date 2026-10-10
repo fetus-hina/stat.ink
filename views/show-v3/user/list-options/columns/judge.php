@@ -18,7 +18,7 @@ return [
   'contentOptions' => ['class' => 'cell-judge'],
   'format' => 'raw',
   'headerOptions' => ['class' => 'cell-judge'],
-  'label' => Yii::t('app', 'Judge'),
+  'label' => Yii::t('app-battle', 'Judge'),
   'value' => fn (Battle3 $model): string => $this->render(
     '//show-v3/user/battle_judge',
     ['model' => $model],

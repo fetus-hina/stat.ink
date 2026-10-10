@@ -27,7 +27,7 @@ echo $json && $json->last_battle_id > 0
   ? Html::a(
     implode(' ', [
       Icon::fileJson(),
-      Html::encode(Yii::t('app', 'Salmon Run JSON (gzipped)')),
+      Html::encode(Yii::t('app-user', 'Salmon Run JSON (gzipped)')),
     ]),
     ['download3', 'type' => 'salmon-json'],
     ['class' => 'btn btn-default btn-block text-left'],
@@ -35,7 +35,7 @@ echo $json && $json->last_battle_id > 0
   : Html::button(
     implode(' ', [
       Icon::fileJson(),
-      Html::encode(Yii::t('app', 'Salmon Run JSON (gzipped)')),
+      Html::encode(Yii::t('app-user', 'Salmon Run JSON (gzipped)')),
     ]),
     [
       'class' => 'btn btn-default btn-block text-left',

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2018-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2018-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -32,6 +32,9 @@ return [
     'From {shiftStart} to {shiftEnd}' => '',
     'Future' => 'Posteriores',
     'Golden' => '',
+    'Golden Egg delivered' => '',
+    'Golden Egg appearances' => '',
+    'Golden Egg quota' => '',
     'Golden/W' => '',
     'Golden Eggs' => '',
     'Golden Eggs per Wave' => '',
@@ -43,9 +46,11 @@ return [
     'Jobs' => '',
     'Jobs: {jobCount} / Clear %: {clearPct} / Golden Eggs: {avgGoldenEggs} / Power Eggs: {avgPowerEggs} / Deaths: {avgDeaths} / Rescues: {avgRescues}' => '',
     'Job Started' => '',
+    'Known Occurrence' => '',
     'Next' => 'Próximo',
     'Next Job' => '',
     'Open!' => 'Actual',
+    'Power Egg collected' => '',
     'Power Eggs' => '',
     'Power Eggs per Wave' => '',
     'Prev. Job' => '',
@@ -83,7 +88,9 @@ return [
     'Ttl. Pwr. E.' => '',
     'Ttl. Pwr. E. (Wave)' => '',
     'Ttl. Rescued' => '',
+    'URL related to this job' => '',
     'URL related to this work' => '',
+    'Water Level' => '',
     'Waves' => '',
     'Wave {waveNumber}' => 'Oleada {waveNumber}',
     'Wiped' => 'Derrota...',
@@ -91,6 +98,9 @@ return [
     'You can delete this job.' => '',
     'You must agree to the above to delete this job.' => '',
     '{name}\'s Salmon Log' => '',
+    '{number, plural, =1{1 egg} other{# eggs}} in {battle, plural, =1{1 shift} other{# shifts}}' => '',
+    '{number, plural, =1{1 kill} other{# kills}}' => '',
+    '{number, plural, =1{1 time} other{# times}} in {battle, plural, =1{1 shift} other{# shifts}}' => '',
     '{weapon}' => '',
     '✓' => '✓',
     '✘' => '✘',

@@ -175,7 +175,7 @@ if (
     ],
     [
       'class' => 'mr-1 auto-tooltip',
-      'title' => Yii::t('app', '{nFormatted} {n, plural, =1{battle} other{battles}}', [
+      'title' => Yii::t('app-show-v2', '{nFormatted} {n, plural, =1{battle} other{battles}}', [
         'n' => $historyCount,
         'nFormatted' => Yii::$app->formatter->asInteger($historyCount),
       ]),

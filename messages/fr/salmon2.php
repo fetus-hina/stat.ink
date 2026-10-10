@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2018-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2018-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -32,6 +32,9 @@ return [
     'From {shiftStart} to {shiftEnd}' => 'De {shiftStart} à {shiftEnd}',
     'Future' => 'Prochains',
     'Golden' => 'Doré',
+    'Golden Egg delivered' => 'Œufs dorés livrés',
+    'Golden Egg appearances' => 'Apparitions d\'œufs dorés',
+    'Golden Egg quota' => 'Quota d\'œufs dorés',
     'Golden/W' => 'Doré/vagues',
     'Golden Eggs' => 'Oeufs dorés',
     'Golden Eggs per Wave' => 'Oeufs dorés par vague',
@@ -43,9 +46,11 @@ return [
     'Jobs' => 'Travail',
     'Jobs: {jobCount} / Clear %: {clearPct} / Golden Eggs: {avgGoldenEggs} / Power Eggs: {avgPowerEggs} / Deaths: {avgDeaths} / Rescues: {avgRescues}' => 'Travail: {jobCount} / Réussite % : {clearPct} / Oeufs dorés : {avgGoldenEggs} / Oeufs de poisson : {avgPowerEggs} / Morts : {avgDeaths} / Sauvetages : {avgRescues}',
     'Job Started' => 'Travail Commencés',
+    'Known Occurrence' => 'Fréquence d\'événement connu',
     'Next' => 'Suivants',
     'Next Job' => 'Jobs Suivants',
     'Open!' => 'Ouvert!',
+    'Power Egg collected' => 'Œufs de poisson collectés',
     'Power Eggs' => 'Oeufs de poisson',
     'Power Eggs per Wave' => 'Oeufs de poisson par vague',
     'Prev. Job' => 'Job Précédent',
@@ -83,7 +88,9 @@ return [
     'Ttl. Pwr. E.' => 'Tot. Pwr. E.',
     'Ttl. Pwr. E. (Wave)' => 'Tot. Pwr. E. (',
     'Ttl. Rescued' => 'Tot. Sauvetages',
+    'URL related to this job' => 'URL liée à cette mission',
     'URL related to this work' => 'URL lié à ce job',
+    'Water Level' => 'Niveau de marée',
     'Waves' => 'Vagues',
     'Wave {waveNumber}' => 'Vague {waveNumber}',
     'Wiped' => 'K.-O',
@@ -91,6 +98,9 @@ return [
     'You can delete this job.' => 'Tu peut effacer ce travail',
     'You must agree to the above to delete this job.' => 'Tu dois accepter ci-dessus pour effacer ce travail',
     '{name}\'s Salmon Log' => 'Historique de Travail de {name}',
+    '{number, plural, =1{1 egg} other{# eggs}} in {battle, plural, =1{1 shift} other{# shifts}}' => '{number, plural, =1{1 œuf} other{# œufs}} dans {battle, plural, =1{1 mission} other{# missions}}',
+    '{number, plural, =1{1 kill} other{# kills}}' => '{number, plural, =1{1 kill} other{# kills}}',
+    '{number, plural, =1{1 time} other{# times}} in {battle, plural, =1{1 shift} other{# shifts}}' => '{number, plural, =1{1 fois} other{# fois}} dans {battle, plural, =1{1 mission} other{# missions}}',
     '{weapon}' => '{weapon}',
     '✓' => '✓',
     '✘' => '✘',

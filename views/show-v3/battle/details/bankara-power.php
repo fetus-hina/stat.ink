@@ -12,7 +12,7 @@ use app\components\widgets\Icon;
 use app\models\Battle3;
 
 return [
-  'label' => Yii::t('app', 'Anarchy Power'),
+  'label' => Yii::t('app-show-v3', 'Anarchy Power'),
   'format' => 'raw',
   'value' => function (Battle3 $model): ?string {
     $before = $model->bankara_power_before;

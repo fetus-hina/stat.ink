@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2019-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2019-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -59,6 +59,7 @@ return [
     'Filter unposted shifts and post to us.' => 'Filtrer par travail non-publié et le publié pour nous',
     'Found same data' => 'Données indentifque trouvées',
     'Gear category' => 'Catégorie sur l\'équipement',
+    'Gear information' => 'Information sur l\'équipement',
     'Gender' => 'Sexe',
     'Gender information' => 'Information du Sexe',
     'Generate a UUID version 3 or 5 on your side with your own namespace' => 'Générer un UUID version 3 ou 5 sur le côté avec votre propre espace de noms ',
@@ -77,6 +78,7 @@ return [
     'Get weapons' => 'Obtenir les armes',
     'Get weapons in CSV format' => 'Obtenir les armes sous format CSV',
     'Golden Egg appearances' => 'Appararition de l\'oeuf doré',
+    'Golden Egg delivered' => 'Œufs dorés livrés',
     'Golden Eggs collected' => 'Oeufs dorés ramassés',
     'Golden Eggs delivered' => 'Oeufs dorée livré au panier',
     'Hazard Level, 200.0 = "Hazard Level MAX!!"' => 'Niveau de danger , 200.0 = "Danger Maximum"',
@@ -98,7 +100,7 @@ return [
     'If the value is not correct as a UUID, we will use that value as a seed to generate a UUID.' => 'Si la valeur n\'est pas correct pour un UUID, nous utiliserons la valeur pour une seed pour générer un UUID.',
     'If you omitted the <code>id</code>, you will get a latest data.' => 'Si vous négligez le <code>id</code>, vous aurez les données les plus récentes',
     'If your client doesn\'t/cannot detect this data, omit this field or send just `null`.' => 'Si le client ne peut pas detécté cette données, négliger le champ ou juste envoyer `null`.',
-    'If you specified other player\'s <code>id</code> value, you will get the 404 error.' => 'Si vous spécifiez la valeur <code>id<code> des autres joueurs, vous recevrez un code 404.',
+    'If you specified other player\'s <code>id</code> value, you will get the 404 error.' => 'Si vous spécifiez la valeur <code>id</code> d\'un autre joueur, vous recevrez une erreur 404.',
     'IkaLog environment. This probably doesn\'t make sense in Splatoon 2' => 'Environnement Ikalog. Ce n\'a pas de logique sur Splatoon 2',
     'Information about each wave' => 'Information de chaque wague',
     'Is automated posting process?' => 'Est-ce que le procession de publication est automatique ?',
@@ -138,9 +140,11 @@ return [
     'Player\'s in-game name' => 'Nom du joueur dans le jeu',
     'Player name' => 'Nom du joueur',
     'Player results' => 'Résultat du joueur',
+    'Post the Salmon Run results' => 'Publier les résultats Salmon Run',
     'Posted time' => 'Heure de la publication',
     'Post Salmon Run results' => 'Publier les résultats Salmon Run',
     'Post Salmon Run stats (card data)' => 'Poster les statistiques Salmon Run (données de la carte)',
+    'Power Egg collected' => 'Œufs de poisson collectés',
     'Power Eggs collected' => 'Oeuf de poission collecté',
     'Primary ability' => 'Bonus principal',
     'Profile page URL' => 'Pgae URL du profile',
@@ -165,8 +169,10 @@ return [
     'Returns specified user\'s stats (e.g., how many kills)' => 'Retourne des statistiques spécifiés de l\'utilisateur (ex: combien de kills)',
     'Returns the Salmon Run results.' => 'Retourne les résultats Salmon Run',
     'Salmon Run fail reason' => 'Reason de l\'échec Salmon Run',
+    'Salmon Run results' => 'Résultats Salmon Run',
     'Salmon Run results page URL' => 'Page URL des résultats Salmon Run',
     'Salmon Run stats' => 'Statitstiques Salmon Run',
+    'Salmon Run stats (Grizzco Point Card)' => 'Statistiques Salmon Run (carte de points M. Ours SA)',
     'Salmon Run title (consider gender)' => 'Titre de Salmon Run (prend en compte le sexe)',
     'Salmon Run title (doesn\'t consider gender)' => 'Titre de Salmon Run (ne prend pas en compte le sexe)',
     'Salmon Run title information' => 'Information sur le titre de Salmon Run',
@@ -186,6 +192,10 @@ return [
     'Stage information' => 'Information du stage',
     'Standalone Application (e.g., user\'s input or screen capture)' => 'Application Standalone (exemple, les entrées de l\'utilisateur ou une capture d\'écran)',
     'Start time of this shift' => 'Heure du début de la mission',
+    'Weapon information' => 'Information sur l\'arme',
+    'Wave information' => 'Informations sur la vague',
+    'Unauthorized' => 'Non autorisé',
+    'User stats' => 'Statistiques de l\'utilisateur',
     'stat.ink API for Splatoon 2' => 'stat.ink API pour Splatoon 2',
     'Stat.ink user ID' => 'Stat.ink utilisateur ID',
     'Statistics for {rule}' => 'Statistique pour {rule}',
@@ -198,7 +208,7 @@ return [
     'The time when this rotation (play window) started in unix time format.' => 'L\'Heure quand la rotation (fenêtre de lecture) commence en format temps unix.',
     'The time when this shift ended in unix time format.' => 'L\'heure à laquelle ce décalage s\'est terminé au format horaire Unix.',
     'The time when this shift started in unix time format.' => 'L\'heure à laquelle ce décalage s\'a commencé au format horaire Unix.',
-    'The value of <code>id</code> is obtained in the Location header of the POST API.' => 'La valeur de <code>id<code> est obtenable dans l\'en-tête Location de l\'API POST.',
+    'The value of <code>id</code> is obtained in the Location header of the POST API.' => 'La valeur de <code>id</code> est obtenue dans l\'en-tête Location de l\'API POST.',
     'This API has been obsoleted.' => 'L\'API est obselète.',
     'This is helpful for unintended duplication, but it is helpless for complate detect duplication.' => 'Ceci est utile en cas de duplication involontaire, mais inutile pour détecter une duplication complexe.',
     'This parameter is required if you set `only` = `splatnet_number`.' => 'Ce paramètre est demandé si vous avez défini `only` = `splatnet_number`.',

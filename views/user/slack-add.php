@@ -21,7 +21,7 @@ use yii\web\View;
  * @var array<int, string> $languages
  */
 
-$title = Yii::t('app', 'Add Slack Integration');
+$title = Yii::t('app-user', 'Add Slack Integration');
 $this->title = implode(' | ', [
   Yii::$app->name,
   $title,
@@ -56,7 +56,7 @@ $this->registerCss(
         [
           'label' => implode(' ', [
             Icon::slack(),
-            Html::encode(Yii::t('app', 'Slack')),
+            Html::encode(Yii::t('app-user', 'Slack')),
           ]),
           'content' => $this->render('slack-add/tabs/slack'),
         ],
@@ -76,29 +76,29 @@ $this->registerCss(
       ->input('text', [
         'placeholder' => 'https://hooks.slack.com/services/AAAAAAAAA/BBBBBBBBB/CCCCCCCCCCCCCCCCCCCCCCCC',
       ])
-      ->hint(Yii::t('app', 'You can specify Discord\'s Slack compatible endpoint URL as well.')) . "\n"
+      ->hint(Yii::t('app-user', 'You can specify Discord\'s Slack compatible endpoint URL as well.')) . "\n"
     ?>
     <?= $_->field($form, 'username')
-      ->hint(Yii::t('app', 'If omitted, the name set in the webhook configuration will be used.')) . "\n"
+      ->hint(Yii::t('app-user', 'If omitted, the name set in the webhook configuration will be used.')) . "\n"
     ?>
     <?= $_->field($form, 'icon')
       ->input('text', [
         'placeholder' => ':emoji:'
       ])
-      ->hint(Yii::t('app', '<a href="http://www.emoji-cheat-sheet.com/" target="_blank">Cheat sheet</a>. If omitted, the default icon will be used.')) . "\n"
+      ->hint(Yii::t('app-user', '<a href="http://www.emoji-cheat-sheet.com/" target="_blank">Cheat sheet</a>. If omitted, the default icon will be used.')) . "\n"
     ?>
     <?= $_->field($form, 'channel')
       ->input('text', [
         'placeholder' => '#splatoon'
       ])
-      ->hint(Yii::t('app', 'If omitted, the channel set in the webhook configuration will be used.')) . "\n"
+      ->hint(Yii::t('app-user', 'If omitted, the channel set in the webhook configuration will be used.')) . "\n"
     ?>
     <?= $_->field($form, 'language_id')
       ->dropDownList($languages)
-      ->hint(Yii::t('app', 'The post will be in the language set here.')) . "\n"
+      ->hint(Yii::t('app-user', 'The post will be in the language set here.')) . "\n"
     ?>
     <?= Html::submitButton(
-      Html::encode(Yii::t('app', 'Add')),
+      Html::encode(Yii::t('app-user', 'Add')),
       ['class' => 'btn btn-lg btn-primary btn-block']
     ) . "\n" ?>
   <?php ActiveForm::end(); echo "\n" ?>

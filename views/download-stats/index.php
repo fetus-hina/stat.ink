@@ -19,7 +19,7 @@ use yii\web\View;
  */
 
 $this->context->layout = 'main';
-$title = Yii::t('app', 'Downloads');
+$title = Yii::t('app-entire', 'Downloads');
 
 $this->title = implode(' | ', [
   $title,
@@ -41,11 +41,11 @@ OgpHelper::default($this, title: $this->title);
     'p',
     implode('<br>', [
       Html::encode(
-        Yii::t('app', 'The data is not something you will know immediately after downloading.'),
+        Yii::t('app-entire', 'The data is not something you will know immediately after downloading.'),
       ),
       Html::encode(
         Yii::t(
-          'app',
+          'app-entire',
           'The data is intended to be analyzed using spreadsheet software (Excel, etc.) or programs to analyze.',
         ),
       ),
@@ -57,13 +57,13 @@ OgpHelper::default($this, title: $this->title);
     <li>
       <?= Icon::fileCsv() . "\n" ?>
       <?= Html::a(
-        Html::encode(Yii::t('app', 'Battle results (CSV)')),
+        Html::encode(Yii::t('app-entire', 'Battle results (CSV)')),
         'https://dl-stats.stats.ink/splatoon-3/battle-results-csv/',
         ['target' => '_blank', 'rel' => 'noopener nofollow'],
       ) . "\n" ?>
       /
       <?= Html::a(
-        Html::encode(Yii::t('app', 'Schema')),
+        Html::encode(Yii::t('app-entire', 'Schema')),
         'https://github.com/fetus-hina/stat.ink/wiki/Spl3-%EF%BC%8D-CSV-Schema-%EF%BC%8D-Battle',
         [
           'target' => '_blank',
@@ -74,13 +74,13 @@ OgpHelper::default($this, title: $this->title);
     <li>
       <?= Icon::fileCsv() . "\n" ?>
       <?= Html::a(
-        Html::encode(Yii::t('app', 'Salmon Run results (CSV)')),
+        Html::encode(Yii::t('app-entire', 'Salmon Run results (CSV)')),
         'https://dl-stats.stats.ink/splatoon-3/salmon-results-csv/',
         ['target' => '_blank', 'rel' => 'noopener nofollow'],
       ) . "\n" ?>
       /
       <?= Html::a(
-        Html::encode(Yii::t('app', 'Schema')),
+        Html::encode(Yii::t('app-entire', 'Schema')),
         'https://github.com/fetus-hina/stat.ink/wiki/Spl3-%EF%BC%8D-CSV-Schema-%EF%BC%8D-Salmon',
         [
           'target' => '_blank',
@@ -95,13 +95,13 @@ OgpHelper::default($this, title: $this->title);
     <li>
       <?= Icon::fileCsv() . "\n" ?>
       <?= Html::a(
-        Html::encode(Yii::t('app', 'Battle results (CSV)')),
+        Html::encode(Yii::t('app-entire', 'Battle results (CSV)')),
         'https://dl-stats.stats.ink/splatoon-2/battle-results-csv/',
         ['target' => '_blank', 'rel' => 'noopener nofollow'],
       ) . "\n" ?>
       /
       <?= Html::a(
-        Html::encode(Yii::t('app', 'Schema')),
+        Html::encode(Yii::t('app-entire', 'Schema')),
         'https://github.com/fetus-hina/stat.ink/blob/master/doc/api-2/download-battle-csv.md',
         [
           'target' => '_blank',

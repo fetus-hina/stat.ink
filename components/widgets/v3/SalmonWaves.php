@@ -416,14 +416,14 @@ final class SalmonWaves extends Widget
                                             'div',
                                             match (true) {
                                                 $deliv >= $quota * 2.0 => Label::widget([
-                                                    'content' => Yii::t('app', '×{times}', [
+                                                    'content' => Yii::t('app-salmon3', '×{times}', [
                                                         'times' => $this->formatter->asDecimal(2.0, 1),
                                                     ]),
                                                     'color' => 'success',
                                                     'formatter' => $this->formatter,
                                                 ]),
                                                 $deliv >= $quota * 1.5 => Label::widget([
-                                                    'content' => Yii::t('app', '×{times}', [
+                                                    'content' => Yii::t('app-salmon3', '×{times}', [
                                                         'times' => $this->formatter->asDecimal(1.5, 1),
                                                     ]),
                                                     'color' => 'info',

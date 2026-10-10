@@ -103,7 +103,7 @@ if ($estimatedDistrib && $abstract && $chartMax > 0) {
     'borderColor' => [ new JsExpression('window.colorScheme.moving1') ],
     'borderWidth' => 2,
     'data' => $makeDistributionData($estimatedDistrib),
-    'label' => Yii::t('app', 'Overall Estimates'),
+    'label' => Yii::t('app-entire', 'Overall Estimates'),
     'pointRadius' => 0,
     'type' => 'line',
   ];
@@ -117,7 +117,7 @@ if (!$datasetEstimatedDistrib && $ruleOfThumbDistrib && $abstract && $chartMax >
     'borderWidth' => 2,
     'borderDash' => [5, 5],
     'data' => $makeDistributionData($ruleOfThumbDistrib),
-    'label' => Yii::t('app', 'Empirical Estimates'),
+    'label' => Yii::t('app-entire', 'Empirical Estimates'),
     'pointRadius' => 0,
     'type' => 'line',
   ];

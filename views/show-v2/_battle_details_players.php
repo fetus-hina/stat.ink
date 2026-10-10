@@ -144,7 +144,7 @@ $this->registerJsFile(
           </span>
         </th>
 <?php } ?>
-        <th class="text-nowrap col-kasp"><?= Html::encode(Yii::t('app', 'k+a/sp')) ?></th>
+        <th class="text-nowrap col-kasp"><?= Html::encode(Yii::t('app-show-v2', 'k+a/sp')) ?></th>
 <?php if ($hasKD) { ?>
         <th class="text-nowrap col-kd">
           <?= Html::encode(Yii::t('app', 'k')) ?>/<?= Html::encode(Yii::t('app', 'd')) . "\n" ?>

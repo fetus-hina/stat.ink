@@ -147,7 +147,7 @@ CSS
           <tr>
             <th></th>
             <th colspan="3" class="text-center"><?= Html::encode(Yii::t('app', 'Period')) ?></th>
-            <th class="text-center"><?= Html::encode(Yii::t('app', 'Interval')) ?></th>
+            <th class="text-center"><?= Html::encode(Yii::t('app-stage', 'Interval')) ?></th>
           </tr>
         </thead>
         <tbody>
@@ -156,9 +156,9 @@ CSS
             <?= Html::tag('td', Html::encode(
               (function (int $start, int $end) use ($now, $formatter) : string {
                 if ($start > $now) {
-                  return Yii::t('app', 'Scheduled');
+                  return Yii::t('app-stage', 'Scheduled');
                 } elseif ($end > $now) {
-                  return Yii::t('app', 'In session');
+                  return Yii::t('app-stage', 'In session');
                 } else {
                   return $formatter->asRelativeTime($end, $now);
                 }
@@ -190,7 +190,7 @@ CSS
           <tr>
             <td class="text-right" colspan="5">
               <?= Html::a(
-                Html::encode(Yii::t('app', 'more...')),
+                Html::encode(Yii::t('app-stage', 'more...')),
                 ['stage/map-detail', 'rule' => $_rule->key, 'map' => $map->key, '#' => 'history']
               ) . "\n" ?>
             </td>
@@ -203,7 +203,7 @@ CSS
   </div>
 <?php if ($hasTrend): ?>
   <p class="text-right">
-    <?= Html::encode(Yii::t('app', "Weapons' icon were created by {0}.", ['Stylecase'])) . "\n" ?>
+    <?= Html::encode(Yii::t('app-stage', "Weapons' icon were created by {0}.", ['Stylecase'])) . "\n" ?>
   </p>
 <?php endif ?>
 </div>

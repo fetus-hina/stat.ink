@@ -18,7 +18,7 @@ use yii\widgets\DetailView;
  * @var View $this
  */
 
-$title = Yii::t('app', 'Profile and Settings');
+$title = Yii::t('app-user', 'Profile and Settings');
 $this->title = implode(' | ', [
   Yii::$app->name,
   $title,

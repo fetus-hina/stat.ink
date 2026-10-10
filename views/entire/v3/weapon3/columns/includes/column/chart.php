@@ -77,7 +77,7 @@ $datasetWinPctErrors = [
   'errorBarLineWidth' => 1,
   'errorBarWhiskerColor' => 'rgba(50, 50, 50, 0.75)',
   'errorBarWhiskerLineWidth' => 1,
-  'label' => Yii::t('app', 'Error bars'),
+  'label' => Yii::t('app-entire', 'Error bars'),
   'type' => 'scatterWithErrorBars',
 ];
 

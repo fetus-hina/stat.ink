@@ -59,7 +59,7 @@ return [
               'width' => sprintf('%f%%', ($rate1 - $err99ci) * 100), 
             ],
             'title' => vsprintf('%s: %s～%s', [
-              Yii::t('app', '{pct}% CI', ['pct' => 99]),
+              Yii::t('app-entire', '{pct}% CI', ['pct' => 99]),
               $f->asPercent(max(0, $rate1 - $err99ci), 2),
               $f->asPercent(min(100, $rate1 + $err99ci), 2),
             ]),
@@ -100,7 +100,7 @@ return [
               'width' => sprintf('%f%%', ($rate2 - $err99ci) * 100),
             ],
             'title' => vsprintf('%s: %s～%s', [
-              Yii::t('app', '{pct}% CI', ['pct' => 99]),
+              Yii::t('app-entire', '{pct}% CI', ['pct' => 99]),
               $f->asPercent(max(0, $rate2 - $err99ci), 2),
               $f->asPercent(min(100, $rate2 + $err99ci), 2),
             ]),

@@ -125,11 +125,11 @@ final class BattleEditableUrlWidget extends Widget
                     ['class' => 'form-group-sm mb-1'],
                 ),
                 Html::button(
-                    Html::encode(Yii::t('app', 'Apply')),
+                    Html::encode(Yii::t('app-battle', 'Apply')),
                     [
                         'class' => 'btn btn-primary btn-xs',
                         'data' => [
-                            'error' => Yii::t('app', 'Could not be updated.'),
+                            'error' => Yii::t('app-battle', 'Could not be updated.'),
                         ],
                         'disabled' => null,
                         'id' => 'link-cell-edit-apply',

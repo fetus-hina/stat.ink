@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2019-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2019-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -16,12 +16,15 @@ return [
     'Brand information' => 'Information de la marque',
     'Category' => 'catégorie',
     'Common ability' => 'Capacité commun',
+    'Date and time' => 'Date et heure',
     'Date and time expressed in ISO-8601 format' => 'Date et heure exprimé en format ISO-8601',
     'Date and time expressed in Unix Time' => 'Date et heure exprimé en temps Unix',
     'Date and time when ready to play' => 'Date et heure quand ce sera prêt pour jouer ',
     'Death Reason' => 'Cause de la mort',
     'Death reason category information' => 'Type de la cause de la mort',
+    'Death reason information' => 'Informations sur la cause de la mort',
     'Delete a battle' => 'Supprimer un match',
+    'Delete information' => 'Informations de suppression',
     'Deleted' => 'Supprimé',
     'Deleted ID' => 'Identifiant supprimé',
     'Do more action but not to be deleted.' => 'Faire plus d\'action mais ne peux pas être supprimé ',
@@ -48,13 +51,14 @@ return [
     'Get stages' => 'Obtenir les stages',
     'Get trends of weapon' => 'Obtenir les tendances de l\'arme',
     'Get weapons' => 'Obtenir les armes',
-    'ID(s) to be deleted' => '{n,plurial,=0{Identifiant} other{Identifiants}} à supprimé',
+    'ID(s) to be deleted' => 'Identifiant(s) à supprimer',
     'Identification string for use with other API' => 'Chaînede caractère d\'identification à utiliser avec une autre API',
     'ID that failed to delete' => 'Cette identifiant n\'a pas été supprimée',
     'Internationalized name' => 'nom internationalisé',
     'Internationalized short name' => 'Nom réduit internationalisé',
     'Japanese name' => 'Nom Japonais',
     'Lobby' => 'Salon',
+    'Lobby Name' => 'Nom du salon',
     'Lobby information' => 'Informatiion du salon',
     'Mode' => 'Mode',
     'Mode information' => 'Information sur le mode',

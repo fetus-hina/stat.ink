@@ -54,7 +54,7 @@ $total2 = ArrayHelper::index($total, 'special_id');
         <thead>
           <tr>
             <th><?= Html::encode(Yii::t('app', 'Special')) ?></th>
-            <th width="14%"><?= Html::encode(Yii::t('app', 'Avg. Uses')) ?></th>
+            <th width="14%"><?= Html::encode(Yii::t('app-entire', 'Avg. Uses')) ?></th>
 <?php foreach ($rules as $rule) { ?>
             <?= Html::tag(
               'th',

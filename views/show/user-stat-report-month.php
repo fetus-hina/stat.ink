@@ -22,7 +22,7 @@ use yii\web\View;
  * @var View $this
  */
 
-$title = Yii::t('app', '{name}\'s Battle Report', ['name' => $user->name]);
+$title = Yii::t('app-battle', '{name}\'s Battle Report', ['name' => $user->name]);
 
 $this->context->layout = 'main';
 $this->title = implode(' | ', [
@@ -50,7 +50,7 @@ if ($prev) {
 UserStatReportAsset::register($this);
 ?>
 <div class="container">
-  <h1><?= Yii::t('app', '{name}\'s Battle Report', [
+  <h1><?= Yii::t('app-battle', '{name}\'s Battle Report', [
     'name' => Html::a(
       Html::encode($user->name),
       ['show/user', 'screen_name' => $user->screen_name],

@@ -65,19 +65,19 @@ if ($model->my_team_percent !== null && $model->his_team_percent !== null) {
     $myTitle = null;
     $hisTitle = null;
     if ($model->my_team_point !== null && $model->his_team_point !== null) {
-        $myTitle = Yii::t('app', '{point}p', [
+        $myTitle = Yii::t('app-battle', '{point}p', [
             'point' => Yii::$app->formatter->asInteger((int)$model->my_team_point),
         ]);
-        $hisTitle = Yii::t('app', '{point}p', [
+        $hisTitle = Yii::t('app-battle', '{point}p', [
             'point' => Yii::$app->formatter->asInteger((int)$model->his_team_point),
         ]);
     } elseif ($model->map && $model->map->area !== null) {
-        $myTitle = Yii::t('app', '~{point}p', [
+        $myTitle = Yii::t('app-battle', '~{point}p', [
             'point' => Yii::$app->formatter->asInteger(round(
                 $model->my_team_percent * $model->map->area / 100
             )),
         ]);
-        $hisTitle = Yii::t('app', '~{point}p', [
+        $hisTitle = Yii::t('app-battle', '~{point}p', [
             'point' => Yii::$app->formatter->asInteger(round(
                 $model->his_team_percent * $model->map->area / 100
             )),
@@ -96,10 +96,10 @@ if ($model->my_team_percent !== null && $model->his_team_percent !== null) {
     $v = $draw(
         $model->my_team_point,
         $model->his_team_point,
-        Yii::t('app', '{point}p', [
+        Yii::t('app-battle', '{point}p', [
             'point' => Yii::$app->formatter->asInteger((int)$model->my_team_point),
         ]),
-        Yii::t('app', '{point}p', [
+        Yii::t('app-battle', '{point}p', [
             'point' => Yii::$app->formatter->asInteger((int)$model->his_team_point),
         ])
     );

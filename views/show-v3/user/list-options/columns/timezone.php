@@ -12,5 +12,5 @@ return [
   'contentOptions' => ['class' => 'cell-datetime-timezone'],
   'format' => ['datetime', 'zzz'],
   'headerOptions' => ['class' => 'cell-datetime-timezone'],
-  'label' => Yii::t('app', 'TZ'),
+  'label' => Yii::t('app-battle', 'TZ'),
 ];

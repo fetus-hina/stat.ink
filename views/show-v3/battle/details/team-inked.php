@@ -16,7 +16,7 @@ use yii\web\View;
 use yii\widgets\DetailView;
 
 return [
-  'label' => Yii::t('app', 'Team Inked'),
+  'label' => Yii::t('app-battle', 'Team Inked'),
   'format' => 'raw',
   'value' => function (Battle3 $model): ?string {
     if ($model->our_team_count !== null && $model->their_team_count !== null) {
@@ -39,19 +39,19 @@ return [
           $model->our_team_inked !== null &&
           $model->their_team_inked !== null
         ) {
-          $ourPoint = Yii::t('app', '{point}p', ['point' => $model->our_team_inked]);
-          $theirPoint = Yii::t('app', '{point}p', ['point' => $model->their_team_inked]);
+          $ourPoint = Yii::t('app-battle', '{point}p', ['point' => $model->our_team_inked]);
+          $theirPoint = Yii::t('app-battle', '{point}p', ['point' => $model->their_team_inked]);
           $thirdPoint = $model->third_team_inked !== null
-            ? Yii::t('app', '{point}p', ['point' => $model->third_team_inked])
+            ? Yii::t('app-battle', '{point}p', ['point' => $model->third_team_inked])
             : null;
         } elseif ($model->map && $model->map->area !== null) {
-          $ourPoint = Yii::t('app', '~{point}p', [
+          $ourPoint = Yii::t('app-battle', '~{point}p', [
             'point' => Yii::$app->formatter->asInteger(round($model->map->area * $ourPct / 100)),
           ]);
-          $theirPoint = Yii::t('app', '~{point}p', [
+          $theirPoint = Yii::t('app-battle', '~{point}p', [
             'point' => Yii::$app->formatter->asInteger(round($model->map->area * $theirPct / 100)),
           ]);
-          $thirdPoint = Yii::t('app', '~{point}p', [
+          $thirdPoint = Yii::t('app-battle', '~{point}p', [
             'point' => Yii::$app->formatter->asInteger(round($model->map->area * $thirdPct / 100)),
           ]);
         }
@@ -128,7 +128,7 @@ return [
           implode('', [
             Html::tag(
               'div',
-              Html::encode(Yii::t('app', '{point}p', ['point' => $ourPoint])),
+              Html::encode(Yii::t('app-battle', '{point}p', ['point' => $ourPoint])),
               [
                 'class' => ['progress-bar', 'progress-bar-info'],
                 'style' => array_merge(
@@ -141,7 +141,7 @@ return [
             ),
             Html::tag(
               'div',
-              Html::encode(Yii::t('app', '{point}p', ['point' => $theirPoint])),
+              Html::encode(Yii::t('app-battle', '{point}p', ['point' => $theirPoint])),
               [
                 'class' => ['progress-bar', 'progress-bar-danger', 'text-right'],
                 'style' => array_merge(
@@ -156,7 +156,7 @@ return [
             $model->rule?->key === 'tricolor'
               ? Html::tag(
                 'div',
-                Html::encode(Yii::t('app', '{point}p', ['point' => $thirdPoint])),
+                Html::encode(Yii::t('app-battle', '{point}p', ['point' => $thirdPoint])),
                 [
                   'class' => ['progress-bar', 'progress-bar-danger', 'text-right'],
                   'style' => array_merge(

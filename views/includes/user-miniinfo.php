@@ -66,8 +66,8 @@ $f = Yii::$app->formatter;
   return $boxEx(
     Html::tag(
       'span',
-      Html::encode(Yii::t('app', $label)),
-      ['class' => 'auto-tooltip', 'title' => Yii::t('app', $label)]
+      Html::encode($label),
+      ['class' => 'auto-tooltip', 'title' => $label]
     ),
     $tooltip !== null
       ? Html::tag('span', Html::encode($value), ['class' => 'auto-tooltip', 'title' => $tooltip])
@@ -87,12 +87,12 @@ $f = Yii::$app->formatter;
           ['show/user', 'screen_name' => $user->screen_name]
         )
       ) . "\n" ?>
-      <?= $box('Win %', $stat->wp === null ? $na : $f->asPercent($stat->wp / 100, 1)) . "\n" ?>
-      <?= $box('24H Win %', $stat->wp_short === null ? $na : $f->asPercent($stat->wp_short / 100, 1)) . "\n" ?>
+      <?= $box(Yii::t('app', 'Win %'), $stat->wp === null ? $na : $f->asPercent($stat->wp / 100, 1)) . "\n" ?>
+      <?= $box(Yii::t('app', '24H Win %'), $stat->wp_short === null ? $na : $f->asPercent($stat->wp_short / 100, 1)) . "\n" ?>
     </div>
     <div class="row">
       <?= $box(
-        'Avg Kills',
+        Yii::t('app', 'Avg Kills'),
         $stat->total_kd_battle_count < 1
           ? $na
           : $f->asDecimal($stat->total_kill / $stat->total_kd_battle_count, 2),
@@ -104,7 +104,7 @@ $f = Yii::$app->formatter;
           ])
       ) . "\n" ?>
       <?= $box(
-        'Avg Deaths',
+        Yii::t('app', 'Avg Deaths'),
         $stat->total_kd_battle_count < 1
           ? $na
           : $f->asDecimal($stat->total_death / $stat->total_kd_battle_count, 2),
@@ -116,7 +116,7 @@ $f = Yii::$app->formatter;
           ])
       ) . "\n" ?>
       <?= $box(
-        'Kill Ratio',
+        Yii::t('app', 'Kill Ratio'),
         ($stat->total_kill == 0 && $stat->total_death == 0)
           ? $na
           : ($stat->total_death == 0
@@ -152,9 +152,9 @@ $f = Yii::$app->formatter;
           ['show/user', 'screen_name' => $user->screen_name, 'filter' => ['rule' => 'nawabari']]
         )
       ) . "\n" ?>
-      <?= $box('Win %', $stat->nawabari_wp === null ? $na : $f->asPercent($stat->nawabari_wp / 100, 1)) . "\n" ?>
+      <?= $box(Yii::t('app', 'Win %'), $stat->nawabari_wp === null ? $na : $f->asPercent($stat->nawabari_wp / 100, 1)) . "\n" ?>
       <?= $box(
-        'Kill Ratio',
+        Yii::t('app', 'Kill Ratio'),
         ($stat->nawabari_kill == 0 && $stat->nawabari_death == 0)
           ? $na
           : ($stat->nawabari_death == 0
@@ -169,7 +169,7 @@ $f = Yii::$app->formatter;
           ])
       ) . "\n" ?>
       <?= $box(
-        'Total Inked',
+        Yii::t('app-user-mini-info', 'Total Inked'),
         $stat->nawabari_inked < 1
           ? $na
           : ($stat->nawabari_inked >= 1000000
@@ -181,13 +181,13 @@ $f = Yii::$app->formatter;
           : $f->asInteger($stat->nawabari_inked)
       ) . "\n" ?>
       <?= $box(
-        'Avg Inked',
+        Yii::t('app', 'Avg Inked'),
         $stat->nawabari_inked < 1 || $stat->nawabari_inked_battle < 1
           ? $na
           : $f->asDecimal($stat->nawabari_inked / $stat->nawabari_inked_battle, 1)
       ) . "\n" ?>
       <?= $box(
-        'Max Inked',
+        Yii::t('app', 'Max Inked'),
         $stat->nawabari_inked_max < 1
           ? $na
           : $f->asInteger($stat->nawabari_inked_max)
@@ -214,10 +214,10 @@ $f = Yii::$app->formatter;
           ['show/user', 'screen_name' => $user->screen_name, 'filter' => ['rule' => '@gachi']]
         )
       ) . "\n" ?>
-      <?= $box('Win %', $stat->gachi_wp === null ? $na : $f->asPercent($stat->gachi_wp / 100, 1)) . "\n" ?>
-      <?= $box('Peak', $stat->gachi_rank_peak > 0 ? Rank::integerToString($stat->gachi_rank_peak) : $na) . "\n" ?>
+      <?= $box(Yii::t('app', 'Win %'), $stat->gachi_wp === null ? $na : $f->asPercent($stat->gachi_wp / 100, 1)) . "\n" ?>
+      <?= $box(Yii::t('app', 'Peak'), $stat->gachi_rank_peak > 0 ? Rank::integerToString($stat->gachi_rank_peak) : $na) . "\n" ?>
       <?= $box(
-        'Avg Kills',
+        Yii::t('app', 'Avg Kills'),
         $stat->gachi_kd_battle < 1
           ? $na
           : $f->asDecimal($stat->gachi_kill / $stat->gachi_kd_battle, 2),
@@ -229,7 +229,7 @@ $f = Yii::$app->formatter;
           ])
       ) . "\n" ?>
       <?= $box(
-        'Avg Deaths',
+        Yii::t('app', 'Avg Deaths'),
         $stat->gachi_kd_battle < 1
           ? $na
           : $f->asDecimal($stat->gachi_death / $stat->gachi_kd_battle, 2),
@@ -241,7 +241,7 @@ $f = Yii::$app->formatter;
           ])
       ) . "\n" ?>
       <?= $box(
-        'Kill Ratio',
+        Yii::t('app', 'Kill Ratio'),
         ($stat->gachi_kill == 0 && $stat->gachi_death == 0)
           ? $na
           : ($stat->gachi_death == 0
@@ -255,8 +255,8 @@ $f = Yii::$app->formatter;
             $f->asPercent($stat->gachi_kill / ($stat->gachi_kill + $stat->gachi_death), 1),
           ])
       ) . "\n" ?>
-      <?= $box('Kills/min', $stat->gachi_total_time < 1 ? $na : $f->asDecimal($stat->gachi_kill2 * 60 / $stat->gachi_total_time, 2)) . "\n" ?>
-      <?= $box('Deaths/min', $stat->gachi_total_time < 1 ? $na : $f->asDecimal($stat->gachi_death2 * 60 / $stat->gachi_total_time, 2)) . "\n" ?>
+      <?= $box(Yii::t('app', 'Kills/min'), $stat->gachi_total_time < 1 ? $na : $f->asDecimal($stat->gachi_kill2 * 60 / $stat->gachi_total_time, 2)) . "\n" ?>
+      <?= $box(Yii::t('app', 'Deaths/min'), $stat->gachi_total_time < 1 ? $na : $f->asDecimal($stat->gachi_death2 * 60 / $stat->gachi_total_time, 2)) . "\n" ?>
     </div>
     <hr>
     <div class="miniinfo-databox">
@@ -278,48 +278,48 @@ $f = Yii::$app->formatter;
 <?php $list = [
   [
     'url' => ['show/user-stat-nawabari', 'screen_name' => $user->screen_name],
-    'text' => 'Stats (Turf War)',
+    'text' => Yii::t('app-user-mini-info', 'Stats (Turf War)'),
   ],
   [
     'url' => ['show/user-stat-gachi', 'screen_name' => $user->screen_name],
-    'text' => 'Stats (Ranked Battle)',
+    'text' => Yii::t('app-user-mini-info', 'Stats (Ranked Battle)'),
   ],
   [
     'url' => ['show/user-stat-by-rule', 'screen_name' => $user->screen_name],
-    'text' => 'Stats (by Mode)',
+    'text' => Yii::t('app-user-mini-info', 'Stats (by Mode)'),
   ],
   [
     'url' => ['show/user-stat-by-map', 'screen_name' => $user->screen_name],
-    'text' => 'Stats (by Stage)',
+    'text' => Yii::t('app-user-mini-info', 'Stats (by Stage)'),
   ],
   [
     'url' => ['show/user-stat-by-map-rule', 'screen_name' => $user->screen_name],
-    'text' => 'Stats (by Mode and Stage)',
+    'text' => Yii::t('app-user-mini-info', 'Stats (by Mode and Stage)'),
   ],
   [
     'url' => ['show/user-stat-by-map-rule-detail', 'screen_name' => $user->screen_name],
-    'text' => 'Details',
+    'text' => Yii::t('app', 'Details'),
     'prefix' => '┗',
   ],
   [
     'url' => ['show/user-stat-by-weapon', 'screen_name' => $user->screen_name],
-    'text' => 'Stats (by Weapon)',
+    'text' => Yii::t('app-user-mini-info', 'Stats (by Weapon)'),
   ],
   [
     'url' => ['show/user-stat-by-weapon', 'screen_name' => $user->screen_name],
-    'text' => 'Stats (by Weapon)',
+    'text' => Yii::t('app-user-mini-info', 'Stats (by Weapon)'),
   ],
   [
     'url' => ['show/user-stat-vs-weapon', 'screen_name' => $user->screen_name],
-    'text' => 'Stats (vs. Weapon)',
+    'text' => Yii::t('app-user-mini-info', 'Stats (vs. Weapon)'),
   ],
   [
     'url' => ['show/user-stat-cause-of-death', 'screen_name' => $user->screen_name],
-    'text' => 'Stats (Cause of Death)',
+    'text' => Yii::t('app-user-mini-info', 'Stats (Cause of Death)'),
   ],
   [
     'url' => ['show/user-stat-report', 'screen_name' => $user->screen_name],
-    'text' => 'Daily Report',
+    'text' => Yii::t('app-user-mini-info', 'Daily Report'),
   ],
 ] ?>
 <?php foreach ($list as $item): ?>
@@ -329,7 +329,7 @@ $f = Yii::$app->formatter;
         implode(' ', [
           Html::encode($item['prefix']),
           Html::a(
-            Html::encode(Yii::t('app', $item['text'])),
+            Html::encode($item['text']),
             $item['url']
           ),
         ]),
@@ -339,7 +339,7 @@ $f = Yii::$app->formatter;
       <?= Html::a(
         implode(' ', [
           Icon::stats(),
-          Html::encode(Yii::t('app', $item['text'])),
+          Html::encode($item['text']),
         ]),
         $item['url']
       ) . "<br>\n" ?>
@@ -349,7 +349,7 @@ $f = Yii::$app->formatter;
 <?php endif // have $stat ?>
 <?php if ($user->mainWeapon): ?>
     <div class="miniinfo-databox">
-      <?= Html::encode(Yii::t('app', 'Favorite Weapon')) . ":\n" ?>
+      <?= Html::encode(Yii::t('app-user-mini-info', 'Favorite Weapon')) . ":\n" ?>
       <?= Html::encode(Yii::t('app-weapon', $user->mainWeapon->name)) ?><br>
       <?= Html::a(Html::encode(Yii::t('app', 'List')), ['show/user-stat-by-weapon', 'screen_name' => $user->screen_name]) . "\n" ?>
     </div>

@@ -35,7 +35,7 @@ $permLink = Url::to(
   true,
 );
 
-$title = Yii::t('app', "{name}'s X Power", [
+$title = Yii::t('app-show-v3', "{name}'s X Power", [
   'name' => $user->name,
 ]);
 
@@ -69,7 +69,7 @@ OgpHelper::profileV3($this, $user, $permLink, description: $title);
       <div class="mb-3">
         <p class="m-0 p-0 small text-muted">
           <?= Html::encode(
-            Yii::t('app', 'Regardless of your time zone setting, it is grouped using UTC.'),
+            Yii::t('app-show-v3', 'Regardless of your time zone setting, it is grouped using UTC.'),
           ) . "\n" ?>
         </p>
       </div>

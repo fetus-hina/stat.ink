@@ -49,7 +49,7 @@ use yii\helpers\Html;
 </p>
 <?php } ?>
 <h2>
-  <?= Html::encode(Yii::t('app', 'User Agents in last 24 hours')) . "\n" ?>
+  <?= Html::encode(Yii::t('app-entire', 'User Agents in last 24 hours')) . "\n" ?>
 </h2>
 <?= GridView::widget([
   'dataProvider' => new ArrayDataProvider([

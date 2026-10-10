@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2022-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2022-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -59,6 +59,7 @@ return [
     'Filter unposted shifts and post to us.' => '',
     'Found same data' => '',
     'Gear category' => '',
+    'Gear information' => '장비 정보',
     'Gender' => '',
     'Gender information' => '',
     'Generate a UUID version 3 or 5 on your side with your own namespace' => '',
@@ -77,6 +78,7 @@ return [
     'Get weapons' => '',
     'Get weapons in CSV format' => '',
     'Golden Egg appearances' => '',
+    'Golden Egg delivered' => '납품한 황금 연어알 수',
     'Golden Eggs collected' => '',
     'Golden Eggs delivered' => '',
     'Hazard Level, 200.0 = "Hazard Level MAX!!"' => '',
@@ -138,9 +140,11 @@ return [
     'Player\'s in-game name' => '',
     'Player name' => '',
     'Player results' => '',
+    'Post the Salmon Run results' => '새먼 런 결과 전송',
     'Posted time' => '',
     'Post Salmon Run results' => '',
     'Post Salmon Run stats (card data)' => '',
+    'Power Egg collected' => '모은 연어알 수',
     'Power Eggs collected' => '',
     'Primary ability' => '',
     'Profile page URL' => '',
@@ -165,8 +169,10 @@ return [
     'Returns specified user\'s stats (e.g., how many kills)' => '',
     'Returns the Salmon Run results.' => '',
     'Salmon Run fail reason' => '',
+    'Salmon Run results' => '새먼 런 결과',
     'Salmon Run results page URL' => '',
     'Salmon Run stats' => '',
+    'Salmon Run stats (Grizzco Point Card)' => '새먼 런 통계 (Mr. 베어 포인트 카드)',
     'Salmon Run title (consider gender)' => '',
     'Salmon Run title (doesn\'t consider gender)' => '',
     'Salmon Run title information' => '',
@@ -186,6 +192,10 @@ return [
     'Stage information' => '',
     'Standalone Application (e.g., user\'s input or screen capture)' => '',
     'Start time of this shift' => '',
+    'Weapon information' => '무기 정보',
+    'Wave information' => 'WAVE 정보',
+    'Unauthorized' => '인증되지 않음',
+    'User stats' => '유저 통계',
     'stat.ink API for Splatoon 2' => '',
     'Stat.ink user ID' => '',
     'Statistics for {rule}' => '',

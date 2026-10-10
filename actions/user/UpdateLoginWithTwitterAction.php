@@ -79,7 +79,7 @@ final class UpdateLoginWithTwitterAction extends Action
                     if ($dupInfo) {
                         Yii::$app->session->addFlash(
                             'danger',
-                            Yii::t('app', 'This twitter account has already been integrated with another user.'),
+                            Yii::t('app-user', 'This twitter account has already been integrated with another user.'),
                         );
                         $transaction->rollback();
                         return $response->redirect(Url::to(['user/profile'], true), 303);
@@ -101,7 +101,7 @@ final class UpdateLoginWithTwitterAction extends Action
                     $transaction->rollback();
                     Yii::$app->session->addFlash(
                         'warning',
-                        Yii::t('app', 'Please try again later.'),
+                        Yii::t('app-user', 'Please try again later.'),
                     );
                     return $response->redirect(Url::to(['user/profile'], true), 303);
                 }

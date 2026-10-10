@@ -23,7 +23,7 @@ use yii\web\View;
  */
 
 $this->context->layout = 'main';
-$this->title = Yii::t('app', 'API Info: Weapons (Splatoon 2)');
+$this->title = Yii::t('app-api-info', 'API Info: Weapons (Splatoon 2)');
 
 $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);
 $this->registerMetaTag(['name' => 'twitter:title', 'content' => $this->title]);
@@ -44,7 +44,7 @@ $icon = Spl2WeaponAsset::register($this);
     <?= Html::a(
       implode(' ', [
         Icon::apiJson(),
-        Html::encode(Yii::t('app', 'JSON format')),
+        Html::encode(Yii::t('app-api-info', 'JSON format')),
       ]),
       ['api-v2/weapon'],
       ['class' => 'label label-default']
@@ -52,7 +52,7 @@ $icon = Spl2WeaponAsset::register($this);
     <?= Html::a(
       implode(' ', [
         Icon::fileCsv(),
-        Html::encode(Yii::t('app', 'CSV format')),
+        Html::encode(Yii::t('app-api-info', 'CSV format')),
       ]),
       ['api-v2/weapon', 'format' => 'csv'],
       ['class' => 'label label-default']
@@ -72,7 +72,7 @@ $icon = Spl2WeaponAsset::register($this);
             <code>key</code>
           </th>
           <th data-sort="int">
-            <?= Html::encode(Yii::t('app', 'SplatNet 2')) . "\n" ?>
+            <?= Html::encode(Yii::t('app-api-info', 'SplatNet 2')) . "\n" ?>
           </th>
           <th></th>
 <?php foreach ($langs as $i => $lang) { ?>
@@ -93,7 +93,7 @@ $icon = Spl2WeaponAsset::register($this);
             Html::encode(Yii::t('app', 'Main Weapon'))
           ?></th>
           <th data-sort="string">
-            <?= Html::encode(Yii::t('app', 'Reskin of')) . "\n" ?>
+            <?= Html::encode(Yii::t('app-api-info', 'Reskin of')) . "\n" ?>
           </th>
           <th data-sort="string"><?= implode(' ', [
             AbilityIcon::spl2('main_power_up', ['style' => [

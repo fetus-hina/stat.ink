@@ -29,7 +29,7 @@ class UserStatByWeaponAction extends BaseAction
         $request = Yii::$app->getRequest();
         $user = User::findOne(['screen_name' => $request->get('screen_name')]);
         if (!$user) {
-            throw new NotFoundHttpException(Yii::t('app', 'Could not find user'));
+            throw new NotFoundHttpException(Yii::t('app-show', 'Could not find user'));
         }
 
         $filter = new BattleFilterForm();

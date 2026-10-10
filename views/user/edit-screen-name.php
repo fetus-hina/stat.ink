@@ -18,7 +18,7 @@ use yii\web\View;
  * @var View $this
  */
 
-$title = Yii::t('app', 'Update Your Screen Name');
+$title = Yii::t('app-user', 'Update Your Screen Name');
 $this->title = implode(' | ', [
     Yii::$app->name,
     $title,
@@ -28,18 +28,18 @@ $this->title = implode(' | ', [
   <h1><?= Html::encode($title) ?></h1>
   <div class="alert alert-danger mb-3">
     <p class="mb-2">
-      <?= Yii::t('app', 'If you change the screen name with this form, the change will take effect immediately.') . "\n" ?>
+      <?= Yii::t('app-user', 'If you change the screen name with this form, the change will take effect immediately.') . "\n" ?>
     </p>
     <ul>
       <li class="mb-2">
-        <?= Yii::t('app', 'If you have pages that you are sharing with URLs, most of them will be broken links.') . "\n" ?>
-        <?= Yii::t('app', 'No redirects from old URLs will be made.') . "\n" ?>
+        <?= Yii::t('app-user', 'If you have pages that you are sharing with URLs, most of them will be broken links.') . "\n" ?>
+        <?= Yii::t('app-user', 'No redirects from old URLs will be made.') . "\n" ?>
       </li>
       <li class="mb-2">
-        <?= Yii::t('app', 'The old name will be available immediately for reuse.') . "\n" ?>
+        <?= Yii::t('app-user', 'The old name will be available immediately for reuse.') . "\n" ?>
       </li>
       <li class="mb-2">
-        <?= Yii::t('app', 'If you have registered your login information in Password Manager, do not forget to update it.') . "\n" ?>
+        <?= Yii::t('app-user', 'If you have registered your login information in Password Manager, do not forget to update it.') . "\n" ?>
       </li>
     </ul>
   </div>
@@ -48,7 +48,7 @@ $this->title = implode(' | ', [
     <div class="col-xs-12 col-sm-6">
       <?php $form = ActiveForm::begin(); echo "\n" ?>
         <?= $form->field($model, 'screen_name')
-          ->hint(Yii::t('app', '<code>@id</code> (without <code>@</code>), case sensitive.'))
+          ->hint(Yii::t('app-user', '<code>@id</code> (without <code>@</code>), case sensitive.'))
           ->textInput() . "\n"
         ?>
         <?= Html::submitButton(

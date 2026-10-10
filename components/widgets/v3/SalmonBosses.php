@@ -234,7 +234,7 @@ final class SalmonBosses extends Widget
                 'td',
                 vsprintf('%s %s', [
                     Emoji::cp(Emoji::CP_CROSS_MARK),
-                    Yii::t('app', 'It looks this data is corrupt.'),
+                    Yii::t('app-salmon3', 'It looks this data is corrupt.'),
                 ]),
             );
         }

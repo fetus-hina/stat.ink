@@ -23,7 +23,7 @@ class BattleAction extends BaseAction
         ]);
         if (!$battle || !$battle->user) {
             throw new NotFoundHttpException(
-                Yii::t('app', 'Could not find specified battle.'),
+                Yii::t('app-show', 'Could not find specified battle.'),
             );
         }
 

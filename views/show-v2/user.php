@@ -69,7 +69,7 @@ if ($user->twitter != '') {
       return sprintf(
         '%s [ %s ]',
         $title,
-        Yii::t('app', 'Battles:{0} / Win %:{1} / Avg Kills:{2} / Avg Deaths:{3} / Kill Ratio:{4}', [
+        Yii::t('app-battle', 'Battles:{0} / Win %:{1} / Avg Kills:{2} / Avg Deaths:{3} / Kill Ratio:{4}', [
           $fmt->asInteger($summary->battle_count),
           $summary->wp === null ? '-' : $fmt->asPercent($summary->wp / 100, 1),
           $summary->kd_present > 0
@@ -298,7 +298,7 @@ if ($user->twitter != '') {
           ],
           [
             // private room id (icon) {{{
-            'label' => Yii::t('app', 'Room'),
+            'label' => Yii::t('app-show-v2', 'Room'),
             'headerOptions' => ['class' => 'cell-room cell-room-id'],
             'contentOptions' => ['class' => 'cell-room cell-room-id text-center'],
             'format' => 'raw',
@@ -393,7 +393,7 @@ if ($user->twitter != '') {
           ],
           [
             // special battle {{{
-            'label' => Yii::t('app', 'Special Battle'),
+            'label' => Yii::t('app-battle', 'Special Battle'),
             'headerOptions' => ['class' => 'cell-special-battle'],
             'contentOptions' => ['class' => 'cell-special-battle'],
             'format' => 'raw',
@@ -493,7 +493,7 @@ if ($user->twitter != '') {
           ],
           [
             // freshness {{{
-            'label' => Yii::t('app', 'Freshness'),
+            'label' => Yii::t('app-battle', 'Freshness'),
             'headerOptions' => ['class' => 'cell-freshness'],
             'contentOptions' => ['class' => 'cell-freshness nobr'],
             'format' => 'raw',
@@ -694,7 +694,7 @@ if ($user->twitter != '') {
           ],
           [
             // fest title {{{
-            'label' => Yii::t('app', 'Splatfest Title'),
+            'label' => Yii::t('app-battle', 'Splatfest Title'),
             'headerOptions' => ['class' => 'cell-fest-title'],
             'contentOptions' => ['class' => 'cell-fest-title'],
             'value' => function ($model): ?string {
@@ -713,7 +713,7 @@ if ($user->twitter != '') {
           ],
           [
             // fest title (after) {{{
-            'label' => Yii::t('app', 'Splatfest Title (After)'),
+            'label' => Yii::t('app-show-v2', 'Splatfest Title (After)'),
             'headerOptions' => ['class' => 'cell-fest-title-after'],
             'contentOptions' => ['class' => 'cell-fest-title-after'],
             'value' => function ($model): ?string {
@@ -752,7 +752,7 @@ if ($user->twitter != '') {
           ],
           [
             // judge {{{
-            'label' => Yii::t('app', 'Judge'),
+            'label' => Yii::t('app-battle', 'Judge'),
             'headerOptions' => ['class' => 'cell-judge'],
             'contentOptions' => ['class' => 'cell-judge'],
             'format' => 'raw',
@@ -777,7 +777,7 @@ if ($user->twitter != '') {
                   ),
                 ($model->isGachi && $model->is_knockout !== null)
                   ? ($model->is_knockout
-                    ? Html::tag('span', Html::encode(Yii::t('app', 'K.O.')), [
+                    ? Html::tag('span', Html::encode(Yii::t('app-battle', 'K.O.')), [
                         'class' => 'label label-info auto-tooltip',
                         'title' => Yii::t('app', 'Knockout'),
                       ])
@@ -842,7 +842,7 @@ if ($user->twitter != '') {
           ],
           [
             // kills/min {{{
-            'label' => Yii::t('app', 'K/min'),
+            'label' => Yii::t('app-show-v2', 'K/min'),
             'headerOptions' => ['class' => 'cell-kill-min'],
             'contentOptions' => ['class' => 'cell-kill-min text-right'],
             'format' => 'raw',
@@ -861,7 +861,7 @@ if ($user->twitter != '') {
           ],
           [
             // deaths/min {{{
-            'label' => Yii::t('app', 'D/min'),
+            'label' => Yii::t('app-show-v2', 'D/min'),
             'headerOptions' => ['class' => 'cell-death-min'],
             'contentOptions' => ['class' => 'cell-death-min text-right'],
             'format' => 'raw',
@@ -910,7 +910,7 @@ if ($user->twitter != '') {
           ],
           [
             // specials/min {{{
-            'label' => Yii::t('app', 'S/min'),
+            'label' => Yii::t('app-show-v2', 'S/min'),
             'headerOptions' => ['class' => 'cell-specials-min'],
             'contentOptions' => ['class' => 'cell-specials-min text-right'],
             'format' => ['decimal', 3],
@@ -949,7 +949,7 @@ if ($user->twitter != '') {
           ],
           [
             // rank in team {{{
-            'label' => Yii::t('app', 'Rank in Team'),
+            'label' => Yii::t('app-battle', 'Rank in Team'),
             'attribute' => 'rank_in_team',
             'headerOptions' => ['class' => 'cell-rank-in-team'],
             'contentOptions' => ['class' => 'cell-rank-in-team'],
@@ -958,7 +958,7 @@ if ($user->twitter != '') {
           ],
           [
             // elapsed (mm:ss) {{{
-            'label' => Yii::t('app', 'Elapsed'),
+            'label' => Yii::t('app-battle', 'Elapsed'),
             'headerOptions' => ['class' => 'cell-elapsed'],
             'contentOptions' => ['class' => 'cell-elapsed text-right'],
             'value' => function (Battle2 $model): string {
@@ -974,7 +974,7 @@ if ($user->twitter != '') {
           ],
           [
             // elapsed (sec) {{{
-            'label' => Yii::t('app', 'Elapsed'),
+            'label' => Yii::t('app-battle', 'Elapsed'),
             'headerOptions' => ['class' => 'cell-elapsed-sec'],
             'contentOptions' => ['class' => 'cell-elapsed-sec text-right'],
             'format' => 'integer',
@@ -992,7 +992,7 @@ if ($user->twitter != '') {
           ],
           [
             // timezone {{{
-            'label' => Yii::t('app', 'TZ'),
+            'label' => Yii::t('app-battle', 'TZ'),
             'attribute' => 'end_at',
             'headerOptions' => ['class' => 'cell-datetime-timezone'],
             'contentOptions' => ['class' => 'cell-datetime-timezone'],
@@ -1044,20 +1044,20 @@ if ($user->twitter != '') {
       </div>
       <div class="row"><?php
         $_list = [
-          'cell-splatnet'             => Yii::t('app', 'SplatNet Battle #'),
+          'cell-splatnet'             => Yii::t('app-show-v2', 'SplatNet Battle #'),
           'cell-lobby'                => Yii::t('app', 'Lobby'),
-          'cell-room'                 => Yii::t('app', 'Room info (Private)'),
+          'cell-room'                 => Yii::t('app-show-v2', 'Room info (Private)'),
           'cell-rule'                 => Yii::t('app', 'Mode'),
-          'cell-rule-short'           => Yii::t('app', 'Mode (Short)'),
-          'cell-special-battle'       => Yii::t('app', 'Special Battle (Fest)'),
+          'cell-rule-short'           => Yii::t('app-battle', 'Mode (Short)'),
+          'cell-special-battle'       => Yii::t('app-show-v2', 'Special Battle (Fest)'),
           'cell-map'                  => Yii::t('app', 'Stage'),
           'cell-map-short'            => Yii::t('app', 'Stage (Short)'),
           'cell-main-weapon'          => Yii::t('app', 'Weapon'),
           'cell-main-weapon-short'    => Yii::t('app', 'Weapon (Short)'),
-          'cell-freshness'            => Yii::t('app', 'Freshness'),
+          'cell-freshness'            => Yii::t('app-battle', 'Freshness'),
           'cell-sub-weapon'           => Yii::t('app', 'Sub Weapon'),
           'cell-special'              => Yii::t('app', 'Special'),
-          'cell-team-icon'            => Yii::t('app', 'Team Icon'),
+          'cell-team-icon'            => Yii::t('app-show-v2', 'Team Icon'),
           'cell-team-id'              => Yii::t('app', 'Team ID'),
           'cell-rank'                 => Yii::t('app', 'Rank'),
           'cell-rank-after'           => Yii::t('app', 'Rank (After)'),
@@ -1065,10 +1065,10 @@ if ($user->twitter != '') {
           'cell-gachi-power'          => Yii::t('app', 'Power Level'),
           'cell-league-power'         => Yii::t('app', 'League Power'),
           'cell-fest-power'           => Yii::t('app', 'Splatfest Power'),
-          'cell-fest-title'           => Yii::t('app', 'Splatfest Title'),
-          'cell-fest-title-after'     => Yii::t('app', 'Splatfest Title (After)'),
+          'cell-fest-title'           => Yii::t('app-battle', 'Splatfest Title'),
+          'cell-fest-title-after'     => Yii::t('app-show-v2', 'Splatfest Title (After)'),
           'cell-level'                => Yii::t('app', 'Level'),
-          'cell-judge'                => Yii::t('app', 'Judge'),
+          'cell-judge'                => Yii::t('app-battle', 'Judge'),
           'cell-result'               => Yii::t('app', 'Result'),
           'cell-kd'                   => Yii::t('app', 'k') . '/' . Yii::t('app', 'd'),
           'cell-kill-min'             => Yii::t('app', 'Kills/min'),
@@ -1080,9 +1080,9 @@ if ($user->twitter != '') {
           'cell-specials-min'         => Yii::t('app', 'Specials/min'),
           'cell-point'                => Yii::t('app', 'Turf Inked'),
           'cell-inked-min'            => Yii::t('app', 'Inked/min'),
-          'cell-rank-in-team'         => Yii::t('app', 'Rank in Team'),
-          'cell-elapsed'              => Yii::t('app', 'Elapsed Time'),
-          'cell-elapsed-sec'          => Yii::t('app', 'Elapsed Time (seconds)'),
+          'cell-rank-in-team'         => Yii::t('app-battle', 'Rank in Team'),
+          'cell-elapsed'              => Yii::t('app-battle', 'Elapsed Time'),
+          'cell-elapsed-sec'          => Yii::t('app-battle', 'Elapsed Time (seconds)'),
           'cell-datetime'             => Yii::t('app', 'Date Time'),
           'cell-datetime-timezone'    => Yii::t('app', 'Time Zone'),
           'cell-reltime'              => Yii::t('app', 'Relative Time'),

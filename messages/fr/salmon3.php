@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2022-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2022-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -14,7 +14,7 @@ return [
     'BIG Big Run' => 'Grand Big Run',
     'Big Run' => 'Big Run',
     'Boss' => 'Boss',
-    'Bosses defeated' => '',
+    'Bosses defeated' => 'Salmonoboss vaincus',
     'Boss Salmonid' => 'Salmonoboss',
     'Boss Salmonids' => 'Salmonoboss',
     'Clear Bonus' => 'Récompense',
@@ -23,11 +23,13 @@ return [
     'Defeated' => 'Vaincus',
     'Defeated (others)' => 'Vaincus par d\'autres',
     'Defeated by {user}' => 'Vaincus par {user}',
+    'Delete This Job' => 'Supprimer cette mission',
     'Eggs' => 'Œufs',
     'Eggstra Work' => 'Défi œuf sup\'',
     'For a more accurate occurrence rate, see {link}.' => 'Pour un taux de fréquence plus précis, voir {link}.',
     'For a more accurate weapon loan rate, see {link}.' => 'Pour un taux d\'utilisation d\'arme plus prévis, voir {link}',
     'High Score' => 'Record',
+    'It looks this data is corrupt.' => 'On dirait que cette donnée est corrompue',
     'It would appear at {percent} if all four were {smell}.' => 'Il apparaîtrait à {percent} si tous les quatre étaient {smell}.',
     'Job Points' => 'Points obtenus',
     'Job Scenario' => 'Scénario',
@@ -39,8 +41,10 @@ return [
     'King Salmonids' => 'Salmonarques',
     'Known Occurrence' => 'Fréquence connu',
     'Loan %' => 'Prêt %',
+    'Max.' => 'Max.',
     'Max. Hazard Level (cleared)' => 'Niveau de danger max (terminé)',
     'MAX Hazard Level Cleared' => 'Niveau de danger max terminé',
+    'Mode{translate_hint_stats}' => 'Mode{translate_hint_stats}',
     'Normal Job' => 'Travail normal',
     'Normal Waves' => 'Vagues normal',
     'Not Defeated' => 'Survivants',
@@ -76,4 +80,5 @@ return [
     'XTRAWAVE' => 'VAGUE +',
     '{name}\'s Salmon Stats' => 'Statistique de Salmon de {name}',
     '{name}\'s Salmon Stats (Bosses)' => 'Statistique de Salmon de {name} (Boss)',
+    '×{times}' => '×{times}',
 ];

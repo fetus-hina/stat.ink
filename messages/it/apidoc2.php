@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2019-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2019-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -59,6 +59,7 @@ return [
     'Filter unposted shifts and post to us.' => '',
     'Found same data' => '',
     'Gear category' => '',
+    'Gear information' => 'Informazioni sull\'equipaggiamento',
     'Gender' => '',
     'Gender information' => '',
     'Generate a UUID version 3 or 5 on your side with your own namespace' => '',
@@ -77,6 +78,7 @@ return [
     'Get weapons' => '',
     'Get weapons in CSV format' => '',
     'Golden Egg appearances' => '',
+    'Golden Egg delivered' => 'Uova d\'oro consegnate',
     'Golden Eggs collected' => '',
     'Golden Eggs delivered' => '',
     'Hazard Level, 200.0 = "Hazard Level MAX!!"' => '',
@@ -138,9 +140,11 @@ return [
     'Player\'s in-game name' => '',
     'Player name' => '',
     'Player results' => '',
+    'Post the Salmon Run results' => 'Invia i risultati di Salmon Run',
     'Posted time' => '',
     'Post Salmon Run results' => '',
     'Post Salmon Run stats (card data)' => '',
+    'Power Egg collected' => 'Uova di pesce raccolte',
     'Power Eggs collected' => '',
     'Primary ability' => '',
     'Profile page URL' => '',
@@ -165,8 +169,10 @@ return [
     'Returns specified user\'s stats (e.g., how many kills)' => '',
     'Returns the Salmon Run results.' => '',
     'Salmon Run fail reason' => '',
+    'Salmon Run results' => 'Risultati di Salmon Run',
     'Salmon Run results page URL' => '',
     'Salmon Run stats' => '',
+    'Salmon Run stats (Grizzco Point Card)' => 'Statistiche di Salmon Run (carta punti Ursus)',
     'Salmon Run title (consider gender)' => '',
     'Salmon Run title (doesn\'t consider gender)' => '',
     'Salmon Run title information' => '',
@@ -186,6 +192,10 @@ return [
     'Stage information' => '',
     'Standalone Application (e.g., user\'s input or screen capture)' => '',
     'Start time of this shift' => '',
+    'Weapon information' => 'Informazioni sull\'arma',
+    'Wave information' => 'Informazioni sull\'ondata',
+    'Unauthorized' => 'Non autorizzato',
+    'User stats' => 'Statistiche dell\'utente',
     'stat.ink API for Splatoon 2' => '',
     'Stat.ink user ID' => '',
     'Statistics for {rule}' => '',

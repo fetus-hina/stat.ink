@@ -31,7 +31,7 @@ trait PlayedWithDropdownListTrait
                     : [],
                 $this->getFrequentlyPlayedWithDropdown($user, $currentFilter),
             ),
-            ['prompt' => Yii::t('app', 'Played With')],
+            ['prompt' => Yii::t('app-filter', 'Played With')],
         ];
     }
 

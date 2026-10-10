@@ -270,7 +270,7 @@ final class Battle3FilterWidget extends Widget
                                 $filter,
                                 'term_from',
                                 [
-                                    'inputTemplate' => Yii::t('app', '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>'),
+                                    'inputTemplate' => Yii::t('app-filter', '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>'),
                                 ],
                             )
                             ->input('text', ['placeholder' => 'YYYY-MM-DD hh:mm:ss'])
@@ -282,7 +282,7 @@ final class Battle3FilterWidget extends Widget
                                 $filter,
                                 'term_to',
                                 [
-                                    'inputTemplate' => Yii::t('app', '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>'),
+                                    'inputTemplate' => Yii::t('app-filter', '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>'),
                                 ],
                             )
                             ->input('text', ['placeholder' => 'YYYY-MM-DD hh:mm:ss'])
@@ -321,13 +321,13 @@ final class Battle3FilterWidget extends Widget
                     $filter,
                     'played_with_side',
                     [
-                        Battle3FilterForm::PLAYED_WITH_SIDE_GOOD_GUYS => Yii::t('app', 'As an ally'),
-                        Battle3FilterForm::PLAYED_WITH_SIDE_BAD_GUYS => Yii::t('app', 'As an enemy'),
+                        Battle3FilterForm::PLAYED_WITH_SIDE_GOOD_GUYS => Yii::t('app-filter', 'As an ally'),
+                        Battle3FilterForm::PLAYED_WITH_SIDE_BAD_GUYS => Yii::t('app-filter', 'As an enemy'),
                     ],
                     [
-                        'prompt' => Yii::t('app', 'Ally / Enemy'),
+                        'prompt' => Yii::t('app-filter', 'Ally / Enemy'),
                         'class' => 'filter-played-with-side auto-tooltip',
-                        'title' => Yii::t('app', 'Filter by ally or enemy'),
+                        'title' => Yii::t('app-filter', 'Filter by ally or enemy'),
                     ],
                 ),
                 Html::tag('span', '', ['class' => 'caret', 'aria-hidden' => 'true']),

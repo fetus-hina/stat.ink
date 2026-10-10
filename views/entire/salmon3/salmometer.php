@@ -53,7 +53,7 @@ $totalCleared = array_sum(ArrayHelper::getColumn($data, 'cleared'));
   <div class="mt-0 mb-3">
     <p class="mt-0 mb-1">
       <?= Html::encode(
-        Yii::t('app', 'Aggregated: {rules}', [
+        Yii::t('app-entire', 'Aggregated: {rules}', [
           'rules' => implode(', ', [
             Yii::t('app-salmon3', 'Normal Job'),
             Yii::t('app-salmon-title3', 'Eggsecutive VP'),
@@ -63,7 +63,7 @@ $totalCleared = array_sum(ArrayHelper::getColumn($data, 'cleared'));
     </p>
     <p class="mt-0 mb-1">
       <?= Html::encode(
-        Yii::t('app', 'Error bars: 95% confidence interval (estimated) & 99% confidence interval (estimated)'),
+        Yii::t('app-entire', 'Error bars: 95% confidence interval (estimated) & 99% confidence interval (estimated)'),
       ) . "\n" ?>
     </p>
   </div>

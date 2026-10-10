@@ -36,7 +36,7 @@ $maxSamples = (int)max(ArrayHelper::getColumn($data, 'jobs'));
     <tr>
       <th class="text-center" colspan="2"></th>
       <th class="text-center"><?= Html::encode(Yii::t('app-salmon2', 'Clear %')) ?></th>
-      <th class="text-center" colspan="2"><?= Html::encode(Yii::t('app', 'Samples')) ?></th>
+      <th class="text-center" colspan="2"><?= Html::encode(Yii::t('app-entire', 'Samples')) ?></th>
     </tr>
   </thead>
   <tbody>

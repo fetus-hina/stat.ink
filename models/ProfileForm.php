@@ -87,20 +87,20 @@ class ProfileForm extends Model
     public function attributeLabels()
     {
         return [
-            'screen_name' => Yii::t('app', 'Screen Name (Login Name)'),
-            'name' => Yii::t('app', 'Name (for display)'),
+            'screen_name' => Yii::t('app-user', 'Screen Name (Login Name)'),
+            'name' => Yii::t('app-user', 'Name (for display)'),
             'nnid' => Yii::t('app', 'Nintendo Network ID'),
-            'sw_friend_code' => Yii::t('app', 'Friend Code (Switch)'),
-            'twitter' => Yii::t('app', 'Twitter @name'),
-            'ikanakama' => Yii::t('app', 'Ika-Nakama User ID'),
-            'ikanakama2' => Yii::t('app', 'Ika-Nakama User ID'),
-            'env' => Yii::t('app', 'Capture Environment'),
-            'blackout' => Yii::t('app', 'Black out other players from the result image'),
-            'blackout_list' => Yii::t('app', 'Black out other players from the details list'),
-            'default_language_id' => Yii::t('app', 'Language (used for OStatus)'),
-            'region_id' => Yii::t('app', 'Region (used for Splatfest)'),
-            'link_mode_id' => Yii::t('app', 'Link from other user\'s results'),
-            'hide_data_on_toppage' => Yii::t('app', 'Hide your data on the top page'),
+            'sw_friend_code' => Yii::t('app-user', 'Friend Code (Switch)'),
+            'twitter' => Yii::t('app-user', 'Twitter @name'),
+            'ikanakama' => Yii::t('app-user', 'Ika-Nakama User ID'),
+            'ikanakama2' => Yii::t('app-user', 'Ika-Nakama User ID'),
+            'env' => Yii::t('app-user', 'Capture Environment'),
+            'blackout' => Yii::t('app-user', 'Black out other players from the result image'),
+            'blackout_list' => Yii::t('app-user', 'Black out other players from the details list'),
+            'default_language_id' => Yii::t('app-user', 'Language (used for OStatus)'),
+            'region_id' => Yii::t('app-user', 'Region (used for Splatfest)'),
+            'link_mode_id' => Yii::t('app-user', 'Link from other user\'s results'),
+            'hide_data_on_toppage' => Yii::t('app-user', 'Hide your data on the top page'),
         ];
     }
 
@@ -109,7 +109,7 @@ class ProfileForm extends Model
         return ArrayHelper::map(
             LinkMode::find()->orderBy(['rank' => SORT_ASC])->asArray()->all(),
             'id',
-            fn (array $row): string => Yii::t('app', $row['name']),
+            fn (array $row): string => Yii::t('app-user', $row['name']),
         );
     }
 }

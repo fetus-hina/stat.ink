@@ -31,7 +31,7 @@ final class ModalBody extends Widget
         return Html::tag(
             'div',
             implode('', [
-                Html::tag('p', Html::encode(Yii::t('app', 'You can delete this battle.'))),
+                Html::tag('p', Html::encode(Yii::t('app-battle', 'You can delete this battle.'))),
                 Html::tag(
                     'ul',
                     implode('', $this->getMessages()),
@@ -47,7 +47,7 @@ final class ModalBody extends Widget
         return [
             Html::tag(
                 'li',
-                Html::encode(Yii::t('app', 'If you delete this battle, it will be gone forever.')),
+                Html::encode(Yii::t('app-battle', 'If you delete this battle, it will be gone forever.')),
                 ['class' => 'mb-2'],
             ),
             Html::tag(
@@ -55,18 +55,18 @@ final class ModalBody extends Widget
                 implode('<br>', [
                     Html::tag(
                         'strong',
-                        Html::encode(Yii::t('app', 'Please do not use this feature to destroy evidence.')),
+                        Html::encode(Yii::t('app-battle', 'Please do not use this feature to destroy evidence.')),
                         ['class' => 'text-danger'],
                     ),
                     Html::encode(
-                        Yii::t('app', 'This option is provided for deleting an incorrectly-reported battle.'),
+                        Yii::t('app-battle', 'This option is provided for deleting an incorrectly-reported battle.'),
                     ),
                 ]),
                 ['class' => 'mb-2'],
             ),
             Html::tag(
                 'li',
-                Html::encode(Yii::t('app', 'If you misuse this feature, you will be banned.')),
+                Html::encode(Yii::t('app-battle', 'If you misuse this feature, you will be banned.')),
                 ['class' => 'mb-2'],
             ),
         ];

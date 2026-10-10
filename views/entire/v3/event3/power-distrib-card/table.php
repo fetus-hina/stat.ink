@@ -69,7 +69,7 @@ $fmt = Yii::$app->formatter;
             ]),
             [
               'class' => 'auto-tooltip',
-              'title' => Yii::t('app', 'Includes battles with unknown event power'),
+              'title' => Yii::t('app-entire', 'Includes battles with unknown event power'),
             ],
           ) . "\n" ?>
         </td>
@@ -98,7 +98,7 @@ $fmt = Yii::$app->formatter;
             ]),
             [
               'class' => 'auto-tooltip',
-              'title' => Yii::t('app', 'Includes battles with unknown event power'),
+              'title' => Yii::t('app-entire', 'Includes battles with unknown event power'),
             ],
           ) . "\n" ?>
         </td>

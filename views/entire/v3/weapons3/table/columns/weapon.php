@@ -29,7 +29,7 @@ return [
   'contentOptions' => fn (StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage|StatWeapon3XUsagePerVersion $model): array => [
     'data-sort-value' => Yii::t('app-weapon3', $model->weapon->name),
   ],
-  'filter' => Html::encode(Yii::t('app', 'Correlation with Win %')),
+  'filter' => Html::encode(Yii::t('app-entire', 'Correlation with Win %')),
   'format' => 'raw',
   'headerOptions' => ['data-sort' => 'string'],
   'label' => Yii::t('app', 'Weapon'),

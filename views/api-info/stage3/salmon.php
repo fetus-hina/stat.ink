@@ -48,7 +48,7 @@ $fmt = Yii::$app->formatter;
         ]) . "\n" ?>
 <?php if ($i === 0) { ?>
         <th data-sort="string"><code>key</code></th>
-        <th data-sort="string"><?= Html::encode(Yii::t('app', 'Aliases')) ?></th>
+        <th data-sort="string"><?= Html::encode(Yii::t('app-api-info', 'Aliases')) ?></th>
 <?php } ?>
 <?php } ?>
       </tr>

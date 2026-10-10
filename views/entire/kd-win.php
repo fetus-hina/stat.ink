@@ -19,7 +19,7 @@ use yii\helpers\Html;
 
 $this->context->layout ='main';
 
-$title = Yii::t('app', 'Winning Percentage based on K/D');
+$title = Yii::t('app-entire', 'Winning Percentage based on K/D');
 $this->title = implode(' | ', [
     Yii::$app->name,
     $title,
@@ -35,7 +35,7 @@ TableResponsiveForceAsset::register($this);
 <div class="container">
   <h1><?= Html::encode($title) ?></h1>
   <p><?= Html::encode(Yii::t(
-    'app',
+    'app-entire',
     'This website has color-blind support. Please check "Color-Blind Support" in the "Username/Guest" menu of the navbar to enable it.'
   )) ?></p>
 

@@ -37,7 +37,7 @@ $maxSamples = max(ArrayHelper::getColumn($data, 'battles'));
     <tr>
       <th class="text-center"><?= Html::encode(Yii::t('app', 'Times')) ?></th>
       <th class="text-center"><?= Html::encode(Yii::t('app', 'Win %')) ?></th>
-      <th colspan="2" class="text-center"><?= Html::encode(Yii::t('app', 'Samples')) ?></th>
+      <th colspan="2" class="text-center"><?= Html::encode(Yii::t('app-entire', 'Samples')) ?></th>
     </tr>
   </thead>
   <tbody>

@@ -61,7 +61,7 @@ if (!$user) {
       : Icon::user(),
     $user
       ? Html::encode($user->name)
-      : Html::encode(Yii::t('app', 'Guest')),
+      : Html::encode(Yii::t('app-layouts', 'Guest')),
     ' ',
     Html::tag('span', '', ['class' => 'caret']),
   ]),
@@ -80,7 +80,7 @@ if (!$user) {
       Html::tag('li', Html::a(
         implode(' ', [
           Icon::user(),
-          Html::encode(Yii::t('app', 'Your Battles')),
+          Html::encode(Yii::t('app-site', 'Your Battles')),
         ]),
         ['/show-user/profile', 'screen_name' => $user->screen_name]
       )),
@@ -124,14 +124,14 @@ if (!$user) {
       Html::tag('li', Html::a(
         implode(' ', [
           Icon::config(),
-          Html::encode(Yii::t('app', 'Profile and Settings')),
+          Html::encode(Yii::t('app-user', 'Profile and Settings')),
         ]),
         ['/user/profile']
       )),
       Html::tag('li', Html::a(
         implode('', [
           Icon::loginHistory(),
-          Html::encode(Yii::t('app', 'Login History')),
+          Html::encode(Yii::t('app-user', 'Login History')),
         ]),
         ['/user/login-history']
       )),
@@ -139,7 +139,7 @@ if (!$user) {
       Html::tag('li', Html::a(
         implode(' ', [
           Icon::logout(),
-          Html::encode(Yii::t('app', 'Logout')),
+          Html::encode(Yii::t('app-layouts', 'Logout')),
         ]),
         ['/user/logout']
       )),
@@ -172,7 +172,7 @@ if (!$user) {
             Html::tag('span', ($googleEnabled || $twitterEnabled) ? '┣' : '┗', ['class' => 'fa']),
             Icon::discord(),
             ' ',
-            Html::encode(Yii::t('app', 'Log in with Discord')),
+            Html::encode(Yii::t('app-user', 'Log in with Discord')),
           ]),
           ['/user/login-with-discord']
         ))
@@ -183,7 +183,7 @@ if (!$user) {
             Html::tag('span', $twitterEnabled ? '┣' : '┗', ['class' => 'fa']),
             Icon::google(),
             ' ',
-            Html::encode(Yii::t('app', 'Log in with Google')),
+            Html::encode(Yii::t('app-user', 'Log in with Google')),
           ]),
           ['/user/login-with-google']
         ))
@@ -194,7 +194,7 @@ if (!$user) {
             Html::tag('span', '┗', ['class' => 'fa']),
             Icon::twitter(),
             ' ',
-            Html::encode(Yii::t('app', 'Log in with Twitter')),
+            Html::encode(Yii::t('app-user', 'Log in with Twitter')),
           ]),
           ['/user/login-with-twitter']
         ))
@@ -202,7 +202,7 @@ if (!$user) {
       Html::tag('li', Html::a(
         implode(' ', [
           Icon::userAdd(),
-          Html::encode(Yii::t('app', 'Register')),
+          Html::encode(Yii::t('app-user', 'Register')),
         ]),
         ['/user/register']
       )),
@@ -225,7 +225,7 @@ if (!$user) {
     Html::tag('li', Html::a(
       implode('', [
         Html::tag('span', '', ['class' => 'far']),
-        Html::encode(Yii::t('app', 'Use full width of the screen')),
+        Html::encode(Yii::t('app-layouts', 'Use full width of the screen')),
       ]),
       '#',
       ['id' => 'toggle-use-fluid']

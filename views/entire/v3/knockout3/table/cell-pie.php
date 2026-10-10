@@ -55,13 +55,13 @@ echo implode('', [
       $model->stddev_knockout_time > 0
         ? vsprintf('%s <small>(σ=%s)</small>', [
           Html::encode(
-            Yii::t('app', 'Avg. K.O. in {time}', [
+            Yii::t('app-entire', 'Avg. K.O. in {time}', [
               'time' => Yii::$app->formatter->asDecimal((float)$model->avg_knockout_time, 1),
             ]),
           ),
           Yii::$app->formatter->asDecimal((float)$model->stddev_knockout_time, 1),
         ])
-        : Yii::t('app', 'Avg. K.O. in {time}', [
+        : Yii::t('app-entire', 'Avg. K.O. in {time}', [
           'time' => Yii::$app->formatter->asDecimal((float)$model->avg_knockout_time, 1),
         ]),
       ['class' => 'm-0 mt-1 small text-center'],

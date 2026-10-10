@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2024-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2024-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -12,6 +12,6 @@ return [
     'unknown mode' => 'modo desconhecido',
     'unknown stage' => 'mapa desconhecido',
     'won' => 'ganhou',
-    '{name}: Just {winlose} {rule} at {stage}. <{url}|Detail>' => '{name}: Acabou de {winlose} uma partida de {rule} no {stage}. <{url}|Detail>',
+    '{name}: Just {winlose} {rule} at {stage}. <{url}|Detail>' => '{name}: Acabou de {winlose} uma partida de {rule} no {stage}. <{url}|Detalhes>',
     '{name}: Just {winlose} {rule} at {stage}. {url}' => '{name}: Acabou de {winlose} uma partida de {rule} no {stage}. {url}',
 ];

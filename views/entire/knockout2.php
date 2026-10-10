@@ -19,7 +19,7 @@ use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\widgets\ActiveForm;
 
-$title = Yii::t('app', 'Knockout Rate');
+$title = Yii::t('app-entire', 'Knockout Rate');
 $this->title = Yii::$app->name . ' | ' . $title;
 
 $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);
@@ -220,7 +220,7 @@ $this->registerCss(Html::renderCss([
             <?= Html::tag(
               'p',
               Html::encode(Yii::t(
-                'app',
+                'app-entire',
                 'Avg. K.O. in {time}',
                 [
                   'time' => sprintf('%d:%02d', floor($_t / 60), $_t % 60),

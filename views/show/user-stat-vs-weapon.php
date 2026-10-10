@@ -24,7 +24,7 @@ use yii\web\View;
 
 $this->context->layout = 'main';
 
-$title = Yii::t('app', '{name}\'s Battle Stats (vs. Weapon)', [
+$title = Yii::t('app-show', '{name}\'s Battle Stats (vs. Weapon)', [
   'name' => $user->name,
 ]);
 $this->title = implode(' | ', [
@@ -67,7 +67,7 @@ SortableTableAsset::register($this);
         'emptyText' => Yii::t('app', 'There are no data.'),
         'columns' => [
           [
-            'label' => Yii::t('app', 'Enemy Weapon'),
+            'label' => Yii::t('app-show', 'Enemy Weapon'),
             'headerOptions' => [
               'data-sort' => 'string',
             ],
@@ -147,7 +147,7 @@ SortableTableAsset::register($this);
             },
           ],
           [
-            'label' => Yii::t('app', 'Deaths Per Battle'),
+            'label' => Yii::t('app-show', 'Deaths Per Battle'),
             'headerOptions' => [
               'data-sort' => 'float',
             ],

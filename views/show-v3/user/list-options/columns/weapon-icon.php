@@ -11,7 +11,7 @@ use app\components\widgets\Icon;
 use app\models\Battle3;
 
 return [
-  '-label' => Yii::t('app', 'Weapon (Icon)'),
+  '-label' => Yii::t('app-show-v3', 'Weapon (Icon)'),
   'contentOptions' => ['class' => 'cell-weapon-icon'],
   'format' => 'raw',
   'headerOptions' => ['class' => 'cell-weapon-icon'],

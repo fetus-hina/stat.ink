@@ -54,7 +54,7 @@ BlackoutHintAsset::register($this);
     <tbody>
       <tr>
 <?php $_categories = [
-  'user' => Yii::t('app', 'You'),
+  'user' => Yii::t('app-user', 'You'),
   'good-guys' => Yii::t('app', 'Good Guys'),
   'bad-guys' => Yii::t('app', 'Bad Guys'),
 ] ?>
@@ -86,8 +86,8 @@ BlackoutHintAsset::register($this);
   </table>
   <p class="blackout-info-legends">
     <?= Html::encode(Yii::t('app', 'Legends')) ?>:
-    <span class="far fa-square"></span><?= Html::encode(Yii::t('app', 'No black out')) . "\n" ?>
+    <span class="far fa-square"></span><?= Html::encode(Yii::t('app-user', 'No black out')) . "\n" ?>
     /
-    <span class="far fa-check-square"></span><?= Html::encode(Yii::t('app', 'Black out')) . "\n" ?>
+    <span class="far fa-check-square"></span><?= Html::encode(Yii::t('app-user', 'Black out')) . "\n" ?>
   </p>
 </div>

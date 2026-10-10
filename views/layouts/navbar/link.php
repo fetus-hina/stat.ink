@@ -33,7 +33,7 @@ $list = [
     // S3 official {{{
     'name' => implode(' ', [
       Icon::splatoon3(),
-      Html::encode(Yii::t('app', '{title} Official Website', [
+      Html::encode(Yii::t('app-layouts', '{title} Official Website', [
         'title' => Yii::t('app', 'Splatoon 3'),
       ])),
     ]),
@@ -66,7 +66,7 @@ $list = [
     // S2 official {{{
     'name' => implode(' ',[
       Icon::splatoon2(),
-      Html::encode(Yii::t('app', '{title} Official Website', [
+      Html::encode(Yii::t('app-layouts', '{title} Official Website', [
         'title' => Yii::t('app', 'Splatoon 2'),
       ])),
     ]),
@@ -99,7 +99,7 @@ $list = [
     // S1 official {{{
     'name' => implode(' ',[
       Icon::splatoon1(),
-      Html::encode(Yii::t('app', '{title} Official Website', [
+      Html::encode(Yii::t('app-layouts', '{title} Official Website', [
         'title' => Yii::t('app', 'Splatoon'),
       ])),
     ]),
@@ -132,7 +132,7 @@ $list = [
     // Twitter {{{
     'name' => implode(' ', [
       Icon::twitter(),
-      Html::encode(Yii::t('app', 'Official Twitter')),
+      Html::encode(Yii::t('app-layouts', 'Official Twitter')),
     ]),
     'sub' => [
       [
@@ -178,7 +178,7 @@ $list = [
   ],
   [
     // Splatoon Base website {{{
-    'name' => Html::encode(Yii::t('app', 'Splatoon Base Official Website')),
+    'name' => Html::encode(Yii::t('app-layouts', 'Splatoon Base Official Website')),
     'sub' => [
       [
         'url' => 'https://www.nintendo.co.jp/character/splatoon/',
@@ -199,7 +199,7 @@ $list = [
   ],
   [
     // Official app {{{
-    'name' => Html::encode(Yii::t('app', 'Nintendo Switch Online app')),
+    'name' => Html::encode(Yii::t('app-layouts', 'Nintendo Switch Online app')),
     'sub' => [
       [
         'url' => 'https://play.google.com/store/apps/details?id=com.nintendo.znca',
@@ -212,7 +212,7 @@ $list = [
         'url' => 'https://apps.apple.com/app/nintendo-switch-online/id1234806557',
         'name' => implode('', [
           Icon::ios(),
-          Html::encode(Yii::t('app', 'iOS (iPhone/iPad)')),
+          Html::encode(Yii::t('app-layouts', 'iOS (iPhone/iPad)')),
         ]),
       ],
     ],
@@ -243,7 +243,7 @@ $list = [
   [
     'name' => implode(' ', [
       Icon::splatoon2(),
-      Html::encode(Yii::t('app', 'Apps for {version}', ['version' => Yii::t('app', 'Splatoon 2')])),
+      Html::encode(Yii::t('app-layouts', 'Apps for {version}', ['version' => Yii::t('app', 'Splatoon 2')])),
     ]),
     'sub' => [
       [
@@ -268,7 +268,7 @@ $list = [
       [
         'name' => implode(' ', [
           $icon->ikarecJa,
-          Html::tag('del', Html::encode(Yii::t('app', 'IkaRec 2'))),
+          Html::tag('del', Html::encode(Yii::t('app-layouts', 'IkaRec 2'))),
           Icon::android(),
         ]),
         'url' => 'https://play.google.com/store/apps/details?id=com.syanari.merluza.ikarec2',
@@ -278,7 +278,7 @@ $list = [
   [
     'name' => implode(' ', [
       Icon::splatoon1(),
-      Html::encode(Yii::t('app', 'Apps for {version}', ['version' => Yii::t('app', 'Splatoon 1')])),
+      Html::encode(Yii::t('app-layouts', 'Apps for {version}', ['version' => Yii::t('app', 'Splatoon 1')])),
     ]),
     'sub' => [
       [
@@ -309,7 +309,7 @@ $list = [
             'url' => 'https://hasegaw.github.io/IkaLog/',
             'name' => implode(' ', [
               Icon::download(),
-              Html::encode(Yii::t('app', 'IkaLog Download Page')),
+              Html::encode(Yii::t('app-layouts', 'IkaLog Download Page')),
               '(' . Icon::windows() . ' ' . Html::encode(Yii::t('app', 'Windows')) . ')',
             ]),
           ],
@@ -324,7 +324,7 @@ $list = [
             'del',
             implode(' ', [
               Html::encode(Yii::t('app', 'IkaRec')),
-              '(' . Html::encode(Yii::t('app', 'for {title}', [
+              '(' . Html::encode(Yii::t('app-layouts', 'for {title}', [
                 'title' => Yii::t('app', 'Splatoon'),
               ])) . ' / 日本語)',
             ]),
@@ -338,7 +338,7 @@ $list = [
           $icon->ikarecEn,
           $us(),
           Html::encode(Yii::t('app', 'IkaRec')),
-          '(' . Html::encode(Yii::t('app', 'for {title}', [
+          '(' . Html::encode(Yii::t('app-layouts', 'for {title}', [
             'title' => Yii::t('app', 'Splatoon'),
           ])) . ' / English)',
           Icon::android(),
@@ -351,14 +351,14 @@ $list = [
     'url' => 'https://ikanakama.ink/',
     'name' => implode(' ', [
       $icon->ikanakama,
-      Html::encode(Yii::t('app', 'Ika-Nakama')),
+      Html::encode(Yii::t('app-layouts', 'Ika-Nakama')),
     ]),
   ],
   [
     'url' => 'https://fest.ink/',
     'name' => implode(' ', [
       $icon->festink,
-      Html::encode(Yii::t('app', 'fest.ink')),
+      Html::encode(Yii::t('app-layouts', 'fest.ink')),
     ]),
   ],
   [],
@@ -366,14 +366,14 @@ $list = [
     'url' => 'https://blog.fetus.jp/',
     'name' => implode(' ', [
       Icon::blog(),
-      Html::encode(Yii::t('app', 'Blog')),
+      Html::encode(Yii::t('app-layouts', 'Blog')),
     ]),
   ],
   [
     'url' => 'https://github.com/fetus-hina/stat.ink',
     'name' => implode(' ', [
       Icon::github(),
-      Html::encode(Yii::t('app', 'Source Code')),
+      Html::encode(Yii::t('app-layouts', 'Source Code')),
     ]),
   ],
 ];
@@ -404,7 +404,7 @@ $renderEntry = function (array $entry) use (&$renderEntry) : string {
 <?= Html::a(
   implode('', [
     Icon::link(),
-    Html::encode(Yii::t('app', 'Links')),
+    Html::encode(Yii::t('app-layouts', 'Links')),
     ' ',
     Html::tag('span', '', ['class' => 'caret']),
   ]),

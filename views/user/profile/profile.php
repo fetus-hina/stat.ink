@@ -52,7 +52,7 @@ $f = Yii::$app->formatter;
             'class' => 'identicon',
             'size' => 48,
           ]);
-          $text = Yii::t('app', 'Auto (Identicon)');
+          $text = Yii::t('app-user', 'Auto (Identicon)');
         }
         return Html::tag(
           'div',
@@ -62,7 +62,7 @@ $f = Yii::$app->formatter;
             Html::a(
               implode('', [
                 Html::tag('span', '', ['class' => 'far fa-image']),
-                Html::encode(Yii::t('app', 'Change Icon')),
+                Html::encode(Yii::t('app-user', 'Change Icon')),
               ]),
               ['edit-icon'],
               ['class' => 'btn btn-default']
@@ -85,7 +85,7 @@ $f = Yii::$app->formatter;
         Html::a(
           implode('', [
             Html::tag('span', '', ['class' => 'fas fa-redo']),
-            Html::encode(Yii::t('app', 'Change Screen Name')),
+            Html::encode(Yii::t('app-user', 'Change Screen Name')),
           ]),
           ['edit-screen-name'],
           ['class' => 'btn btn-default'],
@@ -98,11 +98,11 @@ $f = Yii::$app->formatter;
       'value' => function () use ($user): string {
         if (!$user->hasPassword()) {
           return implode(' ', [
-            Html::encode(Yii::t('app', '(Disabled. Sign in with your passkey.)')),
+            Html::encode(Yii::t('app-user', '(Disabled. Sign in with your passkey.)')),
             Html::a(
               implode('', [
                 Html::tag('span', '', ['class' => 'fas fa-redo']),
-                Html::encode(Yii::t('app', 'Set Password')),
+                Html::encode(Yii::t('app-user', 'Set Password')),
               ]),
               ['edit-password'],
               ['class' => 'btn btn-default'],
@@ -115,14 +115,14 @@ $f = Yii::$app->formatter;
           Html::a(
             implode('', [
               Html::tag('span', '', ['class' => 'fas fa-redo']),
-              Html::encode(Yii::t('app', 'Change Password')),
+              Html::encode(Yii::t('app-user', 'Change Password')),
             ]),
             ['edit-password'],
             ['class' => 'btn btn-default']
           ),
           $user->getUserPasskeys()->exists()
             ? Html::a(
-              Html::encode(Yii::t('app', 'Disable Password')),
+              Html::encode(Yii::t('app-user', 'Disable Password')),
               ['disable-password'],
               ['class' => 'btn btn-default'],
             )
@@ -171,15 +171,15 @@ $f = Yii::$app->formatter;
     [
       'attribute' => 'hide_data_on_toppage',
       'value' => match ((bool)$user->hide_data_on_toppage) {
-        false => Yii::t('app', 'Show your data on the top page'),
-        true => Yii::t('app', 'Hide your data on the top page'),
+        false => Yii::t('app-user', 'Show your data on the top page'),
+        true => Yii::t('app-user', 'Hide your data on the top page'),
       },
     ],
     [
       'label' => implode(' ', [
         Icon::splatoon1(),
         Icon::splatoon2(),
-        Yii::t('app', 'Black out other players (images)'),
+        Yii::t('app-user', 'Black out other players (images)'),
       ]),
       'format' => 'raw',
       'value' => $this->render('profile/blackout', [
@@ -190,7 +190,7 @@ $f = Yii::$app->formatter;
     [
       'label' => implode(' ', [
         Icon::splatoon2(),
-        Yii::t('app', 'Black out other players (details)'),
+        Yii::t('app-user', 'Black out other players (details)'),
       ]),
       'format' => 'raw',
       'value' => $this->render('profile/blackout', [
@@ -202,21 +202,21 @@ $f = Yii::$app->formatter;
     [
       'label' => implode(' ', [
         Icon::splatoon2(),
-        Yii::t('app', "Link from other user's results"),
+        Yii::t('app-user', "Link from other user's results"),
       ]),
-      'value' => Yii::t('app', $user->linkMode->name),
+      'value' => Yii::t('app-user', $user->linkMode->name),
     ],
     [
       'label' => implode(' ', [
         Icon::splatoon1(),
-        Yii::t('app', 'Region (used for Splatfest)'),
+        Yii::t('app-user', 'Region (used for Splatfest)'),
       ]),
       'value' => Yii::t('app-region', $user->region->name),
     ],
     [
       'label' => implode(' ', [
         Icon::splatoon1(),
-        Yii::t('app', 'Language (used for OStatus)'),
+        Yii::t('app-user', 'Language (used for OStatus)'),
       ]),
       'value' => Html::encode(implode(' / ', [
         $user->defaultLanguage->name,
@@ -271,7 +271,7 @@ $f = Yii::$app->formatter;
     [
       'label' => implode(' ', [
         Icon::splatoon1(),
-        Yii::t('app', 'Capture Environment'),
+        Yii::t('app-user', 'Capture Environment'),
       ]),
       'attribute' => 'env.text',
       'format' => 'ntext',

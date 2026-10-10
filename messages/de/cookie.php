@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2019-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2019-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -9,12 +9,12 @@ declare(strict_types=1);
 
 return [
     '(3rd party defined)' => 'Drittanbieter definiert',
-    '(Session)' => '',
-    '(Twitter)' => '',
+    '(Session)' => '(Sitzung)',
+    '(Twitter)' => '(Twitter)',
     'A token used for the auto login feature' => 'Ein Token, der für die automatische Anmeldung verwendet wird',
     'A token used to avoid CSRF vulnerability' => 'Ein Token, der zur Vermeidung von CSRF-Schwachstellen verwendet wird',
-    'Cookie ID (Name)' => '',
-    'Cookies' => '',
+    'Cookie ID (Name)' => 'Cookie-ID (Name)',
+    'Cookies' => 'Cookies',
     'descriptions' => 'Beschreibung',
     'Expires' => 'Läuft ab',
     'I agree' => 'Ich stimme zu',

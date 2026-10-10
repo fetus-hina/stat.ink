@@ -30,7 +30,7 @@ use yii\web\View;
  * @var int|null $maxAvgUses
  */
 
-$title = Yii::t('app', 'Special Uses');
+$title = Yii::t('app-entire', 'Special Uses');
 $this->title = $title . ' | ' . Yii::$app->name;
 
 OgpHelper::default($this, title: $this->title);

@@ -35,8 +35,8 @@ $this->registerJs(vsprintf('$(%s).easyChartJs();', [
     <div class="alert alert-warning mb-3">
       <?php Budoux::begin() ?>
         <?= implode('<br>', [
-          Yii::t('app', 'This chart assumes simple normal distribution of the Power to make it easier to compare each mode.'),
-          Yii::t('app', 'For the actual distribution, see the charts for each mode.'),
+          Yii::t('app-entire', 'This chart assumes simple normal distribution of the Power to make it easier to compare each mode.'),
+          Yii::t('app-entire', 'For the actual distribution, see the charts for each mode.'),
         ]) . "\n" ?>
       <?php Budoux::end() ?>
     </div>

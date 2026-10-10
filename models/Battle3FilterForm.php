@@ -158,13 +158,13 @@ final class Battle3FilterForm extends Model
             'knockout' => Yii::t('app', 'Knockout'),
             'lobby' => Yii::t('app', 'Lobby'),
             'map' => Yii::t('app', 'Stage'),
-            'played_with' => Yii::t('app', 'Played With'),
-            'played_with_side' => Yii::t('app', 'Played With (Side)'),
+            'played_with' => Yii::t('app-filter', 'Played With'),
+            'played_with_side' => Yii::t('app-filter', 'Played With (Side)'),
             'result' => Yii::t('app', 'Result'),
             'rule' => Yii::t('app', 'Mode'),
             'term' => Yii::t('app', 'Term'),
-            'term_from' => Yii::t('app', 'Period From'),
-            'term_to' => Yii::t('app', 'Period To'),
+            'term_from' => Yii::t('app-filter', 'Period From'),
+            'term_to' => Yii::t('app-filter', 'Period To'),
             'weapon' => Yii::t('app', 'Weapon'),
         ];
     }

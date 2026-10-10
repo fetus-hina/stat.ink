@@ -140,8 +140,8 @@ final class Salmon3FilterForm extends Model
             'map' => Yii::t('app', 'Stage'),
             'result' => Yii::t('app', 'Result'),
             'term' => Yii::t('app', 'Term'),
-            'term_from' => Yii::t('app', 'Period From'),
-            'term_to' => Yii::t('app', 'Period To'),
+            'term_from' => Yii::t('app-filter', 'Period From'),
+            'term_to' => Yii::t('app-filter', 'Period To'),
         ];
     }
 

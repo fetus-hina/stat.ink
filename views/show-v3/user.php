@@ -54,7 +54,7 @@ OgpHelper::profileV3($this, $user, $permLink);
       return sprintf(
         '%s [ %s ]',
         $title,
-        Yii::t('app', 'Battles:{0} / Win %:{1} / Avg Kills:{2} / Avg Deaths:{3} / Kill Ratio:{4}', [
+        Yii::t('app-battle', 'Battles:{0} / Win %:{1} / Avg Kills:{2} / Avg Deaths:{3} / Kill Ratio:{4}', [
           $fmt->asInteger($summary->battle_count),
           $summary->wp === null ? '-' : $fmt->asPercent($summary->wp / 100, 1),
           $summary->kd_present > 0

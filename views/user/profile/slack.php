@@ -29,7 +29,7 @@ echo Html::tag(
   implode(' ', [
     Icon::slack(),
     Icon::discord(),
-    Html::encode(Yii::t('app', 'Slack Integration')),
+    Html::encode(Yii::t('app-user', 'Slack Integration')),
     Html::a(
       Icon::addSomething(),
       ['slack-add'],
@@ -57,7 +57,7 @@ echo GridView::widget([
             "data" => [
               "toggle" => "toggle",
               "on" => Yii::t('app', 'Enabled'),
-              "off" => Yii::t('app', 'Disabled'),
+              "off" => Yii::t('app-user', 'Disabled'),
               "id" => $model->id
             ],
             "disabled" => true
@@ -75,12 +75,12 @@ echo GridView::widget([
       },
     ],
     [
-      'label' => Yii::t('app', 'User Name'),
+      'label' => Yii::t('app-user', 'User Name'),
       'value' => function (Slack $model): string {
         $value = trim((string)$model->username);
 
         if ($value === '') {
-          return Yii::t('app', '(default)');
+          return Yii::t('app-user', '(default)');
         }
 
         return $value;
@@ -93,7 +93,7 @@ echo GridView::widget([
         $value = trim((string)$model->icon);
 
         if ($value === '') {
-          return Html::encode(Yii::t('app', '(default)'));
+          return Html::encode(Yii::t('app-user', '(default)'));
         }
 
         if (strtolower(substr($value, 0, 4)) === 'http' || substr($value, 0, 2) === '//') {
@@ -120,7 +120,7 @@ echo GridView::widget([
       'value' => function (Slack $model): string {
         $value = trim((string)$model->channel);
         if ($value === '') {
-          return Yii::t('app', '(default)');
+          return Yii::t('app-user', '(default)');
         }
 
         return $value;
@@ -136,7 +136,7 @@ echo GridView::widget([
       'value' => fn (Slack $model): string => implode(' ', [
         Html::tag(
           'button',
-          Html::encode(Yii::t('app', 'Test')),
+          Html::encode(Yii::t('app-user', 'Test')),
           [
             'class' => 'slack-test btn btn-info btn-sm',
             'data' => [

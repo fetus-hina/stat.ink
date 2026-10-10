@@ -80,14 +80,14 @@ EntireWeaponsAsset::register($this);
   <p>
     <?= Html::encode(
       Yii::t(
-        'app',
+        'app-entire',
         'Excluded: The uploader, All players (Private Battle), Uploader\'s teammates (Squad Battle or Splatfest Battle)'
       )
     ) . "\n" ?>
   </p>
   <p>
     <?= Html::encode(
-      Yii::t('app', '* This exclusion is an attempt to minimize overcounting in weapon usage statistics.')
+      Yii::t('app-entire', '* This exclusion is an attempt to minimize overcounting in weapon usage statistics.')
     ) . "\n" ?>
   </p>
 
@@ -125,7 +125,7 @@ EntireWeaponsAsset::register($this);
     <?= Html::a(
       implode(' ', [
         (string)FA::fas('exchange-alt')->fw(),
-        Html::encode(Yii::t('app', 'Compare number of uses')),
+        Html::encode(Yii::t('app-entire', 'Compare number of uses')),
       ]),
       ['entire/weapons2-use'],
       ['class' => 'btn btn-default', 'disabled' => true]
@@ -142,7 +142,7 @@ EntireWeaponsAsset::register($this);
   <p class="text-right">
     <label>
       <input type="checkbox" id="stack-trends" value="1" checked>
-      <?= Html::encode(Yii::t('app', 'Stack')) . "\n" ?>
+      <?= Html::encode(Yii::t('app-entire', 'Stack')) . "\n" ?>
     </label>
   </p>
   <?= Html::tag(
@@ -195,12 +195,12 @@ EntireWeaponsAsset::register($this);
   ) . "\n" ?>
   <p>
     <?= vsprintf('%s %s', [
-      Html::encode(Yii::t('app', 'Players:')),
+      Html::encode(Yii::t('app-entire', 'Players:')),
       Html::encode(Yii::$app->formatter->asInteger($rule->data->player_count)),
     ]) ?><br>
     <?= vsprintf('%s %s', [
-      Html::encode(Yii::t('app', 'Systematic error of win %') . ':'),
-      Html::encode(Yii::t('app', '{pct_point} percentage point', [
+      Html::encode(Yii::t('app-entire', 'Systematic error of win %') . ':'),
+      Html::encode(Yii::t('app-entire', '{pct_point} percentage point', [
         'pct_point' => Yii::$app->formatter->asDecimal(
           (function () use ($rule): ?float {
             $totalBattles = array_sum(ArrayHelper::getColumn($rule->data->weapons, 'count'));
@@ -537,7 +537,7 @@ $maxWP = max(array_map(
       ($rule->key === 'nawabari')
         ? [
           [
-            'label' => Yii::t('app', 'Inking Performance'), // {{{
+            'label' => Yii::t('app-entire', 'Inking Performance'), // {{{
             'headerOptions' => [
               'data-sort' => 'float',
             ],
@@ -560,13 +560,13 @@ $maxWP = max(array_map(
   ]) . "\n" ?>
 <?php if ($rule->key === 'nawabari') { ?>
   <p class="text-right">
-    <?= Html::encode(Yii::t('app', 'Inking Performance')) ?>:
+    <?= Html::encode(Yii::t('app-entire', 'Inking Performance')) ?>:
     <a href="https://twitter.com/splatoon_weapon/status/958523893878149121" target="_blank">https://twitter.com/splatoon_weapon/status/958523893878149121</a>
   </p>
   <div>
     <?= Html::tag(
       'h5',
-      Html::encode(Yii::t('app', 'Inking Performance vs Win %')),
+      Html::encode(Yii::t('app-entire', 'Inking Performance vs Win %')),
       [
         'id' => sprintf('ink-performance-%s', $rule->key),
         'class' => 'text-center',
@@ -600,7 +600,7 @@ $jsonId = sprintf('inkperformance-%s-data', $rule->key);
       'class' => 'graph graph-inkperformance',
       'data' => [
         'source' => $jsonId,
-        'label-correlation-coefficient' => Yii::t('app', 'Correlation Coefficient'),
+        'label-correlation-coefficient' => Yii::t('app-entire', 'Correlation Coefficient'),
       ]
     ]) . "\n" ?>
   </div>
@@ -1031,7 +1031,7 @@ $jsonId = sprintf('inkperformance-%s-data', $rule->key);
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Encounter Ratio'), // {{{
+        'label' => Yii::t('app-entire', 'Encounter Ratio'), // {{{
         'headerOptions' => [
           'data-sort' => 'float',
         ],
@@ -1202,7 +1202,7 @@ $jsonId = sprintf('inkperformance-%s-data', $rule->key);
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Encounter Ratio'), // {{{
+        'label' => Yii::t('app-entire', 'Encounter Ratio'), // {{{
         'headerOptions' => [
           'data-sort' => 'float',
         ],

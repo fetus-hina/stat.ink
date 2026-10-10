@@ -46,7 +46,7 @@ final class UserAction extends Action
             'screen_name' => (string)$request->get('screen_name'),
         ]);
         if (!$user) {
-            throw new NotFoundHttpException(Yii::t('app', 'Could not find user'));
+            throw new NotFoundHttpException(Yii::t('app-show', 'Could not find user'));
         }
 
         // リスト表示モード切替

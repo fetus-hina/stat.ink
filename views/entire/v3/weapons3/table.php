@@ -62,7 +62,7 @@ $dataProvider = Yii::createObject([
     'items' => [
       [
         'active' => true,
-        'label' => Yii::t('app', 'Detailed'),
+        'label' => Yii::t('app-entire', 'Detailed'),
         'content' => implode('', [
           GridView::widget([
             'columns' => require __DIR__ . '/table/columns.php',

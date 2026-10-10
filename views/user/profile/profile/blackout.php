@@ -26,16 +26,16 @@ BlackoutHintAsset::register($this);
     (function () use ($conf) : string {
       switch ($conf) {
         case User::BLACKOUT_NOT_BLACKOUT:
-          return Yii::t('app', 'No black out');
+          return Yii::t('app-user', 'No black out');
 
         case User::BLACKOUT_NOT_PRIVATE:
-          return Yii::t('app', 'Black out except private battle');
+          return Yii::t('app-user', 'Black out except private battle');
 
         case User::BLACKOUT_NOT_FRIEND:
-          return Yii::t('app', 'Black out except private battle and teammate on squad battle (tri or quad)');
+          return Yii::t('app-user', 'Black out except private battle and teammate on squad battle (tri or quad)');
 
         case User::BLACKOUT_ALWAYS:
-          return Yii::t('app', 'Black out other players');
+          return Yii::t('app-user', 'Black out other players');
 
         default:
           return "({$conf})";

@@ -61,7 +61,7 @@ final class ScheduleAction extends Action
     private function getTranslations(): array
     {
         return [
-            'current_time' => Yii::t('app', 'Current Time:'),
+            'current_time' => Yii::t('app-api', 'Current Time:'),
             'heading' => Yii::t('app', 'Schedule'),
             'salmon_open' => Yii::t('app-salmon2', 'Open!'),
             'source' => Yii::t('app', 'Source: {source}'),

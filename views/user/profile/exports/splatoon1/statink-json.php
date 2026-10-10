@@ -21,7 +21,7 @@ echo $user->isUserJsonReady
   ? Html::a(
     implode(' ', [
       Icon::fileJson(),
-      Html::encode(Yii::t('app', 'JSON (stat.ink format, gzipped)')),
+      Html::encode(Yii::t('app-user', 'JSON (stat.ink format, gzipped)')),
     ]),
     ['download', 'type' => 'user-json'],
     ['class' => 'btn btn-default btn-block text-left'],
@@ -29,7 +29,7 @@ echo $user->isUserJsonReady
   : Html::button(
     implode(' ', [
       Icon::fileJson(),
-      Html::encode(Yii::t('app', 'JSON (stat.ink format, gzipped)')),
+      Html::encode(Yii::t('app-user', 'JSON (stat.ink format, gzipped)')),
     ]),
     [
       'class' => 'btn btn-default btn-block text-left',

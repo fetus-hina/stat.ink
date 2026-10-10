@@ -75,7 +75,7 @@ $kdCell = function (StatWeapon2Tier $model, string $column): ?string {
     Yii::t('app', 'Version {0}', [
       Yii::t('app-version2', $versionGroup->name),
     ]),
-    Yii::t('app', 'Weapon Tier'),
+    Yii::t('app-entire', 'Weapon Tier'),
   ])) ?></h1>
 
   <?= AdWidget::widget() . "\n" ?>
