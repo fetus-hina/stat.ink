@@ -47,7 +47,6 @@ return [
     'Color-Blind Support' => 'Supporto per daltonici',
     'Color Scheme' => 'Schema dei colori',
     'Continue' => 'Continui',
-    'Current Time:' => 'Ora attuale:',
     'd' => 'd',
     'Data Sent' => 'Dati inviati',
     'Date Time' => 'Data Ora',

@@ -47,7 +47,6 @@ return [
     'Color-Blind Support' => 'Kleurenblinde ondersteuning',
     'Color Scheme' => 'Kleurenschema',
     'Continue' => 'Ga door',
-    'Current Time:' => 'Huidige tijd:',
     'd' => 'd',
     'Data Sent' => 'Verzonden gegevens',
     'Date Time' => 'Datum Tijd',

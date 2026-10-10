@@ -47,7 +47,6 @@ return [
     'Color-Blind Support' => 'Support pour le Color-Blind',
     'Color Scheme' => 'Schéma de couleurs',
     'Continue' => 'Continuer',
-    'Current Time:' => 'L\'heure actuelle :',
     'd' => 'd',
     'Data Sent' => 'Données envoyées',
     'Date Time' => 'Date Heure',

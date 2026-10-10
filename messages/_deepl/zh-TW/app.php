@@ -47,7 +47,6 @@ return [
     'Color-Blind Support' => '色盲支持',
     'Color Scheme' => '色彩方案',
     'Continue' => '繼續',
-    'Current Time:' => '當前時間。',
     'd' => 'd',
     'Data Sent' => '數據發送',
     'Date Time' => '日期 時間',
