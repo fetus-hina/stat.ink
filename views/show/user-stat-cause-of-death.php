@@ -21,7 +21,7 @@ use yii\web\View;
 
 $this->context->layout = 'main';
 
-$title = Yii::t('app', '{name}\'s Battle Stats (Cause of Death)', ['name' => $user->name]);
+$title = Yii::t('app-show', '{name}\'s Battle Stats (Cause of Death)', ['name' => $user->name]);
 $this->title = implode(' | ', [
   Yii::$app->name,
   $title,
@@ -60,10 +60,10 @@ $total = array_reduce(
         <nav class="mb-3">
           <ul class="nav nav-tabs"><?php
             $_groups = [
-              ''            => Yii::t('app', 'Don\'t group'),
-              'canonical'   => Yii::t('app', 'Group by reskins'),
-              'main-weapon' => Yii::t('app', 'Group by main weapon'),
-              'type'        => Yii::t('app', 'Group by weapon type'),
+              ''            => Yii::t('app-show', 'Don\'t group'),
+              'canonical'   => Yii::t('app-show', 'Group by reskins'),
+              'main-weapon' => Yii::t('app-show', 'Group by main weapon'),
+              'type'        => Yii::t('app-show', 'Group by weapon type'),
             ];
             $_selected = $group->hasErrors() ? '' : $group->level;
             echo implode('', array_map(

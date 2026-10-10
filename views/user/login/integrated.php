@@ -24,7 +24,7 @@ $provided = $enableDiscord || $enableGoogle || $enableTwitter;
 <div class="panel panel-default mb-3">
   <div class="panel-heading">
     <h2 class="panel-title">
-      <?= Html::encode(Yii::t('app', 'Log in with other services')) . "\n" ?>
+      <?= Html::encode(Yii::t('app-user', 'Log in with other services')) . "\n" ?>
     </h2>
   </div>
   <div class="panel-body pb-0">
@@ -32,7 +32,7 @@ $provided = $enableDiscord || $enableGoogle || $enableTwitter;
     <div class="alert alert-info">
       <?= Html::encode(
         Yii::t(
-          'app',
+          'app-user',
           'These login methods require linking your external account from the Profile page in advance.',
         )
       ) . "\n" ?>
@@ -81,7 +81,7 @@ $provided = $enableDiscord || $enableGoogle || $enableTwitter;
 <?php if (!$provided) { ?>
       <p class="mb-3">
         <?= Html::encode(
-          Yii::t('app', 'No service configured by the system administrator.')
+          Yii::t('app-user', 'No service configured by the system administrator.')
         ) . "\n" ?>
       </p>
 <?php } ?>

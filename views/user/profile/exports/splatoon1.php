@@ -20,7 +20,7 @@ use yii\web\View;
 echo Html::tag(
   'h2',
   vsprintf('%s (%s)', [
-    Html::encode(Yii::t('app', 'Export')),
+    Html::encode(Yii::t('app-user', 'Export')),
     Html::encode(Yii::t('app', 'Splatoon 1')),
   ]),
 ) . "\n";

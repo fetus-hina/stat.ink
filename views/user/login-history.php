@@ -45,10 +45,10 @@ $this->title = implode(' | ', [
     ) . "\n" ?>
   </p>
   <p>
-    <small><?= Html::encode(Yii::t('app', 'The estimated location may be inaccurate.')) ?></small>
+    <small><?= Html::encode(Yii::t('app-user', 'The estimated location may be inaccurate.')) ?></small>
   </p>
   <p>
-    <small><?= Html::encode(Yii::t('app', 'Login history will be deleted in {term}.', [
+    <small><?= Html::encode(Yii::t('app-user', 'Login history will be deleted in {term}.', [
       'term' => Yii::$app->formatter->format('P30D', 'duration'),
     ])) ?></small>
   </p>
@@ -64,7 +64,7 @@ $this->title = implode(' | ', [
         [
           'attribute' => 'method.name',
           'format' => ['translated', 'app'],
-          'label' => Yii::t('app', 'Login Method'),
+          'label' => Yii::t('app-user', 'Login Method'),
         ],
         [
           'label' => Yii::t('app', 'Location'),

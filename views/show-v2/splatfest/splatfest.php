@@ -36,7 +36,7 @@ echo Html::tag(
         ($summary->fest_power_v4_normal)
           ? $this->render('//show-v2/splatfest/detail/festpower', [
             'fest' => $fest,
-            'label' => Yii::t('app', 'Splatfest Power (Normal)'),
+            'label' => Yii::t('app-show-v2', 'Splatfest Power (Normal)'),
             'lobby' => 'fest_normal',
             'user' => $user,
           ])
@@ -44,7 +44,7 @@ echo Html::tag(
         ($summary->fest_power_v4_pro)
           ? $this->render('//show-v2/splatfest/detail/festpower', [
             'fest' => $fest,
-            'label' => Yii::t('app', 'Splatfest Power (Pro)'),
+            'label' => Yii::t('app-show-v2', 'Splatfest Power (Pro)'),
             'lobby' => 'standard',
             'user' => $user,
           ])

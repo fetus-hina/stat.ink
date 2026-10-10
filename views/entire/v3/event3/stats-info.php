@@ -19,15 +19,15 @@ use yii\web\View;
 <div class="mb-3">
   <p class="mb-1">
     <?= Html::encode(
-      Yii::t('app', 'Aggregated: {rules}', [
-        'rules' => Yii::t('app', '7 players for each battle (excluded the battle uploader)'),
+      Yii::t('app-entire', 'Aggregated: {rules}', [
+        'rules' => Yii::t('app-entire', '7 players for each battle (excluded the battle uploader)'),
       ]),
     ) . "\n" ?>
   </p>
   <p class="mb-1">
     <?= Html::encode(
       vsprintf('%s: %s', [
-        Yii::t('app', 'Samples'),
+        Yii::t('app-entire', 'Samples'),
         Yii::$app->formatter->asInteger($samples),
       ]),
     ) . "\n" ?>

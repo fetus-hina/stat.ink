@@ -24,7 +24,7 @@ use yii\web\View;
  * @var View $this
  */
 
-$title = Yii::t('app', "{name}'s Battle Stats ({rule})", [
+$title = Yii::t('app-show-v2', "{name}'s Battle Stats ({rule})", [
     'name' => $user->name,
     'rule' => Yii::t('app-rule2', $rule->name),
 ]);

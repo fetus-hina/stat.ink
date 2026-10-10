@@ -23,5 +23,5 @@ echo $this->render('includes/chart', [
   'getX' => function (StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage|StatWeapon3XUsagePerVersion $model): int|float|null {
     return $model->avg_kill - $model->avg_death;
   },
-  'xLabel' => Yii::t('app', 'K-D'),
+  'xLabel' => Yii::t('app-entire', 'K-D'),
 ]);

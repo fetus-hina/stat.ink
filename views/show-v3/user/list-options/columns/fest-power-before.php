@@ -16,14 +16,14 @@ return [
   'contentOptions' => ['class' => 'cell-fest-power-before text-right nobr'],
   'format' => 'raw',
   'headerOptions' => ['class' => 'cell-fest-power-before'],
-  'label' => Yii::t('app', 'Power'),
+  'label' => Yii::t('app-show-v3', 'Power'),
   'value' => fn (Battle3 $model): ?string => match (true) {
     $model->bankara_power_before !== null && $model->bankara_power_before >= 0.1 => vsprintf('%s %s', [
       Icon::s3LobbyBankara(),
       $f->asDecimal((float)$model->bankara_power_before, 1),
     ]),
     $model->series_weapon_power_before !== null && $model->series_weapon_power_before >= 0.1 => vsprintf('%s %s', [
-      Icon::s3Weapon($model?->weapon, alt: Yii::t('app', 'Series Weapon Power')),
+      Icon::s3Weapon($model?->weapon, alt: Yii::t('app-show-v3', 'Series Weapon Power')),
       $f->asDecimal((float)$model->series_weapon_power_before, 1),
     ]),
     $model->x_power_before !== null && $model->x_power_before >= 0.1 => vsprintf('%s %s', [

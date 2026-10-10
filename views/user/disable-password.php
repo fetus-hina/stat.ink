@@ -19,7 +19,7 @@ use yii\web\View;
  * @var string|null $errorMessage
  */
 
-$title = Yii::t('app', 'Disable Password');
+$title = Yii::t('app-user', 'Disable Password');
 $this->title = implode(' | ', [
   Yii::$app->name,
   $title,
@@ -31,7 +31,7 @@ $this->title = implode(' | ', [
   <p>
     <?= Html::encode(
       Yii::t(
-        'app',
+        'app-user',
         'If you disable your password, you will sign in with your passkey only. Your password will be erased from the server.',
       ),
     ) . "\n" ?>
@@ -49,7 +49,7 @@ $this->title = implode(' | ', [
     <li>
       <?= Html::encode(
         Yii::t(
-          'app',
+          'app-user',
           'You can set a password again from your profile page after verifying with your passkey.',
         ),
       ) . "\n" ?>
@@ -65,7 +65,7 @@ $this->title = implode(' | ', [
     <li>
       <?= Html::encode(
         Yii::t(
-          'app',
+          'app-user',
           'If you lose all your passkeys, you can set a new password with a recovery key. We recommend creating recovery keys in advance.',
         ),
       ) . "\n" ?>
@@ -87,7 +87,7 @@ $this->title = implode(' | ', [
     <?= Html::submitButton(
       implode(' ', [
         Icon::passkey(),
-        Html::encode(Yii::t('app', 'Verify with your passkey and disable password')),
+        Html::encode(Yii::t('app-user', 'Verify with your passkey and disable password')),
       ]),
       ['class' => 'btn btn-lg btn-danger btn-block'],
     ) . "\n" ?>

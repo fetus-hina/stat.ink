@@ -90,7 +90,7 @@ if ($battle &&
   <p class="old-ikalog">
     <?= Html::encode(
       Yii::t(
-        'app',
+        'app-show',
         'These battles were recorded with an outdated version of IkaLog. Please upgrade to the latest version.'
       )
     ) . "\n" ?>

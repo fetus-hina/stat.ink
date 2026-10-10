@@ -56,13 +56,13 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
   <h2><?= Html::encode(Yii::t('app', 'Weapons')) ?></h2>
   <p><?= Html::encode(
     Yii::t(
-      'app',
+      'app-entire',
       'Excluded: The uploader, All players (Private Battle), Uploader\'s teammates (Squad Battle or Splatfest Battle)'
     )
   ) ?></p>
   <p><?= Html::encode(
     Yii::t(
-      'app',
+      'app-entire',
       '* This exclusion is an attempt to minimize overcounting in weapon usage statistics.'
     )
   ) ?></p>
@@ -85,7 +85,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
   <p><?= Html::a(
     implode(' ', [
       (string)FA::fas('exchange-alt')->fw(),
-      Html::encode(Yii::t('app', 'Compare number of uses')),
+      Html::encode(Yii::t('app-entire', 'Compare number of uses')),
     ]),
     ['entire/weapons-use'],
     ['class' => 'btn btn-default']
@@ -98,11 +98,11 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
   ]) . "\n" ?>
   <p><?= Html::encode(implode(', ', [
     vsprintf('%s %s', [
-      Yii::t('app', 'Battles:'),
+      Yii::t('app-entire', 'Battles:'),
       Yii::$app->formatter->asDecimal((int)$rule->data->battle_count),
     ]),
     vsprintf('%s %s', [
-      Yii::t('app', 'Players:'),
+      Yii::t('app-entire', 'Players:'),
       Yii::$app->formatter->asDecimal((int)$rule->data->player_count),
     ]),
   ])) ?></p>
@@ -348,7 +348,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Encounter Ratio'), // {{{
+        'label' => Yii::t('app-entire', 'Encounter Ratio'), // {{{
         'headerOptions' => ['data-sort' => 'float'],
         'contentOptions' => function (stdClass $w): array {
           return [
@@ -464,7 +464,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Encounter Ratio'), // {{{
+        'label' => Yii::t('app-entire', 'Encounter Ratio'), // {{{
         'headerOptions' => ['data-sort' => 'float'],
         'contentOptions' => function (stdClass $w): array {
           return [
@@ -482,7 +482,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
 <?php } ?>
 
   <h2><?= Html::encode(
-    Yii::t('app', 'Favorite Weapons of This Site Member')
+    Yii::t('app-entire', 'Favorite Weapons of This Site Member')
   ) ?></h2>
 <?php $_max = max(array_map(
   function (stdClass $a): int {

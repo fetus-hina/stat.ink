@@ -33,7 +33,7 @@ echo implode(' ', [
   Html::a(
     implode(' ', [
       Icon::appLink(),
-      Html::encode(Yii::t('app', 'Another account')),
+      Html::encode(Yii::t('app-user', 'Another account')),
     ]),
     ['update-login-with-twitter'],
     ['class' => 'btn btn-primary'],
@@ -41,7 +41,7 @@ echo implode(' ', [
   Html::a(
     implode('', [
       Icon::appUnlink(),
-      Html::encode(Yii::t('app', 'Unlink account')),
+      Html::encode(Yii::t('app-user', 'Unlink account')),
     ]),
     ['clear-login-with-twitter'],
     ['class' => 'btn btn-danger'],

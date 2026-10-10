@@ -35,7 +35,7 @@ SortableTableAsset::register($this);
       <tr>
         <th data-sort="int" data-sort-onload="yes"></th>
         <th data-sort="string"><code>key</code></th>
-        <th data-sort="string"><?= Html::encode(Yii::t('app', 'Aliases')) ?></th>
+        <th data-sort="string"><?= Html::encode(Yii::t('app-api-info', 'Aliases')) ?></th>
 <?php foreach ($langs as $i => $lang) { ?>
         <?= Html::tag('th', Html::encode($lang->name), [
           'class' => $lang->htmlClasses,

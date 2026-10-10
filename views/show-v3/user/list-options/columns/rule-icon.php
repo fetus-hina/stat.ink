@@ -12,7 +12,7 @@ use app\models\Battle3;
 use yii\helpers\Html;
 
 return [
-  '-label' => Yii::t('app', 'Mode (Icon)'),
+  '-label' => Yii::t('app-show-v3', 'Mode (Icon)'),
   'contentOptions' => ['class' => 'cell-rule-icon'],
   'format' => 'raw',
   'headerOptions' => ['class' => 'cell-rule-icon'],

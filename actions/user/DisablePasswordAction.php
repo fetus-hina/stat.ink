@@ -49,7 +49,7 @@ final class DisablePasswordAction extends BaseAction
                 } catch (Throwable $e) {
                     Yii::error($e, __METHOD__);
                     $ident->refresh();
-                    $errorMessage = Yii::t('app', 'Could not disable your password.');
+                    $errorMessage = Yii::t('app-user', 'Could not disable your password.');
                 }
             }
         }

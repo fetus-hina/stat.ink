@@ -21,8 +21,8 @@ use yii\web\View;
  */
 
 $title = $hasPassword
-  ? Yii::t('app', 'Update Your Password')
-  : Yii::t('app', 'Set Your Password');
+  ? Yii::t('app-user', 'Update Your Password')
+  : Yii::t('app-user', 'Set Your Password');
 $this->title = implode(' | ', [
     Yii::$app->name,
     $title,
@@ -39,7 +39,7 @@ ZxcvbnAsset::register($this);
         <p>
           <?= Html::encode(
             Yii::t(
-              'app',
+              'app-user',
               'Your password is currently disabled. You can set a new password after verifying with your passkey.',
             ),
           ) . "\n" ?>
@@ -66,7 +66,7 @@ ZxcvbnAsset::register($this);
           ])
           ->hint(
             Yii::t(
-              'app',
+              'app-user',
               'This should be a random string of at least {n} characters and should not be the same as any other site',
               ['n' => 10],
             ),

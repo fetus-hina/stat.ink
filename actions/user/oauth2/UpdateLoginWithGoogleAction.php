@@ -73,7 +73,7 @@ final class UpdateLoginWithGoogleAction extends AbstractOAuth2UpdateLoginAction
     #[Override]
     protected function getAlreadyIntegratedMessage(): string
     {
-        return Yii::t('app', 'This Google account has already been integrated with another user.');
+        return Yii::t('app-user', 'This Google account has already been integrated with another user.');
     }
 
     #[Override]

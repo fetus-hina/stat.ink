@@ -18,7 +18,7 @@ return [
   'contentOptions' => ['class' => 'cell-medal'],
   'format' => 'raw',
   'headerOptions' => ['class' => 'cell-medal'],
-  'label' => Yii::t('app', 'Medals'),
+  'label' => Yii::t('app-show-v3', 'Medals'),
   'value' => function (Battle3 $model): ?string {
     $medals = ArrayHelper::sort(
       $model->medals,

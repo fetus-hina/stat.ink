@@ -298,7 +298,7 @@ if ($user->twitter != '') {
           ],
           [
             // private room id (icon) {{{
-            'label' => Yii::t('app', 'Room'),
+            'label' => Yii::t('app-show-v2', 'Room'),
             'headerOptions' => ['class' => 'cell-room cell-room-id'],
             'contentOptions' => ['class' => 'cell-room cell-room-id text-center'],
             'format' => 'raw',
@@ -713,7 +713,7 @@ if ($user->twitter != '') {
           ],
           [
             // fest title (after) {{{
-            'label' => Yii::t('app', 'Splatfest Title (After)'),
+            'label' => Yii::t('app-show-v2', 'Splatfest Title (After)'),
             'headerOptions' => ['class' => 'cell-fest-title-after'],
             'contentOptions' => ['class' => 'cell-fest-title-after'],
             'value' => function ($model): ?string {
@@ -842,7 +842,7 @@ if ($user->twitter != '') {
           ],
           [
             // kills/min {{{
-            'label' => Yii::t('app', 'K/min'),
+            'label' => Yii::t('app-show-v2', 'K/min'),
             'headerOptions' => ['class' => 'cell-kill-min'],
             'contentOptions' => ['class' => 'cell-kill-min text-right'],
             'format' => 'raw',
@@ -861,7 +861,7 @@ if ($user->twitter != '') {
           ],
           [
             // deaths/min {{{
-            'label' => Yii::t('app', 'D/min'),
+            'label' => Yii::t('app-show-v2', 'D/min'),
             'headerOptions' => ['class' => 'cell-death-min'],
             'contentOptions' => ['class' => 'cell-death-min text-right'],
             'format' => 'raw',
@@ -910,7 +910,7 @@ if ($user->twitter != '') {
           ],
           [
             // specials/min {{{
-            'label' => Yii::t('app', 'S/min'),
+            'label' => Yii::t('app-show-v2', 'S/min'),
             'headerOptions' => ['class' => 'cell-specials-min'],
             'contentOptions' => ['class' => 'cell-specials-min text-right'],
             'format' => ['decimal', 3],
@@ -1044,12 +1044,12 @@ if ($user->twitter != '') {
       </div>
       <div class="row"><?php
         $_list = [
-          'cell-splatnet'             => Yii::t('app', 'SplatNet Battle #'),
+          'cell-splatnet'             => Yii::t('app-show-v2', 'SplatNet Battle #'),
           'cell-lobby'                => Yii::t('app', 'Lobby'),
-          'cell-room'                 => Yii::t('app', 'Room info (Private)'),
+          'cell-room'                 => Yii::t('app-show-v2', 'Room info (Private)'),
           'cell-rule'                 => Yii::t('app', 'Mode'),
           'cell-rule-short'           => Yii::t('app', 'Mode (Short)'),
-          'cell-special-battle'       => Yii::t('app', 'Special Battle (Fest)'),
+          'cell-special-battle'       => Yii::t('app-show-v2', 'Special Battle (Fest)'),
           'cell-map'                  => Yii::t('app', 'Stage'),
           'cell-map-short'            => Yii::t('app', 'Stage (Short)'),
           'cell-main-weapon'          => Yii::t('app', 'Weapon'),
@@ -1057,7 +1057,7 @@ if ($user->twitter != '') {
           'cell-freshness'            => Yii::t('app', 'Freshness'),
           'cell-sub-weapon'           => Yii::t('app', 'Sub Weapon'),
           'cell-special'              => Yii::t('app', 'Special'),
-          'cell-team-icon'            => Yii::t('app', 'Team Icon'),
+          'cell-team-icon'            => Yii::t('app-show-v2', 'Team Icon'),
           'cell-team-id'              => Yii::t('app', 'Team ID'),
           'cell-rank'                 => Yii::t('app', 'Rank'),
           'cell-rank-after'           => Yii::t('app', 'Rank (After)'),
@@ -1066,7 +1066,7 @@ if ($user->twitter != '') {
           'cell-league-power'         => Yii::t('app', 'League Power'),
           'cell-fest-power'           => Yii::t('app', 'Splatfest Power'),
           'cell-fest-title'           => Yii::t('app', 'Splatfest Title'),
-          'cell-fest-title-after'     => Yii::t('app', 'Splatfest Title (After)'),
+          'cell-fest-title-after'     => Yii::t('app-show-v2', 'Splatfest Title (After)'),
           'cell-level'                => Yii::t('app', 'Level'),
           'cell-judge'                => Yii::t('app', 'Judge'),
           'cell-result'               => Yii::t('app', 'Result'),

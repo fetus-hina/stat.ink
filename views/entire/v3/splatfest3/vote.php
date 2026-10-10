@@ -35,19 +35,19 @@ $this->registerCss(
 ?>
 <div class="panel panel-default mb-3">
   <div class="panel-heading">
-    <?= Html::encode(Yii::t('app', 'Estimated Vote %')) . "\n" ?>
+    <?= Html::encode(Yii::t('app-entire', 'Estimated Vote %')) . "\n" ?>
   </div>
   <div class="panel-body pb-0">
     <p class="mb-1 small text-muted">
       <?= Html::encode(
         vsprintf('%s: %s', [
-          Yii::t('app', 'Samples'),
+          Yii::t('app-entire', 'Samples'),
           Yii::$app->formatter->asInteger(array_sum($votes)),
         ]),
       ) . "\n" ?>
     </p>
     <p class="mb-1 small text-muted">
-      <?= Yii::t('app', 'Idea: {source}', [
+      <?= Yii::t('app-entire', 'Idea: {source}', [
         'source' => Html::a(
           vsprintf('%s %s', [
             Icon::twitter(),
@@ -81,8 +81,8 @@ $this->registerCss(
             <tr>
               <th></th>
               <th><?= Html::encode(Yii::t('app', 'Team')) ?></th>
-              <th><?= Html::encode(Yii::t('app', 'Vote %')) ?></th>
-              <th><?= Html::encode(Yii::t('app', 'Samples')) ?></th>
+              <th><?= Html::encode(Yii::t('app-entire', 'Vote %')) ?></th>
+              <th><?= Html::encode(Yii::t('app-entire', 'Samples')) ?></th>
             </tr>
           </thead>
           <tbody>

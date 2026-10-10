@@ -25,7 +25,7 @@ use yii\web\View;
     <thead>
       <tr>
         <th></th>
-        <th><?= Html::encode(Yii::t('app', 'Samples')) ?></th>
+        <th><?= Html::encode(Yii::t('app-entire', 'Samples')) ?></th>
         <th>
           <?= Icon::s3TricolorAttacker() . "\n" ?>
           <?= Html::encode(Yii::t('app', 'Wins')) . "\n" ?>
@@ -33,7 +33,7 @@ use yii\web\View;
         <th>
           <?= Icon::s3TricolorAttacker() . "\n" ?>
           <?= Html::encode(Yii::t('app', 'Win %')) . "\n" ?>
-          <?= Html::encode(sprintf('(%s)', Yii::t('app', '{pct}% CI', ['pct' => 95]))) . "\n" ?>
+          <?= Html::encode(sprintf('(%s)', Yii::t('app-entire', '{pct}% CI', ['pct' => 95]))) . "\n" ?>
         </th>
       </tr>
     </thead>

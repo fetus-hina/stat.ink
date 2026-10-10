@@ -17,9 +17,9 @@ use yii\helpers\Json;
 
 $title = sprintf(
   '%s - %s %s',
-  Yii::t('app', 'Battles and Users'),
+  Yii::t('app-entire', 'Battles and Users'),
   $name,
-  Yii::t('app', '(combined)')
+  Yii::t('app-entire', '(combined)')
 );
 $this->title = implode(' | ', [
   Yii::$app->name,

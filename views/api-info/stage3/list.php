@@ -47,9 +47,9 @@ $launch = new DateTimeImmutable('2022-09-09T00:00:00+00:00');
         ]) . "\n" ?>
 <?php if ($i === 0) { ?>
         <th data-sort="string"><code>key</code></th>
-        <th data-sort="string"><?= Html::encode(Yii::t('app', 'Aliases')) ?></th>
+        <th data-sort="string"><?= Html::encode(Yii::t('app-api-info', 'Aliases')) ?></th>
         <th data-sort="int"><?= Html::encode(Yii::t('app', 'Area')) ?></th>
-        <th data-sort="int"><?= Html::encode(Yii::t('app', 'Released')) ?></th>
+        <th data-sort="int"><?= Html::encode(Yii::t('app-api-info', 'Released')) ?></th>
 <?php } ?>
 <?php } ?>
       </tr>
@@ -100,7 +100,7 @@ $launch = new DateTimeImmutable('2022-09-09T00:00:00+00:00');
             : Html::tag(
               'time',
               (new DateTimeImmutable($stage->release_at)) <= $launch
-                ? Html::encode(Yii::t('app', 'Launch'))
+                ? Html::encode(Yii::t('app-api-info', 'Launch'))
                 : Html::encode($fmt->asDate($stage->release_at, 'medium')),
               [
                 'datetime' => gmdate(DateTime::ATOM, strtotime($stage->release_at)),

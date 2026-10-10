@@ -138,7 +138,7 @@ $specials = Special::find()->asArray()->all();
     'p',
     Html::encode(
       Yii::t(
-        'app',
+        'app-show',
         'This battle was recorded with an outdated version of IkaLog. Please upgrade to the latest version.'
       )
     ),
@@ -414,11 +414,11 @@ $specials = Special::find()->asArray()->all();
 <?php } ?>
 <?php if ($battle->my_team_power || $battle->his_team_power) { ?>
           <tr>
-            <th><?= Html::encode(Yii::t('app', 'My Team Splatfest Power')) ?></th>
+            <th><?= Html::encode(Yii::t('app-show', 'My Team Splatfest Power')) ?></th>
             <td><?= Html::encode($battle->my_team_power ?: '?') ?></td>
           </tr>
           <tr>
-            <th><?= Html::encode(Yii::t('app', 'Their Team Splatfest Power')) ?></th>
+            <th><?= Html::encode(Yii::t('app-show', 'Their Team Splatfest Power')) ?></th>
             <td><?= Html::encode($battle->his_team_power ?: '?') ?></td>
           </tr>
 <?php } ?>
@@ -560,7 +560,7 @@ $specials = Special::find()->asArray()->all();
 <?php } ?>
 <?php if ($battle->my_team_final_point || $battle->his_team_final_point) { ?>
           <tr>
-            <th><?= Html::encode(Yii::t('app', 'My Team Score')) ?></th>
+            <th><?= Html::encode(Yii::t('app-show', 'My Team Score')) ?></th>
             <td><?= Html::encode(vsprintf('%s P (%s)', [
               $battle->my_team_final_point
                 ? Yii::$app->formatter->asInteger($battle->my_team_final_point)
@@ -571,7 +571,7 @@ $specials = Special::find()->asArray()->all();
             ])) ?></td>
           </tr>
           <tr>
-            <th><?= Html::encode(Yii::t('app', 'Their Team Score')) ?></th>
+            <th><?= Html::encode(Yii::t('app-show', 'Their Team Score')) ?></th>
             <td><?= Html::encode(vsprintf('%s P (%s)', [
               $battle->his_team_final_point
                 ? Yii::$app->formatter->asInteger($battle->his_team_final_point)
@@ -1052,11 +1052,11 @@ $this->registerJsVar('deathReasons', $battle->getDeathReasonNamesFromEvents());
               ]) . "\n" ?>
 <?php if ($battle->rule->key === 'yagura' || $battle->rule->key === 'hoko') { ?>
               <?= Html::encode(
-                Yii::t('app', 'Enable noise reduction (position of the objective)')
+                Yii::t('app-show', 'Enable noise reduction (position of the objective)')
               ) . "\n" ?>
 <?php } elseif ($battle->rule->key === 'area') { ?>
               <?= Html::encode(
-                Yii::t('app', 'Enable noise reduction (count)')
+                Yii::t('app-show', 'Enable noise reduction (count)')
               ) . "\n" ?>
 <?php } ?>
             </label>
@@ -1112,22 +1112,22 @@ $this->registerJsVar('specialNames', ArrayHelper::map(
 ));
 $this->registerJsVar('timelineTranslates', [
   'badGuys' => Yii::t('app', 'Bad Guys'),
-  'combos' => Yii::t('app', 'combos'),
-  'controlBad' => Yii::t('app', 'Bad guys are in control'),
-  'controlGood' => Yii::t('app', 'Good guys are in control'),
-  'controlNoOne' => Yii::t('app', 'No one in control'),
-  'countBad' => Yii::t('app', 'Count (Bad Guys)'),
-  'countGood' => Yii::t('app', 'Count (Good Guys)'),
+  'combos' => Yii::t('app-show', 'combos'),
+  'controlBad' => Yii::t('app-show', 'Bad guys are in control'),
+  'controlGood' => Yii::t('app-show', 'Good guys are in control'),
+  'controlNoOne' => Yii::t('app-show', 'No one in control'),
+  'countBad' => Yii::t('app-show', 'Count (Bad Guys)'),
+  'countGood' => Yii::t('app-show', 'Count (Good Guys)'),
   'goodGuys' => Yii::t('app', 'Good Guys'),
-  'lowInk' => Yii::t('app', 'Low ink'),
-  'neutral' => Yii::t('app', 'Neutral'),
-  'position' => Yii::t('app', 'Position'),
-  'spCharged' => Yii::t('app', 'Special Charged'),
-  'specialPct' => Yii::t('app', 'Special %'),
-  'streak' => Yii::t('app', 'streak'),
+  'lowInk' => Yii::t('app-show', 'Low ink'),
+  'neutral' => Yii::t('app-show', 'Neutral'),
+  'position' => Yii::t('app-show', 'Position'),
+  'spCharged' => Yii::t('app-show', 'Special Charged'),
+  'specialPct' => Yii::t('app-show', 'Special %'),
+  'streak' => Yii::t('app-show', 'streak'),
   'turfInked' => Yii::t('app', 'Turf Inked'),
-  'winningBad' => Yii::t('app', 'Bad guys winning'),
-  'winningGood' => Yii::t('app', 'Good guys winning'),
+  'winningBad' => Yii::t('app-show', 'Bad guys winning'),
+  'winningGood' => Yii::t('app-show', 'Good guys winning'),
 ]);
 ?>
 <?php } ?>

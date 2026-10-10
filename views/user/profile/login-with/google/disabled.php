@@ -16,11 +16,11 @@ use yii\web\View;
  */
 
 echo implode(' ', [
-  Html::encode(Yii::t('app', 'Disabled')),
+  Html::encode(Yii::t('app-user', 'Disabled')),
   Html::a(
     implode(' ', [
       Icon::appLink(),
-      Html::encode(Yii::t('app', 'Integrate')),
+      Html::encode(Yii::t('app-user', 'Integrate')),
     ]),
     ['update-login-with-google'],
     ['class' => 'btn btn-primary'],

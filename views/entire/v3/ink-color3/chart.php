@@ -176,7 +176,7 @@ $chartData = [
         'min' => 0,
         'title' => [
           'display' => true,
-          'text' => Yii::t('app', 'Luminance Difference'),
+          'text' => Yii::t('app-entire', 'Luminance Difference'),
         ],
         'type' => 'linear',
       ],
@@ -217,14 +217,14 @@ $this->registerJs('
   <?= Html::tag(
     'p',
     Html::encode(
-      Yii::t('app', 'Error bars: 95% confidence interval (estimated) & 99% confidence interval (estimated)'),
+      Yii::t('app-entire', 'Error bars: 95% confidence interval (estimated) & 99% confidence interval (estimated)'),
     ),
     ['class' => 'mb-1 small text-right'],
   ) . "\n" ?>
   <?= Html::tag(
     'p',
     vsprintf('%s: %s', [
-      Html::encode(Yii::t('app', 'Correlation Coefficient')),
+      Html::encode(Yii::t('app-entire', 'Correlation Coefficient')),
       Html::encode(Yii::$app->formatter->asDecimal($correlationCoefficient, 3)),
     ]),
     ['class' => 'mb-1 small text-right'],
@@ -233,7 +233,7 @@ $this->registerJs('
     ? Html::tag(
       'p',
       vsprintf('%s: %s', [
-        Html::encode(Yii::t('app', 'Regression Line')),
+        Html::encode(Yii::t('app-entire', 'Regression Line')),
         Html::encode($regression->getEquation()),
       ]),
       ['class' => 'mb-1 small text-right'],

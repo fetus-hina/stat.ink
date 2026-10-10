@@ -116,30 +116,30 @@ $label = fn($text) => Html::tag(
   </div>
 <?php if ($summary->is_v4) { ?>
   <div class="col-xs-4 col-md-2 mb-3">
-    <?= $label(Yii::t('app', 'Fest Power (Normal)')) . "\n" ?>
+    <?= $label(Yii::t('app-show-v2', 'Fest Power (Normal)')) . "\n" ?>
     <div class="user-number"><?= ($summary->fest_power_v4_normal)
-      ? Yii::t('app', '~{estPower}', [
+      ? Yii::t('app-show-v2', '~{estPower}', [
         'estPower' => $f->asInteger(round($summary->fest_power_v4_normal / 10) * 10),
       ])
       : '-'
     ?></div>
   </div>
   <div class="col-xs-4 col-md-2 mb-3">
-    <?= $label(Yii::t('app', 'Fest Power (Pro)')) . "\n" ?>
+    <?= $label(Yii::t('app-show-v2', 'Fest Power (Pro)')) . "\n" ?>
     <div class="user-number"><?= ($summary->fest_power_v4_pro)
       ? $f->asInteger($summary->fest_power_v4_pro)
       : '-'
     ?></div>
   </div>
   <div class="col-xs-4 col-md-2 mb-3">
-    <?= $label(Yii::t('app', 'Clout (Normal)')) . "\n" ?>
+    <?= $label(Yii::t('app-show-v2', 'Clout (Normal)')) . "\n" ?>
     <div class="user-number"><?= ($summary->clout_normal)
       ? $f->asInteger($summary->clout_normal)
       : '-'
     ?></div>
   </div>
   <div class="col-xs-4 col-md-2 mb-3">
-    <?= $label(Yii::t('app', 'Clout (Pro)')) . "\n" ?>
+    <?= $label(Yii::t('app-show-v2', 'Clout (Pro)')) . "\n" ?>
     <div class="user-number"><?= ($summary->clout_pro)
       ? $f->asInteger($summary->clout_pro)
       : '-'

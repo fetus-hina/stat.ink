@@ -111,7 +111,7 @@ $this->render('weapons3/charts/includes/chart-runner', []);
   <div class="mb-3">
     <div class="alert alert-warning">
       <?= Yii::t(
-        'app',
+        'app-entire',
         'The filter specifying XP and version, aggregates data for the overall <code>x.y</code>, ignoring the <code>z</code> in version <code>x.y.z</code>.',
       ) . "\n" ?>
     </div>

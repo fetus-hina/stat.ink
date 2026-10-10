@@ -33,6 +33,6 @@ return [
   ],
   'filter' => (require __DIR__ . '/includes/correlation-filter.php')($ratio),
   'filterOptions' => ['class' => 'text-right'],
-  'label' => Yii::t('app', 'K+A/D'),
+  'label' => Yii::t('app-entire', 'K+A/D'),
   'value' => $ratio,
 ];

@@ -22,7 +22,7 @@ use yii\web\View;
  * @var array{lobby_id: int, lobby_group_id: int, win_unknown: int, win_knockout: int, win_time: int, lose_unknown: int, lose_knockout: int, lose_time: int, total_seconds: int}[] $stats
  */
 
-$title = Yii::t('app', '{name}\'s Battle Stats (Winning Rate)', [
+$title = Yii::t('app-show-v3', '{name}\'s Battle Stats (Winning Rate)', [
   'name' => $user->name,
 ]);
 

@@ -30,12 +30,12 @@ $this->registerJs(sprintf(
 <nav class="mb-2 form-inline">
   <div class="form-group mb-0">
     <label for="region-filter">
-      <?= Html::encode(Yii::t('app', 'Splatfest Region:')) . "\n" ?>
+      <?= Html::encode(Yii::t('app-show-v2', 'Splatfest Region:')) . "\n" ?>
     </label>
     <select id="region-filter" class="form-control">
       <?= Html::tag(
         'option',
-        Html::encode(Yii::t('app', 'Guess the region')),
+        Html::encode(Yii::t('app-show-v2', 'Guess the region')),
         [
           'data-url' => Url::to(
             ['show-v2/user-stat-splatfest',
@@ -65,7 +65,7 @@ $this->registerJs(sprintf(
     </select>
 <?php if (!$input->region) { ?>
     <span>
-      <?= Html::encode(Yii::t('app', 'Guessed:')) . "\n" ?>
+      <?= Html::encode(Yii::t('app-show-v2', 'Guessed:')) . "\n" ?>
       <?= Html::encode(Yii::t('app', $region->name)) . "\n" ?>
     </span>
 <?php } ?>

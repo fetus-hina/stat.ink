@@ -220,7 +220,7 @@ $this->registerCss(Html::renderCss([
             <?= Html::tag(
               'p',
               Html::encode(Yii::t(
-                'app',
+                'app-entire',
                 'Avg. K.O. in {time}',
                 [
                   'time' => sprintf('%d:%02d', floor($_t / 60), $_t % 60),

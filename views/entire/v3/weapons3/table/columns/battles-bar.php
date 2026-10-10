@@ -27,7 +27,7 @@ return [
     'data-sort' => 'int',
     'data-sort-default' => 'desc'
   ],
-  'label' => Yii::t('app', 'Use %'),
+  'label' => Yii::t('app-entire', 'Use %'),
   'value' => fn (StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage|StatWeapon3XUsagePerVersion $model): string => Progress::widget([
     'label' => Yii::$app->formatter->asPercent($model->battles / $totalBattles, 2),
     'options' => ['style' => 'min-width:50px'],

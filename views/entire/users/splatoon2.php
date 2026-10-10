@@ -23,7 +23,7 @@ $fmt = Yii::$app->formatter;
   ]
 ) . "\n" ?>
 <h2 id="agent-2">
-  <?= Html::encode(Yii::t('app', 'User Agents in last 24 hours')) . "\n" ?>
+  <?= Html::encode(Yii::t('app-entire', 'User Agents in last 24 hours')) . "\n" ?>
 </h2>
 <?php /* Eli のスクリプトが簡単に取得できるように準API的にJSONを吐いておく */ ?>
 <?= Html::tag('script', Json::encode($agents), ['type' => 'application/json', 'id' => 'agents-2-data']) . "\n" ?>

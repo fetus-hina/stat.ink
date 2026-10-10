@@ -12,5 +12,5 @@ return [
   'contentOptions' => ['class' => 'cell-level-after'],
   'format' => 'integer',
   'headerOptions' => ['class' => 'cell-level-after'],
-  'label' => Yii::t('app', 'Level (After)'),
+  'label' => Yii::t('app-show-v3', 'Level (After)'),
 ];

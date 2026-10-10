@@ -83,7 +83,7 @@ $datasetPoints = [
         ? vsprintf('%s (%s: %s %s)', [
           $weaponName,
           $f->asPercent($model->wins / $model->battles, 2),
-          Yii::t('app', '{pct}% CI', [
+          Yii::t('app-entire', '{pct}% CI', [
             'pct' => 99,
           ]),
           Yii::t('app', '{from} - {to}', [
@@ -198,7 +198,7 @@ echo Html::tag(
           'p',
           Html::encode(
             vsprintf('%s: %s', [
-              Yii::t('app', 'Correlation Coefficient'),
+              Yii::t('app-entire', 'Correlation Coefficient'),
               Yii::$app->formatter->asDecimal($correlationCoefficient, 3),
             ]),
           ),
@@ -208,7 +208,7 @@ echo Html::tag(
           'p',
           Html::encode(
             vsprintf('%s: %s', [
-              Yii::t('app', 'Regression Line'),
+              Yii::t('app-entire', 'Regression Line'),
               $regression ? $regression->getEquation() : Yii::t('app', 'N/A'),
             ]),
           ),

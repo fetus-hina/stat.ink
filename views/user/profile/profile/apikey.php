@@ -18,12 +18,12 @@ use yii\web\View;
 
 ?>
 <p>
-  <?= Html::encode(Yii::t('app', 'Please copy an API key below and paste to IkaLog, IkaRec or other apps that are compatible with {0}.', [Yii::$app->name])) . "\n" ?>
-  <?= Html::encode(Yii::t('app', 'Please keep it secret.')) . "\n" ?>
+  <?= Html::encode(Yii::t('app-user', 'Please copy an API key below and paste to IkaLog, IkaRec or other apps that are compatible with {0}.', [Yii::$app->name])) . "\n" ?>
+  <?= Html::encode(Yii::t('app-user', 'Please keep it secret.')) . "\n" ?>
 </p>
 <button class="btn btn-default auto-tooltip" id="apikey-button">
   <span class="fas fa-eye"></span>
-  <?= Html::encode(Yii::t('app', 'Show your API Token')) . "\n" ?>
+  <?= Html::encode(Yii::t('app-user', 'Show your API Token')) . "\n" ?>
 </button>
 <div id="apikey" style="display:none">
   <div class="input-group">
@@ -43,9 +43,9 @@ use yii\web\View;
         [
           'id' => 'regenerate-apikey',
           'class' => 'btn btn-default auto-tooltip',
-          'title' => Yii::t('app', 'Regenerate your API token'),
+          'title' => Yii::t('app-user', 'Regenerate your API token'),
           'data' => [
-            'confirm' => Yii::t('app', 'Are you sure you want to regenerate your API token?'),
+            'confirm' => Yii::t('app-user', 'Are you sure you want to regenerate your API token?'),
             'method' => 'post',
           ],
         ]

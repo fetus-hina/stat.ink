@@ -17,12 +17,12 @@ use yii\web\View;
  */
 
 ?>
-<h2><?= Html::encode(Yii::t('app', 'Log in with other services')) ?></h2>
+<h2><?= Html::encode(Yii::t('app-user', 'Log in with other services')) ?></h2>
 <div class="alert alert-warning">
   <p>
     <?= Html::encode(
       Yii::t(
-        'app',
+        'app-user',
         'Since the acquisition of Twitter by Elon Musk, the environment for third-party applications has deteriorated rapidly and extremely.',
       ),
     ) . "\n" ?>
@@ -30,7 +30,7 @@ use yii\web\View;
   <p class="mb-0">
     <?= Html::encode(
       Yii::t(
-        'app',
+        'app-user',
         'The future of Twitter integration is completely uncertain, and as a {site} developer I can\'t recommend this feature at this time.',
         [
           'site' => Yii::$app->name,

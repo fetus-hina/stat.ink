@@ -124,7 +124,7 @@ abstract class AbstractOAuth2UpdateLoginAction extends Action
                 return $response->redirect(Url::to(['user/profile'], true), 303);
             } catch (Throwable $e) {
                 $transaction->rollback();
-                $session->addFlash('warning', Yii::t('app', 'Please try again later.'));
+                $session->addFlash('warning', Yii::t('app-user', 'Please try again later.'));
                 return $response->redirect(Url::to(['user/profile'], true), 303);
             }
         }

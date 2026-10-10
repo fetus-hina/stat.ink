@@ -130,7 +130,7 @@ $chartRangeOneSide = (int)ceil($chartRangeOneSide / 10) * 10;
             ],
             'title' => [
               'display' => true,
-              'text' => Yii::t('app', 'Attacker Team Win Rate') . ' (%)',
+              'text' => Yii::t('app-entire', 'Attacker Team Win Rate') . ' (%)',
             ],
             'type' => 'linear',
           ],
@@ -145,7 +145,7 @@ $chartRangeOneSide = (int)ceil($chartRangeOneSide / 10) * 10;
 <?= Html::tag(
   'p',
   Html::encode(
-    Yii::t('app', 'Error bars: 95% confidence interval (estimated) & 99% confidence interval (estimated)'),
+    Yii::t('app-entire', 'Error bars: 95% confidence interval (estimated) & 99% confidence interval (estimated)'),
   ),
   [
     'class' => [

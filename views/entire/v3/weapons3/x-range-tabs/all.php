@@ -26,7 +26,7 @@ echo Html::tag(
     trim(
       implode(' ', [
         Icon::s3LobbyX(),
-        Html::encode(Yii::t('app', 'All')),
+        Html::encode(Yii::t('app-entire', 'All')),
       ]),
     ),
     $isActive ? [] : ['href' => $xRangeUrl(null)],

@@ -67,7 +67,7 @@ TableResponsiveForceAsset::register($this);
   <p class="mb-1">
     <?= Html::encode(
       vsprintf('%s: %s', [
-        Yii::t('app', 'Samples'),
+        Yii::t('app-entire', 'Samples'),
         Yii::$app->formatter->asInteger($samples),
       ]),
     ) . "\n" ?>

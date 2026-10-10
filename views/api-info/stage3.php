@@ -26,7 +26,7 @@ use yii\web\View;
  */
 
 $this->context->layout = 'main';
-$this->title = Yii::t('app', 'API Info: Stages (Splatoon 3)');
+$this->title = Yii::t('app-api-info', 'API Info: Stages (Splatoon 3)');
 
 $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);
 $this->registerMetaTag(['name' => 'twitter:title', 'content' => $this->title]);
@@ -45,7 +45,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
       Html::a(
         implode(' ', [
           Icon::apiJson(),
-          Html::encode(Yii::t('app', 'JSON format')),
+          Html::encode(Yii::t('app-api-info', 'JSON format')),
         ]),
         ['api-v3/stage'],
         ['class' => 'label label-default']
@@ -53,7 +53,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
       Html::a(
         implode(' ', [
           Icon::apiJson(),
-          Html::encode(Yii::t('app', 'JSON format (All langs)')),
+          Html::encode(Yii::t('app-api-info', 'JSON format (All langs)')),
         ]),
         ['api-v3/stage', 'full' => 1],
         ['class' => 'label label-default']

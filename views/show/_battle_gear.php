@@ -64,5 +64,5 @@ $gears = [$headgear, $clothing, $shoes];
   </tbody>
 </table>
 <p class="text-right">
-  <a href="#effect"><?= Html::encode(Yii::t('app', 'Ability Effect')) ?></a>
+  <a href="#effect"><?= Html::encode(Yii::t('app-show', 'Ability Effect')) ?></a>
 </p>

@@ -25,7 +25,7 @@ return [
     'class' => 'text-center',
     'width' => '15%',
   ],
-  'label' => Yii::t('app', 'Color 1'),
+  'label' => Yii::t('app-entire', 'Color 1'),
   'value' => function (StatInkColor3 $model): string {
     $f = Yii::$app->formatter;
     [$luminance, ] = Color::getYUVFromRGB(
@@ -40,7 +40,7 @@ return [
       [
         'class' => 'auto-tooltip',
         'title' => vsprintf('%s: %s', [
-          Yii::t('app', 'Luminance'),
+          Yii::t('app-entire', 'Luminance'),
           $f->asDecimal($luminance, 3),
         ]),
       ],

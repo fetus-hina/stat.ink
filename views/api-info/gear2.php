@@ -24,7 +24,7 @@ use yii\web\View;
 
 TableResponsiveForceAsset::register($this);
 
-$title = Yii::t('app', 'API Info: Gears: {0}', [
+$title = Yii::t('app-api-info', 'API Info: Gears: {0}', [
     Yii::t('app-gear', $type->name),
 ]);
 
@@ -73,7 +73,7 @@ $inkipediaIcon = $icon->inkipedia;
     <?= Html::a(
       implode(' ', [
         Icon::apiJson(),
-        Html::encode(Yii::t('app', 'JSON format')),
+        Html::encode(Yii::t('app-api-info', 'JSON format')),
       ]),
       ['api-v2/gear', 'type' => $type->key],
       ['class' => 'label label-default']
@@ -81,7 +81,7 @@ $inkipediaIcon = $icon->inkipedia;
     <?= Html::a(
       implode('', [
         Icon::fileCsv(),
-        Html::encode(Yii::t('app', 'CSV format')),
+        Html::encode(Yii::t('app-api-info', 'CSV format')),
       ]),
       ['api-v2/gear', 'type' => $type->key, 'format' => 'csv'],
       ['class' => 'label label-default']
@@ -109,7 +109,7 @@ $inkipediaIcon = $icon->inkipedia;
           ) . "\n" ?>
           <?= Html::tag(
             'th',
-            Html::encode(Yii::t('app', 'SplatNet')),
+            Html::encode(Yii::t('app-api-info', 'SplatNet')),
             ['data-sort' => 'int']
           ) . "\n" ?>
 <?php foreach ($langs as $lang) { ?>

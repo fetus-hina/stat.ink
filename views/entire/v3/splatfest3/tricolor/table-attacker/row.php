@@ -56,7 +56,7 @@ $errInfo = StandardError::winpct($wins, $battles);
           $fmt->asDecimal($errInfo['rate'] * 100.0, 1),
           $fmt->asDecimal($errInfo['err95ci'] * 100.0, 1),
         ])
-        : Html::encode(Yii::t('app', 'Lack of data'))
+        : Html::encode(Yii::t('app-entire', 'Lack of data'))
     ) . "\n" ?>
   </td>
 </tr>

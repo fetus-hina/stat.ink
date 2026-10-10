@@ -134,7 +134,7 @@ if ($isTricolor) {
           Html::encode(Yii::t('app', 'd')),
         ]) ?></th>
         <th class="text-nowrap text-center col-kr"><?= Html::encode(Yii::t('app', 'KR')) ?></th>
-        <th class="text-nowrap text-center col-special"><?= Html::encode(Yii::t('app', 'Sp')) ?></th>
+        <th class="text-nowrap text-center col-special"><?= Html::encode(Yii::t('app-show-v3', 'Sp')) ?></th>
 <?php if ($isTricolor) { ?>
         <th class="text-nowrap text-center col-signal"><?= Icon::s3Signal() ?></th>
 <?php } ?>

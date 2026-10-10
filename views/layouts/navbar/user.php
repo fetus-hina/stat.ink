@@ -61,7 +61,7 @@ if (!$user) {
       : Icon::user(),
     $user
       ? Html::encode($user->name)
-      : Html::encode(Yii::t('app', 'Guest')),
+      : Html::encode(Yii::t('app-layouts', 'Guest')),
     ' ',
     Html::tag('span', '', ['class' => 'caret']),
   ]),
@@ -139,7 +139,7 @@ if (!$user) {
       Html::tag('li', Html::a(
         implode(' ', [
           Icon::logout(),
-          Html::encode(Yii::t('app', 'Logout')),
+          Html::encode(Yii::t('app-layouts', 'Logout')),
         ]),
         ['/user/logout']
       )),
@@ -225,7 +225,7 @@ if (!$user) {
     Html::tag('li', Html::a(
       implode('', [
         Html::tag('span', '', ['class' => 'far']),
-        Html::encode(Yii::t('app', 'Use full width of the screen')),
+        Html::encode(Yii::t('app-layouts', 'Use full width of the screen')),
       ]),
       '#',
       ['id' => 'toggle-use-fluid']

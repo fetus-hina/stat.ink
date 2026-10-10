@@ -24,7 +24,7 @@ use yii\web\View;
  */
 
 $this->context->layout = 'main';
-$this->title = Yii::t('app', 'API Info: Boss Salmonids (Splatoon 3)');
+$this->title = Yii::t('app-api-info', 'API Info: Boss Salmonids (Splatoon 3)');
 
 $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);
 $this->registerMetaTag(['name' => 'twitter:title', 'content' => $this->title]);

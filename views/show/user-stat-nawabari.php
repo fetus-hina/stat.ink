@@ -82,7 +82,7 @@ UserStatNawabariAsset::register($this);
           ['id' => sprintf('inked-%s', $map->key)]
         ) . "\n" ?>
         <p><?= vsprintf('%s %s', [
-          Html::encode(Yii::t('app', 'Average:')),
+          Html::encode(Yii::t('app-show', 'Average:')),
           implode(', ', array_filter([
             $map->avgInked
               ? Html::encode(sprintf('%sp', Yii::$app->formatter->asDecimal($map->avgInked, 1)))
@@ -109,7 +109,7 @@ UserStatNawabariAsset::register($this);
   Json::encode([
     'turfInked' => Yii::t('app', 'Turf Inked'),
     'average' => Yii::t('app', 'Average'),
-    'percentile' => Yii::t('app', '{lower}-{upper} percentile', [
+    'percentile' => Yii::t('app-show', '{lower}-{upper} percentile', [
         'lower' => 5,
         'upper' => 95,
     ]),

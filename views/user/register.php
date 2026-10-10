@@ -35,12 +35,12 @@ ZxcvbnAsset::register($this);
         <?= Html::encode(Yii::t('app', 'Register')) . "\n" ?>
       </h1>
       <?= Html::a(
-        Yii::t('app', 'If you already have an account, please click here.'),
+        Yii::t('app-user', 'If you already have an account, please click here.'),
         ['user/login'],
         []
       ) . "\n" ?>
       <p>
-        <?= Html::encode(Yii::t('app', 'The password will be encrypted.')) . "\n" ?>
+        <?= Html::encode(Yii::t('app-user', 'The password will be encrypted.')) . "\n" ?>
         <?= Html::a(
           Icon::help(),
           'https://github.com/fetus-hina/stat.ink/wiki/Store-Your-Password',
@@ -53,7 +53,7 @@ ZxcvbnAsset::register($this);
         ?>
         <?= $_->field($register, 'screen_name')
           ->textInput(['autocomplete' => 'username'])
-          ->hint(Yii::t('app', 'This will be made public as part of URL')) . "\n"
+          ->hint(Yii::t('app-user', 'This will be made public as part of URL')) . "\n"
         ?>
         <?= $_->field($register, 'password')
           ->passwordInput([
@@ -63,7 +63,7 @@ ZxcvbnAsset::register($this);
           ])
           ->hint(
             Yii::t(
-              'app',
+              'app-user',
               'This should be a random string of at least {n} characters and should not be the same as any other site',
               ['n' => 10],
             )

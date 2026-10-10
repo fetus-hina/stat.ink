@@ -80,21 +80,21 @@ $maxValue = 0.0;
 
   <div class="mb-3">
     <p class="mb-1">
-      <?= Yii::t('app', 'Aggregated: {rules}', [
+      <?= Yii::t('app-entire', 'Aggregated: {rules}', [
         'rules' => implode(', ', [
           Icon::s3LobbyX() . ' ' . Html::encode(Yii::t('app-lobby3', 'X Battle')),
-          Html::encode(Yii::t('app', '7 players for each battle (excluded the battle uploader)')),
+          Html::encode(Yii::t('app-entire', '7 players for each battle (excluded the battle uploader)')),
         ]),
       ]) . "\n" ?>
     </p>
     <p class="mb-1">
       <?= Html::encode(
-        Yii::t('app', 'Primary ability is counted as {value_1_0} and secondary is counted as {value_0_3}.', [
+        Yii::t('app-entire', 'Primary ability is counted as {value_1_0} and secondary is counted as {value_0_3}.', [
           'value_1_0' => Yii::$app->formatter->asDecimal(1.0, 1),
           'value_0_3' => Yii::$app->formatter->asDecimal(0.3, 1),
         ]),
       ) . "\n" ?>
-      <?= Html::encode(Yii::t('app', 'The abilities valid only for the primary means the rate of mounting.')) . "\n" ?>
+      <?= Html::encode(Yii::t('app-entire', 'The abilities valid only for the primary means the rate of mounting.')) . "\n" ?>
     </p>
   </div>
 

@@ -17,7 +17,7 @@ use yii\web\View;
 ?>
 <div class="panel panel-default mb-3">
   <div class="panel-heading">
-    <?= Html::encode(Yii::t('app', 'Reset your password')) . "\n" ?>
+    <?= Html::encode(Yii::t('app-user', 'Reset your password')) . "\n" ?>
   </div>
   <div class="panel-body pb-0">
     <?= Html::a(
@@ -29,7 +29,7 @@ use yii\web\View;
       ],
     ) . "\n" ?>
     <?= Html::a(
-      Html::encode(Yii::t('app', 'If you know our API Token')),
+      Html::encode(Yii::t('app-user', 'If you know our API Token')),
       ['/user/reset-password-apikey'],
       [
         'class' => 'btn btn-default btn-block mb-3',

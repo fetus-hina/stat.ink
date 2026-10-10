@@ -64,7 +64,7 @@ use yii\widgets\DetailView;
   },
   'attributes' => [
     [
-      'label' => Yii::t('app', 'SplatNet Battle #'),
+      'label' => Yii::t('app-show-v2', 'SplatNet Battle #'),
       'value' => function ($model) : ?string {
         $value = trim((string)$model->splatnet_number);
         if ($value === '') {
@@ -81,7 +81,7 @@ use yii\widgets\DetailView;
         }
         return sprintf(
           '%s %s',
-          Yii::t('app', '(incomplete)'),
+          Yii::t('app-show-v2', '(incomplete)'),
           implode(' / ', [
             Yii::t('app-rule2', $model->lobby->name ?? '?'),
             Yii::t('app-rule2', $model->mode->name ?? '?'),
@@ -842,7 +842,7 @@ use yii\widgets\DetailView;
             ],
             [
               'class' => 'auto-tooltip',
-              'title' => Yii::t('app', 'Search {date}', [
+              'title' => Yii::t('app-show-v2', 'Search {date}', [
                 'date' => Yii::$app->formatter->asDate($dayFrom, 'medium'),
               ]),
             ]

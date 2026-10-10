@@ -12,7 +12,7 @@ use app\models\Battle3;
 use yii\helpers\Html;
 
 return [
-  '-label' => Yii::t('app', 'Lobby (Icon)'),
+  '-label' => Yii::t('app-show-v3', 'Lobby (Icon)'),
   'contentOptions' => ['class' => 'cell-lobby-icon'],
   'format' => 'raw',
   'headerOptions' => ['class' => 'cell-lobby-icon'],

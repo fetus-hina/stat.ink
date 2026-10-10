@@ -157,13 +157,13 @@ $this->registerCss(implode('', [
     ['id' => $rule->key]
   ) . "\n" ?>
   <h3>
-    <?= Html::encode(Yii::t('app', 'Use % and Win %')) . "\n" ?>
+    <?= Html::encode(Yii::t('app-entire', 'Use % and Win %')) . "\n" ?>
   </h3>
   <p>
     <?= Html::a(
       implode('', [
         FA::fas('exchange-alt')->fw(),
-        Html::encode(Yii::t('app', 'Compare number of uses')),
+        Html::encode(Yii::t('app-entire', 'Compare number of uses')),
       ]),
       ['weapons2-use',
         'cmp' => [
@@ -190,7 +190,7 @@ $this->registerCss(implode('', [
     [
       'class' => 'graph stat-use-pct',
       'data' => [
-        'label-use-pct' => Yii::t('app', 'Use %'),
+        'label-use-pct' => Yii::t('app-entire', 'Use %'),
         'label-win-pct' => Yii::t('app', 'Win %'),
       ],
     ]
@@ -291,10 +291,10 @@ $normalizedSeconds = ($rule->key == 'nawabari' ? 3 : 5) * 60;
   ?>
 <?php if ($rule->key !== 'nawabari') { ?>
   <p>
-    <?= Html::encode(Yii::t('app', 'This data was totaled after normalization to 5 minute intervals for each battle.')) . "\n" ?>
+    <?= Html::encode(Yii::t('app-entire', 'This data was totaled after normalization to 5 minute intervals for each battle.')) . "\n" ?>
   </p>
   <p>
-    <?= Html::encode(Yii::t('app', 'Earlier Turf-Inked data is currently wrong. It will be fixed in the near future.')); ?>
+    <?= Html::encode(Yii::t('app-entire', 'Earlier Turf-Inked data is currently wrong. It will be fixed in the near future.')); ?>
     <?= Html::a(
       Html::encode(Yii::t('app', 'Details')),
       'https://github.com/hymm/squid-tracks/issues/48'

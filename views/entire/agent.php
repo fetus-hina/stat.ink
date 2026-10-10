@@ -23,7 +23,7 @@ use yii\web\View;
 
 $title = sprintf(
   '%s - %s',
-  Yii::t('app', 'Battles and Users'),
+  Yii::t('app-entire', 'Battles and Users'),
   $name
 );
 $this->title = implode(' | ', [
@@ -66,7 +66,7 @@ $this->registerCss('#graph{height:300px}');
         <?= Html::a(
           implode('', [
             Html::encode(
-              sprintf('%s %s', $_combined['name'], Yii::t('app', '(combined)'))
+              sprintf('%s %s', $_combined['name'], Yii::t('app-entire', '(combined)'))
             ),
             Icon::subPage(),
           ]),
