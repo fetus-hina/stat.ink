@@ -251,6 +251,52 @@ jobs:
       -
         name: 'Check licenses'
         run: './yii license'
+  translationKeyCheck:
+    name: 'Check translation keys'
+    needs:
+      - ciDoesNotSkip
+      - setupComposer
+      - setupNPM
+    runs-on: ubuntu-24.04
+    steps:
+      -
+        name: 'Install packages'
+        run: |
+          sudo apt update -y
+          sudo apt install -y jpegoptim libxml2-utils optipng
+      -
+        uses: actions/checkout@v6
+      -
+        uses: actions/cache@v5
+        with:
+          path: |
+            vendor
+            ~/.cache/composer/files
+          key: "composer-${{ hashFiles('composer.lock') }}"
+      -
+        uses: actions/cache@v5
+        with:
+          path: |
+            node_modules
+            ~/.npm
+          key: "npm-2-${{ hashFiles('package-lock.json') }}"
+      -
+        name: 'Set PHP environment (PHP ${{ env.UTILITY_PHP_VERSION }})'
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '${{ env.UTILITY_PHP_VERSION }}'
+          extensions: :php-psr
+      -
+        name: 'Use node.js ${{ env.NODE_VERSION }}'
+        uses: actions/setup-node@v6
+        with:
+          node-version: '${{ env.NODE_VERSION }}'
+      -
+        name: 'Basic setup the app'
+        run: 'make init-no-resource'
+      -
+        name: 'Check translation keys'
+        run: './yii i18n/check-keys'
   auditPackages:
     name: 'Audit Packages'
     needs:
