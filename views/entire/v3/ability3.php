@@ -38,7 +38,7 @@ use yii\web\View;
  * @var callable(StatWeapon3XUsageRange): string $xRangeUrl
  */
 
-$title = Yii::t('app', 'Average Gear Abilities');
+$title = Yii::t('app-entire', 'Average Gear Abilities');
 $this->title = $title . ' | ' . Yii::$app->name;
 
 OgpHelper::default($this, title: $title);

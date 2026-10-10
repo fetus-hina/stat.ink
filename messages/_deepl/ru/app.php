@@ -61,7 +61,6 @@ return [
     'Details' => 'Подробности',
     'Don\'t anonymize, display in-game name' => 'Не анонимизируйте, отображайте внутриигровое имя',
     'Don\'t anonymize, display stat.ink\'s name' => 'Не анонимизируйте, отображайте имя stat.ink',
-    'Downloads' => 'Загрузки',
     'Edit' => 'Редактирование',
     'Effects' => 'Эффекты',
     'Email' => 'Электронный адрес',

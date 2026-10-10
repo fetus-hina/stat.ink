@@ -115,7 +115,7 @@ $periods = ArrayHelper::sort(
   <hr>
   <h3 class="mb-3">
     <?= Html::encode(
-      Yii::t('app', 'Weapon Stats'),
+      Yii::t('app-entire', 'Weapon Stats'),
     ) . "\n" ?>
   </h3>
   <div class="mb-3">

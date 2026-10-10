@@ -130,35 +130,35 @@ OgpHelper::default($this, Url::to(['site/index'], true));
       ]),
       [
         Icon::splatoon3(),
-        Html::a(Html::encode(Yii::t('app', 'Weapon Stats')), ['entire/weapons3']),
+        Html::a(Html::encode(Yii::t('app-entire', 'Weapon Stats')), ['entire/weapons3']),
         Html::a(
-          Icon::s3AbilityInkSaverMain() . ' ' . Html::encode(Yii::t('app', 'Average Gear Abilities')),
+          Icon::s3AbilityInkSaverMain() . ' ' . Html::encode(Yii::t('app-entire', 'Average Gear Abilities')),
           ['entire/ability3'],
         ),
         Html::a(Html::encode(Yii::t('app-site', 'K/D vs Win %')), ['entire/kd-win3']),
-        Html::a(Html::encode(Yii::t('app', 'Knockout Rate')), ['entire/knockout3']),
-        Html::a(Html::encode(Yii::t('app', 'Special Uses')), ['entire/special-use3']),
+        Html::a(Html::encode(Yii::t('app-entire', 'Knockout Rate')), ['entire/knockout3']),
+        Html::a(Html::encode(Yii::t('app-entire', 'Special Uses')), ['entire/special-use3']),
         Html::a(
           Icon::s3LobbyX() . ' ' . Html::encode(Yii::t('app', 'X Power')),
           ['entire/xpower-distrib3'],
         ),
         Html::a(
-          Icon::s3AbilityStealthJump() . ' ' . Html::encode(Yii::t('app', 'Stealth Jump Equipment Rate')),
+          Icon::s3AbilityStealthJump() . ' ' . Html::encode(Yii::t('app-entire', 'Stealth Jump Equipment Rate')),
           ['entire/stealth-jump3'],
         ),
-        Html::a(Html::encode(Yii::t('app', 'Ink Color')), ['entire/ink-color3']),
+        Html::a(Html::encode(Yii::t('app-entire', 'Ink Color')), ['entire/ink-color3']),
       ],
       [
         Icon::splatoon3() . ' ' . Icon::s3LobbyEvent(),
         Html::a(
-          Html::encode(Yii::t('app', 'Weapon Stats')),
+          Html::encode(Yii::t('app-entire', 'Weapon Stats')),
           ['entire/event3'],
         ),
       ],
       [
         Icon::splatoon3() . ' ' . Icon::s3LobbySplatfest(),
         Html::a(
-          Html::encode(Yii::t('app', 'Splatfest Stats')),
+          Html::encode(Yii::t('app-entire', 'Splatfest Stats')),
           ['entire/splatfest3'],
         ),
       ],

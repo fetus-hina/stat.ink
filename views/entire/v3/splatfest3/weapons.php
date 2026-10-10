@@ -27,7 +27,7 @@ if (!$weaponsChallenge && !$weaponsOpen) {
 ?>
 <div class="panel panel-default mb-3">
   <div class="panel-heading">
-    <?= Html::encode(Yii::t('app', 'Weapon Stats')) . "\n" ?>
+    <?= Html::encode(Yii::t('app-entire', 'Weapon Stats')) . "\n" ?>
   </div>
   <div class="panel-body pb-0">
     <div class="mb-3">

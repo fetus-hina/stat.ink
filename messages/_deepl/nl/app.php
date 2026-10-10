@@ -61,7 +61,6 @@ return [
     'Details' => 'Details',
     'Don\'t anonymize, display in-game name' => 'Niet anonimiseren, in-game naam tonen',
     'Don\'t anonymize, display stat.ink\'s name' => 'Niet anonimiseren, de naam van stat.ink weergeven',
-    'Downloads' => 'Downloads',
     'Edit' => 'Edit',
     'Effects' => 'Effecten',
     'Email' => 'E-mail',

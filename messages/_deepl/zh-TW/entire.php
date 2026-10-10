@@ -19,6 +19,7 @@ return [
     'Compare number of uses' => '比較使用次數',
     'Correlation Coefficient' => '相關係數',
     'Deaths (average):' => '死亡人數（平均）：',
+    'Downloads' => '下載',
     'Earlier Turf-Inked data is currently wrong. It will be fixed in the near future.' => '早期的Turf-Inked數據目前是錯誤的。 在不久的將來會被修正。',
     'Encounter Ratio' => '邂逅率',
     'Excluded: The uploader, All players (Private Battle), Uploader\'s teammates (Squad Battle or Splatfest Battle)' => '不包括：上傳者、所有玩家（私密戰）、上傳者的隊友（小隊戰或splatfest戰）。',

@@ -61,7 +61,6 @@ return [
     'Details' => '詳細內容',
     'Don\'t anonymize, display in-game name' => '不要匿名，顯示遊戲中的名字。',
     'Don\'t anonymize, display stat.ink\'s name' => '不要匿名，顯示stat.ink的名字。',
-    'Downloads' => '下載',
     'Edit' => '編輯',
     'Effects' => '影響',
     'Email' => '電子郵件',

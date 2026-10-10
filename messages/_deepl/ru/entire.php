@@ -19,6 +19,7 @@ return [
     'Compare number of uses' => 'Сравнить количество применений',
     'Correlation Coefficient' => 'Коэффициент корреляции',
     'Deaths (average):' => 'Смертность (средняя):',
+    'Downloads' => 'Загрузки',
     'Earlier Turf-Inked data is currently wrong. It will be fixed in the near future.' => 'Ранние данные Turf-Inked в настоящее время ошибочны и будут исправлены в ближайшем будущем.',
     'Encounter Ratio' => 'Коэффициент встречи',
     'Excluded: The uploader, All players (Private Battle), Uploader\'s teammates (Squad Battle or Splatfest Battle)' => 'Исключены: Загрузчик, Все игроки (Приватный бой), товарищи по команде Загрузчика (Бой в отряде или Бой на плацдарме)',

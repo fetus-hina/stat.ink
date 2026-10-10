@@ -37,7 +37,7 @@ use yii\web\View;
  * @var float $xpStdDev
  */
 
-$title = Yii::t('app', 'Stealth Jump Equipment Rate');
+$title = Yii::t('app-entire', 'Stealth Jump Equipment Rate');
 $this->title = $title . ' | ' . Yii::$app->name;
 
 $minXPower = (int)(floor(($xpAvg - 2.0 * $xpStdDev) / 50) * 50);

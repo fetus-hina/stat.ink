@@ -31,7 +31,7 @@ use yii\web\View;
  * @var callable(Season3): string $seasonUrl
  */
 
-$title = Yii::t('app', 'Knockout Rate');
+$title = Yii::t('app-entire', 'Knockout Rate');
 $this->title = $title . ' | ' . Yii::$app->name;
 
 OgpHelper::default($this, title: $this->title);

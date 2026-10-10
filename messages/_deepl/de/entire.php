@@ -19,6 +19,7 @@ return [
     'Compare number of uses' => 'Anzahl der Verwendungen vergleichen',
     'Correlation Coefficient' => 'Korrelationskoeffizient',
     'Deaths (average):' => 'Todesfälle (Durchschnitt):',
+    'Downloads' => 'Downloads',
     'Earlier Turf-Inked data is currently wrong. It will be fixed in the near future.' => 'Frühere Turf-Inked-Daten sind derzeit falsch. Sie werden in naher Zukunft korrigiert.',
     'Encounter Ratio' => 'Verhältnis der Begegnungen',
     'Excluded: The uploader, All players (Private Battle), Uploader\'s teammates (Squad Battle or Splatfest Battle)' => 'Ausgeschlossen: Der Uploader, Alle Spieler (Private Battle), Teamkameraden des Uploaders (Squad Battle oder Splatfest Battle)',
