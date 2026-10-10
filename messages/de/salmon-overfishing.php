@@ -16,5 +16,5 @@ return [
     'Overfishing' => 'Überfischung',
     'Overfishing Stats' => 'Überfischungsstatistik',
     'Record' => 'Rekord',
-    'Total Golden Eggs' => 'Goldeier gesamt',
+    'Total Golden Eggs' => 'Gold-Fischeier gesamt',
 ];

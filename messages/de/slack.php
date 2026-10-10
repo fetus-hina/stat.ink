@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 return [
     'lost' => 'verloren',
-    'unknown mode' => 'unbekannter Modus',
+    'unknown mode' => 'unbekannte Kampfart',
     'unknown stage' => 'unbekannte Arena',
     'won' => 'gewonnen',
     '{name}: Just {winlose} {rule} at {stage}. <{url}|Detail>' => '{name}: Hat gerade {rule} in {stage} {winlose}. <{url}|Details>',

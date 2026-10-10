@@ -16,7 +16,7 @@ return [
     'K/D vs Win %' => 'K/D und Siegquote',
     'Open Source Licenses' => 'Open-Source-Lizenzen',
     'Please refer to the respective projects for any problems or questions regarding the operation of each application.' => 'Bei Problemen oder Fragen zur Funktionsweise der einzelnen Anwendungen wende dich bitte an das jeweilige Projekt.',
-    'Stats: FestPwr diff vs Win %' => '',
+    'Stats: FestPwr diff vs Win %' => 'Statistik: Splatfest-Power-Differenz vs. Siegquote',
     'Stats: Stages' => 'Statistik: Arenen',
     'Stats: User Activity' => 'Statistik: Benutzeraktivität',
     'Your Battles' => 'Deine Kämpfe',
