@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * @copyright Copyright (C) 2026 AIZAWA Hina
+ * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ */
+
+declare(strict_types=1);
+
+return [
+    'Daily Report' => '日报',
+    'Favorite Weapon' => '最喜爱的武器',
+    'Monthly Report' => '月报',
+    'Rank: Current' => '当前段位：',
+    'Rank: Peak' => '最高段位：',
+    'Stats (by Mode and Stage)' => '统计（按模式与场地）',
+    'Stats (by Weapon)' => '统计（按武器）',
+    'Stats (Medals)' => '统计（表彰）',
+    'Stats (Splatfest)' => '统计（祭典）',
+    'Stats (Win %)' => '统计（胜率）',
+    'Stats (X Power)' => '统计（X战力）',
+    'Stats ({rule})' => '统计（{rule}）',
+    'Total Inked' => '涂地总计',
+    '{point, plural, other{#p}}' => '{point}点',
+    '{rule}: Current' => '{rule}:现在',
+    '{rule}: Peak' => '{rule}: 最高',
+];

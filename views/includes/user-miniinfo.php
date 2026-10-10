@@ -349,7 +349,7 @@ $f = Yii::$app->formatter;
 <?php endif // have $stat ?>
 <?php if ($user->mainWeapon): ?>
     <div class="miniinfo-databox">
-      <?= Html::encode(Yii::t('app', 'Favorite Weapon')) . ":\n" ?>
+      <?= Html::encode(Yii::t('app-user-mini-info', 'Favorite Weapon')) . ":\n" ?>
       <?= Html::encode(Yii::t('app-weapon', $user->mainWeapon->name)) ?><br>
       <?= Html::a(Html::encode(Yii::t('app', 'List')), ['show/user-stat-by-weapon', 'screen_name' => $user->screen_name]) . "\n" ?>
     </div>

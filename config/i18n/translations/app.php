@@ -86,6 +86,7 @@ return [
         'app-ua-vars' => 'ua_vars.php',
         'app-ua-vars-v' => 'ua_vars_v.php',
         'app-user' => 'user.php',
+        'app-user-mini-info' => 'user-mini-info.php',
         'app-version2' => 'version2.php',
         'app-version3' => 'version3.php',
         'app-weapon' => 'weapon.php',
