@@ -63,7 +63,7 @@ $this->title = implode(' | ', [
         ],
         [
           'attribute' => 'method.name',
-          'format' => ['translated', 'app'],
+          'format' => ['translated', 'app-user'],
           'label' => Yii::t('app-user', 'Login Method'),
         ],
         [

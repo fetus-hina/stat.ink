@@ -109,7 +109,7 @@ class ProfileForm extends Model
         return ArrayHelper::map(
             LinkMode::find()->orderBy(['rank' => SORT_ASC])->asArray()->all(),
             'id',
-            fn (array $row): string => Yii::t('app', $row['name']),
+            fn (array $row): string => Yii::t('app-user', $row['name']),
         );
     }
 }

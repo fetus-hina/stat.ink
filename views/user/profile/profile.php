@@ -204,7 +204,7 @@ $f = Yii::$app->formatter;
         Icon::splatoon2(),
         Yii::t('app-user', "Link from other user's results"),
       ]),
-      'value' => Yii::t('app', $user->linkMode->name),
+      'value' => Yii::t('app-user', $user->linkMode->name),
     ],
     [
       'label' => implode(' ', [
