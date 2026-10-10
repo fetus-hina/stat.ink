@@ -119,6 +119,41 @@ class TranslationCallExtractorTest extends Unit
         $this->assertSame([2, 3, 4, 5, 6, 9], $result['dynamic']);
     }
 
+    public function testExtractsOtherTranslationApis(): void
+    {
+        $result = TranslationCallExtractor::extract(<<<'PHP'
+            <?php
+            $i18n->translate('app-slack', 'won', [], $lang);
+            Yii::$app->i18n->translate('app', 'Mode', [], $lang);
+            $i18n?->translate('app', 'Nullsafe', [], $lang);
+            Translator::translateToAll('app-ability2', 'Ink Saver');
+            \app\components\helpers\Translator::translateToAll('app', 'Qualified');
+            PHP);
+
+        $this->assertSame(
+            [
+                ['category' => 'app-slack', 'message' => 'won', 'line' => 2],
+                ['category' => 'app', 'message' => 'Mode', 'line' => 3],
+                ['category' => 'app', 'message' => 'Nullsafe', 'line' => 4],
+                ['category' => 'app-ability2', 'message' => 'Ink Saver', 'line' => 5],
+                ['category' => 'app', 'message' => 'Qualified', 'line' => 6],
+            ],
+            $result['calls'],
+        );
+    }
+
+    public function testReportsNonLiteralArgumentsOfOtherTranslationApisAsDynamic(): void
+    {
+        $result = TranslationCallExtractor::extract(<<<'PHP'
+            <?php
+            $i18n->translate('app', $battle->result->name, [], $lang);
+            Translator::translateToAll('app', $this->name);
+            PHP);
+
+        $this->assertSame([], $result['calls']);
+        $this->assertSame([2, 3], $result['dynamic']);
+    }
+
     public function testIgnoresOtherCalls(): void
     {
         $result = TranslationCallExtractor::extract(<<<'PHP'

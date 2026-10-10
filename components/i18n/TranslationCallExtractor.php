@@ -19,6 +19,8 @@ use function mb_chr;
 use function octdec;
 use function preg_replace_callback;
 use function strcasecmp;
+use function stripos;
+use function strrpos;
 use function substr;
 
 use const T_COMMENT;
@@ -26,11 +28,14 @@ use const T_CONSTANT_ENCAPSED_STRING;
 use const T_DOC_COMMENT;
 use const T_DOUBLE_COLON;
 use const T_NAME_FULLY_QUALIFIED;
+use const T_NAME_QUALIFIED;
+use const T_NULLSAFE_OBJECT_OPERATOR;
+use const T_OBJECT_OPERATOR;
 use const T_STRING;
 use const T_WHITESPACE;
 
 /**
- * Extracts `Yii::t('category', 'message')` calls from PHP source code
+ * Extracts translation calls (e.g., `Yii::t('category', 'message')`) from PHP source code
  */
 final class TranslationCallExtractor
 {
@@ -51,12 +56,13 @@ final class TranslationCallExtractor
         $dynamic = [];
 
         $n = count($tokens);
-        for ($i = 0; $i + 3 < $n; ++$i) {
-            if (!self::isTranslateCall($tokens, $i)) {
+        for ($i = 0; $i + 2 < $n; ++$i) {
+            $open = self::findCallOpenParen($tokens, $i);
+            if ($open === null) {
                 continue;
             }
 
-            $category = self::parseLiteralArgument($tokens, $i + 4, [',']);
+            $category = self::parseLiteralArgument($tokens, $open + 1, [',']);
             $message = $category
                 ? self::parseLiteralArgument($tokens, $category['next'] + 1, [',', ')'])
                 : null;
@@ -78,19 +84,61 @@ final class TranslationCallExtractor
     }
 
     /**
+     * Returns the index of "(" if a translation call starts at $i
+     *
+     * Recognized calls:
+     *   - Yii::t(...)
+     *   - ...->translate(...), ...?->translate(...) (yii\i18n\I18N::translate())
+     *   - Translator::translate*(...) (app\components\helpers\Translator)
+     *
      * @param list<PhpToken> $tokens
      */
-    private static function isTranslateCall(array $tokens, int $i): bool
+    private static function findCallOpenParen(array $tokens, int $i): ?int
     {
-        $class = $tokens[$i];
-        $isYii = ($class->is(T_STRING) && strcasecmp($class->text, 'Yii') === 0) ||
-            ($class->is(T_NAME_FULLY_QUALIFIED) && strcasecmp($class->text, '\\Yii') === 0);
+        $t0 = $tokens[$i];
+        $t1 = $tokens[$i + 1] ?? null;
+        $t2 = $tokens[$i + 2] ?? null;
+        $t3 = $tokens[$i + 3] ?? null;
 
-        return $isYii &&
-            $tokens[$i + 1]->is(T_DOUBLE_COLON) &&
-            $tokens[$i + 2]->is(T_STRING) &&
-            strcasecmp($tokens[$i + 2]->text, 't') === 0 &&
-            $tokens[$i + 3]->text === '(';
+        // ->translate( / ?->translate(
+        if (
+            $t0->is([T_OBJECT_OPERATOR, T_NULLSAFE_OBJECT_OPERATOR]) &&
+            $t1?->is(T_STRING) &&
+            strcasecmp($t1->text, 'translate') === 0 &&
+            $t2?->text === '('
+        ) {
+            return $i + 2;
+        }
+
+        if (!$t1?->is(T_DOUBLE_COLON) || !$t2?->is(T_STRING) || $t3?->text !== '(') {
+            return null;
+        }
+
+        // Yii::t(
+        if (self::isClassName($t0, 'Yii') && strcasecmp($t2->text, 't') === 0) {
+            return $i + 3;
+        }
+
+        // Translator::translate*(
+        if (self::isClassName($t0, 'Translator') && stripos($t2->text, 'translate') === 0) {
+            return $i + 3;
+        }
+
+        return null;
+    }
+
+    private static function isClassName(PhpToken $token, string $shortName): bool
+    {
+        if ($token->is(T_STRING)) {
+            return strcasecmp($token->text, $shortName) === 0;
+        }
+
+        if ($token->is([T_NAME_FULLY_QUALIFIED, T_NAME_QUALIFIED])) {
+            $pos = strrpos($token->text, '\\');
+            return strcasecmp(substr($token->text, $pos === false ? 0 : $pos + 1), $shortName) === 0;
+        }
+
+        return false;
     }
 
     /**
