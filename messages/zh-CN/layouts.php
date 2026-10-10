@@ -20,7 +20,7 @@ return [
     'Ika-Nakama' => 'Ika-Nakama',
     'IkaLog Download Page' => 'IkaLog下载页面',
     'IkaRec 2' => 'IkaRec 2',
-    'iOS (iPhone/iPad)' => '',
+    'iOS (iPhone/iPad)' => 'iOS (iPhone/iPad)',
     'Links' => '链接',
     'Logout' => '注销',
     'Nintendo Switch Online app' => '任天堂Switch在线应用',

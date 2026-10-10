@@ -44,7 +44,7 @@ return [
     'Max.' => '最大',
     'Max. Hazard Level (cleared)' => '通关的最高危险度',
     'MAX Hazard Level Cleared' => '已通关危险度MAX',
-    'Mode{translate_hint_stats}' => '',
+    'Mode{translate_hint_stats}' => '众数{translate_hint_stats}',
     'Normal Job' => '平时的打工',
     'Normal Waves' => '普通WAVE',
     'Not Defeated' => '没有击倒',

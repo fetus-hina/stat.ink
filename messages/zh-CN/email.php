@@ -16,7 +16,7 @@ return [
     'Auto (cookie)' => '自动（cookie）',
     'Discord' => 'Discord',
     'Estimated location:' => '估计位置：',
-    'Google' => '',
+    'Google' => 'Google',
     'Here is your email verification code.' => '以下是您的邮件验证码。',
     'IP Address:' => 'IP地址：',
     'Login method:' => '登录方法：',

@@ -16,7 +16,7 @@ return [
     'Fest Power (Pro)' => '祭典能力值（专业）',
     'Guessed:' => '猜测：',
     'Guess the region' => '猜测地区',
-    'k+a/sp' => '',
+    'k+a/sp' => 'k+a/sp',
     'K/min' => '杀敌数/分钟',
     'max={max} min={min} average={avg} median={median} mode={mode}' => '最大值={max} 最小值={min} 平均值={avg} 中位值={median} 众数={mode}',
     'Room' => '房间',
