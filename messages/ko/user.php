@@ -102,7 +102,7 @@ return [
     'PNG/JPEG file up to {0}' => '{0}까지의 PNG/JPEG 파일',
     'Profile and Settings' => '프로필과 설정',
     'Regenerate your API token' => 'API 키 재생성',
-    'Region (used for Splatfest)' => '페스 지역',
+    'Region (used for Splatfest)' => '페스티벌 지역',
     'Register' => '회원가입',
     'Remember me' => '로그인 유지',
     'Reset icon' => '아이콘 리셋',

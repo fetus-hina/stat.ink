@@ -20,7 +20,7 @@ return [
     'Stats (Cause of Death)' => '통계 (죽은 원인)',
     'Stats (Medals)' => '통계 (표창)',
     'Stats (Ranked Battle)' => '통계 (랭크 배틀)',
-    'Stats (Splatfest)' => '통계 (페스)',
+    'Stats (Splatfest)' => '통계 (페스티벌)',
     'Stats (Turf War)' => '통계 (영역 배틀)',
     'Stats (vs. Weapon)' => '통계 (적 무기)',
     'Stats (Win %)' => '통계 (승률)',

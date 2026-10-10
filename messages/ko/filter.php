@@ -17,7 +17,7 @@ return [
     'As an enemy' => '상대일 때',
     'Connectivity' => '연결상태',
     'Consider to be Defeated' => '패배로 취급되는',
-    'Current/Last Splatfest' => '현재/이전의 페스 기간',
+    'Current/Last Splatfest' => '현재/이전의 페스티벌 기간',
     'Current Period' => '현재 기간',
     'Filter by ally or enemy' => '아군 또는 상대로 필터',
     'Filter Query' => '필터 쿼리',

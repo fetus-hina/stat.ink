@@ -8,7 +8,7 @@
 declare(strict_types=1);
 
 return [
-    '"Mistaken": On {date}, <a href="{url}" class="alert-link">Nintendo misconfigured the matching server and ran the fest.</a>' => '"실수": {date}에는 <a href="{url}" class="alert-link">닌텐도가 매칭 서버 설정을 잘못한 채로 페스가 개최되었습니다.</a>',
+    '"Mistaken": On {date}, <a href="{url}" class="alert-link">Nintendo misconfigured the matching server and ran the fest.</a>' => '"실수": {date}에는 <a href="{url}" class="alert-link">닌텐도가 매칭 서버 설정을 잘못한 채로 페스티벌이 개최되었습니다.</a>',
     'All' => '전체',
     'Average' => '평균',
     'Battles' => '배틀 수',
@@ -25,6 +25,6 @@ return [
     'Power Diff' => '파워 차이',
     'Q1/4' => '제1사분위수',
     'Q3/4' => '제3사분위수',
-    'Splatfest Power vs Win %' => '페스 파워 차이와 승률',
+    'Splatfest Power vs Win %' => '페스티벌 파워 차이와 승률',
     'Std. Dev.' => '표준편차',
 ];

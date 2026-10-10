@@ -34,7 +34,7 @@ return [
     'The correction value specified by the user is applied.' => '유저가 지정한 보정값이 적용되어 있습니다.',
     'Weapon (Icon)' => '무기 (아이콘)',
     'You can register (estimated) unsent values here to correct the values displayed.' => '이 사이트에 전송되지 않은 (추정) 값을 여기에 등록하여 표시되는 값을 보정할 수 있습니다.',
-    '{name}\'s Badge Progress' => '{name}의 뱃지 수집률',
+    '{name}\'s Badge Progress' => '{name}의 배지 수집률',
     '{name}\'s Battle Stats (Medals)' => '{name}의 배틀 통계 (표창)',
     '{name}\'s Battle Stats (Winning Rate)' => '{name}의 배틀 통계 (승률)',
     '{name}\'s X Power' => '{name}의 X 파워',

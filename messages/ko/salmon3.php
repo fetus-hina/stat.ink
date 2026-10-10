@@ -23,7 +23,7 @@ return [
     'Defeated' => '쓰러트린 거물연어',
     'Defeated (others)' => '다른 플레이어가 쓰러트린 거물연어',
     'Defeated by {user}' => '{user}이(가) 쓰러트림',
-    'Delete This Job' => '이 알바 삭제',
+    'Delete This Job' => '이 아르바이트 삭제',
     'Eggs' => '연어알',
     'Eggstra Work' => '아르바이트 팀 콘테스트',
     'For a more accurate occurrence rate, see {link}.' => '더 정확한 발생률은 {link}을(를) 참조하세요.',

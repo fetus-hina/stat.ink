@@ -16,5 +16,5 @@ return [
     'Overfishing' => '남획',
     'Overfishing Stats' => '남획 통계',
     'Record' => '기록',
-    'Total Golden Eggs' => '황금알 총합',
+    'Total Golden Eggs' => '황금 연어알 총합',
 ];

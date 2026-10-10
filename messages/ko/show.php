@@ -8,7 +8,7 @@
 declare(strict_types=1);
 
 return [
-    'Ability Effect' => '기어파워 효과',
+    'Ability Effect' => '기어 파워 효과',
     'Average:' => '평균:',
     'Bad guys are in control' => '상대 팀이 확보',
     'Bad guys winning' => '상대 팀이 유리',
