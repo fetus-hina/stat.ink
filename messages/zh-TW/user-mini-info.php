@@ -24,7 +24,7 @@ return [
     'Stats (Turf War)' => '統計 (占地對戰)',
     'Stats (vs. Weapon)' => '統計 (對方武器)',
     'Stats (Win %)' => '統計 (勝利 %)',
-    'Stats (X Power)' => '',
+    'Stats (X Power)' => '統計 (X戰力)',
     'Stats ({rule})' => '統計 ({rule})',
     'Total Inked' => '塗地總計',
     '{point, plural, other{#p}}' => '{point}點',
