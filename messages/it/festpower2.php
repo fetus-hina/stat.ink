@@ -22,9 +22,9 @@ return [
     'Mistaken' => 'Errate',
     'N/A' => 'N/D',
     'Normal' => 'Normali',
-    'Power Diff' => 'Differenza di potere',
+    'Power Diff' => 'Differenza di energia',
     'Q1/4' => 'Q1/4',
     'Q3/4' => 'Q3/4',
-    'Splatfest Power vs Win %' => '',
+    'Splatfest Power vs Win %' => 'Energia festival e % vittorie',
     'Std. Dev.' => 'Dev. std.',
 ];

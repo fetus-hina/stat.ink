@@ -144,7 +144,7 @@ return [
     'Posted time' => '',
     'Post Salmon Run results' => '',
     'Post Salmon Run stats (card data)' => '',
-    'Power Egg collected' => 'Uova energetiche raccolte',
+    'Power Egg collected' => 'Uova di pesce raccolte',
     'Power Eggs collected' => '',
     'Primary ability' => '',
     'Profile page URL' => '',

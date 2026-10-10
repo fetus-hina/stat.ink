@@ -11,7 +11,7 @@ return [
     'Average' => 'Media',
     'Golden E.' => 'Uova d\'oro',
     'Points' => 'Punti',
-    'Power E.' => 'Uova en.',
+    'Power E.' => 'Uova di pesce',
     'Rescued' => 'Salvataggi',
     'Shifts' => 'Turni',
     'Total' => 'Totale',
