@@ -46,6 +46,7 @@ return [
     'Grouping Level' => '그룹화 수준',
     'English' => '영어',
     'Google' => '',
+    'Kill / Death' => '킬 / 데스',
     'North America' => '북미',
     'N/A' => '해당 없음',
     'OK' => '',

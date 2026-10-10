@@ -46,6 +46,7 @@ return [
     'Grouping Level' => 'Nível de agrupamento',
     'English' => 'Inglês',
     'Google' => '',
+    'Kill / Death' => 'Kills / Mortes',
     'North America' => 'América do Norte',
     'N/A' => 'N/D',
     'OK' => '',

@@ -46,6 +46,7 @@ return [
     'Grouping Level' => 'Livello di raggruppamento',
     'English' => 'Inglese',
     'Google' => '',
+    'Kill / Death' => 'Uccisioni / Morti',
     'North America' => 'Nord America',
     'N/A' => 'N/D',
     'OK' => '',

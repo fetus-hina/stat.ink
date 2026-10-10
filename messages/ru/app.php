@@ -46,6 +46,7 @@ return [
     'Grouping Level' => 'Уровень группировки',
     'English' => 'Английский',
     'Google' => '',
+    'Kill / Death' => 'Убийства / Смерти',
     'North America' => 'Северная Америка',
     'N/A' => 'Н/Д',
     'OK' => '',

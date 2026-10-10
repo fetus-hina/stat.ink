@@ -46,6 +46,7 @@ return [
     'Grouping Level' => '',
     'English' => '',
     'Google' => '',
+    'Kill / Death' => '',
     'North America' => '',
     'N/A' => '',
     'OK' => '',

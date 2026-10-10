@@ -46,6 +46,7 @@ return [
     'Grouping Level' => 'Groeperingsniveau',
     'English' => 'Engels',
     'Google' => '',
+    'Kill / Death' => 'Kills / Doden',
     'North America' => 'Noord-Amerika',
     'N/A' => 'n.v.t.',
     'OK' => '',

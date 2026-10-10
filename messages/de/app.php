@@ -46,6 +46,7 @@ return [
     'Grouping Level' => 'Gruppierungsebene',
     'English' => 'Englisch',
     'Google' => '',
+    'Kill / Death' => 'Kills / Tode',
     'North America' => 'Nordamerika',
     'N/A' => 'k. A.',
     'OK' => '',

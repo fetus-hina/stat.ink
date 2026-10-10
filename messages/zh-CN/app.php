@@ -46,6 +46,7 @@ return [
     'Grouping Level' => '分组级别',
     'English' => '英语',
     'Google' => '',
+    'Kill / Death' => '杀敌 / 死亡',
     'North America' => '北美',
     'N/A' => '不适用',
     'OK' => '',

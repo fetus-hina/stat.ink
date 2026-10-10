@@ -108,6 +108,7 @@ return [
     'KO' => 'ノックアウト',
     'KR' => 'キルレ',
     'Keep doing it.' => 'バトルやバイトにはげむのだー',
+    'Kill / Death' => 'キル / デス',
     'Kill Rate' => 'キルレート',
     'Kill Ratio' => 'キルレシオ',
     'Kill or Assist' => 'キル＋アシスト',
