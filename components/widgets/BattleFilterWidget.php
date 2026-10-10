@@ -344,8 +344,8 @@ final class BattleFilterWidget extends Widget
     {
         $list = [
             '' => Yii::t('app-filter', 'Won / Lost'),
-            'win' => Yii::t('app', 'Won'),
-            'lose' => Yii::t('app', 'Lost'),
+            'win' => Yii::t('app-results', 'Won'),
+            'lose' => Yii::t('app-results', 'Lost'),
         ];
         return $form->field($this->filter, 'result')->dropDownList($list)->label(false);
     }

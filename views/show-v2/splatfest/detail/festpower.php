@@ -53,8 +53,8 @@ UserStatSplatfestAsset::register($this);
         'estimateBad' => Yii::t('app', 'Their team\'s splatfest power'),
         'estimateGood' => Yii::t('app', 'My team\'s splatfest power'),
         'festPower' => Yii::t('app', 'Splatfest Power'),
-        'lose' => Yii::t('app', 'Lose'),
-        'win' => Yii::t('app', 'Win'),
+        'lose' => Yii::t('app-results', 'Lose'),
+        'win' => Yii::t('app-results', 'Win'),
       ],
       'terms' => [
         'exact' => [

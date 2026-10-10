@@ -87,7 +87,7 @@ $dataProvider = Yii::createObject([
         ]),
       ],
       [
-        'label' => Yii::t('app', 'Win %'),
+        'label' => Yii::t('app-results', 'Win %'),
         'content' => $this->render('table/win-rate', [
           'data' => $data,
         ]),

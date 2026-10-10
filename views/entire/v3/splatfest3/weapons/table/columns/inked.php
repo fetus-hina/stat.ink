@@ -23,7 +23,7 @@ return [
     'data-sort' => 'float',
     'data-sort-default' => 'desc',
   ],
-  'label' => Yii::t('app', 'Avg Inked'),
+  'label' => Yii::t('app-results', 'Avg Inked'),
   'value' => fn (Splatfest3StatsWeapon $model): string => BattleSummaryItemWidget::widget([
     'battles' => $model->battles,
     'max' => $model->max_inked,
@@ -36,7 +36,7 @@ return [
     'stddev' => $model->sd_inked,
     'summary' => vsprintf('%s - %s', [
       Yii::t('app-weapon3', $model->weapon->name),
-      Yii::t('app', 'Avg Inked'),
+      Yii::t('app-results', 'Avg Inked'),
     ]),
     'tooltipText' => '',
     'total' => $model->battles * $model->avg_inked,

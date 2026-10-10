@@ -33,7 +33,6 @@ return [
     'If you misuse this feature, you will be banned.' => '如果有濫用行爲，你會被黑名單。',
     'Incomplete Data' => '不完整資料',
     'Judge' => '裁判',
-    'K.O.' => '完勝',
     'Level (after the battle)' => '等級（對戰後）',
     'Max Kill Combo' => '最多擊殺數',
     'Max Kill Streak' => '最多連續擊殺數',

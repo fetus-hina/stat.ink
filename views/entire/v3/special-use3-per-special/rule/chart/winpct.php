@@ -35,7 +35,7 @@ return [
     ),
     fn (?array $v): bool => $v !== null,
   ),
-  'label' => Yii::t('app', 'Win %'),
+  'label' => Yii::t('app-results', 'Win %'),
   'pointBackgroundColor' => '#f5a101',
   'pointRadius' => 4,
   'type' => 'scatter',

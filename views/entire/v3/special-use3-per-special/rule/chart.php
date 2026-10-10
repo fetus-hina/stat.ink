@@ -81,7 +81,7 @@ $this->registerJs("
               'min' => 0,
               'title' => [
                 'display' => true,
-                'text' => Yii::t('app', 'Win %'),
+                'text' => Yii::t('app-results', 'Win %'),
               ],
               'type' => 'linear',
             ],

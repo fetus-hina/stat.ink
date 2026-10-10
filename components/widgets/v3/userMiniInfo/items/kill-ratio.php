@@ -13,7 +13,7 @@ use Yii;
 use app\models\UserStat3;
 
 return [
-    'label' => Yii::t('app', 'Kill Ratio'),
+    'label' => Yii::t('app-results', 'Kill Ratio'),
     'value' => function (UserStat3 $model): string {
         if ($model->agg_battles < 1) {
             return Yii::t('app', 'N/A');

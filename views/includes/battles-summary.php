@@ -39,7 +39,7 @@ $fmt = Yii::$app->formatter;
   </div>
   <div class="col-xs-4 col-md-2">
     <div class="user-label">
-      <?= Html::encode(Yii::t('app', 'Win %')) . "\n" ?>
+      <?= Html::encode(Yii::t('app-results', 'Win %')) . "\n" ?>
     </div>
     <div class="user-number">
 <?php if ($summary->wp === null) { ?>
@@ -51,7 +51,7 @@ $fmt = Yii::$app->formatter;
   </div>
   <div class="col-xs-4 col-md-2">
     <div class="user-label">
-      <?= Html::encode(Yii::t('app', '24H Win %')) . "\n" ?>
+      <?= Html::encode(Yii::t('app-results', '24H Win %')) . "\n" ?>
     </div>
     <div class="user-number">
 <?php if (isset($summary->win_short) && isset($summary->battle_count_short) && $summary->battle_count_short > 0) { ?>
@@ -76,7 +76,7 @@ $fmt = Yii::$app->formatter;
 <?php } ?>
   <div class="col-xs-4 col-md-2">
     <div class="user-label">
-      <?= Html::encode(Yii::t('app', 'Avg Kills')) . "\n" ?>
+      <?= Html::encode(Yii::t('app-results', 'Avg Kills')) . "\n" ?>
     </div>
     <div class="user-number">
       <?= BattleSummaryItemWidget::widget([
@@ -91,13 +91,14 @@ $fmt = Yii::$app->formatter;
         'pct95' => $summary->pct95_kill ?? null,
         'stddev' => $summary->stddev_kill ?? null,
         'tooltipText' => '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}',
-        'summary' => Yii::t('app', 'Kills'),
+        'tooltipCategory' => 'app-results',
+        'summary' => Yii::t('app-results', 'Kills'),
       ]) . "\n" ?>
     </div>
   </div>
   <div class="col-xs-4 col-md-2">
     <div class="user-label">
-      <?= Html::encode(Yii::t('app', 'Avg Deaths')) . "\n" ?>
+      <?= Html::encode(Yii::t('app-results', 'Avg Deaths')) . "\n" ?>
     </div>
     <div class="user-number">
       <?= BattleSummaryItemWidget::widget([
@@ -112,13 +113,14 @@ $fmt = Yii::$app->formatter;
         'pct95' => $summary->pct95_death ?? null,
         'stddev' => $summary->stddev_death ?? null,
         'tooltipText' => '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}',
-        'summary' => Yii::t('app', 'Deaths'),
+        'tooltipCategory' => 'app-results',
+        'summary' => Yii::t('app-results', 'Deaths'),
       ]) . "\n" ?>
     </div>
   </div>
   <div class="col-xs-4 col-md-2">
     <div class="user-label">
-      <?= Html::encode(Yii::t('app', 'Kill Ratio')) . "\n" ?>
+      <?= Html::encode(Yii::t('app-results', 'Kill Ratio')) . "\n" ?>
     </div>
     <div class="user-number">
 <?php if ($summary->kd_present > 0) { ?>
@@ -133,7 +135,7 @@ $fmt = Yii::$app->formatter;
           'class' => 'auto-tooltip',
           'title' => sprintf(
             '%s: %s',
-            Yii::t('app', 'Kill Rate'),
+            Yii::t('app-results', 'Kill Rate'),
             $fmt->asPercent(1.0, 1)
           ),
         ]
@@ -152,7 +154,7 @@ $fmt = Yii::$app->formatter;
           'class' => 'auto-tooltip',
           'title' => sprintf(
             '%s: %s',
-            Yii::t('app', 'Kill Rate'),
+            Yii::t('app-results', 'Kill Rate'),
             $fmt->asPercent(
               $summary->total_kill / ($summary->total_kill + $summary->total_death),
               1
@@ -169,7 +171,7 @@ $fmt = Yii::$app->formatter;
 <?php if (($summary->assist_present ?? null) > 0 || ($summary->special_present ?? null) > 0 || ($summary->inked_present ?? null) > 0) { ?>
   <div class="col-xs-4 col-md-2">
     <div class="user-label">
-      <?= Html::encode(Yii::t('app', 'Avg Assists')) . "\n" ?>
+      <?= Html::encode(Yii::t('app-results', 'Avg Assists')) . "\n" ?>
     </div>
     <div class="user-number">
       <?= BattleSummaryItemWidget::widget([
@@ -183,13 +185,13 @@ $fmt = Yii::$app->formatter;
         'pct5' => $summary->pct5_assist ?? null,
         'pct95' => $summary->pct95_assist ?? null,
         'stddev' => $summary->stddev_assist ?? null,
-        'summary' => Yii::t('app', 'Assists'),
+        'summary' => Yii::t('app-results', 'Assists'),
       ]) . "\n" ?>
     </div>
   </div>
   <div class="col-xs-4 col-md-2">
     <div class="user-label">
-      <?= Html::encode(Yii::t('app', 'Avg Specials')) . "\n" ?>
+      <?= Html::encode(Yii::t('app-results', 'Avg Specials')) . "\n" ?>
     </div>
     <div class="user-number">
       <?= BattleSummaryItemWidget::widget([
@@ -203,13 +205,13 @@ $fmt = Yii::$app->formatter;
         'pct5' => $summary->pct5_special ?? null,
         'pct95' => $summary->pct95_special ?? null,
         'stddev' => $summary->stddev_special ?? null,
-        'summary' => Yii::t('app', 'Specials'),
+        'summary' => Yii::t('app-results', 'Specials'),
       ]) . "\n" ?>
     </div>
   </div>
   <div class="col-xs-4 col-md-2">
     <div class="user-label">
-      <?= Html::encode(Yii::t('app', 'Avg Inked')) . "\n" ?>
+      <?= Html::encode(Yii::t('app-results', 'Avg Inked')) . "\n" ?>
     </div>
     <div class="user-number">
       <?= BattleSummaryItemWidget::widget([
@@ -223,7 +225,7 @@ $fmt = Yii::$app->formatter;
         'pct5' => $summary->pct5_inked ?? null,
         'pct95' => $summary->pct95_inked ?? null,
         'stddev' => $summary->stddev_inked ?? null,
-        'summary' => Yii::t('app', 'Inked'),
+        'summary' => Yii::t('app-results', 'Inked'),
       ]) . "\n" ?>
     </div>
   </div>

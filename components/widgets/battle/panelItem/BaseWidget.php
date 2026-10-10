@@ -110,7 +110,7 @@ abstract class BaseWidget extends Widget
         if ($isDraw) {
             return Html::tag(
                 'div',
-                Html::encode(Yii::t('app', 'Draw')),
+                Html::encode(Yii::t('app-results', 'Draw')),
                 ['class' => 'simple-battle-result simple-battle-result-unk'],
             );
         }
@@ -118,11 +118,11 @@ abstract class BaseWidget extends Widget
         if ($isKO === null) {
             $koHtml = '';
         } else {
-            $koHtml = '<br>' . Html::encode(Yii::t('app', $isKO ? 'K.O.' : 'Time'));
+            $koHtml = '<br>' . Html::encode($isKO ? Yii::t('app-results', 'K.O.') : Yii::t('app-results', 'Time'));
         }
         return Html::tag(
             'div',
-            Html::encode(Yii::t('app', $result ? 'Won' : 'Lost')) . $koHtml,
+            Html::encode(Yii::t('app-results', $result ? 'Won' : 'Lost')) . $koHtml,
             ['class' => [
                 'simple-battle-result',
                 $result ? 'simple-battle-result-won' : 'simple-battle-result-lost',

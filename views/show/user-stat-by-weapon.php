@@ -107,7 +107,7 @@ SortableTableAsset::register($this);
             },
           ],
           [
-            'label' => Yii::t('app', 'Win %'),
+            'label' => Yii::t('app-results', 'Win %'),
             'headerOptions' => [
               'data-sort' => 'float',
             ],
@@ -123,7 +123,7 @@ SortableTableAsset::register($this);
             },
           ],
           [
-            'label' => Yii::t('app', 'Avg Kills'),
+            'label' => Yii::t('app-results', 'Avg Kills'),
             'headerOptions' => [
               'data-sort' => 'float',
             ],
@@ -144,7 +144,7 @@ SortableTableAsset::register($this);
             },
           ],
           [
-            'label' => Yii::t('app', 'Avg Deaths'),
+            'label' => Yii::t('app-results', 'Avg Deaths'),
             'headerOptions' => [
               'data-sort' => 'float',
             ],
@@ -165,7 +165,7 @@ SortableTableAsset::register($this);
             },
           ],
           [
-            'label' => Yii::t('app', 'Avg KR'),
+            'label' => Yii::t('app-results', 'Avg KR'),
             'headerOptions' => [
               'data-sort' => 'float',
             ],

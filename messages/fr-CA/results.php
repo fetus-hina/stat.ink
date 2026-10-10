@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * @copyright Copyright (C) 2026 AIZAWA Hina
+ * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ */
+
+declare(strict_types=1);
+
+return [
+    '24H Win %' => '',
+    'Assist' => '',
+    'Assists' => '',
+    'Avg Assists' => '',
+    'Avg Deaths' => '',
+    'Avg Inked' => '',
+    'Avg Kills' => '',
+    'Avg KR' => '',
+    'Avg Specials' => '',
+    'd' => '',
+    'Deaths' => '',
+    'Deaths/min' => '',
+    'Defeat' => '',
+    'Defeat (Exempted)' => '',
+    'Draw' => '',
+    'Inked' => '',
+    'Inked/min' => '',
+    'k' => '',
+    'k+a' => '',
+    'K.O.' => '',
+    'K/D' => '',
+    'Kill / Death' => '',
+    'Kill or Assist' => '',
+    'Kill Rate' => '',
+    'Kill Ratio' => '',
+    'Kills' => '',
+    'Kills / Deaths' => '',
+    'Kills/min' => '',
+    'Knockout' => '',
+    'KNOCKOUT!' => 'K.-O.!',
+    'KO' => '',
+    'KR' => '',
+    'Lose' => '',
+    'Lost' => '',
+    'Max Inked' => '',
+    'Result' => '',
+    'sp' => '',
+    'Specials' => '',
+    'Specials/min' => '',
+    'Time' => '',
+    'Time is up' => '',
+    'Time was up' => '',
+    'Turf Inked' => '',
+    'Turf inked (including bonus)' => '',
+    'Victory' => '',
+    'Win' => '',
+    'Win %' => '',
+    'Wins' => '',
+    'Won' => '',
+    '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}' => '',
+    '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}' => '',
+];

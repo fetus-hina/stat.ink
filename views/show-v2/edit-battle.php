@@ -64,19 +64,19 @@ $this->registerCss(implode('', [
     <?= $_->field($form, 'result')
       ->dropDownList([
         '' => '',
-        'win' => Yii::t('app', 'Won'),
-        'lose' => Yii::t('app', 'Lost'),
+        'win' => Yii::t('app-results', 'Won'),
+        'lose' => Yii::t('app-results', 'Lost'),
       ]) . "\n"
     ?>
     <?= implode(' / ', [
         Html::tag(
           'label',
-          Html::encode(Yii::t('app', 'Kill or Assist')),
+          Html::encode(Yii::t('app-results', 'Kill or Assist')),
           ['class' => 'control-label', 'for' => 'battle2form-kill_or_assist']
         ),
         Html::tag(
           'label',
-          Html::encode(Yii::t('app', 'Specials')),
+          Html::encode(Yii::t('app-results', 'Specials')),
           ['class' => 'control-label', 'for' => 'battle2form-special']
         ),
       ]) . "\n"
@@ -92,12 +92,12 @@ $this->registerCss(implode('', [
     <?= implode(' / ', [
         Html::tag(
           'label',
-          Html::encode(Yii::t('app', 'Kills')),
+          Html::encode(Yii::t('app-results', 'Kills')),
           ['class' => 'control-label', 'for' => 'battle2form-kill']
         ),
         Html::tag(
           'label',
-          Html::encode(Yii::t('app', 'Deaths')),
+          Html::encode(Yii::t('app-results', 'Deaths')),
           ['class' => 'control-label', 'for' => 'battle2form-death']
         ),
       ]) . "\n"

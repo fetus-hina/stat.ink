@@ -20,5 +20,5 @@ use yii\web\View;
 echo $this->render('includes/chart', [
   'data' => $data,
   'getX' => 'avg_inked',
-  'xLabel' => Yii::t('app', 'Avg Inked'),
+  'xLabel' => Yii::t('app-results', 'Avg Inked'),
 ]);

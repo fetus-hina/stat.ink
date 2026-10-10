@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * @copyright Copyright (C) 2026 AIZAWA Hina
+ * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ */
+
+declare(strict_types=1);
+
+return [
+    '24H Win %' => '',
+    'Assist' => '',
+    'Assists' => '',
+    'Avg Assists' => '',
+    'Avg Deaths' => '',
+    'Avg Inked' => 'Media pintada',
+    'Avg Kills' => '',
+    'Avg KR' => 'Medio MR',
+    'Avg Specials' => '',
+    'd' => 'd',
+    'Deaths' => 'Muertes',
+    'Deaths/min' => '',
+    'Defeat' => '',
+    'Defeat (Exempted)' => '',
+    'Draw' => '',
+    'Inked' => '',
+    'Inked/min' => '',
+    'k' => 'k',
+    'k+a' => '',
+    'K.O.' => 'Dominio total',
+    'K/D' => '',
+    'Kill / Death' => '',
+    'Kill or Assist' => '',
+    'Kill Rate' => '',
+    'Kill Ratio' => '',
+    'Kills' => '',
+    'Kills / Deaths' => 'Mató / Muertos',
+    'Kills/min' => '',
+    'Knockout' => 'Dominio total',
+    'KNOCKOUT!' => '¡Dominio total!',
+    'KO' => 'Dominio total',
+    'KR' => 'MR',
+    'Lose' => 'Derrota',
+    'Lost' => 'Derrotado',
+    'Max Inked' => '',
+    'Result' => 'Resultado',
+    'sp' => '',
+    'Specials' => '',
+    'Specials/min' => '',
+    'Time' => '',
+    'Time is up' => '',
+    'Time was up' => '',
+    'Turf Inked' => 'Superficie pintada',
+    'Turf inked (including bonus)' => '',
+    'Victory' => '',
+    'Win' => 'Victoria',
+    'Win %' => '',
+    'Wins' => '',
+    'Won' => 'Vencido',
+    '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number} veces / {battle} batallas',
+    '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number} veces / {battle} batallas',
+];

@@ -195,11 +195,11 @@ if ($battle &&
               <th class="cell-rank"><?= Html::encode(Yii::t('app', 'Rank')) ?></th>
               <th class="cell-rank-after"><?= Html::encode(Yii::t('app', 'Rank (After)')) ?></th>
               <th class="cell-level"><?= Html::encode(Yii::t('app', 'Level')) ?></th>
-              <th class="cell-result"><?= Html::encode(Yii::t('app', 'Result')) ?></th>
-              <th class="cell-kd"><?= Html::encode(Yii::t('app', 'k')) ?>/<?= Html::encode(Yii::t('app', 'd')) ?></th>
-              <th class="cell-kill-ratio auto-tooltip" title="<?= Html::encode(Yii::t('app', 'Kill Ratio')) ?>"><?= Html::encode(Yii::t('app', 'Ratio')) ?></th>
-              <th class="cell-kill-rate auto-tooltip" title="<?= Html::encode(Yii::t('app', 'Kill Rate')) ?>"><?= Html::encode(Yii::t('app', 'Rate')) ?></th>
-              <th class="cell-point"><?= Html::encode(Yii::t('app', 'Inked')) ?></th>
+              <th class="cell-result"><?= Html::encode(Yii::t('app-results', 'Result')) ?></th>
+              <th class="cell-kd"><?= Html::encode(Yii::t('app-results', 'k')) ?>/<?= Html::encode(Yii::t('app-results', 'd')) ?></th>
+              <th class="cell-kill-ratio auto-tooltip" title="<?= Html::encode(Yii::t('app-results', 'Kill Ratio')) ?>"><?= Html::encode(Yii::t('app', 'Ratio')) ?></th>
+              <th class="cell-kill-rate auto-tooltip" title="<?= Html::encode(Yii::t('app-results', 'Kill Rate')) ?>"><?= Html::encode(Yii::t('app', 'Rate')) ?></th>
+              <th class="cell-point"><?= Html::encode(Yii::t('app-results', 'Inked')) ?></th>
               <th class="cell-rank-in-team"><?= Html::encode(Yii::t('app-battle', 'Rank in Team')) ?></th>
               <th class="cell-datetime"><?= Html::encode(Yii::t('app', 'Date Time')) ?></th>
               <th class="cell-reltime"><?= Html::encode(Yii::t('app', 'Relative Time')) ?></th>
@@ -292,23 +292,23 @@ if ($battle &&
   ],
   [
     'class' => 'cell-result',
-    'text' => Yii::t('app', 'Result'),
+    'text' => Yii::t('app-results', 'Result'),
   ],
   [
     'class' => 'cell-kd',
-    'text' => Yii::t('app', 'k') . '/' . Yii::t('app', 'd'),
+    'text' => Yii::t('app-results', 'k') . '/' . Yii::t('app-results', 'd'),
   ],
   [
     'class' => 'cell-kill-ratio',
-    'text' => Yii::t('app', 'Kill Ratio'),
+    'text' => Yii::t('app-results', 'Kill Ratio'),
   ],
   [
     'class' => 'cell-kill-rate',
-    'text' => Yii::t('app', 'Kill Rate'),
+    'text' => Yii::t('app-results', 'Kill Rate'),
   ],
   [
     'class' => 'cell-point',
-    'text' => Yii::t('app', 'Turf Inked'),
+    'text' => Yii::t('app-results', 'Turf Inked'),
   ],
   [
     'class' => 'cell-rank-in-team',

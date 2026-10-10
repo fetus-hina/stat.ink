@@ -11,7 +11,7 @@ use app\components\widgets\v3\Result;
 use app\models\Battle3;
 
 return [
-  'label' => Yii::t('app', 'Result'),
+  'label' => Yii::t('app-results', 'Result'),
   'format' => 'raw',
   'value' => function (Battle3 $model): ?string {
     return Result::widget([

@@ -37,9 +37,9 @@ use yii\web\View;
               return Html::tag(
                 'div',
                 implode('', [
-                  Html::encode($model->is_win ? Yii::t('app', 'Won') : Yii::t('app', 'Lost')),
+                  Html::encode($model->is_win ? Yii::t('app-results', 'Won') : Yii::t('app-results', 'Lost')),
                   ($model->isGachi && $model->is_knockout !== null)
-                    ? ('<br>' . Html::encode($model->is_knockout ? Yii::t('app-battle', 'K.O.') : Yii::t('app', 'Time')))
+                    ? ('<br>' . Html::encode($model->is_knockout ? Yii::t('app-results', 'K.O.') : Yii::t('app-results', 'Time')))
                     : '',
                 ]),
                 ['class' => [
@@ -113,7 +113,7 @@ use yii\web\View;
                     if ($model->kill_or_assist !== null) {
                       return sprintf(
                         '%s: %s',
-                        Html::encode(Yii::t('app', 'Kill or Assist')),
+                        Html::encode(Yii::t('app-results', 'Kill or Assist')),
                         Html::encode(Yii::$app->formatter->asInteger($model->kill_or_assist))
                       );
                     }

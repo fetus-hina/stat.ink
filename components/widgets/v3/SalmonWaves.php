@@ -214,7 +214,7 @@ final class SalmonWaves extends Widget
         return Html::tag(
             'tr',
             implode('', [
-                Html::tag('th', Html::encode(Yii::t('app', 'Result'))),
+                Html::tag('th', Html::encode(Yii::t('app-results', 'Result'))),
                 implode('', ArrayHelper::getColumn(
                     $waves,
                     fn (array $wave): string => Html::tag(
@@ -517,7 +517,7 @@ final class SalmonWaves extends Widget
         return Html::tag(
             'tr',
             implode('', [
-                Html::tag('th', Html::encode(Yii::t('app', 'Specials'))),
+                Html::tag('th', Html::encode(Yii::t('app-results', 'Specials'))),
                 implode('', ArrayHelper::getColumn(
                     $waves,
                     fn (array $wave): string => Html::tag(

@@ -18,7 +18,7 @@ use yii\helpers\ArrayHelper;
  */
 
 return [
-  'label' => Yii::t('app', 'Win %'),
+  'label' => Yii::t('app-results', 'Win %'),
   'format' => 'raw',
   'value' => function (Model $model) use ($maxWinRate): string {
     $wins = TypeHelper::intOrNull(ArrayHelper::getValue($model, 'wins'));

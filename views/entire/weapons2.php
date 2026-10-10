@@ -340,7 +340,7 @@ $maxWP = max(array_map(
           // }}}
         ],
         [
-          'label' => Yii::t('app', 'Win %'), // {{{
+          'label' => Yii::t('app-results', 'Win %'), // {{{
           'headerOptions' => [
             'data-sort' => 'float',
           ],
@@ -380,7 +380,7 @@ $maxWP = max(array_map(
           // }}}
         ],
         [
-          'label' => Yii::t('app', 'Avg Kills'), // {{{
+          'label' => Yii::t('app-results', 'Avg Kills'), // {{{
           'headerOptions' => [
             'data-sort' => 'float',
           ],
@@ -396,7 +396,7 @@ $maxWP = max(array_map(
           // }}}
         ],
         [
-          'label' => Yii::t('app', 'Avg Deaths'), // {{{
+          'label' => Yii::t('app-results', 'Avg Deaths'), // {{{
           'headerOptions' => [
             'data-sort' => 'float',
           ],
@@ -412,7 +412,7 @@ $maxWP = max(array_map(
           // }}}
         ],
         [
-          'label' => Yii::t('app', 'Kill Ratio'), // {{{
+          'label' => Yii::t('app-results', 'Kill Ratio'), // {{{
           'headerOptions' => [
             'data-sort' => 'float',
           ],
@@ -438,7 +438,7 @@ $maxWP = max(array_map(
           // }}}
         ],
         [
-          'label' => Yii::t('app', 'Kills/min'), // {{{
+          'label' => Yii::t('app-results', 'Kills/min'), // {{{
           'headerOptions' => [
             'data-sort' => 'float',
           ],
@@ -454,7 +454,7 @@ $maxWP = max(array_map(
           // }}}
         ],
         [
-          'label' => Yii::t('app', 'Deaths/min'), // {{{
+          'label' => Yii::t('app-results', 'Deaths/min'), // {{{
           'headerOptions' => [
             'data-sort' => 'float',
           ],
@@ -470,7 +470,7 @@ $maxWP = max(array_map(
           // }}}
         ],
         [
-          'label' => Yii::t('app', 'Avg Specials'), // {{{
+          'label' => Yii::t('app-results', 'Avg Specials'), // {{{
           'headerOptions' => [
             'data-sort' => 'float',
           ],
@@ -486,7 +486,7 @@ $maxWP = max(array_map(
           // }}}
         ],
         [
-          'label' => Yii::t('app', 'Specials/min'), // {{{
+          'label' => Yii::t('app-results', 'Specials/min'), // {{{
           'headerOptions' => [
             'data-sort' => 'float',
           ],
@@ -502,7 +502,7 @@ $maxWP = max(array_map(
           // }}}
         ],
         [
-          'label' => Yii::t('app', 'Avg Inked'), // {{{
+          'label' => Yii::t('app-results', 'Avg Inked'), // {{{
           'headerOptions' => [
             'data-sort' => 'float',
           ],
@@ -518,7 +518,7 @@ $maxWP = max(array_map(
           // }}}
         ],
         [
-          'label' => Yii::t('app', 'Inked/min'), // {{{
+          'label' => Yii::t('app-results', 'Inked/min'), // {{{
           'headerOptions' => [
             'data-sort' => 'float',
           ],
@@ -641,7 +641,7 @@ $jsonId = sprintf('inkperformance-%s-data', $rule->key);
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Win %'), // {{{
+        'label' => Yii::t('app-results', 'Win %'), // {{{
         'headerOptions' => [
           'data-sort' => 'float',
         ],
@@ -657,7 +657,7 @@ $jsonId = sprintf('inkperformance-%s-data', $rule->key);
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Avg Kills'), // {{{
+        'label' => Yii::t('app-results', 'Avg Kills'), // {{{
         'headerOptions' => [
           'data-sort' => 'float',
         ],
@@ -676,7 +676,7 @@ $jsonId = sprintf('inkperformance-%s-data', $rule->key);
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Avg Deaths'), // {{{
+        'label' => Yii::t('app-results', 'Avg Deaths'), // {{{
         'headerOptions' => [
           'data-sort' => 'float',
         ],
@@ -695,7 +695,7 @@ $jsonId = sprintf('inkperformance-%s-data', $rule->key);
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Kill Ratio'), // {{{
+        'label' => Yii::t('app-results', 'Kill Ratio'), // {{{
         'headerOptions' => [
           'data-sort' => 'float',
         ],
@@ -721,7 +721,7 @@ $jsonId = sprintf('inkperformance-%s-data', $rule->key);
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Avg Specials'), // {{{
+        'label' => Yii::t('app-results', 'Avg Specials'), // {{{
         'headerOptions' => [
           'data-sort' => 'float',
         ],
@@ -778,7 +778,7 @@ $jsonId = sprintf('inkperformance-%s-data', $rule->key);
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Win %'), // {{{
+        'label' => Yii::t('app-results', 'Win %'), // {{{
         'headerOptions' => [
           'data-sort' => 'float',
         ],
@@ -794,7 +794,7 @@ $jsonId = sprintf('inkperformance-%s-data', $rule->key);
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Avg Kills'), // {{{
+        'label' => Yii::t('app-results', 'Avg Kills'), // {{{
         'headerOptions' => [
           'data-sort' => 'float',
         ],
@@ -813,7 +813,7 @@ $jsonId = sprintf('inkperformance-%s-data', $rule->key);
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Avg Deaths'), // {{{
+        'label' => Yii::t('app-results', 'Avg Deaths'), // {{{
         'headerOptions' => [
           'data-sort' => 'float',
         ],
@@ -832,7 +832,7 @@ $jsonId = sprintf('inkperformance-%s-data', $rule->key);
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Kill Ratio'), // {{{
+        'label' => Yii::t('app-results', 'Kill Ratio'), // {{{
         'headerOptions' => [
           'data-sort' => 'float',
         ],
@@ -857,7 +857,7 @@ $jsonId = sprintf('inkperformance-%s-data', $rule->key);
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Avg Specials'), // {{{
+        'label' => Yii::t('app-results', 'Avg Specials'), // {{{
         'headerOptions' => [
           'data-sort' => 'float',
         ],
@@ -933,7 +933,7 @@ $jsonId = sprintf('inkperformance-%s-data', $rule->key);
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Win %'), // {{{
+        'label' => Yii::t('app-results', 'Win %'), // {{{
         'headerOptions' => [
           'data-sort' => 'float',
         ],
@@ -949,7 +949,7 @@ $jsonId = sprintf('inkperformance-%s-data', $rule->key);
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Avg Kills'), // {{{
+        'label' => Yii::t('app-results', 'Avg Kills'), // {{{
         'headerOptions' => [
           'data-sort' => 'float',
         ],
@@ -968,7 +968,7 @@ $jsonId = sprintf('inkperformance-%s-data', $rule->key);
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Avg Deaths'), // {{{
+        'label' => Yii::t('app-results', 'Avg Deaths'), // {{{
         'headerOptions' => [
           'data-sort' => 'float',
         ],
@@ -987,7 +987,7 @@ $jsonId = sprintf('inkperformance-%s-data', $rule->key);
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Kill Ratio'), // {{{
+        'label' => Yii::t('app-results', 'Kill Ratio'), // {{{
         'headerOptions' => [
           'data-sort' => 'float',
         ],
@@ -1012,7 +1012,7 @@ $jsonId = sprintf('inkperformance-%s-data', $rule->key);
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Avg Specials'), // {{{
+        'label' => Yii::t('app-results', 'Avg Specials'), // {{{
         'headerOptions' => [
           'data-sort' => 'float',
         ],
@@ -1104,7 +1104,7 @@ $jsonId = sprintf('inkperformance-%s-data', $rule->key);
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Win %'), // {{{
+        'label' => Yii::t('app-results', 'Win %'), // {{{
         'headerOptions' => [
           'data-sort' => 'float',
         ],
@@ -1120,7 +1120,7 @@ $jsonId = sprintf('inkperformance-%s-data', $rule->key);
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Avg Kills'), // {{{
+        'label' => Yii::t('app-results', 'Avg Kills'), // {{{
         'headerOptions' => [
           'data-sort' => 'float',
         ],
@@ -1139,7 +1139,7 @@ $jsonId = sprintf('inkperformance-%s-data', $rule->key);
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Avg Deaths'), // {{{
+        'label' => Yii::t('app-results', 'Avg Deaths'), // {{{
         'headerOptions' => [
           'data-sort' => 'float',
         ],
@@ -1158,7 +1158,7 @@ $jsonId = sprintf('inkperformance-%s-data', $rule->key);
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Kill Ratio'), // {{{
+        'label' => Yii::t('app-results', 'Kill Ratio'), // {{{
         'headerOptions' => [
           'data-sort' => 'float',
         ],
@@ -1183,7 +1183,7 @@ $jsonId = sprintf('inkperformance-%s-data', $rule->key);
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Avg Specials'), // {{{
+        'label' => Yii::t('app-results', 'Avg Specials'), // {{{
         'headerOptions' => [
           'data-sort' => 'float',
         ],

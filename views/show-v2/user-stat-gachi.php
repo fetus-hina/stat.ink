@@ -140,15 +140,15 @@ UserStat2NawabariAsset::register($this);
         'last50' => Yii::t('app-battle', 'Win % ({0} Battles)', [50]),
       ],
       'stats' => [
-        'killRatio' => Yii::t('app', 'Kill Ratio'),
-        'avgKill' => Yii::t('app', 'Avg Kills'),
-        'avgDeath' => Yii::t('app', 'Avg Deaths'),
-        'avgSpecial' => Yii::t('app', 'Avg Specials'),
+        'killRatio' => Yii::t('app-results', 'Kill Ratio'),
+        'avgKill' => Yii::t('app-results', 'Avg Kills'),
+        'avgDeath' => Yii::t('app-results', 'Avg Deaths'),
+        'avgSpecial' => Yii::t('app-results', 'Avg Specials'),
 
-        'KR' => Yii::t('app', 'KR'),
+        'KR' => Yii::t('app-results', 'KR'),
       ],
       'inked' => [
-        'turfInked' => Yii::t('app', 'Turf Inked'),
+        'turfInked' => Yii::t('app-results', 'Turf Inked'),
       ],
       'rank' => [
         'rank' => Yii::t('app', 'Rank'),

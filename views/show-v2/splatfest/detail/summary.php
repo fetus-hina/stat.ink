@@ -25,14 +25,14 @@ $label = fn($text) => Html::tag(
     <div class="user-number"><?= $f->asInteger($summary->count) ?></div>
   </div>
   <div class="col-xs-4 col-md-2 mb-3">
-    <?= $label(Yii::t('app', 'Win %')) . "\n" ?>
+    <?= $label(Yii::t('app-results', 'Win %')) . "\n" ?>
     <div class="user-number"><?= ($summary->win + $summary->lose > 0)
       ? $f->asPercent($summary->win / ($summary->win + $summary->lose), 1)
       : Html::encode(Yii::t('app', 'N/A'))
     ?></div>
   </div>
   <div class="col-xs-4 col-md-2 mb-3">
-    <?= $label(Yii::t('app', 'Avg Kills')) . "\n" ?>
+    <?= $label(Yii::t('app-results', 'Avg Kills')) . "\n" ?>
     <div class="user-number">
       <?= BattleSummaryItemWidget::widget([
         'battles' => $summary->kd_present ?? null,
@@ -46,12 +46,13 @@ $label = fn($text) => Html::tag(
         'pct95' => $summary->pct95_kill ?? null,
         'stddev' => $summary->stddev_kill ?? null,
         'tooltipText' => '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}',
-        'summary' => Yii::t('app', 'Kills'),
+        'tooltipCategory' => 'app-results',
+        'summary' => Yii::t('app-results', 'Kills'),
       ]) . "\n" ?>
     </div>
   </div>
   <div class="col-xs-4 col-md-2 mb-3">
-    <?= $label(Yii::t('app', 'Avg Deaths')) . "\n" ?>
+    <?= $label(Yii::t('app-results', 'Avg Deaths')) . "\n" ?>
     <div class="user-number">
       <?= BattleSummaryItemWidget::widget([
         'battles' => $summary->kd_present ?? null,
@@ -65,12 +66,13 @@ $label = fn($text) => Html::tag(
         'pct95' => $summary->pct95_death ?? null,
         'stddev' => $summary->stddev_death ?? null,
         'tooltipText' => '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}',
-        'summary' => Yii::t('app', 'Deaths'),
+        'tooltipCategory' => 'app-results',
+        'summary' => Yii::t('app-results', 'Deaths'),
       ]) . "\n" ?>
     </div>
   </div>
   <div class="col-xs-4 col-md-2 mb-3">
-    <?= $label(Yii::t('app', 'Kill Ratio')) . "\n" ?>
+    <?= $label(Yii::t('app-results', 'Kill Ratio')) . "\n" ?>
     <div class="user-number"><?php
       if ($summary->total_death == 0) {
         if ($summary->total_kill > 0) {
@@ -85,7 +87,7 @@ $label = fn($text) => Html::tag(
           [
             'class' => 'auto-tooltip',
             'title' => vsprintf('%s: %s', [
-              Yii::t('app', 'Kill Rate'),
+              Yii::t('app-results', 'Kill Rate'),
               $f->asPercent(
                 $summary->total_kill / ($summary->total_kill + $summary->total_death),
                 1
@@ -97,7 +99,7 @@ $label = fn($text) => Html::tag(
     ?></div>
   </div>
   <div class="col-xs-4 col-md-2 mb-3">
-    <?= $label(Yii::t('app', 'Avg Inked')) . "\n" ?>
+    <?= $label(Yii::t('app-results', 'Avg Inked')) . "\n" ?>
     <div class="user-number">
       <?= BattleSummaryItemWidget::widget([
         'battles' => $summary->inked_present ?? null,
@@ -110,7 +112,7 @@ $label = fn($text) => Html::tag(
         'pct5' => $summary->pct5_inked ?? null,
         'pct95' => $summary->pct95_inked ?? null,
         'stddev' => $summary->stddev_inked ?? null,
-        'summary' => Yii::t('app', 'Avg Inked'),
+        'summary' => Yii::t('app-results', 'Avg Inked'),
       ]) . "\n" ?>
     </div>
   </div>

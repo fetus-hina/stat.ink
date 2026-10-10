@@ -22,7 +22,7 @@ return [
     'data-sort' => 'float',
     'data-sort-default' => 'desc',
   ],
-  'label' => Yii::t('app', 'Avg Kills'),
+  'label' => Yii::t('app-results', 'Avg Kills'),
   'value' => fn (Event3StatsSpecial|Event3StatsWeapon $model): string => BattleSummaryItemWidget::widget([
     'battles' => $model->battles,
     'max' => $model->max_kill,
@@ -38,7 +38,7 @@ return [
         Event3StatsSpecial::class => Yii::t('app-special3', $model->special->name),
         Event3StatsWeapon::class => Yii::t('app-weapon3', $model->weapon->name),
       },
-      Yii::t('app', 'Avg Kills'),
+      Yii::t('app-results', 'Avg Kills'),
     ]),
     'tooltipText' => '',
     'total' => $model->battles * $model->avg_kill,

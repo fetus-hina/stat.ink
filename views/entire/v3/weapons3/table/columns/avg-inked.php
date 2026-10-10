@@ -28,7 +28,7 @@ return [
   ],
   'filter' => (require __DIR__ . '/includes/correlation-filter.php')('avg_inked'),
   'filterOptions' => ['class' => 'text-right'],
-  'label' => Yii::t('app', 'Avg Inked'),
+  'label' => Yii::t('app-results', 'Avg Inked'),
   'value' => fn (StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage|StatWeapon3XUsagePerVersion $model): string => BattleSummaryItemWidget::widget([
     'battles' => $model->battles,
     'max' => $model->max_inked,
@@ -41,7 +41,7 @@ return [
     'stddev' => $model->sd_inked,
     'summary' => vsprintf('%s - %s', [
         Yii::t('app-weapon3', $model->weapon?->name ?? ''),
-        Yii::t('app', 'Avg Inked'),
+        Yii::t('app-results', 'Avg Inked'),
     ]),
     'tooltipText' => '',
     'total' => $model->battles * $model->avg_inked,

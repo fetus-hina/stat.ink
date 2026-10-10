@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * @copyright Copyright (C) 2026 AIZAWA Hina
+ * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ */
+
+declare(strict_types=1);
+
+return [
+    '24H Win %' => '24小时胜率',
+    'Assist' => '助攻',
+    'Assists' => '助攻',
+    'Avg Assists' => '平均助攻数',
+    'Avg Deaths' => '平均死亡数',
+    'Avg Inked' => '平均涂地数',
+    'Avg Kills' => '平均杀敌数',
+    'Avg KR' => '平均杀死比',
+    'Avg Specials' => '平均特殊武器数',
+    'd' => '死亡',
+    'Deaths' => '死亡',
+    'Deaths/min' => '死亡数/分钟',
+    'Defeat' => '败',
+    'Defeat (Exempted)' => '败（不计入）',
+    'Draw' => '平',
+    'Inked' => '已涂地',
+    'Inked/min' => '涂墨点数/分钟',
+    'k' => '杀敌数',
+    'k+a' => 'k+a',
+    'K.O.' => '完胜',
+    'K/D' => '杀死比',
+    'Kill / Death' => '杀敌 / 死亡',
+    'Kill or Assist' => '杀敌或助攻',
+    'Kill Rate' => '杀敌率',
+    'Kill Ratio' => '杀死比例',
+    'Kills' => '杀敌数',
+    'Kills / Deaths' => '杀敌数/死亡数',
+    'Kills/min' => '杀敌数/分钟',
+    'Knockout' => '完胜',
+    'KNOCKOUT!' => '完胜！',
+    'KO' => '完胜',
+    'KR' => '杀死比',
+    'Lose' => '败',
+    'Lost' => '败',
+    'Max Inked' => '最大涂墨点数',
+    'Result' => '结果',
+    'sp' => '特殊武器',
+    'Specials' => '特殊武器',
+    'Specials/min' => '特殊武器/分钟',
+    'Time' => '时间到',
+    'Time is up' => '时间到',
+    'Time was up' => '时间到',
+    'Turf Inked' => '涂墨点数',
+    'Turf inked (including bonus)' => '涂墨点数（包含奖励）',
+    'Victory' => '胜',
+    'Win' => '胜',
+    'Win %' => '胜率',
+    'Wins' => '胜利数',
+    'Won' => '胜',
+    '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}' => '{battle}次对战中死亡{number}次',
+    '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}' => '{battle}次对战中杀敌{number}次',
+];

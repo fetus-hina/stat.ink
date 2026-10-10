@@ -23,7 +23,7 @@ return [
     'data-sort' => 'float',
     'data-sort-default' => 'desc',
   ],
-  'label' => Yii::t('app', 'Avg Assists'),
+  'label' => Yii::t('app-results', 'Avg Assists'),
   'value' => fn (Splatfest3StatsWeapon $model): string => BattleSummaryItemWidget::widget([
     'battles' => $model->battles,
     'max' => $model->max_assist,
@@ -36,7 +36,7 @@ return [
     'stddev' => $model->sd_assist,
     'summary' => vsprintf('%s - %s', [
       Yii::t('app-weapon3', $model->weapon->name),
-      Yii::t('app', 'Avg Assists'),
+      Yii::t('app-results', 'Avg Assists'),
     ]),
     'tooltipText' => '',
     'total' => $model->battles * $model->avg_assist,

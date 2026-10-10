@@ -19,5 +19,5 @@ use yii\web\View;
 echo $this->render('includes/column', [
   'data' => $data,
   'xGet' => 'death',
-  'xLabel' => Yii::t('app', 'Deaths'),
+  'xLabel' => Yii::t('app-results', 'Deaths'),
 ]);

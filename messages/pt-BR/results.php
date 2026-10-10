@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * @copyright Copyright (C) 2026 AIZAWA Hina
+ * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ */
+
+declare(strict_types=1);
+
+return [
+    '24H Win %' => '% de Vitórias em 24h',
+    'Assist' => 'Assistência',
+    'Assists' => 'Assistências',
+    'Avg Assists' => 'Méd. Assistências',
+    'Avg Deaths' => 'Méd. Mortes',
+    'Avg Inked' => 'Méd. de Pintura',
+    'Avg Kills' => 'Méd. Kills',
+    'Avg KR' => 'Méd. KR',
+    'Avg Specials' => 'Méd. de Especiais',
+    'd' => 'd',
+    'Deaths' => 'Mortes',
+    'Deaths/min' => 'Mortes/min',
+    'Defeat' => 'Derrota',
+    'Defeat (Exempted)' => 'Derrota (Cancelado)',
+    'Draw' => 'Empate',
+    'Inked' => 'Pintado',
+    'Inked/min' => 'Pintou/min',
+    'k' => 'k',
+    'k+a' => 'k+a',
+    'K.O.' => 'Nocaute',
+    'K/D' => 'K/D',
+    'Kill / Death' => 'Kills / Mortes',
+    'Kill or Assist' => 'Kill ou Assistência.',
+    'Kill Rate' => 'Taxa de Kills',
+    'Kill Ratio' => 'Proporção de Kills',
+    'Kills' => 'Kills',
+    'Kills / Deaths' => 'Kills / Mortes',
+    'Kills/min' => 'Kills/min',
+    'Knockout' => 'Nocaute',
+    'KNOCKOUT!' => 'NOCAUTE!',
+    'KO' => 'Nocaute',
+    'KR' => 'KR',
+    'Lose' => 'Perder',
+    'Lost' => 'Perdeu',
+    'Max Inked' => 'Máx Pintura',
+    'Result' => 'Resultado',
+    'sp' => 'esp',
+    'Specials' => 'Especiais',
+    'Specials/min' => 'Especiais/min',
+    'Time' => 'Tempo esgotado',
+    'Time is up' => 'Acabou o tempo',
+    'Time was up' => 'Tempo esgotado',
+    'Turf Inked' => 'Área Pintada',
+    'Turf inked (including bonus)' => 'Área Pintada (incluindo bônus)',
+    'Victory' => 'Vitória',
+    'Win' => 'Vitória',
+    'Win %' => '% de Vitória',
+    'Wins' => 'Vitórias',
+    'Won' => 'Ganhou',
+    '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number, plural, =1{1 morte} other{# mortes}} em {battle, plural, =1{1 partida} other{# partidas}}',
+    '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number, plural, =1{1 kill} other{# kills}} em {battle, plural, =1{1 partida} other{# partidas}}',
+];

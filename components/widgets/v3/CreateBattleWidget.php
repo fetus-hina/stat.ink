@@ -81,16 +81,16 @@ final class CreateBattleWidget extends Dialog
                 $this->renderSelect('weapon', Yii::t('app', 'Weapon'), $this->makeWeapons()),
                 $this->renderResultButtonGroup(),
                 $this->renderTwoColumns(
-                    $this->renderNumberInput('kill_or_assist', Yii::t('app', 'Kill or Assist')),
-                    $this->renderNumberInput('assist', Yii::t('app', 'Assists')),
+                    $this->renderNumberInput('kill_or_assist', Yii::t('app-results', 'Kill or Assist')),
+                    $this->renderNumberInput('assist', Yii::t('app-results', 'Assists')),
                 ),
                 $this->renderTwoColumns(
-                    $this->renderNumberInput('death', Yii::t('app', 'Deaths')),
-                    $this->renderNumberInput('special', Yii::t('app', 'Specials')),
+                    $this->renderNumberInput('death', Yii::t('app-results', 'Deaths')),
+                    $this->renderNumberInput('special', Yii::t('app-results', 'Specials')),
                 ),
                 $this->renderNumberInput(
                     'inked',
-                    Yii::t('app', 'Turf Inked'),
+                    Yii::t('app-results', 'Turf Inked'),
                     null,
                 ),
                 Html::submitButton(
@@ -343,8 +343,8 @@ final class CreateBattleWidget extends Dialog
     {
         $options = [
             ['', Yii::t('app', 'Unknown')],
-            ['win', Yii::t('app', 'Won')],
-            ['lose', Yii::t('app', 'Lost')],
+            ['win', Yii::t('app-results', 'Won')],
+            ['lose', Yii::t('app-results', 'Lost')],
             ['exempted_lose', Yii::t('app-battle', 'Disconnected')],
         ];
 
@@ -374,7 +374,7 @@ final class CreateBattleWidget extends Dialog
             'div',
             implode('', [
                 Html::label(
-                    Html::encode(Yii::t('app', 'Result')),
+                    Html::encode(Yii::t('app-results', 'Result')),
                     null,
                     ['class' => 'control-label d-block'],
                 ),

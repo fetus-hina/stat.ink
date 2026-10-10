@@ -96,7 +96,7 @@ UserStat2NawabariAsset::register($this);
         <?= Html::tag('a', Html::tag('span', '', ['class' => 'fas fa-link']), [
           'href' => '#inked',
         ]) . "\n" ?>
-        <?= Html::encode(Yii::t('app', 'Turf Inked')) . "\n" ?>
+        <?= Html::encode(Yii::t('app-results', 'Turf Inked')) . "\n" ?>
       </h2>
       <div class="stage-inked">
         <div class="graph stat-inked"></div>
@@ -131,15 +131,15 @@ UserStat2NawabariAsset::register($this);
         'last50' => Yii::t('app-battle', 'Win % ({0} Battles)', [50]),
       ],
       'stats' => [
-        'killRatio' => Yii::t('app', 'Kill Ratio'),
-        'avgKill' => Yii::t('app', 'Avg Kills'),
-        'avgDeath' => Yii::t('app', 'Avg Deaths'),
-        'avgSpecial' => Yii::t('app', 'Avg Specials'),
+        'killRatio' => Yii::t('app-results', 'Kill Ratio'),
+        'avgKill' => Yii::t('app-results', 'Avg Kills'),
+        'avgDeath' => Yii::t('app-results', 'Avg Deaths'),
+        'avgSpecial' => Yii::t('app-results', 'Avg Specials'),
 
-        'KR' => Yii::t('app', 'KR'),
+        'KR' => Yii::t('app-results', 'KR'),
       ],
       'inked' => [
-        'turfInked' => Yii::t('app', 'Turf Inked'),
+        'turfInked' => Yii::t('app-results', 'Turf Inked'),
       ],
     ]) . "\n" ?>
   </script>

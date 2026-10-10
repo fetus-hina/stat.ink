@@ -11,7 +11,7 @@ use app\components\widgets\Label;
 use app\models\Salmon3;
 
 return [
-  'label' => Yii::t('app', 'Result'),
+  'label' => Yii::t('app-results', 'Result'),
   'format' => 'raw',
   'value' => function (Salmon3 $model): ?string {
     if ($model->clear_waves === null) {

@@ -37,8 +37,8 @@ echo Html::tag(
     'class' => 'simple-win-lose-pie',
     'data' => [
       'labels' => Json::encode([
-        'win' => Yii::t('app', 'Win'),
-        'lose' => Yii::t('app', 'Lose'),
+        'win' => Yii::t('app-results', 'Win'),
+        'lose' => Yii::t('app-results', 'Lose'),
       ]),
       'values' => Json::encode([
         'win' => $win,

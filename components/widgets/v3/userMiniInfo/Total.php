@@ -80,13 +80,13 @@ final class Total extends Widget
                         ),
                     ],
                     [
-                        'label' => Yii::t('app', 'Win %'),
+                        'label' => Yii::t('app-results', 'Win %'),
                         'value' => fn (): string => $aggBattles > 0
                             ? $fmt->asPercent($aggWins / $aggBattles, 1)
                             : Yii::t('app', 'N/A'),
                     ],
                     [
-                        'label' => Yii::t('app', 'Kill Ratio'),
+                        'label' => Yii::t('app-results', 'Kill Ratio'),
                         'value' => function () use ($fmt, $aggBattles, $aggKills, $aggDeaths): string {
                             if ($aggBattles < 1) {
                                 return Yii::t('app', 'N/A');

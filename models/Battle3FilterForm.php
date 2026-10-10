@@ -155,12 +155,12 @@ final class Battle3FilterForm extends Model
     public function attributeLabels()
     {
         return [
-            'knockout' => Yii::t('app', 'Knockout'),
+            'knockout' => Yii::t('app-results', 'Knockout'),
             'lobby' => Yii::t('app', 'Lobby'),
             'map' => Yii::t('app', 'Stage'),
             'played_with' => Yii::t('app-filter', 'Played With'),
             'played_with_side' => Yii::t('app-filter', 'Played With (Side)'),
-            'result' => Yii::t('app', 'Result'),
+            'result' => Yii::t('app-results', 'Result'),
             'rule' => Yii::t('app', 'Mode'),
             'term' => Yii::t('app', 'Term'),
             'term_from' => Yii::t('app-filter', 'Period From'),

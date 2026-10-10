@@ -29,8 +29,8 @@ $fmt = Yii::$app->formatter;
         'th',
         Html::encode(
           vsprintf('%s＼%s', [
-            Yii::t('app', 'd'),
-            Yii::t('app', 'k'),
+            Yii::t('app-results', 'd'),
+            Yii::t('app-results', 'k'),
           ]),
         ),
         ['class' => 'text-center'],

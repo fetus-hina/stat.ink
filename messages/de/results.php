@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * @copyright Copyright (C) 2026 AIZAWA Hina
+ * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ */
+
+declare(strict_types=1);
+
+return [
+    '24H Win %' => '24h-Siegquote',
+    'Assist' => 'Assist',
+    'Assists' => 'Assists',
+    'Avg Assists' => 'Ø Assists',
+    'Avg Deaths' => 'Ø Tode',
+    'Avg Inked' => 'Ø gefärbt',
+    'Avg Kills' => 'Ø Kills',
+    'Avg KR' => 'Ø KR',
+    'Avg Specials' => 'Ø Spezialwaffen',
+    'd' => 'd',
+    'Deaths' => 'Tode',
+    'Deaths/min' => 'Tode/Min.',
+    'Defeat' => 'Niederlage',
+    'Defeat (Exempted)' => 'Niederlage (ohne Abzug)',
+    'Draw' => 'Unentschieden',
+    'Inked' => 'Gefärbt',
+    'Inked/min' => 'Gefärbt/Min.',
+    'k' => 'k',
+    'k+a' => 'k+a',
+    'K.O.' => 'K.O.',
+    'K/D' => 'K/D',
+    'Kill / Death' => 'Kills / Tode',
+    'Kill or Assist' => 'Kill oder Assist',
+    'Kill Rate' => 'Kill-Rate',
+    'Kill Ratio' => 'Kill-Verhältnis',
+    'Kills' => 'Kills',
+    'Kills / Deaths' => 'Kills / Tode',
+    'Kills/min' => 'Kills/Min.',
+    'Knockout' => 'K.O.',
+    'KNOCKOUT!' => 'K. o.-Bonus!',
+    'KO' => 'K.O.',
+    'KR' => 'KR',
+    'Lose' => 'Niederlage',
+    'Lost' => 'Niederlage',
+    'Max Inked' => 'Max. gefärbt',
+    'Result' => 'Ergebnis',
+    'sp' => 'sp',
+    'Specials' => 'Spezialwaffen',
+    'Specials/min' => 'Spezialwaffen/Min.',
+    'Time' => 'Zeit um',
+    'Time is up' => 'Zeit um!',
+    'Time was up' => 'Zeit um!',
+    'Turf Inked' => 'Gefärbte Fläche',
+    'Turf inked (including bonus)' => 'Gefärbte Fläche (inkl. Bonus)',
+    'Victory' => 'Sieg',
+    'Win' => 'Sieg',
+    'Win %' => 'Siegquote',
+    'Wins' => 'Siege',
+    'Won' => 'Sieg',
+    '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number, plural, =1{1 Tod} other{# Tode}} in {battle, plural, =1{1 Kampf} other{# Kämpfen}}',
+    '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number, plural, =1{1 Kill} other{# Kills}} in {battle, plural, =1{1 Kampf} other{# Kämpfen}}',
+];

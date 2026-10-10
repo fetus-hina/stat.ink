@@ -124,16 +124,16 @@ if ($isTricolor) {
           ) . "\n" ?>
 <?php } ?>
 <?php } ?>
-        <th class="text-nowrap text-center col-inked"><?= Html::encode(Yii::t('app', 'Inked')) ?></th>
+        <th class="text-nowrap text-center col-inked"><?= Html::encode(Yii::t('app-results', 'Inked')) ?></th>
         <th class="text-nowrap text-center col-kill"><?= implode(' ', [
           Icon::s3Kill(),
-          Html::encode(Yii::t('app', 'k')),
+          Html::encode(Yii::t('app-results', 'k')),
         ]) ?></th>
         <th class="text-nowrap text-center col-death"><?= implode(' ' , [
           Icon::s3Death(),
-          Html::encode(Yii::t('app', 'd')),
+          Html::encode(Yii::t('app-results', 'd')),
         ]) ?></th>
-        <th class="text-nowrap text-center col-kr"><?= Html::encode(Yii::t('app', 'KR')) ?></th>
+        <th class="text-nowrap text-center col-kr"><?= Html::encode(Yii::t('app-results', 'KR')) ?></th>
         <th class="text-nowrap text-center col-special"><?= Html::encode(Yii::t('app-show-v3', 'Sp')) ?></th>
 <?php if ($isTricolor) { ?>
         <th class="text-nowrap text-center col-signal"><?= Icon::s3Signal() ?></th>

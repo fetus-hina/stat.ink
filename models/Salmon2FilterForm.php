@@ -109,7 +109,7 @@ class Salmon2FilterForm extends Model
         return [
             'stage' => Yii::t('app', 'Stage'),
             'special' => Yii::t('app', 'Special'),
-            'result' => Yii::t('app', 'Result'),
+            'result' => Yii::t('app-results', 'Result'),
             'reason' => Yii::t('app-salmon2', 'Fail Reason'),
             'term' => Yii::t('app', 'Period'),
             'filter' => Yii::t('app', 'Filter'),

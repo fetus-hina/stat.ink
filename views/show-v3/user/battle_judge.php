@@ -88,10 +88,10 @@ if ($model->our_team_count !== null && $model->their_team_count !== null) {
     (float)$model->their_team_count,
     null,
     $model->our_team_count == 100
-      ? Yii::t('app', 'KNOCKOUT!')
+      ? Yii::t('app-results', 'KNOCKOUT!')
       : (string)$model->our_team_count,
     $model->their_team_count == 100
-      ? Yii::t('app', 'KNOCKOUT!')
+      ? Yii::t('app-results', 'KNOCKOUT!')
       : (string)$model->their_team_count,
     null,
     null,

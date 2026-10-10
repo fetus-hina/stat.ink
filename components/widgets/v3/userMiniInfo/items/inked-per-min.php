@@ -13,7 +13,7 @@ use Yii;
 use app\models\UserStat3;
 
 return [
-    'label' => Yii::t('app', 'Inked/min'),
+    'label' => Yii::t('app-results', 'Inked/min'),
     'format' => ['decimal', 1],
     'value' => fn (UserStat3 $model): ?float => $model->agg_seconds
         ? $model->inked * 60.0 / $model->agg_seconds

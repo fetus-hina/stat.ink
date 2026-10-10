@@ -192,7 +192,7 @@ class Slack extends ActiveRecord
                     'short' => true,
                 ],
                 [
-                    'title' => $i18n->translate('app', 'Kill / Death', [], $lang),
+                    'title' => $i18n->translate('app-results', 'Kill / Death', [], $lang),
                     'value' => sprintf('%s / %s', $battle->kill ?? '?', $battle->death ?? '?'),
                     'short' => true,
                 ],
@@ -292,7 +292,7 @@ class Slack extends ActiveRecord
                     'short' => true,
                 ],
                 [
-                    'title' => $i18n->translate('app', 'Kill / Death', [], $lang),
+                    'title' => $i18n->translate('app-results', 'Kill / Death', [], $lang),
                     'value' => sprintf('%s / %s', $battle->kill ?? '?', $battle->death ?? '?'),
                     'short' => true,
                 ],
@@ -320,7 +320,7 @@ class Slack extends ActiveRecord
         $formatter->locale = $lang;
         $formatter->timeZone = 'Etc/UTC';
 
-        $winlose = $i18n->translate('app', $battle->result?->name ?? '???', [], $lang);
+        $winlose = $i18n->translate('app-results', $battle->result?->name ?? '???', [], $lang);
         $rule = $battle->rule
             ? $i18n->translate('app-rule3', $battle->rule->name, [], $lang)
             : $i18n->translate('app-slack', 'unknown mode', [], $lang);
@@ -386,7 +386,7 @@ class Slack extends ActiveRecord
                     'short' => true,
                 ],
                 [
-                    'title' => $i18n->translate('app', 'Kills / Deaths', [], $lang),
+                    'title' => $i18n->translate('app-results', 'Kills / Deaths', [], $lang),
                     'value' => vsprintf('%s / %s', [
                         (string)($battle->kill ?? '?'),
                         (string)($battle->death ?? '?'),

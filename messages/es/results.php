@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * @copyright Copyright (C) 2026 AIZAWA Hina
+ * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ */
+
+declare(strict_types=1);
+
+return [
+    '24H Win %' => '% de victorias (24 h)',
+    'Assist' => 'Asistencia',
+    'Assists' => 'Asistencias',
+    'Avg Assists' => 'Asistencias (media)',
+    'Avg Deaths' => 'Media de muertes',
+    'Avg Inked' => 'Media pintada',
+    'Avg Kills' => 'Media de asesinatos',
+    'Avg KR' => 'Medio MR',
+    'Avg Specials' => 'Especiales (media)',
+    'd' => 'd',
+    'Deaths' => 'Muertes',
+    'Deaths/min' => 'Muertes/min',
+    'Defeat' => 'Derrota',
+    'Defeat (Exempted)' => 'Derrota (exenta)',
+    'Draw' => 'Empate',
+    'Inked' => 'Superficie pintada',
+    'Inked/min' => 'Pintado/min',
+    'k' => 'k',
+    'k+a' => 'k+a',
+    'K.O.' => 'Palizón',
+    'K/D' => 'K/D',
+    'Kill / Death' => 'Asesinatos / Muertes',
+    'Kill or Assist' => 'Asesinato o asistencia',
+    'Kill Rate' => 'Tasa de asesinatos',
+    'Kill Ratio' => 'Proporción de asesinatos',
+    'Kills' => 'Asesinatos',
+    'Kills / Deaths' => 'Mató / Muertos',
+    'Kills/min' => 'Asesinatos/min',
+    'Knockout' => 'Palizón',
+    'KNOCKOUT!' => '¡Palizón!',
+    'KO' => 'Palizón',
+    'KR' => 'MR',
+    'Lose' => 'Derrota',
+    'Lost' => 'Derrotado',
+    'Max Inked' => 'Máxima pintado',
+    'Result' => 'Resultado',
+    'sp' => 'esp',
+    'Specials' => 'Especiales',
+    'Specials/min' => 'Especiales/min',
+    'Time' => 'Se acabó el tiempo',
+    'Time is up' => 'El tiempo ha terminado',
+    'Time was up' => 'Se acabó el tiempo',
+    'Turf Inked' => 'Superficie pintada',
+    'Turf inked (including bonus)' => 'Superficie pintada (incluyendo el bono)',
+    'Victory' => 'Victoria',
+    'Win' => 'Victoria',
+    'Win %' => '% de victorias',
+    'Wins' => 'Victorias',
+    'Won' => 'Vencido',
+    '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number} veces / {battle} batallas',
+    '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number} veces / {battle} batallas',
+];

@@ -122,7 +122,7 @@ $modes = [
   </div>
 <?php } ?>
 
-  <h2><?= Html::encode(Yii::t('app', 'Win %')) ?></h2>
+  <h2><?= Html::encode(Yii::t('app-results', 'Win %')) ?></h2>
   <div class="row">
 <?php foreach ($modes as $modeKey => $modeInfo) { ?>
 <?php $item = ArrayHelper::getValue($abstract, $modeKey, null) ?>

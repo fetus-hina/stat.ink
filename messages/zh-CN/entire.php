@@ -94,7 +94,7 @@ return [
     'Weapon Stats' => '武器统计',
     'Weapon Tier' => '武器梯队',
     'Weapon | {weapon} | {rule}' => '武器 | {weapon} | {rule}',
-    'Winning Percentage based on K/D' => '基于杀死率的胜率',
+    'Winning Percentage based on K/D' => '基于杀敌数和死亡数的胜率',
     'XP' => 'X战力',
     '{pct_point} percentage point' => '{pct_point}百分点数',
     '{pct}% CI' => '{pct}%置信区间',

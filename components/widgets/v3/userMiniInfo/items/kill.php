@@ -13,7 +13,7 @@ use Yii;
 use app\models\UserStat3;
 
 return [
-    'label' => Yii::t('app', 'Avg Kills'),
+    'label' => Yii::t('app-results', 'Avg Kills'),
     'format' => ['decimal', 2],
     'value' => fn (UserStat3 $model): ?float => $model->agg_battles
         ? $model->kills / $model->agg_battles

@@ -141,11 +141,11 @@ EOF
     'data' => [
       'legends-kill' => vsprintf('%s (%s)', [
         Yii::t('app', 'Battles'),
-        Yii::t('app', 'Kills'),
+        Yii::t('app-results', 'Kills'),
       ]),
       'legends-death' => vsprintf('%s (%s)', [
         Yii::t('app', 'Battles'),
-        Yii::t('app', 'Deaths'),
+        Yii::t('app-results', 'Deaths'),
       ]),
     ],
   ]) . "\n" ?>
@@ -159,11 +159,11 @@ EOF
         'data-scale' => 'no',
         'data-legends-win' => vsprintf('%s (%s)', [
           Yii::t('app', 'Battles'),
-          Yii::t('app', 'Win'),
+          Yii::t('app-results', 'Win'),
         ]),
         'data-legends-lose' => vsprintf('%s (%s)', [
           Yii::t('app', 'Battles'),
-          Yii::t('app', 'Lose'),
+          Yii::t('app-results', 'Lose'),
         ]),
       ]) . "\n" ?>
     </div>
@@ -173,12 +173,12 @@ EOF
         'data-base' => 'kill',
         'data-scale' => 'yes',
         'data-legends-win' => vsprintf('%s (%s)', [
-          Yii::t('app', 'Win %'),
-          Yii::t('app', 'Win'),
+          Yii::t('app-results', 'Win %'),
+          Yii::t('app-results', 'Win'),
         ]),
         'data-legends-lose' => vsprintf('%s (%s)', [
-          Yii::t('app', 'Win %'),
-          Yii::t('app', 'Lose'),
+          Yii::t('app-results', 'Win %'),
+          Yii::t('app-results', 'Lose'),
         ]),
       ]) . "\n" ?>
     </div>
@@ -192,11 +192,11 @@ EOF
         'data-scale' => 'no',
         'data-legends-win' => vsprintf('%s (%s)', [
           Yii::t('app', 'Battles'),
-          Yii::t('app', 'Win'),
+          Yii::t('app-results', 'Win'),
         ]),
         'data-legends-lose' => vsprintf('%s (%s)', [
           Yii::t('app', 'Battles'),
-          Yii::t('app', 'Lose'),
+          Yii::t('app-results', 'Lose'),
         ]),
       ]) . "\n" ?>
     </div>
@@ -206,12 +206,12 @@ EOF
         'data-base' => 'death',
         'data-scale' => 'yes',
         'data-legends-win' => vsprintf('%s (%s)', [
-          Yii::t('app', 'Win %'),
-          Yii::t('app', 'Win'),
+          Yii::t('app-results', 'Win %'),
+          Yii::t('app-results', 'Win'),
         ]),
         'data-legends-lose' => vsprintf('%s (%s)', [
-          Yii::t('app', 'Win %'),
-          Yii::t('app', 'Lose'),
+          Yii::t('app-results', 'Win %'),
+          Yii::t('app-results', 'Lose'),
         ]),
       ]) . "\n" ?>
     </div>
@@ -297,7 +297,7 @@ EOF
           },
         ],
         [
-          'label' => Yii::t('app', 'Win %'),
+          'label' => Yii::t('app-results', 'Win %'),
           'format' => 'raw',
           'headerOptions' => [
             'style' => [

@@ -8,8 +8,8 @@
 use yii\helpers\Html;
 
 $list = [
-  'ko' => Yii::t('app', 'Knockout'),
-  'time' => Yii::t('app', 'Time is up'),
+  'ko' => Yii::t('app-results', 'Knockout'),
+  'time' => Yii::t('app-results', 'Time is up'),
 ];
 
 $this->registerJs('$(".legend-bg").each(function(){$(this).css("background-color", window.colorScheme[$(this).attr("data-color")])});');

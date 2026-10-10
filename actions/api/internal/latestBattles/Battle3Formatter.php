@@ -133,7 +133,7 @@ trait Battle3Formatter
         }
 
         $mapText = $map ? Yii::t('app-map3', $map->name) : '?';
-        $resultText = $result ? Yii::t('app', $result->name) : '?';
+        $resultText = $result ? Yii::t('app-results', $result->name) : '?';
         return vsprintf('%s @%s', [
             $resultText,
             $mapText,

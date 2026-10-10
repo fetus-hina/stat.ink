@@ -33,7 +33,6 @@ return [
     'If you misuse this feature, you will be banned.' => '不適切な使用を確認した場合、アカウントを削除し以後のご利用をお断りする場合があります。',
     'Incomplete Data' => '不完全なデータ',
     'Judge' => 'ジャッジ',
-    'K.O.' => 'ノックアウト',
     'Level (after the battle)' => 'ランク（バトル後）',
     'Max Kill Combo' => '最大キルコンボ',
     'Max Kill Streak' => '最大ストリーク',

@@ -12,5 +12,5 @@ return [
   'contentOptions' => ['class' => 'cell-kill-or-assist'],
   'format' => 'integer',
   'headerOptions' => ['class' => 'cell-kill-or-assist'],
-  'label' => Yii::t('app', 'Kill or Assist'),
+  'label' => Yii::t('app-results', 'Kill or Assist'),
 ];

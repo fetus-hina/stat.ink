@@ -19,5 +19,5 @@ use yii\web\View;
 echo $this->render('includes/column', [
   'data' => $data,
   'xGet' => 'inked',
-  'xLabel' => Yii::t('app', 'Turf Inked'),
+  'xLabel' => Yii::t('app-results', 'Turf Inked'),
 ]);

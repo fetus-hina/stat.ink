@@ -23,5 +23,5 @@ echo $this->render('includes/chart', [
   'getX' => fn (StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage|StatWeapon3XUsagePerVersion $model): ?float => $model->seconds > 0 && $model->battles > 0
     ? $model->avg_death / ($model->seconds / $model->battles) * 60.0
     : null,
-  'xLabel' => Yii::t('app', 'Deaths/min'),
+  'xLabel' => Yii::t('app-results', 'Deaths/min'),
 ]);

@@ -191,7 +191,7 @@ $this->registerCss(implode('', [
       'class' => 'graph stat-use-pct',
       'data' => [
         'label-use-pct' => Yii::t('app-entire', 'Use %'),
-        'label-win-pct' => Yii::t('app', 'Win %'),
+        'label-win-pct' => Yii::t('app-results', 'Win %'),
       ],
     ]
   ) . "\n"
@@ -281,10 +281,10 @@ $normalizedSeconds = ($rule->key == 'nawabari' ? 3 : 5) * 60;
     [
       'class' => 'graph stat-kd-sp-inked',
       'data' => [
-        'label-inked' => Yii::t('app', 'Avg Inked'),
-        'label-kills' => Yii::t('app', 'Avg Kills'),
-        'label-deaths' => Yii::t('app', 'Avg Deaths'),
-        'label-specials' => Yii::t('app', 'Avg Specials'),
+        'label-inked' => Yii::t('app-results', 'Avg Inked'),
+        'label-kills' => Yii::t('app-results', 'Avg Kills'),
+        'label-deaths' => Yii::t('app-results', 'Avg Deaths'),
+        'label-specials' => Yii::t('app-results', 'Avg Specials'),
       ],
     ]
   ) . "\n"
@@ -513,7 +513,7 @@ $normalizedSeconds = ($rule->key == 'nawabari' ? 3 : 5) * 60;
           // }}}
         ],
         [
-          'label' => Html::encode(Yii::t('app', 'Win %')), // {{{
+          'label' => Html::encode(Yii::t('app-results', 'Win %')), // {{{
           'format' => 'raw',
           'value' => function (array $map) use ($winRate): string {
             if (!isset($winRate[$map['key']])) {
@@ -538,10 +538,10 @@ $normalizedSeconds = ($rule->key == 'nawabari' ? 3 : 5) * 60;
           },
           // }}}
         ],
-        $_dataColumn(Yii::t('app', 'Kills'), 'kill', $kills),
-        $_dataColumn(Yii::t('app', 'Deaths'), 'death', $deaths),
-        $_dataColumn(Yii::t('app', 'Specials'), 'special', $specials),
-        $_dataColumn(Yii::t('app', 'Assist'), 'assist', $assists),
+        $_dataColumn(Yii::t('app-results', 'Kills'), 'kill', $kills),
+        $_dataColumn(Yii::t('app-results', 'Deaths'), 'death', $deaths),
+        $_dataColumn(Yii::t('app-results', 'Specials'), 'special', $specials),
+        $_dataColumn(Yii::t('app-results', 'Assist'), 'assist', $assists),
       ],
     ]) . "\n" ?>
   </div>

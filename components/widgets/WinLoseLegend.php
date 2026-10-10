@@ -30,7 +30,7 @@ class WinLoseLegend extends Widget
         };
         $html = Html::tag(
             'div',
-            $mkLegend(Yii::t('app', 'Win'), 'win') . $mkLegend(Yii::t('app', 'Lose'), 'lose'),
+            $mkLegend(Yii::t('app-results', 'Win'), 'win') . $mkLegend(Yii::t('app-results', 'Lose'), 'lose'),
             ['id' => "{$base}"],
         );
 
