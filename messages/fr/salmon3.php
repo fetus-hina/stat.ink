@@ -23,7 +23,7 @@ return [
     'Defeated' => 'Vaincus',
     'Defeated (others)' => 'Vaincus par d\'autres',
     'Defeated by {user}' => 'Vaincus par {user}',
-    'Delete This Job' => 'Supprimé ce travail',
+    'Delete This Job' => 'Supprimer cette mission',
     'Eggs' => 'Œufs',
     'Eggstra Work' => 'Défi œuf sup\'',
     'For a more accurate occurrence rate, see {link}.' => 'Pour un taux de fréquence plus précis, voir {link}.',

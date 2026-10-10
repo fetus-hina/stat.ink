@@ -24,7 +24,7 @@ return [
     'Power' => 'Power',
     'Power (After)' => 'Power (après)',
     'Progress' => 'Progres',
-    'Rank-up Battle' => 'Match de rang supérieur',
+    'Rank-up Battle' => 'Match de rang',
     'Regardless of your time zone setting, it is grouped using UTC.' => 'Quel que soit votre paramètre de fuseau horaire, il est regroupé en UTC.',
     'Series Progress' => 'Progression des Séries',
     'Series Weapon Power' => 'Arsenal Power (série)',
@@ -37,6 +37,6 @@ return [
     '{name}\'s Badge Progress' => 'Progression de badge de {name}',
     '{name}\'s Battle Stats (Medals)' => 'Stats de match de {name} (Médailles)',
     '{name}\'s Battle Stats (Winning Rate)' => 'Stats de matchs de {name} (par taux de victoires)',
-    '{name}\'s X Power' => 'X power de {name}',
+    '{name}\'s X Power' => 'X Power de {name}',
     '{nFormatted} remaining' => '{nFormatted} restant',
 ];

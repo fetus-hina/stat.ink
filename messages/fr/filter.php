@@ -17,7 +17,7 @@ return [
     'As an enemy' => 'En adversaire',
     'Connectivity' => 'Connectivité',
     'Consider to be Defeated' => 'Considéré comme une défaite',
-    'Current/Last Splatfest' => 'Actuel/Dernier Splatfest',
+    'Current/Last Splatfest' => 'Festival actuel/dernier',
     'Current Period' => 'Période Actuelle',
     'Filter by ally or enemy' => 'Filtrer par allié ou adversaire',
     'Filter Query' => 'Requête de Filtre',
