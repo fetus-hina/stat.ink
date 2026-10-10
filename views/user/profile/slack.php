@@ -75,7 +75,7 @@ echo GridView::widget([
       },
     ],
     [
-      'label' => Yii::t('app', 'User Name'),
+      'label' => Yii::t('app-user', 'User Name'),
       'value' => function (Slack $model): string {
         $value = trim((string)$model->username);
 

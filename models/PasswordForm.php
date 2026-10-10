@@ -47,10 +47,10 @@ class PasswordForm extends Model
     public function attributeLabels()
     {
         return [
-            'screen_name' => Yii::t('app', 'Screen Name (Login Name)'),
-            'password' => Yii::t('app', 'Current Password'),
-            'new_password' => Yii::t('app', 'New Password'),
-            'new_password_repeat' => Yii::t('app', 'New Password (again)'),
+            'screen_name' => Yii::t('app-user', 'Screen Name (Login Name)'),
+            'password' => Yii::t('app-user', 'Current Password'),
+            'new_password' => Yii::t('app-user', 'New Password'),
+            'new_password_repeat' => Yii::t('app-user', 'New Password (again)'),
         ];
     }
 

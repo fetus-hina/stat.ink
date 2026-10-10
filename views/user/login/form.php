@@ -47,7 +47,7 @@ use yii\web\View;
       </div>
       <div class="form-group mb-3">
         <?= Html::a(
-          Html::encode(Yii::t('app', 'Register')),
+          Html::encode(Yii::t('app-user', 'Register')),
           ['/user/register'],
           ['class' => 'btn btn-default btn-block']
         ) . "\n" ?>

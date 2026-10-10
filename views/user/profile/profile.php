@@ -172,7 +172,7 @@ $f = Yii::$app->formatter;
       'attribute' => 'hide_data_on_toppage',
       'value' => match ((bool)$user->hide_data_on_toppage) {
         false => Yii::t('app-user', 'Show your data on the top page'),
-        true => Yii::t('app', 'Hide your data on the top page'),
+        true => Yii::t('app-user', 'Hide your data on the top page'),
       },
     ],
     [
@@ -202,21 +202,21 @@ $f = Yii::$app->formatter;
     [
       'label' => implode(' ', [
         Icon::splatoon2(),
-        Yii::t('app', "Link from other user's results"),
+        Yii::t('app-user', "Link from other user's results"),
       ]),
       'value' => Yii::t('app', $user->linkMode->name),
     ],
     [
       'label' => implode(' ', [
         Icon::splatoon1(),
-        Yii::t('app', 'Region (used for Splatfest)'),
+        Yii::t('app-user', 'Region (used for Splatfest)'),
       ]),
       'value' => Yii::t('app-region', $user->region->name),
     ],
     [
       'label' => implode(' ', [
         Icon::splatoon1(),
-        Yii::t('app', 'Language (used for OStatus)'),
+        Yii::t('app-user', 'Language (used for OStatus)'),
       ]),
       'value' => Html::encode(implode(' / ', [
         $user->defaultLanguage->name,
@@ -271,7 +271,7 @@ $f = Yii::$app->formatter;
     [
       'label' => implode(' ', [
         Icon::splatoon1(),
-        Yii::t('app', 'Capture Environment'),
+        Yii::t('app-user', 'Capture Environment'),
       ]),
       'attribute' => 'env.text',
       'format' => 'ntext',

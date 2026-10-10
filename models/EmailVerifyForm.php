@@ -32,7 +32,7 @@ class EmailVerifyForm extends Model
                 'enableClientValidation' => false,
                 'operator' => '===',
                 'message' => Yii::t('yii', '{attribute} is invalid.', [
-                    'attribute' => Yii::t('app', 'Verification Code'),
+                    'attribute' => Yii::t('app-user', 'Verification Code'),
                 ]),
             ],
         ];
@@ -42,7 +42,7 @@ class EmailVerifyForm extends Model
     {
         return [
             'email' => Yii::t('app', 'Email'),
-            'verifyCode' => Yii::t('app', 'Verification Code'),
+            'verifyCode' => Yii::t('app-user', 'Verification Code'),
         ];
     }
 

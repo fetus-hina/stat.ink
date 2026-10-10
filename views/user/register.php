@@ -22,7 +22,7 @@ use yii\web\View;
 
 $this->title = implode(' | ', [
   Yii::$app->name,
-  Yii::t('app', 'Register'),
+  Yii::t('app-user', 'Register'),
 ]);
 
 ZxcvbnAsset::register($this);
@@ -32,7 +32,7 @@ ZxcvbnAsset::register($this);
   <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="padding:0 5%">
       <h1>
-        <?= Html::encode(Yii::t('app', 'Register')) . "\n" ?>
+        <?= Html::encode(Yii::t('app-user', 'Register')) . "\n" ?>
       </h1>
       <?= Html::a(
         Yii::t('app-user', 'If you already have an account, please click here.'),
@@ -75,7 +75,7 @@ ZxcvbnAsset::register($this);
         ]) . "\n" ?>
         <div id="password-strength"></div>
         <?= Html::submitButton(
-          Html::encode(Yii::t('app', 'Register')),
+          Html::encode(Yii::t('app-user', 'Register')),
           ['class' => 'btn btn-primary btn-block']
         ) . "\n" ?>
       <?php ActiveForm::end(); echo "\n" ?>

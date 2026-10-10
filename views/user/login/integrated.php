@@ -43,7 +43,7 @@ $provided = $enableDiscord || $enableGoogle || $enableTwitter;
       <?= Html::a(
         implode(' ', [
           Icon::discord(),
-          Html::encode(Yii::t('app', 'Log in with Discord')),
+          Html::encode(Yii::t('app-user', 'Log in with Discord')),
         ]),
         ['/user/login-with-discord'],
         [
@@ -56,7 +56,7 @@ $provided = $enableDiscord || $enableGoogle || $enableTwitter;
       <?= Html::a(
         implode(' ', [
           Icon::google(),
-          Html::encode(Yii::t('app', 'Log in with Google')),
+          Html::encode(Yii::t('app-user', 'Log in with Google')),
         ]),
         ['/user/login-with-google'],
         [
@@ -69,7 +69,7 @@ $provided = $enableDiscord || $enableGoogle || $enableTwitter;
       <?= Html::a(
         implode(' ', [
           Icon::twitter(),
-          Html::encode(Yii::t('app', 'Log in with Twitter')),
+          Html::encode(Yii::t('app-user', 'Log in with Twitter')),
         ]),
         ['/user/login-with-twitter'],
         [

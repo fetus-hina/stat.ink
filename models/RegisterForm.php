@@ -31,7 +31,7 @@ class RegisterForm extends Model
             [['screen_name'], 'unique',
                 'targetClass' => User::class,
                 'targetAttribute' => ['screen_name'],
-                'message' => Yii::t('app', 'This {attribute} is already in use.'),
+                'message' => Yii::t('app-user', 'This {attribute} is already in use.'),
             ],
             [['name'], 'string', 'max' => 15],
             [['password'], 'string', 'min' => 10],
@@ -48,10 +48,10 @@ class RegisterForm extends Model
     public function attributeLabels()
     {
         return [
-            'screen_name' => Yii::t('app', 'Screen Name (Login Name)'),
+            'screen_name' => Yii::t('app-user', 'Screen Name (Login Name)'),
             'password' => Yii::t('app', 'Password'),
-            'password_repeat' => Yii::t('app', 'Password (again)'),
-            'name' => Yii::t('app', 'Name (for display)'),
+            'password_repeat' => Yii::t('app-user', 'Password (again)'),
+            'name' => Yii::t('app-user', 'Name (for display)'),
         ];
     }
 

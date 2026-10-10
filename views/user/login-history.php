@@ -26,14 +26,14 @@ use yii\web\View;
 
 TableResponsiveForceAsset::register($this);
 
-$title = Yii::t('app', 'Login History');
+$title = Yii::t('app-user', 'Login History');
 $this->title = implode(' | ', [
   Yii::$app->name,
   $title,
 ]);
 ?>
 <div class="container">
-  <h1><?= Html::encode(Yii::t('app', 'Login History')) ?></h1>
+  <h1><?= Html::encode(Yii::t('app-user', 'Login History')) ?></h1>
   <p>
     <?= Html::a(
       implode(' ', [

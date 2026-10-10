@@ -17,7 +17,7 @@ use yii\web\View;
 
 echo Html::tag(
   'h2',
-  Html::encode(Yii::t('app', 'Login History')),
+  Html::encode(Yii::t('app-user', 'Login History')),
 ) . "\n";
 
 echo Html::tag(
@@ -26,7 +26,7 @@ echo Html::tag(
     Html::a(
       implode(' ', [
         Icon::loginHistory(),
-        Html::encode(Yii::t('app', 'Login History')),
+        Html::encode(Yii::t('app-user', 'Login History')),
       ]),
       ['user/login-history'],
       ['class' => 'btn btn-default btn-block text-left'],

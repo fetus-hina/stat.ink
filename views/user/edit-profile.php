@@ -38,7 +38,7 @@ $this->title = implode(' | ', [
     <?= $_->field($form, 'hide_data_on_toppage')
       ->dropDownList([
         '0' => Yii::t('app-user', 'Show your data on the top page'),
-        '1' => Yii::t('app', 'Hide your data on the top page'),
+        '1' => Yii::t('app-user', 'Hide your data on the top page'),
       ])
       ->hint(
         implode('<br>', [
@@ -53,7 +53,7 @@ $this->title = implode(' | ', [
         implode(' ', [
           Icon::splatoon1(),
           Icon::splatoon2(),
-          Html::encode(Yii::t('app', 'Black out other players from the result image')),
+          Html::encode(Yii::t('app-user', 'Black out other players from the result image')),
         ]),
       )
       ->dropDownList([
@@ -83,7 +83,7 @@ JS
       ->label(
         implode(' ', [
           Icon::splatoon2(),
-          Html::encode(Yii::t('app', 'Black out other players from the details list')),
+          Html::encode(Yii::t('app-user', 'Black out other players from the details list')),
         ]),
       )
       ->dropDownList([
@@ -116,7 +116,7 @@ JS
       ->label(
         implode(' ', [
           Icon::splatoon2(),
-          Html::encode(Yii::t('app', 'Link from other user\'s results')),
+          Html::encode(Yii::t('app-user', 'Link from other user\'s results')),
         ]),
       )
       ->dropDownList($form->linkModes) . "\n"
@@ -126,7 +126,7 @@ JS
       ->label(
         implode(' ', [
           Icon::splatoon1(),
-          Html::encode(Yii::t('app', 'Region (used for Splatfest)')),
+          Html::encode(Yii::t('app-user', 'Region (used for Splatfest)')),
         ]),
       )
       ->dropDownList($regions) . "\n" ?>
@@ -135,7 +135,7 @@ JS
       ->label(
         implode(' ', [
           Icon::splatoon1(),
-          Html::encode(Yii::t('app', 'Language (used for OStatus)')),
+          Html::encode(Yii::t('app-user', 'Language (used for OStatus)')),
         ]),
       )
       ->dropDownList($languages) . "\n"
@@ -181,7 +181,7 @@ JS
       ->label(
         implode(' ', [
           Icon::splatoon1(),
-          Html::encode(Yii::t('app', 'Capture Environment')),
+          Html::encode(Yii::t('app-user', 'Capture Environment')),
         ]),
       )
       ->textArea([
