@@ -41,7 +41,7 @@ $this->registerCss(
     <p class="mb-1 small text-muted">
       <?= Html::encode(
         vsprintf('%s: %s', [
-          Yii::t('app-entire', 'Samples'),
+          Yii::t('app-statistics', 'Samples'),
           Yii::$app->formatter->asInteger(array_sum($votes)),
         ]),
       ) . "\n" ?>
@@ -82,7 +82,7 @@ $this->registerCss(
               <th></th>
               <th><?= Html::encode(Yii::t('app', 'Team')) ?></th>
               <th><?= Html::encode(Yii::t('app-entire', 'Vote %')) ?></th>
-              <th><?= Html::encode(Yii::t('app-entire', 'Samples')) ?></th>
+              <th><?= Html::encode(Yii::t('app-statistics', 'Samples')) ?></th>
             </tr>
           </thead>
           <tbody>

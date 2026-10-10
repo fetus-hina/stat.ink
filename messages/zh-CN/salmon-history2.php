@@ -8,7 +8,6 @@
 declare(strict_types=1);
 
 return [
-    'Average' => '平均',
     'Golden E.' => '金鲑鱼卵数',
     'Points' => '分数',
     'Power E.' => '鲑鱼卵数',

@@ -17,7 +17,6 @@ return [
     'Guessed:' => 'Indovinato:',
     'Guess the region' => 'Indovini la regione',
     'K/min' => 'K/min',
-    'max={max} min={min} average={avg} median={median} mode={mode}' => 'max= {max} min= {min} media= {avg} mediana= {median} modalità= {mode}',
     'Room' => 'Camera',
     'Room info (Private)' => 'Informazioni sulla camera (privata)',
     'S/min' => 'S/min',

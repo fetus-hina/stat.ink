@@ -68,7 +68,6 @@ return [
     'Primary ability is counted as {value_1_0} and secondary is counted as {value_0_3}.' => 'メインを{value_1_0}、サブを{value_0_3}として計算しています。',
     'Regression Line' => '回帰直線',
     'Salmon Run results (CSV)' => 'サーモンランのリザルト情報 (CSV)',
-    'Samples' => 'サンプル数',
     'Schema' => 'スキーマ',
     'Significant?' => '有意?',
     'Special Uses' => 'スペシャル使用回数',

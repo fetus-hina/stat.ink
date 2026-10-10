@@ -17,7 +17,6 @@ return [
     'Guessed:' => 'Gegokt:',
     'Guess the region' => 'Raad de regio',
     'K/min' => 'K/min',
-    'max={max} min={min} average={avg} median={median} mode={mode}' => 'max= {max} min= {min} gemiddelde= {avg} mediaan= {median} modus= {mode}',
     'Room' => 'Kamer',
     'Room info (Private)' => 'Kamerinfo (Privé)',
     'S/min' => 'S/min',

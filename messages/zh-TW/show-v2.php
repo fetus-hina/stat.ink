@@ -18,7 +18,6 @@ return [
     'Guess the region' => '猜測區域',
     'k+a/sp' => 'k+a/sp',
     'K/min' => '擊殺數/分鐘',
-    'max={max} min={min} average={avg} median={median} mode={mode}' => '最大值={max} 最小值={min} 平均值={avg} 中位值={median} 衆數={mode}',
     'Room' => '房間',
     'Room info (Private)' => '房間資訊(是否私人比賽)',
     'S/min' => '特殊武器/分鐘',

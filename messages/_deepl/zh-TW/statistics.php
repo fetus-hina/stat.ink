@@ -9,8 +9,10 @@ declare(strict_types=1);
 
 return [
     'Average' => '平均值',
+    'Average:' => '平均值：',
     'Avg.' => '平均',
     'IQR' => 'IQR',
+    'max={max} min={min} average={avg} median={median} mode={mode}' => '最大= {max} 最小= {min} 平均= {avg} 中位數= {median} 模式= {mode}',
     'max={max} min={min} median={median}' => 'max= {max} min= {min} median= {median}',
     'Maximum' => '最多',
     'Median' => '中位數',

@@ -82,7 +82,7 @@ UserStatNawabariAsset::register($this);
           ['id' => sprintf('inked-%s', $map->key)]
         ) . "\n" ?>
         <p><?= vsprintf('%s %s', [
-          Html::encode(Yii::t('app-show', 'Average:')),
+          Html::encode(Yii::t('app-statistics', 'Average:')),
           implode(', ', array_filter([
             $map->avgInked
               ? Html::encode(sprintf('%sp', Yii::$app->formatter->asDecimal($map->avgInked, 1)))

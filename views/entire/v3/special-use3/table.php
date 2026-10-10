@@ -109,7 +109,7 @@ $fmt = Yii::$app->formatter;
           'attribute' => 'sample_size',
           'contentOptions' => ['class' => 'text-right'],
           'format' => 'integer',
-          'label' => Yii::t('app-entire', 'Samples'),
+          'label' => Yii::t('app-statistics', 'Samples'),
         ],
       ],
     ]) . "\n" ?>

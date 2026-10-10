@@ -68,7 +68,6 @@ return [
     'Primary ability is counted as {value_1_0} and secondary is counted as {value_0_3}.' => 'El potenciador principal se cuenta como {value_1_0} y el secundario como {value_0_3}.',
     'Regression Line' => 'Línea de regresión',
     'Salmon Run results (CSV)' => 'Resultados de Salmon Run (CSV)',
-    'Samples' => 'Muestras',
     'Schema' => 'Esquema',
     'Significant?' => '¿Significativo?',
     'Special Uses' => 'Usos del arma especial',

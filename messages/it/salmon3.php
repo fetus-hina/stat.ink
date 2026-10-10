@@ -44,7 +44,6 @@ return [
     'Max.' => 'Max.',
     'Max. Hazard Level (cleared)' => 'Rischio max. (superato)',
     'MAX Hazard Level Cleared' => 'Rischio massimo superato',
-    'Mode{translate_hint_stats}' => 'Moda{translate_hint_stats}',
     'Normal Job' => 'Lavoro normale',
     'Normal Waves' => 'Ondate normali',
     'Not Defeated' => 'Non sconfitto',

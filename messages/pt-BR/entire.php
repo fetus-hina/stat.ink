@@ -68,7 +68,6 @@ return [
     'Primary ability is counted as {value_1_0} and secondary is counted as {value_0_3}.' => 'A habilidade primária é contada como {value_1_0} e a secundária como {value_0_3}.',
     'Regression Line' => 'Linha de Regressão',
     'Salmon Run results (CSV)' => 'Resultados do Salmon Run (CSV)',
-    'Samples' => 'Amostras',
     'Schema' => 'Esquema',
     'Significant?' => 'Significante?',
     'Special Uses' => 'Usos de Especial',

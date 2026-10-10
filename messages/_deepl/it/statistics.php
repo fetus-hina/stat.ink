@@ -9,8 +9,10 @@ declare(strict_types=1);
 
 return [
     'Average' => 'Media',
+    'Average:' => 'Media:',
     'Avg.' => 'Media.',
     'IQR' => 'IQR',
+    'max={max} min={min} average={avg} median={median} mode={mode}' => 'max= {max} min= {min} media= {avg} mediana= {median} modalità= {mode}',
     'max={max} min={min} median={median}' => 'max= {max} min= {min} median= {median}',
     'Maximum' => 'Massimo',
     'Median' => 'Mediano',

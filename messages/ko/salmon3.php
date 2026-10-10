@@ -44,7 +44,6 @@ return [
     'Max.' => '최대',
     'Max. Hazard Level (cleared)' => '클리어한 최대 위험도',
     'MAX Hazard Level Cleared' => '위험도 MAX를 클리어했다',
-    'Mode{translate_hint_stats}' => '최빈값{translate_hint_stats}',
     'Normal Job' => '일반 아르바이트',
     'Normal Waves' => '일반 WAVE',
     'Not Defeated' => '쓰러트리지 못한 거물연어',

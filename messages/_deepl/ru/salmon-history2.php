@@ -8,7 +8,6 @@
 declare(strict_types=1);
 
 return [
-    'Average' => 'Средний',
     'Golden E.' => 'Золотая Е.',
     'Points' => 'Баллы',
     'Power E.' => 'Мощность Е.',

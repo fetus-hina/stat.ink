@@ -44,7 +44,6 @@ return [
     'Max.' => 'Max.',
     'Max. Hazard Level (cleared)' => 'Max. risiconiveau (voltooid)',
     'MAX Hazard Level Cleared' => 'Gewonnen op het maximale risiconiveau!',
-    'Mode{translate_hint_stats}' => 'Modus{translate_hint_stats}',
     'Normal Job' => 'Normale klus',
     'Normal Waves' => 'Normale golven',
     'Not Defeated' => 'Niet verslagen',

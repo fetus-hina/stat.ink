@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 return [
     'Ability Effect' => 'Wirkung der Effekte',
-    'Average:' => 'Durchschnitt:',
     'Bad guys are in control' => 'Gegnerisches Team hat die Kontrolle',
     'Bad guys winning' => 'Gegnerisches Team führt',
     'combos' => 'Kombos',

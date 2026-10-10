@@ -68,7 +68,6 @@ return [
     'Primary ability is counted as {value_1_0} and secondary is counted as {value_0_3}.' => 'Hoofdeffecten tellen als {value_1_0} en extra effecten als {value_0_3}.',
     'Regression Line' => 'Regressielijn',
     'Salmon Run results (CSV)' => 'Salmon Run-resultaten (CSV)',
-    'Samples' => 'Steekproefgrootte',
     'Schema' => 'Schema',
     'Significant?' => 'Significant?',
     'Special Uses' => 'Gebruik speciaal wapen',

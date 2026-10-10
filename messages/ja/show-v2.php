@@ -18,7 +18,6 @@ return [
     'Guess the region' => '地域を推定する',
     'k+a/sp' => 'k+a/sp',
     'K/min' => '殺/分',
-    'max={max} min={min} average={avg} median={median} mode={mode}' => '最大={max} 最小={min} 平均={avg} 中央値={median} 最頻値={mode}',
     'Room' => '部屋',
     'Room info (Private)' => '部屋情報（プラベ）',
     'S/min' => 'スペ/分',

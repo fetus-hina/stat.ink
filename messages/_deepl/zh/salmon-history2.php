@@ -8,7 +8,6 @@
 declare(strict_types=1);
 
 return [
-    'Average' => '平均值',
     'Golden E.' => '金色的E。',
     'Points' => '点数',
     'Power E.' => '电力E。',

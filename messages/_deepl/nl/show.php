@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 return [
     'Ability Effect' => 'Vermogenseffect',
-    'Average:' => 'Gemiddeld:',
     'Bad guys are in control' => 'De slechteriken hebben de touwtjes in handen',
     'Bad guys winning' => 'Slechteriken winnen',
     'combos' => 'combo\'s',

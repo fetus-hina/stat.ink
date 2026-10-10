@@ -68,7 +68,6 @@ return [
     'Primary ability is counted as {value_1_0} and secondary is counted as {value_0_3}.' => '',
     'Regression Line' => '',
     'Salmon Run results (CSV)' => '',
-    'Samples' => '',
     'Schema' => '',
     'Significant?' => '',
     'Special Uses' => '',

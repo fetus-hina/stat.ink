@@ -68,7 +68,6 @@ return [
     'Primary ability is counted as {value_1_0} and secondary is counted as {value_0_3}.' => 'Le bonus principal compte pour {value_1_0} et chaque bonus additionnel pour {value_0_3}.',
     'Regression Line' => 'Régression linéaire',
     'Salmon Run results (CSV)' => 'Résultat Salmon Run (CSV)',
-    'Samples' => 'Échantillons',
     'Schema' => 'Schéma',
     'Significant?' => 'Significatif ?',
     'Special Uses' => 'Utilisations de l\'arme spéciale',

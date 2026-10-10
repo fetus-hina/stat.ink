@@ -17,7 +17,6 @@ return [
     'Guessed:' => 'Угадал:',
     'Guess the region' => 'Угадайте регион',
     'K/min' => 'к/мин',
-    'max={max} min={min} average={avg} median={median} mode={mode}' => 'max= {max} min= {min} average= {avg} median= {median} mode= mode= min= average= median= median= mode= mode= {mode}',
     'Room' => 'Комната',
     'Room info (Private)' => 'Информация о номере (личный)',
     'S/min' => 'в минуту',

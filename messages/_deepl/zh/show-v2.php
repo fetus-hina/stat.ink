@@ -17,7 +17,6 @@ return [
     'Guessed:' => '猜测。',
     'Guess the region' => '猜测区域',
     'K/min' => 'K/min',
-    'max={max} min={min} average={avg} median={median} mode={mode}' => '最大= {max} 最小= {min} 平均= {avg} 中位数= {median} 模式= {mode}',
     'Room' => '房间',
     'Room info (Private)' => '房间信息(私人)',
     'S/min' => 'S/min',

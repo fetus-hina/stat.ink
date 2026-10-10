@@ -68,7 +68,6 @@ return [
     'Primary ability is counted as {value_1_0} and secondary is counted as {value_0_3}.' => 'L\'abilità principale è conteggiata come {value_1_0} e quella secondaria come {value_0_3}.',
     'Regression Line' => 'Retta di regressione',
     'Salmon Run results (CSV)' => 'Risultati di Salmon Run (CSV)',
-    'Samples' => 'Campioni',
     'Schema' => 'Schema',
     'Significant?' => 'Significativo?',
     'Special Uses' => 'Utilizzi speciali',

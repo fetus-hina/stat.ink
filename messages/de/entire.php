@@ -68,7 +68,6 @@ return [
     'Primary ability is counted as {value_1_0} and secondary is counted as {value_0_3}.' => 'Haupteffekte werden als {value_1_0} und Zusatzeffekte als {value_0_3} gezählt.',
     'Regression Line' => 'Regressionsgerade',
     'Salmon Run results (CSV)' => 'Salmon-Run-Ergebnisse (CSV)',
-    'Samples' => 'Stichproben',
     'Schema' => 'Schema',
     'Significant?' => 'Signifikant?',
     'Special Uses' => 'Spezialeinsätze',

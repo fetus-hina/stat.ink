@@ -8,7 +8,6 @@
 declare(strict_types=1);
 
 return [
-    'Average' => 'Moyenne',
     'Golden E.' => 'Oeuf Doré',
     'Points' => 'Points',
     'Power E.' => 'Oeuf de poisson',

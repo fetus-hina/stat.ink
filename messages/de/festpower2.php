@@ -10,7 +10,6 @@ declare(strict_types=1);
 return [
     '"Mistaken": On {date}, <a href="{url}" class="alert-link">Nintendo misconfigured the matching server and ran the fest.</a>' => '„Fehlerhaft“: Am {date} <a href="{url}" class="alert-link">hat Nintendo das Splatfest mit falsch konfiguriertem Matchmaking-Server durchgeführt.</a>',
     'All' => 'Gesamt',
-    'Average' => 'Durchschnitt',
     'Battles' => 'Kämpfe',
     'Battles (all)' => 'Kämpfe (gesamt)',
     'Battles (mistaken)' => 'Kämpfe (fehlerhaft)',
@@ -18,13 +17,9 @@ return [
     'Greater Win % (all)' => 'Siegquote des Stärkeren (gesamt)',
     'Greater Win % (mistaken)' => 'Siegquote des Stärkeren (fehlerhaft)',
     'Greater Win % (normal)' => 'Siegquote des Stärkeren (normal)',
-    'Median' => 'Median',
     'Mistaken' => 'Fehlerhaft',
     'N/A' => 'k. A.',
     'Normal' => 'Normal',
     'Power Diff' => 'Power-Differenz',
-    'Q1/4' => '1. Quartil',
-    'Q3/4' => '3. Quartil',
     'Splatfest Power vs Win %' => 'Splatfest-Power vs. Siegquote',
-    'Std. Dev.' => 'Std.-Abw.',
 ];

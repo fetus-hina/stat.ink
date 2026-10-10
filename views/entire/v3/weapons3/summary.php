@@ -74,7 +74,7 @@ $error = ($winRate - 0.5) * 100;
 <div class="mb-3">
   <p class="mb-1"><?=
     vsprintf('%s: %s', [
-      Html::encode(Yii::t('app-entire', 'Samples')),
+      Html::encode(Yii::t('app-statistics', 'Samples')),
       Html::encode($fmt->asInteger($totalSamples)),
     ])
   ?></p>

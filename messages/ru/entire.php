@@ -68,7 +68,6 @@ return [
     'Primary ability is counted as {value_1_0} and secondary is counted as {value_0_3}.' => 'Основное свойство считается как {value_1_0}, дополнительное — как {value_0_3}.',
     'Regression Line' => 'Линия регрессии',
     'Salmon Run results (CSV)' => 'Результаты Salmon Run (CSV)',
-    'Samples' => 'Выборка',
     'Schema' => 'Схема',
     'Significant?' => 'Значимо?',
     'Special Uses' => 'Использование особого оружия',

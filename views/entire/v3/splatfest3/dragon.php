@@ -66,7 +66,7 @@ if ($totalSamples) {
         <thead>
           <tr>
             <th></th>
-            <th class="text-center"><?= Html::encode(Yii::t('app-entire', 'Samples')) ?></th>
+            <th class="text-center"><?= Html::encode(Yii::t('app-statistics', 'Samples')) ?></th>
             <th class="text-center"><?= Html::encode(Yii::t('app-entire', '1x Battle')) ?></th>
             <th class="text-center"><?= Html::encode(Yii::t('app', '10x Battle')) ?></th>
             <th class="text-center"><?= Html::encode(Yii::t('app', '100x Battle')) ?></th>

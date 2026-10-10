@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 return [
     'Ability Effect' => 'ギアパワー効果',
-    'Average:' => '平均:',
     'Bad guys are in control' => '相手のチームが確保',
     'Bad guys winning' => '相手のチームが優勢',
     'combos' => 'コンボ',

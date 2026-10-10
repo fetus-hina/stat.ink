@@ -18,7 +18,6 @@ return [
     'Guess the region' => 'Regio schatten',
     'k+a/sp' => 'k+a/sp',
     'K/min' => 'K/min',
-    'max={max} min={min} average={avg} median={median} mode={mode}' => 'max={max} min={min} gemiddelde={avg} mediaan={median} modus={mode}',
     'Room' => 'Kamer',
     'Room info (Private)' => 'Kamerinfo (privé)',
     'S/min' => 'S/min',

@@ -168,7 +168,7 @@ class SalmonStatsHistoryWidget extends Widget
     protected function renderBodyAverage(string $key, string $apiKey): string
     {
         return $this->renderBodyGraph(
-            Yii::t('app-salmon-history2', 'Average'),
+            Yii::t('app-statistics', 'Average'),
             $key,
             $apiKey,
             'average',

@@ -44,7 +44,6 @@ return [
     'Max.' => '最大',
     'Max. Hazard Level (cleared)' => '危險度MAX (完成)',
     'MAX Hazard Level Cleared' => '危險度MAX過關',
-    'Mode{translate_hint_stats}' => '眾數{translate_hint_stats}',
     'Normal Job' => '一般打工',
     'Normal Waves' => '一般WAVE',
     'Not Defeated' => '沒有擊倒',
