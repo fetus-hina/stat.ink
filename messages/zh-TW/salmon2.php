@@ -34,7 +34,7 @@ return [
     'Golden' => '金鮭魚卵',
     'Golden Egg delivered' => '金鮭魚卵送回數量',
     'Golden Egg appearances' => '金鮭魚卵出現次數',
-    'Golden Egg quota' => '金鮭魚卵目標數',
+    'Golden Egg quota' => '金鮭魚卵目標配額',
     'Golden/W' => '金鮭魚卵數/階段',
     'Golden Eggs' => '金鮭魚卵',
     'Golden Eggs per Wave' => '每階段金鮭魚卵數',
