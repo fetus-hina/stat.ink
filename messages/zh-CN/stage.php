@@ -13,7 +13,7 @@ return [
     'more...' => '更多……',
     'Recent Use %' => '最近使用率',
     'Scheduled' => '已安排',
-    'Session History' => '登录信息',
+    'Session History' => '开放记录',
     'Weapons\' icon were created by {0}.' => '武器图标由 {0} 制作。',
     'Weapon Trends' => '武器趋势',
 ];
