@@ -11,6 +11,6 @@ return [
     'Could not convert "{0}" image.' => 'Afbeelding "{0}" kon niet worden geconverteerd.',
     'Could not save to database: {0}' => 'Opslaan in de database is mislukt: {0}',
     'Could not save {0}' => '{0} kon niet worden opgeslagen',
-    'Current Time:' => '',
+    'Current Time:' => 'Huidige tijd:',
     'Please send meaningful data.' => 'Stuur alsjeblieft zinvolle gegevens.',
 ];

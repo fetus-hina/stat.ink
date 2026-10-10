@@ -1,17 +1,17 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2017-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2017-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
 declare(strict_types=1);
 
 return [
-    'lost' => '',
-    'unknown mode' => '',
-    'unknown stage' => '',
-    'won' => '',
-    '{name}: Just {winlose} {rule} at {stage}. <{url}|Detail>' => '',
-    '{name}: Just {winlose} {rule} at {stage}. {url}' => '',
+    'lost' => 'verloren',
+    'unknown mode' => 'onbekende spelstand',
+    'unknown stage' => 'onbekende arena',
+    'won' => 'gewonnen',
+    '{name}: Just {winlose} {rule} at {stage}. <{url}|Detail>' => '{name}: Heeft zojuist {rule} in {stage} {winlose}. <{url}|Details>',
+    '{name}: Just {winlose} {rule} at {stage}. {url}' => '{name}: Heeft zojuist {rule} in {stage} {winlose}. {url}',
 ];
