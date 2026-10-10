@@ -140,7 +140,7 @@ if (!is_string($discordInviteCode)) {
                   ['/site/privacy']
                 ),
                 Html::a(
-                  Html::encode(Yii::t('app', 'Open Source Licenses')),
+                  Html::encode(Yii::t('app-site', 'Open Source Licenses')),
                   ['/site/license']
                 ),
                 $discordInviteCode
@@ -151,7 +151,7 @@ if (!is_string($discordInviteCode)) {
                         'alt' => 'Discord',
                         'class' => 'auto-tooltip',
                         'height' => (string)round(28 * 0.5),
-                        'title' => Yii::t('app', '{siteName} Discord Community', ['siteName' => Yii::$app->name]),
+                        'title' => Yii::t('app-site', '{siteName} Discord Community', ['siteName' => Yii::$app->name]),
                         'width' => (string)round(104 * 0.5),
                       ],
                     ),

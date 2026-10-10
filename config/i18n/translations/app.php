@@ -74,6 +74,7 @@ return [
         'app-show' => 'show.php',
         'app-show-v2' => 'show-v2.php',
         'app-show-v3' => 'show-v3.php',
+        'app-site' => 'site.php',
         'app-slack' => 'slack.php',
         'app-special' => 'special.php',
         'app-special2' => 'special2.php',

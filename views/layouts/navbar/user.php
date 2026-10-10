@@ -80,7 +80,7 @@ if (!$user) {
       Html::tag('li', Html::a(
         implode(' ', [
           Icon::user(),
-          Html::encode(Yii::t('app', 'Your Battles')),
+          Html::encode(Yii::t('app-site', 'Your Battles')),
         ]),
         ['/show-user/profile', 'screen_name' => $user->screen_name]
       )),

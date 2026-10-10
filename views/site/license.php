@@ -18,7 +18,7 @@ use yii\web\View;
 
 $title = implode(' | ', [
   Yii::$app->name,
-  Yii::t('app', 'Open Source Licenses'),
+  Yii::t('app-site', 'Open Source Licenses'),
 ]);
 
 $this->context->layout = 'main';
@@ -26,7 +26,7 @@ $this->title = $title;
 
 ?>
 <div class="container">
-  <h1><?= Html::encode(Yii::t('app', 'Open Source Licenses')) ?></h1>
+  <h1><?= Html::encode(Yii::t('app-site', 'Open Source Licenses')) ?></h1>
   <div>
     <h2>
       <?= Html::encode($myself->name) . "\n" ?>
