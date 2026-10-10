@@ -8,6 +8,7 @@
 declare(strict_types=1);
 
 return [
+    'Android' => '',
     'API (Splatoon)' => '',
     'API (Splatoon 2)' => '',
     'API (Splatoon 3)' => '',
@@ -38,6 +39,7 @@ return [
     'This website is an open source project. It is under the MIT License. The source code is available on GitHub.' => 'Este sitio web es un proyecto open source. Está bajo la licencia MIT. El código fuente está disponible en GitHub.',
     'This website is an UNOFFICIAL SERVICE. It is not related to the Splatoon development team or Nintendo.' => 'Este sitio web es UN SERVICIO NO OFICIAL. No está relacionado con el equipo de desarrollo de Splatoon o Nintendo.',
     'Use full width of the screen' => '',
+    'Windows' => '',
     '{package} is used for icons and other images.' => '',
     '{title} Official Website' => '',
 ];

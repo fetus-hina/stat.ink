@@ -8,6 +8,7 @@
 declare(strict_types=1);
 
 return [
+    'Android' => 'Android',
     'API (Splatoon)' => 'API（斯普拉遁）',
     'API (Splatoon 2)' => 'API（斯普拉遁 2）',
     'API (Splatoon 3)' => 'API（斯普拉遁 3）',
@@ -38,6 +39,7 @@ return [
     'This website is an open source project. It is under the MIT License. The source code is available on GitHub.' => '本网站是开源项目（基于MIT开源协议）。源代码可在GitHub查看。',
     'This website is an UNOFFICIAL SERVICE. It is not related to the Splatoon development team or Nintendo.' => '本网站不是官方服务。与任天堂及其Splatoon开发团队没有关系。',
     'Use full width of the screen' => '使用全部的屏幕宽度',
+    'Windows' => 'Windows',
     '{package} is used for icons and other images.' => '{package} 用于图标和其他图片。',
     '{title} Official Website' => '{title}官方站点',
 ];
