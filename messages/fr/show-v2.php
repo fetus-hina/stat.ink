@@ -16,7 +16,7 @@ return [
     'Fest Power (Pro)' => 'Fest Power (Défi)',
     'Guessed:' => 'Deviné :',
     'Guess the region' => 'Devine la région.',
-    'k+a/sp' => '',
+    'k+a/sp' => 'k+a/sp',
     'K/min' => 'K/min',
     'max={max} min={min} average={avg} median={median} mode={mode}' => 'max={max} min={min} moyenne={avg} médiane={median} mode={mode}',
     'Room' => 'Salon',

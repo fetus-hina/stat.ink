@@ -8,9 +8,9 @@
 declare(strict_types=1);
 
 return [
-    'API (Splatoon)' => '',
-    'API (Splatoon 2)' => '',
-    'API (Splatoon 3)' => '',
+    'API (Splatoon)' => 'API (Splatoon)',
+    'API (Splatoon 2)' => 'API (Splatoon 2)',
+    'API (Splatoon 3)' => 'API (Splatoon 3)',
     'Apps for {version}' => 'Applications pour {version}',
     'Blog' => 'Blog',
     'Feedback or suggestions are welcome. Please contact me via GitHub or Twitter.' => 'Les commentaires et suggestions sont les bienvenues. Veuillez me contacter via GitHub ou Twitter',
@@ -20,7 +20,7 @@ return [
     'Ika-Nakama' => 'Ika-Nakama',
     'IkaLog Download Page' => 'Page de téléchargement d\'IkaLog',
     'IkaRec 2' => 'IkaRec 2',
-    'iOS (iPhone/iPad)' => '',
+    'iOS (iPhone/iPad)' => 'iOS (iPhone/iPad)',
     'Links' => 'Liens',
     'Logout' => 'Déconnexion',
     'Nintendo Switch Online app' => 'Application Nintendo Switch Online',
