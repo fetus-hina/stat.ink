@@ -50,7 +50,7 @@ $winPctPoints = array_values(
 
 $datasetWinPct = [
   'type' => 'line',
-  'label' => Yii::t('app', 'Win %'),
+  'label' => Yii::t('app-results', 'Win %'),
   'data' => array_values(array_filter($winPctPoints, fn (array $v): bool => $v['n'] >= 10)),
   'borderColor' => new JsExpression('window.colorScheme.graph1'),
   'backgroundColor' => new JsExpression('window.colorScheme.graph1'),
@@ -112,7 +112,7 @@ $chart = [
       'y' => [
         'title' => [
           'display' => true,
-          'text' => Yii::t('app', 'Win %'),
+          'text' => Yii::t('app-results', 'Win %'),
         ],
         'type' => 'linear',
         'min' => 0,

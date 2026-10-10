@@ -28,7 +28,7 @@ return [
   ],
   'filter' => (require __DIR__ . '/includes/correlation-filter.php')('avg_death'),
   'filterOptions' => ['class' => 'text-right'],
-  'label' => Yii::t('app', 'Avg Deaths'),
+  'label' => Yii::t('app-results', 'Avg Deaths'),
   'value' => fn (StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage|StatWeapon3XUsagePerVersion $model): string => BattleSummaryItemWidget::widget([
     'battles' => $model->battles,
     'max' => $model->max_death,
@@ -41,7 +41,7 @@ return [
     'stddev' => $model->sd_death,
     'summary' => vsprintf('%s - %s', [
         Yii::t('app-weapon3', $model->weapon?->name ?? ''),
-        Yii::t('app', 'Avg Deaths'),
+        Yii::t('app-results', 'Avg Deaths'),
     ]),
     'tooltipText' => '',
     'total' => $model->battles * $model->avg_death,

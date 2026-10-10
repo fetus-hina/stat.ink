@@ -45,7 +45,7 @@ UserStatNawabariAsset::register($this);
 
   <div class="row">
     <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
-      <h2><?= Html::encode(Yii::t('app', 'Turf Inked')) ?></h2>
+      <h2><?= Html::encode(Yii::t('app-results', 'Turf Inked')) ?></h2>
       <p><?= Html::encode(Yii::t('app', 'Excluded: Private Battles')) ?></p>
       <aside>
         <nav>
@@ -107,7 +107,7 @@ UserStatNawabariAsset::register($this);
   Json::encode($map->stats),
   Json::encode($map->area),
   Json::encode([
-    'turfInked' => Yii::t('app', 'Turf Inked'),
+    'turfInked' => Yii::t('app-results', 'Turf Inked'),
     'average' => Yii::t('app', 'Average'),
     'percentile' => Yii::t('app-show', '{lower}-{upper} percentile', [
         'lower' => 5,

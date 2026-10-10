@@ -11,7 +11,7 @@ use app\components\widgets\BattleKillDeathColumn;
 use app\models\Battle3;
 
 return [
-  'label' => Yii::t('app', 'Kills / Deaths'),
+  'label' => Yii::t('app-results', 'Kills / Deaths'),
   'format' => 'raw',
   'value' => function (Battle3 $model): ?string {
     return BattleKillDeathColumn::widget([

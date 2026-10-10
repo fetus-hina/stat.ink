@@ -36,7 +36,7 @@ return [
     if (!$result->aggregatable) {
       return implode('', [
         Html::tag('span', Icon::no(), ['class' => 'text-danger']),
-        Html::encode(Yii::t('app', $result->name)),
+        Html::encode(Yii::t('app-results', $result->name)),
       ]);
     }
 

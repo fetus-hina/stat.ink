@@ -47,8 +47,8 @@ class KillRatioColumn extends DataColumn
         $this->headerOptions = [
             'class' => [$cellClass, 'auto-tooltip'],
             'title' => $this->killRate
-                ? Yii::t('app', 'Kill Rate')
-                : Yii::t('app', 'Kill Ratio'),
+                ? Yii::t('app-results', 'Kill Rate')
+                : Yii::t('app-results', 'Kill Ratio'),
         ];
         $this->contentOptions = function (Model $model) use ($cellClass): array {
             $killRatio = $this->getKillRatio($model);

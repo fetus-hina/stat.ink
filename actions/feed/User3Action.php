@@ -240,7 +240,7 @@ final class User3Action extends Action
                         : '???',
                     $battle->result?->is_win === null
                         ? '???'
-                        : Yii::t('app', $battle->result->is_win ? 'Won' : 'Lost', [], $model->lang),
+                        : Yii::t('app-results', $battle->result->is_win ? 'Won' : 'Lost', [], $model->lang),
                     $user->name,
                     substr($battle->uuid, 0, 8),
                 ]),
@@ -329,27 +329,30 @@ final class User3Action extends Action
             );
         }
         if ($battle->result) {
-            $__('Result', $battle->result->is_win ? 'Won' : 'Lost', 'app');
+            $_(
+                Yii::t('app-results', 'Result', [], $lang),
+                Yii::t('app-results', $battle->result->is_win ? 'Won' : 'Lost', [], $lang),
+            );
             if ($battle->is_knockout !== null) {
                 $dl[] = Html::tag('dt', Html::encode(
-                    Yii::t('app', $battle->is_knockout ? 'Knockout' : 'Time is up', [], $lang),
+                    Yii::t('app-results', $battle->is_knockout ? 'Knockout' : 'Time is up', [], $lang),
                 ));
             }
         }
         if ($battle->kill !== null && $battle->death !== null) {
             $_(
-                Yii::t('app', 'Kills / Deaths', [], $lang),
+                Yii::t('app-results', 'Kills / Deaths', [], $lang),
                 sprintf('%d / %d', $battle->kill, $battle->death),
             );
         }
         if ($battle->assist !== null) {
-            $_(Yii::t('app', 'Assist', [], $lang), (string)$battle->assist);
+            $_(Yii::t('app-results', 'Assist', [], $lang), (string)$battle->assist);
         }
         if ($battle->special !== null) {
-            $_(Yii::t('app', 'Specials', [], $lang), (string)$battle->special);
+            $_(Yii::t('app-results', 'Specials', [], $lang), (string)$battle->special);
         }
         if ($battle->inked !== null) {
-            $_(Yii::t('app', 'Inked', [], $lang), sprintf('%dp', $battle->inked));
+            $_(Yii::t('app-results', 'Inked', [], $lang), sprintf('%dp', $battle->inked));
         }
         if ($dl) {
             $html .= Html::tag('dl', implode('', $dl));

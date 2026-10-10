@@ -77,7 +77,7 @@ $valueData = [
     ),
   ),
   'fill' => true,
-  'label' => Yii::t('app', 'Win %'),
+  'label' => Yii::t('app-results', 'Win %'),
   'errorBarWhiskerLineWidth' => [1, 1],
   'errorBarLineWidth' => [1, 1],
   'type' => 'barWithErrorBars',
@@ -135,7 +135,7 @@ $valueData = [
             'offset' => false,
             'title' => [
               'display' => true,
-              'text' => Yii::t('app', 'Win %'),
+              'text' => Yii::t('app-results', 'Win %'),
             ],
             'type' => 'linear',
             'ticks' => [

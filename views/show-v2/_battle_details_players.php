@@ -131,7 +131,7 @@ $this->registerJsFile(
               <?= Html::encode(Yii::t('app', 'Points')) . "\n" ?>
             </span>
             <span class="col-point-inked hidden" aria-hidden="true">
-              <?= Html::encode(Yii::t('app', 'Turf Inked')) . "\n" ?>
+              <?= Html::encode(Yii::t('app-results', 'Turf Inked')) . "\n" ?>
             </span>
           </span>
         </th>
@@ -139,7 +139,7 @@ $this->registerJsFile(
 <?php if ($hasRankedInked) { ?>
         <th class="text-nowrap col-point">
             <span class="col-point-inked">
-              <?= Html::encode(Yii::t('app', 'Inked')) . "\n" ?>
+              <?= Html::encode(Yii::t('app-results', 'Inked')) . "\n" ?>
             </span>
           </span>
         </th>
@@ -147,17 +147,17 @@ $this->registerJsFile(
         <th class="text-nowrap col-kasp"><?= Html::encode(Yii::t('app-show-v2', 'k+a/sp')) ?></th>
 <?php if ($hasKD) { ?>
         <th class="text-nowrap col-kd">
-          <?= Html::encode(Yii::t('app', 'k')) ?>/<?= Html::encode(Yii::t('app', 'd')) . "\n" ?>
+          <?= Html::encode(Yii::t('app-results', 'k')) ?>/<?= Html::encode(Yii::t('app-results', 'd')) . "\n" ?>
         </th>
         <th class="text-nowrap col-kr">
           <?= implode(Html::tag('br'), [
             Html::tag('span', Html::encode(Yii::t('app', 'Ratio')), [
               'class' => 'auto-tooltip',
-              'title' => Yii::t('app', 'Kill Ratio'),
+              'title' => Yii::t('app-results', 'Kill Ratio'),
             ]) . '/',
             Html::tag('span', Html::encode(Yii::t('app', 'Rate')), [
               'class' => 'auto-tooltip',
-              'title' => Yii::t('app', 'Kill Rate'),
+              'title' => Yii::t('app-results', 'Kill Rate'),
             ]),
           ]) . "\n" ?>
 <?php } ?>

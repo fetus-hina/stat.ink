@@ -14,7 +14,7 @@ return [
   'contentOptions' => ['class' => 'cell-kd nobr'],
   'format' => 'raw',
   'headerOptions' => ['class' => 'cell-kd'],
-  'label' => Yii::t('app', 'k') . '/' . Yii::t('app', 'd'),
+  'label' => Yii::t('app-results', 'k') . '/' . Yii::t('app-results', 'd'),
   'value' => fn (Battle3 $model): string => implode(' ', [
     Html::tag(
       'span', 

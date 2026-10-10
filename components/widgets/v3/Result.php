@@ -45,7 +45,7 @@ final class Result extends Widget
     private function renderResult(Result3 $result): string
     {
         return Label::widget([
-            'content' => Yii::t('app', $result->name),
+            'content' => Yii::t('app-results', $result->name),
             'color' => $result->label_color,
         ]);
     }
@@ -61,13 +61,13 @@ final class Result extends Widget
 
         if ($isKnockout) {
             return Label::widget([
-                'content' => Yii::t('app', 'Knockout'),
+                'content' => Yii::t('app-results', 'Knockout'),
                 'color' => 'info',
             ]);
         }
 
         return Label::widget([
-            'content' => Yii::t('app', 'Time is up'),
+            'content' => Yii::t('app-results', 'Time is up'),
             'color' => 'warning',
         ]);
     }

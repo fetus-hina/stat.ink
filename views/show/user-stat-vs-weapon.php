@@ -109,7 +109,7 @@ SortableTableAsset::register($this);
           [
             'encodeLabel' => false,
             'label' => implode(' ', [
-              Html::encode(Yii::t('app', 'Win %')),
+              Html::encode(Yii::t('app-results', 'Win %')),
               Html::tag('span', '', ['class' => 'fas fa-angle-down arrow']),
             ]),
             'headerOptions' => [
@@ -133,7 +133,7 @@ SortableTableAsset::register($this);
             },
           ],
           [
-            'label' => Yii::t('app', 'Deaths'),
+            'label' => Yii::t('app-results', 'Deaths'),
             'headerOptions' => [
               'data-sort' => 'int',
             ],

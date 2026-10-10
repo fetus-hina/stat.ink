@@ -12,5 +12,5 @@ return [
   'contentOptions' => ['class' => 'cell-specials text-right'],
   'format' => 'integer',
   'headerOptions' => ['class' => 'cell-specials'],
-  'label' => Yii::t('app', 'Specials'),
+  'label' => Yii::t('app-results', 'Specials'),
 ];

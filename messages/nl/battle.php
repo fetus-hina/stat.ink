@@ -33,7 +33,6 @@ return [
     'If you misuse this feature, you will be banned.' => 'Als je deze functie misbruikt, word je geblokkeerd.',
     'Incomplete Data' => 'Onvolledige gegevens',
     'Judge' => 'Justus',
-    'K.O.' => 'Knock-out',
     'Level (after the battle)' => 'Level (na de strijd)',
     'Max Kill Combo' => 'Max. killcombo',
     'Max Kill Streak' => 'Max. killreeks',

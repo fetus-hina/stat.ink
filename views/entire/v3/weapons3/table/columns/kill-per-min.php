@@ -28,6 +28,6 @@ return [
   ],
   'filter' => (require __DIR__ . '/includes/correlation-filter.php')($calc),
   'filterOptions' => ['class' => 'text-right'],
-  'label' => Yii::t('app', 'Kills/min'),
+  'label' => Yii::t('app-results', 'Kills/min'),
   'value' => fn (StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage|StatWeapon3XUsagePerVersion $model): ?float => $calc($model),
 ];

@@ -56,7 +56,7 @@ $dataColumn = function (string $label, string $colKey, ?string $longLabel = null
     $longLabel = $label;
   }
   return [
-    'label' => Yii::t('app', $label),
+    'label' => Yii::t('app-results', $label),
     'headerOptions' => [
       'data-sort' => 'float',
     ],
@@ -94,7 +94,7 @@ $dataColumn = function (string $label, string $colKey, ?string $longLabel = null
         'tooltipText' => null,
         'summary'   => vsprintf('%s - %s', [
           $row['weapon_name'],
-          Yii::t('app', $longLabel),
+          Yii::t('app-results', $longLabel),
         ]),
       ]);
     },
@@ -211,7 +211,7 @@ $dataColumn = function (string $label, string $colKey, ?string $longLabel = null
           ],
           [
             // Win % {{{
-            'label' => Yii::t('app', 'Win %'),
+            'label' => Yii::t('app-results', 'Win %'),
             'headerOptions' => [
               'data-sort' => 'float',
               'style' => ['min-width' => '150px'],

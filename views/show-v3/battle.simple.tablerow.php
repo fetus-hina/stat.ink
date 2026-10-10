@@ -34,16 +34,16 @@ use yii\web\View;
               if (!$result || $result->is_win === null) {
                 return Html::tag(
                   'div',
-                  Html::encode(Yii::t('app', $result->name ?? '?')),
+                  Html::encode(Yii::t('app-results', $result->name ?? '?')),
                   ['class' => 'simple-battle-result simple-battle-result-unk']
                 );
               }
               return Html::tag(
                 'div',
                 implode('<br>', array_filter([
-                  Html::encode(Yii::t('app', $result->name)),
+                  Html::encode(Yii::t('app-results', $result->name)),
                   $result->key !== 'draw' && $model->is_knockout !== null
-                    ? Html::encode($model->is_knockout ? Yii::t('app-battle', 'K.O.') : Yii::t('app', 'Time'))
+                    ? Html::encode($model->is_knockout ? Yii::t('app-results', 'K.O.') : Yii::t('app-results', 'Time'))
                     : '',
                 ])),
                 [
@@ -121,7 +121,7 @@ use yii\web\View;
                     if ($model->kill_or_assist !== null) {
                       return sprintf(
                         '%s: %s',
-                        Html::encode(Yii::t('app', 'Kill or Assist')),
+                        Html::encode(Yii::t('app-results', 'Kill or Assist')),
                         Html::encode(Yii::$app->formatter->asInteger($model->kill_or_assist))
                       );
                     }

@@ -28,8 +28,8 @@ echo implode("\n", [
         'lose' => $battles - $wins,
       ],
       'labels' => [
-        'win' => Yii::t('app', 'Win'),
-        'lose' => Yii::t('app', 'Lose'),
+        'win' => Yii::t('app-results', 'Win'),
+        'lose' => Yii::t('app-results', 'Lose'),
       ],
     ],
   ]),

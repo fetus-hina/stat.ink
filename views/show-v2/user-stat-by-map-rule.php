@@ -84,7 +84,7 @@ $_renderKD = function (int $kill, int $death, int $battles) use ($fmt): string {
     Html::tag(
       'div',
       Html::tag('span', $fmt->asDecimal($kr, 2), [
-        'title' => Yii::t('app', 'Kill Ratio'),
+        'title' => Yii::t('app-results', 'Kill Ratio'),
         'class' => 'auto-tooltip',
       ]),
       ['class' => 'text-center']
@@ -96,7 +96,7 @@ $_renderKD = function (int $kill, int $death, int $battles) use ($fmt): string {
           'span',
           $fmt->asDecimal($kill / $battles, 2) . 'k',
           [
-            'title' => Yii::t('app', 'Kills'),
+            'title' => Yii::t('app-results', 'Kills'),
             'class' => 'auto-tooltip',
           ]
         ),
@@ -104,7 +104,7 @@ $_renderKD = function (int $kill, int $death, int $battles) use ($fmt): string {
           'span',
           $fmt->asDecimal($death / $battles, 2) . 'd',
           [
-            'title' => Yii::t('app', 'Deaths'),
+            'title' => Yii::t('app-results', 'Deaths'),
             'class' => 'auto-tooltip',
           ]
         ),

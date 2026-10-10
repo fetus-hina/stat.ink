@@ -12,5 +12,5 @@ return [
   'contentOptions' => ['class' => 'cell-point text-right'],
   'format' => 'integer',
   'headerOptions' => ['class' => 'cell-point'],
-  'label' => Yii::t('app', 'Inked'),
+  'label' => Yii::t('app-results', 'Inked'),
 ];

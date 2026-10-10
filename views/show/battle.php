@@ -55,7 +55,7 @@ if ($battle->map) {
   $summary[] = Yii::t('app-map', $battle->map->name);
 }
 if ($battle->is_win !== null) {
-  $summary[] = $battle->is_win ? Yii::t('app', 'Won') : Yii::t('app', 'Lost');
+  $summary[] = $battle->is_win ? Yii::t('app-results', 'Won') : Yii::t('app-results', 'Lost');
 }
 $this->registerLinkTag(['rel' => 'canonical', 'href' => $canonicalUrl]);
 $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'photo']);
@@ -424,15 +424,15 @@ $specials = Special::find()->asArray()->all();
 <?php } ?>
 <?php if ($battle->is_win !== null) { ?>
           <tr>
-            <th><?= Html::encode(Yii::t('app', 'Result')) ?></th>
+            <th><?= Html::encode(Yii::t('app-results', 'Result')) ?></th>
             <td>
 <?php if ($battle->isGachi && $battle->is_knock_out !== null) { ?>
               <?= (
                 ($battle->is_knock_out)
-                  ? Html::tag('span', Html::encode(Yii::t('app', 'Knockout')), [
+                  ? Html::tag('span', Html::encode(Yii::t('app-results', 'Knockout')), [
                     'class' => 'label label-info',
                   ])
-                  : Html::tag('span', Html::encode(Yii::t('app', 'Time is up')), [
+                  : Html::tag('span', Html::encode(Yii::t('app-results', 'Time is up')), [
                     'class' => 'label label-warning',
                   ])
               ) . "\n" ?>
@@ -442,10 +442,10 @@ $specials = Special::find()->asArray()->all();
 <?php } else { ?>
               <?= (
                 ($battle->is_win)
-                  ? Html::tag('span', Html::encode(Yii::t('app', 'Won')), [
+                  ? Html::tag('span', Html::encode(Yii::t('app-results', 'Won')), [
                     'class' => 'label label-success',
                   ])
-                  : Html::tag('span', Html::encode(Yii::t('app', 'Lost')), [
+                  : Html::tag('span', Html::encode(Yii::t('app-results', 'Lost')), [
                     'class' => 'label label-danger',
                   ])
               ) . "\n" ?>
@@ -461,7 +461,7 @@ $specials = Special::find()->asArray()->all();
 <?php } ?>
 <?php if ($battle->kill !== null || $battle->death !== null) { ?>
           <tr>
-            <th><?= Html::encode(Yii::t('app', 'Kills / Deaths')) ?></th>
+            <th><?= Html::encode(Yii::t('app-results', 'Kills / Deaths')) ?></th>
             <td>
               <?= Html::encode(vsprintf('%s / %s', [
                 ($battle->kill === null)
@@ -482,14 +482,14 @@ $specials = Special::find()->asArray()->all();
 <?php } ?>
 <?php if ($battle->kill !== null && $battle->death !== null) { ?>
           <tr>
-            <th><?= Html::encode(Yii::t('app', 'Kill Ratio')) ?></th>
+            <th><?= Html::encode(Yii::t('app-results', 'Kill Ratio')) ?></th>
             <td><?= ($battle->kill_ratio === null)
               ? Html::encode(Yii::t('app', 'N/A'))
               : Html::encode(Yii::$app->formatter->asDecimal((float)$battle->kill_ratio, 2))
             ?></td>
           </tr>
           <tr>
-            <th><?= Html::encode(Yii::t('app', 'Kill Rate')) ?></th>
+            <th><?= Html::encode(Yii::t('app-results', 'Kill Rate')) ?></th>
             <td><?= ($battle->kill_rate === null)
               ? Html::encode(Yii::t('app', 'N/A'))
               : Html::encode(Yii::$app->formatter->asPercent((float)$battle->kill_rate, 1))
@@ -852,15 +852,15 @@ $hasExtendedData = true;
             <th class="col-point"><?= Html::encode(Yii::t('app', 'Points')) ?></th>
 <?php } ?>
             <th class="col-kd"><?= Html::encode(vsprintf('%s/%s', [
-              Yii::t('app', 'k'),
-              Yii::t('app', 'd'),
+              Yii::t('app-results', 'k'),
+              Yii::t('app-results', 'd'),
             ])) ?></th>
             <?= Html::tag(
               'th',
               Html::encode(Yii::t('app', 'Ratio')),
               [
                 'class' => 'col-kr auto-tooltip',
-                'title' => Yii::t('app', 'Kill Ratio'),
+                'title' => Yii::t('app-results', 'Kill Ratio'),
               ]
             ) . "\n" ?>
             <?= Html::tag(
@@ -868,7 +868,7 @@ $hasExtendedData = true;
               Html::encode(Yii::t('app', 'Rate')),
               [
                 'class' => 'col-kr auto-tooltip',
-                'title' => Yii::t('app', 'Kill Rate'),
+                'title' => Yii::t('app-results', 'Kill Rate'),
               ]
             ) . "\n" ?>
           </tr>
@@ -1125,7 +1125,7 @@ $this->registerJsVar('timelineTranslates', [
   'spCharged' => Yii::t('app-show', 'Special Charged'),
   'specialPct' => Yii::t('app-show', 'Special %'),
   'streak' => Yii::t('app-show', 'streak'),
-  'turfInked' => Yii::t('app', 'Turf Inked'),
+  'turfInked' => Yii::t('app-results', 'Turf Inked'),
   'winningBad' => Yii::t('app-show', 'Bad guys winning'),
   'winningGood' => Yii::t('app-show', 'Good guys winning'),
 ]);

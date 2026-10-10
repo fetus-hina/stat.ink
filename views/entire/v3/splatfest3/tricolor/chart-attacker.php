@@ -96,7 +96,7 @@ $chartRangeOneSide = (int)ceil($chartRangeOneSide / 10) * 10;
           'errorBarLineWidth' => [1, 1],
           'errorBarWhiskerLineWidth' => [1, 1],
           'fill' => true,
-          'label' => Yii::t('app', 'Win %'),
+          'label' => Yii::t('app-results', 'Win %'),
           'type' => 'barWithErrorBars',
         ]],
         'labels' => $labels,

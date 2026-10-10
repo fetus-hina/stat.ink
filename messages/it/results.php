@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * @copyright Copyright (C) 2026 AIZAWA Hina
+ * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ */
+
+declare(strict_types=1);
+
+return [
+    '24H Win %' => '% vittorie 24h',
+    'Assist' => 'Assist',
+    'Assists' => 'Assist',
+    'Avg Assists' => 'Media assist',
+    'Avg Deaths' => 'Media morti',
+    'Avg Inked' => 'Media superficie inchiostrata',
+    'Avg Kills' => 'Media uccisioni',
+    'Avg KR' => 'Media KR',
+    'Avg Specials' => 'Media speciali',
+    'd' => 'd',
+    'Deaths' => 'Morti',
+    'Deaths/min' => 'Morti/min',
+    'Defeat' => 'Sconfitta',
+    'Defeat (Exempted)' => 'Sconfitta (esentata)',
+    'Draw' => 'Pareggio',
+    'Inked' => 'Superficie inchiostrata',
+    'Inked/min' => 'Sup. colorata/min',
+    'k' => 'k',
+    'k+a' => 'k+a',
+    'K.O.' => 'KO',
+    'K/D' => 'K/D',
+    'Kill / Death' => 'Uccisioni / Morti',
+    'Kill or Assist' => 'Uccisioni + assist',
+    'Kill Rate' => 'Tasso di uccisioni',
+    'Kill Ratio' => 'Rapporto uccisioni',
+    'Kills' => 'Uccisioni',
+    'Kills / Deaths' => 'Uccisioni / Morti',
+    'Kills/min' => 'Uccisioni/min',
+    'Knockout' => 'KO',
+    'KNOCKOUT!' => 'Bonus KO!',
+    'KO' => 'KO',
+    'KR' => 'KR',
+    'Lose' => 'Sconfitta',
+    'Lost' => 'Sconfitta',
+    'Max Inked' => 'Superficie inchiostrata massima',
+    'Result' => 'Risultato',
+    'sp' => 'sp',
+    'Specials' => 'Speciali',
+    'Specials/min' => 'Speciali/min',
+    'Time' => 'Tempo scaduto',
+    'Time is up' => 'Tempo scaduto',
+    'Time was up' => 'Tempo scaduto',
+    'Turf Inked' => 'Superficie inchiostrata',
+    'Turf inked (including bonus)' => 'Superficie inchiostrata (bonus incluso)',
+    'Victory' => 'Vittoria',
+    'Win' => 'Vittoria',
+    'Win %' => '% vittorie',
+    'Wins' => 'Vittorie',
+    'Won' => 'Vittoria',
+    '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number, plural, =1{1 morte} other{# morti}} in {battle, plural, =1{1 battaglia} other{# battaglie}}',
+    '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number, plural, =1{1 uccisione} other{# uccisioni}} in {battle, plural, =1{1 battaglia} other{# battaglie}}',
+];

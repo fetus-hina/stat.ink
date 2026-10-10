@@ -10,7 +10,7 @@ declare(strict_types=1);
 use app\models\Battle3;
 
 return [
-  'label' => Yii::t('app', 'Turf Inked'),
+  'label' => Yii::t('app-results', 'Turf Inked'),
   'value' => function (Battle3 $model): ?string {
     if ($model->inked === null) {
       return null;

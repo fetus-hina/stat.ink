@@ -87,11 +87,21 @@ $weapons = Spl2WeaponAsset::register($this);
         <tr>
           <th></th>
 <?php $_list = [
-    'Lobby', 'Mode', 'Team ID', 'Stage', 'Weapon', 'Battles', 'Win %',
-    'k', 'd', 'k+a', 'sp', 'KR'
+    Yii::t('app', 'Lobby'),
+    Yii::t('app', 'Mode'),
+    Yii::t('app', 'Team ID'),
+    Yii::t('app', 'Stage'),
+    Yii::t('app', 'Weapon'),
+    Yii::t('app', 'Battles'),
+    Yii::t('app-results', 'Win %'),
+    Yii::t('app-results', 'k'),
+    Yii::t('app-results', 'd'),
+    Yii::t('app-results', 'k+a'),
+    Yii::t('app-results', 'sp'),
+    Yii::t('app-results', 'KR'),
 ]; ?>
 <?php foreach ($_list as $_value) { ?>
-          <?= Html::tag('th', Html::encode(Yii::t('app', $_value))) . "\n" ?>
+          <?= Html::tag('th', Html::encode($_value)) . "\n" ?>
 <?php } ?>
         </tr>
       <tbody>

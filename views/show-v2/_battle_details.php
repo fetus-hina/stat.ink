@@ -493,19 +493,19 @@ use yii\widgets\DetailView;
       // }}}
     ],
     [
-      'label' => Yii::t('app', 'Result'), // {{{
+      'label' => Yii::t('app-results', 'Result'), // {{{
       'format' => 'raw',
       'value' => function ($model) : ?string {
         $parts = [];
         if ($model->isGachi && $model->is_knockout !== null) {
           if ($model->is_knockout) {
             $parts[] = Label::widget([
-              'content' => Yii::t('app', 'Knockout'),
+              'content' => Yii::t('app-results', 'Knockout'),
               'color' => 'info',
             ]);
           } else {
             $parts[] = Label::widget([
-              'content' => Yii::t('app', 'Time was up'),
+              'content' => Yii::t('app-results', 'Time was up'),
               'color' => 'warning',
             ]);
           }
@@ -513,11 +513,11 @@ use yii\widgets\DetailView;
         if ($model->is_win !== null) {
           $parts[] = ($model->is_win)
             ? Label::widget([
-              'content' => Yii::t('app', 'Won'),
+              'content' => Yii::t('app-results', 'Won'),
               'color' => 'success',
             ])
             : Label::widget([
-              'content' => Yii::t('app', 'Lost'),
+              'content' => Yii::t('app-results', 'Lost'),
               'color' => 'danger',
             ]);
         } else {
@@ -649,7 +649,7 @@ use yii\widgets\DetailView;
     ],
     'rank_in_team:integer',
     [
-      'label' => Yii::t('app', 'Kills / Deaths'), // {{{
+      'label' => Yii::t('app-results', 'Kills / Deaths'), // {{{
       'format' => 'raw',
       'value' => function ($model) {
         return BattleKillDeathColumn::widget([
@@ -698,7 +698,7 @@ use yii\widgets\DetailView;
       // }}}
     ],
     [
-      'label' => Yii::t('app', 'Turf Inked'), // (Gachi) {{{
+      'label' => Yii::t('app-results', 'Turf Inked'), // (Gachi) {{{
       'value' => function ($model) {
         if ($model->isNawabari) {
           return null;

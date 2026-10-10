@@ -68,8 +68,8 @@ final class BattleKillDeathColumn extends Widget
 
     public function renderValues(): ?string
     {
-        $kHtml = $this->renderKDValue($this->kill, Yii::t('app', 'Kills'));
-        $dHtml = $this->renderKDValue($this->death, Yii::t('app', 'Deaths'));
+        $kHtml = $this->renderKDValue($this->kill, Yii::t('app-results', 'Kills'));
+        $dHtml = $this->renderKDValue($this->death, Yii::t('app-results', 'Deaths'));
 
         if ($this->kill === null) {
             if ($this->assist === null && $this->kill_or_assist === null) {
@@ -77,7 +77,7 @@ final class BattleKillDeathColumn extends Widget
             } else {
                 // only "K+A" known
                 $kPart = vsprintf('《%s》', [
-                    $this->renderKDValue($this->kill_or_assist, Yii::t('app', 'Kill or Assist')),
+                    $this->renderKDValue($this->kill_or_assist, Yii::t('app-results', 'Kill or Assist')),
                 ]);
             }
         } elseif ($this->assist === null) {
@@ -88,7 +88,7 @@ final class BattleKillDeathColumn extends Widget
                 Html::tag(
                     'small',
                     vsprintf('+ %s', [
-                        $this->renderKDValue($this->assist, Yii::t('app', 'Assists')),
+                        $this->renderKDValue($this->assist, Yii::t('app-results', 'Assists')),
                     ]),
                     ['class' => 'text-muted'],
                 ),
@@ -156,13 +156,13 @@ final class BattleKillDeathColumn extends Widget
         return Html::tag(
             'span',
             $this->formatter->asText(vsprintf('%s: %s', [
-                Yii::t('app', 'Kill Ratio'),
+                Yii::t('app-results', 'Kill Ratio'),
                 $this->formatter->asDecimal($this->killRatio, 2),
             ])),
             [
                 'class' => 'auto-tooltip',
                 'title' => vsprintf('%s: %s', [
-                    Yii::t('app', 'Kill Rate'),
+                    Yii::t('app-results', 'Kill Rate'),
                     $this->kill === 0 && $this->death === 0
                         ? Yii::t('app', 'N/A')
                         : $this->formatter->asPercent(

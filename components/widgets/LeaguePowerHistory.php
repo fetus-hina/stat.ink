@@ -105,8 +105,8 @@ class LeaguePowerHistory extends Widget
                         )
                         : Html::encode(Yii::t('app', 'Highest (this teammates)')),
                     'leaguePower' => Yii::t('app', 'League Power'),
-                    'lose' => Yii::t('app', 'Lose'),
-                    'win' => Yii::t('app', 'Win'),
+                    'lose' => Yii::t('app-results', 'Lose'),
+                    'win' => Yii::t('app-results', 'Win'),
                 ]),
                 (string)($period[0] - 60) . '000', // unixtime in milliseconds
                 (string)($period[1] + 590) . '000', // unixtime in milliseconds

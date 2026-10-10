@@ -149,7 +149,7 @@ UserStatReportAsset::register($this);
         },
       ],
       [
-        'label' => Yii::t('app', 'Win %'),
+        'label' => Yii::t('app-results', 'Win %'),
         'format' => ['percent', 1],
         'contentOptions' => function (array $row): array {
           return [
@@ -161,7 +161,7 @@ UserStatReportAsset::register($this);
         },
       ],
       [
-        'label' => Yii::t('app', 'Kills'),
+        'label' => Yii::t('app-results', 'Kills'),
         'format' => ['decimal', 2],
         'contentOptions' => function (array $row): array {
           return [
@@ -173,7 +173,7 @@ UserStatReportAsset::register($this);
         },
       ],
       [
-        'label' => Yii::t('app', 'Deaths'),
+        'label' => Yii::t('app-results', 'Deaths'),
         'format' => ['decimal', 2],
         'contentOptions' => function (array $row): array {
           return [
@@ -185,7 +185,7 @@ UserStatReportAsset::register($this);
         },
       ],
       [
-        'label' => Yii::t('app', 'KR'),
+        'label' => Yii::t('app-results', 'KR'),
         'format' => ['decimal', 3],
         'contentOptions' => function (array $row): array {
           return [

@@ -19,7 +19,7 @@ return [
       'min-width' => '200px',
     ],
   ],
-  'label' => Yii::t('app', 'Win %'),
+  'label' => Yii::t('app-results', 'Win %'),
   'value' => function (StatInkColor3 $model): string {
     $f = Yii::$app->formatter;
     $battles = $model->battles;

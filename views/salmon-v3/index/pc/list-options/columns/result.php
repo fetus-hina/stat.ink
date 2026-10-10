@@ -12,7 +12,7 @@ use app\models\Salmon3;
 use yii\grid\Column;
 
 return [
-  'label' => Yii::t('app', 'Result'),
+  'label' => Yii::t('app-results', 'Result'),
   'headerOptions' => ['class' => 'cell-result'],
   'contentOptions' => ['class' => 'cell-result nobr'],
   'format' => 'raw',

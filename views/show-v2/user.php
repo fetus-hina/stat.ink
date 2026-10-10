@@ -763,7 +763,7 @@ if ($user->twitter != '') {
           ],
           [
             // result {{{
-            'label' => Yii::t('app', 'Result'),
+            'label' => Yii::t('app-results', 'Result'),
             'headerOptions' => ['class' => 'cell-result'],
             'contentOptions' => ['class' => 'cell-result'],
             'format' => 'raw',
@@ -772,18 +772,18 @@ if ($user->twitter != '') {
                 ($model->is_win === null)
                   ? Html::encode('?')
                   : ($model->is_win
-                    ? Html::tag('span', Html::encode(Yii::t('app', 'Won')), ['class' => 'label label-success'])
-                    : Html::tag('span', Html::encode(Yii::t('app', 'Lost')), ['class' => 'label label-danger'])
+                    ? Html::tag('span', Html::encode(Yii::t('app-results', 'Won')), ['class' => 'label label-success'])
+                    : Html::tag('span', Html::encode(Yii::t('app-results', 'Lost')), ['class' => 'label label-danger'])
                   ),
                 ($model->isGachi && $model->is_knockout !== null)
                   ? ($model->is_knockout
-                    ? Html::tag('span', Html::encode(Yii::t('app-battle', 'K.O.')), [
+                    ? Html::tag('span', Html::encode(Yii::t('app-results', 'K.O.')), [
                         'class' => 'label label-info auto-tooltip',
-                        'title' => Yii::t('app', 'Knockout'),
+                        'title' => Yii::t('app-results', 'Knockout'),
                       ])
-                    : Html::tag('span', Html::encode(Yii::t('app', 'Time')), [
+                    : Html::tag('span', Html::encode(Yii::t('app-results', 'Time')), [
                         'class' => 'label label-warning auto-tooltip',
-                        'title' => Yii::t('app', 'Time is up'),
+                        'title' => Yii::t('app-results', 'Time is up'),
                       ])
                   )
                   : ''
@@ -796,7 +796,7 @@ if ($user->twitter != '') {
           ],
           [
             // K/D {{{
-            'label' => Yii::t('app', 'k') . '/' . Yii::t('app', 'd'),
+            'label' => Yii::t('app-results', 'k') . '/' . Yii::t('app-results', 'd'),
             'headerOptions' => ['class' => 'cell-kd'],
             'contentOptions' => ['class' => 'cell-kd nobr'],
             'format' => 'raw',
@@ -892,7 +892,7 @@ if ($user->twitter != '') {
           ],
           [
             // kill or assist {{{
-            'label' => Yii::t('app', 'Kill or Assist'),
+            'label' => Yii::t('app-results', 'Kill or Assist'),
             'attribute' => 'kill_or_assist',
             'headerOptions' => ['class' => 'cell-kill-or-assist'],
             'contentOptions' => ['class' => 'cell-kill-or-assist'],
@@ -901,7 +901,7 @@ if ($user->twitter != '') {
           ],
           [
             // specials {{{
-            'label' => Yii::t('app', 'Specials'),
+            'label' => Yii::t('app-results', 'Specials'),
             'attribute' => 'special',
             'headerOptions' => ['class' => 'cell-specials'],
             'contentOptions' => ['class' => 'cell-specials text-right'],
@@ -925,7 +925,7 @@ if ($user->twitter != '') {
           ],
           [
             // inked {{{
-            'label' => Yii::t('app', 'Inked'),
+            'label' => Yii::t('app-results', 'Inked'),
             'attribute' => 'inked',
             'headerOptions' => ['class' => 'cell-point'],
             'contentOptions' => ['class' => 'cell-point text-right'],
@@ -934,7 +934,7 @@ if ($user->twitter != '') {
           ],
           [
             // inked/min {{{
-            'label' => Yii::t('app', 'Inked/min'),
+            'label' => Yii::t('app-results', 'Inked/min'),
             'headerOptions' => ['class' => 'cell-inked-min'],
             'contentOptions' => ['class' => 'cell-inked-min text-right'],
             'format' => ['decimal', 1],
@@ -1069,17 +1069,17 @@ if ($user->twitter != '') {
           'cell-fest-title-after'     => Yii::t('app-show-v2', 'Splatfest Title (After)'),
           'cell-level'                => Yii::t('app', 'Level'),
           'cell-judge'                => Yii::t('app-battle', 'Judge'),
-          'cell-result'               => Yii::t('app', 'Result'),
-          'cell-kd'                   => Yii::t('app', 'k') . '/' . Yii::t('app', 'd'),
-          'cell-kill-min'             => Yii::t('app', 'Kills/min'),
-          'cell-death-min'            => Yii::t('app', 'Deaths/min'),
-          'cell-kill-ratio'           => Yii::t('app', 'Kill Ratio'),
-          'cell-kill-rate'            => Yii::t('app', 'Kill Rate'),
-          'cell-kill-or-assist'       => Yii::t('app', 'Kill or Assist'),
-          'cell-specials'             => Yii::t('app', 'Specials'),
-          'cell-specials-min'         => Yii::t('app', 'Specials/min'),
-          'cell-point'                => Yii::t('app', 'Turf Inked'),
-          'cell-inked-min'            => Yii::t('app', 'Inked/min'),
+          'cell-result'               => Yii::t('app-results', 'Result'),
+          'cell-kd'                   => Yii::t('app-results', 'k') . '/' . Yii::t('app-results', 'd'),
+          'cell-kill-min'             => Yii::t('app-results', 'Kills/min'),
+          'cell-death-min'            => Yii::t('app-results', 'Deaths/min'),
+          'cell-kill-ratio'           => Yii::t('app-results', 'Kill Ratio'),
+          'cell-kill-rate'            => Yii::t('app-results', 'Kill Rate'),
+          'cell-kill-or-assist'       => Yii::t('app-results', 'Kill or Assist'),
+          'cell-specials'             => Yii::t('app-results', 'Specials'),
+          'cell-specials-min'         => Yii::t('app-results', 'Specials/min'),
+          'cell-point'                => Yii::t('app-results', 'Turf Inked'),
+          'cell-inked-min'            => Yii::t('app-results', 'Inked/min'),
           'cell-rank-in-team'         => Yii::t('app-battle', 'Rank in Team'),
           'cell-elapsed'              => Yii::t('app-battle', 'Elapsed Time'),
           'cell-elapsed-sec'          => Yii::t('app-battle', 'Elapsed Time (seconds)'),

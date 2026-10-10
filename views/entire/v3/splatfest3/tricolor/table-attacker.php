@@ -28,11 +28,11 @@ use yii\web\View;
         <th><?= Html::encode(Yii::t('app-entire', 'Samples')) ?></th>
         <th>
           <?= Icon::s3TricolorAttacker() . "\n" ?>
-          <?= Html::encode(Yii::t('app', 'Wins')) . "\n" ?>
+          <?= Html::encode(Yii::t('app-results', 'Wins')) . "\n" ?>
         </th>
         <th>
           <?= Icon::s3TricolorAttacker() . "\n" ?>
-          <?= Html::encode(Yii::t('app', 'Win %')) . "\n" ?>
+          <?= Html::encode(Yii::t('app-results', 'Win %')) . "\n" ?>
           <?= Html::encode(sprintf('(%s)', Yii::t('app-entire', '{pct}% CI', ['pct' => 95]))) . "\n" ?>
         </th>
       </tr>

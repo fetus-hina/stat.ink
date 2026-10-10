@@ -46,7 +46,7 @@ if (!$specialStats) {
 $fmt = Yii::$app->formatter;
 
 ?>
-<h3><?= Html::encode(Yii::t('app', 'Specials')) ?></h3>
+<h3><?= Html::encode(Yii::t('app-results', 'Specials')) ?></h3>
 <div class="table-responsive">
   <table class="table table-bordered table-condensed table-striped">
     <thead>

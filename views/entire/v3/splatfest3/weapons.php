@@ -59,7 +59,7 @@ if (!$weaponsChallenge && !$weaponsOpen) {
             [
               'label' => implode(' - ', [
                 Yii::t('app-lobby3', 'Splatfest (Pro)'),
-                Yii::t('app', 'Win %'),
+                Yii::t('app-results', 'Win %'),
               ]),
               'content' => $weaponsChallenge
                 ? $this->render('weapons/win-rate', ['models' => $weaponsChallenge])
@@ -81,7 +81,7 @@ if (!$weaponsChallenge && !$weaponsOpen) {
             [
               'label' => implode(' - ', [
                 Yii::t('app-lobby3', 'Splatfest (Open)'),
-                Yii::t('app', 'Win %'),
+                Yii::t('app-results', 'Win %'),
               ]),
               'content' => $weaponsOpen
                 ? $this->render('weapons/win-rate', ['models' => $weaponsOpen])

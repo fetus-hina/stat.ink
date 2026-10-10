@@ -10,7 +10,7 @@ declare(strict_types=1);
 use app\components\grid\CalcKillRatioColumn;
 
 return [
-  '-label' => Yii::t('app', 'Kill Ratio'),
+  '-label' => Yii::t('app-results', 'Kill Ratio'),
   'class' => CalcKillRatioColumn::class,
   'headerOptions' => ['class' => 'cell-kill-ratio'],
   'killRate' => false,

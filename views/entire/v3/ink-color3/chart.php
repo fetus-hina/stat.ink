@@ -93,7 +93,7 @@ $chartData = [
       [
         [
           'type' => 'scatter',
-          'label' => Yii::t('app', 'Win %'),
+          'label' => Yii::t('app-results', 'Win %'),
           'data' => $pointData,
           'pointBackgroundColor' => ArrayHelper::getColumn(
             $models,
@@ -103,7 +103,7 @@ $chartData = [
         ],
         [
           'type' => 'scatterWithErrorBars',
-          'label' => Yii::t('app', 'Win %'),
+          'label' => Yii::t('app-results', 'Win %'),
           'data' => $pointData,
           'errorBarColor' => ArrayHelper::getColumn(
             $models,
@@ -185,7 +185,7 @@ $chartData = [
         'min' => 48,
         'title' => [
           'display' => true,
-          'text' => Yii::t('app', 'Win %'),
+          'text' => Yii::t('app-results', 'Win %'),
         ],
         'type' => 'linear',
       ],

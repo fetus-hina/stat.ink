@@ -57,12 +57,12 @@ final class BattleSummaryFormatter
         }
 
         if ($rule === null || $isKO === null || $rule->key === 'nawabari') {
-            return Yii::t('app', $result->name);
+            return Yii::t('app-results', $result->name);
         }
 
         return vsprintf('%s (%s)', [
-            Yii::t('app', $result->name),
-            $isKO ? Yii::t('app', 'Knockout') : Yii::t('app', 'Time is up'),
+            Yii::t('app-results', $result->name),
+            $isKO ? Yii::t('app-results', 'Knockout') : Yii::t('app-results', 'Time is up'),
         ]);
     }
 }

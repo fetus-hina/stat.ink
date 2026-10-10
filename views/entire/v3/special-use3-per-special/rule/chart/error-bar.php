@@ -39,6 +39,6 @@ return [
   'errorBarLineWidth' => 1,
   'errorBarWhiskerColor' => 'rgba(50, 50, 50, 0.75)',
   'errorBarWhiskerLineWidth' => 1,
-  'label' => Yii::t('app', 'Win %'),
+  'label' => Yii::t('app-results', 'Win %'),
   'type' => 'scatterWithErrorBars',
 ];

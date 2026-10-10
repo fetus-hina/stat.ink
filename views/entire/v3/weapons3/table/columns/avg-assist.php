@@ -28,7 +28,7 @@ return [
   ],
   'filter' => (require __DIR__ . '/includes/correlation-filter.php')('avg_assist'),
   'filterOptions' => ['class' => 'text-right'],
-  'label' => Yii::t('app', 'Avg Assists'),
+  'label' => Yii::t('app-results', 'Avg Assists'),
   'value' => fn (StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage|StatWeapon3XUsagePerVersion $model): string => BattleSummaryItemWidget::widget([
     'battles' => $model->battles,
     'max' => $model->max_assist,
@@ -41,7 +41,7 @@ return [
     'stddev' => $model->sd_assist,
     'summary' => vsprintf('%s - %s', [
         Yii::t('app-weapon3', $model->weapon?->name ?? ''),
-        Yii::t('app', 'Avg Assists'),
+        Yii::t('app-results', 'Avg Assists'),
     ]),
     'tooltipText' => '',
     'total' => $model->battles * $model->avg_assist,

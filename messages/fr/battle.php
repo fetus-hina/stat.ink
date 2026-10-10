@@ -33,7 +33,6 @@ return [
     'If you misuse this feature, you will be banned.' => 'Si vous abusez de cette fonctionnalité, vous serez banni.',
     'Incomplete Data' => 'Données incomplètes',
     'Judge' => 'Arbitre',
-    'K.O.' => 'K.-O.',
     'Level (after the battle)' => 'Niveau (après le match)',
     'Max Kill Combo' => 'Kill Combo Max',
     'Max Kill Streak' => 'Série de Kills Max',

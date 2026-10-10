@@ -232,7 +232,7 @@ class User2Action extends BaseAction
                         ? Yii::t('app-map2', $battle->map->name, [], $model->lang)
                         : '???',
                     $battle->is_win !== null
-                        ? Yii::t('app', $battle->is_win ? 'Won' : 'Lost', [], $model->lang)
+                        ? Yii::t('app-results', $battle->is_win ? 'Won' : 'Lost', [], $model->lang)
                         : '???',
                     $user->name,
                     $battle->id,
@@ -365,20 +365,23 @@ class User2Action extends BaseAction
             $_(Yii::t('app', 'Level', [], $lang), $battle->level);
         }
         if ($battle->is_win !== null) {
-            $__('Result', $battle->is_win ? 'Won' : 'Lost', 'app');
+            $_(
+                Yii::t('app-results', 'Result', [], $lang),
+                Yii::t('app-results', $battle->is_win ? 'Won' : 'Lost', [], $lang),
+            );
             if ($battle->isGachi && $battle->is_knockout !== null) {
                 $dl[] = Html::tag('dt', Html::encode(
-                    Yii::t('app', $battle->is_knockout ? 'Knockout' : 'Time is up', [], $lang),
+                    Yii::t('app-results', $battle->is_knockout ? 'Knockout' : 'Time is up', [], $lang),
                 ));
             }
         }
         if ($battle->kill !== null && $battle->death !== null) {
             $_(
-                Yii::t('app', 'Kills / Deaths', [], $lang),
+                Yii::t('app-results', 'Kills / Deaths', [], $lang),
                 sprintf('%d / %d', $battle->kill, $battle->death),
             );
             $_(
-                Yii::t('app', 'Kill Ratio', [], $lang),
+                Yii::t('app-results', 'Kill Ratio', [], $lang),
                 $battle->kill_ratio === null
                     ? Yii::t('app', 'N/A', [], $lang)
                     : sprintf('%.2f', $battle->kill_ratio),

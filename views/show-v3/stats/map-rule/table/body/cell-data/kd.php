@@ -42,12 +42,12 @@ echo Html::tag(
   'div',
   implode(' / ', [
     $f(
-      Yii::t('app', 'Avg Kills'),
+      Yii::t('app-results', 'Avg Kills'),
       TypeHelper::floatOrNull(ArrayHelper::getValue($stats, 'kills', null)),
       TypeHelper::floatOrNull(ArrayHelper::getValue($stats, 'kill_stddev', null)),
     ),
     $f(
-      Yii::t('app', 'Avg Deaths'),
+      Yii::t('app-results', 'Avg Deaths'),
       TypeHelper::floatOrNull(ArrayHelper::getValue($stats, 'deaths', null)),
       TypeHelper::floatOrNull(ArrayHelper::getValue($stats, 'death_stddev', null)),
     ),

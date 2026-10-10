@@ -165,7 +165,7 @@ class UserMiniInfo2 extends Widget
                         ),
                     ],
                     [
-                        'label' => Yii::t('app', 'Win %'),
+                        'label' => Yii::t('app-results', 'Win %'),
                         'value' => fn (UserStat2 $model): string => $model->have_win_lose < 1
                                 ? Yii::t('app', 'N/A')
                                 : $fmt->asPercent($model->win_battles / $model->have_win_lose, 1),
@@ -179,19 +179,19 @@ class UserMiniInfo2 extends Widget
                     //     'value' => $nbsp,
                     // ],
                     [
-                        'label' => Yii::t('app', 'Avg Kills'),
+                        'label' => Yii::t('app-results', 'Avg Kills'),
                         'value' => fn (UserStat2 $model): string => $model->have_kill_death < 1
                                 ? Yii::t('app', 'N/A')
                                 : $fmt->asDecimal($model->kill / $model->have_kill_death, 2),
                     ],
                     [
-                        'label' => Yii::t('app', 'Avg Deaths'),
+                        'label' => Yii::t('app-results', 'Avg Deaths'),
                         'value' => fn (UserStat2 $model): string => $model->have_kill_death < 1
                                 ? Yii::t('app', 'N/A')
                                 : $fmt->asDecimal($model->death / $model->have_kill_death, 2),
                     ],
                     [
-                        'label' => Yii::t('app', 'Kill Ratio'),
+                        'label' => Yii::t('app-results', 'Kill Ratio'),
                         'value' => function (UserStat2 $model) use ($fmt): string {
                             if ($model->have_kill_death < 1) {
                                 return Yii::t('app', 'N/A');
@@ -208,7 +208,7 @@ class UserMiniInfo2 extends Widget
                         },
                     ],
                     [
-                        'label' => Yii::t('app', 'Kills/min'),
+                        'label' => Yii::t('app-results', 'Kills/min'),
                         'value' => fn (UserStat2 $model): string => $model->have_kill_death_time < 1 || $model->total_seconds < 1
                                 ? Yii::t('app', 'N/A')
                                 : $fmt->asDecimal(
@@ -217,7 +217,7 @@ class UserMiniInfo2 extends Widget
                                 ),
                     ],
                     [
-                        'label' => Yii::t('app', 'Deaths/min'),
+                        'label' => Yii::t('app-results', 'Deaths/min'),
                         'value' => fn (UserStat2 $model): string => $model->have_kill_death_time < 1 || $model->total_seconds < 1
                                 ? Yii::t('app', 'N/A')
                                 : $fmt->asDecimal(
@@ -226,7 +226,7 @@ class UserMiniInfo2 extends Widget
                                 ),
                     ],
                     [
-                        'label' => Yii::t('app', 'Kill Rate'),
+                        'label' => Yii::t('app-results', 'Kill Rate'),
                         'value' => function (UserStat2 $model) use ($fmt): string {
                             if ($model->have_kill_death < 1) {
                                 return Yii::t('app', 'N/A');
@@ -288,7 +288,7 @@ class UserMiniInfo2 extends Widget
                             'attribute' => 'turf_battles',
                         ],
                         [
-                            'label' => Yii::t('app', 'Win %'),
+                            'label' => Yii::t('app-results', 'Win %'),
                             'value' => fn (UserStat2 $model): string => $model->turf_have_win_lose < 1
                                     ? Yii::t('app', 'N/A')
                                     : $fmt->asPercent(
@@ -305,7 +305,7 @@ class UserMiniInfo2 extends Widget
                         //     'value' => $nbsp,
                         // ],
                         [
-                            'label' => Yii::t('app', 'Avg Kills'),
+                            'label' => Yii::t('app-results', 'Avg Kills'),
                             'value' => fn (UserStat2 $model): string => $model->turf_have_kill_death < 1
                                     ? Yii::t('app', 'N/A')
                                     : $fmt->asDecimal(
@@ -314,7 +314,7 @@ class UserMiniInfo2 extends Widget
                                     ),
                         ],
                         [
-                            'label' => Yii::t('app', 'Avg Deaths'),
+                            'label' => Yii::t('app-results', 'Avg Deaths'),
                             'value' => fn (UserStat2 $model): string => $model->turf_have_kill_death < 1
                                     ? Yii::t('app', 'N/A')
                                     : $fmt->asDecimal(
@@ -323,7 +323,7 @@ class UserMiniInfo2 extends Widget
                                     ),
                         ],
                         [
-                            'label' => Yii::t('app', 'Kill Ratio'),
+                            'label' => Yii::t('app-results', 'Kill Ratio'),
                             'value' => function ($model) use ($fmt): string {
                                 if ($model->turf_have_kill_death < 1) {
                                     return Yii::t('app', 'N/A');
@@ -359,7 +359,7 @@ class UserMiniInfo2 extends Widget
                             },
                         ],
                         [
-                            'label' => Yii::t('app', 'Avg Inked'),
+                            'label' => Yii::t('app-results', 'Avg Inked'),
                             'value' => fn ($model): string => $model->turf_have_inked < 1
                                     ? Yii::t('app', 'N/A')
                                     : $fmt->asDecimal(
@@ -368,7 +368,7 @@ class UserMiniInfo2 extends Widget
                                     ),
                         ],
                         [
-                            'label' => Yii::t('app', 'Max Inked'),
+                            'label' => Yii::t('app-results', 'Max Inked'),
                             'value' => fn ($model): string => $model->turf_have_inked < 1
                                     ? Yii::t('app', 'N/A')
                                     : $fmt->asInteger($model->turf_max_inked),
@@ -441,7 +441,7 @@ class UserMiniInfo2 extends Widget
                             'attribute' => 'gachi_battles',
                         ],
                         [
-                            'label' => Yii::t('app', 'Win %'),
+                            'label' => Yii::t('app-results', 'Win %'),
                             'value' => fn (UserStat2 $model): string => $model->gachi_have_win_lose < 1
                                     ? Yii::t('app', 'N/A')
                                     : $fmt->asPercent(
@@ -458,7 +458,7 @@ class UserMiniInfo2 extends Widget
                         //     'value' => $nbsp,
                         // ],
                         [
-                            'label' => Yii::t('app', 'Avg Kills'),
+                            'label' => Yii::t('app-results', 'Avg Kills'),
                             'value' => fn (UserStat2 $model): string => $model->gachi_have_kill_death < 1
                                     ? Yii::t('app', 'N/A')
                                     : $fmt->asDecimal(
@@ -467,7 +467,7 @@ class UserMiniInfo2 extends Widget
                                     ),
                         ],
                         [
-                            'label' => Yii::t('app', 'Avg Deaths'),
+                            'label' => Yii::t('app-results', 'Avg Deaths'),
                             'value' => fn (UserStat2 $model): string => $model->gachi_have_kill_death < 1
                                     ? Yii::t('app', 'N/A')
                                     : $fmt->asDecimal(
@@ -476,7 +476,7 @@ class UserMiniInfo2 extends Widget
                                     ),
                         ],
                         [
-                            'label' => Yii::t('app', 'Kill Ratio'),
+                            'label' => Yii::t('app-results', 'Kill Ratio'),
                             'value' => function (UserStat2 $model) use ($fmt): string {
                                 if ($model->gachi_have_kill_death < 1) {
                                     return Yii::t('app', 'N/A');
@@ -492,7 +492,7 @@ class UserMiniInfo2 extends Widget
                             },
                         ],
                         [
-                            'label' => Yii::t('app', 'Kills/min'),
+                            'label' => Yii::t('app-results', 'Kills/min'),
                             'value' => function (UserStat2 $model) use ($fmt): string {
                                 if (
                                     ($model->gachi_kill_death_time < 1) ||
@@ -508,7 +508,7 @@ class UserMiniInfo2 extends Widget
                             },
                         ],
                         [
-                            'label' => Yii::t('app', 'Deaths/min'),
+                            'label' => Yii::t('app-results', 'Deaths/min'),
                             'value' => function (UserStat2 $model) use ($fmt): string {
                                 if (
                                     ($model->gachi_kill_death_time < 1) ||
@@ -524,7 +524,7 @@ class UserMiniInfo2 extends Widget
                             },
                         ],
                         [
-                            'label' => Yii::t('app', 'Kill Rate'),
+                            'label' => Yii::t('app-results', 'Kill Rate'),
                             'value' => function (UserStat2 $model) use ($fmt): string {
                                 if ($model->gachi_have_kill_death < 1) {
                                     return Yii::t('app', 'N/A');

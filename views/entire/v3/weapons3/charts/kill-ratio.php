@@ -25,5 +25,5 @@ echo $this->render('includes/chart', [
       ? $model->avg_kill / $model->avg_death
       : null;
   },
-  'xLabel' => Yii::t('app', 'Kill Ratio'),
+  'xLabel' => Yii::t('app-results', 'Kill Ratio'),
 ]);

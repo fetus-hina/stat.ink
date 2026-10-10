@@ -23,7 +23,7 @@ return [
     'data-sort' => 'float',
     'data-sort-default' => 'desc',
   ],
-  'label' => Yii::t('app', 'Kill Ratio'),
+  'label' => Yii::t('app-results', 'Kill Ratio'),
   'value' => function (Event3StatsSpecial|Event3StatsWeapon $model): string {
     $kr = $model->avg_death > 0 ? $model->avg_kill / $model->avg_death : null;
     if ($kr === null) {

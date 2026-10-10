@@ -85,7 +85,7 @@ trait Battle2Formatter
                     $map = Yii::t('app-map2', $battle->map->name);
                 }
                 if ($battle->is_win !== null) {
-                    $result = Yii::t('app', $battle->is_win ? 'Won' : 'Lost');
+                    $result = Yii::t('app-results', $battle->is_win ? 'Won' : 'Lost');
                 }
                 return sprintf('%s @%s', $result, $map);
             })(),

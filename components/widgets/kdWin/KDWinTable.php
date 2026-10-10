@@ -52,8 +52,8 @@ class KDWinTable extends Widget
         return sprintf(
             '<thead><tr>%s%s</tr></thead>',
             Html::tag('th', Html::encode(vsprintf('%s＼%s', [
-                Yii::t('app', 'd'),
-                Yii::t('app', 'k'),
+                Yii::t('app-results', 'd'),
+                Yii::t('app-results', 'k'),
             ]))),
             implode('', array_map(
                 fn (int $k): string => Html::tag(

@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * @copyright Copyright (C) 2026 AIZAWA Hina
+ * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ */
+
+declare(strict_types=1);
+
+return [
+    '24H Win %' => '24H勝率',
+    'Assist' => 'アシスト',
+    'Assists' => 'アシスト',
+    'Avg Assists' => '平均アシスト',
+    'Avg Deaths' => '平均Death',
+    'Avg Inked' => '平均塗った面積',
+    'Avg Kills' => '平均Kill',
+    'Avg KR' => '平均キルレ',
+    'Avg Specials' => '平均スペシャル',
+    'd' => 'D',
+    'Deaths' => 'デス数',
+    'Deaths/min' => 'デス/分',
+    'Defeat' => '敗北',
+    'Defeat (Exempted)' => '敗北(免除)',
+    'Draw' => '引き分け',
+    'Inked' => '塗面積',
+    'Inked/min' => '塗/分',
+    'k' => 'K',
+    'k+a' => 'k+a',
+    'K.O.' => 'ノックアウト',
+    'K/D' => 'キルレ',
+    'Kill / Death' => 'キル / デス',
+    'Kill or Assist' => 'キル＋アシスト',
+    'Kill Rate' => 'キルレート',
+    'Kill Ratio' => 'キルレシオ',
+    'Kills' => 'キル数',
+    'Kills / Deaths' => 'キル / デス',
+    'Kills/min' => 'キル/分',
+    'Knockout' => 'ノックアウト',
+    'KNOCKOUT!' => 'ノックアウト!',
+    'KO' => 'ノックアウト',
+    'KR' => 'キルレ',
+    'Lose' => '敗北',
+    'Lost' => '敗北',
+    'Max Inked' => '最大塗った面積',
+    'Result' => '結果',
+    'sp' => 'SP',
+    'Specials' => 'スペシャル',
+    'Specials/min' => 'スペシャル/分',
+    'Time' => 'タイムアップ',
+    'Time is up' => 'タイムアップ',
+    'Time was up' => 'タイムアップ',
+    'Turf Inked' => '塗った面積',
+    'Turf inked (including bonus)' => '塗った面積（勝利ボーナス込み）',
+    'Victory' => '勝利',
+    'Win' => '勝利',
+    'Win %' => '勝率',
+    'Wins' => '勝利数',
+    'Won' => '勝利',
+    '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number, plural, other{#回}} / {battle, plural, other{#戦}}',
+    '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number, plural, other{#回}} / {battle, plural, other{#戦}}',
+];

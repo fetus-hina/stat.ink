@@ -33,7 +33,6 @@ return [
     'If you misuse this feature, you will be banned.' => 'При злоупотреблении этой функцией вы будете заблокированы.',
     'Incomplete Data' => 'Неполные данные',
     'Judge' => 'Судокот',
-    'K.O.' => 'Нокаут',
     'Level (after the battle)' => 'Уровень (после боя)',
     'Max Kill Combo' => 'Макс. комбо убийств',
     'Max Kill Streak' => 'Макс. серия убийств',

@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * @copyright Copyright (C) 2026 AIZAWA Hina
+ * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ */
+
+declare(strict_types=1);
+
+return [
+    '24H Win %' => '% побед за 24 ч',
+    'Assist' => 'Помощь',
+    'Assists' => 'Помощь',
+    'Avg Assists' => 'Ср. помощь',
+    'Avg Deaths' => 'Ср. смертей',
+    'Avg Inked' => 'Ср. закрашено',
+    'Avg Kills' => 'Ср. убийств',
+    'Avg KR' => 'Ср. K/D',
+    'Avg Specials' => 'Ср. особое оружие',
+    'd' => 'd',
+    'Deaths' => 'Смерти',
+    'Deaths/min' => 'Смертей/мин',
+    'Defeat' => 'Поражение',
+    'Defeat (Exempted)' => 'Поражение (засчитано без штрафа)',
+    'Draw' => 'Ничья',
+    'Inked' => 'Закрашено',
+    'Inked/min' => 'Закрашено/мин',
+    'k' => 'k',
+    'k+a' => 'k+a',
+    'K.O.' => 'Нокаут',
+    'K/D' => 'K/D',
+    'Kill / Death' => 'Убийства / Смерти',
+    'Kill or Assist' => 'Убийство или помощь',
+    'Kill Rate' => 'Доля убийств',
+    'Kill Ratio' => 'Коэфф. убийств',
+    'Kills' => 'Убийства',
+    'Kills / Deaths' => 'Убийства / Смерти',
+    'Kills/min' => 'Убийств/мин',
+    'Knockout' => 'Нокаут',
+    'KNOCKOUT!' => 'Нокаут!',
+    'KO' => 'Нокаут',
+    'KR' => 'K/D',
+    'Lose' => 'Поражение',
+    'Lost' => 'Поражение',
+    'Max Inked' => 'Макс. закрашено',
+    'Result' => 'Результат',
+    'sp' => 'sp',
+    'Specials' => 'Особое оружие',
+    'Specials/min' => 'Особое оружие/мин',
+    'Time' => 'Время вышло',
+    'Time is up' => 'Время!',
+    'Time was up' => 'Время вышло',
+    'Turf Inked' => 'Закрашенная площадь',
+    'Turf inked (including bonus)' => 'Закрашенная площадь (с бонусом)',
+    'Victory' => 'Победа',
+    'Win' => 'Победа',
+    'Win %' => '% побед',
+    'Wins' => 'Победы',
+    'Won' => 'Победа',
+    '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number, plural, one{# смерть} few{# смерти} many{# смертей} other{# смерти}} за {battle, plural, one{# бой} few{# боя} many{# боёв} other{# боя}}',
+    '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number, plural, one{# убийство} few{# убийства} many{# убийств} other{# убийства}} за {battle, plural, one{# бой} few{# боя} many{# боёв} other{# боя}}',
+];

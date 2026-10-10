@@ -14,7 +14,7 @@ return [
   'contentOptions' => ['class' => 'cell-result'],
   'format' => 'raw',
   'headerOptions' => ['class' => 'cell-result'],
-  'label' => Yii::t('app', 'Result'),
+  'label' => Yii::t('app-results', 'Result'),
   'value' => fn (Battle3 $model): string => Result::widget([
     'isKnockout' => $model->is_knockout,
     'result' => $model->result,

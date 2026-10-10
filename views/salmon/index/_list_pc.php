@@ -140,7 +140,7 @@ SalmonWorkListAsset::register($this);
       },
     ],
     [
-      'label' => Yii::t('app', 'Result'),
+      'label' => Yii::t('app-results', 'Result'),
       'headerOptions' => ['class' => 'cell-result'],
       'contentOptions' => ['class' => 'cell-result nobr'],
       'format' => 'raw',

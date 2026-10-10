@@ -87,36 +87,36 @@ $f = Yii::$app->formatter;
           ['show/user', 'screen_name' => $user->screen_name]
         )
       ) . "\n" ?>
-      <?= $box(Yii::t('app', 'Win %'), $stat->wp === null ? $na : $f->asPercent($stat->wp / 100, 1)) . "\n" ?>
-      <?= $box(Yii::t('app', '24H Win %'), $stat->wp_short === null ? $na : $f->asPercent($stat->wp_short / 100, 1)) . "\n" ?>
+      <?= $box(Yii::t('app-results', 'Win %'), $stat->wp === null ? $na : $f->asPercent($stat->wp / 100, 1)) . "\n" ?>
+      <?= $box(Yii::t('app-results', '24H Win %'), $stat->wp_short === null ? $na : $f->asPercent($stat->wp_short / 100, 1)) . "\n" ?>
     </div>
     <div class="row">
       <?= $box(
-        Yii::t('app', 'Avg Kills'),
+        Yii::t('app-results', 'Avg Kills'),
         $stat->total_kd_battle_count < 1
           ? $na
           : $f->asDecimal($stat->total_kill / $stat->total_kd_battle_count, 2),
         $stat->total_kd_battle_count < 1
           ? null
-          : Yii::t('app', '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}', [
+          : Yii::t('app-results', '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}', [
             'number' => $stat->total_kill,
             'battle' => $stat->total_kd_battle_count,
           ])
       ) . "\n" ?>
       <?= $box(
-        Yii::t('app', 'Avg Deaths'),
+        Yii::t('app-results', 'Avg Deaths'),
         $stat->total_kd_battle_count < 1
           ? $na
           : $f->asDecimal($stat->total_death / $stat->total_kd_battle_count, 2),
         $stat->total_kd_battle_count < 1
           ? null
-          : Yii::t('app', '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}', [
+          : Yii::t('app-results', '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}', [
             'number' => $stat->total_death,
             'battle' => $stat->total_kd_battle_count,
           ])
       ) . "\n" ?>
       <?= $box(
-        Yii::t('app', 'Kill Ratio'),
+        Yii::t('app-results', 'Kill Ratio'),
         ($stat->total_kill == 0 && $stat->total_death == 0)
           ? $na
           : ($stat->total_death == 0
@@ -126,7 +126,7 @@ $f = Yii::$app->formatter;
         ($stat->total_kill == 0 && $stat->total_death == 0)
           ? $na
           : vsprintf('%s: %s', [
-            Yii::t('app', 'Kill Rate'),
+            Yii::t('app-results', 'Kill Rate'),
             $f->asPercent($stat->total_kill / ($stat->total_kill + $stat->total_death), 1),
           ])
       ) . "\n" ?>
@@ -152,9 +152,9 @@ $f = Yii::$app->formatter;
           ['show/user', 'screen_name' => $user->screen_name, 'filter' => ['rule' => 'nawabari']]
         )
       ) . "\n" ?>
-      <?= $box(Yii::t('app', 'Win %'), $stat->nawabari_wp === null ? $na : $f->asPercent($stat->nawabari_wp / 100, 1)) . "\n" ?>
+      <?= $box(Yii::t('app-results', 'Win %'), $stat->nawabari_wp === null ? $na : $f->asPercent($stat->nawabari_wp / 100, 1)) . "\n" ?>
       <?= $box(
-        Yii::t('app', 'Kill Ratio'),
+        Yii::t('app-results', 'Kill Ratio'),
         ($stat->nawabari_kill == 0 && $stat->nawabari_death == 0)
           ? $na
           : ($stat->nawabari_death == 0
@@ -164,7 +164,7 @@ $f = Yii::$app->formatter;
         ($stat->nawabari_kill == 0 && $stat->nawabari_death == 0)
           ? null
           : vsprintf('%s: %s', [
-            Yii::t('app', 'Kill Rate'),
+            Yii::t('app-results', 'Kill Rate'),
             $f->asPercent($stat->nawabari_kill / ($stat->nawabari_kill + $stat->nawabari_death), 1),
           ])
       ) . "\n" ?>
@@ -181,13 +181,13 @@ $f = Yii::$app->formatter;
           : $f->asInteger($stat->nawabari_inked)
       ) . "\n" ?>
       <?= $box(
-        Yii::t('app', 'Avg Inked'),
+        Yii::t('app-results', 'Avg Inked'),
         $stat->nawabari_inked < 1 || $stat->nawabari_inked_battle < 1
           ? $na
           : $f->asDecimal($stat->nawabari_inked / $stat->nawabari_inked_battle, 1)
       ) . "\n" ?>
       <?= $box(
-        Yii::t('app', 'Max Inked'),
+        Yii::t('app-results', 'Max Inked'),
         $stat->nawabari_inked_max < 1
           ? $na
           : $f->asInteger($stat->nawabari_inked_max)
@@ -214,34 +214,34 @@ $f = Yii::$app->formatter;
           ['show/user', 'screen_name' => $user->screen_name, 'filter' => ['rule' => '@gachi']]
         )
       ) . "\n" ?>
-      <?= $box(Yii::t('app', 'Win %'), $stat->gachi_wp === null ? $na : $f->asPercent($stat->gachi_wp / 100, 1)) . "\n" ?>
+      <?= $box(Yii::t('app-results', 'Win %'), $stat->gachi_wp === null ? $na : $f->asPercent($stat->gachi_wp / 100, 1)) . "\n" ?>
       <?= $box(Yii::t('app', 'Peak'), $stat->gachi_rank_peak > 0 ? Rank::integerToString($stat->gachi_rank_peak) : $na) . "\n" ?>
       <?= $box(
-        Yii::t('app', 'Avg Kills'),
+        Yii::t('app-results', 'Avg Kills'),
         $stat->gachi_kd_battle < 1
           ? $na
           : $f->asDecimal($stat->gachi_kill / $stat->gachi_kd_battle, 2),
         $stat->gachi_kd_battle < 1
           ? null
-          : Yii::t('app', '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}', [
+          : Yii::t('app-results', '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}', [
             'number' => $stat->gachi_kill,
             'battle' => $stat->gachi_kd_battle,
           ])
       ) . "\n" ?>
       <?= $box(
-        Yii::t('app', 'Avg Deaths'),
+        Yii::t('app-results', 'Avg Deaths'),
         $stat->gachi_kd_battle < 1
           ? $na
           : $f->asDecimal($stat->gachi_death / $stat->gachi_kd_battle, 2),
         $stat->gachi_kd_battle < 1
           ? null
-          : Yii::t('app', '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}', [
+          : Yii::t('app-results', '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}', [
             'number' => $stat->gachi_death,
             'battle' => $stat->gachi_kd_battle,
           ])
       ) . "\n" ?>
       <?= $box(
-        Yii::t('app', 'Kill Ratio'),
+        Yii::t('app-results', 'Kill Ratio'),
         ($stat->gachi_kill == 0 && $stat->gachi_death == 0)
           ? $na
           : ($stat->gachi_death == 0
@@ -251,12 +251,12 @@ $f = Yii::$app->formatter;
         ($stat->gachi_kill == 0 && $stat->gachi_death == 0)
           ? null
           : vsprintf('%s: %s', [
-            Yii::t('app', 'Kill Rate'),
+            Yii::t('app-results', 'Kill Rate'),
             $f->asPercent($stat->gachi_kill / ($stat->gachi_kill + $stat->gachi_death), 1),
           ])
       ) . "\n" ?>
-      <?= $box(Yii::t('app', 'Kills/min'), $stat->gachi_total_time < 1 ? $na : $f->asDecimal($stat->gachi_kill2 * 60 / $stat->gachi_total_time, 2)) . "\n" ?>
-      <?= $box(Yii::t('app', 'Deaths/min'), $stat->gachi_total_time < 1 ? $na : $f->asDecimal($stat->gachi_death2 * 60 / $stat->gachi_total_time, 2)) . "\n" ?>
+      <?= $box(Yii::t('app-results', 'Kills/min'), $stat->gachi_total_time < 1 ? $na : $f->asDecimal($stat->gachi_kill2 * 60 / $stat->gachi_total_time, 2)) . "\n" ?>
+      <?= $box(Yii::t('app-results', 'Deaths/min'), $stat->gachi_total_time < 1 ? $na : $f->asDecimal($stat->gachi_death2 * 60 / $stat->gachi_total_time, 2)) . "\n" ?>
     </div>
     <hr>
     <div class="miniinfo-databox">

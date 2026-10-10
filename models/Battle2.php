@@ -926,12 +926,12 @@ class Battle2 extends ActiveRecord
             'rank_after_id' => Yii::t('app-battle', 'Rank (after the battle)'),
             'rank_after_exp' => 'Rank Exp After',
             'rank_in_team' => Yii::t('app-battle', 'Rank in Team'),
-            'kill' => Yii::t('app', 'Kills'),
-            'death' => Yii::t('app', 'Deaths'),
+            'kill' => Yii::t('app-results', 'Kills'),
+            'death' => Yii::t('app-results', 'Deaths'),
             'kill_or_assist' => 'Kill or Assist',
-            'special' => Yii::t('app', 'Specials'),
-            'kill_ratio' => Yii::t('app', 'Kill Ratio'),
-            'kill_rate' => Yii::t('app', 'Kill Rate'),
+            'special' => Yii::t('app-results', 'Specials'),
+            'kill_ratio' => Yii::t('app-results', 'Kill Ratio'),
+            'kill_rate' => Yii::t('app-results', 'Kill Rate'),
             'max_kill_combo' => Yii::t('app-battle', 'Max Kill Combo'),
             'max_kill_streak' => Yii::t('app-battle', 'Max Kill Streak'),
             'my_point' => 'My Point',
@@ -1582,9 +1582,9 @@ class Battle2 extends ActiveRecord
             $this->map ? Yii::t('app-map2', $this->map->name) : '?',
             $this->rule ? Yii::t('app-rule2', $this->rule->name) : '?',
             $this->is_win === true
-                ? Yii::t('app', 'Win')
+                ? Yii::t('app-results', 'Win')
                 : ($this->is_win === false
-                    ? Yii::t('app', 'Lose')
+                    ? Yii::t('app-results', 'Lose')
                     : Yii::t('app', 'Unknown')
                 ),
         ];
@@ -1636,10 +1636,10 @@ class Battle2 extends ActiveRecord
             $this->rule ? Yii::t('app-rule2', $this->rule->name) : '',
             $this->map ? Yii::t('app-map2', $this->map->name) : '',
             $this->weapon ? Yii::t('app-weapon2', $this->weapon->name) : '',
-            $this->is_win === null ? '' : Yii::t('app', $this->is_win ? 'Win' : 'Lose'),
+            $this->is_win === null ? '' : Yii::t('app-results', $this->is_win ? 'Win' : 'Lose'),
             $this->is_knockout === null
                 ? ''
-                : Yii::t('app', $this->is_knockout ? 'Knockout' : 'Time is up'),
+                : Yii::t('app-results', $this->is_knockout ? 'Knockout' : 'Time is up'),
             $this->my_team_id,
             $this->rank
                 ? trim(sprintf(

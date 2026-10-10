@@ -28,6 +28,6 @@ return [
   ],
   'filter' => (require __DIR__ . '/includes/correlation-filter.php')($calc),
   'filterOptions' => ['class' => 'text-right'],
-  'label' => Yii::t('app', 'Inked/min'),
+  'label' => Yii::t('app-results', 'Inked/min'),
   'value' => $calc,
 ];

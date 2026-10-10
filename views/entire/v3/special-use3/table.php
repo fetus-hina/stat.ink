@@ -100,7 +100,7 @@ $fmt = Yii::$app->formatter;
         [
           'contentOptions' => ['class' => 'text-center'],
           'format' => ['percent', 2],
-          'label' => Yii::t('app', 'Win %'),
+          'label' => Yii::t('app-results', 'Win %'),
           'value' => fn (StatSpecialUse3 $model): ?float => $model->sample_size > 0
             ? $model->win / $model->sample_size
             : null,

@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * @copyright Copyright (C) 2026 AIZAWA Hina
+ * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
+ */
+
+declare(strict_types=1);
+
+return [
+    '24H Win %' => '24시간 내 승률',
+    'Assist' => '어시스트',
+    'Assists' => '어시스트',
+    'Avg Assists' => '평균 어시스트',
+    'Avg Deaths' => '평균 데스',
+    'Avg Inked' => '평균 칠한 면적',
+    'Avg Kills' => '평균 킬',
+    'Avg KR' => '평균 킬뎃 비율',
+    'Avg Specials' => '평균 스페셜',
+    'd' => '뎃',
+    'Deaths' => '데스 수',
+    'Deaths/min' => '데스/분',
+    'Defeat' => '패배',
+    'Defeat (Exempted)' => '패배 (무효)',
+    'Draw' => '무승부',
+    'Inked' => '칠한 면적',
+    'Inked/min' => '칠한 면적/분',
+    'k' => '킬',
+    'k+a' => 'k+a',
+    'K.O.' => '녹아웃',
+    'K/D' => '킬뎃',
+    'Kill / Death' => '킬 / 데스',
+    'Kill or Assist' => '킬+어시스트',
+    'Kill Rate' => '킬 Rate',
+    'Kill Ratio' => '킬뎃비율',
+    'Kills' => '킬 수',
+    'Kills / Deaths' => '킬 / 데스',
+    'Kills/min' => '킬/분',
+    'Knockout' => '녹아웃',
+    'KNOCKOUT!' => '녹아웃!',
+    'KO' => '녹아웃',
+    'KR' => '킬뎃 비율',
+    'Lose' => '패배',
+    'Lost' => '패배',
+    'Max Inked' => '최대 칠한 면적',
+    'Result' => '결과',
+    'sp' => '스페',
+    'Specials' => '스페셜',
+    'Specials/min' => '스페셜/분',
+    'Time' => '시간 초과',
+    'Time is up' => '시간 초과',
+    'Time was up' => '시간 초과',
+    'Turf Inked' => '칠한 면적',
+    'Turf inked (including bonus)' => '칠한 면적 (승리 보너스 포함)',
+    'Victory' => '승리',
+    'Win' => '승리',
+    'Win %' => '승률',
+    'Wins' => '승리 수',
+    'Won' => '승리',
+    '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number, plural, other{#회}} / {battle, plural, other{#전}}',
+    '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number, plural, =1{1킬} other{#킬}} / {battle, plural, =1{1전} other{#전}}',
+];

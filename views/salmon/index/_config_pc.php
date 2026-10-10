@@ -32,7 +32,7 @@ SalmonWorkListConfigAsset::register($this);
         'cell-map' => Yii::t('app', 'Stage'),
         'cell-map-short' => Yii::t('app', 'Stage (Short)'),
         'cell-special' => Yii::t('app', 'Special'),
-        'cell-result' => Yii::t('app', 'Result'),
+        'cell-result' => Yii::t('app-results', 'Result'),
         'cell-golden' => Yii::t('app-salmon2', 'Golden Eggs'),
         'cell-golden-wave' => Yii::t('app-salmon2', 'Golden Eggs per Wave'),
         'cell-golden-total' => Yii::t('app-salmon2', 'Team total Golden Eggs'),

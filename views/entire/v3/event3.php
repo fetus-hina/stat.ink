@@ -134,7 +134,7 @@ $periods = ArrayHelper::sort(
         ]),
       ],
       [
-        'label' => Yii::t('app', 'Win %'),
+        'label' => Yii::t('app-results', 'Win %'),
         'content' => $this->render('event3/win-rate', [
           'models' => $weaponsProvider->getModels(),
         ]),
@@ -155,7 +155,7 @@ $periods = ArrayHelper::sort(
         ]),
       ],
       [
-        'label' => Yii::t('app', 'Win %'),
+        'label' => Yii::t('app-results', 'Win %'),
         'content' => $this->render('event3/win-rate', [
           'models' => $specialProvider->getModels(),
         ]),

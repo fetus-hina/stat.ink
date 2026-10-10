@@ -255,7 +255,7 @@ $kdCell = function (StatWeapon2Tier $model, string $column): ?string {
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Win %'), // {{{
+        'label' => Yii::t('app-results', 'Win %'), // {{{
         'contentOptions' => ['class' => 'align-middle'],
         'headerOptions' => ['style' => ['min-width' => '300px']],
         'format' => 'raw',
@@ -339,7 +339,7 @@ $kdCell = function (StatWeapon2Tier $model, string $column): ?string {
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Kills'), // {{{
+        'label' => Yii::t('app-results', 'Kills'), // {{{
         'contentOptions' => ['class' => 'align-middle'],
         'headerOptions' => ['style' => ['width' => 'calc(7em + 16px)']],
         'format' => 'raw',
@@ -349,7 +349,7 @@ $kdCell = function (StatWeapon2Tier $model, string $column): ?string {
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Deaths'), // {{{
+        'label' => Yii::t('app-results', 'Deaths'), // {{{
         'contentOptions' => ['class' => 'align-middle'],
         'headerOptions' => ['style' => ['width' => 'calc(7em + 16px)']],
         'format' => 'raw',
@@ -359,7 +359,7 @@ $kdCell = function (StatWeapon2Tier $model, string $column): ?string {
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'KR'), // {{{
+        'label' => Yii::t('app-results', 'KR'), // {{{
         'contentOptions' => ['class' => 'text-right align-middle'],
         'headerOptions' => [
           'class' => 'text-right',

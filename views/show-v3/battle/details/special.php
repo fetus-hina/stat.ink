@@ -11,7 +11,7 @@ use app\models\Battle3;
 use yii\helpers\Html;
 
 return [
-  'label' => Yii::t('app', 'Specials'),
+  'label' => Yii::t('app-results', 'Specials'),
   'format' => 'raw',
   'value' => function (Battle3 $model): ?string {
     if ($model->special === null) {

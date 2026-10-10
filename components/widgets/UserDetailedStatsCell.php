@@ -58,7 +58,7 @@ class UserDetailedStatsCell extends Widget
                     return null;
                 }
                 return vsprintf('%s: %s', [
-                    Html::encode(Yii::t('app', $enLabel)),
+                    Html::encode(Yii::t('app-results', $enLabel)),
                     $content,
                 ]);
             },
@@ -75,7 +75,7 @@ class UserDetailedStatsCell extends Widget
             ]),
             $this->data->win_ko > 0 && $this->data->win_to > 0
                 ? vsprintf('%s: %s', [
-                    Html::encode(Yii::t('app', 'KO')),
+                    Html::encode(Yii::t('app-results', 'KO')),
                     Html::encode($this->f->asPercent(
                         $this->data->win_ko / ($this->data->win_ko + $this->data->win_to),
                         1,
@@ -93,7 +93,7 @@ class UserDetailedStatsCell extends Widget
             ]),
             $this->data->lose_ko > 0 && $this->data->lose_to > 0
                 ? vsprintf('%s: %s', [
-                    Html::encode(Yii::t('app', 'KO')),
+                    Html::encode(Yii::t('app-results', 'KO')),
                     Html::encode($this->f->asPercent(
                         $this->data->lose_ko / ($this->data->lose_ko + $this->data->lose_to),
                         1,
@@ -176,11 +176,11 @@ class UserDetailedStatsCell extends Widget
         return vsprintf('%s (%s)', [
             Html::tag('span', Html::encode($this->f->asDecimal($ratio, 3)), [
                 'class' => 'auto-tooltip',
-                'title' => Yii::t('app', 'Kill Ratio'),
+                'title' => Yii::t('app-results', 'Kill Ratio'),
             ]),
             Html::tag('span', Html::encode($this->f->asPercent($rate, 1)), [
                 'class' => 'auto-tooltip',
-                'title' => Yii::t('app', 'Kill Rate'),
+                'title' => Yii::t('app-results', 'Kill Rate'),
             ]),
         ]);
     }

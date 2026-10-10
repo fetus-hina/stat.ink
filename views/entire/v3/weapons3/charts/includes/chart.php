@@ -73,7 +73,7 @@ try {
 
 $datasetPoints = [
   'type' => 'scatter',
-  'label' => Yii::t('app', 'Win %'),
+  'label' => Yii::t('app-results', 'Win %'),
   'labels' => array_map(
     function (StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage|StatWeapon3XUsagePerVersion $model): string {
       $weaponName = Yii::t('app-weapon3', $model->weapon?->name ?? '?');
@@ -160,7 +160,7 @@ $chart = [
       'y' => [
         'title' => [
           'display' => true,
-          'text' => Yii::t('app', 'Win %'),
+          'text' => Yii::t('app-results', 'Win %'),
         ],
         'type' => 'linear',
       ],

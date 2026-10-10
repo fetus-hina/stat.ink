@@ -57,8 +57,8 @@ class FestPowerHistory extends Widget
                     'estimateBad' => Yii::t('app', 'Their team\'s splatfest power'),
                     'estimateGood' => Yii::t('app', 'My team\'s splatfest power'),
                     'festPower' => Yii::t('app', 'Splatfest Power'),
-                    'lose' => Yii::t('app', 'Lose'),
-                    'win' => Yii::t('app', 'Win'),
+                    'lose' => Yii::t('app-results', 'Lose'),
+                    'win' => Yii::t('app-results', 'Win'),
                 ],
                 array_map(
                     fn (Battle2 $model): ?float => $model->fest_power < 1 ? null : (float)$model->fest_power,

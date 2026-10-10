@@ -178,7 +178,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Avg Kills'), // {{{
+        'label' => Yii::t('app-results', 'Avg Kills'), // {{{
         'headerOptions' => ['data-sort' => 'float'],
         'contentOptions' => function (stdClass $w): array {
           return [
@@ -191,7 +191,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Avg Deaths'), // {{{
+        'label' => Yii::t('app-results', 'Avg Deaths'), // {{{
         'headerOptions' => ['data-sort' => 'float'],
         'contentOptions' => function (stdClass $w): array {
           return [
@@ -204,7 +204,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Avg KR'), // {{{
+        'label' => Yii::t('app-results', 'Avg KR'), // {{{
         'headerOptions' => ['data-sort' => 'float'],
         'contentOptions' => function (stdClass $w): array {
           return [
@@ -218,7 +218,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
       ],
       $rule->key === 'nawabari'
         ? [
-          'label' => Yii::t('app', 'Avg Inked'), // {{{
+          'label' => Yii::t('app-results', 'Avg Inked'), // {{{
           'headerOptions' => ['data-sort' => 'float'],
           'contentOptions' => function (stdClass $w): array {
             return [
@@ -232,7 +232,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
         ]
         : null,
       [
-        'label' => Yii::t('app', 'Win %'), // {{{
+        'label' => Yii::t('app-results', 'Win %'), // {{{
         'headerOptions' => ['data-sort' => 'float'],
         'contentOptions' => function (stdClass $w): array {
           return [
@@ -296,7 +296,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Avg Kills'), // {{{
+        'label' => Yii::t('app-results', 'Avg Kills'), // {{{
         'headerOptions' => ['data-sort' => 'float'],
         'contentOptions' => function (stdClass $w): array {
           return [
@@ -309,7 +309,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Avg Deaths'), // {{{
+        'label' => Yii::t('app-results', 'Avg Deaths'), // {{{
         'headerOptions' => ['data-sort' => 'float'],
         'contentOptions' => function (stdClass $w): array {
           return [
@@ -322,7 +322,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Avg KR'), // {{{
+        'label' => Yii::t('app-results', 'Avg KR'), // {{{
         'headerOptions' => ['data-sort' => 'float'],
         'contentOptions' => function (stdClass $w): array {
           return [
@@ -335,7 +335,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Win %'), // {{{
+        'label' => Yii::t('app-results', 'Win %'), // {{{
         'headerOptions' => ['data-sort' => 'float'],
         'contentOptions' => function (stdClass $w): array {
           return [
@@ -412,7 +412,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Avg Kills'), // {{{
+        'label' => Yii::t('app-results', 'Avg Kills'), // {{{
         'headerOptions' => ['data-sort' => 'float'],
         'contentOptions' => function (stdClass $w): array {
           return [
@@ -425,7 +425,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Avg Deaths'), // {{{
+        'label' => Yii::t('app-results', 'Avg Deaths'), // {{{
         'headerOptions' => ['data-sort' => 'float'],
         'contentOptions' => function (stdClass $w): array {
           return [
@@ -438,7 +438,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Avg KR'), // {{{
+        'label' => Yii::t('app-results', 'Avg KR'), // {{{
         'headerOptions' => ['data-sort' => 'float'],
         'contentOptions' => function (stdClass $w): array {
           return [
@@ -451,7 +451,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
         // }}}
       ],
       [
-        'label' => Yii::t('app', 'Win %'), // {{{
+        'label' => Yii::t('app-results', 'Win %'), // {{{
         'headerOptions' => ['data-sort' => 'float'],
         'contentOptions' => function (stdClass $w): array {
           return [

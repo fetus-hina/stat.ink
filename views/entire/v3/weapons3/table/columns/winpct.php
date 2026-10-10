@@ -27,7 +27,7 @@ return [
     'data-sort' => 'float',
     'data-sort-default' => 'desc',
   ],
-  'label' => Yii::t('app', 'Win %'),
+  'label' => Yii::t('app-results', 'Win %'),
   'value' => function (StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage|StatWeapon3XUsagePerVersion $model) use ($maxWinRate): string {
     $fmt = Yii::$app->formatter;
     $stderr = StandardError::winpct($model->wins, $model->battles);

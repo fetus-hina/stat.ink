@@ -53,8 +53,8 @@ if ($battle->map) {
 }
 if ($battle->is_win !== null) {
   $summary[] = ($battle->is_win)
-    ? Yii::t('app', 'Won')
-    : Yii::t('app', 'Lost');
+    ? Yii::t('app-results', 'Won')
+    : Yii::t('app-results', 'Lost');
 }
 $this->registerMetaTag([
   'name' => 'twitter:description',

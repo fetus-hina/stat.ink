@@ -33,7 +33,6 @@ return [
     'If you misuse this feature, you will be banned.' => '이 기능을 오남용하면 밴될 것입니다.',
     'Incomplete Data' => '불완전한 데이터',
     'Judge' => '심판',
-    'K.O.' => '녹아웃',
     'Level (after the battle)' => '랭크 (배틀 후)',
     'Max Kill Combo' => '최대 킬 콤보',
     'Max Kill Streak' => '최대 연속 킬',

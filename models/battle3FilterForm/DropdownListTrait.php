@@ -112,7 +112,7 @@ trait DropdownListTrait
         $list = ArrayHelper::map(
             Result3::find()->all(),
             'key',
-            fn (Result3 $model): string => Yii::t('app', $model->name),
+            fn (Result3 $model): string => Yii::t('app-results', $model->name),
         );
         uksort($list, function (string $a, string $b) use ($order): int {
             // どちらかがソート順に定義されていないなら、定義されていない方が後
@@ -147,11 +147,11 @@ trait DropdownListTrait
     {
         return [
             [
-                'yes' => Yii::t('app', 'Knockout'),
-                'no' => Yii::t('app', 'Time is up'),
+                'yes' => Yii::t('app-results', 'Knockout'),
+                'no' => Yii::t('app-results', 'Time is up'),
             ],
             [
-                'prompt' => sprintf('%s / %s', Yii::t('app', 'Knockout'), Yii::t('app', 'Time')),
+                'prompt' => sprintf('%s / %s', Yii::t('app-results', 'Knockout'), Yii::t('app-results', 'Time')),
             ],
         ];
     }

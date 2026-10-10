@@ -50,7 +50,7 @@ $widget = Yii::createObject([
       'value' => Yii::t('app-salmon-map2', $model->stage->name ?? null),
     ],
     [
-      'label' => Yii::t('app', 'Result'),
+      'label' => Yii::t('app-results', 'Result'),
       'format' => 'raw',
       'value' => function (Salmon2 $model, DetailView $widget): string {
         $labels = [];

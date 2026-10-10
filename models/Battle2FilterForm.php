@@ -210,7 +210,7 @@ class Battle2FilterForm extends Model
             'map' => Yii::t('app', 'Stage'),
             'weapon' => Yii::t('app', 'Weapon'),
             'rank' => Yii::t('app', 'Rank'),
-            'result' => Yii::t('app', 'Result'),
+            'result' => Yii::t('app-results', 'Result'),
             'has_disconnect' => Yii::t('app-filter', 'Connectivity'),
             'term' => Yii::t('app', 'Term'),
             'term_from' => Yii::t('app-filter', 'Period From'),

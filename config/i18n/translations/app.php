@@ -54,6 +54,7 @@ return [
         'app-recovery-key' => 'recovery-key.php',
         'app-region' => 'region.php',
         'app-reltime' => 'reltime.php',
+        'app-results' => 'results.php',
         'app-rule' => 'rule.php',
         'app-rule2' => 'rule2.php',
         'app-rule3' => 'rule3.php',
