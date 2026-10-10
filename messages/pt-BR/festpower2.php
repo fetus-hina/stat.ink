@@ -23,8 +23,8 @@ return [
     'N/A' => 'N/D',
     'Normal' => 'Normal',
     'Power Diff' => 'Diferença de Power',
-    'Q1/4' => '',
-    'Q3/4' => '',
+    'Q1/4' => 'Q1/4',
+    'Q3/4' => 'Q3/4',
     'Splatfest Power vs Win %' => 'Power da Splatfest vs % de vitórias',
     'Std. Dev.' => 'Desvio Padrão',
 ];

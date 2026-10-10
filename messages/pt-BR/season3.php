@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2024-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2024-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -26,7 +26,7 @@ return [
     'Fresh Season 2025' => '',
     'Fresh Season 2026' => '',
     'Fresh Season 2027' => '',
-    'Season {seasonNumber} ({seasonName})' => '',
+    'Season {seasonNumber} ({seasonName})' => 'Temporada {seasonNumber} ({seasonName})',
     'Sizzle Season 2022' => '',
     'Sizzle Season 2023' => '',
     'Sizzle Season 2024' => '',

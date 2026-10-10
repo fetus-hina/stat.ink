@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2024-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2024-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -13,7 +13,7 @@ return [
     '(~2 Night)' => '(~2 Noite)',
     'Category' => 'Categoria',
     'Day Waves' => 'Waves de Dia',
-    'Overfishing' => '',
+    'Overfishing' => 'Overfishing',
     'Overfishing Stats' => 'Estatísticas de Overfishing',
     'Record' => 'Recorde',
     'Total Golden Eggs' => 'Total de Ovos de Ouro',

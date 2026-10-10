@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2024-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2024-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -20,14 +20,14 @@ return [
     'Slosher Deco' => '',
     'Sloshing Machine' => '',
     'Sloshing Machine Neo' => '',
-    'Splatfest #11' => '',
-    'Splatfest #14' => '',
-    'Splatfest JP #8' => '',
-    'Splatfest JP #9' => '',
-    'Splatfest JP #10' => '',
-    'Splatfest JP #12' => '',
-    'Splatfest JP #13' => '',
-    'Splatfest JP #15' => '',
+    'Splatfest #11' => 'Splatfest #11',
+    'Splatfest #14' => 'Splatfest #14',
+    'Splatfest JP #8' => 'Splatfest JP #8',
+    'Splatfest JP #9' => 'Splatfest JP #9',
+    'Splatfest JP #10' => 'Splatfest JP #10',
+    'Splatfest JP #12' => 'Splatfest JP #12',
+    'Splatfest JP #13' => 'Splatfest JP #13',
+    'Splatfest JP #15' => 'Splatfest JP #15',
     'Tri-Slosher Nouveau' => '',
     'Zink Mini Splatling' => '',
 ];

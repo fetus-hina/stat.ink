@@ -16,7 +16,7 @@ return [
     'Auto (cookie)' => 'Automático (cookie)',
     'Discord' => 'Discord',
     'Estimated location:' => 'Localização estimada:',
-    'Google' => '',
+    'Google' => 'Google',
     'Here is your email verification code.' => 'Aqui está o seu código de verificação de e-mail.',
     'IP Address:' => 'Endereço IP:',
     'Login method:' => 'Método de login:',

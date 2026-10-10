@@ -30,7 +30,7 @@ return [
     'Group by reskins' => 'Agruar por reskins',
     'Group by weapon type' => 'Agrupar por tipo de arma',
     'Low ink' => 'Sem tinta',
-    'Moving Avg. ({0} Battles)' => '',
+    'Moving Avg. ({0} Battles)' => 'Média Móvel ({0} Partidas)',
     'My Team Score' => 'Pontuação do Meu Time',
     'My Team Splatfest Power' => 'Splatfest Power do Meu Time',
     'Neutral' => 'Neutro',
