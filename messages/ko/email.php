@@ -16,7 +16,7 @@ return [
     'Auto (cookie)' => '자동 (cookie)',
     'Discord' => '디스코드',
     'Estimated location:' => '추정 위치:',
-    'Google' => '',
+    'Google' => 'Google',
     'Here is your email verification code.' => '이메일 인증 코드는 다음과 같습니다.',
     'IP Address:' => 'IP 주소:',
     'Login method:' => '로그인 방법:',

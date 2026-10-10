@@ -8,7 +8,7 @@
 declare(strict_types=1);
 
 return [
-    'Aliases' => '',
+    'Aliases' => '별칭',
     'API Info: Abilities (Splatoon 3)' => 'API 정보: 기어파워 (Splatton 3)',
     'API Info: Boss Salmonids (Splatoon 3)' => 'API 정보: 거물연어 (Splatoon 3)',
     'API Info: Gears: {0}' => 'API 정보: 기어: {0}',
@@ -22,13 +22,13 @@ return [
     'API Info: Weapons (Splatoon 2)' => 'API 정보: 무기 (Splatoon 2)',
     'API Info: Weapons (Splatoon 3)' => 'API 정보: 무기 (Splatoon 3)',
     'CSV format' => 'CSV 포맷',
-    'JSON format' => '',
-    'JSON format (All langs)' => '',
-    'Launch' => '',
+    'JSON format' => 'JSON 포맷',
+    'JSON format (All langs)' => 'JSON 포맷 (전체 언어)',
+    'Launch' => '출시',
     'Rare Weapon' => 'Mr. Bear 표 무기',
     'Released' => '릴리즈',
-    'Reskin of' => '',
-    'SplatNet' => '',
-    'SplatNet 2' => '',
+    'Reskin of' => '동일 성능',
+    'SplatNet' => '오징어넷',
+    'SplatNet 2' => '오징어넷 2',
     'Uniform' => '작업복',
 ];

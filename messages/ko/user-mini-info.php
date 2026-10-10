@@ -18,7 +18,7 @@ return [
     'Stats (by Stage)' => '통계 (스테이지 별)',
     'Stats (by Weapon)' => '통계 (무기 별)',
     'Stats (Cause of Death)' => '통계 (죽은 원인)',
-    'Stats (Medals)' => '',
+    'Stats (Medals)' => '통계 (표창)',
     'Stats (Ranked Battle)' => '통계 (랭크 배틀)',
     'Stats (Splatfest)' => '통계 (페스)',
     'Stats (Turf War)' => '통계 (영역 배틀)',
@@ -27,7 +27,7 @@ return [
     'Stats (X Power)' => '통계 (X 파워)',
     'Stats ({rule})' => '통계 ({rule})',
     'Total Inked' => '칠한 면적 총합',
-    '{point, plural, other{#p}}' => '',
+    '{point, plural, other{#p}}' => '{point, plural, other{#p}}',
     '{rule}: Current' => '{rule}: 현재',
     '{rule}: Peak' => '{rule}: 최대',
 ];

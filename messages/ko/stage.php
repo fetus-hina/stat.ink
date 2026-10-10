@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 return [
     'In session' => '개최중',
-    'Interval' => '',
+    'Interval' => '간격',
     'more...' => '더보기',
     'Recent Use %' => '최근 사용률',
     'Scheduled' => '개최예정',
