@@ -50,6 +50,9 @@ $this->registerJs(sprintf(
     ]),
 ), View::POS_HEAD);
 
+// The last passkey cannot be deleted while the password is disabled
+$isLastRequired = !$user->hasPassword() && count($passkeys) <= 1;
+
 $transportsOf = function (UserPasskey $p): array {
     $v = $p->transports;
     if ($v instanceof ArrayExpression) {
@@ -121,15 +124,39 @@ $transportsOf = function (UserPasskey $p): array {
                 ) . "\n" ?>
               </td>
               <td>
-                <?= Html::tag(
-                  'button',
-                  Html::encode(Yii::t('app-passkey', 'Delete')),
-                  [
-                    'type' => 'button',
-                    'class' => 'passkey-delete btn btn-danger btn-sm',
-                    'data' => ['id' => $passkey->id],
-                  ],
-                ) . "\n" ?>
+                <?php if ($isLastRequired) : ?>
+                  <?= Html::tag(
+                    'span',
+                    Html::tag(
+                      'button',
+                      Html::encode(Yii::t('app-passkey', 'Delete')),
+                      [
+                        'type' => 'button',
+                        'class' => 'btn btn-danger btn-sm',
+                        'disabled' => true,
+                        'style' => 'pointer-events:none',
+                      ],
+                    ),
+                    [
+                      'class' => 'auto-tooltip',
+                      'style' => 'display:inline-block',
+                      'title' => Yii::t(
+                        'app-passkey',
+                        'You cannot delete your last passkey while your password is disabled.',
+                      ),
+                    ],
+                  ) . "\n" ?>
+                <?php else : ?>
+                  <?= Html::tag(
+                    'button',
+                    Html::encode(Yii::t('app-passkey', 'Delete')),
+                    [
+                      'type' => 'button',
+                      'class' => 'passkey-delete btn btn-danger btn-sm',
+                      'data' => ['id' => $passkey->id],
+                    ],
+                  ) . "\n" ?>
+                <?php endif ?>
               </td>
             </tr>
           <?php endforeach ?>

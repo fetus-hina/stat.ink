@@ -12,6 +12,7 @@ namespace app\actions\user;
 use RuntimeException;
 use Throwable;
 use Yii;
+use app\components\helpers\PasskeyReauth;
 use app\models\PasswordForm;
 use app\models\User;
 use yii\web\ViewAction as BaseAction;
@@ -22,12 +23,22 @@ class EditPasswordAction extends BaseAction
     {
         $request = Yii::$app->request;
         $ident = Yii::$app->user->getIdentity();
+        $hasPassword = $ident->hasPassword();
         $form = new PasswordForm();
+        if (!$hasPassword) {
+            $form->scenario = PasswordForm::SCENARIO_SET;
+        }
         $form->screen_name = $ident->screen_name;
         if ($request->isPost) {
             $form->load($request->bodyParams);
             $form->screen_name = $ident->screen_name;
-            if ($form->validate()) {
+            if ($form->validate() && !$hasPassword && !PasskeyReauth::consume((int)$ident->id)) {
+                $form->addError(
+                    'new_password',
+                    Yii::t('app-passkey', 'Failed to verify with your passkey.'),
+                );
+            }
+            if (!$form->hasErrors()) {
                 try {
                     Yii::$app->db->transaction(function () use ($ident, $form): void {
                         if (!$ident->changePassword($form->new_password)) {
@@ -48,6 +59,7 @@ class EditPasswordAction extends BaseAction
         return $this->controller->render('edit-password', [
             'user' => $ident,
             'form' => $form,
+            'hasPassword' => $hasPassword,
         ]);
     }
 

@@ -156,11 +156,15 @@ final class ResetPasswordApikeyForm extends Model
     private function getUser(): ?User
     {
         if ($this->user === false) {
+            // Users who have disabled their password can only recover it with
+            // a recovery key. API keys are often stored in plain text by
+            // clients, so they are not trusted enough to re-enable a password.
             $this->user = User::find()
                 ->andWhere([
                     '{{user}}.[[screen_name]]' => (string)$this->screen_name,
                     '{{user}}.[[apikey_password_reset]]' => true,
                 ])
+                ->andWhere(['not', ['{{user}}.[[password]]' => null]])
                 ->limit(1)
                 ->one();
         }

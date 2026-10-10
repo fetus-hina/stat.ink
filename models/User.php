@@ -49,7 +49,7 @@ use const SORT_DESC;
  * @property integer $id
  * @property string $name
  * @property string $screen_name
- * @property string $password
+ * @property string|null $password
  * @property string $api_key
  * @property string $join_at
  * @property string $nnid
@@ -140,7 +140,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['name', 'screen_name', 'password', 'api_key', 'join_at'], 'required'],
+            [['name', 'screen_name', 'api_key', 'join_at'], 'required'],
             [['default_language_id', 'region_id', 'link_mode_id'], 'required'],
             [['join_at'], 'safe'],
             [['ikanakama', 'ikanakama2', 'env_id', 'default_language_id'], 'integer'],
@@ -505,14 +505,26 @@ class User extends ActiveRecord implements IdentityInterface
         return $result;
     }
 
+    public function hasPassword(): bool
+    {
+        return $this->password !== null;
+    }
+
     public function validatePassword($password)
     {
-        return Password::verify($password, $this->password);
+        if ($this->password === null) {
+            // Spend the same time as a real verification, so as not to reveal
+            // that this user has no password
+            Password::verify((string)$password, Password::dummyHash());
+            return false;
+        }
+
+        return Password::verify((string)$password, $this->password);
     }
 
     public function rehashPasswordIfNeeded($password)
     {
-        if (!Password::needsRehash($this->password)) {
+        if ($this->password === null || !Password::needsRehash($this->password)) {
             return false;
         }
         $this->password = Password::hash($password);
@@ -543,6 +555,22 @@ class User extends ActiveRecord implements IdentityInterface
         );
 
         return true;
+    }
+
+    /**
+     * Forgets the password so that the user can sign in with passkeys only
+     *
+     * The database also enforces that the user still has at least one passkey
+     * when the transaction is committed.
+     */
+    public function disablePassword(): bool
+    {
+        if (!$this->getUserPasskeys()->exists()) {
+            return false;
+        }
+
+        $this->password = null;
+        return $this->save(false, ['password']);
     }
 
     public function toJsonArray()
