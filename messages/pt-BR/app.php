@@ -266,7 +266,7 @@ return [
     'X Power (after)' => 'Poder X (depois)',
     'You must agree to the above to delete this battle.' => 'Você deve concordar com o que está acima antes de apagar essa partida.',
     '{0} etc.' => '{0} etc.',
-    '{decimal5_7} Format' => 'Formato',
+    '{decimal5_7} Format' => 'Formato {decimal5_7}',
     '{from} - {to}' => '{from} - {to}',
     '{n,plural,=1{battle} other{battles}}' => '{n,plural,=1{partida} other{partidas}}',
     '{name}\'s Battles' => 'Partidas do(a) {name}',

@@ -51,7 +51,7 @@ return [
     'Get stages' => 'Obtenir les stages',
     'Get trends of weapon' => 'Obtenir les tendances de l\'arme',
     'Get weapons' => 'Obtenir les armes',
-    'ID(s) to be deleted' => '{n,plurial,=0{Identifiant} other{Identifiants}} à supprimé',
+    'ID(s) to be deleted' => 'Identifiant(s) à supprimer',
     'Identification string for use with other API' => 'Chaînede caractère d\'identification à utiliser avec une autre API',
     'ID that failed to delete' => 'Cette identifiant n\'a pas été supprimée',
     'Internationalized name' => 'nom internationalisé',
