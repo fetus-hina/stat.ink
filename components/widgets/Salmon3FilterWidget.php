@@ -206,7 +206,7 @@ final class Salmon3FilterWidget extends Widget
                                 $filter,
                                 'term_from',
                                 [
-                                    'inputTemplate' => Yii::t('app', '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>'),
+                                    'inputTemplate' => Yii::t('app-filter', '<div class="input-group"><span class="input-group-addon">From:</span>{input}</div>'),
                                 ],
                             )
                             ->input('text', ['placeholder' => 'YYYY-MM-DD hh:mm:ss'])
@@ -218,7 +218,7 @@ final class Salmon3FilterWidget extends Widget
                                 $filter,
                                 'term_to',
                                 [
-                                    'inputTemplate' => Yii::t('app', '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>'),
+                                    'inputTemplate' => Yii::t('app-filter', '<div class="input-group"><span class="input-group-addon">To:</span>{input}</div>'),
                                 ],
                             )
                             ->input('text', ['placeholder' => 'YYYY-MM-DD hh:mm:ss'])

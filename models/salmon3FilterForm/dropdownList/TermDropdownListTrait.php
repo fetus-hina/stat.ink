@@ -24,7 +24,7 @@ trait TermDropdownListTrait
     private function getSpecifyDropdown(): array
     {
         return [
-            'term' => Yii::t('app', 'Specify Period'),
+            'term' => Yii::t('app-filter', 'Specify Period'),
         ];
     }
 }

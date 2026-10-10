@@ -142,10 +142,10 @@ class BattleFilterForm extends Model
             'rank' => Yii::t('app', 'Rank'),
             'result' => Yii::t('app', 'Result'),
             'term' => Yii::t('app', 'Term'),
-            'term_from' => Yii::t('app', 'Period From'),
-            'term_to' => Yii::t('app', 'Period To'),
-            'id_from' => Yii::t('app', 'ID From'),
-            'id_to' => Yii::t('app', 'ID To'),
+            'term_from' => Yii::t('app-filter', 'Period From'),
+            'term_to' => Yii::t('app-filter', 'Period To'),
+            'id_from' => Yii::t('app-filter', 'ID From'),
+            'id_to' => Yii::t('app-filter', 'ID To'),
         ];
     }
 
