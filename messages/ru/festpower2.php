@@ -25,6 +25,6 @@ return [
     'Power Diff' => 'Разница силы',
     'Q1/4' => 'Q1/4',
     'Q3/4' => 'Q3/4',
-    'Splatfest Power vs Win %' => '',
+    'Splatfest Power vs Win %' => 'Сплатфест-сила и % побед',
     'Std. Dev.' => 'Станд. откл.',
 ];
