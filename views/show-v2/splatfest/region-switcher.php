@@ -49,7 +49,7 @@ $this->registerJs(sprintf(
         $regions,
         fn($next) => Html::tag(
           'option',
-          Html::encode(Yii::t('app', $next->name)),
+          Html::encode(Yii::t('app-region', $next->name)),
           [
             'data-url' => Url::to(
               ['show-v2/user-stat-splatfest',
@@ -66,7 +66,7 @@ $this->registerJs(sprintf(
 <?php if (!$input->region) { ?>
     <span>
       <?= Html::encode(Yii::t('app-show-v2', 'Guessed:')) . "\n" ?>
-      <?= Html::encode(Yii::t('app', $region->name)) . "\n" ?>
+      <?= Html::encode(Yii::t('app-region', $region->name)) . "\n" ?>
     </span>
 <?php } ?>
   </div>
