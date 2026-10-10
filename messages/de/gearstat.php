@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2017-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2017-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -24,7 +24,7 @@ return [
     'Run Speed' => 'Beweglichkeit',
     'Special Charge' => 'Spezialladung',
     'Special Duration' => 'Spezialdauer',
-    'Special Save' => '',
-    'Stiffen' => '',
+    'Special Save' => 'Spezialabzug',
+    'Stiffen' => 'Landestarre',
     'Swim Speed' => 'Schwimmtempo',
 ];
