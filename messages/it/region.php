@@ -8,9 +8,9 @@
 declare(strict_types=1);
 
 return [
-    'Europe' => '',
-    'Europe/Oceania' => '',
-    'Japan' => '',
-    'North America' => '',
-    'North America/Oceania' => '',
+    'Europe' => 'Europa',
+    'Europe/Oceania' => 'Europa/Oceania',
+    'Japan' => 'Giappone',
+    'North America' => 'Nord America',
+    'North America/Oceania' => 'Nord America/Oceania',
 ];

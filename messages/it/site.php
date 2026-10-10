@@ -8,17 +8,17 @@
 declare(strict_types=1);
 
 return [
-    'About support for color-blindness' => '',
-    'Download Stats' => '',
+    'About support for color-blindness' => 'Informazioni sul supporto al daltonismo',
+    'Download Stats' => 'Scarica statistiche',
     'FAQ' => 'Domande frequenti',
-    'Getting Started' => '',
-    'Join us' => '',
-    'K/D vs Win %' => '',
-    'Open Source Licenses' => '',
-    'Please refer to the respective projects for any problems or questions regarding the operation of each application.' => '',
+    'Getting Started' => 'Per iniziare',
+    'Join us' => 'Registrati',
+    'K/D vs Win %' => 'K/D e % vittorie',
+    'Open Source Licenses' => 'Licenze open source',
+    'Please refer to the respective projects for any problems or questions regarding the operation of each application.' => 'Per problemi o domande sul funzionamento di ciascuna applicazione, fai riferimento ai rispettivi progetti.',
     'Stats: FestPwr diff vs Win %' => '',
-    'Stats: Stages' => '',
-    'Stats: User Activity' => '',
-    'Your Battles' => '',
-    '{siteName} Discord Community' => '',
+    'Stats: Stages' => 'Statistiche: scenari',
+    'Stats: User Activity' => 'Statistiche: attività degli utenti',
+    'Your Battles' => 'Le tue partite',
+    '{siteName} Discord Community' => 'Comunità Discord di {siteName}',
 ];
