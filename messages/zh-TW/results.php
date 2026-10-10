@@ -39,7 +39,7 @@ return [
     'Knockout' => '完勝',
     'KNOCKOUT!' => '完勝！',
     'KO' => '完勝',
-    'KR' => '擊殺率',
+    'KR' => '殺死比',
     'Lose' => '敗',
     'Lost' => '敗',
     'Max Inked' => '最大塗地面積',
