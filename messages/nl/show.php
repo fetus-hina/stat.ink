@@ -46,7 +46,7 @@ return [
     'This battle was recorded with an outdated version of IkaLog. Please upgrade to the latest version.' => 'Dit gevecht is vastgelegd met een verouderde versie van IkaLog. Werk bij naar de nieuwste versie.',
     '{lower}-{upper} percentile' => '{lower}e-{upper}e percentiel',
     '{name}\'s Battle Stats (by Mode)' => 'Gevechtsstatistieken van {name} (per spelstand)',
-    '{name}\'s Battle Stats (by Stage)' => 'Gevechtsstatistieken van {name} (per arena)',
+    '{name}\'s Battle Stats (by Stage)' => 'Gevechtsstatistieken van {name} (per level)',
     '{name}\'s Battle Stats (Cause of Death)' => 'Gevechtsstatistieken van {name} (doodsoorzaak)',
     '{name}\'s Battle Stats (Ranked Battle)' => 'Gevechtsstatistieken van {name} (Profgevecht)',
     '{name}\'s Battle Stats (vs. Weapon)' => 'Gevechtsstatistieken van {name} (tegen wapen)',

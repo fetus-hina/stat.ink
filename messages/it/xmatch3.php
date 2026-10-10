@@ -16,7 +16,7 @@ return [
     'C' => 'C',
     'C+' => 'C+',
     'C-' => 'C-',
-    'Chargers' => 'Splatter a carica',
+    'Chargers' => 'Armi a carica',
     'C Long' => 'C-Lunga gittata',
     'C Short' => 'C-Breve gittata',
     'D+' => 'D+',

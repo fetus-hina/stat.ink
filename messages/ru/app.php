@@ -63,7 +63,7 @@ return [
     'Boy' => 'Мальчик',
     'Brand' => 'Бренд',
     'Category' => 'Категория',
-    'Challenge Power' => '',
+    'Challenge Power' => 'Сила события',
     'Channel' => 'Канал',
     'Close' => 'Закрыть',
     'Color-Blind Support' => 'Поддержка дальтонизма',

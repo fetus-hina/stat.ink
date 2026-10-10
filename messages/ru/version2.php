@@ -11,6 +11,6 @@ return [
     'Any Version' => 'Любая версия',
     'Initial Release' => 'Первоначальный выпуск',
     'Prerelease' => 'До релиза',
-    'Splatfest World Premiere' => '',
+    'Splatfest World Premiere' => 'Сплатфест — мировая премьера',
     'Testfire' => '',
 ];

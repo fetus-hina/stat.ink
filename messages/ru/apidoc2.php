@@ -172,7 +172,7 @@ return [
     'Salmon Run results' => 'Результаты Salmon Run',
     'Salmon Run results page URL' => '',
     'Salmon Run stats' => '',
-    'Salmon Run stats (Grizzco Point Card)' => 'Статистика Salmon Run (карта очков Потапыч Inc.)',
+    'Salmon Run stats (Grizzco Point Card)' => 'Статистика Salmon Run (отчетная карта)',
     'Salmon Run title (consider gender)' => '',
     'Salmon Run title (doesn\'t consider gender)' => '',
     'Salmon Run title information' => '',

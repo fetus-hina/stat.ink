@@ -38,7 +38,7 @@ return [
     'Golden/W' => '황금알/W',
     'Golden Eggs' => '황금알',
     'Golden Eggs per Wave' => 'WAVE당 황금알',
-    'Grizzco Point Card' => '곰 사장 포인트 카드',
+    'Grizzco Point Card' => 'Mr. 베어 포인트 카드',
     'Hazard Level' => '위험도',
     'I agree. Delete this job.' => '이 아르바이트를 삭제하는 데 동의합니다.',
     'If you delete this job, it will be gone forever.' => '이 아르바이트를 삭제하면 영원히 사라집니다.',

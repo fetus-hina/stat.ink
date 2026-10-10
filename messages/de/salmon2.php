@@ -38,7 +38,7 @@ return [
     'Golden/W' => 'Goldeier/W',
     'Golden Eggs' => 'Goldeier',
     'Golden Eggs per Wave' => 'Goldeier pro Welle',
-    'Grizzco Point Card' => '',
+    'Grizzco Point Card' => 'Bärenpunkte-Karte',
     'Hazard Level' => 'Gefahrenstufe',
     'I agree. Delete this job.' => 'Ich stimme zu. Diese Schicht löschen.',
     'If you delete this job, it will be gone forever.' => 'Wenn du diese Schicht löschst, ist sie für immer weg.',

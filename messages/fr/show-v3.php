@@ -8,7 +8,7 @@
 declare(strict_types=1);
 
 return [
-    'Anarchy Power' => 'Power Anarchie',
+    'Anarchy Power' => 'Anarchie Power',
     'Check with Setup Analyzer' => 'Verifier avec le Setup Analyser',
     'Completed!' => 'Complété !',
     'Correction' => 'Correction',
@@ -27,7 +27,7 @@ return [
     'Rank-up Battle' => 'Match de rang supérieur',
     'Regardless of your time zone setting, it is grouped using UTC.' => 'Quel que soit votre paramètre de fuseau horaire, il est regroupé en UTC.',
     'Series Progress' => 'Progression des Séries',
-    'Series Weapon Power' => '',
+    'Series Weapon Power' => 'Arsenal Power (série)',
     'Sp' => 'Sp',
     'Subs' => 'Secondaires',
     'Sub Weapon (Icon)' => 'Arme secondaire (icône)',

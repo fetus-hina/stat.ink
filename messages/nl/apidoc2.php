@@ -172,7 +172,7 @@ return [
     'Salmon Run results' => 'Salmon Run-resultaten',
     'Salmon Run results page URL' => '',
     'Salmon Run stats' => '',
-    'Salmon Run stats (Grizzco Point Card)' => 'Salmon Run-statistieken (Beer & Co-puntenkaart)',
+    'Salmon Run stats (Grizzco Point Card)' => 'Salmon Run-statistieken (Beer & Co-spaarkaart)',
     'Salmon Run title (consider gender)' => '',
     'Salmon Run title (doesn\'t consider gender)' => '',
     'Salmon Run title information' => '',

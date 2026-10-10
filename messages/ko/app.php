@@ -63,7 +63,7 @@ return [
     'Boy' => '보이',
     'Brand' => '브랜드',
     'Category' => '카테고리',
-    'Challenge Power' => '',
+    'Challenge Power' => '이벤트 파워',
     'Channel' => '채널',
     'Close' => '닫기',
     'Color-Blind Support' => '색각 서포트',

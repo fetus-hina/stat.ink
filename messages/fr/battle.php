@@ -60,7 +60,7 @@ return [
     'Their team\'s nickname' => 'Surnom de l\'équipe adverse',
     'Their Team Count' => 'Progression de leur équipe',
     'This option is provided for deleting an incorrectly-reported battle.' => 'Cette option est fournie pour supprimer un match mal envoyé.',
-    'Total Clout' => 'Total de contribution',
+    'Total Clout' => 'Contribution totale',
     'Total Clout (After the battle)' => 'Total de contribution (Après le match)',
     'Turf Inked + Bonus' => 'Surface encrée + bonus',
     'TZ' => 'TZ',

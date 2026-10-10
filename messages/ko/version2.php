@@ -11,6 +11,6 @@ return [
     'Any Version' => '모든 버전',
     'Initial Release' => '초기 버전',
     'Prerelease' => '출시 전',
-    'Splatfest World Premiere' => '',
+    'Splatfest World Premiere' => '전야제',
     'Testfire' => '',
 ];

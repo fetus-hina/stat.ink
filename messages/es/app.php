@@ -63,7 +63,7 @@ return [
     'Boy' => 'Chico',
     'Brand' => 'Marca',
     'Category' => 'Categoría',
-    'Challenge Power' => '',
+    'Challenge Power' => 'Energía evento',
     'Channel' => 'Canal',
     'Close' => 'Cerrar',
     'Color-Blind Support' => 'Apoyo daltónico',

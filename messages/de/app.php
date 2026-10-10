@@ -63,7 +63,7 @@ return [
     'Boy' => 'Junge',
     'Brand' => 'Marke',
     'Category' => 'Kategorie',
-    'Challenge Power' => '',
+    'Challenge Power' => 'Event-Power',
     'Channel' => 'Kanal',
     'Close' => 'Schließen',
     'Color-Blind Support' => 'Unterstützung bei Farbenblindheit',

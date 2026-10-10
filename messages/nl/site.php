@@ -17,7 +17,7 @@ return [
     'Open Source Licenses' => 'Opensourcelicenties',
     'Please refer to the respective projects for any problems or questions regarding the operation of each application.' => 'Neem voor problemen of vragen over de werking van een applicatie contact op met het betreffende project.',
     'Stats: FestPwr diff vs Win %' => '',
-    'Stats: Stages' => 'Statistieken: arena\'s',
+    'Stats: Stages' => 'Statistieken: levels',
     'Stats: User Activity' => 'Statistieken: gebruikersactiviteit',
     'Your Battles' => 'Je gevechten',
     '{siteName} Discord Community' => '{siteName} Discord-community',

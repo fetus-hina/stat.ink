@@ -8,7 +8,7 @@
 declare(strict_types=1);
 
 return [
-    'Anarchy Power' => '',
+    'Anarchy Power' => '카오폴리스 파워',
     'Check with Setup Analyzer' => 'Setup Analyzer로 확인',
     'Completed!' => '완료!',
     'Correction' => '보정',
@@ -27,7 +27,7 @@ return [
     'Rank-up Battle' => '승급전',
     'Regardless of your time zone setting, it is grouped using UTC.' => '당신의 시간대 설정과 무관하게, UTC로 분류됩니다.',
     'Series Progress' => '챌린지 상태',
-    'Series Weapon Power' => '',
+    'Series Weapon Power' => '무기 챌린지 파워',
     'Sp' => 'Sp',
     'Subs' => '서브',
     'Sub Weapon (Icon)' => '서브 웨펀 (아이콘)',

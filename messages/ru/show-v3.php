@@ -8,7 +8,7 @@
 declare(strict_types=1);
 
 return [
-    'Anarchy Power' => '',
+    'Anarchy Power' => 'Сила стихии',
     'Check with Setup Analyzer' => 'Проверить в Setup Analyzer',
     'Completed!' => 'Выполнено!',
     'Correction' => 'Поправка',
@@ -27,7 +27,7 @@ return [
     'Rank-up Battle' => '',
     'Regardless of your time zone setting, it is grouped using UTC.' => 'Группировка выполняется по UTC независимо от настройки часового пояса.',
     'Series Progress' => 'Прогресс серии',
-    'Series Weapon Power' => '',
+    'Series Weapon Power' => 'Стихийная сила оружия (серия)',
     'Sp' => 'Особ.',
     'Subs' => 'Доп.',
     'Sub Weapon (Icon)' => 'Запасное оружие (значок)',

@@ -60,7 +60,7 @@ return [
     'Their team\'s nickname' => '상대 팀의 별명',
     'Their Team Count' => '상대 팀 카운트',
     'This option is provided for deleting an incorrectly-reported battle.' => '이 옵션은 잘못 기록된 배틀을 삭제하기 위함입니다.',
-    'Total Clout' => '공헌도 총합',
+    'Total Clout' => '누적 공헌도',
     'Total Clout (After the battle)' => '공헌도 총합 (배틀 후)',
     'Turf Inked + Bonus' => '칠한 면적 + 승리 보너스',
     'TZ' => '시간대',

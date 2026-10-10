@@ -172,7 +172,7 @@ return [
     'Salmon Run results' => '새먼 런 결과',
     'Salmon Run results page URL' => '',
     'Salmon Run stats' => '',
-    'Salmon Run stats (Grizzco Point Card)' => '새먼 런 통계 (곰 사장 포인트 카드)',
+    'Salmon Run stats (Grizzco Point Card)' => '새먼 런 통계 (Mr. 베어 포인트 카드)',
     'Salmon Run title (consider gender)' => '',
     'Salmon Run title (doesn\'t consider gender)' => '',
     'Salmon Run title information' => '',

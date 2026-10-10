@@ -11,6 +11,6 @@ return [
     'Any Version' => 'Cualquier versión',
     'Initial Release' => 'Versión inicial',
     'Prerelease' => 'Prelanzamiento',
-    'Splatfest World Premiere' => '',
+    'Splatfest World Premiere' => 'Splatfest World Premiere',
     'Testfire' => '',
 ];

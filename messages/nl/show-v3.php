@@ -8,7 +8,7 @@
 declare(strict_types=1);
 
 return [
-    'Anarchy Power' => '',
+    'Anarchy Power' => 'Chaoskracht',
     'Check with Setup Analyzer' => 'Controleren met Setup Analyzer',
     'Completed!' => 'Voltooid!',
     'Correction' => 'Correctie',
@@ -27,7 +27,7 @@ return [
     'Rank-up Battle' => '',
     'Regardless of your time zone setting, it is grouped using UTC.' => 'Ongeacht je tijdzone-instelling wordt er gegroepeerd op UTC.',
     'Series Progress' => 'Sessievoortgang',
-    'Series Weapon Power' => '',
+    'Series Weapon Power' => 'Hoogste sessie-wapenkracht',
     'Sp' => 'Sp',
     'Subs' => 'Sub',
     'Sub Weapon (Icon)' => 'Subwapen (pictogram)',

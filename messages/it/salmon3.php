@@ -42,7 +42,7 @@ return [
     'Known Occurrence' => 'Evento noto',
     'Loan %' => '% fornitura',
     'Max.' => 'Max.',
-    'Max. Hazard Level (cleared)' => 'Livello di rischio max. (superato)',
+    'Max. Hazard Level (cleared)' => 'Rischio max. (superato)',
     'MAX Hazard Level Cleared' => 'Rischio massimo superato',
     'Mode{translate_hint_stats}' => 'Moda{translate_hint_stats}',
     'Normal Job' => 'Lavoro normale',

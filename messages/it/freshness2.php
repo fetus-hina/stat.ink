@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2019-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2019-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
@@ -11,5 +11,5 @@ return [
     'Dry' => '',
     'Fresh' => '',
     'Raw' => '',
-    'SUPERFRESH!' => '',
+    'SUPERFRESH!' => 'Inarrestabile!',
 ];
