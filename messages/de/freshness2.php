@@ -1,15 +1,15 @@
 <?php
 
 /**
- * @copyright Copyright (C) 2019-2025 AIZAWA Hina
+ * @copyright Copyright (C) 2019-2026 AIZAWA Hina
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
 declare(strict_types=1);
 
 return [
-    'Dry' => 'Groentje',
-    'Fresh' => 'Neusje van de zalm',
-    'Raw' => 'Middenmoot',
-    'SUPERFRESH!' => 'SUPERVERS!',
+    'Dry' => 'Kleiner Fisch',
+    'Fresh' => 'Toller Hecht',
+    'Raw' => 'Flotte Sprotte',
+    'SUPERFRESH!' => 'HAMMERHAI!',
 ];

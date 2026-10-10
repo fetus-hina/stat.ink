@@ -8,8 +8,8 @@
 declare(strict_types=1);
 
 return [
-    'Dry' => '',
-    'Fresh' => '',
-    'Raw' => '',
+    'Dry' => 'Groentje',
+    'Fresh' => 'Neusje van de zalm',
+    'Raw' => 'Middenmoot',
     'SUPERFRESH!' => 'SUPERVERS!',
 ];
