@@ -281,9 +281,7 @@ return [
     '{name}\'s Splat Log' => '{name}의 Splat Log',
     '{nFormatted} {n, plural, =1{time} other{times}}' => '{nFormatted}회',
     '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number, plural, other{#회}} / {battle, plural, other{#전}}',
-    '{number, plural, =1{1 egg} other{# eggs}} in {battle, plural, =1{1 shift} other{# shifts}}' => '{number}개/{battle}회',
     '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}' => '',
-    '{number, plural, =1{1 time} other{# times}} in {battle, plural, =1{1 shift} other{# shifts}}' => '',
     '{percentile} Percentile' => '',
     '{theme} Theme' => '{theme} 테마',
 ];

@@ -234,9 +234,7 @@ return [
     '{name}\'s Splat Log' => '{name} \'s Splat Log',
     '{nFormatted} {n, plural, =1{time} other{times}}' => '{nFormatted} {n, plural, =1{time} other{times}}',
     '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}',
-    '{number, plural, =1{1 egg} other{# eggs}} in {battle, plural, =1{1 shift} other{# shifts}}' => '{number, plural, =1{1 egg} other{# eggs}} in {battle, plural, =1{1 shift} other{# shifts}}',
     '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}',
-    '{number, plural, =1{1 time} other{# times}} in {battle, plural, =1{1 shift} other{# shifts}}' => '{number, plural, =1{1 time} other{# times}} in {battle, plural, =1{1 shift} other{# shifts}}',
     '{percentile} Percentile' => '{percentile} 百分位数',
     '{theme} Theme' => '{theme} 主题',
 ];

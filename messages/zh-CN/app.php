@@ -281,9 +281,7 @@ return [
     '{name}\'s Splat Log' => '{name}的斯普拉遁记录',
     '{nFormatted} {n, plural, =1{time} other{times}}' => '{nFormatted}次',
     '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}' => '{battle}次对战中死亡{number}次',
-    '{number, plural, =1{1 egg} other{# eggs}} in {battle, plural, =1{1 shift} other{# shifts}}' => '{battle}次打工中收获{number}枚鲑鱼卵',
     '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}' => '{battle}次对战中杀敌{number}次',
-    '{number, plural, =1{1 time} other{# times}} in {battle, plural, =1{1 shift} other{# shifts}}' => '{battle}次打工的{number}次',
     '{percentile} Percentile' => '{percentile}百分位数',
     '{theme} Theme' => '{theme}主题',
 ];

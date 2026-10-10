@@ -281,9 +281,7 @@ return [
     '{name}\'s Splat Log' => 'Splat Log de {name}',
     '{nFormatted} {n, plural, =1{time} other{times}}' => '{nFormatted} temps',
     '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number, plural, =1{1 mort} other{# morts}} dans {battle, plural, =1{1 match} other{# matchs}}',
-    '{number, plural, =1{1 egg} other{# eggs}} in {battle, plural, =1{1 shift} other{# shifts}}' => '{number, plural, =1{1 oeuf} other{# oeufs}} dans {battle, plural, =1{1 job} other{# jobs}}',
     '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number, plural, =1{1 kill} other{# kills}} dans {battle, plural, =1{1 match} other{# matchs}}',
-    '{number, plural, =1{1 time} other{# times}} in {battle, plural, =1{1 shift} other{# shifts}}' => '{number, plural, =1{1 fois} other{# fois}} dans {battle, plural, =1{1 job} other{# jobs}}',
     '{percentile} Percentile' => '{percentile} Centile',
     '{theme} Theme' => 'Thème {theme}',
 ];

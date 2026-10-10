@@ -281,9 +281,7 @@ return [
     '{name}\'s Splat Log' => '{name}的塗地記錄',
     '{nFormatted} {n, plural, =1{time} other{times}}' => '{nFormatted}次',
     '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}' => '{battle}次對戰中死亡{number}次',
-    '{number, plural, =1{1 egg} other{# eggs}} in {battle, plural, =1{1 shift} other{# shifts}}' => '{battle}次打工中收穫{number}顆鮭魚卵',
     '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}' => '{battle}次對戰中擊殺{number}次',
-    '{number, plural, =1{1 time} other{# times}} in {battle, plural, =1{1 shift} other{# shifts}}' => '{battle}次打工的{number}次',
     '{percentile} Percentile' => '{percentile}百分位數',
     '{theme} Theme' => '{theme}主題',
 ];

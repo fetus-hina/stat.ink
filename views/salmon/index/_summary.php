@@ -64,6 +64,7 @@ $cleared = function (?int $clearCount) use ($summary): ?float {
         'pct5' => $summary['pct5_golden'],
         'pct95' => $summary['pct95_golden'],
         'stddev' => $summary['stddev_golden'],
+        'tooltipCategory' => 'app-salmon2',
         'tooltipText' => '{number, plural, =1{1 egg} other{# eggs}} in {battle, plural, =1{1 shift} other{# shifts}}',
         'summary' => Yii::t('app-salmon2', 'Golden'),
       ]) . "\n" ?>
@@ -83,6 +84,7 @@ $cleared = function (?int $clearCount) use ($summary): ?float {
         'pct5' => $summary['pct5_power'],
         'pct95' => $summary['pct95_power'],
         'stddev' => $summary['stddev_power'],
+        'tooltipCategory' => 'app-salmon2',
         'tooltipText' => '{number, plural, =1{1 egg} other{# eggs}} in {battle, plural, =1{1 shift} other{# shifts}}',
         'summary' => Yii::t('app-salmon2', 'Pwr Eggs'),
       ]) . "\n" ?>
@@ -102,6 +104,7 @@ $cleared = function (?int $clearCount) use ($summary): ?float {
         'pct5' => $summary['pct5_rescue'],
         'pct95' => $summary['pct95_rescue'],
         'stddev' => $summary['stddev_rescue'],
+        'tooltipCategory' => 'app-salmon2',
         'tooltipText' => '{number, plural, =1{1 time} other{# times}} in {battle, plural, =1{1 shift} other{# shifts}}',
         'summary' => Yii::t('app-salmon2', 'Rescued'),
       ]) . "\n" ?>
@@ -121,6 +124,7 @@ $cleared = function (?int $clearCount) use ($summary): ?float {
         'pct5' => $summary['pct5_death'],
         'pct95' => $summary['pct95_death'],
         'stddev' => $summary['stddev_death'],
+        'tooltipCategory' => 'app-salmon2',
         'tooltipText' => '{number, plural, =1{1 time} other{# times}} in {battle, plural, =1{1 shift} other{# shifts}}',
         'summary' => Yii::t('app-salmon2', 'Deaths'),
       ]) . "\n" ?>

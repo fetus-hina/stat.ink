@@ -281,9 +281,7 @@ return [
     '{name}\'s Splat Log' => '',
     '{nFormatted} {n, plural, =1{time} other{times}}' => '{nFormatted} veces',
     '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number} veces / {battle} batallas',
-    '{number, plural, =1{1 egg} other{# eggs}} in {battle, plural, =1{1 shift} other{# shifts}}' => '',
     '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number} veces / {battle} batallas',
-    '{number, plural, =1{1 time} other{# times}} in {battle, plural, =1{1 shift} other{# shifts}}' => '',
     '{percentile} Percentile' => '',
     '{theme} Theme' => '',
 ];

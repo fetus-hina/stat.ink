@@ -281,9 +281,7 @@ return [
     '{name}\'s Battles' => '{name}さんのバトル',
     '{name}\'s Splat Log' => '{name}さんのイカログ',
     '{number, plural, =1{1 death} other{# deaths}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number, plural, other{#回}} / {battle, plural, other{#戦}}',
-    '{number, plural, =1{1 egg} other{# eggs}} in {battle, plural, =1{1 shift} other{# shifts}}' => '{number}個/{battle}回',
     '{number, plural, =1{1 kill} other{# kills}} in {battle, plural, =1{1 battle} other{# battles}}' => '{number, plural, other{#回}} / {battle, plural, other{#戦}}',
-    '{number, plural, =1{1 time} other{# times}} in {battle, plural, =1{1 shift} other{# shifts}}' => '{number}回/{battle}回',
     '{percentile} Percentile' => '{percentile}パーセンタイル',
     '{theme} Theme' => '{theme}テーマ',
 ];
