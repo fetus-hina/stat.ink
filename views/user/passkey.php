@@ -76,6 +76,14 @@ $transportsOf = function (UserPasskey $p): array {
   </div>
 
   <h2><?= Html::encode(Yii::t('app-passkey', 'Registered Passkeys')) ?></h2>
+  <?php if ($isLastRequired) : ?>
+    <p id="passkey-last-required-note" class="text-muted">
+      <?= Html::encode(Yii::t(
+        'app-passkey',
+        'You cannot delete your last passkey while your password is disabled.',
+      )) . "\n" ?>
+    </p>
+  <?php endif ?>
   <?php if (empty($passkeys)) : ?>
     <p class="text-muted">
       <?= Html::encode(Yii::t('app-passkey', 'No passkeys registered yet.')) . "\n" ?>
@@ -126,24 +134,13 @@ $transportsOf = function (UserPasskey $p): array {
               <td>
                 <?php if ($isLastRequired) : ?>
                   <?= Html::tag(
-                    'span',
-                    Html::tag(
-                      'button',
-                      Html::encode(Yii::t('app-passkey', 'Delete')),
-                      [
-                        'type' => 'button',
-                        'class' => 'btn btn-danger btn-sm',
-                        'disabled' => true,
-                        'style' => 'pointer-events:none',
-                      ],
-                    ),
+                    'button',
+                    Html::encode(Yii::t('app-passkey', 'Delete')),
                     [
-                      'class' => 'auto-tooltip',
-                      'style' => 'display:inline-block',
-                      'title' => Yii::t(
-                        'app-passkey',
-                        'You cannot delete your last passkey while your password is disabled.',
-                      ),
+                      'type' => 'button',
+                      'class' => 'btn btn-danger btn-sm',
+                      'disabled' => true,
+                      'aria-describedby' => 'passkey-last-required-note',
                     ],
                   ) . "\n" ?>
                 <?php else : ?>
@@ -197,7 +194,7 @@ $transportsOf = function (UserPasskey $p): array {
     ],
   ) . "\n" ?>
 
-  <div id="passkey-message" class="mt-3" style="display:none"></div>
+  <div id="passkey-message" class="mt-3" role="alert" style="display:none"></div>
   <hr>
   <div style="margin-top:30px">
     <?= Html::a(

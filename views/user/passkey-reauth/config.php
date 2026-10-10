@@ -34,4 +34,4 @@ $this->registerJs(sprintf(
   ]),
 ), View::POS_HEAD);
 ?>
-<div id="passkey-reauth-message" style="display:none"></div>
+<div id="passkey-reauth-message" role="alert" style="display:none"></div>
