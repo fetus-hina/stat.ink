@@ -13,6 +13,8 @@ return [
     'Back' => 'Indietro',
     'Created At' => 'Creata il',
     'Delete' => 'Elimina',
+    'Failed to verify with your passkey.' => 'Verifica con la passkey non riuscita.',
+    'You cannot delete your last passkey while your password is disabled.' => 'Non puoi eliminare la tua ultima passkey finché la password è disattivata.',
     'e.g., "iPhone Face ID"' => 'es. «iPhone Face ID»',
     'Failed to log in with passkey.' => 'Accesso con passkey non riuscito.',
     'Failed to register passkey.' => 'Registrazione della passkey non riuscita.',

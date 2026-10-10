@@ -8,6 +8,7 @@
 declare(strict_types=1);
 
 return [
+    '(Disabled. Sign in with your passkey.)' => '',
     '(combined)' => '',
     '(default)' => '',
     '(For advanced users)' => '',
@@ -109,6 +110,15 @@ return [
     'Battles:{0} / Win %:{1} / Avg Kills:{2} / Avg Deaths:{3} / Kill Ratio:{4}' => 'Batallas:{0}　Ganar %:{1}　Medio mata:{2}　Medio muerto:{3}　Matar la Relación:{4}',
     'Battles and Users' => 'Batallas y los Usuarios',
     'Battle Start' => 'Comienzo de la Batalla',
+    'Could not disable your password.' => '',
+    'Disable Password' => '',
+    'If you disable your password, you will sign in with your passkey only. Your password will be erased from the server.' => '',
+    'If you lose all your passkeys, you can set a new password with a recovery key. We recommend creating recovery keys in advance.' => '',
+    'Set Password' => '',
+    'Set Your Password' => '',
+    'Verify with your passkey and disable password' => '',
+    'You can set a password again from your profile page after verifying with your passkey.' => '',
+    'Your password is currently disabled. You can set a new password after verifying with your passkey.' => '',
     'between {down} and {up} {name}' => '',
     'Bin Width' => '',
     'Black out' => '',

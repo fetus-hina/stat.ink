@@ -95,8 +95,22 @@ $f = Yii::$app->formatter;
     [
       'attribute' => 'password',
       'format' => 'raw',
-      'value' => function (): string {
-        return implode(' ', [
+      'value' => function () use ($user): string {
+        if (!$user->hasPassword()) {
+          return implode(' ', [
+            Html::encode(Yii::t('app', '(Disabled. Sign in with your passkey.)')),
+            Html::a(
+              implode('', [
+                Html::tag('span', '', ['class' => 'fas fa-redo']),
+                Html::encode(Yii::t('app', 'Set Password')),
+              ]),
+              ['edit-password'],
+              ['class' => 'btn btn-default'],
+            ),
+          ]);
+        }
+
+        return implode(' ', array_filter([
           Html::tag('code', Html::encode(str_repeat('*', 10))),
           Html::a(
             implode('', [
@@ -106,7 +120,14 @@ $f = Yii::$app->formatter;
             ['edit-password'],
             ['class' => 'btn btn-default']
           ),
-        ]);
+          $user->getUserPasskeys()->exists()
+            ? Html::a(
+              Html::encode(Yii::t('app', 'Disable Password')),
+              ['disable-password'],
+              ['class' => 'btn btn-default'],
+            )
+            : null,
+        ]));
       },
     ],
     [

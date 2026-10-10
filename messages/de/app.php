@@ -8,6 +8,7 @@
 declare(strict_types=1);
 
 return [
+    '(Disabled. Sign in with your passkey.)' => '(Deaktiviert. Melde dich mit deinem Passkey an.)',
     '(combined)' => '',
     '(default)' => '',
     '(For advanced users)' => '',
@@ -109,6 +110,15 @@ return [
     'Battles:{0} / Win %:{1} / Avg Kills:{2} / Avg Deaths:{3} / Kill Ratio:{4}' => '',
     'Battles and Users' => '',
     'Battle Start' => '',
+    'Could not disable your password.' => 'Dein Passwort konnte nicht deaktiviert werden.',
+    'Disable Password' => 'Passwort deaktivieren',
+    'If you disable your password, you will sign in with your passkey only. Your password will be erased from the server.' => 'Wenn du dein Passwort deaktivierst, meldest du dich nur noch mit deinem Passkey an. Dein Passwort wird vom Server gelöscht.',
+    'If you lose all your passkeys, you can set a new password with a recovery key. We recommend creating recovery keys in advance.' => 'Wenn du alle deine Passkeys verlierst, kannst du mit einem Wiederherstellungsschlüssel ein neues Passwort festlegen. Wir empfehlen, im Voraus Wiederherstellungsschlüssel zu erstellen.',
+    'Set Password' => 'Passwort festlegen',
+    'Set Your Password' => 'Dein Passwort festlegen',
+    'Verify with your passkey and disable password' => 'Mit Passkey bestätigen und Passwort deaktivieren',
+    'You can set a password again from your profile page after verifying with your passkey.' => 'Nach der Bestätigung mit deinem Passkey kannst du auf deiner Profilseite wieder ein Passwort festlegen.',
+    'Your password is currently disabled. You can set a new password after verifying with your passkey.' => 'Dein Passwort ist derzeit deaktiviert. Nach der Bestätigung mit deinem Passkey kannst du ein neues Passwort festlegen.',
     'between {down} and {up} {name}' => '',
     'Bin Width' => '',
     'Black out' => '',

@@ -13,6 +13,8 @@ return [
     'Back' => '뒤로',
     'Created At' => '등록일',
     'Delete' => '삭제',
+    'Failed to verify with your passkey.' => '패스키 인증에 실패했습니다.',
+    'You cannot delete your last passkey while your password is disabled.' => '비밀번호가 비활성화된 동안에는 마지막 패스키를 삭제할 수 없습니다.',
     'e.g., "iPhone Face ID"' => '예: "iPhone Face ID"',
     'Failed to log in with passkey.' => '패스키로 로그인하지 못했습니다.',
     'Failed to register passkey.' => '패스키 등록에 실패했습니다.',

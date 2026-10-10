@@ -8,6 +8,7 @@
 declare(strict_types=1);
 
 return [
+    '(Disabled. Sign in with your passkey.)' => '(Desativada. Entre com sua chave de acesso.)',
     '(combined)' => '(junto)',
     '(default)' => '(padrão)',
     '(For advanced users)' => '(Para usuários avançados)',
@@ -109,6 +110,15 @@ return [
     'Battles:{0} / Win %:{1} / Avg Kills:{2} / Avg Deaths:{3} / Kill Ratio:{4}' => 'Partidas:{0} / % de vitórias:{1} / Méd. Kills:{2} / Méd. Mortes:{3} / Proporção de Kills:{4}',
     'Battles and Users' => 'Partidas e Usuários',
     'Battle Start' => 'Começo da Partida',
+    'Could not disable your password.' => 'Não foi possível desativar sua senha.',
+    'Disable Password' => 'Desativar senha',
+    'If you disable your password, you will sign in with your passkey only. Your password will be erased from the server.' => 'Se você desativar sua senha, entrará apenas com sua chave de acesso. Sua senha será apagada do servidor.',
+    'If you lose all your passkeys, you can set a new password with a recovery key. We recommend creating recovery keys in advance.' => 'Se você perder todas as suas chaves de acesso, poderá definir uma nova senha com uma chave de recuperação. Recomendamos criar chaves de recuperação com antecedência.',
+    'Set Password' => 'Definir senha',
+    'Set Your Password' => 'Definir sua senha',
+    'Verify with your passkey and disable password' => 'Verificar com a chave de acesso e desativar a senha',
+    'You can set a password again from your profile page after verifying with your passkey.' => 'Você pode definir uma senha novamente na sua página de perfil após verificar com sua chave de acesso.',
+    'Your password is currently disabled. You can set a new password after verifying with your passkey.' => 'Sua senha está desativada no momento. Você pode definir uma nova senha após verificar com sua chave de acesso.',
     'between {down} and {up} {name}' => 'entre {down} e {name}',
     'Bin Width' => '',
     'Black out' => 'Esconder',

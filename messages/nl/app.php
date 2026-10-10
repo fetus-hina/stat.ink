@@ -8,6 +8,7 @@
 declare(strict_types=1);
 
 return [
+    '(Disabled. Sign in with your passkey.)' => '(Uitgeschakeld. Log in met je toegangssleutel.)',
     '(combined)' => '',
     '(default)' => '',
     '(For advanced users)' => '',
@@ -109,6 +110,15 @@ return [
     'Battles:{0} / Win %:{1} / Avg Kills:{2} / Avg Deaths:{3} / Kill Ratio:{4}' => '',
     'Battles and Users' => '',
     'Battle Start' => '',
+    'Could not disable your password.' => 'Je wachtwoord kon niet worden uitgeschakeld.',
+    'Disable Password' => 'Wachtwoord uitschakelen',
+    'If you disable your password, you will sign in with your passkey only. Your password will be erased from the server.' => 'Als je je wachtwoord uitschakelt, log je alleen nog in met je toegangssleutel. Je wachtwoord wordt van de server gewist.',
+    'If you lose all your passkeys, you can set a new password with a recovery key. We recommend creating recovery keys in advance.' => 'Als je al je toegangssleutels kwijtraakt, kun je met een herstelsleutel een nieuw wachtwoord instellen. We raden aan om vooraf herstelsleutels aan te maken.',
+    'Set Password' => 'Wachtwoord instellen',
+    'Set Your Password' => 'Je wachtwoord instellen',
+    'Verify with your passkey and disable password' => 'Verifiëren met toegangssleutel en wachtwoord uitschakelen',
+    'You can set a password again from your profile page after verifying with your passkey.' => 'Na verificatie met je toegangssleutel kun je op je profielpagina opnieuw een wachtwoord instellen.',
+    'Your password is currently disabled. You can set a new password after verifying with your passkey.' => 'Je wachtwoord is momenteel uitgeschakeld. Na verificatie met je toegangssleutel kun je een nieuw wachtwoord instellen.',
     'between {down} and {up} {name}' => '',
     'Bin Width' => '',
     'Black out' => '',

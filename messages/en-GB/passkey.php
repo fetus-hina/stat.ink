@@ -13,6 +13,8 @@ return [
     'Back' => '',
     'Created At' => '',
     'Delete' => '',
+    'Failed to verify with your passkey.' => '',
+    'You cannot delete your last passkey while your password is disabled.' => '',
     'e.g., "iPhone Face ID"' => '',
     'Failed to log in with passkey.' => '',
     'Failed to register passkey.' => '',

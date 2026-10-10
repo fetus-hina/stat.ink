@@ -8,6 +8,7 @@
 declare(strict_types=1);
 
 return [
+    '(Disabled. Sign in with your passkey.)' => '（已禁用。请使用通行密钥登录。）',
     '(combined)' => '（组合）',
     '(default)' => '（默认）',
     '(For advanced users)' => '（针对高级用户）',
@@ -109,6 +110,15 @@ return [
     'Battles:{0} / Win %:{1} / Avg Kills:{2} / Avg Deaths:{3} / Kill Ratio:{4}' => '对战：{0} / 胜率%：{1} / 平均杀敌数：{2} / 平均死亡数：{3} / 杀死比：{4}',
     'Battles and Users' => '对战与用户',
     'Battle Start' => '对战开始',
+    'Could not disable your password.' => '无法禁用密码。',
+    'Disable Password' => '禁用密码',
+    'If you disable your password, you will sign in with your passkey only. Your password will be erased from the server.' => '禁用密码后，你将只能使用通行密钥登录。你的密码将从服务器上清除。',
+    'If you lose all your passkeys, you can set a new password with a recovery key. We recommend creating recovery keys in advance.' => '如果丢失了所有通行密钥，你可以使用恢复密钥设置新密码。建议提前创建恢复密钥。',
+    'Set Password' => '设置密码',
+    'Set Your Password' => '设置密码',
+    'Verify with your passkey and disable password' => '使用通行密钥验证并禁用密码',
+    'You can set a password again from your profile page after verifying with your passkey.' => '使用通行密钥验证后，你可以在个人资料页面重新设置密码。',
+    'Your password is currently disabled. You can set a new password after verifying with your passkey.' => '你的密码目前已禁用。使用通行密钥验证后即可设置新密码。',
     'between {down} and {up} {name}' => '在{down}和{up}之间 {name}',
     'Bin Width' => '组距',
     'Black out' => '隐藏名字',

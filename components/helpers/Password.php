@@ -51,6 +51,24 @@ class Password
         );
     }
 
+    /**
+     * Returns a hash of a fixed string, for equalizing the timing of password
+     * verification when there is no real hash to compare against
+     */
+    public static function dummyHash(): string
+    {
+        // Hashing takes as long as verifying, so the hash is cached to avoid
+        // doubling the time of the first verification in a request
+        static $hash = null;
+        return $hash ??= TypeHelper::string(
+            Yii::$app->cache->getOrSet(
+                [__METHOD__, self::currentAlgo()],
+                fn (): string => self::hash('dummy-password-for-timing-equalization'),
+                86400 * 30,
+            ),
+        );
+    }
+
     public static function needsRehash(string $hash): bool
     {
         return password_needs_rehash($hash, static::currentAlgo());
