@@ -11,7 +11,7 @@ namespace app\actions\user;
 
 use Throwable;
 use Yii;
-use app\models\User;
+use app\components\helpers\UserNotifier;
 use app\models\UserPasskey;
 use yii\base\DynamicModel;
 use yii\web\BadRequestHttpException;
@@ -73,39 +73,9 @@ final class PasskeyDeleteAction extends BaseAction
             return ['result' => false];
         }
         if ($deleted) {
-            $this->sendEmail($ident, $nickname);
+            UserNotifier::passkeyDeleted($ident, $nickname);
         }
 
         return ['result' => $deleted];
-    }
-
-    private function sendEmail(User $user, string $nickname): void
-    {
-        if (!$user->email) {
-            return;
-        }
-
-        try {
-            Yii::$app->mailer
-                ->compose(
-                    ['text' => '@app/views/email/delete-passkey'],
-                    ['user' => $user, 'nickname' => $nickname],
-                )
-                ->setFrom(Yii::$app->params['notifyEmail'])
-                ->setTo([$user->email => $user->name])
-                ->setSubject(Yii::t(
-                    'app-email',
-                    '[{site}] {name} (@{screen_name}): Passkey deleted',
-                    [
-                        'name' => $user->name,
-                        'screen_name' => $user->screen_name,
-                        'site' => Yii::$app->name,
-                    ],
-                    $user->emailLang->lang ?? 'en-US',
-                ))
-                ->send();
-        } catch (Throwable $e) {
-            Yii::error($e, __METHOD__);
-        }
     }
 }
