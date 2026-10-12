@@ -14,9 +14,21 @@ use yii\web\ViewAction as BaseAction;
 
 class RegisterAction extends BaseAction
 {
+    public const METHOD_PASSKEY = 'passkey';
+    public const METHOD_PASSWORD = 'password';
+
     public function run()
     {
         $request = Yii::$app->getRequest();
+
+        // Passkey registration is the default; the form itself is handled by PasskeySignup*Action
+        if (!$request->isPost && $request->get('method') !== self::METHOD_PASSWORD) {
+            return $this->controller->render('register', [
+                'method' => self::METHOD_PASSKEY,
+                'register' => new RegisterForm(['scenario' => RegisterForm::SCENARIO_PASSKEY]),
+            ]);
+        }
+
         $form = new RegisterForm();
         if ($request->isPost) {
             $form->attributes = $request->post('RegisterForm');
@@ -35,6 +47,7 @@ class RegisterAction extends BaseAction
         }
 
         return $this->controller->render('register', [
+            'method' => self::METHOD_PASSWORD,
             'register' => $form,
         ]);
     }
