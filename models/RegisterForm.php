@@ -41,7 +41,10 @@ class RegisterForm extends Model
             [['screen_name'], 'string', 'max' => 15],
             [['screen_name'], 'match',
                 'pattern' => '/^[a-zA-Z0-9_]{1,15}$/',
-                'message' => '{attribute} must be at most 15 alphanumeric or underscore characters.',
+                'message' => Yii::t(
+                    'app-user',
+                    '{attribute} must be at most 15 alphanumeric or underscore characters.',
+                ),
             ],
             [['screen_name'], 'unique',
                 'targetClass' => User::class,
