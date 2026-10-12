@@ -52,10 +52,7 @@ final class PasskeyDeleteAction extends BaseAction
             return ['result' => false];
         }
 
-        if (
-            !$ident->hasPassword() &&
-            (int)$ident->getUserPasskeys()->count() <= 1
-        ) {
+        if (!$ident->canDeletePasskey()) {
             return [
                 'result' => false,
                 'error' => 'last_passkey',

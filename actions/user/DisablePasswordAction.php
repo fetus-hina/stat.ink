@@ -28,8 +28,7 @@ final class DisablePasswordAction extends BaseAction
             return $this->controller->redirect(['user/login']);
         }
 
-        $passkeyCount = (int)$ident->getUserPasskeys()->count();
-        if (!$ident->hasPassword() || $passkeyCount < 1) {
+        if (!$ident->canDisablePassword()) {
             return $this->controller->redirect(['user/profile']);
         }
 
@@ -56,7 +55,7 @@ final class DisablePasswordAction extends BaseAction
 
         return $this->controller->render('disable-password', [
             'user' => $ident,
-            'passkeyCount' => $passkeyCount,
+            'passkeyCount' => (int)$ident->getUserPasskeys()->count(),
             'errorMessage' => $errorMessage,
         ]);
     }

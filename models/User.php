@@ -510,6 +510,24 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->password !== null;
     }
 
+    /**
+     * Whether the user can sign in without a password, i.e., has at least one passkey
+     */
+    public function canDisablePassword(): bool
+    {
+        return $this->hasPassword() && $this->getUserPasskeys()->exists();
+    }
+
+    /**
+     * Whether deleting one of the passkeys still leaves a way to sign in
+     *
+     * The last passkey cannot be deleted while the password is disabled.
+     */
+    public function canDeletePasskey(): bool
+    {
+        return $this->hasPassword() || (int)$this->getUserPasskeys()->count() > 1;
+    }
+
     public function validatePassword($password)
     {
         if ($this->password === null) {
@@ -565,7 +583,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function disablePassword(): bool
     {
-        if (!$this->getUserPasskeys()->exists()) {
+        if (!$this->canDisablePassword()) {
             return false;
         }
 
