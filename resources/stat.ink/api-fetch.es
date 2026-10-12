@@ -30,8 +30,10 @@
         return;
       }
       if (Array.isArray(value)) {
+        // Use the bracket notation like jQuery does, so that PHP receives an array
+        const arrayKey = key.endsWith('[]') ? key : key + '[]';
         value.forEach(function (v) {
-          params.append(key, v === undefined || v === null ? '' : String(v));
+          params.append(arrayKey, v === undefined || v === null ? '' : String(v));
         });
       } else {
         params.append(key, String(value));
