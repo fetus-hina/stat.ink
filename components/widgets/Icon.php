@@ -269,6 +269,7 @@ final class Icon
         'no' => 'x-lg',
         'number' => 'hash',
         'ok' => 'check-lg',
+        'passkey' => 'person-fill-lock',
         'permalink' => 'link-45deg',
         'popup' => 'window-stack',
         'prevPage' => 'chevron-double-left',
@@ -301,7 +302,6 @@ final class Icon
         'appLink' => 'link',
         'appUnlink' => 'unlink',
         'hasDisconnected' => 'tint-slash',
-        'passkey' => 'fingerprint',
         'playedWithHistory' => 'history',
     ];
 
