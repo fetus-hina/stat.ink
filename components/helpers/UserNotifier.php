@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\components\helpers;
 
+use Closure;
 use Throwable;
 use Yii;
 use app\models\LoginMethod;
@@ -24,20 +25,16 @@ final class UserNotifier
 {
     public static function loggedIn(User $user, int $loginMethod): bool
     {
-        if (!$user->email) {
-            return false;
-        }
-
         return self::send(
             $user,
             '@app/views/email/login',
-            Yii::t(
+            fn (array $params, string $language): string => Yii::t(
                 'app-email',
                 '[{site}] {name} (@{screen_name}): Logged in',
-                self::subjectParams($user),
-                self::language($user),
+                $params,
+                $language,
             ),
-            ['method' => LoginMethod::findOne(['id' => $loginMethod])],
+            fn (): array => ['method' => LoginMethod::findOne(['id' => $loginMethod])],
         );
     }
 
@@ -46,11 +43,11 @@ final class UserNotifier
         return self::send(
             $user,
             '@app/views/email/change-password',
-            Yii::t(
+            fn (array $params, string $language): string => Yii::t(
                 'app-email',
                 '[{site}] {name} (@{screen_name}): Changed your password',
-                self::subjectParams($user),
-                self::language($user),
+                $params,
+                $language,
             ),
         );
     }
@@ -60,11 +57,11 @@ final class UserNotifier
         return self::send(
             $user,
             '@app/views/email/disable-password',
-            Yii::t(
+            fn (array $params, string $language): string => Yii::t(
                 'app-email',
                 '[{site}] {name} (@{screen_name}): Disabled your password',
-                self::subjectParams($user),
-                self::language($user),
+                $params,
+                $language,
             ),
         );
     }
@@ -74,13 +71,13 @@ final class UserNotifier
         return self::send(
             $user,
             '@app/views/email/register-passkey',
-            Yii::t(
+            fn (array $params, string $language): string => Yii::t(
                 'app-email',
                 '[{site}] {name} (@{screen_name}): Passkey registered',
-                self::subjectParams($user),
-                self::language($user),
+                $params,
+                $language,
             ),
-            ['nickname' => $nickname],
+            fn (): array => ['nickname' => $nickname],
         );
     }
 
@@ -89,20 +86,25 @@ final class UserNotifier
         return self::send(
             $user,
             '@app/views/email/delete-passkey',
-            Yii::t(
+            fn (array $params, string $language): string => Yii::t(
                 'app-email',
                 '[{site}] {name} (@{screen_name}): Passkey deleted',
-                self::subjectParams($user),
-                self::language($user),
+                $params,
+                $language,
             ),
-            ['nickname' => $nickname],
+            fn (): array => ['nickname' => $nickname],
         );
     }
 
     /**
-     * @param array<string, mixed> $params
+     * The subject and the view parameters are built inside the try block, as
+     * they may also fail (e.g., loading the email language)
+     *
+     * @param Closure(array{name: string, screen_name: string, site: string}, string): string $subject
+     *   builds the subject from the parameters and the language
+     * @param (Closure(): array<string, mixed>)|null $params builds additional view parameters
      */
-    private static function send(User $user, string $view, string $subject, array $params = []): bool
+    private static function send(User $user, string $view, Closure $subject, ?Closure $params = null): bool
     {
         if (!$user->email) {
             return false;
@@ -110,10 +112,10 @@ final class UserNotifier
 
         try {
             $sent = Yii::$app->mailer
-                ->compose(['text' => $view], ['user' => $user, ...$params])
+                ->compose(['text' => $view], ['user' => $user, ...($params ? $params() : [])])
                 ->setFrom(Yii::$app->params['notifyEmail'])
                 ->setTo([$user->email => $user->name])
-                ->setSubject($subject)
+                ->setSubject($subject(self::subjectParams($user), self::language($user)))
                 ->send();
             if (!$sent) {
                 Yii::warning("Failed to send a notification email ({$view})", __METHOD__);
