@@ -52,8 +52,8 @@ final class PasskeyRegisterFinishAction extends BaseAction
             return PasskeyResponse::failure((string)$form->errorCode);
         }
 
-        $model = $form->buildPasskey((int)$ident->id);
         try {
+            $model = $form->buildPasskey((int)$ident->id);
             if (!$model->save()) {
                 Yii::warning($model->getErrors(), __METHOD__);
                 return PasskeyResponse::failure('save_failed');
