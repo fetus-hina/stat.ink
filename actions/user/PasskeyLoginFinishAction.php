@@ -38,6 +38,14 @@ final class PasskeyLoginFinishAction extends BaseAction
         $resp = Yii::$app->response;
         $resp->format = 'json';
 
+        // The challenge is single-use; consume it before anything can fail
+        $session = Yii::$app->session;
+        $challengeB64 = $session->get(WebAuthnHelper::SESSION_KEY_LOGIN_CHALLENGE);
+        $session->remove(WebAuthnHelper::SESSION_KEY_LOGIN_CHALLENGE);
+        if (!is_string($challengeB64) || $challengeB64 === '') {
+            return $this->failure('no_challenge');
+        }
+
         $req = Yii::$app->request;
         $form = PasskeyAssertionForm::fromRequest($req, PasskeyAssertionForm::SCENARIO_LOGIN);
         if (!$form->validate()) {
@@ -48,12 +56,6 @@ final class PasskeyLoginFinishAction extends BaseAction
             $req->post('remember_me'),
             FILTER_VALIDATE_BOOLEAN,
         );
-
-        $challengeB64 = Yii::$app->session->get(WebAuthnHelper::SESSION_KEY_LOGIN_CHALLENGE);
-        if (!is_string($challengeB64) || $challengeB64 === '') {
-            return $this->failure('no_challenge');
-        }
-        Yii::$app->session->remove(WebAuthnHelper::SESSION_KEY_LOGIN_CHALLENGE);
 
         $passkeyUser = UserPasskeyUser::findOne(['user_handle' => $form->user_handle]);
         if (!$passkeyUser) {

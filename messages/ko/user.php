@@ -37,6 +37,7 @@ return [
     'Change Icon' => '아이콘 변경',
     'Change Password' => '비밀번호 변경',
     'Change Screen Name' => '로그인 ID 변경',
+    'Could not change your password.' => '비밀번호를 변경할 수 없습니다.',
     'Could not disable your password.' => '비밀번호를 비활성화할 수 없습니다.',
     'Could not update your icon. Please try again.' => '아이콘 업데이트에 실패했습니다. 다시 한번 시도해주십시오',
     'Create new webhook' => '새로운 Webhook 생성',

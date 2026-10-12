@@ -37,6 +37,7 @@ return [
     'Change Icon' => 'Pictogram wijzigen',
     'Change Password' => 'Wachtwoord wijzigen',
     'Change Screen Name' => 'Inlognaam wijzigen',
+    'Could not change your password.' => 'Je wachtwoord kon niet worden gewijzigd.',
     'Could not disable your password.' => 'Je wachtwoord kon niet worden uitgeschakeld.',
     'Could not update your icon. Please try again.' => 'Je pictogram kon niet worden bijgewerkt. Probeer het opnieuw.',
     'Create new webhook' => 'Nieuwe webhook aanmaken',

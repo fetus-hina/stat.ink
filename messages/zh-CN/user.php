@@ -37,6 +37,7 @@ return [
     'Change Icon' => '改变头像',
     'Change Password' => '更改密码',
     'Change Screen Name' => '更改登录名',
+    'Could not change your password.' => '无法更改密码。',
     'Could not disable your password.' => '无法禁用密码。',
     'Could not update your icon. Please try again.' => '未能更新头像。请稍后再试。',
     'Create new webhook' => '创建新的Webhook',

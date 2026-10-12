@@ -39,6 +39,13 @@ final class PasskeyReauthFinishAction extends BaseAction
         $session = Yii::$app->session;
         $session->remove(PasskeyReauth::SESSION_KEY_STATE);
 
+        // The challenge is single-use; consume it before anything can fail
+        $challengeB64 = $session->get(PasskeyReauth::SESSION_KEY_CHALLENGE);
+        $session->remove(PasskeyReauth::SESSION_KEY_CHALLENGE);
+        if (!is_string($challengeB64) || $challengeB64 === '') {
+            return $this->failure('no_challenge');
+        }
+
         $form = PasskeyAssertionForm::fromRequest(
             Yii::$app->request,
             PasskeyAssertionForm::SCENARIO_REAUTH,
@@ -46,12 +53,6 @@ final class PasskeyReauthFinishAction extends BaseAction
         if (!$form->validate()) {
             return $this->failure('invalid_params');
         }
-
-        $challengeB64 = $session->get(PasskeyReauth::SESSION_KEY_CHALLENGE);
-        if (!is_string($challengeB64) || $challengeB64 === '') {
-            return $this->failure('no_challenge');
-        }
-        $session->remove(PasskeyReauth::SESSION_KEY_CHALLENGE);
 
         $passkey = UserPasskey::findOne([
             'credential_id' => $form->credential_id,

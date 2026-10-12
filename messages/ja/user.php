@@ -37,6 +37,7 @@ return [
     'Change Icon' => 'アイコンを変更',
     'Change Password' => 'パスワードの変更',
     'Change Screen Name' => 'ログイン名の変更',
+    'Could not change your password.' => 'パスワードを変更できませんでした。',
     'Could not disable your password.' => 'パスワードを無効にできませんでした。',
     'Could not update your icon. Please try again.' => 'アイコンのアップデートに失敗しました。やり直してください。',
     'Create new webhook' => '新しいWebhookの作成',

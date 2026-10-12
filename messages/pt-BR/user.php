@@ -37,6 +37,7 @@ return [
     'Change Icon' => 'Mudar Foto De Perfil',
     'Change Password' => 'Mudar Senha',
     'Change Screen Name' => 'Mudar Nome de Tela',
+    'Could not change your password.' => 'Não foi possível alterar sua senha.',
     'Could not disable your password.' => 'Não foi possível desativar sua senha.',
     'Could not update your icon. Please try again.' => 'Não conseguimos atualizar a foto de perfil. Tente novamente.',
     'Create new webhook' => 'Criar novo webhook',
