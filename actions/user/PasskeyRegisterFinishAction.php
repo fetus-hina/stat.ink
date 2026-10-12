@@ -33,14 +33,17 @@ final class PasskeyRegisterFinishAction extends BaseAction
         $resp = Yii::$app->response;
         $resp->format = 'json';
 
+        // The challenge is single-use; consume it before anything can fail
+        $session = Yii::$app->session;
+        $challengeB64 = $session->get(WebAuthnHelper::SESSION_KEY_CHALLENGE);
+        $session->remove(WebAuthnHelper::SESSION_KEY_CHALLENGE);
+        if (!is_string($challengeB64) || $challengeB64 === '') {
+            throw new BadRequestHttpException('No challenge in session');
+        }
+
         $form = PasskeyAttestationForm::fromRequest(Yii::$app->request);
         if (!$form->validate()) {
             throw new BadRequestHttpException('Invalid parameters');
-        }
-
-        $challengeB64 = Yii::$app->session->get(WebAuthnHelper::SESSION_KEY_CHALLENGE);
-        if (!is_string($challengeB64) || $challengeB64 === '') {
-            throw new BadRequestHttpException('No challenge in session');
         }
 
         $passkeyUser = UserPasskeyUser::findOne(['user_id' => $ident->id]);
@@ -48,9 +51,7 @@ final class PasskeyRegisterFinishAction extends BaseAction
             throw new BadRequestHttpException('Passkey user not initialized');
         }
 
-        $verified = $form->verify($challengeB64);
-        Yii::$app->session->remove(WebAuthnHelper::SESSION_KEY_CHALLENGE);
-        if (!$verified) {
+        if (!$form->verify($challengeB64)) {
             return [
                 'result' => false,
                 'error' => $form->errorCode,
