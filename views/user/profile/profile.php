@@ -120,7 +120,7 @@ $f = Yii::$app->formatter;
             ['edit-password'],
             ['class' => 'btn btn-default']
           ),
-          $user->getUserPasskeys()->exists()
+          $user->canDisablePassword()
             ? Html::a(
               Html::encode(Yii::t('app-user', 'Disable Password')),
               ['disable-password'],

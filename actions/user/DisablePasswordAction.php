@@ -13,6 +13,7 @@ use RuntimeException;
 use Throwable;
 use Yii;
 use app\components\helpers\PasskeyReauth;
+use app\components\helpers\UserNotifier;
 use app\models\User;
 use yii\web\ViewAction as BaseAction;
 
@@ -28,8 +29,7 @@ final class DisablePasswordAction extends BaseAction
             return $this->controller->redirect(['user/login']);
         }
 
-        $passkeyCount = (int)$ident->getUserPasskeys()->count();
-        if (!$ident->hasPassword() || $passkeyCount < 1) {
+        if (!$ident->canDisablePassword()) {
             return $this->controller->redirect(['user/profile']);
         }
 
@@ -44,7 +44,7 @@ final class DisablePasswordAction extends BaseAction
                             throw new RuntimeException('Failed to disable password');
                         }
                     });
-                    $this->sendEmail($ident);
+                    UserNotifier::passwordDisabled($ident);
                     return $this->controller->redirect(['user/profile']);
                 } catch (Throwable $e) {
                     Yii::error($e, __METHOD__);
@@ -56,38 +56,8 @@ final class DisablePasswordAction extends BaseAction
 
         return $this->controller->render('disable-password', [
             'user' => $ident,
-            'passkeyCount' => $passkeyCount,
+            'passkeyCount' => (int)$ident->getUserPasskeys()->count(),
             'errorMessage' => $errorMessage,
         ]);
-    }
-
-    private function sendEmail(User $user): void
-    {
-        if (!$user->email) {
-            return;
-        }
-
-        try {
-            Yii::$app->mailer
-                ->compose(
-                    ['text' => '@app/views/email/disable-password'],
-                    ['user' => $user],
-                )
-                ->setFrom(Yii::$app->params['notifyEmail'])
-                ->setTo([$user->email => $user->name])
-                ->setSubject(Yii::t(
-                    'app-email',
-                    '[{site}] {name} (@{screen_name}): Disabled your password',
-                    [
-                        'name' => $user->name,
-                        'screen_name' => $user->screen_name,
-                        'site' => Yii::$app->name,
-                    ],
-                    $user->emailLang->lang ?? 'en-US',
-                ))
-                ->send();
-        } catch (Throwable $e) {
-            Yii::error($e, __METHOD__);
-        }
     }
 }

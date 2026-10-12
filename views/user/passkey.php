@@ -51,7 +51,7 @@ $this->registerJs(sprintf(
 ), View::POS_HEAD);
 
 // The last passkey cannot be deleted while the password is disabled
-$isLastRequired = !$user->hasPassword() && count($passkeys) <= 1;
+$isLastRequired = !$user->canDeletePasskey();
 
 $transportsOf = function (UserPasskey $p): array {
     $v = $p->transports;

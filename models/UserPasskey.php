@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace app\models;
 
 use Override;
+use app\components\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -41,12 +42,20 @@ class UserPasskey extends ActiveRecord
     }
 
     #[Override]
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::class,
+        ];
+    }
+
+    #[Override]
     public function rules()
     {
         return [
             [['last_used_at'], 'default', 'value' => null],
             [['backup_state'], 'default', 'value' => 0],
-            [['user_id', 'credential_id', 'public_key', 'aaguid', 'attestation_format', 'nickname', 'created_at', 'updated_at'], 'required'],
+            [['user_id', 'credential_id', 'public_key', 'aaguid', 'attestation_format', 'nickname'], 'required'],
             [['user_id', 'sign_count'], 'default', 'value' => null],
             [['user_id', 'sign_count'], 'integer'],
             [['public_key', 'aaguid'], 'string'],

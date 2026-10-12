@@ -124,8 +124,7 @@ final class PasskeyAttestationForm extends Model
         }
 
         $aaguid = WebAuthnHelper::binaryToUuidString($data->AAGUID);
-        $nowDate = new DateTimeImmutable();
-        $now = $nowDate->format('Y-m-d\TH:i:sP');
+        $now = new DateTimeImmutable();
 
         return Yii::createObject([
             'class' => UserPasskey::class,
@@ -140,9 +139,7 @@ final class PasskeyAttestationForm extends Model
             'backup_state' => (bool)($data->isBackedUp ?? false),
             'nickname' => $this->nickname !== ''
                 ? $this->nickname
-                : $this->buildDefaultNickname($aaguid, $nowDate),
-            'created_at' => $now,
-            'updated_at' => $now,
+                : $this->buildDefaultNickname($aaguid, $now),
         ]);
     }
 
