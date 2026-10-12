@@ -10,7 +10,9 @@ declare(strict_types=1);
 namespace app\actions\user;
 
 use Yii;
+use app\components\helpers\PasskeyChallengeStore;
 use app\components\helpers\WebAuthnHelper;
+use app\models\PasskeyChallenge;
 use yii\web\BadRequestHttpException;
 use yii\web\ViewAction as BaseAction;
 
@@ -32,9 +34,10 @@ final class PasskeyLoginStartAction extends BaseAction
             requireUserVerification: 'preferred',
         );
 
-        Yii::$app->session->set(
-            WebAuthnHelper::SESSION_KEY_LOGIN_CHALLENGE,
-            WebAuthnHelper::base64UrlEncode($webAuthn->getChallenge()->getBinaryString()),
+        PasskeyChallengeStore::issue(
+            PasskeyChallenge::PURPOSE_LOGIN,
+            $webAuthn->getChallenge()->getBinaryString(),
+            null,
         );
 
         return $args;

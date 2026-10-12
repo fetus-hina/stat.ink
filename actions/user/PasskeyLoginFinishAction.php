@@ -10,9 +10,11 @@ declare(strict_types=1);
 namespace app\actions\user;
 
 use Yii;
-use app\components\helpers\WebAuthnHelper;
+use app\components\helpers\PasskeyChallengeStore;
+use app\components\helpers\PasskeyResponse;
 use app\models\LoginMethod;
 use app\models\PasskeyAssertionForm;
+use app\models\PasskeyChallenge;
 use app\models\User;
 use app\models\UserAuthKey;
 use app\models\UserLoginHistory;
@@ -23,7 +25,6 @@ use yii\web\ViewAction as BaseAction;
 
 use function filter_var;
 use function headers_sent;
-use function is_string;
 
 use const FILTER_VALIDATE_BOOLEAN;
 
@@ -38,18 +39,16 @@ final class PasskeyLoginFinishAction extends BaseAction
         $resp = Yii::$app->response;
         $resp->format = 'json';
 
-        // The challenge is single-use; consume it before anything can fail
-        $session = Yii::$app->session;
-        $challengeB64 = $session->get(WebAuthnHelper::SESSION_KEY_LOGIN_CHALLENGE);
-        $session->remove(WebAuthnHelper::SESSION_KEY_LOGIN_CHALLENGE);
-        if (!is_string($challengeB64) || $challengeB64 === '') {
-            return $this->failure('no_challenge');
+        // The challenge is single-use; take it before anything can fail
+        $challenge = PasskeyChallengeStore::take(PasskeyChallenge::PURPOSE_LOGIN, null);
+        if (!$challenge) {
+            return PasskeyResponse::failure('no_challenge');
         }
 
         $req = Yii::$app->request;
         $form = PasskeyAssertionForm::fromRequest($req, PasskeyAssertionForm::SCENARIO_LOGIN);
         if (!$form->validate()) {
-            return $this->failure('invalid_params');
+            return PasskeyResponse::failure('invalid_params');
         }
 
         $rememberMe = (bool)filter_var(
@@ -59,7 +58,7 @@ final class PasskeyLoginFinishAction extends BaseAction
 
         $passkeyUser = UserPasskeyUser::findOne(['user_handle' => $form->user_handle]);
         if (!$passkeyUser) {
-            return $this->failure('unknown_user_handle');
+            return PasskeyResponse::failure('unknown_user_handle');
         }
 
         $passkey = UserPasskey::findOne([
@@ -67,16 +66,16 @@ final class PasskeyLoginFinishAction extends BaseAction
             'user_id' => $passkeyUser->user_id,
         ]);
         if (!$passkey) {
-            return $this->failure('unknown_credential');
+            return PasskeyResponse::failure('unknown_credential');
         }
 
         $user = User::findOne(['id' => $passkeyUser->user_id]);
         if (!$user) {
-            return $this->failure('user_not_found');
+            return PasskeyResponse::failure('user_not_found');
         }
 
-        if (!$form->verify($passkey, $challengeB64)) {
-            return $this->failure((string)$form->errorCode);
+        if (!$form->verify($passkey, $challenge->challenge)) {
+            return PasskeyResponse::failure((string)$form->errorCode);
         }
 
         $appUser = Yii::$app->user;
@@ -97,22 +96,12 @@ final class PasskeyLoginFinishAction extends BaseAction
             $rememberMe ? UserAuthKey::VALID_PERIOD : 0,
         );
         if (!$loggedIn) {
-            return $this->failure('login_failed');
+            return PasskeyResponse::failure('login_failed');
         }
 
         return [
             'result' => true,
             'screen_name' => $user->screen_name,
         ];
-    }
-
-    /**
-     * Returns a failure with a machine-readable code only; the client shows its own translated message
-     *
-     * @return array{result: false, error: string}
-     */
-    private function failure(string $error): array
-    {
-        return ['result' => false, 'error' => $error];
     }
 }
