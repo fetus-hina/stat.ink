@@ -62,4 +62,46 @@ class WebAuthnHelperTest extends Unit
             '17 bytes' => [str_repeat("\0", 17)],
         ];
     }
+
+    public function testNormalizeTransportsKeepsKnownValues(): void
+    {
+        $this->assertSame(
+            ['usb', 'nfc', 'ble', 'internal', 'hybrid', 'smart-card'],
+            WebAuthnHelper::normalizeTransports(['usb', 'nfc', 'ble', 'internal', 'hybrid', 'smart-card']),
+        );
+    }
+
+    public function testNormalizeTransportsDropsUnknownValues(): void
+    {
+        $this->assertSame(
+            ['usb', 'internal'],
+            WebAuthnHelper::normalizeTransports(['usb', 'carrier-pigeon', 'USB', 1, null, ['nfc'], 'internal']),
+        );
+    }
+
+    public function testNormalizeTransportsReindexes(): void
+    {
+        $this->assertSame(
+            ['hybrid'],
+            WebAuthnHelper::normalizeTransports([3 => 'bogus', 'key' => 'hybrid']),
+        );
+    }
+
+    /**
+     * @dataProvider nonArrayProvider
+     */
+    public function testNormalizeTransportsReturnsEmptyForNonArray(mixed $value): void
+    {
+        $this->assertSame([], WebAuthnHelper::normalizeTransports($value));
+    }
+
+    public static function nonArrayProvider(): array
+    {
+        return [
+            'null' => [null],
+            'string' => ['usb'],
+            'int' => [1],
+            'empty array' => [[]],
+        ];
+    }
 }

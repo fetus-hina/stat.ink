@@ -10,8 +10,10 @@ declare(strict_types=1);
 namespace app\actions\user;
 
 use Yii;
-use app\components\helpers\PasskeyReauth;
+use app\components\helpers\PasskeyChallengeStore;
+use app\components\helpers\PasskeyResponse;
 use app\components\helpers\WebAuthnHelper;
+use app\models\PasskeyChallenge;
 use app\models\UserPasskey;
 use yii\helpers\ArrayHelper;
 use yii\web\BadRequestHttpException;
@@ -39,7 +41,7 @@ final class PasskeyReauthStartAction extends BaseAction
             ),
         );
         if (!$credentialIds) {
-            return ['result' => false, 'error' => 'no_passkey'];
+            return PasskeyResponse::failure('no_passkey');
         }
 
         $webAuthn = WebAuthnHelper::create();
@@ -49,9 +51,10 @@ final class PasskeyReauthStartAction extends BaseAction
             requireUserVerification: 'required',
         );
 
-        Yii::$app->session->set(
-            PasskeyReauth::SESSION_KEY_CHALLENGE,
-            WebAuthnHelper::base64UrlEncode($webAuthn->getChallenge()->getBinaryString()),
+        PasskeyChallengeStore::issue(
+            PasskeyChallenge::PURPOSE_REAUTH,
+            $webAuthn->getChallenge()->getBinaryString(),
+            (int)$ident->id,
         );
 
         return $args;

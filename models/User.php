@@ -14,6 +14,7 @@ use Yii;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Password;
 use app\components\helpers\TypeHelper;
+use app\components\helpers\UserNotifier;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\Query;
@@ -510,6 +511,24 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->password !== null;
     }
 
+    /**
+     * Whether the user can sign in without a password, i.e., has at least one passkey
+     */
+    public function canDisablePassword(): bool
+    {
+        return $this->hasPassword() && $this->getUserPasskeys()->exists();
+    }
+
+    /**
+     * Whether deleting one of the passkeys still leaves a way to sign in
+     *
+     * The last passkey cannot be deleted while the password is disabled.
+     */
+    public function canDeletePasskey(): bool
+    {
+        return $this->hasPassword() || (int)$this->getUserPasskeys()->count() > 1;
+    }
+
     public function validatePassword($password)
     {
         if ($this->password === null) {
@@ -565,7 +584,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function disablePassword(): bool
     {
-        if (!$this->getUserPasskeys()->exists()) {
+        if (!$this->canDisablePassword()) {
             return false;
         }
 
@@ -743,30 +762,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     public static function onLogin(self $user, int $loginMethod): void
     {
-        if (!$user->email) {
-            return;
-        }
-
-        $mail = Yii::$app->mailer->compose(
-            ['text' => '@app/views/email/login'],
-            [
-                'method' => LoginMethod::findOne(['id' => $loginMethod]),
-                'user' => $user,
-            ],
-        );
-        $mail->setFrom(Yii::$app->params['notifyEmail'])
-            ->setTo([$user->email => $user->name])
-            ->setSubject(Yii::t(
-                'app-email',
-                '[{site}] {name} (@{screen_name}): Logged in',
-                [
-                    'name' => $user->name,
-                    'screen_name' => $user->screen_name,
-                    'site' => Yii::$app->name,
-                ],
-                $user->emailLang->lang ?? 'en-US',
-            ))
-            ->send();
+        UserNotifier::loggedIn($user, $loginMethod);
     }
 
     public static function openApiSchema(): array

@@ -9,16 +9,15 @@ declare(strict_types=1);
 
 namespace app\actions\user;
 
-use Throwable;
 use Yii;
+use app\components\helpers\PasskeyChallengeStore;
 use app\components\helpers\WebAuthnHelper;
+use app\models\PasskeyChallenge;
 use app\models\UserPasskey;
 use app\models\UserPasskeyUser;
 use yii\web\BadRequestHttpException;
 use yii\web\ServerErrorHttpException;
 use yii\web\ViewAction as BaseAction;
-
-use function date;
 
 final class PasskeyRegisterStartAction extends BaseAction
 {
@@ -32,7 +31,7 @@ final class PasskeyRegisterStartAction extends BaseAction
         $resp = Yii::$app->response;
         $resp->format = 'json';
 
-        $passkeyUser = $this->ensurePasskeyUser($ident->id);
+        $passkeyUser = UserPasskeyUser::findOrCreate((int)$ident->id);
         if (!$passkeyUser) {
             throw new ServerErrorHttpException('Failed to prepare passkey user');
         }
@@ -53,40 +52,12 @@ final class PasskeyRegisterStartAction extends BaseAction
             excludeCredentialIds: $excludeCredentialIds,
         );
 
-        Yii::$app->session->set(
-            WebAuthnHelper::SESSION_KEY_CHALLENGE,
-            WebAuthnHelper::base64UrlEncode($webAuthn->getChallenge()->getBinaryString()),
+        PasskeyChallengeStore::issue(
+            PasskeyChallenge::PURPOSE_REGISTER,
+            $webAuthn->getChallenge()->getBinaryString(),
+            (int)$ident->id,
         );
 
         return $createArgs;
-    }
-
-    private function ensurePasskeyUser(int $userId): ?UserPasskeyUser
-    {
-        $model = UserPasskeyUser::findOne(['user_id' => $userId]);
-        if ($model) {
-            return $model;
-        }
-
-        $transaction = Yii::$app->db->beginTransaction();
-        try {
-            $now = date('Y-m-d\TH:i:sP');
-            $model = Yii::createObject([
-                'class' => UserPasskeyUser::class,
-                'user_id' => $userId,
-                'user_handle' => WebAuthnHelper::generateUserHandleBase64(),
-                'created_at' => $now,
-                'updated_at' => $now,
-            ]);
-            if (!$model->save()) {
-                $transaction->rollback();
-                return null;
-            }
-            $transaction->commit();
-            return $model;
-        } catch (Throwable $e) {
-            $transaction->rollback();
-            return null;
-        }
     }
 }

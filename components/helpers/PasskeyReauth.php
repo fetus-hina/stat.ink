@@ -20,7 +20,6 @@ use function is_int;
  */
 final class PasskeyReauth
 {
-    public const SESSION_KEY_CHALLENGE = 'passkey.reauth.challenge';
     public const SESSION_KEY_STATE = 'passkey.reauth.state';
 
     /**

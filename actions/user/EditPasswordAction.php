@@ -13,6 +13,7 @@ use RuntimeException;
 use Throwable;
 use Yii;
 use app\components\helpers\PasskeyReauth;
+use app\components\helpers\UserNotifier;
 use app\models\PasswordForm;
 use app\models\User;
 use yii\web\ViewAction as BaseAction;
@@ -39,20 +40,19 @@ class EditPasswordAction extends BaseAction
                 );
             }
             if (!$form->hasErrors()) {
-                try {
-                    Yii::$app->db->transaction(function () use ($ident, $form): void {
-                        if (!$ident->changePassword($form->new_password)) {
-                            throw new RuntimeException('Failed to change password');
-                        }
-                    });
-                    $this->sendEmail($ident);
-                    $this->controller->redirect([
+                if ($this->changePassword($ident, $form->new_password)) {
+                    // Sent after the commit; a mail failure must not look like a failed change
+                    UserNotifier::passwordChanged($ident);
+                    return $this->controller->redirect([
                         'user/profile',
                         'recovery_keys_revoked' => 1,
                     ]);
-                    return;
-                } catch (Throwable $e) {
                 }
+
+                $form->addError(
+                    'new_password',
+                    Yii::t('app-user', 'Could not change your password.'),
+                );
             }
         }
 
@@ -63,29 +63,19 @@ class EditPasswordAction extends BaseAction
         ]);
     }
 
-    private function sendEmail(User $user): void
+    private function changePassword(User $user, string $newPassword): bool
     {
-        if (!$user->email) {
-            return;
+        try {
+            Yii::$app->db->transaction(function () use ($user, $newPassword): void {
+                if (!$user->changePassword($newPassword)) {
+                    throw new RuntimeException('Failed to change password');
+                }
+            });
+            return true;
+        } catch (Throwable $e) {
+            Yii::error($e, __METHOD__);
+            $user->refresh();
+            return false;
         }
-
-        Yii::$app->mailer
-            ->compose(
-                ['text' => '@app/views/email/change-password'],
-                ['user' => $user],
-            )
-            ->setFrom(Yii::$app->params['notifyEmail'])
-            ->setTo([$user->email => $user->name])
-            ->setSubject(Yii::t(
-                'app-email',
-                '[{site}] {name} (@{screen_name}): Changed your password',
-                [
-                    'name' => $user->name,
-                    'screen_name' => $user->screen_name,
-                    'site' => Yii::$app->name,
-                ],
-                $user->emailLang->lang ?? 'en-US',
-            ))
-            ->send();
     }
 }

@@ -13,11 +13,11 @@ use Override;
 use Throwable;
 use Yii;
 use app\components\helpers\WebAuthnHelper;
+use app\components\helpers\db\Now;
 use lbuchs\WebAuthn\WebAuthnException;
 use yii\base\Model;
 use yii\web\Request;
 
-use function date;
 use function is_string;
 
 /**
@@ -52,11 +52,6 @@ final class PasskeyAssertionForm extends Model
      * Machine-readable reason of the last verify() failure
      */
     public ?string $errorCode = null;
-
-    /**
-     * Human-readable detail of the last verify() failure, if any
-     */
-    public ?string $errorMessage = null;
 
     public static function fromRequest(Request $request, string $scenario): self
     {
@@ -96,12 +91,11 @@ final class PasskeyAssertionForm extends Model
     /**
      * Verifies the assertion against the passkey, and records its use
      *
-     * On failure, $errorCode (and optionally $errorMessage) is set.
+     * On failure, $errorCode is set. The details are logged, not exposed to the client.
      */
     public function verify(UserPasskey $passkey, string $challengeB64): bool
     {
         $this->errorCode = null;
-        $this->errorMessage = null;
 
         try {
             $webAuthn = WebAuthnHelper::create();
@@ -116,15 +110,14 @@ final class PasskeyAssertionForm extends Model
                 requireUserPresent: true,
             );
         } catch (WebAuthnException $e) {
-            return $this->fail('verification_failed', $e->getMessage());
+            Yii::warning($e->getMessage(), __METHOD__);
+            return $this->fail('verification_failed');
         }
 
         $transaction = Yii::$app->db->beginTransaction();
         try {
-            $now = date('Y-m-d\TH:i:sP');
             $passkey->sign_count = (int)$webAuthn->getSignatureCounter();
-            $passkey->last_used_at = $now;
-            $passkey->updated_at = $now;
+            $passkey->last_used_at = new Now();
             if (!$passkey->save()) {
                 $transaction->rollback();
                 return $this->fail('save_failed');
@@ -133,16 +126,15 @@ final class PasskeyAssertionForm extends Model
         } catch (Throwable $e) {
             $transaction->rollback();
             Yii::error($e, __METHOD__);
-            return $this->fail('exception', $e->getMessage());
+            return $this->fail('exception');
         }
 
         return true;
     }
 
-    private function fail(string $code, ?string $message = null): bool
+    private function fail(string $code): bool
     {
         $this->errorCode = $code;
-        $this->errorMessage = $message;
         return false;
     }
 }

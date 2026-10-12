@@ -14,16 +14,20 @@ use ParagonIE\ConstantTime\Base64UrlSafe;
 use Yii;
 use lbuchs\WebAuthn\WebAuthn;
 
+use function array_filter;
+use function array_values;
 use function bin2hex;
 use function implode;
+use function in_array;
+use function is_array;
+use function is_string;
 use function random_bytes;
 use function strlen;
 use function substr;
 
 final class WebAuthnHelper
 {
-    public const SESSION_KEY_CHALLENGE = 'passkey.register.challenge';
-    public const SESSION_KEY_LOGIN_CHALLENGE = 'passkey.login.challenge';
+    private const ALLOWED_TRANSPORTS = ['usb', 'nfc', 'ble', 'internal', 'hybrid', 'smart-card'];
 
     public static function create(): WebAuthn
     {
@@ -76,5 +80,22 @@ final class WebAuthnHelper
             substr($hex, 16, 4),
             substr($hex, 20, 12),
         ]);
+    }
+
+    /**
+     * Filters the client-reported transports (getTransports()) down to the known values
+     *
+     * @return list<string>
+     */
+    public static function normalizeTransports(mixed $transports): array
+    {
+        if (!is_array($transports)) {
+            return [];
+        }
+
+        return array_values(array_filter(
+            $transports,
+            fn ($v): bool => is_string($v) && in_array($v, self::ALLOWED_TRANSPORTS, true),
+        ));
     }
 }

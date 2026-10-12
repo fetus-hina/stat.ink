@@ -10,13 +10,14 @@ declare(strict_types=1);
 namespace app\actions\user;
 
 use Yii;
+use app\components\helpers\PasskeyChallengeStore;
 use app\components\helpers\PasskeyReauth;
+use app\components\helpers\PasskeyResponse;
 use app\models\PasskeyAssertionForm;
+use app\models\PasskeyChallenge;
 use app\models\UserPasskey;
 use yii\web\BadRequestHttpException;
 use yii\web\ViewAction as BaseAction;
-
-use function is_string;
 
 /**
  * Re-authenticates the logged-in user with one of their own passkeys
@@ -36,49 +37,36 @@ final class PasskeyReauthFinishAction extends BaseAction
         $resp = Yii::$app->response;
         $resp->format = 'json';
 
-        $session = Yii::$app->session;
-        $session->remove(PasskeyReauth::SESSION_KEY_STATE);
+        Yii::$app->session->remove(PasskeyReauth::SESSION_KEY_STATE);
+
+        // The challenge is single-use; take it before anything can fail
+        $challenge = PasskeyChallengeStore::take(PasskeyChallenge::PURPOSE_REAUTH, (int)$ident->id);
+        if (!$challenge) {
+            return PasskeyResponse::failure('no_challenge');
+        }
 
         $form = PasskeyAssertionForm::fromRequest(
             Yii::$app->request,
             PasskeyAssertionForm::SCENARIO_REAUTH,
         );
         if (!$form->validate()) {
-            return $this->failure('invalid_params');
+            return PasskeyResponse::failure('invalid_params');
         }
-
-        $challengeB64 = $session->get(PasskeyReauth::SESSION_KEY_CHALLENGE);
-        if (!is_string($challengeB64) || $challengeB64 === '') {
-            return $this->failure('no_challenge');
-        }
-        $session->remove(PasskeyReauth::SESSION_KEY_CHALLENGE);
 
         $passkey = UserPasskey::findOne([
             'credential_id' => $form->credential_id,
             'user_id' => $ident->id,
         ]);
         if (!$passkey) {
-            return $this->failure('unknown_credential');
+            return PasskeyResponse::failure('unknown_credential');
         }
 
-        if (!$form->verify($passkey, $challengeB64)) {
-            return $this->failure((string)$form->errorCode, $form->errorMessage);
+        if (!$form->verify($passkey, $challenge->challenge)) {
+            return PasskeyResponse::failure((string)$form->errorCode);
         }
 
         PasskeyReauth::markVerified((int)$ident->id);
 
         return ['result' => true];
-    }
-
-    /**
-     * @return array{result: false, error: string, message?: string}
-     */
-    private function failure(string $error, ?string $message = null): array
-    {
-        $out = ['result' => false, 'error' => $error];
-        if ($message !== null) {
-            $out['message'] = $message;
-        }
-        return $out;
     }
 }

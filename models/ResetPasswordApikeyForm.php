@@ -11,6 +11,7 @@ use RuntimeException;
 use Throwable;
 use Yii;
 use app\components\helpers\TypeHelper;
+use app\components\helpers\UserNotifier;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
 use yii\httpclient\Client;
@@ -175,27 +176,8 @@ final class ResetPasswordApikeyForm extends Model
     public function sendEmail(): void
     {
         $user = $this->getUser();
-        if (!$user || !$user->email) {
-            return;
+        if ($user) {
+            UserNotifier::passwordChanged($user);
         }
-
-        Yii::$app->mailer
-            ->compose(
-                ['text' => '@app/views/email/change-password'],
-                ['user' => $user],
-            )
-            ->setFrom(Yii::$app->params['notifyEmail'])
-            ->setTo([$user->email => $user->name])
-            ->setSubject(Yii::t(
-                'app-email',
-                '[{site}] {name} (@{screen_name}): Changed your password',
-                [
-                    'name' => $user->name,
-                    'screen_name' => $user->screen_name,
-                    'site' => Yii::$app->name,
-                ],
-                $user->emailLang->lang ?? 'en-US',
-            ))
-            ->send();
     }
 }
