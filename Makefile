@@ -112,6 +112,7 @@ RESOURCE_TARGETS := \
 	resources/.compiled/stat.ink/passkey-login.css \
 	resources/.compiled/stat.ink/passkey-login.js \
 	resources/.compiled/stat.ink/passkey-reauth.js \
+	resources/.compiled/stat.ink/passkey-signup.js \
 	resources/.compiled/stat.ink/passkey.js \
 	resources/.compiled/stat.ink/permalink-dialog.js \
 	resources/.compiled/stat.ink/photoswipe-init.js \
@@ -352,6 +353,7 @@ resources/.compiled/stat.ink/passkey-login-navbar.js: resources/stat.ink/passkey
 resources/.compiled/stat.ink/passkey-login.css: resources/stat.ink/passkey-login.scss node_modules
 resources/.compiled/stat.ink/passkey-login.js: resources/stat.ink/passkey-login.es node_modules
 resources/.compiled/stat.ink/passkey-reauth.js: resources/stat.ink/passkey-reauth.es node_modules
+resources/.compiled/stat.ink/passkey-signup.js: resources/stat.ink/passkey-signup.es node_modules
 resources/.compiled/stat.ink/passkey.js: resources/stat.ink/passkey.es node_modules
 resources/.compiled/stat.ink/permalink-dialog.js: resources/stat.ink/permalink-dialog.es node_modules
 resources/.compiled/stat.ink/photoswipe-init.js: resources/stat.ink/photoswipe-init.es node_modules

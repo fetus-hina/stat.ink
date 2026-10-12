@@ -37,6 +37,8 @@ use app\actions\user\PasskeyReauthFinishAction;
 use app\actions\user\PasskeyReauthStartAction;
 use app\actions\user\PasskeyRegisterFinishAction;
 use app\actions\user\PasskeyRegisterStartAction;
+use app\actions\user\PasskeySignupFinishAction;
+use app\actions\user\PasskeySignupStartAction;
 use app\actions\user\ProfileAction;
 use app\actions\user\RecoveryKeyAction;
 use app\actions\user\RecoveryKeyCreateAction;
@@ -96,6 +98,8 @@ final class UserController extends Controller
                     'passkey-login-start',
                     'passkey-register-finish',
                     'passkey-register-start',
+                    'passkey-signup-finish',
+                    'passkey-signup-start',
                     'profile',
                     'recovery-key',
                     'recovery-key-create',
@@ -121,6 +125,8 @@ final class UserController extends Controller
                             'login-with-twitter',
                             'passkey-login-finish',
                             'passkey-login-start',
+                            'passkey-signup-finish',
+                            'passkey-signup-start',
                             'register',
                             'reset-password-apikey',
                             'reset-password-recovery-key',
@@ -190,6 +196,8 @@ final class UserController extends Controller
                     'passkey-reauth-start' => [ 'post' ],
                     'passkey-register-finish' => [ 'post' ],
                     'passkey-register-start' => [ 'post' ],
+                    'passkey-signup-finish' => [ 'post' ],
+                    'passkey-signup-start' => [ 'post' ],
                     'recovery-key-create' => [ 'post' ],
                     'recovery-key-delete' => [ 'post' ],
                     'regenerate-apikey' => [ 'post' ],
@@ -239,6 +247,8 @@ final class UserController extends Controller
             'passkey-reauth-start' => PasskeyReauthStartAction::class,
             'passkey-register-finish' => PasskeyRegisterFinishAction::class,
             'passkey-register-start' => PasskeyRegisterStartAction::class,
+            'passkey-signup-finish' => PasskeySignupFinishAction::class,
+            'passkey-signup-start' => PasskeySignupStartAction::class,
             'profile' => ProfileAction::class,
             'recovery-key' => RecoveryKeyAction::class,
             'recovery-key-create' => RecoveryKeyCreateAction::class,
