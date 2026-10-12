@@ -15,6 +15,7 @@ use app\components\behaviors\TimestampBehavior;
 use app\components\helpers\WebAuthnHelper;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\db\IntegrityException;
 
 /**
  * This is the model class for table "user_passkey_user".
@@ -36,6 +37,8 @@ class UserPasskeyUser extends ActiveRecord
 
     /**
      * Returns the WebAuthn user entity of the user, creating it if it does not exist yet
+     *
+     * Do not call this inside a transaction; a conflicting insert aborts it on PostgreSQL.
      */
     public static function findOrCreate(int $userId): ?self
     {
@@ -49,7 +52,16 @@ class UserPasskeyUser extends ActiveRecord
             'user_id' => $userId,
             'user_handle' => WebAuthnHelper::generateUserHandleBase64(),
         ]);
-        return $model->save() ? $model : null;
+        try {
+            if ($model->save()) {
+                return $model;
+            }
+        } catch (IntegrityException $e) {
+            Yii::info($e->getMessage(), __METHOD__);
+        }
+
+        // A concurrent request may have created it in the meantime
+        return self::findOne(['user_id' => $userId]);
     }
 
     #[Override]
