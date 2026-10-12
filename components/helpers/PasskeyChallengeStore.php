@@ -9,16 +9,10 @@ declare(strict_types=1);
 
 namespace app\components\helpers;
 
-use RuntimeException;
 use Yii;
 use app\models\PasskeyChallenge;
-use yii\db\Expression;
 
-use function implode;
-use function is_array;
 use function is_string;
-use function random_bytes;
-use function vsprintf;
 
 /**
  * Keeps pending WebAuthn challenges for the current session
@@ -29,11 +23,6 @@ use function vsprintf;
  */
 final class PasskeyChallengeStore
 {
-    /**
-     * Seconds a challenge stays valid (the browser-side timeout is 60 seconds)
-     */
-    public const TTL = 300;
-
     private const SESSION_KEY_PREFIX = 'passkey.challenge.';
 
     /**
@@ -49,25 +38,13 @@ final class PasskeyChallengeStore
         ?int $userId,
         ?array $payload = null,
     ): void {
-        self::discard($purpose);
-        self::deleteExpired();
-
-        $model = Yii::createObject([
-            'class' => PasskeyChallenge::class,
-            'token' => WebAuthnHelper::base64UrlEncode(random_bytes(32)),
-            'purpose' => $purpose,
-            'user_id' => $userId,
-            'challenge' => WebAuthnHelper::base64UrlEncode($challenge),
-            'payload' => $payload,
-            'expires_at' => new Expression(
-                'NOW() + CAST(:ttl AS INTEGER) * INTERVAL \'1 second\'',
-                [':ttl' => self::TTL],
-            ),
-        ]);
-        if (!$model->save()) {
-            throw new RuntimeException('Failed to store the passkey challenge');
+        $token = self::pullToken($purpose);
+        if ($token !== null) {
+            PasskeyChallenge::deleteAll(['token' => $token]);
         }
+        PasskeyChallenge::deleteExpired();
 
+        $model = PasskeyChallenge::create($purpose, $challenge, $userId, $payload);
         Yii::$app->session->set(self::SESSION_KEY_PREFIX . $purpose, $model->token);
     }
 
@@ -79,56 +56,20 @@ final class PasskeyChallengeStore
      */
     public static function take(string $purpose, ?int $userId): ?PasskeyChallenge
     {
-        $session = Yii::$app->session;
-        $token = $session->get(self::SESSION_KEY_PREFIX . $purpose);
-        $session->remove(self::SESSION_KEY_PREFIX . $purpose);
-        if (!is_string($token) || $token === '') {
-            return null;
-        }
-
-        $db = Yii::$app->db;
-        $row = $db
-            ->createCommand(
-                vsprintf('DELETE FROM %s WHERE %s RETURNING *', [
-                    $db->quoteTableName('{{%passkey_challenge}}'),
-                    implode(' AND ', [
-                        '[[token]] = :token',
-                        '[[purpose]] = :purpose',
-                        '[[user_id]] IS NOT DISTINCT FROM CAST(:user_id AS INTEGER)',
-                        '[[expires_at]] > NOW()',
-                    ]),
-                ]),
-                [
-                    ':token' => $token,
-                    ':purpose' => $purpose,
-                    ':user_id' => $userId,
-                ],
-            )
-            ->queryOne();
-        if (!is_array($row)) {
-            return null;
-        }
-
-        $model = PasskeyChallenge::instantiate($row);
-        PasskeyChallenge::populateRecord($model, $row);
-        return $model;
+        $token = self::pullToken($purpose);
+        return $token !== null
+            ? PasskeyChallenge::take($token, $purpose, $userId)
+            : null;
     }
 
     /**
-     * Discards the pending challenge of the purpose, if any
+     * Removes the token of the purpose from the session and returns it
      */
-    private static function discard(string $purpose): void
+    private static function pullToken(string $purpose): ?string
     {
         $session = Yii::$app->session;
         $token = $session->get(self::SESSION_KEY_PREFIX . $purpose);
         $session->remove(self::SESSION_KEY_PREFIX . $purpose);
-        if (is_string($token) && $token !== '') {
-            PasskeyChallenge::deleteAll(['token' => $token]);
-        }
-    }
-
-    private static function deleteExpired(): void
-    {
-        PasskeyChallenge::deleteAll(['<=', 'expires_at', new Expression('NOW()')]);
+        return is_string($token) && $token !== '' ? $token : null;
     }
 }
