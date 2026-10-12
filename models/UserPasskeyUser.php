@@ -10,6 +10,9 @@ declare(strict_types=1);
 namespace app\models;
 
 use Override;
+use Yii;
+use app\components\behaviors\TimestampBehavior;
+use app\components\helpers\WebAuthnHelper;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -31,11 +34,37 @@ class UserPasskeyUser extends ActiveRecord
         return 'user_passkey_user';
     }
 
+    /**
+     * Returns the WebAuthn user entity of the user, creating it if it does not exist yet
+     */
+    public static function findOrCreate(int $userId): ?self
+    {
+        $model = self::findOne(['user_id' => $userId]);
+        if ($model) {
+            return $model;
+        }
+
+        $model = Yii::createObject([
+            'class' => self::class,
+            'user_id' => $userId,
+            'user_handle' => WebAuthnHelper::generateUserHandleBase64(),
+        ]);
+        return $model->save() ? $model : null;
+    }
+
+    #[Override]
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::class,
+        ];
+    }
+
     #[Override]
     public function rules()
     {
         return [
-            [['user_id', 'user_handle', 'created_at', 'updated_at'], 'required'],
+            [['user_id', 'user_handle'], 'required'],
             [['user_id'], 'default', 'value' => null],
             [['user_id'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],

@@ -13,11 +13,11 @@ use Override;
 use Throwable;
 use Yii;
 use app\components\helpers\WebAuthnHelper;
+use app\components\helpers\db\Now;
 use lbuchs\WebAuthn\WebAuthnException;
 use yii\base\Model;
 use yii\web\Request;
 
-use function date;
 use function is_string;
 
 /**
@@ -121,10 +121,8 @@ final class PasskeyAssertionForm extends Model
 
         $transaction = Yii::$app->db->beginTransaction();
         try {
-            $now = date('Y-m-d\TH:i:sP');
             $passkey->sign_count = (int)$webAuthn->getSignatureCounter();
-            $passkey->last_used_at = $now;
-            $passkey->updated_at = $now;
+            $passkey->last_used_at = new Now();
             if (!$passkey->save()) {
                 $transaction->rollback();
                 return $this->fail('save_failed');

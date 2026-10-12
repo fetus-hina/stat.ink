@@ -23,7 +23,6 @@ use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 use yii\web\ViewAction as BaseAction;
 
-use function date;
 use function headers_sent;
 use function is_array;
 use function is_string;
@@ -82,13 +81,10 @@ final class PasskeySignupFinishAction extends BaseAction
                         throw new RuntimeException('Failed to save the user');
                     }
 
-                    $now = date('Y-m-d\TH:i:sP');
                     $passkeyUser = Yii::createObject([
                         'class' => UserPasskeyUser::class,
                         'user_id' => $user->id,
                         'user_handle' => $pending['user_handle'],
-                        'created_at' => $now,
-                        'updated_at' => $now,
                     ]);
                     if (!$passkeyUser->save()) {
                         throw new RuntimeException('Failed to save the passkey user');
