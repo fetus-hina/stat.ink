@@ -37,6 +37,7 @@ return [
     'Change Icon' => 'Cambiar icono',
     'Change Password' => 'Cambiar contraseña',
     'Change Screen Name' => 'Cambiar nombre de inicio de sesión',
+    'Could not change your password.' => 'No se pudo cambiar su contraseña.',
     'Could not disable your password.' => 'No se pudo desactivar su contraseña.',
     'Could not update your icon. Please try again.' => 'No se pudo actualizar su icono. Inténtelo de nuevo.',
     'Create new webhook' => 'Crear un nuevo webhook',

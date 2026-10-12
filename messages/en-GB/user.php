@@ -37,6 +37,7 @@ return [
     'Change Icon' => '',
     'Change Password' => '',
     'Change Screen Name' => '',
+    'Could not change your password.' => '',
     'Could not disable your password.' => '',
     'Could not update your icon. Please try again.' => '',
     'Create new webhook' => '',

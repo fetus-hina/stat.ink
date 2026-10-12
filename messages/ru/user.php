@@ -37,6 +37,7 @@ return [
     'Change Icon' => 'Изменить значок',
     'Change Password' => 'Изменить пароль',
     'Change Screen Name' => 'Изменить логин',
+    'Could not change your password.' => 'Не удалось изменить пароль.',
     'Could not disable your password.' => 'Не удалось отключить пароль.',
     'Could not update your icon. Please try again.' => 'Не удалось обновить значок. Пожалуйста, попробуйте ещё раз.',
     'Create new webhook' => 'Создать новый вебхук',

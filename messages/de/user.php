@@ -37,6 +37,7 @@ return [
     'Change Icon' => 'Symbol ändern',
     'Change Password' => 'Passwort ändern',
     'Change Screen Name' => 'Benutzernamen ändern',
+    'Could not change your password.' => 'Dein Passwort konnte nicht geändert werden.',
     'Could not disable your password.' => 'Dein Passwort konnte nicht deaktiviert werden.',
     'Could not update your icon. Please try again.' => 'Dein Symbol konnte nicht aktualisiert werden. Bitte versuche es erneut.',
     'Create new webhook' => 'Neuen Webhook erstellen',

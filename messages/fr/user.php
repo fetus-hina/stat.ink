@@ -37,6 +37,7 @@ return [
     'Change Icon' => 'Changer d\'icône',
     'Change Password' => 'Changer de mot de passe',
     'Change Screen Name' => 'Changer de pseudo',
+    'Could not change your password.' => 'Impossible de modifier votre mot de passe.',
     'Could not disable your password.' => 'Impossible de désactiver votre mot de passe.',
     'Could not update your icon. Please try again.' => 'N\'a pas pu mettre à jour votre icône. Veuillez réessayer.',
     'Create new webhook' => 'Créer un nouveau Webhook',
