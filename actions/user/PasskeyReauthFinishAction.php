@@ -63,7 +63,7 @@ final class PasskeyReauthFinishAction extends BaseAction
         }
 
         if (!$form->verify($passkey, $challengeB64)) {
-            return $this->failure((string)$form->errorCode, $form->errorMessage);
+            return $this->failure((string)$form->errorCode);
         }
 
         PasskeyReauth::markVerified((int)$ident->id);
@@ -72,14 +72,12 @@ final class PasskeyReauthFinishAction extends BaseAction
     }
 
     /**
-     * @return array{result: false, error: string, message?: string}
+     * Returns a failure with a machine-readable code only; the client shows its own translated message
+     *
+     * @return array{result: false, error: string}
      */
-    private function failure(string $error, ?string $message = null): array
+    private function failure(string $error): array
     {
-        $out = ['result' => false, 'error' => $error];
-        if ($message !== null) {
-            $out['message'] = $message;
-        }
-        return $out;
+        return ['result' => false, 'error' => $error];
     }
 }

@@ -54,7 +54,6 @@ final class PasskeyRegisterFinishAction extends BaseAction
             return [
                 'result' => false,
                 'error' => $form->errorCode,
-                'message' => $form->errorMessage,
             ];
         }
 
@@ -76,7 +75,6 @@ final class PasskeyRegisterFinishAction extends BaseAction
             return [
                 'result' => false,
                 'error' => 'exception',
-                'message' => $e->getMessage(),
             ];
         }
 
