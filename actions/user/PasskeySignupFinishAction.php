@@ -60,7 +60,7 @@ final class PasskeySignupFinishAction extends BaseAction
         }
 
         if (!$attestation->verify($pending['challenge'])) {
-            return $this->failure((string)$attestation->errorCode, $attestation->errorMessage);
+            return $this->failure((string)$attestation->errorCode);
         }
 
         // Validate again; the screen name may have been taken in the meantime
@@ -132,14 +132,12 @@ final class PasskeySignupFinishAction extends BaseAction
     }
 
     /**
-     * @return array{result: false, error: string, message?: string}
+     * Returns a failure with a machine-readable code only; the client shows its own translated message
+     *
+     * @return array{result: false, error: string}
      */
-    private function failure(string $error, ?string $message = null): array
+    private function failure(string $error): array
     {
-        $out = ['result' => false, 'error' => $error];
-        if ($message !== null) {
-            $out['message'] = $message;
-        }
-        return $out;
+        return ['result' => false, 'error' => $error];
     }
 }

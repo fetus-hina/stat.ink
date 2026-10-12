@@ -53,11 +53,6 @@ final class PasskeyAssertionForm extends Model
      */
     public ?string $errorCode = null;
 
-    /**
-     * Human-readable detail of the last verify() failure, if any
-     */
-    public ?string $errorMessage = null;
-
     public static function fromRequest(Request $request, string $scenario): self
     {
         $form = new self(['scenario' => $scenario]);
@@ -96,12 +91,11 @@ final class PasskeyAssertionForm extends Model
     /**
      * Verifies the assertion against the passkey, and records its use
      *
-     * On failure, $errorCode (and optionally $errorMessage) is set.
+     * On failure, $errorCode is set. The details are logged, not exposed to the client.
      */
     public function verify(UserPasskey $passkey, string $challengeB64): bool
     {
         $this->errorCode = null;
-        $this->errorMessage = null;
 
         try {
             $webAuthn = WebAuthnHelper::create();
@@ -116,7 +110,8 @@ final class PasskeyAssertionForm extends Model
                 requireUserPresent: true,
             );
         } catch (WebAuthnException $e) {
-            return $this->fail('verification_failed', $e->getMessage());
+            Yii::warning($e->getMessage(), __METHOD__);
+            return $this->fail('verification_failed');
         }
 
         $transaction = Yii::$app->db->beginTransaction();
@@ -131,16 +126,15 @@ final class PasskeyAssertionForm extends Model
         } catch (Throwable $e) {
             $transaction->rollback();
             Yii::error($e, __METHOD__);
-            return $this->fail('exception', $e->getMessage());
+            return $this->fail('exception');
         }
 
         return true;
     }
 
-    private function fail(string $code, ?string $message = null): bool
+    private function fail(string $code): bool
     {
         $this->errorCode = $code;
-        $this->errorMessage = $message;
         return false;
     }
 }

@@ -51,11 +51,6 @@ final class PasskeyAttestationForm extends Model
      */
     public ?string $errorCode = null;
 
-    /**
-     * Human-readable detail of the last verify() failure, if any
-     */
-    public ?string $errorMessage = null;
-
     private ?stdClass $data = null;
 
     public static function fromRequest(Request $request): self
@@ -86,12 +81,11 @@ final class PasskeyAttestationForm extends Model
     /**
      * Verifies the attestation against the challenge
      *
-     * On failure, $errorCode (and optionally $errorMessage) is set.
+     * On failure, $errorCode is set. The details are logged, not exposed to the client.
      */
     public function verify(string $challengeB64): bool
     {
         $this->errorCode = null;
-        $this->errorMessage = null;
         $this->data = null;
 
         try {
@@ -105,8 +99,8 @@ final class PasskeyAttestationForm extends Model
                 failIfRootMismatch: false,
             );
         } catch (WebAuthnException $e) {
+            Yii::warning($e->getMessage(), __METHOD__);
             $this->errorCode = 'verification_failed';
-            $this->errorMessage = $e->getMessage();
             return false;
         }
 
