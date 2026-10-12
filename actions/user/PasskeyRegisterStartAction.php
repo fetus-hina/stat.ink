@@ -10,7 +10,9 @@ declare(strict_types=1);
 namespace app\actions\user;
 
 use Yii;
+use app\components\helpers\PasskeyChallengeStore;
 use app\components\helpers\WebAuthnHelper;
+use app\models\PasskeyChallenge;
 use app\models\UserPasskey;
 use app\models\UserPasskeyUser;
 use yii\web\BadRequestHttpException;
@@ -50,9 +52,10 @@ final class PasskeyRegisterStartAction extends BaseAction
             excludeCredentialIds: $excludeCredentialIds,
         );
 
-        Yii::$app->session->set(
-            WebAuthnHelper::SESSION_KEY_CHALLENGE,
-            WebAuthnHelper::base64UrlEncode($webAuthn->getChallenge()->getBinaryString()),
+        PasskeyChallengeStore::issue(
+            PasskeyChallenge::PURPOSE_REGISTER,
+            $webAuthn->getChallenge()->getBinaryString(),
+            (int)$ident->id,
         );
 
         return $createArgs;

@@ -27,10 +27,6 @@ use function substr;
 
 final class WebAuthnHelper
 {
-    public const SESSION_KEY_CHALLENGE = 'passkey.register.challenge';
-    public const SESSION_KEY_LOGIN_CHALLENGE = 'passkey.login.challenge';
-    public const SESSION_KEY_SIGNUP = 'passkey.signup';
-
     private const ALLOWED_TRANSPORTS = ['usb', 'nfc', 'ble', 'internal', 'hybrid', 'smart-card'];
 
     public static function create(): WebAuthn

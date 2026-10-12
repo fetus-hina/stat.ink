@@ -12,9 +12,11 @@ namespace app\actions\user;
 use RuntimeException;
 use Throwable;
 use Yii;
-use app\components\helpers\WebAuthnHelper;
+use app\components\helpers\PasskeyChallengeStore;
+use app\components\helpers\PasskeyResponse;
 use app\models\LoginMethod;
 use app\models\PasskeyAttestationForm;
+use app\models\PasskeyChallenge;
 use app\models\RegisterForm;
 use app\models\User;
 use app\models\UserLoginHistory;
@@ -41,26 +43,26 @@ final class PasskeySignupFinishAction extends BaseAction
         $resp = Yii::$app->response;
         $resp->format = 'json';
 
-        $session = Yii::$app->session;
-        $pending = $session->get(WebAuthnHelper::SESSION_KEY_SIGNUP);
-        $session->remove(WebAuthnHelper::SESSION_KEY_SIGNUP);
+        // The challenge is single-use; take it before anything can fail
+        $challenge = PasskeyChallengeStore::take(PasskeyChallenge::PURPOSE_SIGNUP, null);
+        $pending = $challenge?->payload;
         if (
+            !$challenge ||
             !is_array($pending) ||
-            !is_string($pending['challenge'] ?? null) ||
             !is_string($pending['user_handle'] ?? null) ||
             !is_string($pending['screen_name'] ?? null) ||
             !is_string($pending['name'] ?? null)
         ) {
-            return $this->failure('no_challenge');
+            return PasskeyResponse::failure('no_challenge');
         }
 
         $attestation = PasskeyAttestationForm::fromRequest(Yii::$app->request);
         if (!$attestation->validate()) {
-            return $this->failure('invalid_params');
+            return PasskeyResponse::failure('invalid_params');
         }
 
-        if (!$attestation->verify($pending['challenge'])) {
-            return $this->failure((string)$attestation->errorCode);
+        if (!$attestation->verify($challenge->challenge)) {
+            return PasskeyResponse::failure((string)$attestation->errorCode);
         }
 
         // Validate again; the screen name may have been taken in the meantime
@@ -70,7 +72,7 @@ final class PasskeySignupFinishAction extends BaseAction
             'name' => $pending['name'],
         ]);
         if (!$register->validate()) {
-            return PasskeySignupStartAction::validationFailure($register);
+            return PasskeyResponse::validationFailure($register);
         }
 
         try {
@@ -99,12 +101,12 @@ final class PasskeySignupFinishAction extends BaseAction
             );
         } catch (Throwable $e) {
             Yii::error($e, __METHOD__);
-            return $this->failure('save_failed');
+            return PasskeyResponse::failure('save_failed');
         }
 
         $user->refresh();
         if (!$this->login($user)) {
-            return $this->failure('login_failed');
+            return PasskeyResponse::failure('login_failed');
         }
 
         return [
@@ -129,15 +131,5 @@ final class PasskeySignupFinishAction extends BaseAction
         }
 
         return $appUser->login($user, 0);
-    }
-
-    /**
-     * Returns a failure with a machine-readable code only; the client shows its own translated message
-     *
-     * @return array{result: false, error: string}
-     */
-    private function failure(string $error): array
-    {
-        return ['result' => false, 'error' => $error];
     }
 }

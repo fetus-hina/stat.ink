@@ -11,14 +11,14 @@ namespace app\actions\user;
 
 use Throwable;
 use Yii;
+use app\components\helpers\PasskeyChallengeStore;
+use app\components\helpers\PasskeyResponse;
 use app\components\helpers\UserNotifier;
-use app\components\helpers\WebAuthnHelper;
 use app\models\PasskeyAttestationForm;
+use app\models\PasskeyChallenge;
 use app\models\UserPasskeyUser;
 use yii\web\BadRequestHttpException;
 use yii\web\ViewAction as BaseAction;
-
-use function is_string;
 
 final class PasskeyRegisterFinishAction extends BaseAction
 {
@@ -32,50 +32,35 @@ final class PasskeyRegisterFinishAction extends BaseAction
         $resp = Yii::$app->response;
         $resp->format = 'json';
 
-        // The challenge is single-use; consume it before anything can fail
-        $session = Yii::$app->session;
-        $challengeB64 = $session->get(WebAuthnHelper::SESSION_KEY_CHALLENGE);
-        $session->remove(WebAuthnHelper::SESSION_KEY_CHALLENGE);
-        if (!is_string($challengeB64) || $challengeB64 === '') {
-            throw new BadRequestHttpException('No challenge in session');
+        // The challenge is single-use; take it before anything can fail
+        $challenge = PasskeyChallengeStore::take(PasskeyChallenge::PURPOSE_REGISTER, (int)$ident->id);
+        if (!$challenge) {
+            return PasskeyResponse::failure('no_challenge');
         }
 
         $form = PasskeyAttestationForm::fromRequest(Yii::$app->request);
         if (!$form->validate()) {
-            throw new BadRequestHttpException('Invalid parameters');
+            return PasskeyResponse::failure('invalid_params');
         }
 
         $passkeyUser = UserPasskeyUser::findOne(['user_id' => $ident->id]);
         if (!$passkeyUser) {
-            throw new BadRequestHttpException('Passkey user not initialized');
+            return PasskeyResponse::failure('passkey_user_not_found');
         }
 
-        if (!$form->verify($challengeB64)) {
-            return [
-                'result' => false,
-                'error' => $form->errorCode,
-            ];
+        if (!$form->verify($challenge->challenge)) {
+            return PasskeyResponse::failure((string)$form->errorCode);
         }
 
-        $transaction = Yii::$app->db->beginTransaction();
         try {
             $model = $form->buildPasskey((int)$ident->id);
             if (!$model->save()) {
-                $transaction->rollback();
-                return [
-                    'result' => false,
-                    'error' => 'save_failed',
-                    'errors' => $model->getErrors(),
-                ];
+                Yii::warning($model->getErrors(), __METHOD__);
+                return PasskeyResponse::failure('save_failed');
             }
-            $transaction->commit();
         } catch (Throwable $e) {
-            $transaction->rollback();
             Yii::error($e, __METHOD__);
-            return [
-                'result' => false,
-                'error' => 'exception',
-            ];
+            return PasskeyResponse::failure('exception');
         }
 
         UserNotifier::passkeyRegistered($ident, (string)$model->nickname);
