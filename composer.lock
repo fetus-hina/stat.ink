@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f6308c22f77044dfa89a37f70012cde4",
+    "content-hash": "07b211efbbfa4d0c3327554a1def79a0",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -3393,16 +3393,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v8.1.8",
+            "version": "v8.1.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "030e96eed0303223bfca3af9109e9e64830b6ec3"
+                "reference": "6107ee26a25215c3df3af0a3315e56bb4fd0b7db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/030e96eed0303223bfca3af9109e9e64830b6ec3",
-                "reference": "030e96eed0303223bfca3af9109e9e64830b6ec3",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/6107ee26a25215c3df3af0a3315e56bb4fd0b7db",
+                "reference": "6107ee26a25215c3df3af0a3315e56bb4fd0b7db",
                 "shasum": ""
             },
             "require": {
@@ -3445,7 +3445,7 @@
             "description": "Loads and dumps YAML files",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/yaml/tree/v8.1.8"
+                "source": "https://github.com/symfony/yaml/tree/v8.1.9"
             },
             "funding": [
                 {
@@ -3465,7 +3465,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-09-26T06:33:49+00:00"
+            "time": "2026-10-12T12:37:13+00:00"
         },
         {
             "name": "twbs/bootstrap-icons",
@@ -8176,16 +8176,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v8.1.8",
+            "version": "v8.1.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "4b81146e3ee248ea969186f85499b54fbc78db08"
+                "reference": "630e74196a2635ec0f06c12bd3fb47cfedf85157"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/4b81146e3ee248ea969186f85499b54fbc78db08",
-                "reference": "4b81146e3ee248ea969186f85499b54fbc78db08",
+                "url": "https://api.github.com/repos/symfony/console/zipball/630e74196a2635ec0f06c12bd3fb47cfedf85157",
+                "reference": "630e74196a2635ec0f06c12bd3fb47cfedf85157",
                 "shasum": ""
             },
             "require": {
@@ -8252,7 +8252,7 @@
                 "terminal"
             ],
             "support": {
-                "source": "https://github.com/symfony/console/tree/v8.1.8"
+                "source": "https://github.com/symfony/console/tree/v8.1.9"
             },
             "funding": [
                 {
@@ -8272,7 +8272,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-09-18T16:00:27+00:00"
+            "time": "2026-10-12T19:11:16+00:00"
         },
         {
             "name": "symfony/css-selector",
