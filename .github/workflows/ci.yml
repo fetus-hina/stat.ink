@@ -33,7 +33,7 @@ jobs:
     if: "!contains(github.event.head_commit.message, '[no php]')"
     steps:
       -
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       -
         name: 'Set PHP environment (PHP ${{ matrix.php.version }})'
         uses: shivammathur/setup-php@v2
@@ -59,9 +59,9 @@ jobs:
     if: "!contains(github.event.head_commit.message, '[no php]')"
     steps:
       -
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       -
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             vendor
@@ -86,9 +86,9 @@ jobs:
     if: "!contains(github.event.head_commit.message, '[no php]')"
     steps:
       -
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       -
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             vendor
@@ -110,9 +110,9 @@ jobs:
       - ciDoesNotSkip
     steps:
       -
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       -
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             node_modules
@@ -121,7 +121,7 @@ jobs:
           restore-keys: npm-2-
       -
         name: 'Use node.js ${{ env.NODE_VERSION }}'
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: '${{ env.NODE_VERSION }}'
       -
@@ -135,9 +135,9 @@ jobs:
       - setupNPM
     steps:
       -
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       -
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             node_modules
@@ -145,7 +145,7 @@ jobs:
           key: "npm-2-${{ hashFiles('package-lock.json') }}"
       -
         name: 'Use node.js ${{ env.NODE_VERSION }}'
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: '${{ env.NODE_VERSION }}'
       -
@@ -159,9 +159,9 @@ jobs:
       - setupNPM
     steps:
       -
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       -
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             node_modules
@@ -169,7 +169,7 @@ jobs:
           key: "npm-2-${{ hashFiles('package-lock.json') }}"
       -
         name: 'Use node.js ${{ env.NODE_VERSION }}'
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: '${{ env.NODE_VERSION }}'
       -
@@ -184,9 +184,9 @@ jobs:
     if: "!contains(github.event.head_commit.message, '[no php]')"
     steps:
       -
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       -
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             vendor
@@ -219,16 +219,16 @@ jobs:
           sudo apt update -y
           sudo apt install -y jpegoptim libxml2-utils optipng
       -
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       -
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             vendor
             ~/.cache/composer/files
           key: "composer-${{ hashFiles('composer.lock') }}"
       -
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             node_modules
@@ -242,7 +242,7 @@ jobs:
           extensions: :php-psr
       -
         name: 'Use node.js ${{ env.NODE_VERSION }}'
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: '${{ env.NODE_VERSION }}'
       -
@@ -265,16 +265,16 @@ jobs:
           sudo apt update -y
           sudo apt install -y jpegoptim libxml2-utils optipng
       -
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       -
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             vendor
             ~/.cache/composer/files
           key: "composer-${{ hashFiles('composer.lock') }}"
       -
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             node_modules
@@ -288,7 +288,7 @@ jobs:
           extensions: :php-psr
       -
         name: 'Use node.js ${{ env.NODE_VERSION }}'
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: '${{ env.NODE_VERSION }}'
       -
@@ -311,16 +311,16 @@ jobs:
           sudo apt update -y
           sudo apt install -y jpegoptim libxml2-utils optipng
       -
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       -
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             vendor
             ~/.cache/composer/files
           key: "composer-${{ hashFiles('composer.lock') }}"
       -
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             node_modules
@@ -334,7 +334,7 @@ jobs:
           extensions: :php-psr
       -
         name: 'Use node.js ${{ env.NODE_VERSION }}'
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: '${{ env.NODE_VERSION }}'
       -
@@ -389,16 +389,16 @@ jobs:
           sudo apt update -y
           sudo apt install -y imagemagick jpegoptim libxml2-utils optipng
       -
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       -
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             vendor
             ~/.cache/composer/files
           key: "composer-${{ hashFiles('composer.lock') }}"
       -
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             node_modules
@@ -412,7 +412,7 @@ jobs:
           extensions: :php-psr
       -
         name: 'Use node.js ${{ env.NODE_VERSION }}'
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: '${{ env.NODE_VERSION }}'
       -
