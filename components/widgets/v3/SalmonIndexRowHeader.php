@@ -111,7 +111,7 @@ final class SalmonIndexRowHeader extends Widget
     {
         $f = match ($formatter::class) {
             FormatterEx::class => fn (mixed $v): string => $formatter->asHtmlDatetimeEx($v, 'medium', 'short'),
-            default => fn (mixed $v): string => $formatter->asDatetime($v, 'medium', 'short'),
+            default => fn (mixed $v): string => $formatter->asDatetime($v, 'medium'),
         };
 
         return Yii::t('app', '{from} - {to}', [

@@ -40,7 +40,7 @@ return [
       ),
       Html::encode(
         Yii::t('app', '{from} - {to}', [
-          'from' => Yii::$app->formatter->asDateTime($from, 'short', 'short'),
+          'from' => Yii::$app->formatter->asDateTime($from, 'short'),
           'to' => Yii::$app->formatter->asTime($to, 'short'),
         ]),
       ),
