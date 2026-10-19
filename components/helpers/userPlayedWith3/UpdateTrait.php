@@ -189,7 +189,7 @@ trait UpdateTrait
         return true;
     }
 
-    private static function updateSalmonImpl(Connection $db, User $user, ?Salmon3 $salmon): bool
+    private static function updateSalmonImpl(Connection $db, User $user, ?Salmon3 $salmon): true
     {
         $select = new Query()
             ->select([
