@@ -39,8 +39,8 @@ class EditEmailAction extends ViewAction
                         $user->save();
 
                         AddressUpdatedEmailSender::sendAddressUpdatedEmail(
-                            $oldEmail ? (string)$oldEmail : null,
-                            $form->email ? (string)$form->email : null,
+                            (string)$oldEmail,
+                            null,
                             $user,
                             $oldEmailLang,
                         );

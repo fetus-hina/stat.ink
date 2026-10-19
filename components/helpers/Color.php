@@ -52,9 +52,6 @@ final class Color
     }
 
     /**
-     * @param int<0, 255> $r
-     * @param int<0, 255> $g
-     * @param int<0, 255> $b
      * @return array{float, float, float}
      */
     public static function getYUVFromRGB(int $r, int $g, int $b): array

@@ -17,13 +17,11 @@ use app\models\BattleImage2;
 use app\models\UserIcon;
 use yii\base\Action;
 use yii\console\ExitCode;
-use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
 use yii\helpers\FileHelper;
 
 use function array_reverse;
-use function assert;
 use function count;
 use function dirname;
 use function file_exists;
@@ -97,7 +95,6 @@ final class EqualsInFilenameAction extends Action
         /** @var class-string<ActiveRecord> $modelClass */
         $modelClass = $target['modelClass'];
         $directory = Yii::getAlias($target['directoryAlias']);
-        assert($directory !== false);
 
         // PK-cursor iteration: updated rows leave the filtered set, and skipped
         // rows would otherwise be returned forever by plain LIMIT.
@@ -118,7 +115,6 @@ final class EqualsInFilenameAction extends Action
                 ->andWhere($filterExpr)
                 ->orderBy([$pkColumn => SORT_ASC])
                 ->limit(500);
-            assert($query instanceof ActiveQuery);
             if ($lastPk !== null) {
                 $query->andWhere(['>', $pkColumn, $lastPk]);
             }
@@ -127,7 +123,6 @@ final class EqualsInFilenameAction extends Action
                 break;
             }
             foreach ($batch as $model) {
-                assert($model instanceof ActiveRecord);
                 $status = $this->processRow($model, $target, $directory, $dryRun);
                 match ($status) {
                     'ok' => ++$okCount,
