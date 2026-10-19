@@ -123,8 +123,8 @@ class Splatoon2InkI18nController extends Controller
 
         $url = sprintf('https://splatoon2.ink/data/locale/%s.json', $locales[$locale]);
         $client = Yii::createObject([
-            '__class' => HttpClient::class,
-            'transport' => CurlTransport::class,
+            'class' => HttpClient::class,
+            'transport' => Yii::createObject(['class' => CurlTransport::class]),
         ]);
         $request = $client->createRequest()
             ->setOptions([

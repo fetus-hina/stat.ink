@@ -15,6 +15,7 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\data\Pagination;
 use yii\web\ViewAction;
 
 class LoginHistoryAction extends ViewAction
@@ -37,9 +38,10 @@ class LoginHistoryAction extends ViewAction
                         'userAgent',
                     ])
                     ->where(['>=', 'created_at', $time->format(DateTime::ATOM)]),
-                'pagination' => [
+                'pagination' => Yii::createObject([
+                    'class' => Pagination::class,
                     'pageSize' => 50,
-                ],
+                ]),
                 'sort' => false,
                 'key' => 'pseudoId',
             ]),

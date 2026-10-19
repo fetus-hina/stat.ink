@@ -345,7 +345,7 @@ class DeeplTranslator extends Component
         fprintf(STDERR, "  * Requesting to %s\n", $url);
         $client = Yii::createObject([
             'class' => HttpClient::class,
-            'transport' => CurlTransport::class,
+            'transport' => Yii::createObject(['class' => CurlTransport::class]),
             'responseConfig' => [
                 'format' => HttpClient::FORMAT_JSON,
             ],
@@ -367,7 +367,7 @@ class DeeplTranslator extends Component
         fprintf(STDERR, "  * Requesting to %s\n", $url);
         $client = Yii::createObject([
             'class' => HttpClient::class,
-            'transport' => CurlTransport::class,
+            'transport' => Yii::createObject(['class' => CurlTransport::class]),
             'responseConfig' => [
                 'format' => HttpClient::FORMAT_JSON,
             ],

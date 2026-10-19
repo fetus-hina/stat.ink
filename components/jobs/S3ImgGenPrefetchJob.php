@@ -114,7 +114,7 @@ final class S3ImgGenPrefetchJob extends BaseObject implements JobInterface
     {
         $client = Yii::createObject([
             'class' => HttpClient::class,
-            'transport' => CurlTransport::class,
+            'transport' => Yii::createObject(['class' => CurlTransport::class]),
         ]);
         $request = $client->createRequest()
             ->setMethod('get')

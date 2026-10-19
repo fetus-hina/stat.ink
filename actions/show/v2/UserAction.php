@@ -12,6 +12,7 @@ use app\models\Battle2;
 use app\models\Battle2FilterForm;
 use app\models\User;
 use yii\data\ActiveDataProvider;
+use yii\data\Pagination;
 use yii\helpers\Url;
 use yii\web\Cookie;
 use yii\web\NotFoundHttpException;
@@ -135,9 +136,10 @@ class UserAction extends BaseAction
             'battleDataProvider' => Yii::createObject([
                 'class' => ActiveDataProvider::class,
                 'query' => $battle,
-                'pagination' => [
+                'pagination' => Yii::createObject([
+                    'class' => Pagination::class,
                     'pageSize' => 100,
-                ],
+                ]),
                 'sort' => false,
             ]),
             'summary' => $summary,

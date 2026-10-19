@@ -527,7 +527,7 @@ final class DepsController extends Controller
     {
         $client = Yii::createObject([
             'class' => HttpClient::class,
-            'transport' => CurlTransport::class,
+            'transport' => Yii::createObject(['class' => CurlTransport::class]),
         ]);
         if (!$client instanceof HttpClient) {
             throw new RuntimeException('Failed to create HttpClient');

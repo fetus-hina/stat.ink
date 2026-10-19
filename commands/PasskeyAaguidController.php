@@ -75,7 +75,7 @@ final class PasskeyAaguidController extends Controller
 
             $client = Yii::createObject([
                 'class' => HttpClient::class,
-                'transport' => CurlTransport::class,
+                'transport' => Yii::createObject(['class' => CurlTransport::class]),
             ]);
             $response = $client->createRequest()
                 ->setOptions([

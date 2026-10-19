@@ -17,6 +17,7 @@ use app\models\Battle3FilterForm;
 use app\models\User;
 use yii\base\Action;
 use yii\data\ActiveDataProvider;
+use yii\data\Pagination;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\Cookie;
@@ -114,9 +115,10 @@ final class UserAction extends Action
         $battleDataProvider = Yii::createObject([
             'class' => ActiveDataProvider::class,
             'query' => $battle,
-            'pagination' => [
+            'pagination' => Yii::createObject([
+                'class' => Pagination::class,
                 'pageSize' => 100,
-            ],
+            ]),
             'sort' => false,
         ]);
 
