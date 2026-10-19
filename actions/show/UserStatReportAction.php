@@ -15,7 +15,7 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
 use app\models\User;
-use yii\base\DynamicModel;
+use app\models\UserStatReportForm;
 use yii\db\Query;
 use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
@@ -52,23 +52,11 @@ class UserStatReportAction extends BaseAction
             ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time());
 
         $request = Yii::$app->request;
-        $form = DynamicModel::validateData(
-            [
-                'year' => $request->get('year'),
-                'month' => $request->get('month'),
-            ],
-            [
-                [['year'], 'required'],
-                [['year'], 'integer',
-                    'min' => 2015,
-                    'max' => (int)$now->format('Y'),
-                ],
-                [['month'], 'integer',
-                    'min' => 1,
-                    'max' => 12,
-                ],
-            ],
-        );
+        $form = UserStatReportForm::validateData([
+            'year' => $request->get('year'),
+            'month' => $request->get('month'),
+            'maxYear' => (int)$now->format('Y'),
+        ]);
         if ($form->hasErrors()) {
             $this->controller->redirect(['show/user-stat-report',
                 'screen_name' => $this->user->screen_name,

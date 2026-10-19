@@ -16,12 +16,11 @@ use Laminas\Feed\Writer\Version;
 use Override;
 use Yii;
 use app\models\Battle3;
-use app\models\Language;
 use app\models\User;
+use app\models\User3FeedForm;
 use jp3cki\uuid\NS as UuidNS;
 use jp3cki\uuid\Uuid;
 use yii\base\Action;
-use yii\base\DynamicModel;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -51,23 +50,11 @@ final class User3Action extends Action
     {
         $request = Yii::$app->getRequest();
         $resp = Yii::$app->getResponse();
-        $model = DynamicModel::validateData(
+        $model = User3FeedForm::validateData(
             [
                 'lang' => $request->get('lang'),
                 'screen_name' => $request->get('screen_name'),
                 'type' => $request->get('type'),
-            ],
-            [
-                [['lang', 'screen_name', 'type'], 'required'],
-                [['lang'], 'exist',
-                    'targetClass' => Language::class,
-                    'targetAttribute' => 'lang',
-                ],
-                [['screen_name'], 'exist',
-                    'targetClass' => User::class,
-                    'targetAttribute' => 'screen_name',
-                ],
-                [['type'], 'in', 'range' => ['atom', 'rss']],
             ],
         );
         if ($model->hasErrors()) {

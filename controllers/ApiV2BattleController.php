@@ -10,9 +10,10 @@ namespace app\controllers;
 use Yii;
 use app\actions\api\v2\battle\CreateAction;
 use app\components\filters\auth\RequestBodyAuth;
+use app\models\ApiV2BattleListForm;
+use app\models\ApiV2UserBattleListForm;
 use app\models\Battle2;
 use app\models\User;
-use yii\base\DynamicModel;
 use yii\filters\ContentNegotiator;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBearerAuth;
@@ -100,40 +101,7 @@ class ApiV2BattleController extends Controller
             'order' => $req->get('order'),
             'count' => $req->get('count'),
         ];
-        $model = DynamicModel::validateData($params, [
-            [['screen_name'], 'required',
-                'when' => fn ($model) => ($model->only === 'splatnet_number') ||
-                    ($model->order === 'splatnet_asc') ||
-                    ($model->order === 'splatnet_desc'),
-            ],
-            [['screen_name'], 'string'],
-            [['screen_name'], 'exist', 'skipOnError' => true,
-                'targetClass' => User::class,
-                'targetAttribute' => ['screen_name' => 'screen_name'],
-            ],
-            [['only'], 'string'],
-            [['only'], 'in',
-                'range' => [
-                    'splatnet_number',
-                ],
-            ],
-            [['newer_than', 'older_than'], 'integer', 'min' => 1],
-            [['order'], 'string'],
-            [['order'], 'in',
-                'range' => [
-                    'asc',
-                    'desc',
-                    'splatnet_asc',
-                    'splatnet_desc',
-                ],
-            ],
-            [['count'], 'integer', 'min' => 1, 'max' => 50,
-                'when' => fn ($model): bool => $model->only !== 'splatnet_number',
-            ],
-            [['count'], 'integer', 'min' => 1, 'max' => 1000,
-                'when' => fn ($model): bool => $model->only === 'splatnet_number',
-            ],
-        ]);
+        $model = ApiV2BattleListForm::validateData($params);
         if ($model->hasErrors()) {
             $res = Yii::$app->response;
             $res->format = 'json';
@@ -165,30 +133,7 @@ class ApiV2BattleController extends Controller
             'order' => $req->get('order'),
             'count' => $req->get('count'),
         ];
-        $model = DynamicModel::validateData($params, [
-            [['only'], 'string'],
-            [['only'], 'in',
-                'range' => [
-                    'splatnet_number',
-                ],
-            ],
-            [['newer_than', 'older_than'], 'integer', 'min' => 1],
-            [['order'], 'string'],
-            [['order'], 'in',
-                'range' => [
-                    'asc',
-                    'desc',
-                    'splatnet_asc',
-                    'splatnet_desc',
-                ],
-            ],
-            [['count'], 'integer', 'min' => 1, 'max' => 50,
-                'when' => fn ($model): bool => $model->only !== 'splatnet_number',
-            ],
-            [['count'], 'integer', 'min' => 1, 'max' => 1000,
-                'when' => fn ($model): bool => $model->only === 'splatnet_number',
-            ],
-        ]);
+        $model = ApiV2UserBattleListForm::validateData($params);
         if ($model->hasErrors()) {
             $res = Yii::$app->response;
             $res->format = 'json';
@@ -202,7 +147,7 @@ class ApiV2BattleController extends Controller
         );
     }
 
-    private function createList(?User $user, DynamicModel $model, ?string $format = null): array
+    private function createList(?User $user, ApiV2BattleListForm|ApiV2UserBattleListForm $model, ?string $format = null): array
     {
         $query = Battle2::find()
             ->orderBy(['battle2.id' => SORT_DESC])

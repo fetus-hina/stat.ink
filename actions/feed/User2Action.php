@@ -15,11 +15,10 @@ use Laminas\Feed\Writer\Feed as FeedWriter;
 use Laminas\Feed\Writer\Version;
 use Yii;
 use app\models\Battle2;
-use app\models\Language;
 use app\models\User;
+use app\models\User2FeedForm;
 use jp3cki\uuid\NS as UuidNS;
 use jp3cki\uuid\Uuid;
-use yii\base\DynamicModel;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\ViewAction as BaseAction;
@@ -46,23 +45,11 @@ class User2Action extends BaseAction
     {
         $request = Yii::$app->getRequest();
         $resp = Yii::$app->getResponse();
-        $model = DynamicModel::validateData(
+        $model = User2FeedForm::validateData(
             [
                 'lang' => $request->get('lang'),
                 'screen_name' => $request->get('screen_name'),
                 'type' => $request->get('type'),
-            ],
-            [
-                [['lang', 'screen_name', 'type'], 'required'],
-                [['lang'], 'exist',
-                    'targetClass' => Language::class,
-                    'targetAttribute' => 'lang',
-                ],
-                [['screen_name'], 'exist',
-                    'targetClass' => User::class,
-                    'targetAttribute' => 'screen_name',
-                ],
-                [['type'], 'in', 'range' => ['atom', 'rss']],
             ],
         );
         if ($model->hasErrors()) {

@@ -13,9 +13,9 @@ use app\models\GameMode;
 use app\models\Map;
 use app\models\PeriodMap;
 use app\models\Rule;
+use app\models\StageMapForm;
 use app\models\StatWeaponMapTrend;
 use stdClass;
-use yii\base\DynamicModel;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
@@ -42,13 +42,7 @@ class MapAction extends BaseAction
         // {{{
         $req = Yii::$app->request;
 
-        $model = DynamicModel::validateData(['map' => $req->get('map')], [
-            [['map'], 'required'],
-            [['map'], 'exist',
-                'targetClass' => Map::class,
-                'targetAttribute' => 'key',
-            ],
-        ]);
+        $model = StageMapForm::validateData(['map' => $req->get('map')]);
 
         if ($model->hasErrors()) {
             self::http404();

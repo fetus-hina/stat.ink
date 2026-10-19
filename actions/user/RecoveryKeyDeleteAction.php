@@ -12,9 +12,9 @@ namespace app\actions\user;
 use DateTime;
 use Yii;
 use app\components\helpers\TypeHelper;
+use app\models\RecoveryKeyDeleteForm;
 use app\models\UserPasswordRecoveryKey;
 use app\models\UserPasswordRecoveryKeyRevokeReason;
-use yii\base\DynamicModel;
 use yii\web\BadRequestHttpException;
 use yii\web\ViewAction as BaseAction;
 
@@ -27,15 +27,9 @@ final class RecoveryKeyDeleteAction extends BaseAction
         $ident = Yii::$app->user->getIdentity();
         $req = Yii::$app->request;
 
-        $form = DynamicModel::validateData(
-            [
-                'id' => $req->post('id'),
-            ],
-            [
-                [['id'], 'required'],
-                [['id'], 'integer'],
-            ],
-        );
+        $form = RecoveryKeyDeleteForm::validateData([
+            'id' => $req->post('id'),
+        ]);
         if ($form->hasErrors()) {
             throw new BadRequestHttpException('Bad Request');
         }

@@ -14,13 +14,12 @@ use app\components\helpers\ImageConverter;
 use app\components\jobs\SlackJob;
 use app\components\web\ServiceUnavailableHttpException;
 use app\models\Agent;
+use app\models\ApiV1BattleListForm;
 use app\models\Battle;
 use app\models\BattleDeathReason;
-use app\models\User;
 use app\models\api\v1\DeleteBattleForm;
 use app\models\api\v1\PatchBattleForm;
 use app\models\api\v1\PostBattleForm;
-use yii\base\DynamicModel;
 use yii\web\MethodNotAllowedHttpException;
 use yii\web\UploadedFile;
 use yii\web\ViewAction as BaseAction;
@@ -60,26 +59,13 @@ class BattleAction extends BaseAction
     {
         // {{{
         $request = Yii::$app->getRequest();
-        $model = DynamicModel::validateData(
+        $model = ApiV1BattleListForm::validateData(
             [
                 'id' => $request->get('id'),
                 'screen_name' => $request->get('screen_name'),
                 'count' => $request->get('count'),
                 'newer_than' => $request->get('newer_than'),
                 'older_than' => $request->get('older_than'),
-            ],
-            [
-                [['id'], 'exist',
-                    'targetClass' => Battle::className(),
-                    'targetAttribute' => 'id',
-                ],
-                [['screen_name'], 'exist',
-                    'targetClass' => User::className(),
-                    'targetAttribute' => 'screen_name',
-                ],
-                [['newer_than', 'older_than'], 'integer'],
-                [['count'], 'default', 'value' => 10],
-                [['count'], 'integer', 'min' => 1, 'max' => 100],
             ],
         );
         if (!$model->validate()) {

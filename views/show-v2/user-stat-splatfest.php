@@ -13,12 +13,12 @@ use app\components\widgets\UserMiniInfo2;
 use app\models\Region2;
 use app\models\Splatfest2;
 use app\models\User;
-use yii\base\DynamicModel;
+use app\models\UserStatSplatfest2Form;
 use yii\helpers\Html;
 use yii\web\View;
 
 /**
- * @var DynamicModel $input
+ * @var UserStatSplatfest2Form $input
  * @var Region2 $region
  * @var Region2[] $regions
  * @var Splatfest2[] $splatfests
