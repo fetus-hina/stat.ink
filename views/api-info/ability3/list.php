@@ -11,6 +11,7 @@ use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\ApiInfoName;
 use app\components\widgets\Icon;
 use app\models\Ability3;
+use app\models\Language;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\View;
@@ -18,7 +19,7 @@ use yii\web\View;
 /**
  * @var Ability3[] $abilities
  * @var View $this
- * @var array[] $langs
+ * @var Language[] $langs
  */
 
 TableResponsiveForceAsset::register($this);

@@ -26,7 +26,7 @@ use yii\web\View;
  * @var Battle3FilterForm $filter
  * @var User $user
  * @var View $this
- * @var array $summary
+ * @var stdClass $summary
  * @var string $permLink
  */
 

@@ -13,6 +13,7 @@ use app\components\widgets\CcBy;
 use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
 use app\models\Ability3;
+use app\models\Language;
 use yii\helpers\Html;
 use yii\web\Controller;
 use yii\web\View;
@@ -20,7 +21,7 @@ use yii\web\View;
 /**
  * @var Ability3[] $abilities
  * @var View $this
- * @var array[] $langs
+ * @var Language[] $langs
  */
 
 TypeHelper::instanceOf($this->context, Controller::class)->layout = 'main';

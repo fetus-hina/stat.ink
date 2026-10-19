@@ -13,6 +13,7 @@ use app\components\widgets\CcBy;
 use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
 use app\models\BigrunMap3;
+use app\models\Language;
 use app\models\Map3;
 use app\models\SalmonMap3;
 use yii\bootstrap\Html;
@@ -24,7 +25,7 @@ use yii\web\View;
  * @var Map3[] $stages
  * @var SalmonMap3[] $salmonStages
  * @var View $this
- * @var array[] $langs
+ * @var Language[] $langs
  */
 
 TypeHelper::instanceOf($this->context, Controller::class)->layout = 'main';

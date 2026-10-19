@@ -12,6 +12,7 @@ use app\components\widgets\AdWidget;
 use app\components\widgets\CcBy;
 use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
+use app\models\Language;
 use app\models\MedalCanonical3;
 use yii\helpers\Html;
 use yii\web\Controller;
@@ -20,7 +21,7 @@ use yii\web\View;
 /**
  * @var MedalCanonical3[] $medals
  * @var View $this
- * @var array[] $langs
+ * @var Language[] $langs
  */
 
 TypeHelper::instanceOf($this->context, Controller::class)->layout = 'main';
