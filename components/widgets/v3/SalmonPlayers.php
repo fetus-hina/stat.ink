@@ -502,7 +502,7 @@ final class SalmonPlayers extends Widget
                 array_slice(
                     $this->waves,
                     0,
-                    $this->job?->is_eggstra_work ? 5 : 3, // Exclude Xtrawave
+                    $this->job->is_eggstra_work ? 5 : 3, // Exclude Xtrawave
                 ),
             ),
         );

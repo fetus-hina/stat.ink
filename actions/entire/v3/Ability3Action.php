@@ -75,7 +75,7 @@ final class Ability3Action extends Action
             return $controller->redirect(['entire/ability3',
                 'rule' => $rule->key ?? 'area',
                 'xp' => $xpFilter,
-                self::PARAM_SEASON_ID => $season?->id,
+                self::PARAM_SEASON_ID => $season->id,
             ]);
         }
 
@@ -84,7 +84,7 @@ final class Ability3Action extends Action
             return $controller->redirect(['entire/ability3',
                 'rule' => $rule->key,
                 'xp' => array_pop($ranges)->id,
-                self::PARAM_SEASON_ID => $season?->id,
+                self::PARAM_SEASON_ID => $season->id,
             ]);
         }
 
@@ -111,7 +111,7 @@ final class Ability3Action extends Action
                 ['entire/ability3',
                     'rule' => $rule->key,
                     'xp' => $xRange->id,
-                    self::PARAM_SEASON_ID => $season?->id,
+                    self::PARAM_SEASON_ID => $season->id,
                 ],
             ),
 
@@ -119,7 +119,7 @@ final class Ability3Action extends Action
                 ['entire/ability3',
                     'rule' => $rule->key,
                     'xp' => $range->id,
-                    self::PARAM_SEASON_ID => $season?->id,
+                    self::PARAM_SEASON_ID => $season->id,
                 ],
             ),
         ];
