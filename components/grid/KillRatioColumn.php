@@ -13,6 +13,7 @@ use Yii;
 use app\assets\KillRatioColumnAsset;
 use app\components\helpers\TypeHelper;
 use yii\base\Model;
+use yii\db\ActiveRecord;
 use yii\grid\DataColumn;
 use yii\helpers\Json;
 use yii\web\View;
@@ -24,6 +25,9 @@ use function substr;
 use function uniqid;
 use function vsprintf;
 
+/**
+ * @template TModel of ActiveRecord
+ */
 class KillRatioColumn extends DataColumn
 {
     public static $idPrefix;
@@ -90,17 +94,23 @@ class KillRatioColumn extends DataColumn
         }
     }
 
+    /**
+     * @param TModel $model
+     */
     protected function getKillRatio(Model $model): ?float
     {
-        return $model->kill_ratio !== null
-            ? (float)$model->kill_ratio
+        return $model->getAttribute('kill_ratio') !== null
+            ? (float)$model->getAttribute('kill_ratio')
             : null;
     }
 
+    /**
+     * @param TModel $model
+     */
     protected function getKillRate(Model $model): ?float
     {
-        return $model->kill_rate !== null
-            ? (float)$model->kill_rate / 100.0
+        return $model->getAttribute('kill_rate') !== null
+            ? (float)$model->getAttribute('kill_rate') / 100.0
             : null;
     }
 }
