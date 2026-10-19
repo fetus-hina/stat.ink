@@ -31,10 +31,10 @@ use yii\web\View;
             // 勝敗表示 {{{
             (function () use ($model) {
               $result = $model->result;
-              if (!$result || $result->is_win === null) {
+              if (!$result) {
                 return Html::tag(
                   'div',
-                  Html::encode(Yii::t('app-results', $result?->name ?? '?')),
+                  Html::encode(Yii::t('app-results', '?')),
                   ['class' => 'simple-battle-result simple-battle-result-unk']
                 );
               }
