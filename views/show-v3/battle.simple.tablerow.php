@@ -34,7 +34,7 @@ use yii\web\View;
               if (!$result || $result->is_win === null) {
                 return Html::tag(
                   'div',
-                  Html::encode(Yii::t('app-results', $result->name ?? '?')),
+                  Html::encode(Yii::t('app-results', $result?->name ?? '?')),
                   ['class' => 'simple-battle-result simple-battle-result-unk']
                 );
               }

@@ -8,6 +8,7 @@
 namespace app\actions\show\v2;
 
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\Battle2;
 use app\models\Battle2DeleteForm;
 use app\models\Battle2Form;
@@ -17,6 +18,7 @@ use app\models\Weapon2;
 use app\models\WeaponType2;
 use yii\base\Action;
 use yii\helpers\ArrayHelper;
+use yii\web\Controller;
 
 use function array_merge;
 use function vsprintf;
@@ -62,7 +64,7 @@ final class EditBattleAction extends Action
                     $transaction = Yii::$app->db->beginTransaction();
                     if ($del->delete()) {
                         $transaction->commit();
-                        return $this->controller->redirect([
+                        return TypeHelper::instanceOf($this->controller, Controller::class)->redirect([
                             'show-v2/user',
                             'screen_name' => $this->battle->user->screen_name,
                         ]);
@@ -74,7 +76,7 @@ final class EditBattleAction extends Action
                     $this->battle->attributes = $form->attributes;
                     $this->battle->is_win = $form->getIsWin();
                     if ($this->battle->save()) {
-                        $this->controller->redirect([
+                        TypeHelper::instanceOf($this->controller, Controller::class)->redirect([
                             'show-v2/battle',
                             'screen_name' => $this->battle->user->screen_name,
                             'battle' => $this->battle->id,

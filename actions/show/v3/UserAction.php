@@ -12,6 +12,7 @@ namespace app\actions\show\v3;
 use Yii;
 use app\components\formatters\api\v3\BattleApiFormatter;
 use app\components\helpers\BattleSummarizer;
+use app\components\helpers\TypeHelper;
 use app\models\Battle3;
 use app\models\Battle3FilterForm;
 use app\models\User;
@@ -20,6 +21,7 @@ use yii\data\ActiveDataProvider;
 use yii\data\Pagination;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
+use yii\web\Controller;
 use yii\web\Cookie;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
@@ -72,7 +74,7 @@ final class UserAction extends Action
             $next = $_GET;
             unset($next['v']);
             $next[0] = 'show-v3/user';
-            return $this->controller->redirect(Url::to($next));
+            return TypeHelper::instanceOf($this->controller, Controller::class)->redirect(Url::to($next));
         }
 
         $battle = Battle3::find()

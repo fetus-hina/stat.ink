@@ -13,11 +13,13 @@ use League\OAuth1\Client\Server\Twitter as TwitterServer;
 use Override;
 use Throwable;
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\LoginWithTwitter;
 use yii\base\Action;
 use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
+use yii\web\Controller;
 
 use function is_array;
 
@@ -62,7 +64,7 @@ final class LoginWithTwitterAction extends Action
                 if (isset($user['data']['id'])) {
                     $info = LoginWithTwitter::findOne(['twitter_id' => $user['data']['id']]);
                     if ($info && $info->login()) {
-                        return $this->controller->goBack(
+                        return TypeHelper::instanceOf($this->controller, Controller::class)->goBack(
                             ['show-user/profile',
                                 'screen_name' => Yii::$app->user->identity->screen_name,
                             ],

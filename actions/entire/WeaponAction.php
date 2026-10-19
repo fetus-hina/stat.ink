@@ -8,6 +8,7 @@
 namespace app\actions\entire;
 
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\Map;
 use app\models\Rule;
 use app\models\StatWeaponKDWinRate;
@@ -17,6 +18,7 @@ use app\models\WeaponType;
 use yii\base\Action;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
@@ -74,7 +76,7 @@ final class WeaponAction extends Action
     public function run()
     {
         if (!$this->rule) {
-            return $this->controller->redirect(['entire/weapon',
+            return TypeHelper::instanceOf($this->controller, Controller::class)->redirect(['entire/weapon',
                 'weapon' => $this->weapon->key,
                 'rule' => 'nawabari',
             ]);

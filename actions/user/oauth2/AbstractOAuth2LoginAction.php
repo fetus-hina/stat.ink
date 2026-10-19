@@ -12,10 +12,12 @@ namespace app\actions\user\oauth2;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use Override;
 use Yii;
+use app\components\helpers\TypeHelper;
 use yii\base\Action;
 use yii\db\ActiveRecord;
 use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
+use yii\web\Controller;
 
 abstract class AbstractOAuth2LoginAction extends Action
 {
@@ -76,7 +78,7 @@ abstract class AbstractOAuth2LoginAction extends Action
             if ($externalId !== null && $externalId !== '') {
                 $info = $this->findExistingLink($externalId);
                 if ($info && $info->login()) {
-                    return $this->controller->goBack(
+                    return TypeHelper::instanceOf($this->controller, Controller::class)->goBack(
                         ['show-user/profile',
                             'screen_name' => Yii::$app->user->identity->screen_name,
                         ],

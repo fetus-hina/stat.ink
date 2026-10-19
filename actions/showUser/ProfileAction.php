@@ -9,9 +9,11 @@ namespace app\actions\showUser;
 
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\TypeHelper;
 use app\models\User;
 use yii\base\Action;
 use yii\helpers\Url;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
 use function trim;
@@ -28,7 +30,7 @@ final class ProfileAction extends Action
 
         $tab = trim((string)$tab);
         if ($tab !== '1' && $tab !== '2' && $tab !== '') {
-            $this->controller->redirect(
+            TypeHelper::instanceOf($this->controller, Controller::class)->redirect(
                 ['show-user/profile',
                     'screen_name' => $user->screen_name,
                 ],
