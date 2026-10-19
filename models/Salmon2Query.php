@@ -14,6 +14,9 @@ use function array_merge;
 use function implode;
 use function sprintf;
 
+/**
+ * @extends ActiveQuery<Salmon2>
+ */
 class Salmon2Query extends ActiveQuery
 {
     private $summaryCache = null;

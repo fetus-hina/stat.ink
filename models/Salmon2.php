@@ -110,7 +110,7 @@ class Salmon2 extends ActiveRecord
         return null;
     }
 
-    public static function find(): ActiveQuery
+    public static function find(): Salmon2Query
     {
         return new Salmon2Query(static::class);
     }
