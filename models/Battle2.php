@@ -238,8 +238,8 @@ class Battle2 extends ActiveRecord
         return new class (static::class) extends ActiveQuery {
             public function withFreshness(): self
             {
+                [, $alias] = $this->getTableNameAndAlias();
                 if (!$this->select) {
-                    [, $alias] = $this->getTableNameAndAlias();
                     $this->select = ["{$alias}.*"];
                 }
                 $this->select['freshness_id'] = 'freshness2.id';
