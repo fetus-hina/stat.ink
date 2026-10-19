@@ -58,7 +58,7 @@ class Weapon2Action extends ViewAction
                     'stat_weapon2_result.weapon_id' => $this->weapon->id,
                     'stat_weapon2_result.rule_id' => $this->rule->id,
                 ])
-                ->applyFilter($stageFilter, ['result'])
+                ->applyFilter($stageFilter)
                 ->groupBy('stat_weapon2_result.map_id')
                 ->select([
                     'map' => 'MAX(map2.key)',
