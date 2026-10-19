@@ -7,6 +7,7 @@
 
 declare(strict_types=1);
 
+use app\components\helpers\TypeHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\CcBy;
 use app\components\widgets\Icon;
@@ -15,6 +16,7 @@ use app\models\BigrunMap3;
 use app\models\Map3;
 use app\models\SalmonMap3;
 use yii\bootstrap\Html;
+use yii\web\Controller;
 use yii\web\View;
 
 /**
@@ -25,7 +27,7 @@ use yii\web\View;
  * @var array[] $langs
  */
 
-$this->context->layout = 'main';
+TypeHelper::instanceOf($this->context, Controller::class)->layout = 'main';
 $this->title = Yii::t('app-api-info', 'API Info: Stages (Splatoon 3)');
 
 $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);

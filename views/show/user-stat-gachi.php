@@ -9,11 +9,13 @@ declare(strict_types=1);
 
 use app\assets\InlineListAsset;
 use app\assets\UserStatGachiAsset;
+use app\components\helpers\TypeHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\models\User;
 use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\web\Controller;
 use yii\web\View;
 
 /**
@@ -25,7 +27,7 @@ use yii\web\View;
  * @var stdClass|null $userRankStat
  */
 
-$this->context->layout = 'main';
+TypeHelper::instanceOf($this->context, Controller::class)->layout = 'main';
 $title = Yii::t('app-show', '{name}\'s Battle Stats (Ranked Battle)', [
   'name' => $user->name,
 ]);

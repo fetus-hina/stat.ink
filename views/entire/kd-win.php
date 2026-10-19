@@ -10,6 +10,7 @@ declare(strict_types=1);
 use app\actions\entire\KDWinAction;
 use app\assets\EntireKDWinAsset;
 use app\assets\TableResponsiveForceAsset;
+use app\components\helpers\TypeHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\kdWin\KDWinTable;
@@ -17,6 +18,7 @@ use app\components\widgets\kdWin\LegendWidget;
 use app\models\BattleFilterForm;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
+use yii\web\Controller;
 use yii\web\View;
 
 /**
@@ -27,7 +29,7 @@ use yii\web\View;
  * @var stdClass[] $rules
  */
 
-$this->context->layout ='main';
+TypeHelper::instanceOf($this->context, Controller::class)->layout = 'main';
 
 $title = Yii::t('app-entire', 'Winning Percentage based on K/D');
 $this->title = implode(' | ', [

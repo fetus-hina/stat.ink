@@ -9,11 +9,13 @@ declare(strict_types=1);
 
 use app\assets\InlineListAsset;
 use app\assets\UserStatNawabariAsset;
+use app\components\helpers\TypeHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\models\User;
 use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\web\Controller;
 use yii\web\View;
 
 /**
@@ -28,7 +30,7 @@ $this->title = implode(' | ', [
   Yii::$app->name,
   $title,
 ]);
-$this->context->layout = 'main';
+TypeHelper::instanceOf($this->context, Controller::class)->layout = 'main';
 $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);
 $this->registerMetaTag(['name' => 'twitter:title', 'content' => $title]);
 $this->registerMetaTag(['name' => 'twitter:description', 'content' => $title]);

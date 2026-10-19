@@ -8,7 +8,9 @@
 declare(strict_types=1);
 
 use app\components\helpers\OgpHelper;
+use app\components\helpers\TypeHelper;
 use app\models\User;
+use yii\web\Controller;
 use yii\web\View;
 
 /**
@@ -22,7 +24,7 @@ use yii\web\View;
 
 $title = Yii::t('app', "{name}'s Splat Log", ['name' => $user->name]);
 
-$this->context->layout = 'main';
+TypeHelper::instanceOf($this->context, Controller::class)->layout = 'main';
 $this->title = sprintf('%s | %s', Yii::$app->name, $title);
 
 OgpHelper::profileV3($this, $user, $permLink);

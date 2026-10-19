@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 use app\assets\EntireWeaponAsset;
 use app\assets\InlineListAsset;
+use app\components\helpers\TypeHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\FA;
 use app\components\widgets\SnsWidget;
@@ -21,6 +22,7 @@ use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
+use yii\web\Controller;
 use yii\web\View;
 
 /**
@@ -35,7 +37,7 @@ use yii\web\View;
  * @var array<string, array{battle: int, win: int}> $mapWP
  */
 
-$this->context->layout = 'main';
+TypeHelper::instanceOf($this->context, Controller::class)->layout = 'main';
 $title = Yii::t('app-entire', 'Weapon | {weapon} | {rule}', [
   'weapon' => Yii::t('app-weapon', $weapon->name),
   'rule' => Yii::t('app-rule', $rule->name),

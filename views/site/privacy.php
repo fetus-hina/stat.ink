@@ -7,6 +7,7 @@
 
 declare(strict_types=1);
 
+use app\components\helpers\TypeHelper;
 use app\components\web\Application;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
@@ -26,7 +27,7 @@ $title = implode(' | ', [
   Yii::$app->name,
   Yii::t('app-privacy', 'Privacy Policy'),
 ]);
-$this->context->layout = 'main';
+TypeHelper::instanceOf($this->context, Controller::class)->layout = 'main';
 $this->title = $title;
 ?>
 <div class="container">
