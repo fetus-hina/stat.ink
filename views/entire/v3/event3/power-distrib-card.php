@@ -18,7 +18,7 @@ use yii\helpers\Html;
 use yii\web\View;
 
 /**
- * @var Event3StatsPower $abstract
+ * @var Event3StatsPower|null $abstract
  * @var Event3StatsPowerHistogram[] $histogram
  * @var Event3StatsPowerPeriodHistogram[] $periodHistogram
  * @var EventSchedule3 $schedule
