@@ -143,7 +143,7 @@ final class EqualsInFilenameAction extends Action
     }
 
     /**
-     * @return string 'ok' | 'skip' | 'fail'
+     * @return 'ok'|'skip'|'fail'
      */
     private function processRow(
         ActiveRecord $model,

@@ -297,6 +297,9 @@ trait QueryDecoratorTrait
         ]);
     }
 
+    /**
+     * @param 'this-period'|'last-period' $key
+     */
     private function decoratePeriodFilter(ActiveQuery $query, string $key): void
     {
         $currentPeriod = BattleHelper::calcPeriod2($_SERVER['REQUEST_TIME']);
