@@ -1271,7 +1271,7 @@ class Battle2 extends ActiveRecord
                     return 'Ranked Battle';
 
                 case 'fest':
-                    if ($this->lobby && $this->lobby === 'squad_4') {
+                    if ($this->lobby && $this->lobby->key === 'squad_4') {
                         return 'Splatfest (Team)';
                     }
                     return 'Splatfest';
