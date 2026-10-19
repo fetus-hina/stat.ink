@@ -14,6 +14,7 @@ use Throwable;
 use Yii;
 use app\components\helpers\DepsAuditReport;
 use app\components\helpers\DepsLockfileDiff;
+use app\components\helpers\TypeHelper;
 use yii\console\Controller;
 use yii\console\ExitCode;
 use yii\helpers\FileHelper;
@@ -493,7 +494,7 @@ final class DepsController extends Controller
                 ))
                 ->setHeaders($headers)
                 ->send();
-            if ($response->statusCode === 404) {
+            if (TypeHelper::int($response->statusCode) === 404) {
                 return null;
             }
             if (!$response->isOk) {
