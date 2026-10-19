@@ -239,7 +239,7 @@ final class Weapons3Action extends Action
     }
 
     /**
-     * @return StatWeapon3Usage[]|StatWeapon3UsagePerVersion[]|StatWeapon3XUsage[]
+     * @return StatWeapon3Usage[]|StatWeapon3UsagePerVersion[]|StatWeapon3XUsage[]|StatWeapon3XUsagePerVersion[]
      */
     private function getData(
         Connection $db,
