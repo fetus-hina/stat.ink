@@ -13,6 +13,7 @@ use Override;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\db\ExpressionInterface;
 
 /**
  * This is the model class for table "salmon3".
@@ -24,7 +25,8 @@ use yii\db\ActiveRecord;
  * @property boolean $is_big_run
  * @property integer $stage_id
  * @property integer $big_stage_id
- * @property string $danger_rate
+ * @property-read string $danger_rate
+ * @property-write float|string $danger_rate
  * @property integer $clear_waves
  * @property integer $fail_reason_id
  * @property integer $king_smell
@@ -41,7 +43,8 @@ use yii\db\ActiveRecord;
  * @property integer $bronze_scale
  * @property integer $job_point
  * @property integer $job_score
- * @property string $job_rate
+ * @property-read string $job_rate
+ * @property-write float|string $job_rate
  * @property integer $job_bonus
  * @property string $note
  * @property string $private_note
@@ -49,16 +52,20 @@ use yii\db\ActiveRecord;
  * @property integer $version_id
  * @property integer $agent_id
  * @property boolean $is_automated
- * @property string $start_at
- * @property string $end_at
+ * @property-read string $start_at
+ * @property-write string|ExpressionInterface $start_at
+ * @property-read string $end_at
+ * @property-write string|ExpressionInterface $end_at
  * @property integer $period
  * @property integer $schedule_id
  * @property boolean $has_disconnect
  * @property boolean $is_deleted
  * @property string $remote_addr
  * @property integer $remote_port
- * @property string $created_at
- * @property string $updated_at
+ * @property-read string $created_at
+ * @property-write string|ExpressionInterface $created_at
+ * @property-read string $updated_at
+ * @property-write string|ExpressionInterface $updated_at
  * @property boolean $is_private
  * @property boolean $has_broken_data
  * @property string $scenario_code

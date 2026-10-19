@@ -12,6 +12,7 @@ namespace app\models;
 use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\db\ExpressionInterface;
 
 /**
  * This is the model class for table "battle3".
@@ -35,8 +36,10 @@ use yii\db\ActiveRecord;
  * @property integer $inked
  * @property integer $our_team_inked
  * @property integer $their_team_inked
- * @property string $our_team_percent
- * @property string $their_team_percent
+ * @property-read string $our_team_percent
+ * @property-write float|string $our_team_percent
+ * @property-read string $their_team_percent
+ * @property-write float|string $their_team_percent
  * @property integer $our_team_count
  * @property integer $their_team_count
  * @property integer $level_before
@@ -56,13 +59,17 @@ use yii\db\ActiveRecord;
  * @property integer $agent_id
  * @property boolean $is_automated
  * @property boolean $use_for_entire
- * @property string $start_at
- * @property string $end_at
+ * @property-read string $start_at
+ * @property-write string|ExpressionInterface $start_at
+ * @property-read string $end_at
+ * @property-write string|ExpressionInterface $end_at
  * @property integer $period
  * @property string $remote_addr
  * @property integer $remote_port
- * @property string $created_at
- * @property string $updated_at
+ * @property-read string $created_at
+ * @property-write string|ExpressionInterface $created_at
+ * @property-read string $updated_at
+ * @property-write string|ExpressionInterface $updated_at
  * @property boolean $is_deleted
  * @property integer $challenge_win
  * @property integer $challenge_lose
@@ -72,10 +79,13 @@ use yii\db\ActiveRecord;
  * @property integer $clout_after
  * @property integer $clout_change
  * @property integer $fest_dragon_id
- * @property string $fest_power
+ * @property-read string $fest_power
+ * @property-write float|string $fest_power
  * @property boolean $has_disconnect
- * @property string $x_power_before
- * @property string $x_power_after
+ * @property-read string $x_power_before
+ * @property-write float|string $x_power_before
+ * @property-read string $x_power_after
+ * @property-write float|string $x_power_after
  * @property integer $our_team_role_id
  * @property integer $their_team_role_id
  * @property integer $third_team_role_id
@@ -86,16 +96,22 @@ use yii\db\ActiveRecord;
  * @property integer $their_team_theme_id
  * @property integer $third_team_theme_id
  * @property integer $third_team_inked
- * @property string $third_team_percent
+ * @property-read string $third_team_percent
+ * @property-write float|string $third_team_percent
  * @property integer $signal
  * @property string $replay_code
- * @property string $bankara_power_before
- * @property string $bankara_power_after
+ * @property-read string $bankara_power_before
+ * @property-write float|string $bankara_power_before
+ * @property-read string $bankara_power_after
+ * @property-write float|string $bankara_power_after
  * @property integer $event_id
- * @property string $event_power
+ * @property-read string $event_power
+ * @property-write float|string $event_power
  * @property integer $conch_clash_id
- * @property string $series_weapon_power_before
- * @property string $series_weapon_power_after
+ * @property-read string $series_weapon_power_before
+ * @property-write float|string $series_weapon_power_before
+ * @property-read string $series_weapon_power_after
+ * @property-write float|string $series_weapon_power_after
  *
  * @property Agent $agent
  * @property BattleAgentVariable3[] $battleAgentVariable3s

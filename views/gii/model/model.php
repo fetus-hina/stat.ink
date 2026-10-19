@@ -6,6 +6,8 @@
  */
 
 use app\components\helpers\GitHelper;
+use yii\db\ColumnSchema;
+use yii\db\Schema;
 use yii\db\TableSchema;
 use yii\gii\generators\model\Generator;
 use yii\web\View;
@@ -24,6 +26,20 @@ use yii\web\View;
 
 $path = Yii::getAlias('@app/models/' . $className . '.php');
 
+// The type accepted on assignment, when it differs from the type read from the DB
+$writeType = fn (ColumnSchema $column): ?string => match ($column->type) {
+  Schema::TYPE_DECIMAL => 'float|string',
+  Schema::TYPE_DATE,
+  Schema::TYPE_DATETIME,
+  Schema::TYPE_TIME,
+  Schema::TYPE_TIMESTAMP => 'string|ExpressionInterface',
+  default => null,
+};
+$useExpressionInterface = array_any(
+  $tableSchema->columns,
+  fn (ColumnSchema $column): bool => str_contains((string)$writeType($column), 'ExpressionInterface'),
+);
+
 echo "<?php\n";
 echo "\n";
 ?>
@@ -40,12 +56,20 @@ use Override;
 use Yii;
 use yii\db\ActiveQuery;
 use <?= ltrim($generator->baseClass, '\\') ?>;
+<?php if ($useExpressionInterface): ?>
+use yii\db\ExpressionInterface;
+<?php endif; ?>
 
 /**
  * This is the model class for table "<?= $generator->generateTableName($tableName) ?>".
  *
 <?php foreach ($tableSchema->columns as $column): ?>
+<?php if (($columnWriteType = $writeType($column)) === null): ?>
  * @property <?= "{$column->phpType} \${$column->name}\n" ?>
+<?php else: ?>
+ * @property-read <?= "{$column->phpType} \${$column->name}\n" ?>
+ * @property-write <?= "{$columnWriteType} \${$column->name}\n" ?>
+<?php endif; ?>
 <?php endforeach; ?>
 <?php if (!empty($relations)): ?>
  *
