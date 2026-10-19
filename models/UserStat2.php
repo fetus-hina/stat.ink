@@ -259,7 +259,10 @@ class UserStat2 extends ActiveRecord
         return [
             [
                 'class' => TimestampBehavior::class,
-                'createdAtAttribute' => false,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
                 'value' => fn () => new Now(),
             ],
         ];

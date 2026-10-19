@@ -490,7 +490,7 @@ $normalizedSeconds = ($rule->key == 'nawabari' ? 3 : 5) * 60;
       'tableOptions' => [
         'class' => 'table table-striped table-condensed table-sortable graph-container',
       ],
-      'summary' => false,
+      'summary' => '',
       'columns' => [
         [
           'label' => Html::encode(Yii::t('app', 'Stage')), // {{{

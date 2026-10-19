@@ -310,8 +310,6 @@ trait UpdateSalmonSchedule
             $model = Yii::createObject([
                 'class' => SalmonScheduleWeapon3::class,
                 'schedule_id' => $schedule->id,
-                'weapon_id' => null,
-                'random_id' => null,
             ]);
             if ($weapon instanceof SalmonWeapon3) {
                 $model->weapon_id = $weapon->id;
