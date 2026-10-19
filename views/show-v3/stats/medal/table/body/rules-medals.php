@@ -22,6 +22,10 @@ use yii\web\View;
  * @var array<string, array<string, int>> $stats
  */
 
+// Empty statement on purpose: without it, PHPStan attaches the @var block above
+// to the foreach and the closures in the loop cannot see $this and the others.
+;
+
 foreach ($medals as $medalKey => $medal) {
   $medalStats = ArrayHelper::getValue($stats, $medalKey);
   if (!$medalStats) {
