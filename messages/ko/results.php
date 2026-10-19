@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 return [
     '24H Win %' => '24시간 내 승률',
+    '?' => '?',
     'Assist' => '어시스트',
     'Assists' => '어시스트',
     'Avg Assists' => '평균 어시스트',

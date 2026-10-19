@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 return [
     '24H Win %' => '% Victoire 24H',
+    '?' => '?',
     'Assist' => 'Assistance',
     'Assists' => 'Assistances',
     'Avg Assists' => 'Moy Assists',
