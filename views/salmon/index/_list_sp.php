@@ -8,9 +8,11 @@
 declare(strict_types=1);
 
 use app\assets\SimpleBattleListAsset;
+use app\components\helpers\TypeHelper;
 use app\components\i18n\Formatter;
 use app\components\widgets\FA;
 use app\models\Salmon2;
+use app\models\Salmon2Query;
 use app\models\User;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
@@ -37,7 +39,7 @@ SimpleBattleListAsset::register($this);
   ]) . "\n" ?>
 </div>
 <?= $this->render('_summary', [
-    'summary' => $dataProvider->query->summary(),
+    'summary' => TypeHelper::instanceOf($dataProvider->query, Salmon2Query::class)->summary(),
 ]) . "\n" ?>
 <p>
   <?= Html::a(

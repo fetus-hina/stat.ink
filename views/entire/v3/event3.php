@@ -8,6 +8,7 @@
 declare(strict_types=1);
 
 use app\components\helpers\OgpHelper;
+use app\components\helpers\TypeHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
@@ -20,6 +21,7 @@ use app\models\EventPeriod3;
 use app\models\EventSchedule3;
 use yii\bootstrap\Tabs;
 use yii\data\ActiveDataProvider;
+use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\View;
@@ -51,7 +53,7 @@ OgpHelper::default($this, title: $title);
 
 $fmt = Yii::$app->formatter;
 
-$samples = (int)$weaponsProvider->query->sum('battles');
+$samples = (int)TypeHelper::instanceOf($weaponsProvider->query, ActiveQuery::class)->sum('battles');
 $periods = ArrayHelper::sort(
   $schedule->eventPeriod3s,
   fn (EventPeriod3 $a, EventPeriod3 $b): int => strcmp($a->start_at, $b->start_at),

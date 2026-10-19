@@ -7,6 +7,7 @@
 
 namespace app\models;
 
+use Yii;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\db\Now;
 use app\models\query\SalmonSchedule2Query;
@@ -93,7 +94,7 @@ class SalmonSchedule2 extends ActiveRecord
 
     public function delete()
     {
-        return static::getDb()->transactionEx(function (): bool {
+        return Yii::$app->db->transactionEx(function (): bool {
             foreach ($this->weapons as $weapon) {
                 if (!$weapon->delete()) {
                     return false;

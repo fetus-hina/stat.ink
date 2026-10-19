@@ -11,9 +11,11 @@ namespace app\components\grid;
 
 use Yii;
 use app\assets\KillRatioColumnAsset;
+use app\components\helpers\TypeHelper;
 use yii\base\Model;
 use yii\grid\DataColumn;
 use yii\helpers\Json;
+use yii\web\View;
 
 use function hash;
 use function microtime;
@@ -61,7 +63,7 @@ class KillRatioColumn extends DataColumn
                 ];
             }
 
-            $view = Yii::$app->getView();
+            $view = TypeHelper::instanceOf(Yii::$app->getView(), View::class);
             KillRatioColumnAsset::register($view);
             $id = sprintf('%s%d', static::$idPrefix, ++static::$idCounter);
             $view->registerJs(vsprintf('jQuery(%s).killRatioColumn();', [

@@ -7,11 +7,13 @@
 
 declare(strict_types=1);
 
+use app\components\helpers\TypeHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SalmonFilterWidget;
 use app\components\widgets\SalmonUserInfo;
 use app\components\widgets\SnsWidget;
 use app\models\Salmon2FilterForm;
+use app\models\Salmon2Query;
 use app\models\User;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
@@ -30,7 +32,7 @@ use yii\web\View;
 $title = Yii::t('app-salmon2', "{name}'s Salmon Log", ['name' => $user->name]);
 $this->title = sprintf('%s | %s', Yii::$app->name, $title);
 
-$humanReadableSummary = $dataProvider->query->getHumanReadableSummary($user);
+$humanReadableSummary = TypeHelper::instanceOf($dataProvider->query, Salmon2Query::class)->getHumanReadableSummary($user);
 
 $this->registerLinkTag(['rel' => 'canonical', 'href' => $permLink]);
 $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);

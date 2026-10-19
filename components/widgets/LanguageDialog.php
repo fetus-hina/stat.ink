@@ -175,7 +175,7 @@ final class LanguageDialog extends Dialog
 
     private function createHintList(): array
     {
-        $enabledMachineTranslation = Yii::$app->isEnabledMachineTranslation;
+        $enabledMachineTranslation = Yii::$app->getIsEnabledMachineTranslation();
 
         return [
             Html::tag(

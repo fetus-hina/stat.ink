@@ -8,6 +8,7 @@
 declare(strict_types=1);
 
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\TypeHelper;
 use app\components\i18n\Formatter;
 use app\components\widgets\FA;
 use app\components\widgets\Label;
@@ -167,15 +168,15 @@ $widget = Yii::createObject([
 
           list ($periodStart, ) = BattleHelper::periodToRange2($period);
           return Yii::t('app-salmon2', 'From {shiftStart}', [
-            'shiftStart' => $widget->formatter->asTimestampColumn($periodStart, false),
+            'shiftStart' => TypeHelper::instanceOf($widget->formatter, Formatter::class)->asTimestampColumn($periodStart, false),
           ]);
         }
 
         // 正規のスケジュールデータから表示する
         return implode(' ', [
           Yii::t('app-salmon2', 'From {shiftStart} to {shiftEnd}', [
-            'shiftStart' => $widget->formatter->asTimestampColumn($schedule->start_at, false),
-            'shiftEnd' => $widget->formatter->asTimestampColumn($schedule->end_at, false),
+            'shiftStart' => TypeHelper::instanceOf($widget->formatter, Formatter::class)->asTimestampColumn($schedule->start_at, false),
+            'shiftEnd' => TypeHelper::instanceOf($widget->formatter, Formatter::class)->asTimestampColumn($schedule->end_at, false),
           ]),
           Html::a(
             (string)FA::fas('calendar-day')->fw(),
