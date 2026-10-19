@@ -39,6 +39,7 @@ use const PHP_INT_MAX;
 
 /**
  * @extends Base<User>
+ * @property-read string|null $localeCalendar
  */
 class Application extends Base
 {

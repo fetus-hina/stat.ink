@@ -15,6 +15,9 @@ use function trim;
 
 use const SORT_ASC;
 
+/**
+ * @property-read array $linkModes
+ */
 class ProfileForm extends Model
 {
     public $name;

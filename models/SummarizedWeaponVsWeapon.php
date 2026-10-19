@@ -16,6 +16,9 @@ use function usort;
 
 use const NAN;
 
+/**
+ * @property-read float $winPct
+ */
 class SummarizedWeaponVsWeapon extends Model
 {
     public $lhs_weapon_id;

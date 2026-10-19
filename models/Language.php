@@ -33,6 +33,8 @@ use function vsprintf;
  * @property User[] $users
  *
  * @property-read string[] $htmlClasses
+ * @property-read string $countryCode
+ * @property-read string $languageCode
  */
 class Language extends ActiveRecord
 {

@@ -27,6 +27,7 @@ use const SORT_DESC;
  *
  * @property SalmonMap2 $map
  * @property SalmonWeapon2[] $weapons
+ * @property-read int $period
  */
 class SalmonSchedule2 extends ActiveRecord
 {

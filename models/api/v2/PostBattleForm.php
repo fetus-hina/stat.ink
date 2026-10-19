@@ -87,6 +87,9 @@ use const JSON_FORCE_OBJECT;
 use const JSON_UNESCAPED_SLASHES;
 use const JSON_UNESCAPED_UNICODE;
 
+/**
+ * @property-read bool $isTest
+ */
 class PostBattleForm extends Model
 {
     public const SAME_BATTLE_THRESHOLD_TIME = 86400;

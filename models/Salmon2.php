@@ -83,6 +83,9 @@ use const SORT_DESC;
  * @property SalmonWave2[] $salmonWave2s
  *
  * @property-read SalmonWave2[] $waves
+ * @property-read bool $isEditable
+ * @property-read SalmonPlayer2|null $myData
+ * @property-read array|null $quota
  */
 class Salmon2 extends ActiveRecord
 {

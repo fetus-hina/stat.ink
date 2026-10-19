@@ -27,6 +27,9 @@ use function ucfirst;
 use function version_compare;
 use function vsprintf;
 
+/**
+ * @property-read bool $isPrimaryOnly
+ */
 class Ability2Info extends Model
 {
     private const WEIGHT_LIGHT = 0;

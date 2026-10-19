@@ -11,6 +11,15 @@ use Yii;
 use yii\helpers\Html;
 use yii\web\AssetBundle;
 
+/**
+ * @property-read string $festink
+ * @property-read string $ikalog
+ * @property-read string $ikanakama
+ * @property-read string $ikarecEn
+ * @property-read string $ikarecJa
+ * @property-read string $inkipedia
+ * @property-read string $squidTracks
+ */
 class AppLinkAsset extends AssetBundle
 {
     public $sourcePath = '@app/resources/.compiled/app-link-logos';

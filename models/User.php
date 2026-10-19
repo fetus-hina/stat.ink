@@ -90,6 +90,10 @@ use const SORT_DESC;
  * @property UserWeapon2[] $userWeapon2s
  * @property Weapon[] $weapons
  * @property-read string $identiconHash
+ * @property-read Language|null $emailLang
+ * @property-read Region2 $guessedSplatfest2Region
+ * @property-read bool $isSlackIntegrated
+ * @property-read string $jdenticonPngUrl
  */
 class User extends ActiveRecord implements IdentityInterface
 {

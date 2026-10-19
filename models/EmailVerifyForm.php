@@ -12,6 +12,9 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 
+/**
+ * @property-read string|null $realEmail
+ */
 class EmailVerifyForm extends Model
 {
     public $email;

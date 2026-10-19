@@ -31,6 +31,9 @@ use function substr;
 use function time;
 use function trim;
 
+/**
+ * @property-read stdClass $summary
+ */
 class BattleQuery extends ActiveQuery
 {
     public function hasResultImage(): self

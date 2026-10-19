@@ -26,6 +26,7 @@ use const SORT_ASC;
  * @property string $splatnet_hint
  *
  * @property SalmonSchedule2[] $schedules
+ * @property string $short_name
  */
 class SalmonMap2 extends ActiveRecord
 {

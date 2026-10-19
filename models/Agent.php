@@ -31,6 +31,7 @@ use function trim;
  * @property Battle2[] $battle2s
  * @property Battle[] $battles
  * @property Salmon2[] $salmon2s
+ * @property-read string|null $productUrl
  */
 class Agent extends ActiveRecord
 {

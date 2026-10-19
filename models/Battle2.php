@@ -214,6 +214,11 @@ use const SORT_STRING;
  * @property-read Freshness2|null $freshnessModel
  * @property-read int|null $inked
  * @property-read Battle2Splatnet|null $splatnetJson
+ * @property-read int|null $elapsedTime
+ * @property-read bool $isGachi
+ * @property-read bool $isMeaningful
+ * @property-read static|null $nextBattle
+ * @property-read static|null $previousBattle
  */
 class Battle2 extends ActiveRecord
 {

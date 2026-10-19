@@ -141,6 +141,7 @@ use const SORT_STRING;
  * @property-read BattleImage|null $battleImageResult
  * @property-read BattleEvents|null $battleEvents
  * @property-read string|null $events
+ * @property-read array $extraData
  */
 class Battle extends ActiveRecord
 {
