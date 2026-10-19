@@ -94,7 +94,8 @@ use const SORT_STRING;
  * @property integer|null $his_team_count
  * @property integer $period
  * @property string|null $ua_custom
- * @property string|null $ua_variables
+ * @property-read array|null $ua_variables
+ * @property-write array|string|null $ua_variables
  * @property integer|null $env_id
  * @property boolean $is_automated
  * @property integer|null $headgear_id

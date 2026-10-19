@@ -24,7 +24,7 @@ use const SORT_ASC;
  * @property integer|null $type_id
  * @property string $key
  * @property string $name
- * @property string|null $weapon_id
+ * @property integer|null $weapon_id
  *
  * @property BattleDeathReason[] $battleDeathReasons
  * @property Battle[] $battles
