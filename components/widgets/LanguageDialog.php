@@ -70,12 +70,12 @@ final class LanguageDialog extends Dialog
         return Yii::$app->cache->getOrSet(
             [
                 __METHOD__,
-                Yii::$app->locale,
+                Yii::$app->getLocale(),
                 ArrayHelper::getValue(Yii::$app->params, 'assetRevision'),
             ],
             fn (): array => array_map(
                 fn (Language $lang): string => match ($lang->lang) {
-                    Yii::$app->locale => Html::tag(
+                    Yii::$app->getLocale() => Html::tag(
                         'div',
                         $this->renderLanguageItem($lang),
                         [

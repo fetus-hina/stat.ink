@@ -73,7 +73,7 @@ final class TimezoneDialog extends Dialog
         return Yii::$app->cache->getOrSet(
             [
                 __METHOD__,
-                Yii::$app->locale,
+                Yii::$app->getLocale(),
                 Yii::$app->timeZone,
             ],
             fn (): string => Html::tag(
