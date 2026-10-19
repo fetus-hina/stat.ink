@@ -28,6 +28,9 @@ use function vsprintf;
 
 use const PATHINFO_EXTENSION;
 
+/**
+ * @property-write string $tweetText Forwarded to TweetButton::$text
+ */
 final class SnsWidget extends Widget
 {
     public static $autoIdPrefix = 'sns-';

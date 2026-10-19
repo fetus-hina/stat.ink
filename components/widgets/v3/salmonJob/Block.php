@@ -21,7 +21,7 @@ use function trim;
 final class Block extends Widget
 {
     /**
-     * @var int|float
+     * @var int|float|string
      */
     public $value;
 

@@ -35,6 +35,7 @@ use const SORT_ASC;
  * @property integer $canonical_id
  * @property integer $main_group_id
  * @property integer $splatnet
+ * @property integer $main_power_up_id
  *
  * @property Special2 $special
  * @property Subweapon2 $subweapon

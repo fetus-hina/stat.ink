@@ -13,6 +13,7 @@ use Override;
 use app\components\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\db\ArrayExpression;
 
 /**
  * This is the model class for table "user_passkey".
@@ -24,7 +25,7 @@ use yii\db\ActiveRecord;
  * @property integer $sign_count
  * @property string $aaguid
  * @property string $attestation_format
- * @property string $transports
+ * @property ArrayExpression $transports
  * @property boolean $backup_eligible
  * @property boolean $backup_state
  * @property string $nickname

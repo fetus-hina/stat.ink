@@ -13,6 +13,7 @@ use app\components\widgets\AdWidget;
 use app\components\widgets\Battle3FilterWidget;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\UserMiniInfo3;
+use app\models\Battle3FilterForm;
 use app\models\User;
 use yii\data\BaseDataProvider;
 use yii\helpers\ArrayHelper;
@@ -22,7 +23,7 @@ use yii\web\View;
 
 /**
  * @var BaseDataProvider $battleDataProvider
- * @var Battle3FilterWidget $filter
+ * @var Battle3FilterForm $filter
  * @var User $user
  * @var View $this
  * @var array $summary

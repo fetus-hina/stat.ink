@@ -35,6 +35,14 @@ use function time;
  * @property integer $gachi_kill
  * @property integer $gachi_death
  * @property integer $total_kd_battle_count
+ * @property integer $nawabari_inked
+ * @property integer $nawabari_inked_max
+ * @property integer $nawabari_inked_battle
+ * @property integer $gachi_kd_battle
+ * @property integer $gachi_kill2
+ * @property integer $gachi_death2
+ * @property integer $gachi_total_time
+ * @property integer $gachi_rank_peak
  *
  * @property User $user
  */

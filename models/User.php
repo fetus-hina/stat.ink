@@ -65,6 +65,7 @@ use const SORT_DESC;
  * @property integer $region_id
  * @property integer $link_mode_id
  * @property string $email
+ * @property integer|null $email_lang_id
  * @property boolean $apikey_password_reset
  * @property boolean $hide_data_on_toppage
  *

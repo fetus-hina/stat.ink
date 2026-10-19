@@ -25,6 +25,7 @@ use const SORT_ASC;
  * @property integer $category_id
  * @property string $name
  *
+ * @property Weapon2[] $weapons
  * @property Weapon2[] $weapon2s
  * @property WeaponCategory2 $category
  */
