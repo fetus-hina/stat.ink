@@ -47,9 +47,6 @@ trait WeaponUsageTrait
     protected function makeStatWeapon3Usage(): void
     {
         $db = Yii::$app->db;
-        if (!$db instanceof Connection) {
-            return;
-        }
 
         $db->transaction(
             fn (Connection $db) => $this->makeStatWeapon3UsageImpl($db),

@@ -11,7 +11,6 @@ use app\components\widgets\Icon;
 use app\models\BigrunMap3;
 use app\models\SalmonMap3;
 use yii\helpers\Html;
-use yii\web\AssetManager;
 use yii\web\View;
 
 /**
@@ -20,7 +19,6 @@ use yii\web\View;
  */
 
 $am = Yii::$app->assetManager;
-assert($am instanceof AssetManager);
 
 echo Html::tag(
   'h3',

@@ -26,7 +26,6 @@ trait MapKingTrait
     protected function makeStatSalmon3MapKing(): void
     {
         $db = Yii::$app->db;
-        assert($db instanceof Connection);
 
         $db->transaction(
             function (Connection $db): void {

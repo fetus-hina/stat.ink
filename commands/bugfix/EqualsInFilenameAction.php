@@ -19,7 +19,6 @@ use yii\base\Action;
 use yii\console\ExitCode;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
-use yii\db\Connection;
 use yii\db\Expression;
 use yii\helpers\FileHelper;
 
@@ -300,7 +299,6 @@ final class EqualsInFilenameAction extends Action
         $model->setAttribute('filename', $newFilename);
 
         $db = Yii::$app->db;
-        assert($db instanceof Connection);
         $saved = $db->transaction(static fn (): bool => $model->save());
         if (!$saved) {
             vfprintf(STDERR, "[Error] %s: failed to save model (%s -> %s): %s\n", [

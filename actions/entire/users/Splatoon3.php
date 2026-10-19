@@ -23,7 +23,6 @@ use yii\helpers\ArrayHelper;
 
 use function array_last;
 use function array_map;
-use function assert;
 use function sprintf;
 use function time;
 use function usort;
@@ -196,7 +195,6 @@ trait Splatoon3
     private function utc3(): Resource
     {
         $conn = Yii::$app->db;
-        assert($conn instanceof Connection);
 
         $oldTZ = $conn->createCommand("SELECT CURRENT_SETTING('TIMEZONE')")->queryScalar();
         $conn->createCommand("SET TIMEZONE TO 'Etc/UTC'")->execute();

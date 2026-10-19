@@ -12,12 +12,10 @@ namespace app\actions\api\v3\s3s;
 use Yii;
 use app\actions\api\v3\traits\ApiInitializerTrait;
 use yii\base\Action;
-use yii\db\Connection;
 use yii\db\Expression;
 use yii\db\Query;
 
 use function array_values;
-use function assert;
 use function gmdate;
 use function strcmp;
 use function time;
@@ -44,7 +42,6 @@ final class UsageAction extends Action
     public function run()
     {
         $conn = Yii::$app->db;
-        assert($conn instanceof Connection);
         $conn->createCommand("SET TIMEZONE TO 'Etc/UTC'")->execute();
 
         $today = gmdate('Y-m-d', $_SERVER['REQUEST_TIME'] ?? time());

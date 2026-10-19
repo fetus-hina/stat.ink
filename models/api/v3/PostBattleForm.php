@@ -54,7 +54,6 @@ use app\models\api\v3\postBattle\PlayerForm;
 use app\models\api\v3\postBattle\TypeHelperTrait;
 use app\models\api\v3\postBattle\UserAgentTrait;
 use jp3cki\uuid\Uuid;
-use yii\base\InvalidConfigException;
 use yii\base\Model;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
@@ -412,9 +411,6 @@ final class PostBattleForm extends Model
     {
         try {
             $connection = Yii::$app->db;
-            if (!$connection instanceof Connection) {
-                throw new InvalidConfigException();
-            }
 
             return $connection->transactionEx(function (Connection $connection): ?Battle3 {
                 if (!$battle = $this->saveNewBattle()) {

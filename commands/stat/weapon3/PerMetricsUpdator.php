@@ -46,9 +46,6 @@ final class PerMetricsUpdator
     public static function update(): void
     {
         $db = Yii::$app->db;
-        if (!$db instanceof Connection) {
-            return;
-        }
 
         $db->transaction(
             fn (Connection $db) => self::doUpdate($db),

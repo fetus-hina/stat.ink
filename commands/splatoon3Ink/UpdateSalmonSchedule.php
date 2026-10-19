@@ -36,11 +36,6 @@ trait UpdateSalmonSchedule
 
     protected function updateSalmonSchedule(array $schedules): int
     {
-        $db = Yii::$app->db;
-        if (!$db instanceof Connection) {
-            return ExitCode::UNSPECIFIED_ERROR;
-        }
-
         $hasError = false;
         foreach ($schedules['salmon_regular'] as $info) {
             if (

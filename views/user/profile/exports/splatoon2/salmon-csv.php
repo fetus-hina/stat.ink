@@ -10,7 +10,6 @@ declare(strict_types=1);
 use app\assets\FlexboxAsset;
 use app\components\widgets\Icon;
 use yii\helpers\Html;
-use yii\web\AssetManager;
 use yii\web\View;
 
 /**
@@ -20,7 +19,6 @@ use yii\web\View;
 FlexboxAsset::register($this);
 
 $am = Yii::$app->assetManager;
-assert($am instanceof AssetManager);
 
 echo Html::tag(
   'div',

@@ -22,7 +22,6 @@ use yii\db\Transaction;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\web\Request;
 
 use function assert;
 
@@ -41,7 +40,6 @@ final class WeaponsAction extends Action
         parent::init();
 
         $request = Yii::$app->request;
-        assert($request instanceof Request);
 
         $this->user = User::find()
             ->andWhere(['screen_name' => $request->get('screen_name')])

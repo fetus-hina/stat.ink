@@ -41,7 +41,6 @@ use app\models\api\v3\postSalmon\BossForm;
 use app\models\api\v3\postSalmon\PlayerForm;
 use app\models\api\v3\postSalmon\WaveForm;
 use jp3cki\uuid\Uuid;
-use yii\base\InvalidConfigException;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
@@ -307,9 +306,6 @@ final class PostSalmonForm extends Model
     {
         try {
             $connection = Yii::$app->db;
-            if (!$connection instanceof Connection) {
-                throw new InvalidConfigException();
-            }
 
             return $connection->transactionEx(function (Connection $connection): ?Salmon3 {
                 if (!$battle = $this->saveNewBattle()) {

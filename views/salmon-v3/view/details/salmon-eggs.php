@@ -10,18 +10,12 @@ declare(strict_types=1);
 use app\components\widgets\Icon;
 use app\models\Salmon3;
 use yii\helpers\Html;
-use yii\web\View;
 
 return [
   'label' => Yii::t('app-salmon3', 'Eggs'),
   'format' => 'raw',
   'value' => function (Salmon3 $model): ?string {
     if ($model->golden_eggs == null || $model->power_eggs === null) {
-      return null;
-    }
-
-    $v = Yii::$app->view;
-    if (!$v instanceof View) {
       return null;
     }
 

@@ -25,7 +25,6 @@ use yii\db\Transaction;
 use function array_filter;
 use function array_map;
 use function array_values;
-use function assert;
 use function fprintf;
 use function fwrite;
 use function ltrim;
@@ -60,7 +59,6 @@ final class S3sKillAssistAction extends Action
         }
 
         $db = Yii::$app->db;
-        assert($db instanceof Connection);
 
         $failed = false;
         foreach ($this->enumTargetBattles($agentIds) as $battle) {
