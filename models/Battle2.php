@@ -1571,7 +1571,7 @@ class Battle2 extends ActiveRecord
 
         // t_str = t.strftime("%Y,%m,%d,%H,%M")
         // t_str を埋め込むときはそれぞれ別フィールドになるようにする（"" でくくって一つにしたりしない）
-        $t = strtotime($this->end_at ?: $this->at);
+        $t = strtotime($this->end_at ?: $this->created_at);
         return [
             (string)$t,
             date('Y', $t),
@@ -1592,7 +1592,7 @@ class Battle2 extends ActiveRecord
 
     public function toCsvArray(): array
     {
-        $t = strtotime($this->end_at ?: $this->at);
+        $t = strtotime($this->end_at ?: $this->created_at);
         $mode = (function (): string {
             if ($this->lobby && $this->lobby->key === 'private') {
                 return 'Private Battle';
