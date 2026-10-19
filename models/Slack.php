@@ -414,14 +414,11 @@ class Slack extends ActiveRecord
             ]);
         } elseif (
             ArrayHelper::getValue(Yii::$app->params, 'useS3ImgGen') &&
-            $battle->rule?->key !== null &&
-            $battle->rule?->key !== 'tricolor'
+            $battle->rule->key !== 'tricolor'
         ) {
             $attachment['image_url'] = vsprintf('https://s3-img-gen.stats.ink/results/%s/%s.jpg', [
                 rawurlencode(
-                    $this->language
-                        ? $this->language->getLanguageId() // get "ja-JP", removed "@calendar=..."
-                        : 'en-US',
+                    $this->language->getLanguageId(), // get "ja-JP", removed "@calendar=..."
                 ),
                 rawurlencode($battle->uuid),
             ]);

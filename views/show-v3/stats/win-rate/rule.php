@@ -26,7 +26,7 @@ if (!$rule) {
   return;
 }
 
-$canKnockout = !in_array($rule->group?->key, ['nawabari', 'tricolor']);
+$canKnockout = !in_array($rule->group->key, ['nawabari', 'tricolor']);
 
 echo $this->render('heading-rule', ['rule' => $rule]);
 echo $this->render('pie-chart', [

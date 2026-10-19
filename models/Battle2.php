@@ -1033,7 +1033,7 @@ class Battle2 extends ActiveRecord
                 'screen_name' => $this->user->screen_name,
                 'battle' => $this->id,
             ], true),
-            'user' => !in_array('user', $skips, true) && $this->user
+            'user' => !in_array('user', $skips, true)
                 ? $this->user->toJsonArray()
                 : null,
             'lobby' => $this->lobby ? $this->lobby->toJsonArray() : null,

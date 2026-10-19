@@ -278,7 +278,7 @@ class SalmonPlayer2 extends ActiveRecord
                 : null,
             'weapons' => $this->weapons
                 ? array_map(
-                    fn ($model) => $model->weapon ? $model->weapon->toJsonArray() : null,
+                    fn ($model) => $model->weapon->toJsonArray(),
                     $this->weapons,
                 )
                 : null,

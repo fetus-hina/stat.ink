@@ -31,13 +31,10 @@ $fmt->nullDisplay = '-';
     <thead>
       <tr>
         <th class="text-center">
-          <?= ($abstract->map
-            ? implode(' ', [
-              Icon::s3SalmonStage($abstract->map ?? null),
-              Html::encode(Yii::t('app-map3', $abstract->map->short_name ?? null)),
-            ])
-            : '') . "\n"
-          ?>
+          <?= implode(' ', [
+            Icon::s3SalmonStage($abstract->map),
+            Html::encode(Yii::t('app-map3', $abstract->map->short_name)),
+          ]) . "\n" ?>
         </th>
         <th class="text-center"><?= Html::encode(Yii::t('app-salmon3', 'Team Total')) ?></th>
         <th class="text-center"><?= Html::encode(Yii::t('app-salmon3', 'Personal')) ?></th>

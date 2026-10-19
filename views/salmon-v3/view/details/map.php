@@ -27,7 +27,7 @@ return [
       Html::a(
         Icon::search(),
         ['salmon-v3/index',
-          'screen_name' => $model->user?->screen_name,
+          'screen_name' => $model->user->screen_name,
           'f' => [
             'map' => $stage->key,
           ],

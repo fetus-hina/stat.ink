@@ -47,7 +47,7 @@ class BattleAction extends BaseAction
             )))
             ->limit(1)
             ->one();
-        if (!$battle || !$battle->user) {
+        if (!$battle) {
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
         }
 

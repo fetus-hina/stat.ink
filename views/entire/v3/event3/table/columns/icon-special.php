@@ -30,7 +30,7 @@ return [
   'value' => fn (Event3StatsSpecial|Event3StatsWeapon $model): string => Icon::s3special(
     match (true) {
       $model instanceof Event3StatsSpecial => $model->special,
-      $model instanceof Event3StatsWeapon => $model->weapon?->special,
+      $model instanceof Event3StatsWeapon => $model->weapon->special,
     },
   ),
 ];

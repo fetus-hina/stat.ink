@@ -162,9 +162,9 @@ $this->registerJs('$(".mr-value").matchingRange();');
         ]) . "\n" ?>
         <?= Html::tag(
           'td',
-          $weapon->mainweapon?->matching_range === null
+          $weapon->mainweapon->matching_range === null
             ? ''
-            : Yii::$app->formatter->asDecimal($weapon->mainweapon?->matching_range, 1),
+            : Yii::$app->formatter->asDecimal($weapon->mainweapon->matching_range, 1),
           [
             'class' => 'text-center mr-value',
             'data' => [

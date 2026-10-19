@@ -83,9 +83,7 @@ $widget = Yii::createObject([
       ],
       'format' => 'raw',
       'value' => function (SalmonBossAppearance2 $model): ?string {
-        return $model->boss
-          ? Html::tag('b', Html::encode(Yii::t('app-salmon-boss2', $model->boss->name)))
-          : null;
+        return Html::tag('b', Html::encode(Yii::t('app-salmon-boss2', $model->boss->name)));
       },
       'contentOptions' => function (SalmonBossAppearance2 $model): array {
         return [

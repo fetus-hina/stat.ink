@@ -21,6 +21,6 @@ return [
   'label' => '',
   'format' => 'raw',
   'value' => fn (StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage|StatWeapon3XUsagePerVersion $model): string => (string)Icon::s3Subweapon(
-    $model->weapon?->subweapon,
+    $model->weapon->subweapon,
   ),
 ];

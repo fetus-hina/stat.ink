@@ -126,7 +126,7 @@ class Gear2 extends ActiveRecord
         return [
             'key' => $this->key,
             'type' => $this->type->toJsonArray(),
-            'brand' => $this->brand ? $this->brand->toJsonArray() : null,
+            'brand' => $this->brand->toJsonArray(),
             'name' => Translator::translateToAll('app-gear2', $this->name),
             'primary_ability' => $this->ability ? $this->ability->toJsonArray() : null,
             'splatnet' => $this->splatnet,

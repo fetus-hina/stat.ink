@@ -587,7 +587,7 @@ class Battle extends ActiveRecord
 
     private function getIsThisGameMode($key)
     {
-        if ($this->rule && $this->rule->mode) {
+        if ($this->rule) {
             return $this->rule->mode->key === $key;
         }
         return false;
@@ -830,7 +830,7 @@ class Battle extends ActiveRecord
         return [
             'id' => $this->id,
             'url' => Url::to(['show/battle', 'screen_name' => $this->user->screen_name, 'battle' => $this->id], true),
-            'user' => !in_array('user', $skips, true) && $this->user ? $this->user->toJsonArray() : null,
+            'user' => !in_array('user', $skips, true) ? $this->user->toJsonArray() : null,
             'lobby' => $this->lobby ? $this->lobby->toJsonArray() : null,
             'rule' => $this->rule ? $this->rule->toJsonArray() : null,
             'map' => $this->map ? $this->map->toJsonArray() : null,

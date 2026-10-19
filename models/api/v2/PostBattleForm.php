@@ -496,7 +496,7 @@ class PostBattleForm extends Model
             ]))
             ->limit(1)
             ->one();
-        if ($mapping && $mapping->map) {
+        if ($mapping) {
             return $mapping->map;
         }
 

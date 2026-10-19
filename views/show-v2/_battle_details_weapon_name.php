@@ -18,7 +18,7 @@ use yii\web\View;
  * @var View $this
  */
 
-if (!$battle || !$battle->weapon) {
+if (!$battle) {
   return;
 }
 

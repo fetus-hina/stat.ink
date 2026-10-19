@@ -105,7 +105,7 @@ final class ResetPasswordRecoveryKeyForm extends Model
             ->one();
 
         $isValid = false;
-        if ($key && $key->user && $key->user->screen_name === (string)$this->screen_name) {
+        if ($key && $key->user->screen_name === (string)$this->screen_name) {
             $isValid = Password::verify($secret, $key->secret_hash);
         } else {
             // Mitigate timing attacks by always running the slow verify

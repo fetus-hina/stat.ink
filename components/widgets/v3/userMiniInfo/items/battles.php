@@ -30,7 +30,7 @@ return [
             );
         }
 
-        if ($model instanceof UserStat3XMatch && $model->rule) {
+        if ($model instanceof UserStat3XMatch) {
             return Html::a(
                 Html::encode(Yii::$app->formatter->asInteger($model->battles)),
                 ['show-v3/user',
