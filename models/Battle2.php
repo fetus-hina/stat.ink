@@ -90,15 +90,15 @@ use const SORT_STRING;
  * @property integer $rank_in_team
  * @property integer $kill
  * @property integer $death
- * @property string $kill_ratio
- * @property string $kill_rate
+ * @property numeric-string $kill_ratio
+ * @property numeric-string $kill_rate
  * @property integer $max_kill_combo
  * @property integer $max_kill_streak
  * @property integer $my_point
  * @property integer $my_team_point
  * @property integer $his_team_point
- * @property string $my_team_percent
- * @property string $his_team_percent
+ * @property numeric-string $my_team_percent
+ * @property numeric-string $his_team_percent
  * @property integer $my_team_count
  * @property integer $his_team_count
  * @property integer $my_team_color_hue
@@ -139,10 +139,10 @@ use const SORT_STRING;
  * @property string $my_team_id
  * @property string $his_team_id
  * @property integer $estimate_gachi_power
- * @property string $league_point
+ * @property numeric-string $league_point
  * @property integer $my_team_estimate_league_point
  * @property integer $his_team_estimate_league_point
- * @property string $fest_power
+ * @property numeric-string $fest_power
  * @property integer $my_team_estimate_fest_power
  * @property integer $his_team_estimate_fest_power
  * @property integer $headgear_id
@@ -151,8 +151,8 @@ use const SORT_STRING;
  * @property integer $star_rank
  * @property integer $my_team_fest_theme_id
  * @property integer $his_team_fest_theme_id
- * @property string $x_power
- * @property string $x_power_after
+ * @property numeric-string $x_power
+ * @property numeric-string $x_power_after
  * @property integer $estimate_x_power
  * @property integer $species_id
  * @property integer $special_battle_id
@@ -161,10 +161,10 @@ use const SORT_STRING;
  * @property integer $clout
  * @property integer $total_clout
  * @property integer $total_clout_after
- * @property string $synergy_bonus
+ * @property numeric-string $synergy_bonus
  * @property integer $my_team_win_streak
  * @property integer $his_team_win_streak
- * @property string $freshness
+ * @property numeric-string $freshness
  * @property boolean $has_disconnect
  *
  * @property Agent $agent

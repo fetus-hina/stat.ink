@@ -73,7 +73,7 @@ use const SORT_STRING;
  * @property integer $cash
  * @property integer $cash_after
  * @property integer $lobby_id
- * @property string $kill_ratio
+ * @property numeric-string $kill_ratio
  * @property integer $gender_id
  * @property integer $fest_title_id
  * @property integer $fest_title_after_id
@@ -86,8 +86,8 @@ use const SORT_STRING;
  * @property integer $my_point
  * @property integer $my_team_final_point
  * @property integer $his_team_final_point
- * @property string $my_team_final_percent
- * @property string $his_team_final_percent
+ * @property numeric-string $my_team_final_percent
+ * @property numeric-string $his_team_final_percent
  * @property boolean $is_knock_out
  * @property integer $my_team_count
  * @property integer $his_team_count

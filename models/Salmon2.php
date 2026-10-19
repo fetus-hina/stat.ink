@@ -57,7 +57,7 @@ use const SORT_DESC;
  * @property integer $title_before_exp
  * @property integer $title_after_id
  * @property integer $title_after_exp
- * @property string $danger_rate
+ * @property numeric-string $danger_rate
  * @property integer $shift_period
  * @property string $start_at
  * @property string $end_at
