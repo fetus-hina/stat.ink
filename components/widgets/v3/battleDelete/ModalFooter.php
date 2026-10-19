@@ -77,7 +77,6 @@ final class ModalFooter extends Widget
                     'screen_name' => $model->user->screen_name,
                     'battle' => $model->uuid,
                 ],
-                default => throw new LogicException(),
             },
             [
                 'class' => 'btn btn-danger',
