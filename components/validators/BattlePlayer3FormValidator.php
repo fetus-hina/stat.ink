@@ -50,7 +50,7 @@ final class BattlePlayer3FormValidator extends Validator
     {
         $errors = $this->validateValueImpl($value);
         if (!$errors) {
-            return;
+            return null;
         }
 
         return [array_shift($errors), []];

@@ -39,7 +39,7 @@ class WeaponKeyValidator extends Validator
     protected function validateValue($value)
     {
         if ($this->validateValueImpl($value)) {
-            return;
+            return null;
         }
         return [$this->message, []];
     }
