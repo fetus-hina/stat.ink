@@ -67,50 +67,30 @@ class Api2MarkdownController extends Controller
     {
         // {{{
         $path = Yii::getAlias('@app/doc/api-2/post-battle.md');
+
+        $actionMap = [
+            'ability' => $this->actionAbility(...),
+            'death' => $this->actionDeathReason(...),
+            'stage' => $this->actionStage(...),
+            'weapon' => $this->actionWeapon(...),
+        ];
+
         $markdown = preg_replace_callback(
             '/(?<start><!--replace:(?<kind>[\w-]+)-->)(?<oldvalue>.*?)(?<end><!--endreplace-->)/us',
-            function (array $match): string {
-                switch ($match['kind']) {
-                    case 'weapon':
-                        ob_start();
-                        $status = $this->actionWeapon();
-                        if ($status !== 0) {
-                            return $status;
-                        }
-                        $repl = ob_get_clean();
-                        return $match['start'] . "\n" . rtrim($repl) . "\n" . $match['end'];
-
-                    case 'stage':
-                        ob_start();
-                        $status = $this->actionStage();
-                        if ($status !== 0) {
-                            return $status;
-                        }
-                        $repl = ob_get_clean();
-                        return $match['start'] . "\n" . rtrim($repl) . "\n" . $match['end'];
-
-                    case 'ability':
-                        ob_start();
-                        $status = $this->actionAbility();
-                        if ($status !== 0) {
-                            return $status;
-                        }
-                        $repl = ob_get_clean();
-                        return $match['start'] . "\n" . rtrim($repl) . "\n" . $match['end'];
-
-                    case 'death':
-                        ob_start();
-                        $status = $this->actionDeathReason();
-                        if ($status !== 0) {
-                            return $status;
-                        }
-                        $repl = ob_get_clean();
-                        return $match['start'] . "\n" . rtrim($repl) . "\n" . $match['end'];
-
-                    default:
-                        $this->stderr('Unknown kind of replace tag: ' . $match['kind'] . "\n");
-                        exit(1);
+            function (array $match) use ($actionMap): string {
+                $kind = $match['kind'];
+                if (!isset($actionMap[$kind])) {
+                    $this->stderr('Unknown kind of replace tag: ' . $kind . "\n");
+                    exit(1);
                 }
+
+                ob_start();
+                $status = $actionMap[$kind]();
+                $repl = ob_get_clean();
+                if ($status !== 0) {
+                    exit($status);
+                }
+                return $match['start'] . "\n" . rtrim($repl) . "\n" . $match['end'];
             },
             file_get_contents($path),
         );
