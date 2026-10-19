@@ -269,10 +269,7 @@ final class PostSalmonForm extends Model
             return true;
         }
 
-        if (!$lock = CriticalSection::lock($this->getCriticalSectionId(), 60)) {
-            $this->addError('_system', 'Failed to get lock. System busy. Try again.');
-            return null;
-        }
+        $lock = CriticalSection::lock($this->getCriticalSectionId(), 60);
 
         try {
             return $this->getSameBattle() ?? $this->saveNewBattleRelation();

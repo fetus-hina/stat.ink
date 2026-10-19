@@ -364,10 +364,7 @@ final class PostBattleForm extends Model
             return true;
         }
 
-        if (!$lock = CriticalSection::lock($this->getCriticalSectionId(), 60)) {
-            $this->addError('_system', 'Failed to get lock. System busy. Try again.');
-            return null;
-        }
+        $lock = CriticalSection::lock($this->getCriticalSectionId(), 60);
 
         try {
             if ($model = $this->getSameBattle()) {
@@ -722,9 +719,7 @@ final class PostBattleForm extends Model
         $model = Medal3::findOne(['name' => $text]);
         if (!$model) {
             // 2. lock if not found
-            if (!$lock = CriticalSection::lock(Medal3::class, 60)) {
-                return null;
-            }
+            $lock = CriticalSection::lock(Medal3::class, 60);
             try {
                 // 3. find data again with lock (it may created on another process/thread)
                 $model = Medal3::findOne(['name' => $text]);
@@ -869,9 +864,7 @@ final class PostBattleForm extends Model
             return $model;
         }
 
-        if (!$lock = CriticalSection::lock(Splatfest3Theme::class, 60)) {
-            return null;
-        }
+        $lock = CriticalSection::lock(Splatfest3Theme::class, 60);
         try {
             $model = Splatfest3Theme::find()
                 ->andWhere(['name' => $name])
