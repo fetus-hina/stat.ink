@@ -23,14 +23,14 @@ use yii\web\View;
 echo Html::tag(
   'div',
   implode('', [
-    match ($map::class) {
-      BigrunMap3::class => Icon::s3BigRun(
+    match (true) {
+      $map instanceof BigrunMap3 => Icon::s3BigRun(
         alt: implode(' - ', [
           Yii::t('app-salmon3', 'Big Run'),
           Yii::t('app-map3', $map->name),
         ]),
       ),
-      SalmonMap3::class => Icon::s3SalmonStage($map),
+      $map instanceof SalmonMap3 => Icon::s3SalmonStage($map),
     },
     Icon::s3BossSalmonid($king),
   ]),

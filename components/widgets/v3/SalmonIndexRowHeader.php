@@ -109,8 +109,8 @@ final class SalmonIndexRowHeader extends Widget
 
     private function renderTerm(SalmonSchedule3 $schedule, Formatter $formatter): string
     {
-        $f = match ($formatter::class) {
-            FormatterEx::class => fn (mixed $v): string => $formatter->asHtmlDatetimeEx($v, 'medium', 'short'),
+        $f = match (true) {
+            $formatter instanceof FormatterEx => fn (mixed $v): string => $formatter->asHtmlDatetimeEx($v, 'medium', 'short'),
             default => fn (mixed $v): string => $formatter->asDatetime($v, 'medium'),
         };
 

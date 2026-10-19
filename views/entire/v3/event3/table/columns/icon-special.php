@@ -20,17 +20,17 @@ return [
   'contentOptions' => fn (Event3StatsSpecial|Event3StatsWeapon $model): array => [
     'data-sort-value' => Yii::t(
       'app-special3',
-      match ($model::class) {
-        Event3StatsSpecial::class => $model->special->name,
-        Event3StatsWeapon::class => $model->weapon->special->name,
+      match (true) {
+        $model instanceof Event3StatsSpecial => $model->special->name,
+        $model instanceof Event3StatsWeapon => $model->weapon->special->name,
       },
     ),
   ],
   'format' => 'raw',
   'value' => fn (Event3StatsSpecial|Event3StatsWeapon $model): string => Icon::s3special(
-    match ($model::class) {
-      Event3StatsSpecial::class => $model->special,
-      Event3StatsWeapon::class => $model->weapon?->special,
+    match (true) {
+      $model instanceof Event3StatsSpecial => $model->special,
+      $model instanceof Event3StatsWeapon => $model->weapon?->special,
     },
   ),
 ];

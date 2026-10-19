@@ -113,11 +113,10 @@ class Slack extends ActiveRecord
 
     public function send(Battle|Battle2|Battle3 $battle, bool $realSend = true): ?string
     {
-        return match ($battle::class) {
-            Battle::class => $this->sendSplatoon1($battle, $realSend),
-            Battle2::class => $this->sendSplatoon2($battle, $realSend),
-            Battle3::class => $this->sendSplatoon3($battle, $realSend),
-            default => null,
+        return match (true) {
+            $battle instanceof Battle => $this->sendSplatoon1($battle, $realSend),
+            $battle instanceof Battle2 => $this->sendSplatoon2($battle, $realSend),
+            $battle instanceof Battle3 => $this->sendSplatoon3($battle, $realSend),
         };
     }
 

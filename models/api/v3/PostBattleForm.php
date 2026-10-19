@@ -654,9 +654,9 @@ final class PostBattleForm extends Model
 
             foreach ($gpData as $key => $gp) {
                 $gpModel = Yii::createObject([
-                    'class' => match ($model::class) {
-                        BattlePlayer3::class => BattlePlayerGearPower3::class,
-                        BattleTricolorPlayer3::class => BattleTricolorPlayerGearPower3::class,
+                    'class' => match (true) {
+                        $model instanceof BattlePlayer3 => BattlePlayerGearPower3::class,
+                        $model instanceof BattleTricolorPlayer3 => BattleTricolorPlayerGearPower3::class,
                     },
                     'player_id' => $model->id,
                     'ability_id' => $abilities[$key],
