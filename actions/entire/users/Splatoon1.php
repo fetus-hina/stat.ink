@@ -88,9 +88,9 @@ trait Splatoon1
         $t1 = gmmktime(
             gmdate('H', $t2),
             gmdate('i', $t2),
-            gmdate('s', $t2) + 1,
+            (int)gmdate('s', $t2) + 1,
             gmdate('n', $t2),
-            gmdate('j', $t2) - 1,
+            (int)gmdate('j', $t2) - 1,
             gmdate('Y', $t2),
         );
         $query = new Query()
