@@ -47,9 +47,9 @@ use yii\db\ExpressionInterface;
  * @property-read string $updated_at
  * @property-write string|ExpressionInterface $updated_at
  *
- * @property Rank3 $currentRank
- * @property Lobby3 $lobby
- * @property Rank3 $peakRank
+ * @property Rank3|null $currentRank
+ * @property Lobby3|null $lobby
+ * @property Rank3|null $peakRank
  * @property User $user
  */
 class UserStat3 extends ActiveRecord

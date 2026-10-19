@@ -23,9 +23,9 @@ use yii\db\ActiveRecord;
  * @property integer $jobs
  * @property integer $cleared
  *
- * @property BigrunMap3 $bigStage
- * @property SalmonEvent3 $event
- * @property SalmonMap3 $stage
+ * @property BigrunMap3|null $bigStage
+ * @property SalmonEvent3|null $event
+ * @property SalmonMap3|null $stage
  * @property SalmonWaterLevel2 $tide
  */
 class StatSalmon3TideEvent extends ActiveRecord

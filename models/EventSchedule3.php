@@ -26,7 +26,7 @@ use yii\db\ExpressionInterface;
  * @property-write string|ExpressionInterface $end_at
  *
  * @property Event3 $event
- * @property Event3StatsPower $event3StatsPower
+ * @property Event3StatsPower|null $event3StatsPower
  * @property Event3StatsPowerHistogram[] $event3StatsPowerHistograms
  * @property Event3StatsSpecial[] $event3StatsSpecials
  * @property Event3StatsWeapon[] $event3StatsWeapons

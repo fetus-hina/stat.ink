@@ -28,7 +28,7 @@ use yii\db\ActiveRecord;
  * @property SalmonScheduleWeapon3[] $salmonScheduleWeapon3s
  * @property SalmonWeapon3Alias[] $salmonWeapon3Aliases
  * @property User[] $users
- * @property Weapon3 $weapon
+ * @property Weapon3|null $weapon
  */
 class SalmonWeapon3 extends ActiveRecord
 {

@@ -113,35 +113,35 @@ use yii\db\ExpressionInterface;
  * @property-read string|null $series_weapon_power_after
  * @property-write float|string|null $series_weapon_power_after
  *
- * @property Agent $agent
+ * @property Agent|null $agent
  * @property BattleAgentVariable3[] $battleAgentVariable3s
- * @property BattleImageGear3 $battleImageGear3
- * @property BattleImageJudge3 $battleImageJudge3
- * @property BattleImageResult3 $battleImageResult3
+ * @property BattleImageGear3|null $battleImageGear3
+ * @property BattleImageJudge3|null $battleImageJudge3
+ * @property BattleImageResult3|null $battleImageResult3
  * @property BattleMedal3[] $battleMedal3s
  * @property BattlePlayer3[] $battlePlayer3s
  * @property BattleTricolorPlayer3[] $battleTricolorPlayer3s
- * @property ConchClash3 $conchClash
- * @property Event3 $event
- * @property DragonMatch3 $festDragon
- * @property Lobby3 $lobby
- * @property Map3 $map
+ * @property ConchClash3|null $conchClash
+ * @property Event3|null $event
+ * @property DragonMatch3|null $festDragon
+ * @property Lobby3|null $lobby
+ * @property Map3|null $map
  * @property Medal3[] $medals
- * @property TricolorRole3 $ourTeamRole
- * @property Splatfest3Theme $ourTeamTheme
- * @property Rank3 $rankAfter
- * @property Rank3 $rankBefore
- * @property Result3 $result
- * @property Rule3 $rule
- * @property TricolorRole3 $theirTeamRole
- * @property Splatfest3Theme $theirTeamTheme
- * @property TricolorRole3 $thirdTeamRole
- * @property Splatfest3Theme $thirdTeamTheme
+ * @property TricolorRole3|null $ourTeamRole
+ * @property Splatfest3Theme|null $ourTeamTheme
+ * @property Rank3|null $rankAfter
+ * @property Rank3|null $rankBefore
+ * @property Result3|null $result
+ * @property Rule3|null $rule
+ * @property TricolorRole3|null $theirTeamRole
+ * @property Splatfest3Theme|null $theirTeamTheme
+ * @property TricolorRole3|null $thirdTeamRole
+ * @property Splatfest3Theme|null $thirdTeamTheme
  * @property User $user
  * @property UserExportJson3[] $userExportJson3s
  * @property AgentVariable3[] $variables
- * @property SplatoonVersion3 $version
- * @property Weapon3 $weapon
+ * @property SplatoonVersion3|null $version
+ * @property Weapon3|null $weapon
  */
 class Battle3 extends ActiveRecord
 {

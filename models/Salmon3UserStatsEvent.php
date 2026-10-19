@@ -26,7 +26,7 @@ use yii\db\ActiveRecord;
  * @property integer $total_quota
  * @property integer $total_delivered
  *
- * @property SalmonEvent3 $event
+ * @property SalmonEvent3|null $event
  * @property SalmonMap3 $map
  * @property SalmonWaterLevel2 $tide
  * @property User $user

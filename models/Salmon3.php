@@ -71,23 +71,23 @@ use yii\db\ExpressionInterface;
  * @property string|null $scenario_code
  * @property boolean $is_eggstra_work
  *
- * @property Agent $agent
- * @property BigrunMap3 $bigStage
+ * @property Agent|null $agent
+ * @property BigrunMap3|null $bigStage
  * @property SalmonBoss3[] $bosses
- * @property SalmonFailReason2 $failReason
- * @property SalmonKing3 $kingSalmonid
+ * @property SalmonFailReason2|null $failReason
+ * @property SalmonKing3|null $kingSalmonid
  * @property SalmonAgentVariable3[] $salmonAgentVariable3s
  * @property SalmonBossAppearance3[] $salmonBossAppearance3s
  * @property SalmonExportJson3[] $salmonExportJson3s
  * @property SalmonPlayer3[] $salmonPlayer3s
  * @property SalmonWave3[] $salmonWave3s
- * @property SalmonSchedule3 $schedule
- * @property SalmonMap3 $stage
- * @property SalmonTitle3 $titleAfter
- * @property SalmonTitle3 $titleBefore
+ * @property SalmonSchedule3|null $schedule
+ * @property SalmonMap3|null $stage
+ * @property SalmonTitle3|null $titleAfter
+ * @property SalmonTitle3|null $titleBefore
  * @property User $user
  * @property AgentVariable3[] $variables
- * @property SplatoonVersion3 $version
+ * @property SplatoonVersion3|null $version
  */
 class Salmon3 extends ActiveRecord
 {

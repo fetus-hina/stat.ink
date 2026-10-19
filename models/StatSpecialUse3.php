@@ -31,7 +31,7 @@ use yii\db\ActiveRecord;
  * @property integer|null $percentile_95
  * @property integer|null $percentile_100
  *
- * @property Rule3 $rule
+ * @property Rule3|null $rule
  * @property Season3 $season
  * @property Special3 $special
  */

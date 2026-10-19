@@ -42,13 +42,13 @@ use yii\db\ActiveRecord;
  * @property Ability3[] $abilities
  * @property Battle3 $battle
  * @property BattlePlayerGearPower3[] $battlePlayerGearPower3s
- * @property GearConfiguration3 $clothing
- * @property Crown3 $crown
- * @property GearConfiguration3 $headgear
- * @property GearConfiguration3 $shoes
- * @property Species3 $species
- * @property SplashtagTitle3 $splashtagTitle
- * @property Weapon3 $weapon
+ * @property GearConfiguration3|null $clothing
+ * @property Crown3|null $crown
+ * @property GearConfiguration3|null $headgear
+ * @property GearConfiguration3|null $shoes
+ * @property Species3|null $species
+ * @property SplashtagTitle3|null $splashtagTitle
+ * @property Weapon3|null $weapon
  */
 class BattlePlayer3 extends ActiveRecord
 {

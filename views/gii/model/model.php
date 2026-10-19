@@ -38,6 +38,30 @@ $writeType = fn (ColumnSchema $column): ?string => match ($column->type) {
 $nullable = fn (ColumnSchema $column, ?string $type): ?string => $type !== null && $column->allowNull
   ? $type . '|null'
   : $type;
+// A hasOne relation is non-null only when its link is a foreign key of this table whose columns are all NOT NULL
+$relationNullable = function (array $relation) use ($tableSchema): bool {
+  if ($relation[2] || !preg_match('/->hasOne\(\s*[\w\\\\]+::class(?:Name\(\))?,\s*\[(.*?)\]\s*\)/s', $relation[0], $match)) {
+    return !$relation[2];
+  }
+
+  preg_match_all("/'(\\w+)'\\s*=>\\s*'(\\w+)'/", $match[1], $pairs, PREG_SET_ORDER);
+  $link = [];
+  foreach ($pairs as [, $refColumn, $ownColumn]) {
+    $link[$ownColumn] = $refColumn;
+  }
+
+  foreach ($tableSchema->foreignKeys as $foreignKey) {
+    unset($foreignKey[0]);
+    if ($link && $foreignKey == $link) {
+      return array_any(
+        array_keys($link),
+        fn (string $column): bool => $tableSchema->getColumn($column)?->allowNull ?? true,
+      );
+    }
+  }
+
+  return true;
+};
 $useExpressionInterface = array_any(
   $tableSchema->columns,
   fn (ColumnSchema $column): bool => str_contains((string)$writeType($column), 'ExpressionInterface'),
@@ -78,7 +102,7 @@ use yii\db\ExpressionInterface;
 <?php if (!empty($relations)): ?>
  *
 <?php foreach ($relations as $name => $relation): ?>
- * @property <?= $relation[1] . ($relation[2] ? '[]' : '') . ' $' . lcfirst($name) . "\n" ?>
+ * @property <?= $relation[1] . ($relation[2] ? '[]' : '') . ($relationNullable($relation) ? '|null' : '') . ' $' . lcfirst($name) . "\n" ?>
 <?php endforeach; ?>
 <?php endif; ?>
  */

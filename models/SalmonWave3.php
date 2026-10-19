@@ -28,11 +28,11 @@ use yii\db\ActiveRecord;
  * @property-read string|null $danger_rate
  * @property-write float|string|null $danger_rate
  *
- * @property SalmonEvent3 $event
+ * @property SalmonEvent3|null $event
  * @property Salmon3 $salmon
  * @property SalmonSpecialUse3[] $salmonSpecialUse3s
  * @property Special3[] $specials
- * @property SalmonWaterLevel2 $tide
+ * @property SalmonWaterLevel2|null $tide
  */
 class SalmonWave3 extends ActiveRecord
 {

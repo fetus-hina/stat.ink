@@ -23,7 +23,7 @@ use yii\db\ActiveRecord;
  * @property integer $class_value
  * @property integer $count
  *
- * @property Map3 $map
+ * @property Map3|null $map
  * @property Rule3 $rule
  * @property Season3 $season
  */

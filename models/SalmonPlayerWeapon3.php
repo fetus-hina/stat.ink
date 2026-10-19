@@ -22,7 +22,7 @@ use yii\db\ActiveRecord;
  * @property integer|null $weapon_id
  *
  * @property SalmonPlayer3 $player
- * @property SalmonWeapon3 $weapon
+ * @property SalmonWeapon3|null $weapon
  */
 class SalmonPlayerWeapon3 extends ActiveRecord
 {

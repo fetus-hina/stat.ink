@@ -28,7 +28,7 @@ use yii\db\ActiveRecord;
  * @property double|null $stddev_knockout_time
  * @property integer|null $histogram_width
  *
- * @property Map3 $map
+ * @property Map3|null $map
  * @property Rule3 $rule
  * @property Season3 $season
  */

@@ -34,7 +34,7 @@ use yii\db\ActiveRecord;
  * @property integer|null $peak_title_exp
  * @property integer|null $boss_defeated
  *
- * @property SalmonTitle3 $peakTitle
+ * @property SalmonTitle3|null $peakTitle
  * @property User $user
  */
 class UserStatSalmon3 extends ActiveRecord

@@ -29,21 +29,21 @@ use yii\db\ExpressionInterface;
  * @property boolean $is_eggstra_work
  * @property boolean $is_random_map_big_run
  *
- * @property BigrunMap3 $bigMap
- * @property BigrunOfficialBorder3 $bigrunOfficialBorder3
- * @property BigrunOfficialResult3 $bigrunOfficialResult3
- * @property EggstraWorkOfficialResult3 $eggstraWorkOfficialResult3
- * @property SalmonKing3 $king
- * @property SalmonMap3 $map
+ * @property BigrunMap3|null $bigMap
+ * @property BigrunOfficialBorder3|null $bigrunOfficialBorder3
+ * @property BigrunOfficialResult3|null $bigrunOfficialResult3
+ * @property EggstraWorkOfficialResult3|null $eggstraWorkOfficialResult3
+ * @property SalmonKing3|null $king
+ * @property SalmonMap3|null $map
  * @property Salmon3[] $salmon3s
  * @property SalmonScheduleWeapon3[] $salmonScheduleWeapon3s
- * @property StatBigrunDistribJobAbstract3 $statBigrunDistribJobAbstract3
+ * @property StatBigrunDistribJobAbstract3|null $statBigrunDistribJobAbstract3
  * @property StatBigrunDistribJobHistogram3[] $statBigrunDistribJobHistogram3s
- * @property StatBigrunDistribUserAbstract3 $statBigrunDistribUserAbstract3
+ * @property StatBigrunDistribUserAbstract3|null $statBigrunDistribUserAbstract3
  * @property StatBigrunDistribUserHistogram3[] $statBigrunDistribUserHistogram3s
  * @property StatEggstraWorkDistrib3[] $statEggstraWorkDistrib3s
- * @property StatEggstraWorkDistribAbstract3 $statEggstraWorkDistribAbstract3
- * @property StatEggstraWorkDistribUserAbstract3 $statEggstraWorkDistribUserAbstract3
+ * @property StatEggstraWorkDistribAbstract3|null $statEggstraWorkDistribAbstract3
+ * @property StatEggstraWorkDistribUserAbstract3|null $statEggstraWorkDistribUserAbstract3
  * @property StatEggstraWorkDistribUserHistogram3[] $statEggstraWorkDistribUserHistogram3s
  * @property UserStatBigrun3[] $userStatBigrun3s
  * @property UserStatEggstraWork3[] $userStatEggstraWork3s

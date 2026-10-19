@@ -22,7 +22,7 @@ use yii\db\ActiveRecord;
  *
  * @property BattleMedal3[] $battleMedal3s
  * @property Battle3[] $battles
- * @property MedalCanonical3 $canonical
+ * @property MedalCanonical3|null $canonical
  */
 class Medal3 extends ActiveRecord
 {

@@ -33,9 +33,9 @@ use yii\db\ExpressionInterface;
  * @property Weapon3 $canonical
  * @property Event3StatsWeapon[] $event3StatsWeapons
  * @property Mainweapon3 $mainweapon
- * @property SalmonWeapon3 $salmonWeapon3
+ * @property SalmonWeapon3|null $salmonWeapon3
  * @property EventSchedule3[] $schedules
- * @property Special3 $special
+ * @property Special3|null $special
  * @property Splatfest3StatsWeapon[] $splatfest3StatsWeapons
  * @property StatWeapon3AssistPerVersion[] $statWeapon3AssistPerVersions
  * @property StatWeapon3Assist[] $statWeapon3Assists
@@ -53,7 +53,7 @@ use yii\db\ExpressionInterface;
  * @property StatWeapon3Usage[] $statWeapon3Usages
  * @property StatWeapon3XUsagePerVersion[] $statWeapon3XUsagePerVersions
  * @property StatWeapon3XUsage[] $statWeapon3XUsages
- * @property Subweapon3 $subweapon
+ * @property Subweapon3|null $subweapon
  * @property UserWeapon3[] $userWeapon3s
  * @property User[] $users
  * @property XMatchingGroupVersion3[] $versions

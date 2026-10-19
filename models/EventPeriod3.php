@@ -24,7 +24,7 @@ use yii\db\ExpressionInterface;
  * @property-read string $end_at
  * @property-write string|ExpressionInterface $end_at
  *
- * @property Event3StatsPowerPeriod $event3StatsPowerPeriod
+ * @property Event3StatsPowerPeriod|null $event3StatsPowerPeriod
  * @property Event3StatsPowerPeriodHistogram[] $event3StatsPowerPeriodHistograms
  * @property EventSchedule3 $schedule
  */

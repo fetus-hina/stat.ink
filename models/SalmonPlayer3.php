@@ -36,10 +36,10 @@ use yii\db\ActiveRecord;
  *
  * @property Salmon3 $salmon
  * @property SalmonPlayerWeapon3[] $salmonPlayerWeapon3s
- * @property Special3 $special
- * @property Species3 $species
- * @property SplashtagTitle3 $splashtagTitle
- * @property SalmonUniform3 $uniform
+ * @property Special3|null $special
+ * @property Species3|null $species
+ * @property SplashtagTitle3|null $splashtagTitle
+ * @property SalmonUniform3|null $uniform
  */
 class SalmonPlayer3 extends ActiveRecord
 {
