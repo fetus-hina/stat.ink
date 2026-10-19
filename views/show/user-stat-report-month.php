@@ -20,6 +20,9 @@ use yii\web\View;
 /**
  * @var User $user
  * @var View $this
+ * @var array<array<string, mixed>> $list
+ * @var string|null $next
+ * @var string|null $prev
  */
 
 $title = Yii::t('app-battle', '{name}\'s Battle Report', ['name' => $user->name]);

@@ -19,6 +19,12 @@ use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\web\View;
 
+/**
+ * @var ActiveDataProvider $provider
+ * @var View $this
+ * @var int $samples
+ */
+
 $modelClass = TypeHelper::instanceOf($provider->query, ActiveQuery::class)->modelClass;
 if (
   $modelClass !== Event3StatsSpecial::class &&

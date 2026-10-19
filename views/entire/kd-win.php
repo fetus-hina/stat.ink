@@ -14,8 +14,18 @@ use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\kdWin\KDWinTable;
 use app\components\widgets\kdWin\LegendWidget;
+use app\models\BattleFilterForm;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var BattleFilterForm $filter
+ * @var View $this
+ * @var array<string, array<string, string>|string> $weapons
+ * @var array<string, string> $maps
+ * @var stdClass[] $rules
+ */
 
 $this->context->layout ='main';
 

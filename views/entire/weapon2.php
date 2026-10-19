@@ -17,6 +17,7 @@ use app\models\Rule2;
 use app\models\SplatoonVersion2;
 use app\models\StatWeapon2UseCountPerWeek;
 use app\models\Weapon2;
+use app\models\Weapon2StageFilterForm;
 use app\models\WeaponCategory2;
 use statink\yii2\stages\spl2\Spl2Stage;
 use yii\bootstrap\ActiveForm;
@@ -27,12 +28,6 @@ use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\View;
-
-/**
- * @var Rule2 $rule
- * @var View $this
- * @var Weapon2 $weapon
- */
 
 function calcError(int $battles, int $wins): ?float
 {
@@ -45,6 +40,19 @@ function calcError(int $battles, int $wins): ?float
   $s = sqrt(($battles / ($battles - 1.5)) * $winRate * (1.0 - $winRate));
   return $s / sqrt($battles) * 100.0;
 }
+
+/**
+ * @var Rule2 $rule
+ * @var View $this
+ * @var Weapon2 $weapon
+ * @var Weapon2StageFilterForm $stageFilter
+ * @var array<string, array<int, array{times: int, battles: int}>> $assists
+ * @var array<string, array<int, array{times: int, battles: int}>> $deaths
+ * @var array<string, array<int, array{times: int, battles: int}>> $kills
+ * @var array<string, array<int, array{times: int, battles: int}>> $specials
+ * @var array<string, array{win: int, lose: int}> $winRate
+ * @var array<string, string> $maps
+ */
 
 EntireWeapon2Asset::register($this);
 

@@ -20,6 +20,8 @@ use yii\web\View;
 
 /**
  * @var View $this
+ * @var array[] $categories
+ * @var array[] $langs
  */
 
 $this->context->layout = 'main';

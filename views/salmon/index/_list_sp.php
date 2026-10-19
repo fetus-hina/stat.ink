@@ -12,11 +12,13 @@ use app\components\i18n\Formatter;
 use app\components\widgets\FA;
 use app\models\Salmon2;
 use app\models\User;
+use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
 use yii\web\View;
 use yii\widgets\ListView;
 
 /**
+ * @var ActiveDataProvider $dataProvider
  * @var User $user
  * @var View $this
  */

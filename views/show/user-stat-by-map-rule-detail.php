@@ -13,13 +13,18 @@ use app\components\widgets\BattleFilterWidget;
 use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\UserDetailedStatsCell;
+use app\models\BattleFilterForm;
 use app\models\User;
 use yii\helpers\Html;
 use yii\web\View;
 
 /**
+ * @var BattleFilterForm $filter
  * @var User $user
  * @var View $this
+ * @var array<string, array<string, stdClass>> $data
+ * @var array<string, stdClass> $mapNames
+ * @var array<string, string> $ruleNames
  */
 
 $this->context->layout = 'main';

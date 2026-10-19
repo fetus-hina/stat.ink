@@ -10,6 +10,13 @@ use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use statink\yii2\sortableTable\SortableTableAsset;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var View $this
+ * @var array[] $langs
+ * @var array[] $types
+ */
 
 TableResponsiveForceAsset::register($this);
 

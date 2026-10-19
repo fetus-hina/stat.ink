@@ -11,11 +11,13 @@ use app\models\Knockout3;
 use app\models\Knockout3Histogram;
 use app\models\Map3;
 use app\models\Rule3;
+use app\models\Season3;
 use yii\helpers\Html;
 use yii\web\View;
 
 /**
  * @var Map3 $map
+ * @var Season3 $season
  * @var View $this
  * @var array<int, Knockout3> $data
  * @var array<int, Rule3> $rules

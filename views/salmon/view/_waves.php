@@ -8,6 +8,13 @@
 declare(strict_types=1);
 
 use app\components\widgets\SalmonWaves;
+use app\models\Salmon2;
+use yii\web\View;
+
+/**
+ * @var Salmon2 $model
+ * @var View $this
+ */
 
 $waves = $model->getWaves()
     ->with(['event', 'water'])

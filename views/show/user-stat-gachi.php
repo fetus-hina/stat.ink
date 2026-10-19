@@ -19,6 +19,10 @@ use yii\web\View;
 /**
  * @var User $user
  * @var View $this
+ * @var array<stdClass> $recentRank
+ * @var array<stdClass> $recentWP
+ * @var array<string, string> $maps
+ * @var stdClass|null $userRankStat
  */
 
 $this->context->layout = 'main';

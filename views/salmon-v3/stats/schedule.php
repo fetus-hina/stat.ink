@@ -59,7 +59,7 @@ use yii\web\View;
  * @var array<int, array{boss_id: int, appearances: int, defeated: int, defeated_by_me: int}> $bossStats
  * @var array<int, array{king_id: int, appearances: int, defeated: int}> $kingStats
  * @var array<string, scalar|null> $stats
- * @var bool $isRandomWeaponSchedule
+ * @var bool $isRandomWeapon
  */
 
 $permLink = Url::to(

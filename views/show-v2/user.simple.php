@@ -14,8 +14,10 @@ use app\components\widgets\FA;
 use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\UserMiniInfo2;
+use app\models\Battle2FilterForm;
 use app\models\User;
 use yii\bootstrap\ActiveForm;
+use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
@@ -23,8 +25,12 @@ use yii\widgets\ListView;
 use yii\widgets\Pjax;
 
 /**
+ * @var ActiveDataProvider $battleDataProvider
+ * @var Battle2FilterForm $filter
  * @var User $user
  * @var View $this
+ * @var stdClass $summary
+ * @var string $permLink
  */
 
 $title = Yii::t('app', "{name}'s Splat Log", ['name' => $user->name]);

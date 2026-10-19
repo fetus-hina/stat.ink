@@ -14,6 +14,7 @@ use app\components\widgets\SnsWidget;
 use app\components\widgets\UserMiniInfo3;
 use app\models\Battle3FilterForm;
 use app\models\Map3;
+use app\models\Rule3;
 use app\models\User;
 use app\models\Weapon3;
 use yii\db\Query;
@@ -26,6 +27,7 @@ use yii\web\View;
  * @var User $user
  * @var View $this
  * @var array<string, Map3> $maps
+ * @var array<string, Rule3> $rules
  * @var array<string, Weapon3> $weapons
  * @var array<string, array<string, array>> $stats
  */

@@ -14,11 +14,13 @@ use app\components\widgets\SalmonUserInfo3;
 use app\components\widgets\SnsWidget;
 use app\models\Salmon3FilterForm;
 use app\models\User;
+use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
 
 /**
+ * @var ActiveDataProvider $dataProvider
  * @var Salmon3FilterForm $filter
  * @var User $user
  * @var View $this

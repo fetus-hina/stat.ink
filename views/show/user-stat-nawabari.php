@@ -19,6 +19,8 @@ use yii\web\View;
 /**
  * @var User $user
  * @var View $this
+ * @var array<stdClass> $wp
+ * @var array<string, stdClass> $inked
  */
 
 $title = Yii::t('app-battle', '{name}\'s Battle Stats (Turf War)', ['name' => $user->name]);

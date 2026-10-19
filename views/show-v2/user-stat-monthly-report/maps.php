@@ -13,6 +13,7 @@ use yii\web\View;
 /**
  * @var View $this
  * @var array $data
+ * @var array $rule
  */
 
 $maps = $data['rules'][$rule['key']]['maps'] ?? null;

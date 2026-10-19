@@ -18,6 +18,8 @@ use yii\web\View;
 
 /**
  * @var View $this
+ * @var array<string, stdClass> $data
+ * @var array<string, string> $rules
  */
 
 $this->context->layout = 'main';

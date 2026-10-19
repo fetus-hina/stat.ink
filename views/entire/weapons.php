@@ -22,6 +22,9 @@ use yii\web\View;
 
 /**
  * @var View $this
+ * @var array<int, array<string, mixed>> $uses
+ * @var stdClass[] $entire
+ * @var stdClass[] $users
  */
 
 $this->context->layout = 'main';

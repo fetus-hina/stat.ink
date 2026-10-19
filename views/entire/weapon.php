@@ -15,11 +15,25 @@ use app\components\widgets\SnsWidget;
 use app\components\widgets\WinLoseLegend;
 use app\models\Rule;
 use app\models\SummarizedWeaponVsWeapon;
+use app\models\Weapon;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
+use yii\web\View;
+
+/**
+ * @var Rule $rule
+ * @var Rule[] $rules
+ * @var View $this
+ * @var Weapon $weapon
+ * @var array<int, array{date: string, battles: int, use_pct: float|int, win_pct: float|int}> $useCount
+ * @var array<int, array{key: string, name: string}> $maps
+ * @var array<int, array{kill: int, death: int, battle: int, win: int}> $killDeath
+ * @var array<string, array<string, string>> $weapons
+ * @var array<string, array{battle: int, win: int}> $mapWP
+ */
 
 $this->context->layout = 'main';
 $title = Yii::t('app-entire', 'Weapon | {weapon} | {rule}', [

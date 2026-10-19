@@ -15,7 +15,7 @@ use app\models\StatWeapon3XUsagePerVersion;
 use yii\bootstrap\Progress;
 
 /**
- * @var $maxWinRate float
+ * @var float $maxWinRate
  */
 
 return [

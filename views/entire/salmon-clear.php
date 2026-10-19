@@ -14,7 +14,14 @@ use app\assets\PatternomalyAsset;
 use app\assets\Spl2WeaponAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
+use app\models\StatSalmon2ClearRate;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var StatSalmon2ClearRate[] $models
+ * @var View $this
+ */
 
 $title = Yii::t('app-salmon2', 'Clear rate of Salmon Run');
 $this->title = Yii::$app->name . ' | ' . $title;

@@ -11,6 +11,8 @@ use app\assets\Spl2WeaponAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\FA;
 use app\components\widgets\SnsWidget;
+use app\models\Rule2;
+use app\models\SplatoonVersionGroup2;
 use app\models\StatWeapon2Tier;
 use yii\bootstrap\Nav;
 use yii\data\ArrayDataProvider;
@@ -22,7 +24,13 @@ use yii\helpers\Url;
 use yii\web\View;
 
 /**
+ * @var Rule2 $rule
+ * @var SplatoonVersionGroup2 $versionGroup
+ * @var StatWeapon2Tier[] $data
  * @var View $this
+ * @var array<string, array<string, mixed>> $rules
+ * @var array<string, array<string, mixed>> $versions
+ * @var string $month
  */
 
 $title = implode(' | ', [

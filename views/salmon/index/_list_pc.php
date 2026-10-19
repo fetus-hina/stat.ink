@@ -19,7 +19,9 @@ use app\components\widgets\Label;
 use app\models\Salmon2;
 use app\models\SalmonSchedule2;
 use app\models\SalmonWeapon2;
+use app\models\User;
 use app\models\Weapon2;
+use yii\data\ActiveDataProvider;
 use yii\grid\Column;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
@@ -28,6 +30,8 @@ use yii\web\View;
 use yii\widgets\ListView;
 
 /**
+ * @var ActiveDataProvider $dataProvider
+ * @var User $user
  * @var View $this
  */
 

@@ -17,10 +17,8 @@ use yii\web\View;
 /**
  * @var BadgeAction::ORDER_* $order
  * @var Special3[] $specials
- * @var TricolorRole3[] $roles
  * @var View $this
- * @var array<string, UserBadge3Rule> $badgeRules
- * @var array<string, UserBadge3Tricolor> $badgeTricolor
+ * @var array<string, UserBadge3Special> $badgeSpecials
  * @var array<string, int> $badgeAdjust
  * @var bool $isEditing
  */

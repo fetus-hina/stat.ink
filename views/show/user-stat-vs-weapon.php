@@ -10,6 +10,7 @@ declare(strict_types=1);
 use app\components\widgets\AdWidget;
 use app\components\widgets\BattleFilterWidget;
 use app\components\widgets\SnsWidget;
+use app\models\BattleFilterForm;
 use app\models\User;
 use statink\yii2\sortableTable\SortableTableAsset;
 use yii\data\ArrayDataProvider;
@@ -18,8 +19,10 @@ use yii\helpers\Html;
 use yii\web\View;
 
 /**
+ * @var BattleFilterForm $filter
  * @var User $user
  * @var View $this
+ * @var array<array<string, mixed>> $data
  */
 
 $this->context->layout = 'main';

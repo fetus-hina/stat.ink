@@ -9,6 +9,15 @@ declare(strict_types=1);
 
 use app\components\helpers\IPHelper;
 use app\components\helpers\UserAgentHelper;
+use app\models\LoginMethod;
+use app\models\User;
+use yii\web\View;
+
+/**
+ * @var LoginMethod|null $method
+ * @var User $user
+ * @var View $this
+ */
 
 $req = Yii::$app->request;
 $lang = ($user->emailLang ? $user->emailLang->lang : null) ?? 'en-US';

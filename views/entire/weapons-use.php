@@ -20,6 +20,10 @@ use yii\web\View;
 
 /**
  * @var View $this
+ * @var WeaponCompareForm $form
+ * @var array<string, array<string, string>|string> $rules
+ * @var array<string, array<string, string>|string> $weapons
+ * @var array{data: array, events: array} $data
  */
 
 $this->context->layout = 'main';

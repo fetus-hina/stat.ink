@@ -18,7 +18,30 @@ use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\web\View;
 use yii\widgets\ActiveForm;
+
+/**
+ * @var View $this
+ * @var array<int, array<string, mixed>> $data
+ * @var float|string|null $avgAll
+ * @var float|string|null $avgMistake
+ * @var float|string|null $avgNormal
+ * @var float|string|null $medianAll
+ * @var float|string|null $medianMistake
+ * @var float|string|null $medianNormal
+ * @var float|string|null $q1All
+ * @var float|string|null $q1Mistake
+ * @var float|string|null $q1Normal
+ * @var float|string|null $q3All
+ * @var float|string|null $q3Mistake
+ * @var float|string|null $q3Normal
+ * @var float|string|null $stddevAll
+ * @var float|string|null $stddevMistake
+ * @var float|string|null $stddevNormal
+ * @var int|string $totalBattles
+ * @var int|string|null $totalMistakeBattles
+ */
 
 EntireFestpower2Asset::register($this);
 TableResponsiveForceAsset::register($this);
