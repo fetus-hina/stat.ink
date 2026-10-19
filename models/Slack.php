@@ -11,6 +11,7 @@ use Curl\Curl;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\db\ExpressionInterface;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\helpers\Url;
@@ -33,8 +34,10 @@ use function vsprintf;
  * @property string $icon
  * @property string $channel
  * @property boolean $suspended
- * @property string $created_at
- * @property string $updated_at
+ * @property-read string $created_at
+ * @property-write string|ExpressionInterface $created_at
+ * @property-read string $updated_at
+ * @property-write string|ExpressionInterface $updated_at
  *
  * @property Language $language
  * @property User $user
