@@ -14,6 +14,7 @@ use app\components\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\ArrayExpression;
+use yii\db\ExpressionInterface;
 
 /**
  * This is the model class for table "user_passkey".
@@ -31,7 +32,8 @@ use yii\db\ArrayExpression;
  * @property string $nickname
  * @property string $created_at
  * @property string $updated_at
- * @property string $last_used_at
+ * @property-read string|null $last_used_at
+ * @property-write string|ExpressionInterface|null $last_used_at
  *
  * @property UserPasskeyUser $user
  */

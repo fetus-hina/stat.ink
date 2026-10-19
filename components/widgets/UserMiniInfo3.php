@@ -360,7 +360,7 @@ final class UserMiniInfo3 extends Widget
     private function makePeakRankInfo(array $models): ?array
     {
         /**
-         * @var array{0: Rank3, 1: ?int} $list
+         * @var array<array{Rank3, ?int}> $list
          */
         $list = array_filter(
             array_map(

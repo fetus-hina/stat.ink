@@ -250,12 +250,12 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasMany(Battle::class, ['user_id' => 'id']);
     }
 
-    /**
-     * @return Battle2Query
-     */
-    public function getBattle2s()
+    public function getBattle2s(): Battle2Query
     {
-        return $this->hasMany(Battle2::class, ['user_id' => 'id']);
+        return TypeHelper::instanceOf(
+            $this->hasMany(Battle2::class, ['user_id' => 'id']),
+            Battle2Query::class,
+        );
     }
 
     /**

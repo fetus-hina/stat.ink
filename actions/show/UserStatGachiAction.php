@@ -25,7 +25,7 @@ use function array_shift;
 use function array_slice;
 use function array_sum;
 use function count;
-use function floor;
+use function intdiv;
 use function round;
 use function strnatcasecmp;
 use function uasort;
@@ -215,7 +215,7 @@ class UserStatGachiAction extends BaseAction
         if ($entire = $this->getEntireRankStat()) {
             $ranks = ['C-', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+', 'S', 'S+'];
             $avgExp = (int)round($entire->average);
-            $avgRank = Yii::t('app-rank', $ranks[floor($avgExp / 100)]);
+            $avgRank = Yii::t('app-rank', $ranks[intdiv($avgExp, 100)]);
             $avgRankExp = $avgExp % 100;
         }
 

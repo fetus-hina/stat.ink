@@ -140,7 +140,7 @@ final class Battle3Helper
     }
 
     /**
-     * @return array{string, int}|null
+     * @return array<string, int>|null
      */
     public static function calcGPs(
         BattlePlayer3|BattleTricolorPlayer3|null $player,
@@ -168,7 +168,7 @@ final class Battle3Helper
     }
 
     /**
-     * @return array{string, int}|null
+     * @return array<string, int>|null
      */
     private static function calcGPsPerGear(?GearConfiguration3 $gear, bool $disableSecondary): ?array
     {

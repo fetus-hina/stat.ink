@@ -26,7 +26,7 @@ final class ChartJsLuxonAsset extends AssetBundle
     ];
 
     /**
-     * @var AssetBundle[]
+     * @var class-string<AssetBundle>[]
      */
     public $depends = [
         ChartJsAsset::class,

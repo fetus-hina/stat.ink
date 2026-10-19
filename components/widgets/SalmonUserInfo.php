@@ -290,10 +290,7 @@ class SalmonUserInfo extends Widget
         ]);
     }
 
-    /**
-     * @return SalmonStats2
-     */
-    protected function getUserStats(): Model
+    private function getUserStats(): SalmonStats2
     {
         $model = SalmonStats2::find()
             ->andWhere(['user_id' => $this->user->id])

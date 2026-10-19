@@ -65,7 +65,7 @@ use const SORT_STRING;
  * @property string $start_at
  * @property string $end_at
  * @property string $at
- * @property integer $agent_id
+ * @property integer|null $agent_id
  * @property integer $level_after
  * @property integer $rank_after_id
  * @property integer $rank_exp
@@ -73,7 +73,8 @@ use const SORT_STRING;
  * @property integer $cash
  * @property integer $cash_after
  * @property integer $lobby_id
- * @property numeric-string $kill_ratio
+ * @property-read numeric-string|null $kill_ratio
+ * @property-write float|string|null $kill_ratio
  * @property integer $gender_id
  * @property integer $fest_title_id
  * @property integer $fest_title_after_id
@@ -112,7 +113,7 @@ use const SORT_STRING;
  * @property integer $max_kill_combo
  * @property integer $max_kill_streak
  * @property boolean $use_for_entire
- * @property integer $bonus_id
+ * @property integer|null $bonus_id
  *
  * @property Agent $agent
  * @property Environment $env

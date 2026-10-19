@@ -97,8 +97,10 @@ use const SORT_STRING;
  * @property integer $my_point
  * @property integer $my_team_point
  * @property integer $his_team_point
- * @property numeric-string $my_team_percent
- * @property numeric-string $his_team_percent
+ * @property-read numeric-string|null $my_team_percent
+ * @property-write float|string|null $my_team_percent
+ * @property-read numeric-string|null $his_team_percent
+ * @property-write float|string|null $his_team_percent
  * @property integer $my_team_count
  * @property integer $his_team_count
  * @property integer $my_team_color_hue
@@ -115,7 +117,8 @@ use const SORT_STRING;
  * @property integer $bonus_id
  * @property integer $env_id
  * @property string $client_uuid
- * @property array $ua_variables
+ * @property-read array|null $ua_variables
+ * @property-write array|string|null $ua_variables
  * @property string $ua_custom
  * @property integer $agent_game_version_id
  * @property string $agent_game_version_date
@@ -139,10 +142,12 @@ use const SORT_STRING;
  * @property string $my_team_id
  * @property string $his_team_id
  * @property integer $estimate_gachi_power
- * @property numeric-string $league_point
+ * @property-read numeric-string|null $league_point
+ * @property-write float|string|null $league_point
  * @property integer $my_team_estimate_league_point
  * @property integer $his_team_estimate_league_point
- * @property numeric-string $fest_power
+ * @property-read numeric-string|null $fest_power
+ * @property-write float|string|null $fest_power
  * @property integer $my_team_estimate_fest_power
  * @property integer $his_team_estimate_fest_power
  * @property integer $headgear_id
@@ -151,8 +156,10 @@ use const SORT_STRING;
  * @property integer $star_rank
  * @property integer $my_team_fest_theme_id
  * @property integer $his_team_fest_theme_id
- * @property numeric-string $x_power
- * @property numeric-string $x_power_after
+ * @property-read numeric-string|null $x_power
+ * @property-write float|string|null $x_power
+ * @property-read numeric-string|null $x_power_after
+ * @property-write float|string|null $x_power_after
  * @property integer $estimate_x_power
  * @property integer $species_id
  * @property integer $special_battle_id
@@ -161,10 +168,12 @@ use const SORT_STRING;
  * @property integer $clout
  * @property integer $total_clout
  * @property integer $total_clout_after
- * @property numeric-string $synergy_bonus
+ * @property-read numeric-string|null $synergy_bonus
+ * @property-write float|string|null $synergy_bonus
  * @property integer $my_team_win_streak
  * @property integer $his_team_win_streak
- * @property numeric-string $freshness
+ * @property-read numeric-string|null $freshness
+ * @property-write float|string|null $freshness
  * @property boolean $has_disconnect
  *
  * @property Agent $agent
