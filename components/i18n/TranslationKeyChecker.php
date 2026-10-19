@@ -25,7 +25,7 @@ final class TranslationKeyChecker
      * @param array<string, array<string, string>|null> $catalogs
      *   Catalogs keyed by category. `null` means the catalog file does not
      *   exist. Categories not in this map are not checked (e.g., "yii").
-     * @return list<T&array{reason: string}>
+     * @return list<array{category: string, message: string, reason: string, ...}>
      */
     public static function findMissing(iterable $calls, array $catalogs): array
     {

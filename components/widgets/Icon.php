@@ -980,7 +980,7 @@ final class Icon
     /**
      * @param class-string<AssetBundle> $assetClass
      * @param string|array{string, string, ?array}|null $alt
-     * @param string|array{string, string, ?array}|bool|null $alt
+     * @param string|array{string, string, ?array}|bool|null $title
      */
     private static function assetImage(
         string $assetClass,

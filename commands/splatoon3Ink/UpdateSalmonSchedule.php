@@ -259,7 +259,7 @@ trait UpdateSalmonSchedule
     }
 
     /**
-     * @param int|self::RANDOM_KEY|null $mapId
+     * @param int|self::RANDOM_MAP|null $mapId
      * @param array<SalmonWeapon3|SalmonRandom3|null> $weapons
      */
     private function registerSalmonScheduleImpl(
