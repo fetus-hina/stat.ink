@@ -15,7 +15,7 @@ use app\models\Rule2;
 use app\models\StatWeapon2Result;
 use app\models\Weapon2;
 use app\models\Weapon2StageFilterForm;
-use yii\db\ActiveQuery;
+use app\models\query\Map2Query;
 use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction;
@@ -41,7 +41,7 @@ class Weapon2Action extends ViewAction
 
     public function run()
     {
-        $maps = Map2::getSortedMap(function (ActiveQuery $query): void {
+        $maps = Map2::getSortedMap(function (Map2Query $query): void {
             if ($this->rule->key !== 'nawabari') {
                 $query->excludeMystery();
             }

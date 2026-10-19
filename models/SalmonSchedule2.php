@@ -9,6 +9,7 @@ namespace app\models;
 
 use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\db\Now;
+use app\models\query\SalmonSchedule2Query;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -31,43 +32,9 @@ use const SORT_DESC;
  */
 class SalmonSchedule2 extends ActiveRecord
 {
-    public static function find(): ActiveQuery
+    public static function find(): SalmonSchedule2Query
     {
-        return new class (static::class) extends ActiveQuery {
-            public function init()
-            {
-                parent::init();
-                $this->olderFirst();
-            }
-
-            public function nowOrFuture(): self
-            {
-                return $this->andWhere(['and',
-                    ['>=', '{{salmon_schedule2}}.[[end_at]]', new Now()],
-                ]);
-            }
-
-            public function nowOrPast(): self
-            {
-                return $this->andWhere(['and',
-                    ['<=', '{{salmon_schedule2}}.[[start_at]]', new Now()],
-                ]);
-            }
-
-            public function olderFirst(): self
-            {
-                return $this->orderBy([
-                    '{{salmon_schedule2}}.[[start_at]]' => SORT_ASC,
-                ]);
-            }
-
-            public function newerFirst(): self
-            {
-                return $this->orderBy([
-                    '{{salmon_schedule2}}.[[start_at]]' => SORT_DESC,
-                ]);
-            }
-        };
+        return new SalmonSchedule2Query(static::class);
     }
 
     /**

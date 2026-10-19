@@ -15,6 +15,7 @@ use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Password;
 use app\components\helpers\TypeHelper;
 use app\components\helpers\UserNotifier;
+use app\models\query\Battle2Query;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\Query;
@@ -245,7 +246,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @return ActiveQuery
+     * @return Battle2Query
      */
     public function getBattle2s()
     {

@@ -8,7 +8,7 @@
 namespace app\models;
 
 use app\components\behaviors\TimestampBehavior;
-use app\components\helpers\db\Now;
+use app\models\query\OstatusPubsubhubbubQuery;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -27,17 +27,9 @@ use yii\db\ActiveRecord;
  */
 class OstatusPubsubhubbub extends ActiveRecord
 {
-    public static function find()
+    public static function find(): OstatusPubsubhubbubQuery
     {
-        $query = new class (static::class) extends ActiveQuery {
-            public function active(): ActiveQuery
-            {
-                return $this->andWhere(['or',
-                    ['lease_until' => null],
-                    ['>=', 'lease_until', new Now()],
-                ]);
-            }
-        };
+        $query = new OstatusPubsubhubbubQuery(static::class);
         $query->init();
         return $query;
     }

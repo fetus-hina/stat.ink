@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use app\models\query\AcceptLanguageQuery;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\StringHelper;
@@ -20,7 +21,6 @@ use function str_replace;
 use function strcmp;
 use function strlen;
 use function strtolower;
-use function usort;
 
 /**
  * This is the model class for table "accept_language".
@@ -33,19 +33,9 @@ use function usort;
  */
 class AcceptLanguage extends ActiveRecord
 {
-    public static function find(): ActiveQuery
+    public static function find(): AcceptLanguageQuery
     {
-        return new class (static::class) extends ActiveQuery {
-            public function all($db = null)
-            {
-                if ($list = parent::all($db)) {
-                    if ($list[0] instanceof AcceptLanguage) {
-                        usort($list, AcceptLanguage::compare(...));
-                    }
-                }
-                return $list;
-            }
-        };
+        return new AcceptLanguageQuery(static::class);
     }
 
     public static function findMatched(string $test): ?self
