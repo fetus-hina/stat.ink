@@ -20,7 +20,7 @@ use yii\web\View;
 
 echo $this->render('includes/chart', [
   'data' => $data,
-  'getX' => function (StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage|StatWeapon3XUsagePerVersion $model): int|float|null {
+  'getX' => function (StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage|StatWeapon3XUsagePerVersion $model): int|float {
     return $model->avg_kill - $model->avg_death;
   },
   'xLabel' => Yii::t('app-entire', 'K-D'),

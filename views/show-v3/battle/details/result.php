@@ -13,7 +13,7 @@ use app\models\Battle3;
 return [
   'label' => Yii::t('app-results', 'Result'),
   'format' => 'raw',
-  'value' => function (Battle3 $model): ?string {
+  'value' => function (Battle3 $model): string {
     return Result::widget([
       'isKnockout' => $model->is_knockout,
       'result' => $model->result,

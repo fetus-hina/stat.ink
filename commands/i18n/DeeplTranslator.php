@@ -428,7 +428,7 @@ class DeeplTranslator extends Component
         ));
     }
 
-    private static function templateToXmlMayXml(string $textMayXml): ?string
+    private static function templateToXmlMayXml(string $textMayXml): string
     {
         try {
             $wrapped = vsprintf('%s<div id="wrap">%s</div>', [

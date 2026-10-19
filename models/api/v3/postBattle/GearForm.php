@@ -71,7 +71,7 @@ final class GearForm extends Model
         return $this->findOrCreateConfiguration($fingerprint);
     }
 
-    private function calcFingerprint(): ?string
+    private function calcFingerprint(): string
     {
         return GearConfiguration3Fingerprint::calc(
             null,

@@ -35,17 +35,17 @@ final class WeaponApiFormatter
     }
 
     // "?->" 演算子が使えないのでヘルパ関数群
-    private static function getWeaponType(Weapon3 $model): ?WeaponType3
+    private static function getWeaponType(Weapon3 $model): WeaponType3
     {
         return $model->mainweapon->type;
     }
 
-    private static function getMainWeaponKey(Weapon3 $model): ?string
+    private static function getMainWeaponKey(Weapon3 $model): string
     {
         return $model->mainweapon->key;
     }
 
-    private static function getCanonicalKey(Weapon3 $model): ?string
+    private static function getCanonicalKey(Weapon3 $model): string
     {
         return $model->canonical->key;
     }

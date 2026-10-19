@@ -339,7 +339,7 @@ final class ApidocController extends Controller
         );
     }
 
-    private function getFlagIconCssVersion(): ?string
+    private function getFlagIconCssVersion(): string
     {
         $cwd = getcwd();
         try {

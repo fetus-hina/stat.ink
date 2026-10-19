@@ -13,7 +13,7 @@ use app\models\Battle3;
 return [
   'label' => Yii::t('app-results', 'Kills / Deaths'),
   'format' => 'raw',
-  'value' => function (Battle3 $model): ?string {
+  'value' => function (Battle3 $model): string {
     return BattleKillDeathColumn::widget([
       'assist' => $model->assist,
       'death' => $model->death,
