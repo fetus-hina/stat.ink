@@ -307,6 +307,7 @@ class WeaponsAction extends ViewAction
 
     private function convertWeapons2Sub(stdClass $in): array
     {
+        /** @var array<string, stdClass> $ret */
         $ret = [];
         foreach (Subweapon::find()->all() as $sub) {
             $ret[$sub->key] = (object)[
@@ -364,6 +365,7 @@ class WeaponsAction extends ViewAction
 
     private function convertWeapons2Special(stdClass $in): array
     {
+        /** @var array<string, stdClass> $ret */
         $ret = [];
         foreach (Special::find()->all() as $spe) {
             $ret[$spe->key] = (object)[
