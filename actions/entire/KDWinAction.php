@@ -27,6 +27,10 @@ use function strcmp;
 use function substr;
 use function usort;
 
+/**
+ * @property-read array $maps
+ * @property-read array $weapons
+ */
 class KDWinAction extends BaseAction
 {
     public const KD_LIMIT = 16;

@@ -31,6 +31,9 @@ use function sprintf;
 
 use const SORT_ASC;
 
+/**
+ * @property-read array $postStats
+ */
 final class CombinedAgentAction extends Action
 {
     public $form;

@@ -36,6 +36,11 @@ use function usort;
 
 use const SORT_ASC;
 
+/**
+ * @property-read array $entireWeapons
+ * @property-read array $userWeapons
+ * @property-read array $weaponUses
+ */
 class WeaponsAction extends ViewAction
 {
     public function run()

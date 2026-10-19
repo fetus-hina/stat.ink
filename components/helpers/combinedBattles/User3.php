@@ -13,9 +13,14 @@ use DateTime;
 use DateTimeImmutable;
 use app\models\Battle3;
 use app\models\Salmon3;
+use app\models\User;
 use yii\db\ActiveQuery;
 
 use const SORT_DESC;
+
+/**
+ * @var User $user
+ */
 
 return [
     [

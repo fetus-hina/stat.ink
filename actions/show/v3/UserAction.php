@@ -33,6 +33,9 @@ use function time;
 
 use const SORT_DESC;
 
+/**
+ * @property-read string $viewMode
+ */
 final class UserAction extends Action
 {
     /**

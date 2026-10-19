@@ -18,6 +18,10 @@ use yii\helpers\Html;
 
 use function is_array;
 
+/**
+ * @property-read string $buttonId
+ * @property-read string $textId
+ */
 class PrivateNote extends Widget
 {
     public $text;

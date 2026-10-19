@@ -41,6 +41,9 @@ use function trim;
 use const SORT_ASC;
 use const STDERR;
 
+/**
+ * @property-read array $localeMap
+ */
 class Splatoon2InkI18nController extends Controller
 {
     public function init()

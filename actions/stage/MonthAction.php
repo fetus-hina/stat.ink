@@ -32,6 +32,10 @@ use function strnatcasecmp;
 use function time;
 use function usort;
 
+/**
+ * @property-read string|null $nextMonthUrl
+ * @property-read string|null $prevMonthUrl
+ */
 class MonthAction extends BaseAction
 {
     public $year;

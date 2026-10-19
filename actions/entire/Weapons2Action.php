@@ -45,6 +45,9 @@ use function usort;
 use const SORT_ASC;
 use const SORT_DESC;
 
+/**
+ * @property-read array $weaponUses
+ */
 class Weapons2Action extends BaseAction
 {
     public function run()

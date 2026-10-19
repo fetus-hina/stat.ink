@@ -125,7 +125,7 @@ class SalmonSchedule2 extends ActiveRecord
 
     public function delete()
     {
-        return $this->db->transactionEx(function (): bool {
+        return static::getDb()->transactionEx(function (): bool {
             foreach ($this->weapons as $weapon) {
                 if (!$weapon->delete()) {
                     return false;

@@ -20,6 +20,9 @@ use function strtotime;
 
 use const SORT_ASC;
 
+/**
+ * @property-read array $results
+ */
 class ViewAction extends BaseAction
 {
     public $fest;

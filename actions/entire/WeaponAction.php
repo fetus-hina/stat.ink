@@ -32,6 +32,14 @@ use function usort;
 use const SORT_ASC;
 use const SORT_NATURAL;
 
+/**
+ * @property-read array $killDeath
+ * @property-read array $maps
+ * @property-read array $mapWinPercentage
+ * @property-read array $rules
+ * @property-read array $useCount
+ * @property-read array<string, array<string, string>> $weapons
+ */
 final class WeaponAction extends Action
 {
     private ?Weapon $weapon = null;

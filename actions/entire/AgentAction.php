@@ -28,6 +28,10 @@ use function min;
 
 use const SORT_ASC;
 
+/**
+ * @property-read AgentGroup[] $combineds
+ * @property-read array $postStats
+ */
 final class AgentAction extends Action
 {
     public $form;

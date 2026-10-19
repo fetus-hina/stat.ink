@@ -55,6 +55,9 @@ use const LOCK_UN;
 use const SEEK_END;
 use const SEEK_SET;
 
+/**
+ * @property-read string $jsonPath
+ */
 class UserJsonController extends Controller
 {
     public $defaultAction = 'auto-update';

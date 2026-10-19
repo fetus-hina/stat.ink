@@ -89,6 +89,7 @@ use const SORT_DESC;
  * @property UserWeapon[] $userWeapons
  * @property UserWeapon2[] $userWeapon2s
  * @property Weapon[] $weapons
+ * @property-read string $identiconHash
  */
 class User extends ActiveRecord implements IdentityInterface
 {

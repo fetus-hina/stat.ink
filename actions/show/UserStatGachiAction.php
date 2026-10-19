@@ -32,6 +32,12 @@ use function uasort;
 
 use const SORT_DESC;
 
+/**
+ * @property-read array $maps
+ * @property-read array $recentRankData
+ * @property-read array $recentWPData
+ * @property-read object|null $userRankStat
+ */
 class UserStatGachiAction extends BaseAction
 {
     private $user;

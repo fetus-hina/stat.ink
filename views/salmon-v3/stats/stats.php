@@ -127,7 +127,7 @@ $played = TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'count'));
         'stats' => $stats,
         'tides' => $tides,
         'user' => $user,
-        'version' => $version ?? null,
+        'version' => $version,
       ]) . "\n" ?>
       <?= $this->render('stats/golden-eggs', compact(
         'goldenEggHistogramAbstracts',

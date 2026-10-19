@@ -29,6 +29,10 @@ use function sprintf;
 use function strnatcasecmp;
 use function uasort;
 
+/**
+ * @property-read array $inkedData
+ * @property-read array $wpData
+ */
 class UserStatNawabariAction extends BaseAction
 {
     private $user;

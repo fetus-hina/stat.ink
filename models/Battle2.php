@@ -207,6 +207,13 @@ use const SORT_STRING;
  * @property-read BattleImage2|null $battleImageGear
  * @property-read BattleImage2|null $battleImageJudge
  * @property-read BattleImage2|null $battleImageResult
+ * @property-read BattleDeathReason2[] $battleDeathReasons
+ * @property-read BattlePlayer2[] $battlePlayers
+ * @property-read BattlePlayer2[] $battlePlayersPure
+ * @property-read BattleEvents2|null $events
+ * @property-read Freshness2|null $freshnessModel
+ * @property-read int|null $inked
+ * @property-read Battle2Splatnet|null $splatnetJson
  */
 class Battle2 extends ActiveRecord
 {

@@ -31,6 +31,9 @@ use function time;
 use const ARRAY_FILTER_USE_KEY;
 use const SORT_DESC;
 
+/**
+ * @property-read string $viewMode
+ */
 class UserAction extends BaseAction
 {
     public function run()
