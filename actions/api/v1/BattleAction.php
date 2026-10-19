@@ -566,7 +566,7 @@ class BattleAction extends BaseAction
         $user = $battle->user;
 
         // Slack 投稿
-        if ($user && $user->isSlackIntegrated) {
+        if ($user->isSlackIntegrated) {
             Yii::$app->queue->push(new SlackJob([
                 'hostInfo' => Yii::$app->getRequest()->getHostInfo(),
                 'version' => 1,

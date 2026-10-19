@@ -161,9 +161,6 @@ final class PostBattleAction extends Action
     private function registerBackgroundJob(Battle3 $battle): void
     {
         $user = $battle->user;
-        if (!$user) {
-            return;
-        }
 
         // 一緒に遊んだプレイヤー
         BattlePlayedWith3Job::pushQueue($user, $battle);

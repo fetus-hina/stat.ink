@@ -113,9 +113,6 @@ final class PostSalmonAction extends Action
     private function registerBackgroundJob(Salmon3 $battle): void
     {
         $user = $battle->user;
-        if (!$user) {
-            return;
-        }
 
         // 一緒に遊んだプレイヤー
         SalmonPlayedWith3Job::pushQueue($user, $battle);

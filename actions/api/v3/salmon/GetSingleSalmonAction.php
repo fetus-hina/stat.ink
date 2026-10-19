@@ -77,9 +77,6 @@ final class GetSingleSalmonAction extends Action
         }
 
         $user = $model->user;
-        if (!$user) {
-            throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
-        }
 
         $isAuthenticated = Yii::$app->user->isGuest
             ? false

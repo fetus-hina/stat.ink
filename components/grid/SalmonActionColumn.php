@@ -34,9 +34,6 @@ final class SalmonActionColumn extends Column
     protected function renderDataCellContent($model, $key, $index)
     {
         $user = $this->user ?: $model->user;
-        if (!$user) {
-            throw new LogicException();
-        }
 
         return implode(
             ' ',

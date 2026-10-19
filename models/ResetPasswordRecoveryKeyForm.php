@@ -168,9 +168,6 @@ final class ResetPasswordRecoveryKeyForm extends Model
 
         $key = $this->foundKey;
         $user = $key->user;
-        if (!$user) {
-            return false;
-        }
 
         try {
             Yii::$app->db->transaction(function () use ($key, $user): void {
