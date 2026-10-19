@@ -62,6 +62,7 @@ if ($isXmatch && $useXMatchingRange && count($players) > 0) {
       fn (BattlePlayer3|BattleTricolorPlayer3 $model): ?float => filter_var(
         $model->weapon?->mainweapon?->matching_range,
         FILTER_VALIDATE_FLOAT,
+        FILTER_NULL_ON_FAILURE,
       ),
       $players
     ),
