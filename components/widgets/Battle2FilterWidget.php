@@ -119,7 +119,7 @@ class Battle2FilterWidget extends Widget
         }
         if ($this->filterText) {
             $ret[] = $this->drawFilter($form);
-            if ($this->withTeam && $this->filter->filterWithPrincipalId) {
+            if ($this->withTeam && $this->filter->getFilterWithPrincipalId()) {
                 $ret[] = $this->drawWithTeam($form);
             }
         }

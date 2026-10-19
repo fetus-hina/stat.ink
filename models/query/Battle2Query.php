@@ -175,26 +175,26 @@ final class Battle2Query extends ActiveQuery
         if ($form->id_to != '' && $form->id_to > 0) {
             $and[] = ['<=', 'battle2.id', (int)$form->id_to];
         }
-        if ($form->filterTeam) {
-            $and[] = ['battle2.my_team_id' => $form->filterTeam];
+        if ($form->getFilterTeam()) {
+            $and[] = ['battle2.my_team_id' => $form->getFilterTeam()];
         }
-        if ($form->filterIdRange) {
+        if ($form->getFilterIdRange()) {
             $and[] = ['between',
                 'battle2.id',
-                (int)$form->filterIdRange[0],
-                (int)$form->filterIdRange[1],
+                (int)$form->getFilterIdRange()[0],
+                (int)$form->getFilterIdRange()[1],
             ];
         }
-        if ($form->filterPeriod) {
+        if ($form->getFilterPeriod()) {
             $and[] = ['between',
                 'battle2.period',
-                (int)$form->filterPeriod[0],
-                (int)$form->filterPeriod[1],
+                (int)$form->getFilterPeriod()[0],
+                (int)$form->getFilterPeriod()[1],
             ];
         }
-        if ($form->filterWithPrincipalId) {
+        if ($form->getFilterWithPrincipalId()) {
             $this->innerJoinWith('battlePlayersPure');
-            $and[] = ['{{battle_player2}}.[[splatnet_id]]' => $form->filterWithPrincipalId];
+            $and[] = ['{{battle_player2}}.[[splatnet_id]]' => $form->getFilterWithPrincipalId()];
 
             if (in_array((string)$form->with_team, ['good', 'bad'], true)) {
                 $and[] = [
