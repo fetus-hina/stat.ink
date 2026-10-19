@@ -51,7 +51,7 @@ class MapAction extends BaseAction
         ]);
 
         if ($model->hasErrors()) {
-            static::http404();
+            self::http404();
         }
 
         $this->map = Map::findOne(['key' => $model->map]);

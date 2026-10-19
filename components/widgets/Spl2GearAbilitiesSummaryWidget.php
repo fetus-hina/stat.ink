@@ -196,7 +196,7 @@ class Spl2GearAbilitiesSummaryWidget extends Widget
                                 return '';
                             }
 
-                            $id = sprintf('%s-%d', $this->id, ++static::$serial);
+                            $id = sprintf('%s-%d', $this->id, ++self::$serial);
                             $this->view->registerJs(sprintf(
                                 'jQuery(%s).gearAbilityNumberSwitcher(%s);',
                                 Json::encode(sprintf('.%s-fmt-selector', $this->id)),

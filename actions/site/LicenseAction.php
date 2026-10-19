@@ -106,13 +106,13 @@ class LicenseAction extends SimpleAction
 
             if (str_ends_with(strtolower($basename), '.md')) {
                 $ret[] = (object)[
-                    'category' => static::CATEGORY_MANUAL,
+                    'category' => self::CATEGORY_MANUAL,
                     'name' => substr($basename, 0, strlen($basename) - 3),
                     'html' => $this->loadMarkdown($entry->getPathname()),
                 ];
             } else {
                 $ret[] = (object)[
-                    'category' => static::CATEGORY_MANUAL,
+                    'category' => self::CATEGORY_MANUAL,
                     'name' => $basename,
                     'html' => $this->loadPlain($entry->getPathname()),
                 ];
@@ -148,7 +148,7 @@ class LicenseAction extends SimpleAction
             );
             if ($html) {
                 $ret[] = (object)[
-                    'category' => static::CATEGORY_COMPOSER,
+                    'category' => self::CATEGORY_COMPOSER,
                     'name' => substr($basename, 0, strlen($basename) - 12),
                     'html' => $html,
                 ];
@@ -185,7 +185,7 @@ class LicenseAction extends SimpleAction
             );
             if ($html) {
                 $ret[] = (object)[
-                    'category' => static::CATEGORY_NPM,
+                    'category' => self::CATEGORY_NPM,
                     'name' => substr($basename, 0, strlen($basename) - 12),
                     'html' => $html,
                 ];

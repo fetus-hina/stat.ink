@@ -336,7 +336,7 @@ class Splatoon2InkI18nController extends Controller
             if (!$splatNetName) {
                 continue;
             }
-            $splatNetName = static::normalize($splatNetName);
+            $splatNetName = self::normalize($splatNetName);
             $oldName = $currentData[$englishName] ?? null;
             if ($oldName !== $splatNetName) {
                 fprintf(STDERR, "    %s => %s\n", $oldName ?: $englishName, $splatNetName);

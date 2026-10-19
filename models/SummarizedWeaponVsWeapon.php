@@ -52,7 +52,7 @@ class SummarizedWeaponVsWeapon extends Model
             $query->andWhere(['version_id' => $version_id]);
         }
 
-        $weapons = static::getAllWeapons();
+        $weapons = self::getAllWeapons();
         $result = array_map(
             function ($row) use ($weapon_id, $weapons) {
                 $o = Yii::createObject(['class' => static::class]);

@@ -69,8 +69,8 @@ class Battle
     {
         [$from, $to] = static::periodToRange2($period, $offset);
         return [
-            static::timestamp2datetime($from),
-            static::timestamp2datetime($to),
+            self::timestamp2datetime($from),
+            self::timestamp2datetime($to),
         ];
     }
 

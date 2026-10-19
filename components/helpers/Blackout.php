@@ -31,7 +31,7 @@ class Blackout
                 if ($lobbyKey === 'private') {
                     return [];
                 }
-                return static::createList([$myPosition]);
+                return self::createList([$myPosition]);
 
             // プラベでは黒塗りしない
             // タッグマッチ(3-4人)では味方チームを黒塗りしない
@@ -42,15 +42,15 @@ class Blackout
                 }
                 if ($lobbyKey === 'squad_3' || $lobbyKey === 'squad_4') {
                     return $myPosition <= 4
-                        ? static::createList([1, 2, 3, 4])
-                        : static::createList([5, 6, 7, 8]);
+                        ? self::createList([1, 2, 3, 4])
+                        : self::createList([5, 6, 7, 8]);
                 }
-                return static::createList([$myPosition]);
+                return self::createList([$myPosition]);
 
             // 自分以外黒塗り
             case User::BLACKOUT_ALWAYS:
             default:
-                return static::createList([$myPosition]);
+                return self::createList([$myPosition]);
         }
     }
 
