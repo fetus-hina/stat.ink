@@ -36,7 +36,7 @@ use const SORT_ASC;
  * @property Weapon $canonical
  * @property Weapon $mainReference
  */
-class Weapon extends ActiveRecord
+final class Weapon extends ActiveRecord
 {
     use SafeFindOneTrait;
     use openapi\Util;
