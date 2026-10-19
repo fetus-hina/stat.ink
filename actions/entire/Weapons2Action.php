@@ -415,6 +415,7 @@ class Weapons2Action extends BaseAction
             $subs = Subweapon2::find()->all();
         }
 
+        /** @var array<string, stdClass> $ret */
         $ret = [];
         foreach ($subs as $sub) {
             $ret[$sub->key] = (object)[
@@ -473,6 +474,7 @@ class Weapons2Action extends BaseAction
             $specials = Special2::find()->all();
         }
 
+        /** @var array<string, stdClass> $ret */
         $ret = [];
         foreach ($specials as $spe) {
             $ret[$spe->key] = (object)[
