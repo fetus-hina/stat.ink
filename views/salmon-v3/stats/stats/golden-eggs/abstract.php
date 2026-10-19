@@ -34,7 +34,7 @@ $fmt->nullDisplay = '-';
           <?= ($abstract->map
             ? implode(' ', [
               Icon::s3SalmonStage($abstract->map ?? null),
-              Html::encode(Yii::t('app-map3', $abstract->map?->short_name ?? null)),
+              Html::encode(Yii::t('app-map3', $abstract->map->short_name ?? null)),
             ])
             : '') . "\n"
           ?>

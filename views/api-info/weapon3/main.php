@@ -168,7 +168,7 @@ $this->registerJs('$(".mr-value").matchingRange();');
           [
             'class' => 'text-center mr-value',
             'data' => [
-              'sort-value' => (int)(($weapon->mainweapon?->matching_range ?? 0.0) * 10.0),
+              'sort-value' => (int)(($weapon->mainweapon->matching_range ?? 0.0) * 10.0),
             ],
           ],
         ) . "\n" ?>
@@ -248,7 +248,7 @@ $this->registerJs('$(".mr-value").matchingRange();');
           Icon::s3Subweapon($weapon->subweapon),
           [
             'data' => [
-              'sort-value' => $weapon?->subweapon?->rank ?? -1,
+              'sort-value' => $weapon?->subweapon->rank ?? -1,
             ],
           ],
         ) . "\n" ?>
@@ -257,7 +257,7 @@ $this->registerJs('$(".mr-value").matchingRange();');
           Icon::s3Special($weapon->special),
           [
             'data' => [
-              'sort-value' => $weapon?->special?->rank ?? -1,
+              'sort-value' => $weapon?->special->rank ?? -1,
             ],
           ],
         ) . "\n" ?>

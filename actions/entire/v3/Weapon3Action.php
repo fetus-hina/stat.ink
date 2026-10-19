@@ -99,7 +99,7 @@ final class Weapon3Action extends Action
 
             return $controller->redirect(['entire/weapon3',
                 'lobby' => $this->getDefaultLobbyKey($season, $version),
-                'rule' => $rule?->key ?? 'area',
+                'rule' => $rule->key ?? 'area',
                 'season' => $season?->id,
                 'version' => $version?->tag,
                 'weapon' => $weapon?->key,

@@ -73,7 +73,7 @@ final class Ability3Action extends Action
                 ?? throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
 
             return $controller->redirect(['entire/ability3',
-                'rule' => $rule?->key ?? 'area',
+                'rule' => $rule->key ?? 'area',
                 'xp' => $xpFilter,
                 self::PARAM_SEASON_ID => $season?->id,
             ]);

@@ -62,7 +62,7 @@ final class BattlePlayedWith3Job extends BaseObject implements JobInterface
             ->priority(self::getJobPriority())
             ->push(new self([
                 'user' => $user->id,
-                'id' => $battle?->id ?? null,
+                'id' => $battle->id ?? null,
             ]));
     }
 }

@@ -92,7 +92,7 @@ $datasetNormalDistrib = $normalDistribData
                 'grid' => ['offset' => false],
                 'offset' =>  true,
                 'ticks' => [
-                  'stepSize' => $abstract?->histogram_width ?? 100,
+                  'stepSize' => $abstract->histogram_width ?? 100,
                 ],
                 'title' => [
                   'display' => true,

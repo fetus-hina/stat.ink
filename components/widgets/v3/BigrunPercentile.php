@@ -40,7 +40,7 @@ final class BigrunPercentile extends Widget
 
     public function run(): string
     {
-        $this->isEggstraWork = $this->schedule?->is_eggstra_work ?? false;
+        $this->isEggstraWork = $this->schedule->is_eggstra_work ?? false;
         $stats = $this->getStats();
         $users = ArrayHelper::getValue($stats, 'users');
         if (!is_int($users) || $users < 10) {
@@ -235,12 +235,12 @@ final class BigrunPercentile extends Widget
     ): string {
         $official = $this->isEggstraWork
             ? EggstraWorkOfficialResult3::find()
-                ->andWhere(['schedule_id' => $this->schedule?->id ?? -1])
+                ->andWhere(['schedule_id' => $this->schedule->id ?? -1])
                 ->limit(1)
                 ->cache(120)
                 ->one()
             : BigrunOfficialResult3::find()
-                ->andWhere(['schedule_id' => $this->schedule?->id ?? -1])
+                ->andWhere(['schedule_id' => $this->schedule->id ?? -1])
                 ->limit(1)
                 ->cache(120)
                 ->one();
@@ -421,11 +421,11 @@ final class BigrunPercentile extends Widget
         $db = TypeHelper::instanceOf(Yii::$app->db, Connection::class);
         return $this->isEggstraWork
             ? StatEggstraWorkDistribUserAbstract3::find()
-                ->andWhere(['schedule_id' => $this->schedule?->id ?? -1])
+                ->andWhere(['schedule_id' => $this->schedule->id ?? -1])
                 ->limit(1)
                 ->one($db)
             : StatBigrunDistribUserAbstract3::find()
-                ->andWhere(['schedule_id' => $this->schedule?->id ?? -1])
+                ->andWhere(['schedule_id' => $this->schedule->id ?? -1])
                 ->limit(1)
                 ->one($db);
     }

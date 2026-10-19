@@ -292,7 +292,7 @@ trait BattleTrait
                                 false => 'silver',
                                 default => '',
                             },
-                            $medal?->canonical?->name ?? $medal?->name ?? '',
+                            $medal?->canonical->name ?? $medal->name ?? '',
                         ]);
                     }
                     $csvColumns = array_merge(

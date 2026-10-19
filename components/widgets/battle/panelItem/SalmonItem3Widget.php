@@ -189,7 +189,7 @@ final class SalmonItem3Widget extends Widget
 
     protected function getMapName(): string
     {
-        return Yii::t('app-map3', $this->model->stage?->name ?? $this->model->bigStage?->name ?? '?');
+        return Yii::t('app-map3', $this->model->stage->name ?? $this->model->bigStage->name ?? '?');
     }
 
     protected function getHazardLevel(): string

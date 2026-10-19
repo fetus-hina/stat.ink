@@ -109,7 +109,7 @@ $maxSamples = (int)max(ArrayHelper::getColumn($data, 'jobs'));
               ),
               Html::tag(
                 'td',
-                Html::encode($fmt->asInteger($row?->jobs ?? 0)),
+                Html::encode($fmt->asInteger($row->jobs ?? 0)),
                 ['class' => 'text-center'],
               ),
               Html::tag(

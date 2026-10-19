@@ -103,7 +103,7 @@ trait Battle3
                             $map = $model->map;
                             return [
                                 'key' => $map?->key,
-                                'name' => Yii::t('app-map3', $map?->name ?? '???'),
+                                'name' => Yii::t('app-map3', $map->name ?? '???'),
                                 'image' => $this->getImageUrlForMap3($map),
                             ];
                         },

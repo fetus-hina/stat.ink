@@ -140,8 +140,8 @@ $resultsTide = ArrayHelper::index(
   $king->id,
 ]); ?>
         <?= $this->render('./table/cell', [
-          'cleared' => $model?->cleared ?? 0,
-          'jobs' => $model?->jobs ?? 0,
+          'cleared' => $model->cleared ?? 0,
+          'jobs' => $model->jobs ?? 0,
           'king' => $king,
           'map' => $map,
           'tideModels' => $tideModels ?? [],

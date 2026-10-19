@@ -119,7 +119,7 @@ $fmt = Yii::$app->formatter;
           'th',
           implode(' ', [
             Icon::s3Weapon($weapons[$weaponId] ?? null),
-            Html::encode(Yii::t('app-weapon3', $weapons[$weaponId]?->name ?? '?')),
+            Html::encode(Yii::t('app-weapon3', $weapons[$weaponId]->name ?? '?')),
           ]),
           ['scope' => 'row'],
         ) . "\n" ?>

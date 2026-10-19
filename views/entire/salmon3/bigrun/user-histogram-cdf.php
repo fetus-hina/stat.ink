@@ -213,7 +213,7 @@ if ($chartMax > 0) {
             'type' => 'linear',
             'ticks' => [
               'precision' => 0,
-              'stepSize' => $abstract?->histogram_width ?? 5,
+              'stepSize' => $abstract->histogram_width ?? 5,
             ],
           ],
           'y' => [

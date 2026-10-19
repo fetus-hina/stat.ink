@@ -54,7 +54,7 @@ foreach ($tricolorStats as $row) {
   }
 
   $labels[] = vsprintf('%s (%s)', [
-    Yii::t('app-map3', $stages[$row['map_id']]?->short_name ?? '') ?: sprintf('#%d', $row['map_id']),
+    Yii::t('app-map3', $stages[$row['map_id']]->short_name ?? '') ?: sprintf('#%d', $row['map_id']),
     $fmt->asInteger($row['battles']),
   ]);
   $dataSets[] = $make($rowId++, $errInfo);

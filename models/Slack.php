@@ -317,13 +317,13 @@ class Slack extends ActiveRecord
 
     private function sendSplatoon3(Battle3 $battle, bool $realSend = true): ?string
     {
-        $lang = $this->language?->lang ?? 'en-US';
+        $lang = $this->language->lang ?? 'en-US';
         $i18n = Yii::$app->i18n;
         $formatter = Yii::$app->formatter;
         $formatter->locale = $lang;
         $formatter->timeZone = 'Etc/UTC';
 
-        $winlose = $i18n->translate('app-results', $battle->result?->name ?? '???', [], $lang);
+        $winlose = $i18n->translate('app-results', $battle->result->name ?? '???', [], $lang);
         $rule = $battle->rule
             ? $i18n->translate('app-rule3', $battle->rule->name, [], $lang)
             : $i18n->translate('app-slack', 'unknown mode', [], $lang);
@@ -370,7 +370,7 @@ class Slack extends ActiveRecord
             'fields' => [
                 [
                     'title' => $i18n->translate('app', 'Lobby', [], $lang),
-                    'value' => $i18n->translate('app-lobby3', $battle->lobby?->name ?? '???', [], $lang),
+                    'value' => $i18n->translate('app-lobby3', $battle->lobby->name ?? '???', [], $lang),
                     'short' => true,
                 ],
                 [
@@ -385,7 +385,7 @@ class Slack extends ActiveRecord
                 ],
                 [
                     'title' => $i18n->translate('app', 'Weapon', [], $lang),
-                    'value' => $i18n->translate('app-weapon3', $battle->weapon?->name ?? '???', [], $lang),
+                    'value' => $i18n->translate('app-weapon3', $battle->weapon->name ?? '???', [], $lang),
                     'short' => true,
                 ],
                 [
@@ -450,7 +450,7 @@ class Slack extends ActiveRecord
                     "%s (%s)\nThis is a Webhook test message by %s with %s",
                     $i18n->translate('app', 'Keep doing it.', [], $lang),
                     $formatter->asDateTime($_SERVER['REQUEST_TIME'], 'long'),
-                    Yii::$app->user->getIdentity()?->name ?? '(Guest)',
+                    Yii::$app->user->getIdentity()->name ?? '(Guest)',
                     Yii::$app->name,
                 ),
             ],

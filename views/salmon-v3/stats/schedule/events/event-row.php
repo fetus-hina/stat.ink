@@ -25,7 +25,7 @@ use yii\web\View;
  * @var array<int, SalmonWaterLevel2> $tides
  */
 
-$tideStats = ArrayHelper::getValue($eventStats, $event?->id ?? 0);
+$tideStats = ArrayHelper::getValue($eventStats, $event->id ?? 0);
 if (!$tideStats) {
   return;
 }
@@ -44,7 +44,7 @@ foreach ($eventStats as $row1) {
   <?= Html::tag(
     'th',
     Html::encode(
-      Yii::t('app-salmon-event3', $event?->name ?? '(Normal)'),
+      Yii::t('app-salmon-event3', $event->name ?? '(Normal)'),
     ),
     ['class' => $event ? 'text-left' : 'text-center'],
   ) . "\n" ?>

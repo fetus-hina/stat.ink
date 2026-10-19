@@ -187,7 +187,7 @@ final class SalmonPlayers extends Widget
      */
     private function renderWeapons(array $players): string
     {
-        $isEggstraWork = $this->job?->is_eggstra_work ?? false;
+        $isEggstraWork = $this->job->is_eggstra_work ?? false;
 
         return Html::tag(
             'tr',
@@ -231,7 +231,7 @@ final class SalmonPlayers extends Widget
                                             'div',
                                             implode(' ', [
                                                 Icon::s3Weapon($weapon),
-                                                Html::encode(Yii::t('app-weapon3', $weapon?->name ?? '?')),
+                                                Html::encode(Yii::t('app-weapon3', $weapon->name ?? '?')),
                                             ]),
                                             ['class' => 'omit'],
                                         );

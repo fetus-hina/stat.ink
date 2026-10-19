@@ -33,7 +33,7 @@ return [
           Icon::s3Salmometer(
             $model->king_smell,
             // オカシラゲージの個別表示は v6.0.0 から
-            version_compare($model->version?->tag ?? '0.0.0', '6.0.0', '>=')
+            version_compare($model->version->tag ?? '0.0.0', '6.0.0', '>=')
               ? $model->schedule?->king
               : null,
           ),

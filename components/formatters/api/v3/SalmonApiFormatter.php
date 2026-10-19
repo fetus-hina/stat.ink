@@ -98,7 +98,7 @@ final class SalmonApiFormatter
     private static function guessKingSalmonid(Salmon3 $model): ?SalmonKing3
     {
         try {
-            if (version_compare($model->version?->tag ?? '0.0.0', '6.0.0', '<')) {
+            if (version_compare($model->version->tag ?? '0.0.0', '6.0.0', '<')) {
                 return null;
             }
 

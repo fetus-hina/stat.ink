@@ -174,7 +174,7 @@ trait UpdateSalmonSchedule
             ->andWhere([
                 'end_at' => date(DateTime::ATOM, $endAt),
                 'is_eggstra_work' => $isEggstraWork,
-                'king_id' => $king?->id ?? null,
+                'king_id' => $king->id ?? null,
                 'start_at' => date(DateTime::ATOM, $startAt),
             ])
             ->andWhere(
@@ -276,7 +276,7 @@ trait UpdateSalmonSchedule
             'end_at' => date(DateTime::ATOM, $endAt),
             'is_eggstra_work' => $isEggstraWork,
             'is_random_map_big_run' => false,
-            'king_id' => $king?->id ?? null,
+            'king_id' => $king->id ?? null,
             'map_id' => null,
             'start_at' => date(DateTime::ATOM, $startAt),
         ];
