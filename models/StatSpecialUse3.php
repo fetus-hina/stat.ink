@@ -18,18 +18,18 @@ use yii\db\ActiveRecord;
  *
  * @property integer $id
  * @property integer $season_id
- * @property integer $rule_id
+ * @property integer|null $rule_id
  * @property integer $special_id
  * @property integer $sample_size
  * @property integer $win
  * @property double $avg_uses
- * @property double $stddev
- * @property integer $percentile_5
- * @property integer $percentile_25
- * @property integer $percentile_50
- * @property integer $percentile_75
- * @property integer $percentile_95
- * @property integer $percentile_100
+ * @property double|null $stddev
+ * @property integer|null $percentile_5
+ * @property integer|null $percentile_25
+ * @property integer|null $percentile_50
+ * @property integer|null $percentile_75
+ * @property integer|null $percentile_95
+ * @property integer|null $percentile_100
  *
  * @property Rule3 $rule
  * @property Season3 $season

@@ -29,14 +29,14 @@ use yii\db\ExpressionInterface;
  * @property integer $specials
  * @property integer $inked
  * @property integer $max_inked
- * @property-read string $peak_x_power
- * @property-write float|string $peak_x_power
- * @property-read string $peak_season
- * @property-write string|ExpressionInterface $peak_season
- * @property-read string $current_x_power
- * @property-write float|string $current_x_power
- * @property-read string $current_season
- * @property-write string|ExpressionInterface $current_season
+ * @property-read string|null $peak_x_power
+ * @property-write float|string|null $peak_x_power
+ * @property-read string|null $peak_season
+ * @property-write string|ExpressionInterface|null $peak_season
+ * @property-read string|null $current_x_power
+ * @property-write float|string|null $current_x_power
+ * @property-read string|null $current_season
+ * @property-write string|ExpressionInterface|null $current_season
  * @property-read string $updated_at
  * @property-write string|ExpressionInterface $updated_at
  *

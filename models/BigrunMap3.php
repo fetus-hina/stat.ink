@@ -21,9 +21,9 @@ use yii\db\ExpressionInterface;
  * @property string $key
  * @property string $name
  * @property string $short_name
- * @property integer $area
- * @property-read string $release_at
- * @property-write string|ExpressionInterface $release_at
+ * @property integer|null $area
+ * @property-read string|null $release_at
+ * @property-write string|ExpressionInterface|null $release_at
  * @property boolean $bigrun
  *
  * @property BigrunMap3Alias[] $bigrunMap3Aliases

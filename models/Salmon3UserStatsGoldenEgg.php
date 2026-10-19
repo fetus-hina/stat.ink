@@ -20,30 +20,30 @@ use yii\db\ActiveRecord;
  * @property integer $user_id
  * @property integer $map_id
  * @property integer $shifts
- * @property double $average_team
- * @property double $stddev_team
- * @property integer $histogram_width_team
- * @property double $average_individual
- * @property double $stddev_individual
- * @property integer $histogram_width_individual
- * @property integer $min_team
- * @property-read string $q1_team
- * @property-write float|string $q1_team
- * @property-read string $q2_team
- * @property-write float|string $q2_team
- * @property-read string $q3_team
- * @property-write float|string $q3_team
- * @property integer $max_team
- * @property integer $mode_team
- * @property integer $min_individual
- * @property-read string $q1_individual
- * @property-write float|string $q1_individual
- * @property-read string $q2_individual
- * @property-write float|string $q2_individual
- * @property-read string $q3_individual
- * @property-write float|string $q3_individual
- * @property integer $max_individual
- * @property integer $mode_individual
+ * @property double|null $average_team
+ * @property double|null $stddev_team
+ * @property integer|null $histogram_width_team
+ * @property double|null $average_individual
+ * @property double|null $stddev_individual
+ * @property integer|null $histogram_width_individual
+ * @property integer|null $min_team
+ * @property-read string|null $q1_team
+ * @property-write float|string|null $q1_team
+ * @property-read string|null $q2_team
+ * @property-write float|string|null $q2_team
+ * @property-read string|null $q3_team
+ * @property-write float|string|null $q3_team
+ * @property integer|null $max_team
+ * @property integer|null $mode_team
+ * @property integer|null $min_individual
+ * @property-read string|null $q1_individual
+ * @property-write float|string|null $q1_individual
+ * @property-read string|null $q2_individual
+ * @property-write float|string|null $q2_individual
+ * @property-read string|null $q3_individual
+ * @property-write float|string|null $q3_individual
+ * @property integer|null $max_individual
+ * @property integer|null $mode_individual
  *
  * @property SalmonMap3 $map
  * @property User $user

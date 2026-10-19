@@ -20,7 +20,7 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property string $key
  * @property string $name
- * @property integer $rank
+ * @property integer|null $rank
  *
  * @property Salmon3[] $salmon3s
  * @property Salmon3[] $salmon3s0

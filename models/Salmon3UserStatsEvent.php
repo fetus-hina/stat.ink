@@ -20,7 +20,7 @@ use yii\db\ActiveRecord;
  * @property integer $user_id
  * @property integer $map_id
  * @property integer $tide_id
- * @property integer $event_id
+ * @property integer|null $event_id
  * @property integer $waves
  * @property integer $cleared
  * @property integer $total_quota

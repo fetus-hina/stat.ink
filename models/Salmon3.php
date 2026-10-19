@@ -23,41 +23,41 @@ use yii\db\ExpressionInterface;
  * @property string $uuid
  * @property string $client_uuid
  * @property boolean $is_big_run
- * @property integer $stage_id
- * @property integer $big_stage_id
- * @property-read string $danger_rate
- * @property-write float|string $danger_rate
- * @property integer $clear_waves
- * @property integer $fail_reason_id
- * @property integer $king_smell
- * @property integer $king_salmonid_id
- * @property boolean $clear_extra
- * @property integer $title_before_id
- * @property integer $title_exp_before
- * @property integer $title_after_id
- * @property integer $title_exp_after
- * @property integer $golden_eggs
- * @property integer $power_eggs
- * @property integer $gold_scale
- * @property integer $silver_scale
- * @property integer $bronze_scale
- * @property integer $job_point
- * @property integer $job_score
- * @property-read string $job_rate
- * @property-write float|string $job_rate
- * @property integer $job_bonus
- * @property string $note
- * @property string $private_note
- * @property string $link_url
- * @property integer $version_id
- * @property integer $agent_id
+ * @property integer|null $stage_id
+ * @property integer|null $big_stage_id
+ * @property-read string|null $danger_rate
+ * @property-write float|string|null $danger_rate
+ * @property integer|null $clear_waves
+ * @property integer|null $fail_reason_id
+ * @property integer|null $king_smell
+ * @property integer|null $king_salmonid_id
+ * @property boolean|null $clear_extra
+ * @property integer|null $title_before_id
+ * @property integer|null $title_exp_before
+ * @property integer|null $title_after_id
+ * @property integer|null $title_exp_after
+ * @property integer|null $golden_eggs
+ * @property integer|null $power_eggs
+ * @property integer|null $gold_scale
+ * @property integer|null $silver_scale
+ * @property integer|null $bronze_scale
+ * @property integer|null $job_point
+ * @property integer|null $job_score
+ * @property-read string|null $job_rate
+ * @property-write float|string|null $job_rate
+ * @property integer|null $job_bonus
+ * @property string|null $note
+ * @property string|null $private_note
+ * @property string|null $link_url
+ * @property integer|null $version_id
+ * @property integer|null $agent_id
  * @property boolean $is_automated
- * @property-read string $start_at
- * @property-write string|ExpressionInterface $start_at
- * @property-read string $end_at
- * @property-write string|ExpressionInterface $end_at
+ * @property-read string|null $start_at
+ * @property-write string|ExpressionInterface|null $start_at
+ * @property-read string|null $end_at
+ * @property-write string|ExpressionInterface|null $end_at
  * @property integer $period
- * @property integer $schedule_id
+ * @property integer|null $schedule_id
  * @property boolean $has_disconnect
  * @property boolean $is_deleted
  * @property string $remote_addr
@@ -68,7 +68,7 @@ use yii\db\ExpressionInterface;
  * @property-write string|ExpressionInterface $updated_at
  * @property boolean $is_private
  * @property boolean $has_broken_data
- * @property string $scenario_code
+ * @property string|null $scenario_code
  * @property boolean $is_eggstra_work
  *
  * @property Agent $agent

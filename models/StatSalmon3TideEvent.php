@@ -16,10 +16,10 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "stat_salmon3_tide_event".
  *
- * @property integer $stage_id
- * @property integer $big_stage_id
+ * @property integer|null $stage_id
+ * @property integer|null $big_stage_id
  * @property integer $tide_id
- * @property integer $event_id
+ * @property integer|null $event_id
  * @property integer $jobs
  * @property integer $cleared
  *

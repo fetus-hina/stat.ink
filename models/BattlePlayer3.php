@@ -20,24 +20,24 @@ use yii\db\ActiveRecord;
  * @property integer $battle_id
  * @property boolean $is_our_team
  * @property boolean $is_me
- * @property integer $rank_in_team
- * @property string $name
- * @property integer $weapon_id
- * @property integer $inked
- * @property integer $kill
- * @property integer $assist
- * @property integer $kill_or_assist
- * @property integer $death
- * @property integer $special
- * @property boolean $is_disconnected
- * @property integer $splashtag_title_id
- * @property string $number
- * @property integer $headgear_id
- * @property integer $clothing_id
- * @property integer $shoes_id
- * @property boolean $is_crowned
- * @property integer $species_id
- * @property integer $crown_id
+ * @property integer|null $rank_in_team
+ * @property string|null $name
+ * @property integer|null $weapon_id
+ * @property integer|null $inked
+ * @property integer|null $kill
+ * @property integer|null $assist
+ * @property integer|null $kill_or_assist
+ * @property integer|null $death
+ * @property integer|null $special
+ * @property boolean|null $is_disconnected
+ * @property integer|null $splashtag_title_id
+ * @property string|null $number
+ * @property integer|null $headgear_id
+ * @property integer|null $clothing_id
+ * @property integer|null $shoes_id
+ * @property boolean|null $is_crowned
+ * @property integer|null $species_id
+ * @property integer|null $crown_id
  *
  * @property Ability3[] $abilities
  * @property Battle3 $battle

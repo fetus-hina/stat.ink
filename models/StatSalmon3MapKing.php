@@ -16,8 +16,8 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "stat_salmon3_map_king".
  *
- * @property integer $map_id
- * @property integer $big_map_id
+ * @property integer|null $map_id
+ * @property integer|null $big_map_id
  * @property integer $king_id
  * @property integer $jobs
  * @property integer $cleared

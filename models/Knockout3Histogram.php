@@ -19,7 +19,7 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property integer $season_id
  * @property integer $rule_id
- * @property integer $map_id
+ * @property integer|null $map_id
  * @property integer $class_value
  * @property integer $count
  *

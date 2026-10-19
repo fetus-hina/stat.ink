@@ -35,6 +35,9 @@ $writeType = fn (ColumnSchema $column): ?string => match ($column->type) {
   Schema::TYPE_TIMESTAMP => 'string|ExpressionInterface',
   default => null,
 };
+$nullable = fn (ColumnSchema $column, ?string $type): ?string => $type !== null && $column->allowNull
+  ? $type . '|null'
+  : $type;
 $useExpressionInterface = array_any(
   $tableSchema->columns,
   fn (ColumnSchema $column): bool => str_contains((string)$writeType($column), 'ExpressionInterface'),
@@ -64,10 +67,11 @@ use yii\db\ExpressionInterface;
  * This is the model class for table "<?= $generator->generateTableName($tableName) ?>".
  *
 <?php foreach ($tableSchema->columns as $column): ?>
-<?php if (($columnWriteType = $writeType($column)) === null): ?>
- * @property <?= "{$column->phpType} \${$column->name}\n" ?>
+<?php $columnReadType = $nullable($column, $column->phpType); ?>
+<?php if (($columnWriteType = $nullable($column, $writeType($column))) === null): ?>
+ * @property <?= "{$columnReadType} \${$column->name}\n" ?>
 <?php else: ?>
- * @property-read <?= "{$column->phpType} \${$column->name}\n" ?>
+ * @property-read <?= "{$columnReadType} \${$column->name}\n" ?>
  * @property-write <?= "{$columnWriteType} \${$column->name}\n" ?>
 <?php endif; ?>
 <?php endforeach; ?>

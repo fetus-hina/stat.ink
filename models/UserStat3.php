@@ -19,7 +19,7 @@ use yii\db\ExpressionInterface;
  *
  * @property integer $id
  * @property integer $user_id
- * @property integer $lobby_id
+ * @property integer|null $lobby_id
  * @property integer $battles
  * @property integer $agg_battles
  * @property integer $agg_seconds
@@ -30,20 +30,20 @@ use yii\db\ExpressionInterface;
  * @property integer $specials
  * @property integer $inked
  * @property integer $max_inked
- * @property integer $peak_rank_id
- * @property integer $peak_s_plus
- * @property-read string $peak_x_power
- * @property-write float|string $peak_x_power
- * @property-read string $peak_fest_power
- * @property-write float|string $peak_fest_power
- * @property-read string $peak_season
- * @property-write string|ExpressionInterface $peak_season
- * @property integer $current_rank_id
- * @property integer $current_s_plus
- * @property-read string $current_x_power
- * @property-write float|string $current_x_power
- * @property-read string $current_season
- * @property-write string|ExpressionInterface $current_season
+ * @property integer|null $peak_rank_id
+ * @property integer|null $peak_s_plus
+ * @property-read string|null $peak_x_power
+ * @property-write float|string|null $peak_x_power
+ * @property-read string|null $peak_fest_power
+ * @property-write float|string|null $peak_fest_power
+ * @property-read string|null $peak_season
+ * @property-write string|ExpressionInterface|null $peak_season
+ * @property integer|null $current_rank_id
+ * @property integer|null $current_s_plus
+ * @property-read string|null $current_x_power
+ * @property-write float|string|null $current_x_power
+ * @property-read string|null $current_season
+ * @property-write string|ExpressionInterface|null $current_season
  * @property-read string $updated_at
  * @property-write string|ExpressionInterface $updated_at
  *

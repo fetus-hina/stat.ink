@@ -20,8 +20,8 @@ use yii\db\ExpressionInterface;
  * @property integer $id
  * @property string $key
  * @property integer $mainweapon_id
- * @property integer $subweapon_id
- * @property integer $special_id
+ * @property integer|null $subweapon_id
+ * @property integer|null $special_id
  * @property integer $canonical_id
  * @property string $name
  * @property-read string $release_at

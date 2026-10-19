@@ -24,78 +24,78 @@ use yii\db\ActiveRecord;
  * @property integer $wins
  * @property integer $seconds
  * @property double $avg_kill
- * @property double $sd_kill
+ * @property double|null $sd_kill
  * @property integer $min_kill
- * @property-read string $p05_kill
- * @property-write float|string $p05_kill
- * @property-read string $p25_kill
- * @property-write float|string $p25_kill
- * @property-read string $p50_kill
- * @property-write float|string $p50_kill
- * @property-read string $p75_kill
- * @property-write float|string $p75_kill
- * @property-read string $p95_kill
- * @property-write float|string $p95_kill
+ * @property-read string|null $p05_kill
+ * @property-write float|string|null $p05_kill
+ * @property-read string|null $p25_kill
+ * @property-write float|string|null $p25_kill
+ * @property-read string|null $p50_kill
+ * @property-write float|string|null $p50_kill
+ * @property-read string|null $p75_kill
+ * @property-write float|string|null $p75_kill
+ * @property-read string|null $p95_kill
+ * @property-write float|string|null $p95_kill
  * @property integer $max_kill
- * @property integer $mode_kill
+ * @property integer|null $mode_kill
  * @property double $avg_assist
- * @property double $sd_assist
+ * @property double|null $sd_assist
  * @property integer $min_assist
- * @property-read string $p05_assist
- * @property-write float|string $p05_assist
- * @property-read string $p25_assist
- * @property-write float|string $p25_assist
- * @property-read string $p50_assist
- * @property-write float|string $p50_assist
- * @property-read string $p75_assist
- * @property-write float|string $p75_assist
- * @property-read string $p95_assist
- * @property-write float|string $p95_assist
+ * @property-read string|null $p05_assist
+ * @property-write float|string|null $p05_assist
+ * @property-read string|null $p25_assist
+ * @property-write float|string|null $p25_assist
+ * @property-read string|null $p50_assist
+ * @property-write float|string|null $p50_assist
+ * @property-read string|null $p75_assist
+ * @property-write float|string|null $p75_assist
+ * @property-read string|null $p95_assist
+ * @property-write float|string|null $p95_assist
  * @property integer $max_assist
- * @property integer $mode_assist
+ * @property integer|null $mode_assist
  * @property double $avg_death
- * @property double $sd_death
+ * @property double|null $sd_death
  * @property integer $min_death
- * @property-read string $p05_death
- * @property-write float|string $p05_death
- * @property-read string $p25_death
- * @property-write float|string $p25_death
- * @property-read string $p50_death
- * @property-write float|string $p50_death
- * @property-read string $p75_death
- * @property-write float|string $p75_death
- * @property-read string $p95_death
- * @property-write float|string $p95_death
+ * @property-read string|null $p05_death
+ * @property-write float|string|null $p05_death
+ * @property-read string|null $p25_death
+ * @property-write float|string|null $p25_death
+ * @property-read string|null $p50_death
+ * @property-write float|string|null $p50_death
+ * @property-read string|null $p75_death
+ * @property-write float|string|null $p75_death
+ * @property-read string|null $p95_death
+ * @property-write float|string|null $p95_death
  * @property integer $max_death
- * @property integer $mode_death
+ * @property integer|null $mode_death
  * @property double $avg_special
- * @property double $sd_special
+ * @property double|null $sd_special
  * @property integer $min_special
- * @property-read string $p05_special
- * @property-write float|string $p05_special
- * @property-read string $p25_special
- * @property-write float|string $p25_special
- * @property-read string $p50_special
- * @property-write float|string $p50_special
- * @property-read string $p75_special
- * @property-write float|string $p75_special
- * @property-read string $p95_special
- * @property-write float|string $p95_special
+ * @property-read string|null $p05_special
+ * @property-write float|string|null $p05_special
+ * @property-read string|null $p25_special
+ * @property-write float|string|null $p25_special
+ * @property-read string|null $p50_special
+ * @property-write float|string|null $p50_special
+ * @property-read string|null $p75_special
+ * @property-write float|string|null $p75_special
+ * @property-read string|null $p95_special
+ * @property-write float|string|null $p95_special
  * @property integer $max_special
- * @property integer $mode_special
+ * @property integer|null $mode_special
  * @property double $avg_inked
- * @property double $sd_inked
+ * @property double|null $sd_inked
  * @property integer $min_inked
- * @property-read string $p05_inked
- * @property-write float|string $p05_inked
- * @property-read string $p25_inked
- * @property-write float|string $p25_inked
- * @property-read string $p50_inked
- * @property-write float|string $p50_inked
- * @property-read string $p75_inked
- * @property-write float|string $p75_inked
- * @property-read string $p95_inked
- * @property-write float|string $p95_inked
+ * @property-read string|null $p05_inked
+ * @property-write float|string|null $p05_inked
+ * @property-read string|null $p25_inked
+ * @property-write float|string|null $p25_inked
+ * @property-read string|null $p50_inked
+ * @property-write float|string|null $p50_inked
+ * @property-read string|null $p75_inked
+ * @property-write float|string|null $p75_inked
+ * @property-read string|null $p95_inked
+ * @property-write float|string|null $p95_inked
  * @property integer $max_inked
  *
  * @property StatWeapon3XUsageRange $range

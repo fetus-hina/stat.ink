@@ -19,13 +19,13 @@ use yii\db\ExpressionInterface;
  * This is the model class for table "salmon_schedule3".
  *
  * @property integer $id
- * @property integer $map_id
+ * @property integer|null $map_id
  * @property-read string $start_at
  * @property-write string|ExpressionInterface $start_at
  * @property-read string $end_at
  * @property-write string|ExpressionInterface $end_at
- * @property integer $big_map_id
- * @property integer $king_id
+ * @property integer|null $big_map_id
+ * @property integer|null $king_id
  * @property boolean $is_eggstra_work
  * @property boolean $is_random_map_big_run
  *

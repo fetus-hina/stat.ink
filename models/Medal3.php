@@ -18,7 +18,7 @@ use yii\db\ActiveRecord;
  *
  * @property integer $id
  * @property string $name
- * @property integer $canonical_id
+ * @property integer|null $canonical_id
  *
  * @property BattleMedal3[] $battleMedal3s
  * @property Battle3[] $battles
