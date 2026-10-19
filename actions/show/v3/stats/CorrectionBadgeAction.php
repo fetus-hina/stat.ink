@@ -16,9 +16,7 @@ use app\models\User;
 use app\models\UserBadge3Adjust;
 use yii\base\Action;
 use yii\db\Connection;
-use yii\db\Expression;
 use yii\db\Transaction;
-use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\ForbiddenHttpException;
 use yii\web\Request;
@@ -29,7 +27,6 @@ use function filter_var;
 use function is_int;
 use function is_scalar;
 use function preg_match;
-use function vsprintf;
 
 use const FILTER_VALIDATE_INT;
 
@@ -79,13 +76,7 @@ final class CorrectionBadgeAction extends Action
                             'class' => UserBadge3Adjust::class,
                             'user_id' => $user->id,
                         ]);
-                    $model->data = new Expression(
-                        vsprintf('%s::jsonb', [
-                            $db->quoteValue(
-                                Json::encode($newData),
-                            ),
-                        ]),
-                    );
+                    $model->data = $newData;
                     $model->save();
                 },
                 Transaction::READ_COMMITTED,
