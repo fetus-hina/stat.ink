@@ -233,8 +233,8 @@ trait DropdownListTrait
             $models,
             'key',
             fn (ActiveRecord $model): string => $translateCatalog === null
-                ? $model->name
-                : Yii::t($translateCatalog, $model->name),
+                ? $model->getAttribute('name')
+                : Yii::t($translateCatalog, $model->getAttribute('name')),
         );
 
         return [
