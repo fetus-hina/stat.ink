@@ -27,7 +27,7 @@ use function headers_sent;
  *
  * @property User $user
  */
-final class LoginWithDiscord extends ActiveRecord
+final class LoginWithDiscord extends ActiveRecord implements OAuth2LoginLinkInterface
 {
     /**
      * @inheritdoc
