@@ -11,10 +11,9 @@ use app\components\widgets\Icon;
 use app\models\Battle3;
 use app\models\Lobby3;
 use app\models\Rule3;
-use yii\base\Model;
 use yii\helpers\Html;
 
-$render = function (?Model $model, string $catalog): string {
+$render = function (Lobby3|Rule3|null $model, string $catalog): string {
   if (!$model) {
     return Html::encode('?');
   }

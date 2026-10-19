@@ -33,6 +33,7 @@ parameters:
     SKillOrAssists: '\app\models\StatWeapon3KillOrAssist[]|\app\models\StatWeapon3KillOrAssistPerVersion[]'
     SKills: '\app\models\StatWeapon3Kill[]|\app\models\StatWeapon3KillPerVersion[]'
     SSpecials: '\app\models\StatWeapon3Special[]|\app\models\StatWeapon3SpecialPerVersion[]'
+    Weapon3Stat: '\app\models\StatWeapon3Assist|\app\models\StatWeapon3AssistPerVersion|\app\models\StatWeapon3Death|\app\models\StatWeapon3DeathPerVersion|\app\models\StatWeapon3Inked|\app\models\StatWeapon3InkedPerVersion|\app\models\StatWeapon3KillOrAssist|\app\models\StatWeapon3KillOrAssistPerVersion|\app\models\StatWeapon3Kill|\app\models\StatWeapon3KillPerVersion|\app\models\StatWeapon3Special|\app\models\StatWeapon3SpecialPerVersion'
     DataType: 'array{assist: SAssists, death: SDeaths, inked: SInkeds, ka: SKillOrAssists, kill: SKills, special: SSpecials}'
 
   bootstrapFiles:
