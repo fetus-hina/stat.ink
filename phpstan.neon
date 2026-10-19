@@ -22,6 +22,7 @@ parameters:
     - vendor/autoload.php
     - vendor/yiisoft/yii2/Yii.php
     - config/web-bootstrap.php
+    - data/phpstan/bootstrap-deployer.php
 
   mspirkovYii2:
     enableAllRules: false
