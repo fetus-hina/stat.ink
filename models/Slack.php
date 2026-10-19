@@ -447,7 +447,7 @@ class Slack extends ActiveRecord
                     "%s (%s)\nThis is a Webhook test message by %s with %s",
                     $i18n->translate('app', 'Keep doing it.', [], $lang),
                     $formatter->asDateTime($_SERVER['REQUEST_TIME'], 'long'),
-                    Yii::$app->user->identity?->name ?? '(Guest)',
+                    Yii::$app->user->getIdentity()?->name ?? '(Guest)',
                     Yii::$app->name,
                 ),
             ],

@@ -54,7 +54,7 @@ final class CreateBattleWidget extends Dialog
             sprintf(
                 'window.__createBattle3Config = %s;',
                 Json::encode([
-                    'apiKey' => (string)Yii::$app->user->identity?->api_key,
+                    'apiKey' => (string)Yii::$app->user->getIdentity()?->api_key,
                     'apiUrl' => Url::to('@web/api/v3/battle', true),
                     'scheduleUrl' => Url::to('@web/api/internal/current-schedule3', true),
                     'agent' => sprintf('%s web client', (string)Yii::$app->name),
