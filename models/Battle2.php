@@ -215,6 +215,10 @@ use const SORT_STRING;
  * @property-read bool $isMeaningful
  * @property-read static|null $nextBattle
  * @property-read static|null $previousBattle
+ * @property-read string|null $hisTeamIcon
+ * @property-read BattlePlayer2[] $hisTeamPlayers
+ * @property-read string|null $myTeamIcon
+ * @property-read BattlePlayer2[] $myTeamPlayers
  */
 class Battle2 extends ActiveRecord
 {

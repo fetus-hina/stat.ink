@@ -26,6 +26,7 @@ use app\models\Timezone;
 use app\models\User;
 use app\models\Weapon2;
 use app\models\WeaponType2;
+use stdClass;
 use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
 
@@ -42,6 +43,7 @@ use function time;
 
 /**
  * @extends ActiveQuery<Battle2>
+ * @property-read stdClass $summary
  */
 final class Battle2Query extends ActiveQuery
 {

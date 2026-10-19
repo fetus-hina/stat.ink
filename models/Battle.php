@@ -10,6 +10,7 @@ namespace app\models;
 use Throwable;
 use Yii;
 use app\components\ability\Effect;
+use app\components\ability\effect\Base as AbilityEffect;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Differ;
 use app\components\helpers\db\Now;
@@ -142,6 +143,16 @@ use const SORT_STRING;
  * @property-read BattleEvents|null $battleEvents
  * @property-read string|null $events
  * @property-read array $extraData
+ * @property-read AbilityEffect|null $abilityEffects
+ * @property-read stdClass $gearAbilities
+ * @property-read BattlePlayer[] $hisTeamPlayers
+ * @property-read int|null $inked
+ * @property-read bool $isGachi
+ * @property-read float|int|null $kill_rate
+ * @property-read BattlePlayer[] $myTeamPlayers
+ * @property-read Battle|null $nextBattle
+ * @property-read Battle|null $previousBattle
+ * @property-read WeaponAttack|null $weaponAttack
  */
 class Battle extends ActiveRecord
 {

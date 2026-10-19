@@ -29,6 +29,7 @@ use function vsprintf;
 
 /**
  * @property-read bool $isPrimaryOnly
+ * @property-read string|null $coefficient
  */
 class Ability2Info extends Model
 {

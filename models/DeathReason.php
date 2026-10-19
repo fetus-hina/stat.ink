@@ -30,6 +30,7 @@ use const SORT_ASC;
  * @property Battle[] $battles
  * @property DeathReasonType $type
  * @property Weapon $weapon
+ * @property-read string $translatedName
  */
 class DeathReason extends ActiveRecord
 {

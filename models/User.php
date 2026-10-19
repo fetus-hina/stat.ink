@@ -95,6 +95,11 @@ use const SORT_DESC;
  * @property-read Region2 $guessedSplatfest2Region
  * @property-read bool $isSlackIntegrated
  * @property-read string $jdenticonPngUrl
+ * @property-read Battle|null $latestBattle
+ * @property-read string $iconUrl
+ * @property-read bool $isUserJsonReady
+ * @property-read string $jdenticonUrl
+ * @property-read Weapon|null $mainWeapon
  */
 class User extends ActiveRecord implements IdentityInterface
 {
