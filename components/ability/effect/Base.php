@@ -12,6 +12,24 @@ use yii\base\Component;
 use function ceil;
 use function pow;
 
+/**
+ * @property-read float|null $attackPct
+ * @property-read float|null $bombThrowPct
+ * @property-read string $calculatorVersion
+ * @property-read float|null $defensePct
+ * @property-read float|null $inkRecoverySec
+ * @property-read float|null $inkUsePctMain
+ * @property-read float|null $inkUsePctSub
+ * @property-read float|null $markingPct
+ * @property-read float|null $respawnSec
+ * @property-read float|null $runSpeedPct
+ * @property-read int|null $specialChargePoint
+ * @property-read int|null $specialDurationCount
+ * @property-read float|null $specialDurationSec
+ * @property-read float|null $specialLossPct
+ * @property-read array<string, float>|null $superJumpSecs
+ * @property-read float|null $swimSpeedPct
+ */
 abstract class Base extends Component
 {
     public const SPECIAL_DURATION_40PCT = 75;
