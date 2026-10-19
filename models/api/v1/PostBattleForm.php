@@ -113,8 +113,11 @@ class PostBattleForm extends Model
     public $his_team_power;
     public $my_team_color;
     public $his_team_color;
+    /** @var UploadedFile|string|null */
     public $image_judge;
+    /** @var UploadedFile|string|null */
     public $image_result;
+    /** @var UploadedFile|string|null */
     public $image_gear;
     public $start_at;
     public $end_at;
@@ -741,12 +744,15 @@ class PostBattleForm extends Model
         return $this->toImage($battle, BattleImageType::ID_GEAR, 'image_gear');
     }
 
+    /**
+     * @param 'image_judge'|'image_result'|'image_gear' $attr
+     */
     protected function toImage(Battle $battle, $imageTypeId, $attr)
     {
         if ($this->getIsTest()) {
             return null;
         }
-        if ($this->$attr == '' && !$this->$attr instanceof UploadedFile) {
+        if (!$this->$attr instanceof UploadedFile && $this->$attr == '') {
             return null;
         }
         $o = new BattleImage();
