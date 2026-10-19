@@ -35,8 +35,8 @@ final class ArrayValidator extends EachValidator
             $this->tooBig = '{attribute} must not contain more than {max} elements';
         }
 
-        if ($this->tooBig === null) {
-            $this->tooBig = '{attribute} must contain at least {min} elements';
+        if ($this->tooSmall === null) {
+            $this->tooSmall = '{attribute} must contain at least {min} elements';
         }
     }
 
