@@ -29,7 +29,6 @@ if (
     !$histogram ||
     !$abstract ||
     count($histogram) < 5 ||
-    $abstract->average === null ||
     $abstract->stddev === null
 ) {
   return;
