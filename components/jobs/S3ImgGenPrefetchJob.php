@@ -31,7 +31,7 @@ final class S3ImgGenPrefetchJob extends BaseObject implements JobInterface
     public string $uuid = '00000000-0000-0000-0000-000000000000';
 
     /**
-     * @var TYPE_* $type
+     * @var self::TYPE_* $type
      */
     public string $type = self::TYPE_BATTLE;
 

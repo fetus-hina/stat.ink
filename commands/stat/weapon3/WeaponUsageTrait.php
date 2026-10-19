@@ -101,7 +101,7 @@ trait WeaponUsageTrait
             ),
             $select->createCommand($db)->rawSql,
         ]);
-        $db->createCommand($sql)->execute($db);
+        $db->createCommand($sql)->execute();
     }
 
     private function makeStatWeapon3UsagePerVersion(Connection $db): void
@@ -125,7 +125,7 @@ trait WeaponUsageTrait
             ),
             $select->createCommand($db)->rawSql,
         ]);
-        $db->createCommand($sql)->execute($db);
+        $db->createCommand($sql)->execute();
     }
 
     private function makeStatWeapon3XUsagePerSeason(Connection $db): void
@@ -149,7 +149,7 @@ trait WeaponUsageTrait
             ),
             $select->createCommand($db)->rawSql,
         ]);
-        $db->createCommand($sql)->execute($db);
+        $db->createCommand($sql)->execute();
     }
 
     private function makeStatWeapon3XUsagePerVersion(Connection $db): void
@@ -173,7 +173,7 @@ trait WeaponUsageTrait
             ),
             $select->createCommand($db)->rawSql,
         ]);
-        $db->createCommand($sql)->execute($db);
+        $db->createCommand($sql)->execute();
     }
 
     /**

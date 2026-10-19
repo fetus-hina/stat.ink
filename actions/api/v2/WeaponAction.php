@@ -72,7 +72,7 @@ class WeaponAction extends BaseAction
     }
 
     /**
-     * @param Weapon2[]
+     * @param Weapon2[] $weapons
      * @return Generator<string[]>
      */
     protected function formatCsvRows(array $weapons): Generator

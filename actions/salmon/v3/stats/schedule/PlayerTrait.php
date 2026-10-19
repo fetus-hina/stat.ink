@@ -27,19 +27,19 @@ use const SORT_DESC;
  *   jobs: int,
  *   cleared: int,
  *   waves: int,
- *   max_danger_rate: int|float|numeric-string|null
- *   clear_danger_rate: int|float|numeric-string|null
- *   total_golden_result: int|null
- *   avg_golden_result: int|float|numeric-string|null
- *   max_golden_result: int|float|numeric-string|null
- *   total_golden: int|null
- *   avg_golden: int|float|numeric-string|null
- *   max_golden: int|null
- *   total_rescue: int|null
- *   avg_rescue: int|float|numeric-string|null
- *   total_rescued: int|null
- *   avg_rescued: int|float|numeric-string|null
- *   total_boss: int|null
+ *   max_danger_rate: int|float|numeric-string|null,
+ *   clear_danger_rate: int|float|numeric-string|null,
+ *   total_golden_result: int|null,
+ *   avg_golden_result: int|float|numeric-string|null,
+ *   max_golden_result: int|float|numeric-string|null,
+ *   total_golden: int|null,
+ *   avg_golden: int|float|numeric-string|null,
+ *   max_golden: int|null,
+ *   total_rescue: int|null,
+ *   avg_rescue: int|float|numeric-string|null,
+ *   total_rescued: int|null,
+ *   avg_rescued: int|float|numeric-string|null,
+ *   total_boss: int|null,
  *   avg_boss: int|float|numeric-string|null
  * }
  */
