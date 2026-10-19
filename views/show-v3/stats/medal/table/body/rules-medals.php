@@ -43,11 +43,9 @@ foreach ($medals as $medalKey => $medal) {
         implode(
           '',
           array_map(
-            function (string $ruleKey) use ($medalStats): string {
-              return $this->render('cell-data', [
-                'count' => (int)ArrayHelper::getValue($medalStats, $ruleKey, 0),
-              ]);
-            },
+            fn (string $ruleKey): string => $this->render('cell-data', [
+              'count' => (int)ArrayHelper::getValue($medalStats, $ruleKey, 0),
+            ]),
             array_keys($rules),
           ),
         ),
