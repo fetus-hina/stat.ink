@@ -223,7 +223,7 @@ $this->registerCss(Html::renderCss([
               ]
             ) . "\n" ?>
 <?php } ?>
-<?php $_t = (int)round((float)$_data['avg_knockout_time'] ?? 300); ?>
+<?php $_t = (int)round((float)($_data['avg_knockout_time'] ?? 300)); ?>
 <?php if ($_t > 0 && $_t < 300) { ?>
             <?= Html::tag(
               'p',
