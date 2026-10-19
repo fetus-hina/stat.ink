@@ -218,7 +218,7 @@ check-style-php: vendor
 
 .PHONY: phpstan
 phpstan: vendor
-	php vendor/bin/phpstan --level=0 --memory-limit=1G
+	php vendor/bin/phpstan --memory-limit=1G
 
 .PHONY: phpstan1
 phpstan1: vendor
