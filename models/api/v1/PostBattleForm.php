@@ -41,6 +41,7 @@ use function count;
 use function explode;
 use function file_get_contents;
 use function filter_var;
+use function get_object_vars;
 use function gmdate;
 use function hash_hmac;
 use function imagecreatefromstring;
@@ -472,8 +473,8 @@ class PostBattleForm extends Model
         }
         if (is_object($value) && ($value instanceof stdClass)) {
             $newValue = new stdClass();
-            foreach ($value as $k => $v) {
-                $k = is_int($k) ? "ARRAY[{$k}]" : (string)$k;
+            foreach (get_object_vars($value) as $k => $v) {
+                $k = (string)$k;
                 if (!mb_check_encoding($k, 'UTF-8')) {
                     $this->addError($attribute, 'Invalid UTF-8 sequence in KEY');
                     return;
