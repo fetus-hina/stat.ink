@@ -11,6 +11,7 @@ use app\components\widgets\v3\BattleDeleteWidget;
 use app\models\Salmon3;
 use app\models\User;
 use yii\bootstrap\Html;
+use yii\web\View;
 
 /**
  * @var Salmon3 $model

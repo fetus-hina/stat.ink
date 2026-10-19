@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 use app\components\widgets\Icon;
 use app\models\Event3StatsPower;
+use app\models\Event3StatsPowerPeriod;
 use app\models\EventPeriod3;
 use app\models\EventSchedule3;
 use yii\helpers\ArrayHelper;

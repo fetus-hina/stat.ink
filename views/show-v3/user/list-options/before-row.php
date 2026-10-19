@@ -12,6 +12,7 @@ use app\components\helpers\Battle as BattleHelper;
 use app\models\Battle3;
 use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\web\View;
 
 /**
  * @var View $this

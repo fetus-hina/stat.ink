@@ -16,6 +16,7 @@ use app\models\Ability3;
 use app\models\Rule3;
 use app\models\Season3;
 use app\models\StatAbility3XUsage;
+use app\models\StatWeapon3XUsageRange;
 use app\models\Weapon3;
 use jp3cki\yii2\jqueryColor\JqueryColorAsset;
 use yii\helpers\ArrayHelper;

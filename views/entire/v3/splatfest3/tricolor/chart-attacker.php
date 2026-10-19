@@ -12,6 +12,7 @@ use app\assets\ChartJsErrorBarsAsset;
 use app\assets\ColorSchemeAsset;
 use app\assets\JqueryEasyChartjsAsset;
 use app\components\helpers\StandardError;
+use app\models\Map3;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\JsExpression;

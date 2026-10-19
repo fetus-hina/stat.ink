@@ -11,7 +11,7 @@ use MathPHP\Probability\Distribution\Continuous\Normal as NormalDistribution;
 use app\assets\ChartJsAsset;
 use app\assets\ColorSchemeAsset;
 use app\assets\RatioAsset;
-use app\modles\StatBigrunDistribUserAbstract3;
+use app\models\StatBigrunDistribUserAbstract3;
 use app\models\StatEggstraWorkDistribUserAbstract3;
 use yii\helpers\Html;
 use yii\helpers\Json;

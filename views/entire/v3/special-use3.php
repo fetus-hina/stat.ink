@@ -13,6 +13,7 @@ use app\components\widgets\SnsWidget;
 use app\models\Lobby3;
 use app\models\Rule3;
 use app\models\Season3;
+use app\models\Special3;
 use app\models\StatSpecialUse3;
 use yii\helpers\Html;
 use yii\web\View;

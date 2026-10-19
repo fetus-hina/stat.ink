@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 use app\models\Event3StatsPower;
 use app\models\Event3StatsPowerHistogram;
+use app\models\Event3StatsPowerPeriod;
 use app\models\Event3StatsPowerPeriodHistogram;
 use app\models\EventPeriod3;
 use app\models\EventSchedule3;

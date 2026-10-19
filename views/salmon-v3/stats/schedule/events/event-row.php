@@ -11,6 +11,7 @@ use app\actions\salmon\v3\stats\schedule\EventTrait;
 use app\components\helpers\TypeHelper;
 use app\models\SalmonEvent3;
 use app\models\SalmonWaterLevel2;
+use app\models\User;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\View;
