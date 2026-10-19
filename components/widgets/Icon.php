@@ -307,10 +307,10 @@ final class Icon
 
     /**
      * @var array<string, array{
-     *   class-string<AssetBundle>,
-     *   string,
-     *   string|array{string, string, ?array},
-     *   bool|string|array{string, string, ?array}|null
+     *   0: class-string<AssetBundle>,
+     *   1: string,
+     *   2?: string|array{0: string, 1: string, 2?: array},
+     *   3?: bool|string|array{0: string, 1: string, 2?: array}|null
      * }>
      */
     private static $assetImageMap = [
