@@ -91,7 +91,7 @@ use yii\db\ExpressionInterface;
  * This is the model class for table "<?= $generator->generateTableName($tableName) ?>".
  *
 <?php foreach ($tableSchema->columns as $column): ?>
-<?php $columnReadType = $nullable($column, $column->phpType); ?>
+<?php $columnReadType = $nullable($column, $column->type === Schema::TYPE_DECIMAL ? 'numeric-string' : $column->phpType); ?>
 <?php if (($columnWriteType = $nullable($column, $writeType($column))) === null): ?>
  * @property <?= "{$columnReadType} \${$column->name}\n" ?>
 <?php else: ?>

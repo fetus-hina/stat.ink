@@ -36,9 +36,9 @@ use yii\db\ExpressionInterface;
  * @property integer|null $inked
  * @property integer|null $our_team_inked
  * @property integer|null $their_team_inked
- * @property-read string|null $our_team_percent
+ * @property-read numeric-string|null $our_team_percent
  * @property-write float|string|null $our_team_percent
- * @property-read string|null $their_team_percent
+ * @property-read numeric-string|null $their_team_percent
  * @property-write float|string|null $their_team_percent
  * @property integer|null $our_team_count
  * @property integer|null $their_team_count
@@ -79,12 +79,12 @@ use yii\db\ExpressionInterface;
  * @property integer|null $clout_after
  * @property integer|null $clout_change
  * @property integer|null $fest_dragon_id
- * @property-read string|null $fest_power
+ * @property-read numeric-string|null $fest_power
  * @property-write float|string|null $fest_power
  * @property boolean $has_disconnect
- * @property-read string|null $x_power_before
+ * @property-read numeric-string|null $x_power_before
  * @property-write float|string|null $x_power_before
- * @property-read string|null $x_power_after
+ * @property-read numeric-string|null $x_power_after
  * @property-write float|string|null $x_power_after
  * @property integer|null $our_team_role_id
  * @property integer|null $their_team_role_id
@@ -96,21 +96,21 @@ use yii\db\ExpressionInterface;
  * @property integer|null $their_team_theme_id
  * @property integer|null $third_team_theme_id
  * @property integer|null $third_team_inked
- * @property-read string|null $third_team_percent
+ * @property-read numeric-string|null $third_team_percent
  * @property-write float|string|null $third_team_percent
  * @property integer|null $signal
  * @property string|null $replay_code
- * @property-read string|null $bankara_power_before
+ * @property-read numeric-string|null $bankara_power_before
  * @property-write float|string|null $bankara_power_before
- * @property-read string|null $bankara_power_after
+ * @property-read numeric-string|null $bankara_power_after
  * @property-write float|string|null $bankara_power_after
  * @property integer|null $event_id
- * @property-read string|null $event_power
+ * @property-read numeric-string|null $event_power
  * @property-write float|string|null $event_power
  * @property integer|null $conch_clash_id
- * @property-read string|null $series_weapon_power_before
+ * @property-read numeric-string|null $series_weapon_power_before
  * @property-write float|string|null $series_weapon_power_before
- * @property-read string|null $series_weapon_power_after
+ * @property-read numeric-string|null $series_weapon_power_after
  * @property-write float|string|null $series_weapon_power_after
  *
  * @property Agent|null $agent

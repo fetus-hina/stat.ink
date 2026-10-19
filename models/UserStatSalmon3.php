@@ -28,7 +28,7 @@ use yii\db\ActiveRecord;
  * @property integer $power_eggs
  * @property integer $rescues
  * @property integer $rescued
- * @property-read string|null $peak_danger_rate
+ * @property-read numeric-string|null $peak_danger_rate
  * @property-write float|string|null $peak_danger_rate
  * @property integer|null $peak_title_id
  * @property integer|null $peak_title_exp

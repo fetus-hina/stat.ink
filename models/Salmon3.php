@@ -25,7 +25,7 @@ use yii\db\ExpressionInterface;
  * @property boolean $is_big_run
  * @property integer|null $stage_id
  * @property integer|null $big_stage_id
- * @property-read string|null $danger_rate
+ * @property-read numeric-string|null $danger_rate
  * @property-write float|string|null $danger_rate
  * @property integer|null $clear_waves
  * @property integer|null $fail_reason_id
@@ -43,7 +43,7 @@ use yii\db\ExpressionInterface;
  * @property integer|null $bronze_scale
  * @property integer|null $job_point
  * @property integer|null $job_score
- * @property-read string|null $job_rate
+ * @property-read numeric-string|null $job_rate
  * @property-write float|string|null $job_rate
  * @property integer|null $job_bonus
  * @property string|null $note

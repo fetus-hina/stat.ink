@@ -17,7 +17,7 @@ use yii\db\ActiveRecord;
  * This is the model class for table "stat_stealth_jump_equipment3".
  *
  * @property integer $season_id
- * @property-read string $x_power
+ * @property-read numeric-string $x_power
  * @property-write float|string $x_power
  * @property integer $players
  * @property integer $equipments

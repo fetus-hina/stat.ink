@@ -27,20 +27,20 @@ use yii\db\ActiveRecord;
  * @property double|null $stddev_individual
  * @property integer|null $histogram_width_individual
  * @property integer|null $min_team
- * @property-read string|null $q1_team
+ * @property-read numeric-string|null $q1_team
  * @property-write float|string|null $q1_team
- * @property-read string|null $q2_team
+ * @property-read numeric-string|null $q2_team
  * @property-write float|string|null $q2_team
- * @property-read string|null $q3_team
+ * @property-read numeric-string|null $q3_team
  * @property-write float|string|null $q3_team
  * @property integer|null $max_team
  * @property integer|null $mode_team
  * @property integer|null $min_individual
- * @property-read string|null $q1_individual
+ * @property-read numeric-string|null $q1_individual
  * @property-write float|string|null $q1_individual
- * @property-read string|null $q2_individual
+ * @property-read numeric-string|null $q2_individual
  * @property-write float|string|null $q2_individual
- * @property-read string|null $q3_individual
+ * @property-read numeric-string|null $q3_individual
  * @property-write float|string|null $q3_individual
  * @property integer|null $max_individual
  * @property integer|null $mode_individual

@@ -32,15 +32,15 @@ use yii\db\ExpressionInterface;
  * @property integer $max_inked
  * @property integer|null $peak_rank_id
  * @property integer|null $peak_s_plus
- * @property-read string|null $peak_x_power
+ * @property-read numeric-string|null $peak_x_power
  * @property-write float|string|null $peak_x_power
- * @property-read string|null $peak_fest_power
+ * @property-read numeric-string|null $peak_fest_power
  * @property-write float|string|null $peak_fest_power
  * @property-read string|null $peak_season
  * @property-write string|ExpressionInterface|null $peak_season
  * @property integer|null $current_rank_id
  * @property integer|null $current_s_plus
- * @property-read string|null $current_x_power
+ * @property-read numeric-string|null $current_x_power
  * @property-write float|string|null $current_x_power
  * @property-read string|null $current_season
  * @property-write string|ExpressionInterface|null $current_season
