@@ -552,7 +552,6 @@ class Ability2Info extends Model
                     return floor(((100.0 / $i) - 0.01) * 10) / 10;
                 }
             }
-            return 0.0;
         };
 
         $calcDamage = function (

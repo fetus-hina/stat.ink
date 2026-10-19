@@ -1279,7 +1279,6 @@ class Battle2 extends ActiveRecord
                 default:
                     return $this->mode->name;
             }
-            return '';
         })();
 
         return [

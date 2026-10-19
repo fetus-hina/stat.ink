@@ -181,7 +181,6 @@ class User extends \yii\web\User
         } finally {
             Yii::endProfile('decodeIdentityCookieValue', __METHOD__);
         }
-        return [];
     }
 
     private function generateIdentityEncodeKey(string $saltBinary): string

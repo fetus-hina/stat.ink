@@ -552,7 +552,7 @@ class PostBattleForm extends Model
                 case 'lose':
                     return false;
                 default:
-                    null;
+                    return null;
             }
         })($this->result);
         $battle->is_knockout = (function ($value) {
@@ -562,7 +562,7 @@ class PostBattleForm extends Model
                 case 'no':
                     return false;
                 default:
-                    null;
+                    return null;
             }
         })($this->knock_out);
         $battle->rank_in_team = $intval($this->rank_in_team);
