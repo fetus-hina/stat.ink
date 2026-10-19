@@ -11,6 +11,7 @@ use Yii;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\BattleSummarizer;
 use app\components\helpers\Resource;
+use app\models\Battle;
 use app\models\BattleFilterForm;
 use app\models\BattleImageType;
 use app\models\SplatoonVersion;
@@ -32,6 +33,8 @@ use function time;
 use function trim;
 
 /**
+ * @extends ActiveQuery<Battle>
+ *
  * @property-read stdClass $summary
  */
 class BattleQuery extends ActiveQuery

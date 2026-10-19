@@ -96,6 +96,9 @@ class StatSalmon2ClearRate extends ActiveRecord
         return $this->hasOne(SalmonMap2::class, ['id' => 'stage_id']);
     }
 
+    /**
+     * @return ActiveQuery<StatSalmon2WeaponClearRate>
+     */
     public function getWeaponStats(): ActiveQuery
     {
         return $this->hasMany(StatSalmon2WeaponClearRate::class, ['stage_id' => 'stage_id']);
