@@ -23,7 +23,7 @@ use const SORT_ASC;
  * @property integer $id
  * @property string $key
  * @property string $name
- * @property string $splatnet_hint
+ * @property string|null $splatnet_hint
  *
  * @property SalmonSchedule2[] $schedules
  * @property string $short_name

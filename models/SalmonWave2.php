@@ -18,16 +18,16 @@ use function array_merge;
  *
  * @property integer $salmon_id
  * @property integer $wave
- * @property integer $event_id
- * @property integer $water_id
- * @property integer $golden_egg_quota
- * @property integer $golden_egg_appearances
- * @property integer $golden_egg_delivered
- * @property integer $power_egg_collected
+ * @property integer|null $event_id
+ * @property integer|null $water_id
+ * @property integer|null $golden_egg_quota
+ * @property integer|null $golden_egg_appearances
+ * @property integer|null $golden_egg_delivered
+ * @property integer|null $power_egg_collected
  *
  * @property Salmon2 $salmon
- * @property SalmonEvent2 $event
- * @property SalmonWaterLevel2 $water
+ * @property SalmonEvent2|null $event
+ * @property SalmonWaterLevel2|null $water
  */
 class SalmonWave2 extends ActiveRecord
 {

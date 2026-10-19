@@ -22,11 +22,11 @@ use function rtrim;
  *
  * @property integer $id
  * @property string $finger_print
- * @property integer $gear_id
- * @property integer $primary_ability_id
+ * @property integer|null $gear_id
+ * @property integer|null $primary_ability_id
  *
- * @property Ability $primaryAbility
- * @property Gear $gear
+ * @property Ability|null $primaryAbility
+ * @property Gear|null $gear
  * @property GearConfigurationSecondary[] $secondaries
  */
 class GearConfiguration extends ActiveRecord

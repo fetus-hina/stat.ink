@@ -30,9 +30,9 @@ use function vsprintf;
  * @property integer $user_id
  * @property integer $language_id
  * @property string $webhook_url
- * @property string $username
- * @property string $icon
- * @property string $channel
+ * @property string|null $username
+ * @property string|null $icon
+ * @property string|null $channel
  * @property boolean $suspended
  * @property-read string $created_at
  * @property-write string|ExpressionInterface $created_at

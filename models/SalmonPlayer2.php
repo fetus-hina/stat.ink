@@ -32,26 +32,26 @@ use const SORT_DESC;
  * @property integer $id
  * @property integer $work_id
  * @property boolean $is_me
- * @property string $splatnet_id
- * @property string $name
- * @property integer $special_id
- * @property integer $rescue
- * @property integer $death
- * @property integer $golden_egg_delivered
- * @property integer $power_egg_collected
- * @property integer $species_id
- * @property integer $gender_id
+ * @property string|null $splatnet_id
+ * @property string|null $name
+ * @property integer|null $special_id
+ * @property integer|null $rescue
+ * @property integer|null $death
+ * @property integer|null $golden_egg_delivered
+ * @property integer|null $power_egg_collected
+ * @property integer|null $species_id
+ * @property integer|null $gender_id
  *
  * @property SalmonBoss2[] $bosses
- * @property Gender $gender
+ * @property Gender|null $gender
  * @property SalmonPlayerBossKill2[] $salmonPlayerBossKill2s
  * @property SalmonPlayerSpecialUse2[] $salmonPlayerSpecialUse2s
  * @property SalmonPlayerWeapon2[] $salmonPlayerWeapon2s
- * @property SalmonSpecial2 $special
- * @property Species2 $species
+ * @property SalmonSpecial2|null $special
+ * @property Species2|null $species
  * @property Salmon2 $work
  *
- * @property-read ForceBlackout2 $forceBlackout
+ * @property-read ForceBlackout2|null $forceBlackout
  * @property-read SalmonPlayerBossKill2[] $bossKills
  * @property-read SalmonPlayerSpecialUse2 $specialUses
  * @property-read SalmonPlayerWeapon2[] $weapons

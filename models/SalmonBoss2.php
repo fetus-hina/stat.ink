@@ -24,8 +24,8 @@ use const SORT_ASC;
  * @property integer $id
  * @property string $key
  * @property string $name
- * @property integer $splatnet
- * @property string $splatnet_str
+ * @property integer|null $splatnet
+ * @property string|null $splatnet_str
  */
 class SalmonBoss2 extends ActiveRecord
 {

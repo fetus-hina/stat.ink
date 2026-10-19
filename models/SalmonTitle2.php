@@ -25,7 +25,7 @@ use const SORT_ASC;
  * @property integer $id
  * @property string $key
  * @property string $name
- * @property integer $splatnet
+ * @property integer|null $splatnet
  */
 class SalmonTitle2 extends ActiveRecord
 {

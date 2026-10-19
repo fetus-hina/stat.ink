@@ -17,10 +17,10 @@ use yii\db\ActiveRecord;
  *
  * @property integer $id
  * @property integer $schedule_id
- * @property integer $weapon_id
+ * @property integer|null $weapon_id
  *
  * @property SalmonSchedule2 $schedule
- * @property Weapon2 $weapon
+ * @property Weapon2|null $weapon
  */
 class SalmonWeapon2 extends ActiveRecord
 {

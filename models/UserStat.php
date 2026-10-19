@@ -22,16 +22,16 @@ use function time;
  *
  * @property integer $user_id
  * @property integer $battle_count
- * @property numeric-string $wp
- * @property numeric-string $wp_short
+ * @property numeric-string|null $wp
+ * @property numeric-string|null $wp_short
  * @property integer $total_kill
  * @property integer $total_death
  * @property integer $nawabari_count
- * @property numeric-string $nawabari_wp
+ * @property numeric-string|null $nawabari_wp
  * @property integer $nawabari_kill
  * @property integer $nawabari_death
  * @property integer $gachi_count
- * @property numeric-string $gachi_wp
+ * @property numeric-string|null $gachi_wp
  * @property integer $gachi_kill
  * @property integer $gachi_death
  * @property integer $total_kd_battle_count

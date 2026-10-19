@@ -34,9 +34,9 @@ use function substr;
  * @property string $key
  * @property string $name
  * @property string $short_name
- * @property integer $area
- * @property string $release_at
- * @property integer $splatnet
+ * @property integer|null $area
+ * @property string|null $release_at
+ * @property integer|null $splatnet
  */
 class Map2 extends ActiveRecord
 {

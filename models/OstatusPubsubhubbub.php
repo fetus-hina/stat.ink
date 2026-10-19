@@ -18,8 +18,8 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property integer $topic
  * @property string $callback
- * @property string $lease_until
- * @property string $secret
+ * @property string|null $lease_until
+ * @property string|null $secret
  * @property string $created_at
  * @property string $updated_at
  *

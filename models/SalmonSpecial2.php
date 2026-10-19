@@ -19,7 +19,7 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property string $key
  * @property string $name
- * @property integer $splatnet
+ * @property integer|null $splatnet
  * @property integer $special_id
  *
  * @property Special2 $special

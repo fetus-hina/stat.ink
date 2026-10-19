@@ -18,8 +18,8 @@ use yii\db\ActiveRecord;
  * @property integer $weapon_id
  * @property integer $version_id
  * @property numeric-string $damage
- * @property numeric-string $damage2
- * @property numeric-string $damage3
+ * @property numeric-string|null $damage2
+ * @property numeric-string|null $damage3
  *
  * @property SplatoonVersion2 $version
  * @property Weapon2 $weapon

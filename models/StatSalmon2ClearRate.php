@@ -25,12 +25,12 @@ use yii\db\ActiveRecord;
  * @property integer $fail_wave3
  * @property integer $fail_wiped
  * @property integer $fail_timed
- * @property numeric-string $avg_golden_eggs
- * @property numeric-string $sd_golden_eggs
- * @property numeric-string $avg_power_eggs
- * @property numeric-string $sd_power_eggs
- * @property numeric-string $avg_deaths
- * @property numeric-string $sd_deaths
+ * @property numeric-string|null $avg_golden_eggs
+ * @property numeric-string|null $sd_golden_eggs
+ * @property numeric-string|null $avg_power_eggs
+ * @property numeric-string|null $sd_power_eggs
+ * @property numeric-string|null $avg_deaths
+ * @property numeric-string|null $sd_deaths
  * @property string $last_data_at
  *
  * @property SalmonMap2 $stage

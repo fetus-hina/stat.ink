@@ -29,11 +29,11 @@ use const FILTER_VALIDATE_INT;
  *
  * @property integer $id
  * @property integer $user_id
- * @property integer $work_count
- * @property integer $total_golden_eggs
- * @property integer $total_eggs
- * @property integer $total_rescued
- * @property integer $total_point
+ * @property integer|null $work_count
+ * @property integer|null $total_golden_eggs
+ * @property integer|null $total_eggs
+ * @property integer|null $total_rescued
+ * @property integer|null $total_point
  * @property string $as_of
  * @property string $created_at
  *

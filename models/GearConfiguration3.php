@@ -17,9 +17,9 @@ use yii\db\ActiveRecord;
  *
  * @property integer $id
  * @property string $fingerprint
- * @property integer $ability_id
+ * @property integer|null $ability_id
  *
- * @property Ability3 $ability
+ * @property Ability3|null $ability
  * @property BattlePlayer3[] $battlePlayer3s
  * @property BattlePlayer3[] $battlePlayer3s0
  * @property BattlePlayer3[] $battlePlayer3s1

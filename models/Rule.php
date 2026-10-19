@@ -31,7 +31,7 @@ use const SORT_ASC;
  * @property SplapiRule[] $splapiRules
  * @property StatWeapon[] $statWeapons
  * @property Weapon[] $weapons
- * @property StatWeaponBattleCount $statWeaponBattleCount
+ * @property StatWeaponBattleCount|null $statWeaponBattleCount
  */
 final class Rule extends ActiveRecord
 {

@@ -49,33 +49,33 @@ use const SORT_DESC;
  * @property integer $id
  * @property integer $user_id
  * @property string $uuid
- * @property integer $splatnet_number
- * @property integer $stage_id
- * @property integer $clear_waves
- * @property integer $fail_reason_id
- * @property integer $title_before_id
- * @property integer $title_before_exp
- * @property integer $title_after_id
- * @property integer $title_after_exp
- * @property numeric-string $danger_rate
- * @property integer $shift_period
- * @property string $start_at
- * @property string $end_at
- * @property string $note
- * @property string $private_note
- * @property string $link_url
- * @property boolean $is_automated
- * @property integer $agent_id
- * @property string $remote_addr
- * @property integer $remote_port
+ * @property integer|null $splatnet_number
+ * @property integer|null $stage_id
+ * @property integer|null $clear_waves
+ * @property integer|null $fail_reason_id
+ * @property integer|null $title_before_id
+ * @property integer|null $title_before_exp
+ * @property integer|null $title_after_id
+ * @property integer|null $title_after_exp
+ * @property numeric-string|null $danger_rate
+ * @property integer|null $shift_period
+ * @property string|null $start_at
+ * @property string|null $end_at
+ * @property string|null $note
+ * @property string|null $private_note
+ * @property string|null $link_url
+ * @property boolean|null $is_automated
+ * @property integer|null $agent_id
+ * @property string|null $remote_addr
+ * @property integer|null $remote_port
  * @property string $created_at
  * @property string $updated_at
  *
- * @property Agent $agent
- * @property SalmonFailReason2 $failReason
- * @property SalmonMap2 $stage
- * @property SalmonTitle2 $titleBefore
- * @property SalmonTitle2 $titleAfter
+ * @property Agent|null $agent
+ * @property SalmonFailReason2|null $failReason
+ * @property SalmonMap2|null $stage
+ * @property SalmonTitle2|null $titleBefore
+ * @property SalmonTitle2|null $titleAfter
  * @property User $user
  * @property SalmonBossAppearance2[] $bossAppearances
  * @property SalmonBoss2[] $bosses

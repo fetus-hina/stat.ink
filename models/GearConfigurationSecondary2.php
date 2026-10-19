@@ -17,10 +17,10 @@ use const SORT_ASC;
  *
  * @property integer $id
  * @property integer $config_id
- * @property integer $ability_id
+ * @property integer|null $ability_id
  *
  * @property GearConfiguration2 $config
- * @property GearConfiguration2 $ability
+ * @property GearConfiguration2|null $ability
  */
 class GearConfigurationSecondary2 extends ActiveRecord
 {

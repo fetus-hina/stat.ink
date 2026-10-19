@@ -24,11 +24,11 @@ use const SORT_ASC;
  * @property integer $id
  * @property string $key
  * @property string $name
- * @property integer $strength_id
- * @property integer $weakness_id
+ * @property integer|null $strength_id
+ * @property integer|null $weakness_id
  *
- * @property Ability $strength
- * @property Ability $weakness
+ * @property Ability|null $strength
+ * @property Ability|null $weakness
  */
 class Brand extends ActiveRecord
 {

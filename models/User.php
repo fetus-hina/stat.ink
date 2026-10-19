@@ -54,18 +54,18 @@ use const SORT_DESC;
  * @property string|null $password
  * @property string $api_key
  * @property string $join_at
- * @property string $nnid
- * @property string $sw_friend_code
- * @property string $twitter
- * @property integer $ikanakama
- * @property integer $ikanakama2
- * @property integer $env_id
+ * @property string|null $nnid
+ * @property string|null $sw_friend_code
+ * @property string|null $twitter
+ * @property integer|null $ikanakama
+ * @property integer|null $ikanakama2
+ * @property integer|null $env_id
  * @property string $blackout
- * @property string $blackout_list
+ * @property string|null $blackout_list
  * @property integer $default_language_id
  * @property integer $region_id
  * @property integer $link_mode_id
- * @property string $email
+ * @property string|null $email
  * @property integer|null $email_lang_id
  * @property boolean $apikey_password_reset
  * @property boolean $hide_data_on_toppage
@@ -73,20 +73,20 @@ use const SORT_DESC;
  * @property Battle[] $battles
  * @property Battle2[] $battle2s
  * @property Language $defaultLanguage
- * @property Environment $env
+ * @property Environment|null $env
  * @property LoginWithDiscord|null $loginWithDiscord
  * @property LoginWithGoogle|null $loginWithGoogle
- * @property LoginWithTwitter $loginWithTwitter
- * @property OstatusRsa $ostatusRsa
+ * @property LoginWithTwitter|null $loginWithTwitter
+ * @property OstatusRsa|null $ostatusRsa
  * @property Region $region
  * @property LinkMode $linkMode
  * @property Slack[] $slacks
- * @property UserIcon $userIcon
+ * @property UserIcon|null $userIcon
  * @property UserPasskey[] $userPasskeys
  * @property UserPasskeyUser|null $userPasskeyUser
  * @property UserPasswordRecoveryKey[] $userPasswordRecoveryKeys
- * @property UserStat $userStat
- * @property UserStat2 $userStat2
+ * @property UserStat|null $userStat
+ * @property UserStat2|null $userStat2
  * @property UserWeapon[] $userWeapons
  * @property UserWeapon2[] $userWeapon2s
  * @property Weapon[] $weapons

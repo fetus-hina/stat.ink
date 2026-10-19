@@ -53,90 +53,90 @@ use const SORT_STRING;
  *
  * @property integer $id
  * @property integer $user_id
- * @property integer $rule_id
- * @property integer $map_id
- * @property integer $weapon_id
- * @property integer $level
- * @property integer $rank_id
- * @property boolean $is_win
- * @property integer $rank_in_team
- * @property integer $kill
- * @property integer $death
- * @property string $start_at
- * @property string $end_at
+ * @property integer|null $rule_id
+ * @property integer|null $map_id
+ * @property integer|null $weapon_id
+ * @property integer|null $level
+ * @property integer|null $rank_id
+ * @property boolean|null $is_win
+ * @property integer|null $rank_in_team
+ * @property integer|null $kill
+ * @property integer|null $death
+ * @property string|null $start_at
+ * @property string|null $end_at
  * @property string $at
  * @property integer|null $agent_id
- * @property integer $level_after
- * @property integer $rank_after_id
- * @property integer $rank_exp
- * @property integer $rank_exp_after
- * @property integer $cash
- * @property integer $cash_after
- * @property integer $lobby_id
+ * @property integer|null $level_after
+ * @property integer|null $rank_after_id
+ * @property integer|null $rank_exp
+ * @property integer|null $rank_exp_after
+ * @property integer|null $cash
+ * @property integer|null $cash_after
+ * @property integer|null $lobby_id
  * @property-read numeric-string|null $kill_ratio
  * @property-write float|string|null $kill_ratio
- * @property integer $gender_id
- * @property integer $fest_title_id
- * @property integer $fest_title_after_id
- * @property integer $fest_exp
- * @property integer $fest_exp_after
- * @property integer $my_team_color_hue
- * @property integer $his_team_color_hue
- * @property string $my_team_color_rgb
- * @property string $his_team_color_rgb
- * @property integer $my_point
- * @property integer $my_team_final_point
- * @property integer $his_team_final_point
- * @property numeric-string $my_team_final_percent
- * @property numeric-string $his_team_final_percent
- * @property boolean $is_knock_out
- * @property integer $my_team_count
- * @property integer $his_team_count
+ * @property integer|null $gender_id
+ * @property integer|null $fest_title_id
+ * @property integer|null $fest_title_after_id
+ * @property integer|null $fest_exp
+ * @property integer|null $fest_exp_after
+ * @property integer|null $my_team_color_hue
+ * @property integer|null $his_team_color_hue
+ * @property string|null $my_team_color_rgb
+ * @property string|null $his_team_color_rgb
+ * @property integer|null $my_point
+ * @property integer|null $my_team_final_point
+ * @property integer|null $his_team_final_point
+ * @property numeric-string|null $my_team_final_percent
+ * @property numeric-string|null $his_team_final_percent
+ * @property boolean|null $is_knock_out
+ * @property integer|null $my_team_count
+ * @property integer|null $his_team_count
  * @property integer $period
- * @property string $ua_custom
- * @property string $ua_variables
- * @property integer $env_id
+ * @property string|null $ua_custom
+ * @property string|null $ua_variables
+ * @property integer|null $env_id
  * @property boolean $is_automated
- * @property integer $headgear_id
- * @property integer $clothing_id
- * @property integer $shoes_id
- * @property string $link_url
- * @property string $note
- * @property string $private_note
- * @property integer $my_team_power
- * @property integer $his_team_power
- * @property integer $fest_power
- * @property integer $version_id
- * @property string $client_uuid
- * @property integer $agent_game_version_id
- * @property string $agent_game_version_date
- * @property integer $max_kill_combo
- * @property integer $max_kill_streak
+ * @property integer|null $headgear_id
+ * @property integer|null $clothing_id
+ * @property integer|null $shoes_id
+ * @property string|null $link_url
+ * @property string|null $note
+ * @property string|null $private_note
+ * @property integer|null $my_team_power
+ * @property integer|null $his_team_power
+ * @property integer|null $fest_power
+ * @property integer|null $version_id
+ * @property string|null $client_uuid
+ * @property integer|null $agent_game_version_id
+ * @property string|null $agent_game_version_date
+ * @property integer|null $max_kill_combo
+ * @property integer|null $max_kill_streak
  * @property boolean $use_for_entire
  * @property integer|null $bonus_id
  *
- * @property Agent $agent
- * @property Environment $env
- * @property FestTitle $festTitle
- * @property FestTitle $festTitleAfter
- * @property GearConfiguration $headgear
- * @property GearConfiguration $clothing
- * @property GearConfiguration $shoes
- * @property Gender $gender
- * @property Lobby $lobby
- * @property Map $map
- * @property Rank $rank
- * @property Rank $rankAfter
- * @property Rule $rule
+ * @property Agent|null $agent
+ * @property Environment|null $env
+ * @property FestTitle|null $festTitle
+ * @property FestTitle|null $festTitleAfter
+ * @property GearConfiguration|null $headgear
+ * @property GearConfiguration|null $clothing
+ * @property GearConfiguration|null $shoes
+ * @property Gender|null $gender
+ * @property Lobby|null $lobby
+ * @property Map|null $map
+ * @property Rank|null $rank
+ * @property Rank|null $rankAfter
+ * @property Rule|null $rule
  * @property User $user
- * @property Weapon $weapon
+ * @property Weapon|null $weapon
  * @property BattleDeathReason[] $battleDeathReasons
  * @property DeathReason[] $reasons
  * @property BattleImage[] $battleImages
  * @property BattlePlayer[] $battlePlayers
- * @property SplatoonVersion $splatoonVersion
- * @property SplatoonVersion $agentGameVersion
- * @property TurfwarWinBonus $bonus
+ * @property SplatoonVersion|null $splatoonVersion
+ * @property SplatoonVersion|null $agentGameVersion
+ * @property TurfwarWinBonus|null $bonus
  *
  * @property-read BattleImage|null $battleImageGear
  * @property-read BattleImage|null $battleImageJudge
