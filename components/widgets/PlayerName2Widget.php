@@ -96,7 +96,7 @@ class PlayerName2Widget extends Widget
 
     private function renderTopPlayer(?User $user): string
     {
-        if (!$this->player->top_500 ?? null) {
+        if (!($this->player->top_500 ?? null)) {
             return '';
         }
 
