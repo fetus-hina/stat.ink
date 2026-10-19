@@ -28,7 +28,8 @@ use yii\db\ActiveRecord;
  * @property integer $power_eggs
  * @property integer $rescues
  * @property integer $rescued
- * @property string $peak_danger_rate
+ * @property-read string $peak_danger_rate
+ * @property-write float|string $peak_danger_rate
  * @property integer $peak_title_id
  * @property integer $peak_title_exp
  * @property integer $boss_defeated

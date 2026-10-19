@@ -12,6 +12,7 @@ namespace app\models;
 use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\db\ExpressionInterface;
 
 /**
  * This is the model class for table "splatfest3_stats_power".
@@ -31,7 +32,8 @@ use yii\db\ActiveRecord;
  * @property double $p95
  * @property double $maximum
  * @property integer $histogram_width
- * @property string $last_posted_at
+ * @property-read string $last_posted_at
+ * @property-write string|ExpressionInterface $last_posted_at
  *
  * @property Splatfest3 $splatfest
  */

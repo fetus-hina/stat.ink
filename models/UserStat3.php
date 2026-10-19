@@ -12,6 +12,7 @@ namespace app\models;
 use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\db\ExpressionInterface;
 
 /**
  * This is the model class for table "user_stat3".
@@ -31,14 +32,20 @@ use yii\db\ActiveRecord;
  * @property integer $max_inked
  * @property integer $peak_rank_id
  * @property integer $peak_s_plus
- * @property string $peak_x_power
- * @property string $peak_fest_power
- * @property string $peak_season
+ * @property-read string $peak_x_power
+ * @property-write float|string $peak_x_power
+ * @property-read string $peak_fest_power
+ * @property-write float|string $peak_fest_power
+ * @property-read string $peak_season
+ * @property-write string|ExpressionInterface $peak_season
  * @property integer $current_rank_id
  * @property integer $current_s_plus
- * @property string $current_x_power
- * @property string $current_season
- * @property string $updated_at
+ * @property-read string $current_x_power
+ * @property-write float|string $current_x_power
+ * @property-read string $current_season
+ * @property-write string|ExpressionInterface $current_season
+ * @property-read string $updated_at
+ * @property-write string|ExpressionInterface $updated_at
  *
  * @property Rank3 $currentRank
  * @property Lobby3 $lobby

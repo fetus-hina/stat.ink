@@ -12,6 +12,7 @@ namespace app\models;
 use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\db\ExpressionInterface;
 
 /**
  * This is the model class for table "user_stat3_x_match".
@@ -28,11 +29,16 @@ use yii\db\ActiveRecord;
  * @property integer $specials
  * @property integer $inked
  * @property integer $max_inked
- * @property string $peak_x_power
- * @property string $peak_season
- * @property string $current_x_power
- * @property string $current_season
- * @property string $updated_at
+ * @property-read string $peak_x_power
+ * @property-write float|string $peak_x_power
+ * @property-read string $peak_season
+ * @property-write string|ExpressionInterface $peak_season
+ * @property-read string $current_x_power
+ * @property-write float|string $current_x_power
+ * @property-read string $current_season
+ * @property-write string|ExpressionInterface $current_season
+ * @property-read string $updated_at
+ * @property-write string|ExpressionInterface $updated_at
  *
  * @property Rule3 $rule
  * @property User $user

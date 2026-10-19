@@ -25,7 +25,8 @@ use yii\db\ActiveRecord;
  * @property integer $golden_quota
  * @property integer $golden_delivered
  * @property integer $golden_appearances
- * @property string $danger_rate
+ * @property-read string $danger_rate
+ * @property-write float|string $danger_rate
  *
  * @property SalmonEvent3 $event
  * @property Salmon3 $salmon

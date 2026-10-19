@@ -21,12 +21,18 @@ use yii\db\ActiveRecord;
  * @property integer $users
  * @property double $average
  * @property double $stddev
- * @property string $median
- * @property string $pct5
- * @property string $pct25
- * @property string $pct75
- * @property string $pct80
- * @property string $pct95
+ * @property-read string $median
+ * @property-write float|string $median
+ * @property-read string $pct5
+ * @property-write float|string $pct5
+ * @property-read string $pct25
+ * @property-write float|string $pct25
+ * @property-read string $pct75
+ * @property-write float|string $pct75
+ * @property-read string $pct80
+ * @property-write float|string $pct80
+ * @property-read string $pct95
+ * @property-write float|string $pct95
  * @property integer $histogram_width
  *
  * @property Rule3 $rule

@@ -12,6 +12,7 @@ namespace app\models;
 use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\db\ExpressionInterface;
 
 /**
  * This is the model class for table "weapon3".
@@ -23,7 +24,8 @@ use yii\db\ActiveRecord;
  * @property integer $special_id
  * @property integer $canonical_id
  * @property string $name
- * @property string $release_at
+ * @property-read string $release_at
+ * @property-write string|ExpressionInterface $release_at
  *
  * @property Battle3[] $battle3s
  * @property BattlePlayer3[] $battlePlayer3s

@@ -23,8 +23,10 @@ use yii\db\ActiveRecord;
  * @property integer $jobs
  * @property integer $clear_jobs
  * @property integer $clear_waves
- * @property string $max_danger_rate_cleared
- * @property string $max_danger_rate_played
+ * @property-read string $max_danger_rate_cleared
+ * @property-write float|string $max_danger_rate_cleared
+ * @property-read string $max_danger_rate_played
+ * @property-write float|string $max_danger_rate_played
  * @property double $team_golden_egg_avg
  * @property double $team_golden_egg_sd
  * @property integer $team_golden_egg_max

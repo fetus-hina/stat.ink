@@ -12,14 +12,17 @@ namespace app\models;
 use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\db\ExpressionInterface;
 
 /**
  * This is the model class for table "event_period3".
  *
  * @property integer $id
  * @property integer $schedule_id
- * @property string $start_at
- * @property string $end_at
+ * @property-read string $start_at
+ * @property-write string|ExpressionInterface $start_at
+ * @property-read string $end_at
+ * @property-write string|ExpressionInterface $end_at
  *
  * @property Event3StatsPowerPeriod $event3StatsPowerPeriod
  * @property Event3StatsPowerPeriodHistogram[] $event3StatsPowerPeriodHistograms
