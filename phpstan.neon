@@ -30,6 +30,22 @@ parameters:
     enableValidationRules: true
     aliases:
       '@app': %currentWorkingDirectory%
+    yiiAppTypes:
+      -
+        paths:
+          - %currentWorkingDirectory%/actions
+          - %currentWorkingDirectory%/assets
+          - %currentWorkingDirectory%/controllers
+          - %currentWorkingDirectory%/views
+        type: app\components\web\Application
+      -
+        paths:
+          - %currentWorkingDirectory%/commands
+        type: yii\console\Application
+      -
+        paths:
+          - %currentWorkingDirectory%
+        type: yii\console\Application|app\components\web\Application
     applicationConfigs:
       -
         paths:

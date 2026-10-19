@@ -14,6 +14,7 @@ use Yii;
 use app\components\helpers\UserLanguage;
 use app\components\helpers\UserTimeZone;
 use app\components\i18n\MachineTranslateHelper;
+use app\models\User;
 use yii\helpers\IpHelper;
 use yii\i18n\MessageSource;
 use yii\i18n\MissingTranslationEvent;
@@ -36,6 +37,9 @@ use function vsprintf;
 
 use const PHP_INT_MAX;
 
+/**
+ * @extends Base<User>
+ */
 class Application extends Base
 {
     public const COOKIE_MACHINE_TRANSLATION = 'language-machine-translation';
