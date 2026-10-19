@@ -34,10 +34,6 @@ use yii\helpers\Url;
 use yii\web\View;
 
 /**
- * @phpstan-import-type EventStats from EventTrait
- * @phpstan-import-type OverfishingStats from OverfishingTrait
- * @phpstan-import-type PlayerStats from PlayerTrait
- * @phpstan-import-type WeaponStats from WeaponTrait
  *
  * @var EventStats $eventStats
  * @var BigrunMap3|SalmonMap3|null $map

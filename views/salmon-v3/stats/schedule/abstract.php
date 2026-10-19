@@ -25,7 +25,6 @@ use yii\web\View;
 use yii\widgets\DetailView;
 
 /**
- * @phpstan-import-type OverfishingStats from OverfishingTrait
  *
  * @var Map3|SalmonMap3|null $map
  * @var OverfishingStats|null $overfishing

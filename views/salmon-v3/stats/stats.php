@@ -35,7 +35,6 @@ use yii\helpers\Url;
 use yii\web\View;
 
 /**
- * @phpstan-import-type EventStats from EventTrait
  *
  * @var EventStats $eventStats
  * @var Salmon3UserStatsGoldenEggIndividualHistogram[] $goldenEggIndividualHistogramData

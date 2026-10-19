@@ -14,7 +14,6 @@ use yii\helpers\Html;
 use yii\web\View;
 
 /**
- * @phpstan-import-type PlayerStats from PlayerTrait
  *
  * @var PlayerStats[] $playerStats
  * @var View $this

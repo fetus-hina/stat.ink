@@ -18,7 +18,6 @@ use yii\web\AssetManager;
 use yii\web\View;
 
 /**
- * @phpstan-import-type DailyData from SeasonXPowerAction
  *
  * @var Rule3 $rule
  * @var Season3 $season,

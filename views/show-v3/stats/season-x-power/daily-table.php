@@ -16,7 +16,6 @@ use yii\helpers\Html;
 use yii\web\View;
 
 /**
- * @phpstan-import-type DailyData from SeasonXPowerAction
  *
  * @var DailyData[] $dailyData
  * @var Rule3[] $rules

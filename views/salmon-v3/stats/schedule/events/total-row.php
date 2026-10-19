@@ -17,7 +17,6 @@ use yii\helpers\Html;
 use yii\web\View;
 
 /**
- * @phpstan-import-type EventStats from EventTrait
  *
  * @var EventStats $eventStats
  * @var User $user

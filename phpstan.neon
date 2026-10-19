@@ -19,6 +19,22 @@ parameters:
   scanDirectories:
     - deploy/vendor/deployer/deployer/src/
 
+  typeAliases:
+    DailyData: 'array{rule_id: int, date: string, count: int, avg: float, final: ?float, max: float, max_id: int, min: float}'
+    EventStats: 'array<int, array<int, array{tide_id: int, event_id: int, waves: int, cleared: int, total_quota: int, total_delivered: int}>>'
+    OverfishingStats: 'array{total: TotalEggs, waves: WaveStats[]}'
+    PlayerStats: 'array{name: string, number: string, jobs: int, cleared: int, waves: int, max_danger_rate: int|float|numeric-string|null, clear_danger_rate: int|float|numeric-string|null, total_golden_result: int|null, avg_golden_result: int|float|numeric-string|null, max_golden_result: int|float|numeric-string|null, total_golden: int|null, avg_golden: int|float|numeric-string|null, max_golden: int|null, total_rescue: int|null, avg_rescue: int|float|numeric-string|null, total_rescued: int|null, avg_rescued: int|float|numeric-string|null, total_boss: int|null, avg_boss: int|float|numeric-string|null}'
+    TotalEggs: 'array{total_3_night: int, total_2_night: int, total_1_night: int, total_0_night: int}'
+    WaveStats: 'array{event_id: int, tide_id: int, golden_eggs: int}'
+    WeaponStats: 'array{weapon_id: int, normal_waves: int, normal_cleared: int, xtra_waves: int, xtra_cleared: int}'
+    SAssists: '\app\models\StatWeapon3Assist[]|\app\models\StatWeapon3AssistPerVersion[]'
+    SDeaths: '\app\models\StatWeapon3Death[]|\app\models\StatWeapon3DeathPerVersion[]'
+    SInkeds: '\app\models\StatWeapon3Inked[]|\app\models\StatWeapon3InkedPerVersion[]'
+    SKillOrAssists: '\app\models\StatWeapon3KillOrAssist[]|\app\models\StatWeapon3KillOrAssistPerVersion[]'
+    SKills: '\app\models\StatWeapon3Kill[]|\app\models\StatWeapon3KillPerVersion[]'
+    SSpecials: '\app\models\StatWeapon3Special[]|\app\models\StatWeapon3SpecialPerVersion[]'
+    DataType: 'array{assist: SAssists, death: SDeaths, inked: SInkeds, ka: SKillOrAssists, kill: SKills, special: SSpecials}'
+
   bootstrapFiles:
     - vendor/autoload.php
     - vendor/yiisoft/yii2/Yii.php
