@@ -7,6 +7,7 @@
 
 namespace app\models\query;
 
+use Yii;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\BattleSummarizer;
 use app\components\helpers\Resource;

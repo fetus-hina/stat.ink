@@ -669,10 +669,10 @@ class UserStat2 extends ActiveRecord
                         'ELSE {{battle2}}.[[rank_after_exp]]',
                     ])),
                 ]),
-                'xpower' => vsprintf('(CASE %s END)', [
+                'xpower' => sprintf('(CASE %s END)', implode(' ', [
                     'WHEN {{battle2}}.[[x_power_after]] IS NOT NULL THEN {{battle2}}.[[x_power_after]]',
                     'WHEN {{battle2}}.[[x_power]] IS NOT NULL THEN {{battle2}}.[[x_power]]',
-                ]),
+                ])),
             ]);
         return $query->one() ?: [];
     }

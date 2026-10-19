@@ -347,7 +347,7 @@ class Battle2FilterWidget extends Widget
         return [
             Yii::t('app', 'Sub Weapon') => (function () use ($weaponIdList): array {
                 $ret = [];
-                $list = SubWeapon2::find()
+                $list = Subweapon2::find()
                     ->innerJoinWith('weapons')
                     ->andWhere(['{{weapon2}}.[[id]]' => $weaponIdList])
                     ->asArray()

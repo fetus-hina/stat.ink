@@ -329,7 +329,7 @@ class Battle2 extends ActiveRecord
 
                         case '+': // sub weapon
                             $this->innerJoinWith('weapon');
-                            $sub = SubWeapon2::findOne(['key' => substr($form->weapon, 1)]);
+                            $sub = Subweapon2::findOne(['key' => substr($form->weapon, 1)]);
                             $and[] = ['weapon2.subweapon_id' => $sub->id];
                             break;
 

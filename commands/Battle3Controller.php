@@ -16,6 +16,7 @@ use app\models\Battle3;
 use app\models\BattlePlayer3;
 use app\models\Lobby3;
 use yii\console\Controller;
+use yii\console\ExitCode;
 use yii\db\Connection;
 use yii\db\Query;
 use yii\db\Transaction;
