@@ -9,18 +9,22 @@ declare(strict_types=1);
 
 use app\assets\EntireKnockoutAsset;
 use app\assets\TableResponsiveForceAsset;
+use app\components\helpers\TypeHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use statink\yii2\stages\spl1\Spl1Stage;
 use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\web\Controller;
 use yii\web\View;
 
 /**
  * @var View $this
+ * @var array<string, stdClass> $data
+ * @var array<string, string> $rules
  */
 
-$this->context->layout = 'main';
+TypeHelper::instanceOf($this->context, Controller::class)->layout = 'main';
 
 $title = Yii::t('app-entire', 'Knockout Rate');
 $this->title = implode(' | ', [

@@ -24,6 +24,7 @@ use function substr;
  *
  * @property TimezoneCountry[] $timezoneCountries
  * @property Timezone[] $timezones
+ * @property-read int[]|null $regionalIndicatorSymbols
  */
 class Country extends ActiveRecord
 {

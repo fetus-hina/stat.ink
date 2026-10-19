@@ -8,10 +8,10 @@
 namespace app\actions\fest;
 
 use Yii;
+use app\models\FestViewForm;
 use app\models\Splatfest;
 use app\models\SplatfestBattleSummary;
 use app\models\SplatfestTeam;
-use yii\base\DynamicModel;
 use yii\web\NotFoundHttpException;
 use yii\web\ViewAction as BaseAction;
 
@@ -20,6 +20,9 @@ use function strtotime;
 
 use const SORT_ASC;
 
+/**
+ * @property-read array $results
+ */
 class ViewAction extends BaseAction
 {
     public $fest;
@@ -59,15 +62,10 @@ class ViewAction extends BaseAction
     private function createAndValidateRequestForm()
     {
         $req = Yii::$app->request;
-        $model = DynamicModel::validateData(
+        $model = FestViewForm::validateData(
             [
                 'region' => $req->get('region'),
                 'order' => $req->get('order'),
-            ],
-            [
-                [['region', 'order'], 'required'],
-                [['region'], 'string', 'min' => 2, 'max' => 2],
-                [['order'], 'integer', 'min' => 1],
             ],
         );
         if ($model->validate()) {

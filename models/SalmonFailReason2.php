@@ -27,6 +27,8 @@ use const SORT_ASC;
  * @property string $name
  *
  * @property Salmon2[] $salmon2s
+ * @property string|null $color
+ * @property string|null $short_name
  */
 class SalmonFailReason2 extends ActiveRecord
 {

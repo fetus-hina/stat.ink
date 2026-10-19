@@ -96,7 +96,7 @@ $isApple = str_contains($ua, 'iPad') || str_contains($ua, 'iPhone') || str_conta
     'itemprop' => true,
     'proptype' => 'http://schema.org/WebPage',
     'data' => [
-      'theme' => Yii::$app->theme->theme,
+      'theme' => Yii::$app->theme->getTheme(),
     ],
     'class' => [
       Yii::$app->theme->isDarkTheme ? 'theme-dark' : 'theme-light',

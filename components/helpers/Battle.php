@@ -11,7 +11,6 @@ namespace app\components\helpers;
 
 use DateInterval;
 use DateTimeImmutable;
-use DateTimeInterface;
 use DateTimeZone;
 use Yii;
 use app\models\Battle as BattleModel;
@@ -63,14 +62,14 @@ class Battle
     }
 
     /**
-     * @return array{DateTimeInterface, DateTimeInterface}
+     * @return array{DateTimeImmutable, DateTimeImmutable}
      */
     public static function periodToRange2DT(int $period, int $offset = 0): array
     {
         [$from, $to] = static::periodToRange2($period, $offset);
         return [
-            static::timestamp2datetime($from),
-            static::timestamp2datetime($to),
+            self::timestamp2datetime($from),
+            self::timestamp2datetime($to),
         ];
     }
 

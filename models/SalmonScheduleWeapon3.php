@@ -19,12 +19,12 @@ use yii\db\ActiveRecord;
  *
  * @property integer $id
  * @property integer $schedule_id
- * @property integer $weapon_id
- * @property integer $random_id
+ * @property integer|null $weapon_id
+ * @property integer|null $random_id
  *
- * @property SalmonRandom3 $random
+ * @property SalmonRandom3|null $random
  * @property SalmonSchedule3 $schedule
- * @property SalmonWeapon3 $weapon
+ * @property SalmonWeapon3|null $weapon
  */
 class SalmonScheduleWeapon3 extends ActiveRecord
 {

@@ -14,20 +14,23 @@ use ParagonIE\ConstantTime\Base32;
 use RangeException;
 use Yii;
 use app\models\AgentGroup;
+use app\models\EntireAgentForm;
 use app\models\StatAgentUser;
 use yii\base\Action;
-use yii\base\DynamicModel;
 use yii\web\NotFoundHttpException;
 
 use function array_keys;
 use function array_values;
 use function ksort;
 use function max;
-use function mb_check_encoding;
 use function min;
 
 use const SORT_ASC;
 
+/**
+ * @property-read AgentGroup[] $combineds
+ * @property-read array $postStats
+ */
 final class AgentAction extends Action
 {
     public $form;
@@ -40,31 +43,7 @@ final class AgentAction extends Action
             ->createCommand("SET timezone TO 'UTC-6'")
             ->execute();
 
-        $form = new DynamicModel(['b32name' => Yii::$app->request->get('b32name')]);
-        $form->addRule('b32name', 'required')
-            ->addRule('b32name', 'match', ['pattern' => '/^[a-zA-Z2-7]+$/'])
-            ->addRule('b32name', function ($attr, $conf) use ($form) {
-                try {
-                    $decoded = Base32::decode($form->$attr);
-                    if ($decoded === '') {
-                        $form->addError($attr, 'invalid name');
-                        return;
-                    }
-                } catch (RangeException $e) {
-                    $form->addError($attr, 'invalid name');
-                    return;
-                }
-
-                if (!mb_check_encoding($decoded, 'UTF-8')) {
-                    $form->addError($attr, 'broken encoding');
-                    return;
-                }
-
-                if (!StatAgentUser::findOne(['agent' => $decoded])) {
-                    $form->addError($attr, 'not found');
-                    return;
-                }
-            });
+        $form = new EntireAgentForm(['b32name' => Yii::$app->request->get('b32name')]);
         if (!$form->validate()) {
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
         }

@@ -23,7 +23,7 @@ use function version_compare;
  * @property integer $id
  * @property integer $main_weapon_id
  * @property integer $version_id
- * @property string $damage
+ * @property numeric-string $damage
  *
  * @property SplatoonVersion $version
  * @property Weapon $mainWeapon

@@ -14,8 +14,8 @@ use Yii;
 use app\models\Region2;
 use app\models\Splatfest2;
 use app\models\User;
+use app\models\UserStatSplatfest2Form;
 use yii\base\Action;
-use yii\base\DynamicModel;
 use yii\web\NotFoundHttpException;
 
 use const SORT_ASC;
@@ -61,23 +61,15 @@ final class UserStatSplatfestAction extends Action
         }
     }
 
-    private function processInput(): DynamicModel
+    private function processInput(): UserStatSplatfest2Form
     {
         $request = Yii::$app->request;
-        return DynamicModel::validateData(
+        return UserStatSplatfest2Form::validateData(
             ['region' => $request->get('region')],
-            [
-                [['region'], 'default', 'value' => null],
-                [['region'], 'string'],
-                [['region'], 'exist',
-                    'targetClass' => Region2::class,
-                    'targetAttribute' => ['region' => 'key'],
-                ],
-            ],
         );
     }
 
-    private function initRegion(DynamicModel $model): void
+    private function initRegion(UserStatSplatfest2Form $model): void
     {
         if (
             $model->region !== null &&

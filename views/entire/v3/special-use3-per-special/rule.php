@@ -7,11 +7,13 @@
 
 declare(strict_types=1);
 
+use app\models\Rule3;
 use app\models\Special3;
 use yii\helpers\Html;
 use yii\web\View;
 
 /**
+ * @var Rule3 $rule
  * @var Special3 $special
  * @var View $this
  * @var array<int, array{battles: int, wins: int}> $data

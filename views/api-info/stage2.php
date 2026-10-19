@@ -8,21 +8,27 @@
 declare(strict_types=1);
 
 use app\assets\TableResponsiveForceAsset;
+use app\components\helpers\TypeHelper;
 use app\components\helpers\WeaponShortener;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
+use app\models\Language;
+use app\models\Map2;
 use statink\yii2\sortableTable\SortableTableAsset;
 use yii\bootstrap\Html;
+use yii\web\Controller;
 use yii\web\View;
 
 /**
+ * @var Language[] $langs
+ * @var Map2[] $stages
  * @var View $this
  */
 
 TableResponsiveForceAsset::register($this);
 
-$this->context->layout = 'main';
+TypeHelper::instanceOf($this->context, Controller::class)->layout = 'main';
 $this->title = Yii::t('app-api-info', 'API Info: Stages (Splatoon 2)');
 
 $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);

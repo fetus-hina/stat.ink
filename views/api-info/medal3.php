@@ -7,21 +7,24 @@
 
 declare(strict_types=1);
 
+use app\components\helpers\TypeHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\CcBy;
 use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
+use app\models\Language;
 use app\models\MedalCanonical3;
 use yii\helpers\Html;
+use yii\web\Controller;
 use yii\web\View;
 
 /**
  * @var MedalCanonical3[] $medals
  * @var View $this
- * @var array[] $langs
+ * @var Language[] $langs
  */
 
-$this->context->layout = 'main';
+TypeHelper::instanceOf($this->context, Controller::class)->layout = 'main';
 $this->title = Yii::t('app-api-info', 'API Info: Medals (Splatoon 3)');
 
 $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary']);

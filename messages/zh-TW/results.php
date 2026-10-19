@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 return [
     '24H Win %' => '最近一天勝率',
+    '?' => '?',
     'Assist' => '助攻',
     'Assists' => '助攻',
     'Avg Assists' => '平均助攻數',

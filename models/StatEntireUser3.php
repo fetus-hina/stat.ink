@@ -11,11 +11,13 @@ namespace app\models;
 
 use Override;
 use yii\db\ActiveRecord;
+use yii\db\ExpressionInterface;
 
 /**
  * This is the model class for table "stat_entire_user3".
  *
- * @property string $date
+ * @property-read string $date
+ * @property-write string|ExpressionInterface $date
  * @property integer $battles
  * @property integer $users
  */

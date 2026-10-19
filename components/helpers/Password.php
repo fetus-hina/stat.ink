@@ -34,7 +34,7 @@ class Password
 {
     public static function hash(string $password): string
     {
-        $algo = static::currentAlgo();
+        $algo = self::currentAlgo();
         return password_hash(
             self::preprocess($password, $algo),
             $algo,
@@ -71,7 +71,7 @@ class Password
 
     public static function needsRehash(string $hash): bool
     {
-        return password_needs_rehash($hash, static::currentAlgo());
+        return password_needs_rehash($hash, self::currentAlgo());
     }
 
     private static function preprocess(string $password, $algo): string
@@ -86,7 +86,7 @@ class Password
 
     private static function detectAlgorithm(string $hash)
     {
-        foreach (static::algoList() as $algoInfo) {
+        foreach (self::algoList() as $algoInfo) {
             foreach ($algoInfo['prefixes'] as $prefix) {
                 if (str_starts_with($hash, $prefix)) {
                     return $algoInfo['algo'];
@@ -106,7 +106,7 @@ class Password
         // 7.3.x : PASSWORD_ARGON2ID
         // が選択されるはず
         $phpVersion = ArrayHelper::getValue(Yii::$app->params, 'minimumPHP', '7.1.0');
-        foreach (static::algoList() as $algoInfo) {
+        foreach (self::algoList() as $algoInfo) {
             if (version_compare($phpVersion, $algoInfo['php'], '>=')) {
                 return $algoInfo['algo'];
             }

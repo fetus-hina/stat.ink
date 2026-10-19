@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 use app\models\Salmon3;
 use app\models\User;
-use yii\base\Widget;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\View;
@@ -26,7 +25,7 @@ echo DetailView::widget([
   'options' => [
     'class' => ['table', 'table-striped'],
   ],
-  'template' => function (array $attribute, $index, Widget $widget): ?string {
+  'template' => function (array $attribute, $index, DetailView $widget): ?string {
     if ($attribute['value'] === null) {
       return null;
     }

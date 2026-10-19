@@ -8,12 +8,10 @@
 namespace app\actions\downloadStats;
 
 use Yii;
-use app\models\Charset;
-use app\models\Language;
+use app\models\DownloadStatsForm;
 use app\models\Map;
 use app\models\Rule;
 use app\models\Weapon;
-use yii\base\DynamicModel;
 use yii\web\BadRequestHttpException;
 use yii\web\ViewAction;
 
@@ -25,24 +23,12 @@ abstract class BaseAction extends ViewAction
     {
         parent::init();
         $req = Yii::$app->request;
-        $config = DynamicModel::validateData(
+        $config = DownloadStatsForm::validateData(
             [
                 'lang' => $req->get('lang'),
                 'charset' => $req->get('charset'),
                 'bom' => $req->get('bom'),
                 'tsv' => $req->get('tsv'),
-            ],
-            [
-                [['lang', 'charset'], 'string'],
-                [['bom', 'tsv'], 'boolean'],
-                [['lang'], 'exist', 'skipOnError' => true,
-                    'targetClass' => Language::class,
-                    'targetAttribute' => 'lang',
-                ],
-                [['charset'], 'exist', 'skipOnError' => true,
-                    'targetClass' => Charset::class,
-                    'targetAttribute' => ['charset' => 'php_name'],
-                ],
             ],
         );
         if ($config->hasErrors()) {

@@ -13,9 +13,9 @@ use DateTime;
 use DateTimeImmutable;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
+use app\models\InternalActivityForm;
 use app\models\User;
 use yii\base\Action;
-use yii\base\DynamicModel;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
 use yii\web\Response;
@@ -59,22 +59,13 @@ final class ActivityAction extends Action
         $this->resp->data = $this->makeData($user, $from, $to, $form->only);
     }
 
-    private function getInputPseudoForm(): DynamicModel
+    private function getInputPseudoForm(): InternalActivityForm
     {
         $req = Yii::$app->getRequest();
-        return DynamicModel::validateData(
+        return InternalActivityForm::validateData(
             [
                 'screen_name' => $req->get('screen_name'),
                 'only' => $req->get('only'),
-            ],
-            [
-                [['screen_name'], 'required'],
-                [['screen_name', 'only'], 'string'],
-                [['screen_name'], 'exist', 'skipOnError' => true,
-                    'targetClass' => User::class,
-                    'targetAttribute' => 'screen_name',
-                ],
-                [['only'], 'in', 'range' => ['spl1', 'spl2', 'spl3', 'salmon2', 'salmon3']],
             ],
         );
     }

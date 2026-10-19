@@ -21,56 +21,56 @@ use yii\db\ActiveRecord;
  * @property integer $weapon_id
  * @property integer $battles
  * @property integer $wins
- * @property double $avg_kill
- * @property double $sd_kill
+ * @property double|null $avg_kill
+ * @property double|null $sd_kill
  * @property integer $min_kill
- * @property integer $p05_kill
- * @property integer $p25_kill
- * @property integer $p50_kill
- * @property integer $p75_kill
- * @property integer $p95_kill
+ * @property integer|null $p05_kill
+ * @property integer|null $p25_kill
+ * @property integer|null $p50_kill
+ * @property integer|null $p75_kill
+ * @property integer|null $p95_kill
  * @property integer $max_kill
- * @property integer $mode_kill
- * @property double $avg_assist
- * @property double $sd_assist
+ * @property integer|null $mode_kill
+ * @property double|null $avg_assist
+ * @property double|null $sd_assist
  * @property integer $min_assist
- * @property integer $p05_assist
- * @property integer $p25_assist
- * @property integer $p50_assist
- * @property integer $p75_assist
- * @property integer $p95_assist
+ * @property integer|null $p05_assist
+ * @property integer|null $p25_assist
+ * @property integer|null $p50_assist
+ * @property integer|null $p75_assist
+ * @property integer|null $p95_assist
  * @property integer $max_assist
- * @property integer $mode_assist
- * @property double $avg_death
- * @property double $sd_death
+ * @property integer|null $mode_assist
+ * @property double|null $avg_death
+ * @property double|null $sd_death
  * @property integer $min_death
- * @property integer $p05_death
- * @property integer $p25_death
- * @property integer $p50_death
- * @property integer $p75_death
- * @property integer $p95_death
+ * @property integer|null $p05_death
+ * @property integer|null $p25_death
+ * @property integer|null $p50_death
+ * @property integer|null $p75_death
+ * @property integer|null $p95_death
  * @property integer $max_death
- * @property integer $mode_death
- * @property double $avg_special
- * @property double $sd_special
+ * @property integer|null $mode_death
+ * @property double|null $avg_special
+ * @property double|null $sd_special
  * @property integer $min_special
- * @property integer $p05_special
- * @property integer $p25_special
- * @property integer $p50_special
- * @property integer $p75_special
- * @property integer $p95_special
+ * @property integer|null $p05_special
+ * @property integer|null $p25_special
+ * @property integer|null $p50_special
+ * @property integer|null $p75_special
+ * @property integer|null $p95_special
  * @property integer $max_special
- * @property integer $mode_special
- * @property double $avg_inked
- * @property double $sd_inked
+ * @property integer|null $mode_special
+ * @property double|null $avg_inked
+ * @property double|null $sd_inked
  * @property integer $min_inked
- * @property integer $p05_inked
- * @property integer $p25_inked
- * @property integer $p50_inked
- * @property integer $p75_inked
- * @property integer $p95_inked
+ * @property integer|null $p05_inked
+ * @property integer|null $p25_inked
+ * @property integer|null $p50_inked
+ * @property integer|null $p75_inked
+ * @property integer|null $p95_inked
  * @property integer $max_inked
- * @property integer $mode_inked
+ * @property integer|null $mode_inked
  *
  * @property Splatfest3 $fest
  * @property Lobby3 $lobby

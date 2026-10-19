@@ -22,6 +22,10 @@ use yii\web\View;
  * @var array<string, array<string, array>> $mapStats
  */
 
+// Empty statement on purpose: without it, PHPStan attaches the @var block above
+// to the foreach and the closures in the loop cannot see $this and the others.
+;
+
 foreach ($maps as $mapKey => $map) {
   echo '<tr>';
   echo $this->render('cell-map', compact('map', 'user'));

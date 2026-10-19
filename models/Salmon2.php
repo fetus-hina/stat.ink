@@ -57,7 +57,7 @@ use const SORT_DESC;
  * @property integer $title_before_exp
  * @property integer $title_after_id
  * @property integer $title_after_exp
- * @property string $danger_rate
+ * @property numeric-string $danger_rate
  * @property integer $shift_period
  * @property string $start_at
  * @property string $end_at
@@ -83,6 +83,9 @@ use const SORT_DESC;
  * @property SalmonWave2[] $salmonWave2s
  *
  * @property-read SalmonWave2[] $waves
+ * @property-read bool $isEditable
+ * @property-read SalmonPlayer2|null $myData
+ * @property-read array|null $quota
  */
 class Salmon2 extends ActiveRecord
 {

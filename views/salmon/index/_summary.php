@@ -10,6 +10,12 @@ declare(strict_types=1);
 use app\components\i18n\Formatter;
 use app\components\widgets\BattleSummaryItemWidget;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var View $this
+ * @var array<string, mixed> $summary
+ */
 
 $fmt = Yii::createObject([
     'class' => Formatter::class,

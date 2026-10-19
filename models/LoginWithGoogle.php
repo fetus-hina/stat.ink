@@ -27,7 +27,7 @@ use function headers_sent;
  *
  * @property User $user
  */
-final class LoginWithGoogle extends ActiveRecord
+final class LoginWithGoogle extends ActiveRecord implements OAuth2LoginLinkInterface
 {
     /**
      * @inheritdoc

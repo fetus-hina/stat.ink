@@ -106,7 +106,7 @@ final class ColorSchemeDialog extends Dialog
 
     private function renderScheme(string $key, string $name): string
     {
-        if ($key === Yii::$app->theme->theme) {
+        if ($key === Yii::$app->theme->getTheme()) {
             return Html::tag(
                 'div',
                 Html::encode($name),

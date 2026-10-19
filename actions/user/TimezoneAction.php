@@ -8,8 +8,7 @@
 namespace app\actions\user;
 
 use Yii;
-use app\models\Timezone;
-use yii\base\DynamicModel;
+use app\models\UserTimezoneForm;
 use yii\web\Cookie;
 use yii\web\ViewAction as BaseAction;
 
@@ -53,15 +52,6 @@ class TimezoneAction extends BaseAction
 
     private function makeValidationModel()
     {
-        return DynamicModel::validateData(
-            ['timezone' => null],
-            [
-                [['timezone'], 'required'],
-                [['timezone'], 'exist',
-                    'targetClass' => Timezone::className(),
-                    'targetAttribute' => 'identifier',
-                ],
-            ],
-        );
+        return UserTimezoneForm::validateData(['timezone' => null]);
     }
 }

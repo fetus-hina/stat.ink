@@ -26,6 +26,9 @@ use function sprintf;
 use function time;
 use function vsprintf;
 
+/**
+ * @property-read bool $isDarkTheme
+ */
 class Theme extends Component
 {
     private ?string $theme = null;

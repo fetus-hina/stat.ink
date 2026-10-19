@@ -26,7 +26,7 @@ final class RenameScreenNameForm extends Model
                 'message' => Yii::t('app-user', '{attribute} must be at most 15 alphanumeric or underscore characters.'),
             ],
             [['screen_name'], 'compare',
-                'compareValue' => Yii::$app->user->identity?->screen_name,
+                'compareValue' => Yii::$app->user->getIdentity()?->screen_name,
                 'operator' => '!==',
                 'message' => Yii::t('app-user', 'You cannot use the same {attribute} as your current one.', [
                     'attribute' => Yii::t('app', 'Screen Name'),

@@ -21,8 +21,10 @@ use app\components\widgets\Label;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\UserMiniInfo2;
 use app\models\Battle2;
+use app\models\Battle2FilterForm;
 use app\models\User;
 use yii\bootstrap\ActiveForm;
+use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -30,8 +32,12 @@ use yii\web\View;
 use yii\widgets\ListView;
 
 /**
+ * @var ActiveDataProvider $battleDataProvider
+ * @var Battle2FilterForm $filter
  * @var User $user
  * @var View $this
+ * @var stdClass $summary
+ * @var string $permLink
  */
 
 BattleListAsset::register($this);

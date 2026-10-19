@@ -7,12 +7,11 @@
 
 declare(strict_types=1);
 
-use yii\base\Model;
 use yii\helpers\Html;
 use yii\web\View;
 
 /**
- * @var Model[] $data
+ * @var Weapon3Stat[] $data
  * @var View $this
  * @var string $xLabel
  * @var string|string[]|callable $xGet

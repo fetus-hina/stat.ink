@@ -8,11 +8,13 @@
 declare(strict_types=1);
 
 use app\assets\PhotoSwipeAsset;
+use app\models\BattleImage2;
 use yii\bootstrap\Html;
 use yii\helpers\Url;
 use yii\web\View;
 
 /**
+ * @var (BattleImage2|null)[] $images
  * @var View $this
  */
 

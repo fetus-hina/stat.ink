@@ -48,15 +48,6 @@ use function version_compare;
 use const SORT_ASC;
 use const SORT_DESC;
 
-/**
- * @phpstan-type SAssists StatWeapon3Assist[]|StatWeapon3AssistPerVersion[]
- * @phpstan-type SDeaths StatWeapon3Death[]|StatWeapon3DeathPerVersion[]
- * @phpstan-type SInkeds StatWeapon3Inked[]|StatWeapon3InkedPerVersion[]
- * @phpstan-type SKillOrAssists StatWeapon3KillOrAssist[]|StatWeapon3KillOrAssistPerVersion[]
- * @phpstan-type SKills StatWeapon3Kill[]|StatWeapon3KillPerVersion[]
- * @phpstan-type SSpecials StatWeapon3Special[]|StatWeapon3SpecialPerVersion[]
- * @phsptan-type DataType array{assist: SAssists, death: SDeaths, inked: SInkeds, ka: SKillOrAssists, kill: SKills, special: SSpecials}
- */
 final class Weapon3Action extends Action
 {
     public function run(

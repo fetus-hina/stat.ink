@@ -40,8 +40,8 @@ final class Gear2Action extends Action
             ->andWhere(['type_id' => $type->id])
             ->all();
         usort($gears, fn (Gear2 $a, Gear2 $b): int => strnatcasecmp(
-            $a->translatedName,
-            $b->translatedName,
+            $a->getTranslatedName(),
+            $b->getTranslatedName(),
         ));
         $langs = Language::find()->standard()->all();
         $sysLang = Yii::$app->language;

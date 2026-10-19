@@ -45,7 +45,6 @@ $tabs = [
   [
     'id' => '1',
     'encode' => false,
-    'encode' => false,
     'label' => implode(' ', [
       Icon::splatoon1(),
       Html::encode(Yii::t('app', 'Splatoon')),

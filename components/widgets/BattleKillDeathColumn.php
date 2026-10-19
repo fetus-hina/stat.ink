@@ -19,6 +19,9 @@ use function array_map;
 use function implode;
 use function vsprintf;
 
+/**
+ * @property-read float|null $killRatio
+ */
 final class BattleKillDeathColumn extends Widget
 {
     public ?int $kill = null;

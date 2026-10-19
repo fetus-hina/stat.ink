@@ -10,8 +10,10 @@ declare(strict_types=1);
 namespace app\actions\user;
 
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\RenameScreenNameForm;
 use yii\base\Action;
+use yii\web\Controller;
 use yii\web\Response;
 use yii\web\ServerErrorHttpException;
 
@@ -39,7 +41,7 @@ final class EditScreenNameAction extends Action
                 Yii::$app->session->regenerateID(true);
             }
 
-            return $this->controller->redirect(['/user/profile']);
+            return TypeHelper::instanceOf($this->controller, Controller::class)->redirect(['/user/profile']);
         }
 
         return $this->controller->render('edit-screen-name', [

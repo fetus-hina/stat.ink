@@ -223,7 +223,7 @@ class Api2MarkdownController extends Controller
                 }
             }
         }
-        echo static::createTable($data);
+        echo self::createTable($data);
         return 0;
         // }}}
     }
@@ -293,7 +293,7 @@ class Api2MarkdownController extends Controller
             ];
             // }}}
         }
-        echo static::createTable($data);
+        echo self::createTable($data);
         return 0;
         // }}}
     }
@@ -343,7 +343,7 @@ class Api2MarkdownController extends Controller
             ];
             // }}}
         }
-        echo static::createTable($data);
+        echo self::createTable($data);
         return 0;
         // }}}
     }
@@ -385,7 +385,7 @@ class Api2MarkdownController extends Controller
             ];
             // }}}
         }
-        echo static::createTable($data);
+        echo self::createTable($data);
         return 0;
         // }}}
     }
@@ -435,7 +435,7 @@ class Api2MarkdownController extends Controller
             ];
             // }}}
         }
-        echo static::createTable($data);
+        echo self::createTable($data);
         return 0;
         // }}}
     }
@@ -492,7 +492,7 @@ class Api2MarkdownController extends Controller
             ];
             // }}}
         }
-        echo static::createTable($data);
+        echo self::createTable($data);
         return 0;
         // }}}
     }
@@ -542,7 +542,7 @@ class Api2MarkdownController extends Controller
             ];
             // }}}
         }
-        echo static::createTable($data);
+        echo self::createTable($data);
         return 0;
         // }}}
     }
@@ -592,7 +592,7 @@ class Api2MarkdownController extends Controller
             ];
             // }}}
         }
-        echo static::createTable($data);
+        echo self::createTable($data);
         return 0;
         // }}}
     }
@@ -648,7 +648,7 @@ class Api2MarkdownController extends Controller
                 implode('<br>', $remarks),
             ];
         }
-        echo static::createTable($data);
+        echo self::createTable($data);
         return 0;
         // }}}
     }
@@ -698,7 +698,7 @@ class Api2MarkdownController extends Controller
                 implode('<br>', $remarks),
             ];
         }
-        echo static::createTable($data);
+        echo self::createTable($data);
         return 0;
         // }}}
     }
@@ -728,7 +728,7 @@ class Api2MarkdownController extends Controller
                 $stage['splatnet_hint'] ? sprintf('`%s`', $stage['splatnet_hint']) : ' ',
             ];
         }
-        echo static::createTable($data);
+        echo self::createTable($data);
         return 0;
         // }}}
     }
@@ -739,7 +739,7 @@ class Api2MarkdownController extends Controller
         $widths = [];
         foreach ($rows as $row) {
             foreach (array_values($row) as $i => $column) {
-                $w = static::calcStringWidth($column);
+                $w = self::calcStringWidth($column);
                 $widths[$i] = max($widths[$i] ?? 0, $w);
             }
         }
@@ -764,11 +764,11 @@ class Api2MarkdownController extends Controller
     private static function createTable(array $rows): string
     {
         // {{{
-        $widths = static::calcWidths($rows);
+        $widths = self::calcWidths($rows);
 
         $result = '';
         foreach (array_values($rows) as $i => $row) {
-            $result .= static::createTableRow($row, $widths) . "\n";
+            $result .= self::createTableRow($row, $widths) . "\n";
             if ($i === 0) {
                 $result .= sprintf("|%s|\n", implode('|', array_map(
                     fn (int $cellWidth): string => str_repeat('-', $cellWidth),

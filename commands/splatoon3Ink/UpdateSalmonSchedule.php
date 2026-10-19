@@ -259,7 +259,7 @@ trait UpdateSalmonSchedule
     }
 
     /**
-     * @param int|self::RANDOM_KEY|null $mapId
+     * @param int|self::RANDOM_MAP|null $mapId
      * @param array<SalmonWeapon3|SalmonRandom3|null> $weapons
      */
     private function registerSalmonScheduleImpl(
@@ -310,8 +310,6 @@ trait UpdateSalmonSchedule
             $model = Yii::createObject([
                 'class' => SalmonScheduleWeapon3::class,
                 'schedule_id' => $schedule->id,
-                'weapon_id' => null,
-                'random_id' => null,
             ]);
             if ($weapon instanceof SalmonWeapon3) {
                 $model->weapon_id = $weapon->id;

@@ -18,6 +18,9 @@ use function is_bool;
 use function is_scalar;
 use function trim;
 
+/**
+ * @extends Behavior<Model>
+ */
 class TrimAttributesBehavior extends Behavior
 {
     /**

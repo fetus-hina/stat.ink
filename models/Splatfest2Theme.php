@@ -30,7 +30,7 @@ class Splatfest2Theme extends ActiveRecord
         if ($model = static::findOne(['name' => $name])) {
             return $model;
         }
-        if (!static::lockForFindOrCreate()) {
+        if (!self::lockForFindOrCreate()) {
             return null;
         }
         try {
@@ -49,7 +49,7 @@ class Splatfest2Theme extends ActiveRecord
             }
             return $model;
         } finally {
-            static::freeForFindOrCreate();
+            self::freeForFindOrCreate();
         }
     }
 

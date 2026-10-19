@@ -12,14 +12,17 @@ use app\components\widgets\AdWidget;
 use app\components\widgets\BattleFilterWidget;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\WinLoseLegend;
+use app\models\BattleFilterForm;
 use app\models\User;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\web\View;
 
 /**
+ * @var BattleFilterForm $filter
  * @var User $user
  * @var View $this
+ * @var array<string, array{name: string, win: int, lose: int}> $data
  */
 
 $title = Yii::t('app-show', "{name}'s Battle Stats (by Stage)", ['name' => $user->name]);

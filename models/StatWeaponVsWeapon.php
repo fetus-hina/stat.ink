@@ -7,6 +7,7 @@
 
 namespace app\models;
 
+use app\models\query\StatWeaponVsWeaponQuery;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -27,29 +28,9 @@ use yii\db\ActiveRecord;
  */
 class StatWeaponVsWeapon extends ActiveRecord
 {
-    /**
-     * @inheritdoc
-     */
-    public static function find()
+    public static function find(): StatWeaponVsWeaponQuery
     {
-        return new class (static::class) extends ActiveQuery {
-            public function weapon($weapon): ActiveQuery
-            {
-                return $this->weaponImpl(
-                    $weapon instanceof Weapon ? $weapon->id : (int)$weapon,
-                );
-            }
-
-            private function weaponImpl(int $weaponId): ActiveQuery
-            {
-                return $this->andWhere(['or',
-                    [
-                        '{{stat_weapon_vs_weapon}}.[[weapon_id_1]]' => $weaponId,
-                        '{{stat_weapon_vs_weapon}}.[[weapon_id_2]]' => $weaponId,
-                    ],
-                ]);
-            }
-        };
+        return new StatWeaponVsWeaponQuery(static::class);
     }
 
     /**

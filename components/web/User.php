@@ -8,6 +8,7 @@
 namespace app\components\web;
 
 use Yii;
+use app\models\User as UserModel;
 use yii\base\InvalidValueException;
 use yii\helpers\StringHelper;
 use yii\web\Cookie;
@@ -29,6 +30,9 @@ use function time;
 use const JSON_ERROR_NONE;
 use const OPENSSL_RAW_DATA;
 
+/**
+ * @extends \yii\web\User<UserModel>
+ */
 class User extends \yii\web\User
 {
     public const CRYPT_KEY_BITS = 256;

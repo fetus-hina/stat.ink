@@ -142,7 +142,7 @@ class LanguageSupportLevelWarning extends Widget
             return '';
         }
 
-        if (Yii::$app->isEnabledMachineTranslation) {
+        if (Yii::$app->getIsEnabledMachineTranslation()) {
             return Html::tag('p', implode(' ', [
                 Html::encode('Currently displayed using machine translation (Powered by DeepL).'),
                 $this->renderMachineTranslateSwitch(false),

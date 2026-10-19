@@ -204,6 +204,10 @@ vendor: composer.lock composer.phar
 	php composer.phar install --prefer-dist
 	@touch vendor
 
+deploy/vendor: deploy/composer.lock composer.phar
+	php composer.phar install --prefer-dist --working-dir=deploy
+	@touch $@
+
 node_modules: package-lock.json
 	npm install --unsafe-perm
 	@touch $@
@@ -217,12 +221,8 @@ check-style-php: vendor
 	php vendor/bin/phpcs -p
 
 .PHONY: phpstan
-phpstan: vendor
-	php vendor/bin/phpstan --level=0 --memory-limit=1G
-
-.PHONY: phpstan1
-phpstan1: vendor
-	php vendor/bin/phpstan --level=1 --memory-limit=1G
+phpstan: vendor deploy/vendor $(SIMPLE_CONFIG_TARGETS) config/cookie-secret.php config/db.php
+	php vendor/bin/phpstan --memory-limit=1G
 
 check-style-js: node_modules
 	npx updates --minor bootstrap,bootswatch
@@ -240,6 +240,7 @@ clean: clean-resource
 	rm -rf \
 		composer.phar \
 		data/GeoIP \
+		deploy/vendor \
 		node_modules \
 		vendor
 

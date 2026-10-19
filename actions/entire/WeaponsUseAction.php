@@ -40,6 +40,10 @@ use function uasort;
 use const SORT_ASC;
 use const SORT_NATURAL;
 
+/**
+ * @property-read array $rules
+ * @property-read array $weapons
+ */
 final class WeaponsUseAction extends Action
 {
     public function run()

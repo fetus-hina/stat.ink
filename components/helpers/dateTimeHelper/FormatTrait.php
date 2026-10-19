@@ -35,7 +35,7 @@ trait FormatTrait
 
     private static function getFormat(?string $locale, string $skeleton): string
     {
-        $locale = $locale ?? Yii::$app->locale;
+        $locale = $locale ?? Yii::$app->getLocale();
         if (!is_string($locale)) {
             throw new LogicException();
         }

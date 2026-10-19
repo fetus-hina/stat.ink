@@ -20,7 +20,7 @@ use yii\web\View;
  * @var StatSalmon3TideEvent[] $stats
  * @var View $this
  * @var int $tideJobs
- : @var int $totalJobs
+ * @var int $totalJobs
  */
 
 $targetStats = array_values(

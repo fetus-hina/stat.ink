@@ -22,6 +22,7 @@ use const SORT_DESC;
  * @property integer $id
  * @property string $key
  * @property string $name
+ * @property integer $group_id
  * @property integer $int_base
  *
  * @property Battle[] $battles

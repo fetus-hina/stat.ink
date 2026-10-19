@@ -27,12 +27,12 @@ class MachineTranslateHelper
         string $message,
         string $language,
     ): ?string {
-        if (!$paths = static::getMessagePaths($category, $language)) {
+        if (!$paths = self::getMessagePaths($category, $language)) {
             return null;
         }
 
         foreach ($paths as $path) {
-            if (($text = static::getMessage($path, $message)) !== null) {
+            if (($text = self::getMessage($path, $message)) !== null) {
                 return $text;
             }
         }
@@ -56,7 +56,7 @@ class MachineTranslateHelper
 
         $cacheId = $language . '/' . $category;
         if (!isset($cache[$cacheId])) {
-            $cache[$cacheId] = static::getMessagePathsImpl($category, $language);
+            $cache[$cacheId] = self::getMessagePathsImpl($category, $language);
         }
 
         return $cache[$cacheId];
@@ -73,7 +73,7 @@ class MachineTranslateHelper
         $results = [];
         foreach ($langCandidates as $lang) {
             $path = implode('/', [
-                Yii::getAlias(static::BASE_DIRECTORY),
+                Yii::getAlias(self::BASE_DIRECTORY),
                 $lang,
                 $fileName,
             ]);

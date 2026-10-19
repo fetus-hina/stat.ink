@@ -70,8 +70,8 @@
     "cotonet/soak-time": "1.1.0",
     "ergebnis/composer-normalize": "^2.54.0",
     "jp3cki/coding-standard": "^2.0.0",
+    "mspirkov/yii2-phpstan": "~0.15.1",
     "nikic/php-parser": "^4.19.5 || ^5.5.0",
-    "proget-hq/phpstan-yii2": "^0.8.0",
     "sebastian/diff": "^4.0.6 || ^5.0.0 || ^6.0.0 || ^7.0.0",
     "squizlabs/php_codesniffer": "^3.13.6",
     "yiisoft/yii2-debug": "^2.1.28",
@@ -173,11 +173,14 @@
         "fix: avoid unserialize() on cache miss in Cache::multiGet()": "data/patch/yii2-cache-multiget-miss.patch"
       },
       "yiisoft/yii2-bootstrap": {
-        "non-progress progressbar": "data/patch/yii2-bootstrap-non-progress-progressbar.patch"
+        "non-progress progressbar": "data/patch/yii2-bootstrap-non-progress-progressbar.patch",
+        "fix: phpdoc of Progress::$percent accepts float": "data/patch/yii2-bootstrap-progress-percent-float.patch"
       }
     },
     "soak-time-hours": 72,
-    "soak-time-whitelist": []
+    "soak-time-whitelist": [
+      "mspirkov/yii2-phpstan"
+    ]
   },
   "scripts": {
     "post-install-cmd": [

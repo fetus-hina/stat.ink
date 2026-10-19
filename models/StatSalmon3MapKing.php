@@ -16,15 +16,15 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "stat_salmon3_map_king".
  *
- * @property integer $map_id
- * @property integer $big_map_id
+ * @property integer|null $map_id
+ * @property integer|null $big_map_id
  * @property integer $king_id
  * @property integer $jobs
  * @property integer $cleared
  *
- * @property BigrunMap3 $bigMap
+ * @property BigrunMap3|null $bigMap
  * @property SalmonKing3 $king
- * @property SalmonMap3 $map
+ * @property SalmonMap3|null $map
  */
 class StatSalmon3MapKing extends ActiveRecord
 {

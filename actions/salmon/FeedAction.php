@@ -15,13 +15,12 @@ use Laminas\Feed\Writer\Feed as FeedWriter;
 use Laminas\Feed\Writer\Version as FeedVersion;
 use Yii;
 use app\components\i18n\Formatter;
-use app\models\Language;
 use app\models\Salmon2;
+use app\models\Salmon2FeedForm;
 use app\models\User;
 use jp3cki\uuid\NS as UuidNS;
 use jp3cki\uuid\Uuid;
 use yii\base\Action;
-use yii\base\DynamicModel;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -49,23 +48,11 @@ class FeedAction extends Action
     {
         $request = Yii::$app->getRequest();
         $resp = Yii::$app->getResponse();
-        $input = DynamicModel::validateData(
+        $input = Salmon2FeedForm::validateData(
             [
                 'lang' => $request->get('lang'),
                 'screen_name' => $request->get('screen_name'),
                 'type' => $request->get('type'),
-            ],
-            [
-                [['lang', 'screen_name', 'type'], 'required'],
-                [['lang'], 'exist',
-                    'targetClass' => Language::class,
-                    'targetAttribute' => 'lang',
-                ],
-                [['screen_name'], 'exist',
-                    'targetClass' => User::class,
-                    'targetAttribute' => 'screen_name',
-                ],
-                [['type'], 'in', 'range' => ['atom', 'rss']],
             ],
         );
         if ($input->hasErrors()) {

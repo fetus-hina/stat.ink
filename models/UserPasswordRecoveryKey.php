@@ -21,11 +21,11 @@ use yii\db\ActiveRecord;
  * @property string $public_id
  * @property string $secret_hash
  * @property string $created_at
- * @property string $created_ip
- * @property string $used_at
- * @property string $used_ip
- * @property string $revoked_at
- * @property integer $revoked_reason
+ * @property string|null $created_ip
+ * @property string|null $used_at
+ * @property string|null $used_ip
+ * @property string|null $revoked_at
+ * @property integer|null $revoked_reason
  *
  * @property UserPasswordRecoveryKeyRevokeReason $revokedReason
  * @property User $user

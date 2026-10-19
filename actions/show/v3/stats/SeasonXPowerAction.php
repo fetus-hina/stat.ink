@@ -29,18 +29,6 @@ use function array_merge;
 
 use const SORT_ASC;
 
-/**
- * @phpstan-type DailyData array{
- *   rule_id: int,
- *   date: string,
- *   count: int,
- *   avg: float,
- *   final: ?float,
- *   max: float,
- *   max_id: int,
- *   min: float
- * }
- */
 final class SeasonXPowerAction extends Action
 {
     public ?User $user = null;

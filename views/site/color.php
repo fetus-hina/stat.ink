@@ -7,6 +7,7 @@
 
 declare(strict_types=1);
 
+use app\components\helpers\TypeHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use yii\helpers\Html;
@@ -23,7 +24,7 @@ $title = implode(' | ', [
   Yii::t('app', 'Color-Blind Support'),
 ]);
 
-$this->context->layout = 'main';
+TypeHelper::instanceOf($this->context, Controller::class)->layout = 'main';
 $this->title = $title;
 ?>
 <div class="container">

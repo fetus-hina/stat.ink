@@ -59,6 +59,8 @@ use const SORT_DESC;
  * @property-read ForceBlackout2 $forceBlackout
  * @property-read bool $isForceBlackouted
  * @property-read string $iconUrl
+ * @property-read string $anonymizeSeed
+ * @property-read bool $isDisconnected
  */
 class BattlePlayer2 extends ActiveRecord
 {

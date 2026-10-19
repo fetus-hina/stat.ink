@@ -51,7 +51,7 @@ final class IndexI18nButtons extends Widget
         LanguageDialogAsset::register($this->view);
 
         $lang = Language::findOne([
-            'lang' => Yii::$app->locale,
+            'lang' => Yii::$app->getLocale(),
         ]);
         return $this->renderButton(
             '#language-dialog',

@@ -12,13 +12,15 @@ namespace app\models;
 use Override;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\db\ExpressionInterface;
 
 /**
  * This is the model class for table "user_export_json3".
  *
  * @property integer $user_id
  * @property integer $last_battle_id
- * @property string $updated_at
+ * @property-read string $updated_at
+ * @property-write string|ExpressionInterface $updated_at
  *
  * @property Battle3 $lastBattle
  * @property User $user

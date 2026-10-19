@@ -34,7 +34,8 @@ use function vsprintf;
  * @property integer|null $user_id
  * @property string $challenge
  * @property array<string, mixed>|null $payload
- * @property string $expires_at
+ * @property-read string $expires_at
+ * @property-write string|Expression $expires_at
  * @property string $created_at
  * @property string $updated_at
  *

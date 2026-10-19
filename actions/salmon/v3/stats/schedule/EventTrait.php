@@ -22,16 +22,6 @@ use function vsprintf;
 
 use const SORT_ASC;
 
-/**
- * @phpstan-type EventStats array<int, array<int, array{
- *   tide_id: int,
- *   event_id: int,
- *   waves: int,
- *   cleared: int,
- *   total_quota: int,
- *   total_delivered: int
- * }>>
- */
 trait EventTrait
 {
     /**

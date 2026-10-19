@@ -78,14 +78,14 @@ use const SORT_DESC;
  * @property integer $yagura_current_rank
  * @property integer $hoko_current_rank
  * @property integer $asari_current_rank
- * @property string $area_current_x_power
- * @property string $yagura_current_x_power
- * @property string $hoko_current_x_power
- * @property string $asari_current_x_power
- * @property string $area_x_power_peak
- * @property string $yagura_x_power_peak
- * @property string $hoko_x_power_peak
- * @property string $asari_x_power_peak
+ * @property numeric-string $area_current_x_power
+ * @property numeric-string $yagura_current_x_power
+ * @property numeric-string $hoko_current_x_power
+ * @property numeric-string $asari_current_x_power
+ * @property numeric-string $area_x_power_peak
+ * @property numeric-string $yagura_x_power_peak
+ * @property numeric-string $hoko_x_power_peak
+ * @property numeric-string $asari_x_power_peak
  *
  * @property User $user
  */
@@ -259,7 +259,10 @@ class UserStat2 extends ActiveRecord
         return [
             [
                 'class' => TimestampBehavior::class,
-                'createdAtAttribute' => false,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
                 'value' => fn () => new Now(),
             ],
         ];
@@ -666,10 +669,10 @@ class UserStat2 extends ActiveRecord
                         'ELSE {{battle2}}.[[rank_after_exp]]',
                     ])),
                 ]),
-                'xpower' => vsprintf('(CASE %s END)', [
+                'xpower' => sprintf('(CASE %s END)', implode(' ', [
                     'WHEN {{battle2}}.[[x_power_after]] IS NOT NULL THEN {{battle2}}.[[x_power_after]]',
                     'WHEN {{battle2}}.[[x_power]] IS NOT NULL THEN {{battle2}}.[[x_power]]',
-                ]),
+                ])),
             ]);
         return $query->one() ?: [];
     }
@@ -1099,10 +1102,10 @@ class UserStat2 extends ActiveRecord
                             'type' => 'object',
                             'description' => Yii::t('app-apidoc2', 'Per rule information'),
                             'properties' => [
-                                'area' => static::openApiSchemaRule('Splat Zones'),
-                                'yagura' => static::openApiSchemaRule('Tower Control'),
-                                'hoko' => static::openApiSchemaRule('Rainmaker'),
-                                'asari' => static::openApiSchemaRule('Clam Blitz'),
+                                'area' => self::openApiSchemaRule('Splat Zones'),
+                                'yagura' => self::openApiSchemaRule('Tower Control'),
+                                'hoko' => self::openApiSchemaRule('Rainmaker'),
+                                'asari' => self::openApiSchemaRule('Clam Blitz'),
                             ],
                         ],
                     ],

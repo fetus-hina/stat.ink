@@ -19,16 +19,16 @@ use yii\db\ActiveRecord;
  * @property integer $schedule_id
  * @property integer $users
  * @property double $average
- * @property double $stddev
- * @property integer $min
- * @property integer $p05
- * @property integer $p25
- * @property integer $p50
- * @property integer $p75
- * @property integer $p80
- * @property integer $p95
- * @property integer $max
- * @property integer $histogram_width
+ * @property double|null $stddev
+ * @property integer|null $min
+ * @property integer|null $p05
+ * @property integer|null $p25
+ * @property integer|null $p50
+ * @property integer|null $p75
+ * @property integer|null $p80
+ * @property integer|null $p95
+ * @property integer|null $max
+ * @property integer|null $histogram_width
  *
  * @property SalmonSchedule3 $schedule
  */

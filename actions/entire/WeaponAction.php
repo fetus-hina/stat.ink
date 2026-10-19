@@ -8,6 +8,7 @@
 namespace app\actions\entire;
 
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\Map;
 use app\models\Rule;
 use app\models\StatWeaponKDWinRate;
@@ -17,6 +18,7 @@ use app\models\WeaponType;
 use yii\base\Action;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
@@ -32,6 +34,14 @@ use function usort;
 use const SORT_ASC;
 use const SORT_NATURAL;
 
+/**
+ * @property-read array $killDeath
+ * @property-read array $maps
+ * @property-read array $mapWinPercentage
+ * @property-read array $rules
+ * @property-read array $useCount
+ * @property-read array<string, array<string, string>> $weapons
+ */
 final class WeaponAction extends Action
 {
     private ?Weapon $weapon = null;
@@ -66,7 +76,7 @@ final class WeaponAction extends Action
     public function run()
     {
         if (!$this->rule) {
-            return $this->controller->redirect(['entire/weapon',
+            return TypeHelper::instanceOf($this->controller, Controller::class)->redirect(['entire/weapon',
                 'weapon' => $this->weapon->key,
                 'rule' => 'nawabari',
             ]);

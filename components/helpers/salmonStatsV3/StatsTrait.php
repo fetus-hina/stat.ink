@@ -87,8 +87,10 @@ trait StatsTrait
                 'rescues' => $aggregate(null, '{{%salmon_player3}}.[[rescue]]'),
                 'rescued' => $aggregate(null, '{{%salmon_player3}}.[[rescued]]'),
                 'peak_danger_rate' => vsprintf('MAX(CASE %s END)', [
-                    "WHEN {$condBasic} AND {{%salmon3}}.[[clear_waves]] >= 3 THEN {{%salmon3}}.[[danger_rate]]",
-                    'ELSE NULL',
+                    implode(' ', [
+                        "WHEN {$condBasic} AND {{%salmon3}}.[[clear_waves]] >= 3 THEN {{%salmon3}}.[[danger_rate]]",
+                        'ELSE NULL',
+                    ]),
                 ]),
                 'boss_defeated' => $aggregate(null, '{{%salmon_player3}}.[[defeat_boss]]'),
             ])

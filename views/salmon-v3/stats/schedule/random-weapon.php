@@ -19,7 +19,6 @@ use yii\helpers\Html;
 use yii\web\View;
 
 /**
- * @phpstan-import-type WeaponStats from WeaponTrait
  *
  * @var SalmonSchedule3 $schedule
  * @var View $this

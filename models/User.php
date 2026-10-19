@@ -15,6 +15,7 @@ use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Password;
 use app\components\helpers\TypeHelper;
 use app\components\helpers\UserNotifier;
+use app\models\query\Battle2Query;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\Query;
@@ -65,6 +66,7 @@ use const SORT_DESC;
  * @property integer $region_id
  * @property integer $link_mode_id
  * @property string $email
+ * @property integer|null $email_lang_id
  * @property boolean $apikey_password_reset
  * @property boolean $hide_data_on_toppage
  *
@@ -88,6 +90,16 @@ use const SORT_DESC;
  * @property UserWeapon[] $userWeapons
  * @property UserWeapon2[] $userWeapon2s
  * @property Weapon[] $weapons
+ * @property-read string $identiconHash
+ * @property-read Language|null $emailLang
+ * @property-read Region2 $guessedSplatfest2Region
+ * @property-read bool $isSlackIntegrated
+ * @property-read string $jdenticonPngUrl
+ * @property-read Battle|null $latestBattle
+ * @property-read string $iconUrl
+ * @property-read bool $isUserJsonReady
+ * @property-read string $jdenticonUrl
+ * @property-read Weapon|null $mainWeapon
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -239,7 +251,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @return ActiveQuery
+     * @return Battle2Query
      */
     public function getBattle2s()
     {
@@ -452,7 +464,7 @@ class User extends ActiveRecord implements IdentityInterface
     // IdentityInterface
     public static function findIdentity($id)
     {
-        return static::findOne(['id' => (string)$id]);
+        return static::findOne(['id' => (int)$id]);
     }
 
     // IdentityInterface

@@ -17,20 +17,20 @@ use yii\db\ActiveRecord;
  *
  * @property integer $stage_id
  * @property integer $plays
- * @property string $avg_clear_waves
- * @property string $sd_clear_waves
+ * @property numeric-string $avg_clear_waves
+ * @property numeric-string $sd_clear_waves
  * @property integer $cleared
  * @property integer $fail_wave1
  * @property integer $fail_wave2
  * @property integer $fail_wave3
  * @property integer $fail_wiped
  * @property integer $fail_timed
- * @property string $avg_golden_eggs
- * @property string $sd_golden_eggs
- * @property string $avg_power_eggs
- * @property string $sd_power_eggs
- * @property string $avg_deaths
- * @property string $sd_deaths
+ * @property numeric-string $avg_golden_eggs
+ * @property numeric-string $sd_golden_eggs
+ * @property numeric-string $avg_power_eggs
+ * @property numeric-string $sd_power_eggs
+ * @property numeric-string $avg_deaths
+ * @property numeric-string $sd_deaths
  * @property string $last_data_at
  *
  * @property SalmonMap2 $stage
@@ -96,6 +96,9 @@ class StatSalmon2ClearRate extends ActiveRecord
         return $this->hasOne(SalmonMap2::class, ['id' => 'stage_id']);
     }
 
+    /**
+     * @return ActiveQuery<StatSalmon2WeaponClearRate>
+     */
     public function getWeaponStats(): ActiveQuery
     {
         return $this->hasMany(StatSalmon2WeaponClearRate::class, ['stage_id' => 'stage_id']);

@@ -9,11 +9,10 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use app\models\query\WeaponQuery;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
-
-use const SORT_ASC;
 
 /**
  * This is the model class for table "weapon".
@@ -36,22 +35,14 @@ use const SORT_ASC;
  * @property Weapon $canonical
  * @property Weapon $mainReference
  */
-class Weapon extends ActiveRecord
+final class Weapon extends ActiveRecord
 {
     use SafeFindOneTrait;
     use openapi\Util;
 
-    public static function find()
+    public static function find(): WeaponQuery
     {
-        return new class (static::class) extends ActiveQuery {
-            public function naturalOrder(): ActiveQuery
-            {
-                return $this->orderBy([
-                    'type_id' => SORT_ASC,
-                    'key' => SORT_ASC,
-                ]);
-            }
-        };
+        return new WeaponQuery(static::class);
     }
 
     /**

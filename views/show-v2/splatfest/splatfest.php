@@ -14,7 +14,7 @@ use yii\helpers\Url;
 use yii\web\View;
 
 /**
- * @var Splatfest $fest
+ * @var Splatfest2 $fest
  * @var User $user
  * @var View $this
  * @var stdClass|null $summary

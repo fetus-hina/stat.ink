@@ -20,6 +20,8 @@ use yii\web\View;
  * @var Splatfest2 $fest
  * @var User $user
  * @var View $this
+ * @var string $label
+ * @var string|string[] $lobby
  */
 
 $bool = fn($v) => is_bool($v) ? $v : null;

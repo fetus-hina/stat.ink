@@ -7,6 +7,7 @@
 
 declare(strict_types=1);
 
+use app\models\Region2;
 use app\models\User;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
@@ -19,6 +20,8 @@ use yii\web\View;
  * @var User $user
  * @var View $this
  * @var object $input
+ * @var Region2 $region
+ * @var Region2[] $regions
  */
 
 $this->registerJs(sprintf(

@@ -32,6 +32,10 @@ use function strnatcasecmp;
 use function time;
 use function usort;
 
+/**
+ * @property-read string|null $nextMonthUrl
+ * @property-read string|null $prevMonthUrl
+ */
 class MonthAction extends BaseAction
 {
     public $year;
@@ -55,9 +59,9 @@ class MonthAction extends BaseAction
         if (
             !is_scalar($this->year) ||
                 !is_scalar($this->month) ||
-                !static::isValidMonth($this->year, $this->month)
+                !self::isValidMonth($this->year, $this->month)
         ) {
-            static::http404();
+            self::http404();
             return;
         }
 
@@ -95,7 +99,7 @@ class MonthAction extends BaseAction
 
     public function buildData(): array
     {
-        $raiiTimeZone = static::setTimeZoneToFavorable();
+        $raiiTimeZone = self::setTimeZoneToFavorable();
         try {
             $rules = $this->getRules();
             $maps = $this->getMaps();
@@ -197,7 +201,7 @@ class MonthAction extends BaseAction
         $t = mktime(0, 0, 0, $this->month + $rel, 1, $this->year);
         $y = (int)date('Y', $t);
         $m = (int)date('n', $t);
-        return static::isValidMonth($y, $m)
+        return self::isValidMonth($y, $m)
             ? Url::to(['stage/month', 'year' => $y, 'month' => $m])
             : null;
         // }}}
@@ -246,7 +250,7 @@ class MonthAction extends BaseAction
         // データ持ってないかも
         $periodS = BattleHelper::calcPeriod(mktime(0, 0, 0, $month, 1, $year));
         $periodE = BattleHelper::calcPeriod(mktime(0, 0, -1, $month + 1, 1, $year));
-        return (bool)static::hasStageData($periodS, $periodE);
+        return (bool)self::hasStageData($periodS, $periodE);
         // }}}
     }
 

@@ -22,11 +22,6 @@ use function vsprintf;
 
 use const SORT_ASC;
 
-/**
- * @phpstan-type TotalEggs array{total_3_night: int, total_2_night: int, total_1_night: int, total_0_night: int}
- * @phpstan-type WaveStats array{event_id: int, tide_id: int, golden_eggs: int}
- * @phpstan-type OverfishingStats array{total: TotalEggs, waves: WaveStats[]}
- */
 trait OverfishingTrait
 {
     /**

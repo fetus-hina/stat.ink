@@ -8,6 +8,7 @@
 declare(strict_types=1);
 
 use app\assets\InlineListAsset;
+use app\components\helpers\TypeHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\FA;
 use app\components\widgets\SnsWidget;
@@ -18,13 +19,17 @@ use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\web\Controller;
 use yii\web\View;
 
 /**
  * @var View $this
+ * @var array<int, array<string, mixed>> $uses
+ * @var stdClass[] $entire
+ * @var stdClass[] $users
  */
 
-$this->context->layout = 'main';
+TypeHelper::instanceOf($this->context, Controller::class)->layout = 'main';
 
 $title = Yii::t('app', 'Weapons');
 $this->title = implode(' | ', [

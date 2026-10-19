@@ -14,7 +14,7 @@ use app\components\helpers\TypeHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
-use app\models\SalmonEggstraDistribAbstract3;
+use app\models\StatEggstraWorkDistribUserAbstract3;
 use app\models\SalmonSchedule3;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -29,7 +29,7 @@ use yii\web\View;
  * @var SalmonSchedule3 $schedule
  * @var View $this
  * @var array<int, SalmonSchedule3> $schedules
- * @var array<int, SalmonEggstraDistribAbstract3>|null $abstract
+ * @var array<int, StatEggstraWorkDistribUserAbstract3>|null $abstract
  * @var array<int, int> $histogram
  * @var int|null $chartMax
  */

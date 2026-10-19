@@ -10,10 +10,10 @@ declare(strict_types=1);
 namespace app\actions\api\internal;
 
 use Yii;
+use app\models\InternalSalmonStats2Form;
 use app\models\SalmonStats2;
 use app\models\User;
 use yii\base\Action;
-use yii\base\DynamicModel;
 use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
 
@@ -53,20 +53,12 @@ class SalmonStats2Action extends Action
         });
     }
 
-    public function getInputForm(): DynamicModel
+    public function getInputForm(): InternalSalmonStats2Form
     {
         $request = Yii::$app->request;
-        return DynamicModel::validateData(
+        return InternalSalmonStats2Form::validateData(
             [
                 'screen_name' => $request->get('screen_name'),
-            ],
-            [
-                [['screen_name'], 'trim'],
-                [['screen_name'], 'required'],
-                [['screen_name'], 'string'],
-                [['screen_name'], 'match',
-                    'pattern' => '/^[a-zA-Z0-9_]{1,15}$/',
-                ],
             ],
         );
     }

@@ -11,6 +11,7 @@ namespace app\components\behaviors;
 
 use LogicException;
 use Yii;
+use app\models\UserAuthKey;
 use yii\base\Behavior;
 use yii\base\Model;
 use yii\helpers\StringHelper;
@@ -25,6 +26,9 @@ use const PASSWORD_ARGON2I;
 use const PASSWORD_ARGON2ID;
 use const PASSWORD_BCRYPT;
 
+/**
+ * @extends Behavior<UserAuthKey>
+ */
 final class UserAuthKeyBehavior extends Behavior
 {
     public const RAW_KEY_BITS = 256;

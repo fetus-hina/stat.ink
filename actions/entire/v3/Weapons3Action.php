@@ -309,7 +309,7 @@ final class Weapons3Action extends Action
                 ->all($db);
         }
 
-        return null;
+        return [];
     }
 
     /**

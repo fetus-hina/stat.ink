@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace app\actions\user;
 
 use Yii;
-use yii\base\DynamicModel;
+use app\models\MachineTranslationForm;
 use yii\web\ViewAction as BaseAction;
 
 class MachineTranslationAction extends BaseAction
@@ -36,17 +36,8 @@ class MachineTranslationAction extends BaseAction
         ];
     }
 
-    private function makeValidationModel(): DynamicModel
+    private function makeValidationModel(): MachineTranslationForm
     {
-        return DynamicModel::validateData(
-            ['direction' => null],
-            [
-                [['direction'], 'required'],
-                [['direction'], 'in',
-                    'range' => ['enable', 'disable'],
-                    'strict' => true,
-                ],
-            ],
-        );
+        return MachineTranslationForm::validateData(['direction' => null]);
     }
 }

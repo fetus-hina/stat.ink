@@ -19,7 +19,7 @@ use const FILTER_VALIDATE_FLOAT;
 trait FloatValTrait
 {
     /**
-     * @var mixed $value
+     * @param mixed $value
      */
     private static function floatVal($value): ?float
     {

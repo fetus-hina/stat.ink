@@ -14,6 +14,12 @@ use app\components\widgets\Icon;
 use app\models\Language;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\View;
+
+/**
+ * @var View $this
+ * @var string $route
+ */
 
 DownloadsPageAsset::register($this);
 

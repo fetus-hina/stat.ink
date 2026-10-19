@@ -35,6 +35,7 @@ use const SORT_ASC;
  * @property integer $canonical_id
  * @property integer $main_group_id
  * @property integer $splatnet
+ * @property integer $main_power_up_id
  *
  * @property Special2 $special
  * @property Subweapon2 $subweapon
@@ -42,6 +43,7 @@ use const SORT_ASC;
  * @property Weapon2 $mainReference
  * @property WeaponType2 $type
  * @property WeaponAttack2[] $weaponAttacks
+ * @property-read MainPowerUp2 $mainPowerUp
  */
 class Weapon2 extends ActiveRecord
 {

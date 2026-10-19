@@ -8,8 +8,7 @@
 namespace app\actions\user;
 
 use Yii;
-use app\models\Language;
-use yii\base\DynamicModel;
+use app\models\UserLanguageForm;
 use yii\web\Cookie;
 use yii\web\ViewAction as BaseAction;
 
@@ -54,15 +53,6 @@ class LanguageAction extends BaseAction
 
     private function makeValidationModel()
     {
-        return DynamicModel::validateData(
-            ['language' => null],
-            [
-                [['language'], 'required'],
-                [['language'], 'exist',
-                    'targetClass' => Language::className(),
-                    'targetAttribute' => 'lang',
-                ],
-            ],
-        );
+        return UserLanguageForm::validateData(['language' => null]);
     }
 }

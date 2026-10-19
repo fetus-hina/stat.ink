@@ -15,6 +15,7 @@ use app\assets\GearCalcAsset;
 use app\assets\GraphIconAsset;
 use app\assets\PhotoSwipeAsset;
 use app\components\helpers\IkalogVersion;
+use app\components\helpers\TypeHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\EmbedVideo;
 use app\components\widgets\FA;
@@ -29,6 +30,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
+use yii\web\Controller;
 use yii\web\JsExpression;
 use yii\web\View;
 
@@ -37,7 +39,7 @@ use yii\web\View;
  * @var View $this
  */
 
-$this->context->layout = 'main';
+TypeHelper::instanceOf($this->context, Controller::class)->layout = 'main';
 
 $user = $battle->user;
 $canonicalUrl = Url::to(

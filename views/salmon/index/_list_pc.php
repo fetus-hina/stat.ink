@@ -12,14 +12,18 @@ use app\assets\SalmonWorkListAsset;
 use app\assets\Spl2WeaponAsset;
 use app\components\grid\SalmonActionColumn;
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\TypeHelper;
 use app\components\i18n\Formatter;
 use app\components\widgets\FA;
 use app\components\widgets\Icon;
 use app\components\widgets\Label;
 use app\models\Salmon2;
+use app\models\Salmon2Query;
 use app\models\SalmonSchedule2;
 use app\models\SalmonWeapon2;
+use app\models\User;
 use app\models\Weapon2;
+use yii\data\ActiveDataProvider;
 use yii\grid\Column;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
@@ -28,6 +32,8 @@ use yii\web\View;
 use yii\widgets\ListView;
 
 /**
+ * @var ActiveDataProvider $dataProvider
+ * @var User $user
  * @var View $this
  */
 
@@ -45,7 +51,7 @@ SalmonWorkListAsset::register($this);
   ]) . "\n" ?>
 </div>
 <?= $this->render('_summary', [
-    'summary' => $dataProvider->query->summary(),
+    'summary' => TypeHelper::instanceOf($dataProvider->query, Salmon2Query::class)->summary(),
 ]) . "\n" ?>
 <p>
   <?= Html::a(

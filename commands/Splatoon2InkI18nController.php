@@ -41,6 +41,9 @@ use function trim;
 use const SORT_ASC;
 use const STDERR;
 
+/**
+ * @property-read array $localeMap
+ */
 class Splatoon2InkI18nController extends Controller
 {
     public function init()
@@ -123,8 +126,8 @@ class Splatoon2InkI18nController extends Controller
 
         $url = sprintf('https://splatoon2.ink/data/locale/%s.json', $locales[$locale]);
         $client = Yii::createObject([
-            '__class' => HttpClient::class,
-            'transport' => CurlTransport::class,
+            'class' => HttpClient::class,
+            'transport' => Yii::createObject(['class' => CurlTransport::class]),
         ]);
         $request = $client->createRequest()
             ->setOptions([
@@ -333,7 +336,7 @@ class Splatoon2InkI18nController extends Controller
             if (!$splatNetName) {
                 continue;
             }
-            $splatNetName = static::normalize($splatNetName);
+            $splatNetName = self::normalize($splatNetName);
             $oldName = $currentData[$englishName] ?? null;
             if ($oldName !== $splatNetName) {
                 fprintf(STDERR, "    %s => %s\n", $oldName ?: $englishName, $splatNetName);

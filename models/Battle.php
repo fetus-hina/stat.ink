@@ -10,6 +10,7 @@ namespace app\models;
 use Throwable;
 use Yii;
 use app\components\ability\Effect;
+use app\components\ability\effect\Base as AbilityEffect;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Differ;
 use app\components\helpers\db\Now;
@@ -72,7 +73,7 @@ use const SORT_STRING;
  * @property integer $cash
  * @property integer $cash_after
  * @property integer $lobby_id
- * @property string $kill_ratio
+ * @property numeric-string $kill_ratio
  * @property integer $gender_id
  * @property integer $fest_title_id
  * @property integer $fest_title_after_id
@@ -85,8 +86,8 @@ use const SORT_STRING;
  * @property integer $my_point
  * @property integer $my_team_final_point
  * @property integer $his_team_final_point
- * @property string $my_team_final_percent
- * @property string $his_team_final_percent
+ * @property numeric-string $my_team_final_percent
+ * @property numeric-string $his_team_final_percent
  * @property boolean $is_knock_out
  * @property integer $my_team_count
  * @property integer $his_team_count
@@ -139,6 +140,19 @@ use const SORT_STRING;
  * @property-read BattleImage|null $battleImageGear
  * @property-read BattleImage|null $battleImageJudge
  * @property-read BattleImage|null $battleImageResult
+ * @property-read BattleEvents|null $battleEvents
+ * @property-read string|null $events
+ * @property-read array $extraData
+ * @property-read AbilityEffect|null $abilityEffects
+ * @property-read stdClass $gearAbilities
+ * @property-read BattlePlayer[] $hisTeamPlayers
+ * @property-read int|null $inked
+ * @property-read bool $isGachi
+ * @property-read float|int|null $kill_rate
+ * @property-read BattlePlayer[] $myTeamPlayers
+ * @property-read Battle|null $nextBattle
+ * @property-read Battle|null $previousBattle
+ * @property-read WeaponAttack|null $weaponAttack
  */
 class Battle extends ActiveRecord
 {

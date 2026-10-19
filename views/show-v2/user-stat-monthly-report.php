@@ -20,8 +20,12 @@ use yii\web\View;
 /**
  * @var User $user
  * @var View $this
+ * @var array $abstract
+ * @var array $rulesAndStages
  * @var int $month
  * @var int $year
+ * @var string|null $next
+ * @var string|null $prev
  */
 
 $title = Yii::t('app-show-v2', "{name}'s Monthly Report - {date}", [

@@ -9,19 +9,35 @@ declare(strict_types=1);
 
 use app\assets\EntireWeaponAsset;
 use app\assets\InlineListAsset;
+use app\components\helpers\TypeHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\FA;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\WinLoseLegend;
 use app\models\Rule;
 use app\models\SummarizedWeaponVsWeapon;
+use app\models\Weapon;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
+use yii\web\Controller;
+use yii\web\View;
 
-$this->context->layout = 'main';
+/**
+ * @var Rule $rule
+ * @var Rule[] $rules
+ * @var View $this
+ * @var Weapon $weapon
+ * @var array<int, array{date: string, battles: int, use_pct: float|int, win_pct: float|int}> $useCount
+ * @var array<int, array{key: string, name: string}> $maps
+ * @var array<int, array{kill: int, death: int, battle: int, win: int}> $killDeath
+ * @var array<string, array<string, string>> $weapons
+ * @var array<string, array{battle: int, win: int}> $mapWP
+ */
+
+TypeHelper::instanceOf($this->context, Controller::class)->layout = 'main';
 $title = Yii::t('app-entire', 'Weapon | {weapon} | {rule}', [
   'weapon' => Yii::t('app-weapon', $weapon->name),
   'rule' => Yii::t('app-rule', $rule->name),

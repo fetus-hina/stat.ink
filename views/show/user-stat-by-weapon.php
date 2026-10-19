@@ -7,24 +7,29 @@
 
 declare(strict_types=1);
 
+use app\components\helpers\TypeHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\BattleFilterWidget;
 use app\components\widgets\FA;
 use app\components\widgets\SnsWidget;
+use app\models\BattleFilterForm;
 use app\models\User;
 use statink\yii2\sortableTable\SortableTableAsset;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\Controller;
 use yii\web\View;
 
 /**
+ * @var BattleFilterForm $filter
  * @var User $user
  * @var View $this
+ * @var array<array<string, mixed>> $list
  */
 
-$this->context->layout = 'main';
+TypeHelper::instanceOf($this->context, Controller::class)->layout = 'main';
 $title = Yii::t('app-battle', '{name}\'s Battle Stats (by Weapon)', ['name' => $user->name]);
 $this->title = implode(' | ', [
   Yii::$app->name,

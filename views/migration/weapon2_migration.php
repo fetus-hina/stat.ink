@@ -5,12 +5,16 @@
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
-/* @var $className string the new migration class name without namespace */
-/* @var $namespace string the new migration class namespace */
-
 use app\models\Special2;
 use app\models\Subweapon2;
 use app\models\WeaponType2;
+use yii\web\View;
+
+/**
+ * @var View $this
+ * @var string $className the new migration class name without namespace
+ * @var string $namespace the new migration class namespace
+ */
 
 $sortUnique = function (array $values): array {
     sort($values);

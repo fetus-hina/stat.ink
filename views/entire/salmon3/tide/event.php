@@ -17,7 +17,7 @@ use yii\web\View;
 
 /**
  * @var View $this
- * @var array<int, BigrunMap3 $bigMaps
+ * @var array<int, BigrunMap3> $bigMaps
  * @var array<int, SalmonEvent3> $events
  * @var array<int, SalmonMap3> $maps
  * @var array<int, SalmonWaterLevel2> $tides

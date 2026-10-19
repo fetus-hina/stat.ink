@@ -1,0 +1,20 @@
+--- yii2-bootstrap/src/Progress.php
++++ yii2-bootstrap/src/Progress.php
+@@ -63,7 +63,7 @@
+      */
+     public $label;
+     /**
+-     * @var int the amount of progress as a percentage.
++     * @var int|float the amount of progress as a percentage.
+      */
+     public $percent = 0;
+     /**
+@@ -137,7 +137,7 @@
+ 
+     /**
+      * Generates a bar
+-     * @param int $percent the percentage of the bar
++     * @param int|float $percent the percentage of the bar
+      * @param string $label, optional, the label to display at the bar
+      * @param array $options the HTML attributes of the bar
+      * @return string the rendering result.

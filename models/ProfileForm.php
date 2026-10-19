@@ -15,6 +15,9 @@ use function trim;
 
 use const SORT_ASC;
 
+/**
+ * @property-read array $linkModes
+ */
 class ProfileForm extends Model
 {
     public $name;
@@ -87,7 +90,6 @@ class ProfileForm extends Model
     public function attributeLabels()
     {
         return [
-            'screen_name' => Yii::t('app-user', 'Screen Name (Login Name)'),
             'name' => Yii::t('app-user', 'Name (for display)'),
             'nnid' => Yii::t('app', 'Nintendo Network ID'),
             'sw_friend_code' => Yii::t('app-user', 'Friend Code (Switch)'),

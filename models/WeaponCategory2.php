@@ -24,7 +24,7 @@ use const SORT_ASC;
  * @property string $key
  * @property string $name
  *
- * @property WeaponType $weaponTypes
+ * @property WeaponType2[] $weaponTypes
  */
 class WeaponCategory2 extends ActiveRecord
 {

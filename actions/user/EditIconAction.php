@@ -10,8 +10,8 @@ namespace app\actions\user;
 use Exception;
 use Throwable;
 use Yii;
+use app\models\EditIconForm;
 use app\models\UserIcon;
-use yii\base\DynamicModel;
 use yii\web\ServerErrorHttpException;
 use yii\web\UploadedFile;
 use yii\web\ViewAction as BaseAction;
@@ -45,20 +45,9 @@ class EditIconAction extends BaseAction
                         return $this->controller->redirect(['user/profile'], 303);
 
                     case 'update':
-                        $model = DynamicModel::validateData(
-                            [
-                                'image' => UploadedFile::getInstanceByName('image'),
-                            ],
-                            [
-                                [['image'], 'required', 'message' => 'Please upload a file.'],
-                                [['image'], 'image',
-                                    'extensions' => ['png', 'jpg'],
-                                    'maxSize' => 2 * 1024 * 1024,
-                                    'maxWidth' => 2000,
-                                    'maxHeight' => 2000,
-                                ],
-                            ],
-                        );
+                        $model = EditIconForm::validateData([
+                            'image' => UploadedFile::getInstanceByName('image'),
+                        ]);
                         if ($model->hasErrors()) {
                             $message = $model->getFirstError('image');
                             break;

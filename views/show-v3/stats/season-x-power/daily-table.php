@@ -16,7 +16,6 @@ use yii\helpers\Html;
 use yii\web\View;
 
 /**
- * @phpstan-import-type DailyData from SeasonXPowerAction
  *
  * @var DailyData[] $dailyData
  * @var Rule3[] $rules
@@ -34,7 +33,7 @@ TableResponsiveForceAsset::register($this);
     implode('', [
       $this->render('daily-table/thead', compact('rules', 'season', 'user')),
       Yii::$app->cache->getOrSet(
-        [__FILE__, __LINE__, Yii::$app->locale, $user->id, $dailyData],
+        [__FILE__, __LINE__, Yii::$app->getLocale(), $user->id, $dailyData],
         fn () => $this->render('daily-table/tbody', [
           'dailyData' => $dailyData,
           'rules' => $rules,

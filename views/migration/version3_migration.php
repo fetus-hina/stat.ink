@@ -5,13 +5,15 @@
  * @license https://github.com/fetus-hina/stat.ink/blob/master/LICENSE MIT
  */
 
+use app\components\db\VersionMigration;
+use app\models\SplatoonVersion3;
+use yii\web\View;
+
 /**
+ * @var View $this
  * @var string $className the new migration class name without namespace
  * @var string $namespace the new migration class namespace
  */
-
-use app\components\db\VersionMigration;
-use app\models\SplatoonVersion3;
 
 $latestVersion = SplatoonVersion3::find()
     ->orderBy(['id' => SORT_DESC])

@@ -130,7 +130,7 @@ trait TypeHelperTrait
 
         $model = $modelClass::find()->andWhere(['key' => $value])->limit(1)->one();
         if ($model) {
-            return (int)$model->id;
+            return (int)$model->getAttribute('id');
         }
 
         if ($aliasClass && $aliasAttr) {

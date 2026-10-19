@@ -8,6 +8,7 @@
 declare(strict_types=1);
 
 use app\components\helpers\OgpHelper;
+use app\components\helpers\TypeHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\SnsWidget;
 use app\models\BigrunMap3;
@@ -18,6 +19,7 @@ use app\models\SalmonWaterLevel2;
 use app\models\StatSalmon3MapKing;
 use app\models\StatSalmon3MapKingTide;
 use yii\helpers\Html;
+use yii\web\Controller;
 use yii\web\View;
 
 /**
@@ -30,7 +32,7 @@ use yii\web\View;
  * @var array<int, SalmonWaterLevel2> $tides
  */
 
-$this->context->layout = 'main';
+TypeHelper::instanceOf($this->context, Controller::class)->layout = 'main';
 
 $title = vsprintf('%s - %s', [
   Yii::t('app-salmon3', 'Salmon Run'),

@@ -12,6 +12,7 @@ use app\assets\PaintballAsset;
 use app\assets\ReactCounterAppAsset;
 use app\assets\ReactIndexAppAsset;
 use app\components\helpers\OgpHelper;
+use app\components\helpers\TypeHelper;
 use app\components\widgets\HappyNewYearWidget;
 use app\components\widgets\Icon;
 use app\components\widgets\IndexI18nButtons;
@@ -32,7 +33,7 @@ use yii\web\View;
  */
 
 assert($this->context instanceof Controller);
-$this->context->layout = 'main';
+TypeHelper::instanceOf($this->context, Controller::class)->layout = 'main';
 
 PaintballAsset::register($this);
 

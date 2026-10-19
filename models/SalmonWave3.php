@@ -20,18 +20,19 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property integer $salmon_id
  * @property integer $wave
- * @property integer $tide_id
- * @property integer $event_id
- * @property integer $golden_quota
- * @property integer $golden_delivered
- * @property integer $golden_appearances
- * @property string $danger_rate
+ * @property integer|null $tide_id
+ * @property integer|null $event_id
+ * @property integer|null $golden_quota
+ * @property integer|null $golden_delivered
+ * @property integer|null $golden_appearances
+ * @property-read numeric-string|null $danger_rate
+ * @property-write float|string|null $danger_rate
  *
- * @property SalmonEvent3 $event
+ * @property SalmonEvent3|null $event
  * @property Salmon3 $salmon
  * @property SalmonSpecialUse3[] $salmonSpecialUse3s
  * @property Special3[] $specials
- * @property SalmonWaterLevel2 $tide
+ * @property SalmonWaterLevel2|null $tide
  */
 class SalmonWave3 extends ActiveRecord
 {

@@ -26,6 +26,10 @@ use yii\web\View;
  * @var View $this
  */
 
+// Empty statement on purpose: without it, PHPStan attaches the @var block above
+// to the assignment to $data and the right-hand side cannot see $data and the others.
+;
+
 $data = array_values(
   array_filter(
     $data,

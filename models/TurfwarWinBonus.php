@@ -7,14 +7,8 @@
 
 namespace app\models;
 
-use DateTimeZone;
-use app\components\helpers\DateTimeFormatter;
-use app\components\helpers\db\Now;
-use yii\db\ActiveQuery;
+use app\models\query\TurfwarWinBonusQuery;
 use yii\db\ActiveRecord;
-use yii\db\Expression;
-
-use function is_numeric;
 
 /**
  * This is the model class for table "turfwar_win_bonus".
@@ -25,29 +19,9 @@ use function is_numeric;
  */
 class TurfwarWinBonus extends ActiveRecord
 {
-    public static function find()
+    public static function find(): TurfwarWinBonusQuery
     {
-        return new class (static::class) extends ActiveQuery {
-            public function current(): self
-            {
-                return $this->at(new Now());
-            }
-
-            public function at($time): self
-            {
-                return $this
-                    ->orderBy('[[start_at]] DESC')
-                    ->limit(1)
-                    ->andWhere(['<=', '[[start_at]]',
-                        $time instanceof Expression
-                                ? $time
-                                : (is_numeric($time)
-                                    ? DateTimeFormatter::unixTimeToString($time, new DateTimeZone('Etc/UTC'))
-                                    : (string)$time
-                                ),
-                    ]);
-            }
-        };
+        return new TurfwarWinBonusQuery(static::class);
     }
 
     /**

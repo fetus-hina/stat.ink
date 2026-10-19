@@ -13,6 +13,7 @@ use app\components\widgets\Icon;
 use app\models\Map3;
 use app\models\Salmon3;
 use app\models\SalmonEvent3;
+use app\models\SalmonMap3;
 use app\models\SalmonSchedule3;
 use app\models\SalmonScheduleWeapon3;
 use app\models\SalmonWaterLevel2;
@@ -24,7 +25,6 @@ use yii\web\View;
 use yii\widgets\DetailView;
 
 /**
- * @phpstan-import-type OverfishingStats from OverfishingTrait
  *
  * @var Map3|SalmonMap3|null $map
  * @var OverfishingStats|null $overfishing

@@ -10,6 +10,7 @@ declare(strict_types=1);
 use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\ApiInfoName;
 use app\components\widgets\Icon;
+use app\models\Language;
 use app\models\Map3;
 use app\models\Map3Alias;
 use statink\yii2\sortableTable\SortableTableAsset;
@@ -20,7 +21,7 @@ use yii\web\View;
 /**
  * @var Map3[] $stages
  * @var View $this
- * @var array[] $langs
+ * @var Language[] $langs
  */
 
 TableResponsiveForceAsset::register($this);

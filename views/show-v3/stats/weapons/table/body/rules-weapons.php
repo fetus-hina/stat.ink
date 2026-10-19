@@ -19,8 +19,12 @@ use yii\web\View;
  * @var View $this
  * @var array<string, Weapon3> $weapons
  * @var array<string, Rule3> $rules
- * @var array<string, array<string, array>> $weaponstats
+ * @var array<string, array<string, array>> $stats
  */
+
+// Empty statement on purpose: without it, PHPStan attaches the @var block above
+// to the foreach and the closures in the loop cannot see $this and the others.
+;
 
 foreach ($weapons as $weaponKey => $weapon) {
   $weaponStats = ArrayHelper::getValue($stats, $weaponKey);
@@ -40,14 +44,12 @@ foreach ($weapons as $weaponKey => $weapon) {
         implode(
           '',
           array_map(
-            function (string $ruleKey, Rule3 $rule) use ($weaponStats, $user, $weapon): string {
-              return $this->render('cell-data', [
-                'rule' => $rule,
-                'stats' => ArrayHelper::getValue($weaponStats, $ruleKey),
-                'user' => $user,
-                'weapon' => $weapon,
-              ]);
-            },
+            fn (string $ruleKey, Rule3 $rule): string => $this->render('cell-data', [
+              'rule' => $rule,
+              'stats' => ArrayHelper::getValue($weaponStats, $ruleKey),
+              'user' => $user,
+              'weapon' => $weapon,
+            ]),
             array_keys($rules),
             array_values($rules),
           ),

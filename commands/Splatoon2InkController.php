@@ -243,7 +243,6 @@ class Splatoon2InkController extends Controller
         if (!$schedule) {
             $schedule = Yii::createObject([
                 'class' => SalmonSchedule2::class,
-                'map_id' => null,
                 'start_at' => $startTime->format(DateTime::ATOM),
                 'end_at' => $endTime->format(DateTime::ATOM),
             ]);

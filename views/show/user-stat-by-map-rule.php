@@ -14,6 +14,7 @@ use app\components\widgets\BattleFilterWidget;
 use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
 use app\components\widgets\WinLoseLegend;
+use app\models\BattleFilterForm;
 use app\models\User;
 use yii\helpers\Html;
 use yii\helpers\Json;
@@ -21,8 +22,12 @@ use yii\helpers\Url;
 use yii\web\View;
 
 /**
+ * @var BattleFilterForm $filter
  * @var User $user
  * @var View $this
+ * @var array<string, array<string, array{win: int, lose: int}>> $data
+ * @var array<string, string> $mapNames
+ * @var array<string, string> $ruleNames
  */
 
 $title = Yii::t('app-battle', "{name}'s Battle Stats (by Mode and Stage)", ['name' => $user->name]);

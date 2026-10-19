@@ -20,7 +20,7 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property string $key
  * @property string $name
- * @property integer $weapon_id
+ * @property integer|null $weapon_id
  * @property integer $rank
  *
  * @property Salmon3UserStatsWeapon[] $salmon3UserStatsWeapons
@@ -28,7 +28,7 @@ use yii\db\ActiveRecord;
  * @property SalmonScheduleWeapon3[] $salmonScheduleWeapon3s
  * @property SalmonWeapon3Alias[] $salmonWeapon3Aliases
  * @property User[] $users
- * @property Weapon3 $weapon
+ * @property Weapon3|null $weapon
  */
 class SalmonWeapon3 extends ActiveRecord
 {

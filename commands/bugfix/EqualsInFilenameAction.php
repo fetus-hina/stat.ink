@@ -152,14 +152,14 @@ final class EqualsInFilenameAction extends Action
         string $directory,
         bool $dryRun,
     ): string {
-        $oldFilename = (string)$model->filename;
+        $oldFilename = (string)$model->getAttribute('filename');
 
         // Only the default local bucket can be moved on disk by this action.
-        if ($target['hasBucket'] && (int)$model->bucket_id !== 1) {
+        if ($target['hasBucket'] && (int)$model->getAttribute('bucket_id') !== 1) {
             vfprintf(STDERR, "[Warn] %s: skip %s (non-default bucket_id=%s)\n", [
                 $target['label'],
                 $oldFilename,
-                (string)$model->bucket_id,
+                (string)$model->getAttribute('bucket_id'),
             ]);
             return 'skip';
         }
@@ -297,7 +297,7 @@ final class EqualsInFilenameAction extends Action
             $movedOrder[] = $ext;
         }
 
-        $model->filename = $newFilename;
+        $model->setAttribute('filename', $newFilename);
 
         $db = Yii::$app->db;
         assert($db instanceof Connection);

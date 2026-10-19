@@ -10,7 +10,7 @@ declare(strict_types=1);
 use app\components\widgets\Icon;
 use app\models\Battle3;
 use app\models\BattleMedal3;
-use app\models\MedalCanoical3;
+use app\models\MedalCanonical3;
 use yii\helpers\Html;
 use yii\web\AssetManager;
 
@@ -31,7 +31,7 @@ return [
     $items = [];
     foreach ($intermediates as $i => $intermediate) {
       /**
-       * @var MedalCanoical3|null $canonical
+       * @var MedalCanonical3|null $canonical
        */
       $canonical = null;
       if ($model = $intermediate->medal) {

@@ -11,7 +11,7 @@ use DateTimeZone;
 use Yii;
 use app\components\helpers\DateTimeFormatter;
 use app\components\helpers\Translator;
-use yii\db\ActiveQuery;
+use app\models\query\Map2Query;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
@@ -42,16 +42,9 @@ class Map2 extends ActiveRecord
 {
     use openapi\Util;
 
-    public static function find(): ActiveQuery
+    public static function find(): Map2Query
     {
-        return new class (static::class) extends ActiveQuery {
-            public function excludeMystery(): self
-            {
-                return $this->andWhere(['and',
-                    ['not', ['like', 'key', 'mystery%', false]],
-                ]);
-            }
-        };
+        return new Map2Query(static::class);
     }
 
     /**

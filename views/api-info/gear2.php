@@ -12,6 +12,7 @@ use app\assets\TableResponsiveForceAsset;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
+use app\models\Gear2;
 use app\models\GearType;
 use app\models\Language;
 use statink\yii2\sortableTable\SortableTableAsset;
@@ -19,6 +20,9 @@ use yii\helpers\Html;
 use yii\web\View;
 
 /**
+ * @var Gear2[] $gears
+ * @var GearType $type
+ * @var Language[] $langs
  * @var View $this
  */
 

@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use app\models\query\StatWeapon2TierQuery;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\Query;
@@ -52,20 +53,9 @@ class StatWeapon2Tier extends ActiveRecord
 {
     public const PLAYERS_COUNT_THRESHOLD = 50;
 
-    public static function find(): ActiveQuery
+    public static function find(): StatWeapon2TierQuery
     {
-        return new class (static::class) extends ActiveQuery {
-            public function thresholded(): self
-            {
-                $this->andWhere(
-                    ['>=',
-                        '{{stat_weapon2_tier}}.[[players_count]]',
-                        StatWeapon2Tier::PLAYERS_COUNT_THRESHOLD,
-                    ],
-                );
-                return $this;
-            }
-        };
+        return new StatWeapon2TierQuery(static::class);
     }
 
     public static function tableName()

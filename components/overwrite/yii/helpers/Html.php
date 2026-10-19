@@ -54,8 +54,8 @@ class Html extends BaseHtml
             if ($resp && !$resp->isSent) {
                 $headers = $resp->getHeaders();
                 $href = Url::to($url);
-                if (!str_contains($href, '//') && !in_array($href, static::$pushed, true)) {
-                    static::$pushed[] = $href;
+                if (!str_contains($href, '//') && !in_array($href, self::$pushed, true)) {
+                    self::$pushed[] = $href;
                     if ($headers->has('Link')) {
                         $headers->add('Link', sprintf(
                             '<%s>; rel=preload; as=style',
@@ -80,8 +80,8 @@ class Html extends BaseHtml
             if ($resp && !$resp->isSent) {
                 $headers = $resp->getHeaders();
                 $href = Url::to($url);
-                if (!str_contains($href, '//') && !in_array($href, static::$pushed, true)) {
-                    static::$pushed[] = $href;
+                if (!str_contains($href, '//') && !in_array($href, self::$pushed, true)) {
+                    self::$pushed[] = $href;
                     if ($headers->has('Link')) {
                         $headers->add('Link', sprintf(
                             '<%s>; rel=preload; as=script',
