@@ -25,9 +25,7 @@ use yii\db\Query;
 use yii\db\Transaction;
 use yii\helpers\Url;
 use yii\web\AssetBundle;
-use yii\web\AssetManager;
 use yii\web\HttpException;
-use yii\web\View;
 
 use function array_merge;
 use function filter_var;
@@ -140,20 +138,14 @@ final class CounterAction extends Action
         $iconUrl = null;
         if ($iconAsset && $iconFile) {
             $am = Yii::$app->assetManager;
-            $view = Yii::$app->view;
-            if (
-                $am instanceof AssetManager &&
-                $view instanceof View
-            ) {
-                $iconUrl = Url::to(
-                    $am->getAssetUrl(
-                        bundle: $am->getBundle($iconAsset),
-                        asset: $iconFile,
-                        appendTimestamp: false,
-                    ),
-                    true,
-                );
-            }
+            $iconUrl = Url::to(
+                $am->getAssetUrl(
+                    bundle: $am->getBundle($iconAsset),
+                    asset: $iconFile,
+                    appendTimestamp: false,
+                ),
+                true,
+            );
         }
 
         return [

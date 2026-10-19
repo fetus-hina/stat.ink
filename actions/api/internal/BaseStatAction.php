@@ -64,9 +64,6 @@ abstract class BaseStatAction extends BaseAction
     private function makeDataOrLoadCache()
     {
         $cache = Yii::$app->cache;
-        if (!$cache) {
-            return $this->makeData();
-        }
         $key = $this->getCacheId();
         $data = $cache->get($key);
         if ($data !== false) {

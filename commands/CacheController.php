@@ -37,32 +37,30 @@ final class CacheController extends BaseController
         $gcedTables = [];
         foreach (array_keys($caches) as $name) {
             $component = Yii::$app->get($name);
-            if ($component) {
-                if ($component instanceof FileCache) {
-                    fwrite(STDERR, "GC'ing $name...\n");
-                    $component->gc(force: true, expiredOnly: true);
-                } elseif ($component instanceof DbCache) {
-                    $tableName = $component->cacheTable;
-                    if (in_array($tableName, $gcedTables, true)) {
-                        fwrite(STDERR, "Skip GC $name (already gc'ed)...\n");
-                        continue;
-                    }
-
-                    fwrite(STDERR, "GC'ing $name...\n");
-                    $component->gc(force: true);
-
-                    $db = $component->db;
-                    if (
-                        $db instanceof Connection &&
-                        $db->driverName === 'pgsql'
-                    ) {
-                        fwrite(STDERR, "VACUUM'ing $tableName...\n");
-                        $db->createCommand(sprintf('VACUUM ( ANALYZE ) %s', $db->quoteTableName($tableName)))
-                            ->execute();
-                    }
-
-                    $gcedTables[] = $tableName;
+            if ($component instanceof FileCache) {
+                fwrite(STDERR, "GC'ing $name...\n");
+                $component->gc(force: true, expiredOnly: true);
+            } elseif ($component instanceof DbCache) {
+                $tableName = $component->cacheTable;
+                if (in_array($tableName, $gcedTables, true)) {
+                    fwrite(STDERR, "Skip GC $name (already gc'ed)...\n");
+                    continue;
                 }
+
+                fwrite(STDERR, "GC'ing $name...\n");
+                $component->gc(force: true);
+
+                $db = $component->db;
+                if (
+                    $db instanceof Connection &&
+                    $db->driverName === 'pgsql'
+                ) {
+                    fwrite(STDERR, "VACUUM'ing $tableName...\n");
+                    $db->createCommand(sprintf('VACUUM ( ANALYZE ) %s', $db->quoteTableName($tableName)))
+                        ->execute();
+                }
+
+                $gcedTables[] = $tableName;
             }
         }
 

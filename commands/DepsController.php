@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace app\commands;
 
-use RuntimeException;
 use Throwable;
 use Yii;
 use app\components\helpers\DepsAuditReport;
@@ -526,14 +525,10 @@ final class DepsController extends Controller
 
     private function httpClient(): HttpClient
     {
-        $client = Yii::createObject([
+        return Yii::createObject([
             'class' => HttpClient::class,
             'transport' => Yii::createObject(['class' => CurlTransport::class]),
         ]);
-        if (!$client instanceof HttpClient) {
-            throw new RuntimeException('Failed to create HttpClient');
-        }
-        return $client;
     }
 
     private function gitFileAtHead(string $path): ?string
