@@ -336,11 +336,8 @@ final class UserMiniInfo3 extends Widget
         foreach ($models as $model) {
             $group = $model['group'];
             if ($group) {
-                if ($this->activeLobby) {
-                    $activeGroup = $this->activeLobby->group;
-                    if ($activeGroup && $activeGroup->key === $group->key) {
-                        return $group->key;
-                    }
+                if ($this->activeLobby?->group->key === $group->key) {
+                    return $group->key;
                 }
 
                 if ($group->importance > $importance) {

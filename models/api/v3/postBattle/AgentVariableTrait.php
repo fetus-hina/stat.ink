@@ -25,9 +25,7 @@ trait AgentVariableTrait
         ]);
         if (!$model) {
             // 2. lock if not found
-            if (!$lock = CriticalSection::lock(AgentVariable3::class, 60)) {
-                return null;
-            }
+            $lock = CriticalSection::lock(AgentVariable3::class, 60);
             try {
                 // 3. find data again with lock (it may created on another process/thread)
                 $model = AgentVariable3::findOne([

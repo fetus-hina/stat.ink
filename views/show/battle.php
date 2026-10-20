@@ -321,12 +321,8 @@ $specials = Special::find()->asArray()->all();
               ),
               Html::encode(Yii::t('app-weapon', $battle->weapon->name)),
               Html::encode(sprintf('(%s)', implode(' / ', [
-                $battle->weapon->subweapon
-                  ? Yii::t('app-subweapon', $battle->weapon->subweapon->name)
-                  : '?',
-                $battle->weapon->special
-                  ? Yii::t('app-special', $battle->weapon->special->name)
-                  : '?',
+                Yii::t('app-subweapon', $battle->weapon->subweapon->name),
+                Yii::t('app-special', $battle->weapon->special->name),
               ]))),
             ]) ?></td>
           </tr>
@@ -439,9 +435,6 @@ $specials = Special::find()->asArray()->all();
                   ])
               ) . "\n" ?>
 <?php } ?>
-<?php if ($battle->is_win === null) { ?>
-              ?
-<?php } else { ?>
               <?= (
                 ($battle->is_win)
                   ? Html::tag('span', Html::encode(Yii::t('app-results', 'Won')), [
@@ -451,7 +444,6 @@ $specials = Special::find()->asArray()->all();
                     'class' => 'label label-danger',
                   ])
               ) . "\n" ?>
-<?php } ?>
             </td>
           </tr>
 <?php } ?>
@@ -525,7 +517,7 @@ $specials = Special::find()->asArray()->all();
 <?php foreach ($deathReasons as $deathReason) { ?>
                   <tr>
                     <td><?= Html::encode(
-                      ($deathReason->reason && $deathReason->reason->translatedName)
+                      $deathReason->reason->translatedName
                         ? $deathReason->reason->translatedName
                         : '?'
                     ) ?></td>
@@ -1030,7 +1022,7 @@ foreach ($battle->$attr as $player) {
       </table>
 <?php } ?>
 <?php if ($battle->events) { ?>
-<?php $events = is_array($battle->events) ? $battle->events : @json_decode($battle->events, false) ?>
+<?php $events = @json_decode($battle->events, false) ?>
 <?php if ($events) { ?>
 <?php
 BattleTimelineAsset::register($this);

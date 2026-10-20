@@ -150,7 +150,7 @@ class SalmonController extends Controller
     public function actionView(string $screen_name, int $id): ?string
     {
         $model = Salmon2::findOne(['id' => $id]);
-        if (!$model || !$model->user) {
+        if (!$model) {
             static::error404();
         }
 
@@ -200,7 +200,7 @@ class SalmonController extends Controller
         $model = Salmon2::findOne([
             'id' => $id,
         ]);
-        if (!$model || !$model->user) {
+        if (!$model) {
             static::error404();
         }
         if ($model->user->screen_name !== $screen_name) {
@@ -227,7 +227,7 @@ class SalmonController extends Controller
         $model = Salmon2::findOne([
             'id' => $id,
         ]);
-        if (!$model || !$model->user) {
+        if (!$model) {
             static::error404();
         }
         if ($model->user->screen_name !== $screen_name) {

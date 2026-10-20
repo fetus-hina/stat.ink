@@ -175,7 +175,6 @@ final class BigrunAction extends Action
     ): ?NormalDistribution {
         if (
             $abstract->users < 50 ||
-            $abstract->average === null ||
             $abstract->stddev === null ||
             $abstract->p95 === null ||
             $abstract->p80 === null ||

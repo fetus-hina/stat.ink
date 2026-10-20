@@ -18,14 +18,14 @@ use yii\db\ActiveRecord;
  * @property integer $schedule_id
  * @property integer $users
  * @property double $average
- * @property double $stddev
- * @property integer $min
- * @property integer $q1
- * @property integer $median
- * @property integer $q3
- * @property integer $max
- * @property integer $top_5_pct
- * @property integer $top_20_pct
+ * @property double|null $stddev
+ * @property integer|null $min
+ * @property integer|null $q1
+ * @property integer|null $median
+ * @property integer|null $q3
+ * @property integer|null $max
+ * @property integer|null $top_5_pct
+ * @property integer|null $top_20_pct
  *
  * @property SalmonSchedule3 $schedule
  */

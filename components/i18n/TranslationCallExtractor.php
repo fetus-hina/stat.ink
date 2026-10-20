@@ -202,7 +202,7 @@ final class TranslationCallExtractor
         return (string)preg_replace_callback(
             '/\\\\(?:([nrtvef\\\\$"])|([0-7]{1,3})|x([0-9A-Fa-f]{1,2})|u\{([0-9A-Fa-f]+)\})/',
             fn (array $m): string => match (true) {
-                ($m[1] ?? '') !== '' => match ($m[1]) {
+                $m[1] !== '' => match ($m[1]) {
                     'n' => "\n",
                     'r' => "\r",
                     't' => "\t",
@@ -211,8 +211,8 @@ final class TranslationCallExtractor
                     'f' => "\f",
                     default => $m[1],
                 },
-                ($m[2] ?? '') !== '' => chr(octdec($m[2]) & 0xff),
-                ($m[3] ?? '') !== '' => chr(hexdec($m[3])),
+                $m[2] !== '' => chr(octdec($m[2]) & 0xff),
+                $m[3] !== '' => chr(hexdec($m[3])),
                 default => (string)mb_chr(hexdec($m[4]), 'UTF-8'),
             },
             $body,

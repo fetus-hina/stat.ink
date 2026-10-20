@@ -20,7 +20,7 @@ return [
         }
 
         if ($model->deaths === 0) {
-            return $model->deaths === 0
+            return $model->kills === 0
                 ? Yii::t('app', 'N/A')
                 : Yii::$app->formatter->asDecimal(99.99, 2);
         }

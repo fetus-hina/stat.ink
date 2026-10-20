@@ -107,9 +107,9 @@ $resultsTide = ArrayHelper::index(
             implode('', [
               Html::tag(
                 'div',
-                match ($map::class) {
-                  SalmonMap3::class => Icon::s3SalmonStage($map),
-                  BigrunMap3::class => Icon::s3BigRun(),
+                match (true) {
+                  $map instanceof SalmonMap3 => Icon::s3SalmonStage($map),
+                  $map instanceof BigrunMap3 => Icon::s3BigRun(),
                 },
                 ['style' => 'font-size:3em'],
               ),
@@ -140,8 +140,8 @@ $resultsTide = ArrayHelper::index(
   $king->id,
 ]); ?>
         <?= $this->render('./table/cell', [
-          'cleared' => $model?->cleared ?? 0,
-          'jobs' => $model?->jobs ?? 0,
+          'cleared' => $model->cleared ?? 0,
+          'jobs' => $model->jobs ?? 0,
           'king' => $king,
           'map' => $map,
           'tideModels' => $tideModels ?? [],

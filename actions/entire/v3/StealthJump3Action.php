@@ -119,7 +119,7 @@ final class StealthJump3Action extends Action
             ->orderBy(['{{%season3}}.[[start_at]]' => SORT_DESC])
             ->limit(1)
             ->one($db);
-        return $model?->season ?? null;
+        return $model->season ?? null;
     }
 
     private function getRule(Connection $db, mixed $ruleKey): ?Rule3

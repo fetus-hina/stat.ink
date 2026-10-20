@@ -74,18 +74,18 @@ use const SORT_DESC;
  * @property integer $hoko_rank_peak
  * @property string $updated_at
  * @property integer $asari_rank_peak
- * @property integer $area_current_rank
- * @property integer $yagura_current_rank
- * @property integer $hoko_current_rank
- * @property integer $asari_current_rank
- * @property numeric-string $area_current_x_power
- * @property numeric-string $yagura_current_x_power
- * @property numeric-string $hoko_current_x_power
- * @property numeric-string $asari_current_x_power
- * @property numeric-string $area_x_power_peak
- * @property numeric-string $yagura_x_power_peak
- * @property numeric-string $hoko_x_power_peak
- * @property numeric-string $asari_x_power_peak
+ * @property integer|null $area_current_rank
+ * @property integer|null $yagura_current_rank
+ * @property integer|null $hoko_current_rank
+ * @property integer|null $asari_current_rank
+ * @property numeric-string|null $area_current_x_power
+ * @property numeric-string|null $yagura_current_x_power
+ * @property numeric-string|null $hoko_current_x_power
+ * @property numeric-string|null $asari_current_x_power
+ * @property numeric-string|null $area_x_power_peak
+ * @property numeric-string|null $yagura_x_power_peak
+ * @property numeric-string|null $hoko_x_power_peak
+ * @property numeric-string|null $asari_x_power_peak
  *
  * @property User $user
  */

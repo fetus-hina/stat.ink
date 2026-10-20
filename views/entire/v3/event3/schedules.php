@@ -34,7 +34,7 @@ $placeholder = '--id--';
       fn (EventSchedule3 $schedule): string => (string)$schedule->id,
       fn (EventSchedule3 $schedule): string => vsprintf('%s (%s)', [
         Yii::$app->formatter->asDate($schedule->start_at),
-        Yii::t('app-rule3', $schedule->rule?->name ?? '?'),
+        Yii::t('app-rule3', $schedule->rule->name ?? '?'),
       ]),
     ),
     [

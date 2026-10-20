@@ -51,7 +51,7 @@ class Html extends BaseHtml
     {
         if (static::$enableServerPush && !isset($options['condition'])) {
             $resp = Yii::$app->response;
-            if ($resp && !$resp->isSent) {
+            if (!$resp->isSent) {
                 $headers = $resp->getHeaders();
                 $href = Url::to($url);
                 if (!str_contains($href, '//') && !in_array($href, self::$pushed, true)) {
@@ -77,7 +77,7 @@ class Html extends BaseHtml
     {
         if (static::$enableServerPush && !isset($options['condition'])) {
             $resp = Yii::$app->response;
-            if ($resp && !$resp->isSent) {
+            if (!$resp->isSent) {
                 $headers = $resp->getHeaders();
                 $href = Url::to($url);
                 if (!str_contains($href, '//') && !in_array($href, self::$pushed, true)) {

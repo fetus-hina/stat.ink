@@ -18,7 +18,6 @@ use yii\helpers\Url;
 
 use function implode;
 use function is_callable;
-use function is_string;
 use function lcfirst;
 use function pathinfo;
 use function preg_match;
@@ -217,7 +216,7 @@ final class SnsWidget extends Widget
 
         $imageUrl = Url::to($this->imageUrl);
 
-        $contentType = match (is_string($imageUrl) ? strtolower(pathinfo($imageUrl, PATHINFO_EXTENSION)) : '') {
+        $contentType = match (strtolower(pathinfo($imageUrl, PATHINFO_EXTENSION))) {
             'avif' => 'image/avif',
             'gif' => 'image/gif',
             'jpg', 'jpeg' => 'image/jpeg',

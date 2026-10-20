@@ -9,11 +9,11 @@ declare(strict_types=1);
 
 namespace app\commands;
 
-use RuntimeException;
 use Throwable;
 use Yii;
 use app\components\helpers\DepsAuditReport;
 use app\components\helpers\DepsLockfileDiff;
+use app\components\helpers\TypeHelper;
 use yii\console\Controller;
 use yii\console\ExitCode;
 use yii\helpers\FileHelper;
@@ -493,7 +493,7 @@ final class DepsController extends Controller
                 ))
                 ->setHeaders($headers)
                 ->send();
-            if ($response->statusCode === 404) {
+            if (TypeHelper::int($response->statusCode) === 404) {
                 return null;
             }
             if (!$response->isOk) {
@@ -525,14 +525,10 @@ final class DepsController extends Controller
 
     private function httpClient(): HttpClient
     {
-        $client = Yii::createObject([
+        return Yii::createObject([
             'class' => HttpClient::class,
             'transport' => Yii::createObject(['class' => CurlTransport::class]),
         ]);
-        if (!$client instanceof HttpClient) {
-            throw new RuntimeException('Failed to create HttpClient');
-        }
-        return $client;
     }
 
     private function gitFileAtHead(string $path): ?string

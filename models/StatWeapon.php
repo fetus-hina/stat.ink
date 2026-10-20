@@ -19,8 +19,8 @@ use yii\db\ActiveRecord;
  * @property integer $total_kill
  * @property integer $total_death
  * @property integer $win_count
- * @property integer $total_point
- * @property integer $point_available
+ * @property integer|null $total_point
+ * @property integer|null $point_available
  *
  * @property Rule $rule
  * @property Weapon $weapon

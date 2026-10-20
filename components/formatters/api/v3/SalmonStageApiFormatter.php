@@ -42,7 +42,6 @@ final class SalmonStageApiFormatter
                 'name' => NameApiFormatter::toJson($vsStage->name, 'app-map3', $fullTranslate),
             ],
             $vsStage instanceOf Map3 => StageApiFormatter::toJson($vsStage, $fullTranslate),
-            default => null,
         };
     }
 }

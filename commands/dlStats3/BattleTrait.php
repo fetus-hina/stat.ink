@@ -287,12 +287,12 @@ trait BattleTrait
                     $medals = [];
                     foreach ($battle->medals as $medal) {
                         $medals = array_merge($medals, [
-                            match ($medal?->canonical?->gold) {
+                            match ($medal->canonical?->gold) {
                                 true => 'gold',
                                 false => 'silver',
                                 default => '',
                             },
-                            $medal?->canonical?->name ?? $medal?->name ?? '',
+                            $medal?->canonical->name ?? $medal->name ?? '',
                         ]);
                     }
                     $csvColumns = array_merge(

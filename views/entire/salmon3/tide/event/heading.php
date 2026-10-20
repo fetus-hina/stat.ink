@@ -11,7 +11,6 @@ use app\components\widgets\Icon;
 use app\models\BigrunMap3;
 use app\models\SalmonMap3;
 use yii\helpers\Html;
-use yii\web\AssetManager;
 use yii\web\View;
 
 /**
@@ -20,16 +19,11 @@ use yii\web\View;
  */
 
 $am = Yii::$app->assetManager;
-assert($am instanceof AssetManager);
 
 echo Html::tag(
   'h3',
   implode(' ', [
-    match (true) {
-      $map instanceof SalmonMap3 => Icon::s3SalmonStage($map),
-      $map instanceof BigrunMap3 => Icon::s3BigRun(),
-      default => '',
-    },
+    $map instanceof SalmonMap3 ? Icon::s3SalmonStage($map) : Icon::s3BigRun(),
     Html::encode(Yii::t('app-map3', $map->name)),
   ]),
   [

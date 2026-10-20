@@ -17,7 +17,7 @@ use yii\web\View;
 
 /**
  *
- * @var DailyData $data
+ * @var DailyData|null $data
  * @var DateTimeInterface $date
  * @var Rule3 $rule
  * @var Season3 $season,

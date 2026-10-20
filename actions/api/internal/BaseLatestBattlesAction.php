@@ -9,8 +9,6 @@ declare(strict_types=1);
 
 namespace app\actions\api\internal;
 
-use DateTimeImmutable;
-use DateTimeZone;
 use Yii;
 use app\actions\api\internal\latestBattles\Battle1Formatter;
 use app\actions\api\internal\latestBattles\Battle2Formatter;
@@ -31,7 +29,6 @@ use function array_filter;
 use function array_merge;
 use function array_values;
 use function preg_replace;
-use function time;
 
 abstract class BaseLatestBattlesAction extends ViewAction
 {
@@ -41,8 +38,6 @@ abstract class BaseLatestBattlesAction extends ViewAction
     use Salmon2Formatter;
     use Salmon3Formatter;
 
-    private DateTimeImmutable $now;
-
     abstract protected function fetchBattles(): array;
 
     abstract protected function getHeading(): string;
@@ -50,16 +45,6 @@ abstract class BaseLatestBattlesAction extends ViewAction
     protected function isPrecheckOK(): bool
     {
         return true;
-    }
-
-    public function init()
-    {
-        parent::init();
-
-        $t = (int)($_SERVER['REQUEST_TIME'] ?? time());
-        $this->now = new DateTimeImmutable()
-            ->setTimestamp($t)
-            ->setTimezone(new DateTimeZone('Etc/UTC'));
     }
 
     public function run()

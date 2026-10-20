@@ -55,7 +55,7 @@ $relationNullable = function (array $relation) use ($tableSchema): bool {
     if ($link && $foreignKey == $link) {
       return array_any(
         array_keys($link),
-        fn (string $column): bool => $tableSchema->getColumn($column)?->allowNull ?? true,
+        fn (string $column): bool => $tableSchema->getColumn($column)->allowNull ?? true,
       );
     }
   }

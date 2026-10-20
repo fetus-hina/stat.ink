@@ -112,7 +112,7 @@ echo DetailView::widget([
               $model->weapon !== null => Icon::s3Weapon($model->weapon)
                 ?? Html::tag('span', Icon::unknown(), [
                   'class' => 'auto-tooltip',
-                  'title' => Yii::t('app-weapon3', $model->weapon?->name ?? '?'),
+                  'title' => Yii::t('app-weapon3', $model->weapon->name ?? '?'),
                 ]),
               $model->random !== null => Icon::s3SalmonRandom($model->random),
               default => Icon::unknown(),
@@ -181,7 +181,7 @@ echo DetailView::widget([
         'format' => 'raw',
         'value' => trim(
           implode(' ', [
-            version_compare($version?->tag ?? '0.0.0', '6.0.0', '>=') && $schedule?->king
+            version_compare($version->tag ?? '0.0.0', '6.0.0', '>=') && $schedule?->king
               ? Icon::s3BossSalmonid($schedule->king)
               : '',
             Html::encode(
@@ -333,7 +333,7 @@ echo DetailView::widget([
           ),
         ]),
       ],
-      isset($overfishing) && $overfishing
+      $overfishing
         ? [
           'label' => Yii::t('app-salmon-overfishing', 'Overfishing'),
           'format' => 'raw',

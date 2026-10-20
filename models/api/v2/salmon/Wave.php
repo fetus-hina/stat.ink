@@ -139,12 +139,8 @@ class Wave extends Model
                         break;
                 }
 
-                if (is_array($errors)) {
-                    foreach ($errors as $error) {
-                        $this->addError($attrName, $error);
-                    }
-                } else {
-                    $this->addError($attrName, $errors);
+                foreach ($errors as $error) {
+                    $this->addError($attrName, $error);
                 }
             }
             return false;

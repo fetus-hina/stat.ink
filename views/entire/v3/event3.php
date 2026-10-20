@@ -30,7 +30,7 @@ use yii\web\View;
  * @var ActiveDataProvider $specialProvider
  * @var ActiveDataProvider $weaponsProvider
  * @var Event3 $event
- * @var Event3StatsPower $abstract
+ * @var Event3StatsPower|null $abstract
  * @var Event3StatsPowerHistogram[] $histogram
  * @var Event3StatsPowerPeriodHistogram[] $periodHistogram
  * @var Event3[] $events

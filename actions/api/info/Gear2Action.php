@@ -21,7 +21,7 @@ final class Gear2Action extends Action
 {
     public $type;
 
-    public function getType(): GearType
+    public function getType(): ?GearType
     {
         return GearType::findOne(['key' => (string)$this->type]);
     }

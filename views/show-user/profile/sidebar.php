@@ -112,7 +112,7 @@ $this->registerCss(implode('', array_map(
           $latestPlayer3->number,
         ]),
       ],
-      fn (?string $text): ?bool => $text !== null,
+      fn (?string $text): bool => $text !== null,
     )),
     ['class' => 'splashtag'],
   ) . "\n" ?>

@@ -80,7 +80,7 @@ if ($player->is_me) {
   ?></td>
 <?php } else { ?>
   <?= $this->render('player/cell-x-matching-group', [
-    'group' => $weaponMatchingGroup[$player->weapon?->key ?? 'unknown'] ?? null,
+    'group' => $weaponMatchingGroup[$player->weapon->key ?? 'unknown'] ?? null,
     'weapon' => $player->weapon,
   ]) . "\n" ?>
 <?php } ?>

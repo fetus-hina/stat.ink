@@ -21,9 +21,9 @@ echo Html::tag(
   Html::encode(
     Yii::t('app-entire', 'Aggregated: {rules}', [
       'rules' => implode(', ', [
-        Yii::t('app-lobby3', $lobbies['xmatch']?->name ?? ''),
-        Yii::t('app-lobby3', $lobbies['regular']?->name ?? ''),
-        Yii::t('app-lobby3', $lobbies['splatfest_challenge']?->name ?? ''),
+        Yii::t('app-lobby3', $lobbies['xmatch']->name ?? ''),
+        Yii::t('app-lobby3', $lobbies['regular']->name ?? ''),
+        Yii::t('app-lobby3', $lobbies['splatfest_challenge']->name ?? ''),
       ]),
     ]),
   ),

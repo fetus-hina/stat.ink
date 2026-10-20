@@ -41,7 +41,7 @@ $isTricolor = $battle->rule?->key === 'tricolor';
 
 if (
   $isXmatch &&
-  version_compare($battle->version?->tag ?? '0.0.0', '11.1.0', '>=')
+  version_compare($battle->version->tag ?? '0.0.0', '11.1.0', '>=')
 ) {
   $isXMR = true;
 }

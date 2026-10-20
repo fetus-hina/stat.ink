@@ -43,7 +43,7 @@ $canonicalUrl = Url::to(
 
 $isS3ImgGenAvailable = ArrayHelper::getValue(Yii::$app->params, 'useS3ImgGen') &&
   $model->rule &&
-  $model->rule !== 'tricolor';
+  $model->rule->key !== 'tricolor';
 
 $this->title = sprintf('%s | %s', Yii::$app->name, $title);
 $this->registerLinkTag(['rel' => 'canonical', 'href' => $canonicalUrl]);

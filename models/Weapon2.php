@@ -34,7 +34,7 @@ use const SORT_ASC;
  * @property string $name
  * @property integer $canonical_id
  * @property integer $main_group_id
- * @property integer $splatnet
+ * @property integer|null $splatnet
  * @property integer $main_power_up_id
  *
  * @property Special2 $special

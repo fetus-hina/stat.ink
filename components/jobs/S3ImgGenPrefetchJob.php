@@ -91,8 +91,6 @@ final class S3ImgGenPrefetchJob extends BaseObject implements JobInterface
                 ])
                 ->limit(1)
                 ->one(),
-
-            default => null,
         };
     }
 

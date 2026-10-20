@@ -15,8 +15,6 @@ use DateTimeInterface;
 use Yii;
 use app\models\Season3;
 use yii\base\InvalidCallException;
-use yii\base\InvalidConfigException;
-use yii\db\Connection;
 use yii\web\Request;
 
 use function filter_var;
@@ -53,9 +51,6 @@ final class Season3Helper
     public static function getCurrentSeason(string $offset = 'P1D'): ?Season3
     {
         $db = Yii::$app->db;
-        if (!$db instanceof Connection) {
-            throw new InvalidConfigException();
-        }
 
         $timestamp = self::timestamp($offset);
         return Season3::find()
@@ -75,9 +70,6 @@ final class Season3Helper
     public static function getSeasons(bool $xSupported = false): array
     {
         $db = Yii::$app->db;
-        if (!$db instanceof Connection) {
-            throw new InvalidConfigException();
-        }
 
         return Season3::find()
             ->andWhere(['<=', '[[start_at]]', self::timestamp()->format(DateTimeInterface::ATOM)])

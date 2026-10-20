@@ -19,7 +19,7 @@ use yii\web\JsExpression;
 use yii\web\View;
 
 /**
- * @var Splatfest3StatsWeapon $models
+ * @var Splatfest3StatsWeapon[] $models
  * @var View $this
  */
 

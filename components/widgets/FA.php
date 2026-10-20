@@ -30,8 +30,6 @@ class FA extends Widget
     public $options = [];
     public $contentOptions = [];
 
-    private $asset;
-
     public static function fas(?string $icon, array $options = []): self
     {
         return static::factory('fas', $icon, $options);
@@ -69,7 +67,7 @@ class FA extends Widget
     public function init()
     {
         parent::init();
-        $this->asset = FontAwesomeAsset::register($this->view);
+        FontAwesomeAsset::register($this->view);
     }
 
     public function fw(): self

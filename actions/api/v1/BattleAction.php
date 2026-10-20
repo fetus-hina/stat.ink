@@ -513,11 +513,7 @@ class BattleAction extends BaseAction
             ];
         }
 
-        if (!$battle = $form->save()) {
-            return $this->formatError($form->getErrors(), 400);
-        }
-
-        return $this->runGetImpl($battle);
+        return $this->runGetImpl($form->save());
     }
 
     private function runGetImpl(Battle $battle)
@@ -566,7 +562,7 @@ class BattleAction extends BaseAction
         $user = $battle->user;
 
         // Slack 投稿
-        if ($user && $user->isSlackIntegrated) {
+        if ($user->isSlackIntegrated) {
             Yii::$app->queue->push(new SlackJob([
                 'hostInfo' => Yii::$app->getRequest()->getHostInfo(),
                 'version' => 1,

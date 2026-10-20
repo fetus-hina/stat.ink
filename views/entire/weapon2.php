@@ -442,7 +442,7 @@ $normalizedSeconds = ($rule->key == 'nawabari' ? 3 : 5) * 60;
         ]),
         Html::tag('div', implode('<br>', array_filter(array_map(
           function (string $key, $value): ?string {
-            if ($value === null || $value === false || is_nan($value)) {
+            if ($value === null || is_nan($value)) {
               return null;
             }
             if (is_int($value)) {

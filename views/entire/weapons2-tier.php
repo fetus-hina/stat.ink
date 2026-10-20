@@ -49,7 +49,7 @@ $this->registerMetaTag(['name' => 'twitter:title', 'content' => $title]);
 $this->registerMetaTag(['name' => 'twitter:description', 'content' => $title]);
 $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
 
-$kdCell = function (StatWeapon2Tier $model, string $column): ?string {
+$kdCell = function (StatWeapon2Tier $model, string $column): string {
   return implode('<br>', [
     vsprintf('%s=%s±%s', [
       Html::tag('span', Html::encode('μ'), [
@@ -351,7 +351,7 @@ $kdCell = function (StatWeapon2Tier $model, string $column): ?string {
         'contentOptions' => ['class' => 'align-middle'],
         'headerOptions' => ['style' => ['width' => 'calc(7em + 16px)']],
         'format' => 'raw',
-        'value' => function (StatWeapon2Tier $model) use ($kdCell): ?string {
+        'value' => function (StatWeapon2Tier $model) use ($kdCell): string {
           return $kdCell($model, 'kill');
         },
         // }}}
@@ -361,7 +361,7 @@ $kdCell = function (StatWeapon2Tier $model, string $column): ?string {
         'contentOptions' => ['class' => 'align-middle'],
         'headerOptions' => ['style' => ['width' => 'calc(7em + 16px)']],
         'format' => 'raw',
-        'value' => function (StatWeapon2Tier $model) use ($kdCell): ?string {
+        'value' => function (StatWeapon2Tier $model) use ($kdCell): string {
           return $kdCell($model, 'death');
         },
         // }}}

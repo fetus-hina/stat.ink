@@ -31,32 +31,32 @@ use const SORT_DESC;
  * @property integer $battle_id
  * @property boolean $is_my_team
  * @property boolean $is_me
- * @property integer $weapon_id
- * @property integer $level
- * @property integer $rank_in_team
- * @property integer $kill
- * @property integer $death
- * @property integer $point
- * @property integer $my_kill
- * @property integer $kill_or_assist
- * @property integer $special
- * @property integer $rank_id
- * @property string $name
- * @property integer $gender_id
- * @property integer $fest_title_id
- * @property string $splatnet_id
- * @property integer $star_rank
- * @property boolean $top_500
- * @property integer $species_id
+ * @property integer|null $weapon_id
+ * @property integer|null $level
+ * @property integer|null $rank_in_team
+ * @property integer|null $kill
+ * @property integer|null $death
+ * @property integer|null $point
+ * @property integer|null $my_kill
+ * @property integer|null $kill_or_assist
+ * @property integer|null $special
+ * @property integer|null $rank_id
+ * @property string|null $name
+ * @property integer|null $gender_id
+ * @property integer|null $fest_title_id
+ * @property string|null $splatnet_id
+ * @property integer|null $star_rank
+ * @property boolean|null $top_500
+ * @property integer|null $species_id
  *
  * @property Battle2 $battle
- * @property FestTitle $festTitle
- * @property Gender $gender
- * @property Rank2 $rank
- * @property Species2 $species
- * @property Weapon2 $weapon
+ * @property FestTitle|null $festTitle
+ * @property Gender|null $gender
+ * @property Rank2|null $rank
+ * @property Species2|null $species
+ * @property Weapon2|null $weapon
  *
- * @property-read ForceBlackout2 $forceBlackout
+ * @property-read ForceBlackout2|null $forceBlackout
  * @property-read bool $isForceBlackouted
  * @property-read string $iconUrl
  * @property-read string $anonymizeSeed
@@ -343,7 +343,7 @@ class BattlePlayer2 extends ActiveRecord
             'fest_title' => $this->fest_title_id
                 ? $this->festTitle->toJsonArray(
                     $this->gender,
-                    $battle && $battle->my_team_fest_theme_id && $battle->his_team_fest_theme_id
+                    $battle->my_team_fest_theme_id && $battle->his_team_fest_theme_id
                         ? ($this->is_my_team ? $battle->myTeamFestTheme->name : $battle->hisTeamFestTheme->name)
                         : null,
                 )

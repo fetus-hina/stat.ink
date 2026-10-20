@@ -26,11 +26,9 @@ use app\models\UserBadge3Tricolor;
 use yii\db\Connection;
 use yii\db\Transaction;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Json;
 
 use function filter_var;
 use function is_int;
-use function is_iterable;
 use function is_string;
 
 use const FILTER_VALIDATE_INT;
@@ -72,16 +70,7 @@ trait DataCreator
             return [];
         }
 
-        if (is_iterable($model->data)) {
-            return self::filterBadgeAdjustmentData($model->data);
-        }
-
-        if (is_string($model->data)) {
-            $data = Json::decode($model->data);
-            return is_iterable($data) ? self::filterBadgeAdjustmentData($data) : [];
-        }
-
-        return [];
+        return self::filterBadgeAdjustmentData($model->data);
     }
 
     /**

@@ -115,7 +115,7 @@ class UserStatByWeaponAction extends ViewAction
             ));
         // }}}
 
-        if ($filter && !$filter->hasErrors()) {
+        if (!$filter->hasErrors()) {
             $query->applyFilter($filter);
         }
 

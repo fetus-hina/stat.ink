@@ -20,7 +20,6 @@ use yii\helpers\Json;
 use yii\httpclient\Client as HttpClient;
 use yii\httpclient\CurlTransport;
 
-use function assert;
 use function bin2hex;
 use function count;
 use function fprintf;
@@ -55,7 +54,6 @@ final class PasskeyAaguidController extends Controller
         }
 
         $db = Yii::$app->db;
-        assert($db instanceof Connection);
 
         $now = new Now();
 

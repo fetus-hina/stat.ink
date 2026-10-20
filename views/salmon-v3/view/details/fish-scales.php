@@ -45,8 +45,8 @@ return [
           fn (string $key, int $count): string => Html::tag(
             'span',
             vsprintf('%s %s', [
-              $icons[$key] ?? throw new LogicException('Unknown key: ' . $key),
-              Html::encode(Yii::$app->formatter->asInteger($counts[$key] ?? 0)),
+              $icons[$key],
+              Html::encode(Yii::$app->formatter->asInteger($count)),
             ]),
             ['class' => 'mr-2'],
           ),

@@ -9,7 +9,6 @@ namespace app\components\web;
 
 use Yii;
 use app\models\User as UserModel;
-use yii\base\InvalidValueException;
 use yii\helpers\StringHelper;
 use yii\web\Cookie;
 use yii\web\IdentityInterface;
@@ -65,12 +64,7 @@ class User extends \yii\web\User
             $class = $this->identityClass;
             $identity = $class::findIdentity($data['id']);
             if ($identity !== null) {
-                if (!$identity instanceof IdentityInterface) {
-                    throw new InvalidValueException(
-                        "$class::findIdentity() must return an object " .
-                        'implementing IdentityInterface.',
-                    );
-                } elseif (!$identity->validateAuthKey($data['authKey'])) {
+                if (!$identity->validateAuthKey($data['authKey'])) {
                     Yii::warning(
                         sprintf(
                             "Invalid auth key attempted for user '%s': %s",
@@ -181,7 +175,6 @@ class User extends \yii\web\User
         } finally {
             Yii::endProfile('decodeIdentityCookieValue', __METHOD__);
         }
-        return [];
     }
 
     private function generateIdentityEncodeKey(string $saltBinary): string

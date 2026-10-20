@@ -29,9 +29,6 @@ trait SpecialUseTrait
     protected function makeStatWeapon3SpecialUse(): void
     {
         $db = Yii::$app->db;
-        if (!$db instanceof Connection) {
-            return;
-        }
 
         fwrite(STDERR, "Updating stat_special_use3...\n");
         $db->transaction(

@@ -91,9 +91,9 @@ $valueData = [
         ],
         'labels' => array_map(
           fn (Event3StatsWeapon|Event3StatsSpecial $model): string => vsprintf('%s (%s)', [
-            match ($model::class) {
-              Event3StatsWeapon::class => Yii::t('app-weapon3', $model->weapon->name),
-              Event3StatsSpecial::class => Yii::t('app-special3', $model->special->name),
+            match (true) {
+              $model instanceof Event3StatsWeapon => Yii::t('app-weapon3', $model->weapon->name),
+              $model instanceof Event3StatsSpecial => Yii::t('app-special3', $model->special->name),
             },
             Yii::$app->formatter->asInteger($model->battles),
           ]),

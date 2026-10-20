@@ -25,7 +25,6 @@ trait TideEventTrait
     protected function makeStatSalmon3TideEvent(): void
     {
         $db = Yii::$app->db;
-        assert($db instanceof Connection);
 
         $db->transaction(
             function (Connection $db): void {

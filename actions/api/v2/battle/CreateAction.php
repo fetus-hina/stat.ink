@@ -301,7 +301,7 @@ class CreateAction extends BaseAction
         $user = $battle->user;
 
         // Slack 投稿
-        if ($user && $user->isSlackIntegrated) {
+        if ($user->isSlackIntegrated) {
             Yii::$app->queue
                 ->priority(SlackJob::getJobPriority())
                 ->push(new SlackJob([

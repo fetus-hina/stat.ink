@@ -22,7 +22,7 @@ use const SORT_ASC;
  * @property integer $id
  * @property string $key
  * @property string $name
- * @property string $splatnet
+ * @property string|null $splatnet
  */
 class SalmonWaterLevel2 extends ActiveRecord
 {

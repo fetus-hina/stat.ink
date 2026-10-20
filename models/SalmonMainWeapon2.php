@@ -28,10 +28,10 @@ use const SORT_ASC;
  * @property integer $id
  * @property string $key
  * @property string $name
- * @property integer $splatnet
- * @property integer $weapon_id
+ * @property integer|null $splatnet
+ * @property integer|null $weapon_id
  *
- * @property Weapon2 $weapon
+ * @property Weapon2|null $weapon
  */
 class SalmonMainWeapon2 extends ActiveRecord
 {

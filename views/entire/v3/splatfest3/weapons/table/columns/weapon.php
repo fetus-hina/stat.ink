@@ -21,9 +21,9 @@ return [
     'class' => 'auto-tooltip',
     'title' => vsprintf('%s %s / %s %s', [
       Yii::t('app', 'Sub:'),
-      Yii::t('app-subweapon3', $model->weapon->subweapon?->name ?? '?'),
+      Yii::t('app-subweapon3', $model->weapon->subweapon->name ?? '?'),
       Yii::t('app', 'Special:'),
-      Yii::t('app-special3', $model->weapon->special?->name ?? '?'),
+      Yii::t('app-special3', $model->weapon->special->name ?? '?'),
     ]),
     'data' => [
       'sort-value' => Yii::t('app-weapon3', $model->weapon->name),

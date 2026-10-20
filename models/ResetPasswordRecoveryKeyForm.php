@@ -35,7 +35,7 @@ final class ResetPasswordRecoveryKeyForm extends Model
     public string|null $password_repeat = null;
     public string|null $cf_turnstile_response = null;
 
-    private UserPasswordRecoveryKey|false|null $foundKey = false;
+    private ?UserPasswordRecoveryKey $foundKey = null;
 
     /**
      * @inheritdoc
@@ -105,7 +105,7 @@ final class ResetPasswordRecoveryKeyForm extends Model
             ->one();
 
         $isValid = false;
-        if ($key && $key->user && $key->user->screen_name === (string)$this->screen_name) {
+        if ($key && $key->user->screen_name === (string)$this->screen_name) {
             $isValid = Password::verify($secret, $key->secret_hash);
         } else {
             // Mitigate timing attacks by always running the slow verify
@@ -168,9 +168,6 @@ final class ResetPasswordRecoveryKeyForm extends Model
 
         $key = $this->foundKey;
         $user = $key->user;
-        if (!$user) {
-            return false;
-        }
 
         try {
             Yii::$app->db->transaction(function () use ($key, $user): void {

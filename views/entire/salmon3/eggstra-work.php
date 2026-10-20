@@ -88,7 +88,7 @@ $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
           'option',
           Html::encode(
             vsprintf('%s (%s)', [
-              Yii::t('app-map3', $model->map?->name ?? '?'),
+              Yii::t('app-map3', $model->map->name ?? '?'),
               $fmt->asDate($model->start_at, 'medium'),
             ]),
           ),
@@ -112,7 +112,7 @@ $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
       'h2',
       Html::encode(
         vsprintf('%s (%s)', [
-          Yii::t('app-map3', $schedule->map?->name ?? '?'),
+          Yii::t('app-map3', $schedule->map->name ?? '?'),
           $fmt->asDate($schedule->start_at, 'medium'),
         ]),
       ),

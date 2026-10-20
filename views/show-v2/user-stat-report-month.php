@@ -164,7 +164,6 @@ $weapons = Spl2WeaponAsset::register($this);
                 } else {
                   return Yii::t('app-rule2', 'Ranked Battle');
                 }
-                break;
 
               case 'fest_normal':
                 return Yii::t('app-rule2', 'Splatfest (Normal)');
@@ -178,7 +177,6 @@ $weapons = Spl2WeaponAsset::register($this);
                 } else {
                   return Yii::t('app-rule2', 'League Battle (Quad)');
                 }
-                break;
               
               default:
                 return $row['lobby_key'];

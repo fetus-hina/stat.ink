@@ -67,8 +67,7 @@ $datasetHistogram = [
   'type' => 'bar',
 ];
 
-$makeDistributionData = function (NormalDistribution $nd) use ($abstract, $chartMax): array {
-  assert($abstract);
+$makeDistributionData = function (NormalDistribution $nd) use ($chartMax): array {
   assert($chartMax);
 
   $results = [];
@@ -84,7 +83,7 @@ $makeDistributionData = function (NormalDistribution $nd) use ($abstract, $chart
 };
 
 $datasetNormalDistrib = null;
-if ($normalDistrib && $abstract && $chartMax > 0) {
+if ($normalDistrib && $chartMax > 0) {
   $datasetNormalDistrib = [
     'backgroundColor' => [ new JsExpression('window.colorScheme.graph1') ],
     'borderColor' => [ new JsExpression('window.colorScheme.graph1') ],
@@ -97,7 +96,7 @@ if ($normalDistrib && $abstract && $chartMax > 0) {
 }
 
 $datasetEstimatedDistrib = null;
-if ($estimatedDistrib && $abstract && $chartMax > 0) {
+if ($estimatedDistrib && $chartMax > 0) {
   $datasetEstimatedDistrib = [
     'backgroundColor' => [ new JsExpression('window.colorScheme.moving1') ],
     'borderColor' => [ new JsExpression('window.colorScheme.moving1') ],
@@ -110,7 +109,7 @@ if ($estimatedDistrib && $abstract && $chartMax > 0) {
 }
 
 $datasetRuleOfThumbDistrib = null;
-if (!$datasetEstimatedDistrib && $ruleOfThumbDistrib && $abstract && $chartMax > 0) {
+if (!$datasetEstimatedDistrib && $ruleOfThumbDistrib && $chartMax > 0) {
   $datasetRuleOfThumbDistrib = [
     'backgroundColor' => [ new JsExpression('window.colorScheme.moving1') ],
     'borderColor' => [ new JsExpression('window.colorScheme.moving1') ],
@@ -213,7 +212,7 @@ if ($chartMax > 0) {
             'type' => 'linear',
             'ticks' => [
               'precision' => 0,
-              'stepSize' => $abstract?->histogram_width ?? 5,
+              'stepSize' => $abstract->histogram_width ?? 5,
             ],
           ],
           'y' => [

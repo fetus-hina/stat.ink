@@ -28,7 +28,8 @@ use function is_string;
  * This is the model class for table "battle2_splatnet".
  *
  * @property integer $id
- * @property string $json
+ * @property-read array|object $json
+ * @property-write array|object|string $json
  *
  * @property Battle2 $battle
  */

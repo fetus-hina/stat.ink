@@ -31,9 +31,7 @@ trait UserAgentTrait
             ->limit(1)
             ->one();
         if (!$model) {
-            if (!$lock = CriticalSection::lock(Agent::class, 60)) {
-                return null;
-            }
+            $lock = CriticalSection::lock(Agent::class, 60);
             try {
                 $model = Yii::createObject([
                     'class' => Agent::class,

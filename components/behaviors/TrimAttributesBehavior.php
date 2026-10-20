@@ -26,7 +26,7 @@ class TrimAttributesBehavior extends Behavior
     /**
      * @var array<array-key, mixed>
      */
-    public $targets;
+    public $targets = [];
 
     /**
      * @var bool
@@ -39,10 +39,6 @@ class TrimAttributesBehavior extends Behavior
     public function init()
     {
         parent::init();
-
-        if (!is_array($this->targets)) {
-            $this->targets = [];
-        }
 
         if ($this->recursive !== false) {
             $this->recursive = true;

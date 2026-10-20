@@ -29,7 +29,6 @@ if (
     !$histogram ||
     !$abstract ||
     count($histogram) < 5 ||
-    $abstract->average === null ||
     $abstract->stddev === null
 ) {
   return;
@@ -174,7 +173,7 @@ $datasetClearedDistrib = $makeWaveDistributionData($abstract, 4, 'clear');
             'type' => 'linear',
             'ticks' => [
               'precision' => 0,
-              'stepSize' => $abstract?->histogram_width ?? 5,
+              'stepSize' => $abstract->histogram_width ?? 5,
             ],
           ],
           'y' => [

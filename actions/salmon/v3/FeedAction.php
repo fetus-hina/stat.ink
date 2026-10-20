@@ -282,23 +282,23 @@ final class FeedAction extends Action
             ],
             [
                 Yii::t('app', 'Special', [], $lang),
-                Yii::t('app-special3', $me?->special?->name ?? null, [], $lang),
+                Yii::t('app-special3', $me?->special->name ?? null, [], $lang),
             ],
             [
                 Yii::t('app-salmon2', 'Golden Eggs', [], $lang),
-                $fmt->asInteger($me?->golden_eggs ?? null),
+                $fmt->asInteger($me->golden_eggs ?? null),
             ],
             [
                 Yii::t('app-salmon2', 'Power Eggs', [], $lang),
-                $fmt->asInteger($me?->power_eggs ?? null),
+                $fmt->asInteger($me->power_eggs ?? null),
             ],
             [
                 Yii::t('app-salmon2', 'Rescues', [], $lang),
-                $fmt->asInteger($me?->rescue ?? null),
+                $fmt->asInteger($me->rescue ?? null),
             ],
             [
                 Yii::t('app-salmon2', 'Deaths', [], $lang),
-                $fmt->asInteger($me?->rescued ?? null),
+                $fmt->asInteger($me->rescued ?? null),
             ],
         ];
 

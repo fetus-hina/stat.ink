@@ -18,7 +18,7 @@ use const SORT_ASC;
  * @property integer $id
  * @property string $identifier
  * @property string $name
- * @property integer $order
+ * @property integer|null $order
  * @property integer $region_id
  * @property integer $group_id
  *

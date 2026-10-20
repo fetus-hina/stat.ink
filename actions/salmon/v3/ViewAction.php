@@ -41,7 +41,7 @@ final class ViewAction extends Action
             ])
             ->limit(1)
             ->one();
-        if (!$model || !$model->user) {
+        if (!$model) {
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
         }
 

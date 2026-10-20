@@ -42,8 +42,8 @@ return [
         ['/show-v3/user',
           'screen_name' => $model->user->screen_name,
           'f' => [
-            'lobby' => $model->lobby?->key ?? null,
-            'rule' => $model->rule?->key ?? null,
+            'lobby' => $model->lobby->key ?? null,
+            'rule' => $model->rule->key ?? null,
             'term' => vsprintf('%s%s', [
               Battle3FilterForm::PREFIX_TERM_SEASON,
               $season->key,

@@ -60,7 +60,7 @@ trait Salmon3Formatter
             'stage' => $this->salmonStage3($battle),
             'summary' => (function () use ($battle): ?string {
                 $stage = $battle->stage ?? $battle->bigStage;
-                if (!$stage && !$battle->clear_waves === null) {
+                if (!$stage && $battle->clear_waves === null) {
                     return null;
                 }
 

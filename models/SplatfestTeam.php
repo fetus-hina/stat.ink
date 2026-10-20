@@ -16,7 +16,7 @@ use yii\db\ActiveRecord;
  * @property integer $fest_id
  * @property integer $team_id
  * @property string $name
- * @property integer $color_hue
+ * @property integer|null $color_hue
  *
  * @property Splatfest $fest
  * @property Team $team

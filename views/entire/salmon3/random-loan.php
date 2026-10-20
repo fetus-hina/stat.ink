@@ -169,7 +169,7 @@ $dropdownDatePattern = DateTimeHelper::formatDH();
                   'app-map3',
                   $schedule->is_random_map_big_run
                     ? 'Multiple Sites'
-                    : ($schedule->map?->name ?? $schedule->bigMap?->name ?? '?'),
+                    : ($schedule->map->name ?? $schedule->bigMap->name ?? '?'),
                 ),
               ),
             ],
@@ -182,7 +182,7 @@ $dropdownDatePattern = DateTimeHelper::formatDH();
                 ])
                 : implode(' ', [
                   Icon::s3SalmonRandom($info->random),
-                  Html::encode(Yii::t('app-weapon3', $info->random?->name ?? '?')),
+                  Html::encode(Yii::t('app-weapon3', $info->random->name ?? '?')),
                 ]),
               $schedule->salmonScheduleWeapon3s,
             ),

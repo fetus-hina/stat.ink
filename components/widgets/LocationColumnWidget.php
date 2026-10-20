@@ -141,11 +141,12 @@ class LocationColumnWidget extends Widget
 
     protected function renderLocationIcon(City $city): ?string
     {
-        if (!$country = $city->country) {
+        $isoCode = $city->country->isoCode;
+        if ($isoCode === null) {
             return null;
         }
 
-        return (string)($country->isoCode |> strtolower(...) |> FlagIcon::fg(...));
+        return (string)($isoCode |> strtolower(...) |> FlagIcon::fg(...));
     }
 
     protected function renderIpAddress(): ?string

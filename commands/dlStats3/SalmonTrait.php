@@ -323,7 +323,7 @@ trait SalmonTrait
                 // bosses
                 $bosses = [];
                 foreach ($battle->salmonBossAppearance3s as $tmp) {
-                    $k = $tmp->boss?->key;
+                    $k = $tmp->boss->key;
                     if ($k) {
                         $bosses[$k] = [
                             'appearances' => $tmp->appearances,
@@ -410,7 +410,7 @@ trait SalmonTrait
         if ($wave->salmonSpecialUse3s) {
             $data = [];
             foreach ($wave->salmonSpecialUse3s as $tmp) {
-                $k = $tmp->special?->key;
+                $k = $tmp->special->key;
                 if ($k) {
                     $data[$k] = (int)$tmp->count;
                 }

@@ -19,7 +19,6 @@ use app\models\SalmonUniform3Alias;
 use statink\yii2\sortableTable\SortableTableAsset;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use yii\web\AssetManager;
 use yii\web\Controller;
 use yii\web\View;
 
@@ -38,7 +37,6 @@ $this->registerMetaTag(['name' => 'twitter:description', 'content' => $this->tit
 $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
 
 $am = Yii::$app->assetManager;
-assert($am instanceof AssetManager);
 
 TableResponsiveForceAsset::register($this);
 SortableTableAsset::register($this);

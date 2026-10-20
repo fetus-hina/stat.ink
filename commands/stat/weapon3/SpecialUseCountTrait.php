@@ -28,9 +28,6 @@ trait SpecialUseCountTrait
     protected function makeStatWeapon3SpecialUseCount(): void
     {
         $db = Yii::$app->db;
-        if (!$db instanceof Connection) {
-            return;
-        }
 
         fwrite(STDERR, "Updating stat_special_use_count3...\n");
         $db->transaction(

@@ -221,9 +221,6 @@ final class SalmonBosses extends Widget
         $f = $this->formatter;
         if (
             $maxAppearances < 1 ||
-            !is_int($model->defeated_by_me) ||
-            !is_int($model->defeated) ||
-            !is_int($model->appearances) ||
             $model->appearances < 1
         ) {
             return Html::tag('td', '');
@@ -289,39 +286,27 @@ final class SalmonBosses extends Widget
 
     private function isBrokenData(SalmonBossAppearance3 $model): bool
     {
-        if ($model->appearances === null || $model->appearances < 1) {
+        if ($model->appearances < 1) {
             return false;
         }
 
-        if ($model->defeated !== null) {
-            // 倒した数が出現数より多いのはおかしい
-            if ($model->defeated > $model->appearances) {
-                return true;
-            }
+        // 倒した数が出現数より多いのはおかしい
+        if ($model->defeated > $model->appearances) {
+            return true;
         }
 
-        if ($model->defeated_by_me !== null) {
-            // 自分が倒した数が出現数より多いのはおかしい
-            if ($model->defeated_by_me > $model->appearances) {
-                return true;
-            }
-
-            if ($model->defeated !== null) {
-                // 自分が倒した数がチーム合計で倒した数より多いのはおかしい
-                if ($model->defeated_by_me > $model->defeated) {
-                    return true;
-                }
-            }
+        // 自分が倒した数が出現数より多いのはおかしい
+        if ($model->defeated_by_me > $model->appearances) {
+            return true;
         }
 
-        return false;
+        // 自分が倒した数がチーム合計で倒した数より多いのはおかしい
+        return $model->defeated_by_me > $model->defeated;
     }
 
     private function isAllDefeated(SalmonBossAppearance3 $model): bool
     {
-        return $model->appearances !== null &&
-            $model->appearances > 0 &&
-            $model->defeated !== null &&
+        return $model->appearances > 0 &&
             $model->defeated >= $model->appearances;
     }
 
@@ -339,11 +324,7 @@ final class SalmonBosses extends Widget
                 continue;
             }
 
-            if (
-                $model->defeated === null ||
-                $model->defeated_by_me === null ||
-                $this->isBrokenData($model)
-            ) {
+            if ($this->isBrokenData($model)) {
                 return '';
             }
 

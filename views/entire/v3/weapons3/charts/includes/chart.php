@@ -80,7 +80,7 @@ $datasetPoints = [
   'label' => Yii::t('app-results', 'Win %'),
   'labels' => array_map(
     function (StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage|StatWeapon3XUsagePerVersion $model): string {
-      $weaponName = Yii::t('app-weapon3', $model->weapon?->name ?? '?');
+      $weaponName = Yii::t('app-weapon3', $model->weapon->name ?? '?');
       $err = StandardError::winpct($model->wins, $model->battles);
       $f = Yii::$app->formatter;
       return $err
@@ -171,10 +171,6 @@ $chart = [
     ],
   ],
 ];
-
-if (!$data) {
-  return;
-}
 
 echo Html::tag(
   'div',

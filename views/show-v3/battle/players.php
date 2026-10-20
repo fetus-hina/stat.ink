@@ -89,7 +89,6 @@ $filterPlayers = function (array $players, bool $ourTeam, int $team): array {
       fn (BattlePlayer3|BattleTricolorPlayer3 $p): bool => match (true) {
         $p instanceof BattlePlayer3 => $p->is_our_team === $ourTeam,
         $p instanceof BattleTricolorPlayer3 => $p->team === $team,
-        default => throw new LogicException(),
       },
     ),
     function (BattlePlayer3|BattleTricolorPlayer3 $a, BattlePlayer3|BattleTricolorPlayer3 $b): int {

@@ -141,7 +141,7 @@ final class DocCommentController extends Controller
         file_put_contents($path, rtrim($newFile) . "\n");
     }
 
-    private function makeDocComment(string $path): ?string
+    private function makeDocComment(string $path): string
     {
         $lines = [
             vsprintf('@copyright Copyright (C) %s AIZAWA Hina', [

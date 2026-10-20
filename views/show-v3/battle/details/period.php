@@ -30,8 +30,8 @@ return [
         ['/show-v3/user',
           'screen_name' => $model->user->screen_name,
           'f' => [
-            'lobby' => $model->lobby?->key ?? null,
-            'rule' => $model->rule?->key ?? null,
+            'lobby' => $model->lobby->key ?? null,
+            'rule' => $model->rule->key ?? null,
             'term' => 'term',
             'term_from' => '@' . (string)$from,
             'term_to' => '@' . (string)($to - 1),

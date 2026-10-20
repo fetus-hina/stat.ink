@@ -41,7 +41,6 @@ use app\models\api\v3\postSalmon\BossForm;
 use app\models\api\v3\postSalmon\PlayerForm;
 use app\models\api\v3\postSalmon\WaveForm;
 use jp3cki\uuid\Uuid;
-use yii\base\InvalidConfigException;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
@@ -112,7 +111,7 @@ final class PostSalmonForm extends Model
     public $start_at;
     public $end_at;
 
-    /** @var array<string, string> */
+    /** @var array<string, string>|null */
     public $agent_variables;
 
     public function behaviors()
@@ -270,10 +269,7 @@ final class PostSalmonForm extends Model
             return true;
         }
 
-        if (!$lock = CriticalSection::lock($this->getCriticalSectionId(), 60)) {
-            $this->addError('_system', 'Failed to get lock. System busy. Try again.');
-            return null;
-        }
+        $lock = CriticalSection::lock($this->getCriticalSectionId(), 60);
 
         try {
             return $this->getSameBattle() ?? $this->saveNewBattleRelation();
@@ -307,9 +303,6 @@ final class PostSalmonForm extends Model
     {
         try {
             $connection = Yii::$app->db;
-            if (!$connection instanceof Connection) {
-                throw new InvalidConfigException();
-            }
 
             return $connection->transactionEx(function (Connection $connection): ?Salmon3 {
                 if (!$battle = $this->saveNewBattle()) {

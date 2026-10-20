@@ -54,7 +54,6 @@ use app\models\api\v3\postBattle\PlayerForm;
 use app\models\api\v3\postBattle\TypeHelperTrait;
 use app\models\api\v3\postBattle\UserAgentTrait;
 use jp3cki\uuid\Uuid;
-use yii\base\InvalidConfigException;
 use yii\base\Model;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
@@ -168,7 +167,7 @@ final class PostBattleForm extends Model
     /** @var string[] */
     public $medals;
 
-    /** @var array<string, string> */
+    /** @var array<string, string>|null */
     public $agent_variables;
 
     /** @var UploadedFile|string|null */
@@ -365,10 +364,7 @@ final class PostBattleForm extends Model
             return true;
         }
 
-        if (!$lock = CriticalSection::lock($this->getCriticalSectionId(), 60)) {
-            $this->addError('_system', 'Failed to get lock. System busy. Try again.');
-            return null;
-        }
+        $lock = CriticalSection::lock($this->getCriticalSectionId(), 60);
 
         try {
             if ($model = $this->getSameBattle()) {
@@ -412,9 +408,6 @@ final class PostBattleForm extends Model
     {
         try {
             $connection = Yii::$app->db;
-            if (!$connection instanceof Connection) {
-                throw new InvalidConfigException();
-            }
 
             return $connection->transactionEx(function (Connection $connection): ?Battle3 {
                 if (!$battle = $this->saveNewBattle()) {
@@ -658,9 +651,9 @@ final class PostBattleForm extends Model
 
             foreach ($gpData as $key => $gp) {
                 $gpModel = Yii::createObject([
-                    'class' => match ($model::class) {
-                        BattlePlayer3::class => BattlePlayerGearPower3::class,
-                        BattleTricolorPlayer3::class => BattleTricolorPlayerGearPower3::class,
+                    'class' => match (true) {
+                        $model instanceof BattlePlayer3 => BattlePlayerGearPower3::class,
+                        $model instanceof BattleTricolorPlayer3 => BattleTricolorPlayerGearPower3::class,
                     },
                     'player_id' => $model->id,
                     'ability_id' => $abilities[$key],
@@ -715,7 +708,7 @@ final class PostBattleForm extends Model
     private function findOrCreateMedal(string $text): ?Medal3
     {
         $text = trim($text);
-        if ($text === null) {
+        if ($text === '') {
             return null;
         }
 
@@ -726,9 +719,7 @@ final class PostBattleForm extends Model
         $model = Medal3::findOne(['name' => $text]);
         if (!$model) {
             // 2. lock if not found
-            if (!$lock = CriticalSection::lock(Medal3::class, 60)) {
-                return null;
-            }
+            $lock = CriticalSection::lock(Medal3::class, 60);
             try {
                 // 3. find data again with lock (it may created on another process/thread)
                 $model = Medal3::findOne(['name' => $text]);
@@ -873,9 +864,7 @@ final class PostBattleForm extends Model
             return $model;
         }
 
-        if (!$lock = CriticalSection::lock(Splatfest3Theme::class, 60)) {
-            return null;
-        }
+        $lock = CriticalSection::lock(Splatfest3Theme::class, 60);
         try {
             $model = Splatfest3Theme::find()
                 ->andWhere(['name' => $name])

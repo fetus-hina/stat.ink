@@ -92,7 +92,7 @@ final class Weapons3Action extends Action
 
             return $controller->redirect(['entire/weapons3',
                 'lobby' => $this->getDefaultLobbyKey($season, $version),
-                'rule' => $rule?->key ?? 'area',
+                'rule' => $rule->key ?? 'area',
                 'version' => $version?->tag,
                 self::PARAM_SEASON_ID => $season?->id,
             ]);

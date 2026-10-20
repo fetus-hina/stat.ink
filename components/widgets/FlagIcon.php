@@ -27,8 +27,6 @@ final class FlagIcon extends Widget
     public $cc = null;
     public $options = [];
 
-    private $asset;
-
     public static function fg(string $cc, array $options = []): self
     {
         return static::factory($cc, false, $options);
@@ -51,7 +49,7 @@ final class FlagIcon extends Widget
     public function init()
     {
         parent::init();
-        $this->asset = FlagIconCssAsset::register($this->view);
+        FlagIconCssAsset::register($this->view);
     }
 
     public function cc(string $cc): self

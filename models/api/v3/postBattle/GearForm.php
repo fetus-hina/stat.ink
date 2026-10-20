@@ -71,7 +71,7 @@ final class GearForm extends Model
         return $this->findOrCreateConfiguration($fingerprint);
     }
 
-    private function calcFingerprint(): ?string
+    private function calcFingerprint(): string
     {
         return GearConfiguration3Fingerprint::calc(
             null,
@@ -103,50 +103,49 @@ final class GearForm extends Model
         }
 
         $lock = CriticalSection::lock(__METHOD__, 60);
-        if (!$lock) {
-            $this->addError('_system', 'Failed to get lock. System busy. Try again.');
-            return null;
-        }
+        try {
+            $model = $this->findByFingerprint($fingerprint);
+            if ($model) {
+                return $model;
+            }
 
-        $model = $this->findByFingerprint($fingerprint);
-        if ($model) {
-            return $model;
-        }
-
-        return Yii::$app->db->transaction(
-            function (Connection $db) use ($fingerprint): ?GearConfiguration3 {
-                $model = Yii::createObject([
-                    'class' => GearConfiguration3::class,
-                    'fingerprint' => $fingerprint,
-                    'ability_id' => ($ability = $this->findAbility($this->primary_ability))
-                        ? $ability->id
-                        : null,
-                ]);
-                if (!$model->save()) {
-                    $this->addError('_system', 'Failed to store the gear configuration. Try again.');
-                    $db->transaction->rollBack();
-                    return null;
-                }
-
-                foreach ($this->secondary_abilities as $key) {
-                    $model2 = Yii::createObject([
-                        'class' => GearConfigurationSecondary3::class,
-                        'config_id' => $model->id,
-                        'ability_id' => ($ability = $this->findAbility($key))
+            return Yii::$app->db->transaction(
+                function (Connection $db) use ($fingerprint): ?GearConfiguration3 {
+                    $model = Yii::createObject([
+                        'class' => GearConfiguration3::class,
+                        'fingerprint' => $fingerprint,
+                        'ability_id' => ($ability = $this->findAbility($this->primary_ability))
                             ? $ability->id
                             : null,
                     ]);
-
-                    if (!$model2->save()) {
+                    if (!$model->save()) {
                         $this->addError('_system', 'Failed to store the gear configuration. Try again.');
                         $db->transaction->rollBack();
                         return null;
                     }
-                }
 
-                return $model;
-            },
-        );
+                    foreach ($this->secondary_abilities as $key) {
+                        $model2 = Yii::createObject([
+                            'class' => GearConfigurationSecondary3::class,
+                            'config_id' => $model->id,
+                            'ability_id' => ($ability = $this->findAbility($key))
+                                ? $ability->id
+                                : null,
+                        ]);
+
+                        if (!$model2->save()) {
+                            $this->addError('_system', 'Failed to store the gear configuration. Try again.');
+                            $db->transaction->rollBack();
+                            return null;
+                        }
+                    }
+
+                    return $model;
+                },
+            );
+        } finally {
+            unset($lock);
+        }
     }
 
     private function findByFingerprint(string $fingerprint): ?GearConfiguration3

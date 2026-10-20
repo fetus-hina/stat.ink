@@ -173,8 +173,11 @@ class PostBattleForm extends Model
     public $start_at;
     public $end_at;
 
+    /** @var UploadedFile|string|null */
     public $image_judge;
+    /** @var UploadedFile|string|null */
     public $image_result;
+    /** @var UploadedFile|string|null */
     public $image_gear;
 
     public function behaviors()
@@ -493,7 +496,7 @@ class PostBattleForm extends Model
             ]))
             ->limit(1)
             ->one();
-        if ($mapping && $mapping->map) {
+        if ($mapping) {
             return $mapping->map;
         }
 
@@ -552,7 +555,7 @@ class PostBattleForm extends Model
                 case 'lose':
                     return false;
                 default:
-                    null;
+                    return null;
             }
         })($this->result);
         $battle->is_knockout = (function ($value) {
@@ -562,7 +565,7 @@ class PostBattleForm extends Model
                 case 'no':
                     return false;
                 default:
-                    null;
+                    return null;
             }
         })($this->knock_out);
         $battle->rank_in_team = $intval($this->rank_in_team);
@@ -796,12 +799,15 @@ class PostBattleForm extends Model
         return $this->toImage($battle, BattleImageType::ID_GEAR, 'image_gear');
     }
 
+    /**
+     * @param 'image_judge'|'image_result'|'image_gear' $attr
+     */
     protected function toImage(Battle2 $battle, int $imageTypeId, string $attr)
     {
         if ($this->getIsTest()) {
             return null;
         }
-        if ($this->$attr == '' && !$this->$attr instanceof UploadedFile) {
+        if (!$this->$attr instanceof UploadedFile && $this->$attr == '') {
             return null;
         }
         return Yii::createObject([

@@ -95,9 +95,6 @@ final class LoginWithGoogle extends ActiveRecord implements OAuth2LoginLinkInter
     public function login()
     {
         $user = $this->user;
-        if (!$user) {
-            return false;
-        }
 
         $appUser = Yii::$app->user;
         $appUser->on(\yii\web\User::EVENT_AFTER_LOGIN, function ($event) use ($user): void {

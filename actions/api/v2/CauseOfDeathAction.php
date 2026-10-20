@@ -10,17 +10,14 @@ declare(strict_types=1);
 namespace app\actions\api\v2;
 
 use Generator;
-use TypeError;
 use Yii;
 use app\models\DeathReason2;
 use yii\base\Action;
-use yii\db\Connection;
 use yii\web\Response;
 
 use function array_keys;
 use function array_map;
 use function array_values;
-use function assert;
 use function implode;
 use function vsprintf;
 
@@ -39,7 +36,6 @@ final class CauseOfDeathAction extends Action
         }
 
         $response = Yii::$app->response;
-        assert($response instanceof Response);
         $response->format = 'json';
 
         $json = [];
@@ -66,9 +62,6 @@ final class CauseOfDeathAction extends Action
         ];
 
         $db = Yii::$app->db;
-        if (!$db instanceof Connection) {
-            throw new TypeError();
-        }
         $typeOrder = vsprintf('(CASE %s ELSE %d END)', [
             implode(' ', array_map(
                 fn (int $index, string $typeKey): string => vsprintf('WHEN %s.%s = %s THEN %d', [

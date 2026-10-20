@@ -111,6 +111,7 @@ class UserStatNawabariAction extends BaseAction
             ])
             ->orderBy('{{battle}}.[[id]] DESC');
 
+        /** @var array<string, stdClass> $maps */
         $maps = [];
         foreach (Map::find()->asArray()->all() as $map) {
             $maps[$map['key']] = (object)[

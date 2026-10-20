@@ -76,7 +76,6 @@ class EditIconAction extends BaseAction
                             $transaction->rollback();
                             throw $e;
                         }
-                        break;
                 }
             } catch (Throwable $e) {
             }

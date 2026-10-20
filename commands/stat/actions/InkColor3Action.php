@@ -33,9 +33,6 @@ final class InkColor3Action extends Action
     public function run(): int
     {
         $db = Yii::$app->db;
-        if (!$db instanceof Connection) {
-            throw new LogicException();
-        }
 
         $isOk = $db->transaction(
             fn (Connection $db): bool => $this->makeStats($db),

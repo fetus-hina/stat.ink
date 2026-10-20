@@ -23,7 +23,6 @@ use yii\db\Transaction;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\web\Request;
 
 use function assert;
 use function strcmp;
@@ -44,7 +43,6 @@ final class MapRuleAction extends Action
         parent::init();
 
         $request = Yii::$app->request;
-        assert($request instanceof Request);
 
         $this->user = User::find()
             ->andWhere(['screen_name' => $request->get('screen_name')])
@@ -99,8 +97,7 @@ final class MapRuleAction extends Action
                 'key',
                 fn (Map3 $v): Map3 => $v,
             ),
-            fn (Map3 $a, Map3 $b): int => 0
-                ?: strnatcasecmp(Yii::t('app-map3', $a->name), Yii::t('app-map3', $b->name))
+            fn (Map3 $a, Map3 $b): int => strnatcasecmp(Yii::t('app-map3', $a->name), Yii::t('app-map3', $b->name))
                 ?: strnatcasecmp($a->name, $b->name)
                 ?: strcmp($a->name, $b->name),
         );

@@ -27,7 +27,7 @@ use yii\db\ActiveRecord;
  * @property string|null $revoked_at
  * @property integer|null $revoked_reason
  *
- * @property UserPasswordRecoveryKeyRevokeReason $revokedReason
+ * @property UserPasswordRecoveryKeyRevokeReason|null $revokedReason
  * @property User $user
  */
 class UserPasswordRecoveryKey extends ActiveRecord

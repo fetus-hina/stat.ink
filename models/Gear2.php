@@ -25,10 +25,10 @@ use const SORT_ASC;
  * @property integer $type_id
  * @property integer $brand_id
  * @property string $name
- * @property integer $ability_id
- * @property integer $splatnet
+ * @property integer|null $ability_id
+ * @property integer|null $splatnet
  *
- * @property Ability2 $ability
+ * @property Ability2|null $ability
  * @property Brand2 $brand
  * @property GearType $type
  */
@@ -126,7 +126,7 @@ class Gear2 extends ActiveRecord
         return [
             'key' => $this->key,
             'type' => $this->type->toJsonArray(),
-            'brand' => $this->brand ? $this->brand->toJsonArray() : null,
+            'brand' => $this->brand->toJsonArray(),
             'name' => Translator::translateToAll('app-gear2', $this->name),
             'primary_ability' => $this->ability ? $this->ability->toJsonArray() : null,
             'splatnet' => $this->splatnet,

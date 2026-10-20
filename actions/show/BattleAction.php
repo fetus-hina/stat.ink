@@ -21,7 +21,7 @@ class BattleAction extends BaseAction
         $battle = Battle::findOne([
             'id' => $request->get('battle'),
         ]);
-        if (!$battle || !$battle->user) {
+        if (!$battle) {
             throw new NotFoundHttpException(
                 Yii::t('app-show', 'Could not find specified battle.'),
             );

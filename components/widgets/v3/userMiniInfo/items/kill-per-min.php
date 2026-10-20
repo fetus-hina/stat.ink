@@ -15,7 +15,7 @@ use app\models\UserStat3;
 return [
     'label' => Yii::t('app-results', 'Kills/min'),
     'format' => ['decimal', 3],
-    'value' => fn (UserStat3 $model): ?float => $model->agg_seconds
+    'value' => fn (UserStat3 $model): float => $model->agg_seconds
         ? $model->kills * 60.0 / $model->agg_seconds
         : 0.0,
 ];

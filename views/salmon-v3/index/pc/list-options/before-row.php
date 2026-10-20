@@ -16,7 +16,7 @@ use yii\web\View;
  * @var View $this
  */
 
-return fn (Salmon3 $model, int $key, int $index, GridView $widget): ?string => SalmonIndexRowHeader::widget([
+return fn (Salmon3 $model, int $key, int $index, GridView $widget): string => SalmonIndexRowHeader::widget([
   'model' => $model,
   'gridView' => $widget,
 ]);

@@ -22,13 +22,12 @@ use function trim;
 class MiniinfoUserLink extends Widget
 {
     public $user;
-    private $iconAsset;
 
     public function init()
     {
         parent::init();
 
-        $this->iconAsset = AppLinkAsset::register($this->view);
+        AppLinkAsset::register($this->view);
     }
 
     public function run(): string
