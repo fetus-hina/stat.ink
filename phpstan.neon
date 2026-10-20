@@ -2,7 +2,7 @@ includes:
   - vendor/mspirkov/yii2-phpstan/extension.neon
 
 parameters:
-  level: 5
+  level: 6
   phpVersion: 80500
 
   paths:
