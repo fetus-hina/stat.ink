@@ -24,6 +24,7 @@ use app\commands\stat\actions\KDWinRate3Action;
 use app\commands\stat\actions\StealthJump3Action;
 use app\commands\stat\actions\XPowerDistrib3Action;
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\TypeHelper;
 use app\components\helpers\db\Now;
 use app\models\Battle2;
 use app\models\Battle3;
@@ -555,7 +556,7 @@ final class StatController extends Controller
                     'table_name' => StatWeaponVsWeapon::tableName(),
                     'constraint_type' => 'PRIMARY KEY',
                 ]);
-            return $select->scalar($db);
+            return TypeHelper::string($select->scalar($db));
         })();
 
         $select = new Query()
@@ -737,7 +738,7 @@ final class StatController extends Controller
                     'table_name' => StatWeaponUseCountPerWeek::tableName(),
                     'constraint_type' => 'PRIMARY KEY',
                 ]);
-            return $select->scalar($db);
+            return TypeHelper::string($select->scalar($db));
         })();
         $upsertWeek = sprintf(
             'INSERT INTO {{%s}} ( %s ) %s ON CONFLICT ON CONSTRAINT [[%s]] DO UPDATE SET %s',

@@ -208,7 +208,7 @@ trait LicenseCheckTrait
         }
 
         // AND and OR, check recursive
-        $list = preg_split('/\s+(?:OR|AND)\s+/i', trim($license, '()'));
+        $list = preg_split('/\s+(?:OR|AND)\s+/i', trim($license, '()')) ?: [];
         if (count($list) > 1) {
             foreach ($list as $tmp) {
                 if ($this->isSafeLicense($tmp)) {

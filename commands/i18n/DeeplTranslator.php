@@ -21,6 +21,7 @@ use Normalizer;
 use ParagonIE\ConstantTime\Base32;
 use Throwable;
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\Language;
 use yii\base\Component;
 use yii\helpers\FileHelper;
@@ -108,7 +109,9 @@ class DeeplTranslator extends Component
             }
             return $status;
         } finally {
-            setlocale(LC_ALL, $oldLocale);
+            if ($oldLocale !== false) {
+                setlocale(LC_ALL, $oldLocale);
+            }
         }
     }
 
@@ -165,6 +168,11 @@ class DeeplTranslator extends Component
 
             fwrite(STDERR, "Writing...\n");
             $fh = fopen($outputPath, 'wt');
+            if (!$fh) {
+                fwrite(STDERR, 'Could not open file: ' . $outputPath . "\n");
+                return false;
+            }
+
             fwrite($fh, "<?php\n\n");
             fwrite($fh, "/**\n");
             vfprintf($fh, " * @copyright Copyright (C) 2015-%d AIZAWA Hina\n", [
@@ -311,7 +319,7 @@ class DeeplTranslator extends Component
 
     /**
      * @param string[] $englishTexts
-     * @return array<string|false>
+     * @return string[]
      */
     private function translate(string $lang, array $englishTexts): array
     {
@@ -329,7 +337,7 @@ class DeeplTranslator extends Component
 
     /**
      * @param string[] $englishTexts
-     * @return array<string|false>
+     * @return string[]
      */
     private function doTranslate(string $lang, array $englishTexts): array
     {
@@ -353,7 +361,7 @@ class DeeplTranslator extends Component
             )),
         );
         return array_map(
-            fn ($data) => Normalizer::normalize(trim($data['text']), Normalizer::FORM_C),
+            fn ($data) => TypeHelper::string(Normalizer::normalize(trim($data['text']), Normalizer::FORM_C)),
             $resp['translations'],
         );
     }
@@ -466,14 +474,13 @@ class DeeplTranslator extends Component
             $doc->preserveWhiteSpace = true;
             $doc->recover = true;
             if ($doc->loadXML($wrapped, LIBXML_COMPACT | LIBXML_NOCDATA | LIBXML_NONET)) {
-                $replaced = self::processTemplateXml(
-                    $doc,
-                    new DOMXPath($doc)
-                        ->query('/div[@id="wrap"]', $doc)
-                        ->item(0),
-                );
-                if ($replaced !== null) {
-                    return $replaced;
+                $nodes = new DOMXPath($doc)->query('/div[@id="wrap"]', $doc);
+                $wrap = $nodes ? $nodes->item(0) : null;
+                if ($wrap instanceof DOMNode) {
+                    $replaced = self::processTemplateXml($doc, $wrap);
+                    if ($replaced !== null) {
+                        return $replaced;
+                    }
                 }
             }
         } catch (Throwable $e) {

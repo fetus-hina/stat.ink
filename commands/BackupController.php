@@ -9,6 +9,7 @@ namespace app\commands;
 
 use DirectoryIterator;
 use Yii;
+use app\components\helpers\TypeHelper;
 use yii\console\Controller;
 use yii\helpers\Console;
 
@@ -62,7 +63,7 @@ class BackupController extends Controller
             $execinfo['cmdline'],
             $descriptorspec,
             $pipes,
-            getcwd(),
+            TypeHelper::string(getcwd()),
             $execinfo['env'],
         );
         if (!$proc) {

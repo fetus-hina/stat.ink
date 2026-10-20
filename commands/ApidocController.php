@@ -13,6 +13,7 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Exception;
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\components\openapi\doc\V1 as V1Generator;
 use app\components\openapi\doc\V2 as V2Generator;
 use app\models\Country;
@@ -343,7 +344,7 @@ final class ApidocController extends Controller
 
     private function getFlagIconCssVersion(): string
     {
-        $cwd = getcwd();
+        $cwd = TypeHelper::string(getcwd());
         try {
             chdir(dirname(__DIR__));
             $cmdline = implode(' ', [

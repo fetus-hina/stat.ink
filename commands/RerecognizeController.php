@@ -34,7 +34,12 @@ class RerecognizeController extends Controller
 
         $lineNo = 0;
         while (!feof($fh)) {
-            $line = trim(fgets($fh));
+            $line = fgets($fh);
+            if ($line === false) {
+                break;
+            }
+
+            $line = trim($line);
             ++$lineNo;
             if ($line === '') {
                 continue;

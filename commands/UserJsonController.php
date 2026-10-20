@@ -10,6 +10,7 @@ namespace app\commands;
 use Exception;
 use Override;
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\Battle;
 use app\models\User;
 use yii\base\InlineAction;
@@ -33,7 +34,6 @@ use function filesize;
 use function flock;
 use function fopen;
 use function fseek;
-use function ftell;
 use function ftruncate;
 use function fwrite;
 use function gzencode;
@@ -44,6 +44,7 @@ use function printf;
 use function random_int;
 use function rtrim;
 use function sprintf;
+use function strlen;
 use function strtotime;
 use function touch;
 use function unlink;
@@ -158,8 +159,9 @@ class UserJsonController extends Controller
         }
 
         fseek($lock, 0, SEEK_SET);
-        fwrite($lock, $_SERVER['REQUEST_TIME'] . "\n");
-        ftruncate($lock, ftell($lock));
+        $content = $_SERVER['REQUEST_TIME'] . "\n";
+        fwrite($lock, $content);
+        ftruncate($lock, strlen($content));
         flock($lock, LOCK_UN);
         fclose($lock);
 
@@ -184,7 +186,7 @@ class UserJsonController extends Controller
             foreach ($list as $battle) {
                 $this->appendJson(
                     Json::encode($battle->toJsonArray(['user']), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
-                    strtotime($battle->at),
+                    TypeHelper::int(strtotime($battle->at)),
                 );
                 $lastId = $battle->id;
                 ++$count;
@@ -231,7 +233,7 @@ class UserJsonController extends Controller
         $last = Battle::find()
             ->andWhere(['and',
                 ['{{battle}}.[[user_id]]' => $this->findUser()->id],
-                ['<=', '{{battle}}.[[at]]', date('Y-m-d\TH:i:sP', filemtime($jsonPath))],
+                ['<=', '{{battle}}.[[at]]', date('Y-m-d\TH:i:sP', TypeHelper::int(filemtime($jsonPath)))],
             ])
             ->orderBy('{{battle}}.[[id]] DESC')
             ->limit(1)
@@ -314,7 +316,7 @@ class UserJsonController extends Controller
         }
         flock($fh, LOCK_EX);
         fseek($fh, 0, SEEK_END);
-        fwrite($fh, gzencode($text . "\n", 3));
+        fwrite($fh, TypeHelper::string(gzencode($text . "\n", 3)));
         flock($fh, LOCK_UN);
         fclose($fh);
         touch($path, $mtime);
@@ -336,7 +338,7 @@ class UserJsonController extends Controller
             throw new Exception('Could not open file in "r+" mode: ' . $mainPath);
         }
         flock($fh, LOCK_EX);
-        $mtime = filemtime($mainPath);
+        $mtime = TypeHelper::int(filemtime($mainPath));
 
         // 再圧縮処理
         echo "Recompressing...\n";
@@ -353,14 +355,15 @@ class UserJsonController extends Controller
             throw new Exception('Could not recompress file');
         }
         echo "Recomressed.\n";
-        echo '  Before: ' . number_format(filesize($mainPath)) . "\n";
-        echo '  After:  ' . number_format(filesize($tmpPath)) . "\n";
+        echo '  Before: ' . number_format(TypeHelper::int(filesize($mainPath))) . "\n";
+        echo '  After:  ' . number_format(TypeHelper::int(filesize($tmpPath))) . "\n";
 
         if (filesize($mainPath) > filesize($tmpPath)) {
             echo "Writing...\n";
             fseek($fh, 0, SEEK_SET);
-            fwrite($fh, file_get_contents($tmpPath));
-            ftruncate($fh, ftell($fh));
+            $content = TypeHelper::string(file_get_contents($tmpPath));
+            fwrite($fh, $content);
+            ftruncate($fh, strlen($content));
         }
 
         flock($fh, LOCK_UN);
