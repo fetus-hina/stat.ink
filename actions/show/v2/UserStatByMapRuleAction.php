@@ -135,9 +135,9 @@ class UserStatByMapRuleAction extends BaseAction
 
             $cell = $ret[$mapKey][$ruleKey] ?? $empty;
             $cell[$result] = $count;
-            $cell['kill'] = $kill;
-            $cell['death'] = $death;
-            $cell['kd_battle'] = $kdBattle;
+            $cell['kill'] = (int)$cell['kill'] + $kill;
+            $cell['death'] = (int)$cell['death'] + $death;
+            $cell['kd_battle'] += $kdBattle;
             $ret[$mapKey][$ruleKey] = $cell;
 
             $sumTargets = substr($mapKey, 0, 8) === 'mystery_' ? ['total', 'mystery'] : ['total'];
