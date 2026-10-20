@@ -18,7 +18,6 @@ use jp3cki\yii2\flot\FlotResizeAsset;
 use yii\base\Widget;
 use yii\helpers\Html;
 use yii\helpers\Json;
-use yii\base\InvalidConfigException;
 
 use function array_filter;
 use function array_keys;
@@ -36,7 +35,7 @@ use const SORT_DESC;
 class SalmonHazardHistory extends Widget
 {
     public User $user;
-    public ?Salmon2 $current = null;
+    public Salmon2 $current;
 
     #[Override]
     public function init(): void
@@ -44,7 +43,7 @@ class SalmonHazardHistory extends Widget
         parent::init();
 
         if (!isset($this->user)) {
-            $this->user = $this->current->user ?? throw new InvalidConfigException('The user is not set.');
+            $this->user = $this->current->user;
         }
     }
 

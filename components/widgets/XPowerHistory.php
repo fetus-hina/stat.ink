@@ -17,7 +17,6 @@ use app\models\Lobby2;
 use app\models\Mode2;
 use app\models\Rank2;
 use app\models\User;
-use yii\base\InvalidConfigException;
 use yii\base\Widget;
 use yii\helpers\Html;
 use yii\helpers\Json;
@@ -34,7 +33,7 @@ use const SORT_DESC;
 class XPowerHistory extends Widget
 {
     public User $user;
-    public ?Battle2 $current = null;
+    public Battle2 $current;
 
     #[Override]
     public function init(): void
@@ -42,7 +41,7 @@ class XPowerHistory extends Widget
         parent::init();
 
         if (!isset($this->user)) {
-            $this->user = $this->current->user ?? throw new InvalidConfigException('The user is not set.');
+            $this->user = $this->current->user;
         }
     }
 
@@ -118,7 +117,6 @@ class XPowerHistory extends Widget
         }
 
         if (
-            !$this->current ||
             $this->current->rule_id === null ||
             (!$this->current->x_power_after &&
             !$this->current->estimate_x_power) ||

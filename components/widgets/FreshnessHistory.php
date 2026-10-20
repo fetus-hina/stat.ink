@@ -15,7 +15,6 @@ use app\models\Battle2;
 use app\models\Mode2;
 use app\models\Rule2;
 use app\models\User;
-use yii\base\InvalidConfigException;
 use yii\base\Widget;
 use yii\helpers\Html;
 use yii\helpers\Json;
@@ -31,7 +30,7 @@ use const SORT_DESC;
 class FreshnessHistory extends Widget
 {
     public User $user;
-    public ?Battle2 $current = null;
+    public Battle2 $current;
 
     #[Override]
     public function init(): void
@@ -39,7 +38,7 @@ class FreshnessHistory extends Widget
         parent::init();
 
         if (!isset($this->user)) {
-            $this->user = $this->current->user ?? throw new InvalidConfigException('The user is not set.');
+            $this->user = $this->current->user;
         }
     }
 
@@ -101,7 +100,6 @@ class FreshnessHistory extends Widget
         }
 
         if (
-            !$this->current ||
             $this->current->rule_id !== $ruleTW->id ||
             $this->current->mode_id === $modeFest->id ||
             $this->current->mode_id === $modePrivate->id ||
