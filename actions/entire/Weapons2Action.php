@@ -274,16 +274,17 @@ class Weapons2Action extends BaseAction
                     '{{map2}}.[[key]]' => $form->map,
                 ]);
             }
+            $term = TypeHelper::stringOrNull($form->term) ?? '';
             // phpcs:ignore Generic.CodeAnalysis.EmptyStatement
-            if ($form->term == '') {
+            if ($term === '') {
                 // nothing to do
-            } elseif (preg_match('/^(\d{4})-(\d{2})$/', $form->term, $match)) {
+            } elseif (preg_match('/^(\d{4})-(\d{2})$/', $term, $match)) {
                 $query->andWhere([
                     '{{stat_weapon2_use_count_per_month}}.[[year_month]]' =>
                         intval($match[1], 10) * 100 + intval($match[2], 10),
                 ]);
-            } elseif (substr($form->term, 0, 1) === 'v') {
-                if (!$v1 = SplatoonVersion2::findOne(['tag' => substr($form->term, 1)])) {
+            } elseif (substr($term, 0, 1) === 'v') {
+                if (!$v1 = SplatoonVersion2::findOne(['tag' => substr($term, 1)])) {
                     throw new Exception();
                 }
                 $v2 = SplatoonVersion2::find()
@@ -303,8 +304,8 @@ class Weapons2Action extends BaseAction
                         YearMonth::fromDateString($v2->released_at),
                     ]);
                 }
-            } elseif (substr($form->term, 0, 2) === '~v') {
-                if (!$vg = SplatoonVersionGroup2::findOne(['tag' => substr($form->term, 2)])) {
+            } elseif (substr($term, 0, 2) === '~v') {
+                if (!$vg = SplatoonVersionGroup2::findOne(['tag' => substr($term, 2)])) {
                     throw new Exception();
                 }
 

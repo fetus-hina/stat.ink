@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\models\query;
 
+use app\components\helpers\TypeHelper;
 use app\models\KDWin2FilterForm;
 use app\models\Map2;
 use app\models\RankGroup2;
@@ -30,10 +31,10 @@ final class StatWeapon2KdWinRateQuery extends ActiveQuery
             return $this->alwaysFalse();
         }
 
-        $this->filterStage($form->map);
-        $this->filterRank($form->rank);
-        $this->filterWeapon($form->weapon);
-        $this->filterVersion($form->version);
+        $this->filterStage(TypeHelper::stringOrNull($form->map));
+        $this->filterRank(TypeHelper::stringOrNull($form->rank));
+        $this->filterWeapon(TypeHelper::stringOrNull($form->weapon));
+        $this->filterVersion(TypeHelper::stringOrNull($form->version));
 
         return $this;
     }

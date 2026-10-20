@@ -12,6 +12,7 @@ namespace app\actions\user;
 use Override;
 use Yii;
 use app\components\helpers\AddressUpdatedEmailSender;
+use app\components\helpers\TypeHelper;
 use app\models\EmailForm;
 use app\models\EmailVerifyForm;
 use yii\web\ViewAction;
@@ -96,7 +97,7 @@ class EditEmailAction extends ViewAction
                 // TODO: Warning email
 
                 $verifyForm = Yii::createObject(EmailVerifyForm::class);
-                $verifyForm->realEmail = $form->email;
+                $verifyForm->realEmail = TypeHelper::string($form->email);
                 return $this->controller->render('edit-email-verify', [
                     'form' => $verifyForm,
                 ]);

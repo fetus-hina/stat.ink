@@ -14,6 +14,7 @@ use DateTimeImmutable;
 use Override;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\TypeHelper;
 use app\models\InternalActivityForm;
 use app\models\User;
 use yii\base\Action;
@@ -58,7 +59,7 @@ final class ActivityAction extends Action
 
         $user = User::findOne(['screen_name' => $form->screen_name]);
         [$from, $to] = BattleHelper::getActivityDisplayRange();
-        $this->resp->data = $this->makeData($user, $from, $to, $form->only);
+        $this->resp->data = $this->makeData($user, $from, $to, TypeHelper::stringOrNull($form->only));
     }
 
     private function getInputPseudoForm(): InternalActivityForm

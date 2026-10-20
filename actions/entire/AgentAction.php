@@ -14,6 +14,7 @@ use Override;
 use ParagonIE\ConstantTime\Base32;
 use RangeException;
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\AgentGroup;
 use app\models\EntireAgentForm;
 use app\models\StatAgentUser;
@@ -55,7 +56,7 @@ final class AgentAction extends Action
     public function run(): string
     {
         try {
-            $name = Base32::decode($this->form->b32name);
+            $name = Base32::decode(TypeHelper::string($this->form->b32name));
         } catch (RangeException $e) {
             $name = '';
         }
@@ -73,7 +74,7 @@ final class AgentAction extends Action
     {
         try {
             $list = StatAgentUser::find()
-                ->andWhere(['agent' => Base32::decode($this->form->b32name)])
+                ->andWhere(['agent' => Base32::decode(TypeHelper::string($this->form->b32name))])
                 ->orderBy(['date' => SORT_ASC])
                 ->asArray()
                 ->all();
@@ -128,7 +129,7 @@ final class AgentAction extends Action
                     },
                 ], false)
                 ->where([
-                    '{{agent_group_map}}.[[agent_name]]' => Base32::decode($this->form->b32name),
+                    '{{agent_group_map}}.[[agent_name]]' => Base32::decode(TypeHelper::string($this->form->b32name)),
                 ])
                 ->orderBy(['{{agent_group}}.[[name]]' => SORT_ASC])
                 ->asArray()

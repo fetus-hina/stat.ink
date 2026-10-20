@@ -29,7 +29,7 @@ use function array_filter;
 use function array_map;
 use function array_shift;
 use function date;
-use function is_scalar;
+use function is_string;
 use function mktime;
 use function preg_match;
 use function strnatcasecmp;
@@ -42,8 +42,8 @@ use function usort;
  */
 class MonthAction extends BaseAction
 {
-    public mixed $year = null;
-    public mixed $month = null;
+    public ?int $year = null;
+    public ?int $month = null;
     public ?int $periodS = null;
     public ?int $periodE = null;
 
@@ -59,16 +59,21 @@ class MonthAction extends BaseAction
         // {{{
         $req = Yii::$app->request;
 
-        $this->year = $req->get('year');
-        $this->month = $req->get('month');
+        $year = $req->get('year');
+        $month = $req->get('month');
         if (
-            !is_scalar($this->year) ||
-                !is_scalar($this->month) ||
-                !self::isValidMonth($this->year, $this->month)
+            !is_string($year) ||
+                !is_string($month) ||
+                !preg_match('/^\d+$/', $year) ||
+                !preg_match('/^\d+$/', $month) ||
+                !self::isValidMonth((int)$year, (int)$month)
         ) {
             self::http404();
             return;
         }
+
+        $this->year = (int)$year;
+        $this->month = (int)$month;
 
         $this->periodS = BattleHelper::calcPeriod(
             new DateTimeImmutable()
@@ -241,19 +246,13 @@ class MonthAction extends BaseAction
         throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
     }
 
-    /**
-     * @param scalar $year
-     * @param scalar $month
-     */
-    private static function isValidMonth($year, $month): bool
+    private static function isValidMonth(int $year, int $month): bool
     {
         // {{{
         $now = (int)($_SERVER['REQUEST_TIME'] ?? time());
 
         if (
-            !preg_match('/^\d+$/', $year) ||
-                !preg_match('/^\d+$/', $month) ||
-                $year < 2015 ||
+            $year < 2015 ||
                 $year > date('Y', $now) ||
                 $month < 1 ||
                 $month > 12
@@ -263,8 +262,8 @@ class MonthAction extends BaseAction
 
         // 今年なら今月以前のはず
         if (
-            (int)$year === (int)date('Y', $now) &&
-            ((int)$month > (int)date('n', $now))
+            $year === (int)date('Y', $now) &&
+            $month > (int)date('n', $now)
         ) {
             return false;
         }

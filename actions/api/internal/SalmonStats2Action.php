@@ -17,6 +17,7 @@ use app\models\User;
 use yii\base\Action;
 use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
+use app\components\helpers\TypeHelper;
 
 use const SORT_DESC;
 
@@ -39,7 +40,7 @@ class SalmonStats2Action extends Action
             throw new BadRequestHttpException();
         }
 
-        $user = User::findOne(['screen_name' => (string)$input->screen_name]);
+        $user = User::findOne(['screen_name' => TypeHelper::string($input->screen_name)]);
         if (!$user) {
             throw new NotFoundHttpException();
         }
