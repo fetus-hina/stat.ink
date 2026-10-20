@@ -13,10 +13,9 @@ use PhpToken;
 
 use function chr;
 use function count;
-use function hexdec;
 use function in_array;
+use function intval;
 use function mb_chr;
-use function octdec;
 use function preg_replace_callback;
 use function strcasecmp;
 use function stripos;
@@ -211,9 +210,9 @@ final class TranslationCallExtractor
                     'f' => "\f",
                     default => $m[1],
                 },
-                $m[2] !== '' => chr(octdec($m[2]) & 0xff),
-                $m[3] !== '' => chr(hexdec($m[3])),
-                default => (string)mb_chr(hexdec($m[4]), 'UTF-8'),
+                $m[2] !== '' => chr(intval($m[2], 8) & 0xff),
+                $m[3] !== '' => chr(intval($m[3], 16) & 0xff),
+                default => (string)mb_chr(intval($m[4], 16), 'UTF-8'),
             },
             $body,
         );

@@ -21,9 +21,7 @@ use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\Response;
 
-use function array_map;
-use function array_slice;
-use function hexdec;
+use function intval;
 use function pow;
 use function preg_match;
 use function sqrt;
@@ -126,9 +124,9 @@ final class InkColor3Action extends Action
     private static function brightness(string $rgb): float
     {
         return Color::getYUVFromRGB(
-            hexdec(substr($rgb, 0, 2)),
-            hexdec(substr($rgb, 2, 2)),
-            hexdec(substr($rgb, 4, 2)),
+            intval(substr($rgb, 0, 2), 16),
+            intval(substr($rgb, 2, 2), 16),
+            intval(substr($rgb, 4, 2), 16),
         )[0];
     }
 
@@ -141,9 +139,10 @@ final class InkColor3Action extends Action
             throw new DomainException();
         }
 
-        return array_map(
-            hexdec(...),
-            array_slice($match, 1, 3),
-        );
+        return [
+            intval($match[1], 16),
+            intval($match[2], 16),
+            intval($match[3], 16),
+        ];
     }
 }

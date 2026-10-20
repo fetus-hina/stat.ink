@@ -29,9 +29,9 @@ return [
   'value' => function (StatInkColor3 $model): string {
     $f = Yii::$app->formatter;
     [$luminance, ] = Color::getYUVFromRGB(
-      hexdec(substr($model->color1, 0, 2)),
-      hexdec(substr($model->color1, 2, 2)),
-      hexdec(substr($model->color1, 4, 2)),
+      intval(substr($model->color1, 0, 2), 16),
+      intval(substr($model->color1, 2, 2), 16),
+      intval(substr($model->color1, 4, 2), 16),
     );
 
     return Html::tag(
