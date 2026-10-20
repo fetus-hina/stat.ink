@@ -119,7 +119,7 @@ $this->registerJsFile(
     $assetMgr->getBundle(AppAsset::class),
     'battle2-players-point-inked.js'
   ),
-  ['depends' => AppAsset::class]
+  ['depends' => [AppAsset::class]]
 );
 ?>
         <th class="text-nowrap col-point">

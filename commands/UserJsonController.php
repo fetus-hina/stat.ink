@@ -148,7 +148,7 @@ class UserJsonController extends Controller
             } else {
                 echo "Skip {$row['user_id']}\n";
             }
-            clearstatcache($jsonPath);
+            clearstatcache(true, $jsonPath);
         }
 
         fseek($lock, 0, SEEK_SET);

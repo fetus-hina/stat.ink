@@ -181,8 +181,9 @@ trait StatsTrait
             ($lobby->key ?? '') === 'splatfest_challenge' &&
             (float)$model->peak_fest_power > 0.0
         ) {
-            $model->peak_fest_power = (float)$model->peak_fest_power;
-            $model->peak_season = self::getPeakSeasonByFestPower($user, $lobby, $model->peak_fest_power);
+            $peakFestPower = (float)$model->peak_fest_power;
+            $model->peak_fest_power = $peakFestPower;
+            $model->peak_season = self::getPeakSeasonByFestPower($user, $lobby, $peakFestPower);
         } else {
             $model->peak_fest_power = null;
         }

@@ -355,7 +355,7 @@ class CreateAction extends BaseAction
         ], true));
         $header->set('X-Api-Location', Url::to(['/api-v2-battle/view', 'id' => $battle->id], true));
         $header->set('X-User-Screen-Name', $battle->user->screen_name);
-        $header->set('X-Battle-ID', $battle->id);
+        $header->set('X-Battle-ID', (string)$battle->id);
         if ($found) {
             $resp->statusCode = 302;
             $resp->statusText = 'Found';
