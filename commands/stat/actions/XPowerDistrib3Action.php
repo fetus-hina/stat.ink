@@ -174,7 +174,7 @@ final class XPowerDistrib3Action extends Action
                 ', ',
                 array_map(
                     fn (string $columnName): string => $db->quoteColumnName($columnName),
-                    array_keys($select->select),
+                    array_keys($select->select ?? throw new LogicException('No columns selected')),
                 ),
             ),
             $select->createCommand($db)->rawSql,
@@ -238,7 +238,7 @@ final class XPowerDistrib3Action extends Action
                 ', ',
                 array_map(
                     fn (string $columnName): string => $db->quoteColumnName($columnName),
-                    array_keys($select->select),
+                    array_keys($select->select ?? throw new LogicException('No columns selected')),
                 ),
             ),
             $select->createCommand($db)->rawSql,

@@ -150,7 +150,7 @@ trait UserGoldenEggTrait
                     ', ',
                     array_map(
                         $db->quoteColumnName(...),
-                        array_keys($query->select),
+                        array_keys($query->select ?? throw new LogicException('No columns selected')),
                     ),
                 ),
                 $query->createCommand($db)->rawSql,
@@ -261,7 +261,7 @@ trait UserGoldenEggTrait
                     ', ',
                     array_map(
                         $db->quoteColumnName(...),
-                        array_keys($query->select),
+                        array_keys($query->select ?? throw new LogicException('No columns selected')),
                     ),
                 ),
                 $query->createCommand($db)->rawSql,

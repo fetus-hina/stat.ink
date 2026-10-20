@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\commands\stat\weapon3;
 
+use LogicException;
 use Yii;
 use yii\db\Connection;
 use yii\db\Query;
@@ -39,7 +40,7 @@ trait SpecialUseTrait
                         $db->quoteTableName('{{%stat_special_use3}}'),
                         implode(', ', array_map(
                             fn (string $columnName): string => $db->quoteColumnName($columnName),
-                            array_keys($select->select),
+                            array_keys($select->select ?? throw new LogicException('No columns selected')),
                         )),
                         $select->createCommand($db)->rawSql,
                         implode(', ', [

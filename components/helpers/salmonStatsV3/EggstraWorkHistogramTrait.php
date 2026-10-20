@@ -80,7 +80,7 @@ trait EggstraWorkHistogramTrait
                 ', ',
                 array_map(
                     $db->quoteColumnName(...),
-                    array_keys($select->select),
+                    array_keys($select->select ?? throw new LogicException('No columns selected')),
                 ),
             ),
             $select->createCommand($db)->rawSql,
@@ -123,7 +123,10 @@ trait EggstraWorkHistogramTrait
                 $db->quoteTableName(StatEggstraWorkDistribUserAbstract3::tableName()),
                 implode(
                     ', ',
-                    array_map($db->quoteColumnName(...), array_keys($select->select)),
+                    array_map(
+                        $db->quoteColumnName(...),
+                        array_keys($select->select ?? throw new LogicException('No columns selected')),
+                    ),
                 ),
                 $select->createCommand($db)->rawSql,
             ]),

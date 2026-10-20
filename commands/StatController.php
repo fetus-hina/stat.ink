@@ -12,6 +12,7 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
+use LogicException;
 use PDO;
 use Yii;
 use app\commands\stat\Knockout3Trait;
@@ -273,7 +274,7 @@ final class StatController extends Controller
                         ', ',
                         array_map(
                             fn (string $c): string => $db->quoteColumnName($c),
-                            array_keys($select->select),
+                            array_keys($select->select ?? throw new LogicException('No columns selected')),
                         ),
                     ),
                     $select->createCommand($db)->rawSql,
@@ -288,7 +289,7 @@ final class StatController extends Controller
                                         $db->quoteTableName('excluded'),
                                     ])
                                     : null,
-                                array_keys($select->select),
+                                array_keys($select->select ?? throw new LogicException('No columns selected')),
                             ),
                             fn (?string $v): bool => $v !== null,
                         ),
@@ -531,7 +532,7 @@ final class StatController extends Controller
             StatWeaponKDWinRate::tableName(),
             implode(', ', array_map(
                 fn ($col) => "[[{$col}]]",
-                array_keys($select->select),
+                array_keys($select->select ?? throw new LogicException('No columns selected')),
             )),
             $select->createCommand()->rawSql,
         );
@@ -604,7 +605,7 @@ final class StatController extends Controller
                 ', ',
                 array_map(
                     fn (string $a): string => sprintf('[[%s]]', $a),
-                    array_keys($select->select),
+                    array_keys($select->select ?? throw new LogicException('No columns selected')),
                 ),
             ),
             $select->createCommand()->rawSql,
@@ -690,7 +691,10 @@ final class StatController extends Controller
         $insert = sprintf(
             'INSERT INTO {{%s}} ( %s ) %s',
             StatWeaponUseCount::tablename(),
-            implode(', ', array_map(fn (string $a): string => "[[{$a}]]", array_keys($select->select))),
+            implode(', ', array_map(
+                fn (string $a): string => "[[{$a}]]",
+                array_keys($select->select ?? throw new LogicException('No columns selected')),
+            )),
             $select->createCommand()->rawSql,
         );
 
@@ -743,7 +747,10 @@ final class StatController extends Controller
         $upsertWeek = sprintf(
             'INSERT INTO {{%s}} ( %s ) %s ON CONFLICT ON CONSTRAINT [[%s]] DO UPDATE SET %s',
             StatWeaponUseCountPerWeek::tableName(),
-            implode(', ', array_map(fn (string $a): string => "[[{$a}]]", array_keys($selectWeek->select))),
+            implode(', ', array_map(
+                fn (string $a): string => "[[{$a}]]",
+                array_keys($selectWeek->select ?? throw new LogicException('No columns selected')),
+            )),
             $selectWeek->createCommand()->rawSql,
             $constraintName,
             implode(', ', [
@@ -1004,7 +1011,10 @@ final class StatController extends Controller
         $insert = sprintf(
             'INSERT INTO {{%s}} ( %s ) %s',
             StatWeapon2UseCount::tablename(),
-            implode(', ', array_map(fn (string $a): string => "[[{$a}]]", array_keys($select->select))),
+            implode(', ', array_map(
+                fn (string $a): string => "[[{$a}]]",
+                array_keys($select->select ?? throw new LogicException('No columns selected')),
+            )),
             $select->createCommand()->rawSql,
         );
         $insert .= sprintf(
@@ -1119,7 +1129,10 @@ final class StatController extends Controller
         $upsertWeek = sprintf(
             'INSERT INTO {{%s}} ( %s ) %s ON CONFLICT ( %s ) DO UPDATE SET %s',
             StatWeapon2UseCountPerWeek::tableName(),
-            implode(', ', array_map(fn (string $a): string => "[[{$a}]]", array_keys($selectWeek->select))),
+            implode(', ', array_map(
+                fn (string $a): string => "[[{$a}]]",
+                array_keys($selectWeek->select ?? throw new LogicException('No columns selected')),
+            )),
             $selectWeek->createCommand()->rawSql,
             implode(', ', array_map(fn (string $a): string => "[[{$a}]]", ['isoyear', 'isoweek', 'rule_id', 'weapon_id', 'map_id'])),
             implode(', ', array_map(fn (string $a): string => sprintf('[[%1$s]] = {{excluded}}.[[%1$s]]', $a), ['battles', 'wins'])),
@@ -1157,7 +1170,10 @@ final class StatController extends Controller
         $upsertMonth = sprintf(
             'INSERT INTO {{%s}} ( %s ) %s ON CONFLICT ( %s ) DO UPDATE SET %s',
             StatWeapon2UseCountPerMonth::tableName(),
-            implode(', ', array_map(fn (string $a): string => "[[{$a}]]", array_keys($selectMonth->select))),
+            implode(', ', array_map(
+                fn (string $a): string => "[[{$a}]]",
+                array_keys($selectMonth->select ?? throw new LogicException('No columns selected')),
+            )),
             $selectMonth->createCommand()->rawSql,
             implode(', ', array_map(fn (string $a): string => "[[{$a}]]", ['year_month', 'rule_id', 'weapon_id', 'map_id'])),
             implode(', ', array_map(fn (string $a): string => sprintf('[[%1$s]] = {{excluded}}.[[%1$s]]', $a), $columns)),
@@ -1244,7 +1260,10 @@ final class StatController extends Controller
             ]));
         $insertTrend = sprintf(
             'INSERT INTO {{stat_weapon_map_trend}} ( %s ) %s',
-            implode(', ', array_map(fn (string $a): string => "[[{$a}]]", array_keys($select->select))),
+            implode(', ', array_map(
+                fn (string $a): string => "[[{$a}]]",
+                array_keys($select->select ?? throw new LogicException('No columns selected')),
+            )),
             $select->createCommand()->rawSql,
         );
 

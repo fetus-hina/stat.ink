@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\commands\stat\weapon3;
 
+use LogicException;
 use Yii;
 use app\components\helpers\TypeHelper;
 use app\models\Event3StatsPower;
@@ -148,7 +149,7 @@ final class Event3StatsUpdator
                 ', ',
                 array_map(
                     $db->quoteColumnName(...),
-                    array_keys($select->select),
+                    array_keys($select->select ?? throw new LogicException('No columns selected')),
                 ),
             ),
             $select->createCommand()->rawSql,
@@ -263,7 +264,7 @@ final class Event3StatsUpdator
                     ', ',
                     array_map(
                         $db->quoteColumnName(...),
-                        array_keys($select->select),
+                        array_keys($select->select ?? throw new LogicException('No columns selected')),
                     ),
                 ),
                 $select->createCommand($db)->rawSql,
@@ -334,7 +335,7 @@ final class Event3StatsUpdator
                     ', ',
                     array_map(
                         $db->quoteColumnName(...),
-                        array_keys($select->select),
+                        array_keys($select->select ?? throw new LogicException('No columns selected')),
                     ),
                 ),
                 $select->createCommand($db)->rawSql,
@@ -428,7 +429,7 @@ final class Event3StatsUpdator
                     ', ',
                     array_map(
                         $db->quoteColumnName(...),
-                        array_keys($select->select),
+                        array_keys($select->select ?? throw new LogicException('No columns selected')),
                     ),
                 ),
                 $select->createCommand($db)->rawSql,
@@ -507,7 +508,7 @@ final class Event3StatsUpdator
                     ', ',
                     array_map(
                         $db->quoteColumnName(...),
-                        array_keys($select->select),
+                        array_keys($select->select ?? throw new LogicException('No columns selected')),
                     ),
                 ),
                 $select->createCommand($db)->rawSql,

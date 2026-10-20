@@ -12,6 +12,7 @@ namespace app\commands\stat\actions;
 use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
+use LogicException;
 use Throwable;
 use Yii;
 use app\components\helpers\TypeHelper;
@@ -142,7 +143,7 @@ final class StealthJump3Action extends Action
                 $db->quoteTableName(StatStealthJumpEquipment3::tableName()),
                 implode(', ', array_map(
                     $db->quoteColumnName(...),
-                    array_keys($query->select),
+                    array_keys($query->select ?? throw new LogicException('No columns selected')),
                 )),
                 $query->createCommand($db)->rawSql,
             ]);

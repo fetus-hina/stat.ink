@@ -88,7 +88,7 @@ trait UserSpecialTrait
                     ', ',
                     array_map(
                         $db->quoteColumnName(...),
-                        array_keys($select->select),
+                        array_keys($select->select ?? throw new LogicException('No columns selected')),
                     ),
                 ),
                 $select->createCommand($db)->rawSql,

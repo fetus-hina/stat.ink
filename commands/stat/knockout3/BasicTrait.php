@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\commands\stat\knockout3;
 
+use LogicException;
 use yii\db\Connection;
 use yii\db\Query;
 
@@ -87,7 +88,7 @@ trait BasicTrait
                 ', ',
                 array_map(
                     fn (string $columnName) => $db->quoteColumnName($columnName),
-                    array_keys($select->select),
+                    array_keys($select->select ?? throw new LogicException('No columns selected')),
                 ),
             ),
             $select->createCommand($db)->rawSql,

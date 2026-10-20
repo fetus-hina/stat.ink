@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\commands\stat;
 
+use LogicException;
 use Yii;
 use app\models\Battle2;
 use app\models\Rank2;
@@ -150,14 +151,17 @@ trait Weapon2Trait
         $insert = sprintf(
             // {{{
             'INSERT INTO stat_weapon2_result ( %s ) %s %s',
-            implode(', ', array_map(fn (string $column): string => "[[{$column}]]", array_keys($select->select))),
+            implode(', ', array_map(
+                fn (string $column): string => "[[{$column}]]",
+                array_keys($select->select ?? throw new LogicException('No columns selected')),
+            )),
             $select->createCommand()->rawSql,
             sprintf(
                 'ON CONFLICT ( %s ) DO UPDATE SET %s',
                 implode(', ', array_map(
                     fn (string $column): string => "[[{$column}]]",
                     array_filter(
-                        array_keys($select->select),
+                        array_keys($select->select ?? throw new LogicException('No columns selected')),
                         fn (string $column): bool => !in_array($column, ['battles', 'wins'], true),
                     ),
                 )),
@@ -207,7 +211,7 @@ trait Weapon2Trait
             $db->quoteTableName('stat_weapon2_kd_win_rate'),
             implode(', ', array_map(
                 fn (string $cName): string => $db->quoteColumnName($cName),
-                array_keys($select->select),
+                array_keys($select->select ?? throw new LogicException('No columns selected')),
             )),
             $select->createCommand()->rawSql,
             $db->quoteColumnName('stat_weapon2_kd_win_rate_pkey'),
