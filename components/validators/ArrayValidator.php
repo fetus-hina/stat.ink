@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace app\components\validators;
 
 use ArrayAccess;
+use Override;
 use yii\validators\EachValidator;
 
 use function count;
@@ -43,7 +44,8 @@ final class ArrayValidator extends EachValidator
     /**
      * @inheritdoc
      */
-    public function validateAttribute($model, $attribute)
+    #[Override]
+    public function validateAttribute($model, $attribute): void
     {
         $arrayOfValues = $model->$attribute;
         if (is_array($arrayOfValues) || $arrayOfValues instanceof ArrayAccess) {
@@ -63,7 +65,9 @@ final class ArrayValidator extends EachValidator
 
     /**
      * @inheritdoc
+     * @return array{string, array<string, mixed>}|null
      */
+    #[Override]
     protected function validateValue($value)
     {
         if (is_array($value) || $value instanceof ArrayAccess) {

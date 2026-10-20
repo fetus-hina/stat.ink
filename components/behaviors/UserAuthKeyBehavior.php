@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace app\components\behaviors;
 
 use LogicException;
+use Override;
 use Yii;
 use app\models\UserAuthKey;
 use yii\base\Behavior;
@@ -38,7 +39,11 @@ final class UserAuthKeyBehavior extends Behavior
         return hash('crc32b', $input, false);
     }
 
-    public function events()
+    /**
+     * @return array<string, callable|string>
+     */
+    #[Override]
+    public function events(): array
     {
         return [
             Model::EVENT_BEFORE_VALIDATE => 'fillAuthKeyAttributes',

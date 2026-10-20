@@ -14,6 +14,7 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
+use stdClass;
 use yii\db\Query;
 
 use function implode;
@@ -22,7 +23,7 @@ use function time;
 
 trait Splatoon3
 {
-    public static function getSummary3(Query $oldQuery)
+    public static function getSummary3(Query $oldQuery): stdClass
     {
         $db = Yii::$app->db;
         $now = new DateTimeImmutable()

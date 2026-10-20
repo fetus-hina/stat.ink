@@ -15,6 +15,9 @@ use app\models\SalmonMap3;
 
 final class SalmonStageApiFormatter
 {
+    /**
+     * @return array<string, mixed>|null
+     */
     public static function toJson(
         ?SalmonMap3 $coopStage,
         Map3|BigrunMap3|null $vsStage,

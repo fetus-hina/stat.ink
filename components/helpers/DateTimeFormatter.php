@@ -16,7 +16,7 @@ use function sprintf;
 
 class DateTimeFormatter
 {
-    public static function unixTimeToString($unixtime, ?DateTimeZone $tz = null)
+    public static function unixTimeToString(mixed $unixtime, ?DateTimeZone $tz = null): string
     {
         $isFloat = is_float($unixtime);
         $datetime = self::createDateTimeFromFloatedUnixtime((float)$unixtime);
@@ -26,7 +26,10 @@ class DateTimeFormatter
         );
     }
 
-    public static function unixTimeToJsonArray($unixtime, ?DateTimeZone $tz = null)
+    /**
+     * @return array{time: int, iso8601: string}
+     */
+    public static function unixTimeToJsonArray(mixed $unixtime, ?DateTimeZone $tz = null): array
     {
         return [
             'time' => (int)$unixtime,
@@ -34,7 +37,7 @@ class DateTimeFormatter
         ];
     }
 
-    private static function createDateTimeFromFloatedUnixtime($time)
+    private static function createDateTimeFromFloatedUnixtime(float $time): DateTime|false
     {
         $t1 = (int)floor((float)$time); // time の整数部
         $t2 = (float)$time - $t1; // time の小数部
@@ -44,7 +47,7 @@ class DateTimeFormatter
         );
     }
 
-    private static function getDefaultTimeZone()
+    private static function getDefaultTimeZone(): DateTimeZone
     {
         //return new DateTimeZone(Yii::$app->timeZone);
         return new DateTimeZone('Etc/UTC');

@@ -13,6 +13,9 @@ use app\models\SalmonFailReason2;
 
 final class SalmonFailReasonApiFormatter
 {
+    /**
+     * @return array<string, mixed>|null
+     */
     public static function toJson(?SalmonFailReason2 $model, bool $fullTranslate = false): ?array
     {
         if (!$model) {

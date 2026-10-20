@@ -18,8 +18,15 @@ use const SORT_ASC;
 
 final class Translator
 {
-    private static $langs = null;
+    /**
+     * @var Language[]|null
+     */
+    private static ?array $langs = null;
 
+    /**
+     * @param array<mixed> $params
+     * @return array<string, string>
+     */
     public static function translateToAll(
         string $category,
         string $message,

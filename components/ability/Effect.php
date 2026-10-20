@@ -8,6 +8,7 @@
 namespace app\components\ability;
 
 use Yii;
+use app\components\ability\effect\Base;
 use app\components\ability\effect\v020500;
 use app\components\ability\effect\v020600;
 use app\components\ability\effect\v020700;
@@ -19,7 +20,7 @@ use function version_compare;
 
 class Effect
 {
-    public static function factory(Battle $battle)
+    public static function factory(Battle $battle): ?Base
     {
         $gameVersion = $battle->splatoonVersion->tag ?? null;
         if (!$gameVersion) {

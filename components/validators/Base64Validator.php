@@ -7,6 +7,7 @@
 
 namespace app\components\validators;
 
+use Override;
 use Yii;
 use yii\validators\Validator;
 
@@ -18,10 +19,8 @@ use function rtrim;
 
 final class Base64Validator extends Validator
 {
-    /**
-     * @inheritdoc
-     */
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         if ($this->message === null) {
@@ -32,7 +31,8 @@ final class Base64Validator extends Validator
     /**
      * @inheritdoc
      */
-    public function validateAttribute($model, $attribute)
+    #[Override]
+    public function validateAttribute($model, $attribute): void
     {
         if ($this->validateValueImpl($model->$attribute)) {
             return;
@@ -43,7 +43,9 @@ final class Base64Validator extends Validator
 
     /**
      * @inheritdoc
+     * @return array{string, array<string, mixed>}|null
      */
+    #[Override]
     protected function validateValue($value)
     {
         if ($this->validateValueImpl($value)) {

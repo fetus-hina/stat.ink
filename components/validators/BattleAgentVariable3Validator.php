@@ -7,6 +7,7 @@
 
 namespace app\components\validators;
 
+use Override;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\validators\Validator;
@@ -18,10 +19,8 @@ use function mb_strlen;
 
 final class BattleAgentVariable3Validator extends Validator
 {
-    /**
-     * @inheritdoc
-     */
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         if ($this->message === null) {
@@ -32,7 +31,8 @@ final class BattleAgentVariable3Validator extends Validator
     /**
      * @inheritdoc
      */
-    public function validateAttribute($model, $attribute)
+    #[Override]
+    public function validateAttribute($model, $attribute): void
     {
         $errors = $this->validateValueImpl($model->$attribute);
         if (!$errors) {
@@ -46,7 +46,9 @@ final class BattleAgentVariable3Validator extends Validator
 
     /**
      * @inheritdoc
+     * @return array{string, array<string, mixed>}|null
      */
+    #[Override]
     protected function validateValue($value)
     {
         $errors = $this->validateValueImpl($value);

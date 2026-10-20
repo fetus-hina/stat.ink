@@ -13,6 +13,9 @@ use app\models\Crown3;
 
 final class CrownApiFormatter
 {
+    /**
+     * @return array<string, mixed>|null
+     */
     public static function toJson(?Crown3 $model, bool $fullTranslate = false): ?array
     {
         if (!$model) {

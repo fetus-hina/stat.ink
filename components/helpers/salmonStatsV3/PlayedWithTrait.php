@@ -115,6 +115,9 @@ trait PlayedWithTrait
         }
     }
 
+    /**
+     * @return array<string, string>
+     */
     private static function makePlayedWithStatsRecords(string $prefix, string $column): array
     {
         $pct = fn (float $p): string => vsprintf('PERCENTILE_DISC(%.2f) WITHIN GROUP (ORDER BY %s)', [

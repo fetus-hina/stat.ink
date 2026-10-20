@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\components\behaviors;
 
+use Override;
 use yii\base\Model;
 
 use function array_keys;
@@ -17,8 +18,10 @@ class AutoTrimAttributesBehavior extends TrimAttributesBehavior
 {
     /**
      * @inheritdoc
+     * @return array<string, callable|string>
      */
-    public function events()
+    #[Override]
+    public function events(): array
     {
         return [
             Model::EVENT_BEFORE_VALIDATE => $this->trim(...),

@@ -36,6 +36,9 @@ use const FILTER_VALIDATE_INT;
 
 final class CombinedBattles
 {
+    /**
+     * @return array<Battle|Battle2|Battle3|Salmon2|Salmon3>
+     */
     public static function getRecentBattles(int $num = 100): array
     {
         try {
@@ -52,6 +55,9 @@ final class CombinedBattles
         }
     }
 
+    /**
+     * @return array<Battle|Battle2|Battle3|Salmon2|Salmon3>
+     */
     public static function getUserRecentBattles(User $user, int $num = 100): array
     {
         try {

@@ -7,14 +7,18 @@
 
 namespace app\components\ability\effect;
 
+use Override;
+
 class v020800 extends v020700
 {
-    public function getCalculatorVersion()
+    #[Override]
+    public function getCalculatorVersion(): string
     {
         return '2.8.0';
     }
 
-    protected function getSpecialLossPctBase()
+    #[Override]
+    protected function getSpecialLossPctBase(): ?float
     {
         switch ($this->battle->weapon->key ?? null) {
             case 'barrelspinner_remix':

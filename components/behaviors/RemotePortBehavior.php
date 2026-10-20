@@ -12,6 +12,9 @@ use yii\db\ActiveRecord;
 
 class RemotePortBehavior extends AttributeBehavior
 {
+    /**
+     * @var array<string, string[]>
+     */
     public $attributes = [
         ActiveRecord::EVENT_BEFORE_INSERT => [ 'remote_port' ],
     ];

@@ -7,6 +7,7 @@
 
 namespace app\components\validators;
 
+use Override;
 use Yii;
 use app\models\Special;
 use app\models\Subweapon;
@@ -23,12 +24,13 @@ class WeaponKeyValidator extends Validator
     public const PREFIX_SUB_WEAPON = '+';
     public const PREFIX_SPECIAL_WEAPON = '*';
 
-    public $enableWeaponGroup = true;
-    public $enableMainWeapon = true;
-    public $enableSubWeapon = true;
-    public $enableSpecialWeapon = true;
+    public bool $enableWeaponGroup = true;
+    public bool $enableMainWeapon = true;
+    public bool $enableSubWeapon = true;
+    public bool $enableSpecialWeapon = true;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         if ($this->message === null) {
@@ -36,6 +38,10 @@ class WeaponKeyValidator extends Validator
         }
     }
 
+    /**
+     * @return array{string, array<string, mixed>}|null
+     */
+    #[Override]
     protected function validateValue($value)
     {
         if ($this->validateValueImpl($value)) {
@@ -44,7 +50,7 @@ class WeaponKeyValidator extends Validator
         return [$this->message, []];
     }
 
-    private function validateValueImpl($value)
+    private function validateValueImpl(mixed $value): bool
     {
         switch (substr($value, 0, 1)) {
             case static::PREFIX_WEAPON_GROUP:

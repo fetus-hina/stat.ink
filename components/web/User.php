@@ -7,6 +7,7 @@
 
 namespace app\components\web;
 
+use Override;
 use Yii;
 use app\models\User as UserModel;
 use yii\helpers\StringHelper;
@@ -38,18 +39,25 @@ class User extends \yii\web\User
     public const CRYPT_METHOD = 'aes-256-gcm';
     public const CRYPT_KEY_SALT_BYTES = 16;
 
-    public $identityFixedKey;
+    public ?string $identityFixedKey = null;
 
-    protected function sendIdentityCookie($identity, $duration)
+    #[Override]
+    protected function sendIdentityCookie($identity, $duration): void
     {
-        $cookie = Yii::createObject(array_merge($this->identityCookie, [
+        /** @var array{class: class-string<Cookie>} $config */
+        $config = array_merge($this->identityCookie, [
             'class' => Cookie::class,
             'value' => $this->createIdentityCookieValue($identity, $duration),
             'expire' => time() + $duration,
-        ]));
+        ]);
+        $cookie = Yii::createObject($config);
         Yii::$app->getResponse()->getCookies()->add($cookie);
     }
 
+    /**
+     * @return array{identity: IdentityInterface, duration: mixed}|null
+     */
+    #[Override]
     protected function getIdentityAndDurationFromCookie()
     {
         $value = Yii::$app->getRequest()
@@ -124,6 +132,9 @@ class User extends \yii\web\User
         return $result;
     }
 
+    /**
+     * @return array<mixed>|null
+     */
     private function decodeIdentityCookieValue(string $value): ?array
     {
         Yii::beginProfile('decodeIdentityCookieValue', __METHOD__);

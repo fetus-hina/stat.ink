@@ -96,6 +96,9 @@ final class TypeHelper
         };
     }
 
+    /**
+     * @return array<mixed>
+     */
     public static function array(mixed $value): array
     {
         return match (true) {

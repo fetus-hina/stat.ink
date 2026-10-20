@@ -69,7 +69,7 @@ class IkalogVersion
         return $agent->name === 'IkaLog' || $agent->name === 'TakoLog';
     }
 
-    public static function extractGitRevision(Agent $agent)
+    public static function extractGitRevision(Agent $agent): ?string
     {
         if (!static::isIkaLog($agent)) {
             return null;

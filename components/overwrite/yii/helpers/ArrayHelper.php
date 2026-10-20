@@ -24,6 +24,10 @@ use const SORT_STRING;
 
 class ArrayHelper extends BaseArrayHelper
 {
+    /**
+     * @param array<mixed> $array
+     * @return array<mixed>
+     */
     public static function toFlatten(array $array): array
     {
         $result = [];
@@ -42,7 +46,9 @@ class ArrayHelper extends BaseArrayHelper
     }
 
     /**
+     * @param array<mixed> $array
      * @param int|callable|null $callback
+     * @return list<mixed>
      */
     public static function sort(array $array, $callback = null): array
     {
@@ -68,7 +74,9 @@ class ArrayHelper extends BaseArrayHelper
     }
 
     /**
+     * @param array<mixed> $array
      * @param int|callable|null $callback
+     * @return array<mixed>
      */
     public static function asort(array $array, $callback = null): array
     {

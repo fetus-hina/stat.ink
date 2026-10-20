@@ -46,6 +46,9 @@ class V2 extends Base
         return Yii::t('app-apidoc2', 'stat.ink API for Splatoon 2');
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getPaths(): array
     {
         return [
@@ -71,6 +74,9 @@ class V2 extends Base
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function getPathInfoGear(): array
     {
         // {{{
@@ -126,6 +132,9 @@ class V2 extends Base
         // }}}
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function getPathInfoGearCsv(): array
     {
         // {{{
@@ -333,6 +342,9 @@ class V2 extends Base
         // }}}
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function getPathInfoMode(): array
     {
         // {{{
@@ -368,6 +380,9 @@ class V2 extends Base
         // }}}
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function getPathInfoStage(): array
     {
         // {{{
@@ -409,6 +424,9 @@ class V2 extends Base
         // }}}
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function getPathInfoWeapon(): array
     {
         // {{{
@@ -450,6 +468,9 @@ class V2 extends Base
         // }}}
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function getPathInfoWeaponCsv(): array
     {
         // {{{
@@ -734,6 +755,9 @@ class V2 extends Base
         // }}}
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function getPathInfoUserStats(): array
     {
         // {{{
@@ -768,6 +792,9 @@ class V2 extends Base
         // }}}
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function getPathInfoSalmon(): array
     {
         return array_merge(
@@ -776,6 +803,9 @@ class V2 extends Base
         );
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function getPathInfoSalmonGet(): array
     {
         // {{{
@@ -1007,6 +1037,9 @@ class V2 extends Base
         // }}}
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function getPathInfoSalmonPost(): array
     {
         // {{{
@@ -1116,6 +1149,9 @@ class V2 extends Base
         // }}}
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function getPathInfoSalmonWithID(): array
     {
         // {{{
@@ -1162,6 +1198,9 @@ class V2 extends Base
         // }}}
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function getPathInfoUserSalmon(): array
     {
         // {{{
@@ -1203,6 +1242,9 @@ class V2 extends Base
         // }}}
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function getPathInfoSalmonStats(): array
     {
         return array_merge(
@@ -1211,6 +1253,9 @@ class V2 extends Base
         );
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function getPathInfoSalmonStatsGet(): array
     {
         // {{{
@@ -1291,6 +1336,9 @@ class V2 extends Base
         // }}}
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function getPathInfoSalmonStatsPost(): array
     {
         // {{{
@@ -1369,6 +1417,9 @@ class V2 extends Base
         // }}}
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function getPathInfoMap(): array
     {
         // {{{

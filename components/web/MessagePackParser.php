@@ -7,6 +7,7 @@
 
 namespace app\components\web;
 
+use Override;
 use yii\web\BadRequestHttpException;
 use yii\web\RequestParserInterface;
 
@@ -17,8 +18,12 @@ use function msgpack_unpack;
 
 final class MessagePackParser implements RequestParserInterface
 {
-    public $throwException = true;
+    public bool $throwException = true;
 
+    /**
+     * @return mixed
+     */
+    #[Override]
     public function parse($rawBody, $contentType)
     {
         if (!extension_loaded('msgpack')) {

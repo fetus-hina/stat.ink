@@ -21,7 +21,8 @@ class m190618_234849_add_index_to_gearconf2 extends Migration
         );
     }
 
-    protected function afterUp()
+    #[Override]
+    protected function afterUp(): void
     {
         $this->execute('VACUUM ANALYZE gear_configuration_secondary2');
     }

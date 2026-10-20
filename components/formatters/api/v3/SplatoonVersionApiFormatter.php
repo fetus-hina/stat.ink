@@ -13,6 +13,9 @@ use app\models\SplatoonVersion3;
 
 final class SplatoonVersionApiFormatter
 {
+    /**
+     * @return array<string, mixed>|null
+     */
     public static function toJson(?SplatoonVersion3 $model, bool $fullTranslate = false): ?array
     {
         if (!$model) {

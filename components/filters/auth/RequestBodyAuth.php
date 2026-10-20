@@ -13,7 +13,7 @@ use function is_string;
 
 class RequestBodyAuth extends AuthMethod
 {
-    public $tokenParam = 'access-token';
+    public string $tokenParam = 'access-token';
 
     public function authenticate($user, $request, $response)
     {

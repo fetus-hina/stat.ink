@@ -13,6 +13,7 @@ use Yii;
 use app\models\api\v3\postSalmon\WaveForm;
 use yii\helpers\ArrayHelper;
 use yii\validators\Validator;
+use Override;
 
 use function array_shift;
 use function is_array;
@@ -23,7 +24,8 @@ final class SalmonWave3FormValidator extends Validator
     /**
      * @inheritdoc
      */
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         if ($this->message === null) {
@@ -34,7 +36,8 @@ final class SalmonWave3FormValidator extends Validator
     /**
      * @inheritdoc
      */
-    public function validateAttribute($model, $attribute)
+    #[Override]
+    public function validateAttribute($model, $attribute): void
     {
         $errors = $this->validateValueImpl($model->$attribute);
         if (!$errors) {
@@ -48,7 +51,9 @@ final class SalmonWave3FormValidator extends Validator
 
     /**
      * @inheritdoc
+     * @return array{string, array<string, mixed>}|null
      */
+    #[Override]
     protected function validateValue($value)
     {
         $errors = $this->validateValueImpl($value);

@@ -7,6 +7,7 @@
 
 namespace app\components\web;
 
+use Override;
 use Yii;
 use app\components\helpers\Resource;
 use yii\base\Component;
@@ -32,13 +33,14 @@ class CsvResponseFormatter extends Component implements ResponseFormatterInterfa
     public const SEPARATOR_CSV = ',';
     public const SEPARATOR_TSV = "\t";
 
-    public $separator;
-    public $inputCharset;
-    public $outputCharset;
-    public $substituteCharacter;
-    public $appendBOM;
+    public ?string $separator = null;
+    public ?string $inputCharset = null;
+    public ?string $outputCharset = null;
+    public int|string|null $substituteCharacter = null;
+    public ?bool $appendBOM = null;
 
-    public function format($response)
+    #[Override]
+    public function format($response): void
     {
         $this->separator = $response->data['separator'] ?? static::SEPARATOR_CSV;
         $this->inputCharset = $response->data['inputCharset'] ?? Yii::$app->charset;
@@ -70,7 +72,10 @@ class CsvResponseFormatter extends Component implements ResponseFormatterInterfa
         unset($substitute);
     }
 
-    protected function formatRow(array $row)
+    /**
+     * @param array<mixed> $row
+     */
+    protected function formatRow(array $row): string
     {
         $quoteRegex = sprintf('/["\x0d\x0a%s]/', preg_quote($this->separator, '/'));
         $ret = array_map(

@@ -17,6 +17,7 @@ final class MedalApiFormatter
 {
     /**
      * @param Medal3[]|null $models
+     * @return string[]|null
      */
     public static function toJson(?array $models, bool $fullTranslate = false): ?array
     {

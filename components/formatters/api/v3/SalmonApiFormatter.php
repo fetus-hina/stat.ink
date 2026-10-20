@@ -20,6 +20,9 @@ final class SalmonApiFormatter
 {
     use FloatValTrait;
 
+    /**
+     * @return array<string, mixed>|null
+     */
     public static function toJson(
         ?Salmon3 $model,
         bool $isAuthenticated = false,

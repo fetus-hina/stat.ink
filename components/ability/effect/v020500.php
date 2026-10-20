@@ -7,18 +7,22 @@
 
 namespace app\components\ability\effect;
 
+use Override;
+
 use function ceil;
 use function max;
 use function round;
 
 class v020500 extends Base
 {
-    public function getCalculatorVersion()
+    #[Override]
+    public function getCalculatorVersion(): string
     {
         return '2.5.0';
     }
 
-    public function getAttackPct()
+    #[Override]
+    public function getAttackPct(): ?float
     {
         $x = $this->calcX('damage_up', 100);
         if ($x === null) {
@@ -27,7 +31,8 @@ class v020500 extends Base
         return 1 + $x;
     }
 
-    public function getDefensePct()
+    #[Override]
+    public function getDefensePct(): ?float
     {
         $x = $this->calcX('defense_up', 100);
         if ($x === null) {
@@ -36,7 +41,8 @@ class v020500 extends Base
         return 1 + $x;
     }
 
-    public function getInkUsePctMain()
+    #[Override]
+    public function getInkUsePctMain(): ?float
     {
         $x = $this->calcX('ink_saver_main', 75);
         if ($x === null) {
@@ -45,7 +51,8 @@ class v020500 extends Base
         return 1 - $x;
     }
 
-    public function getInkUsePctSub()
+    #[Override]
+    public function getInkUsePctSub(): ?float
     {
         $x = $this->calcX('ink_saver_sub', 120);
         if ($x === null) {
@@ -54,7 +61,8 @@ class v020500 extends Base
         return 1 - $x;
     }
 
-    public function getInkRecoverySec()
+    #[Override]
+    public function getInkRecoverySec(): ?float
     {
         $x = $this->calcX('ink_recovery_up', 75);
         if ($x === null) {
@@ -64,7 +72,8 @@ class v020500 extends Base
         return ceil(100 / $f) / 60;
     }
 
-    public function getRunSpeedPct()
+    #[Override]
+    public function getRunSpeedPct(): ?float
     {
         $x = $this->calcX('run_speed_up', 60);
         if ($x === null) {
@@ -73,7 +82,8 @@ class v020500 extends Base
         return 1 + $x;
     }
 
-    public function getSwimSpeedPct()
+    #[Override]
+    public function getSwimSpeedPct(): ?float
     {
         $x = $this->calcX('swim_speed_up', 120);
         if ($x === null) {
@@ -86,7 +96,8 @@ class v020500 extends Base
         return (1 + $x) * ($ninja > 0 ? 0.9 : 1.0);
     }
 
-    public function getSpecialChargePoint()
+    #[Override]
+    public function getSpecialChargePoint(): ?int
     {
         $x = $this->calcX('special_charge_up', 100);
         if ($x === null) {
@@ -99,7 +110,8 @@ class v020500 extends Base
         return (int)round($defPoint / (1 + $x));
     }
 
-    public function getSpecialDurationSec()
+    #[Override]
+    public function getSpecialDurationSec(): ?float
     {
         $x = $this->calcX('special_duration_up', static::SPECIAL_DURATION_40PCT);
         if ($x === null) {
@@ -112,7 +124,8 @@ class v020500 extends Base
         return (1 + $x) * $defSec;
     }
 
-    public function getSpecialLossPct()
+    #[Override]
+    public function getSpecialLossPct(): int|float|null
     {
         $x = $this->calcX('special_saver', 60);
         if ($x === null) {
@@ -121,7 +134,8 @@ class v020500 extends Base
         return max(0.5 - $x, 0);
     }
 
-    public function getRespawnSec()
+    #[Override]
+    public function getRespawnSec(): ?float
     {
         $x = $this->calcX('quick_respawn', 45);
         if ($x === null) {
@@ -130,7 +144,8 @@ class v020500 extends Base
         return ((1 - $x) * 360 + 30 + 120) / 60;
     }
 
-    public function getSuperJumpSecs()
+    #[Override]
+    public function getSuperJumpSecs(): ?array
     {
         $x = $this->calcX('quick_super_jump', 60);
         if ($x === null) {
@@ -144,7 +159,8 @@ class v020500 extends Base
         ];
     }
 
-    public function getBombThrowPct()
+    #[Override]
+    public function getBombThrowPct(): ?float
     {
         $x = $this->calcX('bomb_range_up', 60);
         if ($x === null) {
@@ -153,7 +169,8 @@ class v020500 extends Base
         return 1 + $x;
     }
 
-    public function getMarkingPct()
+    #[Override]
+    public function getMarkingPct(): ?float
     {
         $x = $this->calcX('cold_blooded', 1);
         if ($x === null) {
@@ -165,7 +182,7 @@ class v020500 extends Base
         return 1.00;
     }
 
-    protected function getSpecialChargeDefaultPoint()
+    protected function getSpecialChargeDefaultPoint(): ?int
     {
         switch ($this->battle->weapon->special->key ?? null) {
             case null:
@@ -183,7 +200,7 @@ class v020500 extends Base
         }
     }
 
-    protected function getSpecialDurationDefaultSec()
+    protected function getSpecialDurationDefaultSec(): int|float|null
     {
         switch ($this->battle->weapon->special->key ?? null) {
             case null:

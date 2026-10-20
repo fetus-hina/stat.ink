@@ -34,6 +34,9 @@ class V1 extends Base
         return Yii::t('app-apidoc1', 'stat.ink API for Splatoon 1');
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getPaths(): array
     {
         return [
@@ -50,6 +53,9 @@ class V1 extends Base
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function getPathInfoGear(): array
     {
         // {{{
@@ -171,6 +177,9 @@ class V1 extends Base
         // }}}
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function getPathInfoMap(): array
     {
         // {{{
@@ -206,6 +215,9 @@ class V1 extends Base
         // }}}
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function getPathInfoRule(): array
     {
         // {{{
@@ -241,6 +253,9 @@ class V1 extends Base
         // }}}
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function getPathInfoWeapon(): array
     {
         // {{{
@@ -390,6 +405,9 @@ class V1 extends Base
         // }}}
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function getPathInfoDeathReason(): array
     {
         // {{{
@@ -455,6 +473,9 @@ class V1 extends Base
         // }}}
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function getPathInfoWeaponTrends(): array
     {
         // {{{
@@ -536,6 +557,9 @@ class V1 extends Base
         // }}}
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function getPathInfoBattle(): array
     {
         // {{{
@@ -545,6 +569,9 @@ class V1 extends Base
         //}}}
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function getPathInfoBattleDelete(): array
     {
         // {{{

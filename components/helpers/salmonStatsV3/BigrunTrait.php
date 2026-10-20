@@ -54,6 +54,9 @@ trait BigrunTrait
         }
     }
 
+    /**
+     * @return array<array<string, mixed>>
+     */
     private static function makeBigrunStats(
         Connection $db,
         User $user,

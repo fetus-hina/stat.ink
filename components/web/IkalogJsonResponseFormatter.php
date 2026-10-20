@@ -7,6 +7,7 @@
 
 namespace app\components\web;
 
+use Override;
 use yii\base\Component;
 use yii\web\ResponseFormatterInterface;
 
@@ -20,7 +21,8 @@ use const SEEK_SET;
 
 class IkalogJsonResponseFormatter extends Component implements ResponseFormatterInterface
 {
-    public function format($response)
+    #[Override]
+    public function format($response): void
     {
         $tmpfile = tmpfile();
         foreach ($response->data['rows'] as $row) {
@@ -31,7 +33,10 @@ class IkalogJsonResponseFormatter extends Component implements ResponseFormatter
         $response->stream = $tmpfile;
     }
 
-    protected function formatRow(array $row)
+    /**
+     * @param array<mixed> $row
+     */
+    protected function formatRow(array $row): string|false
     {
         return json_encode($row, JSON_UNESCAPED_SLASHES);
     }

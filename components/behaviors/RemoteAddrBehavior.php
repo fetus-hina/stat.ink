@@ -13,6 +13,9 @@ use yii\db\ActiveRecord;
 
 class RemoteAddrBehavior extends AttributeBehavior
 {
+    /**
+     * @var array<string, string[]>
+     */
     public $attributes = [
         ActiveRecord::EVENT_BEFORE_INSERT => [ 'remote_addr' ],
     ];

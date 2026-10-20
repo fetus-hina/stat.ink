@@ -79,6 +79,7 @@ final class SalmonActionColumn extends Column
 
     /**
      * @param Salmon2|Salmon3 $model
+     * @return array<int|string, int|string>
      */
     private function getDetailUrl($model, User $user): array
     {

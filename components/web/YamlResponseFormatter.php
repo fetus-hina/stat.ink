@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\components\web;
 
+use Override;
 use Symfony\Component\Yaml\Yaml;
 use yii\base\Component;
 use yii\web\ResponseFormatterInterface;
@@ -18,12 +19,13 @@ use function is_int;
 
 class YamlResponseFormatter extends Component implements ResponseFormatterInterface
 {
-    public $contentType; // e.g., 'text/yaml', 'application/x-yaml'
-    public $encodeOptions;
-    public $inline = 2;
-    public $indent = 4;
+    public ?string $contentType = null; // e.g., 'text/yaml', 'application/x-yaml'
+    public ?int $encodeOptions = null;
+    public int $inline = 2;
+    public int $indent = 4;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -41,7 +43,8 @@ class YamlResponseFormatter extends Component implements ResponseFormatterInterf
         }
     }
 
-    public function format($response)
+    #[Override]
+    public function format($response): void
     {
         $response->getHeaders()->set('Content-Type', (string)($this->contentType ?: 'text/yaml'));
         $response->content = Yaml::dump(

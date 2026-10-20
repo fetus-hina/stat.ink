@@ -13,6 +13,9 @@ use app\models\Rank3;
 
 final class RankApiFormatter
 {
+    /**
+     * @return array<string, mixed>|null
+     */
     public static function toJson(?Rank3 $model, bool $fullTranslate = false): ?array
     {
         if (!$model) {

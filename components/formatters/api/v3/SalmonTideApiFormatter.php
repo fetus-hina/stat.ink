@@ -13,6 +13,9 @@ use app\models\SalmonWaterLevel2;
 
 final class SalmonTideApiFormatter
 {
+    /**
+     * @return array<string, mixed>|null
+     */
     public static function toJson(?SalmonWaterLevel2 $model, bool $fullTranslate = false): ?array
     {
         if (!$model) {

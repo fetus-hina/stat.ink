@@ -22,6 +22,10 @@ final class ScheduleParser
     use Matches;
     use Salmon;
 
+    /**
+     * @param array<mixed> $json
+     * @return array<string, list<array<string, mixed>>>
+     */
     public static function parseAll(array $json): array
     {
         // keys are lobby3.key
@@ -59,6 +63,10 @@ final class ScheduleParser
         ];
     }
 
+    /**
+     * @param array<mixed> $json
+     * @return array<string, array<string, mixed>>
+     */
     public static function parseFestivals(array $json): array
     {
         return self::festivals($json);

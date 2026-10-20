@@ -73,6 +73,9 @@ class Battle
         ];
     }
 
+    /**
+     * @return array<string, mixed>|null
+     */
     public static function getNBattlesRange(BattleFilterForm $filter, int $num): ?array
     {
         $filter = clone $filter;
@@ -100,6 +103,9 @@ class Battle
         return $query->createCommand()->queryOne();
     }
 
+    /**
+     * @return array<string, mixed>|null
+     */
     public static function getNBattlesRange2(Battle2FilterForm $filter, int $num): ?array
     {
         $filter = clone $filter;
@@ -131,6 +137,9 @@ class Battle
         return $query->createCommand()->queryOne();
     }
 
+    /**
+     * @return array{DateTimeImmutable, DateTimeImmutable}
+     */
     public static function getActivityDisplayRange(): array
     {
         $today = new DateTimeImmutable()
@@ -159,6 +168,9 @@ class Battle
         ];
     }
 
+    /**
+     * @return array{int, int}|null
+     */
     public static function getLastPlayedSplatfestPeriodRange2(User $user): ?array
     {
         // 一番最後に登録されたフェスバトルを取得

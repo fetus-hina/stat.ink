@@ -28,12 +28,12 @@ use function vsprintf;
 
 class Formatter extends \yii\i18n\Formatter
 {
-    public function asHtmlDatetime($value, $format = null)
+    public function asHtmlDatetime(mixed $value, ?string $format = null): string
     {
         return $this->asHtmlDatetimeEx($value, $format, $format);
     }
 
-    public function asHtmlDatetimeEx($value, $formatD = null, $formatT = null)
+    public function asHtmlDatetimeEx(mixed $value, ?string $formatD = null, ?string $formatT = null): string
     {
         if ($value === null) {
             return $this->asDatetime($value, $formatD);
@@ -50,7 +50,7 @@ class Formatter extends \yii\i18n\Formatter
         );
     }
 
-    public function asHtmlRelative($value): string
+    public function asHtmlRelative(mixed $value): string
     {
         if ($value === null) {
             return $this->asRelativeTime($value);
@@ -68,7 +68,7 @@ class Formatter extends \yii\i18n\Formatter
         );
     }
 
-    public function asTimestampColumn($value, bool $withReltime = true): ?string
+    public function asTimestampColumn(mixed $value, bool $withReltime = true): ?string
     {
         return TimestampColumnWidget::widget([
             'value' => $value,
@@ -77,7 +77,7 @@ class Formatter extends \yii\i18n\Formatter
         ]);
     }
 
-    public function asMetricPrefixed($value, int $decimal = 0): ?string
+    public function asMetricPrefixed(mixed $value, int $decimal = 0): ?string
     {
         if ($value === null) {
             return $this->nullDisplay;
@@ -108,8 +108,11 @@ class Formatter extends \yii\i18n\Formatter
             : $this->asDecimal($value, $decimal);
     }
 
+    /**
+     * @param array<mixed> $options
+     */
     public function asTranslated(
-        $value,
+        mixed $value,
         string $category = 'app',
         array $options = [],
         bool $escape = true,
@@ -122,7 +125,7 @@ class Formatter extends \yii\i18n\Formatter
         return $escape ? $this->asText($text) : $text;
     }
 
-    public function asReplayCode3($value, bool $link = true): string
+    public function asReplayCode3(mixed $value, bool $link = true): string
     {
         if (!is_string($value)) {
             return $this->nullDisplay;
