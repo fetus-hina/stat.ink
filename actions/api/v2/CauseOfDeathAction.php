@@ -17,7 +17,6 @@ use yii\web\Response;
 
 use function array_keys;
 use function array_map;
-use function array_values;
 use function implode;
 use function vsprintf;
 
@@ -71,7 +70,7 @@ final class CauseOfDeathAction extends Action
                     $index + 1,
                 ]),
                 array_keys($typeOrderList),
-                array_values($typeOrderList),
+                $typeOrderList,
             )),
             0x7fffffff,
         ]);

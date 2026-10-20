@@ -196,7 +196,7 @@ class UserStatCauseOfDeathAction extends BaseAction
         }
         $ret = array_merge(
             array_values($retWeapons),
-            array_values($retOthers),
+            $retOthers,
         );
         usort($ret, fn ($a, $b) => $b->count <=> $a->count ?: strcasecmp($a->name, $b->name));
         return $ret;

@@ -50,9 +50,9 @@ if ($player->is_me) {
       ? Html::tag('div', Icon::thisPlayer())
       : '',
     [
-      'class' => array_filter([
+      'class' => [
         'text-center',
-      ]),
+      ],
     ],
   ) . "\n" ?>
   <td>

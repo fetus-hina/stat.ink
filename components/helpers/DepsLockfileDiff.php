@@ -12,7 +12,6 @@ namespace app\components\helpers;
 use function array_keys;
 use function array_merge;
 use function array_unique;
-use function array_values;
 use function is_array;
 use function is_string;
 use function ksort;
@@ -68,7 +67,7 @@ final class DepsLockfileDiff
         }
 
         usort($changes, fn (array $a, array $b): int => strcmp($a['name'], $b['name']));
-        return array_values($changes);
+        return $changes;
     }
 
     /**
@@ -103,7 +102,7 @@ final class DepsLockfileDiff
         }
 
         usort($changes, fn (array $a, array $b): int => strcmp($a['name'], $b['name']));
-        return array_values($changes);
+        return $changes;
     }
 
     /**

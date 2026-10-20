@@ -16,7 +16,6 @@ use app\models\Map3;
 use app\models\SalmonMap3;
 use yii\web\ViewAction;
 
-use function array_values;
 use function strcmp;
 use function strnatcasecmp;
 use function usort;
@@ -64,6 +63,6 @@ final class Stage3Action extends ViewAction
                     ?: strcmp($a->key, $b->key),
         );
 
-        return array_values($list);
+        return $list;
     }
 }

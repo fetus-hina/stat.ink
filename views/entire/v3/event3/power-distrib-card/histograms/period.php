@@ -28,12 +28,10 @@ $datasetHistogram = [
   ],
   'borderWidth' => 1,
   'categoryPercentage' => 1.0,
-  'data' => array_values(
-    array_map(
-      fn (int $x, int $y): array => compact('x', 'y'),
-      array_keys($histogram),
-      array_values($histogram),
-    ),
+  'data' => array_map(
+    fn (int $x, int $y): array => compact('x', 'y'),
+    array_keys($histogram),
+    array_values($histogram),
   ),
   'label' => $label . ': ' . Yii::t('app', 'Battles'),
   'type' => 'bar',

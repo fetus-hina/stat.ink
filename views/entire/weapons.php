@@ -266,7 +266,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
       'class' => 'table table-striped table-condensed table-sortable',
       'id' => sprintf('sub-%s', $rule->key),
     ],
-    'columns' => array_filter([
+    'columns' => [
       [
         'label' => Yii::t('app', 'Sub Weapon'), // {{{
         'headerOptions' => ['data-sort' => 'string'],
@@ -365,7 +365,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
         'attribute' => 'encounter_4',
         // }}}
       ],
-    ]),
+    ],
   ]) . "\n" ?>
   <?= GridView::widget([
     'dataProvider' => Yii::createObject([
@@ -382,7 +382,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
       'class' => 'table table-striped table-condensed table-sortable',
       'id' => sprintf('special-%s', $rule->key),
     ],
-    'columns' => array_filter([
+    'columns' => [
       [
         'label' => Yii::t('app', 'Special'), // {{{
         'headerOptions' => ['data-sort' => 'string'],
@@ -481,7 +481,7 @@ $this->registerMetaTag(['name' => 'twitter:site', 'content' => '@stat_ink']);
         'attribute' => 'encounter_4',
         // }}}
       ],
-    ]),
+    ],
   ]) . "\n" ?>
 <?php } ?>
 <?php } ?>

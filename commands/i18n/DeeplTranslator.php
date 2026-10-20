@@ -143,7 +143,6 @@ class DeeplTranslator extends Component
             $englishTexts = array_filter($englishTexts, fn ($text) => $text !== 'Salmon Run');
 
             usort($englishTexts, fn ($a, $b) => strnatcasecmp($a, $b) ?: strcmp($a, $b));
-            $englishTexts = array_values($englishTexts);
             $localizedTexts = array_map(
                 fn ($text) => self::xml2template($text),
                 $this->translate(

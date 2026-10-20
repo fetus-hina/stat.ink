@@ -133,13 +133,11 @@ $datasetWinPctErrors = [
 
 $chart = [
   'data' => [
-    'datasets' => array_filter(
-      [
-        $datasetWinPct,
-        $datasetWinPctErrors,
-        $datasetBattles,
-      ],
-    ),
+    'datasets' => [
+      $datasetWinPct,
+      $datasetWinPctErrors,
+      $datasetBattles,
+    ],
   ],
   'options' => [
     'aspectRatio' => new JsExpression('16/9'),
