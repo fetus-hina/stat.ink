@@ -13,6 +13,7 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Override;
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\components\i18n\Formatter;
 use yii\base\Widget;
 use yii\helpers\Html;
@@ -46,7 +47,7 @@ class TimestampColumnWidget extends Widget
 
     public function run()
     {
-        $f = $this->formatter;
+        $f = TypeHelper::instanceOf($this->formatter, Formatter::class);
 
         if ($this->value === null) {
             return $f->asText(null);

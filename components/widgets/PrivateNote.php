@@ -13,6 +13,7 @@ use Override;
 use Yii;
 use app\assets\FontAwesomeAsset;
 use app\assets\PrivateNoteAsset;
+use app\components\helpers\TypeHelper;
 use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
 use yii\helpers\Html;
@@ -81,7 +82,7 @@ class PrivateNote extends Widget
 
         return Html::tag(
             'div',
-            $this->formatter->asNtext($this->text),
+            TypeHelper::instanceOf($this->formatter, Formatter::class)->asNtext($this->text),
             ['id' => $this->textId],
         );
     }
