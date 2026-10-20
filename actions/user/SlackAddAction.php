@@ -14,6 +14,7 @@ use app\models\Language;
 use app\models\SlackAddForm;
 use yii\web\ViewAction as BaseAction;
 
+use function is_array;
 use function sprintf;
 use function strnatcasecmp;
 use function uasort;
@@ -26,7 +27,8 @@ class SlackAddAction extends BaseAction
         $request = Yii::$app->request;
         $form = new SlackAddForm();
         if ($request->isPost) {
-            $form->load($request->bodyParams);
+            $params = $request->bodyParams;
+            $form->load(is_array($params) ? $params : []);
             if ($form->validate()) {
                 $transaction = Yii::$app->db->beginTransaction();
                 try {

@@ -14,6 +14,7 @@ use Exception;
 use Generator;
 use Normalizer;
 use Yii;
+use app\components\helpers\TypeHelper;
 use yii\base\Component;
 use yii\helpers\FileHelper;
 
@@ -104,6 +105,10 @@ class OpenCCTranslator extends Component
 
         fwrite(STDERR, "Writing...\n");
         $fh = fopen($outputPath, 'wt');
+        if (!$fh) {
+            throw new Exception('Could not open file: ' . $outputPath);
+        }
+
         fwrite($fh, "<?php\n\n");
         fwrite($fh, "/**\n");
         vfprintf($fh, " * @copyright Copyright (C) 2015-%d AIZAWA Hina\n", [
@@ -159,7 +164,7 @@ class OpenCCTranslator extends Component
             preg_replace(
                 '/\s+/',
                 ' ',
-                Normalizer::normalize($hantText, Normalizer::FORM_C),
+                TypeHelper::string(Normalizer::normalize($hantText, Normalizer::FORM_C)),
             ),
         );
     }

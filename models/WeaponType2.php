@@ -14,6 +14,7 @@ use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 use function array_map;
+use function array_values;
 
 use const SORT_ASC;
 
@@ -156,12 +157,12 @@ class WeaponType2 extends ActiveRecord
      */
     public static function openapiExample(): array
     {
-        return array_map(
+        return array_values(array_map(
             fn (self $model): array => $model->toJsonArray(),
             static::find()
                 ->orderBy(['id' => SORT_ASC])
                 ->limit(1)
                 ->all(),
-        );
+        ));
     }
 }

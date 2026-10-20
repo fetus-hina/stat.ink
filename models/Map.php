@@ -17,6 +17,7 @@ use yii\helpers\ArrayHelper;
 
 use function array_map;
 use function array_merge;
+use function array_values;
 use function strtotime;
 
 use const SORT_ASC;
@@ -176,9 +177,9 @@ final class Map extends ActiveRecord
         $values = static::find()
             ->orderBy(['key' => SORT_ASC])
             ->all();
-        return array_map(
+        return array_values(array_map(
             fn (self $model): array => $model->toJsonArray(),
             $values,
-        );
+        ));
     }
 }

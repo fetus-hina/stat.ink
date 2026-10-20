@@ -24,6 +24,7 @@ use yii\base\Widget;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use app\components\helpers\TypeHelper;
 
 use function array_merge;
 use function asort;
@@ -77,7 +78,7 @@ class SalmonFilterWidget extends Widget
                 ],
             );
             ActiveForm::end();
-            return ob_get_contents();
+            return TypeHelper::string(ob_get_contents());
         } finally {
             ob_end_clean();
         }

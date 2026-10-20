@@ -21,6 +21,7 @@ use yii\web\Response;
 
 use function compact;
 use function implode;
+use function is_array;
 use function is_string;
 
 final class ResetPasswordRecoveryKeyAction extends Action
@@ -35,7 +36,8 @@ final class ResetPasswordRecoveryKeyAction extends Action
         $request = TypeHelper::instanceOf(Yii::$app->request, Request::class);
         $form = Yii::createObject(ResetPasswordRecoveryKeyForm::class);
         if ($request->isPost) {
-            if ($form->load($request->post())) {
+            $params = $request->post();
+            if ($form->load(is_array($params) ? $params : [])) {
                 $form->cf_turnstile_response = (string)$request->post('cf-turnstile-response');
                 if (
                     $form->validate() &&

@@ -7,9 +7,11 @@
 
 declare(strict_types=1);
 
+use app\components\helpers\TypeHelper;
 use app\components\widgets\Label;
 use app\models\Salmon3;
 use yii\grid\Column;
+use yii\i18n\Formatter;
 
 return [
   'label' => Yii::t('app-results', 'Result'),
@@ -55,7 +57,7 @@ return [
         Label::widget([
           'color' => 'danger',
           'content' => Yii::t('app-salmon2', 'Failed in wave {waveNumber}', [
-            'waveNumber' => $column->grid->formatter->asInteger($clearWaves + 1),
+            'waveNumber' => TypeHelper::instanceOf($column->grid->formatter, Formatter::class)->asInteger($clearWaves + 1),
           ]),
         ]),
         $model->fail_reason_id

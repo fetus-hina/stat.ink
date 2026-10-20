@@ -42,8 +42,8 @@ $drawCell = function (int|false|null $dragonId) use ($samples, $stats): string {
     ? array_sum(ArrayHelper::getColumn($row, 'battles'))
     : null;
 
-  $info = $row
-    ? StandardError::winpct($battles, $samples)
+  $info = $battles !== null
+    ? StandardError::winpct((int)$battles, (int)$samples)
     : null;
 
   return Html::tag(

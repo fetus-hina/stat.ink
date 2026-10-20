@@ -17,6 +17,7 @@ use function ceil;
 use function file_put_contents;
 use function http_build_query;
 use function is_bool;
+use function max;
 use function random_bytes;
 use function sprintf;
 use function strtr;
@@ -28,7 +29,7 @@ class SecretController extends Controller
     {
         $this->stdout('Creating secret key file "config/cookie-secret.php"... ', Console::FG_YELLOW);
         $length = 32;
-        $binLength = (int)ceil($length * 3 / 4);
+        $binLength = max(1, (int)ceil($length * 3 / 4));
         $binary = random_bytes($binLength);
         $key = substr(strtr(base64_encode($binary), '+/=', '_-.'), 0, $length);
         file_put_contents(
@@ -42,7 +43,7 @@ class SecretController extends Controller
     {
         $this->stdout('Creating secret key file "config/authkey-secret.php"... ', Console::FG_YELLOW);
         $length = 64;
-        $binLength = (int)ceil($length * 3 / 4);
+        $binLength = max(1, (int)ceil($length * 3 / 4));
         $binary = random_bytes($binLength);
         $key = substr(strtr(base64_encode($binary), '+/=', '_-.'), 0, $length);
         file_put_contents(
@@ -57,7 +58,7 @@ class SecretController extends Controller
         $this->stdout('Creating "config/db.php"... ', Console::FG_YELLOW);
         if ($password == '') {
             $passwordBits = 128;
-            $length = (int)ceil($passwordBits / 8);
+            $length = max(1, (int)ceil($passwordBits / 8));
             $binary = random_bytes($length); // PHP 7 native random_bytes() or compat-lib's one
             $password = substr(strtr(base64_encode($binary), '+/=', '_-.'), 0, $length);
         }

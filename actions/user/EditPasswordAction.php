@@ -20,6 +20,8 @@ use app\models\User;
 use yii\web\Response;
 use yii\web\ViewAction as BaseAction;
 
+use function is_array;
+
 class EditPasswordAction extends BaseAction
 {
     #[Override]
@@ -34,7 +36,8 @@ class EditPasswordAction extends BaseAction
         }
         $form->screen_name = $ident->screen_name;
         if ($request->isPost) {
-            $form->load($request->bodyParams);
+            $params = $request->bodyParams;
+            $form->load(is_array($params) ? $params : []);
             $form->screen_name = $ident->screen_name;
             if ($form->validate() && !$hasPassword && !PasskeyReauth::consume((int)$ident->id)) {
                 $form->addError(

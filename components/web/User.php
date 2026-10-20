@@ -9,6 +9,7 @@ namespace app\components\web;
 
 use Override;
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\User as UserModel;
 use yii\helpers\StringHelper;
 use yii\web\Cookie;
@@ -28,6 +29,7 @@ use function substr;
 use function time;
 
 use const JSON_ERROR_NONE;
+use const JSON_THROW_ON_ERROR;
 use const OPENSSL_RAW_DATA;
 
 /**
@@ -102,7 +104,7 @@ class User extends \yii\web\User
 
         $security = Yii::$app->security;
         $ivBinary = $security->generateRandomKey(
-            openssl_cipher_iv_length(static::CRYPT_METHOD),
+            TypeHelper::int(openssl_cipher_iv_length(static::CRYPT_METHOD)),
         );
         $keySaltBinary = $security->generateRandomKey(static::CRYPT_KEY_SALT_BYTES);
         $keyBinary = $this->generateIdentityEncodeKey($keySaltBinary);
@@ -111,7 +113,7 @@ class User extends \yii\web\User
             'id' => $identity->getId(),
             'authKey' => $identity->getAuthKey(),
             'duration' => $duration,
-        ]);
+        ], JSON_THROW_ON_ERROR);
         $cryptedData = openssl_encrypt(
             $rawData,
             static::CRYPT_METHOD,
@@ -144,7 +146,7 @@ class User extends \yii\web\User
                 return null;
             }
 
-            $ivLen = openssl_cipher_iv_length(static::CRYPT_METHOD);
+            $ivLen = TypeHelper::int(openssl_cipher_iv_length(static::CRYPT_METHOD));
             $ivBinary = substr($value, 0, $ivLen);
             if (strlen($value) < $ivLen) {
                 return null;

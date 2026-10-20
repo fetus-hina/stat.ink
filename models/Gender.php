@@ -14,6 +14,7 @@ use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 use function array_map;
+use function array_values;
 use function strtolower;
 
 use const SORT_ASC;
@@ -154,11 +155,11 @@ class Gender extends ActiveRecord
      */
     public static function openApiExample(): array
     {
-        return array_map(
+        return array_values(array_map(
             fn (self $model): array => $model->toJsonArray(),
             static::find()
                 ->orderBy(['id' => SORT_ASC])
                 ->all(),
-        );
+        ));
     }
 }

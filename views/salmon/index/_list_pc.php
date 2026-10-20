@@ -164,7 +164,7 @@ SalmonWorkListAsset::register($this);
             Label::widget([
               'color' => 'danger',
               'content' => Yii::t('app-salmon2', 'Failed in wave {waveNumber}', [
-                'waveNumber' => $column->grid->formatter->asInteger($model->clear_waves + 1),
+                'waveNumber' => TypeHelper::instanceOf($column->grid->formatter, Formatter::class)->asInteger($model->clear_waves + 1),
               ]),
             ]),
             $model->fail_reason_id

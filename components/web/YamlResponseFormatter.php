@@ -14,12 +14,14 @@ use Symfony\Component\Yaml\Yaml;
 use yii\base\Component;
 use yii\web\ResponseFormatterInterface;
 
-use function array_reduce;
 use function is_int;
 
 class YamlResponseFormatter extends Component implements ResponseFormatterInterface
 {
     public ?string $contentType = null; // e.g., 'text/yaml', 'application/x-yaml'
+    /**
+     * @var int-mask-of<Yaml::DUMP_*>|null
+     */
     public ?int $encodeOptions = null;
     public int $inline = 2;
     public int $indent = 4;
@@ -30,16 +32,10 @@ class YamlResponseFormatter extends Component implements ResponseFormatterInterf
         parent::init();
 
         if (!is_int($this->encodeOptions)) {
-            $this->encodeOptions = array_reduce(
-                [
-                    Yaml::DUMP_EXCEPTION_ON_INVALID_TYPE,
-                    Yaml::DUMP_OBJECT_AS_MAP,
-                    Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK,
-                    Yaml::DUMP_EMPTY_ARRAY_AS_SEQUENCE,
-                ],
-                fn (int $carry, int $item): int => $carry | $item,
-                0,
-            );
+            $this->encodeOptions = Yaml::DUMP_EXCEPTION_ON_INVALID_TYPE |
+                Yaml::DUMP_OBJECT_AS_MAP |
+                Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK |
+                Yaml::DUMP_EMPTY_ARRAY_AS_SEQUENCE;
         }
     }
 
@@ -51,7 +47,7 @@ class YamlResponseFormatter extends Component implements ResponseFormatterInterf
             $response->data,
             (int)$this->inline,
             (int)$this->indent,
-            (int)$this->encodeOptions,
+            $this->encodeOptions ?? 0,
         );
     }
 }

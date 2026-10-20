@@ -15,6 +15,7 @@ use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 use function array_map;
+use function array_values;
 use function call_user_func;
 use function is_callable;
 
@@ -162,11 +163,11 @@ class Rule2 extends ActiveRecord
      */
     public static function openapiExample(): array
     {
-        return array_map(
+        return array_values(array_map(
             fn (self $model): array => $model->toJsonArray(),
             static::find()
                 ->orderBy(['id' => SORT_ASC])
                 ->all(),
-        );
+        ));
     }
 }

@@ -12,6 +12,8 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 
+use function is_string;
+
 /**
  * @property-read string|null $realEmail
  * @property-write string $realEmail
@@ -76,6 +78,10 @@ class EmailVerifyForm extends Model
 
     public function getRealEmail(): ?string
     {
+        if (!is_string($this->email)) {
+            return null;
+        }
+
         $result = Yii::$app->security->validateData(
             $this->email,
             Yii::$app->request->cookieValidationKey,

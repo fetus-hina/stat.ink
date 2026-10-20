@@ -11,6 +11,7 @@ namespace app\actions\entire;
 
 use Override;
 use Yii;
+use app\components\helpers\TypeHelper;
 use yii\db\Query;
 use yii\db\Transaction;
 use yii\helpers\ArrayHelper;
@@ -169,6 +170,6 @@ class Festpower2Action extends ViewAction
                 ['not', ['{{battle2}}.[[is_win]]' => null]],
                 ['not', ['{{battle2}}.[[period]]' => null]],
             ]);
-        return $query->one();
+        return TypeHelper::array($query->one());
     }
 }

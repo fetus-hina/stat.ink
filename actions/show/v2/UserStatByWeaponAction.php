@@ -19,6 +19,7 @@ use yii\web\ViewAction;
 
 use function array_map;
 use function array_merge;
+use function array_values;
 use function implode;
 use function sprintf;
 use function substr;
@@ -124,7 +125,7 @@ class UserStatByWeaponAction extends ViewAction
             $query->applyFilter($filter);
         }
 
-        return array_map(
+        return array_values(array_map(
             function (array $row): array {
                 foreach ($row as $key => $value) {
                     if ($value === null) {
@@ -158,7 +159,7 @@ class UserStatByWeaponAction extends ViewAction
                 return $row;
             },
             $query->createCommand()->queryAll(),
-        );
+        ));
         // }}}
     }
 }

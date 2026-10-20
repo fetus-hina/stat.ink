@@ -248,7 +248,7 @@ final class SalmonWaves extends Widget
     }
 
     /**
-     * @param array{danger: ?float}[] $waves
+     * @param array{danger: numeric-string|null}[] $waves
      */
     private function renderDangerRate(array $waves, bool $isEggstraWork): string
     {
@@ -543,7 +543,17 @@ final class SalmonWaves extends Widget
     }
 
     /**
-     * @return array<string, mixed>
+     * @return array{
+     *   result: bool|null,
+     *   event: SalmonEvent3|null,
+     *   king: SalmonKing3|null,
+     *   tide: SalmonWaterLevel2|null,
+     *   quota: int|null,
+     *   deliv: int|null,
+     *   apper: int|null,
+     *   danger: numeric-string|null,
+     *   specials: SalmonSpecialUse3[],
+     * }
      */
     private function makeData(?SalmonWave3 $wave): array
     {

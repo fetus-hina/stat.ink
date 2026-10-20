@@ -36,7 +36,7 @@ $data = ArrayHelper::sort(
   fn (
     StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage|StatWeapon3XUsagePerVersion $a,
     StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage|StatWeapon3XUsagePerVersion $b,
-  ): float => ($b->wins / $b->battles) <=> ($a->wins / $a->battles)
+  ): int => ($b->wins / $b->battles) <=> ($a->wins / $a->battles)
     ?: $a->battles <=> $b->battles,
 );
 

@@ -65,7 +65,7 @@ $widget = Yii::createObject([
           $labels[] = Label::widget([
             'color' => 'danger',
             'content' => Yii::t('app-salmon2', 'Failed in wave {waveNumber}', [
-              'waveNumber' => $widget->formatter->asInteger($model->clear_waves + 1),
+              'waveNumber' => TypeHelper::instanceOf($widget->formatter, Formatter::class)->asInteger($model->clear_waves + 1),
             ]),
           ]);
           if ($model->fail_reason_id) {
@@ -93,7 +93,7 @@ $widget = Yii::createObject([
 
           return trim(implode(' ', [
             Yii::t('app-salmon-title2', $title->name),
-            $exp === null ? '' : $widget->formatter->asInteger($exp),
+            $exp === null ? '' : TypeHelper::instanceOf($widget->formatter, Formatter::class)->asInteger($exp),
           ]));
         };
 
@@ -124,9 +124,9 @@ $widget = Yii::createObject([
           $parts[] = Html::encode(sprintf(
             '(%s)',
             Yii::t('app-salmon2', 'Quota: {wave1} - {wave2} - {wave3}', [
-              'wave1' => $widget->formatter->asInteger($quota[0]),
-              'wave2' => $widget->formatter->asInteger($quota[1]),
-              'wave3' => $widget->formatter->asInteger($quota[2]),
+              'wave1' => TypeHelper::instanceOf($widget->formatter, Formatter::class)->asInteger($quota[0]),
+              'wave2' => TypeHelper::instanceOf($widget->formatter, Formatter::class)->asInteger($quota[1]),
+              'wave3' => TypeHelper::instanceOf($widget->formatter, Formatter::class)->asInteger($quota[2]),
             ])
           ));
         }
@@ -189,8 +189,8 @@ $widget = Yii::createObject([
             [
               'class' => 'auto-tooltip',
               'title' => Yii::t('app', 'Search {from} - {to}', [
-                'from' => $widget->formatter->asDateTime($schedule->start_at, 'short'),
-                'to' => $widget->formatter->asDateTime($schedule->end_at, 'short'),
+                'from' => TypeHelper::instanceOf($widget->formatter, Formatter::class)->asDateTime($schedule->start_at, 'short'),
+                'to' => TypeHelper::instanceOf($widget->formatter, Formatter::class)->asDateTime($schedule->end_at, 'short'),
               ])
             ]
           ),
@@ -261,7 +261,7 @@ $widget = Yii::createObject([
   // Override \yii\widgets\DetailView::renderAttribute() to skip empty cell
   // https://github.com/yiisoft/yii2/blob/558cd482d8a0525fceec8646ea20ccc9b7c3fdf4/framework/widgets/DetailView.php#L167-L187
   'template' => function (array $attribute, int $index, DetailView $widget): string {
-    $value = $widget->formatter->format($attribute['value'], $attribute['format']);
+    $value = TypeHelper::instanceOf($widget->formatter, Formatter::class)->format($attribute['value'], $attribute['format']);
     if ($value == '') {
       return '';
     }

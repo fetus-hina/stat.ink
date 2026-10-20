@@ -73,6 +73,7 @@ use function vsprintf;
 use const FILTER_VALIDATE_FLOAT;
 use const FILTER_VALIDATE_INT;
 use const JSON_FORCE_OBJECT;
+use const JSON_THROW_ON_ERROR;
 use const JSON_UNESCAPED_SLASHES;
 use const JSON_UNESCAPED_UNICODE;
 
@@ -355,7 +356,7 @@ class PostBattleForm extends Model
             $this->addError($attribute, "{$attribute} should be a map.");
             return;
         }
-        foreach ($value as $k => $v) {
+        foreach ((array)$value as $k => $v) {
             $tmp = filter_var($v, FILTER_VALIDATE_INT);
             if ($tmp === false || $tmp < 1 || $tmp > 99) {
                 $this->addError($attribute, "Value of {$attribute}[{$k}] (= {$v}) looks broken.");
@@ -657,7 +658,7 @@ class PostBattleForm extends Model
             : new Now();
         $o->agent_id = null;
         $o->ua_custom = (string)$this->agent_custom == '' ? null : (string)$this->agent_custom;
-        $o->ua_variables = $this->agent_variables ? json_encode($this->agent_variables, JSON_FORCE_OBJECT) : null;
+        $o->ua_variables = $this->agent_variables ? json_encode($this->agent_variables, JSON_FORCE_OBJECT | JSON_THROW_ON_ERROR) : null;
         $o->agent_game_version_id = $this->agent_game_version != ''
             ? (SplatoonVersion::findOne(['tag' => $this->agent_game_version])->id ?? null)
             : null;
@@ -718,7 +719,7 @@ class PostBattleForm extends Model
         }
         $o = new BattleEvents();
         $o->id = $battle->id;
-        $o->events = json_encode($this->events, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+        $o->events = json_encode($this->events, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR);
         return $o;
     }
 
@@ -729,7 +730,7 @@ class PostBattleForm extends Model
     {
         if (is_array($this->death_reasons) || $this->death_reasons instanceof stdClass) {
             $unknownCount = 0;
-            foreach ($this->death_reasons as $key => $count) {
+            foreach ((array)$this->death_reasons as $key => $count) {
                 $reason = DeathReason::findOne(['key' => $key]);
                 if ($key === 'unknown' || !$reason) {
                     $unknownCount += (int)$count;

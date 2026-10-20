@@ -125,16 +125,21 @@ trait UpdateEventSchedule
      */
     private function registerEventSchedule3(Event3 $event, array $data): EventSchedule3
     {
+        $periods = TypeHelper::array($data['periods']);
+        if (!$periods) {
+            throw new Exception('Invalid periods');
+        }
+
         $startAt = min(
             array_map(
                 fn (array $period): int => $period['start_at'],
-                $data['periods'],
+                $periods,
             ),
         );
         $endAt = max(
             array_map(
                 fn (array $period): int => $period['end_at'],
-                $data['periods'],
+                $periods,
             ),
         );
         if (!$startAt || !$endAt) {

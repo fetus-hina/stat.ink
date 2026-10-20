@@ -37,13 +37,16 @@ class DateTimeFormatter
         ];
     }
 
-    private static function createDateTimeFromFloatedUnixtime(float $time): DateTime|false
+    private static function createDateTimeFromFloatedUnixtime(float $time): DateTime
     {
         $t1 = (int)floor((float)$time); // time の整数部
         $t2 = (float)$time - $t1; // time の小数部
-        return DateTime::createFromFormat(
-            'U u',
-            sprintf('%d %06d', $t1, (int)floor($t2 * 1000000)),
+        return TypeHelper::instanceOf(
+            DateTime::createFromFormat(
+                'U u',
+                sprintf('%d %06d', $t1, (int)floor($t2 * 1000000)),
+            ),
+            DateTime::class,
         );
     }
 

@@ -109,11 +109,16 @@ final class UuidListAction extends Action
     {
         if ($lobby === 'bankara') {
             return [
-                self::getLobbyIdByKey('bankara_challenge'),
-                self::getLobbyIdByKey('bankara_open'),
+                self::getSingleLobbyIdByKey('bankara_challenge'),
+                self::getSingleLobbyIdByKey('bankara_open'),
             ];
         }
 
+        return self::getSingleLobbyIdByKey($lobby);
+    }
+
+    private static function getSingleLobbyIdByKey(string $lobby): int
+    {
         $model = Lobby3::find()
             ->andWhere(['key' => $lobby])
             ->limit(1)

@@ -21,6 +21,7 @@ use yii\web\ViewAction as BaseAction;
 use function array_map;
 use function base64_encode;
 use function hash;
+use function is_array;
 use function preg_replace;
 use function rtrim;
 use function sprintf;
@@ -35,7 +36,8 @@ class EditProfileAction extends BaseAction
         $ident = Yii::$app->user->getIdentity();
         $form = new ProfileForm();
         if ($request->isPost) {
-            $form->load($request->bodyParams);
+            $params = $request->bodyParams;
+            $form->load(is_array($params) ? $params : []);
             if ($form->validate()) {
                 $transaction = Yii::$app->db->beginTransaction();
                 try {

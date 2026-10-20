@@ -24,10 +24,7 @@ class Youtube extends Widget
     public static $autoIdPrefix = 'w-youtube-';
 
     public ?string $videoId = null;
-    /**
-     * @var string|array<mixed>|null
-     */
-    public $timeCode;
+    public ?string $timeCode = null;
 
     public int $width = 853;
     public int $height = 480;
@@ -44,7 +41,7 @@ class Youtube extends Widget
             if (filter_var($this->timeCode, FILTER_VALIDATE_INT)) {
                 $params['start'] = (string)(int)$this->timeCode;
             } elseif (preg_match('/^(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s)?$/', $this->timeCode, $match)) {
-                $fConv = function ($index) use ($match) {
+                $fConv = function (int $index) use ($match): int {
                     if (!isset($match[$index])) {
                         return 0;
                     }

@@ -25,6 +25,7 @@ use function array_merge;
 use function filter_var;
 use function http_build_query;
 use function implode;
+use function is_array;
 use function is_float;
 use function microtime;
 use function sprintf;
@@ -605,7 +606,8 @@ class UserStat2 extends ActiveRecord
 
         // echo $query->createCommand()->rawSql . "\n";
 
-        if (!$row = $query->one()) {
+        $row = $query->one();
+        if (!is_array($row) || !$row) {
             foreach (array_keys($this->attributes) as $k) {
                 if ($k === 'user_id' || $k === 'updated_at') {
                     continue;
@@ -677,7 +679,8 @@ class UserStat2 extends ActiveRecord
                     'WHEN {{battle2}}.[[x_power]] IS NOT NULL THEN {{battle2}}.[[x_power]]',
                 ])),
             ]);
-        return $query->one() ?: [];
+        $row = $query->one();
+        return is_array($row) ? $row : [];
     }
 
     /**

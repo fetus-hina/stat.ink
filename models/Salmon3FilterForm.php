@@ -204,7 +204,7 @@ final class Salmon3FilterForm extends Model
                 // optgroup
                 $results = array_merge($results, self::getKeyListFromDropdown($value));
             } else {
-                $results[] = $key;
+                $results[] = (string)$key;
             }
         }
 

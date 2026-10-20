@@ -12,6 +12,7 @@ namespace app\commands;
 use Curl\Curl;
 use Throwable;
 use Yii;
+use app\components\helpers\TypeHelper;
 use yii\console\Controller;
 use yii\helpers\FileHelper;
 
@@ -101,7 +102,7 @@ class CloudflareController extends Controller
             }
 
             // アドレス順に並ぶはず
-            return strcmp(inet_pton($aAddr), inet_pton($bAddr))
+            return strcmp(TypeHelper::string(inet_pton($aAddr)), TypeHelper::string(inet_pton($bAddr)))
                 ?: strcmp($a, $b);
         });
 

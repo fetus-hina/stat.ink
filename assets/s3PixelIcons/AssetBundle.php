@@ -116,7 +116,7 @@ abstract class AssetBundle extends BaseAssetBundle
     {
         Yii::beginProfile("symlink({$from}, {$to})", __METHOD__);
         try {
-            $cwd = getcwd();
+            $cwd = TypeHelper::string(getcwd());
             if (!@chdir($directory)) {
                 throw new ServerErrorHttpException(
                     "Could not chdir to {$directory}",

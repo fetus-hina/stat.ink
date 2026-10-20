@@ -24,6 +24,7 @@ use yii\web\Response;
 
 use function rawurlencode;
 use function vsprintf;
+use function is_array;
 
 final class PostSalmonAction extends Action
 {
@@ -42,7 +43,8 @@ final class PostSalmonAction extends Action
     public function run(): Response
     {
         $form = Yii::createObject(PostSalmonForm::class);
-        $form->attributes = Yii::$app->request->getBodyParams();
+        $params = Yii::$app->request->getBodyParams();
+        $form->attributes = is_array($params) ? $params : [];
 
         $battle = $form->save();
         if (!$battle) {

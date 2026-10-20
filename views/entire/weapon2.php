@@ -412,23 +412,19 @@ $normalizedSeconds = ($rule->key == 'nawabari' ? 3 : 5) * 60;
         );
 
         $additional[Yii::t('app-statistics', 'Average')] = $average;
-        $additional[Yii::t('app-statistics', 'Minimum')] = min(array_map(
+        $times = array_map(
           function (array $row): int {
             return (int)$row['times'];
           },
           $list
-        ));
+        );
+        $additional[Yii::t('app-statistics', 'Minimum')] = $times ? min($times) : null;
         if ($battles > 4) {
           $additional['Q 1/4'] = $_getQ($list, (int)round($battles / 4));
           $additional[Yii::t('app-statistics', 'Median')] = $_getQ($list, (int)round($battles / 2));
           $additional['Q 3/4'] = $_getQ($list, (int)round(3 * $battles / 4));
         }
-        $additional[Yii::t('app-statistics', 'Maximum')] = max(array_map(
-          function (array $row): int {
-            return (int)$row['times'];
-          },
-          $list
-        ));
+        $additional[Yii::t('app-statistics', 'Maximum')] = $times ? max($times) : null;
         $additional['σ'] = $stddev;
       }
 

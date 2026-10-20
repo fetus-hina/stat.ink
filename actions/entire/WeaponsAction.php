@@ -14,6 +14,7 @@ use DateTime;
 use DateTimeZone;
 use Override;
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\GameMode;
 use app\models\Rule;
 use app\models\Special;
@@ -147,7 +148,7 @@ class WeaponsAction extends ViewAction
             return [
                 'date' => date(
                     'Y-m-d',
-                    strtotime(sprintf('%04d-W%02d', $_['isoyear'], $_['isoweek'])),
+                    TypeHelper::int(strtotime(sprintf('%04d-W%02d', $_['isoyear'], $_['isoweek']))),
                 ),
                 'battles' => (int)$_['battles'],
                 'weapons' => $w,

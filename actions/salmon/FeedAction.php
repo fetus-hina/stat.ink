@@ -25,6 +25,7 @@ use yii\base\Action;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use app\components\helpers\TypeHelper;
 
 use function array_map;
 use function implode;
@@ -172,8 +173,8 @@ class FeedAction extends Action
                 'name' => $user->name,
                 'uri' => Url::to(['salmon/index', 'screen_name' => $user->screen_name], true),
             ]);
-            $entry->setDateCreated(strtotime($model->created_at));
-            $entry->setDateModified(strtotime($model->updated_at));
+            $entry->setDateCreated(TypeHelper::int(strtotime($model->created_at)));
+            $entry->setDateModified(TypeHelper::int(strtotime($model->updated_at)));
             $entry->setId(
                 Uuid::v5(
                     UuidNS::url(),

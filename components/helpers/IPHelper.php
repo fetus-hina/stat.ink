@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace app\components\helpers;
 
 use Yii;
+use yii\web\Request as WebRequest;
 
 use function array_column;
 use function array_filter;
@@ -98,7 +99,12 @@ class IPHelper
 
     protected static function getCurrentIP(): ?string
     {
-        $ipAddr = Yii::$app->getRequest()->getUserIP();
+        $request = Yii::$app->getRequest();
+        if (!$request instanceof WebRequest) {
+            return null;
+        }
+
+        $ipAddr = $request->getUserIP();
         return $ipAddr ?: null;
     }
 }

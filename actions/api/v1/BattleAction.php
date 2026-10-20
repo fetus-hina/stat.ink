@@ -167,7 +167,8 @@ class BattleAction extends BaseAction
         // {{{
         $request = Yii::$app->getRequest();
         $form = new PostBattleForm();
-        $form->attributes = $request->getBodyParams();
+        $params = $request->getBodyParams();
+        $form->attributes = is_array($params) ? $params : [];
         foreach (['image_judge', 'image_result', 'image_gear'] as $key) {
             if ($form->$key == '') {
                 $form->$key = UploadedFile::getInstanceByName($key);
@@ -478,7 +479,8 @@ class BattleAction extends BaseAction
     {
         $request = Yii::$app->getRequest();
         $form = new DeleteBattleForm();
-        $form->attributes = $request->getBodyParams();
+        $params = $request->getBodyParams();
+        $form->attributes = is_array($params) ? $params : [];
         if (!$form->validate()) {
             return $this->formatError($form->getErrors(), 400);
         }
@@ -514,7 +516,8 @@ class BattleAction extends BaseAction
     {
         $request = Yii::$app->getRequest();
         $form = new PatchBattleForm();
-        $form->attributes = $request->getBodyParams();
+        $params = $request->getBodyParams();
+        $form->attributes = is_array($params) ? $params : [];
         if (!$form->validate()) {
             return $this->formatError($form->getErrors(), 400);
         }

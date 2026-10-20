@@ -32,7 +32,7 @@ final class Download3Action extends Action
         return match (Yii::$app->request->get('type')) {
             'salmon-json' => $this->runSalmonJson($user),
             'user-json' => $this->runUserJson($user),
-            default => new BadRequestHttpException(
+            default => throw new BadRequestHttpException(
                 Yii::t(
                     'yii',
                     'Invalid data received for parameter "{param}".',

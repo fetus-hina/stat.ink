@@ -29,7 +29,7 @@ use yii\web\View;
  * @var Weapon3Stat[] $data
  * @var View $this
  * @var string $xLabel
- * @var string|string[]|callable $xGet
+ * @var string|string[]|Closure $xGet
  */
 
 $datasetBattles = [

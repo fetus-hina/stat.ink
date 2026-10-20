@@ -21,7 +21,7 @@ use yii\web\View;
 
 /**
  * @var StatWeapon3Usage[]|StatWeapon3UsagePerVersion[]|StatWeapon3XUsage[]|StatWeapon3XUsagePerVersion[] $data
- * @var string|string[]|callable(StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage|StatWeapon3XUsagePerVersion): int|float|null $getX
+ * @var string|string[]|Closure(StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage|StatWeapon3XUsagePerVersion): (int|float|null) $getX
  * @var string $xLabel
  * @var View $this
  */
@@ -105,7 +105,7 @@ $datasetPoints = [
 
 $datasetLinerRegression = null;
 if ($regression) {
-  $tmpXList = ArrayHelper::getColumn($xyPoints, 'x');
+  $tmpXList = array_map(fn (array $v): mixed => $v['x'], $xyPoints);
   $tmpMinX = min($tmpXList);
   $tmpMaxX = max($tmpXList);
 

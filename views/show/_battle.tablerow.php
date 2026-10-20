@@ -174,7 +174,7 @@ $f = Yii::$app->formatter;
       ]
     )) . "\n"
   ?>
-  <td class="cell-point"><?= Html::encode($model->my_point ? ($model->inked ?? '?') : '') ?></td> 
+  <td class="cell-point"><?= Html::encode((string)($model->my_point ? ($model->inked ?? '?') : '')) ?></td> 
   <td class="cell-rank-in-team"><?= Html::encode((string)$model->rank_in_team) ?></td>
   <td class="cell-datetime">
 <?php if ($model->end_at === null): ?>

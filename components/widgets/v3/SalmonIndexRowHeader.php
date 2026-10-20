@@ -79,7 +79,7 @@ final class SalmonIndexRowHeader extends Widget
                     [
                         $this->renderMode($schedule),
                         // $this->renderWeapons($schedule),
-                        $this->renderTerm($schedule, $widget->formatter),
+                        $this->renderTerm($schedule, TypeHelper::instanceOf($widget->formatter, Formatter::class)),
                         // $this->renderHighScore($model, $schedule),
                         $this->renderStats($schedule),
                     ],

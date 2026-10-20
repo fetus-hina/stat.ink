@@ -11,6 +11,7 @@ namespace app\commands;
 
 use IntlChar;
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\Ability2;
 use app\models\DeathReason2;
 use app\models\Map2;
@@ -86,13 +87,13 @@ class Api2MarkdownController extends Controller
 
                 ob_start();
                 $status = $actionMap[$kind]();
-                $repl = ob_get_clean();
+                $repl = TypeHelper::string(ob_get_clean());
                 if ($status !== 0) {
                     exit($status);
                 }
                 return $match['start'] . "\n" . rtrim($repl) . "\n" . $match['end'];
             },
-            file_get_contents($path),
+            TypeHelper::string(file_get_contents($path)),
         );
         file_put_contents($path, $markdown);
         echo "Updated $path\n";
@@ -126,13 +127,13 @@ class Api2MarkdownController extends Controller
 
                 ob_start();
                 $status = $actionMap[$kind]();
-                $repl = ob_get_clean();
+                $repl = TypeHelper::string(ob_get_clean());
                 if ($status !== 0) {
                     exit($status);
                 }
                 return $match['start'] . "\n" . rtrim($repl) . "\n" . $match['end'];
             },
-            file_get_contents($path),
+            TypeHelper::string(file_get_contents($path)),
         );
         file_put_contents($path, $markdown);
         echo "Updated $path\n";
@@ -734,7 +735,7 @@ class Api2MarkdownController extends Controller
     private static function calcStringWidth(string $text, int $minWidth = 1): int
     {
         // {{{
-        $lines = preg_split('/\x0d\x0a|\x0d|\x0a/s', $text);
+        $lines = TypeHelper::array(preg_split('/\x0d\x0a|\x0d|\x0a/s', $text));
         return array_reduce(
             array_map(
                 fn (string $line): int => self::strwidth($line),
@@ -790,6 +791,10 @@ class Api2MarkdownController extends Controller
         $size = StringHelper::byteLength($text);
         while ($next < $size) {
             $c = grapheme_extract($text, 1, GRAPHEME_EXTR_MAXCHARS, $current, $next);
+            if ($c === false) {
+                break;
+            }
+
             $v = IntlChar::getIntPropertyValue($c, IntlChar::PROPERTY_EAST_ASIAN_WIDTH);
             if (
                 $v === IntlChar::EA_FULLWIDTH ||

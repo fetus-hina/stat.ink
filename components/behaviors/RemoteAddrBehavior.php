@@ -10,6 +10,7 @@ namespace app\components\behaviors;
 use Yii;
 use yii\behaviors\AttributeBehavior;
 use yii\db\ActiveRecord;
+use yii\web\Request as WebRequest;
 
 class RemoteAddrBehavior extends AttributeBehavior
 {
@@ -22,6 +23,7 @@ class RemoteAddrBehavior extends AttributeBehavior
 
     protected function getValue($event)
     {
-        return Yii::$app->getRequest()->getUserIP();
+        $request = Yii::$app->getRequest();
+        return $request instanceof WebRequest ? $request->getUserIP() : null;
     }
 }
