@@ -54,6 +54,7 @@ trait LicenseCheckTrait
         'MIT*',
         'MIT-0',
         'OFL-1.1',
+        'PSF-2.0',
         'Public Domain',
         'Python-2.0',
         'Unlicense',
