@@ -11,6 +11,7 @@ namespace app\commands\splatoon3Ink;
 
 use DateTimeInterface;
 use Exception;
+use LogicException;
 use Yii;
 use app\models\Splatfest3;
 use app\models\SplatfestTeam3;
@@ -32,7 +33,8 @@ trait UpdateSplatfestSchedule
             function (Connection $db) use ($festivals): int {
                 foreach ($festivals as $key => $node) {
                     if (!$this->registerSplatfestSchedule($key, $node)) {
-                        $db->transaction->rollBack();
+                        ($db->transaction ?? throw new LogicException('No active transaction'))
+                            ->rollBack();
                         return ExitCode::UNSPECIFIED_ERROR;
                     }
                 }

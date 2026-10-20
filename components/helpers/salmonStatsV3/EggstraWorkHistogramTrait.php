@@ -15,6 +15,7 @@ use app\models\StatEggstraWorkDistribUserAbstract3;
 use app\models\StatEggstraWorkDistribUserHistogram3;
 use yii\db\Connection;
 use yii\db\Query;
+use LogicException;
 
 use function array_keys;
 use function array_map;
@@ -37,7 +38,8 @@ trait EggstraWorkHistogramTrait
                 ]),
                 __METHOD__,
             );
-            $db->transaction->rollBack();
+            ($db->transaction ?? throw new LogicException('No active transaction'))
+                ->rollBack();
             return false;
         }
     }

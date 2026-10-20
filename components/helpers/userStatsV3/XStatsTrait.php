@@ -48,7 +48,8 @@ trait XStatsTrait
 
             foreach ($rows as $row) {
                 if (!self::saveAggregatedStatsX($db, $user, $now, $row)) {
-                    $db->transaction->rollBack();
+                    ($db->transaction ?? throw new LogicException('No active transaction'))
+                        ->rollBack();
                     return false;
                 }
             }
@@ -62,7 +63,8 @@ trait XStatsTrait
                 ]),
                 __METHOD__,
             );
-            $db->transaction->rollBack();
+            ($db->transaction ?? throw new LogicException('No active transaction'))
+                ->rollBack();
             return false;
         }
     }

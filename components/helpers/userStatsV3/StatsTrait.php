@@ -11,6 +11,7 @@ namespace app\components\helpers\userStatsV3;
 
 use DateTimeImmutable;
 use DateTimeInterface;
+use LogicException;
 use PDO;
 use Yii;
 use app\models\Battle3;
@@ -46,7 +47,8 @@ trait StatsTrait
 
             foreach ($rows as $row) {
                 if (!self::saveAggregatedStats($db, $user, $now, $row)) {
-                    $db->transaction->rollBack();
+                    ($db->transaction ?? throw new LogicException('No active transaction'))
+                        ->rollBack();
                     return false;
                 }
             }
@@ -60,7 +62,8 @@ trait StatsTrait
                 ]),
                 __METHOD__,
             );
-            $db->transaction->rollBack();
+            ($db->transaction ?? throw new LogicException('No active transaction'))
+                ->rollBack();
             return false;
         }
     }
