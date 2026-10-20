@@ -8,6 +8,7 @@
 declare(strict_types=1);
 
 use app\assets\Spl2WeaponAsset;
+use app\components\helpers\TypeHelper;
 use app\components\widgets\Label;
 use app\models\Battle2;
 use app\models\BattlePlayer2;
@@ -100,7 +101,7 @@ echo Html::tag(
           ? ''
           : Html::a(
             Html::img(
-              $teamIcon,
+              TypeHelper::string($teamIcon),
               [
                 'title' => $teamId,
                 'class' => 'auto-tooltip',

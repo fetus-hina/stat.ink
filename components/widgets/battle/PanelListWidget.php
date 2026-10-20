@@ -34,7 +34,7 @@ class PanelListWidget extends Widget
      * @var string|array<mixed>|null
      */
     public string|array|null $feedLink = null;
-    public ?string $emptyText = null;
+    public string $emptyText;
     /**
      * @var class-string<Widget>|null
      */
@@ -54,7 +54,7 @@ class PanelListWidget extends Widget
                 ['class' => '{panelClass}'],
             );
         }
-        if (!$this->emptyText) {
+        if (!isset($this->emptyText)) {
             $this->emptyText = Html::tag(
                 'div',
                 Html::tag(

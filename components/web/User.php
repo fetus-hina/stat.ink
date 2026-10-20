@@ -41,7 +41,7 @@ class User extends \yii\web\User
     public const CRYPT_METHOD = 'aes-256-gcm';
     public const CRYPT_KEY_SALT_BYTES = 16;
 
-    public ?string $identityFixedKey = null;
+    public string $identityFixedKey;
 
     #[Override]
     protected function sendIdentityCookie($identity, $duration): void

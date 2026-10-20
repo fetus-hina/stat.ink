@@ -9,6 +9,7 @@ namespace app\actions\user;
 
 use Exception;
 use Override;
+use RuntimeException;
 use Throwable;
 use Yii;
 use app\models\Environment;
@@ -23,6 +24,7 @@ use function array_map;
 use function base64_encode;
 use function hash;
 use function is_array;
+use function preg_last_error_msg;
 use function preg_replace;
 use function rtrim;
 use function sprintf;
@@ -96,8 +98,9 @@ class EditProfileAction extends BaseAction
 
     protected function findOrCreateEnvironmentId(mixed $text): ?int
     {
-        $text = preg_replace('/\x0d\x0a|\x0d|\x0a/', "\n", (string)$text);
-        $text = trim($text ?? '');
+        $text = preg_replace('/\x0d\x0a|\x0d|\x0a/', "\n", (string)$text)
+            ?? throw new RuntimeException(preg_last_error_msg());
+        $text = trim($text);
         if ($text === '') {
             return null;
         }

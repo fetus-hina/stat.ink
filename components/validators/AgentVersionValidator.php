@@ -11,6 +11,7 @@ namespace app\components\validators;
 
 use Override;
 use Yii;
+use app\components\helpers\TypeHelper;
 use yii\helpers\ArrayHelper;
 use yii\validators\Validator;
 
@@ -69,6 +70,6 @@ final class AgentVersionValidator extends Validator
             __METHOD__,
         );
 
-        $this->addError($model, $attribute, $this->message);
+        $this->addError($model, $attribute, TypeHelper::string($this->message));
     }
 }

@@ -80,7 +80,7 @@ class LocationColumnWidget extends Widget
             'sha256',
             $this->remoteAddrMasked
                 ? $this->remoteAddrMasked
-                : $this->remoteAddr,
+                : $this->remoteAddr ?? '',
         );
     }
 

@@ -32,5 +32,5 @@ return [
       $model instanceof Event3StatsSpecial => $model->special,
       $model instanceof Event3StatsWeapon => $model->weapon->special,
     },
-  ),
+  ) ?? '',
 ];

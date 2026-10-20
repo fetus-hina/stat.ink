@@ -28,7 +28,7 @@ class SplatnetNumberBehavior extends Behavior
 
     public ?string $attribute = null; // e.g. "weapon" $model->$attribute
     public string $prefix = '#';
-    public ?string $tableName = null; // '{{weapon2}}'
+    public string $tableName; // '{{weapon2}}'
     public string $tableAttribute = '[[splatnet]]';
     public string $keyAttribute = '[[key]]';
 

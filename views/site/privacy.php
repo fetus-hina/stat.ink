@@ -76,9 +76,10 @@ $this->title = $title;
         </tr>
       </thead>
       <tbody>
-<?php $myOrigin = preg_replace('#^.*?://([^/]+).*#', '$1', Url::home(true)) ?>
+<?php $myOrigin = preg_replace('#^.*?://([^/]+).*#', '$1', Url::home(true))
+  ?? throw new RuntimeException(preg_last_error_msg()) ?>
         <tr>
-          <td><?= Html::encode($myOrigin ?? '') ?></td>
+          <td><?= Html::encode($myOrigin) ?></td>
           <td><code><?= Html::encode(Yii::$app->session->name) ?></code></td>
           <td><?= Html::encode(Yii::t('app-cookie', '(Session)')) ?></td>
           <td>
@@ -90,7 +91,7 @@ $this->title = $title;
         </tr>
 <?php if (Yii::$app->request->enableCsrfValidation && Yii::$app->request->enableCsrfCookie) { ?>
         <tr>
-          <td><?= Html::encode($myOrigin ?? '') ?></td>
+          <td><?= Html::encode($myOrigin) ?></td>
           <td><code><?= Html::encode(Yii::$app->request->csrfParam) ?></code></td>
           <td><?= Html::encode(Yii::t('app-cookie', '(Session)')) ?></td>
           <td>
@@ -102,7 +103,7 @@ $this->title = $title;
 <?php } ?>
 <?php if (Yii::$app->user->enableAutoLogin && Yii::$app->user->identityCookie) { ?>
         <tr>
-          <td><?= Html::encode($myOrigin ?? '') ?></td>
+          <td><?= Html::encode($myOrigin) ?></td>
           <td><code><?= Html::encode(Yii::$app->user->identityCookie['name']) ?></code></td>
           <td><?= Html::encode(Yii::$app->formatter->asDuration(UserAuthKey::VALID_PERIOD)) ?></td>
           <td>
@@ -113,7 +114,7 @@ $this->title = $title;
         </tr>
 <?php } ?>
         <tr>
-          <td><?= Html::encode($myOrigin ?? '') ?></td>
+          <td><?= Html::encode($myOrigin) ?></td>
           <td><code>language</code></td>
           <td><?= Html::encode(Yii::$app->formatter->asDuration(86400 * 366, ' ')) ?></td>
           <td>
@@ -123,7 +124,7 @@ $this->title = $title;
           </td>
         </tr>
         <tr>
-          <td><?= Html::encode($myOrigin ?? '') ?></td>
+          <td><?= Html::encode($myOrigin) ?></td>
           <td><code><?= Html::encode(Application::COOKIE_MACHINE_TRANSLATION) ?></code></td>
           <td><?= Html::encode(Yii::$app->formatter->asDuration(86400 * 366, ' ')) ?></td>
           <td>
@@ -133,7 +134,7 @@ $this->title = $title;
           </td>
         </tr>
         <tr>
-          <td><?= Html::encode($myOrigin ?? '') ?></td>
+          <td><?= Html::encode($myOrigin) ?></td>
           <td><code>theme</code></td>
           <td><?= Html::encode(Yii::$app->formatter->asDuration(86400 * 366, ' ')) ?></td>
           <td>
@@ -143,7 +144,7 @@ $this->title = $title;
           </td>
         </tr>
         <tr>
-          <td><?= Html::encode($myOrigin ?? '') ?></td>
+          <td><?= Html::encode($myOrigin) ?></td>
           <td><code>timezone</code></td>
           <td><?= Html::encode(Yii::$app->formatter->asDuration(86400 * 366, ' ')) ?></td>
           <td>

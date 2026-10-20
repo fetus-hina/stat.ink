@@ -36,7 +36,7 @@ final class EditScreenNameAction extends Action
                 throw new ServerErrorHttpException();
             }
 
-            $user->screen_name = $form->screen_name;
+            $user->screen_name = TypeHelper::string($form->screen_name);
             $user->save();
 
             if (!headers_sent()) {

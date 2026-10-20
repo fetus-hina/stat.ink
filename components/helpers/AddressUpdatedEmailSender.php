@@ -57,8 +57,10 @@ final class AddressUpdatedEmailSender
             if ($oldEmail) {
                 $mail->setCc($oldEmail);
             }
-        } else {
+        } elseif ($oldEmail) {
             $mail->setTo($oldEmail);
+        } else {
+            return;
         }
         $mail->send();
     }

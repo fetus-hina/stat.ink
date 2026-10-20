@@ -523,7 +523,7 @@ class DeeplTranslator extends Component
                     break;
 
                 case XML_TEXT_NODE:
-                    $tmp = self::templateToXmlSimple($child->nodeValue);
+                    $tmp = self::templateToXmlSimple($child->nodeValue ?? '');
                     if ($tmp === null) {
                         return null;
                     }

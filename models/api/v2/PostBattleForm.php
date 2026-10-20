@@ -620,8 +620,9 @@ class PostBattleForm extends Model
                     $value = (string)$value;
                     $value = preg_replace('/\x0d\x0a|\x0d|\x0a/', "\n", $value)
                         ?? throw new RuntimeException(preg_last_error_msg());
-                    $value = preg_replace('/(?:\x0d\x0a|\x0d|\x0a){3,}/', "\n\n", $value);
-                    $value = trim($value ?? '');
+                    $value = preg_replace('/(?:\x0d\x0a|\x0d|\x0a){3,}/', "\n\n", $value)
+                        ?? throw new RuntimeException(preg_last_error_msg());
+                    $value = trim($value);
                     return $value === '' ? null : $value;
                 },
             ],

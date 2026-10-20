@@ -30,6 +30,10 @@ class IPHelper
         ?string $language = null,
     ): ?string {
         $ipAddr = $ipAddr ?: static::getCurrentIP();
+        if ($ipAddr === null) {
+            return null;
+        }
+
         $geoIP = Yii::$app->geoip;
         $geoLang = $geoIP->getLang($language);
         $get = function ($obj) use ($geoLang): ?string {
@@ -59,6 +63,9 @@ class IPHelper
     public static function reverseLookup(?string $ipAddr): ?string
     {
         $ipAddr = $ipAddr ?: static::getCurrentIP();
+        if ($ipAddr === null) {
+            return null;
+        }
 
         $hostName = @gethostbyaddr($ipAddr);
         if (!$hostName) {

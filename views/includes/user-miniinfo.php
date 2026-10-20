@@ -215,7 +215,7 @@ $f = Yii::$app->formatter;
         )
       ) . "\n" ?>
       <?= $box(Yii::t('app-results', 'Win %'), $stat->gachi_wp === null ? $na : $f->asPercent($stat->gachi_wp / 100, 1)) . "\n" ?>
-      <?= $box(Yii::t('app', 'Peak'), $stat->gachi_rank_peak > 0 ? Rank::integerToString($stat->gachi_rank_peak) : $na) . "\n" ?>
+      <?= $box(Yii::t('app', 'Peak'), $stat->gachi_rank_peak > 0 ? (Rank::integerToString($stat->gachi_rank_peak) ?? $na) : $na) . "\n" ?>
       <?= $box(
         Yii::t('app-results', 'Avg Kills'),
         $stat->gachi_kd_battle < 1

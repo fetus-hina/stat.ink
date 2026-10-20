@@ -8,6 +8,7 @@
 namespace app\models;
 
 use Yii;
+use app\components\helpers\TypeHelper;
 use yii\base\Model;
 
 use function headers_sent;
@@ -86,7 +87,7 @@ final class LoginForm extends Model
             return false;
         }
 
-        if ($user->rehashPasswordIfNeeded($this->password)) {
+        if ($user->rehashPasswordIfNeeded(TypeHelper::string($this->password))) {
             $user->save();
         }
 

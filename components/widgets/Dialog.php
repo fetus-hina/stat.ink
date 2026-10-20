@@ -46,7 +46,7 @@ class Dialog extends Widget
         return $this->run();
     }
 
-    public function run()
+    public function run(): string
     {
         BootstrapAsset::register($this->view);
         BootstrapPluginAsset::register($this->view);
@@ -134,7 +134,7 @@ class Dialog extends Widget
     {
         return $this->wrapBody
             ? Html::tag('div', $this->body ?? '', ['class' => 'modal-body'])
-            : $this->body;
+            : $this->body ?? '';
     }
 
     protected function renderFooter(): string

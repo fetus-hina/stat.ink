@@ -8,6 +8,7 @@
 namespace app\commands;
 
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\Agent;
 use app\models\Battle2;
 use app\models\BattlePlayer2;
@@ -171,7 +172,7 @@ class Battle2Controller extends Controller
             printf(
                 "curl -v -H %s -X POST -d %s %s\n\n",
                 escapeshellarg('Content-Type: application/json'),
-                escapeshellarg($slack->send($battle, false)),
+                escapeshellarg(TypeHelper::string($slack->send($battle, false))),
                 escapeshellarg($slack->webhook_url),
             );
         }

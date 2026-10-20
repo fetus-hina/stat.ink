@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace app\commands\license;
 
 use DirectoryIterator;
+use RuntimeException;
 use Yii;
 use stdClass;
 use yii\helpers\ArrayHelper;
@@ -25,6 +26,7 @@ use function file_get_contents;
 use function fwrite;
 use function implode;
 use function pathinfo;
+use function preg_last_error_msg;
 use function preg_match;
 use function preg_replace;
 use function str_replace;
@@ -59,7 +61,7 @@ trait LicenseExtractTrait
             escapeshellarg('json'),
         ]);
         return ArrayHelper::getValue(
-            Json::decode($this->execCommand($cmdline)),
+            Json::decode($this->execCommand($cmdline) ?? ''),
             'dependencies',
         );
     }
@@ -169,8 +171,8 @@ trait LicenseExtractTrait
             '/[^!#$%()+,.\/-9@-Z_a-z]+/',
             '-',
             $packageName,
-        );
-        $packageName = str_replace('/../', '/', $packageName ?? '');
+        ) ?? throw new RuntimeException(preg_last_error_msg());
+        $packageName = str_replace('/../', '/', $packageName);
         $packageName = str_replace('/./', '/', $packageName);
         return $packageName;
     }

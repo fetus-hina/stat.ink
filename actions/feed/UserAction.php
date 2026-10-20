@@ -62,6 +62,9 @@ final class UserAction extends Action
             return ['error' => $model->getErrors()];
         }
 
+        $lang = TypeHelper::string($model->lang);
+        $feedType = TypeHelper::string($model->type);
+
         $resp->format = 'raw';
 
         if (!$user = User::findOne(['screen_name' => $model->screen_name])) {
@@ -91,7 +94,7 @@ final class UserAction extends Action
                 'app',
                 '{name}\'s Splat Log',
                 ['name' => $user->name],
-                $model->lang,
+                $lang,
             ),
         );
         $feed->setDescription(
@@ -99,7 +102,7 @@ final class UserAction extends Action
                 'app',
                 '{name}\'s Splat Log',
                 ['name' => $user->name],
-                $model->lang,
+                $lang,
             ),
         );
         $feed->setId(
@@ -116,7 +119,7 @@ final class UserAction extends Action
             $feed->setFeedLink(
                 Url::to(
                     ['feed/user',
-                        'lang' => $model->lang,
+                        'lang' => $lang,
                         'screen_name' => $user->screen_name,
                         'type' => $type,
                     ],
@@ -138,7 +141,7 @@ final class UserAction extends Action
         $feed->setCopyright(
             sprintf('Copyright (C) 2015-%s AIZAWA Hina', $now->format('Y')),
         );
-        $feed->setLanguage($model->lang);
+        $feed->setLanguage($lang);
         $feed->setEncoding('UTF-8');
         $feed->setDateModified((int)$now->getTimestamp());
         $feed->setLastBuildDate((int)$now->getTimestamp());
@@ -146,7 +149,7 @@ final class UserAction extends Action
 
         //FIXME
         $feed->addCategories(
-            $model->lang === 'ja-JP'
+            $lang === 'ja-JP'
                 ? [
                     ['term' => 'ゲーム'],
                     ['term' => 'スプラトゥーン'],
@@ -201,16 +204,16 @@ final class UserAction extends Action
             $entry->setTitle(
                 sprintf(
                     '%s / %s / %s - %s (#%d)',
-                    $battle->rule ? Yii::t('app-rule', $battle->rule->name, [], $model->lang) : '???',
-                    $battle->map ? Yii::t('app-map', $battle->map->name, [], $model->lang) : '???',
+                    $battle->rule ? Yii::t('app-rule', $battle->rule->name, [], $lang) : '???',
+                    $battle->map ? Yii::t('app-map', $battle->map->name, [], $lang) : '???',
                     $battle->is_win !== null
-                        ? Yii::t('app-results', $battle->is_win ? 'Won' : 'Lost', [], $model->lang)
+                        ? Yii::t('app-results', $battle->is_win ? 'Won' : 'Lost', [], $lang)
                         : '???',
                     $user->name,
                     $battle->id,
                 ),
             );
-            $entry->setContent($this->makeEntryContent($battle, $model->lang));
+            $entry->setContent($this->makeEntryContent($battle, $lang));
             $feed->addEntry($entry);
         }
 
@@ -219,8 +222,8 @@ final class UserAction extends Action
             'rss' => 'application/rss+xml; charset=UTF-8',
         ];
         $resp->format = 'raw';
-        $resp->headers->set('Content-Type', $contentType[$model->type] ?? 'text/xml; charset=UTF-8');
-        return $feed->export($model->type);
+        $resp->headers->set('Content-Type', $contentType[$feedType] ?? 'text/xml; charset=UTF-8');
+        return $feed->export($feedType);
     }
 
     protected function makeEntryContent(Battle $battle, string $lang): string

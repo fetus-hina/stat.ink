@@ -88,12 +88,14 @@ class RegisterForm extends Model
 
     public function toUserModel(): User
     {
+        $screenName = TypeHelper::string($this->screen_name);
+
         $u = new User();
-        $u->name = $this->name == '' ? $this->screen_name : $this->name;
-        $u->screen_name = $this->screen_name;
+        $u->name = $this->name == '' ? $screenName : TypeHelper::string($this->name);
+        $u->screen_name = $screenName;
         $u->password = $this->scenario === self::SCENARIO_PASSKEY
             ? null
-            : Password::hash($this->password);
+            : Password::hash(TypeHelper::string($this->password));
         $u->api_key = User::generateNewApiKey();
         $u->blackout = User::BLACKOUT_NOT_BLACKOUT;
         $u->default_language_id = $this->getCurrentLanguageId();

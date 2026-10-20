@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
+use app\components\helpers\TypeHelper;
 use yii\base\Widget;
 use yii\helpers\Html;
 
@@ -26,7 +27,7 @@ abstract class BaseUAIconWidget extends Widget
             return '';
         }
 
-        $id = $this->id;
+        $id = TypeHelper::string($this->getId());
         $this->registerTrigger($id, [
             'ua' => $ua,
             'size' => $this->size,

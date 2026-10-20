@@ -14,6 +14,7 @@ use RuntimeException;
 use Throwable;
 use Yii;
 use app\components\helpers\PasskeyReauth;
+use app\components\helpers\TypeHelper;
 use app\components\helpers\UserNotifier;
 use app\models\PasswordForm;
 use app\models\User;
@@ -49,7 +50,7 @@ class EditPasswordAction extends BaseAction
                 );
             }
             if (!$form->hasErrors()) {
-                if ($this->changePassword($ident, $form->new_password)) {
+                if ($this->changePassword($ident, TypeHelper::string($form->new_password))) {
                     // Sent after the commit; a mail failure must not look like a failed change
                     UserNotifier::passwordChanged($ident);
                     return $this->controller->redirect([
