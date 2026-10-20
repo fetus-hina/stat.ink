@@ -86,12 +86,12 @@ trait Splatoon1
     {
         $t2 = $_SERVER['REQUEST_TIME'] ?? time();
         $t1 = gmmktime(
-            gmdate('H', $t2),
-            gmdate('i', $t2),
+            (int)gmdate('H', $t2),
+            (int)gmdate('i', $t2),
             (int)gmdate('s', $t2) + 1,
-            gmdate('n', $t2),
+            (int)gmdate('n', $t2),
             (int)gmdate('j', $t2) - 1,
-            gmdate('Y', $t2),
+            (int)gmdate('Y', $t2),
         );
         $query = new Query()
             ->select([

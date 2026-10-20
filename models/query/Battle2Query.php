@@ -279,7 +279,7 @@ final class Battle2Query extends ActiveQuery
                     ->setTimestamp($now->getTimestamp());
                 $thisMonth = new DateTimeImmutable()
                     ->setTimezone(new DateTimeZone('Etc/UTC'))
-                    ->setDate($utcNow->format('Y'), $utcNow->format('n'), 1)
+                    ->setDate((int)$utcNow->format('Y'), (int)$utcNow->format('n'), 1)
                     ->setTime(0, 0, 0);
                 $this->andWhere([
                     'between',
@@ -297,7 +297,7 @@ final class Battle2Query extends ActiveQuery
                 $lastMonthPeriod = BattleHelper::calcPeriod2(
                     new DateTimeImmutable()
                         ->setTimezone(new DateTimeZone('Etc/UTC'))
-                        ->setDate($utcNow->format('Y'), $utcNow->format('n') - 1, 1)
+                        ->setDate((int)$utcNow->format('Y'), (int)$utcNow->format('n') - 1, 1)
                         ->setTime(0, 0, 0)
                         ->getTimestamp(),
                 );
@@ -305,7 +305,7 @@ final class Battle2Query extends ActiveQuery
                 $thisMonthPeriod = BattleHelper::calcPeriod2(
                     new DateTimeImmutable()
                         ->setTimezone(new DateTimeZone('Etc/UTC'))
-                        ->setDate($utcNow->format('Y'), $utcNow->format('n'), 1)
+                        ->setDate((int)$utcNow->format('Y'), (int)$utcNow->format('n'), 1)
                         ->setTime(0, 0, 0)
                         ->getTimestamp(),
                 );
