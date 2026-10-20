@@ -17,6 +17,7 @@ use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\Json;
 use yii\web\HeaderCollection;
+use yii\web\Request as WebRequest;
 
 use function base64_encode;
 use function hash;
@@ -109,7 +110,12 @@ class HttpClientHint extends ActiveRecord
     public static function createDataFromHeaders(?HeaderCollection $headers = null): ?array
     {
         if ($headers === null) {
-            $headers = Yii::$app->getRequest()->getHeaders();
+            $request = Yii::$app->getRequest();
+            if (!$request instanceof WebRequest) {
+                return null;
+            }
+
+            $headers = $request->getHeaders();
         }
 
         $results = [];

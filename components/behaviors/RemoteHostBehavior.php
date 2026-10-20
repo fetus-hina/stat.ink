@@ -13,6 +13,7 @@ use Yii;
 use app\components\helpers\IPHelper;
 use yii\behaviors\AttributeBehavior;
 use yii\db\ActiveRecord;
+use yii\web\Request as WebRequest;
 
 class RemoteHostBehavior extends AttributeBehavior
 {
@@ -25,8 +26,9 @@ class RemoteHostBehavior extends AttributeBehavior
 
     protected function getValue($event)
     {
+        $request = Yii::$app->getRequest();
         return IPHelper::reverseLookup(
-            Yii::$app->getRequest()->getUserIP(),
+            $request instanceof WebRequest ? $request->getUserIP() : null,
         );
     }
 }

@@ -186,6 +186,7 @@ parameters:
           - %currentWorkingDirectory%/actions
           - %currentWorkingDirectory%/assets
           - %currentWorkingDirectory%/components/grid
+          - %currentWorkingDirectory%/components/web
           - %currentWorkingDirectory%/components/widgets
           - %currentWorkingDirectory%/controllers
           - %currentWorkingDirectory%/views
