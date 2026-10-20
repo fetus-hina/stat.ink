@@ -28,7 +28,7 @@ use function vsprintf;
 class UserDetailedStatsCell extends Widget
 {
     public ?string $rule = null;
-    public ?stdClass $data = null;
+    public stdClass $data;
     private Formatter $f;
 
     #[Override]
