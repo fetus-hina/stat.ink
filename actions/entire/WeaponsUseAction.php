@@ -268,7 +268,7 @@ final class WeaponsUseAction extends Action
     protected function makeLegend($weapon, $rule): string
     {
         $weaponName = (function ($key) {
-            switch (substr($key, 0, 1)) {
+            switch (substr($key ?? '', 0, 1)) {
                 case WeaponKeyValidator::PREFIX_WEAPON_GROUP:
                     $type = WeaponType::findOne(['key' => substr($key, 1)]);
                     return Yii::t('app-weapon', 'All of {0}', [
@@ -289,7 +289,7 @@ final class WeaponsUseAction extends Action
 
                 default:
                     $weapon = Weapon::findOne(['key' => $key]);
-                    return Yii::t('app-weapon', $weapon->name ?? $key);
+                    return Yii::t('app-weapon', $weapon->name ?? $key ?? '');
             }
         })($weapon);
 

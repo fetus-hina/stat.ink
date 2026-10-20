@@ -25,8 +25,8 @@ class Request extends Base
         if (strtoupper($method) === 'POST') {
             $type = $this->headers->get('Content-Type', '');
             if (
-                stripos($type, 'application/json') !== false ||
-                    stripos($type, 'application/x-msgpack') !== false
+                stripos($type ?? '', 'application/json') !== false ||
+                    stripos($type ?? '', 'application/x-msgpack') !== false
             ) {
                 $params = $this->getBodyParams();
                 if (is_object($params) && isset($params->{$this->methodParam})) {

@@ -112,7 +112,7 @@ class UserAction extends BaseAction
             return $mode;
         }
 
-        $ua = $request->userAgent;
+        $ua = $request->userAgent ?? '';
         if (
             str_contains($ua, 'iPhone') ||
             str_contains($ua, 'Android') ||

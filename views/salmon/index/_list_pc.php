@@ -170,7 +170,7 @@ SalmonWorkListAsset::register($this);
             $model->fail_reason_id
               ? Label::widget([
                 'color' => $model->failReason->color,
-                'content' => Yii::t('app-salmon2', $model->failReason->short_name),
+                'content' => Yii::t('app-salmon2', $model->failReason->short_name ?? ''),
                 'options' => [
                   'class' => ['auto-tooltip'],
                   'title' => Yii::t('app-salmon2', $model->failReason->name),

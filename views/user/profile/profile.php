@@ -249,7 +249,7 @@ $f = Yii::$app->formatter;
         return Html::a(
           implode(' ', [
             Icon::twitter(),
-            '@' . Html::encode($user->twitter),
+            '@' . Html::encode($user->twitter ?? ''),
           ]),
           'https://twitter.com/intent/user?' . http_build_query([
             'screen_name' => $user->twitter,

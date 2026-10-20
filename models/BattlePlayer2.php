@@ -313,7 +313,7 @@ class BattlePlayer2 extends ActiveRecord
 
     public function getAnonymizeSeed(): string
     {
-        $value = trim($this->splatnet_id);
+        $value = trim($this->splatnet_id ?? '');
         return $value !== ''
             ? $value
             : hash_hmac('sha256', (string)$this->id, (string)$this->battle_id);

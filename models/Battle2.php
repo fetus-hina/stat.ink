@@ -1444,7 +1444,7 @@ class Battle2 extends ActiveRecord
 
         $playerIds = array_map(
             function ($player): ?string {
-                $id = trim($player->splatnet_id);
+                $id = trim($player->splatnet_id ?? '');
                 return preg_match('/^[0-9a-f]{16}$/u', $id)
                     ? $id
                     : null;

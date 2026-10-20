@@ -102,10 +102,10 @@ class BattleFilterForm extends Model
             [['rule'], 'exist',
                 'targetClass' => Rule::class,
                 'targetAttribute' => 'key',
-                'when' => fn () => substr($this->rule, 0, 1) !== '@',
+                'when' => fn () => substr($this->rule ?? '', 0, 1) !== '@',
             ],
             [['rule'], 'validateGameMode',
-                'when' => fn () => substr($this->rule, 0, 1) === '@',
+                'when' => fn () => substr($this->rule ?? '', 0, 1) === '@',
             ],
             [['map'], 'exist',
                 'targetClass' => Map::class,
@@ -114,35 +114,35 @@ class BattleFilterForm extends Model
             [['weapon'], 'exist',
                 'targetClass' => Weapon::class,
                 'targetAttribute' => 'key',
-                'when' => fn () => !in_array(substr($this->weapon, 0, 1), ['@', '+', '*', '~'], true),
+                'when' => fn () => !in_array(substr($this->weapon ?? '', 0, 1), ['@', '+', '*', '~'], true),
             ],
             [['weapon'], 'validateWeapon',
                 'params' => [
                     'modelClass' => WeaponType::class,
                 ],
-                'when' => fn () => substr($this->weapon, 0, 1) === '@',
+                'when' => fn () => substr($this->weapon ?? '', 0, 1) === '@',
             ],
             [['weapon'], 'validateWeapon',
                 'params' => [
                     'modelClass' => Subweapon::class,
                 ],
-                'when' => fn () => substr($this->weapon, 0, 1) === '+',
+                'when' => fn () => substr($this->weapon ?? '', 0, 1) === '+',
             ],
             [['weapon'], 'validateWeapon',
                 'params' => [
                     'modelClass' => Special::class,
                 ],
-                'when' => fn () => substr($this->weapon, 0, 1) === '*',
+                'when' => fn () => substr($this->weapon ?? '', 0, 1) === '*',
             ],
             [['weapon'], 'validateRepresentativeWeapon',
-                'when' => fn () => substr($this->weapon, 0, 1) === '~',
+                'when' => fn () => substr($this->weapon ?? '', 0, 1) === '~',
             ],
             [['rank'], 'exist',
                 'targetClass' => Rank::class, 'targetAttribute' => 'key',
-                'when' => fn () => substr($this->rank, 0, 1) !== '~',
+                'when' => fn () => substr($this->rank ?? '', 0, 1) !== '~',
             ],
             [['rank'], 'validateRankGroup',
-                'when' => fn () => substr($this->rank, 0, 1) === '~',
+                'when' => fn () => substr($this->rank ?? '', 0, 1) === '~',
             ],
             [['result'], 'boolean', 'trueValue' => 'win', 'falseValue' => 'lose'],
             [['term'], 'in',
@@ -350,13 +350,19 @@ class BattleFilterForm extends Model
 
             case 'term':
                 $push('term', 'term');
-                $push('term_from', date('Y-m-d H:i:s', $this->term_from |> strtotime(...) |> TypeHelper::int(...)));
-                $push('term_to', date('Y-m-d H:i:s', $this->term_to |> strtotime(...) |> TypeHelper::int(...)));
+                $push(
+                    'term_from',
+                    date('Y-m-d H:i:s', ($this->term_from ?? '') |> strtotime(...) |> TypeHelper::int(...)),
+                );
+                $push(
+                    'term_to',
+                    date('Y-m-d H:i:s', ($this->term_to ?? '') |> strtotime(...) |> TypeHelper::int(...)),
+                );
                 $push('timezone', $tz);
                 break;
 
             default:
-                if (preg_match('/^last-(\d+)-battles/', $this->term, $match)) {
+                if (preg_match('/^last-(\d+)-battles/', $this->term ?? '', $match)) {
                     $range = BattleHelper::getNBattlesRange($this, (int)$match[1]);
                     if (!$range || $range['min_id'] < 1 || $range['max_id'] < 1) {
                         break;
@@ -365,7 +371,7 @@ class BattleFilterForm extends Model
                     $push('term_from', date('Y-m-d H:i:s', strtotime($range['min_at'])));
                     $push('term_to', date('Y-m-d H:i:s', strtotime($range['max_at'])));
                     $push('timezone', $tz);
-                } elseif (preg_match('/^v\d+/', $this->term)) {
+                } elseif (preg_match('/^v\d+/', $this->term ?? '')) {
                     $push('term', $this->term);
                 }
                 break;

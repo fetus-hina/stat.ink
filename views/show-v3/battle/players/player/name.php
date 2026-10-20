@@ -27,7 +27,7 @@ $f = Yii::$app->formatter;
 if ($player->is_crowned || $player->crown) {
   echo Html::tag(
     'div',
-    Icon::s3Crown($player->crown ?? 'x'),
+    Icon::s3Crown($player->crown ?? 'x') ?? '',
     [
       'class' => 'small',
       'style' => [
@@ -52,7 +52,7 @@ echo Html::tag(
   trim(
     vsprintf('%s %s %s', [
       Icon::s3Species($player->species),
-      Html::encode($player->name),
+      Html::encode($player->name ?? ''),
       $player->number !== null
         ? Html::tag(
           'span',

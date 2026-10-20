@@ -31,7 +31,7 @@ use yii\web\View;
       'th',
       Html::tag(
         'span',
-        Icon::s3Ability($ability),
+        Icon::s3Ability($ability) ?? '',
         [
           'class' => 'auto-tooltip',
           'style' => [

@@ -286,7 +286,7 @@ final class FeedAction extends Action
             ],
             [
                 Yii::t('app', 'Special', [], $lang),
-                Yii::t('app-special3', $me?->special->name ?? null, [], $lang),
+                Yii::t('app-special3', $me?->special->name ?? '', [], $lang),
             ],
             [
                 Yii::t('app-salmon2', 'Golden Eggs', [], $lang),

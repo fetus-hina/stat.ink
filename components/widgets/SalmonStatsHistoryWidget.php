@@ -62,7 +62,7 @@ class SalmonStatsHistoryWidget extends Widget
             function (array $match): string {
                 switch ($match[1]) {
                     case 'id':
-                        return Html::encode($this->id);
+                        return Html::encode($this->id ?? '');
 
                     case 'apiUrl':
                         return Html::encode(

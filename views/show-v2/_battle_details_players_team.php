@@ -316,10 +316,10 @@ foreach ($players as $i => $player) {
         ? ''
         : Html::tag('td',
           implode(Html::tag('br'), [
-            Html::encode($player->getFormattedKillRatio()),
+            Html::encode($player->getFormattedKillRatio() ?? ''),
             Html::tag(
               'small',
-              Html::encode($player->getFormattedKillRate()),
+              Html::encode($player->getFormattedKillRate() ?? ''),
               ['class' => 'text-muted']
             ),
           ]),

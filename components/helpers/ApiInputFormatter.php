@@ -48,6 +48,9 @@ class ApiInputFormatter extends Component
         ?string $splatnetIdColumn = null,
     ): ?int {
         $value = $this->asString($value);
+        if ($value === null) {
+            return null;
+        }
 
         if ($splatnetIdColumn !== null && substr($value, 0, 1) === '#' && preg_match('/^#\d+$/', $value)) {
             $model = $class::findOne([$splatnetIdColumn => substr($value, 1)]);

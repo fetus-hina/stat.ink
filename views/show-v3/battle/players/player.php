@@ -128,7 +128,7 @@ if ($player->is_me) {
         ]),
         [
           'class' => 'auto-tooltip',
-          'title' => Yii::t('app-special3', $player->weapon?->special?->name),
+          'title' => Yii::t('app-special3', $player->weapon->special->name ?? ''),
         ],
       );
     }

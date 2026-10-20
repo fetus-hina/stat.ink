@@ -85,7 +85,7 @@ class PlayerName2Widget extends Widget
             return '';
         }
 
-        $splatnetId = trim($this->player->splatnet_id);
+        $splatnetId = trim($this->player->splatnet_id ?? '');
         return Html::img(
             $url,
             [
@@ -146,7 +146,7 @@ class PlayerName2Widget extends Widget
                 ],
             );
         } else {
-            return $this->player->name |> trim(...) |> Html::encode(...);
+            return ($this->player->name ?? '') |> trim(...) |> Html::encode(...);
         }
         // }}}
     }
@@ -161,7 +161,7 @@ class PlayerName2Widget extends Widget
         } elseif ($this->player->isForceBlackouted) {
             // 要求によるブラックリスト
             return true;
-        } elseif (trim($this->player->name) === '') {
+        } elseif (trim($this->player->name ?? '') === '') {
             // 名前が空だと匿名化名しか表示できない
             return true;
         }

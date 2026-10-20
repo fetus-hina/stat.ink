@@ -199,7 +199,7 @@ class DlStats2Controller extends Controller
                         $battle->lobby->key,
                         $battle->rule->key,
                         $battle->map->key,
-                        (string)(strtotime($battle->end_at) - strtotime($battle->start_at)),
+                        (string)(strtotime($battle->end_at ?? '') - strtotime($battle->start_at ?? '')),
                         $battle->is_win ? 'alpha' : 'bravo',
                         $battle->is_knockout === null ? '' : ($battle->is_knockout ? 'TRUE' : 'FALSE'),
                     ]);

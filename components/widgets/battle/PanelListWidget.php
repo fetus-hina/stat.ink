@@ -72,7 +72,7 @@ class PanelListWidget extends Widget
     public function run()
     {
         $replace = [
-            '{title}' => Html::encode($this->title),
+            '{title}' => Html::encode($this->title ?? ''),
             '{titleLink}' => $this->renderTitleLink(),
             '{feedLink}' => $this->renderFeedLink(),
             '{panelClass}' => $this->panelClass,

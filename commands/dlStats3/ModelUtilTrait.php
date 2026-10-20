@@ -50,7 +50,7 @@ trait ModelUtilTrait
             );
         }
 
-        $t = strtotime($battle->start_at);
+        $t = strtotime($battle->start_at ?? '');
         foreach ($seasons as $season) {
             if ($season['start'] <= $t && $t < $season['end']) {
                 return $season['name'];

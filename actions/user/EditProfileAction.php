@@ -97,7 +97,7 @@ class EditProfileAction extends BaseAction
     protected function findOrCreateEnvironmentId(mixed $text): ?int
     {
         $text = preg_replace('/\x0d\x0a|\x0d|\x0a/', "\n", (string)$text);
-        $text = trim($text);
+        $text = trim($text ?? '');
         if ($text === '') {
             return null;
         }

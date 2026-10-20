@@ -98,7 +98,7 @@ class Agent extends ActiveRecord
         if (trim((string)$attr->link_url) === '') {
             return null;
         }
-        return Yii::t('app-link', $attr->link_url);
+        return Yii::t('app-link', $attr->link_url ?? '');
     }
 
     public function getVersionUrl(): ?string

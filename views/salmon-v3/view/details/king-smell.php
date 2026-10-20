@@ -36,7 +36,7 @@ return [
             version_compare($model->version->tag ?? '0.0.0', '6.0.0', '>=')
               ? $model->schedule?->king
               : null,
-          ),
+          ) ?? '',
           ['style' => 'font-size: 2em'],
         ),
         vsprintf('(%s / %s)', [

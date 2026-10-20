@@ -77,7 +77,7 @@ $maxSamples = max(array_map(fn (StatSalmon3Salmometer $model): int => $model->jo
           return Html::tag(
             'tr',
             implode('', [
-              Html::tag('td', Icon::s3Salmometer($level), ['class' => 'text-center']),
+              Html::tag('td', Icon::s3Salmometer($level) ?? '', ['class' => 'text-center']),
               Html::tag('td', Html::encode($fmt->asInteger($level)), ['class' => 'text-center']),
               Html::tag(
                 'td',

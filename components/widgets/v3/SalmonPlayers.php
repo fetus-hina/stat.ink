@@ -131,7 +131,7 @@ final class SalmonPlayers extends Widget
                                         : '',
                                     Html::tag(
                                         'span',
-                                        Html::encode($player->name),
+                                        Html::encode($player->name ?? ''),
                                         [
                                             'class' => 'auto-tooltip',
                                             'title' => trim(

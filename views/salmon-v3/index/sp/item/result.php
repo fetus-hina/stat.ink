@@ -49,7 +49,7 @@ if ($model->clear_waves < $expectWaves) {
         ? Html::tag(
           'div',
           Label::widget([
-            'content' => Yii::t('app-salmon2', $model->failReason->short_name),
+            'content' => Yii::t('app-salmon2', $model->failReason->short_name ?? ''),
             'color' => $model->failReason->color,
             'options' => [
               'style' => [

@@ -57,7 +57,7 @@ $fmt = Yii::$app->formatter;
     <tbody>
 <?php foreach ($stages as $stage) { ?>
       <tr>
-        <?= Html::tag('td', Icon::s3SalmonStage($stage)) . "\n" ?>
+        <?= Html::tag('td', Icon::s3SalmonStage($stage) ?? '') . "\n" ?>
 <?php foreach ($langs as $i => $lang) { ?>
         <?= Html::tag(
           'td',

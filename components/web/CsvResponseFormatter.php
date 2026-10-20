@@ -7,6 +7,7 @@
 
 namespace app\components\web;
 
+use LogicException;
 use Override;
 use Yii;
 use app\components\helpers\Resource;
@@ -78,19 +79,22 @@ class CsvResponseFormatter extends Component implements ResponseFormatterInterfa
      */
     protected function formatRow(array $row): string
     {
-        $quoteRegex = sprintf('/["\x0d\x0a%s]/', preg_quote($this->separator, '/'));
+        $separator = $this->separator ?? throw new LogicException('The separator is not set');
+        $outputCharset = $this->outputCharset ?? throw new LogicException('The output charset is not set');
+
+        $quoteRegex = sprintf('/["\x0d\x0a%s]/', preg_quote($separator, '/'));
         $ret = array_map(
-            function ($cell) use ($quoteRegex) {
+            function ($cell) use ($quoteRegex, $outputCharset) {
                 $utf8 = TypeHelper::string(mb_convert_encoding((string)$cell, 'UTF-8', $this->inputCharset));
                 if (preg_match($quoteRegex, $cell)) {
                     $utf8 = sprintf('"%s"', mb_str_replace('"', '""', $utf8, 'UTF-8'));
                 }
-                return mb_convert_encoding($utf8, $this->outputCharset, 'UTF-8');
+                return mb_convert_encoding($utf8, $outputCharset, 'UTF-8');
             },
             $row,
         );
         return implode(
-            mb_convert_encoding($this->separator, $this->outputCharset, 'ASCII'),
+            mb_convert_encoding($separator, $outputCharset, 'ASCII'),
             $ret,
         );
     }

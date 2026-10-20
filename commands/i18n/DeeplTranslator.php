@@ -551,7 +551,7 @@ class DeeplTranslator extends Component
             fn ($match) => ' ' . Base32::decode($match[1]) . ' ',
             $text,
         ) ?? throw new RuntimeException(preg_last_error_msg());
-        $text = preg_replace('/\x20{2,}/', ' ', $text);
+        $text = preg_replace('/\x20{2,}/', ' ', $text) ?? throw new RuntimeException(preg_last_error_msg());
         return trim($text);
     }
 

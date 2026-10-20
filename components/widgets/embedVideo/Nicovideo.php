@@ -35,7 +35,7 @@ class Nicovideo extends Widget
             Html::jsFile(
                 sprintf(
                     'https://embed.nicovideo.jp/watch/%s/script?%s',
-                    rawurlencode($this->videoId),
+                    rawurlencode($this->videoId ?? ''),
                     http_build_query(
                         [
                             'w' => (string)(int)$this->width,

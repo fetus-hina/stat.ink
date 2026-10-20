@@ -227,7 +227,7 @@ trait BattleTrait
                         $battle->lobby->key,
                         $battle->rule->key,
                         $battle->map->key,
-                        (string)(strtotime($battle->end_at) - strtotime($battle->start_at)),
+                        (string)(strtotime($battle->end_at ?? '') - strtotime($battle->start_at ?? '')),
                         $battle->result->is_win ? 'alpha' : 'bravo',
                         $battle->is_knockout === null ? '' : ($battle->is_knockout ? 'TRUE' : 'FALSE'),
                         self::rank($battle->rankBefore, $battle->rank_before_s_plus),

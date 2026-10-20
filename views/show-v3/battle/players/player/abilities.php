@@ -154,7 +154,7 @@ $sendouInkUrl = SendouInk::getBuildUrl3($player->weapon, ...$gears);
     <span class="d-inline-block gear-block"><?= implode('', [
       Html::tag(
         'span',
-        Icon::s3Ability(ArrayHelper::getValue($gear, 'ability.key', 'unknown')),
+        Icon::s3Ability(ArrayHelper::getValue($gear, 'ability.key', 'unknown')) ?? '',
         ['class' => 'main-ability'],
       ),
       Html::tag(
@@ -236,7 +236,7 @@ $sendouInkUrl = SendouInk::getBuildUrl3($player->weapon, ...$gears);
               <tr>
                 <?= Html::tag(
                   'td',
-                  Icon::s3Ability($power['key']),
+                  Icon::s3Ability($power['key']) ?? '',
                   ['class' => 'ability-col-icon'],
                 ) . "\n" ?>
                 <td class="omit"><?= Html::encode($power['name']) ?></td>

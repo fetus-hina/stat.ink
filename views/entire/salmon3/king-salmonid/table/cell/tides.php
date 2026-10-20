@@ -28,7 +28,7 @@ use yii\web\View;
       fn (SalmonWaterLevel2 $model): string => Html::tag(
         'div',
         implode('', [
-          Html::tag('div', Icon::s3SalmonTide($model)),
+          Html::tag('div', Icon::s3SalmonTide($model) ?? ''),
           $this->render('./pie', [
             'cleared' => $tideModels[$model->id]->cleared ?? 0,
             'jobs' => $tideModels[$model->id]->jobs ?? 0,

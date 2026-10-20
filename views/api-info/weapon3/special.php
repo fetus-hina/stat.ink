@@ -52,7 +52,7 @@ SortableTableAsset::register($this);
       <tr>
         <?= Html::tag(
           'td',
-          Icon::s3Special($sp),
+          Icon::s3Special($sp) ?? '',
           [
             'data' => [
               'sort-value' => $sp->rank,

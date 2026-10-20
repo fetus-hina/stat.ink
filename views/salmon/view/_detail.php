@@ -48,7 +48,7 @@ $widget = Yii::createObject([
     ],
     [
       'attribute' => 'stage_id',
-      'value' => Yii::t('app-salmon-map2', $model->stage->name ?? null),
+      'value' => Yii::t('app-salmon-map2', $model->stage->name ?? ''),
     ],
     [
       'label' => Yii::t('app-results', 'Result'),

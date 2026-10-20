@@ -130,7 +130,10 @@ final class SalmonWaves extends Widget
                 'label' => Yii::t('app-salmon-event2', 'Event'),
                 'format' => 'text',
                 'total' => null,
-                'value' => fn (SalmonWave2 $wave, int $waveNumber, self $widget): ?string => Yii::t('app-salmon-event2', $wave->event->name ?? null),
+                'value' => fn (SalmonWave2 $wave, int $waveNumber, self $widget): ?string => Yii::t(
+                    'app-salmon-event2',
+                    $wave->event->name ?? '',
+                ),
             ],
             [
                 'label' => Yii::t('app-salmon-tide2', 'Water Level'),
@@ -154,7 +157,7 @@ final class SalmonWaves extends Widget
 
                     if (!isset($options[$wave->water->key])) {
                         return Html::encode(
-                            Yii::t('app-salmon-tide2', $wave->water->name ?? null),
+                            Yii::t('app-salmon-tide2', $wave->water->name ?? ''),
                         );
                     }
 
@@ -163,7 +166,7 @@ final class SalmonWaves extends Widget
                         'div',
                         Html::tag(
                             'div',
-                            Html::encode(Yii::t('app-salmon-tide2', $wave->water->name ?? null)),
+                            Html::encode(Yii::t('app-salmon-tide2', $wave->water->name ?? '')),
                             [
                                 'class' => [
                                     'progress-bar',

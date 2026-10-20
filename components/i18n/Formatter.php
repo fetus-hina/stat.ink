@@ -132,7 +132,7 @@ class Formatter extends \yii\i18n\Formatter
         }
 
         $value = preg_replace('/[^0-9A-Z]+/', '', strtoupper($value));
-        if (!preg_match('/^[0-9A-Z]{16}$/', $value)) {
+        if (!preg_match('/^[0-9A-Z]{16}$/', $value ?? '')) {
             return $this->nullDisplay;
         }
 

@@ -170,7 +170,7 @@ trait LicenseExtractTrait
             '-',
             $packageName,
         );
-        $packageName = str_replace('/../', '/', $packageName);
+        $packageName = str_replace('/../', '/', $packageName ?? '');
         $packageName = str_replace('/./', '/', $packageName);
         return $packageName;
     }

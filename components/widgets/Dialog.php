@@ -133,7 +133,7 @@ class Dialog extends Widget
     protected function renderBody(): string
     {
         return $this->wrapBody
-            ? Html::tag('div', $this->body, ['class' => 'modal-body'])
+            ? Html::tag('div', $this->body ?? '', ['class' => 'modal-body'])
             : $this->body;
     }
 

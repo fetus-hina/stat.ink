@@ -156,7 +156,7 @@ class BattleQuery extends ActiveQuery
 
     public function filterByRank(?string $rank): self
     {
-        if (substr($rank, 0, 1) === '~') {
+        if (substr($rank ?? '', 0, 1) === '~') {
             $this->innerJoinWith(['rank', 'rank.group']);
             $this->andWhere(['{{rank_group}}.[[key]]' => substr($rank, 1)]);
         } elseif ($rank != '') {
@@ -244,14 +244,14 @@ class BattleQuery extends ActiveQuery
                     break;
 
                 default:
-                    if (isset($options['filter']) && preg_match('/^last-(\d+)-battles$/', $value, $match)) {
+                    if (isset($options['filter']) && preg_match('/^last-(\d+)-battles$/', $value ?? '', $match)) {
                         $range = BattleHelper::getNBattlesRange($options['filter'], (int)$match[1]);
                         if (!$range || $range['min_id'] < 1 || $range['max_id'] < 1) {
                             $this->andWhere('1 <> 1'); // Always false
                         } else {
                             $this->andWhere(['between', '{{battle}}.[[id]]', $range['min_id'], $range['max_id']]);
                         }
-                    } elseif (preg_match('/^v\d+/', $value)) {
+                    } elseif (preg_match('/^v\d+/', $value ?? '')) {
                         $version = SplatoonVersion::findOne(['tag' => substr($value, 1)]);
                         if (!$version) {
                             $this->andWhere('1 <> 1'); // Always false

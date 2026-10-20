@@ -69,7 +69,7 @@ class Version
     {
         $revision = $hash ?? static::getRevision();
 
-        if (!preg_match('/^[0-9a-f]+$/', $revision)) {
+        if (!preg_match('/^[0-9a-f]+$/', $revision ?? '')) {
             return [];
         }
 
