@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\commands;
 
+use Override;
 use Yii;
 use app\components\helpers\UserExportJson3Helper;
 use app\components\jobs\UserExportJson3Job;
@@ -27,10 +28,8 @@ final class UserJson3Controller extends Controller
 {
     public $defaultAction = 'auto-update';
 
-    /**
-     * @inheritdoc
-     */
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 

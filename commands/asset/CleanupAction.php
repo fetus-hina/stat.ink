@@ -106,6 +106,7 @@ final class CleanupAction extends Action
 
     /**
      * @param array<string, DateTimeImmutable> $directories
+     * @return array<string, DateTimeImmutable>
      */
     private function getCleanupTargets(array $directories): array
     {

@@ -88,6 +88,9 @@ final class EqualsInFilenameAction extends Action
         return $failed ? ExitCode::UNSPECIFIED_ERROR : ExitCode::OK;
     }
 
+    /**
+     * @param array{label: string, modelClass: class-string<ActiveRecord>, directoryAlias: string, extension: string, companionExtensions: string[], hasBucket: bool} $target
+     */
     private function processTarget(array $target, bool $dryRun): bool
     {
         fprintf(STDERR, "[Info] Processing %s\n", $target['label']);
@@ -138,6 +141,7 @@ final class EqualsInFilenameAction extends Action
     }
 
     /**
+     * @param array{label: string, modelClass: class-string<ActiveRecord>, directoryAlias: string, extension: string, companionExtensions: string[], hasBucket: bool} $target
      * @return 'ok'|'skip'|'fail'
      */
     private function processRow(
@@ -232,6 +236,9 @@ final class EqualsInFilenameAction extends Action
             : 'fail';
     }
 
+    /**
+     * @param array{label: string, modelClass: class-string<ActiveRecord>, directoryAlias: string, extension: string, companionExtensions: string[], hasBucket: bool} $target
+     */
     private function generateNewFilename(array $target): string
     {
         $modelClass = $target['modelClass'];
@@ -263,6 +270,10 @@ final class EqualsInFilenameAction extends Action
         );
     }
 
+    /**
+     * @param array{label: string, modelClass: class-string<ActiveRecord>, directoryAlias: string, extension: string, companionExtensions: string[], hasBucket: bool} $target
+     * @param array<string, array{old: string, new: string}> $moves
+     */
     private function applyFix(
         ActiveRecord $model,
         array $target,

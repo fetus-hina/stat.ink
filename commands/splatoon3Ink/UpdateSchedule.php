@@ -30,6 +30,9 @@ use const STDERR;
 
 trait UpdateSchedule
 {
+    /**
+     * @param array<string, mixed> $schedules
+     */
     protected function updateSchedule(array $schedules): int
     {
         return Yii::$app->db->transaction(
@@ -57,6 +60,9 @@ trait UpdateSchedule
         );
     }
 
+    /**
+     * @param array<array<string, mixed>> $schedules
+     */
     private function registerSchedules(Lobby3 $lobby, array $schedules): bool
     {
         foreach ($schedules as $schedule) {
@@ -75,6 +81,9 @@ trait UpdateSchedule
         return true;
     }
 
+    /**
+     * @param array<int|null> $mapIds
+     */
     private function registerSchedule(Lobby3 $lobby, int $period, int $ruleId, array $mapIds): bool
     {
         return Yii::$app->db->transaction(
@@ -102,6 +111,9 @@ trait UpdateSchedule
         );
     }
 
+    /**
+     * @param array<int|null> $mapIds
+     */
     private function isScheduleRegistered(Lobby3 $lobby, int $period, int $ruleId, array $mapIds): bool
     {
         $schedule = Schedule3::find()
@@ -178,6 +190,9 @@ trait UpdateSchedule
         return true;
     }
 
+    /**
+     * @param array<int|null> $mapIds
+     */
     private function registerScheduleImpl(Lobby3 $lobby, int $period, int $ruleId, array $mapIds): bool
     {
         $schedule = Yii::createObject([

@@ -714,6 +714,11 @@ class Api2MarkdownController extends Controller
     }
 
     // Markdown Table {{{
+
+    /**
+     * @param array<array<string>> $rows
+     * @return array<int, int>
+     */
     private static function calcWidths(array $rows): array
     {
         $widths = [];
@@ -741,6 +746,9 @@ class Api2MarkdownController extends Controller
         // }}}
     }
 
+    /**
+     * @param array<array<string>> $rows
+     */
     private static function createTable(array $rows): string
     {
         // {{{
@@ -760,6 +768,10 @@ class Api2MarkdownController extends Controller
         // }}}
     }
 
+    /**
+     * @param array<string> $row
+     * @param array<int, int> $widths
+     */
     private static function createTableRow(array $row, array $widths): string
     {
         $outColumns = [];

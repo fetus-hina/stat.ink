@@ -389,6 +389,9 @@ trait SalmonTrait
         return self::createCsvZipArchive(self::BASE_SALMON_RESULTS_CSV);
     }
 
+    /**
+     * @param SalmonWave3[] $waves
+     */
     private static function findSalmonWave(array $waves, int $waveNumber): ?SalmonWave3
     {
         foreach ($waves as $wave) {
@@ -400,6 +403,9 @@ trait SalmonTrait
         return null;
     }
 
+    /**
+     * @return list<int|string|null>
+     */
     private static function salmonWaveCsvColumns(?SalmonWave3 $wave): array
     {
         if (!$wave) {
@@ -430,6 +436,9 @@ trait SalmonTrait
         ];
     }
 
+    /**
+     * @return list<int|string|null>
+     */
     private static function salmonPlayerCsvColumns(Salmon3 $battle, ?SalmonPlayer3 $player): array
     {
         if (!$player) {

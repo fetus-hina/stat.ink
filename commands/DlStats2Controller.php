@@ -11,6 +11,7 @@ use DateInterval;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
+use Override;
 use Throwable;
 use Yii;
 use ZipArchive;
@@ -53,18 +54,19 @@ class DlStats2Controller extends Controller
 
     public $defaultAction = 'create';
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         Yii::$app->timeZone = 'Asia/Tokyo';
     }
 
-    public function actionCreate()
+    public function actionCreate(): void
     {
         $this->actionCreateBattleResultsCsv();
     }
 
-    public function actionCreateBattleResultsCsv()
+    public function actionCreateBattleResultsCsv(): void
     {
         $aDay = new DateInterval('P1D');
         for ($date = self::startDay(), $end = self::today(); $date < $end; $date = $date->add($aDay)) {
@@ -308,6 +310,9 @@ class DlStats2Controller extends Controller
             ->setTime(0, 0, 0);
     }
 
+    /**
+     * @param string[] $cols
+     */
     private static function csvRow(array $cols): string
     {
         return implode(',', array_map(

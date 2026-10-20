@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\commands;
 
+use Override;
 use Yii;
 use app\components\helpers\SalmonExportJson3Helper;
 use app\components\jobs\SalmonExportJson3Job;
@@ -30,7 +31,8 @@ final class SalmonJson3Controller extends Controller
     /**
      * @inheritdoc
      */
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 

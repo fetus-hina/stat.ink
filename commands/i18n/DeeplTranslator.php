@@ -112,6 +112,9 @@ class DeeplTranslator extends Component
         }
     }
 
+    /**
+     * @param string[] $targetFileNames
+     */
     private function runLanguage(string $lang, array $targetFileNames): bool
     {
         foreach ($targetFileNames as $targetFileName) {
@@ -187,6 +190,9 @@ class DeeplTranslator extends Component
         return true;
     }
 
+    /**
+     * @return list<string>
+     */
     private function getTargetLanguages(): array
     {
         $statinkLanguages = array_map(
@@ -213,6 +219,9 @@ class DeeplTranslator extends Component
         return $results |> array_unique(...) |> array_values(...);
     }
 
+    /**
+     * @return array<int, string>
+     */
     private function getDeeplSupportedLanguages(): array
     {
         static $cache = null;
@@ -248,6 +257,9 @@ class DeeplTranslator extends Component
         return $cache;
     }
 
+    /**
+     * @return list<string>
+     */
     private function getTargetFiles(): array
     {
         $list = [];
@@ -297,6 +309,10 @@ class DeeplTranslator extends Component
         return array_values($list);
     }
 
+    /**
+     * @param string[] $englishTexts
+     * @return array<string|false>
+     */
     private function translate(string $lang, array $englishTexts): array
     {
         $results = [];
@@ -311,6 +327,10 @@ class DeeplTranslator extends Component
         return $results;
     }
 
+    /**
+     * @param string[] $englishTexts
+     * @return array<string|false>
+     */
     private function doTranslate(string $lang, array $englishTexts): array
     {
         $resp = $this->httpPostJson(
@@ -338,6 +358,10 @@ class DeeplTranslator extends Component
         );
     }
 
+    /**
+     * @param array<string, mixed> $params
+     * @return array<mixed>
+     */
     private function httpGetJson(string $url, array $params = []): array
     {
         fprintf(STDERR, "  * Requesting to %s\n", $url);
@@ -360,7 +384,12 @@ class DeeplTranslator extends Component
         return $resp->getData();
     }
 
-    private function httpPostJson(string $url, array $params = [], $contents = ''): array
+    /**
+     * @param array<string, mixed> $params
+     * @param array<mixed>|string $contents
+     * @return array<mixed>
+     */
+    private function httpPostJson(string $url, array $params = [], array|string $contents = ''): array
     {
         fprintf(STDERR, "  * Requesting to %s\n", $url);
         $client = Yii::createObject([
@@ -518,7 +547,11 @@ class DeeplTranslator extends Component
 
     // Copied from MessageFormatter
     // Copyright (C) Copyright (c) 2008 Yii Software LLC
-    private static function tokenizePattern($pattern)
+
+    /**
+     * @return list<string|list<string>>|false
+     */
+    private static function tokenizePattern(string $pattern): array|false
     {
         $charset = Yii::$app ? Yii::$app->charset : 'UTF-8';
         $depth = 1;

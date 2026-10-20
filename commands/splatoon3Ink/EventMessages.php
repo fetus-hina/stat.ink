@@ -92,6 +92,10 @@ trait EventMessages
         return ExitCode::OK;
     }
 
+    /**
+     * @param array<mixed> $dstJson
+     * @param array<mixed> $srcJson
+     */
     private function updateEventLangMessages(string $langCode, array $dstJson, array $srcJson): bool
     {
         $categoryMap = [

@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\commands;
 
+use Override;
 use Yii;
 use app\commands\dlStats3\BattleTrait;
 use app\commands\dlStats3\SalmonTrait;
@@ -26,10 +27,8 @@ final class DlStats3Controller extends Controller
 
     public $defaultAction = 'create';
 
-    /**
-     * @inheritdoc
-     */
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 

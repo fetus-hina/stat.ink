@@ -30,7 +30,7 @@ final class UserStat3Controller extends Controller
 {
     public $defaultAction = 'update';
 
-    public function actionUpdate($id): int
+    public function actionUpdate(string $id): int
     {
         $intId = filter_var($id, FILTER_VALIDATE_INT);
         if (is_int($intId)) {
@@ -54,7 +54,7 @@ final class UserStat3Controller extends Controller
         return 0;
     }
 
-    public function actionSalmonUpdate($id): int
+    public function actionSalmonUpdate(string $id): int
     {
         $intId = filter_var($id, FILTER_VALIDATE_INT);
         if (is_int($intId)) {

@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace app\commands;
 
 use Normalizer;
+use Override;
 use Throwable;
 use Yii;
 use app\components\helpers\I18n as I18nHelper;
@@ -42,16 +43,20 @@ use const SORT_ASC;
 use const STDERR;
 
 /**
- * @property-read array $localeMap
+ * @property-read array<string, string> $localeMap
  */
 class Splatoon2InkI18nController extends Controller
 {
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         Yii::setAlias('@messages', '@app/messages');
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function getLocaleMap(): array
     {
         return [
@@ -285,6 +290,9 @@ class Splatoon2InkI18nController extends Controller
         return $status ? 0 : 1;
     }
 
+    /**
+     * @return array<int|string, mixed>|null
+     */
     private function getEnglishData(string $jsonKey): ?array
     {
         $cachePath = $this->getCacheFilePath('en');
@@ -304,6 +312,9 @@ class Splatoon2InkI18nController extends Controller
         return $data;
     }
 
+    /**
+     * @param array<int|string, mixed> $englishData
+     */
     private function update(
         string $locale, // "ja-JP"
         string $fileName, // "weapon2"

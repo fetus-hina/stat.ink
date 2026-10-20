@@ -11,6 +11,7 @@ use DateTimeImmutable;
 use DateTimeZone;
 use DirectoryIterator;
 use Iterator;
+use Override;
 use Yii;
 use app\components\helpers\GitHelper;
 use app\models\Language;
@@ -48,7 +49,8 @@ final class I18nController extends Controller
         ];
     }
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         Yii::setAlias('@messages', '@app/messages');

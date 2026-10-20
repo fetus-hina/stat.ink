@@ -101,7 +101,7 @@ final class StatController extends Controller
      *
      * これを実行しないとブキ統計は表示されません。
      */
-    public function actionUpdateEntireWeapons()
+    public function actionUpdateEntireWeapons(): void
     {
         $this->updateEntireWeapons3();
         // $this->updateEntireWeapons2();
@@ -131,7 +131,7 @@ final class StatController extends Controller
      *
      * これを実行しなくてもリアルタイム集計しますが数が増えると死にます。
      */
-    public function actionUpdateEntireUser()
+    public function actionUpdateEntireUser(): void
     {
         $this->updateEntireUser1();
         $this->updateEntireUser2();
@@ -139,7 +139,7 @@ final class StatController extends Controller
         $this->updateEntireSalmonUser3();
     }
 
-    private function updateEntireUser1()
+    private function updateEntireUser1(): void
     {
         // {{{
         // 集計対象期間を計算する
@@ -179,7 +179,7 @@ final class StatController extends Controller
         // }}}
     }
 
-    private function updateEntireUser2()
+    private function updateEntireUser2(): void
     {
         // {{{
         // 集計対象期間を計算する
@@ -303,13 +303,13 @@ final class StatController extends Controller
     /**
      * 全体統計 - エージェント別利用者を更新します。
      */
-    public function actionUpdateAgentUser()
+    public function actionUpdateAgentUser(): void
     {
         $this->updateAgentUser1();
         $this->updateAgentUser2();
     }
 
-    private function updateAgentUser1()
+    private function updateAgentUser1(): void
     {
         // {{{
         // 集計対象期間を計算する
@@ -366,7 +366,7 @@ final class StatController extends Controller
         // }}}
     }
 
-    private function updateAgentUser2()
+    private function updateAgentUser2(): void
     {
         // {{{
         // 集計対象期間を計算する
@@ -426,7 +426,7 @@ final class StatController extends Controller
      *
      * これを実行しないとブキ統計は表示されません。
      */
-    public function actionUpdateKnockout()
+    public function actionUpdateKnockout(): void
     {
         $this->updateKnockout3();
     }
@@ -436,7 +436,7 @@ final class StatController extends Controller
      *
      * これを実行しないと当該統計は表示されません。
      */
-    public function actionUpdateKDWinRate()
+    public function actionUpdateKDWinRate(): void
     {
         $db = Yii::$app->db;
         $transaction = $db->beginTransaction();
@@ -544,7 +544,7 @@ final class StatController extends Controller
      *
      * これを実行しないと当該統計は表示されません。
      */
-    public function actionUpdateWeaponVsWeapon()
+    public function actionUpdateWeaponVsWeapon(): void
     {
         $db = Yii::$app->db;
         $constraintName = (function () use ($db): string {
@@ -624,14 +624,14 @@ final class StatController extends Controller
      *
      * これを実行しないと当該統計は表示されません。
      */
-    public function actionUpdateWeaponUseCount()
+    public function actionUpdateWeaponUseCount(): void
     {
         $this->updateWeaponUseCount1();
         $this->updateWeaponUseCount2();
         $this->actionUpdateWeaponUseTrend();
     }
 
-    private function updateWeaponUseCount1()
+    private function updateWeaponUseCount1(): void
     {
         // {{{
         $db = Yii::$app->db;
@@ -767,7 +767,7 @@ final class StatController extends Controller
         // }}}
     }
 
-    private function updateWeaponUseCount2()
+    private function updateWeaponUseCount2(): void
     {
         $db = Yii::$app->db;
         // {{{
@@ -1193,7 +1193,7 @@ final class StatController extends Controller
      *
      * これを実行しないと当該統計は表示されません。
      */
-    public function actionUpdateWeaponUseTrend()
+    public function actionUpdateWeaponUseTrend(): void
     {
         $db = Yii::$app->db;
         $select = new Query()
@@ -1264,7 +1264,7 @@ final class StatController extends Controller
      * これを実行しないとバトルのプレーヤーリストからユーザへのリンクや
      * アイコン表示が機能しません。
      */
-    public function actionUpdatePlayerIdMap()
+    public function actionUpdatePlayerIdMap(): void
     {
         $db = Yii::$app->db;
 
@@ -1396,6 +1396,9 @@ final class StatController extends Controller
         Yii::$app->db->createCommand('VACUUM ANALYZE {{stat_weapon2_tier}}')->execute();
     }
 
+    /**
+     * @return array<mixed>
+     */
     private function createHighestRankFilter(): array
     {
         // {{{
@@ -1411,6 +1414,9 @@ final class StatController extends Controller
         // }}}
     }
 
+    /**
+     * @return array<int, int[]>
+     */
     private function getHighestRankMap(): array
     {
         // {{{
@@ -1445,6 +1451,9 @@ final class StatController extends Controller
         )));
     }
 
+    /**
+     * @return array<string, array{int, int}>
+     */
     private function getMonthlyPeriodRangeForSplatoon2(): array
     {
         // {{{
@@ -1474,6 +1483,9 @@ final class StatController extends Controller
         // }}}
     }
 
+    /**
+     * @return SplatoonVersion2[]
+     */
     private function getReleasedVersions(): array
     {
         // {{{

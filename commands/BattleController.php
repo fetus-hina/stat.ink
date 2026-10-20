@@ -17,7 +17,7 @@ use function printf;
 
 class BattleController extends Controller
 {
-    public function actionDelete($id)
+    public function actionDelete(string $id): ?int
     {
         $battle = Battle::findOne(['id' => (int)(string)$id]);
         if (!$battle) {
@@ -26,9 +26,11 @@ class BattleController extends Controller
         }
 
         $battle->delete();
+
+        return null;
     }
 
-    public function actionTestSlack($id)
+    public function actionTestSlack(string $id): ?int
     {
         $battle = Battle::findOne(['id' => (int)(string)$id]);
         if (!$battle) {
@@ -51,5 +53,7 @@ class BattleController extends Controller
                 escapeshellarg($slack->webhook_url),
             );
         }
+
+        return null;
     }
 }

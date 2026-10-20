@@ -11,6 +11,7 @@ namespace app\commands;
 
 use Curl\Curl;
 use Exception;
+use Override;
 use Throwable;
 use Yii;
 use yii\console\Controller;
@@ -44,9 +45,13 @@ class GeoipController extends Controller
     public $defaultAction = 'update';
 
     // https://dev.maxmind.com/geoip/geoipupdate/#Direct_Downloads
-    protected $saveFiles = null;
+    /**
+     * @var array<string, array{url: string, files: string[]}>|null
+     */
+    protected ?array $saveFiles = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -165,6 +170,9 @@ class GeoipController extends Controller
         }
     }
 
+    /**
+     * @param string[] $files
+     */
     protected function extractFiles(string $archivePath, array $files): bool
     {
         vfprintf(STDERR, "Extracting files from %s (files: %s)\n", [

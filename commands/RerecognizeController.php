@@ -25,7 +25,7 @@ class RerecognizeController extends Controller
 {
     public $defaultAction = 'update';
 
-    public function actionUpdate($filename)
+    public function actionUpdate(string $filename): ?int
     {
         if (!$fh = @fopen($filename, 'rt')) {
             fwrite(STDERR, "Could not open $filename\n");
@@ -60,5 +60,7 @@ class RerecognizeController extends Controller
                 $transaction->commit();
             }
         }
+
+        return null;
     }
 }

@@ -61,6 +61,9 @@ trait WeaponShortNameTrait
         return 0;
     }
 
+    /**
+     * @param Language[] $locales
+     */
     private function checkLocaleDirectories(array $locales): bool
     {
         return array_reduce(
@@ -123,6 +126,9 @@ trait WeaponShortNameTrait
         return $path;
     }
 
+    /**
+     * @param Language[] $locales
+     */
     private function createLocales(array $locales): bool
     {
         return array_reduce(

@@ -93,6 +93,10 @@ trait SplatfestMessages
         return ExitCode::OK;
     }
 
+    /**
+     * @param array<mixed> $dstJson
+     * @param array<mixed> $srcJson
+     */
     private function updateSplatfestLangMessages(string $langCode, array $dstJson, array $srcJson): bool
     {
         $categoryMap = [
