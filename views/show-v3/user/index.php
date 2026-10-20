@@ -15,7 +15,7 @@ use yii\web\View;
  * @var BaseDataProvider $battleDataProvider
  * @var User $user
  * @var View $this
- * @var array $summary
+ * @var stdClass $summary
  */
 
 echo implode('', [

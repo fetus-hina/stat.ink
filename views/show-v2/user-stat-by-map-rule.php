@@ -27,7 +27,7 @@ use yii\web\View;
  * @var Battle2FilterForm $filter
  * @var User $user
  * @var View $this
- * @var array $data
+ * @var array<string, array<string, array{win: int, lose: int, kill: int|null, death: int|null, kd_battle: int}>> $data
  * @var array<string, string> $mapNames
  * @var array<string, string> $ruleNames
  */

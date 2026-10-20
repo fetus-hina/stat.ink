@@ -29,7 +29,7 @@ use yii\web\View;
  * @var array<string, Map3> $maps
  * @var array<string, Rule3> $rules
  * @var array<string, Weapon3> $weapons
- * @var array<string, array<string, array>> $stats
+ * @var array<string, array<string, array<string, mixed>>> $stats
  */
 
 $permLink = Url::to(

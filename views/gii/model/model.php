@@ -16,7 +16,7 @@ use yii\web\View;
  * @var Generator $generator
  * @var TableSchema $tableSchema
  * @var View $this
- * @var array<string, array> $relations array list of relations (name => relation declaration)
+ * @var array<string, array<int, mixed>> $relations array list of relations (name => relation declaration)
  * @var array<string, string> $labels list of attribute labels
  * @var string $className class name
  * @var string $queryClassName query class name

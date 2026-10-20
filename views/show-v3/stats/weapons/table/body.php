@@ -18,7 +18,7 @@ use yii\web\View;
  * @var View $this
  * @var array<string, Rule3> $rules
  * @var array<string, Weapon3> $weapons
- * @var array<string, array<string, array>> $stats
+ * @var array<string, array<string, array<string, mixed>>> $stats
  */
 
 echo Html::tag(

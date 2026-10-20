@@ -18,7 +18,7 @@ use yii\web\View;
  * @var Rule3 $rule
  * @var User $user
  * @var View $this
- * @var array $stats
+ * @var array<string, mixed> $stats
  */
 
 echo Html::tag(

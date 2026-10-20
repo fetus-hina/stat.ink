@@ -11,7 +11,7 @@ use yii\web\View;
 
 /**
  * @var View $this
- * @var array{term: array, agents: list<array<string, mixed>>} $agents
+ * @var array{term: array{s: array<string, mixed>, e: array<string, mixed>}, agents: list<array<string, mixed>>} $agents
  */
 
 $fmt = Yii::$app->formatter;

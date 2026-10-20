@@ -14,7 +14,7 @@ use yii\web\View;
 
 /**
  * @var View $this
- * @var array $info
+ * @var array<string, mixed> $info
  * @var array<int, SalmonWaterLevel2> $tides
  */
 

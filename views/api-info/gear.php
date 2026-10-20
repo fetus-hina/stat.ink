@@ -16,9 +16,9 @@ use yii\web\View;
 /**
  * @var GearType $type
  * @var View $this
- * @var array[] $gears
- * @var array[] $langs
- * @var array[] $types
+ * @var array<string, mixed>[] $gears
+ * @var array<string, mixed>[] $langs
+ * @var array<string, mixed>[] $types
  */
 
 TableResponsiveForceAsset::register($this);

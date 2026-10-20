@@ -96,6 +96,9 @@ function calcError(int $battles, int $wins): ?float
   return $s / sqrt($battles);
 }
 
+/**
+ * @return array{int, int|float|null, int|float|null}
+ */
 function getWinPctChartData(int $diff, int $battles, int $wins): array
 {
   if ($diff === 0) {

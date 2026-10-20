@@ -13,8 +13,8 @@ use yii\web\View;
 
 /**
  * @var View $this
- * @var array $maps
- * @var array $rule
+ * @var array<string, array{key: string, name: string, battles: int, wins: int}>|null $maps
+ * @var array<string, mixed> $rule
  */
 
 $this->registerCss('.text-truncate{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}');

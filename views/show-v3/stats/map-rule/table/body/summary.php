@@ -17,7 +17,7 @@ use yii\web\View;
  * @var User $user
  * @var View $this
  * @var array<string, Rule3> $rules
- * @var array<string, array> $totalStats
+ * @var array<string, array<string, mixed>> $totalStats
  */
 
 echo '<tr>';

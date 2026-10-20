@@ -25,7 +25,7 @@ use yii\web\View;
  * @var WeaponCompareForm $form
  * @var array<string, array<string, string>|string> $rules
  * @var array<string, array<string, string>|string> $weapons
- * @var array{data: array, events: array} $data
+ * @var array{data: list<array{legend: string, data: list<array{string, mixed}>}>, events: list<array{string, string, mixed}>} $data
  */
 
 TypeHelper::instanceOf($this->context, Controller::class)->layout = 'main';

@@ -20,8 +20,8 @@ use yii\web\View;
 /**
  * @var User $user
  * @var View $this
- * @var array $abstract
- * @var array $rulesAndStages
+ * @var array<string, object{battles: int, wins: int, loses: int}> $abstract
+ * @var array<string, array{key: string, rules: array<string, array{key: string, name: string, maps: array<string, array{key: string, name: string, battles: int, wins: int}>}>}> $rulesAndStages
  * @var int $month
  * @var int $year
  * @var string|null $next

@@ -14,8 +14,8 @@ use yii\web\View;
 
 /**
  * @var View $this
- * @var array[] $langs
- * @var array[] $types
+ * @var array<string, mixed>[] $langs
+ * @var array<string, mixed>[] $types
  */
 
 TableResponsiveForceAsset::register($this);

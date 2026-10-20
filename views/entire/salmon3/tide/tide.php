@@ -19,7 +19,7 @@ use yii\web\View;
  * @var array<int, BigrunMap3> $bigMaps
  * @var array<int, SalmonMap3> $maps
  * @var array<int, SalmonWaterLevel2> $tides
- * @var array[] $mapTides
+ * @var list<array<string, mixed>> $mapTides
  */
 
 EntireSalmon3TideAsset::register($this);

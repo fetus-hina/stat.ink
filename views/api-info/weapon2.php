@@ -22,8 +22,8 @@ use yii\web\View;
 
 /**
  * @var View $this
- * @var array[] $categories
- * @var array[] $langs
+ * @var array<string, mixed>[] $categories
+ * @var array<string, mixed>[] $langs
  */
 
 TypeHelper::instanceOf($this->context, Controller::class)->layout = 'main';

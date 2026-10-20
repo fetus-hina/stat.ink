@@ -27,8 +27,8 @@ use yii\web\View;
  * @var array<int, array<string, mixed>> $posts2
  * @var array<int, array<string, mixed>> $posts3
  * @var array<int, array<string, mixed>> $postsSalmon3
- * @var array{term: array, agents: list<array<string, mixed>>} $agents2
- * @var array{term: array, agents: list<array<string, mixed>>} $agents3
+ * @var array{term: array{s: array<string, mixed>, e: array<string, mixed>}, agents: list<array<string, mixed>>} $agents2
+ * @var array{term: array{s: array<string, mixed>, e: array<string, mixed>}, agents: list<array<string, mixed>>} $agents3
  * @var string[] $agentNames
  * @var string[] $combineds
  */
