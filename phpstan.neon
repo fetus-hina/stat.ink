@@ -2,7 +2,7 @@ includes:
   - vendor/mspirkov/yii2-phpstan/extension.neon
 
 parameters:
-  level: 3
+  level: 4
   phpVersion: 80500
 
   paths:
@@ -16,8 +16,106 @@ parameters:
     - models/
     - views/
 
+  excludePaths:
+    analyse:
+      # One-off scripts that rewrite the translation catalogs, not catalogs themselves
+      - messages/*.php
+
   scanDirectories:
     - deploy/vendor/deployer/deployer/src/
+
+  ignoreErrors:
+    -
+      # Code shared by the web and console applications. PHPStan types these
+      # components by the web config, but they differ on the console.
+      identifier: instanceof.alwaysTrue
+      message: '#^Instanceof between (yii\\web\\View|app\\components\\web\\(AssetManager|Request)) and yii\\web\\(View|AssetManager|Request) will always evaluate to true\.$#'
+    -
+      # Follows from the web-only View type above (fallback for the console)
+      identifier: booleanAnd.leftAlwaysTrue
+      path: components/widgets/Icon.php
+    -
+      identifier: deadCode.unreachable
+      path: components/widgets/Icon.php
+    -
+      identifier: booleanNot.alwaysFalse
+      path: components/widgets/v3/SalmonPlayers.php
+    -
+      # Yii::$app->controller is null on the console
+      identifier: booleanNot.alwaysFalse
+      path: components/helpers/I18n.php
+    -
+      # Used by the migrations, which are not analysed
+      identifier: trait.unused
+      path: components/db/*
+    -
+      # Public or protected API; narrowing it is a signature change for callers and subclasses
+      identifier: return.unusedType
+      paths:
+        - actions/entire/v3/InkColor3Action.php
+        - components/formatters/api/v3/SalmonPlayerApiFormatter.php
+        - components/formatters/api/v3/SalmonSpecialUseApiFormatter.php
+        - components/formatters/api/v3/SalmonWaveApiFormatter.php
+        - components/widgets/BattleFilterWidget.php
+        - components/widgets/BattleKillDeathColumn.php
+        - components/widgets/HappyNewYearWidget.php
+        - components/widgets/Icon.php
+        - components/widgets/IndexI18nButtons.php
+        - components/widgets/Label.php
+        - components/widgets/SnsWidget.php
+        - components/widgets/battle/panelItem/SalmonItem3Widget.php
+    -
+      # The return types match the callback type that the receiver documents,
+      # and the never-returned members come only from PHPDoc types
+      identifier: return.unusedType
+      paths:
+        - components/widgets/SalmonWaves.php
+        - views/entire/v3/weapons3/charts/ka-ratio.php
+        - views/entire/v3/weapons3/charts/kill-adv.php
+        - views/entire/v3/weapons3/charts/kill-ratio.php
+    -
+      # refresh() reloads is_deleted, which another request may have changed
+      identifier: if.alwaysTrue
+      paths:
+        - actions/api/v3/DeleteBattleAction.php
+        - actions/api/v3/salmon/DeleteSalmonAction.php
+    -
+      # The s3-img-gen prefetch is disabled for now by a "&& false" switch
+      identifier: booleanAnd.rightAlwaysFalse
+      paths:
+        - actions/api/v3/PostBattleAction.php
+        - actions/api/v3/salmon/PostSalmonAction.php
+    -
+      # Kept to document the category order with the other CATEGORY_* constants
+      identifier: classConstant.unused
+      path: actions/site/LicenseAction.php
+    -
+      # Every table keeps the same $compats/$remarks shape, even when it is empty
+      identifiers:
+        - isset.offset
+        - nullCoalesce.offset
+      path: commands/Api2MarkdownController.php
+    -
+      # Runtime guard for values that only PHPDoc types
+      identifier: function.alreadyNarrowedType
+      path: commands/dlStats3/CsvUtilTrait.php
+    -
+      # $at holds a Now expression until the record is inserted
+      identifier: function.alreadyNarrowedType
+      message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
+      path: models/Battle.php
+    -
+      # Checks a battle built from a form before it is saved
+      identifier: notIdentical.alwaysTrue
+      path: models/Battle2.php
+    -
+      # asArray() queries return arrays
+      identifier: instanceof.alwaysTrue
+      path: models/query/AcceptLanguageQuery.php
+    -
+      # config/git-revision.php is generated at deployment and may be absent
+      identifier: nullCoalesce.offset
+      path: views/layouts/footer.php
 
   typeAliases:
     DailyData: 'array{rule_id: int, date: string, count: int, avg: float, final: ?float, max: float, max_id: int, min: float}'
