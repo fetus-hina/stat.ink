@@ -24,13 +24,13 @@ class KDWinCell extends Widget
 {
     public int $battles = 0;
     public int $win = 0;
-    public ?Formatter $formatter = null;
+    public Formatter $formatter;
 
     #[Override]
     public function init(): void
     {
         parent::init();
-        if (!$this->formatter) {
+        if (!isset($this->formatter)) {
             $this->formatter = Yii::$app->formatter;
         }
     }

@@ -29,10 +29,7 @@ class UserDetailedStatsCell extends Widget
 {
     public ?string $rule = null;
     public ?stdClass $data = null;
-    /**
-     * @var Formatter|null
-     */
-    private $f = null;
+    private Formatter $f;
 
     #[Override]
     public function init(): void

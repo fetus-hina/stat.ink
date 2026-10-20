@@ -51,7 +51,7 @@ final class SalmonWaves extends Widget
     public ?SalmonWave3 $wave5 = null;
     public ?SalmonWave3 $extra = null;
 
-    public ?BaseFormatter $formatter = null;
+    public BaseFormatter $formatter;
 
     /**
      * @inheritdoc
@@ -61,7 +61,7 @@ final class SalmonWaves extends Widget
     {
         parent::init();
 
-        if (!$this->formatter) {
+        if (!isset($this->formatter)) {
             $this->formatter = Yii::createObject([
                 'class' => Formatter::class,
                 'nullDisplay' => '-',

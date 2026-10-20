@@ -52,7 +52,7 @@ final class SalmonPlayers extends Widget
      */
     public array $waves = [];
 
-    public ?BaseFormatter $formatter = null;
+    public BaseFormatter $formatter;
 
     /**
      * @inheritdoc
@@ -62,7 +62,7 @@ final class SalmonPlayers extends Widget
     {
         parent::init();
 
-        if (!$this->formatter) {
+        if (!isset($this->formatter)) {
             $this->formatter = Yii::createObject([
                 'class' => Formatter::class,
                 'nullDisplay' => '-',

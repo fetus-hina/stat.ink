@@ -35,14 +35,14 @@ final class SalmonWaves extends Widget
     public ?SalmonWave2 $wave2 = null;
     public ?SalmonWave2 $wave3 = null;
 
-    public ?\yii\i18n\Formatter $formatter = null;
+    public \yii\i18n\Formatter $formatter;
 
     #[Override]
     public function init(): void
     {
         parent::init();
 
-        if (!$this->formatter) {
+        if (!isset($this->formatter)) {
             $this->formatter = Yii::createObject([
                 'class' => Formatter::class,
                 'nullDisplay' => '-',

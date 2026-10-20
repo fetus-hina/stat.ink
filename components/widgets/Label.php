@@ -43,17 +43,14 @@ final class Label extends Widget
      * @var array<string, mixed>
      */
     public $options = [];
-    /**
-     * @var Formatter|null
-     */
-    public $formatter;
+    public Formatter $formatter;
 
     #[Override]
     public function init(): void
     {
         parent::init();
 
-        if ($this->formatter === null) {
+        if (!isset($this->formatter)) {
             $this->formatter = Yii::$app->formatter;
         }
     }
