@@ -309,7 +309,7 @@ $chartData = [
           'class' => 'text-right',
         ],
         'value' => function (array $row) use ($totalBattles, $totalMistakeBattles): string {
-          $total = $totalBattles - $totalMistakeBattles;
+          $total = (int)$totalBattles - (int)$totalMistakeBattles;
           $battles = $row['battles'] - $row['mistake_battles'];
           return vsprintf('%s (%s)', [
             Yii::$app->formatter->asInteger($battles),

@@ -20,7 +20,7 @@ use yii\web\View;
  * @var Map $map
  * @var View $this
  * @var array<string, string> $maps
- * @var object[] $data
+ * @var stdClass[] $data
  */
 
 $formatter = Yii::$app->formatter;

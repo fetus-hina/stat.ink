@@ -74,8 +74,11 @@ foreach ($rules as $_key => $_name) {
 }
 foreach ($data as $_map) {
   foreach ($_map as $_key => $_value) {
-    $_total[$_key]['battle'] += (int)$_value['battles'];
-    $_total[$_key]['ko'] += (int)$_value['knockouts'];
+    $_cell = $_total[$_key] ?? ['battle' => 0, 'ko' => 0];
+    $_total[$_key] = [
+      'battle' => $_cell['battle'] + (int)$_value['battles'],
+      'ko' => $_cell['ko'] + (int)$_value['knockouts'],
+    ];
   }
 }
 // }}}

@@ -21,7 +21,7 @@ use yii\web\View;
 
 /**
  * @var StatWeapon3Usage[]|StatWeapon3UsagePerVersion[]|StatWeapon3XUsage[]|StatWeapon3XUsagePerVersion[] $data
- * @var string|string[]|callable(StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage|StatWeapon3XUsagePerVersion): int|float|null $getX
+ * @var string|string[]|Closure(StatWeapon3Usage|StatWeapon3UsagePerVersion|StatWeapon3XUsage|StatWeapon3XUsagePerVersion): (int|float|null) $getX
  * @var string $xLabel
  * @var View $this
  */
