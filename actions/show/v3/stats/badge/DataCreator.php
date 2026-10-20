@@ -36,6 +36,9 @@ use const SORT_ASC;
 
 trait DataCreator
 {
+    /**
+     * @return array<string, mixed>
+     */
     private function createData(User $user): array
     {
         return TypeHelper::instanceOf(Yii::$app->db, Connection::class)->transaction(
@@ -74,6 +77,7 @@ trait DataCreator
     }
 
     /**
+     * @param iterable<mixed, mixed> $data
      * @return array<string, int>
      */
     private static function filterBadgeAdjustmentData(iterable $data): array

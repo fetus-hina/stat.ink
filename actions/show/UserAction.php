@@ -7,6 +7,7 @@
 
 namespace app\actions\show;
 
+use Override;
 use Yii;
 use app\models\Battle;
 use app\models\BattleFilterForm;
@@ -24,7 +25,8 @@ use function time;
 
 class UserAction extends BaseAction
 {
-    public function run()
+    #[Override]
+    public function run(): ?string
     {
         $request = Yii::$app->getRequest();
         $user = User::findOne(['screen_name' => $request->get('screen_name')]);
@@ -49,7 +51,7 @@ class UserAction extends BaseAction
             unset($next['v']);
             $next[0] = 'show/user';
             $this->controller->redirect(Url::to($next));
-            return;
+            return null;
         }
 
         $battle = Battle::find()

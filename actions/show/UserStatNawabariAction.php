@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\show;
 
+use Override;
 use Yii;
 use app\models\Battle;
 use app\models\Map;
@@ -30,14 +31,15 @@ use function strnatcasecmp;
 use function uasort;
 
 /**
- * @property-read array $inkedData
- * @property-read array $wpData
+ * @property-read array<string, stdClass> $inkedData
+ * @property-read list<stdClass> $wpData
  */
 class UserStatNawabariAction extends BaseAction
 {
-    private $user;
+    private ?User $user = null;
 
-    public function run()
+    #[Override]
+    public function run(): string
     {
         $request = Yii::$app->getRequest();
         $this->user = User::findOne([
@@ -54,6 +56,9 @@ class UserStatNawabariAction extends BaseAction
         ]);
     }
 
+    /**
+     * @return array<string, stdClass>
+     */
     public function getInkedData(): array
     {
         $inked = sprintf('(CASE %s END)', implode(' ', [
@@ -147,7 +152,10 @@ class UserStatNawabariAction extends BaseAction
         return $maps;
     }
 
-    public function getWPData()
+    /**
+     * @return list<stdClass>
+     */
+    public function getWPData(): array
     {
         $query = Battle::find()
             ->with(['rule'])

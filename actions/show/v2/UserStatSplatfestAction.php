@@ -26,7 +26,7 @@ final class UserStatSplatfestAction extends Action
     private ?User $user = null;
     private ?Region2 $region = null;
 
-    public function run()
+    public function run(): string
     {
         $this->initUser();
 

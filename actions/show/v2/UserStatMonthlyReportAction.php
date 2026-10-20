@@ -11,6 +11,7 @@ use DateInterval;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
+use Override;
 use Yii;
 use app\models\Battle2;
 use app\models\Spl2YearMonthForm;
@@ -19,6 +20,7 @@ use stdClass;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 use yii\web\ViewAction as BaseAction;
 
 use function implode;
@@ -29,7 +31,8 @@ final class UserStatMonthlyReportAction extends BaseAction
 {
     private ?User $user;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         $db = Yii::$app->db;
         $db->createCommand("SET TIMEZONE TO 'Etc/UTC'")->execute();
@@ -40,7 +43,8 @@ final class UserStatMonthlyReportAction extends BaseAction
         }
     }
 
-    public function run()
+    #[Override]
+    public function run(): string|Response
     {
         $form = Yii::createObject([
             'class' => Spl2YearMonthForm::class,
@@ -125,6 +129,9 @@ final class UserStatMonthlyReportAction extends BaseAction
         ];
     }
 
+    /**
+     * @return array<string, object{battles: int, wins: int, loses: int}>
+     */
     private function queryAbstract(DateTimeImmutable $from, DateTimeImmutable $to): array
     {
         $time = sprintf('(CASE %s END)', implode(' ', [
@@ -175,6 +182,16 @@ final class UserStatMonthlyReportAction extends BaseAction
         );
     }
 
+    /**
+     * @return array<string, array{
+     *   key: string,
+     *   rules: array<string, array{
+     *     key: string,
+     *     name: string,
+     *     maps: array<string, array{key: string, name: string, battles: int, wins: int}>
+     *   }>
+     * }>
+     */
     private function queryRulesAndStages(DateTimeImmutable $from, DateTimeImmutable $to): array
     {
         $time = sprintf('(CASE %s END)', implode(' ', [

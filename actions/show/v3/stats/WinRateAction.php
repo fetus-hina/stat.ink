@@ -62,6 +62,9 @@ final class WinRateAction extends Action
         ]);
     }
 
+    /**
+     * @return list<array<string, int>>
+     */
     private function makeStats(User $user): array
     {
         $list = new Query()

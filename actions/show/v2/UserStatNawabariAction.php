@@ -7,6 +7,7 @@
 
 namespace app\actions\show\v2;
 
+use Override;
 use Yii;
 use app\models\User;
 use yii\web\NotFoundHttpException;
@@ -14,9 +15,10 @@ use yii\web\ViewAction as BaseAction;
 
 class UserStatNawabariAction extends BaseAction
 {
-    private $user;
+    private ?User $user = null;
 
-    public function run()
+    #[Override]
+    public function run(): string
     {
         $request = Yii::$app->getRequest();
         $this->user = User::findOne(['screen_name' => $request->get('screen_name')]);

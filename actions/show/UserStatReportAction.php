@@ -13,6 +13,7 @@ use DateInterval;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
+use Override;
 use Yii;
 use app\models\User;
 use app\models\UserStatReportForm;
@@ -28,9 +29,10 @@ use function usort;
 
 class UserStatReportAction extends BaseAction
 {
-    private $user;
+    private ?User $user = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         Yii::$app->db->createCommand(
             Yii::$app->db
@@ -45,7 +47,8 @@ class UserStatReportAction extends BaseAction
         }
     }
 
-    public function run()
+    #[Override]
+    public function run(): ?string
     {
         $now = new DateTimeImmutable()
             ->setTimeZone(new DateTimeZone(Yii::$app->timeZone))
@@ -63,14 +66,14 @@ class UserStatReportAction extends BaseAction
                 'year' => (int)$now->format('Y'),
                 'month' => (int)$now->format('n'),
             ]);
-            return;
+            return null;
         }
         return $form->month
             ? $this->runMonth($form)
             : $this->runYear($form);
     }
 
-    protected function runMonth($form)
+    protected function runMonth(UserStatReportForm $form): string
     {
         $tz = new DateTimeZone(Yii::$app->timeZone);
 
@@ -118,12 +121,15 @@ class UserStatReportAction extends BaseAction
         ]);
     }
 
-    protected function runYear($form)
+    protected function runYear(UserStatReportForm $form): never
     {
         throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
     }
 
-    private function query($from, $to, $date)
+    /**
+     * @return list<array<string, mixed>>
+     */
+    private function query(string $from, string $to, string $date): array
     {
         $query = new Query()
             ->select([
