@@ -100,7 +100,7 @@ class SalmonSchedule2 extends ActiveRecord
                     return false;
                 }
             }
-            return parent::delete();
+            return parent::delete() !== false;
         });
     }
 }

@@ -390,7 +390,7 @@ class Weapons2Action extends BaseAction
 
         usort($list, function ($a, $b) {
             foreach (['count', 'wp', 'avg_kill', 'avg_death'] as $key) {
-                $tmp = $b->$key - $a->$key;
+                $tmp = $b->$key <=> $a->$key;
                 if ($tmp != 0) {
                     return $tmp;
                 }
@@ -634,7 +634,7 @@ class Weapons2Action extends BaseAction
 
         usort($ret, function ($a, $b) {
             foreach (['count', 'wp', 'avg_kill', 'avg_death'] as $key) {
-                $tmp = $b->$key - $a->$key;
+                $tmp = $b->$key <=> $a->$key;
                 if ($tmp != 0) {
                     return $tmp;
                 }
