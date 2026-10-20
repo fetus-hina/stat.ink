@@ -19,6 +19,8 @@ use app\models\RegisterForm;
 use yii\web\BadRequestHttpException;
 use yii\web\ViewAction as BaseAction;
 
+use function is_array;
+
 /**
  * Starts a new user registration with a passkey (no password)
  *
@@ -42,7 +44,8 @@ final class PasskeySignupStartAction extends BaseAction
         $resp->format = 'json';
 
         $form = new RegisterForm(['scenario' => RegisterForm::SCENARIO_PASSKEY]);
-        $form->load(Yii::$app->request->post());
+        $params = Yii::$app->request->post();
+        $form->load(is_array($params) ? $params : []);
         if (!$form->validate()) {
             return PasskeyResponse::validationFailure($form);
         }

@@ -43,7 +43,8 @@ final class PostBattleAction extends Action
     public function run(): Response
     {
         $form = Yii::createObject(PostBattleForm::class);
-        $form->attributes = Yii::$app->request->getBodyParams();
+        $params = Yii::$app->request->getBodyParams();
+        $form->attributes = is_array($params) ? $params : [];
         foreach (['image_judge', 'image_result', 'image_gear'] as $key) {
             if (!$form->$key) {
                 $form->$key = UploadedFile::getInstanceByName($key);

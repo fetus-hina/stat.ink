@@ -17,6 +17,7 @@ use app\models\EmailVerifyForm;
 use yii\web\ViewAction;
 
 use function count;
+use function is_array;
 use function time;
 
 class EditEmailAction extends ViewAction
@@ -27,7 +28,8 @@ class EditEmailAction extends ViewAction
         $request = Yii::$app->request;
         $form = Yii::createObject(EmailForm::class);
         if ($request->isPost) {
-            $form->load($request->bodyParams);
+            $params = $request->bodyParams;
+            $form->load(is_array($params) ? $params : []);
             if ($form->validate()) {
                 $user = Yii::$app->user->identity;
                 if (!$form->email) {

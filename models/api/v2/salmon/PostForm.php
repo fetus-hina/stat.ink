@@ -375,7 +375,7 @@ class PostForm extends Model
         }
 
         $model = Yii::createObject(['class' => Player::class]);
-        $model->attributes = $data;
+        $model->attributes = is_array($data) ? $data : [];
         $model->is_me = $isMe ? 'yes' : 'no';
         return $model;
     }

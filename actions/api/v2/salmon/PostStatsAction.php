@@ -18,6 +18,7 @@ use yii\web\UnauthorizedHttpException;
 use yii\web\ViewAction;
 
 use function sprintf;
+use function is_array;
 
 use const JSON_UNESCAPED_SLASHES;
 use const JSON_UNESCAPED_UNICODE;
@@ -44,7 +45,8 @@ class PostStatsAction extends ViewAction
         }
 
         $form = Yii::createObject(PostSalmonStatsForm::class);
-        $form->attributes = Yii::$app->request->post();
+        $params = Yii::$app->request->post();
+        $form->attributes = is_array($params) ? $params : [];
         if (!$form->validate()) {
             return $this->error($form->getErrors(), 400);
         }

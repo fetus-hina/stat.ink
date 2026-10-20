@@ -18,6 +18,7 @@ use yii\web\Response;
 use yii\web\ServerErrorHttpException;
 
 use function headers_sent;
+use function is_array;
 
 final class EditScreenNameAction extends Action
 {
@@ -25,9 +26,10 @@ final class EditScreenNameAction extends Action
     {
         $request = Yii::$app->request;
         $form = Yii::createObject(RenameScreenNameForm::class);
+        $params = $request->post();
         if (
             $request->isPost &&
-            $form->load($request->post()) &&
+            $form->load(is_array($params) ? $params : []) &&
             $form->validate()
         ) {
             if (!$user = Yii::$app->user->identity) {
