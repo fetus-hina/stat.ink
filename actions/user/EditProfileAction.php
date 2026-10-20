@@ -8,6 +8,7 @@
 namespace app\actions\user;
 
 use Exception;
+use Override;
 use Throwable;
 use Yii;
 use app\models\Environment;
@@ -27,7 +28,8 @@ use function trim;
 
 class EditProfileAction extends BaseAction
 {
-    public function run()
+    #[Override]
+    public function run(): ?string
     {
         $request = Yii::$app->request;
         $ident = Yii::$app->user->getIdentity();
@@ -42,7 +44,7 @@ class EditProfileAction extends BaseAction
                     if ($ident->save()) {
                         $transaction->commit();
                         $this->controller->redirect(['user/profile']);
-                        return;
+                        return null;
                     }
                 } catch (Throwable $e) {
                 }
@@ -87,7 +89,7 @@ class EditProfileAction extends BaseAction
         ]);
     }
 
-    protected function findOrCreateEnvironmentId($text)
+    protected function findOrCreateEnvironmentId(mixed $text): ?int
     {
         $text = preg_replace('/\x0d\x0a|\x0d|\x0a/', "\n", (string)$text);
         $text = trim($text);

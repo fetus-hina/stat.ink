@@ -41,6 +41,9 @@ final class TideAction extends Action
         );
     }
 
+    /**
+     * @return array<int, BigrunMap3>
+     */
     private function getBigMaps(Connection $db): array
     {
         return ArrayHelper::map(
@@ -50,6 +53,9 @@ final class TideAction extends Action
         );
     }
 
+    /**
+     * @return list<array{stage_id: mixed, big_stage_id: mixed, total: int, clear: int, tides: array<int, int>, clears: array<int, int>}>
+     */
     private function getMapTides(Connection $db): array
     {
         $data = new Query()
@@ -96,6 +102,9 @@ final class TideAction extends Action
         return array_values($results);
     }
 
+    /**
+     * @return array<int, SalmonMap3>
+     */
     private function getMaps(Connection $db): array
     {
         return ArrayHelper::map(
@@ -105,6 +114,9 @@ final class TideAction extends Action
         );
     }
 
+    /**
+     * @return array<int, SalmonWaterLevel2>
+     */
     private function getTides(Connection $db): array
     {
         return ArrayHelper::map(
@@ -114,6 +126,9 @@ final class TideAction extends Action
         );
     }
 
+    /**
+     * @return array<int, SalmonEvent3>
+     */
     private function getEvents(Connection $db): array
     {
         return ArrayHelper::map(

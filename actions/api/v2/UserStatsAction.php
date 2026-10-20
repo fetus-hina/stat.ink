@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\api\v2;
 
+use Override;
 use Yii;
 use app\models\ApiV2UserStatsForm;
 use app\models\User;
@@ -19,13 +20,17 @@ use yii\web\ServerErrorHttpException;
 
 class UserStatsAction extends Action
 {
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         Yii::$app->response->format = 'json';
     }
 
-    public function run()
+    /**
+     * @return array<string, mixed>
+     */
+    public function run(): array
     {
         $form = $this->processInput();
         if ($form->hasErrors()) {

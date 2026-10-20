@@ -7,13 +7,16 @@
 
 namespace app\actions\user;
 
+use Override;
 use Yii;
 use app\models\LoginForm;
+use yii\web\Response;
 use yii\web\ViewAction as BaseAction;
 
 class LoginAction extends BaseAction
 {
-    public function run()
+    #[Override]
+    public function run(): string|Response
     {
         $request = Yii::$app->getRequest();
         $form = new LoginForm();

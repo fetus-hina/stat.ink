@@ -7,6 +7,7 @@
 
 namespace app\actions\downloadStats;
 
+use Override;
 use Yii;
 use app\models\DownloadStatsForm;
 use app\models\Map;
@@ -17,9 +18,10 @@ use yii\web\ViewAction;
 
 abstract class BaseAction extends ViewAction
 {
-    public $config;
+    public ?DownloadStatsForm $config = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         $req = Yii::$app->request;
@@ -37,7 +39,10 @@ abstract class BaseAction extends ViewAction
         $this->config = $config;
     }
 
-    public function getWeapons()
+    /**
+     * @return array<string, string>
+     */
+    public function getWeapons(): array
     {
         $ret = [];
         foreach (Weapon::find()->all() as $a) {
@@ -46,7 +51,10 @@ abstract class BaseAction extends ViewAction
         return $ret;
     }
 
-    public function getRules()
+    /**
+     * @return array<string, string>
+     */
+    public function getRules(): array
     {
         $ret = [];
         foreach (Rule::find()->all() as $a) {
@@ -55,7 +63,10 @@ abstract class BaseAction extends ViewAction
         return $ret;
     }
 
-    public function getMaps()
+    /**
+     * @return array<string, string>
+     */
+    public function getMaps(): array
     {
         $ret = [];
         foreach (Map::find()->all() as $a) {

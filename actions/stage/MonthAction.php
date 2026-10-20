@@ -10,12 +10,15 @@ namespace app\actions\stage;
 use DateInterval;
 use DateTimeImmutable;
 use DateTimeZone;
+use Override;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
 use app\components\helpers\Resource;
 use app\models\GameMode;
 use app\models\Map;
 use app\models\PeriodMap;
+use app\models\Rule;
+use stdClass;
 use yii\db\Query;
 use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
@@ -38,18 +41,19 @@ use function usort;
  */
 class MonthAction extends BaseAction
 {
-    public $year;
-    public $month;
-    public $periodS;
-    public $periodE;
+    public mixed $year = null;
+    public mixed $month = null;
+    public ?int $periodS = null;
+    public ?int $periodE = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         $this->prepare();
     }
 
-    private function prepare()
+    private function prepare(): void
     {
         // {{{
         $req = Yii::$app->request;
@@ -84,7 +88,8 @@ class MonthAction extends BaseAction
         // }}}
     }
 
-    public function run()
+    #[Override]
+    public function run(): string
     {
         return $this->controller->render('month', [
             'rules' => $this->buildData(),
@@ -97,6 +102,9 @@ class MonthAction extends BaseAction
         ]);
     }
 
+    /**
+     * @return stdClass[]
+     */
     public function buildData(): array
     {
         $raiiTimeZone = self::setTimeZoneToFavorable();
@@ -134,6 +142,9 @@ class MonthAction extends BaseAction
         }
     }
 
+    /**
+     * @return array<int, Map>
+     */
     public function getMaps(): array
     {
         // {{{
@@ -151,6 +162,9 @@ class MonthAction extends BaseAction
         // }}}
     }
 
+    /**
+     * @return Rule[]
+     */
     public function getRules(): array
     {
         // {{{
@@ -169,6 +183,9 @@ class MonthAction extends BaseAction
         // }}}
     }
 
+    /**
+     * @return array<int, array<string, mixed>>
+     */
     public function getCountData(): array
     {
         // {{{
@@ -185,17 +202,17 @@ class MonthAction extends BaseAction
         // }}}
     }
 
-    public function getPrevMonthUrl()
+    public function getPrevMonthUrl(): ?string
     {
         return $this->getRelativeMonthUrl(-1);
     }
 
-    public function getNextMonthUrl()
+    public function getNextMonthUrl(): ?string
     {
         return $this->getRelativeMonthUrl(1);
     }
 
-    public function getRelativeMonthUrl(int $rel)
+    public function getRelativeMonthUrl(int $rel): ?string
     {
         // {{{
         $t = mktime(0, 0, 0, $this->month + $rel, 1, $this->year);
@@ -218,11 +235,15 @@ class MonthAction extends BaseAction
         // }}}
     }
 
-    private static function http404()
+    private static function http404(): void
     {
         throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
     }
 
+    /**
+     * @param scalar $year
+     * @param scalar $month
+     */
     private static function isValidMonth($year, $month): bool
     {
         // {{{

@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\api\v3;
 
+use Override;
 use app\actions\api\v3\traits\ApiInitializerTrait;
 use app\components\formatters\api\v3\SplatoonVersionGroupApiFormatter;
 use app\models\SplatoonVersionGroup3;
@@ -23,17 +24,15 @@ final class VersionAction extends ViewAction
 {
     use ApiInitializerTrait;
 
-    /**
-     * @inheritdoc
-     */
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         $this->apiInit();
     }
 
     /**
-     * @return array[]
+     * @return array<int, array<string, mixed>>
      */
     public function run(bool $full = false): array
     {

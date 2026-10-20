@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\user;
 
+use Override;
 use Yii;
 use app\components\helpers\AddressUpdatedEmailSender;
 use app\models\EmailVerifyForm;
@@ -20,7 +21,8 @@ use function time;
 
 class EditEmailVerifyAction extends ViewAction
 {
-    public function run()
+    #[Override]
+    public function run(): string
     {
         $request = Yii::$app->request;
         $form = Yii::createObject(EmailVerifyForm::class);

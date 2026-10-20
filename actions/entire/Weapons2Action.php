@@ -13,6 +13,7 @@ use DateInterval;
 use DateTime;
 use DateTimeZone;
 use Exception;
+use Override;
 use Throwable;
 use Yii;
 use app\components\helpers\YearMonth;
@@ -46,11 +47,12 @@ use const SORT_ASC;
 use const SORT_DESC;
 
 /**
- * @property-read array $weaponUses
+ * @property-read array<int, array<string, mixed>> $weaponUses
  */
 class Weapons2Action extends BaseAction
 {
-    public function run()
+    #[Override]
+    public function run(): string
     {
         $form = Yii::createObject(['class' => EntireWeapon2Form::class]);
         $form->load($_GET) && $form->validate();
@@ -62,7 +64,10 @@ class Weapons2Action extends BaseAction
         ]);
     }
 
-    public function getWeaponUses()
+    /**
+     * @return array<int, array<string, mixed>>
+     */
+    public function getWeaponUses(): array
     {
         $threshold = (function () {
             $date = new DateTime('@' . $_SERVER['REQUEST_TIME'])
@@ -161,6 +166,9 @@ class Weapons2Action extends BaseAction
         }, $baselist);
     }
 
+    /**
+     * @return stdClass[]
+     */
     public function getEntireWeapons(EntireWeapon2Form $form): array
     {
         $rules = [];
@@ -179,7 +187,7 @@ class Weapons2Action extends BaseAction
         return $rules;
     }
 
-    private function getEntireWeaponsByRule(Rule2 $rule, EntireWeapon2Form $form)
+    private function getEntireWeaponsByRule(Rule2 $rule, EntireWeapon2Form $form): stdClass
     {
         $columns = [
             'weapon_key' => 'MAX({{weapon2}}.[[key]])',
@@ -396,7 +404,11 @@ class Weapons2Action extends BaseAction
         ];
     }
 
-    public function getWeapons(array $weaponIdList)
+    /**
+     * @param int[] $weaponIdList
+     * @return array<int, Weapon2>
+     */
+    public function getWeapons(array $weaponIdList): array
     {
         $list = Weapon2::find()
             ->andWhere(['in', '{{weapon}}.[[id]]', $weaponIdList])
@@ -408,7 +420,10 @@ class Weapons2Action extends BaseAction
         return $ret;
     }
 
-    private function convertWeapons2Sub($in)
+    /**
+     * @return stdClass[]
+     */
+    private function convertWeapons2Sub(stdClass $in): array
     {
         static $subs = null;
         if ($subs === null) {
@@ -467,7 +482,10 @@ class Weapons2Action extends BaseAction
         return $ret;
     }
 
-    private function convertWeapons2Special($in)
+    /**
+     * @return stdClass[]
+     */
+    private function convertWeapons2Special(stdClass $in): array
     {
         static $specials = null;
         if ($specials === null) {
@@ -528,6 +546,9 @@ class Weapons2Action extends BaseAction
         return $ret;
     }
 
+    /**
+     * @return stdClass[]
+     */
     private function convertWeapons2Type(stdClass $in): array
     {
         $weapons = $in->weapons;
@@ -572,6 +593,9 @@ class Weapons2Action extends BaseAction
         return $ret;
     }
 
+    /**
+     * @return stdClass[]
+     */
     private function convertWeapons2Category(stdClass $in): array
     {
         $weapons = $in->weapons;

@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\entire;
 
+use Override;
 use Yii;
 use app\models\Knockout;
 use app\models\Rule;
@@ -21,7 +22,8 @@ use function uasort;
 
 class KnockoutAction extends BaseAction
 {
-    public function run()
+    #[Override]
+    public function run(): string
     {
         $rules = [];
         $query = Rule::find()

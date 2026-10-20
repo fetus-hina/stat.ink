@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\api\v3;
 
+use Override;
 use Yii;
 use app\actions\api\v3\traits\ApiInitializerTrait;
 use app\components\formatters\api\v3\BattleApiFormatter;
@@ -32,10 +33,8 @@ final class PostBattleAction extends Action
 {
     use ApiInitializerTrait;
 
-    /**
-     * @inheritdoc
-     */
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         $this->apiInit();
@@ -150,6 +149,9 @@ final class PostBattleAction extends Action
         return $resp;
     }
 
+    /**
+     * @param array<string, string>|null $errors
+     */
     private function formatError(?array $errors, int $code): Response
     {
         $resp = Yii::$app->response;

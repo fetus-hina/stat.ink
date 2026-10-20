@@ -23,6 +23,9 @@ use const SORT_ASC;
 
 trait SpecialTrait
 {
+    /**
+     * @return array<array<string, mixed>>
+     */
     private function getSpecialStats(Connection $db, User $user, SalmonSchedule3 $schedule): array
     {
         $waves = $schedule->is_eggstra_work ? 5 : 3;

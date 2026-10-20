@@ -74,6 +74,9 @@ final class Weapon3Action extends Action
             : $controller->render('v3/weapon3', $params);
     }
 
+    /**
+     * @return Response|array<string, mixed>
+     */
     private function doRun(
         Controller $controller,
         Connection $db,
@@ -559,6 +562,9 @@ final class Weapon3Action extends Action
         );
     }
 
+    /**
+     * @return SplatoonVersion3[]
+     */
     private function getVersions(Connection $db): array
     {
         $ts = new DateTimeImmutable('now', new DateTimeZone('Etc/UTC'))

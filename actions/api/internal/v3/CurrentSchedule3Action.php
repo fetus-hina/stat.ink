@@ -25,6 +25,9 @@ use const SORT_ASC;
 
 final class CurrentSchedule3Action extends Action
 {
+    /**
+     * @return array<string, mixed>
+     */
     public function run(): array
     {
         Yii::$app->response->format = YII_ENV_PROD ? 'compact-json' : 'json';
@@ -38,7 +41,7 @@ final class CurrentSchedule3Action extends Action
     }
 
     /**
-     * @return array{period: int, start_at: int, end_at: int, lobbies: array<string, array>}
+     * @return array{period: int, start_at: int, end_at: int, lobbies: array<string, array<string, mixed>>}
      */
     private function buildPeriodPayload(int $period): array
     {

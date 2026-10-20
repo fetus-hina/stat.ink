@@ -7,6 +7,7 @@
 
 namespace app\actions\api\v1;
 
+use Override;
 use Yii;
 use app\models\StatWeaponMapTrend;
 use app\models\api\v1\WeaponTrendsGetForm as Form;
@@ -17,13 +18,18 @@ use function ini_set;
 
 class WeaponTrendsAction extends BaseAction
 {
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         Yii::$app->language = 'en-US';
     }
 
-    public function run()
+    /**
+     * @return array<mixed>
+     */
+    #[Override]
+    public function run(): array
     {
         $response = Yii::$app->getResponse();
         $response->format = 'json';

@@ -27,6 +27,9 @@ trait Salmon3Formatter
 {
     use UserFormatter;
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function formatSalmon3(Salmon3 $battle): array
     {
         $am = TypeHelper::instanceOf(Yii::$app->assetManager, AssetManager::class);
@@ -142,6 +145,9 @@ trait Salmon3Formatter
         );
     }
 
+    /**
+     * @return array<string, mixed>|null
+     */
     private function salmonStage3(Salmon3 $battle): ?array
     {
         return null;

@@ -39,6 +39,9 @@ final class LoginWithDiscordAction extends AbstractOAuth2LoginAction
         return 'oauth2state.discord';
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     #[Override]
     protected function getAuthorizationOptions(): array
     {

@@ -25,6 +25,9 @@ use const SORT_ASC;
 
 trait Battle3
 {
+    /**
+     * @return array<string, array<string, mixed>>
+     */
     private function getBattle3(): array
     {
         $period = $this->currentPeriod;
@@ -55,6 +58,9 @@ trait Battle3
     }
 
     // 直近に開催されるロビーの一覧を取得
+    /**
+     * @return Lobby3[]
+     */
     private function getLobbies3(int $period): array
     {
         $availableLobbyIds = new Query()
@@ -70,6 +76,9 @@ trait Battle3
             ->all();
     }
 
+    /**
+     * @return array<int, array<string, mixed>>
+     */
     private function getBattleSchedules3(int $period, Lobby3 $lobby): array
     {
         $schedules = Schedule3::find()

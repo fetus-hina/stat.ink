@@ -7,6 +7,7 @@
 
 namespace app\actions\api\v2\battle;
 
+use Override;
 use Throwable;
 use Yii;
 use app\components\helpers\ImageConverter;
@@ -15,6 +16,7 @@ use app\components\web\ServiceUnavailableHttpException;
 use app\models\Battle2;
 use app\models\api\v2\PostBattleForm;
 use yii\helpers\Url;
+use yii\web\Response;
 use yii\web\UploadedFile;
 use yii\web\ViewAction as BaseAction;
 
@@ -30,7 +32,11 @@ use const JSON_UNESCAPED_UNICODE;
 
 class CreateAction extends BaseAction
 {
-    public function run()
+    /**
+     * @return array<string, mixed>|Response
+     */
+    #[Override]
+    public function run(): array|Response
     {
         // {{{
         $request = Yii::$app->getRequest();
@@ -98,7 +104,10 @@ class CreateAction extends BaseAction
         // }}}
     }
 
-    private function saveData(PostBattleForm $form)
+    /**
+     * @return Battle2|array{error: array<string, mixed>}
+     */
+    private function saveData(PostBattleForm $form): Battle2|array
     {
         // {{{
         $battle = $form->toBattle();
@@ -145,7 +154,7 @@ class CreateAction extends BaseAction
             }
         }
         foreach ($form->toDeathReasons($battle) as $reason) {
-            if ($reason && !$reason->save()) {
+            if (!$reason->save()) {
                 $this->logError([
                     'system' => [ Yii::t('app-api', 'Could not save to database: {0}', ['battle_death_reason']) ],
                     'system_' => $reason->getErrors(),
@@ -157,7 +166,7 @@ class CreateAction extends BaseAction
             }
         }
         foreach ($form->toPlayers($battle) as $player) {
-            if ($player && !$player->save()) {
+            if (!$player->save()) {
                 $this->logError([
                     'system' => [ 'Could not save to database: battle_player' ],
                     'system_' => $player->getErrors(),
@@ -312,7 +321,11 @@ class CreateAction extends BaseAction
         }
     }
 
-    private function formatError(array $errors, $code)
+    /**
+     * @param array<string, mixed> $errors
+     * @return array{error: array<string, mixed>}
+     */
+    private function formatError(array $errors, int $code): array
     {
         $resp = Yii::$app->getResponse();
         $resp->format = 'json';
@@ -322,7 +335,10 @@ class CreateAction extends BaseAction
         ];
     }
 
-    private function logError(array $errors)
+    /**
+     * @param array<string, mixed> $errors
+     */
+    private function logError(array $errors): void
     {
         $output = json_encode(
             ['error' => $errors],
@@ -340,7 +356,7 @@ class CreateAction extends BaseAction
         }
     }
 
-    private function created(Battle2 $battle, bool $found = false)
+    private function created(Battle2 $battle, bool $found = false): Response
     {
         $resp = Yii::$app->getResponse();
         $header = $resp->getHeaders();

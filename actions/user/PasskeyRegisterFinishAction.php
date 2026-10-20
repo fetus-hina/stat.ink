@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\user;
 
+use Override;
 use Throwable;
 use Yii;
 use app\components\helpers\PasskeyChallengeStore;
@@ -22,7 +23,11 @@ use yii\web\ViewAction as BaseAction;
 
 final class PasskeyRegisterFinishAction extends BaseAction
 {
-    public function run()
+    /**
+     * @return array<string, mixed>
+     */
+    #[Override]
+    public function run(): array
     {
         $ident = Yii::$app->user->getIdentity();
         if (!$ident) {

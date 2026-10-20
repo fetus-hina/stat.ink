@@ -16,7 +16,7 @@ use yii\web\Response;
 
 class GuessTimezoneAction extends Action
 {
-    public function run()
+    public function run(): void
     {
         $resp = Yii::$app->response;
         $resp->format = Response::FORMAT_JSON;
@@ -31,6 +31,9 @@ class GuessTimezoneAction extends Action
         }
     }
 
+    /**
+     * @return array<string, mixed>|null
+     */
     public function makeData(): ?array
     {
         if (!$geoip = UserTimeZone::guessByGeoIPEx()) {
@@ -39,13 +42,11 @@ class GuessTimezoneAction extends Action
 
         return [
             'geoip' => $geoip[1],
-            'guessed' => $geoip[0]
-                ? [
-                    'identifier' => $geoip[0]->identifier,
-                    'name' => Yii::t('app-tz', $geoip[0]->name),
-                    'name_en' => $geoip[0]->name,
-                ]
-                : null,
+            'guessed' => [
+                'identifier' => $geoip[0]->identifier,
+                'name' => Yii::t('app-tz', $geoip[0]->name),
+                'name_en' => $geoip[0]->name,
+            ],
         ];
     }
 }

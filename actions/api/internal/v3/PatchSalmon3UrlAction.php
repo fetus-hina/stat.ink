@@ -7,6 +7,7 @@
 
 namespace app\actions\api\internal\v3;
 
+use Override;
 use Throwable;
 use Yii;
 use app\components\formatters\api\v3\SalmonApiFormatter;
@@ -25,7 +26,8 @@ final class PatchSalmon3UrlAction extends Action
 {
     public Salmon3|null $model = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -90,7 +92,10 @@ final class PatchSalmon3UrlAction extends Action
         }
     }
 
-    public function run()
+    /**
+     * @return array<string, mixed>|null
+     */
+    public function run(): ?array
     {
         $form = Yii::createObject(PatchBattle3UrlForm::class);
         $form->attributes = $_POST;
@@ -115,6 +120,10 @@ final class PatchSalmon3UrlAction extends Action
         );
     }
 
+    /**
+     * @param array<string, string[]> $errors
+     * @return array{error: array<string, string[]>}
+     */
     public function formatError(array $errors, int $code = 400): array
     {
         $resp = Yii::$app->getResponse();

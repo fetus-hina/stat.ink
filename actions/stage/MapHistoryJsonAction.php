@@ -7,6 +7,7 @@
 
 namespace app\actions\stage;
 
+use Override;
 use Yii;
 use app\models\Map;
 use app\models\PeriodMap;
@@ -17,10 +18,11 @@ use yii\web\ViewAction as BaseAction;
 
 class MapHistoryJsonAction extends BaseAction
 {
-    public $map;
-    public $rule;
+    public ?Map $map = null;
+    public ?Rule $rule = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -35,7 +37,11 @@ class MapHistoryJsonAction extends BaseAction
         }
     }
 
-    public function run()
+    /**
+     * @return array<string, int>
+     */
+    #[Override]
+    public function run(): array
     {
         $query = new Query()
             ->select([
@@ -56,7 +62,7 @@ class MapHistoryJsonAction extends BaseAction
         return $ret;
     }
 
-    private static function http404()
+    private static function http404(): void
     {
         throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
     }

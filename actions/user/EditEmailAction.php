@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\user;
 
+use Override;
 use Yii;
 use app\components\helpers\AddressUpdatedEmailSender;
 use app\models\EmailForm;
@@ -20,7 +21,8 @@ use function time;
 
 class EditEmailAction extends ViewAction
 {
-    public function run()
+    #[Override]
+    public function run(): ?string
     {
         $request = Yii::$app->request;
         $form = Yii::createObject(EmailForm::class);
@@ -46,10 +48,10 @@ class EditEmailAction extends ViewAction
                         );
                     }
                     $this->controller->redirect(['user/profile']);
-                    return;
+                    return null;
                 } elseif ($form->email === $user->email) {
                     $this->controller->redirect(['user/profile']);
-                    return;
+                    return null;
                 }
 
                 // Generate verify code {{{

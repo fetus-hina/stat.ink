@@ -9,9 +9,15 @@ declare(strict_types=1);
 
 namespace app\actions\api\internal;
 
+use Override;
 use Yii;
 use app\actions\api\internal\latestBattles\UserFormatter;
 use app\components\helpers\CombinedBattles;
+use app\models\Battle;
+use app\models\Battle2;
+use app\models\Battle3;
+use app\models\Salmon2;
+use app\models\Salmon3;
 use yii\db\Transaction;
 
 final class MyLatestBattlesAction extends BaseLatestBattlesAction
@@ -25,6 +31,9 @@ final class MyLatestBattlesAction extends BaseLatestBattlesAction
         return !Yii::$app->user->isGuest;
     }
 
+    /**
+     * @return array<Battle|Battle2|Battle3|Salmon2|Salmon3>
+     */
     protected function fetchBattles(): array
     {
         return Yii::$app->db->transaction(
@@ -36,7 +45,11 @@ final class MyLatestBattlesAction extends BaseLatestBattlesAction
         );
     }
 
-    public function run()
+    /**
+     * @return array<string, mixed>
+     */
+    #[Override]
+    public function run(): array
     {
         $json = parent::run();
         if ($json['battles']) {

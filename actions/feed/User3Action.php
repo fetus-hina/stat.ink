@@ -39,14 +39,17 @@ use const SORT_DESC;
 final class User3Action extends Action
 {
     #[Override]
-    public function init()
+    public function init(): void
     {
         parent::init();
         Yii::$app->timeZone = 'Etc/UTC';
         Yii::$app->language = 'en-US';
     }
 
-    public function run()
+    /**
+     * @return array{error: mixed}|string
+     */
+    public function run(): array|string
     {
         $request = Yii::$app->getRequest();
         $resp = Yii::$app->getResponse();

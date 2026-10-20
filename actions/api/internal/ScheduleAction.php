@@ -11,6 +11,7 @@ namespace app\actions\api\internal;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use Override;
 use Yii;
 use app\actions\api\internal\schedule\Splatoon2;
 use app\actions\api\internal\schedule\Splatoon3;
@@ -27,7 +28,8 @@ final class ScheduleAction extends Action
     private DateTimeImmutable $now;
     private int $currentPeriod;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -38,7 +40,10 @@ final class ScheduleAction extends Action
         $this->currentPeriod = BattleHelper::calcPeriod2($t);
     }
 
-    public function run()
+    /**
+     * @return array<string, mixed>
+     */
+    public function run(): array
     {
         $response = Yii::$app->getResponse();
         $response->format = YII_ENV_PROD ? 'compact-json' : 'json';
@@ -58,6 +63,9 @@ final class ScheduleAction extends Action
         ];
     }
 
+    /**
+     * @return array<string, string>
+     */
     private function getTranslations(): array
     {
         return [
@@ -68,6 +76,9 @@ final class ScheduleAction extends Action
         ];
     }
 
+    /**
+     * @return array<string, array{url: string, name: string}>
+     */
     private function getSources(): array
     {
         return [
@@ -82,6 +93,9 @@ final class ScheduleAction extends Action
         ];
     }
 
+    /**
+     * @return array<string, array<string, mixed>>
+     */
     private function getGames(): array
     {
         return [

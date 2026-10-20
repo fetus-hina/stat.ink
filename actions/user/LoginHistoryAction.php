@@ -13,6 +13,7 @@ use DateInterval;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
+use Override;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\data\Pagination;
@@ -20,7 +21,8 @@ use yii\web\ViewAction;
 
 class LoginHistoryAction extends ViewAction
 {
-    public function run()
+    #[Override]
+    public function run(): string
     {
         $user = Yii::$app->getUser()->getIdentity();
 

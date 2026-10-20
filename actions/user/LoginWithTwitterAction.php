@@ -9,6 +9,7 @@ namespace app\actions\user;
 
 use GuzzleHttp\Client as GuzzleClient;
 use League\OAuth1\Client\Credentials\TemporaryCredentials;
+use League\OAuth1\Client\Credentials\TokenCredentials;
 use League\OAuth1\Client\Server\Twitter as TwitterServer;
 use Override;
 use Throwable;
@@ -20,6 +21,7 @@ use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
+use yii\web\Response;
 
 use function is_array;
 
@@ -29,14 +31,14 @@ final class LoginWithTwitterAction extends Action
     private const TWITTER_V2_USERS_ME = 'https://api.twitter.com/2/users/me';
 
     #[Override]
-    public function init()
+    public function init(): void
     {
         if (!Yii::$app->params['twitter']['read_enabled']) {
             throw new BadRequestHttpException();
         }
     }
 
-    public function run()
+    public function run(): Response
     {
         $request = Yii::$app->request;
         $response = Yii::$app->response;
@@ -111,7 +113,10 @@ final class LoginWithTwitterAction extends Action
         return $tempCreds;
     }
 
-    private function fetchTwitterV2User(TwitterServer $twitter, $tokenCredentials): array
+    /**
+     * @return array<string, mixed>
+     */
+    private function fetchTwitterV2User(TwitterServer $twitter, TokenCredentials $tokenCredentials): array
     {
         $url = self::TWITTER_V2_USERS_ME;
         $headers = $twitter->getHeaders($tokenCredentials, 'GET', $url);

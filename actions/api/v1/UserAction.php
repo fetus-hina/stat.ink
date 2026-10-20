@@ -7,6 +7,7 @@
 
 namespace app\actions\api\v1;
 
+use Override;
 use Yii;
 use app\models\Battle;
 use app\models\User;
@@ -21,7 +22,11 @@ use function time;
 
 class UserAction extends BaseAction
 {
-    public function run()
+    /**
+     * @return array<mixed>|null
+     */
+    #[Override]
+    public function run(): ?array
     {
         Yii::$app->response->format = 'json';
         $request = Yii::$app->getRequest();

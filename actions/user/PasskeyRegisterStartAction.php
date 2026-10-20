@@ -9,19 +9,22 @@ declare(strict_types=1);
 
 namespace app\actions\user;
 
+use Override;
 use Yii;
 use app\components\helpers\PasskeyChallengeStore;
 use app\components\helpers\WebAuthnHelper;
 use app\models\PasskeyChallenge;
 use app\models\UserPasskey;
 use app\models\UserPasskeyUser;
+use stdClass;
 use yii\web\BadRequestHttpException;
 use yii\web\ServerErrorHttpException;
 use yii\web\ViewAction as BaseAction;
 
 final class PasskeyRegisterStartAction extends BaseAction
 {
-    public function run()
+    #[Override]
+    public function run(): stdClass
     {
         $ident = Yii::$app->user->getIdentity();
         if (!$ident) {

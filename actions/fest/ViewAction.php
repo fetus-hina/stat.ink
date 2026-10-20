@@ -7,6 +7,7 @@
 
 namespace app\actions\fest;
 
+use Override;
 use Yii;
 use app\models\FestViewForm;
 use app\models\Splatfest;
@@ -21,22 +22,22 @@ use function strtotime;
 use const SORT_ASC;
 
 /**
- * @property-read array $results
+ * @property-read array<int, array{at: int|false, alpha: int, bravo: int}> $results
  */
 class ViewAction extends BaseAction
 {
-    public $fest;
-    public $alpha;
-    public $bravo;
+    public ?Splatfest $fest = null;
+    public ?SplatfestTeam $alpha = null;
+    public ?SplatfestTeam $bravo = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
-        $r = parent::init();
+        parent::init();
         $this->doInit();
-        return $r;
     }
 
-    private function doInit()
+    private function doInit(): void
     {
         if (!$form = $this->createAndValidateRequestForm()) {
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
@@ -59,7 +60,7 @@ class ViewAction extends BaseAction
         }
     }
 
-    private function createAndValidateRequestForm()
+    private function createAndValidateRequestForm(): FestViewForm|false
     {
         $req = Yii::$app->request;
         $model = FestViewForm::validateData(
@@ -74,7 +75,8 @@ class ViewAction extends BaseAction
         return false;
     }
 
-    public function run()
+    #[Override]
+    public function run(): string
     {
         return $this->controller->render('view', [
             'fest' => $this->fest,
@@ -84,7 +86,10 @@ class ViewAction extends BaseAction
         ]);
     }
 
-    public function getResults()
+    /**
+     * @return array<int, array{at: int|false, alpha: int, bravo: int}>
+     */
+    public function getResults(): array
     {
         $query = SplatfestBattleSummary::find()
             ->andWhere(['{{splatfest_battle_summary}}.[[fest_id]]' => $this->fest->id])

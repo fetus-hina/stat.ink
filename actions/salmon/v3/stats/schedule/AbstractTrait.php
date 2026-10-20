@@ -20,6 +20,9 @@ use function sprintf;
 
 trait AbstractTrait
 {
+    /**
+     * @return array<string, mixed>
+     */
     private function getStats(Connection $db, User $user, ?SalmonSchedule3 $schedule): array
     {
         $waves = $schedule?->is_eggstra_work ? 5 : 3;

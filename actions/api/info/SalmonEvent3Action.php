@@ -20,7 +20,7 @@ use function strnatcasecmp;
 
 final class SalmonEvent3Action extends Action
 {
-    public function run()
+    public function run(): string
     {
         return $this->controller->render('salmon-event3', [
             'events' => ArrayHelper::sort(

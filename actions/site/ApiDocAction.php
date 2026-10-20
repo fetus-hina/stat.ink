@@ -7,6 +7,7 @@
 
 namespace app\actions\site;
 
+use Override;
 use Yii;
 use cebe\markdown\GithubMarkdown as Markdown;
 
@@ -14,9 +15,10 @@ use function file_get_contents;
 
 class ApiDocAction extends SimpleAction
 {
-    public $view = 'api.tpl';
+    public string|false $view = 'api.tpl';
 
-    public function run()
+    #[Override]
+    public function run(): string
     {
         $markdown = file_get_contents(Yii::getAlias('@app/API.md'));
         $this->params['content'] = new Markdown()->parse($markdown);

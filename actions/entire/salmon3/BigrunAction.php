@@ -56,6 +56,9 @@ final class BigrunAction extends Action
         return $controller->render('salmon3/bigrun', $thing);
     }
 
+    /**
+     * @return Response|array<string, mixed>
+     */
     private function doRun(Connection $db): Response|array
     {
         $scheduleId = filter_var(Yii::$app->request->get('shift'), FILTER_VALIDATE_INT);

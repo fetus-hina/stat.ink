@@ -40,6 +40,9 @@ final class UpdateLoginWithGoogleAction extends AbstractOAuth2UpdateLoginAction
         return 'oauth2state.google.update';
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     #[Override]
     protected function getAuthorizationOptions(): array
     {
@@ -58,6 +61,9 @@ final class UpdateLoginWithGoogleAction extends AbstractOAuth2UpdateLoginAction
         return LoginWithGoogle::findOne(['google_id' => $externalId]);
     }
 
+    /**
+     * @param array<string, mixed> $userData
+     */
     #[Override]
     protected function createNewLink(User $user, int|string $externalId, array $userData): LoginWithGoogle
     {

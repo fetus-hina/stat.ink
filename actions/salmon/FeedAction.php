@@ -13,6 +13,7 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Laminas\Feed\Writer\Feed as FeedWriter;
 use Laminas\Feed\Writer\Version as FeedVersion;
+use Override;
 use Yii;
 use app\components\i18n\Formatter;
 use app\models\Salmon2;
@@ -36,7 +37,8 @@ use const SORT_DESC;
 
 class FeedAction extends Action
 {
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -44,7 +46,10 @@ class FeedAction extends Action
         Yii::$app->language = 'en-US';
     }
 
-    public function run()
+    /**
+     * @return array{error: mixed}|string
+     */
+    public function run(): array|string
     {
         $request = Yii::$app->getRequest();
         $resp = Yii::$app->getResponse();

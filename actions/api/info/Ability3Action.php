@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\api\info;
 
+use Override;
 use Yii;
 use app\models\Ability3;
 use app\models\Language;
@@ -21,7 +22,8 @@ use const SORT_ASC;
 
 final class Ability3Action extends ViewAction
 {
-    public function run()
+    #[Override]
+    public function run(): string
     {
         $langs = Language::find()->standard()->all();
         $abilities = Ability3::find()

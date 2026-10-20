@@ -22,6 +22,9 @@ trait Salmon2Formatter
 {
     use UserFormatter;
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function formatSalmon2(Salmon2 $battle): array
     {
         $am = Yii::$app->assetManager;

@@ -10,6 +10,7 @@ namespace app\actions\entire;
 use DateInterval;
 use DateTime;
 use DateTimeZone;
+use Override;
 use ParagonIE\ConstantTime\Base32;
 use RangeException;
 use Yii;
@@ -28,14 +29,15 @@ use function min;
 use const SORT_ASC;
 
 /**
- * @property-read AgentGroup[] $combineds
- * @property-read array $postStats
+ * @property-read array<int, array<string, mixed>> $combineds
+ * @property-read list<array{date: string, battle: int, user: int}> $postStats
  */
 final class AgentAction extends Action
 {
-    public $form;
+    public ?EntireAgentForm $form = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -50,7 +52,7 @@ final class AgentAction extends Action
         $this->form = $form;
     }
 
-    public function run()
+    public function run(): string
     {
         try {
             $name = Base32::decode($this->form->b32name);
@@ -64,7 +66,10 @@ final class AgentAction extends Action
         ]);
     }
 
-    public function getPostStats()
+    /**
+     * @return list<array{date: string, battle: int, user: int}>
+     */
+    public function getPostStats(): array
     {
         try {
             $list = StatAgentUser::find()
@@ -106,7 +111,10 @@ final class AgentAction extends Action
         return array_values($ret);
     }
 
-    public function getCombineds()
+    /**
+     * @return array<int, array<string, mixed>>
+     */
+    public function getCombineds(): array
     {
         try {
             return AgentGroup::find()

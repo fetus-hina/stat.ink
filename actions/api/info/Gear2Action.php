@@ -19,14 +19,14 @@ use function usort;
 
 final class Gear2Action extends Action
 {
-    public $type;
+    public ?string $type = null;
 
     public function getType(): ?GearType
     {
         return GearType::findOne(['key' => (string)$this->type]);
     }
 
-    public function run()
+    public function run(): string
     {
         if (!$type = $this->getType()) {
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));

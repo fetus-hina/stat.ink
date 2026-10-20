@@ -40,6 +40,9 @@ final class UpdateLoginWithDiscordAction extends AbstractOAuth2UpdateLoginAction
         return 'oauth2state.discord.update';
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     #[Override]
     protected function getAuthorizationOptions(): array
     {
@@ -58,6 +61,9 @@ final class UpdateLoginWithDiscordAction extends AbstractOAuth2UpdateLoginAction
         return LoginWithDiscord::findOne(['discord_id' => $externalId]);
     }
 
+    /**
+     * @param array<string, mixed> $userData
+     */
     #[Override]
     protected function createNewLink(User $user, int|string $externalId, array $userData): LoginWithDiscord
     {

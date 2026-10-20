@@ -7,6 +7,8 @@
 
 namespace app\actions\downloadStats;
 
+use Generator;
+use Override;
 use Yii;
 use app\components\web\CsvResponseFormatter;
 use app\models\Charset;
@@ -18,7 +20,11 @@ use function sprintf;
 
 class WeaponRuleMapAction extends BaseAction
 {
-    public function run()
+    /**
+     * @return array<string, mixed>
+     */
+    #[Override]
+    public function run(): array
     {
         if ($this->config->lang) {
             Yii::$app->language = $this->config->lang;
@@ -41,7 +47,10 @@ class WeaponRuleMapAction extends BaseAction
         ];
     }
 
-    public function generateData()
+    /**
+     * @return Generator<int, array<int, mixed>>
+     */
+    public function generateData(): Generator
     {
         $query = new Query()
             ->select([

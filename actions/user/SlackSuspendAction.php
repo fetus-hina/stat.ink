@@ -7,6 +7,7 @@
 
 namespace app\actions\user;
 
+use Override;
 use Yii;
 use app\components\helpers\db\Now;
 use app\models\Slack;
@@ -16,7 +17,11 @@ use yii\web\ViewAction as BaseAction;
 
 class SlackSuspendAction extends BaseAction
 {
-    public function run()
+    /**
+     * @return array<string, mixed>
+     */
+    #[Override]
+    public function run(): array
     {
         $ident = Yii::$app->user->getIdentity();
         if (!$ident) {

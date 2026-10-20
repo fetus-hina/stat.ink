@@ -9,12 +9,14 @@ declare(strict_types=1);
 
 namespace app\actions\user;
 
+use Override;
 use RuntimeException;
 use Throwable;
 use Yii;
 use app\components\helpers\PasskeyReauth;
 use app\components\helpers\UserNotifier;
 use app\models\User;
+use yii\web\Response;
 use yii\web\ViewAction as BaseAction;
 
 /**
@@ -22,7 +24,8 @@ use yii\web\ViewAction as BaseAction;
  */
 final class DisablePasswordAction extends BaseAction
 {
-    public function run()
+    #[Override]
+    public function run(): string|Response
     {
         $ident = Yii::$app->user->getIdentity();
         if (!$ident instanceof User) {

@@ -20,6 +20,9 @@ use const SORT_ASC;
 
 trait Salmon3
 {
+    /**
+     * @return array<int, array<string, mixed>>
+     */
     protected function getPostStatsSalmon3(): array
     {
         return Yii::$app->db->transaction(

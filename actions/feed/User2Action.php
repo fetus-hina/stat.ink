@@ -13,6 +13,7 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Laminas\Feed\Writer\Feed as FeedWriter;
 use Laminas\Feed\Writer\Version;
+use Override;
 use Yii;
 use app\models\Battle2;
 use app\models\User;
@@ -34,14 +35,19 @@ use const SORT_DESC;
 
 class User2Action extends BaseAction
 {
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         Yii::$app->timeZone = 'Etc/UTC';
         Yii::$app->language = 'en-US';
     }
 
-    public function run()
+    /**
+     * @return array{error: mixed}|string
+     */
+    #[Override]
+    public function run(): array|string
     {
         $request = Yii::$app->getRequest();
         $resp = Yii::$app->getResponse();
@@ -241,7 +247,7 @@ class User2Action extends BaseAction
         return $feed->export($model->type);
     }
 
-    protected function makeEntryContent(Battle2 $battle, $lang)
+    protected function makeEntryContent(Battle2 $battle, string $lang): string
     {
         $html = '';
         if ($battle->battleImageResult || $battle->battleImageJudge) {

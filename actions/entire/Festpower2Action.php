@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\entire;
 
+use Override;
 use Yii;
 use yii\db\Query;
 use yii\db\Transaction;
@@ -31,7 +32,8 @@ class Festpower2Action extends ViewAction
     public const MISTAKE_BEGIN = '2018-05-19T04:00:00+00:00';
     public const MISTAKE_END = '2018-05-20T14:00:00+00:00';
 
-    public function run()
+    #[Override]
+    public function run(): string
     {
         return Yii::$app->db->transaction(
             fn (): string => $this->controller->render(
@@ -47,6 +49,9 @@ class Festpower2Action extends ViewAction
         );
     }
 
+    /**
+     * @return array<array<string, mixed>>
+     */
     public function getData(): array
     {
         $my = '{{battle2}}.[[my_team_estimate_fest_power]]';
@@ -105,6 +110,9 @@ class Festpower2Action extends ViewAction
         ));
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getTotalCounts(): array
     {
         $my = '{{battle2}}.[[my_team_estimate_fest_power]]';

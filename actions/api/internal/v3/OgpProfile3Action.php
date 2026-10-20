@@ -7,6 +7,7 @@
 
 namespace app\actions\api\internal\v3;
 
+use Override;
 use Yii;
 use app\components\formatters\api\v3\UserApiFormatter;
 use app\components\helpers\TypeHelper;
@@ -33,7 +34,8 @@ final class OgpProfile3Action extends Action
 {
     public User|null $user = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -59,7 +61,10 @@ final class OgpProfile3Action extends Action
         }
     }
 
-    public function run()
+    /**
+     * @return array<string, mixed>
+     */
+    public function run(): array
     {
         $user = TypeHelper::instanceOf($this->user, User::class);
 
@@ -75,6 +80,9 @@ final class OgpProfile3Action extends Action
         );
     }
 
+    /**
+     * @return array<string, mixed>|null
+     */
     private function playerData(User $user): ?array
     {
         $player = BattlePlayer3::find()
@@ -107,6 +115,9 @@ final class OgpProfile3Action extends Action
             : null;
     }
 
+    /**
+     * @return array<string, mixed>|null
+     */
     private function battleData(User $user): ?array
     {
         $data = new Query()
@@ -152,6 +163,9 @@ final class OgpProfile3Action extends Action
         ];
     }
 
+    /**
+     * @return array<string, mixed>|null
+     */
     private function salmonData(User $user): ?array
     {
         $model = UserStatSalmon3::find()
@@ -189,6 +203,9 @@ final class OgpProfile3Action extends Action
         ];
     }
 
+    /**
+     * @return array<string, mixed>|null
+     */
     private function xPeakData(User $user): ?array
     {
         $models = UserStat3XMatch::find()

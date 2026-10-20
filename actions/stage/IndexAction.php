@@ -7,11 +7,13 @@
 
 namespace app\actions\stage;
 
+use Override;
 use yii\web\ViewAction as BaseAction;
 
 class IndexAction extends BaseAction
 {
-    public function run()
+    #[Override]
+    public function run(): void
     {
         // イカリング1が2017-09に死んだのでそれを最終としてそこに飛ばす
         $this->controller->redirect([

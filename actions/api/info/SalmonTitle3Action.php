@@ -21,7 +21,7 @@ use const SORT_ASC;
 
 final class SalmonTitle3Action extends Action
 {
-    public function run()
+    public function run(): string
     {
         return $this->controller->render('salmon-title3', [
             'titles' => SalmonTitle3::find()

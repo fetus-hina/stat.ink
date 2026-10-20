@@ -7,6 +7,7 @@
 
 namespace app\actions\api\v1;
 
+use Override;
 use Yii;
 use app\models\Rule;
 use yii\web\ViewAction as BaseAction;
@@ -15,7 +16,11 @@ use function array_map;
 
 class RuleAction extends BaseAction
 {
-    public function run()
+    /**
+     * @return array<mixed>
+     */
+    #[Override]
+    public function run(): array
     {
         $response = Yii::$app->getResponse();
         $response->format = 'json';

@@ -140,6 +140,9 @@ final class ScheduleAction extends Action
             );
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function getCachingCondition(
         Connection $db,
         User $user,

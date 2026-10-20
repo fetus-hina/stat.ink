@@ -7,11 +7,13 @@
 
 namespace app\actions\site;
 
+use Override;
 use yii\web\ViewAction as BaseAction;
 
 class IndexAction extends BaseAction
 {
-    public function run()
+    #[Override]
+    public function run(): string
     {
         $time = $_SERVER['REQUEST_TIME'];
         return $this->controller->render('index', [

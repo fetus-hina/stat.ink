@@ -120,6 +120,9 @@ final class StatsAction extends Action
             );
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function getCachingCondition(Connection $db, User $user): array
     {
         return new Query()
