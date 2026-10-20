@@ -34,7 +34,7 @@ use const SORT_DESC;
 
 final class Weapon3Action extends Action
 {
-    public function run()
+    public function run(): string
     {
         return $this->controller->render(
             'weapon3',
@@ -75,6 +75,9 @@ final class Weapon3Action extends Action
         );
     }
 
+    /**
+     * @return Special3[]
+     */
     private function getSpecials(): array
     {
         return Special3::find()
@@ -83,6 +86,9 @@ final class Weapon3Action extends Action
             ->all();
     }
 
+    /**
+     * @return Subweapon3[]
+     */
     private function getSubweapons(): array
     {
         return ArrayHelper::sort(
@@ -98,6 +104,9 @@ final class Weapon3Action extends Action
         );
     }
 
+    /**
+     * @return Weapon3[]
+     */
     private function getWeapons(): array
     {
         return ArrayHelper::sort(
@@ -123,6 +132,9 @@ final class Weapon3Action extends Action
         );
     }
 
+    /**
+     * @return SalmonWeapon3[]
+     */
     private function getSalmonWeapons(): array
     {
         return ArrayHelper::sort(

@@ -26,6 +26,9 @@ final class TurfwarWinBonusQuery extends ActiveQuery
         return $this->at(new Now());
     }
 
+    /**
+     * @param Expression|int|string $time
+     */
     public function at($time): self
     {
         return $this

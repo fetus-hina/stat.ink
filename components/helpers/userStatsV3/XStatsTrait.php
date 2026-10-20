@@ -135,6 +135,9 @@ trait XStatsTrait
             ]);
     }
 
+    /**
+     * @param array<string, mixed> $row
+     */
     private static function saveAggregatedStatsX(
         Connection $db,
         User $user,

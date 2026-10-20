@@ -16,6 +16,9 @@ final class UserLanguageForm extends Model
 {
     use ValidateDataTrait;
 
+    /**
+     * @var string|null
+     */
     public $language;
 
     #[Override]

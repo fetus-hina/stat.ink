@@ -20,12 +20,21 @@ use function sprintf;
 
 abstract class BaseGearForm extends Model
 {
+    /**
+     * @var mixed
+     */
     public $gear;
+    /**
+     * @var mixed
+     */
     public $primary_ability;
+    /**
+     * @var mixed
+     */
     public $secondary_abilities;
 
     // subclass should return one of "headgear", "clothing" or "shoes".
-    abstract public function getType();
+    abstract public function getType(): string;
 
     public function behaviors()
     {
@@ -63,7 +72,7 @@ abstract class BaseGearForm extends Model
 
     // ギアが明示されたときに、装着部位が正しいかを検証する
     // （アタマのギアがクツについていないか）
-    public function validateGearType($attribute, $params)
+    public function validateGearType(string $attribute, mixed $params): void
     {
         if ($this->hasErrors($attribute)) {
             return;
@@ -83,7 +92,7 @@ abstract class BaseGearForm extends Model
     // サブのギアパワーを検証する。
     // 配列で0～3要素の Ability2::key になっていなければならない
     // ただし、nullは許容する(null=locked)
-    public function validateSecondaryAbilities($attribute, $params)
+    public function validateSecondaryAbilities(string $attribute, mixed $params): void
     {
         if ($this->hasErrors($attribute)) {
             return;
@@ -109,9 +118,9 @@ abstract class BaseGearForm extends Model
         }
     }
 
-    private $gearModel = false;
+    private Gear2|false|null $gearModel = false;
 
-    public function getGearModel()
+    public function getGearModel(): ?Gear2
     {
         if ($this->gearModel === false) {
             $this->gearModel = $this->gear == ''

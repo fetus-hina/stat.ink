@@ -43,7 +43,7 @@ use const SORT_DESC;
 final class FeedAction extends Action
 {
     #[Override]
-    public function init()
+    public function init(): void
     {
         parent::init();
 
@@ -51,7 +51,10 @@ final class FeedAction extends Action
         Yii::$app->language = 'en-US';
     }
 
-    public function run()
+    /**
+     * @return array{error: mixed}|string
+     */
+    public function run(): array|string
     {
         $request = Yii::$app->getRequest();
         $resp = Yii::$app->getResponse();

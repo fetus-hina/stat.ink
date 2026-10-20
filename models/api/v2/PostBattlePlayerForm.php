@@ -20,24 +20,81 @@ use function array_keys;
 
 class PostBattlePlayerForm extends Model
 {
+    /**
+     * @var mixed
+     */
     public $team;
+    /**
+     * @var mixed
+     */
     public $is_me;
+    /**
+     * @var mixed
+     */
     public $weapon;
+    /**
+     * @var mixed
+     */
     public $level;
+    /**
+     * @var mixed
+     */
     public $star_rank;
+    /**
+     * @var mixed
+     */
     public $rank;
+    /**
+     * @var mixed
+     */
     public $rank_in_team;
+    /**
+     * @var mixed
+     */
     public $kill;
+    /**
+     * @var mixed
+     */
     public $death;
+    /**
+     * @var mixed
+     */
     public $kill_or_assist;
+    /**
+     * @var mixed
+     */
     public $special;
+    /**
+     * @var mixed
+     */
     public $point;
+    /**
+     * @var mixed
+     */
     public $my_kill;
+    /**
+     * @var mixed
+     */
     public $name;
+    /**
+     * @var mixed
+     */
     public $species;
+    /**
+     * @var mixed
+     */
     public $gender;
+    /**
+     * @var mixed
+     */
     public $fest_title;
+    /**
+     * @var mixed
+     */
     public $splatnet_id;
+    /**
+     * @var mixed
+     */
     public $top_500;
 
     public function behaviors()

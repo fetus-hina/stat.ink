@@ -412,6 +412,9 @@ trait WeaponUsageTrait
         return $select;
     }
 
+    /**
+     * @return array<string, string>
+     */
     private function buildSelectMetricsForWeapon3Usage(string $baseName, string $column, bool $mode = true): array
     {
         $percentile = fn (string $column, int $percentile): string => sprintf(

@@ -17,6 +17,9 @@ use function strtotime;
 
 final class SalmonScheduleApiFormatter
 {
+    /**
+     * @return array<string, mixed>|null
+     */
     public static function toJson(?SalmonSchedule3 $model): ?array
     {
         if ($model === null) {

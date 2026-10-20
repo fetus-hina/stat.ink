@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\entire;
 
+use Override;
 use Yii;
 use app\models\Map2;
 use app\models\Rule2;
@@ -24,10 +25,11 @@ use const SORT_ASC;
 
 class Weapon2Action extends ViewAction
 {
-    public $weapon;
-    public $rule;
+    public ?Weapon2 $weapon = null;
+    public ?Rule2 $rule = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -39,7 +41,8 @@ class Weapon2Action extends ViewAction
         }
     }
 
-    public function run()
+    #[Override]
+    public function run(): string
     {
         $maps = Map2::getSortedMap(function (Map2Query $query): void {
             if ($this->rule->key !== 'nawabari') {

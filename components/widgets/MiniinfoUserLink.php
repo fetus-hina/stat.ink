@@ -9,7 +9,9 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
+use Override;
 use app\assets\AppLinkAsset;
+use app\models\User;
 use statink\yii2\twitter\webintents\TwitterWebIntentsAsset;
 use yii\base\Widget;
 use yii\helpers\Html;
@@ -21,9 +23,10 @@ use function trim;
 
 class MiniinfoUserLink extends Widget
 {
-    public $user;
+    public ?User $user = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -66,8 +69,8 @@ class MiniinfoUserLink extends Widget
 
     private function renderData(
         string $icon,
-        $value,
-        $link = null,
+        string $value,
+        ?string $link = null,
     ): ?string {
         $value = trim((string)$value);
         if ($value === '') {

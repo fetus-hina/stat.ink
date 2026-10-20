@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace app\commands;
 
 use DirectoryIterator;
+use Override;
 use SebastianBergmann\Diff\Differ;
 use SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
 use Yii;
@@ -37,7 +38,8 @@ final class DocCommentController extends Controller
 {
     public $defaultAction = 'rewrite-php';
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 

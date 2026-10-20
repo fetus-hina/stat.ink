@@ -19,6 +19,7 @@ final class BattlePlayerApiFormatter
 {
     /**
      * @param array<BattlePlayer3|BattleTricolorPlayer3>|null $models
+     * @return list<array<string, mixed>>|null
      */
     public static function toJson(?array $models, bool $fullTranslate = false): ?array
     {

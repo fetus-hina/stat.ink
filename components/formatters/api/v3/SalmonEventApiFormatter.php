@@ -13,6 +13,9 @@ use app\models\SalmonEvent3;
 
 final class SalmonEventApiFormatter
 {
+    /**
+     * @return array<string, mixed>|null
+     */
     public static function toJson(?SalmonEvent3 $model, bool $fullTranslate = false): ?array
     {
         if (!$model) {

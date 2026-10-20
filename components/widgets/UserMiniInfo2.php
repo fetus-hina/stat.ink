@@ -13,6 +13,7 @@ use Yii;
 use app\assets\GameModeIconsAsset;
 use app\assets\UserMiniinfoAsset;
 use app\models\Rule2;
+use app\models\User;
 use app\models\UserStat2;
 use yii\base\Widget;
 use yii\helpers\ArrayHelper;
@@ -35,8 +36,8 @@ use const SORT_ASC;
 
 class UserMiniInfo2 extends Widget
 {
-    public $id = 'user-miniinfo';
-    public $user;
+    public string $id = 'user-miniinfo';
+    public ?User $user = null;
 
     public function run(): string
     {
@@ -965,6 +966,9 @@ class UserMiniInfo2 extends Widget
         ]);
     }
 
+    /**
+     * @param string[] $units
+     */
     private function formatShortNumberImpl(int $value, int $power, array $units): string
     {
         $formatted = Yii::$app->formatter->asInteger($value);

@@ -74,6 +74,9 @@ final class SendouInk
         return $ids ? max($ids) : null;
     }
 
+    /**
+     * @return string[]
+     */
     private static function getAbilities(GearConfiguration3 ...$gears): array
     {
         $results = [];

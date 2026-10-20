@@ -7,6 +7,7 @@
 
 namespace app\controllers;
 
+use Override;
 use Yii;
 use app\components\helpers\TypeHelper;
 use yii\rest\Controller;
@@ -39,8 +40,10 @@ final class ApiV3PreflightController extends Controller
 
     /**
      * @inheritdoc
+     * @return array<string, string[]>
      */
-    protected function verbs()
+    #[Override]
+    protected function verbs(): array
     {
         return [
             'delete-options' => ['OPTIONS'],

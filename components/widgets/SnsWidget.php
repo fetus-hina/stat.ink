@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
+use Override;
 use Yii;
 use app\assets\PermalinkDialogAsset;
 use jp3cki\yii2\twitter\widget\TweetButton;
@@ -33,16 +34,26 @@ use const PATHINFO_EXTENSION;
 final class SnsWidget extends Widget
 {
     public static $autoIdPrefix = 'sns-';
-    public $template;
+    public ?string $template = null;
 
-    public $tweetButton;
-    public $imageUrl;
-    public $feedUrl;
-    public $jsonUrl;
+    public ?TweetButton $tweetButton = null;
+    /**
+     * @var string|array<mixed>|null
+     */
+    public string|array|null $imageUrl = null;
+    /**
+     * @var string|array<mixed>|null
+     */
+    public string|array|null $feedUrl = null;
+    /**
+     * @var string|array<mixed>|null
+     */
+    public string|array|null $jsonUrl = null;
 
-    private $initialized = false;
+    private bool $initialized = false;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         if ($this->initialized) {
             return;

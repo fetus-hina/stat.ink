@@ -16,7 +16,13 @@ final class SlackSuspendForm extends Model
 {
     use ValidateDataTrait;
 
+    /**
+     * @var int|string|null
+     */
     public $id;
+    /**
+     * @var string|null
+     */
     public $suspend;
 
     #[Override]

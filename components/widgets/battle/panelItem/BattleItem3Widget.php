@@ -9,6 +9,7 @@ namespace app\components\widgets\battle\panelItem;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use Override;
 use Yii;
 
 use function sprintf;
@@ -48,6 +49,10 @@ final class BattleItem3Widget extends BaseWidget
         return null;
     }
 
+    /**
+     * @return array{int|null, int|null}
+     */
+    #[Override]
     public function getKillDeath(): array
     {
         return [
@@ -56,6 +61,10 @@ final class BattleItem3Widget extends BaseWidget
         ];
     }
 
+    /**
+     * @return array<int|string, mixed>
+     */
+    #[Override]
     public function getLinkRoute(): array
     {
         return [

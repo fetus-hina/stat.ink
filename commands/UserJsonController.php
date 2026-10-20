@@ -8,6 +8,7 @@
 namespace app\commands;
 
 use Exception;
+use Override;
 use Yii;
 use app\models\Battle;
 use app\models\User;
@@ -77,7 +78,8 @@ class UserJsonController extends Controller
      */
     public $screenName;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         if ($this->basePath === null) {
@@ -99,7 +101,11 @@ class UserJsonController extends Controller
         return $ret;
     }
 
-    public function getActionOptionsHelp($action)
+    /**
+     * @return array<string, array<string, mixed>>
+     */
+    #[Override]
+    public function getActionOptionsHelp($action): array
     {
         if ($action instanceof InlineAction) {
             return parent::getActionOptionsHelp($action);
@@ -108,7 +114,7 @@ class UserJsonController extends Controller
         return [];
     }
 
-    public function actionAutoUpdate()
+    public function actionAutoUpdate(): ?int
     {
         $lockPath = $this->basePath . '/.auto-update';
         if (!file_exists(dirname($lockPath))) {
@@ -156,9 +162,11 @@ class UserJsonController extends Controller
         ftruncate($lock, ftell($lock));
         flock($lock, LOCK_UN);
         fclose($lock);
+
+        return null;
     }
 
-    public function actionUpdate()
+    public function actionUpdate(): ?int
     {
         if (!$this->findUser()) {
             $this->stdErr("ユーザが見つかりません (userId か screenName のどちらかは必須です)\n");
@@ -185,16 +193,18 @@ class UserJsonController extends Controller
         if ($count && random_int(0, 29) === 0) {
             $this->recompress();
         }
+
+        return null;
     }
 
-    public function getJsonPath()
+    public function getJsonPath(): string
     {
         return $this->basePath . '/' . $this->findUser()->id . '.json.gz';
     }
 
-    protected $user = false;
+    protected User|false|null $user = false;
 
-    protected function findUser()
+    protected function findUser(): ?User
     {
         if ($this->user === false) {
             $where = ['and'];
@@ -229,6 +239,9 @@ class UserJsonController extends Controller
         return (string)($last->id ?? 0);
     }
 
+    /**
+     * @return Battle[]
+     */
     protected function getNextBattles(string $lastBattleId): array
     {
         $query = Battle::find()
@@ -287,7 +300,7 @@ class UserJsonController extends Controller
         return $query->all();
     }
 
-    protected function appendJson($text, $mtime)
+    protected function appendJson(string $text, int $mtime): void
     {
         $path = $this->jsonPath;
         if (!file_exists($path)) {
@@ -307,7 +320,7 @@ class UserJsonController extends Controller
         touch($path, $mtime);
     }
 
-    protected function recompress()
+    protected function recompress(): void
     {
         $mainPath = $this->jsonPath;
         $tmpPath = $mainPath . '.tmp';

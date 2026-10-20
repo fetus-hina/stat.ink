@@ -15,7 +15,7 @@ use yii\web\View;
 
 /**
  * @var View $this
- * @var array $data
+ * @var array{key: string, rules: array<string, array{key: string, name: string, maps: array<string, array{key: string, name: string, battles: int, wins: int}>}>} $data
  */
 
 $rules = ArrayHelper::sort(

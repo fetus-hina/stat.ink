@@ -7,6 +7,7 @@
 
 namespace app\models\query;
 
+use Override;
 use app\components\helpers\db\Now;
 use app\models\SalmonSchedule2;
 use yii\db\ActiveQuery;
@@ -19,7 +20,8 @@ use const SORT_DESC;
  */
 final class SalmonSchedule2Query extends ActiveQuery
 {
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         $this->olderFirst();

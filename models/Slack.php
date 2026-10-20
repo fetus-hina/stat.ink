@@ -457,6 +457,10 @@ class Slack extends ActiveRecord
         return $result !== null;
     }
 
+    /**
+     * @param array<string, mixed> $params
+     * @return array<string, mixed>
+     */
     protected function buildRealQuery(array $params): array
     {
         if (!isset($params['username']) && $this->username != '') {
@@ -487,6 +491,9 @@ class Slack extends ActiveRecord
         return $params;
     }
 
+    /**
+     * @param array<string, mixed> $params
+     */
     protected function doSend(array $params, bool $realSend): ?string
     {
         $params = Json::encode($this->buildRealQuery($params));

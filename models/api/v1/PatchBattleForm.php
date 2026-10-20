@@ -20,12 +20,18 @@ class PatchBattleForm extends Model
     public const DELETE_MARK = '<<DELETE>>';
 
     // API
+    /** @var mixed */
     public $apikey;
+    /** @var mixed */
     public $test;
 
+    /** @var mixed */
     public $id;
+    /** @var mixed */
     public $link_url;
+    /** @var mixed */
     public $note;
+    /** @var mixed */
     public $private_note;
 
     public function rules()

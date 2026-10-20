@@ -8,6 +8,8 @@
 namespace app\models;
 
 use Exception;
+use GdImage;
+use Override;
 use ParagonIE\ConstantTime\Base32;
 use Yii;
 use yii\db\ActiveQuery;
@@ -52,10 +54,10 @@ class UserIcon extends ActiveRecord
     public const ICON_WIDTH = 500;
     public const ICON_HEIGHT = 500;
 
-    private $mode;
-    private $imageResource;
+    private ?string $mode = null;
+    private ?GdImage $imageResource = null;
 
-    public static function createNew(int $userId, string $binary)
+    public static function createNew(int $userId, string $binary): static
     {
         $gd = static::resizeImage($binary);
         $obj = Yii::createObject([
@@ -82,7 +84,7 @@ class UserIcon extends ActiveRecord
         }
     }
 
-    protected static function resizeImage(string $binary)
+    protected static function resizeImage(string $binary): GdImage
     {
         if (!$in = @imagecreatefromstring($binary)) {
             throw new Exception();
@@ -164,19 +166,20 @@ class UserIcon extends ActiveRecord
         ]);
     }
 
-    public function getAbsUrl()
+    public function getAbsUrl(): string
     {
         return Url::to($this->url, true);
     }
 
-    public function afterDelete()
+    #[Override]
+    public function afterDelete(): void
     {
         $this->mode = 'delete';
         static::getDb()->on(Connection::EVENT_COMMIT_TRANSACTION, $this->onCommit(...));
         parent::afterDelete();
     }
 
-    public function onCommit()
+    public function onCommit(): void
     {
         // create/delete file on commit event
         switch ($this->mode) {

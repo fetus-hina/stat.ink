@@ -19,7 +19,7 @@ use yii\web\View;
  * @var User $user
  * @var View $this
  * @var Weapon3 $weapon
- * @var array|null $stats
+ * @var array<string, mixed>|null $stats
  */
 
 if (!$stats) {

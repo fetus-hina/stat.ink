@@ -24,7 +24,7 @@ use function trim;
 
 trait UserStatFilterTrait
 {
-    public function filter(Query $query, BattleFilterForm $filter)
+    public function filter(Query $query, BattleFilterForm $filter): static
     {
         return $this
             ->filterByLobby($query, $filter->lobby)
@@ -41,7 +41,7 @@ trait UserStatFilterTrait
             ->filterByIdRange($query, $filter->id_from, $filter->id_to);
     }
 
-    public function filterByLobby($query, $value)
+    public function filterByLobby(Query $query, mixed $value): static
     {
         $value = trim((string)$value);
         if ($value === '') {
@@ -51,7 +51,7 @@ trait UserStatFilterTrait
         return $this;
     }
 
-    public function filterByRule($query, $value)
+    public function filterByRule(Query $query, mixed $value): static
     {
         $value = trim((string)$value);
         if ($value === '') {
@@ -65,7 +65,7 @@ trait UserStatFilterTrait
         return $this;
     }
 
-    public function filterByMap($query, $value)
+    public function filterByMap(Query $query, mixed $value): static
     {
         $value = trim((string)$value);
         if ($value === '') {
@@ -75,7 +75,7 @@ trait UserStatFilterTrait
         return $this;
     }
 
-    public function filterByWeapon($query, $value)
+    public function filterByWeapon(Query $query, mixed $value): static
     {
         $value = trim((string)$value);
         if ($value === '') {
@@ -109,7 +109,7 @@ trait UserStatFilterTrait
         return $this;
     }
 
-    public function filterByRank($query, $value)
+    public function filterByRank(Query $query, mixed $value): static
     {
         if (substr($value, 0, 1) === '~') {
             $query->andWhere(['{{rank_group}}.[[key]]' => substr($value, 1)]);
@@ -119,7 +119,7 @@ trait UserStatFilterTrait
         return $this;
     }
 
-    public function filterByResult($query, $result)
+    public function filterByResult(Query $query, mixed $result): static
     {
         if ($result === 'win' || $result === true) {
             $query->andWhere(['{{battle}}.[[is_win]]' => true]);
@@ -129,7 +129,10 @@ trait UserStatFilterTrait
         return $this;
     }
 
-    public function filterByTerm($query, $value, array $options = [])
+    /**
+     * @param array<string, mixed> $options
+     */
+    public function filterByTerm(Query $query, mixed $value, array $options = []): static
     {
         $now = $_SERVER['REQUEST_TIME'] ?? time();
         $currentPeriod = BattleHelper::calcPeriod($now);
@@ -195,7 +198,7 @@ trait UserStatFilterTrait
         return $this;
     }
 
-    public function filterByIdRange($query, $idFrom, $idTo)
+    public function filterByIdRange(Query $query, mixed $idFrom, mixed $idTo): static
     {
         if ($idFrom != '' && $idFrom > 0) {
             $query->andWhere(['>=', '{{battle}}.[[id]]', (int)$idFrom]);

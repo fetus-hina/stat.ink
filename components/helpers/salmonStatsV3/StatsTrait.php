@@ -58,6 +58,9 @@ trait StatsTrait
         }
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private static function makeBasicStats(Connection $db, User $user, DateTimeImmutable $now): array
     {
         $condBasic = self::getBasicStatsCond();
@@ -106,6 +109,9 @@ trait StatsTrait
             ->one($db);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private static function makeTitleStats(Connection $db, User $user, DateTimeImmutable $now): array
     {
         return new Query()

@@ -31,11 +31,29 @@ class Wave extends Model
 {
     use OpenAPIUtil;
 
+    /**
+     * @var mixed
+     */
     public $known_occurrence;
+    /**
+     * @var mixed
+     */
     public $water_level;
+    /**
+     * @var mixed
+     */
     public $golden_egg_quota;
+    /**
+     * @var mixed
+     */
     public $golden_egg_appearances;
+    /**
+     * @var mixed
+     */
     public $golden_egg_delivered;
+    /**
+     * @var mixed
+     */
     public $power_egg_collected;
 
     public function behaviors()
@@ -147,6 +165,9 @@ class Wave extends Model
         });
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         return [
@@ -241,12 +262,18 @@ class Wave extends Model
         ];
     }
 
+    /**
+     * @return list<class-string>
+     */
     public static function openApiDepends(): array
     {
         return [
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiExample(): array
     {
         return [

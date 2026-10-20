@@ -56,7 +56,10 @@ final class ApidocController extends Controller
     public $defaultAction = 'create';
     public $layout = false;
 
-    public $languages = [
+    /**
+     * @var array<string, string>
+     */
+    public array $languages = [
         'en' => 'en-US',
         'ja' => 'ja-JP',
         'zh-hans' => 'zh-CN',

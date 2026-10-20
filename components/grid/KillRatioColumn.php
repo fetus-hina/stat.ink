@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\components\grid;
 
+use Override;
 use Yii;
 use app\assets\KillRatioColumnAsset;
 use app\components\helpers\TypeHelper;
@@ -30,12 +31,13 @@ use function vsprintf;
  */
 class KillRatioColumn extends DataColumn
 {
-    public static $idPrefix;
-    public static $idCounter = 0;
+    public static ?string $idPrefix = null;
+    public static int $idCounter = 0;
 
     public bool $killRate = false;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 

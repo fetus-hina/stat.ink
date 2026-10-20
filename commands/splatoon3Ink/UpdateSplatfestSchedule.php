@@ -23,6 +23,9 @@ use function strtotime;
 
 trait UpdateSplatfestSchedule
 {
+    /**
+     * @param array<string, array<string, mixed>> $festivals
+     */
     protected function updateSplatfestSchedule(array $festivals): int
     {
         return Yii::$app->db->transaction(
@@ -40,6 +43,9 @@ trait UpdateSplatfestSchedule
         );
     }
 
+    /**
+     * @param array<string, mixed> $festData
+     */
     private function registerSplatfestSchedule(string $key, array $festData): bool
     {
         $model = $this->registerSplatfestBaseData($key, $festData);
@@ -52,6 +58,9 @@ trait UpdateSplatfestSchedule
         return true;
     }
 
+    /**
+     * @param array<string, mixed> $festData
+     */
     private function registerSplatfestBaseData(string $key, array $festData): Splatfest3
     {
         $model = Splatfest3::find()
@@ -86,6 +95,9 @@ trait UpdateSplatfestSchedule
         return $model;
     }
 
+    /**
+     * @param array<string, mixed> $teamData
+     */
     private function registerSplatfestTeam(Splatfest3 $fest, string $teamKey, array $teamData): bool
     {
         $campId = match ($teamKey) {

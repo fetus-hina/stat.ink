@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
+use Override;
 use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
 use yii\helpers\Html;
@@ -22,12 +23,13 @@ use const FILTER_VALIDATE_INT;
 
 class KillRatioBadgeWidget extends Widget
 {
-    public $killRatio;
-    public $kill;
-    public $death;
-    public $defaultValue = '';
+    public mixed $killRatio = null;
+    public mixed $kill = null;
+    public mixed $death = null;
+    public string $defaultValue = '';
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         $this->killRatio = static::toFloat($this->killRatio);
@@ -67,7 +69,7 @@ class KillRatioBadgeWidget extends Widget
         return Html::tag('span', Html::encode('<'), ['class' => 'label label-danger']);
     }
 
-    protected static function toInteger($value): ?int
+    protected static function toInteger(mixed $value): ?int
     {
         if ($value === null || !is_scalar($value)) {
             return null;
@@ -81,7 +83,7 @@ class KillRatioBadgeWidget extends Widget
         return $value === false ? null : $value;
     }
 
-    protected static function toFloat($value): ?float
+    protected static function toFloat(mixed $value): ?float
     {
         if ($value === null || !is_scalar($value)) {
             return null;

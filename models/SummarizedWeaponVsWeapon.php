@@ -21,18 +21,39 @@ use const NAN;
  */
 class SummarizedWeaponVsWeapon extends Model
 {
+    /**
+     * @var int|null
+     */
     public $lhs_weapon_id;
+    /**
+     * @var int|null
+     */
     public $rhs_weapon_id;
+    /**
+     * @var int|null
+     */
     public $battle_count;
+    /**
+     * @var int|null
+     */
     public $win_count;
 
+    /**
+     * @var Weapon|false|null
+     */
     public $lhsWeapon = false;
+    /**
+     * @var Weapon|false|null
+     */
     public $rhsWeapon = false;
 
+    /**
+     * @return list<static>
+     */
     public static function find(
         int $weapon_id,
-        $rule_id = null,
-        $version_id = null,
+        ?int $rule_id = null,
+        ?int $version_id = null,
     ): array {
         $query = new Query()
             ->select([
@@ -81,6 +102,10 @@ class SummarizedWeaponVsWeapon extends Model
     }
 
     // イーガーローディングもどきとして全ブキリストを取得する
+
+    /**
+     * @return array<int, Weapon>
+     */
     private static function getAllWeapons(): array
     {
         $list = Weapon::find()

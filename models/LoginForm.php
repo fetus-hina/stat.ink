@@ -14,11 +14,20 @@ use function headers_sent;
 
 final class LoginForm extends Model
 {
+    /**
+     * @var string|null
+     */
     public $screen_name;
+    /**
+     * @var string|null
+     */
     public $password;
+    /**
+     * @var bool|int|string|null
+     */
     public $remember_me;
 
-    private $user = false;
+    private User|false|null $user = false;
 
     public function rules()
     {
@@ -49,7 +58,7 @@ final class LoginForm extends Model
         ];
     }
 
-    public function validatePassword($attribute, $params)
+    public function validatePassword(string $attribute, mixed $params): void
     {
         if ($this->hasErrors()) {
             return;
@@ -67,7 +76,7 @@ final class LoginForm extends Model
         }
     }
 
-    public function login()
+    public function login(): bool
     {
         if (!$this->validate()) {
             return false;
@@ -96,7 +105,7 @@ final class LoginForm extends Model
         );
     }
 
-    public function getUser()
+    public function getUser(): ?User
     {
         if ($this->user === false) {
             $this->user = User::find()

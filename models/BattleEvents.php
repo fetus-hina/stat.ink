@@ -7,6 +7,7 @@
 
 namespace app\models;
 
+use Override;
 use yii\db\ActiveRecord;
 
 use function base64_decode;
@@ -26,7 +27,8 @@ use const FORCE_GZIP;
  */
 class BattleEvents extends ActiveRecord
 {
-    public function init()
+    #[Override]
+    public function init(): void
     {
         $this->on(static::EVENT_AFTER_FIND, $this->decodeEvents(...));
         $this->on(static::EVENT_BEFORE_INSERT, $this->encodeEvents(...));
@@ -64,7 +66,7 @@ class BattleEvents extends ActiveRecord
         ];
     }
 
-    public function encodeEvents()
+    public function encodeEvents(): void
     {
         if (substr($this->events, 0, 2) !== '[{') {
             return;
@@ -75,7 +77,7 @@ class BattleEvents extends ActiveRecord
         }
     }
 
-    public function decodeEvents()
+    public function decodeEvents(): void
     {
         switch (substr($this->events, 0, 2)) {
             case '[{':

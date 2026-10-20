@@ -7,6 +7,7 @@
 
 namespace app\components\helpers;
 
+use Override;
 use Yii;
 use yii\base\Component;
 
@@ -23,7 +24,7 @@ use const DIRECTORY_SEPARATOR;
 
 class WeaponShortener extends Component
 {
-    public $dictionary;
+    public mixed $dictionary = null;
 
     public static function makeShorter(string $name): string
     {
@@ -31,7 +32,8 @@ class WeaponShortener extends Component
         return $instance->get($name);
     }
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         if (!$this->dictionary || !is_array($this->dictionary)) {
@@ -44,6 +46,9 @@ class WeaponShortener extends Component
         return $this->dictionary[$localizedName] ?? $localizedName;
     }
 
+    /**
+     * @return array<string, string>
+     */
     protected function setupDictionary(): array
     {
         if (!preg_match('/^([[:alnum:]]+)/', (string)Yii::$app->language, $match)) {

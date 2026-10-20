@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\components\openapi;
 
+use Override;
 use Yii;
 use yii\base\Component;
 use yii\helpers\Json;
@@ -27,16 +28,35 @@ use const JSON_UNESCAPED_UNICODE;
 
 class OpenApiSpec extends Component
 {
-    public $openapi = '3.0.2';
-    public $title; // should be set
-    public $info;
-    public $servers;
-    public $paths;
-    private $tags;
-    private $securitySchemes = [];
-    private $schemas = [];
+    public string $openapi = '3.0.2';
+    public ?string $title = null; // should be set
+    /**
+     * @var array<string, mixed>|null
+     */
+    public ?array $info = null;
+    /**
+     * @var array<array<string, string>>|null
+     */
+    public ?array $servers = null;
+    /**
+     * @var array<string, mixed>|null
+     */
+    public ?array $paths = null;
+    /**
+     * @var array<string, string|null>|null
+     */
+    private ?array $tags = null;
+    /**
+     * @var string[]
+     */
+    private array $securitySchemes = [];
+    /**
+     * @var string[]
+     */
+    private array $schemas = [];
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         // {{{
         parent::init();
@@ -92,6 +112,9 @@ class OpenApiSpec extends Component
         );
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function renderSecuritySchemes(): array
     {
         $result = [];
@@ -109,6 +132,9 @@ class OpenApiSpec extends Component
         }
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function renderSchemas(): array
     {
         $result = [];
@@ -131,6 +157,9 @@ class OpenApiSpec extends Component
         }
     }
 
+    /**
+     * @return list<array<string, string>>
+     */
     protected function renderTags(): array
     {
         $tags = $this->tags;

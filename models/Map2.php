@@ -55,7 +55,10 @@ class Map2 extends ActiveRecord
         return 'map2';
     }
 
-    public static function getSortedMap($callback = null): array
+    /**
+     * @return array<string, string>
+     */
+    public static function getSortedMap(mixed $callback = null): array
     {
         Yii::beginProfile(__METHOD__, self::class);
         try {
@@ -115,6 +118,9 @@ class Map2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toJsonArray(): array
     {
         $t = $this->release_at ? strtotime($this->release_at) : null;
@@ -172,6 +178,9 @@ class Map2 extends ActiveRecord
         return 0;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         $values = static::sort(static::find()->all());
@@ -205,6 +214,9 @@ class Map2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [
@@ -213,6 +225,9 @@ class Map2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return list<array<string, mixed>>
+     */
     public static function openapiExample(): array
     {
         return array_map(

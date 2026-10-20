@@ -32,7 +32,7 @@ final class Salmon3FilterWidget extends Widget
     public const ACTION_SEARCH = 'search';
     public const ACTION_SUMMARIZE = 'summarize';
 
-    public $id = 'filter-form';
+    public string $id = 'filter-form';
     public string|null $route = null;
     public User|null $user = null;
     public Salmon3FilterForm|null $filter = null;

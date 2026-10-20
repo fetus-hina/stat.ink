@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\api\v3\salmon;
 
+use Override;
 use Yii;
 use app\actions\api\v3\traits\ApiInitializerTrait;
 use app\components\formatters\api\v3\SalmonApiFormatter;
@@ -38,7 +39,8 @@ final class GetUserSalmonAction extends Action
     /**
      * @inheritdoc
      */
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         $this->apiInit();

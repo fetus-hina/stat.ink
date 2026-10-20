@@ -7,6 +7,7 @@
 
 namespace app\actions\show\v2;
 
+use Override;
 use Yii;
 use app\models\Battle2;
 use app\models\Battle2FilterForm;
@@ -36,7 +37,8 @@ use const SORT_DESC;
  */
 class UserAction extends BaseAction
 {
-    public function run()
+    #[Override]
+    public function run(): ?string
     {
         $request = Yii::$app->getRequest();
         $user = User::findOne(['screen_name' => $request->get('screen_name')]);
@@ -61,7 +63,7 @@ class UserAction extends BaseAction
             unset($next['v']);
             $next[0] = 'show-v2/user';
             $this->controller->redirect(Url::to($next));
-            return;
+            return null;
         }
 
         $permLink = Url::to(
@@ -117,7 +119,7 @@ class UserAction extends BaseAction
                     ),
                 ];
                 $this->controller->redirect(Url::to($next, true));
-                return;
+                return null;
             }
 
             $battle->applyFilter($filter);
@@ -150,7 +152,7 @@ class UserAction extends BaseAction
         ]);
     }
 
-    public function getViewMode()
+    public function getViewMode(): string
     {
         $request = Yii::$app->request;
         $mode = null;

@@ -25,7 +25,7 @@ use yii\web\View;
  * @var array<int, SalmonEvent3> $events
  * @var array<int, SalmonMap3> $maps
  * @var array<int, SalmonWaterLevel2> $tides
- * @var array[] $mapTides
+ * @var list<array<string, mixed>> $mapTides
  */
 
 TypeHelper::instanceOf($this->context, Controller::class)->layout = 'main';

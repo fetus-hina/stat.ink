@@ -10,6 +10,7 @@ namespace app\models;
 use DateInterval;
 use DateTimeImmutable;
 use DateTimeZone;
+use Override;
 use Yii;
 use yii\base\Model;
 
@@ -27,10 +28,13 @@ use const SORT_DESC;
 
 class EntireWeapon2Form extends Model
 {
+    /** @var string|array<mixed>|null */
     public $term;
+    /** @var string|array<mixed>|null */
     public $map;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         $this->term = $this->getDefaultTerm();
@@ -72,7 +76,10 @@ class EntireWeapon2Form extends Model
         ];
     }
 
-    public function toQueryParams($formName = false)
+    /**
+     * @return array<string, mixed>
+     */
+    public function toQueryParams(string|false|null $formName = false): array
     {
         if ($formName === false) {
             $formName = $this->formName();
@@ -91,6 +98,9 @@ class EntireWeapon2Form extends Model
         return $ret;
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function getTermList(): array
     {
         static $list;
@@ -104,6 +114,9 @@ class EntireWeapon2Form extends Model
         return $list;
     }
 
+    /**
+     * @return array<string, string>
+     */
     private function getVersionList(): array
     {
         $result = [];
@@ -142,6 +155,9 @@ class EntireWeapon2Form extends Model
         return $result;
     }
 
+    /**
+     * @return array<string, string>
+     */
     private function getMonthList(): array
     {
         $interval = new DateInterval('P1M');

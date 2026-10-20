@@ -31,7 +31,7 @@ use function time;
  */
 class Splatfest extends ActiveRecord
 {
-    public static function findCurrentFest()
+    public static function findCurrentFest(): ActiveQuery
     {
         $t = gmdate('Y-m-d\TH:i:sP', (int)(@$_SERVER['REQUEST_TIME'] ?: time()));
         return static::find()

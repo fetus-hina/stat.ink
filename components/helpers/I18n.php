@@ -61,6 +61,9 @@ class I18n
         return implode("\n", $ret) . "\n";
     }
 
+    /**
+     * @param array<string, string> $data
+     */
     public static function createTranslateTableCode(string $filePath, array $data): string
     {
         $localeHandler = self::switchSystemLocale(LC_COLLATE, 'C');

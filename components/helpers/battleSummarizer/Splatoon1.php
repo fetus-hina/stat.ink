@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace app\components\helpers\battleSummarizer;
 
 use Yii;
+use stdClass;
 use yii\db\Query;
 
 use function gmdate;
@@ -19,7 +20,7 @@ use function time;
 
 trait Splatoon1
 {
-    public static function getSummary(Query $oldQuery)
+    public static function getSummary(Query $oldQuery): stdClass
     {
         $db = Yii::$app->db;
         $now = $_SERVER['REQUEST_TIME'] ?? time();

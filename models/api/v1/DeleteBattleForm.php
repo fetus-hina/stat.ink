@@ -28,14 +28,19 @@ class DeleteBattleForm extends Model
     use Util;
 
     // API
+    /** @var mixed */
     public $apikey;
+    /** @var mixed */
     public $test;
 
     // target
+    /** @var mixed */
     public $id;
 
     // read-only properties
+    /** @var list<array{id: mixed, error: string|null}> */
     public $deletedIdList = [];
+    /** @var list<array{id: mixed, error: string|null}> */
     public $errorIdList = [];
 
     public function rules()
@@ -60,7 +65,7 @@ class DeleteBattleForm extends Model
         ];
     }
 
-    public function validateBattleId($attribute, $params)
+    public function validateBattleId(string $attribute, mixed $params): void
     {
         if ($this->hasErrors($attribute)) {
             return;
@@ -100,7 +105,7 @@ class DeleteBattleForm extends Model
         }
     }
 
-    public function save()
+    public function save(): bool
     {
         $this->deletedIdList = [];
         $this->errorIdList = [];
@@ -153,6 +158,9 @@ class DeleteBattleForm extends Model
         return true;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         return [
@@ -210,6 +218,9 @@ class DeleteBattleForm extends Model
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [
@@ -217,6 +228,9 @@ class DeleteBattleForm extends Model
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openapiExample(): array
     {
         return [

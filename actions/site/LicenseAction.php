@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\site;
 
+use Override;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use Yii;
@@ -39,17 +40,19 @@ class LicenseAction extends SimpleAction
     private const CATEGORY_MANUAL = 1;
     private const CATEGORY_NPM = 1;
 
-    public $view = 'license';
-    private $mdParser;
+    public string|false $view = 'license';
+    private ?Markdown $mdParser = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         $this->mdParser = new Markdown();
         $this->mdParser->html5 = true;
-        return parent::init();
+        parent::init();
     }
 
-    public function run()
+    #[Override]
+    public function run(): string
     {
         $this->params['myself'] = (object)[
             'category' => null,
@@ -60,6 +63,9 @@ class LicenseAction extends SimpleAction
         return parent::run();
     }
 
+    /**
+     * @return stdClass[]
+     */
     private function loadDepends(): array
     {
         $ret = array_merge(
@@ -86,6 +92,9 @@ class LicenseAction extends SimpleAction
         return $ret;
     }
 
+    /**
+     * @return stdClass[]
+     */
     private function loadManualLicenses(): array
     {
         $basedir = Yii::getAlias('@app/data/licenses/');
@@ -121,6 +130,9 @@ class LicenseAction extends SimpleAction
         return $ret;
     }
 
+    /**
+     * @return stdClass[]
+     */
     private function loadComposerDepends(): array
     {
         $basedir = Yii::getAlias('@app/data/licenses-composer/');
@@ -158,6 +170,9 @@ class LicenseAction extends SimpleAction
         return $ret;
     }
 
+    /**
+     * @return stdClass[]
+     */
     private function loadNpmDepends(): array
     {
         $basedir = Yii::getAlias('@app/data/licenses-npm/');
@@ -203,7 +218,7 @@ class LicenseAction extends SimpleAction
             : null;
     }
 
-    private function loadMarkdown($path, ?callable $checker = null): ?string
+    private function loadMarkdown(string $path, ?callable $checker = null): ?string
     {
         $text = $this->loadFile($path, $checker);
         return $text !== null

@@ -69,6 +69,9 @@ class SplatoonVersionGroup2 extends ActiveRecord
         return $this->hasMany(SplatoonVersion2::class, ['group_id' => 'id']);
     }
 
+    /**
+     * @return array{DateTimeImmutable, DateTimeImmutable|null}
+     */
     public function getAvailableDateRange(): array
     {
         return [

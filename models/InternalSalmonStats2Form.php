@@ -16,6 +16,7 @@ final class InternalSalmonStats2Form extends Model
 {
     use ValidateDataTrait;
 
+    /** @var string|array<mixed>|null */
     public $screen_name;
 
     #[Override]

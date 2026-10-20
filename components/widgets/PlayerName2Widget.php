@@ -27,11 +27,11 @@ use function vsprintf;
 
 class PlayerName2Widget extends Widget
 {
-    public $player;
-    public $user;
-    public $nameOnly = false;
-    public $isMyTeam = false; // 自チームかつ4人チームマッチ
-    public $isPrivate = false;
+    public ?object $player = null;
+    public ?User $user = null;
+    public bool $nameOnly = false;
+    public bool $isMyTeam = false; // 自チームかつ4人チームマッチ
+    public bool $isPrivate = false;
 
     public function run()
     {

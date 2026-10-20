@@ -48,8 +48,16 @@ class ImageConverter
     public const OUT_HEIGHT = 720;
     public const JPEG_QUALITY = 85;
 
-    public static function convert($binary, $outPathJpeg, $blackoutPosList = false, $outPathArchivePng = null)
-    {
+    /**
+     * @param string|false $binary
+     * @param array<int>|false $blackoutPosList
+     */
+    public static function convert(
+        $binary,
+        string $outPathJpeg,
+        array|false $blackoutPosList = false,
+        ?string $outPathArchivePng = null,
+    ): bool {
         if (!is_array($blackoutPosList)) {
             $blackoutPosList = [];
         }
@@ -78,7 +86,11 @@ class ImageConverter
         return true;
     }
 
-    protected static function convertImpl($binary, array $blackoutPosList)
+    /**
+     * @param string|false $binary
+     * @param array<int> $blackoutPosList
+     */
+    protected static function convertImpl($binary, array $blackoutPosList): Resource|false
     {
         try {
             $in = @imagecreatefromstring($binary);
@@ -150,7 +162,7 @@ class ImageConverter
         return false;
     }
 
-    protected static function copyJpeg($inPath, $outPath)
+    protected static function copyJpeg(string $inPath, string $outPath): bool
     {
         self::mkdir(dirname($outPath));
         $cmdlines = [
@@ -179,7 +191,7 @@ class ImageConverter
         return true;
     }
 
-    protected static function copyLepton($jpegPath)
+    protected static function copyLepton(string $jpegPath): bool
     {
         $binPath = Yii::$app->params['lepton']['bin'] ?? false;
         if (!$binPath || !@file_exists($binPath) || !is_executable($binPath)) {
@@ -205,7 +217,7 @@ class ImageConverter
         return true;
     }
 
-    private static function mkdir($dir)
+    private static function mkdir(string $dir): void
     {
         if (!file_exists($dir)) {
             mkdir($dir, 0755, true);

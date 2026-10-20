@@ -25,8 +25,14 @@ use function vsprintf;
 
 class FallbackableImage extends Widget
 {
-    public $srcs = [];
-    public $options = [];
+    /**
+     * @var string|array<string|null>
+     */
+    public string|array $srcs = [];
+    /**
+     * @var array<string, mixed>
+     */
+    public array $options = [];
 
     public function run(): string
     {

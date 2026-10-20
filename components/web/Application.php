@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace app\components\web;
 
 use IntlDateFormatter;
+use Override;
 use Yii;
 use app\components\helpers\UserLanguage;
 use app\components\helpers\UserTimeZone;
@@ -47,7 +48,8 @@ class Application extends Base
 
     private ?string $locale = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 

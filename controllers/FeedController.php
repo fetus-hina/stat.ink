@@ -12,10 +12,11 @@ use app\actions\feed\User2Action;
 use app\actions\feed\User3Action;
 use app\actions\feed\UserAction;
 use app\components\web\Controller;
+use yii\web\Response;
 
 class FeedController extends Controller
 {
-    public function actionCompatUser($screen_name, $lang, $type)
+    public function actionCompatUser(string $screen_name, string $lang, string $type): Response
     {
         return $this->redirect(
             [

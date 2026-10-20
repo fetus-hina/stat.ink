@@ -17,7 +17,10 @@ use function vsprintf;
 
 class MaxmindMessage extends Widget
 {
-    public $options = [
+    /**
+     * @var array<string, mixed>
+     */
+    public array $options = [
         'tag' => 'div',
         'class' => 'very-small',
     ];

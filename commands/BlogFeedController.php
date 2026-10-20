@@ -11,6 +11,7 @@ namespace app\commands;
 
 use Exception;
 use GuzzleHttp\Client as GuzzleHttpClient;
+use Laminas\Feed\Reader\Entry\EntryInterface;
 use Laminas\Feed\Reader\Http\ClientInterface as FeedReaderHttpClientInterface;
 use Laminas\Feed\Reader\Http\Psr7ResponseDecorator;
 use Laminas\Feed\Reader\Reader as FeedReader;
@@ -29,7 +30,7 @@ use function usort;
 
 final class BlogFeedController extends Controller
 {
-    public function actionCrawl()
+    public function actionCrawl(): void
     {
         $transaction = Yii::$app->db->beginTransaction();
         $entries = $this->fetchFeed();
@@ -39,7 +40,10 @@ final class BlogFeedController extends Controller
         $transaction->commit();
     }
 
-    private function fetchFeed()
+    /**
+     * @return list<EntryInterface>
+     */
+    private function fetchFeed(): array
     {
         echo "Fetching feed...\n";
         FeedReader::setHttpClient(
@@ -67,7 +71,7 @@ final class BlogFeedController extends Controller
         return $ret;
     }
 
-    private function processEntry($entry)
+    private function processEntry(mixed $entry): void
     {
         $id = $entry->getId() ?? $entry->getLink() ?? false;
         if (!$id) {

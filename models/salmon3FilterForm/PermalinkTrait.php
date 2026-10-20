@@ -20,7 +20,10 @@ use function trim;
 
 trait PermalinkTrait
 {
-    public function toPermLink(string|false $formName = false)
+    /**
+     * @return array<string, string>
+     */
+    public function toPermLink(string|false $formName = false): array
     {
         $formName = trim(is_string($formName) ? $formName : $this->formName());
 

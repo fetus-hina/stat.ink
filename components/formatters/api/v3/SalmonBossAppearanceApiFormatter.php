@@ -19,6 +19,7 @@ final class SalmonBossAppearanceApiFormatter
 {
     /**
      * @param SalmonBossAppearance3[] $models
+     * @return array<string, array<string, mixed>>
      */
     public static function allToJson(array $models, bool $fullTranslate = false): array
     {

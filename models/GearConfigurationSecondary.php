@@ -69,7 +69,10 @@ class GearConfigurationSecondary extends ActiveRecord
         return $this->hasOne(GearConfiguration::class, ['id' => 'config_id']);
     }
 
-    public function toJsonArray()
+    /**
+     * @return array<string, mixed>|null
+     */
+    public function toJsonArray(): ?array
     {
         return $this->ability ? $this->ability->toJsonArray() : null;
     }

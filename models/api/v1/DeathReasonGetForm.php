@@ -13,6 +13,7 @@ use yii\db\ActiveQuery;
 
 class DeathReasonGetForm extends Model
 {
+    /** @var mixed */
     public $type;
 
     public function rules()
@@ -34,7 +35,7 @@ class DeathReasonGetForm extends Model
         ];
     }
 
-    public function filterQuery(ActiveQuery $query)
+    public function filterQuery(ActiveQuery $query): ActiveQuery
     {
         if ($this->type) {
             $query->innerJoinWith('type');

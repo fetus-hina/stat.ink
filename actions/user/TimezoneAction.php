@@ -7,6 +7,7 @@
 
 namespace app\actions\user;
 
+use Override;
 use Yii;
 use app\models\UserTimezoneForm;
 use yii\web\Cookie;
@@ -16,15 +17,20 @@ use function time;
 
 class TimezoneAction extends BaseAction
 {
-    private $previousTimezone = null;
+    private ?string $previousTimezone = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         $this->previousTimezone = Yii::$app->timeZone;
         parent::init();
     }
 
-    public function run()
+    /**
+     * @return array<string, mixed>
+     */
+    #[Override]
+    public function run(): array
     {
         $response = Yii::$app->getResponse();
         $response->format = 'json';
@@ -50,7 +56,7 @@ class TimezoneAction extends BaseAction
         ];
     }
 
-    private function makeValidationModel()
+    private function makeValidationModel(): UserTimezoneForm
     {
         return UserTimezoneForm::validateData(['timezone' => null]);
     }

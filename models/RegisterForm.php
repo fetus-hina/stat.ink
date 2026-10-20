@@ -20,9 +20,21 @@ class RegisterForm extends Model
      */
     public const SCENARIO_PASSKEY = 'passkey';
 
+    /**
+     * @var string|null
+     */
     public $screen_name;
+    /**
+     * @var string|null
+     */
     public $password;
+    /**
+     * @var string|null
+     */
     public $password_repeat;
+    /**
+     * @var string|null
+     */
     public $name;
 
     #[Override]
@@ -73,7 +85,7 @@ class RegisterForm extends Model
         ];
     }
 
-    public function toUserModel()
+    public function toUserModel(): User
     {
         $u = new User();
         $u->name = $this->name == '' ? $this->screen_name : $this->name;
@@ -91,12 +103,12 @@ class RegisterForm extends Model
         return $u;
     }
 
-    private function getCurrentLanguageId()
+    private function getCurrentLanguageId(): int
     {
         return Language::findOne(['lang' => Yii::$app->language])->id;
     }
 
-    private function getCurrentRegionId()
+    private function getCurrentRegionId(): int
     {
         return Region::findOne(['key' => 'jp'])->id;
     }

@@ -16,7 +16,9 @@ use function is_array;
 
 class TeamColorForm extends Model
 {
+    /** @var mixed */
     public $hue;
+    /** @var mixed */
     public $rgb;
 
     public function rules()
@@ -37,7 +39,7 @@ class TeamColorForm extends Model
         ];
     }
 
-    public function validateRgb($attribute, $params)
+    public function validateRgb(string $attribute, mixed $params): void
     {
         if ($this->hasErrors($attribute)) {
             return;
@@ -65,7 +67,7 @@ class TeamColorForm extends Model
         }
     }
 
-    public function makeHue()
+    public function makeHue(): void
     {
         if ($this->hasErrors() || (string)$this->hue != '') {
             return;

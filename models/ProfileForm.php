@@ -16,22 +16,61 @@ use function trim;
 use const SORT_ASC;
 
 /**
- * @property-read array $linkModes
+ * @property-read array<int|string, string> $linkModes
  */
 class ProfileForm extends Model
 {
+    /**
+     * @var string|null
+     */
     public $name;
+    /**
+     * @var string|null
+     */
     public $nnid;
+    /**
+     * @var string|null
+     */
     public $sw_friend_code;
+    /**
+     * @var string|null
+     */
     public $twitter;
+    /**
+     * @var int|string|null
+     */
     public $ikanakama;
+    /**
+     * @var int|string|null
+     */
     public $ikanakama2;
+    /**
+     * @var string|null
+     */
     public $env;
+    /**
+     * @var string|null
+     */
     public $blackout;
+    /**
+     * @var string|null
+     */
     public $blackout_list;
+    /**
+     * @var int|string|null
+     */
     public $default_language_id;
+    /**
+     * @var int|string|null
+     */
     public $region_id;
+    /**
+     * @var int|string|null
+     */
     public $link_mode_id;
+    /**
+     * @var bool|int|string|null
+     */
     public $hide_data_on_toppage;
 
     public function rules()
@@ -106,6 +145,9 @@ class ProfileForm extends Model
         ];
     }
 
+    /**
+     * @return array<int|string, string>
+     */
     public function getLinkModes(): array
     {
         return ArrayHelper::map(

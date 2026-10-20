@@ -16,6 +16,7 @@ use function mb_check_encoding;
 
 final class EntireAgentForm extends Model
 {
+    /** @var string|array<mixed>|null */
     public $b32name;
 
     #[Override]

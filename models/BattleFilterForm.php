@@ -7,6 +7,7 @@
 
 namespace app\models;
 
+use Override;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
 use yii\base\Model;
@@ -27,19 +28,58 @@ use function trim;
 
 class BattleFilterForm extends Model
 {
+    /**
+     * @var string|null
+     */
     public $screen_name;
 
+    /**
+     * @var string|null
+     */
     public $lobby;
+    /**
+     * @var string|null
+     */
     public $rule;
+    /**
+     * @var string|null
+     */
     public $map;
+    /**
+     * @var string|null
+     */
     public $weapon;
+    /**
+     * @var string|null
+     */
     public $rank;
+    /**
+     * @var string|null
+     */
     public $result;
+    /**
+     * @var string|null
+     */
     public $term;
+    /**
+     * @var string|null
+     */
     public $term_from;
+    /**
+     * @var string|null
+     */
     public $term_to;
+    /**
+     * @var string|null
+     */
     public $timezone;
+    /**
+     * @var string|null
+     */
     public $id_from;
+    /**
+     * @var string|null
+     */
     public $id_to;
 
     public function formName()
@@ -149,6 +189,10 @@ class BattleFilterForm extends Model
         ];
     }
 
+    /**
+     * @param array<mixed> $data
+     */
+    #[Override]
     public function load($data, $formName = null)
     {
         foreach (['id_from', 'id_to'] as $key) {
@@ -162,7 +206,7 @@ class BattleFilterForm extends Model
         return parent::load($data, $formName);
     }
 
-    public function validateGameMode($attr, $params)
+    public function validateGameMode(string $attr, mixed $params): void
     {
         $value = substr($this->$attr, 1);
         $isExist = !!GameMode::findOne(['key' => $value]);
@@ -176,7 +220,7 @@ class BattleFilterForm extends Model
         }
     }
 
-    public function validateWeapon($attr, $params)
+    public function validateWeapon(string $attr, mixed $params): void
     {
         $value = substr($this->$attr, 1);
         $method = [$params['modelClass'], 'findOne'];
@@ -191,7 +235,7 @@ class BattleFilterForm extends Model
         }
     }
 
-    public function validateRepresentativeWeapon($attr, $params)
+    public function validateRepresentativeWeapon(string $attr, mixed $params): void
     {
         $value = substr($this->$attr, 1);
         $count = Weapon::find()
@@ -208,7 +252,7 @@ class BattleFilterForm extends Model
         }
     }
 
-    public function validateRankGroup($attr, $params)
+    public function validateRankGroup(string $attr, mixed $params): void
     {
         $value = substr($this->$attr, 1);
         $count = RankGroup::find()
@@ -224,7 +268,7 @@ class BattleFilterForm extends Model
         }
     }
 
-    public function validateTimezone($attr, $params)
+    public function validateTimezone(string $attr, mixed $params): void
     {
         $value = $this->$attr;
         if (is_scalar($value) && $value != '') {
@@ -236,7 +280,10 @@ class BattleFilterForm extends Model
         $this->$attr = Yii::$app->timeZone;
     }
 
-    public function toPermLink($formName = false)
+    /**
+     * @return array<string, mixed>
+     */
+    public function toPermLink(string|false $formName = false): array
     {
         if ($formName === false) {
             $formName = $this->formName();
@@ -324,7 +371,10 @@ class BattleFilterForm extends Model
         return $ret;
     }
 
-    public function toQueryParams($formName = false)
+    /**
+     * @return array<string, mixed>
+     */
+    public function toQueryParams(string|false $formName = false): array
     {
         if ($formName === false) {
             $formName = $this->formName();

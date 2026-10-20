@@ -12,7 +12,7 @@ use yii\web\View;
 
 /**
  * @var View $this
- * @var array|string|null $link
+ * @var array<int|string, mixed>|string|null $link
  * @var stdClass $summary
  * @var string|null $headingText
  */

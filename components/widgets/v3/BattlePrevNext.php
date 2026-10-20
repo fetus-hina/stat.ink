@@ -134,6 +134,7 @@ final class BattlePrevNext extends Widget
 
     /**
      * @param Battle3|Salmon3 $model
+     * @return array<int|string, string>
      */
     private function generateUrl($model): array
     {

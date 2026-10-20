@@ -32,23 +32,41 @@ final class PlayerForm extends Model
     use SplashtagTrait;
     use TypeHelperTrait;
 
+    /** @var mixed */
     public $me;
+    /** @var mixed */
     public $rank_in_team;
+    /** @var mixed */
     public $name;
+    /** @var mixed */
     public $number;
+    /** @var mixed */
     public $splashtag_title;
+    /** @var mixed */
     public $weapon;
+    /** @var mixed */
     public $inked;
+    /** @var mixed */
     public $kill;
+    /** @var mixed */
     public $assist;
+    /** @var mixed */
     public $kill_or_assist;
+    /** @var mixed */
     public $death;
+    /** @var mixed */
     public $special;
+    /** @var mixed */
     public $signal;
+    /** @var mixed */
     public $gears;
+    /** @var mixed */
     public $disconnected;
+    /** @var mixed */
     public $crown;
+    /** @var mixed */
     public $crown_type;
+    /** @var mixed */
     public $species;
 
     /**

@@ -9,6 +9,7 @@ namespace app\models;
 
 use DateTime;
 use DateTimeZone;
+use Override;
 use Throwable;
 use Yii;
 use app\components\helpers\DateTimeFormatter;
@@ -137,7 +138,8 @@ class User extends ActiveRecord implements IdentityInterface
         return null;
     }
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         $this->on(ActiveRecord::EVENT_BEFORE_VALIDATE, function ($event) {
@@ -243,7 +245,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @return ActiveQuery
+     * @return ActiveQuery<Battle>
      */
     public function getBattles()
     {
@@ -380,7 +382,7 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasMany(Weapon::class, ['id' => 'weapon_id'])->viaTable('user_weapon', ['user_id' => 'id']);
     }
 
-    public function getMainWeapon()
+    public function getMainWeapon(): ActiveQuery
     {
         return $this->hasOne(Weapon::class, ['id' => 'weapon_id'])
             ->viaTable('user_weapon', ['user_id' => 'id'], function ($query) {
@@ -388,20 +390,23 @@ class User extends ActiveRecord implements IdentityInterface
             });
     }
 
+    /**
+     * @return ActiveQuery<Salmon2>
+     */
     public function getSalmonResults(): ActiveQuery
     {
         return $this->hasMany(Salmon2::class, ['user_id' => 'id'])
             ->orderBy(['id' => SORT_DESC]);
     }
 
-    public function getLatestBattle()
+    public function getLatestBattle(): ActiveQuery
     {
         return $this->hasOne(Battle::class, ['user_id' => 'id'])
             ->orderBy('{{battle}}.[[id]] DESC')
             ->limit(1);
     }
 
-    public function getLatestBattleResultImage()
+    public function getLatestBattleResultImage(): ActiveQuery
     {
         return $this
             ->hasOne(BattleImage::class, ['battle_id' => 'id'])
@@ -417,7 +422,7 @@ class User extends ActiveRecord implements IdentityInterface
             ->andWhere(['battle_image.type_id' => BattleImageType::ID_RESULT]);
     }
 
-    public function getOstatusRsa()
+    public function getOstatusRsa(): ActiveQuery
     {
         return $this->hasOne(OstatusRsa::class, ['user_id' => 'id']);
     }
@@ -449,7 +454,7 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasOne(Language::class, ['id' => 'email_lang_id']);
     }
 
-    public static function generateNewApiKey()
+    public static function generateNewApiKey(): string
     {
         while (true) {
             $key = random_bytes(256 / 8);
@@ -541,7 +546,7 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasPassword() || (int)$this->getUserPasskeys()->count() > 1;
     }
 
-    public function validatePassword($password)
+    public function validatePassword(mixed $password): bool
     {
         if ($this->password === null) {
             // Spend the same time as a real verification, so as not to reveal
@@ -553,7 +558,7 @@ class User extends ActiveRecord implements IdentityInterface
         return Password::verify((string)$password, $this->password);
     }
 
-    public function rehashPasswordIfNeeded($password)
+    public function rehashPasswordIfNeeded(string $password): bool
     {
         if ($this->password === null || !Password::needsRehash($this->password)) {
             return false;
@@ -604,7 +609,10 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->save(false, ['password']);
     }
 
-    public function toJsonArray()
+    /**
+     * @return array<string, mixed>
+     */
+    public function toJsonArray(): array
     {
         return [
             'id' => $this->id,
@@ -640,6 +648,9 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toSalmonJsonArray(): array
     {
         static $statsCache = [];
@@ -692,22 +703,22 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
-    public function getUserJsonPath()
+    public function getUserJsonPath(): string
     {
         return Yii::getAlias('@app/runtime/user-json') . '/' . $this->id . '.json.gz';
     }
 
-    public function getIsUserJsonReady()
+    public function getIsUserJsonReady(): bool
     {
         return file_exists($this->getUserJsonPath()) && filesize($this->getUserJsonPath()) > 0;
     }
 
-    public function getUserJsonLastUpdatedAt()
+    public function getUserJsonLastUpdatedAt(): int|false
     {
         return filemtime($this->getUserJsonPath());
     }
 
-    public function getIdenticonHash()
+    public function getIdenticonHash(): string
     {
         return substr(
             hash_hmac(
@@ -777,16 +788,25 @@ class User extends ActiveRecord implements IdentityInterface
         UserNotifier::loggedIn($user, $loginMethod);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         return [];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [];
     }
 
+    /**
+     * @return array<mixed>
+     */
     public static function openapiExample(): array
     {
         return [];

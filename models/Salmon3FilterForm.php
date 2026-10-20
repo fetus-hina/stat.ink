@@ -193,6 +193,7 @@ final class Salmon3FilterForm extends Model
     }
 
     /**
+     * @param array<int|string, mixed> $options
      * @return string[]
      */
     private static function getKeyListFromDropdown(array $options, mixed $optionsUnused = null): array

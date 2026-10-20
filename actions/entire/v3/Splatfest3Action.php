@@ -134,6 +134,9 @@ final class Splatfest3Action extends Action
         return $controller->render('v3/splatfest3', $data);
     }
 
+    /**
+     * @return Splatfest3[]
+     */
     private function getFestList(Connection $db): array
     {
         return Splatfest3::find()
@@ -147,6 +150,7 @@ final class Splatfest3Action extends Action
 
     /**
      * @param SplatfestTeam3[] $teams
+     * @return array<string, int[]>
      */
     private function getThemesOnBattle3(Connection $db, Splatfest3 $fest, array $teams): array
     {
@@ -189,6 +193,10 @@ final class Splatfest3Action extends Action
         );
     }
 
+    /**
+     * @param array<string, int[]> $themes
+     * @return array<int, array<string, mixed>>
+     */
     private function getVotes(Connection $db, Splatfest3 $fest, array $themes): array
     {
         return Yii::$app->cache->getOrSet(
@@ -246,6 +254,9 @@ final class Splatfest3Action extends Action
         );
     }
 
+    /**
+     * @param array<string, int[]> $themes
+     */
     private function buildThemeAggregator(Connection $db, array $themes): ?string
     {
         $cases = [];
@@ -305,6 +316,10 @@ final class Splatfest3Action extends Action
         );
     }
 
+    /**
+     * @param array<string, int[]> $themes
+     * @return int[]
+     */
     private function flattenThemeIds(array $themes): array
     {
         $results = [];

@@ -39,6 +39,9 @@ use const STDERR;
 
 trait UpdateEventSchedule
 {
+    /**
+     * @param array<string, mixed> $schedules
+     */
     protected function updateEventSchedule(array $schedules): int
     {
         $events = ArrayHelper::getValue($schedules, 'event');
@@ -61,6 +64,9 @@ trait UpdateEventSchedule
         );
     }
 
+    /**
+     * @param array<string, mixed> $eventData
+     */
     private function registerEventSchedule(array $eventData): bool
     {
         $event = $this->registerEventBaseData($eventData);
@@ -71,6 +77,9 @@ trait UpdateEventSchedule
         return true;
     }
 
+    /**
+     * @param array<string, mixed> $eventData
+     */
     private function registerEventBaseData(array $eventData): Event3
     {
         $internalId = ArrayHelper::getValue($eventData, 'id');
@@ -111,6 +120,9 @@ trait UpdateEventSchedule
         return $model;
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     private function registerEventSchedule3(Event3 $event, array $data): EventSchedule3
     {
         $startAt = min(
@@ -168,6 +180,9 @@ trait UpdateEventSchedule
         return $model;
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     private function registerEventMaps(EventSchedule3 $schedule, array $data): void
     {
         $mapIds = ArrayHelper::getValue($data, 'map_ids');
@@ -204,6 +219,9 @@ trait UpdateEventSchedule
         }
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     private function registerEventPeriods(EventSchedule3 $schedule, array $data): void
     {
         $convData = array_map(

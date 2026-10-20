@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\controllers;
 
+use Override;
 use Yii;
 use app\actions\api\v3\AbilityAction;
 use app\actions\api\v3\DeleteBattleAction;
@@ -36,7 +37,8 @@ final class ApiV3Controller extends Controller
 {
     public $enableCsrfValidation = false;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         Yii::$app->language = 'en-US';
         Yii::$app->timeZone = 'Etc/UTC';

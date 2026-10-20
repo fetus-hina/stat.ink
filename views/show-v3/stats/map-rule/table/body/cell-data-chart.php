@@ -17,7 +17,7 @@ use yii\web\View;
 
 /**
  * @var View $this
- * @var array $stats
+ * @var array<string, mixed> $stats
  */
 
 $n = TypeHelper::intOrNull(ArrayHelper::getValue($stats, 'battles'));

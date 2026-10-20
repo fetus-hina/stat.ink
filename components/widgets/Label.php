@@ -9,11 +9,13 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
+use Override;
 use Yii;
 use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\i18n\Formatter;
 
 use function is_array;
 use function preg_replace;
@@ -21,14 +23,33 @@ use function trim;
 
 final class Label extends Widget
 {
+    /**
+     * @var string|array<mixed>|null
+     */
     public $link;
+    /**
+     * @var string|array<mixed>
+     */
     public $format = 'text';
+    /**
+     * @var mixed
+     */
     public $content;
+    /**
+     * @var string|null
+     */
     public $color = 'default';
+    /**
+     * @var array<string, mixed>
+     */
     public $options = [];
+    /**
+     * @var Formatter|null
+     */
     public $formatter;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 

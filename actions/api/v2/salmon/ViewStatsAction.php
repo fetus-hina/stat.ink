@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\api\v2\salmon;
 
+use Override;
 use Yii;
 use app\models\SalmonStats2;
 use yii\web\BadRequestHttpException;
@@ -23,7 +24,8 @@ use const SORT_DESC;
 
 class ViewStatsAction extends ViewAction
 {
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -31,7 +33,11 @@ class ViewStatsAction extends ViewAction
         Yii::$app->timeZone = 'Etc/UTC';
     }
 
-    public function run()
+    /**
+     * @return array<string, mixed>
+     */
+    #[Override]
+    public function run(): array
     {
         if (Yii::$app->user->isGuest) {
             throw new UnauthorizedHttpException('Unauthorized');

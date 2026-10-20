@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
+use Override;
 use Yii;
 use app\assets\OsIconWidgetAsset;
 use app\assets\OsLogosAsset;
@@ -20,6 +21,10 @@ use function sprintf;
 
 class OsIconWidget extends BaseUAIconWidget
 {
+    /**
+     * @param array<string, mixed> $options
+     */
+    #[Override]
     protected function registerTrigger(string $id, array $options): void
     {
         OsIconWidgetAsset::register($this->view);

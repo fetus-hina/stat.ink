@@ -31,6 +31,10 @@ trait Event
     use Common;
     use TypeHelperTrait;
 
+    /**
+     * @param array<mixed> $nodes
+     * @return list<array<string, mixed>>
+     */
     protected static function event(array $nodes): array
     {
         return array_map(
@@ -41,6 +45,10 @@ trait Event
             |> array_values(...);
     }
 
+    /**
+     * @param array<mixed> $schedule
+     * @return array<string, mixed>|null
+     */
     private static function processEventSchedule(array $schedule): ?array
     {
         try {

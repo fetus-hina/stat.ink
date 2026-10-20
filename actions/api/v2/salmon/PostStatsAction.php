@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\api\v2\salmon;
 
+use Override;
 use Yii;
 use app\models\api\v2\PostSalmonStatsForm;
 use yii\helpers\Json;
@@ -23,7 +24,8 @@ use const JSON_UNESCAPED_UNICODE;
 
 class PostStatsAction extends ViewAction
 {
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -31,7 +33,11 @@ class PostStatsAction extends ViewAction
         Yii::$app->timeZone = 'Etc/UTC';
     }
 
-    public function run()
+    /**
+     * @return array{error: array<string, string[]>}|null
+     */
+    #[Override]
+    public function run(): ?array
     {
         if (Yii::$app->user->isGuest) {
             throw new UnauthorizedHttpException('Unauthorized');
@@ -66,12 +72,20 @@ class PostStatsAction extends ViewAction
         return null;
     }
 
+    /**
+     * @param array<string, string[]> $errors
+     * @return array{error: array<string, string[]>}
+     */
     private function error(array $errors, int $code): array
     {
         $this->logError($errors);
         return $this->formatError($errors, $code);
     }
 
+    /**
+     * @param array<string, string[]> $errors
+     * @return array{error: array<string, string[]>}
+     */
     private function formatError(array $errors, int $code): array
     {
         $resp = Yii::$app->getResponse();
@@ -82,6 +96,9 @@ class PostStatsAction extends ViewAction
         ];
     }
 
+    /**
+     * @param array<string, string[]> $errors
+     */
     private function logError(array $errors): void
     {
         Yii::warning(sprintf(

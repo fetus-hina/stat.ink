@@ -30,7 +30,7 @@ use function time;
  */
 class SplatoonVersion2 extends ActiveRecord
 {
-    public static function findCurrentVersion($at = null): ?self
+    public static function findCurrentVersion(DateTimeInterface|int|string|null $at = null): ?self
     {
         if ($at === null) {
             $at = (int)($_SERVER['REQUEST_TIME'] ?? time());

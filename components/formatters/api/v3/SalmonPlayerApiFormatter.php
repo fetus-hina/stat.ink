@@ -19,6 +19,7 @@ final class SalmonPlayerApiFormatter
 {
     /**
      * @param SalmonPlayer3[] $models
+     * @return list<array<string, mixed>|null>|null
      */
     public static function allToJson(array $models, bool $fullTranslate = false): ?array
     {
@@ -28,6 +29,9 @@ final class SalmonPlayerApiFormatter
         );
     }
 
+    /**
+     * @return array<string, mixed>|null
+     */
     public static function toJson(?SalmonPlayer3 $model, bool $fullTranslate = false): ?array
     {
         if (!$model) {

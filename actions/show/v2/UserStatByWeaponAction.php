@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\show\v2;
 
+use Override;
 use Yii;
 use app\models\Battle2;
 use app\models\Battle2FilterForm;
@@ -26,7 +27,8 @@ use const SORT_DESC;
 
 class UserStatByWeaponAction extends ViewAction
 {
-    public function run()
+    #[Override]
+    public function run(): string
     {
         $request = Yii::$app->getRequest();
         $user = User::findOne([
@@ -48,6 +50,9 @@ class UserStatByWeaponAction extends ViewAction
         ]);
     }
 
+    /**
+     * @return list<array<string, mixed>>
+     */
     public function getList(User $user, Battle2FilterForm $filter): array
     {
         // {{{

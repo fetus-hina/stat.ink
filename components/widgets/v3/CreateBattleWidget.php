@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\components\widgets\v3;
 
+use Override;
 use Yii;
 use app\assets\CreateBattle3Asset;
 use app\components\widgets\Dialog;
@@ -36,7 +37,8 @@ use const SORT_NATURAL;
 
 final class CreateBattleWidget extends Dialog
 {
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 

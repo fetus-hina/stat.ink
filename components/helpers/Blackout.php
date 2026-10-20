@@ -15,8 +15,14 @@ use function range;
 
 class Blackout
 {
-    public static function getBlackoutTargetList($lobbyKey, $blackoutConfigValue, $myPosition): array
-    {
+    /**
+     * @return array<int, int>
+     */
+    public static function getBlackoutTargetList(
+        mixed $lobbyKey,
+        mixed $blackoutConfigValue,
+        mixed $myPosition,
+    ): array {
         if ($myPosition === false) {
             return [];
         }
@@ -54,6 +60,10 @@ class Blackout
         }
     }
 
+    /**
+     * @param array<mixed> $except
+     * @return array<int, int>
+     */
     private static function createList(array $except): array
     {
         return array_filter(

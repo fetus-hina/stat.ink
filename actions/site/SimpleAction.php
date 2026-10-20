@@ -7,14 +7,19 @@
 
 namespace app\actions\site;
 
+use Override;
 use yii\web\ViewAction as BaseAction;
 
 class SimpleAction extends BaseAction
 {
-    public $view = false;
-    public $params = [];
+    public string|false $view = false;
+    /**
+     * @var array<string, mixed>
+     */
+    public array $params = [];
 
-    public function run()
+    #[Override]
+    public function run(): string
     {
         return $this->controller->render($this->view, $this->params);
     }

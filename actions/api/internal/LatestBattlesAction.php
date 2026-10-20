@@ -11,12 +11,20 @@ namespace app\actions\api\internal;
 
 use Yii;
 use app\components\helpers\CombinedBattles;
+use app\models\Battle;
+use app\models\Battle2;
+use app\models\Battle3;
+use app\models\Salmon2;
+use app\models\Salmon3;
 use yii\db\Transaction;
 
 class LatestBattlesAction extends BaseLatestBattlesAction
 {
     private const BATTLE_LIMIT = 100;
 
+    /**
+     * @return array<Battle|Battle2|Battle3|Salmon2|Salmon3>
+     */
     protected function fetchBattles(): array
     {
         return Yii::$app->db->transaction(

@@ -13,6 +13,9 @@ use DateTime;
 use DateTimeImmutable;
 use Yii;
 use app\assets\SimpleBattleListAsset;
+use app\models\Battle;
+use app\models\Battle2;
+use app\models\Battle3;
 use yii\base\Widget;
 use yii\bootstrap\Html;
 
@@ -22,6 +25,9 @@ use function sprintf;
 
 abstract class BaseWidget extends Widget
 {
+    /**
+     * @var Battle|Battle2|Battle3
+     */
     public $model;
 
     abstract public function getBattleEndAt(): ?DateTimeImmutable;
@@ -30,8 +36,14 @@ abstract class BaseWidget extends Widget
 
     abstract public function getIsWin(): ?bool;
 
+    /**
+     * @return array{int|null, int|null}
+     */
     abstract public function getKillDeath(): array;
 
+    /**
+     * @return array<int|string, mixed>
+     */
     abstract public function getLinkRoute(): array;
 
     abstract public function getMapName(): string;

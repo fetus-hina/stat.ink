@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\assets;
 
+use Override;
 use Yii;
 use yii\helpers\Json;
 use yii\web\AssetBundle;
@@ -24,7 +25,8 @@ class NumberFormatAsset extends AssetBundle
     public $js = [];
     public $css = [];
 
-    public function publish($am)
+    #[Override]
+    public function publish($am): void
     {
         parent::publish($am);
 

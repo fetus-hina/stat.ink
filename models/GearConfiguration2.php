@@ -30,6 +30,9 @@ use function rtrim;
  */
 class GearConfiguration2 extends ActiveRecord
 {
+    /**
+     * @param array<int|null> $secondaryAbitilyIdList
+     */
     public static function generateFingerPrint(
         ?int $gearId,
         ?int $primaryAbilityId,
@@ -118,7 +121,10 @@ class GearConfiguration2 extends ActiveRecord
         return $this->hasMany(GearConfigurationSecondary2::class, ['config_id' => 'id']);
     }
 
-    public function toJsonArray()
+    /**
+     * @return array<string, mixed>
+     */
+    public function toJsonArray(): array
     {
         return [
             'gear' => $this->gear

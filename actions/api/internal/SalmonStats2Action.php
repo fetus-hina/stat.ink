@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\api\internal;
 
+use Override;
 use Yii;
 use app\models\InternalSalmonStats2Form;
 use app\models\SalmonStats2;
@@ -21,13 +22,17 @@ use const SORT_DESC;
 
 class SalmonStats2Action extends Action
 {
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         Yii::$app->response->format = 'compact-json';
     }
 
-    public function run()
+    /**
+     * @return array<int, array<string, mixed>>|null
+     */
+    public function run(): ?array
     {
         $input = $this->getInputForm();
         if ($input->hasErrors()) {

@@ -75,6 +75,9 @@ class SalmonMap2 extends ActiveRecord
         return $this->hasMany(SalmonSchedule2::class, ['map_id' => 'id']);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toJsonArray(): array
     {
         return [
@@ -84,6 +87,9 @@ class SalmonMap2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         $values = static::find()
@@ -109,6 +115,9 @@ class SalmonMap2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [
@@ -117,6 +126,9 @@ class SalmonMap2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return list<array<string, mixed>>
+     */
     public static function openapiExample(): array
     {
         return array_map(

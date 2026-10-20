@@ -41,18 +41,57 @@ class Player extends Model
 {
     use OpenAPIUtil;
 
+    /**
+     * @var mixed
+     */
     public $is_me;
+    /**
+     * @var mixed
+     */
     public $splatnet_id;
+    /**
+     * @var mixed
+     */
     public $name;
+    /**
+     * @var mixed
+     */
     public $special;
+    /**
+     * @var mixed
+     */
     public $rescue;
+    /**
+     * @var mixed
+     */
     public $death;
+    /**
+     * @var mixed
+     */
     public $golden_egg_delivered;
+    /**
+     * @var mixed
+     */
     public $power_egg_collected;
+    /**
+     * @var mixed
+     */
     public $species;
+    /**
+     * @var mixed
+     */
     public $gender;
+    /**
+     * @var mixed
+     */
     public $special_uses;
+    /**
+     * @var mixed
+     */
     public $weapons;
+    /**
+     * @var mixed
+     */
     public $boss_kills;
 
     public function behaviors()
@@ -358,6 +397,9 @@ class Player extends Model
         });
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         return [
@@ -572,6 +614,9 @@ class Player extends Model
         ];
     }
 
+    /**
+     * @return list<class-string>
+     */
     public static function openApiDepends(): array
     {
         return [
@@ -579,6 +624,9 @@ class Player extends Model
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiExample(): array
     {
         return [

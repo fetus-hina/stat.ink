@@ -16,6 +16,9 @@ final class StageMapForm extends Model
 {
     use ValidateDataTrait;
 
+    /**
+     * @var string|null
+     */
     public $map;
 
     #[Override]

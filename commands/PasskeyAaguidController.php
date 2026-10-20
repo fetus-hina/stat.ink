@@ -66,6 +66,9 @@ final class PasskeyAaguidController extends Controller
         return ExitCode::OK;
     }
 
+    /**
+     * @return array<mixed>|null
+     */
     private function fetchEntries(): ?array
     {
         try {

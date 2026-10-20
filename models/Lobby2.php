@@ -53,7 +53,10 @@ class Lobby2 extends ActiveRecord
         ];
     }
 
-    public function toJsonArray()
+    /**
+     * @return array<string, mixed>
+     */
+    public function toJsonArray(): array
     {
         return [
             'key' => $this->key,

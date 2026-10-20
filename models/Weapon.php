@@ -133,17 +133,20 @@ final class Weapon extends ActiveRecord
             ->viaTable('user_weapon', ['weapon_id' => 'id']);
     }
 
-    public function getCanonical()
+    public function getCanonical(): ActiveQuery
     {
         return $this->hasOne(static::class, ['id' => 'canonical_id']);
     }
 
-    public function getMainReference()
+    public function getMainReference(): ActiveQuery
     {
         return $this->hasOne(static::class, ['id' => 'main_group_id']);
     }
 
-    public function toJsonArray()
+    /**
+     * @return array<string, mixed>
+     */
+    public function toJsonArray(): array
     {
         return [
             'key' => $this->key,
@@ -154,6 +157,9 @@ final class Weapon extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         $values = static::find()
@@ -180,6 +186,9 @@ final class Weapon extends ActiveRecord
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [
@@ -190,6 +199,9 @@ final class Weapon extends ActiveRecord
         ];
     }
 
+    /**
+     * @return list<array<string, mixed>>
+     */
     public static function openapiExample(): array
     {
         $model = static::find()

@@ -9,10 +9,12 @@ declare(strict_types=1);
 
 namespace app\components\widgets\kdWin;
 
+use Override;
 use Yii;
 use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
 use yii\helpers\Html;
+use yii\i18n\Formatter;
 
 use function array_map;
 use function implode;
@@ -22,11 +24,15 @@ use function vsprintf;
 
 class KDWinTable extends Widget
 {
-    public $data = [];
-    public $limit = 16;
-    public $formatter;
+    /**
+     * @var array<int, array<int, array{battle: int, win: int}>>
+     */
+    public array $data = [];
+    public int $limit = 16;
+    public ?Formatter $formatter = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 

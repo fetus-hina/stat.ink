@@ -8,10 +8,12 @@
 namespace app\actions\user;
 
 use Exception;
+use Override;
 use Throwable;
 use Yii;
 use app\models\EditIconForm;
 use app\models\UserIcon;
+use yii\web\Response;
 use yii\web\ServerErrorHttpException;
 use yii\web\UploadedFile;
 use yii\web\ViewAction as BaseAction;
@@ -20,7 +22,8 @@ use function file_get_contents;
 
 class EditIconAction extends BaseAction
 {
-    public function run()
+    #[Override]
+    public function run(): string|Response
     {
         $request = Yii::$app->getRequest();
         if (!$user = Yii::$app->user->identity) {

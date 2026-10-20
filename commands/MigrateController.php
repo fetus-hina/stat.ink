@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\commands;
 
+use Override;
 use yii\base\InvalidConfigException;
 use yii\console\controllers\MigrateController as BaseController;
 
@@ -20,9 +21,13 @@ use function sprintf;
 class MigrateController extends BaseController
 {
     public $templateFile = '@app/views/migration/default_migration.php';
+    /**
+     * @var string|bool|null
+     */
     public $template;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         $this->setUpGenerateTemplateFiles();
@@ -57,6 +62,10 @@ class MigrateController extends BaseController
         );
     }
 
+    /**
+     * @param array<string, mixed> $params
+     */
+    #[Override]
     protected function generateMigrationSourceCode($params)
     {
         if ($this->template !== 'default') {

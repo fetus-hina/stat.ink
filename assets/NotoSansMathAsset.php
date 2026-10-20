@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\assets;
 
+use Override;
 use yii\web\AssetBundle;
 
 use function http_build_query;
@@ -18,7 +19,8 @@ final class NotoSansMathAsset extends AssetBundle
 {
     public $css = [];
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 

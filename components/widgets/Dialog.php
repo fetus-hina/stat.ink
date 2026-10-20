@@ -27,16 +27,19 @@ class Dialog extends Widget
     public const SIZE_MEDIUM = '';
     public const SIZE_LARGE = 'modal-lg';
 
-    public $title;
-    public $hasClose = true;
-    public $body;
-    public $footer;
-    public $fade = true;
-    public $verticalCenter = false;
-    public $size = self::SIZE_MEDIUM;
-    public $titleFormat = 'text';
-    public $headerOptions = [];
-    public $wrapBody = true;
+    public ?string $title = null;
+    public bool $hasClose = true;
+    public ?string $body = null;
+    public string|false|null $footer = null;
+    public bool $fade = true;
+    public bool $verticalCenter = false;
+    public string $size = self::SIZE_MEDIUM;
+    public string $titleFormat = 'text';
+    /**
+     * @var array<string, mixed>
+     */
+    public array $headerOptions = [];
+    public bool $wrapBody = true;
 
     public function __toString()
     {

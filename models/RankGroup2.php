@@ -68,6 +68,9 @@ class RankGroup2 extends ActiveRecord
         return $this->hasMany(Rank2::class, ['group_id' => 'id']);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toJsonArray(): array
     {
         return [

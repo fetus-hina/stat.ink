@@ -7,6 +7,7 @@
 
 namespace app\actions\show\v2;
 
+use Override;
 use Yii;
 use app\components\helpers\TypeHelper;
 use app\models\Battle2;
@@ -19,6 +20,7 @@ use app\models\WeaponType2;
 use yii\base\Action;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
+use yii\web\Response;
 
 use function array_merge;
 use function vsprintf;
@@ -32,9 +34,10 @@ use const SORT_NATURAL;
  */
 final class EditBattleAction extends Action
 {
-    private $battle;
+    private ?Battle2 $battle = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         $this->battle = null;
@@ -46,12 +49,12 @@ final class EditBattleAction extends Action
         }
     }
 
-    public function getIsEditable()
+    public function getIsEditable(): bool
     {
         return !!$this->battle;
     }
 
-    public function run()
+    public function run(): string|Response|null
     {
         $del = Yii::createObject(Battle2DeleteForm::class);
         if (Yii::$app->request->isPost) {
@@ -81,7 +84,7 @@ final class EditBattleAction extends Action
                             'screen_name' => $this->battle->user->screen_name,
                             'battle' => $this->battle->id,
                         ]);
-                        return;
+                        return null;
                     }
                 }
             }
@@ -166,6 +169,10 @@ final class EditBattleAction extends Action
         );
     }
 
+    /**
+     * @param array<array-key, mixed> ...$arrays
+     * @return array<array-key, mixed>
+     */
     private static function arrayMerge(array ...$arrays): array
     {
         $ret = [];

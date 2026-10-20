@@ -79,6 +79,9 @@ final class CleanupController extends Controller
         return ExitCode::OK;
     }
 
+    /**
+     * @param string[] $tableNames
+     */
     private function vacuumTables(array $tableNames): void
     {
         $db = Yii::$app->db;

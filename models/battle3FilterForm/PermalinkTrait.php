@@ -28,8 +28,9 @@ trait PermalinkTrait
 {
     /**
      * @param string|false $formName
+     * @return array<string, string>
      */
-    public function toPermLink($formName = false)
+    public function toPermLink($formName = false): array
     {
         $formName = trim(is_string($formName) ? $formName : $this->formName());
 

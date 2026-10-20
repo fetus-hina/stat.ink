@@ -63,7 +63,10 @@ class DeathReasonType2 extends ActiveRecord
         return $this->hasMany(DeathReason2::class, ['type_id' => 'id']);
     }
 
-    public function toJsonArray()
+    /**
+     * @return array<string, mixed>
+     */
+    public function toJsonArray(): array
     {
         return [
             'key' => $this->key,

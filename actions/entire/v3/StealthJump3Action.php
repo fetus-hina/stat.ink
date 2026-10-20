@@ -63,6 +63,9 @@ final class StealthJump3Action extends Action
             : $controller->render('v3/stealth-jump3', $params);
     }
 
+    /**
+     * @return Response|array<string, mixed>
+     */
     private function doRun(
         Controller $controller,
         Connection $db,

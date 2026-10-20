@@ -48,6 +48,9 @@ final class SpecialUse3PerSpecialAction extends Action
             : $controller->render('v3/special-use3-per-special', $params);
     }
 
+    /**
+     * @return Response|array<string, mixed>
+     */
     private function doRun(
         Controller $controller,
         Connection $db,

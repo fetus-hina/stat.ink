@@ -7,6 +7,7 @@
 
 namespace app\actions\show;
 
+use Override;
 use Yii;
 use app\models\BattleFilterForm;
 use app\models\Map;
@@ -23,7 +24,8 @@ class UserStatByMapRuleAction extends BaseAction
 {
     use UserStatFilterTrait;
 
-    public function run()
+    #[Override]
+    public function run(): string
     {
         $request = Yii::$app->getRequest();
         $user = User::findOne(['screen_name' => $request->get('screen_name')]);
@@ -45,7 +47,14 @@ class UserStatByMapRuleAction extends BaseAction
         ));
     }
 
-    private function getData(User $user, BattleFilterForm $filter)
+    /**
+     * @return array{
+     *   data: array<string, array<string, array{win: int, lose: int}>>,
+     *   mapNames: array<string, string>,
+     *   ruleNames: array<string, string>
+     * }
+     */
+    private function getData(User $user, BattleFilterForm $filter): array
     {
         $query = new Query()
             ->select([

@@ -7,6 +7,7 @@
 
 namespace app\components\widgets;
 
+use DateTimeInterface;
 use Yii;
 use app\assets\ActiveReltimeAsset;
 use yii\base\Widget;
@@ -21,8 +22,8 @@ use function time;
 
 class ActiveRelativeTimeWidget extends Widget
 {
-    public $datetime;
-    public $mode = 'long';
+    public ?DateTimeInterface $datetime = null;
+    public string $mode = 'long';
 
     public function run()
     {
@@ -78,6 +79,9 @@ class ActiveRelativeTimeWidget extends Widget
         }
     }
 
+    /**
+     * @return array<string, array<string, array<string, string>>>
+     */
     protected function getFormats(): array
     {
         // {{{

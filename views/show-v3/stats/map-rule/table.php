@@ -18,8 +18,8 @@ use yii\web\View;
  * @var View $this
  * @var array<string, Map3> $maps
  * @var array<string, Rule3> $rules
- * @var array<string, array<string, array>> $mapStats
- * @var array<string, array> $totalStats
+ * @var array<string, array<string, array<string, mixed>>> $mapStats
+ * @var array<string, array<string, mixed>> $totalStats
  */
 
 $this->registerCss(

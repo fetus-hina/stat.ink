@@ -59,6 +59,9 @@ final class Ability3Action extends Action
             : $controller->render('v3/ability3', $params);
     }
 
+    /**
+     * @return Response|array<string, mixed>
+     */
     private function doRun(
         Controller $controller,
         Connection $db,

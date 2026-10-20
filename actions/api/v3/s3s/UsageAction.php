@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\api\v3\s3s;
 
+use Override;
 use Yii;
 use app\actions\api\v3\traits\ApiInitializerTrait;
 use yii\base\Action;
@@ -27,19 +28,17 @@ final class UsageAction extends Action
 {
     use ApiInitializerTrait;
 
-    /**
-     * @inheritdoc
-     */
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         $this->apiInit();
     }
 
     /**
-     * @return array[]
+     * @return array<int, array<string, mixed>>
      */
-    public function run()
+    public function run(): array
     {
         $conn = Yii::$app->db;
         $conn->createCommand("SET TIMEZONE TO 'Etc/UTC'")->execute();

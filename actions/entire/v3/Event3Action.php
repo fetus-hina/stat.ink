@@ -301,6 +301,9 @@ final class Event3Action extends Action
         );
     }
 
+    /**
+     * @return Event3StatsPowerPeriodHistogram[]
+     */
     private static function getPeriodHistogram(Connection $db, EventSchedule3 $schedule): array
     {
         return Event3StatsPowerPeriodHistogram::find()

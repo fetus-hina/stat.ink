@@ -21,6 +21,9 @@ class DateTime extends Component
 {
     use Util;
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         return [
@@ -44,12 +47,18 @@ class DateTime extends Component
         ];
     }
 
+    /**
+     * @return list<class-string>
+     */
     public static function openApiDepends(): array
     {
         return [];
     }
 
-    public static function example($value): array
+    /**
+     * @return array{time: int, iso8601: string}
+     */
+    public static function example(DateTimeInterface|int|string $value): array
     {
         if (!$value instanceof DateTimeInterface) {
             if (filter_var($value, FILTER_VALIDATE_INT)) {

@@ -7,7 +7,9 @@
 
 namespace app\actions\user;
 
+use Override;
 use Yii;
+use app\models\User;
 use yii\web\BadRequestHttpException;
 use yii\web\ViewAction as BaseAction;
 
@@ -15,15 +17,20 @@ use function is_scalar;
 
 class Download2Action extends BaseAction
 {
-    private $user;
+    private ?User $user = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         $this->user = Yii::$app->user->getIdentity();
     }
 
-    public function run()
+    /**
+     * @return array<string, mixed>
+     */
+    #[Override]
+    public function run(): array
     {
         $type = Yii::$app->request->get('type');
         if (is_scalar($type)) {
@@ -47,7 +54,10 @@ class Download2Action extends BaseAction
         );
     }
 
-    private function runIkaLogCsv()
+    /**
+     * @return array<string, mixed>
+     */
+    private function runIkaLogCsv(): array
     {
         $charsets = [
             'de-DE' => [ 'ISO-8859-1', 'Latin-1' ],
@@ -89,7 +99,10 @@ class Download2Action extends BaseAction
         ];
     }
 
-    private function runCsv()
+    /**
+     * @return array<string, mixed>
+     */
+    private function runCsv(): array
     {
         $resp = Yii::$app->response;
         $resp->setDownloadHeaders('statink-2.csv', 'text/csv; charset=UTF-8', false, null);

@@ -69,6 +69,9 @@ class CloudflareController extends Controller
         return 0;
     }
 
+    /**
+     * @return list<string>|null
+     */
     private function downloadIpRanges(): ?array
     {
         $list = array_merge(
@@ -105,6 +108,9 @@ class CloudflareController extends Controller
         return $list ? ($list |> array_unique(...) |> array_values(...)) : null;
     }
 
+    /**
+     * @return list<string>|null
+     */
     private function downloadIpRangesFile(string $url, int $filterFlag): ?array
     {
         try {

@@ -121,6 +121,7 @@ final class S3sKillAssistAction extends Action
     }
 
     /**
+     * @param int[] $agentIds
      * @return Generator<Battle3>
      */
     private function enumTargetBattles(array $agentIds): Generator
@@ -189,6 +190,9 @@ final class S3sKillAssistAction extends Action
         return $battle->save();
     }
 
+    /**
+     * @param BattlePlayer3[] $players
+     */
     private function updatePlayers(array $players): bool
     {
         foreach ($players as $player) {

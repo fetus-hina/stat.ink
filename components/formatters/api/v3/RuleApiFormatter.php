@@ -13,6 +13,9 @@ use app\models\Rule3;
 
 final class RuleApiFormatter
 {
+    /**
+     * @return array<string, mixed>|null
+     */
     public static function toJson(?Rule3 $model, bool $fullTranslate = false): ?array
     {
         if (!$model) {

@@ -16,6 +16,9 @@ trait Splatoon3
     use Battle3;
     use Salmon3;
 
+    /**
+     * @return array<string, array<string, mixed>>
+     */
     protected function getSplatoon3(): array
     {
         return array_merge(

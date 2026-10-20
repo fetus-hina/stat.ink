@@ -77,7 +77,11 @@ class Splatoon2InkController extends Controller
     }
 
     // スケジュール 実装 {{{
-    private function importSchedules(ScheduleMode2 $mode, array $list)
+
+    /**
+     * @param stdClass[] $list
+     */
+    private function importSchedules(ScheduleMode2 $mode, array $list): void
     {
         usort($list, fn (stdClass $a, stdClass $b): int => $a->start_time <=> $b->start_time);
         foreach ($list as $schedule) {
@@ -85,7 +89,7 @@ class Splatoon2InkController extends Controller
         }
     }
 
-    private function importSchedule(ScheduleMode2 $mode, stdClass $info)
+    private function importSchedule(ScheduleMode2 $mode, stdClass $info): void
     {
         static $rules;
         if (!$rules) {
@@ -196,6 +200,10 @@ class Splatoon2InkController extends Controller
     }
 
     // スケジュール 実装 {{{
+
+    /**
+     * @param stdClass[] $list
+     */
     private function importCoopSchedules(array $list): bool
     {
         usort($list, fn (stdClass $a, stdClass $b): int => $a->start_time <=> $b->start_time);
@@ -321,7 +329,10 @@ class Splatoon2InkController extends Controller
 
     // }}}
 
-    private function queryJson(string $url, array $data = [])
+    /**
+     * @param array<string, mixed> $data
+     */
+    private function queryJson(string $url, array $data = []): mixed
     {
         echo "Querying {$url} ...\n";
         $curl = new Curl();

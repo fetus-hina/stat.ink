@@ -13,6 +13,9 @@ use Yii;
 
 trait TermDropdownListTrait
 {
+    /**
+     * @return array{array<string, string>, array<string, string>}
+     */
     public function getTermDropdown(): array
     {
         return [
@@ -21,6 +24,9 @@ trait TermDropdownListTrait
         ];
     }
 
+    /**
+     * @return array<string, string>
+     */
     private function getSpecifyDropdown(): array
     {
         return [

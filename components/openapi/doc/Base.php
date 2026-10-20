@@ -15,9 +15,13 @@ use yii\base\Component;
 
 abstract class Base extends Component
 {
-    private $renderer;
+    private ?OpenApiSpec $renderer = null;
 
     abstract public function getTitle(): string;
+
+    /**
+     * @return array<string, mixed>
+     */
     abstract public function getPaths(): array;
 
     public function render(): string

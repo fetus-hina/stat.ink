@@ -78,7 +78,10 @@ class Country extends ActiveRecord
             ->viaTable('timezone_country', ['country_id' => 'id']);
     }
 
-    public function getRegionalIndicatorSymbols(): ?array // ?int[]
+    /**
+     * @return int[]|null
+     */
+    public function getRegionalIndicatorSymbols(): ?array
     {
         if (strlen($this->key) !== 2) {
             return null;

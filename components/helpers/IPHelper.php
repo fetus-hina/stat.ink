@@ -73,6 +73,10 @@ class IPHelper
     }
 
     // gethostbynamel for both ipv4 and ipv6
+
+    /**
+     * @return string[]
+     */
     protected static function queryIpAddressListByName(string $hostName): array
     {
         $tasks = [

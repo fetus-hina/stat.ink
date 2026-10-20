@@ -13,6 +13,7 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Laminas\Feed\Writer\Feed as FeedWriter;
 use Laminas\Feed\Writer\Version;
+use Override;
 use Yii;
 use app\models\Battle;
 use app\models\User;
@@ -31,14 +32,18 @@ use function vsprintf;
 
 final class UserAction extends Action
 {
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         Yii::$app->timeZone = 'Etc/UTC';
         Yii::$app->language = 'en-US';
     }
 
-    public function run()
+    /**
+     * @return array{error: mixed}|string
+     */
+    public function run(): array|string
     {
         $request = Yii::$app->getRequest();
         $resp = Yii::$app->getResponse();
@@ -217,7 +222,7 @@ final class UserAction extends Action
         return $feed->export($model->type);
     }
 
-    protected function makeEntryContent(Battle $battle, $lang)
+    protected function makeEntryContent(Battle $battle, string $lang): string
     {
         $html = '';
         if ($battle->battleImageResult || $battle->battleImageJudge) {

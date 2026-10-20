@@ -29,11 +29,11 @@ use function version_compare;
 
 class Version
 {
-    private static $revision = null;
-    private static $shortRevision = null;
-    private static $lastCommited = null;
+    private static string|false|null $revision = null;
+    private static string|false|null $shortRevision = null;
+    private static DateTimeImmutable|false|null $lastCommited = null;
 
-    public static function getVersion()
+    public static function getVersion(): string
     {
         return Yii::$app->version;
     }
@@ -62,6 +62,9 @@ class Version
         return $lines ? array_shift($lines) : null;
     }
 
+    /**
+     * @return string[]
+     */
     public static function getVersionTags(?string $hash = null): array
     {
         $revision = $hash ?? static::getRevision();
@@ -81,7 +84,7 @@ class Version
         return $lines;
     }
 
-    private static function fetchRevision()
+    private static function fetchRevision(): void
     {
         if (
             self::$revision !== null &&
@@ -112,7 +115,7 @@ class Version
         }
     }
 
-    private static function getGitLog($format)
+    private static function getGitLog(string $format): string|false
     {
         $gitCommand = sprintf(
             'git log -n 1 --format=%s --date=raw',
@@ -124,7 +127,10 @@ class Version
         return trim(array_shift($lines));
     }
 
-    private static function doGit($gitCommand)
+    /**
+     * @return string[]|false
+     */
+    private static function doGit(string $gitCommand): array|false
     {
         // FIXME: scl git19 があればそれを、無ければpathの通ったgitを使うひどい場当たりhack
         if (

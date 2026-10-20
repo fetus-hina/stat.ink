@@ -7,6 +7,7 @@
 
 namespace app\actions\api\internal\v3;
 
+use Override;
 use Throwable;
 use Yii;
 use app\components\formatters\api\v3\BattleApiFormatter;
@@ -27,7 +28,8 @@ final class PatchBattle3UrlAction extends Action
 {
     public Battle3|null $model = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -93,7 +95,10 @@ final class PatchBattle3UrlAction extends Action
         }
     }
 
-    public function run()
+    /**
+     * @return array<string, mixed>|null
+     */
+    public function run(): ?array
     {
         $form = Yii::createObject(PatchBattle3UrlForm::class);
         $form->attributes = $_POST;
@@ -118,6 +123,10 @@ final class PatchBattle3UrlAction extends Action
         );
     }
 
+    /**
+     * @param array<string, string[]> $errors
+     * @return array{error: array<string, string[]>}
+     */
     public function formatError(array $errors, int $code = 400): array
     {
         $resp = Yii::$app->getResponse();

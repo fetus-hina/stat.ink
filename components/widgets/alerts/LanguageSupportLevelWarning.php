@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\components\widgets\alerts;
 
+use Override;
 use Yii;
 use app\assets\LanguageDialogAsset;
 use app\components\widgets\Alert;
@@ -27,7 +28,8 @@ class LanguageSupportLevelWarning extends Widget
 {
     private ?Language $language = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         $this->language = Language::findOne([

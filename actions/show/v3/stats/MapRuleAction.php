@@ -116,7 +116,7 @@ final class MapRuleAction extends Action
     }
 
     /**
-     * @return array<string, array<string, array>> `[mapKey => [ruleKey => data]]`
+     * @return array<string, array<string, array<string, mixed>>> `[mapKey => [ruleKey => data]]`
      */
     private function makeMapStats(Connection $db, User $user, Battle3FilterForm $form): array
     {
@@ -163,7 +163,7 @@ final class MapRuleAction extends Action
     }
 
     /**
-     * @return array<string, array> `[ruleKey => data]`
+     * @return array<string, array<string, mixed>> `[ruleKey => data]`
      */
     private function makeTotalStats(Connection $db, User $user, Battle3FilterForm $form): array
     {

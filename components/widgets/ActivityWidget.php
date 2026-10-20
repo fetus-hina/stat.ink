@@ -11,6 +11,7 @@ namespace app\components\widgets;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use Override;
 use Yii;
 use app\assets\LuxonAsset;
 use app\models\User;
@@ -40,7 +41,8 @@ final class ActivityWidget extends CalHeatmapWidget
     public bool $longLabel = true;
     public int $size = 10;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 

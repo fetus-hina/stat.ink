@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\show;
 
+use Override;
 use Yii;
 use app\models\Battle;
 use app\models\Map;
@@ -33,16 +34,17 @@ use function uasort;
 use const SORT_DESC;
 
 /**
- * @property-read array $maps
- * @property-read array $recentRankData
- * @property-read array $recentWPData
+ * @property-read array<string, string> $maps
+ * @property-read list<stdClass> $recentRankData
+ * @property-read list<stdClass> $recentWPData
  * @property-read object|null $userRankStat
  */
 class UserStatGachiAction extends BaseAction
 {
-    private $user;
+    private ?User $user = null;
 
-    public function run()
+    #[Override]
+    public function run(): string
     {
         $request = Yii::$app->getRequest();
         $this->user = User::findOne([
@@ -61,7 +63,10 @@ class UserStatGachiAction extends BaseAction
         ]);
     }
 
-    public function getRecentRankData()
+    /**
+     * @return list<stdClass>
+     */
+    public function getRecentRankData(): array
     {
         $query = Battle::find()
             ->with(['rankAfter', 'rule', 'lobby']) // eager loading
@@ -136,6 +141,9 @@ class UserStatGachiAction extends BaseAction
         return $ret;
     }
 
+    /**
+     * @return list<stdClass>
+     */
     public function getRecentWPData(): array
     {
         $query = Battle::find()
@@ -194,7 +202,7 @@ class UserStatGachiAction extends BaseAction
         return $battles;
     }
 
-    public function getUserRankStat()
+    public function getUserRankStat(): ?stdClass
     {
         $subQuery = new Query()
             ->select(['id' => 'MAX({{battle}}.[[id]])'])
@@ -228,7 +236,7 @@ class UserStatGachiAction extends BaseAction
         ];
     }
 
-    private function calcGraphExp($key, $exp)
+    private function calcGraphExp(?string $key, mixed $exp): int
     {
         $exp = (int)$exp;
         switch ($key) {
@@ -304,6 +312,9 @@ class UserStatGachiAction extends BaseAction
         ];
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function getMaps(): array
     {
         $list = ArrayHelper::map(

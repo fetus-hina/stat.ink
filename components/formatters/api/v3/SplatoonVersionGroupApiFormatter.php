@@ -19,6 +19,9 @@ use function version_compare;
 
 final class SplatoonVersionGroupApiFormatter
 {
+    /**
+     * @return array<string, mixed>|null
+     */
     public static function toJson(
         ?SplatoonVersionGroup3 $model,
         bool $fullTranslate = false,

@@ -13,6 +13,9 @@ use app\models\Lobby3;
 
 final class LobbyApiFormatter
 {
+    /**
+     * @return array<string, mixed>|null
+     */
     public static function toJson(?Lobby3 $model, bool $fullTranslate = false): ?array
     {
         if (!$model) {

@@ -25,7 +25,7 @@ use function sprintf;
  */
 class IkalogVersion extends ActiveRecord
 {
-    public static function findOneByRevision($rev)
+    public static function findOneByRevision(string $rev): ?static
     {
         $regex = sprintf('^%s.+', preg_quote($rev, ''));
         return static::find()

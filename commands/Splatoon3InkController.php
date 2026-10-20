@@ -103,6 +103,10 @@ final class Splatoon3InkController extends Controller
         return $this->updateSplatfestMessages();
     }
 
+    /**
+     * @param array<string, mixed> $data
+     * @return array<mixed>
+     */
     private function queryJson(string $url, array $data = []): array
     {
         return Yii::$app->cache->getOrSet(

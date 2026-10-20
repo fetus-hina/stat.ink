@@ -11,11 +11,13 @@ namespace app\models;
 
 use Override;
 use yii\base\Model;
+use yii\web\UploadedFile;
 
 final class EditIconForm extends Model
 {
     use ValidateDataTrait;
 
+    /** @var UploadedFile|null */
     public $image;
 
     #[Override]

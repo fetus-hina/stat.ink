@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\user;
 
+use Override;
 use RuntimeException;
 use Throwable;
 use Yii;
@@ -34,7 +35,11 @@ use function is_string;
  */
 final class PasskeySignupFinishAction extends BaseAction
 {
-    public function run()
+    /**
+     * @return array<string, mixed>
+     */
+    #[Override]
+    public function run(): array
     {
         if (!Yii::$app->user->getIsGuest()) {
             throw new BadRequestHttpException('Already logged in');

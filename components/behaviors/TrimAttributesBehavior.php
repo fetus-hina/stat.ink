@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\components\behaviors;
 
+use Override;
 use Traversable;
 use yii\base\Behavior;
 use yii\base\Model;
@@ -47,8 +48,10 @@ class TrimAttributesBehavior extends Behavior
 
     /**
      * @inheritdoc
+     * @return array<string, callable|string>
      */
-    public function events()
+    #[Override]
+    public function events(): array
     {
         return [
             Model::EVENT_BEFORE_VALIDATE => $this->trim(...),
@@ -62,7 +65,7 @@ class TrimAttributesBehavior extends Behavior
         }
     }
 
-    protected function doTrim($value)
+    protected function doTrim(mixed $value): mixed
     {
         if ($value === null || is_bool($value)) {
             return $value;

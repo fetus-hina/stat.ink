@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace app\assets;
 
 use LogicException;
+use Override;
 use yii\bootstrap\BootstrapAsset;
 use yii\bootstrap\BootstrapPluginAsset;
 use yii\web\AssetBundle;
@@ -52,7 +53,8 @@ class AppAsset extends AssetBundle
     /**
      * @inheritdoc
      */
-    public function registerAssetFiles($view)
+    #[Override]
+    public function registerAssetFiles($view): void
     {
         parent::registerAssetFiles($view);
         $this->registerFavicons($view);

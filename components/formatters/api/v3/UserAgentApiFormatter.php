@@ -16,6 +16,7 @@ final class UserAgentApiFormatter
 {
     /**
      * @param AgentVariable3[]|null $variables
+     * @return array<string, mixed>|null
      */
     public static function toJson(
         ?Agent $model,

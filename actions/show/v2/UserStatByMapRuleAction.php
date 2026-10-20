@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\show\v2;
 
+use Override;
 use Yii;
 use app\models\Battle2FilterForm;
 use app\models\Map2;
@@ -27,7 +28,8 @@ use const SORT_ASC;
 
 class UserStatByMapRuleAction extends BaseAction
 {
-    public function run()
+    #[Override]
+    public function run(): string
     {
         $request = Yii::$app->getRequest();
         $user = User::findOne([
@@ -51,7 +53,14 @@ class UserStatByMapRuleAction extends BaseAction
         ));
     }
 
-    private function getData(User $user, Battle2FilterForm $filter)
+    /**
+     * @return array{
+     *   data: array<string, array<string, array{win: int, lose: int, kill: int|null, death: int|null, kd_battle: int}>>,
+     *   mapNames: array<string, string>,
+     *   ruleNames: array<string, string>
+     * }
+     */
+    private function getData(User $user, Battle2FilterForm $filter): array
     {
         $query = $user->getBattle2s()
             ->orderBy(null)

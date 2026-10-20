@@ -12,6 +12,7 @@ use yii\base\Model;
 
 class CauseOfDeathGroupForm extends Model
 {
+    /** @var string|array<mixed>|null */
     public $level;
 
     public function formName()

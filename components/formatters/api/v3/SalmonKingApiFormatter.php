@@ -13,6 +13,9 @@ use app\models\SalmonKing3;
 
 final class SalmonKingApiFormatter
 {
+    /**
+     * @return array<string, mixed>|null
+     */
     public static function toJson(?SalmonKing3 $model, bool $fullTranslate = false): ?array
     {
         if (!$model) {

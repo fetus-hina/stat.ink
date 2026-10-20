@@ -7,6 +7,7 @@
 
 namespace app\actions\stage;
 
+use Override;
 use Yii;
 use app\components\helpers\Battle as BattleHelper;
 use app\models\GameMode;
@@ -29,15 +30,16 @@ use function usort;
 
 class MapAction extends BaseAction
 {
-    public $map;
+    public ?Map $map = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         $this->prepare();
     }
 
-    private function prepare()
+    private function prepare(): void
     {
         // {{{
         $req = Yii::$app->request;
@@ -52,7 +54,8 @@ class MapAction extends BaseAction
         // }}}
     }
 
-    public function run()
+    #[Override]
+    public function run(): string
     {
         $maps = [];
         foreach (Map::find()->asArray()->all() as $_) {
@@ -67,6 +70,9 @@ class MapAction extends BaseAction
         ]);
     }
 
+    /**
+     * @return stdClass[]
+     */
     private function buildData(): array
     {
         // {{{
@@ -127,7 +133,7 @@ class MapAction extends BaseAction
         // }}}
     }
 
-    private static function http404()
+    private static function http404(): void
     {
         throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
     }

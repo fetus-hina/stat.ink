@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use GeoIp2\Model\City;
+use Override;
 use Throwable;
 use Yii;
 use statink\yii2\jdenticon\Jdenticon;
@@ -25,14 +26,15 @@ use function strtolower;
 
 class LocationColumnWidget extends Widget
 {
-    public $geoip;
-    private $cityInfo = false;
+    public ?object $geoip = null;
+    private City|false|null $cityInfo = false;
 
-    public $remoteAddr;
-    public $remoteAddrMasked;
-    public $remoteHost;
+    public ?string $remoteAddr = null;
+    public ?string $remoteAddrMasked = null;
+    public ?string $remoteHost = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         if (!$this->geoip) {

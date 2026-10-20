@@ -15,6 +15,9 @@ use app\models\WeaponType3;
 
 final class WeaponApiFormatter
 {
+    /**
+     * @return array<string, mixed>|null
+     */
     public static function toJson(?Weapon3 $model, bool $fullTranslate = false): ?array
     {
         if (!$model) {

@@ -7,6 +7,7 @@
 
 namespace app\components\widgets\battle;
 
+use Override;
 use app\components\widgets\battle\panelItem\BattleItem1Widget;
 use app\components\widgets\battle\panelItem\BattleItem2Widget;
 use app\components\widgets\battle\panelItem\BattleItem3Widget;
@@ -33,7 +34,8 @@ final class PanelListItemWidget extends Widget
      */
     public $model;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 

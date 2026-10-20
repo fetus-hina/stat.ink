@@ -11,6 +11,7 @@ namespace app\commands\i18n;
 
 use DirectoryIterator;
 use Exception;
+use Generator;
 use Normalizer;
 use Yii;
 use yii\base\Component;
@@ -63,7 +64,10 @@ class OpenCCTranslator extends Component
         return $status;
     }
 
-    private function getTargetFiles()
+    /**
+     * @return Generator<int, string>
+     */
+    private function getTargetFiles(): Generator
     {
         $it = new DirectoryIterator(Yii::getAlias(self::INPUT_DIR));
         foreach ($it as $entry) {

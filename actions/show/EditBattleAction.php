@@ -7,6 +7,7 @@
 
 namespace app\actions\show;
 
+use Override;
 use Yii;
 use app\models\Battle;
 use app\models\BattleDeleteForm;
@@ -24,9 +25,10 @@ use function func_get_args;
 
 class EditBattleAction extends BaseAction
 {
-    private $battle;
+    private ?Battle $battle = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         $this->battle = null;
@@ -38,12 +40,13 @@ class EditBattleAction extends BaseAction
         }
     }
 
-    public function getIsEditable()
+    public function getIsEditable(): bool
     {
         return !!$this->battle;
     }
 
-    public function run()
+    #[Override]
+    public function run(): ?string
     {
         $form = new BattleForm();
         $del = new BattleDeleteForm();
@@ -60,7 +63,7 @@ class EditBattleAction extends BaseAction
                             'show/user',
                             'screen_name' => $this->battle->user->screen_name,
                         ]);
-                        return;
+                        return null;
                     }
                     $transaction->rollback();
                 }
@@ -73,7 +76,7 @@ class EditBattleAction extends BaseAction
                             'screen_name' => $this->battle->user->screen_name,
                             'battle' => $this->battle->id,
                         ]);
-                        return;
+                        return null;
                     }
                 }
             }
@@ -92,7 +95,10 @@ class EditBattleAction extends BaseAction
         ]);
     }
 
-    private function makeLobbies()
+    /**
+     * @return array<string|int, string>
+     */
+    private function makeLobbies(): array
     {
         $ret = ['' => Yii::t('app', 'Unknown')];
         foreach (Lobby::find()->orderBy('[[id]] ASC')->all() as $model) {
@@ -101,7 +107,10 @@ class EditBattleAction extends BaseAction
         return $ret;
     }
 
-    private function makeRules()
+    /**
+     * @return array<string, string|array<int, string>>
+     */
+    private function makeRules(): array
     {
         $ret = ['' => Yii::t('app', 'Unknown')];
         $gameModes = GameMode::find()->orderBy('[[id]] ASC')->all();
@@ -121,7 +130,10 @@ class EditBattleAction extends BaseAction
         return $ret;
     }
 
-    private function makeMaps()
+    /**
+     * @return array<string|int, string>
+     */
+    private function makeMaps(): array
     {
         $ret = [];
         foreach (Map::find()->all() as $map) {
@@ -134,7 +146,10 @@ class EditBattleAction extends BaseAction
         );
     }
 
-    private function makeWeapons()
+    /**
+     * @return array<string, string|array<int, string>>
+     */
+    private function makeWeapons(): array
     {
         $ret = [];
         $types = WeaponType::find()->orderBy('[[id]] ASC')->all();
@@ -155,7 +170,10 @@ class EditBattleAction extends BaseAction
         );
     }
 
-    private static function arrayMerge()
+    /**
+     * @return array<array-key, mixed>
+     */
+    private static function arrayMerge(): array
     {
         $ret = [];
         foreach (func_get_args() as $arg) {

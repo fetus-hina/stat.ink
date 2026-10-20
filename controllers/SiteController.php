@@ -112,12 +112,12 @@ class SiteController extends Controller
         ];
     }
 
-    public function actionApi()
+    public function actionApi(): void
     {
         $this->redirect('https://github.com/fetus-hina/stat.ink/blob/master/API.md');
     }
 
-    public function actionRobots()
+    public function actionRobots(): void
     {
         $resp = Yii::$app->response;
         $resp->format = 'raw';

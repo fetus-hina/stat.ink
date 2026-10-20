@@ -17,6 +17,9 @@ use function sqrt;
 
 final class StandardError
 {
+    /**
+     * @return array{rate: int|float, stderr: float, err95ci: float, err99ci: float, min95ci: float, max95ci: float, min99ci: float, max99ci: float, significant: string}|null
+     */
     public static function winpct(int $wins, int $battles): array|null
     {
         if ($battles < 10) {

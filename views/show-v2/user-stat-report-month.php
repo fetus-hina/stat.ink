@@ -20,7 +20,7 @@ use yii\web\View;
 /**
  * @var User $user
  * @var View $this
- * @var array $list
+ * @var list<array<string, mixed>> $list
  * @var string|null $next
  * @var string|null $prev
  */

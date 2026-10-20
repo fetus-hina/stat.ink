@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
+use Override;
 use Yii;
 use yii\base\Widget;
 use yii\helpers\Html;
@@ -31,7 +32,8 @@ final class BattleKillDeathColumn extends Widget
 
     public ?Formatter $formatter = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 

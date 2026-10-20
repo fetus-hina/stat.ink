@@ -44,7 +44,10 @@ class Splapi2Controller extends Controller
         return 0;
     }
 
-    private function importSchedules(ScheduleMode2 $mode, array $list)
+    /**
+     * @param stdClass[] $list
+     */
+    private function importSchedules(ScheduleMode2 $mode, array $list): void
     {
         usort($list, fn ($a, $b) => $a->start->unixtime <=> $b->start->unixtime);
         foreach ($list as $schedule) {
@@ -52,7 +55,7 @@ class Splapi2Controller extends Controller
         }
     }
 
-    private function importSchedule(ScheduleMode2 $mode, stdClass $info)
+    private function importSchedule(ScheduleMode2 $mode, stdClass $info): void
     {
         static $rules; // [ 'nawabari' => 1 ]
         if (!$rules) {
@@ -109,7 +112,10 @@ class Splapi2Controller extends Controller
         $this->stderr("  => updated\n");
     }
 
-    private function queryJson(string $url, array $data = [])
+    /**
+     * @param array<string, mixed> $data
+     */
+    private function queryJson(string $url, array $data = []): mixed
     {
         echo "Querying {$url} ...\n";
         $curl = new Curl();

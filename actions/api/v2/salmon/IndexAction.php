@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\api\v2\salmon;
 
+use Override;
 use Yii;
 use app\models\Salmon2;
 use app\models\api\v2\salmon\IndexFilterForm;
@@ -18,9 +19,10 @@ use yii\web\UnauthorizedHttpException;
 
 final class IndexAction extends Action
 {
-    public $isAuthMode = false;
+    public bool $isAuthMode = false;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -28,7 +30,10 @@ final class IndexAction extends Action
         Yii::$app->timeZone = 'Etc/UTC';
     }
 
-    public function run()
+    /**
+     * @return array<mixed>
+     */
+    public function run(): array
     {
         $resp = Yii::$app->getResponse();
         $resp->format = 'compact-json';

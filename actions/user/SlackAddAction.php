@@ -7,6 +7,7 @@
 
 namespace app\actions\user;
 
+use Override;
 use Throwable;
 use Yii;
 use app\models\Language;
@@ -19,7 +20,8 @@ use function uasort;
 
 class SlackAddAction extends BaseAction
 {
-    public function run()
+    #[Override]
+    public function run(): ?string
     {
         $request = Yii::$app->request;
         $form = new SlackAddForm();
@@ -32,7 +34,7 @@ class SlackAddAction extends BaseAction
                     if ($form->save($ident)) {
                         $transaction->commit();
                         $this->controller->redirect(['user/profile']);
-                        return;
+                        return null;
                     }
                 } catch (Throwable $e) {
                 }

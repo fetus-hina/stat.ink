@@ -23,6 +23,9 @@ trait Battle1Formatter
 {
     use UserFormatter;
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function formatBattle1(Battle $battle): array
     {
         $am = Yii::$app->assetManager;

@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
+use Override;
 use Yii;
 use app\assets\FontAwesomeAsset;
 use yii\base\Widget;
@@ -20,31 +21,49 @@ use function sprintf;
 
 class FA extends Widget
 {
-    public $tag = 'span';
-    public $isFW = false;
-    public $icon = null;
-    public $size = null;
+    public string $tag = 'span';
+    public bool $isFW = false;
+    public ?string $icon = null;
+    public ?string $size = null;
     public int $rotate = 0;
-    public $type = 'fas';
-    public $content = null;
-    public $options = [];
-    public $contentOptions = [];
+    public string $type = 'fas';
+    public ?string $content = null;
+    /**
+     * @var array<string, mixed>
+     */
+    public array $options = [];
+    /**
+     * @var array<string, mixed>
+     */
+    public array $contentOptions = [];
 
+    /**
+     * @param array<string, mixed> $options
+     */
     public static function fas(?string $icon, array $options = []): self
     {
         return static::factory('fas', $icon, $options);
     }
 
+    /**
+     * @param array<string, mixed> $options
+     */
     public static function far(?string $icon, array $options = []): self
     {
         return static::factory('far', $icon, $options);
     }
 
+    /**
+     * @param array<string, mixed> $options
+     */
     public static function fab(?string $icon, array $options = []): self
     {
         return static::factory('fab', $icon, $options);
     }
 
+    /**
+     * @param array<string, mixed> $options
+     */
     public static function fal(?string $icon, array $options = []): self
     {
         return static::factory('fal', $icon, $options);
@@ -55,16 +74,22 @@ class FA extends Widget
         return static::factory('fas', null, ['content' => $content]);
     }
 
+    /**
+     * @param array<string, mixed> $options
+     */
     protected static function factory(string $type, ?string $icon, array $options): self
     {
-        return Yii::createObject(ArrayHelper::merge([
+        /** @var array{class: class-string<static>} $config */
+        $config = ArrayHelper::merge([
             'class' => static::class,
             'type' => $type,
             'icon' => $icon,
-        ], $options));
+        ], $options);
+        return Yii::createObject($config);
     }
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         FontAwesomeAsset::register($this->view);
@@ -97,6 +122,9 @@ class FA extends Widget
         return $this;
     }
 
+    /**
+     * @param array<string, mixed> $contentOptions
+     */
     public function contentOptions(array $contentOptions): self
     {
         $this->contentOptions = $contentOptions;

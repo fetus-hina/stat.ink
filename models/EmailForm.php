@@ -14,6 +14,7 @@ use yii\base\Model;
 
 class EmailForm extends Model
 {
+    /** @var string|array<mixed>|null */
     public $email;
 
     public function rules()

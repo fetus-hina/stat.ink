@@ -7,6 +7,7 @@
 
 namespace app\actions\api\v1;
 
+use Override;
 use Throwable;
 use Yii;
 use app\components\helpers\Blackout;
@@ -17,6 +18,7 @@ use app\models\Agent;
 use app\models\ApiV1BattleListForm;
 use app\models\Battle;
 use app\models\BattleDeathReason;
+use app\models\BattlePlayer;
 use app\models\api\v1\DeleteBattleForm;
 use app\models\api\v1\PatchBattleForm;
 use app\models\api\v1\PostBattleForm;
@@ -39,7 +41,11 @@ use const JSON_UNESCAPED_UNICODE;
 
 class BattleAction extends BaseAction
 {
-    public function run()
+    /**
+     * @return array<mixed>|null
+     */
+    #[Override]
+    public function run(): ?array
     {
         $request = Yii::$app->getRequest();
         if ($request->isDelete) {
@@ -55,7 +61,10 @@ class BattleAction extends BaseAction
         }
     }
 
-    private function runGet()
+    /**
+     * @return array<mixed>|null
+     */
+    private function runGet(): ?array
     {
         // {{{
         $request = Yii::$app->getRequest();
@@ -150,7 +159,10 @@ class BattleAction extends BaseAction
         // }}}
     }
 
-    private function runPost()
+    /**
+     * @return array<string, mixed>
+     */
+    private function runPost(): array
     {
         // {{{
         $request = Yii::$app->getRequest();
@@ -188,15 +200,11 @@ class BattleAction extends BaseAction
 
             $deathReasons = [];
             foreach ($form->toDeathReasons($battle) as $reason) {
-                if ($reason) {
-                    $deathReasons[] = $reason;
-                }
+                $deathReasons[] = $reason;
             }
             $players = [];
             foreach ($form->toPlayers($battle) as $player) {
-                if ($player) {
-                    $players[] = $player;
-                }
+                $players[] = $player;
             }
             $agent = null;
             if ($form->agent != '' || $form->agent_version != '') {
@@ -250,7 +258,10 @@ class BattleAction extends BaseAction
         // }}}
     }
 
-    private function saveData(PostBattleForm $form)
+    /**
+     * @return Battle|array{error: array<string, mixed>}
+     */
+    private function saveData(PostBattleForm $form): Battle|array
     {
         // {{{
         $battle = $form->toBattle();
@@ -307,7 +318,7 @@ class BattleAction extends BaseAction
             }
         }
         foreach ($form->toDeathReasons($battle) as $reason) {
-            if ($reason && !$reason->save()) {
+            if (!$reason->save()) {
                 $this->logError([
                     'system' => [ Yii::t('app-api', 'Could not save to database: {0}', ['battle_death_reason']) ],
                     'system_' => $reason->getErrors(),
@@ -319,7 +330,7 @@ class BattleAction extends BaseAction
             }
         }
         foreach ($form->toPlayers($battle) as $player) {
-            if ($player && !$player->save()) {
+            if (!$player->save()) {
                 $this->logError([
                     'system' => [ 'Could not save to database: battle_player' ],
                     'system_' => $player->getErrors(),
@@ -460,7 +471,10 @@ class BattleAction extends BaseAction
         // }}}
     }
 
-    private function runDelete()
+    /**
+     * @return array<string, mixed>
+     */
+    private function runDelete(): array
     {
         $request = Yii::$app->getRequest();
         $form = new DeleteBattleForm();
@@ -493,7 +507,10 @@ class BattleAction extends BaseAction
         ];
     }
 
-    private function runPatch()
+    /**
+     * @return array<string, mixed>
+     */
+    private function runPatch(): array
     {
         $request = Yii::$app->getRequest();
         $form = new PatchBattleForm();
@@ -516,7 +533,10 @@ class BattleAction extends BaseAction
         return $this->runGetImpl($form->save());
     }
 
-    private function runGetImpl(Battle $battle)
+    /**
+     * @return array<string, mixed>
+     */
+    private function runGetImpl(Battle $battle): array
     {
         return $this->runGetImpl2(
             $battle,
@@ -531,13 +551,15 @@ class BattleAction extends BaseAction
 
     /**
      * @param BattleDeathReason[] $deathReasons
+     * @param BattlePlayer[]|null $players
+     * @return array<string, mixed>
      */
     private function runGetImpl2(
         Battle $battle,
         array $deathReasons,
         ?array $players = null,
         ?Agent $agent = null,
-    ) {
+    ): array {
         $ret = $battle->toJsonArray();
         $ret['death_reasons'] = array_map(
             fn ($model): array => $model->toJsonArray(),
@@ -571,7 +593,11 @@ class BattleAction extends BaseAction
         }
     }
 
-    private function formatError(array $errors, $code)
+    /**
+     * @param array<string, mixed> $errors
+     * @return array{error: array<string, mixed>}
+     */
+    private function formatError(array $errors, int $code): array
     {
         $resp = Yii::$app->getResponse();
         $resp->format = 'json';
@@ -581,7 +607,10 @@ class BattleAction extends BaseAction
         ];
     }
 
-    private function logError(array $errors)
+    /**
+     * @param array<string, mixed> $errors
+     */
+    private function logError(array $errors): void
     {
         $output = json_encode(
             ['error' => $errors],

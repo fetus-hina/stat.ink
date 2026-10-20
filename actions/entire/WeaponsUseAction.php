@@ -41,12 +41,12 @@ use const SORT_ASC;
 use const SORT_NATURAL;
 
 /**
- * @property-read array $rules
- * @property-read array $weapons
+ * @property-read array<string, string|array<string, string>> $rules
+ * @property-read array<string, string|array<string, string>> $weapons
  */
 final class WeaponsUseAction extends Action
 {
-    public function run()
+    public function run(): string
     {
         $form = Yii::createObject(WeaponCompareForm::class);
         if (!$form->load($_GET) || !$form->validate()) {
@@ -69,6 +69,9 @@ final class WeaponsUseAction extends Action
         ]);
     }
 
+    /**
+     * @return array<string, string|array<string, string>>
+     */
     public function getWeapons(): array
     {
         return array_merge(
@@ -82,6 +85,9 @@ final class WeaponsUseAction extends Action
         );
     }
 
+    /**
+     * @return array<string, array<string, string>>
+     */
     public function getWeaponGroups(): array
     {
         $ret = [];
@@ -191,6 +197,9 @@ final class WeaponsUseAction extends Action
         );
     }
 
+    /**
+     * @return array{data: list<array{legend: string, data: list<array{string, float|int|null}>}>, events: array<int, array{string, string, mixed}>}
+     */
     public function getData(WeaponCompareForm $form): array
     {
         $list = $this->queryData($form);
@@ -225,7 +234,12 @@ final class WeaponsUseAction extends Action
         return $ret;
     }
 
-    protected function getEventData($firstData, $lastData): array
+    /**
+     * @param array<string, mixed> $firstData
+     * @param array<string, mixed> $lastData
+     * @return array<int, array{string, string, mixed}>
+     */
+    protected function getEventData(array $firstData, array $lastData): array
     {
         $first = strtotime(sprintf('%04d-W%02d', $firstData['isoyear'], $firstData['isoweek']));
         $last = strtotime(sprintf('%04d-W%02d', $lastData['isoyear'], $lastData['isoweek']));
@@ -245,6 +259,10 @@ final class WeaponsUseAction extends Action
         ], $query->asArray()->all());
     }
 
+    /**
+     * @param string|null $weapon
+     * @param string|null $rule
+     */
     protected function makeLegend($weapon, $rule): string
     {
         $weaponName = (function ($key) {
@@ -294,6 +312,9 @@ final class WeaponsUseAction extends Action
         return (string)$weaponName;
     }
 
+    /**
+     * @return array<int, array<string, mixed>>
+     */
     protected function queryData(WeaponCompareForm $form): array
     {
         $db = Yii::$app->db;

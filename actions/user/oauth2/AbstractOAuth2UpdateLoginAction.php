@@ -22,6 +22,7 @@ use yii\base\Action;
 use yii\db\ActiveRecord;
 use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
+use yii\web\Response;
 
 abstract class AbstractOAuth2UpdateLoginAction extends Action
 {
@@ -33,6 +34,8 @@ abstract class AbstractOAuth2UpdateLoginAction extends Action
 
     /**
      * Extra options passed to AbstractProvider::getAuthorizationUrl().
+     *
+     * @return array<string, mixed>
      */
     abstract protected function getAuthorizationOptions(): array;
 
@@ -51,6 +54,8 @@ abstract class AbstractOAuth2UpdateLoginAction extends Action
     /**
      * Build (but do not save) a new LoginWithXxx for $user using $userData (the raw
      * resource owner response) and the resolved $externalId.
+     *
+     * @param array<string, mixed> $userData
      */
     abstract protected function createNewLink(
         User $user,
@@ -63,14 +68,14 @@ abstract class AbstractOAuth2UpdateLoginAction extends Action
     abstract protected function getFailedToFetchMessage(): string;
 
     #[Override]
-    public function init()
+    public function init(): void
     {
         if (!$this->isProviderEnabled()) {
             throw new BadRequestHttpException();
         }
     }
 
-    public function run()
+    public function run(): Response
     {
         $request = Yii::$app->request;
         $response = Yii::$app->response;

@@ -21,7 +21,7 @@ use function strnatcasecmp;
 
 final class BossSalmonid3Action extends Action
 {
-    public function run()
+    public function run(): string
     {
         return $this->controller->render('boss-salmonid3', [
             'bosses' => $this->getBossSalmonids(),

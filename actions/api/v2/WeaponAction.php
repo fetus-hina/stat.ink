@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace app\actions\api\v2;
 
 use Generator;
+use Override;
 use Yii;
 use app\models\Language;
 use app\models\Weapon2;
@@ -23,7 +24,11 @@ use const SORT_ASC;
 
 class WeaponAction extends BaseAction
 {
-    public function run()
+    /**
+     * @return array<mixed>
+     */
+    #[Override]
+    public function run(): array
     {
         $response = Yii::$app->getResponse();
         $response->format = 'json';

@@ -105,7 +105,7 @@ final class WeaponsAction extends Action
     }
 
     /**
-     * @return array<string, array<string, array>> `[weaponKey => [ruleKey => data]]`
+     * @return array<string, array<string, array<string, mixed>>> `[weaponKey => [ruleKey => data]]`
      */
     private function makeStats(Connection $db, User $user, Battle3FilterForm $form): array
     {

@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\api\v3\s3s;
 
+use Override;
 use Yii;
 use app\actions\api\v3\traits\ApiInitializerTrait;
 use app\models\Battle3;
@@ -29,10 +30,8 @@ final class UuidListAction extends Action
 {
     use ApiInitializerTrait;
 
-    /**
-     * @inheritdoc
-     */
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         $this->apiInit('compact-json');

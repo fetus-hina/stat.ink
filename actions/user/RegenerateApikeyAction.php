@@ -7,14 +7,17 @@
 
 namespace app\actions\user;
 
+use Override;
 use Yii;
 use app\models\User;
 use yii\helpers\Url;
+use yii\web\Response;
 use yii\web\ViewAction as BaseAction;
 
 class RegenerateApikeyAction extends BaseAction
 {
-    public function run()
+    #[Override]
+    public function run(): Response
     {
         $response = Yii::$app->response;
         $user = Yii::$app->user->identity;

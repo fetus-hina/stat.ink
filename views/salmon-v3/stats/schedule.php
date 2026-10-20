@@ -51,7 +51,7 @@ use yii\web\View;
  * @var array<int, SalmonWeapon3> $weapons
  * @var array<int, Special3> $specials
  * @var array<int, WeaponStats> $weaponStats
- * @var array<int, array> $specialStats
+ * @var array<int, array<string, mixed>> $specialStats
  * @var array<int, array{boss_id: int, appearances: int, defeated: int, defeated_by_me: int}> $bossStats
  * @var array<int, array{king_id: int, appearances: int, defeated: int}> $kingStats
  * @var array<string, scalar|null> $stats

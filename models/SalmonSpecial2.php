@@ -75,6 +75,9 @@ class SalmonSpecial2 extends ActiveRecord
         return $this->hasOne(Special2::class, ['id' => 'special_id']);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toJsonArray(): array
     {
         return [

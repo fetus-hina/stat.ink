@@ -7,6 +7,7 @@
 
 namespace app\actions\api\internal;
 
+use Override;
 use Yii;
 use app\models\User;
 use yii\web\ViewAction as BaseAction;
@@ -17,14 +18,14 @@ use function is_scalar;
 
 abstract class BaseStatAction extends BaseAction
 {
-    public $user;
+    public ?User $user = null;
 
-    public function getCacheFormatVersion()
+    public function getCacheFormatVersion(): int
     {
         return 1;
     }
 
-    public function getCacheId()
+    public function getCacheId(): string
     {
         return hash_hmac(
             'sha256',
@@ -37,12 +38,13 @@ abstract class BaseStatAction extends BaseAction
         );
     }
 
-    public function getCacheExpires()
+    public function getCacheExpires(): int
     {
         return 600;
     }
 
-    public function run()
+    #[Override]
+    public function run(): mixed
     {
         $response = Yii::$app->getResponse();
         $response->format = 'compact-json';
@@ -61,7 +63,7 @@ abstract class BaseStatAction extends BaseAction
         return $this->decorate($this->makeDataOrLoadCache());
     }
 
-    private function makeDataOrLoadCache()
+    private function makeDataOrLoadCache(): mixed
     {
         $cache = Yii::$app->cache;
         $key = $this->getCacheId();
@@ -74,9 +76,9 @@ abstract class BaseStatAction extends BaseAction
         return $data;
     }
 
-    abstract protected function makeData();
+    abstract protected function makeData(): mixed;
 
-    protected function decorate($data)
+    protected function decorate(mixed $data): mixed
     {
         return $data;
     }

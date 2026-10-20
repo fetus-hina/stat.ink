@@ -146,6 +146,9 @@ final class UserTimeZone
         return $result[0];
     }
 
+    /**
+     * @return array{Timezone, string}|null
+     */
     public static function guessByGeoIPEx(): ?array
     {
         try {

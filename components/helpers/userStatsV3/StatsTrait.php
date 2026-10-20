@@ -130,6 +130,9 @@ trait StatsTrait
             ]);
     }
 
+    /**
+     * @param array<string, mixed> $row
+     */
     private static function saveAggregatedStats(
         Connection $db,
         User $user,

@@ -7,16 +7,20 @@
 
 namespace app\components\ability\effect;
 
+use Override;
+
 use function max;
 
 class v020700 extends v020600
 {
-    public function getCalculatorVersion()
+    #[Override]
+    public function getCalculatorVersion(): string
     {
         return '2.7.0';
     }
 
-    public function getSwimSpeedPct()
+    #[Override]
+    public function getSwimSpeedPct(): ?float
     {
         $x = $this->calcX('swim_speed_up', 120);
         if ($x === null) {
@@ -30,7 +34,8 @@ class v020700 extends v020600
         return (1 + $x) * ($ninja > 0 ? 0.9 : 1.0) * $w;
     }
 
-    public function getSpecialLossPct()
+    #[Override]
+    public function getSpecialLossPct(): int|float|null
     {
         $x = $this->calcX('special_saver', 60);
         if ($x === null) {
@@ -43,7 +48,8 @@ class v020700 extends v020600
         return max($w - $x, 0);
     }
 
-    public function getMarkingPct()
+    #[Override]
+    public function getMarkingPct(): ?float
     {
         $x = $this->calcX('cold_blooded', 1);
         if ($x === null) {
@@ -55,7 +61,8 @@ class v020700 extends v020600
         return 1.00;
     }
 
-    protected function getSpecialDurationDefaultSec()
+    #[Override]
+    protected function getSpecialDurationDefaultSec(): int|float|null
     {
         switch ($this->battle->weapon->special->key ?? null) {
             case null:
@@ -69,7 +76,7 @@ class v020700 extends v020600
         }
     }
 
-    protected function getSpecialLossPctBase()
+    protected function getSpecialLossPctBase(): ?float
     {
         switch ($this->battle->weapon->key ?? null) {
             case null:
@@ -115,7 +122,7 @@ class v020700 extends v020600
         }
     }
 
-    protected function getSwimSpeedBase()
+    protected function getSwimSpeedBase(): ?float
     {
         switch ($this->battle->weapon->key ?? null) {
             case null:

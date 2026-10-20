@@ -26,7 +26,9 @@ use function array_values;
 
 final class GearForm extends Model
 {
+    /** @var mixed */
     public $primary_ability;
+    /** @var mixed */
     public $secondary_abilities;
 
     public function behaviors()

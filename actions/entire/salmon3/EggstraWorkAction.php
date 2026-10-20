@@ -58,6 +58,9 @@ final class EggstraWorkAction extends Action
             ->render('salmon3/eggstra-work', $thing);
     }
 
+    /**
+     * @return Response|array<string, mixed>
+     */
     private function doRun(Connection $db): Response|array
     {
         $scheduleId = filter_var(Yii::$app->request->get('shift'), FILTER_VALIDATE_INT);

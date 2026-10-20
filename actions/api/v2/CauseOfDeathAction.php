@@ -93,6 +93,7 @@ final class CauseOfDeathAction extends Action
 
     /**
      * @param self::FORMAT_DEFAULT|self::FORMAT_REDUCED|self::FORMAT_IKALOG $format
+     * @return array<string, mixed>
      */
     private function toJson(DeathReason2 $model, string $format): array
     {
@@ -107,6 +108,9 @@ final class CauseOfDeathAction extends Action
         return $this->toDefaultJson($model);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function toDefaultJson(DeathReason2 $model): array
     {
         $results = [
@@ -142,6 +146,9 @@ final class CauseOfDeathAction extends Action
         return $results;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function toReducedJson(DeathReason2 $model): array
     {
         return [
@@ -153,6 +160,9 @@ final class CauseOfDeathAction extends Action
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function toIkalogJson(DeathReason2 $model): array
     {
         return [

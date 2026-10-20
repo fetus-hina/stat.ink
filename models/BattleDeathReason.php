@@ -74,7 +74,10 @@ class BattleDeathReason extends ActiveRecord
         return $this->hasOne(DeathReason::class, ['id' => 'reason_id']);
     }
 
-    public function toJsonArray()
+    /**
+     * @return array<string, mixed>
+     */
+    public function toJsonArray(): array
     {
         return [
             'reason' => $this->reason->toJsonArray(),

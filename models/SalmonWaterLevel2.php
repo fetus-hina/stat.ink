@@ -62,6 +62,9 @@ class SalmonWaterLevel2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toJsonArray(): array
     {
         return [
@@ -71,6 +74,9 @@ class SalmonWaterLevel2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         $values = static::find()
@@ -96,6 +102,9 @@ class SalmonWaterLevel2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [
@@ -104,6 +113,9 @@ class SalmonWaterLevel2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openapiExample(): array
     {
         return static::findOne(['key' => 'low'])->toJsonArray();

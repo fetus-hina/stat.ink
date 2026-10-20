@@ -47,6 +47,9 @@ class UserAgentHelper
         return $result ? implode(' / ', $result) : $defaultValue;
     }
 
+    /**
+     * @return array<string, mixed>|null
+     */
     public static function bowser(?string $userAgent): ?array
     {
         if ($userAgent === null) {
@@ -88,6 +91,9 @@ class UserAgentHelper
         }
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     protected static function platformSummary(array $data, ?string $language): ?string
     {
         switch (ArrayHelper::getValue($data, 'platform.type')) {
@@ -117,6 +123,9 @@ class UserAgentHelper
             : $type;
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     protected static function osSummary(array $data): ?string
     {
         $name = ArrayHelper::getValue($data, 'os.name');
@@ -134,6 +143,9 @@ class UserAgentHelper
             : $name;
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     protected static function browserSummary(array $data): ?string
     {
         return ArrayHelper::getValue($data, 'browser.name');

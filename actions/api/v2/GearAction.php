@@ -7,6 +7,8 @@
 
 namespace app\actions\api\v2;
 
+use Generator;
+use Override;
 use Yii;
 use app\models\Gear2;
 use app\models\Language;
@@ -23,7 +25,11 @@ use const SORT_ASC;
 
 class GearAction extends BaseAction
 {
-    public function run()
+    /**
+     * @return array<mixed>
+     */
+    #[Override]
+    public function run(): array
     {
         $response = Yii::$app->getResponse();
         $response->format = 'json';
@@ -63,6 +69,9 @@ class GearAction extends BaseAction
         }
     }
 
+    /**
+     * @return array<int, array<string, mixed>>
+     */
     protected function formatJson(Query $query): array
     {
         return array_map(
@@ -71,6 +80,9 @@ class GearAction extends BaseAction
         );
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function formatCsv(Query $query): array
     {
         $resp = Yii::$app->response;
@@ -91,7 +103,10 @@ class GearAction extends BaseAction
         ];
     }
 
-    protected function formatCsvRows(Query $query)
+    /**
+     * @return Generator<int, array<int, mixed>, mixed, void>
+     */
+    protected function formatCsvRows(Query $query): Generator
     {
         $langs = Language::find()
             ->standard()

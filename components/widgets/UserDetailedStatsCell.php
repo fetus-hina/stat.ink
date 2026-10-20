@@ -9,9 +9,12 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
+use Override;
 use Yii;
 use app\assets\AutoTooltipAsset;
 use app\assets\UserDetailedStatsCellAsset;
+use app\components\i18n\Formatter;
+use stdClass;
 use yii\base\Widget;
 use yii\helpers\Html;
 
@@ -24,11 +27,15 @@ use function vsprintf;
 
 class UserDetailedStatsCell extends Widget
 {
-    public $rule;
-    public $data;
-    private $f;
+    public ?string $rule = null;
+    public ?stdClass $data = null;
+    /**
+     * @var Formatter|null
+     */
+    private $f = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 

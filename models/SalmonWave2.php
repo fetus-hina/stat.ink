@@ -113,6 +113,9 @@ class SalmonWave2 extends ActiveRecord
         return $this->hasOne(SalmonWaterLevel2::class, ['id' => 'water_id']);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toJsonArray(): array
     {
         return [
@@ -125,6 +128,9 @@ class SalmonWave2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         return [
@@ -171,12 +177,18 @@ class SalmonWave2 extends ActiveRecord
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function openApiDepends(): array
     {
         return [
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openapiExample(): array
     {
         return [

@@ -7,11 +7,13 @@
 
 namespace app\actions\downloadStats;
 
+use Override;
 use yii\web\ViewAction;
 
 class IndexAction extends ViewAction
 {
-    public function run()
+    #[Override]
+    public function run(): string
     {
         return $this->controller->render('index', []);
     }

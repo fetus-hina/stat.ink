@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\entire;
 
+use Override;
 use Yii;
 use app\models\BattleFilterForm;
 use app\models\GameMode;
@@ -28,14 +29,15 @@ use function substr;
 use function usort;
 
 /**
- * @property-read array $maps
- * @property-read array $weapons
+ * @property-read array<string, string> $maps
+ * @property-read array<string, string|array<string, string>> $weapons
  */
 class KDWinAction extends BaseAction
 {
     public const KD_LIMIT = 16;
 
-    public function run()
+    #[Override]
+    public function run(): string
     {
         $filter = new BattleFilterForm();
         $filter->load($_GET);
@@ -64,6 +66,9 @@ class KDWinAction extends BaseAction
         ]);
     }
 
+    /**
+     * @return list<list<array{battle: int, win: int}>>
+     */
     private function makeData(Rule $rule, BattleFilterForm $filter): array
     {
         $ret = [];
@@ -88,6 +93,9 @@ class KDWinAction extends BaseAction
         return $ret;
     }
 
+    /**
+     * @return array<int, array<string, mixed>>
+     */
     private function query(Rule $rule, BattleFilterForm $filter): array
     {
         $t = StatWeaponKDWinRate::tableName();
@@ -152,6 +160,9 @@ class KDWinAction extends BaseAction
         return $query->all();
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function getMaps(): array
     {
         $ret = [];
@@ -165,6 +176,9 @@ class KDWinAction extends BaseAction
         );
     }
 
+    /**
+     * @return array<string, string|array<string, string>>
+     */
     public function getWeapons(): array
     {
         $ret = [

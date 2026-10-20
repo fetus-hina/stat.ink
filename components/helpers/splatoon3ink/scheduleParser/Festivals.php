@@ -30,6 +30,10 @@ trait Festivals
     use TypeHelperTrait;
     use Common;
 
+    /**
+     * @param array<mixed> $nodes
+     * @return array<string, array<string, mixed>>
+     */
     protected static function festivals(array $nodes): array
     {
         $festivals = [];
@@ -68,6 +72,10 @@ trait Festivals
         return $festivals;
     }
 
+    /**
+     * @param array<mixed> $node
+     * @return array<string, mixed>
+     */
     private static function parseFestivalNode(array $node): array
     {
         return [
@@ -93,6 +101,10 @@ trait Festivals
         ];
     }
 
+    /**
+     * @param array<mixed> $node
+     * @return array{name: string, color: string}
+     */
     private static function parseFestivalTeam(array $node): array
     {
         return [
@@ -103,6 +115,9 @@ trait Festivals
         ];
     }
 
+    /**
+     * @param array<mixed> $color
+     */
     private static function festivalTeamColor(array $color): string
     {
         $r = round(TypeHelper::float(ArrayHelper::getValue($color, 'r')) * 255);

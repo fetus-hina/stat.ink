@@ -16,10 +16,15 @@ final class ApiV1BattleListForm extends Model
 {
     use ValidateDataTrait;
 
+    /** @var string|array<mixed>|null */
     public $id;
+    /** @var string|array<mixed>|null */
     public $screen_name;
+    /** @var int|string|array<mixed>|null */
     public $count;
+    /** @var string|array<mixed>|null */
     public $newer_than;
+    /** @var string|array<mixed>|null */
     public $older_than;
 
     #[Override]

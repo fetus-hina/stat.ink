@@ -25,7 +25,7 @@ use yii\web\View;
  * @var Battle2FilterForm $filter
  * @var User $user
  * @var View $this
- * @var array[] $list
+ * @var list<array<string, mixed>> $list
  */
 
 $title = Yii::t('app-battle', "{name}'s Battle Stats (by Weapon)", ['name' => $user->name]);

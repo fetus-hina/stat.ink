@@ -7,13 +7,16 @@
 
 namespace app\actions\user;
 
+use Override;
 use Yii;
 use yii\helpers\Url;
+use yii\web\Response;
 use yii\web\ViewAction as BaseAction;
 
 class ClearLoginWithDiscordAction extends BaseAction
 {
-    public function run()
+    #[Override]
+    public function run(): Response
     {
         $response = Yii::$app->response;
 

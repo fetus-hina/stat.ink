@@ -64,7 +64,10 @@ class WeaponCompareForm extends Model
 {
     public const NUMBER = 20;
 
-    private $attributes = [];
+    /**
+     * @var array<string, mixed>
+     */
+    private array $attributes = [];
 
     public function hasAttribute(string $name): bool
     {
@@ -74,7 +77,7 @@ class WeaponCompareForm extends Model
         return $match[1] >= 1 && $match[1] <= static::NUMBER;
     }
 
-    public function getAttribute(string $name)
+    public function getAttribute(string $name): mixed
     {
         if (!$this->hasAttribute($name)) {
             throw new InvalidParamException(static::class . ' has no attribute named "' . $name . '".');
@@ -82,7 +85,7 @@ class WeaponCompareForm extends Model
         return $this->attributes[$name] ?? null;
     }
 
-    public function setAttribute(string $name, $value): self
+    public function setAttribute(string $name, mixed $value): self
     {
         if (!$this->hasAttribute($name)) {
             throw new InvalidParamException(static::class . ' has no attribute named "' . $name . '".');
@@ -159,7 +162,10 @@ class WeaponCompareForm extends Model
         return $ret;
     }
 
-    public function toQueryParams($formName = false)
+    /**
+     * @return array<string, mixed>
+     */
+    public function toQueryParams(string|false $formName = false): array
     {
         if ($formName === false) {
             $formName = $this->formName();

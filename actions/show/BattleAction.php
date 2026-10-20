@@ -7,14 +7,17 @@
 
 namespace app\actions\show;
 
+use Override;
 use Yii;
 use app\models\Battle;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 use yii\web\ViewAction as BaseAction;
 
 class BattleAction extends BaseAction
 {
-    public function run()
+    #[Override]
+    public function run(): string|Response
     {
         $request = Yii::$app->getRequest();
 

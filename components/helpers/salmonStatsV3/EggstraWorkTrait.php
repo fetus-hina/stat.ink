@@ -54,6 +54,9 @@ trait EggstraWorkTrait
         }
     }
 
+    /**
+     * @return array<array<string, mixed>>
+     */
     private static function makeEggstraWorkStats(
         Connection $db,
         User $user,

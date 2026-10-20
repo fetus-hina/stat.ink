@@ -14,14 +14,41 @@ use yii\base\Model;
  */
 class BattleRerecognizePlayerForm extends Model
 {
+    /**
+     * @var string|null
+     */
     public $is_me;
+    /**
+     * @var string|null
+     */
     public $team;
+    /**
+     * @var int|string|null
+     */
     public $rank_in_team;
+    /**
+     * @var int|string|null
+     */
     public $level;
+    /**
+     * @var string|null
+     */
     public $rank;
+    /**
+     * @var string|null
+     */
     public $weapon;
+    /**
+     * @var int|string|null
+     */
     public $kill;
+    /**
+     * @var int|string|null
+     */
     public $death;
+    /**
+     * @var int|string|null
+     */
     public $point;
 
     public function rules()

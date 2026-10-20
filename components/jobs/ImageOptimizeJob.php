@@ -25,8 +25,8 @@ class ImageOptimizeJob extends BaseObject implements JobInterface
 {
     use JobPriority;
 
-    public $inPath;
-    public $outPath;
+    public ?string $inPath = null;
+    public ?string $outPath = null;
 
     public function execute($queue)
     {

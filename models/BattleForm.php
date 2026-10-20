@@ -16,12 +16,33 @@ use function trim;
 
 class BattleForm extends Model
 {
+    /**
+     * @var int|string|null
+     */
     public $lobby_id;
+    /**
+     * @var int|string|null
+     */
     public $rule_id;
+    /**
+     * @var int|string|null
+     */
     public $map_id;
+    /**
+     * @var int|string|null
+     */
     public $weapon_id;
+    /**
+     * @var string|null
+     */
     public $link_url;
+    /**
+     * @var string|null
+     */
     public $note;
+    /**
+     * @var string|null
+     */
     public $private_note;
 
     public function rules()

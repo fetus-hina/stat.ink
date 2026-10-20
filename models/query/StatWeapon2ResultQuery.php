@@ -19,7 +19,7 @@ use function substr;
  */
 final class StatWeapon2ResultQuery extends ActiveQuery
 {
-    public function applyFilter($filter): self
+    public function applyFilter(mixed $filter): self
     {
         if ($filter instanceof Weapon2StageFilterForm) {
             return $this->applyStageFilter($filter);

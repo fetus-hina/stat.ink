@@ -165,6 +165,9 @@ class StatWeapon2Tier extends ActiveRecord
         return $this->hasOne(Weapon2::class, ['id' => 'weapon_id']);
     }
 
+    /**
+     * @return array{float|int|null, float|int, float|int|null}|null
+     */
     public function getWinRates(): ?array
     {
         if ($this->players_count < 1) {
@@ -202,6 +205,9 @@ class StatWeapon2Tier extends ActiveRecord
         return $s / sqrt($battles);
     }
 
+    /**
+     * @return array<string, array{month: string, vTag: string, vName: string}>
+     */
     public static function getDateVersionPatterns(Rule2 $rule): array
     {
         $list = new Query()

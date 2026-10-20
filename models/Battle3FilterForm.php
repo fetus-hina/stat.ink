@@ -202,6 +202,7 @@ final class Battle3FilterForm extends Model
 
     /**
      * @param class-string<ActiveRecord> $modelClass
+     * @return string[]
      */
     private static function getKeyList(string $modelClass, ?string $prefix = null): array
     {
@@ -214,6 +215,7 @@ final class Battle3FilterForm extends Model
     }
 
     /**
+     * @param array<mixed> $options
      * @return string[]
      */
     private static function getKeyListFromDropdown(array $options, mixed $optionsUnused = null): array

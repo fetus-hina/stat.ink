@@ -19,6 +19,7 @@ final class UserAgentVariableApiFormatter
 {
     /**
      * @param AgentVariable3[]|null $models
+     * @return array<string, string>
      */
     public static function toJson(?array $models): array
     {

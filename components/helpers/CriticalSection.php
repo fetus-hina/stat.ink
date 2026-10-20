@@ -7,6 +7,7 @@
 
 namespace app\components\helpers;
 
+use Override;
 use RuntimeException;
 use Yii;
 use yii\base\Component;
@@ -17,9 +18,9 @@ use function vsprintf;
 
 final class CriticalSection extends Component
 {
-    public $name;
-    public $timeout = 0;
-    public $mutex;
+    public ?string $name = null;
+    public int $timeout = 0;
+    public ?Mutex $mutex = null;
 
     public static function lock(
         string $name,
@@ -34,7 +35,8 @@ final class CriticalSection extends Component
         ])->enter();
     }
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 

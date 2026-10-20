@@ -16,6 +16,9 @@ final class UserTimezoneForm extends Model
 {
     use ValidateDataTrait;
 
+    /**
+     * @var string|null
+     */
     public $timezone;
 
     #[Override]

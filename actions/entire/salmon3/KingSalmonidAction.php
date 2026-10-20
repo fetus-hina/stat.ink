@@ -47,6 +47,9 @@ final class KingSalmonidAction extends Action
         );
     }
 
+    /**
+     * @return array<int, BigrunMap3>
+     */
     private function getBigMaps(Connection $db): array
     {
         return ArrayHelper::asort(
@@ -61,6 +64,9 @@ final class KingSalmonidAction extends Action
         );
     }
 
+    /**
+     * @return array<int, SalmonMap3>
+     */
     private function getMaps(Connection $db): array
     {
         return ArrayHelper::index(
@@ -69,6 +75,9 @@ final class KingSalmonidAction extends Action
         );
     }
 
+    /**
+     * @return array<int, SalmonKing3>
+     */
     private function getKings(Connection $db): array
     {
         return ArrayHelper::index(
@@ -79,6 +88,9 @@ final class KingSalmonidAction extends Action
         );
     }
 
+    /**
+     * @return array<int, SalmonWaterLevel2>
+     */
     private function getTides(Connection $db): array
     {
         return ArrayHelper::index(
@@ -89,6 +101,9 @@ final class KingSalmonidAction extends Action
         );
     }
 
+    /**
+     * @return StatSalmon3MapKing[]
+     */
     private function getData(Connection $db): array
     {
         return StatSalmon3MapKing::find()
@@ -100,6 +115,9 @@ final class KingSalmonidAction extends Action
             ->all($db);
     }
 
+    /**
+     * @return StatSalmon3MapKingTide[]
+     */
     private function getDataWithTide(Connection $db): array
     {
         return StatSalmon3MapKingTide::find()

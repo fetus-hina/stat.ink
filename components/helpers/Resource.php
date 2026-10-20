@@ -9,10 +9,13 @@ namespace app\components\helpers;
 
 class Resource
 {
-    protected $res;
+    protected mixed $res = null;
+    /**
+     * @var callable|null
+     */
     protected $free;
 
-    public function __construct($resource, $freeFunc)
+    public function __construct(mixed $resource, callable $freeFunc)
     {
         $this->res = $resource;
         $this->free = $freeFunc;
@@ -26,7 +29,7 @@ class Resource
         }
     }
 
-    public function get()
+    public function get(): mixed
     {
         return $this->res;
     }

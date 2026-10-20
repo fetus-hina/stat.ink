@@ -42,7 +42,13 @@ use const SORT_STRING;
 
 class SfItem extends Model
 {
+    /**
+     * @var int|float|string|bool|null
+     */
     public $value;
+    /**
+     * @var array<string, int|float|string|bool|null>
+     */
     public $params = [];
 
     public static function create(string $text): ?self
@@ -56,6 +62,9 @@ class SfItem extends Model
             : null;
     }
 
+    /**
+     * @return array{?self, string}|null
+     */
     public static function parseAndCreate(string $text): ?array // [?self, string]
     {
         $obj = Yii::createObject(['__class' => static::class]);
@@ -71,7 +80,7 @@ class SfItem extends Model
         return $this->renderBareItem($this->value) . $this->renderParameters($this->params);
     }
 
-    protected function renderBareItem($value): string
+    protected function renderBareItem(mixed $value): string
     {
         if (is_int($value)) {
             return $this->renderSfInteger($value);
@@ -88,6 +97,9 @@ class SfItem extends Model
         }
     }
 
+    /**
+     * @param array<string, int|float|string|bool|null> $params
+     */
     protected function renderParameters(array $params): string
     {
         $results = [];

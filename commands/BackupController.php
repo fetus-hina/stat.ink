@@ -39,7 +39,7 @@ class BackupController extends Controller
 
     public $defaultAction = 'save';
 
-    public function actionSave(bool $cleanup = true)
+    public function actionSave(bool $cleanup = true): int
     {
         $outPath = sprintf(
             '%s/statink-%s.dump.xz.gpg',
@@ -86,7 +86,7 @@ class BackupController extends Controller
         return 0;
     }
 
-    public function actionCleanup()
+    public function actionCleanup(): int
     {
         $dirPath = Yii::getAlias('@app/runtime/backup');
         if (!file_exists($dirPath)) {
@@ -120,7 +120,10 @@ class BackupController extends Controller
         return 0;
     }
 
-    private function createDumpCommandLine($outPath)
+    /**
+     * @return array{cmdline: string, env: array<string, mixed>}
+     */
+    private function createDumpCommandLine(string $outPath): array
     {
         $config = include __DIR__ . '/../config/db.php';
         $gpg = include __DIR__ . '/../config/backup-gpg.php';
@@ -164,7 +167,10 @@ class BackupController extends Controller
         ];
     }
 
-    private function parseDsn($dsn)
+    /**
+     * @return array<mixed>
+     */
+    private function parseDsn(string $dsn): array
     {
         $dsn = str_replace('pgsql:', '', $dsn);
         $dsn = str_replace(';', '&', $dsn);

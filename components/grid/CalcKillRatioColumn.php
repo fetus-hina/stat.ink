@@ -52,6 +52,7 @@ final class CalcKillRatioColumn extends KillRatioColumn
 
     /**
      * @param Battle3 $model
+     * @return array{int|null, int|null}
      */
     private function getKD(Model $model): array
     {

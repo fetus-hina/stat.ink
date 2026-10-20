@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\user;
 
+use Override;
 use RuntimeException;
 use Throwable;
 use Yii;
@@ -16,11 +17,13 @@ use app\components\helpers\PasskeyReauth;
 use app\components\helpers\UserNotifier;
 use app\models\PasswordForm;
 use app\models\User;
+use yii\web\Response;
 use yii\web\ViewAction as BaseAction;
 
 class EditPasswordAction extends BaseAction
 {
-    public function run()
+    #[Override]
+    public function run(): string|Response
     {
         $request = Yii::$app->request;
         $ident = Yii::$app->user->getIdentity();

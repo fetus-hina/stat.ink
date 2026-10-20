@@ -31,13 +31,34 @@ class PostSalmonStatsForm extends Model
 
     public const SPLATOON2_4_1_RELEASED_AT = 1538528400;
 
+    /**
+     * @var mixed
+     */
     public $work_count;
+    /**
+     * @var mixed
+     */
     public $total_golden_eggs;
+    /**
+     * @var mixed
+     */
     public $total_eggs;
+    /**
+     * @var mixed
+     */
     public $total_rescued;
+    /**
+     * @var mixed
+     */
     public $total_point;
+    /**
+     * @var mixed
+     */
     public $as_of;
 
+    /**
+     * @var int|null
+     */
     public $created_id;
 
     public function behaviors()
@@ -113,6 +134,9 @@ class PostSalmonStatsForm extends Model
         });
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         return [
@@ -168,12 +192,18 @@ class PostSalmonStatsForm extends Model
         ];
     }
 
+    /**
+     * @return list<class-string>
+     */
     public static function openApiDepends(): array
     {
         return [
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiExample(): array
     {
         return [

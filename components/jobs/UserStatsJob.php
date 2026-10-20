@@ -24,8 +24,8 @@ final class UserStatsJob extends BaseObject implements JobInterface
 {
     use JobPriority;
 
-    public $user;
-    public $version;
+    public int|string|null $user = null;
+    public ?int $version = null;
 
     public function execute($queue)
     {

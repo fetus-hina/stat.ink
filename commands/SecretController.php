@@ -24,7 +24,7 @@ use function substr;
 
 class SecretController extends Controller
 {
-    public function actionCookie()
+    public function actionCookie(): void
     {
         $this->stdout('Creating secret key file "config/cookie-secret.php"... ', Console::FG_YELLOW);
         $length = 32;
@@ -38,7 +38,7 @@ class SecretController extends Controller
         $this->stdout("Done.\n", Console::FG_GREEN);
     }
 
-    public function actionAuthkey()
+    public function actionAuthkey(): void
     {
         $this->stdout('Creating secret key file "config/authkey-secret.php"... ', Console::FG_YELLOW);
         $length = 64;
@@ -52,7 +52,7 @@ class SecretController extends Controller
         $this->stdout("Done.\n", Console::FG_GREEN);
     }
 
-    public function actionDb(string $host = 'localhost', ?string $password = null)
+    public function actionDb(string $host = 'localhost', ?string $password = null): void
     {
         $this->stdout('Creating "config/db.php"... ', Console::FG_YELLOW);
         if ($password == '') {
@@ -68,6 +68,7 @@ class SecretController extends Controller
             'dbname' => 'statink',
         ];
 
+        /** @var array<string, bool|string|null> $options */
         $options = [
             'class' => Connection::className(),
             'dsn' => $this->makeDsn('pgsql', $dsnOptions),
@@ -95,7 +96,10 @@ class SecretController extends Controller
         $this->stdout("Done.\n", Console::FG_GREEN);
     }
 
-    private function makeDsn($driver, array $options)
+    /**
+     * @param array<string, string> $options
+     */
+    private function makeDsn(string $driver, array $options): string
     {
         return $driver . ':' . http_build_query($options, '', ';');
     }

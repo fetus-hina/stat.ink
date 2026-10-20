@@ -49,6 +49,9 @@ trait LicenseExtractTrait
         return 0;
     }
 
+    /**
+     * @return array<string, array<string, mixed>>
+     */
     private function getPackages(): array
     {
         $cmdline = vsprintf('/usr/bin/env %s --no-interaction --no-plugins license --format=%s', [
@@ -61,6 +64,9 @@ trait LicenseExtractTrait
         );
     }
 
+    /**
+     * @param array<string, array<string, mixed>> $packages
+     */
     private function extractPackages(array $packages): void
     {
         foreach ($packages as $name => $info) {

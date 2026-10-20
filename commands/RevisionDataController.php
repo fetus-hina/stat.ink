@@ -111,7 +111,7 @@ class RevisionDataController extends Controller
         return true;
     }
 
-    private static function format($data, int $indentLevel = 0): string
+    private static function format(mixed $data, int $indentLevel = 0): string
     {
         $indent = str_repeat(' ', $indentLevel * 4);
         $indent1 = $indent . '    ';

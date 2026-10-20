@@ -14,7 +14,7 @@ use yii\web\View;
 
 /**
  * @var View $this
- * @var array $stats
+ * @var array<string, mixed> $stats
  */
 
 $fmt = Yii::$app->formatter;

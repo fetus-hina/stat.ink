@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\controllers;
 
+use Override;
 use Yii;
 use app\actions\api\v2\CauseOfDeathAction;
 use app\actions\api\v2\GearAction;
@@ -18,6 +19,7 @@ use app\actions\api\v2\UserStatsAction;
 use app\actions\api\v2\WeaponAction;
 use app\components\web\Controller;
 use yii\filters\VerbFilter;
+use yii\web\Response;
 
 use function array_merge;
 
@@ -25,7 +27,8 @@ final class ApiV2Controller extends Controller
 {
     public $enableCsrfValidation = false;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         Yii::$app->language = 'en-US';
         Yii::$app->timeZone = 'Etc/UTC';
@@ -57,7 +60,7 @@ final class ApiV2Controller extends Controller
         ];
     }
 
-    public function actionMap()
+    public function actionMap(): Response
     {
         return $this->redirect(
             array_merge(Yii::$app->request->get(), ['/api-v2/stage']),

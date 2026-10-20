@@ -35,7 +35,10 @@ use const FILTER_VALIDATE_INT;
 
 final class CounterAction extends Action
 {
-    public function run()
+    /**
+     * @return array<string, array{type: string, icon: ?string, label: string, count: int}>
+     */
+    public function run(): array
     {
         $response = Yii::$app->getResponse();
         $response->format = 'compact-json';
@@ -50,6 +53,9 @@ final class CounterAction extends Action
         throw new HttpException(503, 'Fetch failed');
     }
 
+    /**
+     * @return array<string, array{type: string, icon: ?string, label: string, count: int}>
+     */
     private function make(): array
     {
         $data = Yii::$app->cache->getOrSet(
@@ -122,6 +128,7 @@ final class CounterAction extends Action
 
     /**
      * @param class-string<AssetBundle> $iconAsset
+     * @return array<string, array{type: string, icon: ?string, label: string, count: int}>
      */
     private static function format(
         string $key,

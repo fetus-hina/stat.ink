@@ -50,6 +50,9 @@ class MachineTranslateHelper
         return $cache[$path][$message] ?? null;
     }
 
+    /**
+     * @return list<string>|null
+     */
     private static function getMessagePaths(string $category, string $language): ?array
     {
         static $cache = [];
@@ -62,6 +65,9 @@ class MachineTranslateHelper
         return $cache[$cacheId];
     }
 
+    /**
+     * @return list<string>|null
+     */
     private static function getMessagePathsImpl(string $category, string $language): ?array
     {
         $msgSource = Yii::$app->i18n->getMessageSource($category);

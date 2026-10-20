@@ -19,6 +19,9 @@ class Name extends Component
 {
     use Util;
 
+    /**
+     * @return array<string, mixed>
+     */
     public static function openApiSchema(): array
     {
         $props = [];
@@ -35,11 +38,18 @@ class Name extends Component
         ];
     }
 
+    /**
+     * @return list<class-string>
+     */
     public static function openApiDepends(): array
     {
         return [];
     }
 
+    /**
+     * @param array<int|string, mixed> $options
+     * @return array<string, string>
+     */
     public static function example(string $category, string $value, array $options = []): array
     {
         $result = [];
@@ -54,6 +64,9 @@ class Name extends Component
         return $result;
     }
 
+    /**
+     * @return list<Language>
+     */
     protected static function languages(): array
     {
         static $cache = null;

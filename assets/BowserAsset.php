@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\assets;
 
+use Override;
 use Yii;
 use yii\web\AssetBundle;
 
@@ -26,7 +27,8 @@ class BowserAsset extends AssetBundle
     public $depends = [
     ];
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         $this->publishOptions['filter'] = [$this, 'filterIsUsableAssets'];

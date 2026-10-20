@@ -34,6 +34,9 @@ trait UpdateSalmonSchedule
 {
     private const RANDOM_MAP = 'random';
 
+    /**
+     * @param array<string, mixed> $schedules
+     */
     protected function updateSalmonSchedule(array $schedules): int
     {
         $hasError = false;

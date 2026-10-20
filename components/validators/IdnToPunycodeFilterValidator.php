@@ -7,6 +7,7 @@
 
 namespace app\components\validators;
 
+use Override;
 use yii\validators\FilterValidator;
 
 use function idn_to_ascii;
@@ -16,7 +17,8 @@ use function strtolower;
 
 class IdnToPunycodeFilterValidator extends FilterValidator
 {
-    public function init()
+    #[Override]
+    public function init(): void
     {
         $this->filter = function ($value) {
             if (!str_contains($value, '/')) {

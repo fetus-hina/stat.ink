@@ -18,8 +18,11 @@ use yii\base\Model;
  */
 class EmailVerifyForm extends Model
 {
+    /** @var string|array<mixed>|null */
     public $email;
+    /** @var string|array<mixed>|null */
     public $verifyCode;
+    /** @var string|null */
     public $validVerifyCode;
 
     public function rules()
@@ -50,7 +53,7 @@ class EmailVerifyForm extends Model
         ];
     }
 
-    public function validateHashedEmail(string $attribute, $params): void
+    public function validateHashedEmail(string $attribute, mixed $params): void
     {
         if ($this->hasErrors($attribute)) {
             return;

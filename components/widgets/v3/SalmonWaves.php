@@ -542,6 +542,9 @@ final class SalmonWaves extends Widget
         );
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function makeData(?SalmonWave3 $wave): array
     {
         $isEggstraWork = $this->job->is_eggstra_work;

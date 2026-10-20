@@ -7,6 +7,7 @@
 
 namespace app\components\web;
 
+use Override;
 use yii\helpers\Json;
 use yii\web\JsonResponseFormatter;
 
@@ -19,7 +20,8 @@ class PrettyJsonResponseFormatter extends JsonResponseFormatter
     /**
      * @inheritdoc
      */
-    protected function formatJson($response)
+    #[Override]
+    protected function formatJson($response): void
     {
         $response->getHeaders()
             ->set('Content-Type', 'application/json; charset=UTF-8')

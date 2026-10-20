@@ -13,16 +13,23 @@ use Yii;
 use app\assets\Spl2AbilityAsset;
 use yii\base\Widget;
 use yii\helpers\Html;
+use yii\web\AssetBundle;
 
 use function array_merge_recursive;
 use function sprintf;
 
 class AbilityIcon extends Widget
 {
-    public $icon;
-    public $asset;
-    public $contentOptions;
+    public ?string $icon = null;
+    public ?AssetBundle $asset = null;
+    /**
+     * @var array<string, mixed>
+     */
+    public array $contentOptions = [];
 
+    /**
+     * @param array<string, mixed> $contentOptions
+     */
     public static function spl2(string $icon, array $contentOptions = []): string
     {
         return static::widget([

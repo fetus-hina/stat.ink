@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\actions\entire;
 
+use Override;
 use Yii;
 use app\components\web\HttpErrorTrait;
 use app\models\Rule2;
@@ -26,9 +27,13 @@ class Weapons2TierAction extends ViewAction
 {
     use HttpErrorTrait;
 
-    public $input;
+    /**
+     * @var array{version: string, month: string, rule: string}|null
+     */
+    public ?array $input = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -40,7 +45,8 @@ class Weapons2TierAction extends ViewAction
         ];
     }
 
-    public function run()
+    #[Override]
+    public function run(): ?string
     {
         // redirect to default page if input is empty
         if (!$this->input['version'] || !$this->input['month'] || !$this->input['rule']) {
@@ -68,7 +74,7 @@ class Weapons2TierAction extends ViewAction
                 'month' => substr($latest->month, 0, 7), // "YYYY-MM"-DD
                 'rule' => 'area',
             ]);
-            return;
+            return null;
         }
 
         if (!preg_match('/^\d{4}-\d{2}$/', $this->input['month'])) {
@@ -120,6 +126,9 @@ class Weapons2TierAction extends ViewAction
         ]);
     }
 
+    /**
+     * @return array<string, array{name: string, enabled: bool}>
+     */
     private function getRules(SplatoonVersionGroup2 $version): array
     {
         return Rule2::getSortedAll('gachi', null, fn (Rule2 $rule): array => [

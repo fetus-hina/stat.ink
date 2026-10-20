@@ -7,6 +7,7 @@
 
 namespace app\actions\entire;
 
+use Override;
 use Yii;
 use app\components\helpers\TypeHelper;
 use app\models\Map;
@@ -35,11 +36,11 @@ use const SORT_ASC;
 use const SORT_NATURAL;
 
 /**
- * @property-read array $killDeath
- * @property-read array $maps
- * @property-read array $mapWinPercentage
- * @property-read array $rules
- * @property-read array $useCount
+ * @property-read list<array{kill: int, death: int, battle: int, win: int}> $killDeath
+ * @property-read list<array{key: string, name: string}> $maps
+ * @property-read array<string, array{battle: int, win: int}> $mapWinPercentage
+ * @property-read Rule[] $rules
+ * @property-read list<array{date: string, battles: int, use_pct: float|int, win_pct: float|int}> $useCount
  * @property-read array<string, array<string, string>> $weapons
  */
 final class WeaponAction extends Action
@@ -47,7 +48,8 @@ final class WeaponAction extends Action
     private ?Weapon $weapon = null;
     private ?Rule $rule = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -94,7 +96,10 @@ final class WeaponAction extends Action
         ]);
     }
 
-    public function getRules()
+    /**
+     * @return Rule[]
+     */
+    public function getRules(): array
     {
         $list = Rule::find()->with('mode')->all();
         array_walk($list, function ($a) {
@@ -109,7 +114,10 @@ final class WeaponAction extends Action
         return $list;
     }
 
-    public function getKillDeath()
+    /**
+     * @return list<array{kill: int, death: int, battle: int, win: int}>
+     */
+    public function getKillDeath(): array
     {
         $tmp = StatWeaponKillDeath::find()
             ->andWhere([
@@ -149,7 +157,10 @@ final class WeaponAction extends Action
         );
     }
 
-    public function getMaps()
+    /**
+     * @return list<array{key: string, name: string}>
+     */
+    public function getMaps(): array
     {
         $ret = array_map(
             fn ($row) => [
@@ -162,7 +173,10 @@ final class WeaponAction extends Action
         return $ret;
     }
 
-    public function getMapWinPercentage()
+    /**
+     * @return array<string, array{battle: int, win: int}>
+     */
+    public function getMapWinPercentage(): array
     {
         $table = StatWeaponKDWinRate::tableName();
         $map = Map::tableName();
@@ -191,7 +205,10 @@ final class WeaponAction extends Action
         })($query->createCommand()->queryAll());
     }
 
-    public function getUseCount()
+    /**
+     * @return list<array{date: string, battles: int, use_pct: float|int, win_pct: float|int}>
+     */
+    public function getUseCount(): array
     {
         $weaponId = (int)$this->weapon->id;
         $query = new Query()

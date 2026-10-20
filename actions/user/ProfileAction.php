@@ -7,12 +7,14 @@
 
 namespace app\actions\user;
 
+use Override;
 use Yii;
 use yii\web\ViewAction as BaseAction;
 
 class ProfileAction extends BaseAction
 {
-    public function run()
+    #[Override]
+    public function run(): string
     {
         $ident = Yii::$app->user->getIdentity();
         return $this->controller->render('profile', [
