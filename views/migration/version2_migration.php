@@ -36,6 +36,6 @@ $latestVersion = SplatoonVersion2::find()
         ');',
     ]),
     'downCode' => implode("\n", [
-        '$this->downVersion2(\'NEW.VER.SION\', \'' . addslashes($latestVersion->tag) . '\');',
+        '$this->downVersion2(\'NEW.VER.SION\', \'' . addslashes($latestVersion->tag ?? '') . '\');',
     ]),
 ]) ?>

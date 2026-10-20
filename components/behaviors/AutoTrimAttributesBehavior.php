@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace app\components\behaviors;
 
 use Override;
+use app\components\helpers\TypeHelper;
 use yii\base\Model;
 
 use function array_keys;
@@ -30,9 +31,9 @@ class AutoTrimAttributesBehavior extends TrimAttributesBehavior
 
     public function trim(): void
     {
-        $targets = array_keys($this->owner->attributes);
-        foreach ($targets as $attrName) {
-            $this->owner->{$attrName} = $this->doTrim($this->owner->{$attrName});
+        $owner = TypeHelper::instanceOf($this->owner, Model::class);
+        foreach (array_keys($owner->attributes) as $attrName) {
+            $owner->{$attrName} = $this->doTrim($owner->{$attrName});
         }
     }
 }

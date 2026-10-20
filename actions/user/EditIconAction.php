@@ -11,6 +11,7 @@ use Exception;
 use Override;
 use Throwable;
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\EditIconForm;
 use app\models\UserIcon;
 use yii\web\Response;
@@ -62,7 +63,8 @@ class EditIconAction extends BaseAction
                                     throw new Exception();
                                 }
                             }
-                            if (!$binary = @file_get_contents($model->image->tempName)) {
+                            $image = TypeHelper::instanceOf($model->image, UploadedFile::class);
+                            if (!$binary = @file_get_contents($image->tempName)) {
                                 throw new Exception();
                             }
                             $icon = UserIcon::createNew($user->id, $binary);

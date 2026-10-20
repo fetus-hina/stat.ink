@@ -144,7 +144,7 @@ $this->registerJs('$(".mr-value").matchingRange();');
       <tr>
         <?= Html::tag(
           'td',
-          Icon::s3Weapon($weapon),
+          Icon::s3Weapon($weapon) ?? '',
           [
             'data' => [
               'sort-value' => $numericAliases ? (string)min($numericAliases) : '',
@@ -244,7 +244,7 @@ $this->registerJs('$(".mr-value").matchingRange();');
         ) . "\n" ?>
         <?= Html::tag(
           'td',
-          Icon::s3Subweapon($weapon->subweapon),
+          Icon::s3Subweapon($weapon->subweapon) ?? '',
           [
             'data' => [
               'sort-value' => $weapon?->subweapon->rank ?? -1,
@@ -253,7 +253,7 @@ $this->registerJs('$(".mr-value").matchingRange();');
         ) . "\n" ?>
         <?= Html::tag(
           'td',
-          Icon::s3Special($weapon->special),
+          Icon::s3Special($weapon->special) ?? '',
           [
             'data' => [
               'sort-value' => $weapon?->special->rank ?? -1,

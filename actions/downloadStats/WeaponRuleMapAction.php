@@ -15,6 +15,7 @@ use app\models\Charset;
 use yii\db\Query;
 
 use function implode;
+use function is_string;
 use function ord;
 use function sprintf;
 
@@ -26,11 +27,12 @@ class WeaponRuleMapAction extends BaseAction
     #[Override]
     public function run(): array
     {
-        if ($this->config->lang) {
-            Yii::$app->language = $this->config->lang;
+        $lang = $this->config?->lang;
+        if (is_string($lang) && $lang !== '') {
+            Yii::$app->language = $lang;
         }
 
-        $charset = Charset::findOne(['php_name' => $this->config->charset ?: 'UTF-8']);
+        $charset = Charset::findOne(['php_name' => $this->config?->charset ?: 'UTF-8']);
 
         $resp = Yii::$app->response;
         $resp->setDownloadHeaders('weapon-rule-map.csv', 'text/cvs', false, null);

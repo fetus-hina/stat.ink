@@ -8,6 +8,7 @@
 namespace app\models;
 
 use Yii;
+use app\components\helpers\TypeHelper;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -156,7 +157,7 @@ class StatWeaponMapTrend extends ActiveRecord
         return [
             'rank' => 1,
             'use_pct' => 1.23,
-            'weapon' => $weapon->toJsonArray(),
+            'weapon' => TypeHelper::instanceOf($weapon, Weapon::class)->toJsonArray(),
         ];
     }
 }

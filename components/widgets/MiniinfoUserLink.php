@@ -23,7 +23,7 @@ use function trim;
 
 class MiniinfoUserLink extends Widget
 {
-    public ?User $user = null;
+    public User $user;
 
     #[Override]
     public function init(): void

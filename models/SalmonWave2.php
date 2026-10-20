@@ -119,8 +119,8 @@ class SalmonWave2 extends ActiveRecord
     public function toJsonArray(): array
     {
         return [
-            'known_occurrence' => $this->event_id ? $this->event->toJsonArray() : null,
-            'water_level' => $this->water_id ? $this->water->toJsonArray() : null,
+            'known_occurrence' => $this->event_id ? $this->event?->toJsonArray() : null,
+            'water_level' => $this->water_id ? $this->water?->toJsonArray() : null,
             'golden_egg_quota' => $this->golden_egg_quota,
             'golden_egg_appearances' => $this->golden_egg_appearances,
             'golden_egg_delivered' => $this->golden_egg_delivered,

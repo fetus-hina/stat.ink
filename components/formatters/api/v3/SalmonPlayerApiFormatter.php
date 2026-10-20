@@ -30,7 +30,7 @@ final class SalmonPlayerApiFormatter
     }
 
     /**
-     * @return array<string, mixed>|null
+     * @return ($model is null ? null : array<string, mixed>)
      */
     public static function toJson(?SalmonPlayer3 $model, bool $fullTranslate = false): ?array
     {
@@ -47,7 +47,7 @@ final class SalmonPlayerApiFormatter
             'special' => SpecialApiFormatter::toJson($model->special, $fullTranslate),
             'weapons' => array_map(
                 fn (?SalmonPlayerWeapon3 $model): ?array => SalmonWeaponApiFormatter::toJson(
-                    $model->weapon,
+                    $model?->weapon,
                     $fullTranslate,
                 ),
                 array_values($model->salmonPlayerWeapon3s),

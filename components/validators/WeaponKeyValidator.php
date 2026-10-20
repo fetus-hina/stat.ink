@@ -9,6 +9,7 @@ namespace app\components\validators;
 
 use Override;
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\Special;
 use app\models\Subweapon;
 use app\models\Weapon;
@@ -47,7 +48,7 @@ class WeaponKeyValidator extends Validator
         if ($this->validateValueImpl($value)) {
             return null;
         }
-        return [$this->message, []];
+        return [TypeHelper::string($this->message), []];
     }
 
     private function validateValueImpl(mixed $value): bool

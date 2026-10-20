@@ -21,6 +21,7 @@ use yii\base\Action;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\Response;
+use yii\web\ServerErrorHttpException;
 
 use function array_merge;
 use function vsprintf;
@@ -56,12 +57,16 @@ final class EditBattleAction extends Action
 
     public function run(): string|Response|null
     {
+        if (!$battle = $this->battle) {
+            throw new ServerErrorHttpException();
+        }
+
         $del = Yii::createObject(Battle2DeleteForm::class);
         if (Yii::$app->request->isPost) {
             $form = Yii::createObject(['class' => Battle2Form::class]);
             $form->load($_POST);
             $del->load($_POST);
-            $del->battle = $this->battle->id;
+            $del->battle = $battle->id;
             if (Yii::$app->request->post('_action') === 'delete') {
                 if ($del->validate()) {
                     $transaction = Yii::$app->db->beginTransaction();
@@ -69,31 +74,31 @@ final class EditBattleAction extends Action
                         $transaction->commit();
                         return TypeHelper::instanceOf($this->controller, Controller::class)->redirect([
                             'show-v2/user',
-                            'screen_name' => $this->battle->user->screen_name,
+                            'screen_name' => $battle->user->screen_name,
                         ]);
                     }
                     $transaction->rollback();
                 }
             } else {
                 if ($form->validate()) {
-                    $this->battle->attributes = $form->attributes;
-                    $this->battle->is_win = $form->getIsWin();
-                    if ($this->battle->save()) {
+                    $battle->attributes = $form->attributes;
+                    $battle->is_win = $form->getIsWin();
+                    if ($battle->save()) {
                         TypeHelper::instanceOf($this->controller, Controller::class)->redirect([
                             'show-v2/battle',
-                            'screen_name' => $this->battle->user->screen_name,
-                            'battle' => $this->battle->id,
+                            'screen_name' => $battle->user->screen_name,
+                            'battle' => $battle->id,
                         ]);
                         return null;
                     }
                 }
             }
         } else {
-            $form = Battle2Form::fromBattle($this->battle);
+            $form = Battle2Form::fromBattle($battle);
         }
         return $this->controller->render('edit-battle', [
-            'user' => $this->battle->user,
-            'battle' => $this->battle,
+            'user' => $battle->user,
+            'battle' => $battle,
             'form' => $form,
             'delete' => $del,
             'maps' => $this->makeMaps(),

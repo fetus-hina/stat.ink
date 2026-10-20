@@ -17,6 +17,6 @@ return [
     match (true) {
       $model instanceof Event3StatsSpecial => $model->special->name,
       $model instanceof Event3StatsWeapon => $model->weapon?->special->name ?? null,
-    },
+    } ?? '',
   ),
 ];

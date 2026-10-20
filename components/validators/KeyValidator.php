@@ -9,6 +9,7 @@ namespace app\components\validators;
 
 use Override;
 use Yii;
+use app\components\helpers\TypeHelper;
 use yii\db\ActiveRecord;
 use yii\validators\ExistValidator;
 use yii\validators\Validator;
@@ -49,7 +50,7 @@ final class KeyValidator extends Validator
             return;
         }
 
-        $this->addError($model, $attribute, $this->message);
+        $this->addError($model, $attribute, TypeHelper::string($this->message));
     }
 
     /**
@@ -63,7 +64,7 @@ final class KeyValidator extends Validator
             return null;
         }
 
-        return [$this->message, []];
+        return [TypeHelper::string($this->message), []];
     }
 
     /**

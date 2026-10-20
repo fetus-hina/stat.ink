@@ -86,7 +86,7 @@ $periods = ArrayHelper::sort(
       ]) . "\n" ?>
     </p>
     <p class="mb-1 text-muted">
-      <?= Html::encode(Yii::t('db/event3/description', $event->desc)) . "\n" ?>
+      <?= Html::encode(Yii::t('db/event3/description', $event->desc ?? '')) . "\n" ?>
     </p>
 <?php if ($periods) { ?>
     <ul class="mb-1">

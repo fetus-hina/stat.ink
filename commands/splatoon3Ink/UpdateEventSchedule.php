@@ -11,6 +11,7 @@ namespace app\commands\splatoon3Ink;
 
 use DateTimeInterface;
 use Exception;
+use LogicException;
 use UnexpectedValueException;
 use Yii;
 use app\components\helpers\TypeHelper;
@@ -53,7 +54,8 @@ trait UpdateEventSchedule
             function (Connection $db) use ($events): int {
                 foreach ($events as $event) {
                     if (!$this->registerEventSchedule($event)) {
-                        $db->transaction->rollBack();
+                        ($db->transaction ?? throw new LogicException('No active transaction'))
+                            ->rollBack();
                         return ExitCode::UNSPECIFIED_ERROR;
                     }
                 }

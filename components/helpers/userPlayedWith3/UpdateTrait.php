@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\components\helpers\userPlayedWith3;
 
+use LogicException;
 use app\components\helpers\TypeHelper;
 use app\models\Battle3;
 use app\models\Rule3;
@@ -170,7 +171,7 @@ trait UpdateTrait
                 ', ',
                 array_map(
                     $db->quoteColumnName(...),
-                    array_keys($select->select),
+                    array_keys($select->select ?? throw new LogicException('No columns selected')),
                 ),
             ),
             $select->createCommand($db)->rawSql,
@@ -245,7 +246,7 @@ trait UpdateTrait
                 ', ',
                 array_map(
                     $db->quoteColumnName(...),
-                    array_keys($select->select),
+                    array_keys($select->select ?? throw new LogicException('No columns selected')),
                 ),
             ),
             $select->createCommand($db)->rawSql,

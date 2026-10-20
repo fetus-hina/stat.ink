@@ -20,5 +20,5 @@ return [
     'data-sort-value' => Yii::t('app-subweapon3', $model->weapon?->subweapon->name ?? ''),
   ],
   'format' => 'raw',
-  'value' => fn (Event3StatsWeapon $model): string => Icon::s3Subweapon($model->weapon->subweapon),
+  'value' => fn (Event3StatsWeapon $model): string => Icon::s3Subweapon($model->weapon->subweapon) ?? '',
 ];

@@ -8,6 +8,7 @@
 declare(strict_types=1);
 
 use app\assets\Spl2WeaponAsset;
+use app\components\helpers\TypeHelper;
 use app\components\widgets\Label;
 use app\models\Battle2;
 use app\models\BattlePlayer2;
@@ -91,8 +92,8 @@ echo Html::tag(
           ($battle->my_team_fest_theme_id !== null && $battle->his_team_fest_theme_id !== null)
             ? Yii::t('app-show-v2', 'Team {theme}', [
               'theme' => ($teamKey === 'my')
-                ? $battle->myTeamFestTheme->name
-                : $battle->hisTeamFestTheme->name,
+                ? $battle->myTeamFestTheme?->name
+                : $battle->hisTeamFestTheme?->name,
             ])
             : Yii::t('app', ($teamKey === 'my') ? 'Good Guys' : 'Bad Guys')
         ),
@@ -100,7 +101,7 @@ echo Html::tag(
           ? ''
           : Html::a(
             Html::img(
-              $teamIcon,
+              TypeHelper::string($teamIcon),
               [
                 'title' => $teamId,
                 'class' => 'auto-tooltip',
@@ -194,7 +195,7 @@ foreach ($players as $i => $player) {
         'td',
         $this->render('_battle_details_player_name', array_merge(
           compact('battle', 'player', 'teamKey'),
-          ['historyCount' => $historyCount[$player->splatnet_id] ?? 0],
+          ['historyCount' => $historyCount[$player->splatnet_id ?? ''] ?? 0],
         )),
         [
           'class' => 'col-name',
@@ -316,10 +317,10 @@ foreach ($players as $i => $player) {
         ? ''
         : Html::tag('td',
           implode(Html::tag('br'), [
-            Html::encode($player->getFormattedKillRatio()),
+            Html::encode($player->getFormattedKillRatio() ?? ''),
             Html::tag(
               'small',
-              Html::encode($player->getFormattedKillRate()),
+              Html::encode($player->getFormattedKillRate() ?? ''),
               ['class' => 'text-muted']
             ),
           ]),

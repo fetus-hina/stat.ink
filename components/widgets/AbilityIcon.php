@@ -21,7 +21,7 @@ use function sprintf;
 class AbilityIcon extends Widget
 {
     public ?string $icon = null;
-    public ?AssetBundle $asset = null;
+    public AssetBundle $asset;
     /**
      * @var array<string, mixed>
      */

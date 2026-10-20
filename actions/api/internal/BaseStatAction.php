@@ -18,7 +18,7 @@ use function is_scalar;
 
 abstract class BaseStatAction extends BaseAction
 {
-    public ?User $user = null;
+    public User $user;
 
     public function getCacheFormatVersion(): int
     {
@@ -56,9 +56,11 @@ abstract class BaseStatAction extends BaseAction
             return ['error' => ['screen_name' => ['not found']]];
         }
 
-        if (!$this->user = User::findOne(['screen_name' => $screenName])) {
+        if (!$user = User::findOne(['screen_name' => $screenName])) {
             return ['error' => ['screen_name' => ['not found']]];
         }
+
+        $this->user = $user;
 
         return $this->decorate($this->makeDataOrLoadCache());
     }

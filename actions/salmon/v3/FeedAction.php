@@ -73,6 +73,9 @@ final class FeedAction extends Action
             return ['error' => $input->getErrors()];
         }
 
+        $lang = TypeHelper::string($input->lang);
+        $feedType = TypeHelper::string($input->type);
+
         $resp->format = 'raw';
         if (!$user = User::findOne(['screen_name' => $input->screen_name])) {
             $resp->format = 'json';
@@ -98,10 +101,10 @@ final class FeedAction extends Action
             Url::home(true),
         );
         $feed->setTitle(
-            Yii::t('app-salmon2', '{name}\'s Salmon Log', ['name' => $user->name], $input->lang),
+            Yii::t('app-salmon2', '{name}\'s Salmon Log', ['name' => $user->name], $lang),
         );
         $feed->setDescription(
-            Yii::t('app-salmon2', '{name}\'s Salmon Log', ['name' => $user->name], $input->lang),
+            Yii::t('app-salmon2', '{name}\'s Salmon Log', ['name' => $user->name], $lang),
         );
         $feed->setId(
             Uuid::v5(
@@ -115,7 +118,7 @@ final class FeedAction extends Action
             $feed->setFeedLink(
                 Url::to(
                     ['salmon-v3/feed',
-                        'lang' => $input->lang,
+                        'lang' => $lang,
                         'screen_name' => $user->screen_name,
                         'type' => $type,
                     ],
@@ -137,7 +140,7 @@ final class FeedAction extends Action
         $feed->setCopyright(
             sprintf('Copyright (C) 2015-%s AIZAWA Hina', $now->format('Y')),
         );
-        $feed->setLanguage($input->lang);
+        $feed->setLanguage($lang);
         $feed->setEncoding('UTF-8');
         $feed->setDateModified((int)$now->getTimestamp());
         $feed->setLastBuildDate((int)$now->getTimestamp());
@@ -145,7 +148,7 @@ final class FeedAction extends Action
 
         //FIXME
         $feed->addCategories(
-            $input->lang === 'ja-JP'
+            $lang === 'ja-JP'
                 ? [
                     ['term' => 'ゲーム'],
                     ['term' => 'スプラトゥーン'],
@@ -206,8 +209,8 @@ final class FeedAction extends Action
                     true,
                 ),
             );
-            $entry->setTitle($this->makeEntryTitle($model, $input->lang));
-            $entry->setContent($this->makeEntryContent($model, $input->lang));
+            $entry->setTitle($this->makeEntryTitle($model, $lang));
+            $entry->setContent($this->makeEntryContent($model, $lang));
             $feed->addEntry($entry);
         }
 
@@ -218,9 +221,9 @@ final class FeedAction extends Action
         $resp->format = 'raw';
         $resp->headers->set(
             'Content-Type',
-            $contentType[$input->type] ?? 'text/xml; charset=UTF-8',
+            $contentType[$feedType] ?? 'text/xml; charset=UTF-8',
         );
-        return $feed->export($input->type);
+        return $feed->export($feedType);
     }
 
     private function makeEntryTitle(Salmon3 $model, string $lang): string
@@ -286,7 +289,7 @@ final class FeedAction extends Action
             ],
             [
                 Yii::t('app', 'Special', [], $lang),
-                Yii::t('app-special3', $me?->special->name ?? null, [], $lang),
+                Yii::t('app-special3', $me?->special->name ?? '', [], $lang),
             ],
             [
                 Yii::t('app-salmon2', 'Golden Eggs', [], $lang),

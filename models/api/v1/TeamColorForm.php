@@ -8,6 +8,7 @@
 namespace app\models\api\v1;
 
 use app\components\helpers\Color;
+use app\components\helpers\TypeHelper;
 use yii\base\Model;
 use yii\validators\NumberValidator;
 
@@ -61,7 +62,7 @@ class TeamColorForm extends Model
         foreach ($value as $v) {
             $error = null;
             if (!$numberValidator->validate($v, $error)) {
-                $this->addError($attribute, $error);
+                $this->addError($attribute, TypeHelper::string($error));
                 return;
             }
         }

@@ -32,15 +32,15 @@ use const SORT_DESC;
 
 class XPowerHistory extends Widget
 {
-    public ?User $user = null;
-    public ?Battle2 $current = null;
+    public User $user;
+    public Battle2 $current;
 
     #[Override]
     public function init(): void
     {
         parent::init();
 
-        if (!$this->user) {
+        if (!isset($this->user)) {
             $this->user = $this->current->user;
         }
     }
@@ -117,7 +117,6 @@ class XPowerHistory extends Widget
         }
 
         if (
-            !$this->current ||
             $this->current->rule_id === null ||
             (!$this->current->x_power_after &&
             !$this->current->estimate_x_power) ||

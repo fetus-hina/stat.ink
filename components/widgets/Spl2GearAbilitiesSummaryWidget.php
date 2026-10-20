@@ -68,11 +68,15 @@ class Spl2GearAbilitiesSummaryWidget extends Widget
                         'label' => Yii::t('app-gearstat', 'Gear Abilities'),
                         'format' => 'raw',
                         'value' => function (Ability2Info $model): string {
+                            if (!$ability = $model->ability) {
+                                return '';
+                            }
+
                             $items = [];
                             $items[] = Html::tag(
                                 'div',
-                                AbilityIcon::spl2($model->ability->key, [
-                                    'title' => Yii::t('app-ability2', $model->ability->name),
+                                AbilityIcon::spl2($ability->key, [
+                                    'title' => Yii::t('app-ability2', $ability->name),
                                     'class' => 'auto-tooltip',
                                     'style' => [
                                         'height' => '3em',
@@ -83,17 +87,17 @@ class Spl2GearAbilitiesSummaryWidget extends Widget
                             $items[] = Html::tag(
                                 'div',
                                 implode(' ', [
-                                    AbilityIcon::spl2($model->ability->key, [
+                                    AbilityIcon::spl2($ability->key, [
                                         'style' => [
                                             'height' => '1.667em',
                                         ],
                                     ]),
-                                    Html::encode(Yii::t('app-ability2', $model->ability->name)),
+                                    Html::encode(Yii::t('app-ability2', $ability->name)),
                                 ]),
                                 ['class' => 'visible-lg-block'],
                             );
                             if (
-                                $model->ability->key === 'special_power_up' &&
+                                $ability->key === 'special_power_up' &&
                                 $model->weapon
                             ) {
                                 $sp = $model->weapon->special;
@@ -181,14 +185,14 @@ class Spl2GearAbilitiesSummaryWidget extends Widget
                         'encodeLabel' => false,
                         'format' => 'raw',
                         'contentOptions' => function (Ability2Info $model): array {
-                            if ($model->ability->primary_only) {
+                            if ($model->ability?->primary_only) {
                                 return ['class' => 'text-center'];
                             }
 
                             return ['class' => 'text-right'];
                         },
                         'value' => function (Ability2Info $model): string {
-                            if ($model->ability->primary_only) {
+                            if ($model->ability?->primary_only) {
                                 return Html::tag('span', (string)FA::fas('check'), [
                                     'class' => 'text-success',
                                 ]);

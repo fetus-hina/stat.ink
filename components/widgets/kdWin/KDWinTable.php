@@ -29,14 +29,14 @@ class KDWinTable extends Widget
      */
     public array $data = [];
     public int $limit = 16;
-    public ?Formatter $formatter = null;
+    public Formatter $formatter;
 
     #[Override]
     public function init(): void
     {
         parent::init();
 
-        if (!$this->formatter) {
+        if (!isset($this->formatter)) {
             $this->formatter = Yii::$app->formatter;
         }
     }

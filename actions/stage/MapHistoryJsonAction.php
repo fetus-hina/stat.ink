@@ -50,8 +50,8 @@ class MapHistoryJsonAction extends BaseAction
             ])
             ->from(PeriodMap::tableName())
             ->where([
-                'map_id' => $this->map->id,
-                'rule_id' => $this->rule->id,
+                'map_id' => $this->map?->id,
+                'rule_id' => $this->rule?->id,
             ])
             ->groupBy('CAST(period_to_timestamp([[period]]) as DATE)')
             ->orderBy('date ASC');

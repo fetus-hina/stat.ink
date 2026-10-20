@@ -18,6 +18,7 @@ use app\models\StatBigrunDistribUserAbstract3;
 use app\models\StatBigrunDistribUserHistogram3;
 use yii\db\Connection;
 use yii\db\Query;
+use LogicException;
 
 use function array_keys;
 use function array_map;
@@ -55,7 +56,8 @@ trait BigrunHistogramTrait
                 ]),
                 __METHOD__,
             );
-            $db->transaction->rollBack();
+            ($db->transaction ?? throw new LogicException('No active transaction'))
+                ->rollBack();
             return false;
         } finally {
             if ($lock) {
@@ -104,7 +106,7 @@ trait BigrunHistogramTrait
                 ', ',
                 array_map(
                     $db->quoteColumnName(...),
-                    array_keys($select->select),
+                    array_keys($select->select ?? throw new LogicException('No columns selected')),
                 ),
             ),
             $select->createCommand($db)->rawSql,
@@ -148,7 +150,7 @@ trait BigrunHistogramTrait
                 ', ',
                 array_map(
                     $db->quoteColumnName(...),
-                    array_keys($select->select),
+                    array_keys($select->select ?? throw new LogicException('No columns selected')),
                 ),
             ),
             $select->createCommand($db)->rawSql,
@@ -255,7 +257,7 @@ trait BigrunHistogramTrait
                 ', ',
                 array_map(
                     $db->quoteColumnName(...),
-                    array_keys($select->select),
+                    array_keys($select->select ?? throw new LogicException('No columns selected')),
                 ),
             ),
             $select->createCommand($db)->rawSql,
@@ -326,7 +328,7 @@ trait BigrunHistogramTrait
                 ', ',
                 array_map(
                     $db->quoteColumnName(...),
-                    array_keys($select->select),
+                    array_keys($select->select ?? throw new LogicException('No columns selected')),
                 ),
             ),
             $select->createCommand($db)->rawSql,

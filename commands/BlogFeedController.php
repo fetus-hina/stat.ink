@@ -65,7 +65,11 @@ final class BlogFeedController extends Controller
             }
             $ret[] = $entry;
         }
-        usort($ret, fn ($a, $b) => $a->getDateCreated()->getTimestamp() <=> $b->getDateCreated()->getTimestamp());
+        usort(
+            $ret,
+            fn ($a, $b): int => ($a->getDateCreated()?->getTimestamp() ?? 0)
+                <=> ($b->getDateCreated()?->getTimestamp() ?? 0),
+        );
         printf("%d entries\n", count($ret));
 
         return $ret;

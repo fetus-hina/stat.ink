@@ -29,8 +29,8 @@ use function sprintf;
 
 class SalmonPlayers extends Widget
 {
-    public ?\yii\i18n\Formatter $formatter = null;
-    public ?Salmon2 $work = null;
+    public \yii\i18n\Formatter $formatter;
+    public Salmon2 $work;
     /**
      * @var SalmonPlayer2[]
      */
@@ -41,7 +41,7 @@ class SalmonPlayers extends Widget
     {
         parent::init();
 
-        if (!$this->formatter) {
+        if (!isset($this->formatter)) {
             $this->formatter = Yii::createObject([
                 'class' => Formatter::class,
                 'nullDisplay' => '-',

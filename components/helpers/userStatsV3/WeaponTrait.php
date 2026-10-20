@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace app\components\helpers\userStatsV3;
 
 use DateTimeImmutable;
+use LogicException;
 use Yii;
 use app\models\User;
 use app\models\UserWeapon3;
@@ -65,7 +66,8 @@ trait WeaponTrait
                 ]),
                 __METHOD__,
             );
-            $db->transaction->rollBack();
+            ($db->transaction ?? throw new LogicException('No active transaction'))
+                ->rollBack();
             return false;
         }
     }

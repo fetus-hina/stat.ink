@@ -241,7 +241,7 @@ trait SalmonTrait
                     $battle->schedule
                         ? gmdate(DateTimeInterface::ATOM, TypeHelper::int(strtotime($battle->schedule->start_at)))
                         : '',
-                    $battle->version->tag,
+                    $battle->version?->tag,
                     match (true) {
                         $battle->is_big_run => 'big_run',
                         $battle->is_eggstra_work => 'eggstra_work',

@@ -8,6 +8,7 @@
 namespace app\components\i18n;
 
 use DateTime;
+use RuntimeException;
 use Yii;
 use app\components\widgets\TimestampColumnWidget;
 use yii\helpers\Html;
@@ -18,6 +19,7 @@ use function implode;
 use function is_int;
 use function is_string;
 use function pow;
+use function preg_last_error_msg;
 use function preg_match;
 use function preg_replace;
 use function sprintf;
@@ -118,7 +120,7 @@ class Formatter extends \yii\i18n\Formatter
         bool $escape = true,
     ): string {
         if ($value === null) {
-            return $this->nullDisplay;
+            return $this->nullDisplay ?? '';
         }
 
         $text = Yii::t($category, (string)$value, $options);
@@ -128,12 +130,13 @@ class Formatter extends \yii\i18n\Formatter
     public function asReplayCode3(mixed $value, bool $link = true): string
     {
         if (!is_string($value)) {
-            return $this->nullDisplay;
+            return $this->nullDisplay ?? '';
         }
 
-        $value = preg_replace('/[^0-9A-Z]+/', '', strtoupper($value));
+        $value = preg_replace('/[^0-9A-Z]+/', '', strtoupper($value))
+            ?? throw new RuntimeException(preg_last_error_msg());
         if (!preg_match('/^[0-9A-Z]{16}$/', $value)) {
-            return $this->nullDisplay;
+            return $this->nullDisplay ?? '';
         }
 
         $value = implode('-', [

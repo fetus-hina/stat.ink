@@ -627,7 +627,7 @@ $specials = Special::find()->asArray()->all();
             </td>
           </tr>
 <?php } ?>
-<?php $_editable = (!Yii::$app->user->isGuest && Yii::$app->user->identity->id == $battle->user_id) ?>
+<?php $_editable = Yii::$app->user->getIdentity()?->id === $battle->user_id ?>
 <?php if ($battle->link_url != '' || $_editable) { ?>
           <tr>
             <th><?= Html::encode(Yii::t('app', 'Link')) ?></th>
@@ -766,8 +766,7 @@ $specials = Special::find()->asArray()->all();
 <?php } ?>
 <?php if (
   $battle->private_note != '' &&
-  !Yii::$app->user->isGuest &&
-  Yii::$app->user->identity->id == $user->id
+  Yii::$app->user->getIdentity()?->id === $user->id
 ) { ?>
 <?php BattlePrivateNoteAsset::register($this) ?>
           <tr>
@@ -792,7 +791,7 @@ $specials = Special::find()->asArray()->all();
           </tr>
         </tbody>
       </table>
-<?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->id == $user->id) { ?>
+<?php if (Yii::$app->user->getIdentity()?->id === $user->id) { ?>
       <p class="text-right"><?= Html::a(
         Html::encode(Yii::t('app', 'Edit')),
         ['show/edit-battle',
@@ -1135,8 +1134,7 @@ if ($effects) {
 }
 ?>
 <?php if (
-  !Yii::$app->user->isGuest &&
-  Yii::$app->user->identity->id == $user->id &&
+  Yii::$app->user->getIdentity()?->id === $user->id &&
   $hasExtendedData
 ) { ?>
       <p class="text-right"><?= Html::a(

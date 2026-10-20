@@ -20,8 +20,8 @@ final class ArrayValidator extends EachValidator
     public ?int $min = null;
     public ?int $max = null;
 
-    public ?string $tooBig = null;
-    public ?string $tooSmall = null;
+    public string $tooBig;
+    public string $tooSmall;
 
     /**
      * @inheritdoc
@@ -31,11 +31,11 @@ final class ArrayValidator extends EachValidator
     {
         parent::init();
 
-        if ($this->tooBig === null) {
+        if (!isset($this->tooBig)) {
             $this->tooBig = '{attribute} must not contain more than {max} elements';
         }
 
-        if ($this->tooSmall === null) {
+        if (!isset($this->tooSmall)) {
             $this->tooSmall = '{attribute} must contain at least {min} elements';
         }
     }

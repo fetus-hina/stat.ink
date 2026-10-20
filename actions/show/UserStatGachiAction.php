@@ -41,18 +41,19 @@ use const SORT_DESC;
  */
 class UserStatGachiAction extends BaseAction
 {
-    private ?User $user = null;
+    private User $user;
 
     #[Override]
     public function run(): string
     {
         $request = Yii::$app->getRequest();
-        $this->user = User::findOne([
+        $user = User::findOne([
             'screen_name' => $request->get('screen_name'),
         ]);
-        if (!$this->user) {
+        if (!$user) {
             throw new NotFoundHttpException(Yii::t('app-show', 'Could not find user'));
         }
+        $this->user = $user;
 
         return $this->controller->render('user-stat-gachi', [
             'user' => $this->user,
@@ -228,7 +229,7 @@ class UserStatGachiAction extends BaseAction
         }
 
         return (object)[
-            'rank' => Yii::t('app-rank', $battle->rankAfter->name),
+            'rank' => Yii::t('app-rank', $battle->rankAfter->name ?? ''),
             'rankExp' => (int)$battle->rank_exp_after,
             'deviation' => $deviation,
             'avgRank' => $avgRank,

@@ -95,7 +95,7 @@ final class CombinedBattles
                     usort($merged, fn ($a, $b): int => self::getCreatedAt($b) <=> self::getCreatedAt($a));
                     if (count($merged) >= $num) {
                         $threshold = new DateTimeImmutable()
-                            ->setTimestamp(self::getCreatedAt($merged[$num - 1]));
+                            ->setTimestamp(TypeHelper::int(self::getCreatedAt($merged[$num - 1])));
                     }
                     if (count($merged) > ceil($num * 1.2)) {
                         $merged = array_slice($merged, 0, (int)ceil($num * 1.2));
@@ -124,6 +124,10 @@ final class CombinedBattles
      */
     private static function getCreatedAt(?Model $model): ?int
     {
+        if ($model === null) {
+            return null;
+        }
+
         if (method_exists($model, 'getCreatedAt')) {
             return self::prepareTimestamp($model->getCreatedAt());
         }

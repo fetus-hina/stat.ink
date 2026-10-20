@@ -313,7 +313,7 @@ class BattlePlayer2 extends ActiveRecord
 
     public function getAnonymizeSeed(): string
     {
-        $value = trim($this->splatnet_id);
+        $value = trim($this->splatnet_id ?? '');
         return $value !== ''
             ? $value
             : hash_hmac('sha256', (string)$this->id, (string)$this->battle_id);
@@ -330,9 +330,9 @@ class BattlePlayer2 extends ActiveRecord
         return [
             'team' => $this->is_my_team ? 'my' : 'his',
             'is_me' => !!$this->is_me,
-            'weapon' => $this->weapon_id ? $this->weapon->toJsonArray() : null,
+            'weapon' => $this->weapon_id ? $this->weapon?->toJsonArray() : null,
             'level' => (string)$this->level === '' ? null : (int)$this->level,
-            'rank' => $this->rank_id ? $this->rank->toJsonArray() : null,
+            'rank' => $this->rank_id ? $this->rank?->toJsonArray() : null,
             'star_rank' => (string)$this->star_rank === '' ? null : (int)$this->star_rank,
             'rank_in_team' => (string)$this->rank_in_team === '' ? null : (int)$this->rank_in_team,
             'kill' => (string)$this->kill === '' ? null : (int)$this->kill,
@@ -342,13 +342,13 @@ class BattlePlayer2 extends ActiveRecord
             'my_kill' => (string)$this->my_kill === '' ? null : (int)$this->my_kill,
             'point' => (string)$this->point === '' ? null : (int)$this->point,
             'name' => (string)$this->name === '' ? null : $this->name,
-            'species' => $this->species_id ? $this->species->toJsonArray() : null,
-            'gender' => $this->gender_id ? $this->gender->toJsonArray() : null,
+            'species' => $this->species_id ? $this->species?->toJsonArray() : null,
+            'gender' => $this->gender_id ? $this->gender?->toJsonArray() : null,
             'fest_title' => $this->fest_title_id
-                ? $this->festTitle->toJsonArray(
+                ? $this->festTitle?->toJsonArray(
                     $this->gender,
                     $battle->my_team_fest_theme_id && $battle->his_team_fest_theme_id
-                        ? ($this->is_my_team ? $battle->myTeamFestTheme->name : $battle->hisTeamFestTheme->name)
+                        ? ($this->is_my_team ? $battle->myTeamFestTheme?->name : $battle->hisTeamFestTheme?->name)
                         : null,
                 )
                 : null,

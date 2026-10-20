@@ -29,7 +29,7 @@ use function vsprintf;
 
 final class SalmonItem3Widget extends Widget
 {
-    public ?User $user = null;
+    public User $user;
     public Salmon3 $model;
     public ?SalmonPlayer3 $myData = null;
 
@@ -40,7 +40,7 @@ final class SalmonItem3Widget extends Widget
 
         SimpleBattleListAsset::register($this->view);
 
-        if (!$this->user) {
+        if (!isset($this->user)) {
             $this->user = $this->model->user;
         }
 

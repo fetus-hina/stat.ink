@@ -65,6 +65,8 @@ $datasetNormalDistrib = null;
 if (
   $abstract->agg_battles >= 20 &&
   $abstract->maximum > 0 &&
+  $abstract->average !== null &&
+  $abstract->stddev !== null &&
   $abstract->stddev > 0
 ) {
   $makeDistributionData = function (NormalDistribution $nd) use ($abstract): array {

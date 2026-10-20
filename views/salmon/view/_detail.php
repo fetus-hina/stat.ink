@@ -48,7 +48,7 @@ $widget = Yii::createObject([
     ],
     [
       'attribute' => 'stage_id',
-      'value' => Yii::t('app-salmon-map2', $model->stage->name ?? null),
+      'value' => Yii::t('app-salmon-map2', $model->stage->name ?? ''),
     ],
     [
       'label' => Yii::t('app-results', 'Result'),
@@ -71,7 +71,7 @@ $widget = Yii::createObject([
           if ($model->fail_reason_id) {
             $labels[] = Label::widget([
               'color' => 'warning',
-              'content' => Yii::t('app-salmon2', $model->failReason->name),
+              'content' => Yii::t('app-salmon2', $model->failReason->name ?? ''),
             ]);
           }
         }
@@ -246,7 +246,7 @@ $widget = Yii::createObject([
           return null;
         }
 
-        if (Yii::$app->user->isGuest || Yii::$app->user->identity->id != $model->user_id) {
+        if (Yii::$app->user->getIdentity()?->id !== $model->user_id) {
           return null;
         }
 

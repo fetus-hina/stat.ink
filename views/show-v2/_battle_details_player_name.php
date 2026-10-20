@@ -69,8 +69,7 @@ $namePartInner = trim(implode(' ', [
       // We can only show an anonymized name
       $anonymize = true;
     } else {
-      $user = Yii::$app->user;
-      if (!$user->isGuest && $user->identity->id == $battle->user_id) {
+      if (Yii::$app->user->getIdentity()?->id === $battle->user_id) {
         // Logged in user is also battle owner.
         // All users' name will be shown
         $anonymize = false;

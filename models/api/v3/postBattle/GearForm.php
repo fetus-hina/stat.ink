@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\models\api\v3\postBattle;
 
+use LogicException;
 use Yii;
 use app\components\behaviors\TrimAttributesBehavior;
 use app\components\helpers\CriticalSection;
@@ -122,7 +123,8 @@ final class GearForm extends Model
                     ]);
                     if (!$model->save()) {
                         $this->addError('_system', 'Failed to store the gear configuration. Try again.');
-                        $db->transaction->rollBack();
+                        ($db->transaction ?? throw new LogicException('No active transaction'))
+                            ->rollBack();
                         return null;
                     }
 
@@ -137,7 +139,8 @@ final class GearForm extends Model
 
                         if (!$model2->save()) {
                             $this->addError('_system', 'Failed to store the gear configuration. Try again.');
-                            $db->transaction->rollBack();
+                            ($db->transaction ?? throw new LogicException('No active transaction'))
+                                ->rollBack();
                             return null;
                         }
                     }

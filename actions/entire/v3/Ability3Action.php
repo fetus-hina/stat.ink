@@ -28,6 +28,7 @@ use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
+use yii\web\ServerErrorHttpException;
 
 use function array_pop;
 use function vsprintf;
@@ -84,9 +85,10 @@ final class Ability3Action extends Action
 
         if (!$xRange = $this->getXPowerRange($db, $season, $xpFilter)) {
             $ranges = $this->getXPowerRanges($db, $season);
+            $range = array_pop($ranges) ?? throw new ServerErrorHttpException('No X Power range found');
             return $controller->redirect(['entire/ability3',
                 'rule' => $rule->key,
-                'xp' => array_pop($ranges)->id,
+                'xp' => $range->id,
                 self::PARAM_SEASON_ID => $season->id,
             ]);
         }

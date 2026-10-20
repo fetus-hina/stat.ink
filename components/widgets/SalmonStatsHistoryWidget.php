@@ -38,14 +38,14 @@ use const SEEK_SET;
 
 class SalmonStatsHistoryWidget extends Widget
 {
-    public ?User $user = null;
-    public ?string $html = null;
+    public User $user;
+    public string $html;
 
     #[Override]
     public function init(): void
     {
         parent::init();
-        if (!$this->html) {
+        if (!isset($this->html)) {
             $this->html = $this->loadDefaultTemplate();
         }
     }
@@ -62,7 +62,7 @@ class SalmonStatsHistoryWidget extends Widget
             function (array $match): string {
                 switch ($match[1]) {
                     case 'id':
-                        return Html::encode($this->id);
+                        return Html::encode($this->id ?? '');
 
                     case 'apiUrl':
                         return Html::encode(

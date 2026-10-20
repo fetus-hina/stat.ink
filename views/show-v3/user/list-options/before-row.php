@@ -22,7 +22,7 @@ BattleListGroupHeaderAsset::register($this);
 
 return function (Battle3 $model, int $key, int $index, GridView $widget): ?string {
   static $lastPeriod = null;
-  if ($lastPeriod === $model->period) {
+  if ($model->period === null || $lastPeriod === $model->period) {
     return null;
   }
 

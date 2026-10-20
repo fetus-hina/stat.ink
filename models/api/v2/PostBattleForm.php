@@ -76,6 +76,7 @@ use function is_int;
 use function is_object;
 use function is_string;
 use function mb_check_encoding;
+use function preg_last_error_msg;
 use function preg_replace;
 use function rtrim;
 use function strtolower;
@@ -617,8 +618,10 @@ class PostBattleForm extends Model
             [['note', 'private_note'], 'filter',
                 'filter' => function ($value) {
                     $value = (string)$value;
-                    $value = preg_replace('/\x0d\x0a|\x0d|\x0a/', "\n", $value);
-                    $value = preg_replace('/(?:\x0d\x0a|\x0d|\x0a){3,}/', "\n\n", $value);
+                    $value = preg_replace('/\x0d\x0a|\x0d|\x0a/', "\n", $value)
+                        ?? throw new RuntimeException(preg_last_error_msg());
+                    $value = preg_replace('/(?:\x0d\x0a|\x0d|\x0a){3,}/', "\n\n", $value)
+                        ?? throw new RuntimeException(preg_last_error_msg());
                     $value = trim($value);
                     return $value === '' ? null : $value;
                 },
@@ -767,7 +770,10 @@ class PostBattleForm extends Model
             return $model ? $model->id : null;
         };
         $map = $this->resolveStage();
-        $user = Yii::$app->user->identity;
+        if (!$user = Yii::$app->user->identity) {
+            throw new RuntimeException('The user is not logged in');
+        }
+
         $battle = Yii::createObject(['class' => Battle2::class]);
         $battle->user_id = $user->id;
         $battle->env_id = $user->env_id;
@@ -1153,10 +1159,14 @@ class PostBattleForm extends Model
 
     public function getCriticalSectionName(): string
     {
+        if (!$user = Yii::$app->user->identity) {
+            throw new RuntimeException('The user is not logged in');
+        }
+
         $values = [
             'class' => self::class,
             'version' => 2,
-            'user' => Yii::$app->user->identity->id,
+            'user' => $user->id,
         ];
         asort($values);
         return rtrim(
@@ -1389,8 +1399,8 @@ class PostBattleForm extends Model
 
     private function getAgentId(?string $name, ?string $version): ?int
     {
-        $name = trim($name);
-        $version = trim($version);
+        $name = trim($name ?? '');
+        $version = trim($version ?? '');
         if ($name == '' || $version == '') {
             return null;
         }

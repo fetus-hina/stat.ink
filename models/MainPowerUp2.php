@@ -11,6 +11,7 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use app\components\helpers\TypeHelper;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
@@ -112,10 +113,11 @@ class MainPowerUp2 extends ActiveRecord
      */
     public static function openapiExample(): array
     {
-        return static::find()
+        $model = static::find()
             ->orderBy(['key' => SORT_ASC])
             ->limit(1)
-            ->one()
-            ->toJsonArray();
+            ->one();
+
+        return TypeHelper::instanceOf($model, static::class)->toJsonArray();
     }
 }

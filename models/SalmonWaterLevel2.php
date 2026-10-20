@@ -13,6 +13,7 @@ use Yii;
 use app\components\helpers\Translator;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+use app\components\helpers\TypeHelper;
 
 use const SORT_ASC;
 
@@ -118,6 +119,6 @@ class SalmonWaterLevel2 extends ActiveRecord
      */
     public static function openapiExample(): array
     {
-        return static::findOne(['key' => 'low'])->toJsonArray();
+        return TypeHelper::instanceOf(static::findOne(['key' => 'low']), static::class)->toJsonArray();
     }
 }

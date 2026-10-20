@@ -26,8 +26,8 @@ use function sprintf;
 
 class SalmonItem2Widget extends Widget
 {
-    public ?User $user = null;
-    public ?Salmon2 $model = null;
+    public User $user;
+    public Salmon2 $model;
     public ?SalmonPlayer2 $myData = null;
 
     #[Override]
@@ -37,7 +37,7 @@ class SalmonItem2Widget extends Widget
 
         SimpleBattleListAsset::register($this->view);
 
-        if (!$this->user) {
+        if (!isset($this->user)) {
             $this->user = $this->model->user;
         }
 

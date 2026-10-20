@@ -9,6 +9,7 @@ namespace app\components\validators;
 
 use Override;
 use Yii;
+use app\components\helpers\TypeHelper;
 use yii\validators\Validator;
 
 use function base64_decode;
@@ -38,7 +39,7 @@ final class Base64Validator extends Validator
             return;
         }
 
-        $this->addError($model, $attribute, $this->message);
+        $this->addError($model, $attribute, TypeHelper::string($this->message));
     }
 
     /**
@@ -52,7 +53,7 @@ final class Base64Validator extends Validator
             return null;
         }
 
-        return [$this->message, []];
+        return [TypeHelper::string($this->message), []];
     }
 
     /**

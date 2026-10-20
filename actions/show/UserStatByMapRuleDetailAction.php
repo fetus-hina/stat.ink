@@ -11,6 +11,7 @@ namespace app\actions\show;
 
 use Override;
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\BattleFilterForm;
 use app\models\Map;
 use app\models\Rule;
@@ -60,7 +61,7 @@ class UserStatByMapRuleDetailAction extends BaseAction
      */
     private function getData(User $user, BattleFilterForm $filter): array
     {
-        $nawabari = Rule::findOne(['key' => 'nawabari'])->id;
+        $nawabari = TypeHelper::instanceOf(Rule::findOne(['key' => 'nawabari']), Rule::class)->id;
         $query = new Query()
             ->select([
                 'map_key' => 'MAX({{map}}.[[key]])',

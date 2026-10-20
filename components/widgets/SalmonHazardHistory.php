@@ -34,15 +34,15 @@ use const SORT_DESC;
 
 class SalmonHazardHistory extends Widget
 {
-    public ?User $user = null;
-    public ?Salmon2 $current = null;
+    public User $user;
+    public Salmon2 $current;
 
     #[Override]
     public function init(): void
     {
         parent::init();
 
-        if (!$this->user) {
+        if (!isset($this->user)) {
             $this->user = $this->current->user;
         }
     }

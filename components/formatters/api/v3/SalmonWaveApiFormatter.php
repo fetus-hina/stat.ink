@@ -32,7 +32,7 @@ final class SalmonWaveApiFormatter
     }
 
     /**
-     * @return array<string, mixed>|null
+     * @return ($model is null ? null : array<string, mixed>)
      */
     public static function toJson(?SalmonWave3 $model, bool $fullTranslate = false): ?array
     {

@@ -76,7 +76,8 @@ $this->title = $title;
         </tr>
       </thead>
       <tbody>
-<?php $myOrigin = preg_replace('#^.*?://([^/]+).*#', '$1', Url::home(true)) ?>
+<?php $myOrigin = preg_replace('#^.*?://([^/]+).*#', '$1', Url::home(true))
+  ?? throw new RuntimeException(preg_last_error_msg()) ?>
         <tr>
           <td><?= Html::encode($myOrigin) ?></td>
           <td><code><?= Html::encode(Yii::$app->session->name) ?></code></td>

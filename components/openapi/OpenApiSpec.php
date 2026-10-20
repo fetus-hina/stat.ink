@@ -43,9 +43,9 @@ class OpenApiSpec extends Component
      */
     public ?array $paths = null;
     /**
-     * @var array<string, string|null>|null
+     * @var array<string, string|null>
      */
-    private ?array $tags = null;
+    private array $tags = [];
     /**
      * @var string[]
      */

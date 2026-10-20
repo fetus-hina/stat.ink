@@ -19,6 +19,7 @@ use DirectoryIterator;
 use Exception;
 use Normalizer;
 use ParagonIE\ConstantTime\Base32;
+use RuntimeException;
 use Throwable;
 use Yii;
 use app\components\helpers\TypeHelper;
@@ -55,6 +56,7 @@ use function mb_strlen;
 use function mb_strpos;
 use function mb_substr;
 use function natcasesort;
+use function preg_last_error_msg;
 use function preg_replace;
 use function preg_replace_callback;
 use function rawurlencode;
@@ -521,7 +523,7 @@ class DeeplTranslator extends Component
                     break;
 
                 case XML_TEXT_NODE:
-                    $tmp = self::templateToXmlSimple($child->nodeValue);
+                    $tmp = self::templateToXmlSimple($child->nodeValue ?? '');
                     if ($tmp === null) {
                         return null;
                     }
@@ -548,8 +550,8 @@ class DeeplTranslator extends Component
             '#<param data="([2-7A-Za-z]+=*)"\s*/>#',
             fn ($match) => ' ' . Base32::decode($match[1]) . ' ',
             $text,
-        );
-        $text = preg_replace('/\x20{2,}/', ' ', $text);
+        ) ?? throw new RuntimeException(preg_last_error_msg());
+        $text = preg_replace('/\x20{2,}/', ' ', $text) ?? throw new RuntimeException(preg_last_error_msg());
         return trim($text);
     }
 
@@ -561,7 +563,7 @@ class DeeplTranslator extends Component
      */
     private static function tokenizePattern(string $pattern): array|false
     {
-        $charset = Yii::$app ? Yii::$app->charset : 'UTF-8';
+        $charset = Yii::$app->charset;
         $depth = 1;
         if (($start = $pos = mb_strpos($pattern, '{', 0, $charset)) === false) {
             return [$pattern];

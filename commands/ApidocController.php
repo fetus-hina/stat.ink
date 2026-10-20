@@ -12,6 +12,7 @@ namespace app\commands;
 use DateTimeImmutable;
 use DateTimeZone;
 use Exception;
+use RuntimeException;
 use Yii;
 use app\components\helpers\TypeHelper;
 use app\components\openapi\doc\V1 as V1Generator;
@@ -38,6 +39,7 @@ use function file_put_contents;
 use function getcwd;
 use function implode;
 use function is_array;
+use function preg_last_error_msg;
 use function preg_match;
 use function preg_replace_callback;
 use function random_int;
@@ -280,7 +282,7 @@ final class ApidocController extends Controller
                                     round(16 * 4 / 3),
                                     implode('', array_map(
                                         fn (int $codepoint): string => sprintf('&#x%x;', $codepoint),
-                                        $country->regionalIndicatorSymbols,
+                                        $country->regionalIndicatorSymbols ?? [],
                                     )),
                                 ]),
                                 $tz->countries,
@@ -339,7 +341,7 @@ final class ApidocController extends Controller
                 }
             },
             static::FLAGICON_URL,
-        );
+        ) ?? throw new RuntimeException(preg_last_error_msg());
     }
 
     private function getFlagIconCssVersion(): string

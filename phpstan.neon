@@ -2,7 +2,7 @@ includes:
   - vendor/mspirkov/yii2-phpstan/extension.neon
 
 parameters:
-  level: 7
+  level: 8
   phpVersion: 80500
 
   paths:
@@ -217,14 +217,17 @@ parameters:
           - controllers
           - views
         type: app\components\web\Application
+        nullable: false
       -
         paths:
           - commands
         type: yii\console\Application
+        nullable: false
       -
         paths:
           - .
         type: yii\console\Application|app\components\web\Application
+        nullable: false
     applicationConfigs:
       -
         paths:

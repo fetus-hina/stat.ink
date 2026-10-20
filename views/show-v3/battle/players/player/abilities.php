@@ -57,7 +57,7 @@ $powers = ArrayHelper::map(
   ],
 );
 foreach ($gears as $gear) {
-  $mainKey = ArrayHelper::getValue($gear, 'ability.key');
+  $mainKey = ArrayHelper::getValue($gear ?? [], 'ability.key');
   if ($mainKey && isset($powers[$mainKey])) {
     if ($powers[$mainKey]['mainOnly']) {
       $powers[$mainKey]['main'] = true;
@@ -70,7 +70,7 @@ foreach ($gears as $gear) {
 
   $doubler = $mainKey === 'ability_doubler';
   $subs = ArrayHelper::sort(
-    $gear->gearConfigurationSecondary3s,
+    $gear->gearConfigurationSecondary3s ?? [],
     fn (GearConfigurationSecondary3 $a, GearConfigurationSecondary3 $b): int => $a->id <=> $b->id,
   );
   foreach (array_slice($subs, 0, 3) as $sub) {
@@ -154,19 +154,19 @@ $sendouInkUrl = SendouInk::getBuildUrl3($player->weapon, ...$gears);
     <span class="d-inline-block gear-block"><?= implode('', [
       Html::tag(
         'span',
-        Icon::s3Ability(ArrayHelper::getValue($gear, 'ability.key', 'unknown')),
+        Icon::s3Ability(ArrayHelper::getValue($gear ?? [], 'ability.key', 'unknown')) ?? '',
         ['class' => 'main-ability'],
       ),
       Html::tag(
         'span',
         implode('', array_map(
           fn (?GearConfigurationSecondary3 $secondary): string => (string)Icon::s3Ability(
-            ArrayHelper::getValue($secondary, 'ability.key', 'unknown'),
+            ArrayHelper::getValue($secondary ?? [], 'ability.key', 'unknown'),
           ),
           array_slice(
             array_merge(
               ArrayHelper::sort(
-                $gear->gearConfigurationSecondary3s,
+                $gear->gearConfigurationSecondary3s ?? [],
                 fn (GearConfigurationSecondary3 $a, GearConfigurationSecondary3 $b): int => $a->id <=> $b->id,
               ),
               [null, null, null],
@@ -236,7 +236,7 @@ $sendouInkUrl = SendouInk::getBuildUrl3($player->weapon, ...$gears);
               <tr>
                 <?= Html::tag(
                   'td',
-                  Icon::s3Ability($power['key']),
+                  Icon::s3Ability($power['key']) ?? '',
                   ['class' => 'ability-col-icon'],
                 ) . "\n" ?>
                 <td class="omit"><?= Html::encode($power['name']) ?></td>

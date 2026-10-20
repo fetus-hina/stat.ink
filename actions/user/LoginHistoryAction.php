@@ -17,6 +17,7 @@ use Override;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\data\Pagination;
+use yii\web\ServerErrorHttpException;
 use yii\web\ViewAction;
 
 class LoginHistoryAction extends ViewAction
@@ -24,7 +25,9 @@ class LoginHistoryAction extends ViewAction
     #[Override]
     public function run(): string
     {
-        $user = Yii::$app->getUser()->getIdentity();
+        if (!$user = Yii::$app->getUser()->getIdentity()) {
+            throw new ServerErrorHttpException();
+        }
 
         $time = new DateTimeImmutable(
             'now',

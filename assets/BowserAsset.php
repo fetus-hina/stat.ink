@@ -11,6 +11,7 @@ namespace app\assets;
 
 use Override;
 use Yii;
+use app\components\helpers\TypeHelper;
 use yii\web\AssetBundle;
 
 use function preg_match;
@@ -36,7 +37,7 @@ class BowserAsset extends AssetBundle
 
     public function filterIsUsableAssets(string $path): bool
     {
-        $prefix = Yii::getAlias($this->sourcePath);
+        $prefix = Yii::getAlias(TypeHelper::string($this->sourcePath));
         if (!str_starts_with($path, $prefix)) {
             return false;
         }

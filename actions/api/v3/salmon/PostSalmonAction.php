@@ -21,6 +21,7 @@ use yii\base\Action;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\Response;
+use yii\web\ServerErrorHttpException;
 
 use function rawurlencode;
 use function vsprintf;
@@ -73,6 +74,9 @@ final class PostSalmonAction extends Action
             ->andWhere(['uuid' => $uuid])
             ->limit(1)
             ->one();
+        if (!$battle) {
+            throw new ServerErrorHttpException('Could not load the saved job');
+        }
 
         // バックグラウンドジョブの登録
         // (Slack への push のタスク登録など)

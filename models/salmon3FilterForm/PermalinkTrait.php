@@ -13,6 +13,7 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Throwable;
 use Yii;
+use app\components\helpers\TypeHelper;
 
 use function is_string;
 use function sprintf;
@@ -73,8 +74,8 @@ trait PermalinkTrait
         try {
             $tz = new DateTimeZone(Yii::$app->timeZone);
 
-            $date1 = new DateTimeImmutable($this->term_from, $tz);
-            $date2 = new DateTimeImmutable($this->term_to, $tz);
+            $date1 = new DateTimeImmutable(TypeHelper::string($this->term_from), $tz);
+            $date2 = new DateTimeImmutable(TypeHelper::string($this->term_to), $tz);
             $push(
                 $date1->getTimestamp(),
                 $date2->getTimestamp(),

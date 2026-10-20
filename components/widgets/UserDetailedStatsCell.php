@@ -28,11 +28,8 @@ use function vsprintf;
 class UserDetailedStatsCell extends Widget
 {
     public ?string $rule = null;
-    public ?stdClass $data = null;
-    /**
-     * @var Formatter|null
-     */
-    private $f = null;
+    public stdClass $data;
+    private Formatter $f;
 
     #[Override]
     public function init(): void
@@ -200,7 +197,7 @@ class UserDetailedStatsCell extends Widget
 
         AutoTooltipAsset::register($this->view);
         return implode(' ', [
-            Html::tag('span', $this->f->asMetricPrefixed($this->data->point_sum, 2), [
+            Html::tag('span', $this->f->asMetricPrefixed($this->data->point_sum, 2) ?? '', [
                 'class' => 'auto-tooltip',
                 'title' => $this->f->asInteger($this->data->point_sum),
             ]),

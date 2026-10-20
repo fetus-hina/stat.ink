@@ -29,20 +29,20 @@ use function is_callable;
 
 final class SalmonWaves extends Widget
 {
-    public ?Salmon2 $work = null;
+    public Salmon2 $work;
 
     public ?SalmonWave2 $wave1 = null;
     public ?SalmonWave2 $wave2 = null;
     public ?SalmonWave2 $wave3 = null;
 
-    public ?\yii\i18n\Formatter $formatter = null;
+    public \yii\i18n\Formatter $formatter;
 
     #[Override]
     public function init(): void
     {
         parent::init();
 
-        if (!$this->formatter) {
+        if (!isset($this->formatter)) {
             $this->formatter = Yii::createObject([
                 'class' => Formatter::class,
                 'nullDisplay' => '-',
@@ -101,7 +101,7 @@ final class SalmonWaves extends Widget
     protected function renderBody(): string
     {
         $data = array_filter([
-            $this->work && $this->work->clear_waves !== null
+            $this->work->clear_waves !== null
                 ? [
                     'label' => '',
                     'format' => 'raw',
@@ -130,7 +130,10 @@ final class SalmonWaves extends Widget
                 'label' => Yii::t('app-salmon-event2', 'Event'),
                 'format' => 'text',
                 'total' => null,
-                'value' => fn (SalmonWave2 $wave, int $waveNumber, self $widget): ?string => Yii::t('app-salmon-event2', $wave->event->name ?? null),
+                'value' => fn (SalmonWave2 $wave, int $waveNumber, self $widget): ?string => Yii::t(
+                    'app-salmon-event2',
+                    $wave->event->name ?? '',
+                ),
             ],
             [
                 'label' => Yii::t('app-salmon-tide2', 'Water Level'),
@@ -152,18 +155,19 @@ final class SalmonWaves extends Widget
                         ],
                     ];
 
-                    if (!isset($options[$wave->water->key])) {
+                    $waterKey = $wave->water?->key;
+                    if ($waterKey === null || !isset($options[$waterKey])) {
                         return Html::encode(
-                            Yii::t('app-salmon-tide2', $wave->water->name ?? null),
+                            Yii::t('app-salmon-tide2', $wave->water->name ?? ''),
                         );
                     }
 
-                    $opt = $options[$wave->water->key];
+                    $opt = $options[$waterKey];
                     return Html::tag(
                         'div',
                         Html::tag(
                             'div',
-                            Html::encode(Yii::t('app-salmon-tide2', $wave->water->name ?? null)),
+                            Html::encode(Yii::t('app-salmon-tide2', $wave->water->name ?? '')),
                             [
                                 'class' => [
                                     'progress-bar',

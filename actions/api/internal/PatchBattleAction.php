@@ -22,7 +22,7 @@ use function preg_match;
 
 class PatchBattleAction extends ViewAction
 {
-    public ?Battle $battle = null;
+    public Battle $battle;
 
     #[Override]
     public function init(): void
@@ -48,13 +48,15 @@ class PatchBattleAction extends ViewAction
             throw new BadRequestHttpException();
         }
 
-        if (!$this->battle = Battle::findOne(['id' => (int)$id])) {
+        if (!$battle = Battle::findOne(['id' => (int)$id])) {
             throw new NotFoundHttpException();
         }
 
-        if ($this->battle->user_id != Yii::$app->user->identity->id) {
+        if ($battle->user_id != Yii::$app->user->getIdentity()?->id) {
             throw new ForbiddenHttpException();
         }
+
+        $this->battle = $battle;
     }
 
     /**

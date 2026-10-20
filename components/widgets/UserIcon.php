@@ -19,7 +19,7 @@ use function implode;
 
 class UserIcon extends Widget
 {
-    public ?User $user = null;
+    public User $user;
     /**
      * @var array<string, mixed>
      */

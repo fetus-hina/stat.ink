@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 use app\assets\Spl2WeaponAsset;
 use app\assets\UserStatReportAsset;
+use app\components\helpers\TypeHelper;
 use app\components\widgets\AdWidget;
 use app\components\widgets\Icon;
 use app\components\widgets\SnsWidget;
@@ -189,7 +190,7 @@ $weapons = Spl2WeaponAsset::register($this);
               : Html::a(
                 implode('', [
                   Html::img(
-                    Battle2::teamIcon($row['team_id']),
+                    TypeHelper::string(Battle2::teamIcon($row['team_id'])),
                     [
                       'style' => [
                         'width' => 'auto',

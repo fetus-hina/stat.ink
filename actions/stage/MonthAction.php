@@ -42,10 +42,10 @@ use function usort;
  */
 class MonthAction extends BaseAction
 {
-    public ?int $year = null;
-    public ?int $month = null;
-    public ?int $periodS = null;
-    public ?int $periodE = null;
+    public int $year;
+    public int $month;
+    public int $periodS;
+    public int $periodE;
 
     #[Override]
     public function init(): void
@@ -69,7 +69,6 @@ class MonthAction extends BaseAction
                 !self::isValidMonth((int)$year, (int)$month)
         ) {
             self::http404();
-            return;
         }
 
         $this->year = (int)$year;
@@ -241,7 +240,7 @@ class MonthAction extends BaseAction
         // }}}
     }
 
-    private static function http404(): void
+    private static function http404(): never
     {
         throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
     }

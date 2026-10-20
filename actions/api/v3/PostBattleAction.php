@@ -23,6 +23,7 @@ use yii\base\Action;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\Response;
+use yii\web\ServerErrorHttpException;
 use yii\web\UploadedFile;
 
 use function array_map;
@@ -116,6 +117,9 @@ final class PostBattleAction extends Action
             ->andWhere(['uuid' => $uuid])
             ->limit(1)
             ->one();
+        if (!$battle) {
+            throw new ServerErrorHttpException('Could not load the saved battle');
+        }
 
         // バックグラウンドジョブの登録
         // (Slack への push のタスク登録など)

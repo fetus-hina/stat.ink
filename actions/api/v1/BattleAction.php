@@ -12,6 +12,7 @@ use Throwable;
 use Yii;
 use app\components\helpers\Blackout;
 use app\components\helpers\ImageConverter;
+use app\components\helpers\TypeHelper;
 use app\components\jobs\SlackJob;
 use app\components\web\ServiceUnavailableHttpException;
 use app\models\Agent;
@@ -23,6 +24,7 @@ use app\models\api\v1\DeleteBattleForm;
 use app\models\api\v1\PatchBattleForm;
 use app\models\api\v1\PostBattleForm;
 use yii\web\MethodNotAllowedHttpException;
+use yii\web\ServerErrorHttpException;
 use yii\web\UploadedFile;
 use yii\web\ViewAction as BaseAction;
 
@@ -250,6 +252,9 @@ class BattleAction extends BaseAction
 
         // 保存時間の読み込みのために再読込する
         $battle = Battle::findOne(['id' => $battle->id]);
+        if (!$battle) {
+            throw new ServerErrorHttpException('Could not load the saved battle');
+        }
 
         // バックグラウンドジョブの登録
         // (Slack への push のタスク登録など)
@@ -265,6 +270,10 @@ class BattleAction extends BaseAction
     private function saveData(PostBattleForm $form): Battle|array
     {
         // {{{
+        if (!$user = $form->getUser()) {
+            throw new ServerErrorHttpException();
+        }
+
         $battle = $form->toBattle();
         if (!$battle->isMeaningful) {
             $this->logError([
@@ -346,7 +355,7 @@ class BattleAction extends BaseAction
         if ($image = $form->toImageJudge($battle)) {
             $binary = is_string($form->image_judge)
                 ? $form->image_judge
-                : file_get_contents($form->image_judge->tempName, false);
+                : file_get_contents(TypeHelper::instanceOf($form->image_judge, UploadedFile::class)->tempName, false);
             if (
                 !ImageConverter::convert(
                     $binary,
@@ -382,7 +391,7 @@ class BattleAction extends BaseAction
         if ($image = $form->toImageResult($battle)) {
             $binary = is_string($form->image_result)
                 ? $form->image_result
-                : file_get_contents($form->image_result->tempName, false);
+                : file_get_contents(TypeHelper::instanceOf($form->image_result, UploadedFile::class)->tempName, false);
 
             $blackoutList = [];
             if (
@@ -394,7 +403,7 @@ class BattleAction extends BaseAction
             ) {
                 $blackoutList = Blackout::getBlackoutTargetList(
                     $form->lobby,
-                    $form->user->blackout,
+                    $user->blackout,
                     ($form->result === 'win' ? 0 : 4) + $form->rank_in_team,
                 );
             }
@@ -434,7 +443,7 @@ class BattleAction extends BaseAction
         if ($image = $form->toImageGear($battle)) {
             $binary = is_string($form->image_gear)
                 ? $form->image_gear
-                : file_get_contents($form->image_gear->tempName, false);
+                : file_get_contents(TypeHelper::instanceOf($form->image_gear, UploadedFile::class)->tempName, false);
             if (
                 !ImageConverter::convert(
                     $binary,

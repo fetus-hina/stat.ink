@@ -21,14 +21,14 @@ class BootswatchAsset extends AssetBundle
     public $depends = [
         BootstrapPluginAsset::class,
     ];
-    private ?string $theme = null;
+    private string $theme;
 
     #[Override]
     public function init(): void
     {
         parent::init();
 
-        if (!$this->theme) {
+        if (!isset($this->theme)) {
             $this->setTheme('cerulean');
         }
     }

@@ -1241,13 +1241,15 @@ class Battle extends ActiveRecord
     protected function saveEditHistoryImpl(string $jsonBefore, string $jsonAfter): bool
     {
         try {
-            $edit = new BattleEditHistory();
-            $edit->battle_id = $this->id;
-            $edit->diff = Differ::diff($jsonBefore, $jsonAfter);
-            $edit->at = new Now();
-            if ($edit->diff == '') {
+            $diff = Differ::diff($jsonBefore, $jsonAfter);
+            if ($diff === null || $diff === '') {
                 return true;
             }
+
+            $edit = new BattleEditHistory();
+            $edit->battle_id = $this->id;
+            $edit->diff = $diff;
+            $edit->at = new Now();
             return !!$edit->save();
         } catch (Throwable $e) {
             return false;

@@ -12,6 +12,7 @@ namespace app\commands;
 use Curl\Curl;
 use Exception;
 use Override;
+use RuntimeException;
 use Throwable;
 use Yii;
 use yii\console\Controller;
@@ -28,6 +29,7 @@ use function fprintf;
 use function fwrite;
 use function http_build_query;
 use function implode;
+use function preg_last_error_msg;
 use function preg_replace_callback;
 use function rtrim;
 use function str_repeat;
@@ -46,16 +48,16 @@ class GeoipController extends Controller
 
     // https://dev.maxmind.com/geoip/geoipupdate/#Direct_Downloads
     /**
-     * @var array<string, array{url: string, files: string[]}>|null
+     * @var array<string, array{url: string, files: string[]}>
      */
-    protected ?array $saveFiles = null;
+    protected array $saveFiles;
 
     #[Override]
     public function init(): void
     {
         parent::init();
 
-        if (!$this->saveFiles) {
+        if (!isset($this->saveFiles)) {
             $this->saveFiles = [
                 'GeoLite2-City.tar.gz' => [
                     'url' => vsprintf('%s?%s', [
@@ -214,6 +216,6 @@ class GeoipController extends Controller
                 return $_SERVER[$envName];
             },
             $text,
-        );
+        ) ?? throw new RuntimeException(preg_last_error_msg());
     }
 }

@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use LogicException;
+use RuntimeException;
 use Yii;
 use app\components\helpers\TypeHelper;
 use cebe\markdown\GithubMarkdown;
@@ -23,6 +24,7 @@ use function implode;
 use function is_readable;
 use function ob_get_clean;
 use function ob_start;
+use function preg_last_error_msg;
 use function preg_match;
 use function preg_replace_callback;
 use function sprintf;
@@ -105,7 +107,7 @@ final class MarkdownRendererWidget extends Widget
                 '/\{icon:([\w]+)\}/i',
                 fn (array $match): string => TypeHelper::string(Icon::{$match[1]}()),
                 $parser->parse($markdown),
-            );
+            ) ?? throw new RuntimeException(preg_last_error_msg());
         } finally {
             Yii::endProfile(__METHOD__, __METHOD__);
         }

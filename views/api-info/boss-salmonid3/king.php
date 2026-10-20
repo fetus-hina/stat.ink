@@ -50,7 +50,7 @@ SortableTableAsset::register($this);
     <tbody>
 <?php foreach ($salmonids as $salmonid) { ?>
       <tr>
-        <?= Html::tag('td', Icon::s3BossSalmonid($salmonid), ['class' => 'text-center']) . "\n" ?>
+        <?= Html::tag('td', Icon::s3BossSalmonid($salmonid) ?? '', ['class' => 'text-center']) . "\n" ?>
         <?= Html::tag(
           'td',
           Html::tag('code', Html::encode($salmonid->key)),

@@ -15,6 +15,7 @@ use app\components\helpers\AddressUpdatedEmailSender;
 use app\components\helpers\TypeHelper;
 use app\models\EmailForm;
 use app\models\EmailVerifyForm;
+use yii\web\ServerErrorHttpException;
 use yii\web\ViewAction;
 
 use function count;
@@ -32,7 +33,9 @@ class EditEmailAction extends ViewAction
             $params = $request->bodyParams;
             $form->load(is_array($params) ? $params : []);
             if ($form->validate()) {
-                $user = Yii::$app->user->identity;
+                if (!$user = Yii::$app->user->identity) {
+                    throw new ServerErrorHttpException();
+                }
                 if (!$form->email) {
                     // Cleared
                     if ($user->email) {

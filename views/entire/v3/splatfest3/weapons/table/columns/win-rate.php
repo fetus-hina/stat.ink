@@ -23,7 +23,7 @@ return [
   'value' => function (Model $model) use ($maxWinRate): string {
     $wins = TypeHelper::intOrNull(ArrayHelper::getValue($model, 'wins'));
     $battles = TypeHelper::intOrNull(ArrayHelper::getValue($model, 'battles'));
-    if ($battles < 1) {
+    if ($wins === null || $battles === null || $battles < 1) {
       return '';
     }
 

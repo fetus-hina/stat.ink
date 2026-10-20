@@ -15,9 +15,9 @@ use yii\web\View;
  * @var View $this
  */
 
-$enableDiscord = Yii::$app->params['discord']['read_enabled'] ?? false;
-$enableGoogle = Yii::$app->params['google']['read_enabled'] ?? false;
-$enableTwitter = Yii::$app->params['twitter']['read_enabled'] ?? false;
+$enableDiscord = Yii::$app->params['discord']['read_enabled'];
+$enableGoogle = Yii::$app->params['google']['read_enabled'];
+$enableTwitter = Yii::$app->params['twitter']['read_enabled'];
 $provided = $enableDiscord || $enableGoogle || $enableTwitter;
 
 ?>

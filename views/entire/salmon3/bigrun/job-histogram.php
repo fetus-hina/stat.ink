@@ -80,7 +80,8 @@ $makeWaveDistributionData = function (
     $abstract->{$prefix . '_jobs'} >= 10 &&
     $abstract->{$prefix . '_average'} !== null &&
     $abstract->{$prefix . '_stddev'} !== null &&
-    $abstract->{$prefix . '_stddev'} > 0
+    $abstract->{$prefix . '_stddev'} > 0 &&
+    $abstract->histogram_width !== null
   ) {
     $color = $failedWave > 3
       ? new JsExpression('window.colorScheme.graph1')

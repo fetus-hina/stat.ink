@@ -92,7 +92,7 @@ class ViewAction extends BaseAction
     public function getResults(): array
     {
         $query = SplatfestBattleSummary::find()
-            ->andWhere(['{{splatfest_battle_summary}}.[[fest_id]]' => $this->fest->id])
+            ->andWhere(['{{splatfest_battle_summary}}.[[fest_id]]' => $this->fest?->id])
             ->orderBy(['{{splatfest_battle_summary}}.[[timestamp]]' => SORT_ASC]);
 
         return array_map(

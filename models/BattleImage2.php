@@ -8,6 +8,7 @@
 namespace app\models;
 
 use Override;
+use RuntimeException;
 use Yii;
 use app\components\helpers\RandomFilename;
 use yii\db\ActiveQuery;
@@ -16,6 +17,7 @@ use yii\helpers\Url;
 
 use function file_exists;
 use function is_file;
+use function preg_last_error_msg;
 use function preg_replace;
 use function unlink;
 
@@ -151,7 +153,7 @@ class BattleImage2 extends ActiveRecord
         if ($this->deleteFilename) {
             $path = Yii::getAlias('@app/web/images') . '/' . $this->deleteFilename;
             foreach (['.jpg', '.lep'] as $ext) {
-                $path2 = preg_replace('/\.jpg$/', $ext, $path);
+                $path2 = preg_replace('/\.jpg$/', $ext, $path) ?? throw new RuntimeException(preg_last_error_msg());
                 if (file_exists($path2) && is_file($path2)) {
                     unlink($path2);
                 }

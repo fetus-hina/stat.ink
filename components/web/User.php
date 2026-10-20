@@ -7,6 +7,7 @@
 
 namespace app\components\web;
 
+use LogicException;
 use Override;
 use Yii;
 use app\components\helpers\TypeHelper;
@@ -196,7 +197,7 @@ class User extends \yii\web\User
         $result = Yii::$app->security->pbkdf2(
             'sha512',
             $saltBinary,
-            $this->identityFixedKey,
+            $this->identityFixedKey ?? throw new LogicException('identityFixedKey is not configured'),
             1000,
             static::CRYPT_KEY_BITS / 8,
         );

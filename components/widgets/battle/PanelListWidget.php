@@ -19,7 +19,7 @@ use function preg_replace_callback;
 class PanelListWidget extends Widget
 {
     public string $panelClass = 'panel panel-default';
-    public ?string $template = null;
+    public string $template;
     /**
      * @var array<mixed>
      */
@@ -34,17 +34,17 @@ class PanelListWidget extends Widget
      * @var string|array<mixed>|null
      */
     public string|array|null $feedLink = null;
-    public ?string $emptyText = null;
+    public string $emptyText;
     /**
-     * @var class-string<Widget>|null
+     * @var class-string<Widget>
      */
-    public ?string $itemClass = null;
+    public string $itemClass;
 
     #[Override]
     public function init(): void
     {
         parent::init();
-        if (!$this->template) {
+        if (!isset($this->template)) {
             $this->template = Html::tag(
                 'div',
                 implode('', [
@@ -54,7 +54,7 @@ class PanelListWidget extends Widget
                 ['class' => '{panelClass}'],
             );
         }
-        if (!$this->emptyText) {
+        if (!isset($this->emptyText)) {
             $this->emptyText = Html::tag(
                 'div',
                 Html::tag(
@@ -64,7 +64,7 @@ class PanelListWidget extends Widget
                 ['class' => 'panel-body'],
             );
         }
-        if (!$this->itemClass) {
+        if (!isset($this->itemClass)) {
             $this->itemClass = PanelListItemWidget::class;
         }
     }
@@ -72,7 +72,7 @@ class PanelListWidget extends Widget
     public function run()
     {
         $replace = [
-            '{title}' => Html::encode($this->title),
+            '{title}' => Html::encode($this->title ?? ''),
             '{titleLink}' => $this->renderTitleLink(),
             '{feedLink}' => $this->renderFeedLink(),
             '{panelClass}' => $this->panelClass,

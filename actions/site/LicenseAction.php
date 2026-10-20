@@ -41,7 +41,7 @@ class LicenseAction extends SimpleAction
     private const CATEGORY_NPM = 1;
 
     public string|false $view = 'license';
-    private ?Markdown $mdParser = null;
+    private Markdown $mdParser;
 
     #[Override]
     public function init(): void

@@ -36,18 +36,19 @@ use function uasort;
  */
 class UserStatNawabariAction extends BaseAction
 {
-    private ?User $user = null;
+    private User $user;
 
     #[Override]
     public function run(): string
     {
         $request = Yii::$app->getRequest();
-        $this->user = User::findOne([
+        $user = User::findOne([
             'screen_name' => $request->get('screen_name'),
         ]);
-        if (!$this->user) {
+        if (!$user) {
             throw new NotFoundHttpException(Yii::t('app-show', 'Could not find user'));
         }
+        $this->user = $user;
 
         return $this->controller->render('user-stat-nawabari', [
             'user' => $this->user,

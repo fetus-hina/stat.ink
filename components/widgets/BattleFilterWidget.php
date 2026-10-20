@@ -49,7 +49,7 @@ final class BattleFilterWidget extends Widget
     public string $id = 'filter-form';
     public ?string $route = null;
     public ?string $screen_name = null;
-    public ?BattleFilterForm $filter = null;
+    public BattleFilterForm $filter;
 
     public bool $lobby = true;
     public bool $rule = true;
@@ -197,7 +197,7 @@ final class BattleFilterWidget extends Widget
     protected function drawWeapon(ActiveForm $form): ActiveField
     {
         $user = User::findOne(['screen_name' => $this->screen_name]);
-        $weaponIdList = $this->getUsedWeaponIdList($user);
+        $weaponIdList = $this->getUsedWeaponIdList($user) ?? [];
         $list = array_merge(
             $this->createMainWeaponList($weaponIdList),
             $this->createGroupedMainWeaponList($weaponIdList),

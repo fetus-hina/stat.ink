@@ -11,6 +11,7 @@ namespace app\commands\bugfix;
 
 use Exception;
 use Generator;
+use LogicException;
 use Yii;
 use app\models\Agent;
 use app\models\AgentVariable3;
@@ -69,7 +70,7 @@ final class S3sKillAssistAction extends Action
                 $db->transaction(
                     fn (Connection $db): bool => $this->updateBattleRelation(
                         $battle,
-                        $db->transaction,
+                        $db->transaction ?? throw new LogicException('No active transaction'),
                     ),
                 )
             ) {

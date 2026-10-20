@@ -32,15 +32,15 @@ use const SORT_DESC;
 
 class FestPowerHistory extends Widget
 {
-    public ?User $user = null;
-    public ?Battle2 $current = null;
+    public User $user;
+    public Battle2 $current;
 
     #[Override]
     public function init(): void
     {
         parent::init();
 
-        if (!$this->user) {
+        if (!isset($this->user)) {
             $this->user = $this->current->user;
         }
     }
@@ -126,7 +126,6 @@ class FestPowerHistory extends Widget
             return null;
         }
         if (
-            !$this->current ||
             $this->current->rule_id !== $ruleTW->id ||
             $this->current->mode_id !== $modeFest->id ||
             $this->current->lobby_id === null

@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\commands\splatoon3Ink;
 
+use LogicException;
 use Throwable;
 use Yii;
 use app\models\Lobby3;
@@ -48,7 +49,8 @@ trait UpdateSchedule
                         ->one();
                     if ($lobby) {
                         if (!$this->registerSchedules($lobby, $scheduleData)) {
-                            $db->transaction->rollBack();
+                            ($db->transaction ?? throw new LogicException('No active transaction'))
+                                ->rollBack();
                             return ExitCode::UNSPECIFIED_ERROR;
                         }
                     }
@@ -105,7 +107,9 @@ trait UpdateSchedule
                     return true;
                 }
 
-                $db->transaction->rollBack();
+                ($db->transaction ?? throw new LogicException('No active transaction'))
+
+                    ->rollBack();
                 return false;
             },
         );

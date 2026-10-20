@@ -149,7 +149,9 @@ trait UpdateSalmonSchedule
                     return true;
                 }
 
-                $db->transaction->rollBack();
+                ($db->transaction ?? throw new LogicException('No active transaction'))
+
+                    ->rollBack();
                 return false;
             },
         );

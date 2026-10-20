@@ -19,6 +19,7 @@ use app\models\User;
 use yii\db\ActiveRecord;
 use yii\db\Connection;
 use yii\db\Query;
+use LogicException;
 
 use function array_keys;
 use function array_map;
@@ -60,7 +61,8 @@ trait UserGoldenEggTrait
                 ]),
                 __METHOD__,
             );
-            $db->transaction->rollBack();
+            ($db->transaction ?? throw new LogicException('No active transaction'))
+                ->rollBack();
             return false;
         }
     }
@@ -148,7 +150,7 @@ trait UserGoldenEggTrait
                     ', ',
                     array_map(
                         $db->quoteColumnName(...),
-                        array_keys($query->select),
+                        array_keys($query->select ?? throw new LogicException('No columns selected')),
                     ),
                 ),
                 $query->createCommand($db)->rawSql,
@@ -259,7 +261,7 @@ trait UserGoldenEggTrait
                     ', ',
                     array_map(
                         $db->quoteColumnName(...),
-                        array_keys($query->select),
+                        array_keys($query->select ?? throw new LogicException('No columns selected')),
                     ),
                 ),
                 $query->createCommand($db)->rawSql,

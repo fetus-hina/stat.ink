@@ -14,7 +14,7 @@ use app\models\DragonMatch3;
 final class DragonMatchApiFormatter
 {
     /**
-     * @return array<string, mixed>|null
+     * @return ($model is null ? null : array<string, mixed>)
      */
     public static function toJson(?DragonMatch3 $model, bool $fullTranslate = false): ?array
     {

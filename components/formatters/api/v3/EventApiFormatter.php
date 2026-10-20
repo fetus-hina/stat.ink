@@ -14,7 +14,7 @@ use app\models\Event3;
 final class EventApiFormatter
 {
     /**
-     * @return array<string, mixed>|null
+     * @return ($model is null ? null : array<string, mixed>)
      */
     public static function toJson(?Event3 $model, bool $fullTranslate): ?array
     {

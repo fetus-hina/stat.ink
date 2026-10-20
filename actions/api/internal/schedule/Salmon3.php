@@ -86,8 +86,8 @@ trait Salmon3
                             function (SalmonScheduleWeapon3 $info): array {
                                 $w = $info->weapon ?: $info->random;
                                 return [
-                                    'key' => $w->key,
-                                    'name' => Yii::t('app-weapon3', $w->name),
+                                    'key' => $w?->key,
+                                    'name' => Yii::t('app-weapon3', $w->name ?? ''),
                                     'icon' => null,
                                 ];
                             },

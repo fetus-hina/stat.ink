@@ -48,10 +48,10 @@ use yii\web\View;
 <?php } ?>
 <?php foreach ($tricolorStats as $row) { ?>
       <?= $this->render('table-attacker/row', [
-        'label' => Yii::t('app-map3', $stages[$row['map_id']]->name ?? null)
+        'label' => Yii::t('app-map3', $stages[$row['map_id']]->name ?? '')
           ?: sprintf('(#%d)', $row['map_id']),
-        'shortLabel' => Yii::t('app-map3', $stages[$row['map_id']]->short_name ?? null)
-          ?: Yii::t('app-map3', $stages[$row['map_id']]->name ?? null)
+        'shortLabel' => Yii::t('app-map3', $stages[$row['map_id']]->short_name ?? '')
+          ?: Yii::t('app-map3', $stages[$row['map_id']]->name ?? '')
           ?: sprintf('(#%d)', $row['map_id']),
         'battles' => (int)$row['battles'],
         'wins' => (int)$row['attacker_wins'],

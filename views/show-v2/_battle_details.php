@@ -156,7 +156,7 @@ use yii\widgets\DetailView;
                 case 's+':
                     if ($rankExp !== null) {
                         return implode(' ', [
-                            Yii::t('app-rank2', $rank->name),
+                            Yii::t('app-rank2', $rank->name ?? ''),
                             (string)(int)$rankExp,
                         ]);
                     }
@@ -165,14 +165,14 @@ use yii\widgets\DetailView;
                 case 'x':
                     if ($xPower !== null) {
                         return vsprintf('%s (%s)', [
-                            Yii::t('app-rank2', $rank->name),
+                            Yii::t('app-rank2', $rank->name ?? ''),
                             Yii::$app->formatter->asDecimal($xPower, 1),
                         ]);
                     }
                     break;
             }
 
-            return Yii::t('app-rank2', $rank->name);
+            return Yii::t('app-rank2', $rank->name ?? '');
             // }}}
         };
 
@@ -952,7 +952,7 @@ use yii\widgets\DetailView;
         if ($model->private_note == '') {
           return null;
         }
-        if (Yii::$app->user->isGuest || Yii::$app->user->identity->id != $model->user_id) {
+        if (Yii::$app->user->getIdentity()?->id !== $model->user_id) {
           return null;
         }
         $this->registerCss('#private-note{display:none}');

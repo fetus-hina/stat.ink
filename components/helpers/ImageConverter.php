@@ -8,6 +8,7 @@
 namespace app\components\helpers;
 
 use Exception;
+use RuntimeException;
 use Throwable;
 use Yii;
 
@@ -32,6 +33,7 @@ use function is_executable;
 use function max;
 use function min;
 use function mkdir;
+use function preg_last_error_msg;
 use function preg_replace;
 use function round;
 use function sprintf;
@@ -201,7 +203,7 @@ class ImageConverter
             return false;
         }
 
-        $leptonPath = preg_replace('/\.jpg$/', '.lep', $jpegPath);
+        $leptonPath = preg_replace('/\.jpg$/', '.lep', $jpegPath) ?? throw new RuntimeException(preg_last_error_msg());
         self::mkdir(dirname($leptonPath));
         $cmdline = sprintf(
             '/usr/bin/env %s %s %s',

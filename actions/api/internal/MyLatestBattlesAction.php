@@ -19,6 +19,7 @@ use app\models\Battle3;
 use app\models\Salmon2;
 use app\models\Salmon3;
 use yii\db\Transaction;
+use yii\web\ServerErrorHttpException;
 
 final class MyLatestBattlesAction extends BaseLatestBattlesAction
 {
@@ -36,9 +37,13 @@ final class MyLatestBattlesAction extends BaseLatestBattlesAction
      */
     protected function fetchBattles(): array
     {
+        if (!$user = Yii::$app->user->identity) {
+            throw new ServerErrorHttpException();
+        }
+
         return Yii::$app->db->transaction(
             fn (): array => CombinedBattles::getUserRecentBattles(
-                Yii::$app->user->identity,
+                $user,
                 static::BATTLE_LIMIT,
             ),
             Transaction::REPEATABLE_READ,
@@ -53,7 +58,11 @@ final class MyLatestBattlesAction extends BaseLatestBattlesAction
     {
         $json = parent::run();
         if ($json['battles']) {
-            $json['user'] = self::formatUser(Yii::$app->user->identity);
+            if (!$user = Yii::$app->user->identity) {
+                throw new ServerErrorHttpException();
+            }
+
+            $json['user'] = self::formatUser($user);
         }
         return $json;
     }

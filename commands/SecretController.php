@@ -86,7 +86,7 @@ class SecretController extends Controller
             if (is_bool($v)) {
                 $file .= "    '{$k}' => " . ($v ? 'true' : 'false') . ",\n";
             } else {
-                $file .= "    '{$k}' => '" . addslashes($v) . "',\n";
+                $file .= "    '{$k}' => '" . addslashes($v ?? '') . "',\n";
             }
         }
         $file .= "];\n";

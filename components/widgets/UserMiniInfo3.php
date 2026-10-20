@@ -36,7 +36,7 @@ use const SORT_ASC;
 final class UserMiniInfo3 extends Widget
 {
     public string $id = 'user-miniinfo';
-    public ?User $user = null;
+    public User $user;
 
     public ?Lobby3 $activeLobby = null;
 
@@ -121,7 +121,7 @@ final class UserMiniInfo3 extends Widget
     }
 
     /**
-     * @param array{group: LobbyGroup3, stats: UserStat3[]}[] $models
+     * @param array{group: ?LobbyGroup3, stats: UserStat3[]}[] $models
      */
     private function renderStatsTotal(array $models): string
     {

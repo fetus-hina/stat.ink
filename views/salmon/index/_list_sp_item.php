@@ -44,8 +44,8 @@ $myData = $model->myData;
               ]),
               $model->fail_reason_id
                 ? Html::tag('div', Label::widget([
-                  'content' => Yii::t('app-salmon2', $model->failReason->short_name),
-                  'color' => $model->failReason->color,
+                  'content' => Yii::t('app-salmon2', $model->failReason->short_name ?? ''),
+                  'color' => $model->failReason?->color,
                   'options' => [
                     'style' => [
                       'font-size' => '11px',
@@ -71,9 +71,9 @@ $myData = $model->myData;
           <?= Html::encode(
             Yii::t(
               'app-salmon-map2',
-              $model->stage_id
-                ? $model->stage->name
-                : '?'
+              ($model->stage_id
+                ? $model->stage?->name
+                : '?') ?? ''
             )
           ) . "\n" ?>
         </div>
@@ -81,9 +81,9 @@ $myData = $model->myData;
           <?= Html::encode(
             Yii::t(
               'app-special2',
-              $myData && $myData->special_id
-                ? $myData->special->name
-                : '?'
+              ($myData && $myData->special_id
+                ? $myData->special?->name
+                : '?') ?? ''
             )
           ) . "\n" ?>
         </div>

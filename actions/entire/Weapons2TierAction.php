@@ -28,9 +28,9 @@ class Weapons2TierAction extends ViewAction
     use HttpErrorTrait;
 
     /**
-     * @var array{version: string, month: string, rule: string}|null
+     * @var array{version: string, month: string, rule: string}
      */
-    public ?array $input = null;
+    public array $input;
 
     #[Override]
     public function init(): void

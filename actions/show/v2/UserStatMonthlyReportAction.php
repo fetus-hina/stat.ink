@@ -29,7 +29,7 @@ use function time;
 
 final class UserStatMonthlyReportAction extends BaseAction
 {
-    private ?User $user;
+    private User $user;
 
     #[Override]
     public function init(): void
@@ -37,10 +37,11 @@ final class UserStatMonthlyReportAction extends BaseAction
         $db = Yii::$app->db;
         $db->createCommand("SET TIMEZONE TO 'Etc/UTC'")->execute();
 
-        $this->user = User::findOne(['screen_name' => Yii::$app->request->get('screen_name')]);
-        if (!$this->user) {
+        $user = User::findOne(['screen_name' => Yii::$app->request->get('screen_name')]);
+        if (!$user) {
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
         }
+        $this->user = $user;
     }
 
     #[Override]

@@ -173,7 +173,7 @@ if ($user->twitter != '') {
         },
         'beforeRow' => function (Battle2 $model, int $key, int $index, GridView $widget): ?string {
           static $lastPeriod = null;
-          if ($lastPeriod !== $model->period) {
+          if ($model->period !== null && $lastPeriod !== $model->period) {
             $lastPeriod = $model->period;
             $fmt = Yii::$app->formatter;
             list($from, $to) = BattleHelper::periodToRange2DT($model->period);

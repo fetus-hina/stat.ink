@@ -11,10 +11,13 @@ namespace app\models;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use RuntimeException;
+use app\components\helpers\TypeHelper;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 use function is_array;
+use function preg_last_error_msg;
 use function preg_match;
 use function preg_replace;
 use function strtolower;
@@ -117,30 +120,32 @@ class Splatfest2 extends ActiveRecord
 
     public function getBeginTime(): DateTimeImmutable
     {
-        return $this->splitTerm()[0];
+        return TypeHelper::instanceOf($this->splitTerm()[0] ?? null, DateTimeImmutable::class);
     }
 
     public function getEndTime(): DateTimeImmutable
     {
-        return $this->splitTerm()[1];
+        return TypeHelper::instanceOf($this->splitTerm()[1] ?? null, DateTimeImmutable::class);
     }
 
     public function getQueryBeginTime(): DateTimeImmutable
     {
-        return $this->splitQueryTerm()[0];
+        return TypeHelper::instanceOf($this->splitQueryTerm()[0] ?? null, DateTimeImmutable::class);
     }
 
     public function getQueryEndTime(): DateTimeImmutable
     {
-        return $this->splitQueryTerm()[1];
+        return TypeHelper::instanceOf($this->splitQueryTerm()[1] ?? null, DateTimeImmutable::class);
     }
 
     public function getPermaID(): string
     {
         return vsprintf('fest-%s-%s-%s', [
             $this->beginTime->setTimezone(new DateTimeZone('Etc/UTC'))->format('Y.m.d'),
-            substr(preg_replace('/[^\w]+/', '_', $this->name_a |> strtolower(...) |> trim(...)), 0, 15),
-            substr(preg_replace('/[^\w]+/', '_', $this->name_b |> strtolower(...) |> trim(...)), 0, 15),
+            substr(preg_replace('/[^\w]+/', '_', $this->name_a |> strtolower(...) |> trim(...))
+                ?? throw new RuntimeException(preg_last_error_msg()), 0, 15),
+            substr(preg_replace('/[^\w]+/', '_', $this->name_b |> strtolower(...) |> trim(...))
+                ?? throw new RuntimeException(preg_last_error_msg()), 0, 15),
         ]);
     }
 

@@ -87,8 +87,12 @@ class PostSalmonStatsForm extends Model
             return null;
         }
 
+        if (!$user = Yii::$app->user->identity) {
+            return null;
+        }
+
         $model = SalmonStats2::find()
-            ->andWhere(['user_id' => Yii::$app->user->identity->id])
+            ->andWhere(['user_id' => $user->id])
             ->orderBy(['id' => SORT_DESC])
             ->limit(1)
             ->one();
@@ -121,9 +125,13 @@ class PostSalmonStatsForm extends Model
                 return false;
             }
 
+            if (!$user = Yii::$app->user->identity) {
+                return false;
+            }
+
             $model = Yii::createObject(SalmonStats2::class);
             $model->attributes = $this->attributes;
-            $model->user_id = Yii::$app->user->identity->id;
+            $model->user_id = $user->id;
             if ($model->save()) {
                 $this->created_id = $model->id;
                 return true;

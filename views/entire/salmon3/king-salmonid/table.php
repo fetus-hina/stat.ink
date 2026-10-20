@@ -110,7 +110,7 @@ $resultsTide = ArrayHelper::index(
                 match (true) {
                   $map instanceof SalmonMap3 => Icon::s3SalmonStage($map),
                   $map instanceof BigrunMap3 => Icon::s3BigRun(),
-                },
+                } ?? '',
                 ['style' => 'font-size:3em'],
               ),
               Html::tag(

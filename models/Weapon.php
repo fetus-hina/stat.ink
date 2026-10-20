@@ -9,6 +9,7 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use app\components\helpers\TypeHelper;
 use app\models\query\WeaponQuery;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -209,7 +210,7 @@ final class Weapon extends ActiveRecord
             ->limit(1)
             ->one();
         return [
-            $model->toJsonArray(),
+            TypeHelper::instanceOf($model, static::class)->toJsonArray(),
         ];
     }
 }

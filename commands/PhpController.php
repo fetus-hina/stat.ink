@@ -136,7 +136,7 @@ final class PhpController extends Controller
         $document = HTMLDocument::createFromString($html, LIBXML_NOERROR);
         $versions = [];
         foreach ($document->querySelectorAll('section.version[id] > h3') as $element) {
-            if (preg_match('/^Version\s+([0-9.]+)$/', trim($element->textContent), $match)) {
+            if (preg_match('/^Version\s+([0-9.]+)$/', trim($element->textContent ?? ''), $match)) {
                 $versions[] = $match[1];
             }
         }

@@ -30,14 +30,14 @@ final class BattleKillDeathColumn extends Widget
     public ?int $assist = null;
     public ?int $kill_or_assist = null;
 
-    public ?Formatter $formatter = null;
+    public Formatter $formatter;
 
     #[Override]
     public function init(): void
     {
         parent::init();
 
-        if ($this->formatter === null) {
+        if (!isset($this->formatter)) {
             $this->formatter = Yii::$app->formatter;
         }
     }

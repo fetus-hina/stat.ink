@@ -29,15 +29,15 @@ use const SORT_DESC;
 
 class FreshnessHistory extends Widget
 {
-    public ?User $user = null;
-    public ?Battle2 $current = null;
+    public User $user;
+    public Battle2 $current;
 
     #[Override]
     public function init(): void
     {
         parent::init();
 
-        if (!$this->user) {
+        if (!isset($this->user)) {
             $this->user = $this->current->user;
         }
     }
@@ -100,7 +100,6 @@ class FreshnessHistory extends Widget
         }
 
         if (
-            !$this->current ||
             $this->current->rule_id !== $ruleTW->id ||
             $this->current->mode_id === $modeFest->id ||
             $this->current->mode_id === $modePrivate->id ||

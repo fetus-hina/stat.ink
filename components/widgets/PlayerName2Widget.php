@@ -81,11 +81,11 @@ class PlayerName2Widget extends Widget
 
     private function renderIdenticon(?User $user): string
     {
-        if (!$url = $this->player->iconUrl) {
+        if (!$url = $this->player?->iconUrl) {
             return '';
         }
 
-        $splatnetId = trim($this->player->splatnet_id);
+        $splatnetId = trim($this->player->splatnet_id ?? '');
         return Html::img(
             $url,
             [
@@ -119,9 +119,9 @@ class PlayerName2Widget extends Widget
             $anonId = substr(
                 hash(
                     'sha256',
-                    preg_match('/^([0-9a-f]{2}+)[0-9a-f]?$/', $this->player->anonymizeSeed, $match)
+                    preg_match('/^([0-9a-f]{2}+)[0-9a-f]?$/', $this->player->anonymizeSeed ?? '', $match)
                         ? TypeHelper::string(hex2bin($match[1]))
-                        : $this->player->anonymizeSeed,
+                        : $this->player->anonymizeSeed ?? '',
                 ),
                 0,
                 40,
@@ -146,7 +146,7 @@ class PlayerName2Widget extends Widget
                 ],
             );
         } else {
-            return $this->player->name |> trim(...) |> Html::encode(...);
+            return ($this->player->name ?? '') |> trim(...) |> Html::encode(...);
         }
         // }}}
     }
@@ -155,19 +155,18 @@ class PlayerName2Widget extends Widget
     {
         //TODO: $playerUser->link_mode_id を見て匿名化するか決める
         // {{{
-        if ($this->player->is_me) {
+        if ($this->player?->is_me) {
             // プレーヤーのデータは常時表示
             return false;
-        } elseif ($this->player->isForceBlackouted) {
+        } elseif ($this->player?->isForceBlackouted) {
             // 要求によるブラックリスト
             return true;
-        } elseif (trim($this->player->name) === '') {
+        } elseif (trim($this->player->name ?? '') === '') {
             // 名前が空だと匿名化名しか表示できない
             return true;
         }
 
-        $loggedInUser = Yii::$app->user;
-        if (!$loggedInUser->isGuest && $loggedInUser->identity->id == $this->user->id) {
+        if ($this->user && Yii::$app->user->getIdentity()?->id === $this->user->id) {
             // このデータのオーナーがログインしているので全員表示
             return false;
         }

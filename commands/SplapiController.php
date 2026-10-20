@@ -12,6 +12,7 @@ use Exception;
 use Override;
 use Yii;
 use app\components\helpers\Battle;
+use app\components\helpers\TypeHelper;
 use app\models\GameMode;
 use app\models\PeriodMap;
 use app\models\Rule;
@@ -78,7 +79,9 @@ class SplapiController extends Controller
     private function mapUpdateRegular(): void
     {
         echo "regular...\n";
-        $latestPeriod = $this->getLatestPeriod(GameMode::findOne(['key' => 'regular']));
+        $latestPeriod = $this->getLatestPeriod(
+            TypeHelper::instanceOf(GameMode::findOne(['key' => 'regular']), GameMode::class),
+        );
         $currntPeriod = Battle::calcPeriod(time());
         $futureOnly = ($latestPeriod >= $currntPeriod);
         $json = array_filter(
@@ -108,7 +111,7 @@ class SplapiController extends Controller
 
         echo "Converting to insert data...\n";
         $map = $this->getMapTable();
-        $rule_id = Rule::findOne(['key' => 'nawabari'])->id;
+        $rule_id = TypeHelper::instanceOf(Rule::findOne(['key' => 'nawabari']), Rule::class)->id;
         $insert = [];
         foreach ($json as $item) {
             foreach ($item->maps as $mapName) {
@@ -136,7 +139,7 @@ class SplapiController extends Controller
     private function mapUpdateGachi(): void
     {
         echo "gachi...\n";
-        $gameMode = GameMode::findOne(['key' => 'gachi']);
+        $gameMode = TypeHelper::instanceOf(GameMode::findOne(['key' => 'gachi']), GameMode::class);
         $latestPeriod = $this->getLatestPeriod($gameMode);
         $currntPeriod = Battle::calcPeriod(time());
         $futureOnly = ($latestPeriod >= $currntPeriod);

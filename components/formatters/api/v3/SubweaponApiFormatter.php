@@ -14,7 +14,7 @@ use app\models\Subweapon3;
 final class SubweaponApiFormatter
 {
     /**
-     * @return array<string, mixed>|null
+     * @return ($model is null ? null : array<string, mixed>)
      */
     public static function toJson(?Subweapon3 $model, bool $fullTranslate = false): ?array
     {

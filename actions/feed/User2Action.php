@@ -66,6 +66,9 @@ class User2Action extends BaseAction
             return ['error' => $model->getErrors()];
         }
 
+        $lang = TypeHelper::string($model->lang);
+        $feedType = TypeHelper::string($model->type);
+
         $resp->format = 'raw';
 
         if (!$user = User::findOne(['screen_name' => $model->screen_name])) {
@@ -96,7 +99,7 @@ class User2Action extends BaseAction
                 'app',
                 '{name}\'s Splat Log',
                 ['name' => $user->name],
-                $model->lang,
+                $lang,
             ),
         );
         $feed->setDescription(
@@ -104,7 +107,7 @@ class User2Action extends BaseAction
                 'app',
                 '{name}\'s Splat Log',
                 ['name' => $user->name],
-                $model->lang,
+                $lang,
             ),
         );
         $feed->setId(
@@ -121,7 +124,7 @@ class User2Action extends BaseAction
             $feed->setFeedLink(
                 Url::to(
                     ['feed/user-v2',
-                        'lang' => $model->lang,
+                        'lang' => $lang,
                         'screen_name' => $user->screen_name,
                         'type' => $type,
                     ],
@@ -143,7 +146,7 @@ class User2Action extends BaseAction
         $feed->setCopyright(
             sprintf('Copyright (C) 2015-%s AIZAWA Hina', $now->format('Y')),
         );
-        $feed->setLanguage($model->lang);
+        $feed->setLanguage($lang);
         $feed->setEncoding('UTF-8');
         $feed->setDateModified((int)$now->getTimestamp());
         $feed->setLastBuildDate((int)$now->getTimestamp());
@@ -151,7 +154,7 @@ class User2Action extends BaseAction
 
         //FIXME
         $feed->addCategories(
-            $model->lang === 'ja-JP'
+            $lang === 'ja-JP'
                 ? [
                     ['term' => 'ゲーム'],
                     ['term' => 'スプラトゥーン'],
@@ -220,19 +223,19 @@ class User2Action extends BaseAction
             $entry->setTitle(
                 vsprintf('%s / %s / %s - %s (#%d)', [
                     $battle->rule
-                        ? Yii::t('app-rule2', $battle->rule->name, [], $model->lang)
+                        ? Yii::t('app-rule2', $battle->rule->name, [], $lang)
                         : '???',
                     $battle->map
-                        ? Yii::t('app-map2', $battle->map->name, [], $model->lang)
+                        ? Yii::t('app-map2', $battle->map->name, [], $lang)
                         : '???',
                     $battle->is_win !== null
-                        ? Yii::t('app-results', $battle->is_win ? 'Won' : 'Lost', [], $model->lang)
+                        ? Yii::t('app-results', $battle->is_win ? 'Won' : 'Lost', [], $lang)
                         : '???',
                     $user->name,
                     $battle->id,
                 ]),
             );
-            $entry->setContent($this->makeEntryContent($battle, $model->lang));
+            $entry->setContent($this->makeEntryContent($battle, $lang));
             $feed->addEntry($entry);
         }
 
@@ -243,9 +246,9 @@ class User2Action extends BaseAction
         $resp->format = 'raw';
         $resp->headers->set(
             'Content-Type',
-            $contentType[$model->type] ?? 'text/xml; charset=UTF-8',
+            $contentType[$feedType] ?? 'text/xml; charset=UTF-8',
         );
-        return $feed->export($model->type);
+        return $feed->export($feedType);
     }
 
     protected function makeEntryContent(Battle2 $battle, string $lang): string
@@ -282,7 +285,7 @@ class User2Action extends BaseAction
                             return '?';
 
                         case 'regular':
-                            return Yii::t('app-rule2', $battle->mode->name, [], $lang);
+                            return Yii::t('app-rule2', $battle->mode->name ?? '', [], $lang);
 
                         case 'fest':
                             switch ($battle->lobby->key ?? '') {

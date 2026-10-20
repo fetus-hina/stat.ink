@@ -602,17 +602,17 @@ class Salmon2 extends ActiveRecord
                 'id' => $this->id,
             ], true),
             'user' => $this->user->toSalmonJsonArray(),
-            'stage' => $this->stage_id ? $this->stage->toJsonArray() : null,
+            'stage' => $this->stage_id ? $this->stage?->toJsonArray() : null,
             'is_cleared' => $isCleared,
             'fail_reason' => $isCleared === false && $this->fail_reason_id
-                ? $this->failReason->toJsonArray()
+                ? $this->failReason?->toJsonArray()
                 : null,
             'clear_waves' => $this->clear_waves,
             'danger_rate' => $this->danger_rate,
             'quota' => $this->getQuota(),
-            'title' => $this->title_before_id ? $this->titleBefore->toJsonArray($gender) : null,
+            'title' => $this->title_before_id ? $this->titleBefore?->toJsonArray($gender) : null,
             'title_exp' => $this->title_before_exp,
-            'title_after' => $this->title_after_id ? $this->titleAfter->toJsonArray($gender) : null,
+            'title_after' => $this->title_after_id ? $this->titleAfter?->toJsonArray($gender) : null,
             'title_exp_after' => $this->title_after_exp,
             'boss_appearances' => $this->getBossAppearancesMap(),
             'waves' => $this->getWavesMap(),
@@ -740,21 +740,21 @@ class Salmon2 extends ActiveRecord
                 $this->start_at ? (string)strtotime($this->start_at) : '',
                 $this->start_at ? date(DATE_ATOM, $this->start_at |> strtotime(...) |> TypeHelper::int(...)) : '',
                 (string)$this->splatnet_number,
-                $this->stage_id ? $this->stage->key : '',
-                $this->stage_id ? Yii::t('app-salmon-map2', $this->stage->name) : '',
+                $this->stage_id ? $this->stage?->key : '',
+                $this->stage_id ? Yii::t('app-salmon-map2', $this->stage->name ?? '') : '',
                 (string)$this->clear_waves,
                 $this->clear_waves === null || $this->clear_waves >= 3 || !$this->fail_reason_id
                     ? ''
-                    : $this->failReason->key,
+                    : $this->failReason?->key,
                 $this->clear_waves === null || $this->clear_waves >= 3 || !$this->fail_reason_id
                     ? ''
-                    : Yii::t('app-salmon2', $this->failReason->name),
+                    : Yii::t('app-salmon2', $this->failReason->name ?? ''),
                 $this->danger_rate ? sprintf('%.1f', $this->danger_rate) : '',
-                $this->title_before_id ? $this->titleBefore->key : '',
-                $this->title_before_id ? $this->titleBefore->getTranslatedName($gender) : '',
+                $this->title_before_id ? $this->titleBefore?->key : '',
+                $this->title_before_id ? $this->titleBefore?->getTranslatedName($gender) : '',
                 $this->title_before_exp,
-                $this->title_after_id ? $this->titleAfter->key : '',
-                $this->title_after_id ? $this->titleAfter->getTranslatedName($gender) : '',
+                $this->title_after_id ? $this->titleAfter?->key : '',
+                $this->title_after_id ? $this->titleAfter?->getTranslatedName($gender) : '',
                 $this->title_after_exp,
             ],
             array_map(function (int $w): array {
@@ -773,10 +773,10 @@ class Salmon2 extends ActiveRecord
                 }
 
                 return [
-                    $wave->event_id ? $wave->event->key : '',
-                    $wave->event_id ? Yii::t('app-salmon-event2', $wave->event->name) : '',
-                    $wave->water_id ? $wave->water->key : '',
-                    $wave->water_id ? Yii::t('app-salmon-tide2', $wave->water->name) : '',
+                    $wave->event_id ? $wave->event?->key : '',
+                    $wave->event_id ? Yii::t('app-salmon-event2', $wave->event->name ?? '') : '',
+                    $wave->water_id ? $wave->water?->key : '',
+                    $wave->water_id ? Yii::t('app-salmon-tide2', $wave->water->name ?? '') : '',
                     $wave->golden_egg_quota,
                     $wave->golden_egg_appearances,
                     $wave->golden_egg_delivered,
@@ -1154,8 +1154,11 @@ class Salmon2 extends ActiveRecord
      */
     public static function openapiExample(): array
     {
-        $girl = Gender::findOne(['id' => 2]);
-        $title = SalmonTitle2::findOne(['key' => 'profreshional'])->toJsonArray($girl);
+        $girl = TypeHelper::instanceOf(Gender::findOne(['id' => 2]), Gender::class);
+        $title = TypeHelper::instanceOf(
+            SalmonTitle2::findOne(['key' => 'profreshional']),
+            SalmonTitle2::class,
+        )->toJsonArray($girl);
         $bosses = ArrayHelper::map(
             SalmonBoss2::find()->orderBy(['key' => SORT_ASC])->all(),
             'key',
@@ -1185,9 +1188,15 @@ class Salmon2 extends ActiveRecord
             'url' => Url::to(['salmon/view', 'screen_name' => 'fetus_hina', 'id' => 137857], true),
             'api_endpoint' => Url::to(['api-v2-salmon/view', 'id' => 137857], true),
             // user
-            'stage' => SalmonMap2::findOne(['key' => 'tokishirazu'])->toJsonArray(),
+            'stage' => TypeHelper::instanceOf(
+                SalmonMap2::findOne(['key' => 'tokishirazu']),
+                SalmonMap2::class,
+            )->toJsonArray(),
             'is_cleared' => false,
-            'fail_reason' => SalmonFailReason2::findOne(['key' => 'wipe_out'])->toJsonArray(),
+            'fail_reason' => TypeHelper::instanceOf(
+                SalmonFailReason2::findOne(['key' => 'wipe_out']),
+                SalmonFailReason2::class,
+            )->toJsonArray(),
             'clear_waves' => 1,
             'danger_rate' => '174.2',
             'quota' => [18, 20, 22],
@@ -1207,7 +1216,10 @@ class Salmon2 extends ActiveRecord
             'waves' => [
                 [
                     'known_occurrence' => null,
-                    'water_level' => SalmonWaterLevel2::findOne(['key' => 'high'])->toJsonArray(),
+                    'water_level' => TypeHelper::instanceOf(
+                        SalmonWaterLevel2::findOne(['key' => 'high']),
+                        SalmonWaterLevel2::class,
+                    )->toJsonArray(),
                     'golden_egg_quota' => 18,
                     'golden_egg_appearances' => 45,
                     'golden_egg_delivered' => 24,
@@ -1215,7 +1227,10 @@ class Salmon2 extends ActiveRecord
                 ],
                 [
                     'known_occurrence' => null,
-                    'water_level' => SalmonWaterLevel2::findOne(['key' => 'normal'])->toJsonArray(),
+                    'water_level' => TypeHelper::instanceOf(
+                        SalmonWaterLevel2::findOne(['key' => 'normal']),
+                        SalmonWaterLevel2::class,
+                    )->toJsonArray(),
                     'golden_egg_quota' => 20,
                     'golden_egg_appearances' => 33,
                     'golden_egg_delivered' => 19,
@@ -1225,12 +1240,18 @@ class Salmon2 extends ActiveRecord
             'my_data' => [
                 'splatnet_id' => '3f6fb10a91b0c551',
                 'name' => 'HINA',
-                'special' => Special2::findOne(['key' => 'presser'])->toJsonArray(),
+                'special' => TypeHelper::instanceOf(
+                    Special2::findOne(['key' => 'presser']),
+                    Special2::class,
+                )->toJsonArray(),
                 'rescue' => 3,
                 'death' => 3,
                 'golden_egg_delivered' => 13,
                 'power_egg_collected' => 318,
-                'species' => Species2::findOne(['key' => 'inkling'])->toJsonArray(),
+                'species' => TypeHelper::instanceOf(
+                    Species2::findOne(['key' => 'inkling']),
+                    Species2::class,
+                )->toJsonArray(),
                 'gender' => $girl->toJsonArray(),
                 'special_uses' => [0, 1],
                 'weapons' => [

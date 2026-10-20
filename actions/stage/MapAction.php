@@ -30,7 +30,7 @@ use function usort;
 
 class MapAction extends BaseAction
 {
-    public ?Map $map = null;
+    public Map $map;
 
     #[Override]
     public function init(): void
@@ -50,7 +50,11 @@ class MapAction extends BaseAction
             self::http404();
         }
 
-        $this->map = Map::findOne(['key' => $model->map]);
+        $map = Map::findOne(['key' => $model->map]);
+        if (!$map) {
+            self::http404();
+        }
+        $this->map = $map;
         // }}}
     }
 
@@ -133,7 +137,7 @@ class MapAction extends BaseAction
         // }}}
     }
 
-    private static function http404(): void
+    private static function http404(): never
     {
         throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
     }

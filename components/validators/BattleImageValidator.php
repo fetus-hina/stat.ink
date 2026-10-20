@@ -9,6 +9,7 @@ namespace app\components\validators;
 
 use Override;
 use Yii;
+use app\components\helpers\TypeHelper;
 use yii\validators\Validator;
 use yii\web\UploadedFile;
 
@@ -43,7 +44,7 @@ final class BattleImageValidator extends Validator
             return;
         }
 
-        $this->addError($model, $attribute, $this->message);
+        $this->addError($model, $attribute, TypeHelper::string($this->message));
     }
 
     /**
@@ -57,7 +58,7 @@ final class BattleImageValidator extends Validator
             return null;
         }
 
-        return [$this->message, []];
+        return [TypeHelper::string($this->message), []];
     }
 
     /**

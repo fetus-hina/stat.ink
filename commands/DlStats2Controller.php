@@ -16,6 +16,7 @@ use Throwable;
 use Yii;
 use ZipArchive;
 use app\components\helpers\Battle as BattleHelper;
+use app\components\helpers\TypeHelper;
 use app\models\Battle2;
 use app\models\BattlePlayer2;
 use yii\console\Controller;
@@ -119,7 +120,7 @@ class DlStats2Controller extends Controller
                     }
 
                     if ($b->is_win == $p->is_my_team) {
-                        if ($b->rule->key === 'nawabari') {
+                        if ($b->rule?->key === 'nawabari') {
                             return $point - 1000;
                         }
                     }
@@ -193,13 +194,13 @@ class DlStats2Controller extends Controller
                     printf("      #%d %s\n", $battle->id, $battle->start_at);
 
                     $csv = self::csvRow([
-                        gmdate(DateTime::ATOM, BattleHelper::periodToRange2($battle->period)[0]),
+                        gmdate(DateTime::ATOM, BattleHelper::periodToRange2(TypeHelper::int($battle->period))[0]),
                         $battle->version->tag ?? '',
-                        $battle->mode->key,
-                        $battle->lobby->key,
-                        $battle->rule->key,
-                        $battle->map->key,
-                        (string)(strtotime($battle->end_at) - strtotime($battle->start_at)),
+                        $battle->mode->key ?? '',
+                        $battle->lobby->key ?? '',
+                        $battle->rule->key ?? '',
+                        $battle->map->key ?? '',
+                        (string)(strtotime($battle->end_at ?? '') - strtotime($battle->start_at ?? '')),
                         $battle->is_win ? 'alpha' : 'bravo',
                         $battle->is_knockout === null ? '' : ($battle->is_knockout ? 'TRUE' : 'FALSE'),
                     ]);

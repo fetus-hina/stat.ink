@@ -30,24 +30,31 @@ class ImageOptimizeJob extends BaseObject implements JobInterface
 
     public function execute($queue)
     {
-        if (!@file_exists($this->inPath)) {
-            Yii::error("File {$this->inPath} does not exist.", __METHOD__);
+        $inPath = $this->inPath;
+        $outPath = $this->outPath;
+        if ($inPath === null || $outPath === null) {
+            Yii::error('The input or output path is not set.', __METHOD__);
             return;
         }
 
-        if (@file_exists($this->outPath)) {
-            Yii::error("File {$this->outPath} already exists.", __METHOD__);
+        if (!@file_exists($inPath)) {
+            Yii::error("File {$inPath} does not exist.", __METHOD__);
             return;
         }
 
-        if (!FileHelper::createDirectory(dirname($this->outPath))) {
-            Yii::error('Could not create directory ' . dirname($this->outPath), __METHOD__);
+        if (@file_exists($outPath)) {
+            Yii::error("File {$outPath} already exists.", __METHOD__);
+            return;
+        }
+
+        if (!FileHelper::createDirectory(dirname($outPath))) {
+            Yii::error('Could not create directory ' . dirname($outPath), __METHOD__);
             return;
         }
 
         $cmdline = vsprintf('/usr/bin/env optipng --quiet -strip all -o7 -out %s %s', [
-            escapeshellarg($this->outPath),
-            escapeshellarg($this->inPath),
+            escapeshellarg($outPath),
+            escapeshellarg($inPath),
         ]);
         $lines = null;
         $status = null;
@@ -56,6 +63,6 @@ class ImageOptimizeJob extends BaseObject implements JobInterface
             Yii::error('Optimize failed', __METHOD__);
             return;
         }
-        @unlink($this->inPath);
+        @unlink($inPath);
     }
 }

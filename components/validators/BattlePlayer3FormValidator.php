@@ -9,6 +9,7 @@ namespace app\components\validators;
 
 use Override;
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\api\v3\postBattle\PlayerForm;
 use yii\validators\Validator;
 
@@ -65,7 +66,7 @@ final class BattlePlayer3FormValidator extends Validator
     private function validateValueImpl($value): array
     {
         if (!is_array($value)) {
-            return [$this->message];
+            return [TypeHelper::string($this->message)];
         }
 
         $form = Yii::createObject(PlayerForm::class);

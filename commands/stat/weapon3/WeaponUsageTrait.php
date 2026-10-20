@@ -14,6 +14,7 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
 use Exception;
+use LogicException;
 use Yii;
 use app\models\Lobby3;
 use app\models\Rule3;
@@ -93,7 +94,7 @@ trait WeaponUsageTrait
                 ', ',
                 array_map(
                     fn (string $columnName): string => $db->quoteColumnName($columnName),
-                    array_keys($select->select),
+                    array_keys($select->select ?? throw new LogicException('No columns selected')),
                 ),
             ),
             $select->createCommand($db)->rawSql,
@@ -117,7 +118,7 @@ trait WeaponUsageTrait
                 ', ',
                 array_map(
                     fn (string $columnName): string => $db->quoteColumnName($columnName),
-                    array_keys($select->select),
+                    array_keys($select->select ?? throw new LogicException('No columns selected')),
                 ),
             ),
             $select->createCommand($db)->rawSql,
@@ -141,7 +142,7 @@ trait WeaponUsageTrait
                 ', ',
                 array_map(
                     fn (string $columnName): string => $db->quoteColumnName($columnName),
-                    array_keys($select->select),
+                    array_keys($select->select ?? throw new LogicException('No columns selected')),
                 ),
             ),
             $select->createCommand($db)->rawSql,
@@ -165,7 +166,7 @@ trait WeaponUsageTrait
                 ', ',
                 array_map(
                     fn (string $columnName): string => $db->quoteColumnName($columnName),
-                    array_keys($select->select),
+                    array_keys($select->select ?? throw new LogicException('No columns selected')),
                 ),
             ),
             $select->createCommand($db)->rawSql,

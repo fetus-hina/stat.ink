@@ -172,36 +172,36 @@ class Battle2FilterForm extends Model
             [['weapon'], 'exist',
                 'targetClass' => Weapon2::class,
                 'targetAttribute' => 'key',
-                'when' => fn (): bool => !in_array(substr($this->weapon, 0, 1), ['@', '+', '*', '~'], true),
+                'when' => fn (): bool => !in_array(substr($this->weapon ?? '', 0, 1), ['@', '+', '*', '~'], true),
             ],
             [['weapon'], 'validateWeapon',
                 'params' => [
                     'modelClass' => WeaponType2::class,
                 ],
-                'when' => fn (): bool => substr($this->weapon, 0, 1) === '@',
+                'when' => fn (): bool => substr($this->weapon ?? '', 0, 1) === '@',
             ],
             [['weapon'], 'validateWeapon',
                 'params' => [
                     'modelClass' => Subweapon2::class,
                 ],
-                'when' => fn (): bool => substr($this->weapon, 0, 1) === '+',
+                'when' => fn (): bool => substr($this->weapon ?? '', 0, 1) === '+',
             ],
             [['weapon'], 'validateWeapon',
                 'params' => [
                     'modelClass' => Special2::class,
                 ],
-                'when' => fn (): bool => substr($this->weapon, 0, 1) === '*',
+                'when' => fn (): bool => substr($this->weapon ?? '', 0, 1) === '*',
             ],
             [['weapon'], 'validateRepresentativeWeapon',
-                'when' => fn (): bool => substr($this->weapon, 0, 1) === '~',
+                'when' => fn (): bool => substr($this->weapon ?? '', 0, 1) === '~',
             ],
             [['rank'], 'exist',
                 'targetClass' => Rank2::class,
                 'targetAttribute' => 'key',
-                'when' => fn (): bool => substr($this->rank, 0, 1) !== '~',
+                'when' => fn (): bool => substr($this->rank ?? '', 0, 1) !== '~',
             ],
             [['rank'], 'validateRankGroup',
-                'when' => fn () => substr($this->rank, 0, 1) === '~',
+                'when' => fn () => substr($this->rank ?? '', 0, 1) === '~',
             ],
             [['result'], 'boolean',
                 'trueValue' => 'win',
@@ -573,11 +573,11 @@ class Battle2FilterForm extends Model
                 break;
 
             case 'term':
-                $from = strtotime($this->term_from);
+                $from = strtotime($this->term_from ?? '');
                 if ($from === false) {
                     $from = 0; // 1970-01-01 00:00:00 UTC
                 }
-                $to = strtotime($this->term_to);
+                $to = strtotime($this->term_to ?? '');
                 if ($to === false) {
                     $to = $_SERVER['REQUEST_TIME'] ?? time();
                 }
@@ -588,7 +588,7 @@ class Battle2FilterForm extends Model
                 break;
 
             default:
-                if (preg_match('/^last-(\d+)-battles/', $this->term, $match)) {
+                if (preg_match('/^last-(\d+)-battles/', $this->term ?? '', $match)) {
                     $range = BattleHelper::getNBattlesRange2($this, (int)$match[1]);
                     if (!$range || $range['min_id'] < 1 || $range['max_id'] < 1) {
                         break;
@@ -597,13 +597,13 @@ class Battle2FilterForm extends Model
                         'id',
                         sprintf('%d-%d', (int)$range['min_id'], (int)$range['max_id']),
                     );
-                } elseif (preg_match('/^last-(\d+)-periods/', $this->term, $match)) {
+                } elseif (preg_match('/^last-(\d+)-periods/', $this->term ?? '', $match)) {
                     $currentPeriod = BattleHelper::calcPeriod2($now);
                     $pushFilter(
                         'period',
                         sprintf('%d-%d', $currentPeriod - $match[1] + 1, $currentPeriod),
                     );
-                } elseif (preg_match('/^~?v\d+/', $this->term)) {
+                } elseif (preg_match('/^~?v\d+/', $this->term ?? '')) {
                     $push('term', $this->term);
                 }
                 break;

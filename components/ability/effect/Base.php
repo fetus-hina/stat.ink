@@ -36,7 +36,7 @@ abstract class Base extends Component
     public const SPECIAL_DURATION_40PCT = 75;
     public const SPECIAL_DURATION_60PCT = 50;
 
-    public ?Battle $battle = null;
+    public Battle $battle;
     public ?string $version = null;
     /**
      * @var array<string, int|null>

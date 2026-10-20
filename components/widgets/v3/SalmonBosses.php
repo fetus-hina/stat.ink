@@ -38,7 +38,7 @@ final class SalmonBosses extends Widget
 {
     public Salmon3 $job;
 
-    public ?BaseFormatter $formatter = null;
+    public BaseFormatter $formatter;
 
     /**
      * @inheritdoc
@@ -48,7 +48,7 @@ final class SalmonBosses extends Widget
     {
         parent::init();
 
-        if (!$this->formatter) {
+        if (!isset($this->formatter)) {
             $this->formatter = Yii::createObject([
                 'class' => Formatter::class,
                 'nullDisplay' => '-',

@@ -14,7 +14,7 @@ use app\models\SalmonBoss3;
 final class SalmonBossApiFormatter
 {
     /**
-     * @return array<string, mixed>|null
+     * @return ($model is null ? null : array<string, mixed>)
      */
     public static function toJson(?SalmonBoss3 $model, bool $fullTranslate = false): ?array
     {

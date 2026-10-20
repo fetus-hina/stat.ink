@@ -145,7 +145,7 @@ BattleDetailAsset::register($this);
 <?php endif; ?>
 <?php /* }}} */ ?>
 <?php /* 編集 {{{ */ ?>
-<?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->id == $user->id): ?> 
+<?php if (Yii::$app->user->getIdentity()?->id === $user->id): ?> 
       <p class="text-right">
         <?= Html::a(
           Html::encode(Yii::t('app', 'Edit')),
@@ -164,7 +164,7 @@ BattleDetailAsset::register($this);
       ]) . "\n" ?>
 <?php endif; ?>
 <?php /* 編集 {{{ */ ?>
-<?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->id == $user->id): ?>
+<?php if (Yii::$app->user->getIdentity()?->id === $user->id): ?>
       <p class="text-right">
         <?= Html::a(
           Html::encode(Yii::t('app', 'Edit')),

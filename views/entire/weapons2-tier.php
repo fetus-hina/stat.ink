@@ -37,7 +37,7 @@ $title = implode(' | ', [
   Yii::$app->name,
   Yii::t('app', 'Weapon'),
   Yii::t('app', 'Version {0}', [
-    Yii::t('app-version2', $versionGroup->name),
+    Yii::t('app-version2', $versionGroup->name ?? ''),
   ]),
   $month,
   Yii::t('app-rule2', $rule->name),
@@ -81,7 +81,7 @@ $kdCell = function (StatWeapon2Tier $model, string $column): string {
     Yii::t('app-rule2', $rule->name),
     $month,
     Yii::t('app', 'Version {0}', [
-      Yii::t('app-version2', $versionGroup->name),
+      Yii::t('app-version2', $versionGroup->name ?? ''),
     ]),
     Yii::t('app-entire', 'Weapon Tier'),
   ])) ?></h1>
@@ -95,7 +95,7 @@ $kdCell = function (StatWeapon2Tier $model, string $column): string {
       <ul>
         <li>Ranked battles (not including League battles)</li>
         <li><?= Html::encode(vsprintf('Rank %s only', [
-          version_compare($versionGroup->tag, '3.0', '>=') ? 'X' : 'S+',
+          version_compare($versionGroup->tag ?? '', '3.0', '>=') ? 'X' : 'S+',
         ])) ?></li>
         <li>Excluded the uploader (<?= Html::encode(Yii::$app->name) ?>'s user)</li>
         <li><?= Html::encode(vsprintf('Filtered: n%s%s', [

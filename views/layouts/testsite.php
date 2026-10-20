@@ -29,7 +29,7 @@ if (YII_ENV === 'prod') {
                     return $match[1];
                   },
                   Yii::$app->db->dsn
-                ))),
+                ) ?? throw new RuntimeException(preg_last_error_msg()))),
               ])
           ?></p>
         </div>

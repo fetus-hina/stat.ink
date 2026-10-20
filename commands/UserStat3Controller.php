@@ -97,9 +97,12 @@ final class UserStat3Controller extends Controller
         foreach ($query->each() as $row) {
             fprintf(STDERR, "[regen-all / battle] user id=%d\n", $row['user_id']);
 
-            UserStatsJob::pushQueue3(
-                User::find()->andWhere(['id' => $row['user_id']])->limit(1)->one(),
-            );
+            $user = User::find()->andWhere(['id' => $row['user_id']])->limit(1)->one();
+            if (!$user) {
+                continue;
+            }
+
+            UserStatsJob::pushQueue3($user);
         }
 
         return 0;
@@ -116,9 +119,12 @@ final class UserStat3Controller extends Controller
         foreach ($query->each() as $row) {
             fprintf(STDERR, "[regen-all / salmon] user id=%d\n", $row['user_id']);
 
-            SalmonStatsJob::pushQueue3(
-                User::find()->andWhere(['id' => $row['user_id']])->limit(1)->one(),
-            );
+            $user = User::find()->andWhere(['id' => $row['user_id']])->limit(1)->one();
+            if (!$user) {
+                continue;
+            }
+
+            SalmonStatsJob::pushQueue3($user);
         }
 
         return 0;

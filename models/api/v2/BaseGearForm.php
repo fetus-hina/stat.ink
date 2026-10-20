@@ -46,7 +46,7 @@ abstract class BaseGearForm extends Model
                 'attribute' => 'gear',
                 'tableName' => '{{gear2}}',
                 'modifier' => function (Query $query) use ($type) {
-                    $query->andWhere(['type_id' => $type->id]);
+                    $query->andWhere(['type_id' => $type?->id]);
                 },
             ],
         ];

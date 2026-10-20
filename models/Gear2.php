@@ -9,6 +9,7 @@ namespace app\models;
 
 use Yii;
 use app\components\helpers\Translator;
+use app\components\helpers\TypeHelper;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -161,7 +162,7 @@ class Gear2 extends ActiveRecord
                 'splatnet' => static::oapiRef(openapi\SplatNet2ID::class),
             ],
             'example' => [
-                $row->toJsonArray(),
+                TypeHelper::instanceOf($row, static::class)->toJsonArray(),
             ],
         ];
     }

@@ -56,7 +56,7 @@ final class AgentAction extends Action
     public function run(): string
     {
         try {
-            $name = Base32::decode(TypeHelper::string($this->form->b32name));
+            $name = Base32::decode(TypeHelper::string($this->form?->b32name));
         } catch (RangeException $e) {
             $name = '';
         }
@@ -74,7 +74,7 @@ final class AgentAction extends Action
     {
         try {
             $list = StatAgentUser::find()
-                ->andWhere(['agent' => Base32::decode(TypeHelper::string($this->form->b32name))])
+                ->andWhere(['agent' => Base32::decode(TypeHelper::string($this->form?->b32name))])
                 ->orderBy(['date' => SORT_ASC])
                 ->asArray()
                 ->all();
@@ -129,7 +129,7 @@ final class AgentAction extends Action
                     },
                 ], false)
                 ->where([
-                    '{{agent_group_map}}.[[agent_name]]' => Base32::decode(TypeHelper::string($this->form->b32name)),
+                    '{{agent_group_map}}.[[agent_name]]' => Base32::decode(TypeHelper::string($this->form?->b32name)),
                 ])
                 ->orderBy(['{{agent_group}}.[[name]]' => SORT_ASC])
                 ->asArray()
