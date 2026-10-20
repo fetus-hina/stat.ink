@@ -61,17 +61,17 @@ trait Splatoon2
             '{{battle2}}.[[rule_id]] IS NOT NULL',
             sprintf('((%s))', implode(') OR (', [
                 sprintf('(%s)', implode(' AND ', [
-                    '{{battle2}}.[[rule_id]] = ' . $turfWarId,
+                    '{{battle2}}.[[rule_id]] = ' . (int)$turfWarId,
                     '{{battle2}}.[[is_win]] = TRUE',
                     '{{battle2}}.[[my_point]] >= 1000',
                 ])),
                 sprintf('(%s)', implode(' AND ', [
-                    '{{battle2}}.[[rule_id]] = ' . $turfWarId,
+                    '{{battle2}}.[[rule_id]] = ' . (int)$turfWarId,
                     '{{battle2}}.[[is_win]] = FALSE',
                     '{{battle2}}.[[my_point]] >= 0',
                 ])),
                 sprintf('(%s)', implode(' AND ', [
-                    '{{battle2}}.[[rule_id]] <> ' . $turfWarId,
+                    '{{battle2}}.[[rule_id]] <> ' . (int)$turfWarId,
                     '{{battle2}}.[[my_point]] >= 0',
                 ])),
             ])),
