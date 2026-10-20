@@ -78,7 +78,7 @@ final class MarkdownRendererWidget extends Widget
     {
         Yii::beginProfile(__METHOD__, __METHOD__);
         try {
-            $markdown = file_get_contents($markdownPath);
+            $markdown = TypeHelper::string(file_get_contents($markdownPath));
             $html = Yii::$app->cache->getOrSet(
                 [__METHOD__, hash('sha256', $markdown)],
                 fn (): string => $this->renderMarkdownImpl($markdown),
@@ -122,7 +122,7 @@ final class MarkdownRendererWidget extends Widget
             Budoux::begin(['lang' => $this->lang]);
             echo $html;
             Budoux::end();
-            return ob_get_clean();
+            return TypeHelper::string(ob_get_clean());
         } finally {
             Yii::endProfile(__METHOD__, __METHOD__);
         }

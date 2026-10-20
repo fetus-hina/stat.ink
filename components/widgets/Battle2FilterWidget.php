@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use Yii;
+use app\components\helpers\TypeHelper;
 use app\models\Battle2FilterForm;
 use app\models\Map2;
 use app\models\RankGroup2;
@@ -84,7 +85,7 @@ class Battle2FilterWidget extends Widget
             echo $this->drawFields($form);
             ActiveForm::end();
             echo Html::endTag('div');
-            return ob_get_contents();
+            return TypeHelper::string(ob_get_contents());
         } finally {
             ob_end_clean();
         }

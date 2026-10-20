@@ -10,6 +10,7 @@ namespace app\components\web;
 use Override;
 use Yii;
 use app\components\helpers\Resource;
+use app\components\helpers\TypeHelper;
 use yii\base\Component;
 use yii\web\ResponseFormatterInterface;
 
@@ -80,7 +81,7 @@ class CsvResponseFormatter extends Component implements ResponseFormatterInterfa
         $quoteRegex = sprintf('/["\x0d\x0a%s]/', preg_quote($this->separator, '/'));
         $ret = array_map(
             function ($cell) use ($quoteRegex) {
-                $utf8 = mb_convert_encoding((string)$cell, 'UTF-8', $this->inputCharset);
+                $utf8 = TypeHelper::string(mb_convert_encoding((string)$cell, 'UTF-8', $this->inputCharset));
                 if (preg_match($quoteRegex, $cell)) {
                     $utf8 = sprintf('"%s"', mb_str_replace('"', '""', $utf8, 'UTF-8'));
                 }

@@ -11,6 +11,7 @@ namespace app\components\widgets;
 
 use Yii;
 use app\assets\IrasutoyaAsset;
+use app\components\helpers\TypeHelper;
 use app\models\User;
 use statink\yii2\anonymizer\AnonymizerAsset;
 use yii\base\Widget;
@@ -115,7 +116,7 @@ class PlayerName2Widget extends Widget
                 hash(
                     'sha256',
                     preg_match('/^([0-9a-f]{2}+)[0-9a-f]?$/', $this->player->anonymizeSeed, $match)
-                        ? hex2bin($match[1])
+                        ? TypeHelper::string(hex2bin($match[1]))
                         : $this->player->anonymizeSeed,
                 ),
                 0,
