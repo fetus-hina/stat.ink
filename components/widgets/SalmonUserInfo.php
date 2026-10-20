@@ -9,10 +9,12 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
+use Override;
 use Yii;
 use app\assets\UserMiniinfoAsset;
 use app\components\i18n\Formatter;
 use app\models\SalmonStats2;
+use app\models\User;
 use yii\base\Event;
 use yii\base\Model;
 use yii\base\Widget;
@@ -30,9 +32,10 @@ use const SORT_DESC;
 
 class SalmonUserInfo extends Widget
 {
-    public $user;
+    public ?User $user = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 

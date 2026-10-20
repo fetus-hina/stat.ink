@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
+use app\models\User;
 use yii\base\Widget;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -18,8 +19,11 @@ use function implode;
 
 class UserIcon extends Widget
 {
-    public $user;
-    public $options = [];
+    public ?User $user = null;
+    /**
+     * @var array<string, mixed>
+     */
+    public array $options = [];
 
     public function run()
     {

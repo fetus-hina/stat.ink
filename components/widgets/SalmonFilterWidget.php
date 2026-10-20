@@ -15,9 +15,11 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
 use app\models\Salmon2;
+use app\models\Salmon2FilterForm;
 use app\models\SalmonFailReason2;
 use app\models\SalmonMap2;
 use app\models\SalmonSpecial2;
+use app\models\User;
 use yii\base\Widget;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
@@ -38,8 +40,8 @@ use const SORT_STRING;
 
 class SalmonFilterWidget extends Widget
 {
-    public $user;
-    public $filter;
+    public ?User $user = null;
+    public ?Salmon2FilterForm $filter = null;
 
     public function run()
     {
@@ -199,6 +201,9 @@ class SalmonFilterWidget extends Widget
             ->render();
     }
 
+    /**
+     * @return array<string, string>
+     */
     private function getMonths(): array
     {
         $utc = new DateTimeZone('Etc/UTC');

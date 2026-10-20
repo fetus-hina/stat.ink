@@ -308,8 +308,8 @@ final class Icon
      * @var array<string, array{
      *   0: class-string<AssetBundle>,
      *   1: string,
-     *   2?: string|array{0: string, 1: string, 2?: array},
-     *   3?: bool|string|array{0: string, 1: string, 2?: array}|null
+     *   2?: string|array{0: string, 1: string, 2?: array<string, mixed>},
+     *   3?: bool|string|array{0: string, 1: string, 2?: array<string, mixed>}|null
      * }>
      */
     private static $assetImageMap = [
@@ -944,6 +944,9 @@ final class Icon
         };
     }
 
+    /**
+     * @param array<int|string, mixed> $args
+     */
     public static function __callStatic(string $name, array $args): string
     {
         return match (true) {
@@ -978,8 +981,8 @@ final class Icon
 
     /**
      * @param class-string<AssetBundle> $assetClass
-     * @param string|array{string, string, ?array}|null $alt
-     * @param string|array{string, string, ?array}|bool|null $title
+     * @param string|array{0: string, 1: string, 2?: array<string, mixed>}|null $alt
+     * @param string|array{0: string, 1: string, 2?: array<string, mixed>}|bool|null $title
      */
     private static function assetImage(
         string $assetClass,

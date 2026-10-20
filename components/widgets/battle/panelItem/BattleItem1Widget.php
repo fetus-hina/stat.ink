@@ -9,6 +9,7 @@ namespace app\components\widgets\battle\panelItem;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use Override;
 use Yii;
 
 class BattleItem1Widget extends BaseWidget
@@ -32,6 +33,10 @@ class BattleItem1Widget extends BaseWidget
         return $this->model->is_win;
     }
 
+    /**
+     * @return array{int|null, int|null}
+     */
+    #[Override]
     public function getKillDeath(): array
     {
         return [
@@ -40,6 +45,10 @@ class BattleItem1Widget extends BaseWidget
         ];
     }
 
+    /**
+     * @return array<int|string, mixed>
+     */
+    #[Override]
     public function getLinkRoute(): array
     {
         return [

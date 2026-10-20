@@ -9,12 +9,14 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
+use Override;
 use Yii;
 use app\assets\FontAwesomeAsset;
 use app\assets\PrivateNoteAsset;
 use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
 use yii\helpers\Html;
+use yii\i18n\Formatter;
 
 use function is_array;
 
@@ -24,10 +26,14 @@ use function is_array;
  */
 class PrivateNote extends Widget
 {
-    public $text;
+    public ?string $text = null;
+    /**
+     * @var Formatter|array{class: class-string<Formatter>, ...}|null
+     */
     public $formatter;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 

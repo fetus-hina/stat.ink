@@ -31,7 +31,7 @@ use function vsprintf;
 
 final class Battle3FilterWidget extends Widget
 {
-    public $id = 'filter-form';
+    public string $id = 'filter-form';
     public ?string $route = null;
     public ?User $user = null;
     public ?Battle3FilterForm $filter = null;

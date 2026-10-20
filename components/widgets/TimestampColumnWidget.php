@@ -11,7 +11,9 @@ namespace app\components\widgets;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use Override;
 use Yii;
+use app\components\i18n\Formatter;
 use yii\base\Widget;
 use yii\helpers\Html;
 
@@ -21,12 +23,16 @@ use function is_array;
 
 class TimestampColumnWidget extends Widget
 {
-    public $value;
-    public $showTZ = true;
-    public $showRelative = false;
+    public mixed $value = null;
+    public bool $showTZ = true;
+    public bool $showRelative = false;
+    /**
+     * @var Formatter|array{class: class-string<Formatter>, ...}|null
+     */
     public $formatter;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 

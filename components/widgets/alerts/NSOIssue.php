@@ -22,7 +22,7 @@ use function implode;
 final class NSOIssue extends Alert
 {
     #[Override]
-    public function init()
+    public function init(): void
     {
         parent::init();
 
@@ -30,7 +30,7 @@ final class NSOIssue extends Alert
     }
 
     #[Override]
-    protected function initOptions()
+    protected function initOptions(): void
     {
         parent::initOptions();
 

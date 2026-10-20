@@ -9,9 +9,11 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
+use Override;
 use Yii;
 use app\assets\SalmonWavesAsset;
 use app\components\i18n\Formatter;
+use app\models\Salmon2;
 use app\models\SalmonWave2;
 use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
@@ -27,15 +29,16 @@ use function is_callable;
 
 final class SalmonWaves extends Widget
 {
-    public $work;
+    public ?Salmon2 $work = null;
 
-    public $wave1;
-    public $wave2;
-    public $wave3;
+    public ?SalmonWave2 $wave1 = null;
+    public ?SalmonWave2 $wave2 = null;
+    public ?SalmonWave2 $wave3 = null;
 
-    public $formatter;
+    public ?\yii\i18n\Formatter $formatter = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -212,6 +215,9 @@ final class SalmonWaves extends Widget
         )));
     }
 
+    /**
+     * @param array<string, mixed> $rowInfo
+     */
     protected function renderRow(array $rowInfo): string
     {
         return Html::tag('tr', implode('', [
@@ -223,6 +229,9 @@ final class SalmonWaves extends Widget
         ]));
     }
 
+    /**
+     * @param array<string, mixed> $rowInfo
+     */
     protected function renderRowHeader(array $rowInfo): string
     {
         return Html::tag(
@@ -232,6 +241,9 @@ final class SalmonWaves extends Widget
         );
     }
 
+    /**
+     * @param array<string, mixed> $rowInfo
+     */
     protected function renderCellData(array $rowInfo, ?SalmonWave2 $wave, int $waveNumber): string
     {
         return Html::tag(
@@ -243,7 +255,10 @@ final class SalmonWaves extends Widget
         );
     }
 
-    protected function renderCellValue(array $rowInfo, ?SalmonWave2 $wave, int $waveNumber)
+    /**
+     * @param array<string, mixed> $rowInfo
+     */
+    protected function renderCellValue(array $rowInfo, ?SalmonWave2 $wave, int $waveNumber): mixed
     {
         if (!$wave) {
             return null;
@@ -261,12 +276,18 @@ final class SalmonWaves extends Widget
         return $value;
     }
 
+    /**
+     * @param array<string, mixed> $rowInfo
+     */
     protected function renderTotalData(array $rowInfo): string
     {
         return Html::tag('td', $this->renderTotalDataValue($rowInfo));
     }
 
-    protected function renderTotalDataValue(array $rowInfo)
+    /**
+     * @param array<string, mixed> $rowInfo
+     */
+    protected function renderTotalDataValue(array $rowInfo): string
     {
         $waves = [
             $this->wave1,

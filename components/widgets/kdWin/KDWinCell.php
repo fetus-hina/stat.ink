@@ -9,22 +9,25 @@ declare(strict_types=1);
 
 namespace app\components\widgets\kdWin;
 
+use Override;
 use Yii;
 use app\assets\EntireKDWinAsset;
 use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
 use yii\helpers\Html;
+use yii\i18n\Formatter;
 
 use function implode;
 use function sprintf;
 
 class KDWinCell extends Widget
 {
-    public $battles;
-    public $win;
-    public $formatter;
+    public int $battles = 0;
+    public int $win = 0;
+    public ?Formatter $formatter = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         if (!$this->formatter) {

@@ -28,7 +28,7 @@ final class Block extends Widget
     public ?string $label = null;
 
     /**
-     * @var string|array
+     * @var string|array<mixed>
      */
     public $format = 'text';
 

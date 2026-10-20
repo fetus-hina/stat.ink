@@ -16,8 +16,8 @@ use function trim;
 
 abstract class BaseUAIconWidget extends Widget
 {
-    public $ua;
-    public $size = '1em';
+    public ?string $ua = null;
+    public string $size = '1em';
 
     public function run()
     {
@@ -36,5 +36,8 @@ abstract class BaseUAIconWidget extends Widget
         ]);
     }
 
+    /**
+     * @param array<string, mixed> $options
+     */
     abstract protected function registerTrigger(string $id, array $options): void;
 }

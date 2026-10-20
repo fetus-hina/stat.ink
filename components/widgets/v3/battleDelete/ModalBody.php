@@ -42,6 +42,9 @@ final class ModalBody extends Widget
         );
     }
 
+    /**
+     * @return string[]
+     */
     private function getMessages(): array
     {
         return [

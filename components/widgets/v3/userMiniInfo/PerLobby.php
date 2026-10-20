@@ -88,6 +88,9 @@ final class PerLobby extends Widget
         );
     }
 
+    /**
+     * @return array<array<string, mixed>>
+     */
     private function getListAttributes(User $user, UserStat3 $model): array
     {
         switch ($model->lobby->key) {
@@ -108,6 +111,9 @@ final class PerLobby extends Widget
         return $this->getListDefaultAttributes($user, $model);
     }
 
+    /**
+     * @return array<array<string, mixed>>
+     */
     private function getListDefaultAttributes(User $user, UserStat3 $model): array
     {
         return [
@@ -120,6 +126,9 @@ final class PerLobby extends Widget
         ];
     }
 
+    /**
+     * @return array<array<string, mixed>>
+     */
     private function getListAttributesForTurfWar(User $user, UserStat3 $model): array
     {
         return [
@@ -134,6 +143,9 @@ final class PerLobby extends Widget
         ];
     }
 
+    /**
+     * @return array<array<string, mixed>>
+     */
     private function getListAttributesForBankara(User $user, UserStat3 $model): array
     {
         return [
@@ -146,6 +158,9 @@ final class PerLobby extends Widget
         ];
     }
 
+    /**
+     * @return array<array<string, mixed>>
+     */
     private function getListAttributesForXMatch(User $user, UserStat3 $model): array
     {
         return [
@@ -158,6 +173,9 @@ final class PerLobby extends Widget
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function attrPeakRank(): array
     {
         if (!$this->peakRank) {

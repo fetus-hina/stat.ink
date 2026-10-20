@@ -17,22 +17,58 @@ use yii\helpers\Json;
 
 class BattleSummaryItemWidget extends Widget
 {
+    /**
+     * @var int|float|string|null
+     */
     public $battles;
+    /**
+     * @var int|float|string|null
+     */
     public $total;
+    /**
+     * @var int|float|string|null
+     */
     public $min;
+    /**
+     * @var int|float|string|null
+     */
     public $max;
+    /**
+     * @var int|float|string|null
+     */
     public $q1;
+    /**
+     * @var int|float|string|null
+     */
     public $q3;
+    /**
+     * @var int|float|string|null
+     */
     public $median;
+    /**
+     * @var int|float|string|null
+     */
     public $pct5;
+    /**
+     * @var int|float|string|null
+     */
     public $pct95;
+    /**
+     * @var int|float|string|null
+     */
     public $stddev;
+    /**
+     * @var string|null
+     */
     public $tooltipText;
 
     /**
      * Translation category of $tooltipText
      */
     public string $tooltipCategory = 'app';
+    /**
+     * @var string|null
+     */
     public $summary;
 
     public int $decimalLabel = 2;

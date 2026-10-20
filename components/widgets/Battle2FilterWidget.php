@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use Yii;
+use app\models\Battle2FilterForm;
 use app\models\Map2;
 use app\models\RankGroup2;
 use app\models\Special2;
@@ -43,21 +44,21 @@ use const SORT_ASC;
 
 class Battle2FilterWidget extends Widget
 {
-    public $id = 'filter-form';
-    public $route;
-    public $screen_name;
-    public $filter;
+    public string $id = 'filter-form';
+    public ?string $route = null;
+    public ?string $screen_name = null;
+    public ?Battle2FilterForm $filter = null;
 
-    public $rule = true;
-    public $map = true;
-    public $weapon = true;
-    public $rank = true;
-    public $result = true;
-    public $connectivity = false;
-    public $term = true;
-    public $filterText = false;
-    public $withTeam = false;
-    public $action = 'search'; // search or summarize
+    public bool $rule = true;
+    public bool $map = true;
+    public bool $weapon = true;
+    public bool $rank = true;
+    public bool $result = true;
+    public bool $connectivity = false;
+    public bool $term = true;
+    public bool $filterText = false;
+    public bool $withTeam = false;
+    public string $action = 'search'; // search or summarize
 
     public function run()
     {
@@ -276,6 +277,10 @@ class Battle2FilterWidget extends Widget
         );
     }
 
+    /**
+     * @param int[] $weaponIdList
+     * @return array<string, string|array<string, string>>
+     */
     protected function createMainWeaponList(array $weaponIdList): array
     {
         $ret = [];
@@ -318,6 +323,10 @@ class Battle2FilterWidget extends Widget
         );
     }
 
+    /**
+     * @param int[] $weaponIdList
+     * @return array<string, string|array<string, string>>
+     */
     protected function createGroupedMainWeaponList(array $weaponIdList): array
     {
         return [
@@ -342,6 +351,10 @@ class Battle2FilterWidget extends Widget
         ];
     }
 
+    /**
+     * @param int[] $weaponIdList
+     * @return array<string, string|array<string, string>>
+     */
     protected function createSubWeaponList(array $weaponIdList): array
     {
         return [
@@ -361,7 +374,11 @@ class Battle2FilterWidget extends Widget
         ];
     }
 
-    protected function createSpecialWeaponList(array $weaponIdList)
+    /**
+     * @param int[] $weaponIdList
+     * @return array<string, string|array<string, string>>
+     */
+    protected function createSpecialWeaponList(array $weaponIdList): array
     {
         return [
             Yii::t('app', 'Special') => (function () use ($weaponIdList) {
@@ -449,7 +466,7 @@ class Battle2FilterWidget extends Widget
             ->label(false);
     }
 
-    protected function drawTerm(ActiveForm $form)
+    protected function drawTerm(ActiveForm $form): string
     {
         return $this->drawTermMain($form) . $this->drawTermPeriod($form);
     }

@@ -9,8 +9,10 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
+use Override;
 use Yii;
 use app\components\i18n\Formatter;
+use app\models\Salmon2;
 use app\models\SalmonPlayer2;
 use app\models\SalmonPlayerSpecialUse2;
 use yii\base\Widget;
@@ -27,11 +29,15 @@ use function sprintf;
 
 class SalmonPlayers extends Widget
 {
-    public $formatter;
-    public $work;
-    public $players;
+    public ?\yii\i18n\Formatter $formatter = null;
+    public ?Salmon2 $work = null;
+    /**
+     * @var SalmonPlayer2[]
+     */
+    public array $players = [];
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -174,6 +180,9 @@ class SalmonPlayers extends Widget
         )));
     }
 
+    /**
+     * @param array<string, mixed> $rowInfo
+     */
     protected function renderRow(array $rowInfo): string
     {
         return Html::tag('tr', implode('', [
@@ -185,6 +194,9 @@ class SalmonPlayers extends Widget
         ]));
     }
 
+    /**
+     * @param array<string, mixed> $rowInfo
+     */
     protected function renderRowHeader(array $rowInfo): string
     {
         return Html::tag(
@@ -194,6 +206,9 @@ class SalmonPlayers extends Widget
         );
     }
 
+    /**
+     * @param array<string, mixed> $rowInfo
+     */
     protected function renderCellData(array $rowInfo, SalmonPlayer2 $player): string
     {
         return Html::tag(
@@ -205,7 +220,10 @@ class SalmonPlayers extends Widget
         );
     }
 
-    protected function renderCellValue(array $rowInfo, SalmonPlayer2 $player)
+    /**
+     * @param array<string, mixed> $rowInfo
+     */
+    protected function renderCellValue(array $rowInfo, SalmonPlayer2 $player): mixed
     {
         $value = ArrayHelper::getValue($rowInfo, 'value');
         if ($value === null && isset($rowInfo['attribute'])) {

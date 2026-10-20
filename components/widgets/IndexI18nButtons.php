@@ -98,6 +98,9 @@ final class IndexI18nButtons extends Widget
         );
     }
 
+    /**
+     * @param string[] $countries
+     */
     private function renderButton(
         string $target,
         string $icon,

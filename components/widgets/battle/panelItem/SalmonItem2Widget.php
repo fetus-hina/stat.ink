@@ -12,8 +12,12 @@ namespace app\components\widgets\battle\panelItem;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
+use Override;
 use Yii;
 use app\assets\SimpleBattleListAsset;
+use app\models\Salmon2;
+use app\models\SalmonPlayer2;
+use app\models\User;
 use yii\base\Widget;
 use yii\bootstrap\Html;
 
@@ -22,11 +26,12 @@ use function sprintf;
 
 class SalmonItem2Widget extends Widget
 {
-    public $user;
-    public $model;
-    public $myData;
+    public ?User $user = null;
+    public ?Salmon2 $model = null;
+    public ?SalmonPlayer2 $myData = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 

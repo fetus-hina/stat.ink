@@ -12,6 +12,7 @@ namespace app\components\widgets\battle\panelItem;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
+use Override;
 use Yii;
 use app\assets\SimpleBattleListAsset;
 use app\components\widgets\Icon;
@@ -32,7 +33,8 @@ final class SalmonItem3Widget extends Widget
     public Salmon3 $model;
     public ?SalmonPlayer3 $myData = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 

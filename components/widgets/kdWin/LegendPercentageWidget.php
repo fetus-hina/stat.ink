@@ -21,9 +21,9 @@ use function range;
 
 class LegendPercentageWidget extends Widget
 {
-    public $maxPct = 90;
-    public $minPct = 10;
-    public $numCells = 7;
+    public int $maxPct = 90;
+    public int $minPct = 10;
+    public int $numCells = 7;
 
     public function run()
     {

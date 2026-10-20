@@ -27,7 +27,7 @@ final class AccessRestriction extends Alert
      * Builds the alert body so that this widget can be used without any configuration.
      */
     #[Override]
-    public function init()
+    public function init(): void
     {
         parent::init();
 
@@ -40,7 +40,7 @@ final class AccessRestriction extends Alert
      * Renders this alert as a warning, because the restriction is not a fatal issue for most users.
      */
     #[Override]
-    protected function initOptions()
+    protected function initOptions(): void
     {
         parent::initOptions();
 

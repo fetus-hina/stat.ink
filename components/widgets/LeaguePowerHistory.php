@@ -9,10 +9,12 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
+use Override;
 use Yii;
 use app\assets\LeaguePowerHistoryAsset;
 use app\components\helpers\Battle as BattleHelper;
 use app\models\Battle2;
+use app\models\User;
 use yii\base\Widget;
 use yii\helpers\Html;
 use yii\helpers\Json;
@@ -34,10 +36,11 @@ use const SORT_DESC;
 
 class LeaguePowerHistory extends Widget
 {
-    public $user;
-    public $current;
+    public ?User $user = null;
+    public ?Battle2 $current = null;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -156,6 +159,9 @@ class LeaguePowerHistory extends Widget
         );
     }
 
+    /**
+     * @return Battle2[]|null
+     */
     public function getHistory(): ?array
     {
         $model = $this->current;
@@ -194,6 +200,9 @@ class LeaguePowerHistory extends Widget
         return count($list) < 2 ? null : $list;
     }
 
+    /**
+     * @return array{float, string}|null
+     */
     public function getSameTeamMax(): ?array
     {
         $model = $this->current;

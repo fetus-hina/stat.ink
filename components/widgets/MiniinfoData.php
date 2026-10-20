@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
+use Override;
 use Yii;
 use app\assets\UserMiniinfoAsset;
 use app\components\i18n\Formatter;
@@ -22,26 +23,48 @@ use function is_string;
 
 class MiniinfoData extends Widget
 {
-    public $label;
-    public $labelTitle;
+    public ?string $label = null;
+    public ?string $labelTitle = null;
+    /**
+     * @var string|array<mixed>
+     */
     public string|array $labelFormat = 'text';
-    public $value;
-    public $valueTitle;
+    public mixed $value = null;
+    public ?string $valueTitle = null;
+    /**
+     * @var string|array<mixed>
+     */
     public string|array $valueFormat = 'text';
     public ?string $nullDisplay = null;
+    /**
+     * @var string|array<mixed>
+     */
     public string|array $nullDisplayFormat = 'text';
-    public $options = [
+    /**
+     * @var array<string, mixed>
+     */
+    public array $options = [
         'class' => 'col-xs-4',
     ];
-    public $labelOptions = [
+    /**
+     * @var array<string, mixed>
+     */
+    public array $labelOptions = [
         'class' => 'user-label auto-tooltip',
     ];
-    public $valueOptions = [
+    /**
+     * @var array<string, mixed>
+     */
+    public array $valueOptions = [
         'class' => 'user-number text-right auto-tooltip',
     ];
+    /**
+     * @var \yii\i18n\Formatter|class-string|array{class: class-string, ...}|null
+     */
     public $formatter;
 
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         if ($this->formatter === null) {
@@ -96,10 +119,15 @@ class MiniinfoData extends Widget
         );
     }
 
+    /**
+     * @param string|array<mixed> $format
+     * @param array<string, mixed> $options
+     * @param string|array<mixed> $nullDisplayFormat
+     */
     protected function renderElement(
-        $value,
-        $valueTitle,
-        $format,
+        mixed $value,
+        ?string $valueTitle,
+        string|array $format,
         array $options,
         ?string $nullDisplay,
         string|array $nullDisplayFormat,

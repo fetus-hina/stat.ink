@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\components\widgets\alerts;
 
+use Override;
 use Yii;
 use app\components\widgets\Alert;
 use app\components\widgets\Icon;
@@ -18,13 +19,15 @@ use function implode;
 
 final class ImportFromSplatnet extends Alert
 {
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
         $this->body = $this->renderBody();
     }
 
-    protected function initOptions()
+    #[Override]
+    protected function initOptions(): void
     {
         parent::initOptions();
         Html::addCssClass($this->options, ['alert-warning']);

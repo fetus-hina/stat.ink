@@ -23,13 +23,16 @@ class Youtube extends Widget
 {
     public static $autoIdPrefix = 'w-youtube-';
 
-    public $videoId;
+    public ?string $videoId = null;
+    /**
+     * @var string|array<mixed>|null
+     */
     public $timeCode;
 
-    public $width = 853;
-    public $height = 480;
-    public $noCookie = true;
-    public $rel = false;
+    public int $width = 853;
+    public int $height = 480;
+    public bool $noCookie = true;
+    public bool $rel = false;
 
     public function run()
     {

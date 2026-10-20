@@ -27,8 +27,11 @@ use function vsprintf;
 
 class Spl2GearAbilitiesSummaryWidget extends Widget
 {
-    private static $serial = 0;
-    public $summary;
+    private static int $serial = 0;
+    /**
+     * @var array<string, Ability2Info>|null
+     */
+    public ?array $summary = null;
 
     public function run()
     {
@@ -91,8 +94,7 @@ class Spl2GearAbilitiesSummaryWidget extends Widget
                             );
                             if (
                                 $model->ability->key === 'special_power_up' &&
-                                $model->weapon &&
-                                $model->weapon->special
+                                $model->weapon
                             ) {
                                 $sp = $model->weapon->special;
                                 $icons = Spl2WeaponAsset::register($this->view);

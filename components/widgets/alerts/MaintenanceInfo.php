@@ -83,7 +83,7 @@ class MaintenanceInfo extends Widget
         ]);
     }
 
-    protected function formatTime($time): string
+    protected function formatTime(string $time): string
     {
         $timestamp = filter_var(
             Yii::$app->formatter->asTimestamp($time),

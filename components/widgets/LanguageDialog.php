@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace app\components\widgets;
 
+use Override;
 use Yii;
 use app\assets\FlexboxAsset;
 use app\assets\LanguageDialogAsset;
@@ -28,7 +29,8 @@ use function vsprintf;
 
 final class LanguageDialog extends Dialog
 {
-    public function init()
+    #[Override]
+    public function init(): void
     {
         parent::init();
 
@@ -62,6 +64,9 @@ final class LanguageDialog extends Dialog
         );
     }
 
+    /**
+     * @return string[]
+     */
     private function createLanguageList(): array
     {
         LanguageDialogAsset::register($this->view);
@@ -173,6 +178,9 @@ final class LanguageDialog extends Dialog
         }
     }
 
+    /**
+     * @return string[]
+     */
     private function createHintList(): array
     {
         $enabledMachineTranslation = Yii::$app->getIsEnabledMachineTranslation();
