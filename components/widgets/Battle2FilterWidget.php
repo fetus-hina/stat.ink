@@ -48,7 +48,7 @@ class Battle2FilterWidget extends Widget
     public string $id = 'filter-form';
     public ?string $route = null;
     public ?string $screen_name = null;
-    public ?Battle2FilterForm $filter = null;
+    public Battle2FilterForm $filter;
 
     public bool $rule = true;
     public bool $map = true;

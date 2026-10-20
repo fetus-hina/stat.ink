@@ -49,7 +49,7 @@ final class BattleFilterWidget extends Widget
     public string $id = 'filter-form';
     public ?string $route = null;
     public ?string $screen_name = null;
-    public ?BattleFilterForm $filter = null;
+    public BattleFilterForm $filter;
 
     public bool $lobby = true;
     public bool $rule = true;

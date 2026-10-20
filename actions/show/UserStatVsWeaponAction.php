@@ -31,7 +31,7 @@ class UserStatVsWeaponAction extends BaseAction
     use UserStatFilterTrait;
 
     public User $user;
-    public ?BattleFilterForm $filter = null;
+    public BattleFilterForm $filter;
 
     #[Override]
     public function init(): void

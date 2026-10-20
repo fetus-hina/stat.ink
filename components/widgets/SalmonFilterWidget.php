@@ -42,7 +42,7 @@ use const SORT_STRING;
 class SalmonFilterWidget extends Widget
 {
     public User $user;
-    public ?Salmon2FilterForm $filter = null;
+    public Salmon2FilterForm $filter;
 
     public function run()
     {
