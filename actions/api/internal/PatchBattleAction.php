@@ -52,7 +52,7 @@ class PatchBattleAction extends ViewAction
             throw new NotFoundHttpException();
         }
 
-        if ($this->battle->user_id != Yii::$app->user->identity->id) {
+        if ($this->battle->user_id != Yii::$app->user->getIdentity()?->id) {
             throw new ForbiddenHttpException();
         }
     }

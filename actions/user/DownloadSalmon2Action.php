@@ -14,6 +14,7 @@ use Yii;
 use app\models\Salmon2;
 use app\models\User;
 use yii\web\BadRequestHttpException;
+use yii\web\ServerErrorHttpException;
 use yii\web\ViewAction;
 
 use function is_scalar;
@@ -22,13 +23,16 @@ use const SORT_ASC;
 
 class DownloadSalmon2Action extends ViewAction
 {
-    private ?User $user = null;
+    private User $user;
 
     #[Override]
     public function init(): void
     {
         parent::init();
-        $this->user = Yii::$app->user->identity;
+        if (!$user = Yii::$app->user->identity) {
+            throw new ServerErrorHttpException();
+        }
+        $this->user = $user;
     }
 
     /**

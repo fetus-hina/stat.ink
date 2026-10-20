@@ -15,6 +15,7 @@ use app\assets\LeaguePowerHistoryAsset;
 use app\components\helpers\Battle as BattleHelper;
 use app\models\Battle2;
 use app\models\User;
+use yii\base\InvalidConfigException;
 use yii\base\Widget;
 use yii\helpers\Html;
 use yii\helpers\Json;
@@ -36,7 +37,7 @@ use const SORT_DESC;
 
 class LeaguePowerHistory extends Widget
 {
-    public ?User $user = null;
+    public User $user;
     public ?Battle2 $current = null;
 
     #[Override]
@@ -44,8 +45,8 @@ class LeaguePowerHistory extends Widget
     {
         parent::init();
 
-        if (!$this->user) {
-            $this->user = $this->current->user;
+        if (!isset($this->user)) {
+            $this->user = $this->current->user ?? throw new InvalidConfigException('The user is not set.');
         }
     }
 

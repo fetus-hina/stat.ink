@@ -166,8 +166,7 @@ class PlayerName2Widget extends Widget
             return true;
         }
 
-        $loggedInUser = Yii::$app->user;
-        if (!$loggedInUser->isGuest && $loggedInUser->identity->id == $this->user->id) {
+        if ($this->user && Yii::$app->user->getIdentity()?->id === $this->user->id) {
             // このデータのオーナーがログインしているので全員表示
             return false;
         }

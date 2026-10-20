@@ -32,7 +32,7 @@ use const SORT_DESC;
 
 class SalmonUserInfo extends Widget
 {
-    public ?User $user = null;
+    public User $user;
 
     #[Override]
     public function init(): void

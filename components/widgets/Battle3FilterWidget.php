@@ -361,7 +361,7 @@ final class Battle3FilterWidget extends Widget
                 ->dropDownList(
                     ...$filter->getPlayedWithDropdown(
                         $this->user,
-                        $filter->played_with && !$filter->hasErrors('played_with')
+                        $this->user && $filter->played_with && !$filter->hasErrors('played_with')
                             ? Battle3PlayedWith::findOne([
                                 'user_id' => $this->user->id,
                                 'ref_id' => $filter->played_with,

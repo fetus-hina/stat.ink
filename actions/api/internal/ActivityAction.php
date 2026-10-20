@@ -20,6 +20,7 @@ use app\models\User;
 use yii\base\Action;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
+use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
 use function array_keys;
@@ -57,7 +58,10 @@ final class ActivityAction extends Action
             return;
         }
 
-        $user = User::findOne(['screen_name' => $form->screen_name]);
+        if (!$user = User::findOne(['screen_name' => $form->screen_name])) {
+            throw new NotFoundHttpException();
+        }
+
         [$from, $to] = BattleHelper::getActivityDisplayRange();
         $this->resp->data = $this->makeData($user, $from, $to, TypeHelper::stringOrNull($form->only));
     }

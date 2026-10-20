@@ -22,6 +22,7 @@ use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 use yii\web\Response;
+use yii\web\ServerErrorHttpException;
 
 use function is_array;
 
@@ -66,7 +67,9 @@ final class UpdateLoginWithTwitterAction extends Action
                 if (!isset($twUser['data']['id'])) {
                     throw new RuntimeException('Failed to fetch your information from Twitter');
                 }
-                $user = Yii::$app->user->identity;
+                if (!$user = Yii::$app->user->identity) {
+                    throw new ServerErrorHttpException();
+                }
 
                 $transaction = Yii::$app->db->beginTransaction();
                 try {

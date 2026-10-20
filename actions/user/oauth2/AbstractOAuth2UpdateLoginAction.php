@@ -23,6 +23,7 @@ use yii\db\ActiveRecord;
 use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 use yii\web\Response;
+use yii\web\ServerErrorHttpException;
 
 abstract class AbstractOAuth2UpdateLoginAction extends Action
 {
@@ -108,7 +109,9 @@ abstract class AbstractOAuth2UpdateLoginAction extends Action
                 throw new RuntimeException($this->getFailedToFetchMessage());
             }
             $userData = $resourceOwner->toArray();
-            $user = Yii::$app->user->identity;
+            if (!$user = Yii::$app->user->identity) {
+                throw new ServerErrorHttpException();
+            }
 
             $transaction = Yii::$app->db->beginTransaction();
             try {

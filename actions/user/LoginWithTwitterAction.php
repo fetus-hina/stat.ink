@@ -22,6 +22,7 @@ use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\web\Response;
+use yii\web\ServerErrorHttpException;
 
 use function is_array;
 
@@ -66,9 +67,13 @@ final class LoginWithTwitterAction extends Action
                 if (isset($user['data']['id'])) {
                     $info = LoginWithTwitter::findOne(['twitter_id' => $user['data']['id']]);
                     if ($info && $info->login()) {
+                        if (!$identity = Yii::$app->user->identity) {
+                            throw new ServerErrorHttpException();
+                        }
+
                         return TypeHelper::instanceOf($this->controller, Controller::class)->goBack(
                             ['show-user/profile',
-                                'screen_name' => Yii::$app->user->identity->screen_name,
+                                'screen_name' => $identity->screen_name,
                             ],
                         );
                     }

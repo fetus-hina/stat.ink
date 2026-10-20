@@ -15,6 +15,7 @@ use app\components\helpers\AddressUpdatedEmailSender;
 use app\models\EmailVerifyForm;
 use app\models\Language;
 use yii\web\BadRequestHttpException;
+use yii\web\ServerErrorHttpException;
 use yii\web\ViewAction;
 
 use function is_array;
@@ -48,7 +49,9 @@ class EditEmailVerifyAction extends ViewAction
         $form->validVerifyCode = $verifyCodeInfo['code'];
 
         if ($form->validate()) {
-            $user = Yii::$app->user->identity;
+            if (!$user = Yii::$app->user->identity) {
+                throw new ServerErrorHttpException();
+            }
             $oldEmail = null;
             $oldEmailLang = null;
             if ($user->email) {

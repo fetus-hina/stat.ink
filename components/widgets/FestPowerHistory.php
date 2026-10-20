@@ -16,6 +16,7 @@ use app\models\Battle2;
 use app\models\Mode2;
 use app\models\Rule2;
 use app\models\User;
+use yii\base\InvalidConfigException;
 use yii\base\Widget;
 use yii\helpers\Html;
 use yii\helpers\Json;
@@ -32,7 +33,7 @@ use const SORT_DESC;
 
 class FestPowerHistory extends Widget
 {
-    public ?User $user = null;
+    public User $user;
     public ?Battle2 $current = null;
 
     #[Override]
@@ -40,8 +41,8 @@ class FestPowerHistory extends Widget
     {
         parent::init();
 
-        if (!$this->user) {
-            $this->user = $this->current->user;
+        if (!isset($this->user)) {
+            $this->user = $this->current->user ?? throw new InvalidConfigException('The user is not set.');
         }
     }
 

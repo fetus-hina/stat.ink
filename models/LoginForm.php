@@ -82,7 +82,10 @@ final class LoginForm extends Model
             return false;
         }
 
-        $user = $this->getUser();
+        if (!$user = $this->getUser()) {
+            return false;
+        }
+
         if ($user->rehashPasswordIfNeeded($this->password)) {
             $user->save();
         }

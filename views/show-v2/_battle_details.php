@@ -952,7 +952,7 @@ use yii\widgets\DetailView;
         if ($model->private_note == '') {
           return null;
         }
-        if (Yii::$app->user->isGuest || Yii::$app->user->identity->id != $model->user_id) {
+        if (Yii::$app->user->getIdentity()?->id !== $model->user_id) {
           return null;
         }
         $this->registerCss('#private-note{display:none}');

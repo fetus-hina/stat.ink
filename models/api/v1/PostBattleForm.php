@@ -615,7 +615,9 @@ class PostBattleForm extends Model
 
     public function toBattle(): Battle
     {
-        $user = $this->getUser();
+        if (!$user = $this->getUser()) {
+            throw new RuntimeException('The user is not found');
+        }
 
         $o = new Battle();
         $o->user_id = $user->id;

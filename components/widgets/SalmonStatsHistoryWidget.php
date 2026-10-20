@@ -38,7 +38,7 @@ use const SEEK_SET;
 
 class SalmonStatsHistoryWidget extends Widget
 {
-    public ?User $user = null;
+    public User $user;
     public ?string $html = null;
 
     #[Override]

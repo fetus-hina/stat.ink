@@ -16,6 +16,7 @@ use app\models\Language;
 use app\models\ProfileForm;
 use app\models\Region;
 use yii\helpers\ArrayHelper;
+use yii\web\ServerErrorHttpException;
 use yii\web\ViewAction as BaseAction;
 
 use function array_map;
@@ -33,7 +34,9 @@ class EditProfileAction extends BaseAction
     public function run(): ?string
     {
         $request = Yii::$app->request;
-        $ident = Yii::$app->user->getIdentity();
+        if (!$ident = Yii::$app->user->getIdentity()) {
+            throw new ServerErrorHttpException();
+        }
         $form = new ProfileForm();
         if ($request->isPost) {
             $params = $request->bodyParams;

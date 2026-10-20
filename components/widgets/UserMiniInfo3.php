@@ -36,7 +36,7 @@ use const SORT_ASC;
 final class UserMiniInfo3 extends Widget
 {
     public string $id = 'user-miniinfo';
-    public ?User $user = null;
+    public User $user;
 
     public ?Lobby3 $activeLobby = null;
 

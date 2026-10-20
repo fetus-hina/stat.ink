@@ -29,7 +29,7 @@ use function usort;
 
 class UserStatReportAction extends BaseAction
 {
-    private ?User $user = null;
+    private User $user;
 
     #[Override]
     public function init(): void
@@ -41,10 +41,11 @@ class UserStatReportAction extends BaseAction
                 ->rawSql,
         )->execute();
 
-        $this->user = User::findOne(['screen_name' => Yii::$app->request->get('screen_name')]);
-        if (!$this->user) {
+        $user = User::findOne(['screen_name' => Yii::$app->request->get('screen_name')]);
+        if (!$user) {
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
         }
+        $this->user = $user;
     }
 
     #[Override]

@@ -23,7 +23,7 @@ use const SORT_DESC;
 
 final class UserStatSplatfestAction extends Action
 {
-    private ?User $user = null;
+    private User $user;
     private ?Region2 $region = null;
 
     public function run(): string
@@ -55,10 +55,11 @@ final class UserStatSplatfestAction extends Action
     private function initUser(): void
     {
         $request = Yii::$app->request;
-        $this->user = User::findOne(['screen_name' => (string)$request->get('screen_name')]);
-        if (!$this->user) {
+        $user = User::findOne(['screen_name' => (string)$request->get('screen_name')]);
+        if (!$user) {
             throw new NotFoundHttpException(Yii::t('app-show', 'Could not find user'));
         }
+        $this->user = $user;
     }
 
     private function processInput(): UserStatSplatfest2Form

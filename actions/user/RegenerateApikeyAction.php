@@ -12,6 +12,7 @@ use Yii;
 use app\models\User;
 use yii\helpers\Url;
 use yii\web\Response;
+use yii\web\ServerErrorHttpException;
 use yii\web\ViewAction as BaseAction;
 
 class RegenerateApikeyAction extends BaseAction
@@ -20,7 +21,9 @@ class RegenerateApikeyAction extends BaseAction
     public function run(): Response
     {
         $response = Yii::$app->response;
-        $user = Yii::$app->user->identity;
+        if (!$user = Yii::$app->user->identity) {
+            throw new ServerErrorHttpException();
+        }
         $user->api_key = User::generateNewApiKey();
         $user->save();
         return $response->redirect(Url::to(['user/profile'], true), 303);

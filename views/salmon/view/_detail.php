@@ -246,7 +246,7 @@ $widget = Yii::createObject([
           return null;
         }
 
-        if (Yii::$app->user->isGuest || Yii::$app->user->identity->id != $model->user_id) {
+        if (Yii::$app->user->getIdentity()?->id !== $model->user_id) {
           return null;
         }
 

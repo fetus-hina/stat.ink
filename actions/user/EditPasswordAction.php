@@ -18,6 +18,7 @@ use app\components\helpers\UserNotifier;
 use app\models\PasswordForm;
 use app\models\User;
 use yii\web\Response;
+use yii\web\ServerErrorHttpException;
 use yii\web\ViewAction as BaseAction;
 
 use function is_array;
@@ -28,7 +29,9 @@ class EditPasswordAction extends BaseAction
     public function run(): string|Response
     {
         $request = Yii::$app->request;
-        $ident = Yii::$app->user->getIdentity();
+        if (!$ident = Yii::$app->user->getIdentity()) {
+            throw new ServerErrorHttpException();
+        }
         $hasPassword = $ident->hasPassword();
         $form = new PasswordForm();
         if (!$hasPassword) {

@@ -20,6 +20,7 @@ use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\web\Response;
+use yii\web\ServerErrorHttpException;
 
 abstract class AbstractOAuth2LoginAction extends Action
 {
@@ -85,9 +86,13 @@ abstract class AbstractOAuth2LoginAction extends Action
             if ($externalId !== null && $externalId !== '') {
                 $info = $this->findExistingLink($externalId);
                 if ($info && $info->login()) {
+                    if (!$user = Yii::$app->user->identity) {
+                        throw new ServerErrorHttpException();
+                    }
+
                     return TypeHelper::instanceOf($this->controller, Controller::class)->goBack(
                         ['show-user/profile',
-                            'screen_name' => Yii::$app->user->identity->screen_name,
+                            'screen_name' => $user->screen_name,
                         ],
                     );
                 }

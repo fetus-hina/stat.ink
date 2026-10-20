@@ -767,7 +767,10 @@ class PostBattleForm extends Model
             return $model ? $model->id : null;
         };
         $map = $this->resolveStage();
-        $user = Yii::$app->user->identity;
+        if (!$user = Yii::$app->user->identity) {
+            throw new RuntimeException('The user is not logged in');
+        }
+
         $battle = Yii::createObject(['class' => Battle2::class]);
         $battle->user_id = $user->id;
         $battle->env_id = $user->env_id;
@@ -1153,10 +1156,14 @@ class PostBattleForm extends Model
 
     public function getCriticalSectionName(): string
     {
+        if (!$user = Yii::$app->user->identity) {
+            throw new RuntimeException('The user is not logged in');
+        }
+
         $values = [
             'class' => self::class,
             'version' => 2,
-            'user' => Yii::$app->user->identity->id,
+            'user' => $user->id,
         ];
         asort($values);
         return rtrim(

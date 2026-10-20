@@ -18,6 +18,7 @@ use app\components\helpers\TypeHelper;
 use app\models\UserPasswordRecoveryKey;
 use jp3cki\uuid\Uuid;
 use yii\web\Response;
+use yii\web\ServerErrorHttpException;
 use yii\web\ViewAction as BaseAction;
 
 use function date;
@@ -30,7 +31,9 @@ final class RecoveryKeyCreateAction extends BaseAction
     #[Override]
     public function run(): Response
     {
-        $ident = Yii::$app->user->getIdentity();
+        if (!$ident = Yii::$app->user->getIdentity()) {
+            throw new ServerErrorHttpException();
+        }
         $req = Yii::$app->request;
         $session = Yii::$app->session;
 

@@ -30,7 +30,7 @@ class UserStatVsWeaponAction extends BaseAction
 {
     use UserStatFilterTrait;
 
-    public ?User $user = null;
+    public User $user;
     public ?BattleFilterForm $filter = null;
 
     #[Override]
@@ -39,10 +39,11 @@ class UserStatVsWeaponAction extends BaseAction
         parent::init();
 
         $request = Yii::$app->getRequest();
-        $this->user = User::findOne(['screen_name' => $request->get('screen_name')]);
-        if (!$this->user) {
+        $user = User::findOne(['screen_name' => $request->get('screen_name')]);
+        if (!$user) {
             throw new NotFoundHttpException(Yii::t('app-show', 'Could not find user'));
         }
+        $this->user = $user;
 
         $this->filter = new BattleFilterForm();
         $this->filter->load($_GET);

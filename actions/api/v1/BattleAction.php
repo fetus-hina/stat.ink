@@ -23,6 +23,7 @@ use app\models\api\v1\DeleteBattleForm;
 use app\models\api\v1\PatchBattleForm;
 use app\models\api\v1\PostBattleForm;
 use yii\web\MethodNotAllowedHttpException;
+use yii\web\ServerErrorHttpException;
 use yii\web\UploadedFile;
 use yii\web\ViewAction as BaseAction;
 
@@ -265,6 +266,10 @@ class BattleAction extends BaseAction
     private function saveData(PostBattleForm $form): Battle|array
     {
         // {{{
+        if (!$user = $form->getUser()) {
+            throw new ServerErrorHttpException();
+        }
+
         $battle = $form->toBattle();
         if (!$battle->isMeaningful) {
             $this->logError([
@@ -394,7 +399,7 @@ class BattleAction extends BaseAction
             ) {
                 $blackoutList = Blackout::getBlackoutTargetList(
                     $form->lobby,
-                    $form->user->blackout,
+                    $user->blackout,
                     ($form->result === 'win' ? 0 : 4) + $form->rank_in_team,
                 );
             }

@@ -8,6 +8,7 @@
 namespace app\commands;
 
 use Exception;
+use LogicException;
 use Override;
 use Yii;
 use app\components\helpers\TypeHelper;
@@ -201,7 +202,8 @@ class UserJsonController extends Controller
 
     public function getJsonPath(): string
     {
-        return $this->basePath . '/' . $this->findUser()->id . '.json.gz';
+        $user = $this->findUser() ?? throw new LogicException('The user is not found');
+        return $this->basePath . '/' . $user->id . '.json.gz';
     }
 
     protected User|false|null $user = false;
@@ -230,9 +232,10 @@ class UserJsonController extends Controller
         if (!file_exists($jsonPath)) {
             return '0';
         }
+        $user = $this->findUser() ?? throw new LogicException('The user is not found');
         $last = Battle::find()
             ->andWhere(['and',
-                ['{{battle}}.[[user_id]]' => $this->findUser()->id],
+                ['{{battle}}.[[user_id]]' => $user->id],
                 ['<=', '{{battle}}.[[at]]', date('Y-m-d\TH:i:sP', TypeHelper::int(filemtime($jsonPath)))],
             ])
             ->orderBy('{{battle}}.[[id]] DESC')
@@ -246,6 +249,7 @@ class UserJsonController extends Controller
      */
     protected function getNextBattles(string $lastBattleId): array
     {
+        $user = $this->findUser() ?? throw new LogicException('The user is not found');
         $query = Battle::find()
             ->innerJoinWith('user')
             ->with([
@@ -281,7 +285,7 @@ class UserJsonController extends Controller
                 'weapon.type',
             ])
             ->andWhere(['and',
-                ['{{battle}}.[[user_id]]' => $this->findUser()->id],
+                ['{{battle}}.[[user_id]]' => $user->id],
                 ['>', '{{battle}}.[[id]]', $lastBattleId],
             ])
             ->orderBy('{{battle}}.[[id]] ASC')

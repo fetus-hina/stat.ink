@@ -11,6 +11,7 @@ use Override;
 use Yii;
 use yii\helpers\Url;
 use yii\web\Response;
+use yii\web\ServerErrorHttpException;
 use yii\web\ViewAction as BaseAction;
 
 class ClearLoginWithDiscordAction extends BaseAction
@@ -20,7 +21,9 @@ class ClearLoginWithDiscordAction extends BaseAction
     {
         $response = Yii::$app->response;
 
-        $user = Yii::$app->user->identity;
+        if (!$user = Yii::$app->user->identity) {
+            throw new ServerErrorHttpException();
+        }
         $info = $user->loginWithDiscord;
         if ($info) {
             $info->delete();

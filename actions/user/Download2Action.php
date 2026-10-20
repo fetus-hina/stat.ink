@@ -11,19 +11,23 @@ use Override;
 use Yii;
 use app\models\User;
 use yii\web\BadRequestHttpException;
+use yii\web\ServerErrorHttpException;
 use yii\web\ViewAction as BaseAction;
 
 use function is_scalar;
 
 class Download2Action extends BaseAction
 {
-    private ?User $user = null;
+    private User $user;
 
     #[Override]
     public function init(): void
     {
         parent::init();
-        $this->user = Yii::$app->user->getIdentity();
+        if (!$user = Yii::$app->user->getIdentity()) {
+            throw new ServerErrorHttpException();
+        }
+        $this->user = $user;
     }
 
     /**

@@ -37,7 +37,7 @@ use const SORT_ASC;
 class UserMiniInfo2 extends Widget
 {
     public string $id = 'user-miniinfo';
-    public ?User $user = null;
+    public User $user;
 
     public function run(): string
     {

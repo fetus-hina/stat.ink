@@ -20,13 +20,14 @@ use app\models\SalmonPlayer2;
 use app\models\User;
 use yii\base\Widget;
 use yii\bootstrap\Html;
+use yii\base\InvalidConfigException;
 
 use function implode;
 use function sprintf;
 
 class SalmonItem2Widget extends Widget
 {
-    public ?User $user = null;
+    public User $user;
     public ?Salmon2 $model = null;
     public ?SalmonPlayer2 $myData = null;
 
@@ -37,8 +38,8 @@ class SalmonItem2Widget extends Widget
 
         SimpleBattleListAsset::register($this->view);
 
-        if (!$this->user) {
-            $this->user = $this->model->user;
+        if (!isset($this->user)) {
+            $this->user = $this->model->user ?? throw new InvalidConfigException('The user is not set.');
         }
 
         $this->myData = $this->model->myData;
