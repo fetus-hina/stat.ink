@@ -335,7 +335,7 @@ $specials = Special::find()->asArray()->all();
                 ? [
                   Html::encode(Yii::t('app-rank', $battle->rank->name)),
                   ($battle->rank_exp !== null)
-                    ? Html::encode($battle->rank_exp)
+                    ? Html::encode((string)$battle->rank_exp)
                     : ''
                 ]
                 : '?',
@@ -344,7 +344,7 @@ $specials = Special::find()->asArray()->all();
                 ? [
                   Html::encode(Yii::t('app-rank', $battle->rankAfter->name)),
                   ($battle->rank_exp_after !== null)
-                    ? Html::encode($battle->rank_exp_after)
+                    ? Html::encode((string)$battle->rank_exp_after)
                     : ''
                 ]
                 : '?',
@@ -382,7 +382,7 @@ $specials = Special::find()->asArray()->all();
                       '***',
                     ])),
                     ($battle->fest_exp !== null)
-                      ? Html::encode($battle->fest_exp)
+                      ? Html::encode((string)$battle->fest_exp)
                       : '',
                   ]
                   : '?',
@@ -396,7 +396,7 @@ $specials = Special::find()->asArray()->all();
                       ])
                     ),
                     ($battle->fest_exp_after !== null)
-                      ? Html::encode($battle->fest_exp_after)
+                      ? Html::encode((string)$battle->fest_exp_after)
                       : '',
                   ]
                   : '?',
@@ -407,7 +407,7 @@ $specials = Special::find()->asArray()->all();
 <?php if ($battle->fest_power) { ?>
           <tr>
             <th><?= Html::encode(Yii::t('app', 'Splatfest Power')) ?></th>
-            <td><?= Html::encode($battle->fest_power) ?></td>
+            <td><?= Html::encode((string)$battle->fest_power) ?></td>
           </tr>
 <?php } ?>
 <?php if ($battle->my_team_power || $battle->his_team_power) { ?>
@@ -493,13 +493,13 @@ $specials = Special::find()->asArray()->all();
 <?php if ($battle->max_kill_combo !== null) { ?>
           <tr>
             <th><?= Html::encode(Yii::t('app-battle', 'Max Kill Combo')) ?></th>
-            <td><?= Html::encode($battle->max_kill_combo) ?></td>
+            <td><?= Html::encode((string)$battle->max_kill_combo) ?></td>
           </tr>
 <?php } ?>
 <?php if ($battle->max_kill_streak !== null) { ?>
           <tr>
             <th><?= Html::encode(Yii::t('app-battle', 'Max Kill Streak')) ?></th>
-            <td><?= Html::encode($battle->max_kill_streak) ?></td>
+            <td><?= Html::encode((string)$battle->max_kill_streak) ?></td>
           </tr>
 <?php } ?>
 <?php $deathReasons = BattleDeathReason::find()
@@ -968,7 +968,7 @@ foreach ($battle->$attr as $player) {
                 ) . "\n" ?>
 <?php } ?>
               </td>
-              <td class="col-level text-right"><?= Html::encode($player->level) ?></td>
+              <td class="col-level text-right"><?= Html::encode((string)$player->level) ?></td>
 <?php if (!$hideRank) { ?>
               <td class="col-rank text-center"><?= Html::encode(
                 Yii::t('app-rank', $player->rank->name ?? '')
@@ -982,12 +982,12 @@ foreach ($battle->$attr as $player) {
               ) ?></td>
 <?php } ?>
               <td class="col-kd text-center">
-                <?= (($player->kill === null) ? '?' : Html::encode($player->kill)) . "\n" ?>
+                <?= (($player->kill === null) ? '?' : Html::encode((string)$player->kill)) . "\n" ?>
 <?php if ($hasMyKill && $teamKey === 'his') { ?>
-                (<?= ($player->my_kill === null) ? '?' : Html::encode($player->my_kill) ?>)
+                (<?= ($player->my_kill === null) ? '?' : Html::encode((string)$player->my_kill) ?>)
 <?php } ?>
                 /
-                <?= (($player->death === null) ? '?' : Html::encode($player->death)) . "\n" ?>
+                <?= (($player->death === null) ? '?' : Html::encode((string)$player->death)) . "\n" ?>
                 <?= KillRatioBadgeWidget::widget([
                   'kill' => $player->kill,
                   'death' => $player->death,

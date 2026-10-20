@@ -260,12 +260,12 @@ final class LanguageDialog extends Dialog
             return implode('', [
                 Html::tag(
                     'span',
-                    FlagIcon::fg('gb'),
+                    (string)FlagIcon::fg('gb'),
                     ['class' => 'mr-1'],
                 ),
                 Html::tag(
                     'span',
-                    FlagIcon::fg('au'),
+                    (string)FlagIcon::fg('au'),
                     ['class' => 'mr-1'],
                 ),
             ]);
@@ -275,12 +275,12 @@ final class LanguageDialog extends Dialog
             return implode('', [
                 Html::tag(
                     'span',
-                    FlagIcon::fg('tw'),
+                    (string)FlagIcon::fg('tw'),
                     ['class' => 'mr-1'],
                 ),
                 Html::tag(
                     'span',
-                    FlagIcon::fg('hk'),
+                    (string)FlagIcon::fg('hk'),
                     ['class' => 'mr-1'],
                 ),
             ]);
@@ -288,7 +288,7 @@ final class LanguageDialog extends Dialog
 
         return Html::tag(
             'span',
-            $countryCode |> strtolower(...) |> FlagIcon::fg(...),
+            (string)($countryCode |> strtolower(...) |> FlagIcon::fg(...)),
             ['class' => 'mr-1'],
         );
     }

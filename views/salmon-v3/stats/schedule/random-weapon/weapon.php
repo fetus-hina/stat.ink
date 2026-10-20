@@ -54,7 +54,7 @@ $iconSize = $panelSize - $panelPadding * 2;
     ) . "\n" ?>
     <?= Html::tag(
       'div',
-      Html::encode($count),
+      Html::encode((string)$count),
       [
         'class' => 'auto-tooltip badge',
         'style' => [

@@ -34,7 +34,7 @@ $form = ActiveForm::begin([
 
 echo Html::tag(
   'span',
-  $form->field($filter, 'lobby')
+  (string)$form->field($filter, 'lobby')
     ->label(false)
     ->dropDownList(
       array_map(
@@ -48,7 +48,7 @@ echo Html::tag(
 
 echo Html::tag(
   'span',
-  $form->field($filter, 'season')
+  (string)$form->field($filter, 'season')
     ->label(false)
     ->dropDownList(
       array_map(
