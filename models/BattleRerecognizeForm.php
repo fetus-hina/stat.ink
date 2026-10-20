@@ -122,7 +122,10 @@ class BattleRerecognizeForm extends Model
         $weapon = $my->weaponModel;
         $rank = $my->rank ? Rank::findOne(['key' => $my->rank]) : null;
 
-        $battle = $this->getBattle();
+        if (!$battle = $this->getBattle()) {
+            return false;
+        }
+
         $battle->skipSaveHistory = true;
         $battle->attributes = [
             'weapon_id' => $weapon->id ?? null,

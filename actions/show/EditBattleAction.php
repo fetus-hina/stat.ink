@@ -18,6 +18,7 @@ use app\models\Map;
 use app\models\Rule;
 use app\models\Weapon;
 use app\models\WeaponType;
+use yii\web\ServerErrorHttpException;
 use yii\web\ViewAction as BaseAction;
 
 use function asort;
@@ -48,6 +49,10 @@ class EditBattleAction extends BaseAction
     #[Override]
     public function run(): ?string
     {
+        if (!$battle = $this->battle) {
+            throw new ServerErrorHttpException();
+        }
+
         $form = new BattleForm();
         $del = new BattleDeleteForm();
         if (Yii::$app->request->isPost) {
@@ -57,11 +62,11 @@ class EditBattleAction extends BaseAction
             if (Yii::$app->request->post('_action') === 'delete') {
                 if ($del->validate()) {
                     $transaction = Yii::$app->db->beginTransaction();
-                    if ($this->battle->delete()) {
+                    if ($battle->delete()) {
                         $transaction->commit();
                         $this->controller->redirect([
                             'show/user',
-                            'screen_name' => $this->battle->user->screen_name,
+                            'screen_name' => $battle->user->screen_name,
                         ]);
                         return null;
                     }
@@ -69,23 +74,23 @@ class EditBattleAction extends BaseAction
                 }
             } else {
                 if ($form->validate()) {
-                    $this->battle->attributes = $form->attributes;
-                    if ($this->battle->save()) {
+                    $battle->attributes = $form->attributes;
+                    if ($battle->save()) {
                         $this->controller->redirect([
                             'show/battle',
-                            'screen_name' => $this->battle->user->screen_name,
-                            'battle' => $this->battle->id,
+                            'screen_name' => $battle->user->screen_name,
+                            'battle' => $battle->id,
                         ]);
                         return null;
                     }
                 }
             }
         } else {
-            $form->attributes = $this->battle->attributes;
+            $form->attributes = $battle->attributes;
         }
         return $this->controller->render('edit-battle', [
-            'user' => $this->battle->user,
-            'battle' => $this->battle,
+            'user' => $battle->user,
+            'battle' => $battle,
             'form' => $form,
             'delete' => $del,
             'lobbies' => $this->makeLobbies(),

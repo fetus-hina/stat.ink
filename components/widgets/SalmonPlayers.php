@@ -30,7 +30,7 @@ use function sprintf;
 class SalmonPlayers extends Widget
 {
     public \yii\i18n\Formatter $formatter;
-    public ?Salmon2 $work = null;
+    public Salmon2 $work;
     /**
      * @var SalmonPlayer2[]
      */

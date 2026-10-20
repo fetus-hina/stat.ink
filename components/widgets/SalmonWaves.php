@@ -29,7 +29,7 @@ use function is_callable;
 
 final class SalmonWaves extends Widget
 {
-    public ?Salmon2 $work = null;
+    public Salmon2 $work;
 
     public ?SalmonWave2 $wave1 = null;
     public ?SalmonWave2 $wave2 = null;
@@ -101,7 +101,7 @@ final class SalmonWaves extends Widget
     protected function renderBody(): string
     {
         $data = array_filter([
-            $this->work && $this->work->clear_waves !== null
+            $this->work->clear_waves !== null
                 ? [
                     'label' => '',
                     'format' => 'raw',
