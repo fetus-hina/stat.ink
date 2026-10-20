@@ -8,6 +8,7 @@
 namespace app\actions\site;
 
 use Override;
+use yii\base\InvalidConfigException;
 use yii\web\ViewAction as BaseAction;
 
 class SimpleAction extends BaseAction
@@ -21,6 +22,10 @@ class SimpleAction extends BaseAction
     #[Override]
     public function run(): string
     {
+        if ($this->view === false) {
+            throw new InvalidConfigException('The view is not configured.');
+        }
+
         return $this->controller->render($this->view, $this->params);
     }
 }

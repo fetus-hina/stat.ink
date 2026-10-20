@@ -67,7 +67,7 @@ class KDWinAction extends BaseAction
     }
 
     /**
-     * @return list<list<array{battle: int, win: int}>>
+     * @return array<int, array<int, array{battle: int, win: int}>> indexed by kills, then by deaths
      */
     private function makeData(Rule $rule, BattleFilterForm $filter): array
     {
@@ -86,8 +86,11 @@ class KDWinAction extends BaseAction
         foreach ($this->query($rule, $filter) as $row) {
             $i = $row['kill'] > static::KD_LIMIT ? static::KD_LIMIT : (int)$row['kill'];
             $j = $row['death'] > static::KD_LIMIT ? static::KD_LIMIT : (int)$row['death'];
-            $ret[$i][$j]['battle'] += $row['count'];
-            $ret[$i][$j]['win'] += $row['win'];
+            $cell = $ret[$i][$j];
+            $ret[$i][$j] = [
+                'battle' => $cell['battle'] + (int)$row['count'],
+                'win' => $cell['win'] + (int)$row['win'],
+            ];
         }
 
         return $ret;

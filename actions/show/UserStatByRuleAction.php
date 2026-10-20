@@ -79,20 +79,22 @@ class UserStatByRuleAction extends BaseAction
         $modes = [];
         foreach ($query->createCommand()->queryAll() as $row) {
             $row = (object)$row;
-            if (!isset($modes[$row->mode_key])) {
-                $modes[$row->mode_key] = [
+            $modeKey = (string)$row->mode_key;
+            $ruleKey = (string)$row->rule_key;
+            if (!isset($modes[$modeKey])) {
+                $modes[$modeKey] = [
                     'name' => Yii::t('app-rule', $row->mode_name),
                     'rules' => [],
                 ];
             }
-            if (!isset($modes[$row->mode_key]['rules'][$row->rule_key])) {
-                $modes[$row->mode_key]['rules'][$row->rule_key] = [
+            if (!isset($modes[$modeKey]['rules'][$ruleKey])) {
+                $modes[$modeKey]['rules'][$ruleKey] = [
                     'name' => Yii::t('app-rule', $row->rule_name),
                     'win' => 0,
                     'lose' => 0,
                 ];
             }
-            $modes[$row->mode_key]['rules'][$row->rule_key][$row->result] = (int)$row->count;
+            $modes[$modeKey]['rules'][$ruleKey][$row->result === 'win' ? 'win' : 'lose'] = (int)$row->count;
         }
         return $modes;
     }

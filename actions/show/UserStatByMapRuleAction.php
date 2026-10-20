@@ -102,7 +102,11 @@ class UserStatByMapRuleAction extends BaseAction
 
         foreach ($query->createCommand()->queryAll() as $row) {
             $row = (object)$row;
-            $ret[$row->map_key][$row->rule_key][$row->result] = (int)$row->count;
+            $mapKey = (string)$row->map_key;
+            $ruleKey = (string)$row->rule_key;
+            $cell = $ret[$mapKey][$ruleKey] ?? ['win' => 0, 'lose' => 0];
+            $cell[$row->result === 'win' ? 'win' : 'lose'] = (int)$row->count;
+            $ret[$mapKey][$ruleKey] = $cell;
         }
 
         $maps2 = [];

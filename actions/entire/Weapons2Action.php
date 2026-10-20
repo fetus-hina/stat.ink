@@ -49,6 +49,8 @@ use const SORT_DESC;
 
 /**
  * @property-read array<int, array<string, mixed>> $weaponUses
+ *
+ * @phpstan-type WeaponsByRule object{player_count: int, weapons: list<stdClass>}&stdClass
  */
 class Weapons2Action extends BaseAction
 {
@@ -188,6 +190,9 @@ class Weapons2Action extends BaseAction
         return $rules;
     }
 
+    /**
+     * @return WeaponsByRule
+     */
     private function getEntireWeaponsByRule(Rule2 $rule, EntireWeapon2Form $form): stdClass
     {
         $columns = [
@@ -423,6 +428,7 @@ class Weapons2Action extends BaseAction
     }
 
     /**
+     * @param WeaponsByRule $in
      * @return stdClass[]
      */
     private function convertWeapons2Sub(stdClass $in): array
@@ -485,6 +491,7 @@ class Weapons2Action extends BaseAction
     }
 
     /**
+     * @param WeaponsByRule $in
      * @return stdClass[]
      */
     private function convertWeapons2Special(stdClass $in): array
@@ -549,6 +556,7 @@ class Weapons2Action extends BaseAction
     }
 
     /**
+     * @param WeaponsByRule $in
      * @return stdClass[]
      */
     private function convertWeapons2Type(stdClass $in): array
@@ -596,6 +604,7 @@ class Weapons2Action extends BaseAction
     }
 
     /**
+     * @param WeaponsByRule $in
      * @return stdClass[]
      */
     private function convertWeapons2Category(stdClass $in): array

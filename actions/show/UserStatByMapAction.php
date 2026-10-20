@@ -77,14 +77,15 @@ class UserStatByMapAction extends BaseAction
         $maps = [];
         foreach ($query->createCommand()->queryAll() as $row) {
             $row = (object)$row;
-            if (!isset($maps[$row->map_key])) {
-                $maps[$row->map_key] = [
+            $mapKey = (string)$row->map_key;
+            if (!isset($maps[$mapKey])) {
+                $maps[$mapKey] = [
                     'name' => Yii::t('app-map', $row->map_name),
                     'win' => 0,
                     'lose' => 0,
                 ];
             }
-            $maps[$row->map_key][$row->result] = (int)$row->count;
+            $maps[$mapKey][$row->result === 'win' ? 'win' : 'lose'] = (int)$row->count;
         }
         return $maps;
     }
