@@ -217,14 +217,17 @@ parameters:
           - controllers
           - views
         type: app\components\web\Application
+        nullable: false
       -
         paths:
           - commands
         type: yii\console\Application
+        nullable: false
       -
         paths:
           - .
         type: yii\console\Application|app\components\web\Application
+        nullable: false
     applicationConfigs:
       -
         paths:

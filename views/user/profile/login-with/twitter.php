@@ -17,7 +17,7 @@ use yii\web\View;
  * @var View $this
  */
 
-$configured = Yii::$app->params['twitter']['read_enabled'] ?? false;
+$configured = Yii::$app->params['twitter']['read_enabled'];
 if (!$configured) {
   echo Html::tag(
     'tr',

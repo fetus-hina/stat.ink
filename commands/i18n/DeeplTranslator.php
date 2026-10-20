@@ -561,7 +561,7 @@ class DeeplTranslator extends Component
      */
     private static function tokenizePattern(string $pattern): array|false
     {
-        $charset = Yii::$app ? Yii::$app->charset : 'UTF-8';
+        $charset = Yii::$app->charset;
         $depth = 1;
         if (($start = $pos = mb_strpos($pattern, '{', 0, $charset)) === false) {
             return [$pattern];
