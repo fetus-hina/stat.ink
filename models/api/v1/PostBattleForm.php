@@ -59,6 +59,7 @@ use function is_string;
 use function json_encode;
 use function ltrim;
 use function mb_check_encoding;
+use function preg_last_error_msg;
 use function preg_match;
 use function preg_replace;
 use function rtrim;
@@ -297,7 +298,8 @@ class PostBattleForm extends Model
             [['note', 'private_note'], 'string'],
             [['note', 'private_note'], 'filter', 'filter' => function ($value) {
                 $value = (string)$value;
-                $value = preg_replace('/\x0d\x0a|\x0d|\x0a/', "\n", $value);
+                $value = preg_replace('/\x0d\x0a|\x0d|\x0a/', "\n", $value)
+                    ?? throw new RuntimeException(preg_last_error_msg());
                 $value = preg_replace('/(?:\x0d\x0a|\x0d|\x0a){3,}/', "\n\n", $value);
                 $value = trim($value);
                 return $value === '' ? null : $value;
@@ -965,7 +967,8 @@ class PostBattleForm extends Model
                 fn ($a) => (string)(int)ltrim($a, '0'),
                 explode(
                     '.',
-                    trim(preg_replace('/[^0-9]+/', '.', trim((string)$version_date))),
+                    trim(preg_replace('/[^0-9]+/', '.', trim((string)$version_date))
+                        ?? throw new RuntimeException(preg_last_error_msg())),
                 ),
             ),
         );

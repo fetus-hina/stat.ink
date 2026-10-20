@@ -76,6 +76,7 @@ use function is_int;
 use function is_object;
 use function is_string;
 use function mb_check_encoding;
+use function preg_last_error_msg;
 use function preg_replace;
 use function rtrim;
 use function strtolower;
@@ -617,7 +618,8 @@ class PostBattleForm extends Model
             [['note', 'private_note'], 'filter',
                 'filter' => function ($value) {
                     $value = (string)$value;
-                    $value = preg_replace('/\x0d\x0a|\x0d|\x0a/', "\n", $value);
+                    $value = preg_replace('/\x0d\x0a|\x0d|\x0a/', "\n", $value)
+                        ?? throw new RuntimeException(preg_last_error_msg());
                     $value = preg_replace('/(?:\x0d\x0a|\x0d|\x0a){3,}/', "\n\n", $value);
                     $value = trim($value);
                     return $value === '' ? null : $value;

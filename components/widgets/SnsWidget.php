@@ -34,7 +34,7 @@ use const PATHINFO_EXTENSION;
 final class SnsWidget extends Widget
 {
     public static $autoIdPrefix = 'sns-';
-    public ?string $template = null;
+    public string $template;
 
     public ?TweetButton $tweetButton = null;
     /**

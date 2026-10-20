@@ -9,11 +9,13 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use RuntimeException;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 use function mb_convert_encoding;
+use function preg_last_error_msg;
 use function preg_replace;
 use function trim;
 
@@ -34,7 +36,7 @@ class HttpUserAgent extends ActiveRecord
         }
 
         $ua = (string)@mb_convert_encoding($ua, 'UTF-8', 'UTF-8');
-        $ua = preg_replace('/[^\x20-\x7e]+/', ' ', $ua);
+        $ua = preg_replace('/[^\x20-\x7e]+/', ' ', $ua) ?? throw new RuntimeException(preg_last_error_msg());
         $ua = preg_replace('/\s+/', ' ', $ua);
         $ua = trim((string)$ua);
         if ($ua === '') {

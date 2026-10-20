@@ -10,6 +10,7 @@ namespace app\models;
 use DateTime;
 use DateTimeZone;
 use Override;
+use RuntimeException;
 use Throwable;
 use Yii;
 use app\components\helpers\DateTimeFormatter;
@@ -32,6 +33,7 @@ use function filter_var;
 use function hash_hmac;
 use function implode;
 use function is_int;
+use function preg_last_error_msg;
 use function preg_replace;
 use function random_bytes;
 use function rawurlencode;
@@ -168,7 +170,8 @@ class User extends ActiveRecord implements IdentityInterface
             [['nnid'], 'match', 'pattern' => '/^[a-zA-Z0-9._-]{6,16}$/'],
             [['sw_friend_code'], 'filter',
                 'filter' => function ($v) {
-                    $v = trim(preg_replace('/[^\d]+/', '', (string)$v));
+                    $v = trim(preg_replace('/[^\d]+/', '', (string)$v)
+                        ?? throw new RuntimeException(preg_last_error_msg()));
                     return $v != '' ? $v : null;
                 },
             ],

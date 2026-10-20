@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace app\components\widgets;
 
 use Override;
+use RuntimeException;
 use Yii;
 use yii\base\Widget;
 use yii\bootstrap\BootstrapAsset;
@@ -18,6 +19,7 @@ use yii\helpers\Html;
 use yii\i18n\Formatter;
 
 use function is_array;
+use function preg_last_error_msg;
 use function preg_replace;
 use function trim;
 
@@ -75,7 +77,7 @@ final class Label extends Widget
                 '/\s+/',
                 ' ',
                 (string)$class . " label label-{$this->color}",
-            ));
+            ) ?? throw new RuntimeException(preg_last_error_msg()));
         }
         $options['class'] = $class;
 

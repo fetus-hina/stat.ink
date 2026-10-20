@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace app\commands\bugfix;
 
 use LogicException;
+use RuntimeException;
 use Yii;
 use app\components\helpers\RandomFilename;
 use app\models\BattleImage;
@@ -28,6 +29,7 @@ use function file_exists;
 use function fprintf;
 use function is_file;
 use function json_encode;
+use function preg_last_error_msg;
 use function preg_quote;
 use function preg_replace;
 use function rename;
@@ -267,7 +269,7 @@ final class EqualsInFilenameAction extends Action
             '/' . preg_quote($fromSuffix, '/') . '$/',
             $toSuffix,
             $filename,
-        );
+        ) ?? throw new RuntimeException(preg_last_error_msg());
     }
 
     /**

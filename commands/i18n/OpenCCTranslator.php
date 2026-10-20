@@ -13,6 +13,7 @@ use DirectoryIterator;
 use Exception;
 use Generator;
 use Normalizer;
+use RuntimeException;
 use Yii;
 use app\components\helpers\TypeHelper;
 use yii\base\Component;
@@ -26,6 +27,7 @@ use function fopen;
 use function fwrite;
 use function gmdate;
 use function is_resource;
+use function preg_last_error_msg;
 use function preg_replace;
 use function proc_close;
 use function proc_open;
@@ -165,7 +167,7 @@ class OpenCCTranslator extends Component
                 '/\s+/',
                 ' ',
                 TypeHelper::string(Normalizer::normalize($hantText, Normalizer::FORM_C)),
-            ),
+            ) ?? throw new RuntimeException(preg_last_error_msg()),
         );
     }
 }

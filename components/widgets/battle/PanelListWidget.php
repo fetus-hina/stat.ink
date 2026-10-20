@@ -19,7 +19,7 @@ use function preg_replace_callback;
 class PanelListWidget extends Widget
 {
     public string $panelClass = 'panel panel-default';
-    public ?string $template = null;
+    public string $template;
     /**
      * @var array<mixed>
      */
@@ -44,7 +44,7 @@ class PanelListWidget extends Widget
     public function init(): void
     {
         parent::init();
-        if (!$this->template) {
+        if (!isset($this->template)) {
             $this->template = Html::tag(
                 'div',
                 implode('', [

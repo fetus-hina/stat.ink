@@ -39,13 +39,13 @@ use const SEEK_SET;
 class SalmonStatsHistoryWidget extends Widget
 {
     public User $user;
-    public ?string $html = null;
+    public string $html;
 
     #[Override]
     public function init(): void
     {
         parent::init();
-        if (!$this->html) {
+        if (!isset($this->html)) {
             $this->html = $this->loadDefaultTemplate();
         }
     }
