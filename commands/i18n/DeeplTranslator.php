@@ -68,6 +68,7 @@ use function strnatcasecmp;
 use function strpos;
 use function strtolower;
 use function strtoupper;
+use function strval;
 use function substr;
 use function trim;
 use function usort;
@@ -140,7 +141,7 @@ class DeeplTranslator extends Component
             }
 
             $englishTexts = array_filter(
-                array_keys(include $japanesePath),
+                array_map(strval(...), array_keys(include $japanesePath)),
                 fn ($text) => is_array(self::tokenizePattern($text)),
             );
 

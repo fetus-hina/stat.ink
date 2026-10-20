@@ -209,7 +209,7 @@ class Splatoon2InkController extends Controller
         usort($list, fn (stdClass $a, stdClass $b): int => $a->start_time <=> $b->start_time);
         $ret = true;
         foreach ($list as $schedule) {
-            $ret &= $this->importCoopSchedule($schedule);
+            $ret = $this->importCoopSchedule($schedule) && $ret;
         }
         return $ret;
     }

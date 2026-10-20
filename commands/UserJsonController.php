@@ -188,7 +188,7 @@ class UserJsonController extends Controller
                     Json::encode($battle->toJsonArray(['user']), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
                     TypeHelper::int(strtotime($battle->at)),
                 );
-                $lastId = $battle->id;
+                $lastId = (string)$battle->id;
                 ++$count;
             }
         }
